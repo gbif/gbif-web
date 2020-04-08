@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>gbif-react-components 1.0.0 Demo</title>
+    <style>
+      body {
+        margin: 0;
+      }
+      .demox {
+        position: relative;
+        margin: 50px;
+        height: 500px;
+        width: 800px;
+        background: tomato;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="demo" class="demo"></div>
+  <script></script>
+  <script crossorigin src="react.development.js"></script>
+  <script crossorigin src="react-dom.development.js"></script>
+  <script type="text/javascript" src="index.js"></script>
+  <script>
+    
+    let App = gbifReactComponents.OccurrenceSearch;
+    let Root = gbifReactComponents.Root;
+    // React.createElement(Root,{}, React.createElement(Filter,{style:{padding: 20}}));
+
+
+    ReactDOM.render(
+      // React.createElement(App, {}, 'hej'), // style:{padding: 20}
+      React.createElement(Root,{style: {height: '100%'}}, React.createElement(App,{style: {height: '100vh'}})),
+      // React.createElement(Root,{}, React.createElement(OccurrenceSearch,{style: {padding: 20}})),
+      document.getElementById('demo')
+    );
+  </script>
+  </body>
+</html>
