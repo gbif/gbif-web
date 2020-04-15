@@ -1,6 +1,6 @@
 import { text, boolean, select } from '@storybook/addon-knobs';
 import React from 'react';
-import { Button, ButtonGroup } from './index';
+import { Button, ButtonGroup, FilterButton } from './index';
 import { MdClose } from 'react-icons/md';
 
 export default {
@@ -31,10 +31,9 @@ export const ButtonGroupExample = () => <ButtonGroup style={{maxWidth: 2000}}>
   </Button>
 </ButtonGroup>;
 
-export const Test = () => <div style={{maxWidth: 2000, display: 'flex', background: 'tomato'}}>
-  <button style={{whiteSpace: 'nowrap', flex: '1 1 auto'}}>a sdlfkjhas ldfkjhals dkjfhal skjdhflaksjdhf laksjdhfl akjshdf</button>
-  <button style={{flex: '0 0 auto'}}>TEST</button>
-</div>;
+export const FilterGroup = () => <FilterButton isActive>
+  Location
+</FilterButton>;
 
 Example.story = {
   name: 'Button',

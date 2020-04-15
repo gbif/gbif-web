@@ -1,0 +1,74 @@
+# GraphQL API - under development
+Notes for discussion with Tim and Thomas
+
+## "issues" with the REST API
+
+### Filters over child resources
+Instead of having `node/UUID/dataset` it would be nice to do `dataset/search?nodeKey=UUID`. This is more powerful as it allows facets, search etc.
+
+### Clean up pluralization?
+Our current API is mostly consistent, but not always. Should we correct or mirror existing endpoints?
+
+### Entities differ from search to byKey
+Search results differ from viewing items by key. That means that we cannot reuse our model. That isn't an issue per se, but it makes it more difficult to read and use the API. 
+
+* Having many fields isn't an issue for the GraphQL API (I assume that is why we have stripped some fields).
+* We also have extra fields in the search API (such as resolved titles). I assume this is from when backend and frontend was developed by the same people, so changes to the backend was made to accomodate the frontend. This is less the case now that it is different developers. For the GraphQL API, this is also less of an issue as it is easy to resolve the foreigh keys.
+
+## Directory API
+We currently have a none public directory API, that gets partially exposed via the portal. That means that the project cannot be run without credentials. it would be nice to have a public directory API that we could also include in the graphAPI.
+
+## Enumeration or vocabulary
+What is the relation between the vocabulary endpoints and the enum endpoint(s)?
+Are there overlaps? are they synced?
+
+**Hot reloading of enums?**
+Enumerations are currently loaded from the enumeration endpoint at startup. Does this need to be dynamic?
+
+## Protecting the APIs from misuse
+The GBIF APIs are public, which makes them susceptible to misuse through bombarding and complex queries. This becomes even easier with a GraphQL API. It seems reasonable to consider how we can protect the APIs from misuse. 
+
+> As long as the REST API is completely open, then it does not make sense to spend much energy beyond protecting against accidental benign misuse.
+> 
+> The query-depth-limit already in place, might be sufficient for now. Perhaps combined with a required ApiKey. 
+
+*Inspiration*
+Github allow a little traffic for anonymous users and more for authenticated (REST API). They have a cost function on the graph API and you can query it.
+https://developer.github.com/v4/guides/resource-limitations/
+
+*Other idea and things to consider*
+* recommended in the Apollo docs: https://blog.apollographql.com/securing-your-graphql-api-from-malicious-queries-16130a324a6b
+* https://leapgraph.com/graphql-api-security
+
+### Autentication
+We could allow anonymous API usage for the REST API as we always have, but require login on the GraphQL API, or at least put limitations on non-authorized users. There could be a hierarchy?
+
+* Large limitations for anonymous IP
+* Medium shared limitations on anonymous users across IPs
+* Some limitations for authenticated users
+* Few limitations for authenticated apps
+
+### Query cost
+Another way to guard against overloading the APIs is to put limitations on the complexity.
+https://blog.apollographql.com/securing-your-graphql-api-from-malicious-queries-16130a324a6b
+
+### Rate limits
+https://github.com/ravangen/graphql-rate-limit
+
+## Error handling
+This being new, I'm not sure how I would prefer errors. I've found 3 approaches:
+
+1. The default and suggested in Apollo [reference](https://blog.apollographql.com/full-stack-error-handling-with-graphql-apollo-5c12da407210)
+2. [reference](https://itnext.io/the-definitive-guide-to-handling-graphql-errors-e0c58b52b5e1) Wrap your response in an error wrapper, if the error influence UI 
+3. [reference](https://blog.logrocket.com/handling-graphql-errors-like-a-champ-with-unions-and-interfaces/) Use union types as a way to return either an error or a response for a given query or type. 
+
+Perhaps, because I haven't tried it, but 3 looks frustrating and cumbersome to me. It is nice that the errors are colocated, but the cost is high. Much more complex schemas, more complex queries and I've kind of lost the type safety in my response.
+
+2 is more appealing, but frustrating having to wrap everything with a {response, error}. If the API was tied to a specific UI, then we could choose to use a wrapper when error handling had known UI consequences, but for a generic API, it would need to be everywhere.
+
+So I guess I prefer 1, even though that doesn't appeal to me either. The errors are not colocated with the item that failed and I have to iterate an array, interpret paths and know custom error enums, to figure out if it is relevant to the component that I'm rendering.
+
+## Improvements
+
+### replace subtypes with a filter on the main search
+instead of having `organization/UUID/hostedDataset` it would be nice to do `dataset/search?hostingOrganizationKey=UUID`. This removed the need to have a seperate type for these results, and it allows searching and faceting on the results.

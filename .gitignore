@@ -8,10 +8,13 @@
 
 # misc
 **/.DS_Store
+
+# dotenv environment variables file
 **/.env.local
 **/.env.development.local
 **/.env.test.local
 **/.env.production.local
+**/.env.*.local
 **/.env
 
 **/npm-debug.log*

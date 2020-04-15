@@ -1,15 +1,13 @@
 import React from 'react';
-import TaxonSuggest from './TaxonSuggest';
 import FilterSuggest from './FilterSuggest';
 
 export default {
-  title: 'Widgets/TaxonSuggest',
-  component: TaxonSuggest,
+  title: 'Widgets/FilterSuggest',
+  component: Suggest,
 };
 
-export const Example = () => <TaxonSuggest />
-export const suggest = () => <FilterSuggest />
+export const Suggest = () => <FilterSuggest />
 
-Example.story = {
-  name: 'Taxon suggest',
+Suggest.story = {
+  name: 'Filter suggest',
 };

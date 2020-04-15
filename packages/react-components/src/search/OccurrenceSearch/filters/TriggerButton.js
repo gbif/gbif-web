@@ -20,7 +20,6 @@ export const TriggerButton = React.forwardRef(({ options, filterName, displayVal
   return <FilterButton 
     loading={loading} 
     isActive={options.length > 0}
-    ref={ref} 
     onClearRequest={onClear}
     {...props}
     >

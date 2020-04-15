@@ -68,5 +68,6 @@ addParameters({
 });
 
 configure([
+  require.context('../intro', true, /\.stories\.js$/),
   require.context('../src', true, /\.stories\.js$/),
 ], module);

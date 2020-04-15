@@ -10,10 +10,6 @@ import { StripeLoader } from '../../components/Loaders';
 import { Input } from '../../components/Input/Input';
 import { FilterBody } from '../Filter';
 
-export const FilterSuggest2 = ({ onSelect }) => {
-  return <button onClick={e => onSelect(e)}>Button</button>
-};
-
 export const FilterSuggest = ({ focusRef, suggest, keyBy, onStateChange, itemToString, itemRenderer, selectedSet, onSelect, ...props }) => {
   const [inputItems, setInputItems] = useState([]);
   const [loading, setLoading] = useState(false);
