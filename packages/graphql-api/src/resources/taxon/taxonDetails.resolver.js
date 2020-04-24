@@ -1,3 +1,14 @@
+const optionalTaxonDetails = resource => {
+  const details = taxonDetails(resource);
+  return async (parent, args, context, info) => {
+    try {
+      const response = await details(parent, args, context, info);
+      return response;
+    } catch(err) {
+      return null;
+    }
+  }
+}
 const taxonDetails = resource => (parent, query, { dataSources }) => {
   return dataSources.taxonAPI.getTaxonDetails({
     key: parent.key, 
@@ -19,13 +30,13 @@ module.exports = {
     parents: taxonDetails('parents'),
     related: taxonDetails('related'),
     synonyms: taxonDetails('synonyms'),
-    verbatim: taxonDetails('verbatim'),
+    verbatim: optionalTaxonDetails('verbatim'),
     media: taxonDetails('media'),
     name: taxonDetails('name'),
     descriptions: taxonDetails('descriptions'),
     distributions: taxonDetails('distributions'),
     references: taxonDetails('references'),
-    profiles: taxonDetails('speciesProfiles'),
+    speciesProfiles: taxonDetails('speciesProfiles'),
     vernacularNames: taxonDetails('vernacularNames'),
     typeSpecimens: taxonDetails('typeSpecimens'),
   }

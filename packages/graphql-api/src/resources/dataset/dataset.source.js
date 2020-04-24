@@ -10,22 +10,13 @@ class DatasetAPI extends RESTDataSource {
 
   async searchDatasets({query}) {
     const response = await this.get('/dataset/search', query);
+    response._query = query;
     return response;
-    // return {
-    //   ...response,
-    //   results: response.results.map(dataset => this.datasetReducer(dataset))
-    // }
   }
-
-  // leaving this inside the class to make the class easier to test
-  // datasetReducer(dataset) {
-  //   return dataset;
-  // }
 
   async getDatasetByKey({ key }) {
     const response = await this.get(`/dataset/${key}`);
     return response;
-    // return this.datasetReducer(response);
   }
 
   getDatasetsByKeys({ datasetKeys }) {
@@ -40,6 +31,10 @@ class DatasetAPI extends RESTDataSource {
 
   async getNetworks({ key, query }) {
     return this.get(`/dataset/${key}/networks`, query);
+  }
+
+  async getMetrics({ key, query }) {
+    return this.get(`/dataset/${key}/metrics`, query);
   }
   
 }

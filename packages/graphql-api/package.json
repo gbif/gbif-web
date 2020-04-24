@@ -32,7 +32,8 @@
     "nodemon": "^1.18.4",
     "qs": "^6.9.3",
     "sequelize": "^4.39.0",
-    "sqlite3": "^4.0.3"
+    "sqlite3": "^4.0.3",
+    "wikibase-sdk": "^7.4.1"
   },
   "devDependencies": {
     "apollo-link": "^1.2.3",

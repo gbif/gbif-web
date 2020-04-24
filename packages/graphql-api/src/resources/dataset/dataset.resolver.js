@@ -1,3 +1,35 @@
+/**
+ * Convinent wrapper to generate the facet resolvers.
+ * Given a string (facet name) then generate a query a map the result
+ * @param {String} facetKey 
+ */
+const getDatasetFacet = (facetKey) =>
+  (parent, { limit = 10, offset = 0 }, { dataSources }) => {
+    // generate the species search query, by inherting from the parent query, and map limit/offset to facet equivalents
+    const query = {
+      ...parent._query,
+      limit: 0,
+      facet: facetKey,
+      facetLimit: limit,
+      facetOffset: offset
+    };
+    // query the API, and throw away anything but the facet counts
+    return dataSources.datasetAPI.searchDatasets({ query })
+      .then(data => ([
+        ...data.facets[0].counts
+          .map(
+            facet => ({
+              ...facet,
+              // attach the query, but add the facet as a filter
+              _query: {
+                ...parent._query,
+                [facetKey]: facet.name
+              }
+            })
+          )
+      ]));
+  }
+
 /** 
  * fieldName: (parent, args, context, info) => data;
  * parent: An object that contains the result returned from the resolver on the parent type
@@ -13,6 +45,9 @@ module.exports = {
       dataSources.datasetAPI.getDatasetByKey({ key })
   },
   Dataset: {
+    logInterfaceUrl: ({ key }) => {
+      return `https://logs.gbif.org/app/kibana#/discover?_g=(refreshInterval:(display:Off,pause:!f,value:0),time:(from:now-7d,mode:quick,to:now))&_a=(columns:!(_source),index:AWyLao3iHCKcR6PFXuPR,interval:auto,query:(query_string:(analyze_wildcard:!t,query:'datasetKey:%22${key}%22')),sort:!('@timestamp',desc))`;
+    },
     installation: ({ installationKey: key }, args, { dataSources }) =>
       dataSources.installationAPI.getInstallationByKey({ key }),
     duplicateOfDataset: ({ duplicateOfDatasetKey: key }, args, { dataSources }) => {
@@ -38,5 +73,28 @@ module.exports = {
     networks: ({ key }, args, { dataSources }) => {
       return dataSources.datasetAPI.getNetworks({ key });
     },
-  }
+    metrics: ({ key }, args, { dataSources }) => {
+      return dataSources.datasetAPI.getMetrics({ key });
+    },
+  },
+  DatasetSearchResults: {
+    // this looks odd. I'm not sure what is the best way, but I want to transfer the current query to the child, so that it can be used when asking for the individual facets
+    facet: (parent) => ({ _query: { ...parent._query, limit: undefined, offset: undefined } }),
+  },
+  DatasetFacet: {
+    type: getDatasetFacet('type'),
+    keyword: getDatasetFacet('keyword'),
+    publishingOrg: getDatasetFacet('publishingOrg'),
+    hostingOrg: getDatasetFacet('hostingOrg'),
+    decade: getDatasetFacet('decade'),
+    publishingCountry: getDatasetFacet('publishingCountry'),
+    projectId: getDatasetFacet('projectId'),
+    license: getDatasetFacet('license'),
+  },
+  DatasetOrganizationFacet: {
+    organization: ({name:key}, args, { dataSources }) => {
+      if (typeof key === 'undefined') return null;
+      return dataSources.organizationAPI.getOrganizationByKey({ key });
+    },
+  },
 };

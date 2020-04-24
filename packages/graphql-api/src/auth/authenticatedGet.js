@@ -34,11 +34,20 @@ function createHeader({ canonicalPath }) {
     return headers;
 }
 
-function signHeader(method, headers, isJson) {
+function signHeader(method, headers) {
     let stringToSign = method + NEWLINE + headers['x-url'];
     stringToSign += NEWLINE + headers['x-gbif-user'];
     let signature = crypto.createHmac('sha1', appSecret).update(stringToSign).digest('base64');
     headers.Authorization = 'GBIF ' + appKey + ':' + signature;
 }
 
-module.exports = authenticatedGet;
+function createSignedGetHeader(canonicalPath) {
+    let headers = createHeader({ canonicalPath });
+    signHeader('GET', headers);
+    return headers;
+}
+
+module.exports = {
+    authenticatedGet,
+    createSignedGetHeader
+}

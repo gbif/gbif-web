@@ -2,7 +2,7 @@ const NodeCache = require( "node-cache" );
 // users are cached for 30 seconds
 const userCache = new NodeCache( { stdTTL: 30, checkperiod: 40 } );
 
-const authenticatedGet = require('./authenticatedGet');
+const { authenticatedGet } = require('./authenticatedGet');
 
 async function extractUser(authorization) {
   if (typeof authorization !== 'string' || authorization === '') return undefined;

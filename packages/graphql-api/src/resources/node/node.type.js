@@ -54,6 +54,8 @@ const typeDef = gql`
     pendingEndorsement: OrganizationSearchResult!
     dataset: DatasetListResults!
     installation: InstallationSearchResults!
+
+    participant: Participant
   }
 `;
 

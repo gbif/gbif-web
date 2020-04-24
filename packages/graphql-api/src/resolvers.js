@@ -8,6 +8,7 @@ const resolvers = _.merge(
   require('./resources/network').resolver,
   require('./resources/installation').resolver,
   require('./resources/node').resolver,
+  require('./resources/participant').resolver,
 // -- Add imports above this line (required by plopfile.js) --
 );
 

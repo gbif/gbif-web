@@ -16,5 +16,10 @@ module.exports = {
     dataset: ({ key }, args, { dataSources }) => {
       return dataSources.installationAPI.getDatasets({ key, query: args });
     },
+    organization: ({ organizationKey: key }, args, { dataSources }) => {
+      // No need to throw an error, the user have no way of knowing if the key is present
+      if (typeof key === 'undefined') return null;
+      return dataSources.organizationAPI.getOrganizationByKey({ key });
+    },
   }
 };

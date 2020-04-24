@@ -182,7 +182,7 @@ const typeDef = gql`
     """
     Lists all species profiles for a name usage
     """
-    profiles(limit: Int, offset: Int): TaxonProfileResult
+    speciesProfiles(limit: Int, offset: Int): TaxonProfileResult
 
     """
     Lists all vernacular names for a name usage

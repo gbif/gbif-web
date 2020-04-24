@@ -49,6 +49,8 @@ const typeDef = gql`
     tags: [Tag]
     title: String
 
+    endorsingNode: Node
+
     hostedDataset(limit: Int, offset: Int): DatasetListResults!
     publishedDataset(limit: Int, offset: Int): DatasetListResults!
     installation(limit: Int, offset: Int): InstallationSearchResults!

@@ -25,5 +25,17 @@ module.exports = {
     installation: ({ key }, args, { dataSources }) => {
       return dataSources.nodeAPI.getInstallations({ key, query: args });
     },
+    participant: (node, args, { dataSources }) => {
+      // First step is to extract the participantID from the list if identifiers on the node. This is a bit akward.
+      const identifiers = node.identifiers || [];
+      const participantIdentifier = identifiers.find(i => i.type === 'GBIF_PARTICIPANT');
+      if (participantIdentifier) {
+        return dataSources.participantAPI.getParticipantByKey({ key: participantIdentifier.identifier })  
+      } else {
+        return null;
+      }
+    },
+
+    
   }
 };

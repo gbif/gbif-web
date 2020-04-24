@@ -32,6 +32,7 @@ async function getSchema() {
     require('./resources/network').typeDef,
     require('./resources/installation').typeDef,
     require('./resources/node').typeDef,
+    require('./resources/participant').typeDef,
 // -- Add imports above this line (required by plopfile.js) --
   ]);
 

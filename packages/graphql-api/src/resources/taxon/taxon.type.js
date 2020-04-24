@@ -14,10 +14,10 @@ const typeDef = gql`
                 nameType: [NameType], 
                 nomenclaturalStatus: [NomenclaturalStatus], 
                 issue: [NameUsageIssue], 
-                hl: String
+                hl: Boolean
               ): TaxonSearchResult!
     taxon(key: Int!): Taxon
-    checklistRoots(key: ID!): TaxonListResult
+    checklistRoots(datasetKey: ID!, limit: Int, offset: Int): TaxonListResult
   }
 
   type TaxonSearchResult {
@@ -25,6 +25,7 @@ const typeDef = gql`
     limit: Int!
     offset: Int!
     count: Int!
+    endOfRecords: Boolean!
     facet: TaxonFacet
     _query: JSON
   }

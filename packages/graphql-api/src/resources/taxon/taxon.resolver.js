@@ -1,16 +1,33 @@
+/**
+ * Convinent wrapper to generate the facet resolvers.
+ * Given a string (facet name) then generate a query a map the result
+ * @param {String} facetKey 
+ */
 const getTaxonFacet = (facetKey) =>
   (parent, { limit = 10, offset = 0 }, { dataSources }) => {
-    const query = { ...parent._query, limit: 0, facet: facetKey, facetLimit: limit, facetOffset: offset };
-    return dataSources.taxonAPI.searchTaxa({query})
-      .then(data => (
-        [
-          ...data.facets[0].counts
-            .map(
-              facet => ({ ...facet, _query: { ...parent._query, [facetKey]: facet.name } })
-            )
-        ]
-      )
-      );
+    // generate the species search query, by inherting from the parent query, and map limit/offset to facet equivalents
+    const query = {
+      ...parent._query,
+      limit: 0,
+      facet: facetKey,
+      facetLimit: limit,
+      facetOffset: offset
+    };
+    // query the API, and throw away anything but the facet counts
+    return dataSources.taxonAPI.searchTaxa({ query })
+      .then(data => ([
+        ...data.facets[0].counts
+          .map(
+            facet => ({
+              ...facet,
+              // attach the query, but add the facet as a filter
+              _query: {
+                ...parent._query,
+                [facetKey]: facet.name
+              }
+            })
+          )
+      ]));
   }
 
 /** 
@@ -25,14 +42,16 @@ module.exports = {
     taxonSearch: (parent, query, { dataSources }) =>
       dataSources.taxonAPI.searchTaxa({ query }),
     taxon: (parent, { key }, { dataSources }) =>
-      dataSources.taxonAPI.getTaxonByKey({ key })
+      dataSources.taxonAPI.getTaxonByKey({ key }),
+    checklistRoots: (parent, { datasetKey: key, ...query }, { dataSources }) =>
+      dataSources.taxonAPI.getChecklistRoots({ key, query }),
   },
   Taxon: {
     dataset: ({ datasetKey }, args, { dataSources }) =>
       dataSources.datasetAPI.getDatasetByKey({ key: datasetKey })
   },
   TaxonSearchResult: {
-    facet: (parent) => ({ _query: {...parent._query, limit: undefined, offset: undefined} }), // this looks odd. I'm not sure what is the best way, but I want to transfer the current query to the child, so that it can be used when asking for the individual facets
+    facet: (parent) => ({ _query: { ...parent._query, limit: undefined, offset: undefined } }), // this looks odd. I'm not sure what is the best way, but I want to transfer the current query to the child, so that it can be used when asking for the individual facets
   },
   TaxonFacet: {
     rank: getTaxonFacet('rank'),
@@ -42,12 +61,12 @@ module.exports = {
   },
   TaxonFacetResult: {
     taxonSearch: (parent, query, { dataSources }) =>
-      dataSources.taxonAPI.searchTaxa({ query: {...parent._query, ...query} }),
+      dataSources.taxonAPI.searchTaxa({ query: { ...parent._query, ...query } }),
   },
   TaxonBreakdown: {
-    taxon: ({name:key}, args, { dataSources }) =>
+    taxon: ({ name: key }, args, { dataSources }) =>
       dataSources.taxonAPI.getTaxonByKey({ key }),
     taxonSearch: (parent, query, { dataSources }) =>
-      dataSources.taxonAPI.searchTaxa({ query: {...parent._query, ...query} }),
+      dataSources.taxonAPI.searchTaxa({ query: { ...parent._query, ...query } }),
   }
 };

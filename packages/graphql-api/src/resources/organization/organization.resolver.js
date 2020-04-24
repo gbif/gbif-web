@@ -8,7 +8,7 @@
 module.exports = {
   Query: {
     organizationSearch: (parent, query, { dataSources }) =>
-      dataSources.organizationAPI.searchOrganizations({query}),
+      dataSources.organizationAPI.searchOrganizations({ query }),
     organization: (parent, { key }, { dataSources }) =>
       dataSources.organizationAPI.getOrganizationByKey({ key })
   },
@@ -21,6 +21,11 @@ module.exports = {
     },
     installation: ({ key }, args, { dataSources }) => {
       return dataSources.organizationAPI.getInstallations({ key, query: args });
+    },
+    endorsingNode: ({ endorsingNodeKey: key }, args, { dataSources }) => {
+      // No need to throw an error, the user have no way of knowing if the key is present
+      if (typeof key === 'undefined') return null;
+      return dataSources.nodeAPI.getNodeByKey({ key });
     },
   }
 };

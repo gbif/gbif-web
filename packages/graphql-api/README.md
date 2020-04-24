@@ -1,6 +1,58 @@
 # GraphQL API - under development
 Notes for discussion with Tim and Thomas
 
+## Custom endpoints
+Should these be placed in the graphql project or elsewhere. I tend to say elsewhere, to keep this project cleaner. Examples of such endpoints: 
+
+* format a scientific name as html
+* extract, parse and format verbatim data for treatment pages
+* simulated sampling event API (less obvious)
+* Literature API -- .i.e. will this project be composing ES queries?
+
+## How to slice
+Some data clearly belongs in the API, other less so, but nice to have there. And other is very UI specific. Some guidelines for how to decide might be nice. Example
+
+* **Dataset contact order**. Dataset pages have a custom order of contacts, based on a long set of instructions from Dmitry. It is not in the APIs though. If we believe this is a meaningful and good way to present dataset contacts, should it then be in the API?
+
+## Translations
+How does these fit in? Are they a part of the API? Can I do 
+```
+dataset(key:UUID) {
+  type
+  # some convention for getting the translation
+  _translation {
+    es {
+      type
+    }
+  }
+  # or
+  _i18n_type {
+    es
+  }
+}
+
+# or even
+dataset(key:UUID, locale:'es') {
+  type
+  _locale_type
+}
+
+# Translations as a seperate resource
+# This seem less useful and unclear if you have to ask for individual fields
+translations {
+  es {
+    datasetType
+  }
+}
+```
+
+*Including translations*
+
+I can see a quality in having an API to expose translations. Currently they are somewhat hidden in CrowdIn. It is a community generated resource, but not publicly available in any useful way as far as I can see.
+
+## Species or taxon
+Should we rename the confusingly named species resource?
+
 ## "issues" with the REST API
 
 ### Filters over child resources

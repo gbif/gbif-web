@@ -30,6 +30,12 @@ class TaxonAPI extends RESTDataSource {
       taxonKeys.map(key => this.getTaxonByKey({ key })),
     );
   }
+
+  async getChecklistRoots({ key, query }) {
+    const response = await this.get(`/species/root/${key}`, query);
+    response._query = query;
+    return response;
+  }
 }
 
 module.exports = TaxonAPI;

@@ -2,7 +2,22 @@ const { gql } = require('apollo-server');
 
 const typeDef = gql`
   extend type Query {
-    datasetSearch(limit: Int, offset: Int, q: String): DatasetSearchResults
+    datasetSearch(
+      limit: Int, 
+      offset: Int, 
+      q: String,
+      country: [Country],
+      type: [DatasetType],
+      subtype: [DatasetSubtype],
+      license: [License],
+      keyword: [String],
+      publishingOrg: [ID],
+      hostingOrg: [ID],
+      decade: [Int],
+      publishingCountry: [Country],
+      continent: [Continent],
+      hl: Boolean
+      ): DatasetSearchResults
     dataset(key: String!): Dataset
   }
 
@@ -12,6 +27,8 @@ const typeDef = gql`
     offset: Int!
     count: Int!
     endOfRecords: Boolean!
+    facet: DatasetFacet
+    _query: JSON
   }
 
   type DatasetListResults {
@@ -89,6 +106,34 @@ const typeDef = gql`
 
     constituents(limit: Int, offset: Int): DatasetListResults
     networks: [Network]!
+    metrics: DatasetChecklistMetrics
+
+    """
+    Link to homepage with crawling logs.
+    """
+    logInterfaceUrl: String
+  }
+
+  type DatasetChecklistMetrics {
+    key: ID!
+    colCoveragePct: Int
+    colMatchingCount: Int
+    countByConstituent: JSON
+    countByIssue: JSON
+    countByKingdom: JSON
+    countByOrigin: JSON
+    countByRank: JSON
+    countExtRecordsByExtension: JSON
+    countNamesByLanguage: JSON
+    created: DateTime
+    datasetKey: ID
+    distinctNamesCount: Int
+    downloaded: String
+    nubCoveragePct: Int
+    nubMatchingCount: Int
+    otherCount: JSON
+    synonymsCount: Int
+    usagesCount: Int
   }
 
   type DatasetBreakdown {
@@ -154,6 +199,30 @@ const typeDef = gql`
     funding: String
     studyAreaDescription: String
     designDescription: String
+  }
+
+  type DatasetFacet {
+    type(limit: Int, offset: Int): [DatasetFacetResult]
+    keyword(limit: Int, offset: Int): [DatasetFacetResult]
+    publishingOrg(limit: Int, offset: Int): [DatasetOrganizationFacet]
+    hostingOrg(limit: Int, offset: Int): [DatasetOrganizationFacet]
+    decade(limit: Int, offset: Int): [DatasetFacetResult]
+    publishingCountry(limit: Int, offset: Int): [DatasetFacetResult]
+    projectId(limit: Int, offset: Int): [DatasetFacetResult]
+    license(limit: Int, offset: Int): [DatasetFacetResult]
+  }
+
+  type DatasetOrganizationFacet {
+    name: String!
+    count: Int!
+    _query: JSON
+    organization: Organization
+  }
+
+  type DatasetFacetResult {
+    name: String!
+    count: Int!
+    _query: JSON
   }
 `;
 

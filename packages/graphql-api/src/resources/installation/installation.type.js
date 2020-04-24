@@ -43,6 +43,7 @@ const typeDef = gql`
     title: String
     type: String
 
+    organization: Organization
     dataset(limit: Int, offset: Int): DatasetListResults!
   }
 `;
