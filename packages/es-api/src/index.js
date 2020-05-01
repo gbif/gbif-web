@@ -9,6 +9,19 @@ const { asyncMiddleware, ResponseError, errorHandler, unknownRouteHandler } = re
 const app = express();
 app.use(bodyParser.json())
 
+const _ = require('lodash');
+const temporaryAuthMiddleware = function (req, res, next) {
+  const apiKey = _.get(req, 'query.apiKey');
+  if (!apiKey) {
+    next(new ResponseError(401, 'temporaryAuthentication', 'You need to provide an apiKey in the url'));
+  }
+  if (apiKey !== config.API_KEY || !config.API_KEY) {
+    next(new ResponseError(403, 'temporaryAuthentication', 'Invalid apiKey'));
+  }
+  next()
+}
+app.use(temporaryAuthMiddleware)
+
 app.post('/literature', asyncMiddleware(postResource(literature)));
 app.get('/literature', asyncMiddleware(getResource(literature)));
 app.get('/literature/key/:id', asyncMiddleware(keyResource(literature)));
@@ -22,14 +35,24 @@ app.get('/dataset', asyncMiddleware(getResource(dataset)));
 app.get('/dataset/key/:id', asyncMiddleware(keyResource(dataset)));
 
 function postResource(resource) {
-  const { dataSource, predicate2query} = resource;
+  const { dataSource, predicate2query, metric2aggs} = resource;
   return async (req, res) => {
-    const query = predicate2query(req.body);
-    const { result, esBody } = await dataSource.query({ query });
+    const size = req.body.size;
+    const includeMeta = req.body.meta;
+    const from = req.body.from;
+    const predicate = req.body.query;
+    const metrics = req.body.metrics;
+    const aggs = metrics ? metric2aggs(metrics) : {};
+    const query = predicate2query(predicate);
+    const { result, esBody } = await dataSource.query({ query, aggs, size, from });
+    const meta = {
+      predicate,
+      esBody
+    };
+
     res.json({
-      _query: req.query,
-      _predicate: req.body,
-      ...body
+      ...(includeMeta && { meta }),
+      ...result
     });
   }
 }
