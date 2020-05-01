@@ -14,10 +14,10 @@ const temporaryAuthMiddleware = function (req, res, next) {
   const apiKey = _.get(req, 'query.apiKey');
   if (!apiKey) {
     next(new ResponseError(401, 'temporaryAuthentication', 'You need to provide an apiKey in the url'));
-  }
-  if (apiKey !== config.API_KEY || !config.API_KEY) {
+  } else if (apiKey !== config.API_KEY || !config.API_KEY) {
     next(new ResponseError(403, 'temporaryAuthentication', 'Invalid apiKey'));
   }
+  delete req.query.apiKey;
   next()
 }
 app.use(temporaryAuthMiddleware)

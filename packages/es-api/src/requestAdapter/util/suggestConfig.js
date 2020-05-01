@@ -3,23 +3,17 @@
  * It is not intended to be used blindly, but as a starting point.
  */
 const util = require('util');
-const got = require('got');
+const axios = require('axios');
 const _ = require('lodash');
 
 async function suggestConfigFromAlias({endpoint, alias, type}) {
-  const aliasResponse = await got.get(`${alias}/_alias`, {
-    prefixUrl: endpoint,
-    responseType: 'json'
-  });
+  const aliasResponse = await axios.get(`${endpoint}/${alias}/_alias`);
   const index = Object.keys(aliasResponse.body)[0];
   return suggestConfigFromIndex({endpoint, index, type});
 }
 
 async function suggestConfigFromIndex({endpoint, index, type}) {
-  const mappingResponse = await got.get(`${index}/_mapping`, {
-    prefixUrl: endpoint,
-    responseType: 'json'
-  });
+  const mappingResponse = await axios.get(`${endpoint}/${index}/_mapping`);
   const mapping = mappingResponse.body[index].mappings[type];
   const config = mapping2searchConfig(mapping);
   console.log(util.inspect(config, { compact: false, depth: 10, sort: true }));
