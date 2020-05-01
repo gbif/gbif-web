@@ -1,48 +1,22 @@
 # A wrapper the Elastic Search literature API
 
-GET style parameters are transformed into POST style first. That simplifies the processing.
-There is no mixing allowed. then object style takes priority
-GET or POST
-GET takes both post body as well as more familiar rest parameters
-For nested fields (where relations are in place. e.g. first name and last name of an author), then I'm not sure what to do for REST type params.
+It has a GET API, similar to our other APIs as well as a post API that use the predicate structure from our occurrence download API. But there are differences. most notably in the response format.
 
-* Group with postfix? `author_1.firstName=Ann & author_1.lastName=Anderson`
-* Group by ordering: `author.firstName=Ann & author.firstName=Ben & author.lastName=Anderson & author.lastName=Benson`
-* Group by arrays: `author=["Ann","Anderson"] & author=["Ben", "Benson"]`
-* Group by some delimiter (how to avoid conflicts?): `author=Ann__Anderson`
-* Group by JSON: `author={"firstName":"Ann","lastName":"Anderson"}`
+## Differences in GET
+The GET api is extended to allow for `not` and `isNotNull`. `not` is done by adding an exclamation mark in the begining `!year=2010`. `isNotNull` is done by `publisher=*`.
 
-in POST it would be
-[ // AND
-  {
-    key: author
-    value: [ //OR
-      {
-        firstName: ann
-        lastName: Anderson
-      },
-      {
-        firstName: Ben
-        lastName: Benson
-      }
-    ]
-  }
-]
+A new type of aggregation is added, namely stats. stats can be used on numeric fields `stats=year` will return min, max, avg and count.
 
-and if we wanted an AND
-[ // AND
-  {
-    key: author
-    value: {
-      firstName: Ann
-      lastName: Anderson
-    }
-  },
-  {
-    key: author
-    value: {
-      firstName: Bem
-      lastName: Benson
-    }
-  }
-]
+Nested entities can be queried as objects by order convention and a seperator. So a list of authors can be queried by first name last name by `authors=Tim__Hansen`.
+
+metadata for the query is returned by `includeMeta=true`. This will return the GET query, the predicate it was transformed to as well as the ES query.
+
+The result format is that of ES.
+
+## Differences in predicates
+2 new predicate types added. 
+`nested`: which allows for querying list of objects (such as a list of authors).
+`range`: which is a more compact way to do the same as `greaterThanOrEquals` etc. as we have in the occurrence API.
+
+## Suggest a configuration
+The current configurations are generated from the ES `_mapping` endpoint.
