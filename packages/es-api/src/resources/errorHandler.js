@@ -1,24 +1,24 @@
 class ResponseError extends Error {
-  constructor(statusCode, message) {
+  constructor(statusCode, displayName, message) {
     super();
     this.statusCode = statusCode;
+    this.displayName = displayName;
     this.message = message;
   }
 }
 
-function errorHandler(err, req, res) {
+function errorHandler(err, req, res, next) {
   const { statusCode, message } = err;
-  res.status(statusCode).json({
-    status: "error",
-    statusCode,
+  res.status(statusCode || 503).json({
+    statusCode: statusCode || 503,
     message
   });
 }
 
 function unknownRouteHandler(req, res) {
   res.status(404).json({
-    status: "error",
-    statusCode: 404
+    statusCode: 404,
+    message: 'Not found'
   });
 }
 

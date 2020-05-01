@@ -11,10 +11,11 @@ const nonsenseSearch = testRunner({
 
 const search = testRunner({
   endpoint: `https://${config.API_V1}/occurrence/search?cachebust={{NOW}}&q={{RANDOM_WORD}}`,
+  timeoutMilliSeconds: 65000,
   expect: response => response
     .hasStatusCode(200)
     .hasMaxResponseTime(20000, severity.degraded_performance)
-    .hasMaxResponseTime(40000, severity.partial_outage)
+    .hasMaxResponseTime(60000, severity.partial_outage)
 });
 
 const key = testRunner({
@@ -27,9 +28,10 @@ const key = testRunner({
 const logs = testRunner({
   endpoint: `${config.PRIVATE_KIBANA}/elasticsearch/${varnishIndexName}/_search?q=response:>499%20AND%20request:("//api.gbif.org/v1/occurrence/search*")%20AND%20@timestamp:>{{SECONDS_AGO}}`,
   timeoutMilliSeconds: 300,
+  secondsAgo: 5*60,
   expect: response => response
     .hasStatusCode(200, severity.operational)
-    .hasNumberBelow({path: 'hits.total', threshold: 100}, severity.degraded_performance)
+    .hasNumberBelow({path: 'hits.total', threshold: 100}, severity.partial_outage)
 });
 
 const tests = [

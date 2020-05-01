@@ -13,8 +13,7 @@ const cliOptions = [
 const options = commandLineArgs(cliOptions);
 
 const defaultConfig = {
-  port: 4000,
-  LITERATURE_ES_INDEX: 'http://cms-search.gbif.org:9200/literature'
+  port: 4000
 };
 
 const config = _.merge(

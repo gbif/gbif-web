@@ -1,0 +1,164 @@
+'use strict';
+const _ = require('lodash');
+const { validatePredicate } = require('./validatePredicate');
+const { wktPolygonToCoordinates } = require('../util/geoHelper');
+
+function predicate2esQuery(predicate, config) {
+  if (!predicate) return;
+  const { error } = validatePredicate(predicate, config);
+  if (error) {
+    throw new Error(error.message);
+  }
+  return transform(predicate, config, true);
+}
+
+function groupPredicates(predicates, isRootQuery) {
+  //split list of ands into type not and other.
+  //the not part can just be concatenated as a list
+  let must = [], filterCandidates = [], must_not = [];
+  predicates.forEach(p => {
+    switch (p.type) {
+      case 'not': {
+        must_not.push(p);
+        break;
+      }
+      case 'fuzzy': {
+        if (isRootQuery) must.push(p);
+        else filterCandidates.push(p);
+        break;
+      }
+      default: {
+        filterCandidates.push(p);
+      }
+    }
+  });
+  // we could remove this part and just use filters instead of splitting into SHOULD,
+  // it might be easier to read the code, but it makes for flatter es queries to split them
+  // only split if it isn't root level as we want it executed in a filter context (not scored)
+  const [should, filterWithoutShould] = _.partition(filterCandidates, x => x.type === 'or' && !isRootQuery);
+  const hasOneShould = should.length === 1;
+  return {
+    must,
+    must_not,
+    filter: hasOneShould ? filterWithoutShould : filterCandidates,
+    should: hasOneShould ? should[0].predicates : []
+  }
+}
+
+function transform(p, config, isRootQuery) {
+  const fieldName = getFieldName(p.key, config);
+
+  switch (p.type) {
+    case 'and': {
+      // bool queries is essentially an AND of: must, filter, mut_not and should (if minimum_should_match set to 1)
+      // so to avoid insane ES nesting  we can flatten ANDs - it isn't necessary, but it makes them easier to read.
+      // the most relevant question is to test if it matters for performance though.
+      //
+      // TODO: test if nesting or not influence query performance
+
+      //group predicates by their ES bool type
+      const { must, filter, must_not, should } = groupPredicates(p.predicates, isRootQuery);
+      return {
+        bool: _.omitBy({
+          must: must.map(p => transform(p, config)),
+          filter: filter.map(p => transform(p, config)),
+          must_not: must_not.map(p => p.predicate).map(p => transform(p, config)),
+          should: should.map(p => transform(p, config)),
+          ...(should.length > 0 && {minimum_should_match: 1})//akward to read, but only add minimum_should_match=1 if there is any elements in should
+        }, x => x.length === 0)
+      }
+    }
+    case 'or': {
+      return {
+        bool: {
+          should: p.predicates.map(p => transform(p, config)),
+          minimum_should_match: 1 // shouldn't matter as there is no other bool types, but for clarity we add it
+        }
+      }
+    }
+    case 'not': {
+      return {
+        bool: {
+          must_not: transform(p.predicate, config),
+        }
+      }
+    }
+    case 'equals': {
+      return {
+        term: {
+          [fieldName]: p.value
+        }
+      }
+    }
+    case 'in': {
+      return {
+        terms: {
+          [fieldName]: p.values
+        }
+      }
+    }
+    case 'range': {
+      return {
+        range: {
+          [fieldName]: p.value
+        }
+      }
+    }
+    case 'like': {
+      return {
+        wildcard: {
+          [fieldName]: p.value
+        }
+      }
+    }
+    case 'isNotNull': {
+      return {
+        exists: {
+          field: fieldName
+        }
+      }
+    }
+    case 'within': {
+      return {
+        geo_shape: {
+          [fieldName]: {
+            shape: {
+              type: "polygon",
+              coordinates: wktPolygonToCoordinates(p.value)
+            },
+            relation: 'within'
+          }
+        }
+      }
+    }
+    case 'fuzzy': {
+      return {
+        match: {
+          [fieldName]: {
+            query: p.value
+          }
+        }
+      }
+    }
+    case 'nested': {
+      return {
+        nested: {
+          path: fieldName,
+          query: transform(p.predicate, config.options[p.key].config)
+        }
+      }
+    }
+    default: {
+      return;
+    }
+  }
+}
+
+function getFieldName(key, config) {
+  if (!key) return;
+  return config.prefix ? `${config.prefix}.${config.options[key].field}` : config.options[key].field;
+}
+
+module.exports = {
+  predicate2esQuery
+}
