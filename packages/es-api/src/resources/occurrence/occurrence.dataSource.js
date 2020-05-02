@@ -43,14 +43,32 @@ async function query({ query, aggs, size = 20, from = 0 }) {
   };
 }
 
+async function suggest({ field, text = '', size=8 }) {
+  const esQuery = {
+    'suggest': {
+      'suggestions': {
+        'prefix': text,
+        'completion': {
+          'field': field,
+          'size': size,
+          'skip_duplicates': true
+        }
+      }
+    }
+  }
+  let body = await search({ client, index: searchIndex, query: esQuery });
+  const suggestions = body.suggest.suggestions[0].options.map(n => n.text);
+  return suggestions;
+}
+
 async function byKey({ key }) {
   const query = {
-    "size": 1,
-    "query": {
-      "bool": {
-        "filter": {
-          "term": {
-            "gbifId": key
+    'size': 1,
+    'query': {
+      'bool': {
+        'filter': {
+          'term': {
+            'gbifId': key
           }
         }
       }
@@ -69,5 +87,6 @@ async function byKey({ key }) {
 
 module.exports = {
   query,
-  byKey
+  byKey,
+  suggest
 };

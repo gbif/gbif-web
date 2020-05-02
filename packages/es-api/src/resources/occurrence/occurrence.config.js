@@ -14,11 +14,13 @@ const config =
     },
     catalogNumber: {
       type: 'keyword',
-      field: 'catalogNumber'
+      field: 'catalogNumber',
+      suggestField: 'catalogNumber.suggest'
     },
     collectionCode: {
       type: 'keyword',
-      field: 'collectionCode'
+      field: 'collectionCode',
+      suggestField: 'collectionCode.suggest'
     },
     collectionKey: {
       type: 'keyword',
@@ -225,7 +227,8 @@ const config =
     },
     institutionCode: {
       type: 'keyword',
-      field: 'institutionCode'
+      field: 'institutionCode',
+      suggestField: 'institutionCode.suggest'
     },
     institutionKey: {
       type: 'keyword',
@@ -254,7 +257,8 @@ const config =
     },
     locality: {
       type: 'keyword',
-      field: 'locality'
+      field: 'locality',
+      suggestField: 'locality.suggest'
     },
     maximumDepthInMeters: {
       type: 'numeric',
@@ -346,11 +350,13 @@ const config =
     },
     occurrenceId: {
       type: 'keyword',
-      field: 'occurrenceId'
+      field: 'occurrenceId',
+      suggestField: 'occurrenceId.suggest'
     },
     organismId: {
       type: 'keyword',
-      field: 'organismId'
+      field: 'organismId',
+      suggestField: 'organismId.suggest'
     },
     organismQuantity: {
       type: 'numeric',
@@ -395,11 +401,13 @@ const config =
     },
     recordNumber: {
       type: 'keyword',
-      field: 'recordNumber'
+      field: 'recordNumber',
+      suggestField: 'recordNumber.suggest'
     },
     recordedBy: {
       type: 'keyword',
-      field: 'recordedBy'
+      field: 'recordedBy',
+      suggestField: 'recordedBy.suggest'
     },
     references: {
       type: 'text',
@@ -460,7 +468,8 @@ const config =
     },
     stateProvince: {
       type: 'keyword',
-      field: 'stateProvince'
+      field: 'stateProvince',
+      suggestField: 'stateProvince.suggest'
     },
     typeStatus: {
       type: 'keyword',
@@ -472,7 +481,8 @@ const config =
     },
     waterBody: {
       type: 'keyword',
-      field: 'waterBody'
+      field: 'waterBody',
+      suggestField: 'waterBody.suggest'
     },
     year: {
       type: 'numeric',

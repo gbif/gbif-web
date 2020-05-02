@@ -8,13 +8,13 @@ const _ = require('lodash');
 
 async function suggestConfigFromAlias({endpoint, alias, type}) {
   const aliasResponse = await axios.get(`${endpoint}/${alias}/_alias`);
-  const index = Object.keys(aliasResponse.body)[0];
+  const index = Object.keys(aliasResponse.data)[0];
   return suggestConfigFromIndex({endpoint, index, type});
 }
 
 async function suggestConfigFromIndex({endpoint, index, type}) {
   const mappingResponse = await axios.get(`${endpoint}/${index}/_mapping`);
-  const mapping = mappingResponse.body[index].mappings[type];
+  const mapping = mappingResponse.data[index].mappings[type];
   const config = mapping2searchConfig(mapping);
   console.log(util.inspect(config, { compact: false, depth: 10, sort: true }));
   return config;
@@ -24,13 +24,21 @@ function mapping2searchConfig(mapping, prefix) {
   //process them
   const fieldConfigs = Object.keys(mapping.properties).map(field => {
     const fieldConfig = mapping.properties[field];
+    // const get any sub fields of type completion
+    let suggestConf;
+    if (_.isPlainObject(fieldConfig.fields)) {
+      suggestConf = Object.keys(fieldConfig.fields)
+        .map(field => ({...fieldConfig.fields[field], _field: field}))
+        .find(x => x.type === 'completion');
+    }
     switch (fieldConfig.type) {
       case 'text': return {
         type: 'text',
         field,
         get: {
           type: 'fuzzy'
-        }
+        },
+        ...(suggestConf && {suggestField: `${field}.${suggestConf._field}`})
       }
       case 'date': return {
         type: 'date',
@@ -88,7 +96,8 @@ function mapping2searchConfig(mapping, prefix) {
       }
       case 'keyword': return {
         type: 'keyword',
-        field
+        field,
+        ...(suggestConf && {suggestField: `${field}.${suggestConf._field}`})
       }
       case 'boolean': return {
         type: 'boolean',

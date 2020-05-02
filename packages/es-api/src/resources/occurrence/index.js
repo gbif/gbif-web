@@ -3,6 +3,7 @@ const { config } = require('./occurrence.config');
 const { predicate2esQuery, get2predicate, get2esQuery } = require('../../requestAdapter/query');
 const { suggestConfigFromAlias } = require('../../requestAdapter/util/suggestConfig');
 const { get2metric, metric2aggs } = require('../../requestAdapter/aggregations');
+const { getSuggestQuery } = require('../../requestAdapter/suggest');
 
 function suggestConfig() {
   return suggestConfigFromAlias({ 
@@ -19,6 +20,7 @@ module.exports = {
   predicate2query: predicate => predicate2esQuery(predicate, config),
   get2metric: query => get2metric(query, config),
   metric2aggs: metrics => metric2aggs(metrics, config),
+  getSuggestQuery: ({key, text}) => getSuggestQuery(key, text, config),
   suggestConfig
 }
 

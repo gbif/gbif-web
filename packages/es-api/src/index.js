@@ -15,7 +15,7 @@ const temporaryAuthMiddleware = function (req, res, next) {
   if (!apiKey) {
     next(new ResponseError(401, 'temporaryAuthentication', 'You need to provide an apiKey in the url'));
   } else if (apiKey !== config.API_KEY || !config.API_KEY) {
-    next(new ResponseError(403, 'temporaryAuthentication', 'Invalid apiKey'));
+    next(new ResponseError(403, 'temporaryAuthentication', `Invalid apiKey: ${apiKey}`));
   }
   delete req.query.apiKey;
   next()
@@ -29,6 +29,7 @@ app.get('/literature/key/:id', asyncMiddleware(keyResource(literature)));
 app.post('/occurrence', asyncMiddleware(postResource(occurrence)));
 app.get('/occurrence', asyncMiddleware(getResource(occurrence)));
 app.get('/occurrence/key/:id', asyncMiddleware(keyResource(occurrence)));
+app.get('/occurrence/suggest/:key', asyncMiddleware(suggestResource(occurrence)));
 
 app.post('/dataset', asyncMiddleware(postResource(dataset)));
 app.get('/dataset', asyncMiddleware(getResource(dataset)));
@@ -94,6 +95,14 @@ function keyResource(resource) {
   const { dataSource } = resource;
   return async (req, res) => {
     const body = await dataSource.byKey({ key: req.params.id });
+    res.json(body);
+  };
+}
+function suggestResource(resource) {
+  const { dataSource, getSuggestQuery } = resource;
+  return async (req, res) => {
+    const suggestQuery = getSuggestQuery({ key: req.params.key, text: req.query.q });
+    const body = await dataSource.suggest(suggestQuery);
     res.json(body);
   };
 }
