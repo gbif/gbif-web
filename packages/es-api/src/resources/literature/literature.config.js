@@ -406,12 +406,12 @@ const config = {
         defaultUpperBound: 'gte',
         defaultLowerBound: 'lte'
       }
-    }
-  },
-  q: {
-    field: '_all',
-    get: {
-      type: 'fuzzy'
+    },
+    q: {
+      field: '_all',
+      get: {
+        type: 'fuzzy'
+      }
     }
   }
 }
