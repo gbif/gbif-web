@@ -1,6 +1,21 @@
 # GraphQL API - under development
 Notes for discussion with Tim and Thomas
 
+## Project structure
+Use node 12.*
+Run in dev (watch) with `npm start`. You will need an .env file with 
+```
+API_V1=https://api.gbif.org/v1
+APP_KEY
+APP_SECRET
+```
+
+## How deep to go
+How far to resolve.
+* On facets. Can you resolve the value to a title? For say datasetKey? how about enumeration keys to translations? Can you resolve to the full object? If so we need different schemas for each facet type.
+* How much context is carried on? And how to do it.
+  * I do an occurrence search for q=test and facet=basisOfRecord. Can I then breakdown each basisOfRecord by another facet? It should then carry its filter context and just add an additional parameter. How to do that. I currently add a custom _query field and modify that as you dig deeper.
+
 ## Custom endpoints
 Should these be placed in the graphql project or elsewhere. I tend to say elsewhere, to keep this project cleaner. Examples of such endpoints: 
 
