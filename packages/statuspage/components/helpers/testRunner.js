@@ -11,6 +11,7 @@ function testRunner(config) {
   let failures = 0;
   let refreshInterval = _.get(config, 'intervals.success', 2 * 60 * 1000);
   let failureInterval = _.get(config, 'intervals.failure', 30 * 1000);
+  let failureThreshold = _.get(config, 'failureThreshold', 1);
 
   async function updateStatus() {
     try {
@@ -29,11 +30,10 @@ function testRunner(config) {
       const hasError = severityMap[result.severity] > severityMap.operational;
       if (hasError) failures++; //if there is an error, then increase counter
       // suppress initial errors
-      if (failures > config.failureThreshold || 1) {
+      if (!hasError || failures > failureThreshold) {
         failures = 0;
         status = result;
       }
-
       //schedule the next update, but make it dependent on the currenst status. if failed, then run again quickly.
       scheduleNextUpdate(updateStatus, result.severity, refreshInterval, failureInterval);
     } catch (err) {
