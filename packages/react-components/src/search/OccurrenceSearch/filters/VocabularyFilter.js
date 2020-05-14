@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext, useCallback } from "react";
 import PropTypes from 'prop-types';
 import Popover from '../../../components/Popover/Popover';
 import { Button, FilterButton } from '../../../components/Button';
-import nanoid from 'nanoid';
+import { nanoid } from 'nanoid';
 import FilterContext from './state/FilterContext';
 import keyBy from 'lodash/keyBy';
 import get from 'lodash/get';

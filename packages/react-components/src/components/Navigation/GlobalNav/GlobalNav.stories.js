@@ -3,7 +3,7 @@ import { GlobalNav } from './GlobalNav';
 import { StyledProse } from '../../../typography/StyledProse';
 import readme from './README.md';
 
-import Router from 'react-router-dom/BrowserRouter';
+import {BrowserRouter as Router } from 'react-router-dom';
 
 export default {
   title: 'Components/GlobalNav',

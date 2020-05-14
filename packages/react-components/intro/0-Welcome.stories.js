@@ -4,8 +4,6 @@ import { StyledProse } from '../src/typography/StyledProse';
 import { Button } from '../src/components';
 import readme from './README.md';
 
-
-
 export const Welcome = () => <div style={{padding: '20px 50px'}}>
   <StyledProse source={readme}></StyledProse>
   <Button onClick={linkTo('Search/OccurrenceSearch')}>Explore &apos;Occurrence search&apos;</Button>

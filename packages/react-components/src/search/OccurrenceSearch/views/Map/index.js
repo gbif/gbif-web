@@ -3,7 +3,11 @@ import withFilter from '../../filters/state/withFilter';
 import MapPresentation from './MapPresentation';
 
 const Map = props => {
-  return <MapPresentation {...props} />
+  if (typeof window !== 'undefined') {
+    return <MapPresentation {...props} />
+  } else {
+    return <h1>Map placeholder</h1>
+  }
   // return <h1>test</h1>
 }
 

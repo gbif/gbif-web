@@ -18,8 +18,8 @@ const getCoreFields = (obj, language) => {
 }
 
 const fetchVocabulary = async (name, language) => {
-  const vocab = (await axios.get(`//api.gbif-uat.org/v1/vocabularies/${name}`)).data;
-  const concepts = (await axios.get(`//api.gbif-uat.org/v1/vocabularies/${name}/concepts?limit=1000`)).data;
+  const vocab = (await axios.get(`https://api.gbif-uat.org/v1/vocabularies/${name}`)).data;
+  const concepts = (await axios.get(`https://api.gbif-uat.org/v1/vocabularies/${name}/concepts?limit=1000`)).data;
 
   const trimmedConcepts = concepts.results.map(c => {
     return {...getCoreFields(c, language),}

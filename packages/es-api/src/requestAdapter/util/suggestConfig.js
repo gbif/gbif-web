@@ -132,17 +132,59 @@ function mapping2searchConfig(mapping, prefix) {
           })
         }
       }
-      default: return {
-        field,
-        discarded: true
+      default: {
+        if (typeof fieldConfig.type === 'undefined' && _.isObject(fieldConfig.properties)) {
+          // it is a deep property, but not a nested one. It can be accesed simply by 
+          // joining with dots: `parent.child`.
+          // const subConfig = mapping2searchConfig(fieldConfig, field);
+          // // flatten by appending prefix to keys
+          // Object.keys(subConfig.options).forEach(k => {
+          //   subConfig.options[`${field}.${k}`] = subConfig.options[k];
+          //   delete subConfig.options[k];
+          // });
+          // delete subConfig.prefix;
+          return {
+            type: 'flatten',
+            field,
+            config: mapping2searchConfig(fieldConfig, field),
+          }
+        } else {
+          return {
+            field,
+            discarded: true
+          }
+        }
       }
     }
   });
 
-  const options = _.keyBy(fieldConfigs.filter(x => !x.discarded), 'field');
+  //mutate array by deleting discarded
+  const options = fieldConfigs.filter(x => !x.discarded);
+
+  //flatten deep properties
+  // Object.keys(options).forEach(k => {
+  //   if (k.type === 'flatten') {
+      
+  //   }
+  // });
+  
+  //to map
+  const [flattened, other] = _.partition(fieldConfigs, x => x.type === 'flatten');
+  const optionsMap = _.keyBy(other, 'field');
+
+  flattened
+    .forEach(x => {
+     Object.keys(x.config.options)
+      .forEach(k => {
+        const option = x.config.options[k];
+        optionsMap[`${x.config.prefix}.${option.field}`] = {...option, field: `${x.config.prefix}.${option.field}`}
+      })
+    });
+  
+  optionsMap
   return {
     ...(prefix && {prefix}), 
-    options
+    options: optionsMap
   };
 }
 

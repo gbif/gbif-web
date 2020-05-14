@@ -145,7 +145,7 @@ export const filterSuggestOption = (theme, props = {}) => css`
 `;
 
 function getData(q, options) {
-  return axios.get(`//api.gbif-uat.org/v1/species/suggest?q=${q}`, options);
+  return axios.get(`https://api.gbif-uat.org/v1/species/suggest?q=${q}`, options);
 }
 
 export const Classification = ({ taxon, ...props }) => {

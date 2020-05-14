@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Popover from '../../../../components/Popover/Popover';
 import { TriggerButton } from '../TriggerButton';
-import nanoid from 'nanoid';
+import { nanoid } from 'nanoid';
 import FilterContext from '../state/FilterContext';
 import get from 'lodash/get';
 import union from 'lodash/union';

@@ -18,12 +18,13 @@ export const Button = React.forwardRef(({
   className = '',
   loading = false,
   block = false,
+  isIcon = false,
   appearance = 'primary',
   children,
   truncate,
   ...props
 }, ref) => {
-  const classes = {appearance, loading, block};
+  const classes = { appearance, loading, block };
   const theme = useContext(ThemeContext);
   // const appliedTheme = isEmpty(theme) ? standardTheme : theme;
   const appliedTheme = theme;
@@ -31,7 +32,12 @@ export const Button = React.forwardRef(({
   return <ButtonA11y ref={ref} className={`${humanClasses} ${className}`} css={css`
         ${styles.button(appliedTheme)}
         ${classesToApply.map(x => styles[x](appliedTheme))};
-`} {...props}><span style={truncate ? truncateStyle: {}}>{children}</span></ButtonA11y>
+`} {...props}>
+    {truncate ? <span style={truncateStyle}>{children}</span> : children}
+    {/* <span style={truncate ? truncateStyle : {}}>
+      {children}
+    </span> */}
+  </ButtonA11y>
 });
 
 Button.displayName = 'Button'
@@ -48,14 +54,14 @@ export const ButtonGroup = ({
   ...props
 }) => {
   const theme = useContext(ThemeContext);
-  return <div css={styles.group({theme})} {...props} />
+  return <div css={styles.group({ theme })} {...props} />
 };
 
 ButtonGroup.displayName = 'ButtonGroup'
 
 export const FilterButton = React.forwardRef(({
   isActive,
-  onClearRequest=()=>{},
+  onClearRequest = () => { },
   onClick,
   loading,
   children,
@@ -69,7 +75,7 @@ export const FilterButton = React.forwardRef(({
   return <ButtonGroup {...props}>
     <Button appearance="primary" ref={ref} onClick={onClick} loading={loading}>{children}</Button>
     <Button appearance="primary" onClick={onClearRequest}>
-      <MdClose style={{verticalAlign: 'middle'}} />
+      <MdClose style={{ verticalAlign: 'middle' }} />
     </Button>
   </ButtonGroup>
 });

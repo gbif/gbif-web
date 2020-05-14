@@ -6,6 +6,7 @@ export const FilterBox = styled.div`
   display: flex;
   flex-direction: column;
   max-height: inherit;
+  background: white;
 `;
 
 // https://stackoverflow.com/questions/9333379/check-if-an-elements-content-is-overflowing

@@ -5,7 +5,7 @@ import { Autocomplete } from './Autocomplete';
 import axios from '../../search/OccurrenceSearch/api/axios';
 
 async function getData(q) {
-  const suggestions = (await axios.get(`//api.gbif.org/v1/species/suggest?limit=8&q=${q}`)).data;
+  const suggestions = (await axios.get(`https://api.gbif.org/v1/species/suggest?limit=8&q=${q}`)).data;
   return suggestions;
 }
 

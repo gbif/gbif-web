@@ -1,19 +1,15 @@
-import React from 'react'
-import { configure, addParameters, addDecorator } from '@storybook/react';
-// Storybook Addon Dependencies
-import { withKnobs, select } from '@storybook/addon-knobs';
-import { withA11y } from '@storybook/addon-a11y';
-import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
+import React from 'react';
+import { addDecorator } from '@storybook/react';
+import { select } from '@storybook/addon-knobs';
+
 import { IntlProvider } from "react-intl";
 
+import Root from '../src/Root';
 import gbifTheme from './theme';
 import { en } from '../src/locales/en';
-import Root from '../src/Root';
 import ThemeContext, { darkTheme, lightTheme, a11yTheme } from '../src/style/themes';
 
-// Setup Addons
-//custom for changing emotion theme
-addDecorator(story => {
+addDecorator(storyFn => {
   const themeObjects = {
     dark: darkTheme,
     light: lightTheme,
@@ -48,26 +44,10 @@ addDecorator(story => {
               'ltr',
             ),
           )}>
-            {story()}
+            {storyFn()}
           </Root>
         </ThemeContext.Provider>
       </IntlProvider>
     </div>
   )
 })
-
-addDecorator(withKnobs);
-addDecorator(withA11y);
-
-// // Setup Storybook options
-addParameters({ options: { theme: gbifTheme } });
-addParameters({
-  viewport: {
-    viewports: INITIAL_VIEWPORTS,
-  },
-});
-
-configure([
-  require.context('../intro', true, /\.stories\.js$/),
-  require.context('../src', true, /\.stories\.js$/),
-], module);

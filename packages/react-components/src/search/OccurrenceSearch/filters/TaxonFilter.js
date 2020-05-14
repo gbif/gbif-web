@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Popover from '../../../components/Popover/Popover';
 import { Button } from '../../../components/Button';
 import { Prose } from '../../../typography/Prose';
-import nanoid from 'nanoid';
+import { nanoid } from 'nanoid';
 import FilterState from './state/FilterState';
 import FilterContext from './state/FilterContext';
 import union from 'lodash/union';

@@ -5,9 +5,9 @@ import isUndefined from 'lodash/isUndefined';
 
 // TODO move endpoints to config
 let endpoints = {
-  dataset: '//api.gbif.org/v1/dataset',
-  publisher: '//api.gbif.org/v1/dataset',
-  species: '//api.gbif.org/v1/species'
+  dataset: 'https://api.gbif.org/v1/dataset',
+  publisher: 'https://api.gbif.org/v1/dataset',
+  species: 'https://api.gbif.org/v1/species'
 };
 
 let displayName = [

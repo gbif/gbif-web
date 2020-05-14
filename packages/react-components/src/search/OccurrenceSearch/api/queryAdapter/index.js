@@ -3,7 +3,7 @@ import axios from '../axios';
 
 // const esEndpoint = '//es1.gbif-dev.org/some_fungi'
 // const esEndpoint = '//c6n1.gbif.org:9200/occurrence'
-const endpoint = '//labs.gbif.org:7011'
+const endpoint = 'http://labs.gbif.org:7011'
 
 const query = (filters, size, from) => {
   let body = compose(filters)

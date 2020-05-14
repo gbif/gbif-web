@@ -2,7 +2,7 @@
 import { css, jsx } from '@emotion/core';
 import withContext from '../state/withContext';
 import React, { useContext } from 'react';
-import ThemeContext from 'style/themes/ThemeContext';
+import ThemeContext from '../../../style/themes/ThemeContext';
 import { VocabularyFilter } from '../filters/VocabularyFilter';
 import { TaxonFilter as TaxonFilter4 } from '../filters/TaxonFilter4/TaxonFilter';
 import { SuggestFilterButton } from '../filters/suggest/SuggestFilter';

@@ -2,7 +2,7 @@
 import { css, jsx } from '@emotion/core';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import React, { useState, useContext } from 'react';
-import Link from 'react-router-dom/Link';
+import { Link } from 'react-router-dom';
 import { MdMenu, MdClose, MdExpandMore, MdExpandLess, MdArrowBack, MdChevronRight } from "react-icons/md";
 
 import { srOnly } from '../../../style/shared';
@@ -137,10 +137,4 @@ export const GlobalNav = ({ breakToLaptop: breakpoint, rtl }) => {
             </div>
         </div>
     );
-}
-
-export const Example = props => {
-    return <Router>
-        <GlobalNav drawer />
-    </Router>
 }

@@ -1,12 +1,6 @@
 {
   "plugins": [
     "emotion",
-    [
-      "module-resolver",
-      {
-        "root": ["./src"]
-      }
-    ],
     "@babel/plugin-proposal-class-properties"
   ],
   "presets": ["@babel/preset-env", "@babel/preset-react"]

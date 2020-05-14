@@ -14,7 +14,7 @@ import { detailPage, detailHeader, detailPrev, detailNext, detailHeaderDescripti
 
 const { TabList, Tab, TabPanel } = Tabs;
 
-export const getThumbnail = src => `//api.gbif.org/v1/image/unsafe/x150/${encodeURIComponent(src)}`;
+export const getThumbnail = src => `https://api.gbif.org/v1/image/unsafe/x150/${encodeURIComponent(src)}`;
 
 export const GalleryDetails = ({
   closeRequest,

@@ -39,11 +39,11 @@ export const TablePresentation = ({ first, prev, next, size, from, result, loadi
       <Row>
         <Col grow={false}>scientificName</Col>
         <Col>
-          <TaxonFilterPopover modal>
+          {/* <TaxonFilterPopover modal>
             <Button appearance="text" style={{ display: 'flex' }}>
               <MdFilterList />
             </Button>
-          </TaxonFilterPopover>
+          </TaxonFilterPopover> */}
         </Col>
       </Row>
     </Th>,

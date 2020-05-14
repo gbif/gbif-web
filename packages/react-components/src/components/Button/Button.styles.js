@@ -5,7 +5,7 @@ export const button = theme => css`
   ${helper.noUserSelect}
   appearance: none;
   
-  max-width: 100%;
+  /* max-width: 100%; */
   display: inline-flex;
   align-items: center;
   justify-content: flex-start;
@@ -54,6 +54,7 @@ export const text = theme => css`
 
 export const primary = theme => css`
   background-color: ${theme.colors.primary500};
+  border-color: ${theme.colors.primary600};
   color: white;
   &:not([aria-disabled="true"]) {
     &:hover {
@@ -71,7 +72,7 @@ export const primary = theme => css`
 `;
 
 export const primaryOutline = (theme) => css`
-  border-color: ${theme.colors.primary500};
+  border-color: ${theme.colors.primary600};
   background: none;
   color: ${theme.colors.primary700};
 `;
@@ -136,9 +137,7 @@ export const group = (theme) => css`
   > button {
     border-radius: 0;
     margin: 0;
-  }
-  >button:first-of-type:not(:last-of-type) {
-    border-right-color: rgba(255,255,255,.2);
+    margin-right: -1px;
   }
   >button:first-of-type {
     border-top-left-radius: 4px;

@@ -1,10 +1,11 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import React, { useState, useContext, useEffect, useCallback } from "react";
+import React, { cloneElement, useState, useContext, useRef, useEffect, useCallback } from "react";
 import PropTypes from 'prop-types';
 import Popover from '../../../../components/Popover/Popover';
+import { Popper } from '../../../../components/Popper/Popper';
 import { TriggerButton } from '../TriggerButton';
-import nanoid from 'nanoid';
+import { nanoid } from 'nanoid';
 import FilterContext from '../state/FilterContext';
 import get from 'lodash/get';
 import union from 'lodash/union';
@@ -111,9 +112,13 @@ export const TaxonFilterContent = ({ placement, modal, children }) => {
   />
 }
 
-export const TaxonFilterPopover = ({ placement, modal, children }) => {
+export const TaxonFilterPopover = ({ placement, children }) => {
   const currentFilterContext = useContext(FilterContext);
   const [tmpFilter, setFilter] = useState(currentFilterContext.filter);
+  const [visible, setVisible] = useState(false);
+  const innerRef = useRef(null);
+
+  const child = React.Children.only(children);
 
   useEffect(() => {
     setFilter(currentFilterContext.filter);
@@ -132,31 +137,58 @@ export const TaxonFilterPopover = ({ placement, modal, children }) => {
     setFilter(filter);
   }, []);
 
+  const trigger = cloneElement(child, {onClick: () => setVisible(true)});
   return (
-    <Popover
-      onClickOutside={popover => { currentFilterContext.setFilter(tmpFilter); popover.hide() }}
+    <Popper
+      focusRef={innerRef}
+      onBackdrop={() => { currentFilterContext.setFilter(tmpFilter); setVisible(false) }}
       style={{ width: '22em', maxWidth: '100%' }}
       aria-label={`Filter on scientific name`}
+      visible={visible}
       placement={placement}
-      trigger={children}
-      modal={modal}
-    >
-      {({ hide, focusRef }) => {
-        return <PopupContent
+      trigger={trigger}
+      // trigger={<button onClick={() => setVisible(true)}>Test</button>}
+      content={<div style={{display: 'inline-block', width:300}}>
+        <PopupContent
           filterName="taxonKey"
           // onApply={filter => { currentFilterContext.setFilter(filter) }}
           // onCancel={emptyFunc}
           // onFilterChange={emptyFunc}
           // initFilter={currentFilterContext.filter}
-          hide={hide}
+          hide={() => setVisible(false)}
           onApply={onApply}
           onCancel={onCancel}
           onFilterChange={onFilterChange}
           initFilter={currentFilterContext.filter}
-          focusRef={focusRef}
+          focusRef={innerRef}
         />
-      }}
-    </Popover>
+      </div>}
+    >
+    </Popper>
+    // <Popover
+    //   onClickOutside={popover => { currentFilterContext.setFilter(tmpFilter); popover.hide() }}
+    //   style={{ width: '22em', maxWidth: '100%' }}
+    //   aria-label={`Filter on scientific name`}
+    //   placement={placement}
+    //   trigger={children}
+    //   modal={modal}
+    // >
+    //   {({ hide, focusRef }) => {
+    //     return <PopupContent
+    //       filterName="taxonKey"
+    //       // onApply={filter => { currentFilterContext.setFilter(filter) }}
+    //       // onCancel={emptyFunc}
+    //       // onFilterChange={emptyFunc}
+    //       // initFilter={currentFilterContext.filter}
+    //       hide={hide}
+    //       onApply={onApply}
+    //       onCancel={onCancel}
+    //       onFilterChange={onFilterChange}
+    //       initFilter={currentFilterContext.filter}
+    //       focusRef={focusRef}
+    //     />
+    //   }}
+    // </Popover>
   );
 }
 
@@ -164,7 +196,7 @@ export const TaxonFilter = ({ ...props }) => {
   const currentFilterContext = useContext(FilterContext);
   const filterName = 'taxonKey';
 
-  return <TaxonFilterPopover modal>
+  return <TaxonFilterPopover>
     <TriggerButton {...props} filterName={filterName} displayValueAs="canonicalName" options={get(currentFilterContext.filter, `must.${filterName}`)} />
   </TaxonFilterPopover>
 }

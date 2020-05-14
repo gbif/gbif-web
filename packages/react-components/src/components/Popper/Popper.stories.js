@@ -3,7 +3,7 @@ import React, { useState, useRef } from 'react';
 import { Popper } from './Popper';
 import readme from './README.md';
 import { StyledProse } from '../../typography/StyledProse';
-import { Button } from '/components/Button';
+import { Button } from '../Button';
 import { DemoOne } from './Modal';
 import { Filter, FilterBody, Option } from '../../widgets/Filter';
 import { TaxonFilterContent } from '../../search/OccurrenceSearch/filters/TaxonFilter4/TaxonFilter';

@@ -11,7 +11,7 @@ export const suggestConfigs = {
     placeholder: 'Search by scientific name',
     // how to get the list of suggestion data
     getSuggestions: async ({ q }) => {
-      const suggestions = (await axios.get(`//api.gbif.org/v1/species/suggest?limit=8&q=${q}`)).data;
+      const suggestions = (await axios.get(`https://api.gbif.org/v1/species/suggest?limit=8&q=${q}`)).data;
       return suggestions;
     },
     // how to map the results to a single string value
@@ -33,7 +33,7 @@ export const suggestConfigs = {
     placeholder: 'Search by dataset',
     // how to get the list of suggestion data
     getSuggestions: async ({ q }) => {
-      const suggestions = (await axios.get(`//api.gbif.org/v1/dataset/suggest?limit=8&q=${q}`)).data;
+      const suggestions = (await axios.get(`https://api.gbif.org/v1/dataset/suggest?limit=8&q=${q}`)).data;
       return suggestions;
     },
     // how to map the results to a single string value

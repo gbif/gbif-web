@@ -1,16 +1,13 @@
 import React, { Component } from "react";
 import styled from '@emotion/styled';
-import mapboxgl from "mapbox-gl";
+import mapboxgl from 'mapbox-gl';
 import { compose } from '../../api/queryAdapter';
 
-mapboxgl.accessToken =
-  "pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA";
-
-  /*
-  field: coordinates
-  url: http://labs.gbif.org:7011/_search?
-  filter: {"bool":{"filter":{"term":{"datasetKey":"4fa7b334-ce0d-4e88-aaae-2e0c138d049e"}}}}
-  */
+/*
+field: coordinates
+url: http://labs.gbif.org:7011/_search?
+filter: {"bool":{"filter":{"term":{"datasetKey":"4fa7b334-ce0d-4e88-aaae-2e0c138d049e"}}}}
+*/
 
 const MapAreaComponent = styled('div')(
   {
@@ -43,6 +40,7 @@ class Map extends Component {
   }
 
   componentDidMount() {
+    mapboxgl.accessToken = 'pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA';
     this.map = new mapboxgl.Map({
       container: this.myRef.current,
       style: "mapbox://styles/mapbox/light-v9",
@@ -80,7 +78,7 @@ class Map extends Component {
     // let borArray = get(this.props.filter, 'must.BasisOfRecord', []).map(e => snakeCase(e).toUpperCase());
     // let filter = {"bool":{"filter":{"terms":{"basisOfRecord":borArray}}}};
     // let filter = {"bool":{"filter":{"terms":{"gbifClassification.usage.rank":borArray}}}};
-    let esQuery = compose(this.props.filter).build();;
+    let esQuery = compose(this.props.filter).build();
     var tileString =
       //"https://esmap.gbif-dev.org/api/tile/{x}/{y}/{z}.mvt?field=coordinates&url=" +
       "http://labs.gbif.org:7012/api/tile/point/{x}/{y}/{z}.mvt?resolution=medium&field=coordinates&url=" +

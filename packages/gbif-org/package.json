@@ -1,0 +1,23 @@
+{
+  "name": "gbif-org",
+  "version": "1.0.0",
+  "description": "A small website to test and show the GBIF widgets and search interface",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "compression": "^1.7.4",
+    "express": "^4.17.1",
+    "gbif-react-components": "1.0.0",
+    "handlebars": "^4.7.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "regenerator-runtime": "^0.13.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}

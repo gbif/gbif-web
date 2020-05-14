@@ -9,6 +9,12 @@ import { Root } from "../Root/Root";
 import FocusTrap from "focus-trap-react";
 import styles from './styles';
 
+class RefHolder extends React.Component {
+  render() {
+    return this.props.children;
+  }
+}
+
 export class Popper extends React.Component {
   constructor(props) {
     super(props);
@@ -90,6 +96,9 @@ export class Popper extends React.Component {
     console.log(this.props.focusRef);
     return (
       <>
+        {/* <RefHolder ref={this.triggerRef}>
+          {React.cloneElement(trigger, { 'aria-expanded': visible, 'aria-controls': "id-cutnrt", 'aria-haspopup': "dialog" })}
+        </RefHolder> */}
         {React.cloneElement(trigger, { ref: this.triggerRef, 'aria-expanded': visible, 'aria-controls': "id-cutnrt", 'aria-haspopup': "dialog" })}
         <Portal>
           {this.props.visible && <div css={styles.backdrop({theme})} onClick={() => onBackdrop()}></div>}

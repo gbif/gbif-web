@@ -15,6 +15,6 @@ export { Gallery, GalleryCaption } from './Gallery/Gallery';
 export { ZoomableImage } from './ZoomableImage/ZoomableImage';
 // export { Accordion } from './Accordion/Accordion';
 // export { Popper } from './Popper/Popper';
-export { Performance } from './Performance/Performance';
+// export { Performance } from './Performance/Performance';
 export { Properties } from './Properties/Properties';
 // -- Add imports above this line (required by plopfile.js) --

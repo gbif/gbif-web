@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import React, { useState, useContext } from 'react';
-import ThemeContext from 'style/themes/ThemeContext';
+import ThemeContext from '../../style/themes/ThemeContext';
 // import PropTypes from 'prop-types';
 import withContext from './state/withContext';
 // import { FormattedMessage, FormattedNumber } from 'react-intl';
@@ -46,7 +46,8 @@ const Layout = ({
       </TabPanel>
       <TabPanel lazy tabId="gallery" className={`${prefix}-${elementName}-views`} css={cssViewArea({ theme })}>
         <Gallery />
-    </TabPanel>
+      </TabPanel>
+      
       {/* <div className={`${prefix}-${elementName}-body`}>
       <div className={`${prefix}-${elementName}-main`}>content {props.test}<br />
       <FormattedMessage

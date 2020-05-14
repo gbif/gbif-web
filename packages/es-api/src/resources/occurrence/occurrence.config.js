@@ -1,12 +1,20 @@
 const config = 
 {
   options: {
-    all: {
+    q: {
       type: 'text',
       field: 'all',
       get: {
         type: 'fuzzy'
       }
+    },
+    amplificationItems: {
+      field: 'amplificationItems',
+      discarded: true
+    },
+    australiaSpatialLayers: {
+      field: 'australiaSpatialLayers',
+      discarded: true
     },
     basisOfRecord: {
       type: 'keyword',
@@ -47,6 +55,10 @@ const config =
         defaultUpperBound: 'gte',
         defaultLowerBound: 'lte'
       }
+    },
+    coordinates: {
+      field: 'coordinates',
+      discarded: true
     },
     country: {
       type: 'text',
@@ -178,6 +190,10 @@ const config =
       type: 'keyword',
       field: 'establishmentMeans'
     },
+    eventDate: {
+      field: 'eventDate',
+      discarded: true
+    },
     eventDateSingle: {
       type: 'date',
       field: 'eventDateSingle',
@@ -287,6 +303,10 @@ const config =
         defaultLowerBound: 'lte'
       }
     },
+    measurementOrFactItems: {
+      field: 'measurementOrFactItems',
+      discarded: true
+    },
     mediaLicenses: {
       type: 'keyword',
       field: 'mediaLicenses'
@@ -339,6 +359,10 @@ const config =
         defaultUpperBound: 'gte',
         defaultLowerBound: 'lte'
       }
+    },
+    multimediaItems: {
+      field: 'multimediaItems',
+      discarded: true
     },
     networkKeys: {
       type: 'keyword',
@@ -479,6 +503,10 @@ const config =
       type: 'keyword',
       field: 'typifiedName'
     },
+    verbatim: {
+      field: 'verbatim',
+      discarded: true
+    },
     waterBody: {
       type: 'keyword',
       field: 'waterBody',
@@ -492,6 +520,363 @@ const config =
         defaultUpperBound: 'gte',
         defaultLowerBound: 'lte'
       }
+    },
+    'agentIds.type': {
+      type: 'keyword',
+      field: 'agentIds.type'
+    },
+    'agentIds.value': {
+      type: 'keyword',
+      field: 'agentIds.value'
+    },
+    'gbifClassification.class': {
+      type: 'text',
+      field: 'gbifClassification.class',
+      get: {
+        type: 'fuzzy'
+      }
+    },
+    'gbifClassification.classKey': {
+      type: 'numeric',
+      field: 'gbifClassification.classKey',
+      get: {
+        type: 'range_or_term',
+        defaultUpperBound: 'gte',
+        defaultLowerBound: 'lte'
+      }
+    },
+    'gbifClassification.classificationPath': {
+      type: 'keyword',
+      field: 'gbifClassification.classificationPath'
+    },
+    'gbifClassification.family': {
+      type: 'text',
+      field: 'gbifClassification.family',
+      get: {
+        type: 'fuzzy'
+      }
+    },
+    'gbifClassification.familyKey': {
+      type: 'numeric',
+      field: 'gbifClassification.familyKey',
+      get: {
+        type: 'range_or_term',
+        defaultUpperBound: 'gte',
+        defaultLowerBound: 'lte'
+      }
+    },
+    'gbifClassification.genus': {
+      type: 'text',
+      field: 'gbifClassification.genus',
+      get: {
+        type: 'fuzzy'
+      }
+    },
+    'gbifClassification.genusKey': {
+      type: 'numeric',
+      field: 'gbifClassification.genusKey',
+      get: {
+        type: 'range_or_term',
+        defaultUpperBound: 'gte',
+        defaultLowerBound: 'lte'
+      }
+    },
+    'gbifClassification.kingdom': {
+      type: 'text',
+      field: 'gbifClassification.kingdom',
+      get: {
+        type: 'fuzzy'
+      }
+    },
+    'gbifClassification.kingdomKey': {
+      type: 'numeric',
+      field: 'gbifClassification.kingdomKey',
+      get: {
+        type: 'range_or_term',
+        defaultUpperBound: 'gte',
+        defaultLowerBound: 'lte'
+      }
+    },
+    'gbifClassification.order': {
+      type: 'text',
+      field: 'gbifClassification.order',
+      get: {
+        type: 'fuzzy'
+      }
+    },
+    'gbifClassification.orderKey': {
+      type: 'numeric',
+      field: 'gbifClassification.orderKey',
+      get: {
+        type: 'range_or_term',
+        defaultUpperBound: 'gte',
+        defaultLowerBound: 'lte'
+      }
+    },
+    'gbifClassification.phylum': {
+      type: 'text',
+      field: 'gbifClassification.phylum',
+      get: {
+        type: 'fuzzy'
+      }
+    },
+    'gbifClassification.phylumKey': {
+      type: 'numeric',
+      field: 'gbifClassification.phylumKey',
+      get: {
+        type: 'range_or_term',
+        defaultUpperBound: 'gte',
+        defaultLowerBound: 'lte'
+      }
+    },
+    'gbifClassification.species': {
+      type: 'text',
+      field: 'gbifClassification.species',
+      get: {
+        type: 'fuzzy'
+      }
+    },
+    'gbifClassification.speciesKey': {
+      type: 'numeric',
+      field: 'gbifClassification.speciesKey',
+      get: {
+        type: 'range_or_term',
+        defaultUpperBound: 'gte',
+        defaultLowerBound: 'lte'
+      }
+    },
+    'gbifClassification.synonym': {
+      type: 'boolean',
+      field: 'gbifClassification.synonym'
+    },
+    'gbifClassification.taxonID': {
+      type: 'keyword',
+      field: 'gbifClassification.taxonID'
+    },
+    'taxonKey': {
+      type: 'keyword',
+      field: 'gbifClassification.taxonKey',
+    },
+    'gbifClassification.verbatimScientificName': {
+      type: 'keyword',
+      field: 'gbifClassification.verbatimScientificName'
+    },
+    'gbifClassification.acceptedUsage.key': {
+      type: 'numeric',
+      field: 'gbifClassification.acceptedUsage.key',
+      get: {
+        type: 'range_or_term',
+        defaultUpperBound: 'gte',
+        defaultLowerBound: 'lte'
+      }
+    },
+    'gbifClassification.acceptedUsage.name': {
+      type: 'text',
+      field: 'gbifClassification.acceptedUsage.name',
+      get: {
+        type: 'fuzzy'
+      }
+    },
+    'gbifClassification.acceptedUsage.rank': {
+      type: 'keyword',
+      field: 'gbifClassification.acceptedUsage.rank'
+    },
+    'gbifClassification.classification.key': {
+      type: 'numeric',
+      field: 'gbifClassification.classification.key',
+      get: {
+        type: 'range_or_term',
+        defaultUpperBound: 'gte',
+        defaultLowerBound: 'lte'
+      }
+    },
+    'gbifClassification.classification.name': {
+      type: 'text',
+      field: 'gbifClassification.classification.name',
+      get: {
+        type: 'fuzzy'
+      }
+    },
+    'gbifClassification.classification.rank': {
+      type: 'keyword',
+      field: 'gbifClassification.classification.rank'
+    },
+    'gbifClassification.classification.synonym': {
+      type: 'boolean',
+      field: 'gbifClassification.classification.synonym'
+    },
+    'gbifClassification.diagnostics.matchType': {
+      type: 'keyword',
+      field: 'gbifClassification.diagnostics.matchType'
+    },
+    'gbifClassification.diagnostics.note': {
+      type: 'text',
+      field: 'gbifClassification.diagnostics.note',
+      get: {
+        type: 'fuzzy'
+      }
+    },
+    'gbifClassification.diagnostics.status': {
+      type: 'keyword',
+      field: 'gbifClassification.diagnostics.status'
+    },
+    'gbifClassification.usage.key': {
+      type: 'numeric',
+      field: 'gbifClassification.usage.key',
+      get: {
+        type: 'range_or_term',
+        defaultUpperBound: 'gte',
+        defaultLowerBound: 'lte'
+      }
+    },
+    'gbifClassification.usage.name': {
+      type: 'keyword',
+      field: 'gbifClassification.usage.name'
+    },
+    'gbifClassification.usage.rank': {
+      type: 'keyword',
+      field: 'gbifClassification.usage.rank'
+    },
+    'gbifClassification.usageParsedName.abbreviated': {
+      type: 'boolean',
+      field: 'gbifClassification.usageParsedName.abbreviated'
+    },
+    'gbifClassification.usageParsedName.autonym': {
+      type: 'boolean',
+      field: 'gbifClassification.usageParsedName.autonym'
+    },
+    'gbifClassification.usageParsedName.binomial': {
+      type: 'boolean',
+      field: 'gbifClassification.usageParsedName.binomial'
+    },
+    'gbifClassification.usageParsedName.candidatus': {
+      type: 'boolean',
+      field: 'gbifClassification.usageParsedName.candidatus'
+    },
+    'gbifClassification.usageParsedName.code': {
+      type: 'text',
+      field: 'gbifClassification.usageParsedName.code',
+      get: {
+        type: 'fuzzy'
+      }
+    },
+    'gbifClassification.usageParsedName.doubtful': {
+      type: 'boolean',
+      field: 'gbifClassification.usageParsedName.doubtful'
+    },
+    'gbifClassification.usageParsedName.genericName': {
+      type: 'text',
+      field: 'gbifClassification.usageParsedName.genericName',
+      get: {
+        type: 'fuzzy'
+      }
+    },
+    'gbifClassification.usageParsedName.genus': {
+      type: 'text',
+      field: 'gbifClassification.usageParsedName.genus',
+      get: {
+        type: 'fuzzy'
+      }
+    },
+    'gbifClassification.usageParsedName.incomplete': {
+      type: 'boolean',
+      field: 'gbifClassification.usageParsedName.incomplete'
+    },
+    'gbifClassification.usageParsedName.indetermined': {
+      type: 'boolean',
+      field: 'gbifClassification.usageParsedName.indetermined'
+    },
+    'gbifClassification.usageParsedName.infraspecificEpithet': {
+      type: 'text',
+      field: 'gbifClassification.usageParsedName.infraspecificEpithet',
+      get: {
+        type: 'fuzzy'
+      }
+    },
+    'gbifClassification.usageParsedName.notho': {
+      type: 'keyword',
+      field: 'gbifClassification.usageParsedName.notho'
+    },
+    'gbifClassification.usageParsedName.rank': {
+      type: 'keyword',
+      field: 'gbifClassification.usageParsedName.rank'
+    },
+    'gbifClassification.usageParsedName.specificEpithet': {
+      type: 'text',
+      field: 'gbifClassification.usageParsedName.specificEpithet',
+      get: {
+        type: 'fuzzy'
+      }
+    },
+    'gbifClassification.usageParsedName.state': {
+      type: 'keyword',
+      field: 'gbifClassification.usageParsedName.state'
+    },
+    'gbifClassification.usageParsedName.terminalEpithet': {
+      type: 'text',
+      field: 'gbifClassification.usageParsedName.terminalEpithet',
+      get: {
+        type: 'fuzzy'
+      }
+    },
+    'gbifClassification.usageParsedName.trinomial': {
+      type: 'boolean',
+      field: 'gbifClassification.usageParsedName.trinomial'
+    },
+    'gbifClassification.usageParsedName.type': {
+      type: 'keyword',
+      field: 'gbifClassification.usageParsedName.type'
+    },
+    'gbifClassification.usageParsedName.uninomial': {
+      type: 'text',
+      field: 'gbifClassification.usageParsedName.uninomial',
+      get: {
+        type: 'fuzzy'
+      }
+    },
+    'gbifClassification.usageParsedName.basionymAuthorship.authors': {
+      type: 'text',
+      field: 'gbifClassification.usageParsedName.basionymAuthorship.authors',
+      get: {
+        type: 'fuzzy'
+      }
+    },
+    'gbifClassification.usageParsedName.basionymAuthorship.empty': {
+      type: 'boolean',
+      field: 'gbifClassification.usageParsedName.basionymAuthorship.empty'
+    },
+    'gbifClassification.usageParsedName.basionymAuthorship.exAuthors': {
+      type: 'text',
+      field: 'gbifClassification.usageParsedName.basionymAuthorship.exAuthors',
+      get: {
+        type: 'fuzzy'
+      }
+    },
+    'gbifClassification.usageParsedName.basionymAuthorship.year': {
+      type: 'keyword',
+      field: 'gbifClassification.usageParsedName.basionymAuthorship.year'
+    },
+    'gbifClassification.usageParsedName.combinationAuthorship.authors': {
+      type: 'text',
+      field: 'gbifClassification.usageParsedName.combinationAuthorship.authors',
+      get: {
+        type: 'fuzzy'
+      }
+    },
+    'gbifClassification.usageParsedName.combinationAuthorship.empty': {
+      type: 'boolean',
+      field: 'gbifClassification.usageParsedName.combinationAuthorship.empty'
+    },
+    'gbifClassification.usageParsedName.combinationAuthorship.exAuthors': {
+      type: 'text',
+      field: 'gbifClassification.usageParsedName.combinationAuthorship.exAuthors',
+      get: {
+        type: 'fuzzy'
+      }
+    },
+    'gbifClassification.usageParsedName.combinationAuthorship.year': {
+      type: 'keyword',
+      field: 'gbifClassification.usageParsedName.combinationAuthorship.year'
     }
   }
 };
