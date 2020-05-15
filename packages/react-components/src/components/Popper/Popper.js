@@ -21,9 +21,9 @@ export class Popper extends React.Component {
     const { trigger, content } = props;
     this.triggerRef = React.createRef();
     this.contentRef = React.createRef();
-    this.arrowRef = React.createRef();
+    // this.arrowRef = React.createRef();
     this.state = {
-      placement: 'top'
+      placement: props.placement || 'bottom'
     };
   }
 
@@ -42,13 +42,13 @@ export class Popper extends React.Component {
             rootBoundary: 'document'
           },
         },
-        {
-          name: 'arrow',
-          options: {
-            element: this.arrowRef.current,
-            padding: 5, // 5px from the edges of the popper
-          },
-        },
+        // {
+        //   name: 'arrow',
+        //   options: {
+        //     element: this.arrowRef.current,
+        //     padding: 5, // 5px from the edges of the popper
+        //   },
+        // },
         {
           name: 'offset',
           options: {
@@ -93,23 +93,24 @@ export class Popper extends React.Component {
   render() {
     const theme = {};
     const { visible, trigger, content, onBackdrop } = this.props;
-    console.log(this.props.focusRef);
+    
     return (
       <>
         {/* <RefHolder ref={this.triggerRef}>
-          {React.cloneElement(trigger, { 'aria-expanded': visible, 'aria-controls': "id-cutnrt", 'aria-haspopup': "dialog" })}
+          {trigger}
         </RefHolder> */}
-        {React.cloneElement(trigger, { ref: this.triggerRef, 'aria-expanded': visible, 'aria-controls': "id-cutnrt", 'aria-haspopup': "dialog" })}
+        { React.cloneElement(trigger, { ref: this.triggerRef, 'aria-expanded': visible, 'aria-controls': "id-cutnrt", 'aria-haspopup': "dialog" }) }
+        
         <Portal>
           {this.props.visible && <div css={styles.backdrop({theme})} onClick={() => onBackdrop()}></div>}
           <Root ref={this.contentRef} css={styles.popper({theme})}>
-            <div ref={this.arrowRef} css={styles.arrow({
+            {/* <div ref={this.arrowRef} css={styles.arrow({
               placement: this.state.placement,
               visible: this.props.visible,
               theme
             })}>
               <Arrow placement={this.state.placement}/>
-            </div>
+            </div> */}
             {this.props.visible && <FocusTrap focusTrapOptions={{
                 onDeactivate: onBackdrop,
                 clickOutsideDeactivates: true,
@@ -120,6 +121,7 @@ export class Popper extends React.Component {
                 </div>
             </FocusTrap>}
           </Root>
+          {/* {this.props.visible && <div ref={this.contentRef}>sdf</div>} */}
         </Portal>
       </>
     )

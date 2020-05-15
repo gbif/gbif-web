@@ -22,6 +22,7 @@ export const TriggerButton = React.forwardRef(({ options, filterName, displayVal
     isActive={options.length > 0}
     onClearRequest={onClear}
     {...props}
+    ref={ref}
     >
       {options.length === 1 ? 
         <DisplayValue id={options[0]} /> : 

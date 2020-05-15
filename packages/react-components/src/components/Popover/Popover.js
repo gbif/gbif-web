@@ -21,7 +21,8 @@ const Popover = ({ trigger, placement, visible, modal, onClickOutside, children,
     modal: modal || false, 
     placement: placement || "bottom-start", 
     visible: visible,
-    altAxis: true
+    altAxis: true,
+    altBoundary: true
   });
   const ref = React.useRef();
 

@@ -112,7 +112,7 @@ export const TaxonFilterContent = ({ placement, modal, children }) => {
   />
 }
 
-export const TaxonFilterPopover = ({ placement, children }) => {
+export const TaxonFilterPopover = ({ placement, modal, children }) => {
   const currentFilterContext = useContext(FilterContext);
   const [tmpFilter, setFilter] = useState(currentFilterContext.filter);
   const [visible, setVisible] = useState(false);
@@ -139,56 +139,55 @@ export const TaxonFilterPopover = ({ placement, children }) => {
 
   const trigger = cloneElement(child, {onClick: () => setVisible(true)});
   return (
-    <Popper
-      focusRef={innerRef}
-      onBackdrop={() => { currentFilterContext.setFilter(tmpFilter); setVisible(false) }}
-      style={{ width: '22em', maxWidth: '100%' }}
-      aria-label={`Filter on scientific name`}
-      visible={visible}
-      placement={placement}
-      trigger={trigger}
-      // trigger={<button onClick={() => setVisible(true)}>Test</button>}
-      content={<div style={{display: 'inline-block', width:300}}>
-        <PopupContent
-          filterName="taxonKey"
-          // onApply={filter => { currentFilterContext.setFilter(filter) }}
-          // onCancel={emptyFunc}
-          // onFilterChange={emptyFunc}
-          // initFilter={currentFilterContext.filter}
-          hide={() => setVisible(false)}
-          onApply={onApply}
-          onCancel={onCancel}
-          onFilterChange={onFilterChange}
-          initFilter={currentFilterContext.filter}
-          focusRef={innerRef}
-        />
-      </div>}
-    >
-    </Popper>
-    // <Popover
-    //   onClickOutside={popover => { currentFilterContext.setFilter(tmpFilter); popover.hide() }}
+    // <Popper
+    //   focusRef={innerRef}
+    //   onBackdrop={() => { currentFilterContext.setFilter(tmpFilter); setVisible(false) }}
     //   style={{ width: '22em', maxWidth: '100%' }}
     //   aria-label={`Filter on scientific name`}
+    //   visible={visible}
     //   placement={placement}
-    //   trigger={children}
-    //   modal={modal}
-    // >
-    //   {({ hide, focusRef }) => {
-    //     return <PopupContent
+    //   trigger={trigger}
+    //   content={<div style={{display: 'inline-block', width:300}}>
+    //     <PopupContent
     //       filterName="taxonKey"
     //       // onApply={filter => { currentFilterContext.setFilter(filter) }}
     //       // onCancel={emptyFunc}
     //       // onFilterChange={emptyFunc}
     //       // initFilter={currentFilterContext.filter}
-    //       hide={hide}
+    //       hide={() => setVisible(false)}
     //       onApply={onApply}
     //       onCancel={onCancel}
     //       onFilterChange={onFilterChange}
     //       initFilter={currentFilterContext.filter}
-    //       focusRef={focusRef}
+    //       focusRef={innerRef}
     //     />
-    //   }}
-    // </Popover>
+    //   </div>}
+    // >
+    // </Popper>
+    <Popover
+      onClickOutside={popover => { currentFilterContext.setFilter(tmpFilter); popover.hide() }}
+      style={{ width: '22em', maxWidth: '100%' }}
+      aria-label={`Filter on scientific name`}
+      placement={placement}
+      trigger={children}
+      modal={modal}
+    >
+      {({ hide, focusRef }) => {
+        return <PopupContent
+          filterName="taxonKey"
+          // onApply={filter => { currentFilterContext.setFilter(filter) }}
+          // onCancel={emptyFunc}
+          // onFilterChange={emptyFunc}
+          // initFilter={currentFilterContext.filter}
+          hide={hide}
+          onApply={onApply}
+          onCancel={onCancel}
+          onFilterChange={onFilterChange}
+          initFilter={currentFilterContext.filter}
+          focusRef={focusRef}
+        />
+      }}
+    </Popover>
   );
 }
 

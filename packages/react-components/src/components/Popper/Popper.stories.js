@@ -1,6 +1,8 @@
 import React, { useState, useRef } from 'react';
 // import { text, boolean, select } from '@storybook/addon-knobs';
 import { Popper } from './Popper';
+import Test from './Popper2';
+import Test2 from './Test';
 import readme from './README.md';
 import { StyledProse } from '../../typography/StyledProse';
 import { Button } from '../Button';
@@ -16,6 +18,25 @@ export default {
 export const Example2 = () => {
   return <DemoOne />
 };
+
+export const Example3 = () => {
+  return <Test2 />
+};
+
+export const test = () => {
+  const innerRef = useRef(null);
+  const [visible, setVisible] = useState(false);
+  
+  return <>
+    <h1>test</h1>
+    <Test 
+      visible={visible}
+      onBackdrop={() => setVisible(false)}
+      trigger={<button style={{marginLeft: 100}} type="button" onClick={() => setVisible(!visible)}>Reference</button>}
+      content={<div>test string in content</div>}
+    />
+  </>
+}
 
 export const Example = () => {
   const innerRef = useRef(null);

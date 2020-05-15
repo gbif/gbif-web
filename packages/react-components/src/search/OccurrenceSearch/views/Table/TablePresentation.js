@@ -39,11 +39,11 @@ export const TablePresentation = ({ first, prev, next, size, from, result, loadi
       <Row>
         <Col grow={false}>scientificName</Col>
         <Col>
-          {/* <TaxonFilterPopover modal>
+          <TaxonFilterPopover modal placement="auto">
             <Button appearance="text" style={{ display: 'flex' }}>
               <MdFilterList />
             </Button>
-          </TaxonFilterPopover> */}
+          </TaxonFilterPopover>
         </Col>
       </Row>
     </Th>,
@@ -54,7 +54,7 @@ export const TablePresentation = ({ first, prev, next, size, from, result, loadi
       <Row>
         <Col grow={false}>Basis of record</Col>
         <Col>
-          <VocabularyFilterPopover modal>
+          <VocabularyFilterPopover modal placement="auto">
             <Button appearance="text" style={{ display: 'flex' }}>
               <MdFilterList />
             </Button>
@@ -66,7 +66,7 @@ export const TablePresentation = ({ first, prev, next, size, from, result, loadi
       <Row>
         <Col grow={false}>Basis of record</Col>
         <Col>
-          <VocabularyFilterPopover modal>
+          <VocabularyFilterPopover modal placement="auto">
             <Button appearance="text" style={{ display: 'flex' }}>
               <MdFilterList />
             </Button>
