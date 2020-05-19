@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Button, Row, Col, DataTable, Th, Td, TBody } from '../../../../components';
 import { MdFilterList } from "react-icons/md";
 import get from 'lodash/get';
-import { TaxonFilterPopover } from '../../filters/TaxonFilter4/TaxonFilter';
-import { VocabularyFilterPopover } from '../../filters/VocabularyFilter';
+import taxonFilter from '../../filters/taxonFilter';
+import { VocabularyFilterPopover } from '../../../../widgets/Filter/types/vocabulary/VocabularyFilter';
 
 const getRows = ({ result }) => {
   const hits = result.hits.hits;
@@ -39,11 +39,11 @@ export const TablePresentation = ({ first, prev, next, size, from, result, loadi
       <Row>
         <Col grow={false}>scientificName</Col>
         <Col>
-          <TaxonFilterPopover modal placement="auto">
+          <taxonFilter.Popover modal placement="auto">
             <Button appearance="text" style={{ display: 'flex' }}>
               <MdFilterList />
             </Button>
-          </TaxonFilterPopover>
+          </taxonFilter.Popover>
         </Col>
       </Row>
     </Th>,

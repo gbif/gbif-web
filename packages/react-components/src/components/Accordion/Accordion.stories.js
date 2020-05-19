@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 // import { text, boolean, select } from '@storybook/addon-knobs';
 import { Accordion, AccordionControlled } from './Accordion';
 import readme from './README.md';
-import { StyledProse } from '../../typography/StyledProse';
+import { StyledProse } from '../typography/StyledProse';
 
 export default {
   title: 'Components/Accordion',

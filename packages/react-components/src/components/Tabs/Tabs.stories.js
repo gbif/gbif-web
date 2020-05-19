@@ -2,7 +2,7 @@ import React from 'react';
 // import { text, boolean, select } from '@storybook/addon-knobs';
 import { Tabs } from './Tabs';
 import readme from './README.md';
-import { StyledProse } from '../../typography/StyledProse';
+import { StyledProse } from '../typography/StyledProse';
 import { Button, Row, Col } from '../index';
 import { MdMenu } from "react-icons/md";
 

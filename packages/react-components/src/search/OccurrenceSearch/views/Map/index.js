@@ -1,5 +1,5 @@
 import React from 'react';
-import withFilter from '../../filters/state/withFilter';
+import { withFilter } from '../../../../widgets/Filter/state';
 import MapPresentation from './MapPresentation';
 
 const Map = props => {

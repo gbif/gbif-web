@@ -132,9 +132,11 @@ export const loading = (theme) => css`
 `;
 
 export const group = (theme) => css`
-  display: flex;
-  width: fit-content;
+  display: inline-flex;
+  /* width: fit-content; */
+  max-width: 100%;
   > button {
+    overflow: hidden;
     border-radius: 0;
     margin: 0;
     margin-right: -1px;

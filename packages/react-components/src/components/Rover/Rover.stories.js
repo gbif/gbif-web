@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { Rover, useRoverState, RoverGroup } from './Rover';
 import { Group } from "reakit/Group";
 import { Button } from "reakit/Button";
+import readme from './README.md';
+import { StyledProse } from '../typography/StyledProse';
 
 export default {
-  title: 'ARIA/Rover',
+  title: 'Components/Rover',
   component: Rover,
 };
 
@@ -21,9 +23,10 @@ export const WithOutState = () => {
     </Rover>
   </>;
 
-  return (
+  return <>
+    <StyledProse source={readme}></StyledProse>
     <RoverGroup content={content} />
-  );
+  </>;
 }
 
 WithOutState.story = {

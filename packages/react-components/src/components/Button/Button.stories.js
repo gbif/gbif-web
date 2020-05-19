@@ -46,18 +46,17 @@ Long.story = {
 export const Group = () => <ButtonGroup>
   <Button appearance="primary" truncate>First option</Button>
   <Button appearance="primaryOutline">Second option</Button>
-  <Button appearance="primaryOutline">
-    <MdClose />
-  </Button>
 </ButtonGroup>;
 
 Group.story = {
   name: 'Button group',
 };
 
-export const Filter = () => <FilterButton isActive={boolean("isActive", true)}>
-  Basis of record
-</FilterButton>;
+export const Filter = () => <div style={{ width: 250 }}>
+  <FilterButton isActive={boolean("isActive", true)}>
+    Basis of record will be truncated
+  </FilterButton>
+</div>;
 
 Filter.story = {
   name: 'Filter button',

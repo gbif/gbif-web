@@ -3,7 +3,7 @@ import React from 'react';
 import { Autocomplete } from './Autocomplete';
 import { Example } from './Example';
 import readme from './README.md';
-import { StyledProse } from '../../typography/StyledProse';
+import { StyledProse } from '../typography/StyledProse';
 
 export default {
   title: 'Components/Autocomplete',

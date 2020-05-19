@@ -2,7 +2,7 @@ import React from 'react';
 import { boolean } from '@storybook/addon-knobs';
 import { Properties, Term, Value } from './Properties';
 import readme from './README.md';
-import { StyledProse } from '../../typography/StyledProse';
+import { StyledProse } from '../typography/StyledProse';
 
 export default {
   title: 'Components/Properties',

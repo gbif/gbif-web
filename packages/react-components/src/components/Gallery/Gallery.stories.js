@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 // import { text, boolean, select } from '@storybook/addon-knobs';
 import { Gallery, GalleryCaption } from './Gallery';
 import readme from './README.md';
-import { StyledProse } from '../../typography/StyledProse';
+import { StyledProse } from '../typography/StyledProse';
 
 const mockData = [
   {

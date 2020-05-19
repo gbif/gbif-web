@@ -3,7 +3,7 @@ import React from 'react';
 import { Row, Col } from './Row';
 
 export default {
-  title: 'Layout/Flex',
+  title: 'Components/Layout',
   component: Row,
 };
 

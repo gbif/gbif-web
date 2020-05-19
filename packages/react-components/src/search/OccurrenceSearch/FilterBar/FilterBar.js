@@ -1,13 +1,13 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
-import withContext from '../state/withContext';
+import { withFilter } from '../../..//widgets/Filter/state';
 import React, { useContext } from 'react';
 import ThemeContext from '../../../style/themes/ThemeContext';
-import { VocabularyFilter } from '../filters/VocabularyFilter';
-import { TaxonFilter as TaxonFilter4 } from '../filters/TaxonFilter4/TaxonFilter';
-import { SuggestFilterButton } from '../filters/suggest/SuggestFilter';
+import { VocabularyFilter } from '../../../widgets/Filter/types/vocabulary/VocabularyFilter';
+import { Button as SuggestButton } from '../../../widgets/Filter/types/SuggestFilter';
 import { suggestConfigs } from '../filters/suggest/suggestConfigs';
 import displayValue from '../displayNames/displayValue';
+import taxonFilter from '../filters/taxonFilter';
 const ScientificName = displayValue('scientificName').component;
 const DatasetTitle = displayValue('datasetTitle').component;
 
@@ -22,10 +22,12 @@ const FilterBar = ({
   const elementName = 'filterBar';
   return <div className={`${className} ${prefix}-${elementName}`}
     css={css`${style(theme)}`} {...props}>
-    <div><TaxonFilter4 css={css`margin-right: 4px; margin-bottom: 4px;`} /></div>
-    <div><SuggestFilterButton DisplayName={DatasetTitle} filterName="datasetKey" displayValueAs='datasetTitle' suggestConfig={suggestConfigs.datasetTitle} css={css`margin-right: 4px; margin-bottom: 4px;`} /></div>
-    <div><VocabularyFilter css={css`margin-right: 4px; margin-bottom: 4px;`} /></div>
-    <div><VocabularyFilter vocabularyName="Country" css={css`margin-right: 4px; margin-bottom: 4px;`} /></div>
+    <div><SuggestButton DisplayName={ScientificName} filterName="taxonKey" suggestConfig={suggestConfigs.scientificName} /></div>
+    <div><SuggestButton DisplayName={DatasetTitle} filterName="datasetKey" suggestConfig={suggestConfigs.datasetTitle} /></div>
+    <div><VocabularyFilter /></div>
+    <div><VocabularyFilter vocabularyName="Country" /></div>
+    {/* <div><VocabularyFilter filterName="country" vocabularyName="Country" /></div> */}
+    {/* filterName vocabularyName vocabularyEndpoint getVocabulary */}
   </div>
 }
 
@@ -36,7 +38,12 @@ export const style = (theme) => css`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  >div {
+    max-width: 100%;
+    margin-right: 4px; 
+    margin-bottom: 4px;
+  }
 `;
 
 const mapContextToProps = ({ filter, stateApi }) => ({ filter, stateApi });
-export default withContext(mapContextToProps)(FilterBar);
+export default withFilter(mapContextToProps)(FilterBar);

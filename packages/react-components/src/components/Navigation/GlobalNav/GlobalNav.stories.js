@@ -1,6 +1,6 @@
 import React from 'react';
 import { GlobalNav } from './GlobalNav';
-import { StyledProse } from '../../../typography/StyledProse';
+import { StyledProse } from '../../typography/StyledProse';
 import readme from './README.md';
 
 import {BrowserRouter as Router } from 'react-router-dom';

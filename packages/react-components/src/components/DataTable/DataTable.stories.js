@@ -5,9 +5,9 @@ import { Row, Col } from '../index';
 import { Button, Popover } from '../index';
 import { MdFilterList } from "react-icons/md";
 import readme from './README.md';
-import { StyledProse } from '../../typography/StyledProse';
+import { StyledProse } from '../typography/StyledProse';
 
-import { TaxonFilterPopover } from '../../search/OccurrenceSearch/filters/TaxonFilter4/TaxonFilter';
+// import { TaxonFilterPopover } from '../../search/OccurrenceSearch/filters/TaxonFilter4/TaxonFilter';
 
 const TaxonFilter = ({ innerRef, popover, ...props }) => <div>
   <h1>Taxon filter</h1>
@@ -48,11 +48,11 @@ export const Demo = () => {
       <Row>
         <Col grow={false}>scientificName</Col>
         <Col>
-          <TaxonFilterPopover modal>
+          {/* <TaxonFilterPopover modal>
             <Button appearance="text" style={{ display: 'flex' }}>
               <MdFilterList />
             </Button>
-          </TaxonFilterPopover>
+          </TaxonFilterPopover> */}
           {/* <Popover
             aria-label="Location filter"
             onClickOutside={popover => popover.hide()}

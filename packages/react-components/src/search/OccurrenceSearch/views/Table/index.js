@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import withContext from "../../filters/state/withFilter";
+import { withFilter } from "../../../..//widgets/Filter/state";
 import { query } from '../../../OccurrenceSearch/api/queryAdapter';
 import { TablePresentation } from './TablePresentation';
 
@@ -66,4 +66,4 @@ class Table extends Component {
 }
 
 const mapContextToProps = ({ filter, filterHash, api, components }) => ({ filter, filterHash, api, components });
-export default withContext(mapContextToProps)(Table);
+export default withFilter(mapContextToProps)(Table);

@@ -3,7 +3,7 @@ import { css, jsx } from '@emotion/core';
 import React, { useState, useContext } from 'react';
 import ThemeContext from '../../style/themes/ThemeContext';
 // import PropTypes from 'prop-types';
-import withContext from './state/withContext';
+import { withFilter } from '../../widgets/Filter/state';
 // import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { cssLayout, cssNavBar, cssViewArea, cssFooter, cssFilter, cssViews } from './Layout.styles';
 import { Tabs } from '../../components'
@@ -47,7 +47,7 @@ const Layout = ({
       <TabPanel lazy tabId="gallery" className={`${prefix}-${elementName}-views`} css={cssViewArea({ theme })}>
         <Gallery />
       </TabPanel>
-      
+
       {/* <div className={`${prefix}-${elementName}-body`}>
       <div className={`${prefix}-${elementName}-main`}>content {props.test}<br />
       <FormattedMessage
@@ -69,4 +69,4 @@ Layout.propTypes = {
 }
 
 const mapContextToProps = ({ test }) => ({ test });
-export default withContext(mapContextToProps)(Layout);
+export default withFilter(mapContextToProps)(Layout);

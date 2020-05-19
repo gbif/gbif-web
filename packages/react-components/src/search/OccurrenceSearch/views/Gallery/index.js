@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import withContext from "../../filters/state/withFilter";
+import { withFilter } from "../../../../widgets/Filter/state";
 import { query } from '../../../OccurrenceSearch/api/queryAdapter';
 import { GalleryPresentation } from './GalleryPresentation';
 import merge from 'lodash/merge';
@@ -83,4 +83,4 @@ class Gallery extends Component {
 }
 
 const mapContextToProps = ({ filter, filterHash, api, components }) => ({ filter, filterHash, api, components });
-export default withContext(mapContextToProps)(Gallery);
+export default withFilter(mapContextToProps)(Gallery);

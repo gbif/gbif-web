@@ -1,7 +1,7 @@
 import { text, boolean, select } from '@storybook/addon-knobs';
 import React, { useState } from 'react';
 import { Button } from '../Button';
-import Popover from './Popover2';
+import Popover from './Popover';
 
 export default {
   title: 'Components/Popover',

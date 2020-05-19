@@ -1,6 +1,6 @@
 import React from 'react';
 import { linkTo } from '@storybook/addon-links';
-import { StyledProse } from '../src/typography/StyledProse';
+import { StyledProse } from '../src/components/typography/StyledProse';
 import { Button } from '../src/components';
 import readme from './README.md';
 
