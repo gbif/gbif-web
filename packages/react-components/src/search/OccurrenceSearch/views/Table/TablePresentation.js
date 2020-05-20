@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Row, Col, DataTable, Th, Td, TBody } from '../../../../components';
 import { MdFilterList } from "react-icons/md";
 import get from 'lodash/get';
-import taxonFilter from '../../filters/taxonFilter';
+// import taxonFilter from '../../filters/taxonFilter';
 import { VocabularyFilterPopover } from '../../../../widgets/Filter/types/vocabulary/VocabularyFilter';
 
 const getRows = ({ result }) => {
@@ -39,11 +39,11 @@ export const TablePresentation = ({ first, prev, next, size, from, result, loadi
       <Row>
         <Col grow={false}>scientificName</Col>
         <Col>
-          <taxonFilter.Popover modal placement="auto">
+          {/* <taxonFilter.Popover modal placement="auto">
             <Button appearance="text" style={{ display: 'flex' }}>
               <MdFilterList />
             </Button>
-          </taxonFilter.Popover>
+          </taxonFilter.Popover> */}
         </Col>
       </Row>
     </Th>,

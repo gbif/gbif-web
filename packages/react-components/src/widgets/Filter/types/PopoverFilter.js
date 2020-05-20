@@ -10,49 +10,70 @@ A general component for managing state in popover filters
 A general component for popovers of a type (suggest, vocabulary)
 A general component for filtering on a specific field (e.g. a taxonKey filter - a conf usage of suggest)
 The actual usage of the component (e.g. taxonFilter with props: trigger, placement, modal)
-*/
-function getPopover({ ariaLabel, Content }) {
-  return function Popover({ placement, modal, children, ...contentProps }) {
-    const currentFilterContext = useContext(FilterContext);
-    const [tmpFilter, setFilter] = useState(currentFilterContext.filter);
-    const child = React.Children.only(children);
 
-    useEffect(() => {
-      setFilter(currentFilterContext.filter);
-    }, [currentFilterContext.filter]);
+<Popover trigger content ariaLabel placement modal />
+<SuggestPopover trigger config placement modal />
+<TaxonPopover trigger placement modal />
 
-    const onApply = useCallback(({ filter, hide }) => {
-      currentFilterContext.setFilter(filter);
-      hide();
-    }, [currentFilterContext]);
-
-    const onCancel = useCallback(({ hide }) => {
-      hide();
-    }, []);
-
-    const onFilterChange = useCallback(filter => {
-      setFilter(filter);
-    }, []);
-
-    return (
-      <BasePopover
-        onClickOutside={popover => { currentFilterContext.setFilter(tmpFilter); popover.hide() }}
-        style={{ width: '22em', maxWidth: '100%' }}
-        aria-label={ariaLabel}
-        placement={placement}
-        trigger={child}
-        modal={modal}
-      >
-        <Content 
-          onApply={onApply}
-          onCancel={onCancel}
-          onFilterChange={onFilterChange}
-          initFilter={currentFilterContext.filter}
-          {...contentProps}
-          />
-      </BasePopover>
-    );
-  }
+const config = {DisplayName, filterName, suggestConfig}
+const TaxonPopover = (props) => {
+  const child = React.Children.only(children);
+  return <SuggestPopover trigger={child} config {...props} />
 }
 
-export default getPopover;
+const SuggestPopover = ({config, ...props}) => {
+  return <Popover content {...props}>
+    <FilterContent {...config} />
+  </Popover>
+}
+
+//Alternatively the individual filter do this
+const config = {DisplayName, filterName, suggestConfig}
+const TaxonPopover = props => {
+  const child = React.Children.only(children);
+  return <Popover trigger={child} {...props}>
+    <SuggestContent config />
+  </Popover>
+}
+*/
+function Popover({ ariaLabel, trigger, placement, modal, children, ...props }) {
+  const currentFilterContext = useContext(FilterContext);
+  const [tmpFilter, setFilter] = useState(currentFilterContext.filter);
+  const child = React.Children.only(children);
+
+  useEffect(() => {
+    setFilter(currentFilterContext.filter);
+  }, [currentFilterContext.filter]);
+
+  const onApply = useCallback(({ filter, hide }) => {
+    currentFilterContext.setFilter(filter);
+    hide();
+  }, [currentFilterContext]);
+
+  const onCancel = useCallback(({ hide }) => {
+    hide();
+  }, []);
+
+  const onFilterChange = useCallback(filter => {
+    setFilter(filter);
+  }, []);
+
+  return (
+    <BasePopover
+      onClickOutside={popover => { currentFilterContext.setFilter(tmpFilter); popover.hide() }}
+      style={{ width: '22em', maxWidth: '100%' }}
+      aria-label={ariaLabel}
+      placement={placement}
+      trigger={trigger}
+      modal={modal}
+      {...props}
+    >
+      {React.cloneElement(child, {
+        onApply, onCancel, onFilterChange,
+        initFilter: currentFilterContext.filter
+      })}
+    </BasePopover>
+  );
+}
+
+export default Popover;
