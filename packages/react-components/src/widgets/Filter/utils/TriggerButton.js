@@ -28,7 +28,7 @@ export const TriggerButton = React.forwardRef(({ options, filterName, DisplayNam
       <DisplayName id={options[0]} /> :
       <FormattedMessage
         id={`${options.length === 0 ? 'filterName' : 'filterCount'}.${filterName}`}
-        defaultMessage={'Loading'}
+        defaultMessage={'Filter name'}
         values={{ num: options.length }}
       />
       // f({id: `filterName.${filterName}`}) : 

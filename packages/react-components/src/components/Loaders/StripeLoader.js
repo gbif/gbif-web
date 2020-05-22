@@ -2,6 +2,7 @@
 import { css, jsx, keyframes } from '@emotion/core';
 import ThemeContext from '../../style/themes/ThemeContext';
 import React, { useContext } from 'react';
+import { getClasses } from '../../utils/util';
 
 export const loading = keyframes`
   from {
@@ -32,7 +33,7 @@ const errorStyle = theme => css`
   width: 100%;
 `;
 
-const before = ({error, theme}) => css`
+const before = ({ error, theme }) => css`
   display: block;
   position: absolute;
   content: '';
@@ -44,24 +45,15 @@ const before = ({error, theme}) => css`
   ${error ? errorStyle(theme) : null}
 `;
 
-export const StripeLoader = ({active, error, ...props}) => {
+export function StripeLoader({ active, error, className, ...props }) {
   const theme = useContext(ThemeContext);
-  return <div css={css`
+  const { classNames } = getClasses(theme.prefix, 'stripeLoader', {active, error}, className);
+  return <div {...classNames} css={css`
     height: 1px;
     width: 100%;
     position: relative;
     overflow: hidden;
     &:before {
-      ${active ? before({error, theme}) : null}
+      ${active ? before({ error, theme }) : null}
     }`}></div>
 }
-
-// export const StripeLoader = styled.div`
-//   height: 1px;
-//   width: 100%;
-//   position: relative;
-//   overflow: hidden;
-//   &:before {
-//     ${props => props.active ? before(props) : null}
-//   }
-// `;

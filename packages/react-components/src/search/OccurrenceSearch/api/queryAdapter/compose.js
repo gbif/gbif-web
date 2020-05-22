@@ -12,7 +12,7 @@ import snakeCase from 'lodash/snakeCase';
 
 const filters = {
   year: termOrRangeFilter('year'),
-  BasisOfRecord: {
+  basisOfRecord: {
     type: 'TERMS',
     getValues: values => values.map(e => snakeCase(e).toUpperCase()),
     fieldName: 'basisOfRecord'
@@ -21,6 +21,11 @@ const filters = {
     type: 'TERMS',
     getValues: values => values.map(e => snakeCase(e).toUpperCase()),
     fieldName: 'gbifClassification.usage.rank'
+  },
+  typeStatus: {
+    type: 'TERMS',
+    getValues: values => values.map(e => snakeCase(e).toUpperCase()),
+    fieldName: 'typeStatus'
   },
   MediaType: {
     type: 'TERMS',
@@ -37,7 +42,12 @@ const filters = {
     getValues: values => values,
     fieldName: 'gbifClassification.taxonKey'
   },
-  Country: {
+  publisherKey: {
+    type: 'TERMS',
+    getValues: values => values,
+    fieldName: 'publishingOrganizationKey'
+  },
+  country: {
     type: 'TERMS',
     getValues: values => values.map(e => e.toUpperCase()),
     fieldName: 'countryCode'

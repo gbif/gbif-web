@@ -30,7 +30,7 @@ export default getData =>
       // TODO consider to cancel request?
       let dataResult = getData(this.props.id);
       // if it is a promise, then wait for it to return
-      if (dataResult && typeof dataResult.then === "function") {
+      if (typeof dataResult?.then === "function") {
         dataResult.then(
           result => {
             if (this._mounted) {
@@ -58,6 +58,6 @@ export default getData =>
       const style = typeof title !== 'undefined'
         ? {}
         : {display:'inline-block', width: '100px', background: 'rgba(0,0,0,.1)'};
-      return <span style={style}>{title}&nbsp;</span>;
+      return <span style={style}>{title}</span>;
     }
   };

@@ -39,7 +39,26 @@ export const suggestConfigs = {
     // how to map the results to a single string value
     getValue: suggestion => suggestion.title,
     // how to display the individual suggestions in the list
-    render: function ScientificNameSuggestItem(suggestion) {
+    render: function DatasetSuggestItem(suggestion) {
+      return <div style={{ maxWidth: '100%' }}>
+        <div style={suggestStyle}>
+          {suggestion.title}
+        </div>
+      </div>
+    }
+  },
+  publisherTitle: {
+    //What placeholder to show
+    placeholder: 'Search by publisher',
+    // how to get the list of suggestion data
+    getSuggestions: async ({ q }) => {
+      const suggestions = (await axios.get(`https://api.gbif.org/v1/organization/suggest?limit=8&q=${q}`)).data;
+      return suggestions;
+    },
+    // how to map the results to a single string value
+    getValue: suggestion => suggestion.title,
+    // how to display the individual suggestions in the list
+    render: function PublisherSuggestItem(suggestion) {
       return <div style={{ maxWidth: '100%' }}>
         <div style={suggestStyle}>
           {suggestion.title}

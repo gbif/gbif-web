@@ -5,6 +5,7 @@ import { Row, Col, Button, Menu } from '../../../components';
 import { MdMoreVert } from "react-icons/md";
 
 const Header = ({ children, menuItems, ...props }) => {
+  // console.log(menuItems);
   return <Row as="section" {...props} css={header} alignItems="center">
     <Col>
       {children}

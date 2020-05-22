@@ -105,13 +105,3 @@ Button.propTypes = {
   DisplayName: PropTypes.elementType.isRequired,
   config: PropTypes.object.isRequired,
 };
-
-export function getComponents(config) {
-  // this makes no sense, but if they are named the same, the build will fail ¯\_(ツ)_/¯
-  const Btn = Button;
-  const Popovr = Popover;
-  return {
-    Button: props => <Btn {...config} {...props} />,
-    Popover: props => <Popovr {...config} {...props} />
-  }
-}

@@ -1,23 +1,21 @@
 import React from 'react';
 // import { text, boolean, select } from '@storybook/addon-knobs';
-import { {{pascalCase name}} } from './{{pascalCase name}}';
+import { Radio } from './Radio';
 import readme from './README.md';
 import { StyledProse } from '../typography/StyledProse';
 
 export default {
-  title: 'Components/{{pascalCase name}}',
-  component: {{pascalCase name}},
+  title: 'Components/Radio',
+  component: Radio,
 };
 
 export const Example = () => <>
-  <{{pascalCase name}}>
-    {{pascalCase name}}
-  </{{pascalCase name}}>
+  <Radio />
   {/* <StyledProse source={readme}></StyledProse> */}
 </>;
 
 Example.story = {
-  name: '{{pascalCase name}}',
+  name: 'Radio',
 };
 
 
@@ -34,4 +32,4 @@ Example.story = {
 // boolean("loading", false)
 
 // // TEXT
-// {text('Text', '{{pascalCase name}} text')}
+// {text('Text', 'Radio text')}

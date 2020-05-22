@@ -10,7 +10,7 @@ import get from 'lodash/get';
 
 import {FilterState, FilterContext} from '../state';
 
-function Filter({ children, onApply, onCancel, title, aboutText, hasHelpTexts, filterName, formId, filter: tmpFilter, onFilterChange, aboutVisible, onAboutChange, helpVisible, onHelpChange, style }) {
+function Filter({ children, title, aboutText, hasHelpTexts, filterName, formId, filter: tmpFilter, onFilterChange, aboutVisible, onAboutChange, helpVisible, onHelpChange, style }) {
   return <FilterState filter={tmpFilter} onChange={updatedFilter => onFilterChange(updatedFilter)}>
     <FilterContext.Consumer>
       {({ setField, toggle, filter }) => {
@@ -25,11 +25,13 @@ function Filter({ children, onApply, onCancel, title, aboutText, hasHelpTexts, f
           showBack: aboutVisible,
           onBack: () => onAboutChange(false)
         }
+        const menuItems = (aboutText || hasHelpTexts) ? menuState => [
+          ...aboutText ? [<MenuAction key="About" onClick={() => { onAboutChange(true); menuState.hide() }}>About this filter</MenuAction>] : [],
+          ...hasHelpTexts ? [<MenuToggle key="Help" disabled={aboutVisible} style={{ opacity: aboutVisible ? .5 : 1 }} checked={!!helpVisible} onChange={() => onHelpChange(!helpVisible)}>Show help texts</MenuToggle>] : []
+        ] : undefined;
+
         return <FilterBox style={style}>
-          <Header menuItems={menuState => [
-            ...aboutText ? [<MenuAction key="About" onClick={() => { onAboutChange(true); menuState.hide() }}>About this filter</MenuAction>] : [],
-            ...hasHelpTexts ? [<MenuToggle key="Help" disabled={aboutVisible} style={{ opacity: aboutVisible ? .5 : 1 }} checked={!!helpVisible} onChange={() => onHelpChange(!helpVisible)}>Show help texts</MenuToggle>] : []
-          ]}>
+          <Header menuItems={menuItems}>
             {title}
           </Header>
           {!aboutVisible &&

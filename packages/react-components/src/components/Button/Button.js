@@ -17,21 +17,18 @@ const truncateStyle = {
 export const Button = React.forwardRef(({
   className = '',
   loading = false,
-  block = false,
+  isFullWidth = false,
   isIcon = false,
   appearance = 'primary',
   children,
   truncate,
   ...props
 }, ref) => {
-  const classes = { appearance, loading, block };
   const theme = useContext(ThemeContext);
-  // const appliedTheme = isEmpty(theme) ? standardTheme : theme;
-  const appliedTheme = theme;
-  const { classesToApply, humanClasses } = getClasses(appliedTheme, 'button', classes);
-  return <ButtonA11y ref={ref} className={`${humanClasses} ${className}`} css={css`
-        ${styles.button(appliedTheme)}
-        ${classesToApply.map(x => styles[x](appliedTheme))};
+  const { classesToApply, classNames } = getClasses(theme.prefix, 'button', { appearance, loading, isFullWidth }, className);
+  return <ButtonA11y ref={ref} {...classNames} css={css`
+        ${styles.button(theme)}
+        ${classesToApply.map(x => styles[x](theme))};
 `} {...props}>
     {truncate ? <span style={truncateStyle}>{children}</span> : children}
     {/* <span style={truncate ? truncateStyle : {}}>

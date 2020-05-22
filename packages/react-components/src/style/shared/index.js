@@ -21,6 +21,20 @@ export const focusStyle = props => css`
   }
 `;
 
+export const transparentInputOverlay = css`
+  margin: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  opacity: 0;
+`;
+
 export const styledScrollBars = props => css`
   scrollbar-width: thin;
   &::-webkit-scrollbar {

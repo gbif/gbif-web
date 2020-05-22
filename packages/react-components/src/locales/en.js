@@ -5,7 +5,15 @@ export const en = {
   options: 'Options',
   'pagination.pageXofY': 'Page {current} of {total}',
   'filterName.taxonKey': 'Scientific name',
-  'filterCount.taxonKey': '{num, plural, one {Scientific name} other {# scientific names}}',
+  'filterCount.taxonKey': '{num, plural, one {scientific name} other {# scientific names}}',
+  'filterName.publisherKey': 'Publisher',
+  'filterCount.publisherKey': '{num, plural, one {publisher} other {# publishers}}',
   'filterName.datasetKey': 'Dataset',
-  'filterCount.datasetKey': '{num, plural, one {Dataset} other {# datasets}}'
+  'filterCount.datasetKey': '{num, plural, one {dataset} other {# datasets}}',
+  'filterName.basisOfRecord': 'Basis of record',
+  'filterCount.basisOfRecord': '{num, plural, one {casis of record} other {# bases of records}}',
+  'filterName.country': 'Country',
+  'filterCount.country': '{num, plural, one {country} other {# countries}}',
+  'filterName.typeStatus': 'Type status',
+  'filterCount.typeStatus': '{num, plural, one {type status} other {# type statuses}}',
 }

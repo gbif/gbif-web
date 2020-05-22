@@ -24,7 +24,7 @@ let displayName = [
         .then(result => ({title: result.data.title}))
   },
   {
-    name: 'publisherKey',
+    name: 'publisherTitle',
     format: id => axios
         .get(endpoints.publisher + '/' + id)
         .then(result => ({title: result.data.title}))

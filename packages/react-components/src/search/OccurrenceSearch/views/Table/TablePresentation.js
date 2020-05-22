@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { Button, Row, Col, DataTable, Th, Td, TBody } from '../../../../components';
+import React, { useState, useContext } from 'react';
 import { MdFilterList } from "react-icons/md";
 import get from 'lodash/get';
-// import taxonFilter from '../../filters/taxonFilter';
-import { VocabularyFilterPopover } from '../../../../widgets/Filter/types/vocabulary/VocabularyFilter';
+import { FilterContext } from '../../../../widgets/Filter/state';
+import { Button, Row, Col, DataTable, Th, Td, TBody } from '../../../../components';
+import { taxonFilter, datasetFilter, publisherFilter } from '../../filters/suggest/suggestFilters';
+import { borFilter } from '../../filters/vocabulary/vocabularyFilters';
 
 const getRows = ({ result }) => {
   const hits = result.hits.hits;
@@ -31,6 +32,7 @@ const getRows = ({ result }) => {
 }
 
 export const TablePresentation = ({ first, prev, next, size, from, result, loading }) => {
+  const currentFilterContext = useContext(FilterContext);
   const [fixedColumn, setFixed] = useState(true);
   const total = result.hits.total;
 
@@ -39,11 +41,12 @@ export const TablePresentation = ({ first, prev, next, size, from, result, loadi
       <Row>
         <Col grow={false}>scientificName</Col>
         <Col>
-          {/* <taxonFilter.Popover modal placement="auto">
+          <taxonFilter.Popover modal placement="auto">
             <Button appearance="text" style={{ display: 'flex' }}>
               <MdFilterList />
+              {get(currentFilterContext.filter, 'must.taxonKey.length', '')}
             </Button>
-          </taxonFilter.Popover> */}
+          </taxonFilter.Popover>
         </Col>
       </Row>
     </Th>,
@@ -54,28 +57,37 @@ export const TablePresentation = ({ first, prev, next, size, from, result, loadi
       <Row>
         <Col grow={false}>Basis of record</Col>
         <Col>
-          <VocabularyFilterPopover modal placement="auto">
+          <borFilter.Popover modal placement="auto">
             <Button appearance="text" style={{ display: 'flex' }}>
               <MdFilterList />
             </Button>
-          </VocabularyFilterPopover>
+          </borFilter.Popover>
         </Col>
       </Row>
     </Th>,
     <Th key='datasetTitle' width='wide'>
       <Row>
-        <Col grow={false}>Basis of record</Col>
+        <Col grow={false}>Dataset</Col>
         <Col>
-          <VocabularyFilterPopover modal placement="auto">
+          <datasetFilter.Popover modal placement="auto">
             <Button appearance="text" style={{ display: 'flex' }}>
               <MdFilterList />
             </Button>
-          </VocabularyFilterPopover>
+          </datasetFilter.Popover>
         </Col>
       </Row>
     </Th>,
     <Th key='publisherTitle' width='wide'>
-      publisherTitle
+      <Row>
+        <Col grow={false}>Publisher</Col>
+        <Col>
+          <publisherFilter.Popover modal placement="auto">
+            <Button appearance="text" style={{ display: 'flex' }}>
+              <MdFilterList />
+            </Button>
+          </publisherFilter.Popover>
+        </Col>
+      </Row>
     </Th>,
     <Th key='countryCode'>
       countryCode

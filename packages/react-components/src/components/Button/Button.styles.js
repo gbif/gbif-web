@@ -4,6 +4,7 @@ import { helper } from '../../utils/helper';
 export const button = theme => css`
   ${helper.noUserSelect}
   appearance: none;
+  text-decoration: none;
   
   /* max-width: 100%; */
   display: inline-flex;
@@ -98,7 +99,7 @@ export const link = (theme) => css`
   background: none;
 `;
 
-export const block = (theme) => css`
+export const isFullWidth = (theme) => css`
   display: flex; 
   width: 100%;
 `;
@@ -161,7 +162,7 @@ export default {
   danger,
   link,
   loading,
-  block,
+  isFullWidth,
   text,
   group
 };

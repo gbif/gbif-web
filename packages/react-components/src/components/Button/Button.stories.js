@@ -20,7 +20,7 @@ const options = {
 export const Default = () => <Button
   loading={boolean("loading", false)}
   truncate={boolean("truncate", true)}
-  block={boolean("block", false)}
+  isFullWidth={boolean("isFullWidth", false)}
   appearance={select('Appearance', options, options.primary)}
 >
   {text('Text', 'Basis of record')}
@@ -30,10 +30,17 @@ Default.story = {
   name: 'Button',
 };
 
+export const Link = () => <Button
+  href="/test"
+  as="a"
+>
+  As link by setting href and 'as="a"'
+</Button>;
+
 export const Long = () => <Button style={{ maxWidth: 200 }}
   loading={boolean("loading", false)}
   truncate={boolean("truncate", true)}
-  block={boolean("block", false)}
+  isFullWidth={boolean("isFullWidth", false)}
   appearance={select('Appearance', options, options.primary)}
 >
   {text('Text', 'Width set to 200px but have a very loooong button text. We have to either truncate or wrap.')}

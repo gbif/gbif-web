@@ -4,12 +4,8 @@ import { withFilter } from '../../..//widgets/Filter/state';
 import React, { useContext } from 'react';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import { VocabularyFilter } from '../../../widgets/Filter/types/vocabulary/VocabularyFilter';
-import { Button as SuggestButton } from '../../../widgets/Filter/types/SuggestFilter';
-import { suggestConfigs } from '../filters/suggest/suggestConfigs';
-import displayValue from '../displayNames/displayValue';
-import taxonFilter from '../filters/taxonFilter';
-const ScientificName = displayValue('scientificName').component;
-const DatasetTitle = displayValue('datasetTitle').component;
+import { taxonFilter, datasetFilter, publisherFilter } from '../filters/suggest/suggestFilters';
+import { borFilter, countryFilter, typeStatusFilter } from '../filters/vocabulary/vocabularyFilters';
 
 const FilterBar = ({
   className = '',
@@ -22,10 +18,14 @@ const FilterBar = ({
   const elementName = 'filterBar';
   return <div className={`${className} ${prefix}-${elementName}`}
     css={css`${style(theme)}`} {...props}>
-    <div><SuggestButton DisplayName={ScientificName} filterName="taxonKey" suggestConfig={suggestConfigs.scientificName} /></div>
-    <div><SuggestButton DisplayName={DatasetTitle} filterName="datasetKey" suggestConfig={suggestConfigs.datasetTitle} /></div>
-    <div><VocabularyFilter /></div>
-    <div><VocabularyFilter vocabularyName="Country" /></div>
+    <div><taxonFilter.Button /></div>
+    <div><datasetFilter.Button /></div>
+    {/* <div><publisherFilter.Button /></div> */}
+    <div><borFilter.Button /></div>
+    <div><typeStatusFilter.Button /></div>
+    <div><countryFilter.Button /></div>
+    {/* <div><VocabularyFilter /></div>
+    <div><VocabularyFilter vocabularyName="Country" /></div> */}
     {/* <div><VocabularyFilter filterName="country" vocabularyName="Country" /></div> */}
     {/* filterName vocabularyName vocabularyEndpoint getVocabulary */}
   </div>

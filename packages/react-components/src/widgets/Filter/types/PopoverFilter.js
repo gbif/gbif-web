@@ -36,7 +36,7 @@ const TaxonPopover = props => {
   </Popover>
 }
 */
-function Popover({ ariaLabel, trigger, placement, modal, children, ...props }) {
+function Popover({ ariaLabel, content, placement, modal, children, ...props }) {
   const currentFilterContext = useContext(FilterContext);
   const [tmpFilter, setFilter] = useState(currentFilterContext.filter);
   const child = React.Children.only(children);
@@ -64,11 +64,11 @@ function Popover({ ariaLabel, trigger, placement, modal, children, ...props }) {
       style={{ width: '22em', maxWidth: '100%' }}
       aria-label={ariaLabel}
       placement={placement}
-      trigger={trigger}
+      trigger={child}
       modal={modal}
       {...props}
     >
-      {React.cloneElement(child, {
+      {React.cloneElement(content, {
         onApply, onCancel, onFilterChange,
         initFilter: currentFilterContext.filter
       })}
