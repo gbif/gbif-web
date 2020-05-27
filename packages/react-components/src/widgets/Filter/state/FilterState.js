@@ -5,6 +5,8 @@ import Context from './FilterContext';
 import { uncontrollable } from 'uncontrollable';
 import cloneDeep from 'lodash/cloneDeep';
 import uniqWith from 'lodash/uniqWith';
+import isEmpty from 'lodash/isEmpty';
+import pickBy from 'lodash/pickBy';
 import get from 'lodash/get';
 import isEqual from 'react-fast-compare';
 import hash from 'object-hash';
@@ -15,7 +17,7 @@ class FilterState extends React.Component {
       return;
     }
     if (typeof filter === 'object') {
-      filter = cloneDeep(filter);
+      filter = this.cleanUpFilter(cloneDeep(filter));
       Object.keys(filter).forEach(key => {
         if (typeof filter[key] === 'undefined') delete filter[key];
       })
@@ -60,6 +62,12 @@ class FilterState extends React.Component {
       this.add(field, value, must);
     }
   };
+
+  cleanUpFilter = filter => {
+    const must = pickBy(get(filter, 'must', {}), x => !isEmpty(x));
+    const must_not = pickBy(get(filter, 'must_not', {}), x => !isEmpty(x));
+    return { must, must_not };
+  }
 
   render() {
     const contextValue = {

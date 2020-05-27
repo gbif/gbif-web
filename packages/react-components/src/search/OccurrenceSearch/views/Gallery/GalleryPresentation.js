@@ -11,15 +11,15 @@ export const GalleryPresentation = ({ first, prev, next, size, from, result, loa
 
   return <Gallery
     caption={({ item }) => <GalleryCaption>
-      {item._source.gbifClassification.usage.name}
+      {item.gbifClassification.usage.name}
     </GalleryCaption>}
-    title={item => item._source.gbifClassification.usage.name}
+    title={item => item.gbifClassification.usage.name}
     subtitle={item => item.description}
     details={item => <pre>{JSON.stringify(item, null, 2)}</pre>}
     loading={loading || error}
     items={hits}
     loadMore={from + size < total ? () => next() : null}
     size={loaderCount}
-    imageSrc={item => item._source._galleryImages[0].identifier}
+    imageSrc={item => item._galleryImages[0].identifier}
   />
 }

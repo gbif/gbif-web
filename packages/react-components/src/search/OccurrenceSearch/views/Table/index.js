@@ -18,7 +18,7 @@ class Table extends Component {
   loadData = () => {
 		this.setState({ loading: true, error: false });
 		if (this.runningQuery && this.runningQuery.cancel) this.runningQuery.cancel();
-		
+	
     this.runningQuery = query(this.props.filter, this.state.size, this.state.from);
 		this.runningQuery.then(response => {
         if (this._isMount) {

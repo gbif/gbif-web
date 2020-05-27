@@ -4,6 +4,7 @@ const Agent = require('agentkeepalive');
 const { ResponseError } = require('../errorHandler');
 const { search } = require('../esRequest');
 const config = require('../../config');
+const { reduce } = require('./reduce');
 
 const logLevel = config.OCCURRENCE_LOG_LEVEL;
 const hostPattern = config.OCCURRENCE_HOST_PATTERN;
@@ -23,10 +24,6 @@ const client = new elasticsearch.Client({
   apiVersion: '5.6',
   agent
 });
-
-function reduce(item) {
-  return item._source;
-}
 
 async function query({ query, aggs, size = 20, from = 0 }) {
   const esQuery = {

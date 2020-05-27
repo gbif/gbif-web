@@ -6,9 +6,10 @@ import { FilterButton } from '../../../components/Button';
 import { FilterContext } from '../state';
 import displayValue from '../../../search/OccurrenceSearch/displayNames/displayValue';
 
-export const TriggerButton = React.forwardRef(({ options, filterName, DisplayName, loading, ...props }, ref) => {
+export const TriggerButton = React.forwardRef(({ options, filterName, trKey, DisplayName, loading, ...props }, ref) => {
   const currentFilterContext = useContext(FilterContext);
   // const {formatMessage: f} = useIntl();
+  const translationKey = trKey || `filter.${filterName}`;
 
   const onClear = useCallback(() => {
     currentFilterContext.setField(filterName, [])
@@ -27,8 +28,8 @@ export const TriggerButton = React.forwardRef(({ options, filterName, DisplayNam
     {options.length === 1 ?
       <DisplayName id={options[0]} /> :
       <FormattedMessage
-        id={`${options.length === 0 ? 'filterName' : 'filterCount'}.${filterName}`}
-        defaultMessage={'Filter name'}
+        id={`${translationKey}.${options.length === 0 ? 'name' : 'count'}`}
+        // defaultMessage={`[${filterName}]`}
         values={{ num: options.length }}
       />
       // f({id: `filterName.${filterName}`}) : 

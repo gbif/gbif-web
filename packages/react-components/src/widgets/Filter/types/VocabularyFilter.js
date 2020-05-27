@@ -11,8 +11,15 @@ import { keyCodes } from '../../../utils/util';
 
 import { Option, Filter, SummaryBar, FilterBody, Footer } from '../utils';
 
-export const FilterContent = ({ vocabulary, radio, hide, onApply, onCancel, onFilterChange, focusRef, filterName, initFilter }) => {
+export const FilterContent = ({ config, radio, hide, onApply, onCancel, onFilterChange, focusRef, filterName, initFilter }) => {
   const [id] = React.useState(nanoid);
+  const [vocabulary, setVocabulary] = useState();
+
+  React.useEffect(() => {
+    config.getVocabulary({ lang: 'eng', filter: initFilter })
+      .then(v => setVocabulary(v))
+      .catch(err => console.error(err));
+  }, [initFilter, filterName, config.getVocabulary]);
 
   return <Filter
     onApply={onApply}
@@ -65,17 +72,13 @@ FilterContent.propTypes = {
 };
 
 export function Popover({ filterName, DisplayName, config, ...props }) {
-  const [vocabulary, setVocabulary] = useState();
-  config.getVocabulary({ lang: 'eng' })
-    .then(v => setVocabulary(v))
-    .catch(err => console.error(err));
-
   return (
     <PopoverFilter
       {...props}
       content={<FilterContent
         filterName={filterName}
-        vocabulary={vocabulary} />}
+        config={config}
+      />}
     />
   );
 }

@@ -25,8 +25,28 @@ function getDisplayName(name) {
   );
 }
 
+export const lifeStageFilter = generateFilter({
+  filterName: 'lifeStage',
+  DisplayName: getDisplayName('lifeStage'),
+  config: {
+    getVocabulary: async () => {
+      return {
+        concepts: [{
+          name: 'ADULT', definition: 'In adult life', label: 'Adult'
+        }],
+        definition: 'State of life lorem ipsum',
+        label: 'Life stage',
+        name: 'LifeStage',
+        hasConceptDefinitions: true
+      }
+    }
+  },
+  ariaLabel: 'Filter on life state'
+});
+
 export const borFilter = generateFilter({
   filterName: 'basisOfRecord',
+  trKey: 'filter.basisOfRecord',
   DisplayName: getDisplayName('BasisOfRecord'),
   config: {
     getVocabulary: getGet('BasisOfRecord')

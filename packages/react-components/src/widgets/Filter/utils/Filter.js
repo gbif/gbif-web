@@ -14,7 +14,7 @@ function Filter({ children, title, aboutText, hasHelpTexts, filterName, formId, 
   return <FilterState filter={tmpFilter} onChange={updatedFilter => onFilterChange(updatedFilter)}>
     <FilterContext.Consumer>
       {({ setField, toggle, filter }) => {
-        const selectedItems = get(filter, `must.${filterName}`, []);
+        const selectedItems = get(filter, `must.${filterName}`, []).map(x => typeof x === 'object' ? x.key : x);
         const checkedMap = new Set(selectedItems);
         const summaryProps = {
           count: checkedMap.size, 

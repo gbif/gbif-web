@@ -32,7 +32,7 @@ class Gallery extends Component {
         if (this._isMount) {
 					// extract first image in occurrence
 					response.data.hits.hits.forEach(occ => {
-						occ._source._galleryImages = occ._source.multimediaItems.filter(img => img.type === 'StillImage');
+						occ._galleryImages = occ.multimediaItems.filter(img => img.type === 'StillImage');
 					});
 					if (this.state.from > 0) {
 						response.data.hits.hits = [...this.state.data.hits.hits, ...response.data.hits.hits];

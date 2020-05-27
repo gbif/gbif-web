@@ -67,10 +67,10 @@ export const FilterButton = React.forwardRef(({
 }, ref) => {
   if (!isActive) {
     return <ButtonGroup {...props}>
-      <Button  {...props} ref={ref} loading={loading} appearance="primaryOutline" onClick={onClick}>{children}</Button>
+      <Button {...props} ref={ref} loading={loading} appearance="primaryOutline" onClick={onClick}>{children}</Button>
     </ButtonGroup>
   }
-  return <ButtonGroup style={{width: '100%', maxWidth: 400}}>
+  return <ButtonGroup style={{maxWidth: 400}}>
     <Button {...props} title={title || children} truncate appearance="primary" ref={ref} onClick={onClick} loading={loading}>{children}</Button>
     <Button appearance="primary" onClick={onClearRequest} style={{flex: '0 0 auto'}}>
       <MdClose style={{ verticalAlign: 'middle' }} />

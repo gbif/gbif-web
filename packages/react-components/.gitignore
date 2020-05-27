@@ -13,6 +13,8 @@
 .env.test.local
 .env.production.local
 .env
+.env.*
+/**/*.env.*
 .vscode
 
 npm-debug.log*

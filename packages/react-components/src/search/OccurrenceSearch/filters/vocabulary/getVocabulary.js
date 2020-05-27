@@ -37,5 +37,6 @@ export const getVocabulary = async (name, language) => {
   if (!enumMap[`${name}_${language}`]) {
     enumMap[`${name}_${language}`] = fetchVocabulary(name, language);
   }
+  // console.log(enumMap[`${name}_${language}`]);
   return enumMap[`${name}_${language}`];
 }

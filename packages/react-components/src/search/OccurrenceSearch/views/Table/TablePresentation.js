@@ -15,7 +15,7 @@ const getRows = ({ result }) => {
         // const Presentation = <FormatedName id={row._source[field]} />;
         // if (i === 0) return <Td key={field}><Action onSelect={() => console.log(row._id)}>{Presentation}</Action></Td>;
         // else return <Td key={field}>{Presentation}</Td>;
-        const val = get(row._source, field);
+        const val = get(row, field);
         return <Td key={field}>{val}</Td>;
         // if (i === 0) {
         //   return <Td key={field}>
@@ -26,7 +26,7 @@ const getRows = ({ result }) => {
         // }
       }
     );
-    return <tr key={row._id}>{cells}</tr>;
+    return <tr key={row.gbifId}>{cells}</tr>;
   });
   return rows;
 }

@@ -17,10 +17,21 @@ const temporaryAuthMiddleware = function (req, res, next) {
   } else if (apiKey !== config.API_KEY || !config.API_KEY) {
     next(new ResponseError(403, 'temporaryAuthentication', `Invalid apiKey: ${apiKey}`));
   }
+  // the apiKey shouldn't be used elsewhere and shouldn't be interpreted as a es query param
   delete req.query.apiKey;
+  // Pass to next layer of middleware
   next()
 }
 app.use(temporaryAuthMiddleware)
+
+app.use(function (req, res, next) {
+  // Website you wish to allow to connect
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  // Request methods you wish to allow
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  // Pass to next layer of middleware
+  next();
+});
 
 app.post('/literature', asyncMiddleware(postResource(literature)));
 app.get('/literature', asyncMiddleware(getResource(literature)));
@@ -48,6 +59,7 @@ function postResource(resource) {
     const { result, esBody } = await dataSource.query({ query, aggs, size, from });
     const meta = {
       predicate,
+      metrics,
       esBody
     };
 
@@ -62,16 +74,19 @@ function getResource(resource) {
   const { dataSource, get2predicate, predicate2query, get2metric, metric2aggs} = resource;
   return async (req, res, next) => {
     let predicate;
+    let metrics;
     if (req.query.query) {
       try {
-        predicate = JSON.parse(req.query.query)
+        const jsonQuery = JSON.parse(req.query.query);
+        predicate = jsonQuery.predicate;
+        metrics = jsonQuery.metrics;
       } catch(err) {
         return next(new ResponseError(400, 'badRequest', `Invalid query: ${err.message}`));
       }
     } else {
       predicate = get2predicate(req.query);
+      metrics = get2metric(req.query);
     }
-    const metrics = get2metric(req.query);
     const aggs = metric2aggs(metrics);
     const query = predicate2query(predicate);
     const size = req.query.size;
@@ -79,8 +94,9 @@ function getResource(resource) {
     const includeMeta = req.query.includeMeta;
     const { result, esBody } = await dataSource.query({ query, aggs, size, from });
     const meta = {
-      getQuery: req.query,
+      GET: req.query,
       predicate,
+      metrics,
       esBody
     };
 
@@ -98,6 +114,7 @@ function keyResource(resource) {
     res.json(body);
   };
 }
+
 function suggestResource(resource) {
   const { dataSource, getSuggestQuery } = resource;
   return async (req, res) => {

@@ -1,12 +1,15 @@
 import React from 'react';
 import { addDecorator } from '@storybook/react';
 import { select } from '@storybook/addon-knobs';
+import flatten from 'flat';
 
 import { IntlProvider } from "react-intl";
 
 import Root from '../src/Root';
 import gbifTheme from './theme';
-import { en } from '../src/locales/en';
+import { en as enNested } from '../src/locales/en';
+const en = flatten(enNested);
+
 import ThemeContext, { darkTheme, lightTheme, a11yTheme } from '../src/style/themes';
 
 addDecorator(storyFn => {

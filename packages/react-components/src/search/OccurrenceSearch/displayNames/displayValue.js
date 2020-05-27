@@ -1,8 +1,7 @@
 import axios from '../api/axios';
 import formatFactory from './formatFactory';
 import startCase from 'lodash/startCase';
-import isUndefined from 'lodash/isUndefined';
-
+import { rangeDisplayName } from './stdRangeDisplayName';
 // TODO move endpoints to config
 let endpoints = {
   dataset: 'https://api.gbif.org/v1/dataset',
@@ -14,68 +13,54 @@ let displayName = [
   {
     name: 'identity',
     format: id => {
-      return {title: typeof id !== 'object' ? id : JSON.stringify(id)};
+      return { title: typeof id !== 'object' ? id : JSON.stringify(id) };
     }
   },
   {
     name: 'datasetTitle',
     format: id => axios
-        .get(endpoints.dataset + '/' + id)
-        .then(result => ({title: result.data.title}))
+      .get(endpoints.dataset + '/' + id)
+      .then(result => ({ title: result.data.title }))
   },
   {
     name: 'publisherTitle',
     format: id => axios
-        .get(endpoints.publisher + '/' + id)
-        .then(result => ({title: result.data.title}))
+      .get(endpoints.publisher + '/' + id)
+      .then(result => ({ title: result.data.title }))
   },
   {
     name: 'TaxonKey',
     format: id => axios
-        .get(endpoints.species + '/' + id)
-        .then(result => ({ title: result.data.scientificName }))
+      .get(endpoints.species + '/' + id)
+      .then(result => ({ title: result.data.scientificName }))
   },
   {
     name: 'scientificName',
     format: id => axios
-        .get(endpoints.species + '/' + id)
-        .then(result => ({ title: result.data.scientificName }))
+      .get(endpoints.species + '/' + id)
+      .then(result => ({ title: result.data.scientificName }))
   },
   {
     name: 'canonicalName',
     format: id => axios
-        .get(endpoints.species + '/' + id)
-        .then(result => ({ title: result.data.canonicalName }))
+      .get(endpoints.species + '/' + id)
+      .then(result => ({ title: result.data.canonicalName }))
   },
   {
     name: 'BasisOfRecord',
-    format: id => ({title: startCase(id + '')})
+    format: id => ({ title: startCase(id + '') })
   },
   {
     name: 'TypeStatus',
-    format: id => ({title: startCase(id + '')})
+    format: id => ({ title: startCase(id + '') })
   },
   {
     name: 'year',
-    format: id => {
-      if (typeof id === 'object') {
-        let title;
-        if (isUndefined(id.gte)) {
-          title = `before ${id.lt}`;  
-        } else if(isUndefined(id.lt)) {
-          title = `after ${id.gte}`;  
-        } else if(id.gte === id.lt) {
-          title = id.gte;
-        } else {
-          title = `${id.gte} - ${id.lt}`;
-        }
-        return {
-          title: title,
-          description: 'from (incl) - to (excl)'
-        }
-      }
-      return {title: id};
-    }
+    format: rangeDisplayName('interval.year')
+  },
+  {
+    name: 'elevation',
+    format: rangeDisplayName('interval.elevation')
   },
 ];
 
@@ -92,6 +77,6 @@ function getAsComponents(fns) {
 
 let nameMap = getAsComponents(displayName);
 
-export default function(field) {
+export default function (field) {
   return nameMap[field] ? nameMap[field] : nameMap.identity;
 }
