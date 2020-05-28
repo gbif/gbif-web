@@ -1,5 +1,5 @@
 const express = require('express');
-const { ApolloServer, gql } = require('apollo-server-express');
+const { ApolloServer } = require('apollo-server-express');
 const get = require('lodash/get');
 const config = require('./config');
 

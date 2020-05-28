@@ -11,7 +11,7 @@ app.use(bodyParser.json())
 
 const _ = require('lodash');
 const temporaryAuthMiddleware = function (req, res, next) {
-  const apiKey = _.get(req, 'query.apiKey');
+  const apiKey = _.get(req, 'query.apiKey') || _.get(req, 'body.apiKey');
   if (!apiKey) {
     next(new ResponseError(401, 'temporaryAuthentication', 'You need to provide an apiKey in the url'));
   } else if (apiKey !== config.API_KEY || !config.API_KEY) {
@@ -50,9 +50,9 @@ function postResource(resource) {
   const { dataSource, predicate2query, metric2aggs} = resource;
   return async (req, res) => {
     const size = req.body.size;
-    const includeMeta = req.body.meta;
+    const includeMeta = req.body.includeMeta;
     const from = req.body.from;
-    const predicate = req.body.query;
+    const predicate = req.body.predicate;
     const metrics = req.body.metrics;
     const aggs = metrics ? metric2aggs(metrics) : {};
     const query = predicate2query(predicate);
@@ -101,8 +101,8 @@ function getResource(resource) {
     };
 
     res.json({
+      ...result,
       ...(includeMeta && { meta }),
-      ...result
     });
   }
 }

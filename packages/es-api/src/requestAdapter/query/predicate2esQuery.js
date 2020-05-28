@@ -2,12 +2,13 @@
 const _ = require('lodash');
 const { validatePredicate } = require('./validatePredicate');
 const { wktPolygonToCoordinates } = require('../util/geoHelper');
+const { ResponseError } = require('../../resources/errorHandler');
 
 function predicate2esQuery(predicate, config) {
   if (!predicate) return;
   const { error } = validatePredicate(predicate, config);
   if (error) {
-    throw new Error(error.message);
+    throw new ResponseError(400, 'BAD_REQUEST', error.message);
   }
   return transform(predicate, config, true);
 }

@@ -1,9 +1,9 @@
 const elasticsearch = require('elasticsearch');
-const _ = require('lodash');
 const Agent = require('agentkeepalive');
 const { ResponseError } = require('../errorHandler');
 const { search } = require('../esRequest');
 const config = require('../../config');
+const { queryReducer } = require('../../responseAdapter');
 
 const host = config.LITERATURE_HOST;
 const logLevel = config.OCCURRENCE_LOG_LEVEL;
@@ -37,7 +37,7 @@ async function query({ query, aggs, size = 20, from = 0 }) {
   body.hits.hits = body.hits.hits.map(n => reduce(n));
   return {
     esBody: esQuery,
-    result: _.pick(body, ['hits', 'aggregations'])
+    result: queryReducer({body, size, from})
   };
 }
 

@@ -11,7 +11,7 @@ const cliOptions = [
   { name: 'LITERATURE_ES_ENDPOINT', alias: 'a', type: String }
 ];
 const options = commandLineArgs(cliOptions);
-
+console.log(options);
 const defaultConfig = {
   port: 4000
 };

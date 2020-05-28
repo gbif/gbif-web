@@ -20,3 +20,9 @@ The result format is that of ES.
 
 ## Suggest a configuration
 The current configurations are generated from the ES `_mapping` endpoint.
+
+# Install
+`npm i`
+
+# Start
+`node src/index.js --port=4001`

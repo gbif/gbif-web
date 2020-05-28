@@ -19,6 +19,7 @@ async function getSchema() {
 
   const typeDefs = _.flatten([
     rootQuery,
+    require('./input'),
     require('./resources/misc/comment'),
     require('./resources/misc/contact'),
     require('./resources/misc/endpoint'),
@@ -33,6 +34,7 @@ async function getSchema() {
     require('./resources/installation').typeDef,
     require('./resources/node').typeDef,
     require('./resources/participant').typeDef,
+    require('./resources/occurrence').typeDef,
 // -- Add imports above this line (required by plopfile.js) --
   ]);
 

@@ -8,6 +8,7 @@ const api = _.merge(
   require('./resources/installation').dataSource,
   require('./resources/node').dataSource,
   require('./resources/participant').dataSource,
+  require('./resources/occurrence').dataSource,
 // -- Add imports above this line (required by plopfile.js) --
 );
 
