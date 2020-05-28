@@ -877,6 +877,22 @@ const config =
     "gbifClassification_usageParsedName_combinationAuthorship_year": {
       "type": "keyword",
       "field": "gbifClassification.usageParsedName.combinationAuthorship.year"
+    },
+    "identifiedByIds_type": {
+      type: "keyword",
+      field: "identifiedByIds.type"
+    },
+    "identifiedByIds_value": {
+      type: "keyword",
+      field: "identifiedByIds.value"
+    },
+    "recordedByIds_type": {
+      type: "keyword",
+      field: "recordedByIds.type"
+    },
+    "recordedByIds_value": {
+      type: "keyword",
+      field: "recordedByIds.value"
     }
   }
 };

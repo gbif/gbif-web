@@ -2,7 +2,7 @@ const env = require('../../config');
 const { config } = require('./occurrence.config');
 const { predicate2esQuery, get2predicate, get2esQuery } = require('../../requestAdapter/query');
 const { suggestConfigFromAlias } = require('../../requestAdapter/util/suggestConfig');
-// const { suggestGqlTypeFromAlias } = require('../../requestAdapter/util/suggestGraphqlType');
+const { suggestGqlTypeFromAlias } = require('../../requestAdapter/util/suggestGraphqlType');
 const { get2metric, metric2aggs } = require('../../requestAdapter/aggregations');
 const { getSuggestQuery } = require('../../requestAdapter/suggest');
 

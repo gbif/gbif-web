@@ -11,8 +11,17 @@ const typeDef = gql`
   }
 
   type OccurrenceSearchResult {
+    """
+    The occurrences that match the filter
+    """
     documents: OccurrenceDocuments!
+    """
+    Get number of occurrences per distinct values in a field. E.g. how many occurrences per year.
+    """
     facet: OccurrenceFacet
+    """
+    Get statistics for a numeric field. Minimimum value, maximum etc.
+    """
     stats: OccurrenceStats
     _query: JSON
   }
@@ -48,7 +57,7 @@ const typeDef = gql`
     locality(size: Int): [OccurrenceFacetResult_string]
     mediaLicenses(size: Int): [OccurrenceFacetResult_string]
     mediaTypes(size: Int): [OccurrenceFacetResult_string]
-    notIssues(size: Int): [OccurrenceFacetResult_string]
+    # notIssues(size: Int): [OccurrenceFacetResult_string]
     occurrenceId(size: Int): [OccurrenceFacetResult_string]
     organismId(size: Int): [OccurrenceFacetResult_string]
     organismQuantityType(size: Int): [OccurrenceFacetResult_string]
@@ -231,7 +240,7 @@ const typeDef = gql`
     basisOfRecord: String
     catalogNumber: String
     collectionCode: String
-    collectionKey: String
+    collectionKey: ID
     continent: String
     coordinatePrecision: Float
     coordinateUncertaintyInMeters: Float
@@ -239,11 +248,11 @@ const typeDef = gql`
     countryCode: String
     crawlId: Int
     created: DateTime
-    datasetKey: String
+    datasetKey: ID
     datasetPublishingCountry: String
     datasetTitle: String
     dateIdentified: DateTime
-    day: Float
+    day: Int
     decimalLatitude: Float
     decimalLongitude: Float
     depth: Float
@@ -251,19 +260,20 @@ const typeDef = gql`
     elevation: Float
     elevationAccuracy: Float
     endDayOfYear: Float
-    endorsingNodeKey: String
+    endorsingNodeKey: ID
     establishmentMeans: String
     eventDateSingle: DateTime
     eventId: String
     gbifClassification: GbifClassification
     hasCoordinate: Boolean
     hasGeospatialIssue: Boolean
+    identifiedByIds: IdentifiedByIds
     id: String
     individualCount: Int
-    installationKey: String
+    installationKey: ID
     institutionCode: String
-    institutionKey: String
-    issues: String
+    institutionKey: ID
+    issues: [OccurrenceIssue]
     lastCrawled: DateTime
     license: String
     lifeStage: String
@@ -272,16 +282,16 @@ const typeDef = gql`
     maximumDistanceAboveSurfaceInMeters: Float
     maximumElevationInMeters: Float
     measurementOrFactItems: JSON
-    mediaLicenses: String
-    mediaTypes: String
+    mediaLicenses: [String]
+    mediaTypes: [MediaType]
     minimumDepthInMeters: Float
     minimumDistanceAboveSurfaceInMeters: Float
     minimumElevationInMeters: Float
     modified: DateTime
-    month: Float
-    multimediaItems: JSON
-    networkKeys: String
-    notIssues: String
+    month: Int
+    multimediaItems: [MultimediaItem]
+    networkKeys: [ID]
+    # notIssues: String
     occurrenceId: String
     organismId: String
     organismQuantity: Float
@@ -292,9 +302,10 @@ const typeDef = gql`
     protocol: String
     publisherTitle: String
     publishingCountry: String
-    publishingOrganizationKey: String
+    publishingOrganizationKey: ID
     recordNumber: String
     recordedBy: String
+    recordedByIds: RecordedByIds
     references: String
     relativeOrganismQuantity: Float
     repatriated: Boolean
@@ -308,7 +319,7 @@ const typeDef = gql`
     typeStatus: String
     typifiedName: String
     waterBody: String
-    year: Float
+    year: Int
   }
 
   type GbifClassification {
@@ -400,6 +411,28 @@ const typeDef = gql`
     empty: Boolean
     exAuthors: String
     year: String
+  }
+
+  type IdentifiedByIds {
+    type: String
+    value: String
+  }
+
+  type RecordedByIds {
+    type: String
+    value: String
+  }
+
+  type MultimediaItem {
+    type: String
+    format: String
+    identifier: String
+    created: String
+    creator: String
+    license: String
+    publisher: String
+    references: String
+    rightsHolder: String
   }
 `;
 

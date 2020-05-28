@@ -32,7 +32,7 @@ async function query({ query, aggs, size = 20, from = 0 }) {
     query,
     aggs
   }
-  console.log('=== query elastic search');
+  
   let body = await search({ client, index: searchIndex, query: esQuery });
   body.hits.hits = body.hits.hits.map(n => reduce(n));
   return {
