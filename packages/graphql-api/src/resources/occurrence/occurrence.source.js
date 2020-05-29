@@ -10,15 +10,14 @@ class OccurrenceAPI extends RESTDataSource {
   }
 
   async searchOccurrenceDocuments({ query }) {
-    const body = { apiKey: API_ES_KEY, ...query, includeMeta: true };
-    const response = await this.post('/occurrence', body);
+    const response = await this.searchOccurrences({query})
     return response.documents;
   }
 
   async searchOccurrences({ query }) {
     const body = { apiKey: API_ES_KEY, ...query, includeMeta: true };
     const response = await this.post('/occurrence', body);
-    response._query = body.predicate;
+    response._predicate = body.predicate;
     return response;
   }
 

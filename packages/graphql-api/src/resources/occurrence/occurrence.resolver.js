@@ -20,11 +20,14 @@ const OccurrenceStats = fieldsWithStatsSupport.reduce(statsReducer, {});
 
 const searchOccurrences = (parent, query, { dataSources }) => {
   return dataSources.occurrenceAPI.searchOccurrenceDocuments({
-    query: { predicate: parent._query, ...query }
+    query: { predicate: parent._predicate, ...query }
   });
 }
 
-const facetOccurrenceSearch = (parent) => ({ _query: parent._query });
+const facetOccurrenceSearch = (parent) => {
+  return { _predicate: parent._predicate };
+};
+
 /** 
  * fieldName: (parent, args, context, info) => data;
  * parent: An object that contains the result returned from the resolver on the parent type
@@ -36,7 +39,7 @@ module.exports = {
   Query: {
     occurrenceSearch: (parent, args) =>
       // dataSources.occurrenceAPI.searchOccurrences({ query: args }),
-      ({ _query: args.predicate }),
+      ({ _predicate: args.predicate }),
     occurrence: (parent, { key }, { dataSources }) =>
       dataSources.occurrenceAPI.getOccurrenceByKey({ key })
   },
@@ -56,10 +59,10 @@ module.exports = {
     documents: searchOccurrences,
     // this looks odd. I'm not sure what is the best way, but I want to transfer the current query to the child, so that it can be used when asking for the individual facets
     facet: (parent) => {
-      return { _query: { ...parent._query, limit: undefined, offset: undefined } };
+      return { _predicate: parent._predicate };
     },
     stats: (parent) => {
-      return { _query: { ...parent._query, limit: undefined, offset: undefined } };
+      return { _predicate: parent._predicate };
     },
   },
   OccurrenceStats,

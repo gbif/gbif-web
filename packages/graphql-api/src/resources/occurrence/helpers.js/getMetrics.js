@@ -7,7 +7,7 @@ const getFacet = (field) =>
   (parent, { size = 10 }, { dataSources }) => {
     // generate the occurrence search facet query, by inherting from the parent query, and map limit/offset to facet equivalents
     const query = {
-      predicate: parent._query,
+      predicate: parent._predicate,
       size: 0,
       metrics: {
         facet: {
@@ -26,7 +26,7 @@ const getFacet = (field) =>
             key: bucket.key,
             count: bucket.doc_count,
             // create a new predicate that joins the base with the facet. This enables us to dig deeper for multidimensional metrics
-            _query: {
+            _predicate: {
               type: 'and',
               predicates: [
                 data.meta.predicate,
@@ -50,7 +50,7 @@ const getStats = (field) =>
   (parent, args, { dataSources }) => {
     // generate the occurrence search facet query, by inherting from the parent query, and map limit/offset to facet equivalents
     const query = {
-      predicate: parent._query,
+      predicate: parent._predicate,
       size: 0,
       metrics: {
         stats: {

@@ -3,8 +3,6 @@ const { gql } = require('apollo-server');
 const typeDef = gql`
   extend type Query {
     occurrenceSearch(
-      size: Int,
-      from: Int,
       predicate: Predicate
       ): OccurrenceSearchResult
     occurrence(key: String!): Occurrence
@@ -14,7 +12,7 @@ const typeDef = gql`
     """
     The occurrences that match the filter
     """
-    documents: OccurrenceDocuments!
+    documents(size: Int, from: Int): OccurrenceDocuments!
     """
     Get number of occurrences per distinct values in a field. E.g. how many occurrences per year.
     """
@@ -23,7 +21,7 @@ const typeDef = gql`
     Get statistics for a numeric field. Minimimum value, maximum etc.
     """
     stats: OccurrenceStats
-    _query: JSON
+    _predicate: JSON
   }
 
   type OccurrenceDocuments {
@@ -161,21 +159,21 @@ const typeDef = gql`
     key: Float!
     count: Int!
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
-    _query: JSON
+    _predicate: JSON
   }
 
   type OccurrenceFacetResult_boolean {
     key: Boolean!
     count: Int!
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
-    _query: JSON
+    _predicate: JSON
   }
 
   type OccurrenceFacetResult_string {
     key: String!
     count: Int!
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
-    _query: JSON
+    _predicate: JSON
   }
 
   type OccurrenceFacetResult_dataset {
@@ -183,7 +181,7 @@ const typeDef = gql`
     count: Int!
     dataset: Dataset!
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
-    _query: JSON
+    _predicate: JSON
   }
 
   type OccurrenceFacetResult_node {
@@ -191,7 +189,7 @@ const typeDef = gql`
     count: Int!
     node: Node!
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
-    _query: JSON
+    _predicate: JSON
   }
 
   type OccurrenceFacetResult_installation {
@@ -199,7 +197,7 @@ const typeDef = gql`
     count: Int!
     installation: Node!
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
-    _query: JSON
+    _predicate: JSON
   }
 
   type OccurrenceFacetResult_taxon {
@@ -207,7 +205,7 @@ const typeDef = gql`
     count: Int!
     taxon: Taxon!
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
-    _query: JSON
+    _predicate: JSON
   }
 
   type OccurrenceFacetResult_network {
@@ -215,7 +213,7 @@ const typeDef = gql`
     count: Int!
     network: Network!
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
-    _query: JSON
+    _predicate: JSON
   }
 
   type OccurrenceFacetResult_organization {
@@ -223,7 +221,7 @@ const typeDef = gql`
     count: Int!
     publisher: Organization!
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
-    _query: JSON
+    _predicate: JSON
   }
 
   type Stats {
