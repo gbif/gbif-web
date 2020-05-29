@@ -1,6 +1,8 @@
-const { getFacet, getStats } = require('./getMetrics');
-const fieldsWithFacetSupport = require('./fieldsWithFacetSupport');
-const fieldsWithStatsSupport = require('./fieldsWithStatsSupport');
+const _ = require('lodash');
+const { getFacet, getStats } = require('./helpers.js/getMetrics');
+const fieldsWithFacetSupport = require('./helpers.js/fieldsWithFacetSupport');
+const fieldsWithStatsSupport = require('./helpers.js/fieldsWithStatsSupport');
+const { scientificName } = require('../../utils');
 
 // there are many fields that support facets. This function creates the resolvers for all of them
 const facetReducer = (dictionary, facetName) => {
@@ -43,6 +45,12 @@ module.exports = {
     //   if (typeof key === 'undefined') return null;
     //   dataSources.someAPI.getSomethingByKey({ key })
     // },
+    formattedScientificName: (occurrence) => {
+      const key = _.get(occurrence, 'gbifClassification.usage.key');
+      if (typeof key === 'undefined') return null;
+      return scientificName.getParsedName(key)
+        .then(name => name);
+    },
   },
   OccurrenceSearchResult: {
     documents: searchOccurrences,
