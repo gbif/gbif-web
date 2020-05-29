@@ -22,22 +22,25 @@ const getFacet = (field) =>
       .then(data => {
         return data.aggregations
           .facet
-          .buckets.map(bucket => ({
-            key: bucket.key,
-            count: bucket.doc_count,
-            // create a new predicate that joins the base with the facet. This enables us to dig deeper for multidimensional metrics
-            _predicate: {
-              type: 'and',
-              predicates: [
-                data.meta.predicate,
-                {
-                  type: 'equals',
-                  key: field,
-                  value: bucket.key
-                }
-              ]
-            }
-          }));
+          .buckets.map(bucket => {
+            const predicate = {
+              type: 'equals',
+              key: field,
+              value: bucket.key
+            };
+            const joinedPredicate = data.meta.predicate ?
+              {
+                type: 'and',
+                predicates: [data.meta.predicate, predicate]
+              } :
+              predicate;
+            return {
+              key: bucket.key,
+              count: bucket.doc_count,
+              // create a new predicate that joins the base with the facet. This enables us to dig deeper for multidimensional metrics
+              _predicate: joinedPredicate
+            };
+          });
       });
   }
 
