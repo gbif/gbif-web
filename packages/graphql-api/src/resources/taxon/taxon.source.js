@@ -25,6 +25,10 @@ class TaxonAPI extends RESTDataSource {
     return this.get(`/species/${key}`);
   }
 
+  async getTaxonNameByKey({ key }) {
+    return this.get(`/species/${key}/name`);
+  }
+
   getTaxaByKeys({ taxonKeys }) {
     return Promise.all(
       taxonKeys.map(key => this.getTaxonByKey({ key })),

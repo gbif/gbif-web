@@ -80,6 +80,7 @@ const typeDef = gql`
     rank: Rank
     remarks: String
     scientificName: String
+    formattedName: String
     sourceTaxonKey: Int
     synonym: Boolean
     taxonID: String

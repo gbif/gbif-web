@@ -13,7 +13,7 @@ const cliOptions = [
 const options = commandLineArgs(cliOptions);
 console.log(options);
 const defaultConfig = {
-  port: 4000
+  port: 4001
 };
 
 const config = _.merge(

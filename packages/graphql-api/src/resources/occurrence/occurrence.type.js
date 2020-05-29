@@ -87,9 +87,6 @@ const typeDef = gql`
     typifiedName: String
     waterBody: String
     year: Int
-
-    # extended fields
-    formattedScientificName: String
   }
 
   type GbifClassification {
