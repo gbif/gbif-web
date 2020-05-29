@@ -1,4 +1,3 @@
-'use strict';
 const ranks = require('./ranks.json');
 const rankMarkerMap = require('./rankMarkerMap.json');
 const FAMILY_RANK_INDEX = ranks.indexOf('FAMILY'); // 15;

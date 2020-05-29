@@ -86,6 +86,7 @@ const typeDef = gql`
     taxonID: String
     taxonomicStatus: String
     vernacularName: String
+    wikiDataTaxonIdentifiers: [WikiDataTaxonIdentifier]
   }
 
   type TaxonBreakdown {
@@ -134,6 +135,13 @@ const typeDef = gql`
                 issue: [NameUsageIssue], 
                 hl: String
               ): TaxonSearchResult!
+  }
+
+  type WikiDataTaxonIdentifier {
+    id: String!
+    url: String!
+    description: JSON
+    label: JSON
   }
 `;
 

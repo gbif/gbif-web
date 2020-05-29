@@ -1,5 +1,5 @@
 const scientificName = require('../../util/scientificName');
-
+const wikidata = require('../../util/wikidata')
 /**
  * Convinent wrapper to generate the facet resolvers.
  * Given a string (facet name) then generate a query a map the result
@@ -56,6 +56,9 @@ module.exports = {
         return scientificName.getParsedName(key, dataSources)
           .then(name => name);
       },
+     wikiDataTaxonIdentifiers: ({key}) => {
+       return wikidata.getIdentifiers(key).then(res => res.identifiers)
+     } 
   },
   TaxonSearchResult: {
     facet: (parent) => ({ _query: { ...parent._query, limit: undefined, offset: undefined } }), // this looks odd. I'm not sure what is the best way, but I want to transfer the current query to the child, so that it can be used when asking for the individual facets

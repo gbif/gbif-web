@@ -33,7 +33,7 @@
     "qs": "^6.9.3",
     "sequelize": "^4.39.0",
     "sqlite3": "^4.0.3",
-    "wikibase-sdk": "^7.4.1"
+    "wikibase-sdk": "^7.0.8"
   },
   "devDependencies": {
     "apollo-link": "^1.2.3",
