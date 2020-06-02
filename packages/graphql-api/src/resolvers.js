@@ -10,6 +10,7 @@ const resolvers = _.merge(
   require('./resources/node').resolver,
   require('./resources/participant').resolver,
   require('./resources/occurrence').resolver,
+  require('./util/wikidata').resolver,
 // -- Add imports above this line (required by plopfile.js) --
 );
 

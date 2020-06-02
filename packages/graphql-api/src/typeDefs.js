@@ -35,6 +35,7 @@ async function getSchema() {
     require('./resources/node').typeDef,
     require('./resources/participant').typeDef,
     require('./resources/occurrence').typeDef,
+    require('./util/wikidata').typeDef,
 // -- Add imports above this line (required by plopfile.js) --
   ]);
 

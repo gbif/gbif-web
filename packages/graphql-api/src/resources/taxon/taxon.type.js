@@ -99,7 +99,7 @@ const typeDef = gql`
     taxonID: String
     taxonomicStatus: String
     vernacularName: String
-    wikiDataTaxonIdentifiers: [WikiDataTaxonIdentifier]
+    wikiData: WikiDataTaxonData
   }
 
   type TaxonBreakdown {
@@ -150,12 +150,6 @@ const typeDef = gql`
               ): TaxonSearchResult!
   }
 
-  type WikiDataTaxonIdentifier {
-    id: String!
-    url: String!
-    description: JSON
-    label: JSON
-  }
 `;
 
 module.exports = typeDef;

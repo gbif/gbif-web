@@ -1,5 +1,3 @@
-const wikidata = require('../../util/wikidata');
-
 /**
  * Convinent wrapper to generate the facet resolvers.
  * Given a string (facet name) then generate a query a map the result
@@ -56,8 +54,9 @@ module.exports = {
 
     formattedName: ({ key }, args, { dataSources }) =>
       dataSources.taxonAPI.getParsedName({ key }),
-    wikiDataTaxonIdentifiers: ({ key }) =>
-      wikidata.getIdentifiers(key).then(res => res ? res.identifiers : null)
+    wikiData: ({ key }, args, { dataSources }) =>
+    dataSources.wikidataAPI.getWikiDataTaxonData(key),
+    
   },
   TaxonSearchResult: {
     facet: (parent) => ({ _query: { ...parent._query, limit: undefined, offset: undefined } }), // this looks odd. I'm not sure what is the best way, but I want to transfer the current query to the child, so that it can be used when asking for the individual facets
@@ -77,5 +76,5 @@ module.exports = {
       dataSources.taxonAPI.getTaxonByKey({ key }),
     taxonSearch: (parent, query, { dataSources }) =>
       dataSources.taxonAPI.searchTaxa({ query: { ...parent._query, ...query } }),
-  }
+  },
 };

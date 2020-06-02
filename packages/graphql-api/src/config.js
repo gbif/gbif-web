@@ -23,6 +23,10 @@ const defaultConfig = {
   API_ES_KEY: 'SHOULD_NOT_BE_IN_CODE',
   APP_KEY: 'SHOULD_NOT_BE_IN_CODE',
   APP_SECRET: 'IT_IS_A_SECRET_AND_SHOULD_NOT_BE_IN_CODE',
+  WIKIDATA: {
+    instance: 'https://www.wikidata.org',
+    sparqlEndpoint: 'https://query.wikidata.org/sparql'
+}
 };
 
 const config = _.merge(
