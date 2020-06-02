@@ -19,7 +19,6 @@ const extractUser = require('./auth/extractUser');
 async function initializeServer() {
   // this is async as we generate parts of the schema from the live enumeration API
   const typeDefs = await getSchema();
-
   const server = new ApolloServer({
     debug: true,
     context: async ({ req }) => {
