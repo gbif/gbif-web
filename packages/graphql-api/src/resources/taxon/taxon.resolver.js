@@ -1,5 +1,5 @@
-const scientificName = require('../../util/scientificName');
-const wikidata = require('../../util/wikidata')
+const wikidata = require('../../util/wikidata');
+
 /**
  * Convinent wrapper to generate the facet resolvers.
  * Given a string (facet name) then generate a query a map the result
