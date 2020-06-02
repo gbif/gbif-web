@@ -4,16 +4,16 @@ const FAMILY_RANK_INDEX = ranks.indexOf('FAMILY'); // 15;
 const SPECIES_RANK_INDEX = ranks.indexOf('SPECIES'); // 27;
 
 
-async function getParsedName(key, dataSources) {
-    let name = await dataSources.taxonAPI.getTaxonNameByKey({ key })
+async function getParsedName(key, taxonAPI) {
+    let name = await taxonAPI.getTaxonNameByKey({ key })
 
     if (name.type == 'OTU' ) {
-        let species =  await dataSources.taxonAPI.getTaxonByKey({ key })
+        let species =  await taxonAPI.getTaxonByKey({ key })
 
         if (species.taxonomicStatus === 'SYNONYM') {
             return name.scientificName;
         } else {
-                let parent = await dataSources.taxonAPI.getTaxonByKey({ key : species.parentKey})
+                let parent = await taxonAPI.getTaxonByKey({ key : species.parentKey})
                 return (ranks.indexOf(parent.rank) < SPECIES_RANK_INDEX) ?
                 name.scientificName + ' <i>(' + parent.canonicalName + ' sp.)</i>' :
                 name.scientificName + ' <i>(cf. ' + parent.canonicalName + ')</i>';

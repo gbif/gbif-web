@@ -90,7 +90,7 @@ const typeDef = gql`
   }
 
   type GbifClassification {
-    acceptedUsage: AcceptedUsage
+    acceptedUsage: OccurrenceNameUsage
     class: String
     classKey: Int
     classification: Classification
@@ -111,15 +111,9 @@ const typeDef = gql`
     synonym: Boolean
     taxonID: String
     taxonKey: Int
-    usage: Usage
+    usage: OccurrenceNameUsage
     usageParsedName: UsageParsedName
     verbatimScientificName: String
-  }
-
-  type AcceptedUsage {
-    key: Int
-    name: String
-    rank: String
   }
 
   type Classification {
@@ -135,10 +129,11 @@ const typeDef = gql`
     status: String
   }
 
-  type Usage {
-    key: Int
-    name: String
-    rank: String
+  type OccurrenceNameUsage {
+    key: Int!
+    name: String!
+    rank: String!
+    formattedName: String!
   }
 
   type UsageParsedName {

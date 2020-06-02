@@ -1,5 +1,6 @@
 // const { ApolloError } = require('apollo-server');
 const { RESTDataSource } = require('apollo-datasource-rest');
+const scientificName = require('../../util/scientificName');
 const config = require('../../config');
 const API_V1 = config.API_V1;
 
@@ -39,6 +40,10 @@ class TaxonAPI extends RESTDataSource {
     const response = await this.get(`/species/root/${key}`, query);
     response._query = query;
     return response;
+  }
+
+  async getParsedName({ key }) {
+    return scientificName.getParsedName(key, this);
   }
 }
 

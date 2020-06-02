@@ -3,6 +3,7 @@ const { gql } = require('apollo-server');
 const typeDef = gql`
   extend type Query {
     occurrenceSearch(
+      apiKey: String,
       predicate: Predicate
       ): OccurrenceSearchResult
     occurrence(key: String!): Occurrence

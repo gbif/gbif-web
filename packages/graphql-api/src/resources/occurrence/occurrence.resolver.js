@@ -1,6 +1,8 @@
 const { getFacet, getStats } = require('./helpers.js/getMetrics');
 const fieldsWithFacetSupport = require('./helpers.js/fieldsWithFacetSupport');
 const fieldsWithStatsSupport = require('./helpers.js/fieldsWithStatsSupport');
+const config = require('../../config');
+const { TMP_GRAPHQL_API_KEY } = config;
 
 // there are many fields that support facets. This function creates the resolvers for all of them
 const facetReducer = (dictionary, facetName) => {
@@ -35,9 +37,11 @@ const facetOccurrenceSearch = (parent) => {
 */
 module.exports = {
   Query: {
-    occurrenceSearch: (parent, args) =>
+    occurrenceSearch: (parent, args) => {
       // dataSources.occurrenceAPI.searchOccurrences({ query: args }),
-      ({ _predicate: args.predicate }),
+      if (TMP_GRAPHQL_API_KEY && args.apiKey !== TMP_GRAPHQL_API_KEY) throw new Error('invalid apiKey');
+      return { _predicate: args.predicate };
+    },
     occurrence: (parent, { key }, { dataSources }) =>
       dataSources.occurrenceAPI.getOccurrenceByKey({ key })
   },
@@ -57,6 +61,10 @@ module.exports = {
     stats: (parent) => {
       return { _predicate: parent._predicate };
     },
+  },
+  OccurrenceNameUsage: {
+    formattedName: ({ key }, args, { dataSources }) =>
+      dataSources.taxonAPI.getParsedName({ key }),
   },
   OccurrenceStats,
   OccurrenceFacet,
