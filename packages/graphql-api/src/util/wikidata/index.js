@@ -21,7 +21,6 @@ const getIdentifiers = async (key, locale) => {
     const url = wdk.getReverseClaims(WIKI_GBIF_IDENTIFIER, key.toString(), {
         keepProperties: true
     });
-    console.log(url)
     const reverseClaimResponse = await got(url, {
         responseType: 'json',
         headers: {
