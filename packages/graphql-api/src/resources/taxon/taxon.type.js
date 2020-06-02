@@ -16,6 +16,19 @@ const typeDef = gql`
                 issue: [NameUsageIssue], 
                 hl: Boolean
               ): TaxonSearchResult!
+    backboneSearch(limit: Int, 
+                offset: Int,
+                q: String, 
+                rank: [Rank], 
+                highertaxonKey: [Int], 
+                status: [TaxonomicStatus], 
+                isExtinct: Boolean, 
+                habitat: [Habitat], 
+                nameType: [NameType], 
+                nomenclaturalStatus: [NomenclaturalStatus], 
+                issue: [NameUsageIssue], 
+                hl: Boolean
+              ): TaxonSearchResult!
     taxon(key: Int!): Taxon
     checklistRoots(datasetKey: ID!, limit: Int, offset: Int): TaxonListResult
   }

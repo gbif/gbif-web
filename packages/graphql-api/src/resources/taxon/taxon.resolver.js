@@ -43,6 +43,8 @@ module.exports = {
   Query: {
     taxonSearch: (parent, query, { dataSources }) =>
       dataSources.taxonAPI.searchTaxa({ query }),
+    backboneSearch: (parent, query, { dataSources }) =>
+      dataSources.taxonAPI.searchBackbone({ query }),
     taxon: (parent, { key }, { dataSources }) =>
       dataSources.taxonAPI.getTaxonByKey({ key }),
     checklistRoots: (parent, { datasetKey: key, ...query }, { dataSources }) =>
