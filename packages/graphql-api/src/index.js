@@ -2,9 +2,12 @@ const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const get = require('lodash/get');
 const config = require('./config');
+const { hashMiddleware } = require('./hashMiddleware');
+
+const bodyParser = require('body-parser');
 
 // recommended in the apollo docs https://github.com/stems/graphql-depth-limit
-const depthLimit = require('graphql-depth-limit'); 
+const depthLimit = require('graphql-depth-limit');
 // get the full schema of what types, enums, scalars and queries are available
 const { getSchema } = require('./typeDefs');
 // define how to resolve the various types, fields and queries
@@ -29,10 +32,15 @@ async function initializeServer() {
     typeDefs,
     resolvers,
     dataSources: () => api,
-    validationRules: [ depthLimit(10) ] // this likely have to be much higher than 6, but let us increase it as needed and not before
+    validationRules: [depthLimit(10)] // this likely have to be much higher than 6, but let us increase it as needed and not before
   });
 
   const app = express();
+  app.use(bodyParser.json())
+
+  // extract query and variables from store if a hash is provided instead of a query or variable
+  app.use(hashMiddleware)
+
   server.applyMiddleware({ app });
 
   app.listen({ port: config.port }, () =>

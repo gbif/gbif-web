@@ -21,6 +21,10 @@
   "dependencies": {
     "@babel/runtime": "^7.9.6",
     "@popperjs/core": "^2.4.0",
+    "apollo-cache-inmemory": "^1.6.6",
+    "apollo-client": "^2.6.10",
+    "apollo-link-http": "^1.5.17",
+    "apollo-link-persisted-queries": "^0.2.2",
     "axios": "^0.19.2",
     "bodybuilder": "^2.2.21",
     "downshift": "^5.2.7",
