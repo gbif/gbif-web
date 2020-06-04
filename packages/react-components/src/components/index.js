@@ -19,4 +19,5 @@ export { ZoomableImage } from './ZoomableImage/ZoomableImage';
 export { Properties } from './Properties/Properties';
 export { Tooltip } from './Tooltip/Tooltip';
 export { Radio } from './Radio/Radio';
+export { GraphqlData } from './GraphqlData/GraphqlData';
 // -- Add imports above this line (required by plopfile.js) --

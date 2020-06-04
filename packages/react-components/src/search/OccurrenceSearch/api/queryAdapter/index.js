@@ -7,5 +7,6 @@ const query = ({filter, useV1, config}) => {
 };
 
 export {
-  query
+  query,
+  compose
 };
