@@ -21,8 +21,18 @@ query datasets($limit: Int=3){
 }
 `;
 
+const GET_DATASET = `
+{
+  dataset(key:"4fa7b334-ce0d-4e88-aaae-2e0c138d049e") {
+    title
+    hostingOrganizationTitle
+  }
+}
+`;
+
 const Test = ({ variables, lazyLoad, ...props }) => {
   const { data, loading, error, load, cancel } = useQuery(GET_DATASETS, { lazyLoad: lazyLoad, variables });
+  const { data:data2 } = useQuery(GET_DATASET, { lazyLoad: lazyLoad, variables });
 
   return <div>
     <div>Loading: {loading ? 'true' : 'false'}</div>
@@ -32,13 +42,15 @@ const Test = ({ variables, lazyLoad, ...props }) => {
     <pre>data: {JSON.stringify(data, null, 2)}</pre>
     <pre>variables: {JSON.stringify(variables, null, 2)}</pre>
     <pre>error: {JSON.stringify(error, null, 2)}</pre>
+    <h1>2</h1>
+    <pre>data: {JSON.stringify(data2, null, 2)}</pre>
   </div>
 }
 
 export const Example = () => {
   const [lazy, setLazy] = useState(false);
   const [query, setQuery] = useState({ limit: 2 });
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(true);
 
   return <>
     <button onClick={e => setLazy(!lazy)}>toggle lazy: {lazy ? 'true' : 'false'}</button>

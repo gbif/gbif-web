@@ -1,64 +1,68 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import queryGraphQL from './queryGraphQL';
 
 const RENEW_REQUEST = 'RENEW_REQUEST';
-const UNMOUNTED = 'UNMOUNTED';
+
+const useUnmounted = () => {
+  const unmounted = useRef(false)
+  useEffect(() => () => {
+    unmounted.current = true
+  }, [])
+  return unmounted
+}
 
 function useQuery(query, options = {}) {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [cancelRequest, setCancel] = useState();
+  // functions are called when passed to useState so it has to be wrapped. 
+  // We provide an empty call, just so we do not have to check for existence subsequently
+  const [cancelRequest, setCancel] = useState(() => () => {});
+  const unmounted = useUnmounted()
 
   function init() {
     setData();
     setLoading(true);
     setError(false)
-    if (typeof cancelRequest === 'function') {
-      cancelRequest(RENEW_REQUEST);
-    }
+    cancelRequest(RENEW_REQUEST);
   }
 
   function load(options) {
     init();
     const variables = options.variables;
     const { promise: dataPromise, cancel } = queryGraphQL(query, { variables });
-
     // functions cannot be direct values in states as function are taken as a way to create derived states
     // https://medium.com/swlh/how-to-store-a-function-with-the-usestate-hook-in-react-8a88dd4eede1
     setCancel(() => cancel);
     dataPromise.
       then(response => {
+        if (unmounted.current) return;
         const { data, error } = response;
         if (error?.isCanceled?.message === RENEW_REQUEST) {
           return;
         }
-        // if (error?.isCanceled?.message === UNMOUNTED) {
-        //   console.log('UNMOUNTED caught');
-        //   return;
-        // }
         setError(error);
         setData(data);
         setLoading(false);
       })
       .catch(err => {
-        console.log('error happened');
+        if (unmounted.current) return;
         setError({ error: true, type: 'unknown' });
         setData();
         setLoading(false);
       });
-    return function cleanup() {
-      if (typeof cancel === 'function') {
-        cancel(UNMOUNTED);
-      }
-    }
   }
+
+  // Cancel pending request on unmount
+  useEffect(() => () => {
+    cancelRequest();
+  }, [cancelRequest]);
 
   useEffect(() => {
     if (!options.lazyLoad) {
-      const cleanup = load(options);
-      return cleanup;
+      load(options);
     }
+    // we leave cleaning to a seperate useEffect cleanup step
   }, [
     query,
     options.lazyLoad,
