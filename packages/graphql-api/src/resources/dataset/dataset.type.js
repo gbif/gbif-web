@@ -62,9 +62,6 @@ const typeDef = gql`
     geographicCoverages: [GeographicCoverage]
     homepage: URL
     hostingOrganizationKey: ID
-    """
-    This field is only avaiable in search results, not on individually requested datasets
-    """
     hostingOrganizationTitle: String
     identifiers: [Identifier]
     installationKey: String
@@ -86,9 +83,6 @@ const typeDef = gql`
     pubDate: DateTime
     publishingCountry: Country
     publishingOrganizationKey: ID!
-    """
-    This field is only avaiable in search results, not on individually requested datasets
-    """
     publishingOrganizationTitle: String
     recordCount: Int
     samplingDescription: SamplingDescription
