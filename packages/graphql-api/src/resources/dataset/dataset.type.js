@@ -62,6 +62,9 @@ const typeDef = gql`
     geographicCoverages: [GeographicCoverage]
     homepage: URL
     hostingOrganizationKey: ID
+    """
+    hostingOrganizationTitle is only available on search results. For individual datasets it is available through the installation
+    """
     hostingOrganizationTitle: String
     identifiers: [Identifier]
     installationKey: String

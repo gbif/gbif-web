@@ -55,11 +55,6 @@ module.exports = {
       if (typeof key === 'undefined') return null;
       return dataSources.datasetAPI.getDatasetByKey({ key });
     },
-    hostingOrganizationTitle: ({ hostingOrganizationTitle, hostingOrganizationKey: key }, args, { dataSources }) => {
-      if (typeof key === 'undefined') return null;
-      if (hostingOrganizationTitle) return hostingOrganizationTitle; // in the search API this field is already added
-      return dataSources.organizationAPI.getOrganizationByKey({ key }).then(org => org.title);
-    },
     hostingOrganization: ({ hostingOrganizationKey: key }, args, { dataSources }) => {
       if (typeof key === 'undefined') return null;
       return dataSources.organizationAPI.getOrganizationByKey({ key });
