@@ -9,13 +9,20 @@ class OccurrenceAPI extends RESTDataSource {
     this.baseURL = API_ES;
   }
 
+  willSendRequest(request) {
+    if (this.context.user) {
+      // this of course do not make much sense. Currently is simply means, that you have to provide credentials to seach occurrences
+      request.params.set('apiKey', API_ES_KEY);
+    }
+  }
+
   async searchOccurrenceDocuments({ query }) {
     const response = await this.searchOccurrences({query})
     return response.documents;
   }
 
   async searchOccurrences({ query }) {
-    const body = { apiKey: API_ES_KEY, ...query, includeMeta: true };
+    const body = { ...query, includeMeta: true };
     const response = await this.post('/occurrence', body);
     response._predicate = body.predicate;
     return response;

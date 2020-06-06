@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
-import queryGraphQL from './queryGraphQL';
+import { useState, useEffect, useRef, useContext } from 'react';
+import GraphqlContext from './GraphqlContext';
 
 const RENEW_REQUEST = 'RENEW_REQUEST';
 
@@ -18,7 +18,9 @@ function useQuery(query, options = {}) {
   // functions are called when passed to useState so it has to be wrapped. 
   // We provide an empty call, just so we do not have to check for existence subsequently
   const [cancelRequest, setCancel] = useState(() => () => {});
-  const unmounted = useUnmounted()
+  const unmounted = useUnmounted();
+  const graphqlClient = useContext(GraphqlContext);
+  const client = options?.client || graphqlClient;
 
   function init() {
     setData();
@@ -29,8 +31,8 @@ function useQuery(query, options = {}) {
 
   function load(options) {
     init();
-    const variables = options.variables;
-    const { promise: dataPromise, cancel } = queryGraphQL(query, { variables });
+    const variables = options?.variables;
+    const { promise: dataPromise, cancel } = client.query({query, variables });
     // functions cannot be direct values in states as function are taken as a way to create derived states
     // https://medium.com/swlh/how-to-store-a-function-with-the-usestate-hook-in-react-8a88dd4eede1
     setCancel(() => cancel);
@@ -59,7 +61,7 @@ function useQuery(query, options = {}) {
   }, [cancelRequest]);
 
   useEffect(() => {
-    if (!options.lazyLoad) {
+    if (!options?.lazyLoad) {
       load(options);
     }
     // we leave cleaning to a seperate useEffect cleanup step

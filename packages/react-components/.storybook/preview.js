@@ -11,6 +11,16 @@ import { en as enNested } from '../src/locales/en';
 const en = flatten(enNested);
 
 import ThemeContext, { darkTheme, lightTheme, a11yTheme } from '../src/style/themes';
+import { GraphqlContext, GraphqlClient } from '../src/dataManagement/graphql';
+import env from './.env.json';
+
+const client = new GraphqlClient({
+  // endpoint: 'http://labs.gbif.org:7022/graphql',
+  endpoint: 'http://localhost:4000/graphql',
+  headers: {
+    authorization: `ApiKey-v1 ${env.GRAPHQL_APIKEY}`
+  }
+});
 
 addDecorator(storyFn => {
   const themeObjects = {
@@ -30,27 +40,29 @@ addDecorator(storyFn => {
 
   return (
     <div>
-      <IntlProvider locale="en" messages={en}>
-        <ThemeContext.Provider
-          value={chooseTheme(
-            select(
-              'Choose Theme',
-              ['Dark', 'Light', 'A11y'],
-              'Light',
-            ),
-          )}
-        >
-          <Root id="application" style={{ padding: 0 }} dir={chooseRtl(
-            select(
-              'Choose Direction',
-              ['ltr', 'rtl'],
-              'ltr',
-            ),
-          )}>
-            {storyFn()}
-          </Root>
-        </ThemeContext.Provider>
-      </IntlProvider>
+      <GraphqlContext.Provider value={client}>
+        <IntlProvider locale="en" messages={en}>
+          <ThemeContext.Provider
+            value={chooseTheme(
+              select(
+                'Choose Theme',
+                ['Dark', 'Light', 'A11y'],
+                'Light',
+              ),
+            )}
+          >
+            <Root id="application" style={{ padding: 0 }} dir={chooseRtl(
+              select(
+                'Choose Direction',
+                ['ltr', 'rtl'],
+                'ltr',
+              ),
+            )}>
+              {storyFn()}
+            </Root>
+          </ThemeContext.Provider>
+        </IntlProvider>
+      </GraphqlContext.Provider>
     </div>
   )
 })
