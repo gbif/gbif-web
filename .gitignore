@@ -24,7 +24,3 @@
 .vscode/
 .idea/
 *.log
-
-# branch specific
-packages/*
-!packages/graphql-api/*
