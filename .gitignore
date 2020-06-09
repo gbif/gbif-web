@@ -26,5 +26,5 @@
 *.log
 
 # branch specific
-./packages/**
-./packages/graphql-api
+/packages/**
+/packages/graphql-api
