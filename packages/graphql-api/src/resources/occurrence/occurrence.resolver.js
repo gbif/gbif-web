@@ -39,7 +39,6 @@ module.exports = {
   Query: {
     occurrenceSearch: (parent, args) => {
       // dataSources.occurrenceAPI.searchOccurrences({ query: args }),
-      if (TMP_GRAPHQL_API_KEY && args.apiKey !== TMP_GRAPHQL_API_KEY) throw new Error('invalid apiKey');
       return { _predicate: args.predicate };
     },
     occurrence: (parent, { key }, { dataSources }) =>

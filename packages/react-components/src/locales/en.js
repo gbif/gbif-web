@@ -5,7 +5,7 @@ export const en = {
   options: 'Options',
   'pagination.pageXofY': 'Page {current} of {total}',
   filter: {
-    scientificName: {
+    taxonKey: {
       name: 'Scientific name',
       count: '{num, plural, one {scientific name} other {# scientific names}}'
     },

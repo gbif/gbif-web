@@ -13,17 +13,9 @@ export const Intro = () => <>
 </>;
 
 const GET_DATASETS = `
-query datasets($limit: Int=3){
-  occurrenceSearch {
-    documents {
-      results {
-        basisOfRecord
-      }
-    }
-  }
+query datasets($limit: Int=4){
   datasetSearch(limit: $limit) {
     results {
-      key
       title
     }
   }

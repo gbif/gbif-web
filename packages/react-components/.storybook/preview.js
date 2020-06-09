@@ -15,8 +15,8 @@ import { GraphqlContext, GraphqlClient } from '../src/dataManagement/graphql';
 import env from './.env.json';
 
 const client = new GraphqlClient({
-  // endpoint: 'http://labs.gbif.org:7022/graphql',
-  endpoint: 'http://localhost:4000/graphql',
+  endpoint: 'http://labs.gbif.org:7022/graphql',
+  // endpoint: 'http://localhost:4000/graphql',
   headers: {
     authorization: `ApiKey-v1 ${env.GRAPHQL_APIKEY}`
   }

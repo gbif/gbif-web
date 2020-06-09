@@ -37,4 +37,5 @@ export const keyCodes = {
   LEFT_ARROW: 37,
   RIGHT_ARROW: 39,
   ENTER: 13,
+  ESCAPE: 27,
 };

@@ -22,7 +22,7 @@ export const FilterContent = ({ suggestConfig, DisplayName, hide, onApply, onCan
     onApply={onApply}
     onCancel={onCancel}
     title={<FormattedMessage
-      id={`filterName.${filterName}`}
+      id={`filter.${filterName}.name`}
       defaultMessage={'Loading'}
     />} //this should be formated or be provided as such
     aboutText="some help text"

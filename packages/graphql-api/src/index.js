@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors')
 const { ApolloServer } = require('apollo-server-express');
 const get = require('lodash/get');
 const config = require('./config');
@@ -40,16 +41,8 @@ async function initializeServer() {
   });
 
   const app = express();
+  app.use(cors())
   app.use(bodyParser.json());
-
-  app.use(function (req, res, next) {
-    // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    // Pass to next layer of middleware
-    next();
-  });
 
   // extract query and variables from store if a hash is provided instead of a query or variable
   app.use(hashMiddleware)

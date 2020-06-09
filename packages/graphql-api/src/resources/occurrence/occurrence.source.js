@@ -13,6 +13,9 @@ class OccurrenceAPI extends RESTDataSource {
     if (this.context.user) {
       // this of course do not make much sense. Currently is simply means, that you have to provide credentials to seach occurrences
       request.params.set('apiKey', API_ES_KEY);
+      // request.headers.set('Authorization', `ApiKey-v1 ${API_ES_KEY}`);
+    } else {
+      console.log('unauthorized attempt to do an occurrence search');
     }
   }
 

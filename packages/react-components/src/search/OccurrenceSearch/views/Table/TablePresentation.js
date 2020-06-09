@@ -6,16 +6,22 @@ import { Button, Row, Col, DataTable, Th, Td, TBody } from '../../../../componen
 import { taxonFilter, datasetFilter, publisherFilter } from '../../filters/suggest/suggestFilters';
 import { borFilter } from '../../filters/vocabulary/vocabularyFilters';
 
-const getRows = ({ result }) => {
-  const hits = result.hits.hits;
-  const rows = hits.map(row => {
-    const cells = ['gbifClassification.acceptedUsage.name', 'year', 'basisOfRecord', 'datasetTitle', 'publisherTitle', 'countryCode', 'gbifClassification.acceptedUsage.rank'].map(
+const getRows = ({ data }) => {
+  const results = data?.occurrenceSearch?.documents?.results || [];
+  const rows = results.map(row => {
+    const cells = ['gbifClassification.acceptedUsage.formattedName', 'year', 'basisOfRecord', 'datasetTitle', 'publisherTitle', 'countryCode', 'gbifClassification.acceptedUsage.rank'].map(
       (field, i) => {
         // const FormatedName = formatters(field).component;
         // const Presentation = <FormatedName id={row._source[field]} />;
         // if (i === 0) return <Td key={field}><Action onSelect={() => console.log(row._id)}>{Presentation}</Action></Td>;
         // else return <Td key={field}>{Presentation}</Td>;
         const val = get(row, field);
+        
+        if (field === 'gbifClassification.acceptedUsage.formattedName') {
+          return <Td key={field}>
+            <span dangerouslySetInnerHTML={{__html: val}}></span>
+          </Td>;
+        }
         return <Td key={field}>{val}</Td>;
         // if (i === 0) {
         //   return <Td key={field}>
@@ -31,10 +37,10 @@ const getRows = ({ result }) => {
   return rows;
 }
 
-export const TablePresentation = ({ first, prev, next, size, from, result, loading }) => {
+export const TablePresentation = ({ first, prev, next, size, from, data, loading }) => {
   const currentFilterContext = useContext(FilterContext);
   const [fixedColumn, setFixed] = useState(true);
-  const total = result.hits.total;
+  const total = data?.occurrenceSearch?.documents?.total;
 
   const headers = [
     <Th key='scientificName' width='wide' locked={fixedColumn} toggle={() => setFixed(!fixedColumn)}>
@@ -104,23 +110,23 @@ export const TablePresentation = ({ first, prev, next, size, from, result, loadi
     maxHeight: "100vh",
     flexDirection: "column",
   }}>
-    <DataTable fixedColumn={fixedColumn} {...{ first, prev, next, size, from, total }} style={{flex: "1 1 auto", height: 100}}>
+    <DataTable fixedColumn={fixedColumn} {...{ first, prev, next, size, from, total }} style={{ flex: "1 1 auto", height: 100 }}>
       <thead>
         <tr>{headers}</tr>
       </thead>
       <TBody rowCount={size} columnCount={7} loading={loading}>
-        {getRows({ result })}
+        { getRows({ data }) }
       </TBody>
     </DataTable>
   </div>
   // return <div>
-    // <DataTable fixedColumn={fixedColumn} {...{ first, prev, next, size, from, total }}>
-    //   <thead>
-    //     <tr>{headers}</tr>
-    //   </thead>
-    //   <TBody columnCount={7} loading={loading}>
-    //     {getRows({ result })}
-    //   </TBody>
-    // </DataTable>
+  // <DataTable fixedColumn={fixedColumn} {...{ first, prev, next, size, from, total }}>
+  //   <thead>
+  //     <tr>{headers}</tr>
+  //   </thead>
+  //   <TBody columnCount={7} loading={loading}>
+  //     {getRows({ result })}
+  //   </TBody>
+  // </DataTable>
   // </div>
 }
