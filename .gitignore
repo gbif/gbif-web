@@ -27,4 +27,4 @@
 
 # branch specific
 packages/
-!packages/graphql-api/
+!packages/graphql-api/*
