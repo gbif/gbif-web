@@ -1,69 +1,78 @@
-import React, { Component } from "react";
-import { withFilter } from "../../../..//widgets/Filter/state";
-import { query } from '../../../OccurrenceSearch/api/queryAdapter';
+import React, { useEffect, useContext, useState, useCallback, Component } from "react";
+import { FilterContext } from "../../../..//widgets/Filter/state";
+import predicateMapping from '../../../OccurrenceSearch/config/predicateMapping';
+import { useQuery } from '../../../../dataManagement/graphql';
+import { filter2predicate } from '../../../../dataManagement/filterAdapter';
 import { TablePresentation } from './TablePresentation';
 
-class Table extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-			loading: true, 
-			error: false, 
-			size: 20,
-			from: 0,
-			data: {hits: {hits: []}},
-		};
-  }
-
-  loadData = () => {
-		this.setState({ loading: true, error: false });
-		if (this.runningQuery && this.runningQuery.cancel) this.runningQuery.cancel();
-	
-    this.runningQuery = query(this.props.filter, this.state.size, this.state.from);
-		this.runningQuery.then(response => {
-        if (this._isMount) {
-					this.setState({ loading: false, error: false, data: response.data });
-				}
-      })
-      .catch(err => {
-				console.error(err);//TODO error handling
-				if (this._isMount) {
-					this.setState({ loading: false, error: true });
-				}
-			});
-  };
-
-  componentDidMount() {
-    this._isMount = true;
-    this.loadData();
-	}
-
-	componentWillUnmount() {
-		this._isMount = false;
-	}
-
-	componentDidUpdate(prevProps) {
-    if (prevProps.filterHash !== this.props.filterHash) {
-			this.setState({from: 0}, this.loadData);
+const OCCURRENCE_TABLE = `
+query table($predicate: Predicate, $size: Int = 20, $from: Int = 0){
+  occurrenceSearch(predicate: $predicate, size: $size, from: $from) {
+    documents(size: $size, from: $from) {
+      total
+      size
+      from
+      results {
+        gbifId
+        gbifClassification{
+          acceptedUsage {
+            rank
+            formattedName
+          }
+        }
+        year
+				basisOfRecord
+        datasetTitle
+        publisherTitle
+        countryCode
+      }
     }
   }
-	
-	next = () => {
-		this.setState({from: Math.max(0, this.state.from + this.state.size)}, this.loadData);
-	}
+}
+`;
 
-	prev = () => {
-		this.setState({from: Math.max(0, this.state.from - this.state.size)}, this.loadData);
-	}
+// const predicate = {
+//   "type": "in",
+//   "key": "year",
+//   "values": [1901, 1910]
+// };
 
-	first = () => {
-		this.setState({from: 0}, this.loadData);
-	}
 
-  render() {
-		return <TablePresentation loading={this.state.loading} result={this.state.data} next={this.next} prev={this.prev} first={this.first} size={this.state.size} from={this.state.from} />
-  }
+function Table() {
+  const [from, setFrom] = useState(0);
+  const size = 20;
+  const currentFilterContext = useContext(FilterContext);
+  const { data, error, loading, load, cancel } = useQuery(OCCURRENCE_TABLE, { lazyLoad: true, keepDataWhileLoading: true });
+
+  useEffect(() => {
+    const predicate = filter2predicate(currentFilterContext.filter, predicateMapping);
+    load({ variables: { predicate, size, from } });
+  }, [currentFilterContext.filterHash, from]);
+
+  const next = useCallback(() => {
+    setFrom(Math.max(0, from + size));
+  });
+
+  const prev = useCallback(() => {
+    setFrom(Math.max(0, from - size));
+  });
+
+  const first = useCallback(() => {
+    setFrom(0);
+  });
+
+  return <>
+    <TablePresentation
+      loading={loading}
+      data={data}
+      next={next} 
+      prev={prev} 
+      first={first} 
+      size={size} 
+      from={from} 
+    />
+  </>
 }
 
-const mapContextToProps = ({ filter, filterHash, api, components }) => ({ filter, filterHash, api, components });
-export default withFilter(mapContextToProps)(Table);
+export default Table;
+

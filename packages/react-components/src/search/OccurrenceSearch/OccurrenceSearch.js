@@ -8,7 +8,6 @@ import { FilterState } from "../../widgets/Filter/state";
 import { Root } from "../../components";
 // import history from './history';
 // import qs from 'querystringify';
-import { compose } from './api/queryAdapter';
 
 const config = {
   // endpoint: 'http://labs.gbif.org:7011',

@@ -97,7 +97,7 @@ function getConfigByKey(key, config) {
     };
   } else {
     return {
-      error: new Error(`${key} is not known.`)
+      error: new Error(`${key} is not a known field.`)
     }
   }
 }

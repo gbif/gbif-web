@@ -8,7 +8,8 @@ The client has the benefit that it use GET and persistent IDs for queries and va
 
 ```
 const client = new GraphqlClient({
-  endpoint: 'http://labs.gbif.org:7022/graphql'
+  endpoint: 'http://labs.gbif.org:7022/graphql',
+  // headers: {}
 });
 
 const GET_DATASETS = `

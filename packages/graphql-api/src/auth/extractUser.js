@@ -14,6 +14,7 @@ async function extractUser(authorization) {
 
   const user = await resolveUser(authorization);
   userCache.set(authorization, user);
+  return user;
 }
 
 /**

@@ -66,7 +66,15 @@ export const Autocomplete = React.forwardRef(({
             <Input {...getInputProps({ 
               ref: ref, 
               ...inputProps,
-              onChange: event => inputProps.onChange(event, {newValue: event.target.value}), 
+              onChange: event => inputProps.onChange(event, {newValue: event.target.value}),
+              onKeyDown: event => {
+                if (event.key === 'Escape') {
+                  // If the suggestions are not open and escape is pressed, then do not prevent default
+                  if (!isOpen) {
+                    event.nativeEvent.preventDownshiftDefault = true
+                  }
+                }
+              }
               })}/>
           </div>
           <div css={styles.wrapper({ theme, isOpen })}>

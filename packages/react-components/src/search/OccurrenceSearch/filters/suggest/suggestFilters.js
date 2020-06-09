@@ -13,7 +13,7 @@ export function generateFilter(config) {
 
 export const taxonFilter = generateFilter({
   filterName: 'taxonKey',// if nothing else provided, then this is the filterName used
-  trKey: 'filter.scientificName',
+  trKey: 'filter.taxonKey',
   DisplayName: displayValue('scientificName').component,
   config: suggestConfigs.scientificName,
   ariaLabel: 'Filter on scientific name'
