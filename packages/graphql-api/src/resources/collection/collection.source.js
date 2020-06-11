@@ -17,6 +17,10 @@ class CollectionAPI extends RESTDataSource {
     return this.get(`/grscicoll/collection/${key}`);
   }
 
+  async getCollectionsByInstitutionKey({ key }) {
+    return this.get('/grscicoll/collection', {institution: key}).then(res => res.results);
+  }
+
   /*
   getCollectionsByKeys({ collectionKeys }) {
     return Promise.all(

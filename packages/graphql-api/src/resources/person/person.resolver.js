@@ -13,9 +13,13 @@ module.exports = {
       dataSources.personAPI.getPersonByKey({ key })
   },
   Person: {
-    // someField: ({ fieldWithKey: key }, args, { dataSources }) => {
-    //   if (typeof key === 'undefined') return null;
-    //   dataSources.someAPI.getSomethingByKey({ key })
-    // },
+    primaryCollection: ({ primaryCollectionKey: key }, args, { dataSources }) => {
+       if (typeof key === 'undefined') return null;
+       dataSources.collectionAPI.getCollectionByKey({ key })
+    },
+    primaryInstitution: ({ primaryInstitutionKey: key }, args, { dataSources }) => {
+      if (typeof key === 'undefined') return null;
+      dataSources.institutionAPI.getCinstitutionByKey({ key })
+   },
   }
 };

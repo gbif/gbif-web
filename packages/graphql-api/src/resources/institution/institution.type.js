@@ -5,7 +5,11 @@ const typeDef = gql`
     institutionSearch(
       limit: Int, 
       offset: Int, 
-      q: String
+      q: String,
+      contact: ID,
+      code: String,
+      name: String,
+      alternativeCode: String
       ): InstitutionSearchResults
     institution(key: String!): Institution
   }
@@ -55,6 +59,7 @@ const typeDef = gql`
     machineTags: [MachineTag]
     alternativeCodes: JSON
     comments: [Comment]
+    collections: [Collection]
   }
 `;
 

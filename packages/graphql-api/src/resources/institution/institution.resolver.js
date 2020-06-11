@@ -13,6 +13,10 @@ module.exports = {
       dataSources.institutionAPI.getInstitutionByKey({ key })
   },
   Institution: {
+    collections: (parent, args, { dataSources }) => {
+      return  dataSources.collectionAPI.getCollectionsByInstitutionKey(parent)
+    }
+     
     // someField: ({ fieldWithKey: key }, args, { dataSources }) => {
     //   if (typeof key === 'undefined') return null;
     //   dataSources.someAPI.getSomethingByKey({ key })

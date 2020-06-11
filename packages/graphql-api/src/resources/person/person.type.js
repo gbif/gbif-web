@@ -5,7 +5,9 @@ const typeDef = gql`
     personSearch(
       limit: Int, 
       offset: Int, 
-      q: String
+      q: String,
+      primaryInstitution: GUID,
+      primaryCollection: GUID
       ): PersonSearchResults
     person(key: String!): Person
   }
@@ -30,7 +32,9 @@ const typeDef = gql`
     email: EmailAddress
     mailingAddress: Address
     primaryInstitutionKey: GUID
+    primaryInstitution: Institution
     primaryCollectionKey: GUID
+    primaryCollection: Collection
     createdBy: String
     modifiedBy: String
     created: DateTime

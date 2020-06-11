@@ -5,7 +5,13 @@ const typeDef = gql`
     collectionSearch(
       limit: Int, 
       offset: Int, 
-      q: String
+      q: String,
+      institution: [GUID],
+      contact: ID,
+      code: String,
+      name: String,
+      alternativeCode: String
+      
       ): CollectionSearchResults
     collection(key: String!): Collection
   }
@@ -35,6 +41,7 @@ const typeDef = gql`
     preservationTypes: [PreservationType]
     accessionStatus: AccessionStatus
     institutionKey: String
+    institution: Institution
     mailingAddress: Address
     address: Address
     createdBy: String
