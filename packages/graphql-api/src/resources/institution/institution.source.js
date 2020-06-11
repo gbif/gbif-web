@@ -10,11 +10,11 @@ class InstitutionAPI extends RESTDataSource {
   }
 
   async searchInstitutions({ query }) {
-    return this.get('/institution', query);
+    return this.get('/grscicoll/institution', query);
   }
 
   async getInstitutionByKey({ key }) {
-    return this.get(`/institution/${key}`);
+    return this.get(`/grscicoll/institution/${key}`);
   }
 
   /*
