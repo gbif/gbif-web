@@ -5,6 +5,7 @@ const typeDef = gql`
   scalar DateTime
   scalar EmailAddress
   scalar JSON
+  scalar GUID
 `;
 
 module.exports = typeDef;
