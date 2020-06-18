@@ -17,6 +17,7 @@ const { TabList, Tab, TabPanel } = Tabs;
 
 const Layout = ({
   className = '',
+  config,
   ...props
 }) => {
   const [activeView, setActiveView] = useState('table');
@@ -28,7 +29,7 @@ const Layout = ({
     <Tabs activeId={activeView} onChange={setActiveView} >
       <div css={cssNavBar({ theme })}>
         <div css={cssFilter({ theme })}>
-          <FilterBar></FilterBar>
+          <FilterBar config={config}></FilterBar>
         </div>
         <div css={cssViews({ theme })}>
           <TabList aria-labelledby="My tabs">

@@ -9,8 +9,7 @@ function get(url, options) {
     cancel = c;
   });
   let p = axios.get(url, options);
-  p.cancel = cancel;
-  return p;
+  return {promise: p, cancel};
 }
 
 function post(url, body, options) {
@@ -20,8 +19,7 @@ function post(url, body, options) {
     cancel = c;
   });
   let p = axios.post(url, body, options);
-  p.cancel = cancel;
-  return p;
+  return {promise: p, cancel};
 }
 
 export default {

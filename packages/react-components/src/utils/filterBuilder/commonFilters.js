@@ -1,0 +1,84 @@
+import basisofRecord from '../../locales/enums/basisOfRecord.json'
+export const commonFilters = {
+  taxonKey: {
+    type: 'SUGGEST',
+    config: {
+      std: {
+        filterHandle: 'taxonKey',// if nothing else provided, then this is the filterName used
+        id2labelHandle: 'taxonKey',
+        translations: {
+          count: 'filter.taxonKey.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.taxonKey.name',// translation path to a title for the popover and the button
+          description: 'filter.taxonKey.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        suggestHandle: 'taxonKey',
+      }
+    }
+  },
+  datasetKey: {
+    type: 'SUGGEST',
+    config: {
+      std: {
+        translations: {
+          count: 'filter.datasetKey.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.datasetKey.name',// translation path to a title for the popover and the button
+          description: 'filter.datasetKey.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        suggestHandle: 'datasetKey',
+      }
+    }
+  },
+  publisherKey: {
+    type: 'SUGGEST',
+    config: {
+      std: {
+        translations: {
+          count: 'filter.publisherKey.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.publisherKey.name',// translation path to a title for the popover and the button
+          description: 'filter.publisherKey.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        suggestHandle: 'publisherKey',
+      }
+    }
+  },
+  year: {
+    type: 'NUMBER_RANGE',
+    config: {
+      std: {
+        filterHandle: 'year',
+        id2labelHandle: 'year',
+        translations: {
+          count: 'filter.year.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.year.name',// translation path to a title for the popover and the button
+          description: 'filter.year.description', // translation path for the filter description
+        }
+      },
+      specific: {
+        placeholder: 'Range or single value'
+      }
+    }
+  },
+  basisOfRecord: {
+    type: 'ENUM',
+    config: {
+      std: {
+        filterHandle: 'basisOfRecord',
+        id2labelHandle: 'basisOfRecord',
+        translations: {
+          count: 'filter.basisOfRecord.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.basisOfRecord.name',// translation path to a title for the popover and the button
+        }
+      },
+      specific: {
+        options: Object.keys(basisofRecord),
+        description: 'filter.basisOfRecord.description', // translation path for the filter description
+      }
+    }
+  }
+}

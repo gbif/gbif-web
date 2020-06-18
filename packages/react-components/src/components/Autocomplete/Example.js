@@ -2,7 +2,7 @@
 import { css, jsx } from '@emotion/core';
 import React from "react";
 import { Autocomplete } from './Autocomplete';
-import axios from '../../search/OccurrenceSearch/api/axios';
+import axios from 'axios';
 
 async function getData(q) {
   const suggestions = (await axios.get(`https://api.gbif.org/v1/species/suggest?limit=8&q=${q}`)).data;

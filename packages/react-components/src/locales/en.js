@@ -1,3 +1,5 @@
+import basisOfRecord from './enums/basisOfRecord.json';
+
 export const en = {
   first: 'First',
   previous: 'Previous',
@@ -12,6 +14,7 @@ export const en = {
     basisOfRecord: {
       name: 'Basis of record',
       count: '{num, plural, one {casis of record} other {# bases of records}}',
+      description: 'You can think of it as the evidence'
     },
     elevation: {
       name: 'Elevation',
@@ -60,4 +63,7 @@ export const en = {
       e: 'Elevation is {from}m',
     }
   },
+  enums: {
+    basisOfRecord: basisOfRecord
+  }
 }

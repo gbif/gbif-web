@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useContext } from 'react';
-import GraphqlContext from './GraphqlContext';
+import ApiContext from './ApiContext';
 
 const RENEW_REQUEST = 'RENEW_REQUEST';
 
@@ -19,8 +19,8 @@ function useQuery(query, options = {}) {
   // We provide an empty call, just so we do not have to check for existence subsequently
   const [cancelRequest, setCancel] = useState(() => () => {});
   const unmounted = useUnmounted();
-  const graphqlClient = useContext(GraphqlContext);
-  const client = options?.client || graphqlClient;
+  const apiClient = useContext(ApiContext);
+  const client = options?.client || apiClient;
   const keepDataWhileLoading = options?.keepDataWhileLoading;
 
   function init() {

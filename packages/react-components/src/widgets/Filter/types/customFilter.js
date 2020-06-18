@@ -11,25 +11,24 @@ import { keyCodes } from '../../../utils/util';
 
 import { Option, Filter, SummaryBar, FilterBody, Footer } from '../utils';
 
-export const FilterContent = ({ config, radio, hide, labelledById, onApply, onCancel, onFilterChange, focusRef, filterHandle, initFilter }) => {
+export const FilterContent = ({ config, radio, hide, onApply, onCancel, onFilterChange, focusRef, filterName, initFilter }) => {
   const [id] = React.useState(nanoid);
   const [vocabulary, setVocabulary] = useState();
 
   React.useEffect(() => {
-    config.getVocabulary({ lang: 'eng' })
+    config.getVocabulary({ lang: 'eng', filter: initFilter })
       .then(v => setVocabulary(v))
       .catch(err => console.error(err));
-  }, [initFilter, filterHandle, config.getVocabulary]);
+  }, [initFilter, filterName, config.getVocabulary]);
 
   return <Filter
-    labelledById={labelledById}
     onApply={onApply}
     onCancel={onCancel}
     title={vocabulary?.label}
     aboutText={vocabulary?.definition}
     hasHelpTexts={vocabulary?.hasConceptDefinitions}
     onFilterChange={onFilterChange}
-    filterName={filterHandle}
+    filterName={filterName}
     formId={id}
     defaultFilter={initFilter}
   >
@@ -48,7 +47,7 @@ export const FilterContent = ({ config, radio, hide, labelledById, onApply, onCa
               helpText={concept.definition}
               label={concept.label}
               checked={checkedMap.has(concept.name)}
-              onChange={() => toggle(filterHandle, concept.name)}
+              onChange={() => toggle(filterName, concept.name)}
             />
           })}
         </form>
@@ -69,17 +68,30 @@ FilterContent.propTypes = {
   focusRef: PropTypes.any,
   vocabulary: PropTypes.object,
   initFilter: PropTypes.object,
-  filterHandle: PropTypes.string
+  filterName: PropTypes.string
 };
 
-export function Popover({ filterHandle, LabelFromID, translations={}, config, ...props }) {
+export function Popover({ filterName, DisplayName, config, ...props }) {
   return (
     <PopoverFilter
       {...props}
       content={<FilterContent
-        filterHandle={filterHandle}
+        filterName={filterName}
         config={config}
       />}
     />
   );
 }
+
+export function Button({ filterName, DisplayName, config, ...props }) {
+  const currentFilterContext = useContext(FilterContext);
+  return <Popover filterName={filterName} DisplayName={DisplayName} config={config} modal>
+    <TriggerButton {...props} filterName={filterName} DisplayName={DisplayName} options={get(currentFilterContext.filter, `must.${filterName}`, [])} />
+  </Popover>
+}
+
+Button.propTypes = {
+  filterName: PropTypes.string.isRequired,
+  DisplayName: PropTypes.elementType.isRequired,
+  config: PropTypes.object.isRequired,
+};

@@ -22,7 +22,7 @@ export const Autocomplete = React.forwardRef(({
 }, ref) => {
   const theme = useContext(ThemeContext);
 
-  const [debouncedText] = useDebounce(inputProps.value, 100);
+  const [debouncedText] = useDebounce(inputProps.value, 300);
   useEffect(
     () => {
       if (debouncedText) {

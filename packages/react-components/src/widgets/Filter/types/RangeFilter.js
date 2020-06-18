@@ -1,36 +1,37 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { TriggerButton } from '../utils/TriggerButton';
 import { nanoid } from 'nanoid';
-import { FilterContext } from '../state';
 import get from 'lodash/get';
 import unionBy from 'lodash/unionBy';
 import { keyCodes } from '../../../utils/util';
 import PopoverFilter from './PopoverFilter';
 import { Input } from '../../../components';
-
 import { Option, Filter, SummaryBar, FilterBody, Footer } from '../utils';
 import { rangeOrTerm } from '../transform/rangeOrTerm';
 
-export const FilterContent = ({ config = {}, DisplayName, hide, onApply, onCancel, onFilterChange, focusRef, filterName, initFilter }) => {
+/*
+FilterContent component to show the header, menu search options. but not the apply and do not scope filter state
+FilterPopover sets a tmp filter scope and adds a footer. inserts the content.
+problem, the footer depends on the content and state (prose or not)
+*/
+export const FilterContent = ({ config = {}, trName, labelledById, LabelFromID, hide, onApply, onCancel, onFilterChange, focusRef, filterHandle, initFilter }) => {
   const { upperBound = 'lte', lowerBound = 'gte', placeholder = 'E.g. 100,200' } = config;
   const [id] = React.useState(nanoid);
-  const initialOptions = get(initFilter, `must.${filterName}`, []);
+  const initialOptions = get(initFilter, `must.${filterHandle}`, []);
   const [options, setOptions] = useState(initialOptions);
 
   return <Filter
-    onApply={onApply}
-    onCancel={onCancel}
+    labelledById={labelledById}
     title={<FormattedMessage
-      id={`filterName.${filterName}`}
-      // defaultMessage={`[${filterName}]`}
-    />} //this should be formated or be provided as such
-    aboutText="some help text"
+      id={trName || `filter.${filterHandle}.name`}
+      defaultMessage={'Loading'}
+    />}
+    aboutText="some help text" //this should be formated or be provided as such
     onFilterChange={onFilterChange}
-    filterName={filterName}
+    filterName={filterHandle}
     formId={id}
     defaultFilter={initFilter}
   >
@@ -47,9 +48,9 @@ export const FilterContent = ({ config = {}, DisplayName, hide, onApply, onCance
                 } else {
                   const q = rangeOrTerm(value, upperBound, lowerBound);
                   e.target.value = '';
-                  const allOptions = unionBy([q], options, 'key');
+                  const allOptions = unionBy([q], options, '_id');
                   setOptions(allOptions);
-                  toggle(filterName, q);
+                  toggle(filterHandle, q);
                 }
               }
             }}
@@ -86,12 +87,12 @@ export const FilterContent = ({ config = {}, DisplayName, hide, onApply, onCance
                 }
 
                 return <Option
-                  key={option.key}
+                  key={option._id}
                   helpVisible={true}
-                  label={<DisplayName id={option} />}
+                  label={<LabelFromID id={option} />}
                   helpText={helpText}
-                  checked={checkedMap.has(option.key)}
-                  onChange={() => toggle(filterName, option)}
+                  checked={checkedMap.has(option._id)}
+                  onChange={() => toggle(filterHandle, option)}
                 />
               })}
             </form>
@@ -115,31 +116,18 @@ FilterContent.propTypes = {
   focusRef: PropTypes.any,
   vocabulary: PropTypes.object,
   initFilter: PropTypes.object,
-  filterName: PropTypes.string
+  filterHandle: PropTypes.string
 };
 
-export function Popover({ filterName, DisplayName, config, ...props }) {
+export function Popover({ filterHandle, LabelFromID, translations={}, config, ...props }) {
   return (
     <PopoverFilter
       {...props}
       content={<FilterContent
-        filterName={filterName}
-        DisplayName={DisplayName}
+        filterHandle={filterHandle}
+        LabelFromID={LabelFromID}
+        trName={translations.name}
         config={config} />}
     />
   );
 }
-
-export function Button({ filterName, DisplayName, config, ariaLabel, ...props }) {
-  const currentFilterContext = useContext(FilterContext);
-  return <Popover ariaLabel={ariaLabel} filterName={filterName} DisplayName={DisplayName} config={config} modal>
-    <TriggerButton {...props} filterName={filterName} DisplayName={DisplayName} options={get(currentFilterContext.filter, `must.${filterName}`, [])} />
-  </Popover>
-}
-
-Button.propTypes = {
-  filterName: PropTypes.string.isRequired,
-  ariaLabel: PropTypes.string.isRequired,
-  DisplayName: PropTypes.elementType.isRequired,
-  config: PropTypes.object.isRequired,
-};

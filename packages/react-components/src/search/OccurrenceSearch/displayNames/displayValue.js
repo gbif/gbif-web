@@ -1,4 +1,4 @@
-import axios from '../api/axios';
+import axios from 'axios';
 import formatFactory from './formatFactory';
 import startCase from 'lodash/startCase';
 import { rangeDisplayName } from './stdRangeDisplayName';

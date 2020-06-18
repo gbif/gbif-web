@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useState, useCallback, Component } from "react";
-import { FilterContext } from "../../../..//widgets/Filter/state";
-import predicateMapping from '../../../OccurrenceSearch/config/predicateMapping';
-import { useQuery } from '../../../../dataManagement/graphql';
+import { FilterContext } from '../../../..//widgets/Filter/state';
+import OccurrenceContext from '../../config/OccurrenceContext';
+import { useQuery } from '../../../../dataManagement/api';
 import { filter2predicate } from '../../../../dataManagement/filterAdapter';
 import { TablePresentation } from './TablePresentation';
 
@@ -31,23 +31,27 @@ query table($predicate: Predicate, $size: Int = 20, $from: Int = 0){
 }
 `;
 
-// const predicate = {
-//   "type": "in",
-//   "key": "year",
-//   "values": [1901, 1910]
-// };
-
-
 function Table() {
   const [from, setFrom] = useState(0);
   const size = 20;
   const currentFilterContext = useContext(FilterContext);
-  const { data, error, loading, load, cancel } = useQuery(OCCURRENCE_TABLE, { lazyLoad: true, keepDataWhileLoading: true });
+  const { rootPredicate, predicateConfig } = useContext(OccurrenceContext);
+  const { data, error, loading, load } = useQuery(OCCURRENCE_TABLE, { lazyLoad: true, keepDataWhileLoading: true });
 
   useEffect(() => {
-    const predicate = filter2predicate(currentFilterContext.filter, predicateMapping);
+    const predicate = {
+      type: 'and',
+      predicates: [
+        rootPredicate,
+        filter2predicate(currentFilterContext.filter, predicateConfig)
+      ]
+    }
     load({ variables: { predicate, size, from } });
-  }, [currentFilterContext.filterHash, from]);
+  }, [currentFilterContext.filterHash, rootPredicate, from]);
+
+  useEffect(() => {
+    setFrom(0);
+  }, [currentFilterContext.filterHash]);
 
   const next = useCallback(() => {
     setFrom(Math.max(0, from + size));

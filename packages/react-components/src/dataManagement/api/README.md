@@ -3,13 +3,15 @@ The main API is GraphQL. A UI is available at http://labs.gbif.org:7022/graphql
 
 To ease usage, there is a client so you only have to configure once, a context provider and a `useQuery` hook that manage cancelation and injecting data into components.
 
-## GraphqlClient
+## ApiClient
 The client has the benefit that it use GET and persistent IDs for queries and variables. In most cases that mean that far less data is being sent from the client to the server.
 
 ```
-const client = new GraphqlClient({
-  endpoint: 'http://labs.gbif.org:7022/graphql',
-  // headers: {}
+const client = new ApiClient({
+  gql: {
+    endpoint: 'http://labs.gbif.org:7022/graphql'
+    headers: {}
+    },
 });
 
 const GET_DATASETS = `
@@ -33,11 +35,11 @@ promise.then(response => {
 
 `cancel(message)` will add a isCanceled field to the error object, with the message.
 
-## GraphqlContext
+## ApiContext
 ```
-<GraphqlContext.Provider value={client}>
+<ApiContext.Provider value={client}>
   {/* hooks can be used here */}
-</GraphqlContext.Provider>
+</ApiContext.Provider>
 ```
 
 ## useQuery
@@ -67,7 +69,7 @@ options
 * variables: What variables to use in the query
 * ignoreVariableUpdates: do not fetch data anew just because variables are updated
 * lazyLoad: do not load data on mount, but wait until explicitly called using `load`
-* client: if no context provided or you want to override it, then you can provide a GraphqlClient
+* client: if no context provided or you want to override it, then you can provide a ApiClient
 
 returns
 * data: object with the data from graphql

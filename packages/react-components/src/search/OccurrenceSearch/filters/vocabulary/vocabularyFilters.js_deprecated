@@ -25,7 +25,7 @@ function getDisplayName(name) {
   );
 }
 
-export const lifeStageFilter = generateFilter({
+export const lifeStage = generateFilter({
   filterName: 'lifeStage',
   DisplayName: getDisplayName('lifeStage'),
   config: {
@@ -41,33 +41,28 @@ export const lifeStageFilter = generateFilter({
       }
     }
   },
-  ariaLabel: 'Filter on life state'
 });
 
-export const borFilter = generateFilter({
+export const basisOfRecord = generateFilter({
   filterName: 'basisOfRecord',
-  trKey: 'filter.basisOfRecord',
   DisplayName: getDisplayName('BasisOfRecord'),
   config: {
     getVocabulary: getGet('BasisOfRecord')
   },
-  ariaLabel: 'Filter on basis of record'
 });
 
-export const countryFilter = generateFilter({
+export const countryCode = generateFilter({
   filterName: 'country',
   DisplayName: getDisplayName('Country'),
   config: {
     getVocabulary: getGet('Country')
   },
-  ariaLabel: 'Filter on country'
 });
 
-export const typeStatusFilter = generateFilter({
+export const typeStatus = generateFilter({
   filterName: 'typeStatus',
   DisplayName: getDisplayName('TypeStatus'),
   config: {
     getVocabulary: getGet('TypeStatus')
   },
-  ariaLabel: 'Filter on type status'
 });

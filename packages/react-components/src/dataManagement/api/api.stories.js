@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import readme from './README.md';
 import { StyledProse } from '../../components/typography/StyledProse';
-import { useQuery, GraphqlContext, GraphqlClient } from './index';
+import { useQuery, ApiContext, ApiClient } from './index';
 import ThemeContext from '../../style/themes/ThemeContext';
 
 export default {
@@ -22,13 +22,14 @@ query datasets($limit: Int=4){
 }
 `;
 
-const client = new GraphqlClient({
-  endpoint: 'http://labs.gbif.org:7022/graphql'
+const client = new ApiClient({
+  gql: { endpoint: 'http://labs.gbif.org:7022/graphql' },
+  v1: { endpoint: 'https://api.gbif.org/v1' }
 });
 
-export const QueryContext = () => <GraphqlContext.Provider value={client}>
+export const QueryContext = () => <ApiContext.Provider value={client}>
   <HookExample />
-</GraphqlContext.Provider>
+</ApiContext.Provider>
 
 QueryContext.story = {
   name: 'Context + hook',
@@ -57,5 +58,5 @@ export const ClientExample = () => {
     return () => cancel('UNMOUNT');
   }, []);
 
-return <pre>{JSON.stringify(response, null, 2)}</pre>
+  return <pre>{JSON.stringify(response, null, 2)}</pre>
 }

@@ -19,7 +19,7 @@ export const Skeleton = ({
   } else {
     w = width;
   }
-  return <div css={styles.skeleton({theme, width: w})} {...props} />
+  return <span css={styles.skeleton({theme, width: w})} {...props} />
 };
 
 Skeleton.displayName = 'Skeleton';

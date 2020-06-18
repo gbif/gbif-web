@@ -20,6 +20,7 @@ export const wrapper = props => css`
     position: absolute;
     transform: translateY(${props.isOpen ? 5 : 0}px);
     opacity: ${props.isOpen ? 1 : 0};
+    z-index: ${props.isOpen ? 10 : null};
     transition: opacity .1s linear, transform .1s ease-in-out;
 `;
 

@@ -2,9 +2,8 @@ import React, { useState, useContext } from 'react';
 import { MdFilterList } from "react-icons/md";
 import get from 'lodash/get';
 import { FilterContext } from '../../../../widgets/Filter/state';
+import OccurrenceContext from '../../config/OccurrenceContext';
 import { Button, Row, Col, DataTable, Th, Td, TBody } from '../../../../components';
-import { taxonFilter, datasetFilter, publisherFilter } from '../../filters/suggest/suggestFilters';
-import { borFilter } from '../../filters/vocabulary/vocabularyFilters';
 
 const getRows = ({ data }) => {
   const results = data?.occurrenceSearch?.documents?.results || [];
@@ -39,6 +38,7 @@ const getRows = ({ data }) => {
 
 export const TablePresentation = ({ first, prev, next, size, from, data, loading }) => {
   const currentFilterContext = useContext(FilterContext);
+  const { filters } = useContext(OccurrenceContext);
   const [fixedColumn, setFixed] = useState(true);
   const total = data?.occurrenceSearch?.documents?.total;
 
@@ -47,27 +47,36 @@ export const TablePresentation = ({ first, prev, next, size, from, data, loading
       <Row>
         <Col grow={false}>scientificName</Col>
         <Col>
-          <taxonFilter.Popover modal placement="auto">
+          <filters.taxonKey.Popover modal placement="auto">
             <Button appearance="text" style={{ display: 'flex' }}>
               <MdFilterList />
               {get(currentFilterContext.filter, 'must.taxonKey.length', '')}
             </Button>
-          </taxonFilter.Popover>
+          </filters.taxonKey.Popover>
         </Col>
       </Row>
     </Th>,
     <Th key='year'>
-      year
+      <Row wrap="nowrap">
+        <Col grow={false}>Year</Col>
+        <Col>
+          <filters.year.Popover modal placement="auto">
+            <Button appearance="text" style={{ display: 'flex' }}>
+              <MdFilterList />
+            </Button>
+          </filters.year.Popover>
+        </Col>
+      </Row>
     </Th>,
     <Th key='basisOfRecord' width='wide'>
       <Row>
         <Col grow={false}>Basis of record</Col>
         <Col>
-          <borFilter.Popover modal placement="auto">
+          <filters.basisOfRecord.Popover modal placement="auto">
             <Button appearance="text" style={{ display: 'flex' }}>
               <MdFilterList />
             </Button>
-          </borFilter.Popover>
+          </filters.basisOfRecord.Popover>
         </Col>
       </Row>
     </Th>,
@@ -75,11 +84,11 @@ export const TablePresentation = ({ first, prev, next, size, from, data, loading
       <Row>
         <Col grow={false}>Dataset</Col>
         <Col>
-          <datasetFilter.Popover modal placement="auto">
+          <filters.datasetKey.Popover modal placement="auto">
             <Button appearance="text" style={{ display: 'flex' }}>
               <MdFilterList />
             </Button>
-          </datasetFilter.Popover>
+          </filters.datasetKey.Popover>
         </Col>
       </Row>
     </Th>,
@@ -87,11 +96,11 @@ export const TablePresentation = ({ first, prev, next, size, from, data, loading
       <Row>
         <Col grow={false}>Publisher</Col>
         <Col>
-          <publisherFilter.Popover modal placement="auto">
+          <filters.publisherKey.Popover modal placement="auto">
             <Button appearance="text" style={{ display: 'flex' }}>
               <MdFilterList />
             </Button>
-          </publisherFilter.Popover>
+          </filters.publisherKey.Popover>
         </Col>
       </Row>
     </Th>,
@@ -110,7 +119,7 @@ export const TablePresentation = ({ first, prev, next, size, from, data, loading
     maxHeight: "100vh",
     flexDirection: "column",
   }}>
-    <DataTable fixedColumn={fixedColumn} {...{ first, prev, next, size, from, total }} style={{ flex: "1 1 auto", height: 100 }}>
+    <DataTable fixedColumn={fixedColumn} {...{ first, prev, next, size, from, total, loading }} style={{ flex: "1 1 auto", height: 100 }}>
       <thead>
         <tr>{headers}</tr>
       </thead>

@@ -1,54 +1,54 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import PropTypes from 'prop-types';
-import { TriggerButton } from '../utils/TriggerButton';
+import { FormattedMessage } from 'react-intl';
 import { nanoid } from 'nanoid';
-import { FilterContext } from '../state';
-import get from 'lodash/get';
 import PopoverFilter from './PopoverFilter';
 import { keyCodes } from '../../../utils/util';
 
 import { Option, Filter, SummaryBar, FilterBody, Footer } from '../utils';
 
-export const FilterContent = ({ config, radio, hide, labelledById, onApply, onCancel, onFilterChange, focusRef, filterHandle, initFilter }) => {
-  const [id] = React.useState(nanoid);
-  const [vocabulary, setVocabulary] = useState();
-
-  React.useEffect(() => {
-    config.getVocabulary({ lang: 'eng' })
-      .then(v => setVocabulary(v))
-      .catch(err => console.error(err));
-  }, [initFilter, filterHandle, config.getVocabulary]);
+export const FilterContent = ({ config, LabelFromID, trName, hide, labelledById, onApply, onCancel, onFilterChange, focusRef, filterHandle, initFilter }) => {
+  const [id] = useState(nanoid);
+  const options = config.options;
 
   return <Filter
-    labelledById={labelledById}
-    onApply={onApply}
-    onCancel={onCancel}
-    title={vocabulary?.label}
-    aboutText={vocabulary?.definition}
-    hasHelpTexts={vocabulary?.hasConceptDefinitions}
-    onFilterChange={onFilterChange}
-    filterName={filterHandle}
-    formId={id}
-    defaultFilter={initFilter}
+  labelledById={labelledById}
+  onApply={onApply}
+  onCancel={onCancel}
+  title={<FormattedMessage
+    id={trName || `filter.${filterHandle}.name`}
+    defaultMessage={'Loading'}
+  />}
+  hasHelpTexts={config.hasOptionDescriptions}
+  aboutText={config.description && <FormattedMessage
+    id={config.description}
+    defaultMessage={'Loading'}
+  />}
+  onFilterChange={onFilterChange}
+  filterName={filterHandle}
+  formId={id}
+  defaultFilter={initFilter}
+  defaultHelpVisible={config.showOptionHelp}
   >
-    {({ helpVisible, setField, toggle, filter, checkedMap, formId, summaryProps, footerProps }) => <>
+    {({ helpVisible, toggle, filter, checkedMap, formId, summaryProps, footerProps }) => <>
       <SummaryBar {...summaryProps} />
       <FilterBody>
         <form id={formId}
           onSubmit={e => e.preventDefault()}
         // onKeyPress={e => e.which === keyCodes.ENTER ? onApply({ filter, hide }) : null}
         >
-          {vocabulary?.concepts && vocabulary.concepts.map((concept, index) => {
+          {options.map((concept, index) => {
             return <Option
               innerRef={index === 0 ? focusRef : null}
-              key={concept.name}
+              key={concept.key}
               helpVisible={helpVisible}
-              helpText={concept.definition}
-              label={concept.label}
-              checked={checkedMap.has(concept.name)}
-              onChange={() => toggle(filterHandle, concept.name)}
+              helpText={concept.desc}
+              label={<LabelFromID id={concept.key} />}
+              // label={<LabelFromID id={concept.key} />}
+              checked={checkedMap.has(concept.key)}
+              onChange={() => toggle(filterHandle, concept.key)}
             />
           })}
         </form>
@@ -78,8 +78,9 @@ export function Popover({ filterHandle, LabelFromID, translations={}, config, ..
       {...props}
       content={<FilterContent
         filterHandle={filterHandle}
-        config={config}
-      />}
+        LabelFromID={LabelFromID}
+        trName={translations.name}
+        config={config} />}
     />
   );
 }
