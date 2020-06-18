@@ -5,7 +5,7 @@ export const commonFilters = {
     config: {
       std: {
         filterHandle: 'taxonKey',// if nothing else provided, then this is the filterName used
-        id2labelHandle: 'taxonKey',
+        id2labelHandle: 'canonicalName',
         translations: {
           count: 'filter.taxonKey.count', // translation path to display names with counts. e.g. "3 scientific names"
           name: 'filter.taxonKey.name',// translation path to a title for the popover and the button
@@ -14,6 +14,7 @@ export const commonFilters = {
       },
       specific: {
         suggestHandle: 'taxonKey',
+        id2labelHandle: 'taxonKey',
       }
     }
   },

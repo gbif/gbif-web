@@ -13,11 +13,13 @@ import PopoverFilter from './PopoverFilter';
 
 import { Suggest, Option, Filter, SummaryBar, FilterBody, Footer } from '../utils';
 
-export const FilterContent = ({ suggestConfig, trName, labelledById, LabelFromID, hide, onApply, onCancel, onFilterChange, focusRef, filterHandle, initFilter }) => {
+export const FilterContent = ({ config, trName, labelledById, LabelFromID, hide, onApply, onCancel, onFilterChange, focusRef, filterHandle, initFilter }) => {
   const [id] = React.useState(nanoid);
   const initialOptions = get(initFilter, `must.${filterHandle}`, []);
   const [options, setOptions] = useState(initialOptions);
 
+  const suggestConfig = config.suggestConfig;
+  const Label = config.LabelFromID || LabelFromID;
   return <Filter
     labelledById={labelledById}
     onApply={onApply}
@@ -53,7 +55,7 @@ export const FilterContent = ({ suggestConfig, trName, labelledById, LabelFromID
                 return <Option
                   key={key}
                   helpVisible={true}
-                  label={<LabelFromID id={key} />}
+                  label={<Label id={key} />}
                   checked={checkedMap.has(key)}
                   onChange={() => toggle(filterHandle, key)}
                 />
@@ -82,7 +84,7 @@ FilterContent.propTypes = {
   filterHandle: PropTypes.string
 };
 
-export function Popover({ filterHandle, LabelFromID, suggestConfig, translations={}, ...props }) {
+export function Popover({ filterHandle, LabelFromID, config, translations={}, ...props }) {
   return (
     <PopoverFilter 
       {...props}
@@ -90,7 +92,7 @@ export function Popover({ filterHandle, LabelFromID, suggestConfig, translations
         filterHandle={filterHandle}
         trName={translations.name}
         LabelFromID={LabelFromID}
-        suggestConfig={suggestConfig} />}
+        config={config} />}
     />
   );
 }

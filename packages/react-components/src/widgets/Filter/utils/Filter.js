@@ -8,7 +8,7 @@ import { MenuAction, MenuToggle } from '../../../components/Menu';
 import { uncontrollable } from 'uncontrollable';
 import get from 'lodash/get';
 
-import {FilterState, FilterContext} from '../state';
+import { FilterState, FilterContext } from '../state';
 
 function Filter({ children, title, aboutText, labelledById, hasHelpTexts, filterName, formId, filter: tmpFilter, onFilterChange, aboutVisible, onAboutChange, helpVisible, onHelpChange, style }) {
   return <FilterState filter={tmpFilter} onChange={updatedFilter => onFilterChange(updatedFilter)}>
@@ -17,7 +17,7 @@ function Filter({ children, title, aboutText, labelledById, hasHelpTexts, filter
         const selectedItems = get(filter, `must.${filterName}`, []).map(x => typeof x === 'object' ? x._id || x.key : x);
         const checkedMap = new Set(selectedItems);
         const summaryProps = {
-          count: checkedMap.size, 
+          count: checkedMap.size,
           onClear: () => setField(filterName, [])
         };
         const footerProps = {
@@ -37,20 +37,21 @@ function Filter({ children, title, aboutText, labelledById, hasHelpTexts, filter
           {!aboutVisible &&
             <>
               {children({
-                  summaryProps,
-                  footerProps,
-                  helpVisible, 
-                  setField, 
-                  toggle, 
-                  filter, 
-                  selectedItems, 
-                  checkedMap })}
+                summaryProps,
+                footerProps,
+                helpVisible,
+                setField,
+                toggle,
+                filter,
+                selectedItems,
+                checkedMap
+              })}
             </>}
           {aboutVisible && <>
             <Prose as={FilterBodyDescription}>
               {aboutText}
             </Prose>
-            <Footer {...footerProps}/>
+            <Footer {...footerProps} />
           </>}
         </FilterBox>
       }}

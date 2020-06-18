@@ -2,6 +2,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import React, { useState, useContext } from 'react';
+import { useIntl } from 'react-intl';
 import PropTypes from 'prop-types';
 import Layout from './Layout';
 import { FilterState } from "../../widgets/Filter/state";
@@ -203,7 +204,7 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
   const suggestConfigMapCustom = getSuggests({ client: context.client });
   const mergedSuggest = { ...suggestConfigMap, ...suggestConfigMapCustom };
   const labelMap = config2labels(mergedLabels, context.client);
-  const filters = filterBuilder({ filterWidgetConfig: mergedFilters, labelMap, suggestConfigMap: mergedSuggest, client: context.client });
+  const filters = filterBuilder({ filterWidgetConfig: mergedFilters, labelMap, suggestConfigMap: mergedSuggest, context });
   return {
     labelMap,
     suggestConfigMap,
@@ -217,13 +218,14 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
 function OccurrenceSearch({ config: customConfig = {}, ...props }) {
   const [filter, setFilter] = useState({ must: { basisOfRecord: ['HUMAN_OBSERVATION'] } });
   const apiContext = useContext(ApiContext);
+  const { formatMessage } = useIntl();
   const [config] = useState(() => {
     return buildConfig({
       labelConfig: commonLabels,
       getSuggestConfig: getCommonSuggests,
       filterWidgetConfig: commonFilters,
       customConfig
-    }, { client: apiContext });
+    }, { client: apiContext, formatMessage });
   });
 
   console.log(config);

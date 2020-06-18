@@ -5,7 +5,7 @@ import get from 'lodash/get';
 import union from 'lodash/union';
 import { withFilter } from '../../..//widgets/Filter/state';
 import ThemeContext from '../../../style/themes/ThemeContext';
-
+import { Trigger as MetaFilter } from '../../../widgets/Filter/types/MetaFilter';
 // const availableFilters = [
 //   taxonFilter, datasetFilter, publisherFilter,
 //   borFilter, countryFilter, typeStatusFilter,
@@ -110,7 +110,7 @@ const FilterBar = ({
   const theme = useContext(ThemeContext);
   const prefix = theme.prefix || 'gbif';
   const elementName = 'filterBar';
-  
+
   const visibleFilters = getVisibleFilters(filter, config.defaultVisibleFilters);
   const availableFilters = visibleFilters.map(x => config.filters[x]);
   return <div className={`${className} ${prefix}-${elementName}`} css={css`${style(theme)}`} {...props}>
@@ -118,6 +118,9 @@ const FilterBar = ({
       if (!x) return null; // if no widget is defined for this filter, then do not show anything
       return <x.Button key={i} />
     })}
+    <div>
+      <MetaFilter />
+    </div>
   </div>
 }
 

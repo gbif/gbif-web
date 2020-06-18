@@ -34,7 +34,9 @@ export const FilterContent = ({ config, LabelFromID, trName, hide, labelledById,
   >
     {({ helpVisible, toggle, filter, checkedMap, formId, summaryProps, footerProps }) => <>
       <SummaryBar {...summaryProps} />
-      <FilterBody>
+      <FilterBody onKeyPress={e => {
+        if (e.shiftKey && e.which === keyCodes.ENTER ) onApply({ filter, hide });
+      }}>
         <form id={formId}
           onSubmit={e => e.preventDefault()}
         // onKeyPress={e => e.which === keyCodes.ENTER ? onApply({ filter, hide }) : null}

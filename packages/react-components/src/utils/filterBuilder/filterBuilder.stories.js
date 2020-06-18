@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { useIntl } from 'react-intl';
 import { ApiContext } from '../../dataManagement/api';
 import { filterBuilder } from './filterBuilder';
 import { FilterState } from '../../widgets/Filter/state'
@@ -125,10 +126,11 @@ export const Example = () => <ExampleNested />
 const ExampleNested = () => {
   const [filter, setFilter] = useState({ must: {} });
   const apiContext = useContext(ApiContext);
+  const { formatMessage } = useIntl();
   const [config] = useState(() => {
     return buildConfig({
       labelConfig, getSuggestConfig, filterWidgetConfig
-    }, { client: apiContext });
+    }, { client: apiContext, formatMessage });
   });
   
   return <FilterState filter={filter} onChange={setFilter}>

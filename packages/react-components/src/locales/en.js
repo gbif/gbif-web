@@ -6,6 +6,7 @@ export const en = {
   next: 'Next',
   options: 'Options',
   'pagination.pageXofY': 'Page {current} of {total}',
+  moreFilters: 'more',
   filter: {
     taxonKey: {
       name: 'Scientific name',

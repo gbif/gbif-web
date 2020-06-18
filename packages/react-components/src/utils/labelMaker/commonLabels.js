@@ -19,6 +19,15 @@ export const commonLabels = {
     transform: result => ({ title: result.data.taxon.formattedName }),
     isHtmlResponse: true
   },
+  canonicalName: {
+    type: 'GQL',
+    query: `query label($id: Int!){
+      taxon(key: $id) {
+        canonicalName
+      }
+    }`,
+    transform: result => ({ title: result.data.taxon.canonicalName }),
+  },
   publisherKey: {
     type: 'ENDPOINT',
     template: ({ id, api }) => `${api.v1.endpoint}/organization/${id}`,
