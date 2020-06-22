@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState, useCallback, Component } from "react";
+import React, { useEffect, useContext, useState, useCallback } from "react";
 import { FilterContext } from '../../../..//widgets/Filter/state';
 import OccurrenceContext from '../../config/OccurrenceContext';
 import { useQuery } from '../../../../dataManagement/api';

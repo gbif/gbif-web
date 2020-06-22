@@ -45,11 +45,11 @@ module.exports = {
       dataSources.occurrenceAPI.getOccurrenceByKey({ key })
   },
   Occurrence: {
-    // someField: ({ fieldWithKey: key }, args, { dataSources }) => {
-    //   if (typeof key === 'undefined') return null;
-    //   dataSources.someAPI.getSomethingByKey({ key })
-    // },
-
+    primaryImage: ({ multimediaItems }) => {
+      if (typeof multimediaItems === 'undefined') return null;
+      // extract primary image. for now just any image
+      return multimediaItems.find(x => x.type === 'StillImage');
+    },
   },
   OccurrenceSearchResult: {
     documents: searchOccurrences,
@@ -60,6 +60,11 @@ module.exports = {
     stats: (parent) => {
       return { _predicate: parent._predicate };
     },
+    _meta: (parent, query, { dataSources }) => {
+      return dataSources.occurrenceAPI.meta({
+        query: { predicate: parent._predicate }
+      });
+    }
   },
   OccurrenceNameUsage: {
     formattedName: ({ key }, args, { dataSources }) =>

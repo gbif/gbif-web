@@ -87,6 +87,12 @@ const typeDef = gql`
     typifiedName: String
     waterBody: String
     year: Int
+
+    # useful additions
+    """
+    Currently the primary image is considered the first image retruned from the REST API
+    """
+    primaryImage: MultimediaItem
   }
 
   type GbifClassification {

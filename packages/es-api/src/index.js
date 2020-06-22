@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const _ = require('lodash');
 const config = require('./config');
 const literature = require('./resources/literature');
 const occurrence = require('./resources/occurrence');
@@ -9,7 +10,18 @@ const { asyncMiddleware, ResponseError, errorHandler, unknownRouteHandler } = re
 const app = express();
 app.use(bodyParser.json())
 
-const _ = require('lodash');
+app.use(function (req, res, next) {
+  // Website you wish to allow to connect
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  // Request methods you wish to allow
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  // Pass to next layer of middleware
+  next();
+});
+
+app.post('/occurrence/meta', asyncMiddleware(postMetaOnly(occurrence)));
+app.get('/occurrence/meta', asyncMiddleware(getMetaOnly(occurrence)));
+
 const temporaryAuthMiddleware = function (req, res, next) {
   const apiKey = _.get(req, 'query.apiKey') || _.get(req, 'body.apiKey') || _.get(req, 'headers.Authorization', '').substr(10);
   if (!apiKey) {
@@ -23,15 +35,6 @@ const temporaryAuthMiddleware = function (req, res, next) {
   next()
 }
 app.use(temporaryAuthMiddleware)
-
-app.use(function (req, res, next) {
-  // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  // Request methods you wish to allow
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  // Pass to next layer of middleware
-  next();
-});
 
 app.post('/literature', asyncMiddleware(postResource(literature)));
 app.get('/literature', asyncMiddleware(getResource(literature)));
@@ -47,7 +50,7 @@ app.get('/dataset', asyncMiddleware(getResource(dataset)));
 app.get('/dataset/key/:id', asyncMiddleware(keyResource(dataset)));
 
 function postResource(resource) {
-  const { dataSource, predicate2query, metric2aggs} = resource;
+  const { dataSource, predicate2query, metric2aggs } = resource;
   return async (req, res) => {
     const size = req.body.size;
     const includeMeta = req.body.includeMeta;
@@ -71,7 +74,7 @@ function postResource(resource) {
 }
 
 function getResource(resource) {
-  const { dataSource, get2predicate, predicate2query, get2metric, metric2aggs} = resource;
+  const { dataSource, get2predicate, predicate2query, get2metric, metric2aggs } = resource;
   return async (req, res, next) => {
     let predicate;
     let metrics;
@@ -80,7 +83,7 @@ function getResource(resource) {
         const jsonQuery = JSON.parse(req.query.query);
         predicate = jsonQuery.predicate;
         metrics = jsonQuery.metrics;
-      } catch(err) {
+      } catch (err) {
         return next(new ResponseError(400, 'badRequest', `Invalid query: ${err.message}`));
       }
     } else {
@@ -122,6 +125,45 @@ function suggestResource(resource) {
     const body = await dataSource.suggest(suggestQuery);
     res.json(body);
   };
+}
+
+function postMetaOnly(resource) {
+  const { predicate2query } = resource;
+  return async (req, res) => {
+    const predicate = req.body.predicate;
+    const query = predicate2query(predicate);
+    const meta = {
+      predicate,
+      query
+    };
+
+    res.json(meta);
+  }
+}
+
+function getMetaOnly(resource) {
+  const { get2predicate, predicate2query } = resource;
+  return async (req, res, next) => {
+    let predicate;
+    let metrics;
+    if (req.query.query) {
+      try {
+        const jsonQuery = JSON.parse(req.query.query);
+        predicate = jsonQuery.predicate;
+      } catch (err) {
+        return next(new ResponseError(400, 'badRequest', `Invalid query: ${err.message}`));
+      }
+    } else {
+      predicate = get2predicate(req.query);
+    }
+    const query = predicate2query(predicate);
+    const meta = {
+      predicate,
+      query
+    };
+
+    res.json(meta);
+  }
 }
 
 app.get('*', unknownRouteHandler);

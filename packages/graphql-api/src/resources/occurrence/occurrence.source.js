@@ -35,6 +35,12 @@ class OccurrenceAPI extends RESTDataSource {
     return this.get(`/occurrence/${key}`);
   }
 
+  async meta({ query }) {
+    const body = { ...query };
+    const response = await this.post('/occurrence/meta', body);
+    return response;
+  }
+
   /*
   getOccurrencesByKeys({ occurrenceKeys }) {
     return Promise.all(

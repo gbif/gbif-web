@@ -1,4 +1,5 @@
 import basisOfRecord from './enums/basisOfRecord.json';
+import countryCode from './enums/countryCode.json';
 
 export const en = {
   first: 'First',
@@ -14,8 +15,13 @@ export const en = {
     },
     basisOfRecord: {
       name: 'Basis of record',
-      count: '{num, plural, one {casis of record} other {# bases of records}}',
+      count: '{num, plural, one {basis of record} other {# bases of records}}',
       description: 'You can think of it as the evidence'
+    },
+    countryCode: {
+      name: 'Country',
+      count: '{num, plural, one {country} other {# countries}}',
+      description: 'Country or area from which the record is located within'
     },
     elevation: {
       name: 'Elevation',
@@ -65,6 +71,7 @@ export const en = {
     }
   },
   enums: {
-    basisOfRecord: basisOfRecord
+    basisOfRecord: basisOfRecord,
+    countryCode: countryCode,
   }
 }

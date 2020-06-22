@@ -9,7 +9,7 @@ import { TriggerButton } from '../../widgets/Filter/utils/TriggerButton';
 export function getButton(Popover, { translations, filterHandle, LabelFromID }) {
   return function Trigger(props) {
     const currentFilterContext = useContext(FilterContext);
-    return <Popover modal>
+    return <Popover modal >
       <TriggerButton {...props}
         translations={translations}
         filterHandle={filterHandle}

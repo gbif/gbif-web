@@ -25,6 +25,7 @@ const typeDef = gql`
     """
     stats: OccurrenceStats
     _predicate: JSON
+    _meta: JSON
   }
 
   type OccurrenceDocuments {

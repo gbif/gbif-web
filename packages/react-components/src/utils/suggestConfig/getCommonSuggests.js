@@ -1,9 +1,45 @@
 import React from 'react';
+import matchSorter from 'match-sorter'
+import country from '../../locales/enums/countryCode.json';
 
-const suggestStyle = { whiteSpace: 'nowrap', textOverflow: 'ellipsis', width: '100%', overflow: 'hidden' };
+const BACKBONE_KEY = 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c';
 
-export function getCommonSuggests({ client }) {
+const countryCodes = Object.keys(country);
+
+export const suggestStyle = { whiteSpace: 'nowrap', textOverflow: 'ellipsis', width: '100%', overflow: 'hidden' };
+
+export function getCommonSuggests({ context, suggestStyle }) {
+  const { client, formatMessage } = context;
+  
+  const countries = countryCodes.map(code => ({
+    title: formatMessage({ id: `enums.countryCode.${code}` }),
+    key: code
+  }));
+
   return {
+    countryCode: {
+      //What placeholder to show
+      placeholder: 'Search by dataset',
+      // how to get the list of suggestion data
+      getSuggestions: ({ q }) => {
+        return {
+          cancel: () => null,
+          promise: (async () => {
+            return {data: matchSorter(countries, q, {keys: ['title', 'key']})};
+          })()
+        }
+      },
+      // how to map the results to a single string value
+      getValue: suggestion => suggestion.title,
+      // how to display the individual suggestions in the list
+      render: function CountrySuggestItem(suggestion) {
+        return <div style={{}}>
+          <div style={suggestStyle}>
+            {suggestion.title}
+          </div>
+        </div>
+      }
+    },
     datasetKey: {
       //What placeholder to show
       placeholder: 'Search by dataset',
@@ -40,7 +76,7 @@ export function getCommonSuggests({ client }) {
       //What placeholder to show
       placeholder: 'Search by scientific name',
       // how to get the list of suggestion data
-      getSuggestions: ({ q }) => client.v1Get(`/species/suggest?limit=8&q=${q}`),
+      getSuggestions: ({ q }) => client.v1Get(`/species/suggest?datasetKey=${BACKBONE_KEY}&limit=8&q=${q}`),
       // how to map the results to a single string value
       getValue: suggestion => suggestion.scientificName,
       // how to display the individual suggestions in the list

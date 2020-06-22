@@ -1,4 +1,5 @@
-import basisofRecord from '../../locales/enums/basisOfRecord.json'
+import basisofRecord from '../../locales/enums/basisOfRecord.json';
+
 export const commonFilters = {
   taxonKey: {
     type: 'SUGGEST',
@@ -15,6 +16,21 @@ export const commonFilters = {
       specific: {
         suggestHandle: 'taxonKey',
         id2labelHandle: 'taxonKey',
+      }
+    }
+  },
+  countryCode: {
+    type: 'SUGGEST',
+    config: {
+      std: {
+        translations: {
+          count: 'filter.countryCode.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.countryCode.name',// translation path to a title for the popover and the button
+          description: 'filter.countryCode.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        suggestHandle: 'countryCode',
       }
     }
   },

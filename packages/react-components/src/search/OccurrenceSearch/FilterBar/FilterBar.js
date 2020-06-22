@@ -6,6 +6,7 @@ import union from 'lodash/union';
 import { withFilter } from '../../..//widgets/Filter/state';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import { Trigger as MetaFilter } from '../../../widgets/Filter/types/MetaFilter';
+
 // const availableFilters = [
 //   taxonFilter, datasetFilter, publisherFilter,
 //   borFilter, countryFilter, typeStatusFilter,

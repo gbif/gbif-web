@@ -1,86 +1,92 @@
-import React, { Component } from "react";
-import { withFilter } from "../../../../widgets/Filter/state";
-import { query } from '../../../OccurrenceSearch/api/queryAdapter';
+import React, { useEffect, useContext, useState, useCallback } from "react";
+import { FilterContext } from '../../../..//widgets/Filter/state';
+import OccurrenceContext from '../../config/OccurrenceContext';
+import { useQuery } from '../../../../dataManagement/api';
+import { filter2predicate } from '../../../../dataManagement/filterAdapter';
 import { GalleryPresentation } from './GalleryPresentation';
-import merge from 'lodash/merge';
 
-class Gallery extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-			loading: true, 
-			error: false, 
-			size: 20,
-			from: 0,
-			data: {hits: {hits: []}},
-		};
-  }
-
-  loadData = () => {
-		this.setState({ loading: true, error: false });
-		if (this.runningQuery && this.runningQuery.cancel) this.runningQuery.cancel();
-		
-		let filter = merge({}, this.props.filter, {
-      must: {
-				gallery_media_type: ["StillImage"],
-				// occurrenceId: ["http://bins.boldsystems.org/index.php/Public_RecordView?processid=EPRBE064-18"],
-			}
-		});
-		
-    this.runningQuery = query(filter, this.state.size, this.state.from);
-		this.runningQuery.then(response => {
-        if (this._isMount) {
-					// extract first image in occurrence
-					response.data.hits.hits.forEach(occ => {
-						occ._galleryImages = occ.multimediaItems.filter(img => img.type === 'StillImage');
-					});
-					if (this.state.from > 0) {
-						response.data.hits.hits = [...this.state.data.hits.hits, ...response.data.hits.hits];
-						this.setState({ loading: false, error: false, data: response.data });
-					} else {
-						this.setState({ loading: false, error: false, data: response.data });
-					}
-				}
-      })
-      .catch(err => {
-				console.error(err);//TODO error handling
-				if (this._isMount) {
-					this.setState({ loading: false, error: true });
-				}
-			});
-  };
-
-  componentDidMount() {
-    this._isMount = true;
-    this.loadData();
-	}
-
-	componentWillUnmount() {
-		this._isMount = false;
-	}
-
-	componentDidUpdate(prevProps) {
-    if (prevProps.filterHash !== this.props.filterHash) {
-			this.setState({from: 0, data: {}}, this.loadData);
+const OCCURRENCE_GALLERY = `
+query gallery($predicate: Predicate, $size: Int = 20, $from: Int = 0){
+  occurrenceSearch(predicate: $predicate, size: $size, from: $from) {
+    documents(size: $size, from: $from) {
+      total
+      size
+      from
+      results {
+        gbifId
+        gbifClassification{
+          acceptedUsage {
+            formattedName
+          }
+        }
+        primaryImage {
+          identifier
+        }
+      }
     }
   }
-	
-	next = () => {
-		this.setState({from: Math.max(0, this.state.from + this.state.size)}, this.loadData);
-	}
+}
+`;
 
-	prev = () => {
-		this.setState({from: Math.max(0, this.state.from - this.state.size)}, this.loadData);
-	}
+function Table() {
+  const [from, setFrom] = useState(0);
+  const size = 20;
+  const currentFilterContext = useContext(FilterContext);
+  const { rootPredicate, predicateConfig } = useContext(OccurrenceContext);
+  const { data, error, loading, load } = useQuery(OCCURRENCE_GALLERY, { lazyLoad: true, keepDataWhileLoading: true });
 
-	first = () => {
-		this.setState({from: 0}, this.loadData);
-	}
+  const [allData, setAllData] = useState([]);
 
-  render() {
-		return <GalleryPresentation error={this.state.error} loading={this.state.loading} result={this.state.data} next={this.next} prev={this.prev} first={this.first} size={this.state.size} from={this.state.from} />
-  }
+  useEffect(() => {
+    setAllData([...allData, ...data?.occurrenceSearch?.documents?.results || []])
+  }, [data]);
+
+  useEffect(() => {
+    const predicate = {
+      type: 'and',
+      predicates: [
+        rootPredicate,
+        filter2predicate(currentFilterContext.filter, predicateConfig),
+        {
+          type: 'equals',
+          key: 'mediaTypes',
+          value: 'StillImage'
+        }
+      ]
+    }
+    load({ variables: { predicate, size, from } });
+  }, [from, currentFilterContext.filterHash, rootPredicate]);
+
+  useEffect(() => {
+    setFrom(0);
+    setAllData([])
+  }, [currentFilterContext.filterHash, rootPredicate]);
+
+  const next = useCallback(() => {
+    setFrom(Math.max(0, from + size));
+  });
+
+  const prev = useCallback(() => {
+    setFrom(Math.max(0, from - size));
+  });
+
+  const first = useCallback(() => {
+    setFrom(0);
+  });
+
+  return <>
+    <GalleryPresentation
+      error={error}
+      loading={loading}
+      data={allData}
+      total={data?.occurrenceSearch?.documents?.total}
+      next={next}
+      prev={prev}
+      first={first}
+      size={size}
+      from={from} />
+  </>
 }
 
-const mapContextToProps = ({ filter, filterHash, api, components }) => ({ filter, filterHash, api, components });
-export default withFilter(mapContextToProps)(Gallery);
+export default Table;
+

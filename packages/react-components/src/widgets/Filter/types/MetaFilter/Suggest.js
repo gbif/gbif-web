@@ -1,8 +1,8 @@
 import React from "react";
-import { Autocomplete } from '../../../components/Autocomplete/Autocomplete';
+import { Autocomplete } from '../../../../components/Autocomplete/Autocomplete';
 
 class Suggest extends React.Component {
-  constructor() {
+  constructor(props) {
     super();
 
     // Autosuggest is a controlled component.
@@ -11,56 +11,16 @@ class Suggest extends React.Component {
     // Suggestions also need to be provided to the Autosuggest,
     // and they are initially empty because the Autosuggest is closed.
     this.state = {
-      value: '',
-      suggestions: []
+      suggestions: props.initSuggestions
     };
   }
 
-  onChange = (event, { newValue }) => {
-    this.setState({
-      value: newValue
-    });
-  };
-
   // Autosuggest will call this function every time you need to update suggestions.
   // You already implemented this logic above, so just use it.
-  onSuggestionsFetchRequested = async ({ value }) => {
-    if (this.suggestions?.cancel) {
-      this.suggestions.cancel();
-      if (this.suggestions?.promise?.cancel) this.suggestions.promise.cancel();
-    }
+  onSuggestionsFetchRequested = ({ value }) => {
     this.setState({
-      loading: true,
-      error: undefined,
+      suggestions: this.props.getSuggestions({ q: value })
     });
-    let canceled = false;
-    const { promise, cancel } = this.props.getSuggestions({ q: value });
-    this.suggestions = {
-      promise: promise,
-      cancel: () => {
-        if (cancel) cancel();
-        canceled = true;
-      }
-    }
-
-    this.suggestions.promise
-      .then(response => {
-        console.log(response);
-        if (canceled) return;
-        this.setState({
-          suggestions: response.data,
-          error: undefined,
-          loading: false
-        });
-      })
-      .catch(err => {
-        if (canceled) return;
-        this.setState({
-          suggestions: [],
-          error: 'Unable to load results',
-          loading: false
-        });
-      })
   };
 
   // Autosuggest will call this function every time you need to clear suggestions.
@@ -71,22 +31,22 @@ class Suggest extends React.Component {
   };
 
   onSuggestionSelected = ({ item, value }) => {
+    this.onSuggestionsClearRequested();
     if (this.props.onSuggestionSelected) {
       this.props.onSuggestionSelected({ item, value });
     }
-    this.setState({ item });
   };
 
   render() {
-    const { value, suggestions, loading, error } = this.state;
-    const { render, getValue, placeholder } = this.props;
+    const { suggestions: currentSuggestions } = this.state;
+    const { render, getValue, placeholder, onChange, value, initSuggestions, onKeyPress } = this.props;
+    const suggestions = value === '' ? initSuggestions : currentSuggestions;
 
     // Autosuggest will pass through all these props to the input.
     const inputProps = {
       placeholder: placeholder || 'Search',
       value,
-      onChange: this.onChange,
-      onKeyPress: this.props.onKeyPress
+      onChange,
     };
 
     // Finally, render it!
@@ -101,11 +61,10 @@ class Suggest extends React.Component {
           renderSuggestion={render}
           inputProps={inputProps}
           onSuggestionSelected={this.onSuggestionSelected}
-          isLoading={loading}
+          isLoading={false}
           ref={this.props.focusRef}
           menuCss={this.props.menuCss}
           delay={this.props.delay}
-          loadingError={error && value !== ''}
         />
       </>
     );

@@ -2,24 +2,35 @@ import React from 'react';
 import get from 'lodash/get';
 import { Gallery, GalleryCaption } from '../../../../components';
 
-export const GalleryPresentation = ({ first, prev, next, size, from, result, loading, error }) => {
-  const total = get(result, 'hits.total', 0);
-  const hits = get(result, 'hits.hits');
-  if (!hits) return <div>no content</div>
+export const GalleryPresentation = ({ first, prev, next, size, from, data, total, loading, error }) => {
+  console.log(data);
+// return <pre>{JSON.stringify(data, null, 2)}</pre>
+  const results = data;
+  if (total === 0) return <div>
+    <h2>No content</h2>
+    {error && <p>Backend failure</p>}
+  </div>
   const itemsLeft = total ? total - from : 20;
   const loaderCount = Math.min(Math.max(itemsLeft, 0), size);
 
+  if (loading && !total) {
+    return <h2>Loading</h2>
+  }
+
+  if (error && !total) {
+    return <h2>Error</h2>
+  }
   return <Gallery
     caption={({ item }) => <GalleryCaption>
-      {item.gbifClassification.usage.name}
+      <span dangerouslySetInnerHTML={{__html: item.gbifClassification.acceptedUsage.formattedName}}></span>
     </GalleryCaption>}
-    title={item => item.gbifClassification.usage.name}
+    title={item => <span dangerouslySetInnerHTML={{__html: item.gbifClassification.acceptedUsage.formattedName}}></span>}
     subtitle={item => item.description}
     details={item => <pre>{JSON.stringify(item, null, 2)}</pre>}
     loading={loading || error}
-    items={hits}
+    items={results}
     loadMore={from + size < total ? () => next() : null}
     size={loaderCount}
-    imageSrc={item => item._galleryImages[0].identifier}
+    imageSrc={item => item.primaryImage.identifier}
   />
 }

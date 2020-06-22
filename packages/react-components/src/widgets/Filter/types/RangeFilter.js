@@ -22,6 +22,7 @@ export const FilterContent = ({ config = {}, trName, labelledById, LabelFromID, 
   const [id] = React.useState(nanoid);
   const initialOptions = get(initFilter, `must.${filterHandle}`, []);
   const [options, setOptions] = useState(initialOptions);
+  const [inputValue, setValue] = useState('');
 
   return <Filter
     labelledById={labelledById}
@@ -39,6 +40,13 @@ export const FilterContent = ({ config = {}, trName, labelledById, LabelFromID, 
       return <>
         <div style={{ margin: '10px', zIndex: 10, display: 'inline-block', position: 'relative' }}>
           <Input ref={focusRef}
+            value={inputValue}
+            onChange={e => {
+              const value = e.target.value;
+              if(e.target.value.match(/^((-)?[0-9]{0,4})(,)?((-)?[0-9]{0,4})$/) !== null) {
+                setValue(value);
+              }
+            }}
             placeholder={placeholder}
             onKeyPress={e => {
               const value = e.target.value;
@@ -47,7 +55,7 @@ export const FilterContent = ({ config = {}, trName, labelledById, LabelFromID, 
                   onApply({ filter, hide });
                 } else {
                   const q = rangeOrTerm(value, upperBound, lowerBound);
-                  e.target.value = '';
+                  setValue('');
                   const allOptions = unionBy([q], options, '_id');
                   setOptions(allOptions);
                   toggle(filterHandle, q);

@@ -10,7 +10,7 @@ import { Root } from "../../components";
 import OccurrenceContext from './config/OccurrenceContext';
 import { ApiContext } from '../../dataManagement/api';
 import { commonLabels, config2labels } from '../../utils/labelMaker';
-import { getCommonSuggests } from '../../utils/suggestConfig/getCommonSuggests';
+import { getCommonSuggests, suggestStyle } from '../../utils/suggestConfig/getCommonSuggests';
 import { commonFilters, filterBuilder } from '../../utils/filterBuilder';
 import predicateConfig from './config/predicateConfig';
 // import history from './history';
@@ -200,8 +200,8 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
   const { labels = {}, getSuggests = () => ({}), filters: customFilters = {}, adapters = {} } = customConfig;
   const mergedLabels = { ...labelConfig, ...labels };
   const mergedFilters = { ...filterWidgetConfig, ...customFilters };
-  const suggestConfigMap = getSuggestConfig({ client: context.client });
-  const suggestConfigMapCustom = getSuggests({ client: context.client });
+  const suggestConfigMap = getSuggestConfig({ context, suggestStyle });
+  const suggestConfigMapCustom = getSuggests({ client: context.client, suggestStyle });
   const mergedSuggest = { ...suggestConfigMap, ...suggestConfigMapCustom };
   const labelMap = config2labels(mergedLabels, context.client);
   const filters = filterBuilder({ filterWidgetConfig: mergedFilters, labelMap, suggestConfigMap: mergedSuggest, context });
@@ -209,7 +209,7 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
     labelMap,
     suggestConfigMap,
     filters,
-    defaultVisibleFilters: ['taxonKey', 'year', 'datasetKey', 'elevation'],
+    defaultVisibleFilters: ['taxonKey', 'year', 'datasetKey', 'countryCode'],
     rootPredicate: { type: 'in', key: 'taxonKey', values: [4, 5, 7] },
     predicateConfig
   }

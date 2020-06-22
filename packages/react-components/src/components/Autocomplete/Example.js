@@ -102,6 +102,7 @@ export class Example extends React.Component {
           isLoading={loading}
         />
         <pre>{item && JSON.stringify(item, null, 2)}</pre>
+        test
       </>
     );
   }

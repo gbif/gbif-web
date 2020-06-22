@@ -5,7 +5,7 @@ import React, { useContext, useEffect } from 'react';
 import Downshift from 'downshift';
 import { useDebounce } from "use-debounce"; // example here https://codesandbox.io/s/rr40wnropq
 import { Input } from '../Input/Input';
-import { StripeLoader } from '../Loaders/StripeLoader'; 
+import { StripeLoader } from '../Loaders/StripeLoader';
 import styles from './styles';
 
 export const Autocomplete = React.forwardRef(({
@@ -18,31 +18,35 @@ export const Autocomplete = React.forwardRef(({
   suggestions,
   loadingError,
   style,
+  listCss,
+  menuCss,
+  delay = 300,
   ...props
 }, ref) => {
   const theme = useContext(ThemeContext);
-
-  const [debouncedText] = useDebounce(inputProps.value, 300);
+  const menuStyle = listCss || styles.menu;
+  const wrapperStyle = menuCss || styles.wrapper;
+  const [debouncedText] = useDebounce(inputProps.value, delay);
   useEffect(
     () => {
       if (debouncedText) {
-        onSuggestionsFetchRequested({value: debouncedText});
+        onSuggestionsFetchRequested({ value: debouncedText });
       }
     },
     [debouncedText, onSuggestionsFetchRequested]
   );
 
-  const itemToString= item => {
-    if (typeof item === 'undefined' || item === null) return undefined; 
+  const itemToString = item => {
+    if (typeof item === 'undefined' || item === null) return undefined;
     return getSuggestionValue(item)
   };
-  
+
   const hasSuggestions = suggestions && suggestions.length > 0;
 
   return <Downshift
     onChange={selection => {
-        onSuggestionSelected({item: selection, value: itemToString(selection)});
-      }
+      onSuggestionSelected({ item: selection, value: itemToString(selection) });
+    }
     }
     defaultHighlightedIndex={0}
     itemToString={itemToString}
@@ -63,10 +67,10 @@ export const Autocomplete = React.forwardRef(({
           <div
             {...getRootProps({}, { suppressRefError: true })}
           >
-            <Input {...getInputProps({ 
-              ref: ref, 
+            <Input {...getInputProps({
+              ref: ref,
               ...inputProps,
-              onChange: event => inputProps.onChange(event, {newValue: event.target.value}),
+              onChange: event => inputProps.onChange(event, { newValue: event.target.value }),
               onKeyDown: event => {
                 if (event.key === 'Escape') {
                   // If the suggestions are not open and escape is pressed, then do not prevent default
@@ -75,31 +79,34 @@ export const Autocomplete = React.forwardRef(({
                   }
                 }
               }
-              })}/>
+            })} />
           </div>
-          <div css={styles.wrapper({ theme, isOpen })}>
-            <StripeLoader active={isLoading} error={loadingError}/>
-            {(isOpen && inputProps.value.length > 0) && <ul {...getMenuProps()} css={styles.menu({ theme })}>
-              {(!isLoading && !hasSuggestions) && <li css={styles.item({ theme })} style={{color: '#aaa'}}>No suggestions provided</li>}
-              {hasSuggestions && suggestions
-                .map((item, index) => (
-                  // eslint-disable-next-line react/jsx-key
-                  <li
-                    css={styles.item({ theme })}
-                    {...getItemProps({
-                      key: index,
-                      index,
-                      item,
-                      style: {
-                        backgroundColor: highlightedIndex === index ? '#f5f5f5' : 'white',
-                        fontWeight: selectedItem === item ? 'bold' : 'normal',
-                      },
-                    })}
-                  >
-                    {renderSuggestion(item, {debouncedText, isHighlighted: highlightedIndex === index})}
-                  </li>
-                ))}
-            </ul>}
+          <div css={wrapperStyle({ theme, isOpen })}>
+            {isOpen && <>
+              <StripeLoader active={isLoading || loadingError} error={loadingError} />
+              <ul {...getMenuProps()} css={menuStyle({ theme })}>
+                {(!isLoading && !hasSuggestions && !loadingError) && <li css={styles.item({ theme })} style={{ color: '#aaa' }}>No suggestions provided</li>}
+                {(!isLoading && !hasSuggestions && loadingError) && <li css={styles.item({ theme })} style={{ color: '#aaa' }}>Failed to load suggestions</li>}
+                {hasSuggestions && suggestions
+                  .map((item, index) => (
+                    // eslint-disable-next-line react/jsx-key
+                    <li
+                      css={styles.item({ theme })}
+                      {...getItemProps({
+                        key: index,
+                        index,
+                        item,
+                        style: {
+                          backgroundColor: highlightedIndex === index ? '#f5f5f5' : 'white',
+                          fontWeight: selectedItem === item ? 'bold' : 'normal',
+                        },
+                      })}
+                    >
+                      {renderSuggestion(item, { debouncedText, isHighlighted: highlightedIndex === index })}
+                    </li>
+                  ))}
+              </ul>
+            </>}
           </div>
         </div>
       )}

@@ -31,7 +31,6 @@ export const item = props => css`
   overflow: hidden;
   color: rgba(0, 0, 0, 0.65);
   font-weight: normal;
-  font-size: 14px;
   line-height: 22px;
   cursor: pointer;
   transition: background 0.3s ease;

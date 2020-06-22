@@ -5,6 +5,10 @@ export const commonLabels = {
     type: 'TRANSLATION',
     template: id => `enums.basisOfRecord.${id}`
   },
+  countryCode: {
+    type: 'TRANSLATION',
+    template: id => `enums.countryCode.${id}`
+  },
   number: {
     type: 'TRANSFORM',
     transform: ({ id, locale }) => id.toLocaleString(locale)
