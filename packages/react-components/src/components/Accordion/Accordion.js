@@ -7,7 +7,7 @@ import { uncontrollable } from 'uncontrollable';
 // import { oneOfMany } from '../../utils/util';
 import styles from './styles';
 
-export function AccordionControlled({
+function AccordionControlled({
   summary,
   open,
   onToggle,

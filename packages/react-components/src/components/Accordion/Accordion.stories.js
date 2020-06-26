@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 // import { text, boolean, select } from '@storybook/addon-knobs';
-import { Accordion, AccordionControlled } from './Accordion';
+import { Accordion } from './Accordion';
 import readme from './README.md';
 import { StyledProse } from '../typography/StyledProse';
 
@@ -12,9 +12,15 @@ export default {
 export const Example = () => {
   const [open, setOpen] = useState(false);
   return <>
-    <AccordionControlled style={{fontSize: '14px'}} summary={<span>test</span>} open={open} onToggle={setOpen}>
-      Accordion content goes here
-    </AccordionControlled>
+    <Accordion style={{fontSize: '14px'}} summary={<span>Controlled</span>} open={open} onToggle={setOpen}>
+      Content goes here
+    </Accordion>
+    <Accordion style={{fontSize: '14px'}} summary={<span>Uncontrolled</span>}>
+      Content goes here
+    </Accordion>
+    <Accordion style={{fontSize: '14px'}} summary={<span>Uncontrolled</span>} defaultOpen={true}>
+      But initital state specified as open
+    </Accordion>
     {/* <StyledProse source={readme}></StyledProse> */}
   </>
 };

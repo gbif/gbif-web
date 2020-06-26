@@ -1,8 +1,8 @@
-const { getFacet, getStats } = require('./helpers.js/getMetrics');
-const fieldsWithFacetSupport = require('./helpers.js/fieldsWithFacetSupport');
-const fieldsWithStatsSupport = require('./helpers.js/fieldsWithStatsSupport');
-const config = require('../../config');
-const { TMP_GRAPHQL_API_KEY } = config;
+const _ = require('lodash');
+const { getFacet, getStats } = require('./helpers/getMetrics');
+const fieldsWithFacetSupport = require('./helpers/fieldsWithFacetSupport');
+const fieldsWithStatsSupport = require('./helpers/fieldsWithStatsSupport');
+const verbatimResolvers = require('./helpers/occurrenceTerms');
 
 // there are many fields that support facets. This function creates the resolvers for all of them
 const facetReducer = (dictionary, facetName) => {
@@ -45,6 +45,7 @@ module.exports = {
       dataSources.occurrenceAPI.getOccurrenceByKey({ key })
   },
   Occurrence: {
+    ...verbatimResolvers,
     primaryImage: ({ multimediaItems }) => {
       if (typeof multimediaItems === 'undefined') return null;
       // extract primary image. for now just any image

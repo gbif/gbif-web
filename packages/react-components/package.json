@@ -30,6 +30,7 @@
     "downshift": "^5.2.7",
     "focus-trap-react": "^6.0.0",
     "ky": "^0.20.0",
+    "latlon-geohash": "^2.0.0",
     "mapbox-gl": "^1.10.0",
     "match-sorter": "^4.1.0",
     "nanoid": "^3.1.7",

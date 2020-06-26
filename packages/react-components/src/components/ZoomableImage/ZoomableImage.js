@@ -2,7 +2,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import ThemeContext from '../../style/themes/ThemeContext';
-import React, { useContext, useRef, useState, useEffect } from 'react';
+import React, { useContext, useRef, useState, useEffect, useCallback } from 'react';
 import { MdFullscreen, MdFullscreenExit } from 'react-icons/md';
 import PropTypes from 'prop-types';
 // import { oneOfMany } from '../../utils/util';
@@ -23,21 +23,33 @@ export const ZoomableImage = React.forwardRef(({
     setImageSrc(thumbnail);
     if (Image) {
       var downloadingImage = new Image();
-      downloadingImage.onload = function(){
+      downloadingImage.onload = function () {
         setImageSrc(this.src);
       };
       downloadingImage.src = src;
     }
-  },[src, thumbnail]);
+  }, [src, thumbnail]);
+
+  const handleFullScreenChange = useCallback(event => {
+    // Surprisingly the only way to tell if full screen is to compare.
+    // https://developer.mozilla.org/en-US/docs/Web/API/Element/onfullscreenchange
+    setFullscreen(document.fullscreenElement === wrapperRef.current);
+  });
+
+  useEffect(() => {
+    wrapperRef.current.onfullscreenchange = handleFullScreenChange;
+    return () => {
+      wrapperRef.current.onfullscreenchange = undefined;
+    }
+  }, [handleFullScreenChange]);
 
   return <div ref={wrapperRef} css={styles.zoomableImage({ theme })} {...props}>
-    <div css={styles.image({theme, src: imageSrc, blur: imageSrc === thumbnail})}></div>
+    <div css={styles.image({ theme, src: imageSrc, blur: imageSrc === thumbnail })}></div>
     <div css={styles.toolBar({ theme, src })}>
-      <Button appearance="text" ref={ref} onClick={() => {
+      <Button style={{ padding: 10 }} appearance="text" ref={ref} onClick={() => {
         if (isFullscreen) document.exitFullscreen();
         else wrapperRef.current.requestFullscreen();
-        setFullscreen(!isFullscreen);
-        }}>
+      }}>
         {isFullscreen ? <MdFullscreenExit /> : <MdFullscreen />}
       </Button>
     </div>

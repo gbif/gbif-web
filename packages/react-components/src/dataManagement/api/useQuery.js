@@ -13,7 +13,7 @@ const useUnmounted = () => {
 
 function useQuery(query, options = {}) {
   const [data, setData] = useState();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   // functions are called when passed to useState so it has to be wrapped. 
   // We provide an empty call, just so we do not have to check for existence subsequently

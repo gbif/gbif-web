@@ -31,4 +31,6 @@ Value.propTypes = {
   as: PropTypes.any
 };
 
+Properties.Term = Term;
+Properties.Value = Value;
 
