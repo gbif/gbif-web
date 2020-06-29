@@ -16,7 +16,7 @@ import env from './.env.json';
 
 const client = new ApiClient({
   gql: {
-    endpoint: env.GRAPH_API,
+    endpoint: 'http://localhost:4000/graphql',//env.GRAPH_API,
     headers: {
       authorization: `ApiKey-v1 ${env.GRAPHQL_APIKEY}`
     }

@@ -9,36 +9,34 @@ export const gallery = props => css`
   padding: 0;
 `;
 
-export const galleryTile = ({ height = 150 }) => css`
-  flex: 1 1 auto;
-  width: 150px;
-  margin: 6px;
+export const galleryTileImage = ({ height = 150 }) => css`
   height: ${height}px;
-  display: block;
-  position: relative;
-  overflow: hidden;
+  width: 100%;
   background: #eee;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  /* border: 1px solid rgba(0,0,0,.2); */
   &:hover {
-      box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.3);
   }
+`;
+
+export const galleryTile = ({ height = 150 }) => css`
+  flex: 1 1 auto;
+  width: 150px;
+  margin: 6px;
+  display: block;
+  overflow: hidden;
+  /* border: 1px solid rgba(0,0,0,.2); */
   & img {
     display: none;
   }
 `;
 
 export const caption = props => css`
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  font-size: .85em;
-  background: rgba(0,0,0,.2);
-  color: white;
-  padding: 5px;
+  font-size: .80em;
+  font-weight: 600;
+  padding-top: 2px;
 `;
 
 export const more = props => css`
@@ -145,11 +143,3 @@ export const skeletonTile = props => css`
   margin: 6px;
   animation: ${skeletonLoading} 3s linear infinite;
 `;
-
-export default {
-  gallery,
-  galleryTile,
-  more,
-  caption,
-  skeletonTile
-}

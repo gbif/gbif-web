@@ -216,7 +216,7 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
 }
 
 function OccurrenceSearch({ config: customConfig = {}, ...props }) {
-  const [filter, setFilter] = useState({ must: { basisOfRecord: ['HUMAN_OBSERVATION'] } });
+  const [filter, setFilter] = useState({ must: { basisOfRecord: ['HUMAN_OBSERVATION'], taxonKey: [2609958] } });
   const apiContext = useContext(ApiContext);
   const { formatMessage } = useIntl();
   const [config] = useState(() => {

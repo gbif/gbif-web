@@ -1,11 +1,12 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useCallback, useState, useEffect } from 'react';
 import get from 'lodash/get';
-import { MdDone } from 'react-icons/md';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import * as css from '../styles';
-import { Accordion, Properties, Row, Col, Image } from "../../../components";
+import { Accordion, Properties, Row, Col, GalleryTiles, GalleryTile } from "../../../components";
+import { Globe } from './Globe';
+
 const { Term, Value } = Properties;
 
 export function Intro({
@@ -19,16 +20,32 @@ export function Intro({
 
   if (loading || !data) return <h1>Loading</h1>;
 
-  return <div style={{ padding: '0 16px' }}>
+  return <div style={{ padding: '12px 16px' }}>
     <Row wrap="no-wrap">
-      {/* <Col grow={false}>
-        <Image src={data.occurrence.primaryImage.identifier} w="100" style={{ maxHeight: 150 }} />
-      </Col> */}
+      <Col grow={false} style={{ marginRight: 18 }}>
+        <Globe {...data?.occurrence?.volatile?.globe} />
+      </Col>
       <Col grow>
-        <h3 dangerouslySetInnerHTML={{ __html: data?.occurrence?.gbifClassification?.usage?.formattedName }}></h3>
+        
+        <div css={css.headline({ theme })}>
+          <h3 dangerouslySetInnerHTML={{ __html: data?.occurrence?.gbifClassification?.usage?.formattedName }}></h3>
+        </div>
+        <div>sdflkjh jh</div>
         {/* <p>sdfkjh sdkfjh </p> */}
       </Col>
     </Row>
+    {data?.occurrence?.multimediaItems?.length > 0 &&
+      <Accordion css={css.accordion({theme})} summary={<span>Photos</span>} defaultOpen={true}>
+        <GalleryTiles>
+          {data.occurrence.multimediaItems.map((x, i) => {
+            return <GalleryTile key={i} src={x.identifier} height={120}>
+              </GalleryTile>
+          })
+          }
+          <div></div>
+        </GalleryTiles>
+      </Accordion>
+    }
     {[recordGroup, OccurrenceGroup].map((group, index) => {
       return <Accordion key={index} css={css.accordion({ theme })} summary="Record" defaultOpen={true}>
         <Properties style={{ fontSize: 13 }} horizontal={true}>

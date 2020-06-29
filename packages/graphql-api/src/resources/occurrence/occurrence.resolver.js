@@ -1,4 +1,4 @@
-const _ = require('lodash');
+const { getGlobe } = require('../../util/globe');
 const { getFacet, getStats } = require('./helpers/getMetrics');
 const fieldsWithFacetSupport = require('./helpers/fieldsWithFacetSupport');
 const fieldsWithStatsSupport = require('./helpers/fieldsWithStatsSupport');
@@ -42,7 +42,33 @@ module.exports = {
       return { _predicate: args.predicate };
     },
     occurrence: (parent, { key }, { dataSources }) =>
-      dataSources.occurrenceAPI.getOccurrenceByKey({ key })
+      dataSources.occurrenceAPI.getOccurrenceByKey({ key }),
+    globe: (parent, { cLat, cLon, pLat, pLon, sphere, graticule, land }) => {
+      const roundedLat = Math.floor(pLat / 30) * 30;
+      const simpleLat = Math.min(Math.max(roundedLat, -60), 60);
+      const simpleLon = Math.round(pLon / 30) * 30;
+      const lat = typeof cLat === 'number' ? cLat : simpleLat;
+      const lon = typeof cLon === 'number' ? cLon : simpleLon;
+
+      const svg = getGlobe({
+        center: {
+          lat,
+          lng: lon
+        },
+        point: {
+          lat: pLat,
+          lng: pLon
+        },
+        options: {
+          sphere, graticule, land
+        }
+      });
+      return {
+        svg,
+        lat,
+        lon
+      }
+    }
   },
   Occurrence: {
     ...verbatimResolvers,
@@ -51,6 +77,7 @@ module.exports = {
       // extract primary image. for now just any image
       return multimediaItems.find(x => x.type === 'StillImage');
     },
+    volatile: (occurrence) => occurrence,
   },
   OccurrenceSearchResult: {
     documents: searchOccurrences,
@@ -123,5 +150,34 @@ module.exports = {
       return dataSources.organizationAPI.getOrganizationByKey({ key });
     },
     occurrences: facetOccurrenceSearch
+  },
+  Globe: {
+
+  },
+  VolatileOccurrenceData: {
+    globe: ({ coordinates }, { sphere, graticule, land }) => {
+      const roundedLat = Math.floor(coordinates.lat / 30) * 30;
+      const lat = Math.min(Math.max(roundedLat, -60), 60);
+      const lon = Math.round(coordinates.lon / 30) * 30;
+
+      const svg = getGlobe({
+        center: {
+          lat: lat,
+          lng: lon
+        },
+        point: {
+          lat: coordinates.lat,
+          lng: coordinates.lon
+        },
+        options: {
+          sphere, graticule, land
+        }
+      });
+      return {
+        svg,
+        lat,
+        lon
+      }
+    }
   },
 };

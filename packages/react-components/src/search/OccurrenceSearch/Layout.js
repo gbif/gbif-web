@@ -20,7 +20,7 @@ const Layout = ({
   config,
   ...props
 }) => {
-  const [activeView, setActiveView] = useState('map');
+  const [activeView, setActiveView] = useState('gallery');
   const theme = useContext(ThemeContext);
   const prefix = theme.prefix || 'gbif';
   const elementName = 'occurrenceSearchLayout';

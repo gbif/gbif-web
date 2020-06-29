@@ -35,7 +35,7 @@ export function OccurrenceSidebar({
   return <Tabs activeId={activeId} onChange={id => setTab(id === activeId ? undefined : id)}>
     <Row wrap="nowrap" style={style} css={css.sideBar}>
       <Col shrink={false} grow={false} css={css.detailDrawerBar}>
-        <TabList aria-label="Images">
+        <TabList aria-label="Images" style={{ paddingTop: '12px' }}>
           <Tab tabId="details" direction="left">
             <MdInfo />
           </Tab>
@@ -342,6 +342,15 @@ const groups = {
 const OCCURRENCE = `
 query occurrence($key: ID!){
   occurrence(key: $key) {
+    coordinates
+    volatile {
+      globe(sphere: false, land: false, graticule: false) {
+        svg
+        lat
+        lon
+      }
+    }
+
     datasetTitle
     ${groups.Record.join(('\n'))}
     ${groups.Occurrence.join(('\n'))}
@@ -371,3 +380,4 @@ query occurrence($key: ID!){
   }
 }
 `;
+

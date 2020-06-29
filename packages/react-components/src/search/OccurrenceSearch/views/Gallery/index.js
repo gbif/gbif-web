@@ -14,6 +14,8 @@ query gallery($predicate: Predicate, $size: Int = 20, $from: Int = 0){
       from
       results {
         gbifId
+        countryCode
+        locality
         gbifClassification{
           acceptedUsage {
             formattedName
