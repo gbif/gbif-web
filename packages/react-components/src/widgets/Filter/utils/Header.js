@@ -4,10 +4,10 @@ import React from "react";
 import { Row, Col, Button, Menu } from '../../../components';
 import { MdMoreVert } from "react-icons/md";
 
-const Header = ({ children, menuItems, ...props }) => {
+const Header = ({ children, menuItems, labelledById, ...props }) => {
   // console.log(menuItems);
   return <Row as="section" {...props} css={header} alignItems="center">
-    <Col>
+    <Col aria-labelledby={labelledById}>
       {children}
     </Col>
     {menuItems && <Col grow={false}>

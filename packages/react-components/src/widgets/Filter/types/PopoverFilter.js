@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import React, { useState, useContext, useEffect, useCallback } from "react";
+import { nanoid } from 'nanoid';
 import { Popover as BasePopover } from '../../../components';
 import { FilterContext } from '../state';
 
@@ -36,7 +37,8 @@ const TaxonPopover = props => {
   </Popover>
 }
 */
-function Popover({ ariaLabel, content, placement, modal, children, className, style, ...props }) {
+function Popover({ content, placement, modal, children, className, style, ...props }) {
+  const [labelledById] = React.useState(nanoid);
   const currentFilterContext = useContext(FilterContext);
   const [tmpFilter, setFilter] = useState(currentFilterContext.filter);
   const child = React.Children.only(children);
@@ -62,14 +64,14 @@ function Popover({ ariaLabel, content, placement, modal, children, className, st
     <BasePopover
       onClickOutside={popover => { currentFilterContext.setFilter(tmpFilter); popover.hide() }}
       style={{ width: '22em', maxWidth: '100%', ...style }}
-      aria-label={ariaLabel}
+      aria-labelledby={labelledById}
       placement={placement}
       trigger={child}
       modal={modal}
       className={className}
     >
       {React.cloneElement(content, {
-        onApply, onCancel, onFilterChange,
+        onApply, onCancel, onFilterChange, labelledById,
         initFilter: currentFilterContext.filter
       })}
     </BasePopover>

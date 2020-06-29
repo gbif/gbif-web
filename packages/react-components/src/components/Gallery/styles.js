@@ -9,11 +9,11 @@ export const gallery = props => css`
   padding: 0;
 `;
 
-export const galleryTile = props => css`
+export const galleryTile = ({ height = 150 }) => css`
   flex: 1 1 auto;
   width: 150px;
   margin: 6px;
-  height: 150px;
+  height: ${height}px;
   display: block;
   position: relative;
   overflow: hidden;
@@ -61,7 +61,7 @@ export const detailPage = props => css`
   left: 0;
   right: 0;
   bottom: 0;
-  background: white;
+  background: #00000010;
   /* opacity: 0;
   transform: translateX(${props.rtl ? -100 : 100}%);
   transition: opacity 6.2s linear, transform 6.2s ease-in-out;
@@ -140,7 +140,7 @@ export const detailNext = props => css`
 
 export const skeletonTile = props => css`
   height: ${props.height}px;
-  width: ${props.height*1.2}px;
+  width: ${props.height * 1.2}px;
   flex: 1 1 auto;
   margin: 6px;
   animation: ${skeletonLoading} 3s linear infinite;

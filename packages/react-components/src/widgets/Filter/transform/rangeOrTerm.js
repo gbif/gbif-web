@@ -8,23 +8,32 @@ import hash from 'object-hash';
  * @param {string} lowerBound 
  */
 export function rangeOrTerm(value, lowerBound = 'gte', upperBound = 'lte') {
-  const key = hash(value);
-  if (typeof value !== 'string' || value.indexOf(',') === -1) {
+  const _id = Math.random();//hash(value);
+  // has a comma in the string
+  let delimter = value.indexOf(',') > -1 ? ',' : null;
+  if (!delimter) {
+    // no comma, but a dash, and since it isn't the first character then it isn't a negation
+    delimter = value.indexOf('-') > 0 ? '-' : null;
+  }
+  
+  if (typeof value !== 'string' || !delimter) {
     return {
       type: 'equals',
       value: value,
-      key
+      _id
     };
   } else {
-    let values = value.split(',');
-    const cleanedValues = values.map(s => s === '*' ? undefined : s.trim());
+    let values = value.split(delimter);
+    const cleanedValues = values
+      .map(s => s.trim())
+      .map(s => (s === '*' || s === '') ? undefined : s);
     return {
       type: 'range',
       value: {
         [upperBound]: cleanedValues[0],
         [lowerBound]: cleanedValues[1]
       },
-      key
+      _id
     }
   }
 }

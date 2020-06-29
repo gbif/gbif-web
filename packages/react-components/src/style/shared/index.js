@@ -113,15 +113,15 @@ export const tooltip = props => css`
 
 export const skeletonLoading = keyframes`
   from {
-    background-color: #eee;
+    background-color: #bbbbbb50;
   }
   50% {
-    background-color: #eee;
+    background-color: #bbbbbb50;
   }
   75% {
-    background-color: #dfdfdf;
+    background-color: #afafaf50;
   }
   to {
-    background-color: #eee;
+    background-color: #bbbbbb50;
   }
 `;

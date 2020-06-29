@@ -1,0 +1,68 @@
+import React from 'react';
+import { Button, Popover } from '../../../../widgets/Filter/types/VocabularyFilter';
+import formatFactory from '../../displayNames/formatFactory';
+import { getVocabulary } from './getVocabulary';
+
+export function generateFilter(config) {
+  return {
+    Button: props => <Button {...config} {...props} />,
+    Popover: props => <Popover {...config} {...props} />,
+    DisplayName: config.DisplayName
+  }
+}
+
+function getGet(name) {
+  return ({ lang = 'eng' }) => getVocabulary(name, lang)
+}
+
+function getDisplayName(name) {
+  return formatFactory(id => getGet(name)({ lang: 'eng' })
+    .then(vocab => {
+      return {
+        title: vocab.concepts.find(x => x.name === id).label
+      }
+    })
+  );
+}
+
+export const lifeStage = generateFilter({
+  filterName: 'lifeStage',
+  DisplayName: getDisplayName('lifeStage'),
+  config: {
+    getVocabulary: async () => {
+      return {
+        concepts: [{
+          name: 'ADULT', definition: 'In adult life', label: 'Adult'
+        }],
+        definition: 'State of life lorem ipsum',
+        label: 'Life stage',
+        name: 'LifeStage',
+        hasConceptDefinitions: true
+      }
+    }
+  },
+});
+
+export const basisOfRecord = generateFilter({
+  filterName: 'basisOfRecord',
+  DisplayName: getDisplayName('BasisOfRecord'),
+  config: {
+    getVocabulary: getGet('BasisOfRecord')
+  },
+});
+
+export const countryCode = generateFilter({
+  filterName: 'country',
+  DisplayName: getDisplayName('Country'),
+  config: {
+    getVocabulary: getGet('Country')
+  },
+});
+
+export const typeStatus = generateFilter({
+  filterName: 'typeStatus',
+  DisplayName: getDisplayName('TypeStatus'),
+  config: {
+    getVocabulary: getGet('TypeStatus')
+  },
+});

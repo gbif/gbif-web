@@ -29,7 +29,7 @@ export const summary = ({...props}) => css`
   display: flex;
   align-items: center;
   padding: 12px 0 8px 0;
-  border-bottom: 1px solid #aaa;
+  border-bottom: 1px solid #eee;
   list-style: none;
   &::-webkit-details-marker {
     display: none;
