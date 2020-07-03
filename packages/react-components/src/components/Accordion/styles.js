@@ -18,7 +18,7 @@ export const arrowUp = ({size=5, color='#aaa', ...props}) => css`
 `;
 
 export const content = ({...props}) => css`
-  padding-top: 15px;
+  padding-top: 8px;
 `;
 
 export const accordion = ({...props}) => css`
@@ -31,6 +31,7 @@ export const summary = ({...props}) => css`
   padding: 12px 0 8px 0;
   border-bottom: 1px solid #eee;
   list-style: none;
+  font-weight: 500;
   &::-webkit-details-marker {
     display: none;
   }

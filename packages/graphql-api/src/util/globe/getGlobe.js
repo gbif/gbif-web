@@ -64,7 +64,7 @@ function drawGlobe(window, cb, { lat, lng }, { lat: pointLat, lng: pointLng }, {
   }
 
   // point
-  if (pointLat) {
+  if (typeof pointLat !== 'undefined') {
     svg.append("path")
       .datum({ type: "FeatureCollection", features: getPointGeoJson({ lng: pointLng, lat: pointLat }) })
       .attr("class", "point")

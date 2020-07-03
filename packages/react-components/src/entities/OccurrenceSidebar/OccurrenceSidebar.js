@@ -4,7 +4,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { MdInfo, MdInsertPhoto } from 'react-icons/md'
 import ThemeContext from '../../style/themes/ThemeContext';
 import PropTypes from 'prop-types';
-import { getClasses } from '../../utils/util';
+import get from 'lodash/get';
 import * as css from './styles';
 import { Properties, Row, Col, Tabs } from "../../components";
 import { useQuery } from '../../dataManagement/api';
@@ -32,6 +32,8 @@ export function OccurrenceSidebar({
     }
   }, [id]);
 
+  const isSpecimen = get(data, 'occurrence.basisOfRecord', '').indexOf('SPECIMEN') > -1;
+
   return <Tabs activeId={activeId} onChange={id => setTab(id === activeId ? undefined : id)}>
     <Row wrap="nowrap" style={style} css={css.sideBar}>
       <Col shrink={false} grow={false} css={css.detailDrawerBar}>
@@ -44,12 +46,12 @@ export function OccurrenceSidebar({
           </Tab>
         </TabList>
       </Col>
-      <Col shrink={false} grow={false} css={css.detailDrawerContent}>
+      <Col shrink={false} grow={false} css={css.detailDrawerContent} >
         <TabPanel tabId='images'>
           <ImageDetails data={data} loading={loading} error={error} />
         </TabPanel>
         <TabPanel tabId='details'>
-          <Intro data={data} loading={loading} error={error} />
+          <Intro isSpecimen={isSpecimen} data={data} loading={loading} error={error} />
         </TabPanel>
       </Col>
     </Row>
@@ -343,6 +345,8 @@ const OCCURRENCE = `
 query occurrence($key: ID!){
   occurrence(key: $key) {
     coordinates
+    countryCode
+    eventDateSingle
     volatile {
       globe(sphere: false, land: false, graticule: false) {
         svg
@@ -352,8 +356,11 @@ query occurrence($key: ID!){
     }
 
     datasetTitle
+    gbifId
+    institutionCode
     ${groups.Record.join(('\n'))}
     ${groups.Occurrence.join(('\n'))}
+    ${groups.Event.join(('\n'))}
     ${groups.Organism.join(('\n'))}
 
     multimediaItems {
@@ -369,7 +376,22 @@ query occurrence($key: ID!){
     }
 
     gbifClassification {
+      kingdom
+      kingdomKey
+      phylum
+      phylumKey
+      class
+      classKey
+      order
+      orderKey
+      family
+      familyKey
+      genus
+      genusKey
+      species
+      speciesKey
       usage {
+        rank
         formattedName
       }
     }
