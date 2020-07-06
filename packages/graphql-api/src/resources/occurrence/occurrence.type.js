@@ -87,6 +87,7 @@ const typeDef = gql`
     typifiedName: String
     waterBody: String
     year: Int
+    coordinates: JSON
 
     # extracted from verbatim
     abstract: String 
@@ -269,9 +270,18 @@ const typeDef = gql`
     Currently the primary image is considered the first image retruned from the REST API
     """
     primaryImage: MultimediaItem
+    volatile: VolatileOccurrenceData
   }
 
-  
+  type VolatileOccurrenceData {
+    globe(sphere: Boolean, graticule: Boolean, land: Boolean): Globe
+  }
+
+  type Globe {
+    svg: String
+    lat: Float
+    lon: Float
+  }
 
   type GbifClassification {
     acceptedUsage: OccurrenceNameUsage

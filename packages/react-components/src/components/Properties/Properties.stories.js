@@ -37,8 +37,39 @@ export const Example = () => <>
     <Term>Created</Term>
     <Value>12 Apr 2016, 12:21</Value>
 
-    <Term>Species</Term>
-    <Value>Phellinus pomaceus (Pers.) Maire</Value>
+    <Term>Location</Term>
+    <Value>
+      <Properties style={{maxWidth: '100%'}}>
+        <Term>Continent</Term>
+        <Value>Europe</Value>
+
+        <Term>Country</Term>
+        <Value>Denmark</Value>
+
+        <Term>Municipality</Term>
+        <Value>Copenhagen</Value>
+
+        <Term>Locality</Term>
+        <Value>Fælledparken</Value>
+      </Properties>
+    </Value>
+
+    <Term>Location</Term>
+    <Value>
+      <Properties style={{maxWidth: '100%'}} horizontal>
+        <Term>Continent</Term>
+        <Value>Europe</Value>
+
+        <Term>Country</Term>
+        <Value>Denmark</Value>
+
+        <Term>Municipality</Term>
+        <Value>Copenhagen</Value>
+
+        <Term>Locality</Term>
+        <Value>Fælledparken</Value>
+      </Properties>
+    </Value>
   </Properties>
   {/* <StyledProse source={readme}></StyledProse> */}
 </>;

@@ -11,7 +11,7 @@ const Switch = React.forwardRef(({
   ...props
 }, ref) => {
   const theme = useContext(ThemeContext);
-  return <Span style={style} className={className} css={switchClass(theme)}>
+  return <Span style={style} className={className} css={switchClass({theme, disabled: props.disabled})}>
     <input type="checkbox" ref={ref} {...props} ></input>
     <span></span>
   </Span>
@@ -25,7 +25,7 @@ Switch.propTypes = {
 
 export default Switch;
 
-const switchClass = theme => css`
+const switchClass = ({theme, disabled}) => css`
   position: relative;
   top: -0.09em;
   display: inline-block;
@@ -33,6 +33,7 @@ const switchClass = theme => css`
   white-space: nowrap;
   vertical-align: middle;
   outline: none;
+  ${disabled ? 'opacity: 0.5;' : null}
   cursor: pointer;
   & input {
     margin: 0;

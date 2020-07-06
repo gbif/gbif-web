@@ -9,6 +9,7 @@ const typeDef = gql`
       from: Int
       ): OccurrenceSearchResult
     occurrence(key: ID!): Occurrence
+    globe(cLat: Float, cLon: Float, pLat: Float, pLon: Float, sphere: Boolean, graticule: Boolean, land: Boolean): Globe
   }
 
   type OccurrenceSearchResult {

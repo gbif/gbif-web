@@ -7,7 +7,7 @@ import { useDialogState, Dialog } from "reakit/Dialog";
 // import { oneOfMany } from '../../utils/util';
 import { Button } from '../Button/Button';
 import { Image } from '../Image/Image';
-import styles from './styles';
+import * as styles from './styles';
 import { GalleryDetails } from './GalleryDetails';
 
 export const GalleryTileSkeleton = ({ height = 150, ...props }) => {
@@ -20,38 +20,42 @@ export const GalleryTile = ({ src, onSelect, height = 150, children, style, ...p
   const [isValid, setValid] = useState(false);
   const onLoad = useCallback((event) => {
     setValid(true);
-    const ratio = (event.target.naturalWidth) / event.target.naturalHeight;
+    const ratio = event.target.naturalWidth / event.target.naturalHeight;
     setRatio(ratio);
   }, []);
 
   const sizeStyle = {
     width: ratio * height,
-    backgroundImage: `url('${Image.getImageSrc({ src, h: height })}')`
   };
+  const imageStyle = {
+    backgroundImage: `url('${Image.getImageSrc({ src, h: height })}')`
+  }
   if (ratio < 0.5 || ratio > 2) {
-    sizeStyle.backgroundSize = 'contain';
+    imageStyle.backgroundSize = 'contain';
     sizeStyle.width = height;
     if (ratio > 2) sizeStyle.width = height * 1.8;
   }
-  return <Button appearance="text"
-    css={styles.galleryTile({ theme, height })}
-    style={{...sizeStyle, ...style}}
-    onClick={onSelect} {...props}
-    title="View details"
-  >
-    <Image src={src}
-      width={height}
-      h={height}
-      onLoad={onLoad}
-      alt="Occurrence evidence"
-    />
+  return <div css={styles.galleryTile({ theme, height })} style={{...sizeStyle, ...style}}>
+    <Button appearance="text"
+      css={styles.galleryTileImage({ theme, height })}
+      style={imageStyle}
+      onClick={onSelect} {...props}
+      title="View details"
+    >
+      <Image src={src}
+        width={height}
+        h={height}
+        onLoad={onLoad}
+        alt="Occurrence evidence"
+      />
+    </Button>
     {children}
-  </Button>
+  </div>
 }
 
 export const GalleryCaption = props => {
   const theme = useContext(ThemeContext);
-  return <span css={styles.caption({ theme })} {...props} />
+  return <div css={styles.caption({ theme })} {...props} />
 };
 
 export const Gallery = ({

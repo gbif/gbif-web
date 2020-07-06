@@ -10,7 +10,7 @@ import gbifTheme from './theme';
 import { en as enNested } from '../src/locales/en';
 const en = flatten(enNested);
 
-import ThemeContext, { darkTheme, lightTheme, a11yTheme } from '../src/style/themes';
+import ThemeContext, { darkTheme, lightTheme, a11yTheme, vertnetTheme } from '../src/style/themes';
 import { ApiContext, ApiClient } from '../src/dataManagement/api';
 import env from './.env.json';
 
@@ -31,6 +31,7 @@ addDecorator(storyFn => {
     dark: darkTheme,
     light: lightTheme,
     a11y: a11yTheme,
+    vertnet: vertnetTheme,
   }
 
   const chooseTheme = choice => {
@@ -50,7 +51,7 @@ addDecorator(storyFn => {
             value={chooseTheme(
               select(
                 'Choose Theme',
-                ['Dark', 'Light', 'A11y'],
+                ['Dark', 'Light', 'A11y', 'Vertnet'],
                 'Light',
               ),
             )}

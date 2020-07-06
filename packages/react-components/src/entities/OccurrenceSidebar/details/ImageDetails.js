@@ -1,12 +1,13 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import React, { useContext, useState, useEffect } from 'react';
-import { MdDone } from 'react-icons/md'
+import { MdDone } from 'react-icons/md';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import * as css from '../styles';
 import { Accordion, Properties, Row, Col, Image, GalleryTiles, GalleryTile, ZoomableImage } from "../../../components";
 import { useQuery } from '../../../dataManagement/api';
 import { filter2predicate } from '../../../dataManagement/filterAdapter';
+import { Header } from './Header';
 
 const { Term, Value } = Properties;
 
@@ -26,12 +27,13 @@ export function ImageDetails({
     return <div>no images to display</div>
   }
 
-  return <div style={{ padding: '0 16px' }}>
+  return <div style={{ padding: '12px 16px' }}>
+    <Header data={data} />
     {/* <h4 dangerouslySetInnerHTML={{ __html: data?.occurrence?.gbifClassification?.usage?.formattedName }}></h4> */}
     {activeImage && <>
     <div css={css.imageContainer}>
       {/* <ZoomableImage style={{height: 300}} src={activeImage.identifier} thumbnail={Image.getImageSrc({src: activeImage.identifier, h:150})} /> */}
-      <Image src={activeImage.identifier} h="450" style={{maxWidth: '100%', height: 450}} />
+      <Image src={activeImage.identifier} h="450" style={{maxWidth: '100%', maxHeight: 450}} />
     </div>
     <Accordion css={css.accordion({theme})} summary={<span>About</span>} defaultOpen={data?.occurrence?.multimediaItems?.length === 1}>
       <Properties style={{ fontSize: 13 }}>
