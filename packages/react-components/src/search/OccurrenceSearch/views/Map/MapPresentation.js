@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import styled from '@emotion/styled';
 import mapboxgl from 'mapbox-gl';
-import { compose } from '../../api/queryAdapter';
-
-/*
-field: coordinates
-url: http://labs.gbif.org:7011/_search?
-filter: {"bool":{"filter":{"term":{"datasetKey":"4fa7b334-ce0d-4e88-aaae-2e0c138d049e"}}}}
-*/
+import { ApiContext } from '../../../../dataManagement/api';
+import { DetailsDrawer } from '../../../../components';
+import { OccurrenceSidebar } from '../../../../entities';
+import { useDialogState } from "reakit/Dialog";
+import { getLayerConfig } from './getLayerConfig';
+import ListBox from './ListBox';
 
 const MapAreaComponent = styled('div')(
   {
@@ -15,8 +14,10 @@ const MapAreaComponent = styled('div')(
     display: "flex",
     height: "100%",
     maxHeight: "100vh",
-    flexDirection: "column"
+    flexDirection: "column",
+    position: 'relative'
   });
+
 const MapComponent = styled('div')(
   {
     flex: "1 1 100%",
@@ -56,9 +57,13 @@ class Map extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.filterHash !== this.props.filterHash) {
+    if (prevProps.query !== this.props.query && this.mapLoaded) {
       this.updateLayer();
     }
+    // if (prevProps.pointData !== this.props.pointData && this.mapLoaded) {
+    //   const results = this.props.pointData?.occurrenceSearch?.documents?.total;
+    //   this.popup.setHTML(`<p>test</p>`);
+    // }
   }
 
   updateLayer() {
@@ -73,75 +78,23 @@ class Map extends Component {
   }
 
   addLayer() {
-    // let filter = this.props.filter;
-    // filter = this.props.api.compose(filter).build();
-    // let borArray = get(this.props.filter, 'must.BasisOfRecord', []).map(e => snakeCase(e).toUpperCase());
-    // let filter = {"bool":{"filter":{"terms":{"basisOfRecord":borArray}}}};
-    // let filter = {"bool":{"filter":{"terms":{"gbifClassification.usage.rank":borArray}}}};
-    let esQuery = compose(this.props.filter).build();
+    this.mapLoaded = true;
     var tileString =
       //"https://esmap.gbif-dev.org/api/tile/{x}/{y}/{z}.mvt?field=coordinates&url=" +
       "http://labs.gbif.org:7012/api/tile/point/{x}/{y}/{z}.mvt?resolution=medium&field=coordinates&url=" +
+      // "http://localhost:7012/api/tile/point/{x}/{y}/{z}.mvt?resolution=medium&field=coordinates&url=" +
       // "http://localhost:3000/api/tile/significant/{x}/{y}/{z}.mvt?field=coordinate_point&significantField=backbone.speciesKey&url=" +
       //"http://localhost:3001/api/tile/point/{x}/{y}/{z}.mvt?resolution=high&field=coordinates&url=" +
       encodeURIComponent(`http://c6n1.gbif.org:9200/occurrence/_search?`) +
-      "&filter=" + encodeURIComponent(JSON.stringify(esQuery.query));
+      "&filter=" + encodeURIComponent(JSON.stringify(this.props.query));
+    // tileString = `https://api.gbif.org/v2/map/occurrence/adhoc/{z}/{x}/{y}.mvt?style=scaled.circles&mode=GEO_CENTROID&locale=en&advanced=false&srs=EPSG%3A4326&squareSize=256`;
     this.map.addLayer(
-      {
-        id: "occurrences",
-        type: "circle",
-        source: {
-          type: "vector",
-          tiles: [tileString]
-        },
-        "source-layer": "occurrences",
-        paint: {
-          // make circles larger as the user zooms from z12 to z22
-          "circle-radius": {
-            property: "count",
-            type: "interval",
-            //stops: [[0, 2]]
-            stops: [[0, 2], [10, 3], [100, 5], [1000, 8], [10000, 15]]
-          },
-          // color circles by ethnicity, using data-driven styles
-          "circle-color": {
-            property: "count",
-            type: "interval",
-            stops: [
-              [0, "#fed976"], //#b99939
-              [10, "#fd8d3c"],
-              [100, "#fd8d3c"], //#b45100
-              [1000, "#f03b20"], //#a40000
-              [10000, "#bd0026"]
-            ] //#750000
-          },
-          "circle-opacity": {
-            property: "count",
-            type: "interval",
-            stops: [[0, 1], [10, 0.8], [100, 0.7], [1000, 0.6], [10000, 0.6]]
-          },
-          "circle-stroke-color": {
-            property: "count",
-            type: "interval",
-            stops: [
-              [0, "#fe9724"], //#b99939
-              [10, "#fd5b24"],
-              [100, "#fd471d"], //#b45100
-              [1000, "#f01129"], //#a40000
-              [10000, "#bd0047"]
-            ] //#750000
-          },
-          "circle-stroke-width": {
-            property: "count",
-            type: "interval",
-            stops: [[0, 1], [10, 0]]
-          }
-        }
-      },
+      getLayerConfig(tileString),
       "poi-scalerank2"
     );
 
     const map = this.map
+    // remember map position
     map.on('zoomend', function () {
       const center = map.getCenter();
       sessionStorage.setItem('mapZoom', map.getZoom());
@@ -154,15 +107,60 @@ class Map extends Component {
       sessionStorage.setItem('mapLng', center.lng);
       sessionStorage.setItem('mapLat', center.lat);
     });
+
+    // popover
+    var popup = new mapboxgl.Popup({
+      closeButton: false,
+      closeOnClick: false
+    });
+    this.popup = popup;
+
+    map.on('mouseenter', 'occurrences', function (e) {
+      // Change the cursor style as a UI indicator.
+      map.getCanvas().style.cursor = 'pointer';
+    });
+
+    const loadPointData = this.props.loadPointData;
+    const dialog = this.props.dialog;
+    map.on('click', 'occurrences', function (e) {
+      // console.log(e.features[0].properties);
+      // Populate the popup and set its coordinates
+      // based on the feature found.
+      loadPointData({ geohash: e.features[0].properties.geohash });
+
+      // popup.setLngLat(e.features[0].geometry.coordinates)
+      //   .setHTML(e.features[0].properties.count)
+      //   .addTo(map);
+      // dialog.show();
+    });
+
+    map.on('mouseleave', 'occurrences', function () {
+      map.getCanvas().style.cursor = '';
+      popup.remove();
+    });
   }
 
   render() {
-    return (
+    const { dialog, pointData, pointError, pointLoading } = this.props;
+    const { activeItemId } = this.state;
+    return <>
+      <DetailsDrawer dialog={dialog}>
+        <OccurrenceSidebar id={activeItemId} defaultTab='details' style={{ width: 700, height: '100%' }} />
+      </DetailsDrawer>
       <MapAreaComponent>
+        <ListBox onClick={({id}) => {dialog.show(); this.setState({activeItemId: id})}} data={pointData} error={pointError} loading={pointLoading} style={{ zIndex: 10, margin: 20, position: 'absolute', left: 0, bottom: 0, width: 300, maxHeight: 'calc(100% - 60px)' }} />
         <MapComponent ref={this.myRef} />
       </MapAreaComponent>
-    );
+    </>;
   }
 }
 
-export default Map;
+const Wrapped = props => {
+  const dialog = useDialogState({ animated: true });
+  return <ApiContext.Consumer>
+    {apiClient => <Map client={apiClient} {...props} dialog={dialog} />}
+  </ApiContext.Consumer>
+}
+
+export default Wrapped;
+// const { data, error, loading, load } = useQuery(OCCURRENCE_TABLE, { lazyLoad: true, keepDataWhileLoading: true });

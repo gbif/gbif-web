@@ -8,7 +8,8 @@ const typeDef = gql`
       size: Int
       from: Int
       ): OccurrenceSearchResult
-    occurrence(key: String!): Occurrence
+    occurrence(key: ID!): Occurrence
+    globe(cLat: Float, cLon: Float, pLat: Float, pLon: Float, sphere: Boolean, graticule: Boolean, land: Boolean): Globe
   }
 
   type OccurrenceSearchResult {
@@ -25,6 +26,7 @@ const typeDef = gql`
     """
     stats: OccurrenceStats
     _predicate: JSON
+    _meta: JSON
   }
 
   type OccurrenceDocuments {

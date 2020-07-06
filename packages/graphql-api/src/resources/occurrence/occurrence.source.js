@@ -32,7 +32,13 @@ class OccurrenceAPI extends RESTDataSource {
   }
 
   async getOccurrenceByKey({ key }) {
-    return this.get(`/occurrence/${key}`);
+    return this.get(`/occurrence/key/${key}`);
+  }
+
+  async meta({ query }) {
+    const body = { ...query };
+    const response = await this.post('/occurrence/meta', body);
+    return response;
   }
 
   /*

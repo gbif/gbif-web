@@ -1,8 +1,8 @@
-const { getFacet, getStats } = require('./helpers.js/getMetrics');
-const fieldsWithFacetSupport = require('./helpers.js/fieldsWithFacetSupport');
-const fieldsWithStatsSupport = require('./helpers.js/fieldsWithStatsSupport');
-const config = require('../../config');
-const { TMP_GRAPHQL_API_KEY } = config;
+const { getGlobe } = require('../../util/globe');
+const { getFacet, getStats } = require('./helpers/getMetrics');
+const fieldsWithFacetSupport = require('./helpers/fieldsWithFacetSupport');
+const fieldsWithStatsSupport = require('./helpers/fieldsWithStatsSupport');
+const verbatimResolvers = require('./helpers/occurrenceTerms');
 
 // there are many fields that support facets. This function creates the resolvers for all of them
 const facetReducer = (dictionary, facetName) => {
@@ -42,14 +42,42 @@ module.exports = {
       return { _predicate: args.predicate };
     },
     occurrence: (parent, { key }, { dataSources }) =>
-      dataSources.occurrenceAPI.getOccurrenceByKey({ key })
+      dataSources.occurrenceAPI.getOccurrenceByKey({ key }),
+    globe: (parent, { cLat, cLon, pLat, pLon, sphere, graticule, land }) => {
+      const roundedLat = Math.floor(pLat / 30) * 30;
+      const simpleLat = Math.min(Math.max(roundedLat, -60), 60);
+      const simpleLon = Math.round(pLon / 30) * 30;
+      const lat = typeof cLat === 'number' ? cLat : simpleLat;
+      const lon = typeof cLon === 'number' ? cLon : simpleLon;
+
+      const svg = getGlobe({
+        center: {
+          lat,
+          lng: lon
+        },
+        point: {
+          lat: pLat,
+          lng: pLon
+        },
+        options: {
+          sphere, graticule, land
+        }
+      });
+      return {
+        svg,
+        lat,
+        lon
+      }
+    }
   },
   Occurrence: {
-    // someField: ({ fieldWithKey: key }, args, { dataSources }) => {
-    //   if (typeof key === 'undefined') return null;
-    //   dataSources.someAPI.getSomethingByKey({ key })
-    // },
-
+    ...verbatimResolvers,
+    primaryImage: ({ multimediaItems }) => {
+      if (typeof multimediaItems === 'undefined') return null;
+      // extract primary image. for now just any image
+      return multimediaItems.find(x => x.type === 'StillImage');
+    },
+    volatile: (occurrence) => occurrence,
   },
   OccurrenceSearchResult: {
     documents: searchOccurrences,
@@ -60,6 +88,11 @@ module.exports = {
     stats: (parent) => {
       return { _predicate: parent._predicate };
     },
+    _meta: (parent, query, { dataSources }) => {
+      return dataSources.occurrenceAPI.meta({
+        query: { predicate: parent._predicate }
+      });
+    }
   },
   OccurrenceNameUsage: {
     formattedName: ({ key }, args, { dataSources }) =>
@@ -117,5 +150,34 @@ module.exports = {
       return dataSources.organizationAPI.getOrganizationByKey({ key });
     },
     occurrences: facetOccurrenceSearch
+  },
+  Globe: {
+
+  },
+  VolatileOccurrenceData: {
+    globe: ({ coordinates }, { sphere, graticule, land }) => {
+      const roundedLat = Math.floor(coordinates.lat / 30) * 30;
+      const lat = Math.min(Math.max(roundedLat, -60), 60);
+      const lon = Math.round(coordinates.lon / 30) * 30;
+
+      const svg = getGlobe({
+        center: {
+          lat: lat,
+          lng: lon
+        },
+        point: {
+          lat: coordinates.lat,
+          lng: coordinates.lon
+        },
+        options: {
+          sphere, graticule, land
+        }
+      });
+      return {
+        svg,
+        lat,
+        lon
+      }
+    }
   },
 };

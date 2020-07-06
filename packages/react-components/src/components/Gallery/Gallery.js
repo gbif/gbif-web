@@ -6,46 +6,51 @@ import { useDialogState, Dialog } from "reakit/Dialog";
 // import PropTypes from 'prop-types';
 // import { oneOfMany } from '../../utils/util';
 import { Button } from '../Button/Button';
-import styles from './styles';
-import { GalleryDetails, getThumbnail } from './GalleryDetails';
+import { Image } from '../Image/Image';
+import * as styles from './styles';
+import { GalleryDetails } from './GalleryDetails';
 
-export const GalleryTileSkeleton = ({ height=150, ...props }) => {
-  return <div css={styles.skeletonTile({height})} {...props}></div>
+export const GalleryTileSkeleton = ({ height = 150, ...props }) => {
+  return <div css={styles.skeletonTile({ height })} {...props}></div>
 };
 
-  export const GalleryTile = ({ src, onSelect, height=150, children, ...props }) => {
+export const GalleryTile = ({ src, onSelect, height = 150, children, style, ...props }) => {
   const theme = useContext(ThemeContext);
   const [ratio, setRatio] = useState(1);
   const [isValid, setValid] = useState(false);
   const onLoad = useCallback((event) => {
     setValid(true);
-    const ratio = (event.target.naturalWidth) / event.target.naturalHeight;
+    const ratio = event.target.naturalWidth / event.target.naturalHeight;
     setRatio(ratio);
   }, []);
 
-  const backgroundImage = getThumbnail(src);
-  const style = {
+  const sizeStyle = {
     width: ratio * height,
-    backgroundImage: `url('${backgroundImage}')`
   };
-  if (ratio < 0.5 || ratio > 2) {
-    style.backgroundSize = 'contain';
-    style.width = height;
-    if (ratio > 2) style.width = height*1.8;
+  const imageStyle = {
+    backgroundImage: `url('${Image.getImageSrc({ src, h: height })}')`
   }
-  return <Button appearance="text" 
-    css={styles.galleryTile({ theme })} 
-    style={style} 
-    onClick={onSelect} {...props}
-    title="View details"
+  if (ratio < 0.5 || ratio > 2) {
+    imageStyle.backgroundSize = 'contain';
+    sizeStyle.width = height;
+    if (ratio > 2) sizeStyle.width = height * 1.8;
+  }
+  return <div css={styles.galleryTile({ theme, height })} style={{...sizeStyle, ...style}}>
+    <Button appearance="text"
+      css={styles.galleryTileImage({ theme, height })}
+      style={imageStyle}
+      onClick={onSelect} {...props}
+      title="View details"
     >
-    <img src={backgroundImage}
-      width={height}
-      onLoad={onLoad}
-      alt="Occurrence evidence"
-    />
+      <Image src={src}
+        width={height}
+        h={height}
+        onLoad={onLoad}
+        alt="Occurrence evidence"
+      />
+    </Button>
     {children}
-  </Button>
+  </div>
 }
 
 export const GalleryCaption = props => {
@@ -59,7 +64,7 @@ export const Gallery = ({
   title,
   subtitle,
   details,
-  items=[],
+  items = [],
   loading,
   loadMore,
   imageSrc,
@@ -70,7 +75,7 @@ export const Gallery = ({
   const dialog = useDialogState();
   const [activeId, setActive] = useState();
   const [activeItem, setActiveItem] = useState();
-  
+
   useEffect(() => {
     setActiveItem(items[activeId]);
   }, [activeId, items]);
@@ -85,34 +90,43 @@ export const Gallery = ({
 
   return <>
     {!onSelect && <Dialog {...dialog} tabIndex={0} aria-label="Welcome">
-      {activeItem && <GalleryDetails 
-        closeRequest={() => dialog.hide()} 
-        item={activeItem} 
+      {activeItem && <GalleryDetails
+        closeRequest={() => dialog.hide()}
+        item={activeItem}
         title={title ? title(activeItem) : 'Unknown'}
         subtitle={title ? subtitle(activeItem) : null}
         details={details}
         imageSrc={imageSrc}
         next={next}
         previous={prev}
-        />}
+      />}
     </Dialog>}
-    <div css={styles.gallery({ theme })} {...props}>
+    <GalleryTiles {...props}>
       {items.map((e, i) => {
-        return <GalleryTile key={i} 
-          src={imageSrc(e)} 
-          onSelect={onSelect ? () => onSelect({item: e}) : () => {setActive(i); dialog.show()}}>
-          {caption && caption({item: e, index: i})}
+        return <GalleryTile height={150} key={i}
+          src={imageSrc(e)}
+          onSelect={onSelect ? () => onSelect({ item: e }) : () => { setActive(i); dialog.show() }}>
+          {caption && caption({ item: e, index: i })}
         </GalleryTile>
       })}
-      {loading ? Array(size).fill().map((e,i) => <GalleryTileSkeleton key={i}/>) : null}
+      {loading ? Array(size).fill().map((e, i) => <GalleryTileSkeleton key={i} />) : null}
       <div css={styles.more({ theme, height: 150 })}>
         {loadMore && !loading && <Button appearance="outline" onClick={loadMore}>Load more</Button>}
       </div>
-    </div>
+    </GalleryTiles>
   </>
 };
 
+export const GalleryTiles = ({children, ...props}) => {
+  const theme = useContext(ThemeContext);
+  return <div css={styles.gallery({ theme })} {...props}>
+    {children}
+    <div css={styles.more({ height: 1 })}></div>
+    </div>
+}
+
 Gallery.displayName = 'Gallery';
+
 
 // Gallery.propTypes = {
 

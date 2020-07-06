@@ -55,11 +55,16 @@ export class DataTable extends Component {
     super(props);
 
     this.bodyScroll = this.bodyScroll.bind(this);
-    this.handleShow = this.handleShow.bind(this);
-    this.handleHide = this.handleHide.bind(this);
+    this.scrollToTop = this.scrollToTop.bind(this);
 
     this.myRef = React.createRef();
     this.state = {};
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.loading !== this.props.loading) {
+      this.scrollToTop();
+    }
   }
 
   bodyScroll() {
@@ -67,12 +72,8 @@ export class DataTable extends Component {
     this.setState({ scrolled: this.myRef.current.scrollLeft !== 0 });
   }
 
-  handleShow(field) {
-    this.setState({ showModalFilter: true, modalField: field });
-  }
-
-  handleHide() {
-    this.setState({ showModalFilter: false });
+  scrollToTop() {
+    this.myRef.current.scrollTop = 0;
   }
 
   render() {

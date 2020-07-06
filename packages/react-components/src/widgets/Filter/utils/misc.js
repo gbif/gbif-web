@@ -42,6 +42,7 @@ export const FilterBody = styled.div`
   scrollbar-width: thin;
   &::-webkit-scrollbar {
       width: 6px;
+      height: 6px;
   }
   &::-webkit-scrollbar-thumb {
     background-color: #686868;

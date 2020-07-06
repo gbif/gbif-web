@@ -9,36 +9,34 @@ export const gallery = props => css`
   padding: 0;
 `;
 
-export const galleryTile = props => css`
-  flex: 1 1 auto;
-  width: 150px;
-  margin: 6px;
-  height: 150px;
-  display: block;
-  position: relative;
-  overflow: hidden;
+export const galleryTileImage = ({ height = 150 }) => css`
+  height: ${height}px;
+  width: 100%;
   background: #eee;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  /* border: 1px solid rgba(0,0,0,.2); */
   &:hover {
-      box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.3);
   }
+`;
+
+export const galleryTile = ({ height = 150 }) => css`
+  flex: 1 1 auto;
+  width: 150px;
+  margin: 6px;
+  display: block;
+  overflow: hidden;
+  /* border: 1px solid rgba(0,0,0,.2); */
   & img {
     display: none;
   }
 `;
 
 export const caption = props => css`
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  font-size: .85em;
-  background: rgba(0,0,0,.2);
-  color: white;
-  padding: 5px;
+  font-size: .80em;
+  font-weight: 600;
+  padding-top: 2px;
 `;
 
 export const more = props => css`
@@ -61,7 +59,7 @@ export const detailPage = props => css`
   left: 0;
   right: 0;
   bottom: 0;
-  background: white;
+  background: #00000010;
   /* opacity: 0;
   transform: translateX(${props.rtl ? -100 : 100}%);
   transition: opacity 6.2s linear, transform 6.2s ease-in-out;
@@ -140,16 +138,8 @@ export const detailNext = props => css`
 
 export const skeletonTile = props => css`
   height: ${props.height}px;
-  width: ${props.height*1.2}px;
+  width: ${props.height * 1.2}px;
   flex: 1 1 auto;
   margin: 6px;
   animation: ${skeletonLoading} 3s linear infinite;
 `;
-
-export default {
-  gallery,
-  galleryTile,
-  more,
-  caption,
-  skeletonTile
-}

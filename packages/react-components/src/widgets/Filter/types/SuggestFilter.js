@@ -13,21 +13,24 @@ import PopoverFilter from './PopoverFilter';
 
 import { Suggest, Option, Filter, SummaryBar, FilterBody, Footer } from '../utils';
 
-export const FilterContent = ({ suggestConfig, DisplayName, hide, onApply, onCancel, onFilterChange, focusRef, filterName, initFilter }) => {
+export const FilterContent = ({ config, trName, labelledById, LabelFromID, hide, onApply, onCancel, onFilterChange, focusRef, filterHandle, initFilter }) => {
   const [id] = React.useState(nanoid);
-  const initialOptions = get(initFilter, `must.${filterName}`, []);
+  const initialOptions = get(initFilter, `must.${filterHandle}`, []);
   const [options, setOptions] = useState(initialOptions);
 
+  const suggestConfig = config.suggestConfig;
+  const Label = config.LabelFromID || LabelFromID;
   return <Filter
+    labelledById={labelledById}
     onApply={onApply}
     onCancel={onCancel}
     title={<FormattedMessage
-      id={`filter.${filterName}.name`}
+      id={trName || `filter.${filterHandle}.name`}
       defaultMessage={'Loading'}
     />} //this should be formated or be provided as such
     aboutText="some help text"
     onFilterChange={onFilterChange}
-    filterName={filterName}
+    filterName={filterHandle}
     formId={id}
     defaultFilter={initFilter}
   >
@@ -41,8 +44,9 @@ export const FilterContent = ({ suggestConfig, DisplayName, hide, onApply, onCan
             if (!item) return;
             const allOptions = union(options, [item.key]);
             setOptions(allOptions);
-            toggle(filterName, item.key);
-          }} />
+            toggle(filterHandle, item.key);
+          }} 
+          />
         {options.length > 0 && <>
           <SummaryBar {...summaryProps} style={{ marginTop: 0 }} />
           <FilterBody>
@@ -51,9 +55,9 @@ export const FilterContent = ({ suggestConfig, DisplayName, hide, onApply, onCan
                 return <Option
                   key={key}
                   helpVisible={true}
-                  label={<DisplayName id={key} />}
+                  label={<Label id={key} />}
                   checked={checkedMap.has(key)}
-                  onChange={() => toggle(filterName, key)}
+                  onChange={() => toggle(filterHandle, key)}
                 />
               })}
             </form>
@@ -77,31 +81,18 @@ FilterContent.propTypes = {
   focusRef: PropTypes.any,
   vocabulary: PropTypes.object,
   initFilter: PropTypes.object,
-  filterName: PropTypes.string
+  filterHandle: PropTypes.string
 };
 
-export function Popover({ filterName, DisplayName, config, ...props }) {
+export function Popover({ filterHandle, LabelFromID, config, translations={}, ...props }) {
   return (
     <PopoverFilter 
       {...props}
       content={<FilterContent
-        filterName={filterName}
-        DisplayName={DisplayName}
-        suggestConfig={config} />}
+        filterHandle={filterHandle}
+        trName={translations.name}
+        LabelFromID={LabelFromID}
+        config={config} />}
     />
   );
 }
-
-export function Button({ filterName, DisplayName, config, ariaLabel, ...props }) {
-  const currentFilterContext = useContext(FilterContext);
-  return <Popover ariaLabel={ariaLabel} filterName={filterName} DisplayName={DisplayName} config={config} modal>
-    <TriggerButton {...props} filterName={filterName} DisplayName={DisplayName} options={get(currentFilterContext.filter, `must.${filterName}`, [])} />
-  </Popover>
-}
-
-Button.propTypes = {
-  filterName: PropTypes.string.isRequired,
-  ariaLabel: PropTypes.string.isRequired,
-  DisplayName: PropTypes.elementType.isRequired,
-  config: PropTypes.object.isRequired,
-};

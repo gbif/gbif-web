@@ -40,7 +40,7 @@ export const Button = React.forwardRef(({
 Button.displayName = 'Button'
 
 Button.propTypes = {
-  as: PropTypes.oneOf(['button', 'a', 'input']),
+  as: PropTypes.oneOf(['button', 'a', 'input', 'span', 'div']),
   className: PropTypes.string,
   appearance: PropTypes.oneOf(['primary', 'primaryOutline', 'outline', 'ghost', 'danger', 'link', 'text']),
   loading: PropTypes.bool,

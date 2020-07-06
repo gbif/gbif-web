@@ -27,7 +27,7 @@ export const GalleryDetails = ({
   imageSrc,
   ...props
 }) => {
-  const [activeId, setTab] = useState('details');
+  const [activeImage, setImage] = useState({ src: imageSrc(item) });
   const theme = useContext(ThemeContext);
 
   useEffect(() => {
@@ -45,46 +45,43 @@ export const GalleryDetails = ({
     }
   }, [next, previous]);
 
+  useEffect(() => {
+    setImage({ src: imageSrc(item) });
+  }, [item, imageSrc]);
+
   return <Root>
-    <Tabs activeId={activeId} onChange={id => setTab(id === activeId ? undefined : id)}>
-      <Row as="section" direction="column" wrap="nowrap" {...props} css={detailPage({ theme })}>
-        <Row css={detailHeader} alignItems="center">
-          <Col>
-            {item && <h2>{title}</h2>}
-            {subtitle && <div css={detailHeaderDescription}>
-              {subtitle}
-            </div>}
-          </Col>
-          <Col grow={false}>
-            <Button appearance="text" onClick={closeRequest}>
-              <MdClose />
-            </Button>
-          </Col>
-        </Row>
-        <Row css={detailMainWrapper} wrap="nowrap">
-          <Col css={detailMain} shrink={true} basis="100%">
-            <div css={detailPrev} onClick={() => previous()}><MdChevronLeft /></div>
-            {item && <ZoomableImage src={imageSrc(item)} thumbnail={getThumbnail(imageSrc(item))}/>}
-            <div css={detailNext} onClick={() => next()}><MdChevronRight /></div>
-          </Col>
-          {details && <>
-            <Col shrink={false} grow={false} css={detailDrawerBar}>
-              <TabList aria-label="Details">
-                <Tab tabId="details" direction="left">
-                  <MdInfo />
-                </Tab>
-              </TabList>
-            </Col>
-            <Col shrink={false} grow={false} css={detailDrawerContent}>
-              <TabPanel tabId='details'>
-                {details(item)}
-              </TabPanel>
-            </Col>
-          </>}
-        </Row>
-      </Row>
-    </Tabs>
+    <Row as="section" direction="row" wrap="nowrap" {...props} css={detailPage({ theme })}>
+      <Col shrink={true} basis="100%" style={{background: '#00000005'}}></Col>
+      <Row >{details && details({ item, onImageChange: setImage }) }</Row>
+    </Row>
   </Root>
+
+  return <Root>
+    <Row as="section" direction="column" wrap="nowrap" {...props} css={detailPage({ theme })}>
+      <Row css={detailHeader} alignItems="center">
+        <Col>
+          {item && <h2>{title}</h2>}
+          {subtitle && <div css={detailHeaderDescription}>
+            {subtitle}
+          </div>}
+        </Col>
+        <Col grow={false}>
+          <Button appearance="text" onClick={closeRequest}>
+            <MdClose />
+          </Button>
+        </Col>
+      </Row>
+      <Row css={detailMainWrapper} wrap="nowrap">
+        <Col css={detailMain} shrink={true} basis="100%">
+          <div css={detailPrev} onClick={() => previous()}><MdChevronLeft /></div>
+          {item && <ZoomableImage src={activeImage.src} thumbnail={getThumbnail(activeImage.src)} />}
+          <div css={detailNext} onClick={() => next()}><MdChevronRight /></div>
+        </Col>
+        {details && details({ item, onImageChange: setImage }) }
+      </Row>
+    </Row>
+
+  </Root >
 };
 
 GalleryDetails.displayName = 'Gallery';

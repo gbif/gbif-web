@@ -5,9 +5,7 @@ import get from 'lodash/get';
 import union from 'lodash/union';
 import { withFilter } from '../../..//widgets/Filter/state';
 import ThemeContext from '../../../style/themes/ThemeContext';
-import { taxonFilter, datasetFilter, publisherFilter } from '../filters/suggest/suggestFilters';
-import { borFilter, countryFilter, typeStatusFilter, lifeStageFilter } from '../filters/vocabulary/vocabularyFilters';
-import { yearFilter, elevationFilter } from '../filters/numRange/numRangeFilters';
+import { Trigger as MetaFilter } from '../../../widgets/Filter/types/MetaFilter';
 
 // const availableFilters = [
 //   taxonFilter, datasetFilter, publisherFilter,
@@ -80,45 +78,50 @@ wrap them
 Even in its simplest form we need a component to set filters
 a config for how to transform it to a query
 a config for how to display its values/names
-*/
 
-const filterConfig = {
-  defaultVisibleFilters: ['taxonKey', 'elevation'],
-  map: {
-    taxonKey: taxonFilter,
-    basisOfRecord: borFilter,
-    elevation: elevationFilter,
-    year: yearFilter,
-    datasetKey: datasetFilter,
-    publisherKey: publisherFilter,
+when creating a custom filter, it would be useful to be able to add everything in one place
+custom filter
+translations
+predicateMapping
+{
+  filter: {
+    type,
+    config
+  },
+  translations: {
+    name
+    count
   }
 }
+*/
 
 function getVisibleFilters(currentFilter, commonFilters) {
-  const visibleFilters = union(Object.keys(get(currentFilter, 'must', {}))
-    .concat(Object.keys(get(currentFilter, 'must_not', {})))
-    .concat(commonFilters));
+  const visibleFilters = union(commonFilters,
+    Object.keys(get(currentFilter, 'must', {})),
+    Object.keys(get(currentFilter, 'must_not', {})));
   return visibleFilters;
 }
 
 const FilterBar = ({
   className = '',
+  config,
   filter,
   ...props
 }) => {
   const theme = useContext(ThemeContext);
   const prefix = theme.prefix || 'gbif';
   const elementName = 'filterBar';
-  
-  const visibleFilters = getVisibleFilters(filter, filterConfig.defaultVisibleFilters);
-  const availableFilters = visibleFilters.map(x => filterConfig.map[x]);
 
+  const visibleFilters = getVisibleFilters(filter, config.defaultVisibleFilters);
+  const availableFilters = visibleFilters.map(x => config.filters[x]);
   return <div className={`${className} ${prefix}-${elementName}`} css={css`${style(theme)}`} {...props}>
     {availableFilters.map((x, i) => {
       if (!x) return null; // if no widget is defined for this filter, then do not show anything
-      const B = x.Button;
-      return <B key={i} />
+      return <x.Button key={i} />
     })}
+    <div>
+      <MetaFilter />
+    </div>
   </div>
 }
 

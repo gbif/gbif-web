@@ -46,8 +46,10 @@ export const styledScrollBars = props => css`
   }
 `;
 
-export const root = ({theme = {}}) => css`
-  font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+export const root = ({ theme = {} }) => css`
+  * {
+    font-family: ${theme.fontFamily || 'BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif'};
+  }
   color: ${theme.color || '#4a4a4a'};
   font-size: ${theme.fontSize || '1em'};
   font-weight: 400;
@@ -113,15 +115,15 @@ export const tooltip = props => css`
 
 export const skeletonLoading = keyframes`
   from {
-    background-color: #eee;
+    background-color: #bbbbbb50;
   }
   50% {
-    background-color: #eee;
+    background-color: #bbbbbb50;
   }
   75% {
-    background-color: #dfdfdf;
+    background-color: #afafaf50;
   }
   to {
-    background-color: #eee;
+    background-color: #bbbbbb50;
   }
 `;
