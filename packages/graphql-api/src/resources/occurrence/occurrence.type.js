@@ -271,6 +271,14 @@ const typeDef = gql`
     """
     primaryImage: MultimediaItem
     volatile: VolatileOccurrenceData
+    groups: TermGroups
+  }
+
+  type TermGroups {
+    Taxon(occurrence: JSON): JSON
+    Record(occurrence: JSON): JSON
+    Occurrence(occurrence: JSON): JSON
+    Location(occurrence: JSON): JSON
   }
 
   type VolatileOccurrenceData {

@@ -3,6 +3,8 @@ const { getFacet, getStats } = require('./helpers/getMetrics');
 const fieldsWithFacetSupport = require('./helpers/fieldsWithFacetSupport');
 const fieldsWithStatsSupport = require('./helpers/fieldsWithStatsSupport');
 const verbatimResolvers = require('./helpers/occurrenceTerms');
+const groupResolvers = require('./helpers/occurrenceEsField');
+
 
 // there are many fields that support facets. This function creates the resolvers for all of them
 const facetReducer = (dictionary, facetName) => {
@@ -78,6 +80,7 @@ module.exports = {
       return multimediaItems.find(x => x.type === 'StillImage');
     },
     volatile: (occurrence) => occurrence,
+    groups: (occurrence) => occurrence
   },
   OccurrenceSearchResult: {
     documents: searchOccurrences,
@@ -180,4 +183,10 @@ module.exports = {
       }
     }
   },
+  TermGroups: {
+    Taxon: groupResolvers.Taxon,
+    Record: groupResolvers.Record,
+    Location: groupResolvers.Location
+  }
 };
+

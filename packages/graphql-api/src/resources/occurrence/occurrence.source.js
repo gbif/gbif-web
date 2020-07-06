@@ -15,7 +15,9 @@ class OccurrenceAPI extends RESTDataSource {
       request.params.set('apiKey', API_ES_KEY);
       // request.headers.set('Authorization', `ApiKey-v1 ${API_ES_KEY}`);
     } else {
-      console.log('unauthorized attempt to do an occurrence search');
+      request.params.set('apiKey', API_ES_KEY);
+      console.log('Setting apiKey anyways to allow using graphql UI');
+      // console.log('unauthorized attempt to do an occurrence search');
     }
   }
 
