@@ -1,6 +1,4 @@
-const _ = require('lodash');
-
-const terms = [
+[
     {
     "simpleName": "gbifID",
     "qualifiedName": "http://rs.gbif.org/terms/1.0/gbifID",
@@ -1472,38 +1470,4 @@ const terms = [
     "group": "Taxon",
     "source": "DwcTerm"
     }
-    ];
-
-
-const groupedTerms = terms.reduce((acc, cur) => {
-    _.set(acc, `${cur.group}.${cur.simpleName}`, cur)
-    return acc
-}, {})
-
-const getRemarks = ({value, verbatim}) => {
-    if(!verbatim){
-        return "inferred"
-    } else if(value != verbatim){
-        return "altered"
-    } else { return null};
-
-}
-  module.exports = Object.keys(groupedTerms).reduce((acc, cur) => {
-    acc[cur] = (occurrence) => {
-      return Object.keys(groupedTerms[cur]).reduce((a,c) => {
-        const value = groupedTerms[cur][c].esField ? _.get(occurrence, groupedTerms[cur][c].esField) : _.get(occurrence, groupedTerms[cur][c].simpleName) ?  _.get(occurrence, groupedTerms[cur][c].simpleName) : _.get(occurrence, `verbatim.core["${groupedTerms[cur][c].qualifiedName}"]`)
-            if(value){
-                a[c] =  {
-                    value,
-                    verbatim: _.get(occurrence, `verbatim.core["${groupedTerms[cur][c].qualifiedName}"]`)
-                }
-                a[c].remarks = getRemarks(a[c])
-
-            }   
-                return  a;
-            
-      }, {})
-    }
-    return acc;
-  }, {});
-
+    ]

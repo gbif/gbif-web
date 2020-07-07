@@ -275,10 +275,17 @@ const typeDef = gql`
   }
 
   type TermGroups {
-    Taxon(occurrence: JSON): JSON
+    Occurrence(occurrence: JSON): JSON    
     Record(occurrence: JSON): JSON
-    Occurrence(occurrence: JSON): JSON
+    Organism(occurrence: JSON): JSON
+    MaterialSample(occurrence: JSON): JSON
+    Event(occurrence: JSON): JSON
     Location(occurrence: JSON): JSON
+    GeologicalContext(occurrence: JSON): JSON
+    Identification(occurrence: JSON): JSON
+    Taxon(occurrence: JSON): JSON
+    Dataset(occurrence: JSON): JSON
+    Crawling(occurrence: JSON): JSON   
   }
 
   type VolatileOccurrenceData {
