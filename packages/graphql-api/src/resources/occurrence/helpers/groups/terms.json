@@ -1040,6 +1040,19 @@
     "source": "DwcTerm"
     },
     {
+    "simpleName": "acceptedScientificName",
+    "qualifiedName": "http://rs.gbif.org/terms/1.0/acceptedScientificName",
+    "group": "Taxon",
+    "source": "GbifTerm",
+    "esField": "gbifClassification.acceptedUsage.name"
+    },
+    {
+    "simpleName": "verbatimScientificName",
+    "qualifiedName": "http://rs.gbif.org/terms/1.0/verbatimScientificName",
+    "group": "Taxon",
+    "source": "GbifTerm"
+    },
+    {
     "simpleName": "scientificName",
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/scientificName",
     "group": "Taxon",
@@ -1264,13 +1277,15 @@
     "simpleName": "hasCoordinate",
     "qualifiedName": "http://rs.gbif.org/terms/1.0/hasCoordinate",
     "group": "Occurrence",
-    "source": "GbifTerm"
+    "source": "GbifTerm",
+    "hideInDefaultView": true
     },
     {
     "simpleName": "hasGeospatialIssues",
     "qualifiedName": "http://rs.gbif.org/terms/1.0/hasGeospatialIssues",
     "group": "Occurrence",
-    "source": "GbifTerm"
+    "source": "GbifTerm",
+    "hideInDefaultView": true
     },
     {
     "simpleName": "taxonKey",
@@ -1341,18 +1356,6 @@
     {
     "simpleName": "genericName",
     "qualifiedName": "http://rs.gbif.org/terms/1.0/genericName",
-    "group": "Taxon",
-    "source": "GbifTerm"
-    },
-    {
-    "simpleName": "acceptedScientificName",
-    "qualifiedName": "http://rs.gbif.org/terms/1.0/acceptedScientificName",
-    "group": "Taxon",
-    "source": "GbifTerm"
-    },
-    {
-    "simpleName": "verbatimScientificName",
-    "qualifiedName": "http://rs.gbif.org/terms/1.0/verbatimScientificName",
     "group": "Taxon",
     "source": "GbifTerm"
     },

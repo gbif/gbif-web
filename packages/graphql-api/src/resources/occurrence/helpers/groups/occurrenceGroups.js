@@ -12,14 +12,22 @@ const groupedTerms = terms.reduce((acc, cur) => {
     return acc
 }, {})
 
-const getRemarks = ({value, verbatim}) => {
-    if(!verbatim){
-        return "inferred"
-    } else if(value != verbatim){
-        return "altered"
-    } else { return null}
 
+
+function getRemarks ({value, verbatim}) {
+ 
+        if (typeof value === 'undefined') {
+            return 'EXCLUDED';
+        } else if (typeof verbatim === 'undefined') {
+            return 'INFERRED';
+        } else if (value.toLowerCase().replace(/_/g, '') != verbatim.toLowerCase().replace(/_/g, '')) {
+            return 'ALTERED';
+        } else {
+            return null
+        }
+  
 }
+
   module.exports = Object.keys(groupedTerms).reduce((acc, cur) => {
     acc[cur] = (occurrence) => {
       const fieldIssues = occurrence.issues.reduce((y, x) => {
@@ -33,22 +41,27 @@ const getRemarks = ({value, verbatim}) => {
                 return y;
       }, {})
       return Object.keys(groupedTerms[cur]).reduce((a,c) => {
-        const value = groupedTerms[cur][c].esField ? _.get(occurrence, groupedTerms[cur][c].esField) : _.get(occurrence, groupedTerms[cur][c].simpleName) ?  _.get(occurrence, groupedTerms[cur][c].simpleName) : _.get(occurrence, `verbatim.core["${groupedTerms[cur][c].qualifiedName}"]`)
-            if(value){
-                a[c] =  {
+        const value = groupedTerms[cur][c].esField ? _.get(occurrence, groupedTerms[cur][c].esField) : _.get(occurrence, groupedTerms[cur][c].simpleName);
+        const verbatim = _.get(occurrence, `verbatim.core["${groupedTerms[cur][c].qualifiedName}"]`)
+            if(value || verbatim){
+                let term =  {
+                    label: c,
                     value,
-                    verbatim: _.get(occurrence, `verbatim.core["${groupedTerms[cur][c].qualifiedName}"]`)
+                    verbatim,
+                    hideInDefaultView: groupedTerms[cur][c].hideInDefaultView || false
                 }
-                if( getRemarks(a[c])){
-                    a[c].remarks = getRemarks(a[c])
+                if( getRemarks(term)){
+                    term.remarks = getRemarks(term)
                 }
                 if(fieldIssues[groupedTerms[cur][c].qualifiedName]){
-                    a[c].issues = fieldIssues[groupedTerms[cur][c].qualifiedName]
+                    term.issues = fieldIssues[groupedTerms[cur][c].qualifiedName]
                 } 
+
+                a.push(term)
             }   
                 return  a;
             
-      }, {})
+      }, [])
     }
     return acc;
   }, {});
