@@ -25,6 +25,9 @@ export const dt = ({horizontal, ...props}) => css`
   color: #767676;
   margin-bottom : ${horizontal ? 20 : 0}px;
   word-break: break-word;
+  &:last-of-type {
+    margin-bottom: 0;
+  }
 `;
 
 export const dd = ({horizontal, ...props}) => css`
@@ -32,4 +35,7 @@ export const dd = ({horizontal, ...props}) => css`
   margin-bottom: 12px;
   line-height: 16px;
   word-break: break-word;
+  &:last-of-type {
+    margin-bottom: 0;
+  }
 `;
