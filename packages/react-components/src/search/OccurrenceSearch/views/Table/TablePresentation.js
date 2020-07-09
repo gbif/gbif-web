@@ -1,18 +1,18 @@
 import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { MdFilterList } from "react-icons/md";
+import { FormattedMessage } from 'react-intl';
 import get from 'lodash/get';
 import { FilterContext } from '../../../../widgets/Filter/state';
 import OccurrenceContext from '../../config/OccurrenceContext';
 import { Button, Row, Col, DataTable, Th, Td, TBody, DetailsDrawer } from '../../../../components';
 import { OccurrenceSidebar } from '../../../../entities';
 import { useDialogState } from "reakit/Dialog";
+import { ViewHeader } from '../ViewHeader';
 
-
-export const TablePresentation = ({ first, prev, next, size, from, data, loading }) => {
+export const TablePresentation = ({ first, prev, next, size, from, data, total, loading }) => {
   const currentFilterContext = useContext(FilterContext);
-  const { filters } = useContext(OccurrenceContext);
+  const { filters, tableConfig, labelMap } = useContext(OccurrenceContext);
   const [fixedColumn, setFixed] = useState(true);
-  const total = data?.occurrenceSearch?.documents?.total;
 
   const [activeId, setActive] = useState();
   const [activeItem, setActiveItem] = useState();
@@ -33,6 +33,23 @@ export const TablePresentation = ({ first, prev, next, size, from, data, loading
   }, [activeId]);
 
   const fixed = fixedColumn;// && !dialog.visible;
+  const headerss = tableConfig.columns.map((col, index) => {
+    const options = index === 0 ? { locked: fixed, toggle: () => setFixed(!fixedColumn) } : null;
+    const FilterPopover = col.filterKey ? filters[col.filterKey].Popover : null;
+    return <Th key={col.trKey} width={col.width} {...options}>
+      <Row wrap="nowrap">
+        <Col grow={false} style={{whiteSpace: 'nowrap'}}><FormattedMessage id={col.trKey}/></Col>
+        {col.filterKey && <Col>
+          <FilterPopover modal placement="auto">
+            <Button appearance="text" style={{ display: 'flex' }}>
+              <MdFilterList />
+            </Button>
+          </FilterPopover>
+        </Col>}
+      </Row>
+    </Th>
+  });
+
   const headers = [
     <Th key='scientificName' width='wide' locked={fixed} toggle={() => setFixed(!fixedColumn)}>
       <Row>
@@ -114,35 +131,39 @@ export const TablePresentation = ({ first, prev, next, size, from, data, loading
       maxHeight: "100vh",
       flexDirection: "column",
     }}>
+      <ViewHeader loading={loading} total={total}/>
       <DataTable fixedColumn={fixed} {...{ first, prev, next, size, from, total, loading }} style={{ flex: "1 1 auto", height: 100 }}>
         <thead>
-          <tr>{headers}</tr>
+          <tr>{headerss}</tr>
         </thead>
         <TBody rowCount={size} columnCount={7} loading={loading}>
-          {getRows({ data, setActive, dialog })}
+          {getRows({ tableConfig, labelMap, data, setActive, dialog })}
         </TBody>
       </DataTable>
     </div>
   </>
 }
 
-const getRows = ({ data, setActive, dialog }) => {
+const getRows = ({ tableConfig, labelMap, data, setActive, dialog }) => {
   const results = data?.occurrenceSearch?.documents?.results || [];
   const rows = results.map((row, index) => {
-    const cells = ['gbifClassification.acceptedUsage.formattedName', 'year', 'basisOfRecord', 'datasetTitle', 'publisherTitle', 'countryCode', 'gbifClassification.acceptedUsage.rank'].map(
+    const cells = tableConfig.columns.map(
       (field, i) => {
         // const FormatedName = formatters(field).component;
         // const Presentation = <FormatedName id={row._source[field]} />;
         // if (i === 0) return <Td key={field}><Action onSelect={() => console.log(row._id)}>{Presentation}</Action></Td>;
         // else return <Td key={field}>{Presentation}</Td>;
-        const val = get(row, field);
+        const val = get(row, field.value.key);
 
-        if (field === 'gbifClassification.acceptedUsage.formattedName') {
-          return <Td key={field}>
-            <span dangerouslySetInnerHTML={{ __html: val }}></span>
-          </Td>;
+        let formattedVal = val;
+        if (field.value.formatter) {
+          formattedVal = field.value.formatter(val, row);
+        } else if (field.value.labelHandle) {
+          const Label = labelMap[field.value.labelHandle];
+          formattedVal = <Label id={val} />
         }
-        return <Td key={field}>{val}</Td>;
+
+        return <Td key={field.trKey}>{formattedVal}</Td>;
         // if (i === 0) {
         //   return <Td key={field}>
         //     <TextButton onClick={() => console.log(row)}>{val}</TextButton>

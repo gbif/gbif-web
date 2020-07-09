@@ -1,5 +1,5 @@
 import { css } from '@emotion/core';
-// import { focusStyle } from '../../style/shared';
+import { tooltip } from '../../style/shared';
 
 export const root = ({...props}) => css`
   height: 100%;
@@ -33,3 +33,13 @@ export const detailsBackdrop = ({...props}) => css`
   }
 `;
 
+export const footerItem = props => css`
+  border: 1px solid transparent;
+  &:hover {
+    border-color: #eaeaea;
+  };
+  &:active {
+    background: #f0f2f3;
+  }
+  ${tooltip(props)}
+`;

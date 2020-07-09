@@ -4,10 +4,11 @@ import ThemeContext from '../../style/themes/ThemeContext';
 import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { getClasses } from '../../utils/util';
-import { Root } from '../../components';
+import { Root, Button } from '../../components';
 import * as css from './styles';
 import { Dialog, DialogBackdrop } from "reakit/Dialog";
 import { keyCodes } from '../../utils/util';
+import { MdChevronRight, MdChevronLeft, MdClose } from "react-icons/md";
 
 export function DetailsDrawer({ dialog, nextItem, previousItem, children, ...props }) {
   useEffect(() => {
@@ -30,8 +31,19 @@ export function DetailsDrawer({ dialog, nextItem, previousItem, children, ...pro
       <DialogBackdrop {...dialog} css={css.detailsBackdrop()}>
         <Dialog {...dialog} aria-label="Details" css={css.drawer()}>
           {dialog.visible &&
-            <Root style={{height: '100%'}}>
-              {children}
+            <Root style={{height: '100%', display: 'flex', flexDirection: 'column'}}>
+              
+              <div style={{flex: '1 1 auto', overflow: 'auto'}}>
+                {children}
+              </div>
+              {(previousItem || nextItem) && <div style={{display: 'flex', justifyContent: 'space-between', flex: '0 0 auto', background: 'white', borderTop: '1px solid #ddd', padding: '8px 12px'}}>
+                {previousItem && <Button css={css.footerItem()} appearance="text" direction="right" tip="previous (left arrow)" onClick={previousItem}>
+                  <MdChevronLeft />
+                </Button>}
+                {nextItem && <Button css={css.footerItem()} appearance="text" direction="left" tip="next (right arrow)" onClick={nextItem}>
+                  <MdChevronRight />
+                </Button>}
+              </div>}
             </Root>
           }
         </Dialog>

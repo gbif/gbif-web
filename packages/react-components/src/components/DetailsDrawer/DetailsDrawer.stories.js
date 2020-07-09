@@ -12,10 +12,10 @@ export default {
 };
 
 export const Example = () => {
-  const dialog = useDialogState();
+  const dialog = useDialogState({ animated: true, visible: true });
   return <>
     <button onClick={e => dialog.show()}>toggle {JSON.stringify(dialog.visible)}</button>
-    <DetailsDrawer dialog={dialog}>
+    <DetailsDrawer dialog={dialog} nextItem={e => alert('next')} previousItem={e => alert('previous')}>
       <OccurrenceSidebar id={930742715} style={{width: 700, height: '100%'}} />
     </DetailsDrawer>
     {/* <StyledProse source={readme}></StyledProse> */}

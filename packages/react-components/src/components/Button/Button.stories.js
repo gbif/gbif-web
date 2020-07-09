@@ -60,7 +60,7 @@ Group.story = {
 };
 
 export const Filter = () => <div style={{ width: 250 }}>
-  <FilterButton isActive={boolean("isActive", true)}>
+  <FilterButton isActive={boolean("isActive", true)} isNegated={boolean("isNegated", true)}>
     Basis of record will be truncated
   </FilterButton>
 </div>;

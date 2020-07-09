@@ -18,6 +18,7 @@ export const GalleryTile = ({ src, onSelect, height = 150, children, style, ...p
   const theme = useContext(ThemeContext);
   const [ratio, setRatio] = useState(1);
   const [isValid, setValid] = useState(false);
+  
   const onLoad = useCallback((event) => {
     setValid(true);
     const ratio = event.target.naturalWidth / event.target.naturalHeight;

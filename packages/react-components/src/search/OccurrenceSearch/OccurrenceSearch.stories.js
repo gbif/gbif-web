@@ -81,7 +81,7 @@ const adapter = {
 
 const config = { labels, getSuggests, filters, adapter };
 
-export const Example = () => <OccurrenceSearch config={config} style={{ height: 'calc(100vh - 20px)' }}></OccurrenceSearch>;
+export const Example = () => <OccurrenceSearch config={config} style={{ margin: 'auto', maxWidth: 1200, height: 'calc(100vh)' }}></OccurrenceSearch>;
 
 Example.story = {
   name: 'OccurrenceSearch',

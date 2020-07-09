@@ -3,13 +3,14 @@ import { css, jsx } from '@emotion/core';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Row, Col, Checkbox } from '../../../components';
+import { Row, Col, Checkbox, Radio } from '../../../components';
 
-export const Option = React.forwardRef(({ label, tabIndex, checked, onChange, helpText, helpVisible, ...props }, ref) => {
+export const Option = React.forwardRef(({ isRadio, label, tabIndex, checked, onChange, helpText, helpVisible, ...props }, ref) => {
   const theme = {};//useContext(ThemeContext);
   return <label css={optionClass(theme)} style={{ display: 'flex', wrap: 'nowrap' }}>
     <div>
-      <Checkbox ref={ref} tabIndex={tabIndex} checked={checked} onChange={onChange} style={{ flex: '0 0 auto' }} />
+      {isRadio && <Radio ref={ref} tabIndex={tabIndex} checked={checked} onChange={onChange} style={{ flex: '0 0 auto' }} />}
+      {!isRadio && <Checkbox ref={ref} tabIndex={tabIndex} checked={checked} onChange={onChange} style={{ flex: '0 0 auto' }} />}
     </div>
     <div style={{ flex: '1 1 auto', marginLeft: 10, wordBreak: 'break-word' }}>
       <div>{label}</div>

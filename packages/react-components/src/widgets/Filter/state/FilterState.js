@@ -38,6 +38,21 @@ class FilterState extends React.Component {
     });
   }
 
+  setFullField = async (field, mustValue, mustNotValue) => {
+    const filter = this.props.filter ? cloneDeep(this.props.filter) : {};
+    this.setFilter({
+      ...filter,
+      must: {
+        ...filter.must,
+        [field]: mustValue
+      },
+      must_not: {
+        ...filter.must_not,
+        [field]: mustNotValue
+      }
+    });
+  }
+
   add = async (field, value, must = true) => {
     const type = must ? 'must' : 'must_not';
     let values = get(this.props.filter, `${type}.${field}`, []);
@@ -72,6 +87,7 @@ class FilterState extends React.Component {
   render() {
     const contextValue = {
       setField: this.setField, // updates a single field
+      setFullField: this.setFullField, // updates a single field both must and must_not. Ugly hack as I couldn't get it to work begint to calls. The problem is that the filter isn't updated between the two calls in the event loop and hence the first update is ignored
       setFilter: this.setFilter, // updates the filter as a whole
       add: this.add,
       remove: this.remove,

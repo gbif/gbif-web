@@ -56,7 +56,7 @@ addDecorator(storyFn => {
               ),
             )}
           >
-            <Root id="application" style={{ padding: 0 }} dir={chooseRtl(
+            <Root id="application" style={{ padding: 0, background: '#f1f5f8' }} dir={chooseRtl(
               select(
                 'Choose Direction',
                 ['ltr', 'rtl'],

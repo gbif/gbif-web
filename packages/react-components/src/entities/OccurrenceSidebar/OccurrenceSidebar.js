@@ -12,7 +12,6 @@ import { ImageDetails } from './details/ImageDetails';
 import { Intro } from './details/Intro';
 
 const { TabList, Tab, TabPanel } = Tabs;
-const { Term, Value } = Properties;
 
 export function OccurrenceSidebar({
   onImageChange,
@@ -34,7 +33,7 @@ export function OccurrenceSidebar({
 
   const isSpecimen = get(data, 'occurrence.basisOfRecord', '').indexOf('SPECIMEN') > -1;
 
-  return <Tabs activeId={activeId} onChange={id => setTab(id === activeId ? undefined : id)}>
+  return <Tabs activeId={activeId} onChange={id => setTab(id)}>
     <Row wrap="nowrap" style={style} css={css.sideBar}>
       <Col shrink={false} grow={false} css={css.detailDrawerBar}>
         <TabList aria-label="Images" style={{ paddingTop: '12px' }}>

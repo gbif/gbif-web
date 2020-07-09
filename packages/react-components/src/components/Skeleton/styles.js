@@ -7,7 +7,3 @@ export const skeleton = ({width}) => css`
   height: 1em;
   animation: ${skeletonLoading} 3s linear infinite;
 `;
-
-export default {
-  skeleton
-}

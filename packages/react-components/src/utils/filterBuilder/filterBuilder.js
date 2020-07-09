@@ -14,7 +14,8 @@ export function getButton(Popover, { translations, filterHandle, LabelFromID }) 
         translations={translations}
         filterHandle={filterHandle}
         DisplayName={LabelFromID}
-        options={get(currentFilterContext.filter, `must.${filterHandle}`, [])}
+        mustOptions={get(currentFilterContext.filter, `must.${filterHandle}`, [])}
+        mustNotOptions={get(currentFilterContext.filter, `must_not.${filterHandle}`, [])}
       />
     </Popover>
   }

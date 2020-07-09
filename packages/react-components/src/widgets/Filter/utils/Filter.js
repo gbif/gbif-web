@@ -10,10 +10,11 @@ import get from 'lodash/get';
 
 import { FilterState, FilterContext } from '../state';
 
-function Filter({ children, title, aboutText, labelledById, hasHelpTexts, filterName, formId, filter: tmpFilter, onFilterChange, aboutVisible, onAboutChange, helpVisible, onHelpChange, style }) {
+function Filter({ children, title, aboutText, labelledById, hasHelpTexts, supportsExist, filterName, formId, filter: tmpFilter, onFilterChange, aboutVisible, onAboutChange, helpVisible, onHelpChange, isExistenceFilter, onExistenceChange, style }) {
+  
   return <FilterState filter={tmpFilter} onChange={updatedFilter => onFilterChange(updatedFilter)}>
     <FilterContext.Consumer>
-      {({ setField, toggle, filter }) => {
+      {({ setField, setFullField, toggle, filter }) => {
         const selectedItems = get(filter, `must.${filterName}`, []).map(x => typeof x === 'object' ? x._id || x.key : x);
         const checkedMap = new Set(selectedItems);
         const summaryProps = {
@@ -25,9 +26,10 @@ function Filter({ children, title, aboutText, labelledById, hasHelpTexts, filter
           showBack: aboutVisible,
           onBack: () => onAboutChange(false)
         }
-        const menuItems = (aboutText || hasHelpTexts) ? menuState => [
+        const menuItems = (aboutText || hasHelpTexts || supportsExist) ? menuState => [
           ...aboutText ? [<MenuAction key="About" onClick={() => { onAboutChange(true); menuState.hide() }}>About this filter</MenuAction>] : [],
-          ...hasHelpTexts ? [<MenuToggle key="Help" disabled={aboutVisible} style={{ opacity: aboutVisible ? .5 : 1 }} checked={!!helpVisible} onChange={() => onHelpChange(!helpVisible)}>Show help texts</MenuToggle>] : []
+          ...hasHelpTexts ? [<MenuToggle key="Help" disabled={aboutVisible} style={{ opacity: aboutVisible ? .5 : 1 }} checked={!!helpVisible} onChange={() => onHelpChange(!helpVisible)}>Show help texts</MenuToggle>] : [],
+          ...supportsExist ? [<MenuToggle key="Exists" disabled={aboutVisible} style={{ opacity: aboutVisible ? .5 : 1 }} checked={!!isExistenceFilter} onChange={() => { onExistenceChange(!isExistenceFilter); menuState.hide() }}>Filter for existence</MenuToggle >] : [],
         ] : undefined;
 
         return <FilterBox style={style}>
@@ -41,10 +43,12 @@ function Filter({ children, title, aboutText, labelledById, hasHelpTexts, filter
                 footerProps,
                 helpVisible,
                 setField,
+                setFullField,
                 toggle,
                 filter,
                 selectedItems,
-                checkedMap
+                checkedMap,
+                isExistenceFilter
               })}
             </>}
           {aboutVisible && <>
@@ -77,6 +81,7 @@ Filter.propTypes = {
 export const UncontrollableFilter = uncontrollable(Filter, {
   aboutVisible: 'onAboutChange',
   helpVisible: 'onHelpChange',
+  isExistenceFilter: 'onExistenceChange',
   filter: 'onFilterChange'
 });
 

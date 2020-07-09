@@ -4,7 +4,7 @@ import ThemeContext from '../../style/themes/ThemeContext';
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 // import { oneOfMany } from '../../utils/util';
-import styles from './styles';
+import * as css from './styles';
 
 export const Skeleton = ({
   width = '100%',
@@ -19,7 +19,7 @@ export const Skeleton = ({
   } else {
     w = width;
   }
-  return <span css={styles.skeleton({theme, width: w})} {...props} />
+  return <span css={css.skeleton({theme, width: w})} {...props}>&nbsp;</span>
 };
 
 Skeleton.displayName = 'Skeleton';

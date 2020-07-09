@@ -2,7 +2,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import React, { useState, useContext } from 'react';
-import { useIntl } from 'react-intl';
+import { useIntl, FormattedNumber } from 'react-intl';
 import PropTypes from 'prop-types';
 import Layout from './Layout';
 import { FilterState } from "../../widgets/Filter/state";
@@ -129,6 +129,63 @@ const filterWidgets_custom = {
   }
 }
 
+const tableConfig = {
+  columns: [
+    {
+      trKey: 'filter.taxonKey.name',
+      filterKey: 'taxonKey', // optional
+      value: {
+        key: 'gbifClassification.usage.formattedName',
+        formatter: (value, occurrence) => <span dangerouslySetInnerHTML={{ __html: value }}></span>
+      },
+      width: 'wide'
+    },
+    {
+      trKey: 'filter.countryCode.name',
+      filterKey: 'countryCode', //optional
+      value: {
+        key: 'countryCode',
+        labelHandle: 'countryCode'
+      }
+    },
+    {
+      trKey: 'filter.coordinates.name',
+      value: {
+        key: 'coordinates',
+        formatter: (value, occurrence) => {
+          if (!occurrence.coordinates) return null;
+          return <span>
+            (<FormattedNumber value={occurrence.coordinates.lat} maximumSignificantDigits={4}/>, <FormattedNumber value={occurrence.coordinates.lon} maximumSignificantDigits={4}/>)
+          </span>
+        }
+      }
+    },
+    {
+      trKey: 'filter.year.name',
+      filterKey: 'year', //optional
+      value: {
+        key: 'year'
+      }
+    },
+    {
+      trKey: 'filter.basisOfRecord.name',
+      filterKey: 'basisOfRecord', //optional
+      value: {
+        key: 'basisOfRecord',
+        labelHandle: 'basisOfRecord'
+      }
+    },
+    {
+      trKey: 'filter.datasetKey.name',
+      filterKey: 'datasetKey', //optional
+      value: {
+        key: 'datasetTitle',
+      },
+      width: 'wide'
+    }
+  ]
+};
+
 const filterConfig = {
   // endpoint: 'http://labs.gbif.org:7011',
   // set root filter to data from naturalis
@@ -211,7 +268,8 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
     filters,
     defaultVisibleFilters: ['taxonKey', 'year', 'datasetKey', 'countryCode'],
     rootPredicate: { type: 'in', key: 'taxonKey', values: [4, 5, 7] },
-    predicateConfig
+    predicateConfig,
+    tableConfig
   }
 }
 

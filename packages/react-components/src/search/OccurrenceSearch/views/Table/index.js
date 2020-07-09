@@ -15,7 +15,7 @@ query table($predicate: Predicate, $size: Int = 20, $from: Int = 0){
       results {
         gbifId
         gbifClassification{
-          acceptedUsage {
+          usage {
             rank
             formattedName
           }
@@ -24,7 +24,8 @@ query table($predicate: Predicate, $size: Int = 20, $from: Int = 0){
 				basisOfRecord
         datasetTitle
         publisherTitle
-        countryCode
+        countryCode,
+        coordinates
       }
     }
   }
@@ -73,7 +74,8 @@ function Table() {
       prev={prev} 
       first={first} 
       size={size} 
-      from={from} 
+      from={from}
+      total={data?.occurrenceSearch?.documents?.total}
     />
   </>
 }

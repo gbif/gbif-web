@@ -5,9 +5,6 @@ const filterConf = {
   publisherKey: {
     defaultKey: 'publishingOrganizationKey'
   },
-  basisOfRecord: {
-    transformValue: x => enum_case(x)
-  },
   geometry: {
     defaultType: 'within'
   }

@@ -1,5 +1,6 @@
 import basisOfRecord from './enums/basisOfRecord.json';
 import countryCode from './enums/countryCode.json';
+import mediaTypes from './enums/mediaTypes.json';
 
 export const en = {
   first: 'First',
@@ -8,6 +9,7 @@ export const en = {
   options: 'Options',
   'pagination.pageXofY': 'Page {current} of {total}',
   moreFilters: 'more',
+  nResults: '{total, plural, one {# result} other {# results}}',
   filter: {
     taxonKey: {
       name: 'Scientific name',
@@ -16,12 +18,22 @@ export const en = {
     basisOfRecord: {
       name: 'Basis of record',
       count: '{num, plural, one {basis of record} other {# bases of records}}',
+      isNotNull: 'Has a basis of record',
+      isNull: 'Has no basis of record',
       description: 'You can think of it as the evidence'
+    },
+    mediaTypes: {
+      name: 'Media type',
+      count: '{num, plural, one {media type} other {# media types}}',
+      description: 'What can of media should the occurrence have'
     },
     countryCode: {
       name: 'Country',
       count: '{num, plural, one {country} other {# countries}}',
       description: 'Country or area from which the record is located within'
+    },
+    coordinates: {
+      name: 'Latitude longitude',
     },
     elevation: {
       name: 'Elevation',
@@ -73,5 +85,6 @@ export const en = {
   enums: {
     basisOfRecord: basisOfRecord,
     countryCode: countryCode,
+    mediaTypes: mediaTypes,
   }
 }

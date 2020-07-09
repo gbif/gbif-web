@@ -20,10 +20,11 @@ const Layout = ({
   config,
   ...props
 }) => {
-  const [activeView, setActiveView] = useState('gallery');
+  const [activeView, setActiveView] = useState('table');
   const theme = useContext(ThemeContext);
   const prefix = theme.prefix || 'gbif';
   const elementName = 'occurrenceSearchLayout';
+  
   return <div className={`${className} ${prefix}-${elementName}`}
     css={cssLayout({ theme })} {...props}>
     <Tabs activeId={activeView} onChange={setActiveView} >
@@ -48,20 +49,9 @@ const Layout = ({
       <TabPanel lazy tabId="gallery" className={`${prefix}-${elementName}-views`} css={cssViewArea({ theme })}>
         <Gallery />
       </TabPanel>
-
-      {/* <div className={`${prefix}-${elementName}-body`}>
-      <div className={`${prefix}-${elementName}-main`}>content {props.test}<br />
-      <FormattedMessage
-                id='pagination.pageXofY'
-                defaultMessage={'Loading'}
-                values={{ current: <FormattedNumber value={10}/>, total: <FormattedNumber value={20000}/> }}
-              />
-      </div>
-      <aside className={`${prefix}-${elementName}-drawer`}>right drawer</aside>
-    </div> */}
-      <div className={`${prefix}-${elementName}-footer`} css={cssFooter({ theme })}>
+      {/* <div className={`${prefix}-${elementName}-footer`} css={cssFooter({ theme })}>
         <div>Footer content</div>
-      </div>
+      </div> */}
     </Tabs>
   </div>
 }

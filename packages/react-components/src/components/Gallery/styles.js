@@ -2,7 +2,6 @@ import { css } from '@emotion/core';
 import { skeletonLoading } from '../../style/shared';
 
 export const gallery = props => css`
-  margin: 4px 4px 10px 4px;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;

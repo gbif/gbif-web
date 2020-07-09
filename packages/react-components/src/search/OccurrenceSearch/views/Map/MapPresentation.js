@@ -7,6 +7,7 @@ import { OccurrenceSidebar } from '../../../../entities';
 import { useDialogState } from "reakit/Dialog";
 import { getLayerConfig } from './getLayerConfig';
 import ListBox from './ListBox';
+import { ViewHeader } from '../ViewHeader';
 
 const MapAreaComponent = styled('div')(
   {
@@ -123,10 +124,10 @@ class Map extends Component {
     const loadPointData = this.props.loadPointData;
     const dialog = this.props.dialog;
     map.on('click', 'occurrences', function (e) {
-      // console.log(e.features[0].properties);
+      console.log(e.features[0].properties);
       // Populate the popup and set its coordinates
       // based on the feature found.
-      loadPointData({ geohash: e.features[0].properties.geohash });
+      loadPointData({ geohash: e.features[0].properties.geohash, count: e.features[0].properties.count });
 
       // popup.setLngLat(e.features[0].geometry.coordinates)
       //   .setHTML(e.features[0].properties.count)
@@ -141,13 +142,14 @@ class Map extends Component {
   }
 
   render() {
-    const { dialog, pointData, pointError, pointLoading } = this.props;
+    const { dialog, pointData, pointError, pointLoading, loading, total } = this.props;
     const { activeItemId } = this.state;
     return <>
       <DetailsDrawer dialog={dialog}>
         <OccurrenceSidebar id={activeItemId} defaultTab='details' style={{ width: 700, height: '100%' }} />
       </DetailsDrawer>
       <MapAreaComponent>
+        <ViewHeader loading={loading} total={total}/>
         <ListBox onClick={({id}) => {dialog.show(); this.setState({activeItemId: id})}} data={pointData} error={pointError} loading={pointLoading} style={{ zIndex: 10, margin: 20, position: 'absolute', left: 0, bottom: 0, width: 300, maxHeight: 'calc(100% - 60px)' }} />
         <MapComponent ref={this.myRef} />
       </MapAreaComponent>

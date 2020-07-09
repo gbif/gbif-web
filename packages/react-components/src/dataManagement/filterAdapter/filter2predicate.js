@@ -43,6 +43,11 @@ function getPredicate({ filterName, values = [], filterConfig }) {
   // if a mapping function for the values is provided, then apply it
   let mappedValues = typeof config?.transformValue === 'function' ? values.map(config.transformValue) : values;
 
+  console.log('getPredicates');
+  console.log(config);
+  console.log(values);
+  console.log(mappedValues);
+
   // if the default type is equals or undefined then we might be able to create an 'in' predicate
   if (get(config, 'defaultType', 'equals') === 'equals') {
     // if all the provided values are string or numbers, then we can create an 'in' predicate

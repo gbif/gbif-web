@@ -24,12 +24,15 @@ export const cssLayout = ({theme}) => css`
 
 export const cssFooter = ({theme}) => css`
   flex: 0 0 auto;
+  background: #484848;
+  position: sticky;
+  bottom: 0;
+  border-radius: 4px 4px 0 0;
     &>div {
-      border-top: 1px solid #2a2a38;
       padding: 5px 12px;
       color: white;
-      font-size: 0.85em;
-      font-weight: 700;
+      font-size: 0.80em;
+      font-weight: 500;
     }
 `;
 

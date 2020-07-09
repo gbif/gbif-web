@@ -5,6 +5,10 @@ export const commonLabels = {
     type: 'TRANSLATION',
     template: id => `enums.basisOfRecord.${id}`
   },
+  mediaTypes: {
+    type: 'TRANSLATION',
+    template: id => `enums.mediaTypes.${id}`
+  },
   countryCode: {
     type: 'TRANSLATION',
     template: id => `enums.countryCode.${id}`

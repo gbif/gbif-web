@@ -9,7 +9,7 @@ export const wrapper = props => css`
 
 export const occurrenceTable = props => css`
   width: 100%;
-  height: calc(100% - 50px);
+  height: calc(100% - 30px);
   overflow: auto;
   position: relative;
   background: white;
@@ -17,12 +17,13 @@ export const occurrenceTable = props => css`
 `;
 
 export const footer = props => css`
-  height: 50px;
+  height: 30px;
   display: flex;
   flex-direction: row;
   padding: 0 10px;
   background: #f7f9fa;
   border-radius: 0 0 ${borderRadius} ${borderRadius};
+  border-top: 1px solid #ddd;
 `;
 
 export const footerItemBase = props => css`
@@ -30,7 +31,6 @@ export const footerItemBase = props => css`
   padding: 0 10px;
   height: 30px;
   line-height: 30px;
-  margin-top: 10px;
   width: 30px;
   padding: 0;
   text-align: center;

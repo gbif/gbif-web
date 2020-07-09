@@ -112,9 +112,9 @@ export class DataTable extends Component {
             {page !== totalPages && <Button appearance="text" css={styles.footerItem()} direction="left" tip="next" onClick={next}>
               <MdChevronRight />
             </Button>}
-            <Button appearance="text" css={styles.footerItem()} direction="left" tip="options">
+            {/* <Button appearance="text" css={styles.footerItem()} direction="left" tip="options">
               <MdMoreVert />
-            </Button>
+            </Button> */}
           </div>
         </div>
       </React.Fragment>

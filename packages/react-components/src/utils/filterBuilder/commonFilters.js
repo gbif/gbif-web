@@ -1,4 +1,5 @@
 import basisofRecord from '../../locales/enums/basisOfRecord.json';
+import mediaTypes from '../../locales/enums/mediaTypes.json';
 
 export const commonFilters = {
   taxonKey: {
@@ -95,6 +96,23 @@ export const commonFilters = {
       specific: {
         options: Object.keys(basisofRecord),
         description: 'filter.basisOfRecord.description', // translation path for the filter description
+      }
+    }
+  },
+  mediaTypes: {
+    type: 'ENUM',
+    config: {
+      std: {
+        filterHandle: 'mediaTypes',
+        id2labelHandle: 'mediaTypes',
+        translations: {
+          count: 'filter.mediaTypes.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.mediaTypes.name',// translation path to a title for the popover and the button
+        }
+      },
+      specific: {
+        options: Object.keys(mediaTypes),
+        description: 'filter.mediaTypes.description', // translation path for the filter description
       }
     }
   }

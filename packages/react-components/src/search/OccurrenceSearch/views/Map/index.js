@@ -48,13 +48,18 @@ function Map() {
       type: 'and',
       predicates: [
         rootPredicate,
-        filter2predicate(currentFilterContext.filter, predicateConfig)
+        filter2predicate(currentFilterContext.filter, predicateConfig),
+        {
+          type: 'equals',
+          key: 'hasCoordinate',
+          value: true
+        }
       ]
     }
     load({ variables: { predicate } });
   }, [currentFilterContext.filterHash, rootPredicate]);
 
-  const loadPointData = useCallback(({geohash}) => {
+  const loadPointData = useCallback(({geohash, count}) => {
     const latLon = Geohash.bounds(geohash);
     const N = latLon.ne.lat, S = latLon.sw.lat, W = latLon.sw.lon, E = latLon.ne.lon;
     const wkt = 'POLYGON' + wktBBoxTemplate.replace(/N/g, N).replace(/S/g, S).replace(/W/g, W).replace(/E/g, E);
