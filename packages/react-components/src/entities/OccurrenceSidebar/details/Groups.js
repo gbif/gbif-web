@@ -52,7 +52,7 @@ function showTerm(term, showAll, verbatim){
     } else if(!showAll){
         return !term.hideInDefaultView && _.get(term, 'remarks') !== 'EXCLUDED'
     } else {
-        return _.get(term, 'remarks') !== 'EXCLUDED'
+        return true
     }
 }
 
