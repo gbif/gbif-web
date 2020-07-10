@@ -1,6 +1,8 @@
 import basisOfRecord from './enums/basisOfRecord.json';
 import countryCode from './enums/countryCode.json';
 import mediaTypes from './enums/mediaTypes.json';
+import occurrenceIssue from './enums/occurrenceIssue.json';
+import typeStatus from './enums/typeStatus.json';
 
 export const en = {
   first: 'First',
@@ -26,6 +28,13 @@ export const en = {
       name: 'Media type',
       count: '{num, plural, one {media type} other {# media types}}',
       description: 'What can of media should the occurrence have'
+    },
+    occurrenceIssue: {
+      name: 'Issues and flags',
+      count: '{num, plural, one {issue or flag} other {# issues and flags}}',
+      isNotNull: 'Has issues',
+      isNull: 'Has no issues',
+      description: 'During interpretation we try to detect potential issues and add flags for them. You decide which matters to you.'
     },
     countryCode: {
       name: 'Country',
@@ -83,8 +92,10 @@ export const en = {
     }
   },
   enums: {
-    basisOfRecord: basisOfRecord,
-    countryCode: countryCode,
-    mediaTypes: mediaTypes,
+    basisOfRecord,
+    countryCode,
+    mediaTypes,
+    occurrenceIssue,
+    typeStatus,
   }
 }

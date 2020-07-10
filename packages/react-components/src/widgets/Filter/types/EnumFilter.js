@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
+import get from 'lodash/get';
 import React, { useState } from "react";
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -7,11 +8,14 @@ import { nanoid } from 'nanoid';
 import PopoverFilter from './PopoverFilter';
 import { keyCodes } from '../../../utils/util';
 
-import { Option, Filter, SummaryBar, FilterBody, Footer, Exists } from '../utils';
+import { Option, Filter, SummaryBar, AdditionalControl, FilterBody, Footer, Exists } from '../utils';
 
 export const FilterContent = ({ config, LabelFromID, trName, hide, labelledById, onApply, onCancel, onFilterChange, focusRef, filterHandle, initFilter }) => {
   const [id] = useState(nanoid);
   const options = config.options;
+
+  let mustNotLength = get(initFilter, `must_not.${filterHandle}`, []).length;
+  const [isNegated, setNegated] = useState(mustNotLength > 0 && config.supportsNegation);
 
   return <Filter
     labelledById={labelledById}
@@ -27,17 +31,23 @@ export const FilterContent = ({ config, LabelFromID, trName, hide, labelledById,
       id={config.description}
       defaultMessage={'Loading'}
     />}
+    isNegated={isNegated}
     onFilterChange={onFilterChange}
     filterName={filterHandle}
     formId={id}
     defaultFilter={initFilter}
     defaultHelpVisible={config.showOptionHelp}
   >
-    {({ helpVisible, toggle, setField, setFullField, filter, checkedMap, formId, summaryProps, footerProps, isExistenceFilter }) => {
+    {({ helpVisible, negateField, toggle, setFullField, filter, checkedMap, formId, summaryProps, footerProps, isExistenceFilter }) => {
       if (isExistenceFilter) {
-        return <Exists {...{footerProps, setFullField, setField, onApply, onCancel, filter, hide, filterHandle}}/>
+        return <Exists {...{ footerProps, setFullField, onApply, onCancel, filter, hide, filterHandle }} />
       }
       return <>
+        {config.supportsNegation && <AdditionalControl checked={isNegated} onChange={e => {
+          negateField(filterHandle, !isNegated);
+          setNegated(!isNegated);
+        }}>Exclude selected</AdditionalControl>}
+        
         <SummaryBar {...summaryProps} />
         <FilterBody onKeyPress={e => {
           if (e.shiftKey && e.which === keyCodes.ENTER) onApply({ filter, hide });
@@ -55,7 +65,7 @@ export const FilterContent = ({ config, LabelFromID, trName, hide, labelledById,
                 label={<LabelFromID id={concept.key} />}
                 // label={<LabelFromID id={concept.key} />}
                 checked={checkedMap.has(concept.key)}
-                onChange={() => toggle(filterHandle, concept.key)}
+                onChange={() => toggle(filterHandle, concept.key, !isNegated)}
               />
             })}
           </form>

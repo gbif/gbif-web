@@ -267,6 +267,7 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
     suggestConfigMap,
     filters,
     defaultVisibleFilters: ['taxonKey', 'year', 'datasetKey', 'countryCode'],
+    // rootPredicate: { type: 'in', key: 'taxonKey', values: [1,2,3,4,5,6,7,8] },
     rootPredicate: { type: 'in', key: 'taxonKey', values: [4, 5, 7] },
     predicateConfig,
     tableConfig
@@ -274,7 +275,8 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
 }
 
 function OccurrenceSearch({ config: customConfig = {}, ...props }) {
-  const [filter, setFilter] = useState({ must: { basisOfRecord: ['HUMAN_OBSERVATION'], taxonKey: [2609958] } });
+  const [filter, setFilter] = useState({ must: { taxonKey: [2609958] } });
+  // const [filter, setFilter] = useState({ must: { datasetKey: ['1d31211e-350e-492a-a597-34d24bbc1769'] } });
   const apiContext = useContext(ApiContext);
   const { formatMessage } = useIntl();
   const [config] = useState(() => {

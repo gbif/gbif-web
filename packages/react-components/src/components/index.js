@@ -22,4 +22,5 @@ export { Radio } from './Radio/Radio';
 export { Image } from './Image/Image';
 export { DetailsDrawer } from './DetailsDrawer/DetailsDrawer';
 export { MajorRanks } from './MajorRanks/MajorRanks';
+export { IconFeatures } from './IconFeatures/IconFeatures';
 // -- Add imports above this line (required by plopfile.js) --

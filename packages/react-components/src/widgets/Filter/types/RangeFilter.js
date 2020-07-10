@@ -9,7 +9,7 @@ import unionBy from 'lodash/unionBy';
 import { keyCodes } from '../../../utils/util';
 import PopoverFilter from './PopoverFilter';
 import { Input } from '../../../components';
-import { Option, Filter, SummaryBar, FilterBody, Footer } from '../utils';
+import { Option, Filter, SummaryBar, FilterBody, Footer, Exists } from '../utils';
 import { rangeOrTerm } from '../transform/rangeOrTerm';
 
 /*
@@ -32,11 +32,15 @@ export const FilterContent = ({ config = {}, trName, labelledById, LabelFromID, 
     />}
     aboutText="some help text" //this should be formated or be provided as such
     onFilterChange={onFilterChange}
+    supportsExist={true}
     filterName={filterHandle}
     formId={id}
     defaultFilter={initFilter}
   >
-    {({ filter, toggle, checkedMap, formId, summaryProps, footerProps }) => {
+    {({ filter, toggle, setFullField, checkedMap, formId, summaryProps, footerProps, isExistenceFilter }) => {
+      if (isExistenceFilter) {
+        return <Exists {...{footerProps, setFullField, onApply, onCancel, filter, hide, filterHandle}}/>
+      }
       return <>
         <div style={{ margin: '10px', zIndex: 10, display: 'inline-block', position: 'relative' }}>
           <Input ref={focusRef}

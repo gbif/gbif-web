@@ -1,0 +1,18 @@
+import { css } from '@emotion/core';
+// import { focusStyle } from '../../style/shared';
+
+export const iconFeatures = ({...props}) => css`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: -.25em -1em;
+  div {
+    display: flex;
+    align-items: center;
+    margin: .25em 1em;
+    flex: 1 1 auto;
+    span {
+      margin: 0 0.5em;
+    }
+  }
+`;

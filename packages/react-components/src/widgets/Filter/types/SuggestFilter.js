@@ -11,7 +11,7 @@ import union from 'lodash/union';
 import { keyCodes } from '../../../utils/util';
 import PopoverFilter from './PopoverFilter';
 
-import { Suggest, Option, Filter, SummaryBar, FilterBody, Footer } from '../utils';
+import { Suggest, Option, Filter, SummaryBar, FilterBody, Footer, Exists } from '../utils';
 
 export const FilterContent = ({ config, trName, labelledById, LabelFromID, hide, onApply, onCancel, onFilterChange, focusRef, filterHandle, initFilter }) => {
   const [id] = React.useState(nanoid);
@@ -29,12 +29,16 @@ export const FilterContent = ({ config, trName, labelledById, LabelFromID, hide,
       defaultMessage={'Loading'}
     />} //this should be formated or be provided as such
     aboutText="some help text"
+    supportsExist={true}
     onFilterChange={onFilterChange}
     filterName={filterHandle}
     formId={id}
     defaultFilter={initFilter}
   >
-    {({ filter, toggle, checkedMap, formId, summaryProps, footerProps }) => {
+    {({ filter, toggle, setFullField, checkedMap, formId, summaryProps, footerProps, isExistenceFilter }) => {
+      if (isExistenceFilter) {
+        return <Exists {...{footerProps, setFullField, onApply, onCancel, filter, hide, filterHandle}}/>
+      }
       return <>
         <Suggest
           {...suggestConfig}

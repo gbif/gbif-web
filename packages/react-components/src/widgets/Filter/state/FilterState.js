@@ -53,6 +53,26 @@ class FilterState extends React.Component {
     });
   }
 
+  negateField = async (field, isNegated) => {
+    const filter = this.props.filter ? cloneDeep(this.props.filter) : {};
+    let must = get(filter, `must.${field}`, []);
+    let mustNot = get(filter, `must_not.${field}`, []);
+    let value = [...must, ...mustNot];
+    const typeToSet = isNegated ? 'must_not' : 'must';
+    const typeToRemove = !isNegated ? 'must_not' : 'must';
+    this.setFilter({
+      ...filter,
+      [typeToSet]: {
+        ...filter[typeToSet],
+        [field]: value
+      },
+      [typeToRemove]: {
+        ...filter[typeToRemove],
+        [field]: []
+      }
+    });
+  }
+
   add = async (field, value, must = true) => {
     const type = must ? 'must' : 'must_not';
     let values = get(this.props.filter, `${type}.${field}`, []);
@@ -92,6 +112,7 @@ class FilterState extends React.Component {
       add: this.add,
       remove: this.remove,
       toggle: this.toggle,
+      negateField: this.negateField,
       filter: this.props.filter,
       filterHash: hash(this.props.filter || {})
     };

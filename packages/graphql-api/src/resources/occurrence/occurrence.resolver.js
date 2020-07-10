@@ -3,6 +3,7 @@ const { getFacet, getStats } = require('./helpers/getMetrics');
 const fieldsWithFacetSupport = require('./helpers/fieldsWithFacetSupport');
 const fieldsWithStatsSupport = require('./helpers/fieldsWithStatsSupport');
 const verbatimResolvers = require('./helpers/occurrenceTerms');
+const { formattedCoordinates, isOccurrenceSequenced } = require('../../util/utils');
 
 // there are many fields that support facets. This function creates the resolvers for all of them
 const facetReducer = (dictionary, facetName) => {
@@ -76,6 +77,9 @@ module.exports = {
       if (typeof multimediaItems === 'undefined') return null;
       // extract primary image. for now just any image
       return multimediaItems.find(x => x.type === 'StillImage');
+    },
+    formattedCoordinates: ({ coordinates = {} }) => {
+      return formattedCoordinates(coordinates);
     },
     volatile: (occurrence) => occurrence,
   },
@@ -155,6 +159,7 @@ module.exports = {
 
   },
   VolatileOccurrenceData: {
+    features: (occurrence) => occurrence,
     globe: ({ coordinates }, { sphere, graticule, land }) => {
       const roundedLat = Math.floor(coordinates.lat / 30) * 30;
       const lat = Math.min(Math.max(roundedLat, -60), 60);
@@ -180,4 +185,30 @@ module.exports = {
       }
     }
   },
+  OccurrenceFeatures: {
+    isSpecimen: ({ basisOfRecord }) => {
+      return basisOfRecord === 'MATERIAL_SAMPLE' || basisOfRecord === 'PRESERVED_SPECIMEN' || basisOfRecord === 'LIVING_SPECIMEN' || basisOfRecord === 'FOSSIL_SPECIMEN';
+    },
+    // plazi this won't work in other environments than prod for now. all in all we should have a better way to detect treatments
+    isTreament: ({ publishingOrganizationKey }) => publishingOrganizationKey === '7ce8aef0-9e92-11dc-8738-b8a03c50a862',
+    isClustered: ({ gbifId }, args, { dataSources }) => {
+      return dataSources.occurrenceAPI.getRelated({ key: gbifId })
+        .then(response => response.relatedOccurrences.length > 0);
+    },
+    isSequenced: (occurrence, args, { dataSources }) => {
+      return dataSources.occurrenceAPI.getFragment({key: occurrence.gbifId })
+        .then(fragment => isOccurrenceSequenced({occurrence, fragment}));
+    },
+    isSamplingEvent: (occurrence) => !!occurrence.eventId && !!occurrence.samplingProtocol
+  }
 };
+
+// var ggbn = ['Amplification', 'MaterialSample', 'Permit', 'Preparation', 'Preservation'];
+//   vm.isSequenced = function(extensions) {
+//     if (!extensions) return false;
+//     for (var i = 0; i < ggbn.length; i++) {
+//       var ext = extensions['http://data.ggbn.org/schemas/ggbn/terms/' + ggbn[i]];
+//       if (ext && ext.length > 0) return true;
+//     }
+//     return false;
+//   };

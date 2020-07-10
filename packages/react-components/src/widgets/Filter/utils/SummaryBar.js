@@ -23,7 +23,7 @@ const SummaryBar = ({ count, onClear, ...props }) => {
 const summary = theme => css`
   font-size: .85em;
   color: #999;
-  font-weight: 200;
+  font-weight: 400;
   margin: .5em 1.5em;
 `;
 

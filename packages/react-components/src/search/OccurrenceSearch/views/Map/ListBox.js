@@ -2,49 +2,82 @@
 import { jsx, css } from '@emotion/core';
 import React, { useEffect, useContext, useState, useCallback } from "react";
 import { MdChevronRight } from 'react-icons/md';
-import { StripeLoader, Button, Row, Col } from '../../../../components';
+import { Image, StripeLoader, Button, Row, Col } from '../../../../components';
+import { FormattedDate } from 'react-intl';
 
-function ListItem({ id, title, subTitle, imageSrc, onClick = () => { }, ...props }) {
-  return <div css={item()} onClick={e => onClick({id})}>
-    <Row wrap="no-wrap">
-      <Col grow={true}>{title}</Col>
+function ListItem({ BasisOfRecordLabel, id, item, imageSrc, onClick = () => { }, ...props }) {
+  return <div css={listItem()} onClick={e => onClick({ id })}>
+    <Row wrap="no-wrap" alignItems="center">
+      <Col grow={true} css={listItemContent()}>
+        <h4 dangerouslySetInnerHTML={{ __html: item.gbifClassification.usage.formattedName }} ></h4>
+        {item.eventDateSingle && <div>
+          <FormattedDate value={item.eventDateSingle}
+            year="numeric"
+            month="long"
+            day="2-digit" />
+        </div>}
+        <div>
+          <BasisOfRecordLabel id={item.basisOfRecord} />
+        </div>
+      </Col>
       <Col grow={false}>
-        <Button appearance="text" style={{padding: 3}} onClick={e => onClick({id})}>
+        <Button appearance="text" style={{ padding: 3 }} onClick={e => onClick({ id })}>
           <MdChevronRight />
         </Button>
       </Col>
+      {item.primaryImage?.identifier && <Col grow={false}>
+        <Image src={item.primaryImage?.identifier} w={80} h={80} style={{ display: 'block', background: '#ededed', width: 80, height: 80 }} />
+      </Col>}
     </Row>
   </div>
 }
 
-function ListBox({ onClick, data, error, loading, ...props }) {
-  if (!error && !loading && !data) return null;
+function ListBox({ labelMap, onCloseRequest, onClick, data, error, loading, ...props }) {
+  // if (!error && !loading && !data) return null;
+  const BasisOfRecordLabel = labelMap.basisOfRecord;
+  
+  // console.log('error', error);
+  // console.log('loading', loading);
 
   let content;
-  if (error) {
-    content = 'Failed to load data';
-  } else if (loading) {
-    content = <>
-    <StripeLoader active />
-    Loading
-    </>
+  if (loading) {
+    return <section  {...props}>
+      <div css={container()}>
+        <StripeLoader active />
+        <div css={listItemContent()}>Loading</div>
+      </div>
+    </section>
+  } else if (error) {
+    return <section  {...props}>
+      <div css={container()}>
+        <StripeLoader active error />
+        <div css={listItemContent()}>Failed to fetch data</div>
+      </div>
+    </section>
   } else if (data) {
     const results = data?.occurrenceSearch?.documents?.results || [];
     content = <ul css={list()}>
-      {results.map(x => {
+      {results.map((x, index) => {
         return <li key={x.gbifId}>
-          <ListItem onClick={onClick} id={x.gbifId} title={
-            <span dangerouslySetInnerHTML={{ __html: x.gbifClassification.usage.formattedName }}></span>
-          } />
+          <ListItem BasisOfRecordLabel={BasisOfRecordLabel} onClick={() => onClick({index})} id={x.gbifId} item={x} />
         </li>
       })}
     </ul>;
   }
 
-  const results = data?.occurrenceSearch?.documents?.results || [];
-  return <div css={container()} {...props}>
-    {content}
-  </div>
+  return <section  {...props}>
+    <Row css={container()} direction="column">
+      <Col grow={false} as="header" >
+        <Row alignItems="center">
+          <Col grow>{data?.occurrenceSearch?.documents.total} results</Col>
+          <Col grow={false}><Button appearance="outline" onClick={onCloseRequest}>Close</Button></Col>
+        </Row>
+      </Col>
+      <Col grow as="main">
+        {content}
+      </Col>
+    </Row>
+  </section>
 }
 
 const container = ({ ...props }) => css`
@@ -52,18 +85,46 @@ const container = ({ ...props }) => css`
   overflow: auto;
   border-radius: 4px;
   border: 1px solid #eee;
+  max-height: inherit;
+  flex-wrap: nowrap;
+  header {
+    padding: 8px 16px;
+    border-bottom: 1px solid #eee;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  footer {
+    border-top: 1px solid #eee;
+    padding: 8px 16px;
+  }
 `;
 
 const list = ({ ...props }) => css`
   list-style: none;
   padding: 0;
+  margin: 0;
+  border-top: 1px solid #eee;
 `;
 
-const item = ({ ...props }) => css`
-  padding: 5px 10px;
-  border-bottom: 1px solid #eee;
-  cursor: pointer;
+const listItemContent = ({ ...props }) => css`
+  padding: 8px 16px;
   font-size: 13px;
+  overflow: hidden;
+  h4 {
+    margin: 0 0 8px 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
 `;
+
+const listItem = ({ ...props }) => css`
+  border-bottom: 1px solid #efefef;
+  cursor: pointer;
+  :hover {
+    background: #efefef;
+  }
+`;
+
 
 export default ListBox;

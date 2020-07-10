@@ -7,6 +7,9 @@ import get from 'lodash/get';
  */
 function filter2predicate(filter, filterConfig) {
   filter = filter || {};
+  if (filterConfig.preFilterTransform) {
+    filter = filterConfig.preFilterTransform(filter);
+  }
   const { must, must_not } = filter;
 
   const positive = getPredicates({ filters: must, filterConfig });
@@ -38,15 +41,10 @@ function getPredicate({ filterName, values = [], filterConfig }) {
   if (values?.length === 0) return;
 
   // get the configuration for this filter if any is provided
-  const config = filterConfig[filterName] || {};
+  const config = filterConfig.fields[filterName] || {};
 
   // if a mapping function for the values is provided, then apply it
   let mappedValues = typeof config?.transformValue === 'function' ? values.map(config.transformValue) : values;
-
-  console.log('getPredicates');
-  console.log(config);
-  console.log(values);
-  console.log(mappedValues);
 
   // if the default type is equals or undefined then we might be able to create an 'in' predicate
   if (get(config, 'defaultType', 'equals') === 'equals') {

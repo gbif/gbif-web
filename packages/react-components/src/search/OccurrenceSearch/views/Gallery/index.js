@@ -16,6 +16,9 @@ query gallery($predicate: Predicate, $size: Int = 20, $from: Int = 0){
         gbifId
         countryCode
         locality
+        basisOfRecord
+        typeStatus
+        eventDateSingle
         gbifClassification{
           acceptedUsage {
             formattedName
@@ -23,6 +26,16 @@ query gallery($predicate: Predicate, $size: Int = 20, $from: Int = 0){
         }
         primaryImage {
           identifier
+        }
+        formattedCoordinates
+        volatile {
+          features {
+            isSpecimen
+            isTreament
+            isSequenced
+            isClustered
+            isSamplingEvent
+          }
         }
       }
     }

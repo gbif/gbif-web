@@ -14,7 +14,7 @@ export const TriggerButton = React.forwardRef(({ mustOptions = [], mustNotOption
     name = `filter.${filterHandle}.name` } = translations;
 
   const onClear = useCallback(() => {
-    currentFilterContext.setField(filterHandle, [])
+    currentFilterContext.setFullField(filterHandle, [], [])
   }, [currentFilterContext, filterHandle]);
 
   let TextSummary;

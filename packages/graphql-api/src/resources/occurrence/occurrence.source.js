@@ -35,6 +35,14 @@ class OccurrenceAPI extends RESTDataSource {
     return this.get(`/occurrence/key/${key}`);
   }
 
+  async getRelated({ key }) {
+    return this.get(`http://api.gbif.org/v1/occurrence/${key}/experimental/related`);
+  }
+
+  async getFragment({ key }) {
+    return this.get(`http://api.gbif.org/v1/occurrence/${key}/fragment`);
+  }
+
   async meta({ query }) {
     const body = { ...query };
     const response = await this.post('/occurrence/meta', body);

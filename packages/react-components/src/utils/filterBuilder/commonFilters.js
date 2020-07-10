@@ -1,5 +1,6 @@
 import basisofRecord from '../../locales/enums/basisOfRecord.json';
 import mediaTypes from '../../locales/enums/mediaTypes.json';
+import occurrenceIssue from '../../locales/enums/occurrenceIssue.json';
 
 export const commonFilters = {
   taxonKey: {
@@ -96,6 +97,24 @@ export const commonFilters = {
       specific: {
         options: Object.keys(basisofRecord),
         description: 'filter.basisOfRecord.description', // translation path for the filter description
+      }
+    }
+  },
+  occurrenceIssue: {
+    type: 'ENUM',
+    config: {
+      std: {
+        filterHandle: 'occurrenceIssue',
+        id2labelHandle: 'occurrenceIssue',
+        translations: {
+          count: 'filter.occurrenceIssue.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.occurrenceIssue.name',// translation path to a title for the popover and the button
+        }
+      },
+      specific: {
+        options: Object.keys(occurrenceIssue),
+        description: 'filter.occurrenceIssue.description', // translation path for the filter description
+        supportsNegation: true
       }
     }
   },

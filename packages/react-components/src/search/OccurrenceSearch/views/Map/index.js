@@ -24,11 +24,16 @@ query point($predicate: Predicate){
       total
       results {
         gbifId
+        basisOfRecord
+        eventDateSingle
         gbifClassification{
           usage {
             rank
             formattedName
           }
+        }
+        primaryImage {
+          identifier
         }
       }
     }
@@ -39,7 +44,7 @@ const wktBBoxTemplate = '((W S,E S,E N,W N,W S))';
 
 function Map() {
   const currentFilterContext = useContext(FilterContext);
-  const { rootPredicate, predicateConfig } = useContext(OccurrenceContext);
+  const { labelMap, rootPredicate, predicateConfig } = useContext(OccurrenceContext);
   const { data, error, loading, load } = useQuery(OCCURRENCE_MAP, { lazyLoad: true, keepDataWhileLoading: true });
   const { data: pointData, error: pointError, loading: pointLoading, load: pointLoad } = useQuery(OCCURRENCE_POINT, { lazyLoad: true });
 
@@ -60,6 +65,7 @@ function Map() {
   }, [currentFilterContext.filterHash, rootPredicate]);
 
   const loadPointData = useCallback(({geohash, count}) => {
+    console.log('loadPointData');
     const latLon = Geohash.bounds(geohash);
     const N = latLon.ne.lat, S = latLon.sw.lat, W = latLon.sw.lon, E = latLon.ne.lon;
     const wkt = 'POLYGON' + wktBBoxTemplate.replace(/N/g, N).replace(/S/g, S).replace(/W/g, W).replace(/E/g, E);
@@ -89,7 +95,8 @@ function Map() {
     loadPointData,
     pointData,
     pointLoading,
-    pointError
+    pointError,
+    labelMap
   }
 
   if (typeof window !== 'undefined') {

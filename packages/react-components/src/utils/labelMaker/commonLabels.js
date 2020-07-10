@@ -9,6 +9,10 @@ export const commonLabels = {
     type: 'TRANSLATION',
     template: id => `enums.mediaTypes.${id}`
   },
+  occurrenceIssue: {
+    type: 'TRANSLATION',
+    template: id => `enums.occurrenceIssue.${id}`
+  },
   countryCode: {
     type: 'TRANSLATION',
     template: id => `enums.countryCode.${id}`

@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { MdLocationOn } from 'react-icons/md';
 import { useDialogState } from "reakit/Dialog";
-import { FormattedMessage } from 'react-intl';
-import { GalleryTiles, GalleryTile, GalleryCaption, DetailsDrawer, GalleryTileSkeleton, Button } from '../../../../components';
+import { GalleryTiles, GalleryTile, GalleryCaption, DetailsDrawer, GalleryTileSkeleton, Button, IconFeatures } from '../../../../components';
 import { OccurrenceSidebar } from '../../../../entities';
 import { ViewHeader } from '../ViewHeader';
 
@@ -54,9 +52,16 @@ export const GalleryPresentation = ({ first, prev, next, size, from, data, total
             onSelect={() => { setActive(index); dialog.show(); }}>
             <GalleryCaption>
               <div style={{marginBottom: 2}} dangerouslySetInnerHTML={{ __html: item.gbifClassification.acceptedUsage.formattedName }}></div>
-              <div style={{fontSize: '11px', color: '#888'}}>
-                <MdLocationOn style={{ position: 'relative', top: 2 }} /> <FormattedMessage id={`enums.countryCode.${item.countryCode}`} /> <span style={{ color: '#888' }}>{item.locality}</span>
-              </div>
+              <IconFeatures style={{fontSize: '11px', color: '#888'}}
+                typeStatus={item.typeStatus}
+                basisOfRecord={item.basisOfRecord}
+                eventDate={item.eventDateSingle}
+                isSequenced={item.volatile.features.isSequenced} 
+                isTreament={item.volatile.features.isTreament} 
+                formattedCoordinates={item.formattedCoordinates} 
+                countryCode={item.countryCode}
+                location={item.location}
+                />
             </GalleryCaption>
           </GalleryTile>
         })}

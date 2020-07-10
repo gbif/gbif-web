@@ -270,11 +270,39 @@ const typeDef = gql`
     Currently the primary image is considered the first image retruned from the REST API
     """
     primaryImage: MultimediaItem
+    formattedCoordinates: String
     volatile: VolatileOccurrenceData
   }
 
   type VolatileOccurrenceData {
     globe(sphere: Boolean, graticule: Boolean, land: Boolean): Globe
+    """
+    Duck typing various features that is worth highlighting
+    """
+    features: OccurrenceFeatures
+  }
+
+  type OccurrenceFeatures {
+    """
+    Basis of record is either preserved specimen, living specimen, fossil specimen or material sample.
+    """
+    isSpecimen: Boolean
+    """
+    We know for sure that this is related to a treatment (based on the publisher)
+    """
+    isTreament: Boolean
+    """
+    Looks like it is sequenced based on extensions and fields
+    """
+    isSequenced: Boolean
+    """
+    This occurrence has related records
+    """
+    isClustered: Boolean
+    """
+    The occurrence has fields that are intended for use by sampling events
+    """
+    isSamplingEvent: Boolean
   }
 
   type Globe {
