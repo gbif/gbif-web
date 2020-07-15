@@ -2,7 +2,7 @@ import { css, keyframes } from '@emotion/core';
 
 export const placeholder = props => css`
   &::placeholder {
-    color: #bbb;
+    color: ${props.theme.color500};
   }
 `;
 
@@ -46,7 +46,7 @@ export const styledScrollBars = props => css`
   }
 `;
 
-export const root = ({ theme = {} }) => css`
+export const root = ({ appRoot, theme = {} }) => css`
   * {
     font-family: ${theme.fontFamily || 'BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif'};
   }
@@ -55,7 +55,7 @@ export const root = ({ theme = {} }) => css`
   font-weight: 400;
   box-sizing: border-box;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
-  /* background: ${theme.background || 'white'}; */
+  background: ${appRoot ? theme.background : null};
   *, *::before, *::after, strong {
     box-sizing: inherit;
   }
@@ -79,7 +79,7 @@ export const tooltip = props => css`
     position: relative;
     &[tip]:before {
       border-radius: 2px;
-      background-color: #585858;
+      background-color: ${props.theme.darkPaperBackground};
       color: #fff;
       content: attr(tip);
       font-size: 12px;
@@ -115,15 +115,15 @@ export const tooltip = props => css`
 
 export const skeletonLoading = keyframes`
   from {
-    background-color: #bbbbbb50;
+    background-color: #88888830;
   }
   50% {
-    background-color: #bbbbbb50;
+    background-color: #88888830;
   }
   75% {
-    background-color: #afafaf50;
+    background-color: #afafaf30;
   }
   to {
-    background-color: #bbbbbb50;
+    background-color: #88888830;
   }
 `;

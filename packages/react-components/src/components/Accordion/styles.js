@@ -1,7 +1,7 @@
 import { css } from '@emotion/core';
 import { focusStyle, noUserSelect } from '../../style/shared';
 
-export const arrowDown = ({size=5, color='#aaa', ...props}) => css`
+export const arrowDown = ({size=5, color='#88888855', ...props}) => css`
   width: 0; 
   height: 0; 
   border-left:${size}px solid transparent;
@@ -9,7 +9,7 @@ export const arrowDown = ({size=5, color='#aaa', ...props}) => css`
   border-top: ${size}px solid ${color};
 `;
 
-export const arrowUp = ({size=5, color='#aaa', ...props}) => css`
+export const arrowUp = ({size=5, color='#88888855', ...props}) => css`
   width: 0; 
   height: 0; 
   border-left: ${size}px solid transparent;
@@ -25,11 +25,11 @@ export const accordion = ({...props}) => css`
 
 `;
 
-export const summary = ({...props}) => css`
+export const summary = ({theme, ...props}) => css`
   display: flex;
   align-items: center;
   padding: 12px 0 8px 0;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid ${theme.color100};
   list-style: none;
   font-weight: 500;
   &::-webkit-details-marker {

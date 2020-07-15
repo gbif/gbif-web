@@ -3,14 +3,15 @@ import { jsx } from '@emotion/core';
 import ThemeContext from '../../style/themes/ThemeContext';
 import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { getClasses } from '../../utils/util';
 import { Root, Button } from '../../components';
 import * as css from './styles';
 import { Dialog, DialogBackdrop } from "reakit/Dialog";
 import { keyCodes } from '../../utils/util';
 import { MdChevronRight, MdChevronLeft, MdClose } from "react-icons/md";
+import { GbifLogoIcon } from '../../components/Icons/Icons';
 
-export function DetailsDrawer({ dialog, nextItem, previousItem, children, ...props }) {
+export function DetailsDrawer({ dialog, nextItem, previousItem, href, children, ...props }) {
+  const theme = useContext(ThemeContext);
   useEffect(() => {
     function handleKeypress(e) {
       switch (e.which) {
@@ -28,7 +29,7 @@ export function DetailsDrawer({ dialog, nextItem, previousItem, children, ...pro
 
   return (
     <>
-      <DialogBackdrop {...dialog} css={css.detailsBackdrop()}>
+      <DialogBackdrop {...dialog} css={css.detailsBackdrop({theme})}>
         <Dialog {...dialog} aria-label="Details" css={css.drawer()}>
           {dialog.visible &&
             <Root style={{height: '100%', display: 'flex', flexDirection: 'column'}}>
@@ -36,11 +37,16 @@ export function DetailsDrawer({ dialog, nextItem, previousItem, children, ...pro
               <div style={{flex: '1 1 auto', overflow: 'auto'}}>
                 {children}
               </div>
-              {(previousItem || nextItem) && <div style={{display: 'flex', justifyContent: 'space-between', flex: '0 0 auto', background: 'white', borderTop: '1px solid #ddd', padding: '8px 12px'}}>
-                {previousItem && <Button css={css.footerItem()} appearance="text" direction="right" tip="previous (left arrow)" onClick={previousItem}>
+              {(previousItem || nextItem) && <div css={css.footerBar({theme})}>
+                {previousItem && <Button css={css.footerItem({theme})} appearance="text" direction="right" tip="previous (left arrow)" onClick={previousItem}>
                   <MdChevronLeft />
                 </Button>}
-                {nextItem && <Button css={css.footerItem()} appearance="text" direction="left" tip="next (right arrow)" onClick={nextItem}>
+
+                {href && <Button as="a" target='_blank' href={href} css={css.footerItem({theme})} appearance="text" direction="top" tip="View on GBIF.org">
+                  <GbifLogoIcon />
+                </Button>}
+
+                {nextItem && <Button css={css.footerItem({theme})} appearance="text" direction="left" tip="next (right arrow)" onClick={nextItem}>
                   <MdChevronRight />
                 </Button>}
               </div>}
@@ -51,16 +57,6 @@ export function DetailsDrawer({ dialog, nextItem, previousItem, children, ...pro
     </>
   );
 }
-
-export function DetailsDrawer2({
-  as: Div = 'div',
-  className,
-  ...props
-}) {
-  const theme = useContext(ThemeContext);
-  const { classNames } = getClasses(theme.prefix, 'detailsDrawer', {/*modifiers goes here*/ }, className);
-  return <Div css={styles.detailsDrawer({ theme })} {...props} />
-};
 
 DetailsDrawer.propTypes = {
   as: PropTypes.element

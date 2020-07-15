@@ -14,7 +14,7 @@ export const button = theme => css`
   text-align: center;
 
   border: 1px solid transparent;
-  border-radius: 4px;
+  border-radius: ${theme.borderRadius}px;
   box-shadow: none;
 
   font-size: 1em;
@@ -54,28 +54,28 @@ export const text = theme => css`
 `;
 
 export const primary = theme => css`
-  background-color: ${theme.colors.primary500};
-  border-color: ${theme.colors.primary600};
+  background-color: ${theme.primary500};
+  border-color: ${theme.primary600};
   color: white;
   &:not([aria-disabled="true"]) {
     &:hover {
       color: white;
-      border-color: ${theme.colors.primary500};
-      background-color: ${theme.colors.primary600};
+      border-color: ${theme.primary500};
+      background-color: ${theme.primary600};
     }
     &:active,
     &[aria-expanded="true"] {
       color: white;
-      border-color: ${theme.colors.primary600};
-      background-color: ${theme.colors.primary700};
+      border-color: ${theme.primary600};
+      background-color: ${theme.primary700};
     }
   }
 `;
 
 export const primaryOutline = (theme) => css`
-  border-color: ${theme.colors.primary600};
+  border-color: ${theme.primary600};
   background: none;
-  color: ${theme.colors.primary700};
+  color: ${theme.primary700};
 `;
 
 export const outline = (theme) => css`
@@ -132,7 +132,7 @@ export const loading = (theme) => css`
   pointer-events: none;
 `;
 
-export const group = (theme) => css`
+export const group = ({theme}) => css`
   display: inline-flex;
   /* width: fit-content; */
   max-width: 100%;
@@ -143,13 +143,13 @@ export const group = (theme) => css`
     margin-right: -1px;
   }
   >button:first-of-type {
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
+    border-top-left-radius: ${theme.borderRadius}px;
+    border-bottom-left-radius: ${theme.borderRadius}px;
     flex: 1 1 auto;
   }
   >button:last-of-type {
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
+    border-top-right-radius: ${theme.borderRadius}px;
+    border-bottom-right-radius: ${theme.borderRadius}px;
   }
 `;
 

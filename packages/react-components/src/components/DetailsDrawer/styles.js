@@ -1,11 +1,11 @@
 import { css } from '@emotion/core';
 import { tooltip } from '../../style/shared';
 
-export const root = ({...props}) => css`
+export const root = ({ ...props }) => css`
   height: 100%;
 `;
 
-export const drawer = ({...props}) => css`
+export const drawer = ({ ...props }) => css`
   position: fixed;
   bottom: 0;
   top: 0;
@@ -16,15 +16,18 @@ export const drawer = ({...props}) => css`
   &[data-enter] {
     transform: translateX(0%);
   }
+  &:focus {
+    outline: none;
+  }
 `;
 
-export const detailsBackdrop = ({...props}) => css`
+export const detailsBackdrop = ({ theme, ...props }) => css`
   position: fixed;
   bottom: 0;
   top: 0;
   right: 0;
   left: 0;
-  background: #00000050;
+  background: ${theme.darkTheme ? '#00000075' : '#00000050'};
   z-index: 10;
   transition: opacity 50ms ease-in-out;
   opacity: 0;
@@ -33,13 +36,22 @@ export const detailsBackdrop = ({...props}) => css`
   }
 `;
 
+export const footerBar = ({ theme }) => css`
+  display: flex;
+  justify-content: space-between;
+  flex: 0 0 auto;
+  background: ${theme.paperBackground500};
+  border-top: 1px solid ${theme.paperBorderColor};
+  padding: 8px 12px;
+`;
+
 export const footerItem = props => css`
   border: 1px solid transparent;
   &:hover {
-    border-color: #eaeaea;
+    border-color: #88888844;
   };
   &:active {
-    background: #f0f2f3;
+    background: #88888888;
   }
   ${tooltip(props)}
 `;

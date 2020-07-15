@@ -21,8 +21,8 @@ export const dl = ({horizontal, ...props}) => css`
     margin-bottom: 0;
 `;
 
-export const dt = ({horizontal, ...props}) => css`
-  color: #767676;
+export const dt = ({horizontal, theme, ...props}) => css`
+  color: ${theme.color400};
   margin-bottom : ${horizontal ? 20 : 0}px;
   word-break: break-word;
   &:last-of-type {

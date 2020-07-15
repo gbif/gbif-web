@@ -190,7 +190,8 @@ const filterConfig = {
   // endpoint: 'http://labs.gbif.org:7011',
   // set root filter to data from naturalis
   // rootPredicate: { type: 'equals', key: 'publishingOrganizationKey', value: '396d5f30-dea9-11db-8ab4-b8a03c50a862' },
-  rootPredicate: { type: 'in', key: 'taxonKey', values: [4, 5, 7] },
+  // rootPredicate: { type: 'in', key: 'taxonKey', values: [4, 5, 7] },
+  rootPredicate: { type: 'equals', key: 'taxonKey', value: 44 },
   defaultVisibleFilters: ['taxonKey', 'year'],
   filters: {
     test: {
@@ -268,14 +269,16 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
     filters,
     defaultVisibleFilters: ['taxonKey', 'year', 'datasetKey', 'countryCode'],
     // rootPredicate: { type: 'in', key: 'taxonKey', values: [1,2,3,4,5,6,7,8] },
-    rootPredicate: { type: 'in', key: 'taxonKey', values: [4, 5, 7] },
+    // rootPredicate: { type: 'in', key: 'taxonKey', values: [4, 5, 7] },
+    rootPredicate: { type: 'equals', key: 'taxonKey', value: 44 },
     predicateConfig,
     tableConfig
   }
 }
 
 function OccurrenceSearch({ config: customConfig = {}, ...props }) {
-  const [filter, setFilter] = useState({ must: { taxonKey: [2609958] } });
+  const [filter, setFilter] = useState({ must: { taxonKey: [] } });
+  // const [filter, setFilter] = useState({ must: { taxonKey: [2609958] } });
   // const [filter, setFilter] = useState({ must: { datasetKey: ['1d31211e-350e-492a-a597-34d24bbc1769'] } });
   const apiContext = useContext(ApiContext);
   const { formatMessage } = useIntl();

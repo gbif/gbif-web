@@ -4,11 +4,14 @@ import React, { useEffect, useContext, useState, useCallback } from "react";
 import { MdChevronRight } from 'react-icons/md';
 import { Image, StripeLoader, Button, Row, Col } from '../../../../components';
 import { FormattedDate } from 'react-intl';
+import ThemeContext from '../../../../style/themes/ThemeContext';
 
 function ListItem({ BasisOfRecordLabel, id, item, imageSrc, onClick = () => { }, ...props }) {
-  return <div css={listItem()} onClick={e => onClick({ id })}>
+  const theme = useContext(ThemeContext);
+
+  return <div css={listItem({theme})} onClick={e => onClick({ id })}>
     <Row wrap="no-wrap" alignItems="center">
-      <Col grow={true} css={listItemContent()}>
+      <Col grow={true} css={listItemContent({theme})}>
         <h4 dangerouslySetInnerHTML={{ __html: item.gbifClassification.usage.formattedName }} ></h4>
         {item.eventDateSingle && <div>
           <FormattedDate value={item.eventDateSingle}
@@ -21,7 +24,7 @@ function ListItem({ BasisOfRecordLabel, id, item, imageSrc, onClick = () => { },
         </div>
       </Col>
       <Col grow={false}>
-        <Button appearance="text" style={{ padding: 3 }} onClick={e => onClick({ id })}>
+        <Button className="gbif-map-listItem-chevreon" appearance="text" style={{ padding: 3 }} onClick={e => onClick({ id })}>
           <MdChevronRight />
         </Button>
       </Col>
@@ -33,30 +36,28 @@ function ListItem({ BasisOfRecordLabel, id, item, imageSrc, onClick = () => { },
 }
 
 function ListBox({ labelMap, onCloseRequest, onClick, data, error, loading, ...props }) {
-  // if (!error && !loading && !data) return null;
+  const theme = useContext(ThemeContext);
+  if (!error && !loading && !data) return null;
   const BasisOfRecordLabel = labelMap.basisOfRecord;
-  
-  // console.log('error', error);
-  // console.log('loading', loading);
 
   let content;
   if (loading) {
     return <section  {...props}>
-      <div css={container()}>
+      <div css={container({theme})}>
         <StripeLoader active />
-        <div css={listItemContent()}>Loading</div>
+        <div css={listItemContent({theme})}>Loading</div>
       </div>
     </section>
   } else if (error) {
     return <section  {...props}>
-      <div css={container()}>
+      <div css={container({theme})}>
         <StripeLoader active error />
-        <div css={listItemContent()}>Failed to fetch data</div>
+        <div css={listItemContent({theme})}>Failed to fetch data</div>
       </div>
     </section>
   } else if (data) {
     const results = data?.occurrenceSearch?.documents?.results || [];
-    content = <ul css={list()}>
+    content = <ul css={list({theme})}>
       {results.map((x, index) => {
         return <li key={x.gbifId}>
           <ListItem BasisOfRecordLabel={BasisOfRecordLabel} onClick={() => onClick({index})} id={x.gbifId} item={x} />
@@ -66,7 +67,7 @@ function ListBox({ labelMap, onCloseRequest, onClick, data, error, loading, ...p
   }
 
   return <section  {...props}>
-    <Row css={container()} direction="column">
+    <Row css={container({theme})} direction="column">
       <Col grow={false} as="header" >
         <Row alignItems="center">
           <Col grow>{data?.occurrenceSearch?.documents.total} results</Col>
@@ -80,30 +81,33 @@ function ListBox({ labelMap, onCloseRequest, onClick, data, error, loading, ...p
   </section>
 }
 
-const container = ({ ...props }) => css`
-  background: white;
+const container = ({ theme, ...props }) => css`
+  background: ${theme.paperBackground500};
   overflow: auto;
-  border-radius: 4px;
-  border: 1px solid #eee;
+  border-radius: ${theme.borderRadius}px;
+  border: 1px solid ${theme.paperBorderColor};
   max-height: inherit;
   flex-wrap: nowrap;
   header {
     padding: 8px 16px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid ${theme.paperBorderColor};
     font-size: 12px;
     font-weight: 500;
   }
+  main {
+    overflow: auto;
+  }
   footer {
-    border-top: 1px solid #eee;
+    border-top: 1px solid ${theme.paperBorderColor};
     padding: 8px 16px;
   }
 `;
 
-const list = ({ ...props }) => css`
+const list = ({ theme, ...props }) => css`
   list-style: none;
   padding: 0;
   margin: 0;
-  border-top: 1px solid #eee;
+  border-top: 1px solid ${theme.paperBorderColor};
 `;
 
 const listItemContent = ({ ...props }) => css`
@@ -118,11 +122,14 @@ const listItemContent = ({ ...props }) => css`
   }
 `;
 
-const listItem = ({ ...props }) => css`
-  border-bottom: 1px solid #efefef;
+const listItem = ({ theme, ...props }) => css`
+  border-bottom: 1px solid ${theme.paperBorderColor};
   cursor: pointer;
   :hover {
-    background: #efefef;
+    background: ${theme.paperBackground700};
+  }
+  .gbif-map-listItem-chevreon {
+    color: ${theme.color500};
   }
 `;
 

@@ -1,32 +1,31 @@
 import { css } from '@emotion/core';
 import { tooltip } from '../../style/shared';
 
-const borderRadius = '5px';
 export const wrapper = props => css`
-  border: 1px solid #e5ebed;
+  border: 1px solid ${props.theme.paperBorderColor};
   height: 100%;
 `;
 
-export const occurrenceTable = props => css`
+export const occurrenceTable = ({theme}) => css`
   width: 100%;
   height: calc(100% - 30px);
   overflow: auto;
   position: relative;
-  background: white;
+  background: ${theme.paperBackground};
   /* ${styledScrollBars(props)} */
 `;
 
-export const footer = props => css`
+export const footer = ({theme}) => css`
   height: 30px;
   display: flex;
   flex-direction: row;
   padding: 0 10px;
-  background: #f7f9fa;
-  border-radius: 0 0 ${borderRadius} ${borderRadius};
-  border-top: 1px solid #ddd;
+  background: ${theme.paperBackground500};
+  border-radius: 0 0 ${theme.borderRadius}px ${theme.borderRadius}px;
+  border-top: 1px solid ${theme.paperBorderColor};
 `;
 
-export const footerItemBase = props => css`
+export const footerItemBase = ({theme}) => css`
   flex: 0 0 auto;
   padding: 0 10px;
   height: 30px;
@@ -37,10 +36,10 @@ export const footerItemBase = props => css`
   border: 1px solid transparent;
 `;
 
-export const footerItem = props => css`
+export const footerItem = (props) => css`
   ${footerItemBase(props)};
   &:hover {
-    border-color: #eaeaea;
+    border-color: ${props.theme.paperBorderColor};
   };
   &:active {
     background: #f0f2f3;
@@ -52,29 +51,30 @@ export const table = props => css`
   position: relative;
   min-width: 100%;
   border-collapse: separate;
-  background: white;
+  background: ${props.theme.background};
   border-spacing: 0;
   font-size: 12px;
   & th, td {
-    border-right: 1px solid #e5ebed;
+    border-right: 1px solid ${props.theme.paperBorderColor};
     transition: background-color 200ms ease;
-    border-bottom: 1px solid #e5ebed;
+    border-bottom: 1px solid ${props.theme.paperBorderColor};
     text-align: left;
   }
   & thead th {
     position: sticky;
     top: 0;
     border-bottom-width: 2px;
-    background: #f7f9fa;
-    color: #8091a5;
+    background: ${props.theme.paperBackground500};
+    color: ${props.theme.color600};
     padding: 8px 12px;
   }
   & td {
     padding: 12px;
+    background: ${props.theme.paperBackground500};
   }
   & tbody>tr>td:first-of-type {
-    border-right: 1px solid #e5ebed;
-    background: white;
+    border-right: 1px solid ${props.theme.paperBorderColor};
+    background: ${props.theme.paperBackground500};
   }
   ${props.stickyColumn ? stickyColumn(props) : ''};
   ${props.scrolled ? scrolled(props) : ''};
@@ -98,15 +98,15 @@ export const stickyColumn = props => css`
 //   }
 // `;
 
-export const scrolled = props => css`
+export const scrolled = ({theme}) => css`
   & td {
-    background-color: #fbfbfb;
+    background-color: ${theme.paperBackground600};
   }
   & thead th {
-    background: #f1f3f5;
+    background: ${theme.paperBackground700};
   }
   & thead th:first-of-type {
-    background: #f7f9fa;
+    background: ${theme.paperBackground500};
   }
 `;
 
@@ -128,11 +128,18 @@ export const wide = props => css`
   ${cell(props)};
 `;
 
-export const tbodyLoading = props => css`
+export const tbodyLoading = ({theme}) => css`
   td > * {
-    background-color: #f3f3f3;
+    background-color: ${theme.color100}55;
     color: transparent;
   }
+`;
+
+export const paper = ({theme, color}) => css`
+  background-color: ${theme['paperBackground' + color]};
+`;
+export const ink = ({theme, color}) => css`
+  color: ${theme['color' + color]};
 `;
 
 export default {

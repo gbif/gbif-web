@@ -31,21 +31,27 @@ export function OccurrenceSidebar({
     }
   }, [id]);
 
+  useEffect(() => {
+    if (!loading && activeId === 'images' && !data?.occurrence?.multimediaItems) {
+      setTab('details');
+    }
+  }, [data, loading]);
+
   const isSpecimen = get(data, 'occurrence.basisOfRecord', '').indexOf('SPECIMEN') > -1;
 
   return <Tabs activeId={activeId} onChange={id => setTab(id)}>
-    <Row wrap="nowrap" style={style} css={css.sideBar}>
-      <Col shrink={false} grow={false} css={css.detailDrawerBar}>
+    <Row wrap="nowrap" style={style} css={css.sideBar({theme})}>
+      <Col shrink={false} grow={false} css={css.detailDrawerBar({theme})}>
         <TabList aria-label="Images" style={{ paddingTop: '12px' }}>
           <Tab tabId="details" direction="left">
             <MdInfo />
           </Tab>
-          <Tab tabId="images" direction="left">
+          {data?.occurrence?.multimediaItems && <Tab tabId="images" direction="left">
             <MdInsertPhoto />
-          </Tab>
+          </Tab>}
         </TabList>
       </Col>
-      <Col shrink={false} grow={false} css={css.detailDrawerContent} >
+      <Col shrink={false} grow={false} css={css.detailDrawerContent({theme})} >
         <TabPanel tabId='images'>
           <ImageDetails data={data} loading={loading} error={error} />
         </TabPanel>
@@ -351,6 +357,13 @@ query occurrence($key: ID!){
         svg
         lat
         lon
+      }
+      features {
+        isSpecimen
+        isTreament
+        isSequenced
+        isClustered
+        isSamplingEvent
       }
     }
 

@@ -31,7 +31,7 @@ export function ImageDetails({
     <Header data={data} />
     {/* <h4 dangerouslySetInnerHTML={{ __html: data?.occurrence?.gbifClassification?.usage?.formattedName }}></h4> */}
     {activeImage && <>
-    <div css={css.imageContainer}>
+    <div css={css.imageContainer({theme})}>
       {/* <ZoomableImage style={{height: 300}} src={activeImage.identifier} thumbnail={Image.getImageSrc({src: activeImage.identifier, h:150})} /> */}
       <Image src={activeImage.identifier} h="450" style={{maxWidth: '100%', maxHeight: 450}} />
     </div>

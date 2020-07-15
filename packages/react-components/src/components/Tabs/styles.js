@@ -15,7 +15,7 @@ const border = (width, color, dir, isActive) => ({
 });
 
 export const tab = ({theme, direction='bottom', isActive}) => css`
-  ${border(3, theme.colors.primary500, direction, isActive)}
+  ${border(3, theme.primary500, direction, isActive)}
   display: ${direction === 'left' || direction === 'right' ? 'block' : 'inline-block'};
   padding: 10px 10px;
   cursor: pointer;

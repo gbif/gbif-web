@@ -178,7 +178,7 @@ export const globalNavPrimary__menu = css`
 
 const hoverItem = props => css`
     &:hover .gbif-menu-title {
-        color: ${props.theme.colors.primary700};
+        color: ${props.theme.primary700};
     }
 `;
 

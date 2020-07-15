@@ -12,8 +12,8 @@ export const mapArea = ({ theme }) => css`
 
 export const mapComponent = ({ theme }) => css`
   flex: 1 1 100%;
-  border: 1px solid #ddd;
-  border-radius: 3px;
+  border: 1px solid ${theme.paperBorderColor};
+  border-radius: ${theme.borderRadius}px;
   display: flex;
   flex-direction: column;
   height: 100%;

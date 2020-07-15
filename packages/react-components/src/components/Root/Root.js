@@ -8,10 +8,11 @@ import { root as rootStyle } from './styles';
 
 export const Root = React.forwardRef(({
   as: Rt = 'div',
+  appRoot = false,
   ...props
 }, ref) => {
   const theme = useContext(ThemeContext);
-  return <Rt ref={ref} {...props} css={rootStyle({theme})} />
+  return <Rt ref={ref} {...props} css={rootStyle({theme, appRoot})} />
 });
 
 Root.displayName = 'Root';

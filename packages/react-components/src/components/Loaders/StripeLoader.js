@@ -40,7 +40,7 @@ const before = ({ error, theme }) => css`
   left: -200px;
   width: 200px;
   height: 1px;
-  background-color: ${theme.colors.primary};
+  background-color: ${theme.primary};
   animation: ${loading} 1.5s linear infinite;
   ${error ? errorStyle(theme) : null}
 `;

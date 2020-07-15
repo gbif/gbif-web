@@ -22,36 +22,36 @@ const labels = {
 
 function getSuggests({ client, suggestStyle }) {
   return {
-    taxonKey: {
-      //What placeholder to show
-      placeholder: 'Search by scientific name',
-      // how to get the list of suggestion data
-      getSuggestions: ({ q }) => {
-        const { promise, cancel } = client.v1Get(`/species/suggest?datasetKey=${BACKBONE_KEY}&ranklimit=30&q=${q}`);
-        return {
-          cancel,
-          promise: promise.then(response => {
-            if (response.status === 200) {
-              response.data = response.data.filter(x => [4,5,7].indexOf(x.kingdomKey) > -1).slice(0,8);
-            }
-            return response;
-          })
-        }
-      },
-      // how to map the results to a single string value
-      getValue: suggestion => suggestion.scientificName,
-      // how to display the individual suggestions in the list
-      render: function ScientificNameSuggestItem(suggestion) {
-        return <div style={{ maxWidth: '100%' }}>
-          <div style={suggestStyle}>
-            {suggestion.scientificName}
-          </div>
-          {/* <div style={{ color: '#aaa', fontSize: '0.85em' }}>
-            <Classification taxon={suggestion} />
-          </div> */}
-        </div>
-      }
-    }
+    // taxonKey: {
+    //   //What placeholder to show
+    //   placeholder: 'Search by scientific name',
+    //   // how to get the list of suggestion data
+    //   getSuggestions: ({ q }) => {
+    //     const { promise, cancel } = client.v1Get(`/species/suggest?datasetKey=${BACKBONE_KEY}&ranklimit=30&q=${q}`);
+    //     return {
+    //       cancel,
+    //       promise: promise.then(response => {
+    //         if (response.status === 200) {
+    //           response.data = response.data.filter(x => [4,5,7].indexOf(x.kingdomKey) > -1).slice(0,8);
+    //         }
+    //         return response;
+    //       })
+    //     }
+    //   },
+    //   // how to map the results to a single string value
+    //   getValue: suggestion => suggestion.scientificName,
+    //   // how to display the individual suggestions in the list
+    //   render: function ScientificNameSuggestItem(suggestion) {
+    //     return <div style={{ maxWidth: '100%' }}>
+    //       <div style={suggestStyle}>
+    //         {suggestion.scientificName}
+    //       </div>
+    //       {/* <div style={{ color: '#aaa', fontSize: '0.85em' }}>
+    //         <Classification taxon={suggestion} />
+    //       </div> */}
+    //     </div>
+    //   }
+    // }
   };
 }
 

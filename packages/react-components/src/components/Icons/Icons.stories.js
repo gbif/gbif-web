@@ -1,21 +1,21 @@
 import React from 'react';
 // import { text, boolean, select } from '@storybook/addon-knobs';
-import { Skeleton } from './Skeleton';
+import { ClusterIcon, GbifLogoIcon } from './Icons';
 import readme from './README.md';
 import { StyledProse } from '../typography/StyledProse';
 
 export default {
-  title: 'Components/Skeleton',
-  component: Skeleton,
+  title: 'Components/Icons',
 };
 
-export const Example = () => <>
-  <Skeleton />
+export const Example = () => <div style={{margin: 24}}>
   <StyledProse source={readme}></StyledProse>
-</>;
+  <ClusterIcon style={{margin: 24}}/>
+  <GbifLogoIcon style={{margin: 24}}/>
+</div>;
 
 Example.story = {
-  name: 'Skeleton',
+  name: 'Icons',
 };
 
 
@@ -32,4 +32,4 @@ Example.story = {
 // boolean("loading", false)
 
 // // TEXT
-// {text('Text', 'Skeleton text')}
+// {text('Text', 'Icons text')}

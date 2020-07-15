@@ -82,27 +82,27 @@ const dialogContent = theme => css`
 `;
 
 const dialog = theme => css`
-  background-color: rgb(255, 255, 255);
+  background-color: ${theme.paperBackground500};
   /* position: fixed; */
   top: 28px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 999;
-  border-radius: 4px;
+  border-radius: ${theme.borderRadius}px;
   outline: 0px;
-  border: 1px solid rgba(33, 33, 33, 0.25);
+  border: 1px solid ${theme.paperBorderColor};
   /* box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 1000px 1000px; */
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 0.125em rgba(50, 115, 220, 0.25);
+    /* box-shadow: 0 0 0 0.125em rgba(50, 115, 220, 0.25); */
   }
   & > .arrow {
     background-color: transparent;
     & .stroke {
-      fill: rgba(33, 33, 33, 0.25);
+      fill: ${theme.paperBorderColor};
     }
     & .fill {
-      fill: white;
+      fill: ${theme.paperBackground500};
     }
   }
 `;

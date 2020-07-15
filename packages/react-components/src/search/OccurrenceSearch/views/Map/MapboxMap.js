@@ -8,16 +8,17 @@ class Map extends Component {
 
     this.addLayer = this.addLayer.bind(this);
     this.updateLayer = this.updateLayer.bind(this);
-    this.onMapClick = this.onMapClick.bind(this);
+    this.onPointClick = this.onPointClick.bind(this);
     this.myRef = React.createRef();
     this.state = {};
   }
 
   componentDidMount() {
+    const mapStyle = this.props.theme.darkTheme ? 'dark-v9' : 'light-v9';
     mapboxgl.accessToken = 'pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA';
     this.map = new mapboxgl.Map({
       container: this.myRef.current,
-      style: "mapbox://styles/mapbox/light-v9",
+      style: `mapbox://styles/mapbox/${mapStyle}`,
       zoom: sessionStorage.getItem('mapZoom') || 0,
       center: [sessionStorage.getItem('mapLng') || 0, sessionStorage.getItem('mapLat') || 0]
     });
@@ -33,6 +34,13 @@ class Map extends Component {
     if (prevProps.query !== this.props.query && this.mapLoaded) {
       this.updateLayer();
     }
+    if (prevProps.theme !== this.props.theme && this.mapLoaded) {
+      const mapStyle = this.props.theme.darkTheme ? 'dark-v9' : 'light-v9';
+      this.map.setStyle(`mapbox://styles/mapbox/${mapStyle}`);
+      this.map.on('style.load', () => {
+        this.updateLayer();
+      });
+    }
   }
 
   updateLayer() {
@@ -46,8 +54,8 @@ class Map extends Component {
     }
   }
 
-  onMapClick(pointData) {
-    this.props.onMapClick(pointData);
+  onPointClick(pointData) {
+    this.props.onPointClick(pointData);
   }
 
   addLayer() {
@@ -61,7 +69,7 @@ class Map extends Component {
       "&filter=" + encodeURIComponent(JSON.stringify(this.props.query));
     // tileString = `https://api.gbif.org/v2/map/occurrence/adhoc/{z}/{x}/{y}.mvt?style=scaled.circles&mode=GEO_CENTROID&locale=en&advanced=false&srs=EPSG%3A4326&squareSize=256`;
     this.map.addLayer(
-      getLayerConfig(tileString),
+      getLayerConfig({tileString, theme: this.props.theme}),
       "poi-scalerank2"
     );
 
@@ -85,14 +93,19 @@ class Map extends Component {
         // Change the cursor style as a UI indicator.
         map.getCanvas().style.cursor = 'pointer';
       });
-      const onClick = this.onMapClick;
-      map.on('click', 'occurrences', function (e) {
+      
+      map.on('click', 'occurrences', e => {
         // console.log(e.features[0].properties);
-        onClick({ geohash: e.features[0].properties.geohash, count: e.features[0].properties.count });
+        this.onPointClick({ geohash: e.features[0].properties.geohash, count: e.features[0].properties.count });
+        e.preventDefault();
       });
 
       map.on('mouseleave', 'occurrences', function () {
         map.getCanvas().style.cursor = '';
+      });
+
+      map.on('click', e => {
+        if (!e._defaultPrevented && this.props.onMapClick) this.props.onMapClick();
       });
     }
     this.mapLoaded = true;

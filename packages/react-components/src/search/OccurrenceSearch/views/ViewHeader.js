@@ -10,7 +10,7 @@ export const ViewHeader = ({ children, total, loading, props }) => {
   const showSkeleton = loading || typeof total !== 'number';
 
   return <div css={css`
-    color: #555;
+    color: ${theme.color500};
     font-size: 12px;
     margin: 0 0 4px 4px;
   `} {...props}>

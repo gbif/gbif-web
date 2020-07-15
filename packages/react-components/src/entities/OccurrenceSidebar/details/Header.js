@@ -8,7 +8,7 @@ import { GrTree } from 'react-icons/gr';
 import { BsLightningFill } from 'react-icons/bs';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import * as css from '../styles';
-import { Row, Col, MajorRanks } from "../../../components";
+import { Row, Col, MajorRanks, IconFeatures } from "../../../components";
 import { Globe } from './Globe';
 
 export function Header({
@@ -19,6 +19,7 @@ export function Header({
   ...props
 }) {
   const theme = useContext(ThemeContext);
+  const item = data?.occurrence;
   return <Row wrap="no-wrap" css={css.header({ theme })}>
     {data?.occurrence?.volatile?.globe && 
       <Col grow={false} style={{ marginRight: 18 }}>
@@ -43,12 +44,22 @@ export function Header({
       {/* <div style={{fontSize: 12, marginTop: 18}}><MdLocationOn /> <FormattedMessage id={`enums.countryCode.${data?.occurrence?.countryCode}`} /></div> */}
       <div css={css.entitySummary({ theme })}>
         {/* <div><GrTree /> <MajorRanks taxon={data?.occurrence?.gbifClassification} rank={data?.occurrence?.gbifClassification?.usage?.rank}/></div> */}
-        <div><MdLocationOn /> <FormattedMessage id={`enums.countryCode.${data?.occurrence?.countryCode}`} /></div>
+        {/* <div><MdLocationOn /> <FormattedMessage id={`enums.countryCode.${data?.occurrence?.countryCode}`} /></div> */}
         <div><MdPhotoLibrary /> {data?.occurrence?.multimediaItems?.length} images</div>
-        <div><GiDna1 /> sequenced</div>
-        <div><MdGpsFixed /> tracked</div>
-        <div><BsLightningFill style={{color: 'orange'}}/> 3 quality flags</div>
+        {/* <div><MdGpsFixed /> tracked</div> */}
+        <div><BsLightningFill style={{color: 'orange'}}/> {item?.issues?.length} quality flags</div>
       </div>
+      <IconFeatures css={css.entitySummary({ theme })}
+                typeStatus={item.typeStatus}
+                basisOfRecord={item.basisOfRecord}
+                eventDate={item.eventDateSingle}
+                isSequenced={item.volatile.features.isSequenced} 
+                isTreament={item.volatile.features.isTreament} 
+                isClustered={item.volatile.features.isClustered} 
+                // formattedCoordinates={item.formattedCoordinates} 
+                countryCode={item.countryCode}
+                // locality={item.locality}
+                />
     </Col>
   </Row>
 };

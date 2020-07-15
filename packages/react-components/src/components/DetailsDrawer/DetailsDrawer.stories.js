@@ -15,8 +15,8 @@ export const Example = () => {
   const dialog = useDialogState({ animated: true, visible: true });
   return <>
     <button onClick={e => dialog.show()}>toggle {JSON.stringify(dialog.visible)}</button>
-    <DetailsDrawer dialog={dialog} nextItem={e => alert('next')} previousItem={e => alert('previous')}>
-      <OccurrenceSidebar id={930742715} style={{width: 700, height: '100%'}} />
+    <DetailsDrawer dialog={dialog} href={'https://www.gbif.org/occurrence/930742715'} nextItem={e => alert('next')} previousItem={e => alert('previous')}>
+      <OccurrenceSidebar id={930742715} style={{ width: 700, height: '100%' }} />
     </DetailsDrawer>
     {/* <StyledProse source={readme}></StyledProse> */}
   </>

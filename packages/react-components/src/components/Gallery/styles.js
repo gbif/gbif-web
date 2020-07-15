@@ -8,10 +8,10 @@ export const gallery = props => css`
   padding: 0;
 `;
 
-export const galleryTileImage = ({ height = 150 }) => css`
+export const galleryTileImage = ({ theme, height = 150 }) => css`
   height: ${height}px;
   width: 100%;
-  background: #eee;
+  background: #88888844;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

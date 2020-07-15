@@ -11,3 +11,8 @@ Run the project with
 ```
 npm run storybook
 ```
+
+Build a static storybook version with `npm run build-storybook`
+
+Run it with `npx http-server /storybook-static`.
+Notice that `serve` instead of `http-server` doesn't really work. The previews do not show then.

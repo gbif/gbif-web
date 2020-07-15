@@ -97,7 +97,7 @@ export const Autocomplete = React.forwardRef(({
                         index,
                         item,
                         style: {
-                          backgroundColor: highlightedIndex === index ? '#f5f5f5' : 'white',
+                          backgroundColor: highlightedIndex === index ? theme.paperBackground800 : theme.paperBackground500,
                           fontWeight: selectedItem === item ? 'bold' : 'normal',
                         },
                       })}

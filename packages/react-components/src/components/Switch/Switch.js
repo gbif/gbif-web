@@ -55,7 +55,7 @@ const switchClass = ({theme, disabled}) => css`
     display: block;
     width: 2em;
     height: 1em;
-    background-color: #d4d5e3;
+    background-color: #88888855;
     transition: .1s;
     border-radius: 34px;
     &:before {
@@ -65,7 +65,7 @@ const switchClass = ({theme, disabled}) => css`
       width: calc(1em - 4px);
       left: 2px;
       bottom: 2px;
-      background-color: white;
+      background-color: ${theme.darkTheme ? theme.color900 : '#fff'};
       transition: .1s;
       border-radius: 50%;
     }

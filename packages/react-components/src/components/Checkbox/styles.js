@@ -20,9 +20,9 @@ export const checkbox = props => css`
     display: block;
     width: 1em;
     height: 1em;
-    background-color: #fff;
-    border: 1px solid #d9d9d9;
-    border-radius: 2px;
+    background-color: ${props.theme.darkTheme ? props.theme.paperBackground700 : null};
+    border: 1px solid #88888855;
+    border-radius: ${Math.min(2, props.theme.borderRadius)}px;
     transition: all 0.1s;
     &:after {
       position: absolute;
@@ -44,15 +44,9 @@ export const checkbox = props => css`
     background-color: #1890ff;
     border-color: #1890ff;
     &:after {
-      position: absolute;
-      display: table;
-      border: 2px solid #fff;
-      border-top: 0;
-      border-left: 0;
       transform: rotate(45deg) scale(1) translate(-50%, -50%);
       opacity: 1;
       transition: all 0.1s cubic-bezier(0.12, 0.4, 0.29, 1.46) 0.1s;
-      content: ' ';
     }
   }
   & input:focus + span {

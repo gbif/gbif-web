@@ -1,19 +1,18 @@
 import { css } from '@emotion/core';
 import { styledScrollBars } from '../../style/shared';
 
-export const wrapper = props => css`
+export const wrapper = ({theme, ...props}) => css`
     display: inline-block;
     margin: 0;
     padding: 0;
-    color: rgba(0, 0, 0, 0.65);
     font-variant: tabular-nums;
     line-height: 1.5;
     list-style: none;
     box-sizing: border-box;
     font-size: 14px;
     font-variant: initial;
-    background-color: #fff;
-    border-radius: 4px;
+    background-color: ${theme.paperBackground500};
+    border-radius: ${theme.borderRadius}px;
     outline: none;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     width: 100%;
@@ -24,12 +23,12 @@ export const wrapper = props => css`
     transition: opacity .1s linear, transform .1s ease-in-out;
 `;
 
-export const item = props => css`
+export const item = ({theme, ...props}) => css`
   position: relative;
   display: block;
   padding: 5px 12px;
   overflow: hidden;
-  color: rgba(0, 0, 0, 0.65);
+  color: ${theme.colo900}aa;
   font-weight: normal;
   line-height: 22px;
   cursor: pointer;

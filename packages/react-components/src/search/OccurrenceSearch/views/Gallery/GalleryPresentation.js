@@ -1,10 +1,15 @@
-import React, { useState, useEffect, useCallback } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { useDialogState } from "reakit/Dialog";
 import { GalleryTiles, GalleryTile, GalleryCaption, DetailsDrawer, GalleryTileSkeleton, Button, IconFeatures } from '../../../../components';
 import { OccurrenceSidebar } from '../../../../entities';
 import { ViewHeader } from '../ViewHeader';
+import ThemeContext from '../../../../style/themes/ThemeContext';
+import * as css from './gallery.styles';
 
 export const GalleryPresentation = ({ first, prev, next, size, from, data, total, loading, error }) => {
+  const theme = useContext(ThemeContext);
   const [activeId, setActive] = useState();
   const [activeItem, setActiveItem] = useState();
   const dialog = useDialogState({ animated: true });
@@ -40,11 +45,11 @@ export const GalleryPresentation = ({ first, prev, next, size, from, data, total
   }
 
   return <>
-    <DetailsDrawer dialog={dialog} nextItem={nextItem} previousItem={previousItem}>
+    <DetailsDrawer href={`https://www.gbif.org/occurrence/${activeItem?.gbifId}`} dialog={dialog} nextItem={nextItem} previousItem={previousItem}>
       <OccurrenceSidebar id={activeItem?.gbifId} defaultTab='images' style={{ width: 700, height: '100%' }} />
     </DetailsDrawer>
     <ViewHeader loading={loading} total={total}/>
-    <div style={{background: 'white', border: '1px solid #ddd', borderRadius: 4, padding: 4}}>
+    <div css={css.paper({theme})}>
       <GalleryTiles>
         {items.map((item, index) => {
           return <GalleryTile height={150} key={item.gbifId}
@@ -52,22 +57,23 @@ export const GalleryPresentation = ({ first, prev, next, size, from, data, total
             onSelect={() => { setActive(index); dialog.show(); }}>
             <GalleryCaption>
               <div style={{marginBottom: 2}} dangerouslySetInnerHTML={{ __html: item.gbifClassification.acceptedUsage.formattedName }}></div>
-              <IconFeatures style={{fontSize: '11px', color: '#888'}}
+              <IconFeatures css={css.features({theme})}
                 typeStatus={item.typeStatus}
                 basisOfRecord={item.basisOfRecord}
                 eventDate={item.eventDateSingle}
                 isSequenced={item.volatile.features.isSequenced} 
                 isTreament={item.volatile.features.isTreament} 
-                formattedCoordinates={item.formattedCoordinates} 
+                isClustered={item.volatile.features.isClustered} 
+                // formattedCoordinates={item.formattedCoordinates} 
                 countryCode={item.countryCode}
-                location={item.location}
+                // locality={item.locality}
                 />
             </GalleryCaption>
           </GalleryTile>
         })}
         {loading ? Array(size).fill().map((e, i) => <GalleryTileSkeleton key={i} />) : null}
         <div>
-          {(from + size < total) && !loading && <Button appearance="outline" onClick={next} style={{ height: '100%' }}>Load more</Button>}
+          {(from + size < total) && !loading && <Button css={css.more({theme})} appearance="outline" onClick={next}>Load more</Button>}
         </div>
       </GalleryTiles>
     </div>

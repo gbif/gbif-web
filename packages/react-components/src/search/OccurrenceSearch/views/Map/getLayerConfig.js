@@ -1,4 +1,4 @@
-export function getLayerConfig(tileString) {
+export function getLayerConfig({tileString, theme}) {
   return {
     id: "occurrences",
     type: "circle",
@@ -13,36 +13,21 @@ export function getLayerConfig(tileString) {
         property: "count",
         type: "interval",
         //stops: [[0, 2]]
-        stops: [[0, 2], [10, 3], [100, 5], [1000, 8], [10000, 15]]
+        stops: [[0, 2], [10, 3], [100, 5], [1000, 8], [10000, 12]]
       },
       // color circles by ethnicity, using data-driven styles
       "circle-color": {
         property: "count",
         type: "interval",
-        stops: [
-          [0, "#fed976"], //#b99939
-          [10, "#fd8d3c"],
-          [100, "#fd8d3c"], //#b45100
-          [1000, "#f03b20"], //#a40000
-          [10000, "#bd0026"]
-        ] //#750000
+        stops: [0, 10, 100, 1000, 10000].map((x, i) => [x, theme.mapDensityColors[i]])
       },
       "circle-opacity": {
         property: "count",
         type: "interval",
+        // stops: theme.darkTheme ? [[0, .6], [10, 0.7], [100, 0.8], [1000, 0.8], [10000, 0.9]] : [[0, 1], [10, 0.8], [100, 0.7], [1000, 0.6], [10000, 0.6]]
         stops: [[0, 1], [10, 0.8], [100, 0.7], [1000, 0.6], [10000, 0.6]]
       },
-      "circle-stroke-color": {
-        property: "count",
-        type: "interval",
-        stops: [
-          [0, "#fe9724"], //#b99939
-          [10, "#fd5b24"],
-          [100, "#fd471d"], //#b45100
-          [1000, "#f01129"], //#a40000
-          [10000, "#bd0047"]
-        ] //#750000
-      },
+      "circle-stroke-color": theme.mapDensityColors[1],
       "circle-stroke-width": {
         property: "count",
         type: "interval",

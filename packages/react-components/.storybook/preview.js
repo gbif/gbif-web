@@ -5,7 +5,7 @@ import flatten from 'flat';
 
 import { IntlProvider } from "react-intl";
 
-import Root from '../src/Root';
+import { Root } from '../src/components';
 import gbifTheme from './theme';
 import { en as enNested } from '../src/locales/en';
 const en = flatten(enNested);
@@ -52,11 +52,11 @@ addDecorator(storyFn => {
               select(
                 'Choose Theme',
                 ['Dark', 'Light', 'A11y', 'Vertnet'],
-                'Light',
+                'Vertnet',
               ),
             )}
           >
-            <Root id="application" style={{ padding: 0, background: '#f1f5f8' }} dir={chooseRtl(
+            <Root id="application" appRoot style={{ padding: 0 }} dir={chooseRtl(
               select(
                 'Choose Direction',
                 ['ltr', 'rtl'],

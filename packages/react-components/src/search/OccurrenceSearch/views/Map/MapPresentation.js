@@ -1,8 +1,9 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useContext, useState, useEffect, useCallback } from "react";
 import { DetailsDrawer } from '../../../../components';
 import { OccurrenceSidebar } from '../../../../entities';
+import ThemeContext from '../../../../style/themes/ThemeContext';
 import { useDialogState } from "reakit/Dialog";
 import ListBox from './ListBox';
 import { ViewHeader } from '../ViewHeader';
@@ -11,6 +12,7 @@ import * as css from './map.styles';
 
 function Map({ labelMap, query, pointData, pointError, pointLoading, loading, total, loadPointData, ...props }) {
   const dialog = useDialogState({ animated: true });
+  const theme = useContext(ThemeContext);
   const [activeId, setActive] = useState();
   const [activeItem, setActiveItem] = useState();
   const [listVisible, showList] = useState(false);
@@ -30,10 +32,10 @@ function Map({ labelMap, query, pointData, pointError, pointLoading, loading, to
   }, [items, activeId]);
 
   return <>
-    <DetailsDrawer dialog={dialog} nextItem={nextItem} previousItem={previousItem}>
+    <DetailsDrawer href={`https://www.gbif.org/occurrence/${activeItem?.gbifId}`} dialog={dialog} nextItem={nextItem} previousItem={previousItem}>
       <OccurrenceSidebar id={activeItem?.gbifId} defaultTab='details' style={{ width: 700, height: '100%' }} />
     </DetailsDrawer>
-    <div css={css.mapArea({})}>
+    <div css={css.mapArea({theme})}>
       <ViewHeader loading={loading} total={total} />
       <div style={{position: 'relative', height: '100%'}}>
         {listVisible && <ListBox  onCloseRequest={e => showList(false)} 
@@ -43,7 +45,7 @@ function Map({ labelMap, query, pointData, pointError, pointLoading, loading, to
                                   loading={pointLoading} 
                                   css={css.resultList({})} 
                                   />}
-        <MapboxMap css={css.mapComponent({})} query={query} onMapClick={data => { showList(true); loadPointData(data) }} />
+        <MapboxMap css={css.mapComponent({theme})} theme={theme} query={query} onMapClick={e => showList(false)} onPointClick={data => { showList(true); loadPointData(data) }} />
       </div>
     </div>
   </>;

@@ -6,7 +6,7 @@ export default {
   component: Checkbox,
 };
 
-export const Example = () => <Checkbox />
+export const Example = () => <Checkbox style={{margin: 100}}/>
 
 Example.story = {
   name: 'Checkbox',
