@@ -35,7 +35,7 @@ export const OccurrenceGroupsMock = () => <div>
       <V>
         <div style={{maxWidth: '100%', position: 'relative'}}>
         <img style={{display: 'block', maxWidth: '100%'}} src="https://api.mapbox.com/styles/v1/mapbox/light-v9/static/pin-s-circle+285A98(-73.7638,42.6564)/-73.7638,42.6564,13,0/600x300@2x?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA"/>
-        <img style={{border: '1px solid #aaa', width: '30%', position: 'absolute', bottom: 0, right: 0}} src="https://api.mapbox.com/styles/v1/mapbox/light-v9/static/pin-s-circle+949494(-73.7638,42.6564)/-73.7638,42.6564,4,0/200x100@2x?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA"/>
+        <img style={{border: '1px solid #aaa', width: '30%', position: 'absolute', bottom: 0, right: 0}} src="https://api.mapbox.com/styles/v1/mapbox/light-v9/static/pin-s-circle+dedede(-73.7638,42.6564)/-73.7638,42.6564,4,0/200x100@2x?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA"/>
         </div>
         <Properties style={{ fontSize: 13, marginBottom: 12 }} horizontal={true}>
           <T>Lat/Lon</T><V>12.1N 15.24E ±5000m https://staticmapmaker.com/mapbox/</V>
@@ -57,7 +57,7 @@ export const OccurrenceGroupsMock = () => <div>
   <Accordion summary="Event" defaultOpen={true}>
     <Properties style={{ fontSize: 13, marginBottom: 12 }} horizontal={true}>
       <T>Event date</T><V>2009 May 18</V>
-      <T>Event ID</T><V>https://plutof.ut.ee/#/event/view/286 (18 occurrences =>)</V>
+      <T>Event ID</T><V>https://plutof.ut.ee/#/event/view/286 (18 occurrences =&gt;)</V>
     </Properties>
   </Accordion>
   <Accordion summary="Identification" defaultOpen={true}>
