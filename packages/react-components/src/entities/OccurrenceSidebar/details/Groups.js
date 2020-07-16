@@ -3,12 +3,11 @@ import { jsx } from "@emotion/core";
 import React, { useContext } from "react";
 import { FormattedMessage, FormattedDate } from "react-intl";
 import ThemeContext from "../../../style/themes/ThemeContext";
+import specialFields from "./specialFields";
 import * as css from "../styles";
-import {
-  Accordion,
-  Properties
-
-} from "../../../components";
+import { Accordion, Properties } from "../../../components";
+import {Classification} from "./Classification/Classification"
+import {MapPresentation} from "./Map/Map"
 import _ from "lodash";
 
 const { Term: T, Value: V } = Properties;
@@ -32,72 +31,151 @@ export function Groups({
   } = data;
 
   return [
-    "Occurrence",
     "Record",
+    "Taxon",
+    "Location",
+    "Occurrence",
+    "Event",
     "Organism",
     "MaterialSample",
-    "Event",
-    "Location",
     "GeologicalContext",
     "Identification",
-    "Taxon",
     "Dataset",
     "Crawling",
-  ].map((group) => getGroup(group, groups[group], isSpecimen, showAll, verbatim));
+  ].map((group) =>
+    getGroup(
+      group,
+      groups[group],
+      isSpecimen,
+      showAll,
+      verbatim,
+      theme,
+      occurrence
+    )
+  );
 }
 
-function showTerm(term, showAll, verbatim){
-    if(verbatim){
-        return true
-    } else if(!showAll){
-        return !term.hideInDefaultView && _.get(term, 'remarks') !== 'EXCLUDED'
-    } else {
-        return true
-    }
+function showTerm(groupTitle, term, showAll, verbatim) {
+   if (verbatim) {
+    return true;
+  } else if (!showAll) {
+    return !term.hideInDefaultView && _.get(term, "remarks") !== "EXCLUDED" && !specialFields[groupTitle][term.label];
+  }  else {
+    return true;
+  }
 }
 
-function getGroup(title, group, isSpecimen, showAll, verbatim, theme) {
-  if (_.isEmpty(group)) return null;
-  return (
-    <Accordion
-      key={title}
-      css={css.accordion({ theme })}
-      summary={title}
-      defaultOpen={true}
-    >
-      <Properties style={{ fontSize: 13 }} horizontal={true}>
-        {group.filter((term) => showTerm(term, showAll, verbatim) )
-          .map((term) => (
-            <React.Fragment key={term.label}>
-              <T>
+function getGroup(
+  title,
+  group,
+  isSpecimen,
+  showAll,
+  verbatim,
+  theme,
+  occurrence
+) {
+  if (_.isEmpty(group)) {
+    return null;
+  }; 
+  const groupMap = group.reduce((acc, cur) => {
+    acc[cur.label]= cur;
+    return acc
+  }, {})
+    return (
+      <Accordion
+        key={title}
+        css={css.accordion({ theme })}
+        summary={title}
+        defaultOpen={true}
+      >
+        <Properties style={{ fontSize: 13 }} horizontal={true}>
+          {title === "Taxon" && (
+            <>
+            <T>
                 <FormattedMessage
-                  id={`ocurrenceFieldNames.${term.label}`}
-                  defaultMessage={term.label}
+                  id={`ocurrenceFieldNames.scientificName`}
+                  defaultMessage={"scientificName"}
                 />
               </T>
               <V>
-               <div>{term.value}{" "}
-                {term.remarks && (
-                  <span className="remarks">{term.remarks}</span>
-                )}
-                {term.issues &&
-                  term.issues.length > 0 &&
-                  term.issues.map((i) => (
-                    <span className={`issue ${i.severity}`}>
-                      <FormattedMessage
-                        id={`issueEnum.${i.id}`}
-                        defaultMessage={i.id}
-                      />
-                    </span>
-                  ))}
-                  </div> 
-                  {verbatim && <div>
-                    {term.verbatim}
-                      </div>}
+                {groupMap.scientificName.value}
               </V>
-            </React.Fragment>
-          ))}
-      </Properties>
-    </Accordion>
-  );
+              <T>
+                <FormattedMessage
+                  id={`ocurrenceFieldNames.classification`}
+                  defaultMessage={"Classification"}
+                />
+              </T>
+              <V>
+                <Classification taxon={group} />
+              </V>
+            {groupMap.synonym?.value === true && groupMap.acceptedScientificName?.value &&  <> <T>
+                <FormattedMessage
+                  id={`ocurrenceFieldNames.taxonomicStatus`}
+                  defaultMessage={"taxonomicStatus"}
+                />
+              </T>
+              <V>
+                {`Synonym of ${groupMap.acceptedScientificName.value}`}
+              </V></>}
+            </>
+          )}
+          {title === "Location" && <>
+          <T>
+                <FormattedMessage
+                  id={`ocurrenceFieldNames.coordinates`}
+                  defaultMessage={"Coordinates"}
+                />
+              </T>
+              <V>
+              <MapPresentation location={group} /> 
+              </V>
+          
+          </>}
+          {group
+            .filter((term) => showTerm(title, term, showAll, verbatim))
+            .map((term) => (
+              <React.Fragment key={term.label}>
+                <T>
+                  <FormattedMessage
+                    id={`ocurrenceFieldNames.${term.label}`}
+                    defaultMessage={term.label}
+                  />
+                </T>
+                <V>
+                    {getValue(term, verbatim)}
+                </V>
+              </React.Fragment>
+            ))}
+        </Properties>
+      </Accordion>
+    );
 }
+
+function getValue(term, verbatim){
+
+    return <>
+        {term.remarks && (
+                      <span css={css.termRemark()}>{term.remarks.toLowerCase()}</span>
+                    )}
+                  <div>
+                    {term.value}{" "}
+                    
+                    {term.issues &&
+                      term.issues.length > 0 &&
+                      term.issues.map((i) => (
+                        <span css={css.issuePill(i)}>
+                          <FormattedMessage
+                            id={`issueEnum.${i.id}`}
+                            defaultMessage={i.id}
+                          />
+                        </span>
+                      ))}
+                  </div>
+                  {verbatim && <div>{term.verbatim}</div>}
+    </>
+}
+
+
+
+
