@@ -19,7 +19,7 @@ export function getCommonSuggests({ context, suggestStyle }) {
   return {
     countryCode: {
       //What placeholder to show
-      placeholder: 'Search by dataset',
+      placeholder: 'Search by country',
       // how to get the list of suggestion data
       getSuggestions: ({ q }) => {
         return {

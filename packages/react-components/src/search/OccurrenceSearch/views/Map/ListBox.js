@@ -5,13 +5,14 @@ import { MdChevronRight } from 'react-icons/md';
 import { Image, StripeLoader, Button, Row, Col } from '../../../../components';
 import { FormattedDate } from 'react-intl';
 import ThemeContext from '../../../../style/themes/ThemeContext';
+import { styledScrollBars } from '../../../../style/shared';
 
 function ListItem({ BasisOfRecordLabel, id, item, imageSrc, onClick = () => { }, ...props }) {
   const theme = useContext(ThemeContext);
 
-  return <div css={listItem({theme})} onClick={e => onClick({ id })}>
+  return <div css={listItem({ theme })} onClick={e => onClick({ id })}>
     <Row wrap="no-wrap" alignItems="center">
-      <Col grow={true} css={listItemContent({theme})}>
+      <Col grow={true} css={listItemContent({ theme })}>
         <h4 dangerouslySetInnerHTML={{ __html: item.gbifClassification.usage.formattedName }} ></h4>
         {item.eventDateSingle && <div>
           <FormattedDate value={item.eventDateSingle}
@@ -43,31 +44,31 @@ function ListBox({ labelMap, onCloseRequest, onClick, data, error, loading, ...p
   let content;
   if (loading) {
     return <section  {...props}>
-      <div css={container({theme})}>
+      <div css={container({ theme })}>
         <StripeLoader active />
-        <div css={listItemContent({theme})}>Loading</div>
+        <div css={listItemContent({ theme })}>Loading</div>
       </div>
     </section>
   } else if (error) {
     return <section  {...props}>
-      <div css={container({theme})}>
+      <div css={container({ theme })}>
         <StripeLoader active error />
-        <div css={listItemContent({theme})}>Failed to fetch data</div>
+        <div css={listItemContent({ theme })}>Failed to fetch data</div>
       </div>
     </section>
   } else if (data) {
     const results = data?.occurrenceSearch?.documents?.results || [];
-    content = <ul css={list({theme})}>
+    content = <ul css={list({ theme })}>
       {results.map((x, index) => {
         return <li key={x.gbifId}>
-          <ListItem BasisOfRecordLabel={BasisOfRecordLabel} onClick={() => onClick({index})} id={x.gbifId} item={x} />
+          <ListItem BasisOfRecordLabel={BasisOfRecordLabel} onClick={() => onClick({ index })} id={x.gbifId} item={x} />
         </li>
       })}
     </ul>;
   }
 
   return <section  {...props}>
-    <Row css={container({theme})} direction="column">
+    <Row css={container({ theme })} direction="column">
       <Col grow={false} as="header" >
         <Row alignItems="center">
           <Col grow>{data?.occurrenceSearch?.documents.total} results</Col>
@@ -96,6 +97,7 @@ const container = ({ theme, ...props }) => css`
   }
   main {
     overflow: auto;
+    ${styledScrollBars({ theme })};
   }
   footer {
     border-top: 1px solid ${theme.paperBorderColor};

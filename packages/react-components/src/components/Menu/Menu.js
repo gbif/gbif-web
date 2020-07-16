@@ -8,19 +8,20 @@ import {
   MenuItem,
   MenuButton
 } from "reakit/Menu";
+import { Root } from '../Root/Root';
 
 import Switch from '../Switch/Switch';
 
 export const Menu = React.memo(({ trigger, placement, items, ...props }) => {
   const theme = useContext(ThemeContext);
-  const menu = useMenuState({ placement: placement || 'bottom-end' });
+  const menu = useMenuState({ placement: placement || theme.dir === 'rtl' ? 'bottom-start' : 'bottom-end' });
   return (
-    <>
+    <Root>
       <MenuButton {...menu} {...trigger.props}>
         {disclosureProps => React.cloneElement(trigger, disclosureProps)}
       </MenuButton>
       <BaseMenu {...menu} {...props} css={focus(theme)} style={{zIndex: 999}}>
-        <div css={menuContainer(theme)}>
+        <div css={menuContainer({theme})}>
           {(typeof items === 'function' ? items(menu) : items).map((item, i) => (
             <MenuItem {...menu} {...item.props} key={i}>
               {itemProps => React.cloneElement(item, itemProps)}
@@ -28,7 +29,7 @@ export const Menu = React.memo(({ trigger, placement, items, ...props }) => {
           ))}
         </div>
       </BaseMenu>
-    </>
+    </Root>
   );
 });
 
@@ -63,7 +64,7 @@ export const MenuAction = React.forwardRef(({
 const focus = theme => css`
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 0.125em rgba(50, 115, 220, 0.25);
+    box-shadow: 0 0 0 0.125em #00000005;
   }
 `;
 
@@ -80,7 +81,7 @@ const menuOption = theme => css`
   }
   &:focus, :focus-within {
     outline: none;
-    background: #f5f5f5;
+    background: ${theme.darkTheme ? '#00000050' : '#00000010'};
   }
 `;
 
@@ -90,12 +91,13 @@ const menuAction = theme => css`
   border: none;
   background: none;
   outline: none;
+  color: ${theme.color900};
 `;
 
-const menuContainer = theme => css`
+const menuContainer = ({theme}) => css`
   min-width: 180px;
   max-width: 100%;
-  background-color: rgb(255, 255, 255);
+  background-color: ${theme.paperBackground100};
   z-index: 999;
   outline: 0px;
   border: 1px solid rgba(33, 33, 33, 0.15);

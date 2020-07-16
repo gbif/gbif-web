@@ -1,22 +1,15 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core';
-import React, { useState, useContext, useCallback } from "react";
-import PropTypes from 'prop-types';
+import React, { useState, useContext } from "react";
 import { FormattedMessage } from 'react-intl';
-import { nanoid } from 'nanoid';
-import { FilterContext } from '../../state';
+import ThemeContext from '../../../../style/themes/ThemeContext';
 import get from 'lodash/get';
-import union from 'lodash/union';
-import { keyCodes } from '../../../../utils/util';
 import PopoverFilter from '../PopoverFilter';
 import OccurrenceContext from '../../../../search/OccurrenceSearch/config/OccurrenceContext';
-import { Input, Button } from '../../../../components';
-import { Button as ButtonA11y } from "reakit/Button";
-import { FilterBox, Header, Filter, SummaryBar, FilterBody, Footer } from '../../utils';
+import { Button } from '../../../../components';
+import { FilterBox, FilterBody } from '../../utils';
 import Suggest from './Suggest';
 
-function Option({ label, ...props }) {
-  return <div style={{ padding: '10px 20px', fontSize: '1em', borderTop: '1px solid #eee' }} {...props}>
+function Option({ label, theme, ...props }) {
+  return <div style={{ padding: '10px 20px', fontSize: '1em', borderTop: `1px solid ${theme.paperBorderColor}` }} {...props}>
     <div>{label}</div>
   </div>
 }
@@ -39,6 +32,7 @@ function getSuggestConfig({ options }) {
 
 export const FilterContent = ({ focusRef, ...props }) => {
   const ref = React.useRef();
+  const theme = useContext(ThemeContext);
   const { filters } = useContext(OccurrenceContext);
   const [CurrentFilter, selectedFilter] = useState();
   const [options] = useState(() => Object.keys(filters).map(filterHandle => ({ filterHandle, displayName: filters[filterHandle].displayName })));
@@ -77,6 +71,7 @@ export const FilterContent = ({ focusRef, ...props }) => {
       {value === '' && <FilterBody style={{ padding: 0 }}>
         {options.map(x => <div key={x.filterHandle}>
           <Option
+            theme={theme}
             label={x.displayName}
             onClick={() => selectedFilter(() => filters[x.filterHandle].Content)} />
         </div>)}

@@ -29,7 +29,7 @@ const themeBuilder = theme => {
     //darken
     fullTheme[`paperBackground${5 + x}00`] = shadeBlend(-x * 0.25, fullTheme.paperBackground, fullTheme.background);
     //lighten
-    // paper colors above 500 might be capped if there are no diff to paperBackgroundElevated (e.g. is already white)
+    // paper colors below 500 might be capped if there are no diff to paperBackgroundElevated (e.g. is already white)
     fullTheme[`paperBackground${5 - x}00`] = shadeBlend(x * 0.25, fullTheme.paperBackground, fullTheme.paperBackgroundElevated);
     // neutral
     fullTheme[`paperBackground500`] = fullTheme.paperBackground;

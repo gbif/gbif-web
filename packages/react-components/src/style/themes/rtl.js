@@ -1,7 +1,8 @@
 export default {
   name: 'dark',
+  dir: 'rtl',
   dense: true,
-  primary: '#39af5d', //green
+  primary: '#d09a04',
   fontSize: '14px',
   background: '#0b0c1b',
   paperBackground: '#161927',

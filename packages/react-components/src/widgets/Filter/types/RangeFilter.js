@@ -82,14 +82,14 @@ export const FilterContent = ({ config = {}, trName, labelledById, LabelFromID, 
                   />
                 } else {
                   helpText = <>
-                    {option?.value[lowerBound] && <FormattedMessage
+                    {option?.value && option?.value[lowerBound] && <FormattedMessage
                       id={`interval.description.${lowerBound}`}
                       defaultMessage={'Filter name'}
                       values={{ from: option?.value[lowerBound] }}
                     />
                     }
-                    {option?.value[upperBound] && option?.value[lowerBound] && <>.&nbsp;</>}
-                    {option?.value[upperBound] && <FormattedMessage
+                    {option?.value && option?.value[upperBound] && option?.value[lowerBound] && <>.&nbsp;</>}
+                    {option?.value && option?.value[upperBound] && <FormattedMessage
                       id={`interval.description.${upperBound}`}
                       defaultMessage={'Filter name'}
                       values={{ to: option?.value[upperBound] }}

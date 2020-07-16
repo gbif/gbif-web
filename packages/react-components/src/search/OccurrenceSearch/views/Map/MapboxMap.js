@@ -112,7 +112,7 @@ class Map extends Component {
   }
 
   render() {
-    const { query, onMapClick, ...props } = this.props;
+    const { query, onMapClick, onPointClick, ...props } = this.props;
     return <div ref={this.myRef} {...props} />
   }
 }

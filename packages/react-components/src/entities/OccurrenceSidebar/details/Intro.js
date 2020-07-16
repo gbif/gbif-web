@@ -11,7 +11,7 @@ import * as css from '../styles';
 import { Accordion, Properties, Row, Col, GalleryTiles, GalleryTile, Switch } from "../../../components";
 import { Globe } from './Globe';
 import { Header } from './Header';
-
+import { OccurrenceGroupsMock } from '../OccurrenceKeyExamples.stories';
 const { Term: T, Value: V } = Properties;
 
 export function Intro({
@@ -46,8 +46,9 @@ export function Intro({
           </GalleryTiles>
         </Accordion>
       }
-      {[recordGroup, OccurrenceGroup, EventGroup, IdentifiersGroup]
-        .map((group, index) => getGroup({ group, occurrence, isSpecimen, showAll }))}
+      {/* {[recordGroup, OccurrenceGroup, EventGroup, IdentifiersGroup]
+        .map((group, index) => getGroup({ group, occurrence, isSpecimen, showAll }))} */}
+        <OccurrenceGroupsMock />
     </Col>
     <Col css={css.controlFooter({ theme })} grow={false}>
       <Row justifyContent="flex-end" halfGutter={8}>

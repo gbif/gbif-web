@@ -13,6 +13,7 @@ import { commonLabels, config2labels } from '../../utils/labelMaker';
 import { getCommonSuggests, suggestStyle } from '../../utils/suggestConfig/getCommonSuggests';
 import { commonFilters, filterBuilder } from '../../utils/filterBuilder';
 import predicateConfig from './config/predicateConfig';
+import ThemeContext from '../../style/themes/ThemeContext';
 // import history from './history';
 // import qs from 'querystringify';
 
@@ -191,7 +192,11 @@ const filterConfig = {
   // set root filter to data from naturalis
   // rootPredicate: { type: 'equals', key: 'publishingOrganizationKey', value: '396d5f30-dea9-11db-8ab4-b8a03c50a862' },
   // rootPredicate: { type: 'in', key: 'taxonKey', values: [4, 5, 7] },
-  rootPredicate: { type: 'equals', key: 'taxonKey', value: 44 },
+  // rootPredicate: { type: 'equals', key: 'taxonKey', value: 44 },
+  rootPredicate: { type: 'and', predicates: [
+    {type: 'equals', key: 'taxonKey', value: 44},
+    {type: 'not', predicate: {type: 'equals', key: 'taxonKey', value: 212}}
+  ] },
   defaultVisibleFilters: ['taxonKey', 'year'],
   filters: {
     test: {
@@ -269,15 +274,20 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
     filters,
     defaultVisibleFilters: ['taxonKey', 'year', 'datasetKey', 'countryCode'],
     // rootPredicate: { type: 'in', key: 'taxonKey', values: [1,2,3,4,5,6,7,8] },
-    // rootPredicate: { type: 'in', key: 'taxonKey', values: [4, 5, 7] },
-    rootPredicate: { type: 'equals', key: 'taxonKey', value: 44 },
+    rootPredicate: { type: 'in', key: 'taxonKey', values: [4, 5, 7] },
+    // rootPredicate: { type: 'equals', key: 'taxonKey', value: 44 },
+    // rootPredicate: { type: 'and', predicates: [
+    //   {type: 'equals', key: 'taxonKey', value: 44},
+    //   {type: 'not', predicate: {type: 'equals', key: 'taxonKey', value: 212}}
+    // ] },
     predicateConfig,
     tableConfig
   }
 }
 
 function OccurrenceSearch({ config: customConfig = {}, ...props }) {
-  const [filter, setFilter] = useState({ must: { taxonKey: [] } });
+  const theme = useContext(ThemeContext);
+  const [filter, setFilter] = useState({ must: { taxonKey: [], year: [{type: 'equals', value: 1900}] } });
   // const [filter, setFilter] = useState({ must: { taxonKey: [2609958] } });
   // const [filter, setFilter] = useState({ must: { datasetKey: ['1d31211e-350e-492a-a597-34d24bbc1769'] } });
   const apiContext = useContext(ApiContext);
@@ -314,7 +324,7 @@ function OccurrenceSearch({ config: customConfig = {}, ...props }) {
   // add an api context, a prefilter and configuration of custom filters
   // the API context caries information about endpoints
   return (
-    <Root>
+    <Root dir={theme.dir}>
       <OccurrenceContext.Provider value={config}>
         <FilterState filter={filter} onChange={setFilter}>
           <Layout config={config} {...props}></Layout>

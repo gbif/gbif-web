@@ -40,7 +40,7 @@ const Popover = ({ trigger, placement, visible, modal, onClickOutside, children,
         {disclosureProps => React.cloneElement(trigger, disclosureProps)}
       </PopoverDisclosure>
       <PopoverBackdrop {...popover} css={backdrop(theme)} onClick={() => onClickOutside ? onClickOutside(popover) : undefined}></PopoverBackdrop>
-      <BasePopover {...popover} {...props} hideOnClickOutside={false} hideOnEsc={true} >
+      <BasePopover dir={theme.dir} {...popover} {...props} hideOnClickOutside={false} hideOnEsc={true} >
         {props => popover.visible &&
           <Root {...props} css={dialog(theme)}>
             <PopoverArrow className="arrow" {...popover} />
@@ -67,7 +67,7 @@ Popover.propTypes = {
 };
 
 const backdrop = theme => css`
-  background-color: rgba(0, 0, 0, 0.15);
+  background-color: ${theme.darkTheme ? '#0000006b' : '#00000040'};
   position: fixed;
   top: 0px;
   right: 0px;

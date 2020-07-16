@@ -12,7 +12,7 @@ export function FilterBox(props) {
     display: flex;
     flex-direction: column;
     max-height: inherit;
-    background: ${theme.paperBackground500};
+    background: ${theme.paperBackground200};
   `} />
 }
 

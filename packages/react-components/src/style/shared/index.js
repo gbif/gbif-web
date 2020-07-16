@@ -35,14 +35,14 @@ export const transparentInputOverlay = css`
   opacity: 0;
 `;
 
-export const styledScrollBars = props => css`
+export const styledScrollBars = ({theme}) => css`
   scrollbar-width: thin;
   &::-webkit-scrollbar {
       width: 6px;
       height: 6px;
   }
   &::-webkit-scrollbar-thumb {
-    background-color: #686868;
+    background-color: ${theme.darkTheme ? '#ffffff38' : '#686868'};
   }
 `;
 
@@ -50,7 +50,7 @@ export const root = ({ appRoot, theme = {} }) => css`
   * {
     font-family: ${theme.fontFamily || 'BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif'};
   }
-  color: ${theme.color || '#4a4a4a'};
+  color: ${theme.color900 || '#4a4a4a'};
   font-size: ${theme.fontSize || '1em'};
   font-weight: 400;
   box-sizing: border-box;

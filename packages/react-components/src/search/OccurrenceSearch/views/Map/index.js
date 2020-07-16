@@ -65,7 +65,6 @@ function Map() {
   }, [currentFilterContext.filterHash, rootPredicate]);
 
   const loadPointData = useCallback(({geohash, count}) => {
-    console.log('loadPointData');
     const latLon = Geohash.bounds(geohash);
     const N = latLon.ne.lat, S = latLon.sw.lat, W = latLon.sw.lon, E = latLon.ne.lon;
     const wkt = 'POLYGON' + wktBBoxTemplate.replace(/N/g, N).replace(/S/g, S).replace(/W/g, W).replace(/E/g, E);
