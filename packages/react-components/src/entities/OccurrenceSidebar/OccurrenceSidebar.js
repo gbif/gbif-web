@@ -424,6 +424,20 @@ query occurrence($key: ID!){
     primaryImage {
       identifier
     }
+
+    groups {
+      Occurrence  
+      Record
+      Organism
+      MaterialSample
+      Event
+      Location
+      GeologicalContext
+      Identification
+      Taxon
+      Dataset
+      Crawling 
+    }
   }
 }
 `;

@@ -24,6 +24,8 @@ app.get('/occurrence/meta', asyncMiddleware(getMetaOnly(occurrence)));
 
 const temporaryAuthMiddleware = function (req, res, next) {
   const apiKey = _.get(req, 'query.apiKey') || _.get(req, 'body.apiKey') || _.get(req, 'headers.Authorization', '').substr(10);
+  console.log("API KEY: "+config.API_KEY)
+  console.log("Provided API KEY: "+_.get(req, 'query.apiKey'))
   if (!apiKey) {
     next(new ResponseError(401, 'temporaryAuthentication', 'You need to provide an apiKey in the url'));
   } else if (apiKey !== config.API_KEY || !config.API_KEY) {

@@ -11,6 +11,9 @@ const resolvers = _.merge(
   require('./resources/participant').resolver,
   require('./resources/occurrence').resolver,
   require('./util/wikidata').resolver,
+  require('./resources/collection').resolver,
+  require('./resources/institution').resolver,
+  require('./resources/person').resolver,
 // -- Add imports above this line (required by plopfile.js) --
 );
 

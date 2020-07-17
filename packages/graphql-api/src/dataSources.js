@@ -10,6 +10,9 @@ const api = _.merge(
   require('./resources/participant').dataSource,
   require('./resources/occurrence').dataSource,
   require('./util/wikidata/').dataSource,
+  require('./resources/collection').dataSource,
+  require('./resources/institution').dataSource,
+  require('./resources/person').dataSource,
 // -- Add imports above this line (required by plopfile.js) --
 );
 

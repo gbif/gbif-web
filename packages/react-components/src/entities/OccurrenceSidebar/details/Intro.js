@@ -7,7 +7,8 @@ import ThemeContext from '../../../style/themes/ThemeContext';
 import * as css from '../styles';
 import { Accordion, Properties, Row, Col, GalleryTiles, GalleryTile, Switch } from "../../../components";
 import { Header } from './Header';
-import { MockGroups } from '../MockGroups';
+import {Groups} from './Groups'
+
 const { Term: T, Value: V } = Properties;
 
 export function Intro({
@@ -43,9 +44,9 @@ export function Intro({
           </GalleryTiles>
         </Accordion>
       }
-      {/* {[recordGroup, OccurrenceGroup, EventGroup, IdentifiersGroup]
+      <Groups data={data} showAll={showAll} verbatim={verbatim}/>
+{/*       {[recordGroup, OccurrenceGroup, EventGroup, IdentifiersGroup]
         .map((group, index) => getGroup({ group, occurrence, isSpecimen, showAll }))} */}
-        <MockGroups />
     </Col>
     <Col css={css.controlFooter({ theme })} grow={false}>
       <Row justifyContent="flex-end" halfGutter={8}>

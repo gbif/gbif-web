@@ -26,6 +26,7 @@ async function getSchema() {
     require('./resources/misc/identifier'),
     require('./resources/misc/machineTag'),
     require('./resources/misc/tag'),
+    require('./resources/misc/address'),
     require('./resources/dataset').typeDef,
     require('./resources/organization').typeDef,
     require('./resources/scalars').typeDef,
@@ -36,6 +37,9 @@ async function getSchema() {
     require('./resources/participant').typeDef,
     require('./resources/occurrence').typeDef,
     require('./util/wikidata').typeDef,
+    require('./resources/collection').typeDef,
+    require('./resources/institution').typeDef,
+    require('./resources/person').typeDef,
 // -- Add imports above this line (required by plopfile.js) --
   ]);
 

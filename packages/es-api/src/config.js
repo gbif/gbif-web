@@ -13,7 +13,8 @@ const cliOptions = [
 const options = commandLineArgs(cliOptions);
 console.log(options);
 const defaultConfig = {
-  port: 4001
+  port: 4001,
+  API_KEY: "svampebob"
 };
 
 const config = _.merge(

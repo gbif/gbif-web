@@ -279,11 +279,26 @@ const typeDef = gql`
     formattedCoordinates: String
     volatile: VolatileOccurrenceData
     related: [RelatedOccurrence]
+    groups: TermGroups
   }
 
   type RelatedOccurrence {
     reasons: [String]!
     occurrence: Occurrence
+  }
+
+  type TermGroups {
+    Occurrence(occurrence: JSON): JSON    
+    Record(occurrence: JSON): JSON
+    Organism(occurrence: JSON): JSON
+    MaterialSample(occurrence: JSON): JSON
+    Event(occurrence: JSON): JSON
+    Location(occurrence: JSON): JSON
+    GeologicalContext(occurrence: JSON): JSON
+    Identification(occurrence: JSON): JSON
+    Taxon(occurrence: JSON): JSON
+    Dataset(occurrence: JSON): JSON
+    Crawling(occurrence: JSON): JSON   
   }
 
   type VolatileOccurrenceData {
