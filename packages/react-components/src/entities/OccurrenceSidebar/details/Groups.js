@@ -185,7 +185,7 @@ function getValue(term, verbatim){
                         </span>
                       ))}
                   </div>
-                  {verbatim && <div>{term.verbatim}</div>}
+                  {verbatim && <div css={css.termRemark()}>{term.verbatim}</div>}
     </>
 }
 
