@@ -140,3 +140,16 @@ export const imageContainer = ({ theme }) => css`
     margin: auto;
   }
 `;
+
+export const termRemark = props => css`
+ opacity: 0.5;
+`;
+
+export const issuePill = ({severity, ...props}) => css`
+    background: ${severity === "WARNING" ? "gold" : "grey"};
+    border-radius: 20px;
+    font-size: 10px;
+    display: inline-block;
+    padding: 2px 3px;
+`;
+

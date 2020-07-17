@@ -1,0 +1,34 @@
+{
+    "Occurrence": {},
+    "Record": {
+        "dynamicProperties": true
+    },
+    "Organism": {},
+    "MaterialSample": {},
+    "Event": {
+        "year": true,
+        "month": true,
+        "day": true
+    },
+    "Location": {
+        "decimalLatitude": true,
+        "decimalLongitude": true,
+        "coordinateUncertaintyInMeters": true
+    },
+    "GeologicalContext": {},
+    "Identification": {},
+    "Taxon": {
+        "kingdom": true,
+        "phylum": true,
+        "class": true,
+        "order": true,
+        "family": true,
+        "genus": true,
+        "scientificName": true,
+        "acceptedScientificName": true,
+        "specificEpithet": true,
+        "synonym": true
+    },
+    "Dataset": {},
+    "Crawling": {}    
+}

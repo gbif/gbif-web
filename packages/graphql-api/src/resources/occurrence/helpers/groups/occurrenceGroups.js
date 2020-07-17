@@ -16,11 +16,11 @@ const groupedTerms = terms.reduce((acc, cur) => {
 
 function getRemarks ({value, verbatim}) {
  
-        if (typeof value === 'undefined') {
-            return 'EXCLUDED';
-        } else if (typeof verbatim === 'undefined') {
+        if (_.isNil(value)) {
+            return 'NOT_INDEXED';
+        } else if (_.isNil(verbatim)) {
             return 'INFERRED';
-        } else if (value.toLowerCase().replace(/_/g, '') != verbatim.toLowerCase().replace(/_/g, '')) {
+        } else if (value.toString().toLowerCase().replace(/_/g, '') !== verbatim.toString().toLowerCase().replace(/_/g, '')) {
             return 'ALTERED';
         } else {
             return null

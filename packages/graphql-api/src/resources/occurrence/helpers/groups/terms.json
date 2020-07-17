@@ -669,7 +669,8 @@
     "simpleName": "countryCode",
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/countryCode",
     "group": "Location",
-    "source": "DwcTerm"
+    "source": "DwcTerm",
+    "hideInDefaultView": true
     },
     {
     "simpleName": "stateProvince",
@@ -1040,6 +1041,13 @@
     "source": "DwcTerm"
     },
     {
+        "simpleName": "scientificName",
+        "qualifiedName": "http://rs.tdwg.org/dwc/terms/scientificName",
+        "group": "Taxon",
+        "source": "DwcTerm",
+        "esField": "gbifClassification.usage.name"
+        },
+    {
     "simpleName": "acceptedScientificName",
     "qualifiedName": "http://rs.gbif.org/terms/1.0/acceptedScientificName",
     "group": "Taxon",
@@ -1051,13 +1059,6 @@
     "qualifiedName": "http://rs.gbif.org/terms/1.0/verbatimScientificName",
     "group": "Taxon",
     "source": "GbifTerm"
-    },
-    {
-    "simpleName": "scientificName",
-    "qualifiedName": "http://rs.tdwg.org/dwc/terms/scientificName",
-    "group": "Taxon",
-    "source": "DwcTerm",
-    "esField": "gbifClassification.usage.name"
     },
     {
     "simpleName": "acceptedNameUsage",
@@ -1172,6 +1173,13 @@
     "esField": "gbifClassification.usageParsedName.rank"
     },
     {
+    "simpleName": "synonym",
+    "qualifiedName": "http://rs.gbif.org/terms/1.0/synonym",
+    "group": "Taxon",
+    "source": "GbifTerm",
+    "esField": "gbifClassification.synonym"
+    },
+    {
     "simpleName": "verbatimTaxonRank",
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/verbatimTaxonRank",
     "group": "Taxon",
@@ -1211,7 +1219,8 @@
     "simpleName": "datasetKey",
     "qualifiedName": "http://rs.gbif.org/terms/1.0/datasetKey",
     "group": "Dataset",
-    "source": "GbifTerm"
+    "source": "GbifTerm",
+    "hideInDefaultView": true
     },
     {
     "simpleName": "publishingCountry",
@@ -1387,7 +1396,8 @@
     "simpleName": "repatriated",
     "qualifiedName": "http://rs.gbif.org/terms/1.0/repatriated",
     "group": "Occurrence",
-    "source": "GbifTerm"
+    "source": "GbifTerm",
+    "hideInDefaultView": true
     },
     {
     "simpleName": "relativeOrganismQuantity",
