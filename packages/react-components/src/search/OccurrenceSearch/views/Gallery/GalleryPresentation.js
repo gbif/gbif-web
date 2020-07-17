@@ -64,6 +64,7 @@ export const GalleryPresentation = ({ first, prev, next, size, from, data, total
                 isSequenced={item.volatile.features.isSequenced} 
                 isTreament={item.volatile.features.isTreament} 
                 isClustered={item.volatile.features.isClustered} 
+                isSamplingEvent={item.volatile.features.isSamplingEvent} 
                 // formattedCoordinates={item.formattedCoordinates} 
                 countryCode={item.countryCode}
                 // locality={item.locality}

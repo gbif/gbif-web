@@ -10,7 +10,7 @@ export const iconFeatures = ({...props}) => css`
     display: flex;
     align-items: center;
     margin: .25em 1em;
-    flex: 1 1 auto;
+    flex: 0 0 auto;
     span {
       margin: 0 0.5em;
     }

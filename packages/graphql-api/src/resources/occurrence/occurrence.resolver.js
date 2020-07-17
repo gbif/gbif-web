@@ -78,10 +78,38 @@ module.exports = {
       // extract primary image. for now just any image
       return multimediaItems.find(x => x.type === 'StillImage');
     },
+    stillImageCount: ({ multimediaItems }) => {
+      if (typeof multimediaItems === 'undefined') return null;
+      return multimediaItems.filter(x => x.type === 'StillImage').length;
+    },
+    movingImageCount: ({ multimediaItems }) => {
+      if (typeof multimediaItems === 'undefined') return null;
+      return multimediaItems.filter(x => x.type === 'MovingImage').length;
+    },
+    soundCount: ({ multimediaItems }) => {
+      if (typeof multimediaItems === 'undefined') return null;
+      return multimediaItems.filter(x => x.type === 'Sound').length;
+    },
+    stillImages: ({ multimediaItems }) => {
+      if (typeof multimediaItems === 'undefined') return null;
+      return multimediaItems.filter(x => x.type === 'StillImage');
+    },
+    movingImages: ({ multimediaItems }) => {
+      if (typeof multimediaItems === 'undefined') return null;
+      return multimediaItems.filter(x => x.type === 'MovingImage');
+    },
+    sounds: ({ multimediaItems }) => {
+      if (typeof multimediaItems === 'undefined') return null;
+      return multimediaItems.filter(x => x.type === 'Sound');
+    },
     formattedCoordinates: ({ coordinates = {} }) => {
       return formattedCoordinates(coordinates);
     },
     volatile: (occurrence) => occurrence,
+    related: ({ gbifId }, args, { dataSources }) => {
+      return dataSources.occurrenceAPI.getRelated({ key: gbifId })
+        .then(response => response.relatedOccurrences);
+    },
   },
   OccurrenceSearchResult: {
     documents: searchOccurrences,
@@ -200,6 +228,10 @@ module.exports = {
         .then(fragment => isOccurrenceSequenced({occurrence, fragment}));
     },
     isSamplingEvent: (occurrence) => !!occurrence.eventId && !!occurrence.samplingProtocol
+  },
+  RelatedOccurrence: {
+    occurrence: (related, args, { dataSources }) => dataSources.occurrenceAPI
+      .getOccurrenceByKey({key: related.occurrence.gbifId })
   }
 };
 

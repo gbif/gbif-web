@@ -11,7 +11,7 @@ export const gallery = props => css`
 export const galleryTileImage = ({ theme, height = 150 }) => css`
   height: ${height}px;
   width: 100%;
-  background: #88888844;
+  background: #88888822;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

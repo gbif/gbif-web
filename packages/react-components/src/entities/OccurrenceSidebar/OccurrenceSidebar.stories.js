@@ -12,7 +12,7 @@ export default {
 export const Example = () => <div style={{background: '#eee', display: 'flex'}}>
   <div style={{flex: '1 1 auto'}}></div>
   {/* <OccurrenceSidebar id={930742715} style={{width: 700, height: 600, flex: '0 0 auto'}} /> */}
-  <OccurrenceSidebar id={1532078899} style={{width: 700, height: 'calc(100vh - 20px)', flex: '0 0 auto'}} />
+  <OccurrenceSidebar id={2521056878} style={{width: 700, height: 'calc(100vh - 20px)', flex: '0 0 auto'}} />
   {/* <StyledProse source={readme}></StyledProse> */}
 </div>;
 

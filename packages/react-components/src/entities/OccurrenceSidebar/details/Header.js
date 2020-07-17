@@ -1,14 +1,10 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import React, { useContext, useCallback, useState, useEffect } from 'react';
-import { FormattedMessage, FormattedDate } from 'react-intl';
-import { MdLocationOn, MdPhotoLibrary, MdGpsFixed } from 'react-icons/md';
-import { GiDna1 } from 'react-icons/gi';
-import { GrTree } from 'react-icons/gr';
-import { BsLightningFill } from 'react-icons/bs';
+import React, { useContext } from 'react';
+import { FormattedDate } from 'react-intl';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import * as css from '../styles';
-import { Row, Col, MajorRanks, IconFeatures } from "../../../components";
+import { Row, Col, IconFeatures } from "../../../components";
 import { Globe } from './Globe';
 
 export function Header({
@@ -21,7 +17,7 @@ export function Header({
   const theme = useContext(ThemeContext);
   const item = data?.occurrence;
   return <Row wrap="no-wrap" css={css.header({ theme })}>
-    {data?.occurrence?.volatile?.globe && 
+    {data?.occurrence?.volatile?.globe &&
       <Col grow={false} style={{ marginRight: 18 }}>
         <Globe {...data?.occurrence?.volatile?.globe} />
       </Col>
@@ -29,7 +25,8 @@ export function Header({
     <Col grow>
       <div css={css.headline({ theme })}>
         <div css={css.breadcrumb({ theme })}>
-          <FormattedMessage id={`enums.basisOfRecord.${data?.occurrence?.basisOfRecord}`} /><span css={css.breadcrumbSeperator({ theme })}>
+          {/* <FormattedMessage id={`enums.basisOfRecord.${data?.occurrence?.basisOfRecord}`} /> */}
+          Occurrence<span css={css.breadcrumbSeperator({ theme })}>
             <FormattedDate value={data?.occurrence?.eventDateSingle}
               year="numeric"
               month="long"
@@ -43,23 +40,24 @@ export function Header({
       {/* <div>Engkabelej</div> */}
       {/* <div style={{fontSize: 12, marginTop: 18}}><MdLocationOn /> <FormattedMessage id={`enums.countryCode.${data?.occurrence?.countryCode}`} /></div> */}
       <div css={css.entitySummary({ theme })}>
-        {/* <div><GrTree /> <MajorRanks taxon={data?.occurrence?.gbifClassification} rank={data?.occurrence?.gbifClassification?.usage?.rank}/></div> */}
-        {/* <div><MdLocationOn /> <FormattedMessage id={`enums.countryCode.${data?.occurrence?.countryCode}`} /></div> */}
-        <div><MdPhotoLibrary /> {data?.occurrence?.multimediaItems?.length} images</div>
-        {/* <div><MdGpsFixed /> tracked</div> */}
-        <div><BsLightningFill style={{color: 'orange'}}/> {item?.issues?.length} quality flags</div>
+        <IconFeatures css={css.features({ theme })}
+        eventDate={item.eventDateSingle}
+        countryCode={item.countryCode}
+        locality={item.locality}
+        />
+        <IconFeatures css={css.features({ theme })}
+          stillImageCount={item.stillImageCount}
+          movingImageCount={item.movingImageCount}
+          soundCount={item.soundCount}
+          typeStatus={item.typeStatus}
+          basisOfRecord={item.basisOfRecord}
+          isSequenced={item.volatile.features.isSequenced}
+          isTreament={item.volatile.features.isTreament}
+          isClustered={item.volatile.features.isClustered}
+          isSamplingEvent={item.volatile.features.isSamplingEvent}
+          issueCount={item?.issues?.length}
+        />
       </div>
-      <IconFeatures css={css.entitySummary({ theme })}
-                typeStatus={item.typeStatus}
-                basisOfRecord={item.basisOfRecord}
-                eventDate={item.eventDateSingle}
-                isSequenced={item.volatile.features.isSequenced} 
-                isTreament={item.volatile.features.isTreament} 
-                isClustered={item.volatile.features.isClustered} 
-                // formattedCoordinates={item.formattedCoordinates} 
-                countryCode={item.countryCode}
-                // locality={item.locality}
-                />
     </Col>
   </Row>
 };

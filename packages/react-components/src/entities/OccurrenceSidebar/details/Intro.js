@@ -1,23 +1,20 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import React, { useContext, useCallback, useState, useEffect } from 'react';
-import { FormattedMessage, FormattedDate } from 'react-intl';
 import get from 'lodash/get';
 import isNil from 'lodash/isNil';
-import { MdLocationOn, MdPhotoLibrary, MdGpsFixed } from 'react-icons/md';
-import { GiDna1 } from 'react-icons/gi';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import * as css from '../styles';
 import { Accordion, Properties, Row, Col, GalleryTiles, GalleryTile, Switch } from "../../../components";
-import { Globe } from './Globe';
 import { Header } from './Header';
-import { OccurrenceGroupsMock } from '../OccurrenceKeyExamples.stories';
+import { MockGroups } from '../MockGroups';
 const { Term: T, Value: V } = Properties;
 
 export function Intro({
   data = {},
   isSpecimen,
   loading,
+  setActiveImage,
   error,
   className,
   ...props
@@ -34,11 +31,11 @@ export function Intro({
     <Col style={{ padding: '12px 16px', paddingBottom: 50 }} grow>
       <Header data={data} error={error} />
 
-      {occurrence.multimediaItems?.length > 0 &&
+      {occurrence.stillImages?.length > 0 &&
         <Accordion css={accordionCss} summary={<span>Photos</span>} defaultOpen={true}>
           <GalleryTiles>
-            {occurrence.multimediaItems.map((x, i) => {
-              return <GalleryTile key={i} src={x.identifier} height={120}>
+            {occurrence.stillImages.map((x, i) => {
+              return <GalleryTile key={i} src={x.identifier} height={120} onClick={() => setActiveImage(x)}>
               </GalleryTile>
             })
             }
@@ -48,7 +45,7 @@ export function Intro({
       }
       {/* {[recordGroup, OccurrenceGroup, EventGroup, IdentifiersGroup]
         .map((group, index) => getGroup({ group, occurrence, isSpecimen, showAll }))} */}
-        <OccurrenceGroupsMock />
+        <MockGroups />
     </Col>
     <Col css={css.controlFooter({ theme })} grow={false}>
       <Row justifyContent="flex-end" halfGutter={8}>

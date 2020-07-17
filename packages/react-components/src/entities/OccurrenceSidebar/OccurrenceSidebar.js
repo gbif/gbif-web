@@ -10,6 +10,8 @@ import { Properties, Row, Col, Tabs } from "../../components";
 import { useQuery } from '../../dataManagement/api';
 import { ImageDetails } from './details/ImageDetails';
 import { Intro } from './details/Intro';
+import { Cluster } from './details/Cluster';
+import { ClusterIcon } from '../../components/Icons/Icons';
 
 const { TabList, Tab, TabPanel } = Tabs;
 
@@ -24,6 +26,7 @@ export function OccurrenceSidebar({
   const { data, error, loading, load } = useQuery(OCCURRENCE, { lazyLoad: true });
   const [activeId, setTab] = useState(defaultTab || 'details');
   const theme = useContext(ThemeContext);
+  const [activeImage, setActiveImage] = useState();
 
   useEffect(() => {
     if (typeof id !== 'undefined') {
@@ -32,7 +35,7 @@ export function OccurrenceSidebar({
   }, [id]);
 
   useEffect(() => {
-    if (!loading && activeId === 'images' && !data?.occurrence?.multimediaItems) {
+    if (!loading && activeId === 'images' && !data?.occurrence?.stillImages) {
       setTab('details');
     }
   }, [data, loading]);
@@ -46,17 +49,23 @@ export function OccurrenceSidebar({
           <Tab tabId="details" direction="left">
             <MdInfo />
           </Tab>
-          {data?.occurrence?.multimediaItems && <Tab tabId="images" direction="left">
+          {data?.occurrence?.stillImages && <Tab tabId="images" direction="left">
             <MdInsertPhoto />
+          </Tab>}
+          {data?.occurrence?.volatile?.features?.isClustered && <Tab tabId="cluster" direction="left">
+            <ClusterIcon />
           </Tab>}
         </TabList>
       </Col>
       <Col shrink={false} grow={false} css={css.detailDrawerContent({theme})} >
         <TabPanel tabId='images'>
-          <ImageDetails data={data} loading={loading} error={error} />
+          <ImageDetails activeImage={activeImage} setActiveImage={setActiveImage} data={data} loading={loading} error={error} />
         </TabPanel>
         <TabPanel tabId='details'>
-          <Intro isSpecimen={isSpecimen} data={data} loading={loading} error={error} />
+          <Intro setActiveImage={id => {setActiveImage(id); setTab('images')}} isSpecimen={isSpecimen} data={data} loading={loading} error={error} />
+        </TabPanel>
+        <TabPanel lazy tabId='cluster'>
+          <Cluster data={data} loading={loading} error={error} />
         </TabPanel>
       </Col>
     </Row>
@@ -352,6 +361,7 @@ query occurrence($key: ID!){
     coordinates
     countryCode
     eventDateSingle
+    typeStatus
     volatile {
       globe(sphere: false, land: false, graticule: false) {
         svg
@@ -375,7 +385,10 @@ query occurrence($key: ID!){
     ${groups.Event.join(('\n'))}
     ${groups.Organism.join(('\n'))}
 
-    multimediaItems {
+    stillImageCount
+    movingImageCount
+    soundCount
+    stillImages {
       type
       format
       identifier

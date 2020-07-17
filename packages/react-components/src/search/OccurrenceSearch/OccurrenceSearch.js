@@ -287,8 +287,8 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
 
 function OccurrenceSearch({ config: customConfig = {}, ...props }) {
   const theme = useContext(ThemeContext);
-  const [filter, setFilter] = useState({ must: { taxonKey: [], year: [{type: 'equals', value: 1900}] } });
-  // const [filter, setFilter] = useState({ must: { taxonKey: [2609958] } });
+  // const [filter, setFilter] = useState({ must: { datasetKey: ['f3f25fcf-2930-4cf1-a495-6b31d7fa0252'], year:[{type: 'equals', value: 2018}] } });
+  const [filter, setFilter] = useState({ must: { taxonKey: [2609958] } });
   // const [filter, setFilter] = useState({ must: { datasetKey: ['1d31211e-350e-492a-a597-34d24bbc1769'] } });
   const apiContext = useContext(ApiContext);
   const { formatMessage } = useIntl();

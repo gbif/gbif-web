@@ -270,8 +270,20 @@ const typeDef = gql`
     Currently the primary image is considered the first image retruned from the REST API
     """
     primaryImage: MultimediaItem
+    stillImageCount: Int
+    stillImages: [MultimediaItem]
+    movingImageCount: Int
+    movingImages: [MultimediaItem]
+    soundCount: Int
+    sounds: [MultimediaItem]
     formattedCoordinates: String
     volatile: VolatileOccurrenceData
+    related: [RelatedOccurrence]
+  }
+
+  type RelatedOccurrence {
+    reasons: [String]!
+    occurrence: Occurrence
   }
 
   type VolatileOccurrenceData {

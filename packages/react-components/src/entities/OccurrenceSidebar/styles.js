@@ -1,23 +1,15 @@
 import { css } from '@emotion/core';
 // import { focusStyle } from '../../style/shared';
 
+export const features = ({ ...props }) => css`
+  margin-top: 4px;
+  margin-bottom: 4px;
+`;
+
 export const entitySummary = ({ ...props }) => css`
   font-size: 13px;
   margin-top: 12px;
-  margin-left: -12px;
-  margin-right: -12px;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  >div {
-    display: inline-block;
-    margin: 4px 12px;
-    display: flex;
-    align-items: center;
-    svg {
-      margin-right: 4px;
-    }
-  }
+  margin-bottom: 12px;
 `;
 
 export const header = ({ ...props }) => css`
@@ -38,9 +30,9 @@ export const breadcrumbSeperator = ({ ...props }) => css`
 
 export const breadcrumb = ({ ...props }) => css`
   font-size: 11px;
-    margin-bottom: 6px;
-    /* font-weight: 500; */
-    /* color: #5a5a5a; */
+  margin-bottom: 4px;
+  /* font-weight: 500; */
+  /* color: #5a5a5a; */
 `;
 
 export const globeOverlay = ({ theme, ...props }) => css`
