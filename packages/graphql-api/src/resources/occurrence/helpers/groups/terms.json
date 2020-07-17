@@ -561,19 +561,22 @@
     "simpleName": "year",
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/year",
     "group": "Event",
-    "source": "DwcTerm"
+    "source": "DwcTerm",
+    "hideInDefaultView": true
     },
     {
     "simpleName": "month",
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/month",
     "group": "Event",
-    "source": "DwcTerm"
+    "source": "DwcTerm",
+    "hideInDefaultView": true
     },
     {
     "simpleName": "day",
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/day",
     "group": "Event",
-    "source": "DwcTerm"
+    "source": "DwcTerm",
+    "hideInDefaultView": true
     },
     {
     "simpleName": "verbatimEventDate",
@@ -743,20 +746,23 @@
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/decimalLatitude",
     "group": "Location",
     "source": "DwcTerm",
-    "esField": "coordinates.lat"
+    "esField": "coordinates.lat",
+    "hideInDefaultView": true
     },
     {
     "simpleName": "decimalLongitude",
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/decimalLongitude",
     "group": "Location",
     "source": "DwcTerm",
-    "esField": "coordinates.lon"
+    "esField": "coordinates.lon",
+    "hideInDefaultView": true
     },
     {
     "simpleName": "coordinateUncertaintyInMeters",
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/coordinateUncertaintyInMeters",
     "group": "Location",
-    "source": "DwcTerm"
+    "source": "DwcTerm",
+    "hideInDefaultView": true
     },
     {
     "simpleName": "coordinatePrecision",
@@ -786,13 +792,15 @@
     "simpleName": "footprintWKT",
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/footprintWKT",
     "group": "Location",
-    "source": "DwcTerm"
+    "source": "DwcTerm",
+    "hideInDefaultView": true
     },
     {
     "simpleName": "footprintSRS",
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/footprintSRS",
     "group": "Location",
-    "source": "DwcTerm"
+    "source": "DwcTerm",
+    "hideInDefaultView": true
     },
     {
     "simpleName": "footprintSpatialFit",
@@ -1107,63 +1115,72 @@
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/kingdom",
     "group": "Taxon",
     "source": "DwcTerm",
-    "esField": "gbifClassification.kingdom"
+    "esField": "gbifClassification.kingdom",
+    "hideInDefaultView": true
     },
     {
     "simpleName": "phylum",
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/phylum",
     "group": "Taxon",
     "source": "DwcTerm",
-    "esField": "gbifClassification.phylum"
+    "esField": "gbifClassification.phylum",
+    "hideInDefaultView": true
     },
     {
     "simpleName": "class",
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/class",
     "group": "Taxon",
     "source": "DwcTerm",
-    "esField": "gbifClassification.class"
+    "esField": "gbifClassification.class",
+    "hideInDefaultView": true
     },
     {
     "simpleName": "order",
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/order",
     "group": "Taxon",
     "source": "DwcTerm",
-    "esField": "gbifClassification.order"
+    "esField": "gbifClassification.order",
+    "hideInDefaultView": true
     },
     {
     "simpleName": "family",
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/family",
     "group": "Taxon",
     "source": "DwcTerm",
-    "esField": "gbifClassification.family"
+    "esField": "gbifClassification.family",
+    "hideInDefaultView": true
     },
     {
     "simpleName": "genus",
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/genus",
     "group": "Taxon",
     "source": "DwcTerm",
-    "esField": "gbifClassification.genus"
+    "esField": "gbifClassification.genus",
+    "hideInDefaultView": true
     },
     {
     "simpleName": "subgenus",
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/subgenus",
     "group": "Taxon",
     "source": "DwcTerm",
-    "esField": "gbifClassification.subgenus"
+    "esField": "gbifClassification.subgenus",
+    "hideInDefaultView": true
     },
     {
     "simpleName": "specificEpithet",
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/specificEpithet",
     "group": "Taxon",
     "source": "DwcTerm",
-    "esField": "gbifClassification.usageParsedName.specificEpithet"
+    "esField": "gbifClassification.usageParsedName.specificEpithet",
+    "hideInDefaultView": true
     },
     {
     "simpleName": "infraspecificEpithet",
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/infraspecificEpithet",
     "group": "Taxon",
     "source": "DwcTerm",
-    "esField": "gbifClassification.usageParsedName.infraspecificEpithet"
+    "esField": "gbifClassification.usageParsedName.infraspecificEpithet",
+    "hideInDefaultView": true
     },
     {
     "simpleName": "taxonRank",
@@ -1177,7 +1194,8 @@
     "qualifiedName": "http://rs.gbif.org/terms/1.0/synonym",
     "group": "Taxon",
     "source": "GbifTerm",
-    "esField": "gbifClassification.synonym"
+    "esField": "gbifClassification.synonym",
+    "hideInDefaultView": true
     },
     {
     "simpleName": "verbatimTaxonRank",
@@ -1433,13 +1451,15 @@
     "simpleName": "minimumElevationInMeters",
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/minimumElevationInMeters",
     "group": "Location",
-    "source": "DwcTerm"
+    "source": "DwcTerm",
+    "hideInDefaultView": true
     },
     {
     "simpleName": "maximumElevationInMeters",
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/maximumElevationInMeters",
     "group": "Location",
-    "source": "DwcTerm"
+    "source": "DwcTerm",
+    "hideInDefaultView": true
     },
     {
     "simpleName": "minimumDepthInMeters",
