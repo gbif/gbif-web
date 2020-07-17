@@ -17,7 +17,7 @@ const groupedTerms = terms.reduce((acc, cur) => {
 function getRemarks ({value, verbatim}) {
  
         if (_.isNil(value)) {
-            return 'EXCLUDED';
+            return 'NOT_INDEXED';
         } else if (_.isNil(verbatim)) {
             return 'INFERRED';
         } else if (value.toString().toLowerCase().replace(/_/g, '') !== verbatim.toString().toLowerCase().replace(/_/g, '')) {

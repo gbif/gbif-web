@@ -60,7 +60,7 @@ function showTerm(groupTitle, term, showAll, verbatim) {
    if (verbatim) {
     return true;
   } else if (!showAll) {
-    return !term.hideInDefaultView /* && _.get(term, "remarks") !== "EXCLUDED" */ && !specialFields[groupTitle][term.label];
+    return !term.hideInDefaultView /* && _.get(term, "remarks") !== "NOT_INDEXED" */ && !specialFields[groupTitle][term.label];
   }  else {
     return true;
   }
@@ -168,7 +168,7 @@ function getGroup(
 function getValue(term, verbatim){
 
     return <>
-        {term.remarks && term.remarks !== "EXCLUDED" && (
+        {term.remarks && term.remarks !== "NOT_INDEXED" && (
                       <span css={css.termRemark()}>{term.remarks.toLowerCase()}</span>
                     )}
                   <div>
