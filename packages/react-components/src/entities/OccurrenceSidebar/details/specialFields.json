@@ -1,6 +1,8 @@
 {
     "Occurrence": {},
-    "Record": {},
+    "Record": {
+        "dynamicProperties": true
+    },
     "Organism": {},
     "MaterialSample": {},
     "Event": {
