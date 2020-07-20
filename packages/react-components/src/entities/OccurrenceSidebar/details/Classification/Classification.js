@@ -22,7 +22,7 @@ export function Classification({
   return <span css={css.majorRanks({ theme })} {...props}>
     {ranks.map(rank => {
       if (taxonRank !== rank.toUpperCase()) {
-        if (taxonMap[rank]) return <span key={rank}>{taxonMap[rank].value}</span>;
+        if (taxonMap[rank]?.value) return <span key={rank}>{taxonMap[rank].value}</span>;
       if (showUnknownRanks) return <span key={rank} className="gbif-unknownRank">Unknown {rank}</span>
       }
       return null;

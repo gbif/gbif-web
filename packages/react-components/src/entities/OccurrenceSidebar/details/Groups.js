@@ -108,7 +108,7 @@ function getGroup(
                 />
               </T>
               <V>
-                <Classification taxon={group} />
+                <Classification taxon={group} showUnknownRanks={true}/>
               </V>
             {groupMap.synonym?.value === true && groupMap.acceptedScientificName?.value &&  <> <T>
                 <FormattedMessage
