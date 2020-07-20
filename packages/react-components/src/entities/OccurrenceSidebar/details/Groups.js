@@ -121,7 +121,7 @@ function getGroup(
               </V></>}
             </>
           )}
-          {title === "Location" && !showAll &&  <>
+          {title === "Location" && !showAll && groupMap.decimalLatitude && groupMap.decimalLongitude &&  <>
           <T>
                 <FormattedMessage
                   id={`ocurrenceFieldNames.coordinates`}
