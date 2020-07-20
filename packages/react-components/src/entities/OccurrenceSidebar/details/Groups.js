@@ -90,12 +90,12 @@ function getGroup(
         defaultOpen={true}
       >
         <Properties style={{ fontSize: 13 }} horizontal={true}>
-          {title === "Taxon" && (
+          {title === "Taxon" && !showAll && (
             <>
             <T>
                 <FormattedMessage
                   id={`ocurrenceFieldNames.scientificName`}
-                  defaultMessage={"scientificName"}
+                  defaultMessage={"Scientific Name"}
                 />
               </T>
               <V>
@@ -113,7 +113,7 @@ function getGroup(
             {groupMap.synonym?.value === true && groupMap.acceptedScientificName?.value &&  <> <T>
                 <FormattedMessage
                   id={`ocurrenceFieldNames.taxonomicStatus`}
-                  defaultMessage={"taxonomicStatus"}
+                  defaultMessage={"Taxonomic Status"}
                 />
               </T>
               <V>
@@ -121,7 +121,7 @@ function getGroup(
               </V></>}
             </>
           )}
-          {title === "Location" && <>
+          {title === "Location" && !showAll &&  <>
           <T>
                 <FormattedMessage
                   id={`ocurrenceFieldNames.coordinates`}
@@ -133,7 +133,7 @@ function getGroup(
               </V>
           
           </>}
-          {title === "Record" && groupMap.dynamicProperties?.verbatim && <>
+          {title === "Record" && !showAll &&  groupMap.dynamicProperties?.verbatim && <>
           <T>
                 <FormattedMessage
                   id={`ocurrenceFieldNames.dynamicProperties`}
@@ -152,7 +152,7 @@ function getGroup(
                 <T>
                   <FormattedMessage
                     id={`ocurrenceFieldNames.${term.label}`}
-                    defaultMessage={term.label}
+                    defaultMessage={_.startCase(term.label)}
                   />
                 </T>
                 <V>
