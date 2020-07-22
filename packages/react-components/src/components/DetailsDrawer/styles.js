@@ -10,6 +10,7 @@ export const drawer = ({ ...props }) => css`
   bottom: 0;
   top: 0;
   right: 0;
+  max-width: 100%;
   transform: translateX(100%);
   overflow: hidden;
   transition: transform 200ms ease-in-out;

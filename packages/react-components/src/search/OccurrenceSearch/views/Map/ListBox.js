@@ -30,7 +30,7 @@ function ListItem({ BasisOfRecordLabel, id, item, imageSrc, onClick = () => { },
         </Button>
       </Col>
       {item.primaryImage?.identifier && <Col grow={false}>
-        <Image src={item.primaryImage?.identifier} w={80} h={80} style={{ display: 'block', background: '#ededed', width: 80, height: 80 }} />
+        <Image src={item.primaryImage?.identifier} w={80} h={80} style={{ display: 'block', background: theme.paperBackground200, width: 80, height: 80 }} />
       </Col>}
     </Row>
   </div>

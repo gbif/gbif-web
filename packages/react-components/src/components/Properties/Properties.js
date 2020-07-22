@@ -6,9 +6,9 @@ import PropTypes from 'prop-types';
 // import { oneOfMany } from '../../utils/util';
 import { dl, dt, dd } from './styles';
 
-export function Properties({as:Dl='dl', horizontal, ...props}) {
+export function Properties({as:Dl='dl', horizontal, dense = false, ...props}) {
   const theme = useContext(ThemeContext);
-  return <Dl css={dl({ theme, horizontal })} {...props} />
+  return <Dl css={dl({ theme, horizontal, dense })} {...props} />
 }
 Properties.propTypes = {
   as: PropTypes.any,

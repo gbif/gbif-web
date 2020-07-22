@@ -122,7 +122,7 @@ export const TablePresentation = ({ first, prev, next, size, from, data, total, 
 
   return <>
     <DetailsDrawer href={`https://www.gbif.org/occurrence/${activeItem?.gbifId}`} dialog={dialog} nextItem={nextItem} previousItem={previousItem}>
-      <OccurrenceSidebar id={activeItem?.gbifId} defaultTab='details' style={{ width: 700, height: '100%' }} />
+      <OccurrenceSidebar id={activeItem?.gbifId} defaultTab='details' style={{ maxWidth: '100%', width: 700, height: '100%' }} />
     </DetailsDrawer>
     <div style={{
       flex: "1 1 100%",

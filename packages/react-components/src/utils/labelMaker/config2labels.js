@@ -58,7 +58,7 @@ export function config2label(name, config, apiContext) {
   }
 }
 
-function prettifyEnum(text) {
+export function prettifyEnum(text) {
   return typeof text === 'string'
     ? text.charAt(0) + text.slice(1).toLowerCase().replace(/_/g, ' ')
     : 'Unknown';
