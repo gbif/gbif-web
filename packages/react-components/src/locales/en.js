@@ -56,6 +56,10 @@ export const en = {
       name: 'Publisher',
       count: '{num, plural, one {publisher} other {# publishers}}',
     },
+    hostKey: {
+      name: 'Hosting organisation',
+      count: '{num, plural, one {host} other {# hosts}}',
+    },
     country: {
       name: 'Country',
       count: '{num, plural, one {country} other {# countries}}',

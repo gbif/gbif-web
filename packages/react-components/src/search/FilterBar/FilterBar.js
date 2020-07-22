@@ -3,9 +3,9 @@ import { css, jsx } from '@emotion/core';
 import React, { useContext } from 'react';
 import get from 'lodash/get';
 import union from 'lodash/union';
-import { withFilter } from '../../..//widgets/Filter/state';
-import ThemeContext from '../../../style/themes/ThemeContext';
-import { Trigger as MetaFilter } from '../../../widgets/Filter/types/MetaFilter';
+import { withFilter } from '../../widgets/Filter/state';
+import ThemeContext from '../../style/themes/ThemeContext';
+import { Trigger as MetaFilter } from '../../widgets/Filter/types/MetaFilter';
 
 // const availableFilters = [
 //   taxonFilter, datasetFilter, publisherFilter,

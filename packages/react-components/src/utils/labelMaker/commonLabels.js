@@ -45,6 +45,11 @@ export const commonLabels = {
     template: ({ id, api }) => `${api.v1.endpoint}/organization/${id}`,
     transform: result => ({ title: result.title })
   },
+  hostKey: {
+    type: 'ENDPOINT',
+    template: ({ id, api }) => `${api.v1.endpoint}/organization/${id}`,
+    transform: result => ({ title: result.title })
+  },
   datasetKey: {
     type: 'GQL',
     query: `query label($id: String!){

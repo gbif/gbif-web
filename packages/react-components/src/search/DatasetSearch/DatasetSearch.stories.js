@@ -3,13 +3,11 @@ import { text } from '@storybook/addon-knobs';
 import React from 'react';
 import { addDecorator } from '@storybook/react';
 
-import OccurrenceSearch from './OccurrenceSearch';
-import Standalone from './Standalone';
-const BACKBONE_KEY = 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c';
+import DatasetSearch from './DatasetSearch';
 
 export default {
-  title: 'Search/OccurrenceSearch',
-  component: OccurrenceSearch
+  title: 'Search/DatasetSearch',
+  component: DatasetSearch
 };
 
 
@@ -75,13 +73,11 @@ const filters = {
   }
 }
 
+
 const config = { labels, getSuggests, filters };
 
-export const Example = () => <OccurrenceSearch config={config} style={{ margin: 'auto', maxWidth: 1200, height: 'calc(100vh)' }}></OccurrenceSearch>;
+export const Example = () => <DatasetSearch config={config} style={{ margin: 'auto', maxWidth: 1200, height: 'calc(100vh)' }} />;
 
 Example.story = {
-  name: 'OccurrenceSearch',
+  name: 'Dataset search',
 };
-
-
-// export const StandaloneExample = () => <Standalone style={{height: 'calc(100vh - 20px)'}}></Standalone>;

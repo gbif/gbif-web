@@ -9,13 +9,13 @@ function filter2v1(filter, filterConfig) {
 
   let composedFilter = {};
 
-  Object.entries(must)
+  if (must) Object.entries(must)
     .forEach(([filterName, values]) => {
       const fieldFilter = getField({ filterName, values, filterConfig });
       if (fieldFilter) composedFilter[fieldFilter.name] = fieldFilter.values;
     });
   
-  Object.entries(must_not)
+  if (must_not) Object.entries(must_not)
     .forEach(([filterName, values]) => {
       const fieldFilter = getField({ filterName, values, filterConfig });
       if (fieldFilter) composedFilter[`!${fieldFilter.name}`] = fieldFilter.values;
@@ -29,7 +29,7 @@ function getField({ filterName, values, filterConfig }) {
   if (values?.length === 0) return;
 
   // get the configuration for this filter if any is provided
-  const config = filterConfig[filterName] || {};
+  const config = filterConfig.fields[filterName] || {};
 
   // if a mapping function for the values is provided, then apply it
   let mappedValues = typeof config?.transformValue === 'function' ? values.map(config.transformValue) : values;

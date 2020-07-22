@@ -66,6 +66,23 @@ export const commonFilters = {
       }
     }
   },
+  hostKey: {
+    type: 'SUGGEST',
+    config: {
+      std: {
+        id2labelHandle: 'publisherKey',
+        translations: {
+          count: 'filter.hostKey.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.hostKey.name',// translation path to a title for the popover and the button
+          description: 'filter.hostKey.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        suggestHandle: 'publisherKey',
+        id2labelHandle: 'publisherKey',
+      }
+    }
+  },
   year: {
     type: 'NUMBER_RANGE',
     config: {

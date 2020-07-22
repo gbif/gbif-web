@@ -5,13 +5,13 @@ import ThemeContext from '../../style/themes/ThemeContext';
 // import PropTypes from 'prop-types';
 import { withFilter } from '../../widgets/Filter/state';
 // import { FormattedMessage, FormattedNumber } from 'react-intl';
-import { cssLayout, cssNavBar, cssViewArea, cssFooter, cssFilter, cssViews } from './Layout.styles';
+import { cssLayout, cssNavBar, cssViewArea, cssFilter, cssViews } from '../Layout.styles';
 import { Tabs } from '../../components'
 import Map from './views/Map';
 import Table from './views/Table';
 import Gallery from './views/Gallery';
 
-import { FilterBar } from './FilterBar';
+import { FilterBar } from '../FilterBar';
 
 const { TabList, Tab, TabPanel } = Tabs;
 

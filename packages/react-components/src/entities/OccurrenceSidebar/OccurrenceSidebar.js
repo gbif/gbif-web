@@ -27,6 +27,7 @@ export function OccurrenceSidebar({
   const [activeId, setTab] = useState(defaultTab || 'details');
   const theme = useContext(ThemeContext);
   const [activeImage, setActiveImage] = useState();
+  const [fieldGroups, setFieldGroups] = useState();
 
   useEffect(() => {
     if (typeof id !== 'undefined') {
@@ -38,13 +39,31 @@ export function OccurrenceSidebar({
     if (!loading && activeId === 'images' && !data?.occurrence?.stillImages) {
       setTab('details');
     }
+    if (!loading && data) {
+      // transform response
+      
+      const groups = Object.entries(data.occurrence.groups).reduce((accGroup, currentGroup) => {
+        const [key, group] = currentGroup;
+        // the API is inconsistent. sometimes empty arrays other times nulls.
+        if (!group) {
+          return accGroup;
+        }
+        const groupMap = group.reduce((acc, cur) => {
+          acc[cur.label] = cur;
+          return acc
+        }, {});
+        accGroup[key] = groupMap;
+        return accGroup;
+      }, {});
+      setFieldGroups(groups);
+    }
   }, [data, loading]);
 
   const isSpecimen = get(data, 'occurrence.basisOfRecord', '').indexOf('SPECIMEN') > -1;
 
   return <Tabs activeId={activeId} onChange={id => setTab(id)}>
-    <Row wrap="nowrap" style={style} css={css.sideBar({theme})}>
-      <Col shrink={false} grow={false} css={css.detailDrawerBar({theme})}>
+    <Row wrap="nowrap" style={style} css={css.sideBar({ theme })}>
+      <Col shrink={false} grow={false} css={css.detailDrawerBar({ theme })}>
         <TabList aria-label="Images" style={{ paddingTop: '12px' }}>
           <Tab tabId="details" direction="left">
             <MdInfo />
@@ -57,12 +76,12 @@ export function OccurrenceSidebar({
           </Tab>}
         </TabList>
       </Col>
-      <Col shrink={false} grow={false} css={css.detailDrawerContent({theme})} >
+      <Col shrink={false} grow={false} css={css.detailDrawerContent({ theme })} >
         <TabPanel tabId='images'>
           <ImageDetails activeImage={activeImage} setActiveImage={setActiveImage} data={data} loading={loading} error={error} />
         </TabPanel>
         <TabPanel tabId='details'>
-          <Intro setActiveImage={id => {setActiveImage(id); setTab('images')}} isSpecimen={isSpecimen} data={data} loading={loading} error={error} />
+          <Intro setActiveImage={id => { setActiveImage(id); setTab('images') }} fieldGroups={fieldGroups} isSpecimen={isSpecimen} data={data} loading={loading} error={error} />
         </TabPanel>
         <TabPanel lazy tabId='cluster'>
           <Cluster data={data} loading={loading} error={error} />
@@ -415,8 +434,12 @@ query occurrence($key: ID!){
       genusKey
       species
       speciesKey
+      synonym
       usage {
         rank
+        formattedName
+      }
+      acceptedUsage {
         formattedName
       }
     }
