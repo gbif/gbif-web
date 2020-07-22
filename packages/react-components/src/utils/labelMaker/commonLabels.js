@@ -1,9 +1,22 @@
 import { rangeOrEqualLabel } from './rangeOrEqualLabel';
+import React from 'react';
 
 export const commonLabels = {
   basisOfRecord: {
     type: 'TRANSLATION',
     template: id => `enums.basisOfRecord.${id}`
+  },
+  typeStatus: {
+    type: 'TRANSLATION',
+    template: id => `enums.typeStatus.${id}`
+  },
+  institutionCode: {
+    type: 'TRANSLATION',
+    template: id => id
+  },
+  catalogNumber: {
+    type: 'TRANSLATION',
+    template: id => id
   },
   mediaTypes: {
     type: 'TRANSLATION',

@@ -24,6 +24,16 @@ export const en = {
       isNull: 'Has no basis of record',
       description: 'You can think of it as the evidence'
     },
+    institutionCode: {
+      name: 'Institution code',
+      count: '{num, plural, one {institution code} other {# institution codes}}',
+      description: 'The institution code for this record'
+    },
+    catalogNumber: {
+      name: 'Catalog number',
+      count: '{num, plural, one {catalog number} other {# catalog numbers}}',
+      description: 'The catalog number for this record'
+    },
     mediaTypes: {
       name: 'Media type',
       count: '{num, plural, one {media type} other {# media types}}',
@@ -63,6 +73,9 @@ export const en = {
     typeStatus: {
       name: 'Type status',
       count: '{num, plural, one {type status} other {# type statuses}}',
+      isNotNull: 'Has a type status',
+      isNull: 'Has no type status',
+      description: 'The specimen has been designated as a type'
     },
     year: {
       name: 'Year',

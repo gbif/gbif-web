@@ -1,6 +1,7 @@
 import basisofRecord from '../../locales/enums/basisOfRecord.json';
 import mediaTypes from '../../locales/enums/mediaTypes.json';
 import occurrenceIssue from '../../locales/enums/occurrenceIssue.json';
+import typeStatus from '../../locales/enums/typeStatus.json';
 
 export const commonFilters = {
   taxonKey: {
@@ -66,6 +67,36 @@ export const commonFilters = {
       }
     }
   },
+  institutionCode: {
+    type: 'SUGGEST',
+    config: {
+      std: {
+        translations: {
+          count: 'filter.institutionCode.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.institutionCode.name',// translation path to a title for the popover and the button
+          description: 'filter.institutionCode.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        suggestHandle: 'institutionCode',
+      }
+    }
+  },
+  catalogNumber: {
+    type: 'SUGGEST',
+    config: {
+      std: {
+        translations: {
+          count: 'filter.catalogNumber.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.catalogNumber.name',// translation path to a title for the popover and the button
+          description: 'filter.catalogNumber.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        suggestHandle: 'catalogNumber',
+      }
+    }
+  },
   year: {
     type: 'NUMBER_RANGE',
     config: {
@@ -97,6 +128,23 @@ export const commonFilters = {
       specific: {
         options: Object.keys(basisofRecord),
         description: 'filter.basisOfRecord.description', // translation path for the filter description
+      }
+    }
+  },
+  typeStatus: {
+    type: 'ENUM',
+    config: {
+      std: {
+        filterHandle: 'typeStatus',
+        id2labelHandle: 'typeStatus',
+        translations: {
+          count: 'filter.typeStatus.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.typeStatus.name',// translation path to a title for the popover and the button
+        }
+      },
+      specific: {
+        options: Object.keys(typeStatus),
+        description: 'filter.typeStatus.description', // translation path for the filter description
       }
     }
   },

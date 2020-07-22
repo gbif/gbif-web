@@ -40,6 +40,50 @@ export function getCommonSuggests({ context, suggestStyle }) {
         </div>
       }
     },
+    institutionCode: {
+      //What placeholder to show
+      placeholder: 'Search by institution code',
+      // how to get the list of suggestion data
+      getSuggestions: ({ q }) => client.v1Get(`/occurrence/search/institutionCode?limit=8&q=${q}`, 
+        {
+          transformResponse: [function (data) {
+            const parsed = JSON.parse(data)
+            return parsed.map(i => ({key: i, title: i}))
+        
+      }]}),
+      // how to map the results to a single string value
+      getValue: suggestion => suggestion.title,
+      // how to display the individual suggestions in the list
+      render: function InstitutionCodeSuggestItem(suggestion) {
+        return <div style={{}}>
+          <div style={suggestStyle}>
+            {suggestion.title}
+          </div>
+        </div>
+      }
+    },
+    catalogNumber: {
+      //What placeholder to show
+      placeholder: 'Search by catalog number',
+      // how to get the list of suggestion data
+      getSuggestions: ({ q }) => client.v1Get(`/occurrence/search/catalogNumber?limit=8&q=${q}`, 
+        {
+          transformResponse: [function (data) {
+            const parsed = JSON.parse(data)
+            return parsed.map(i => ({key: i, title: i}))
+        
+      }]}),
+      // how to map the results to a single string value
+      getValue: suggestion => suggestion.title,
+      // how to display the individual suggestions in the list
+      render: function CatalogNumberSuggestItem(suggestion) {
+        return <div style={{}}>
+          <div style={suggestStyle}>
+            {suggestion.title}
+          </div>
+        </div>
+      }
+    },
     datasetKey: {
       //What placeholder to show
       placeholder: 'Search by dataset',
