@@ -4,9 +4,9 @@ import { css } from '@emotion/core';
 export const horizontalProperties = () => css`
   display: grid;
   grid-template-columns: minmax(75px, 150px) 1fr;
-  > dt {
+  /* > dt {
     margin-bottom: 12px;
-  }
+  } */
 `;
 
 export const notHorizontalProperties = () => css`
@@ -15,13 +15,16 @@ export const notHorizontalProperties = () => css`
   }
 `;
 
-export const dl = ({horizontal, ...props}) => css`
-    ${horizontal ? horizontalProperties({...props}) : notHorizontalProperties()};
+export const dl = ({ horizontal, dense, ...props }) => css`
+    ${horizontal ? horizontalProperties({ ...props }) : notHorizontalProperties()};
     margin-top: 0;
     margin-bottom: 0;
+    > dd {
+      margin-bottom: ${horizontal && dense ? 4 : 12}px;
+    }
 `;
 
-export const dt = ({horizontal, theme, ...props}) => css`
+export const dt = ({ horizontal, theme, ...props }) => css`
   color: ${theme.color400};
   margin-bottom : ${horizontal ? 20 : 0}px;
   word-break: break-word;
@@ -30,9 +33,8 @@ export const dt = ({horizontal, theme, ...props}) => css`
   }
 `;
 
-export const dd = ({horizontal, ...props}) => css`
+export const dd = ({ ...props }) => css`
   margin-left: 0;
-  margin-bottom: 12px;
   line-height: 16px;
   word-break: break-word;
   &:last-of-type {
