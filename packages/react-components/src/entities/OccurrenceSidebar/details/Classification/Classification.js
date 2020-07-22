@@ -18,7 +18,7 @@ export function Classification({
     return acc
   }, {})
   const ranks = ['kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species'];
-  const taxonRank = (rank || taxonMap.taxonRank?.value).toUpperCase();
+  const taxonRank = (rank || taxonMap.taxonRank?.value || taxonMap.taxonRank?.verbatim).toUpperCase();
   return <span css={css.majorRanks({ theme })} {...props}>
     {ranks.map(rank => {
       if (taxonRank !== rank.toUpperCase()) {
