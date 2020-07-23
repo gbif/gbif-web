@@ -1,3 +1,4 @@
+import React from 'react';
 import basisofRecord from '../../locales/enums/basisOfRecord.json';
 import mediaTypes from '../../locales/enums/mediaTypes.json';
 import occurrenceIssue from '../../locales/enums/occurrenceIssue.json';
@@ -168,5 +169,57 @@ export const commonFilters = {
         description: 'filter.mediaTypes.description', // translation path for the filter description
       }
     }
-  }
+  },
+
+
+
+  freedom: {
+    type: 'CUSTOM_STANDARD',
+    config: {
+      std: {
+        filterHandle: 'taxonKey',// if nothing else provided, then this is the filterName used
+        id2labelHandle: 'canonicalName',
+        translations: {
+          count: 'filter.random.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.random.name',// translation path to a title for the popover and the button
+          description: 'filter.random.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        component: ({ standardComponents, summaryProps, filterHandle, setFullField, toggle, footerProps, onApply, filter, onCancel, hide, ...props }) => {
+          const { Footer, SummaryBar, FilterBody } = standardComponents;
+          return <>
+            <SummaryBar {...summaryProps} />
+            <FilterBody>
+              <button onClick={e => setFullField(filterHandle, [Math.floor(Math.random()*10 + 1)])}>Random kingdom</button>
+            </FilterBody>
+            <Footer {...footerProps}
+              onApply={() => onApply({ filter, hide })}
+              onCancel={() => onCancel({ filter, hide })}
+            />
+          </>
+        },
+      }
+    }
+  },
+  evenMoreFreedom: {
+    type: 'CUSTOM_STANDARD',
+    config: {
+      std: {
+        filterHandle: 'taxonKey',// if nothing else provided, then this is the filterName used
+        id2labelHandle: 'canonicalName',
+        translations: {
+          count: 'filter.random.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.random.name',// translation path to a title for the popover and the button
+          description: 'filter.random.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        dontWrapInStdFilter: true,
+        component: ({ standardComponents, summaryProps, filterHandle, setFullField, toggle, footerProps, onApply, filter, onCancel, hide, ...props }) => {
+          return <div>sdkfjh</div>
+        },
+      }
+    }
+  },
 }

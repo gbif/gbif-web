@@ -3,6 +3,7 @@ import get from 'lodash/get';
 import { Popover as SuggestPopover, FilterContent as SuggestContent } from '../../widgets/Filter/types/SuggestFilter';
 import { Popover as RangePopover, FilterContent as RangeContent } from '../../widgets/Filter/types/RangeFilter';
 import { Popover as EnumPopover, FilterContent as EnumContent } from '../../widgets/Filter/types/EnumFilter';
+import { Popover as CustomStandardPopover, FilterContent as CustomStandardContent } from '../../widgets/Filter/types/CustomStandardFilter';
 import { FilterContext } from '../../widgets/Filter/state';
 import { TriggerButton } from '../../widgets/Filter/utils/TriggerButton';
 
@@ -31,6 +32,8 @@ export function filterBuilder({ labelMap, suggestConfigMap, filterWidgetConfig, 
       filter = buildNumberRange(builderConfig);
     } else if (type === 'ENUM') {
       filter = buildEnum(builderConfig);
+    } else if (type === 'CUSTOM_STANDARD') {
+      filter = buildCustomStandard(builderConfig);
     }
     const trNameId = config.std?.translation?.name || `filter.${config?.std?.filterHandle || widgetHandle}.name`;
     acc[widgetHandle] = {
@@ -96,6 +99,27 @@ function buildEnum({ widgetHandle, config, labelMap }) {
     Button: getButton(Popover, conf),
     Popover,
     Content: props => <EnumContent {...conf} {...props} />,
+    LabelFromID: config.LabelFromID,
+  };
+}
+
+function buildCustomStandard({ widgetHandle, config, labelMap }) {
+  const conf = {
+    filterHandle: config.std.filterHandle || widgetHandle,
+    translations: config.std.translations,
+    config: {
+      component: config.specific.component,
+      dontWrapInStdFilter: config.specific.dontWrapInStdFilter,
+      hasOptionDescriptions: config.specific.hasOptionDescriptions,
+      supportsExist: config.specific.supportsExist
+    },
+    LabelFromID: labelMap[config.std.id2labelHandle || widgetHandle],
+  }
+  const Popover = props => <CustomStandardPopover {...conf} {...props} />;
+  return {
+    Button: getButton(Popover, conf),
+    Popover,
+    Content: props => <CustomStandardContent {...conf} {...props} />,
     LabelFromID: config.LabelFromID,
   };
 }

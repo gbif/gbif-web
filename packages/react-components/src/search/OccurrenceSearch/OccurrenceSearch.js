@@ -87,7 +87,7 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
     labelMap,
     suggestConfigMap,
     filters,
-    defaultVisibleFilters: ['taxonKey', 'year', 'datasetKey', 'countryCode'],
+    defaultVisibleFilters: ['freedom', 'evenMoreFreedom', 'taxonKey', 'year', 'datasetKey', 'countryCode'],
     // rootPredicate: { type: 'in', key: 'taxonKey', values: [1,2,3,4,5,6,7,8] },
     rootPredicate: { type: 'in', key: 'taxonKey', values: [4, 5, 7] },
     // rootPredicate: { type: 'equals', key: 'taxonKey', value: 44 },
