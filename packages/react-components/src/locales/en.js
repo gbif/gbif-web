@@ -41,6 +41,11 @@ export const en = {
       count: '{num, plural, one {country} other {# countries}}',
       description: 'Country or area from which the record is located within'
     },
+    publishingCountryCode: {
+      name: 'Publishing country',
+      count: '{num, plural, one {publishing country} other {# publishing countries}}',
+      description: 'Country or area that published the data'
+    },
     coordinates: {
       name: 'Latitude longitude',
     },

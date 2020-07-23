@@ -8,6 +8,9 @@ const filterConf = {
     hostKey: {
       defaultKey: 'hostingOrg'
     },
+    publishingCountryCode: {
+      defaultKey: 'publishingCountry'
+    }
   }
 }
 

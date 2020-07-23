@@ -32,7 +32,7 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
     labelMap,
     suggestConfigMap,
     filters,
-    defaultVisibleFilters: ['publisherKey', 'hostKey', 'countryCode'],
+    defaultVisibleFilters: ['publisherKey', 'hostKey', 'publishingCountryCode'],
     rootPredicate: { type: 'in', key: 'taxonKey', values: [4, 5, 7] },
     predicateConfig
   }

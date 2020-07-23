@@ -36,6 +36,23 @@ export const commonFilters = {
       }
     }
   },
+  publishingCountryCode: {
+    type: 'SUGGEST',
+    config: {
+      std: {
+        id2labelHandle: 'countryCode',
+        translations: {
+          count: 'filter.publishingCountryCode.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.publishingCountryCode.name',// translation path to a title for the popover and the button
+          description: 'filter.publishingCountryCode.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        suggestHandle: 'countryCode',
+        id2labelHandle: 'countryCode',
+      }
+    }
+  },
   datasetKey: {
     type: 'SUGGEST',
     config: {
