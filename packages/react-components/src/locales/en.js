@@ -81,6 +81,10 @@ export const en = {
       name: 'Year',
       count: '{num, plural, one {year filter} other {# year filters}}',
     },
+    sampleSizeUnit: {
+      name: "Sample size unit",
+      count: '{num, plural, one {sample size unit} other {# sample size units}}'
+    }
   },
   invalidValue: 'Invalid value',
   interval: {

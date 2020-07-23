@@ -182,5 +182,22 @@ export const commonFilters = {
         description: 'filter.mediaTypes.description', // translation path for the filter description
       }
     }
-  }
+  },
+  sampleSizeUnit: {
+    type: 'SIMPLE_TEXT',
+    config: {
+      std: {
+        filterHandle: 'sampleSizeUnit',
+        id2labelHandle: 'sampleSizeUnit',
+        translations: {
+          count: 'filter.sampleSizeUnit.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.sampleSizeUnit.name',// translation path to a title for the popover and the button
+          description: 'filter.sampleSizeUnit.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        placeholder: 'E.g. DNA sequence reads'
+      }
+    }
+  },
 }
