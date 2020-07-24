@@ -31,6 +31,10 @@ export const commonLabels = {
     transform: result => ({ title: result.data.taxon.formattedName }),
     isHtmlResponse: true
   },
+  q: {
+    type: 'TRANSFORM',
+    transform: ({ id, locale }) => `"${id}"`
+  },
   canonicalName: {
     type: 'GQL',
     query: `query label($id: Int!){

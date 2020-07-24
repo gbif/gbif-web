@@ -24,8 +24,23 @@ query table($predicate: Predicate, $size: Int = 20, $from: Int = 0){
 				basisOfRecord
         datasetTitle
         publisherTitle
-        countryCode,
+        countryCode
         coordinates
+
+        stillImageCount
+        movingImageCount
+        soundCount
+        typeStatus
+        issues
+        
+        volatile {
+          features {
+            isTreament
+            isSequenced
+            isClustered
+            isSamplingEvent
+          }
+        }
       }
     }
   }

@@ -8,7 +8,7 @@ import PopoverFilter from './PopoverFilter';
 
 import { Suggest, Option, Filter, SummaryBar, FilterBody, Footer, Exists } from '../utils';
 
-export const FilterContent = ({ config, LabelFromID, trName, hide, labelledById, onApply, onCancel, onFilterChange, focusRef, filterHandle, initFilter }) => {
+export const FilterContent = ({ config, translations, LabelFromID, trName, hide, labelledById, onApply, onCancel, onFilterChange, focusRef, filterHandle, initFilter }) => {
   const [id] = React.useState(nanoid);
 
   if (config.dontWrapInStdFilter) {
@@ -29,9 +29,9 @@ export const FilterContent = ({ config, LabelFromID, trName, hide, labelledById,
       defaultMessage={filterHandle}
     />}
     hasHelpTexts={config.hasOptionDescriptions}
-    aboutText={config.description && <FormattedMessage
-      id={config.description}
-      defaultMessage={config.description}
+    aboutText={translations.description && <FormattedMessage
+      id={translations.description}
+      defaultMessage={translations.description}
     />}
     supportsExist={config.supportsExist}
     onFilterChange={onFilterChange}
@@ -85,6 +85,7 @@ export function Popover({ filterHandle, LabelFromID, translations = {}, config, 
         filterHandle={filterHandle}
         LabelFromID={LabelFromID}
         trName={translations.name}
+        translations={translations}
         config={config} />}
     />
   );

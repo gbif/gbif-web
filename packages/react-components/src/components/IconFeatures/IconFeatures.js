@@ -30,6 +30,7 @@ export function IconFeatures({
   locality,
   issueCount,
   children,
+  iconsOnly,
   ...props
 }) {
   const theme = useContext(ThemeContext);
@@ -44,23 +45,23 @@ export function IconFeatures({
           day="2-digit" />
       </span>
     </div>}
-    {formattedCoordinates && <div><MdLocationOn /><span>{formattedCoordinates}</span></div>}
-    {countryCode && <div><FaGlobeAfrica /><span><FormattedMessage id={`enums.countryCode.${countryCode}`} />{locality}</span></div>}
-    {isSpecimen && <div><MdLabel /><span><FormattedMessage id={`enums.basisOfRecord.${basisOfRecord}`} /></span></div>}
+    {formattedCoordinates && <div><MdLocationOn />{!iconsOnly && <span>{formattedCoordinates}</span>}</div>}
+    {countryCode && <div><FaGlobeAfrica />{!iconsOnly && <span><FormattedMessage id={`enums.countryCode.${countryCode}`} />{locality}</span>}</div>}
+    {isSpecimen && <div><MdLabel />{!iconsOnly && <span><FormattedMessage id={`enums.basisOfRecord.${basisOfRecord}`} /></span>}</div>}
     {stillImageCount > 0 && <div>
       {stillImageCount > 1 ? <MdPhotoLibrary /> : <MdImage />}
-      <span>{stillImageCount} image(s)</span>
+      {!iconsOnly && <span>{stillImageCount} image(s)</span>}
     </div>}
-    {movingImageCount > 0 && <div><MdVideocam /><span>{movingImageCount} video(s)</span></div>}
-    {soundCount > 0 && <div><AiFillAudio /><span>{soundCount} sound file(s)</span></div>}
-    {isSequenced && <div><GiDna1 /><span>Sequenced</span></div>}
-    {isTreament && <div><MdInsertDriveFile /><span>Treatment</span></div>}
-    {typeStatus && <div><MdStar /><span style={typeStatus === 'HOLOTYPE' ? { background: '#e2614a', color: 'white', padding: '0 8px', borderRadius: 2 } : null}>
+    {movingImageCount > 0 && <div><MdVideocam />{!iconsOnly && <span>{movingImageCount} video(s)</span>}</div>}
+    {soundCount > 0 && <div><AiFillAudio />{!iconsOnly && <span>{soundCount}sound file(s)</span>}</div>}
+    {isSequenced && <div><GiDna1 />{!iconsOnly && <span>Sequenced</span>}</div>}
+    {isTreament && <div><MdInsertDriveFile />{!iconsOnly && <span>Treatment</span>}</div>}
+    {typeStatus && <div><MdStar />{!iconsOnly && <span style={typeStatus === 'HOLOTYPE' ? { background: '#e2614a', color: 'white', padding: '0 8px', borderRadius: 2 } : null}>
       <FormattedMessage id={`enums.typeStatus.${typeStatus}`} />
-    </span></div>}
-    {isSamplingEvent && <div><MdGridOn /><span>Sampling event</span></div>}
-    {isClustered && <div><ClusterIcon /><span>Clustered</span></div>}
-    {issueCount > 0 && <div><BsLightningFill style={{ color: 'orange' }} /><span>{issueCount} quality flags</span></div>}
+    </span>}</div>}
+    {isSamplingEvent && <div><MdGridOn />{!iconsOnly && <span>Sampling event</span>}</div>}
+    {isClustered && <div><ClusterIcon />{!iconsOnly && <span>Clustered</span>}</div>}
+    {issueCount > 0 && <div><BsLightningFill style={{ color: 'orange' }} />{!iconsOnly && <span>{issueCount} quality flags</span>}</div>}
   </div>
 };
 

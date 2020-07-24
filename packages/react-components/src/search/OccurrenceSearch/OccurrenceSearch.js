@@ -14,6 +14,8 @@ import { getCommonSuggests, suggestStyle } from '../../utils/suggestConfig/getCo
 import { commonFilters, filterBuilder } from '../../utils/filterBuilder';
 import predicateConfig from './config/predicateConfig';
 import ThemeContext from '../../style/themes/ThemeContext';
+import { IconFeatures } from '../../components';
+
 // import history from './history';
 // import qs from 'querystringify';
 
@@ -27,6 +29,25 @@ const tableConfig = {
         formatter: (value, occurrence) => <span dangerouslySetInnerHTML={{ __html: value }}></span>
       },
       width: 'wide'
+    },
+    {
+      trKey: 'tableHeaders.features',
+      value: {
+        key: 'features',
+        formatter: (value, occurrence) => {
+          return <IconFeatures iconsOnly
+          stillImageCount={occurrence.stillImageCount}
+          movingImageCount={occurrence.movingImageCount}
+          soundCount={occurrence.soundCount}
+          typeStatus={occurrence.typeStatus}
+          isSequenced={occurrence.volatile.features.isSequenced}
+          isTreament={occurrence.volatile.features.isTreament}
+          isClustered={occurrence.volatile.features.isClustered}
+          isSamplingEvent={occurrence.volatile.features.isSamplingEvent}
+          issueCount={occurrence?.issues?.length}
+        />
+        }
+      }
     },
     {
       trKey: 'filter.countryCode.name',
@@ -87,9 +108,9 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
     labelMap,
     suggestConfigMap,
     filters,
-    defaultVisibleFilters: ['freedom', 'evenMoreFreedom', 'taxonKey', 'year', 'datasetKey', 'countryCode'],
-    // rootPredicate: { type: 'in', key: 'taxonKey', values: [1,2,3,4,5,6,7,8] },
-    rootPredicate: { type: 'in', key: 'taxonKey', values: [4, 5, 7] },
+    defaultVisibleFilters: ['q', 'taxonKey', 'year', 'datasetKey', 'countryCode'],
+    rootPredicate: { type: 'in', key: 'basisOfRecord', values: ['PRESERVED_SPECIMEN', 'FOSSIL_SPECIMEN', 'MATERIAL_SAMPLE', 'LIVING_SPECIMEN'] },
+    // rootPredicate: { type: 'in', key: 'taxonKey', values: [4, 5, 7] },
     // rootPredicate: { type: 'equals', key: 'taxonKey', value: 44 },
     // rootPredicate: { type: 'and', predicates: [
     //   {type: 'equals', key: 'taxonKey', value: 44},
