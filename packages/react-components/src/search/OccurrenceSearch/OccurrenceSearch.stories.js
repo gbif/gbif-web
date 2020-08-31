@@ -75,7 +75,7 @@ const filters = {
   }
 }
 
-const config = { labels, getSuggests, filters };
+const config = { labels, getSuggests, filters, rootPredicate: {type: 'equals', key: 'taxonKey', value: 5} };
 
 export const Example = () => <OccurrenceSearch config={config} style={{ margin: 'auto', maxWidth: 1200, height: 'calc(100vh)' }}></OccurrenceSearch>;
 
@@ -84,4 +84,4 @@ Example.story = {
 };
 
 
-// export const StandaloneExample = () => <Standalone style={{height: 'calc(100vh - 20px)'}}></Standalone>;
+export const StandaloneExample = () => <Standalone style={{height: 'calc(100vh - 20px)'}}></Standalone>;

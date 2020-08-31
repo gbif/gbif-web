@@ -20,7 +20,7 @@ query gallery($predicate: Predicate, $size: Int = 20, $from: Int = 0){
         typeStatus
         eventDateSingle
         gbifClassification{
-          acceptedUsage {
+          usage {
             formattedName
           }
         }
@@ -67,7 +67,7 @@ function Table() {
           key: 'mediaTypes',
           value: 'StillImage'
         }
-      ]
+      ].filter(x => x)
     }
     load({ variables: { predicate, size, from } });
   }, [from, currentFilterContext.filterHash, rootPredicate]);

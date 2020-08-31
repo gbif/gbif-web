@@ -60,7 +60,7 @@ function Table() {
       predicates: [
         rootPredicate,
         filter2predicate(currentFilterContext.filter, predicateConfig)
-      ]
+      ].filter(x => x)
     }
     load({ variables: { predicate, size, from } });
   }, [currentFilterContext.filterHash, rootPredicate, from]);

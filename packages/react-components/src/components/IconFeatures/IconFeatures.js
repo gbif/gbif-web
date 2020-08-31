@@ -34,6 +34,24 @@ export function IconFeatures({
   ...props
 }) {
   const theme = useContext(ThemeContext);
+  let typeStyle;
+  if (typeStatus) {
+    // Someone will ask at some point. 
+    // https://bugguide.net/node/view/359346
+    // I've added SYNTYPE on the level of PARALECTOTYPE based on a comment in the link
+
+    // Looking at shared images of types, the majority use nothing or red for any type.
+    // But yellow is often used for paratypes though (e.g. AntWeb does so a lot)
+
+    // how about 'EPITYPE', 'ISOTYPE', 'SYNTYPE' they seem to be on the level of paratype?
+    
+    if (['HOLOTYPE', 'LECTOTYPE', 'NEOTYPE'].includes(typeStatus))
+      typeStyle = { background: '#e2614a', color: 'white', padding: '0 8px', borderRadius: 2 };
+    if (['PARATYPE', 'PARALECTOTYPE', 'SYNTYPE'].includes(typeStatus))
+      typeStyle = { background: '#f1eb0b', padding: '0 8px', borderRadius: 2 };
+    if (['ALLOTYPE'].includes(typeStatus))
+      typeStyle = { background: '#7edaff', color: 'white', padding: '0 8px', borderRadius: 2 };
+  }
   return <div css={css.iconFeatures({ theme })} {...props}>
     {children && <div>{children}</div>}
     {eventDate && <div>
@@ -56,7 +74,7 @@ export function IconFeatures({
     {soundCount > 0 && <div><AiFillAudio />{!iconsOnly && <span>{soundCount}sound file(s)</span>}</div>}
     {isSequenced && <div><GiDna1 />{!iconsOnly && <span>Sequenced</span>}</div>}
     {isTreament && <div><MdInsertDriveFile />{!iconsOnly && <span>Treatment</span>}</div>}
-    {typeStatus && <div><MdStar />{!iconsOnly && <span style={typeStatus === 'HOLOTYPE' ? { background: '#e2614a', color: 'white', padding: '0 8px', borderRadius: 2 } : null}>
+    {typeStatus && <div><MdStar />{!iconsOnly && <span style={typeStyle}>
       <FormattedMessage id={`enums.typeStatus.${typeStatus}`} />
     </span>}</div>}
     {isSamplingEvent && <div><MdGridOn />{!iconsOnly && <span>Sampling event</span>}</div>}

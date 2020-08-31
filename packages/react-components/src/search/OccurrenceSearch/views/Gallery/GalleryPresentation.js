@@ -56,7 +56,7 @@ export const GalleryPresentation = ({ first, prev, next, size, from, data, total
             src={item.primaryImage.identifier}
             onSelect={() => { setActive(index); dialog.show(); }}>
             <GalleryCaption>
-              <div style={{marginBottom: 2}} dangerouslySetInnerHTML={{ __html: item.gbifClassification.acceptedUsage.formattedName }}></div>
+              <div style={{marginBottom: 2}} dangerouslySetInnerHTML={{ __html: item.gbifClassification.usage.formattedName }}></div>
               <IconFeatures css={css.features({theme})}
                 typeStatus={item.typeStatus}
                 basisOfRecord={item.basisOfRecord}

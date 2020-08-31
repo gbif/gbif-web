@@ -109,7 +109,8 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
     suggestConfigMap,
     filters,
     defaultVisibleFilters: ['q', 'taxonKey', 'year', 'datasetKey', 'countryCode'],
-    rootPredicate: { type: 'in', key: 'basisOfRecord', values: ['PRESERVED_SPECIMEN', 'FOSSIL_SPECIMEN', 'MATERIAL_SAMPLE', 'LIVING_SPECIMEN'] },
+    // rootPredicate: { type: 'in', key: 'basisOfRecord', values: ['PRESERVED_SPECIMEN', 'FOSSIL_SPECIMEN', 'MATERIAL_SAMPLE', 'LIVING_SPECIMEN'] },
+    rootPredicate: customConfig.rootPredicate,//{ type: 'isNotNull', key: 'typeStatus' },
     // rootPredicate: { type: 'in', key: 'taxonKey', values: [4, 5, 7] },
     // rootPredicate: { type: 'equals', key: 'taxonKey', value: 44 },
     // rootPredicate: { type: 'and', predicates: [
