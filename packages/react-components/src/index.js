@@ -13,6 +13,7 @@
 // export { Button } from './components/Button/Button';
 export * from './components';
 export { default as OccurrenceSearch } from './search/OccurrenceSearch/Standalone';
+export {default as themeBuilder} from './style/themeBuilder';
 
 // export  { Example as Filter } from './widgets/Filter/Filter.stories';
 // export  { GlobalNav, Example } from './components/Navigation/GlobalNav/GlobalNav';

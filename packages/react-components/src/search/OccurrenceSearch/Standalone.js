@@ -25,13 +25,13 @@ const client = new ApiClient({
 });
 
 function Standalone(props) {
-  const { style, theme = lightTheme, locale = 'en', messages = en } = props;
+  const { style, config, theme = lightTheme, locale = 'en', messages = en } = props;
   return (
     <ApiContext.Provider value={client}>
       <IntlProvider locale={locale} messages={messages}>
         <ThemeContext.Provider value={theme}>
           <Root id="application" appRoot>
-            <OccurrenceSearch style={style} />
+            <OccurrenceSearch style={style} config={config} />
           </Root>
         </ThemeContext.Provider>
       </IntlProvider>

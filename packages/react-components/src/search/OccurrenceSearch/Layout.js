@@ -38,13 +38,6 @@ const Layout = ({
             <Tab tabId="map">Map</Tab>
             <Tab tabId="gallery">Gallery</Tab>
           </TabList>
-          <button href="/tester" onClick={() => {
-            const state = { 'page_id': 1, 'user_id': 5 }
-            const title = ''
-            const url = 'hello-world.html'
-            
-            history.pushState(state, title, url);
-          }}>test</button>
         </div>
       </div>
       <TabPanel lazy tabId="table" className={`${prefix}-${elementName}-views`} css={cssViewArea({ theme })}>

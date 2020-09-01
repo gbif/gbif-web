@@ -29,7 +29,7 @@ export const detailsBackdrop = ({ theme, ...props }) => css`
   right: 0;
   left: 0;
   background: ${theme.darkTheme ? '#00000075' : '#00000050'};
-  z-index: 10;
+  z-index: ${theme.drawerZIndex || 100};
   transition: opacity 50ms ease-in-out;
   opacity: 0;
   &[data-enter] {
