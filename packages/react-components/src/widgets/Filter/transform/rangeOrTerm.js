@@ -1,4 +1,3 @@
-import hash from 'object-hash';
 /**
  * Generate a range or a terms predicate. This is useful for years, 
  * that can both be queried as a range or as a term. 
@@ -8,7 +7,6 @@ import hash from 'object-hash';
  * @param {string} lowerBound 
  */
 export function rangeOrTerm(value, lowerBound = 'gte', upperBound = 'lte') {
-  const _id = Math.random();//hash(value);
   // has a comma in the string
   let delimter = value.indexOf(',') > -1 ? ',' : null;
   if (!delimter) {
@@ -19,8 +17,7 @@ export function rangeOrTerm(value, lowerBound = 'gte', upperBound = 'lte') {
   if (typeof value !== 'string' || !delimter) {
     return {
       type: 'equals',
-      value: value,
-      _id
+      value: value
     };
   } else {
     let values = value.split(delimter);
@@ -32,8 +29,7 @@ export function rangeOrTerm(value, lowerBound = 'gte', upperBound = 'lte') {
       value: {
         [upperBound]: cleanedValues[0],
         [lowerBound]: cleanedValues[1]
-      },
-      _id
+      }
     }
   }
 }

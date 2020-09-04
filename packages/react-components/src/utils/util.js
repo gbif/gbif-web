@@ -1,3 +1,5 @@
+import stringify from 'fast-json-stable-stringify';
+
 /**
  * generate human readable classnames for easier hacking through css
  * e.g. gbif-button gbif-button-isActive gbif-button-loading
@@ -32,6 +34,21 @@ export const oneOfMany = options => (props, propName, componentName) => {
   const first = options.find(option => Object.prototype.hasOwnProperty.call(props, option));
   return !first && new Error(`On of ${options} is required for ${componentName}`)
 }
+
+export function hash(obj) {
+  return strToHash(stringify(obj));
+}
+
+export const strToHash = function (str) {
+  var hash = 0, i, chr;
+  if (str.length === 0) return hash;
+  for (i = 0; i < str.length; i++) {
+    chr = str.charCodeAt(i);
+    hash = ((hash << 5) - hash) + chr;
+    hash |= 0; // Convert to 32bit integer
+  }
+  return hash;
+};
 
 export const keyCodes = {
   LEFT_ARROW: 37,

@@ -11,7 +11,6 @@ import { en as enNested } from '../src/locales/en';
 const en = flatten(enNested);
 
 import ThemeContext, { darkTheme, lightTheme, a11yTheme, vertnetTheme, rtlTheme } from '../src/style/themes';
-import lightVariables from '../src/style/themes/light';
 import ThemeBuilder from '../src/style/themeBuilder';
 import { ApiContext, ApiClient } from '../src/dataManagement/api';
 import env from './.env.json';

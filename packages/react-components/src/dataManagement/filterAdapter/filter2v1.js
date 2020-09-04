@@ -5,17 +5,22 @@
  */
 function filter2v1(filter, filterConfig) {
   filter = filter || {};
+  // if (filterConfig.preFilterTransform) {
+  //   filter = filterConfig.preFilterTransform(filter);
+  // }
   const { must, must_not } = filter;
 
   let composedFilter = {};
 
   if (must) Object.entries(must)
+    .filter(([filterName, values]) => values)
     .forEach(([filterName, values]) => {
       const fieldFilter = getField({ filterName, values, filterConfig });
       if (fieldFilter) composedFilter[fieldFilter.name] = fieldFilter.values;
     });
   
   if (must_not) Object.entries(must_not)
+    .filter(([filterName, values]) => values)
     .forEach(([filterName, values]) => {
       const fieldFilter = getField({ filterName, values, filterConfig });
       if (fieldFilter) composedFilter[`!${fieldFilter.name}`] = fieldFilter.values;
@@ -54,7 +59,7 @@ function serializeValue({value, config, filterName}) {
       return value.value;
     } else if((value?.type || config?.defaultType) === 'range' ) {
       // if a range query, then transform to string format
-      return `${value.gte || value.gt || ''},${value.lte || value.lgt || ''}`;
+      return `${value.value.gte || value.value.gt || ''},${value.value.lte || value.value.lgt || ''}`;
     } else if((value?.type || config?.defaultType) === 'isNotNull' ) {
       // if a range query, then transform to string format
       return `*`;

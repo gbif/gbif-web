@@ -6,7 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import { nanoid } from 'nanoid';
 import get from 'lodash/get';
 import unionBy from 'lodash/unionBy';
-import { keyCodes } from '../../../utils/util';
+import { keyCodes, hash } from '../../../utils/util';
 import PopoverFilter from './PopoverFilter';
 import { Input } from '../../../components';
 import { Option, Filter, SummaryBar, FilterBody, Footer, Exists } from '../utils';
@@ -60,7 +60,7 @@ export const FilterContent = ({ config = {}, trName, labelledById, LabelFromID, 
                 } else {
                   const q = rangeOrTerm(value, upperBound, lowerBound);
                   setValue('');
-                  const allOptions = unionBy([q], options, '_id');
+                  const allOptions = unionBy([q], options, hash);
                   setOptions(allOptions);
                   toggle(filterHandle, q);
                 }
@@ -99,11 +99,11 @@ export const FilterContent = ({ config = {}, trName, labelledById, LabelFromID, 
                 }
 
                 return <Option
-                  key={option._id}
+                  key={hash(option)}
                   helpVisible={true}
                   label={<LabelFromID id={option} />}
                   helpText={helpText}
-                  checked={checkedMap.has(option._id)}
+                  checked={checkedMap.has(hash(option))}
                   onChange={() => toggle(filterHandle, option)}
                 />
               })}
