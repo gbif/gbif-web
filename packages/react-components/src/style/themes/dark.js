@@ -3,9 +3,10 @@ export default {
   dense: true,
   primary: '#39af5d', //green
   fontSize: '14px',
-  background: '#0b0c1b',
-  paperBackground: '#161927',
-  paperBackgroundElevated: '#23273e',
+  background: '#151515',
+  paperBackground: '#2d2d2d',
+  // paperBackground: '#161927',
+  paperBackgroundElevated: '#3e3e3e',
   // background: '#181919',
   // paperBackground: '#2c2c2d',
   // paperBackgroundElevated: '#363638',
