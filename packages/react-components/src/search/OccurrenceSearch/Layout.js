@@ -12,7 +12,7 @@ import Table from './views/Table';
 import Gallery from './views/Gallery';
 
 import { FilterBar } from '../FilterBar';
-import { useQueryParam } from '../../dataManagement/state/useQueryParam';
+import { useUrlState } from '../../dataManagement/state/useUrlState';
 
 const { TabList, Tab, TabPanel } = Tabs;
 
@@ -21,7 +21,7 @@ const Layout = ({
   config,
   ...props
 }) => {
-  const [activeView, setActiveView] = useQueryParam('view', {defaultValue: 'table'});
+  const [activeView, setActiveView] = useUrlState({param: 'view', defaultValue: 'map'});
   const theme = useContext(ThemeContext);
   const prefix = theme.prefix || 'gbif';
   const elementName = 'occurrenceSearchLayout';

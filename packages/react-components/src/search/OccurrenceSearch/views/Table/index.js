@@ -3,7 +3,7 @@ import { FilterContext } from '../../../..//widgets/Filter/state';
 import OccurrenceContext from '../../config/OccurrenceContext';
 import { useQuery } from '../../../../dataManagement/api';
 import { filter2predicate } from '../../../../dataManagement/filterAdapter';
-import { useQueryParam } from '../../../../dataManagement/state/useQueryParam';
+import { useUrlState } from '../../../../dataManagement/state/useUrlState';
 import { TablePresentation } from './TablePresentation';
 
 const OCCURRENCE_TABLE = `
@@ -49,8 +49,7 @@ query table($predicate: Predicate, $size: Int = 20, $from: Int = 0){
 `;
 
 function Table() {
-  const [from, setFrom] = useQueryParam('from', {defaultValue: 0});
-  // const [from, setFrom] = useState(0);
+  const [from, setFrom] = useUrlState({param: 'from', defaultValue: 0});
   const size = 20;
   const currentFilterContext = useContext(FilterContext);
   const { rootPredicate, predicateConfig } = useContext(OccurrenceContext);

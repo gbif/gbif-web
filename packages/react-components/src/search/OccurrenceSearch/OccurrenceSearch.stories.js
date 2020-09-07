@@ -75,7 +75,7 @@ const filters = {
   }
 }
 
-const config = { labels, getSuggests, filters, rootPredicate: {type: 'equals', key: 'taxonKey', value: 5} };
+const config = { labels, getSuggests, filters};
 
 export const Example = () => <OccurrenceSearch config={config} style={{ margin: 'auto', maxWidth: 1200, height: 'calc(100vh)' }}></OccurrenceSearch>;
 

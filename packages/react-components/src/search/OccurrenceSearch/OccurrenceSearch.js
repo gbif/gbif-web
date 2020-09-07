@@ -15,7 +15,7 @@ import { commonFilters, filterBuilder } from '../../utils/filterBuilder';
 import predicateConfig from './config/predicateConfig';
 import ThemeContext from '../../style/themes/ThemeContext';
 import { IconFeatures } from '../../components';
-import { useQueryParam } from '../../dataManagement/state/useQueryParam';
+import { useUrlState } from '../../dataManagement/state/useUrlState';
 
 
 // import history from './history';
@@ -126,7 +126,7 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
 
 function OccurrenceSearch({ config: customConfig = {}, ...props }) {
   const theme = useContext(ThemeContext);
-  const [filter, setFilter] = useQueryParam('filter', {base64encode: true});
+  const [filter, setFilter] = useUrlState({param: 'filter', base64encode: true});
   // const [filter, setFilter] = useState({ must: { taxonKey: [2609958] } });
   
   // let filter = { must: { taxonKey: [2609958] } };
@@ -144,7 +144,6 @@ function OccurrenceSearch({ config: customConfig = {}, ...props }) {
     }, { client: apiContext, formatMessage });
   });
 
-  console.log(window.location.search);
   //   console.log(`%c 
   //  ,_,
   // (O,O)

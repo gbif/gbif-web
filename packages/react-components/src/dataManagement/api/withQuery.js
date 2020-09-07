@@ -34,4 +34,4 @@ export function hocify(useHook) {
   return hoc;
 }
 
-export const withQuery = hocify(useQuery);
+// export const withQuery = hocify(useQuery);

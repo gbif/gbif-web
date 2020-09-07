@@ -1,11 +1,13 @@
+import React from 'react';
 import { useState, useEffect, useCallback } from 'react';
 import history from '../history';
 import queryString from 'query-string';
 import isObjectLike from 'lodash/isObjectLike';
 import isEmpty from 'lodash/isEmpty';
 
-export function useQueryParam(param, { dataType = dynamicParam, defaultValue, base64encode = false, stripEmptyKeys = true } = {}, initialState) {
-  const [value, setValue] = useState({});
+export function useUrlState({ param, dataType = dynamicParam, replaceState = false, defaultValue, base64encode = false, stripEmptyKeys = true, initialState }) {
+  const [value, setValue] = useState();
+  const action = replaceState ? 'replace' : 'push';
 
   const updateUrl = useCallback(
     (newValue) => {
@@ -25,7 +27,7 @@ export function useQueryParam(param, { dataType = dynamicParam, defaultValue, ba
       if (typeof defaultValue !== 'undefined' && newValue === defaultValue) {
         delete parsed[param];
       }
-      history.push(window.location.pathname + '?' + queryString.stringify(parsed));
+      history[action](window.location.pathname + '?' + queryString.stringify(parsed));
     },
     [],
   );
@@ -51,6 +53,10 @@ export function useQueryParam(param, { dataType = dynamicParam, defaultValue, ba
 
     return () => {
       unlisten();
+      const parsed = queryString.parse(location.search);
+      delete parsed[param];
+      history[action](window.location.pathname + '?' + queryString.stringify(parsed));
+      console.log(location.search);
     };
   }, []);
 
