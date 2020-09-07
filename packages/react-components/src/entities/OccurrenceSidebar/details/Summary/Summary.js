@@ -46,7 +46,7 @@ export function Summary({ occurrence, fieldGroups, loading, setActiveImage, ...p
         day="2-digit" />} />
 
       <T>Basis of record</T>
-      <V><Term occurrence={occurrence} term={fieldGroups?.Record.basisOfRecord} formattedValue={<FormattedMessage id={`enums.basisOfRecord.${occurrence.basisOfRecord}`} />} /></V>
+      <V><Term occurrence={occurrence} term={fieldGroups?.Record?.basisOfRecord} formattedValue={<FormattedMessage id={`enums.basisOfRecord.${occurrence.basisOfRecord}`} />} /></V>
     </Properties>
   </Accordion>
 }
