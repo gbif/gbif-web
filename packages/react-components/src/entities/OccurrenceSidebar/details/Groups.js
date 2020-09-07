@@ -177,7 +177,7 @@ function getValue(term, verbatim){
                     {term.issues &&
                       term.issues.length > 0 &&
                       term.issues.map((i) => (
-                        <span css={css.issuePill(i)}>
+                        <span css={css.issuePill(i)} key={i}>
                           <FormattedMessage
                             id={`issueEnum.${i.id}`}
                             defaultMessage={i.id}
