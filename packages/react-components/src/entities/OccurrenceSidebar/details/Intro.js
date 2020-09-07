@@ -7,7 +7,9 @@ import ThemeContext from '../../../style/themes/ThemeContext';
 import * as css from '../styles';
 import { Accordion, Properties, Row, Col, GalleryTiles, GalleryTile, Switch } from "../../../components";
 import { Header } from './Header';
-import {Groups} from './Groups'
+import { Groups } from './Groups'
+import { MockGroups } from '../MockGroups'
+import { Summary } from './Summary';
 
 const { Term: T, Value: V } = Properties;
 
@@ -15,6 +17,7 @@ export function Intro({
   data = {},
   isSpecimen,
   loading,
+  fieldGroups,
   setActiveImage,
   error,
   className,
@@ -27,25 +30,15 @@ export function Intro({
   const { occurrence } = data;
   if (loading || !occurrence) return <h1>Loading</h1>;
   const accordionCss = css.accordion({ theme });
-
+  console.log(fieldGroups);
   return <Row direction="column">
     <Col style={{ padding: '12px 16px', paddingBottom: 50 }} grow>
       <Header data={data} error={error} />
+      <Summary occurrence={occurrence} fieldGroups={fieldGroups} loading={loading} setActiveImage={setActiveImage} />
 
-      {occurrence.stillImages?.length > 0 &&
-        <Accordion css={accordionCss} summary={<span>Photos</span>} defaultOpen={true}>
-          <GalleryTiles>
-            {occurrence.stillImages.map((x, i) => {
-              return <GalleryTile key={i} src={x.identifier} height={120} onClick={() => setActiveImage(x)}>
-              </GalleryTile>
-            })
-            }
-            <div></div>
-          </GalleryTiles>
-        </Accordion>
-      }
-      <Groups data={data} showAll={showAll} verbatim={verbatim}/>
-{/*       {[recordGroup, OccurrenceGroup, EventGroup, IdentifiersGroup]
+      {/* <MockGroups /> */}
+      <Groups data={data} showAll={showAll} verbatim={verbatim} />
+      {/*       {[recordGroup, OccurrenceGroup, EventGroup, IdentifiersGroup]
         .map((group, index) => getGroup({ group, occurrence, isSpecimen, showAll }))} */}
     </Col>
     <Col css={css.controlFooter({ theme })} grow={false}>

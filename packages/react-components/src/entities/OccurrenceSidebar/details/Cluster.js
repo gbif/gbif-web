@@ -6,6 +6,7 @@ import * as css from '../styles';
 import { Row, Col, Image, Properties, IconFeatures } from "../../../components";
 import { useQuery } from '../../../dataManagement/api';
 import { Header } from './Header';
+import { prettifyEnum } from '../../../utils/labelMaker/config2labels';
 
 const { Term: T, Value: V } = Properties;
 
@@ -32,9 +33,9 @@ export function Cluster({
 
   return <div style={{ padding: '12px 16px' }}>
     <Header data={data} />
-    <main>
+    <main style={{ marginTop: 24 }}>
       {related.map(x => {
-        return <RelatedOccurrence key={x.occurrence.gbifId} related={x.occurrence} reasons={x.reasons} original={data.occurrence}/>
+        return <RelatedOccurrence key={x.occurrence.gbifId} related={x.occurrence} reasons={x.reasons} original={data.occurrence} />
       })}
     </main>
   </div>
@@ -42,19 +43,15 @@ export function Cluster({
 
 export function RelatedOccurrence({ original, reasons, related, ...props }) {
   const theme = useContext(ThemeContext);
-  return <article style={{border: '1px solid #ddd', marginBottom: 24}}>
-    <Row flexWrap="nowrap">
-      <Col grow={false} shrink={false}>
-        {related?.primaryImage?.identifier && <Image style={{ width: 180, height: 180, display: 'block' }} src={related.primaryImage.identifier} w={180} h={180}/>}
-        {!related?.primaryImage?.identifier && related.coordinates && <img style={{ width: 180, height: 180, display: 'block' }} src={`https://api.mapbox.com/styles/v1/mapbox/light-v9/static/pin-s-circle+285A98(${related.coordinates.lon},${related.coordinates.lat})/${related.coordinates.lon},${related.coordinates.lat},8,0/180x180@2x?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA`} />}
-      </Col>
-      <Col style={{margin: '12px 24px'}}>
-        <h4 style={{margin: 0}} dangerouslySetInnerHTML={{__html: related.gbifClassification.usage.formattedName}}></h4>
+  return <article css={css.clusterCard({ theme })}>
+    <Row wrap="nowrap" halfGutter={6} style={{ padding: 12 }}>
+      <Col>
+        <h4 style={{ margin: 0 }} dangerouslySetInnerHTML={{ __html: related.gbifClassification.usage.formattedName }}></h4>
         <div css={css.entitySummary({ theme })}>
           <IconFeatures css={css.features({ theme })}
-          eventDate={related.eventDateSingle}
-          countryCode={related.countryCode}
-          locality={related.locality}
+            eventDate={related.eventDateSingle}
+            countryCode={related.countryCode}
+            locality={related.locality}
           />
           <IconFeatures css={css.features({ theme })}
             stillImageCount={related.stillImageCount}
@@ -70,13 +67,25 @@ export function RelatedOccurrence({ original, reasons, related, ...props }) {
           />
         </div>
         <div>
-          <Properties style={{fontSize: 12}}>
+          <Properties style={{ fontSize: 12 }} horizontal dense>
             <T>Publisher</T><V>{related.publisherTitle}</V>
             <T>Dataset</T><V>{related.datasetTitle}</V>
           </Properties>
         </div>
       </Col>
+      <Col grow={false} shrink={false}>
+        <div >
+          {related?.primaryImage?.identifier && <Image style={{ width: 150, height: 150, display: 'block' }} src={related.primaryImage.identifier} w={180} h={180} />}
+          {!related?.primaryImage?.identifier && related.coordinates && <img style={{ width: 150, height: 150, display: 'block' }} src={`https://api.mapbox.com/styles/v1/mapbox/light-v9/static/pin-s-circle+285A98(${related.coordinates.lon},${related.coordinates.lat})/${related.coordinates.lon},${related.coordinates.lat},8,0/180x180@2x?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA`} />}
+        </div>
+      </Col>
     </Row>
+    <div css={css.clusterFooter({ theme })}>
+      <Properties style={{ fontSize: 12 }} horizontal dense>
+        <T>Similarities</T>
+        <V>{ reasons.map(reason => <span css={css.chip({ theme })} key={reason}>{prettifyEnum(reason)}</span>) }</V>
+      </Properties>
+    </div>
   </article>
 };
 

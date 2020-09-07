@@ -46,7 +46,7 @@ export const GalleryPresentation = ({ first, prev, next, size, from, data, total
 
   return <>
     <DetailsDrawer href={`https://www.gbif.org/occurrence/${activeItem?.gbifId}`} dialog={dialog} nextItem={nextItem} previousItem={previousItem}>
-      <OccurrenceSidebar id={activeItem?.gbifId} defaultTab='images' style={{ width: 700, height: '100%' }} />
+      <OccurrenceSidebar id={activeItem?.gbifId} defaultTab='images' style={{ maxWidth: '100%', width: 700, height: '100%' }} />
     </DetailsDrawer>
     <ViewHeader loading={loading} total={total}/>
     <div css={css.paper({theme})}>
@@ -56,7 +56,7 @@ export const GalleryPresentation = ({ first, prev, next, size, from, data, total
             src={item.primaryImage.identifier}
             onSelect={() => { setActive(index); dialog.show(); }}>
             <GalleryCaption>
-              <div style={{marginBottom: 2}} dangerouslySetInnerHTML={{ __html: item.gbifClassification.acceptedUsage.formattedName }}></div>
+              <div style={{marginBottom: 2}} dangerouslySetInnerHTML={{ __html: item.gbifClassification.usage.formattedName }}></div>
               <IconFeatures css={css.features({theme})}
                 typeStatus={item.typeStatus}
                 basisOfRecord={item.basisOfRecord}

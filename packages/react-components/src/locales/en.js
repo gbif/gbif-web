@@ -12,6 +12,9 @@ export const en = {
   'pagination.pageXofY': 'Page {current} of {total}',
   moreFilters: 'more',
   nResults: '{total, plural, one {# result} other {# results}}',
+  tableHeaders: {
+    features: 'Features'
+  },
   filter: {
     taxonKey: {
       name: 'Scientific name',
@@ -51,6 +54,16 @@ export const en = {
       count: '{num, plural, one {country} other {# countries}}',
       description: 'Country or area from which the record is located within'
     },
+    publishingCountryCode: {
+      name: 'Publishing country',
+      count: '{num, plural, one {publishing country} other {# publishing countries}}',
+      description: 'Country or area that published the data'
+    },
+    q: {
+      name: 'Similar text',
+      count: '{num, plural, one {text string} other {# text search strings}}',
+      description: 'Search for text similar to the entered across text fields. For structured search on say species names you should use the "Scientific name" filter'
+    },
     coordinates: {
       name: 'Latitude longitude',
     },
@@ -65,6 +78,10 @@ export const en = {
     publisherKey: {
       name: 'Publisher',
       count: '{num, plural, one {publisher} other {# publishers}}',
+    },
+    hostKey: {
+      name: 'Hosting organisation',
+      count: '{num, plural, one {host} other {# hosts}}',
     },
     country: {
       name: 'Country',

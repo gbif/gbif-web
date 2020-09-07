@@ -59,7 +59,7 @@ function Map() {
           key: 'hasCoordinate',
           value: true
         }
-      ]
+      ].filter(x => x)
     }
     load({ variables: { predicate } });
   }, [currentFilterContext.filterHash, rootPredicate]);
@@ -79,7 +79,7 @@ function Map() {
           key: 'scoordinates',
           value: wkt
         }
-      ]
+      ].filter(x => x)
     }
     pointLoad({ variables: { predicate } });
   }, [currentFilterContext.filterHash, rootPredicate]);

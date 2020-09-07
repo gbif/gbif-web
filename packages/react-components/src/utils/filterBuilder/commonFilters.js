@@ -1,3 +1,5 @@
+import React from 'react';
+import { Input } from '../../components';
 import basisofRecord from '../../locales/enums/basisOfRecord.json';
 import mediaTypes from '../../locales/enums/mediaTypes.json';
 import occurrenceIssue from '../../locales/enums/occurrenceIssue.json';
@@ -34,6 +36,23 @@ export const commonFilters = {
       },
       specific: {
         suggestHandle: 'countryCode',
+      }
+    }
+  },
+  publishingCountryCode: {
+    type: 'SUGGEST',
+    config: {
+      std: {
+        id2labelHandle: 'countryCode',
+        translations: {
+          count: 'filter.publishingCountryCode.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.publishingCountryCode.name',// translation path to a title for the popover and the button
+          description: 'filter.publishingCountryCode.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        suggestHandle: 'countryCode',
+        id2labelHandle: 'countryCode',
       }
     }
   },
@@ -93,7 +112,24 @@ export const commonFilters = {
         },
       },
       specific: {
-        suggestHandle: 'catalogNumber',
+        suggestHandle: 'catalogNumber'
+      }
+    }
+  },
+  hostKey: {
+    type: 'SUGGEST',
+    config: {
+      std: {
+        id2labelHandle: 'publisherKey',
+        translations: {
+          count: 'filter.hostKey.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.hostKey.name',// translation path to a title for the popover and the button
+          description: 'filter.hostKey.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        suggestHandle: 'publisherKey',
+        id2labelHandle: 'publisherKey',
       }
     }
   },
@@ -200,4 +236,59 @@ export const commonFilters = {
       }
     }
   },
+  q: {
+    type: 'CUSTOM_STANDARD',
+    config: {
+      std: {
+        filterHandle: 'q',// if nothing else provided, then this is the filterName used
+        translations: {
+          count: 'filter.q.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.q.name',// translation path to a title for the popover and the button
+          description: 'filter.q.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        description: 'filter.q.description',
+        component: ({ standardComponents, summaryProps, filterHandle, setFullField, toggle, focusRef, footerProps, onApply, filter, onCancel, hide, ...props }) => {
+          const { Footer, SummaryBar, FilterBody } = standardComponents;
+          return <>
+            <div style={{ margin: '10px' }} >
+              <Input 
+                ref={focusRef}
+                value={filter?.must?.q?.length ? filter.must.q[0] : ''} 
+                onChange={e => {
+                  setFullField('q', [e.target.value])
+                }}
+                onKeyPress={e => e.which === 13 ? onApply({ filter, hide }) : null}
+              />
+            </div>
+            <Footer {...footerProps}
+              onApply={() => onApply({ filter, hide })}
+              onCancel={() => onCancel({ filter, hide })}
+            />
+          </>
+        },
+      }
+    }
+  },
+  // evenMoreFreedom: {
+  //   type: 'CUSTOM_STANDARD',
+  //   config: {
+  //     std: {
+  //       filterHandle: 'taxonKey',// if nothing else provided, then this is the filterName used
+  //       id2labelHandle: 'canonicalName',
+  //       translations: {
+  //         count: 'filter.random.count', // translation path to display names with counts. e.g. "3 scientific names"
+  //         name: 'filter.random.name',// translation path to a title for the popover and the button
+  //         description: 'filter.random.description', // translation path for the filter description
+  //       },
+  //     },
+  //     specific: {
+  //       dontWrapInStdFilter: true,
+  //       component: ({ standardComponents, summaryProps, filterHandle, setFullField, toggle, footerProps, onApply, filter, onCancel, hide, ...props }) => {
+  //         return <div>sdkfjh</div>
+  //       },
+  //     }
+  //   }
+  // },
 }

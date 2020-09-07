@@ -20,7 +20,7 @@ const summary = theme => css`
   font-size: .85em;
   color: #999;
   font-weight: 400;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid ${theme.paperBorderColor};
   > div {
     margin: .5em 1.5em;
   }

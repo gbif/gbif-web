@@ -1,7 +1,8 @@
 import { shadeHexColor, shadeBlend } from './utils';
 import defaultTheme from '../themes/light';
+import darkTheme from '../themes/dark';
 
-const themeBuilder = theme => {
+const build = theme => {
   let fullTheme = { ...defaultTheme, ...theme }
   const direction = fullTheme.darkTheme ? -1 : 1;
 
@@ -50,4 +51,19 @@ const themeBuilder = theme => {
   return fullTheme;
 }
 
+const themeBuilder = {
+  build,
+  extend: ({baseTheme = defaultTheme, extendWith}) => {
+    let theme = baseTheme;
+    if (typeof baseTheme === 'string') {
+      if (baseTheme === 'dark') {
+        theme = darkTheme;
+      } else {
+        theme = defaultTheme;
+      }
+    }
+    const variables = Object.assign({}, theme, extendWith);
+    return build(variables);
+  }
+};
 export default themeBuilder;

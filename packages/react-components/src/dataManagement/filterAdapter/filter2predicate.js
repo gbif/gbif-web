@@ -89,7 +89,6 @@ function getPredicateFromSingleValue({ filterName, value, config }) {
       type: config?.defaultType || 'equal',
       key: config?.defaultKey || filterName,
       ...value, // overwrite type and key if it is defined in the value object
-      _id: undefined // allow the use of an id for internal tracking but do not serialize it
     }
   } else {
     console.warn('Invalid filter provided. It will be ignored. Provided: ', value);

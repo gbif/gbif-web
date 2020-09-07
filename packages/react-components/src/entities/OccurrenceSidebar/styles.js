@@ -141,6 +141,28 @@ export const imageContainer = ({ theme }) => css`
   }
 `;
 
+export const clusterCard = ({theme}) => css`
+  margin-bottom: 24px;
+  border: 1px solid ${theme.paperBorderColor};
+  box-shadow: 0 2px 1px 1px #0000000a;
+`;
+
+export const chip = ({theme}) => css`
+  font-size: 11px;
+  padding: 0 4px;
+  border: 1px solid #dedede;
+  background: #f3f3f3;
+  margin: 0 4px 4px 0;
+  display: inline-block;
+`;
+
+export const clusterFooter = ({theme}) => css`
+  font-size: 13px;
+  padding: 8px 12px;
+  border-top: 1px solid ${theme.paperBorderColor};
+  margin-bottom: -4px;
+`;
+
 export const termRemark = props => css`
  opacity: 0.5;
 `;

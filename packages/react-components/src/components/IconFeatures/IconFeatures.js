@@ -30,9 +30,28 @@ export function IconFeatures({
   locality,
   issueCount,
   children,
+  iconsOnly,
   ...props
 }) {
   const theme = useContext(ThemeContext);
+  let typeStyle;
+  if (typeStatus) {
+    // Someone will ask at some point. 
+    // https://bugguide.net/node/view/359346
+    // I've added SYNTYPE on the level of PARALECTOTYPE based on a comment in the link
+
+    // Looking at shared images of types, the majority use nothing or red for any type.
+    // But yellow is often used for paratypes though (e.g. AntWeb does so a lot)
+
+    // how about 'EPITYPE', 'ISOTYPE', 'SYNTYPE' they seem to be on the level of paratype?
+    
+    if (['HOLOTYPE', 'LECTOTYPE', 'NEOTYPE'].includes(typeStatus))
+      typeStyle = { background: '#e2614a', color: 'white', padding: '0 8px', borderRadius: 2 };
+    if (['PARATYPE', 'PARALECTOTYPE', 'SYNTYPE'].includes(typeStatus))
+      typeStyle = { background: '#f1eb0b', padding: '0 8px', borderRadius: 2 };
+    if (['ALLOTYPE'].includes(typeStatus))
+      typeStyle = { background: '#7edaff', color: 'white', padding: '0 8px', borderRadius: 2 };
+  }
   return <div css={css.iconFeatures({ theme })} {...props}>
     {children && <div>{children}</div>}
     {eventDate && <div>
@@ -44,23 +63,23 @@ export function IconFeatures({
           day="2-digit" />
       </span>
     </div>}
-    {formattedCoordinates && <div><MdLocationOn /><span>{formattedCoordinates}</span></div>}
-    {countryCode && <div><FaGlobeAfrica /><span><FormattedMessage id={`enums.countryCode.${countryCode}`} />{locality}</span></div>}
-    {isSpecimen && <div><MdLabel /><span><FormattedMessage id={`enums.basisOfRecord.${basisOfRecord}`} /></span></div>}
+    {formattedCoordinates && <div><MdLocationOn />{!iconsOnly && <span>{formattedCoordinates}</span>}</div>}
+    {countryCode && <div><FaGlobeAfrica />{!iconsOnly && <span><FormattedMessage id={`enums.countryCode.${countryCode}`} />{locality}</span>}</div>}
+    {isSpecimen && <div><MdLabel />{!iconsOnly && <span><FormattedMessage id={`enums.basisOfRecord.${basisOfRecord}`} /></span>}</div>}
     {stillImageCount > 0 && <div>
       {stillImageCount > 1 ? <MdPhotoLibrary /> : <MdImage />}
-      <span>{stillImageCount} image(s)</span>
+      {!iconsOnly && <span>{stillImageCount} image(s)</span>}
     </div>}
-    {movingImageCount > 0 && <div><MdVideocam /><span>{movingImageCount} video(s)</span></div>}
-    {soundCount > 0 && <div><AiFillAudio /><span>{soundCount} sound file(s)</span></div>}
-    {isSequenced && <div><GiDna1 /><span>Sequenced</span></div>}
-    {isTreament && <div><MdInsertDriveFile /><span>Treatment</span></div>}
-    {typeStatus && <div><MdStar /><span style={typeStatus === 'HOLOTYPE' ? { background: '#e2614a', color: 'white', padding: '0 8px', borderRadius: 2 } : null}>
+    {movingImageCount > 0 && <div><MdVideocam />{!iconsOnly && <span>{movingImageCount} video(s)</span>}</div>}
+    {soundCount > 0 && <div><AiFillAudio />{!iconsOnly && <span>{soundCount}sound file(s)</span>}</div>}
+    {isSequenced && <div><GiDna1 />{!iconsOnly && <span>Sequenced</span>}</div>}
+    {isTreament && <div><MdInsertDriveFile />{!iconsOnly && <span>Treatment</span>}</div>}
+    {typeStatus && <div><MdStar />{!iconsOnly && <span style={typeStyle}>
       <FormattedMessage id={`enums.typeStatus.${typeStatus}`} />
-    </span></div>}
-    {isSamplingEvent && <div><MdGridOn /><span>Sampling event</span></div>}
-    {isClustered && <div><ClusterIcon /><span>Clustered</span></div>}
-    {issueCount > 0 && <div><BsLightningFill style={{ color: 'orange' }} /><span>{issueCount} quality flags</span></div>}
+    </span>}</div>}
+    {isSamplingEvent && <div><MdGridOn />{!iconsOnly && <span>Sampling event</span>}</div>}
+    {isClustered && <div><ClusterIcon />{!iconsOnly && <span>Clustered</span>}</div>}
+    {issueCount > 0 && <div><BsLightningFill style={{ color: 'orange' }} />{!iconsOnly && <span>{issueCount} quality flags</span>}</div>}
   </div>
 };
 

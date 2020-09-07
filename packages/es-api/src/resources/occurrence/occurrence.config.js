@@ -228,6 +228,11 @@ const config =
       "type": "keyword",
       "field": "id"
     },
+    "identifiedBy": {
+      "type": "keyword",
+      "field": "identifiedBy",
+      "suggestField": "identifiedBy.suggest"
+    },
     "individualCount": {
       "type": "numeric",
       "field": "individualCount",
@@ -376,6 +381,10 @@ const config =
       "type": "keyword",
       "field": "occurrenceId",
       "suggestField": "occurrenceId.suggest"
+    },
+    "occurrenceStatus": {
+      "type": "keyword",
+      "field": "occurrenceStatus"
     },
     "organismId": {
       "type": "keyword",

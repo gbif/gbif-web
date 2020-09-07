@@ -10,6 +10,7 @@ export const drawer = ({ ...props }) => css`
   bottom: 0;
   top: 0;
   right: 0;
+  max-width: 100%;
   transform: translateX(100%);
   overflow: hidden;
   transition: transform 200ms ease-in-out;
@@ -28,7 +29,7 @@ export const detailsBackdrop = ({ theme, ...props }) => css`
   right: 0;
   left: 0;
   background: ${theme.darkTheme ? '#00000075' : '#00000050'};
-  z-index: 10;
+  z-index: ${theme.drawerZIndex || 100};
   transition: opacity 50ms ease-in-out;
   opacity: 0;
   &[data-enter] {

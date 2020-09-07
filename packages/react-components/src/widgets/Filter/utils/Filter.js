@@ -7,6 +7,7 @@ import { FilterBodyDescription, FilterBox } from './misc';
 import { MenuAction, MenuToggle } from '../../../components/Menu';
 import { uncontrollable } from 'uncontrollable';
 import get from 'lodash/get';
+import { hash } from '../../../utils/util';
 
 import { FilterState, FilterContext } from '../state';
 
@@ -24,7 +25,7 @@ function Filter({ children, title, aboutText, labelledById, hasHelpTexts, suppor
   return <FilterState filter={tmpFilter} onChange={updatedFilter => onFilterChange(updatedFilter)}>
     <FilterContext.Consumer>
       {({ setField, negateField, setFullField, toggle, filter }) => {
-        const selectedItems = get(filter, `${type}.${filterName}`, []).map(x => typeof x === 'object' ? x._id || x.key : x);
+        const selectedItems = get(filter, `${type}.${filterName}`, []).map(x => typeof x === 'object' ? hash(x) : x);
         const checkedMap = new Set(selectedItems);
         const summaryProps = {
           count: checkedMap.size,

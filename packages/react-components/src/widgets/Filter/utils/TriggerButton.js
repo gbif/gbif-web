@@ -5,7 +5,7 @@ import { FilterButton } from '../../../components/Button';
 import { FilterContext } from '../state';
 import get from 'lodash/get';
 
-export const TriggerButton = React.forwardRef(({ mustOptions = [], mustNotOptions = [], filterHandle, translations = {}, DisplayName, loading, ...props }, ref) => {
+export const TriggerButton = React.forwardRef(({ mustOptions = [], mustNotOptions = [], filterHandle, translations = {}, DisplayName = ({id}) => <>{id}</>, loading, ...props }, ref) => {
   const currentFilterContext = useContext(FilterContext);
   const {
     count = `filter.${filterHandle}.count`,

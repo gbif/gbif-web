@@ -11,8 +11,16 @@ import { en as enNested } from '../src/locales/en';
 const en = flatten(enNested);
 
 import ThemeContext, { darkTheme, lightTheme, a11yTheme, vertnetTheme, rtlTheme } from '../src/style/themes';
+import ThemeBuilder from '../src/style/themeBuilder';
 import { ApiContext, ApiClient } from '../src/dataManagement/api';
 import env from './.env.json';
+
+const customTheme = ThemeBuilder.extend({
+  extendWith: {
+    fontSize: '14px',
+    primary: '#2a7db1'
+  }
+});
 
 const client = new ApiClient({
   gql: {
@@ -33,6 +41,7 @@ addDecorator(storyFn => {
     a11y: a11yTheme,
     vertnet: vertnetTheme,
     rtl: rtlTheme,
+    custom: customTheme
   }
 
   const chooseTheme = choice => {
@@ -52,7 +61,7 @@ addDecorator(storyFn => {
             value={chooseTheme(
               select(
                 'Choose Theme',
-                ['Dark', 'Light', 'A11y', 'Vertnet', 'RTL'],
+                ['Dark', 'Light', 'A11y', 'Vertnet', 'RTL', 'Custom'],
                 'Light',
               ),
             )}
