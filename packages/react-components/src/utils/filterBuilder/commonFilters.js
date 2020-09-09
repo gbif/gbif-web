@@ -224,7 +224,6 @@ export const commonFilters = {
     config: {
       std: {
         filterHandle: 'sampleSizeUnit',
-        id2labelHandle: 'sampleSizeUnit',
         translations: {
           count: 'filter.sampleSizeUnit.count', // translation path to display names with counts. e.g. "3 scientific names"
           name: 'filter.sampleSizeUnit.name',// translation path to a title for the popover and the button
@@ -233,6 +232,22 @@ export const commonFilters = {
       },
       specific: {
         placeholder: 'E.g. DNA sequence reads'
+      }
+    }
+  },
+  eventId: {
+    type: 'SIMPLE_TEXT',
+    config: {
+      std: {
+        filterHandle: 'eventId',
+        translations: {
+          count: 'filter.sampleSizeUnit.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.sampleSizeUnit.name',// translation path to a title for the popover and the button
+          description: 'filter.sampleSizeUnit.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        placeholder: 'E.g. XXXXX'
       }
     }
   },

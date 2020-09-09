@@ -33,6 +33,7 @@ function getRemarks ({value, verbatim}) {
   module.exports = Object.keys(groupedTerms).reduce((acc, cur) => {
     acc[cur] = (occurrence) => {
       const fieldIssues = occurrence.issues.reduce((y, x) => {
+            try{
                 remarkMap[x].relatedTerms.forEach( t => {
                     if(y[t]){
                         y[t].push(_.pick(remarkMap[x], ['id', 'severity']))
@@ -40,6 +41,10 @@ function getRemarks ({value, verbatim}) {
                         y[t] = [_.pick(remarkMap[x], ['id', 'severity'])]
                     }
                 })
+            } catch(err){
+                console.log(`The following error occurred trying to relate the issue "${x}" to occurrence terms. Is remarkTypes.json up-to-date?`)
+                console.log(err);
+            }
                 return y;
       }, {})
       return Object.keys(groupedTerms[cur]).reduce((a,c) => {
