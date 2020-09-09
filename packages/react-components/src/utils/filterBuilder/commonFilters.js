@@ -253,9 +253,9 @@ export const commonFilters = {
           const { Footer, SummaryBar, FilterBody } = standardComponents;
           return <>
             <div style={{ margin: '10px' }} >
-              <Input 
+              <Input
                 ref={focusRef}
-                value={filter?.must?.q?.length ? filter.must.q[0] : ''} 
+                value={filter?.must?.q?.length ? filter.must.q[0] : ''}
                 onChange={e => {
                   setFullField('q', [e.target.value])
                 }}
@@ -271,24 +271,33 @@ export const commonFilters = {
       }
     }
   },
-  // evenMoreFreedom: {
-  //   type: 'CUSTOM_STANDARD',
-  //   config: {
-  //     std: {
-  //       filterHandle: 'taxonKey',// if nothing else provided, then this is the filterName used
-  //       id2labelHandle: 'canonicalName',
-  //       translations: {
-  //         count: 'filter.random.count', // translation path to display names with counts. e.g. "3 scientific names"
-  //         name: 'filter.random.name',// translation path to a title for the popover and the button
-  //         description: 'filter.random.description', // translation path for the filter description
-  //       },
-  //     },
-  //     specific: {
-  //       dontWrapInStdFilter: true,
-  //       component: ({ standardComponents, summaryProps, filterHandle, setFullField, toggle, footerProps, onApply, filter, onCancel, hide, ...props }) => {
-  //         return <div>sdkfjh</div>
-  //       },
-  //     }
-  //   }
-  // },
+  evenMoreFreedom: {
+    type: 'CUSTOM_STANDARD',
+    config: {
+      std: {
+        filterHandle: 'taxonKey',// if nothing else provided, then this is the filterName used
+        // id2labelHandle: 'canonicalName',
+        id2label: ({ id }) => `taxonKey: ${id}`, // just define the label here. With no chance to reuse it elsewhere
+        translations: {
+          count: '{num, plural, one {random taxon} other {# random taxa}}', // Should really point to the translation file, but as it falls back to the string it can be used as the main entry
+          name: 'Randomizer',// translation path to a title for the popover and the button - in this case the path does not exist and so it falls back to the string provided
+          description: 'filter.random.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        dontWrapInStdFilter: true,
+        component: ({ FilterContext, filter, ...props }) => {
+          return <FilterContext.Consumer>
+            {({ setFullField, filter }) => {
+              return <div style={{ padding: 20, background: 'pink', maxHeight: '100%', overflow: 'auto' }}>
+                <button style={{ background: 'yellow', display: 'block', width: '100%' }}
+                  onClick={() => setFullField('taxonKey', [Math.floor(Math.random() * 100)])}>I feel lucky - choose random taxonKey between 0 and 100</button>
+                  <pre>{JSON.stringify(filter, null, 2)}</pre>
+              </div>
+            }}
+          </FilterContext.Consumer>
+        },
+      }
+    }
+  },
 }

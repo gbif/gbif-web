@@ -19,7 +19,8 @@ const Popover = ({ trigger, placement, visible, modal, onClickOutside, children,
   const theme = useContext(ThemeContext);
   const popover = usePopoverState({
     modal: modal || false, 
-    placement: placement || "bottom-start", 
+    // placement: placement || "bottom-start", 
+    placement: 'auto', // annoyingly, only auto will prevent vertical overflow and there is no option to set alt-axis in reakit. See issue https://github.com/reakit/reakit/issues/606
     visible: visible,
     altAxis: true,
     altBoundary: true

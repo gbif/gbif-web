@@ -51,6 +51,7 @@ export const TriggerButton = React.forwardRef(({ mustOptions = [], mustNotOption
     // multiple selected
     TextSummary = <FormattedMessage
       id={count}
+      defaultMessage={count}
       values={{ num: options.length }}
     />
   }

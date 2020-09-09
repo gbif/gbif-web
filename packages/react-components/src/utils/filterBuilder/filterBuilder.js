@@ -54,7 +54,7 @@ export function filterBuilder({ labelMap, suggestConfigMap, filterWidgetConfig, 
     } else if (type === 'CUSTOM_STANDARD') {
       filter = buildCustomStandard(builderConfig);
     }
-    const trNameId = config.std?.translation?.name || `filter.${config?.std?.filterHandle || widgetHandle}.name`;
+    const trNameId = config.std?.translations?.name || `filter.${config?.std?.filterHandle || widgetHandle}.name`;
     acc[widgetHandle] = {
       ...filter,
       displayName: context.formatMessage({id: trNameId})
@@ -133,8 +133,9 @@ function buildCustomStandard({ widgetHandle, config, labelMap }) {
       hasOptionDescriptions: config.specific.hasOptionDescriptions,
       supportsExist: config.specific.supportsExist
     },
-    LabelFromID: labelMap[config.std.id2labelHandle || widgetHandle],
+    LabelFromID: labelMap[config.std.id2labelHandle || widgetHandle] || config.std.id2label,
   }
+  // debugger;
   const Popover = props => <CustomStandardPopover {...conf} {...props} />;
   return {
     Button: getButton(Popover, conf),

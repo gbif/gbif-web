@@ -6,6 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import PopoverFilter from './PopoverFilter';
 
+import { FilterState, FilterContext } from '../state';
 import { Suggest, Option, Filter, SummaryBar, FilterBody, Footer, Exists } from '../utils';
 
 export const FilterContent = ({ config, translations, LabelFromID, trName, hide, labelledById, onApply, onCancel, onFilterChange, focusRef, filterHandle, initFilter }) => {
@@ -15,7 +16,8 @@ export const FilterContent = ({ config, translations, LabelFromID, trName, hide,
     const componentProps = {
       formId: id, 
       config, LabelFromID, trName, hide, labelledById, onApply, onCancel, onFilterChange, focusRef, filterHandle, initFilter,
-      standardComponents: { SummaryBar, FilterBody, Footer, Suggest, Option }
+      standardComponents: { SummaryBar, FilterBody, Footer, Suggest, Option },
+      FilterState, FilterContext
     };
     return <config.component {...componentProps} />;
   }
