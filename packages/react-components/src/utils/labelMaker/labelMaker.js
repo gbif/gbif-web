@@ -42,7 +42,7 @@ export default (getData, { isHtmlResponse } = {}) =>
           result => {
             if (canceled) return;
             if (this._mounted) {
-              this.setState({ title: result.title });
+              this.setState({ title: result.title, error: false });
             }
           },
           () => {

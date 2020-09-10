@@ -32,7 +32,7 @@ export function Summary({ occurrence, fieldGroups, loading, setActiveImage, ...p
         </V>
       </>
       }
-      <FieldPair term={fieldGroups.Taxon?.scientificName} occurrence={occurrence} fieldGroups={fieldGroups}
+      <FieldPair term={fieldGroups.Taxon?.scientificName} occurrence={occurrence}
         formattedValue={<span dangerouslySetInnerHTML={{ __html: occurrence.gbifClassification.usage.formattedName }}></span>} />
       {occurrence.gbifClassification.synonym && <FieldPair term={fieldGroups.Taxon?.acceptedScientificName} occurrence={occurrence} fieldGroups={fieldGroups}
         formattedValue={<span dangerouslySetInnerHTML={{ __html: occurrence.gbifClassification.acceptedUsage.formattedName }}></span>} />}
@@ -71,7 +71,8 @@ function Term({ term, occurrence, formattedValue }) {
   }
 }
 
-function FieldPair({ term, occurrence, fieldGroups, formattedValue }) {
+function FieldPair({ term, occurrence, formattedValue }) {
+  debugger;
   if (!term) {
     return null;
   }
