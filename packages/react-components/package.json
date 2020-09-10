@@ -16,7 +16,11 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "generate": "npx plop --plopfile ./tools/plopfile.js",
-    "add-component": "npm run generate component"
+    "add-component": "npm run generate component",
+    "add-range-filter": "npm run generate rangeFilter",
+    "add-enum-filter": "npm run generate enumFilter",
+    "add-suggestKey-filter": "npm run generate suggestKeyFilter",
+    "add-suggest-filter": "npm run generate suggestFilter"
   },
   "author": "",
   "license": "ISC",

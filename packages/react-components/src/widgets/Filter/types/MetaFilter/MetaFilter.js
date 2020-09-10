@@ -1,3 +1,5 @@
+// TODO: grouping options would be useful 
+// See https://codesandbox.io/s/zx1kj58npl for how to do so in Downshift
 import React, { useState, useContext } from "react";
 import { FormattedMessage } from 'react-intl';
 import ThemeContext from '../../../../style/themes/ThemeContext';
@@ -5,21 +7,15 @@ import get from 'lodash/get';
 import PopoverFilter from '../PopoverFilter';
 import OccurrenceContext from '../../../../search/OccurrenceSearch/config/OccurrenceContext';
 import { Button } from '../../../../components';
-import { FilterBox, FilterBody } from '../../utils';
+import { FilterBox } from '../../utils';
 import Suggest from './Suggest';
-
-function Option({ label, theme, ...props }) {
-  return <div style={{ padding: '10px 20px', fontSize: '1em', borderTop: `1px solid ${theme.paperBorderColor}` }} {...props}>
-    <div>{label}</div>
-  </div>
-}
 
 function getSuggestConfig({ options }) {
   return {
     //What placeholder to show
     placeholder: 'Search for filters',
     // how to get the list of suggestion data
-    getSuggestions: ({ q }) => options.filter(x => x.displayName.toLowerCase().indexOf(q) === 0).map(x => ({ ...x, key: x.filterHandle })),
+    getSuggestions: ({ q }) => options.filter(x => x.displayName.toLowerCase().indexOf(q) === 0 || (x.displayName.toLowerCase().indexOf(q) >= 0 && q.length > 1)).map(x => ({ ...x, key: x.filterHandle })),
     // how to map the results to a single string value
     getValue: suggestion => suggestion.displayName,
     // how to display the individual suggestions in the list
@@ -36,7 +32,7 @@ export const FilterContent = ({ focusRef, ...props }) => {
   const { filters } = useContext(OccurrenceContext);
   const [CurrentFilter, selectedFilter] = useState();
   const [options] = useState(() => Object.keys(filters).map(filterHandle => ({ filterHandle, displayName: filters[filterHandle].displayName })));
-  const [suggestConfig] = useState(() => getSuggestConfig({ options }));get
+  const [suggestConfig] = useState(() => getSuggestConfig({ options })); get
   const [value, setValue] = useState('');
 
   React.useEffect(() => {
@@ -46,7 +42,7 @@ export const FilterContent = ({ focusRef, ...props }) => {
       }
     }
   }, [CurrentFilter]);
-  
+
   return <>
     {!CurrentFilter && <FilterBox>
       {/* <Header>
@@ -54,6 +50,7 @@ export const FilterContent = ({ focusRef, ...props }) => {
       </Header> */}
       <>
         <Suggest
+          defaultIsOpen={true}
           value={value}
           initSuggestions={options}
           getSuggestions={suggestConfig.getSuggestions}
@@ -68,14 +65,6 @@ export const FilterContent = ({ focusRef, ...props }) => {
           delay={10}
         />
       </>
-      {value === '' && <FilterBody style={{ padding: 0 }}>
-        {options.map(x => <div key={x.filterHandle}>
-          <Option
-            theme={theme}
-            label={x.displayName}
-            onClick={() => selectedFilter(() => filters[x.filterHandle].Content)} />
-        </div>)}
-      </FilterBody>}
     </FilterBox>}
     {CurrentFilter && <CurrentFilter {...props} focusRef={ref} />}
   </>

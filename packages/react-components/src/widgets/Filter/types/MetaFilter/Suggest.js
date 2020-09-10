@@ -39,7 +39,7 @@ class Suggest extends React.Component {
 
   render() {
     const { suggestions: currentSuggestions } = this.state;
-    const { render, getValue, placeholder, onChange, value, initSuggestions, onKeyPress } = this.props;
+    const { defaultIsOpen, render, getValue, placeholder, onChange, value, initSuggestions, onKeyPress } = this.props;
     const suggestions = value === '' ? initSuggestions : currentSuggestions;
 
     // Autosuggest will pass through all these props to the input.
@@ -65,6 +65,7 @@ class Suggest extends React.Component {
           ref={this.props.focusRef}
           menuCss={this.props.menuCss}
           delay={this.props.delay}
+          defaultIsOpen={defaultIsOpen}
         />
       </>
     );

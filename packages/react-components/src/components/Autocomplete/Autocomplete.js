@@ -14,6 +14,7 @@ export const Autocomplete = React.forwardRef(({
   getSuggestionValue,
   onSuggestionSelected,
   inputProps,
+  defaultIsOpen,
   isLoading,
   suggestions,
   loadingError,
@@ -44,6 +45,7 @@ export const Autocomplete = React.forwardRef(({
   const hasSuggestions = suggestions && suggestions.length > 0;
 
   return <Downshift
+    defaultIsOpen={defaultIsOpen}
     onChange={selection => {
       onSuggestionSelected({ item: selection, value: itemToString(selection) });
     }

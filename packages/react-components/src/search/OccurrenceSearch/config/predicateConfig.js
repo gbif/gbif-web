@@ -20,6 +20,9 @@ const filterConf = {
     return filter;
   },
   fields: {
+    coordinateUncertainty: {
+      defaultKey: 'coordinateUncertaintyInMeters'
+    },
     publisherKey: {
       defaultKey: 'publishingOrganizationKey'
     },

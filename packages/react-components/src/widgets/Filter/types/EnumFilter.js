@@ -10,7 +10,7 @@ import { keyCodes } from '../../../utils/util';
 
 import { Option, Filter, SummaryBar, AdditionalControl, FilterBody, Footer, Exists } from '../utils';
 
-export const FilterContent = ({ config, LabelFromID, trName, hide, labelledById, onApply, onCancel, onFilterChange, focusRef, filterHandle, initFilter }) => {
+export const FilterContent = ({ config, translations, LabelFromID, hide, labelledById, onApply, onCancel, onFilterChange, focusRef, filterHandle, initFilter }) => {
   const [id] = useState(nanoid);
   const options = config.options;
 
@@ -22,14 +22,14 @@ export const FilterContent = ({ config, LabelFromID, trName, hide, labelledById,
     onApply={onApply}
     onCancel={onCancel}
     title={<FormattedMessage
-      id={trName || `filter.${filterHandle}.name`}
-      defaultMessage={'Loading'}
+      id={translations?.name || `filter.${filterHandle}.name`}
+      defaultMessage={translations?.name}
     />}
     hasHelpTexts={config.hasOptionDescriptions}
-    supportsExist={true}
-    aboutText={config.description && <FormattedMessage
-      id={config.description}
-      defaultMessage={'Loading'}
+    supportsExist={config.supportsExist}
+    aboutText={translations.description && <FormattedMessage
+      id={translations.description}
+      defaultMessage={translations.description}
     />}
     isNegated={isNegated}
     onFilterChange={onFilterChange}
@@ -97,7 +97,7 @@ export function Popover({ filterHandle, LabelFromID, translations = {}, config, 
       content={<FilterContent
         filterHandle={filterHandle}
         LabelFromID={LabelFromID}
-        trName={translations.name}
+        translations={translations}
         config={config} />}
     />
   );

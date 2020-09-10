@@ -3,6 +3,12 @@ import countryCode from './enums/countryCode.json';
 import mediaTypes from './enums/mediaTypes.json';
 import occurrenceIssue from './enums/occurrenceIssue.json';
 import typeStatus from './enums/typeStatus.json';
+import license from './enums/license.json';
+import month from './enums/month.json';
+import continent from './enums/continent.json';
+import protocol from './enums/protocol.json';
+import establishmentMeans from './enums/establishmentMeans.json';
+// -- Add imports above this line (required by plopfile.js) --
 
 export const en = {
   first: 'First',
@@ -71,6 +77,10 @@ export const en = {
       name: 'Elevation',
       count: '{num, plural, one {elevation filter} other {# elevation filters}}',
     },
+    license: {
+      name: 'License',
+      count: '{num, plural, one {license} other {# licenses}}',
+    },
     datasetKey: {
       name: 'Dataset',
       count: '{num, plural, one {dataset} other {# datasets}}',
@@ -97,11 +107,68 @@ export const en = {
     year: {
       name: 'Year',
       count: '{num, plural, one {year filter} other {# year filters}}',
+      description: 'What year is the record from'
     },
     sampleSizeUnit: {
       name: "Sample size unit",
       count: '{num, plural, one {sample size unit} other {# sample size units}}'
-    }
+    },
+    coordinateUncertainty: {
+      name: 'Coordinate uncertainty',
+      count: '{num, plural, one {Coordinate uncertainty} other {# coordinate uncertainty filters}}',
+      description: 'A short description of the component should be placed here'
+    },
+    depth: {
+      name: 'Depth',
+      count: '{num, plural, one { Depth } other {# Depths}}',
+      description: 'A short description of the component should be placed here'
+    },
+    organismQuantity: {
+      name: 'Organism quantity',
+      count: '{num, plural, one { Organism quantity } other {# Organism quantitys}}',
+      description: 'A short description of the component should be placed here'
+    },
+    sampleSizeValue: {
+      name: 'Sample size value',
+      count: '{num, plural, one { Sample size value } other {# Sample size values}}',
+      description: 'A short description of the component should be placed here'
+    },
+    relativeOrganismQuantity: {
+      name: 'Relative organism quantity',
+      count: '{num, plural, one { Relative organism quantity } other {# Relative organism quantitys}}',
+      description: 'A short description of the component should be placed here'
+    },
+    month: {
+      name: 'Month',
+      count: '{num, plural, one { Month } other {# Months}}',
+      description: 'A short description of the component should be placed here'
+    },
+    continent: {
+      name: 'Continent',
+      count: '{num, plural, one { Continent } other {# Continents}}',
+      description: 'A short description of the component should be placed here'
+    },
+    protocol: {
+      name: 'Protocol',
+      count: '{num, plural, one { Protocol } other {# Protocols}}',
+      description: 'A short description of the component should be placed here'
+    },
+    establishmentMeans: {
+      name: 'Establishment means',
+      count: '{num, plural, one { Establishment means } other {# Establishment meanss}}',
+      description: 'A short description of the component should be placed here'
+    },
+    catalogNumber: {
+      name: 'Catalog number',
+      count: '{num, plural, one { Catalog number } other {# Catalog numbers}}',
+      description: 'A short description of the component should be placed here'
+    },
+    recordedBy: {
+      name: 'Recorded by',
+      count: '{num, plural, one { Recorded by } other {# Recorded bys}}',
+      description: 'A short description of the component should be placed here'
+    },
+    // -- Add filter above this line (required by plopfile.js) --
   },
   invalidValue: 'Invalid value',
   interval: {
@@ -123,7 +190,38 @@ export const en = {
       lt: 'Elevation below {to}m',
       gt: 'Elevation above {from}m',
       e: 'Elevation is {from}m',
-    }
+    },
+    coordinateUncertainty: {
+      between: 'Coordinate uncertainty {from}m to {to}m',
+      lt: 'Coordinate uncertainty below {to}m',
+      gt: 'Coordinate uncertainty above {from}m',
+      e: 'Coordinate uncertainty is {from}m',
+    },
+    depth: {
+      between: 'Depth {from} to {to}',
+      lt: 'Depth below {to}',
+      gt: 'Depth above {from}',
+      e: 'Depth is {from}',
+    },
+    organismQuantity: {
+      between: 'Organism quantity {from} to {to}',
+      lt: 'Organism quantity below {to}',
+      gt: 'Organism quantity above {from}',
+      e: 'Organism quantity is {from}',
+    },
+    sampleSizeValue: {
+      between: 'Sample size value {from} to {to}',
+      lt: 'Sample size value below {to}',
+      gt: 'Sample size value above {from}',
+      e: 'Sample size value is {from}',
+    },
+    relativeOrganismQuantity: {
+      between: 'Relative organism quantity {from} to {to}',
+      lt: 'Relative organism quantity below {to}',
+      gt: 'Relative organism quantity above {from}',
+      e: 'Relative organism quantity is {from}',
+    },
+    // -- Add interval above this line (required by plopfile.js) --
   },
   enums: {
     basisOfRecord,
@@ -131,5 +229,11 @@ export const en = {
     mediaTypes,
     occurrenceIssue,
     typeStatus,
+    license,
+    month,
+    continent,
+    protocol,
+    establishmentMeans,
+    // -- Add enum translations above this line (required by plopfile.js) --
   }
 }

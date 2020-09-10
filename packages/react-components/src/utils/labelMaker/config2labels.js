@@ -10,7 +10,7 @@ export function config2labels(config, apiContext) {
   }, {});
 }
 
-export function config2label(name, config, apiContext) {
+export function config2label(name, config = {}, apiContext) {
   switch (config.type) {
     case 'TRANSLATION': {
       return ({ id }) => <FormattedMessage

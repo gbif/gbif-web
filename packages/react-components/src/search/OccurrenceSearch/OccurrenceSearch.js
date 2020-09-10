@@ -110,11 +110,12 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
   const mergedSuggest = { ...suggestConfigMap, ...suggestConfigMapCustom };
   const labelMap = config2labels(mergedLabels, context.client);
   const filters = filterBuilder({ filterWidgetConfig: mergedFilters, labelMap, suggestConfigMap: mergedSuggest, context });
+  
   return {
     labelMap,
     suggestConfigMap,
     filters,
-    defaultVisibleFilters: ['q', 'evenMoreFreedom', 'taxonKey', 'year', 'datasetKey', 'countryCode'],
+    defaultVisibleFilters: ['q', 'license', 'evenMoreFreedom', 'taxonKey', 'year', 'datasetKey', 'countryCode'],
     // rootPredicate: { type: 'in', key: 'basisOfRecord', values: ['PRESERVED_SPECIMEN', 'FOSSIL_SPECIMEN', 'MATERIAL_SAMPLE', 'LIVING_SPECIMEN'] },
     rootPredicate: customConfig.rootPredicate,//{ type: 'isNotNull', key: 'typeStatus' },
     // rootPredicate: { type: 'in', key: 'taxonKey', values: [4, 5, 7] },

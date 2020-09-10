@@ -9,13 +9,13 @@ import PopoverFilter from './PopoverFilter';
 import { FilterState, FilterContext } from '../state';
 import { Suggest, Option, Filter, SummaryBar, FilterBody, Footer, Exists } from '../utils';
 
-export const FilterContent = ({ config, translations, LabelFromID, trName, hide, labelledById, onApply, onCancel, onFilterChange, focusRef, filterHandle, initFilter }) => {
+export const FilterContent = ({ config, translations, LabelFromID, hide, labelledById, onApply, onCancel, onFilterChange, focusRef, filterHandle, initFilter }) => {
   const [id] = React.useState(nanoid);
 
   if (config.dontWrapInStdFilter) {
     const componentProps = {
       formId: id, 
-      config, LabelFromID, trName, hide, labelledById, onApply, onCancel, onFilterChange, focusRef, filterHandle, initFilter,
+      config, LabelFromID, translations, hide, labelledById, onApply, onCancel, onFilterChange, focusRef, filterHandle, initFilter,
       standardComponents: { SummaryBar, FilterBody, Footer, Suggest, Option },
       FilterState, FilterContext
     };
@@ -27,8 +27,8 @@ export const FilterContent = ({ config, translations, LabelFromID, trName, hide,
     onApply={onApply}
     onCancel={onCancel}
     title={<FormattedMessage
-      id={trName || `filter.${filterHandle}.name`}
-      defaultMessage={filterHandle}
+      id={translations?.name || `filter.${filterHandle}.name`}
+      defaultMessage={translations?.name}
     />}
     hasHelpTexts={config.hasOptionDescriptions}
     aboutText={translations.description && <FormattedMessage
@@ -86,7 +86,7 @@ export function Popover({ filterHandle, LabelFromID, translations = {}, config, 
       content={<FilterContent
         filterHandle={filterHandle}
         LabelFromID={LabelFromID}
-        trName={translations.name}
+        translations={translations}
         translations={translations}
         config={config} />}
     />

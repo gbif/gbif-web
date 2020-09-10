@@ -7,6 +7,8 @@ import { Popover as SimpleTextPopover, FilterContent as SimpleTextContent } from
 import { Popover as CustomStandardPopover, FilterContent as CustomStandardContent } from '../../widgets/Filter/types/CustomStandardFilter';
 import { FilterContext } from '../../widgets/Filter/state';
 import { TriggerButton } from '../../widgets/Filter/utils/TriggerButton';
+import { FormattedMessage } from 'react-intl';
+import { prettifyEnum } from '../labelMaker/config2labels';
 
 export function getButton(Popover, { translations, filterHandle, LabelFromID }) {
   return function Trigger(props) {
@@ -23,12 +25,12 @@ export function getButton(Popover, { translations, filterHandle, LabelFromID }) 
   }
 }
 
-function buildSimpleText({ widgetHandle, config}) {
+function buildSimpleText({ widgetHandle, config }) {
   const conf = {
     filterHandle: config.std.filterHandle || widgetHandle,
     translations: config.std.translations,
     config: config.specific,
-    LabelFromID: ({id}) => id
+    LabelFromID: ({ id }) => id
   }
   const Popover = props => <SimpleTextPopover {...conf} {...props} />;
   return {
@@ -57,7 +59,7 @@ export function filterBuilder({ labelMap, suggestConfigMap, filterWidgetConfig, 
     const trNameId = config.std?.translations?.name || `filter.${config?.std?.filterHandle || widgetHandle}.name`;
     acc[widgetHandle] = {
       ...filter,
-      displayName: context.formatMessage({id: trNameId})
+      displayName: context.formatMessage({ id: trNameId })
     };
     return acc;
   }, {});
@@ -73,7 +75,7 @@ function buildSuggest({ widgetHandle, config, labelMap, suggestConfigMap, contex
       LabelFromID: labelMap[config.specific.id2labelHandle],
       ...config
     },
-    LabelFromID: labelMap[config.std.id2labelHandle || widgetHandle],
+    LabelFromID: labelMap[config.std.id2labelHandle || widgetHandle] || (({id}) => id),
   }
 
   const Popover = props => <SuggestPopover {...conf} {...props} />;
@@ -103,6 +105,11 @@ function buildNumberRange({ widgetHandle, config, labelMap, context }) {
 }
 
 function buildEnum({ widgetHandle, config, labelMap }) {
+  const fallbackLabel = ({ id }) => <FormattedMessage
+    id={`enums.${config.std.filterHandle || widgetHandle}.${id}`}
+    defaultMessage={prettifyEnum(id)}
+  />;
+
   const conf = {
     filterHandle: config.std.filterHandle || widgetHandle,
     translations: config.std.translations,
@@ -112,8 +119,9 @@ function buildEnum({ widgetHandle, config, labelMap }) {
         ? config.specific.options
         : config.specific.options.map(x => ({ key: x }))
     },
-    LabelFromID: labelMap[config.std.id2labelHandle || widgetHandle],
+    LabelFromID: labelMap[config.std.id2labelHandle || widgetHandle] || fallbackLabel,
   }
+  // if (!labelMap[config.std.id2labelHandle || widgetHandle]) console.warn(`No label handler defined for ${widgetHandle} - using fallback`)
   const Popover = props => <EnumPopover {...conf} {...props} />;
   return {
     Button: getButton(Popover, conf),
