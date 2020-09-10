@@ -20,7 +20,6 @@ export function Groups({
   error,
   className,
   showAll,
-  verbatim,
   ...props
 }) {
   const theme = useContext(ThemeContext);
@@ -49,17 +48,14 @@ export function Groups({
       groups[group],
       isSpecimen,
       showAll,
-      verbatim,
       theme,
       occurrence
     )
   );
 }
 
-function showTerm(groupTitle, term, showAll, verbatim) {
-   if (verbatim) {
-    return true;
-  } else if (!showAll) {
+function showTerm(groupTitle, term, showAll) {
+  if (!showAll) {
     return !term.hideInDefaultView /* && _.get(term, "remarks") !== "NOT_INDEXED" */ && !specialFields[groupTitle][term.label];
   }  else {
     return true;
@@ -71,11 +67,10 @@ function getGroup(
   group,
   isSpecimen,
   showAll,
-  verbatim,
   theme,
   occurrence
 ) {
-  if (_.isEmpty(group)) {
+  if (_.isEmpty(group) || group.filter((term) => showTerm(title, term, showAll)).length === 0) {
     return null;
   }; 
   const groupMap = group.reduce((acc, cur) => {
@@ -146,7 +141,7 @@ function getGroup(
           
           </>}
           {group
-            .filter((term) => showTerm(title, term, showAll, verbatim))
+            .filter((term) => showTerm(title, term, showAll))
             .map((term) => (
               <React.Fragment key={term.label}>
                 <T>
@@ -156,7 +151,7 @@ function getGroup(
                   />
                 </T>
                 <V>
-                    {getValue(term, verbatim)}
+                    {getValue(term)}
                 </V>
               </React.Fragment>
             ))}
@@ -165,12 +160,9 @@ function getGroup(
     );
 }
 
-function getValue(term, verbatim){
-
+function getValue(term){
+    
     return <>
-        {term.remarks && term.remarks !== "NOT_INDEXED" && (
-                      <span css={css.termRemark()}>{term.remarks.toLowerCase()}</span>
-                    )}
                   <div>
                     {term.value || term.verbatim}{" "}
                     
@@ -185,7 +177,10 @@ function getValue(term, verbatim){
                         </span>
                       ))}
                   </div>
-                  {verbatim && <div css={css.termRemark()}>{term.verbatim}</div>}
+                  {term.value && term.verbatim && term.value != term.verbatim && <div css={css.termRemark()}>{term.verbatim}</div>}
+                  {term.remarks && term.remarks === "INFERRED" && (
+                      <span css={css.termRemark()}>{term.remarks.toLowerCase()}</span>
+                    )}
     </>
 }
 

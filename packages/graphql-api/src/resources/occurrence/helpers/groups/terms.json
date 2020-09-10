@@ -1054,7 +1054,7 @@
         "group": "Taxon",
         "source": "DwcTerm",
         "esField": "gbifClassification.usage.name"
-        },
+    },
     {
     "simpleName": "acceptedScientificName",
     "qualifiedName": "http://rs.gbif.org/terms/1.0/acceptedScientificName",
@@ -1238,19 +1238,22 @@
     "qualifiedName": "http://rs.gbif.org/terms/1.0/datasetKey",
     "group": "Dataset",
     "source": "GbifTerm",
-    "hideInDefaultView": true
+    "hideInDefaultView": true,
+    "remarks": false
     },
     {
     "simpleName": "publishingCountry",
     "qualifiedName": "http://rs.gbif.org/terms/1.0/publishingCountry",
     "group": "Dataset",
-    "source": "GbifTerm"
+    "source": "GbifTerm",
+    "remarks": false
     },
     {
     "simpleName": "lastInterpreted",
     "qualifiedName": "http://rs.gbif.org/terms/1.0/lastInterpreted",
     "group": "Occurrence",
-    "source": "GbifTerm"
+    "source": "GbifTerm",
+    "remarks": false
     },
     {
     "simpleName": "elevation",
@@ -1396,26 +1399,33 @@
     "simpleName": "protocol",
     "qualifiedName": "http://rs.gbif.org/terms/1.0/protocol",
     "group": "Crawling",
-    "source": "GbifTerm"
+    "source": "GbifTerm",
+    "hideInDefaultView": true,
+    "remarks": false
     },
     {
     "simpleName": "lastParsed",
     "qualifiedName": "http://rs.gbif.org/terms/1.0/lastParsed",
     "group": "Crawling",
-    "source": "GbifTerm"
+    "source": "GbifTerm",
+    "hideInDefaultView": true,
+    "remarks": false
     },
     {
     "simpleName": "lastCrawled",
     "qualifiedName": "http://rs.gbif.org/terms/1.0/lastCrawled",
     "group": "Crawling",
-    "source": "GbifTerm"
+    "source": "GbifTerm",
+    "hideInDefaultView": true,
+    "remarks": false
     },
     {
     "simpleName": "repatriated",
     "qualifiedName": "http://rs.gbif.org/terms/1.0/repatriated",
     "group": "Occurrence",
     "source": "GbifTerm",
-    "hideInDefaultView": true
+    "hideInDefaultView": true,
+    "remarks": false
     },
     {
     "simpleName": "relativeOrganismQuantity",

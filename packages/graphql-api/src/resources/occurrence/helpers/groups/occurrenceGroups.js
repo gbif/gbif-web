@@ -14,11 +14,13 @@ const groupedTerms = terms.reduce((acc, cur) => {
 
 
 
-function getRemarks ({value, verbatim}) {
+function getRemarks ({value, verbatim, remarks}) {
     /*
         EXCLUDED has bben replaced with NOT_INDEXED
-    */
-        if (_.isNil(value)) {
+    */  
+        if(remarks === false){
+            return null
+        } else if (_.isNil(value)) {
             return 'NOT_INDEXED';
         } else if (_.isNil(verbatim)) {
             return 'INFERRED';
@@ -55,7 +57,8 @@ function getRemarks ({value, verbatim}) {
                     label: c,
                     value,
                     verbatim,
-                    hideInDefaultView: groupedTerms[cur][c].hideInDefaultView || false
+                    hideInDefaultView: groupedTerms[cur][c].hideInDefaultView || false,
+                    remarks: groupedTerms[cur][c].remarks
                 }
                 if( getRemarks(term)){
                     term.remarks = getRemarks(term)
