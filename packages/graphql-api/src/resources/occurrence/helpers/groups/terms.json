@@ -423,7 +423,8 @@
     "simpleName": "occurrenceStatus",
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/occurrenceStatus",
     "group": "Occurrence",
-    "source": "DwcTerm"
+    "source": "DwcTerm",
+    "renderAsType": "enum"
     },
     {
     "simpleName": "preparations",
@@ -584,7 +585,8 @@
     "simpleName": "verbatimEventDate",
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/verbatimEventDate",
     "group": "Event",
-    "source": "DwcTerm"
+    "source": "DwcTerm",
+    "hideInDefaultView": true
     },
     {
     "simpleName": "habitat",
@@ -982,7 +984,8 @@
     "simpleName": "dateIdentified",
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/dateIdentified",
     "group": "Identification",
-    "source": "DwcTerm"
+    "source": "DwcTerm",
+    "renderAsType" : "date"
     },
     {
     "simpleName": "identificationReferences",
