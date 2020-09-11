@@ -19,7 +19,7 @@ const options = commandLineArgs(cliOptions);
 const defaultConfig = {
   port: 4000,
   API_V1: 'https://api.gbif.org/v1',
-  API_ES: 'http://labs.gbif.org:7019',
+  API_ES: 'http://localhost:4001', //'http://labs.gbif.org:7019',
   API_ES_KEY: 'SHOULD_NOT_BE_IN_CODE',
   APP_KEY: 'SHOULD_NOT_BE_IN_CODE',
   APP_SECRET: 'IT_IS_A_SECRET_AND_SHOULD_NOT_BE_IN_CODE',

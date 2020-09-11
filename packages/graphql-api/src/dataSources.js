@@ -13,6 +13,7 @@ const api = _.merge(
   require('./resources/collection').dataSource,
   require('./resources/institution').dataSource,
   require('./resources/person').dataSource,
+  
 // -- Add imports above this line (required by plopfile.js) --
 );
 

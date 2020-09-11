@@ -4,6 +4,6 @@ module.exports = {
   resolver: require('./network.resolver'),
   typeDef: require('./network.type'),
   dataSource: {
-    networkAPI: new NetworkApi()
+    networkAPI: NetworkApi // Every request should have its own instance, see https://github.com/apollographql/apollo-server/issues/1562
   }
 };

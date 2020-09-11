@@ -4,7 +4,6 @@ const { ApolloServer } = require('apollo-server-express');
 const get = require('lodash/get');
 const config = require('./config');
 const { hashMiddleware } = require('./hashMiddleware');
-
 const bodyParser = require('body-parser');
 
 // recommended in the apollo docs https://github.com/stems/graphql-depth-limit
@@ -32,7 +31,7 @@ async function initializeServer() {
     },
     typeDefs,
     resolvers,
-    dataSources: () => api,
+    dataSources: () => Object.keys(api).reduce((a,b) => (a[b]= new api[b](),a),{}), // Every request should have its own instance, see https://github.com/apollographql/apollo-server/issues/1562  
     validationRules: [depthLimit(10)], // this likely have to be much higher than 6, but let us increase it as needed and not before
     cacheControl: {
       defaultMaxAge: 600,

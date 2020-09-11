@@ -4,6 +4,6 @@ module.exports = {
   resolver: require('./dataset.resolver'),
   typeDef: require('./dataset.type'),
   dataSource: {
-    datasetAPI: new DatasetApi()
+    datasetAPI: DatasetApi // Every request should have its own instance, see https://github.com/apollographql/apollo-server/issues/1562
   }
 };

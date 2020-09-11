@@ -4,6 +4,6 @@ module.exports = {
   resolver: require('./institution.resolver'),
   typeDef: require('./institution.type'),
   dataSource: {
-    institutionAPI: new InstitutionApi()
+    institutionAPI: InstitutionApi // Every request should have its own instance, see https://github.com/apollographql/apollo-server/issues/1562
   }
 };
