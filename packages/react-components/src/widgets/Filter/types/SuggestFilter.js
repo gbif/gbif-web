@@ -13,7 +13,7 @@ import PopoverFilter from './PopoverFilter';
 
 import { Suggest, Option, Filter, SummaryBar, FilterBody, Footer, Exists } from '../utils';
 
-export const FilterContent = ({ config, trName, labelledById, LabelFromID, hide, onApply, onCancel, onFilterChange, focusRef, filterHandle, initFilter }) => {
+export const FilterContent = ({ config, translations, labelledById, LabelFromID, hide, onApply, onCancel, onFilterChange, focusRef, filterHandle, initFilter }) => {
   const [id] = React.useState(nanoid);
   const initialOptions = get(initFilter, `must.${filterHandle}`, []);
   const [options, setOptions] = useState(initialOptions);
@@ -25,11 +25,11 @@ export const FilterContent = ({ config, trName, labelledById, LabelFromID, hide,
     onApply={onApply}
     onCancel={onCancel}
     title={<FormattedMessage
-      id={trName || `filter.${filterHandle}.name`}
-      defaultMessage={'Loading'}
-    />} //this should be formated or be provided as such
+      id={translations?.name || `filter.${filterHandle}.name`}
+      defaultMessage={translations?.name}
+    />}
     aboutText="some help text"
-    supportsExist={true}
+    supportsExist={config.supportsExist}
     onFilterChange={onFilterChange}
     filterName={filterHandle}
     formId={id}
@@ -94,7 +94,7 @@ export function Popover({ filterHandle, LabelFromID, config, translations={}, ..
       {...props}
       content={<FilterContent
         filterHandle={filterHandle}
-        trName={translations.name}
+        translations={translations}
         LabelFromID={LabelFromID}
         config={config} />}
     />

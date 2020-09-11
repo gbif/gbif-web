@@ -22,7 +22,7 @@ const config =
     },
     "catalogNumber": {
       "type": "keyword",
-      "field": "catalogNumber",
+      "field": "catalogNumber.keyword",
       "suggestField": "catalogNumber.suggest"
     },
     "collectionCode": {
@@ -230,7 +230,7 @@ const config =
     },
     "identifiedBy": {
       "type": "keyword",
-      "field": "identifiedBy",
+      "field": "identifiedBy.keyword",
       "suggestField": "identifiedBy.suggest"
     },
     "individualCount": {
@@ -439,7 +439,7 @@ const config =
     },
     "recordedBy": {
       "type": "keyword",
-      "field": "recordedBy",
+      "field": "recordedBy.keyword",
       "suggestField": "recordedBy.suggest"
     },
     "references": {

@@ -11,7 +11,7 @@ import { keyCodes } from '../../../utils/util';
 import { Input } from '../../../components';
 import { Option, Filter, SummaryBar, FilterBody, Footer, Exists } from '../utils';
 
-export const FilterContent = ({ config = {}, LabelFromID, translations, hide, labelledById, onApply, onCancel, onFilterChange, focusRef, filterHandle, initFilter }) => {
+export const FilterContent = ({ config = {}, translations, LabelFromID, hide, labelledById, onApply, onCancel, onFilterChange, focusRef, filterHandle, initFilter }) => {
   const { placeholder = 'Input text' } = config;
   const [id] = React.useState(nanoid);
   const initialOptions = get(initFilter, `must.${filterHandle}`, []);
@@ -21,12 +21,12 @@ export const FilterContent = ({ config = {}, LabelFromID, translations, hide, la
   return <Filter
     labelledById={false}
     title={<FormattedMessage
-      id={translations.name || `filter.${filterHandle}.name`}
-      defaultMessage={'Loading'}
+      id={translations?.name || `filter.${filterHandle}.name`}
+      defaultMessage={translations?.name}
     />}
     aboutText="some help text" //this should be formated or be provided as such
     onFilterChange={onFilterChange}
-    supportsExist={true}
+    supportsExist={config.supportsExist}
     filterName={filterHandle}
     formId={id}
     defaultFilter={initFilter}

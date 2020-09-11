@@ -80,4 +80,49 @@ export const commonLabels = {
     type: 'CUSTOM',
     component: rangeOrEqualLabel('interval.year')
   },
+  coordinateUncertainty: {
+    type: 'CUSTOM',
+    component: rangeOrEqualLabel('interval.coordinateUncertainty')
+  },
+  depth: {
+    type: 'CUSTOM',
+    component: rangeOrEqualLabel('interval.depth')
+  },
+  organismQuantity: {
+    type: 'CUSTOM',
+    component: rangeOrEqualLabel('interval.organismQuantity')
+  },
+  sampleSizeValue: {
+    type: 'CUSTOM',
+    component: rangeOrEqualLabel('interval.sampleSizeValue')
+  },
+  relativeOrganismQuantity: {
+    type: 'CUSTOM',
+    component: rangeOrEqualLabel('interval.relativeOrganismQuantity')
+  },
+  month: {
+    type: 'TRANSLATION',
+    template: id => `enums.month.${id}`
+  },
+  continent: {
+    type: 'TRANSLATION',
+    template: id => `enums.continent.${id}`
+  },
+  protocol: {
+    type: 'TRANSLATION',
+    template: id => `enums.protocol.${id}`
+  },
+  establishmentMeans: {
+    type: 'TRANSLATION',
+    template: id => `enums.establishmentMeans.${id}`
+  },
+  catalogNumber: {
+    type: 'TRANSLATION',
+    template: id => id
+  },
+  recordedBy: {
+    type: 'TRANSLATION',
+    template: id => id
+  },
+  // -- Add labels above this line (required by plopfile.js) --
 }

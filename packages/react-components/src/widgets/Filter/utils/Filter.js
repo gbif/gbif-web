@@ -16,7 +16,6 @@ function Filter({ children, title, aboutText, labelledById, hasHelpTexts, suppor
   
   //When mounting, then check the filter. If it is an existence filter then show those
   useEffect(() => {
-    console.log('mounting filter');
     const mustType = get(tmpFilter, `must.${filterName}[0].type`) === 'isNotNull';
     const mustNotType = get(tmpFilter, `must_not.${filterName}[0].type`) === 'isNotNull';
     if (!isExistenceFilter && (mustType || mustNotType)) onExistenceChange(true);

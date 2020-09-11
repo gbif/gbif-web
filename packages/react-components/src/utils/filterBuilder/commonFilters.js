@@ -4,6 +4,12 @@ import basisofRecord from '../../locales/enums/basisOfRecord.json';
 import mediaTypes from '../../locales/enums/mediaTypes.json';
 import occurrenceIssue from '../../locales/enums/occurrenceIssue.json';
 import typeStatus from '../../locales/enums/typeStatus.json';
+import license from '../../locales/enums/license.json';
+import month from '../../locales/enums/month.json';
+import continent from '../../locales/enums/continent.json';
+import protocol from '../../locales/enums/protocol.json';
+import establishmentMeans from '../../locales/enums/establishmentMeans.json';
+// -- Add imports above this line (required by plopfile.js) --
 
 export const commonFilters = {
   taxonKey: {
@@ -146,7 +152,8 @@ export const commonFilters = {
         }
       },
       specific: {
-        placeholder: 'Range or single value'
+        placeholder: 'Range or single value',
+        regex: /^((-)?[0-9]{0,4})(,)?((-)?[0-9]{0,4})$/
       }
     }
   },
@@ -159,11 +166,11 @@ export const commonFilters = {
         translations: {
           count: 'filter.basisOfRecord.count', // translation path to display names with counts. e.g. "3 scientific names"
           name: 'filter.basisOfRecord.name',// translation path to a title for the popover and the button
+          description: 'filter.basisOfRecord.description', // translation path for the filter description
         }
       },
       specific: {
         options: Object.keys(basisofRecord),
-        description: 'filter.basisOfRecord.description', // translation path for the filter description
       }
     }
   },
@@ -176,11 +183,11 @@ export const commonFilters = {
         translations: {
           count: 'filter.typeStatus.count', // translation path to display names with counts. e.g. "3 scientific names"
           name: 'filter.typeStatus.name',// translation path to a title for the popover and the button
+          description: 'filter.typeStatus.description', // translation path for the filter description
         }
       },
       specific: {
         options: Object.keys(typeStatus),
-        description: 'filter.typeStatus.description', // translation path for the filter description
       }
     }
   },
@@ -193,11 +200,11 @@ export const commonFilters = {
         translations: {
           count: 'filter.occurrenceIssue.count', // translation path to display names with counts. e.g. "3 scientific names"
           name: 'filter.occurrenceIssue.name',// translation path to a title for the popover and the button
+          description: 'filter.occurrenceIssue.description', // translation path for the filter description
         }
       },
       specific: {
         options: Object.keys(occurrenceIssue),
-        description: 'filter.occurrenceIssue.description', // translation path for the filter description
         supportsNegation: true
       }
     }
@@ -211,11 +218,11 @@ export const commonFilters = {
         translations: {
           count: 'filter.mediaTypes.count', // translation path to display names with counts. e.g. "3 scientific names"
           name: 'filter.mediaTypes.name',// translation path to a title for the popover and the button
+          description: 'filter.mediaTypes.description', // translation path for the filter description
         }
       },
       specific: {
         options: Object.keys(mediaTypes),
-        description: 'filter.mediaTypes.description', // translation path for the filter description
       }
     }
   },
@@ -235,22 +242,216 @@ export const commonFilters = {
       }
     }
   },
-  eventId: {
-    type: 'SIMPLE_TEXT',
+  license: {
+    type: 'ENUM',
     config: {
       std: {
-        filterHandle: 'eventId',
+        filterHandle: 'license',
+        id2labelHandle: 'license',
         translations: {
-          count: 'filter.sampleSizeUnit.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.sampleSizeUnit.name',// translation path to a title for the popover and the button
-          description: 'filter.sampleSizeUnit.description', // translation path for the filter description
-        },
+          count: 'filter.license.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.license.name',// translation path to a title for the popover and the button
+          description: 'filter.license.description', // translation path for the filter description
+        }
       },
       specific: {
-        placeholder: 'E.g. XXXXX'
+        options: Object.keys(license),
       }
     }
   },
+  coordinateUncertainty: {
+    type: 'NUMBER_RANGE',
+    config: {
+      std: {
+        filterHandle: 'coordinateUncertainty',
+        id2labelHandle: 'coordinateUncertainty',
+        translations: {
+          count: 'filter.coordinateUncertainty.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.coordinateUncertainty.name',// translation path to a title for the popover and the button
+          description: 'filter.coordinateUncertainty.description', // translation path for the filter description
+        }
+      },
+      specific: {
+        placeholder: 'Range or single value',
+        regex: /^((-)?[0-9]{0,4})(,)?((-)?[0-9]{0,4})$/
+      }
+    }
+  },
+  depth: {
+    type: 'NUMBER_RANGE',
+    config: {
+      std: {
+        filterHandle: 'depth',
+        id2labelHandle: 'depth',
+        translations: {
+          count: 'filter.depth.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.depth.name',// translation path to a title for the popover and the button
+          description: 'filter.depth.description', // translation path for the filter description
+        }
+      },
+      specific: {
+        placeholder: 'Range or single value',
+        regex: /^((-)?[0-9]{0,4})(,)?((-)?[0-9]{0,4})$/
+      }
+    }
+  },
+  organismQuantity: {
+    type: 'NUMBER_RANGE',
+    config: {
+      std: {
+        filterHandle: 'organismQuantity',
+        id2labelHandle: 'organismQuantity',
+        translations: {
+          count: 'filter.organismQuantity.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.organismQuantity.name',// translation path to a title for the popover and the button
+          description: 'filter.organismQuantity.description', // translation path for the filter description
+        }
+      },
+      specific: {
+        placeholder: 'Range or single value',
+      }
+    }
+  },
+  sampleSizeValue: {
+    type: 'NUMBER_RANGE',
+    config: {
+      std: {
+        filterHandle: 'sampleSizeValue',
+        id2labelHandle: 'sampleSizeValue',
+        translations: {
+          count: 'filter.sampleSizeValue.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.sampleSizeValue.name',// translation path to a title for the popover and the button
+          description: 'filter.sampleSizeValue.description', // translation path for the filter description
+        }
+      },
+      specific: {
+        placeholder: 'Range or single value',
+      }
+    }
+  },
+  relativeOrganismQuantity: {
+    type: 'NUMBER_RANGE',
+    config: {
+      std: {
+        filterHandle: 'relativeOrganismQuantity',
+        id2labelHandle: 'relativeOrganismQuantity',
+        translations: {
+          count: 'filter.relativeOrganismQuantity.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.relativeOrganismQuantity.name',// translation path to a title for the popover and the button
+          description: 'filter.relativeOrganismQuantity.description', // translation path for the filter description
+        }
+      },
+      specific: {
+        placeholder: 'Range or single value',
+        regex: /^[0-9,\.]{0,10}$/
+      }
+    }
+  },
+  month: {
+      type: 'ENUM',
+      config: {
+        std: {
+          filterHandle: 'month',
+          id2labelHandle: 'month',
+          translations: {
+            count: 'filter.month.count', // translation path to display names with counts. e.g. "3 scientific names"
+            name: 'filter.month.name',// translation path to a title for the popover and the button
+            description: 'filter.month.description', // translation path for the filter description
+          }
+        },
+        specific: {
+          options: Object.keys(month),
+        }
+      }
+    },
+  continent: {
+      type: 'ENUM',
+      config: {
+        std: {
+          filterHandle: 'continent',
+          id2labelHandle: 'continent',
+          translations: {
+            count: 'filter.continent.count', // translation path to display names with counts. e.g. "3 scientific names"
+            name: 'filter.continent.name',// translation path to a title for the popover and the button
+            description: 'filter.continent.description', // translation path for the filter description
+          }
+        },
+        specific: {
+          options: Object.keys(continent),
+        }
+      }
+    },
+  protocol: {
+      type: 'ENUM',
+      config: {
+        std: {
+          filterHandle: 'protocol',
+          id2labelHandle: 'protocol',
+          translations: {
+            count: 'filter.protocol.count', // translation path to display names with counts. e.g. "3 scientific names"
+            name: 'filter.protocol.name',// translation path to a title for the popover and the button
+            description: 'filter.protocol.description', // translation path for the filter description
+          }
+        },
+        specific: {
+          options: Object.keys(protocol),
+        }
+      }
+    },
+  establishmentMeans: {
+      type: 'ENUM',
+      config: {
+        std: {
+          filterHandle: 'establishmentMeans',
+          id2labelHandle: 'establishmentMeans',
+          translations: {
+            count: 'filter.establishmentMeans.count', // translation path to display names with counts. e.g. "3 scientific names"
+            name: 'filter.establishmentMeans.name',// translation path to a title for the popover and the button
+            description: 'filter.establishmentMeans.description', // translation path for the filter description
+          }
+        },
+        specific: {
+          options: Object.keys(establishmentMeans),
+        }
+      }
+    },
+  catalogNumber: {
+      type: 'SUGGEST',
+      config: {
+        std: {
+          filterHandle: 'catalogNumber',// if nothing else provided, then this is the filterName used
+          id2labelHandle: 'catalogNumber',
+          translations: {
+            count: 'filter.catalogNumber.count', // translation path to display names with counts. e.g. "3 scientific names"
+            name: 'filter.catalogNumber.name',// translation path to a title for the popover and the button
+            description: 'filter.catalogNumber.description', // translation path for the filter description
+          },
+        },
+        specific: {
+          suggestHandle: 'catalogNumber',
+          id2labelHandle: 'catalogNumber',
+        }
+      }
+    },
+  recordedBy: {
+      type: 'SUGGEST',
+      config: {
+        std: {
+          filterHandle: 'recordedBy',// if nothing else provided, then this is the filterName used
+          id2labelHandle: 'recordedBy',
+          translations: {
+            count: 'filter.recordedBy.count', // translation path to display names with counts. e.g. "3 scientific names"
+            name: 'filter.recordedBy.name',// translation path to a title for the popover and the button
+            description: 'filter.recordedBy.description', // translation path for the filter description
+          },
+        },
+        specific: {
+          suggestHandle: 'recordedBy',
+          id2labelHandle: 'recordedBy',
+        }
+      }
+    },
+  // -- Add filters above this line (required by plopfile.js) --
   q: {
     type: 'CUSTOM_STANDARD',
     config: {
@@ -286,6 +487,41 @@ export const commonFilters = {
       }
     }
   },
+  // sampleSize: {
+  //   type: 'CUSTOM_STANDARD',
+  //   config: {
+  //     std: {
+  //       filterHandle: 'sampleSize',// if nothing else provided, then this is the filterName used
+  //       translations: {
+  //         count: 'filter.sampleSize.count', // translation path to display names with counts. e.g. "3 scientific names"
+  //         name: 'filter.sampleSize.name',// translation path to a title for the popover and the button
+  //         description: 'filter.sampleSize.description', // translation path for the filter description
+  //       },
+  //     },
+  //     specific: {
+  //       component: ({ standardComponents, summaryProps, filterHandle, setFullField, toggle, focusRef, footerProps, onApply, filter, onCancel, hide, ...props }) => {
+  //         const { Footer, SummaryBar, FilterBody } = standardComponents;
+  //         return <>
+  //           <div style={{ margin: '10px' }} >
+  //             <Input
+  //               placeholder=""
+  //               ref={focusRef}
+  //               value={filter?.must?.q?.length ? filter.must.q[0] : ''}
+  //               onChange={e => {
+  //                 setFullField('q', [e.target.value])
+  //               }}
+  //               onKeyPress={e => e.which === 13 ? onApply({ filter, hide }) : null}
+  //             />
+  //           </div>
+  //           <Footer {...footerProps}
+  //             onApply={() => onApply({ filter, hide })}
+  //             onCancel={() => onCancel({ filter, hide })}
+  //           />
+  //         </>
+  //       },
+  //     }
+  //   }
+  // },
   evenMoreFreedom: {
     type: 'CUSTOM_STANDARD',
     config: {

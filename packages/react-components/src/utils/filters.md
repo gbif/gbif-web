@@ -26,4 +26,9 @@ We have filter types.
 * A range filter (e.g. year)
 * A simple text input filter (free text search for keywords, with no suggest)
 
+To add a new standard filter (for use in various search widgets)
+1. You need to add a new config to `utils/filterBuilder/commonFilters`
+* If that is an enum, then you need to specify all the options. We currently derive this from the translations. This is to avoid including it twice and to make sure that they are translated. This is done in `locales/enums/[enumName].json` and also added to the core translation file `locales/en.js`. 
+2. You need to define how individual values are to be displayed (for enums that is translations, for UUIDs that is probabaly a request to either graphlql or a rest service). All filters should have a fallback, but you can explictly define how the values should display.
+
 # how to add custom filters (a new type)
