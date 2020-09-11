@@ -174,4 +174,3 @@ export const issuePill = ({severity, ...props}) => css`
     display: inline-block;
     padding: 2px 3px;
 `;
-

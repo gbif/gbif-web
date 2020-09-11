@@ -326,7 +326,8 @@
     "simpleName": "basisOfRecord",
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/basisOfRecord",
     "group": "Record",
-    "source": "DwcTerm"
+    "source": "DwcTerm",
+    "renderAsType": "enum"
     },
     {
     "simpleName": "informationWithheld",
@@ -537,7 +538,8 @@
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/eventDate",
     "group": "Event",
     "source": "DwcTerm",
-    "esField": "eventDateSingle"
+    "esField": "eventDateSingle",
+    "renderAsType": "date"
     },
     {
     "simpleName": "eventTime",
@@ -1187,7 +1189,8 @@
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/taxonRank",
     "group": "Taxon",
     "source": "DwcTerm",
-    "esField": "gbifClassification.usageParsedName.rank"
+    "esField": "gbifClassification.usageParsedName.rank",
+    "renderAsType": "enum"
     },
     {
     "simpleName": "synonym",
@@ -1246,7 +1249,8 @@
     "qualifiedName": "http://rs.gbif.org/terms/1.0/publishingCountry",
     "group": "Dataset",
     "source": "GbifTerm",
-    "remarks": false
+    "remarks": false,
+    "hideInDefaultView": true
     },
     {
     "simpleName": "lastInterpreted",

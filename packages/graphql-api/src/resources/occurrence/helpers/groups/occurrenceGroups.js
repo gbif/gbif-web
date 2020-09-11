@@ -58,7 +58,8 @@ function getRemarks ({value, verbatim, remarks}) {
                     value,
                     verbatim,
                     hideInDefaultView: groupedTerms[cur][c].hideInDefaultView || false,
-                    remarks: groupedTerms[cur][c].remarks
+                    remarks: groupedTerms[cur][c].remarks,
+                    renderAsType: groupedTerms[cur][c].renderAsType
                 }
                 if( getRemarks(term)){
                     term.remarks = getRemarks(term)

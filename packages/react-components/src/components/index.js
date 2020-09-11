@@ -21,4 +21,7 @@ export { Image } from './Image/Image';
 export { DetailsDrawer } from './DetailsDrawer/DetailsDrawer';
 export { MajorRanks } from './MajorRanks/MajorRanks';
 export { IconFeatures } from './IconFeatures/IconFeatures';
+export { HyperText } from './HyperText/HyperText';
+export { Doi } from './Doi/Doi'
+
 // -- Add imports above this line (required by plopfile.js) --

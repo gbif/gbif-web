@@ -9,7 +9,10 @@ import { Accordion, Properties } from "../../../components";
 import {Classification} from "./Classification/Classification"
 import {MapPresentation} from "./Map/Map"
 import {DynamicProperties} from "./DynamicProperties/DynamicProperties"
+import {HyperText} from '../../../components';
+
 import _ from "lodash";
+
 
 const { Term: T, Value: V } = Properties;
 
@@ -160,11 +163,26 @@ function getGroup(
     );
 }
 
+
+function renderAsType({label, value, verbatim, renderAsType}){
+  switch(renderAsType) {
+    case 'date':
+      return <FormattedDate value={value}
+      year="numeric"
+      month="long"
+      day="2-digit" />;
+    case 'enum':
+        return <FormattedMessage id={`enums.${label}.${value}`} />;
+    default:
+      return <HyperText text={value || verbatim} />;
+  }
+}
+
 function getValue(term){
     
     return <>
                   <div>
-                    {term.value || term.verbatim}{" "}
+                    {renderAsType(term)}{" "}
                     
                     {term.issues &&
                       term.issues.length > 0 &&

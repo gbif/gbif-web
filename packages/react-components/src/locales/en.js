@@ -3,6 +3,7 @@ import countryCode from './enums/countryCode.json';
 import mediaTypes from './enums/mediaTypes.json';
 import occurrenceIssue from './enums/occurrenceIssue.json';
 import typeStatus from './enums/typeStatus.json';
+import taxonRank from './enums/taxonRank.json';
 
 export const en = {
   first: 'First',
@@ -131,5 +132,6 @@ export const en = {
     mediaTypes,
     occurrenceIssue,
     typeStatus,
+    taxonRank
   }
 }

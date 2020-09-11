@@ -38,7 +38,6 @@ export function Summary({ occurrence, fieldGroups, loading, setActiveImage, ...p
         formattedValue={<span dangerouslySetInnerHTML={{ __html: occurrence.gbifClassification.acceptedUsage.formattedName }}></span>} />}
       <T>Classification</T>
       <V><Classification taxon={occurrence.groups.Taxon} /></V>
-      <FieldPair term={fieldGroups?.Taxon?.taxonRank} occurrence={occurrence} fieldGroups={fieldGroups} />
 
       <FieldPair term={fieldGroups?.Event?.eventDate} occurrence={occurrence} fieldGroups={fieldGroups} formattedValue={<FormattedDate value={fieldGroups?.Event?.eventDate?.value}
         year="numeric"
@@ -46,7 +45,7 @@ export function Summary({ occurrence, fieldGroups, loading, setActiveImage, ...p
         day="2-digit" />} />
 
       <T>Basis of record</T>
-      <V><Term occurrence={occurrence} term={fieldGroups?.Record?.basisOfRecord} formattedValue={<FormattedMessage id={`enums.basisOfRecord.${occurrence.basisOfRecord}`} />} /></V>
+      <V><Term occurrence={occurrence} term={fieldGroups?.Record?.basisOfRecord} formattedValue={<FormattedMessage id={`enums.basisOfRecord.${fieldGroups.Record.basisOfRecord.value}`} />} /></V>
     </Properties>
   </Accordion>
 }
@@ -72,7 +71,6 @@ function Term({ term, occurrence, formattedValue }) {
 }
 
 function FieldPair({ term, occurrence, formattedValue }) {
-  debugger;
   if (!term) {
     return null;
   }

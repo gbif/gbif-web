@@ -6,7 +6,7 @@ import * as css from '../styles';
 import { Row, Col, Switch } from "../../../components";
 import { Header } from './Header';
 import { Groups } from './Groups'
-import { Summary } from './Summary_deprecated';
+import { Summary } from './Summary';
 
 export function Intro({
   data = {},
