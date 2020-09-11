@@ -4,6 +4,7 @@ const { ApolloServer } = require('apollo-server-express');
 const get = require('lodash/get');
 const config = require('./config');
 const { hashMiddleware } = require('./hashMiddleware');
+const { injectQuery } = require('./injectQueryMiddleware');
 
 const bodyParser = require('body-parser');
 
@@ -45,23 +46,20 @@ async function initializeServer() {
   app.use(bodyParser.json());
 
   // extract query and variables from store if a hash is provided instead of a query or variable
-  app.use(hashMiddleware)
-
-  server.applyMiddleware({ app });
+  app.use(hashMiddleware);
+  
+  // Add script tag to playground with linked query
+  app.use(injectQuery);
 
   // link to query and variables
-  app.get('/query-example', function (req, res) {
-    res.send(`<script>
-    var stored = JSON.parse(localStorage.getItem('graphql-playground'));
-    var workspace = stored.workspaces[stored.selectedWorkspace];
-    var session = workspace.sessions.selectedSessionId;
-    workspace.sessions.sessions[session].query = \`${req.query.query}\`;
-    workspace.sessions.sessions[session].variables = \`${JSON.stringify(req.query.variables, null, 2)}\`;
-    localStorage.setItem('graphql-playground', JSON.stringify(stored));
-    window.location = '/graphql';
-    </script>`);
-  })
+  app.get('/getIds', function (req, res) {
+    res.json({
+      queryId: res.get('X-Graphql-query-ID'),
+      variablesId: res.get('X-Graphql-variables-ID')
+    });
+  });
   
+  server.applyMiddleware({ app });
 
   app.listen({ port: config.port }, () =>
     console.log(`🚀 Server ready at http://localhost:${config.port}${server.graphqlPath}`)

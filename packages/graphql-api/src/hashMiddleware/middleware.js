@@ -1,9 +1,14 @@
 const hash = require('object-hash');
 const { queryCache, variablesCache } = require('./cache');
 
-function sendHashError(res, message) {
-  res.set('Cache-Control', 'no-store');
-  res.status(400).json(message);
+function sendHashError(req, res, next, message) {
+  const isStrict = typeof req.query.strict === 'string' && req.query.strict !== 'false';
+  if (isStrict) {
+    res.set('Cache-Control', 'no-store');
+    res.status(400).json(message);
+  } else {
+    next();
+  }
 }
 
 const hashMiddleware = function (req, res, next) {
@@ -27,7 +32,7 @@ const hashMiddleware = function (req, res, next) {
     res.set('X-Graphql-query-ID', queryKey);
     if (queryId && queryId !== queryKey) {
       // A hash has been provided that conflicts with the server hash. return an error
-      return sendHashError(res, {error: 'HASH_QUERY_CONFLICT'});
+      return sendHashError(req, res, next, {error: 'HASH_QUERY_CONFLICT'});
     }
   }
   if (variables) {
@@ -36,7 +41,7 @@ const hashMiddleware = function (req, res, next) {
     res.set('X-Graphql-variables-ID', variablesKey);
     if (variablesId && variablesId !== variablesKey) {
       // A hash has been provided that conflicts with the server hash. return an error
-      return sendHashError(res, {error: 'HASH_VARIABLES_CONFLICT'});
+      return sendHashError(req, res, next, {error: 'HASH_VARIABLES_CONFLICT'});
     }
   }
 
@@ -63,13 +68,13 @@ const hashMiddleware = function (req, res, next) {
 
   // if either hash is unknown, then return with an error asking the client to return the full value
   if (unknownQueryId || unknownVariablesId) {
-    return sendHashError(res, {
+    return sendHashError(req, res, next, {
       unknownQueryId,
       unknownVariablesId
     });
   }
   
-  next()
+  next();
 }
 
 module.exports = hashMiddleware;

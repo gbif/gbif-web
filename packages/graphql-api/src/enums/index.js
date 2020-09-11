@@ -28,7 +28,9 @@ async function getEnumData(url) {
 
 async function getEnumTypeDefs() {
   //get map of enums from API
+  console.log('Load enums');
   const enums = await loadEnums();
+  console.log('Enums loaded');
   
   //map enums to schema definitions
   const schemas = Object.keys(enums).map(enumType => {
