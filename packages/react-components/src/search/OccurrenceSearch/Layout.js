@@ -41,6 +41,7 @@ const Layout = ({
           </TabList>
         </div>
       </div>
+      {/* <a href={`http://labs.gbif.org:7022/query-example?queryId=${queryId}&variablesId=${variableId}`}>graphql</a> */}
       <TabPanel lazy tabId="table" className={`${prefix}-${elementName}-views`} css={cssViewArea({ theme })}>
         <Table />
       </TabPanel>

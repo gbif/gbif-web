@@ -452,6 +452,24 @@ export const commonFilters = {
         }
       }
     },
+  recordNumber: {
+      type: 'SUGGEST',
+      config: {
+        std: {
+          filterHandle: 'recordNumber',// if nothing else provided, then this is the filterName used
+          id2labelHandle: 'recordNumber',
+          translations: {
+            count: 'filter.recordNumber.count', // translation path to display names with counts. e.g. "3 scientific names"
+            name: 'filter.recordNumber.name',// translation path to a title for the popover and the button
+            description: 'filter.recordNumber.description', // translation path for the filter description
+          },
+        },
+        specific: {
+          suggestHandle: 'recordNumber',
+          id2labelHandle: 'recordNumber',
+        }
+      }
+    },
   // -- Add filters above this line (required by plopfile.js) --
   q: {
     type: 'CUSTOM_STANDARD',

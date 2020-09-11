@@ -124,5 +124,9 @@ export const commonLabels = {
     type: 'TRANSLATION',
     template: id => id
   },
+  recordNumber: {
+    type: 'TRANSLATION',
+    template: id => id
+  },
   // -- Add labels above this line (required by plopfile.js) --
 }

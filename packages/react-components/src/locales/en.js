@@ -168,6 +168,11 @@ export const en = {
       count: '{num, plural, one { Recorded by } other {# Recorded bys}}',
       description: 'A short description of the component should be placed here'
     },
+    recordNumber: {
+      name: 'Record number',
+      count: '{num, plural, one { Record number } other {# Record numbers}}',
+      description: 'A short description of the component should be placed here'
+    },
     // -- Add filter above this line (required by plopfile.js) --
   },
   invalidValue: 'Invalid value',
