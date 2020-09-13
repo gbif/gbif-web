@@ -6,12 +6,11 @@ import PopoverFilter from './PopoverFilter';
 import { FormattedMessage } from 'react-intl';
 import { nanoid } from 'nanoid';
 import get from 'lodash/get';
-import unionBy from 'lodash/unionBy';
 import { keyCodes } from '../../../utils/util';
 import { Input } from '../../../components';
 import { Option, Filter, SummaryBar, FilterBody, Footer, Exists } from '../utils';
 
-export const FilterContent = ({ config = {}, translations, LabelFromID, hide, labelledById, onApply, onCancel, onFilterChange, focusRef, filterHandle, initFilter }) => {
+export const FilterContent = ({ config = {}, translations, hide, onApply, onCancel, onFilterChange, focusRef, filterHandle, initFilter }) => {
   const { placeholder = 'Input text' } = config;
   const [id] = React.useState(nanoid);
   const initialOptions = get(initFilter, `must.${filterHandle}`, []);
@@ -24,7 +23,10 @@ export const FilterContent = ({ config = {}, translations, LabelFromID, hide, la
       id={translations?.name || `filter.${filterHandle}.name`}
       defaultMessage={translations?.name}
     />}
-    aboutText="some help text" //this should be formated or be provided as such
+    aboutText={translations.description && <FormattedMessage
+      id={translations.description || `filter.${filterHandle}.description`}
+      defaultMessage={translations.description}
+    />}
     onFilterChange={onFilterChange}
     supportsExist={config.supportsExist}
     filterName={filterHandle}
@@ -33,7 +35,7 @@ export const FilterContent = ({ config = {}, translations, LabelFromID, hide, la
   >
     {({ filter, toggle, setFullField, checkedMap, formId, summaryProps, footerProps, isExistenceFilter }) => {
       if (isExistenceFilter) {
-        return <Exists {...{footerProps, setFullField, onApply, onCancel, filter, hide, filterHandle}}/>
+        return <Exists {...{ footerProps, setFullField, onApply, onCancel, filter, hide, filterHandle }} />
       }
       return <>
         <div style={{ margin: '10px', zIndex: 10, display: 'inline-block', position: 'relative' }}>
@@ -64,8 +66,6 @@ export const FilterContent = ({ config = {}, translations, LabelFromID, hide, la
           <FilterBody>
             <form id={formId} onSubmit={e => e.preventDefault()} >
               {options.map((option) => {
-                
-
                 return <Option
                   key={option}
                   helpVisible={false}

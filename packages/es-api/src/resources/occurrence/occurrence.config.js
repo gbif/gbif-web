@@ -27,7 +27,7 @@ const config =
     },
     "collectionCode": {
       "type": "keyword",
-      "field": "collectionCode",
+      "field": "collectionCode.keyword",
       "suggestField": "collectionCode.suggest"
     },
     "collectionKey": {
@@ -205,7 +205,8 @@ const config =
     },
     "eventId": {
       "type": "keyword",
-      "field": "eventId"
+      "field": "eventId.keyword",
+      "suggestField": "eventId.suggest"
     },
     "gbifId": {
       "type": "numeric",
@@ -248,7 +249,8 @@ const config =
     },
     "institutionCode": {
       "type": "keyword",
-      "field": "institutionCode",
+      "field": "institutionCode.keyword",
+      "suggestField": "institutionCode.suggest",
       "suggestField": "institutionCode.suggest"
     },
     "institutionKey": {
@@ -278,7 +280,7 @@ const config =
     },
     "locality": {
       "type": "keyword",
-      "field": "locality",
+      "field": "locality.keyword",
       "suggestField": "locality.suggest"
     },
     "maximumDepthInMeters": {
@@ -379,7 +381,7 @@ const config =
     },
     "occurrenceId": {
       "type": "keyword",
-      "field": "occurrenceId",
+      "field": "occurrenceId.keyword",
       "suggestField": "occurrenceId.suggest"
     },
     "occurrenceStatus": {
@@ -388,7 +390,7 @@ const config =
     },
     "organismId": {
       "type": "keyword",
-      "field": "organismId",
+      "field": "organismId.keyword",
       "suggestField": "organismId.suggest"
     },
     "organismQuantity": {
@@ -406,7 +408,8 @@ const config =
     },
     "parentEventId": {
       "type": "keyword",
-      "field": "parentEventId"
+      "field": "parentEventId.keyword",
+      "suggestField": "parentEventId.suggest"
     },
     "programmeAcronym": {
       "type": "keyword",
@@ -434,7 +437,7 @@ const config =
     },
     "recordNumber": {
       "type": "keyword",
-      "field": "recordNumber",
+      "field": "recordNumber.keyword",
       "suggestField": "recordNumber.suggest"
     },
     "recordedBy": {
@@ -477,7 +480,8 @@ const config =
     },
     "samplingProtocol": {
       "type": "keyword",
-      "field": "samplingProtocol"
+      "field": "samplingProtocol.keyword",
+      "suggestField": "samplingProtocol.suggest"
     },
     "scoordinates": {
       "type": "geo_shape",
@@ -501,7 +505,7 @@ const config =
     },
     "stateProvince": {
       "type": "keyword",
-      "field": "stateProvince",
+      "field": "stateProvince.keyword",
       "suggestField": "stateProvince.suggest"
     },
     "typeStatus": {
@@ -518,7 +522,7 @@ const config =
     },
     "waterBody": {
       "type": "keyword",
-      "field": "waterBody",
+      "field": "waterBody.keyword",
       "suggestField": "waterBody.suggest"
     },
     "year": {

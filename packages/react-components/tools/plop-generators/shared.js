@@ -1,5 +1,15 @@
 const path = require('path');
 
+const stdConfig = `{
+        filterHandle: '{{camelCase name}}',
+        id2labelHandle: '{{camelCase name}}',
+        translations: {
+          count: 'filter.{{camelCase name}}.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.{{camelCase name}}.name',// translation path to a title for the popover and the button
+          description: 'filter.{{camelCase name}}.description', // translation path for the filter description
+        },
+      }`;
+
 module.exports = {
   // filters
   filter: {
@@ -10,21 +20,27 @@ module.exports = {
       template: `{{camelCase name}}: {
       type: 'SUGGEST',
       config: {
-        std: {
-          filterHandle: '{{camelCase name}}',// if nothing else provided, then this is the filterName used
-          id2labelHandle: '{{camelCase name}}',
-          translations: {
-            count: 'filter.{{camelCase name}}.count', // translation path to display names with counts. e.g. "3 scientific names"
-            name: 'filter.{{camelCase name}}.name',// translation path to a title for the popover and the button
-            description: 'filter.{{camelCase name}}.description', // translation path for the filter description
-          },
-        },
+        std: ${stdConfig},
         specific: {
           suggestHandle: '{{camelCase name}}',
           id2labelHandle: '{{camelCase name}}',
         }
       }
     },\r\n  $1`
+    },
+    text: {
+      type: 'modify',
+      path: path.resolve('./src/utils/filterBuilder/commonFilters.js'),
+      pattern: /(\/\/ -- Add filters above this line \(required by plopfile\.js\) --)/gi,
+      template: `{{camelCase name}}: {
+    type: 'SIMPLE_TEXT',
+    config: {
+      std: ${stdConfig},
+      specific: {
+        placeholder: 'E.g. DNA sequence reads'
+      }
+    }
+  },\r\n  $1`
     },
   },
 

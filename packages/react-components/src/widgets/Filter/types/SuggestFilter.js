@@ -28,7 +28,10 @@ export const FilterContent = ({ config, translations, labelledById, LabelFromID,
       id={translations?.name || `filter.${filterHandle}.name`}
       defaultMessage={translations?.name}
     />}
-    aboutText="some help text"
+    aboutText={translations.description && <FormattedMessage
+      id={translations.description || `filter.${filterHandle}.description`}
+      defaultMessage={translations.description}
+    />}
     supportsExist={config.supportsExist}
     onFilterChange={onFilterChange}
     filterName={filterHandle}

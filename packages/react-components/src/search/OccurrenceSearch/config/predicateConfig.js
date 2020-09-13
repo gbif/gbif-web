@@ -26,6 +26,12 @@ const filterConf = {
     publisherKey: {
       defaultKey: 'publishingOrganizationKey'
     },
+    recordedById: {
+      defaultKey: 'recordedByIds_value'
+    },
+    identifiedById: {
+      defaultKey: 'identifiedByIds_value'
+    },
     occurrenceIssue: {
       defaultKey: 'issues'
     },

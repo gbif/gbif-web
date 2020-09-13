@@ -349,127 +349,297 @@ export const commonFilters = {
     }
   },
   month: {
-      type: 'ENUM',
-      config: {
-        std: {
-          filterHandle: 'month',
-          id2labelHandle: 'month',
-          translations: {
-            count: 'filter.month.count', // translation path to display names with counts. e.g. "3 scientific names"
-            name: 'filter.month.name',// translation path to a title for the popover and the button
-            description: 'filter.month.description', // translation path for the filter description
-          }
-        },
-        specific: {
-          options: Object.keys(month),
+    type: 'ENUM',
+    config: {
+      std: {
+        filterHandle: 'month',
+        id2labelHandle: 'month',
+        translations: {
+          count: 'filter.month.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.month.name',// translation path to a title for the popover and the button
+          description: 'filter.month.description', // translation path for the filter description
         }
+      },
+      specific: {
+        options: Object.keys(month),
       }
-    },
+    }
+  },
   continent: {
-      type: 'ENUM',
-      config: {
-        std: {
-          filterHandle: 'continent',
-          id2labelHandle: 'continent',
-          translations: {
-            count: 'filter.continent.count', // translation path to display names with counts. e.g. "3 scientific names"
-            name: 'filter.continent.name',// translation path to a title for the popover and the button
-            description: 'filter.continent.description', // translation path for the filter description
-          }
-        },
-        specific: {
-          options: Object.keys(continent),
+    type: 'ENUM',
+    config: {
+      std: {
+        filterHandle: 'continent',
+        id2labelHandle: 'continent',
+        translations: {
+          count: 'filter.continent.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.continent.name',// translation path to a title for the popover and the button
+          description: 'filter.continent.description', // translation path for the filter description
         }
+      },
+      specific: {
+        options: Object.keys(continent),
       }
-    },
+    }
+  },
   protocol: {
-      type: 'ENUM',
-      config: {
-        std: {
-          filterHandle: 'protocol',
-          id2labelHandle: 'protocol',
-          translations: {
-            count: 'filter.protocol.count', // translation path to display names with counts. e.g. "3 scientific names"
-            name: 'filter.protocol.name',// translation path to a title for the popover and the button
-            description: 'filter.protocol.description', // translation path for the filter description
-          }
-        },
-        specific: {
-          options: Object.keys(protocol),
+    type: 'ENUM',
+    config: {
+      std: {
+        filterHandle: 'protocol',
+        id2labelHandle: 'protocol',
+        translations: {
+          count: 'filter.protocol.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.protocol.name',// translation path to a title for the popover and the button
+          description: 'filter.protocol.description', // translation path for the filter description
         }
+      },
+      specific: {
+        options: Object.keys(protocol),
       }
-    },
+    }
+  },
   establishmentMeans: {
-      type: 'ENUM',
-      config: {
-        std: {
-          filterHandle: 'establishmentMeans',
-          id2labelHandle: 'establishmentMeans',
-          translations: {
-            count: 'filter.establishmentMeans.count', // translation path to display names with counts. e.g. "3 scientific names"
-            name: 'filter.establishmentMeans.name',// translation path to a title for the popover and the button
-            description: 'filter.establishmentMeans.description', // translation path for the filter description
-          }
-        },
-        specific: {
-          options: Object.keys(establishmentMeans),
+    type: 'ENUM',
+    config: {
+      std: {
+        filterHandle: 'establishmentMeans',
+        id2labelHandle: 'establishmentMeans',
+        translations: {
+          count: 'filter.establishmentMeans.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.establishmentMeans.name',// translation path to a title for the popover and the button
+          description: 'filter.establishmentMeans.description', // translation path for the filter description
         }
+      },
+      specific: {
+        options: Object.keys(establishmentMeans),
       }
-    },
+    }
+  },
   catalogNumber: {
-      type: 'SUGGEST',
-      config: {
-        std: {
-          filterHandle: 'catalogNumber',// if nothing else provided, then this is the filterName used
-          id2labelHandle: 'catalogNumber',
-          translations: {
-            count: 'filter.catalogNumber.count', // translation path to display names with counts. e.g. "3 scientific names"
-            name: 'filter.catalogNumber.name',// translation path to a title for the popover and the button
-            description: 'filter.catalogNumber.description', // translation path for the filter description
-          },
+    type: 'SUGGEST',
+    config: {
+      std: {
+        filterHandle: 'catalogNumber',// if nothing else provided, then this is the filterName used
+        id2labelHandle: 'catalogNumber',
+        translations: {
+          count: 'filter.catalogNumber.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.catalogNumber.name',// translation path to a title for the popover and the button
+          description: 'filter.catalogNumber.description', // translation path for the filter description
         },
-        specific: {
-          suggestHandle: 'catalogNumber',
-          id2labelHandle: 'catalogNumber',
-        }
+      },
+      specific: {
+        suggestHandle: 'catalogNumber',
+        id2labelHandle: 'catalogNumber',
       }
-    },
+    }
+  },
   recordedBy: {
-      type: 'SUGGEST',
-      config: {
-        std: {
-          filterHandle: 'recordedBy',// if nothing else provided, then this is the filterName used
-          id2labelHandle: 'recordedBy',
-          translations: {
-            count: 'filter.recordedBy.count', // translation path to display names with counts. e.g. "3 scientific names"
-            name: 'filter.recordedBy.name',// translation path to a title for the popover and the button
-            description: 'filter.recordedBy.description', // translation path for the filter description
-          },
+    type: 'SUGGEST',
+    config: {
+      std: {
+        filterHandle: 'recordedBy',// if nothing else provided, then this is the filterName used
+        id2labelHandle: 'recordedBy',
+        translations: {
+          count: 'filter.recordedBy.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.recordedBy.name',// translation path to a title for the popover and the button
+          description: 'filter.recordedBy.description', // translation path for the filter description
         },
-        specific: {
-          suggestHandle: 'recordedBy',
-          id2labelHandle: 'recordedBy',
-        }
+      },
+      specific: {
+        suggestHandle: 'recordedBy',
+        id2labelHandle: 'recordedBy',
       }
-    },
+    }
+  },
   recordNumber: {
-      type: 'SUGGEST',
-      config: {
-        std: {
-          filterHandle: 'recordNumber',// if nothing else provided, then this is the filterName used
-          id2labelHandle: 'recordNumber',
-          translations: {
-            count: 'filter.recordNumber.count', // translation path to display names with counts. e.g. "3 scientific names"
-            name: 'filter.recordNumber.name',// translation path to a title for the popover and the button
-            description: 'filter.recordNumber.description', // translation path for the filter description
-          },
+    type: 'SUGGEST',
+    config: {
+      std: {
+        filterHandle: 'recordNumber',// if nothing else provided, then this is the filterName used
+        id2labelHandle: 'recordNumber',
+        translations: {
+          count: 'filter.recordNumber.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.recordNumber.name',// translation path to a title for the popover and the button
+          description: 'filter.recordNumber.description', // translation path for the filter description
         },
-        specific: {
-          suggestHandle: 'recordNumber',
-          id2labelHandle: 'recordNumber',
-        }
+      },
+      specific: {
+        suggestHandle: 'recordNumber',
+        id2labelHandle: 'recordNumber',
       }
-    },
+    }
+  },
+  collectionCode: {
+    type: 'SIMPLE_TEXT',
+    config: {
+      std: {
+        filterHandle: 'collectionCode',
+        id2labelHandle: 'collectionCode',
+        translations: {
+          count: 'filter.collectionCode.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.collectionCode.name',// translation path to a title for the popover and the button
+          description: 'filter.collectionCode.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        placeholder: 'E.g. DNA sequence reads'
+      }
+    }
+  },
+  recordedById: {
+    type: 'SIMPLE_TEXT',
+    config: {
+      std: {
+        filterHandle: 'recordedById',
+        id2labelHandle: 'recordedById',
+        translations: {
+          count: 'filter.recordedById.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.recordedById.name',// translation path to a title for the popover and the button
+          description: 'filter.recordedById.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        placeholder: 'E.g. https://orcid.org/0000-1111-2222-3333'
+      }
+    }
+  },
+  identifiedById: {
+    type: 'SIMPLE_TEXT',
+    config: {
+      std: {
+        filterHandle: 'identifiedById',
+        id2labelHandle: 'identifiedById',
+        translations: {
+          count: 'filter.identifiedById.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.identifiedById.name',// translation path to a title for the popover and the button
+          description: 'filter.identifiedById.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        placeholder: 'E.g. https://orcid.org/0000-1111-2222-3333'
+      }
+    }
+  },
+  occurrenceId: {
+    type: 'SIMPLE_TEXT',
+    config: {
+      std: {
+        filterHandle: 'occurrenceId',
+        id2labelHandle: 'occurrenceId',
+        translations: {
+          count: 'filter.occurrenceId.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.occurrenceId.name',// translation path to a title for the popover and the button
+          description: 'filter.occurrenceId.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        placeholder: 'ID of the original record'
+      }
+    }
+  },
+  organismId: {
+    type: 'SIMPLE_TEXT',
+    config: {
+      std: {
+        filterHandle: 'organismId',
+        id2labelHandle: 'organismId',
+        translations: {
+          count: 'filter.organismId.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.organismId.name',// translation path to a title for the popover and the button
+          description: 'filter.organismId.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        placeholder: 'E.g. DNA sequence reads'
+      }
+    }
+  },
+  locality: {
+    type: 'SIMPLE_TEXT',
+    config: {
+      std: {
+        filterHandle: 'locality',
+        id2labelHandle: 'locality',
+        translations: {
+          count: 'filter.locality.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.locality.name',// translation path to a title for the popover and the button
+          description: 'filter.locality.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        placeholder: 'E.g. DNA sequence reads'
+      }
+    }
+  },
+  waterBody: {
+    type: 'SIMPLE_TEXT',
+    config: {
+      std: {
+        filterHandle: 'waterBody',
+        id2labelHandle: 'waterBody',
+        translations: {
+          count: 'filter.waterBody.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.waterBody.name',// translation path to a title for the popover and the button
+          description: 'filter.waterBody.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        placeholder: 'E.g. DNA sequence reads'
+      }
+    }
+  },
+  stateProvince: {
+    type: 'SIMPLE_TEXT',
+    config: {
+      std: {
+        filterHandle: 'stateProvince',
+        id2labelHandle: 'stateProvince',
+        translations: {
+          count: 'filter.stateProvince.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.stateProvince.name',// translation path to a title for the popover and the button
+          description: 'filter.stateProvince.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        placeholder: 'E.g. DNA sequence reads'
+      }
+    }
+  },
+  eventId: {
+    type: 'SIMPLE_TEXT',
+    config: {
+      std: {
+        filterHandle: 'eventId',
+        id2labelHandle: 'eventId',
+        translations: {
+          count: 'filter.eventId.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.eventId.name',// translation path to a title for the popover and the button
+          description: 'filter.eventId.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        placeholder: 'E.g. DNA sequence reads'
+      }
+    }
+  },
+  samplingProtocol: {
+    type: 'SIMPLE_TEXT',
+    config: {
+      std: {
+        filterHandle: 'samplingProtocol',
+        id2labelHandle: 'samplingProtocol',
+        translations: {
+          count: 'filter.samplingProtocol.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.samplingProtocol.name',// translation path to a title for the popover and the button
+          description: 'filter.samplingProtocol.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        placeholder: 'E.g. DNA sequence reads'
+      }
+    }
+  },
   // -- Add filters above this line (required by plopfile.js) --
   q: {
     type: 'CUSTOM_STANDARD',
@@ -562,7 +732,7 @@ export const commonFilters = {
               return <div style={{ padding: 20, background: 'pink', maxHeight: '100%', overflow: 'auto' }}>
                 <button style={{ background: 'yellow', display: 'block', width: '100%' }}
                   onClick={() => setFullField('taxonKey', [Math.floor(Math.random() * 100)])}>I feel lucky - choose random taxonKey between 0 and 100</button>
-                  <pre>{JSON.stringify(filter, null, 2)}</pre>
+                <pre>{JSON.stringify(filter, null, 2)}</pre>
               </div>
             }}
           </FilterContext.Consumer>

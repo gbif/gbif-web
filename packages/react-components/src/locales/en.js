@@ -111,7 +111,8 @@ export const en = {
     },
     sampleSizeUnit: {
       name: "Sample size unit",
-      count: '{num, plural, one {sample size unit} other {# sample size units}}'
+      count: '{num, plural, one {sample size unit} other {# sample size units}}',
+      description: 'This field is used together with "sample size value" and describes the unit of the meassurement'
     },
     coordinateUncertainty: {
       name: 'Coordinate uncertainty',
@@ -171,6 +172,56 @@ export const en = {
     recordNumber: {
       name: 'Record number',
       count: '{num, plural, one { Record number } other {# Record numbers}}',
+      description: 'A short description of the component should be placed here'
+    },
+    collectionCode: {
+      name: 'Collection code',
+      count: '{num, plural, one { Collection code } other {# Collection codes}}',
+      description: 'A short description of the component should be placed here'
+    },
+    recordedById: {
+      name: 'Recorded by id',
+      count: '{num, plural, one { Recorded by id } other {# Recorded by ids}}',
+      description: 'A short description of the component should be placed here'
+    },
+    identifiedById: {
+      name: 'Identified by id',
+      count: '{num, plural, one { Identified by id } other {# Identified by ids}}',
+      description: 'A short description of the component should be placed here'
+    },
+    occurrenceId: {
+      name: 'Occurrence id',
+      count: '{num, plural, one { Occurrence id } other {# Occurrence ids}}',
+      description: 'A short description of the component should be placed here'
+    },
+    organismId: {
+      name: 'Organism id',
+      count: '{num, plural, one { Organism id } other {# Organism ids}}',
+      description: 'A short description of the component should be placed here'
+    },
+    locality: {
+      name: 'Locality',
+      count: '{num, plural, one { Locality } other {# Localitys}}',
+      description: 'A short description of the component should be placed here'
+    },
+    waterBody: {
+      name: 'Water body',
+      count: '{num, plural, one { Water body } other {# Water bodys}}',
+      description: 'A short description of the component should be placed here'
+    },
+    stateProvince: {
+      name: 'State province',
+      count: '{num, plural, one { State province } other {# State provinces}}',
+      description: 'A short description of the component should be placed here'
+    },
+    eventId: {
+      name: 'Event id',
+      count: '{num, plural, one { Event id } other {# Event ids}}',
+      description: 'A short description of the component should be placed here'
+    },
+    samplingProtocol: {
+      name: 'Sampling protocol',
+      count: '{num, plural, one { Sampling protocol } other {# Sampling protocols}}',
       description: 'A short description of the component should be placed here'
     },
     // -- Add filter above this line (required by plopfile.js) --

@@ -32,7 +32,7 @@ export const FilterContent = ({ config, translations, LabelFromID, hide, labelle
     />}
     hasHelpTexts={config.hasOptionDescriptions}
     aboutText={translations.description && <FormattedMessage
-      id={translations.description}
+      id={translations.description || `filter.${filterHandle}.description`}
       defaultMessage={translations.description}
     />}
     supportsExist={config.supportsExist}
