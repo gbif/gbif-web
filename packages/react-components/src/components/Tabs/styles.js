@@ -1,6 +1,6 @@
 import { css } from '@emotion/core';
 import camelCase from 'lodash/camelCase';
-import { focusStyle } from '../../style/shared';
+// import { focusStyle } from '../../style/shared';
 
 const opposite = {
   left: 'right',
@@ -14,10 +14,10 @@ const border = (width, color, dir, isActive) => ({
   [camelCase(`border-${opposite[dir]}`)]: `${width}px solid transparent`,
 });
 
-export const tab = ({theme, direction='bottom', isActive}) => css`
+export const tab = ({ theme, direction = 'bottom', isActive }) => css`
   ${border(3, theme.primary500, direction, isActive)}
-  display: ${direction === 'left' || direction === 'right' ? 'block' : 'inline-block'};
   padding: 10px 10px;
+  flex: 0 1 auto;
   cursor: pointer;
   &:hover, &:focus {
     outline: none;
@@ -28,13 +28,30 @@ export const tab = ({theme, direction='bottom', isActive}) => css`
   }
 `;
 
-export const tabList = ({theme}) => css`
+export const tabList = ({ theme, vertical }) => css`
   padding: 0;
   margin: 0;
   list-style: none;
+  display: flex;
+  flex-direction: ${vertical ? 'column' : 'row'};
+  flex-wrap: nowrap;
+`;
+
+export const tabSeperator = ({ theme, vertical }) => css`
+  margin: 0 10px;
+  width: 1px;
+  padding: 5px 0;
+  flex: 0 1 auto;
+  border-left: 1px solid #ddd;
+`;
+
+export const tabSpacer = ({ theme, vertical }) => css`
+  flex: 1 1 auto;
 `;
 
 export default {
   tab,
-  tabList
+  tabList,
+  tabSeperator,
+  tabSpacer
 }

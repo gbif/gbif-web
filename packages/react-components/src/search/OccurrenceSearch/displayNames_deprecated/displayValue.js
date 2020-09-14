@@ -54,14 +54,14 @@ let displayName = [
     name: 'TypeStatus',
     format: id => ({ title: startCase(id + '') })
   },
-  {
-    name: 'year',
-    format: rangeDisplayName('interval.year')
-  },
-  {
-    name: 'elevation',
-    format: rangeDisplayName('interval.elevation')
-  },
+  // {
+  //   name: 'year',
+  //   format: rangeDisplayName('interval.year')
+  // },
+  // {
+  //   name: 'elevation',
+  //   format: rangeDisplayName('interval.elevation')
+  // },
 ];
 
 function getAsComponents(fns) {

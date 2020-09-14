@@ -78,27 +78,27 @@ export const commonLabels = {
   },
   year: {
     type: 'CUSTOM',
-    component: rangeOrEqualLabel('interval.year')
+    component: rangeOrEqualLabel('interval.compactTime')
   },
   coordinateUncertainty: {
     type: 'CUSTOM',
-    component: rangeOrEqualLabel('interval.coordinateUncertainty')
+    component: rangeOrEqualLabel('interval.compactMeters')
   },
   depth: {
     type: 'CUSTOM',
-    component: rangeOrEqualLabel('interval.depth')
+    component: rangeOrEqualLabel('interval.compactMeters')
   },
   organismQuantity: {
     type: 'CUSTOM',
-    component: rangeOrEqualLabel('interval.organismQuantity')
+    component: rangeOrEqualLabel('interval.compact')
   },
   sampleSizeValue: {
     type: 'CUSTOM',
-    component: rangeOrEqualLabel('interval.sampleSizeValue')
+    component: rangeOrEqualLabel('interval.compact')
   },
   relativeOrganismQuantity: {
     type: 'CUSTOM',
-    component: rangeOrEqualLabel('interval.relativeOrganismQuantity')
+    component: rangeOrEqualLabel('interval.compact')
   },
   month: {
     type: 'TRANSLATION',
@@ -127,6 +127,14 @@ export const commonLabels = {
   recordNumber: {
     type: 'TRANSLATION',
     template: id => id
+  },
+  elevation: {
+    type: 'CUSTOM',
+    component: rangeOrEqualLabel('interval.compactMeters')
+  },
+  occurrenceStatus: {
+    type: 'TRANSLATION',
+    template: id => `enums.occurrenceStatus.${id}`
   },
   // -- Add labels above this line (required by plopfile.js) --
 }

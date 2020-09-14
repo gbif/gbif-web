@@ -50,7 +50,7 @@ query table($predicate: Predicate, $size: Int = 20, $from: Int = 0){
 
 function Table() {
   const [from, setFrom] = useUrlState({param: 'from', defaultValue: 0});
-  const size = 20;
+  const size = 50;
   const currentFilterContext = useContext(FilterContext);
   const { rootPredicate, predicateConfig } = useContext(OccurrenceContext);
   const { data, error, loading, load } = useQuery(OCCURRENCE_TABLE, { lazyLoad: true, keepDataWhileLoading: true });

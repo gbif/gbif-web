@@ -25,16 +25,27 @@ ControlledTabs.propTypes = {
   onChange: PropTypes.func,
 }
 
+export const TapSeperator = props => {
+  const theme = useContext(ThemeContext);
+  return <li css={styles.tabSeperator({ theme })} {...props}>&nbsp;</li>
+}
+
+export const TapSpacer = props => {
+  const theme = useContext(ThemeContext);
+  return <li css={styles.tabSpacer({ theme })} {...props}></li>
+}
+
 export const Tabs = uncontrollable(ControlledTabs, {
   activeId: 'onChange'
 });
 
 export const TabList = ({
+  vertical = false,
   ...props
 }) => {
   const theme = useContext(ThemeContext);
   return <ul
-    css={styles.tabList({ theme })}
+    css={styles.tabList({ theme, vertical })}
     {...props} />
 };
 TabList.displayName = 'TabList';
@@ -97,3 +108,5 @@ TabPanel.propTypes = {
 Tabs.Tab = Tab;
 Tabs.TabList = TabList;
 Tabs.TabPanel = TabPanel;
+Tabs.TapSeperator = TapSeperator;
+Tabs.TapSpacer = TapSpacer;

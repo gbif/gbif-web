@@ -34,6 +34,9 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
     defaultFilter={initFilter}
   >
     {({ filter, toggle, setFullField, checkedMap, formId, summaryProps, footerProps, isExistenceFilter }) => {
+      // if (typeof isExistenceFilter === 'undefined') {
+      //   return <div>loading</div>;//TODO create a loader component for these kind of usages
+      // }
       if (isExistenceFilter) {
         return <Exists {...{ footerProps, setFullField, onApply, onCancel, filter, hide, filterHandle }} />
       }
@@ -61,7 +64,7 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
             }}
           />
         </div>
-        {options.length > 0 && <>
+        {options.length > 0 && typeof isExistenceFilter !== 'undefined' && <>
           <SummaryBar {...summaryProps} style={{ marginTop: 0 }} />
           <FilterBody>
             <form id={formId} onSubmit={e => e.preventDefault()} >

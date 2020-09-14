@@ -8,6 +8,7 @@ import month from './enums/month.json';
 import continent from './enums/continent.json';
 import protocol from './enums/protocol.json';
 import establishmentMeans from './enums/establishmentMeans.json';
+import occurrenceStatus from './enums/occurrenceStatus.json';
 // -- Add imports above this line (required by plopfile.js) --
 
 export const en = {
@@ -18,8 +19,14 @@ export const en = {
   'pagination.pageXofY': 'Page {current} of {total}',
   moreFilters: 'more',
   nResults: '{total, plural, one {# result} other {# results}}',
+  nResultsWithCoordinates: '{total, plural, one {# result } other {# results}} with coordinates',
+  nResultsWithImages: '{total, plural, one {# result } other {# results}} with images',
   tableHeaders: {
     features: 'Features'
+  },
+  nullOrNot: {
+    isNotNull: 'Must be defined',
+    isNull: 'Must not be defined',
   },
   filter: {
     taxonKey: {
@@ -131,97 +138,107 @@ export const en = {
     },
     sampleSizeValue: {
       name: 'Sample size value',
-      count: '{num, plural, one { Sample size value } other {# Sample size values}}',
+      count: '{num, plural, one { sample size value } other {# sample size values}}',
       description: 'A short description of the component should be placed here'
     },
     relativeOrganismQuantity: {
       name: 'Relative organism quantity',
-      count: '{num, plural, one { Relative organism quantity } other {# Relative organism quantitys}}',
+      count: '{num, plural, one { relative organism quantity } other {# relative organism quantitys}}',
       description: 'A short description of the component should be placed here'
     },
     month: {
       name: 'Month',
-      count: '{num, plural, one { Month } other {# Months}}',
+      count: '{num, plural, one { month } other {# months}}',
       description: 'A short description of the component should be placed here'
     },
     continent: {
       name: 'Continent',
-      count: '{num, plural, one { Continent } other {# Continents}}',
+      count: '{num, plural, one { continent } other {# continents}}',
       description: 'A short description of the component should be placed here'
     },
     protocol: {
       name: 'Protocol',
-      count: '{num, plural, one { Protocol } other {# Protocols}}',
+      count: '{num, plural, one { protocol } other {# protocols}}',
       description: 'A short description of the component should be placed here'
     },
     establishmentMeans: {
       name: 'Establishment means',
-      count: '{num, plural, one { Establishment means } other {# Establishment meanss}}',
+      count: '{num, plural, one { establishment means } other {# establishment means}}',
       description: 'A short description of the component should be placed here'
     },
     catalogNumber: {
       name: 'Catalog number',
-      count: '{num, plural, one { Catalog number } other {# Catalog numbers}}',
+      count: '{num, plural, one { catalog number } other {# catalog numbers}}',
       description: 'A short description of the component should be placed here'
     },
     recordedBy: {
       name: 'Recorded by',
-      count: '{num, plural, one { Recorded by } other {# Recorded bys}}',
+      count: '{num, plural, one { recorded by } other {# recorded bys}}',
       description: 'A short description of the component should be placed here'
     },
     recordNumber: {
       name: 'Record number',
-      count: '{num, plural, one { Record number } other {# Record numbers}}',
+      count: '{num, plural, one { record number } other {# record numbers}}',
       description: 'A short description of the component should be placed here'
     },
     collectionCode: {
       name: 'Collection code',
-      count: '{num, plural, one { Collection code } other {# Collection codes}}',
+      count: '{num, plural, one { collection code } other {# collection codes}}',
       description: 'A short description of the component should be placed here'
     },
     recordedById: {
       name: 'Recorded by id',
-      count: '{num, plural, one { Recorded by id } other {# Recorded by ids}}',
+      count: '{num, plural, one { recorded by id } other {# recorded by ids}}',
       description: 'A short description of the component should be placed here'
     },
     identifiedById: {
       name: 'Identified by id',
-      count: '{num, plural, one { Identified by id } other {# Identified by ids}}',
+      count: '{num, plural, one { identified by id } other {# identified by ids}}',
       description: 'A short description of the component should be placed here'
     },
     occurrenceId: {
       name: 'Occurrence id',
-      count: '{num, plural, one { Occurrence id } other {# Occurrence ids}}',
+      count: '{num, plural, one { occurrence id } other {# occurrence ids}}',
       description: 'A short description of the component should be placed here'
     },
     organismId: {
       name: 'Organism id',
-      count: '{num, plural, one { Organism id } other {# Organism ids}}',
+      count: '{num, plural, one { organism id } other {# organism ids}}',
       description: 'A short description of the component should be placed here'
     },
     locality: {
       name: 'Locality',
-      count: '{num, plural, one { Locality } other {# Localitys}}',
+      count: '{num, plural, one { locality } other {# localities}}',
       description: 'A short description of the component should be placed here'
     },
     waterBody: {
       name: 'Water body',
-      count: '{num, plural, one { Water body } other {# Water bodys}}',
+      count: '{num, plural, one { water body } other {# water bodies}}',
       description: 'A short description of the component should be placed here'
     },
     stateProvince: {
       name: 'State province',
-      count: '{num, plural, one { State province } other {# State provinces}}',
+      count: '{num, plural, one { state province } other {# state provinces}}',
       description: 'A short description of the component should be placed here'
     },
     eventId: {
       name: 'Event id',
-      count: '{num, plural, one { Event id } other {# Event ids}}',
+      count: '{num, plural, one { event id } other {# event ids}}',
       description: 'A short description of the component should be placed here'
     },
     samplingProtocol: {
       name: 'Sampling protocol',
       count: '{num, plural, one { Sampling protocol } other {# Sampling protocols}}',
+      description: 'A short description of the component should be placed here'
+    },
+    elevation: {
+      name: 'Elevation',
+      count: '{num, plural, one { Elevation } other {# Elevations}}',
+      description: 'A short description of the component should be placed here'
+    },
+    occurrenceStatus: {
+      name: 'Occurrence status',
+      count: '{num, plural, one { Occurrence status } other {# Occurrence statuss}}',
       description: 'A short description of the component should be placed here'
     },
     // -- Add filter above this line (required by plopfile.js) --
@@ -235,17 +252,29 @@ export const en = {
       gte: "Greater or equal {from}",
       e: "Equals {is}"
     },
+    compact: {
+      between: '{from} to {to}',
+      lt: 'Below {to}',
+      gt: 'Above {from}',
+      e: '{from}',
+    },
+    compactMeters: {
+      between: '{from}m to {to}m',
+      lt: 'Below {to}m',
+      gt: 'Above {from}m',
+      e: '{from}m',
+    },
+    compactTime: {
+      between: '{from} to {to}',
+      lt: 'Before {to}',
+      gt: 'After {from}',
+      e: '{from}',
+    },
     year: {
       between: 'Year {from} to {to}',
       lt: 'Before year {to}',
       gt: 'After year {from}',
       e: 'Year is {from}',
-    },
-    elevation: {
-      between: 'Elevation {from}m to {to}m',
-      lt: 'Elevation below {to}m',
-      gt: 'Elevation above {from}m',
-      e: 'Elevation is {from}m',
     },
     coordinateUncertainty: {
       between: 'Coordinate uncertainty {from}m to {to}m',
@@ -277,6 +306,12 @@ export const en = {
       gt: 'Relative organism quantity above {from}',
       e: 'Relative organism quantity is {from}',
     },
+    elevation: {
+      between: 'Elevation {from} to {to}',
+      lt: 'Elevation below {to}',
+      gt: 'Elevation above {from}',
+      e: 'Elevation is {from}',
+    },
     // -- Add interval above this line (required by plopfile.js) --
   },
   enums: {
@@ -290,6 +325,7 @@ export const en = {
     continent,
     protocol,
     establishmentMeans,
+    occurrenceStatus,
     // -- Add enum translations above this line (required by plopfile.js) --
   }
 }

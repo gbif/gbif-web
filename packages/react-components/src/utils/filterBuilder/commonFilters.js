@@ -9,6 +9,7 @@ import month from '../../locales/enums/month.json';
 import continent from '../../locales/enums/continent.json';
 import protocol from '../../locales/enums/protocol.json';
 import establishmentMeans from '../../locales/enums/establishmentMeans.json';
+import occurrenceStatus from '../../locales/enums/occurrenceStatus.json';
 // -- Add imports above this line (required by plopfile.js) --
 
 export const commonFilters = {
@@ -153,6 +154,7 @@ export const commonFilters = {
       },
       specific: {
         placeholder: 'Range or single value',
+        supportsExist: true,
         regex: /^((-)?[0-9]{0,4})(,)?((-)?[0-9]{0,4})$/
       }
     }
@@ -205,7 +207,8 @@ export const commonFilters = {
       },
       specific: {
         options: Object.keys(occurrenceIssue),
-        supportsNegation: true
+        supportsNegation: true,
+        supportsExist: true
       }
     }
   },
@@ -362,6 +365,7 @@ export const commonFilters = {
       },
       specific: {
         options: Object.keys(month),
+        supportsExist: true,
       }
     }
   },
@@ -619,7 +623,8 @@ export const commonFilters = {
         },
       },
       specific: {
-        placeholder: 'E.g. DNA sequence reads'
+        placeholder: 'Enter the ID',
+        supportsExist: true
       }
     }
   },
@@ -640,6 +645,40 @@ export const commonFilters = {
       }
     }
   },
+  elevation: {
+    type: 'NUMBER_RANGE',
+    config: {
+      std: {
+        filterHandle: 'elevation',
+        id2labelHandle: 'elevation',
+        translations: {
+          count: 'filter.elevation.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.elevation.name',// translation path to a title for the popover and the button
+          description: 'filter.elevation.description', // translation path for the filter description
+        }
+      },
+      specific: {
+        placeholder: 'Range or single value',
+      }
+    }
+  },
+  occurrenceStatus: {
+      type: 'ENUM',
+      config: {
+        std: {
+          filterHandle: 'occurrenceStatus',
+          id2labelHandle: 'occurrenceStatus',
+          translations: {
+            count: 'filter.occurrenceStatus.count', // translation path to display names with counts. e.g. "3 scientific names"
+            name: 'filter.occurrenceStatus.name',// translation path to a title for the popover and the button
+            description: 'filter.occurrenceStatus.description', // translation path for the filter description
+          }
+        },
+        specific: {
+          options: Object.keys(occurrenceStatus),
+        }
+      }
+    },
   // -- Add filters above this line (required by plopfile.js) --
   q: {
     type: 'CUSTOM_STANDARD',
@@ -711,33 +750,33 @@ export const commonFilters = {
   //     }
   //   }
   // },
-  evenMoreFreedom: {
-    type: 'CUSTOM_STANDARD',
-    config: {
-      std: {
-        filterHandle: 'taxonKey',// if nothing else provided, then this is the filterName used
-        // id2labelHandle: 'canonicalName',
-        id2label: ({ id }) => `taxonKey: ${id}`, // just define the label here. With no chance to reuse it elsewhere
-        translations: {
-          count: '{num, plural, one {random taxon} other {# random taxa}}', // Should really point to the translation file, but as it falls back to the string it can be used as the main entry
-          name: 'Randomizer',// translation path to a title for the popover and the button - in this case the path does not exist and so it falls back to the string provided
-          description: 'filter.random.description', // translation path for the filter description
-        },
-      },
-      specific: {
-        dontWrapInStdFilter: true,
-        component: ({ FilterContext, filter, ...props }) => {
-          return <FilterContext.Consumer>
-            {({ setFullField, filter }) => {
-              return <div style={{ padding: 20, background: 'pink', maxHeight: '100%', overflow: 'auto' }}>
-                <button style={{ background: 'yellow', display: 'block', width: '100%' }}
-                  onClick={() => setFullField('taxonKey', [Math.floor(Math.random() * 100)])}>I feel lucky - choose random taxonKey between 0 and 100</button>
-                <pre>{JSON.stringify(filter, null, 2)}</pre>
-              </div>
-            }}
-          </FilterContext.Consumer>
-        },
-      }
-    }
-  },
+  // evenMoreFreedom: {
+  //   type: 'CUSTOM_STANDARD',
+  //   config: {
+  //     std: {
+  //       filterHandle: 'taxonKey',// if nothing else provided, then this is the filterName used
+  //       // id2labelHandle: 'canonicalName',
+  //       id2label: ({ id }) => `taxonKey: ${id}`, // just define the label here. With no chance to reuse it elsewhere
+  //       translations: {
+  //         count: '{num, plural, one {random taxon} other {# random taxa}}', // Should really point to the translation file, but as it falls back to the string it can be used as the main entry
+  //         name: 'Randomizer',// translation path to a title for the popover and the button - in this case the path does not exist and so it falls back to the string provided
+  //         description: 'filter.random.description', // translation path for the filter description
+  //       },
+  //     },
+  //     specific: {
+  //       dontWrapInStdFilter: true,
+  //       component: ({ FilterContext, filter, ...props }) => {
+  //         return <FilterContext.Consumer>
+  //           {({ setFullField, filter }) => {
+  //             return <div style={{ padding: 20, background: 'pink', maxHeight: '100%', overflow: 'auto' }}>
+  //               <button style={{ background: 'yellow', display: 'block', width: '100%' }}
+  //                 onClick={() => setFullField('taxonKey', [Math.floor(Math.random() * 100)])}>I feel lucky - choose random taxonKey between 0 and 100</button>
+  //               <pre>{JSON.stringify(filter, null, 2)}</pre>
+  //             </div>
+  //           }}
+  //         </FilterContext.Consumer>
+  //       },
+  //     }
+  //   }
+  // },
 }

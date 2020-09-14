@@ -36,7 +36,7 @@ function Map({ labelMap, query, pointData, pointError, pointLoading, loading, to
       <OccurrenceSidebar id={activeItem?.gbifId} defaultTab='details' style={{ maxWidth: '100%', width: 700, height: '100%' }} />
     </DetailsDrawer>
     <div css={css.mapArea({theme})}>
-      <ViewHeader loading={loading} total={total} />
+      <ViewHeader message="nResultsWithCoordinates" loading={loading} total={total} />
       <div style={{position: 'relative', height: '100%'}}>
         {listVisible && <ListBox  onCloseRequest={e => showList(false)} 
                                   labelMap={labelMap}

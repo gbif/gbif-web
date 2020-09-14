@@ -26,6 +26,9 @@ const filterConf = {
     publisherKey: {
       defaultKey: 'publishingOrganizationKey'
     },
+    publishingCountryCode: {
+      defaultKey: 'publishingCountry'
+    },
     recordedById: {
       defaultKey: 'recordedByIds_value'
     },

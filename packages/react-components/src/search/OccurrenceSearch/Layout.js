@@ -5,27 +5,28 @@ import ThemeContext from '../../style/themes/ThemeContext';
 // import PropTypes from 'prop-types';
 import { withFilter } from '../../widgets/Filter/state';
 // import { FormattedMessage, FormattedNumber } from 'react-intl';
-import { cssLayout, cssNavBar, cssViewArea, cssFilter, cssViews } from '../Layout.styles';
+import { cssLayout, cssNavBar, cssViewArea, cssFilter, cssViews, cssFooter } from '../Layout.styles';
 import { Tabs } from '../../components'
 import Map from './views/Map';
 import Table from './views/Table';
 import Gallery from './views/Gallery';
+import Datasets from './views/Datasets';
 
 import { FilterBar } from '../FilterBar';
 import { useUrlState } from '../../dataManagement/state/useUrlState';
 
-const { TabList, Tab, TabPanel } = Tabs;
+const { TabList, Tab, TabPanel, TapSeperator, TapSpacer } = Tabs;
 
 const Layout = ({
   className = '',
   config,
   ...props
 }) => {
-  const [activeView, setActiveView] = useUrlState({param: 'view', defaultValue: 'map'});
+  const [activeView, setActiveView] = useUrlState({ param: 'view', defaultValue: 'dataset' });
   const theme = useContext(ThemeContext);
   const prefix = theme.prefix || 'gbif';
   const elementName = 'occurrenceSearchLayout';
-  
+
   return <div className={`${className} ${prefix}-${elementName}`}
     css={cssLayout({ theme })} {...props}>
     <Tabs activeId={activeView} onChange={setActiveView} >
@@ -38,6 +39,12 @@ const Layout = ({
             <Tab tabId="table">Table</Tab>
             <Tab tabId="map">Map</Tab>
             <Tab tabId="gallery">Gallery</Tab>
+            <TapSeperator />
+            <Tab tabId="dataset">Datasets</Tab>
+            {/* <Tab tabId="publisher">Publishers</Tab> */}
+            <TapSpacer />
+            <TapSeperator />
+            <Tab tabId="test">Test</Tab>
           </TabList>
         </div>
       </div>
@@ -51,9 +58,12 @@ const Layout = ({
       <TabPanel lazy tabId="gallery" className={`${prefix}-${elementName}-views`} css={cssViewArea({ theme })}>
         <Gallery />
       </TabPanel>
-      {/* <div className={`${prefix}-${elementName}-footer`} css={cssFooter({ theme })}>
+      <TabPanel lazy tabId="dataset" className={`${prefix}-${elementName}-views`} css={cssViewArea({ theme })}>
+        <Datasets />
+      </TabPanel>
+      <div className={`${prefix}-${elementName}-footer`} css={cssFooter({ theme })}>
         <div>Footer content</div>
-      </div> */}
+      </div>
     </Tabs>
   </div>
 }
