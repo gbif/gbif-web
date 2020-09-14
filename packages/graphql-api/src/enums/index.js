@@ -6,13 +6,13 @@ const _ = require('lodash');
 const config = require('../config');
 const API_V1 = config.API_V1;
 
-async function loadEnums() {
+async function loadEnums(fileName) {
   const types = await getEnumData('enumeration/basic')
   const enums = await Promise.all(
     types.map(type => getEnumData(`enumeration/basic/${type}`))
   );
   const enumMap = _.zipObject(types, enums);
-  return fs.writeFile(__dirname+'/enums.json', JSON.stringify(enumMap, null, 2));
+  return fs.writeFile(`${__dirname}/${fileName}`, JSON.stringify(enumMap, null, 2));
 }
 
 
@@ -28,14 +28,25 @@ async function getEnumData(url) {
   return res.body;
 }
 
+async function writeLatestEnums() {
+  try {
+    await loadEnums('enums_latest.json');
+    console.log("Latest version Enums written to 'enums_latest.json'")
+  } catch(error){
+    console.log("Failed to fetch Enums from API: ");
+    console.log(error)
+  }
+}
+
 async function getEnumTypeDefs() {
   //Load enums from file - if the file is not there, get map of enums from API first
   let enums;
   try {
     enums = require('./enums.json');
+    writeLatestEnums()
   } catch(err){
     try {
-      await loadEnums();
+      await loadEnums('enums.json');
       console.log("Enums written to file from API")
       return getEnumTypeDefs()
     } catch(error){

@@ -56,5 +56,8 @@
       "/node_modules/",
       "/__utils"
     ]
+  },
+  "nodemonConfig": {
+    "ignore": ["src/enums/*.json"]
   }
 }
