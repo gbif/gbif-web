@@ -7,6 +7,7 @@ import doiRegex from 'doi-regex';
 import Doi from '../Doi/Doi';
 import Orcid from '../Orcid/Orcid';
 import Lsid from '../Lsid/Lsid';
+import BooleanValue from '../BooleanValue/BooleanValue'
 import {content} from './styles'
 
 const autolinker = new Autolinker(
@@ -59,7 +60,12 @@ const getDoi = (text) => {
 }
 
 export const HyperText = ({text}) =>  {
-
+    if(text === false || text === true){
+        return <BooleanValue value={text} />
+    }
+    if(typeof text === "undefined"){
+        return null;
+    }
     if(typeof text !== "string"){
         return text;
     }
@@ -76,6 +82,6 @@ export const HyperText = ({text}) =>  {
     if(lsid){
         return <Lsid identifier={lsid}/>
     }
-
+    
     return <span css={content()} dangerouslySetInnerHTML={{ __html: autolinker.link(sanitized) }}></span>
 }

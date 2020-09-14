@@ -6,6 +6,7 @@ import ThemeContext from '../../../style/themes/ThemeContext';
 import * as css from '../styles';
 import { Accordion, Properties, Image, GalleryTiles, GalleryTile } from "../../../components";
 import { Header } from './Header';
+import {HyperText} from '../../../components';
 
 const { Term, Value } = Properties;
 
@@ -36,10 +37,10 @@ export function ImageDetails({
     <Accordion css={css.accordion({theme})} summary={<span>About</span>} defaultOpen={data?.occurrence?.stillImages?.length === 1}>
       <Properties style={{ fontSize: 13 }}>
         {['type', 'format', 'identifier', 'created', 'creator', 'license', 'publisher', 'references', 'rightsholder']
-          .map(x => <React.Fragment key={x}>
+          .filter(x => !!activeImage[x]).map(x => <React.Fragment key={x}>
             <Term>{x}</Term>
             <Value>
-              {activeImage[x]}
+            <HyperText text={activeImage[x]} />
             </Value>
           </React.Fragment>)}
       </Properties>
