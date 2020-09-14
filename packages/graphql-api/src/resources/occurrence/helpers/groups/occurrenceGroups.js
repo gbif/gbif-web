@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const terms = require('./terms.json')
-const remarkTypes = require('./remarkTypes.json')
+const remarkTypes =  require('../../../../enums/interpretationRemark.json')
 
 const remarkMap = remarkTypes.reduce((acc, cur) => {
     acc[cur.id] = cur;

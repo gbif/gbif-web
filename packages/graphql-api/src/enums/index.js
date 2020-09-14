@@ -15,6 +15,16 @@ async function loadEnums(fileName) {
   return fs.writeFile(`${__dirname}/${fileName}`, JSON.stringify(enumMap, null, 2));
 }
 
+async function getLatestInterpretationRemark(){
+  // Discretely write latest interpretationRemark
+  try {
+    const interpretationRemarkLatest = await getEnumData('enumeration/interpretationRemark')
+    await fs.writeFile(`${__dirname}/interpretationRemark_latest.json`, JSON.stringify(interpretationRemarkLatest, null, 2));
+   } catch(error){
+     console.log("Failed to fetch latest interpretationRemark from API:")
+     console.log(error)
+   } 
+}
 
 
 async function getEnumData(url) {
@@ -32,6 +42,8 @@ async function writeLatestEnums() {
   try {
     await loadEnums('enums_latest.json');
     console.log("Latest version Enums written to 'enums_latest.json'")
+    await getLatestInterpretationRemark();
+    console.log("Latest version of interpretationRemark written to 'interpretationRemark_latest.json'")
   } catch(error){
     console.log("Failed to fetch Enums from API: ");
     console.log(error)
