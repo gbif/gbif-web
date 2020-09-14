@@ -1,6 +1,6 @@
 // Load all enumerations from the GBIF API. http://api.gbif.org/v1/enumeration/basic
 // e.g. http://api.gbif.org/v1/enumeration/basic/BasisOfRecord
-
+const fs = require('fs').promises;
 const got = require('got');
 const _ = require('lodash');
 const config = require('../config');
@@ -12,8 +12,10 @@ async function loadEnums() {
     types.map(type => getEnumData(`enumeration/basic/${type}`))
   );
   const enumMap = _.zipObject(types, enums);
-  return enumMap;
+  return fs.writeFile(__dirname+'/enums.json', JSON.stringify(enumMap, null, 2));
 }
+
+
 
 async function getEnumData(url) {
   const res = await got(url, {
@@ -27,9 +29,20 @@ async function getEnumData(url) {
 }
 
 async function getEnumTypeDefs() {
-  //get map of enums from API
-  const enums = await loadEnums();
-  
+  //Load enums from file - if the file is not there, get map of enums from API first
+  let enums;
+  try {
+    enums = require('./enums.json');
+  } catch(err){
+    try {
+      await loadEnums();
+      console.log("Enums written to file from API")
+      return getEnumTypeDefs()
+    } catch(error){
+      console.log("Failed to fetch Enums from API: ");
+      console.log(error)
+    }
+  }  
   //map enums to schema definitions
   const schemas = Object.keys(enums).map(enumType => {
     const list = enums[enumType].reduce( (accumulator, currentValue) => accumulator += currentValue + '\n', '');
