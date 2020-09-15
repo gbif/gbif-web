@@ -21,4 +21,5 @@ export { Image } from './Image/Image';
 export { DetailsDrawer } from './DetailsDrawer/DetailsDrawer';
 export { MajorRanks } from './MajorRanks/MajorRanks';
 export { IconFeatures } from './IconFeatures/IconFeatures';
+export { Progress } from './Progress/Progress';
 // -- Add imports above this line (required by plopfile.js) --
