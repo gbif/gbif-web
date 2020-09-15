@@ -18,7 +18,11 @@ function Filter({ children, title, aboutText, labelledById, hasHelpTexts, suppor
   useEffect(() => {
     const mustType = get(tmpFilter, `must.${filterName}[0].type`) === 'isNotNull';
     const mustNotType = get(tmpFilter, `must_not.${filterName}[0].type`) === 'isNotNull';
-    if (!isExistenceFilter && (mustType || mustNotType)) onExistenceChange(true);
+    if (!isExistenceFilter && (mustType || mustNotType)) {
+      onExistenceChange(true);
+    } else {
+      onExistenceChange(false);
+    }
   }, []);
 
   return <FilterState filter={tmpFilter} onChange={updatedFilter => onFilterChange(updatedFilter)}>

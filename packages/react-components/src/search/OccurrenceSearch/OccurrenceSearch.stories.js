@@ -14,10 +14,10 @@ export default {
 
 
 const labels = {
-  elevation: {
-    type: 'NUMBER_RANGE',
-    path: 'interval.elevation'
-  },
+  // elevation: {
+  //   type: 'NUMBER_RANGE',
+  //   path: 'interval.compact'
+  // },
 }
 
 function getSuggests({ client, suggestStyle }) {
@@ -56,41 +56,41 @@ function getSuggests({ client, suggestStyle }) {
 }
 
 const filters = {
-  elevation: {
-    type: 'NUMBER_RANGE',
-    config: {
-      std: {
-        filterHandle: 'elevation',
-        id2labelHandle: 'elevation',
-        translations: {
-          count: 'filter.elevation.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.elevation.name',// translation path to a title for the popover and the button
-          description: 'filter.elevation.description', // translation path for the filter description
-        }
-      },
-      specific: {
-        placeholder: 'Elevation range or single value'
-      }
-    }
-  },
-  basisOfRecord: {
-    type: 'ENUM',
-    config: {
-      std: {
-        filterHandle: 'basisOfRecord',
-        id2labelHandle: 'basisOfRecord',
-        translations: {
-          count: 'filter.basisOfRecord.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'My custom subset of bor',// translation path to a title for the popover and the button
-        }
-      },
-      specific: {
-        supportsExist: false,
-        options: ['MATERIAL_SAMPLE', 'LIVING_SPECIMEN'],
-        description: 'filter.basisOfRecord.description', // translation path for the filter description
-      }
-    }
-  },
+  // elevation: {
+  //   type: 'NUMBER_RANGE',
+  //   config: {
+  //     std: {
+  //       filterHandle: 'elevation',
+  //       id2labelHandle: 'elevation',
+  //       translations: {
+  //         count: 'filter.elevation.count', // translation path to display names with counts. e.g. "3 scientific names"
+  //         name: 'filter.elevation.name',// translation path to a title for the popover and the button
+  //         description: 'filter.elevation.description', // translation path for the filter description
+  //       }
+  //     },
+  //     specific: {
+  //       placeholder: 'Elevation range or single value'
+  //     }
+  //   }
+  // },
+  // basisOfRecord: {
+  //   type: 'ENUM',
+  //   config: {
+  //     std: {
+  //       filterHandle: 'basisOfRecord',
+  //       id2labelHandle: 'basisOfRecord',
+  //       translations: {
+  //         count: 'filter.basisOfRecord.count', // translation path to display names with counts. e.g. "3 scientific names"
+  //         name: 'My custom subset of bor',// translation path to a title for the popover and the button
+  //       }
+  //     },
+  //     specific: {
+  //       supportsExist: false,
+  //       options: ['MATERIAL_SAMPLE', 'LIVING_SPECIMEN'],
+  //       description: 'filter.basisOfRecord.description', // translation path for the filter description
+  //     }
+  //   }
+  // },
 }
 
 const config = { labels, getSuggests, filters };

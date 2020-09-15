@@ -9,7 +9,7 @@ function query(query, { variables, client }) {
   const graphqlEndpoint = client?.endpoint;
   const headers = client?.headers;
   const queryId = hash(query);
-  const queryParams = { queryId };
+  const queryParams = { queryId, strict: true };
   const variablesTooLongForGET = variables && encodeURIComponent(JSON.stringify(variables)).length > maxGETLength;
   // this is a bit silly. why serialize and then hash the object. would be cheaper to simply hash the serialized
   if (variablesTooLongForGET) {

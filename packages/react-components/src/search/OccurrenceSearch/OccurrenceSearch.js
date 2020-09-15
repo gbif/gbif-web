@@ -115,7 +115,7 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
     labelMap,
     suggestConfigMap,
     filters,
-    defaultVisibleFilters: ['q', 'license', 'evenMoreFreedom', 'taxonKey', 'year', 'datasetKey', 'countryCode'],
+    defaultVisibleFilters: ['q', 'eventId', 'evenMoreFreedom', 'taxonKey', 'year', 'datasetKey', 'countryCode'],
     // rootPredicate: { type: 'in', key: 'basisOfRecord', values: ['PRESERVED_SPECIMEN', 'FOSSIL_SPECIMEN', 'MATERIAL_SAMPLE', 'LIVING_SPECIMEN'] },
     rootPredicate: customConfig.rootPredicate,//{ type: 'isNotNull', key: 'typeStatus' },
     // rootPredicate: { type: 'in', key: 'taxonKey', values: [4, 5, 7] },

@@ -5,7 +5,7 @@ import { FilterButton } from '../../../components/Button';
 import { FilterContext } from '../state';
 import get from 'lodash/get';
 
-export const TriggerButton = React.forwardRef(({ mustOptions = [], mustNotOptions = [], filterHandle, translations = {}, DisplayName = ({id}) => <>{id}</>, loading, ...props }, ref) => {
+export const TriggerButton = React.forwardRef(({ mustOptions = [], mustNotOptions = [], filterHandle, translations = {}, DisplayName = ({ id }) => <>{id}</>, loading, ...props }, ref) => {
   const currentFilterContext = useContext(FilterContext);
   const {
     count = `filter.${filterHandle}.count`,
@@ -34,19 +34,30 @@ export const TriggerButton = React.forwardRef(({ mustOptions = [], mustNotOption
     // it is a statement about existence
     isNegated = false;
     if (mustNotOptions.length > 0) {
-      TextSummary = <FormattedMessage
-        id={isNull}
-        defaultMessage={`Does not have: ${filterHandle}`}
-      />
+      // TextSummary = <FormattedMessage
+      //   id={isNull}
+      //   defaultMessage={`Does not have: ${filterHandle}`}
+      // />
+      TextSummary = <>
+        <FormattedMessage
+          id={name} /> : <FormattedMessage id={'nullOrNot.isNull'} />
+      </>
     } else {
-      TextSummary = <FormattedMessage
-        id={isNotNull}
-        defaultMessage={`Have: ${filterHandle}`}
-      />
+      // TextSummary = <FormattedMessage
+      //   id={isNotNull}
+      //   defaultMessage={`Have: ${filterHandle}`}
+      // />
+      TextSummary = <>
+        <FormattedMessage
+          id={name} /> : <FormattedMessage id={'nullOrNot.isNotNull'} />
+      </>
     }
   } else if (options.length === 1) {
     // exactly one option
-    TextSummary = <DisplayName id={options[0]} />
+    TextSummary = <>
+      <FormattedMessage
+        id={name} /> : <DisplayName id={options[0]} />
+    </>
   } else if (options.length > 1) {
     // multiple selected
     TextSummary = <FormattedMessage

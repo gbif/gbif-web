@@ -64,7 +64,7 @@ export function OccurrenceSidebar({
   return <Tabs activeId={activeId} onChange={id => setTab(id)}>
     <Row wrap="nowrap" style={style} css={css.sideBar({ theme })}>
       <Col shrink={false} grow={false} css={css.detailDrawerBar({ theme })}>
-        <TabList aria-label="Images" style={{ paddingTop: '12px' }}>
+        <TabList aria-label="Images" style={{ paddingTop: '12px' }} vertical>
           <Tab tabId="details" direction="left">
             <MdInfo />
           </Tab>

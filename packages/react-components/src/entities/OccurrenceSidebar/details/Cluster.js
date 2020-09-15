@@ -95,6 +95,7 @@ query occurrence($key: ID!){
   	related {
       reasons
       occurrence {
+        gbifId
         basisOfRecord
         datasetTitle
         publisherTitle

@@ -31,7 +31,7 @@ export const FilterContent = ({ config = {}, translations, labelledById, LabelFr
       defaultMessage={translations?.name}
     />}
     aboutText={translations.description && <FormattedMessage
-      id={translations.description}
+      id={translations.description || `filter.${filterHandle}.description`}
       defaultMessage={translations.description}
     />}
     onFilterChange={onFilterChange}

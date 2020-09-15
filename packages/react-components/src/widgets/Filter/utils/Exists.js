@@ -2,6 +2,7 @@
 import { css, jsx } from '@emotion/core';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import React, { useEffect, useContext } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { FilterBody } from './misc';
 import Footer from './Footer';
 import { Option } from './Option';
@@ -27,7 +28,7 @@ const Exists = ({ footerProps, setFullField, filterHandle, onApply, onCancel, fi
         onChange={() => {
           setFullField(filterHandle, [{type: 'isNotNull'}], []);
         }}
-        label="Must be defined"
+        label={<FormattedMessage id={'nullOrNot.isNotNull'}/>}
       />
       <Option
         isRadio
@@ -35,7 +36,7 @@ const Exists = ({ footerProps, setFullField, filterHandle, onApply, onCancel, fi
         onChange={() => {
           setFullField(filterHandle, [], [{type: 'isNotNull'}]);
         }}
-        label="Must not be defined"
+        label={<FormattedMessage id={'nullOrNot.isNull'}/>}
       />
     </FilterBody>
     <Footer {...footerProps}

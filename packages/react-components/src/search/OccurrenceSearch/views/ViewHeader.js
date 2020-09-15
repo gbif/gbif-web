@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import { Skeleton } from '../../../components';
 
-export const ViewHeader = ({ children, total, loading, props }) => {
+export const ViewHeader = ({ children, total, loading, message, props }) => {
   const theme = useContext(ThemeContext);
   const showSkeleton = loading || typeof total !== 'number';
 
@@ -15,7 +15,7 @@ export const ViewHeader = ({ children, total, loading, props }) => {
     margin: 0 0 4px 4px;
   `} {...props}>
     {showSkeleton && <Skeleton style={{ width: 100 }} />}
-    {!showSkeleton && <FormattedMessage id="nResults" values={{ total }} />}
+    {!showSkeleton && <FormattedMessage id={message || "nResults"} values={{ total }} />}
     {children}
   </div>
 }
