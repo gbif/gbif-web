@@ -84,7 +84,7 @@ export function Summary({ occurrence, fieldGroups, loading, setActiveImage, ...p
                   defaultMessage={"Dataset"}
                 /></T>
       <V>
-      {links.dataset ? <a href={links.dataset.href(fieldGroups.Dataset.datasetKey.value)} >{occurrence.datasetTitle} </a> : occurrence.datasetTitle}
+      {links.dataset ? <a href={links.dataset.href(occurrence)} >{occurrence.datasetTitle} </a> : occurrence.datasetTitle}
       </V>
 
       <T>Basis of record</T>

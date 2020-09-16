@@ -3,7 +3,7 @@ import links from './links.json'
 
 const defaultGbifOrgLinks = {
     dataset: {
-        href: (occurrence) => `https://www.gbif.org/dataset/${occurrence.groups?.Dataset?.datasetKey}`,
+        href: (occurrence) => `https://www.gbif.org/dataset/${occurrence.datasetKey}`,
         key: "datasetKey"       
     },
   
