@@ -10,9 +10,10 @@ const { Term: T, Value: V } = Properties;
 import { FormattedMessage, FormattedDate } from 'react-intl';
 import * as css from '../../styles';
 import { prettifyEnum } from '../../../../utils/labelMaker/config2labels';
+import LinksContext from '../../../../search/OccurrenceSearch/config/links/LinksContext';
 
 export function Summary({ occurrence, fieldGroups, loading, setActiveImage, ...props }) {
-  const theme = useContext(ThemeContext);
+  const links = useContext(LinksContext);
 
   if (!occurrence && !loading) return null;
   if (loading || !fieldGroups) return <span>Skeleton loader</span>
@@ -40,7 +41,8 @@ export function Summary({ occurrence, fieldGroups, loading, setActiveImage, ...p
                 />
               </T>
               <V>
-              <span dangerouslySetInnerHTML={{ __html: occurrence.gbifClassification.usage.formattedName }} />
+              {links.scientificName ? <a href={links.scientificName.href(occurrence)} dangerouslySetInnerHTML={{ __html: occurrence.gbifClassification.usage.formattedName }} /> :
+              <span dangerouslySetInnerHTML={{ __html: occurrence.gbifClassification.usage.formattedName }} />}
               {fieldGroups?.Taxon?.scientificName?.issues?.length > 0  &&
               fieldGroups.Taxon.scientificName.issues.map((i) => (
                 <span css={css.issuePill(i)} key={i}>
@@ -59,7 +61,8 @@ export function Summary({ occurrence, fieldGroups, loading, setActiveImage, ...p
                 />
               </T>
               <V>
-              <span dangerouslySetInnerHTML={{ __html: occurrence.gbifClassification.acceptedUsage.formattedName }} />
+              {links.acceptedScientificName ? <a href={links.acceptedScientificName.href(occurrence)} dangerouslySetInnerHTML={{ __html: occurrence.gbifClassification.acceptedUsage.formattedName }} /> :
+              <span dangerouslySetInnerHTML={{ __html: occurrence.gbifClassification.acceptedUsage.formattedName }} />}
               </V></>}
               <T>
                 <FormattedMessage
@@ -75,6 +78,14 @@ export function Summary({ occurrence, fieldGroups, loading, setActiveImage, ...p
         year="numeric"
         month="long"
         day="2-digit" />} />
+                      
+                <T><FormattedMessage
+                  id={`ocurrenceFieldNames.dataset`}
+                  defaultMessage={"Dataset"}
+                /></T>
+      <V>
+      {links.dataset ? <a href={links.dataset.href(fieldGroups.Dataset.datasetKey.value)} >{occurrence.datasetTitle} </a> : occurrence.datasetTitle}
+      </V>
 
       <T>Basis of record</T>
       <V><Term occurrence={occurrence} term={fieldGroups?.Record?.basisOfRecord} formattedValue={<FormattedMessage id={`enums.basisOfRecord.${fieldGroups.Record.basisOfRecord.value}`} />} /></V>

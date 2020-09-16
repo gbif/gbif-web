@@ -12,6 +12,7 @@ import { ImageDetails } from './details/ImageDetails';
 import { Intro } from './details/Intro';
 import { Cluster } from './details/Cluster';
 import { ClusterIcon } from '../../components/Icons/Icons';
+import LinksContext from '../../search/OccurrenceSearch/config/links/LinksContext';
 
 const { TabList, Tab, TabPanel } = Tabs;
 
@@ -23,7 +24,11 @@ export function OccurrenceSidebar({
   style,
   ...props
 }) {
-  const { data, error, loading, load } = useQuery(OCCURRENCE, { lazyLoad: true });
+  const links = useContext(LinksContext);
+
+  // Get the keys for custom dataset links and custom taxon links
+  const linkKeys = Object.keys(links).map(k => links[k]?.key).filter(k => !!k).join('\n')
+  const { data, error, loading, load } = useQuery(OCCURRENCE(linkKeys), { lazyLoad: true });
   const [activeId, setTab] = useState(defaultTab || 'details');
   const theme = useContext(ThemeContext);
   const [activeImage, setActiveImage] = useState();
@@ -100,13 +105,14 @@ export function OccurrenceSidebar({
 };
 
 
-const OCCURRENCE = `
+const OCCURRENCE = (linkKeys) => `
 query occurrence($key: ID!){
   occurrence(key: $key) {
     coordinates
     countryCode
     eventDateSingle
     typeStatus
+    ${linkKeys || ''}
     volatile {
       globe(sphere: false, land: false, graticule: false) {
         svg
@@ -161,9 +167,11 @@ query occurrence($key: ID!){
       usage {
         rank
         formattedName
+        key
       }
       acceptedUsage {
         formattedName
+        key
       }
     }
 

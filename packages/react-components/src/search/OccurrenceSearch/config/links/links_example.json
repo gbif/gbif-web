@@ -1,0 +1,8 @@
+{
+    "dataset": "default",  
+    "scientificName": {
+        "template": "https://svampe.databasen.org/taxon/$key",
+        "key": "taxonID"
+    },
+    "acceptedScientificName": "default"       
+}

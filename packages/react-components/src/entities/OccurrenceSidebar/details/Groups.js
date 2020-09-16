@@ -11,6 +11,7 @@ import {MapPresentation} from "./Map/Map"
 import {DynamicProperties} from "./DynamicProperties/DynamicProperties"
 import {HyperText} from '../../../components';
 import { prettifyEnum } from '../../../utils/labelMaker/config2labels';
+import LinksContext from '../../../search/OccurrenceSearch/config/links/LinksContext';
 
 import _ from "lodash";
 
@@ -27,7 +28,7 @@ export function Groups({
   ...props
 }) {
   const theme = useContext(ThemeContext);
-
+  const links = useContext(LinksContext)
   const { occurrence } = data;
   if (loading || !occurrence) return <h1>Loading</h1>;
   const {
@@ -53,7 +54,8 @@ export function Groups({
       isSpecimen,
       showAll,
       theme,
-      occurrence
+      occurrence,
+      links
     )
   );
 }
@@ -72,7 +74,8 @@ function getGroup(
   isSpecimen,
   showAll,
   theme,
-  occurrence
+  occurrence,
+  links
 ) {
   if (_.isEmpty(group) || group.filter((term) => showTerm(title, term, showAll)).length === 0) {
     return null;
@@ -142,6 +145,18 @@ function getGroup(
               </T>
               <V>
               <MapPresentation location={group} /> 
+              </V>
+          
+          </>}
+          {title === "Dataset" &&  <>
+          <T>
+                <FormattedMessage
+                  id={`ocurrenceFieldNames.dataset`}
+                  defaultMessage={"Dataset"}
+                />
+              </T>
+              <V>
+               {links.dataset && <a href={links.dataset.href(groupMap.datasetKey.value)} >{occurrence.datasetTitle} </a>}
               </V>
           
           </>}

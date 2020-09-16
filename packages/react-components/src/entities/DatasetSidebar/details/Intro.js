@@ -5,6 +5,7 @@ import ThemeContext from '../../../style/themes/ThemeContext';
 import * as css from '../styles';
 import { Row, Col, Properties, Accordion } from "../../../components";
 import { Header } from './Header';
+import {HyperText} from '../../../components';
 
 const { Term: T, Value: V } = Properties;
 
@@ -31,7 +32,7 @@ export function Intro({
       <Accordion summary="About" defaultOpen={true}>
         <Properties style={{ fontSize: 13, marginBottom: 12 }} horizontal={true}>
           {dataset.description && <>
-            <T>Description</T><V>{dataset.description}</V>
+            <T>Description</T><V><HyperText text={dataset.description}/></V>
           </>}
           {dataset?.temporalCoverages?.length > 0 && <>
             <T>Temporal scope</T><V>{dataset.temporalCoverages.map(temporalCoverage)}</V>
