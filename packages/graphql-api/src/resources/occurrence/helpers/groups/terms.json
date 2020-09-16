@@ -972,7 +972,8 @@
     "simpleName": "typeStatus",
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/typeStatus",
     "group": "Identification",
-    "source": "DwcTerm"
+    "source": "DwcTerm",
+    "renderAsType": "enum"
     },
     {
     "simpleName": "identifiedBy",
@@ -1408,7 +1409,8 @@
     "group": "Crawling",
     "source": "GbifTerm",
     "hideInDefaultView": true,
-    "remarks": false
+    "remarks": false,
+    "renderAsType": "enum"
     },
     {
     "simpleName": "lastParsed",
@@ -1518,6 +1520,7 @@
     "simpleName": "scientificNameAuthorship",
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/scientificNameAuthorship",
     "group": "Taxon",
-    "source": "DwcTerm"
+    "source": "DwcTerm",
+    "hideIndefaultView": true
     }
     ]

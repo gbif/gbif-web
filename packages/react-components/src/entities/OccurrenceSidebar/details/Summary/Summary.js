@@ -8,7 +8,8 @@ import { Accordion, Properties, GalleryTiles, GalleryTile } from '../../../../co
 import { Classification } from "../Classification/Classification"
 const { Term: T, Value: V } = Properties;
 import { FormattedMessage, FormattedDate } from 'react-intl';
-// import * as css from './styles';
+import * as css from '../../styles';
+import { prettifyEnum } from '../../../../utils/labelMaker/config2labels';
 
 export function Summary({ occurrence, fieldGroups, loading, setActiveImage, ...props }) {
   const theme = useContext(ThemeContext);
@@ -32,12 +33,43 @@ export function Summary({ occurrence, fieldGroups, loading, setActiveImage, ...p
         </V>
       </>
       }
-      <FieldPair term={fieldGroups.Taxon?.scientificName} occurrence={occurrence}
-        formattedValue={<span dangerouslySetInnerHTML={{ __html: occurrence.gbifClassification.usage.formattedName }}></span>} />
-      {occurrence.gbifClassification.synonym && <FieldPair term={fieldGroups.Taxon?.acceptedScientificName} occurrence={occurrence} fieldGroups={fieldGroups}
-        formattedValue={<span dangerouslySetInnerHTML={{ __html: occurrence.gbifClassification.acceptedUsage.formattedName }}></span>} />}
-      <T>Classification</T>
-      <V><Classification taxon={occurrence.groups.Taxon} /></V>
+                        <T>
+                <FormattedMessage
+                  id={`ocurrenceFieldNames.scientificName`}
+                  defaultMessage={"Scientific Name"}
+                />
+              </T>
+              <V>
+              <span dangerouslySetInnerHTML={{ __html: occurrence.gbifClassification.usage.formattedName }} />
+              {fieldGroups?.Taxon?.scientificName?.issues?.length > 0  &&
+              fieldGroups.Taxon.scientificName.issues.map((i) => (
+                <span css={css.issuePill(i)} key={i}>
+                  <FormattedMessage
+                    id={`issueEnum.${i.id}`}
+                    defaultMessage={prettifyEnum(i.id)}
+                  />
+                </span>
+              ))}
+              {fieldGroups?.Taxon?.scientificName?.issues?.length > 0 && <div css={css.termRemark()}>{fieldGroups?.Taxon?.scientificName?.verbatim}</div>}
+              </V>
+              {fieldGroups?.Taxon?.synonym?.value === true && fieldGroups?.Taxon?.acceptedScientificName?.value &&  <> <T>
+                <FormattedMessage
+                  id={`ocurrenceFieldNames.acceptedScientificName`}
+                  defaultMessage={"Accepted Scientific Name"}
+                />
+              </T>
+              <V>
+              <span dangerouslySetInnerHTML={{ __html: occurrence.gbifClassification.acceptedUsage.formattedName }} />
+              </V></>}
+              <T>
+                <FormattedMessage
+                  id={`ocurrenceFieldNames.classification`}
+                  defaultMessage={"Classification"}
+                />
+              </T>
+              <V>
+                <Classification taxon={occurrence.groups.Taxon} showUnknownRanks={true}/>
+              </V>
 
       <FieldPair term={fieldGroups?.Event?.eventDate} occurrence={occurrence} fieldGroups={fieldGroups} formattedValue={<FormattedDate value={fieldGroups?.Event?.eventDate?.value}
         year="numeric"
@@ -62,7 +94,7 @@ function Term({ term, occurrence, formattedValue }) {
       <V>
         <Value term={term} formattedValue={formattedValue} />
         {/* <span dangerouslySetInnerHTML={{ __html: occurrence.gbifClassification.usage.formattedName }}></span> */}
-        {term.issues.map(x => <span key={x.id} style={{ background: '#ffee90', borderRadius: 20, fontSize: '10px', display: 'inline-block', padding: '0 8px' }}>{x.id}</span>)}
+        {term.issues.map(x => <span key={x.id} css={css.issuePill(x)}>{x.id}</span>)}
       </V>
       <T>Original</T>
       <V>{term.verbatim}</V>
