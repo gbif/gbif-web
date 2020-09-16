@@ -40,7 +40,7 @@ export const tabList = ({ theme, vertical }) => css`
 export const tabSeperator = ({ theme, vertical }) => css`
   margin: 0 10px;
   width: 1px;
-  padding: 5px 0;
+  margin: 5px 0;
   flex: 0 1 auto;
   border-left: 1px solid #ddd;
 `;

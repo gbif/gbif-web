@@ -22,7 +22,7 @@ const Layout = ({
   config,
   ...props
 }) => {
-  const [activeView, setActiveView] = useUrlState({ param: 'view', defaultValue: 'dataset' });
+  const [activeView, setActiveView] = useUrlState({ param: 'view', defaultValue: 'table' });
   const theme = useContext(ThemeContext);
   const prefix = theme.prefix || 'gbif';
   const elementName = 'occurrenceSearchLayout';
@@ -42,9 +42,9 @@ const Layout = ({
             <TapSeperator />
             <Tab tabId="dataset">Datasets</Tab>
             {/* <Tab tabId="publisher">Publishers</Tab> */}
-            <TapSpacer />
+            {/* <TapSpacer />
             <TapSeperator />
-            <Tab tabId="test">Test</Tab>
+            <Tab tabId="test">Test</Tab> */}
           </TabList>
         </div>
       </div>
@@ -61,9 +61,9 @@ const Layout = ({
       <TabPanel lazy tabId="dataset" className={`${prefix}-${elementName}-views`} css={cssViewArea({ theme })}>
         <Datasets />
       </TabPanel>
-      <div className={`${prefix}-${elementName}-footer`} css={cssFooter({ theme })}>
+      {/* <div className={`${prefix}-${elementName}-footer`} css={cssFooter({ theme })}>
         <div>Footer content</div>
-      </div>
+      </div> */}
     </Tabs>
   </div>
 }

@@ -6,12 +6,13 @@ import { filter2predicate } from '../../../../dataManagement/filterAdapter';
 import { DatasetsPresentation } from './DatasetsPresentation';
 
 const DATASETS = `
-query table($predicate: Predicate, $size: Int = 0){
+query table($predicate: Predicate, $size: Int = 100){
   occurrenceSearch(predicate: $predicate, size: 0, from: 0) {
     facet {
       datasetKey(size: $size) {
         count
         dataset {
+          key
           title
           description
           license
@@ -20,7 +21,6 @@ query table($predicate: Predicate, $size: Int = 0){
     }
   }
 }
-
 `;
 
 function Datasets() {
@@ -41,7 +41,7 @@ function Datasets() {
   }, [currentFilterContext.filterHash, rootPredicate]);
 
   useEffect(() => {
-    setSize(0);
+    setSize(100);
   }, [currentFilterContext.filterHash]);
 
   const more = useCallback(() => {
