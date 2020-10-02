@@ -37,8 +37,8 @@ const getOrcid = (text) => {
     } else {
         const trimmed = text.trim();
         if (trimmed.startsWith('orcid.org/') ) {
-            return 'http://lsid.info/' + trimmed;
-        } else if(trimmed.startsWith('https://orcid.org/')){
+            return 'https://' + trimmed;
+        } else if(trimmed.startsWith('https://orcid.org/') || trimmed.startsWith('http://orcid.org/')){
             return trimmed;
         } else {
             return null

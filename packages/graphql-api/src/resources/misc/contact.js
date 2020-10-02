@@ -22,6 +22,8 @@ const typeDef = gql`
     province: String
     type: String
     userId: [String]
+    roles: [String]
+    _highlighted: Boolean
   }
 `;
 

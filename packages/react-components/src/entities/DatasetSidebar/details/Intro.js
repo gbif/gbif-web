@@ -6,6 +6,7 @@ import * as css from '../styles';
 import { Row, Col, Properties, Accordion } from "../../../components";
 import { Header } from './Header';
 import {HyperText} from '../../../components';
+import {Contacts} from './Contacts'
 
 const { Term: T, Value: V } = Properties;
 
@@ -42,6 +43,7 @@ export function Intro({
           </>}
         </Properties>
       </Accordion>
+      <Contacts data={data}/>
 
     </Col>
   </Row>

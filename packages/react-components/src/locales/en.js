@@ -10,6 +10,7 @@ import continent from './enums/continent.json';
 import protocol from './enums/protocol.json';
 import establishmentMeans from './enums/establishmentMeans.json';
 import occurrenceStatus from './enums/occurrenceStatus.json';
+import role from './enums/role.json';
 
 // -- Add imports above this line (required by plopfile.js) --
 
@@ -328,7 +329,8 @@ export const en = {
     continent,
     protocol,
     establishmentMeans,
-    occurrenceStatus
+    occurrenceStatus,
+    role
     // -- Add enum translations above this line (required by plopfile.js) --
   }
 }

@@ -1,3 +1,4 @@
+const {getContributors} =  require('./helpers/contributors')
 /**
  * Convinent wrapper to generate the facet resolvers.
  * Given a string (facet name) then generate a query a map the result
@@ -75,6 +76,7 @@ module.exports = {
     constituents: ({ key }, args, { dataSources }) => {
       return dataSources.datasetAPI.getConstituents({ key, query: args });
     },
+    contributors: ({contacts}) => getContributors(contacts),
     networks: ({ key }, args, { dataSources }) => {
       return dataSources.datasetAPI.getNetworks({ key });
     },

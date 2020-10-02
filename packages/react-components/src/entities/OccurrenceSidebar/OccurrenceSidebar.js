@@ -28,6 +28,7 @@ export function OccurrenceSidebar({
 
   // Get the keys for custom dataset links and custom taxon links
   const linkKeys = Object.keys(links).map(k => links[k]?.key).filter(k => !!k).join('\n')
+  
   const { data, error, loading, load } = useQuery(OCCURRENCE(linkKeys), { lazyLoad: true });
   const [activeId, setTab] = useState(defaultTab || 'details');
   const theme = useContext(ThemeContext);

@@ -46,6 +46,7 @@ const typeDef = gql`
     collections: [JSON]
     comments: [JSON]
     contacts: [Contact]
+    contributors: [Contact]
     countryCoverage: [JSON]
     created: DateTime
     createdBy: String

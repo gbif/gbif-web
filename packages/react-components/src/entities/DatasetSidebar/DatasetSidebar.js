@@ -53,6 +53,18 @@ query dataset($key: String!){
     created
     description
     temporalCoverages
+    logoUrl
+    contributors {
+      firstName
+      lastName
+      position
+      organization
+      address
+      userId
+      type
+      _highlighted
+      roles
+    }
     geographicCoverages {
       description
       boundingBox {
