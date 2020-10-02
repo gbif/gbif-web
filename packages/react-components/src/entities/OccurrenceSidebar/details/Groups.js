@@ -148,18 +148,6 @@ function getGroup(
               </V>
           
           </>}
-          {title === "Dataset" &&  <>
-          <T>
-                <FormattedMessage
-                  id={`ocurrenceFieldNames.dataset`}
-                  defaultMessage={"Dataset"}
-                />
-              </T>
-              <V>
-               {links.dataset && <a href={links.dataset.href(groupMap.datasetKey.value)} >{occurrence.datasetTitle} </a>}
-              </V>
-          
-          </>}
           {title === "Record" && !showAll &&  groupMap.dynamicProperties?.verbatim && <>
           <T>
                 <FormattedMessage
