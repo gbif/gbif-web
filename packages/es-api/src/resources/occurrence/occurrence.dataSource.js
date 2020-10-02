@@ -27,6 +27,12 @@ const client = new elasticsearch.Client({
 
 async function query({ query, aggs, size = 20, from = 0 }) {
   const esQuery = {
+    sort : [
+      { year : {"order" : "desc"}},
+      { month : {"order" : "desc"}},
+      { day : {"order" : "desc"}},
+      { "gbifId" : "asc" }
+    ],
     size,
     from,
     query,
