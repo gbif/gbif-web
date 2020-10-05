@@ -4,8 +4,7 @@ import React, { useContext, useState } from 'react';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import { FormattedMessage, FormattedDate } from "react-intl";
 import * as css from '../styles';
-import { Row, Col, Properties, Accordion } from "../../../components";
-import { Header } from './Header';
+import { Properties, Accordion } from "../../../components";
 import {HyperText} from '../../../components';
 
 const { Term: T, Value: V } = Properties;

@@ -4,9 +4,8 @@ import React, { useContext, useState } from 'react';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import * as css from '../styles';
 import { Row, Col, Properties, Accordion } from "../../../components";
-import { Header } from './Header';
 import {HyperText} from '../../../components';
-import {Contacts} from './Contacts'
+import { FormattedDate } from 'react-intl';
 
 const { Term: T, Value: V } = Properties;
 
@@ -19,18 +18,9 @@ export function Intro({
   const theme = useContext(ThemeContext);
 
   const { dataset } = data;
-  if (loading || !dataset) return <h1>Loading</h1>;
+ // if (loading || !dataset) return <h1>Loading</h1>;
 
-  return <Row direction="column">
-    <Col style={{ padding: '12px 16px', paddingBottom: 50 }} grow>
-      <Header data={data} error={error} />
-
-      {/* <Accordion summary="Record (everything below is nonsense data)" defaultOpen={true}>
-        <Properties style={{ fontSize: 13, marginBottom: 12 }} horizontal={true}>
-          <T>Basis of record</T><V>Human observation</V>
-        </Properties>
-      </Accordion> */}
-      <Accordion summary="About" defaultOpen={true}>
+  return data?.dataset ?  <Accordion summary="About" defaultOpen={true}>
         <Properties style={{ fontSize: 13, marginBottom: 12 }} horizontal={true}>
           {dataset.description && <>
             <T>Description</T><V><HyperText text={dataset.description}/></V>
@@ -42,11 +32,10 @@ export function Intro({
             <T>Geographic scope</T><V>{dataset.geographicCoverages.map(geographicCoverage)}</V>
           </>}
         </Properties>
-      </Accordion>
-      <Contacts data={data}/>
-
-    </Col>
-  </Row>
+      </Accordion> : null
+      
+           
+   
 };
 
 function geographicCoverage(coverage) {
@@ -100,10 +89,19 @@ function temporalCoverage(period) {
   return <Properties>
     <T>{period.type}</T>
     {period['@type'] == 'range' && <V>
-      {period.start} - {period.end}
+    <FormattedDate value={period.start}
+      year="numeric"
+      month="long"
+      day="2-digit" /> - <FormattedDate value={period.end}
+      year="numeric"
+      month="long"
+      day="2-digit" />
     </V>}
     {period['@type'] == 'single' && <V>
-      {period.date}
+    <FormattedDate value={period.date}
+      year="numeric"
+      month="long"
+      day="2-digit" />
     </V>}
     {period['@type'] == 'verbatim' && <V>
       {period.period}

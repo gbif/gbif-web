@@ -31,6 +31,14 @@ export const en = {
     isNotNull: 'Must be defined',
     isNull: 'Must not be defined',
   },
+  dataset: {
+    samplingDescription: {
+      sampling: 'Sampling',
+      studyExtent: 'Study extent',
+      qualityControl: 'Quality control',
+      methodSteps: 'Method steps'
+    }
+  },
   filter: {
     taxonKey: {
       name: 'Scientific name',

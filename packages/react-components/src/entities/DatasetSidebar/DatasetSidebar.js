@@ -7,6 +7,11 @@ import * as css from './styles';
 import { Row, Col, Tabs } from "../../components";
 import { useQuery } from '../../dataManagement/api';
 import { Intro } from './details/Intro';
+import { Header } from './details/Header';
+import {Contacts} from './details/Contacts'
+import {BibliographicCitations} from './details/BibliographicCitations'
+import {SamplingDescription} from './details/SamplingDescription'
+import {Citation} from './details/Citation'
 
 const { TabList, Tab, TabPanel } = Tabs;
 
@@ -39,7 +44,16 @@ export function DatasetSidebar({
       </Col>
       <Col shrink={false} grow={false} css={css.detailDrawerContent({ theme })} >
         <TabPanel tabId='details'>
+        <Row direction="column">
+    <Col style={{ padding: '12px 16px', paddingBottom: 50 }} grow>
+      <Header data={data} error={error} />
           <Intro data={data} loading={loading} error={error} />
+           <SamplingDescription data={data}/> 
+          <BibliographicCitations data={data}/> 
+          <Contacts data={data}/>
+          <Citation data={data}/>
+          </Col>
+  </Row>
         </TabPanel>
       </Col>
     </Row>
@@ -54,6 +68,8 @@ query dataset($key: String!){
     description
     temporalCoverages
     logoUrl
+    publishingOrganizationKey
+    publishingOrganizationTitle
     contributors {
       firstName
       lastName
@@ -84,6 +100,20 @@ query dataset($key: String!){
         }
       }
     }
+    bibliographicCitations {
+      identifier
+      text
+    }
+    samplingDescription {
+      studyExtent
+      sampling
+      qualityControl
+      methodSteps
+    } 
+    citation {
+      text
+    }
+    license
   }
 }
 `;
