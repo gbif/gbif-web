@@ -61,11 +61,12 @@ class Map extends Component {
   addLayer() {
     var tileString =
       //"https://esmap.gbif-dev.org/api/tile/{x}/{y}/{z}.mvt?field=coordinates&url=" +
-      "http://labs.gbif.org:7012/api/tile/point/{x}/{y}/{z}.mvt?resolution=medium&field=coordinates&url=" +
+      "https://hp-maps.gbif-staging.org/api/tile/point/{x}/{y}/{z}.mvt?resolution=medium&field=coordinates&url=" +
+      // "http://labs.gbif.org:7012/api/tile/point/{x}/{y}/{z}.mvt?resolution=medium&field=coordinates&url=" +
+      // "http://localhost:4000/tile/point/{x}/{y}/{z}.mvt?resolution=medium&field=coordinates&url=" +
       // "http://localhost:7012/api/tile/point/{x}/{y}/{z}.mvt?resolution=medium&field=coordinates&url=" +
       // "http://localhost:3000/api/tile/significant/{x}/{y}/{z}.mvt?field=coordinate_point&significantField=backbone.speciesKey&url=" +
       //"http://localhost:3001/api/tile/point/{x}/{y}/{z}.mvt?resolution=high&field=coordinates&url=" +
-      encodeURIComponent(`http://c6n1.gbif.org:9200/occurrence/_search?`) +
       "&filter=" + encodeURIComponent(JSON.stringify(this.props.query));
     // tileString = `https://api.gbif.org/v2/map/occurrence/adhoc/{z}/{x}/{y}.mvt?style=scaled.circles&mode=GEO_CENTROID&locale=en&advanced=false&srs=EPSG%3A4326&squareSize=256`;
     this.map.addLayer(
