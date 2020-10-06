@@ -42,7 +42,9 @@ async function initializeServer() {
   });
 
   const app = express();
-  app.use(cors())
+  app.use(cors({
+    methods: 'GET,POST,OPTIONS',
+  }))
   app.use(bodyParser.json());
 
   // extract query and variables from store if a hash is provided instead of a query or variable
