@@ -25,9 +25,9 @@ const customTheme = ThemeBuilder.extend({
 const client = new ApiClient({
   gql: {
     endpoint: env.GRAPH_API,
-    headers: {
-      authorization: `ApiKey-v1 ${env.GRAPHQL_APIKEY}`
-    }
+    // headers: {
+    //   authorization: `ApiKey-v1 ${env.GRAPHQL_APIKEY}`
+    // }
   },
   v1: {
     endpoint: env.API_V1
