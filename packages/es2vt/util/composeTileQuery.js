@@ -31,7 +31,7 @@ function esTileQuery(x, y, z, userQuery, locationField) {
 
   // compose filter. simply nest the user query. Unclear if this is bad for performance. It could be flattened in most cases. But this is simple to do.
   let filter = [];
-  if (userQuery) {
+  if (userQuery && Object.keys(userQuery).length > 0) {
     filter.push(userQuery)
   }
   filter.push(tileQuery);
