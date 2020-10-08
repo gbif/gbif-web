@@ -49,6 +49,7 @@ export function FilterBody(props) {
     flex: 1 1 auto;
     overflow: auto;
     scrollbar-width: thin;
+    max-height: 350px;
     ${styledScrollBars({theme})}
   `} />
 };
