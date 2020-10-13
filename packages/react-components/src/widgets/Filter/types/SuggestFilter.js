@@ -10,6 +10,8 @@ import get from 'lodash/get';
 import union from 'lodash/union';
 import { keyCodes } from '../../../utils/util';
 import PopoverFilter from './PopoverFilter';
+import { Prose } from '../../../components/typography/Prose';
+import { FilterBodyDescription } from '../utils/misc';
 
 import { Suggest, Option, Filter, SummaryBar, FilterBody, Footer, Exists } from '../utils';
 
@@ -20,6 +22,11 @@ export const FilterContent = ({ config, translations, labelledById, LabelFromID,
 
   const suggestConfig = config.suggestConfig;
   const Label = config.LabelFromID || LabelFromID;
+
+  const aboutText = translations.description && <FormattedMessage
+    id={translations.description || `filter.${filterHandle}.description`}
+    defaultMessage={translations.description}
+  />;
   return <Filter
     labelledById={labelledById}
     onApply={onApply}
@@ -28,10 +35,7 @@ export const FilterContent = ({ config, translations, labelledById, LabelFromID,
       id={translations?.name || `filter.${filterHandle}.name`}
       defaultMessage={translations?.name}
     />}
-    aboutText={translations.description && <FormattedMessage
-      id={translations.description || `filter.${filterHandle}.description`}
-      defaultMessage={translations.description}
-    />}
+    aboutText={aboutText}
     supportsExist={config.supportsExist}
     onFilterChange={onFilterChange}
     filterName={filterHandle}
@@ -54,6 +58,9 @@ export const FilterContent = ({ config, translations, labelledById, LabelFromID,
             toggle(filterHandle, item.key);
           }} 
           />
+        {options.length === 0 && typeof aboutText !== 'undefined' && <Prose as={FilterBodyDescription}>
+          {aboutText}
+        </Prose>}
         {options.length > 0 && <>
           <SummaryBar {...summaryProps} style={{ marginTop: 0 }} />
           <FilterBody>

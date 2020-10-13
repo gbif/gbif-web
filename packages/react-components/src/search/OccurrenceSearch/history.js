@@ -1,6 +1,6 @@
 let createBrowserHistory = {
   listen: x => ({unlisten: x => {}}),
-  pust: x => {}
+  push: x => {}
 };
 if (typeof window !== 'undefined') {
   createBrowserHistory = require('history').createBrowserHistory();

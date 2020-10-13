@@ -252,6 +252,11 @@ export const en = {
       count: '{num, plural, one { Occurrence status } other {# Occurrence statuss}}',
       description: 'A short description of the component should be placed here'
     },
+    gadmGid: {
+      name: 'Administrative area',
+      count: '{num, plural, one { administrative area } other {# administrative areas}}',
+      description: 'Administrative areas as provided by GADM.org - this division can differ from the ISO 3166-1 standard used by GBIF.org for country processing.'
+    },
     // -- Add filter above this line (required by plopfile.js) --
   },
   invalidValue: 'Invalid value',

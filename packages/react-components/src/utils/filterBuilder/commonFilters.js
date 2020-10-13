@@ -678,6 +678,24 @@ export const commonFilters = {
         }
       }
     },
+  gadmGid: {
+      type: 'SUGGEST',
+      config: {
+        std: {
+        filterHandle: 'gadmGid',
+        id2labelHandle: 'gadmGid',
+        translations: {
+          count: 'filter.gadmGid.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.gadmGid.name',// translation path to a title for the popover and the button
+          description: 'filter.gadmGid.description', // translation path for the filter description
+        },
+      },
+        specific: {
+          suggestHandle: 'gadmGid',
+          id2labelHandle: 'gadmGid',
+        }
+      }
+    },
   // -- Add filters above this line (required by plopfile.js) --
   q: {
     type: 'CUSTOM_STANDARD',

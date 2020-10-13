@@ -4,6 +4,7 @@ import history from '../history';
 import queryString from 'query-string';
 import isObjectLike from 'lodash/isObjectLike';
 import isEmpty from 'lodash/isEmpty';
+import equal from 'fast-deep-equal/react';
 
 export function useUrlState({ param, dataType = dynamicParam, replaceState = false, defaultValue, base64encode = false, stripEmptyKeys = true, initialState }) {
   const [value, setValue] = useState();
@@ -11,7 +12,12 @@ export function useUrlState({ param, dataType = dynamicParam, replaceState = fal
 
   const updateUrl = useCallback(
     (newValue) => {
+      const currentState = queryString.parse(location.search);
       const parsed = queryString.parse(location.search);
+      
+      // basic check for equality. Do not update if there is nothing to update. This will not work for anything but strings
+      if (equal(newValue, currentState[param])) return;
+
       if (isObjectLike(newValue)) {
         if (isEmpty(newValue.must)) delete newValue.must;
         if (isEmpty(newValue.must_not)) delete newValue.must_not;
@@ -27,6 +33,7 @@ export function useUrlState({ param, dataType = dynamicParam, replaceState = fal
       if (typeof defaultValue !== 'undefined' && newValue === defaultValue) {
         delete parsed[param];
       }
+      if (equal(parsed[param], currentState[param])) return;
       history[action](window.location.pathname + '?' + queryString.stringify(parsed));
     },
     [],
@@ -55,8 +62,7 @@ export function useUrlState({ param, dataType = dynamicParam, replaceState = fal
       unlisten();
       const parsed = queryString.parse(location.search);
       delete parsed[param];
-      history[action](window.location.pathname + '?' + queryString.stringify(parsed));
-      console.log(location.search);
+      history.replace(window.location.pathname + '?' + queryString.stringify(parsed));
     };
   }, []);
 

@@ -24,4 +24,5 @@ export { IconFeatures } from './IconFeatures/IconFeatures';
 export { HyperText } from './HyperText/HyperText';
 export { Doi } from './Doi/Doi'
 export { Progress } from './Progress/Progress';
+export { Classification } from './Classification/Classification';
 // -- Add imports above this line (required by plopfile.js) --
