@@ -42,7 +42,8 @@ export const en = {
   filter: {
     taxonKey: {
       name: 'Scientific name',
-      count: '{num, plural, one {scientific name} other {# scientific names}}'
+      count: '{num, plural, one {scientific name} other {# scientific names}}',
+      description: 'The scientific name as it appears in the GBIF backbone taxonomy'
     },
     basisOfRecord: {
       name: 'Basis of record',

@@ -27,6 +27,7 @@ export const FilterContent = ({ config, translations, labelledById, LabelFromID,
     id={translations.description || `filter.${filterHandle}.description`}
     defaultMessage={translations.description}
   />;
+  
   return <Filter
     labelledById={labelledById}
     onApply={onApply}
@@ -58,7 +59,7 @@ export const FilterContent = ({ config, translations, labelledById, LabelFromID,
             toggle(filterHandle, item.key);
           }} 
           />
-        {options.length === 0 && typeof aboutText !== 'undefined' && <Prose as={FilterBodyDescription}>
+        {options.length === 0 && config.showAboutAsDefault && typeof aboutText !== 'undefined' && <Prose as={FilterBodyDescription}>
           {aboutText}
         </Prose>}
         {options.length > 0 && <>

@@ -27,7 +27,7 @@ export const commonFilters = {
       },
       specific: {
         suggestHandle: 'taxonKey',
-        id2labelHandle: 'taxonKey',
+        id2labelHandle: 'taxonKey'
       }
     }
   },
@@ -693,6 +693,7 @@ export const commonFilters = {
         specific: {
           suggestHandle: 'gadmGid',
           id2labelHandle: 'gadmGid',
+          showAboutAsDefault: true
         }
       }
     },
