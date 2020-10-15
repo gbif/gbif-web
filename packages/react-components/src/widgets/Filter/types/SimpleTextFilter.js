@@ -17,6 +17,7 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
   const [options, setOptions] = useState(initialOptions);
   const [inputValue, setValue] = useState('');
 
+  const pattern = config.restrictWildcards ? /^(?![\*\?]).*/g : undefined;
   return <Filter
     labelledById={false}
     title={<FormattedMessage
@@ -46,7 +47,13 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
             value={inputValue}
             onChange={e => {
               const value = e.target.value;
-              setValue(value);
+              if (pattern) {
+                if (value.match(pattern) !== null) {
+                  setValue(value);
+                }
+              } else {
+                setValue(value);
+              }
             }}
             placeholder={placeholder}
             onKeyPress={e => {

@@ -29,6 +29,9 @@ const filterConf = {
     publishingCountryCode: {
       defaultKey: 'publishingCountry'
     },
+    identifiedBy: {
+      defaultType: 'like'
+    },
     recordedById: {
       defaultKey: 'recordedByIds_value'
     },

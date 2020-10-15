@@ -258,6 +258,11 @@ export const en = {
       count: '{num, plural, one { administrative area } other {# administrative areas}}',
       description: 'Administrative areas as provided by GADM.org - this division can differ from the ISO 3166-1 standard used by GBIF.org for country processing.'
     },
+    identifiedBy: {
+      name: 'Identified by',
+      count: '{num, plural, one { Identified by } other {# Identified bys}}',
+      description: 'This filter is an example where one can search using wildcards. ?: matches any single character. *: matches zero or more characters'
+    },
     // -- Add filter above this line (required by plopfile.js) --
   },
   invalidValue: 'Invalid value',

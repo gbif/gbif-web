@@ -697,6 +697,24 @@ export const commonFilters = {
         }
       }
     },
+  identifiedBy: {
+    type: 'SIMPLE_TEXT',
+    config: {
+      std: {
+        filterHandle: 'identifiedBy',
+        id2labelHandle: 'identifiedBy',
+        translations: {
+          count: 'filter.identifiedBy.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.identifiedBy.name',// translation path to a title for the popover and the button
+          description: 'filter.identifiedBy.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        placeholder: 'Use * as wildcard',
+        restrictWildcards: true
+      }
+    }
+  },
   // -- Add filters above this line (required by plopfile.js) --
   q: {
     type: 'CUSTOM_STANDARD',
