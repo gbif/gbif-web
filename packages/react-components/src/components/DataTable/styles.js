@@ -12,6 +12,7 @@ export const occurrenceTable = ({theme}) => css`
   overflow: auto;
   position: relative;
   background: ${theme.paperBackground};
+  flex: 1 1 auto;
   /* ${styledScrollBars(props)} */
 `;
 
