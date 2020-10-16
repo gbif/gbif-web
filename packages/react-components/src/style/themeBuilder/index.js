@@ -47,7 +47,9 @@ const build = theme => {
   ];
   const darkMapColors = brightMapColors;//['#ffd300', '#f4b456', '#e9928a', '#d96cc1', '#b93bff'];
   
-  fullTheme.mapDensityColors = fullTheme.darkTheme ? darkMapColors : brightMapColors;
+  if (!fullTheme.mapDensityColors) {
+    fullTheme.mapDensityColors = fullTheme.darkTheme ? darkMapColors : brightMapColors;
+  }
   return fullTheme;
 }
 
