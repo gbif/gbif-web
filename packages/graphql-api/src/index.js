@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors')
 const { ApolloServer } = require('apollo-server-express');
+const AbortController = require('abort-controller');
 const get = require('lodash/get');
 const config = require('./config');
 const { hashMiddleware } = require('./hashMiddleware');
@@ -29,11 +30,20 @@ async function initializeServer() {
     context: async ({ req }) => {
       // on all requests attach a user if present
       const user = await extractUser(get(req, 'headers.authorization'));
-      return { user };
+
+      // Add express context and a listener for aborted connections. Then data sources have a chance to cancel resources
+      // I haven't been able to find any examples of people doing anything with cancellation - which I find odd.
+      // Perhaps the overhead isn't worth it in most cases?
+      const controller = new AbortController();
+      req.on('close', function () {
+        controller.abort();
+      });
+
+      return { user, abortController: controller };
     },
     typeDefs,
     resolvers,
-    dataSources: () => Object.keys(api).reduce((a,b) => (a[b]= new api[b](),a),{}), // Every request should have its own instance, see https://github.com/apollographql/apollo-server/issues/1562  
+    dataSources: () => Object.keys(api).reduce((a, b) => (a[b] = new api[b](), a), {}), // Every request should have its own instance, see https://github.com/apollographql/apollo-server/issues/1562  
     validationRules: [depthLimit(10)], // this likely have to be much higher than 6, but let us increase it as needed and not before
     cacheControl: {
       defaultMaxAge: 600,
@@ -49,7 +59,7 @@ async function initializeServer() {
 
   // extract query and variables from store if a hash is provided instead of a query or variable
   app.use(hashMiddleware);
-  
+
   // Add script tag to playground with linked query
   app.use(injectQuery);
 
@@ -60,7 +70,7 @@ async function initializeServer() {
       variablesId: res.get('X-Graphql-variables-ID')
     });
   });
-  
+
   server.applyMiddleware({ app });
 
   app.listen({ port: config.port }, () =>

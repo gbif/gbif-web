@@ -8,7 +8,7 @@ const dataset = require('./resources/dataset');
 const { asyncMiddleware, ResponseError, errorHandler, unknownRouteHandler } = require('./resources/errorHandler');
 
 const app = express();
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 app.use(function (req, res, next) {
   // Website you wish to allow to connect
@@ -52,6 +52,7 @@ app.get('/dataset/key/:id', asyncMiddleware(keyResource(dataset)));
 function postResource(resource) {
   const { dataSource, predicate2query, metric2aggs } = resource;
   return async (req, res) => {
+    try{
     const size = req.body.size;
     const includeMeta = req.body.includeMeta;
     const from = req.body.from;
@@ -59,7 +60,7 @@ function postResource(resource) {
     const metrics = req.body.metrics;
     const aggs = metrics ? metric2aggs(metrics) : {};
     const query = predicate2query(predicate);
-    const { result, esBody } = await dataSource.query({ query, aggs, size, from });
+    const { result, esBody } = await dataSource.query({ query, aggs, size, from, req });
     const meta = {
       predicate,
       metrics,
@@ -70,6 +71,11 @@ function postResource(resource) {
       ...(includeMeta && { meta }),
       ...result
     });
+  } catch(err) {
+    console.log('error');
+    console.log(err);
+    res.sendStatus(500);
+  }
   }
 }
 
@@ -95,7 +101,7 @@ function getResource(resource) {
     const size = req.query.size;
     const from = req.query.from;
     const includeMeta = req.query.includeMeta;
-    const { result, esBody } = await dataSource.query({ query, aggs, size, from });
+    const { result, esBody } = await dataSource.query({ query, aggs, size, from, req });
     const meta = {
       GET: req.query,
       predicate,
@@ -113,7 +119,7 @@ function getResource(resource) {
 function keyResource(resource) {
   const { dataSource } = resource;
   return async (req, res) => {
-    const body = await dataSource.byKey({ key: req.params.id });
+    const body = await dataSource.byKey({ key: req.params.id, req });
     res.json(body);
   };
 }

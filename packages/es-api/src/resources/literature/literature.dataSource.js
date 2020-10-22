@@ -6,7 +6,6 @@ const config = require('../../config');
 const { queryReducer } = require('../../responseAdapter');
 
 const host = config.LITERATURE_HOST;
-const logLevel = config.OCCURRENCE_LOG_LEVEL;
 const searchIndex = 'literature';
 
 const agent = () => new Agent({
@@ -15,10 +14,9 @@ const agent = () => new Agent({
 });
 
 var client = new elasticsearch.Client({
-  host,
+  node: host,
+  maxRetries: 3,
   requestTimeout: 30000,
-  log: logLevel,
-  apiVersion: '5.6',
   agent
 });
 

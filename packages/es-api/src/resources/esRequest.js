@@ -1,22 +1,30 @@
 const { ResponseError } = require('./errorHandler');
 
-async function search({ client, index, query }) {
+async function search({ client, index, query, req }) {
   try {
-    const response = await client.search({
+    const request = client.search({
       index,
-      body: query,
+      body: query
+    }, {
       headers: {
         'user-agent': 'gbif-es-wrapper'
       }
     });
+
+    req.on('close', function () {
+      request.abort();
+    });
+
+    const response = await request;
     return response;
   } catch (err) {
-    if (!err.status) {
+    console.log(err);
+    if (err.meta && err.meta.statusCode) {
       // TODO log error
-      throw new ResponseError(503, err.displayName || 'networkError', 'Unable to connect');
+      throw new ResponseError(err.meta.statusCode || 503, err.displayName || err.name || 'backendFailure', err.message || 'Backend failure');
     } else {
       // TODO log error
-      throw new ResponseError(err.status || 503, err.displayName || 'backendFailure', err.message || 'Backend failure');
+      throw new ResponseError(503, err.displayName || 'networkError', 'Unable to connect');
     }
   }
 }

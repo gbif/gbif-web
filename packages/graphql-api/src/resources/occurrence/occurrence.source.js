@@ -1,7 +1,7 @@
 // const { ApolloError } = require('apollo-server');
 const { RESTDataSource } = require('apollo-datasource-rest');
 const config = require('../../config');
-const { API_ES, API_ES_KEY } = config;
+const { API_ES, API_ES_KEY, API_V1 } = config;
 
 class OccurrenceAPI extends RESTDataSource {
   constructor() {
@@ -29,7 +29,7 @@ class OccurrenceAPI extends RESTDataSource {
 
   async searchOccurrences({ query }) {
     const body = { ...query, includeMeta: true };
-    const response = await this.post('/occurrence', body);
+    const response = await this.post('/occurrence', body, { signal: this.context.abortController.signal });
     response._predicate = body.predicate;
     return response;
   }
@@ -39,11 +39,11 @@ class OccurrenceAPI extends RESTDataSource {
   }
 
   async getRelated({ key }) {
-    return this.get(`http://api.gbif.org/v1/occurrence/${key}/experimental/related`);
+    return this.get(`${API_V1}/occurrence/${key}/experimental/related`);
   }
 
   async getFragment({ key }) {
-    return this.get(`http://api.gbif.org/v1/occurrence/${key}/fragment`);
+    return this.get(`${API_V1}/occurrence/${key}/fragment`);
   }
 
   async meta({ query }) {

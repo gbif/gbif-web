@@ -5,7 +5,6 @@ const { search } = require('../esRequest');
 const config = require('../../config');
 const { queryReducer } = require('../../responseAdapter');
 
-const logLevel = config.DATASET_LOG_LEVEL;
 const hostPattern = config.DATASET_HOST_PATTERN;
 const nodes = config.DATASET_NODES;
 const searchIndex = 'dataset';
@@ -17,10 +16,9 @@ const agent = () => new Agent({
 
 const hosts = new Array(nodes).fill().map((x, i) => hostPattern.replace('{n}', i + 1))
 const client = new elasticsearch.Client({
-  hosts: hosts,
+  nodes: hosts,
+  maxRetries: 3,
   requestTimeout: 1200000,
-  log: logLevel,
-  apiVersion: '5.6',
   agent
 });
 

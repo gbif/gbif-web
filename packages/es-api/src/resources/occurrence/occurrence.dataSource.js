@@ -1,4 +1,6 @@
-const elasticsearch = require('elasticsearch');
+// const elasticsearch = require('elasticsearch');
+const { Client } = require('@elastic/elasticsearch')
+
 const Agent = require('agentkeepalive');
 const { ResponseError } = require('../errorHandler');
 const { search } = require('../esRequest');
@@ -6,7 +8,6 @@ const config = require('../../config');
 const { reduce } = require('./reduce');
 const { queryReducer } = require('../../responseAdapter');
 
-const logLevel = config.OCCURRENCE_LOG_LEVEL;
 const hostPattern = config.OCCURRENCE_HOST_PATTERN;
 const nodes = config.OCCURRENCE_NODES;
 const searchIndex = 'occurrence';
@@ -17,15 +18,14 @@ const agent = () => new Agent({
 });
 
 const hosts = new Array(nodes).fill().map((x, i) => hostPattern.replace('{n}', i + 1))
-const client = new elasticsearch.Client({
-  hosts: hosts,
+const client = new Client({
+  nodes: hosts,
+  maxRetries: 3,
   requestTimeout: 1200000,
-  log: logLevel,
-  apiVersion: '5.6',
   agent
 });
 
-async function query({ query, aggs, size = 20, from = 0 }) {
+async function query({ query, aggs, size = 20, from = 0, req }) {
   const esQuery = {
     sort : [
       { year : {"order" : "desc"}},
@@ -33,13 +33,15 @@ async function query({ query, aggs, size = 20, from = 0 }) {
       { day : {"order" : "desc"}},
       { "gbifId" : "asc" }
     ],
+    track_total_hits: true,
     size,
     from,
     query,
     aggs
   }
-  
-  let body = await search({ client, index: searchIndex, query: esQuery });
+
+  let response = await search({ client, index: searchIndex, query: esQuery, req });
+  let body = response.body;
   body.hits.hits = body.hits.hits.map(n => reduce(n));
   return {
     esBody: esQuery,
@@ -65,7 +67,7 @@ async function suggest({ field, text = '', size=8 }) {
   return suggestions;
 }
 
-async function byKey({ key }) {
+async function byKey({ key, req }) {
   const query = {
     'size': 1,
     'query': {
@@ -78,7 +80,7 @@ async function byKey({ key }) {
       }
     }
   };
-  let body = await search({ client, index: searchIndex, query });
+  let body = await search({ client, index: searchIndex, query, req });
   if (body.hits.total === 1) {
     return reduce(body.hits.hits[0]);
   } else if (body.hits.total > 1) {
