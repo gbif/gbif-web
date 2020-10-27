@@ -132,7 +132,7 @@ export const TablePresentation = ({ first, prev, next, size, from, data, total, 
       flexDirection: "column",
     }}>
       <ViewHeader loading={loading} total={total}/>
-      <DataTable fixedColumn={fixed} {...{ first, prev, next, size, from, total, loading }} style={{ flex: "1 1 auto", height: 100 }}>
+      <DataTable fixedColumn={fixed} {...{ first, prev, next, size, from, total, loading }} style={{ flex: "1 1 auto", height: 100, display: 'flex', flexDirection: 'column' }}>
         <thead>
           <tr>{headerss}</tr>
         </thead>

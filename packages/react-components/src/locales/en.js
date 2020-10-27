@@ -42,7 +42,8 @@ export const en = {
   filter: {
     taxonKey: {
       name: 'Scientific name',
-      count: '{num, plural, one {scientific name} other {# scientific names}}'
+      count: '{num, plural, one {scientific name} other {# scientific names}}',
+      description: 'The scientific name as it appears in the GBIF backbone taxonomy'
     },
     basisOfRecord: {
       name: 'Basis of record',
@@ -251,6 +252,16 @@ export const en = {
       name: 'Occurrence status',
       count: '{num, plural, one { Occurrence status } other {# Occurrence statuss}}',
       description: 'A short description of the component should be placed here'
+    },
+    gadmGid: {
+      name: 'Administrative area',
+      count: '{num, plural, one { administrative area } other {# administrative areas}}',
+      description: 'Administrative areas as provided by GADM.org - this division can differ from the ISO 3166-1 standard used by GBIF.org for country processing.'
+    },
+    identifiedBy: {
+      name: 'Identified by',
+      count: '{num, plural, one { Identified by } other {# Identified bys}}',
+      description: 'This filter is an example where one can search using wildcards. ?: matches any single character. *: matches zero or more characters'
     },
     // -- Add filter above this line (required by plopfile.js) --
   },

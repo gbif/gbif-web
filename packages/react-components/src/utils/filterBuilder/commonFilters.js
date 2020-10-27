@@ -27,7 +27,7 @@ export const commonFilters = {
       },
       specific: {
         suggestHandle: 'taxonKey',
-        id2labelHandle: 'taxonKey',
+        id2labelHandle: 'taxonKey'
       }
     }
   },
@@ -678,6 +678,43 @@ export const commonFilters = {
         }
       }
     },
+  gadmGid: {
+      type: 'SUGGEST',
+      config: {
+        std: {
+        filterHandle: 'gadmGid',
+        id2labelHandle: 'gadmGid',
+        translations: {
+          count: 'filter.gadmGid.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.gadmGid.name',// translation path to a title for the popover and the button
+          description: 'filter.gadmGid.description', // translation path for the filter description
+        },
+      },
+        specific: {
+          suggestHandle: 'gadmGid',
+          id2labelHandle: 'gadmGid',
+          showAboutAsDefault: true
+        }
+      }
+    },
+  identifiedBy: {
+    type: 'SIMPLE_TEXT',
+    config: {
+      std: {
+        filterHandle: 'identifiedBy',
+        id2labelHandle: 'identifiedBy',
+        translations: {
+          count: 'filter.identifiedBy.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.identifiedBy.name',// translation path to a title for the popover and the button
+          description: 'filter.identifiedBy.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        placeholder: 'Use * as wildcard',
+        restrictWildcards: true
+      }
+    }
+  },
   // -- Add filters above this line (required by plopfile.js) --
   q: {
     type: 'CUSTOM_STANDARD',

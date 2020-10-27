@@ -136,5 +136,10 @@ export const commonLabels = {
     type: 'TRANSLATION',
     template: id => `enums.occurrenceStatus.${id}`
   },
+  gadmGid: {
+    type: 'ENDPOINT',
+    template: ({ id, api }) => `${api.v1.endpoint}/geocode/gadm/${id}`,
+    transform: result => ({ title: result.name })
+  },
   // -- Add labels above this line (required by plopfile.js) --
 }

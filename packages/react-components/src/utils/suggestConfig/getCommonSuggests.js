@@ -1,6 +1,7 @@
 import React from 'react';
 import matchSorter from 'match-sorter'
 import country from '../../locales/enums/countryCode.json';
+import { Classification } from '../../components';
 
 const BACKBONE_KEY = 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c';
 
@@ -209,6 +210,35 @@ export function getCommonSuggests({ context, suggestStyle }) {
       
     }
   },
-  // -- Add suggests above this line (required by plopfile.js) --
+  gadmGid: {
+      //What placeholder to show
+      placeholder: 'Administrative areas (GADM.org)',
+      // how to get the list of suggestion data
+      getSuggestions: ({ q }) => {
+        const { promise, cancel } = client.v1Get(`/geocode/gadm/search?limit=8&q=${q}`);
+        return {
+          promise: promise.then(response => {
+            return {
+              data: response.data.results.map(x => ({title: x.name, key: x.id, ...x}))
+            }
+          }),
+          cancel
+        }
+      },
+      // how to map the results to a single string value
+      getValue: suggestion => suggestion.title,
+      // how to display the individual suggestions in the list
+      render: function GadmGidSuggestItem(suggestion) {
+        return <div style={ { maxWidth: '100%' } }>
+          <div style={suggestStyle}>
+            {suggestion.title}
+          </div>
+          {suggestion?.higherRegions?.length > 0 && <Classification style={{opacity: .8}}>
+            {suggestion.higherRegions.map(x => <span>{x.name}</span>)}
+          </Classification>}
+        </div>
+      }
+    },
+    // -- Add suggests above this line (required by plopfile.js) --
   }
 }

@@ -10,6 +10,8 @@ import get from 'lodash/get';
 import union from 'lodash/union';
 import { keyCodes } from '../../../utils/util';
 import PopoverFilter from './PopoverFilter';
+import { Prose } from '../../../components/typography/Prose';
+import { FilterBodyDescription } from '../utils/misc';
 
 import { Suggest, Option, Filter, SummaryBar, FilterBody, Footer, Exists } from '../utils';
 
@@ -20,6 +22,12 @@ export const FilterContent = ({ config, translations, labelledById, LabelFromID,
 
   const suggestConfig = config.suggestConfig;
   const Label = config.LabelFromID || LabelFromID;
+
+  const aboutText = translations.description && <FormattedMessage
+    id={translations.description || `filter.${filterHandle}.description`}
+    defaultMessage={translations.description}
+  />;
+
   return <Filter
     labelledById={labelledById}
     onApply={onApply}
@@ -28,10 +36,7 @@ export const FilterContent = ({ config, translations, labelledById, LabelFromID,
       id={translations?.name || `filter.${filterHandle}.name`}
       defaultMessage={translations?.name}
     />}
-    aboutText={translations.description && <FormattedMessage
-      id={translations.description || `filter.${filterHandle}.description`}
-      defaultMessage={translations.description}
-    />}
+    aboutText={aboutText}
     supportsExist={config.supportsExist}
     onFilterChange={onFilterChange}
     filterName={filterHandle}
@@ -40,20 +45,35 @@ export const FilterContent = ({ config, translations, labelledById, LabelFromID,
   >
     {({ filter, toggle, setFullField, checkedMap, formId, summaryProps, footerProps, isExistenceFilter }) => {
       if (isExistenceFilter) {
-        return <Exists {...{footerProps, setFullField, onApply, onCancel, filter, hide, filterHandle}}/>
+        return <Exists {...{ footerProps, setFullField, onApply, onCancel, filter, hide, filterHandle }} />
       }
       return <>
         <Suggest
           {...suggestConfig}
           focusRef={focusRef}
           onKeyPress={e => e.which === keyCodes.ENTER ? onApply({ filter, hide }) : null}
+          /*onKeyPress={e => {
+            if (e.which === keyCodes.ENTER) {
+              if (e.target.value === '') {
+                onApply({ filter, hide });
+              } else {
+                const val = e.target.value;
+                const allOptions = union(options, [val]);
+                setOptions(allOptions);
+                toggle(filterHandle, val);
+              }
+            }
+          }}*/
           onSuggestionSelected={({ item }) => {
             if (!item) return;
             const allOptions = union(options, [item.key]);
             setOptions(allOptions);
             toggle(filterHandle, item.key);
-          }} 
-          />
+          }}
+        />
+        {options.length === 0 && config.showAboutAsDefault && typeof aboutText !== 'undefined' && <Prose as={FilterBodyDescription}>
+          {aboutText}
+        </Prose>}
         {options.length > 0 && <>
           <SummaryBar {...summaryProps} style={{ marginTop: 0 }} />
           <FilterBody>
@@ -91,9 +111,9 @@ FilterContent.propTypes = {
   filterHandle: PropTypes.string
 };
 
-export function Popover({ filterHandle, LabelFromID, config, translations={}, ...props }) {
+export function Popover({ filterHandle, LabelFromID, config, translations = {}, ...props }) {
   return (
-    <PopoverFilter 
+    <PopoverFilter
       {...props}
       content={<FilterContent
         filterHandle={filterHandle}

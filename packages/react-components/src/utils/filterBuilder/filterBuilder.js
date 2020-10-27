@@ -73,6 +73,7 @@ function buildSuggest({ widgetHandle, config, labelMap, suggestConfigMap, contex
     config: {
       suggestConfig: suggestConfigMap[config.specific.suggestHandle || widgetHandle],
       LabelFromID: labelMap[config.specific.id2labelHandle],
+      ...config.specific,
       ...config
     },
     LabelFromID: labelMap[config.std.id2labelHandle || widgetHandle] || (({id}) => id),

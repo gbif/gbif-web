@@ -113,6 +113,7 @@ query occurrence($key: ID!){
     countryCode
     eventDateSingle
     typeStatus
+    issues
     ${linkKeys || ''}
     volatile {
       globe(sphere: false, land: false, graticule: false) {

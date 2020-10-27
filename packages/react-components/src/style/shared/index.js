@@ -46,6 +46,23 @@ export const styledScrollBars = ({theme}) => css`
   }
 `;
 
+export const classification = ({...props}) => css`
+  &>span:after {
+    font-style: normal;
+    content: ' ❯ ';
+    font-size: 80%;
+    color: #ccc;
+    display: inline-block;
+    padding: 0 3px;
+  }
+  &>span:last-of-type:after {
+    display: none;
+  }
+  .gbif-classification-unknown {
+    opacity: 0.5;
+  }
+`;
+
 export const root = ({ appRoot, theme = {} }) => css`
   * {
     font-family: ${theme.fontFamily || 'BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif'};

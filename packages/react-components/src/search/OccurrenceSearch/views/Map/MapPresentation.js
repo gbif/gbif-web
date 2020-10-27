@@ -37,7 +37,7 @@ function Map({ labelMap, query, pointData, pointError, pointLoading, loading, to
     </DetailsDrawer>
     <div css={css.mapArea({theme})}>
       <ViewHeader message="nResultsWithCoordinates" loading={loading} total={total} />
-      <div style={{position: 'relative', height: '100%'}}>
+      <div style={{position: 'relative', height: '100%', flex: '1 1 auto', display: 'flex', flexDirection: 'column'}}>
         {listVisible && <ListBox  onCloseRequest={e => showList(false)} 
                                   labelMap={labelMap}
                                   onClick={({ index }) => { dialog.show(); setActive(index) }} 

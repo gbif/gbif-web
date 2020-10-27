@@ -13,6 +13,8 @@ export const cssViewArea = ({theme}) => css`
   flex: 1 1 auto;
   margin: 10px;
   margin-top: 0;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const cssLayout = ({theme}) => css`

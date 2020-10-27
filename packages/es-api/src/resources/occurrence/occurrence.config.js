@@ -208,6 +208,10 @@ const config =
       "field": "eventId.keyword",
       "suggestField": "eventId.suggest"
     },
+    "gadmGid": {
+      "type": "keyword",
+      "field": "gadm.gids"
+    },
     "gbifId": {
       "type": "numeric",
       "field": "gbifId",

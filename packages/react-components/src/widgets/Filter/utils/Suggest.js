@@ -45,7 +45,6 @@ class Suggest extends React.Component {
 
     this.suggestions.promise
       .then(response => {
-        console.log(response);
         if (canceled) return;
         this.setState({
           suggestions: response.data,

@@ -95,7 +95,7 @@ module.exports = {
       // how to display the individual suggestions in the list
       render: function {{pascalCase name}}SuggestItem(suggestion) {
         console.warn('You need to configure endpoint and display item for the suggest');
-        return <div style=\{{ maxWidth: '100%' }\}>
+        return <div style=\{ \{ maxWidth: '100%' \} \}>
           <div style={suggestStyle}>
             {suggestion.title}
           </div>
