@@ -27,7 +27,7 @@ export function Header({
         <div css={css.breadcrumb({ theme })}>
           {/* <FormattedMessage id={`enums.basisOfRecord.${data?.occurrence?.basisOfRecord}`} /> */}
           Occurrence<span css={css.breadcrumbSeperator({ theme })}>
-            <FormattedDate value={data?.occurrence?.eventDateSingle}
+            <FormattedDate value={data?.occurrence?.eventDate}
               year="numeric"
               month="long"
               day="2-digit" />
@@ -41,7 +41,7 @@ export function Header({
       {/* <div style={{fontSize: 12, marginTop: 18}}><MdLocationOn /> <FormattedMessage id={`enums.countryCode.${data?.occurrence?.countryCode}`} /></div> */}
       <div css={css.entitySummary({ theme })}>
         <IconFeatures css={css.features({ theme })}
-        eventDate={item.eventDateSingle}
+        eventDate={item.eventDate}
         countryCode={item.countryCode}
         locality={item.locality}
         />

@@ -62,13 +62,13 @@ const tableConfig = {
     {
       trKey: 'filter.coordinates.name',
       value: {
-        key: 'coordinates',
-        formatter: (value, occurrence) => {
-          if (!occurrence.coordinates) return null;
-          return <span>
-            (<FormattedNumber value={occurrence.coordinates.lat} maximumSignificantDigits={4}/>, <FormattedNumber value={occurrence.coordinates.lon} maximumSignificantDigits={4}/>)
-          </span>
-        }
+        key: 'formattedCoordinates',
+        // formatter: (value, occurrence) => {
+        //   if (!occurrence.coordinates) return null;
+        //   return <span>
+        //     (<FormattedNumber value={occurrence.coordinates.lat} maximumSignificantDigits={4}/>, <FormattedNumber value={occurrence.coordinates.lon} maximumSignificantDigits={4}/>)
+        //   </span>
+        // }
       }
     },
     {

@@ -31,11 +31,11 @@ const ItemDetails = ({ item }) => {
         </Properties>
       </Accordion>
       <Properties>
-        {get(item, `_source.eventDateSingle`) && (
+        {get(item, `_source.eventDate`) && (
           <>
             <Term>Event Date</Term>
             <Value>
-              {new Date(get(item, `_source.eventDateSingle`)).toDateString()}
+              {new Date(get(item, `_source.eventDate`)).toDateString()}
             </Value>
           </>
         )}

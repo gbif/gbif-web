@@ -14,8 +14,8 @@ function ListItem({ BasisOfRecordLabel, id, item, imageSrc, onClick = () => { },
     <Row wrap="no-wrap" alignItems="center">
       <Col grow={true} css={listItemContent({ theme })}>
         <h4 dangerouslySetInnerHTML={{ __html: item.gbifClassification.usage.formattedName }} ></h4>
-        {item.eventDateSingle && <div>
-          <FormattedDate value={item.eventDateSingle}
+        {item.eventDate && <div>
+          <FormattedDate value={item.eventDate}
             year="numeric"
             month="long"
             day="2-digit" />
@@ -60,8 +60,8 @@ function ListBox({ labelMap, onCloseRequest, onClick, data, error, loading, ...p
     const results = data?.occurrenceSearch?.documents?.results || [];
     content = <ul css={list({ theme })}>
       {results.map((x, index) => {
-        return <li key={x.gbifId}>
-          <ListItem BasisOfRecordLabel={BasisOfRecordLabel} onClick={() => onClick({ index })} id={x.gbifId} item={x} />
+        return <li key={x.key}>
+          <ListItem BasisOfRecordLabel={BasisOfRecordLabel} onClick={() => onClick({ index })} id={x.key} item={x} />
         </li>
       })}
     </ul>;

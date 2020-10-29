@@ -9,6 +9,7 @@ class ResponseError extends Error {
 
 function errorHandler(err, req, res, next) {
   const { statusCode, message } = err;
+  console.log(err);
   res.status(statusCode || 503).json({
     statusCode: statusCode || 503,
     message

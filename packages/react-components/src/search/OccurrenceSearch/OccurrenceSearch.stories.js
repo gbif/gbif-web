@@ -93,6 +93,13 @@ const filters = {
   // },
 }
 
+const rootPredicate = {
+  "type": "not",
+  "predicate": {
+  "type": "isNotNull",
+  "key": "gadmGid"
+  }
+};
 const config = { labels, getSuggests, filters };
 // const config = { labels, getSuggests, filters, rootPredicate: {type: 'equals', key: 'publishingOrganizationKey', value: '1cd669d0-80ea-11de-a9d0-f1765f95f18b'}};
 

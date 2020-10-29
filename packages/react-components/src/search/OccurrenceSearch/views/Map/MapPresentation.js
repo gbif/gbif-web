@@ -32,8 +32,8 @@ function Map({ labelMap, query, pointData, pointError, pointLoading, loading, to
   }, [items, activeId]);
 
   return <>
-    <DetailsDrawer href={`https://www.gbif.org/occurrence/${activeItem?.gbifId}`} dialog={dialog} nextItem={nextItem} previousItem={previousItem}>
-      <OccurrenceSidebar id={activeItem?.gbifId} defaultTab='details' style={{ maxWidth: '100%', width: 700, height: '100%' }} />
+    <DetailsDrawer href={`https://www.gbif.org/occurrence/${activeItem?.key}`} dialog={dialog} nextItem={nextItem} previousItem={previousItem}>
+      <OccurrenceSidebar id={activeItem?.key} defaultTab='details' style={{ maxWidth: '100%', width: 700, height: '100%' }} />
     </DetailsDrawer>
     <div css={css.mapArea({theme})}>
       <ViewHeader message="nResultsWithCoordinates" loading={loading} total={total} />

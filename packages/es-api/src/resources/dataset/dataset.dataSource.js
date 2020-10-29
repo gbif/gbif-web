@@ -18,7 +18,7 @@ const hosts = new Array(nodes).fill().map((x, i) => hostPattern.replace('{n}', i
 const client = new elasticsearch.Client({
   nodes: hosts,
   maxRetries: 3,
-  requestTimeout: 1200000,
+  requestTimeout: 60000,
   agent
 });
 
@@ -27,6 +27,9 @@ function reduce(item) {
 }
 
 async function query({ query, aggs, size=20, from=0 }) {
+  if (parseInt(from) + parseInt(size) > 10000) {
+    throw new ResponseError(400, 'BAD_REQUEST', '"from" + "size" must be 10,000 or less');
+  }
   const esQuery = {
     size,
     from,

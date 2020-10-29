@@ -13,12 +13,12 @@ query gallery($predicate: Predicate, $size: Int = 20, $from: Int = 0){
       size
       from
       results {
-        gbifId
+        key
         countryCode
         locality
         basisOfRecord
         typeStatus
-        eventDateSingle
+        eventDate
         gbifClassification{
           usage {
             formattedName

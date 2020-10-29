@@ -45,14 +45,14 @@ export const GalleryPresentation = ({ first, prev, next, size, from, data, total
   }
 
   return <>
-    <DetailsDrawer href={`https://www.gbif.org/occurrence/${activeItem?.gbifId}`} dialog={dialog} nextItem={nextItem} previousItem={previousItem}>
-      <OccurrenceSidebar id={activeItem?.gbifId} defaultTab='images' style={{ maxWidth: '100%', width: 700, height: '100%' }} />
+    <DetailsDrawer href={`https://www.gbif.org/occurrence/${activeItem?.key}`} dialog={dialog} nextItem={nextItem} previousItem={previousItem}>
+      <OccurrenceSidebar id={activeItem?.key} defaultTab='images' style={{ maxWidth: '100%', width: 700, height: '100%' }} />
     </DetailsDrawer>
     <ViewHeader message="nResultsWithImages" loading={loading} total={total}/>
     <div css={css.paper({theme})}>
       <GalleryTiles>
         {items.map((item, index) => {
-          return <GalleryTile height={150} key={item.gbifId}
+          return <GalleryTile height={150} key={item.key}
             src={item.primaryImage.identifier}
             onSelect={() => { setActive(index); dialog.show(); }}>
             <GalleryCaption>
@@ -60,7 +60,7 @@ export const GalleryPresentation = ({ first, prev, next, size, from, data, total
               <IconFeatures css={css.features({theme})}
                 typeStatus={item.typeStatus}
                 basisOfRecord={item.basisOfRecord}
-                eventDate={item.eventDateSingle}
+                eventDate={item.eventDate}
                 isSequenced={item.volatile.features.isSequenced} 
                 isTreament={item.volatile.features.isTreament} 
                 isClustered={item.volatile.features.isClustered} 

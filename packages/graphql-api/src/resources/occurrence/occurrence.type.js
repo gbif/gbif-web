@@ -2,268 +2,266 @@ const { gql } = require('apollo-server');
 
 const typeDef = gql`
   type Occurrence {
-    gbifId: ID!
+    key: ID
     
+    abstract: String
+    acceptedNameUsage: String
+    acceptedNameUsageID: String
+    acceptedScientificName: String
+    acceptedTaxonKey: ID
+    accessRights: String
+    accrualMethod: String
+    accrualPeriodicity: String
+    accrualPolicy: String
+    alternative: String
+    associatedMedia: String
+    associatedOccurrences: String
+    associatedOrganisms: String
+    associatedReferences: String
+    associatedSequences: String
+    associatedTaxa: String
+    audience: String
+    available: String
     basisOfRecord: String
+    bed: String
+    behavior: String
+    bibliographicCitation: String
     catalogNumber: String
+    class: String
+    classKey: ID
     collectionCode: String
-    collectionKey: ID
+    collectionID: String
+    conformsTo: String
     continent: String
+    contributor: String
     coordinatePrecision: Float
     coordinateUncertaintyInMeters: Float
     country: String
-    countryCode: String
-    crawlId: Int
+    countryCode: Country
+    county: String
+    coverage: String
+    crawlId: ID
     created: DateTime
+    creator: String
+    dataGeneralizations: String
+    datasetID: String
     datasetKey: ID
-    datasetPublishingCountry: String
-    datasetTitle: String
+    datasetName: String
+    date: DateTime
+    dateAccepted: String
+    dateCopyrighted: String
     dateIdentified: DateTime
+    dateSubmitted: String
     day: Int
     decimalLatitude: Float
     decimalLongitude: Float
     depth: Float
     depthAccuracy: Float
+    description: String
+    disposition: String
+    # Unclear how these terms are to be indexed or displayed
+    # distanceAboveSurface: Float
+    # distanceAboveSurfaceAccuracy: String
+    dynamicProperties: String
+    earliestAgeOrLowestStage: String
+    earliestEonOrLowestEonothem: String
+    earliestEpochOrLowestSeries: String
+    earliestEraOrLowestErathem: String
+    earliestPeriodOrLowestSystem: String
+    educationLevel: String
     elevation: Float
     elevationAccuracy: Float
-    endDayOfYear: Float
-    endorsingNodeKey: ID
+    endDayOfYear: Int
     establishmentMeans: String
-    eventDateSingle: DateTime
-    eventId: String
+    eventDate: DateTime
+    eventID: String
+    eventRemarks: String
+    eventTime: String
+    # extensions: String
+    extent: String
+    facts: [JSON]
+    family: String
+    familyKey: ID
+    fieldNotes: String
+    fieldNumber: String
+    footprintSRS: String
+    footprintSpatialFit: String
+    footprintWKT: String
+    format: String
+    formation: String
+    gadm: JSON
     gbifClassification: GbifClassification
-    hasCoordinate: Boolean
-    hasGeospatialIssue: Boolean
-    identifiedByIds: IdentifiedByIds
-    id: String
+    genericName: String
+    genus: String
+    genusKey: ID
+    geodeticDatum: String
+    geologicalContextID: String
+    georeferenceProtocol: String
+    georeferenceRemarks: String
+    georeferenceSources: String
+    georeferenceVerificationStatus: String
+    georeferencedBy: String
+    georeferencedDate: String
+    group: String
+    habitat: String
+    hasFormat: String
+    hasPart: String
+    hasVersion: String
+    higherClassification: String
+    higherGeography: String
+    higherGeographyID: String
+    highestBiostratigraphicZone: String
+    identificationID: String
+    identificationQualifier: String
+    identificationReferences: String
+    identificationRemarks: String
+    identificationVerificationStatus: String
+    identifiedBy: String
+    identifiedByIDs: [IdentifiedByIds]
+    identifier: String
+    # Unclear what this field contains
+    # identifiers: [String]
     individualCount: Int
+    informationWithheld: String
+    infraspecificEpithet: String
     installationKey: ID
     institutionCode: String
-    institutionKey: ID
+    institutionID: String
+    instructionalMethod: String
+    isFormatOf: String
+    isPartOf: String
+    isReferencedBy: String
+    isReplacedBy: String
+    isRequiredBy: String
+    isVersionOf: String
+    island: String
+    islandGroup: String
+    issued: String
     issues: [OccurrenceIssue]
+    kingdom: String
+    kingdomKey: ID
+    language: String
     lastCrawled: DateTime
-    license: String
+    lastParsed: DateTime
+    latestAgeOrHighestStage: String
+    latestEonOrHighestEonothem: String
+    latestEpochOrHighestSeries: String
+    latestEraOrHighestErathem: String
+    latestPeriodOrHighestSystem: String
+    license: License
     lifeStage: String
+    lithostratigraphicTerms: String
     locality: String
-    maximumDepthInMeters: Float
-    maximumDistanceAboveSurfaceInMeters: Float
-    maximumElevationInMeters: Float
-    measurementOrFactItems: JSON
-    mediaLicenses: [String]
-    mediaTypes: [MediaType]
-    minimumDepthInMeters: Float
-    minimumDistanceAboveSurfaceInMeters: Float
-    minimumElevationInMeters: Float
+    locationAccordingTo: String
+    locationID: String
+    locationRemarks: String
+    lowestBiostratigraphicZone: String
+    materialSampleID: String
+    media: [String]
+    mediator: String
+    medium: String
+    member: String
     modified: DateTime
     month: Int
-    multimediaItems: [MultimediaItem]
+    municipality: String
+    nameAccordingTo: String
+    nameAccordingToID: String
+    namePublishedIn: String
+    namePublishedInID: String
+    namePublishedInYear: String
     networkKeys: [ID]
-    # notIssues: String
-    occurrenceId: String
-    organismId: String
-    organismQuantity: Float
+    nomenclaturalCode: String
+    nomenclaturalStatus: String
+    occurrenceID: String
+    occurrenceRemarks: String
+    occurrenceStatus: OccurrenceStatus
+    order: String
+    orderKey: ID
+    organismID: String
+    organismName: String
+    organismQuantity: String
     organismQuantityType: String
-    parentEventId: String
-    programmeAcronym: String
-    projectId: String
+    organismRemarks: String
+    organismScope: String
+    originalNameUsage: String
+    originalNameUsageID: String
+    otherCatalogNumbers: String
+    ownerInstitutionCode: String
+    parentEventID: String
+    parentNameUsage: String
+    parentNameUsageID: String
+    phylum: String
+    phylumKey: ID
+    pointRadiusSpatialFit: String
+    preparations: String
+    previousIdentifications: String
     protocol: String
-    publisherTitle: String
-    publishingCountry: String
-    publishingOrganizationKey: ID
+    provenance: String
+    """as provided on record - this can differ from the GBIF publishing organisation"""
+    publisher: String
+    # publishingCountry: String
+    """The ID of the publisher who published this record to GBIF"""
+    publishingOrgKey: ID
     recordNumber: String
     recordedBy: String
-    recordedByIds: RecordedByIds
+    recordedByIDs: [RecordedByIds]
     references: String
-    relativeOrganismQuantity: Float
-    repatriated: Boolean
+    relation: String
+    # relations: [JSON] # unclear what this field encodes if anything
+    # relativeOrganismQuantity: Float # internal value that probably shouldn't be in the response ?
+    replaces: String
+    reproductiveCondition: String
+    requires: String
+    rights: String
+    rightsHolder: String
     sampleSizeUnit: String
     sampleSizeValue: Float
+    samplingEffort: String
     samplingProtocol: String
-    scoordinates: String
+    scientificName: String
+    scientificNameAuthorship: String
+    scientificNameID: String
     sex: String
-    startDayOfYear: Float
+    source: String
+    spatial: String
+    species: String
+    speciesKey: ID
+    specificEpithet: String
+    startDayOfYear: Int
     stateProvince: String
-    typeStatus: String
+    subgenus: String
+    subgenusKey: ID
+    subject: String
+    tableOfContents: String
+    taxonConceptID: String
+    taxonID: String
+    taxonKey: ID
+    taxonRank: String
+    taxonRemarks: String
+    taxonomicStatus: String
+    temporal: String
+    title: String
+    type: String
+    typeStatus: TypeStatus
     typifiedName: String
+    valid: String
+    verbatimCoordinateSystem: String
+    verbatimCoordinates: String
+    verbatimDepth: String
+    verbatimElevation: String
+    verbatimEventDate: String
+    verbatimLatitude: String
+    verbatimLocality: String
+    verbatimLongitude: String
+    verbatimSRS: String
+    verbatimScientificName: String
+    verbatimTaxonRank: String
+    vernacularName: String
     waterBody: String
     year: Int
-    coordinates: JSON
 
-    # extracted from verbatim
-    abstract: String 
-    accessRights: String 
-    accrualMethod: String 
-    accrualPeriodicity: String 
-    accrualPolicy: String 
-    alternative: String 
-    audience: String 
-    available: String 
-    bibliographicCitation: String 
-    conformsTo: String 
-    contributor: String 
-    coverage: String 
-    creator: String 
-    date: String 
-    dateAccepted: String 
-    dateCopyrighted: String 
-    dateSubmitted: String 
-    description: String 
-    educationLevel: String 
-    extent: String 
-    format: String 
-    hasFormat: String 
-    hasPart: String 
-    hasVersion: String 
-    identifier: String 
-    instructionalMethod: String 
-    isFormatOf: String 
-    isPartOf: String 
-    isReferencedBy: String 
-    isReplacedBy: String 
-    isRequiredBy: String 
-    isVersionOf: String 
-    issued: String 
-    language: String 
-    mediator: String 
-    medium: String 
-    provenance: String 
-    publisher: String 
-    relation: String 
-    replaces: String 
-    requires: String 
-    rights: String 
-    rightsHolder: String 
-    source: String 
-    spatial: String 
-    subject: String 
-    tableOfContents: String 
-    temporal: String 
-    title: String 
-    type: String 
-    valid: String 
-    institutionID: String 
-    collectionID: String 
-    datasetID: String 
-    datasetName: String 
-    ownerInstitutionCode: String 
-    informationWithheld: String 
-    dataGeneralizations: String 
-    dynamicProperties: String 
-    occurrenceID: String 
-    reproductiveCondition: String 
-    behavior: String 
-    occurrenceStatus: String 
-    preparations: String 
-    disposition: String 
-    associatedReferences: String 
-    associatedSequences: String 
-    associatedTaxa: String 
-    otherCatalogNumbers: String 
-    occurrenceRemarks: String 
-    organismID: String 
-    organismName: String 
-    organismScope: String 
-    associatedOccurrences: String 
-    associatedOrganisms: String 
-    previousIdentifications: String 
-    organismRemarks: String 
-    materialSampleID: String 
-    eventID: String 
-    parentEventID: String 
-    fieldNumber: String 
-    eventDate: String 
-    eventTime: String 
-    verbatimEventDate: String 
-    habitat: String 
-    samplingEffort: String 
-    fieldNotes: String 
-    eventRemarks: String 
-    locationID: String 
-    higherGeographyID: String 
-    higherGeography: String 
-    islandGroup: String 
-    island: String 
-    county: String 
-    municipality: String 
-    verbatimLocality: String 
-    verbatimElevation: String 
-    verbatimDepth: String 
-    locationAccordingTo: String 
-    locationRemarks: String 
-    pointRadiusSpatialFit: String 
-    verbatimCoordinateSystem: String 
-    verbatimSRS: String 
-    footprintWKT: String 
-    footprintSRS: String 
-    footprintSpatialFit: String 
-    georeferencedBy: String 
-    georeferencedDate: String 
-    georeferenceProtocol: String 
-    georeferenceSources: String 
-    georeferenceVerificationStatus: String 
-    georeferenceRemarks: String 
-    geologicalContextID: String 
-    earliestEonOrLowestEonothem: String 
-    latestEonOrHighestEonothem: String 
-    earliestEraOrLowestErathem: String 
-    latestEraOrHighestErathem: String 
-    earliestPeriodOrLowestSystem: String 
-    latestPeriodOrHighestSystem: String 
-    earliestEpochOrLowestSeries: String 
-    latestEpochOrHighestSeries: String 
-    earliestAgeOrLowestStage: String 
-    latestAgeOrHighestStage: String 
-    lowestBiostratigraphicZone: String 
-    highestBiostratigraphicZone: String 
-    lithostratigraphicTerms: String 
-    group: String 
-    formation: String 
-    member: String 
-    bed: String 
-    identificationID: String 
-    identificationQualifier: String 
-    identifiedBy: String 
-    identificationReferences: String 
-    identificationVerificationStatus: String 
-    identificationRemarks: String 
-    taxonID: String 
-    scientificNameID: String 
-    acceptedNameUsageID: String 
-    parentNameUsageID: String 
-    originalNameUsageID: String 
-    nameAccordingToID: String 
-    namePublishedInID: String 
-    taxonConceptID: String 
-    scientificName: String 
-    acceptedNameUsage: String 
-    parentNameUsage: String 
-    originalNameUsage: String 
-    nameAccordingTo: String 
-    namePublishedIn: String 
-    namePublishedInYear: String 
-    higherClassification: String 
-    kingdom: String 
-    phylum: String 
-    class: String 
-    order: String 
-    family: String 
-    genus: String 
-    subgenus: String 
-    specificEpithet: String 
-    infraspecificEpithet: String 
-    taxonRank: String 
-    verbatimTaxonRank: String 
-    vernacularName: String 
-    nomenclaturalCode: String 
-    taxonomicStatus: String 
-    nomenclaturalStatus: String 
-    taxonRemarks: String 
-    associatedMedia: String 
-    geodeticDatum: String 
-    verbatimCoordinates: String 
-    verbatimLatitude: String 
-    verbatimLongitude: String 
-    scientificNameAuthorship: String
+    datasetTitle: String
+    publisherTitle: String
 
     # useful additions
     """
@@ -276,9 +274,19 @@ const typeDef = gql`
     movingImages: [MultimediaItem]
     soundCount: Int
     sounds: [MultimediaItem]
+    coordinates: JSON
     formattedCoordinates: String
+    """
+    Volatile: these values are tightly coupled to the webview and are likely to change frequently
+    """
     volatile: VolatileOccurrenceData
+    """
+    Volatile: this is an experimental feature likely to change
+    """
     related: [RelatedOccurrence]
+    """
+    Volatile: these values are tightly coupled to the webview and are likely to change frequently
+    """
     groups: TermGroups
   }
 

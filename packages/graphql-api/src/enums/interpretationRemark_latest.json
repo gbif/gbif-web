@@ -5,8 +5,8 @@
     "relatedTerms": [
       "http://rs.tdwg.org/dwc/terms/verbatimLatitude",
       "http://rs.tdwg.org/dwc/terms/verbatimLongitude",
-      "http://rs.tdwg.org/dwc/terms/decimalLatitude",
       "http://rs.tdwg.org/dwc/terms/decimalLongitude",
+      "http://rs.tdwg.org/dwc/terms/decimalLatitude",
       "http://rs.tdwg.org/dwc/terms/verbatimCoordinates"
     ]
   },
@@ -16,8 +16,8 @@
     "relatedTerms": [
       "http://rs.tdwg.org/dwc/terms/verbatimLatitude",
       "http://rs.tdwg.org/dwc/terms/verbatimLongitude",
-      "http://rs.tdwg.org/dwc/terms/decimalLatitude",
       "http://rs.tdwg.org/dwc/terms/decimalLongitude",
+      "http://rs.tdwg.org/dwc/terms/decimalLatitude",
       "http://rs.tdwg.org/dwc/terms/verbatimCoordinates"
     ]
   },
@@ -27,8 +27,8 @@
     "relatedTerms": [
       "http://rs.tdwg.org/dwc/terms/verbatimLatitude",
       "http://rs.tdwg.org/dwc/terms/verbatimLongitude",
-      "http://rs.tdwg.org/dwc/terms/decimalLatitude",
       "http://rs.tdwg.org/dwc/terms/decimalLongitude",
+      "http://rs.tdwg.org/dwc/terms/decimalLatitude",
       "http://rs.tdwg.org/dwc/terms/verbatimCoordinates"
     ]
   },
@@ -38,8 +38,8 @@
     "relatedTerms": [
       "http://rs.tdwg.org/dwc/terms/verbatimLatitude",
       "http://rs.tdwg.org/dwc/terms/verbatimLongitude",
-      "http://rs.tdwg.org/dwc/terms/decimalLatitude",
       "http://rs.tdwg.org/dwc/terms/decimalLongitude",
+      "http://rs.tdwg.org/dwc/terms/decimalLatitude",
       "http://rs.tdwg.org/dwc/terms/verbatimCoordinates"
     ]
   },
@@ -63,8 +63,8 @@
     "relatedTerms": [
       "http://rs.tdwg.org/dwc/terms/verbatimLatitude",
       "http://rs.tdwg.org/dwc/terms/verbatimLongitude",
-      "http://rs.tdwg.org/dwc/terms/decimalLatitude",
       "http://rs.tdwg.org/dwc/terms/decimalLongitude",
+      "http://rs.tdwg.org/dwc/terms/decimalLatitude",
       "http://rs.tdwg.org/dwc/terms/geodeticDatum",
       "http://rs.tdwg.org/dwc/terms/verbatimCoordinates"
     ]
@@ -75,8 +75,8 @@
     "relatedTerms": [
       "http://rs.tdwg.org/dwc/terms/verbatimLatitude",
       "http://rs.tdwg.org/dwc/terms/verbatimLongitude",
-      "http://rs.tdwg.org/dwc/terms/decimalLatitude",
       "http://rs.tdwg.org/dwc/terms/decimalLongitude",
+      "http://rs.tdwg.org/dwc/terms/decimalLatitude",
       "http://rs.tdwg.org/dwc/terms/geodeticDatum",
       "http://rs.tdwg.org/dwc/terms/verbatimCoordinates"
     ]
@@ -87,8 +87,8 @@
     "relatedTerms": [
       "http://rs.tdwg.org/dwc/terms/verbatimLatitude",
       "http://rs.tdwg.org/dwc/terms/verbatimLongitude",
-      "http://rs.tdwg.org/dwc/terms/decimalLatitude",
       "http://rs.tdwg.org/dwc/terms/decimalLongitude",
+      "http://rs.tdwg.org/dwc/terms/decimalLatitude",
       "http://rs.tdwg.org/dwc/terms/geodeticDatum",
       "http://rs.tdwg.org/dwc/terms/verbatimCoordinates"
     ]
@@ -114,8 +114,8 @@
       "http://rs.tdwg.org/dwc/terms/verbatimLatitude",
       "http://rs.tdwg.org/dwc/terms/verbatimLongitude",
       "http://rs.tdwg.org/dwc/terms/country",
-      "http://rs.tdwg.org/dwc/terms/decimalLatitude",
       "http://rs.tdwg.org/dwc/terms/decimalLongitude",
+      "http://rs.tdwg.org/dwc/terms/decimalLatitude",
       "http://rs.tdwg.org/dwc/terms/countryCode",
       "http://rs.tdwg.org/dwc/terms/geodeticDatum",
       "http://rs.tdwg.org/dwc/terms/verbatimCoordinates"
@@ -144,8 +144,8 @@
       "http://rs.tdwg.org/dwc/terms/verbatimLatitude",
       "http://rs.tdwg.org/dwc/terms/verbatimLongitude",
       "http://rs.tdwg.org/dwc/terms/country",
-      "http://rs.tdwg.org/dwc/terms/decimalLatitude",
       "http://rs.tdwg.org/dwc/terms/decimalLongitude",
+      "http://rs.tdwg.org/dwc/terms/decimalLatitude",
       "http://rs.tdwg.org/dwc/terms/countryCode",
       "http://rs.tdwg.org/dwc/terms/geodeticDatum",
       "http://rs.tdwg.org/dwc/terms/verbatimCoordinates"
@@ -172,8 +172,8 @@
     "relatedTerms": [
       "http://rs.tdwg.org/dwc/terms/verbatimLatitude",
       "http://rs.tdwg.org/dwc/terms/verbatimLongitude",
-      "http://rs.tdwg.org/dwc/terms/decimalLatitude",
       "http://rs.tdwg.org/dwc/terms/decimalLongitude",
+      "http://rs.tdwg.org/dwc/terms/decimalLatitude",
       "http://rs.tdwg.org/dwc/terms/verbatimCoordinates"
     ]
   },
@@ -183,8 +183,8 @@
     "relatedTerms": [
       "http://rs.tdwg.org/dwc/terms/verbatimLatitude",
       "http://rs.tdwg.org/dwc/terms/verbatimLongitude",
-      "http://rs.tdwg.org/dwc/terms/decimalLatitude",
       "http://rs.tdwg.org/dwc/terms/decimalLongitude",
+      "http://rs.tdwg.org/dwc/terms/decimalLatitude",
       "http://rs.tdwg.org/dwc/terms/verbatimCoordinates"
     ]
   },
@@ -194,8 +194,8 @@
     "relatedTerms": [
       "http://rs.tdwg.org/dwc/terms/verbatimLatitude",
       "http://rs.tdwg.org/dwc/terms/verbatimLongitude",
-      "http://rs.tdwg.org/dwc/terms/decimalLatitude",
       "http://rs.tdwg.org/dwc/terms/decimalLongitude",
+      "http://rs.tdwg.org/dwc/terms/decimalLatitude",
       "http://rs.tdwg.org/dwc/terms/verbatimCoordinates"
     ]
   },
@@ -732,8 +732,8 @@
     "relatedTerms": [
       "http://rs.tdwg.org/dwc/terms/acceptedNameUsageID",
       "http://rs.tdwg.org/dwc/terms/acceptedNameUsage",
-      "http://rs.tdwg.org/dwc/terms/originalNameUsageID",
       "http://rs.tdwg.org/dwc/terms/parentNameUsage",
+      "http://rs.tdwg.org/dwc/terms/originalNameUsageID",
       "http://rs.tdwg.org/dwc/terms/parentNameUsageID",
       "http://rs.tdwg.org/dwc/terms/originalNameUsage"
     ]

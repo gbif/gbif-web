@@ -111,7 +111,7 @@ query occurrence($key: ID!){
   occurrence(key: $key) {
     coordinates
     countryCode
-    eventDateSingle
+    eventDate
     typeStatus
     issues
     ${linkKeys || ''}
@@ -131,7 +131,7 @@ query occurrence($key: ID!){
     }
 
     datasetTitle
-    gbifId
+    key
     institutionCode
 
 

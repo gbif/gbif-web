@@ -26,7 +26,7 @@ async function initializeServer() {
   // this is async as we generate parts of the schema from the live enumeration API
   const typeDefs = await getSchema();
   const server = new ApolloServer({
-    debug: false,
+    debug: true,
     context: async ({ req }) => {
       // on all requests attach a user if present
       const user = await extractUser(get(req, 'headers.authorization'));

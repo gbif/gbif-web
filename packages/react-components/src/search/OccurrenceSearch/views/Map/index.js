@@ -23,9 +23,9 @@ query point($predicate: Predicate){
     documents {
       total
       results {
-        gbifId
+        key
         basisOfRecord
-        eventDateSingle
+        eventDate
         gbifClassification{
           usage {
             rank

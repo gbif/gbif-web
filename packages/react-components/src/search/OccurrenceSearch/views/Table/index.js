@@ -14,7 +14,7 @@ query table($predicate: Predicate, $size: Int = 20, $from: Int = 0){
       size
       from
       results {
-        gbifId
+        key
         gbifClassification{
           usage {
             rank
@@ -26,7 +26,7 @@ query table($predicate: Predicate, $size: Int = 20, $from: Int = 0){
         datasetTitle
         publisherTitle
         countryCode
-        coordinates
+        formattedCoordinates
 
         stillImageCount
         movingImageCount

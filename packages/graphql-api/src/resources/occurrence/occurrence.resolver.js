@@ -2,7 +2,7 @@ const { getGlobe } = require('../../util/globe');
 const { getFacet, getStats } = require('./helpers/getMetrics');
 const fieldsWithFacetSupport = require('./helpers/fieldsWithFacetSupport');
 const fieldsWithStatsSupport = require('./helpers/fieldsWithStatsSupport');
-const verbatimResolvers = require('./helpers/occurrenceTerms');
+// const verbatimResolvers = require('./helpers/occurrenceTerms');
 const { formattedCoordinates, isOccurrenceSequenced } = require('../../util/utils');
 const groupResolvers = require('./helpers/groups/occurrenceGroups');
 
@@ -73,42 +73,46 @@ module.exports = {
     }
   },
   Occurrence: {
-    ...verbatimResolvers,
-    primaryImage: ({ multimediaItems }) => {
-      if (typeof multimediaItems === 'undefined') return null;
+    coordinates: ({ decimalLatitude, decimalLongitude }) => {
+      if (typeof decimalLatitude === 'undefined') return null;
       // extract primary image. for now just any image
-      return multimediaItems.find(x => x.type === 'StillImage');
+      return {lat: decimalLatitude, lon: decimalLongitude};
     },
-    stillImageCount: ({ multimediaItems }) => {
-      if (typeof multimediaItems === 'undefined') return null;
-      return multimediaItems.filter(x => x.type === 'StillImage').length;
+    primaryImage: ({ media }) => {
+      if (typeof media === 'undefined') return null;
+      // extract primary image. for now just any image
+      return media.find(x => x.type === 'StillImage');
     },
-    movingImageCount: ({ multimediaItems }) => {
-      if (typeof multimediaItems === 'undefined') return null;
-      return multimediaItems.filter(x => x.type === 'MovingImage').length;
+    stillImageCount: ({ media }) => {
+      if (typeof media === 'undefined') return null;
+      return media.filter(x => x.type === 'StillImage').length;
     },
-    soundCount: ({ multimediaItems }) => {
-      if (typeof multimediaItems === 'undefined') return null;
-      return multimediaItems.filter(x => x.type === 'Sound').length;
+    movingImageCount: ({ media }) => {
+      if (typeof media === 'undefined') return null;
+      return media.filter(x => x.type === 'MovingImage').length;
     },
-    stillImages: ({ multimediaItems }) => {
-      if (typeof multimediaItems === 'undefined') return null;
-      return multimediaItems.filter(x => x.type === 'StillImage');
+    soundCount: ({ media }) => {
+      if (typeof media === 'undefined') return null;
+      return media.filter(x => x.type === 'Sound').length;
     },
-    movingImages: ({ multimediaItems }) => {
-      if (typeof multimediaItems === 'undefined') return null;
-      return multimediaItems.filter(x => x.type === 'MovingImage');
+    stillImages: ({ media }) => {
+      if (typeof media === 'undefined') return null;
+      return media.filter(x => x.type === 'StillImage');
     },
-    sounds: ({ multimediaItems }) => {
-      if (typeof multimediaItems === 'undefined') return null;
-      return multimediaItems.filter(x => x.type === 'Sound');
+    movingImages: ({ media }) => {
+      if (typeof media === 'undefined') return null;
+      return media.filter(x => x.type === 'MovingImage');
     },
-    formattedCoordinates: ({ coordinates = {} }) => {
-      return formattedCoordinates(coordinates);
+    sounds: ({ media }) => {
+      if (typeof media === 'undefined') return null;
+      return media.filter(x => x.type === 'Sound');
+    },
+    formattedCoordinates: ({ decimalLatitude, decimalLongitude }) => {
+      return formattedCoordinates({lat: decimalLatitude, lon: decimalLongitude});
     },
     volatile: (occurrence) => occurrence,
-    related: ({ gbifId }, args, { dataSources }) => {
-      return dataSources.occurrenceAPI.getRelated({ key: gbifId })
+    related: ({ key }, args, { dataSources }) => {
+      return dataSources.occurrenceAPI.getRelated({ key })
         .then(response => response.relatedOccurrences);
     },
     groups: (occurrence) => occurrence
@@ -186,14 +190,14 @@ module.exports = {
     occurrences: facetOccurrenceSearch
   },
   Globe: {
-
+    
   },
   VolatileOccurrenceData: {
     features: (occurrence) => occurrence,
-    globe: ({ coordinates }, { sphere, graticule, land }) => {
-      const roundedLat = Math.floor(coordinates.lat / 30) * 30;
+    globe: ({ decimalLatitude, decimalLongitude }, { sphere, graticule, land }) => {
+      const roundedLat = Math.floor(decimalLatitude / 15) * 15;
       const lat = Math.min(Math.max(roundedLat, -60), 60);
-      const lon = Math.round(coordinates.lon / 30) * 30;
+      const lon = Math.round(decimalLongitude / 15) * 15;
 
       const svg = getGlobe({
         center: {
@@ -201,8 +205,8 @@ module.exports = {
           lng: lon
         },
         point: {
-          lat: coordinates.lat,
-          lng: coordinates.lon
+          lat: decimalLatitude,
+          lng: decimalLongitude
         },
         options: {
           sphere, graticule, land
@@ -221,19 +225,19 @@ module.exports = {
     },
     // plazi this won't work in other environments than prod for now. all in all we should have a better way to detect treatments
     isTreament: ({ publishingOrganizationKey }) => publishingOrganizationKey === '7ce8aef0-9e92-11dc-8738-b8a03c50a862',
-    isClustered: ({ gbifId }, args, { dataSources }) => {
-      return dataSources.occurrenceAPI.getRelated({ key: gbifId })
+    isClustered: ({ key }, args, { dataSources }) => {
+      return dataSources.occurrenceAPI.getRelated({ key })
         .then(response => response.relatedOccurrences.length > 0);
     },
     isSequenced: (occurrence, args, { dataSources }) => {
-      return dataSources.occurrenceAPI.getFragment({key: occurrence.gbifId })
+      return dataSources.occurrenceAPI.getFragment({key: occurrence.key })
         .then(fragment => isOccurrenceSequenced({occurrence, fragment}));
     },
     isSamplingEvent: (occurrence) => !!occurrence.eventId && !!occurrence.samplingProtocol
   },
   RelatedOccurrence: {
     occurrence: (related, args, { dataSources }) => dataSources.occurrenceAPI
-      .getOccurrenceByKey({key: related.occurrence.gbifId })
+      .getOccurrenceByKey({key: related.occurrence.key })
   },
   TermGroups: {
     Occurrence: groupResolvers.Occurrence,

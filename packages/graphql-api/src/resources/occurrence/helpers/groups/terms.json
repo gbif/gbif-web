@@ -750,7 +750,6 @@
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/decimalLatitude",
     "group": "Location",
     "source": "DwcTerm",
-    "esField": "coordinates.lat",
     "hideInDefaultView": true
     },
     {
@@ -758,7 +757,6 @@
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/decimalLongitude",
     "group": "Location",
     "source": "DwcTerm",
-    "esField": "coordinates.lon",
     "hideInDefaultView": true
     },
     {
@@ -1121,7 +1119,6 @@
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/kingdom",
     "group": "Taxon",
     "source": "DwcTerm",
-    "esField": "gbifClassification.kingdom",
     "hideInDefaultView": true
     },
     {
@@ -1129,7 +1126,6 @@
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/phylum",
     "group": "Taxon",
     "source": "DwcTerm",
-    "esField": "gbifClassification.phylum",
     "hideInDefaultView": true
     },
     {
@@ -1137,7 +1133,6 @@
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/class",
     "group": "Taxon",
     "source": "DwcTerm",
-    "esField": "gbifClassification.class",
     "hideInDefaultView": true
     },
     {
@@ -1145,7 +1140,6 @@
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/order",
     "group": "Taxon",
     "source": "DwcTerm",
-    "esField": "gbifClassification.order",
     "hideInDefaultView": true
     },
     {
@@ -1153,7 +1147,6 @@
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/family",
     "group": "Taxon",
     "source": "DwcTerm",
-    "esField": "gbifClassification.family",
     "hideInDefaultView": true
     },
     {
@@ -1161,7 +1154,6 @@
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/genus",
     "group": "Taxon",
     "source": "DwcTerm",
-    "esField": "gbifClassification.genus",
     "hideInDefaultView": true
     },
     {

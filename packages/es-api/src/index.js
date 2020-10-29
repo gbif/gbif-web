@@ -52,30 +52,31 @@ app.get('/dataset/key/:id', asyncMiddleware(keyResource(dataset)));
 function postResource(resource) {
   const { dataSource, predicate2query, metric2aggs } = resource;
   return async (req, res) => {
-    try{
-    const size = req.body.size;
-    const includeMeta = req.body.includeMeta;
-    const from = req.body.from;
-    const predicate = req.body.predicate;
-    const metrics = req.body.metrics;
-    const aggs = metrics ? metric2aggs(metrics) : {};
-    const query = predicate2query(predicate);
-    const { result, esBody } = await dataSource.query({ query, aggs, size, from, req });
-    const meta = {
-      predicate,
-      metrics,
-      esBody
-    };
+    try {
+      let { size = 20, from = 0 } = req.body;
+      size = parseInt(size);
+      from = parseInt(from);
+      const includeMeta = req.body.includeMeta;
+      const predicate = req.body.predicate;
+      const metrics = req.body.metrics;
+      const aggs = metrics ? metric2aggs(metrics) : {};
+      const query = predicate2query(predicate);
+      const { result, esBody } = await dataSource.query({ query, aggs, size, from, req });
+      const meta = {
+        predicate,
+        metrics,
+        esBody
+      };
 
-    res.json({
-      ...(includeMeta && { meta }),
-      ...result
-    });
-  } catch(err) {
-    console.log('error');
-    console.log(err);
-    res.sendStatus(500);
-  }
+      res.json({
+        ...(includeMeta && { meta }),
+        ...result
+      });
+    } catch (err) {
+      console.log('error');
+      console.log(err);
+      res.sendStatus(500);
+    }
   }
 }
 
@@ -98,8 +99,9 @@ function getResource(resource) {
     }
     const aggs = metric2aggs(metrics);
     const query = predicate2query(predicate);
-    const size = req.query.size;
-    const from = req.query.from;
+    let { size = 20, from = 0 } = req.query;
+    size = parseInt(size);
+    from = parseInt(from);
     const includeMeta = req.query.includeMeta;
     const { result, esBody } = await dataSource.query({ query, aggs, size, from, req });
     const meta = {

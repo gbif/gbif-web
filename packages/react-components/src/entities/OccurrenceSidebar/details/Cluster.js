@@ -22,7 +22,7 @@ export function Cluster({
 
   useEffect(() => {
     if (typeof data !== 'undefined') {
-      load({ variables: { key: data.occurrence.gbifId } });
+      load({ variables: { key: data.occurrence.key } });
     }
   }, [data]);
 
@@ -35,7 +35,7 @@ export function Cluster({
     <Header data={data} />
     <main style={{ marginTop: 24 }}>
       {related.map(x => {
-        return <RelatedOccurrence key={x.occurrence.gbifId} related={x.occurrence} reasons={x.reasons} original={data.occurrence} />
+        return <RelatedOccurrence key={x.occurrence.key} related={x.occurrence} reasons={x.reasons} original={data.occurrence} />
       })}
     </main>
   </div>
@@ -49,7 +49,7 @@ export function RelatedOccurrence({ original, reasons, related, ...props }) {
         <h4 style={{ margin: 0 }} dangerouslySetInnerHTML={{ __html: related.gbifClassification.usage.formattedName }}></h4>
         <div css={css.entitySummary({ theme })}>
           <IconFeatures css={css.features({ theme })}
-            eventDate={related.eventDateSingle}
+            eventDate={related.eventDate}
             countryCode={related.countryCode}
             locality={related.locality}
           />
@@ -95,7 +95,7 @@ query occurrence($key: ID!){
   	related {
       reasons
       occurrence {
-        gbifId
+        key
         basisOfRecord
         datasetTitle
         publisherTitle
@@ -104,7 +104,7 @@ query occurrence($key: ID!){
         soundCount
         stillImageCount
         movingImageCount
-        eventDateSingle
+        eventDate
         primaryImage {
           identifier
         }

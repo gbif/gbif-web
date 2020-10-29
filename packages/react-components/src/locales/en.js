@@ -90,7 +90,7 @@ export const en = {
       description: 'Search for text similar to the entered across text fields. For structured search on say species names you should use the "Scientific name" filter'
     },
     coordinates: {
-      name: 'Latitude longitude',
+      name: 'Coordinates',
     },
     elevation: {
       name: 'Elevation',

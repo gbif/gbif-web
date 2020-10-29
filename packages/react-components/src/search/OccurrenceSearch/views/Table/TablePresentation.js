@@ -50,79 +50,79 @@ export const TablePresentation = ({ first, prev, next, size, from, data, total, 
     </Th>
   });
 
-  const headers = [
-    <Th key='scientificName' width='wide' locked={fixed} toggle={() => setFixed(!fixedColumn)}>
-      <Row>
-        <Col grow={false}>scientificName</Col>
-        <Col>
-          <filters.taxonKey.Popover modal placement="auto">
-            <Button appearance="text" style={{ display: 'flex' }}>
-              <MdFilterList />
-              {get(currentFilterContext.filter, 'must.taxonKey.length', '')}
-            </Button>
-          </filters.taxonKey.Popover>
-        </Col>
-      </Row>
-    </Th>,
-    <Th key='year'>
-      <Row wrap="nowrap">
-        <Col grow={false}>Year</Col>
-        <Col>
-          <filters.year.Popover modal placement="auto">
-            <Button appearance="text" style={{ display: 'flex' }}>
-              <MdFilterList />
-            </Button>
-          </filters.year.Popover>
-        </Col>
-      </Row>
-    </Th>,
-    <Th key='basisOfRecord' width='wide'>
-      <Row>
-        <Col grow={false}>Basis of record</Col>
-        <Col>
-          <filters.basisOfRecord.Popover modal placement="auto">
-            <Button appearance="text" style={{ display: 'flex' }}>
-              <MdFilterList />
-            </Button>
-          </filters.basisOfRecord.Popover>
-        </Col>
-      </Row>
-    </Th>,
-    <Th key='datasetTitle' width='wide'>
-      <Row>
-        <Col grow={false}>Dataset</Col>
-        <Col>
-          <filters.datasetKey.Popover modal placement="auto">
-            <Button appearance="text" style={{ display: 'flex' }}>
-              <MdFilterList />
-            </Button>
-          </filters.datasetKey.Popover>
-        </Col>
-      </Row>
-    </Th>,
-    <Th key='publisherTitle' width='wide'>
-      <Row>
-        <Col grow={false}>Publisher</Col>
-        <Col>
-          <filters.publisherKey.Popover modal placement="auto">
-            <Button appearance="text" style={{ display: 'flex' }}>
-              <MdFilterList />
-            </Button>
-          </filters.publisherKey.Popover>
-        </Col>
-      </Row>
-    </Th>,
-    <Th key='countryCode'>
-      countryCode
-    </Th>,
-    <Th key='gbifTaxonRank'>
-      rank
-    </Th>
-  ];
+  // const headers = [
+  //   <Th key='scientificName' width='wide' locked={fixed} toggle={() => setFixed(!fixedColumn)}>
+  //     <Row>
+  //       <Col grow={false}>scientificName</Col>
+  //       <Col>
+  //         <filters.taxonKey.Popover modal placement="auto">
+  //           <Button appearance="text" style={{ display: 'flex' }}>
+  //             <MdFilterList />
+  //             {get(currentFilterContext.filter, 'must.taxonKey.length', '')}
+  //           </Button>
+  //         </filters.taxonKey.Popover>
+  //       </Col>
+  //     </Row>
+  //   </Th>,
+  //   <Th key='year'>
+  //     <Row wrap="nowrap">
+  //       <Col grow={false}>Year</Col>
+  //       <Col>
+  //         <filters.year.Popover modal placement="auto">
+  //           <Button appearance="text" style={{ display: 'flex' }}>
+  //             <MdFilterList />
+  //           </Button>
+  //         </filters.year.Popover>
+  //       </Col>
+  //     </Row>
+  //   </Th>,
+  //   <Th key='basisOfRecord' width='wide'>
+  //     <Row>
+  //       <Col grow={false}>Basis of record</Col>
+  //       <Col>
+  //         <filters.basisOfRecord.Popover modal placement="auto">
+  //           <Button appearance="text" style={{ display: 'flex' }}>
+  //             <MdFilterList />
+  //           </Button>
+  //         </filters.basisOfRecord.Popover>
+  //       </Col>
+  //     </Row>
+  //   </Th>,
+  //   <Th key='datasetTitle' width='wide'>
+  //     <Row>
+  //       <Col grow={false}>Dataset</Col>
+  //       <Col>
+  //         <filters.datasetKey.Popover modal placement="auto">
+  //           <Button appearance="text" style={{ display: 'flex' }}>
+  //             <MdFilterList />
+  //           </Button>
+  //         </filters.datasetKey.Popover>
+  //       </Col>
+  //     </Row>
+  //   </Th>,
+  //   <Th key='publisherTitle' width='wide'>
+  //     <Row>
+  //       <Col grow={false}>Publisher</Col>
+  //       <Col>
+  //         <filters.publisherKey.Popover modal placement="auto">
+  //           <Button appearance="text" style={{ display: 'flex' }}>
+  //             <MdFilterList />
+  //           </Button>
+  //         </filters.publisherKey.Popover>
+  //       </Col>
+  //     </Row>
+  //   </Th>,
+  //   <Th key='countryCode'>
+  //     countryCode
+  //   </Th>,
+  //   <Th key='gbifTaxonRank'>
+  //     rank
+  //   </Th>
+  // ];
 
   return <>
-    <DetailsDrawer href={`https://www.gbif.org/occurrence/${activeItem?.gbifId}`} dialog={dialog} nextItem={nextItem} previousItem={previousItem}>
-      <OccurrenceSidebar id={activeItem?.gbifId} defaultTab='details' style={{ maxWidth: '100%', width: 700, height: '100%' }} />
+    <DetailsDrawer href={`https://www.gbif.org/occurrence/${activeItem?.key}`} dialog={dialog} nextItem={nextItem} previousItem={previousItem}>
+      <OccurrenceSidebar id={activeItem?.key} defaultTab='details' style={{ maxWidth: '100%', width: 700, height: '100%' }} />
     </DetailsDrawer>
     <div style={{
       flex: "1 1 100%",
@@ -173,7 +173,7 @@ const getRows = ({ tableConfig, labelMap, data, setActive, dialog }) => {
         // }
       }
     );
-    return <tr key={row.gbifId} onClick={() => { setActive(index); dialog.show(); }}>{cells}</tr>;
+    return <tr key={row.key} onClick={() => { setActive(index); dialog.show(); }}>{cells}</tr>;
   });
   return rows;
 }
