@@ -6,10 +6,10 @@ import ThemeContext from "../../../style/themes/ThemeContext";
 import specialFields from "./specialFields";
 import * as css from "../styles";
 import { Accordion, Properties } from "../../../components";
-import {Classification} from "./Classification/Classification"
-import {MapPresentation} from "./Map/Map"
-import {DynamicProperties} from "./DynamicProperties/DynamicProperties"
-import {HyperText} from '../../../components';
+import { Classification } from "./Classification/Classification"
+import { MapPresentation } from "./Map/Map"
+import { DynamicProperties } from "./DynamicProperties/DynamicProperties"
+import { HyperText } from '../../../components';
 import { prettifyEnum } from '../../../utils/labelMaker/config2labels';
 import LinksContext from '../../../search/OccurrenceSearch/config/links/LinksContext';
 
@@ -63,7 +63,7 @@ export function Groups({
 function showTerm(groupTitle, term, showAll) {
   if (!showAll) {
     return !term.hideInDefaultView /* && _.get(term, "remarks") !== "NOT_INDEXED" */ && !specialFields[groupTitle][term.label];
-  }  else {
+  } else {
     return true;
   }
 }
@@ -79,20 +79,20 @@ function getGroup(
 ) {
   if (_.isEmpty(group) || group.filter((term) => showTerm(title, term, showAll)).length === 0) {
     return null;
-  }; 
+  };
   const groupMap = group.reduce((acc, cur) => {
-    acc[cur.label]= cur;
+    acc[cur.label] = cur;
     return acc
   }, {})
-    return (
-      <Accordion
-        key={title}
-        css={css.accordion({ theme })}
-        summary={title}
-        defaultOpen={true}
-      >
-        <Properties style={{ fontSize: 13 }} horizontal={true}>
-{/*         Scientific names and classification is in the summary
+  return (
+    <Accordion
+      key={title}
+      css={css.accordion({ theme })}
+      summary={title}
+      defaultOpen={true}
+    >
+      <Properties style={{ fontSize: 13 }} horizontal={true}>
+        {/*         Scientific names and classification is in the summary
 
 {title === "Taxon" && !showAll && (
             <>
@@ -136,87 +136,87 @@ function getGroup(
             
             </>
           )} */}
-          {title === "Location" && !showAll && groupMap.decimalLatitude && groupMap.decimalLongitude &&  <>
+        {title === "Location" && !showAll && groupMap.decimalLatitude && groupMap.decimalLongitude && <>
           <T>
+            <FormattedMessage
+              id={`ocurrenceFieldNames.coordinates`}
+              defaultMessage={"Coordinates"}
+            />
+          </T>
+          <V>
+            <MapPresentation location={group} />
+          </V>
+
+        </>}
+        {title === "Record" && !showAll && groupMap.dynamicProperties?.verbatim && <>
+          <T>
+            <FormattedMessage
+              id={`ocurrenceFieldNames.dynamicProperties`}
+              defaultMessage={"Dynamic properties"}
+            />
+          </T>
+          <V>
+            <DynamicProperties data={groupMap.dynamicProperties.verbatim} />
+          </V>
+
+        </>}
+        {group
+          .filter((term) => showTerm(title, term, showAll))
+          .map((term) => (
+            <React.Fragment key={term.label}>
+              <T>
                 <FormattedMessage
-                  id={`ocurrenceFieldNames.coordinates`}
-                  defaultMessage={"Coordinates"}
+                  id={`ocurrenceFieldNames.${term.label}`}
+                  defaultMessage={_.startCase(term.label)}
                 />
               </T>
               <V>
-              <MapPresentation location={group} /> 
+                {getValue(term)}
               </V>
-          
-          </>}
-          {title === "Record" && !showAll &&  groupMap.dynamicProperties?.verbatim && <>
-          <T>
-                <FormattedMessage
-                  id={`ocurrenceFieldNames.dynamicProperties`}
-                  defaultMessage={"Dynamic properties"}
-                />
-              </T>
-              <V>
-              <DynamicProperties data={groupMap.dynamicProperties.verbatim} /> 
-              </V>
-          
-          </>}
-          {group
-            .filter((term) => showTerm(title, term, showAll))
-            .map((term) => (
-              <React.Fragment key={term.label}>
-                <T>
-                  <FormattedMessage
-                    id={`ocurrenceFieldNames.${term.label}`}
-                    defaultMessage={_.startCase(term.label)}
-                  />
-                </T>
-                <V>
-                    {getValue(term)}
-                </V>
-              </React.Fragment>
-            ))}
-        </Properties>
-      </Accordion>
-    );
+            </React.Fragment>
+          ))}
+      </Properties>
+    </Accordion>
+  );
 }
 
 
-function renderAsType({label, value, verbatim, renderAsType}){
-  switch(renderAsType) {
+function renderAsType({ label, value, verbatim, renderAsType }) {
+  switch (renderAsType) {
     case 'date':
       return <FormattedDate value={value}
-      year="numeric"
-      month="long"
-      day="2-digit" />;
+        year="numeric"
+        month="long"
+        day="2-digit" />;
     case 'enum':
-        return value ? <FormattedMessage id={`enums.${label}.${value}`} defaultMessage={value}/> : <span css={css.termRemark()}>{verbatim}</span>
+      return value ? <FormattedMessage id={`enums.${label}.${value}`} defaultMessage={value} /> : <span css={css.termRemark()}>{verbatim}</span>
     default:
       return <HyperText text={value || verbatim} />;
   }
 }
 
-function getValue(term){
-    
-    return <>
-                  <div>
-                    {renderAsType(term)}{" "}
-                    
-                    {term.issues &&
-                      term.issues.length > 0 &&
-                      term.issues.map((i) => (
-                        <span css={css.issuePill(i)} key={i}>
-                          <FormattedMessage
-                            id={`issueEnum.${i.id}`}
-                            defaultMessage={prettifyEnum(i.id)}
-                          />
-                        </span>
-                      ))}
-                  </div>
-                  {term.value && term.verbatim && term.value != term.verbatim && <div css={css.termRemark()}>{term.verbatim}</div>}
-                  {term.remarks && term.remarks === "INFERRED" && (
-                      <span css={css.termRemark()}>{term.remarks.toLowerCase()}</span>
-                    )}
-    </>
+function getValue(term) {
+
+  return <>
+    <div>
+      {renderAsType(term)}{" "}
+
+      {term.issues &&
+        term.issues.length > 0 &&
+        term.issues.map((i) => (
+          <span css={css.issuePill(i)} key={i}>
+            <FormattedMessage
+              id={`issueEnum.${i.id}`}
+              defaultMessage={prettifyEnum(i.id)}
+            />
+          </span>
+        ))}
+    </div>
+    {term.value && term.verbatim && term.value != term.verbatim && <div css={css.termRemark()}>{term.verbatim}</div>}
+    {term.remarks && term.remarks === "INFERRED" && (
+      <span css={css.termRemark()}>{term.remarks.toLowerCase()}</span>
+    )}
+  </>
 }
 
 
