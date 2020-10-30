@@ -4,7 +4,7 @@ const fieldsWithFacetSupport = require('./helpers/fieldsWithFacetSupport');
 const fieldsWithStatsSupport = require('./helpers/fieldsWithStatsSupport');
 // const verbatimResolvers = require('./helpers/occurrenceTerms');
 const { formattedCoordinates, isOccurrenceSequenced } = require('../../util/utils');
-const groupResolvers = require('./helpers/groups/occurrenceGroups');
+const groupResolver = require('./helpers/groups/occurrenceGroups');
 
 // there are many fields that support facets. This function creates the resolvers for all of them
 const facetReducer = (dictionary, facetName) => {
@@ -115,7 +115,10 @@ module.exports = {
       return dataSources.occurrenceAPI.getRelated({ key })
         .then(response => response.relatedOccurrences);
     },
-    groups: (occurrence) => occurrence
+    groups: (occurrence, args, { dataSources }) => {
+      return dataSources.occurrenceAPI.getVerbatim({key: occurrence.key })
+        .then(verbatim => groupResolver({occurrence, verbatim}));
+    }
   },
   OccurrenceSearchResult: {
     documents: searchOccurrences,
@@ -239,19 +242,14 @@ module.exports = {
     occurrence: (related, args, { dataSources }) => dataSources.occurrenceAPI
       .getOccurrenceByKey({key: related.occurrence.gbifId })
   },
-  TermGroups: {
-    Occurrence: groupResolvers.Occurrence,
-    Record: groupResolvers.Record,
-    Organism: groupResolvers.Organism,
-    MaterialSample: groupResolvers.MaterialSample,
-    Event: groupResolvers.Event,
-    Location: groupResolvers.Location,
-    GeologicalContext: groupResolvers.GeologicalContext,
-    Identification: groupResolvers.Identification,
-    Taxon: groupResolvers.Taxon,
-    Dataset: groupResolvers.Dataset,
-    Crawling: groupResolvers.Crawling
-  }
+  // TermGroups: (occurrence, args, { dataSources }) => {
+  //   console.log('get verbatim');
+  //   return dataSources.occurrenceAPI.getVerbatim({key: occurrence.key })
+  //     .then(verbatim => {
+  //       console.log('sdf');
+  //       groupResolver({occurrence, verbatim})
+  //     });
+  // }
 };
 
 // var ggbn = ['Amplification', 'MaterialSample', 'Permit', 'Preparation', 'Preservation'];

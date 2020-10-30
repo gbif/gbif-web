@@ -46,6 +46,10 @@ class OccurrenceAPI extends RESTDataSource {
     return this.get(`${API_V1}/occurrence/${key}/fragment`);
   }
 
+  async getVerbatim({ key }) {
+    return this.get(`${API_V1}/occurrence/${key}/verbatim`);
+  }
+
   async meta({ query }) {
     const body = { ...query };
     const response = await this.post('/occurrence/meta', body);

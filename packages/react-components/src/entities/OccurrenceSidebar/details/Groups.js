@@ -6,7 +6,7 @@ import ThemeContext from "../../../style/themes/ThemeContext";
 import specialFields from "./specialFields";
 import * as css from "../styles";
 import { Accordion, Properties } from "../../../components";
-import { Classification } from "./Classification/Classification"
+import { Classification } from "./TaxonClassification/TaxonClassification"
 import { MapPresentation } from "./Map/Map"
 import { DynamicProperties } from "./DynamicProperties/DynamicProperties"
 import { HyperText } from '../../../components';
@@ -45,8 +45,7 @@ export function Groups({
     "MaterialSample",
     "GeologicalContext",
     "Identification",
-    "Dataset",
-    "Crawling",
+    "Other"
   ].map((group) =>
     getGroup(
       group,
@@ -62,7 +61,10 @@ export function Groups({
 
 function showTerm(groupTitle, term, showAll) {
   if (!showAll) {
-    return !term.hideInDefaultView /* && _.get(term, "remarks") !== "NOT_INDEXED" */ && !specialFields[groupTitle][term.label];
+    if (!term) {
+      debugger;
+    }
+    return !term.hideInDefaultView && !specialFields[groupTitle][term.label];
   } else {
     return true;
   }

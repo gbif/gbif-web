@@ -296,17 +296,16 @@ const typeDef = gql`
   }
 
   type TermGroups {
-    Occurrence(occurrence: JSON): JSON    
-    Record(occurrence: JSON): JSON
-    Organism(occurrence: JSON): JSON
-    MaterialSample(occurrence: JSON): JSON
-    Event(occurrence: JSON): JSON
-    Location(occurrence: JSON): JSON
-    GeologicalContext(occurrence: JSON): JSON
-    Identification(occurrence: JSON): JSON
-    Taxon(occurrence: JSON): JSON
-    Dataset(occurrence: JSON): JSON
-    Crawling(occurrence: JSON): JSON   
+    Occurrence: [JSON]!
+    Record: [JSON]!
+    Organism: [JSON]!
+    MaterialSample: [JSON]!
+    Event: [JSON]!
+    Location: [JSON]!
+    GeologicalContext: [JSON]!
+    Identification: [JSON]!
+    Taxon: [JSON]!
+    Other: [JSON]!
   }
 
   type VolatileOccurrenceData {
@@ -350,7 +349,7 @@ const typeDef = gql`
     acceptedUsage: OccurrenceNameUsage
     class: String
     classKey: Int
-    classification: Classification
+    classification: [Classification]
     classificationPath: String
     diagnostics: Diagnostics
     family: String

@@ -1238,14 +1238,14 @@
     "group": "Dataset",
     "source": "GbifTerm",
     "hideInDefaultView": true,
-    "remarks": false
+    "compareWithVerbatim": false
     },
     {
     "simpleName": "publishingCountry",
     "qualifiedName": "http://rs.gbif.org/terms/1.0/publishingCountry",
     "group": "Dataset",
     "source": "GbifTerm",
-    "remarks": false,
+    "compareWithVerbatim": false,
     "hideInDefaultView": true
     },
     {
@@ -1253,7 +1253,7 @@
     "qualifiedName": "http://rs.gbif.org/terms/1.0/lastInterpreted",
     "group": "Occurrence",
     "source": "GbifTerm",
-    "remarks": false
+    "compareWithVerbatim": false
     },
     {
     "simpleName": "elevation",
@@ -1401,7 +1401,7 @@
     "group": "Crawling",
     "source": "GbifTerm",
     "hideInDefaultView": true,
-    "remarks": false,
+    "compareWithVerbatim": false,
     "renderAsType": "enum"
     },
     {
@@ -1410,7 +1410,7 @@
     "group": "Crawling",
     "source": "GbifTerm",
     "hideInDefaultView": true,
-    "remarks": false
+    "compareWithVerbatim": false
     },
     {
     "simpleName": "lastCrawled",
@@ -1418,7 +1418,7 @@
     "group": "Crawling",
     "source": "GbifTerm",
     "hideInDefaultView": true,
-    "remarks": false
+    "compareWithVerbatim": false
     },
     {
     "simpleName": "repatriated",
@@ -1426,7 +1426,7 @@
     "group": "Occurrence",
     "source": "GbifTerm",
     "hideInDefaultView": true,
-    "remarks": false
+    "compareWithVerbatim": false
     },
     {
     "simpleName": "relativeOrganismQuantity",

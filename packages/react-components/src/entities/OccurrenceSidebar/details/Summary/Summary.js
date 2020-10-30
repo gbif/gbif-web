@@ -5,7 +5,7 @@ import React, { useContext, useState } from 'react';
 import intersection from 'lodash/intersection';
 import PropTypes from 'prop-types';
 import { Accordion, Properties, GalleryTiles, GalleryTile } from '../../../../components';
-import { Classification } from "../Classification/Classification"
+import { TaxonClassification } from "../TaxonClassification/TaxonClassification"
 const { Term: T, Value: V } = Properties;
 import { FormattedMessage, FormattedDate } from 'react-intl';
 import * as css from '../../styles';
@@ -71,7 +71,7 @@ export function Summary({ occurrence, fieldGroups, loading, setActiveImage, ...p
         />
       </T>
       <V>
-        <Classification taxon={occurrence.groups.Taxon} showUnknownRanks={true} />
+        <TaxonClassification ranks={occurrence.gbifClassification.classification} showUnknownRanks={true} />
       </V>
 
       <FieldPair term={fieldGroups?.Event?.eventDate} occurrence={occurrence} fieldGroups={fieldGroups} formattedValue={<FormattedDate value={fieldGroups?.Event?.eventDate?.value}

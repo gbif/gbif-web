@@ -55,7 +55,7 @@ export function OccurrenceSidebar({
           return accGroup;
         }
         const groupMap = group.reduce((acc, cur) => {
-          acc[cur.label] = cur;
+          acc[cur.simpleName] = cur;
           return acc
         }, {});
         accGroup[key] = groupMap;
@@ -134,7 +134,6 @@ query occurrence($key: ID!){
     key
     institutionCode
 
-
     stillImageCount
     movingImageCount
     soundCount
@@ -166,6 +165,11 @@ query occurrence($key: ID!){
       species
       speciesKey
       synonym
+      classification {
+        key
+        rank
+        name
+      }
       usage {
         rank
         formattedName
@@ -191,8 +195,7 @@ query occurrence($key: ID!){
       GeologicalContext
       Identification
       Taxon
-      Dataset
-      Crawling 
+      Other
     }
   }
 }
