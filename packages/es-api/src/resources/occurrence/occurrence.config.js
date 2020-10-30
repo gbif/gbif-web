@@ -212,7 +212,7 @@ const config =
       "type": "keyword",
       "field": "gadm.gids"
     },
-    "gbifId": {
+    "key": {
       "type": "numeric",
       "field": "gbifId",
       "get": {

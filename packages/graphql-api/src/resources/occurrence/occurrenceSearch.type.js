@@ -106,7 +106,6 @@ const typeDef = gql`
     elevation(size: Int): [OccurrenceFacetResult_float]
     elevationAccuracy(size: Int): [OccurrenceFacetResult_float]
     endDayOfYear(size: Int): [OccurrenceFacetResult_float]
-    gbifId(size: Int): [OccurrenceFacetResult_float]
     individualCount(size: Int): [OccurrenceFacetResult_float]
     maximumDepthInMeters(size: Int): [OccurrenceFacetResult_float]
     maximumDistanceAboveSurfaceInMeters(size: Int): [OccurrenceFacetResult_float]

@@ -237,7 +237,7 @@ module.exports = {
   },
   RelatedOccurrence: {
     occurrence: (related, args, { dataSources }) => dataSources.occurrenceAPI
-      .getOccurrenceByKey({key: related.occurrence.key })
+      .getOccurrenceByKey({key: related.occurrence.gbifId })
   },
   TermGroups: {
     Occurrence: groupResolvers.Occurrence,
