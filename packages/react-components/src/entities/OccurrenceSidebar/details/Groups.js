@@ -94,50 +94,6 @@ function getGroup(
       defaultOpen={true}
     >
       <Properties style={{ fontSize: 13 }} horizontal={true}>
-        {/*         Scientific names and classification is in the summary
-
-{title === "Taxon" && !showAll && (
-            <>
-            <T>
-                <FormattedMessage
-                  id={`ocurrenceFieldNames.scientificName`}
-                  defaultMessage={"Scientific Name"}
-                />
-              </T>
-              <V>
-              <span dangerouslySetInnerHTML={{ __html: occurrence.gbifClassification.usage.formattedName }} />
-              {groupMap.scientificName?.issues?.length > 0 && " " &&
-              groupMap.scientificName.issues.map((i) => (
-                <span css={css.issuePill(i)} key={i}>
-                  <FormattedMessage
-                    id={`issueEnum.${i.id}`}
-                    defaultMessage={i.id}
-                  />
-                </span>
-              ))}
-              {groupMap.scientificName?.issues?.length > 0 && <div css={css.termRemark()}>{groupMap.scientificName?.verbatim}</div>}
-              </V>
-              {groupMap.synonym?.value === true && groupMap.acceptedScientificName?.value &&  <> <T>
-                <FormattedMessage
-                  id={`ocurrenceFieldNames.acceptedScientificName`}
-                  defaultMessage={"Accepted Scientific Name"}
-                />
-              </T>
-              <V>
-              <span dangerouslySetInnerHTML={{ __html: occurrence.gbifClassification.acceptedUsage.formattedName }} />
-              </V></>}
-              <T>
-                <FormattedMessage
-                  id={`ocurrenceFieldNames.classification`}
-                  defaultMessage={"Classification"}
-                />
-              </T>
-              <V>
-                <Classification taxon={group} showUnknownRanks={true}/>
-              </V>
-            
-            </>
-          )} */}
         {title === "Location" && !showAll && groupMap.decimalLatitude && groupMap.decimalLongitude && <>
           <T>
             <FormattedMessage
