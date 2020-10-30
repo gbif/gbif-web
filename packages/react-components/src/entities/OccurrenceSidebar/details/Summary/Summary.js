@@ -34,57 +34,57 @@ export function Summary({ occurrence, fieldGroups, loading, setActiveImage, ...p
         </V>
       </>
       }
-                        <T>
-                <FormattedMessage
-                  id={`ocurrenceFieldNames.scientificName`}
-                  defaultMessage={"Scientific Name"}
-                />
-              </T>
-              <V>
-              {links.scientificName ? <a href={links.scientificName.href(occurrence)} dangerouslySetInnerHTML={{ __html: occurrence.gbifClassification.usage.formattedName }} /> :
-              <span dangerouslySetInnerHTML={{ __html: occurrence.gbifClassification.usage.formattedName }} />}
-              {fieldGroups?.Taxon?.scientificName?.issues?.length > 0  &&
-              fieldGroups.Taxon.scientificName.issues.map((i) => (
-                <span css={css.issuePill(i)} key={i}>
-                  <FormattedMessage
-                    id={`issueEnum.${i.id}`}
-                    defaultMessage={prettifyEnum(i.id)}
-                  />
-                </span>
-              ))}
-              {fieldGroups?.Taxon?.scientificName?.issues?.length > 0 && <div css={css.termRemark()}>{fieldGroups?.Taxon?.scientificName?.verbatim}</div>}
-              </V>
-              {fieldGroups?.Taxon?.synonym?.value === true && fieldGroups?.Taxon?.acceptedScientificName?.value &&  <> <T>
-                <FormattedMessage
-                  id={`ocurrenceFieldNames.acceptedScientificName`}
-                  defaultMessage={"Accepted Scientific Name"}
-                />
-              </T>
-              <V>
-              {links.acceptedScientificName ? <a href={links.acceptedScientificName.href(occurrence)} dangerouslySetInnerHTML={{ __html: occurrence.gbifClassification.acceptedUsage.formattedName }} /> :
-              <span dangerouslySetInnerHTML={{ __html: occurrence.gbifClassification.acceptedUsage.formattedName }} />}
-              </V></>}
-              <T>
-                <FormattedMessage
-                  id={`ocurrenceFieldNames.classification`}
-                  defaultMessage={"Classification"}
-                />
-              </T>
-              <V>
-                <Classification taxon={occurrence.groups.Taxon} showUnknownRanks={true}/>
-              </V>
+      <T>
+        <FormattedMessage
+          id={`ocurrenceFieldNames.scientificName`}
+          defaultMessage={"Scientific Name"}
+        />
+      </T>
+      <V>
+        {links.scientificName ? <a href={links.scientificName.href(occurrence)} dangerouslySetInnerHTML={{ __html: occurrence.gbifClassification.usage.formattedName }} /> :
+          <span dangerouslySetInnerHTML={{ __html: occurrence.gbifClassification.usage.formattedName }} />}
+        {fieldGroups?.Taxon?.scientificName?.issues?.length > 0 &&
+          fieldGroups.Taxon.scientificName.issues.map((i) => (
+            <span css={css.issuePill(i)} key={i}>
+              <FormattedMessage
+                id={`issueEnum.${i.id}`}
+                defaultMessage={prettifyEnum(i.id)}
+              />
+            </span>
+          ))}
+        {fieldGroups?.Taxon?.scientificName?.issues?.length > 0 && <div css={css.termRemark()}>{fieldGroups?.Taxon?.scientificName?.verbatim}</div>}
+      </V>
+      {fieldGroups?.Taxon?.synonym?.value === true && fieldGroups?.Taxon?.acceptedScientificName?.value && <> <T>
+        <FormattedMessage
+          id={`ocurrenceFieldNames.acceptedScientificName`}
+          defaultMessage={"Accepted Scientific Name"}
+        />
+      </T>
+        <V>
+          {links.acceptedScientificName ? <a href={links.acceptedScientificName.href(occurrence)} dangerouslySetInnerHTML={{ __html: occurrence.gbifClassification.acceptedUsage.formattedName }} /> :
+            <span dangerouslySetInnerHTML={{ __html: occurrence.gbifClassification.acceptedUsage.formattedName }} />}
+        </V></>}
+      <T>
+        <FormattedMessage
+          id={`ocurrenceFieldNames.classification`}
+          defaultMessage={"Classification"}
+        />
+      </T>
+      <V>
+        <Classification taxon={occurrence.groups.Taxon} showUnknownRanks={true} />
+      </V>
 
       <FieldPair term={fieldGroups?.Event?.eventDate} occurrence={occurrence} fieldGroups={fieldGroups} formattedValue={<FormattedDate value={fieldGroups?.Event?.eventDate?.value}
         year="numeric"
         month="long"
         day="2-digit" />} />
-                      
-                <T><FormattedMessage
-                  id={`ocurrenceFieldNames.dataset`}
-                  defaultMessage={"Dataset"}
-                /></T>
+
+      <T><FormattedMessage
+        id={`ocurrenceFieldNames.dataset`}
+        defaultMessage={"Dataset"}
+      /></T>
       <V>
-      {links.dataset ? <a href={links.dataset.href(occurrence)} >{occurrence.datasetTitle} </a> : occurrence.datasetTitle}
+        {links.dataset ? <a href={links.dataset.href(occurrence)} >{occurrence.datasetTitle} </a> : occurrence.datasetTitle}
       </V>
 
       <T>Basis of record</T>
