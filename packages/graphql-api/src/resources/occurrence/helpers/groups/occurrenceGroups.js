@@ -12,8 +12,6 @@ const groupedTerms = terms.reduce((acc, cur) => {
   return acc
 }, {})
 
-
-
 function getRemarks({ value, verbatim, remarks }) {
   /*
       EXCLUDED has bben replaced with NOT_INDEXED
@@ -29,7 +27,6 @@ function getRemarks({ value, verbatim, remarks }) {
   } else {
     return null
   }
-
 }
 
 module.exports = Object.keys(groupedTerms).reduce((acc, cur) => {
