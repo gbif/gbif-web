@@ -10,13 +10,15 @@ const file = fs.readFileSync(__dirname + '/../.env', 'utf8')
 const env = YAML.parse(file);
 
 const cliOptions = [
-  { name: 'port', alias: 'p', type: Number }
+  { name: 'port', alias: 'p', type: Number },
+  { name: 'debug', type: Boolean, defaultOption: false },
 ];
 const options = commandLineArgs(cliOptions);
 
 const config = _.merge(
+  { debug: false },
   env,
-  options
+  options,
 );
 
 module.exports = config;
