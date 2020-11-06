@@ -12,7 +12,9 @@ tools/extractSchemas/data
 .env.test.local
 .env.production.local
 .env
+.env.*
 **/.env
+**/.env.yml
 **/.env.**.*
 **/.env.*
 .scripts/

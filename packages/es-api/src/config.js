@@ -6,7 +6,7 @@ const _ = require('lodash');
 const commandLineArgs = require('command-line-args');
 const YAML = require('yaml')
 const fs = require('fs');
-const file = fs.readFileSync(__dirname + '/../.env.yml', 'utf8')
+const file = fs.readFileSync(__dirname + '/../.env', 'utf8')
 const env = YAML.parse(file);
 
 const cliOptions = [

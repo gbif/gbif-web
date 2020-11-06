@@ -6,7 +6,6 @@ const { apiEs, apiEsKey, apiv1 } = config;
 class OccurrenceAPI extends RESTDataSource {
   constructor() {
     super();
-    console.log(apiEs);
     this.baseURL = apiEs;
   }
 
