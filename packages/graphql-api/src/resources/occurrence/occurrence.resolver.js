@@ -5,6 +5,7 @@ const fieldsWithStatsSupport = require('./helpers/fieldsWithStatsSupport');
 // const verbatimResolvers = require('./helpers/occurrenceTerms');
 const { formattedCoordinates, isOccurrenceSequenced } = require('../../util/utils');
 const groupResolver = require('./helpers/groups/occurrenceGroups');
+const termResolver = require('./helpers/terms/occurrenceTerms');
 
 // there are many fields that support facets. This function creates the resolvers for all of them
 const facetReducer = (dictionary, facetName) => {
@@ -118,6 +119,10 @@ module.exports = {
     groups: (occurrence, args, { dataSources }) => {
       return dataSources.occurrenceAPI.getVerbatim({key: occurrence.key })
         .then(verbatim => groupResolver({occurrence, verbatim}));
+    },
+    terms: (occurrence, args, { dataSources }) => {
+      return dataSources.occurrenceAPI.getVerbatim({key: occurrence.key })
+        .then(verbatim => termResolver({occurrence, verbatim}));
     }
   },
   OccurrenceSearchResult: {
@@ -189,6 +194,20 @@ module.exports = {
     publisher: ({ key }, args, { dataSources }) => {
       if (typeof key === 'undefined') return null;
       return dataSources.organizationAPI.getOrganizationByKey({ key });
+    },
+    occurrences: facetOccurrenceSearch
+  },
+  OccurrenceFacetResult_institution: {
+    institution: ({ key }, args, { dataSources }) => {
+      if (typeof key === 'undefined') return null;
+      return dataSources.institutionAPI.getInstitutionByKey({ key });
+    },
+    occurrences: facetOccurrenceSearch
+  },
+  OccurrenceFacetResult_collection: {
+    collection: ({ key }, args, { dataSources }) => {
+      if (typeof key === 'undefined') return null;
+      return dataSources.collectionAPI.getCollectionByKey({ key });
     },
     occurrences: facetOccurrenceSearch
   },

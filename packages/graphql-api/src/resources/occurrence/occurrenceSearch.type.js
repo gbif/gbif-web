@@ -143,8 +143,8 @@ const typeDef = gql`
     publishingOrganizationKey(size: Int): [OccurrenceFacetResult_organization]
 
     gbifClassification_taxonID(size: Int): [OccurrenceFacetResult_string]
-    collectionKey(size: Int): [OccurrenceFacetResult_string]
-    institutionKey(size: Int): [OccurrenceFacetResult_string]
+    collectionKey(size: Int): [OccurrenceFacetResult_collection]
+    institutionKey(size: Int): [OccurrenceFacetResult_institution]
     
     taxonKey(size: Int):                              [OccurrenceFacetResult_taxon]
     gbifClassification_classKey(size: Int):           [OccurrenceFacetResult_taxon]
@@ -224,6 +224,22 @@ const typeDef = gql`
     key: String!
     count: Int!
     publisher: Organization!
+    occurrences(size: Int, from: Int): OccurrenceSearchResult!
+    _predicate: JSON
+  }
+
+  type OccurrenceFacetResult_institution {
+    key: String!
+    count: Int!
+    institution: Institution!
+    occurrences(size: Int, from: Int): OccurrenceSearchResult!
+    _predicate: JSON
+  }
+
+  type OccurrenceFacetResult_collection {
+    key: String!
+    count: Int!
+    collection: Collection!
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
     _predicate: JSON
   }

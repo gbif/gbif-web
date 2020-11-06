@@ -288,6 +288,10 @@ const typeDef = gql`
     Volatile: these values are tightly coupled to the webview and are likely to change frequently
     """
     groups: TermGroups
+    """
+    Volatile: these values are tightly coupled to the webview and are likely to change frequently
+    """
+    terms: [Term]
   }
 
   type RelatedOccurrence {
@@ -295,17 +299,28 @@ const typeDef = gql`
     occurrence: Occurrence
   }
 
+  type Term {
+    value: JSON
+    verbatim: JSON
+    remarks: String
+    issues: [JSON]
+    htmlValue: String
+    group: String
+    simpleName: String
+    qualifiedName: String
+  }
+
   type TermGroups {
-    Occurrence: [JSON]!
-    Record: [JSON]!
-    Organism: [JSON]!
-    MaterialSample: [JSON]!
-    Event: [JSON]!
-    Location: [JSON]!
-    GeologicalContext: [JSON]!
-    Identification: [JSON]!
-    Taxon: [JSON]!
-    Other: [JSON]!
+    occurrence: JSON!
+    record: JSON!
+    organism: JSON!
+    materialSample: JSON!
+    event: JSON!
+    location: JSON!
+    geologicalContext: JSON!
+    identification: JSON!
+    taxon: JSON!
+    other: JSON!
   }
 
   type VolatileOccurrenceData {
