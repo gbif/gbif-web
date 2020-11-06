@@ -3,23 +3,19 @@
  * cli arguments take priority, then comes .env file, then default values.
  */
 const _ = require('lodash');
-const env = require('dotenv').config();
 const commandLineArgs = require('command-line-args');
+const YAML = require('yaml')
+const fs = require('fs');
+const file = fs.readFileSync(__dirname + '/../.env.yml', 'utf8')
+const env = YAML.parse(file);
 
 const cliOptions = [
-  { name: 'port', alias: 'p', type: Number },
-  { name: 'LITERATURE_ES_ENDPOINT', alias: 'a', type: String }
+  { name: 'port', alias: 'p', type: Number }
 ];
 const options = commandLineArgs(cliOptions);
-console.log(options);
-const defaultConfig = {
-  port: 4001,
-  API_KEY: "svampebob"
-};
 
 const config = _.merge(
-  defaultConfig,
-  env.parsed,
+  env,
   options
 );
 

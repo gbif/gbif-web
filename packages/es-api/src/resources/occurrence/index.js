@@ -8,13 +8,13 @@ const { getSuggestQuery } = require('../../requestAdapter/suggest');
 
 function suggestConfig() {
   return suggestConfigFromAlias({ 
-    endpoint: env.OCCURRENCE_HOST_PATTERN.replace('{n}', 1), 
+    endpoint: env.occurrence.hosts[0], 
     alias: 'occurrence', 
     type: 'record'
   });
 
   // return suggestGqlTypeFromAlias({ 
-  //   endpoint: env.OCCURRENCE_HOST_PATTERN.replace('{n}', 1), 
+  //   endpoint: env.occurrence.hosts[0], 
   //   alias: 'occurrence', 
   //   type: 'record'
   // });

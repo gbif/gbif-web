@@ -6,7 +6,7 @@ const { get2metric, metric2aggs } = require('../../requestAdapter/aggregations')
 
 function suggestConfig() {
   return suggestConfigFromAlias({ 
-    endpoint: env.DATASET_HOST_PATTERN.replace('{n}', 1), 
+    endpoint: env.dataset.hosts[0],
     alias: 'dataset', 
     type: 'dataset'
   });

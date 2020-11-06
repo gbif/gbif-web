@@ -8,6 +8,7 @@ const dataset = require('./resources/dataset');
 const { asyncMiddleware, ResponseError, errorHandler, unknownRouteHandler } = require('./resources/errorHandler');
 
 const app = express();
+app.use(express.static('public'));
 app.use(bodyParser.json());
 
 app.use(function (req, res, next) {
@@ -83,19 +84,36 @@ function postResource(resource) {
 function getResource(resource) {
   const { dataSource, get2predicate, predicate2query, get2metric, metric2aggs } = resource;
   return async (req, res, next) => {
-    let predicate;
-    let metrics;
+    let jsonPredicate, predicate;
+    let jsonMetrics;
     if (req.query.query) {
       try {
         const jsonQuery = JSON.parse(req.query.query);
-        predicate = jsonQuery.predicate;
-        metrics = jsonQuery.metrics;
+        jsonPredicate = jsonQuery.predicate;
+        jsonMetrics = jsonQuery.metrics;
       } catch (err) {
         return next(new ResponseError(400, 'badRequest', `Invalid query: ${err.message}`));
       }
+    }
+    let v1Predicate = get2predicate(req.query);
+    let v1Metrics = get2metric(req.query);
+
+    search(req, res, next, { v1Metrics, jsonMetrics, v1Predicate, jsonPredicate, dataSource, get2predicate, predicate2query, get2metric, metric2aggs });
+  }
+}
+
+async function search(req, res, next, { v1Metrics, jsonMetrics, v1Predicate, jsonPredicate, dataSource, get2predicate, predicate2query, get2metric, metric2aggs }) {
+  try {
+    let predicate;
+    // merge get style and post style metrics request, giving priority to post style as that is more precise
+    let metrics = Object.assign({}, v1Metrics, jsonMetrics)
+
+    // AND queries: If user sends both post style and v1 style query, then join them with an "add" predicate
+    if (jsonPredicate && v1Predicate) {
+      predicate = { type: 'and', predicates: [jsonPredicate, v1Predicate] }
     } else {
-      predicate = get2predicate(req.query);
-      metrics = get2metric(req.query);
+      // if both aren't set, then choose which ever is set
+      predicate = v1Predicate ? v1Predicate : jsonPredicate;
     }
     const aggs = metric2aggs(metrics);
     const query = predicate2query(predicate);
@@ -115,6 +133,8 @@ function getResource(resource) {
       ...result,
       ...(includeMeta && { meta }),
     });
+  } catch (err) {
+    next(err);
   }
 }
 

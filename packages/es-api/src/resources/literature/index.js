@@ -6,7 +6,7 @@ const { get2metric, metric2aggs } = require('../../requestAdapter/aggregations')
 
 function suggestConfig() {
   return suggestConfigFromAlias({ 
-    endpoint: env.LITERATURE_HOST, 
+    endpoint: env.literature.hosts[0], 
     alias: 'literature', 
     type: 'literature'
   });

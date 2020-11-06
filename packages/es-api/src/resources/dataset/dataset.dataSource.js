@@ -1,12 +1,10 @@
-const elasticsearch = require('elasticsearch');
+const { Client } = require('@elastic/elasticsearch');
 const Agent = require('agentkeepalive');
 const { ResponseError } = require('../errorHandler');
 const { search } = require('../esRequest');
-const config = require('../../config');
+const env = require('../../config');
 const { queryReducer } = require('../../responseAdapter');
 
-const hostPattern = config.DATASET_HOST_PATTERN;
-const nodes = config.DATASET_NODES;
 const searchIndex = 'dataset';
 
 const agent = () => new Agent({
@@ -14,11 +12,10 @@ const agent = () => new Agent({
   keepAlive: true
 });
 
-const hosts = new Array(nodes).fill().map((x, i) => hostPattern.replace('{n}', i + 1))
-const client = new elasticsearch.Client({
-  nodes: hosts,
-  maxRetries: 3,
-  requestTimeout: 60000,
+const client = new Client({
+  nodes: env.dataset.hosts,
+  maxRetries: env.dataset.maxRetries || 3,
+  requestTimeout: env.dataset.requestTimeout || 60000,
   agent
 });
 
@@ -26,17 +23,23 @@ function reduce(item) {
   return item._source;
 }
 
-async function query({ query, aggs, size=20, from=0 }) {
-  if (parseInt(from) + parseInt(size) > 10000) {
-    throw new ResponseError(400, 'BAD_REQUEST', '"from" + "size" must be 10,000 or less');
+async function query({ query, aggs, size=20, from=0, req }) {
+  if (parseInt(from) + parseInt(size) > env.dataset.maxResultWindow) {
+    throw new ResponseError(400, 'BAD_REQUEST', `'from' + 'size' must be ${env.dataset.maxResultWindow} or less`);
   }
   const esQuery = {
+    sort: [
+      '_score',
+      { created: { "order": "desc" } }
+    ],
     size,
     from,
     query,
-    aggs
+    aggs,
+    track_total_hits: true,
   }
-  let body = await search({ client, index: searchIndex, query: esQuery });
+  let response = await search({ client, index: searchIndex, query: esQuery, req });
+  let body = response.body;
   body.hits.hits = body.hits.hits.map(n => reduce(n));
   return {
     esBody: esQuery,
@@ -44,23 +47,25 @@ async function query({ query, aggs, size=20, from=0 }) {
   };
 }
 
-async function byKey({ key }) {
+async function byKey({ key, req }) {
   const query = {
     "size": 1,
     "query": {
       "bool": {
         "filter": {
           "term": {
-            "gbifId": key
+            "key": key
           }
         }
       }
     }
   };
-  let body = await search({ client, index: searchIndex, query });
-  if (body.hits.total === 1) {
+  let response = await search({ client, index: searchIndex, query, req });
+  let body = response.body;
+  const total = body.hits.total.value || body.hits.total; // really just while es versions change between 5 > 7
+  if (total === 1) {
     return reduce(body.hits.hits[0]);
-  } else if (body.hits.total > 1) {
+  } else if (total > 1) {
     // TODO log that an error has happened. there should not be 2 entries for ID
     throw new ResponseError(503, 'serverError', 'The ID is not unique, more than one entry found.');
   } else {
