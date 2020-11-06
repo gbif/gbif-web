@@ -15,6 +15,7 @@
 .env.*
 /**/*.env.*
 /**/*.notes.*
+**/.env.**.*
 .vscode
 
 npm-debug.log*

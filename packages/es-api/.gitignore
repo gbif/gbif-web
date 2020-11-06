@@ -12,6 +12,9 @@ tools/extractSchemas/data
 .env.test.local
 .env.production.local
 .env
+**/.env
+**/.env.**.*
+**/.env.*
 
 npm-debug.log*
 yarn-debug.log*
