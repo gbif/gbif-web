@@ -46,7 +46,8 @@
     "sequelize": "^4.39.0",
     "sqlite3": "^4.0.3",
     "topojson": "^3.0.2",
-    "wikibase-sdk": "^7.0.8"
+    "wikibase-sdk": "^7.0.8",
+    "yaml": "^1.10.0"
   },
   "devDependencies": {
     "apollo-link": "^1.2.3",
