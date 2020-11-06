@@ -7,7 +7,7 @@ const { RESTDataSource } = require('apollo-datasource-rest');
 const pick = require('lodash/pick');
 const config = require('../../config');
 const { createSignedGetHeader } = require('../../auth/authenticatedGet');
-const API_V1 = config.API_V1;
+const API_V1 = config.apiv1;
 
 class ParticipantAPI extends RESTDataSource {
   constructor() {

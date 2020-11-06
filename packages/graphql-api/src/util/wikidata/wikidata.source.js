@@ -3,12 +3,12 @@ const _ = require('lodash')
 const { RESTDataSource } = require('apollo-datasource-rest');
 const {decorateProperty, getItemData, getIUCNRedListData} = require('./helpers')
 const config = require('../../config');
-const { WIKIDATA } = config;
+const { wikidata } = config;
 const USER_AGENT = "gbif-graphql/1.0";
 const WIKI_GBIF_TAXON_IDENTIFIER = 'P846';
 const IUCN_TAXON_IDENTIFIER = 'P627';
 const IUCN_CONSERVATION_STATUS = 'P141';
-const wdk = require('wikibase-sdk')(WIKIDATA);
+const wdk = require('wikibase-sdk')(wikidata);
 
 
 class WikiDataAPI extends RESTDataSource {

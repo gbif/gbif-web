@@ -1,6 +1,6 @@
 const { RESTDataSource } = require('apollo-datasource-rest');
 const config = require('../../config');
-const API_V1 = config.API_V1;
+const API_V1 = config.apiv1;
 
 class DatasetAPI extends RESTDataSource {
   constructor() {

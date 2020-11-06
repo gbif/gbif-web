@@ -1,7 +1,7 @@
 // const { ApolloError } = require('apollo-server');
 const { RESTDataSource } = require('apollo-datasource-rest');
 const config = require('../../config');
-const API_V1 = config.API_V1;
+const API_V1 = config.apiv1;
 
 class PersonAPI extends RESTDataSource {
   constructor() {

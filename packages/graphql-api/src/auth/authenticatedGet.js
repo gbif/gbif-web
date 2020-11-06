@@ -5,9 +5,9 @@ const querystring = require('querystring');
 const crypto = require('crypto');
 const NEWLINE = '\n';
 
-const appKey = env.APP_KEY;
-const appSecret = env.APP_SECRET;
-const API_V1 = env.API_V1;
+const appKey = env.appKey;
+const appSecret = env.appSecret;
+const API_V1 = env.apiv1;
 
 async function authenticatedGet({ canonicalPath, query }) {
     // https://github.com/gbif/gbif-common-ws/blob/master/src/main/java/org/gbif/ws/security/GbifAuthService.java

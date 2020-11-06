@@ -4,7 +4,7 @@ const fs = require('fs').promises;
 const got = require('got');
 const _ = require('lodash');
 const config = require('../config');
-const API_V1 = config.API_V1;
+const API_V1 = config.apiv1;
 
 async function loadEnums(fileName) {
   const types = await getEnumData('enumeration/basic')

@@ -1,25 +1,26 @@
 // const { ApolloError } = require('apollo-server');
 const { RESTDataSource } = require('apollo-datasource-rest');
 const config = require('../../config');
-const { API_ES, API_ES_KEY, API_V1 } = config;
+const { apiEs, apiEsKey, apiv1 } = config;
 
 class OccurrenceAPI extends RESTDataSource {
   constructor() {
     super();
-    this.baseURL = API_ES;
+    console.log(apiEs);
+    this.baseURL = apiEs;
   }
 
   willSendRequest(request) {
     // if (this.context.user) {
     //   // this of course do not make much sense. Currently is simply means, that you have to provide credentials to seach occurrences
-    //   request.params.set('apiKey', API_ES_KEY);
-    //   // request.headers.set('Authorization', `ApiKey-v1 ${API_ES_KEY}`);
+    //   request.params.set('apiKey', apiEsKey);
+    //   // request.headers.set('Authorization', `ApiKey-v1 ${apiEsKey}`);
     // } else {
     //   console.log('unauthorized attempt to do an occurrence search');
     // }
     
     // now that we make a public version, we might as well just make it open since the key is shared with everyone
-    request.params.set('apiKey', API_ES_KEY);
+    request.params.set('apiKey', apiEsKey);
   }
 
   async searchOccurrenceDocuments({ query }) {
@@ -39,15 +40,15 @@ class OccurrenceAPI extends RESTDataSource {
   }
 
   async getRelated({ key }) {
-    return this.get(`${API_V1}/occurrence/${key}/experimental/related`);
+    return this.get(`${apiv1}/occurrence/${key}/experimental/related`);
   }
 
   async getFragment({ key }) {
-    return this.get(`${API_V1}/occurrence/${key}/fragment`);
+    return this.get(`${apiv1}/occurrence/${key}/fragment`);
   }
 
   async getVerbatim({ key }) {
-    return this.get(`${API_V1}/occurrence/${key}/verbatim`);
+    return this.get(`${apiv1}/occurrence/${key}/verbatim`);
   }
 
   async meta({ query }) {

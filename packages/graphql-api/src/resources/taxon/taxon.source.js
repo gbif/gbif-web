@@ -2,8 +2,8 @@
 const { RESTDataSource } = require('apollo-datasource-rest');
 const scientificName = require('../../util/scientificName');
 const config = require('../../config');
-const API_V1 = config.API_V1;
-const GBIF_BACKBONE_UUID = config.GBIF_BACKBONE_UUID;
+const API_V1 = config.apiv1;
+const GBIF_BACKBONE_UUID = config.gbifBackboneUUID;
 
 class TaxonAPI extends RESTDataSource {
   constructor() {
