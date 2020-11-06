@@ -8,9 +8,8 @@ import stringify from 'fast-json-stable-stringify';
  * @param {object} classes what modifiers are applied to this component. An object of booleans and/or strings. booleans will be appended as keys and strings as strings
  * @param {string} className other classnames
  */
-export function getClasses(prefix = 'gbif', elementName, classes, className) {
+export function getClasses(prefix = 'gbif', elementName, classes = {}, className = '') {
   const classesToApply = [];
-
   Object.keys(classes).forEach(key => {
     const val = classes[key];
     if (val === true) {

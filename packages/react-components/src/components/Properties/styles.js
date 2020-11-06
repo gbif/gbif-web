@@ -22,7 +22,7 @@ export const dl = ({ horizontal, dense, ...props }) => css`
     ${horizontal ? horizontalProperties({ ...props }) : notHorizontalProperties()};
     margin-top: 0;
     margin-bottom: 0;
-    > dd {
+    > * {
       margin-bottom: ${horizontal && dense ? 4 : 12}px;
     }
 `;

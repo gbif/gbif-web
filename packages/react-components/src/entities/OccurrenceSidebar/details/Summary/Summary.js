@@ -71,7 +71,7 @@ export function Summary({ occurrence, fieldGroups, loading, setActiveImage, ...p
         />
       </T>
       <V>
-        <TaxonClassification ranks={occurrence.gbifClassification.classification} showUnknownRanks={true} />
+        <TaxonClassification ranks={occurrence.gbifClassification.classification} />
       </V>
 
       <FieldPair term={fieldGroups?.Event?.eventDate} occurrence={occurrence} fieldGroups={fieldGroups} formattedValue={<FormattedDate value={fieldGroups?.Event?.eventDate?.value}

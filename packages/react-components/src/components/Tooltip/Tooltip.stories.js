@@ -8,9 +8,16 @@ export default {
   component: Tooltip,
 };
 
+const Content = props => <span>React component</span>;
 export const Example = () => <>
   <Tooltip title="Tooltip" placement="auto">
     <button>Hover to see tooltip</button>
+  </Tooltip>
+  <Tooltip title={<h1>Headline</h1>} placement="auto">
+    <button>Hover to see html in tooltip</button>
+  </Tooltip>
+  <Tooltip title={<Content />} placement="auto">
+    <button>Hover to see react in tooltip</button>
   </Tooltip>
   <StyledProse source={readme}></StyledProse>
 </>;

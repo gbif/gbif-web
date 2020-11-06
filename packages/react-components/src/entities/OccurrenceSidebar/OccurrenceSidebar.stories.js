@@ -12,7 +12,9 @@ export default {
 export const Example = () => <div style={{background: '#eee', display: 'flex'}}>
   <div style={{flex: '1 1 auto'}}></div>
   {/* <OccurrenceSidebar id={930742715} style={{width: 700, height: 600, flex: '0 0 auto'}} /> */}
-  <OccurrenceSidebar id={2633828914} style={{maxWidth: '100%', width: 700, height: 'calc(100vh - 20px)', flex: '0 0 auto'}} />
+  {/* <OccurrenceSidebar id={1830738777} style={{maxWidth: '100%', width: 700, height: 'calc(100vh - 20px)', flex: '0 0 auto'}} /> */}
+  {/* <OccurrenceSidebar id={2304128798} style={{maxWidth: '100%', width: 700, height: 'calc(100vh - 20px)', flex: '0 0 auto'}} /> */}
+  <OccurrenceSidebar id={2901178458} style={{maxWidth: '100%', width: 700, height: 'calc(100vh - 20px)', flex: '0 0 auto'}} />
   {/* <StyledProse source={readme}></StyledProse> */}
 </div>;
 

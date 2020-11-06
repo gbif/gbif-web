@@ -27,7 +27,7 @@ export function Intro({
   return <Row direction="column">
     <Col style={{ padding: '12px 16px', paddingBottom: 50 }} grow>
       <Header data={data} error={error} />
-      <Summary occurrence={occurrence} fieldGroups={fieldGroups} loading={loading} setActiveImage={setActiveImage} />
+      {/* <Summary occurrence={occurrence} fieldGroups={fieldGroups} loading={loading} setActiveImage={setActiveImage} /> */}
 
       <Groups data={data} showAll={showAll}  />
     </Col>

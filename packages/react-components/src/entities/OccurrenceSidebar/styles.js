@@ -127,7 +127,7 @@ export const controlFooter = ({ theme }) => css`
 `;
 
 export const accordion = ({ theme }) => css`
-  font-size: 13px;
+  font-size: 16px;
   margin: 20px 0;
 `;
 
@@ -168,10 +168,10 @@ export const termRemark = props => css`
 `;
 
 export const issuePill = ({ severity, ...props }) => css`
-  background: ${severity === "WARNING" ? "gold" : "grey"};
-  border-radius: 20px;
-  font-size: 10px;
-  display: inline-block;
-  padding: 2px 3px;
-  margin-left: 4px;
+  background: ${severity === "WARNING" ? "#ffbf4b" : "#a4cdd2"};
+  font-size: 85%;
+  color: ${severity === "WARNING" ? "#5f4515" : "#2f585d"};
+  border-radius: 4px;
+  padding: 0 4px;
+  margin-right: 4px;
 `;

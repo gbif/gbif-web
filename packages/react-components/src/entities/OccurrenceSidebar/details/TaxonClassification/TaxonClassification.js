@@ -8,12 +8,16 @@ import * as css from './styles';
 
 export function TaxonClassification({
   as: Div = 'div',
+  includeTerminal = false,
   ranks,
   ...props
 }) {
   const theme = useContext(ThemeContext);
   return <Classification {...props}>
-    {ranks.map(rank => <span key={rank.rank}>{rank.name}</span>)}
+    {ranks.map((rank, i, { length }) => {
+      if (!includeTerminal && length - 1 === i) return null;
+      return <span key={rank.rank}>{rank.name}</span>
+    })}
   </Classification>
 };
 

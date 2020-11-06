@@ -45,23 +45,8 @@ export function OccurrenceSidebar({
     if (!loading && activeId === 'images' && !data?.occurrence?.stillImages) {
       setTab('details');
     }
-    if (!loading && data) {
-      // transform response
-      
-      const groups = Object.entries(data.occurrence.groups).reduce((accGroup, currentGroup) => {
-        const [key, group] = currentGroup;
-        // the API is inconsistent. sometimes empty arrays other times nulls.
-        if (!group) {
-          return accGroup;
-        }
-        const groupMap = group.reduce((acc, cur) => {
-          acc[cur.simpleName] = cur;
-          return acc
-        }, {});
-        accGroup[key] = groupMap;
-        return accGroup;
-      }, {});
-      setFieldGroups(groups);
+    if (!loading && data?.occurrence) {
+      setFieldGroups(data.occurrence.groups);
     }
   }, [data, loading]);
 
@@ -134,6 +119,8 @@ query occurrence($key: ID!){
     key
     institutionCode
 
+    gadm
+
     stillImageCount
     movingImageCount
     soundCount
@@ -185,17 +172,27 @@ query occurrence($key: ID!){
       identifier
     }
 
+    terms {
+      simpleName
+      verbatim
+      value
+      htmlValue
+      remarks
+      issues
+      group
+    }
+    
     groups {
-      Occurrence  
-      Record
-      Organism
-      MaterialSample
-      Event
-      Location
-      GeologicalContext
-      Identification
-      Taxon
-      Other
+      occurrence  
+      record
+      organism
+      materialSample
+      event
+      location
+      geologicalContext
+      identification
+      taxon
+      other
     }
   }
 }
