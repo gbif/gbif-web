@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server');
 
 const typeDef = gql`
-type WikiDataTaxonData {
+  type WikiDataTaxonData {
     identifiers: [WikiDataIdentifier]
     source: WikiDataTaxonSourceItem
     iucn: WikiDataTaxonIUCNData
