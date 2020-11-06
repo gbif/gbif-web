@@ -77,7 +77,7 @@ function reduce(item) {
     format:                             source.verbatim.core['http://purl.org/dc/terms/format'],
     formation:                          source.verbatim.core['http://rs.tdwg.org/dwc/terms/formation'],
     // genus:                              source.verbatim.core['http://rs.tdwg.org/dwc/terms/genus'],
-    geodeticDatum:                      source.verbatim.core['http://rs.tdwg.org/dwc/terms/geodeticDatum'],
+    geodeticDatum:                      source.verbatim.core['http://rs.tdwg.org/dwc/terms/geodeticDatum'] || 'WGS84',
     geologicalContextID:                source.verbatim.core['http://rs.tdwg.org/dwc/terms/geologicalContextID'],
     georeferenceProtocol:               source.verbatim.core['http://rs.tdwg.org/dwc/terms/georeferenceProtocol'],
     georeferenceRemarks:                source.verbatim.core['http://rs.tdwg.org/dwc/terms/georeferenceRemarks'],
@@ -99,7 +99,7 @@ function reduce(item) {
     identificationReferences:           source.verbatim.core['http://rs.tdwg.org/dwc/terms/identificationReferences'],
     identificationRemarks:              source.verbatim.core['http://rs.tdwg.org/dwc/terms/identificationRemarks'],
     identificationVerificationStatus:   source.verbatim.core['http://rs.tdwg.org/dwc/terms/identificationVerificationStatus'],
-    identifier:                         source.verbatim.core['http://purl.org/dc/terms/identifier'],
+    identifier:                         source.verbatim.core['http://purl.org/dc/terms/identifier'],// for some reason this property isn't in the ES response as of 3 november 2020 - add it further down
     informationWithheld:                source.verbatim.core['http://rs.tdwg.org/dwc/terms/informationWithheld'],
     infraspecificEpithet:               source.verbatim.core['http://rs.tdwg.org/dwc/terms/infraspecificEpithet'],
     institutionID:                      source.verbatim.core['http://rs.tdwg.org/dwc/terms/institutionID'],
@@ -224,6 +224,7 @@ function reduce(item) {
     license:                            source.license,
     lifeStage:                          source.lifeStage,
     locality:                           source.locality,
+    identifier:                         source.id,
     
     // the range fields are replaced by accuracy
     // maximumDepthInMeters:               source.maximumDepthInMeters,
@@ -265,6 +266,7 @@ function reduce(item) {
     scientificName:                     source.gbifClassification?.usage?.name,
     class:                              source.gbifClassification?.class,
     classKey:                           source.gbifClassification?.classKey,
+    collectionKey:                      source.collectionKey,
     crawlId:                            source.crawlId,
     datasetKey:                         source.datasetKey,
     depth:                              source.depth,
@@ -280,6 +282,7 @@ function reduce(item) {
     genusKey:                           source.gbifClassification.genusKey,
     identifiedByID:                     source.identifiedByID,
     installationKey:                    source.installationKey,
+    institutionKey:                     source.institutionKey,
     issues:                             source.issues || [],
     kingdom:                            source.gbifClassification.kingdom,
     kingdomKey:                         source.gbifClassification.kingdomKey,
