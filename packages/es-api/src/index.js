@@ -37,56 +37,52 @@ const temporaryAuthMiddleware = function (req, res, next) {
 }
 app.use(temporaryAuthMiddleware)
 
-app.post('/literature', asyncMiddleware(postResource(literature)));
-app.get('/literature', asyncMiddleware(getResource(literature)));
+app.post('/literature', asyncMiddleware(searchResource(literature)));
+app.get('/literature', asyncMiddleware(searchResource(literature)));
 app.get('/literature/key/:id', asyncMiddleware(keyResource(literature)));
 
-app.post('/occurrence', asyncMiddleware(postResource(occurrence)));
-app.get('/occurrence', asyncMiddleware(getResource(occurrence)));
+app.post('/occurrence', asyncMiddleware(searchResource(occurrence)));
+app.get('/occurrence', asyncMiddleware(searchResource(occurrence)));
 app.get('/occurrence/key/:id', asyncMiddleware(keyResource(occurrence)));
 app.get('/occurrence/suggest/:key', asyncMiddleware(suggestResource(occurrence)));
 
-app.post('/dataset', asyncMiddleware(postResource(dataset)));
-app.get('/dataset', asyncMiddleware(getResource(dataset)));
+app.post('/dataset', asyncMiddleware(searchResource(dataset)));
+app.get('/dataset', asyncMiddleware(searchResource(dataset)));
 app.get('/dataset/key/:id', asyncMiddleware(keyResource(dataset)));
 
-function postResource(resource) {
-  const { dataSource, predicate2query, metric2aggs } = resource;
-  return async (req, res) => {
+function searchResource(resource) {
+  const { dataSource, get2predicate, predicate2query, get2metric, metric2aggs } = resource;
+  return async (req, res, next) => {
     try {
-      let { size = 20, from = 0 } = req.body;
-      size = parseInt(size);
-      from = parseInt(from);
-      const includeMeta = req.body.includeMeta;
-      const predicate = req.body.predicate;
-      const metrics = req.body.metrics;
-      const aggs = metrics ? metric2aggs(metrics) : {};
+      const { metrics, predicate, size, from, includeMeta } = parseQuery(req, res, next, { get2predicate, get2metric });
+      const aggs = metric2aggs(metrics);
       const query = predicate2query(predicate);
       const { result, esBody } = await dataSource.query({ query, aggs, size, from, req });
       const meta = {
+        GET: req.query,
         predicate,
         metrics,
         esBody
       };
 
       res.json({
+        ...result,
         ...(includeMeta && { meta }),
-        ...result
       });
     } catch (err) {
-      console.log('error');
-      console.log(err);
-      res.sendStatus(500);
+      next(err);
     }
   }
 }
 
-function getResource(resource) {
-  const { dataSource, get2predicate, predicate2query, get2metric, metric2aggs } = resource;
-  return async (req, res, next) => {
-    let jsonPredicate, predicate;
-    let jsonMetrics;
-    if (req.query.query) {
+function parseQuery(req, res, next, { get2predicate, get2metric }) {
+  try {
+    // extract JSON predicate and metrics from body or query param. Given preference to body
+    let jsonPredicate, jsonMetrics, predicate;
+    if (req?.body?.predicate || req?.body?.metrics) {
+      jsonPredicate = req.body.predicate;
+      jsonMetrics = req.body.metrics;
+    } else if (req.query.query) {
       try {
         const jsonQuery = JSON.parse(req.query.query);
         jsonPredicate = jsonQuery.predicate;
@@ -95,16 +91,10 @@ function getResource(resource) {
         return next(new ResponseError(400, 'badRequest', `Invalid query: ${err.message}`));
       }
     }
+    // get any metrics defined in v1 style
     let v1Predicate = get2predicate(req.query);
     let v1Metrics = get2metric(req.query);
 
-    search(req, res, next, { v1Metrics, jsonMetrics, v1Predicate, jsonPredicate, dataSource, get2predicate, predicate2query, get2metric, metric2aggs });
-  }
-}
-
-async function search(req, res, next, { v1Metrics, jsonMetrics, v1Predicate, jsonPredicate, dataSource, get2predicate, predicate2query, get2metric, metric2aggs }) {
-  try {
-    let predicate;
     // merge get style and post style metrics request, giving priority to post style as that is more precise
     let metrics = Object.assign({}, v1Metrics, jsonMetrics)
 
@@ -115,24 +105,14 @@ async function search(req, res, next, { v1Metrics, jsonMetrics, v1Predicate, jso
       // if both aren't set, then choose which ever is set
       predicate = v1Predicate ? v1Predicate : jsonPredicate;
     }
-    const aggs = metric2aggs(metrics);
-    const query = predicate2query(predicate);
-    let { size = 20, from = 0 } = req.query;
+
+    // next parse from, size, includeMeta. Again giving preference to body/post content
+
+    let { size = 20, from = 0, includeMeta = false } = Object.assign({}, req.query, req.body);
     size = parseInt(size);
     from = parseInt(from);
-    const includeMeta = req.query.includeMeta;
-    const { result, esBody } = await dataSource.query({ query, aggs, size, from, req });
-    const meta = {
-      GET: req.query,
-      predicate,
-      metrics,
-      esBody
-    };
-
-    res.json({
-      ...result,
-      ...(includeMeta && { meta }),
-    });
+    const result = { metrics, predicate, size, from, includeMeta };
+    return result;
   } catch (err) {
     next(err);
   }
