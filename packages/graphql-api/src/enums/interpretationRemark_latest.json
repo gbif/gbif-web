@@ -234,12 +234,12 @@
     "severity": "WARNING",
     "relatedTerms": [
       "http://rs.tdwg.org/dwc/terms/scientificNameAuthorship",
-      "http://rs.tdwg.org/dwc/terms/kingdom",
       "http://rs.tdwg.org/dwc/terms/genus",
-      "http://rs.tdwg.org/dwc/terms/infraspecificEpithet",
+      "http://rs.tdwg.org/dwc/terms/kingdom",
       "http://rs.tdwg.org/dwc/terms/class",
-      "http://rs.gbif.org/terms/1.0/genericName",
+      "http://rs.tdwg.org/dwc/terms/infraspecificEpithet",
       "http://rs.tdwg.org/dwc/terms/family",
+      "http://rs.gbif.org/terms/1.0/genericName",
       "http://rs.tdwg.org/dwc/terms/order",
       "http://rs.tdwg.org/dwc/terms/specificEpithet",
       "http://rs.tdwg.org/dwc/terms/scientificName",
@@ -251,12 +251,12 @@
     "severity": "WARNING",
     "relatedTerms": [
       "http://rs.tdwg.org/dwc/terms/scientificNameAuthorship",
-      "http://rs.tdwg.org/dwc/terms/kingdom",
       "http://rs.tdwg.org/dwc/terms/genus",
-      "http://rs.tdwg.org/dwc/terms/infraspecificEpithet",
+      "http://rs.tdwg.org/dwc/terms/kingdom",
       "http://rs.tdwg.org/dwc/terms/class",
-      "http://rs.gbif.org/terms/1.0/genericName",
+      "http://rs.tdwg.org/dwc/terms/infraspecificEpithet",
       "http://rs.tdwg.org/dwc/terms/family",
+      "http://rs.gbif.org/terms/1.0/genericName",
       "http://rs.tdwg.org/dwc/terms/order",
       "http://rs.tdwg.org/dwc/terms/specificEpithet",
       "http://rs.tdwg.org/dwc/terms/scientificName",
@@ -268,12 +268,12 @@
     "severity": "WARNING",
     "relatedTerms": [
       "http://rs.tdwg.org/dwc/terms/scientificNameAuthorship",
-      "http://rs.tdwg.org/dwc/terms/kingdom",
       "http://rs.tdwg.org/dwc/terms/genus",
-      "http://rs.tdwg.org/dwc/terms/infraspecificEpithet",
+      "http://rs.tdwg.org/dwc/terms/kingdom",
       "http://rs.tdwg.org/dwc/terms/class",
-      "http://rs.gbif.org/terms/1.0/genericName",
+      "http://rs.tdwg.org/dwc/terms/infraspecificEpithet",
       "http://rs.tdwg.org/dwc/terms/family",
+      "http://rs.gbif.org/terms/1.0/genericName",
       "http://rs.tdwg.org/dwc/terms/order",
       "http://rs.tdwg.org/dwc/terms/specificEpithet",
       "http://rs.tdwg.org/dwc/terms/scientificName",
@@ -638,8 +638,8 @@
     "id": "CLASSIFICATION_NOT_APPLIED",
     "severity": "WARNING",
     "relatedTerms": [
-      "http://rs.tdwg.org/dwc/terms/kingdom",
       "http://rs.tdwg.org/dwc/terms/genus",
+      "http://rs.tdwg.org/dwc/terms/kingdom",
       "http://rs.tdwg.org/dwc/terms/class",
       "http://rs.tdwg.org/dwc/terms/family",
       "http://rs.tdwg.org/dwc/terms/order",
@@ -778,8 +778,8 @@
       "http://rs.tdwg.org/dwc/terms/genus",
       "http://rs.tdwg.org/dwc/terms/namePublishedInYear",
       "http://rs.tdwg.org/dwc/terms/parentNameUsage",
-      "http://rs.tdwg.org/dwc/terms/parentNameUsageID",
-      "http://rs.tdwg.org/dwc/terms/scientificName"
+      "http://rs.tdwg.org/dwc/terms/scientificName",
+      "http://rs.tdwg.org/dwc/terms/parentNameUsageID"
     ]
   },
   {

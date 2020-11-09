@@ -71,7 +71,7 @@ export function OccurrenceSidebar({
         <TabPanel tabId='images'>
           <ImageDetails activeImage={activeImage} setActiveImage={setActiveImage} data={data} loading={loading} error={error} />
         </TabPanel>
-        <TabPanel tabId='details'>
+        <TabPanel tabId='details' style={{height: '100%'}}>
           <Intro setActiveImage={id => { setActiveImage(id); setTab('images') }} fieldGroups={fieldGroups} isSpecimen={isSpecimen} data={data} loading={loading} error={error} />
         </TabPanel>
         <TabPanel lazy tabId='cluster'>

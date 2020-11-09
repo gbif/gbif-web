@@ -24,17 +24,17 @@ export function Intro({
   const { occurrence } = data;
   if (loading || !occurrence) return <h1>Loading</h1>;
 
-  return <Row direction="column">
-    <Col style={{ padding: '12px 16px', paddingBottom: 50 }} grow>
+  return <Row direction="column" wrap="nowrap" style={{ maxHeight: '100%', overflow: 'hidden' }}>
+    <Col style={{ padding: '12px 16px', paddingBottom: 50, overflow: 'auto' }} grow>
       <Header data={data} error={error} />
       {/* <Summary occurrence={occurrence} fieldGroups={fieldGroups} loading={loading} setActiveImage={setActiveImage} /> */}
 
-      <Groups data={data} showAll={showAll}  />
+      <Groups data={data} showAll={showAll} />
     </Col>
     <Col css={css.controlFooter({ theme })} grow={false}>
       <Row justifyContent="flex-end" halfGutter={8}>
         <Col grow={false}>
-          Show all fields <Switch  checked={showAll} onChange={() => setShowAll(!showAll)} direction="top" tip="Shortcut s" />
+          Show all fields <Switch checked={showAll} onChange={() => setShowAll(!showAll)} direction="top" tip="Shortcut s" />
         </Col>
       </Row>
     </Col>

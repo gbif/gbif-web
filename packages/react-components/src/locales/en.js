@@ -4,6 +4,7 @@ import mediaTypes from './enums/mediaTypes.json';
 import occurrenceIssue from './enums/occurrenceIssue.json';
 import typeStatus from './enums/typeStatus.json';
 import taxonRank from './enums/taxonRank.json';
+import taxonomicStatus from './enums/taxonomicStatus.json';
 import license from './enums/license.json';
 import month from './enums/month.json';
 import continent from './enums/continent.json';
@@ -343,6 +344,7 @@ export const en = {
     occurrenceIssue,
     typeStatus,
     taxonRank,
+    taxonomicStatus,
     license,
     month,
     continent,
