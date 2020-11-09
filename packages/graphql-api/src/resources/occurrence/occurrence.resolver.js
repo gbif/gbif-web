@@ -252,8 +252,8 @@ module.exports = {
         .then(response => response.relatedOccurrences.length > 0);
     },
     isSequenced: (occurrence, args, { dataSources }) => {
-      return dataSources.occurrenceAPI.getFragment({key: occurrence.key })
-        .then(fragment => isOccurrenceSequenced({occurrence, fragment}));
+      return dataSources.occurrenceAPI.getVerbatim({key: occurrence.key })
+        .then(verbatim => isOccurrenceSequenced({occurrence, verbatim}));
     },
     isSamplingEvent: (occurrence) => !!occurrence.eventId && !!occurrence.samplingProtocol
   },

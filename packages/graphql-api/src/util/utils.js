@@ -7,12 +7,12 @@ function formattedCoordinates({lat, lon}) {
 }
 
 const ggbnFields = ['Amplification', 'MaterialSample', 'Permit', 'Preparation', 'Preservation'];
-function isOccurrenceSequenced({occurrence, fragment}) {
+function isOccurrenceSequenced({occurrence, verbatim}) {
   // lets hope that publisher do not put "no" into this
   if (occurrence.associatedSequences) return true;
 
   // if no extensions defined then it isn't sequenced
-  const extensions = fragment.extensions;
+  const extensions = verbatim.extensions;
   if (typeof extensions !== 'object') return false;
 
   // if there are GGBN extensions in use, then it is sequenced
