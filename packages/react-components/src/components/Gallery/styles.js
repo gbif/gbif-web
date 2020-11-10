@@ -6,13 +6,14 @@ export const gallery = props => css`
   flex-wrap: wrap;
   justify-content: flex-start;
   padding: 0;
+  margin: -6px;
 `;
 
 export const galleryTileImage = ({ theme, height = 150 }) => css`
   height: ${height}px;
   width: 100%;
   background: #88888822;
-  background-size: cover;
+  background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   &:hover {

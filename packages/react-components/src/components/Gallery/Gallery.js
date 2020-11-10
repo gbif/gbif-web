@@ -14,7 +14,7 @@ export const GalleryTileSkeleton = ({ height = 150, ...props }) => {
   return <div css={styles.skeletonTile({ height })} {...props}></div>
 };
 
-export const GalleryTile = ({ src, onSelect, height = 150, children, style, ...props }) => {
+export const GalleryTile = ({ src, onSelect, height = 150, minWidth, children, style, ...props }) => {
   const theme = useContext(ThemeContext);
   const [ratio, setRatio] = useState(1);
   const [isValid, setValid] = useState(false);
@@ -31,11 +31,10 @@ export const GalleryTile = ({ src, onSelect, height = 150, children, style, ...p
   const imageStyle = {
     backgroundImage: `url('${Image.getImageSrc({ src, h: height })}')`
   }
-  if (ratio < 0.5 || ratio > 2) {
-    imageStyle.backgroundSize = 'contain';
-    sizeStyle.width = height;
-    if (ratio > 2) sizeStyle.width = height * 1.8;
-  }
+  if (ratio > 3) sizeStyle.width = height * 3;
+  if (ratio < .3) sizeStyle.width = height * .3;
+  if (minWidth) sizeStyle.width = Math.max(minWidth, sizeStyle.width);
+
   return <div css={styles.galleryTile({ theme, height })} style={{...sizeStyle, ...style}}>
     <Button appearance="text"
       css={styles.galleryTileImage({ theme, height })}
