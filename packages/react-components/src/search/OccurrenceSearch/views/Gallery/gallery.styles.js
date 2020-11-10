@@ -5,7 +5,7 @@ export const paper = ({ theme }) => css`
   background: ${theme.paperBackground500};
   border: 1px solid ${theme.paperBorderColor};
   border-radius: ${theme.borderRadius}px;
-  padding: 4px;
+  padding: 12px;
 `;
 
 export const more = ({ theme }) => css`

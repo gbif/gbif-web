@@ -53,6 +53,7 @@ export const GalleryPresentation = ({ first, prev, next, size, from, data, total
       <GalleryTiles>
         {items.map((item, index) => {
           return <GalleryTile height={150} key={item.key}
+            minWidth={100}
             src={item.primaryImage.identifier}
             onSelect={() => { setActive(index); dialog.show(); }}>
             <GalleryCaption>
