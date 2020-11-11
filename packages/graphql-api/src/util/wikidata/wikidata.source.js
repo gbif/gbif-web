@@ -13,7 +13,7 @@ const wdk = require('wikibase-sdk')(wikidata);
 class WikiDataAPI extends RESTDataSource {
   constructor() {
     super();
-    this.baseURL = ""
+    this.baseURL = '';
   }
 
   willSendRequest(request) {
@@ -30,7 +30,6 @@ class WikiDataAPI extends RESTDataSource {
       // Handle the error, logging?
       console.log(err)
     }
-
   }
 
   async getEntities(subjects) {
@@ -60,7 +59,6 @@ class WikiDataAPI extends RESTDataSource {
   }
 
   async resolveWikiDataItem(id, locale = 'en') {
-
     try {
       const res = await this.get(wdk.getEntities(
         [id]
@@ -123,6 +121,7 @@ class WikiDataAPI extends RESTDataSource {
       wikidataUrl: `https://www.wikidata.org/wiki/${wikidataId}`
     }
   }
+
   async getIUCNIdentifier(key, locale) {
     const reverseClaimResponse = await this.getReverseClaims(WIKI_GBIF_TAXON_IDENTIFIER, key)
     const entitiesIds = wdk.simplify.sparqlResults(reverseClaimResponse);
@@ -139,8 +138,8 @@ class WikiDataAPI extends RESTDataSource {
       )
       .map((k) => _.get(claims, `${k}[0]`)), locale);
     return iucnIdentifier;
-
   }
+
   async getIUCNThreatStatus(key, locale) {
     const reverseClaimResponse = await this.getReverseClaims(WIKI_GBIF_TAXON_IDENTIFIER, key)
     const entitiesIds = wdk.simplify.sparqlResults(reverseClaimResponse);
@@ -165,7 +164,6 @@ class WikiDataAPI extends RESTDataSource {
     const res = await this.getEntities([_.get(threatStatus, `mainsnak.property`)])
     const value = await this.resolveWikiDataItem(_.get(threatStatus, 'mainsnak.datavalue.value.id'), locale);
     return getIUCNRedListData(value, res, threatStatus, locale)
-
   }
 }
 
