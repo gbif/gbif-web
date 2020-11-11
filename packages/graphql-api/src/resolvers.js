@@ -14,6 +14,8 @@ const resolvers = _.merge(
   require('./resources/collection').resolver,
   require('./resources/institution').resolver,
   require('./resources/person').resolver,
+  require('./resources/external/orcid').resolver,
+  require('./resources/external/viaf').resolver,
 // -- Add imports above this line (required by plopfile.js) --
 );
 

@@ -125,6 +125,17 @@ module.exports = {
         .then(verbatim => termResolver({occurrence, verbatim}));
     }
   },
+  IdentifiedByIds: {
+    name: (parent, query, { dataSources }) => {
+      if (parent.type === 'ORCID') {
+        return dataSources.orcidAPI.getOrcidByKey({ key: parent.value })
+          .then(response => response.name);
+      } else if (parent.type === 'OTHER' && parent.value.startsWith('http://viaf.org/viaf/')) {
+        return dataSources.viafAPI.getViafByKey({ key: parent.value })
+          .then(response => response.name);
+      }
+    }
+  },
   OccurrenceSearchResult: {
     documents: searchOccurrences,
     // this looks odd. I'm not sure what is the best way, but I want to transfer the current query to the child, so that it can be used when asking for the individual facets
@@ -217,6 +228,8 @@ module.exports = {
   VolatileOccurrenceData: {
     features: (occurrence) => occurrence,
     globe: ({ decimalLatitude, decimalLongitude }, { sphere, graticule, land }) => {
+      if (typeof decimalLatitude === 'undefined') return null;
+
       const roundedLat = Math.floor(decimalLatitude / 15) * 15;
       const lat = Math.min(Math.max(roundedLat, -60), 60);
       const lon = Math.round(decimalLongitude / 15) * 15;
