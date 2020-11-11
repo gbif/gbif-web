@@ -72,6 +72,7 @@ class WikiDataAPI extends RESTDataSource {
       console.log(err)
     }
   }
+
   async getWikiDataTaxonData(key, locale) {
     const [source, identifiers, identifier, threatStatus] = await Promise.all(
       [
