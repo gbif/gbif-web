@@ -51,12 +51,10 @@ module.exports = {
   Taxon: {
     dataset: ({ datasetKey }, args, { dataSources }) =>
       dataSources.datasetAPI.getDatasetByKey({ key: datasetKey }),
-
     formattedName: ({ key }, args, { dataSources }) =>
       dataSources.taxonAPI.getParsedName({ key }),
     wikiData: ({ key }, args, { dataSources }) =>
-    dataSources.wikidataAPI.getWikiDataTaxonData(key),
-    
+      dataSources.wikidataAPI.getWikiDataTaxonData(key),
   },
   TaxonSearchResult: {
     facet: (parent) => ({ _query: { ...parent._query, limit: undefined, offset: undefined } }), // this looks odd. I'm not sure what is the best way, but I want to transfer the current query to the child, so that it can be used when asking for the individual facets
