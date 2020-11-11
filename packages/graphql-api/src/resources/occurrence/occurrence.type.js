@@ -449,11 +449,15 @@ const typeDef = gql`
   type IdentifiedByIds {
     type: String
     value: String
+    name: String
+    wikidataPerson: JSON
   }
 
   type RecordedByIds {
     type: String
     value: String
+    name: String
+    wikidataPerson: JSON
   }
 
   type MultimediaItem {

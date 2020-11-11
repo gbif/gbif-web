@@ -77,7 +77,7 @@ module.exports = {
     coordinates: ({ decimalLatitude, decimalLongitude }) => {
       if (typeof decimalLatitude === 'undefined') return null;
       // extract primary image. for now just any image
-      return {lat: decimalLatitude, lon: decimalLongitude};
+      return { lat: decimalLatitude, lon: decimalLongitude };
     },
     primaryImage: ({ media }) => {
       if (typeof media === 'undefined') return null;
@@ -109,7 +109,7 @@ module.exports = {
       return media.filter(x => x.type === 'Sound');
     },
     formattedCoordinates: ({ decimalLatitude, decimalLongitude }) => {
-      return formattedCoordinates({lat: decimalLatitude, lon: decimalLongitude});
+      return formattedCoordinates({ lat: decimalLatitude, lon: decimalLongitude });
     },
     volatile: (occurrence) => occurrence,
     related: ({ key }, args, { dataSources }) => {
@@ -117,22 +117,53 @@ module.exports = {
         .then(response => response.relatedOccurrences);
     },
     groups: (occurrence, args, { dataSources }) => {
-      return dataSources.occurrenceAPI.getVerbatim({key: occurrence.key })
-        .then(verbatim => groupResolver({occurrence, verbatim}));
+      return dataSources.occurrenceAPI.getVerbatim({ key: occurrence.key })
+        .then(verbatim => groupResolver({ occurrence, verbatim }));
     },
     terms: (occurrence, args, { dataSources }) => {
-      return dataSources.occurrenceAPI.getVerbatim({key: occurrence.key })
-        .then(verbatim => termResolver({occurrence, verbatim}));
+      return dataSources.occurrenceAPI.getVerbatim({ key: occurrence.key })
+        .then(verbatim => termResolver({ occurrence, verbatim }));
     }
   },
   IdentifiedByIds: {
     name: (parent, query, { dataSources }) => {
+      const key = parent.value.substr(parent.value.lastIndexOf('/') + 1);
       if (parent.type === 'ORCID') {
-        return dataSources.orcidAPI.getOrcidByKey({ key: parent.value })
+        return dataSources.orcidAPI.getOrcidByKey({ key })
           .then(response => response.name);
-      } else if (parent.type === 'OTHER' && parent.value.startsWith('http://viaf.org/viaf/')) {
-        return dataSources.viafAPI.getViafByKey({ key: parent.value })
+      } else if (parent.type === 'WIKIDATA') {
+        return dataSources.wikidataAPI.getPersonByKey({ key })
           .then(response => response.name);
+      } else if (parent.type === 'OTHER' && parent.value.includes('viaf.org/viaf')) {
+        return dataSources.viafAPI.getViafByKey({ key })
+          .then(response => response.name);
+      }
+    },
+    wikidataPerson: (parent, query, { dataSources }) => {
+      if (parent.type === 'WIKIDATA') {
+        const key = parent.value.substr(parent.value.lastIndexOf('/') + 1);
+        return dataSources.wikidataAPI.getPersonByKey({ key });
+      }
+    }
+  },
+  RecordedByIds: {
+    name: (parent, query, { dataSources }) => {
+      const key = parent.value.substr(parent.value.lastIndexOf('/') + 1);
+      if (parent.type === 'ORCID') {
+        return dataSources.orcidAPI.getOrcidByKey({ key })
+          .then(response => response.name);
+      } else if (parent.type === 'WIKIDATA') {
+        return dataSources.wikidataAPI.getPersonByKey({ key })
+          .then(response => response.name);
+      } else if (parent.type === 'OTHER' && parent.value.includes('viaf.org/viaf')) {
+        return dataSources.viafAPI.getViafByKey({ key })
+          .then(response => response.name);
+      }
+    },
+    wikidataPerson: (parent, query, { dataSources }) => {
+      if (parent.type === 'WIKIDATA') {
+        const key = parent.value.substr(parent.value.lastIndexOf('/') + 1);
+        return dataSources.wikidataAPI.getPersonByKey({ key });
       }
     }
   },
@@ -223,7 +254,7 @@ module.exports = {
     occurrences: facetOccurrenceSearch
   },
   Globe: {
-    
+
   },
   VolatileOccurrenceData: {
     features: (occurrence) => occurrence,
@@ -265,14 +296,14 @@ module.exports = {
         .then(response => response.relatedOccurrences.length > 0);
     },
     isSequenced: (occurrence, args, { dataSources }) => {
-      return dataSources.occurrenceAPI.getVerbatim({key: occurrence.key })
-        .then(verbatim => isOccurrenceSequenced({occurrence, verbatim}));
+      return dataSources.occurrenceAPI.getVerbatim({ key: occurrence.key })
+        .then(verbatim => isOccurrenceSequenced({ occurrence, verbatim }));
     },
     isSamplingEvent: (occurrence) => !!occurrence.eventId && !!occurrence.samplingProtocol
   },
   RelatedOccurrence: {
     occurrence: (related, args, { dataSources }) => dataSources.occurrenceAPI
-      .getOccurrenceByKey({key: related.occurrence.gbifId })
+      .getOccurrenceByKey({ key: related.occurrence.gbifId })
   },
   // TermGroups: (occurrence, args, { dataSources }) => {
   //   console.log('get verbatim');

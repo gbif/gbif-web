@@ -17,7 +17,6 @@ class OrcidAPI extends RESTDataSource {
   constructor() {
     super();
     this.baseURL = config.orcid.pubApi;
-    
   }
 
   willSendRequest(request) {
@@ -25,8 +24,7 @@ class OrcidAPI extends RESTDataSource {
   }
 
   async getOrcidByKey({ key }) {
-    // return this.get(`/${key}/record`);
-    return this.get(key).then(reduce);
+    return this.get(`/${key}/record`).then(reduce);;
   }
 }
 

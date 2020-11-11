@@ -2,6 +2,7 @@
 const _ = require('lodash')
 const { RESTDataSource } = require('apollo-datasource-rest');
 const { decorateProperty, getItemData, getIUCNRedListData } = require('./helpers')
+const { reducePerson } = require('./reducers');
 const config = require('../../config');
 const { wikidata } = config;
 const USER_AGENT = "gbif-graphql/1.0";
@@ -9,6 +10,13 @@ const WIKI_GBIF_TAXON_IDENTIFIER = 'P846';
 const IUCN_TAXON_IDENTIFIER = 'P627';
 const IUCN_CONSERVATION_STATUS = 'P141';
 const wdk = require('wikibase-sdk')(wikidata);
+
+const properties = {
+  INSTANCE_OF: 'P31'
+};
+const entities = {
+  HUMAN: 'Q5'
+};
 
 class WikiDataAPI extends RESTDataSource {
   constructor() {
@@ -164,6 +172,22 @@ class WikiDataAPI extends RESTDataSource {
     const res = await this.getEntities([_.get(threatStatus, `mainsnak.property`)])
     const value = await this.resolveWikiDataItem(_.get(threatStatus, 'mainsnak.datavalue.value.id'), locale);
     return getIUCNRedListData(value, res, threatStatus, locale)
+  }
+
+  async getPersonByKey({ key, locale = 'en' }) {
+    const response = await this.get(wdk.getEntities([key]));
+    
+    // just give is the entity we asked for
+    const entity = response?.entities?.[key];
+    if (!entity) throw new Error(`No such entity: ${key}`);
+
+    // expect it to be a instance of human
+    const instanceClaims = entity.claims?.[properties.INSTANCE_OF];
+    const claimedHuman = instanceClaims.find(instanceClaim => instanceClaim?.mainsnak?.datavalue?.value?.id === entities.HUMAN);
+    if (!claimedHuman) throw new Error(`The entity is not an instance of human (Q5): ${key}`);
+
+    // reduce the entity to a few fields that we use
+    return reducePerson(entity);
   }
 }
 

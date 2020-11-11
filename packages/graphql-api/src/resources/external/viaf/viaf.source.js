@@ -1,6 +1,6 @@
 // const { ApolloError } = require('apollo-server');
 const { RESTDataSource } = require('apollo-datasource-rest');
-// const config = require('../../../config');
+const config = require('../../../config');
 
 function reduce(response) {
   const name = response?.mainHeadings?.data?.[0]?.text;
@@ -14,7 +14,7 @@ function reduce(response) {
 class ViafAPI extends RESTDataSource {
   constructor() {
     super();
-    // this.baseURL = config.orcid.pubApi;
+    this.baseURL = config.viaf.api;
   }
 
   willSendRequest(request) {
@@ -22,7 +22,7 @@ class ViafAPI extends RESTDataSource {
   }
 
   async getViafByKey({ key }) {
-    return this.get(key).then(reduce);
+    return this.get(`http://viaf.org/viaf/${key}`).then(reduce);
   }
 }
 
