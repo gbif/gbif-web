@@ -12,7 +12,7 @@ const api = _.merge(
   require('./util/wikidata/').dataSource,
   require('./resources/collection').dataSource,
   require('./resources/institution').dataSource,
-  require('./resources/person').dataSource,
+  require('./resources/staffMember').dataSource,
   require('./resources/external/orcid').dataSource,
   require('./resources/external/viaf').dataSource,
   

@@ -39,7 +39,7 @@ async function getSchema() {
     require('./util/wikidata').typeDef,
     require('./resources/collection').typeDef,
     require('./resources/institution').typeDef,
-    require('./resources/person').typeDef,
+    require('./resources/staffMember').typeDef,
     require('./resources/external/orcid').typeDef,
     require('./resources/external/viaf').typeDef,
 // -- Add imports above this line (required by plopfile.js) --

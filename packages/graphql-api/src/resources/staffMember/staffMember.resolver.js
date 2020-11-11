@@ -7,19 +7,19 @@
 */
 module.exports = {
   Query: {
-    personSearch: (parent, args, { dataSources }) =>
-      dataSources.personAPI.searchPersons({query: args}),
-    person: (parent, { key }, { dataSources }) =>
-      dataSources.personAPI.getPersonByKey({ key })
+    staffMemberSearch: (parent, args, { dataSources }) =>
+      dataSources.staffMemberAPI.searchStaff({query: args}),
+      staffMember: (parent, { key }, { dataSources }) =>
+      dataSources.staffMemberAPI.getStaffByKey({ key })
   },
-  Person: {
+  StaffMember: {
     primaryCollection: ({ primaryCollectionKey: key }, args, { dataSources }) => {
        if (typeof key === 'undefined') return null;
        dataSources.collectionAPI.getCollectionByKey({ key })
     },
     primaryInstitution: ({ primaryInstitutionKey: key }, args, { dataSources }) => {
       if (typeof key === 'undefined') return null;
-      dataSources.institutionAPI.getCinstitutionByKey({ key })
+      dataSources.institutionAPI.getInstitutionByKey({ key })
    },
   }
 };

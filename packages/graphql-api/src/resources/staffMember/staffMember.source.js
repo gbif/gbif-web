@@ -3,17 +3,17 @@ const { RESTDataSource } = require('apollo-datasource-rest');
 const config = require('../../config');
 const API_V1 = config.apiv1;
 
-class PersonAPI extends RESTDataSource {
+class StaffMemberAPI extends RESTDataSource {
   constructor() {
     super();
     this.baseURL = API_V1;
   }
 
-  async searchPersons({ query }) {
+  async searchStaff({ query }) {
     return this.get('/grscicoll/person', query);
   }
 
-  async getPersonByKey({ key }) {
+  async getStaffByKey({ key }) {
     return this.get(`/grscicoll/person/${key}`);
   }
 
@@ -26,4 +26,4 @@ class PersonAPI extends RESTDataSource {
   */
 }
 
-module.exports = PersonAPI;
+module.exports = StaffMemberAPI;

@@ -2,25 +2,25 @@ const { gql } = require('apollo-server');
 
 const typeDef = gql`
   extend type Query {
-    personSearch(
+    staffMemberSearch(
       limit: Int, 
       offset: Int, 
       q: String,
       primaryInstitution: GUID,
       primaryCollection: GUID
-      ): PersonSearchResults
-    person(key: String!): Person
+      ): StaffMemberSearchResults
+    staffMember(key: String!): StaffMember
   }
 
-  type PersonSearchResults {
-    results: [Person]!
+  type StaffMemberSearchResults {
+    results: [StaffMember]!
     limit: Int!
     offset: Int!
     count: Int!
     endOfRecords: Boolean!
   }
 
-  type Person {
+  type StaffMember {
     key: ID!
     firstName: String
     lastName: String
