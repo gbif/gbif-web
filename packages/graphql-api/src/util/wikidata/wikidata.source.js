@@ -12,7 +12,8 @@ const IUCN_CONSERVATION_STATUS = 'P141';
 const wdk = require('wikibase-sdk')(wikidata);
 
 const properties = {
-  INSTANCE_OF: 'P31'
+  INSTANCE_OF: 'P31',
+  VIAF_ID: 'P214'
 };
 const entities = {
   HUMAN: 'Q5'
@@ -26,6 +27,7 @@ class WikiDataAPI extends RESTDataSource {
 
   willSendRequest(request) {
     request.headers.set('User-Agent', USER_AGENT);
+    request.headers.set('Accept', 'application/json');
   }
 
   async getReverseClaims(property, value) {
@@ -175,19 +177,95 @@ class WikiDataAPI extends RESTDataSource {
   }
 
   async getPersonByKey({ key, locale = 'en' }) {
-    const response = await this.get(wdk.getEntities([key]));
-    
-    // just give is the entity we asked for
-    const entity = response?.entities?.[key];
-    if (!entity) throw new Error(`No such entity: ${key}`);
+    const query = `SELECT DISTINCT ?human ?humanLabel ?image ?birthDate ?deathDate
+    WHERE {
+      VALUES ?human { wd:${key} }
+      ?human wdt:P31 wd:Q5;       #find person
+      OPTIONAL {
+        ?human wdt:P18 ?image;
+               wdt:P569 ?birthDate;
+               wdt:P570 ?deathDate .
+      }
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+    }`;
 
-    // expect it to be a instance of human
-    const instanceClaims = entity.claims?.[properties.INSTANCE_OF];
-    const claimedHuman = instanceClaims.find(instanceClaim => instanceClaim?.mainsnak?.datavalue?.value?.id === entities.HUMAN);
-    if (!claimedHuman) throw new Error(`The entity is not an instance of human (Q5): ${key}`);
+    const response = await this.sparqlQuery({query});
+    return this.getUniquePerson({response});
+  }
 
-    // reduce the entity to a few fields that we use
-    return reducePerson(entity);
+  async sparqlQuery({query}) {
+    const response = await this.get(`https://query.wikidata.org/sparql?format=json&query=${encodeURIComponent(query)}`);
+    // apollo only accept a few content types so we have to parse it as JSON https://github.com/apollographql/apollo-server/issues/1976
+    const entitiesIds = wdk.simplify.sparqlResults(response);
+    return JSON.parse(response);
+  }
+
+  getUniquePerson({response}) {
+    if (response?.results?.bindings?.length === 1) {
+      const person = response.results.bindings[0];
+      return {
+        source: {
+          type: 'WIKIDATA'
+        },
+        key: person?.human?.value,
+        name: person?.humanLabel?.value,
+        birthDate: person?.birthDate?.value,
+        deathDate: person?.deathDate?.value,
+        image: person?.image?.value,
+      }
+    }
+    return null;
+  }
+
+  extractFirstClaimOfType({entity, fields}) {
+    return Object.keys(fields).reduce((map, field) => {
+      const claim = entity?.claims?.[fields[field]]?.[0];
+      if (!claim) return map;
+
+      const mainsnak = claim.mainsnak;
+      let value = mainsnak?.datavalue?.value;
+      if (mainsnak?.datavalue?.type === 'time') {
+        let wikibaseTime = mainsnak?.datavalue?.value?.time;
+        value = wdk.wikibaseTimeToISOString(wikibaseTime);
+      }
+      if (mainsnak?.datatype === 'commonsMedia') {
+        value = wdk.getImageUrl(value);
+      }
+      if (typeof value !== 'undefined') {
+        map[field] = value;
+      }
+
+      return map;
+    }, {});
+  }
+
+  async getWikidataPersonByViaf({ key }) {
+    return this.getWikidataPersonByIdentifier({property: 'P214', value: key});
+  }
+
+  async getWikidataPersonByOrcid({ key }) {
+    return this.getWikidataPersonByIdentifier({property: 'P496', value: key});
+  }
+
+  async getWikidataPersonByIpni({ key }) {
+    return this.getWikidataPersonByIdentifier({property: 'P586', value: key});
+  }
+
+  async getWikidataPersonByIdentifier({ property, value }) {
+    const query = `SELECT DISTINCT ?human ?humanLabel ?image ?birthDate ?deathDate
+    WHERE {
+      ?human wdt:P31 wd:Q5 ;                    #find humans
+             wdt:${property} '${value}' .       #find entities with a given property
+      OPTIONAL {                                # If these properties are presenet, then we would like them as well
+        ?human wdt:P18 ?image;
+               wdt:P569 ?birthDate;
+               wdt:P570 ?deathDate .
+      }
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+    }`;
+
+    const response = await this.sparqlQuery({query});
+    return this.getUniquePerson({response});
   }
 }
 

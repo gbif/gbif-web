@@ -117,7 +117,7 @@ const typeDef = gql`
     identificationRemarks: String
     identificationVerificationStatus: String
     identifiedBy: String
-    identifiedByIDs: [IdentifiedByIds]
+    identifiedByIDs: [AssociatedID]
     identifier: String
     # Unclear what this field contains
     # identifiers: [String]
@@ -204,7 +204,7 @@ const typeDef = gql`
     publishingOrgKey: ID
     recordNumber: String
     recordedBy: String
-    recordedByIDs: [RecordedByIds]
+    recordedByIDs: [AssociatedID]
     references: String
     relation: String
     # relations: [JSON] # unclear what this field encodes if anything
@@ -446,18 +446,14 @@ const typeDef = gql`
     year: String
   }
 
-  type IdentifiedByIds {
+  type AssociatedID {
     type: String
     value: String
     name: String
-    wikidataPerson: JSON
-  }
-
-  type RecordedByIds {
-    type: String
-    value: String
-    name: String
-    wikidataPerson: JSON
+    viaf: Viaf
+    orcid: OrcID
+    wikidata: JSON
+    person: JSON
   }
 
   type MultimediaItem {

@@ -11,8 +11,8 @@ module.exports = {
       dataSources.viafAPI.getViafByKey({ key })
   },
   Viaf: {
-    // key: (parent, args, { dataSources }) => {
-    //   return parent['orcid-identifier'].path;
-    // },
+    wikidata: (parent, args, { dataSources }) => {
+      return dataSources.wikidataAPI.getWikidataPersonByViaf({ key: parent.key });
+    },
   }
 };

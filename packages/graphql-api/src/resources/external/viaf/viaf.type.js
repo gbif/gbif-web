@@ -8,6 +8,9 @@ const typeDef = gql`
   type Viaf {
     key: ID!
     name: String
+    birthDate: String
+    deathDate: String
+    wikidata: JSON
   }
 `;
 

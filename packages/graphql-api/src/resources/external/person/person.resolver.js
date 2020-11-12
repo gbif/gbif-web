@@ -7,12 +7,12 @@
 */
 module.exports = {
   Query: {
-    orcid: (parent, { key }, { dataSources }) =>
-      dataSources.orcidAPI.getOrcidByKey({ key })
+    person: (parent, { type, value }, { dataSources }) =>
+      dataSources.personAPI.getPersonByIdentifier({ type, value, dataSources })
   },
-  OrcID: {
-    wikidata: (parent, args, { dataSources }) => {
-      return dataSources.wikidataAPI.getWikidataPersonByOrcid({ orcid: parent.key });
-    },
+  Person: {
+    // key: (parent, args, { dataSources }) => {
+    //   return parent['orcid-identifier'].path;
+    // },
   }
 };

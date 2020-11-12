@@ -7,9 +7,12 @@ function reduce(response) {
   const familyName = response?.person?.name?.['family-name']?.value;
   const name = givenNames || familyName ? `${givenNames || ''} ${familyName || ''}`.trim() : null;
   return {
+    source: {
+      type: 'ORCID'
+    },
     key: response?.['orcid-identifier']?.path,
     name,
-    ...response
+    raw: response
   }
 }
 

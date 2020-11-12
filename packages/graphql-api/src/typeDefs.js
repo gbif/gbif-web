@@ -42,6 +42,7 @@ async function getSchema() {
     require('./resources/staffMember').typeDef,
     require('./resources/external/orcid').typeDef,
     require('./resources/external/viaf').typeDef,
+    require('./resources/external/person').typeDef,
 // -- Add imports above this line (required by plopfile.js) --
   ]);
 

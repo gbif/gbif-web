@@ -15,6 +15,7 @@ const api = _.merge(
   require('./resources/staffMember').dataSource,
   require('./resources/external/orcid').dataSource,
   require('./resources/external/viaf').dataSource,
+  require('./resources/external/person').dataSource,
   
 // -- Add imports above this line (required by plopfile.js) --
 );

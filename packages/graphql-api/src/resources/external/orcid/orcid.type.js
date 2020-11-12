@@ -8,6 +8,7 @@ const typeDef = gql`
   type OrcID {
     key: ID!
     name: String
+    wikidata: JSON
   }
 `;
 
