@@ -4,6 +4,7 @@ const { ResponseError } = require('../errorHandler');
 const { search } = require('../esRequest');
 const env = require('../../config');
 const { queryReducer } = require('../../responseAdapter');
+const { reduce } = require('./reduce');
 
 const searchIndex = 'dataset';
 
@@ -19,10 +20,6 @@ const client = new Client({
   agent
 });
 
-function reduce(item) {
-  return item._source;
-}
-
 async function query({ query, aggs, size=20, from=0, req }) {
   if (parseInt(from) + parseInt(size) > env.dataset.maxResultWindow) {
     throw new ResponseError(400, 'BAD_REQUEST', `'from' + 'size' must be ${env.dataset.maxResultWindow} or less`);
@@ -37,6 +34,9 @@ async function query({ query, aggs, size=20, from=0, req }) {
     query,
     aggs,
     track_total_hits: true,
+    _source: {
+      exclude: [ 'metadata' ]
+    },
   }
   let response = await search({ client, index: searchIndex, query: esQuery, req });
   let body = response.body;
