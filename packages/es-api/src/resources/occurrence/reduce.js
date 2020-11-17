@@ -8,7 +8,7 @@ const indexedExtraFields = [
 ];
 
 function removeUndefined(obj) {
-  // for (let k in obj) if (obj[k] === undefined) delete obj[k];
+  for (let k in obj) if (obj[k] === undefined) delete obj[k];
   return obj;
 }
 
@@ -20,7 +20,7 @@ function reduce(item) {
   // overwrite with selected interpreted fields
   const source = item._source;
   // return _.pick(item._source, whitelist);
-  const verbatim = {
+  const verbatim = removeUndefined({
     abstract:                           source.verbatim.core['http://purl.org/dc/terms/abstract'],
     acceptedNameUsage:                  source.verbatim.core['http://rs.tdwg.org/dwc/terms/acceptedNameUsage'],
     acceptedNameUsageID:                source.verbatim.core['http://rs.tdwg.org/dwc/terms/acceptedNameUsageID'],
@@ -29,7 +29,7 @@ function reduce(item) {
     accrualPeriodicity:                 source.verbatim.core['http://purl.org/dc/terms/accrualPeriodicity'],
     accrualPolicy:                      source.verbatim.core['http://purl.org/dc/terms/accrualPolicy'],
     alternative:                        source.verbatim.core['http://purl.org/dc/terms/alternative'],
-    associatedMedia:                    source.verbatim.core['http://rs.tdwg.org/dwc/terms/associatedMedia'],
+    // associatedMedia:                    source.verbatim.core['http://rs.tdwg.org/dwc/terms/associatedMedia'],
     associatedOccurrences:              source.verbatim.core['http://rs.tdwg.org/dwc/terms/associatedOccurrences'],
     associatedOrganisms:                source.verbatim.core['http://rs.tdwg.org/dwc/terms/associatedOrganisms'],
     associatedReferences:               source.verbatim.core['http://rs.tdwg.org/dwc/terms/associatedReferences'],
@@ -195,9 +195,9 @@ function reduce(item) {
     verbatimSRS:                        source.verbatim.core['http://rs.tdwg.org/dwc/terms/verbatimSRS'],
     verbatimTaxonRank:                  source.verbatim.core['http://rs.tdwg.org/dwc/terms/verbatimTaxonRank'],
     vernacularName:                     source.verbatim.core['http://rs.tdwg.org/dwc/terms/vernacularName'],
-  };
+  });
     
-  const normalized = removeUndefined({
+  const normalized = {
     basisOfRecord:                      source.basisOfRecord,
     catalogNumber:                      source.catalogNumber,
     collectionCode:                     source.collectionCode,
@@ -258,9 +258,9 @@ function reduce(item) {
     year:                               source.year,
     identifiedByIDs:                    source.identifiedByIds || [],
     recordedByIDs:                      source.recordedByIds || [],
-  });
+  };
 
-  const gbifSpecific = removeUndefined({
+  const gbifSpecific = {
     key:                                source.gbifId,
     acceptedScientificName:             source.gbifClassification?.acceptedUsage?.name,
     acceptedTaxonKey:                   source.gbifClassification?.acceptedUsage?.key,
@@ -323,7 +323,7 @@ function reduce(item) {
     datasetTitle:                       source.datasetTitle,
     publisherTitle:                     source.publisherTitle,
     parsedEventDate:                    source.eventDate
-  });
+  };
 
   // extra gadm specific fields
   let gadm = {gadm:{}};
