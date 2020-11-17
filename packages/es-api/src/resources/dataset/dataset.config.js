@@ -304,7 +304,75 @@ const config =
         defaultUpperBound: 'gte',
         defaultLowerBound: 'lte'
       }
-    }
+    },
+    'collections_identifier': {
+      type: 'keyword',
+      field: 'collections.identifier'
+    },
+    'collections_name': {
+      type: 'text',
+      field: 'collections.name',
+      get: {
+        type: 'fuzzy'
+      }
+    },
+    'collections_parentIdentifier': {
+      type: 'text',
+      field: 'collections.parentIdentifier',
+      get: {
+        type: 'fuzzy'
+      }
+    },
+    'collections_specimenPreservationMethod': {
+      type: 'text',
+      field: 'collections.specimenPreservationMethod',
+      get: {
+        type: 'fuzzy'
+      }
+    },
+    'collections_curatorialUnits_count': {
+      type: 'numeric',
+      field: 'collections.curatorialUnits.count',
+      get: {
+        type: 'range_or_term',
+        defaultUpperBound: 'gte',
+        defaultLowerBound: 'lte'
+      }
+    },
+    'collections_curatorialUnits_deviation': {
+      type: 'numeric',
+      field: 'collections.curatorialUnits.deviation',
+      get: {
+        type: 'range_or_term',
+        defaultUpperBound: 'gte',
+        defaultLowerBound: 'lte'
+      }
+    },
+    'collections_curatorialUnits_lower': {
+      type: 'numeric',
+      field: 'collections.curatorialUnits.lower',
+      get: {
+        type: 'range_or_term',
+        defaultUpperBound: 'gte',
+        defaultLowerBound: 'lte'
+      }
+    },
+    'collections_curatorialUnits_typeVerbatim': {
+      type: 'text',
+      field: 'collections.curatorialUnits.typeVerbatim',
+      get: {
+        type: 'fuzzy'
+      }
+    },
+    'collections_curatorialUnits_upper': {
+      type: 'numeric',
+      field: 'collections.curatorialUnits.upper',
+      get: {
+        type: 'range_or_term',
+        defaultUpperBound: 'gte',
+        defaultLowerBound: 'lte'
+      }
+    },
   }
 };
 
