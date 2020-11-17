@@ -36,17 +36,17 @@ class PersonAPI extends RESTDataSource {
     request.headers.set('Accept', 'application/json');
   }
 
-  async getPersonByOrcid({ key, dataSources }) {
+  async getPersonByOrcid({ key, dataSources, expand }) {
     const [wiki, type] = await Promise.all([
-      dataSources.wikidataAPI.getWikidataPersonByOrcid({ key }),
+      expand ? dataSources.wikidataAPI.getWikidataPersonByOrcid({ key }) : null,
       dataSources.orcidAPI.getOrcidByKey({ key })
     ]);
     return reduce([wiki, type]);
   }
 
-  async getPersonByViaf({ key, dataSources }) {
+  async getPersonByViaf({ key, dataSources, expand }) {
     const [wiki, type] = await Promise.all([
-      dataSources.wikidataAPI.getWikidataPersonByViaf({ key }),
+      expand ? dataSources.wikidataAPI.getWikidataPersonByViaf({ key }) : null,
       dataSources.viafAPI.getViafByKey({ key })
     ]);
     return reduce([type, wiki]);//prefer wiki over viaf as VIAF has a somewhat obscure response format
@@ -66,17 +66,17 @@ class PersonAPI extends RESTDataSource {
     return reduce([wiki]);
   }
 
-  async getPersonByIdentifier({ type, value, dataSources }) {
+  async getPersonByIdentifier({ type, value, dataSources, expand }) {
     const val = value.replace(/\/$/, '');
     const key = val.substr(val.lastIndexOf('/') + 1);
 
     //based on the identifiers
     if (type === 'ORCID') {
-      return this.getPersonByOrcid({ key, dataSources });
+      return this.getPersonByOrcid({ key, dataSources, expand });
     } else if (type === 'WIKIDATA') {
       return this.getPersonByWikidata({ key, dataSources });
     } else if (type === 'OTHER' && val.includes('://viaf.org/viaf')) {
-      return this.getPersonByViaf({ key, dataSources });
+      return this.getPersonByViaf({ key, dataSources, expand });
     } else if (type === 'OTHER' && value.startsWith('https://www.ipni.org/ipni/idAuthorSearch.do?id=')) {
       const ipni = value.substr(value.lastIndexOf('=') + 1);
       return this.getPersonByIpni({ key: ipni, dataSources });

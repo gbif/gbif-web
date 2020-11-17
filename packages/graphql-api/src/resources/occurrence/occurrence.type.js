@@ -449,11 +449,7 @@ const typeDef = gql`
   type AssociatedID {
     type: String
     value: String
-    name: String
-    viaf: Viaf
-    orcid: OrcID
-    wikidata: JSON
-    person: JSON
+    person(expand: Boolean): Person
   }
 
   type MultimediaItem {

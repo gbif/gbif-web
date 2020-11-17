@@ -126,31 +126,8 @@ module.exports = {
     }
   },
   AssociatedID: {
-    person: (parent, query, { dataSources }) => {
-      return dataSources.personAPI.getPersonByIdentifier({type: parent.type, value: parent.value, dataSources})
-    },
-    viaf: (parent, query, { dataSources }) => {
-      if (parent.type === 'OTHER' && parent.value.includes('viaf.org/viaf')) {
-        const val = parent.value.replace(/\/$/, '');
-        const key = val.substr(val.lastIndexOf('/') + 1);
-        return dataSources.viafAPI.getViafByKey({ key });
-      }
-    },
-    orcid: (parent, query, { dataSources }) => {
-      if (parent.type === 'ORCID') {
-        const key = parent.value.substr(parent.value.lastIndexOf('/') + 1);
-        return dataSources.orcidAPI.getOrcidByKey({ key })
-      }
-    },
-    wikidata: (parent, query, { dataSources }) => {
-      if (parent.type === 'WIKIDATA') {
-        const key = parent.value.substr(parent.value.lastIndexOf('/') + 1);
-        return dataSources.wikidataAPI.getPersonByKey({ key });
-      }
-      if (parent.type === 'OTHER' && parent.value.startsWith('https://www.ipni.org/ipni/idAuthorSearch.do?id=')) {
-        const key = parent.value.substr(parent.value.lastIndexOf('=') + 1);
-        return dataSources.wikidataAPI.getWikidataPersonByIpni({ key });
-      }
+    person: (parent, { expand }, { dataSources }) => {
+      return dataSources.personAPI.getPersonByIdentifier({type: parent.type, value: parent.value, dataSources, expand})
     },
     // person: (parent, query, { dataSources }) => {
     //   const key = parent.value.substr(parent.value.lastIndexOf('/') + 1);
