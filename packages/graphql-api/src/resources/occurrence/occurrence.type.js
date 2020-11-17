@@ -2,7 +2,7 @@ const { gql } = require('apollo-server');
 
 const typeDef = gql`
   type Occurrence {
-    key: ID
+    key: Float
     
     abstract: String
     acceptedNameUsage: String
