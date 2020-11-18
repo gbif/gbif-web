@@ -1,17 +1,16 @@
-let tileGenerator = require('./esAgg2tile'),
-    { Client } = require('@elastic/elasticsearch');
-    Agent = require('agentkeepalive');
-    //coordinateConverter = require('../util/coordinateConverter'),
-    composeTileQuery = require('../util/composeTileQuery'),
-    tile2pbf = require('./tile2pbf'),
-    hash = require('object-hash'),
-    { search } = require('../util/esRequest'),
-    env = require('../config');
-    _ = require('lodash'),
-    LRU = require('lru-cache'),
-    axios = require('axios');
+const tileGenerator = require('./esAgg2tile');
+const { Client } = require('@elastic/elasticsearch');
+const Agent = require('agentkeepalive');
+const composeTileQuery = require('../util/composeTileQuery');
+const tile2pbf = require('./tile2pbf');
+const hash = require('object-hash');
+const { search } = require('../util/esRequest');
+const env = require('../config');
+const _ = require('lodash');
+const LRU = require('lru-cache');
 
 const searchIndex = 'occurrence';
+const field = env.occurrence.coordinateField;
 
 const agent = () => new Agent({
   maxSockets: 1000, // Default = Infinity
