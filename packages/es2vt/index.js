@@ -1,17 +1,21 @@
-const express = require("express"),
-  app = express(),
-  bodyParser = require("body-parser"),
-  cookieParser = require("cookie-parser"),
-  tileHelper = require("./points/tileQuery"),
-  cors = require('cors'),
-  // significantTile = require("./points/significant"),
-  // tileDecorator = require("./decorator/tileDecorator"),
-  port = 7012;
+const express = require("express");
+const app = express();
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+const tileHelper = require("./points/tileQuery");
+const cors = require('cors');
+const config = require('./config');
+//const significantTile = require("./points/significant");
+//const tileDecorator = require("./decorator/tileDecorator");
+
+app.use(express.static('public'));
 
 app.use(cors({
   methods: 'GET,POST,OPTIONS',
-}))
+}));
+
 app.use(bodyParser.json()); // to support JSON-encoded bodies
+
 app.use(
   bodyParser.urlencoded({
     // to support URL-encoded bodies
@@ -48,5 +52,6 @@ app.get("/api/tile/point/:x/:y/:z.mvt", function (req, res) {
     });
 });
 
-app.listen(port);
-console.log("listen on part " + port);
+app.listen({ port: config.port }, () =>
+  console.log(`🚀 Server ready at http://localhost:${config.port}`)
+);
