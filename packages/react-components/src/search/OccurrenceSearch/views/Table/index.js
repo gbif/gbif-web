@@ -1,4 +1,5 @@
-import React, { useEffect, useContext, useState, useCallback } from "react";
+import React, { useEffect, useContext, useState, useRef, useCallback } from "react";
+import { useUpdateEffect } from 'react-use';
 import { FilterContext } from '../../../..//widgets/Filter/state';
 import OccurrenceContext from '../../config/OccurrenceContext';
 import { useQuery } from '../../../../dataManagement/api';
@@ -49,7 +50,7 @@ query table($predicate: Predicate, $size: Int = 20, $from: Int = 0){
 `;
 
 function Table() {
-  const [from, setFrom] = useUrlState({param: 'from', defaultValue: 0});
+  const [from, setFrom] = useUrlState({ param: 'from', defaultValue: 0 });
   const size = 50;
   const currentFilterContext = useContext(FilterContext);
   const { rootPredicate, predicateConfig } = useContext(OccurrenceContext);
@@ -66,7 +67,8 @@ function Table() {
     load({ variables: { predicate, size, from } });
   }, [currentFilterContext.filterHash, rootPredicate, from]);
 
-  useEffect(() => {
+  // https://stackoverflow.com/questions/55075604/react-hooks-useeffect-only-on-update
+  useUpdateEffect(() => {
     setFrom(0);
   }, [currentFilterContext.filterHash]);
 
@@ -86,10 +88,10 @@ function Table() {
     <TablePresentation
       loading={loading}
       data={data}
-      next={next} 
-      prev={prev} 
-      first={first} 
-      size={size} 
+      next={next}
+      prev={prev}
+      first={first}
+      size={size}
       from={from}
       total={data?.occurrenceSearch?.documents?.total}
     />

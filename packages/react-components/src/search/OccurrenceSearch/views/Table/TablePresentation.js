@@ -1,36 +1,56 @@
 import React, { useState, useContext, useEffect, useCallback } from 'react';
+import { useUpdateEffect } from 'react-use';
 import { MdFilterList } from "react-icons/md";
 import { FormattedMessage } from 'react-intl';
 import get from 'lodash/get';
-import { FilterContext } from '../../../../widgets/Filter/state';
+// import { FilterContext } from '../../../../widgets/Filter/state';
 import OccurrenceContext from '../../config/OccurrenceContext';
 import { Button, Row, Col, DataTable, Th, Td, TBody, DetailsDrawer } from '../../../../components';
 import { OccurrenceSidebar } from '../../../../entities';
 import { useDialogState } from "reakit/Dialog";
 import { ViewHeader } from '../ViewHeader';
+import { useUrlState } from '../../../../dataManagement/state/useUrlState';
 
 export const TablePresentation = ({ first, prev, next, size, from, data, total, loading }) => {
-  const currentFilterContext = useContext(FilterContext);
+  const [activeKey, setActiveKey] = useUrlState({ param: 'entity' });
   const { filters, tableConfig, labelMap } = useContext(OccurrenceContext);
   const [fixedColumn, setFixed] = useState(true);
-
-  const [activeId, setActive] = useState();
-  const [activeItem, setActiveItem] = useState();
   const dialog = useDialogState({ animated: true });
 
   const items = data?.occurrenceSearch?.documents?.results || [];
 
+  /*
+  const {setActiveKey, activeKey} = useDetailDrawerState({name: 'entity', items});
+  */
   useEffect(() => {
-    setActiveItem(items[activeId]);
-  }, [activeId, items]);
+    if (activeKey) {
+      dialog.show();
+    } else {
+      dialog.hide();
+    }
+  }, [activeKey]);
+
+  useUpdateEffect(() => {
+    if (!dialog.visible) {
+      setActiveKey();
+    }
+  }, [dialog.visible]);
 
   const nextItem = useCallback(() => {
-    setActive(Math.min(items.length - 1, activeId + 1));
-  }, [items, activeId]);
+    const activeIndex = items.findIndex(x => x.key === activeKey);
+    const next = Math.min(items.length - 1, activeIndex + 1);
+    if (items[next]) {
+      setActiveKey(items[next].key);
+    }
+  }, [activeKey, items]);
 
   const previousItem = useCallback(() => {
-    setActive(Math.max(0, activeId - 1));
-  }, [activeId]);
+    const activeIndex = items.findIndex(x => x.key === activeKey);
+    const prev = Math.max(0, activeIndex - 1);
+    if (items[prev]) {
+      setActiveKey(items[prev].key);
+    }
+  }, [activeKey, items]);
 
   const fixed = fixedColumn;// && !dialog.visible;
   const headerss = tableConfig.columns.map((col, index) => {
@@ -121,8 +141,8 @@ export const TablePresentation = ({ first, prev, next, size, from, data, total, 
   // ];
 
   return <>
-    <DetailsDrawer href={`https://www.gbif.org/occurrence/${activeItem?.key}`} dialog={dialog} nextItem={nextItem} previousItem={previousItem}>
-      <OccurrenceSidebar id={activeItem?.key} defaultTab='details' style={{ maxWidth: '100%', width: 700, height: '100%' }} />
+    <DetailsDrawer href={`https://www.gbif.org/occurrence/${activeKey}`} dialog={dialog} nextItem={nextItem} previousItem={previousItem}>
+      <OccurrenceSidebar id={activeKey} defaultTab='details' style={{ maxWidth: '100%', width: 700, height: '100%' }} />
     </DetailsDrawer>
     <div style={{
       flex: "1 1 100%",
@@ -137,14 +157,14 @@ export const TablePresentation = ({ first, prev, next, size, from, data, total, 
           <tr>{headerss}</tr>
         </thead>
         <TBody rowCount={size} columnCount={7} loading={loading}>
-          {getRows({ tableConfig, labelMap, data, setActive, dialog })}
+          {getRows({ tableConfig, labelMap, data, setActiveKey, dialog })}
         </TBody>
       </DataTable>
     </div>
   </>
 }
 
-const getRows = ({ tableConfig, labelMap, data, setActive, dialog }) => {
+const getRows = ({ tableConfig, labelMap, data, setActiveKey, dialog }) => {
   const results = data?.occurrenceSearch?.documents?.results || [];
   const rows = results.map((row, index) => {
     const cells = tableConfig.columns.map(
@@ -173,7 +193,7 @@ const getRows = ({ tableConfig, labelMap, data, setActive, dialog }) => {
         // }
       }
     );
-    return <tr key={row.key} onClick={() => { setActive(index); dialog.show(); }}>{cells}</tr>;
+    return <tr key={row.key} onClick={() => { setActiveKey(row.key); }}>{cells}</tr>;
   });
   return rows;
 }
