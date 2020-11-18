@@ -26,6 +26,7 @@ export function Groups({
   error,
   className,
   showAll,
+  setActiveImage,
   ...props
 }) {
   const theme = useContext(ThemeContext);
@@ -46,7 +47,8 @@ export function Groups({
       showAll,
       theme,
       occurrence,
-      links
+      links,
+      setActiveImage
     })
   );
 }
@@ -56,6 +58,7 @@ function getGroup({
   termMap,
   isSpecimen,
   showAll,
+  setActiveImage,
   theme,
   occurrence,
   links
@@ -70,7 +73,7 @@ function getGroup({
       let term = termMap[config.name];
       // No need to show fields without values
       if (!term && !config.Component && !config.Value) return false;
-      if (config.condition && !config.condition({ occurrence, term, showAll })) {
+      if (config.condition && !config.condition({ occurrence, term, showAll, termMap })) {
         return false;
       }
       return true;
@@ -116,7 +119,7 @@ function getGroup({
             const name = config.name;
             let term = termMap[name];
             if (config.Component) {
-              return <config.Component key={name} name={name} term={term} occurrence={occurrence} theme={theme} />
+              return <config.Component key={name} name={name} term={term} occurrence={occurrence} theme={theme} setActiveImage={setActiveImage} termMap={termMap} />
             }
             return <React.Fragment key={name}>
               <T>
@@ -128,7 +131,7 @@ function getGroup({
               <div>
                 <V style={{ position: 'relative' }}>
                   {config.Value
-                    ? <config.Value key={name} name={name} term={term} occurrence={occurrence} theme={theme} />
+                    ? <config.Value key={name} name={name} term={term} occurrence={occurrence} theme={theme} setActiveImage={setActiveImage} termMap={termMap} />
                     : getValue({ term, config })}
                   {term?.issues?.length > 0 && <Tags>
                     {term.issues.map((i) => (
@@ -142,7 +145,7 @@ function getGroup({
                   </Tags>}
                   {/* {term?.remarks === 'INFERRED' && <Tag type="light">Inferred</Tag>} */}
                 </V>
-                {(term?.verbatim && (showAll || (!config.Value && term.remarks && term.remarks !== 'INFERRED'))) && <>
+                {(term?.verbatim && (showAll || (!config.hideVerbatim && term.remarks && term.remarks !== 'INFERRED'))) && <>
                   <V title="Verbatim">
                     <span style={{opacity: .6}}>{term.verbatim}</span> <Tags>
                       <Tag type="light">Original</Tag>

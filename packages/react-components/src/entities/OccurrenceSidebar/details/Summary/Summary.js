@@ -29,7 +29,6 @@ export function Summary({ occurrence, fieldGroups, loading, setActiveImage, ...p
               </GalleryTile>
             })
             }
-            <div></div>
           </GalleryTiles>
         </V>
       </>

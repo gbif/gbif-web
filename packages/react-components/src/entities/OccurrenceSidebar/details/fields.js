@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Properties, GadmClassification } from '../../../components';
+import { Properties, GadmClassification, GalleryTiles, GalleryTile } from '../../../components';
 import { TaxonClassification } from './TaxonClassification/TaxonClassification';
 
 const { Term: T, Value: V } = Properties;
@@ -21,7 +21,37 @@ export const orderedGroups = [
 
 export const occurrenceFields = {
   summary: [
-    'scientificName',
+    {
+      name: 'Images',
+      condition: ({ occurrence }) => occurrence.stillImageCount > 0,
+      Component: ({ setActiveImage, occurrence, theme }) => {
+        return <>
+          <T>
+            <FormattedMessage
+              id={`ocurrenceFieldNames.images`}
+              defaultMessage={"Images"}
+            />
+          </T>
+          <div>
+            <V>
+              <GalleryTiles>
+                {occurrence.stillImages.map((x, i) => <GalleryTile key={i} src={x.identifier} height={120} onClick={() => setActiveImage(x)} />)}
+              </GalleryTiles>
+            </V>
+          </div>
+        </>
+      }
+    },
+    {
+      name: 'scientificName', Value: ({ occurrence }) => {
+        return <span dangerouslySetInnerHTML={{ __html: occurrence.gbifClassification.usage.formattedName }} />
+      }
+    },
+    {
+      name: 'acceptedScientificName', condition: ({ occurrence }) => occurrence?.gbifClassification?.synonym, Value: ({ occurrence }) => {
+        return <span dangerouslySetInnerHTML={{ __html: occurrence.gbifClassification.acceptedUsage.formattedName }} />
+      }
+    },
     {
       name: 'classification', Value: ({ name, occurrence, theme }) => {
         return <TaxonClassification ranks={occurrence.gbifClassification.classification} />
@@ -31,7 +61,32 @@ export const occurrenceFields = {
       name: 'gadm', condition: ({ occurrence }) => occurrence?.gadm?.level0, Value: ({ name, occurrence, theme }) => {
         return <GadmClassification gadm={occurrence.gadm} />
       }
-    }
+    },
+    {
+      name: 'datasetKey', Value: ({ occurrence }) => {
+        return <span>{occurrence.datasetTitle}</span>
+      }
+    },
+    { name: 'basisOfRecord', enum: 'basisOfRecord' },
+    'recordedBy',
+    {
+      name: 'recordedByIDs', condition: ({ occurrence }) => occurrence?.recordedByIDs?.[0], Value: ({ name, occurrence, theme }) => {
+        return <ul>
+            {occurrence.recordedByIDs
+              .map(x => {
+                if (!x.person) {
+                  return <li key={x.value}>{x.value}</li>
+                }
+                return <li key={x.value}>
+                  <img src={x?.person?.image?.value} />
+                  {x?.person?.name?.value} ({x?.person?.birthDate?.value} - {x?.person?.deathDate?.value})
+                </li>
+              })
+            }
+          </ul>
+      }
+    },
+    'identifiedBy',
   ],
   occurrence: [
     'occurrenceID',
@@ -54,31 +109,74 @@ export const occurrenceFields = {
     'associatedTaxa',
     'otherCatalogNumbers',
     'occurrenceRemarks',
-    'associatedMedia'
+    { name: 'associatedMedia', condition: ({ showAll }) => showAll },
   ],
   record: [
-    {
-      name: 'custom', Component: ({ name, occurrence, theme }) => {
-        return <>
-          <T>
-            <FormattedMessage
-              id={`ocurrenceFieldNames.${name}`}
-              defaultMessage={_.startCase(name)}
-            />
-          </T>
-          <V>
-            custom value
-        </V>
-        </>
-      }
-    },
+    'ownerInstitutionCode',
+    'institutionCode',
     'institutionID',
+    'collectionCode',
     'collectionID',
+    // {
+    //   name: 'institution', 
+    //   condition: ({termMap}) => termMap?.institutionCode || termMap?.institutionID,
+    //   Component: ({ occurrence, termMap }) => {
+    //     return <>
+    //       <T>
+    //         Institution
+    //       </T>
+    //       <Properties style={{ fontSize: 13, gridTemplateColumns: '1fr 10fr' }} horizontal={true}>
+    //         {termMap?.institutionCode?.value && <>
+    //           <T>
+    //             Code
+    //           </T>
+    //           <V>
+    //             {termMap?.institutionCode?.value}
+    //           </V>
+    //         </>}
+    //         {termMap?.institutionID?.value && <>
+    //           <T>
+    //             ID
+    //           </T>
+    //           <V>
+    //             {termMap?.institutionID?.value}
+    //           </V>
+    //         </>}
+    //       </Properties>
+    //     </>
+    //   }
+    // },
+    // {
+    //   name: 'collection', 
+    //   condition: ({termMap}) => termMap?.collectionCode || termMap?.collectionID,
+    //   Component: ({ occurrence, termMap }) => {
+    //     return <>
+    //       <T>
+    //         Collection
+    //       </T>
+    //       <Properties style={{ fontSize: 13, gridTemplateColumns: '1fr 10fr' }} horizontal={true}>
+    //         {termMap?.collectionCode?.value && <>
+    //           <T>
+    //             Code
+    //           </T>
+    //           <V>
+    //             {termMap?.collectionCode?.value}
+    //           </V>
+    //         </>}
+    //         {termMap?.collectionID?.value && <>
+    //           <T>
+    //             ID
+    //           </T>
+    //           <V>
+    //             {termMap?.collectionID?.value}
+    //           </V>
+    //         </>}
+    //       </Properties>
+    //     </>
+    //   }
+    // },
     'datasetID',
-    { name: 'institutionCode', condition: ({ occurrence, showAll }) => showAll || occurrence.volatile.features.isSpecimen },
-    { name: 'collectionCode', condition: ({ occurrence, showAll }) => showAll || occurrence.volatile.features.isSpecimen },
     'datasetName',
-    { name: 'ownerInstitutionCode', condition: ({ occurrence, showAll }) => showAll || occurrence.volatile.features.isSpecimen },
     { name: 'basisOfRecord', enum: 'basisOfRecord' },
     'informationWithheld',
     'dataGeneralizations',
@@ -120,7 +218,7 @@ export const occurrenceFields = {
     'locationID',
     'higherGeographyID',
     'higherGeography',
-    'continent',
+    { name: 'continent', enum: 'continent' },
     'waterBody',
     'islandGroup',
     'island',

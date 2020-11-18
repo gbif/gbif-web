@@ -14,7 +14,7 @@ export const Example = () => <div style={{background: '#eee', display: 'flex'}}>
   {/* <OccurrenceSidebar id={930742715} style={{width: 700, height: 600, flex: '0 0 auto'}} /> */}
   {/* <OccurrenceSidebar id={1830738777} style={{maxWidth: '100%', width: 700, height: 'calc(100vh - 20px)', flex: '0 0 auto'}} /> */}
   {/* <OccurrenceSidebar id={2304128798} style={{maxWidth: '100%', width: 700, height: 'calc(100vh - 20px)', flex: '0 0 auto'}} /> */}
-  <OccurrenceSidebar id={2901178458} style={{maxWidth: '100%', width: 700, height: 'calc(100vh - 20px)', flex: '0 0 auto'}} />
+  <OccurrenceSidebar id={1847743929} style={{maxWidth: '100%', width: 700, height: 'calc(100vh - 20px)', flex: '0 0 auto'}} />
   {/* <StyledProse source={readme}></StyledProse> */}
 </div>;
 

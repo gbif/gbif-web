@@ -29,7 +29,7 @@ export function Intro({
       <Header data={data} error={error} />
       {/* <Summary occurrence={occurrence} fieldGroups={fieldGroups} loading={loading} setActiveImage={setActiveImage} /> */}
 
-      <Groups data={data} showAll={showAll} />
+      <Groups data={data} showAll={showAll} setActiveImage={setActiveImage}/>
     </Col>
     <Col css={css.controlFooter({ theme })} grow={false}>
       <Row justifyContent="flex-end" halfGutter={8}>

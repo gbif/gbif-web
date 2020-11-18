@@ -59,7 +59,7 @@ export function OccurrenceSidebar({
           <Tab tabId="details" direction="left">
             <MdInfo />
           </Tab>
-          {data?.occurrence?.stillImages && <Tab tabId="images" direction="left">
+          {data?.occurrence?.stillImageCount > 0 && <Tab tabId="images" direction="left">
             <MdInsertPhoto />
           </Tab>}
           {data?.occurrence?.volatile?.features?.isClustered && <Tab tabId="cluster" direction="left">
@@ -118,6 +118,24 @@ query occurrence($key: ID!){
     datasetTitle
     key
     institutionCode
+    recordedByIDs {
+      value
+      person(expand: true) {
+        name
+        birthDate
+        deathDate
+        image
+      }
+    }
+    identifiedByIDs {
+      value
+      person(expand: true) {
+        name
+        birthDate
+        deathDate
+        image
+      }
+    }
 
     gadm
 
