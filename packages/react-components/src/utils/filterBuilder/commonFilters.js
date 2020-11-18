@@ -503,6 +503,7 @@ export const commonFilters = {
         },
       },
       specific: {
+        supportsExist: true,
         placeholder: 'E.g. https://orcid.org/0000-1111-2222-3333'
       }
     }
