@@ -5,8 +5,6 @@ const cookieParser = require("cookie-parser");
 const tileHelper = require("./points/tileQuery");
 const cors = require('cors');
 const config = require('./config');
-//const significantTile = require("./points/significant");
-//const tileDecorator = require("./decorator/tileDecorator");
 
 app.use(express.static('public'));
 
@@ -26,9 +24,6 @@ app.use(cookieParser());
 
 app.get("/api/tile/point/:x/:y/:z.mvt", function (req, res) {
   let filter = req.query.filter,
-    url = req.query.url,
-    countBy = req.query.countBy,
-    field = req.query.field,
     resolution = req.query.resolution,
     x = parseInt(req.params.x),
     y = parseInt(req.params.y),
@@ -41,14 +36,13 @@ app.get("/api/tile/point/:x/:y/:z.mvt", function (req, res) {
   }
 
   tileHelper
-    .getTile(x, y, z, filter, countBy, url, resolution, field)
+    .getTile(x, y, z, filter, resolution, req)
     .then(function (data) {
-      res.send(new Buffer(data, "binary"));
+      res.send(new Buffer.from(data, "binary"));
     })
     .catch(function (err) {
-      res.status(500);
-      console.log(err);
-      res.send(err.message);
+      res.status(err.statusCode || 500);
+      res.send(err.message || 'Internal server error');
     });
 });
 
