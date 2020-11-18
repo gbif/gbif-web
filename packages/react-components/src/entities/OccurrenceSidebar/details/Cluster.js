@@ -8,6 +8,8 @@ import { useQuery } from '../../../dataManagement/api';
 import { Header } from './Header';
 import { prettifyEnum } from '../../../utils/labelMaker/config2labels';
 
+import { useUrlState } from '../../../dataManagement/state/useUrlState';
+
 const { Term: T, Value: V } = Properties;
 
 export function Cluster({
@@ -17,6 +19,7 @@ export function Cluster({
   className,
   ...props
 }) {
+  const [setActiveKey] = useUrlState({ param: 'entity' });
   const theme = useContext(ThemeContext);
   const { data: cluster, error, loading: clusterLoading, load } = useQuery(CLUSTER, { lazyLoad: true });
 
@@ -35,7 +38,7 @@ export function Cluster({
     <Header data={data} />
     <main style={{ marginTop: 24 }}>
       {related.map(x => {
-        return <RelatedOccurrence key={x.occurrence.key} related={x.occurrence} reasons={x.reasons} original={data.occurrence} />
+        return <RelatedOccurrence key={x.occurrence.key} onClick={e => setActiveKey(x.occurrence.key)} related={x.occurrence} reasons={x.reasons} original={data.occurrence} />
       })}
     </main>
   </div>
@@ -43,7 +46,7 @@ export function Cluster({
 
 export function RelatedOccurrence({ original, reasons, related, ...props }) {
   const theme = useContext(ThemeContext);
-  return <article css={css.clusterCard({ theme })}>
+  return <article css={css.clusterCard({ theme })} {...props}>
     <Row wrap="nowrap" halfGutter={6} style={{ padding: 12 }}>
       <Col>
         <h4 style={{ margin: 0 }} dangerouslySetInnerHTML={{ __html: related.gbifClassification.usage.formattedName }}></h4>
