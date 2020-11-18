@@ -61,8 +61,13 @@ const typeDef = gql`
     incorporatedCollections: [String]
     importantCollectors: [String]
     collectionSummary: JSON
-    alternativeCodes: JSON
+    alternativeCodes: [AlternativeCode]
     comments: Comment
+  }
+
+  type AlternativeCode {
+    code: String!
+    description: String
   }
 `;
 

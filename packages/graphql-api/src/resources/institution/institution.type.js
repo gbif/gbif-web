@@ -57,7 +57,7 @@ const typeDef = gql`
     identifiers: Identifier
     contacts: [StaffMember]
     machineTags: [MachineTag]
-    alternativeCodes: JSON
+    alternativeCodes: [AlternativeCode]
     comments: [Comment]
     collections: [Collection]
   }
