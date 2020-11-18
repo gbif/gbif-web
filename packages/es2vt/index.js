@@ -1,8 +1,8 @@
-const express = require("express");
+const express = require('express');
 const app = express();
-const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
-const tileHelper = require("./points/tileQuery");
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const tileHelper = require('./points/tileQuery');
 const cors = require('cors');
 const config = require('./config');
 
@@ -22,7 +22,7 @@ app.use(
 );
 app.use(cookieParser());
 
-app.get("/api/tile/point/:x/:y/:z.mvt", function (req, res) {
+app.get('/api/tile/point/:x/:y/:z.mvt', function (req, res) {
   let filter = req.query.filter,
     resolution = req.query.resolution,
     x = parseInt(req.params.x),
@@ -38,7 +38,7 @@ app.get("/api/tile/point/:x/:y/:z.mvt", function (req, res) {
   tileHelper
     .getTile(x, y, z, filter, resolution, req)
     .then(function (data) {
-      res.send(new Buffer.from(data, "binary"));
+      res.send(new Buffer.from(data, 'binary'));
     })
     .catch(function (err) {
       res.status(err.statusCode || 500);

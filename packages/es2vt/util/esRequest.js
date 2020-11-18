@@ -18,7 +18,7 @@ async function search({ client, index, query, req }) {
     const response = await request;
     return response;
   } catch (err) {
-    if (err.name === 'RequestAbortedError') {
+    if (err.name === 'RequestAbortedError') {
       throw new ResponseError(204, 'RequestAbortedError', 'Request aborted');
     };
     debugger;

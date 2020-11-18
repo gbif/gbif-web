@@ -6,7 +6,6 @@ const tile2pbf = require('./tile2pbf');
 const hash = require('object-hash');
 const { search } = require('../util/esRequest');
 const env = require('../config');
-const _ = require('lodash');
 const LRU = require('lru-cache');
 
 const searchIndex = 'occurrence';
@@ -24,60 +23,60 @@ const client = new Client({
   agent
 });
 
-const cache = new LRU({ max: 10000, maxAge: 1000*60*10 });
+const cache = new LRU({ max: 10000, maxAge: 1000 * 60 * 10 });
 
 //9 ≈ 2.4 meters
 let resolutions = {
-    low:    [2, 2, 3, 3, 4, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10],
-    medium: [2, 2, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10],
-    high:   [2, 2, 3, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10]
+  low: [2, 2, 3, 3, 4, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10],
+  medium: [2, 2, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10],
+  high: [2, 2, 3, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10]
 }
 
 async function getTile(x, y, z, q, resolution, req) {
-    let userQuery = q;
-    resolution = typeof resolution !== 'undefined' ? resolution : 'medium';
-    let precisionLookUp = resolutions[resolution] || resolutions.medium;
-    
-    // merge tile query and user query
-    let tileQuery = composeTileQuery(x, y, z, userQuery, field);
-    let esQuery = {
-        size: 0,
-        query: tileQuery,
+  let userQuery = q;
+  resolution = typeof resolution !== 'undefined' ? resolution : 'medium';
+  let precisionLookUp = resolutions[resolution] || resolutions.medium;
+
+  // merge tile query and user query
+  let tileQuery = composeTileQuery(x, y, z, userQuery, field);
+  let esQuery = {
+    size: 0,
+    query: tileQuery,
+    aggs: {
+      geo: {
+        geohash_grid: {
+          field: field,
+          precision: precisionLookUp[z] || 11,
+          size: 40000
+        },
         aggs: {
-            geo: {
-                geohash_grid: { 
-                    field: field, 
-                    precision: precisionLookUp[z] || 11, 
-                    size: 40000 
-                },
-                aggs: {
-                    geo: {
-                        geo_centroid: { field: field }
-                    }
-                }
-            }
+          geo: {
+            geo_centroid: { field: field }
+          }
         }
-    };
-
-    let queryKey = hash({esQuery});
-    let data = cache.get(queryKey);
-    if (!data) {
-        data = await getFromES({esQuery, req});
-        cache.set(queryKey, data);
+      }
     }
-    
-    let tile = tileGenerator(data, x, y, z, 4096);
-    let buff = tile2pbf(tile);
+  };
 
-    return buff;
+  let queryKey = hash({ esQuery });
+  let data = cache.get(queryKey);
+  if (!data) {
+    data = await getFromES({ esQuery, req });
+    cache.set(queryKey, data);
+  }
+
+  let tile = tileGenerator(data, x, y, z, 4096);
+  let buff = tile2pbf(tile);
+
+  return buff;
 }
 
-async function getFromES({esQuery, req}) {
-    let response = await search({ client, index: searchIndex, query: esQuery, req });
-    let body = response.body;
-    return body;
+async function getFromES({ esQuery, req }) {
+  let response = await search({ client, index: searchIndex, query: esQuery, req });
+  let body = response.body;
+  return body;
 }
 
 module.exports = {
-    getTile: getTile
+  getTile: getTile
 };

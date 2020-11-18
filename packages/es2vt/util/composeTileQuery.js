@@ -7,8 +7,8 @@ const coordinateConverter = require('../util/coordinateConverter');
 function esTileQuery(x, y, z, userQuery, locationField) {
   if (typeof (userQuery) === 'string') {
     userQuery = {
-      "query_string": {
-        "query": userQuery
+      query_string: {
+        query: userQuery
       }
     }
   }
@@ -23,10 +23,10 @@ function esTileQuery(x, y, z, userQuery, locationField) {
     }
   };
   tileQuery.geo_bounding_box[locationField] = {
-    "top": bb.north,
-    "left": bb.west,
-    "bottom": bb.south,
-    "right": bb.east
+    top: bb.north,
+    left: bb.west,
+    bottom: bb.south,
+    right: bb.east
   };
 
   // compose filter. simply nest the user query. Unclear if this is bad for performance. It could be flattened in most cases. But this is simple to do.
