@@ -8,8 +8,8 @@ const { search } = require('../util/esRequest');
 const env = require('../config');
 const LRU = require('lru-cache');
 
-const searchIndex = env.occurrence.index;
-const field = env.occurrence.coordinateField;
+const searchIndex = env.es.index;
+const field = env.es.coordinateField;
 
 const agent = () => new Agent({
   maxSockets: 1000, // Default = Infinity
@@ -17,9 +17,9 @@ const agent = () => new Agent({
 });
 
 const client = new Client({
-  nodes: env.occurrence.hosts,
-  maxRetries: env.occurrence.maxRetries || 3,
-  requestTimeout: env.occurrence.requestTimeout || 60000,
+  nodes: env.es.hosts,
+  maxRetries: env.es.maxRetries || 3,
+  requestTimeout: env.es.requestTimeout || 60000,
   agent
 });
 
