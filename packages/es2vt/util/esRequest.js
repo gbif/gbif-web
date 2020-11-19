@@ -21,8 +21,6 @@ async function search({ client, index, query, req }) {
     if (err.name === 'RequestAbortedError') {
       throw new ResponseError(204, 'RequestAbortedError', 'Request aborted');
     };
-    debugger;
-    console.log(err);
     if (err.meta && err.meta.statusCode) {
       // TODO log error
       throw new ResponseError(err.meta.statusCode || 503, err.displayName || err.name || 'backendFailure', err.message || 'Backend failure');
