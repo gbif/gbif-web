@@ -8,7 +8,7 @@ const { search } = require('../util/esRequest');
 const env = require('../config');
 const LRU = require('lru-cache');
 
-const searchIndex = 'occurrence';
+const searchIndex = env.occurrence.index;
 const field = env.occurrence.coordinateField;
 
 const agent = () => new Agent({
