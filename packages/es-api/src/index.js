@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const compression = require('compression');
 const _ = require('lodash');
 const config = require('./config');
 const literature = require('./resources/literature');
@@ -8,6 +9,7 @@ const dataset = require('./resources/dataset');
 const { asyncMiddleware, ResponseError, errorHandler, unknownRouteHandler } = require('./resources/errorHandler');
 
 const app = express();
+app.use(compression());
 app.use(express.static('public'));
 app.use(bodyParser.json());
 

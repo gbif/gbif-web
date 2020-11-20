@@ -1,5 +1,6 @@
 const express = require('express');
-const cors = require('cors')
+const cors = require('cors');
+const compression = require('compression');
 const { ApolloServer } = require('apollo-server-express');
 const AbortController = require('abort-controller');
 const get = require('lodash/get');
@@ -52,6 +53,7 @@ async function initializeServer() {
   });
 
   const app = express();
+  app.use(compression());
   app.use(cors({
     methods: 'GET,POST,OPTIONS',
   }))
