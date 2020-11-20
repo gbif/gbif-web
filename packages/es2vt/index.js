@@ -1,5 +1,5 @@
 const express = require('express');
-const compression = require('compression')
+const compression = require('compression');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const config = require('./config');
