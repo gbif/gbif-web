@@ -1,10 +1,23 @@
 const express = require('express');
 const app = express();
+var compression = require('compression')
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const tileHelper = require('./points/tileQuery');
 const cors = require('cors');
 const config = require('./config');
+
+app.use(compression({ filter: shouldCompress }))
+
+function shouldCompress (req, res) {
+  // compression isn't enabled per default for all content types, so we need a custom filter
+  // https://github.com/expressjs/compression/issues/119
+  if (res.get('Content-Type') === 'application/octet-stream') {
+    return true;
+  }
+  // fallback to standard filter function
+  return compression.filter(req, res)
+}
 
 app.use(express.static('public'));
 
@@ -38,6 +51,7 @@ app.get('/api/tile/point/:x/:y/:z.mvt', function (req, res) {
   tileHelper
     .getTile(x, y, z, filter, resolution, req)
     .then(function (data) {
+      res.type('application/octet-stream')
       res.send(new Buffer.from(data, 'binary'));
     })
     .catch(function (err) {
