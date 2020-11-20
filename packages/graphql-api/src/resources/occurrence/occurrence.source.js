@@ -2,6 +2,7 @@
 const { RESTDataSource } = require('apollo-datasource-rest');
 const config = require('../../config');
 const { apiEs, apiEsKey, apiv1 } = config;
+const urlSizeLimit = 2000; // use GET for requests that serialized is less than N characters
 
 class OccurrenceAPI extends RESTDataSource {
   constructor() {
@@ -17,19 +18,24 @@ class OccurrenceAPI extends RESTDataSource {
     // } else {
     //   console.log('unauthorized attempt to do an occurrence search');
     // }
-    
+
     // now that we make a public version, we might as well just make it open since the key is shared with everyone
     request.params.set('apiKey', apiEsKey);
   }
 
   async searchOccurrenceDocuments({ query }) {
-    const response = await this.searchOccurrences({query})
+    const response = await this.searchOccurrences({ query })
     return response.documents;
   }
 
   async searchOccurrences({ query }) {
     const body = { ...query, includeMeta: true };
-    const response = await this.post('/occurrence', body, { signal: this.context.abortController.signal });
+    let response;
+    if (JSON.stringify(body).length < urlSizeLimit) {
+      response = await this.get('/occurrence', { body: JSON.stringify(body) }, { signal: this.context.abortController.signal });
+    } else {
+      response = await this.post('/occurrence', body, { signal: this.context.abortController.signal });
+    }
     response._predicate = body.predicate;
     return response;
   }
