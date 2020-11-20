@@ -178,16 +178,16 @@ class WikiDataAPI extends RESTDataSource {
 
   async getPersonByKey({ key, locale = 'en' }) {
     const query = `SELECT DISTINCT ?human ?humanLabel ?image ?birthDate ?deathDate
-    WHERE {
-      VALUES ?human { wd:${key} }
-      ?human wdt:P31 wd:Q5;       #find person
-      OPTIONAL {
-        ?human wdt:P18 ?image;
-               wdt:P569 ?birthDate;
-               wdt:P570 ?deathDate .
-      }
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
-    }`;
+      WHERE {
+        VALUES ?human { wd:${key} }
+        ?human wdt:P31 wd:Q5;       #find person
+        OPTIONAL {
+          ?human wdt:P18 ?image;
+                wdt:P569 ?birthDate;
+                wdt:P570 ?deathDate .
+        }
+        SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+      }`;
 
     const response = await this.sparqlQuery({query});
     return this.getUniquePerson({response});
@@ -253,16 +253,16 @@ class WikiDataAPI extends RESTDataSource {
 
   async getWikidataPersonByIdentifier({ property, value }) {
     const query = `SELECT DISTINCT ?human ?humanLabel ?image ?birthDate ?deathDate
-    WHERE {
-      ?human wdt:P31 wd:Q5 ;                    #find humans
-             wdt:${property} '${value}' .       #find entities with a given property
-      OPTIONAL {                                # If these properties are presenet, then we would like them as well
-        ?human wdt:P18 ?image;
-               wdt:P569 ?birthDate;
-               wdt:P570 ?deathDate .
-      }
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
-    }`;
+      WHERE {
+        ?human wdt:P31 wd:Q5 ;                    #find humans
+              wdt:${property} '${value}' .       #find entities with a given property
+        OPTIONAL {                                # If these properties are presenet, then we would like them as well
+          ?human wdt:P18 ?image;
+                wdt:P569 ?birthDate;
+                wdt:P570 ?deathDate .
+        }
+        SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en" }
+      }`;
 
     const response = await this.sparqlQuery({query});
     return this.getUniquePerson({response});
