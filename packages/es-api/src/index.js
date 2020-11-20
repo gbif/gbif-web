@@ -13,6 +13,18 @@ app.use(compression());
 app.use(express.static('public'));
 app.use(bodyParser.json());
 
+let setCache = function (req, res, next) {
+  const period = 600; // unit seconds
+  // if GET request, then add caching
+  if (req.method == 'GET') {
+    res.set('Cache-control', `public, max-age=${period}`)
+  }
+  // call next() to pass on the request
+  next()
+}
+// use middleware
+app.use(setCache)
+
 app.use(function (req, res, next) {
   // Website you wish to allow to connect
   res.setHeader('Access-Control-Allow-Origin', '*');
