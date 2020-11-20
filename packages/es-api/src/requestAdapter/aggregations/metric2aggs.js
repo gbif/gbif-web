@@ -2,7 +2,7 @@
 const _ = require('lodash');
 const { ResponseError } = require('../../resources/errorHandler');
 
-function metric2aggs(metrics, config) {
+function metric2aggs(metrics = {}, config) {
   let aggs = {};
   for (let [name, metric] of Object.entries(metrics)) {
     const conf = _.get(config, `options[${metric.key}]`);
