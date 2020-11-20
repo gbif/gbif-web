@@ -91,6 +91,16 @@ function searchResource(resource) {
 
 function parseQuery(req, res, next, { get2predicate, get2metric }) {
   try {
+    // if body in url, then use that
+    if (req.method === 'GET' && req.query.body) {
+      try {
+        const body = JSON.parse(req.query.body);
+        return body;
+      } catch (err) {
+        return next(new ResponseError(400, 'badRequest', `Malformed body`));
+      }
+    }
+
     // extract JSON predicate and metrics from body or query param. Given preference to body
     let jsonPredicate, jsonMetrics, predicate;
     if (req?.body?.predicate || req?.body?.metrics) {
