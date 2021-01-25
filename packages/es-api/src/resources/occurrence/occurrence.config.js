@@ -377,7 +377,7 @@ const config =
     },
     "networkKey": {
       "type": "keyword",
-      "field": "networkKey"
+      "field": "networkKeys"
     },
     "notIssues": {
       "type": "keyword",
