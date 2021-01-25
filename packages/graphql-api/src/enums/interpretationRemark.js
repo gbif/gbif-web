@@ -719,5 +719,74 @@ module.exports = [
     "relatedTerms": [
       "http://rs.tdwg.org/dwc/terms/scientificName"
     ]
+  },
+  {
+    "id": "AMBIGUOUS_INSTITUTION",
+    "severity": "WARNING",
+    "relatedTerms": [
+      "http://rs.tdwg.org/dwc/terms/institutionCode",
+      "http://rs.tdwg.org/dwc/terms/ownerInstitutionCode",
+      "http://rs.tdwg.org/dwc/terms/institutionID"
+    ]
+  },
+  {
+    "id": "AMBIGUOUS_COLLECTION",
+    "severity": "WARNING",
+    "relatedTerms": [
+      "http://rs.tdwg.org/dwc/terms/collectionID",
+      "http://rs.tdwg.org/dwc/terms/collectionCode"
+    ]
+  },
+  {
+    "id": "INSTITUTION_MATCH_NONE",
+    "severity": "WARNING",
+    "relatedTerms": [
+      "http://rs.tdwg.org/dwc/terms/institutionCode",
+      "http://rs.tdwg.org/dwc/terms/ownerInstitutionCode",
+      "http://rs.tdwg.org/dwc/terms/institutionID"
+    ]
+  },
+  {
+    "id": "COLLECTION_MATCH_NONE",
+    "severity": "WARNING",
+    "relatedTerms": [
+      "http://rs.tdwg.org/dwc/terms/collectionID",
+      "http://rs.tdwg.org/dwc/terms/collectionCode"
+    ]
+  },
+  {
+    "id": "INSTITUTION_MATCH_FUZZY",
+    "severity": "WARNING",
+    "relatedTerms": [
+      "http://rs.tdwg.org/dwc/terms/institutionCode",
+      "http://rs.tdwg.org/dwc/terms/ownerInstitutionCode",
+      "http://rs.tdwg.org/dwc/terms/institutionID"
+    ]
+  },
+  {
+    "id": "COLLECTION_MATCH_FUZZY",
+    "severity": "WARNING",
+    "relatedTerms": [
+      "http://rs.tdwg.org/dwc/terms/collectionID",
+      "http://rs.tdwg.org/dwc/terms/collectionCode"
+    ]
+  },
+  {
+    "id": "INSTITUTION_COLLECTION_MISMATCH",
+    "severity": "WARNING",
+    "relatedTerms": [
+      "http://rs.tdwg.org/dwc/terms/institutionCode",
+      "http://rs.tdwg.org/dwc/terms/ownerInstitutionCode",
+      "http://rs.tdwg.org/dwc/terms/institutionID"
+    ]
+  },
+  {
+    "id": "DIFFERENT_OWNER_INSTITUTION",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/dwc/terms/institutionCode",
+      "http://rs.tdwg.org/dwc/terms/ownerInstitutionCode",
+      "http://rs.tdwg.org/dwc/terms/institutionID"
+    ]
   }
 ]
