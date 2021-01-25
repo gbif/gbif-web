@@ -28,6 +28,16 @@ function metric2aggs(metrics = {}, config) {
           };
           break;
         }
+        case 'cardinality': {
+          if (!['keyword', 'numeric', 'boolean'].includes(conf.type)) throw new ResponseError(400, 'badRequest', 'Facets are only supported on keywords, boolean and numeric fields');
+          aggs[name] = {
+            cardinality: {
+              field: conf.field,
+              precision_threshold: metric.precision_threshold || 10000
+            }
+          };
+          break;
+        }
         default: {
           // ignore unknown types
           break;

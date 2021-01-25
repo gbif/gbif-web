@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const allowedTypes = ['facet', 'stats'];
+const allowedTypes = ['facet', 'stats', 'cardinality'];
 
 function get2metric(query, config) {
   // query example: {facet: [year, datasetKey], stats: year, facet.size.year:3}
