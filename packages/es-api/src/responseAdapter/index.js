@@ -5,7 +5,7 @@ function queryReducer({body, size, from}) {
     documents: {
       size,
       from,
-      total: _.get(body, 'hits.total.value') || _.get(body, 'hits.total'),
+      total: _.get(body, 'hits.total.value'),
       results: _.get(body, 'hits.hits', [])
     },
     aggregations: _.get(body, 'aggregations'),
