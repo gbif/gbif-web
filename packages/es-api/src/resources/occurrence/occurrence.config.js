@@ -375,9 +375,9 @@ const config =
       "field": "multimediaItems",
       "discarded": true
     },
-    "networkKeys": {
+    "networkKey": {
       "type": "keyword",
-      "field": "networkKeys"
+      "field": "networkKey"
     },
     "notIssues": {
       "type": "keyword",

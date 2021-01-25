@@ -139,7 +139,7 @@ const typeDef = gql`
     datasetKey(size: Int): [OccurrenceFacetResult_dataset]
     endorsingNodeKey(size: Int): [OccurrenceFacetResult_node]
     installationKey(size: Int): [OccurrenceFacetResult_installation]
-    networkKeys(size: Int): [OccurrenceFacetResult_network]
+    networkKey(size: Int): [OccurrenceFacetResult_network]
     publishingOrganizationKey(size: Int): [OccurrenceFacetResult_organization]
 
     gbifClassification_taxonID(size: Int): [OccurrenceFacetResult_string]

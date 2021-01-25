@@ -169,7 +169,7 @@ const typeDef = gql`
     namePublishedIn: String
     namePublishedInID: String
     namePublishedInYear: String
-    networkKeys: [ID]
+    networkKey: [ID]
     nomenclaturalCode: String
     nomenclaturalStatus: String
     occurrenceID: String

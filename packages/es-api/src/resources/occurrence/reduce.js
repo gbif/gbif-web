@@ -291,7 +291,7 @@ function reduce(item) {
     // lastInterpreted:                    source.lastInterpreted,
     lastParsed:                         source.lastParsed,
     // mediaType:                          source.mediaType,
-    networkKeys:                        source.networkKeys || [],
+    // networkKey:                         source.networkKeys || [],
     order:                              source.gbifClassification.order,
     orderKey:                           source.gbifClassification.orderKey,
     phylum:                             source.gbifClassification.phylum,
