@@ -32,10 +32,11 @@ async function query({ query, aggs, size = 20, from = 0, req }) {
       '_score',
       { created: { "order": "desc" } }
     ],
+    track_total_hits: true,
     size,
     from,
     query,
-    aggs
+    aggs,
   }
   let response = await search({ client, index: searchIndex, query: esQuery, req });
   let body = response.body;
