@@ -4,7 +4,7 @@
   "description": "React components for use in GBIFs coming websites",
   "module": "./build/esm/index.js",
   "main": "./build/cjs/index.cjs",
-  "browser": "./build/umd/index.js",
+  "browser": "./dist/lib/gbif-react-components.js",
   "exports": {
     "import": "./build/esm/index.js",
     "default": "./build/cjs/index.cjs"
@@ -14,7 +14,8 @@
     "build-rollup": "NODE_ENV=production rollup -c",
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
+    "build-storybook": "build-storybook -o ./dist",
+    "build-client": "npm run build-storybook; npm run build; npx gulp; npx gzipper compress --brotli --include js,css,html,txt,json,map ./dist",
     "generate": "npx plop --plopfile ./tools/plopfile.js",
     "add-component": "npm run generate component",
     "add-range-filter": "npm run generate rangeFilter",
@@ -86,6 +87,8 @@
     "babel-loader": "^8.1.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "flat": "^5.0.0",
+    "gulp": "^4.0.2",
+    "gulp-replace": "^1.0.0",
     "nodemon": "^2.0.4",
     "plop": "^2.6.0",
     "regenerator-runtime": "^0.13.5",

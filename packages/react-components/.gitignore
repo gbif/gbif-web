@@ -2,8 +2,12 @@
 /node_modules
 
 # built files
-/esm
-/dist-storybook
+/build
+
+# built storybook and browser lib
+/dist/*
+!/dist/lib/
+/dist/lib/*.br
 
 # misc
 .DS_Store
