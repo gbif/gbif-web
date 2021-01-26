@@ -435,7 +435,7 @@ const config =
       "type": "keyword",
       "field": "publishingCountry"
     },
-    "publishingOrganizationKey": {
+    "publishingOrgKey": {
       "type": "keyword",
       "field": "publishingOrganizationKey"
     },

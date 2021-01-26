@@ -1,7 +1,8 @@
 const { getGlobe } = require('../../util/globe');
-const { getFacet, getStats } = require('./helpers/getMetrics');
+const { getFacet, getStats, getCardinality } = require('./helpers/getMetrics');
 const fieldsWithFacetSupport = require('./helpers/fieldsWithFacetSupport');
 const fieldsWithStatsSupport = require('./helpers/fieldsWithStatsSupport');
+const fieldsWithCardinalitySupport = require('./helpers/fieldsWithCardinalitySupport');
 // const verbatimResolvers = require('./helpers/occurrenceTerms');
 const { formattedCoordinates, isOccurrenceSequenced } = require('../../util/utils');
 const groupResolver = require('./helpers/groups/occurrenceGroups');
@@ -20,6 +21,13 @@ const statsReducer = (dictionary, statsName) => {
   return dictionary;
 };
 const OccurrenceStats = fieldsWithStatsSupport.reduce(statsReducer, {});
+
+// there are also many fields that support cardinality. Generate them all.
+const cardinalityReducer = (dictionary, fieldName) => {
+  dictionary[fieldName] = getCardinality(fieldName);
+  return dictionary;
+};
+const OccurrenceCardinality = fieldsWithCardinalitySupport.reduce(cardinalityReducer, {});
 
 const searchOccurrences = (parent, query, { dataSources }) => {
   return dataSources.occurrenceAPI.searchOccurrenceDocuments({
@@ -149,6 +157,9 @@ module.exports = {
     stats: (parent) => {
       return { _predicate: parent._predicate };
     },
+    cardinality: (parent) => {
+      return { _predicate: parent._predicate };
+    },
     _meta: (parent, query, { dataSources }) => {
       return dataSources.occurrenceAPI.meta({
         query: { predicate: parent._predicate }
@@ -161,6 +172,7 @@ module.exports = {
   },
   OccurrenceStats,
   OccurrenceFacet,
+  OccurrenceCardinality,
   OccurrenceFacetResult_float: {
     occurrences: facetOccurrenceSearch
   },
