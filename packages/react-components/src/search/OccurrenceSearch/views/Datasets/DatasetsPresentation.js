@@ -20,6 +20,7 @@ export const DatasetsPresentation = ({ more, size, data, total, loading }) => {
   const dialog = useDialogState({ animated: true });
 
   const items = data?.occurrenceSearch?.facet?.datasetKey || [];
+  const cardinality = data?.occurrenceSearch?.cardinality?.datasetKey;
 
   useEffect(() => {
     setActiveItem(items[activeId]);
@@ -38,10 +39,10 @@ export const DatasetsPresentation = ({ more, size, data, total, loading }) => {
       <DatasetSidebar id={activeItem?.dataset?.key} defaultTab='details' style={{ maxWidth: '100%', width: 700, height: '100%' }} />
     </DetailsDrawer>
     <div >
-      {/* <ViewHeader loading={loading} total={total}/> */}
-      <Row direction="row-reverse">
+      <ViewHeader loading={loading} total={cardinality}/>
+      {/* <Row direction="row-reverse">
         <Col><MdHelp /></Col>
-      </Row>
+      </Row> */}
       <div>
         <ul style={{ padding: 0, margin: 0 }}>
           {items.length > 0 && items.map((item, index) => <li>
