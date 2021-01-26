@@ -587,7 +587,9 @@
     "GBIF_PARTICIPANT",
     "GRSCICOLL_ID",
     "GRSCICOLL_URI",
-    "IH_IRN"
+    "IH_IRN",
+    "ROR",
+    "GRID"
   ],
   "InstallationType": [
     "IPT_INSTALLATION",
