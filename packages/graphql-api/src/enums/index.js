@@ -45,7 +45,6 @@ async function writeEnums(enumMap) {
   try {
     const prevVersionEnums = JSON.stringify(require('./enums.json'), null, 2);
     const currentVersionEnums = JSON.stringify(enumMap, null, 2);
-    console.log(currentVersionEnums)
     if(prevVersionEnums !== currentVersionEnums){
       console.log("New version of ENUMS detected and validated, writing to enums.json")
       return fs.writeFile(`${__dirname}/enums.json`, currentVersionEnums);
