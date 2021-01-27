@@ -141,13 +141,13 @@ export const imageContainer = ({ theme }) => css`
   }
 `;
 
-export const clusterCard = ({theme}) => css`
+export const clusterCard = ({ theme }) => css`
   margin-bottom: 24px;
   border: 1px solid ${theme.paperBorderColor};
   box-shadow: 0 2px 1px 1px #0000000a;
 `;
 
-export const chip = ({theme}) => css`
+export const chip = ({ theme }) => css`
   font-size: 11px;
   padding: 0 4px;
   border: 1px solid #dedede;
@@ -156,7 +156,7 @@ export const chip = ({theme}) => css`
   display: inline-block;
 `;
 
-export const clusterFooter = ({theme}) => css`
+export const clusterFooter = ({ theme }) => css`
   font-size: 13px;
   padding: 8px 12px;
   border-top: 1px solid ${theme.paperBorderColor};
@@ -167,7 +167,7 @@ export const termRemark = props => css`
  opacity: 0.5;
 `;
 
-export const issuePill = ({severity, ...props}) => css`
+export const issuePill = ({ severity, ...props }) => css`
     background: ${severity === "WARNING" ? "gold" : "grey"};
     border-radius: 20px;
     font-size: 10px;
