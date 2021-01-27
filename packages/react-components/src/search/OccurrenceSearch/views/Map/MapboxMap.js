@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import mapboxgl from 'mapbox-gl';
 import { getLayerConfig } from './getLayerConfig';
+import env from '../../../../../.env.json';
 
 class Map extends Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class Map extends Component {
 
   componentDidMount() {
     const mapStyle = this.props.theme.darkTheme ? 'dark-v9' : 'light-v9';
-    mapboxgl.accessToken = 'pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA';
+    mapboxgl.accessToken = env.MAPBOX_KEY;
     this.map = new mapboxgl.Map({
       container: this.myRef.current,
       style: `mapbox://styles/mapbox/${mapStyle}`,
@@ -61,7 +62,7 @@ class Map extends Component {
   addLayer() {
     var tileString =
       //"https://esmap.gbif-dev.org/api/tile/{x}/{y}/{z}.mvt?field=coordinates&url=" +
-      "https://hp-maps.gbif-staging.org/api/tile/point/{x}/{y}/{z}.mvt?resolution=medium&field=coordinates" +
+      `${env.TILE_API}/api/tile/point/{x}/{y}/{z}.mvt?resolution=medium&field=coordinates` +
       // "http://labs.gbif.org:7012/api/tile/point/{x}/{y}/{z}.mvt?resolution=medium&field=coordinates&url=" +
       // "http://localhost:4000/tile/point/{x}/{y}/{z}.mvt?resolution=medium&field=coordinates&url=" +
       // "http://localhost:7012/api/tile/point/{x}/{y}/{z}.mvt?resolution=medium&field=coordinates" +
