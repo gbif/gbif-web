@@ -115,7 +115,7 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
     labelMap,
     suggestConfigMap,
     filters,
-    defaultVisibleFilters: customConfig.defaultVisibleFilters || ['q', 'occurrenceIssue', 'taxonKey', 'year'],
+    defaultVisibleFilters: customConfig.defaultVisibleFilters || ['q', 'occurrenceStatus', 'taxonKey', 'year', 'occurrenceIssue'],
     // rootPredicate: { type: 'in', key: 'basisOfRecord', values: ['PRESERVED_SPECIMEN', 'FOSSIL_SPECIMEN', 'MATERIAL_SAMPLE', 'LIVING_SPECIMEN'] },
     rootPredicate: customConfig.rootPredicate,//{ type: 'isNotNull', key: 'typeStatus' },
     // rootPredicate: { type: 'in', key: 'taxonKey', values: [4, 5, 7] },
