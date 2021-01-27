@@ -13,7 +13,7 @@ const en = flatten(enNested);
 import ThemeContext, { darkTheme, lightTheme, a11yTheme, vertnetTheme, rtlTheme } from '../src/style/themes';
 import ThemeBuilder from '../src/style/themeBuilder';
 import { ApiContext, ApiClient } from '../src/dataManagement/api';
-import env from './.env.json';
+import env from '../.env.json';
 
 const customTheme = ThemeBuilder.extend({
   extendWith: {
@@ -24,10 +24,7 @@ const customTheme = ThemeBuilder.extend({
 
 const client = new ApiClient({
   gql: {
-    endpoint: env.GRAPH_API,
-    // headers: {
-    //   authorization: `ApiKey-v1 ${env.GRAPHQL_APIKEY}`
-    // }
+    endpoint: env.GRAPH_API
   },
   v1: {
     endpoint: env.API_V1

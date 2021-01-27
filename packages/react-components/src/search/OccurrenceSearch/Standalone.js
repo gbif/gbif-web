@@ -6,7 +6,7 @@ import { Root } from '../../components';
 import OccurrenceSearch from "./OccurrenceSearch";
 import ThemeContext, { lightTheme } from '../../style/themes';
 import { ApiContext, ApiClient } from '../../dataManagement/api';
-import env from './.env.json';
+import env from '../../../.env.json';
 
 import flatten from 'flat';
 import { en as enNested } from '../../locales/en';
@@ -15,9 +15,6 @@ const en = flatten(enNested);
 const client = new ApiClient({
   gql: {
     endpoint: env.GRAPH_API,
-    // headers: {
-    //   authorization: `ApiKey-v1 ${env.GRAPHQL_APIKEY}`
-    // }
   },
   v1: {
     endpoint: env.API_V1
