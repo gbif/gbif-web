@@ -106,11 +106,6 @@ const schemaIsValid = (enums) => {
   }
 };
 
-update();
-setInterval(function () {
-  update();
-}, interval);
-
 async function update() {
   try {
     const enumMap = await loadEnums();
@@ -127,12 +122,16 @@ async function update() {
     } else {
       status = { status: "ok", message: null, error: null };
     }
+    setTimeout(update, interval)
   } catch (err) {
     status = { status: "error", message: null, error: err };
+    setTimeout(update, interval)
   }
 }
 
 const getEnumStatus = () => status;
+
+update();
 
 module.exports = {
   getEnumStatus,
