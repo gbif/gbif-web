@@ -7,6 +7,7 @@ const get = require('lodash/get');
 const config = require('./config');
 const { hashMiddleware } = require('./hashMiddleware');
 const { injectQuery } = require('./injectQueryMiddleware');
+const health = require('./health')
 
 const bodyParser = require('body-parser');
 
@@ -73,6 +74,8 @@ async function initializeServer() {
     });
   });
 
+  app.get('/health', health);
+  
   server.applyMiddleware({ app });
 
   app.listen({ port: config.port }, () =>
