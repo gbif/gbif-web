@@ -25,6 +25,10 @@ const typeDef = gql`
     Get statistics for a numeric field. Minimimum value, maximum etc.
     """
     stats: OccurrenceStats
+    """
+    Get number of distinct values for a field. E.g. how many distinct datasetKeys in this result set
+    """
+    cardinality: OccurrenceCardinality
     _predicate: JSON
     _meta: JSON
   }
@@ -38,6 +42,11 @@ const typeDef = gql`
 
   type OccurrenceStats {
     year: Stats!
+  }
+
+  type OccurrenceCardinality {
+    datasetKey: Int!
+    publishingOrgKey: Int!
   }
 
   type OccurrenceFacet {

@@ -1,0 +1,1 @@
+<script type="text/javascript" src="https://{{DOMAIN}}/lib/gbif-react-components.js?v={{VERSION}}"></script>

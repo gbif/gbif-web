@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Search 1.0.0 Demo</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans"
+      rel="stylesheet"
+    />
+    <style>
+      html {
+        font-family: Open Sans, Helvetica, Sans;
+        background: #ddd;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <!-- <script src="https://unpkg.com/prop-types@15.7.2/prop-types.min.js"></script> -->
+
+    <script type="text/javascript" src="/dist/lib/gbif-react-components.js"></script>
+    <script>
+      ReactDOM.render(
+        React.createElement(
+          gbifReactComponents.OccurrenceSearch,
+          { style: { height: 'calc(100vh - 20px)' } }
+        ),
+        document.getElementById('root')
+      );
+    </script>
+  </body>
+</html>

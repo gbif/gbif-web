@@ -8,6 +8,9 @@ import { DatasetsPresentation } from './DatasetsPresentation';
 const DATASETS = `
 query table($predicate: Predicate, $size: Int = 100){
   occurrenceSearch(predicate: $predicate, size: 0, from: 0) {
+    cardinality {
+      datasetKey
+    }
     facet {
       datasetKey(size: $size) {
         count

@@ -252,7 +252,7 @@ export const en = {
     occurrenceStatus: {
       name: 'Occurrence status',
       count: '{num, plural, one { Occurrence status } other {# Occurrence statuss}}',
-      description: 'A short description of the component should be placed here'
+      description: "'Absent' is applied to an occurrence record when a survey of a taxon at a specific time and place encounters no specimens"
     },
     gadmGid: {
       name: 'Administrative area',

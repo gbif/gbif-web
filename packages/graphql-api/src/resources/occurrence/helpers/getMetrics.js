@@ -67,7 +67,32 @@ const getStats = (field) =>
       .then(data => data.aggregations.stats);
   }
 
+/**
+* Convinent wrapper to generate the stat resolvers.
+* Given a string (field name) then generate a query and map the result
+* @param {String} field 
+*/
+const getCardinality = (field) =>
+  (parent, { precision_threshold = 10000 }, { dataSources }) => {
+    // generate the occurrence search facet query, by inherting from the parent query, and map limit/offset to facet equivalents
+    const query = {
+      predicate: parent._predicate,
+      size: 0,
+      metrics: {
+        cardinality: {
+          type: 'cardinality',
+          key: field,
+          precision_threshold: precision_threshold
+        }
+      }
+    };
+    // query the API, and throw away anything but the facet counts
+    return dataSources.occurrenceAPI.searchOccurrences({ query })
+      .then(data => data.aggregations.cardinality.value);
+  }
+
 module.exports = {
   getFacet,
-  getStats
+  getStats,
+  getCardinality
 }
