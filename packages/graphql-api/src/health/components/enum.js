@@ -137,4 +137,5 @@ module.exports = {
   getEnumStatus,
   loadEnums,
   schemaIsValid,
+  getEnumData
 };

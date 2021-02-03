@@ -1,4 +1,4 @@
-module.exports = [
+/* module.exports = [
   {
     "id": "ZERO_COORDINATE",
     "severity": "WARNING",
@@ -789,4 +789,8 @@ module.exports = [
       "http://rs.tdwg.org/dwc/terms/institutionID"
     ]
   }
-]
+] */
+
+const {getPatchedData } = require("./patchInterpretationRemark");
+const patchedData = getPatchedData(require('./interpretationRemark.json'));
+module.exports = patchedData;
