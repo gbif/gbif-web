@@ -200,6 +200,7 @@ function reduce(item) {
   const normalized = {
     basisOfRecord:                      source.basisOfRecord,
     catalogNumber:                      source.catalogNumber,
+    isInCluster:                        source.isClustered,
     collectionCode:                     source.collectionCode,
     continent:                          source.continent,
     coordinatePrecision:                source.coordinatePrecision,

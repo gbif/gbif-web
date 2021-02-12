@@ -263,6 +263,8 @@ const typeDef = gql`
     datasetTitle: String
     publisherTitle: String
 
+    isInCluster: Boolean
+
     # useful additions
     """
     Currently the primary image is considered the first image retruned from the REST API

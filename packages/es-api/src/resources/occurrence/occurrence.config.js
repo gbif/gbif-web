@@ -25,6 +25,10 @@ const config =
       "field": "catalogNumber.keyword",
       "suggestField": "catalogNumber.suggest"
     },
+    "isInCluster": {
+      "type": "boolean",
+      "field": "isClustered"
+    },
     "collectionCode": {
       "type": "keyword",
       "field": "collectionCode.keyword",
