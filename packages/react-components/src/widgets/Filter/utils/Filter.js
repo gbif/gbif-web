@@ -52,6 +52,7 @@ function Filter({ children, title, aboutText, labelledById, hasHelpTexts, suppor
           {!aboutVisible &&
             <>
               {children({
+                formId,
                 summaryProps,
                 footerProps,
                 helpVisible,
