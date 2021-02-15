@@ -141,5 +141,9 @@ export const commonLabels = {
     template: ({ id, api }) => `${api.v1.endpoint}/geocode/gadm/${id}`,
     transform: result => ({ title: result.name })
   },
+  isInCluster: {
+    type: 'TRANSLATION',
+    template: id => `enums.isInCluster.${id}`
+  },
   // -- Add labels above this line (required by plopfile.js) --
 }

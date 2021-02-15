@@ -12,7 +12,7 @@ import protocol from './enums/protocol.json';
 import establishmentMeans from './enums/establishmentMeans.json';
 import occurrenceStatus from './enums/occurrenceStatus.json';
 import role from './enums/role.json';
-
+import isInCluster from './enums/isInCluster.json';
 // -- Add imports above this line (required by plopfile.js) --
 
 export const en = {
@@ -264,6 +264,11 @@ export const en = {
       count: '{num, plural, one { Identified by } other {# Identified bys}}',
       description: 'This filter is an example where one can search using wildcards. ?: matches any single character. *: matches zero or more characters'
     },
+    isInCluster: {
+      name: 'Is in cluster',
+      count: '{num, plural, one { Is in cluster } other {# Is in clusters}}',
+      description: 'Should the record be part of a cluster'
+    },
     // -- Add filter above this line (required by plopfile.js) --
   },
   invalidValue: 'Invalid value',
@@ -351,7 +356,8 @@ export const en = {
     protocol,
     establishmentMeans,
     occurrenceStatus,
-    role
+    role,
+    isInCluster,
     // -- Add enum translations above this line (required by plopfile.js) --
   }
 }

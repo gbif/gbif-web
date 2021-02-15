@@ -58,6 +58,7 @@ export const FilterContent = ({ config, translations, LabelFromID, hide, labelle
           >
             {options.map((concept, index) => {
               return <Option
+                isRadio={config.isRadio}
                 innerRef={index === 0 ? focusRef : null}
                 key={concept.key}
                 helpVisible={helpVisible}
@@ -65,7 +66,13 @@ export const FilterContent = ({ config, translations, LabelFromID, hide, labelle
                 label={<LabelFromID id={concept.key} />}
                 // label={<LabelFromID id={concept.key} />}
                 checked={checkedMap.has(concept.key)}
-                onChange={() => toggle(filterHandle, concept.key, !isNegated)}
+                onChange={() => {
+                  if (config.isRadio) {
+                    setFullField(filterHandle, [concept.key], !isNegated)
+                  } else {
+                    toggle(filterHandle, concept.key, !isNegated)
+                  }
+                }}
               />
             })}
           </form>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input } from '../../components';
+import { Input, Radio } from '../../components';
 import basisofRecord from '../../locales/enums/basisOfRecord.json';
 import mediaTypes from '../../locales/enums/mediaTypes.json';
 import occurrenceIssue from '../../locales/enums/occurrenceIssue.json';
@@ -10,6 +10,7 @@ import continent from '../../locales/enums/continent.json';
 import protocol from '../../locales/enums/protocol.json';
 import establishmentMeans from '../../locales/enums/establishmentMeans.json';
 import occurrenceStatus from '../../locales/enums/occurrenceStatus.json';
+import isInCluster from '../../locales/enums/isInCluster.json';
 // -- Add imports above this line (required by plopfile.js) --
 
 export const commonFilters = {
@@ -716,6 +717,24 @@ export const commonFilters = {
       }
     }
   },
+  isInCluster: {
+      type: 'ENUM',
+      config: {
+        std: {
+          filterHandle: 'isInCluster',
+          id2labelHandle: 'isInCluster',
+          translations: {
+            count: 'filter.isInCluster.count', // translation path to display names with counts. e.g. "3 scientific names"
+            name: 'filter.isInCluster.name',// translation path to a title for the popover and the button
+            description: 'filter.isInCluster.description', // translation path for the filter description
+          }
+        },
+        specific: {
+          options: Object.keys(isInCluster),
+          isRadio: true
+        }
+      }
+    },
   // -- Add filters above this line (required by plopfile.js) --
   q: {
     type: 'CUSTOM_STANDARD',

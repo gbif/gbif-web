@@ -31,6 +31,7 @@ export const FilterContent = ({ config, translations, LabelFromID, hide, labelle
       defaultMessage={translations?.name}
     />}
     hasHelpTexts={config.hasOptionDescriptions}
+    supportsExist={config.supportsExist}
     aboutText={translations.description && <FormattedMessage
       id={translations.description || `filter.${filterHandle}.description`}
       defaultMessage={translations.description}
@@ -40,6 +41,7 @@ export const FilterContent = ({ config, translations, LabelFromID, hide, labelle
     filterName={filterHandle}
     formId={id}
     defaultFilter={initFilter}
+    defaultHelpVisible={config.showOptionHelp}
   >
     {({ filter, toggle, setFullField, checkedMap, formId, summaryProps, footerProps, isExistenceFilter }) => {
       if (isExistenceFilter) {
