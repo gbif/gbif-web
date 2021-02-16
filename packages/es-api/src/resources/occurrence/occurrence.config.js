@@ -443,6 +443,10 @@ const config =
       "type": "keyword",
       "field": "publishingOrganizationKey"
     },
+    "hostingOrganizationKey": {
+      "type": "keyword",
+      "field": "hostingOrganizationKey"
+    },
     "recordNumber": {
       "type": "keyword",
       "field": "recordNumber.keyword",
