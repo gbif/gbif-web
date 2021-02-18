@@ -20,6 +20,9 @@ const filterConf = {
     return filter;
   },
   fields: {
+    q: {
+      defaultType: 'fuzzy'
+    },
     coordinateUncertainty: {
       defaultKey: 'coordinateUncertaintyInMeters'
     },
