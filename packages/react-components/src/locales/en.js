@@ -86,7 +86,7 @@ export const en = {
       description: 'Country or area that published the data'
     },
     q: {
-      name: 'Similar text',
+      name: 'Keyword search',
       count: '{num, plural, one {text string} other {# text search strings}}',
       description: 'Search for text similar to the entered across text fields. For structured search on say species names you should use the "Scientific name" filter'
     },
