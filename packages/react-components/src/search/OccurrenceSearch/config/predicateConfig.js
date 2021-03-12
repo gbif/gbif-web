@@ -27,7 +27,7 @@ const filterConf = {
       defaultKey: 'coordinateUncertaintyInMeters'
     },
     publisherKey: {
-      defaultKey: 'publishingOrganizationKey'
+      defaultKey: 'publishingOrgKey'
     },
     publishingCountryCode: {
       defaultKey: 'publishingCountry'

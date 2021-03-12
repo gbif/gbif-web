@@ -149,7 +149,7 @@ const typeDef = gql`
     endorsingNodeKey(size: Int): [OccurrenceFacetResult_node]
     installationKey(size: Int): [OccurrenceFacetResult_installation]
     networkKey(size: Int): [OccurrenceFacetResult_network]
-    publishingOrganizationKey(size: Int): [OccurrenceFacetResult_organization]
+    publishingOrgKey(size: Int): [OccurrenceFacetResult_organization]
 
     gbifClassification_taxonID(size: Int): [OccurrenceFacetResult_string]
     collectionKey(size: Int): [OccurrenceFacetResult_collection]
