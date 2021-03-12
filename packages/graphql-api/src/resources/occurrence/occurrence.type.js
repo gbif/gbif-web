@@ -157,7 +157,7 @@ const typeDef = gql`
     locationRemarks: String
     lowestBiostratigraphicZone: String
     materialSampleID: String
-    media: [String]
+    media: [MultimediaItem]
     mediator: String
     medium: String
     member: String
