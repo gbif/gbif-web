@@ -29,8 +29,8 @@ export const checkbox = props => css`
       top: 50%;
       left: 22%;
       display: table;
-      width: 5.71428571px;
-      height: 9.14285714px;
+      width: 40%;
+      height: 60%;
       border: 2px solid #fff;
       border-top: 0;
       border-left: 0;
