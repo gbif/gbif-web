@@ -1,5 +1,5 @@
-/** @jsxImportSource @emotion/core */
-import { css, jsx } from '@emotion/core';
+
+import { css, jsx } from '@emotion/react';
 import React, { useContext } from "react";
 import { Row, Col, Button, Menu } from '../../../components';
 import { MdMoreVert } from "react-icons/md";

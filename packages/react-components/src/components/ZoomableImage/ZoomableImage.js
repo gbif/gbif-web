@@ -1,6 +1,6 @@
 /* global Image:readonly, document:readonly */
-/** @jsxImportSource @emotion/core */
-import { jsx } from '@emotion/core';
+
+import { jsx } from '@emotion/react';
 import ThemeContext from '../../style/themes/ThemeContext';
 import React, { useContext, useRef, useState, useEffect, useCallback } from 'react';
 import { MdFullscreen, MdFullscreenExit } from 'react-icons/md';

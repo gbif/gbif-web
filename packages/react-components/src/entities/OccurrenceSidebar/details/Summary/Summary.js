@@ -1,5 +1,5 @@
-/** @jsxImportSource @emotion/core */
-import { jsx } from '@emotion/core';
+
+import { jsx } from '@emotion/react';
 import ThemeContext from '../../../../style/themes/ThemeContext';
 import React, { useContext, useState } from 'react';
 import intersection from 'lodash/intersection';

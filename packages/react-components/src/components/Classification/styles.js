@@ -1,4 +1,4 @@
-// import { css } from '@emotion/core';
+// import { css } from '@emotion/react';
 import { classification as style } from '../../style/shared';
 
 export const classification = style;

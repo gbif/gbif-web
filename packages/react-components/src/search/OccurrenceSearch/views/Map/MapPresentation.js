@@ -1,5 +1,5 @@
-/** @jsxImportSource @emotion/core */
-import { jsx } from '@emotion/core';
+
+import { jsx } from '@emotion/react';
 import React, { useContext, useState, useEffect, useCallback } from "react";
 import { DetailsDrawer } from '../../../../components';
 import { OccurrenceSidebar } from '../../../../entities';

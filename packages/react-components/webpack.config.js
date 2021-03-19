@@ -21,7 +21,8 @@ module.exports = {
         use: {
           loader: "babel-loader",
           options: {
-            plugins: ['transform-react-remove-prop-types', '@babel/plugin-transform-runtime']
+            plugins: ['transform-react-remove-prop-types', '@babel/plugin-transform-runtime'],
+            presets: ["@babel/preset-env", "@babel/preset-react", "@emotion/babel-preset-css-prop"]
           }
         }
       }

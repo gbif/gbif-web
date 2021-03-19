@@ -28,7 +28,8 @@
   "license": "ISC",
   "dependencies": {
     "@babel/runtime": "^7.13.10",
-    "@emotion/core": "^11.0.0",
+    "@emotion/babel-preset-css-prop": "^11.2.0",
+    "@emotion/react": "^11.1.5",
     "autolinker": "^3.14.3",
     "axios": "^0.21.1",
     "doi-regex": "^0.1.10",

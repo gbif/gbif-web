@@ -1,4 +1,4 @@
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import { styledScrollBars } from '../../style/shared';
 
 export const wrapper = ({theme, ...props}) => css`

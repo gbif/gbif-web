@@ -1,4 +1,4 @@
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import camelCase from 'lodash/camelCase';
 // import { focusStyle } from '../../style/shared';
 

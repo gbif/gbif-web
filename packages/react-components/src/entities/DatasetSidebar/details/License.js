@@ -1,7 +1,7 @@
 
 
-/** @jsxImportSource @emotion/core */
-import { jsx } from "@emotion/core";
+
+import { jsx } from '@emotion/react';
 import React from "react";
 import { FormattedMessage } from "react-intl";
 import urlRegex from 'url-regex';

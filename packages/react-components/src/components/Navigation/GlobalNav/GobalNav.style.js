@@ -1,4 +1,4 @@
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 import { srOnly } from '../../../style/shared';
 
 export const test = css``;

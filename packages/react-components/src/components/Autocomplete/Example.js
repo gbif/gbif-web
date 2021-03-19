@@ -1,5 +1,5 @@
-/** @jsxImportSource @emotion/core */
-import { css, jsx } from '@emotion/core';
+
+import { css, jsx } from '@emotion/react';
 import React from "react";
 import { Autocomplete } from './Autocomplete';
 import axios from 'axios';

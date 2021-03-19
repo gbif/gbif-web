@@ -1,5 +1,5 @@
-/** @jsxImportSource @emotion/core */
-import { jsx } from '@emotion/core';
+
+import { jsx } from '@emotion/react';
 import React, { useContext, useState } from "react";
 import PropTypes from 'prop-types';
 import { TriggerButton } from '../utils/TriggerButton';

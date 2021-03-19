@@ -1,5 +1,5 @@
-/** @jsxImportSource @emotion/core */
-import { jsx } from '@emotion/core';
+
+import { jsx } from '@emotion/react';
 import ThemeContext from '../../style/themes/ThemeContext';
 import React, { useContext, useEffect, useState, useCallback } from 'react';
 import { MdInfo, MdClose, MdChevronLeft, MdChevronRight } from 'react-icons/md'

@@ -1,4 +1,4 @@
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import { focusStyle, noUserSelect } from '../../style/shared';
 
 export const arrowDown = ({size=5, color='#88888855', ...props}) => css`

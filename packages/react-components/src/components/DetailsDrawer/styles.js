@@ -1,4 +1,4 @@
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import { tooltip } from '../../style/shared';
 
 export const root = ({ ...props }) => css`

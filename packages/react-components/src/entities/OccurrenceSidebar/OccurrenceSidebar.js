@@ -1,5 +1,5 @@
-/** @jsxImportSource @emotion/core */
-import { jsx } from '@emotion/core';
+
+import { jsx } from '@emotion/react';
 import React, { useContext, useState, useEffect } from 'react';
 import { MdInfo, MdInsertPhoto } from 'react-icons/md'
 import ThemeContext from '../../style/themes/ThemeContext';

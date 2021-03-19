@@ -1,8 +1,6 @@
-/** @jsxImportSource @emotion/core */
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import React, { useContext } from 'react';
-import styled from '@emotion/styled';
 import { styledScrollBars } from '../../../style/shared';
 
 // to use theme do e.g.: color: ${props => props.theme.primary};
@@ -54,7 +52,14 @@ export function FilterBody(props) {
   `} />
 };
 
-export const FilterBodyDescription = styled(FilterBody)`
-  padding-top: 20px;
-  padding-bottom: 20px;
-`;
+export function FilterBodyDescription(props) {
+  return <FilterBody {...props} css={css`
+    padding-top: 20px;
+    padding-bottom: 20px;
+  `} />
+};
+
+// export const FilterBodyDescription = styled(FilterBody)`
+//   padding-top: 20px;
+//   padding-bottom: 20px;
+// `;

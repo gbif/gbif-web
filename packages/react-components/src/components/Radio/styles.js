@@ -1,4 +1,4 @@
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import { transparentInputOverlay } from '../../style/shared';
 
 export const radio = props => css`

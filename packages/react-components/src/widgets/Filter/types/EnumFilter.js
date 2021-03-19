@@ -1,5 +1,5 @@
-/** @jsxImportSource @emotion/core */
-import { jsx } from '@emotion/core';
+
+import { jsx } from '@emotion/react';
 import get from 'lodash/get';
 import React, { useState } from "react";
 import PropTypes from 'prop-types';

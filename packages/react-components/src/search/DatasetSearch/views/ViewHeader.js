@@ -1,5 +1,5 @@
-/** @jsxImportSource @emotion/core */
-import { css, jsx } from '@emotion/core';
+
+import { css, jsx } from '@emotion/react';
 import React, { useContext } from 'react';
 import { FormattedMessage } from 'react-intl';
 import ThemeContext from '../../../style/themes/ThemeContext';

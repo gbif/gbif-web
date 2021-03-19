@@ -1,5 +1,5 @@
-/** @jsxImportSource @emotion/core */
-import { jsx, css } from '@emotion/core';
+
+import { jsx, css } from '@emotion/react';
 import React, { useEffect, useContext, useState, useCallback } from "react";
 import { MdChevronRight } from 'react-icons/md';
 import { Image, StripeLoader, Button, Row, Col } from '../../../../components';

@@ -1,5 +1,5 @@
-/** @jsxImportSource @emotion/core */
-import { jsx } from '@emotion/core';
+
+import { jsx } from '@emotion/react';
 import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { MdHelp } from "react-icons/md";
 import { FormattedNumber } from 'react-intl';

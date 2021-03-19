@@ -1,5 +1,5 @@
-/** @jsxImportSource @emotion/core */
-import { jsx } from '@emotion/core';
+
+import { jsx } from '@emotion/react';
 import ThemeContext from '../../style/themes/ThemeContext';
 import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';

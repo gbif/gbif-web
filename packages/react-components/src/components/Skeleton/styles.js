@@ -1,4 +1,4 @@
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import { skeletonLoading } from '../../style/shared';
 
 export const skeleton = ({width}) => css`
