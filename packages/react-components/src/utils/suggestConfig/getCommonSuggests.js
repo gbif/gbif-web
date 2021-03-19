@@ -1,5 +1,5 @@
 import React from 'react';
-import matchSorter from 'match-sorter'
+import { matchSorter } from 'match-sorter';
 import country from '../../locales/enums/countryCode.json';
 import { Classification } from '../../components';
 
