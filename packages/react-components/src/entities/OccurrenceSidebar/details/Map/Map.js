@@ -1,4 +1,3 @@
-
 import { jsx } from '@emotion/react';
 import ThemeContext from "../../../../style/themes/ThemeContext";
 import { FormattedMessage } from "react-intl";

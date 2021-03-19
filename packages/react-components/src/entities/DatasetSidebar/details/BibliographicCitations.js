@@ -1,6 +1,5 @@
-
-import { jsx } from '@emotion/react';
 import React from "react";
+import { jsx } from '@emotion/react';
 import { Properties, Accordion } from "../../../components";
 import { HyperText } from "../../../components";
 

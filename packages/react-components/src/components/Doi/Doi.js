@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { jsx } from '@emotion/react';
 import { doi } from './styles';
 

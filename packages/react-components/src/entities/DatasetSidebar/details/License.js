@@ -1,6 +1,3 @@
-
-
-
 import { jsx } from '@emotion/react';
 import React from "react";
 import { FormattedMessage } from "react-intl";

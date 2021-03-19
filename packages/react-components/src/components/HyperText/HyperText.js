@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { jsx } from '@emotion/react';
 import Autolinker from 'autolinker';
 import DOMPurify from 'dompurify';
