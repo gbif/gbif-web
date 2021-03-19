@@ -1,6 +1,5 @@
-import React from 'react';
 /** @jsxImportSource @emotion/core */
-import { jsx } from "@emotion/core";
+import React from 'react';
 import Autolinker from 'autolinker';
 import DOMPurify from 'dompurify';
 import doiRegex from 'doi-regex';

@@ -1,6 +1,5 @@
-import React from 'react';
 /** @jsxImportSource @emotion/core */
-import { jsx } from "@emotion/core";
+import React from 'react';
 import { orcid } from './styles';
 
 export default ({href}) => <a dir="ltr" href={href} css={orcid()}>

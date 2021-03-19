@@ -1,7 +1,5 @@
 /** @jsxImportSource @emotion/core */
-import { jsx } from "@emotion/core";
 import React, {useState} from "react";
-
 
 export function Logo({
   url,

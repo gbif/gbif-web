@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/core */
-import { jsx } from "@emotion/core";
 import React from "react";
 import {
   Properties,
