@@ -1,4 +1,4 @@
-/** @jsx jsx */
+/** @jsxImportSource @emotion/core */
 import { jsx } from '@emotion/core';
 import React, { useState, useContext, useEffect, useCallback } from "react";
 import { nanoid } from 'nanoid';

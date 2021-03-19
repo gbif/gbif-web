@@ -1,4 +1,4 @@
-/** @jsx jsx */
+/** @jsxImportSource @emotion/core */
 import { jsx, css } from '@emotion/core';
 import React, { useEffect, useContext, useState, useCallback } from "react";
 import { MdChevronRight } from 'react-icons/md';

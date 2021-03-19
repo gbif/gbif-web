@@ -1,4 +1,4 @@
-/** @jsx jsx */
+/** @jsxImportSource @emotion/core */
 import { jsx } from '@emotion/core';
 import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { useDialogState } from "reakit/Dialog";

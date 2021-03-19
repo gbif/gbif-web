@@ -1,9 +1,9 @@
 import React, { useEffect, useContext, useState, useCallback } from "react";
-import { FilterContext } from '../../../..//widgets/Filter/state';
+import { FilterContext } from '../../../../widgets/Filter/state';
 import DatasetContext from '../../config/DatasetContext';
 import { useQuery } from '../../../../dataManagement/api';
 import { filter2v1 } from '../../../../dataManagement/filterAdapter';
-import { ListPresentation } from './ListPresentation';
+import { TablePresentation } from './TablePresentation';
 
 const DATASET_LIST = `
 query list($publishingOrg: [ID], $hostingOrg: [ID], $publishingCountry: [Country]){

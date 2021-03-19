@@ -1,4 +1,4 @@
-/** @jsx jsx */
+/** @jsxImportSource @emotion/core */
 import { jsx } from '@emotion/core';
 import React, { useContext, useState, useEffect, useCallback } from "react";
 import { DetailsDrawer } from '../../../../components';

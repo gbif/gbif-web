@@ -1,4 +1,4 @@
-/** @jsx jsx */
+/** @jsxImportSource @emotion/core */
 // intersting warning about the standard story about aria tabs https://simplyaccessible.com/article/danger-aria-tabs/
 import { jsx } from '@emotion/core';
 import ThemeContext from '../../style/themes/ThemeContext';

@@ -1,5 +1,5 @@
 // this comment tells babel to convert jsx to calls to a function called jsx instead of React.createElement
-/** @jsx jsx */
+/** @jsxImportSource @emotion/core */
 import { jsx } from '@emotion/core';
 import React, { useState, useContext } from 'react';
 import { useIntl, FormattedNumber } from 'react-intl';

@@ -1,5 +1,5 @@
 // this comment tells babel to convert jsx to calls to a function called jsx instead of React.createElement
-/** @jsx jsx */
+/** @jsxImportSource @emotion/core */
 import { jsx } from '@emotion/core';
 import React, { useState, useContext } from 'react';
 import { useIntl, FormattedNumber } from 'react-intl';
@@ -14,9 +14,6 @@ import { getCommonSuggests, suggestStyle } from '../../utils/suggestConfig/getCo
 import { commonFilters, filterBuilder } from '../../utils/filterBuilder';
 import predicateConfig from './config/predicateConfig';
 import ThemeContext from '../../style/themes/ThemeContext';
-// import history from './history';
-// import qs from 'querystringify';
-
 
 function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, customConfig }, context) {
   const { labels = {}, getSuggests = () => ({}), filters: customFilters = {}, adapters = {} } = customConfig;
@@ -33,14 +30,14 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
     suggestConfigMap,
     filters,
     defaultVisibleFilters: ['publisherKey', 'hostKey', 'publishingCountryCode'],
-    rootPredicate: { type: 'in', key: 'taxonKey', values: [4, 5, 7] },
+    rootPredicate: {  },
     predicateConfig
   }
 }
 
 function DatasetSearch({ config: customConfig = {}, ...props }) {
   const theme = useContext(ThemeContext);
-  const [filter, setFilter] = useState({ must: { taxonKey: [2609958] } });
+  const [filter, setFilter] = useState();
   const apiContext = useContext(ApiContext);
   const { formatMessage } = useIntl();
   const [config] = useState(() => {

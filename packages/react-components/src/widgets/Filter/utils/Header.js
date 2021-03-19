@@ -1,4 +1,4 @@
-/** @jsx jsx */
+/** @jsxImportSource @emotion/core */
 import { css, jsx } from '@emotion/core';
 import React, { useContext } from "react";
 import { Row, Col, Button, Menu } from '../../../components';

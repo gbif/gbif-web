@@ -1,4 +1,4 @@
-/** @jsx jsx */
+/** @jsxImportSource @emotion/core */
 import { jsx } from '@emotion/core';
 import React, { useState, useContext } from 'react';
 import ThemeContext from '../../style/themes/ThemeContext';
@@ -7,7 +7,7 @@ import { withFilter } from '../../widgets/Filter/state';
 // import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { cssLayout, cssNavBar, cssViewArea, cssFilter } from '../Layout.styles';
 import { Tabs } from '../../components'
-import List from './views/List';
+import Table from './views/Table';
 import { FilterBar } from '../FilterBar';
 
 const { TabList, Tab, TabPanel } = Tabs;
@@ -31,7 +31,7 @@ const Layout = ({
         </div>
       </div>
       <TabPanel lazy tabId="list" className={`${prefix}-${elementName}-views`} css={cssViewArea({ theme })}>
-        <List />
+        <Table />
       </TabPanel>
     </Tabs>
   </div>

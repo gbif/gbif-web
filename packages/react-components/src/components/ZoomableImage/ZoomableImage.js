@@ -1,5 +1,5 @@
 /* global Image:readonly, document:readonly */
-/** @jsx jsx */
+/** @jsxImportSource @emotion/core */
 import { jsx } from '@emotion/core';
 import ThemeContext from '../../style/themes/ThemeContext';
 import React, { useContext, useRef, useState, useEffect, useCallback } from 'react';

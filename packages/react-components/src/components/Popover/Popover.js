@@ -1,7 +1,7 @@
 // For now we use Reakit as the functional components that handles focus and aria attributes, but https://reacttraining.com/reach-ui/ could also be an option. 
 // Reakit seems nicer, but is in Beta and have poor support for RTL. Reach on the other hand seem to skimp on ARIA despite it being their primary focus. At least the implementations are not clearly inline with recommendations. But in general A11y seems an area with little true/false but mostly just opinions. Surprisingly so.
 
-/** @jsx jsx */
+/** @jsxImportSource @emotion/core */
 import { css, jsx } from '@emotion/core';
 import ThemeContext from '../../style/themes/ThemeContext';
 import React, { useContext } from 'react';
