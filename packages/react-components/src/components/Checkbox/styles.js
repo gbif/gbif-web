@@ -27,7 +27,7 @@ export const checkbox = props => css`
     &:after {
       position: absolute;
       top: 50%;
-      left: 22%;
+      left: 30%;
       display: table;
       width: 40%;
       height: 60%;
