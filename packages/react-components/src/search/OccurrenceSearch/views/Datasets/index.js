@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState, useCallback } from "react";
 import { FilterContext } from '../../../../widgets/Filter/state';
-import OccurrenceContext from '../../config/OccurrenceContext';
+import OccurrenceContext from '../../../SearchContext';
 import { useQuery } from '../../../../dataManagement/api';
 import { filter2predicate } from '../../../../dataManagement/filterAdapter';
 import { DatasetsPresentation } from './DatasetsPresentation';

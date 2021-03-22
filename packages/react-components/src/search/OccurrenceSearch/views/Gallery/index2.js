@@ -1,8 +1,4 @@
 import React, { Component } from "react";
-import { FilterContext } from '../../../..//widgets/Filter/state';
-import OccurrenceContext from '../../config/OccurrenceContext';
-import { useQuery } from '../../../../dataManagement/api';
-import { filter2predicate } from '../../../../dataManagement/filterAdapter';
 import { GalleryPresentation } from './GalleryPresentation';
 import merge from 'lodash/merge';
 

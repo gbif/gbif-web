@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import ThemeContext from '../../../../style/themes/ThemeContext';
 import get from 'lodash/get';
 import PopoverFilter from '../PopoverFilter';
-import OccurrenceContext from '../../../../search/OccurrenceSearch/config/OccurrenceContext';
+import OccurrenceContext from '../../../../search/SearchContext';
 import { Button } from '../../../../components';
 import { FilterBox } from '../../utils';
 import Suggest from './Suggest';

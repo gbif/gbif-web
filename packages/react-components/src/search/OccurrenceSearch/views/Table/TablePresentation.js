@@ -4,7 +4,7 @@ import { MdFilterList } from "react-icons/md";
 import { FormattedMessage } from 'react-intl';
 import get from 'lodash/get';
 // import { FilterContext } from '../../../../widgets/Filter/state';
-import OccurrenceContext from '../../config/OccurrenceContext';
+import OccurrenceContext from '../../../SearchContext';
 import { Button, Row, Col, DataTable, Th, Td, TBody, DetailsDrawer } from '../../../../components';
 import { OccurrenceSidebar } from '../../../../entities';
 import { useDialogState } from "reakit/Dialog";

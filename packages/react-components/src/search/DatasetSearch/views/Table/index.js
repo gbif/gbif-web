@@ -1,13 +1,13 @@
 import React, { useEffect, useContext, useState, useCallback } from "react";
 import { FilterContext } from '../../../../widgets/Filter/state';
-import DatasetContext from '../../config/DatasetContext';
+import DatasetContext from '../../../SearchContext';
 import { useQuery } from '../../../../dataManagement/api';
 import { filter2v1 } from '../../../../dataManagement/filterAdapter';
 import { TablePresentation } from './TablePresentation';
 
 const DATASET_LIST = `
-query list($publishingOrg: [ID], $hostingOrg: [ID], $publishingCountry: [Country]){
-  datasetSearch(publishingOrg:$publishingOrg, hostingOrg: $hostingOrg, publishingCountry: $publishingCountry) {
+query list($publishingOrg: [ID], $hostingOrg: [ID], $publishingCountry: [Country], $q: String){
+  datasetSearch(publishingOrg:$publishingOrg, hostingOrg: $hostingOrg, publishingCountry: $publishingCountry, q: $q) {
     count
     offset
     limit
@@ -19,7 +19,7 @@ query list($publishingOrg: [ID], $hostingOrg: [ID], $publishingCountry: [Country
 }
 `;
 
-function List() {
+function Table() {
   const [offset, setOffset] = useState(0);
   const limit = 20;
   const currentFilterContext = useContext(FilterContext);
@@ -51,7 +51,7 @@ function List() {
   });
 
   return <>
-    <ListPresentation
+    <TablePresentation
       loading={loading}
       data={data}
       next={next} 
@@ -64,5 +64,5 @@ function List() {
   </>
 }
 
-export default List;
+export default Table;
 

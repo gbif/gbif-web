@@ -1,15 +1,12 @@
 import React, { useState, useContext, useEffect, useCallback } from 'react';
-import { MdFilterList } from "react-icons/md";
-import { FormattedMessage } from 'react-intl';
-import get from 'lodash/get';
 import { FilterContext } from '../../../../widgets/Filter/state';
-import DatasetContext from '../../config/DatasetContext';
-import { Button, Row, Col, DetailsDrawer } from '../../../../components';
+import DatasetContext from '../../../SearchContext';
+import { DetailsDrawer } from '../../../../components';
 import { OccurrenceSidebar } from '../../../../entities';
 import { useDialogState } from "reakit/Dialog";
 import { ViewHeader } from '../ViewHeader';
 
-export const ListPresentation = ({ first, prev, next, size, from, data, total, loading }) => {
+export const TablePresentation = ({ first, prev, next, size, from, data, total, loading }) => {
   const currentFilterContext = useContext(FilterContext);
   const { filters, tableConfig, labelMap } = useContext(DatasetContext);
   const [fixedColumn, setFixed] = useState(true);

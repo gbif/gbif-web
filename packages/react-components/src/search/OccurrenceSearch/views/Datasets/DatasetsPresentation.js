@@ -5,7 +5,7 @@ import { MdHelp } from "react-icons/md";
 import { FormattedNumber } from 'react-intl';
 import get from 'lodash/get';
 import { FilterContext } from '../../../../widgets/Filter/state';
-import OccurrenceContext from '../../config/OccurrenceContext';
+import OccurrenceContext from '../../../SearchContext';
 import { Progress, Row, Col, DetailsDrawer } from '../../../../components';
 import { DatasetSidebar } from '../../../../entities';
 import { useDialogState } from "reakit/Dialog";

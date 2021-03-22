@@ -10,6 +10,9 @@ const filterConf = {
     },
     publishingCountryCode: {
       defaultKey: 'publishingCountry'
+    },
+    q: {
+      singleValue: true
     }
   }
 }

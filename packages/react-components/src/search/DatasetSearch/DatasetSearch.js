@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import Layout from './Layout';
 import { FilterState } from "../../widgets/Filter/state";
 import { Root } from "../../components";
-import DatasetContext from './config/DatasetContext';
+import DatasetContext from '../SearchContext';
 import { ApiContext } from '../../dataManagement/api';
 import { commonLabels, config2labels } from '../../utils/labelMaker';
 import { getCommonSuggests, suggestStyle } from '../../utils/suggestConfig/getCommonSuggests';
