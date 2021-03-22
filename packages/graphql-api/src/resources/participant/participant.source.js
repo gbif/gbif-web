@@ -4,6 +4,7 @@
  */
 // const { ApolloError } = require('apollo-server');
 const { RESTDataSource } = require('apollo-datasource-rest');
+const qs = require('qs');
 const pick = require('lodash/pick');
 const config = require('../../config');
 const { createSignedGetHeader } = require('../../auth/authenticatedGet');
@@ -41,7 +42,7 @@ class ParticipantAPI extends RESTDataSource {
   }
 
   async searchParticipants({ query }) {
-    const response = await this.get('/directory/participant', query);
+    const response = await this.get('/directory/participant', qs.stringify(query, { indices: false }));
     // Sanitize the data before returning it, this data is from an authorized endpoint.
     response.results = response.results.map(p => this.reduceParticipant(p));
     return response;

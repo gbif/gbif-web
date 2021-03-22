@@ -1,5 +1,6 @@
 // const { ApolloError } = require('apollo-server');
 const { RESTDataSource } = require('apollo-datasource-rest');
+const qs = require('qs');
 const config = require('../../config');
 const API_V1 = config.apiv1;
 
@@ -10,7 +11,7 @@ class CollectionAPI extends RESTDataSource {
   }
 
   async searchCollections({ query }) {
-    return this.get('/grscicoll/collection', query);
+    return this.get('/grscicoll/collection', qs.stringify(query, { indices: false }));
   }
 
   async getCollectionByKey({ key }) {

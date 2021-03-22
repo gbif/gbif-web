@@ -1,4 +1,5 @@
 const { RESTDataSource } = require('apollo-datasource-rest');
+const qs = require('qs');
 const config = require('../../config');
 const API_V1 = config.apiv1;
 
@@ -9,7 +10,8 @@ class DatasetAPI extends RESTDataSource {
   }
 
   async searchDatasets({query}) {
-    const response = await this.get('/dataset/search', query);
+    console.log(query);
+    const response = await this.get('/dataset/search', qs.stringify(query, { indices: false }));
     response._query = query;
     return response;
   }
@@ -26,15 +28,15 @@ class DatasetAPI extends RESTDataSource {
   }
 
   async getConstituents({ key, query }) {
-    return this.get(`/dataset/${key}/constituents`, query);
+    return this.get(`/dataset/${key}/constituents`, qs.stringify(query, { indices: false }));
   }
 
   async getNetworks({ key, query }) {
-    return this.get(`/dataset/${key}/networks`, query);
+    return this.get(`/dataset/${key}/networks`, qs.stringify(query, { indices: false }));
   }
 
   async getMetrics({ key, query }) {
-    return this.get(`/dataset/${key}/metrics`, query);
+    return this.get(`/dataset/${key}/metrics`, qs.stringify(query, { indices: false }));
   }
   
 }

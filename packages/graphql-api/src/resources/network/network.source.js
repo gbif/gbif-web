@@ -1,5 +1,6 @@
 // const { ApolloError } = require('apollo-server');
 const { RESTDataSource } = require('apollo-datasource-rest');
+const qs = require('qs');
 const config = require('../../config');
 const API_V1 = config.apiv1;
 
@@ -10,7 +11,7 @@ class NetworkAPI extends RESTDataSource {
   }
 
   async searchNetworks({ query }) {
-    return this.get('/network', query);
+    return this.get('/network', qs.stringify(query, { indices: false }));
   }
 
   async getNetworkByKey({ key }) {
@@ -18,7 +19,7 @@ class NetworkAPI extends RESTDataSource {
   }
 
   async getConstituents({ key, query }) {
-    return this.get(`/network/${key}/constituents`, query);
+    return this.get(`/network/${key}/constituents`, qs.stringify(query, { indices: false }));
   }
 }
 

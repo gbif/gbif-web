@@ -1,5 +1,6 @@
 // const { ApolloError } = require('apollo-server');
 const { RESTDataSource } = require('apollo-datasource-rest');
+const qs = require('qs');
 const config = require('../../config');
 const API_V1 = config.apiv1;
 
@@ -10,7 +11,7 @@ class InstallationAPI extends RESTDataSource {
   }
 
   async searchInstallations({ query }) {
-    return this.get('/installation', query);
+    return this.get('/installation', qs.stringify(query, { indices: false }));
   }
 
   async getInstallationByKey({ key }) {
@@ -18,7 +19,7 @@ class InstallationAPI extends RESTDataSource {
   }
 
   async getDatasets({ key, query }) {
-    return this.get(`/installation/${key}/dataset`, query);
+    return this.get(`/installation/${key}/dataset`, qs.stringify(query, { indices: false }));
   }
 }
 

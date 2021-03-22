@@ -1,5 +1,6 @@
 // const { ApolloError } = require('apollo-server');
 const { RESTDataSource } = require('apollo-datasource-rest');
+const qs = require('qs');
 const config = require('../../config');
 const API_V1 = config.apiv1;
 
@@ -10,7 +11,7 @@ class NodeAPI extends RESTDataSource {
   }
 
   async searchNodes({ query }) {
-    return this.get('/node', query);
+    return this.get('/node', qs.stringify(query, { indices: false }));
   }
 
   async getNodeByKey({ key }) {
@@ -18,19 +19,19 @@ class NodeAPI extends RESTDataSource {
   }
 
   async getEndorsedOrganizations({ key, query }) {
-    return this.get(`/node/${key}/organization`, query);
+    return this.get(`/node/${key}/organization`, qs.stringify(query, { indices: false }));
   }
 
   async getOrganizationsPendingEndorsement({ key, query }) {
-    return this.get(`/node/${key}/pendingEndorsement`, query);
+    return this.get(`/node/${key}/pendingEndorsement`, qs.stringify(query, { indices: false }));
   }
 
   async getDatasets({ key, query }) {
-    return this.get(`/node/${key}/dataset`, query);
+    return this.get(`/node/${key}/dataset`, qs.stringify(query, { indices: false }));
   }
 
   async getInstallations({ key, query }) {
-    return this.get(`/node/${key}/installation`, query);
+    return this.get(`/node/${key}/installation`, qs.stringify(query, { indices: false }));
   }
 }
 

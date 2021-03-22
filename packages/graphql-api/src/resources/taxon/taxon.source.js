@@ -1,5 +1,6 @@
 // const { ApolloError } = require('apollo-server');
 const { RESTDataSource } = require('apollo-datasource-rest');
+const qs = require('qs');
 const scientificName = require('../../util/scientificName');
 const config = require('../../config');
 const API_V1 = config.apiv1;
@@ -12,17 +13,17 @@ class TaxonAPI extends RESTDataSource {
   }
 
   async searchTaxa({ query }) {
-    const response = await this.get('/species/search', query);
+    const response = await this.get('/species/search', qs.stringify(query, { indices: false }));
     response._query = query;
     return response;
   }
 
   async searchBackbone({ query }) {
-    return this.searchTaxa({ query: { ...query, datasetKey: GBIF_BACKBONE_UUID } })
+    return this.searchTaxa({ query: { ...qs.stringify(query, { indices: false }), datasetKey: GBIF_BACKBONE_UUID } })
   }
 
   async getTaxonDetails({ resource, key, query }) {
-    const response = await this.get(`/species/${key}/${resource}`, query);
+    const response = await this.get(`/species/${key}/${resource}`, qs.stringify(query, { indices: false }));
     if (query) response._query = query;
     return response;
   }
@@ -42,7 +43,7 @@ class TaxonAPI extends RESTDataSource {
   }
 
   async getChecklistRoots({ key, query }) {
-    const response = await this.get(`/species/root/${key}`, query);
+    const response = await this.get(`/species/root/${key}`, qs.stringify(query, { indices: false }));
     response._query = query;
     return response;
   }
