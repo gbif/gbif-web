@@ -42,6 +42,10 @@ function getField({ filterName, values, filterConfig }) {
   let serializedValues = mappedValues
     .map(value => serializeValue({value, config, filterName}))
     .filter(v => typeof v !== 'undefined');// remove filters that couldn't be transformed to a predicate
+  
+  if (config.singleValue) {
+    serializedValues = serializedValues[0];
+  }
 
   return {
     name: config?.defaultKey || filterName,
