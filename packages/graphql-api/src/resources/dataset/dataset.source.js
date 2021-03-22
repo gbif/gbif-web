@@ -10,7 +10,6 @@ class DatasetAPI extends RESTDataSource {
   }
 
   async searchDatasets({query}) {
-    console.log(query);
     const response = await this.get('/dataset/search', qs.stringify(query, { indices: false }));
     response._query = query;
     return response;
