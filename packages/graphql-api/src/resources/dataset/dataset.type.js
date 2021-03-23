@@ -22,7 +22,7 @@ const typeDef = gql`
   }
 
   type DatasetSearchResults {
-    results: [Dataset]!
+    results: [DatasetSearchStub]!
     limit: Int!
     offset: Int!
     count: Int!
@@ -37,6 +37,29 @@ const typeDef = gql`
     offset: Int!
     count: Int!
     endOfRecords: Boolean!
+  }
+
+  type DatasetSearchStub {
+    key: ID!
+    decades: [Int]
+    description: String
+    doi: String
+    hostingOrganizationKey: ID
+    hostingOrganizationTitle: String
+    keywords: [String!]
+    license: String
+    logoUrl: URL
+    publishingCountry: Country
+    publishingOrganizationKey: ID!
+    publishingOrganizationTitle: String
+    recordCount: Int
+    title: String
+    type: DatasetType
+    subtype: DatasetSubtype
+
+    dataset: Dataset
+    publishingOrganization: Organization
+    hostingOrganization: Organization
   }
 
   type Dataset {
@@ -63,10 +86,6 @@ const typeDef = gql`
     geographicCoverages: [GeographicCoverage]
     homepage: URL
     hostingOrganizationKey: ID
-    """
-    hostingOrganizationTitle is only available on search results. For individual datasets it is available through the installation
-    """
-    hostingOrganizationTitle: String
     identifiers: [Identifier]
     installationKey: String
     keywordCollections: [KeywordCollection]
@@ -95,6 +114,7 @@ const typeDef = gql`
     temporalCoverages: [JSON]
     title: String
     type: DatasetType
+    subtype: DatasetSubtype
     
     duplicateOfDataset: Dataset
     hostingOrganization: Organization

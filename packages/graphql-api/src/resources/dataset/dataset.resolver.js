@@ -45,6 +45,18 @@ module.exports = {
     dataset: (parent, { key }, { dataSources }) =>
       dataSources.datasetAPI.getDatasetByKey({ key })
   },
+  DatasetSearchStub: {
+    dataset: ({ key }, args, { dataSources }) =>
+      dataSources.datasetAPI.getDatasetByKey({ key }),
+    publishingOrganization: ({ publishingOrganizationKey: key }, args, { dataSources }) => {
+      if (typeof key === 'undefined') return null;
+      return dataSources.organizationAPI.getOrganizationByKey({ key });
+    },
+    hostingOrganization: ({ hostingOrganizationKey: key }, args, { dataSources }) => {
+      if (typeof key === 'undefined') return null;
+      return dataSources.organizationAPI.getOrganizationByKey({ key });
+    },
+  },
   Dataset: {
     logInterfaceUrl: ({ key }) => {
       return `https://logs.gbif.org/app/kibana#/discover?_g=(refreshInterval:(display:Off,pause:!f,value:0),time:(from:now-7d,mode:quick,to:now))&_a=(columns:!(_source),index:AWyLao3iHCKcR6PFXuPR,interval:auto,query:(query_string:(analyze_wildcard:!t,query:'datasetKey:%22${key}%22')),sort:!('@timestamp',desc))`;
