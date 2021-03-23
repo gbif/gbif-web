@@ -10,7 +10,6 @@ class LiteratureAPI extends RESTDataSource {
   }
 
   async searchLiterature({ query }) {
-    console.log(query);
     const str = `/literature/search?${qs.stringify(query, { arrayFormat: 'repeat' })}`;
     const response = await this.get(str);
     response._query = query;
