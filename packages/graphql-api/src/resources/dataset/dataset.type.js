@@ -107,7 +107,6 @@ const typeDef = gql`
     publishingCountry: Country
     publishingOrganizationKey: ID!
     publishingOrganizationTitle: String
-    recordCount: Int
     samplingDescription: SamplingDescription
     tags: [Tag]
     taxonomicCoverages: [TaxonomicCoverage]
