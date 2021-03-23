@@ -60,6 +60,8 @@ const typeDef = gql`
     dataset: Dataset
     publishingOrganization: Organization
     hostingOrganization: Organization
+    occurrenceCount: Int
+    literatureCount: Int
   }
 
   type Dataset {

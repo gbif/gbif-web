@@ -1,4 +1,4 @@
-const {getContributors} =  require('./helpers/contributors')
+const { getContributors } = require('./helpers/contributors')
 /**
  * Convinent wrapper to generate the facet resolvers.
  * Given a string (facet name) then generate a query a map the result
@@ -56,6 +56,22 @@ module.exports = {
       if (typeof key === 'undefined') return null;
       return dataSources.organizationAPI.getOrganizationByKey({ key });
     },
+    occurrenceCount: ({ key }, args, { dataSources }) => {
+      if (typeof key === 'undefined') return null;
+      return dataSources.occurrenceAPI
+        .searchOccurrenceDocuments(
+          { query: { predicate: { type: 'equals', key: 'datasetKey', value: key } } }
+        )
+        .then(response => response.total);
+    },
+    literatureCount: ({ key }, args, { dataSources }) => {
+      if (typeof key === 'undefined') return null;
+      return dataSources.literatureAPI
+        .searchLiterature(
+          { query: {gbifDatasetKey: key} }
+        )
+        .then(response => response.count);
+    },
   },
   Dataset: {
     logInterfaceUrl: ({ key }) => {
@@ -88,7 +104,7 @@ module.exports = {
     constituents: ({ key }, args, { dataSources }) => {
       return dataSources.datasetAPI.getConstituents({ key, query: args });
     },
-    contributors: ({contacts}) => getContributors(contacts),
+    contributors: ({ contacts }) => getContributors(contacts),
     networks: ({ key }, args, { dataSources }) => {
       return dataSources.datasetAPI.getNetworks({ key });
     },
@@ -111,7 +127,7 @@ module.exports = {
     license: getDatasetFacet('license'),
   },
   DatasetOrganizationFacet: {
-    organization: ({name:key}, args, { dataSources }) => {
+    organization: ({ name: key }, args, { dataSources }) => {
       if (typeof key === 'undefined') return null;
       return dataSources.organizationAPI.getOrganizationByKey({ key });
     },
