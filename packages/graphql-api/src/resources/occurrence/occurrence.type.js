@@ -90,7 +90,6 @@ const typeDef = gql`
     format: String
     formation: String
     gadm: JSON
-    gbifClassification: GbifClassification
     genericName: String
     genus: String
     genusKey: ID
@@ -259,6 +258,11 @@ const typeDef = gql`
     vernacularName: String
     waterBody: String
     year: Int
+
+    """
+    Volatile: this is currently an exact mapping of the record in Elastic Search - the format is likely to change over time
+    """
+    gbifClassification: GbifClassification
 
     datasetTitle: String
     publisherTitle: String
