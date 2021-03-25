@@ -29,8 +29,7 @@ export const ModalExample = () => {
       <Popover
         trigger={<Button onClick={() => setVisible(true)}>Open modal</Button>}
         aria-label="Location filter"
-        onBackdrop={action => console.log('close request', action)}
-        onEscape={action => console.log('close request', action)}
+        onClickOutside={action => console.log('close request', action)}
         visible={visible}
       >
         <TaxonFilter hide={() => setVisible(false)}/>
