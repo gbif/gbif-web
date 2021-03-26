@@ -26,6 +26,33 @@ export const input = props => css`
     ${placeholder(props)};
 `;
 
+// export const inputGroup = ({theme}) => css`
+//   display: flex;
+//   flex-wrap: nowrap;
+//   background: ${theme.paperBackground600};
+//   >:first-child {
+//     border-top-left-radius: ${theme.borderRadius}px;
+//     border-bottom-left-radius: ${theme.borderRadius}px;
+//   }
+//   >:last-child {
+//     border-top-right-radius: ${theme.borderRadius}px;
+//     border-bottom-right-radius: ${theme.borderRadius}px;
+//   }
+//   > div, button {
+//     border-radius: 0;
+//     &:not(first-child) {
+//       margin-left: -1px;
+//     }
+//   }
+// `;
+
+// export const inputGroupChild = props => css`
+//   border-radius: 0;
+//   &:not(first-child) {
+//     margin-left: -1px;
+//   }
+// `;
+
 export default {
   input
 }

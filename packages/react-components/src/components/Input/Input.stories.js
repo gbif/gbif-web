@@ -1,4 +1,5 @@
 import React from 'react';
+import DocsWrapper from '../DocsWrapper';
 import { Input } from './Input';
 
 
@@ -7,7 +8,9 @@ export default {
   component: Input,
 };
 
-export const Example = () => <Input placeholder="Search"/>
+export const Example = () => <DocsWrapper>
+  <Input placeholder="Search"/>
+</DocsWrapper>;
 
 Example.story = {
   name: 'Input',
