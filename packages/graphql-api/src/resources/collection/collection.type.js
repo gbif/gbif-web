@@ -10,8 +10,11 @@ const typeDef = gql`
       contact: ID,
       code: String,
       name: String,
+      fuzzyName: String,
+      city: String,
+      country: Country,
       alternativeCode: String
-      
+      active: Boolean
       ): CollectionSearchResults
     collection(key: String!): Collection
   }
