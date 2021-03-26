@@ -11,7 +11,7 @@ export default {
 };
 
 export const Suggest = () => <>
-  <Example />
+  <Example style={{ width: 350 }}/>
   {/* <StyledProse source={readme}></StyledProse> */}
 </>;
 

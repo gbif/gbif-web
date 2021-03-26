@@ -91,7 +91,7 @@ export class Example extends React.Component {
     return (
       <>
         <Autocomplete
-          style={{ width: 350 }}
+          {...this.props}
           suggestions={suggestions}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}
@@ -101,8 +101,7 @@ export class Example extends React.Component {
           onSuggestionSelected={this.onSuggestionSelected}
           isLoading={loading}
         />
-        <pre>{item && JSON.stringify(item, null, 2)}</pre>
-        test
+        {/* <pre>{item && JSON.stringify(item, null, 2)}</pre> */}
       </>
     );
   }
