@@ -66,6 +66,8 @@ const typeDef = gql`
     collectionSummary: JSON
     alternativeCodes: [AlternativeCode]
     comments: Comment
+
+    occurrenceCount: Int
   }
 
   type AlternativeCode {

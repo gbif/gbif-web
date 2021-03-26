@@ -14,7 +14,15 @@ module.exports = {
   },
   Collection: {
     institution: ({institutionKey: key}, args, { dataSources }) =>
-      dataSources.institutionAPI.getInstitutionByKey({key})
+      dataSources.institutionAPI.getInstitutionByKey({key}),
+    occurrenceCount: ({ key }, args, { dataSources }) => {
+      if (typeof key === 'undefined') return null;
+      return dataSources.occurrenceAPI
+        .searchOccurrenceDocuments(
+          { query: { predicate: { type: 'equals', key: 'collectionKey', value: key } } }
+        )
+        .then(response => response.total);
+    },
     // someField: ({ fieldWithKey: key }, args, { dataSources }) => {
     //   if (typeof key === 'undefined') return null;
     //   dataSources.someAPI.getSomethingByKey({ key })
