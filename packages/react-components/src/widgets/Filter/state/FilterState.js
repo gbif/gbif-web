@@ -24,6 +24,7 @@ class FilterState extends React.Component {
       if (Object.keys(filter).length === 0) filter = undefined;
     }
     this.props.onChange(filter);
+    return filter;
   }
 
   setField = async (field, value, must = true) => {
@@ -40,7 +41,7 @@ class FilterState extends React.Component {
 
   setFullField = async (field, mustValue, mustNotValue) => {
     const filter = this.props.filter ? cloneDeep(this.props.filter) : {};
-    this.setFilter({
+    const result = await this.setFilter({
       ...filter,
       must: {
         ...filter.must,
@@ -51,6 +52,7 @@ class FilterState extends React.Component {
         [field]: mustNotValue
       }
     });
+    return result;
   }
 
   negateField = async (field, isNegated) => {

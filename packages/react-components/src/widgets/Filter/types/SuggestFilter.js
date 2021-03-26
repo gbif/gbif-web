@@ -21,6 +21,7 @@ export const FilterContent = ({ config, translations, labelledById, LabelFromID,
   const [options, setOptions] = useState(initialOptions);
 
   const suggestConfig = config.suggestConfig;
+  const singleSelect = config.singleSelect;
   const Label = config.LabelFromID || LabelFromID;
 
   const aboutText = translations.description && <FormattedMessage
@@ -68,7 +69,14 @@ export const FilterContent = ({ config, translations, labelledById, LabelFromID,
             if (!item) return;
             const allOptions = union(options, [item.key]);
             setOptions(allOptions);
-            toggle(filterHandle, item.key);
+            if (singleSelect) {
+              setOptions([item.key]);
+              setFullField(filterHandle, [item.key], [])
+                .then(responseFilter => onApply({ filter: responseFilter, hide }))
+                .catch(err => console.log(err));
+            } else {
+              toggle(filterHandle, item.key);
+            }
           }}
         />
         {options.length === 0 && config.showAboutAsDefault && typeof aboutText !== 'undefined' && <Prose as={FilterBodyDescription}>

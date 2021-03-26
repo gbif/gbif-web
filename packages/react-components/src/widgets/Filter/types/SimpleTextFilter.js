@@ -17,6 +17,8 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
   const [options, setOptions] = useState(initialOptions);
   const [inputValue, setValue] = useState('');
 
+  const singleSelect = config.singleSelect;
+
   const pattern = config.restrictWildcards ? /^(?![\*\?]).*/g : undefined;
   return <Filter
     labelledById={false}
@@ -61,6 +63,11 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
               if (e.which === keyCodes.ENTER) {
                 if (value === '') {
                   onApply({ filter, hide });
+                } else if (singleSelect) {
+                  setOptions([value]);
+                  setFullField(filterHandle, [value], [])
+                    .then(responseFilter => onApply({ filter: responseFilter, hide }))
+                    .catch(err => console.log(err));
                 } else {
                   setValue('');
                   const allOptions = [...new Set([value, ...options])]
