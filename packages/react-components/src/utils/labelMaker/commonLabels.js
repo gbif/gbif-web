@@ -145,5 +145,22 @@ export const commonLabels = {
     type: 'TRANSLATION',
     template: id => `enums.isInCluster.${id}`
   },
+  datasetType: {
+    type: 'TRANSLATION',
+    template: id => `enums.datasetType.${id}`
+  },
+  datasetSubtype: {
+    type: 'TRANSLATION',
+    template: id => `enums.datasetSubtype.${id}`
+  },
+  institutionKey: {
+    type: 'GQL',
+    query: `query label($id: String!){
+      institution(key: $id) {
+        name
+      }
+    }`,
+    transform: result => ({ title: result.data.institution.name })
+  },
   // -- Add labels above this line (required by plopfile.js) --
 }

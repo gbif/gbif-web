@@ -13,6 +13,12 @@ const filterConf = {
     },
     q: {
       singleValue: true
+    },
+    datasetType: {
+      defaultKey: 'type'
+    },
+    datasetSubtype: {
+      defaultKey: 'subtype'
     }
   }
 }

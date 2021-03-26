@@ -1,26 +1,26 @@
 
 import { jsx } from '@emotion/react';
 import React, { useState, useContext } from 'react';
-import ThemeContext from '../../style/themes/ThemeContext';
+import ThemeContext from '../style/themes/ThemeContext';
 // import PropTypes from 'prop-types';
-import { withFilter } from '../../widgets/Filter/state';
+import { withFilter } from '../widgets/Filter/state';
 // import { FormattedMessage, FormattedNumber } from 'react-intl';
-import { cssLayout, cssNavBar, cssViewArea, cssFilter } from '../Layout.styles';
-import { Tabs } from '../../components'
-import Table from './views/Table';
-import { FilterBar } from '../FilterBar';
+import { cssLayout, cssNavBar, cssViewArea, cssFilter } from './Layout.styles';
+import { Tabs } from '../components'
+import { FilterBar } from './FilterBar';
 
 const { TabList, Tab, TabPanel } = Tabs;
 
 const Layout = ({
   className = '',
   config,
+  Table,
   ...props
 }) => {
   const [activeView, setActiveView] = useState('list');
   const theme = useContext(ThemeContext);
   const prefix = theme.prefix || 'gbif';
-  const elementName = 'datasetSearchLayout';
+  const elementName = 'searchLayout';
   
   return <div className={`${className} ${prefix}-${elementName}`}
     css={cssLayout({ theme })} {...props}>

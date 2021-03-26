@@ -11,6 +11,8 @@ import protocol from '../../locales/enums/protocol.json';
 import establishmentMeans from '../../locales/enums/establishmentMeans.json';
 import occurrenceStatus from '../../locales/enums/occurrenceStatus.json';
 import isInCluster from '../../locales/enums/isInCluster.json';
+import datasetType from '../../locales/enums/datasetType.json';
+import datasetSubtype from '../../locales/enums/datasetSubtype.json';
 // -- Add imports above this line (required by plopfile.js) --
 
 export const commonFilters = {
@@ -735,6 +737,112 @@ export const commonFilters = {
         }
       }
     },
+  datasetType: {
+      type: 'ENUM',
+      config: {
+        std: {
+          filterHandle: 'datasetType',
+          id2labelHandle: 'datasetType',
+          translations: {
+            count: 'filter.datasetType.count', // translation path to display names with counts. e.g. "3 scientific names"
+            name: 'filter.datasetType.name',// translation path to a title for the popover and the button
+            description: 'filter.datasetType.description', // translation path for the filter description
+          }
+        },
+        specific: {
+          options: Object.keys(datasetType),
+        }
+      }
+    },
+  datasetSubtype: {
+      type: 'ENUM',
+      config: {
+        std: {
+          filterHandle: 'datasetSubtype',
+          id2labelHandle: 'datasetSubtype',
+          translations: {
+            count: 'filter.datasetSubtype.count', // translation path to display names with counts. e.g. "3 scientific names"
+            name: 'filter.datasetSubtype.name',// translation path to a title for the popover and the button
+            description: 'filter.datasetSubtype.description', // translation path for the filter description
+          }
+        },
+        specific: {
+          options: Object.keys(datasetSubtype),
+        }
+      }
+    },
+  institutionKey: {
+      type: 'SUGGEST',
+      config: {
+        std: {
+        filterHandle: 'institutionKey',
+        id2labelHandle: 'institutionKey',
+        translations: {
+          count: 'filter.institutionKey.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.institutionKey.name',// translation path to a title for the popover and the button
+          description: 'filter.institutionKey.description', // translation path for the filter description
+        },
+      },
+        specific: {
+          suggestHandle: 'institutionKey',
+          id2labelHandle: 'institutionKey',
+        }
+      }
+    },
+  name: {
+    type: 'SIMPLE_TEXT',
+    config: {
+      std: {
+        filterHandle: 'name',
+        id2labelHandle: 'name',
+        translations: {
+          count: 'filter.name.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.name.name',// translation path to a title for the popover and the button
+          description: 'filter.name.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        placeholder: 'E.g. DNA sequence reads',
+        singleSelect: true
+      }
+    }
+  },
+  city: {
+    type: 'SIMPLE_TEXT',
+    config: {
+      std: {
+        filterHandle: 'city',
+        id2labelHandle: 'city',
+        translations: {
+          count: 'filter.city.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.city.name',// translation path to a title for the popover and the button
+          description: 'filter.city.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        placeholder: 'City',
+        singleSelect: true
+      }
+    }
+  },
+  code: {
+    type: 'SIMPLE_TEXT',
+    config: {
+      std: {
+        filterHandle: 'code',
+        id2labelHandle: 'code',
+        translations: {
+          count: 'filter.code.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.code.name',// translation path to a title for the popover and the button
+          description: 'filter.code.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        placeholder: 'E.g. NHMN',
+        singleSelect: true
+      }
+    }
+  },
   // -- Add filters above this line (required by plopfile.js) --
   q: {
     type: 'CUSTOM_STANDARD',

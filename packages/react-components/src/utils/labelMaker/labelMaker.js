@@ -44,14 +44,13 @@ export default (getData, { isHtmlResponse } = {}) =>
             if (this._mounted) {
               this.setState({ title: result.title, error: false });
             }
-          },
-          () => {
-            if (canceled) return;
-            if (this._mounted) {
-              this.setState({ title: 'unknown', error: true });
-            }
           }
-        );
+        ).catch(() => {
+          if (canceled) return;
+          if (this._mounted) {
+            this.setState({ title: 'unknown', error: true });
+          }
+        });
       } else {
         // the function simply returned a value.
         this.setState({ title: typeof dataResult.title === 'undefined' ? '' : dataResult.title });

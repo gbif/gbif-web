@@ -13,6 +13,8 @@ import establishmentMeans from './enums/establishmentMeans.json';
 import occurrenceStatus from './enums/occurrenceStatus.json';
 import role from './enums/role.json';
 import isInCluster from './enums/isInCluster.json';
+import datasetType from './enums/datasetType.json';
+import datasetSubtype from './enums/datasetSubtype.json';
 // -- Add imports above this line (required by plopfile.js) --
 
 export const en = {
@@ -26,7 +28,9 @@ export const en = {
   nResultsWithCoordinates: '{total, plural, one {# result } other {# results}} with coordinates',
   nResultsWithImages: '{total, plural, one {# result } other {# results}} with images',
   tableHeaders: {
-    features: 'Features'
+    features: 'Features',
+    citations: 'Citations',
+    occurrences: 'Occurrences'
   },
   nullOrNot: {
     isNotNull: 'Must be defined',
@@ -269,6 +273,36 @@ export const en = {
       count: '{num, plural, one { Is in cluster } other {# Is in clusters}}',
       description: 'Should the record be part of a cluster'
     },
+    datasetType: {
+      name: 'Dataset type',
+      count: '{num, plural, one { Dataset type } other {# Dataset types}}',
+      description: 'A short description of the component should be placed here'
+    },
+    datasetSubtype: {
+      name: 'Dataset subtype',
+      count: '{num, plural, one { Dataset subtype } other {# Dataset subtypes}}',
+      description: 'A short description of the component should be placed here'
+    },
+    institutionKey: {
+      name: 'Institution key',
+      count: '{num, plural, one { Institution key } other {# Institution keys}}',
+      description: 'A short description of the component should be placed here'
+    },
+    name: {
+      name: 'Name',
+      count: '{num, plural, one { Name } other {# Names}}',
+      description: 'A short description of the component should be placed here'
+    },
+    city: {
+      name: 'City',
+      count: '{num, plural, one { City } other {# Cities}}',
+      description: 'A short description of the component should be placed here'
+    },
+    code: {
+      name: 'Code',
+      count: '{num, plural, one { Code } other {# Codes}}',
+      description: 'A short description of the component should be placed here'
+    },
     // -- Add filter above this line (required by plopfile.js) --
   },
   invalidValue: 'Invalid value',
@@ -358,6 +392,8 @@ export const en = {
     occurrenceStatus,
     role,
     isInCluster,
+    datasetType,
+    datasetSubtype,
     // -- Add enum translations above this line (required by plopfile.js) --
   }
 }

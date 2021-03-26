@@ -114,14 +114,16 @@ const FilterBar = ({
 
   const visibleFilters = getVisibleFilters(filter, config.defaultVisibleFilters);
   const availableFilters = visibleFilters.map(x => config.filters[x]);
+
   return <div className={`${className} ${prefix}-${elementName}`} css={css`${style(theme)}`} {...props}>
     {availableFilters.map((x, i) => {
       if (!x) return null; // if no widget is defined for this filter, then do not show anything
       return <x.Button key={i} />
     })}
+    {Object.keys(config.filters).length !== config.defaultVisibleFilters.length &&
     <div>
       <MetaFilter />
-    </div>
+    </div>}
   </div>
 }
 

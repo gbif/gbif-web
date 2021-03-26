@@ -1,68 +1,86 @@
-import React, { useEffect, useContext, useState, useCallback } from "react";
-import { FilterContext } from '../../../../widgets/Filter/state';
-import DatasetContext from '../../../SearchContext';
-import { useQuery } from '../../../../dataManagement/api';
-import { filter2v1 } from '../../../../dataManagement/filterAdapter';
-import { TablePresentation } from './TablePresentation';
+import React from "react";
+import StandardSearchTable from '../../../StandardSearchTable';
+import { FormattedNumber } from 'react-intl';
 
 const DATASET_LIST = `
-query list($publishingOrg: [ID], $hostingOrg: [ID], $publishingCountry: [Country], $q: String){
-  datasetSearch(publishingOrg:$publishingOrg, hostingOrg: $hostingOrg, publishingCountry: $publishingCountry, q: $q) {
+query list($publishingOrg: [ID], $hostingOrg: [ID], $publishingCountry: [Country], $q: String, $offset: Int, $limit: Int, $type: [DatasetType], $subtype: [DatasetSubtype]){
+  datasetSearch(publishingOrg:$publishingOrg, hostingOrg: $hostingOrg, publishingCountry: $publishingCountry, q: $q, limit: $limit, offset: $offset, type: $type, subtype: $subtype) {
     count
     offset
     limit
     results {
       key
       title
+      publishingOrganizationTitle
+      publishingOrganizationKey
+      type
+      subtype
+      recordCount
+      occurrenceCount
+      literatureCount
     }
   }
 }
 `;
 
+const defaultTableConfig = {
+  columns: [
+    {
+      trKey: 'title',
+      value: {
+        key: 'title',
+      },
+      width: 'wide'
+    },
+    {
+      trKey: 'filter.publisherKey.name',
+      filterKey: 'publisherKey', // optional
+      value: {
+        key: 'publishingOrganizationKey',
+        formatter: (value, item) => item.publishingOrganizationTitle
+      },
+      width: 'wide'
+    },
+    {
+      trKey: 'filter.datasetType.name',
+      filterKey: 'datasetType',
+      value: {
+        key: 'type',
+        labelHandle: 'datasetType'
+      }
+    },
+    {
+      trKey: 'filter.datasetSubtype.name',
+      filterKey: 'datasetSubtype',
+      value: {
+        key: 'subtype',
+        labelHandle: 'datasetSubtype',
+        hideFalsy: true
+      }
+    },
+    {
+      trKey: 'tableHeaders.citations',
+      value: {
+        key: 'literatureCount',
+        formatter: (value, item) => <FormattedNumber value={value} />,
+        hideFalsy: true,
+        rightAlign: true
+      }
+    },
+    {
+      trKey: 'tableHeaders.occurrences',
+      value: {
+        key: 'occurrenceCount',
+        formatter: (value, item) => <FormattedNumber value={value} />,
+        hideFalsy: true,
+        rightAlign: true
+      }
+    }
+  ]
+};
+
 function Table() {
-  const [offset, setOffset] = useState(0);
-  const limit = 20;
-  const currentFilterContext = useContext(FilterContext);
-  const { rootPredicate, predicateConfig } = useContext(DatasetContext);
-  const { data, error, loading, load } = useQuery(DATASET_LIST, { lazyLoad: true, keepDataWhileLoading: true });
-
-  useEffect(() => {
-    console.log(predicateConfig);
-    console.log(currentFilterContext.filter);
-    const filter = filter2v1(currentFilterContext.filter, predicateConfig);
-    console.log(filter);
-    load({ variables: { ...filter, limit, offset } });
-  }, [currentFilterContext.filterHash, rootPredicate, offset]);
-
-  useEffect(() => {
-    setOffset(0);
-  }, [currentFilterContext.filterHash]);
-
-  const next = useCallback(() => {
-    setOffset(Math.max(0, offset + limit));
-  });
-
-  const prev = useCallback(() => {
-    setOffset(Math.max(0, offset - limit));
-  });
-
-  const first = useCallback(() => {
-    setOffset(0);
-  });
-
-  return <>
-    <TablePresentation
-      loading={loading}
-      data={data}
-      next={next} 
-      prev={prev} 
-      first={first} 
-      size={limit} 
-      from={offset}
-      total={data?.datasetSearch?.count}
-    />
-  </>
+  return <StandardSearchTable graphQuery={DATASET_LIST} resultKey='datasetSearch' defaultTableConfig={defaultTableConfig}/>
 }
 
 export default Table;
-
