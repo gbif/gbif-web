@@ -39,7 +39,7 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
     suggestConfigMap,
     filters: pickBy(pick(filters, defaultAvailableFilters), e => !!e),
     defaultVisibleFilters: ['q', 'publisherKey', 'datasetType'],
-    rootPredicate: {  },
+    rootPredicate: { type: ['CHECKLIST'] },
     predicateConfig
   }
 }
