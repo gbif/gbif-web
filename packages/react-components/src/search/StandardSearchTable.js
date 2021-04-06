@@ -15,7 +15,8 @@ function StandardSearchTable({graphQuery, resultKey, offsetName = 'offset', defa
   const { data, error, loading, load } = useQuery(graphQuery, { lazyLoad: true, keepDataWhileLoading: true });
 
   useEffect(() => {
-    const filter = filter2v1(currentFilterContext.filter, predicateConfig);
+    const filter = { ...filter2v1(currentFilterContext.filter, predicateConfig), ...rootPredicate };
+    
     load({ variables: { ...filter, limit, offset } });
   }, [currentFilterContext.filterHash, rootPredicate, offset]);
 
