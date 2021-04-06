@@ -9,11 +9,11 @@ const filterConf = {
       return {
         must: {
           ...filter.must,
-          notIssues: negativeIssues
+          // notIssues: negativeIssues
         },
         must_not: {
           ...filter.must_not,
-          occurrenceIssue: undefined
+          // occurrenceIssue: undefined
         },
       }
     }
