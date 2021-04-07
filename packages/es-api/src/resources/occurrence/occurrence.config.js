@@ -265,7 +265,7 @@ const config =
       "type": "keyword",
       "field": "institutionKey"
     },
-    "issues": {
+    "issue": {
       "type": "keyword",
       "field": "issues"
     },

@@ -42,7 +42,7 @@ const filterConf = {
       defaultKey: 'identifiedByIds_value'
     },
     occurrenceIssue: {
-      defaultKey: 'issues'
+      defaultKey: 'issue'
     },
     notIssues: {
       serializer: ({values}) => ({
