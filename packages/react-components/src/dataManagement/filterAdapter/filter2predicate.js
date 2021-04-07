@@ -37,11 +37,16 @@ function getPredicates({ filters, filterConfig }) {
 }
 
 function getPredicate({ filterName, values = [], filterConfig }) {
-  // if no values or an empty array is provided, then there it no predicates to create
-  if (values?.length === 0) return;
-
   // get the configuration for this filter if any is provided
   const config = filterConfig.fields[filterName] || {};
+
+  // if a custom serializer is specified then use that
+  if (config.serializer) {
+    return config.serializer({filterName, values, config});
+  }
+
+  // if no values or an empty array is provided, then there it no predicates to create
+  if (Array.isArray(values) && values?.length === 0) return;
 
   // if a mapping function for the values is provided, then apply it
   let mappedValues = typeof config?.transformValue === 'function' ? values.map(config.transformValue) : values;
