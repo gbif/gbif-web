@@ -30,6 +30,7 @@ const typeDef = gql`
     """
     cardinality: OccurrenceCardinality
     _predicate: JSON
+    _downloadPredicate: JSON
     _meta: JSON
   }
 

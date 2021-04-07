@@ -7,6 +7,7 @@ const fieldsWithCardinalitySupport = require('./helpers/fieldsWithCardinalitySup
 const { formattedCoordinates, isOccurrenceSequenced } = require('../../util/utils');
 const groupResolver = require('./helpers/groups/occurrenceGroups');
 const termResolver = require('./helpers/terms/occurrenceTerms');
+const predicate2v1 = require('./helpers/predicate2v1');
 
 // there are many fields that support facets. This function creates the resolvers for all of them
 const facetReducer = (dictionary, facetName) => {
@@ -50,7 +51,10 @@ module.exports = {
   Query: {
     occurrenceSearch: (parent, args) => {
       // dataSources.occurrenceAPI.searchOccurrences({ query: args }),
-      return { _predicate: args.predicate };
+      return { 
+        _predicate: args.predicate,
+        _downloadPredicate: predicate2v1(args.predicate),
+      };
     },
     occurrence: (parent, { key }, { dataSources }) =>
       dataSources.occurrenceAPI.getOccurrenceByKey({ key }),
