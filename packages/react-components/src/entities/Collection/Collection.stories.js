@@ -1,6 +1,6 @@
 import React from 'react';
 // import { text, boolean, select } from '@storybook/addon-knobs';
-import { Collection } from './Collection';
+import { CollectionPresentation as Collection } from './CollectionPresentation';
 
 export default {
   title: 'Entities/Collection page',

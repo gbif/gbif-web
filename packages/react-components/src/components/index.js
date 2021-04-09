@@ -28,4 +28,6 @@ export { Classification } from './Classification/Classification';
 export { Tag, Tags } from './Tag/Tag';
 export { GadmClassification } from './GadmClassification/GadmClassification';
 export { IdentifierBadge } from './IdentifierBadge/IdentifierBadge';
+export { Eyebrow } from './Eyebrow/Eyebrow';
+export { JazzIcon } from './JazzIcon/JazzIcon';
 // -- Add imports above this line (required by plopfile.js) --

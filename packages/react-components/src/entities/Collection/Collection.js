@@ -9,7 +9,7 @@ import { useQuery } from '../../dataManagement/api';
 
 const { TabList, Tab, TabPanel } = Tabs;
 
-export function Collection({
+export function CollectionPresentation({
   id,
   defaultTab = 'about',
   ...props
