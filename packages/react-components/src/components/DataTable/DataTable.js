@@ -85,13 +85,6 @@ class DataTableCore extends Component {
     const totalPages = Math.ceil(total / size);
     return (
       <React.Fragment>
-        {/* <div>
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(x => x * 100).map(x => <div key={x} css={styles.paper({ theme, color: x })} style={{ width: 100, height: 100 }}>
-            <div key={x} css={styles.ink({ theme, color: x })}>
-              {x}
-            </div>
-          </div>)}
-        </div> */}
         <div css={styles.wrapper({ theme })} style={style}>
           <div
             css={styles.occurrenceTable({ theme })}
@@ -104,27 +97,27 @@ class DataTableCore extends Component {
               {children}
             </table>
           </div>
-          <div css={styles.footer({ theme })}>
-            {page > 2 && <Button appearance="text" css={styles.footerItem({ theme })} direction="right" tip="first" onClick={first}>
+          {next && <div css={styles.footer({ theme })}>
+            {first && page > 2 && <Button appearance="text" css={styles.footerItem({ theme })} direction="right" tip="first" onClick={first}>
               <MdFirstPage />
             </Button>}
-            {page > 1 && <Button appearance="text" css={styles.footerItem({ theme })} direction="right" tip="previous" onClick={prev}>
+            {prev && page > 1 && <Button appearance="text" css={styles.footerItem({ theme })} direction="right" tip="previous" onClick={prev}>
               <MdChevronLeft />
             </Button>}
-            <span css={styles.footerText({ theme })}>
+            {total && <span css={styles.footerText({ theme })}>
               <FormattedMessage
                 id='pagination.pageXofY'
                 defaultMessage={'Loading'}
                 values={{ current: <FormattedNumber value={page} />, total: <FormattedNumber value={totalPages} /> }}
               />
-            </span>
-            {page !== totalPages && <Button appearance="text" css={styles.footerItem({ theme })} direction="left" tip="next" onClick={next}>
+            </span>}
+            {next && page !== totalPages && <Button appearance="text" css={styles.footerItem({ theme })} direction="left" tip="next" onClick={next}>
               <MdChevronRight />
             </Button>}
             {/* <Button appearance="text" css={styles.footerItem()} direction="left" tip="options">
               <MdMoreVert />
             </Button> */}
-          </div>
+          </div>}
         </div>
       </React.Fragment>
     );
