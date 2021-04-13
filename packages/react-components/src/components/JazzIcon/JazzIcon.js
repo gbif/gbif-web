@@ -8,11 +8,12 @@ import styles from './styles';
 export function JazzIcon({
   className,
   children, 
+  seed,
   ...props
 }) {
   const theme = useContext(ThemeContext);
   const { classNames } = getClasses(theme.prefix, 'jazzIcon', {/*modifiers goes here*/ }, className);
-  return <div css={styles.jazzIcon({ theme })} {...props} dangerouslySetInnerHTML={{__html: getJazzicon()}}>
+  return <div css={styles.jazzIcon({ theme })} {...props} dangerouslySetInnerHTML={{__html: getJazzicon(seed)}}>
   </div>
 };
 
@@ -24,6 +25,7 @@ JazzIcon.propTypes = {
 function getJazzicon(seed, diameter) {
   diameter = diameter || 100;
   seed = seed || Math.random() * Number.MAX_SAFE_INTEGER;
+  if (typeof seed !== 'number') seed = hash(seed);
 
   let colors = [
     '#01888C', // teal
