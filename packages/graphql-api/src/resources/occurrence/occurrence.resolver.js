@@ -242,6 +242,40 @@ module.exports = {
     },
     occurrences: facetOccurrenceSearch
   },
+  OccurrenceFacetResult_recordedBy: {
+    occurrences: facetOccurrenceSearch,
+    occurrencesIdentifiedBy: (parent) => {
+      const predicate = {
+        type: 'equals',
+        key: 'identifiedBy',
+        value: parent.key
+      };
+      const joinedPredicate = parent._parentPredicate ?
+        {
+          type: 'and',
+          predicates: [parent._parentPredicate, predicate]
+        } :
+        predicate;
+      return { _predicate: joinedPredicate };
+    }
+  },
+  OccurrenceFacetResult_identifiedBy: {
+    occurrences: facetOccurrenceSearch,
+    occurrencesRecordedBy: (parent) => {
+      const predicate = {
+        type: 'equals',
+        key: 'recordedBy',
+        value: parent.key
+      };
+      const joinedPredicate = parent._parentPredicate ?
+        {
+          type: 'and',
+          predicates: [parent._parentPredicate, predicate]
+        } :
+        predicate;
+      return { _predicate: joinedPredicate };
+    }
+  },
   Globe: {
 
   },

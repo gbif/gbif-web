@@ -80,7 +80,6 @@ const typeDef = gql`
     protocol(size: Int): [OccurrenceFacetResult_string]
     publishingCountry(size: Int): [OccurrenceFacetResult_string]
     recordNumber(size: Int): [OccurrenceFacetResult_string]
-    recordedBy(size: Int): [OccurrenceFacetResult_string]
     sampleSizeUnit(size: Int): [OccurrenceFacetResult_string]
     samplingProtocol(size: Int): [OccurrenceFacetResult_string]
     sex(size: Int): [OccurrenceFacetResult_string]
@@ -155,6 +154,8 @@ const typeDef = gql`
     gbifClassification_taxonID(size: Int): [OccurrenceFacetResult_string]
     collectionKey(size: Int): [OccurrenceFacetResult_collection]
     institutionKey(size: Int): [OccurrenceFacetResult_institution]
+    recordedBy(size: Int): [OccurrenceFacetResult_recordedBy]
+    identifiedBy(size: Int): [OccurrenceFacetResult_identifiedBy]
     
     taxonKey(size: Int):                              [OccurrenceFacetResult_taxon]
     gbifClassification_classKey(size: Int):           [OccurrenceFacetResult_taxon]
@@ -251,6 +252,22 @@ const typeDef = gql`
     count: Int!
     collection: Collection!
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
+    _predicate: JSON
+  }
+
+  type OccurrenceFacetResult_recordedBy {
+    key: String!
+    count: Int!
+    occurrences(size: Int, from: Int): OccurrenceSearchResult!
+    occurrencesIdentifiedBy(size: Int, from: Int): OccurrenceSearchResult!
+    _predicate: JSON
+  }
+
+  type OccurrenceFacetResult_identifiedBy {
+    key: String!
+    count: Int!
+    occurrences(size: Int, from: Int): OccurrenceSearchResult!
+    occurrencesRecordedBy(size: Int, from: Int): OccurrenceSearchResult!
     _predicate: JSON
   }
 

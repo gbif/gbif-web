@@ -38,7 +38,8 @@ const getFacet = (field) =>
               key: bucket.key,
               count: bucket.doc_count,
               // create a new predicate that joins the base with the facet. This enables us to dig deeper for multidimensional metrics
-              _predicate: joinedPredicate
+              _predicate: joinedPredicate,
+              _parentPredicate: data.meta.predicate
             };
           });
       });
