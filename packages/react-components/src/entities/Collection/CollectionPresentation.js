@@ -8,6 +8,7 @@ import { Row, Col, Tabs, Eyebrow } from '../../components';
 import OccurrenceSearch from '../../search/OccurrenceSearch/OccurrenceSearch';
 import { iconFeature } from '../../components/IconFeatures/styles';
 import { Description as About } from './about/Description';
+import { People } from './people/People';
 
 import * as css from './styles';
 import { MdGridOn, MdLocationOn, MdPeople, MdInsertDriveFile, MdLabel, MdImage, MdPhotoLibrary, MdStar } from 'react-icons/md';
@@ -16,7 +17,7 @@ const { TabList, Tab, TabPanel } = Tabs;
 
 export function CollectionPresentation({
   id,
-  defaultTab = 'about',
+  defaultTab = 'people',
   ...props
 }) {
   const [activeId, setTab] = useState(defaultTab);
@@ -75,7 +76,7 @@ export function CollectionPresentation({
         </TabPanel>
         <TabPanel tabId='people'>
         <div css={css.proseWrapper({ theme })}>
-            People
+            <People />
           </div>
         </TabPanel>
         <TabPanel tabId='specimens'>

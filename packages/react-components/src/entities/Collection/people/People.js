@@ -3,11 +3,12 @@ import { jsx } from '@emotion/react';
 import React, { useContext, useState } from 'react';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import * as css from './styles';
-import { Row, Col, Properties, Accordion } from "../../../components";
+import { Row, Col, Properties, Accordion, JazzIcon, Button } from "../../../components";
+import { CollectorsPresentation } from './collectors';
 
 const { Term: T, Value: V } = Properties;
 
-export function Description({
+export function People({
   data = {},
   loading,
   error,
@@ -19,47 +20,58 @@ export function Description({
   // if (loading || !occurrence) return <h1>Loading</h1>;
 
 
-  return <div css={css.paper({ theme })} style={{marginTop: 24}}>
-    <Accordion summary="About" defaultOpen={true}>
-      <Properties style={{ fontSize: 13, marginBottom: 12 }} horizontal={true}>
-        {getPlain(collection, 'name')}
-        {getPlain(collection, 'description')}
-        {getPlain(collection, 'Code')}
-        {getPlain(collection, 'alternativeCodes')}
-        {getPlain(collection, 'homePage')}
-        {getPlain(collection, 'active')}
-        {getPlain(collection, 'personalCollection')}
-        {getPlain(collection, 'catalogUrl')}
-        {getPlain(collection, 'accessionStatus')}
-        {getPlain(collection, 'incorporatedCollections')}
-        {getPlain(collection, 'institutionName')}
-        {getPlain(collection, 'institutionCode')}
-      </Properties>
-    </Accordion>
+  return <div css={css.people({theme})}>
+    <nav css={css.nav({theme})}>
+      <ul>
+        <li css={css.navItem({theme, isActive: true})}>Staff</li>
+        <li css={css.navItem({theme})}>Collectors and identifiers</li>
+      </ul>
+    </nav>
+    <div css={css.staffList({ theme })}>
+      <article css={css.person({ theme })}>
+        <div css={css.staffImage({ theme })}>
+          <JazzIcon seed="jfranklin@gmail.com"/>
+        </div>
+        <div css={css.staffDesc({ theme })}>
+          <h4>Jane Franklin</h4>
+          <div css={css.staffPosition({ theme })}>Curator</div>
+          <div>Research area: Magnolia and tropical flowers</div>
+          <div>Associated with <a href="/staff/123">3 collections</a></div>
+        </div>
+        <div css={css.staffContact({ theme })}>
+          <div>
+            <div>jfranklin@gmail.com</div>
+            <div>+45 234876 2347</div>
+          </div>
+          <Button as="a" href="/staff/123">See profile</Button>
+        </div>
+      </article>
+      <article css={css.person({ theme })}>
+        <div css={css.staffImage({ theme })}>
+          <JazzIcon seed="peterd@gmail.com"/>
+        </div>
+        <div css={css.staffDesc({ theme })}>
+          <h4>Peter Desmet</h4>
+          <div css={css.staffPosition({ theme })}>Curator</div>
+          <div>Research area: Magnolia and tropical flowers</div>
+        </div>
+        <div css={css.staffContact({ theme })}>
+          <div>
+            <div>jfranklin@gmail.com</div>
+          </div>
+          <Button as="a" href="/staff/123">See profile</Button>
+        </div>
+      </article>
 
-    <Accordion summary="Content" defaultOpen={true}>
-      <Properties style={{ fontSize: 13, marginBottom: 12 }} horizontal={true}>
-        {getPlain(collection, 'contentTypes')}
-        {getPlain(collection, 'preservationTypes')}
-        {getPlain(collection, 'taxonomicCoverage')}
-        {getPlain(collection, 'geography')}
-        {getPlain(collection, 'incorporatedCollections')}
-        {getPlain(collection, 'importantCollectors')}
-      </Properties>
-    </Accordion>
-
-    <Accordion summary="Contact" defaultOpen={true}>
-      <Properties style={{ fontSize: 13, marginBottom: 12 }} horizontal={true}>
-        {getPlain(collection.address, 'address')}
-        {getPlain(collection.address, 'country')}
-        {getPlain(collection.address, 'postalCode')}
-      </Properties>
-    </Accordion>
+      <div>
+        <CollectorsPresentation />
+      </div>
+    </div>
   </div>
 };
 
 function getPlain(collection, fieldName) {
-  return <><T>{fieldName}</T><V>{ collection[fieldName] ? collection[fieldName] : <span style={{color: '#aaa'}}>Not provided</span>}</V></>
+  return <><T>{fieldName}</T><V>{collection[fieldName] ? collection[fieldName] : <span style={{ color: '#aaa' }}>Not provided</span>}</V></>
 }
 
 const collection = {
