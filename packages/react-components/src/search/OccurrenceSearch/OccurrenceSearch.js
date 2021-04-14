@@ -16,7 +16,10 @@ import predicateConfig from './config/predicateConfig';
 import ThemeContext from '../../style/themes/ThemeContext';
 import { IconFeatures } from '../../components';
 import { useUrlState } from '../../dataManagement/state/useUrlState';
-
+import defaultFilterConfig from './config/filterConf';
+import pick from 'lodash/pick';
+import pickBy from 'lodash/pickBy';
+import without from 'lodash/without';
 
 // import history from './history';
 // import qs from 'querystringify';
@@ -111,11 +114,13 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
   const labelMap = config2labels(mergedLabels, context.client);
   const filters = filterBuilder({ filterWidgetConfig: mergedFilters, labelMap, suggestConfigMap: mergedSuggest, context });
   
+  const whitelistedFilters = without((customConfig.whitelistedFilters || defaultFilterConfig.whitelist), ...(customConfig.blacklistedFilters || []));
+  const highlightedFilters = customConfig.highlightedFilters || defaultFilterConfig.highlighted;
   return {
     labelMap,
     suggestConfigMap,
-    filters,
-    defaultVisibleFilters: customConfig.defaultVisibleFilters || ['q', 'occurrenceStatus', 'taxonKey', 'year', 'occurrenceIssue'],
+    filters: pickBy(pick(filters, whitelistedFilters), e => !!e),
+    defaultVisibleFilters: highlightedFilters,
     // rootPredicate: { type: 'in', key: 'basisOfRecord', values: ['PRESERVED_SPECIMEN', 'FOSSIL_SPECIMEN', 'MATERIAL_SAMPLE', 'LIVING_SPECIMEN'] },
     rootPredicate: customConfig.rootPredicate,//{ type: 'isNotNull', key: 'typeStatus' },
     // rootPredicate: { type: 'in', key: 'taxonKey', values: [4, 5, 7] },
@@ -189,3 +194,14 @@ function OccurrenceSearch({ config: customConfig = {}, ...props }) {
 // };
 
 export default OccurrenceSearch;
+
+
+
+/*
+myCustomFilters: new filters that will add/overwrite defaults
+whitelist: only add these filters (applied after custom)
+
+filters // everything that is known to have support
+whitelistedFilters // those that are available to the user
+highlightedFilters // those filters that are not hidden in more
+*/
