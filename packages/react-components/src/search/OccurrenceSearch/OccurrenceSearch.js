@@ -145,7 +145,7 @@ function OccurrenceSearch({ config: customConfig = {}, ...props }) {
   console.log('filter from occ search', filter); 
   const apiContext = useContext(ApiContext);
   const { formatMessage } = useIntl();
-  const [config] = useState(() => {
+  const [enrichedConfig] = useState(() => {
     return buildConfig({
       labelConfig: commonLabels,
       getSuggestConfig: getCommonSuggests,
@@ -177,9 +177,9 @@ function OccurrenceSearch({ config: customConfig = {}, ...props }) {
   // the API context caries information about endpoints
   return (
     <Root dir={theme.dir}>
-      <OccurrenceContext.Provider value={config}>
+      <OccurrenceContext.Provider value={enrichedConfig}>
         <FilterState filter={filter || {}} onChange={setFilter}>
-          <Layout config={config} {...props}></Layout>
+          <Layout config={enrichedConfig} {...props} tabs={customConfig.occurrenceSearchTabs}></Layout>
         </FilterState>
       </OccurrenceContext.Provider>
     </Root>

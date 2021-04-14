@@ -20,12 +20,20 @@ const { TabList, Tab, TabPanel, TapSeperator, TapSpacer } = Tabs;
 const Layout = ({
   className = '',
   config,
+  tabs = ['TABLE', 'GALLERY', 'MAP'],
   ...props
 }) => {
-  const [activeView, setActiveView] = useUrlState({ param: 'view', defaultValue: 'table' });
+  const [activeView, setActiveView] = useUrlState({ param: 'view', defaultValue: tabs[0] || 'TABLE' });
   const theme = useContext(ThemeContext);
   const prefix = theme.prefix || 'gbif';
   const elementName = 'occurrenceSearchLayout';
+
+  const tabComponents = {
+    TABLE: <Tab tabId="TABLE">Table</Tab>,
+    MAP: <Tab tabId="MAP">Map</Tab>,
+    GALLERY: <Tab tabId="GALLERY">Gallery</Tab>,
+    DATASETS: <Tab tabId="DATASETS">Datasets</Tab>
+  }
 
   return <div className={`${className} ${prefix}-${elementName}`}
     css={cssLayout({ theme })} {...props}>
@@ -35,12 +43,9 @@ const Layout = ({
           <FilterBar config={config}></FilterBar>
         </div>
         <div css={cssViews({ theme })}>
-          <TabList aria-labelledby="My tabs">
-            <Tab tabId="table">Table</Tab>
-            <Tab tabId="map">Map</Tab>
-            <Tab tabId="gallery">Gallery</Tab>
-            <TapSeperator />
-            <Tab tabId="dataset">Datasets</Tab>
+          <TabList aria-labelledby="Views">
+            {tabs.map(tab => tabComponents[tab])}
+            {/* <TapSeperator /> */}
             {/* <Tab tabId="publisher">Publishers</Tab> */}
             {/* <TapSpacer />
             <TapSeperator />
@@ -49,16 +54,16 @@ const Layout = ({
         </div>
       </div>
       {/* <a href={`http://labs.gbif.org:7022/query-example?queryId=${queryId}&variablesId=${variableId}`}>graphql</a> */}
-      <TabPanel lazy tabId="table" className={`${prefix}-${elementName}-views`} css={cssViewArea({ theme })}>
+      <TabPanel lazy tabId="TABLE" className={`${prefix}-${elementName}-views`} css={cssViewArea({ theme })}>
         <Table />
       </TabPanel>
-      <TabPanel lazy tabId="map" className={`${prefix}-${elementName}-views`} css={cssViewArea({ theme })}>
+      <TabPanel lazy tabId="MAP" className={`${prefix}-${elementName}-views`} css={cssViewArea({ theme })}>
         <Map />
       </TabPanel>
-      <TabPanel lazy tabId="gallery" className={`${prefix}-${elementName}-views`} css={cssViewArea({ theme })}>
+      <TabPanel lazy tabId="GALLERY" className={`${prefix}-${elementName}-views`} css={cssViewArea({ theme })}>
         <Gallery />
       </TabPanel>
-      <TabPanel lazy tabId="dataset" className={`${prefix}-${elementName}-views`} css={cssViewArea({ theme })}>
+      <TabPanel lazy tabId="DATASETS" className={`${prefix}-${elementName}-views`} css={cssViewArea({ theme })}>
         <Datasets />
       </TabPanel>
       {/* <div className={`${prefix}-${elementName}-footer`} css={cssFooter({ theme })}>
