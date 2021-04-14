@@ -28,7 +28,9 @@ export const staffList = ({ ...props }) => css`
 `;
 
 export const staffPosition = ({ ...props }) => css`
-margin-bottom: 18px;
+  margin-bottom: 18px;
+  font-size: 85%;
+  color: #888;
 `;
 
 export const staffDesc = ({ ...props }) => css`
@@ -40,8 +42,9 @@ export const staffDesc = ({ ...props }) => css`
 `;
 
 export const staffContact = ({ ...props }) => css`
-  flex: 0 0 auto;
+  flex: 0 0 220px;
   display: flex;
+  text-align: center;
   flex-direction: column;
   >div {
     flex: 1 1 auto;

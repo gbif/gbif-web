@@ -5,20 +5,16 @@ import ThemeContext from '../../../style/themes/ThemeContext';
 import * as css from './styles';
 import { Row, Col, Properties, Accordion, JazzIcon, Button } from "../../../components";
 import { CollectorsPresentation } from './collectors';
+import sortBy from 'lodash/sortBy';
 
 const { Term: T, Value: V } = Properties;
 
 export function People({
-  data = {},
-  loading,
-  error,
+  collection,
   className,
   ...props
 }) {
   const theme = useContext(ThemeContext);
-  const { occurrence } = data;
-  // if (loading || !occurrence) return <h1>Loading</h1>;
-
 
   return <div css={css.people({theme})}>
     <nav css={css.nav({theme})}>
@@ -27,46 +23,36 @@ export function People({
         <li css={css.navItem({theme})}>Collectors and identifiers</li>
       </ul>
     </nav>
-    <div css={css.staffList({ theme })}>
-      <article css={css.person({ theme })}>
-        <div css={css.staffImage({ theme })}>
-          <JazzIcon seed="jfranklin@gmail.com"/>
+    <div>
+      {collection.contacts.length > 0 && 
+        <div css={css.staffList({ theme })}>
+          {sortBy(collection.contacts, 'position').map(contact => {
+            return <article css={css.person({ theme })}>
+              <div css={css.staffImage({ theme })}>
+                <JazzIcon seed={contact.email || contact.key}/>
+              </div>
+              <div css={css.staffDesc({ theme })}>
+                <h4>{`${contact.firstName} ${contact.lastName}`}</h4>
+                <div css={css.staffPosition({ theme })}>{contact.position}</div>
+                {contact.researchPursuits && <div>Research pursuits: {contact.researchPursuits}</div>}
+                {/* <div>Associated with <a href="/staff/123">3 collections</a></div> */}
+              </div>
+              <div css={css.staffContact({ theme })}>
+                <div>
+                  {contact.email && <div>{contact.email}</div>}
+                  {contact.phone && <div>{contact.phone}</div>}
+                  {contact.fax && <div>{contact.fax}</div>}
+                </div>
+                <Button as="a" href="/staff/123">See profile</Button>
+              </div>
+            </article>
+          })}
         </div>
-        <div css={css.staffDesc({ theme })}>
-          <h4>Jane Franklin</h4>
-          <div css={css.staffPosition({ theme })}>Curator</div>
-          <div>Research area: Magnolia and tropical flowers</div>
-          <div>Associated with <a href="/staff/123">3 collections</a></div>
+        }
+        <div>
+          <CollectorsPresentation />
         </div>
-        <div css={css.staffContact({ theme })}>
-          <div>
-            <div>jfranklin@gmail.com</div>
-            <div>+45 234876 2347</div>
-          </div>
-          <Button as="a" href="/staff/123">See profile</Button>
-        </div>
-      </article>
-      <article css={css.person({ theme })}>
-        <div css={css.staffImage({ theme })}>
-          <JazzIcon seed="peterd@gmail.com"/>
-        </div>
-        <div css={css.staffDesc({ theme })}>
-          <h4>Peter Desmet</h4>
-          <div css={css.staffPosition({ theme })}>Curator</div>
-          <div>Research area: Magnolia and tropical flowers</div>
-        </div>
-        <div css={css.staffContact({ theme })}>
-          <div>
-            <div>jfranklin@gmail.com</div>
-          </div>
-          <Button as="a" href="/staff/123">See profile</Button>
-        </div>
-      </article>
-
-      <div>
-        <CollectorsPresentation />
       </div>
-    </div>
   </div>
 };
 

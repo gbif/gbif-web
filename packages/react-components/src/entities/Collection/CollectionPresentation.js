@@ -17,41 +17,55 @@ const { TabList, Tab, TabPanel } = Tabs;
 
 export function CollectionPresentation({
   id,
+  data,
+  error,
+  loading,
   defaultTab = 'people',
   ...props
 }) {
   const [activeId, setTab] = useState(defaultTab);
   const theme = useContext(ThemeContext);
 
+  if (loading) return <div>loading</div>
+  const { collection, occurrenceSearch } = data;
+
   const rootPredicate = {
     "type": "equals",
-    "value": "1d1393bd-7edd-46fe-a224-ac8ff8e38402",
+    "value": id,
     "key": "collectionKey"
   };
-  const config = { rootPredicate };
+  
+  const config = { 
+    rootPredicate, 
+    blacklistedFilters: ['collectionCode', 'collectionKey', 'institutionKey', 'institutionCode', 'hostKey', 'protocol', 'publishingCountryCode'], 
+    occurrenceSearchTabs: ['TABLE', 'GALLERY', 'MAP'],
+    highlightedFilters: ['taxonKey', 'catalogNumber', 'recordedBy', 'identifiedBy', 'typeStatus']
+  };
+// console.log(data);
   return <>
     <Tabs activeId={activeId} onChange={id => setTab(id)}>
       <div css={css.headerWrapper({ theme })}>
         <div css={css.proseWrapper({ theme })}>
-          <Eyebrow prefix="Collection code" suffix="SFH" />
-          <h1>Lichen</h1>
-          <div>
-            From <a href="/sdf">University of California Santa Barbara, Cheadle Center for Biodiversity and Ecological Restoration</a>
-          </div>
+          <Eyebrow prefix="Collection code" suffix={collection.code} />
+          <h1>{collection.name}</h1>
+          {collection.institution && <div>
+            From <a href={`/institution/${collection.institution.key}`}>{collection.institution.name}</a>
+          </div>}
 
           <div css={css.summary}>
             <div css={iconFeature({ theme })}>
               <MdLocationOn />
-              <span>71.266 specimens</span>
+              <span>{occurrenceSearch.documents.total} specimens</span>
             </div>
             <div css={iconFeature({ theme })}>
               <MdStar />
-              <span>Major groups Magnoliopsida • Liliopsida</span>
+              <span>{collection.taxonomicCoverage}</span>
             </div>
-            <div css={iconFeature({ theme })}>
+            {collection.contacts.length > 0 && <div css={iconFeature({ theme })}>
               <MdPeople />
-              <span>Jane Franklin • Viggo Mortensen</span>
-            </div>
+              {collection.contacts.length < 5 && <span>{collection.contacts.map(c => `${c.firstName} ${c.lastName}`).join(' • ')}</span>}
+              {collection.contacts.length >= 5 && <span>{collection.contacts.length} staff members</span>}
+            </div>}
           </div>
           <TabList style={{ marginTop: '12px', borderTop: '1px solid #ddd' }}>
             <Tab tabId="about">
@@ -71,12 +85,12 @@ export function CollectionPresentation({
       <section>
         <TabPanel tabId='about'>
           <div css={css.proseWrapper({ theme })}>
-            <About />
+            <About {...{collection}}/>
           </div>
         </TabPanel>
         <TabPanel tabId='people'>
         <div css={css.proseWrapper({ theme })}>
-            <People />
+            <People {...{collection}}/>
           </div>
         </TabPanel>
         <TabPanel tabId='specimens'>
