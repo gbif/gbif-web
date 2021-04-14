@@ -55,11 +55,11 @@ export const TablePresentation = ({ first, prev, next, size, from, data, total, 
   const fixed = fixedColumn;// && !dialog.visible;
   const headerss = tableConfig.columns.map((col, index) => {
     const options = index === 0 ? { locked: fixed, toggle: () => setFixed(!fixedColumn) } : null;
-    const FilterPopover = col.filterKey ? filters[col.filterKey].Popover : null;
+    const FilterPopover = col.filterKey ? filters[col.filterKey]?.Popover : null;
     return <Th key={col.trKey} width={col.width} {...options}>
       <Row wrap="nowrap">
         <Col grow={false} style={{whiteSpace: 'nowrap'}}><FormattedMessage id={col.trKey}/></Col>
-        {col.filterKey && <Col>
+        {FilterPopover && <Col>
           <FilterPopover modal placement="auto">
             <Button appearance="text" style={{ display: 'flex' }}>
               <MdFilterList />
