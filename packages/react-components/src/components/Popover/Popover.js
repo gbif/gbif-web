@@ -19,6 +19,7 @@ const Popover = ({ trigger, placement, visible, modal, onClickOutside, children,
   const theme = useContext(ThemeContext);
   const popover = usePopoverState({
     modal: modal || false, 
+    unstable_preventOverflow: true,
     // placement: placement || "bottom-start", 
     placement: 'auto', // annoyingly, only auto will prevent vertical overflow and there is no option to set alt-axis in reakit. See issue https://github.com/reakit/reakit/issues/606
     visible: visible,
@@ -41,7 +42,7 @@ const Popover = ({ trigger, placement, visible, modal, onClickOutside, children,
         {disclosureProps => React.cloneElement(trigger, disclosureProps)}
       </PopoverDisclosure>
       <PopoverBackdrop {...popover} css={backdrop(theme)} onClick={() => onClickOutside ? onClickOutside(popover) : undefined}></PopoverBackdrop>
-      <BasePopover dir={theme.dir} {...popover} {...props} hideOnClickOutside={false} hideOnEsc={true} >
+      <BasePopover dir={theme.dir} {...popover} {...props} hideOnClickOutside={false} hideOnEsc={true} preventBodyScroll={false}>
         {props => popover.visible &&
           <Root {...props} css={dialog(theme)}>
             <PopoverArrow className="arrow" {...popover} />
