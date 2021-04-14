@@ -554,14 +554,14 @@ const config =
       "type": "keyword",
       "field": "agentIds.value"
     },
-    "gbifClassification_class": {
+    "class": {
       "type": "text",
       "field": "gbifClassification.class",
       "get": {
         "type": "fuzzy"
       }
     },
-    "gbifClassification_classKey": {
+    "classKey": {
       "type": "numeric",
       "field": "gbifClassification.classKey",
       "get": {
@@ -574,14 +574,14 @@ const config =
       "type": "keyword",
       "field": "gbifClassification.classificationPath"
     },
-    "gbifClassification_family": {
+    "family": {
       "type": "text",
       "field": "gbifClassification.family",
       "get": {
         "type": "fuzzy"
       }
     },
-    "gbifClassification_familyKey": {
+    "familyKey": {
       "type": "numeric",
       "field": "gbifClassification.familyKey",
       "get": {
@@ -590,14 +590,14 @@ const config =
         "defaultLowerBound": "lte"
       }
     },
-    "gbifClassification_genus": {
+    "genus": {
       "type": "text",
       "field": "gbifClassification.genus",
       "get": {
         "type": "fuzzy"
       }
     },
-    "gbifClassification_genusKey": {
+    "genusKey": {
       "type": "numeric",
       "field": "gbifClassification.genusKey",
       "get": {
@@ -606,14 +606,14 @@ const config =
         "defaultLowerBound": "lte"
       }
     },
-    "gbifClassification_kingdom": {
+    "kingdom": {
       "type": "text",
       "field": "gbifClassification.kingdom",
       "get": {
         "type": "fuzzy"
       }
     },
-    "gbifClassification_kingdomKey": {
+    "kingdomKey": {
       "type": "numeric",
       "field": "gbifClassification.kingdomKey",
       "get": {
@@ -622,14 +622,14 @@ const config =
         "defaultLowerBound": "lte"
       }
     },
-    "gbifClassification_order": {
+    "order": {
       "type": "text",
       "field": "gbifClassification.order",
       "get": {
         "type": "fuzzy"
       }
     },
-    "gbifClassification_orderKey": {
+    "orderKey": {
       "type": "numeric",
       "field": "gbifClassification.orderKey",
       "get": {
@@ -638,14 +638,14 @@ const config =
         "defaultLowerBound": "lte"
       }
     },
-    "gbifClassification_phylum": {
+    "phylum": {
       "type": "text",
       "field": "gbifClassification.phylum",
       "get": {
         "type": "fuzzy"
       }
     },
-    "gbifClassification_phylumKey": {
+    "phylumKey": {
       "type": "numeric",
       "field": "gbifClassification.phylumKey",
       "get": {
@@ -654,14 +654,14 @@ const config =
         "defaultLowerBound": "lte"
       }
     },
-    "gbifClassification_species": {
+    "species": {
       "type": "text",
       "field": "gbifClassification.species",
       "get": {
         "type": "fuzzy"
       }
     },
-    "gbifClassification_speciesKey": {
+    "speciesKey": {
       "type": "numeric",
       "field": "gbifClassification.speciesKey",
       "get": {
