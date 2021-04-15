@@ -1,4 +1,5 @@
 module.exports = [
   'datasetKey',
-  'publishingOrgKey'
+  'publishingOrgKey',
+  'recordedBy'
 ];

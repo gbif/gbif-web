@@ -48,6 +48,7 @@ const typeDef = gql`
   type OccurrenceCardinality {
     datasetKey: Int!
     publishingOrgKey: Int!
+    recordedBy: Int!
   }
 
   type OccurrenceFacet {
