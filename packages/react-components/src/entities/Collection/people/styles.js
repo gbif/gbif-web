@@ -10,6 +10,19 @@ export const navItem = ({ isActive, ...props }) => css`
   background: ${isActive ? '#ddd' : null};
   font-weight: ${isActive ? '500' : null};
   line-height: 1em;
+  cursor: pointer;
+`;
+
+export const search = ({ ...props }) => css`
+  display: flex;
+  margin: 12px;
+  margin-left: 0;
+  width: 400px;
+  max-width: 100%;
+  input {
+    margin-right: 12px;
+    height: auto;
+  }
 `;
 
 export const nav = ({ ...props }) => css`

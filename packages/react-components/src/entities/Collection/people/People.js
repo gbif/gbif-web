@@ -4,7 +4,7 @@ import React, { useContext, useState } from 'react';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import * as css from './styles';
 import { Row, Col, Properties, Accordion, JazzIcon, Button } from "../../../components";
-import { CollectorsPresentation } from './collectors';
+import { Collectors } from './Collectors';
 import sortBy from 'lodash/sortBy';
 
 const { Term: T, Value: V } = Properties;
@@ -15,16 +15,19 @@ export function People({
   ...props
 }) {
   const theme = useContext(ThemeContext);
+  const [tab, setTab] = useState('staff');
 
   return <div css={css.people({theme})}>
     <nav css={css.nav({theme})}>
       <ul>
-        <li css={css.navItem({theme, isActive: true})}>Staff</li>
-        <li css={css.navItem({theme})}>Collectors and identifiers</li>
+        <li onClick={() => setTab('staff')} css={css.navItem({theme, isActive: tab === 'staff'})}>Staff</li>
+        <li onClick={() => setTab('collectors')} css={css.navItem({theme, isActive: tab === 'collectors'})}>Collectors and identifiers</li>
       </ul>
     </nav>
-    <div>
-      {collection.contacts.length > 0 && 
+    <div style={{width: '100%', marginBottom: 24}}>
+      {tab === 'collectors' && <Collectors id={collection.key}/>}
+
+      {tab === 'staff' && collection.contacts.length > 0 && 
         <div css={css.staffList({ theme })}>
           {sortBy(collection.contacts, 'position').map(contact => {
             return <article css={css.person({ theme })}>
@@ -49,9 +52,7 @@ export function People({
           })}
         </div>
         }
-        <div>
-          <CollectorsPresentation />
-        </div>
+        
       </div>
   </div>
 };
