@@ -7,8 +7,8 @@
 */
 module.exports = {
   Query: {
-    person: (parent, { type, value }, { dataSources }) =>
-      dataSources.personAPI.getPersonByIdentifier({ type, value, dataSources })
+    person: (parent, { type, value, expand }, { dataSources }) =>
+      dataSources.personAPI.getPersonByIdentifier({ type, value, dataSources, expand})
   },
   Person: {
     // key: (parent, args, { dataSources }) => {
