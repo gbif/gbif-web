@@ -63,7 +63,10 @@ export function CollectionPresentation({
             </div>
             {collection.contacts.length > 0 && <div css={iconFeature({ theme })}>
               <MdPeople />
-              {collection.contacts.length < 5 && <span>{collection.contacts.map(c => `${c.firstName} ${c.lastName}`).join(' • ')}</span>}
+              {collection.contacts.length < 5 && <span>
+                {collection.contacts.map(c => `${c.firstName ? c.firstName : ''} ${c.lastName ? c.lastName : ''}`).join(' • ')}
+                </span>
+              }
               {collection.contacts.length >= 5 && <span>{collection.contacts.length} staff members</span>}
             </div>}
           </div>

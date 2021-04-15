@@ -35,7 +35,7 @@ export function People({
                 <JazzIcon seed={contact.email || contact.key}/>
               </div>
               <div css={css.staffDesc({ theme })}>
-                <h4>{`${contact.firstName} ${contact.lastName}`}</h4>
+                <h4>{contact.firstName} {contact.lastName}</h4>
                 <div css={css.staffPosition({ theme })}>{contact.position}</div>
                 {contact.researchPursuits && <div>Research pursuits: {contact.researchPursuits}</div>}
                 {/* <div>Associated with <a href="/staff/123">3 collections</a></div> */}

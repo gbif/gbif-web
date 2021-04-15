@@ -16,7 +16,10 @@ export const Example = () => <div>
   {/* <Collection id="dceb8d52-094c-4c2c-8960-75e0097c6861" /> */}
   
   {/* NY botanical garden */}
-  <Collection id="b2190553-4505-4fdd-8fff-065c8ca26f72" />
+  {/* <Collection id="b2190553-4505-4fdd-8fff-065c8ca26f72" /> */}
+
+  {/* Entomology from Harvard University, Museum of Comparative Zoology */}
+  <Collection id="42844cb6-421e-4bcf-bdeb-c56039bee08c" />
 </div>;
 
 Example.story = {
