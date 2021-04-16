@@ -10,16 +10,12 @@ import { iconFeature } from '../../components/IconFeatures/styles';
 import { Description as About } from './about/Description';
 import { People } from './people/People';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
-import { removeTrailingSlash, join } from '../../utils/util';
+import { join } from '../../utils/util';
 
 import * as css from './styles';
 import { MdLocationOn, MdPeople, MdStar } from 'react-icons/md';
 
-import {
-  Switch,
-  Route,
-  useRouteMatch,
-} from "react-router-dom";
+import { Switch, Route, useRouteMatch } from 'react-router-dom';
 
 const { TabList, RouterTab } = Tabs;
 
@@ -28,17 +24,14 @@ export function CollectionPresentation({
   data,
   error,
   loading,
-  defaultTab = 'people',
   ...props
 }) {
   let { path } = useRouteMatch();
-  const basePath = removeTrailingSlash(path);
   const theme = useContext(ThemeContext);
 
   if (loading) return <div>loading</div>
   const { collection, occurrenceSearch } = data;
 
-  console.log(collection);
   if (error || !collection) {
     // TODO a generic component for failures is needed
     return <div>Failed to retrieve item</div> 

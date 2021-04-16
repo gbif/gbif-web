@@ -4,13 +4,25 @@ import ThemeContext from '../../style/themes/ThemeContext';
 import { useQuery } from '../../dataManagement/api';
 import { CollectionPresentation } from './CollectionPresentation';
 
+import { MemoryRouter, useRouteMatch } from 'react-router-dom';
+
+function EnsureRouter({children}) {
+  let hasRouter;
+  try {
+    const forTestOnly = useRouteMatch();
+    hasRouter = true;
+  } catch(err) {
+    console.log('No router context found, so creating a MemoryRouter for the component');
+    hasRouter = false;
+  }
+  return hasRouter ? <>{children}</> : <MemoryRouter initialEntries={['/']}>{children}</MemoryRouter>
+}
+
 export function Collection({
   id,
-  defaultTab = 'about',
   ...props
 }) {
   const { data, error, loading, load } = useQuery(COLLECTION, { lazyLoad: true });
-  const [activeId, setTab] = useState(defaultTab);
   const theme = useContext(ThemeContext);
 
   useEffect(() => {
@@ -28,7 +40,9 @@ export function Collection({
     }
   }, [id]);
 
-  return <CollectionPresentation {...{ data, error, loading: loading || !data, id }} />
+  return <EnsureRouter>
+    <CollectionPresentation {...{ data, error, loading: loading || !data, id }} />
+  </EnsureRouter>
 };
 
 const COLLECTION = `

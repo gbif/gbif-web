@@ -3,6 +3,7 @@ import { text } from '@storybook/addon-knobs';
 import { Collection } from './Collection';
 import { MemoryRouter as Router } from "react-router-dom";
 import AddressBar from '../../StorybookAddressBar';
+import Standalone from './Standalone';
 
 export default {
   title: 'Entities/Collection page',
@@ -29,3 +30,5 @@ export const Example = () => <Router initialEntries={['/']}>
 Example.story = {
   name: 'Collection page',
 };
+
+export const StandaloneExample = () => <Standalone id="42844cb6-421e-4bcf-bdeb-c56039bee08c"></Standalone>;
