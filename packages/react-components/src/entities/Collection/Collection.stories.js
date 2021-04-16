@@ -1,5 +1,5 @@
 import React from 'react';
-// import { text, boolean, select } from '@storybook/addon-knobs';
+import { text } from '@storybook/addon-knobs';
 import { Collection } from './Collection';
 import { MemoryRouter as Router } from "react-router-dom";
 import AddressBar from '../../StorybookAddressBar';
@@ -22,7 +22,8 @@ export const Example = () => <Router initialEntries={['/']}>
   {/* <Collection id="b2190553-4505-4fdd-8fff-065c8ca26f72" /> */}
 
   {/* Entomology from Harvard University, Museum of Comparative Zoology */}
-  <Collection id="42844cb6-421e-4bcf-bdeb-c56039bee08c" />
+  {/* <Collection id="42844cb6-421e-4bcf-bdeb-c56039bee08c" /> */}
+  <Collection id={text('collectionUUID', '42844cb6-421e-4bcf-bdeb-c56039bee08c')} />
 </Router>;
 
 Example.story = {
