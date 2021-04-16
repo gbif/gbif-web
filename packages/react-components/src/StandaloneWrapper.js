@@ -24,12 +24,13 @@ const client = new ApiClient({
 function StandaloneWrapper({
   theme = lightTheme, locale = 'en', messages = en, ...props
 }) {
+  const defaultBaseName = typeof window !== 'undefined' ? window.location.pathname : undefined;
   return (
     <ApiContext.Provider value={client}>
       <IntlProvider locale={locale} messages={messages}>
         <ThemeContext.Provider value={theme}>
           <Root id="application" appRoot>
-            <Router {...props} />
+            <Router {...props} basename={defaultBaseName} />
           </Root>
         </ThemeContext.Provider>
       </IntlProvider>
