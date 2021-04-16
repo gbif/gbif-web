@@ -38,6 +38,12 @@ export function CollectionPresentation({
   if (loading) return <div>loading</div>
   const { collection, occurrenceSearch } = data;
 
+  console.log(collection);
+  if (error || !collection) {
+    // TODO a generic component for failures is needed
+    return <div>Failed to retrieve item</div> 
+  }
+
   const rootPredicate = {
     "type": "equals",
     "value": id,
