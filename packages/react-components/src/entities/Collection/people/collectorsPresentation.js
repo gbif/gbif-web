@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { Button, DataTable, Th, Td, TBody, Input } from '../../../components';
 import * as css from './styles';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
 
 export const CollectorsPresentation = ({ size, search, loadMore, loading, data, error }) => {
   const [q, setQ] = useState('');
@@ -21,8 +22,8 @@ export const CollectorsPresentation = ({ size, search, loadMore, loading, data, 
   const columns = ['name', 'collected', 'identified'];
   const headerss = [
     <Th key="name">Recorded by</Th>,
-    <Th key="collected">Recorded count</Th>,
-    <Th key="identifed">Identified count</Th>
+    <Th key="collected" style={{textAlign: 'right'}}>Recorded count</Th>,
+    <Th key="identifed" style={{textAlign: 'right'}}>Identified count</Th>
   ];
 
   return <>
@@ -50,13 +51,13 @@ export const CollectorsPresentation = ({ size, search, loadMore, loading, data, 
   </>
 }
 
-const getRows = ({ items, columns }) => {
+const getRows = ({ items }) => {
   const rows = items.map((row, index) => {
-    const cells = columns.map(
-      (field, i) => {
-        return <Td key={field}>{row[field]}</Td>;
-      }
-    );
+    const cells = [
+      <Td key='name'>{row.name}</Td>,
+      <Td key='collected' style={{textAlign: 'right'}}><FormattedNumber value={row.collected} /></Td>,
+      <Td key='identified' style={{textAlign: 'right'}}><FormattedNumber value={row.identified} /></Td>
+    ]
     return <tr key={row.key}>{cells}</tr>;
   });
   return rows;

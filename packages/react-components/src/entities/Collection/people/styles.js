@@ -10,7 +10,7 @@ export const navItem = ({ isActive, ...props }) => css`
   background: ${isActive ? '#ddd' : null};
   font-weight: ${isActive ? '500' : null};
   line-height: 1em;
-  cursor: pointer;
+  display: block;
 `;
 
 export const search = ({ ...props }) => css`

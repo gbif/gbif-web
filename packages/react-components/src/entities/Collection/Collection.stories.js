@@ -1,13 +1,16 @@
 import React from 'react';
 // import { text, boolean, select } from '@storybook/addon-knobs';
 import { Collection } from './Collection';
+import { MemoryRouter as Router } from "react-router-dom";
+import AddressBar from '../../StorybookAddressBar';
 
 export default {
   title: 'Entities/Collection page',
   component: Collection,
 };
 
-export const Example = () => <div>
+export const Example = () => <Router initialEntries={['/']}>
+  <AddressBar />
   <div style={{ flex: '1 1 auto' }}></div>
   {/* Crustacea */}
   {/* <Collection id="1d1393bd-7edd-46fe-a224-ac8ff8e38402" /> */}
@@ -20,7 +23,7 @@ export const Example = () => <div>
 
   {/* Entomology from Harvard University, Museum of Comparative Zoology */}
   <Collection id="42844cb6-421e-4bcf-bdeb-c56039bee08c" />
-</div>;
+</Router>;
 
 Example.story = {
   name: 'Collection page',

@@ -5,7 +5,14 @@ import ThemeContext from '../../../style/themes/ThemeContext';
 import * as css from './styles';
 import { Row, Col, Properties, Accordion, JazzIcon, Button } from "../../../components";
 import { Collectors } from './Collectors';
+import { removeTrailingSlash, join } from '../../../utils/util';
 import sortBy from 'lodash/sortBy';
+import {
+  Switch,
+  Route,
+  Link,
+  useRouteMatch,
+} from "react-router-dom";
 
 const { Term: T, Value: V } = Properties;
 
@@ -14,46 +21,56 @@ export function People({
   className,
   ...props
 }) {
+  let { path } = useRouteMatch();
   const theme = useContext(ThemeContext);
-  const [tab, setTab] = useState('staff');
 
-  return <div css={css.people({theme})}>
-    <nav css={css.nav({theme})}>
+  const test = 'collection';
+  return <div css={css.people({ theme })}>
+    <nav css={css.nav({ theme })}>
       <ul>
-        <li onClick={() => setTab('staff')} css={css.navItem({theme, isActive: tab === 'staff'})}>Staff</li>
-        <li onClick={() => setTab('collectors')} css={css.navItem({theme, isActive: tab === 'collectors'})}>Collectors and identifiers</li>
+        <li>
+          <Link to={path} css={css.navItem({ theme, isActive: true })}>Staff</Link>
+        </li>
+        <li>
+          <Link to={`${removeTrailingSlash(path)}/agents`} css={css.navItem({ theme, isActive: true })}>Collectors and identifiers</Link>
+        </li>
       </ul>
     </nav>
-    <div style={{width: '100%', marginBottom: 24}}>
-      {tab === 'collectors' && <Collectors id={collection.key}/>}
+    <div style={{ width: '100%', marginBottom: 24 }}>
+      <Switch>
 
-      {tab === 'staff' && collection.contacts.length > 0 && 
-        <div css={css.staffList({ theme })}>
-          {sortBy(collection.contacts, 'position').map(contact => {
-            return <article css={css.person({ theme })}>
-              <div css={css.staffImage({ theme })}>
-                <JazzIcon seed={contact.email || contact.key}/>
-              </div>
-              <div css={css.staffDesc({ theme })}>
-                <h4>{contact.firstName} {contact.lastName}</h4>
-                <div css={css.staffPosition({ theme })}>{contact.position}</div>
-                {contact.researchPursuits && <div>Research pursuits: {contact.researchPursuits}</div>}
-                {/* <div>Associated with <a href="/staff/123">3 collections</a></div> */}
-              </div>
-              <div css={css.staffContact({ theme })}>
-                <div>
-                  {contact.email && <div>{contact.email}</div>}
-                  {contact.phone && <div>{contact.phone}</div>}
-                  {contact.fax && <div>{contact.fax}</div>}
+
+        <Route path={`${removeTrailingSlash(path)}/agents`}>
+          <Collectors id={collection.key} />
+        </Route>
+
+        <Route path={path}>
+          <div css={css.staffList({ theme })}>
+            {sortBy(collection.contacts, 'position').map(contact => {
+              return <article css={css.person({ theme })}>
+                <div css={css.staffImage({ theme })}>
+                  <JazzIcon seed={contact.email || contact.key} />
                 </div>
-                <Button as="a" href="/staff/123">See profile</Button>
-              </div>
-            </article>
-          })}
-        </div>
-        }
-        
-      </div>
+                <div css={css.staffDesc({ theme })}>
+                  <h4>{contact.firstName} {contact.lastName}</h4>
+                  <div css={css.staffPosition({ theme })}>{contact.position}</div>
+                  {contact.researchPursuits && <div>Research pursuits: {contact.researchPursuits}</div>}
+                  {/* <div>Associated with <a href="/staff/123">3 collections</a></div> */}
+                </div>
+                <div css={css.staffContact({ theme })}>
+                  <div>
+                    {contact.email && <div>{contact.email}</div>}
+                    {contact.phone && <div>{contact.phone}</div>}
+                    {contact.fax && <div>{contact.fax}</div>}
+                  </div>
+                  <Button as="a" href="/staff/123">See profile</Button>
+                </div>
+              </article>
+            })}
+          </div>
+        </Route>
+      </Switch>
+    </div>
   </div>
 };
 

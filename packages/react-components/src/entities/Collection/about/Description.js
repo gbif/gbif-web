@@ -25,7 +25,7 @@ export function Description({
       <Properties style={{ fontSize: 14, marginBottom: 12 }} horizontal={true}>
         {getPlain(collection, 'name')}
         {getPlain(collection, 'description')}
-        {getPlain(collection, 'Code')}
+        {getPlain(collection, 'code')}
         {getPlain(collection, 'alternativeCodes')}
         {getPlain(collection, 'homePage')}
         {getPlain(collection, 'active')}

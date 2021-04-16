@@ -55,3 +55,15 @@ export const keyCodes = {
   ENTER: 13,
   ESCAPE: 27,
 };
+
+export function removeTrailingSlash(path) {
+  return path.charAt(path.length-1) === '/'
+    ? path.slice(0, -1)
+    : path
+}
+
+export const join = (base, path) => {
+  return base.charAt(base.length-1) === '/'
+    ? base.slice(0, -1) + path
+    : base + '/' + path
+}

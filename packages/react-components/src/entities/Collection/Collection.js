@@ -1,13 +1,8 @@
 
-import { jsx } from '@emotion/react';
 import React, { useContext, useState, useEffect } from 'react';
-import { MdInfo } from 'react-icons/md'
 import ThemeContext from '../../style/themes/ThemeContext';
-// import * as css from './styles';
-import { Row, Col, Tabs } from "../../components";
 import { useQuery } from '../../dataManagement/api';
 import { CollectionPresentation } from './CollectionPresentation';
-const { TabList, Tab, TabPanel } = Tabs;
 
 export function Collection({
   id,

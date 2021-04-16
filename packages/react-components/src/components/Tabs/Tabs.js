@@ -5,8 +5,10 @@ import ThemeContext from '../../style/themes/ThemeContext';
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { oneOfMany } from '../../utils/util';
-import styles from './styles';
+import * as styles from './styles';
 import { uncontrollable } from 'uncontrollable';
+
+import { Link, useRouteMatch } from "react-router-dom";
 
 export const TabsContext = React.createContext({});
 
@@ -51,6 +53,23 @@ export const TabList = ({
 TabList.displayName = 'TabList';
 TabList.propTypes = {
   ['aria-label']: oneOfMany(['aria-label', 'aria-labelledby'])
+};
+
+export const RouterTab = ({
+  direction,
+  label, 
+  to,
+  exact,
+  ...props
+}) => {
+  const theme = useContext(ThemeContext);
+  let isActive = useRouteMatch({
+    path: to,
+    exact: exact
+  });
+  return <li css={styles.routerTab({ theme, isActive, direction })}>
+    <Link to={to} {...props}>{label}</Link>
+  </li>
 };
 
 export const Tab = ({
@@ -110,3 +129,4 @@ Tabs.TabList = TabList;
 Tabs.TabPanel = TabPanel;
 Tabs.TapSeperator = TapSeperator;
 Tabs.TapSpacer = TapSpacer;
+Tabs.RouterTab = RouterTab;

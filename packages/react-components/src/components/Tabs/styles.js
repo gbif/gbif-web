@@ -28,6 +28,24 @@ export const tab = ({ theme, direction = 'bottom', isActive }) => css`
   }
 `;
 
+export const routerTab = ({ theme, direction = 'bottom', isActive }) => css`
+  ${border(3, theme.primary500, direction, isActive)}
+  flex: 0 1 auto;
+  &:hover, &:focus {
+    outline: none;
+    background: rgba(0,0,0,.05);
+  }
+  a {
+    padding: 10px 10px;
+    display: inline-block;
+    color: inherit;
+    text-decoration: none;
+    ::-moz-focus-inner {
+      border-style: none;
+    }
+  }
+`;
+
 export const tabList = ({ theme, vertical }) => css`
   padding: 0;
   margin: 0;

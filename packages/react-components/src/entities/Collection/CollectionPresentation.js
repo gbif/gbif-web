@@ -4,16 +4,24 @@ import React, { useContext, useState, useEffect } from 'react';
 import { MdInfo } from 'react-icons/md'
 import ThemeContext from '../../style/themes/ThemeContext';
 // import * as css from './styles';
-import { Row, Col, Tabs, Eyebrow } from '../../components';
+import { Tabs, Eyebrow } from '../../components';
 import OccurrenceSearch from '../../search/OccurrenceSearch/OccurrenceSearch';
 import { iconFeature } from '../../components/IconFeatures/styles';
 import { Description as About } from './about/Description';
 import { People } from './people/People';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
+import { removeTrailingSlash, join } from '../../utils/util';
 
 import * as css from './styles';
-import { MdGridOn, MdLocationOn, MdPeople, MdInsertDriveFile, MdLabel, MdImage, MdPhotoLibrary, MdStar } from 'react-icons/md';
+import { MdLocationOn, MdPeople, MdStar } from 'react-icons/md';
 
-const { TabList, Tab, TabPanel } = Tabs;
+import {
+  Switch,
+  Route,
+  useRouteMatch,
+} from "react-router-dom";
+
+const { TabList, RouterTab } = Tabs;
 
 export function CollectionPresentation({
   id,
@@ -23,7 +31,8 @@ export function CollectionPresentation({
   defaultTab = 'people',
   ...props
 }) {
-  const [activeId, setTab] = useState(defaultTab);
+  let { path } = useRouteMatch();
+  const basePath = removeTrailingSlash(path);
   const theme = useContext(ThemeContext);
 
   if (loading) return <div>loading</div>
@@ -43,63 +52,57 @@ export function CollectionPresentation({
   };
 // console.log(data);
   return <>
-    <Tabs activeId={activeId} onChange={id => setTab(id)}>
-      <div css={css.headerWrapper({ theme })}>
-        <div css={css.proseWrapper({ theme })}>
-          <Eyebrow prefix="Collection code" suffix={collection.code} />
-          <h1>{collection.name}</h1>
-          {collection.institution && <div>
-            From <a href={`/institution/${collection.institution.key}`}>{collection.institution.name}</a>
+    <div css={css.headerWrapper({ theme })}>
+      <div css={css.proseWrapper({ theme })}>
+        <Eyebrow prefix="Collection code" suffix={collection.code} />
+        <h1>{collection.name}</h1>
+        {collection.institution && <div>
+          From <a href={`/institution/${collection.institution.key}`}>{collection.institution.name}</a>
+        </div>}
+
+        <div css={css.summary}>
+          <div css={iconFeature({ theme })}>
+            <MdLocationOn />
+            <span><FormattedNumber value={occurrenceSearch.documents.total} /> specimens</span>
+          </div>
+          <div css={iconFeature({ theme })}>
+            <MdStar />
+            <span>{collection.taxonomicCoverage}</span>
+          </div>
+          {collection.contacts.length > 0 && <div css={iconFeature({ theme })}>
+            <MdPeople />
+            {collection.contacts.length < 5 && <span>
+              {collection.contacts.map(c => `${c.firstName ? c.firstName : ''} ${c.lastName ? c.lastName : ''}`).join(' • ')}
+              </span>
+            }
+            {collection.contacts.length >= 5 && <span>{collection.contacts.length} staff members</span>}
           </div>}
-
-          <div css={css.summary}>
-            <div css={iconFeature({ theme })}>
-              <MdLocationOn />
-              <span>{occurrenceSearch.documents.total} specimens</span>
-            </div>
-            <div css={iconFeature({ theme })}>
-              <MdStar />
-              <span>{collection.taxonomicCoverage}</span>
-            </div>
-            {collection.contacts.length > 0 && <div css={iconFeature({ theme })}>
-              <MdPeople />
-              {collection.contacts.length < 5 && <span>
-                {collection.contacts.map(c => `${c.firstName ? c.firstName : ''} ${c.lastName ? c.lastName : ''}`).join(' • ')}
-                </span>
-              }
-              {collection.contacts.length >= 5 && <span>{collection.contacts.length} staff members</span>}
-            </div>}
-          </div>
-          <TabList style={{ marginTop: '12px', borderTop: '1px solid #ddd' }}>
-            <Tab tabId="about">
-              About
-            </Tab>
-            <Tab tabId="people">
-              People
-            </Tab>
-            <Tab tabId="specimens">
-              Digitized specimens
-            </Tab>
-          </TabList>
         </div>
+        <TabList style={{ marginTop: '12px', borderTop: '1px solid #ddd' }}>
+          <RouterTab to={join(path, '/')} exact label="About"/>
+          <RouterTab to={join(path, '/people')} label="People"/>
+          <RouterTab to={join(path, '/specimens')} label="Digitized specimens"/>
+        </TabList>
       </div>
+    </div>
 
 
-      <section>
-        <TabPanel tabId='about'>
-          <div css={css.proseWrapper({ theme })}>
-            <About {...{collection}}/>
-          </div>
-        </TabPanel>
-        <TabPanel tabId='people'>
+    <section>
+      <Switch>
+        <Route path={join(path, '/people')}>
         <div css={css.proseWrapper({ theme })}>
             <People {...{collection}}/>
           </div>
-        </TabPanel>
-        <TabPanel tabId='specimens'>
+        </Route>
+        <Route path={join(path, '/specimens')}>
           <OccurrenceSearch config={config} style={{ margin: 'auto', maxWidth: 1000, minHeight: 'calc(90vh)' }}></OccurrenceSearch>;
-        </TabPanel>
-      </section>
-    </Tabs>
+        </Route>
+        <Route path={join(path, '/')}>
+          <div css={css.proseWrapper({ theme })}>
+            <About {...{collection}}/>
+          </div>
+        </Route>
+      </Switch>
+    </section>
   </>
 };
