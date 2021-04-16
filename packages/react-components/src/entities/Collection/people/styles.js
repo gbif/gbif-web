@@ -3,14 +3,19 @@ import { css } from '@emotion/react';
 
 export const people = ({ ...props }) => css`
   display: flex;
+  margin: 0 12px;
 `;
 
-export const navItem = ({ isActive, ...props }) => css`
-  padding: 5px 10px;
-  background: ${isActive ? '#ddd' : null};
-  font-weight: ${isActive ? '500' : null};
+export const navItem = ({ ...props }) => css`
+  padding: 8px 12px;
   line-height: 1em;
   display: block;
+  color: inherit;
+  text-decoration: none;
+  &.isActive {
+    background: #e0e7ee;
+    font-weight: 500;
+  }
 `;
 
 export const search = ({ ...props }) => css`
@@ -32,7 +37,6 @@ export const nav = ({ ...props }) => css`
   ul {
     list-style: none;
     padding: 0;
-    margin-left: -10px;
   }
 `;
 
