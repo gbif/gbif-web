@@ -4,7 +4,7 @@ import React, { useContext, useState } from 'react';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import * as css from './styles';
 import { Row, Col, Properties, Accordion, JazzIcon, Button } from "../../../components";
-import { Collectors } from './Collectors';
+import { Collectors } from './collectors';
 import { removeTrailingSlash, join } from '../../../utils/util';
 import sortBy from 'lodash/sortBy';
 import {
