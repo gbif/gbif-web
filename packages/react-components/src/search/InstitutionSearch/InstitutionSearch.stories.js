@@ -4,6 +4,7 @@ import React from 'react';
 import { addDecorator } from '@storybook/react';
 
 import InstitutionSearch from './InstitutionSearch';
+import Standalone from './Standalone';
 
 export default {
   title: 'Search/InstitutionSearch',
@@ -81,3 +82,5 @@ export const Example = () => <InstitutionSearch config={config} style={{ margin:
 Example.story = {
   name: 'Institution search',
 };
+
+export const StandaloneExample = () => <Standalone style={{height: 'calc(100vh - 20px)'}}></Standalone>;

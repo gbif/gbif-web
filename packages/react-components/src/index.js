@@ -13,7 +13,10 @@
 // export { Button } from './components/Button/Button';
 export * from './components';
 export { default as OccurrenceSearch } from './search/OccurrenceSearch/Standalone';
+export { default as CollectionSearch } from './search/CollectionSearch/Standalone';
+export { default as InstitutionSearch } from './search/InstitutionSearch/Standalone';
 export { default as Collection } from './entities/Collection/Standalone';
+export { default as Institution } from './entities/Institution/Standalone';
 export { default as themeBuilder } from './style/themeBuilder';
 
 // export  { Example as Filter } from './widgets/Filter/Filter.stories';
