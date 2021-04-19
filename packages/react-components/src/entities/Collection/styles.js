@@ -8,6 +8,8 @@ export const headerWrapper = ({ ...props }) => css`
   h1 {
     margin-top: 0;
     margin-bottom: .25em;
+    font-size: 2rem;
+    font-weight: 700;
   }
   a {
     color: #1393D8;

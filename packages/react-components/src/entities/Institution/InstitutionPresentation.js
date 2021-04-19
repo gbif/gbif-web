@@ -26,7 +26,7 @@ export function InstitutionPresentation({
   loading,
   ...props
 }) {
-  let { path } = useRouteMatch();
+  let { path, url } = useRouteMatch();
   const theme = useContext(ThemeContext);
 
   if (loading) return <div>loading</div>
@@ -71,7 +71,7 @@ export function InstitutionPresentation({
           </div>}
         </div>
         <TabList style={{ marginTop: '12px', borderTop: '1px solid #ddd' }}>
-          <RouterTab to={join(path, '/')} exact label="About"/>
+          <RouterTab to={url} exact label="About"/>
           <RouterTab to={join(path, '/people')} label="People"/>
           <RouterTab to={join(path, '/specimens')} label="Digitized specimens"/>
         </TabList>
@@ -89,7 +89,7 @@ export function InstitutionPresentation({
         <Route path={join(path, '/specimens')}>
           <OccurrenceSearch config={config} style={{ margin: 'auto', maxWidth: 1000, minHeight: 'calc(90vh)' }}></OccurrenceSearch>;
         </Route>
-        <Route path={join(path, '/')}>
+        <Route path={path}>
           <div css={css.proseWrapper({ theme })}>
             <About {...{institution}}/>
           </div>

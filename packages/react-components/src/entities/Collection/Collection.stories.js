@@ -31,4 +31,4 @@ Example.story = {
   name: 'Collection page',
 };
 
-export const StandaloneExample = () => <Standalone id="42844cb6-421e-4bcf-bdeb-c56039bee08c"></Standalone>;
+export const StandaloneExample = () => <Standalone id="dceb8d52-094c-4c2c-8960-75e0097c6861"></Standalone>;

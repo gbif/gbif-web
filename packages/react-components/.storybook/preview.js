@@ -14,6 +14,7 @@ import ThemeContext, { darkTheme, lightTheme, a11yTheme, vertnetTheme, rtlTheme 
 import ThemeBuilder from '../src/style/themeBuilder';
 import { ApiContext, ApiClient } from '../src/dataManagement/api';
 import env from '../.env.json';
+import RouteContext from '../src/dataManagement/RouteContext';
 
 const customTheme = ThemeBuilder.extend({
   extendWith: {
@@ -50,6 +51,28 @@ addDecorator(storyFn => {
     return choice
   }
 
+  const routes = {
+    collectionKey: {
+      route: '/',
+      url: ({key}) => {
+        return `/iframe.html?id=entities-collection-page--example&viewMode=story`;
+      }
+    },
+    collectionSearch: {
+      url: () => `/collection/`
+    },
+    collectionSpecimens: {
+      url: ({key}) => `/collection/${key}/specimens`
+    },
+  
+    institutionKey: {
+      url: ({key}) => `/institution/${key}`
+    },
+    collectionSearch: {
+      url: () => `/institution/`
+    },
+  };
+
   return (
     <div>
       <ApiContext.Provider value={client}>
@@ -70,7 +93,9 @@ addDecorator(storyFn => {
                 'ltr',
               ),
             )}>
-              {storyFn()}
+              <RouteContext.Provider value={routes}>
+                {storyFn()}
+              </RouteContext.Provider>
             </Root>
           </ThemeContext.Provider>
         </IntlProvider>

@@ -26,7 +26,7 @@ export function CollectionPresentation({
   loading,
   ...props
 }) {
-  let { path } = useRouteMatch();
+  let { url, path } = useRouteMatch();
   const theme = useContext(ThemeContext);
 
   if (loading) return <div>loading</div>
@@ -78,9 +78,9 @@ export function CollectionPresentation({
           </div>}
         </div>
         <TabList style={{ marginTop: '12px', borderTop: '1px solid #ddd' }}>
-          <RouterTab to={join(path, '/')} exact label="About"/>
-          <RouterTab to={join(path, '/people')} label="People"/>
-          <RouterTab to={join(path, '/specimens')} label="Digitized specimens"/>
+          <RouterTab to={url} exact label="About"/>
+          <RouterTab to={join(url, '/people')} label="People"/>
+          <RouterTab to={join(url, '/specimens')} label="Digitized specimens"/>
         </TabList>
       </div>
     </div>
@@ -96,7 +96,7 @@ export function CollectionPresentation({
         <Route path={join(path, '/specimens')}>
           <OccurrenceSearch config={config} style={{ margin: 'auto', maxWidth: 1000, minHeight: 'calc(90vh)' }}></OccurrenceSearch>;
         </Route>
-        <Route path={join(path, '/')}>
+        <Route path={path}>
           <div css={css.proseWrapper({ theme })}>
             <About {...{collection}}/>
           </div>
