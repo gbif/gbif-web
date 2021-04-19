@@ -7,7 +7,7 @@ import { useUrlState } from '../dataManagement/state/useUrlState';
 import { filter2v1 } from '../dataManagement/filterAdapter';
 import { ResultsTable } from './ResultsTable';
 
-function StandardSearchTable({graphQuery, resultKey, offsetName = 'offset', defaultTableConfig, ...props}) {
+function StandardSearchTable({graphQuery, onSelect, resultKey, offsetName = 'offset', defaultTableConfig, ...props}) {
   const [offset, setOffset] = useUrlState({ param: 'offset', defaultValue: 0 });
   const limit = 20;
   const currentFilterContext = useContext(FilterContext);
@@ -48,6 +48,7 @@ function StandardSearchTable({graphQuery, resultKey, offsetName = 'offset', defa
       size={limit}
       from={offset}
       total={data?.[resultKey]?.count}
+      onSelect={onSelect}
       defaultTableConfig={defaultTableConfig}
     />
   </>
