@@ -58,7 +58,7 @@ const typeDef = gql`
     modified: DateTime
     deleted: DateTime
     tags: [Tag]
-    identifiers: Identifier
+    identifiers: [Identifier]
     contacts: [StaffMember]
     machineTags: [MachineTag]
     alternativeCodes: [AlternativeCode]

@@ -51,9 +51,10 @@ export const TabList = ({
     {...props} />
 };
 TabList.displayName = 'TabList';
-TabList.propTypes = {
-  ['aria-label']: oneOfMany(['aria-label', 'aria-labelledby'])
-};
+// now that this is being used as links with routes it seems less interesting?
+// TabList.propTypes = {
+//   ['aria-label']: oneOfMany(['aria-label', 'aria-labelledby'])
+// };
 
 export const RouterTab = ({
   direction,

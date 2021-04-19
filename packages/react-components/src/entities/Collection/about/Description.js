@@ -3,7 +3,7 @@ import { jsx } from '@emotion/react';
 import React, { useContext, useState } from 'react';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import * as css from './styles';
-import { Row, Col, Properties, Accordion } from "../../../components";
+import { Row, Col, Properties, Accordion, Button } from "../../../components";
 
 const { Term: T, Value: V } = Properties;
 
@@ -20,8 +20,12 @@ export function Description({
   // if (loading || !occurrence) return <h1>Loading</h1>;
 
 
-  return <div css={css.paper({ theme })} style={{marginTop: 24, marginBottom: 24}}>
-    {/* <Accordion summary="About" defaultOpen={true}> */}
+  return <>
+    {/* <div style={{margin: '12px 0', textAlign: 'right'}}>
+      <Button>Suggest a change</Button>
+    </div> */}
+    <div css={css.paper({ theme })} style={{marginTop: 24, marginBottom: 24}}>
+      {/* <Accordion summary="About" defaultOpen={true}> */}
       <Properties style={{ fontSize: 14, marginBottom: 12 }} horizontal={true}>
         {getPlain(collection, 'name')}
         {getPlain(collection, 'description')}
@@ -36,27 +40,28 @@ export function Description({
         {getPlain(collection, 'institutionCode')}
         {getPlain(collection, 'notes')}
       </Properties>
-    {/* </Accordion> */}
+      {/* </Accordion> */}
 
-    <Accordion summary="Content" defaultOpen={true} style={{marginBottom: 24}}>
-      <Properties style={{ fontSize: 14, marginBottom: 12 }} horizontal={true}>
-        {getPlain(collection, 'contentTypes')}
-        {getPlain(collection, 'preservationTypes')}
-        {getPlain(collection, 'taxonomicCoverage')}
-        {getPlain(collection, 'geography')}
-        {getList(collection, 'incorporatedCollections')}
-        {getList(collection, 'importantCollectors')}
-      </Properties>
-    </Accordion>
+      <Accordion summary="Content" defaultOpen={true} style={{marginBottom: 24}}>
+        <Properties style={{ fontSize: 14, marginBottom: 12 }} horizontal={true}>
+          {getPlain(collection, 'contentTypes')}
+          {getPlain(collection, 'preservationTypes')}
+          {getPlain(collection, 'taxonomicCoverage')}
+          {getPlain(collection, 'geography')}
+          {getList(collection, 'incorporatedCollections')}
+          {getList(collection, 'importantCollectors')}
+        </Properties>
+      </Accordion>
 
-    <Accordion summary="Contact" defaultOpen={true} style={{marginBottom: 24}}>
-      <Properties style={{ fontSize: 14, marginBottom: 12 }} horizontal={true}>
-        {getPlain(collection.address, 'address')}
-        {getPlain(collection.address, 'country')}
-        {getPlain(collection.address, 'postalCode')}
-      </Properties>
-    </Accordion>
-  </div>
+      <Accordion summary="Contact" defaultOpen={true} style={{marginBottom: 24}}>
+        <Properties style={{ fontSize: 14, marginBottom: 12 }} horizontal={true}>
+          {getPlain(collection.address, 'address')}
+          {getPlain(collection.address, 'country')}
+          {getPlain(collection.address, 'postalCode')}
+        </Properties>
+      </Accordion>
+    </div>
+  </>
 };
 
 function getPlain(collection, fieldName) {
