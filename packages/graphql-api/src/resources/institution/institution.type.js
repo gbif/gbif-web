@@ -9,7 +9,11 @@ const typeDef = gql`
       contact: ID,
       code: String,
       name: String,
+      fuzzyName: String,
+      city: String,
+      country: Country,
       alternativeCode: String
+      active: Boolean
       ): InstitutionSearchResults
     institution(key: String!): Institution
   }
@@ -60,6 +64,8 @@ const typeDef = gql`
     alternativeCodes: [AlternativeCode]
     comments: [Comment]
     collections: [Collection]
+
+    occurrenceCount: Int
   }
 `;
 

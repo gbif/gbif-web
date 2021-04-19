@@ -13,4 +13,11 @@ export default React.createContext({
   collectionSpecimens: {
     url: ({key}) => `/collection/${key}/specimens`
   },
+
+  institutionKey: {
+    url: ({key}) => `/institution/${key}`
+  },
+  collectionSearch: {
+    url: () => `/institution/`
+  },
 });
