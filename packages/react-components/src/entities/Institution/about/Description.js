@@ -27,7 +27,7 @@ export function Description({
         {getPlain(institution, 'name')}
         {getPlain(institution, 'description')}
         {getPlain(institution, 'code')}
-        {getPlain(institution, 'alternativeCodes')}
+        {/* {getPlain(institution, 'alternativeCodes')} */}
         {getPlain(institution, 'homePage')}
         {getPlain(institution, 'active')}
         {getPlain(institution, 'personalCollection')}
