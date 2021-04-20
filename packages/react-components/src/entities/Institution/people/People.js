@@ -9,8 +9,6 @@ import {
   useRouteMatch,
 } from "react-router-dom";
 
-const { Term: T, Value: V } = Properties;
-
 export function People({
   institution,
   className,
