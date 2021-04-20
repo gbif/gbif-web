@@ -39,7 +39,7 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
     labelMap,
     suggestConfigMap,
     filters: filters,
-    defaultVisibleFilters: ['q', 'institutionKey', 'city', 'countryCode', 'code'],
+    defaultVisibleFilters: ['q', 'code', 'name', 'city', 'countryCode'],
     rootPredicate: {  },
     predicateConfig
   }
