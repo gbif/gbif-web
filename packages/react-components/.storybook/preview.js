@@ -55,7 +55,7 @@ addDecorator(storyFn => {
     collectionKey: {
       route: '/',
       url: ({key}) => {
-        return `/iframe.html?id=entities-collection-page--example&viewMode=story`;
+        return `/iframe.html?id=entities-collection-page--example&viewMode=story&knob-collectionUUID=${key}`;
       }
     },
     collectionSearch: {
@@ -66,7 +66,9 @@ addDecorator(storyFn => {
     },
   
     institutionKey: {
-      url: ({key}) => `/institution/${key}`
+      url: ({key}) => {
+        return `/iframe.html?id=entities-institution-page--example&viewMode=story&knob-institutionUUID=${key}`;
+      }
     },
     collectionSearch: {
       url: () => `/institution/`

@@ -5,7 +5,8 @@ import ThemeContext from '../../../style/themes/ThemeContext';
 import * as css from './styles';
 import { Row, Col, Properties, Accordion, JazzIcon, Button } from "../../../components";
 import { Collectors } from './collectors';
-import { removeTrailingSlash, join } from '../../../utils/util';
+import { join } from '../../../utils/util';
+
 import sortBy from 'lodash/sortBy';
 import {
   Switch,
@@ -21,7 +22,7 @@ export function People({
   className,
   ...props
 }) {
-  let { path } = useRouteMatch();
+  let { url, path } = useRouteMatch();
   const theme = useContext(ThemeContext);
 
   const test = 'collection';
@@ -29,10 +30,10 @@ export function People({
     <nav css={css.nav({ theme })}>
       <ul>
         <li>
-          <NavLink to={path} exact activeClassName="isActive" css={css.navItem({ theme })}>Staff</NavLink>
+          <NavLink to={url} exact activeClassName="isActive" css={css.navItem({ theme })}>Staff</NavLink>
         </li>
         <li>
-          <NavLink to={`${removeTrailingSlash(path)}/agents`} activeClassName="isActive" css={css.navItem({ theme })}>Collectors and identifiers</NavLink>
+          <NavLink to={join(url, '/agents')} activeClassName="isActive" css={css.navItem({ theme })}>Collectors and identifiers</NavLink>
         </li>
       </ul>
     </nav>
@@ -40,7 +41,7 @@ export function People({
       <Switch>
 
 
-        <Route path={`${removeTrailingSlash(path)}/agents`}>
+        <Route path={join(path, '/agents')}>
           <Collectors id={collection.key} />
         </Route>
 

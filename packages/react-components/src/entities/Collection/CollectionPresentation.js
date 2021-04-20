@@ -29,6 +29,12 @@ export function CollectionPresentation({
   let { url, path } = useRouteMatch();
   const theme = useContext(ThemeContext);
 
+  console.log('url: ', url);
+  console.log('path: ', path);
+  console.log('path: ', path);
+  console.log('join url: ', join(url, 'people'));
+  console.log('join path: ', join(path, 'people'));
+
   if (loading) return <div>loading</div>
   const { collection, occurrenceSearch } = data;
 
@@ -79,8 +85,8 @@ export function CollectionPresentation({
         </div>
         <TabList style={{ marginTop: '12px', borderTop: '1px solid #ddd' }}>
           <RouterTab to={url} exact label="About"/>
-          <RouterTab to={join(url, '/people')} label="People"/>
-          <RouterTab to={join(url, '/specimens')} label="Digitized specimens"/>
+          <RouterTab to={join(url, 'people')} label="People"/>
+          <RouterTab to={join(url, 'specimens')} label="Digitized specimens"/>
         </TabList>
       </div>
     </div>
@@ -88,12 +94,12 @@ export function CollectionPresentation({
 
     <section>
       <Switch>
-        <Route path={join(path, '/people')}>
+        <Route path={join(path, 'people')}>
         <div css={css.proseWrapper({ theme })}>
             <People {...{collection}}/>
           </div>
         </Route>
-        <Route path={join(path, '/specimens')}>
+        <Route path={join(path, 'specimens')}>
           <OccurrenceSearch config={config} style={{ margin: 'auto', maxWidth: 1000, minHeight: 'calc(90vh)' }}></OccurrenceSearch>;
         </Route>
         <Route path={path}>

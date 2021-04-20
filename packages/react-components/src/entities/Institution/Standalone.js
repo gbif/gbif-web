@@ -6,7 +6,7 @@ import RouteContext from '../../dataManagement/RouteContext';
 
 function Standalone(props) {
   const routeContext = useContext(RouteContext);
-  const path = routeContext.collectionKey.route;
+  const path = routeContext.institutionKey.route;
   return <StandaloneWrapper {...props}>
     <Switch>
       <Route

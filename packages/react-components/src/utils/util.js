@@ -62,8 +62,12 @@ export function removeTrailingSlash(path) {
     : path
 }
 
-export const join = (base, path) => {
-  return base.charAt(base.length-1) === '/'
-    ? base.slice(0, -1) + path
-    : base + '/' + path
+export function join(){
+  var args = Array.prototype.slice.call(arguments);
+  return args
+    .filter(x => x !== '')
+    .map(x => x.replace(/\/$/g, '')) // remove trailing slash
+    // .map(x => x.replace(/^\//g, '')) // remove prepended slash
+    .join('/')
+    .replace(/\/\//g, '\/')
 }

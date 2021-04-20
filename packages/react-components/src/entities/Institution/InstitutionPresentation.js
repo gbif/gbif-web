@@ -72,8 +72,8 @@ export function InstitutionPresentation({
         </div>
         <TabList style={{ marginTop: '12px', borderTop: '1px solid #ddd' }}>
           <RouterTab to={url} exact label="About"/>
-          <RouterTab to={join(path, '/people')} label="People"/>
-          <RouterTab to={join(path, '/specimens')} label="Digitized specimens"/>
+          <RouterTab to={join(url, '/people')} label="People"/>
+          <RouterTab to={join(url, '/specimens')} label="Digitized specimens"/>
         </TabList>
       </div>
     </div>

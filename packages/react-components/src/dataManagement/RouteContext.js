@@ -12,9 +12,10 @@ export default React.createContext({
   },
 
   institutionKey: {
-    url: ({key}) => `/institution/${key}`
+    url: ({key}) => `/institution/${key}`,
+    route: '/institution/:key'
   },
-  collectionSearch: {
+  institutionSearch: {
     url: () => `/institution/`
   },
 });

@@ -4,6 +4,7 @@ import React, { useContext, useState } from 'react';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import * as css from './styles';
 import { Row, Col, Properties, Accordion, Button } from "../../../components";
+import RouteContext from '../../../dataManagement/RouteContext';
 
 const { Term: T, Value: V } = Properties;
 
@@ -16,6 +17,7 @@ export function Description({
   ...props
 }) {
   const theme = useContext(ThemeContext);
+  const routeContext = useContext(RouteContext);
   const { occurrence } = data;
   // if (loading || !occurrence) return <h1>Loading</h1>;
 
@@ -30,7 +32,7 @@ export function Description({
         {getPlain(collection, 'name')}
         {getPlain(collection, 'description')}
         {getPlain(collection, 'code')}
-        {getPlain(collection, 'alternativeCodes')}
+        {/* {getPlain(collection, 'alternativeCodes')} */}
         {getPlain(collection, 'homePage')}
         {getPlain(collection, 'active')}
         {getPlain(collection, 'personalCollection')}
@@ -38,6 +40,10 @@ export function Description({
         {getPlain(collection, 'accessionStatus')}
         {getPlain(collection, 'institutionName')}
         {getPlain(collection, 'institutionCode')}
+        {collection.institution && <>
+          <T><span style={{paddingRight: 8}}>Institution</span></T>
+          <V><a href={routeContext.institutionKey.url({key: collection.institution.key})}>{collection.institution.name}</a></V>
+        </>}
         {getPlain(collection, 'notes')}
       </Properties>
       {/* </Accordion> */}
@@ -65,7 +71,7 @@ export function Description({
 };
 
 function getPlain(collection, fieldName) {
-  return <><T><span style={{paddingRight: 8}}>{fieldName}</span></T><V>{ collection[fieldName] ? collection[fieldName] : <span style={{color: '#aaa'}}>Not provided</span>}</V></>
+  return <><T><span style={{paddingRight: 8}}>{fieldName}</span></T><V>{ collection?.[fieldName] ? collection[fieldName] : <span style={{color: '#aaa'}}>Not provided</span>}</V></>
 }
 
 function getList(collection, fieldName) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { text } from '@storybook/addon-knobs';
 import { Collection } from './Collection';
-import { MemoryRouter as Router } from "react-router-dom";
+import { MemoryRouter as Router, Switch, Route } from "react-router-dom";
 import AddressBar from '../../StorybookAddressBar';
 import Standalone from './Standalone';
 
@@ -10,7 +10,7 @@ export default {
   component: Collection,
 };
 
-export const Example = () => <Router initialEntries={['/']}>
+export const Example = () => <Router initialEntries={[`/`]}>
   <AddressBar />
   <div style={{ flex: '1 1 auto' }}></div>
   {/* Crustacea */}
@@ -25,6 +25,12 @@ export const Example = () => <Router initialEntries={['/']}>
   {/* Entomology from Harvard University, Museum of Comparative Zoology */}
   {/* <Collection id="42844cb6-421e-4bcf-bdeb-c56039bee08c" /> */}
   <Collection id={text('collectionUUID', '42844cb6-421e-4bcf-bdeb-c56039bee08c')} />
+    {/* <Switch>
+      <Route
+        path='/collection/:key'
+        render={routeProps => <Collection id={routeProps.match.params.key} {...routeProps}/>}
+      />
+    </Switch> */}
 </Router>;
 
 Example.story = {
