@@ -284,8 +284,8 @@ export const en = {
       description: 'A short description of the component should be placed here'
     },
     institutionKey: {
-      name: 'Institution key',
-      count: '{num, plural, one { Institution key } other {# Institution keys}}',
+      name: 'Institution',
+      count: '{num, plural, one { Institution } other {# Institutions}}',
       description: 'A short description of the component should be placed here'
     },
     name: {
