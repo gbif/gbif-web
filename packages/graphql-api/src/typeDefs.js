@@ -44,6 +44,7 @@ async function getSchema() {
     require('./resources/external/viaf').typeDef,
     require('./resources/external/person').typeDef,
     require('./resources/literature').typeDef,
+    require('./resources/download').typeDef,
 // -- Add imports above this line (required by plopfile.js) --
   ]);
 

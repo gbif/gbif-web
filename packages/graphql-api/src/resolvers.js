@@ -18,6 +18,7 @@ const resolvers = _.merge(
   require('./resources/external/viaf').resolver,
   require('./resources/external/person').resolver,
   require('./resources/literature').resolver,
+  require('./resources/download').resolver,
 // -- Add imports above this line (required by plopfile.js) --
 );
 
