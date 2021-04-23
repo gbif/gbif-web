@@ -9,7 +9,7 @@ const cliOptions = [
   { name: 'api_v1', alias: 'a', type: String, defaultValue: 'https://api.gbif.org/v1' },
   { name: 'endpoint', alias: 'e', type: String },
   { name: 'paging', alias: 'p', type: Boolean, defaultValue: false },
-  { name: 'size', alias: 's', type: Number, defaultValue: 1000 },
+  { name: 'size', alias: 's', type: Number, defaultValue: 100 },
   { name: 'name', alias: 'n', type: String, defaultValue: 'tmp' },
 ];
 const options = commandLineArgs(cliOptions);
