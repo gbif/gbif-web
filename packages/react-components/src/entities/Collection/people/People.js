@@ -1,9 +1,10 @@
 
 import { jsx } from '@emotion/react';
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import * as css from './styles';
-import { Row, Col, Properties, Accordion, JazzIcon, Button } from "../../../components";
+import * as cssCollection from '../styles';
+// import { Properties } from "../../../components";
 import { Collectors } from './collectors';
 import { join } from '../../../utils/util';
 
@@ -15,10 +16,9 @@ import {
   useRouteMatch,
 } from "react-router-dom";
 
-const { Term: T, Value: V } = Properties;
-
 export function People({
   collection,
+  recordedByCardinality,
   className,
   ...props
 }) {
@@ -30,14 +30,14 @@ export function People({
     <nav css={css.nav({ theme })}>
       <ul>
         <li>
-          <NavLink to={url} exact activeClassName="isActive" css={css.navItem({ theme })}>Staff</NavLink>
+          <NavLink to={url} exact activeClassName="isActive" css={css.navItem({ theme })}>Staff<span css={cssCollection.tabCountChip()}>{collection.contacts?.length}</span></NavLink>
         </li>
         <li>
-          <NavLink to={join(url, '/agents')} activeClassName="isActive" css={css.navItem({ theme })}>Collectors and identifiers</NavLink>
+          <NavLink to={join(url, '/agents')} activeClassName="isActive" css={css.navItem({ theme })}>Collectors and identifiers<span css={cssCollection.tabCountChip()}>{recordedByCardinality}</span></NavLink>
         </li>
       </ul>
     </nav>
-    <div style={{ width: '100%', marginBottom: 24 }}>
+    <div style={{ width: '100%', margin: 24 }}>
       <Switch>
 
 
@@ -46,14 +46,17 @@ export function People({
         </Route>
 
         <Route path={path}>
+          {collection?.contacts?.length === 0 && <div>
+            There is no staff associated with this record. You can change that. <a herf="">Learn more</a>
+          </div>}
           <div css={css.staffList({ theme })}>
             {sortBy(collection.contacts, 'position').map(contact => {
               return <article css={css.person({ theme })}>
-                <div css={css.staffImage({ theme })}>
+                {/* <div css={css.staffImage({ theme })}>
                   <JazzIcon seed={contact.email || contact.key} />
-                </div>
+                </div> */}
                 <div css={css.staffDesc({ theme })}>
-                  <h4>{contact.firstName} {contact.lastName}</h4>
+                  <a href={`staff/${contact.key}`}><h4>{contact.firstName} {contact.lastName}</h4></a>
                   <div css={css.staffPosition({ theme })}>{contact.position}</div>
                   {contact.researchPursuits && <div>Research pursuits: {contact.researchPursuits}</div>}
                   {/* <div>Associated with <a href="/staff/123">3 collections</a></div> */}
@@ -64,7 +67,7 @@ export function People({
                     {contact.phone && <div>{contact.phone}</div>}
                     {contact.fax && <div>{contact.fax}</div>}
                   </div>
-                  <Button as="a" href="/staff/123">See profile</Button>
+                  {/* <Button as="a" href="/staff/123">More</Button> */}
                 </div>
               </article>
             })}

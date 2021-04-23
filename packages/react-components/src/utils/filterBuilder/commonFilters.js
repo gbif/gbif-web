@@ -49,6 +49,38 @@ export const commonFilters = {
       }
     }
   },
+  countriesOfCoverage: {
+    type: 'SUGGEST',
+    config: {
+      std: {
+        id2labelHandle: 'countryCode',
+        translations: {
+          count: 'filter.countriesOfCoverage.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.countriesOfCoverage.name',// translation path to a title for the popover and the button
+          description: 'filter.countriesOfCoverage.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        suggestHandle: 'countryCode',
+      }
+    }
+  },
+  countriesOfResearcher: {
+    type: 'SUGGEST',
+    config: {
+      std: {
+        id2labelHandle: 'countryCode',
+        translations: {
+          count: 'filter.countriesOfResearcher.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.countriesOfResearcher.name',// translation path to a title for the popover and the button
+          description: 'filter.countriesOfResearcher.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        suggestHandle: 'countryCode',
+      }
+    }
+  },
   publishingCountryCode: {
     type: 'SUGGEST',
     config: {

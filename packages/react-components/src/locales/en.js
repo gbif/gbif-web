@@ -121,6 +121,14 @@ export const en = {
       name: 'Country',
       count: '{num, plural, one {country} other {# countries}}',
     },
+    countriesOfCoverage: {
+      name: 'Country of coverage',
+      count: '{num, plural, one {country of coverage} other {# countries of coverage}}',
+    },
+    countriesOfResearcher: {
+      name: 'Country of researcher',
+      count: '{num, plural, one {country of researcher} other {# countries of researchers}}',
+    },
     typeStatus: {
       name: 'Type status',
       count: '{num, plural, one {type status} other {# type statuses}}',

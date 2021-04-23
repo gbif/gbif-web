@@ -5,7 +5,7 @@ export default React.createContext({
     route: '/collection/:key'
   },
   collectionSearch: {
-    url: () => `/collection/`
+    url: () => `/collection-search/`
   },
   collectionSpecimens: {
     url: ({key}) => `/collection/${key}/specimens`
@@ -16,6 +16,6 @@ export default React.createContext({
     route: '/institution/:key'
   },
   institutionSearch: {
-    url: () => `/institution/`
+    url: () => `/institution-search/`
   },
 });

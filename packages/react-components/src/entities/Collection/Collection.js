@@ -51,6 +51,9 @@ query collection($key: String!, $predicate: Predicate){
     documents(size: 0) {
       total
     }
+    cardinality {
+      recordedBy
+    }
   }
   collection(key: $key) {
     key

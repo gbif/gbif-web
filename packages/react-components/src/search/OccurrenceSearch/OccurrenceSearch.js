@@ -116,6 +116,7 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
   
   const whitelistedFilters = without((customConfig.whitelistedFilters || defaultFilterConfig.whitelist), ...(customConfig.blacklistedFilters || []));
   const highlightedFilters = customConfig.highlightedFilters || defaultFilterConfig.highlighted;
+  
   return {
     labelMap,
     suggestConfigMap,

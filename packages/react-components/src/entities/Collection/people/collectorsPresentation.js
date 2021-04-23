@@ -1,10 +1,13 @@
-import React, { useCallback, useState } from 'react';
-import { Button, DataTable, Th, Td, TBody, Input } from '../../../components';
+import React, { useContext, useState } from 'react';
+import { Button, DataTable, Th, Td, TBody, Input, Tooltip } from '../../../components';
 import * as css from './styles';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
+import { MdHelp } from 'react-icons/md';
+import ThemeContext from '../../../style/themes/ThemeContext';
 
 export const CollectorsPresentation = ({ size, search, loadMore, loading, data, error }) => {
   const [q, setQ] = useState('');
+  const theme = useContext(ThemeContext);
 
   if (loading && !data) return <div>loading</div>;
 
@@ -21,15 +24,28 @@ export const CollectorsPresentation = ({ size, search, loadMore, loading, data, 
 
   const columns = ['name', 'collected', 'identified'];
   const headerss = [
-    <Th key="name">Recorded by</Th>,
-    <Th key="collected" style={{textAlign: 'right'}}>Recorded count</Th>,
-    <Th key="identifed" style={{textAlign: 'right'}}>Identified count</Th>
+    <Th key="name">
+      <Tooltip title={<div>Strings as they appear in dwcA 'recordedBy'.</div>}>
+        <div>Collected by <MdHelp /></div>
+      </Tooltip>
+    </Th>,
+    <Th key="collected" style={{textAlign: 'right'}}>Records collected</Th>,
+    <Th key="identifed" style={{textAlign: 'right'}}>Records identified</Th>
   ];
 
   return <>
     <div style={{
-      flex: "1 1 100%"
+      flex: "1 1 100%",
     }}>
+
+      <div>
+      <div css={css.info({theme})}>
+        <MdHelp />
+      </div>
+      </div>
+      <div css={css.info({theme})}>
+        These are the strings as they appear on the digitized records in the field "recordedBy". That means that one row can represent multiple people and that the same person can appear under multiple spellings. The names are ordered by number of records collected.
+      </div>
       <div css={css.search}>
         <Input value={q} onChange={e => setQ(e.target.value)} />
         <Button onClick={e => search(q)}>Search</Button>

@@ -61,6 +61,7 @@ export const RouterTab = ({
   label, 
   to,
   exact,
+  className,
   ...props
 }) => {
   const theme = useContext(ThemeContext);
@@ -68,7 +69,7 @@ export const RouterTab = ({
     path: to,
     exact: exact
   });
-  return <li css={styles.routerTab({ theme, isActive, direction })}>
+  return <li css={styles.routerTab({ theme, isActive, direction })} className={className}>
     <Link to={to} {...props}>{label}</Link>
   </li>
 };

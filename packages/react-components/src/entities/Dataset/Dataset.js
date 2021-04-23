@@ -1,0 +1,110 @@
+
+import React, { useContext, useState, useEffect } from 'react';
+import ThemeContext from '../../style/themes/ThemeContext';
+import { useQuery } from '../../dataManagement/api';
+import { DatasetPresentation } from './DatasetPresentation';
+
+import { MemoryRouter, useRouteMatch } from 'react-router-dom';
+
+function EnsureRouter({children}) {
+  let hasRouter;
+  try {
+    const forTestOnly = useRouteMatch();
+    hasRouter = true;
+  } catch(err) {
+    console.log('No router context found, so creating a MemoryRouter for the component');
+    hasRouter = false;
+  }
+  return hasRouter ? <>{children}</> : <MemoryRouter initialEntries={['/']}>{children}</MemoryRouter>
+}
+
+export function Dataset({
+  id,
+  ...props
+}) {
+  const { data, error, loading, load } = useQuery(DATASET, { lazyLoad: true });
+  const theme = useContext(ThemeContext);
+
+  useEffect(() => {
+    if (typeof id !== 'undefined') {
+      load({
+        variables: {
+          key: id,
+          predicate: {
+            type: "equals",
+            key: "datasetKey",
+            value: id
+          }
+        }
+      });
+    }
+  }, [id]);
+
+  return <EnsureRouter>
+    <DatasetPresentation {...{ data, error, loading: loading || !data, id }} />
+  </EnsureRouter>
+};
+
+const DATASET = `
+query dataset($key: String!, $predicate: Predicate){
+  occurrenceSearch(predicate: $predicate) {
+    documents(size: 0) {
+      total
+    }
+  }
+  dataset(key: $key) {
+    title
+    created
+    description
+    temporalCoverages
+    logoUrl
+    publishingOrganizationKey
+    publishingOrganizationTitle
+    contributors {
+      firstName
+      lastName
+      position
+      organization
+      address
+      userId
+      type
+      _highlighted
+      roles
+    }
+    geographicCoverages {
+      description
+      boundingBox {
+        minLatitude
+        maxLatitude
+        minLongitude
+        maxLongitude
+        globalCoverage
+      }
+    }
+    taxonomicCoverages {
+      description
+      coverages {
+        scientificName
+        rank {
+          interpreted
+        }
+      }
+    }
+    bibliographicCitations {
+      identifier
+      text
+    }
+    samplingDescription {
+      studyExtent
+      sampling
+      qualityControl
+      methodSteps
+    } 
+    citation {
+      text
+    }
+    license
+  }
+}
+`;
+

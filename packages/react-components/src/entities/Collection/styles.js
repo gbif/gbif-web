@@ -2,6 +2,20 @@ import { css } from '@emotion/react';
 // import { focusStyle } from '../../style/shared';
 
 
+export const tab = ({ noData, ...props }) => css`
+  color: ${noData ? '#888' : null}
+`;
+
+export const tabCountChip = ({ ...props }) => css`
+  background: #88888847;
+  color: #00000085;
+  padding: 2px 5px;
+  font-size: 10px;
+  border-radius: 4px;
+  margin: 0 4px;
+  font-weight: bold;
+`;
+
 export const headerWrapper = ({ ...props }) => css`
   background: white;
   padding: 1rem 1rem 0 1rem;

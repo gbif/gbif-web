@@ -3,7 +3,6 @@ import { jsx } from '@emotion/react';
 import React, { useContext, useState, useEffect } from 'react';
 import { MdInfo } from 'react-icons/md'
 import ThemeContext from '../../style/themes/ThemeContext';
-// import * as css from './styles';
 import { Tabs, Eyebrow } from '../../components';
 import OccurrenceSearch from '../../search/OccurrenceSearch/OccurrenceSearch';
 import { iconFeature } from '../../components/IconFeatures/styles';
@@ -29,14 +28,9 @@ export function CollectionPresentation({
   let { url, path } = useRouteMatch();
   const theme = useContext(ThemeContext);
 
-  console.log('url: ', url);
-  console.log('path: ', path);
-  console.log('path: ', path);
-  console.log('join url: ', join(url, 'people'));
-  console.log('join path: ', join(path, 'people'));
-
   if (loading) return <div>loading</div>
   const { collection, occurrenceSearch } = data;
+  const recordedByCardinality = occurrenceSearch?.cardinality?.recordedBy;
 
   if (error || !collection) {
     // TODO a generic component for failures is needed
@@ -55,7 +49,9 @@ export function CollectionPresentation({
     occurrenceSearchTabs: ['TABLE', 'GALLERY', 'MAP'],
     highlightedFilters: ['taxonKey', 'catalogNumber', 'recordedBy', 'identifiedBy', 'typeStatus']
   };
-// console.log(data);
+
+  const hasNoPeople = !collection?.contacts?.length && !recordedByCardinality;
+  
   return <>
     <div css={css.headerWrapper({ theme })}>
       <div css={css.proseWrapper({ theme })}>
@@ -66,14 +62,14 @@ export function CollectionPresentation({
         </div>}
 
         <div css={css.summary}>
-          <div css={iconFeature({ theme })}>
+          {occurrenceSearch.documents.total > 0 && <div css={iconFeature({ theme })}>
             <MdLocationOn />
-            <span><FormattedNumber value={occurrenceSearch.documents.total} /> specimens</span>
-          </div>
-          <div css={iconFeature({ theme })}>
+            <span><FormattedNumber value={occurrenceSearch.documents.total} /> digitized specimens</span>
+          </div>}
+          {collection.taxonomicCoverage && <div css={iconFeature({ theme })}>
             <MdStar />
             <span>{collection.taxonomicCoverage}</span>
-          </div>
+          </div>}
           {collection.contacts.length > 0 && <div css={iconFeature({ theme })}>
             <MdPeople />
             {collection.contacts.length < 5 && <span>
@@ -85,8 +81,8 @@ export function CollectionPresentation({
         </div>
         <TabList style={{ marginTop: '12px', borderTop: '1px solid #ddd' }}>
           <RouterTab to={url} exact label="About"/>
-          <RouterTab to={join(url, 'people')} label="People"/>
-          <RouterTab to={join(url, 'specimens')} label="Digitized specimens"/>
+          <RouterTab to={join(url, 'people')} css={css.tab({theme, noData: hasNoPeople})} label="People"/>
+          <RouterTab to={join(url, 'specimens')} css={css.tab({theme, noData: occurrenceSearch?.documents?.total === 0})} label="Digitized specimens"/>
         </TabList>
       </div>
     </div>
@@ -96,7 +92,7 @@ export function CollectionPresentation({
       <Switch>
         <Route path={join(path, 'people')}>
         <div css={css.proseWrapper({ theme })}>
-            <People {...{collection}}/>
+            <People {...{collection, recordedByCardinality}}/>
           </div>
         </Route>
         <Route path={join(path, 'specimens')}>

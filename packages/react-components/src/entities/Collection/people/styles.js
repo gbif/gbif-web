@@ -20,10 +20,9 @@ export const navItem = ({ ...props }) => css`
 
 export const search = ({ ...props }) => css`
   display: flex;
-  margin: 12px;
+  margin-bottom: 24px;
   margin-left: 0;
-  width: 400px;
-  max-width: 100%;
+  width: 100%;
   input {
     margin-right: 12px;
     height: auto;
@@ -32,12 +31,22 @@ export const search = ({ ...props }) => css`
 
 export const nav = ({ ...props }) => css`
   flex: 0 0 280px;
-  padding-right: 12px;
+  padding: 24px 12px;
+  margin: 0;
   font-size: 14px;
   ul {
     list-style: none;
     padding: 0;
+    margin: 0;
   }
+`;
+
+export const info = ({ ...props }) => css`
+  background: #65808a;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 4px;
+  margin-bottom: 12px;
 `;
 
 export const staffList = ({ ...props }) => css`
@@ -50,23 +59,29 @@ export const staffPosition = ({ ...props }) => css`
   color: #888;
 `;
 
-export const staffDesc = ({ ...props }) => css`
+export const staffDesc = ({ theme, ...props }) => css`
   flex: 1 1 auto;
   margin: 12px;
+  a {
+    color: ${theme.primary500};
+    text-decoration: none;
+  }
   h4 {
     margin: 0;
+    font-weight: bold;
   }
 `;
 
 export const staffContact = ({ ...props }) => css`
   flex: 0 0 220px;
   display: flex;
-  text-align: center;
+  font-size: 14px;
+  text-align: right;
   flex-direction: column;
   >div {
     flex: 1 1 auto;
   }
-  background: #eee;
+  background: #f8f8f8;
   padding: 12px;
 `;
 
@@ -76,7 +91,7 @@ export const staffImage = ({ ...props }) => css`
 `;
 export const person = ({ ...props }) => css`
   background: white;
-  margin: 12px;
+  margin-bottom: 12px;
   display: flex;
   flex-wrap: nowrap;
   border: 1px solid #eee;

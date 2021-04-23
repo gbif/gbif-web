@@ -70,6 +70,7 @@ export const root = ({ appRoot, theme = {} }) => css`
   color: ${theme.color900 || '#4a4a4a'};
   font-size: ${theme.fontSize || '1em'};
   font-weight: 400;
+  line-height: normal;
   box-sizing: border-box;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
   background: ${appRoot ? theme.background : null};

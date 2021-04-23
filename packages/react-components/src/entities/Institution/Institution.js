@@ -51,6 +51,9 @@ query institution($key: String!, $predicate: Predicate){
     documents(size: 0) {
       total
     }
+    cardinality {
+      recordedBy
+    }
   }
   institution(key: $key) {
     key
