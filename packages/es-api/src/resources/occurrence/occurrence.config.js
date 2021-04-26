@@ -682,7 +682,7 @@ const config =
       "type": "keyword",
       "field": "gbifClassification.taxonKey"
     },
-    "gbifClassification_verbatimScientificName": {
+    "verbatimScientificName": {
       "type": "keyword",
       "field": "gbifClassification.verbatimScientificName"
     },

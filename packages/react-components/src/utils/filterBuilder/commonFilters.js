@@ -729,7 +729,8 @@ export const commonFilters = {
         specific: {
           suggestHandle: 'gadmGid',
           id2labelHandle: 'gadmGid',
-          showAboutAsDefault: true
+          showAboutAsDefault: true,
+          supportsExist: true
         }
       }
     },
@@ -872,6 +873,23 @@ export const commonFilters = {
       specific: {
         placeholder: 'E.g. NHMN',
         singleSelect: true
+      }
+    }
+  },
+  verbatimScientificName: {
+    type: 'SIMPLE_TEXT',
+    config: {
+      std: {
+        filterHandle: 'verbatimScientificName',
+        id2labelHandle: 'verbatimScientificName',
+        translations: {
+          count: 'filter.verbatimScientificName.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.verbatimScientificName.name',// translation path to a title for the popover and the button
+          description: 'filter.verbatimScientificName.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        placeholder: 'E.g. Puma Concolor'
       }
     }
   },
