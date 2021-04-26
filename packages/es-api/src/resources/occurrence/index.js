@@ -10,7 +10,7 @@ function suggestConfig() {
   return suggestConfigFromAlias({ 
     endpoint: env.occurrence.hosts[0], 
     alias: 'occurrence', 
-    type: 'record'
+    type: 'properties'
   });
 
   // return suggestGqlTypeFromAlias({ 

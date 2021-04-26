@@ -419,6 +419,10 @@ const config =
       "field": "parentEventId.keyword",
       "suggestField": "parentEventId.suggest"
     },
+    "preparations": {
+      "type": "keyword",
+      "field": "preparations"
+    },
     "programmeAcronym": {
       "type": "keyword",
       "field": "programmeAcronym"

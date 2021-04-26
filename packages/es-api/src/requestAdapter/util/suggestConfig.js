@@ -14,7 +14,7 @@ async function suggestConfigFromAlias({endpoint, alias, type}) {
 
 async function suggestConfigFromIndex({endpoint, index, type}) {
   const mappingResponse = await axios.get(`${endpoint}/${index}/_mapping`);
-  const mapping = mappingResponse.data[index].mappings[type];
+  const mapping = mappingResponse.data[index].mappings;
   const config = mapping2searchConfig(mapping);
   console.log(util.inspect(config, { compact: false, depth: 10, sort: true }));
   return config;
