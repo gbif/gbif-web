@@ -24,12 +24,7 @@ import without from 'lodash/without';
 function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, customConfig }, context) {
   const { labels = {}, getSuggests = () => ({}), filters: customFilters = {}, adapters = {} } = customConfig;
   const mergedLabels = { ...labelConfig, ...labels };
-  const mergedFilters = { 
-    q: filterWidgetConfig.q,
-    year: filterWidgetConfig.year,
-    countriesOfResearcher: filterWidgetConfig.countriesOfResearcher,
-    countriesOfCoverage: filterWidgetConfig.countriesOfCoverage,
-  };
+  const mergedFilters = { ...filterWidgetConfig, ...customFilters };
   const suggestConfigMap = getSuggestConfig({ context, suggestStyle });
   const suggestConfigMapCustom = getSuggests({ client: context.client, suggestStyle });
   const mergedSuggest = { ...suggestConfigMap, ...suggestConfigMapCustom };
@@ -38,7 +33,7 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
   
   const whitelistedFilters = without((customConfig.whitelistedFilters || defaultFilterConfig.whitelist), ...(customConfig.blacklistedFilters || []));
   const highlightedFilters = customConfig.highlightedFilters || defaultFilterConfig.highlighted;
-  
+  debugger;
   return {
     labelMap,
     suggestConfigMap,

@@ -22,6 +22,12 @@ export function Activity({
   let { url, path } = useRouteMatch();
   const theme = useContext(ThemeContext);
 
+  const config = { 
+    rootFilter:{gbifDatasetKey: [dataset.key]}, 
+    blacklistedFilters: ['datasetKey'], 
+    // highlightedFilters: ['taxonKey', 'catalogNumber', 'recordedBy', 'identifiedBy', 'typeStatus']
+  };
+
   return <div css={css.people({ theme })}>
     <nav css={css.nav({ theme })}>
       <ul>
@@ -38,7 +44,7 @@ export function Activity({
         <Route path={join(path, '/citations')}>
           {/* <Citations id={dataset.key} /> */}
           {/* <div>citation search of the citations</div> */}
-          <LiteratureSearch style={{ margin: 'auto', maxWidth: '100%', minHeight: 'calc(90vh)' }}></LiteratureSearch>;
+          <LiteratureSearch config={config} style={{ margin: 'auto', maxWidth: '100%', minHeight: 'calc(90vh)' }}></LiteratureSearch>
         </Route>
 
         <Route path={path}>

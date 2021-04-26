@@ -9,7 +9,8 @@ export const all = [
 const highlighted = [
   'q',
   'year',
-  'countriesOfResearcher'
+  'countriesOfResearcher',
+  'datasetKey'
 ];
 
 export default { filters: all, whitelist: all, highlighted };

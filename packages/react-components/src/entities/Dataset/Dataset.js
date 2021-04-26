@@ -53,6 +53,7 @@ query dataset($key: String!, $predicate: Predicate){
     }
   }
   dataset(key: $key) {
+    key
     title
     created
     description
