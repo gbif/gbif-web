@@ -697,7 +697,8 @@ export const commonFilters = {
         specific: {
           suggestHandle: 'gadmGid',
           id2labelHandle: 'gadmGid',
-          showAboutAsDefault: true
+          showAboutAsDefault: true,
+          supportsExist: true
         }
       }
     },
