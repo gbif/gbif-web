@@ -41,7 +41,8 @@ export const all = [
   'identifiedBy',
   'isInCluster',
   'institutionKey',
-  'q'
+  'q',
+  'verbatimScientificName',
 ].sort();
 
 const highlighted = [

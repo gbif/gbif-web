@@ -48,7 +48,7 @@ export const en = {
     taxonKey: {
       name: 'Scientific name',
       count: '{num, plural, one {scientific name} other {# scientific names}}',
-      description: 'The scientific name as it appears in the GBIF backbone taxonomy'
+      description: 'The scientific name as it appears in the GBIF backbone taxonomy. In other words: the names are normalised to ease search across datasets. The downside is that a name might be misinterpreted or be unknown. To search the names as provided use the "Verbatim scientific name"-filter'
     },
     basisOfRecord: {
       name: 'Basis of record',
@@ -302,6 +302,11 @@ export const en = {
       name: 'Code',
       count: '{num, plural, one { Code } other {# Codes}}',
       description: 'A short description of the component should be placed here'
+    },
+    verbatimScientificName: {
+      name: 'Verbatim scientific name',
+      count: '{num, plural, one { Verbatim scientific name } other {# Verbatim scientific names}}',
+      description: 'Scientific name as provided without any normalisation. You search the names as they are used, the downside is that the same taxon can appear under multiple spellings and synonyms and typos.'
     },
     // -- Add filter above this line (required by plopfile.js) --
   },
