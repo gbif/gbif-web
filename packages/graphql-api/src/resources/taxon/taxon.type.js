@@ -7,7 +7,7 @@ const typeDef = gql`
                 q: String, 
                 datasetKey: [ID], 
                 rank: [Rank], 
-                highertaxonKey: [Int], 
+                highertaxonKey: [ID], 
                 status: [TaxonomicStatus], 
                 isExtinct: Boolean, 
                 habitat: [Habitat], 
@@ -20,7 +20,7 @@ const typeDef = gql`
                 offset: Int,
                 q: String, 
                 rank: [Rank], 
-                highertaxonKey: [Int], 
+                highertaxonKey: [ID], 
                 status: [TaxonomicStatus], 
                 isExtinct: Boolean, 
                 habitat: [Habitat], 
@@ -29,7 +29,7 @@ const typeDef = gql`
                 issue: [NameUsageIssue], 
                 hl: Boolean
               ): TaxonSearchResult!
-    taxon(key: Int!): Taxon
+    taxon(key: ID!): Taxon
     checklistRoots(datasetKey: ID!, limit: Int, offset: Int): TaxonListResult
   }
 
@@ -111,7 +111,7 @@ const typeDef = gql`
                 q: String, 
                 datasetKey: [ID], 
                 rank: [Rank], 
-                highertaxonKey: [Int], 
+                highertaxonKey: [ID], 
                 status: [TaxonomicStatus], 
                 isExtinct: Boolean, 
                 habitat: [Habitat], 

@@ -43,7 +43,7 @@ const typeDef = gql`
     apiUrl: URL
     preservationTypes: [PreservationType]
     accessionStatus: AccessionStatus
-    institutionKey: String
+    institutionKey: ID
     institution: Institution
     mailingAddress: Address
     address: Address
