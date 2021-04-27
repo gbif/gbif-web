@@ -55,8 +55,12 @@ query dataset($key: ID!, $predicate: Predicate){
   literatureSearch(gbifDatasetKey: [$key]) {
     count
   }
+  taxonSearch(datasetKey: [$key], origin: [SOURCE], status: [ACCEPTED]){
+    count
+  }
   dataset(key: $key) {
     key
+    type
     title
     created
     description

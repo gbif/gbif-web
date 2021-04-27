@@ -13,8 +13,7 @@ import { join } from '../../utils/util';
 import get from 'lodash/get';
 
 import * as css from './styles';
-import { MdLocationOn, MdPeople, MdStar, MdFormatQuote } from 'react-icons/md';
-import { BiWorld } from 'react-icons/bi';
+import { MdLocationOn, MdPeople, MdLink, MdStar, MdFormatQuote } from 'react-icons/md';
 
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 
@@ -56,7 +55,7 @@ export function DatasetPresentation({
   return <>
     <div css={css.headerWrapper({ theme })}>
       <div css={css.proseWrapper({ theme })}>
-        <Eyebrow prefix="Dataset" suffix={<FormattedMessage id="components.dataset.registeredDate" values={{ DATE: <FormattedDate value={dataset.created} year="numeric" month="long" day="2-digit" /> }} />} />
+        <Eyebrow prefix={<FormattedMessage id={`components.dataset.longType.${dataset.type}`} />} suffix={<FormattedMessage id="components.dataset.registeredDate" values={{ DATE: <FormattedDate value={dataset.created} year="numeric" month="long" day="2-digit" /> }} />} />
         <h1>{dataset.title}</h1>
         <div>
           From <a href={`/publisher/${dataset.publishingOrganizationKey}`}>{dataset.publishingOrganizationTitle}</a>
@@ -69,17 +68,18 @@ export function DatasetPresentation({
               <ol css={css.bulletList}>{highlightedAuthors.map(p => <li key={p.key}>{p.firstName ? p.firstName + ' ' : ''}{p.lastName}</li>)}</ol>
             </div>
           </div>}
-          
-          {dataset.homepage && <div css={iconFeature({ theme })}>
-            <BiWorld />
-            <span><Hostname href={dataset.homepage} /></span>
-          </div>}
 
-          <div>
+          <div css={css.iconFeatures()}>
+            {dataset.homepage && <div css={iconFeature({ theme })}>
+              <MdLink />
+              <span><Hostname href={dataset.homepage} /></span>
+            </div>}
+            
             {occurrenceSearch.documents.total > 0 && <div css={iconFeature({ theme })}>
               <MdLocationOn />
               <span><FormattedNumber value={occurrenceSearch.documents.total} /> occurrences</span>
             </div>}
+            
             {literatureSearch.count > 0 && <div css={iconFeature({ theme })}>
               <MdFormatQuote />
               <span><FormattedNumber value={literatureSearch.count} /> citations</span>
