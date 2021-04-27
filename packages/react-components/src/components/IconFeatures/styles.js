@@ -5,10 +5,11 @@ export const iconFeature = ({...props}) => css`
   display: flex;
   align-items: center;
   flex: 0 0 auto;
+  align-items: flex-start;
   svg {
     flex: 0 0 auto;
   }
-  span {
+  span, div {
     margin: 0 0.75em;
   }
 `;

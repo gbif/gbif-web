@@ -46,11 +46,14 @@ export function Dataset({
 };
 
 const DATASET = `
-query dataset($key: String!, $predicate: Predicate){
+query dataset($key: ID!, $predicate: Predicate){
   occurrenceSearch(predicate: $predicate) {
     documents(size: 0) {
       total
     }
+  }
+  literatureSearch(gbifDatasetKey: [$key]) {
+    count
   }
   dataset(key: $key) {
     key
@@ -61,7 +64,9 @@ query dataset($key: String!, $predicate: Predicate){
     logoUrl
     publishingOrganizationKey
     publishingOrganizationTitle
+    homepage
     contributors {
+      key
       firstName
       lastName
       position

@@ -1,9 +1,8 @@
 import { css } from '@emotion/react';
-// import { focusStyle } from '../../style/shared';
-
+export { bulletList } from '../../style/shared'; 
 
 export const tab = ({ noData, ...props }) => css`
-  color: ${noData ? '#888' : null}
+  color: ${noData ? '#888' : null};
 `;
 
 export const tabCountChip = ({ ...props }) => css`

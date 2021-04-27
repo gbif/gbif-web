@@ -24,7 +24,7 @@ export const Example = () => <Router initialEntries={[`/`]}>
 
   {/* Entomology from Harvard University, Museum of Comparative Zoology */}
   {/* <Dataset id="42844cb6-421e-4bcf-bdeb-c56039bee08c" /> */}
-  <Dataset id={text('datasetUUID', '3f8a1297-3259-4700-91fc-acc4170b27ce')} />
+  <Dataset id={text('datasetUUID', '83e20573-f7dd-4852-9159-21566e1e691e')} />
     {/* <Switch>
       <Route
         path='/dataset/:key'

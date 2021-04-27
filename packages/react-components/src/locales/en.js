@@ -15,6 +15,7 @@ import role from './enums/role.json';
 import isInCluster from './enums/isInCluster.json';
 import datasetType from './enums/datasetType.json';
 import datasetSubtype from './enums/datasetSubtype.json';
+import { dataset } from './components/dataset';
 // -- Add imports above this line (required by plopfile.js) --
 
 export const en = {
@@ -35,6 +36,9 @@ export const en = {
   nullOrNot: {
     isNotNull: 'Must be defined',
     isNull: 'Must not be defined',
+  },
+  components: {
+    dataset
   },
   dataset: {
     samplingDescription: {

@@ -31,10 +31,8 @@ export const summary = ({theme, ...props}) => css`
   padding: 12px 0 8px 0;
   border-bottom: 1px solid ${theme.color100};
   list-style: none;
+  list-style-type: none;
   font-weight: 500;
-  &::-webkit-details-marker {
-    display: none;
-  }
   ${focusStyle()}
   ${noUserSelect()}
 `;

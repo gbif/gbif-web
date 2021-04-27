@@ -35,7 +35,7 @@ export const transparentInputOverlay = css`
   opacity: 0;
 `;
 
-export const styledScrollBars = ({theme}) => css`
+export const styledScrollBars = ({ theme }) => css`
   scrollbar-width: thin;
   &::-webkit-scrollbar {
       width: 6px;
@@ -46,7 +46,7 @@ export const styledScrollBars = ({theme}) => css`
   }
 `;
 
-export const classification = ({...props}) => css`
+export const classification = ({ ...props }) => css`
   &>span:after {
     font-style: normal;
     content: ' ❯ ';
@@ -143,5 +143,23 @@ export const skeletonLoading = keyframes`
   }
   to {
     background-color: #88888830;
+  }
+`;
+
+export const bulletList = css`
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  &>li {
+    display: inline-block;
+    &:after {
+      font-style: normal;
+      content: '●';
+      font-size: 80%;
+      padding: 0 3px;
+    }
+    :last-of-type:after {
+      display: none;
+    }
   }
 `;
