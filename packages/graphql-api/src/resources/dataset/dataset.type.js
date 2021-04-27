@@ -18,7 +18,7 @@ const typeDef = gql`
       continent: [Continent],
       hl: Boolean
       ): DatasetSearchResults
-    dataset(key: String!): Dataset
+    dataset(key: ID!): Dataset
   }
 
   type DatasetSearchResults {
@@ -89,7 +89,7 @@ const typeDef = gql`
     homepage: URL
     hostingOrganizationKey: ID
     identifiers: [Identifier]
-    installationKey: String
+    installationKey: ID
     keywordCollections: [KeywordCollection]
     keywords: [String!]
     language: Language

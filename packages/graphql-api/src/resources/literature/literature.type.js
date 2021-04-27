@@ -16,12 +16,12 @@ const typeDef = gql`
       publishingOrganizationKey: [ID],
       peerReview: Boolean,
       openAccess: Boolean,
-      gbifDownloadKey: [String],
+      gbifDownloadKey: [ID],
       doi: [String],
       source: [String],
       publisher: [String]
       ): LiteratureSearchResults
-    literature(key: String!): Literature
+    literature(key: ID!): Literature
   }
 
   type LiteratureSearchResults {
