@@ -36,7 +36,7 @@ export const commonLabels = {
   },
   taxonKey: {
     type: 'GQL',
-    query: `query label($id: Int!){
+    query: `query label($id: ID!){
       taxon(key: $id) {
         formattedName
       }
@@ -50,7 +50,7 @@ export const commonLabels = {
   },
   canonicalName: {
     type: 'GQL',
-    query: `query label($id: Int!){
+    query: `query label($id: ID!){
       taxon(key: $id) {
         canonicalName
       }
