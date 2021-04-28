@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-export { bulletList } from '../../style/shared';
+export { bulletList, discreetLink } from '../../style/shared';
 export { iconFeatures } from '../../components/IconFeatures/styles';
 
 export const tab = ({ noData, ...props }) => css`

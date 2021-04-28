@@ -129,7 +129,7 @@ export function DatasetPresentation({
 function Hostname({href}) {
   try {
     const hostname = new URL(href).hostname;
-    return <a href={href}>{hostname}</a>;
+    return <a href={href} css={css.discreetLink}>{hostname}</a>;
   } catch(err) {
     return <span>invalid</span>;
   }

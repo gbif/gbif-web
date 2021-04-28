@@ -163,3 +163,12 @@ export const bulletList = css`
     }
   }
 `;
+
+export const discreetLink = css`
+  text-decoration: none;
+  color: inherit!important;
+  &:hover {
+    text-decoration: underline;
+    color: inherit!important;
+  }
+`;
