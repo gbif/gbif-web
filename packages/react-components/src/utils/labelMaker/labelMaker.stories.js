@@ -28,7 +28,7 @@ const config = {
   },
   taxonKey: {
     type: 'GQL',
-    query: `query label($id: Int!){
+    query: `query label($id: ID!){
       taxon(key: $id) {
         formattedName
       }

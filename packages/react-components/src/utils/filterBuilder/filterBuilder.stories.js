@@ -10,7 +10,7 @@ import { config2labels, rangeOrEqualLabel } from '../labelMaker';
 const labelConfig = {
   taxonKey: {
     type: 'GQL',
-    query: `query label($id: Int!){
+    query: `query label($id: ID!){
       taxon(key: $id) {
         formattedName
       }
