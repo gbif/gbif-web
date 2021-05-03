@@ -6,7 +6,7 @@ import RouteContext from '../../../../dataManagement/RouteContext';
 
 const QUERY = `
 
-query list($publisher:[String], $source: [String], $doi: [String], $gbifDownloadKey: [String], $openAccess: Boolean, $peerReview: Boolean, $publishingOrganizationKey: [ID], $topics: [String], $relevance: [String], $year: [String], $literatureType: [String], $countriesOfCoverage: [Country], $countriesOfResearcher: [Country], $gbifDatasetKey: [ID], $q: String, $offset: Int, $limit: Int, ){
+query list($publisher:[String], $source: [String], $doi: [String], $gbifDownloadKey: [ID], $openAccess: Boolean, $peerReview: Boolean, $publishingOrganizationKey: [ID], $topics: [String], $relevance: [String], $year: [String], $literatureType: [String], $countriesOfCoverage: [Country], $countriesOfResearcher: [Country], $gbifDatasetKey: [ID], $q: String, $offset: Int, $limit: Int, ){
   literatureSearch(gbifDatasetKey: $gbifDatasetKey, 
     q: $q, 
     countriesOfResearcher: $countriesOfResearcher, 
