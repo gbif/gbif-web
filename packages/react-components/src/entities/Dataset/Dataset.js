@@ -64,11 +64,13 @@ query dataset($key: ID!, $predicate: Predicate){
     title
     created
     description
+    purpose
     temporalCoverages
     logoUrl
     publishingOrganizationKey
     publishingOrganizationTitle
     homepage
+    additionalInfo
     contributors {
       key
       firstName
@@ -95,6 +97,7 @@ query dataset($key: ID!, $predicate: Predicate){
       description
       coverages {
         scientificName
+        commonName
         rank {
           interpreted
         }

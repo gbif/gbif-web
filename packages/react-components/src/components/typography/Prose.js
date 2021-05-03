@@ -80,8 +80,11 @@ export const h1 = ({ theme }) => css`
 export const prose = ({ theme }) => css`
   -webkit-font-smoothing: antialiased;
   line-height: 1.3em;
+  a {
+    color: ${theme.linkColor};
+  }
   h1, h2, h3, h4, h5, h6 {
-    font-weight: 400;
+    font-weight: 500;
   }
   h1 {
     ${h1(theme)};
@@ -102,6 +105,12 @@ export const prose = ({ theme }) => css`
     ${h6(theme)};
   }
   ${ol(theme)};
+  ul {
+    padding-inline-start: 1em;
+    li {
+      margin-bottom: .5em;
+    }
+  }
   p {
     margin-bottom: 8px;
   }

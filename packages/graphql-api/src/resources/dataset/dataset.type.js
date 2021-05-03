@@ -66,6 +66,7 @@ const typeDef = gql`
 
   type Dataset {
     key: ID!
+    additionalInfo: String
     bibliographicCitations: [BibliographicCitation]
     citation: Citation
     collections: [JSON]
@@ -109,6 +110,7 @@ const typeDef = gql`
     publishingCountry: Country
     publishingOrganizationKey: ID!
     publishingOrganizationTitle: String
+    purpose: String
     samplingDescription: SamplingDescription
     tags: [Tag]
     taxonomicCoverages: [TaxonomicCoverage]
@@ -168,6 +170,7 @@ const typeDef = gql`
 
   type TaxonCoverage {
     scientificName: String
+    commonName: String
     rank: TaxonCoverageRank
   }
 

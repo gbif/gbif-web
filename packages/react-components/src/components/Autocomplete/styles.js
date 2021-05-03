@@ -28,7 +28,7 @@ export const item = ({theme, ...props}) => css`
   display: block;
   padding: 5px 12px;
   overflow: hidden;
-  color: ${theme.colo900}aa;
+  // color: ${theme.color900}aa;
   font-weight: normal;
   line-height: 22px;
   cursor: pointer;

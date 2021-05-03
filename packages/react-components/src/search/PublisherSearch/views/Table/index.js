@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
+import RouteContext from '../../../../dataManagement/RouteContext';
 import StandardSearchTable from '../../../StandardSearchTable';
-import { FormattedNumber } from 'react-intl';
+// import { FormattedNumber } from 'react-intl';
 
 const QUERY = `
 query list($country: Country, $q: String, $offset: Int, $limit: Int){
@@ -38,7 +39,13 @@ const defaultTableConfig = {
 };
 
 function Table() {
-  return <StandardSearchTable graphQuery={QUERY} resultKey='organizationSearch' defaultTableConfig={defaultTableConfig}/>
+  const routeContext = useContext(RouteContext);
+
+  function onSelect({key}) {
+    const path = routeContext.publisherKey.url({key});
+    window.location = path;
+  }
+  return <StandardSearchTable onSelect={onSelect} graphQuery={QUERY} resultKey='organizationSearch' defaultTableConfig={defaultTableConfig}/>
 }
 
 export default Table;

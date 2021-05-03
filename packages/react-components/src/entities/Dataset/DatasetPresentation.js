@@ -4,8 +4,8 @@ import React, { useContext, useCallback, useState, useEffect } from 'react';
 import ThemeContext from '../../style/themes/ThemeContext';
 import { Tabs, Eyebrow } from '../../components';
 import OccurrenceSearch from '../../search/OccurrenceSearch/OccurrenceSearch';
-import { iconFeature } from '../../components/IconFeatures/styles';
-import { Description as About } from './about/Description';
+import { iconFeature, countFeature } from '../../components/IconFeatures/styles';
+import { About } from './about/About';
 import { Activity } from './activity/Activity';
 import { DownloadOptions } from './DownloadOptions';
 import { FormattedMessage, FormattedNumber, FormattedDate } from 'react-intl';
@@ -13,7 +13,7 @@ import { join } from '../../utils/util';
 import get from 'lodash/get';
 
 import * as css from './styles';
-import { MdLocationOn, MdPeople, MdLink, MdStar, MdFormatQuote } from 'react-icons/md';
+import { MdLocationOn, MdPeople, MdLink, MdPlaylistAddCheck, MdStar, MdFormatQuote } from 'react-icons/md';
 
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 
@@ -30,7 +30,7 @@ export function DatasetPresentation({
   const theme = useContext(ThemeContext);
 
   if (loading) return <div>loading</div>
-  const { dataset, literatureSearch, occurrenceSearch } = data;
+  const { dataset, literatureSearch, occurrenceSearch, taxonSearch } = data;
 
   if (error || !dataset) {
     // TODO a generic component for failures is needed
@@ -80,10 +80,37 @@ export function DatasetPresentation({
               <span><FormattedNumber value={occurrenceSearch.documents.total} /> occurrences</span>
             </div>}
             
-            {literatureSearch.count > 0 && <div css={iconFeature({ theme })}>
-              <MdFormatQuote />
-              <span><FormattedNumber value={literatureSearch.count} /> citations</span>
+            {literatureSearch.count > 0 && <div css={countFeature({ theme })}>
+              <span>
+                <MdFormatQuote />
+                <FormattedNumber value={literatureSearch.count} />
+              </span>
+              <span>citations</span>
             </div>}
+
+            {taxonSearch.count > 0 && <div css={iconFeature({ theme })}>
+              <MdPlaylistAddCheck />
+              <span><FormattedNumber value={taxonSearch.count} /> accepted names</span>
+            </div>}
+
+            {/* <div css={countFeature({ theme })}>
+              <span>{dataset.license}</span>
+            </div> */}
+
+            {/* {occurrenceSearch.documents.total > 0 && <div css={countFeature({ theme })}>
+              <span><FormattedNumber value={occurrenceSearch.documents.total} /></span>
+              <span>occurrences</span>
+            </div>}
+            
+            {literatureSearch.count > 0 && <div css={countFeature({ theme })}>
+              <span><FormattedNumber value={literatureSearch.count} /></span>
+              <span>citations</span>
+            </div>}
+
+            {taxonSearch.count > 0 && <div css={countFeature({ theme })}>
+              <span><FormattedNumber value={taxonSearch.count} /></span>
+              <span>accepted names</span>
+            </div>} */}
           </div>
           
 

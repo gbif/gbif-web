@@ -14,7 +14,7 @@ export const horizontalProperties = () => css`
 
 export const notHorizontalProperties = () => css`
   > dt {
-    margin-bottom: 4px;
+    margin-bottom: .1em;
   }
 `;
 
@@ -32,13 +32,13 @@ export const dt = ({ horizontal, theme, ...props }) => css`
   margin-bottom : ${horizontal ? 20 : 0}px;
   word-break: break-word;
   &:last-of-type {
-    margin-bottom: 0;
+    margin-bottom: ${horizontal ? 0 : '.1em'};
   }
 `;
 
 export const dd = ({ ...props }) => css`
   margin-left: 0;
-  line-height: 16px;
+  line-height: 1.4em;
   word-break: break-word;
   &:last-of-type {
     margin-bottom: 0;

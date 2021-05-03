@@ -22,6 +22,8 @@ const build = theme => {
     fullTheme[`color${10 - x}00`] = shadeBlend(-1 * direction * x * 0.075, fullTheme.color, fullTheme.paperBackground);
   });
 
+  fullTheme.linkColor = theme.linkColor || theme.primary;
+
   // GENERATE PAPER BACKGROUNDS
   // lighter paper colors are used to indicate elevation/focus
   // 500 is considered neutral standard color, 400 is darker and indicate secondary content

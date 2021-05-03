@@ -9,8 +9,26 @@ export const iconFeature = ({...props}) => css`
   svg {
     flex: 0 0 auto;
   }
-  span, div {
+  >span, >div {
     margin: 0 0.75em;
+  }
+`;
+
+export const countFeature = ({...props}) => css`
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  align-items: flex-start;
+  >span:first-of-type {
+    background: #555;
+    color: white;
+    font-size: 13px;
+    padding: 1px 4px;
+    border-radius: 3px;
+    margin: 0;
+  }
+  >span:nth-of-type(2), >div {
+    margin: 0 0.5em;
   }
 `;
 

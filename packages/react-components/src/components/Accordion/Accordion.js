@@ -9,6 +9,7 @@ import styles from './styles';
 
 function AccordionControlled({
   summary,
+  summaryStyle,
   open,
   onToggle,
   children,
@@ -16,7 +17,7 @@ function AccordionControlled({
 }) {
   const theme = useContext(ThemeContext);
   return <details css={styles.accordion({ theme })} {...props} open={open} >
-    <summary css={styles.summary({ theme })}
+    <summary style={summaryStyle} css={styles.summary({ theme })}
       onClick={e => {
         e.preventDefault();
         onToggle(!open);

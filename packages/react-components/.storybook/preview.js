@@ -73,6 +73,26 @@ addDecorator(storyFn => {
     collectionSearch: {
       url: () => `/institution/`
     },
+
+    datasetKey: {
+      url: ({key}) => {
+        return `/iframe.html?id=entities-dataset-page--example&viewMode=story&knob-datasetUUID=${key}`;
+      },
+      route: '/dataset/:key'
+    },
+    datasetSearch: {
+      url: () => `/dataset-search/`
+    },
+
+    publisherKey: {
+      url: ({key}) => {
+        return `/iframe.html?id=entities-publisher-page--example&viewMode=story&knob-publisherUUID=${key}`;
+      },
+      route: '/publisher/:key'
+    },
+    publisherSearch: {
+      url: () => `/publisher-search/`
+    },
   };
 
   return (

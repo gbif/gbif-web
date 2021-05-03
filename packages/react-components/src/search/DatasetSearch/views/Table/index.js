@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import RouteContext from '../../../../dataManagement/RouteContext';
 import StandardSearchTable from '../../../StandardSearchTable';
 import { FormattedNumber } from 'react-intl';
 
@@ -80,7 +81,14 @@ const defaultTableConfig = {
 };
 
 function Table() {
-  return <StandardSearchTable graphQuery={DATASET_LIST} resultKey='datasetSearch' defaultTableConfig={defaultTableConfig}/>
+  const routeContext = useContext(RouteContext);
+
+  function onSelect({key}) {
+    const path = routeContext.datasetKey.url({key});
+    window.location = path;
+  }
+
+  return <StandardSearchTable onSelect={onSelect} graphQuery={DATASET_LIST} resultKey='datasetSearch' defaultTableConfig={defaultTableConfig}/>
 }
 
 export default Table;
