@@ -138,30 +138,6 @@ export function getCommonSuggests({ context, suggestStyle }) {
         </div>
       }
     },
-    catalogNumber: {
-      //What placeholder to show
-      placeholder: 'Search by catalog number',
-      // how to get the list of suggestion data
-      getSuggestions: ({ q }) => {
-        const { promise, cancel } = client.v1Get(`/occurrence/search/catalogNumber?limit=8&q=${q}`);
-        return {
-          promise: promise.then(response => ({
-            data: response.data.map(i => ({ key: i, title: i }))
-          })),
-          cancel
-        }
-      },
-      // how to map the results to a single string value
-      getValue: suggestion => suggestion.title,
-      // how to display the individual suggestions in the list
-      render: function CatalogNumberSuggestItem(suggestion) {
-        console.warn('You need to configure endpoint and display item for the suggest');
-        return <div style={suggestStyle}>
-            {suggestion.title}
-          </div>
-        
-      }
-    },
     recordedBy: {
       //What placeholder to show
       placeholder: 'Search by recorded by',
