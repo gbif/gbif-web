@@ -69,7 +69,7 @@ export const commonLabels = {
   },
   datasetKey: {
     type: 'GQL',
-    query: `query label($id: String!){
+    query: `query label($id: ID!){
       dataset(key: $id) {
         title
       }
