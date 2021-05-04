@@ -257,11 +257,6 @@ export const en = {
       count: '{num, plural, one { Sampling protocol } other {# Sampling protocols}}',
       description: 'The name of, reference to, or description of the method or protocol used during an Event.'
     },
-    elevation: {
-      name: 'Elevation',
-      count: '{num, plural, one { Elevation } other {# Elevations}}',
-      description: 'A short description of the component should be placed here'
-    },
     occurrenceStatus: {
       name: 'Occurrence status',
       count: '{num, plural, one { Occurrence status } other {# Occurrence statuss}}',
