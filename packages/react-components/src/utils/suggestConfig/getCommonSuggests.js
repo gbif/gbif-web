@@ -89,7 +89,7 @@ export function getCommonSuggests({ context, suggestStyle }) {
     },
     datasetKey: {
       //What placeholder to show
-      placeholder: 'Search by dataset',
+      placeholder: 'Search by dataset name',
       // how to get the list of suggestion data
       getSuggestions: ({ q }) => client.v1Get(`/dataset/suggest?limit=8&q=${q}`),
       // how to map the results to a single string value
@@ -105,7 +105,7 @@ export function getCommonSuggests({ context, suggestStyle }) {
     },
     publisherKey: {
       //What placeholder to show
-      placeholder: 'Search by publisher',
+      placeholder: 'Search by host organization name',
       // how to get the list of suggestion data
       getSuggestions: ({ q }) => client.v1Get(`/organization/suggest?limit=8&q=${q}`),
       // how to map the results to a single string value
@@ -164,7 +164,7 @@ export function getCommonSuggests({ context, suggestStyle }) {
     },
     recordedBy: {
       //What placeholder to show
-      placeholder: 'Search by recordedby',
+      placeholder: 'Search by recorded by',
       // how to get the list of suggestion data
       getSuggestions: ({ q }) => {
         const { promise, cancel } = client.v1Get(`/occurrence/search/recordedBy?limit=8&q=${q}`);
@@ -188,7 +188,7 @@ export function getCommonSuggests({ context, suggestStyle }) {
     },
     recordNumber: {
     //What placeholder to show
-    placeholder: 'Search by recordnumber',
+    placeholder: 'Search by record number',
     // how to get the list of suggestion data
     getSuggestions: ({ q }) => {
       const { promise, cancel } = client.v1Get(`/occurrence/search/recordNumber?limit=8&q=${q}`);
@@ -212,7 +212,7 @@ export function getCommonSuggests({ context, suggestStyle }) {
   },
   gadmGid: {
       //What placeholder to show
-      placeholder: 'Administrative areas (GADM.org)',
+      placeholder: 'Administrative area (GADM.org)',
       // how to get the list of suggestion data
       getSuggestions: ({ q }) => {
         const { promise, cancel } = client.v1Get(`/geocode/gadm/search?limit=8&q=${q}`);
@@ -241,7 +241,7 @@ export function getCommonSuggests({ context, suggestStyle }) {
     },
     institutionKey: {
     //What placeholder to show
-    placeholder: 'Search by institution',
+    placeholder: 'Search by institution name',
     // how to get the list of suggestion data
     getSuggestions: ({ q }) => {
       const { promise, cancel } = client.v1Get(`/grscicoll/institution/suggest?limit=8&q=${q}`);
@@ -255,7 +255,7 @@ export function getCommonSuggests({ context, suggestStyle }) {
     // how to map the results to a single string value
     getValue: suggestion => suggestion.title,
     // how to display the individual suggestions in the list
-    render: function InstitutionKeySuggestItem(suggestion) {
+    render: function institutionKeySuggestItem(suggestion) {
       return <div style={suggestStyle}>
           {suggestion.title}
           <div>Code: {suggestion.code}</div>
