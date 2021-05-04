@@ -135,6 +135,9 @@ module.exports = {
     terms: (occurrence, args, { dataSources }) => {
       return dataSources.occurrenceAPI.getVerbatim({ key: occurrence.key })
         .then(verbatim => termResolver({ occurrence, verbatim }));
+    },
+    dataset: (occurrence, args, { dataSources }) => {
+      return dataSources.datasetAPI.getDatasetByKey({ key: occurrence.datasetKey });
     }
   },
   AssociatedID: {
