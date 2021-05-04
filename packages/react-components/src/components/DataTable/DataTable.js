@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { MdLock, MdLockOpen, MdChevronRight, MdChevronLeft, MdFirstPage, MdMoreVert } from "react-icons/md";
 import { Button } from '../Button';
+import { Tooltip } from '../Tooltip/Tooltip';
 import { Skeleton } from '../Skeleton';
 import * as styles from './styles';
 import ThemeContext from '../../style/themes/ThemeContext';
@@ -39,9 +40,11 @@ export const Th = ({ children, width, toggle, locked, ...rest }) => (
       <div style={{ flex: '1 1 auto' }}>
         {children}
       </div>
-      {toggle && <Button appearance="text" onClick={toggle} style={{ display: 'flex', marginLeft: 5 }}>
-        {locked ? <MdLock /> : <MdLockOpen />}
-      </Button>}
+      {toggle && <Tooltip title={<span>Lock column</span>} placement="auto">
+        <Button appearance="text" onClick={toggle} style={{ display: 'flex', marginLeft: 5 }}>
+          {locked ? <MdLock /> : <MdLockOpen />}
+        </Button>
+      </Tooltip>}
     </div>
   </th>
 );
