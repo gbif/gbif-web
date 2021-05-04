@@ -15,7 +15,7 @@ function getSuggestConfig({ options }) {
     //What placeholder to show
     placeholder: 'Search for filters',
     // how to get the list of suggestion data
-    getSuggestions: ({ q }) => options.filter(x => x.displayName.toLowerCase().indexOf(q) === 0 || (x.displayName.toLowerCase().indexOf(q) >= 0 && q.length > 1)).map(x => ({ ...x, key: x.filterHandle })),
+    getSuggestions: ({ q }) => options.filter(x => x.displayName.toLowerCase().indexOf(q.toLowerCase()) === 0 || (x.displayName.toLowerCase().indexOf(q.toLowerCase()) >= 0 && q.length > 1)).map(x => ({ ...x, key: x.filterHandle })),
     // how to map the results to a single string value
     getValue: suggestion => suggestion.displayName,
     // how to display the individual suggestions in the list
