@@ -62,7 +62,7 @@ export const commonLabels = {
     template: ({ id, api }) => `${api.v1.endpoint}/organization/${id}`,
     transform: result => ({ title: result.title })
   },
-  hostKey: {
+  hostingOrganizationKey: {
     type: 'ENDPOINT',
     template: ({ id, api }) => `${api.v1.endpoint}/organization/${id}`,
     transform: result => ({ title: result.title })

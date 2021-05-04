@@ -5,7 +5,7 @@ const filterConf = {
     publisherKey: {
       defaultKey: 'publishingOrg'
     },
-    hostKey: {
+    hostingOrganizationKey: {
       defaultKey: 'hostingOrg'
     },
     publishingCountryCode: {

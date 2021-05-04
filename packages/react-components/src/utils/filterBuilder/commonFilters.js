@@ -158,15 +158,15 @@ export const commonFilters = {
       }
     }
   },
-  hostKey: {
+  hostingOrganizationKey: {
     type: 'SUGGEST',
     config: {
       std: {
         id2labelHandle: 'publisherKey',
         translations: {
-          count: 'filter.hostKey.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.hostKey.name',// translation path to a title for the popover and the button
-          description: 'filter.hostKey.description', // translation path for the filter description
+          count: 'filter.hostingOrganizationKey.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.hostingOrganizationKey.name',// translation path to a title for the popover and the button
+          description: 'filter.hostingOrganizationKey.description', // translation path for the filter description
         },
       },
       specific: {

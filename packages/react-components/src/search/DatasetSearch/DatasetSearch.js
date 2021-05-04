@@ -19,7 +19,7 @@ import pickBy from 'lodash/pickBy';
 import Table from './views/Table';
 
 // import { datasetFilters } from './config/datasetFilters';
-const defaultAvailableFilters = ['publisherKey', 'hostKey', 'publishingCountryCode', 'datasetType', 'datasetSubtype', 'q'];
+const defaultAvailableFilters = ['publisherKey', 'hostingOrganizationKey', 'publishingCountryCode', 'datasetType', 'datasetSubtype', 'q'];
 
 function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, customConfig }, context) {
   const { labels = {}, getSuggests = () => ({}), filters: customFilters = {}, adapters = {} } = customConfig;
@@ -39,7 +39,8 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
     suggestConfigMap,
     filters: pickBy(pick(filters, defaultAvailableFilters), e => !!e),
     defaultVisibleFilters: ['q', 'publisherKey', 'datasetType'],
-    rootPredicate: { type: ['CHECKLIST'] },
+    // rootPredicate: { type: ['CHECKLIST'] },
+    rootPredicate: {},
     predicateConfig
   }
 }

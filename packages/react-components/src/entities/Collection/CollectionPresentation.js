@@ -45,7 +45,7 @@ export function CollectionPresentation({
   
   const config = { 
     rootPredicate, 
-    blacklistedFilters: ['collectionCode', 'collectionKey', 'institutionKey', 'institutionCode', 'hostKey', 'protocol', 'publishingCountryCode'], 
+    blacklistedFilters: ['collectionCode', 'collectionKey', 'institutionKey', 'institutionCode', 'hostingOrganizationKey', 'protocol', 'publishingCountryCode'], 
     occurrenceSearchTabs: ['TABLE', 'GALLERY', 'MAP'],
     highlightedFilters: ['taxonKey', 'catalogNumber', 'recordedBy', 'identifiedBy', 'typeStatus']
   };

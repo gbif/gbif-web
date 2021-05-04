@@ -113,7 +113,7 @@ export const en = {
       count: '{num, plural, one {publisher} other {# publishers}}',
       description: 'The name of the organization under which the dataset for the record is registered.'
     },
-    hostKey: {
+    hostingOrganizationKey: {
       name: 'Hosting organization',
       count: '{num, plural, one {host} other {# hosts}}',
       description: 'The name of the organization hosting the dataset in which the record is published.'

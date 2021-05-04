@@ -6,7 +6,7 @@ export const all = [
   'publisherKey',
   'institutionCode',
   'catalogNumber',
-  'hostKey',
+  'hostingOrganizationKey',
   'year',
   'basisOfRecord',
   'typeStatus',
