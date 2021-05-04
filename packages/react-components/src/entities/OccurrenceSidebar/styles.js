@@ -1,6 +1,27 @@
 import { css } from '@emotion/react';
 // import { focusStyle } from '../../style/shared';
 
+export const agentSummary = ({ ...props }) => css`
+  border-radius: 4px;
+  border: 1px solid #eee;
+  background: white;
+  overflow: hidden;
+  box-shadow: 0 2px 3px 3px rgb(0 0 0 / 2%);
+  > div:last-of-type {
+    flex: 1 1 auto;
+    padding: 12px;
+  }
+  > div:first-of-type {
+    flex: 0 0 auto;
+    img {
+      display: block;
+    }
+  }
+  h4 {
+    margin: 0;
+  }
+`;
+
 export const features = ({ ...props }) => css`
   margin-top: 4px;
   margin-bottom: 4px;

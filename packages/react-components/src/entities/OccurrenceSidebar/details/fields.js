@@ -2,6 +2,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Properties, GadmClassification, GalleryTiles, GalleryTile } from '../../../components';
 import { TaxonClassification } from './TaxonClassification/TaxonClassification';
+import { AgentSummary } from './AgentSummary'
 
 const { Term: T, Value: V } = Properties;
 
@@ -71,15 +72,14 @@ export const occurrenceFields = {
     'recordedBy',
     {
       name: 'recordedByIDs', condition: ({ occurrence }) => occurrence?.recordedByIDs?.[0], Value: ({ name, occurrence, theme }) => {
-        return <ul>
+        return <ul style={{listStyle: 'none', padding: 0, margin: 0}}>
             {occurrence.recordedByIDs
               .map(x => {
                 if (!x.person) {
                   return <li key={x.value}>{x.value}</li>
                 }
-                return <li key={x.value}>
-                  <img src={x?.person?.image?.value} />
-                  {x?.person?.name?.value} ({x?.person?.birthDate?.value} - {x?.person?.deathDate?.value})
+                return <li key={x.value} style={{marginBottom: 4}}>
+                  <AgentSummary agent={x} />
                 </li>
               })
             }
