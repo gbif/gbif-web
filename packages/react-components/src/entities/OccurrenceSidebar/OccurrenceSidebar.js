@@ -116,6 +116,11 @@ query occurrence($key: ID!){
     }
 
     datasetTitle
+    dataset {
+      citation {
+        text
+      }
+    }
     key
     institutionCode
     recordedByIDs {
