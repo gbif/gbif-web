@@ -276,7 +276,7 @@ export const commonFilters = {
         },
       },
       specific: {
-        placeholder: 'E.g. DNA sequence reads'
+        placeholder: 'Units of sample size'
       }
     }
   },
@@ -347,6 +347,7 @@ export const commonFilters = {
       },
       specific: {
         placeholder: 'Range or single value',
+        regex: /^((-)?[0-9]{0,4})(,)?((-)?[0-9]{0,4})$/
       }
     }
   },
@@ -364,6 +365,7 @@ export const commonFilters = {
       },
       specific: {
         placeholder: 'Range or single value',
+        regex: /^((-)?[0-9]{0,4})(,)?((-)?[0-9]{0,4})$/
       }
     }
   },
@@ -521,7 +523,7 @@ export const commonFilters = {
         },
       },
       specific: {
-        placeholder: 'E.g. DNA sequence reads'
+        placeholder: 'Search by collection code'
       }
     }
   },
@@ -539,7 +541,7 @@ export const commonFilters = {
       },
       specific: {
         supportsExist: true,
-        placeholder: 'E.g. https://orcid.org/0000-1111-2222-3333'
+        placeholder: 'Example: https://orcid.org/0000-1111-2222-3333'
       }
     }
   },
@@ -556,7 +558,7 @@ export const commonFilters = {
         },
       },
       specific: {
-        placeholder: 'E.g. https://orcid.org/0000-1111-2222-3333'
+        placeholder: 'Example: https://orcid.org/0000-1111-2222-3333'
       }
     }
   },
@@ -573,7 +575,7 @@ export const commonFilters = {
         },
       },
       specific: {
-        placeholder: 'ID of the original record'
+        placeholder: 'Search by Occurrence identifier'
       }
     }
   },
@@ -590,7 +592,7 @@ export const commonFilters = {
         },
       },
       specific: {
-        placeholder: 'E.g. DNA sequence reads'
+        placeholder: 'Search by Organism identifier'
       }
     }
   },
@@ -607,7 +609,7 @@ export const commonFilters = {
         },
       },
       specific: {
-        placeholder: 'E.g. DNA sequence reads'
+        placeholder: 'Search by locality'
       }
     }
   },
@@ -624,7 +626,7 @@ export const commonFilters = {
         },
       },
       specific: {
-        placeholder: 'E.g. DNA sequence reads'
+        placeholder: 'Search by water body'
       }
     }
   },
@@ -641,7 +643,7 @@ export const commonFilters = {
         },
       },
       specific: {
-        placeholder: 'E.g. DNA sequence reads'
+        placeholder: 'Search by state province'
       }
     }
   },
@@ -658,7 +660,7 @@ export const commonFilters = {
         },
       },
       specific: {
-        placeholder: 'Enter the ID',
+        placeholder: 'Search by Event identifier',
         supportsExist: true
       }
     }
@@ -676,7 +678,7 @@ export const commonFilters = {
         },
       },
       specific: {
-        placeholder: 'E.g. DNA sequence reads'
+        placeholder: 'Search by sampling protocol'
       }
     }
   },
@@ -694,6 +696,7 @@ export const commonFilters = {
       },
       specific: {
         placeholder: 'Range or single value',
+        regex: /^[0-9,\.]{0,10}$/
       }
     }
   },
@@ -747,7 +750,7 @@ export const commonFilters = {
         },
       },
       specific: {
-        placeholder: 'Use * as wildcard',
+        placeholder: 'Search by identified by',
         restrictWildcards: true
       }
     }
@@ -835,7 +838,7 @@ export const commonFilters = {
         },
       },
       specific: {
-        placeholder: 'E.g. DNA sequence reads',
+        placeholder: 'Search by institution name',
         singleSelect: true
       }
     }
@@ -853,7 +856,7 @@ export const commonFilters = {
         },
       },
       specific: {
-        placeholder: 'City',
+        placeholder: 'Search by institution city',
         singleSelect: true
       }
     }
@@ -871,7 +874,7 @@ export const commonFilters = {
         },
       },
       specific: {
-        placeholder: 'E.g. NHMN',
+        placeholder: 'Search by institution code',
         singleSelect: true
       }
     }
@@ -889,7 +892,7 @@ export const commonFilters = {
         },
       },
       specific: {
-        placeholder: 'E.g. Puma Concolor'
+        placeholder: 'Example: Felis concolor'
       }
     }
   },
