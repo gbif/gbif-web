@@ -1,3 +1,4 @@
+import { jsx } from '@emotion/react';
 import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { useUpdateEffect } from 'react-use';
 import { MdFilterList } from "react-icons/md";
@@ -10,6 +11,7 @@ import { OccurrenceSidebar } from '../../../../entities';
 import { useDialogState } from "reakit/Dialog";
 import { ViewHeader } from '../ViewHeader';
 import { useUrlState } from '../../../../dataManagement/state/useUrlState';
+import * as css from './styles';
 
 export const TablePresentation = ({ first, prev, next, size, from, data, total, loading }) => {
   const [activeKey, setActiveKey] = useUrlState({ param: 'entity' });
@@ -152,7 +154,7 @@ export const TablePresentation = ({ first, prev, next, size, from, data, total, 
       flexDirection: "column",
     }}>
       <ViewHeader loading={loading} total={total}/>
-      <DataTable fixedColumn={fixed} {...{ first, prev, next, size, from, total, loading }} style={{ flex: "1 1 auto", height: 100, display: 'flex', flexDirection: 'column' }}>
+      <DataTable fixedColumn={fixed} {...{ first, prev, next, size, from, total, loading }} css={css.table()} >
         <thead>
           <tr>{headerss}</tr>
         </thead>

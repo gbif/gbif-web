@@ -3,7 +3,7 @@ import { tooltip } from '../../style/shared';
 
 export const wrapper = props => css`
   border: 1px solid ${props.theme.paperBorderColor};
-  height: 100%;
+  /* height: 100%; */
 `;
 
 export const occurrenceTable = ({theme}) => css`
