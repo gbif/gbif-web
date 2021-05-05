@@ -141,9 +141,9 @@ export const TablePresentation = ({ first, prev, next, size, from, data, total, 
   // ];
 
   return <>
-    <DetailsDrawer href={`https://www.gbif.org/occurrence/${activeKey}`} dialog={dialog} nextItem={nextItem} previousItem={previousItem}>
+    {dialog.visible && <DetailsDrawer href={`https://www.gbif.org/occurrence/${activeKey}`} dialog={dialog} nextItem={nextItem} previousItem={previousItem}>
       <OccurrenceSidebar id={activeKey} defaultTab='details' style={{ maxWidth: '100%', width: 700, height: '100%' }} />
-    </DetailsDrawer>
+    </DetailsDrawer>}
     <div style={{
       flex: "1 1 100%",
       display: "flex",
