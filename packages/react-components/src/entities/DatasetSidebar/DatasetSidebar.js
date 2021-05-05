@@ -61,7 +61,7 @@ export function DatasetSidebar({
 };
 
 const DATASET = `
-query dataset($key: String!){
+query dataset($key: ID!){
   dataset(key: $key) {
     title
     created
