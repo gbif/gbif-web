@@ -1,7 +1,7 @@
 
 import { jsx } from '@emotion/react';
 import React, { useContext, useState, useEffect } from 'react';
-import { MdInfo, MdInsertPhoto } from 'react-icons/md'
+import { MdInfo, MdInsertPhoto, MdClose } from 'react-icons/md'
 import ThemeContext from '../../style/themes/ThemeContext';
 import PropTypes from 'prop-types';
 import get from 'lodash/get';
@@ -14,10 +14,11 @@ import { Cluster } from './details/Cluster';
 import { ClusterIcon } from '../../components/Icons/Icons';
 import LinksContext from '../../search/OccurrenceSearch/config/links/LinksContext';
 
-const { TabList, Tab, TabPanel } = Tabs;
+const { TabList, Tab, TabPanel, TapSeperator } = Tabs;
 
 export function OccurrenceSidebar({
   onImageChange,
+  onCloseRequest,
   id,
   defaultTab,
   className,
@@ -56,6 +57,12 @@ export function OccurrenceSidebar({
     <Row wrap="nowrap" style={style} css={css.sideBar({ theme })}>
       <Col shrink={false} grow={false} css={css.detailDrawerBar({ theme })}>
         <TabList aria-label="Images" style={{ paddingTop: '12px' }} vertical>
+          {onCloseRequest && <>
+            <Tab direction="left" onClick={onCloseRequest}>
+              <MdClose />
+            </Tab>
+            <TapSeperator vertical />
+          </>}
           <Tab tabId="details" direction="left">
             <MdInfo />
           </Tab>

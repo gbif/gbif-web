@@ -33,7 +33,7 @@ function Map({ labelMap, query, pointData, pointError, pointLoading, loading, to
 
   return <>
     <DetailsDrawer href={`https://www.gbif.org/occurrence/${activeItem?.key}`} dialog={dialog} nextItem={nextItem} previousItem={previousItem}>
-      <OccurrenceSidebar id={activeItem?.key} defaultTab='details' style={{ maxWidth: '100%', width: 700, height: '100%' }} />
+      <OccurrenceSidebar id={activeItem?.key} defaultTab='details' style={{ maxWidth: '100%', width: 700, height: '100%' }} onCloseRequest={() => dialog.setVisible(false)} />
     </DetailsDrawer>
     <div css={css.mapArea({theme})}>
       <ViewHeader message="nResultsWithCoordinates" loading={loading} total={total} />

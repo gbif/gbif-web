@@ -56,11 +56,10 @@ export const tabList = ({ theme, vertical }) => css`
 `;
 
 export const tabSeperator = ({ theme, vertical }) => css`
-  margin: 0 10px;
-  width: 1px;
-  margin: 5px 0;
+  ${vertical ? 'height: 1px' : 'width: 1px'};
+  margin: ${vertical ? '0 5px' : '5px 0'};
   flex: 0 1 auto;
-  border-left: 1px solid #ddd;
+  border-${vertical ? 'top' : 'left'}: 1px solid #ddd;
 `;
 
 export const tabSpacer = ({ theme, vertical }) => css`

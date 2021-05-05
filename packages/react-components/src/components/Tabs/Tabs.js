@@ -27,9 +27,9 @@ ControlledTabs.propTypes = {
   onChange: PropTypes.func,
 }
 
-export const TapSeperator = props => {
+export const TapSeperator = ({vertical, props}) => {
   const theme = useContext(ThemeContext);
-  return <li css={styles.tabSeperator({ theme })} {...props}>&nbsp;</li>
+  return <li css={styles.tabSeperator({ theme, vertical })} {...props}>&nbsp;</li>
 }
 
 export const TapSpacer = props => {

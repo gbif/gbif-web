@@ -36,7 +36,7 @@ export const DatasetsPresentation = ({ more, size, data, total, loading }) => {
 
   return <>
     <DetailsDrawer href={`https://www.gbif.org/dataset/${activeItem?.dataset?.key}`} dialog={dialog} nextItem={nextItem} previousItem={previousItem}>
-      <DatasetSidebar id={activeItem?.dataset?.key} defaultTab='details' style={{ maxWidth: '100%', width: 700, height: '100%' }} />
+      <DatasetSidebar id={activeItem?.dataset?.key} defaultTab='details' style={{ maxWidth: '100%', width: 700, height: '100%' }} onCloseRequest={() => dialog.setVisible(false)}  />
     </DetailsDrawer>
     <div >
       <ViewHeader loading={loading} total={cardinality}/>
