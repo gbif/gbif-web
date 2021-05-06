@@ -8,6 +8,7 @@ export const tooltip = props => css`
   padding: 4px 8px;
   border-radius: ${props.theme.borderRadius}px;
   color: white;
+  z-index: 1000;
 `;
 
 export default {

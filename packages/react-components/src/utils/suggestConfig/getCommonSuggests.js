@@ -1,7 +1,8 @@
 import React from 'react';
 import { matchSorter } from 'match-sorter';
 import country from '../../locales/enums/countryCode.json';
-import { Classification } from '../../components';
+import { Classification, Tooltip } from '../../components';
+import { FormattedMessage } from 'react-intl';
 
 const BACKBONE_KEY = 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c';
 
@@ -128,13 +129,22 @@ export function getCommonSuggests({ context, suggestStyle }) {
       getValue: suggestion => suggestion.scientificName,
       // how to display the individual suggestions in the list
       render: function ScientificNameSuggestItem(suggestion) {
-        return <div style={{ maxWidth: '100%' }}>
+        const ranks = ['kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species'].map((rank, i) => {
+            return suggestion[rank] && rank !== suggestion.rank.toLowerCase() ? <span key={rank}>{suggestion[rank]}</span> : null;
+          });
+
+        return <div style={{ maxWidth: '100%'}}>
           <div style={suggestStyle}>
+          {suggestion.status !== 'ACCEPTED' && <Tooltip title={<span><FormattedMessage id={`enums.taxonomicStatus.${suggestion.status}`} /></span>}>
+              <span style={{display: 'inline-block', marginRight: 8, width: 8, height: 8, borderRadius: 4, background: 'orange'}}></span>
+            </Tooltip>}
             {suggestion.scientificName}
           </div>
-          {/* <div style={{ color: '#aaa', fontSize: '0.85em' }}>
-            <Classification taxon={suggestion} />
-          </div> */}
+          <div style={{ color: '#aaa', fontSize: '0.85em' }}>
+            <Classification>
+              {ranks}
+            </Classification>
+          </div>
         </div>
       }
     },

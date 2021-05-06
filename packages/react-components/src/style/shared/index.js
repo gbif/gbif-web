@@ -47,6 +47,7 @@ export const styledScrollBars = ({ theme }) => css`
 `;
 
 export const classification = ({ ...props }) => css`
+  line-height: 1.2em;
   &>span:after {
     font-style: normal;
     content: ' ❯ ';
