@@ -170,7 +170,7 @@ export const en = {
     relativeOrganismQuantity: {
       name: 'Relative organism quantity',
       count: '{num, plural, one { relative organism quantity } other {# relative organism quantitys}}',
-      description: 'The relative measurement of the quantity of organism (i.e., without absolute units).'
+      description: 'The amount of biological material relative to the size of a sample, calculated as organismQuantity per sampleSize when the organismQuantityType and sampleSizeUnit are unambiguous.'
     },
     month: {
       name: 'Month',
