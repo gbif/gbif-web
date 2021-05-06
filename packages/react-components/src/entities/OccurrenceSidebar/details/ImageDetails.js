@@ -36,7 +36,7 @@ export function ImageDetails({
     </div>
     <Accordion css={css.accordion({theme})} summary={<span>About</span>} defaultOpen={data?.occurrence?.stillImages?.length === 1}>
       <Properties style={{ fontSize: 13 }}>
-        {['type', 'format', 'identifier', 'created', 'creator', 'license', 'publisher', 'references', 'rightsholder']
+        {['description', 'type', 'format', 'identifier', 'created', 'creator', 'license', 'publisher', 'references', 'rightsholder']
           .filter(x => !!activeImage[x]).map(x => <React.Fragment key={x}>
             <Term>{x}</Term>
             <Value>

@@ -469,6 +469,7 @@ const typeDef = gql`
     publisher: String
     references: String
     rightsHolder: String
+    description: String
   }
 `;
 

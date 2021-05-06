@@ -164,6 +164,7 @@ query occurrence($key: ID!){
       publisher
       references
       rightsHolder
+      description
     }
 
     gbifClassification {
