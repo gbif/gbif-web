@@ -112,7 +112,7 @@ const filterWidgetConfig = {
 function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig }, context) {
   const labelMap = config2labels(labelConfig, context.client);
   const suggestConfigMap = getSuggestConfig({ client: context.client });
-  const filters = filterBuilder({ filterWidgetConfig, labelMap, suggestConfigMap, client: context.client });
+  const filters = filterBuilder({ filterWidgetConfig, labelMap, suggestConfigMap, context });
   return {
     labelMap,
     suggestConfigMap,
