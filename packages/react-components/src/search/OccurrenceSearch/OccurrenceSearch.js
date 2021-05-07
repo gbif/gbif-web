@@ -114,13 +114,13 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
   const labelMap = config2labels(mergedLabels, context.client);
   const filters = filterBuilder({ filterWidgetConfig: mergedFilters, labelMap, suggestConfigMap: mergedSuggest, context });
   
-  const whitelistedFilters = without((customConfig.whitelistedFilters || defaultFilterConfig.whitelist), ...(customConfig.blacklistedFilters || []));
+  const allowedFilters = without((customConfig.allowedFilters || defaultFilterConfig.allowed), ...(customConfig.deniedFilters || []));
   const highlightedFilters = customConfig.highlightedFilters || defaultFilterConfig.highlighted;
   
   return {
     labelMap,
     suggestConfigMap,
-    filters: pickBy(pick(filters, whitelistedFilters), e => !!e),
+    filters: pickBy(pick(filters, allowedFilters), e => !!e),
     defaultVisibleFilters: highlightedFilters,
     // rootPredicate: { type: 'in', key: 'basisOfRecord', values: ['PRESERVED_SPECIMEN', 'FOSSIL_SPECIMEN', 'MATERIAL_SAMPLE', 'LIVING_SPECIMEN'] },
     rootPredicate: customConfig.rootPredicate,//{ type: 'isNotNull', key: 'typeStatus' },
@@ -203,6 +203,6 @@ myCustomFilters: new filters that will add/overwrite defaults
 whitelist: only add these filters (applied after custom)
 
 filters // everything that is known to have support
-whitelistedFilters // those that are available to the user
-highlightedFilters // those filters that are not hidden in more
+allowedFilters // those that are available to the user
+deniedFilters // those filters that are not hidden in more
 */

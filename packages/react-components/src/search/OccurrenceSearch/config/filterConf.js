@@ -53,4 +53,4 @@ const highlighted = [
   'occurrenceIssue',
 ];
 
-export default { filters: all, whitelist: all, highlighted };
+export default { filters: all, allowed: all, highlighted };

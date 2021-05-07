@@ -31,13 +31,13 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
   const labelMap = config2labels(mergedLabels, context.client);
   const filters = filterBuilder({ filterWidgetConfig: mergedFilters, labelMap, suggestConfigMap: mergedSuggest, context });
   
-  const whitelistedFilters = without((customConfig.whitelistedFilters || defaultFilterConfig.whitelist), ...(customConfig.blacklistedFilters || []));
+  const allowedFilters = without((customConfig.allowedFilters || defaultFilterConfig.allowed), ...(customConfig.deniedFilters || []));
   const highlightedFilters = customConfig.highlightedFilters || defaultFilterConfig.highlighted;
 
   return {
     labelMap,
     suggestConfigMap,
-    filters: pickBy(pick(filters, whitelistedFilters), e => !!e),
+    filters: pickBy(pick(filters, allowedFilters), e => !!e),
     defaultVisibleFilters: highlightedFilters,
     rootPredicate: customConfig.rootFilter,
     predicateConfig

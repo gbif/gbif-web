@@ -47,7 +47,7 @@ export function DatasetPresentation({
 
   const config = {
     rootPredicate,
-    blacklistedFilters: ['datasetCode', 'datasetKey', 'institutionKey', 'institutionCode', 'hostingOrganizationKey', 'protocol', 'publishingCountryCode'],
+    deniedFilters: ['datasetCode', 'datasetKey', 'institutionKey', 'institutionCode', 'hostingOrganizationKey', 'protocol', 'publishingCountryCode'],
     occurrenceSearchTabs: ['TABLE', 'GALLERY', 'MAP'],
     highlightedFilters: ['taxonKey', 'catalogNumber', 'recordedBy', 'identifiedBy', 'typeStatus']
   };
