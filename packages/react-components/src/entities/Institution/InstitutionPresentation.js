@@ -45,7 +45,7 @@ export function InstitutionPresentation({
   
   const config = { 
     rootPredicate, 
-    deniedFilters: ['institutionCode', 'institutionKey', 'institutionKey', 'institutionCode', 'hostingOrganizationKey', 'protocol', 'publishingCountryCode'], 
+    excludedFilters: ['institutionCode', 'institutionKey', 'institutionKey', 'institutionCode', 'hostingOrganizationKey', 'protocol', 'publishingCountryCode'], 
     occurrenceSearchTabs: ['TABLE', 'GALLERY', 'MAP'],
     highlightedFilters: ['taxonKey', 'catalogNumber', 'recordedBy', 'identifiedBy', 'typeStatus']
   };

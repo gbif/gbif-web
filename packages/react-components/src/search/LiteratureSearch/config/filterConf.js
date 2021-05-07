@@ -13,4 +13,4 @@ const highlighted = [
   'datasetKey'
 ];
 
-export default { filters: all, allowed: all, highlighted };
+export default { filters: all, included: all, highlighted };

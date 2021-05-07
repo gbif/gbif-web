@@ -45,7 +45,7 @@ export function CollectionPresentation({
   
   const config = { 
     rootPredicate, 
-    deniedFilters: ['collectionCode', 'collectionKey', 'institutionKey', 'institutionCode', 'hostingOrganizationKey', 'protocol', 'publishingCountryCode'], 
+    excludedFilters: ['collectionCode', 'collectionKey', 'institutionKey', 'institutionCode', 'hostingOrganizationKey', 'protocol', 'publishingCountryCode'], 
     occurrenceSearchTabs: ['TABLE', 'GALLERY', 'MAP'],
     highlightedFilters: ['taxonKey', 'catalogNumber', 'recordedBy', 'identifiedBy', 'typeStatus']
   };
