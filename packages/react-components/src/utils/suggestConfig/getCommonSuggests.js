@@ -124,7 +124,7 @@ export function getCommonSuggests({ context, suggestStyle }) {
       //What placeholder to show
       placeholder: 'Search by scientific name',
       // how to get the list of suggestion data
-      getSuggestions: ({ q }) => client.v1Get(`/species/suggest?datasetKey=${BACKBONE_KEY}&limit=8&q=${q}`),
+      getSuggestions: ({ q }) => client.v1Get(`/species/suggest?datasetKey=${BACKBONE_KEY}&limit=20&q=${q}`),
       // how to map the results to a single string value
       getValue: suggestion => suggestion.scientificName,
       // how to display the individual suggestions in the list
@@ -157,7 +157,52 @@ export function getCommonSuggests({ context, suggestStyle }) {
         return {
           promise: promise.then(response => ({
             data: response.data.map(i => ({ key: i, title: i }))
-          })),
+            })),
+          cancel
+        }
+      },
+      // how to map the results to a single string value
+      getValue: suggestion => suggestion.title,
+      // how to display the individual suggestions in the list
+      render: function RecordedBySuggestItem(suggestion) {
+        console.warn('You need to configure endpoint and display item for the suggest');
+        return <div style={suggestStyle}>
+          {suggestion.title}
+        </div>
+      }
+    },
+    recordedByWildcard: {
+      //What placeholder to show
+      placeholder: 'Search by recorded by',
+      // how to get the list of suggestion data
+      getSuggestions: ({ q }) => {
+        const SEARCH = `
+          query keywordSearch($predicate: Predicate, $size: Int){
+            occurrenceSearch(predicate: $predicate) {
+              facet {
+                recordedBy(size: $size) {
+                  key
+                  count
+                }
+              }
+            }
+          }
+          `;
+        const variables = {
+          size: 100,
+          predicate: {
+            "type": "like",
+            "key": "recordedBy",
+            "value": q
+          }
+        };
+        const {promise, cancel} = client.query({query: SEARCH, variables});
+        return {
+          promise: promise.then(response => {
+            return {
+              data: response.data?.occurrenceSearch?.facet?.recordedBy.map(i => ({ ...i, title: i.key }))
+            }
+          }),
           cancel
         }
       },
@@ -168,8 +213,8 @@ export function getCommonSuggests({ context, suggestStyle }) {
         console.warn('You need to configure endpoint and display item for the suggest');
         return <div style={suggestStyle}>
             {suggestion.title}
+            <div style={{fontSize: '0.85em', color: '#aaa'}}>{suggestion.count} results</div>
           </div>
-        
       }
     },
     recordNumber: {
