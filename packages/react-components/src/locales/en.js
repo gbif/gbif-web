@@ -86,8 +86,8 @@ export const en = {
       description: 'The country or territory from which the data were published'
     },
     q: {
-      name: 'Similar text',
-      count: '{num, plural, one {text string} other {# text search strings}}',
+      name: 'Text search',
+      count: '{num, plural, one {text string} other {# search strings}}',
       description: 'Find records with similar matching text among text fields. For matching text within a specific field, use corresponding filter, such as the one for "Scientific Name".'
     },
     coordinates: {
