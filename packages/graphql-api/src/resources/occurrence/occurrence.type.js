@@ -304,6 +304,21 @@ const typeDef = gql`
   type RelatedOccurrence {
     reasons: [String]!
     occurrence: Occurrence
+    """
+    The occurrence as provided by the cluster API. It only has relev
+    """
+    stub: RelatedOccurrenceStub
+  }
+
+  type RelatedOccurrenceStub {
+    gbifId: ID
+    scientificName: String
+    publishingOrgKey: ID
+    publishingOrgName: String
+    datasetKey: ID
+    datasetName: String
+    occurrenceID: String
+    catalogNumber: String
   }
 
   type Term {

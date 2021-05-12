@@ -92,32 +92,32 @@ module.exports = {
       return { lat: decimalLatitude, lon: decimalLongitude };
     },
     primaryImage: ({ media }) => {
-      if (typeof media === 'undefined') return null;
+      if (!Array.isArray(media)) return null;
       // extract primary image. for now just any image
       return media.find(x => x.type === 'StillImage');
     },
     stillImageCount: ({ media }) => {
-      if (typeof media === 'undefined') return null;
+      if (!Array.isArray(media)) return null;
       return media.filter(x => x.type === 'StillImage').length;
     },
     movingImageCount: ({ media }) => {
-      if (typeof media === 'undefined') return null;
+      if (!Array.isArray(media)) return null;
       return media.filter(x => x.type === 'MovingImage').length;
     },
     soundCount: ({ media }) => {
-      if (typeof media === 'undefined') return null;
+      if (!Array.isArray(media)) return null;
       return media.filter(x => x.type === 'Sound').length;
     },
     stillImages: ({ media }) => {
-      if (typeof media === 'undefined') return null;
+      if (!Array.isArray(media)) return null;
       return media.filter(x => x.type === 'StillImage');
     },
     movingImages: ({ media }) => {
-      if (typeof media === 'undefined') return null;
+      if (!Array.isArray(media)) return null;
       return media.filter(x => x.type === 'MovingImage');
     },
     sounds: ({ media }) => {
-      if (typeof media === 'undefined') return null;
+      if (!Array.isArray(media)) return null;
       return media.filter(x => x.type === 'Sound');
     },
     formattedCoordinates: ({ decimalLatitude, decimalLongitude }) => {
@@ -329,7 +329,8 @@ module.exports = {
   },
   RelatedOccurrence: {
     occurrence: (related, args, { dataSources }) => dataSources.occurrenceAPI
-      .getOccurrenceByKey({ key: related.occurrence.gbifId })
+      .getOccurrenceByKey({ key: related.occurrence.gbifId }),
+    stub: (related) => related.occurrence
   },
   // TermGroups: (occurrence, args, { dataSources }) => {
   //   console.log('get verbatim');
