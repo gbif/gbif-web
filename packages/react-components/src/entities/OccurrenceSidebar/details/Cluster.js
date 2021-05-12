@@ -41,7 +41,17 @@ export function Cluster({
         if (x.occurrence) {
           return <RelatedOccurrence key={x.occurrence.key} onClick={e => setActiveKey(x.occurrence.key)} related={x.occurrence} reasons={x.reasons} original={data.occurrence} />;
         } else {
-          return <div style={{padding: 30, background: 'tomato', color: 'white', borderRadius: 4}}>The record has been deleted by the publisher</div>
+          return <div style={{padding: 30, background: 'tomato', color: 'white', borderRadius: 4}}>
+            This record has since been removed from the dataset. 
+            <div>
+              <Properties style={{ marginTop: 12 }} horizontal dense>
+                <T style={{color: 'white'}}>Publisher</T><V>{x.stub.publishingOrgName}</V>
+                <T style={{color: 'white'}}>Dataset</T><V>{x.stub.datasetName}</V>
+                {x.stub.catalogNumber && <><T style={{color: 'white'}}>Catalog number</T><V>{x.stub.catalogNumber}</V></>}
+                {x.stub.occurrenceID && <><T style={{color: 'white'}}>Occurrence ID</T><V>{x.stub.occurrenceID}</V></>}
+              </Properties>
+            </div>
+          </div>
         }
       })}
     </main>
@@ -101,6 +111,15 @@ query occurrence($key: ID!){
   occurrence(key: $key) {
   	related {
       reasons
+      stub {
+        gbifId
+        occurrenceID
+        catalogNumber
+        publishingOrgKey
+        publishingOrgName
+        datasetKey
+        datasetName
+      }
       occurrence {
         key
         basisOfRecord
