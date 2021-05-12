@@ -38,7 +38,7 @@ app.post('/occurrence/meta', asyncMiddleware(postMetaOnly(occurrence)));
 app.get('/occurrence/meta', asyncMiddleware(getMetaOnly(occurrence)));
 
 const temporaryAuthMiddleware = function (req, res, next) {
-  const apiKey = _.get(req, 'query.apiKey') || _.get(req, 'body.apiKey') || _.get(req, 'headers.Authorization', '').substr(10);
+  const apiKey = _.get(req, 'query.apiKey') || _.get(req, 'body.apiKey') || _.get(req, 'headers.Authorization', '').substr(10) || _.get(req, 'headers.authorization', '').substr(10);
   if (!apiKey) {
     next(new ResponseError(401, 'temporaryAuthentication', 'You need to provide an apiKey in the url'));
   } else if (apiKey !== config.apiKey || !config.apiKey) {
