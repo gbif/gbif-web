@@ -10,7 +10,7 @@ const countryCodes = Object.keys(country);
 
 export const suggestStyle = { whiteSpace: 'nowrap', textOverflow: 'ellipsis', width: '100%', overflow: 'hidden' };
 
-export function getCommonSuggests({ context, suggestStyle }) {
+export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
   const { client, formatMessage } = context;
   
   const countries = countryCodes.map(code => ({
@@ -188,13 +188,21 @@ export function getCommonSuggests({ context, suggestStyle }) {
             }
           }
           `;
+        const qPredicate = {
+          "type": "like",
+          "key": "recordedBy",
+          "value": q
+        }
+        let predicate = qPredicate;
+        if (rootPredicate) {
+          predicate = {
+            type: 'and',
+            predicates: [rootPredicate, qPredicate]
+          }
+        }
         const variables = {
           size: 100,
-          predicate: {
-            "type": "like",
-            "key": "recordedBy",
-            "value": q
-          }
+          predicate
         };
         const {promise, cancel} = client.query({query: SEARCH, variables});
         return {

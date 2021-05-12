@@ -108,7 +108,7 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
     adapters = {} } = customConfig;
   const mergedLabels = { ...labelConfig, ...labels };
   const mergedFilters = { ...filterWidgetConfig, ...customFilters };
-  const suggestConfigMap = getSuggestConfig({ context, suggestStyle });
+  const suggestConfigMap = getSuggestConfig({ context, suggestStyle, rootPredicate: customConfig.rootPredicate });
   const suggestConfigMapCustom = getSuggests({ client: context.client, suggestStyle });
   const mergedSuggest = { ...suggestConfigMap, ...suggestConfigMapCustom };
   const labelMap = config2labels(mergedLabels, context.client);

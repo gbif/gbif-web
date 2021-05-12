@@ -487,7 +487,8 @@ export const commonFilters = {
         },
       },
       specific: {
-        suggestHandle: 'recordedBy',
+        // suggestHandle: 'recordedBy',
+        suggestHandle: 'recordedByWildcard',
         id2labelHandle: 'recordedBy',
       }
     }

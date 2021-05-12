@@ -5,6 +5,8 @@ import { Popover as RangePopover, FilterContent as RangeContent } from '../../wi
 import { Popover as EnumPopover, FilterContent as EnumContent } from '../../widgets/Filter/types/EnumFilter';
 import { Popover as SimpleTextPopover, FilterContent as SimpleTextContent } from '../../widgets/Filter/types/SimpleTextFilter';
 import { Popover as CustomStandardPopover, FilterContent as CustomStandardContent } from '../../widgets/Filter/types/CustomStandardFilter';
+import { Popover as VocabPopover, FilterContent as VocabContent } from '../../widgets/Filter/types/VocabularyFilter';
+import { Popover as SearchKeywordPopover, FilterContent as SearchKeywordContent } from '../../widgets/Filter/types/SearchKeywordsFilter';
 import { FilterContext } from '../../widgets/Filter/state';
 import { TriggerButton } from '../../widgets/Filter/utils/TriggerButton';
 import { FormattedMessage } from 'react-intl';
@@ -41,6 +43,22 @@ function buildSimpleText({ widgetHandle, config }) {
   };
 }
 
+function buildKeywordSearch({ widgetHandle, config }) {
+  const conf = {
+    filterHandle: config.std.filterHandle || widgetHandle,
+    translations: config.std.translations,
+    config: config.specific,
+    LabelFromID: ({ id }) => id
+  }
+  const Popover = props => <SearchKeywordPopover {...conf} {...props} />;
+  return {
+    Button: getButton(Popover, conf),
+    Popover,
+    Content: props => <SearchKeywordContent {...conf} {...props} />,
+    LabelFromID: config.LabelFromID,
+  };
+}
+
 export function filterBuilder({ labelMap, suggestConfigMap, filterWidgetConfig, context }) {
   const filters = Object.entries(filterWidgetConfig).reduce((acc, [widgetHandle, { type, config }]) => {
     const builderConfig = { widgetHandle, config, labelMap, suggestConfigMap, context };
@@ -55,6 +73,10 @@ export function filterBuilder({ labelMap, suggestConfigMap, filterWidgetConfig, 
       filter = buildSimpleText(builderConfig);
     } else if (type === 'CUSTOM_STANDARD') {
       filter = buildCustomStandard(builderConfig);
+    } else if (type === 'VOCAB') {
+      filter = buildVocab(builderConfig);
+    } else if (type === 'KEYWORD_SEARCH') {
+      filter = buildKeywordSearch(builderConfig);
     }
     const trNameId = config.std?.translations?.name || `filter.${config?.std?.filterHandle || widgetHandle}.name`;
     acc[widgetHandle] = {
@@ -151,5 +173,27 @@ function buildCustomStandard({ widgetHandle, config, labelMap }) {
     Popover,
     Content: props => <CustomStandardContent {...conf} {...props} />,
     LabelFromID: config.LabelFromID,
+  };
+}
+
+function buildVocab({ widgetHandle, config, labelMap, suggestConfigMap, context }) {
+  const conf = {
+    filterHandle: config.std.filterHandle || widgetHandle,
+    translations: config.std.translations,
+    config: {
+      suggestConfig: suggestConfigMap[config.specific.suggestHandle || widgetHandle],
+      LabelFromID: labelMap[config.specific.id2labelHandle],
+      ...config.specific,
+      ...config
+    },
+    LabelFromID: labelMap[config.std.id2labelHandle || widgetHandle] || (({id}) => id),
+  }
+
+  const Popover = props => <VocabPopover {...conf} {...props} />;
+  return {
+    Button: getButton(Popover, conf),
+    Popover,
+    Content: props => <VocabContent {...conf} {...props} />,
+    LabelFromID: config.LabelFromID
   };
 }
