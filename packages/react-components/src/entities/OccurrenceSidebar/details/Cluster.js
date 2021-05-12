@@ -38,7 +38,11 @@ export function Cluster({
     <Header data={data} />
     <main style={{ marginTop: 24 }}>
       {related.map(x => {
-        return <RelatedOccurrence key={x.occurrence.key} onClick={e => setActiveKey(x.occurrence.key)} related={x.occurrence} reasons={x.reasons} original={data.occurrence} />
+        if (x.occurrence) {
+          return <RelatedOccurrence key={x.occurrence.key} onClick={e => setActiveKey(x.occurrence.key)} related={x.occurrence} reasons={x.reasons} original={data.occurrence} />;
+        } else {
+          return <div style={{padding: 30, background: 'tomato', color: 'white', borderRadius: 4}}>The record has been deleted by the publisher</div>
+        }
       })}
     </main>
   </div>
