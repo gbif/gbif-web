@@ -54,7 +54,7 @@ export function config2label(name, config = {}, apiContext) {
     case 'CUSTOM': {
       return config.component;
     }
-    default: return id => id
+    default: return ({id}) => typeof id === 'object' ? id.value : id;
   }
 }
 
