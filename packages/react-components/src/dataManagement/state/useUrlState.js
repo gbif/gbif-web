@@ -5,6 +5,7 @@ import queryString from 'query-string';
 import isObjectLike from 'lodash/isObjectLike';
 import isEmpty from 'lodash/isEmpty';
 import equal from 'fast-deep-equal/react';
+import { Base64 } from 'js-base64';
 
 export function useUrlState({ param, dataType = dynamicParam, replaceState = false, defaultValue, base64encode = false, stripEmptyKeys = true, initialState }) {
   const [value, setValue] = useState();
@@ -25,7 +26,7 @@ export function useUrlState({ param, dataType = dynamicParam, replaceState = fal
       }
       if (newValue) {
         let stringifiedValue = Array.isArray(newValue) ? newValue.map(x => dataType.stringify(x)) : dataType.stringify(newValue);
-        if (base64encode) stringifiedValue = btoa(stringifiedValue);
+        if (base64encode) stringifiedValue = Base64.encode(stringifiedValue);
         parsed[param] = stringifiedValue;
       } else {
         delete parsed[param];
@@ -43,7 +44,7 @@ export function useUrlState({ param, dataType = dynamicParam, replaceState = fal
     const changeHandler = ({ location }) => {
       const parsed = queryString.parse(location.search);
       let parsedValue = parsed[param];
-      if (base64encode && parsedValue) parsedValue = atob(parsedValue);
+      if (base64encode && parsedValue) parsedValue = Base64.decode(parsedValue);
       parsedValue = dataType.parse(parsedValue);
       let parsedNormalizedValue = Array.isArray(parsedValue) ?
         parsedValue.map(x => dataType.parse(x)) :
