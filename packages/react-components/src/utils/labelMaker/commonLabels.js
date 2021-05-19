@@ -120,10 +120,6 @@ export const commonLabels = {
     type: 'TRANSLATION',
     template: id => id
   },
-  recordedBy: {
-    type: 'TRANSLATION',
-    template: id => id
-  },
   recordNumber: {
     type: 'TRANSLATION',
     template: id => id
