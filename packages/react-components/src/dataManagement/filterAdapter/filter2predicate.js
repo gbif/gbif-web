@@ -84,14 +84,14 @@ function getPredicateFromSingleValue({ filterName, value, config }) {
 
   if (typeof value === 'string' || typeof value === 'number') {
     return {
-      type: config?.defaultType || 'equal',
+      type: config?.defaultType || 'equals',
       //if no default key is provided, then fall back to the filterName as a key
       key: config?.defaultKey || filterName,
       value: value
     }
   } else if (typeof value === 'object' && value !== null) {
     return {
-      type: config?.defaultType || 'equal',
+      type: config?.defaultType || 'equals',
       key: config?.defaultKey || filterName,
       ...value, // overwrite type and key if it is defined in the value object
     }
