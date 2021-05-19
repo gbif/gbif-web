@@ -49,6 +49,13 @@ const typeDef = gql`
     datasetKey: Int!
     publishingOrgKey: Int!
     recordedBy: Int!
+    identifiedBy: Int!
+    locality: Int!
+    waterBody: Int!
+    stateProvince: Int!
+    samplingProtocol: Int!
+    sampleSizeUnit: Int!
+    verbatimScientificName: Int!
   }
 
   type OccurrenceFacet {
@@ -91,7 +98,7 @@ const typeDef = gql`
     agentIds_type(size: Int): [OccurrenceFacetResult_string]
     agentIds_value(size: Int): [OccurrenceFacetResult_string]
     gbifClassification_classificationPath(size: Int): [OccurrenceFacetResult_string]
-    gbifClassification_verbatimScientificName(size: Int): [OccurrenceFacetResult_string]
+    verbatimScientificName(size: Int): [OccurrenceFacetResult_string]
     gbifClassification_acceptedUsage_rank(size: Int): [OccurrenceFacetResult_string]
     gbifClassification_classification_rank(size: Int): [OccurrenceFacetResult_string]
     gbifClassification_diagnostics_matchType(size: Int): [OccurrenceFacetResult_string]

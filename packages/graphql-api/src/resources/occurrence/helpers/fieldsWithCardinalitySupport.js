@@ -1,5 +1,12 @@
 module.exports = [
   'datasetKey',
   'publishingOrgKey',
-  'recordedBy'
+  'recordedBy',
+  'identifiedBy',
+  'locality',
+  'waterBody',
+  'stateProvince',
+  'samplingProtocol',
+  'sampleSizeUnit',
+  'verbatimScientificName',
 ];
