@@ -3,7 +3,18 @@ import { css, jsx } from '@emotion/react';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Row, Col, Checkbox, Radio } from '../../../components';
+import { Row, Col, Checkbox, Radio, Skeleton } from '../../../components';
+
+export function OptionSkeleton({helpVisible, ...props}){
+  const theme = {};//useContext(ThemeContext);
+  return <div css={optionClass(theme)} style={{ display: 'flex', wrap: 'nowrap' }} {...props}>
+    <Skeleton width="1em" style={{flex: '0 0 auto'}}/>
+    <div style={{marginLeft: 10, flex: '1 1 auto'}}>
+      <Skeleton width="random"/>
+      {helpVisible && <Skeleton width="50%"/>}
+    </div>
+  </div>
+}
 
 export const Option = React.forwardRef(({ isRadio, label, tabIndex, checked, onChange, helpText, helpVisible, ...props }, ref) => {
   const theme = {};//useContext(ThemeContext);
