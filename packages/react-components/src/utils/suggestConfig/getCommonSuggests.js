@@ -165,7 +165,6 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
       getValue: suggestion => suggestion.title,
       // how to display the individual suggestions in the list
       render: function RecordedBySuggestItem(suggestion) {
-        console.warn('You need to configure endpoint and display item for the suggest');
         return <div style={suggestStyle}>
           {suggestion.title}
         </div>
@@ -175,7 +174,7 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
       //What placeholder to show
       placeholder: 'Search by recorded by',
       // how to get the list of suggestion data
-      getSuggestions: ({ q }) => {
+      getSuggestions: ({ q, size = 100 }) => {
         const SEARCH = `
           query keywordSearch($predicate: Predicate, $size: Int){
             occurrenceSearch(predicate: $predicate) {
@@ -201,14 +200,15 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
           }
         }
         const variables = {
-          size: 100,
+          size,
           predicate
         };
         const {promise, cancel} = client.query({query: SEARCH, variables});
         return {
           promise: promise.then(response => {
             return {
-              data: response.data?.occurrenceSearch?.facet?.recordedBy.map(i => ({ ...i, title: i.key }))
+              data: response.data?.occurrenceSearch?.facet?.recordedBy.map(i => ({ ...i, title: i.key })),
+              rawData: response.data
             }
           }),
           cancel
@@ -218,7 +218,6 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
       getValue: suggestion => suggestion.title,
       // how to display the individual suggestions in the list
       render: function RecordedBySuggestItem(suggestion) {
-        console.warn('You need to configure endpoint and display item for the suggest');
         return <div style={suggestStyle}>
             {suggestion.title}
             <div style={{fontSize: '0.85em', color: '#aaa'}}>{suggestion.count} results</div>
@@ -242,7 +241,6 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
     getValue: suggestion => suggestion.title,
     // how to display the individual suggestions in the list
     render: function RecordNumberSuggestItem(suggestion) {
-      console.warn('You need to configure endpoint and display item for the suggest');
       return <div style={suggestStyle}>
           {suggestion.title}
         </div>

@@ -265,7 +265,7 @@ export const commonFilters = {
     }
   },
   sampleSizeUnit: {
-    type: 'SIMPLE_TEXT',
+    type: 'KEYWORD_SEARCH',
     config: {
       std: {
         filterHandle: 'sampleSizeUnit',
@@ -276,7 +276,24 @@ export const commonFilters = {
         },
       },
       specific: {
-        placeholder: 'Units of sample size'
+        placeholder: 'Units of sample size',
+        disallowLikeFilters: true,
+        query: `
+          query keywordSearch($predicate: Predicate, $size: Int){
+            occurrenceSearch(predicate: $predicate) {
+              cardinality {
+                sampleSizeUnit
+              }
+              facet {
+                sampleSizeUnit(size: $size) {
+                  key
+                  count
+                }
+              }
+            }
+          }
+        `,
+        queryKey: 'sampleSizeUnit'
       }
     }
   },
@@ -475,7 +492,7 @@ export const commonFilters = {
     }
   },
   recordedBy: {
-    type: 'SUGGEST',
+    type: 'KEYWORD_SEARCH',//KEYWORD_SEARCH | SUGGEST
     config: {
       std: {
         filterHandle: 'recordedBy',// if nothing else provided, then this is the filterName used
@@ -488,8 +505,25 @@ export const commonFilters = {
       },
       specific: {
         // suggestHandle: 'recordedBy',
-        suggestHandle: 'recordedByWildcard',
+        // suggestHandle: 'recordedByWildcard',
         id2labelHandle: 'recordedBy',
+        placeholder: 'Search by recorded by',
+        query: `
+          query keywordSearch($predicate: Predicate, $size: Int){
+            occurrenceSearch(predicate: $predicate) {
+              cardinality {
+                recordedBy
+              }
+              facet {
+                recordedBy(size: $size) {
+                  key
+                  count
+                }
+              }
+            }
+          }
+        `,
+        queryKey: 'recordedBy'
       }
     }
   },
@@ -598,7 +632,7 @@ export const commonFilters = {
     }
   },
   locality: {
-    type: 'SIMPLE_TEXT',
+    type: 'KEYWORD_SEARCH',//KEYWORD_SEARCH | SUGGEST | SIMPLE_TEXT
     config: {
       std: {
         filterHandle: 'locality',
@@ -610,12 +644,28 @@ export const commonFilters = {
         },
       },
       specific: {
-        placeholder: 'Search by locality'
+        placeholder: 'Search by locality',
+        query: `
+          query keywordSearch($predicate: Predicate, $size: Int){
+            occurrenceSearch(predicate: $predicate) {
+              cardinality {
+                locality
+              }
+              facet {
+                locality(size: $size) {
+                  key
+                  count
+                }
+              }
+            }
+          }
+        `,
+        queryKey: 'locality'
       }
     }
   },
   waterBody: {
-    type: 'SIMPLE_TEXT',
+    type: 'KEYWORD_SEARCH', // SIMPLE_TEXT
     config: {
       std: {
         filterHandle: 'waterBody',
@@ -627,12 +677,28 @@ export const commonFilters = {
         },
       },
       specific: {
-        placeholder: 'Search by water body'
+        placeholder: 'Search by water body',
+        query: `
+          query keywordSearch($predicate: Predicate, $size: Int){
+            occurrenceSearch(predicate: $predicate) {
+              cardinality {
+                waterBody
+              }
+              facet {
+                waterBody(size: $size) {
+                  key
+                  count
+                }
+              }
+            }
+          }
+        `,
+        queryKey: 'waterBody'
       }
     }
   },
   stateProvince: {
-    type: 'SIMPLE_TEXT',
+    type: 'KEYWORD_SEARCH',
     config: {
       std: {
         filterHandle: 'stateProvince',
@@ -644,7 +710,23 @@ export const commonFilters = {
         },
       },
       specific: {
-        placeholder: 'Search by state province'
+        placeholder: 'Search by state province',
+        query: `
+          query keywordSearch($predicate: Predicate, $size: Int){
+            occurrenceSearch(predicate: $predicate) {
+              cardinality {
+                stateProvince
+              }
+              facet {
+                stateProvince(size: $size) {
+                  key
+                  count
+                }
+              }
+            }
+          }
+        `,
+        queryKey: 'stateProvince'
       }
     }
   },
@@ -667,7 +749,7 @@ export const commonFilters = {
     }
   },
   samplingProtocol: {
-    type: 'SIMPLE_TEXT',
+    type: 'KEYWORD_SEARCH',
     config: {
       std: {
         filterHandle: 'samplingProtocol',
@@ -679,7 +761,23 @@ export const commonFilters = {
         },
       },
       specific: {
-        placeholder: 'Search by sampling protocol'
+        placeholder: 'Search by sampling protocol',
+        query: `
+          query keywordSearch($predicate: Predicate, $size: Int){
+            occurrenceSearch(predicate: $predicate) {
+              cardinality {
+                samplingProtocol
+              }
+              facet {
+                samplingProtocol(size: $size) {
+                  key
+                  count
+                }
+              }
+            }
+          }
+        `,
+        queryKey: 'samplingProtocol'
       }
     }
   },
@@ -739,7 +837,7 @@ export const commonFilters = {
       }
     },
   identifiedBy: {
-    type: 'SIMPLE_TEXT',
+    type: 'KEYWORD_SEARCH', // SIMPLE_TEXT
     config: {
       std: {
         filterHandle: 'identifiedBy',
@@ -752,7 +850,22 @@ export const commonFilters = {
       },
       specific: {
         placeholder: 'Search by identified by',
-        restrictWildcards: true
+        query: `
+          query keywordSearch($predicate: Predicate, $size: Int){
+            occurrenceSearch(predicate: $predicate) {
+              cardinality {
+                identifiedBy
+              }
+              facet {
+                identifiedBy(size: $size) {
+                  key
+                  count
+                }
+              }
+            }
+          }
+        `,
+        queryKey: 'identifiedBy'
       }
     }
   },
@@ -881,7 +994,7 @@ export const commonFilters = {
     }
   },
   verbatimScientificName: {
-    type: 'SIMPLE_TEXT',
+    type: 'KEYWORD_SEARCH',
     config: {
       std: {
         filterHandle: 'verbatimScientificName',
@@ -893,7 +1006,23 @@ export const commonFilters = {
         },
       },
       specific: {
-        placeholder: 'Example: Felis concolor'
+        placeholder: 'Example: Felis concolor',
+        query: `
+          query keywordSearch($predicate: Predicate, $size: Int){
+            occurrenceSearch(predicate: $predicate) {
+              cardinality {
+                verbatimScientificName
+              }
+              facet {
+                verbatimScientificName(size: $size) {
+                  key
+                  count
+                }
+              }
+            }
+          }
+        `,
+        queryKey: 'verbatimScientificName'
       }
     }
   },

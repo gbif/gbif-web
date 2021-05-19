@@ -135,11 +135,27 @@ const filterWidgetConfig = {
         translations: {
           count: 'filter.recordedBy.count', // translation path to display names with counts. e.g. "3 scientific names"
           name: 'filter.recordedBy.name',// translation path to a title for the popover and the button
+          description: 'filter.recordedBy.description', // translation path for the filter description
         }
       },
       specific: {
-        description: 'filter.recordedBy.description', // translation path for the filter description
         searchHandle: 'recordedBy',
+        query: `
+          query keywordSearch($predicate: Predicate, $size: Int){
+            occurrenceSearch(predicate: $predicate) {
+              cardinality {
+                recordedBy
+              }
+              facet {
+                recordedBy(size: $size) {
+                  key
+                  count
+                }
+              }
+            }
+          }
+        `,
+        queryKey: 'recordedBy'
       }
     }
   }

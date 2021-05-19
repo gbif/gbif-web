@@ -7,40 +7,43 @@ import { FormattedMessage } from 'react-intl';
 import { nanoid } from 'nanoid';
 import get from 'lodash/get';
 import { keyCodes } from '../../../utils/util';
-import { Input, Switch } from '../../../components';
-import { Option, Filter, SummaryBar, FilterBody, Footer, Exists, AdditionalControl } from '../utils';
+import { Input, Button } from '../../../components';
+import { Option, OptionSkeleton, Filter, SummaryBar, FilterBody, Footer, Exists, AdditionalControl } from '../utils';
 import { useQuery } from '../../../dataManagement/api';
 import SearchContext from '../../../search/SearchContext';
-import union from 'lodash/union';
-import hash from 'object-hash';
+import unionBy from 'lodash/unionBy';
+import { hash } from '../../../utils/util';
 
 export const FilterContent = ({ config = {}, translations, hide, onApply, onCancel, onFilterChange, focusRef, filterHandle, initFilter }) => {
-  const { data, error, loading, load } = useQuery(SEARCH, { lazyLoad: true, keepDataWhileLoading: true });
+  const { data, error, loading, load } = useQuery(config.query, { lazyLoad: true, keepDataWhileLoading: true });
   const [size, setSize] = useState(10);
   const [q, setQ] = useState('');
-  const { placeholder = 'Input text' } = config;
+  const { queryKey, placeholder = 'Input text' } = config;
   const [id] = React.useState(nanoid);
   const initialOptions = get(initFilter, `must.${filterHandle}`, []);
   const [options, setOptions] = useState(initialOptions);
   const [inputValue, setValue] = useState('');
   const [showSuggestions, setShowSuggestions] = useState('');
+  const searchContext = useContext(SearchContext);
 
   useEffect(() => {
     if (typeof id !== 'undefined') {
       const predicates = [
-        //rootPredicate // TODO the search function need to be defined in context
+         // TODO the search function need to be defined in context
       ];
+      if (searchContext?.rootPredicate) {
+        predicates.push(searchContext.rootPredicate);
+      }
       if (q && q !== '') {
         predicates.push({
           "type": "like",
-          "key": "recordedBy",
+          "key": queryKey,
           "value": `${q}`
         });
       }
 
       load({
         variables: {
-          key: id,
           size,
           predicate: {
             type: 'and',
@@ -49,7 +52,7 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
         }
       });
     }
-  }, [id, size, q]);
+  }, [size, q]);
 
   const loadMore = useCallback(() => {
     setSize(size + 50);
@@ -61,7 +64,7 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
     setShowSuggestions(true);
   }, []);
 
-  const items = data?.occurrenceSearch?.facet?.recordedBy;
+  const items = data?.occurrenceSearch?.facet?.[queryKey];
 
 
   const pattern = config.restrictWildcards ? /^(?![\*\?]).*/g : undefined;
@@ -87,7 +90,7 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
       }
       return <>
         <div style={{ zIndex: 10, display: 'inline-block', position: 'relative' }}>
-          <div style={{margin: '10px'}}>
+          <div style={{margin: '10px 10px 0 10px'}}>
             <Input ref={focusRef}
               value={inputValue}
               onChange={e => {
@@ -104,52 +107,75 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
               onKeyPress={e => {
                 const value = e.target.value;
                 if (e.which === keyCodes.ENTER) {
-                  if (value === '') {
-                    onApply({ filter, hide });
-                  } else {
-                    // trigger search
-                    console.log('search for results for : ' + inputValue);
-                    search(inputValue);
-                  }
+                  search(inputValue);
+                  // if (value === '') {
+                  //   onApply({ filter, hide });
+                  // } else {
+                  //   // trigger search
+                  //   search(inputValue);
+                  // }
                 }
               }}
             />
           </div>
         </div>
         {typeof isExistenceFilter !== 'undefined' && <>
-          <AdditionalControl style={{marginTop: '-1em', marginBottom: 4}}  checked={showSuggestions} onChange={e => {
-              if (showSuggestions) setValue('');
+          <AdditionalControl style={{marginBottom: 4}} checked={showSuggestions} onChange={e => {
+              // if (showSuggestions) setValue('');
               if (!showSuggestions) search(inputValue);
               setShowSuggestions(!showSuggestions);
             }}>Show suggestions</AdditionalControl>
           <SummaryBar {...summaryProps} style={{ marginTop: 0 }} />
           <FilterBody style={{paddingTop: 0}}>
             <form id={formId} onSubmit={e => e.preventDefault()} >
+
               {showSuggestions && <>
-                {items.map((option) => {
-                  return <Option
-                    key={option.key}
+                {loading && <>
+                  <OptionSkeleton helpVisible />
+                  <OptionSkeleton helpVisible />
+                  <OptionSkeleton helpVisible />
+                </>}
+                {!loading && items && <>
+                  {!config.disallowLikeFilters && q !== '' && <div style={{borderBottom: '1px solid #eee'}}><Option
+                    key={q}
                     helpVisible={true}
-                    helpText={`${option.count} records in total`}
-                    label={option.key}
-                    checked={checkedMap.has(option.key)}
+                    helpText={`Search for the pattern`}
+                    label={q}
+                    checked={checkedMap.has(hash({type: 'like', value: q}))}
                     onChange={() => {
-                      toggle(filterHandle, option.key);
-                      const allOptions = union(options, [option.key]);
+                      const qString = {type: 'like', value: q};
+                      toggle(filterHandle, qString);
+                      const allOptions = unionBy(options, [qString], hash);
                       setOptions(allOptions);
                     }}
-                  />
-                })}
+                  /></div>}
+                  {items.map((option) => {
+                    return <Option
+                      key={option.key}
+                      helpVisible={true}
+                      helpText={`${option.count} records in total`}
+                      label={option.key}
+                      checked={checkedMap.has(option.key)}
+                      onChange={() => {
+                        toggle(filterHandle, option.key);
+                        const allOptions = unionBy(options, [option.key], hash);
+                        setOptions(allOptions);
+                      }}
+                    />
+                  })}
+                  {items.length < data?.occurrenceSearch?.cardinality?.[queryKey] && <div style={{fontSize: 12, marginLeft: 24, marginTop: 12}}><Button appearance="primaryOutline" onClick={loadMore}>Load more suggestions</Button></div>}
+                </>}
               </>}
 
               {!showSuggestions && <>
-                {options.length === 0 && <div>Nothing selected - Search using * as a wildcard and ? as single letter wildcard</div>}
+                {options.length === 0 && <div style={{margin: '12px 0', opacity: .7}}>You can search using * (wildcard) and ? (single letter wildcard)</div>}
                 {options.map((option) => {
                   return <Option
-                    key={option}
+                    key={hash(option)}
                     helpVisible={false}
-                    label={option}
-                    checked={checkedMap.has(option)}
+                    // label={option}
+                    label={typeof option === 'string' ? option : option.value}
+                    checked={checkedMap.has(typeof option === 'string' ? option : hash(option))}
                     onChange={() => toggle(filterHandle, option)}
                   />
                 })}
@@ -191,16 +217,3 @@ export function Popover({ filterHandle, LabelFromID, translations = {}, config, 
     />
   );
 }
-
-const SEARCH = `
-query keywordSearch($predicate: Predicate, $size: Int){
-  occurrenceSearch(predicate: $predicate) {
-    facet {
-      recordedBy(size: $size) {
-        key
-        count
-      }
-    }
-  }
-}
-`;

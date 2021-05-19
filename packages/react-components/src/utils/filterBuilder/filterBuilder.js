@@ -43,19 +43,25 @@ function buildSimpleText({ widgetHandle, config }) {
   };
 }
 
-function buildKeywordSearch({ widgetHandle, config }) {
+function buildKeywordSearch({ labelMap, suggestConfigMap, widgetHandle, config }) {
+  const LabelFromID = labelMap[config.std.id2labelHandle || widgetHandle] || (({id}) => typeof id === 'object' ? id.value : id);
+
   const conf = {
     filterHandle: config.std.filterHandle || widgetHandle,
     translations: config.std.translations,
-    config: config.specific,
-    LabelFromID: ({ id }) => id
+    // config: config.specific,
+    config: {
+      suggestConfig: suggestConfigMap[config.specific.suggestHandle || widgetHandle],
+      ...config.specific
+    },
+    LabelFromID
   }
   const Popover = props => <SearchKeywordPopover {...conf} {...props} />;
   return {
     Button: getButton(Popover, conf),
     Popover,
     Content: props => <SearchKeywordContent {...conf} {...props} />,
-    LabelFromID: config.LabelFromID,
+    LabelFromID
   };
 }
 
@@ -89,16 +95,17 @@ export function filterBuilder({ labelMap, suggestConfigMap, filterWidgetConfig, 
 }
 
 function buildSuggest({ widgetHandle, config, labelMap, suggestConfigMap, context }) {
+  const LabelFromID = labelMap[config.std.id2labelHandle || widgetHandle] || (({id}) => typeof id === 'object' ? id.value : id);
   const conf = {
     filterHandle: config.std.filterHandle || widgetHandle,
     translations: config.std.translations,
     config: {
       suggestConfig: suggestConfigMap[config.specific.suggestHandle || widgetHandle],
-      LabelFromID: labelMap[config.specific.id2labelHandle],
+      LabelFromID,
       ...config.specific,
       ...config
     },
-    LabelFromID: labelMap[config.std.id2labelHandle || widgetHandle] || (({id}) => id),
+    LabelFromID
   }
 
   const Popover = props => <SuggestPopover {...conf} {...props} />;
@@ -112,18 +119,19 @@ function buildSuggest({ widgetHandle, config, labelMap, suggestConfigMap, contex
 
 
 function buildNumberRange({ widgetHandle, config, labelMap, context }) {
+  const LabelFromID = labelMap[config.std.id2labelHandle || widgetHandle];
   const conf = {
     filterHandle: config.std.filterHandle || widgetHandle,
     translations: config.std.translations,
     config: config.specific,
-    LabelFromID: labelMap[config.std.id2labelHandle || widgetHandle],
+    LabelFromID
   }
   const Popover = props => <RangePopover {...conf} {...props} />;
   return {
     Button: getButton(Popover, conf),
     Popover,
     Content: props => <RangeContent {...conf} {...props} />,
-    LabelFromID: config.LabelFromID,
+    LabelFromID
   };
 }
 
@@ -166,7 +174,6 @@ function buildCustomStandard({ widgetHandle, config, labelMap }) {
     },
     LabelFromID: labelMap[config.std.id2labelHandle || widgetHandle] || config.std.id2label,
   }
-  // debugger;
   const Popover = props => <CustomStandardPopover {...conf} {...props} />;
   return {
     Button: getButton(Popover, conf),
