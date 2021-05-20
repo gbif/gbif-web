@@ -2,8 +2,7 @@ import get from 'lodash/get';
 
 const filterConf = {
   fields: {
-    countryCode: {
-      defaultKey: 'country',
+    country: {
       singleValue: true
     },
     q: {

@@ -1,6 +1,6 @@
 export const all = [
   'taxonKey',
-  'countryCode',
+  'country',
   'publishingCountryCode',
   'datasetKey',
   'publisherKey',
@@ -49,7 +49,7 @@ const highlighted = [
   'occurrenceStatus',
   'taxonKey',
   'year',
-  'countryCode',
+  'country',
   'occurrenceIssue',
 ];
 

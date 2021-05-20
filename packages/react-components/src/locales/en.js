@@ -75,7 +75,7 @@ export const en = {
       isNull: 'Has no issues',
       description: 'The types of issues or flags of potential interest discovered in processing the data.'
     },
-    countryCode: {
+    occurrenceCountry: {
       name: 'Country',
       count: '{num, plural, one {country} other {# countries}}',
       description: 'The country or territory where the event occurred'

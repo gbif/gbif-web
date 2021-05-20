@@ -50,9 +50,9 @@ const defaultTableConfig = {
       }
     },
     {
-      trKey: 'filter.countryCode.name',
+      trKey: 'filter.country.name',
       value: {
-        filterKey: 'countryCode',
+        filterKey: 'country',
         key: 'key',
         formatter: (value, item) => {
           const countryCode = item.address?.country || item.mailingAddress?.country;

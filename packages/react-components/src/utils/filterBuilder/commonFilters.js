@@ -34,14 +34,15 @@ export const commonFilters = {
       }
     }
   },
-  countryCode: {
+  country: {
     type: 'SUGGEST',
     config: {
       std: {
+        id2labelHandle: 'countryCode',
         translations: {
-          count: 'filter.countryCode.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.countryCode.name',// translation path to a title for the popover and the button
-          description: 'filter.countryCode.description', // translation path for the filter description
+          count: 'filter.occurrenceCountry.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.occurrenceCountry.name',// translation path to a title for the popover and the button
+          description: 'filter.occurrenceCountry.description', // translation path for the filter description
         },
       },
       specific: {
@@ -93,8 +94,7 @@ export const commonFilters = {
         },
       },
       specific: {
-        suggestHandle: 'countryCode',
-        id2labelHandle: 'countryCode',
+        suggestHandle: 'countryCode'
       }
     }
   },

@@ -55,8 +55,8 @@ const tableConfig = {
       }
     },
     {
-      trKey: 'filter.countryCode.name',
-      filterKey: 'countryCode', //optional
+      trKey: 'filter.occurrenceCountry.name',
+      filterKey: 'country', //optional
       value: {
         key: 'countryCode',
         labelHandle: 'countryCode'

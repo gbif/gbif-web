@@ -38,9 +38,6 @@ const filterConf = {
     occurrenceIssue: {
       defaultKey: 'issue'
     },
-    countryCode: {
-      defaultKey: 'country'
-    },
     hostKey: {
       defaultKey: 'hostingOrganizationKey'
     },

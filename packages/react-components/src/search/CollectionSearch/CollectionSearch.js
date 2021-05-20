@@ -21,7 +21,7 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
   const { labels = {}, getSuggests = () => ({}), filters: customFilters = {}, adapters = {} } = customConfig;
   const mergedLabels = { ...labelConfig, ...labels };
   const mergedFilters = { 
-    countryCode: merge({}, filterWidgetConfig.countryCode, {config: {singleSelect: true}}),
+    country: merge({}, filterWidgetConfig.country, {config: {singleSelect: true}}),
     institutionKey: merge({}, filterWidgetConfig.institutionKey, {config: {singleSelect: true}}),
     q: filterWidgetConfig.q,
     city: filterWidgetConfig.city,
@@ -39,7 +39,7 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
     labelMap,
     suggestConfigMap,
     filters: filters,
-    defaultVisibleFilters: ['q', 'institutionKey', 'city', 'countryCode', 'code'],
+    defaultVisibleFilters: ['q', 'institutionKey', 'city', 'country', 'code'],
     rootPredicate: {  },
     predicateConfig
   }
