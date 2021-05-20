@@ -8,6 +8,7 @@ import * as css from './styles';
 import ThemeContext from '../../../../style/themes/ThemeContext';
 import { MdFileDownload } from 'react-icons/md'
 import { Button } from '../../../../components';
+import env from '../../../../../.env.json';
 
 const DOWNLOAD = `
 query($predicate: Predicate){
@@ -73,7 +74,7 @@ function Download() {
           </div>
           <Button 
             as="a" 
-            href={`https://www.gbif.org/occurrence/download/request?predicate=${encodeURIComponent(JSON.stringify(fullPredicate))}#create`} 
+            href={`${env.GBIF_ORG}/occurrence/download/request?predicate=${encodeURIComponent(JSON.stringify(fullPredicate))}#create`} 
             disabled={loading}
             appearance="primary">Continue</Button>
         </>}
