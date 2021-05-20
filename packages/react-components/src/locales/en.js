@@ -1,6 +1,6 @@
 import basisOfRecord from './enums/basisOfRecord.json';
 import countryCode from './enums/countryCode.json';
-import mediaTypes from './enums/mediaTypes.json';
+import mediaType from './enums/mediaType.json';
 import occurrenceIssue from './enums/occurrenceIssue.json';
 import typeStatus from './enums/typeStatus.json';
 import taxonRank from './enums/taxonRank.json';
@@ -63,7 +63,7 @@ export const en = {
       count: '{num, plural, one {catalog number} other {# catalog numbers}}',
       description: 'The catalog number for this record.'
     },
-    mediaTypes: {
+    mediaType: {
       name: 'Media type',
       count: '{num, plural, one {media type} other {# media types}}',
       description: 'The types of media accessible for this record.'
@@ -388,7 +388,7 @@ export const en = {
   enums: {
     basisOfRecord,
     countryCode,
-    mediaTypes,
+    mediaType,
     occurrenceIssue,
     typeStatus,
     taxonRank,

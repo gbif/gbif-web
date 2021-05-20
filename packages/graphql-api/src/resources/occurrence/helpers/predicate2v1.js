@@ -6,12 +6,25 @@ module.exports = function (predicate) {
     const withRange = convertRangeType(copy);
     const withLike = convertLikePredicates(withRange);
     const notIssues = convertNotIssues(withLike);
-    const withCase = uppercaseKeys(notIssues);
+    const withNotNull = convertIsNotNull(notIssues);
+    const removedEmpty = removeEmpty(withNotNull);
+    const nestingSimplified = removeExcessiveNesting(removedEmpty);
+    const withCase = uppercaseKeys(nestingSimplified);
+    
+    //check for simple known errors
+    if (hasFuzzyTypes(withCase)) return {
+      err: {
+        type: 'FUZZY_NOT_ALLOWED',
+        message: 'Free text filters are not allowed in downloads'
+      }
+    }
+
     return {
       err: null,
       predicate: withCase
     }
   } catch (err) {
+    console.log(err);
     return { err }
   }
 }
@@ -19,9 +32,13 @@ module.exports = function (predicate) {
 function toEnumCase(str) {
   return _.snakeCase(str).toUpperCase();
 }
+
 function uppercaseKeys(predicate) {
   if (typeof predicate.key === 'string') {
     predicate.key = toEnumCase(predicate.key);
+  }
+  if (typeof predicate.parameter === 'string') {
+    predicate.parameter = toEnumCase(predicate.parameter);
   }
   if (predicate.predicates) {
     predicate.predicates = predicate.predicates.map(uppercaseKeys);
@@ -41,7 +58,7 @@ const types = [
 
 function convertRangeType(obj) {
   if (obj.predicate) {
-    convertRangeType(obj.predicate);
+    return convertRangeType(obj.predicate);
   } else if (obj.predicates && Array.isArray(obj.predicates)) {
     obj.predicates = obj.predicates.map(convertRangeType);
   } else if (obj.type === 'range') {
@@ -78,7 +95,7 @@ function convertLikePredicates(obj) {
 
 function convertNotIssues(obj) {
   if (obj.predicate) {
-    convertNotIssues(obj.predicate);
+    return convertNotIssues(obj.predicate);
   } else if (obj.predicates && Array.isArray(obj.predicates)) {
     obj.predicates = obj.predicates.map(convertNotIssues);
   } else if (obj.key === 'notIssues') {
@@ -106,4 +123,53 @@ function convertNotIssues(obj) {
     }
   }
   return obj;
+}
+
+function convertIsNotNull(obj) {
+  if (obj.predicate) {
+    return convertIsNotNull(obj.predicate);
+  } else if (obj.predicates && Array.isArray(obj.predicates)) {
+    obj.predicates = obj.predicates.map(convertIsNotNull);
+  } else if (obj.type === 'isNotNull') {
+    return {
+      type: 'isNotNull',
+      parameter: obj.key
+    }
+  }
+  return obj;
+}
+
+function removeExcessiveNesting(obj) {
+  if (obj.predicate) {
+    removeExcessiveNesting(obj.predicate);
+  } else if (obj.predicates && Array.isArray(obj.predicates) && obj.predicates.length === 1) {
+    return removeExcessiveNesting(obj.predicates[0]);
+  }
+  return obj;
+}
+
+function removeEmpty(obj) {
+  if (obj.predicate) {
+    removeEmpty(obj.predicate);
+  } else if (obj.predicates && Array.isArray(obj.predicates)) {
+    obj.predicates = obj.predicates.filter(x => {
+      return !isEmpty(x);
+    }).map(removeEmpty);
+  }
+  return obj;
+}
+
+function isEmpty(predicate = {}) {
+  return Array.isArray(predicate.predicates) && predicate.predicates.length === 0;
+}
+
+function hasFuzzyTypes(obj) {
+  if (obj.predicate) {
+    return hasFuzzyTypes(obj.predicate);
+  } else if (obj.predicates && Array.isArray(obj.predicates)) {
+    return obj.predicates.find(hasFuzzyTypes);
+  } else if (obj.type === 'fuzzy') {
+    return true;
+  }
+  return false;
 }

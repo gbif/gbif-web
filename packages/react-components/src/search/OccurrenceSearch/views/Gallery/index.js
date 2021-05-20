@@ -64,7 +64,7 @@ function Table() {
         filter2predicate(currentFilterContext.filter, predicateConfig),
         {
           type: 'equals',
-          key: 'mediaTypes',
+          key: 'mediaType',
           value: 'StillImage'
         }
       ].filter(x => x)

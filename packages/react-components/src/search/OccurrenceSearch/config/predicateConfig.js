@@ -27,7 +27,7 @@ const filterConf = {
       defaultKey: 'coordinateUncertaintyInMeters'
     },
     publisherKey: {
-      defaultKey: 'publishingOrgKey'
+      defaultKey: 'publishingOrg'
     },
     publishingCountryCode: {
       defaultKey: 'publishingCountry'
@@ -35,14 +35,14 @@ const filterConf = {
     identifiedBy: {
       defaultType: 'like'
     },
-    recordedById: {
-      defaultKey: 'recordedByIds_value'
-    },
-    identifiedById: {
-      defaultKey: 'identifiedByIds_value'
-    },
     occurrenceIssue: {
       defaultKey: 'issue'
+    },
+    countryCode: {
+      defaultKey: 'country'
+    },
+    hostKey: {
+      defaultKey: 'hostingOrganizationKey'
     },
     notIssues: {
       serializer: ({values}) => ({

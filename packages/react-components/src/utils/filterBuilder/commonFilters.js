@@ -1,7 +1,7 @@
 import React from 'react';
 import { Input, Radio } from '../../components';
 import basisofRecord from '../../locales/enums/basisOfRecord.json';
-import mediaTypes from '../../locales/enums/mediaTypes.json';
+import mediaType from '../../locales/enums/mediaType.json';
 import occurrenceIssue from '../../locales/enums/occurrenceIssue.json';
 import typeStatus from '../../locales/enums/typeStatus.json';
 import license from '../../locales/enums/license.json';
@@ -247,20 +247,20 @@ export const commonFilters = {
       }
     }
   },
-  mediaTypes: {
+  mediaType: {
     type: 'ENUM',
     config: {
       std: {
-        filterHandle: 'mediaTypes',
-        id2labelHandle: 'mediaTypes',
+        filterHandle: 'mediaType',
+        id2labelHandle: 'mediaType',
         translations: {
-          count: 'filter.mediaTypes.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.mediaTypes.name',// translation path to a title for the popover and the button
-          description: 'filter.mediaTypes.description', // translation path for the filter description
+          count: 'filter.mediaType.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.mediaType.name',// translation path to a title for the popover and the button
+          description: 'filter.mediaType.description', // translation path for the filter description
         }
       },
       specific: {
-        options: Object.keys(mediaTypes),
+        options: Object.keys(mediaType),
       }
     }
   },

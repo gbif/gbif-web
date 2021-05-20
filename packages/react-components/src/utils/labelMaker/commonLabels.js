@@ -18,9 +18,9 @@ export const commonLabels = {
     type: 'TRANSLATION',
     template: id => id
   },
-  mediaTypes: {
+  mediaType: {
     type: 'TRANSLATION',
-    template: id => `enums.mediaTypes.${id}`
+    template: id => `enums.mediaType.${id}`
   },
   occurrenceIssue: {
     type: 'TRANSLATION',
