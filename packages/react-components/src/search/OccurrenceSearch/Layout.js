@@ -11,6 +11,7 @@ import Map from './views/Map';
 import Table from './views/Table';
 import Gallery from './views/Gallery';
 import Datasets from './views/Datasets';
+import Download from './views/Download';
 
 import { FilterBar } from '../FilterBar';
 import { useUrlState } from '../../dataManagement/state/useUrlState';
@@ -45,6 +46,8 @@ const Layout = ({
         <div css={cssViews({ theme })}>
           <TabList aria-labelledby="Views">
             {tabs.map(tab => tabComponents[tab])}
+            <TapSeperator />
+            <Tab tabId="download">Download</Tab>
             {/* <TapSeperator /> */}
             {/* <Tab tabId="publisher">Publishers</Tab> */}
             {/* <TapSpacer />
@@ -65,6 +68,9 @@ const Layout = ({
       </TabPanel>
       <TabPanel lazy tabId="DATASETS" className={`${prefix}-${elementName}-views`} css={cssViewArea({ theme })}>
         <Datasets />
+      </TabPanel>
+      <TabPanel lazy tabId="download" className={`${prefix}-${elementName}-views`} css={cssViewArea({ theme })}>
+        <Download />
       </TabPanel>
       {/* <div className={`${prefix}-${elementName}-footer`} css={cssFooter({ theme })}>
         <div>Footer content</div>
