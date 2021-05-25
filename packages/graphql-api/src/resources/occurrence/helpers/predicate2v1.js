@@ -127,7 +127,7 @@ function convertNotIssues(obj) {
 
 function convertIsNotNull(obj) {
   if (obj.predicate) {
-    return convertIsNotNull(obj.predicate);
+    obj.predicate = convertIsNotNull(obj.predicate);
   } else if (obj.predicates && Array.isArray(obj.predicates)) {
     obj.predicates = obj.predicates.map(convertIsNotNull);
   } else if (obj.type === 'isNotNull') {
