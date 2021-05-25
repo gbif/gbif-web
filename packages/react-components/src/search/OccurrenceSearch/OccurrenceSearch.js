@@ -143,7 +143,6 @@ function OccurrenceSearch({ config: customConfig = {}, ...props }) {
   // let filter = { must: { taxonKey: [2609958] } };
   // const setFilter = () => {};
 
-  console.log('filter from occ search', filter); 
   const apiContext = useContext(ApiContext);
   const { formatMessage } = useIntl();
   const [enrichedConfig] = useState(() => {
