@@ -30,10 +30,10 @@ const Layout = ({
   const elementName = 'occurrenceSearchLayout';
 
   const tabComponents = {
-    TABLE: <Tab tabId="TABLE">Table</Tab>,
-    MAP: <Tab tabId="MAP">Map</Tab>,
-    GALLERY: <Tab tabId="GALLERY">Gallery</Tab>,
-    DATASETS: <Tab tabId="DATASETS">Datasets</Tab>
+    TABLE: <Tab tabId="TABLE" key="table">Table</Tab>,
+    MAP: <Tab tabId="MAP" key="map">Map</Tab>,
+    GALLERY: <Tab tabId="GALLERY" key="gallery">Gallery</Tab>,
+    DATASETS: <Tab tabId="DATASETS" key="datasets">Datasets</Tab>
   }
 
   return <div className={`${className} ${prefix}-${elementName}`}
