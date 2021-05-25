@@ -14,7 +14,7 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
   const { placeholder = 'Input text' } = config;
   const [id] = React.useState(nanoid);
   const initialOptions = get(initFilter, `must.${filterHandle}`, []);
-  const [options, setOptions] = useState(initialOptions);
+  const [options, setOptions] = useState(initialOptions.filter(x => x.type !== 'isNotNull'));
   const [inputValue, setValue] = useState('');
 
   const singleSelect = config.singleSelect;

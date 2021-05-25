@@ -18,7 +18,7 @@ import { Suggest, Option, Filter, SummaryBar, FilterBody, Footer, Exists } from 
 export const FilterContent = ({ config, translations, labelledById, LabelFromID, hide, onApply, onCancel, onFilterChange, focusRef, filterHandle, initFilter }) => {
   const [id] = React.useState(nanoid);
   const initialOptions = get(initFilter, `must.${filterHandle}`, []);
-  const [options, setOptions] = useState(initialOptions);
+  const [options, setOptions] = useState(initialOptions.filter(x => x.type !== 'isNotNull'));
 
   const suggestConfig = config.suggestConfig;
   const singleSelect = config.singleSelect;

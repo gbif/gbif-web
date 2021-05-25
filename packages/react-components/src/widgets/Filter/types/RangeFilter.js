@@ -21,7 +21,7 @@ export const FilterContent = ({ config = {}, translations, labelledById, LabelFr
   const { upperBound = 'lte', lowerBound = 'gte', placeholder = 'E.g. 100,200' } = config;
   const [id] = React.useState(nanoid);
   const initialOptions = get(initFilter, `must.${filterHandle}`, []);
-  const [options, setOptions] = useState(initialOptions);
+  const [options, setOptions] = useState(initialOptions.filter(x => x.type !== 'isNotNull'));
   const [inputValue, setValue] = useState('');
 
   return <Filter
