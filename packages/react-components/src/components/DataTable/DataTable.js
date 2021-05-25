@@ -82,7 +82,7 @@ class DataTableCore extends Component {
   }
 
   render() {
-    const { theme, children, first, prev, next, size, from, total, fixedColumn, style, ...props } = this.props;
+    const { loading, theme, children, first, prev, next, size, from, total, fixedColumn, style, ...props } = this.props;
 
     const page = 1 + Math.floor(from / size);
     const totalPages = Math.ceil(total / size);
