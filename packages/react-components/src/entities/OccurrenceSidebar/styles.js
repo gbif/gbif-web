@@ -105,6 +105,7 @@ export const globeSvg = ({ isTrackingData, theme, ...props }) => css`
 export const sideBar = ({ theme, ...props }) => css`
   background: ${theme.paperBackground500};
   position: relative;
+  max-width: 100%;
 `;
 
 export const detailDrawerBar = ({ theme }) => css`
