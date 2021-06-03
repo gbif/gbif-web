@@ -1,7 +1,7 @@
 import React from 'react';
 import { text } from '@storybook/addon-knobs';
 import { Collection } from './Collection';
-import { MemoryRouter as Router, Switch, Route } from "react-router-dom";
+import { MemoryRouter as Router } from "react-router-dom";
 import AddressBar from '../../StorybookAddressBar';
 import Standalone from './Standalone';
 

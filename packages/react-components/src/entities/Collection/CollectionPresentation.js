@@ -47,7 +47,7 @@ export function CollectionPresentation({
     rootPredicate, 
     excludedFilters: ['collectionCode', 'collectionKey', 'institutionKey', 'institutionCode', 'hostingOrganizationKey', 'protocol', 'publishingCountryCode'], 
     occurrenceSearchTabs: ['TABLE', 'GALLERY', 'MAP'],
-    highlightedFilters: ['taxonKey', 'catalogNumber', 'recordedBy', 'identifiedBy', 'typeStatus']
+    highlightedFilters: ['taxonKey', 'verbatimScientificName', 'catalogNumber', 'recordedBy', 'identifiedBy', 'typeStatus']
   };
 
   const hasNoPeople = !collection?.contacts?.length && !recordedByCardinality;

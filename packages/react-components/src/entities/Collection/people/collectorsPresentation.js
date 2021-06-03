@@ -4,8 +4,15 @@ import * as css from './styles';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { MdHelp } from 'react-icons/md';
 import ThemeContext from '../../../style/themes/ThemeContext';
+import { Link, useRouteMatch, useHistory } from "react-router-dom";
+import { join } from '../../../utils/util';
+import RouteContext from '../../../dataManagement/RouteContext';
 
 export const CollectorsPresentation = ({ size, search, loadMore, loading, data, error }) => {
+  const routeContext = useContext(RouteContext);
+  let history = useHistory();
+  const url = routeContext.collectionSpecimens.url({key: '42844cb6-421e-4bcf-bdeb-c56039bee08c'});
+  console.log(url);
   const [q, setQ] = useState('');
   const theme = useContext(ThemeContext);
 
@@ -57,7 +64,7 @@ export const CollectorsPresentation = ({ size, search, loadMore, loading, data, 
             <tr>{headerss}</tr>
           </thead>
           <TBody rowCount={10} columnCount={7} loading={loading}>
-            {getRows({ items, columns })}
+            {getRows({ items, columns, url, history })}
           </TBody>
         </DataTable>
         {(loading || size === items.length) && <Button loading={loading} style={{ marginTop: 12 }} onClick={loadMore}>Load more</Button>}
@@ -67,11 +74,16 @@ export const CollectorsPresentation = ({ size, search, loadMore, loading, data, 
   </>
 }
 
-const getRows = ({ items }) => {
+const getRows = ({ items, history }) => {
   const rows = items.map((row, index) => {
+    const searchLink = encodeURIComponent(btoa(JSON.stringify({must:{recordedBy:[row.name]}})));
     const cells = [
       <Td key='name'>{row.name}</Td>,
-      <Td key='collected' style={{textAlign: 'right'}}><FormattedNumber value={row.collected} /></Td>,
+      <Td key='collected' style={{textAlign: 'right'}}>
+        <a onClick={() => history.push(`../../specimens?filter=${searchLink}`)}>
+          <FormattedNumber value={row.collected} />
+        </a>
+      </Td>,
       <Td key='identified' style={{textAlign: 'right'}}><FormattedNumber value={row.identified} /></Td>
     ]
     return <tr key={row.key}>{cells}</tr>;

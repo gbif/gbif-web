@@ -3,20 +3,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import ThemeContext from '../../style/themes/ThemeContext';
 import { useQuery } from '../../dataManagement/api';
 import { CollectionPresentation } from './CollectionPresentation';
-
-import { MemoryRouter, useRouteMatch } from 'react-router-dom';
-
-function EnsureRouter({children}) {
-  let hasRouter;
-  try {
-    const forTestOnly = useRouteMatch();
-    hasRouter = true;
-  } catch(err) {
-    console.log('No router context found, so creating a MemoryRouter for the component');
-    hasRouter = false;
-  }
-  return hasRouter ? <>{children}</> : <MemoryRouter initialEntries={['/']}>{children}</MemoryRouter>
-}
+import EnsureRouter from '../../EnsureRouter';
 
 export function Collection({
   id,

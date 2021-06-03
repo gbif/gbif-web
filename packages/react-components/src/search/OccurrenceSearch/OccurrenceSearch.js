@@ -138,6 +138,7 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
 function OccurrenceSearch({ config: customConfig = {}, ...props }) {
   const theme = useContext(ThemeContext);
   const [filter, setFilter] = useUrlState({param: 'filter', base64encode: true});
+  console.log(filter);
   // const [filter, setFilter] = useState({ must: { taxonKey: [2609958] } });
   
   // let filter = { must: { taxonKey: [2609958] } };
