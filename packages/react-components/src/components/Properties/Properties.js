@@ -6,8 +6,8 @@ import PropTypes from 'prop-types';
 import useBelow from '../../utils/useBelow';
 import { dl, dt, dd } from './styles';
 
-export function Properties({as:Dl='dl', horizontalBreakpoint, horizontal, dense = false, ...props}) {
-  const isBelow = useBelow({breakpoint: horizontalBreakpoint});
+export function Properties({as:Dl='dl', breakpoint, horizontal, dense = false, ...props}) {
+  const isBelow = useBelow(breakpoint);
   const theme = useContext(ThemeContext);
   return <Dl css={dl({ theme, horizontal: horizontal ? horizontal : !isBelow, dense })} {...props} />
 }

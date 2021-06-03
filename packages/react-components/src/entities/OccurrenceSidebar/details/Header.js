@@ -6,6 +6,7 @@ import ThemeContext from '../../../style/themes/ThemeContext';
 import * as css from '../styles';
 import { Row, Col, IconFeatures } from "../../../components";
 import { Globe } from './Globe';
+import useBelow from '../../../utils/useBelow';
 
 export function Header({
   data,
@@ -14,10 +15,11 @@ export function Header({
   className,
   ...props
 }) {
+  const isBelow = useBelow(500);
   const theme = useContext(ThemeContext);
   const item = data?.occurrence;
   return <Row wrap="no-wrap" css={css.header({ theme })}>
-    {data?.occurrence?.volatile?.globe &&
+    {!isBelow && data?.occurrence?.volatile?.globe &&
       <Col grow={false} style={{ marginRight: 18 }}>
         <Globe {...data?.occurrence?.volatile?.globe} />
       </Col>
