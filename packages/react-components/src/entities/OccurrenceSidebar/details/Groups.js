@@ -88,7 +88,7 @@ function getGroup({
       summary={groupName}
       defaultOpen={true}
     >
-      <Properties style={{ fontSize: 13 }} horizontal={true}>
+      <Properties style={{ fontSize: 13 }}>
         {/* {groupName === "location" && !showAll && group.decimalLatitude && group.decimalLongitude && <>
           <T>
             <FormattedMessage

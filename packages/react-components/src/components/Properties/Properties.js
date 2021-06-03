@@ -3,12 +3,13 @@ import { jsx } from '@emotion/react';
 import ThemeContext from '../../style/themes/ThemeContext';
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-// import { oneOfMany } from '../../utils/util';
+import useBelow from '../../utils/useBelow';
 import { dl, dt, dd } from './styles';
 
-export function Properties({as:Dl='dl', horizontal, dense = false, ...props}) {
+export function Properties({as:Dl='dl', horizontalBreakpoint, horizontal, dense = false, ...props}) {
+  const isBelow = useBelow({breakpoint: horizontalBreakpoint});
   const theme = useContext(ThemeContext);
-  return <Dl css={dl({ theme, horizontal, dense })} {...props} />
+  return <Dl css={dl({ theme, horizontal: horizontal ? horizontal : !isBelow, dense })} {...props} />
 }
 Properties.propTypes = {
   as: PropTypes.any,
@@ -33,4 +34,3 @@ Value.propTypes = {
 
 Properties.Term = Term;
 Properties.Value = Value;
-
