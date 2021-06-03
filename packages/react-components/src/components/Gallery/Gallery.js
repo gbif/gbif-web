@@ -72,7 +72,7 @@ export const Gallery = ({
   ...props
 }) => {
   const theme = useContext(ThemeContext);
-  const dialog = useDialogState();
+  const dialog = useDialogState({ animated: true, modal: false });
   const [activeId, setActive] = useState();
   const [activeItem, setActiveItem] = useState();
 

@@ -99,7 +99,7 @@ const rootPredicate = {
   "value": "DK"
 };
 const config = { 
-  rootPredicate, 
+  // rootPredicate, 
   labels, 
   getSuggests, 
   filters, 

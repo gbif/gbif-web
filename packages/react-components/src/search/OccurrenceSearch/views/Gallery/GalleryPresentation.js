@@ -12,7 +12,7 @@ export const GalleryPresentation = ({ first, prev, next, size, from, data, total
   const theme = useContext(ThemeContext);
   const [activeId, setActive] = useState();
   const [activeItem, setActiveItem] = useState();
-  const dialog = useDialogState({ animated: true });
+  const dialog = useDialogState({ animated: true, modal: false });
 
   const items = data;
 

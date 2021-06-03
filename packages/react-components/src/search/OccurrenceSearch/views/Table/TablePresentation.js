@@ -17,7 +17,7 @@ export const TablePresentation = ({ first, prev, next, size, from, data, total, 
   const [activeKey, setActiveKey] = useUrlState({ param: 'entity' });
   const { filters, tableConfig, labelMap } = useContext(OccurrenceContext);
   const [fixedColumn, setFixed] = useState(true);
-  const dialog = useDialogState({ animated: true });
+  const dialog = useDialogState({ animated: true, modal: false });
 
   const items = data?.occurrenceSearch?.documents?.results || [];
 
