@@ -1,6 +1,7 @@
 import React from 'react';
 // import { text, boolean, select } from '@storybook/addon-knobs';
 import { OccurrenceSidebar } from './OccurrenceSidebar';
+import { MemoryRouter as Router } from "react-router-dom";
 import readme from './README.md';
 import { StyledProse } from '../../components/typography/StyledProse';
 
@@ -9,14 +10,16 @@ export default {
   component: OccurrenceSidebar,
 };
 
-export const Example = () => <div style={{background: '#eee', display: 'flex'}}>
-  <div style={{flex: '1 1 auto'}}></div>
-  {/* <OccurrenceSidebar id={930742715} style={{width: 700, height: 600, flex: '0 0 auto'}} /> */}
-  {/* <OccurrenceSidebar id={1830738777} style={{maxWidth: '100%', width: 700, height: 'calc(100vh - 20px)', flex: '0 0 auto'}} /> */}
-  {/* <OccurrenceSidebar id={2304128798} style={{maxWidth: '100%', width: 700, height: 'calc(100vh - 20px)', flex: '0 0 auto'}} /> */}
-  <OccurrenceSidebar id={1839004199} style={{maxWidth: '100%', width: 700, height: 'calc(100vh - 20px)', flex: '0 0 auto'}} />
-  {/* <StyledProse source={readme}></StyledProse> */}
-</div>;
+export const Example = () => <Router initialEntries={[`/`]}>
+  <div style={{background: '#eee', display: 'flex'}}>
+    <div style={{flex: '1 1 auto'}}></div>
+    {/* <OccurrenceSidebar id={930742715} style={{width: 700, height: 600, flex: '0 0 auto'}} /> */}
+    {/* <OccurrenceSidebar id={1830738777} style={{maxWidth: '100%', width: 700, height: 'calc(100vh - 20px)', flex: '0 0 auto'}} /> */}
+    {/* <OccurrenceSidebar id={2304128798} style={{maxWidth: '100%', width: 700, height: 'calc(100vh - 20px)', flex: '0 0 auto'}} /> */}
+    <OccurrenceSidebar id={1839004199} style={{maxWidth: '100%', width: 700, height: 'calc(100vh - 20px)', flex: '0 0 auto'}} />
+    {/* <StyledProse source={readme}></StyledProse> */}
+  </div>
+</Router>;
 
 Example.story = {
   name: 'Occurrence sidebar',
