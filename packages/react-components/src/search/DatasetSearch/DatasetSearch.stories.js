@@ -81,7 +81,7 @@ const config = { labels, getSuggests, filters };
 
 export const Example = () => <Router initialEntries={[`/`]}>
   <AddressBar />
-  <DatasetSearch config={config} style={{ margin: 'auto', maxWidth: 1200, height: 'calc(100vh)' }} />;
+  <DatasetSearch config={config} style={{ margin: 'auto', maxWidth: 1200, height: 'calc(100vh - 50px)' }} />
 </Router>
 
 Example.story = {
