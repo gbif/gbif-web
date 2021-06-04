@@ -15,6 +15,7 @@ import Download from './views/Download';
 
 import { FilterBar } from '../FilterBar';
 import { useUrlState } from '../../dataManagement/state/useUrlState';
+import { useQueryParam, StringParam } from 'use-query-params';
 
 const { TabList, Tab, TabPanel, TapSeperator, TapSpacer } = Tabs;
 
@@ -24,7 +25,8 @@ const Layout = ({
   tabs = ['TABLE', 'GALLERY', 'MAP'],
   ...props
 }) => {
-  const [activeView, setActiveView] = useUrlState({ param: 'view', defaultValue: tabs[0] || 'TABLE' });
+  // const [activeView, setActiveView] = useUrlState({ param: 'view', defaultValue: tabs[0] || 'TABLE' });
+  const [activeView = tabs[0] || 'TABLE', setActiveView] = useQueryParam('view', StringParam);
   const theme = useContext(ThemeContext);
   const prefix = theme.prefix || 'gbif';
   const elementName = 'occurrenceSearchLayout';

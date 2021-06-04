@@ -2,8 +2,9 @@ import { action } from '@storybook/addon-actions';
 import { text } from '@storybook/addon-knobs';
 import React from 'react';
 import { addDecorator } from '@storybook/react';
-import { MemoryRouter as Router } from "react-router-dom";
+import { MemoryRouter as Router, Route } from "react-router-dom";
 import AddressBar from '../../StorybookAddressBar';
+import { QueryParamProvider } from 'use-query-params';
 
 import OccurrenceSearch from './OccurrenceSearch';
 import Standalone from './Standalone';
@@ -114,8 +115,10 @@ const config = {
 // const config = { labels, getSuggests, filters, rootPredicate: {type: 'in', key: 'datasetKey', values: inboDatasets}};
 
 export const Example = () => <Router initialEntries={[`/`]}>
-  <AddressBar />
-  <OccurrenceSearch config={config} style={{ margin: 'auto', maxWidth: 1200, height: 'calc(100vh - 50px)' }}></OccurrenceSearch>
+  <QueryParamProvider ReactRouterRoute={Route}>
+    <AddressBar />
+    <OccurrenceSearch config={config} style={{ margin: 'auto', maxWidth: 1200, height: 'calc(100vh - 50px)' }}></OccurrenceSearch>
+  </QueryParamProvider>
 </Router>;
 
 Example.story = {

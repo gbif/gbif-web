@@ -5,7 +5,19 @@ import OccurrenceContext from '../../../SearchContext';
 import { useQuery } from '../../../../dataManagement/api';
 import { filter2predicate } from '../../../../dataManagement/filterAdapter';
 import { useUrlState } from '../../../../dataManagement/state/useUrlState';
+import { useIntegerParam } from '../../../../dataManagement/state/useIntegerParam';
 import { TablePresentation } from './TablePresentation';
+import { useQueryParam, NumberParam } from 'use-query-params';
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect,
+  useHistory,
+  useLocation
+} from "react-router-dom";
 
 const OCCURRENCE_TABLE = `
 query table($predicate: Predicate, $size: Int = 20, $from: Int = 0){
@@ -50,7 +62,8 @@ query table($predicate: Predicate, $size: Int = 20, $from: Int = 0){
 `;
 
 function Table() {
-  const [from, setFrom] = useUrlState({ param: 'from', defaultValue: 0 });
+  const [from = 0, setFrom] = useQueryParam('from', NumberParam);
+
   const size = 50;
   const currentFilterContext = useContext(FilterContext);
   const { rootPredicate, predicateConfig } = useContext(OccurrenceContext);

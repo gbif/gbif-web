@@ -20,6 +20,7 @@ import defaultFilterConfig from './config/filterConf';
 import pick from 'lodash/pick';
 import pickBy from 'lodash/pickBy';
 import without from 'lodash/without';
+import { useQueryParam, JsonParam } from 'use-query-params';
 
 // import history from './history';
 // import qs from 'querystringify';
@@ -137,8 +138,10 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
 
 function OccurrenceSearch({ config: customConfig = {}, ...props }) {
   const theme = useContext(ThemeContext);
-  const [filter, setFilter] = useUrlState({param: 'filter', base64encode: true});
+  // const [filter, setFilter] = useState();//useUrlState({param: 'filter', base64encode: true});
   // const [filter, setFilter] = useState({ must: { taxonKey: [2609958] } });
+
+  const [filter, setFilter] = useQueryParam('filter', JsonParam);
   
   // let filter = { must: { taxonKey: [2609958] } };
   // const setFilter = () => {};

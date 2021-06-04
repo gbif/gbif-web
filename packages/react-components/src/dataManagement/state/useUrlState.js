@@ -19,7 +19,7 @@ export function useUrlState({ param, dataType = dynamicParam, replaceState = fal
     (newValue) => {
       const currentState = queryString.parse(location.search);
       const parsed = queryString.parse(location.search);
-      
+      console.log(location.search);
       // basic check for equality. Do not update if there is nothing to update. This will not work for anything but strings
       if (equal(newValue, currentState[param])) return;
 
@@ -40,6 +40,7 @@ export function useUrlState({ param, dataType = dynamicParam, replaceState = fal
       }
       if (equal(parsed[param], currentState[param])) return;
       history[action](location.pathname + '?' + queryString.stringify(parsed));
+      console.log('dep changed in useCallback');
     },
     [location, history],
   );
@@ -62,14 +63,14 @@ export function useUrlState({ param, dataType = dynamicParam, replaceState = fal
     const unlisten = history.listen(changeHandler);
 
     if (initialState) updateUrl(initialState);
-
+    console.log('dep changed in useEffect');
     return () => {
       unlisten();
       const parsed = queryString.parse(location.search);
       delete parsed[param];
       // history.replace(location.pathname + '?' + queryString.stringify(parsed));
     };
-  }, [location, history]);
+  }, []);
 
   return [value, updateUrl];
 }
