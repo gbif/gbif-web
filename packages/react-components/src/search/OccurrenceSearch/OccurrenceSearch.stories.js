@@ -7,7 +7,7 @@ import AddressBar from '../../StorybookAddressBar';
 
 import OccurrenceSearch from './OccurrenceSearch';
 import Standalone from './Standalone';
-const BACKBONE_KEY = 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c';
+// const BACKBONE_KEY = 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c';
 
 export default {
   title: 'Search/OccurrenceSearch',
