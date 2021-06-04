@@ -22,12 +22,10 @@ export function DetailsDrawer({ dialog, nextItem, previousItem, href, children, 
       }
     }
     if (document) {
-      console.log('attach event listener');
       document.addEventListener("keydown", handleKeypress, false);
     }
 
     return function cleanup() {
-      console.log('remove event listener');
       if (document) document.removeEventListener("keydown", handleKeypress, false);
     }
   }, [nextItem, previousItem, dialog.visible]);
