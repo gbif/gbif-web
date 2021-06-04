@@ -13,7 +13,7 @@ export default {
 };
 
 export const Example = () => {
-  const dialog = useDialogState({ animated: true, visible: true });
+  const dialog = useDialogState({ animated: true, visible: true, modal: false });
   return <Router initialEntries={[`/`]}>
     <button onClick={e => dialog.show()}>toggle {JSON.stringify(dialog.visible)}</button>
     <DetailsDrawer dialog={dialog} href={'https://www.gbif.org/occurrence/930742715'} nextItem={e => alert('next')} previousItem={e => alert('previous')}>

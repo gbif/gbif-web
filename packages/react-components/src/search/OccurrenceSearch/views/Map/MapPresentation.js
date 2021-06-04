@@ -11,7 +11,7 @@ import MapboxMap from './MapboxMap';
 import * as css from './map.styles';
 
 function Map({ labelMap, query, pointData, pointError, pointLoading, loading, total, loadPointData, ...props }) {
-  const dialog = useDialogState({ animated: true });
+  const dialog = useDialogState({ animated: true, modal: false });
   const theme = useContext(ThemeContext);
   const [activeId, setActive] = useState();
   const [activeItem, setActiveItem] = useState();

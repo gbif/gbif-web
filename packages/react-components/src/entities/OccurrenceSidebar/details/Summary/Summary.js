@@ -19,7 +19,7 @@ export function Summary({ occurrence, fieldGroups, loading, setActiveImage, ...p
   if (loading || !fieldGroups) return <span>Skeleton loader</span>
 
   return <Accordion summary='Summary' defaultOpen={true}>
-    <Properties style={{ fontSize: 13, marginBottom: 12 }} horizontal={true}>
+    <Properties style={{ fontSize: 13, marginBottom: 12 }}>
       {occurrence.stillImages?.length > 0 && <>
         <T>Images</T>
         <V>

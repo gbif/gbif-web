@@ -107,14 +107,14 @@ class DataTableCore extends Component {
             {prev && page > 1 && <Button appearance="text" css={styles.footerItem({ theme })} direction="right" tip="previous" onClick={prev}>
               <MdChevronLeft />
             </Button>}
-            {total && <span css={styles.footerText({ theme })}>
+            {total > 0 && <span css={styles.footerText({ theme })}>
               <FormattedMessage
                 id='pagination.pageXofY'
                 defaultMessage={'Loading'}
                 values={{ current: <FormattedNumber value={page} />, total: <FormattedNumber value={totalPages} /> }}
               />
             </span>}
-            {next && page !== totalPages && <Button appearance="text" css={styles.footerItem({ theme })} direction="left" tip="next" onClick={next}>
+            {next && page < totalPages && <Button appearance="text" css={styles.footerItem({ theme })} direction="left" tip="next" onClick={next}>
               <MdChevronRight />
             </Button>}
             {/* <Button appearance="text" css={styles.footerItem()} direction="left" tip="options">

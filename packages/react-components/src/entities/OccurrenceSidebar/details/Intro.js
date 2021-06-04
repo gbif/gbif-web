@@ -37,7 +37,7 @@ export function Intro({
         summary="Citation"
         defaultOpen={true}
       >
-        <Properties style={{ fontSize: 13 }} horizontal={true}>
+        <Properties style={{ fontSize: 13 }}>
           <T>Please cite as</T>
           <V>{occurrence.dataset.citation.text} https://gbif.org/occurrence/{occurrence.key}</V>
         </Properties>

@@ -17,7 +17,7 @@ export const DatasetsPresentation = ({ more, size, data, total, loading }) => {
 
   const [activeId, setActive] = useState();
   const [activeItem, setActiveItem] = useState();
-  const dialog = useDialogState({ animated: true });
+  const dialog = useDialogState({ animated: true, modal: false });
 
   const items = data?.occurrenceSearch?.facet?.datasetKey || [];
   const cardinality = data?.occurrenceSearch?.cardinality?.datasetKey;

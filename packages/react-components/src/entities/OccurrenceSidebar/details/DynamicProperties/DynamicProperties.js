@@ -13,7 +13,7 @@ export function DynamicProperties({ as: Div = "div", data, ...props }) {
   try {
     const json = JSON.parse(data);
     return (
-      <Properties horizontal={true}>
+      <Properties>
         {Object.keys(json).map((k) => (
           <React.Fragment key={k}>
             <T>{k}</T>

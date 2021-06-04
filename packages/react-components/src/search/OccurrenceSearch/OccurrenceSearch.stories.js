@@ -101,6 +101,7 @@ const rootPredicate = {
   "value": "DK"
 };
 const config = { 
+  // rootPredicate, 
   labels, 
   getSuggests, 
   filters, 
