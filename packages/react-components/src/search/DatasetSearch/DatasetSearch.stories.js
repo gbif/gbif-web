@@ -76,7 +76,7 @@ const filters = {
 }
 
 
-const config = { labels, getSuggests, filters, rootPredicate: {networkKey: '379a0de5-f377-4661-9a30-33dd844e7b9a'} };
+const config = { labels, getSuggests, filters };
 
 export const Example = () => <Router initialEntries={[`/`]}>
   <AddressBar />
