@@ -27,10 +27,17 @@
 
     <script type="text/javascript" src="/dist/lib/gbif-react-components.js"></script>
     <script>
+      // ReactDOM.render(
+      //   React.createElement(
+      //     gbifReactComponents.Collection,
+      //     { id:"dceb8d52-094c-4c2c-8960-75e0097c6861", style: { height: 'calc(100vh - 20px)' } }
+      //   ),
+      //   document.getElementById('root')
+      // );
       ReactDOM.render(
         React.createElement(
-          gbifReactComponents.Collection,
-          { id:"dceb8d52-094c-4c2c-8960-75e0097c6861", style: { height: 'calc(100vh - 20px)' } }
+          gbifReactComponents.OccurrenceSearch,
+          { style: { height: 'calc(100vh - 20px)' } }
         ),
         document.getElementById('root')
       );

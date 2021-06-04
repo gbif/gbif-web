@@ -1,5 +1,9 @@
 import React from 'react';
 export default React.createContext({
+  occurrenceSearch: {
+    url: ({queryString}) => `/occurrence/search${queryString ? `?${queryString}` : ''}`,
+    route: '/occurrence/search'
+  },
   collectionKey: {
     url: ({key}) => `/collection/${key}`,
     route: '/collection/:key'

@@ -52,6 +52,10 @@ addDecorator(storyFn => {
   }
 
   const routes = {
+    occurrenceSearch: {
+      url: ({queryString}) => `/occurrence/search${queryString ? `?${queryString}` : ''}`,
+      route: '/',
+    },
     collectionKey: {
       route: '/',
       url: ({key}) => {
