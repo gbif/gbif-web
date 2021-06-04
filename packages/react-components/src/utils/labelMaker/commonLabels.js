@@ -158,5 +158,10 @@ export const commonLabels = {
     }`,
     transform: result => ({ title: result.data.institution.name })
   },
+  networkKey: {
+    type: 'ENDPOINT',
+    template: ({ id, api }) => `${api.v1.endpoint}/network/${id}`,
+    transform: result => ({ title: result.title })
+  },
   // -- Add labels above this line (required by plopfile.js) --
 }

@@ -76,6 +76,7 @@ const filters = {
 }
 
 
+// const config = { labels, getSuggests, filters, rootPredicate: {endorsingNodeKey: '4f829580-180d-46a9-9c87-ed8ec959b545'} };
 const config = { labels, getSuggests, filters };
 
 export const Example = () => <Router initialEntries={[`/`]}>

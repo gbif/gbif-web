@@ -6,16 +6,26 @@ const typeDef = gql`
       limit: Int, 
       offset: Int, 
       q: String,
+      """
+      Not implemented yet
+      """
       country: [Country],
       type: [DatasetType],
+      """
+      Not implemented yet
+      """
       subtype: [DatasetSubtype],
       license: [License],
       keyword: [String],
       publishingOrg: [ID],
+      endorsingNodeKey: [ID],
       hostingOrg: [ID],
       networkKey: [ID],
       decade: [Int],
       publishingCountry: [Country],
+      """
+      Not implemented yet
+      """
       continent: [Continent],
       hl: Boolean
       ): DatasetSearchResults

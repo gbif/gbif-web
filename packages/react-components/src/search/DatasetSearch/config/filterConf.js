@@ -5,13 +5,21 @@ export const all = [
   // 'keyword',
   'publisherKey',
   'hostingOrganizationKey',
-  'endorsingNodeKey',
-  'decade',
+  // 'decade',
   'publishingCountryCode',
   'hostingCountry',
   'networkKey'
 ].sort();
 
+const included = [
+  'q',
+  'datasetType',
+  'license',
+  'publisherKey',
+  'hostingOrganizationKey',
+  'publishingCountryCode',
+  'hostingCountry',
+];
 const highlighted = [
   'q',
   'datasetType',
@@ -19,4 +27,4 @@ const highlighted = [
   'license',
 ];
 
-export default { filters: all, included: all, highlighted };
+export default { filters: all, included: included, highlighted };

@@ -312,6 +312,11 @@ export const en = {
       count: '{num, plural, one { Verbatim scientific name } other {# Verbatim scientific names}}',
       description: 'The scientific name as provided by the data publisher without any normalisation.'
     },
+    networkKey: {
+      name: 'Network key',
+      count: '{num, plural, one { Network key } other {# Network keys}}',
+      description: 'A short description of the component should be placed here'
+    },
     // -- Add filter above this line (required by plopfile.js) --
   },
   invalidValue: 'Invalid value',

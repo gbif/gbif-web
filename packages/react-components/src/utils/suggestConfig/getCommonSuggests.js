@@ -300,6 +300,22 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
       
     }
   },
-  // -- Add suggests above this line (required by plopfile.js) --
+  networkKey: {
+      //What placeholder to show
+      placeholder: 'Search by network name',
+      // how to get the list of suggestion data
+      getSuggestions: ({ q }) => client.v1Get(`/network/suggest?limit=20&q=${q}`),
+      // how to map the results to a single string value
+      getValue: suggestion => suggestion.title,
+      // how to display the individual suggestions in the list
+      render: function NetworkKeySuggestItem(suggestion) {
+        return <div style={ { maxWidth: '100%' } }>
+          <div style={suggestStyle}>
+            {suggestion.title}
+          </div>
+        </div>
+      }
+    },
+    // -- Add suggests above this line (required by plopfile.js) --
   }
 }
