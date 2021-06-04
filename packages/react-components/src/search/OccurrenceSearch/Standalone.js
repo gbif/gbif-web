@@ -10,6 +10,8 @@ import env from '../../../.env.json';
 
 import flatten from 'flat';
 import { en as enNested } from '../../locales/en';
+import EnsureRouter from '../../EnsureRouter';
+
 const en = flatten(enNested);
 
 const client = new ApiClient({
@@ -28,7 +30,9 @@ function Standalone(props) {
       <IntlProvider locale={locale} messages={messages}>
         <ThemeContext.Provider value={theme}>
           <Root id="application" appRoot>
-            <OccurrenceSearch style={style} config={config} />
+            <EnsureRouter>
+              <OccurrenceSearch style={style} config={config} />
+            </EnsureRouter>
           </Root>
         </ThemeContext.Provider>
       </IntlProvider>
