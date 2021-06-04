@@ -130,6 +130,8 @@ export const headline = ({ theme }) => css`
   >h3 {
     display: inline-block;
     margin: 0;
+    font-size: 1.2em;
+    font-weight: 700;
   }
 `;
 
