@@ -13,6 +13,7 @@ const typeDef = gql`
       keyword: [String],
       publishingOrg: [ID],
       hostingOrg: [ID],
+      networkKey: [ID],
       decade: [Int],
       publishingCountry: [Country],
       continent: [Continent],

@@ -17,6 +17,7 @@ import ThemeContext from '../../style/themes/ThemeContext';
 import pick from 'lodash/pick';
 import pickBy from 'lodash/pickBy';
 import Table from './views/Table';
+import { useUrlState } from '../../dataManagement/state/useUrlState';
 
 // import { datasetFilters } from './config/datasetFilters';
 const defaultAvailableFilters = ['publisherKey', 'hostingOrganizationKey', 'publishingCountryCode', 'datasetType', 'datasetSubtype', 'q'];
@@ -39,15 +40,15 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
     suggestConfigMap,
     filters: pickBy(pick(filters, defaultAvailableFilters), e => !!e),
     defaultVisibleFilters: ['q', 'publisherKey', 'datasetType'],
-    // rootPredicate: { type: ['CHECKLIST'] },
-    rootPredicate: {},
+    rootPredicate: customConfig.rootPredicate,
     predicateConfig
   }
 }
 
 function DatasetSearch({ config: customConfig = {}, ...props }) {
   const theme = useContext(ThemeContext);
-  const [filter, setFilter] = useState();
+  // const [filter, setFilter] = useState();
+  const [filter, setFilter] = useUrlState({param: 'filter', base64encode: true});
   const apiContext = useContext(ApiContext);
   const { formatMessage } = useIntl();
   const [config] = useState(() => {
