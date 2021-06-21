@@ -99,7 +99,7 @@ export const en = {
       description: false
     },
     datasetKey: {
-      name: false,
+      name: 'Dataset',
       count: false,
       description: false
     },
