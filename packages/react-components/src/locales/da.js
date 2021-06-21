@@ -18,19 +18,19 @@ import datasetSubtype from false;
 import { dataset } from false;
 // -- Add imports above this line (required by plopfile.js) --
 export const en = {
-  first: false,
-  previous: false,
-  next: false,
+  first: 'Første',
+  previous: 'Forrige',
+  next: 'Næste',
   options: false,
-  'pagination.pageXofY': false,
-  moreFilters: false,
+  'pagination.pageXofY': 'Side {current} af {total}',
+  moreFilters: 'mere',
   nResults: false,
   nResultsWithCoordinates: false,
   nResultsWithImages: false,
   tableHeaders: {
     features: false,
     citations: false,
-    occurrences: false
+    occurrences: 'Observationer'
   },
   nullOrNot: {
     isNotNull: false,
@@ -39,12 +39,12 @@ export const en = {
   components: { dataset },
   filter: {
     taxonKey: {
-      name: false,
+      name: 'Videnskabeligt navn',
       count: false,
       description: false
     },
     basisOfRecord: {
-      name: false,
+      name: 'Observationstype',
       count: false,
       isNotNull: false,
       isNull: false,
@@ -56,7 +56,7 @@ export const en = {
       description: false
     },
     catalogNumber: {
-      name: false,
+      name: 'Katalognummer',
       count: false,
       description: false
     },
@@ -73,7 +73,7 @@ export const en = {
       description: false
     },
     occurrenceCountry: {
-      name: false,
+      name: 'Land',
       count: false,
       description: false
     },
@@ -87,24 +87,24 @@ export const en = {
       count: false,
       description: false
     },
-    coordinates: { name: false },
+    coordinates: { name: 'Koordinater' },
     elevation: {
       name: false,
       count: false,
       description: false
     },
     license: {
-      name: false,
+      name: 'Licens',
       count: false,
       description: false
     },
     datasetKey: {
-      name: false,
+      name: 'Datasæt',
       count: false,
       description: false
     },
     publisherKey: {
-      name: false,
+      name: 'Forlægger',
       count: false,
       description: false
     },
@@ -114,7 +114,7 @@ export const en = {
       description: false
     },
     country: {
-      name: false,
+      name: 'Land',
       count: false
     },
     countriesOfCoverage: {
@@ -143,7 +143,7 @@ export const en = {
       description: false
     },
     coordinateUncertainty: {
-      name: false,
+      name: 'Koordinat usikkerhed',
       count: false,
       description: false
     },
@@ -188,7 +188,7 @@ export const en = {
       description: false
     },
     catalogNumber: {
-      name: false,
+      name: 'Katalognummer',
       count: false,
       description: false
     },
@@ -218,12 +218,12 @@ export const en = {
       description: false
     },
     occurrenceId: {
-      name: false,
+      name: 'Observations-ID',
       count: false,
       description: false
     },
     organismId: {
-      name: false,
+      name: 'Organisme-ID',
       count: false,
       description: false
     },
@@ -288,7 +288,7 @@ export const en = {
       description: false
     },
     name: {
-      name: false,
+      name: 'Navn',
       count: false,
       description: false
     },
@@ -330,8 +330,8 @@ export const en = {
     },
     compactMeters: {
       between: false,
-      lt: false,
-      gt: false,
+      lt: 'Under {to}m',
+      gt: 'Over {from}m',
       e: false
     },
     compactTime: {
