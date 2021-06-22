@@ -1026,6 +1026,24 @@ export const commonFilters = {
       }
     }
   },
+  networkKey: {
+      type: 'SUGGEST',
+      config: {
+        std: {
+        filterHandle: 'networkKey',
+        id2labelHandle: 'networkKey',
+        translations: {
+          count: 'filter.networkKey.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.networkKey.name',// translation path to a title for the popover and the button
+          description: 'filter.networkKey.description', // translation path for the filter description
+        },
+      },
+        specific: {
+          suggestHandle: 'networkKey',
+          id2labelHandle: 'networkKey',
+        }
+      }
+    },
   // -- Add filters above this line (required by plopfile.js) --
   q: {
     type: 'CUSTOM_STANDARD',

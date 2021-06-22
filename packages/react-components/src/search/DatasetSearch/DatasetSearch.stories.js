@@ -2,8 +2,10 @@ import { action } from '@storybook/addon-actions';
 import { text } from '@storybook/addon-knobs';
 import React from 'react';
 import { addDecorator } from '@storybook/react';
-
+import { MemoryRouter as Router } from "react-router-dom";
+import AddressBar from '../../StorybookAddressBar';
 import DatasetSearch from './DatasetSearch';
+import Standalone from './Standalone';
 
 export default {
   title: 'Search/DatasetSearch',
@@ -74,10 +76,16 @@ const filters = {
 }
 
 
+// const config = { labels, getSuggests, filters, rootPredicate: {endorsingNodeKey: '4f829580-180d-46a9-9c87-ed8ec959b545'} };
 const config = { labels, getSuggests, filters };
 
-export const Example = () => <DatasetSearch config={config} style={{ margin: 'auto', maxWidth: 1200, height: 'calc(100vh)' }} />;
+export const Example = () => <Router initialEntries={[`/`]}>
+  <AddressBar />
+  <DatasetSearch config={config} style={{ margin: 'auto', maxWidth: 1200, height: 'calc(100vh - 50px)' }} />
+</Router>
 
 Example.story = {
   name: 'Dataset search',
 };
+
+export const StandaloneExample = () => <Standalone style={{height: 'calc(100vh - 20px)'}}></Standalone>;

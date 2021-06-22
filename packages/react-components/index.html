@@ -36,8 +36,8 @@
       // );
       ReactDOM.render(
         React.createElement(
-          gbifReactComponents.OccurrenceSearch,
-          { style: { height: 'calc(100vh - 20px)' } }
+          gbifReactComponents.DatasetSearch,
+          { config: {rootPredicate: {type: 'CHECKLIST'}}, style: { height: 'calc(100vh - 20px)' } }
         ),
         document.getElementById('root')
       );

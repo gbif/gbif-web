@@ -14,12 +14,12 @@ import { getCommonSuggests, suggestStyle } from '../../utils/suggestConfig/getCo
 import { commonFilters, filterBuilder } from '../../utils/filterBuilder';
 import predicateConfig from './config/predicateConfig';
 import ThemeContext from '../../style/themes/ThemeContext';
+import Table from './views/Table';
+import defaultFilterConfig from './config/filterConf';
 import pick from 'lodash/pick';
 import pickBy from 'lodash/pickBy';
-import Table from './views/Table';
-
-// import { datasetFilters } from './config/datasetFilters';
-const defaultAvailableFilters = ['publisherKey', 'hostingOrganizationKey', 'publishingCountryCode', 'datasetType', 'datasetSubtype', 'q'];
+import without from 'lodash/without';
+import { useUrlState } from '../../dataManagement/state/useUrlState';
 
 function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, customConfig }, context) {
   const { labels = {}, getSuggests = () => ({}), filters: customFilters = {}, adapters = {} } = customConfig;
@@ -29,25 +29,25 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
   const suggestConfigMapCustom = getSuggests({ client: context.client, suggestStyle });
   const mergedSuggest = { ...suggestConfigMap, ...suggestConfigMapCustom };
   const labelMap = config2labels(mergedLabels, context.client);
-  const filters = {
-    ...filterBuilder({ filterWidgetConfig: mergedFilters, labelMap, suggestConfigMap: mergedSuggest, context }),
-    // ...datasetFilters
-  };
+  const filters = filterBuilder({ filterWidgetConfig: mergedFilters, labelMap, suggestConfigMap: mergedSuggest, context })
+  
+  const includedFilters = without((customConfig.includedFilters || defaultFilterConfig.included), ...(customConfig.excludedFilters || []));
+  const highlightedFilters = customConfig.highlightedFilters || defaultFilterConfig.highlighted;
   
   return {
     labelMap,
     suggestConfigMap,
-    filters: pickBy(pick(filters, defaultAvailableFilters), e => !!e),
-    defaultVisibleFilters: ['q', 'publisherKey', 'datasetType'],
-    // rootPredicate: { type: ['CHECKLIST'] },
-    rootPredicate: {},
+    filters: pickBy(pick(filters, includedFilters), e => !!e),
+    defaultVisibleFilters: highlightedFilters,
+    rootPredicate: customConfig.rootPredicate,
     predicateConfig
   }
 }
 
 function DatasetSearch({ config: customConfig = {}, ...props }) {
   const theme = useContext(ThemeContext);
-  const [filter, setFilter] = useState();
+  // const [filter, setFilter] = useState();
+  const [filter, setFilter] = useUrlState({param: 'filter', base64encode: true});
   const apiContext = useContext(ApiContext);
   const { formatMessage } = useIntl();
   const [config] = useState(() => {
