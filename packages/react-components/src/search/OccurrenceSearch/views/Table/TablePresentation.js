@@ -10,11 +10,15 @@ import { Button, Row, Col, DataTable, Th, Td, TBody, DetailsDrawer } from '../..
 import { OccurrenceSidebar } from '../../../../entities';
 import { useDialogState } from "reakit/Dialog";
 import { ViewHeader } from '../ViewHeader';
-import { useUrlState } from '../../../../dataManagement/state/useUrlState';
+// import { useUrlState } from '../../../../dataManagement/state/useUrlState';
+import { useQueryParam, NumberParam } from 'use-query-params';
+
 import * as css from './styles';
 
 export const TablePresentation = ({ first, prev, next, size, from, data, total, loading }) => {
-  const [activeKey, setActiveKey] = useUrlState({ param: 'entity' });
+  // const [activeKey, setActiveKey] = useUrlState({ param: 'entity' });
+  const [activeKey, setActiveKey] = useQueryParam('entity', NumberParam);
+  
   const { filters, tableConfig, labelMap } = useContext(OccurrenceContext);
   const [fixedColumn, setFixed] = useState(true);
   const dialog = useDialogState({ animated: true, modal: false });
