@@ -5,6 +5,7 @@ import OccurrenceSearch from "./OccurrenceSearch";
 
 function Standalone(props) {
   const path = window.location.pathname;
+  console.log(props);
   return <StandaloneWrapper {...props}>
     <Switch>
       <Route

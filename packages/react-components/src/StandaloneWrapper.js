@@ -1,7 +1,8 @@
 import React from "react";
 import { IntlProvider } from "react-intl";
 import PropTypes from "prop-types";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import { QueryParamProvider } from 'use-query-params';
 
 import { Root } from './components';
 import ThemeContext, { lightTheme } from './style/themes';
@@ -30,7 +31,9 @@ function StandaloneWrapper({
       <IntlProvider locale={locale} messages={messages}>
         <ThemeContext.Provider value={theme}>
           <Root id="application" appRoot>
-            <Router {...props} basename={defaultBaseName} />
+            <Router {...props} basename={defaultBaseName}>
+              <QueryParamProvider ReactRouterRoute={Route} {...props} />
+            </Router>
           </Root>
         </ThemeContext.Provider>
       </IntlProvider>
