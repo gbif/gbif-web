@@ -16,6 +16,7 @@ import predicateConfig from './config/predicateConfig';
 import ThemeContext from '../../style/themes/ThemeContext';
 import { IconFeatures } from '../../components';
 import { useUrlState } from '../../dataManagement/state/useUrlState';
+import Base64JsonParam from '../../dataManagement/state/base64JsonParam';
 import defaultFilterConfig from './config/filterConf';
 import pick from 'lodash/pick';
 import pickBy from 'lodash/pickBy';
@@ -141,7 +142,7 @@ function OccurrenceSearch({ config: customConfig = {}, ...props }) {
   // const [filter, setFilter] = useState();//useUrlState({param: 'filter', base64encode: true});
   // const [filter, setFilter] = useState({ must: { taxonKey: [2609958] } });
 
-  const [filter, setFilter] = useQueryParam('filter', JsonParam);
+  const [filter, setFilter] = useQueryParam('filter', Base64JsonParam);
   
   // let filter = { must: { taxonKey: [2609958] } };
   // const setFilter = () => {};
