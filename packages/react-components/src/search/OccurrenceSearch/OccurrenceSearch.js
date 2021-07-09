@@ -15,13 +15,14 @@ import { commonFilters, filterBuilder } from '../../utils/filterBuilder';
 import predicateConfig from './config/predicateConfig';
 import ThemeContext from '../../style/themes/ThemeContext';
 import { IconFeatures } from '../../components';
-import { useUrlState } from '../../dataManagement/state/useUrlState';
+// import { useUrlState } from '../../dataManagement/state/useUrlState';
 import Base64JsonParam from '../../dataManagement/state/base64JsonParam';
+import { useQueryParam, JsonParam } from 'use-query-params';
 import defaultFilterConfig from './config/filterConf';
 import pick from 'lodash/pick';
 import pickBy from 'lodash/pickBy';
 import without from 'lodash/without';
-import { useQueryParam, JsonParam } from 'use-query-params';
+
 
 // import history from './history';
 // import qs from 'querystringify';

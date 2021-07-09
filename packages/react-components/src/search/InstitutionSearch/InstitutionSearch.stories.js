@@ -2,6 +2,9 @@ import { action } from '@storybook/addon-actions';
 import { text } from '@storybook/addon-knobs';
 import React from 'react';
 import { addDecorator } from '@storybook/react';
+import { MemoryRouter as Router, Route } from "react-router-dom";
+import AddressBar from '../../StorybookAddressBar';
+import { QueryParamProvider } from 'use-query-params';
 
 import InstitutionSearch from './InstitutionSearch';
 import Standalone from './Standalone';
@@ -77,7 +80,12 @@ const filters = {
 
 const config = { labels, getSuggests, filters };
 
-export const Example = () => <InstitutionSearch config={config} style={{ margin: 'auto', maxWidth: 1200, height: 'calc(100vh)' }} />;
+export const Example = () => <Router initialEntries={[`/`]}>
+<QueryParamProvider ReactRouterRoute={Route}>
+  <AddressBar />
+  <InstitutionSearch config={config} style={{ margin: 'auto', maxWidth: 1200, height: 'calc(100vh)' }} />;
+  </QueryParamProvider>
+</Router>
 
 Example.story = {
   name: 'Institution search',

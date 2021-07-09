@@ -6,6 +6,8 @@ import { useIntl } from 'react-intl';
 import PropTypes from 'prop-types';
 import Layout from '../StandardSearchLayout';
 import { FilterState } from "../../widgets/Filter/state";
+import Base64JsonParam from '../../dataManagement/state/base64JsonParam';
+import { useQueryParam } from 'use-query-params';
 import { Root } from "../../components";
 import SearchContext from '../SearchContext';
 import { ApiContext } from '../../dataManagement/api';
@@ -47,7 +49,7 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
 
 function CollectionSearch({ config: customConfig = {}, ...props }) {
   const theme = useContext(ThemeContext);
-  const [filter, setFilter] = useState();
+  const [filter, setFilter] = useQueryParam('filter', Base64JsonParam);
   const apiContext = useContext(ApiContext);
   const { formatMessage } = useIntl();
   const [config] = useState(() => {
