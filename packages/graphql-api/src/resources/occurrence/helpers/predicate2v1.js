@@ -4,8 +4,8 @@ module.exports = function (predicate) {
   try {
     const copy = JSON.parse(JSON.stringify(predicate));
     const withRange = convertRangeType(copy);
-    const withLike = convertLikePredicates(withRange);
-    const notIssues = convertNotIssues(withLike);
+    // const withLike = convertLikePredicates(withRange);
+    const notIssues = convertNotIssues(withRange);
     const withNotNull = convertIsNotNull(notIssues);
     const removedEmpty = removeEmpty(withNotNull);
     const nestingSimplified = removeExcessiveNesting(removedEmpty);
@@ -82,16 +82,17 @@ function convertRangeType(obj) {
   return obj;
 }
 
-function convertLikePredicates(obj) {
-  if (obj.predicate) {
-    convertLikePredicates(obj.predicate);
-  } else if (obj.predicates && Array.isArray(obj.predicates)) {
-    obj.predicates = obj.predicates.map(convertLikePredicates);
-  } else if (obj.type === 'like') {
-    obj.value = obj.value.replace(/[*?]/g, '%');
-  }
-  return obj;
-}
+// after the download API changed this is no lnger required
+// function convertLikePredicates(obj) {
+//   if (obj.predicate) {
+//     convertLikePredicates(obj.predicate);
+//   } else if (obj.predicates && Array.isArray(obj.predicates)) {
+//     obj.predicates = obj.predicates.map(convertLikePredicates);
+//   } else if (obj.type === 'like') {
+//     obj.value = obj.value.replace(/[*?]/g, '%');
+//   }
+//   return obj;
+// }
 
 function convertNotIssues(obj) {
   if (obj.predicate) {
