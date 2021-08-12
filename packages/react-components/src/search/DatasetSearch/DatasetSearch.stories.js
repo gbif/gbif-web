@@ -2,10 +2,11 @@ import { action } from '@storybook/addon-actions';
 import { text } from '@storybook/addon-knobs';
 import React from 'react';
 import { addDecorator } from '@storybook/react';
-import { MemoryRouter as Router } from "react-router-dom";
+import { MemoryRouter as Router, Route } from "react-router-dom";
 import AddressBar from '../../StorybookAddressBar';
 import DatasetSearch from './DatasetSearch';
 import Standalone from './Standalone';
+import { QueryParamProvider } from 'use-query-params';
 
 export default {
   title: 'Search/DatasetSearch',
@@ -80,9 +81,12 @@ const filters = {
 const config = { labels, getSuggests, filters };
 
 export const Example = () => <Router initialEntries={[`/`]}>
-  <AddressBar />
-  <DatasetSearch config={config} style={{ margin: 'auto', maxWidth: 1200, height: 'calc(100vh - 50px)' }} />
+  <QueryParamProvider ReactRouterRoute={Route}>
+    <AddressBar />
+    <DatasetSearch config={config} style={{ margin: 'auto', maxWidth: 1200, height: 'calc(100vh - 50px)' }} />
+  </QueryParamProvider>
 </Router>
+
 
 Example.story = {
   name: 'Dataset search',

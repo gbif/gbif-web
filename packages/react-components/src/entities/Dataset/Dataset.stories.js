@@ -4,13 +4,16 @@ import { Dataset } from './Dataset';
 import { MemoryRouter as Router, Switch, Route } from "react-router-dom";
 import AddressBar from '../../StorybookAddressBar';
 import Standalone from './Standalone';
+import { QueryParamProvider } from 'use-query-params';
 
 export default {
   title: 'Entities/Dataset page',
   component: Dataset,
 };
 
+
 export const Example = () => <Router initialEntries={[`/`]}>
+  <QueryParamProvider ReactRouterRoute={Route}>
   <AddressBar />
   <div style={{ flex: '1 1 auto' }}></div>
   {/* Crustacea */}
@@ -37,10 +40,11 @@ export const Example = () => <Router initialEntries={[`/`]}>
         render={routeProps => <Dataset id={routeProps.match.params.key} {...routeProps}/>}
       />
     </Switch> */}
+    </QueryParamProvider>
 </Router>;
 
 Example.story = {
   name: 'Dataset page',
 };
 
-export const StandaloneExample = () => <Standalone id="dceb8d52-094c-4c2c-8960-75e0097c6861"></Standalone>;
+export const StandaloneExample = () => <Standalone id="83e20573-f7dd-4852-9159-21566e1e691e"></Standalone>;

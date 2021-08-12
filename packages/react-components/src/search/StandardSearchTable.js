@@ -3,12 +3,13 @@ import { useUpdateEffect } from 'react-use';
 import { FilterContext } from '../widgets/Filter/state';
 import SearchContext from './SearchContext';
 import { useQuery } from '../dataManagement/api';
-import { useUrlState } from '../dataManagement/state/useUrlState';
 import { filter2v1 } from '../dataManagement/filterAdapter';
 import { ResultsTable } from './ResultsTable';
+import { useQueryParam, NumberParam } from 'use-query-params';
 
 function StandardSearchTable({graphQuery, onSelect, resultKey, offsetName = 'offset', defaultTableConfig, ...props}) {
-  const [offset, setOffset] = useUrlState({ param: 'offset', defaultValue: 0 });
+  // const [offset, setOffset] = useUrlState({ param: 'offset', defaultValue: 0 });
+  const [offset = 0, setOffset] = useQueryParam('from', NumberParam);
   const limit = 20;
   const currentFilterContext = useContext(FilterContext);
   const { rootPredicate, predicateConfig } = useContext(SearchContext);

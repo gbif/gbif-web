@@ -82,7 +82,7 @@ addDecorator(storyFn => {
       url: ({key}) => {
         return `/iframe.html?id=entities-dataset-page--example&viewMode=story&knob-datasetUUID=${key}`;
       },
-      route: '/dataset/:key'
+      route: '/'
     },
     datasetSearch: {
       url: () => `/dataset-search/`

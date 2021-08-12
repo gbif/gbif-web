@@ -81,9 +81,9 @@ const filters = {
 const config = { labels, getSuggests, filters };
 
 export const Example = () => <Router initialEntries={[`/`]}>
-<QueryParamProvider ReactRouterRoute={Route}>
-  <AddressBar />
-  <CollectionSearch config={config} style={{ margin: 'auto', maxWidth: 1200, height: 'calc(100vh)' }} />
+  <QueryParamProvider ReactRouterRoute={Route}>
+    <AddressBar />
+    <CollectionSearch config={config} style={{ margin: 'auto', maxWidth: 1200, height: 'calc(100vh - 40px)' }} />
   </QueryParamProvider>
 </Router>
 
@@ -91,4 +91,4 @@ Example.story = {
   name: 'Collection search',
 };
 
-export const StandaloneExample = () => <Standalone style={{height: 'calc(100vh - 20px)'}}></Standalone>;
+export const StandaloneExample = () => <Standalone style={{height: 'calc(100vh - 40px)'}}></Standalone>;

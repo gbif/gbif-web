@@ -83,7 +83,7 @@ const config = { labels, getSuggests, filters };
 export const Example = () => <Router initialEntries={[`/`]}>
 <QueryParamProvider ReactRouterRoute={Route}>
   <AddressBar />
-  <InstitutionSearch config={config} style={{ margin: 'auto', maxWidth: 1200, height: 'calc(100vh)' }} />;
+  <InstitutionSearch config={config} style={{ margin: 'auto', maxWidth: 1200, height: 'calc(100vh - 40px)' }} />;
   </QueryParamProvider>
 </Router>
 

@@ -2,8 +2,10 @@ import { action } from '@storybook/addon-actions';
 import { text } from '@storybook/addon-knobs';
 import React from 'react';
 import { addDecorator } from '@storybook/react';
-
+import { MemoryRouter as Router, Route } from "react-router-dom";
+import { QueryParamProvider } from 'use-query-params';
 import LiteratureSearch from './LiteratureSearch';
+import AddressBar from '../../StorybookAddressBar';
 import Standalone from './Standalone';
 
 export default {
@@ -77,7 +79,13 @@ const filters = {
 
 const config = { labels, getSuggests, filters };
 
-export const Example = () => <LiteratureSearch config={config} style={{ margin: 'auto', maxWidth: 1200, height: 'calc(100vh)' }} />;
+export const Example = () => <Router initialEntries={[`/`]}>
+  <QueryParamProvider ReactRouterRoute={Route}>
+    <AddressBar />
+    <LiteratureSearch config={config} style={{ margin: 'auto', maxWidth: 1200, height: 'calc(100vh - 40px)' }} />;
+  </QueryParamProvider>
+</Router>
+
 
 Example.story = {
   name: 'Literature search',
