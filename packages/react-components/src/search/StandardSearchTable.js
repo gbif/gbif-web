@@ -23,7 +23,7 @@ function StandardSearchTable({graphQuery, onSelect, resultKey, offsetName = 'off
 
   // https://stackoverflow.com/questions/55075604/react-hooks-useeffect-only-on-update
   useUpdateEffect(() => {
-    setOffset(0);
+    setOffset(undefined);
   }, [currentFilterContext.filterHash]);
 
   const next = useCallback(() => {
@@ -31,11 +31,12 @@ function StandardSearchTable({graphQuery, onSelect, resultKey, offsetName = 'off
   });
 
   const prev = useCallback(() => {
-    setOffset(Math.max(0, offset - limit));
+    const offsetValue = Math.max(0, offset - limit);
+    setOffset(offsetValue !== 0 ? offsetValue : undefined);
   });
 
   const first = useCallback(() => {
-    setOffset(0);
+    setOffset(undefined);
   });
   
   return <>
