@@ -8,6 +8,9 @@ const filterConf = {
     q: {
       singleValue: true
     },
+    networkKey: {
+      singleValue: true
+    }
   }
 }
 
