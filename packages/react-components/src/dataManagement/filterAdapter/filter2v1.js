@@ -63,7 +63,7 @@ function serializeValue({value, config, filterName}) {
       return value.value;
     } else if((value?.type || config?.defaultType) === 'range' ) {
       // if a range query, then transform to string format
-      return `${value.value.gte || value.value.gt || ''},${value.value.lte || value.value.lgt || ''}`;
+      return `${value.value.gte || value.value.gt || '*'},${value.value.lte || value.value.lgt || '*'}`;
     } else if((value?.type || config?.defaultType) === 'isNotNull' ) {
       // if a range query, then transform to string format
       return `*`;
