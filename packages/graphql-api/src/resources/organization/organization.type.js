@@ -7,6 +7,7 @@ const typeDef = gql`
       offset: Int,  
       q: String,
       country: Country,
+      networkKey: ID,
       identifier: String,
       identifierType: IdentifierType,
       isEndorsed: Boolean,

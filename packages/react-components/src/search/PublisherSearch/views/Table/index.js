@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 import RouteContext from '../../../../dataManagement/RouteContext';
 import StandardSearch from '../../../StandardSearch';
-import ResultsTable from '../../../ResultsTable';
+import { ResultsTable } from '../../../ResultsTable';
 import { FormattedMessage, FormattedNumber, FormattedDate } from 'react-intl';
 
 const QUERY = `
-query list($country: Country, $q: String, $offset: Int, $limit: Int){
-  organizationSearch(isEndorsed: true, q: $q, limit: $limit, offset: $offset, country: $country) {
+query list($networkKey: ID, $country: Country, $q: String, $offset: Int, $limit: Int){
+  organizationSearch(networkKey: $networkKey, isEndorsed: true, q: $q, limit: $limit, offset: $offset, country: $country) {
     count
     offset
     limit
@@ -88,7 +88,9 @@ function Table() {
     onSelect={onSelect} 
     graphQuery={QUERY} 
     resultKey='organizationSearch' 
-    defaultTableConfig={defaultTableConfig}/>
+    defaultTableConfig={defaultTableConfig}
+    hideLock={true}
+    />
 }
 
 export default Table;
