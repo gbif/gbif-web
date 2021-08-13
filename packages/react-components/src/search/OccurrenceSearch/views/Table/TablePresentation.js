@@ -189,7 +189,7 @@ const getRows = ({ tableConfig, labelMap, data, setActiveKey, dialog }) => {
           formattedVal = <Label id={val} />
         }
 
-        return <Td key={field.trKey}>{formattedVal}</Td>;
+        return <Td key={field.trKey} noWrap={field.noWrap}>{formattedVal}</Td>;
         // if (i === 0) {
         //   return <Td key={field}>
         //     <TextButton onClick={() => console.log(row)}>{val}</TextButton>

@@ -124,9 +124,17 @@ export const cell = props => css`
   word-break: break-word;
 `;
 
+export const dataCell = ({noWrap, ...props}) => css`
+  ${noWrap ? 'white-space: nowrap;' : ''}
+`;
+
 export const wide = props => css`
   width: 20em;
   ${cell(props)};
+`;
+
+export const noWrap = props => css`
+  white-space: nowrap;
 `;
 
 export const tbodyLoading = ({theme}) => css`

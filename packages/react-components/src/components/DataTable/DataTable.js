@@ -49,9 +49,9 @@ export const Th = ({ children, width, toggle, locked, ...rest }) => (
   </th>
 );
 
-export const Td = ({ children, width, ...rest }) => (
+export const Td = ({ children, width, noWrap, ...rest }) => (
   <td {...rest}>
-    <span css={styles[width] ? styles[width]() : ''}>{children}</span>
+    <span css={styles.dataCell({width, noWrap})}>{children}</span>
   </td>
 );
 

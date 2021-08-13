@@ -75,7 +75,8 @@ const tableConfig = {
         //     (<FormattedNumber value={occurrence.coordinates.lat} maximumSignificantDigits={4}/>, <FormattedNumber value={occurrence.coordinates.lon} maximumSignificantDigits={4}/>)
         //   </span>
         // }
-      }
+      },
+      noWrap: true
     },
     {
       trKey: 'filter.year.name',
