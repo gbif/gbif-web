@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
 import RouteContext from '../../../../dataManagement/RouteContext';
-import StandardSearchTable from '../../../StandardSearchTable';
-// import { FormattedNumber } from 'react-intl';
+import StandardSearch from '../../../StandardSearch';
+import ResultsTable from '../../../ResultsTable';
+import { FormattedMessage, FormattedNumber, FormattedDate } from 'react-intl';
 
 const QUERY = `
 query list($country: Country, $q: String, $offset: Int, $limit: Int){
@@ -13,6 +14,11 @@ query list($country: Country, $q: String, $offset: Int, $limit: Int){
       key
       title
       country
+      numPublishedDatasets
+      hostedDataset {
+        count
+      }
+      created
     }
   }
 }
@@ -21,20 +27,52 @@ query list($country: Country, $q: String, $offset: Int, $limit: Int){
 const defaultTableConfig = {
   columns: [
     {
-      trKey: 'title',
+      trKey: 'filter.publisherKey.name',
       value: {
         key: 'title',
       },
-      width: 'wide'
+      width: 'wide',
+      filterKey: 'q'
     },
     {
-      trKey: 'filter.countryCode.name',
+      trKey: 'published datasets',
+      value: {
+        key: 'numPublishedDatasets',
+        formatter: (value, item) => <FormattedNumber value={value} />,
+        hideFalsy: true,
+        rightAlign: true
+      }
+    },
+    {
+      trKey: 'hosted datasets',
+      value: {
+        key: 'hostedDataset.count',
+        formatter: (value, item) => <FormattedNumber value={value} />,
+        hideFalsy: true,
+        rightAlign: true
+      }
+    },
+    {
+      trKey: 'filter.publishingCountryCode.name',
       value: {
         key: 'country',
         labelHandle: 'countryCode',
         hideFalsy: true
-      }
-    }
+      },
+      filterKey: 'country'
+    },
+    {
+      trKey: 'joined',
+      value: {
+        key: 'created',
+        formatter: (value, item) => <FormattedDate value={value}
+          year="numeric"
+          month="long"
+          day="2-digit" />,
+        hideFalsy: true
+      },
+      noWrap: true
+    },
   ]
 };
 
@@ -45,7 +83,12 @@ function Table() {
     const path = routeContext.publisherKey.url({key});
     window.location = path;
   }
-  return <StandardSearchTable onSelect={onSelect} graphQuery={QUERY} resultKey='organizationSearch' defaultTableConfig={defaultTableConfig}/>
+  return <StandardSearch 
+    presentationComponent={ResultsTable}
+    onSelect={onSelect} 
+    graphQuery={QUERY} 
+    resultKey='organizationSearch' 
+    defaultTableConfig={defaultTableConfig}/>
 }
 
 export default Table;
