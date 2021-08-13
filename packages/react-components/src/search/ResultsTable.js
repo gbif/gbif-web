@@ -16,15 +16,18 @@ const fallbackTableConfig = {
   }]
 };
 
-export const ResultsTable = ({ first, prev, next, size, from, results, total, loading, onSelect, defaultTableConfig = fallbackTableConfig }) => {
+export const ResultsTable = ({ first, prev, next, size, from, results, total, loading, onSelect, defaultTableConfig = fallbackTableConfig, hideLock }) => {
   const { filters, tableConfig = defaultTableConfig, labelMap } = useContext(SearchContext);
-  const [fixedColumn, setFixed] = useState(true);
+  const [fixedColumn, setFixed] = useState(true && !hideLock);
 
   const fixed = fixedColumn;
   const headerss = tableConfig.columns.map((col, index) => {
-    const options = index === 0 ? { locked: fixed, toggle: () => setFixed(!fixedColumn) } : null;
+    const options = index === 0 && !hideLock ? {
+      locked: fixed, 
+      toggle: () => setFixed(!fixedColumn)
+    } : null;
     const FilterPopover = col.filterKey ? filters[col.filterKey]?.Popover : null;
-    return <Th key={col.trKey} width={col.width} {...options}>
+    return <Th key={col.trKey} width={col.width} >
       <Row wrap="nowrap">
         <Col grow={false} style={{ whiteSpace: 'nowrap' }}><FormattedMessage id={col.trKey} /></Col>
         {FilterPopover && <Col>
