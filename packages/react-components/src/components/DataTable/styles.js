@@ -129,7 +129,7 @@ export const dataCell = ({noWrap, ...props}) => css`
 `;
 
 export const wide = props => css`
-  width: 20em;
+  min-width: 20em;
   ${cell(props)};
 `;
 
