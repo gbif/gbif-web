@@ -16,6 +16,7 @@ query list($code: String, $q: String, $offset: Int, $limit: Int, $country: Count
       code
       active
       occurrenceCount
+      numberSpecimens
       address {
         city
         country
@@ -71,7 +72,16 @@ const defaultTableConfig = {
       }
     },
     {
-      trKey: 'tableHeaders.occurrences',
+      trKey: 'tableHeaders.numberSpecimens',
+      value: {
+        key: 'numberSpecimens',
+        formatter: (value, item) => <FormattedNumber value={value} />,
+        hideFalsy: true,
+        rightAlign: true
+      }
+    },
+    {
+      trKey: 'tableHeaders.gbifNumberSpecimens',
       value: {
         key: 'occurrenceCount',
         formatter: (value, item) => <FormattedNumber value={value} />,

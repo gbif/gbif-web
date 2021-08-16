@@ -31,7 +31,9 @@ export const en = {
   tableHeaders: {
     features: 'Features',
     citations: 'Citations',
-    occurrences: 'Occurrences'
+    occurrences: 'Occurrences',
+    numberSpecimens: 'Number of specimens',
+    gbifNumberSpecimens: 'Specimens in GBIF',
   },
   nullOrNot: {
     isNotNull: 'Must be defined',
