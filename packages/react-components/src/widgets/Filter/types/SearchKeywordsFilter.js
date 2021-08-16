@@ -4,6 +4,7 @@ import React, { useState, useContext, useEffect, useCallback } from "react";
 import PropTypes from 'prop-types';
 import PopoverFilter from './PopoverFilter';
 import { FormattedMessage } from 'react-intl';
+import { MdSearch } from 'react-icons/md'
 import { nanoid } from 'nanoid';
 import get from 'lodash/get';
 import { keyCodes } from '../../../utils/util';
@@ -90,7 +91,7 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
       }
       return <>
         <div style={{ zIndex: 10, display: 'inline-block', position: 'relative' }}>
-          <div style={{margin: '10px 10px 0 10px'}}>
+          <div style={{margin: '10px 10px 0 10px', display: 'flex'}}>
             <Input ref={focusRef}
               value={inputValue}
               onChange={e => {
@@ -117,6 +118,9 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
                 }
               }}
             />
+            <Button onClick={() => search(inputValue)}>
+              <MdSearch />
+            </Button>
           </div>
         </div>
         {typeof isExistenceFilter !== 'undefined' && <>
@@ -136,7 +140,7 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
                   <OptionSkeleton helpVisible />
                 </>}
                 {!loading && items && <>
-                  {!config.disallowLikeFilters && q !== '' && <div style={{borderBottom: '1px solid #eee'}}><Option
+                  {!config.disallowLikeFilters && q !== '' && <div style={{borderBottom: '1px solid #eee', marginBottom: 12, paddingBottom: 12}}><Option
                     key={q}
                     helpVisible={true}
                     helpText={`Search for the pattern`}
@@ -182,10 +186,12 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
               </>}
             </form>
           </FilterBody>
-          <Footer {...footerProps}
-            onApply={() => onApply({ filter, hide })}
-            onCancel={() => onCancel({ filter, hide })}
-          />
+          {options.length > 0 &&
+            <Footer {...footerProps}
+              onApply={() => onApply({ filter, hide })}
+              onCancel={() => onCancel({ filter, hide })}
+            />
+          }
         </>}
       </>
     }
