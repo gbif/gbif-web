@@ -35,6 +35,15 @@ const defaultTableConfig = {
       filterKey: 'q'
     },
     {
+      trKey: 'filter.publishingCountryCode.name',
+      value: {
+        key: 'country',
+        labelHandle: 'countryCode',
+        hideFalsy: true
+      },
+      filterKey: 'country'
+    },
+    {
       trKey: 'published datasets',
       value: {
         key: 'numPublishedDatasets',
@@ -51,15 +60,6 @@ const defaultTableConfig = {
         hideFalsy: true,
         rightAlign: true
       }
-    },
-    {
-      trKey: 'filter.publishingCountryCode.name',
-      value: {
-        key: 'country',
-        labelHandle: 'countryCode',
-        hideFalsy: true
-      },
-      filterKey: 'country'
     },
     {
       trKey: 'joined',

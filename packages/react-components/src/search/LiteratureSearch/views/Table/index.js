@@ -52,6 +52,14 @@ const defaultTableConfig = {
       trKey: 'title',
       value: {
         key: 'title',
+        formatter: (value, item) => {
+          const maxLength = 200;
+          const truncatedAbstract = item.abstract.length > maxLength ? `${item.abstract.substr(0,maxLength)}...` : item.abstract;
+          return <div>
+            <div>{value}</div>
+            <div style={{color: '#aaa'}}>{truncatedAbstract}</div>
+          </div>
+        },
       },
       width: 'wide'
     },
@@ -59,10 +67,7 @@ const defaultTableConfig = {
       trKey: 'literatureType',
       value: {
         key: 'literatureType',
-        // formatter: (value, item) => {
-        //   const countryCode = item.address?.country || item.mailingAddress?.country;
-        //   return countryCode ? <FormattedMessage id={`enums.countryCode.${countryCode}`} /> : null;
-        // },
+        labelHandle: 'literatureType',
         hideFalsy: true
       }
     },
@@ -74,22 +79,22 @@ const defaultTableConfig = {
         hideFalsy: true
       }
     },
-    {
-      trKey: 'tableHeaders.occurrences',
-      value: {
-        key: 'occurrenceCount',
-        formatter: (value, item) => <FormattedNumber value={value} />,
-        hideFalsy: true,
-        rightAlign: true
-      }
-    },
-    {
-      trKey: 'active',
-      value: {
-        key: 'active',
-        formatter: (value, item) => value ? 'yes' : 'no'
-      }
-    }
+    // {
+    //   trKey: 'tableHeaders.occurrences',
+    //   value: {
+    //     key: 'occurrenceCount',
+    //     formatter: (value, item) => <FormattedNumber value={value} />,
+    //     hideFalsy: true,
+    //     rightAlign: true
+    //   }
+    // },
+    // {
+    //   trKey: 'active',
+    //   value: {
+    //     key: 'active',
+    //     formatter: (value, item) => value ? 'yes' : 'no'
+    //   }
+    // }
   ]
 };
 
