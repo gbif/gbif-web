@@ -50,6 +50,23 @@ export const commonFilters = {
       }
     }
   },
+  countrySingle: {
+    type: 'SUGGEST',
+    config: {
+      std: {
+        id2labelHandle: 'countryCode',
+        translations: {
+          count: 'filter.occurrenceCountry.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.occurrenceCountry.name',// translation path to a title for the popover and the button
+          description: 'filter.occurrenceCountry.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        suggestHandle: 'countryCode',
+        singleSelect: true
+      }
+    }
+  },
   countriesOfCoverage: {
     type: 'SUGGEST',
     config: {
