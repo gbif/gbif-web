@@ -43,7 +43,7 @@ const typeDef = gql`
     discovered: String
     gbifDownloadKey: [ID]
     gbifRegion: [GbifRegion]
-    identifiers: Identifier
+    identifiers: LiteratureIdentifiers
     keywords: [String]
     language: Language
     literatureType: String
@@ -66,6 +66,14 @@ const typeDef = gql`
   type Author {
     firstName: String
     lastName: String
+  }
+
+  type LiteratureIdentifiers {
+    doi: String
+    arxiv: String
+    isbn: String
+    issn: String
+    pmid: String
   }
 `;
 
