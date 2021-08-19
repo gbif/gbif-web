@@ -3,7 +3,8 @@ export const all = [
   'year',
   'countriesOfResearcher',
   'countriesOfCoverage',
-  'datasetKey'
+  'datasetKey',
+  'publisherKey'
 ].sort();
 
 const highlighted = [
