@@ -1,8 +1,7 @@
 import React, { useContext } from "react";
 import StandardSearchTable from '../../../StandardSearchTable';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
-// import { useHistory } from "react-router-dom";
-import RouteContext from '../../../../dataManagement/RouteContext';
+import { MdLink} from 'react-icons/md'
 
 const QUERY = `
 
@@ -37,11 +36,23 @@ query list($publisher:[String], $source: [String], $doi: [String], $gbifDownload
       }
       literatureType
       year
+      identifiers {
+        doi
+      }
+      websites
     }
   }
 }
 
 `;
+
+
+function getLink(item) {
+  if (item.identifiers.doi) {
+    return `https://doi.org/${item.identifiers.doi}`;
+  }
+  return item.websites[0];
+}
 
 const defaultTableConfig = {
   onSelect: ({key}) => {
@@ -55,8 +66,11 @@ const defaultTableConfig = {
         formatter: (value, item) => {
           const maxLength = 200;
           const truncatedAbstract = item.abstract.length > maxLength ? `${item.abstract.substr(0,maxLength)}...` : item.abstract;
+          const link = getLink(item);
+          
           return <div>
-            <div>{value}</div>
+            {link ? <div><a href={link} style={{color: 'inherit', textDecoration: 'none'}}>{value} <MdLink /></a></div> : <div>{value}</div>}
+            
             <div style={{color: '#aaa'}}>{truncatedAbstract}</div>
           </div>
         },
@@ -99,21 +113,7 @@ const defaultTableConfig = {
 };
 
 function Table() {
-  // const history = useHistory();
-  const routeContext = useContext(RouteContext);
-
-  function onSelect({key}) {
-    const path = routeContext.literatureKey.url({key});
-    console.log(path);
-    window.location = path;
-    // if (history && !useWindowLocation) {
-    //   history.push(path);
-    // } else {
-    //   
-    // }
-  }
-
-  return <StandardSearchTable onSelect={onSelect} graphQuery={QUERY} resultKey='literatureSearch' defaultTableConfig={defaultTableConfig}/>
+  return <StandardSearchTable graphQuery={QUERY} resultKey='literatureSearch' defaultTableConfig={defaultTableConfig}/>
 }
 
 export default Table;
