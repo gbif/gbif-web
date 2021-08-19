@@ -8,10 +8,12 @@ import SearchContext from './SearchContext';
 import { ApiContext } from '../dataManagement/api';
 import ThemeContext from '../style/themes/ThemeContext';
 import { buildConfig } from './buildSearchConfig';
+import Base64JsonParam from '../dataManagement/state/base64JsonParam';
+import { useQueryParam } from 'use-query-params';
 
 function Search({ config: customConfig = {}, predicateConfig, defaultFilterConfig, Table, ...props },) {
   const theme = useContext(ThemeContext);
-  const [filter, setFilter] = useState();
+  const [filter, setFilter] = useQueryParam('filter', Base64JsonParam);
   const apiContext = useContext(ApiContext);
   const { formatMessage } = useIntl();
   const [config] = useState(() => {
