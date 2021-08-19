@@ -65,7 +65,7 @@ const defaultTableConfig = {
         key: 'title',
         formatter: (value, item) => {
           const maxLength = 200;
-          const truncatedAbstract = item.abstract.length > maxLength ? `${item.abstract.substr(0,maxLength)}...` : item.abstract;
+          const truncatedAbstract = item.abstract?.length > maxLength ? `${item.abstract.substr(0,maxLength)}...` : item.abstract;
           const link = getLink(item);
           
           return <div>
