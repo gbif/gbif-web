@@ -112,6 +112,10 @@ export const commonLabels = {
     type: 'TRANSLATION',
     template: id => `enums.protocol.${id}`
   },
+  literatureType: {
+    type: 'TRANSLATION',
+    template: id => `enums.literatureType.${id}`
+  },
   establishmentMeans: {
     type: 'TRANSLATION',
     template: id => `enums.establishmentMeans.${id}`
