@@ -11,6 +11,7 @@ import continent from './enums/continent.json';
 import protocol from './enums/protocol.json';
 import establishmentMeans from './enums/establishmentMeans.json';
 import occurrenceStatus from './enums/occurrenceStatus.json';
+import literatureType from './enums/literatureType.json';
 import role from './enums/role.json';
 import isInCluster from './enums/isInCluster.json';
 import datasetType from './enums/datasetType.json';
@@ -410,6 +411,7 @@ export const en = {
     isInCluster,
     datasetType,
     datasetSubtype,
+    literatureType,
     // -- Add enum translations above this line (required by plopfile.js) --
   }
 }
