@@ -79,7 +79,7 @@ const getRows = ({ tableConfig, labelMap, results = [], onSelect = console.log }
         return <Td noWrap={field.noWrap} key={field.trKey} style={field.value.rightAlign ? {textAlign: 'right'} : {}}>{formattedVal}</Td>;
       }
     );
-    return <tr key={row.key} onClick={() => { onSelect({key: row.key, row}); }}>{cells}</tr>;
+    return <tr key={row.key || row.id || index} onClick={() => { onSelect({key: row.key, row}); }}>{cells}</tr>;
   });
   return rows;
 }
