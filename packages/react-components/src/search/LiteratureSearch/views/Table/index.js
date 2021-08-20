@@ -60,7 +60,7 @@ const defaultTableConfig = {
   },
   columns: [
     {
-      trKey: 'title',
+      trKey: 'tableHeaders.title',
       value: {
         key: 'title',
         formatter: (value, item) => {
@@ -86,7 +86,7 @@ const defaultTableConfig = {
       }
     },
     {
-      trKey: 'year',
+      trKey: 'filter.year.name',
       value: {
         filterKey: 'year',
         key: 'year',
