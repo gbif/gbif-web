@@ -35,6 +35,7 @@ export const en = {
     occurrences: 'Occurrences',
     numberSpecimens: 'Number of specimens',
     gbifNumberSpecimens: 'Specimens in GBIF',
+    title: 'Title'
   },
   nullOrNot: {
     isNotNull: 'Must be defined',
