@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import StandardSearchTable from '../../../StandardSearchTable';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { MdLink} from 'react-icons/md'
 
-const QUERY = `
+import axios from '../../../../dataManagement/api/axios';
 
+const QUERY = `
 query list($publisher:[String], $source: [String], $doi: [String], $gbifDownloadKey: [ID], $openAccess: Boolean, $peerReview: Boolean, $publishingOrganizationKey: [ID], $topics: [String], $relevance: [String], $year: [String], $literatureType: [String], $countriesOfCoverage: [Country], $countriesOfResearcher: [Country], $gbifDatasetKey: [ID], $q: String, $offset: Int, $limit: Int, ){
   literatureSearch(gbifDatasetKey: $gbifDatasetKey, 
     q: $q, 
@@ -46,6 +47,23 @@ query list($publisher:[String], $source: [String], $doi: [String], $gbifDownload
 
 `;
 
+function AltmetricDonut({doi, ...props}) {
+  const [donut, setDonut] = useState();
+  // https://api.altmetric.com/v1/doi/10.1636/joa-s-20-053
+  useEffect(() => {
+    const response = axios.get(`https://api.altmetric.com/v1/doi/${doi}`);
+    response
+      .promise
+      .then(response => {
+        setDonut(response.data);
+      });
+  });
+
+  if (!doi || !donut) return null;
+  return <a href={donut.details_url}>
+    <img src={donut.images.medium} width={50}/>
+  </a>
+}
 
 function getLink(item) {
   if (item.identifiers.doi) {
@@ -76,6 +94,16 @@ const defaultTableConfig = {
         },
       },
       width: 'wide'
+    },
+    {
+      trKey: 'altmetric',
+      value: {
+        key: 'identifiers',
+        formatter: (value, item) => {
+          return <AltmetricDonut doi={item?.identifiers?.doi}/>
+        },
+        hideFalsy: true
+      }
     },
     {
       trKey: 'literatureType',
