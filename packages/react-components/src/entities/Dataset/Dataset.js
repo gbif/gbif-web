@@ -71,7 +71,7 @@ query dataset($key: ID!, $predicate: Predicate){
     publishingOrganizationTitle
     homepage
     additionalInfo
-    contributors {
+    volatileContributors {
       key
       firstName
       lastName
@@ -81,6 +81,14 @@ query dataset($key: ID!, $predicate: Predicate){
       userId
       type
       _highlighted
+      roles
+    }
+    contactsCitation {
+      key
+      abbreviatedName
+      firstName
+      lastName
+      userId
       roles
     }
     geographicCoverages {

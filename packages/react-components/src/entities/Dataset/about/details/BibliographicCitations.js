@@ -17,7 +17,7 @@ export function BibliographicCitations({
   const hasHidden = bibliographicCitations.length > citations.length;
   return <>
     <ul>
-      {citations.map(x => <BibiliographicCitation citation={x} />)}
+      {citations.map((x, index) => <BibiliographicCitation key={index} citation={x} />)}
     </ul>
     {hasHidden && <Button onClick={() => setThreshold(500)}>Show all</Button>}
   </>

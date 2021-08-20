@@ -80,10 +80,11 @@ const typeDef = gql`
     additionalInfo: String
     bibliographicCitations: [BibliographicCitation]
     citation: Citation
+    contactsCitation: [ContactsCitation]
     collections: [JSON]
     comments: [JSON]
     contacts: [Contact]
-    contributors: [Contact]
+    volatileContributors: [Contact]
     countryCoverage: [JSON]
     created: DateTime
     createdBy: String
@@ -197,6 +198,16 @@ const typeDef = gql`
 
   type Citation {
     text: String!
+    citationProvidedBySource: Boolean
+  }
+
+  type ContactsCitation {
+    key: Int
+    abbreviatedName: String
+    firstName: String
+    lastName: String
+    roles: [String]
+    userId: [URL]
   }
 
   type GeographicCoverage {

@@ -104,7 +104,7 @@ module.exports = {
     constituents: ({ key }, args, { dataSources }) => {
       return dataSources.datasetAPI.getConstituents({ key, query: args });
     },
-    contributors: ({ contacts }) => getContributors(contacts),
+    volatileContributors: ({ contacts }) => getContributors(contacts),
     networks: ({ key }, args, { dataSources }) => {
       return dataSources.datasetAPI.getNetworks({ key });
     },

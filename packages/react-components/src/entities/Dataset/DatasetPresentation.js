@@ -37,8 +37,6 @@ export function DatasetPresentation({
     return <div>Failed to retrieve item</div>
   }
 
-  const highlightedAuthors = get(dataset, 'contributors', []).filter(c => c._highlighted);
-
   const rootPredicate = {
     "type": "equals",
     "value": id,
@@ -62,10 +60,10 @@ export function DatasetPresentation({
         </div>
 
         <div css={css.summary}>
-          {highlightedAuthors.length > 0 && <div css={iconFeature({ theme })}>
+          {dataset?.contactsCitation?.length > 0 && <div css={iconFeature({ theme })}>
             <MdPeople />
             <div>
-              <ol css={css.bulletList}>{highlightedAuthors.map(p => <li key={p.key}>{p.firstName ? p.firstName + ' ' : ''}{p.lastName}</li>)}</ol>
+              <ol css={css.bulletList}>{dataset?.contactsCitation.map(p => <li key={p.key}>{p.abbreviatedName}</li>)}</ol>
             </div>
           </div>}
 

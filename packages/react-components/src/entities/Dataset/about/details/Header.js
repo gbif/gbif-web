@@ -31,7 +31,7 @@ export function Header({
         
         <h3>{data?.dataset?.title}</h3>
       </div>
-      {data?.dataset?.contributors && getHighlightedContributors(data.dataset, theme)}
+      {data?.dataset?.volatileContributors && getHighlightedContributors(data.dataset, theme)}
     </Col>
     { <Col>
     {data?.dataset?.logoUrl &&<Logo url={data.dataset.logoUrl} />}
@@ -55,7 +55,7 @@ export function Header({
 
 const getHighlightedContributors = (dataset, theme) =>{
   if(!dataset) return null;
-  const highlighted = dataset.contributors?.length > 0 ?  dataset.contributors.filter(c => c._highlighted) : null;
+  const highlighted = dataset.volatileContributors?.length > 0 ?  dataset.volatileContributors.filter(c => c._highlighted) : null;
   if(!highlighted || highlighted.length === 0) return null;
   return <p style={{fontSize: '14px'}} >{highlighted.map(p => `${p.firstName ? p.firstName+" ":""}${p.lastName}`).join(" • ")}</p>
      

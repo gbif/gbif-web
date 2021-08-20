@@ -16,18 +16,7 @@ export function Citation({
   const { dataset } = data;
 
   return dataset?.citation?.text ? (
-    <Accordion summary="Citation" defaultOpen={true}>
-      <Properties
-      style={{ marginBottom: 12 }}
-      horizontal={true}
-    >
-      <T></T>
-
-      <V>
-       {<HyperText text={dataset.citation.text} />}
-      </V>
-    </Properties>
-    </Accordion>
+    <HyperText text={dataset.citation.text} />
   ) : null;
 }
 

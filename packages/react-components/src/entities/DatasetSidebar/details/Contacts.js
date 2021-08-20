@@ -19,8 +19,8 @@ export function Contacts({
 
   const { dataset } = data;
 
-  return dataset?.contributors?.length > 0 ? <Accordion summary="Contacts" defaultOpen={true}>
-        {dataset.contributors.map(contact)}
+  return dataset?.volatileContributors?.length > 0 ? <Accordion summary="Contacts" defaultOpen={true}>
+        {dataset.volatileContributors.map(contact)}
       </Accordion> : null
 
 };
