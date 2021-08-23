@@ -13,6 +13,7 @@ import occurrenceStatus from '../../locales/enums/occurrenceStatus.json';
 import isInCluster from '../../locales/enums/isInCluster.json';
 import datasetType from '../../locales/enums/datasetType.json';
 import datasetSubtype from '../../locales/enums/datasetSubtype.json';
+import literatureType from '../../locales/enums/literatureType.json';
 // -- Add imports above this line (required by plopfile.js) --
 
 export const commonFilters = {
@@ -1058,6 +1059,23 @@ export const commonFilters = {
         specific: {
           suggestHandle: 'networkKey',
           id2labelHandle: 'networkKey',
+        }
+      }
+    },
+  literatureType: {
+      type: 'ENUM',
+      config: {
+        std: {
+          filterHandle: 'literatureType',
+          id2labelHandle: 'literatureType',
+          translations: {
+            count: 'filter.literatureType.count', // translation path to display names with counts. e.g. "3 scientific names"
+            name: 'filter.literatureType.name',// translation path to a title for the popover and the button
+            description: 'filter.literatureType.description', // translation path for the filter description
+          }
+        },
+        specific: {
+          options: Object.keys(literatureType),
         }
       }
     },

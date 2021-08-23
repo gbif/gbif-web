@@ -35,7 +35,9 @@ export const en = {
     occurrences: 'Occurrences',
     numberSpecimens: 'Number of specimens',
     gbifNumberSpecimens: 'Specimens in GBIF',
-    title: 'Title'
+    title: 'Title',
+    titleAndAbstract: 'Title and abstract',
+    altmetric: 'Altmetric',
   },
   nullOrNot: {
     isNotNull: 'Must be defined',
@@ -320,6 +322,11 @@ export const en = {
       name: 'Network key',
       count: '{num, plural, one { Network key } other {# Network keys}}',
       description: 'A short description of the component should be placed here'
+    },
+    literatureType: {
+      name: 'Literature type',
+      count: '{num, plural, one { Literature type } other {# Literature types}}',
+      description: 'What type of literature does the citation come from.'
     },
     // -- Add filter above this line (required by plopfile.js) --
   },

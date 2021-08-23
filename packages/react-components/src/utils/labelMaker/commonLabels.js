@@ -167,5 +167,9 @@ export const commonLabels = {
     template: ({ id, api }) => `${api.v1.endpoint}/network/${id}`,
     transform: result => ({ title: result.title })
   },
+  literatureType: {
+    type: 'TRANSLATION',
+    template: id => `enums.literatureType.${id}`
+  },
   // -- Add labels above this line (required by plopfile.js) --
 }
