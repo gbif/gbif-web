@@ -27,7 +27,7 @@ query list($endorsingNodeKey: [ID], $networkKey: [ID], $publishingOrg: [ID], $ho
 const defaultTableConfig = {
   columns: [
     {
-      trKey: 'title',
+      trKey: 'tableHeaders.title',
       value: {
         key: 'title',
       },

@@ -44,7 +44,7 @@ const defaultTableConfig = {
       filterKey: 'country'
     },
     {
-      trKey: 'published datasets',
+      trKey: 'tableHeaders.pubDatasets',
       value: {
         key: 'numPublishedDatasets',
         formatter: (value, item) => <FormattedNumber value={value} />,
@@ -53,7 +53,7 @@ const defaultTableConfig = {
       }
     },
     {
-      trKey: 'hosted datasets',
+      trKey: 'tableHeaders.hostedDatasets',
       value: {
         key: 'hostedDataset.count',
         formatter: (value, item) => <FormattedNumber value={value} />,
@@ -62,7 +62,7 @@ const defaultTableConfig = {
       }
     },
     {
-      trKey: 'joined',
+      trKey: 'tableHeaders.registered',
       value: {
         key: 'created',
         formatter: (value, item) => <FormattedDate value={value}
