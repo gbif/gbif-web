@@ -31,4 +31,5 @@ export { IdentifierBadge } from './IdentifierBadge/IdentifierBadge';
 export { Eyebrow } from './Eyebrow/Eyebrow';
 export { JazzIcon } from './JazzIcon/JazzIcon';
 export { Prose } from './typography/Prose';
+export { AltmetricDonut } from './AltmetricDonut/AltmetricDonut';
 // -- Add imports above this line (required by plopfile.js) --
