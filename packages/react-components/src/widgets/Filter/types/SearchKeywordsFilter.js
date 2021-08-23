@@ -174,7 +174,7 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
               </>}
 
               {!showSuggestions && <>
-                {options.length === 0 && <div style={{margin: '12px 0', opacity: .7}}>You can search using * (wildcard) and ? (single letter wildcard)</div>}
+                {options.length === 0 && <div style={{margin: '12px 0', opacity: .7}}>Searches are case insensitive, but every letter is distinct, so, to find records with Rio or Río, for example, you can use the pattern 'r?o'.</div>}
                 {options.map((option) => {
                   return <Option
                     key={hash(option)}
