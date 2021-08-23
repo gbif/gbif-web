@@ -38,6 +38,9 @@ export const en = {
     title: 'Title',
     titleAndAbstract: 'Title and abstract',
     altmetric: 'Altmetric',
+    registered: 'Registered',
+    hostedDatasets: 'Hosted datasets',
+    pubDatasets: 'Published datasets',
   },
   nullOrNot: {
     isNotNull: 'Must be defined',
