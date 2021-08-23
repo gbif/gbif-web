@@ -10,7 +10,7 @@ export function GeographicCoverages({
   ...props
 }) {
   return <>
-    {geographicCoverages.map(coverage => <GeographicCoverage coverage={coverage} />)}
+    {geographicCoverages.map((coverage, idx) => <GeographicCoverage coverage={coverage} key={idx} />)}
   </>
 }
 

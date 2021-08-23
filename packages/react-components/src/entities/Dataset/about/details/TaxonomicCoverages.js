@@ -13,7 +13,7 @@ export function TaxonomicCoverages({
   ...props
 }) {
   return <>
-    {taxonomicCoverages.map(coverage => <TaxonomicCoverage coverage={coverage} />)}
+    {taxonomicCoverages.map((coverage, idx) => <TaxonomicCoverage coverage={coverage} key={idx} />)}
   </>
 }
 
@@ -32,7 +32,7 @@ function TaxonomicCoverage({coverage}) {
     
     <T>Coverage</T>
     <V>
-      {coverages.map((c, i) => <CoverageItem item={c} lastItem={coverage.coverages[i-1]} />)}
+      {coverages.map((c, i) => <CoverageItem key={i} item={c} lastItem={coverage.coverages[i-1]} />)}
       {hasHidden && <><br /><Button onClick={() => setThreshold(500)}>Show all</Button></>}
     </V>
   </Properties>
