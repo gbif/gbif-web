@@ -4,6 +4,8 @@ import axios from '../../dataManagement/api/axios';
 
 export function AltmetricDonut({doi, ...props}) {
   const [donut, setDonut] = useState();
+  if (typeof doi !== 'string') return;
+  
   useEffect(() => {
     const response = axios.get(`https://api.altmetric.com/v1/doi/${doi}`);
     response
