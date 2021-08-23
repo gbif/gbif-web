@@ -1,9 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import StandardSearchTable from '../../../StandardSearchTable';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
-import { MdLink} from 'react-icons/md'
-
-import axios from '../../../../dataManagement/api/axios';
+import { AltmetricDonut } from '../../../../components';
+import { MdLink } from 'react-icons/md'
 
 const QUERY = `
 query list($publisher:[String], $source: [String], $doi: [String], $gbifDownloadKey: [ID], $openAccess: Boolean, $peerReview: Boolean, $publishingOrganizationKey: [ID], $topics: [String], $relevance: [String], $year: [String], $literatureType: [String], $countriesOfCoverage: [Country], $countriesOfResearcher: [Country], $gbifDatasetKey: [ID], $q: String, $offset: Int, $limit: Int, ){
@@ -44,26 +43,8 @@ query list($publisher:[String], $source: [String], $doi: [String], $gbifDownload
     }
   }
 }
-
 `;
 
-function AltmetricDonut({doi, ...props}) {
-  const [donut, setDonut] = useState();
-  // https://api.altmetric.com/v1/doi/10.1636/joa-s-20-053
-  useEffect(() => {
-    const response = axios.get(`https://api.altmetric.com/v1/doi/${doi}`);
-    response
-      .promise
-      .then(response => {
-        setDonut(response.data);
-      });
-  });
-
-  if (!doi || !donut) return null;
-  return <a href={donut.details_url}>
-    <img src={donut.images.medium} width={50}/>
-  </a>
-}
 
 function getLink(item) {
   if (item.identifiers.doi) {
@@ -73,7 +54,7 @@ function getLink(item) {
 }
 
 const defaultTableConfig = {
-  onSelect: ({key}) => {
+  onSelect: ({ key }) => {
     window.location = `/literature/${key}`
   },
   columns: [
@@ -83,13 +64,13 @@ const defaultTableConfig = {
         key: 'title',
         formatter: (value, item) => {
           const maxLength = 200;
-          const truncatedAbstract = item.abstract?.length > maxLength ? `${item.abstract.substr(0,maxLength)}...` : item.abstract;
+          const truncatedAbstract = item.abstract?.length > maxLength ? `${item.abstract.substr(0, maxLength)}...` : item.abstract;
           const link = getLink(item);
-          
+
           return <div>
-            {link ? <div><a href={link} style={{color: 'inherit', textDecoration: 'none'}}>{value} <MdLink /></a></div> : <div>{value}</div>}
-            
-            <div style={{color: '#aaa'}}>{truncatedAbstract}</div>
+            {link ? <div><a href={link} style={{ color: 'inherit', textDecoration: 'none' }}>{value} <MdLink /></a></div> : <div>{value}</div>}
+
+            <div style={{ color: '#aaa' }}>{truncatedAbstract}</div>
           </div>
         },
       },
@@ -100,7 +81,7 @@ const defaultTableConfig = {
       value: {
         key: 'identifiers',
         formatter: (value, item) => {
-          return <AltmetricDonut doi={item?.identifiers?.doi}/>
+          return <AltmetricDonut doi={item?.identifiers?.doi} />
         },
         hideFalsy: true
       }
@@ -141,7 +122,7 @@ const defaultTableConfig = {
 };
 
 function Table() {
-  return <StandardSearchTable graphQuery={QUERY} resultKey='literatureSearch' defaultTableConfig={defaultTableConfig}/>
+  return <StandardSearchTable graphQuery={QUERY} resultKey='literatureSearch' defaultTableConfig={defaultTableConfig} />
 }
 
 export default Table;
