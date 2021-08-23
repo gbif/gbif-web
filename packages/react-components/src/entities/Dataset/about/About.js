@@ -13,6 +13,7 @@ export function About({
   data = {},
   loading,
   error,
+  tocState,
   className,
   ...props
 }) {
@@ -20,53 +21,55 @@ export function About({
   const routeContext = useContext(RouteContext);
   // if (loading || !occurrence) return <h1>Loading</h1>;
   const { dataset } = data;
-
+  // collect all refs to headlines for the TOC, e.g. ref={node => { tocRefs["description"] = node; }}
+  let tocRefs = {};
+  
   return <>
     <div css={css.withSideBar({ theme })}>
       <div css={css.sideBar({ theme })}>
         <nav css={css.sideBarNav({ theme })}>
-          <Toc data={dataset} selector="h2"/>
+          <Toc refs={tocRefs}/>
         </nav>
       </div>
       <div style={{ width: '100%', marginLeft: 12 }}>
         {dataset.description && <Prose css={css.paper({ theme })}>
-          <h2 id="description">Description</h2>
+          <h2 ref={node => { tocRefs["description"] = node; }}>Description</h2>
           <HyperText text={dataset.description} />
         </Prose>}
         {dataset.purpose && <Prose css={css.paper({ theme })}>
-          <h2 id="purpose">Purpose</h2>
+          <h2 ref={node => { tocRefs["purpose"] = node; }}>Purpose</h2>
           <HyperText text={dataset.purpose} />
         </Prose>}
         {dataset.temporalCoverages && <Prose css={css.paper({ theme })}>
-          <h2 id="temporal-scope">Temporal scope</h2>
+          <h2 ref={node => { tocRefs["temporal-scope"] = node; }}>Temporal scope</h2>
           <TemporalCoverages temporalCoverages={dataset.temporalCoverages} />
         </Prose>}
         {dataset.geographicCoverages && <Prose css={css.paper({ theme })}>
-          <h2 id="geographic-scope">Geographic scope</h2>
+          <h2 ref={node => { tocRefs["geographic-scope"] = node; }}>Geographic scope</h2>
           <GeographicCoverages geographicCoverages={dataset.geographicCoverages} />
         </Prose>}
         {dataset.taxonomicCoverages && <Prose css={css.paper({ theme })}>
-          <h2 id="taxonomic-scope">Taxonomic scope</h2>
+          <h2 ref={node => { tocRefs["taxonomic-scope"] = node; }}>Taxonomic scope</h2>
           <TaxonomicCoverages taxonomicCoverages={dataset.taxonomicCoverages} />
         </Prose>}
         {dataset.samplingDescription && <Prose css={css.paper({ theme })}>
-          <h2 id="methodology">Methodology</h2>
+          <h2 ref={node => { tocRefs["methodology"] = node; }}>Methodology</h2>
           <SamplingDescription dataset={dataset} />
         </Prose>}
         {dataset.additionalInfo && <Prose css={css.paper({ theme })}>
-          <h2 id="additional-info">Additional info</h2>
+          <h2 ref={node => { tocRefs["additional-info"] = node; }}>Additional info</h2>
           <HyperText text={dataset.additionalInfo} />
         </Prose>}
         {dataset?.volatileContributors && <Prose css={css.paper({ theme })}>
-          <h2 id="contacts">Contacts</h2>
+          <h2 ref={node => { tocRefs["contacts"] = node; }}>Contacts</h2>
           <Contacts data={data}  />
         </Prose>}
         {dataset?.bibliographicCitations && <Prose css={css.paper({ theme })}>
-          <h2 id="bibliographic-citations">Bibliographic citations</h2>
+          <h2 ref={node => { tocRefs["bibliographic-citations"] = node; }}>Bibliographic citations</h2>
           <BibliographicCitations bibliographicCitations={dataset?.bibliographicCitations} />
         </Prose>}
         {dataset?.citation && <Prose css={css.paper({ theme })}>
-          <h2 id="citation">Citation</h2>
+          <h2 ref={node => { tocRefs["citation"] = node; }}>Citation</h2>
           <Citation data={data} />
         </Prose>}
 
