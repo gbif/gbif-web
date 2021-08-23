@@ -134,14 +134,15 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
             <form id={formId} onSubmit={e => e.preventDefault()} >
 
               {showSuggestions && <>
-                {loading && <>
+                {loading && !items && <>
                   <OptionSkeleton helpVisible />
                   <OptionSkeleton helpVisible />
                   <OptionSkeleton helpVisible />
                 </>}
-                {!loading && items && <>
+                {items && <>
                   {!config.disallowLikeFilters && q !== '' && <div style={{borderBottom: '1px solid #eee', marginBottom: 12, paddingBottom: 12}}><Option
                     key={q}
+                    loading={loading}
                     helpVisible={true}
                     helpText={`Search for the pattern`}
                     label={q}
@@ -156,6 +157,7 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
                   {items.map((option) => {
                     return <Option
                       key={option.key}
+                      loading={loading}
                       helpVisible={true}
                       helpText={`${option.count} records in total`}
                       label={option.key}
