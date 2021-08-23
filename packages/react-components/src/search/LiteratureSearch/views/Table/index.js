@@ -59,7 +59,7 @@ const defaultTableConfig = {
   },
   columns: [
     {
-      trKey: 'tableHeaders.title',
+      trKey: 'tableHeaders.titleAndAbstract',
       value: {
         key: 'title',
         formatter: (value, item) => {
@@ -77,7 +77,7 @@ const defaultTableConfig = {
       width: 'wide'
     },
     {
-      trKey: 'altmetric',
+      trKey: 'tableHeaders.altmetric',
       value: {
         key: 'identifiers',
         formatter: (value, item) => {
@@ -87,7 +87,7 @@ const defaultTableConfig = {
       }
     },
     {
-      trKey: 'literatureType',
+      trKey: 'filter.literatureType.name',
       value: {
         key: 'literatureType',
         labelHandle: 'literatureType',
