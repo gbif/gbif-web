@@ -4,9 +4,9 @@ import axios from '../../dataManagement/api/axios';
 
 export function AltmetricDonut({doi, ...props}) {
   const [donut, setDonut] = useState();
-  if (typeof doi !== 'string') return null;
   
   useEffect(() => {
+    if (typeof doi !== 'string') return null;
     const response = axios.get(`https://api.altmetric.com/v1/doi/${doi}`);
     response
       .promise
@@ -22,7 +22,9 @@ export function AltmetricDonut({doi, ...props}) {
       return function cleanup() {
         response.cancel();
       };
-  });
+  }, [doi]);
+
+  if (typeof doi !== 'string') return null;
 
   if (!doi || !donut) return null;
   return <a href={donut.details_url} {...props}>
