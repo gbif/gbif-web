@@ -6,7 +6,7 @@ export function AltmetricDonut({doi, ...props}) {
   const [donut, setDonut] = useState();
   
   useEffect(() => {
-    if (typeof doi !== 'string') return null;
+    if (typeof doi !== 'string') return;
     const response = axios.get(`https://api.altmetric.com/v1/doi/${doi}`);
     response
       .promise
