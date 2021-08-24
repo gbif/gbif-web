@@ -51,6 +51,8 @@ addDecorator(storyFn => {
     return choice
   }
 
+  const gbifOrg = 'https://www.gbif.org';
+
   const routes = {
     occurrenceSearch: {
       url: ({queryString}) => `/occurrence/search${queryString ? `?${queryString}` : ''}`,
@@ -58,6 +60,7 @@ addDecorator(storyFn => {
     },
     collectionKey: {
       route: '/',
+      isHref: true,
       url: ({key}) => {
         return `/iframe.html?id=entities-collection-page--example&viewMode=story&knob-collectionUUID=${key}`;
       }
@@ -70,6 +73,7 @@ addDecorator(storyFn => {
     },
   
     institutionKey: {
+      isHref: true,
       url: ({key}) => {
         return `/iframe.html?id=entities-institution-page--example&viewMode=story&knob-institutionUUID=${key}`;
       }
@@ -79,6 +83,7 @@ addDecorator(storyFn => {
     },
 
     datasetKey: {
+      isHref: true,
       url: ({key}) => {
         return `/iframe.html?id=entities-dataset-page--example&viewMode=story&knob-datasetUUID=${key}`;
       },
@@ -89,8 +94,10 @@ addDecorator(storyFn => {
     },
 
     publisherKey: {
+      isHref: true,
       url: ({key}) => {
-        return `/iframe.html?id=entities-publisher-page--example&viewMode=story&knob-publisherUUID=${key}`;
+        // return `/iframe.html?id=entities-publisher-page--example&viewMode=story&knob-publisherUUID=${key}`;
+        return `https://www.gbif.org/publisher/${key}`;
       },
       route: '/publisher/:key'
     },

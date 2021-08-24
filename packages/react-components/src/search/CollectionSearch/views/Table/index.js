@@ -3,6 +3,7 @@ import StandardSearchTable from '../../../StandardSearchTable';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 // import { useHistory } from "react-router-dom";
 import RouteContext from '../../../../dataManagement/RouteContext';
+import { ResourceLink } from '../../../../components';
 
 const QUERY = `
 query list($institution: [GUID], $code: String, $q: String, $offset: Int, $limit: Int, $country: Country, $fuzzyName: String, $city: String, $name: String, $active: Boolean){
@@ -30,14 +31,12 @@ query list($institution: [GUID], $code: String, $q: String, $offset: Int, $limit
 `;
 
 const defaultTableConfig = {
-  onSelect: ({key}) => {
-    window.location = `/collection/${key}`
-  },
   columns: [
     {
       trKey: 'title',
       value: {
         key: 'name',
+        formatter: (value, item) => <ResourceLink type='collectionKey' discreet id={item.key}>{value}</ResourceLink>,
       },
       width: 'wide'
     },
@@ -93,18 +92,7 @@ function Table() {
   // const history = useHistory();
   const routeContext = useContext(RouteContext);
 
-  function onSelect({key}) {
-    const path = routeContext.collectionKey.url({key});
-    console.log(path);
-    window.location = path;
-    // if (history && !useWindowLocation) {
-    //   history.push(path);
-    // } else {
-    //   
-    // }
-  }
-
-  return <StandardSearchTable onSelect={onSelect} graphQuery={QUERY} resultKey='collectionSearch' defaultTableConfig={defaultTableConfig}/>
+  return <StandardSearchTable graphQuery={QUERY} resultKey='collectionSearch' defaultTableConfig={defaultTableConfig}/>
 }
 
 export default Table;

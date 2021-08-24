@@ -32,4 +32,5 @@ export { Eyebrow } from './Eyebrow/Eyebrow';
 export { JazzIcon } from './JazzIcon/JazzIcon';
 export { Prose } from './typography/Prose';
 export { AltmetricDonut } from './AltmetricDonut/AltmetricDonut';
+export { ResourceLink, PublisherKeyLink, DatasetKeyLink } from './resourceLinks/resourceLinks';
 // -- Add imports above this line (required by plopfile.js) --

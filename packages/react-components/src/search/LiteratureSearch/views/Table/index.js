@@ -54,9 +54,6 @@ function getLink(item) {
 }
 
 const defaultTableConfig = {
-  onSelect: ({ key }) => {
-    window.location = `/literature/${key}`
-  },
   columns: [
     {
       trKey: 'tableHeaders.titleAndAbstract',

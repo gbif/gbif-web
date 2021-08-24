@@ -6,7 +6,7 @@ import SearchContext from './SearchContext';
 import { Button, Row, Col, DataTable, Th, Td, TBody } from '../components';
 import { ResultsHeader } from './ResultsHeader';
 
-export const ResultsList = ({ keyFn, cardComponent:Card, first, prev, next, size, from, results, total, loading, onSelect }) => {
+export const ResultsList = ({ keyFn, cardComponent:Card, first, prev, next, size, from, results, total, loading }) => {
   const { labelMap } = useContext(SearchContext);
 
   return <div style={{
@@ -18,7 +18,7 @@ export const ResultsList = ({ keyFn, cardComponent:Card, first, prev, next, size
   }}>
     <ResultsHeader loading={loading} total={total} />
     {results && <div>
-      {results.map((result, index) => <Card key={keyFn ? keyFn : index} {...{result, index, loading, onSelect, labelMap}} />)}
+      {results.map((result, index) => <Card key={keyFn ? keyFn : index} {...{result, index, loading, labelMap}} />)}
     </div>}
     <Button onClick={prev}>prev</Button>
     <Button onClick={next}>next</Button>

@@ -2,7 +2,9 @@ import React, { useContext } from "react";
 import RouteContext from '../../../../dataManagement/RouteContext';
 import StandardSearch from '../../../StandardSearch';
 import { ResultsTable } from '../../../ResultsTable';
+import { PublisherKeyLink } from '../../../../components';
 import { FormattedMessage, FormattedNumber, FormattedDate } from 'react-intl';
+import { MdLink } from 'react-icons/md';
 
 const QUERY = `
 query list($networkKey: ID, $country: Country, $q: String, $offset: Int, $limit: Int){
@@ -30,6 +32,7 @@ const defaultTableConfig = {
       trKey: 'filter.publisherKey.name',
       value: {
         key: 'title',
+        formatter: (value, item) => <PublisherKeyLink discreet id={item.key}>{value}</PublisherKeyLink>,
       },
       width: 'wide',
       filterKey: 'q'
@@ -79,13 +82,8 @@ const defaultTableConfig = {
 function Table() {
   const routeContext = useContext(RouteContext);
 
-  function onSelect({key}) {
-    const path = routeContext.publisherKey.url({key});
-    window.location = path;
-  }
   return <StandardSearch 
     presentationComponent={ResultsTable}
-    onSelect={onSelect} 
     graphQuery={QUERY} 
     resultKey='organizationSearch' 
     defaultTableConfig={defaultTableConfig}

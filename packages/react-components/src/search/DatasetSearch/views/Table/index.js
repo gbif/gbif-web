@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import RouteContext from '../../../../dataManagement/RouteContext';
 import StandardSearchTable from '../../../StandardSearchTable';
 import { FormattedNumber } from 'react-intl';
+import { DatasetKeyLink } from '../../../../components';
 
 const DATASET_LIST = `
 query list($endorsingNodeKey: [ID], $networkKey: [ID], $publishingOrg: [ID], $hostingOrg: [ID], $publishingCountry: [Country], $q: String, $offset: Int, $limit: Int, $type: [DatasetType], $subtype: [DatasetSubtype]){
@@ -30,6 +31,7 @@ const defaultTableConfig = {
       trKey: 'tableHeaders.title',
       value: {
         key: 'title',
+        formatter: (value, item) => <DatasetKeyLink discreet id={item.key}>{value}</DatasetKeyLink>,
       },
       width: 'wide'
     },
@@ -82,13 +84,7 @@ const defaultTableConfig = {
 
 function Table() {
   const routeContext = useContext(RouteContext);
-
-  function onSelect({key}) {
-    const path = routeContext.datasetKey.url({key});
-    window.location = path;
-  }
-
-  return <StandardSearchTable onSelect={onSelect} graphQuery={DATASET_LIST} resultKey='datasetSearch' defaultTableConfig={defaultTableConfig}/>
+  return <StandardSearchTable graphQuery={DATASET_LIST} resultKey='datasetSearch' defaultTableConfig={defaultTableConfig}/>
 }
 
 export default Table;
