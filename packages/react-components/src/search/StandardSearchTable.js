@@ -7,18 +7,18 @@ import { filter2v1 } from '../dataManagement/filterAdapter';
 import { ResultsTable } from './ResultsTable';
 import { useQueryParam, NumberParam } from 'use-query-params';
 
-function StandardSearchTable({graphQuery, onSelect, resultKey, offsetName = 'offset', defaultTableConfig, ...props}) {
+function StandardSearchTable({graphQuery, resultKey, offsetName = 'offset', defaultTableConfig, ...props}) {
   // const [offset, setOffset] = useUrlState({ param: 'offset', defaultValue: 0 });
   const [offset = 0, setOffset] = useQueryParam('from', NumberParam);
   const limit = 20;
   const currentFilterContext = useContext(FilterContext);
   const { rootPredicate, predicateConfig } = useContext(SearchContext);
-  const { data, error, loading, load } = useQuery(graphQuery, { lazyLoad: true, keepDataWhileLoading: true });
+  const { data, error, loading, load } = useQuery(graphQuery, { lazyLoad: true });
 
   useEffect(() => {
     const filter = { ...filter2v1(currentFilterContext.filter, predicateConfig), ...rootPredicate };
     
-    load({ variables: { ...filter, limit, offset } });
+    load({ keepDataWhileLoading: true, variables: { ...filter, limit, offset } });
   }, [currentFilterContext.filterHash, rootPredicate, offset]);
 
   // https://stackoverflow.com/questions/55075604/react-hooks-useeffect-only-on-update
@@ -50,7 +50,6 @@ function StandardSearchTable({graphQuery, onSelect, resultKey, offsetName = 'off
       size={limit}
       from={offset}
       total={data?.[resultKey]?.count}
-      onSelect={onSelect}
       defaultTableConfig={defaultTableConfig}
     />
   </>

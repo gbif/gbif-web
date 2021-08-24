@@ -21,9 +21,8 @@ function useQuery(query, options = {}) {
   const unmounted = useUnmounted();
   const apiClient = useContext(ApiContext);
   const client = options?.client || apiClient;
-  const keepDataWhileLoading = options?.keepDataWhileLoading;
 
-  function init() {
+  function init({keepDataWhileLoading}) {
     if (!keepDataWhileLoading) setData();
     setLoading(true);
     setError(false)
@@ -31,7 +30,7 @@ function useQuery(query, options = {}) {
   }
 
   function load(options) {
-    init();
+    init(options);
     const variables = options?.variables;
     const { promise: dataPromise, cancel } = client.query({query, variables });
     // functions cannot be direct values in states as function are taken as a way to create derived states

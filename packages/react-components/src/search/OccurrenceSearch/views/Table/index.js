@@ -67,7 +67,7 @@ function Table() {
   const size = 50;
   const currentFilterContext = useContext(FilterContext);
   const { rootPredicate, predicateConfig } = useContext(OccurrenceContext);
-  const { data, error, loading, load } = useQuery(OCCURRENCE_TABLE, { lazyLoad: true, keepDataWhileLoading: true });
+  const { data, error, loading, load } = useQuery(OCCURRENCE_TABLE, { lazyLoad: true });
 
   useEffect(() => {
     const predicate = {
@@ -77,7 +77,7 @@ function Table() {
         filter2predicate(currentFilterContext.filter, predicateConfig)
       ].filter(x => x)
     }
-    load({ variables: { predicate, size, from } });
+    load({ keepDataWhileLoading: true, variables: { predicate, size, from } });
   }, [currentFilterContext.filterHash, rootPredicate, from]);
 
   useEffect(() => {

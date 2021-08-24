@@ -22,7 +22,7 @@ function Download() {
   const theme = useContext(ThemeContext);
   const currentFilterContext = useContext(FilterContext);
   const { rootPredicate, predicateConfig } = useContext(OccurrenceContext);
-  const { data, error, loading, load } = useQuery(DOWNLOAD, { lazyLoad: true, keepDataWhileLoading: true });
+  const { data, error, loading, load } = useQuery(DOWNLOAD, { lazyLoad: true });
 
   useEffect(() => {
     const predicate = {
@@ -32,7 +32,7 @@ function Download() {
         filter2predicate(currentFilterContext.filter, predicateConfig)
       ].filter(x => x)
     }
-    load({ variables: { predicate } });
+    load({ keepDataWhileLoading: true, variables: { predicate } });
   }, [currentFilterContext.filterHash, rootPredicate]);
 
   const fullPredicate = data?.occurrenceSearch?._downloadPredicate?.predicate;
