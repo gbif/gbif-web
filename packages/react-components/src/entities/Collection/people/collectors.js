@@ -9,7 +9,7 @@ export function Collectors({
   defaultTab = 'about',
   ...props
 }) {
-  const { data, error, loading, load } = useQuery(COLLECTORS, { lazyLoad: true, keepDataWhileLoading: true });
+  const { data, error, loading, load } = useQuery(COLLECTORS, { lazyLoad: true });
   const [size, setSize] = useState(10);
   const [q, setQ] = useState();
 
@@ -31,6 +31,7 @@ export function Collectors({
       }
 
       load({
+        keepDataWhileLoading: true,
         variables: {
           key: id,
           size,
