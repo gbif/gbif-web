@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, Radio } from '../../components';
+import { Input } from '../../components';
 import basisofRecord from '../../locales/enums/basisOfRecord.json';
 import mediaType from '../../locales/enums/mediaType.json';
 import occurrenceIssue from '../../locales/enums/occurrenceIssue.json';
