@@ -1,11 +1,11 @@
 import { jsx } from "@emotion/react";
 import React, { useContext, useState, useEffect } from "react";
-import ThemeContext from "../../../style/themes/ThemeContext";
-import * as css from "./styles";
+import ThemeContext from "../../style/themes/ThemeContext";
+import * as css from "./Toc.styles";
 import { useLocation, useHistory } from "react-router-dom";
 import _ from "lodash";
 
-export function Toc({ refs, offsetTop = 0, ...props }) {
+export const Toc = ({ refs, ...props }) => {
   const theme = useContext(ThemeContext);
   const location = useLocation();
   const history = useHistory();
@@ -13,18 +13,18 @@ export function Toc({ refs, offsetTop = 0, ...props }) {
   const [activeSection, setActiveSection] = useState(location.hash || null);
   useEffect(() => {
     // If theres an initial hash, scroll
-    if (location.hash && refs[location.hash]) {
-      scrollToSection(refs[location.hash]);
+    if (location.hash && refs[location.hash.substring(1)]) {
+      scrollToSection(refs[location.hash.substring(1)]);
     }
     setSections(Object.keys(refs));
     const handleScroll = (e) => {
       const top = window.pageYOffset || document.documentElement.scrollTop;
-      if (top > 200 + offsetTop) {
+      if (top > 200 ) {
         Object.keys(refs).forEach((hash) => {
           const elm = refs[hash];
           if (elm) {
             const rect = elm.getBoundingClientRect();
-            if (rect.top > offsetTop && rect.top < 150 + offsetTop) {
+            if (rect.top > 0 && rect.top < (150 )) {
               history.push({ ...location, hash });
               setActiveSection(hash);
             }
@@ -51,7 +51,9 @@ export function Toc({ refs, offsetTop = 0, ...props }) {
       {sections.map((hash) => (
         <li key={hash}>
           <a
+            href={`#${hash}`}
             onClick={(e) => {
+              e.preventDefault()
               history.push({ ...location, hash });
               setActiveSection(hash);
               scrollToSection(refs[hash]);

@@ -3,10 +3,10 @@ import { jsx } from '@emotion/react';
 import React, { useContext, useState, useEffect } from 'react';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import * as css from './styles';
-import { Prose, Row, Col, Properties, HyperText, Button } from "../../../components";
+import { Prose, Row, Col, Properties, HyperText, Button, Toc } from "../../../components";
 import RouteContext from '../../../dataManagement/RouteContext';
 import { TaxonomicCoverages, GeographicCoverages, TemporalCoverages, Intro, BibliographicCitations, SamplingDescription, Contacts, Citation } from './details';
-import {Toc} from "./Toc"
+// import {Toc} from "./Toc"
 const { Term: T, Value: V } = Properties;
 
 export function About({
