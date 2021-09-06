@@ -84,7 +84,7 @@ export function filterBuilder({ labelMap, suggestConfigMap, filterWidgetConfig, 
     } else if (type === 'KEYWORD_SEARCH') {
       filter = buildKeywordSearch(builderConfig);
     }
-    const trNameId = config.std?.translations?.name || `filter.${config?.std?.filterHandle || widgetHandle}.name`;
+    const trNameId = config.std?.translations?.name || `components.filters.${config?.std?.filterHandle || widgetHandle}.name`;
     acc[widgetHandle] = {
       ...filter,
       displayName: context.formatMessage({ id: trNameId })

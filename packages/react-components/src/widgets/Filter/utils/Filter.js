@@ -8,6 +8,7 @@ import { MenuAction, MenuToggle } from '../../../components/Menu';
 import { uncontrollable } from 'uncontrollable';
 import get from 'lodash/get';
 import { hash } from '../../../utils/util';
+import { FormattedMessage } from 'react-intl';
 
 import { FilterState, FilterContext } from '../state';
 
@@ -40,9 +41,16 @@ function Filter({ children, title, aboutText, labelledById, hasHelpTexts, suppor
           onBack: () => onAboutChange(false)
         }
         const menuItems = (aboutText || hasHelpTexts || supportsExist) ? menuState => [
-          ...aboutText ? [<MenuAction key="About" onClick={() => { onAboutChange(true); menuState.hide() }}>About this filter</MenuAction>] : [],
-          ...hasHelpTexts ? [<MenuToggle key="Help" disabled={aboutVisible} style={{ opacity: aboutVisible ? .5 : 1 }} checked={!!helpVisible} onChange={() => onHelpChange(!helpVisible)}>Show help texts</MenuToggle>] : [],
-          ...supportsExist ? [<MenuToggle key="Exists" disabled={aboutVisible} style={{ opacity: aboutVisible ? .5 : 1 }} checked={!!isExistenceFilter} onChange={() => { if (isExistenceFilter) { setFullField(filterName, [], []);} onExistenceChange(!isExistenceFilter); menuState.hide() }}>Filter for existence</MenuToggle >] : [],
+          ...aboutText ? [
+            <MenuAction key="About" onClick={() => { onAboutChange(true); menuState.hide() }}>
+              <FormattedMessage id="components.filterSupport.aboutThisFilter" defaultMessage="About this filter" />
+            </MenuAction>] : [],
+          ...hasHelpTexts ? [<MenuToggle key="Help" disabled={aboutVisible} style={{ opacity: aboutVisible ? .5 : 1 }} checked={!!helpVisible} onChange={() => onHelpChange(!helpVisible)}>
+            <FormattedMessage id="components.filterSupport.showHelp" defaultMessage="Show help text" />
+          </MenuToggle>] : [],
+          ...supportsExist ? [<MenuToggle key="Exists" disabled={aboutVisible} style={{ opacity: aboutVisible ? .5 : 1 }} checked={!!isExistenceFilter} onChange={() => { if (isExistenceFilter) { setFullField(filterName, [], []);} onExistenceChange(!isExistenceFilter); menuState.hide() }}>
+            <FormattedMessage id="components.filterSupport.existence" defaultMessage="Filter for existence" />
+          </MenuToggle >] : [],
         ] : undefined;
 
         return <FilterBox style={style}>

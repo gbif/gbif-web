@@ -30,7 +30,7 @@ import without from 'lodash/without';
 const tableConfig = {
   columns: [
     {
-      trKey: 'filter.taxonKey.name',
+      trKey: 'components.filters.taxonKey.name',
       filterKey: 'taxonKey', // optional
       value: {
         key: 'gbifClassification.usage.formattedName',
@@ -39,7 +39,7 @@ const tableConfig = {
       width: 'wide'
     },
     {
-      trKey: 'tableHeaders.features',
+      trKey: 'components.tableHeaders.features',
       value: {
         key: 'features',
         formatter: (value, occurrence) => {
@@ -58,7 +58,7 @@ const tableConfig = {
       }
     },
     {
-      trKey: 'filter.occurrenceCountry.name',
+      trKey: 'components.filters.occurrenceCountry.name',
       filterKey: 'country', //optional
       value: {
         key: 'countryCode',
@@ -66,7 +66,7 @@ const tableConfig = {
       }
     },
     {
-      trKey: 'filter.coordinates.name',
+      trKey: 'components.filters.coordinates.name',
       value: {
         key: 'formattedCoordinates',
         // formatter: (value, occurrence) => {
@@ -79,14 +79,14 @@ const tableConfig = {
       noWrap: true
     },
     {
-      trKey: 'filter.year.name',
+      trKey: 'components.filters.year.name',
       filterKey: 'year', //optional
       value: {
         key: 'year'
       }
     },
     {
-      trKey: 'filter.basisOfRecord.name',
+      trKey: 'components.filters.basisOfRecord.name',
       filterKey: 'basisOfRecord', //optional
       value: {
         key: 'basisOfRecord',
@@ -94,7 +94,7 @@ const tableConfig = {
       }
     },
     {
-      trKey: 'filter.datasetKey.name',
+      trKey: 'components.filters.datasetKey.name',
       filterKey: 'datasetKey', //optional
       value: {
         key: 'datasetTitle',

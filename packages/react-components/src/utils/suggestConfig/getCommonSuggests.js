@@ -1,12 +1,10 @@
 import React from 'react';
 import { matchSorter } from 'match-sorter';
-import country from '../../locales/enums/countryCode.json';
+import countryCodes from '../../enums/basic/country.json';
 import { Classification, Tooltip } from '../../components';
 import { FormattedMessage } from 'react-intl';
 
 const BACKBONE_KEY = 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c';
-
-const countryCodes = Object.keys(country);
 
 export const suggestStyle = { whiteSpace: 'nowrap', textOverflow: 'ellipsis', width: '100%', overflow: 'hidden' };
 

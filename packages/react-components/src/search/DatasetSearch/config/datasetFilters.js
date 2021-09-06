@@ -16,7 +16,7 @@ function PublisherContent(props) {
   const { promise, cancel } = api.v1Get(`/occurrence/search/institutionCode?limit=8&q=test`);
   console.log(api);
   return <div>
-    <FormattedMessage id="nullOrNot.isNotNull" />
+    <FormattedMessage id="components.filterSupport.nullOrNot.isNotNull" />
     <button onClick={e => {
       currentFilterContext.add('publisherKey', 'c8d737e0-2ff8-42e8-b8fc-6b805d26fc5f'); props.hide();
     }}>Add</button>

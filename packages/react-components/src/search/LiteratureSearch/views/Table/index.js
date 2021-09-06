@@ -56,7 +56,7 @@ function getLink(item) {
 const defaultTableConfig = {
   columns: [
     {
-      trKey: 'tableHeaders.titleAndAbstract',
+      trKey: 'components.tableHeaders.titleAndAbstract',
       value: {
         key: 'title',
         formatter: (value, item) => {
@@ -74,7 +74,7 @@ const defaultTableConfig = {
       width: 'wide'
     },
     {
-      trKey: 'tableHeaders.altmetric',
+      trKey: 'components.tableHeaders.altmetric',
       value: {
         key: 'identifiers',
         formatter: (value, item) => {
@@ -84,7 +84,7 @@ const defaultTableConfig = {
       }
     },
     {
-      trKey: 'filter.literatureType.name',
+      trKey: 'components.filters.literatureType.name',
       value: {
         key: 'literatureType',
         labelHandle: 'literatureType',
@@ -92,7 +92,7 @@ const defaultTableConfig = {
       }
     },
     {
-      trKey: 'filter.year.name',
+      trKey: 'components.filters.year.name',
       value: {
         filterKey: 'year',
         key: 'year',
@@ -100,7 +100,7 @@ const defaultTableConfig = {
       }
     },
     // {
-    //   trKey: 'tableHeaders.occurrences',
+    //   trKey: 'components.tableHeaders.occurrences',
     //   value: {
     //     key: 'occurrenceCount',
     //     formatter: (value, item) => <FormattedNumber value={value} />,

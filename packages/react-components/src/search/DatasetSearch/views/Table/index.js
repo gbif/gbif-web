@@ -28,7 +28,7 @@ query list($endorsingNodeKey: [ID], $networkKey: [ID], $publishingOrg: [ID], $ho
 const defaultTableConfig = {
   columns: [
     {
-      trKey: 'tableHeaders.title',
+      trKey: 'components.tableHeaders.title',
       value: {
         key: 'title',
         formatter: (value, item) => <DatasetKeyLink discreet id={item.key}>{value}</DatasetKeyLink>,
@@ -36,7 +36,7 @@ const defaultTableConfig = {
       width: 'wide'
     },
     {
-      trKey: 'filter.publisherKey.name',
+      trKey: 'components.filters.publisherKey.name',
       filterKey: 'publisherKey', // optional
       value: {
         key: 'publishingOrganizationKey',
@@ -45,7 +45,7 @@ const defaultTableConfig = {
       width: 'wide'
     },
     {
-      trKey: 'filter.datasetType.name',
+      trKey: 'components.filters.datasetType.name',
       filterKey: 'datasetType',
       value: {
         key: 'type',
@@ -53,7 +53,7 @@ const defaultTableConfig = {
       }
     },
     {
-      trKey: 'filter.datasetSubtype.name',
+      trKey: 'components.filters.datasetSubtype.name',
       filterKey: 'datasetSubtype',
       value: {
         key: 'subtype',
@@ -62,7 +62,7 @@ const defaultTableConfig = {
       }
     },
     {
-      trKey: 'tableHeaders.citations',
+      trKey: 'components.tableHeaders.citations',
       value: {
         key: 'literatureCount',
         formatter: (value, item) => <FormattedNumber value={value} />,
@@ -71,7 +71,7 @@ const defaultTableConfig = {
       }
     },
     {
-      trKey: 'tableHeaders.occurrences',
+      trKey: 'components.tableHeaders.occurrences',
       value: {
         key: 'occurrenceCount',
         formatter: (value, item) => <FormattedNumber value={value} />,

@@ -1,0 +1,5 @@
+{
+  "nResults": "{total, plural, one {# result} other {# results}}",
+  "nResultsWithCoordinates": "{total, plural, one {# result } other {# results}} with coordinates",
+  "nResultsWithImages": "{total, plural, one {# result } other {# results}} with images"
+}

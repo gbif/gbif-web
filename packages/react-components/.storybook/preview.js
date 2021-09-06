@@ -3,12 +3,11 @@ import { addDecorator } from '@storybook/react';
 import { select } from '@storybook/addon-knobs';
 import flatten from 'flat';
 
-import { IntlProvider } from "react-intl";
+import { LocaleProvider } from "../src/dataManagement/LocaleProvider";
 
 import { Root } from '../src/components';
 import gbifTheme from './theme';
-import { en as enNested } from '../src/locales/en';
-const en = flatten(enNested);
+import en from '../locales/_build/en.json';
 
 import ThemeContext, { darkTheme, lightTheme, a11yTheme, vertnetTheme, rtlTheme } from '../src/style/themes';
 import ThemeBuilder from '../src/style/themeBuilder';
@@ -29,6 +28,9 @@ const client = new ApiClient({
   },
   v1: {
     endpoint: env.API_V1
+  },
+  translations: {
+    endpoint: env.TRANSLATIONS
   }
 });
 
@@ -109,7 +111,7 @@ addDecorator(storyFn => {
   return (
     <div>
       <ApiContext.Provider value={client}>
-        <IntlProvider locale="en" messages={en}>
+        <LocaleProvider locale="da" >
           <ThemeContext.Provider
             value={chooseTheme(
               select(
@@ -131,7 +133,7 @@ addDecorator(storyFn => {
               </RouteContext.Provider>
             </Root>
           </ThemeContext.Provider>
-        </IntlProvider>
+        </LocaleProvider>
       </ApiContext.Provider>
     </div>
   )

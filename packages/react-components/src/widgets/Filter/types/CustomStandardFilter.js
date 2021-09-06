@@ -27,13 +27,13 @@ export const FilterContent = ({ config, translations, LabelFromID, hide, labelle
     onApply={onApply}
     onCancel={onCancel}
     title={<FormattedMessage
-      id={translations?.name || `filter.${filterHandle}.name`}
+      id={translations?.name || `components.filters.${filterHandle}.name`}
       defaultMessage={translations?.name}
     />}
     hasHelpTexts={config.hasOptionDescriptions}
     supportsExist={config.supportsExist}
     aboutText={translations.description && <FormattedMessage
-      id={translations.description || `filter.${filterHandle}.description`}
+      id={translations.description || `components.filters.${filterHandle}.description`}
       defaultMessage={translations.description}
     />}
     supportsExist={config.supportsExist}

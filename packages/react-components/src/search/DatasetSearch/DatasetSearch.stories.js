@@ -65,7 +65,7 @@ const filters = {
         id2labelHandle: 'elevation',
         translations: {
           count: 'filter.elevation.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.elevation.name',// translation path to a title for the popover and the button
+          name: 'filters.elevation.name',// translation path to a title for the popover and the button
           description: 'filter.elevation.description', // translation path for the filter description
         }
       },

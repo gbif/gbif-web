@@ -41,7 +41,7 @@ const defaultTableConfig = {
       width: 'wide'
     },
     {
-      trKey: 'filter.code.name',
+      trKey: 'components.filters.code.name',
       value: {
         filterKey: 'code',
         key: 'code',
@@ -49,7 +49,7 @@ const defaultTableConfig = {
       }
     },
     {
-      trKey: 'filter.country.name',
+      trKey: 'components.filters.country.name',
       value: {
         filterKey: 'country',
         key: 'key',
@@ -61,7 +61,7 @@ const defaultTableConfig = {
       }
     },
     {
-      trKey: 'filter.city.name',
+      trKey: 'components.filters.city.name',
       value: {
         filterKey: 'city',
         key: 'key',
@@ -70,7 +70,7 @@ const defaultTableConfig = {
       }
     },
     {
-      trKey: 'tableHeaders.occurrences',
+      trKey: 'components.tableHeaders.occurrences',
       value: {
         key: 'occurrenceCount',
         formatter: (value, item) => <FormattedNumber value={value} />,

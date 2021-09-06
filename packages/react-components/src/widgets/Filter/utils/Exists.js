@@ -28,7 +28,7 @@ const Exists = ({ footerProps, setFullField, filterHandle, onApply, onCancel, fi
         onChange={() => {
           setFullField(filterHandle, [{type: 'isNotNull'}], []);
         }}
-        label={<FormattedMessage id={'nullOrNot.isNotNull'}/>}
+        label={<FormattedMessage id={'components.filterSupport.nullOrNot.isNotNull'}/>}
       />
       <Option
         isRadio
@@ -36,7 +36,7 @@ const Exists = ({ footerProps, setFullField, filterHandle, onApply, onCancel, fi
         onChange={() => {
           setFullField(filterHandle, [], [{type: 'isNotNull'}]);
         }}
-        label={<FormattedMessage id={'nullOrNot.isNull'}/>}
+        label={<FormattedMessage id={'components.filterSupport.nullOrNot.isNull'}/>}
       />
     </FilterBody>
     <Footer {...footerProps}
