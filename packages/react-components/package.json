@@ -15,7 +15,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook -o ./dist",
-    "build-client": "npm run build-storybook; npm run build; npx gulp; npx gzipper compress --brotli --include js,css,html,txt,json,map ./dist",
+    "build-client": "npm run build-storybook; npm run build; node locales/build; npx gulp; npx gzipper compress --brotli --include js,css,html,txt,json,map ./dist",
     "generate": "npx plop --plopfile ./tools/plopfile.js",
     "add-component": "npm run generate component",
     "add-range-filter": "npm run generate rangeFilter",
