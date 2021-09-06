@@ -1,5 +1,6 @@
 {
-  "en": "en.json?v=bbb",
-  "developer": "developer.json?v=ccc",
-  "da": "de-MOCK.json?v=ddd"
+  "developer": "developer.json?v=af75359da63faad00b70184130193c2ef92771ee",
+  "en-DK": "de-MOCK.json?v=sdf",
+  "en": "en.json?v=af75359da63faad00b70184130193c2ef92771ee",
+  "da": "da.json?v=c7eadfe30fb5bc891695c6cfd679fea4805c12c9"
 }

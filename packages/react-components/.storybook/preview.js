@@ -111,7 +111,7 @@ addDecorator(storyFn => {
   return (
     <div>
       <ApiContext.Provider value={client}>
-        <LocaleProvider locale="da" >
+        <LocaleProvider locale="en" >
           <ThemeContext.Provider
             value={chooseTheme(
               select(

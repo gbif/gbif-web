@@ -36,5 +36,5 @@ function getMockText(str) {
   return pseudoloc.str(str);
 }
 
-let translatedJsonEU = mockify(enJson, undefined, 'de-MOCK');
-save(translatedJsonEU, 'de-MOCK');
+let translatedJsonEU = mockify(enJson, undefined, 'en-DK');
+save(translatedJsonEU, 'en-DK');
