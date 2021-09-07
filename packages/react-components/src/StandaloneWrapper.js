@@ -3,15 +3,13 @@ import { IntlProvider } from "react-intl";
 import PropTypes from "prop-types";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { QueryParamProvider } from 'use-query-params';
+import { LocaleProvider } from './dataManagement/LocaleProvider';
 
 import { Root } from './components';
 import ThemeContext, { lightTheme } from './style/themes';
 import { ApiContext, ApiClient } from './dataManagement/api';
+import useTranslation from './dataManagement/useTranslation';
 import env from '../.env.json';
-
-import flatten from 'flat';
-import { en as enNested } from './locales/en';
-const en = flatten(enNested);
 
 const client = new ApiClient({
   gql: {
@@ -23,20 +21,22 @@ const client = new ApiClient({
 });
 
 function StandaloneWrapper({
-  defaultBaseName, theme = lightTheme, locale = 'en', messages = en, ...props
+  defaultBaseName, theme = lightTheme, locale = 'en', messages: customMessages, ...props
 }) {
   // const defaultBaseName = typeof window !== 'undefined' ? window.location.pathname : undefined;
   return (
     <ApiContext.Provider value={client}>
-      <IntlProvider locale={locale} messages={messages}>
-        <ThemeContext.Provider value={theme}>
-          <Root id="application" appRoot>
-            <Router {...props} basename={defaultBaseName}>
-              <QueryParamProvider ReactRouterRoute={Route} {...props} />
-            </Router>
-          </Root>
-        </ThemeContext.Provider>
-      </IntlProvider>
+      <LocaleProvider locale={locale}>
+        {/* <IntlProvider locale={locale} messages={customMessages || messages}> */}
+          <ThemeContext.Provider value={theme}>
+            <Root id="application" appRoot>
+              <Router {...props} basename={defaultBaseName}>
+                <QueryParamProvider ReactRouterRoute={Route} {...props} />
+              </Router>
+            </Root>
+          </ThemeContext.Provider>
+        {/* </IntlProvider> */}
+      </LocaleProvider>
     </ApiContext.Provider>
   );
 }

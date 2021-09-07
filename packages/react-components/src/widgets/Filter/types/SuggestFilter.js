@@ -25,7 +25,7 @@ export const FilterContent = ({ config, translations, labelledById, LabelFromID,
   const Label = config.LabelFromID || LabelFromID;
 
   const aboutText = translations.description && <FormattedMessage
-    id={translations.description || `filter.${filterHandle}.description`}
+    id={translations.description || `filters.${filterHandle}.description`}
     defaultMessage={translations.description}
   />;
 
@@ -34,7 +34,7 @@ export const FilterContent = ({ config, translations, labelledById, LabelFromID,
     onApply={onApply}
     onCancel={onCancel}
     title={<FormattedMessage
-      id={translations?.name || `filter.${filterHandle}.name`}
+      id={translations?.name || `filters.${filterHandle}.name`}
       defaultMessage={translations?.name}
     />}
     aboutText={aboutText}

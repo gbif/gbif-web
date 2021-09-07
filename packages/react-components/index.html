@@ -34,10 +34,17 @@
       //   ),
       //   document.getElementById('root')
       // );
+      const messages = {
+        'filter.publisherKey.name': 'test danish name'
+      };
       ReactDOM.render(
         React.createElement(
           gbifReactComponents.DatasetSearch,
-          { config: {rootPredicate: {type: 'CHECKLIST'}}, style: { height: 'calc(100vh - 20px)' } }
+          { 
+            config: {rootPredicate: {type: 'CHECKLIST'}}, style: { height: 'calc(100vh - 20px)' },
+            locale: 'de-ch',
+            // messages: messages
+          }
         ),
         document.getElementById('root')
       );

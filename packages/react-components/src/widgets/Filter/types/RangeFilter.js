@@ -27,11 +27,11 @@ export const FilterContent = ({ config = {}, translations, labelledById, LabelFr
   return <Filter
     labelledById={labelledById}
     title={<FormattedMessage
-      id={translations?.name || `filter.${filterHandle}.name`}
+      id={translations?.name || `filters.${filterHandle}.name`}
       defaultMessage={translations?.name}
     />}
     aboutText={translations.description && <FormattedMessage
-      id={translations.description || `filter.${filterHandle}.description`}
+      id={translations.description || `filters.${filterHandle}.description`}
       defaultMessage={translations.description}
     />}
     onFilterChange={onFilterChange}
@@ -83,21 +83,21 @@ export const FilterContent = ({ config = {}, translations, labelledById, LabelFr
                 let helpText;
                 if (option.type === 'equals') {
                   helpText = <FormattedMessage
-                    id={`interval.description.e`}
+                    id={`intervals.description.e`}
                     defaultMessage={'Filter name'}
                     values={{ is: option.value }}
                   />
                 } else {
                   helpText = <>
                     {option?.value && option?.value[lowerBound] && <FormattedMessage
-                      id={`interval.description.${lowerBound}`}
+                      id={`intervals.description.${lowerBound}`}
                       defaultMessage={'Filter name'}
                       values={{ from: option?.value[lowerBound] }}
                     />
                     }
                     {option?.value && option?.value[upperBound] && option?.value[lowerBound] && <>.&nbsp;</>}
                     {option?.value && option?.value[upperBound] && <FormattedMessage
-                      id={`interval.description.${upperBound}`}
+                      id={`intervals.description.${upperBound}`}
                       defaultMessage={'Filter name'}
                       values={{ to: option?.value[upperBound] }}
                     />

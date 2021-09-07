@@ -48,7 +48,7 @@ export const GalleryPresentation = ({ first, prev, next, size, from, data, total
     <DetailsDrawer href={`https://www.gbif.org/occurrence/${activeItem?.key}`} dialog={dialog} nextItem={nextItem} previousItem={previousItem}>
       <OccurrenceSidebar id={activeItem?.key} defaultTab='images' style={{ maxWidth: '100%', width: 700, height: '100%' }} onCloseRequest={() => dialog.setVisible(false)} />
     </DetailsDrawer>
-    <ViewHeader message="nResultsWithImages" loading={loading} total={total}/>
+    <ViewHeader message="counts.nResultsWithImages" loading={loading} total={total}/>
     <div css={css.paper({theme})}>
       <GalleryTiles>
         {items.map((item, index) => {

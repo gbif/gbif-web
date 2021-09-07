@@ -1,19 +1,19 @@
 import React from 'react';
 import { Input } from '../../components';
-import basisofRecord from '../../locales/enums/basisOfRecord.json';
-import mediaType from '../../locales/enums/mediaType.json';
-import occurrenceIssue from '../../locales/enums/occurrenceIssue.json';
-import typeStatus from '../../locales/enums/typeStatus.json';
-import license from '../../locales/enums/license.json';
-import month from '../../locales/enums/month.json';
-import continent from '../../locales/enums/continent.json';
-import protocol from '../../locales/enums/protocol.json';
-import establishmentMeans from '../../locales/enums/establishmentMeans.json';
-import occurrenceStatus from '../../locales/enums/occurrenceStatus.json';
-import isInCluster from '../../locales/enums/isInCluster.json';
-import datasetType from '../../locales/enums/datasetType.json';
-import datasetSubtype from '../../locales/enums/datasetSubtype.json';
-import literatureType from '../../locales/enums/literatureType.json';
+
+import basisofRecord from '../../enums/basic/basisOfRecord.json';
+import mediaType from '../../enums/basic/mediaType.json';
+import occurrenceIssue from '../../enums/basic/occurrenceIssue.json';
+import typeStatus from '../../enums/basic/typeStatus.json';
+import license from '../../enums/basic/license.json';
+import month from '../../enums/basic/month.json';
+import continent from '../../enums/basic/continent.json';
+import endpointType from '../../enums/basic/endpointType.json';
+import establishmentMeans from '../../enums/basic/establishmentMeans.json';
+import occurrenceStatus from '../../enums/basic/occurrenceStatus.json';
+import datasetType from '../../enums/basic/datasetType.json';
+import datasetSubtype from '../../enums/basic/datasetSubtype.json';
+import literatureType from '../../enums/cms/literatureType.json';
 // -- Add imports above this line (required by plopfile.js) --
 
 export const commonFilters = {
@@ -24,9 +24,9 @@ export const commonFilters = {
         filterHandle: 'taxonKey',// if nothing else provided, then this is the filterName used
         id2labelHandle: 'canonicalName',
         translations: {
-          count: 'filter.taxonKey.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.taxonKey.name',// translation path to a title for the popover and the button
-          description: 'filter.taxonKey.description', // translation path for the filter description
+          count: 'filters.taxonKey.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.taxonKey.name',// translation path to a title for the popover and the button
+          description: 'filters.taxonKey.description', // translation path for the filter description
         },
       },
       specific: {
@@ -41,9 +41,9 @@ export const commonFilters = {
       std: {
         id2labelHandle: 'countryCode',
         translations: {
-          count: 'filter.occurrenceCountry.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.occurrenceCountry.name',// translation path to a title for the popover and the button
-          description: 'filter.occurrenceCountry.description', // translation path for the filter description
+          count: 'filters.occurrenceCountry.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.occurrenceCountry.name',// translation path to a title for the popover and the button
+          description: 'filters.occurrenceCountry.description', // translation path for the filter description
         },
       },
       specific: {
@@ -57,9 +57,9 @@ export const commonFilters = {
       std: {
         id2labelHandle: 'countryCode',
         translations: {
-          count: 'filter.occurrenceCountry.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.occurrenceCountry.name',// translation path to a title for the popover and the button
-          description: 'filter.occurrenceCountry.description', // translation path for the filter description
+          count: 'filters.occurrenceCountry.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.occurrenceCountry.name',// translation path to a title for the popover and the button
+          description: 'filters.occurrenceCountry.description', // translation path for the filter description
         },
       },
       specific: {
@@ -74,9 +74,9 @@ export const commonFilters = {
       std: {
         id2labelHandle: 'countryCode',
         translations: {
-          count: 'filter.countriesOfCoverage.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.countriesOfCoverage.name',// translation path to a title for the popover and the button
-          description: 'filter.countriesOfCoverage.description', // translation path for the filter description
+          count: 'filters.countriesOfCoverage.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.countriesOfCoverage.name',// translation path to a title for the popover and the button
+          description: 'filters.countriesOfCoverage.description', // translation path for the filter description
         },
       },
       specific: {
@@ -90,9 +90,9 @@ export const commonFilters = {
       std: {
         id2labelHandle: 'countryCode',
         translations: {
-          count: 'filter.countriesOfResearcher.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.countriesOfResearcher.name',// translation path to a title for the popover and the button
-          description: 'filter.countriesOfResearcher.description', // translation path for the filter description
+          count: 'filters.countriesOfResearcher.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.countriesOfResearcher.name',// translation path to a title for the popover and the button
+          description: 'filters.countriesOfResearcher.description', // translation path for the filter description
         },
       },
       specific: {
@@ -106,9 +106,9 @@ export const commonFilters = {
       std: {
         id2labelHandle: 'countryCode',
         translations: {
-          count: 'filter.publishingCountryCode.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.publishingCountryCode.name',// translation path to a title for the popover and the button
-          description: 'filter.publishingCountryCode.description', // translation path for the filter description
+          count: 'filters.publishingCountryCode.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.publishingCountryCode.name',// translation path to a title for the popover and the button
+          description: 'filters.publishingCountryCode.description', // translation path for the filter description
         },
       },
       specific: {
@@ -121,9 +121,9 @@ export const commonFilters = {
     config: {
       std: {
         translations: {
-          count: 'filter.datasetKey.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.datasetKey.name',// translation path to a title for the popover and the button
-          description: 'filter.datasetKey.description', // translation path for the filter description
+          count: 'filters.datasetKey.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.datasetKey.name',// translation path to a title for the popover and the button
+          description: 'filters.datasetKey.description', // translation path for the filter description
         },
       },
       specific: {
@@ -136,9 +136,9 @@ export const commonFilters = {
     config: {
       std: {
         translations: {
-          count: 'filter.publisherKey.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.publisherKey.name',// translation path to a title for the popover and the button
-          description: 'filter.publisherKey.description', // translation path for the filter description
+          count: 'filters.publisherKey.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.publisherKey.name',// translation path to a title for the popover and the button
+          description: 'filters.publisherKey.description', // translation path for the filter description
         },
       },
       specific: {
@@ -151,9 +151,9 @@ export const commonFilters = {
     config: {
       std: {
         translations: {
-          count: 'filter.institutionCode.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.institutionCode.name',// translation path to a title for the popover and the button
-          description: 'filter.institutionCode.description', // translation path for the filter description
+          count: 'filters.institutionCode.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.institutionCode.name',// translation path to a title for the popover and the button
+          description: 'filters.institutionCode.description', // translation path for the filter description
         },
       },
       specific: {
@@ -166,9 +166,9 @@ export const commonFilters = {
     config: {
       std: {
         translations: {
-          count: 'filter.catalogNumber.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.catalogNumber.name',// translation path to a title for the popover and the button
-          description: 'filter.catalogNumber.description', // translation path for the filter description
+          count: 'filters.catalogNumber.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.catalogNumber.name',// translation path to a title for the popover and the button
+          description: 'filters.catalogNumber.description', // translation path for the filter description
         },
       },
       specific: {
@@ -182,9 +182,9 @@ export const commonFilters = {
       std: {
         id2labelHandle: 'publisherKey',
         translations: {
-          count: 'filter.hostingOrganizationKey.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.hostingOrganizationKey.name',// translation path to a title for the popover and the button
-          description: 'filter.hostingOrganizationKey.description', // translation path for the filter description
+          count: 'filters.hostingOrganizationKey.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.hostingOrganizationKey.name',// translation path to a title for the popover and the button
+          description: 'filters.hostingOrganizationKey.description', // translation path for the filter description
         },
       },
       specific: {
@@ -200,9 +200,9 @@ export const commonFilters = {
         filterHandle: 'year',
         id2labelHandle: 'year',
         translations: {
-          count: 'filter.year.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.year.name',// translation path to a title for the popover and the button
-          description: 'filter.year.description', // translation path for the filter description
+          count: 'filters.year.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.year.name',// translation path to a title for the popover and the button
+          description: 'filters.year.description', // translation path for the filter description
         }
       },
       specific: {
@@ -219,13 +219,13 @@ export const commonFilters = {
         filterHandle: 'basisOfRecord',
         id2labelHandle: 'basisOfRecord',
         translations: {
-          count: 'filter.basisOfRecord.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.basisOfRecord.name',// translation path to a title for the popover and the button
-          description: 'filter.basisOfRecord.description', // translation path for the filter description
+          count: 'filters.basisOfRecord.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.basisOfRecord.name',// translation path to a title for the popover and the button
+          description: 'filters.basisOfRecord.description', // translation path for the filter description
         }
       },
       specific: {
-        options: Object.keys(basisofRecord),
+        options: basisofRecord,
       }
     }
   },
@@ -236,13 +236,13 @@ export const commonFilters = {
         filterHandle: 'typeStatus',
         id2labelHandle: 'typeStatus',
         translations: {
-          count: 'filter.typeStatus.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.typeStatus.name',// translation path to a title for the popover and the button
-          description: 'filter.typeStatus.description', // translation path for the filter description
+          count: 'filters.typeStatus.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.typeStatus.name',// translation path to a title for the popover and the button
+          description: 'filters.typeStatus.description', // translation path for the filter description
         }
       },
       specific: {
-        options: Object.keys(typeStatus),
+        options: typeStatus,
       }
     }
   },
@@ -253,13 +253,13 @@ export const commonFilters = {
         filterHandle: 'occurrenceIssue',
         id2labelHandle: 'occurrenceIssue',
         translations: {
-          count: 'filter.occurrenceIssue.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.occurrenceIssue.name',// translation path to a title for the popover and the button
-          description: 'filter.occurrenceIssue.description', // translation path for the filter description
+          count: 'filters.occurrenceIssue.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.occurrenceIssue.name',// translation path to a title for the popover and the button
+          description: 'filters.occurrenceIssue.description', // translation path for the filter description
         }
       },
       specific: {
-        options: Object.keys(occurrenceIssue),
+        options: occurrenceIssue,
         supportsNegation: true,
         supportsExist: true
       }
@@ -272,13 +272,13 @@ export const commonFilters = {
         filterHandle: 'mediaType',
         id2labelHandle: 'mediaType',
         translations: {
-          count: 'filter.mediaType.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.mediaType.name',// translation path to a title for the popover and the button
-          description: 'filter.mediaType.description', // translation path for the filter description
+          count: 'filters.mediaType.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.mediaType.name',// translation path to a title for the popover and the button
+          description: 'filters.mediaType.description', // translation path for the filter description
         }
       },
       specific: {
-        options: Object.keys(mediaType),
+        options: mediaType,
       }
     }
   },
@@ -288,9 +288,9 @@ export const commonFilters = {
       std: {
         filterHandle: 'sampleSizeUnit',
         translations: {
-          count: 'filter.sampleSizeUnit.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.sampleSizeUnit.name',// translation path to a title for the popover and the button
-          description: 'filter.sampleSizeUnit.description', // translation path for the filter description
+          count: 'filters.sampleSizeUnit.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.sampleSizeUnit.name',// translation path to a title for the popover and the button
+          description: 'filters.sampleSizeUnit.description', // translation path for the filter description
         },
       },
       specific: {
@@ -322,13 +322,13 @@ export const commonFilters = {
         filterHandle: 'license',
         id2labelHandle: 'license',
         translations: {
-          count: 'filter.license.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.license.name',// translation path to a title for the popover and the button
-          description: 'filter.license.description', // translation path for the filter description
+          count: 'filters.license.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.license.name',// translation path to a title for the popover and the button
+          description: 'filters.license.description', // translation path for the filter description
         }
       },
       specific: {
-        options: Object.keys(license),
+        options: license,
       }
     }
   },
@@ -339,9 +339,9 @@ export const commonFilters = {
         filterHandle: 'coordinateUncertainty',
         id2labelHandle: 'coordinateUncertainty',
         translations: {
-          count: 'filter.coordinateUncertainty.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.coordinateUncertainty.name',// translation path to a title for the popover and the button
-          description: 'filter.coordinateUncertainty.description', // translation path for the filter description
+          count: 'filters.coordinateUncertainty.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.coordinateUncertainty.name',// translation path to a title for the popover and the button
+          description: 'filters.coordinateUncertainty.description', // translation path for the filter description
         }
       },
       specific: {
@@ -357,9 +357,9 @@ export const commonFilters = {
         filterHandle: 'depth',
         id2labelHandle: 'depth',
         translations: {
-          count: 'filter.depth.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.depth.name',// translation path to a title for the popover and the button
-          description: 'filter.depth.description', // translation path for the filter description
+          count: 'filters.depth.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.depth.name',// translation path to a title for the popover and the button
+          description: 'filters.depth.description', // translation path for the filter description
         }
       },
       specific: {
@@ -375,9 +375,9 @@ export const commonFilters = {
         filterHandle: 'organismQuantity',
         id2labelHandle: 'organismQuantity',
         translations: {
-          count: 'filter.organismQuantity.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.organismQuantity.name',// translation path to a title for the popover and the button
-          description: 'filter.organismQuantity.description', // translation path for the filter description
+          count: 'filters.organismQuantity.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.organismQuantity.name',// translation path to a title for the popover and the button
+          description: 'filters.organismQuantity.description', // translation path for the filter description
         }
       },
       specific: {
@@ -393,9 +393,9 @@ export const commonFilters = {
         filterHandle: 'sampleSizeValue',
         id2labelHandle: 'sampleSizeValue',
         translations: {
-          count: 'filter.sampleSizeValue.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.sampleSizeValue.name',// translation path to a title for the popover and the button
-          description: 'filter.sampleSizeValue.description', // translation path for the filter description
+          count: 'filters.sampleSizeValue.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.sampleSizeValue.name',// translation path to a title for the popover and the button
+          description: 'filters.sampleSizeValue.description', // translation path for the filter description
         }
       },
       specific: {
@@ -411,9 +411,9 @@ export const commonFilters = {
         filterHandle: 'relativeOrganismQuantity',
         id2labelHandle: 'relativeOrganismQuantity',
         translations: {
-          count: 'filter.relativeOrganismQuantity.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.relativeOrganismQuantity.name',// translation path to a title for the popover and the button
-          description: 'filter.relativeOrganismQuantity.description', // translation path for the filter description
+          count: 'filters.relativeOrganismQuantity.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.relativeOrganismQuantity.name',// translation path to a title for the popover and the button
+          description: 'filters.relativeOrganismQuantity.description', // translation path for the filter description
         }
       },
       specific: {
@@ -429,13 +429,13 @@ export const commonFilters = {
         filterHandle: 'month',
         id2labelHandle: 'month',
         translations: {
-          count: 'filter.month.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.month.name',// translation path to a title for the popover and the button
-          description: 'filter.month.description', // translation path for the filter description
+          count: 'filters.month.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.month.name',// translation path to a title for the popover and the button
+          description: 'filters.month.description', // translation path for the filter description
         }
       },
       specific: {
-        options: Object.keys(month),
+        options: month,
         supportsExist: true,
       }
     }
@@ -447,13 +447,13 @@ export const commonFilters = {
         filterHandle: 'continent',
         id2labelHandle: 'continent',
         translations: {
-          count: 'filter.continent.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.continent.name',// translation path to a title for the popover and the button
-          description: 'filter.continent.description', // translation path for the filter description
+          count: 'filters.continent.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.continent.name',// translation path to a title for the popover and the button
+          description: 'filters.continent.description', // translation path for the filter description
         }
       },
       specific: {
-        options: Object.keys(continent),
+        options: continent,
       }
     }
   },
@@ -464,13 +464,13 @@ export const commonFilters = {
         filterHandle: 'protocol',
         id2labelHandle: 'protocol',
         translations: {
-          count: 'filter.protocol.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.protocol.name',// translation path to a title for the popover and the button
-          description: 'filter.protocol.description', // translation path for the filter description
+          count: 'filters.protocol.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.protocol.name',// translation path to a title for the popover and the button
+          description: 'filters.protocol.description', // translation path for the filter description
         }
       },
       specific: {
-        options: Object.keys(protocol),
+        options: endpointType,
       }
     }
   },
@@ -481,13 +481,13 @@ export const commonFilters = {
         filterHandle: 'establishmentMeans',
         id2labelHandle: 'establishmentMeans',
         translations: {
-          count: 'filter.establishmentMeans.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.establishmentMeans.name',// translation path to a title for the popover and the button
-          description: 'filter.establishmentMeans.description', // translation path for the filter description
+          count: 'filters.establishmentMeans.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.establishmentMeans.name',// translation path to a title for the popover and the button
+          description: 'filters.establishmentMeans.description', // translation path for the filter description
         }
       },
       specific: {
-        options: Object.keys(establishmentMeans),
+        options: establishmentMeans,
       }
     }
   },
@@ -498,9 +498,9 @@ export const commonFilters = {
         filterHandle: 'catalogNumber',// if nothing else provided, then this is the filterName used
         id2labelHandle: 'catalogNumber',
         translations: {
-          count: 'filter.catalogNumber.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.catalogNumber.name',// translation path to a title for the popover and the button
-          description: 'filter.catalogNumber.description', // translation path for the filter description
+          count: 'filters.catalogNumber.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.catalogNumber.name',// translation path to a title for the popover and the button
+          description: 'filters.catalogNumber.description', // translation path for the filter description
         },
       },
       specific: {
@@ -516,9 +516,9 @@ export const commonFilters = {
         filterHandle: 'recordedBy',// if nothing else provided, then this is the filterName used
         id2labelHandle: 'recordedBy',
         translations: {
-          count: 'filter.recordedBy.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.recordedBy.name',// translation path to a title for the popover and the button
-          description: 'filter.recordedBy.description', // translation path for the filter description
+          count: 'filters.recordedBy.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.recordedBy.name',// translation path to a title for the popover and the button
+          description: 'filters.recordedBy.description', // translation path for the filter description
         },
       },
       specific: {
@@ -552,9 +552,9 @@ export const commonFilters = {
         filterHandle: 'recordNumber',// if nothing else provided, then this is the filterName used
         id2labelHandle: 'recordNumber',
         translations: {
-          count: 'filter.recordNumber.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.recordNumber.name',// translation path to a title for the popover and the button
-          description: 'filter.recordNumber.description', // translation path for the filter description
+          count: 'filters.recordNumber.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.recordNumber.name',// translation path to a title for the popover and the button
+          description: 'filters.recordNumber.description', // translation path for the filter description
         },
       },
       specific: {
@@ -570,9 +570,9 @@ export const commonFilters = {
         filterHandle: 'collectionCode',
         id2labelHandle: 'collectionCode',
         translations: {
-          count: 'filter.collectionCode.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.collectionCode.name',// translation path to a title for the popover and the button
-          description: 'filter.collectionCode.description', // translation path for the filter description
+          count: 'filters.collectionCode.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.collectionCode.name',// translation path to a title for the popover and the button
+          description: 'filters.collectionCode.description', // translation path for the filter description
         },
       },
       specific: {
@@ -587,9 +587,9 @@ export const commonFilters = {
         filterHandle: 'recordedById',
         id2labelHandle: 'recordedById',
         translations: {
-          count: 'filter.recordedById.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.recordedById.name',// translation path to a title for the popover and the button
-          description: 'filter.recordedById.description', // translation path for the filter description
+          count: 'filters.recordedById.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.recordedById.name',// translation path to a title for the popover and the button
+          description: 'filters.recordedById.description', // translation path for the filter description
         },
       },
       specific: {
@@ -605,9 +605,9 @@ export const commonFilters = {
         filterHandle: 'identifiedById',
         id2labelHandle: 'identifiedById',
         translations: {
-          count: 'filter.identifiedById.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.identifiedById.name',// translation path to a title for the popover and the button
-          description: 'filter.identifiedById.description', // translation path for the filter description
+          count: 'filters.identifiedById.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.identifiedById.name',// translation path to a title for the popover and the button
+          description: 'filters.identifiedById.description', // translation path for the filter description
         },
       },
       specific: {
@@ -622,9 +622,9 @@ export const commonFilters = {
         filterHandle: 'occurrenceId',
         id2labelHandle: 'occurrenceId',
         translations: {
-          count: 'filter.occurrenceId.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.occurrenceId.name',// translation path to a title for the popover and the button
-          description: 'filter.occurrenceId.description', // translation path for the filter description
+          count: 'filters.occurrenceId.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.occurrenceId.name',// translation path to a title for the popover and the button
+          description: 'filters.occurrenceId.description', // translation path for the filter description
         },
       },
       specific: {
@@ -639,9 +639,9 @@ export const commonFilters = {
         filterHandle: 'organismId',
         id2labelHandle: 'organismId',
         translations: {
-          count: 'filter.organismId.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.organismId.name',// translation path to a title for the popover and the button
-          description: 'filter.organismId.description', // translation path for the filter description
+          count: 'filters.organismId.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.organismId.name',// translation path to a title for the popover and the button
+          description: 'filters.organismId.description', // translation path for the filter description
         },
       },
       specific: {
@@ -656,9 +656,9 @@ export const commonFilters = {
         filterHandle: 'locality',
         id2labelHandle: 'locality',
         translations: {
-          count: 'filter.locality.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.locality.name',// translation path to a title for the popover and the button
-          description: 'filter.locality.description', // translation path for the filter description
+          count: 'filters.locality.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.locality.name',// translation path to a title for the popover and the button
+          description: 'filters.locality.description', // translation path for the filter description
         },
       },
       specific: {
@@ -689,9 +689,9 @@ export const commonFilters = {
         filterHandle: 'waterBody',
         id2labelHandle: 'waterBody',
         translations: {
-          count: 'filter.waterBody.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.waterBody.name',// translation path to a title for the popover and the button
-          description: 'filter.waterBody.description', // translation path for the filter description
+          count: 'filters.waterBody.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.waterBody.name',// translation path to a title for the popover and the button
+          description: 'filters.waterBody.description', // translation path for the filter description
         },
       },
       specific: {
@@ -722,9 +722,9 @@ export const commonFilters = {
         filterHandle: 'stateProvince',
         id2labelHandle: 'stateProvince',
         translations: {
-          count: 'filter.stateProvince.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.stateProvince.name',// translation path to a title for the popover and the button
-          description: 'filter.stateProvince.description', // translation path for the filter description
+          count: 'filters.stateProvince.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.stateProvince.name',// translation path to a title for the popover and the button
+          description: 'filters.stateProvince.description', // translation path for the filter description
         },
       },
       specific: {
@@ -755,9 +755,9 @@ export const commonFilters = {
         filterHandle: 'eventId',
         id2labelHandle: 'eventId',
         translations: {
-          count: 'filter.eventId.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.eventId.name',// translation path to a title for the popover and the button
-          description: 'filter.eventId.description', // translation path for the filter description
+          count: 'filters.eventId.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.eventId.name',// translation path to a title for the popover and the button
+          description: 'filters.eventId.description', // translation path for the filter description
         },
       },
       specific: {
@@ -773,9 +773,9 @@ export const commonFilters = {
         filterHandle: 'samplingProtocol',
         id2labelHandle: 'samplingProtocol',
         translations: {
-          count: 'filter.samplingProtocol.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.samplingProtocol.name',// translation path to a title for the popover and the button
-          description: 'filter.samplingProtocol.description', // translation path for the filter description
+          count: 'filters.samplingProtocol.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.samplingProtocol.name',// translation path to a title for the popover and the button
+          description: 'filters.samplingProtocol.description', // translation path for the filter description
         },
       },
       specific: {
@@ -806,9 +806,9 @@ export const commonFilters = {
         filterHandle: 'elevation',
         id2labelHandle: 'elevation',
         translations: {
-          count: 'filter.elevation.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.elevation.name',// translation path to a title for the popover and the button
-          description: 'filter.elevation.description', // translation path for the filter description
+          count: 'filters.elevation.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.elevation.name',// translation path to a title for the popover and the button
+          description: 'filters.elevation.description', // translation path for the filter description
         }
       },
       specific: {
@@ -824,13 +824,13 @@ export const commonFilters = {
           filterHandle: 'occurrenceStatus',
           id2labelHandle: 'occurrenceStatus',
           translations: {
-            count: 'filter.occurrenceStatus.count', // translation path to display names with counts. e.g. "3 scientific names"
-            name: 'filter.occurrenceStatus.name',// translation path to a title for the popover and the button
-            description: 'filter.occurrenceStatus.description', // translation path for the filter description
+            count: 'filters.occurrenceStatus.count', // translation path to display names with counts. e.g. "3 scientific names"
+            name: 'filters.occurrenceStatus.name',// translation path to a title for the popover and the button
+            description: 'filters.occurrenceStatus.description', // translation path for the filter description
           }
         },
         specific: {
-          options: Object.keys(occurrenceStatus),
+          options: occurrenceStatus,
         }
       }
     },
@@ -841,9 +841,9 @@ export const commonFilters = {
         filterHandle: 'gadmGid',
         id2labelHandle: 'gadmGid',
         translations: {
-          count: 'filter.gadmGid.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.gadmGid.name',// translation path to a title for the popover and the button
-          description: 'filter.gadmGid.description', // translation path for the filter description
+          count: 'filters.gadmGid.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.gadmGid.name',// translation path to a title for the popover and the button
+          description: 'filters.gadmGid.description', // translation path for the filter description
         },
       },
         specific: {
@@ -861,9 +861,9 @@ export const commonFilters = {
         filterHandle: 'identifiedBy',
         id2labelHandle: 'identifiedBy',
         translations: {
-          count: 'filter.identifiedBy.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.identifiedBy.name',// translation path to a title for the popover and the button
-          description: 'filter.identifiedBy.description', // translation path for the filter description
+          count: 'filters.identifiedBy.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.identifiedBy.name',// translation path to a title for the popover and the button
+          description: 'filters.identifiedBy.description', // translation path for the filter description
         },
       },
       specific: {
@@ -894,13 +894,13 @@ export const commonFilters = {
           filterHandle: 'isInCluster',
           id2labelHandle: 'isInCluster',
           translations: {
-            count: 'filter.isInCluster.count', // translation path to display names with counts. e.g. "3 scientific names"
-            name: 'filter.isInCluster.name',// translation path to a title for the popover and the button
-            description: 'filter.isInCluster.description', // translation path for the filter description
+            count: 'filters.isInCluster.count', // translation path to display names with counts. e.g. "3 scientific names"
+            name: 'filters.isInCluster.name',// translation path to a title for the popover and the button
+            description: 'filters.isInCluster.description', // translation path for the filter description
           }
         },
         specific: {
-          options: Object.keys(isInCluster),
+          options: ['true', 'false'],
           isRadio: true
         }
       }
@@ -912,13 +912,13 @@ export const commonFilters = {
           filterHandle: 'datasetType',
           id2labelHandle: 'datasetType',
           translations: {
-            count: 'filter.datasetType.count', // translation path to display names with counts. e.g. "3 scientific names"
-            name: 'filter.datasetType.name',// translation path to a title for the popover and the button
-            description: 'filter.datasetType.description', // translation path for the filter description
+            count: 'filters.datasetType.count', // translation path to display names with counts. e.g. "3 scientific names"
+            name: 'filters.datasetType.name',// translation path to a title for the popover and the button
+            description: 'filters.datasetType.description', // translation path for the filter description
           }
         },
         specific: {
-          options: Object.keys(datasetType),
+          options: datasetType,
         }
       }
     },
@@ -929,13 +929,13 @@ export const commonFilters = {
           filterHandle: 'datasetSubtype',
           id2labelHandle: 'datasetSubtype',
           translations: {
-            count: 'filter.datasetSubtype.count', // translation path to display names with counts. e.g. "3 scientific names"
-            name: 'filter.datasetSubtype.name',// translation path to a title for the popover and the button
-            description: 'filter.datasetSubtype.description', // translation path for the filter description
+            count: 'filters.datasetSubtype.count', // translation path to display names with counts. e.g. "3 scientific names"
+            name: 'filters.datasetSubtype.name',// translation path to a title for the popover and the button
+            description: 'filters.datasetSubtype.description', // translation path for the filter description
           }
         },
         specific: {
-          options: Object.keys(datasetSubtype),
+          options: datasetSubtype,
         }
       }
     },
@@ -946,9 +946,9 @@ export const commonFilters = {
         filterHandle: 'institutionKey',
         id2labelHandle: 'institutionKey',
         translations: {
-          count: 'filter.institutionKey.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.institutionKey.name',// translation path to a title for the popover and the button
-          description: 'filter.institutionKey.description', // translation path for the filter description
+          count: 'filters.institutionKey.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.institutionKey.name',// translation path to a title for the popover and the button
+          description: 'filters.institutionKey.description', // translation path for the filter description
         },
       },
         specific: {
@@ -964,9 +964,9 @@ export const commonFilters = {
         filterHandle: 'name',
         id2labelHandle: 'name',
         translations: {
-          count: 'filter.name.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.name.name',// translation path to a title for the popover and the button
-          description: 'filter.name.description', // translation path for the filter description
+          count: 'filters.name.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.name.name',// translation path to a title for the popover and the button
+          description: 'filters.name.description', // translation path for the filter description
         },
       },
       specific: {
@@ -982,9 +982,9 @@ export const commonFilters = {
         filterHandle: 'city',
         id2labelHandle: 'city',
         translations: {
-          count: 'filter.city.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.city.name',// translation path to a title for the popover and the button
-          description: 'filter.city.description', // translation path for the filter description
+          count: 'filters.city.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.city.name',// translation path to a title for the popover and the button
+          description: 'filters.city.description', // translation path for the filter description
         },
       },
       specific: {
@@ -1000,9 +1000,9 @@ export const commonFilters = {
         filterHandle: 'code',
         id2labelHandle: 'code',
         translations: {
-          count: 'filter.code.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.code.name',// translation path to a title for the popover and the button
-          description: 'filter.code.description', // translation path for the filter description
+          count: 'filters.code.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.code.name',// translation path to a title for the popover and the button
+          description: 'filters.code.description', // translation path for the filter description
         },
       },
       specific: {
@@ -1018,9 +1018,9 @@ export const commonFilters = {
         filterHandle: 'verbatimScientificName',
         id2labelHandle: 'verbatimScientificName',
         translations: {
-          count: 'filter.verbatimScientificName.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.verbatimScientificName.name',// translation path to a title for the popover and the button
-          description: 'filter.verbatimScientificName.description', // translation path for the filter description
+          count: 'filters.verbatimScientificName.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.verbatimScientificName.name',// translation path to a title for the popover and the button
+          description: 'filters.verbatimScientificName.description', // translation path for the filter description
         },
       },
       specific: {
@@ -1051,9 +1051,9 @@ export const commonFilters = {
         filterHandle: 'networkKey',
         id2labelHandle: 'networkKey',
         translations: {
-          count: 'filter.networkKey.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.networkKey.name',// translation path to a title for the popover and the button
-          description: 'filter.networkKey.description', // translation path for the filter description
+          count: 'filters.networkKey.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.networkKey.name',// translation path to a title for the popover and the button
+          description: 'filters.networkKey.description', // translation path for the filter description
         },
       },
         specific: {
@@ -1069,13 +1069,13 @@ export const commonFilters = {
           filterHandle: 'literatureType',
           id2labelHandle: 'literatureType',
           translations: {
-            count: 'filter.literatureType.count', // translation path to display names with counts. e.g. "3 scientific names"
-            name: 'filter.literatureType.name',// translation path to a title for the popover and the button
-            description: 'filter.literatureType.description', // translation path for the filter description
+            count: 'filters.literatureType.count', // translation path to display names with counts. e.g. "3 scientific names"
+            name: 'filters.literatureType.name',// translation path to a title for the popover and the button
+            description: 'filters.literatureType.description', // translation path for the filter description
           }
         },
         specific: {
-          options: Object.keys(literatureType),
+          options: literatureType,
         }
       }
     },
@@ -1086,13 +1086,13 @@ export const commonFilters = {
       std: {
         filterHandle: 'q',// if nothing else provided, then this is the filterName used
         translations: {
-          count: 'filter.q.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.q.name',// translation path to a title for the popover and the button
-          description: 'filter.q.description', // translation path for the filter description
+          count: 'filters.q.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.q.name',// translation path to a title for the popover and the button
+          description: 'filters.q.description', // translation path for the filter description
         },
       },
       specific: {
-        description: 'filter.q.description',
+        description: 'filters.q.description',
         component: ({ standardComponents, summaryProps, filterHandle, setFullField, toggle, focusRef, footerProps, onApply, filter, onCancel, hide, ...props }) => {
           const { Footer, SummaryBar, FilterBody } = standardComponents;
           return <>
@@ -1121,9 +1121,9 @@ export const commonFilters = {
   //     std: {
   //       filterHandle: 'sampleSize',// if nothing else provided, then this is the filterName used
   //       translations: {
-  //         count: 'filter.sampleSize.count', // translation path to display names with counts. e.g. "3 scientific names"
-  //         name: 'filter.sampleSize.name',// translation path to a title for the popover and the button
-  //         description: 'filter.sampleSize.description', // translation path for the filter description
+  //         count: 'filters.sampleSize.count', // translation path to display names with counts. e.g. "3 scientific names"
+  //         name: 'filters.sampleSize.name',// translation path to a title for the popover and the button
+  //         description: 'filters.sampleSize.description', // translation path for the filter description
   //       },
   //     },
   //     specific: {
@@ -1160,7 +1160,7 @@ export const commonFilters = {
   //       translations: {
   //         count: '{num, plural, one {random taxon} other {# random taxa}}', // Should really point to the translation file, but as it falls back to the string it can be used as the main entry
   //         name: 'Randomizer',// translation path to a title for the popover and the button - in this case the path does not exist and so it falls back to the string provided
-  //         description: 'filter.random.description', // translation path for the filter description
+  //         description: 'filters.random.description', // translation path for the filter description
   //       },
   //     },
   //     specific: {

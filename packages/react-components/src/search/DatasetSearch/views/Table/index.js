@@ -36,7 +36,7 @@ const defaultTableConfig = {
       width: 'wide'
     },
     {
-      trKey: 'filter.publisherKey.name',
+      trKey: 'filters.publisherKey.name',
       filterKey: 'publisherKey', // optional
       value: {
         key: 'publishingOrganizationKey',
@@ -45,7 +45,7 @@ const defaultTableConfig = {
       width: 'wide'
     },
     {
-      trKey: 'filter.datasetType.name',
+      trKey: 'filters.datasetType.name',
       filterKey: 'datasetType',
       value: {
         key: 'type',
@@ -53,7 +53,7 @@ const defaultTableConfig = {
       }
     },
     {
-      trKey: 'filter.datasetSubtype.name',
+      trKey: 'filters.datasetSubtype.name',
       filterKey: 'datasetSubtype',
       value: {
         key: 'subtype',

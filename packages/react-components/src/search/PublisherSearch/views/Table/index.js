@@ -29,7 +29,7 @@ query list($networkKey: ID, $country: Country, $q: String, $offset: Int, $limit:
 const defaultTableConfig = {
   columns: [
     {
-      trKey: 'filter.publisherKey.name',
+      trKey: 'filters.publisherKey.name',
       value: {
         key: 'title',
         formatter: (value, item) => <PublisherKeyLink discreet id={item.key}>{value}</PublisherKeyLink>,
@@ -38,7 +38,7 @@ const defaultTableConfig = {
       filterKey: 'q'
     },
     {
-      trKey: 'filter.publishingCountryCode.name',
+      trKey: 'filters.publishingCountryCode.name',
       value: {
         key: 'country',
         labelHandle: 'countryCode',

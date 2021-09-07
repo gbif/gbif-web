@@ -75,11 +75,11 @@ console.log(size);
   return <Filter
     labelledById={false}
     title={<FormattedMessage
-      id={translations?.name || `filter.${filterHandle}.name`}
+      id={translations?.name || `filters.${filterHandle}.name`}
       defaultMessage={translations?.name}
     />}
     aboutText={translations.description && <FormattedMessage
-      id={translations.description || `filter.${filterHandle}.description`}
+      id={translations.description || `filters.${filterHandle}.description`}
       defaultMessage={translations.description}
     />}
     onFilterChange={onFilterChange}

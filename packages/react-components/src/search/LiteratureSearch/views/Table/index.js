@@ -84,7 +84,7 @@ const defaultTableConfig = {
       }
     },
     {
-      trKey: 'filter.literatureType.name',
+      trKey: 'filters.literatureType.name',
       value: {
         key: 'literatureType',
         labelHandle: 'literatureType',
@@ -92,7 +92,7 @@ const defaultTableConfig = {
       }
     },
     {
-      trKey: 'filter.year.name',
+      trKey: 'filters.year.name',
       value: {
         filterKey: 'year',
         key: 'year',

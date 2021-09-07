@@ -55,7 +55,7 @@ export function DatasetPresentation({
   return <>
     <div css={css.headerWrapper({ theme })}>
       <div css={css.proseWrapper({ theme })}>
-        <Eyebrow prefix={<FormattedMessage id={`components.dataset.longType.${dataset.type}`} />} suffix={<FormattedMessage id="components.dataset.registeredDate" values={{ DATE: <FormattedDate value={dataset.created} year="numeric" month="long" day="2-digit" /> }} />} />
+        <Eyebrow prefix={<FormattedMessage id={`dataset.longType.${dataset.type}`} />} suffix={<FormattedMessage id="dataset.registeredDate" values={{ DATE: <FormattedDate value={dataset.created} year="numeric" month="long" day="2-digit" /> }} />} />
         <h1>{dataset.title}</h1>
         <div>
           From <a href={`/publisher/${dataset.publishingOrganizationKey}`}>{dataset.publishingOrganizationTitle}</a>

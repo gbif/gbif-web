@@ -126,4 +126,4 @@ Example.story = {
 };
 
 
-export const StandaloneExample = () => <Standalone style={{height: 'calc(100vh - 20px)'}}></Standalone>;
+export const StandaloneExample = () => <Standalone locale="en" style={{height: 'calc(100vh - 20px)'}}></Standalone>;

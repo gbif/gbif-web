@@ -1,0 +1,10 @@
+{
+  "nullOrNot": {
+    "isNotNull": "Must be defined",
+    "isNull": "Must not be defined"
+  },
+  "invalidValue": "Invalid value",
+  "aboutThisFilter": "About this filter",
+  "existence": "Filter for existence",
+  "showHelp": "Show help text"
+}

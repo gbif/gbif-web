@@ -41,7 +41,7 @@ const defaultTableConfig = {
       width: 'wide'
     },
     {
-      trKey: 'filter.code.name',
+      trKey: 'filters.code.name',
       value: {
         filterKey: 'code',
         key: 'code',
@@ -49,7 +49,7 @@ const defaultTableConfig = {
       }
     },
     {
-      trKey: 'filter.country.name',
+      trKey: 'filters.country.name',
       value: {
         filterKey: 'country',
         key: 'key',
@@ -61,7 +61,7 @@ const defaultTableConfig = {
       }
     },
     {
-      trKey: 'filter.city.name',
+      trKey: 'filters.city.name',
       value: {
         filterKey: 'city',
         key: 'key',

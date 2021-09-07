@@ -1,5 +1,5 @@
 // this comment tells babel to convert jsx to calls to a function called jsx instead of React.createElement
-import React, { useState, useContext } from 'react';
+import React, { useMemo, useContext } from 'react';
 import { useIntl } from 'react-intl';
 import Layout from './StandardSearchLayout';
 import { FilterState } from "../widgets/Filter/state";
@@ -15,14 +15,14 @@ function Search({ config: customConfig = {}, predicateConfig, defaultFilterConfi
   const theme = useContext(ThemeContext);
   const [filter, setFilter] = useQueryParam('filter', Base64JsonParam);
   const apiContext = useContext(ApiContext);
-  const { formatMessage } = useIntl();
-  const [config] = useState(() => {
+  const intl = useIntl();
+  const config = useMemo(() => {
     return buildConfig({
       customConfig,
       predicateConfig,
       defaultFilterConfig
-    }, { client: apiContext, formatMessage });
-  });
+    }, { client: apiContext, formatMessage: intl.formatMessage });
+  }, [apiContext, intl]);
   
   return (
     <Root dir={theme.dir}>
