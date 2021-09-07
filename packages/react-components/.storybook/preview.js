@@ -7,7 +7,6 @@ import { LocaleProvider } from "../src/dataManagement/LocaleProvider";
 
 import { Root } from '../src/components';
 import gbifTheme from './theme';
-import en from '../locales/dist/en.json';
 
 import ThemeContext, { darkTheme, lightTheme, a11yTheme, vertnetTheme, rtlTheme } from '../src/style/themes';
 import ThemeBuilder from '../src/style/themeBuilder';
@@ -119,7 +118,7 @@ addDecorator(storyFn => {
               select(
                 'Choose locale',
                 ['en-DK', 'en-ZZ', 'en', 'da'],
-                'en-ZZ',
+                env.STORYBOOK_LOCALE || 'en-DK',
               ),
             )} >
           <ThemeContext.Provider
