@@ -1,0 +1,9 @@
+{
+  "tabs": {
+    "table": "Table",
+    "gallery": "Gallery",
+    "map": "Map",
+    "datasets": "Datasets",
+    "download": "Download"
+  }
+}

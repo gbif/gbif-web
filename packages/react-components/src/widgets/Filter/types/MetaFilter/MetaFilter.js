@@ -93,7 +93,7 @@ export function Popover({ config, ...props }) {
 export function Trigger(props) {
   return <Popover modal>
     <Button appearance="primaryOutline">
-      <FormattedMessage id="components.pagination.moreFilters" />
+      <FormattedMessage id="pagination.moreFilters" />
     </Button>
   </Popover>
 }

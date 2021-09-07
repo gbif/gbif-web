@@ -109,7 +109,7 @@ class DataTableCore extends Component {
             </Button>}
             {total > 0 && <span css={styles.footerText({ theme })}>
               <FormattedMessage
-                id='components.pagination.pageXofY'
+                id='pagination.pageXofY'
                 defaultMessage={'Loading'}
                 values={{ current: <FormattedNumber value={page} />, total: <FormattedNumber value={totalPages} /> }}
               />

@@ -1,7 +1,7 @@
 // this comment tells babel to convert jsx to calls to a function called jsx instead of React.createElement
 
 import { jsx } from '@emotion/react';
-import React, { useState, useContext } from 'react';
+import React, { useState, useMemo, useContext } from 'react';
 import { useIntl, FormattedNumber } from 'react-intl';
 import PropTypes from 'prop-types';
 import Layout from './Layout';
@@ -30,7 +30,7 @@ import without from 'lodash/without';
 const tableConfig = {
   columns: [
     {
-      trKey: 'components.filters.taxonKey.name',
+      trKey: 'filters.taxonKey.name',
       filterKey: 'taxonKey', // optional
       value: {
         key: 'gbifClassification.usage.formattedName',
@@ -39,26 +39,26 @@ const tableConfig = {
       width: 'wide'
     },
     {
-      trKey: 'components.tableHeaders.features',
+      trKey: 'tableHeaders.features',
       value: {
         key: 'features',
         formatter: (value, occurrence) => {
           return <IconFeatures iconsOnly
-          stillImageCount={occurrence.stillImageCount}
-          movingImageCount={occurrence.movingImageCount}
-          soundCount={occurrence.soundCount}
-          typeStatus={occurrence.typeStatus}
-          isSequenced={occurrence.volatile.features.isSequenced}
-          isTreament={occurrence.volatile.features.isTreament}
-          isClustered={occurrence.volatile.features.isClustered}
-          isSamplingEvent={occurrence.volatile.features.isSamplingEvent}
-          issueCount={occurrence?.issues?.length}
-        />
+            stillImageCount={occurrence.stillImageCount}
+            movingImageCount={occurrence.movingImageCount}
+            soundCount={occurrence.soundCount}
+            typeStatus={occurrence.typeStatus}
+            isSequenced={occurrence.volatile.features.isSequenced}
+            isTreament={occurrence.volatile.features.isTreament}
+            isClustered={occurrence.volatile.features.isClustered}
+            isSamplingEvent={occurrence.volatile.features.isSamplingEvent}
+            issueCount={occurrence?.issues?.length}
+          />
         }
       }
     },
     {
-      trKey: 'components.filters.occurrenceCountry.name',
+      trKey: 'filters.occurrenceCountry.name',
       filterKey: 'country', //optional
       value: {
         key: 'countryCode',
@@ -66,7 +66,7 @@ const tableConfig = {
       }
     },
     {
-      trKey: 'components.filters.coordinates.name',
+      trKey: 'filters.coordinates.name',
       value: {
         key: 'formattedCoordinates',
         // formatter: (value, occurrence) => {
@@ -79,14 +79,14 @@ const tableConfig = {
       noWrap: true
     },
     {
-      trKey: 'components.filters.year.name',
+      trKey: 'filters.year.name',
       filterKey: 'year', //optional
       value: {
         key: 'year'
       }
     },
     {
-      trKey: 'components.filters.basisOfRecord.name',
+      trKey: 'filters.basisOfRecord.name',
       filterKey: 'basisOfRecord', //optional
       value: {
         key: 'basisOfRecord',
@@ -94,7 +94,7 @@ const tableConfig = {
       }
     },
     {
-      trKey: 'components.filters.datasetKey.name',
+      trKey: 'filters.datasetKey.name',
       filterKey: 'datasetKey', //optional
       value: {
         key: 'datasetTitle',
@@ -105,10 +105,11 @@ const tableConfig = {
 };
 
 function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, customConfig }, context) {
-  const { 
-    labels = {}, 
-    getSuggests = () => ({}), 
-    filters: customFilters = {}, 
+  console.log('build config');
+  const {
+    labels = {},
+    getSuggests = () => ({}),
+    filters: customFilters = {},
     adapters = {} } = customConfig;
   const mergedLabels = { ...labelConfig, ...labels };
   const mergedFilters = { ...filterWidgetConfig, ...customFilters };
@@ -117,10 +118,10 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
   const mergedSuggest = { ...suggestConfigMap, ...suggestConfigMapCustom };
   const labelMap = config2labels(mergedLabels, context.client);
   const filters = filterBuilder({ filterWidgetConfig: mergedFilters, labelMap, suggestConfigMap: mergedSuggest, context });
-  
+
   const includedFilters = without((customConfig.includedFilters || defaultFilterConfig.included), ...(customConfig.excludedFilters || []));
   const highlightedFilters = customConfig.highlightedFilters || defaultFilterConfig.highlighted;
-  
+
   return {
     labelMap,
     suggestConfigMap,
@@ -145,20 +146,20 @@ function OccurrenceSearch({ config: customConfig = {}, ...props }) {
   // const [filter, setFilter] = useState({ must: { taxonKey: [2609958] } });
 
   const [filter, setFilter] = useQueryParam('filter', Base64JsonParam);
-  
+
   // let filter = { must: { taxonKey: [2609958] } };
   // const setFilter = () => {};
 
   const apiContext = useContext(ApiContext);
-  const { formatMessage } = useIntl();
-  const [enrichedConfig] = useState(() => {
+  const intl = useIntl();
+  const enrichedConfig = useMemo(() => {
     return buildConfig({
       labelConfig: commonLabels,
       getSuggestConfig: getCommonSuggests,
       filterWidgetConfig: commonFilters,
       customConfig
-    }, { client: apiContext, formatMessage });
-  });
+    }, { client: apiContext, formatMessage: intl.formatMessage });
+  }, [apiContext, intl]);
 
   //   console.log(`%c 
   //  ,_,

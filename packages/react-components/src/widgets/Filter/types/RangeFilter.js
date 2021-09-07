@@ -27,11 +27,11 @@ export const FilterContent = ({ config = {}, translations, labelledById, LabelFr
   return <Filter
     labelledById={labelledById}
     title={<FormattedMessage
-      id={translations?.name || `components.filters.${filterHandle}.name`}
+      id={translations?.name || `filters.${filterHandle}.name`}
       defaultMessage={translations?.name}
     />}
     aboutText={translations.description && <FormattedMessage
-      id={translations.description || `components.filters.${filterHandle}.description`}
+      id={translations.description || `filters.${filterHandle}.description`}
       defaultMessage={translations.description}
     />}
     onFilterChange={onFilterChange}
@@ -83,21 +83,21 @@ export const FilterContent = ({ config = {}, translations, labelledById, LabelFr
                 let helpText;
                 if (option.type === 'equals') {
                   helpText = <FormattedMessage
-                    id={`components.intervals.description.e`}
+                    id={`intervals.description.e`}
                     defaultMessage={'Filter name'}
                     values={{ is: option.value }}
                   />
                 } else {
                   helpText = <>
                     {option?.value && option?.value[lowerBound] && <FormattedMessage
-                      id={`components.intervals.description.${lowerBound}`}
+                      id={`intervals.description.${lowerBound}`}
                       defaultMessage={'Filter name'}
                       values={{ from: option?.value[lowerBound] }}
                     />
                     }
                     {option?.value && option?.value[upperBound] && option?.value[lowerBound] && <>.&nbsp;</>}
                     {option?.value && option?.value[upperBound] && <FormattedMessage
-                      id={`components.intervals.description.${upperBound}`}
+                      id={`intervals.description.${upperBound}`}
                       defaultMessage={'Filter name'}
                       values={{ to: option?.value[upperBound] }}
                     />

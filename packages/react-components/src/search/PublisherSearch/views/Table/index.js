@@ -29,7 +29,7 @@ query list($networkKey: ID, $country: Country, $q: String, $offset: Int, $limit:
 const defaultTableConfig = {
   columns: [
     {
-      trKey: 'components.filters.publisherKey.name',
+      trKey: 'filters.publisherKey.name',
       value: {
         key: 'title',
         formatter: (value, item) => <PublisherKeyLink discreet id={item.key}>{value}</PublisherKeyLink>,
@@ -38,7 +38,7 @@ const defaultTableConfig = {
       filterKey: 'q'
     },
     {
-      trKey: 'components.filters.publishingCountryCode.name',
+      trKey: 'filters.publishingCountryCode.name',
       value: {
         key: 'country',
         labelHandle: 'countryCode',
@@ -47,7 +47,7 @@ const defaultTableConfig = {
       filterKey: 'country'
     },
     {
-      trKey: 'components.tableHeaders.pubDatasets',
+      trKey: 'tableHeaders.pubDatasets',
       value: {
         key: 'numPublishedDatasets',
         formatter: (value, item) => <FormattedNumber value={value} />,
@@ -56,7 +56,7 @@ const defaultTableConfig = {
       }
     },
     {
-      trKey: 'components.tableHeaders.hostedDatasets',
+      trKey: 'tableHeaders.hostedDatasets',
       value: {
         key: 'hostedDataset.count',
         formatter: (value, item) => <FormattedNumber value={value} />,
@@ -65,7 +65,7 @@ const defaultTableConfig = {
       }
     },
     {
-      trKey: 'components.tableHeaders.registered',
+      trKey: 'tableHeaders.registered',
       value: {
         key: 'created',
         formatter: (value, item) => <FormattedDate value={value}

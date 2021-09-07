@@ -1,1 +1,1 @@
-<script type="text/javascript" src="https://react-components.gbif.org/lib/gbif-react-components.js?v=a2a3005af26baa4915148404b5201717"></script>
+<script type="text/javascript" src="https://react-components.gbif.org/lib/gbif-react-components.js?v=9dc567ccc21f8a037e0f6934c59d2d68"></script>

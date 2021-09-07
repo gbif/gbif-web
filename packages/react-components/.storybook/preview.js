@@ -53,6 +53,10 @@ addDecorator(storyFn => {
     return choice
   }
 
+  const chooseLocale = choice => {
+    return choice
+  }
+
   const gbifOrg = 'https://www.gbif.org';
 
   const routes = {
@@ -111,7 +115,13 @@ addDecorator(storyFn => {
   return (
     <div>
       <ApiContext.Provider value={client}>
-        <LocaleProvider locale="en-ZZ" >
+        <LocaleProvider locale={chooseLocale(
+              select(
+                'Choose locale',
+                ['en-DK', 'en-ZZ', 'en', 'da'],
+                'en-ZZ',
+              ),
+            )} >
           <ThemeContext.Provider
             value={chooseTheme(
               select(

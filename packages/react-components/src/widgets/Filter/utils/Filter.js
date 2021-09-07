@@ -43,13 +43,13 @@ function Filter({ children, title, aboutText, labelledById, hasHelpTexts, suppor
         const menuItems = (aboutText || hasHelpTexts || supportsExist) ? menuState => [
           ...aboutText ? [
             <MenuAction key="About" onClick={() => { onAboutChange(true); menuState.hide() }}>
-              <FormattedMessage id="components.filterSupport.aboutThisFilter" defaultMessage="About this filter" />
+              <FormattedMessage id="filterSupport.aboutThisFilter" defaultMessage="About this filter" />
             </MenuAction>] : [],
           ...hasHelpTexts ? [<MenuToggle key="Help" disabled={aboutVisible} style={{ opacity: aboutVisible ? .5 : 1 }} checked={!!helpVisible} onChange={() => onHelpChange(!helpVisible)}>
-            <FormattedMessage id="components.filterSupport.showHelp" defaultMessage="Show help text" />
+            <FormattedMessage id="filterSupport.showHelp" defaultMessage="Show help text" />
           </MenuToggle>] : [],
           ...supportsExist ? [<MenuToggle key="Exists" disabled={aboutVisible} style={{ opacity: aboutVisible ? .5 : 1 }} checked={!!isExistenceFilter} onChange={() => { if (isExistenceFilter) { setFullField(filterName, [], []);} onExistenceChange(!isExistenceFilter); menuState.hide() }}>
-            <FormattedMessage id="components.filterSupport.existence" defaultMessage="Filter for existence" />
+            <FormattedMessage id="filterSupport.existence" defaultMessage="Filter for existence" />
           </MenuToggle >] : [],
         ] : undefined;
 

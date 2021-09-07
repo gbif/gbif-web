@@ -13,15 +13,14 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
   let translations = _.merge(
     {},
     {
-      components: {
-        dataset: getFile(locale, `../${folder}/${locale}/components/dataset`),
-        tableHeaders: getFile(locale, `../${folder}/${locale}/components/tableHeaders`),
-        intervals: getFile(locale, `../${folder}/${locale}/components/intervals`),
-        filters: getFile(locale, `../${folder}/${locale}/components/filters`),
-        filterSupport: getFile(locale, `../${folder}/${locale}/components/filterSupport`),
-        counts: getFile(locale, `../${folder}/${locale}/components/counts`),
-        pagination: getFile(locale, `../${folder}/${locale}/components/pagination`),
-      },
+      dataset: getFile(locale, `../${folder}/${locale}/components/dataset`),
+      tableHeaders: getFile(locale, `../${folder}/${locale}/components/tableHeaders`),
+      intervals: getFile(locale, `../${folder}/${locale}/components/intervals`),
+      filters: getFile(locale, `../${folder}/${locale}/components/filters`),
+      filterSupport: getFile(locale, `../${folder}/${locale}/components/filterSupport`),
+      counts: getFile(locale, `../${folder}/${locale}/components/counts`),
+      pagination: getFile(locale, `../${folder}/${locale}/components/pagination`),
+      search: getFile(locale, `../${folder}/${locale}/components/search`),
       enums: {
         basisOfRecord: getFile(locale, `../${folder}/${locale}/enums/basisOfRecord`),
         countryCode: getFile(locale, `../${folder}/${locale}/enums/countryCode`),
