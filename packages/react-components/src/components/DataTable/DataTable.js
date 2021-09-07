@@ -40,7 +40,7 @@ export const Th = ({ children, width, toggle, locked, ...rest }) => (
       <div style={{ flex: '1 1 auto' }}>
         {children}
       </div>
-      {toggle && <Tooltip title={<span>Lock column</span>} placement="auto">
+      {toggle && <Tooltip title={<span><FormattedMessage id="search.table.lockColumn" defaultMessage="Lock column" /></span>} placement="auto">
         <Button appearance="text" onClick={toggle} style={{ display: 'flex', marginLeft: 5 }}>
           {locked ? <MdLock /> : <MdLockOpen />}
         </Button>

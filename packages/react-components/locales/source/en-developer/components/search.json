@@ -5,5 +5,8 @@
     "map": "Map",
     "datasets": "Datasets",
     "download": "Download"
+  },
+  "table": {
+    "lockColumn": "Lock column"
   }
 }
