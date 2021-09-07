@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/react';
 import React, { useContext, Component } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, FormattedNumber } from 'react-intl';
+import { useIntl, FormattedMessage, FormattedNumber } from 'react-intl';
 import { MdLock, MdLockOpen, MdChevronRight, MdChevronLeft, MdFirstPage, MdMoreVert } from "react-icons/md";
 import { Button } from '../Button';
 import { Tooltip } from '../Tooltip/Tooltip';
@@ -82,7 +82,7 @@ class DataTableCore extends Component {
   }
 
   render() {
-    const { loading, theme, children, first, prev, next, size, from, total, fixedColumn, style, ...props } = this.props;
+    const { intl, loading, theme, children, first, prev, next, size, from, total, fixedColumn, style, ...props } = this.props;
 
     const page = 1 + Math.floor(from / size);
     const totalPages = Math.ceil(total / size);
@@ -101,10 +101,10 @@ class DataTableCore extends Component {
             </table>
           </div>
           {next && <div css={styles.footer({ theme })}>
-            {first && page > 2 && <Button appearance="text" css={styles.footerItem({ theme })} direction="right" tip="first" onClick={first}>
+            {first && page > 2 && <Button appearance="text" css={styles.footerItem({ theme })} direction="right" tip={intl.formatMessage({id: 'pagination.first'})} onClick={first}>
               <MdFirstPage />
             </Button>}
-            {prev && page > 1 && <Button appearance="text" css={styles.footerItem({ theme })} direction="right" tip="previous" onClick={prev}>
+            {prev && page > 1 && <Button appearance="text" css={styles.footerItem({ theme })} direction="right" tip={intl.formatMessage({id: 'pagination.previous'})} onClick={prev}>
               <MdChevronLeft />
             </Button>}
             {total > 0 && <span css={styles.footerText({ theme })}>
@@ -114,7 +114,7 @@ class DataTableCore extends Component {
                 values={{ current: <FormattedNumber value={page} />, total: <FormattedNumber value={totalPages} /> }}
               />
             </span>}
-            {next && page < totalPages && <Button appearance="text" css={styles.footerItem({ theme })} direction="left" tip="next" onClick={next}>
+            {next && page < totalPages && <Button appearance="text" css={styles.footerItem({ theme })} direction="left" tip={intl.formatMessage({id: 'pagination.next'})} onClick={next}>
               <MdChevronRight />
             </Button>}
             {/* <Button appearance="text" css={styles.footerItem()} direction="left" tip="options">
@@ -129,7 +129,8 @@ class DataTableCore extends Component {
 
 export function DataTable(props) {
   const theme = useContext(ThemeContext)
-  return <DataTableCore theme={theme} {...props} />
+  const intl = useIntl();
+  return <DataTableCore theme={theme} intl={intl} {...props} />
 }
 
 DataTable.propTypes = {

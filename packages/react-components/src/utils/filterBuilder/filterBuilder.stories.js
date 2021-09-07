@@ -83,7 +83,7 @@ const filterWidgetConfig = {
         }
       },
       specific: {
-        placeholder: 'Range or single value'
+        placeholder: 'search.placeholders.range'
       }
     }
   },

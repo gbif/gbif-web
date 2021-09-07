@@ -92,7 +92,7 @@ function getGroup({
         {/* {groupName === "location" && !showAll && group.decimalLatitude && group.decimalLongitude && <>
           <T>
             <FormattedMessage
-              id={`ocurrenceFieldNames.coordinates`}
+              id={`occurrenceFieldNames.coordinates`}
               defaultMessage={"Coordinates"}
             />
           </T>
@@ -104,7 +104,7 @@ function getGroup({
         {groupName === "record" && !showAll && group.dynamicProperties?.verbatim && <>
           <T>
             <FormattedMessage
-              id={`ocurrenceFieldNames.dynamicProperties`}
+              id={`occurrenceFieldNames.dynamicProperties`}
               defaultMessage={"Dynamic properties"}
             />
           </T>
@@ -124,7 +124,7 @@ function getGroup({
             return <React.Fragment key={name}>
               <T>
                 <FormattedMessage
-                  id={`ocurrenceFieldNames.${name}`}
+                  id={`occurrenceFieldNames.${name}`}
                   defaultMessage={_.startCase(name)}
                 />
               </T>

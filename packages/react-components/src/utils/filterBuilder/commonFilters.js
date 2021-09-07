@@ -345,7 +345,7 @@ export const commonFilters = {
         }
       },
       specific: {
-        placeholder: 'Range or single value',
+        placeholder: 'search.placeholders.range',
         regex: /^((-)?[0-9]{0,4})(,)?((-)?[0-9]{0,4})$/
       }
     }
@@ -363,7 +363,7 @@ export const commonFilters = {
         }
       },
       specific: {
-        placeholder: 'Range or single value',
+        placeholder: 'search.placeholders.range',
         regex: /^((-)?[0-9]{0,4})(,)?((-)?[0-9]{0,4})$/
       }
     }
@@ -381,7 +381,7 @@ export const commonFilters = {
         }
       },
       specific: {
-        placeholder: 'Range or single value',
+        placeholder: 'search.placeholders.range',
         regex: /^((-)?[0-9]{0,4})(,)?((-)?[0-9]{0,4})$/
       }
     }
@@ -399,7 +399,7 @@ export const commonFilters = {
         }
       },
       specific: {
-        placeholder: 'Range or single value',
+        placeholder: 'search.placeholders.range',
         regex: /^((-)?[0-9]{0,4})(,)?((-)?[0-9]{0,4})$/
       }
     }
@@ -417,7 +417,7 @@ export const commonFilters = {
         }
       },
       specific: {
-        placeholder: 'Range or single value',
+        placeholder: 'search.placeholders.range',
         regex: /^[0-9,\.]{0,10}$/
       }
     }
@@ -812,7 +812,7 @@ export const commonFilters = {
         }
       },
       specific: {
-        placeholder: 'Range or single value',
+        placeholder: 'search.placeholders.range',
         regex: /^[0-9,\.]{0,10}$/
       }
     }

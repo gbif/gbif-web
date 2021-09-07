@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/react';
 import ThemeContext from '../../style/themes/ThemeContext';
 import React, { useContext, useState, useCallback, useEffect } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { useDialogState, Dialog } from "reakit/Dialog";
 // import PropTypes from 'prop-types';
 // import { oneOfMany } from '../../utils/util';
@@ -42,12 +43,12 @@ export const GalleryTile = ({ src, onSelect, height = 150, minWidth, children, s
       onClick={onSelect} {...props}
       title="View details"
     >
-      <Image src={src}
+      {src && <Image src={src}
         width={height}
         h={height}
         onLoad={onLoad}
         alt="Occurrence evidence"
-      />
+      />}
     </Button>
     {children}
   </div>
@@ -111,7 +112,9 @@ export const Gallery = ({
       })}
       {loading ? Array(size).fill().map((e, i) => <GalleryTileSkeleton key={i} />) : null}
       <div css={styles.more({ theme, height: 150 })}>
-        {loadMore && !loading && <Button appearance="outline" onClick={loadMore}>Load more</Button>}
+        {loadMore && !loading && <Button appearance="outline" onClick={loadMore}>
+         <FormattedMessage id="search.loadMore" defaultMessage="Load more"/>
+        </Button>}
       </div>
     </GalleryTiles>
   </>

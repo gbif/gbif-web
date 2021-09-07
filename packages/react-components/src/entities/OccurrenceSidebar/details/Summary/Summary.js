@@ -35,7 +35,7 @@ export function Summary({ occurrence, fieldGroups, loading, setActiveImage, ...p
       }
       <T>
         <FormattedMessage
-          id={`ocurrenceFieldNames.scientificName`}
+          id={`occurrenceFieldNames.scientificName`}
           defaultMessage={"Scientific Name"}
         />
       </T>
@@ -55,7 +55,7 @@ export function Summary({ occurrence, fieldGroups, loading, setActiveImage, ...p
       </V>
       {fieldGroups?.Taxon?.synonym?.value === true && fieldGroups?.Taxon?.acceptedScientificName?.value && <> <T>
         <FormattedMessage
-          id={`ocurrenceFieldNames.acceptedScientificName`}
+          id={`occurrenceFieldNames.acceptedScientificName`}
           defaultMessage={"Accepted Scientific Name"}
         />
       </T>
@@ -65,7 +65,7 @@ export function Summary({ occurrence, fieldGroups, loading, setActiveImage, ...p
         </V></>}
       <T>
         <FormattedMessage
-          id={`ocurrenceFieldNames.classification`}
+          id={`occurrenceFieldNames.classification`}
           defaultMessage={"Classification"}
         />
       </T>
@@ -79,7 +79,7 @@ export function Summary({ occurrence, fieldGroups, loading, setActiveImage, ...p
         day="2-digit" />} />
 
       <T><FormattedMessage
-        id={`ocurrenceFieldNames.dataset`}
+        id={`occurrenceFieldNames.dataset`}
         defaultMessage={"Dataset"}
       /></T>
       <V>
@@ -120,7 +120,7 @@ function FieldPair({ term, occurrence, formattedValue }) {
     return <React.Fragment key={term.label}>
       <T>
         <FormattedMessage
-          id={`ocurrenceFieldNames.${term.label}`}
+          id={`occurrenceFieldNames.${term.label}`}
           defaultMessage={_.startCase(term.label)}
         />
       </T>

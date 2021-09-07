@@ -78,27 +78,27 @@ export const commonLabels = {
   },
   year: {
     type: 'CUSTOM',
-    component: rangeOrEqualLabel('components.intervals.compactTime')
+    component: rangeOrEqualLabel('intervals.compactTime')
   },
   coordinateUncertainty: {
     type: 'CUSTOM',
-    component: rangeOrEqualLabel('components.intervals.compactMeters')
+    component: rangeOrEqualLabel('intervals.compactMeters')
   },
   depth: {
     type: 'CUSTOM',
-    component: rangeOrEqualLabel('components.intervals.compactMeters')
+    component: rangeOrEqualLabel('intervals.compactMeters')
   },
   organismQuantity: {
     type: 'CUSTOM',
-    component: rangeOrEqualLabel('components.intervals.compact')
+    component: rangeOrEqualLabel('intervals.compact')
   },
   sampleSizeValue: {
     type: 'CUSTOM',
-    component: rangeOrEqualLabel('components.intervals.compact')
+    component: rangeOrEqualLabel('intervals.compact')
   },
   relativeOrganismQuantity: {
     type: 'CUSTOM',
-    component: rangeOrEqualLabel('components.intervals.compact')
+    component: rangeOrEqualLabel('intervals.compact')
   },
   month: {
     type: 'TRANSLATION',
@@ -130,7 +130,7 @@ export const commonLabels = {
   },
   elevation: {
     type: 'CUSTOM',
-    component: rangeOrEqualLabel('components.intervals.compactMeters')
+    component: rangeOrEqualLabel('intervals.compactMeters')
   },
   occurrenceStatus: {
     type: 'TRANSLATION',

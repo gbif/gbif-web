@@ -12,5 +12,6 @@
   "placeholders": {
     "default": "Search",
     "range": "Range or single value"
-  }
+  },
+  "loadMore": "More"
 }

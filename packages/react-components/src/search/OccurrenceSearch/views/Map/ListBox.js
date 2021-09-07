@@ -1,7 +1,8 @@
 
 import { jsx, css } from '@emotion/react';
-import React, { useEffect, useContext, useState, useCallback } from "react";
+import React, { useContext } from "react";
 import { MdChevronRight } from 'react-icons/md';
+import { FormattedMessage } from 'react-intl';
 import { Image, StripeLoader, Button, Row, Col } from '../../../../components';
 import { FormattedDate } from 'react-intl';
 import ThemeContext from '../../../../style/themes/ThemeContext';
@@ -46,14 +47,18 @@ function ListBox({ labelMap, onCloseRequest, onClick, data, error, loading, ...p
     return <section  {...props}>
       <div css={container({ theme })}>
         <StripeLoader active />
-        <div css={listItemContent({ theme })}>Loading</div>
+        <div css={listItemContent({ theme })}>
+          <FormattedMessage id="phrases.loading" />
+        </div>
       </div>
     </section>
   } else if (error) {
     return <section  {...props}>
       <div css={container({ theme })}>
         <StripeLoader active error />
-        <div css={listItemContent({ theme })}>Failed to fetch data</div>
+        <div css={listItemContent({ theme })}>
+          <FormattedMessage id="phrases.loadError" />
+        </div>
       </div>
     </section>
   } else if (data) {
@@ -71,8 +76,12 @@ function ListBox({ labelMap, onCloseRequest, onClick, data, error, loading, ...p
     <Row css={container({ theme })} direction="column">
       <Col grow={false} as="header" >
         <Row alignItems="center">
-          <Col grow>{data?.occurrenceSearch?.documents.total} results</Col>
-          <Col grow={false}><Button appearance="outline" onClick={onCloseRequest}>Close</Button></Col>
+          <Col grow>
+            <FormattedMessage id="counts.nResults" values={{ total: data?.occurrenceSearch?.documents.total }} />
+          </Col>
+          <Col grow={false}><Button appearance="outline" onClick={onCloseRequest}>
+            <FormattedMessage id="phrases.close" />
+          </Button></Col>
         </Row>
       </Col>
       <Col grow as="main">
