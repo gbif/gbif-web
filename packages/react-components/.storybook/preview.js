@@ -7,7 +7,7 @@ import { LocaleProvider } from "../src/dataManagement/LocaleProvider";
 
 import { Root } from '../src/components';
 import gbifTheme from './theme';
-import en from '../locales/_build/en.json';
+import en from '../locales/dist/en.json';
 
 import ThemeContext, { darkTheme, lightTheme, a11yTheme, vertnetTheme, rtlTheme } from '../src/style/themes';
 import ThemeBuilder from '../src/style/themeBuilder';
@@ -111,7 +111,7 @@ addDecorator(storyFn => {
   return (
     <div>
       <ApiContext.Provider value={client}>
-        <LocaleProvider locale="en" >
+        <LocaleProvider locale="en-ZZ" >
           <ThemeContext.Provider
             value={chooseTheme(
               select(

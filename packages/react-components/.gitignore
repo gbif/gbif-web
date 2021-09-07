@@ -9,6 +9,8 @@
 !/dist/lib/
 /dist/lib/*.br
 
+/locales/dist
+
 # misc
 .DS_Store
 .env.local

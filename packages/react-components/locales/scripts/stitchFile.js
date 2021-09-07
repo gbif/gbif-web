@@ -3,6 +3,10 @@ let _ = require('lodash');
 let fs = require('fs');
 let path = require('path');
 
+let Reset = "\x1b[0m";
+let FgRed = "\x1b[31m";
+let FgYellow = "\x1b[33m";
+
 module.exports = builder;
 
 function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = false }) {
@@ -47,10 +51,14 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
 }
 
 function getFile(locale, file) {
-  if (locale === 'developer-english' || fs.existsSync(path.join(__dirname, `${file}.json`))) {
+  if (fs.existsSync(path.join(__dirname, `${file}.json`))) {
     return require(file);
   } else {
-    console.log(`!Warning: Translation file ${file}.json not found. The translation will fall back to english then the developers original text`);
+    if (locale === 'en-developer') {
+      console.error(FgRed, `!The developers english version couldn't be found. Translation file ${file}.json not found. The file is referencing a not existing file. This should be fixed.`, Reset);
+    } else {
+      console.log(FgYellow, `!Warning: Translation file ${file}.json not found. The translation will fall back to english then the developers original text`, Reset);
+    }
     return {};
   }
 }

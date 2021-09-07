@@ -2,28 +2,32 @@
 const flatten = require('flat');
 const path = require('path');
 const translationBuilder = require('./stitchFile');
+const createPseudo = require('./createPseudo');
 const fs = require('fs');
 const _ = require('lodash');
 const hash = require('object-hash');
+const env = require('../../.env.json');
 
 module.exports = build;
 
 function build(locales) {
-  const targetDirectory = path.normalize(__dirname + '/../_build/');
+  const targetDirectory = path.normalize(__dirname + '/../dist/');
   ensureDirectoryExistence(targetDirectory + 'translation.json');
 
   let enJson = translationBuilder({ locale: 'en' });
   let developerEnglishJson = translationBuilder({
-    locale: 'developer-english', folder: 'source', keepEmptyStrings: true
+    locale: 'en-developer', folder: 'source', keepEmptyStrings: true
   });
 
   buildLocale({ locale: 'en', enJson, developerEnglishJson, targetDirectory });
+
   let translationVersions = {};
   locales
     .map(locale => buildLocale({ locale, enJson, developerEnglishJson, targetDirectory }))
-    .forEach(item => translationVersions[item.locale] = `${item.locale}.json?v=${item.hash}`);
-  console.log(translationVersions);
-  
+    .forEach(item => {
+      translationVersions[item.locale] = `${env.TRANSLATIONS}/${getLocaleName(item.locale)}.json?v=${item.hash}`
+    });
+
   fs.writeFile(targetDirectory + 'translations.json', JSON.stringify(translationVersions, null, 2), function (err) {
     if (err) {
       console.log(err);
@@ -33,11 +37,27 @@ function build(locales) {
   });
 }
 
+function getLocaleName(locale) {
+  if (locale === 'en-pseudo') {
+    return 'en-ZZ';
+  } else if (locale === 'en-developer') {
+    return 'en-DK';
+  }
+  return locale;
+}
 
 function buildLocale({ locale, enJson, developerEnglishJson, targetDirectory }) {
-  let localeJson = translationBuilder({ locale });
+  let localeJson;
+  if (locale === 'en-pseudo') {
+    localeJson = createPseudo(developerEnglishJson);
+  } else if (locale === 'en-developer') {
+    localeJson = developerEnglishJson;
+  } else {
+    localeJson = translationBuilder({ locale });
+  }
   let mergedJson = _.merge({}, developerEnglishJson, enJson, localeJson);
   let flat = flatten(mergedJson);
+  
   fs.writeFile(targetDirectory + locale + '.json', JSON.stringify(flat, null, 2), function (err) {
     if (err) {
       console.log(err);
@@ -56,4 +76,3 @@ function ensureDirectoryExistence(filePath) {
   ensureDirectoryExistence(dirname);
   fs.mkdirSync(dirname);
 }
-

@@ -1,7 +1,7 @@
-import { useState, useEffect, useRef, useContext } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from './api/axios';
 import env from '../../.env.json';
-import en from '../../locales/_build/en.json'; 
+import en from '../../locales/dist/en.json'; 
 
 const localeMappingPromise = axios.get(`${env.TRANSLATIONS}/translations.json`);
 
@@ -35,7 +35,7 @@ function useTranslation({ locale }) {
         const localeMapping = mappingResponse.data;
         const messagesUrl = localeMapping[locale];
         if (messagesUrl) {
-          const { promise: localePromise, cancel } = axios.get(`${env.TRANSLATIONS}/${messagesUrl}`);
+          const { promise: localePromise, cancel } = axios.get(messagesUrl);
           // functions cannot be direct values in states as function are taken as a way to create derived states
           // https://medium.com/swlh/how-to-store-a-function-with-the-usestate-hook-in-react-8a88dd4eede1
           setCancel(() => cancel);

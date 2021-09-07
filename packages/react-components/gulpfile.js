@@ -25,7 +25,7 @@ async function include(cb) {
 }
 
 async function copyTranslations(cb) {
-  src(['locales/_build/**/*']).pipe(dest('dist/lib/translations'));
+  src(['locales/dist/**/*']).pipe(dest('dist/lib/translations'));
 }
 
 exports.default = parallel(noIndex, include, copyTranslations);

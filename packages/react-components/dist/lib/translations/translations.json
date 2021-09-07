@@ -1,5 +1,5 @@
 {
-  "developer": "developer.json?v=af75359da63faad00b70184130193c2ef92771ee",
-  "en": "en.json?v=af75359da63faad00b70184130193c2ef92771ee",
-  "da": "da.json?v=c7eadfe30fb5bc891695c6cfd679fea4805c12c9"
+  "developer": "http://localhost:5002/developer.json?v=af75359da63faad00b70184130193c2ef92771ee",
+  "en": "http://localhost:5002/en.json?v=af75359da63faad00b70184130193c2ef92771ee",
+  "da": "http://localhost:5002/de-MOCK.json?v=c7eadfe30fb5bc891695c6cfd679fea4805c12c9"
 }
