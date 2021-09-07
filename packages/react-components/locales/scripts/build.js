@@ -25,7 +25,7 @@ function build(locales) {
   locales
     .map(locale => buildLocale({ locale, enJson, developerEnglishJson, targetDirectory }))
     .forEach(item => {
-      translationVersions[item.locale] = `${env.TRANSLATIONS}/${getLocaleName(item.locale)}.json?v=${item.hash}`
+      translationVersions[getLocaleName(item.locale)] = `${env.TRANSLATIONS}/${item.locale}.json?v=${item.hash}`
     });
 
   fs.writeFile(targetDirectory + 'translations.json', JSON.stringify(translationVersions, null, 2), function (err) {
