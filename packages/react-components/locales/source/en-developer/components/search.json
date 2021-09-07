@@ -8,5 +8,9 @@
   },
   "table": {
     "lockColumn": "Lock column"
+  },
+  "placeholders": {
+    "default": "Search",
+    "range": "Range or single value"
   }
 }

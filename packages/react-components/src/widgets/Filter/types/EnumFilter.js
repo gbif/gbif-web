@@ -46,7 +46,7 @@ export const FilterContent = ({ config, translations, LabelFromID, hide, labelle
         {config.supportsNegation && <AdditionalControl checked={isNegated} onChange={e => {
           negateField(filterHandle, !isNegated);
           setNegated(!isNegated);
-        }}>Exclude selected</AdditionalControl>}
+        }}><FormattedMessage id="filterSupport.excludeSelected" defaultMessage="Exclude selected"/></AdditionalControl>}
         
         <SummaryBar {...summaryProps} />
         <FilterBody onKeyPress={e => {

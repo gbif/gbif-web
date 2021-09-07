@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/react';
 import React, { useState } from "react";
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useIntl, FormattedMessage } from 'react-intl';
 import { nanoid } from 'nanoid';
 import get from 'lodash/get';
 import unionBy from 'lodash/unionBy';
@@ -18,11 +18,14 @@ FilterPopover sets a tmp filter scope and adds a footer. inserts the content.
 problem, the footer depends on the content and state (prose or not)
 */
 export const FilterContent = ({ config = {}, translations, labelledById, LabelFromID, hide, onApply, onCancel, onFilterChange, focusRef, filterHandle, initFilter }) => {
+  const { formatMessage } = useIntl();
   const { upperBound = 'lte', lowerBound = 'gte', placeholder = 'E.g. 100,200' } = config;
   const [id] = React.useState(nanoid);
   const initialOptions = get(initFilter, `must.${filterHandle}`, []);
   const [options, setOptions] = useState(initialOptions.filter(x => x.type !== 'isNotNull'));
   const [inputValue, setValue] = useState('');
+
+  const formattedPlaceholder = formatMessage({id: placeholder});
 
   return <Filter
     labelledById={labelledById}
@@ -58,7 +61,7 @@ export const FilterContent = ({ config = {}, translations, labelledById, LabelFr
                 setValue(value);
               }
             }}
-            placeholder={placeholder}
+            placeholder={formattedPlaceholder}
             onKeyPress={e => {
               const value = e.target.value;
               if (e.which === keyCodes.ENTER) {

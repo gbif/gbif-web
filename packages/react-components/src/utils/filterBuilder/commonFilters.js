@@ -206,7 +206,7 @@ export const commonFilters = {
         }
       },
       specific: {
-        placeholder: 'Range or single value',
+        placeholder: 'search.placeholders.range',
         supportsExist: true,
         regex: /^((-)?[0-9]{0,4})(,)?((-)?[0-9]{0,4})$/
       }
