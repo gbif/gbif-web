@@ -40,7 +40,7 @@ export const TriggerButton = React.forwardRef(({ mustOptions = [], mustNotOption
       // />
       TextSummary = <>
         <FormattedMessage
-          id={name} /> : <FormattedMessage id={'filtersupport.nullOrNot.isNull'} />
+          id={name} /> : <FormattedMessage id={'filterSupport.nullOrNot.isNull'} />
       </>
     } else {
       // TextSummary = <FormattedMessage
@@ -49,7 +49,7 @@ export const TriggerButton = React.forwardRef(({ mustOptions = [], mustNotOption
       // />
       TextSummary = <>
         <FormattedMessage
-          id={name} /> : <FormattedMessage id={'filtersupport.nullOrNot.isNotNull'} />
+          id={name} /> : <FormattedMessage id={'filterSupport.nullOrNot.isNotNull'} />
       </>
     }
   } else if (options.length === 1) {
