@@ -24,7 +24,7 @@
   "taxonomy": "Taxonomía",
   "project": "Proyecto",
   "metrics": "Métricas",
-  "constituents": "Partes de",
+  "constituents": "Componentes",
   "download": "Descargar",
   "datasetHomepage": "Página de inicio",
   "nConstituentDatasets": "{NUMBER_FORMATED} {NUMBER, select, 1{parte del conjunto de datos} other{partes de los conjuntos de datos}}",
