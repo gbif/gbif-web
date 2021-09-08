@@ -24,7 +24,7 @@ export const Toc = ({ refs, ...props }) => {
           const elm = refs[hash];
           if (elm) {
             const rect = elm.getBoundingClientRect();
-            if (rect.top > 0 && rect.top < (150 )) {
+            if (rect.top > 0 && rect.top < 150  && "#"+hash !== location.hash) {
               history.push({ ...location, hash });
               setActiveSection(hash);
             }
