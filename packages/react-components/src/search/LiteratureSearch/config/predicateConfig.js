@@ -11,6 +11,9 @@ const filterConf = {
     datasetKey: {
       defaultKey: 'gbifDatasetKey'
     },
+    publisherKey: {
+      defaultKey: 'publishingOrganizationKey'
+    },
     q: {
       singleValue: true
     },

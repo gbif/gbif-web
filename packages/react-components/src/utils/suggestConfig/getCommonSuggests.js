@@ -1,12 +1,10 @@
 import React from 'react';
 import { matchSorter } from 'match-sorter';
-import country from '../../locales/enums/countryCode.json';
+import countryCodes from '../../enums/basic/country.json';
 import { Classification, Tooltip } from '../../components';
 import { FormattedMessage } from 'react-intl';
 
 const BACKBONE_KEY = 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c';
-
-const countryCodes = Object.keys(country);
 
 export const suggestStyle = { whiteSpace: 'nowrap', textOverflow: 'ellipsis', width: '100%', overflow: 'hidden' };
 
@@ -21,7 +19,7 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
   return {
     countryCode: {
       //What placeholder to show
-      placeholder: 'Search by country',
+      placeholder: 'search.placeholders.default',
       // how to get the list of suggestion data
       getSuggestions: ({ q }) => {
         return {
@@ -44,7 +42,7 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
     },
     institutionCode: {
       //What placeholder to show
-      placeholder: 'Search by institution code',
+      placeholder: 'search.placeholders.default',
       // how to get the list of suggestion data
       getSuggestions: ({ q }) => {
         const { promise, cancel } = client.v1Get(`/occurrence/search/institutionCode?limit=8&q=${q}`);
@@ -67,7 +65,7 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
     },
     catalogNumber: {
       //What placeholder to show
-      placeholder: 'Search by catalog number',
+      placeholder: 'search.placeholders.default',
       // how to get the list of suggestion data
       getSuggestions: ({ q }) => {
         const { promise, cancel } = client.v1Get(`/occurrence/search/catalogNumber?limit=8&q=${q}`);
@@ -90,7 +88,7 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
     },
     datasetKey: {
       //What placeholder to show
-      placeholder: 'Search by dataset name',
+      placeholder: 'search.placeholders.default',
       // how to get the list of suggestion data
       getSuggestions: ({ q }) => client.v1Get(`/dataset/suggest?limit=8&q=${q}`),
       // how to map the results to a single string value
@@ -106,7 +104,7 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
     },
     publisherKey: {
       //What placeholder to show
-      placeholder: 'Search by host organization name',
+      placeholder: 'search.placeholders.default',
       // how to get the list of suggestion data
       getSuggestions: ({ q }) => client.v1Get(`/organization/suggest?limit=8&q=${q}`),
       // how to map the results to a single string value
@@ -122,7 +120,8 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
     },
     taxonKey: {
       //What placeholder to show
-      placeholder: 'Search by scientific name',
+      // placeholder: 'Search by scientific name',
+      placeholder: 'search.placeholders.default',
       // how to get the list of suggestion data
       getSuggestions: ({ q }) => client.v1Get(`/species/suggest?datasetKey=${BACKBONE_KEY}&limit=20&q=${q}`),
       // how to map the results to a single string value
@@ -150,7 +149,7 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
     },
     recordedBy: {
       //What placeholder to show
-      placeholder: 'Search by recorded by',
+      placeholder: 'search.placeholders.default',
       // how to get the list of suggestion data
       getSuggestions: ({ q }) => {
         const { promise, cancel } = client.v1Get(`/occurrence/search/recordedBy?limit=8&q=${q}`);
@@ -172,7 +171,7 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
     },
     recordedByWildcard: {
       //What placeholder to show
-      placeholder: 'Search by recorded by',
+      placeholder: 'search.placeholders.default',
       // how to get the list of suggestion data
       getSuggestions: ({ q, size = 100 }) => {
         const SEARCH = `
@@ -226,7 +225,7 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
     },
     recordNumber: {
     //What placeholder to show
-    placeholder: 'Search by record number',
+    placeholder: 'search.placeholders.default',
     // how to get the list of suggestion data
     getSuggestions: ({ q }) => {
       const { promise, cancel } = client.v1Get(`/occurrence/search/recordNumber?limit=8&q=${q}`);
@@ -249,7 +248,7 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
   },
   gadmGid: {
       //What placeholder to show
-      placeholder: 'Administrative area (GADM.org)',
+      placeholder: 'search.placeholders.default',
       // how to get the list of suggestion data
       getSuggestions: ({ q }) => {
         const { promise, cancel } = client.v1Get(`/geocode/gadm/search?limit=8&q=${q}`);
@@ -278,7 +277,7 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
     },
     institutionKey: {
     //What placeholder to show
-    placeholder: 'Search by institution name',
+    placeholder: 'search.placeholders.default',
     // how to get the list of suggestion data
     getSuggestions: ({ q }) => {
       const { promise, cancel } = client.v1Get(`/grscicoll/institution/suggest?limit=8&q=${q}`);
@@ -302,7 +301,7 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
   },
   networkKey: {
       //What placeholder to show
-      placeholder: 'Search by network name',
+      placeholder: 'search.placeholders.default',
       // how to get the list of suggestion data
       getSuggestions: ({ q }) => client.v1Get(`/network/suggest?limit=20&q=${q}`),
       // how to map the results to a single string value

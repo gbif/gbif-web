@@ -15,7 +15,7 @@ const typeDef = gql`
       machineTagName: String,
       machineTagValue: String,
       ): OrganizationSearchResult
-    organization(key: String!): Organization
+    organization(key: ID!): Organization
   }
 
   type Organization {

@@ -1,10 +1,9 @@
 
-import { css, jsx } from '@emotion/react';
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import ThemeContext from '../../style/themes/ThemeContext';
 // import PropTypes from 'prop-types';
 import { withFilter } from '../../widgets/Filter/state';
-// import { FormattedMessage, FormattedNumber } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { cssLayout, cssNavBar, cssViewArea, cssFilter, cssViews, cssFooter } from '../Layout.styles';
 import { Tabs } from '../../components'
 import Map from './views/Map';
@@ -14,10 +13,9 @@ import Datasets from './views/Datasets';
 import Download from './views/Download';
 
 import { FilterBar } from '../FilterBar';
-import { useUrlState } from '../../dataManagement/state/useUrlState';
 import { useQueryParam, StringParam } from 'use-query-params';
 
-const { TabList, Tab, TabPanel, TapSeperator, TapSpacer } = Tabs;
+const { TabList, Tab, TabPanel, TapSeperator } = Tabs;
 
 const Layout = ({
   className = '',
@@ -32,10 +30,18 @@ const Layout = ({
   const elementName = 'occurrenceSearchLayout';
 
   const tabComponents = {
-    TABLE: <Tab tabId="TABLE" key="table">Table</Tab>,
-    MAP: <Tab tabId="MAP" key="map">Map</Tab>,
-    GALLERY: <Tab tabId="GALLERY" key="gallery">Gallery</Tab>,
-    DATASETS: <Tab tabId="DATASETS" key="datasets">Datasets</Tab>
+    TABLE: <Tab tabId="TABLE" key="table">
+      <FormattedMessage id="search.tabs.table" defaultMessage="Table"/>
+    </Tab>,
+    MAP: <Tab tabId="MAP" key="map">
+      <FormattedMessage id="search.tabs.map" defaultMessage="Map"/>
+    </Tab>,
+    GALLERY: <Tab tabId="GALLERY" key="gallery">
+      <FormattedMessage id="search.tabs.gallery" defaultMessage="Gallery"/>
+    </Tab>,
+    DATASETS: <Tab tabId="DATASETS" key="datasets">
+      <FormattedMessage id="search.tabs.datasets" defaultMessage="Datasets"/>
+    </Tab>
   }
 
   return <div className={`${className} ${prefix}-${elementName}`}
@@ -49,7 +55,9 @@ const Layout = ({
           <TabList aria-labelledby="Views">
             {tabs.map(tab => tabComponents[tab])}
             <TapSeperator />
-            <Tab tabId="download">Download</Tab>
+            <Tab tabId="download">
+              <FormattedMessage id="search.tabs.download" defaultMessage="Download"/>
+            </Tab>
             {/* <TapSeperator /> */}
             {/* <Tab tabId="publisher">Publishers</Tab> */}
             {/* <TapSpacer />
@@ -58,7 +66,6 @@ const Layout = ({
           </TabList>
         </div>
       </div>
-      {/* <a href={`http://labs.gbif.org:7022/query-example?queryId=${queryId}&variablesId=${variableId}`}>graphql</a> */}
       <TabPanel lazy tabId="TABLE" className={`${prefix}-${elementName}-views`} css={cssViewArea({ theme })}>
         <Table />
       </TabPanel>

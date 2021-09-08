@@ -36,7 +36,7 @@ export function MapPresentation({ as: Div = "div", location, ...props }) {
       <Properties>
         <T>
           <FormattedMessage
-            id={`ocurrenceFieldNames.latLon`}
+            id={`occurrenceFieldNames.latLon`}
             defaultMessage={"Lat/Lon"}
           />
         </T>

@@ -45,7 +45,7 @@ const wktBBoxTemplate = '((W S,E S,E N,W N,W S))';
 function Map() {
   const currentFilterContext = useContext(FilterContext);
   const { labelMap, rootPredicate, predicateConfig } = useContext(OccurrenceContext);
-  const { data, error, loading, load } = useQuery(OCCURRENCE_MAP, { lazyLoad: true, keepDataWhileLoading: true });
+  const { data, error, loading, load } = useQuery(OCCURRENCE_MAP, { lazyLoad: true });
   const { data: pointData, error: pointError, loading: pointLoading, load: pointLoad } = useQuery(OCCURRENCE_POINT, { lazyLoad: true });
 
   useEffect(() => {
@@ -61,7 +61,7 @@ function Map() {
         }
       ].filter(x => x)
     }
-    load({ variables: { predicate } });
+    load({ keepDataWhileLoading: true, variables: { predicate } });
   }, [currentFilterContext.filterHash, rootPredicate]);
 
   const loadPointData = useCallback(({geohash, count}) => {

@@ -3,7 +3,9 @@ export const all = [
   'year',
   'countriesOfResearcher',
   'countriesOfCoverage',
-  'datasetKey'
+  'datasetKey',
+  'publisherKey',
+  'literatureType'
 ].sort();
 
 const highlighted = [

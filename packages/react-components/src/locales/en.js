@@ -11,6 +11,7 @@ import continent from './enums/continent.json';
 import protocol from './enums/protocol.json';
 import establishmentMeans from './enums/establishmentMeans.json';
 import occurrenceStatus from './enums/occurrenceStatus.json';
+import literatureType from './enums/literatureType.json';
 import role from './enums/role.json';
 import isInCluster from './enums/isInCluster.json';
 import datasetType from './enums/datasetType.json';
@@ -34,6 +35,12 @@ export const en = {
     occurrences: 'Occurrences',
     numberSpecimens: 'Number of specimens',
     gbifNumberSpecimens: 'Specimens in GBIF',
+    title: 'Title',
+    titleAndAbstract: 'Title and abstract',
+    altmetric: 'Altmetric',
+    registered: 'Registered',
+    hostedDatasets: 'Hosted datasets',
+    pubDatasets: 'Published datasets',
   },
   nullOrNot: {
     isNotNull: 'Must be defined',
@@ -319,6 +326,11 @@ export const en = {
       count: '{num, plural, one { Network key } other {# Network keys}}',
       description: 'A short description of the component should be placed here'
     },
+    literatureType: {
+      name: 'Literature type',
+      count: '{num, plural, one { Literature type } other {# Literature types}}',
+      description: 'What type of literature does the citation come from.'
+    },
     // -- Add filter above this line (required by plopfile.js) --
   },
   invalidValue: 'Invalid value',
@@ -410,6 +422,7 @@ export const en = {
     isInCluster,
     datasetType,
     datasetSubtype,
+    literatureType,
     // -- Add enum translations above this line (required by plopfile.js) --
   }
 }

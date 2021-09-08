@@ -9,8 +9,10 @@ npm install
 
 Run the project with 
 ```
-npm run storybook
+npm run start
 ```
+
+During development it can be useful to serve and build translation files continously. To do so you should run `npm run watch-translations` and `npm run serve-translations`
 
 Build a static storybook version with `npm run build-storybook`
 

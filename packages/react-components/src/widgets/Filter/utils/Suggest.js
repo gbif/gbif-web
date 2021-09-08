@@ -1,4 +1,5 @@
 import React from "react";
+import { injectIntl } from 'react-intl';
 import { Autocomplete } from '../../../components/Autocomplete/Autocomplete';
 
 class Suggest extends React.Component {
@@ -78,11 +79,12 @@ class Suggest extends React.Component {
 
   render() {
     const { value, suggestions, loading, error } = this.state;
-    const { render, getValue, placeholder } = this.props;
+    const { intl, render, getValue, placeholder } = this.props;
 
-    // Autosuggest will pass through all these props to the input.
+    // Autosuggest will pass through all these props to the input
+    const placeholderTranslationString = placeholder || 'search.placeholders.default';
     const inputProps = {
-      placeholder: placeholder || 'Search',
+      placeholder: intl.formatMessage({id: placeholderTranslationString}),
       value,
       onChange: this.onChange,
       onKeyPress: this.props.onKeyPress
@@ -111,4 +113,4 @@ class Suggest extends React.Component {
   }
 }
 
-export default Suggest;
+export default injectIntl(Suggest);

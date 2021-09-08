@@ -1,7 +1,7 @@
 // TODO: grouping options would be useful 
 // See https://codesandbox.io/s/zx1kj58npl for how to do so in Downshift
 import React, { useState, useContext } from "react";
-import { FormattedMessage } from 'react-intl';
+import { useIntl, FormattedMessage } from 'react-intl';
 import ThemeContext from '../../../../style/themes/ThemeContext';
 import get from 'lodash/get';
 import PopoverFilter from '../PopoverFilter';
@@ -29,6 +29,7 @@ function getSuggestConfig({ options }) {
 export const FilterContent = ({ focusRef, ...props }) => {
   const ref = React.useRef();
   const theme = useContext(ThemeContext);
+  const { formatMessage } = useIntl();
   const { filters } = useContext(OccurrenceContext);
   const [CurrentFilter, selectedFilter] = useState();
   const [options] = useState(() => Object.keys(filters).map(filterHandle => ({ filterHandle, displayName: filters[filterHandle].displayName })));
@@ -52,6 +53,7 @@ export const FilterContent = ({ focusRef, ...props }) => {
         <Suggest
           defaultIsOpen={true}
           value={value}
+          // placeholder={formatMessage({id: 'search.table.lockColumn'})}
           initSuggestions={options}
           getSuggestions={suggestConfig.getSuggestions}
           onChange={(event, { newValue }) => setValue(newValue)}
@@ -93,7 +95,7 @@ export function Popover({ config, ...props }) {
 export function Trigger(props) {
   return <Popover modal>
     <Button appearance="primaryOutline">
-      <FormattedMessage id="moreFilters" />
+      <FormattedMessage id="pagination.moreFilters" />
     </Button>
   </Popover>
 }

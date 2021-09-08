@@ -85,14 +85,15 @@ function getGroup({
     <Accordion
       key={groupName}
       css={css.accordion({ theme })}
-      summary={groupName}
+      // summary={groupName}
+      summary={<FormattedMessage id={`occurrenceDetails.groups.${groupName}`}/>}
       defaultOpen={true}
     >
       <Properties style={{ fontSize: 13 }}>
         {/* {groupName === "location" && !showAll && group.decimalLatitude && group.decimalLongitude && <>
           <T>
             <FormattedMessage
-              id={`ocurrenceFieldNames.coordinates`}
+              id={`occurrenceFieldNames.coordinates`}
               defaultMessage={"Coordinates"}
             />
           </T>
@@ -104,7 +105,7 @@ function getGroup({
         {groupName === "record" && !showAll && group.dynamicProperties?.verbatim && <>
           <T>
             <FormattedMessage
-              id={`ocurrenceFieldNames.dynamicProperties`}
+              id={`occurrenceFieldNames.dynamicProperties`}
               defaultMessage={"Dynamic properties"}
             />
           </T>
@@ -124,7 +125,7 @@ function getGroup({
             return <React.Fragment key={name}>
               <T>
                 <FormattedMessage
-                  id={`ocurrenceFieldNames.${name}`}
+                  id={`occurrenceFieldNames.${name}`}
                   defaultMessage={_.startCase(name)}
                 />
               </T>
@@ -137,7 +138,7 @@ function getGroup({
                     {term.issues.map((i) => (
                       <Tag type={i.severity.toLowerCase()} key={i.id}>
                         <FormattedMessage
-                          id={`issueEnum.${i.id}`}
+                          id={`enums.occurrenceIssue.${i.id}`}
                           defaultMessage={prettifyEnum(i.id)}
                         />
                       </Tag>
@@ -194,7 +195,7 @@ function getValue({ term, config }) {
         term.issues.map((i) => (
           <span css={css.issuePill(i)} key={i}>
             <FormattedMessage
-              id={`issueEnum.${i.id}`}
+              id={`enums.occurrenceIssue.${i.id}`}
               defaultMessage={prettifyEnum(i.id)}
             />
           </span>

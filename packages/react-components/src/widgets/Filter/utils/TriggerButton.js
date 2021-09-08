@@ -8,10 +8,10 @@ import get from 'lodash/get';
 export const TriggerButton = React.forwardRef(({ mustOptions = [], mustNotOptions = [], filterHandle, translations = {}, DisplayName = ({ id }) => <>{id}</>, loading, ...props }, ref) => {
   const currentFilterContext = useContext(FilterContext);
   const {
-    count = `filter.${filterHandle}.count`,
-    isNotNull = `filter.${filterHandle}.isNotNull`,
-    isNull = `filter.${filterHandle}.isNull`,
-    name = `filter.${filterHandle}.name` } = translations;
+    count = `filters.${filterHandle}.count`,
+    isNotNull = `filters.${filterHandle}.isNotNull`,
+    isNull = `filters.${filterHandle}.isNull`,
+    name = `filters.${filterHandle}.name` } = translations;
 
   const onClear = useCallback(() => {
     currentFilterContext.setFullField(filterHandle, [], [])
@@ -40,7 +40,7 @@ export const TriggerButton = React.forwardRef(({ mustOptions = [], mustNotOption
       // />
       TextSummary = <>
         <FormattedMessage
-          id={name} /> : <FormattedMessage id={'nullOrNot.isNull'} />
+          id={name} /> : <FormattedMessage id={'filtersupport.nullOrNot.isNull'} />
       </>
     } else {
       // TextSummary = <FormattedMessage
@@ -49,7 +49,7 @@ export const TriggerButton = React.forwardRef(({ mustOptions = [], mustNotOption
       // />
       TextSummary = <>
         <FormattedMessage
-          id={name} /> : <FormattedMessage id={'nullOrNot.isNotNull'} />
+          id={name} /> : <FormattedMessage id={'filtersupport.nullOrNot.isNotNull'} />
       </>
     }
   } else if (options.length === 1) {

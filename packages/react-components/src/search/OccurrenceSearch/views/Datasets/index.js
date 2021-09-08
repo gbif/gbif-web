@@ -30,7 +30,7 @@ function Datasets() {
   const [size, setSize] = useState(200);
   const currentFilterContext = useContext(FilterContext);
   const { rootPredicate, predicateConfig } = useContext(OccurrenceContext);
-  const { data, error, loading, load } = useQuery(DATASETS, { lazyLoad: true, keepDataWhileLoading: true });
+  const { data, error, loading, load } = useQuery(DATASETS, { lazyLoad: true });
 
   useEffect(() => {
     const predicate = {
@@ -40,7 +40,7 @@ function Datasets() {
         filter2predicate(currentFilterContext.filter, predicateConfig)
       ].filter(x => x)
     }
-    load({ variables: { predicate, size } });
+    load({ keepDataWhileLoading: true, variables: { predicate, size } });
   }, [currentFilterContext.filterHash, rootPredicate]);
 
   useEffect(() => {

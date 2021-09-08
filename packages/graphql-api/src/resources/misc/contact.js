@@ -8,7 +8,7 @@ const typeDef = gql`
     country: Country
     created: DateTime
     createdBy: String
-    email: [EmailAddress]
+    email: [String]
     firstName: String
     homepage: [URL]
     lastName: String

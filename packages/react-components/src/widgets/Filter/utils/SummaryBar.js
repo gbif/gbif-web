@@ -2,6 +2,7 @@
 import { css, jsx } from '@emotion/react';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import React, { useContext } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { Button, Row, Col } from '../../../components';
 
 const SummaryBar = ({ count, onClear, ...props }) => {
@@ -9,7 +10,7 @@ const SummaryBar = ({ count, onClear, ...props }) => {
   return <div {...props} css={summary(theme)} >
     <Row as="div">
       <Col>
-          {count} selected
+          <FormattedMessage id="counts.nSelected" values={{total: count}} />
       </Col>
       {count > 0 &&
         <Col grow={false}>

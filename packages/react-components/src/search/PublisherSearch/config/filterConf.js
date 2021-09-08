@@ -1,12 +1,12 @@
 export const all = [
   'q',
-  'country',
+  'countrySingle',
   'networkKey'
 ].sort();
 
 const highlighted = [
   'q',
-  'country'
+  'countrySingle'
 ];
 
 export default { filters: all, included: highlighted, highlighted };

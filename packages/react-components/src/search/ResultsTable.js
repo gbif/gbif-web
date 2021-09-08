@@ -16,7 +16,7 @@ const fallbackTableConfig = {
   }]
 };
 
-export const ResultsTable = ({ first, prev, next, size, from, results, total, loading, onSelect, defaultTableConfig = fallbackTableConfig, hideLock }) => {
+export const ResultsTable = ({ first, prev, next, size, from, results, total, loading, defaultTableConfig = fallbackTableConfig, hideLock }) => {
   const { filters, tableConfig = defaultTableConfig, labelMap } = useContext(SearchContext);
   const [fixedColumn, setFixed] = useState(true && !hideLock);
 
@@ -54,13 +54,13 @@ export const ResultsTable = ({ first, prev, next, size, from, results, total, lo
         <tr>{headerss}</tr>
       </thead>
       <TBody rowCount={size} columnCount={7} loading={loading}>
-        {getRows({ tableConfig, labelMap, results, onSelect })}
+        {getRows({ tableConfig, labelMap, results })}
       </TBody>
     </DataTable>
   </div>
 }
 
-const getRows = ({ tableConfig, labelMap, results = [], onSelect = console.log }) => {
+const getRows = ({ tableConfig, labelMap, results = [] }) => {
   const rows = results.map((row, index) => {
     const cells = tableConfig.columns.map(
       (field, i) => {
@@ -79,7 +79,7 @@ const getRows = ({ tableConfig, labelMap, results = [], onSelect = console.log }
         return <Td noWrap={field.noWrap} key={field.trKey} style={field.value.rightAlign ? {textAlign: 'right'} : {}}>{formattedVal}</Td>;
       }
     );
-    return <tr key={row.key} onClick={() => { onSelect({key: row.key, row}); }}>{cells}</tr>;
+    return <tr key={row.key || row.id || index}>{cells}</tr>;
   });
   return rows;
 }

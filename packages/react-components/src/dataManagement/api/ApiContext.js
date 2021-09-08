@@ -8,6 +8,9 @@ const client = new ApiClient({
   },
   v1: {
     endpoint: env.API_V1
+  },
+  translations: {
+    endpoint: env.TRANSLATIONS
   }
 });
 

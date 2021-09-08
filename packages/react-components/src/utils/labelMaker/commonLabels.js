@@ -78,27 +78,27 @@ export const commonLabels = {
   },
   year: {
     type: 'CUSTOM',
-    component: rangeOrEqualLabel('interval.compactTime')
+    component: rangeOrEqualLabel('intervals.compactTime')
   },
   coordinateUncertainty: {
     type: 'CUSTOM',
-    component: rangeOrEqualLabel('interval.compactMeters')
+    component: rangeOrEqualLabel('intervals.compactMeters')
   },
   depth: {
     type: 'CUSTOM',
-    component: rangeOrEqualLabel('interval.compactMeters')
+    component: rangeOrEqualLabel('intervals.compactMeters')
   },
   organismQuantity: {
     type: 'CUSTOM',
-    component: rangeOrEqualLabel('interval.compact')
+    component: rangeOrEqualLabel('intervals.compact')
   },
   sampleSizeValue: {
     type: 'CUSTOM',
-    component: rangeOrEqualLabel('interval.compact')
+    component: rangeOrEqualLabel('intervals.compact')
   },
   relativeOrganismQuantity: {
     type: 'CUSTOM',
-    component: rangeOrEqualLabel('interval.compact')
+    component: rangeOrEqualLabel('intervals.compact')
   },
   month: {
     type: 'TRANSLATION',
@@ -111,6 +111,10 @@ export const commonLabels = {
   protocol: {
     type: 'TRANSLATION',
     template: id => `enums.protocol.${id}`
+  },
+  literatureType: {
+    type: 'TRANSLATION',
+    template: id => `enums.literatureType.${id}`
   },
   establishmentMeans: {
     type: 'TRANSLATION',
@@ -126,7 +130,7 @@ export const commonLabels = {
   },
   elevation: {
     type: 'CUSTOM',
-    component: rangeOrEqualLabel('interval.compactMeters')
+    component: rangeOrEqualLabel('intervals.compactMeters')
   },
   occurrenceStatus: {
     type: 'TRANSLATION',
@@ -162,6 +166,10 @@ export const commonLabels = {
     type: 'ENDPOINT',
     template: ({ id, api }) => `${api.v1.endpoint}/network/${id}`,
     transform: result => ({ title: result.title })
+  },
+  literatureType: {
+    type: 'TRANSLATION',
+    template: id => `enums.literatureType.${id}`
   },
   // -- Add labels above this line (required by plopfile.js) --
 }

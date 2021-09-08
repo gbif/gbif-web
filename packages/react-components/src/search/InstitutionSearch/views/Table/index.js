@@ -3,6 +3,7 @@ import StandardSearchTable from '../../../StandardSearchTable';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { useHistory } from "react-router-dom";
 import RouteContext from '../../../../dataManagement/RouteContext';
+import { ResourceLink } from '../../../../components';
 
 const QUERY = `
 query list($code: String, $q: String, $offset: Int, $limit: Int, $country: Country, $fuzzyName: String, $city: String, $name: String, $active: Boolean){
@@ -31,19 +32,17 @@ query list($code: String, $q: String, $offset: Int, $limit: Int, $country: Count
 `;
 
 const defaultTableConfig = {
-  onSelect: ({key}) => {
-    window.location = `/institution/${key}`
-  },
   columns: [
     {
       trKey: 'title',
       value: {
         key: 'name',
+        formatter: (value, item) => <ResourceLink type='institutionKey' discreet id={item.key}>{value}</ResourceLink>,
       },
       width: 'wide'
     },
     {
-      trKey: 'filter.code.name',
+      trKey: 'filters.code.name',
       value: {
         filterKey: 'code',
         key: 'code',
@@ -51,7 +50,7 @@ const defaultTableConfig = {
       }
     },
     {
-      trKey: 'filter.country.name',
+      trKey: 'filters.country.name',
       value: {
         filterKey: 'country',
         key: 'key',
@@ -63,7 +62,7 @@ const defaultTableConfig = {
       }
     },
     {
-      trKey: 'filter.city.name',
+      trKey: 'filters.city.name',
       value: {
         filterKey: 'city',
         key: 'key',
@@ -100,20 +99,7 @@ const defaultTableConfig = {
 };
 
 function Table() {
-  const history = useHistory();
-  const routeContext = useContext(RouteContext);
-
-  function onSelect({key}) {
-    const path = routeContext.institutionKey.url({key});
-    window.location = path;
-    // if (history && !useWindowLocation) {
-    //   history.push(path);
-    // } else {
-    //   
-    // }
-  }
-
-  return <StandardSearchTable onSelect={onSelect} graphQuery={QUERY} resultKey='institutionSearch' defaultTableConfig={defaultTableConfig}/>
+  return <StandardSearchTable graphQuery={QUERY} resultKey='institutionSearch' defaultTableConfig={defaultTableConfig}/>
 }
 
 export default Table;

@@ -16,17 +16,17 @@ export function OptionSkeleton({helpVisible, ...props}){
   </div>
 }
 
-export const Option = React.forwardRef(({ isRadio, label, tabIndex, checked, onChange, helpText, helpVisible, ...props }, ref) => {
+export const Option = React.forwardRef(({ isRadio, label, tabIndex, checked, onChange, helpText, helpVisible, loading, ...props }, ref) => {
   const theme = {};//useContext(ThemeContext);
   return <label css={optionClass(theme)} style={{ display: 'flex', wrap: 'nowrap' }}>
     <div>
-      {isRadio && <Radio ref={ref} tabIndex={tabIndex} checked={checked} onChange={onChange} style={{ flex: '0 0 auto' }} />}
-      {!isRadio && <Checkbox ref={ref} tabIndex={tabIndex} checked={checked} onChange={onChange} style={{ flex: '0 0 auto' }} />}
+      {isRadio && <Radio disabled={loading} ref={ref} tabIndex={tabIndex} checked={checked} onChange={onChange} style={{ flex: '0 0 auto' }} />}
+      {!isRadio && <Checkbox disabled={loading} ref={ref} tabIndex={tabIndex} checked={checked} onChange={onChange} style={{ flex: '0 0 auto' }} />}
     </div>
     <div style={{ flex: '1 1 auto', marginLeft: 10, wordBreak: 'break-word' }}>
-      <div>{label}</div>
+      <div><span css={textLoader({theme, loading})}>{label}</span></div>
       {helpVisible && helpText && <div style={{ marginTop: 4, fontSize: '0.85em', color: '#aaa' }}>
-        {helpText}
+        <span css={textLoader({theme, loading})}>{helpText}</span>
       </div>}
     </div>
   </label>
@@ -61,5 +61,13 @@ const optionClass = theme => css`
     margin-bottom: 0;
   }
 `;
+
+const textLoader = ({loading}) => {
+  if (!loading) return;
+  return css`
+    background-color: #88888822;
+    color: transparent;
+  `
+  };
 
 

@@ -3,6 +3,7 @@ import React, { useEffect, useContext, useState, useCallback } from "react";
 import { FilterContext } from '../../../../widgets/Filter/state';
 import OccurrenceContext from '../../../SearchContext';
 import { useQuery } from '../../../../dataManagement/api';
+import LocaleContext from '../../../../dataManagement/LocaleProvider/LocaleContext';
 import { filter2predicate } from '../../../../dataManagement/filterAdapter';
 import * as css from './styles';
 import ThemeContext from '../../../../style/themes/ThemeContext';
@@ -20,10 +21,13 @@ query($predicate: Predicate){
 
 function Download() {
   const theme = useContext(ThemeContext);
+  const localeSettings = useContext(LocaleContext);
   const currentFilterContext = useContext(FilterContext);
   const { rootPredicate, predicateConfig } = useContext(OccurrenceContext);
-  const { data, error, loading, load } = useQuery(DOWNLOAD, { lazyLoad: true, keepDataWhileLoading: true });
+  const { data, error, loading, load } = useQuery(DOWNLOAD, { lazyLoad: true });
 
+  const localePrefix = localeSettings.gbifLocale;
+  
   useEffect(() => {
     const predicate = {
       type: 'and',
@@ -32,7 +36,7 @@ function Download() {
         filter2predicate(currentFilterContext.filter, predicateConfig)
       ].filter(x => x)
     }
-    load({ variables: { predicate } });
+    load({ keepDataWhileLoading: true, variables: { predicate } });
   }, [currentFilterContext.filterHash, rootPredicate]);
 
   const fullPredicate = data?.occurrenceSearch?._downloadPredicate?.predicate;
@@ -74,7 +78,7 @@ function Download() {
           </div>
           <Button 
             as="a" 
-            href={`${env.GBIF_ORG}/occurrence/download/request?predicate=${encodeURIComponent(JSON.stringify(fullPredicate))}#create`} 
+            href={`${env.GBIF_ORG}/${localePrefix ? `${localePrefix}/` : ''}occurrence/download/request?predicate=${encodeURIComponent(JSON.stringify(fullPredicate))}#create`} 
             disabled={loading}
             appearance="primary">Continue</Button>
         </>}

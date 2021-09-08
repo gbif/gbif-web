@@ -3,12 +3,10 @@ import { addDecorator } from '@storybook/react';
 import { select } from '@storybook/addon-knobs';
 import flatten from 'flat';
 
-import { IntlProvider } from "react-intl";
+import { LocaleProvider } from "../src/dataManagement/LocaleProvider";
 
 import { Root } from '../src/components';
 import gbifTheme from './theme';
-import { en as enNested } from '../src/locales/en';
-const en = flatten(enNested);
 
 import ThemeContext, { darkTheme, lightTheme, a11yTheme, vertnetTheme, rtlTheme } from '../src/style/themes';
 import ThemeBuilder from '../src/style/themeBuilder';
@@ -29,6 +27,9 @@ const client = new ApiClient({
   },
   v1: {
     endpoint: env.API_V1
+  },
+  translations: {
+    endpoint: env.TRANSLATIONS
   }
 });
 
@@ -51,6 +52,12 @@ addDecorator(storyFn => {
     return choice
   }
 
+  const chooseLocale = choice => {
+    return choice
+  }
+
+  const gbifOrg = 'https://www.gbif.org';
+
   const routes = {
     occurrenceSearch: {
       url: ({queryString}) => `/occurrence/search${queryString ? `?${queryString}` : ''}`,
@@ -58,6 +65,7 @@ addDecorator(storyFn => {
     },
     collectionKey: {
       route: '/',
+      isHref: true,
       url: ({key}) => {
         return `/iframe.html?id=entities-collection-page--example&viewMode=story&knob-collectionUUID=${key}`;
       }
@@ -70,6 +78,7 @@ addDecorator(storyFn => {
     },
   
     institutionKey: {
+      isHref: true,
       url: ({key}) => {
         return `/iframe.html?id=entities-institution-page--example&viewMode=story&knob-institutionUUID=${key}`;
       }
@@ -79,6 +88,7 @@ addDecorator(storyFn => {
     },
 
     datasetKey: {
+      isHref: true,
       url: ({key}) => {
         return `/iframe.html?id=entities-dataset-page--example&viewMode=story&knob-datasetUUID=${key}`;
       },
@@ -89,8 +99,10 @@ addDecorator(storyFn => {
     },
 
     publisherKey: {
+      isHref: true,
       url: ({key}) => {
-        return `/iframe.html?id=entities-publisher-page--example&viewMode=story&knob-publisherUUID=${key}`;
+        // return `/iframe.html?id=entities-publisher-page--example&viewMode=story&knob-publisherUUID=${key}`;
+        return `https://www.gbif.org/publisher/${key}`;
       },
       route: '/publisher/:key'
     },
@@ -102,7 +114,13 @@ addDecorator(storyFn => {
   return (
     <div>
       <ApiContext.Provider value={client}>
-        <IntlProvider locale="en" messages={en}>
+        <LocaleProvider locale={chooseLocale(
+              select(
+                'Choose locale',
+                ['en-DK', 'en-ZZ', 'en', 'da'],
+                env.STORYBOOK_LOCALE || 'en-DK',
+              ),
+            )} >
           <ThemeContext.Provider
             value={chooseTheme(
               select(
@@ -124,7 +142,7 @@ addDecorator(storyFn => {
               </RouteContext.Provider>
             </Root>
           </ThemeContext.Provider>
-        </IntlProvider>
+        </LocaleProvider>
       </ApiContext.Provider>
     </div>
   )

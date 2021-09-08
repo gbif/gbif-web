@@ -15,9 +15,11 @@ import SearchContext from '../../../search/SearchContext';
 import unionBy from 'lodash/unionBy';
 import { hash } from '../../../utils/util';
 
+const initialSize = 25;
+
 export const FilterContent = ({ config = {}, translations, hide, onApply, onCancel, onFilterChange, focusRef, filterHandle, initFilter }) => {
-  const { data, error, loading, load } = useQuery(config.query, { lazyLoad: true, keepDataWhileLoading: true });
-  const [size, setSize] = useState(10);
+  const { data, error, loading, load } = useQuery(config.query, { lazyLoad: true });
+  const [size, setSize] = useState(initialSize);
   const [q, setQ] = useState('');
   const { queryKey, placeholder = 'Input text' } = config;
   const [id] = React.useState(nanoid);
@@ -42,8 +44,9 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
           "value": `${q}`
         });
       }
-
+console.log(size);
       load({
+        keepDataWhileLoading: size > initialSize,
         variables: {
           size,
           predicate: {
@@ -60,7 +63,7 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
   }, [size]);
 
   const search = useCallback((q) => {
-    setSize(25);
+    setSize(initialSize);
     setQ(q);
     setShowSuggestions(true);
   }, []);
@@ -72,11 +75,11 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
   return <Filter
     labelledById={false}
     title={<FormattedMessage
-      id={translations?.name || `filter.${filterHandle}.name`}
+      id={translations?.name || `filters.${filterHandle}.name`}
       defaultMessage={translations?.name}
     />}
     aboutText={translations.description && <FormattedMessage
-      id={translations.description || `filter.${filterHandle}.description`}
+      id={translations.description || `filters.${filterHandle}.description`}
       defaultMessage={translations.description}
     />}
     onFilterChange={onFilterChange}
@@ -134,14 +137,15 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
             <form id={formId} onSubmit={e => e.preventDefault()} >
 
               {showSuggestions && <>
-                {loading && <>
+                {loading && !items && <>
                   <OptionSkeleton helpVisible />
                   <OptionSkeleton helpVisible />
                   <OptionSkeleton helpVisible />
                 </>}
-                {!loading && items && <>
+                {items && <>
                   {!config.disallowLikeFilters && q !== '' && <div style={{borderBottom: '1px solid #eee', marginBottom: 12, paddingBottom: 12}}><Option
                     key={q}
+                    loading={loading}
                     helpVisible={true}
                     helpText={`Search for the pattern`}
                     label={q}
@@ -156,6 +160,7 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
                   {items.map((option) => {
                     return <Option
                       key={option.key}
+                      loading={loading}
                       helpVisible={true}
                       helpText={`${option.count} records in total`}
                       label={option.key}
@@ -172,7 +177,7 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
               </>}
 
               {!showSuggestions && <>
-                {options.length === 0 && <div style={{margin: '12px 0', opacity: .7}}>You can search using * (wildcard) and ? (single letter wildcard)</div>}
+                {options.length === 0 && <div style={{margin: '12px 0', opacity: .7}}>Searches are case insensitive, but every letter is distinct, so, to find records with Rio or Río, for example, you can use the pattern 'r?o'.</div>}
                 {options.map((option) => {
                   return <Option
                     key={hash(option)}

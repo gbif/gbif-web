@@ -21,11 +21,6 @@ query list($country: Country, $q: String, $offset: Int, $limit: Int){
 
 function List() {
   const routeContext = useContext(RouteContext);
-
-  function onSelect({key}) {
-    const path = routeContext.publisherKey.url({key});
-    window.location = path;
-  }
   
   return <StandardSearch 
     presentationComponent={ResultsList}
@@ -34,7 +29,6 @@ function List() {
       <h2>{props.result.title}</h2>
     </div>}
     }
-    onSelect={onSelect} 
     graphQuery={QUERY} 
     resultKey='organizationSearch' 
     />

@@ -29,7 +29,7 @@ export const occurrenceFields = {
         return <>
           <T>
             <FormattedMessage
-              id={`ocurrenceFieldNames.images`}
+              id={`occurrenceFieldNames.images`}
               defaultMessage={"Images"}
             />
           </T>
