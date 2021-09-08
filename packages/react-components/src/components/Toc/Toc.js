@@ -10,7 +10,7 @@ export const Toc = ({ refs, ...props }) => {
   const location = useLocation();
   const history = useHistory();
   const [sections, setSections] = useState([]);
-  const [activeSection, setActiveSection] = useState(location.hash || null);
+  const [activeSection, setActiveSection] = useState(location.hash ?  location.hash.substring(1) : null);
   useEffect(() => {
     // If theres an initial hash, scroll
     if (location.hash && refs[location.hash.substring(1)]) {

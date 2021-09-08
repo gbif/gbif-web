@@ -19,10 +19,11 @@ export function About({
 }) {
   const theme = useContext(ThemeContext);
   const routeContext = useContext(RouteContext);
+  const [tocRefs, setTocRefs] = useState({})
   // if (loading || !occurrence) return <h1>Loading</h1>;
   const { dataset } = data;
   // collect all refs to headlines for the TOC, e.g. ref={node => { tocRefs["description"] = node; }}
-  let tocRefs = {};
+  //let tocRefs = {};
   
   return <>
     <div css={css.withSideBar({ theme })}>
