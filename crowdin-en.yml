@@ -1,0 +1,6 @@
+files:
+  - source: /packages/react-components/locales/locales/source/en-developer/**/*.json
+    translation: /packages/react-components/locales/locales/translations/%locale%/**/%original_file_name%
+    languages_mapping:
+      locale:
+        en: en
