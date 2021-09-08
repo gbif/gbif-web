@@ -85,7 +85,8 @@ function getGroup({
     <Accordion
       key={groupName}
       css={css.accordion({ theme })}
-      summary={groupName}
+      // summary={groupName}
+      summary={<FormattedMessage id={`occurrenceDetails.groups.${groupName}`}/>}
       defaultOpen={true}
     >
       <Properties style={{ fontSize: 13 }}>
@@ -137,7 +138,7 @@ function getGroup({
                     {term.issues.map((i) => (
                       <Tag type={i.severity.toLowerCase()} key={i.id}>
                         <FormattedMessage
-                          id={`issueEnum.${i.id}`}
+                          id={`enums.occurrenceIssue.${i.id}`}
                           defaultMessage={prettifyEnum(i.id)}
                         />
                       </Tag>
@@ -194,7 +195,7 @@ function getValue({ term, config }) {
         term.issues.map((i) => (
           <span css={css.issuePill(i)} key={i}>
             <FormattedMessage
-              id={`issueEnum.${i.id}`}
+              id={`enums.occurrenceIssue.${i.id}`}
               defaultMessage={prettifyEnum(i.id)}
             />
           </span>

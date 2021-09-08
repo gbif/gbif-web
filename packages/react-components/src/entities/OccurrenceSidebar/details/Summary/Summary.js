@@ -46,7 +46,7 @@ export function Summary({ occurrence, fieldGroups, loading, setActiveImage, ...p
           fieldGroups.Taxon.scientificName.issues.map((i) => (
             <span css={css.issuePill(i)} key={i}>
               <FormattedMessage
-                id={`issueEnum.${i.id}`}
+                id={`enums.occurrenceIssue.${i.id}`}
                 defaultMessage={prettifyEnum(i.id)}
               />
             </span>
