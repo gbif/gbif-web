@@ -1,1 +1,6 @@
-{}
+{
+  "first": "Premier",
+  "previous": "Précédent",
+  "next": "Suivant",
+  "moreFilters": "plus"
+}
