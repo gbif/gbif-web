@@ -1,6 +1,11 @@
 {
-  "taxonKey": {
+  "dwcaExtension": {
     "name": "",
+    "count": "",
+    "description": ""
+  },
+  "taxonKey": {
+    "name": "Nom scientifique du taxon",
     "count": "",
     "description": ""
   },

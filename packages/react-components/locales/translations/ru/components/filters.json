@@ -1,6 +1,11 @@
 {
-  "taxonKey": {
+  "dwcaExtension": {
     "name": "",
+    "count": "",
+    "description": ""
+  },
+  "taxonKey": {
+    "name": "Латинское название",
     "count": "",
     "description": ""
   },
