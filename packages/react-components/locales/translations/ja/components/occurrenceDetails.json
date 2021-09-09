@@ -1,15 +1,15 @@
 {
   "groups": {
-    "summary": "",
-    "record": "",
-    "occurrence": "",
-    "event": "",
-    "identification": "",
-    "taxon": "",
-    "location": "",
-    "organism": "",
-    "materialSample": "",
-    "geologicalContext": "",
-    "other": ""
+    "summary": "概要",
+    "record": "記録",
+    "occurrence": "オカレンス",
+    "event": "イベント",
+    "identification": "ID",
+    "taxon": "分類群",
+    "location": "位置情報",
+    "organism": "生物",
+    "materialSample": "試料",
+    "geologicalContext": "地質学的背景",
+    "other": "その他"
   }
 }
