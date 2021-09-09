@@ -1,6 +1,6 @@
 {
   "dwcaExtension": {
-    "name": "",
+    "name": "Extension DWCA",
     "count": "",
     "description": ""
   },
@@ -17,29 +17,29 @@
     "description": ""
   },
   "institutionCode": {
-    "name": "",
+    "name": "Code de l'institution",
     "count": "",
     "description": ""
   },
   "catalogNumber": {
-    "name": "",
+    "name": "Numéro de catalogue",
     "count": "",
     "description": ""
   },
   "mediaType": {
-    "name": "",
+    "name": "Type de média",
     "count": "",
     "description": ""
   },
   "occurrenceIssue": {
-    "name": "",
+    "name": "Problèmes et drapeaux",
     "count": "",
     "isNotNull": "",
     "isNull": "",
     "description": ""
   },
   "occurrenceCountry": {
-    "name": "",
+    "name": "Pays",
     "count": "",
     "description": ""
   },
