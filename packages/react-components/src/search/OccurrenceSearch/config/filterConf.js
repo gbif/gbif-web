@@ -51,8 +51,7 @@ const highlighted = [
   'taxonKey',
   'year',
   'country',
-  'occurrenceIssue',
-  'dwcaExtension',
+  'occurrenceIssue'
 ];
 
 export default { filters: all, included: all, highlighted };
