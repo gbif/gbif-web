@@ -4,8 +4,8 @@
   "LIVING_SPECIMEN": "Espécimen vivo",
   "OBSERVATION": "Observación",
   "HUMAN_OBSERVATION": "Observación humana",
-  "MACHINE_OBSERVATION": "Observación con máquina",
-  "MATERIAL_SAMPLE": "Muestra de material",
+  "MACHINE_OBSERVATION": "Observación con dispositivos",
+  "MATERIAL_SAMPLE": "Muestra del ejemplar",
   "LITERATURE": "Literatura",
   "UNKNOWN": "Desconocida"
 }
