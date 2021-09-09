@@ -1,4 +1,5 @@
 {
+  "occurrence": "",
   "groups": {
     "summary": "Resumé",
     "record": "",
@@ -11,5 +12,11 @@
     "materialSample": "Materiale prøve",
     "geologicalContext": "Geologisk kontekst",
     "other": ""
+  },
+  "features": {
+    "isClustered": "",
+    "isSamplingEvent": "Sampling event",
+    "isTreament": "",
+    "isSequenced": ""
   }
 }
