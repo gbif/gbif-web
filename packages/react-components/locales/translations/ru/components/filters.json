@@ -17,29 +17,29 @@
     "description": ""
   },
   "institutionCode": {
-    "name": "",
+    "name": "Код организации",
     "count": "",
     "description": ""
   },
   "catalogNumber": {
-    "name": "",
+    "name": "Номер в каталоге",
     "count": "",
     "description": ""
   },
   "mediaType": {
-    "name": "",
+    "name": "Тип медиа-файла",
     "count": "",
     "description": ""
   },
   "occurrenceIssue": {
-    "name": "",
+    "name": "Автоматически обнаруженные несоответствия",
     "count": "",
     "isNotNull": "",
     "isNull": "",
     "description": ""
   },
   "occurrenceCountry": {
-    "name": "",
+    "name": "Страна",
     "count": "",
     "description": ""
   },

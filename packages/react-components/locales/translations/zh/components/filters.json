@@ -1,6 +1,6 @@
 {
   "dwcaExtension": {
-    "name": "",
+    "name": "DWCA 扩展",
     "count": "",
     "description": ""
   },
@@ -17,29 +17,29 @@
     "description": ""
   },
   "institutionCode": {
-    "name": "",
+    "name": "机构编码",
     "count": "",
     "description": ""
   },
   "catalogNumber": {
-    "name": "",
+    "name": "目录编号",
     "count": "",
     "description": ""
   },
   "mediaType": {
-    "name": "",
+    "name": "媒体类型",
     "count": "",
     "description": ""
   },
   "occurrenceIssue": {
-    "name": "",
+    "name": "问题和标志",
     "count": "",
     "isNotNull": "",
     "isNull": "",
     "description": ""
   },
   "occurrenceCountry": {
-    "name": "",
+    "name": "国家",
     "count": "",
     "description": ""
   },
