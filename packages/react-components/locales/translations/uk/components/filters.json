@@ -1,6 +1,6 @@
 {
   "dwcaExtension": {
-    "name": "",
+    "name": "Розширення DWCA",
     "count": "",
     "description": ""
   },
@@ -17,29 +17,29 @@
     "description": ""
   },
   "institutionCode": {
-    "name": "",
+    "name": "Акронім або код установи",
     "count": "",
     "description": ""
   },
   "catalogNumber": {
-    "name": "",
+    "name": "Каталоговий номер",
     "count": "",
     "description": ""
   },
   "mediaType": {
-    "name": "",
+    "name": "Тип медіа-файлу",
     "count": "",
     "description": ""
   },
   "occurrenceIssue": {
-    "name": "",
+    "name": "Проблеми та відмітки",
     "count": "",
     "isNotNull": "",
     "isNull": "",
     "description": ""
   },
   "occurrenceCountry": {
-    "name": "",
+    "name": "Країна",
     "count": "",
     "description": ""
   },
