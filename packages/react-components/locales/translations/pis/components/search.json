@@ -1,0 +1,17 @@
+{
+  "tabs": {
+    "table": "",
+    "gallery": "",
+    "map": "",
+    "datasets": "",
+    "download": ""
+  },
+  "table": {
+    "lockColumn": ""
+  },
+  "placeholders": {
+    "default": "",
+    "range": ""
+  },
+  "loadMore": ""
+}

@@ -1,0 +1,15 @@
+{
+  "groups": {
+    "summary": "Тема сообщения",
+    "record": "Запись",
+    "occurrence": "Находка",
+    "event": "Мероприятие",
+    "identification": "Определение",
+    "taxon": "Таксон",
+    "location": "Местонахождение (топоним)",
+    "organism": "Организм",
+    "materialSample": "Образец из коллекции",
+    "geologicalContext": "Геологические контекст",
+    "other": "Другая"
+  }
+}

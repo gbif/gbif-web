@@ -1,0 +1,21 @@
+{
+  "JOURNAL": "Стаття в часописі",
+  "BOOK": "Книга",
+  "GENERIC": "Решта",
+  "BOOK_SECTION": "Розділ книги",
+  "CONFERENCE_PROCEEDINGS": "Матеріали конференції",
+  "WORKING_PAPER": "Чорновик / рукопис",
+  "REPORT": "Звіт",
+  "WEB_PAGE": "Веб-сторінка",
+  "THESIS": "Дисертаційна робота",
+  "MAGAZINE_ARTICLE": "Стаття в популярному журналі",
+  "STATUTE": "Статут",
+  "PATENT": "Патент",
+  "NEWSPAPER_ARTICLE": "Стаття в газеті",
+  "COMPUTER_PROGRAM": "Комп'ютерна програма",
+  "HEARING": "Аудіоматеріал",
+  "TELEVISION_BROADCAST": "Телевізійна передача",
+  "CASE": "Справа",
+  "FILM": "Фільм",
+  "BILL": "Законопроект"
+}

@@ -1,0 +1,21 @@
+{
+  "JOURNAL": "مقالة في مجلة علمية",
+  "BOOK": "كتاب",
+  "GENERIC": "عام",
+  "BOOK_SECTION": "قسم الكتب",
+  "CONFERENCE_PROCEEDINGS": "وقائع المؤتمر",
+  "WORKING_PAPER": "ورقة عمل",
+  "REPORT": "تقرير",
+  "WEB_PAGE": "صفحة على الشبكة",
+  "THESIS": "اطروحة",
+  "MAGAZINE_ARTICLE": "مقالة في المجلة",
+  "STATUTE": "النظام الاساسي",
+  "PATENT": "براءة اختراع",
+  "NEWSPAPER_ARTICLE": "مقالة في الصحيفة",
+  "COMPUTER_PROGRAM": "برنامج حاسوب",
+  "HEARING": " استماع",
+  "TELEVISION_BROADCAST": "بث تلفزيوني",
+  "CASE": "حالة",
+  "FILM": "فيلم",
+  "BILL": "قانون"
+}

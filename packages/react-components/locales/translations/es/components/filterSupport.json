@@ -1,0 +1,14 @@
+{
+  "nullOrNot": {
+    "isNotNull": "",
+    "isNull": ""
+  },
+  "invalidValue": "",
+  "aboutThisFilter": "",
+  "existence": "",
+  "showHelp": "",
+  "back": "Volver",
+  "cancel": "Cancelar",
+  "apply": "",
+  "excludeSelected": ""
+}

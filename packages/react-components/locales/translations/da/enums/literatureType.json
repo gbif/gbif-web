@@ -1,0 +1,18 @@
+{
+  "JOURNAL": "Tidsskriftsartikel",
+  "BOOK": "Bog",
+  "GENERIC": "Generisk",
+  "BOOK_SECTION": "Bogafsnit",
+  "REPORT": "Rapport",
+  "WEB_PAGE": "Webside",
+  "THESIS": "Afhandling",
+  "MAGAZINE_ARTICLE": "Magasin-artikel",
+  "STATUTE": "Statut",
+  "PATENT": "Patent",
+  "NEWSPAPER_ARTICLE": "Avisartikel",
+  "COMPUTER_PROGRAM": "Computerprogram",
+  "HEARING": "Hørelse",
+  "TELEVISION_BROADCAST": "Tv-udsendelse",
+  "CASE": "Case",
+  "FILM": "Film"
+}

@@ -1,0 +1,21 @@
+{
+  "JOURNAL": "Статья в научном журнале",
+  "BOOK": "Монография",
+  "GENERIC": "Прочее",
+  "BOOK_SECTION": "Раздел монографии",
+  "CONFERENCE_PROCEEDINGS": "Материалы конференции",
+  "WORKING_PAPER": "Рукопись или препринт",
+  "REPORT": "Отчет",
+  "WEB_PAGE": "Веб-страница",
+  "THESIS": "Диссертация (квалификационная работа)",
+  "MAGAZINE_ARTICLE": "Статья в популярном журнале",
+  "STATUTE": "Устав",
+  "PATENT": "Патент",
+  "NEWSPAPER_ARTICLE": "Статья в газете",
+  "COMPUTER_PROGRAM": "Компьютерная программа",
+  "HEARING": "Слушания",
+  "TELEVISION_BROADCAST": "Телепередача",
+  "CASE": "Дело",
+  "FILM": "Фильм",
+  "BILL": "Законопроект"
+}

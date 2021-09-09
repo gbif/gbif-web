@@ -1,0 +1,8 @@
+{
+  "NATIVE": "Einheimisch",
+  "INTRODUCED": "Nicht heimisch",
+  "NATURALISED": "Naturalisiert",
+  "INVASIVE": "Invasiv",
+  "MANAGED": "Managed",
+  "UNCERTAIN": "Unsicher"
+}

@@ -1,0 +1,11 @@
+{
+  "ACCEPTED": "アクセプトされた学名",
+  "DOUBTFUL": "疑わしい",
+  "SYNONYM": "シノニム",
+  "HETEROTYPIC_SYNONYM": "異タイプシノニム",
+  "HOMOTYPIC_SYNONYM": "同タイプシノニム",
+  "PROPARTE_SYNONYM": "部分的シノニム",
+  "MISAPPLIED": "誤適用",
+  "INTERMEDIATE_RANK_SYNONYM": "中間ランク シノニム",
+  "DETERMINATION_SYNONYM": "Determination synonym"
+}
