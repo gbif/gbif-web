@@ -163,6 +163,10 @@ const config =
         "defaultLowerBound": "lte"
       }
     },
+    "dwcaExtension": {
+      "type": "keyword",
+      "field": "extensions"
+    },
     "elevation": {
       "type": "numeric",
       "field": "elevation",
