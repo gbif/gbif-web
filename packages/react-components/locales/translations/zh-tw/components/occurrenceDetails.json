@@ -1,15 +1,15 @@
 {
   "groups": {
-    "summary": "",
-    "record": "",
-    "occurrence": "",
-    "event": "",
-    "identification": "",
-    "taxon": "",
-    "location": "",
-    "organism": "",
-    "materialSample": "",
-    "geologicalContext": "",
-    "other": ""
+    "summary": "總結",
+    "record": "紀錄",
+    "occurrence": "出現",
+    "event": "活動",
+    "identification": "鑑定",
+    "taxon": "分類群",
+    "location": "地點",
+    "organism": "生物體",
+    "materialSample": "材料樣品",
+    "geologicalContext": "地理背景",
+    "other": "其它"
   }
 }
