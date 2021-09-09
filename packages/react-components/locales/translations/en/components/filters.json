@@ -1,33 +1,33 @@
 {
   "dwcaExtension": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "DWCA extension",
+    "count": "{num, plural, one { DWCA extension } other {# DWCA extensions}}",
+    "description": "A short description of the component should be placed here"
   },
   "taxonKey": {
     "name": "Scientific name",
     "count": "",
-    "description": ""
+    "description": "The scientific name as it appears in the GBIF backbone taxonomy. These names are normalized to ease search across datasets. It is possible that an originally-provided name might be misinterpreted or unknown. To search the names as provided use the \"Verbatim scientific name\" filter."
   },
   "basisOfRecord": {
     "name": "Basis of record",
     "count": "",
-    "isNotNull": "",
-    "isNull": "",
-    "description": ""
+    "isNotNull": "Has a basis of record",
+    "isNull": "Has no basis of record",
+    "description": "The nature of the evidence upon which the record is based."
   },
   "institutionCode": {
-    "name": "",
+    "name": "Institution code",
     "count": "",
-    "description": ""
+    "description": "The code (or acronym) for the institution having custody of the object(s) or information referred to in the record."
   },
   "catalogNumber": {
-    "name": "",
+    "name": "Catalogue number",
     "count": "",
-    "description": ""
+    "description": "The identifier for the record within a catalogue or collection."
   },
   "mediaType": {
-    "name": "",
+    "name": "Media type",
     "count": "",
     "description": ""
   },
