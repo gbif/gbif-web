@@ -1,15 +1,15 @@
 {
   "groups": {
-    "summary": "",
-    "record": "",
-    "occurrence": "",
-    "event": "",
-    "identification": "",
-    "taxon": "",
-    "location": "",
-    "organism": "",
-    "materialSample": "",
-    "geologicalContext": "",
-    "other": ""
+    "summary": "Résumé",
+    "record": "Enregistrement",
+    "occurrence": "Une occurrence",
+    "event": "Événement",
+    "identification": "Identification",
+    "taxon": "Taxon",
+    "location": "Lieu",
+    "organism": "Organisme",
+    "materialSample": "Matériel échantillonné",
+    "geologicalContext": "Contexte géologique",
+    "other": "Autre"
   }
 }
