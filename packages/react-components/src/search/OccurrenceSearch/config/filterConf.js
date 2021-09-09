@@ -11,7 +11,7 @@ export const all = [
   'basisOfRecord',
   'typeStatus',
   'occurrenceIssue',
-  'mediaTypes',
+  'mediaType',
   'sampleSizeUnit',
   'license',
   'coordinateUncertainty',

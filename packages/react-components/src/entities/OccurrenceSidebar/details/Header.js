@@ -1,10 +1,10 @@
 
 import { jsx } from '@emotion/react';
 import React, { useContext } from 'react';
-import { FormattedDate } from 'react-intl';
+import { FormattedDate, FormattedMessage } from 'react-intl';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import * as css from '../styles';
-import { Row, Col, IconFeatures } from "../../../components";
+import { Row, Col, IconFeatures, Eyebrow } from "../../../components";
 import { Globe } from './Globe';
 import useBelow from '../../../utils/useBelow';
 
@@ -26,15 +26,13 @@ export function Header({
     }
     <Col grow>
       <div css={css.headline({ theme })}>
-        <div css={css.breadcrumb({ theme })}>
-          {/* <FormattedMessage id={`enums.basisOfRecord.${data?.occurrence?.basisOfRecord}`} /> */}
-          Occurrence<span css={css.breadcrumbSeperator({ theme })}>
-            <FormattedDate value={data?.occurrence?.eventDate}
-              year="numeric"
-              month="long"
-              day="2-digit" />
-          </span>
-        </div>
+        <Eyebrow 
+          style={{fontSize: '80%'}}
+          prefix={<FormattedMessage id="occurrenceDetails.occurrence" />} 
+          suffix={<FormattedDate value={data?.occurrence?.eventDate}
+          year="numeric"
+          month="long"
+          day="2-digit" />} />
         <h3 dangerouslySetInnerHTML={{ __html: data?.occurrence?.gbifClassification?.usage?.formattedName }}></h3>
         {/* <div style={{color: 'orange', marginTop: 4}}>Published as: Polycauliona polycarpa hoffman</div> */}
         {/* <div style={{fontSize: 13}}><MajorRanks taxon={data?.occurrence?.gbifClassification} rank={data?.occurrence?.gbifClassification?.usage?.rank}/></div> */}

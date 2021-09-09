@@ -42,20 +42,6 @@ export const header = ({ ...props }) => css`
   }
 `;
 
-export const breadcrumbSeperator = ({ ...props }) => css`
-  border-left: 2px solid orange;
-  margin-left: 6px;
-  height: 1em;
-  padding-left: 6px;
-`;
-
-export const breadcrumb = ({ ...props }) => css`
-  font-size: 11px;
-  margin-bottom: 4px;
-  /* font-weight: 500; */
-  /* color: #5a5a5a; */
-`;
-
 export const globeOverlay = ({ theme, ...props }) => css`
   position: absolute;
   border: 1px solid #88888811;
