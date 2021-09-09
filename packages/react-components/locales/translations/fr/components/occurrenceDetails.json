@@ -1,4 +1,5 @@
 {
+  "occurrence": "",
   "groups": {
     "summary": "Résumé",
     "record": "Enregistrement",
@@ -11,5 +12,11 @@
     "materialSample": "Matériel échantillonné",
     "geologicalContext": "Contexte géologique",
     "other": "Autre"
+  },
+  "features": {
+    "isClustered": "",
+    "isSamplingEvent": "Événement d'échantillonnage",
+    "isTreament": "Traitement",
+    "isSequenced": ""
   }
 }
