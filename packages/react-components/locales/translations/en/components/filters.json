@@ -29,22 +29,22 @@
   "mediaType": {
     "name": "Media type",
     "count": "",
-    "description": ""
+    "description": "The types of media accessible for this record."
   },
   "occurrenceIssue": {
-    "name": "",
+    "name": "Issues and flags",
     "count": "",
-    "isNotNull": "",
-    "isNull": "",
-    "description": ""
+    "isNotNull": "Has issues",
+    "isNull": "Has no issues",
+    "description": "The types of issues or flags of potential interest discovered in processing the data."
   },
   "occurrenceCountry": {
-    "name": "",
+    "name": "Country",
     "count": "",
-    "description": ""
+    "description": "The country or territory where the event occurred"
   },
   "publishingCountryCode": {
-    "name": "",
+    "name": "Publishing country",
     "count": "",
     "description": ""
   },
