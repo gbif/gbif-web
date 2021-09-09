@@ -1,15 +1,15 @@
 {
   "groups": {
-    "summary": "",
-    "record": "",
-    "occurrence": "",
-    "event": "",
-    "identification": "",
-    "taxon": "",
-    "location": "",
-    "organism": "",
-    "materialSample": "",
-    "geologicalContext": "",
-    "other": ""
+    "summary": "الملخص",
+    "record": "سجل",
+    "occurrence": "تكرار",
+    "event": "الحدث",
+    "identification": "التعريف",
+    "taxon": "الوحدة التصنيفية",
+    "location": "موقع",
+    "organism": "المتعضي",
+    "materialSample": "عينة مادية",
+    "geologicalContext": "السياق الجيولوجي",
+    "other": "أخرى"
   }
 }
