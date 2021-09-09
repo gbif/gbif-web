@@ -34,7 +34,7 @@
     "@emotion/babel-preset-css-prop": "^11.2.0",
     "@emotion/react": "^11.1.5",
     "autolinker": "^3.14.3",
-    "axios": "^0.21.1",
+    "axios": "^0.21.4",
     "doi-regex": "^0.1.10",
     "dompurify": "^2.2.7",
     "downshift": "^6.1.0",
