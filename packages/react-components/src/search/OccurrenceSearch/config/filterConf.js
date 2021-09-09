@@ -43,6 +43,7 @@ export const all = [
   'institutionKey',
   'q',
   'verbatimScientificName',
+  'dwcaExtension'
 ].sort();
 
 const highlighted = [
@@ -51,6 +52,7 @@ const highlighted = [
   'year',
   'country',
   'occurrenceIssue',
+  'dwcaExtension',
 ];
 
 export default { filters: all, included: all, highlighted };

@@ -26,13 +26,13 @@ module.exports = {
           filterHandle: '{{camelCase name}}',
           id2labelHandle: '{{camelCase name}}',
           translations: {
-            count: 'filter.{{camelCase name}}.count', // translation path to display names with counts. e.g. "3 scientific names"
-            name: 'filter.{{camelCase name}}.name',// translation path to a title for the popover and the button
-            description: 'filter.{{camelCase name}}.description', // translation path for the filter description
+            count: 'filters.{{camelCase name}}.count', // translation path to display names with counts. e.g. "3 scientific names"
+            name: 'filters.{{camelCase name}}.name',// translation path to a title for the popover and the button
+            description: 'filters.{{camelCase name}}.description', // translation path for the filter description
           }
         },
         specific: {
-          options: Object.keys({{camelCase name}}),
+          options: {{camelCase name}}
         }
       }
     },\r\n  $1`,
@@ -41,36 +41,35 @@ module.exports = {
         type: 'modify',
         path: path.resolve('./src/utils/filterBuilder/commonFilters.js'),
         pattern: /(\/\/ -- Add imports above this line \(required by plopfile\.js\) --)/gi,
-        template: `import {{camelCase name}} from '../../locales/enums/{{camelCase name}}.json';\r\n$1`,
+        template: `import {{camelCase name}} from '../../enums/basic/{{camelCase name}}.json';\r\n$1`,
       },
       {
         type: 'add',
         path: path.resolve(
-          './src/locales/enums/{{camelCase name}}.json',
+          './src/enums/basic/{{camelCase name}}.json',
         ),
+        templateFile: 'plop-templates/filters/enums.hbs',
+      },
+      {
+        type: 'modify',
+        path: path.resolve('./locales/source/en-developer/components/filters.json'),
+        pattern: /("taxonKey": {)/gi,
+        template: `"{{camelCase name}}": {
+    "name": "{{sentenceCase name}}",
+    "count": "{num, plural, one { {{sentenceCase name}} } other {# {{sentenceCase name}}s}}",
+    "description": "A short description of the component should be placed here"
+  },\r\n  $1`,
+      },
+      {
+        type: 'add',
+        path: path.resolve('./locales/source/en-developer/enums/{{camelCase name}}.json'),
         templateFile: 'plop-templates/filters/enumTranslation.hbs',
       },
       {
         type: 'modify',
-        path: path.resolve('./src/locales/en.js'),
-        pattern: /(\/\/ -- Add filter above this line \(required by plopfile\.js\) --)/gi,
-        template: `{{camelCase name}}: {
-      name: '{{sentenceCase name}}',
-      count: '{num, plural, one { {{sentenceCase name}} } other {# {{sentenceCase name}}s}}',
-      description: 'A short description of the component should be placed here'
-    },\r\n    $1`,
-      },
-      {
-        type: 'modify',
-        path: path.resolve('./src/locales/en.js'),
-        pattern: /(\/\/ -- Add imports above this line \(required by plopfile\.js\) --)/gi,
-        template: `import {{camelCase name}} from './enums/{{camelCase name}}.json';\r\n$1`,
-      },
-      {
-        type: 'modify',
-        path: path.resolve('./src/locales/en.js'),
-        pattern: /(\/\/ -- Add enum translations above this line \(required by plopfile\.js\) --)/gi,
-        template: `{{camelCase name}},\r\n    $1`,
+        path: path.resolve('./locales/scripts/stitchFile.js'),
+        pattern: /(\/\/ -- Add enums above this line \(required by plopfile\.js\) --)/gi,
+        template: '{{camelCase name}}: getFile(locale, `../${folder}/${locale}/enums/{{camelCase name}}`),\r\n  $1'
       },
       {
         type: 'modify',

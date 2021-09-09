@@ -171,5 +171,9 @@ export const commonLabels = {
     type: 'TRANSLATION',
     template: id => `enums.literatureType.${id}`
   },
+  dwcaExtension: {
+    type: 'TRANSLATION',
+    template: id => `enums.dwcaExtension.${id}`
+  },
   // -- Add labels above this line (required by plopfile.js) --
 }

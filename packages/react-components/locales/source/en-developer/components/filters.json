@@ -1,4 +1,9 @@
 {
+  "dwcaExtension": {
+    "name": "Dwca extension",
+    "count": "{num, plural, one { Dwca extension } other {# Dwca extensions}}",
+    "description": "A short description of the component should be placed here"
+  },
   "taxonKey": {
     "name": "Scientific name",
     "count": "{num, plural, one {scientific name} other {# scientific names}}",

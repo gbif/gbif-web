@@ -42,7 +42,9 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
         role: getFile(locale, `../${folder}/${locale}/enums/role`),
         isInCluster: getFile(locale, `../${folder}/${locale}/enums/isInCluster`),
         datasetType: getFile(locale, `../${folder}/${locale}/enums/datasetType`),
-        datasetSubtype: getFile(locale, `../${folder}/${locale}/enums/datasetSubtype`)
+        datasetSubtype: getFile(locale, `../${folder}/${locale}/enums/datasetSubtype`),
+        dwcaExtension: getFile(locale, `../${folder}/${locale}/enums/dwcaExtension`),
+  // -- Add enums above this line (required by plopfile.js) --
       }
     }
   );

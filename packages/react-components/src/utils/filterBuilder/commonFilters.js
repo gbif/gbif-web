@@ -14,6 +14,7 @@ import occurrenceStatus from '../../enums/basic/occurrenceStatus.json';
 import datasetType from '../../enums/basic/datasetType.json';
 import datasetSubtype from '../../enums/basic/datasetSubtype.json';
 import literatureType from '../../enums/cms/literatureType.json';
+import dwcaExtension from '../../enums/basic/dwcaExtension.json';
 // -- Add imports above this line (required by plopfile.js) --
 
 export const commonFilters = {
@@ -1076,6 +1077,23 @@ export const commonFilters = {
         },
         specific: {
           options: literatureType,
+        }
+      }
+    },
+  dwcaExtension: {
+      type: 'ENUM',
+      config: {
+        std: {
+          filterHandle: 'dwcaExtension',
+          id2labelHandle: 'dwcaExtension',
+          translations: {
+            count: 'filters.dwcaExtension.count', // translation path to display names with counts. e.g. "3 scientific names"
+            name: 'filters.dwcaExtension.name',// translation path to a title for the popover and the button
+            description: 'filters.dwcaExtension.description', // translation path for the filter description
+          }
+        },
+        specific: {
+          options: dwcaExtension
         }
       }
     },
