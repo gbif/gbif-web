@@ -1,15 +1,15 @@
 {
   "groups": {
-    "summary": "",
-    "record": "",
-    "occurrence": "",
-    "event": "",
-    "identification": "",
-    "taxon": "",
-    "location": "",
-    "organism": "",
-    "materialSample": "",
-    "geologicalContext": "",
-    "other": ""
+    "summary": "Підсумок",
+    "record": "Запис",
+    "occurrence": "Знахідка",
+    "event": "Подія",
+    "identification": "Визначення",
+    "taxon": "Таксон",
+    "location": "Місцезнаходження",
+    "organism": "Організм",
+    "materialSample": "Проба матеріалу",
+    "geologicalContext": "Геологічний контекст",
+    "other": "Інше"
   }
 }
