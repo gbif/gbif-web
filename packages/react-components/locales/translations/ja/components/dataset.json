@@ -16,7 +16,7 @@
     "overlapWithNub": "GBIF バックボーンに収載されています。",
     "overlapWithCol": "COLカタログオブライフに収載されています。"
   },
-  "noStatsForMetadata": "",
+  "noStatsForMetadata": "メタデータのみのデータセットにつき、統計情報なし",
   "viewArticle": "記事を見る",
   "registeredDate": "登録日 {DATE}",
   "constituentOf": "構成要素",
