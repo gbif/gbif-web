@@ -1,4 +1,5 @@
 {
+  "occurrence": "",
   "groups": {
     "summary": "Підсумок",
     "record": "Запис",
@@ -11,5 +12,11 @@
     "materialSample": "Проба матеріалу",
     "geologicalContext": "Геологічний контекст",
     "other": "Інше"
+  },
+  "features": {
+    "isClustered": "",
+    "isSamplingEvent": "Описи, обліки або збори",
+    "isTreament": "Таксономічна картка",
+    "isSequenced": ""
   }
 }
