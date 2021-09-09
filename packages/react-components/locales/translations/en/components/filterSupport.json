@@ -1,14 +1,14 @@
 {
   "nullOrNot": {
-    "isNotNull": "",
-    "isNull": ""
+    "isNotNull": "Must be defined",
+    "isNull": "Must not be defined"
   },
-  "invalidValue": "",
-  "aboutThisFilter": "",
-  "existence": "",
-  "showHelp": "",
-  "back": "",
-  "cancel": "",
-  "apply": "",
-  "excludeSelected": ""
+  "invalidValue": "Invalid value",
+  "aboutThisFilter": "About this filter",
+  "existence": "Filter for existence",
+  "showHelp": "Show help text",
+  "back": "Back",
+  "cancel": "Cancel",
+  "apply": "Apply",
+  "excludeSelected": "Exclude selected"
 }
