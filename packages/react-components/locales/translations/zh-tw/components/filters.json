@@ -1,6 +1,11 @@
 {
-  "taxonKey": {
+  "dwcaExtension": {
     "name": "",
+    "count": "",
+    "description": ""
+  },
+  "taxonKey": {
+    "name": "學名",
     "count": "",
     "description": ""
   },
