@@ -14,6 +14,13 @@ import { ApiContext, ApiClient } from '../src/dataManagement/api';
 import env from '../.env.json';
 import RouteContext from '../src/dataManagement/RouteContext';
 
+const availableLocales = env.LOCALES || ['en-developer'];
+const locales = availableLocales.map(x => {
+  if (x === 'en-developer') return 'en-DK';
+  if (x === 'en-pseudo') return 'en-ZZ';
+  return x;
+});
+
 const customTheme = ThemeBuilder.extend({
   extendWith: {
     fontSize: '14px',
@@ -117,8 +124,8 @@ addDecorator(storyFn => {
         <LocaleProvider locale={chooseLocale(
               select(
                 'Choose locale',
-                ['en-DK', 'en-ZZ', 'en', 'da'],
-                env.STORYBOOK_LOCALE || 'en-DK',
+                locales,
+                env.STORYBOOK_LOCALE || locales[0],
               ),
             )} >
           <ThemeContext.Provider
