@@ -1,5 +1,5 @@
 {
-  "occurrence": "",
+  "occurrence": "occurrence",
   "groups": {
     "summary": "Summary",
     "record": "Record",
@@ -14,9 +14,9 @@
     "other": "Other"
   },
   "features": {
-    "isClustered": "",
-    "isSamplingEvent": "",
-    "isTreament": "",
-    "isSequenced": ""
+    "isClustered": "Clustered",
+    "isSamplingEvent": "Sampling event",
+    "isTreament": "Treatment",
+    "isSequenced": "Sequenced"
   }
 }
