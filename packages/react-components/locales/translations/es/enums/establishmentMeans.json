@@ -1,1 +1,8 @@
-{}
+{
+  "NATIVE": "Nativa",
+  "INTRODUCED": "Introducida",
+  "NATURALISED": "Naturalizada",
+  "INVASIVE": "Invasora",
+  "MANAGED": "Manejada",
+  "UNCERTAIN": "Indeterminado"
+}
