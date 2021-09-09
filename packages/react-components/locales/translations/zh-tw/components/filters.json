@@ -1,6 +1,6 @@
 {
   "dwcaExtension": {
-    "name": "",
+    "name": "達爾文延伸集",
     "count": "",
     "description": ""
   },
@@ -17,29 +17,29 @@
     "description": ""
   },
   "institutionCode": {
-    "name": "",
+    "name": "機構代碼",
     "count": "",
     "description": ""
   },
   "catalogNumber": {
-    "name": "",
+    "name": "目錄編號",
     "count": "",
     "description": ""
   },
   "mediaType": {
-    "name": "",
+    "name": "媒體類型",
     "count": "",
     "description": ""
   },
   "occurrenceIssue": {
-    "name": "",
+    "name": "問題和註記",
     "count": "",
     "isNotNull": "",
     "isNull": "",
     "description": ""
   },
   "occurrenceCountry": {
-    "name": "",
+    "name": "國家",
     "count": "",
     "description": ""
   },
