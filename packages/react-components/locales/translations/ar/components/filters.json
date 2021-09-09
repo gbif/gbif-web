@@ -1,6 +1,6 @@
 {
   "dwcaExtension": {
-    "name": "",
+    "name": "لاحقة DWCA",
     "count": "",
     "description": ""
   },
@@ -17,29 +17,29 @@
     "description": ""
   },
   "institutionCode": {
-    "name": "",
+    "name": "رمز المؤسسة",
     "count": "",
     "description": ""
   },
   "catalogNumber": {
-    "name": "",
+    "name": "رقم الدليل",
     "count": "",
     "description": ""
   },
   "mediaType": {
-    "name": "",
+    "name": "نوع الوسائط",
     "count": "",
     "description": ""
   },
   "occurrenceIssue": {
-    "name": "",
+    "name": "مسائل و رايات",
     "count": "",
     "isNotNull": "",
     "isNull": "",
     "description": ""
   },
   "occurrenceCountry": {
-    "name": "",
+    "name": "بلد",
     "count": "",
     "description": ""
   },
