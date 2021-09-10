@@ -46,102 +46,102 @@
   "publishingCountryCode": {
     "name": "Publishing country",
     "count": "",
-    "description": ""
+    "description": "The ISO code for the country or territory in which the data publisher is located"
   },
   "q": {
-    "name": "",
+    "name": "Text search",
     "count": "",
-    "description": ""
+    "description": "Find records with similar matching text among text fields. For matching text within a specific field, use corresponding filter, such as the one for \"Scientific Name\"."
   },
   "coordinates": {
-    "name": ""
+    "name": "Coordinates"
   },
   "elevation": {
-    "name": "",
+    "name": "Elevation",
     "count": "",
     "description": ""
   },
   "license": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Licence",
+    "count": "{num, plural, one {licence} other {# licences}}",
+    "description": "The legal licence or waiver under which the record is shared."
   },
   "datasetKey": {
-    "name": "",
+    "name": "Dataset",
     "count": "",
-    "description": ""
+    "description": "The title of the dataset under which the record is shared."
   },
   "publisherKey": {
-    "name": "",
+    "name": "Publisher",
     "count": "",
-    "description": ""
+    "description": "The name of the organization responsible for sharing the dataset in which the record is included."
   },
   "hostingOrganizationKey": {
-    "name": "",
+    "name": "Hosting organization",
     "count": "",
-    "description": ""
+    "description": "The name of the organization hosting the dataset in which the record is published."
   },
   "country": {
-    "name": "",
+    "name": "Country",
     "count": ""
   },
   "countriesOfCoverage": {
-    "name": "",
+    "name": "Country of coverage",
     "count": ""
   },
   "countriesOfResearcher": {
-    "name": "",
+    "name": "Country of researcher",
     "count": ""
   },
   "typeStatus": {
-    "name": "",
-    "count": "",
-    "isNotNull": "",
-    "isNull": "",
-    "description": ""
+    "name": "Type status",
+    "count": "{num, plural, one {type status} other {# type statuses}}",
+    "isNotNull": "Has a type status",
+    "isNull": "The type status",
+    "description": "The type designation of a specimen."
   },
   "year": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Year",
+    "count": "{num, plural, one {year filter} other {# year filters}}",
+    "description": "The year in which the event occurred."
   },
   "sampleSizeUnit": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Sample size unit",
+    "count": "{num, plural, one {sample size unit} other {# sample size units}}",
+    "description": "The unit of measurement for the \"sample size value\"."
   },
   "coordinateUncertainty": {
-    "name": "",
-    "count": "",
+    "name": "Coordinate uncertainty",
+    "count": "{num, plural, one {Coordinate uncertainty} other {# coordinate uncertainty filters}}",
     "description": ""
   },
   "depth": {
-    "name": "",
+    "name": "Depth",
     "count": "",
     "description": ""
   },
   "organismQuantity": {
-    "name": "",
+    "name": "Organism quantity",
     "count": "",
     "description": ""
   },
   "sampleSizeValue": {
-    "name": "",
+    "name": "Sample size value",
     "count": "",
     "description": ""
   },
   "relativeOrganismQuantity": {
-    "name": "",
+    "name": "Relative organism quantity",
     "count": "",
     "description": ""
   },
   "month": {
-    "name": "",
+    "name": "Month",
     "count": "",
     "description": ""
   },
   "continent": {
-    "name": "",
+    "name": "Continent",
     "count": "",
     "description": ""
   },
@@ -151,22 +151,22 @@
     "description": ""
   },
   "establishmentMeans": {
-    "name": "",
+    "name": "Establishment means",
     "count": "",
     "description": ""
   },
   "recordedBy": {
-    "name": "",
+    "name": "Recorded by",
     "count": "",
     "description": ""
   },
   "recordNumber": {
-    "name": "",
+    "name": "Record number",
     "count": "",
     "description": ""
   },
   "collectionCode": {
-    "name": "",
+    "name": "Collection code",
     "count": "",
     "description": ""
   },
@@ -181,27 +181,27 @@
     "description": ""
   },
   "occurrenceId": {
-    "name": "",
+    "name": "Occurrence id",
     "count": "",
     "description": ""
   },
   "organismId": {
-    "name": "",
+    "name": "Organism id",
     "count": "",
     "description": ""
   },
   "locality": {
-    "name": "",
+    "name": "Locality",
     "count": "",
     "description": ""
   },
   "waterBody": {
-    "name": "",
+    "name": "Water body",
     "count": "",
     "description": ""
   },
   "stateProvince": {
-    "name": "",
+    "name": "State province",
     "count": "",
     "description": ""
   },
@@ -211,12 +211,12 @@
     "description": ""
   },
   "samplingProtocol": {
-    "name": "",
+    "name": "Sampling protocol",
     "count": "",
     "description": ""
   },
   "occurrenceStatus": {
-    "name": "",
+    "name": "Occurrence status",
     "count": "",
     "description": ""
   },
@@ -226,17 +226,17 @@
     "description": ""
   },
   "identifiedBy": {
-    "name": "",
+    "name": "Identified by",
     "count": "",
     "description": ""
   },
   "isInCluster": {
-    "name": "",
+    "name": "Is in cluster",
     "count": "",
     "description": ""
   },
   "datasetType": {
-    "name": "",
+    "name": "Dataset type",
     "count": "",
     "description": ""
   },
@@ -246,27 +246,27 @@
     "description": ""
   },
   "institutionKey": {
-    "name": "",
+    "name": "Institution",
     "count": "",
     "description": ""
   },
   "name": {
-    "name": "",
+    "name": "Name",
     "count": "",
     "description": ""
   },
   "city": {
-    "name": "",
+    "name": "City",
     "count": "",
     "description": ""
   },
   "code": {
-    "name": "",
+    "name": "Code",
     "count": "",
     "description": ""
   },
   "verbatimScientificName": {
-    "name": "",
+    "name": "Verbatim scientific name",
     "count": "",
     "description": ""
   },
@@ -276,7 +276,7 @@
     "description": ""
   },
   "literatureType": {
-    "name": "",
+    "name": "Literature type",
     "count": "",
     "description": ""
   }

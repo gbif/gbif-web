@@ -1,1 +1,8 @@
-{}
+{
+  "citations": "Citations",
+  "occurrences": "Occurrences",
+  "numberSpecimens": "Number of specimens",
+  "title": "Title",
+  "registered": "Registered",
+  "pubDatasets": "Published datasets"
+}

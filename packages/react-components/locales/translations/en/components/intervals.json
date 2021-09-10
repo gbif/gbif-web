@@ -14,8 +14,8 @@
   },
   "compactMeters": {
     "between": "",
-    "lt": "",
-    "gt": "",
+    "lt": "Below {to}m",
+    "gt": "Above {from}m",
     "e": ""
   },
   "compactTime": {
