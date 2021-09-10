@@ -54,10 +54,10 @@
     "description": ""
   },
   "coordinates": {
-    "name": ""
+    "name": "احداثيات"
   },
   "elevation": {
-    "name": "",
+    "name": "ارتفاع",
     "count": "",
     "description": ""
   },
@@ -67,22 +67,22 @@
     "description": ""
   },
   "datasetKey": {
-    "name": "",
+    "name": "مجموعة البيانات",
     "count": "",
     "description": ""
   },
   "publisherKey": {
-    "name": "",
+    "name": "الناشر",
     "count": "",
     "description": ""
   },
   "hostingOrganizationKey": {
-    "name": "",
+    "name": "المنظمة المضيفة",
     "count": "",
     "description": ""
   },
   "country": {
-    "name": "",
+    "name": "بلد",
     "count": ""
   },
   "countriesOfCoverage": {
@@ -94,54 +94,54 @@
     "count": ""
   },
   "typeStatus": {
-    "name": "",
+    "name": "حالة النمط",
     "count": "",
     "isNotNull": "",
     "isNull": "",
     "description": ""
   },
   "year": {
-    "name": "",
+    "name": "السنة",
     "count": "",
     "description": ""
   },
   "sampleSizeUnit": {
-    "name": "",
+    "name": "وحدة حجم العينة",
     "count": "",
     "description": ""
   },
   "coordinateUncertainty": {
-    "name": "",
+    "name": "عدم التأكد من الاحداثيات",
     "count": "",
     "description": ""
   },
   "depth": {
-    "name": "",
+    "name": "العمق",
     "count": "",
     "description": ""
   },
   "organismQuantity": {
-    "name": "",
+    "name": "كمية المتعضي",
     "count": "",
     "description": ""
   },
   "sampleSizeValue": {
-    "name": "",
+    "name": "فيمة حجم العينة",
     "count": "",
     "description": ""
   },
   "relativeOrganismQuantity": {
-    "name": "",
+    "name": "كمية الكائن النسبية",
     "count": "",
     "description": ""
   },
   "month": {
-    "name": "",
+    "name": "الشهر",
     "count": "",
     "description": ""
   },
   "continent": {
-    "name": "",
+    "name": "القارة",
     "count": "",
     "description": ""
   },
@@ -151,22 +151,22 @@
     "description": ""
   },
   "establishmentMeans": {
-    "name": "",
+    "name": "وسائل الاسترساء",
     "count": "",
     "description": ""
   },
   "recordedBy": {
-    "name": "",
+    "name": "سجلت من قبل",
     "count": "",
     "description": ""
   },
   "recordNumber": {
-    "name": "",
+    "name": "رقم السجل",
     "count": "",
     "description": ""
   },
   "collectionCode": {
-    "name": "",
+    "name": "رمز المجموعة",
     "count": "",
     "description": ""
   },
@@ -181,27 +181,27 @@
     "description": ""
   },
   "occurrenceId": {
-    "name": "",
+    "name": "معرف التكرار",
     "count": "",
     "description": ""
   },
   "organismId": {
-    "name": "",
+    "name": "معرف الكائن",
     "count": "",
     "description": ""
   },
   "locality": {
-    "name": "",
+    "name": "موقع",
     "count": "",
     "description": ""
   },
   "waterBody": {
-    "name": "",
+    "name": "المسطح المائي",
     "count": "",
     "description": ""
   },
   "stateProvince": {
-    "name": "",
+    "name": "الولاية/المقاطعة/المحافظة",
     "count": "",
     "description": ""
   },
@@ -211,12 +211,12 @@
     "description": ""
   },
   "samplingProtocol": {
-    "name": "",
+    "name": "بروتوكول اخذ العينات",
     "count": "",
     "description": ""
   },
   "occurrenceStatus": {
-    "name": "",
+    "name": "حالة التكرار",
     "count": "",
     "description": ""
   },
@@ -226,7 +226,7 @@
     "description": ""
   },
   "identifiedBy": {
-    "name": "",
+    "name": "تم تحديده بواسطة",
     "count": "",
     "description": ""
   },
@@ -236,7 +236,7 @@
     "description": ""
   },
   "datasetType": {
-    "name": "",
+    "name": "نمط مجموعة البيانات",
     "count": "",
     "description": ""
   },
@@ -246,27 +246,27 @@
     "description": ""
   },
   "institutionKey": {
-    "name": "",
+    "name": "مؤسسة",
     "count": "",
     "description": ""
   },
   "name": {
-    "name": "",
+    "name": "الاسم",
     "count": "",
     "description": ""
   },
   "city": {
-    "name": "",
+    "name": "المدينة",
     "count": "",
     "description": ""
   },
   "code": {
-    "name": "",
+    "name": "الرمز",
     "count": "",
     "description": ""
   },
   "verbatimScientificName": {
-    "name": "",
+    "name": "الاسم العلمي الحرفي",
     "count": "",
     "description": ""
   },
@@ -276,7 +276,7 @@
     "description": ""
   },
   "literatureType": {
-    "name": "",
+    "name": "نمط  المراجع",
     "count": "",
     "description": ""
   }
