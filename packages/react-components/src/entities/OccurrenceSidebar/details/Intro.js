@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/react';
 import React, { useContext, useState } from 'react';
 import ThemeContext from '../../../style/themes/ThemeContext';
+import { FormattedMessage } from 'react-intl';
 import * as css from '../styles';
 import { Row, Col, Switch, Accordion, Properties } from "../../../components";
 import { Header } from './Header';
@@ -34,11 +35,11 @@ export function Intro({
 
       <Accordion
         css={css.accordion({ theme })}
-        summary="Citation"
+        summary={<FormattedMessage id={`phrases.citation`}/>}
         defaultOpen={true}
       >
         <Properties style={{ fontSize: 13 }}>
-          <T>Please cite as</T>
+          <T><FormattedMessage id={`phrases.citeAs`}/></T>
           <V>{occurrence.dataset.citation.text} https://gbif.org/occurrence/{occurrence.key}</V>
         </Properties>
       </Accordion>
@@ -46,7 +47,7 @@ export function Intro({
     <Col css={css.controlFooter({ theme })} grow={false}>
       <Row justifyContent="flex-end" halfGutter={8}>
         <Col grow={false}>
-          Show all fields <Switch checked={showAll} onChange={() => setShowAll(!showAll)} direction="top" tip="Shortcut s" />
+          <FormattedMessage id={`occurrenceDetails.showAllFields`}/> <Switch checked={showAll} onChange={() => setShowAll(!showAll)} direction="top" tip="Shortcut s" />
         </Col>
       </Row>
     </Col>

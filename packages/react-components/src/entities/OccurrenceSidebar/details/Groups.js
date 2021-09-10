@@ -86,7 +86,7 @@ function getGroup({
       key={groupName}
       css={css.accordion({ theme })}
       // summary={groupName}
-      summary={<FormattedMessage id={`occurrenceDetails.groups.${groupName}`}/>}
+      summary={<FormattedMessage id={`occurrenceDetails.groups.${groupName}`} />}
       defaultOpen={true}
     >
       <Properties style={{ fontSize: 13 }}>
@@ -118,6 +118,7 @@ function getGroup({
           .map(nameConfig => {
             const config = typeof nameConfig === 'string' ? { name: nameConfig } : nameConfig;
             const name = config.name;
+            const fieldName = config.trKey || `occurrenceFieldNames.${name}`;
             let term = termMap[name];
             if (config.Component) {
               return <config.Component key={name} name={name} term={term} occurrence={occurrence} theme={theme} setActiveImage={setActiveImage} termMap={termMap} />
@@ -125,7 +126,7 @@ function getGroup({
             return <React.Fragment key={name}>
               <T>
                 <FormattedMessage
-                  id={`occurrenceFieldNames.${name}`}
+                  id={fieldName}
                   defaultMessage={_.startCase(name)}
                 />
               </T>
@@ -148,9 +149,13 @@ function getGroup({
                 </V>
                 {(term?.verbatim && (showAll || (!config.hideVerbatim && term.remarks && term.remarks !== 'INFERRED'))) && <>
                   <V title="Verbatim">
-                    <span style={{opacity: .6}}>{term.verbatim}</span> <Tags>
-                      <Tag type="light">Original</Tag>
-                      {term.value === null && <Tag type="light">Excluded</Tag>}
+                    <span style={{ opacity: .6 }}>{term.verbatim}</span> <Tags>
+                      <Tag type="light">
+                        <FormattedMessage id="occurrenceDetails.info.original" />
+                      </Tag>
+                      {term.value === null && <Tag type="light">
+                        <FormattedMessage id="occurrenceDetails.info.excluded" />
+                      </Tag>}
                     </Tags>
                   </V>
                 </>}

@@ -1,5 +1,10 @@
 {
   "occurrence": "occurrence",
+  "showAllFields": "Show all fields",
+  "info": {
+    "original": "original",
+    "excluded": "Excluded"
+  },
   "groups": {
     "summary": "Summary",
     "record": "Record",
