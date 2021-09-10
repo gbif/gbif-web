@@ -69,7 +69,7 @@
   "publishingCountriesAreas": "发布的国家或地区",
   "originalArchive": "来源归档",
   "annotatedEml": "GBIF附加说明的元数据",
-  "license": "",
+  "license": "授权条款",
   "recommended": "推荐",
   "processedOccurrences": "GBIF附加说明的归档",
   "noDescriptionProvided": "无可用描述",

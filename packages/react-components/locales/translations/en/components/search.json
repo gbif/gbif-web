@@ -7,11 +7,11 @@
     "download": "Download"
   },
   "table": {
-    "lockColumn": ""
+    "lockColumn": "Lock column"
   },
   "placeholders": {
     "default": "Search",
-    "range": ""
+    "range": "Range or single value"
   },
   "loadMore": "More"
 }
