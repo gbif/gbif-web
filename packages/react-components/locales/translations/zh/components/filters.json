@@ -171,12 +171,12 @@
     "description": ""
   },
   "recordedById": {
-    "name": "",
+    "name": "由ID记录",
     "count": "",
     "description": ""
   },
   "identifiedById": {
-    "name": "",
+    "name": "由ID标识",
     "count": "",
     "description": ""
   },
@@ -206,7 +206,7 @@
     "description": ""
   },
   "eventId": {
-    "name": "",
+    "name": "事件编号",
     "count": "",
     "description": ""
   },
