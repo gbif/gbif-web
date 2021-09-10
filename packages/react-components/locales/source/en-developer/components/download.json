@@ -1,0 +1,9 @@
+{
+  "unsupported.title": "Unsupported query",
+  "unsupported.description": "Free text search can be used for exploration, but do not have download support.",
+  "unsupported.remove": "Remove filter",
+  "unsupported.error": "This query looks liek it is unsupported",
+  "download": "Download",
+  "redirectNotice": "You are about to download, to do so you will be redirected to GBIF.org. {br}{br} Be aware that an account is needed to download the content.",
+  "continueToGBIF": "Continue"
+}

@@ -8,7 +8,7 @@ import { filter2predicate } from '../../../../dataManagement/filterAdapter';
 import * as css from './styles';
 import ThemeContext from '../../../../style/themes/ThemeContext';
 import { MdFileDownload } from 'react-icons/md'
-import { Button } from '../../../../components';
+import { Button, Message } from '../../../../components';
 import env from '../../../../../.env.json';
 
 const DOWNLOAD = `
@@ -27,7 +27,7 @@ function Download() {
   const { data, error, loading, load } = useQuery(DOWNLOAD, { lazyLoad: true });
 
   const localePrefix = localeSettings.gbifLocale;
-  
+
   useEffect(() => {
     const predicate = {
       type: 'and',
@@ -44,46 +44,47 @@ function Download() {
 
   const q = currentFilterContext?.filter?.must?.q;
   const hasFreeTextSearch = q && q.length > 0;
-  
-  return <div css={css.card({theme})} style={{margin: '24px auto'}}>
-      <div css={css.icon}>
-        <MdFileDownload />
-      </div>
 
-      {hasFreeTextSearch && <>
-        <h4 css={css.title({theme})}>Unsupported query</h4>
-        <div css={css.description({theme})}>
-          Free text search can be used for exploration, but do not have download support.
-        </div>
-        <Button disabled={loading} onClick={e => currentFilterContext.setField('q')} appearance="primaryOutline">Remove filter</Button>
-      </>}
-
-      {!hasFreeTextSearch && <>
-        {err && <>
-          <h4 css={css.title({theme})}>Unsupported query</h4>
-          <div css={css.description({theme})}>
-            <p>The filter looks to be unsupported</p>
-            {err.message}
-          </div>
-        </>}
-        {!err && fullPredicate && <>
-          <h4 css={css.title({theme})}>Download</h4>
-          <div css={css.description({theme})}>
-            <p>
-              You are about to download, to do so you will be redirected to GBIF.org.
-            </p>
-            <p>
-              Be aware that an account is needed to download the content.
-            </p>
-          </div>
-          <Button 
-            as="a" 
-            href={`${env.GBIF_ORG}/${localePrefix ? `${localePrefix}/` : ''}occurrence/download/request?predicate=${encodeURIComponent(JSON.stringify(fullPredicate))}#create`} 
-            disabled={loading}
-            appearance="primary">Continue</Button>
-        </>}
-      </>}
+  return <div css={css.card({ theme })} style={{ margin: '24px auto' }}>
+    <div css={css.icon}>
+      <MdFileDownload />
     </div>
+
+    {hasFreeTextSearch && <>
+      <h4 css={css.title({ theme })}><Message id="download.unsupported.title" /></h4>
+      <div css={css.description({ theme })}>
+        <Message id="download.unsupported.description" />
+      </div>
+      <Button disabled={loading} onClick={e => currentFilterContext.setField('q')} appearance="primaryOutline"><Message id="download.unsupported.remove" /></Button>
+    </>}
+
+    {!hasFreeTextSearch && <>
+      {err && <>
+        <h4 css={css.title({ theme })}><Message id="download.unsupported.title" /></h4>
+        <div css={css.description({ theme })}>
+          <p><Message id="download.unsupported.error" /></p>
+          {err.message}
+        </div>
+      </>}
+      {!err && fullPredicate && <>
+        <h4 css={css.title({ theme })}><Message id="download.download" /></h4>
+        <div css={css.description({ theme })}>
+          <Message allowNewLines id="download.redirectNotice"
+            values={{
+              p: chunks => <p>{chunks}</p>,
+              br: chunks => <><br />{chunks}</>,
+              icon: <svg />,
+            }}
+          />
+        </div>
+        <Button
+          as="a"
+          href={`${env.GBIF_ORG}/${localePrefix ? `${localePrefix}/` : ''}occurrence/download/request?predicate=${encodeURIComponent(JSON.stringify(fullPredicate))}#create`}
+          disabled={loading}
+          appearance="primary"><Message id="download.continueToGBIF" /></Button>
+      </>}
+    </>}
+  </div>
 }
 
 export default Download;
