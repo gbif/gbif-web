@@ -33,5 +33,6 @@ export { JazzIcon } from './JazzIcon/JazzIcon';
 export { Prose } from './typography/Prose';
 export { Toc } from './Toc/Toc'
 export { AltmetricDonut } from './AltmetricDonut/AltmetricDonut';
+export { Message } from './Message/Message';
 export { ResourceLink, PublisherKeyLink, DatasetKeyLink } from './resourceLinks/resourceLinks';
 // -- Add imports above this line (required by plopfile.js) --
