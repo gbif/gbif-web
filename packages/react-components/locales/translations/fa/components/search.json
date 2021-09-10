@@ -3,8 +3,8 @@
     "table": "",
     "gallery": "",
     "map": "",
-    "datasets": "",
-    "download": ""
+    "datasets": "مجموعه اطلاعات",
+    "download": "دانلود"
   },
   "table": {
     "lockColumn": ""
@@ -13,5 +13,5 @@
     "default": "",
     "range": ""
   },
-  "loadMore": ""
+  "loadMore": "بیشتر"
 }
