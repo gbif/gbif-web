@@ -54,7 +54,7 @@
     "description": ""
   },
   "coordinates": {
-    "name": ""
+    "name": "Koordinater"
   },
   "elevation": {
     "name": "",
@@ -67,12 +67,12 @@
     "description": ""
   },
   "datasetKey": {
-    "name": "",
+    "name": "Datasæt",
     "count": "",
     "description": ""
   },
   "publisherKey": {
-    "name": "",
+    "name": "Forlægger",
     "count": "",
     "description": ""
   },
@@ -82,7 +82,7 @@
     "description": ""
   },
   "country": {
-    "name": "",
+    "name": "Land",
     "count": ""
   },
   "countriesOfCoverage": {
@@ -111,7 +111,7 @@
     "description": ""
   },
   "coordinateUncertainty": {
-    "name": "",
+    "name": "Koordinat usikkerhed",
     "count": "",
     "description": ""
   },
@@ -181,12 +181,12 @@
     "description": ""
   },
   "occurrenceId": {
-    "name": "",
+    "name": "Observations-ID",
     "count": "",
     "description": ""
   },
   "organismId": {
-    "name": "",
+    "name": "Organisme-ID",
     "count": "",
     "description": ""
   },
@@ -251,7 +251,7 @@
     "description": ""
   },
   "name": {
-    "name": "",
+    "name": "Navn",
     "count": "",
     "description": ""
   },
@@ -276,7 +276,7 @@
     "description": ""
   },
   "literatureType": {
-    "name": "",
+    "name": "Litteraturtype",
     "count": "",
     "description": ""
   }
