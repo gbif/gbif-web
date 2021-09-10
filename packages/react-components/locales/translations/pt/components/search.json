@@ -1,17 +1,17 @@
 {
   "tabs": {
-    "table": "",
-    "gallery": "",
-    "map": "",
-    "datasets": "",
-    "download": ""
+    "table": "Tabela",
+    "gallery": "Galeria",
+    "map": "Mapa",
+    "datasets": "Conjuntos de dados",
+    "download": "Transferir"
   },
   "table": {
     "lockColumn": ""
   },
   "placeholders": {
-    "default": "",
+    "default": "Pesquisa",
     "range": ""
   },
-  "loadMore": ""
+  "loadMore": "Mais"
 }
