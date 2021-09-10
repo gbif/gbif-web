@@ -1,4 +1,5 @@
 {
+  "occurrence": "",
   "groups": {
     "summary": "概要",
     "record": "記録",
@@ -11,5 +12,11 @@
     "materialSample": "試料",
     "geologicalContext": "地質学的背景",
     "other": "その他"
+  },
+  "features": {
+    "isClustered": "",
+    "isSamplingEvent": "サンプリング イベント",
+    "isTreament": "処理",
+    "isSequenced": ""
   }
 }
