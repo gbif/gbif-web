@@ -1,1 +1,8 @@
-{}
+{
+  "citations": "引用",
+  "occurrences": "出現紀錄",
+  "numberSpecimens": "標本數量",
+  "title": "標題",
+  "registered": "已註冊",
+  "pubDatasets": "已發布的資料集"
+}
