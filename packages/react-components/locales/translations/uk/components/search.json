@@ -1,17 +1,17 @@
 {
   "tabs": {
-    "table": "",
-    "gallery": "",
-    "map": "",
-    "datasets": "",
-    "download": ""
+    "table": "Таблиця",
+    "gallery": "Галерея",
+    "map": "Мапа",
+    "datasets": "Наборів даних",
+    "download": "Завантажити"
   },
   "table": {
     "lockColumn": ""
   },
   "placeholders": {
-    "default": "",
+    "default": "Пошук",
     "range": ""
   },
-  "loadMore": ""
+  "loadMore": "Більше"
 }
