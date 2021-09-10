@@ -16,7 +16,7 @@
     "overlapWithNub": "與 GBIF 分類學骨幹重疊",
     "overlapWithCol": "與全球物種名錄重疊"
   },
-  "noStatsForMetadata": "",
+  "noStatsForMetadata": "純詮釋資料集無統計數據",
   "viewArticle": "觀看文章",
   "registeredDate": "註冊於 {DATE}",
   "constituentOf": "組成自",
