@@ -1,17 +1,17 @@
 {
   "tabs": {
-    "table": "",
-    "gallery": "",
-    "map": "",
-    "datasets": "",
-    "download": ""
+    "table": "Tabla",
+    "gallery": "Galería",
+    "map": "Map",
+    "datasets": "Juegos de datos",
+    "download": "Descargar"
   },
   "table": {
     "lockColumn": ""
   },
   "placeholders": {
-    "default": "",
+    "default": "Buscar",
     "range": ""
   },
-  "loadMore": ""
+  "loadMore": "Más"
 }
