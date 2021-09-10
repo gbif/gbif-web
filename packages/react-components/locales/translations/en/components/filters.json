@@ -132,27 +132,27 @@
   },
   "relativeOrganismQuantity": {
     "name": "Relative organism quantity",
-    "count": "",
+    "count": "{num, plural, one { relative organism quantity } other {# relative organism quantities}}",
     "description": "The amount of biological material relative to the size of a sample, calculated as organismQuantity per sampleSize when the organismQuantityType and sampleSizeUnit are unambiguous."
   },
   "month": {
     "name": "Month",
-    "count": "",
+    "count": "{num, plural, one { month } other {# months}}",
     "description": "The integer month in which the event occurred."
   },
   "continent": {
     "name": "Continent",
-    "count": "",
+    "count": "{num, plural, one { continent } other {# continents}}",
     "description": "The name of the continent in which the location occurs."
   },
   "protocol": {
     "name": "Publishing protocol",
-    "count": "",
+    "count": "{num, plural, one { protocol } other {# protocols}}",
     "description": "The technical protocol through which the dataset is shared."
   },
   "establishmentMeans": {
     "name": "Establishment means",
-    "count": "",
+    "count": "{num, plural, one { establishment means } other {# establishment means}}",
     "description": "The means by which the organism was introduced to a given place at a given time."
   },
   "recordedBy": {
@@ -162,12 +162,12 @@
   },
   "recordNumber": {
     "name": "Record number",
-    "count": "",
+    "count": "{num, plural, one { record number } other {# record numbers}}",
     "description": "An identifier given to the occurrence at the time it was recorded."
   },
   "collectionCode": {
     "name": "Collection code",
-    "count": "",
+    "count": "{num, plural, one { collection code } other {# collection codes}}",
     "description": "A short description of the component should be placed here"
   },
   "recordedById": {
@@ -202,27 +202,27 @@
   },
   "stateProvince": {
     "name": "State province",
-    "count": "",
+    "count": "{num, plural, one { state province } other {# state provinces}}",
     "description": "The name of the next administrative region smaller than country in which the location occurs."
   },
   "eventId": {
     "name": "Event ID",
-    "count": "",
+    "count": "{num, plural, one { event ID } other {# event IDs}}",
     "description": "The unique identifier for the event in the record."
   },
   "samplingProtocol": {
     "name": "Sampling protocol",
-    "count": "",
+    "count": "{num, plural, one { sampling protocol } other {# sampling protocols}}",
     "description": "The name of, reference to or description of the method or protocol used during an event."
   },
   "occurrenceStatus": {
     "name": "Occurrence status",
-    "count": "",
+    "count": "{num, plural, one { occurrence status } other {# occurrence statuses}}",
     "description": "The presence or absence of any organisms of the given taxon."
   },
   "gadmGid": {
     "name": "Administrative area",
-    "count": "",
+    "count": "{num, plural, one { administrative area } other {# administrative areas}}",
     "description": "The name of any administrative area from GADM.org determined during record processing."
   },
   "identifiedBy": {
@@ -232,7 +232,7 @@
   },
   "isInCluster": {
     "name": "Is in cluster",
-    "count": "",
+    "count": "{num, plural, one { is in cluster } other {# are in clusters}}",
     "description": "Whether the record was determined to have related records."
   },
   "datasetType": {
@@ -242,42 +242,42 @@
   },
   "datasetSubtype": {
     "name": "Dataset subtype",
-    "count": "",
+    "count": "{num, plural, one { dataset subtype } other {# dataset subtypes}}",
     "description": "A short description of the component should be placed here"
   },
   "institutionKey": {
     "name": "Institution",
-    "count": "",
+    "count": "{num, plural, one { institution } other {# institutions}}",
     "description": "The name of the institution having custody of the object(s) or information referred to in the record."
   },
   "name": {
     "name": "Name",
-    "count": "",
+    "count": "{num, plural, one { name } other {# names}}",
     "description": "A short description of the component should be placed here"
   },
   "city": {
     "name": "City",
-    "count": "",
+    "count": "{num, plural, one { city } other {# cities}}",
     "description": "A short description of the component should be placed here"
   },
   "code": {
     "name": "Code",
-    "count": "",
+    "count": "{num, plural, one { code } other {# codes}}",
     "description": "A short description of the component should be placed here"
   },
   "verbatimScientificName": {
     "name": "Verbatim scientific name",
-    "count": "",
+    "count": "{num, plural, one { verbatim scientific name } other {# verbatim scientific names}}",
     "description": "The scientific name as provided by the data publisher without any normalization."
   },
   "networkKey": {
     "name": "Network key",
-    "count": "",
+    "count": "{num, plural, one { network key } other {# network keys}}",
     "description": "A short description of the component should be placed here"
   },
   "literatureType": {
     "name": "Literature type",
-    "count": "",
+    "count": "{num, plural, one { literature type } other {# literature types}}",
     "description": "What type of literature does the citation come from."
   }
 }
