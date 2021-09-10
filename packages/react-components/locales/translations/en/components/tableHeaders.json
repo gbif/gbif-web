@@ -1,6 +1,6 @@
 {
   "citations": "Citations",
-  "occurrences": "{NUMBER, plural,\n0 {Occurrences}\none {Occurrence}\nfew {Occurrences}\nmany {Occurrences}\nother {Occurrences}\n}",
+  "occurrences": "Occurrences",
   "numberSpecimens": "Number of specimens",
   "title": "Title",
   "registered": "Registered",
