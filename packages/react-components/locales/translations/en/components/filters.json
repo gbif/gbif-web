@@ -23,7 +23,7 @@
   },
   "catalogNumber": {
     "name": "Catalogue number",
-    "count": "",
+    "count": "{num, plural, one { catalogue number } other {# catalogue numbers}}",
     "description": "The identifier for the record within a catalogue or collection."
   },
   "mediaType": {
@@ -59,7 +59,7 @@
   "elevation": {
     "name": "Elevation",
     "count": "",
-    "description": ""
+    "description": "The distance above a vertical reference point (usually mean sea level or a geoid) in metres."
   },
   "license": {
     "name": "Licence",
@@ -113,12 +113,12 @@
   "coordinateUncertainty": {
     "name": "Coordinate uncertainty",
     "count": "{num, plural, one {Coordinate uncertainty} other {# coordinate uncertainty filters}}",
-    "description": ""
+    "description": "A measure of the minimum distance in metres from a coordinate within which a locality might be interpreted to be."
   },
   "depth": {
     "name": "Depth",
     "count": "",
-    "description": ""
+    "description": "The distance below a local surface, in metres."
   },
   "organismQuantity": {
     "name": "Organism quantity",

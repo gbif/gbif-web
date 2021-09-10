@@ -13,10 +13,10 @@
     "e": ""
   },
   "compactMeters": {
-    "between": "",
+    "between": "{from}m to {to}m",
     "lt": "Below {to}m",
     "gt": "Above {from}m",
-    "e": ""
+    "e": "{from}m"
   },
   "compactTime": {
     "between": "",
