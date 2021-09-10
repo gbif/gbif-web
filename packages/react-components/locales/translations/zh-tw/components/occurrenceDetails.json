@@ -1,4 +1,5 @@
 {
+  "occurrence": "出現紀錄",
   "groups": {
     "summary": "總結",
     "record": "紀錄",
@@ -11,5 +12,11 @@
     "materialSample": "材料樣品",
     "geologicalContext": "地理背景",
     "other": "其它"
+  },
+  "features": {
+    "isClustered": "已集聚",
+    "isSamplingEvent": "調查活動",
+    "isTreament": "分類處理",
+    "isSequenced": "已序列化"
   }
 }
