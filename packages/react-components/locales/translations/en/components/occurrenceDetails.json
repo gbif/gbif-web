@@ -1,8 +1,8 @@
 {
   "occurrence": "occurrence",
-  "showAllFields": "",
+  "showAllFields": "Show all fields",
   "info": {
-    "original": "",
+    "original": "original",
     "excluded": "Excluded"
   },
   "groups": {
