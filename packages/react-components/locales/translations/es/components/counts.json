@@ -1,1 +1,6 @@
-{}
+{
+  "nResults": "{total, plural, one {# resultado} other {# resultados}}",
+  "nSelected": "{total, plural, other {# seleccionados}}\n",
+  "nResultsWithCoordinates": "{total, plural, one {# resultado } other {# resultados}} con coordenadas",
+  "nResultsWithImages": "{total, plural, one {# resultado } other {# resultados}} con imágenes"
+}
