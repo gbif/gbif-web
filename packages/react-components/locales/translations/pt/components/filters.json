@@ -54,10 +54,10 @@
     "description": ""
   },
   "coordinates": {
-    "name": ""
+    "name": "Coordenadas"
   },
   "elevation": {
-    "name": "",
+    "name": "Elevação",
     "count": "",
     "description": ""
   },
@@ -67,22 +67,22 @@
     "description": ""
   },
   "datasetKey": {
-    "name": "",
+    "name": "Conjunto de dados",
     "count": "",
     "description": ""
   },
   "publisherKey": {
-    "name": "",
+    "name": "Publicador",
     "count": "",
     "description": ""
   },
   "hostingOrganizationKey": {
-    "name": "",
+    "name": "Organização de hospedagem",
     "count": "",
     "description": ""
   },
   "country": {
-    "name": "",
+    "name": "País",
     "count": ""
   },
   "countriesOfCoverage": {
@@ -94,54 +94,54 @@
     "count": ""
   },
   "typeStatus": {
-    "name": "",
+    "name": "Condição do Tipo",
     "count": "",
     "isNotNull": "",
     "isNull": "",
     "description": ""
   },
   "year": {
-    "name": "",
+    "name": "Ano",
     "count": "",
     "description": ""
   },
   "sampleSizeUnit": {
-    "name": "",
+    "name": "Unidade do tamanho da amostra",
     "count": "",
     "description": ""
   },
   "coordinateUncertainty": {
-    "name": "",
+    "name": "Incerteza da coordenada",
     "count": "",
     "description": ""
   },
   "depth": {
-    "name": "",
+    "name": "Profundidade",
     "count": "",
     "description": ""
   },
   "organismQuantity": {
-    "name": "",
+    "name": "Quantidade de organismos",
     "count": "",
     "description": ""
   },
   "sampleSizeValue": {
-    "name": "",
+    "name": "Valor do tamanho da amostra",
     "count": "",
     "description": ""
   },
   "relativeOrganismQuantity": {
-    "name": "",
+    "name": "Quantidade relativa do organismo",
     "count": "",
     "description": ""
   },
   "month": {
-    "name": "",
+    "name": "Mês",
     "count": "",
     "description": ""
   },
   "continent": {
-    "name": "",
+    "name": "Continente",
     "count": "",
     "description": ""
   },
@@ -151,22 +151,22 @@
     "description": ""
   },
   "establishmentMeans": {
-    "name": "",
+    "name": "Forma de estabelecimento",
     "count": "",
     "description": ""
   },
   "recordedBy": {
-    "name": "",
+    "name": "Registado por",
     "count": "",
     "description": ""
   },
   "recordNumber": {
-    "name": "",
+    "name": "Número de registo",
     "count": "",
     "description": ""
   },
   "collectionCode": {
-    "name": "",
+    "name": "Código de coleção",
     "count": "",
     "description": ""
   },
@@ -181,27 +181,27 @@
     "description": ""
   },
   "occurrenceId": {
-    "name": "",
+    "name": "ID da Ocorrência",
     "count": "",
     "description": ""
   },
   "organismId": {
-    "name": "",
+    "name": "ID do organismo",
     "count": "",
     "description": ""
   },
   "locality": {
-    "name": "",
+    "name": "Localidade",
     "count": "",
     "description": ""
   },
   "waterBody": {
-    "name": "",
+    "name": "Massa de água",
     "count": "",
     "description": ""
   },
   "stateProvince": {
-    "name": "",
+    "name": "Estado/Província",
     "count": "",
     "description": ""
   },
@@ -211,12 +211,12 @@
     "description": ""
   },
   "samplingProtocol": {
-    "name": "",
+    "name": "Protocolo de amostragem",
     "count": "",
     "description": ""
   },
   "occurrenceStatus": {
-    "name": "",
+    "name": "Estado da ocorrência (presença/ausência)",
     "count": "",
     "description": ""
   },
@@ -226,17 +226,17 @@
     "description": ""
   },
   "identifiedBy": {
-    "name": "",
+    "name": "Identificado por",
     "count": "",
     "description": ""
   },
   "isInCluster": {
-    "name": "",
+    "name": "Está em cluster",
     "count": "",
     "description": ""
   },
   "datasetType": {
-    "name": "",
+    "name": "Tipo de conjunto de dados",
     "count": "",
     "description": ""
   },
@@ -246,27 +246,27 @@
     "description": ""
   },
   "institutionKey": {
-    "name": "",
+    "name": "Instituição",
     "count": "",
     "description": ""
   },
   "name": {
-    "name": "",
+    "name": "Nome",
     "count": "",
     "description": ""
   },
   "city": {
-    "name": "",
+    "name": "Cidade",
     "count": "",
     "description": ""
   },
   "code": {
-    "name": "",
+    "name": "Código",
     "count": "",
     "description": ""
   },
   "verbatimScientificName": {
-    "name": "",
+    "name": "Nome científico verbatim",
     "count": "",
     "description": ""
   },
@@ -276,7 +276,7 @@
     "description": ""
   },
   "literatureType": {
-    "name": "",
+    "name": "Tipo de bibliografia",
     "count": "",
     "description": ""
   }
