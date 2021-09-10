@@ -54,10 +54,10 @@
     "description": ""
   },
   "coordinates": {
-    "name": ""
+    "name": "Координати"
   },
   "elevation": {
-    "name": "",
+    "name": "Висота",
     "count": "",
     "description": ""
   },
@@ -67,22 +67,22 @@
     "description": ""
   },
   "datasetKey": {
-    "name": "",
+    "name": "Набір даних",
     "count": "",
     "description": ""
   },
   "publisherKey": {
-    "name": "",
+    "name": "Видавець",
     "count": "",
     "description": ""
   },
   "hostingOrganizationKey": {
-    "name": "",
+    "name": "Організація хостингу",
     "count": "",
     "description": ""
   },
   "country": {
-    "name": "",
+    "name": "Країна",
     "count": ""
   },
   "countriesOfCoverage": {
@@ -94,54 +94,54 @@
     "count": ""
   },
   "typeStatus": {
-    "name": "",
+    "name": "Статус типового зразка",
     "count": "",
     "isNotNull": "",
     "isNull": "",
     "description": ""
   },
   "year": {
-    "name": "",
+    "name": "Рік",
     "count": "",
     "description": ""
   },
   "sampleSizeUnit": {
-    "name": "",
+    "name": "Одиниця розміру вибірки",
     "count": "",
     "description": ""
   },
   "coordinateUncertainty": {
-    "name": "",
+    "name": "Похибка координат",
     "count": "",
     "description": ""
   },
   "depth": {
-    "name": "",
+    "name": "Глибина",
     "count": "",
     "description": ""
   },
   "organismQuantity": {
-    "name": "",
+    "name": "Кількість організмів (в одиницях, відсотках, масовій частці тощо)",
     "count": "",
     "description": ""
   },
   "sampleSizeValue": {
-    "name": "",
+    "name": "Розмір вибірки",
     "count": "",
     "description": ""
   },
   "relativeOrganismQuantity": {
-    "name": "",
+    "name": "Відносна кількість організмів",
     "count": "",
     "description": ""
   },
   "month": {
-    "name": "",
+    "name": "Місяць",
     "count": "",
     "description": ""
   },
   "continent": {
-    "name": "",
+    "name": "Континент",
     "count": "",
     "description": ""
   },
@@ -151,22 +151,22 @@
     "description": ""
   },
   "establishmentMeans": {
-    "name": "",
+    "name": "Статус організму (наприклад, нативний, інтродукований, інвазійний тощо)",
     "count": "",
     "description": ""
   },
   "recordedBy": {
-    "name": "",
+    "name": "Хто створив запис",
     "count": "",
     "description": ""
   },
   "recordNumber": {
-    "name": "",
+    "name": "Номер запису",
     "count": "",
     "description": ""
   },
   "collectionCode": {
-    "name": "",
+    "name": "Код колекції",
     "count": "",
     "description": ""
   },
@@ -181,27 +181,27 @@
     "description": ""
   },
   "occurrenceId": {
-    "name": "",
+    "name": "ID знахідки",
     "count": "",
     "description": ""
   },
   "organismId": {
-    "name": "",
+    "name": "ID організму",
     "count": "",
     "description": ""
   },
   "locality": {
-    "name": "",
+    "name": "Місцевість",
     "count": "",
     "description": ""
   },
   "waterBody": {
-    "name": "",
+    "name": "Водний об'єкт",
     "count": "",
     "description": ""
   },
   "stateProvince": {
-    "name": "",
+    "name": "Область/район",
     "count": "",
     "description": ""
   },
@@ -211,12 +211,12 @@
     "description": ""
   },
   "samplingProtocol": {
-    "name": "",
+    "name": "Протокол збору ",
     "count": "",
     "description": ""
   },
   "occurrenceStatus": {
-    "name": "",
+    "name": "Статус знахідки (відсутня або присутня)",
     "count": "",
     "description": ""
   },
@@ -226,7 +226,7 @@
     "description": ""
   },
   "identifiedBy": {
-    "name": "",
+    "name": "Автор визначення",
     "count": "",
     "description": ""
   },
@@ -236,7 +236,7 @@
     "description": ""
   },
   "datasetType": {
-    "name": "",
+    "name": "Тип набору даних",
     "count": "",
     "description": ""
   },
@@ -246,27 +246,27 @@
     "description": ""
   },
   "institutionKey": {
-    "name": "",
+    "name": "Установа",
     "count": "",
     "description": ""
   },
   "name": {
-    "name": "",
+    "name": "Ім’я",
     "count": "",
     "description": ""
   },
   "city": {
-    "name": "",
+    "name": "Місто",
     "count": "",
     "description": ""
   },
   "code": {
-    "name": "",
+    "name": "Код",
     "count": "",
     "description": ""
   },
   "verbatimScientificName": {
-    "name": "",
+    "name": "Первинно вжита наукова назва",
     "count": "",
     "description": ""
   },
@@ -276,7 +276,7 @@
     "description": ""
   },
   "literatureType": {
-    "name": "",
+    "name": "Тип джерела",
     "count": "",
     "description": ""
   }
