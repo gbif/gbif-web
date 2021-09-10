@@ -1,17 +1,17 @@
 {
   "tabs": {
-    "table": "",
-    "gallery": "",
-    "map": "",
-    "datasets": "",
-    "download": ""
+    "table": "Tabel",
+    "gallery": "Galleri",
+    "map": "Kort",
+    "datasets": "Datasæt",
+    "download": "Download"
   },
   "table": {
     "lockColumn": ""
   },
   "placeholders": {
-    "default": "",
+    "default": "Søg",
     "range": ""
   },
-  "loadMore": ""
+  "loadMore": "Flere"
 }

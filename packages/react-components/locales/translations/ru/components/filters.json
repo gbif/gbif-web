@@ -54,10 +54,10 @@
     "description": ""
   },
   "coordinates": {
-    "name": ""
+    "name": "Координаты"
   },
   "elevation": {
-    "name": "",
+    "name": "Высота",
     "count": "",
     "description": ""
   },
@@ -67,12 +67,12 @@
     "description": ""
   },
   "datasetKey": {
-    "name": "",
+    "name": "Набор данных",
     "count": "",
     "description": ""
   },
   "publisherKey": {
-    "name": "",
+    "name": "Организация",
     "count": "",
     "description": ""
   },
@@ -82,7 +82,7 @@
     "description": ""
   },
   "country": {
-    "name": "",
+    "name": "Страна",
     "count": ""
   },
   "countriesOfCoverage": {
@@ -94,54 +94,54 @@
     "count": ""
   },
   "typeStatus": {
-    "name": "",
+    "name": "Статус типового экземпляра",
     "count": "",
     "isNotNull": "",
     "isNull": "",
     "description": ""
   },
   "year": {
-    "name": "",
+    "name": "Год",
     "count": "",
     "description": ""
   },
   "sampleSizeUnit": {
-    "name": "",
+    "name": "Единица измерения объёма (размера) описания, учёта или сбора",
     "count": "",
     "description": ""
   },
   "coordinateUncertainty": {
-    "name": "",
+    "name": "Неопределенность координат",
     "count": "",
     "description": ""
   },
   "depth": {
-    "name": "",
+    "name": "Глубина",
     "count": "",
     "description": ""
   },
   "organismQuantity": {
-    "name": "",
+    "name": "Обилие вида\n",
     "count": "",
     "description": ""
   },
   "sampleSizeValue": {
-    "name": "",
+    "name": "Объём (размер) описания, учёта или сбора",
     "count": "",
     "description": ""
   },
   "relativeOrganismQuantity": {
-    "name": "",
+    "name": "Относительное обилие вида",
     "count": "",
     "description": ""
   },
   "month": {
-    "name": "",
+    "name": "Месяц",
     "count": "",
     "description": ""
   },
   "continent": {
-    "name": "",
+    "name": "Континент",
     "count": "",
     "description": ""
   },
@@ -151,22 +151,22 @@
     "description": ""
   },
   "establishmentMeans": {
-    "name": "",
+    "name": "Статус вида в данной местности",
     "count": "",
     "description": ""
   },
   "recordedBy": {
-    "name": "",
+    "name": "Кем сделана запись",
     "count": "",
     "description": ""
   },
   "recordNumber": {
-    "name": "",
+    "name": "Номер записи",
     "count": "",
     "description": ""
   },
   "collectionCode": {
-    "name": "",
+    "name": "Код коллекции",
     "count": "",
     "description": ""
   },
@@ -181,27 +181,27 @@
     "description": ""
   },
   "occurrenceId": {
-    "name": "",
+    "name": "ID находки",
     "count": "",
     "description": ""
   },
   "organismId": {
-    "name": "",
+    "name": "ID организма",
     "count": "",
     "description": ""
   },
   "locality": {
-    "name": "",
+    "name": "Топоним",
     "count": "",
     "description": ""
   },
   "waterBody": {
-    "name": "",
+    "name": "Водный объект",
     "count": "",
     "description": ""
   },
   "stateProvince": {
-    "name": "",
+    "name": "Регион",
     "count": "",
     "description": ""
   },
@@ -211,12 +211,12 @@
     "description": ""
   },
   "samplingProtocol": {
-    "name": "",
+    "name": "Методика сбора (описания)",
     "count": "",
     "description": ""
   },
   "occurrenceStatus": {
-    "name": "",
+    "name": "Статус находки",
     "count": "",
     "description": ""
   },
@@ -226,7 +226,7 @@
     "description": ""
   },
   "identifiedBy": {
-    "name": "",
+    "name": "Кем определено",
     "count": "",
     "description": ""
   },
@@ -236,7 +236,7 @@
     "description": ""
   },
   "datasetType": {
-    "name": "",
+    "name": "Тип набора данных",
     "count": "",
     "description": ""
   },
@@ -246,27 +246,27 @@
     "description": ""
   },
   "institutionKey": {
-    "name": "",
+    "name": "Организация",
     "count": "",
     "description": ""
   },
   "name": {
-    "name": "",
+    "name": "Имя",
     "count": "",
     "description": ""
   },
   "city": {
-    "name": "",
+    "name": "Город",
     "count": "",
     "description": ""
   },
   "code": {
-    "name": "",
+    "name": "Акроним",
     "count": "",
     "description": ""
   },
   "verbatimScientificName": {
-    "name": "",
+    "name": "Латинское название по первоисточнику",
     "count": "",
     "description": ""
   },
@@ -276,7 +276,7 @@
     "description": ""
   },
   "literatureType": {
-    "name": "",
+    "name": "Источник",
     "count": "",
     "description": ""
   }

@@ -1,17 +1,17 @@
 {
   "tabs": {
-    "table": "",
-    "gallery": "",
-    "map": "",
-    "datasets": "",
-    "download": ""
+    "table": "جدول",
+    "gallery": "معرض صور",
+    "map": "خارطة",
+    "datasets": "مجموعات البيانات",
+    "download": "تنزيل"
   },
   "table": {
     "lockColumn": ""
   },
   "placeholders": {
-    "default": "",
+    "default": "بحث",
     "range": ""
   },
-  "loadMore": ""
+  "loadMore": "مزيد"
 }

@@ -54,10 +54,10 @@
     "description": ""
   },
   "coordinates": {
-    "name": ""
+    "name": "座標"
   },
   "elevation": {
-    "name": "",
+    "name": "標高",
     "count": "",
     "description": ""
   },
@@ -67,12 +67,12 @@
     "description": ""
   },
   "datasetKey": {
-    "name": "",
+    "name": "データセット",
     "count": "",
     "description": ""
   },
   "publisherKey": {
-    "name": "",
+    "name": "出版者",
     "count": "",
     "description": ""
   },
@@ -82,7 +82,7 @@
     "description": ""
   },
   "country": {
-    "name": "",
+    "name": "国",
     "count": ""
   },
   "countriesOfCoverage": {
@@ -94,54 +94,54 @@
     "count": ""
   },
   "typeStatus": {
-    "name": "",
+    "name": "タイプ標本の種類",
     "count": "",
     "isNotNull": "",
     "isNull": "",
     "description": ""
   },
   "year": {
-    "name": "",
+    "name": "年",
     "count": "",
     "description": ""
   },
   "sampleSizeUnit": {
-    "name": "",
+    "name": "サンプルサイズの単位",
     "count": "",
     "description": ""
   },
   "coordinateUncertainty": {
-    "name": "",
+    "name": "座標の不確実性",
     "count": "",
     "description": ""
   },
   "depth": {
-    "name": "",
+    "name": "深度",
     "count": "",
     "description": ""
   },
   "organismQuantity": {
-    "name": "",
+    "name": "生物の数",
     "count": "",
     "description": ""
   },
   "sampleSizeValue": {
-    "name": "",
+    "name": "サンプルサイズの値",
     "count": "",
     "description": ""
   },
   "relativeOrganismQuantity": {
-    "name": "",
+    "name": "相対生物数",
     "count": "",
     "description": ""
   },
   "month": {
-    "name": "",
+    "name": "月",
     "count": "",
     "description": ""
   },
   "continent": {
-    "name": "",
+    "name": "大陸",
     "count": "",
     "description": ""
   },
@@ -151,22 +151,22 @@
     "description": ""
   },
   "establishmentMeans": {
-    "name": "",
+    "name": "対象生物の由来",
     "count": "",
     "description": ""
   },
   "recordedBy": {
-    "name": "",
+    "name": "採集者・観察者",
     "count": "",
     "description": ""
   },
   "recordNumber": {
-    "name": "",
+    "name": "レコード番号",
     "count": "",
     "description": ""
   },
   "collectionCode": {
-    "name": "",
+    "name": "コレクションコード",
     "count": "",
     "description": ""
   },
@@ -181,27 +181,27 @@
     "description": ""
   },
   "occurrenceId": {
-    "name": "",
+    "name": "オカレンスID",
     "count": "",
     "description": ""
   },
   "organismId": {
-    "name": "",
+    "name": "生物 ID",
     "count": "",
     "description": ""
   },
   "locality": {
-    "name": "",
+    "name": "採集地・観測地",
     "count": "",
     "description": ""
   },
   "waterBody": {
-    "name": "",
+    "name": "水域",
     "count": "",
     "description": ""
   },
   "stateProvince": {
-    "name": "",
+    "name": "州/地方または都道府県",
     "count": "",
     "description": ""
   },
@@ -211,12 +211,12 @@
     "description": ""
   },
   "samplingProtocol": {
-    "name": "",
+    "name": "サンプリング手順",
     "count": "",
     "description": ""
   },
   "occurrenceStatus": {
-    "name": "",
+    "name": "オカレンスの有無",
     "count": "",
     "description": ""
   },
@@ -226,7 +226,7 @@
     "description": ""
   },
   "identifiedBy": {
-    "name": "",
+    "name": "同定者",
     "count": "",
     "description": ""
   },
@@ -236,7 +236,7 @@
     "description": ""
   },
   "datasetType": {
-    "name": "",
+    "name": "データセットタイプ",
     "count": "",
     "description": ""
   },
@@ -246,27 +246,27 @@
     "description": ""
   },
   "institutionKey": {
-    "name": "",
+    "name": "機関",
     "count": "",
     "description": ""
   },
   "name": {
-    "name": "",
+    "name": "名前",
     "count": "",
     "description": ""
   },
   "city": {
-    "name": "",
+    "name": "市",
     "count": "",
     "description": ""
   },
   "code": {
-    "name": "",
+    "name": "コード",
     "count": "",
     "description": ""
   },
   "verbatimScientificName": {
-    "name": "",
+    "name": "オリジナルの学名",
     "count": "",
     "description": ""
   },
@@ -276,7 +276,7 @@
     "description": ""
   },
   "literatureType": {
-    "name": "",
+    "name": "文献の種類",
     "count": "",
     "description": ""
   }

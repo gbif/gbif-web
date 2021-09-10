@@ -1,17 +1,17 @@
 {
   "tabs": {
-    "table": "",
-    "gallery": "",
-    "map": "",
-    "datasets": "",
-    "download": ""
+    "table": "表格",
+    "gallery": "图库",
+    "map": "地图",
+    "datasets": "数据集",
+    "download": "下载"
   },
   "table": {
     "lockColumn": ""
   },
   "placeholders": {
-    "default": "",
+    "default": "搜索",
     "range": ""
   },
-  "loadMore": ""
+  "loadMore": "更多"
 }

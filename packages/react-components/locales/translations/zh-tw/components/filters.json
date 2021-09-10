@@ -54,10 +54,10 @@
     "description": ""
   },
   "coordinates": {
-    "name": ""
+    "name": "座標"
   },
   "elevation": {
-    "name": "",
+    "name": "海拔",
     "count": "",
     "description": ""
   },
@@ -67,22 +67,22 @@
     "description": ""
   },
   "datasetKey": {
-    "name": "",
+    "name": "資料集",
     "count": "",
     "description": ""
   },
   "publisherKey": {
-    "name": "",
+    "name": "發布者",
     "count": "",
     "description": ""
   },
   "hostingOrganizationKey": {
-    "name": "",
+    "name": "維運機構",
     "count": "",
     "description": ""
   },
   "country": {
-    "name": "",
+    "name": "國家",
     "count": ""
   },
   "countriesOfCoverage": {
@@ -94,54 +94,54 @@
     "count": ""
   },
   "typeStatus": {
-    "name": "",
+    "name": "類型狀態",
     "count": "",
     "isNotNull": "",
     "isNull": "",
     "description": ""
   },
   "year": {
-    "name": "",
+    "name": "年",
     "count": "",
     "description": ""
   },
   "sampleSizeUnit": {
-    "name": "",
+    "name": "取樣大小單位",
     "count": "",
     "description": ""
   },
   "coordinateUncertainty": {
-    "name": "",
+    "name": "座標不確定",
     "count": "",
     "description": ""
   },
   "depth": {
-    "name": "",
+    "name": "深度",
     "count": "",
     "description": ""
   },
   "organismQuantity": {
-    "name": "",
+    "name": "生物數量",
     "count": "",
     "description": ""
   },
   "sampleSizeValue": {
-    "name": "",
+    "name": "取樣大小數值",
     "count": "",
     "description": ""
   },
   "relativeOrganismQuantity": {
-    "name": "",
+    "name": "相對生物體數量",
     "count": "",
     "description": ""
   },
   "month": {
-    "name": "",
+    "name": "月",
     "count": "",
     "description": ""
   },
   "continent": {
-    "name": "",
+    "name": "大陸",
     "count": "",
     "description": ""
   },
@@ -151,22 +151,22 @@
     "description": ""
   },
   "establishmentMeans": {
-    "name": "",
+    "name": "建立方法",
     "count": "",
     "description": ""
   },
   "recordedBy": {
-    "name": "",
+    "name": "紀錄者：",
     "count": "",
     "description": ""
   },
   "recordNumber": {
-    "name": "",
+    "name": "紀錄編號",
     "count": "",
     "description": ""
   },
   "collectionCode": {
-    "name": "",
+    "name": "蒐藏品代碼",
     "count": "",
     "description": ""
   },
@@ -181,27 +181,27 @@
     "description": ""
   },
   "occurrenceId": {
-    "name": "",
+    "name": "出現紀錄 ID",
     "count": "",
     "description": ""
   },
   "organismId": {
-    "name": "",
+    "name": "生物體 ID",
     "count": "",
     "description": ""
   },
   "locality": {
-    "name": "",
+    "name": "地區",
     "count": "",
     "description": ""
   },
   "waterBody": {
-    "name": "",
+    "name": "水體",
     "count": "",
     "description": ""
   },
   "stateProvince": {
-    "name": "",
+    "name": "州/省",
     "count": "",
     "description": ""
   },
@@ -211,12 +211,12 @@
     "description": ""
   },
   "samplingProtocol": {
-    "name": "",
+    "name": "取樣程序",
     "count": "",
     "description": ""
   },
   "occurrenceStatus": {
-    "name": "",
+    "name": "出現紀錄狀態",
     "count": "",
     "description": ""
   },
@@ -226,17 +226,17 @@
     "description": ""
   },
   "identifiedBy": {
-    "name": "",
+    "name": "鑑定者：",
     "count": "",
     "description": ""
   },
   "isInCluster": {
-    "name": "",
+    "name": "在（資料）叢集上",
     "count": "",
     "description": ""
   },
   "datasetType": {
-    "name": "",
+    "name": "資料集類型",
     "count": "",
     "description": ""
   },
@@ -246,27 +246,27 @@
     "description": ""
   },
   "institutionKey": {
-    "name": "",
+    "name": "機構",
     "count": "",
     "description": ""
   },
   "name": {
-    "name": "",
+    "name": "名稱",
     "count": "",
     "description": ""
   },
   "city": {
-    "name": "",
+    "name": "城市",
     "count": "",
     "description": ""
   },
   "code": {
-    "name": "",
+    "name": "蒐藏代碼",
     "count": "",
     "description": ""
   },
   "verbatimScientificName": {
-    "name": "",
+    "name": "逐字學名",
     "count": "",
     "description": ""
   },
@@ -276,7 +276,7 @@
     "description": ""
   },
   "literatureType": {
-    "name": "",
+    "name": "文獻類型",
     "count": "",
     "description": ""
   }

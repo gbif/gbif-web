@@ -54,10 +54,10 @@
     "description": ""
   },
   "coordinates": {
-    "name": ""
+    "name": "坐标"
   },
   "elevation": {
-    "name": "",
+    "name": "海拔",
     "count": "",
     "description": ""
   },
@@ -67,22 +67,22 @@
     "description": ""
   },
   "datasetKey": {
-    "name": "",
+    "name": "数据集",
     "count": "",
     "description": ""
   },
   "publisherKey": {
-    "name": "",
+    "name": "发布者",
     "count": "",
     "description": ""
   },
   "hostingOrganizationKey": {
-    "name": "",
+    "name": "主办机构",
     "count": "",
     "description": ""
   },
   "country": {
-    "name": "",
+    "name": "国家",
     "count": ""
   },
   "countriesOfCoverage": {
@@ -94,54 +94,54 @@
     "count": ""
   },
   "typeStatus": {
-    "name": "",
+    "name": "类型状态",
     "count": "",
     "isNotNull": "",
     "isNull": "",
     "description": ""
   },
   "year": {
-    "name": "",
+    "name": "年份",
     "count": "",
     "description": ""
   },
   "sampleSizeUnit": {
-    "name": "",
+    "name": "样品尺寸单位",
     "count": "",
     "description": ""
   },
   "coordinateUncertainty": {
-    "name": "",
+    "name": "坐标不确定",
     "count": "",
     "description": ""
   },
   "depth": {
-    "name": "",
+    "name": "深度",
     "count": "",
     "description": ""
   },
   "organismQuantity": {
-    "name": "",
+    "name": "生物个体数量",
     "count": "",
     "description": ""
   },
   "sampleSizeValue": {
-    "name": "",
+    "name": "样本大小值",
     "count": "",
     "description": ""
   },
   "relativeOrganismQuantity": {
-    "name": "",
+    "name": "相对生物数量",
     "count": "",
     "description": ""
   },
   "month": {
-    "name": "",
+    "name": "月份",
     "count": "",
     "description": ""
   },
   "continent": {
-    "name": "",
+    "name": "洲",
     "count": "",
     "description": ""
   },
@@ -151,22 +151,22 @@
     "description": ""
   },
   "establishmentMeans": {
-    "name": "",
+    "name": "确定方法",
     "count": "",
     "description": ""
   },
   "recordedBy": {
-    "name": "",
+    "name": "记录者",
     "count": "",
     "description": ""
   },
   "recordNumber": {
-    "name": "",
+    "name": "记录号",
     "count": "",
     "description": ""
   },
   "collectionCode": {
-    "name": "",
+    "name": "保藏代码",
     "count": "",
     "description": ""
   },
@@ -181,27 +181,27 @@
     "description": ""
   },
   "occurrenceId": {
-    "name": "",
+    "name": "出现记录 ID",
     "count": "",
     "description": ""
   },
   "organismId": {
-    "name": "",
+    "name": "生物个体ID",
     "count": "",
     "description": ""
   },
   "locality": {
-    "name": "",
+    "name": "地点",
     "count": "",
     "description": ""
   },
   "waterBody": {
-    "name": "",
+    "name": "水体",
     "count": "",
     "description": ""
   },
   "stateProvince": {
-    "name": "",
+    "name": "州/省",
     "count": "",
     "description": ""
   },
@@ -211,12 +211,12 @@
     "description": ""
   },
   "samplingProtocol": {
-    "name": "",
+    "name": "取样草案",
     "count": "",
     "description": ""
   },
   "occurrenceStatus": {
-    "name": "",
+    "name": "出现记录状态",
     "count": "",
     "description": ""
   },
@@ -226,17 +226,17 @@
     "description": ""
   },
   "identifiedBy": {
-    "name": "",
+    "name": "识别依据",
     "count": "",
     "description": ""
   },
   "isInCluster": {
-    "name": "",
+    "name": "在集群中",
     "count": "",
     "description": ""
   },
   "datasetType": {
-    "name": "",
+    "name": "数据集类型",
     "count": "",
     "description": ""
   },
@@ -246,27 +246,27 @@
     "description": ""
   },
   "institutionKey": {
-    "name": "",
+    "name": "机构",
     "count": "",
     "description": ""
   },
   "name": {
-    "name": "",
+    "name": "名字",
     "count": "",
     "description": ""
   },
   "city": {
-    "name": "",
+    "name": "城市",
     "count": "",
     "description": ""
   },
   "code": {
-    "name": "",
+    "name": "代码",
     "count": "",
     "description": ""
   },
   "verbatimScientificName": {
-    "name": "",
+    "name": "一字不差的学名",
     "count": "",
     "description": ""
   },
@@ -276,7 +276,7 @@
     "description": ""
   },
   "literatureType": {
-    "name": "",
+    "name": "文献类型",
     "count": "",
     "description": ""
   }

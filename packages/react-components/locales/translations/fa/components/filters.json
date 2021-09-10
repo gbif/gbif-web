@@ -54,7 +54,7 @@
     "description": ""
   },
   "coordinates": {
-    "name": ""
+    "name": "مختصات"
   },
   "elevation": {
     "name": "",
@@ -82,7 +82,7 @@
     "description": ""
   },
   "country": {
-    "name": "",
+    "name": "کشور",
     "count": ""
   },
   "countriesOfCoverage": {
@@ -251,12 +251,12 @@
     "description": ""
   },
   "name": {
-    "name": "",
+    "name": "نام",
     "count": "",
     "description": ""
   },
   "city": {
-    "name": "",
+    "name": "شهر",
     "count": "",
     "description": ""
   },

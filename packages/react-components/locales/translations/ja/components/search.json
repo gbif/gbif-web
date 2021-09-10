@@ -1,17 +1,17 @@
 {
   "tabs": {
-    "table": "",
-    "gallery": "",
-    "map": "",
-    "datasets": "",
-    "download": ""
+    "table": "表",
+    "gallery": "ギャラリー",
+    "map": "マップ",
+    "datasets": "データセット",
+    "download": "ダウンロード"
   },
   "table": {
     "lockColumn": ""
   },
   "placeholders": {
-    "default": "",
+    "default": "検索",
     "range": ""
   },
-  "loadMore": ""
+  "loadMore": "もっと読み込む"
 }

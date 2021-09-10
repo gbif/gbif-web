@@ -1,4 +1,5 @@
 {
+  "occurrence": "",
   "groups": {
     "summary": "خلاصه",
     "record": "",
@@ -11,5 +12,11 @@
     "materialSample": "",
     "geologicalContext": "",
     "other": ""
+  },
+  "features": {
+    "isClustered": "",
+    "isSamplingEvent": "",
+    "isTreament": "",
+    "isSequenced": ""
   }
 }

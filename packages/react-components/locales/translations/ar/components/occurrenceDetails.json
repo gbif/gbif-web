@@ -1,4 +1,5 @@
 {
+  "occurrence": "",
   "groups": {
     "summary": "الملخص",
     "record": "سجل",
@@ -11,5 +12,11 @@
     "materialSample": "عينة مادية",
     "geologicalContext": "السياق الجيولوجي",
     "other": "أخرى"
+  },
+  "features": {
+    "isClustered": "",
+    "isSamplingEvent": "حدث أخذ العينات",
+    "isTreament": "معالجة",
+    "isSequenced": ""
   }
 }
