@@ -69,7 +69,7 @@
   "publishingCountriesAreas": "Pays ou région qui publie",
   "originalArchive": "Archive d'origine",
   "annotatedEml": "Métadonnées annotées par GBIF",
-  "license": "",
+  "license": "Licence",
   "recommended": "Recommandé",
   "processedOccurrences": "Archive annotée par GBIF",
   "noDescriptionProvided": "Aucune description disponible",
