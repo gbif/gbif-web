@@ -171,12 +171,12 @@
     "description": ""
   },
   "recordedById": {
-    "name": "",
+    "name": "記錄者識別碼",
     "count": "",
     "description": ""
   },
   "identifiedById": {
-    "name": "",
+    "name": "鑑定者識別碼",
     "count": "",
     "description": ""
   },
@@ -206,7 +206,7 @@
     "description": ""
   },
   "eventId": {
-    "name": "",
+    "name": "事件識別碼",
     "count": "",
     "description": ""
   },
