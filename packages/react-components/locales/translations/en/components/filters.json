@@ -6,19 +6,19 @@
   },
   "taxonKey": {
     "name": "Scientific name",
-    "count": "",
+    "count": "{num, plural, one {scientific name} other {# scientific names}}",
     "description": "The scientific name as it appears in the GBIF backbone taxonomy. These names are normalized to ease search across datasets. It is possible that an originally-provided name might be misinterpreted or unknown. To search the names as provided use the \"Verbatim scientific name\" filter."
   },
   "basisOfRecord": {
     "name": "Basis of record",
-    "count": "",
+    "count": "{num, plural, one {basis of record} other {# bases of records}}",
     "isNotNull": "Has a basis of record",
     "isNull": "Has no basis of record",
     "description": "The nature of the evidence upon which the record is based."
   },
   "institutionCode": {
     "name": "Institution code",
-    "count": "",
+    "count": "{num, plural, one {institution code} other {# institution codes}}",
     "description": "The code (or acronym) for the institution having custody of the object(s) or information referred to in the record."
   },
   "catalogNumber": {
@@ -28,7 +28,7 @@
   },
   "mediaType": {
     "name": "Media type",
-    "count": "",
+    "count": "{num, plural, one {media type} other {# media types}}",
     "description": "The types of media accessible for this record."
   },
   "occurrenceIssue": {
@@ -168,36 +168,36 @@
   "collectionCode": {
     "name": "Collection code",
     "count": "",
-    "description": ""
+    "description": "A short description of the component should be placed here"
   },
   "recordedById": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Recorded by ID",
+    "count": "{num, plural, one { recorded by ID } other {# recorded by IDs}}",
+    "description": "The identifier for the person, people, groups or organizations responsible for recording the original occurrence."
   },
   "identifiedById": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Identified by ID",
+    "count": "{num, plural, one { identified by ID } other {# identified by IDs}}",
+    "description": "The identifier for the person, people, groups or organizations responsible for determining the scientific name of the organism."
   },
   "occurrenceId": {
     "name": "Occurrence id",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { occurrence ID } other {# occurrence IDs}}",
+    "description": "The unique identifier for the occurrence record."
   },
   "organismId": {
     "name": "Organism id",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { organism ID } other {# organism IDs}}",
+    "description": "The unique identifier for the organism in the record."
   },
   "locality": {
     "name": "Locality",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { locality } other {# localities}}",
+    "description": "The specific part of the description of the place."
   },
   "waterBody": {
     "name": "Water body",
-    "count": "",
+    "count": "{num, plural, one { water body } other {# water bodies}}",
     "description": ""
   },
   "stateProvince": {
@@ -206,78 +206,78 @@
     "description": ""
   },
   "eventId": {
-    "name": "",
+    "name": "Event ID",
     "count": "",
-    "description": ""
+    "description": "The unique identifier for the event in the record."
   },
   "samplingProtocol": {
     "name": "Sampling protocol",
     "count": "",
-    "description": ""
+    "description": "The name of, reference to or description of the method or protocol used during an event."
   },
   "occurrenceStatus": {
     "name": "Occurrence status",
     "count": "",
-    "description": ""
+    "description": "The presence or absence of any organisms of the given taxon."
   },
   "gadmGid": {
-    "name": "",
+    "name": "Administrative area",
     "count": "",
-    "description": ""
+    "description": "The name of any administrative area from GADM.org determined during record processing."
   },
   "identifiedBy": {
     "name": "Identified by",
     "count": "",
-    "description": ""
+    "description": "The person, people, groups or organizations responsible for determining the scientific name of the Organism."
   },
   "isInCluster": {
     "name": "Is in cluster",
     "count": "",
-    "description": ""
+    "description": "Whether the record was determined to have related records."
   },
   "datasetType": {
     "name": "Dataset type",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { dataset type } other {# dataset types}}",
+    "description": "A short description of the component should be placed here"
   },
   "datasetSubtype": {
-    "name": "",
+    "name": "Dataset subtype",
     "count": "",
-    "description": ""
+    "description": "A short description of the component should be placed here"
   },
   "institutionKey": {
     "name": "Institution",
     "count": "",
-    "description": ""
+    "description": "The name of the institution having custody of the object(s) or information referred to in the record."
   },
   "name": {
     "name": "Name",
     "count": "",
-    "description": ""
+    "description": "A short description of the component should be placed here"
   },
   "city": {
     "name": "City",
     "count": "",
-    "description": ""
+    "description": "A short description of the component should be placed here"
   },
   "code": {
     "name": "Code",
     "count": "",
-    "description": ""
+    "description": "A short description of the component should be placed here"
   },
   "verbatimScientificName": {
     "name": "Verbatim scientific name",
     "count": "",
-    "description": ""
+    "description": "The scientific name as provided by the data publisher without any normalization."
   },
   "networkKey": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "A short description of the component should be placed here"
   },
   "literatureType": {
     "name": "Literature type",
     "count": "",
-    "description": ""
+    "description": "What type of literature does the citation come from."
   }
 }
