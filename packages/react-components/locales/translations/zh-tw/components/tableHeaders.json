@@ -6,6 +6,8 @@
   "gbifNumberSpecimens": "GBIF 的標本",
   "title": "標題",
   "titleAndAbstract": "題目及摘要",
+  "altmetric": "另類計量學",
   "registered": "已註冊",
+  "hostedDatasets": "代管的資料集",
   "pubDatasets": "已發布的資料集"
 }
