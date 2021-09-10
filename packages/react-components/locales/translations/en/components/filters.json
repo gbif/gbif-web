@@ -198,12 +198,12 @@
   "waterBody": {
     "name": "Water body",
     "count": "{num, plural, one { water body } other {# water bodies}}",
-    "description": ""
+    "description": "The name of the water body in which the location occurs."
   },
   "stateProvince": {
     "name": "State province",
     "count": "",
-    "description": ""
+    "description": "The name of the next administrative region smaller than country in which the location occurs."
   },
   "eventId": {
     "name": "Event ID",
@@ -271,7 +271,7 @@
     "description": "The scientific name as provided by the data publisher without any normalization."
   },
   "networkKey": {
-    "name": "",
+    "name": "Network key",
     "count": "",
     "description": "A short description of the component should be placed here"
   },
