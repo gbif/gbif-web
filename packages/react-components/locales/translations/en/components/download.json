@@ -4,5 +4,6 @@
   "unsupported.remove": "Remove filter",
   "unsupported.error": "This query appears to be unsupported",
   "download": "Download",
+  "redirectNotice": "You are about to download data and to do so, you will be redirected to GBIF.org. {br}{br} Be aware that an account is needed on GBIF.org to download the content.",
   "continueToGBIF": "Continue"
 }
