@@ -257,8 +257,8 @@ function reduce(item) {
     typifiedName:                       source.typifiedName,
     waterBody:                          source.waterBody,
     year:                               source.year,
-    identifiedByIDs:                    source.identifiedByIds || [],
-    recordedByIDs:                      source.recordedByIds || [],
+    identifiedById:                    source.identifiedByIds || [],
+    recordedById:                       source.recordedByIds || [],
   };
 
   const gbifSpecific = {
@@ -282,7 +282,6 @@ function reduce(item) {
     genericName:                        source.gbifClassification?.usageParsedName?.genericName,
     genus:                              source.gbifClassification.genus,
     genusKey:                           source.gbifClassification.genusKey,
-    identifiedByID:                     source.identifiedByID,
     installationKey:                    source.installationKey,
     institutionKey:                     source.institutionKey,
     issues:                             source.issues || [],
@@ -300,7 +299,6 @@ function reduce(item) {
     protocol:                           source.protocol,
     publishingCountry:                  source.publishingCountry,
     publishingOrgKey:                   source.publishingOrganizationKey,
-    recordedByID:                       source.recordedByID,
     relativeOrganismQuantity:           source.relativeOrganismQuantity,
     // repatriated:                        source.repatriated,
     species:                            source.gbifClassification.species,
