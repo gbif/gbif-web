@@ -16,7 +16,7 @@
     "overlapWithNub": "与 GBIF 物种主干(Backbone)重叠",
     "overlapWithCol": "与全球物种名录（Catalogue of Life）重叠"
   },
-  "noStatsForMetadata": "",
+  "noStatsForMetadata": "没有可用的元数据统计信息只有数据集",
   "viewArticle": "查看文章",
   "registeredDate": "注册于 {DATE}",
   "constituentOf": "的组成",
