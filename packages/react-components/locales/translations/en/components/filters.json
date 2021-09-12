@@ -157,7 +157,7 @@
   },
   "recordedBy": {
     "name": "Recorded by",
-    "count": "",
+    "count": "{num, plural, one { recorded by } other {# recorded bys}}",
     "description": "The names of the person, people, groups or organizations responsible for recording the original occurrence."
   },
   "recordNumber": {
@@ -227,7 +227,7 @@
   },
   "identifiedBy": {
     "name": "Identified by",
-    "count": "",
+    "count": "{num, plural, one { identified by } other {# identified bys}}",
     "description": "The person, people, groups or organizations responsible for determining the scientific name of the Organism."
   },
   "isInCluster": {
