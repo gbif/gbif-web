@@ -1,1 +1,6 @@
-{}
+{
+  "nQualityFlags": "{total, plural, one {# 品質フラグ} other {# 品質フラグ}}",
+  "nAudioFiles": "{total, plural, one {# 音声ファイル} other {# 音声ファイル}}",
+  "nVideos": "{total, plural, one {# ビデオ} other {# ビデオ}}",
+  "nImages": "{total, plural, one {# 画像} other {# 画像}}"
+}
