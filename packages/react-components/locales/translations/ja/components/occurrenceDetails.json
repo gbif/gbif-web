@@ -1,5 +1,5 @@
 {
-  "occurrence": "",
+  "occurrence": "オカレンス",
   "groups": {
     "summary": "概要",
     "record": "記録",
@@ -14,7 +14,7 @@
     "other": "その他"
   },
   "features": {
-    "isClustered": "",
+    "isClustered": "クラスター化された",
     "isSamplingEvent": "サンプリング イベント",
     "isTreament": "処理",
     "isSequenced": ""
