@@ -59,5 +59,10 @@
   "AMBIGUOUS_INSTITUTION": "曖昧な機関名",
   "AMBIGUOUS_COLLECTION": "曖昧なコレクション",
   "INSTITUTION_MATCH_NONE": "機関名が一致しない",
+  "COLLECTION_MATCH_NONE": "コレクションが一致しません",
+  "INSTITUTION_MATCH_FUZZY": "機関名があいまい一致",
+  "COLLECTION_MATCH_FUZZY": "コレクションがあいまい一致",
+  "INSTITUTION_COLLECTION_MISMATCH": "機関のコレクションが一致しない",
+  "POSSIBLY_ON_LOAN": "貸し出しの可能性あり",
   "DIFFERENT_OWNER_INSTITUTION": "所有者の組織が異なる"
 }
