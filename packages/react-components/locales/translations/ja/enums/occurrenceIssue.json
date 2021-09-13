@@ -53,5 +53,8 @@
   "INDIVIDUAL_COUNT_CONFLICTS_WITH_OCCURRENCE_STATUS": "レコード数がオカレンスステータスと矛盾",
   "OCCURRENCE_STATUS_UNPARSABLE": "オカレンスステータスが解釈不可",
   "OCCURRENCE_STATUS_INFERRED_FROM_INDIVIDUAL_COUNT": "オカレンスステータスはレコード数から推測\n",
+  "OCCURRENCE_STATUS_INFERRED_FROM_BASIS_OF_RECORD": "データレコードの種類から推測されたオカレンスステータス",
+  "GEOREFERENCED_DATE_UNLIKELY": "ジオリファレンス日付があり得ない",
+  "GEOREFERENCED_DATE_INVALID": "ジオリファレンス日付が無効",
   "DIFFERENT_OWNER_INSTITUTION": "所有者の組織が異なる"
 }
