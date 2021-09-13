@@ -56,5 +56,8 @@
   "OCCURRENCE_STATUS_INFERRED_FROM_BASIS_OF_RECORD": "データレコードの種類から推測されたオカレンスステータス",
   "GEOREFERENCED_DATE_UNLIKELY": "ジオリファレンス日付があり得ない",
   "GEOREFERENCED_DATE_INVALID": "ジオリファレンス日付が無効",
+  "AMBIGUOUS_INSTITUTION": "曖昧な機関名",
+  "AMBIGUOUS_COLLECTION": "曖昧なコレクション",
+  "INSTITUTION_MATCH_NONE": "機関名が一致しない",
   "DIFFERENT_OWNER_INSTITUTION": "所有者の組織が異なる"
 }
