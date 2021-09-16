@@ -630,6 +630,7 @@ export const commonFilters = {
         },
       },
       specific: {
+        supportsNegation: true,
         placeholder: 'Search by Occurrence identifier'
       }
     }
