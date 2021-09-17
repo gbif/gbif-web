@@ -12,9 +12,10 @@
   "STATUTE": "Normativa",
   "PATENT": "Patente",
   "NEWSPAPER_ARTICLE": "Artículo de periódico",
-  "COMPUTER_PROGRAM": "Programa de computadora",
-  "HEARING": "Audiencia",
+  "COMPUTER_PROGRAM": "Programa informático",
+  "HEARING": "Opinión",
   "TELEVISION_BROADCAST": "Transmisión de televisión",
+  "ENCYCLOPEDIA_ARTICLE": "Artículo de enciclopedia",
   "CASE": "Caso",
   "FILM": "Película",
   "BILL": "Recibo"
