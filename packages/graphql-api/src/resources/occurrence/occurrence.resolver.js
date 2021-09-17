@@ -138,6 +138,14 @@ module.exports = {
     },
     dataset: (occurrence, args, { dataSources }) => {
       return dataSources.datasetAPI.getDatasetByKey({ key: occurrence.datasetKey });
+    },
+    institution: (occurrence, args, { dataSources }) => {
+      if (typeof occurrence.institutionKey === 'undefined') return null;
+      return dataSources.institutionAPI.getInstitutionByKey({ key: occurrence.institutionKey });
+    },
+    collection: (occurrence, args, { dataSources }) => {
+      if (typeof occurrence.collectionKey === 'undefined') return null;
+      return dataSources.collectionAPI.getCollectionByKey({ key: occurrence.collectionKey });
     }
   },
   AssociatedID: {

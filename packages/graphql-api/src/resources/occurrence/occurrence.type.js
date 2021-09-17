@@ -31,6 +31,7 @@ const typeDef = gql`
     classKey: ID
     collectionCode: String
     collectionID: String
+    collectionKey: ID
     conformsTo: String
     continent: String
     contributor: String
@@ -126,6 +127,7 @@ const typeDef = gql`
     installationKey: ID
     institutionCode: String
     institutionID: String
+    institutionKey: ID
     instructionalMethod: String
     isFormatOf: String
     isPartOf: String
@@ -299,6 +301,8 @@ const typeDef = gql`
     """
     terms: [Term]
     dataset: Dataset
+    institution: Institution
+    collection: Collection
   }
 
   type RelatedOccurrence {

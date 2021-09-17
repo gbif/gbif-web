@@ -101,12 +101,21 @@ export function OccurrenceSidebar({
 const OCCURRENCE = (linkKeys) => `
 query occurrence($key: ID!){
   occurrence(key: $key) {
+    key
     coordinates
     countryCode
     eventDate
     typeStatus
     issues
     ${linkKeys || ''}
+    institution {
+      name
+      key
+    }
+    collection {
+      name
+      key
+    }
     volatile {
       globe(sphere: false, land: false, graticule: false) {
         svg
@@ -121,14 +130,15 @@ query occurrence($key: ID!){
         isSamplingEvent
       }
     }
-
+    datasetKey,
     datasetTitle
+    publishingOrgKey,
+    publisherTitle,
     dataset {
       citation {
         text
       }
     }
-    key
     institutionCode
     recordedById {
       value
@@ -210,20 +220,6 @@ query occurrence($key: ID!){
       htmlValue
       remarks
       issues
-      group
-    }
-    
-    groups {
-      occurrence  
-      record
-      organism
-      materialSample
-      event
-      location
-      geologicalContext
-      identification
-      taxon
-      other
     }
   }
 }

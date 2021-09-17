@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Properties, GadmClassification, GalleryTiles, GalleryTile, DatasetKeyLink } from '../../../components';
+import { Properties, GadmClassification, GalleryTiles, GalleryTile, DatasetKeyLink, PublisherKeyLink } from '../../../components';
 import { TaxonClassification } from './TaxonClassification/TaxonClassification';
 import { AgentSummary } from './AgentSummary'
 
@@ -64,8 +64,13 @@ export const occurrenceFields = {
       }
     },
     {
-      name: 'datasetKey', Value: ({ occurrence }) => {
+      name: 'datasetKey', trKey: 'occurrenceDetails.dataset', Value: ({ occurrence }) => {
         return <DatasetKeyLink id={occurrence.datasetKey}>{occurrence.datasetTitle}</DatasetKeyLink>
+      }
+    },
+    {
+      name: 'publishingOrgKey', trKey: 'occurrenceDetails.publisher', Value: ({ occurrence }) => {
+        return <PublisherKeyLink id={occurrence.publishingOrgKey}>{occurrence.publisherTitle}</PublisherKeyLink>
       }
     },
     { name: 'basisOfRecord', enum: 'basisOfRecord' },
@@ -402,6 +407,11 @@ export const occurrenceFields = {
     'temporal',
     'title',
     'type',
-    'valid'
+    'valid',
+    {
+      name: 'key', trKey: 'occurrenceFieldNames.gbifID', Value: ({ occurrence }) => {
+        return <>{occurrence.key}</>
+      }
+    },
   ]
 }
