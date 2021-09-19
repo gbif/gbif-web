@@ -1,4 +1,8 @@
 {
+  "unsupported.title": "Consulta não suportada",
+  "unsupported.description": "A busca por texto livre pode ser usada para exploração, mas não tem suporte para transferências.",
+  "unsupported.remove": "Remover filtro",
+  "unsupported.error": "Esta consulta parece não ser suportada",
   "download": "Transferir",
   "continueToGBIF": "Continuar"
 }
