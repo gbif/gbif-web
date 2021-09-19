@@ -53,5 +53,16 @@
   "INDIVIDUAL_COUNT_CONFLICTS_WITH_OCCURRENCE_STATUS": "Contagem individual de conflitos com o estado da ocorrência",
   "OCCURRENCE_STATUS_UNPARSABLE": "Estado da ocorrência não interpretável",
   "OCCURRENCE_STATUS_INFERRED_FROM_INDIVIDUAL_COUNT": "Estado de ocorrência inferido a partir da contagem individual",
+  "OCCURRENCE_STATUS_INFERRED_FROM_BASIS_OF_RECORD": "Estado de ocorrência inferido da base do registo",
+  "GEOREFERENCED_DATE_UNLIKELY": "Data de georreferenciação improvável",
+  "GEOREFERENCED_DATE_INVALID": "Data de georreferenciação inválida",
+  "AMBIGUOUS_INSTITUTION": "Instituição ambígua",
+  "AMBIGUOUS_COLLECTION": "Coleção ambígua",
+  "INSTITUTION_MATCH_NONE": "A instituição não corresponde a nenhuma",
+  "COLLECTION_MATCH_NONE": "Coleção não corresponde a nenhuma",
+  "INSTITUTION_MATCH_FUZZY": "Correspondência de instituição difusa",
+  "COLLECTION_MATCH_FUZZY": "Correspondência de coleção difusa",
+  "INSTITUTION_COLLECTION_MISMATCH": "Disparidade entre instituição e coleção",
+  "POSSIBLY_ON_LOAN": "Possivelmente em empréstimo",
   "DIFFERENT_OWNER_INSTITUTION": "Instituição detentora diferente"
 }
