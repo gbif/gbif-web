@@ -64,8 +64,7 @@ function Summary({ showAll, termMap, occurrence, setActiveImage }) {
 
       <EnumField term={termMap.basisOfRecord} showDetails={showAll} getEnum={value => `enums.basisOfRecord.${value}`} />
       {/* <PlainTextField term={termMap.recordedBy} showDetails={showAll} /> */}
-      <RecordedById {...{ showAll, termMap, occurrence }} />
-      <IdentifiedById {...{ showAll, termMap, occurrence }} />
+      <AgentIds {...{ showAll, termMap, occurrence }} />
     </Properties>
   </Group>
 }
@@ -765,12 +764,22 @@ function AcceptedScientificName({ termMap, showAll, occurrence }) {
   </CustomValueField>
 }
 
+function AgentIds({ termMap, showAll, occurrence }) {
+  if (equal(occurrence.recordedByIDs, occurrence.identifiedByIDs)) {
+    return <Agents label="occurrenceDetails.recordedAndIdentifiedBy" value={occurrence.recordedByIDs} />
+  } else {
+    return <>
+      <RecordedById {...{ showAll, termMap, occurrence }} />
+      <IdentifiedById {...{ showAll, termMap, occurrence }} />
+    </>
+  }
+}
+
 function RecordedById({ termMap, showAll, occurrence }) {
   return <Agents label="occurrenceFieldNames.recordedByID" value={occurrence.recordedByIDs} />
 }
 
 function IdentifiedById({ termMap, showAll, occurrence }) {
-  if (equal(occurrence.recordedByIDs, occurrence.identifiedByIDs)) return null;
   return <Agents label="occurrenceFieldNames.identifiedByID" value={occurrence.identifiedByIDs} />
 }
 

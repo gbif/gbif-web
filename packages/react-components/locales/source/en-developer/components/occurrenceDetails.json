@@ -9,6 +9,7 @@
   "institutionGrSciColl": "GrSciColl institution",
   "collection": "Collection",
   "collectionGrSciColl": "GrSciColl collection",
+  "recordedAndIdentifiedBy": "Recorded and identified by",
   "info": {
     "original": "Original",
     "excluded": "Excluded",
