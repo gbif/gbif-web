@@ -254,5 +254,6 @@
   "coordinatesTextual": "這筆紀錄包含地點的文字描述，但缺少座標。",
   "coordinatesMissing": "缺少座標",
   "taxonomicClassification": "分類",
+  "gadmClassification": "根據於全球行政區資料庫（GADM）地點",
   "images": "多媒體"
 }
