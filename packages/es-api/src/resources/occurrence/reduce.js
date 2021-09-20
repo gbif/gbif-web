@@ -263,6 +263,7 @@ function reduce(item) {
 
   const gbifSpecific = {
     key:                                source.gbifId,
+    gbifID:                             source.gbifId,
     acceptedScientificName:             source.gbifClassification?.acceptedUsage?.name,
     acceptedTaxonKey:                   source.gbifClassification?.acceptedUsage?.key,
     scientificName:                     source.gbifClassification?.usage?.name,
