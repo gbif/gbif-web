@@ -1,6 +1,6 @@
 {
   "occurrence": "occurrence",
-  "showAllFields": "",
+  "showAllFields": "Afficher tous les champs",
   "info": {
     "original": "original",
     "excluded": "Exclu"
@@ -19,9 +19,9 @@
     "other": "Autre"
   },
   "features": {
-    "isClustered": "",
+    "isClustered": "Regroupés",
     "isSamplingEvent": "Événement d'échantillonnage",
     "isTreament": "Traitement",
-    "isSequenced": ""
+    "isSequenced": "Séquencé"
   }
 }
