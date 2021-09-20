@@ -485,64 +485,64 @@ function Taxon({ showAll, termMap, occurrence, setActiveImage }) {
 }
 
 function Other({ showAll, termMap, occurrence, setActiveImage }) {
-  const hasContent = [
-    'abstract',
-    'accessRights',
-    'accrualMethod',
-    'accrualPeriodicity',
-    'accrualPolicy',
-    'alternative',
-    'audience',
-    'available',
-    'bibliographicCitation',
-    'conformsTo',
-    'contributor',
-    'coverage',
-    'created',
-    'creator',
-    'date',
-    'dateAccepted',
-    'dateCopyrighted',
-    'dateSubmitted',
-    'description',
-    'educationLevel',
-    'extent',
-    'format',
-    'hasFormat',
-    'hasPart',
-    'hasVersion',
-    'identifier',
-    'instructionalMethod',
-    'isFormatOf',
-    'isPartOf',
-    'isReferencedBy',
-    'isReplacedBy',
-    'isRequiredBy',
-    'isVersionOf',
-    'issued',
-    'language',
-    'license',
-    'mediator',
-    'medium',
-    'modified',
-    'provenance',
-    'publisher',
-    'references',
-    'relation',
-    'replaces',
-    'requires',
-    'rights',
-    'rightsHolder',
-    'source',
-    'spatial',
-    'subject',
-    'tableOfContents',
-    'temporal',
-    'title',
-    'type',
-    'valid',
-    'gbifID'].find(x => termMap[x]);
-  if (!hasContent) return null;
+  // const hasContent = [
+  //   'abstract',
+  //   'accessRights',
+  //   'accrualMethod',
+  //   'accrualPeriodicity',
+  //   'accrualPolicy',
+  //   'alternative',
+  //   'audience',
+  //   'available',
+  //   'bibliographicCitation',
+  //   'conformsTo',
+  //   'contributor',
+  //   'coverage',
+  //   'created',
+  //   'creator',
+  //   'date',
+  //   'dateAccepted',
+  //   'dateCopyrighted',
+  //   'dateSubmitted',
+  //   'description',
+  //   'educationLevel',
+  //   'extent',
+  //   'format',
+  //   'hasFormat',
+  //   'hasPart',
+  //   'hasVersion',
+  //   'identifier',
+  //   'instructionalMethod',
+  //   'isFormatOf',
+  //   'isPartOf',
+  //   'isReferencedBy',
+  //   'isReplacedBy',
+  //   'isRequiredBy',
+  //   'isVersionOf',
+  //   'issued',
+  //   'language',
+  //   'license',
+  //   'mediator',
+  //   'medium',
+  //   'modified',
+  //   'provenance',
+  //   'publisher',
+  //   'references',
+  //   'relation',
+  //   'replaces',
+  //   'requires',
+  //   'rights',
+  //   'rightsHolder',
+  //   'source',
+  //   'spatial',
+  //   'subject',
+  //   'tableOfContents',
+  //   'temporal',
+  //   'title',
+  //   'type',
+  //   'valid',
+  //   'gbifID'].find(x => termMap[x]);
+  // if (!hasContent) return null;
 
   return <Group label="occurrenceDetails.groups.other">
     <Properties css={css.properties} breakpoint={800}>
@@ -601,7 +601,9 @@ function Other({ showAll, termMap, occurrence, setActiveImage }) {
       <PlainTextField term={termMap.title} showDetails={showAll} />
       <PlainTextField term={termMap.type} showDetails={showAll} />
       <PlainTextField term={termMap.valid} showDetails={showAll} />
-      <PlainTextField term={termMap.gbifId} showDetails={showAll} />
+      <BasicField label="occurrenceFieldNames.gbifID">
+        {termMap.gbifID.value}
+      </BasicField>
     </Properties>
   </Group>
 }
@@ -764,12 +766,12 @@ function AcceptedScientificName({ termMap, showAll, occurrence }) {
 }
 
 function RecordedById({ termMap, showAll, occurrence }) {
-  return <Agents label="occurrenceFieldNames.recordedByID" value={occurrence.recordedById} />
+  return <Agents label="occurrenceFieldNames.recordedByID" value={occurrence.recordedByIDs} />
 }
 
 function IdentifiedById({ termMap, showAll, occurrence }) {
-  if (equal(occurrence.recordedById, occurrence.identifiedById)) return null;
-  return <Agents label="occurrenceFieldNames.identifiedByID" value={occurrence.identifiedById} />
+  if (equal(occurrence.recordedByIDs, occurrence.identifiedByIDs)) return null;
+  return <Agents label="occurrenceFieldNames.identifiedByID" value={occurrence.identifiedByIDs} />
 }
 
 function Agents({ label, value }) {
