@@ -1,0 +1,8 @@
+{
+  "unsupported.title": "不支持的查询",
+  "unsupported.description": "免费文本搜索可以用于探索，但没有下载支持。",
+  "unsupported.remove": "移除过滤器",
+  "unsupported.error": "该查询似乎不受支持",
+  "download": "下载",
+  "continueToGBIF": "继续"
+}

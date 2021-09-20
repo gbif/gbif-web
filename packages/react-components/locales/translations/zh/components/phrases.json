@@ -1,1 +1,5 @@
-{}
+{
+  "loading": "加载",
+  "loadError": "未能加载",
+  "close": "关闭"
+}
