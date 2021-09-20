@@ -1,3 +1,7 @@
 {
-  "citation": "Citation"
+  "loading": "en cours de chargement",
+  "loadError": "Échec du chargement",
+  "close": "Fermer",
+  "citation": "Citation",
+  "citeAs": "Veuillez utiliser cette citation dans les publications"
 }
