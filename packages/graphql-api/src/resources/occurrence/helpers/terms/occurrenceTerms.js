@@ -122,7 +122,7 @@ function getRemarks({ value, verbatim, compareWithVerbatim }) {
     return 'NOT_INDEXED';
   } else if (_.isNil(verbatim)) {
     return 'INFERRED';
-  } else if (value.toString().toLowerCase().replace(/_/g, '') !== verbatim.toString().toLowerCase().replace(/_/g, '')) {
+  } else if (value.toString().toLowerCase().trim().replace(/_/g, '') !== verbatim.toString().toLowerCase().trim().replace(/_/g, '')) {
     return 'ALTERED';
   } else {
     return null
