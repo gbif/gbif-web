@@ -140,7 +140,7 @@ query occurrence($key: ID!){
       }
     }
     institutionCode
-    recordedById {
+    recordedByIDs {
       value
       person(expand: true) {
         name
@@ -149,7 +149,7 @@ query occurrence($key: ID!){
         image
       }
     }
-    identifiedById {
+    identifiedByIDs {
       value
       person(expand: true) {
         name

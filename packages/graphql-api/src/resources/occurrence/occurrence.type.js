@@ -117,7 +117,7 @@ const typeDef = gql`
     identificationRemarks: String
     identificationVerificationStatus: String
     identifiedBy: String
-    identifiedById: [AssociatedID]
+    identifiedByIDs: [AssociatedID]
     identifier: String
     # Unclear what this field contains
     # identifiers: [String]
@@ -205,7 +205,7 @@ const typeDef = gql`
     publishingOrgKey: ID
     recordNumber: String
     recordedBy: String
-    recordedById: [AssociatedID]
+    recordedByIDs: [AssociatedID]
     references: String
     relation: String
     # relations: [JSON] # unclear what this field encodes if anything

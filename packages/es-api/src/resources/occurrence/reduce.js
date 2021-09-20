@@ -257,8 +257,8 @@ function reduce(item) {
     typifiedName:                       source.typifiedName,
     waterBody:                          source.waterBody,
     year:                               source.year,
-    identifiedById:                    source.identifiedByIds || [],
-    recordedById:                       source.recordedByIds || [],
+    identifiedByIDs:                    source.identifiedByIds || [],
+    recordedByIDs:                      source.recordedByIds || [],
   };
 
   const gbifSpecific = {
