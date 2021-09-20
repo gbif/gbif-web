@@ -254,5 +254,6 @@
   "coordinatesTextual": "Cet enregistrement est publié sans coordonnées, mais il inclus une description textuelle de la localisation.",
   "coordinatesMissing": "Coordonnées absentes",
   "taxonomicClassification": "Classification",
+  "gadmClassification": "Localisation selon GADM",
   "images": "Multimedia"
 }
