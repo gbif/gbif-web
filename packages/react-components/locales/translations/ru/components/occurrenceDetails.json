@@ -1,5 +1,10 @@
 {
   "occurrence": "",
+  "showAllFields": "",
+  "info": {
+    "original": "исходный",
+    "excluded": "не интерпретировано"
+  },
   "groups": {
     "summary": "Тема сообщения",
     "record": "Запись",
