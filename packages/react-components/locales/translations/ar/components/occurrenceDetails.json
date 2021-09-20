@@ -1,5 +1,10 @@
 {
   "occurrence": "",
+  "showAllFields": "",
+  "info": {
+    "original": "أصلي",
+    "excluded": "استُبعِدت"
+  },
   "groups": {
     "summary": "الملخص",
     "record": "سجل",
