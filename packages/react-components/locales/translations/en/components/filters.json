@@ -33,24 +33,24 @@
   },
   "occurrenceIssue": {
     "name": "Issues and flags",
-    "count": "",
+    "count": "{num, plural, one {issue or flag} other {# issues and flags}}",
     "isNotNull": "Has issues",
     "isNull": "Has no issues",
     "description": "The types of issues or flags of potential interest discovered in processing the data."
   },
   "occurrenceCountry": {
     "name": "Country",
-    "count": "",
+    "count": "{num, plural, one {country} other {# countries}}",
     "description": "The country or territory where the event occurred"
   },
   "publishingCountryCode": {
     "name": "Publishing country",
-    "count": "",
+    "count": "{num, plural, one {publishing country} other {# publishing countries}}",
     "description": "The ISO code for the country or territory in which the data publisher is located"
   },
   "q": {
     "name": "Text search",
-    "count": "",
+    "count": "{num, plural, one {text string} other {# search strings}}",
     "description": "Find records with similar matching text among text fields. For matching text within a specific field, use corresponding filter, such as the one for \"Scientific Name\"."
   },
   "coordinates": {
@@ -58,7 +58,7 @@
   },
   "elevation": {
     "name": "Elevation",
-    "count": "",
+    "count": "{num, plural, one {elevation filter} other {# elevation filters}}",
     "description": "The distance above a vertical reference point (usually mean sea level or a geoid) in metres."
   },
   "license": {
@@ -68,30 +68,30 @@
   },
   "datasetKey": {
     "name": "Dataset",
-    "count": "",
+    "count": "{num, plural, one {dataset} other {# datasets}}",
     "description": "The title of the dataset under which the record is shared."
   },
   "publisherKey": {
     "name": "Publisher",
-    "count": "",
+    "count": "{num, plural, one {publisher} other {# publishers}}",
     "description": "The name of the organization responsible for sharing the dataset in which the record is included."
   },
   "hostingOrganizationKey": {
     "name": "Hosting organization",
-    "count": "",
+    "count": "{num, plural, one {host} other {# hosts}}",
     "description": "The name of the organization hosting the dataset in which the record is published."
   },
   "country": {
     "name": "Country",
-    "count": ""
+    "count": "{num, plural, one {country} other {# countries}}"
   },
   "countriesOfCoverage": {
     "name": "Country of coverage",
-    "count": ""
+    "count": "{num, plural, one {country of coverage} other {# countries of coverage}}"
   },
   "countriesOfResearcher": {
     "name": "Country of researcher",
-    "count": ""
+    "count": "{num, plural, one {country of researcher} other {# countries of researchers}}"
   },
   "typeStatus": {
     "name": "Type status",
@@ -117,57 +117,57 @@
   },
   "depth": {
     "name": "Depth",
-    "count": "",
+    "count": "{num, plural, one { depth } other {# depths}}",
     "description": "The distance below a local surface, in metres."
   },
   "organismQuantity": {
     "name": "Organism quantity",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { organism quantity } other {# organism quantitys}}",
+    "description": "The value for the quantity of organisms, where the type of measurement is given in the \"Organism quantity type\"."
   },
   "sampleSizeValue": {
     "name": "Sample size value",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { sample size value } other {# sample size values}}",
+    "description": "The value for the size of a sample, where the units of measurement are given in the \"Sample size unit\"."
   },
   "relativeOrganismQuantity": {
     "name": "Relative organism quantity",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { relative organism quantity } other {# relative organism quantities}}",
+    "description": "The amount of biological material relative to the size of a sample, calculated as organismQuantity per sampleSize when the organismQuantityType and sampleSizeUnit are unambiguous."
   },
   "month": {
     "name": "Month",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { month } other {# months}}",
+    "description": "The integer month in which the event occurred."
   },
   "continent": {
     "name": "Continent",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { continent } other {# continents}}",
+    "description": "The name of the continent in which the location occurs."
   },
   "protocol": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Publishing protocol",
+    "count": "{num, plural, one { protocol } other {# protocols}}",
+    "description": "The technical protocol through which the dataset is shared."
   },
   "establishmentMeans": {
     "name": "Establishment means",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { establishment means } other {# establishment means}}",
+    "description": "The means by which the organism was introduced to a given place at a given time."
   },
   "recordedBy": {
     "name": "Recorded by",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { recorded by } other {# recorded bys}}",
+    "description": "The names of the person, people, groups or organizations responsible for recording the original occurrence."
   },
   "recordNumber": {
     "name": "Record number",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { record number } other {# record numbers}}",
+    "description": "An identifier given to the occurrence at the time it was recorded."
   },
   "collectionCode": {
     "name": "Collection code",
-    "count": "",
+    "count": "{num, plural, one { collection code } other {# collection codes}}",
     "description": "A short description of the component should be placed here"
   },
   "recordedById": {
@@ -198,41 +198,41 @@
   "waterBody": {
     "name": "Water body",
     "count": "{num, plural, one { water body } other {# water bodies}}",
-    "description": ""
+    "description": "The name of the water body in which the location occurs."
   },
   "stateProvince": {
     "name": "State province",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { state province } other {# state provinces}}",
+    "description": "The name of the next administrative region smaller than country in which the location occurs."
   },
   "eventId": {
     "name": "Event ID",
-    "count": "",
+    "count": "{num, plural, one { event ID } other {# event IDs}}",
     "description": "The unique identifier for the event in the record."
   },
   "samplingProtocol": {
     "name": "Sampling protocol",
-    "count": "",
+    "count": "{num, plural, one { sampling protocol } other {# sampling protocols}}",
     "description": "The name of, reference to or description of the method or protocol used during an event."
   },
   "occurrenceStatus": {
     "name": "Occurrence status",
-    "count": "",
+    "count": "{num, plural, one { occurrence status } other {# occurrence statuses}}",
     "description": "The presence or absence of any organisms of the given taxon."
   },
   "gadmGid": {
     "name": "Administrative area",
-    "count": "",
+    "count": "{num, plural, one { administrative area } other {# administrative areas}}",
     "description": "The name of any administrative area from GADM.org determined during record processing."
   },
   "identifiedBy": {
     "name": "Identified by",
-    "count": "",
+    "count": "{num, plural, one { identified by } other {# identified bys}}",
     "description": "The person, people, groups or organizations responsible for determining the scientific name of the Organism."
   },
   "isInCluster": {
     "name": "Is in cluster",
-    "count": "",
+    "count": "{num, plural, one { is in cluster } other {# are in clusters}}",
     "description": "Whether the record was determined to have related records."
   },
   "datasetType": {
@@ -242,42 +242,42 @@
   },
   "datasetSubtype": {
     "name": "Dataset subtype",
-    "count": "",
+    "count": "{num, plural, one { dataset subtype } other {# dataset subtypes}}",
     "description": "A short description of the component should be placed here"
   },
   "institutionKey": {
     "name": "Institution",
-    "count": "",
+    "count": "{num, plural, one { institution } other {# institutions}}",
     "description": "The name of the institution having custody of the object(s) or information referred to in the record."
   },
   "name": {
     "name": "Name",
-    "count": "",
+    "count": "{num, plural, one { name } other {# names}}",
     "description": "A short description of the component should be placed here"
   },
   "city": {
     "name": "City",
-    "count": "",
+    "count": "{num, plural, one { city } other {# cities}}",
     "description": "A short description of the component should be placed here"
   },
   "code": {
     "name": "Code",
-    "count": "",
+    "count": "{num, plural, one { code } other {# codes}}",
     "description": "A short description of the component should be placed here"
   },
   "verbatimScientificName": {
     "name": "Verbatim scientific name",
-    "count": "",
+    "count": "{num, plural, one { verbatim scientific name } other {# verbatim scientific names}}",
     "description": "The scientific name as provided by the data publisher without any normalization."
   },
   "networkKey": {
-    "name": "",
-    "count": "",
+    "name": "Network key",
+    "count": "{num, plural, one { network key } other {# network keys}}",
     "description": "A short description of the component should be placed here"
   },
   "literatureType": {
     "name": "Literature type",
-    "count": "",
+    "count": "{num, plural, one { literature type } other {# literature types}}",
     "description": "What type of literature does the citation come from."
   }
 }
