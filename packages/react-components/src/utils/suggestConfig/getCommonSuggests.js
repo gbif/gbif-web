@@ -251,7 +251,7 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
       placeholder: 'search.placeholders.default',
       // how to get the list of suggestion data
       getSuggestions: ({ q }) => {
-        const { promise, cancel } = client.v1Get(`/geocode/gadm/search?limit=8&q=${q}`);
+        const { promise, cancel } = client.v1Get(`/geocode/gadm/search?limit=100&q=${q}`);
         return {
           promise: promise.then(response => {
             return {
