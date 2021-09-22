@@ -17,15 +17,15 @@ export function Groups({ occurrence, showAll, setActiveImage }) {
 
   return <>
     <Summary              {...{ showAll, termMap, occurrence, setActiveImage }} />
-    <Occurrence           {...{ showAll, termMap, occurrence, setActiveImage }} />
     <Record               {...{ showAll, termMap, occurrence, setActiveImage }} />
+    <Taxon                {...{ showAll, termMap, occurrence, setActiveImage }} />
+    <Location             {...{ showAll, termMap, occurrence, setActiveImage }} />
+    <Occurrence           {...{ showAll, termMap, occurrence, setActiveImage }} />
+    <Event                {...{ showAll, termMap, occurrence, setActiveImage }} />
     <Organism             {...{ showAll, termMap, occurrence, setActiveImage }} />
     <MaterialSample       {...{ showAll, termMap, occurrence, setActiveImage }} />
-    <Event                {...{ showAll, termMap, occurrence, setActiveImage }} />
-    <Location             {...{ showAll, termMap, occurrence, setActiveImage }} />
     <GeologicalContext    {...{ showAll, termMap, occurrence, setActiveImage }} />
     <Identification       {...{ showAll, termMap, occurrence, setActiveImage }} />
-    <Taxon                {...{ showAll, termMap, occurrence, setActiveImage }} />
     <Other                {...{ showAll, termMap, occurrence, setActiveImage }} />
     <Citation             {...{ showAll, termMap, occurrence, setActiveImage }} />
   </>
@@ -58,9 +58,9 @@ function Summary({ showAll, termMap, occurrence, setActiveImage }) {
         <DatasetKeyLink id={occurrence.datasetKey}>{occurrence.datasetTitle}</DatasetKeyLink>
       </BasicField>
 
-      <BasicField label="occurrenceFieldNames.publisher">
+      {/* <BasicField label="occurrenceFieldNames.publisher">
         <PublisherKeyLink id={occurrence.publishingOrgKey}>{occurrence.publisherTitle}</PublisherKeyLink>
-      </BasicField>
+      </BasicField> */}
 
       <EnumField term={termMap.basisOfRecord} showDetails={showAll} getEnum={value => `enums.basisOfRecord.${value}`} />
       {/* <PlainTextField term={termMap.recordedBy} showDetails={showAll} /> */}
