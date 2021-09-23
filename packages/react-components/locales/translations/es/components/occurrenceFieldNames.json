@@ -252,5 +252,7 @@
   "scientificNameAuthorship": "Autor del nombre científico",
   "undefined": "Campo desconocido",
   "coordinatesTextual": "Este registro está publicado sin coordinadas pero incluye una descripción textual de su ubicación.",
-  "coordinatesMissing": "Faltan las coordenadas"
+  "coordinatesMissing": "Faltan las coordenadas",
+  "taxonomicClassification": "Clasificación",
+  "images": "Multimedia"
 }

@@ -1,5 +1,10 @@
 {
   "occurrence": "发生",
+  "showAllFields": "",
+  "info": {
+    "original": "默认",
+    "excluded": "排除"
+  },
   "groups": {
     "summary": "概要",
     "record": "记录",

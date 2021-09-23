@@ -1,5 +1,10 @@
 {
   "occurrence": "出現紀錄",
+  "showAllFields": "顯示所有欄位",
+  "info": {
+    "original": "原始的",
+    "excluded": "排除"
+  },
   "groups": {
     "summary": "總結",
     "record": "紀錄",

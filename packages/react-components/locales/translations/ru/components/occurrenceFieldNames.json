@@ -250,5 +250,7 @@
   "scientificNameAuthorship": "Автор латинского названия",
   "undefined": "Неизвестное поле",
   "coordinatesTextual": "Эта запись опубликована без координат, но она содержит текстовое описание местонахождения.",
-  "coordinatesMissing": "Координаты отсутствуют"
+  "coordinatesMissing": "Координаты отсутствуют",
+  "taxonomicClassification": "Классификация",
+  "images": "Мультимедиа"
 }

@@ -1,5 +1,10 @@
 {
   "occurrence": "オカレンス",
+  "showAllFields": "",
+  "info": {
+    "original": "元の",
+    "excluded": "除外"
+  },
   "groups": {
     "summary": "概要",
     "record": "記録",
