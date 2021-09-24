@@ -1,6 +1,6 @@
 {
-  "occurrence": "",
-  "showAllFields": "",
+  "occurrence": "Registro biológico",
+  "showAllFields": "Mostrar todos los campos",
   "info": {
     "original": "original",
     "excluded": "Excluido"
