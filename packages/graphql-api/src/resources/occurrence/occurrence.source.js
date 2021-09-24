@@ -56,6 +56,11 @@ class OccurrenceAPI extends RESTDataSource {
     return this.get(`${apiv1}/occurrence/${key}/verbatim`);
   }
 
+  async getBionomia({occurrence}) {
+    let { datasetKey, occurrenceID } = occurrence;
+    return this.get(`https://bionomia.net/occurrences/search?datasetKey=${datasetKey}&occurrenceID=${occurrenceID}`).then(x => JSON.parse(x));
+  }
+
   async meta({ query }) {
     const body = { ...query };
     const response = await this.post('/occurrence/meta', body);

@@ -303,6 +303,17 @@ const typeDef = gql`
     dataset: Dataset
     institution: Institution
     collection: Collection
+    bionomia: BionomiaOccurrence
+  }
+
+  type BionomiaOccurrence {
+    recorded: [BionomiaPerson]
+    identified: [BionomiaPerson]
+  }
+
+  type BionomiaPerson {
+    name: String
+    reference: String
   }
 
   type RelatedOccurrence {

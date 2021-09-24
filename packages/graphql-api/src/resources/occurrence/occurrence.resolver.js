@@ -51,7 +51,7 @@ module.exports = {
   Query: {
     occurrenceSearch: (parent, args) => {
       // dataSources.occurrenceAPI.searchOccurrences({ query: args }),
-      return { 
+      return {
         _predicate: args.predicate,
         _downloadPredicate: predicate2v1(args.predicate),
       };
@@ -146,11 +146,50 @@ module.exports = {
     collection: (occurrence, args, { dataSources }) => {
       if (typeof occurrence.collectionKey === 'undefined') return null;
       return dataSources.collectionAPI.getCollectionByKey({ key: occurrence.collectionKey });
+    },
+    bionomia: (occurrence, args, { dataSources }) => {
+      return dataSources.occurrenceAPI.getBionomia({ occurrence });
+    },
+  },
+  BionomiaOccurrence: {
+    recorded: (bionomiaOccurrence, args, { dataSources }) => {
+      return bionomiaOccurrence.dataFeedElement[0].item.recorded.map(x => {
+        return {
+          name: x.name,
+          reference: x['@id']
+        }
+      });
+      // return bionomiaOccurrence.dataFeedElement[0].item.recorded.map(x => {
+      //   if (x.sameAs.includes('wikidata')) {
+      //     return {
+      //       type: 'WIKIDATA',
+      //       value: x.sameAs
+      //     }
+      //   } else if (x.sameAs.includes('orcid')) {
+      //     return {
+      //       type: 'ORCID',
+      //       value: x.sameAs
+      //     }
+      //   } else {
+      //     return {
+      //       type: 'OTHER',
+      //       value: x.sameAs
+      //     }
+      //   }
+      // });
+    },
+    identified: (bionomiaOccurrence, args, { dataSources }) => {
+      return bionomiaOccurrence.dataFeedElement[0].item.identified.map(x => {
+        return {
+          name: x.name,
+          reference: x['@id']
+        }
+      });
     }
   },
   AssociatedID: {
     person: (parent, { expand }, { dataSources }) => {
-      return dataSources.personAPI.getPersonByIdentifier({type: parent.type, value: parent.value, dataSources, expand})
+      return dataSources.personAPI.getPersonByIdentifier({ type: parent.type, value: parent.value, dataSources, expand })
     },
     // person: (parent, query, { dataSources }) => {
     //   const key = parent.value.substr(parent.value.lastIndexOf('/') + 1);
