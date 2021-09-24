@@ -648,6 +648,7 @@ export const commonFilters = {
         },
       },
       specific: {
+        supportsExist: true,
         placeholder: 'Search by Organism identifier'
       }
     }
