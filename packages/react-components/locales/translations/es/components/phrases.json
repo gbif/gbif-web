@@ -1,3 +1,6 @@
 {
+  "loading": "cargando",
+  "loadError": "Error al cargar",
+  "close": "Cerrar",
   "citation": "Cita"
 }
