@@ -2,7 +2,10 @@
   "citations": "Citaciones",
   "occurrences": "Registros de presencia",
   "numberSpecimens": "Número de especímenes",
+  "gbifNumberSpecimens": "Especímenes en GBIF",
   "title": "Título",
+  "titleAndAbstract": "Título y resumen",
   "registered": "Registrado",
+  "hostedDatasets": "Conjuntos de datos alojados",
   "pubDatasets": "Juegos de datos publicados"
 }
