@@ -1,5 +1,5 @@
 {
-  "http://rs.tdwg.org/dwc/terms/Occurrence": "Registro",
+  "http://rs.tdwg.org/dwc/terms/Occurrence": "Registro biológico",
   "http://rs.tdwg.org/ac/terms/Multimedia": "Audubon multimedia",
   "http://data.ggbn.org/schemas/ggbn/terms/Amplification": "Amplificación",
   "http://data.ggbn.org/schemas/ggbn/terms/Cloning": "Clonación",
@@ -17,6 +17,8 @@
   "http://rs.tdwg.org/dwc/terms/Identification": "Identificación",
   "http://rs.gbif.org/terms/1.0/Identifier": "Identificador",
   "http://rs.gbif.org/terms/1.0/Image": "Imagen",
+  "http://rs.tdwg.org/dwc/terms/MeasurementOrFact": "Medida o hecho",
   "http://rs.gbif.org/terms/1.0/Multimedia": "Multimedia",
-  "http://rs.gbif.org/terms/1.0/Reference": "Referencia"
+  "http://rs.gbif.org/terms/1.0/Reference": "Referencia",
+  "http://rs.tdwg.org/dwc/terms/ResourceRelationship": "Relacación del recurso"
 }
