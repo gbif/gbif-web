@@ -19,7 +19,7 @@
     "other": "Otro"
   },
   "features": {
-    "isClustered": "",
+    "isClustered": "Agrupado",
     "isSamplingEvent": "Evento de muestreo",
     "isTreament": "Tratamiento",
     "isSequenced": "Secuenciado"
