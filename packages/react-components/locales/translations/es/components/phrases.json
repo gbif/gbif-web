@@ -1,3 +1,7 @@
 {
-  "citation": "Cita"
+  "loading": "cargando",
+  "loadError": "Error al cargar",
+  "close": "Cerrar",
+  "citation": "Cita",
+  "citeAs": "Por favor, utilice esta cita en las publicaciones"
 }

@@ -98,7 +98,7 @@
   "organismRemarks": "Observaciones del organismo",
   "materialSampleID": "ID de la muestra",
   "eventID": "ID del Evento",
-  "parentEventID": "ID del evento parental (principal)",
+  "parentEventID": "ID del evento parental",
   "fieldNumber": "Número de Campo",
   "eventDate": "Fecha del Evento",
   "eventTime": "Hora del Evento",
@@ -254,5 +254,6 @@
   "coordinatesTextual": "Este registro está publicado sin coordinadas pero incluye una descripción textual de su ubicación.",
   "coordinatesMissing": "Faltan las coordenadas",
   "taxonomicClassification": "Clasificación",
+  "gadmClassification": "Ubicación según GADM",
   "images": "Multimedia"
 }
