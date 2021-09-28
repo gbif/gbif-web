@@ -160,5 +160,9 @@
   "latestEpochOrHighestSeries": "Jüngste Epoche oder oberste Serie",
   "earliestAgeOrLowestStage": "Frühestes Alter oder unterste Stufe",
   "latestAgeOrHighestStage": "Jüngstes Alter oder oberste Stufe",
-  "lowestBiostratigraphicZone": "Niedrigste Biostratigraphische Zone"
+  "lowestBiostratigraphicZone": "Niedrigste Biostratigraphische Zone",
+  "highestBiostratigraphicZone": "Höchste Biostratigraphische Zone",
+  "lithostratigraphicTerms": "Lithostratigraphische Begriffe",
+  "group": "Gruppe",
+  "formation": "Formation"
 }
