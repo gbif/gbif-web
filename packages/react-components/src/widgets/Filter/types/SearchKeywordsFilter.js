@@ -131,7 +131,9 @@ console.log(size);
               // if (showSuggestions) setValue('');
               if (!showSuggestions) search(inputValue);
               setShowSuggestions(!showSuggestions);
-            }}>Show suggestions</AdditionalControl>
+            }}>
+              <FormattedMessage id="filterSupport.showSuggestions" defaultMessage="Show suggestions"/>
+            </AdditionalControl>
           <SummaryBar {...summaryProps} style={{ marginTop: 0 }} />
           <FilterBody style={{paddingTop: 0}}>
             <form id={formId} onSubmit={e => e.preventDefault()} >
@@ -147,7 +149,7 @@ console.log(size);
                     key={q}
                     loading={loading}
                     helpVisible={true}
-                    helpText={`Search for the pattern`}
+                    helpText={<FormattedMessage id="filterSupport.useWildcardPattern" defaultMessage="Search for the pattern"/>}
                     label={q}
                     checked={checkedMap.has(hash({type: 'like', value: q}))}
                     onChange={() => {
@@ -162,7 +164,9 @@ console.log(size);
                       key={option.key}
                       loading={loading}
                       helpVisible={true}
-                      helpText={`${option.count} records in total`}
+                      helpText={
+                        <FormattedMessage id="counts.nRecordsTotal" defaultMessage="{total} records in total"
+                          values={{total: option.count}}/>}
                       label={option.key}
                       checked={checkedMap.has(option.key)}
                       onChange={() => {
@@ -172,12 +176,16 @@ console.log(size);
                       }}
                     />
                   })}
-                  {items.length < data?.occurrenceSearch?.cardinality?.[queryKey] && <div style={{fontSize: 12, marginLeft: 24, marginTop: 12}}><Button appearance="primaryOutline" onClick={loadMore}>Load more suggestions</Button></div>}
+                  {items.length < data?.occurrenceSearch?.cardinality?.[queryKey] && <div style={{fontSize: 12, marginLeft: 24, marginTop: 12}}><Button appearance="primaryOutline" onClick={loadMore}>
+                      <FormattedMessage id="search.loadMore" defaultMessage="More"/>
+                    </Button></div>}
                 </>}
               </>}
 
               {!showSuggestions && <>
-                {options.length === 0 && <div style={{margin: '12px 0', opacity: .7}}>Searches are case insensitive, but every letter is distinct, so, to find records with Rio or Río, for example, you can use the pattern 'r?o'.</div>}
+                {options.length === 0 && <div style={{margin: '12px 0', opacity: .7}}>
+                  <FormattedMessage id="filterSupport.wildcardHelp" defaultMessage="More"/>
+                  </div>}
                 {options.map((option) => {
                   return <Option
                     key={hash(option)}
