@@ -1,1 +1,7 @@
-{}
+{
+  "loading": "Wird geladen",
+  "loadError": "Konnte nicht geladen werden.",
+  "close": "Schließen",
+  "citation": "Zitierweise",
+  "citeAs": "Bitte verwenden Sie diese Zitierung in Publikationen"
+}
