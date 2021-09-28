@@ -73,16 +73,16 @@ const defaultTableConfig = {
       },
       width: 'wide'
     },
-    {
-      trKey: 'tableHeaders.altmetric',
-      value: {
-        key: 'identifiers',
-        formatter: (value, item) => {
-          return <AltmetricDonut doi={item?.identifiers?.doi} />
-        },
-        hideFalsy: true
-      }
-    },
+    // {
+    //   trKey: 'tableHeaders.altmetric',
+    //   value: {
+    //     key: 'identifiers',
+    //     formatter: (value, item) => {
+    //       return <AltmetricDonut doi={item?.identifiers?.doi} />
+    //     },
+    //     hideFalsy: true
+    //   }
+    // },
     {
       trKey: 'filters.literatureType.name',
       value: {
