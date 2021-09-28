@@ -20,9 +20,6 @@ export function Message({
       ALLOWED_TAGS: allowedTags || ['i', 'br', 'a'],
       ALLOWED_ATTR: allowedAttr || ['href']
     };
-    console.log(options);
-    console.log(props.defaultMessage);
-    console.log(dirty);
     var sanitized = DOMPurify.sanitize(dirty, options);
 
     return <Comp dangerouslySetInnerHTML={{ __html: sanitized }} />
