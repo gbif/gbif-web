@@ -164,5 +164,7 @@
   "highestBiostratigraphicZone": "Höchste Biostratigraphische Zone",
   "lithostratigraphicTerms": "Lithostratigraphische Begriffe",
   "group": "Gruppe",
-  "formation": "Formation"
+  "formation": "Formation",
+  "member": "Formationsglied",
+  "bed": "Schicht"
 }
