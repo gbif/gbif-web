@@ -1,12 +1,12 @@
 {
   "dwcaExtension": {
     "name": "Extensão DWCA",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { extensão DWCA } other {# extensões DWCA}}",
+    "description": "Deve colocar aqui uma breve descrição da componente"
   },
   "taxonKey": {
     "name": "Nome científico",
-    "count": "",
+    "count": "{num, plural, one {nome científico} other {# nomes científicos}}",
     "description": ""
   },
   "basisOfRecord": {
