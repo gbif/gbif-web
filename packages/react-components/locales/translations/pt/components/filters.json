@@ -133,86 +133,86 @@
   "relativeOrganismQuantity": {
     "name": "Quantidade relativa do organismo",
     "count": "{num, plural, one { quantidade relativa do organismo } other {# quantidades relativas do organismo}}",
-    "description": ""
+    "description": "A quantidade de material biológico em relação ao tamanho de uma amostra, calculada como organismQuantity por sampleSize quando o organismQuantityType e a sampleSizeUnit são inequívocos."
   },
   "month": {
     "name": "Mês",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { mês } other {# meses}}",
+    "description": "O valor inteiro do mês em que o evento ocorreu."
   },
   "continent": {
     "name": "Continente",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { continente } other {# continentes}}",
+    "description": "O nome do continente onde a localização ocorre."
   },
   "protocol": {
     "name": "Protocolo de publicação",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { protocolo } other {# protocolos}}",
+    "description": "O protocolo técnico através do qual o conjunto de dados é partilhado."
   },
   "establishmentMeans": {
     "name": "Forma de estabelecimento",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { meio de estabelecimento } other {# meios de estabelecimento}}",
+    "description": "O modo como o organismo foi introduzido num determinado local num dado momento."
   },
   "recordedBy": {
     "name": "Registado por",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { registado por } other {# registados por}}",
+    "description": "Os nomes da pessoa, pessoas, grupos ou organizações responsáveis pelo registo da ocorrência original."
   },
   "recordNumber": {
     "name": "Número de registo",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { número do registo } other {# números do registo}}",
+    "description": "Um identificador dado à ocorrência no momento em que foi registado."
   },
   "collectionCode": {
     "name": "Código de coleção",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { código da coleção } other {# códigos da coleção}}",
+    "description": "Uma breve descrição do componente deve ser colocada aqui"
   },
   "recordedById": {
     "name": "Registado por ID",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { registado por ID } other {# registados por IDs}}",
+    "description": "O identificador da pessoa, pessoas, grupos ou organizações responsáveis pelo registo da ocorrência original."
   },
   "identifiedById": {
     "name": "Identificado por ID",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { identificado por ID } other {# identificados por IDs}}",
+    "description": "O identificador da pessoa, pessoas, grupos ou organizações responsáveis pela determinação do nome científico do organismo."
   },
   "occurrenceId": {
     "name": "ID da Ocorrência",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { ID da ocorrência } other {# IDs das ocorrências}}",
+    "description": "O identificador exclusivo para o registo de ocorrência."
   },
   "organismId": {
     "name": "ID do organismo",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { ID do organismo } other {# IDs dos organismos}}",
+    "description": "O identificador único para o organismo no registo."
   },
   "locality": {
     "name": "Localidade",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { localidade } other {# localidades}}",
+    "description": "A parte específica da descrição do lugar."
   },
   "waterBody": {
     "name": "Massa de água",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { massa de água } other {# massas de água}}",
+    "description": "O nome da massa da água em que a localização ocorre."
   },
   "stateProvince": {
     "name": "Estado/Província",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { província ou estado } other {# províncias ou estados}}",
+    "description": "O nome da próxima região administrativa é menor do que o país onde a localização ocorre."
   },
   "eventId": {
     "name": "ID do evento",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { ID do evento } other {# IDs dos eventos}}",
+    "description": "O identificador único para o evento no registo."
   },
   "samplingProtocol": {
     "name": "Protocolo de amostragem",
-    "count": "",
+    "count": "{num, plural, one { protocolo de amostragem } other {# protocolos de amostragem}}",
     "description": ""
   },
   "occurrenceStatus": {
@@ -238,12 +238,12 @@
   "datasetType": {
     "name": "Tipo de conjunto de dados",
     "count": "",
-    "description": ""
+    "description": "Uma breve descrição do componente deve ser colocada aqui"
   },
   "datasetSubtype": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "Uma breve descrição do componente deve ser colocada aqui"
   },
   "institutionKey": {
     "name": "Instituição",
@@ -253,17 +253,17 @@
   "name": {
     "name": "Nome",
     "count": "",
-    "description": ""
+    "description": "Uma breve descrição do componente deve ser colocada aqui"
   },
   "city": {
     "name": "Cidade",
     "count": "",
-    "description": ""
+    "description": "Uma breve descrição do componente deve ser colocada aqui"
   },
   "code": {
     "name": "Código",
     "count": "",
-    "description": ""
+    "description": "Uma breve descrição do componente deve ser colocada aqui"
   },
   "verbatimScientificName": {
     "name": "Nome científico verbatim",
@@ -273,7 +273,7 @@
   "networkKey": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "Uma breve descrição do componente deve ser colocada aqui"
   },
   "literatureType": {
     "name": "Tipo de bibliografia",
