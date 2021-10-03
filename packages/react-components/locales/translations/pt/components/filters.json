@@ -77,7 +77,7 @@
     "description": "O nome da organização responsável por partilhar o conjunto de dados no qual o registo está incluído."
   },
   "hostingOrganizationKey": {
-    "name": "Organização de hospedagem",
+    "name": "Organização anfitriã",
     "count": "{num, plural, one {anfitrião} other {# anfitriões}}",
     "description": "O nome da organização que aloja o conjunto de dados no qual o registo é publicado."
   },
@@ -213,71 +213,71 @@
   "samplingProtocol": {
     "name": "Protocolo de amostragem",
     "count": "{num, plural, one { protocolo de amostragem } other {# protocolos de amostragem}}",
-    "description": ""
+    "description": "O nome de, referência ou descrição do método ou protocolo usado durante um evento."
   },
   "occurrenceStatus": {
     "name": "Estado da ocorrência (presença/ausência)",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { estado da ocorrência } other {# estados da ocorrência}}",
+    "description": "A presença ou ausência de qualquer organismo do taxon fornecido."
   },
   "gadmGid": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Área administrativa",
+    "count": "{num, plural, one { área administrativa } other {# áreas administrativas}}",
+    "description": "O nome de qualquer área administrativa de GADM.org determinada durante o processamento do registo."
   },
   "identifiedBy": {
     "name": "Identificado por",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { identificado por } other {# identificados por}}",
+    "description": "A pessoa, pessoas, grupos ou organizações responsáveis pela determinação do nome científico do organismo."
   },
   "isInCluster": {
     "name": "Está em cluster",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+    "description": "Se foi determinado o registo ter outros registos relacionados."
   },
   "datasetType": {
     "name": "Tipo de conjunto de dados",
-    "count": "",
+    "count": "{num, plural, one { tipo de conjunto de dados } other {# tipos de conjuntos de dados}}",
     "description": "Uma breve descrição do componente deve ser colocada aqui"
   },
   "datasetSubtype": {
-    "name": "",
-    "count": "",
+    "name": "Subtipo do conjunto de dados",
+    "count": "{num, plural, one { subtipo do conjunto de dados } other {# subtipos dos conjuntos de dados}}",
     "description": "Uma breve descrição do componente deve ser colocada aqui"
   },
   "institutionKey": {
     "name": "Instituição",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { instituição } other {# instituições}}",
+    "description": "O nome da instituição que tem a custódia do(s) objeto(s) ou informação mencionada no registo."
   },
   "name": {
     "name": "Nome",
-    "count": "",
+    "count": "{num, plural, one { nome } other {# nomes}}",
     "description": "Uma breve descrição do componente deve ser colocada aqui"
   },
   "city": {
     "name": "Cidade",
-    "count": "",
+    "count": "{num, plural, one { cidade } other {# cidades}}",
     "description": "Uma breve descrição do componente deve ser colocada aqui"
   },
   "code": {
     "name": "Código",
-    "count": "",
+    "count": "{num, plural, one { código } other {# códigos}}",
     "description": "Uma breve descrição do componente deve ser colocada aqui"
   },
   "verbatimScientificName": {
     "name": "Nome científico verbatim",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { nome científico verbatim } other {# nomes científicos verbatins}}",
+    "description": "O nome científico conforme fornecido pelo publicador de dados sem nenhuma normalização."
   },
   "networkKey": {
-    "name": "",
-    "count": "",
+    "name": "Chave de rede",
+    "count": "{num, plural, one { chave de rede } other {# chaves de rede}}",
     "description": "Uma breve descrição do componente deve ser colocada aqui"
   },
   "literatureType": {
     "name": "Tipo de bibliografia",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { tipo de literatura } other {# tipos de literatura}}",
+    "description": "De que tipo de literatura é originada a citação."
   }
 }
