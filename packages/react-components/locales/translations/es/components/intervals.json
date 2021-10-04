@@ -1,6 +1,6 @@
 {
   "description": {
-    "lt": "",
+    "lt": "Menos que {to}",
     "lte": "",
     "gt": "",
     "gte": "",
@@ -25,10 +25,10 @@
     "e": ""
   },
   "year": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "Año {from} a {to}",
+    "lt": "Antes del año {to}",
+    "gt": "Después del año {from}",
+    "e": "El año es {from}"
   },
   "coordinateUncertainty": {
     "between": "",
