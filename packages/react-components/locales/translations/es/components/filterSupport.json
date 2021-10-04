@@ -3,12 +3,12 @@
     "isNotNull": "",
     "isNull": ""
   },
-  "invalidValue": "",
-  "aboutThisFilter": "",
+  "invalidValue": "Valor inválido",
+  "aboutThisFilter": "Acerca de este filtro",
   "existence": "",
-  "showHelp": "",
+  "showHelp": "Mostrar ayuda",
   "back": "Volver",
   "cancel": "Cancelar",
-  "apply": "",
-  "excludeSelected": ""
+  "apply": "Aplicar",
+  "excludeSelected": "Excluir seleccionados"
 }
