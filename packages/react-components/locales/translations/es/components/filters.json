@@ -44,12 +44,12 @@
     "description": ""
   },
   "publishingCountryCode": {
-    "name": "",
+    "name": "País publicador",
     "count": "",
     "description": ""
   },
   "q": {
-    "name": "",
+    "name": "Búsqueda de texto",
     "count": "",
     "description": ""
   },
@@ -90,7 +90,7 @@
     "count": ""
   },
   "countriesOfResearcher": {
-    "name": "",
+    "name": "País o área del investigador",
     "count": ""
   },
   "typeStatus": {
