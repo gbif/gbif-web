@@ -181,9 +181,9 @@
     "description": ""
   },
   "occurrenceId": {
-    "name": "",
+    "name": "Voorkomen ID",
     "count": "",
-    "description": ""
+    "description": "Het unieke nummer voor het voorkomen."
   },
   "organismId": {
     "name": "",
