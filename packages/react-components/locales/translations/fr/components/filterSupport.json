@@ -10,5 +10,8 @@
   "back": "Retour",
   "cancel": "Annuler",
   "apply": "",
+  "wildcardHelp": "",
+  "useWildcardPattern": "",
+  "showSuggestions": "",
   "excludeSelected": ""
 }
