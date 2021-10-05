@@ -74,12 +74,12 @@
   "publisherKey": {
     "name": "Publicador",
     "count": "{num, plural, one {publicador} other {# publicadores}}",
-    "description": ""
+    "description": "El nombre de la organización responsable que ha compartido el conjunto de datos en el que se incluye el registro."
   },
   "hostingOrganizationKey": {
     "name": "Organización anfitriona",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {anfitrión} other {# anfitriones}}",
+    "description": "El nombre de la organización que aloja el conjunto de datos en el que se publicó el registro."
   },
   "country": {
     "name": "País",
