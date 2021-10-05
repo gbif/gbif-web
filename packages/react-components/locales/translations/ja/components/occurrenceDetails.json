@@ -1,9 +1,20 @@
 {
   "occurrence": "オカレンス",
   "showAllFields": "",
+  "morePhotos": "",
+  "about": "・・・について",
+  "dataset": "データセット",
+  "publisher": "出版者",
+  "institution": "機関",
+  "institutionGrSciColl": "",
+  "collection": "コレクション",
+  "collectionGrSciColl": "",
+  "recordedAndIdentifiedBy": "",
   "info": {
     "original": "元の",
-    "excluded": "除外"
+    "excluded": "除外",
+    "inferred": "推測された",
+    "altered": "変更された"
   },
   "groups": {
     "summary": "概要",

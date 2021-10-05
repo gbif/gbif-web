@@ -1,9 +1,20 @@
 {
   "occurrence": "",
   "showAllFields": "",
+  "morePhotos": "",
+  "about": "Om",
+  "dataset": "Datasæt",
+  "publisher": "Forlægger",
+  "institution": "",
+  "institutionGrSciColl": "",
+  "collection": "",
+  "collectionGrSciColl": "",
+  "recordedAndIdentifiedBy": "",
   "info": {
     "original": "",
-    "excluded": "Ekskluderet"
+    "excluded": "Ekskluderet",
+    "inferred": "Udledt",
+    "altered": "Ændret"
   },
   "groups": {
     "summary": "Resumé",

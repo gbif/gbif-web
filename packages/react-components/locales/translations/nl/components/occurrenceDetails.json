@@ -1,9 +1,20 @@
 {
   "occurrence": "",
   "showAllFields": "",
+  "morePhotos": "",
+  "about": "",
+  "dataset": "Dataset",
+  "publisher": "",
+  "institution": "",
+  "institutionGrSciColl": "",
+  "collection": "",
+  "collectionGrSciColl": "",
+  "recordedAndIdentifiedBy": "",
   "info": {
     "original": "",
-    "excluded": ""
+    "excluded": "",
+    "inferred": "",
+    "altered": ""
   },
   "groups": {
     "summary": "",

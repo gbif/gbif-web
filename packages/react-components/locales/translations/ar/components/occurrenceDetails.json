@@ -1,9 +1,20 @@
 {
   "occurrence": "",
   "showAllFields": "",
+  "morePhotos": "",
+  "about": "حول",
+  "dataset": "مجموعة البيانات",
+  "publisher": "الناشر",
+  "institution": "مؤسسة",
+  "institutionGrSciColl": "",
+  "collection": "مجموعة",
+  "collectionGrSciColl": "",
+  "recordedAndIdentifiedBy": "",
   "info": {
     "original": "أصلي",
-    "excluded": "استُبعِدت"
+    "excluded": "استُبعِدت",
+    "inferred": "أُشير لها",
+    "altered": "تغييرها"
   },
   "groups": {
     "summary": "الملخص",

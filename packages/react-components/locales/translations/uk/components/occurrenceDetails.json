@@ -1,9 +1,20 @@
 {
   "occurrence": "",
   "showAllFields": "",
+  "morePhotos": "",
+  "about": "Відомості про видавця даних",
+  "dataset": "Набір даних",
+  "publisher": "Видавець",
+  "institution": "Установа",
+  "institutionGrSciColl": "",
+  "collection": "Колекція",
+  "collectionGrSciColl": "",
+  "recordedAndIdentifiedBy": "",
   "info": {
     "original": "вихідний",
-    "excluded": "Виключено"
+    "excluded": "Виключено",
+    "inferred": "Виведено за допомогою аналізу",
+    "altered": "Змінено"
   },
   "groups": {
     "summary": "Підсумок",

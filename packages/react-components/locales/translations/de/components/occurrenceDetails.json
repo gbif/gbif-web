@@ -1,9 +1,20 @@
 {
   "occurrence": "Vorkommen",
   "showAllFields": "Alle Felder anzeigen",
+  "morePhotos": "",
+  "about": "",
+  "dataset": "",
+  "publisher": "",
+  "institution": "",
+  "institutionGrSciColl": "",
+  "collection": "",
+  "collectionGrSciColl": "",
+  "recordedAndIdentifiedBy": "",
   "info": {
     "original": "Original",
-    "excluded": "Ausgeschlossen"
+    "excluded": "Ausgeschlossen",
+    "inferred": "",
+    "altered": ""
   },
   "groups": {
     "summary": "",

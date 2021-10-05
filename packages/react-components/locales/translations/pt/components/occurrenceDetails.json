@@ -1,9 +1,20 @@
 {
   "occurrence": "ocorrência",
   "showAllFields": "",
+  "morePhotos": "",
+  "about": "Sobre",
+  "dataset": "Conjunto de dados",
+  "publisher": "Publicador",
+  "institution": "Instituição",
+  "institutionGrSciColl": "",
+  "collection": "Coleção",
+  "collectionGrSciColl": "",
+  "recordedAndIdentifiedBy": "",
   "info": {
     "original": "original",
-    "excluded": "Excluído"
+    "excluded": "Excluído",
+    "inferred": "Inferido",
+    "altered": "Alterado"
   },
   "groups": {
     "summary": "Sumário",
