@@ -1,0 +1,9 @@
+{
+  "unsupported.title": "不支持的查询",
+  "unsupported.description": "免费文本搜索可以用于探索，但没有下载支持。",
+  "unsupported.remove": "移除过滤器",
+  "unsupported.error": "该查询似乎不受支持",
+  "download": "下载",
+  "redirectNotice": "您即将下载数据，在此过程中，您将被重定向到GBIF.org。{br}{br}请注意，需要在GBIF.org上有一个帐户来下载内容。",
+  "continueToGBIF": "继续"
+}

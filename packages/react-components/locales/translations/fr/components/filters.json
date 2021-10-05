@@ -171,12 +171,12 @@
     "description": ""
   },
   "recordedById": {
-    "name": "",
+    "name": "ID de Enregistré par",
     "count": "",
     "description": ""
   },
   "identifiedById": {
-    "name": "",
+    "name": "ID de Identifié par",
     "count": "",
     "description": ""
   },
@@ -206,7 +206,7 @@
     "description": ""
   },
   "eventId": {
-    "name": "",
+    "name": "ID de l'événement",
     "count": "",
     "description": ""
   },

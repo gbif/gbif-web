@@ -8,7 +8,6 @@ import { LocaleProvider } from './dataManagement/LocaleProvider';
 import { Root } from './components';
 import ThemeContext, { lightTheme } from './style/themes';
 import { ApiContext, ApiClient } from './dataManagement/api';
-import useTranslation from './dataManagement/useTranslation';
 import env from '../.env.json';
 
 const client = new ApiClient({

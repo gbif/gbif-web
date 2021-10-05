@@ -1,5 +1,10 @@
 {
-  "occurrence": "",
+  "occurrence": "Registro biológico",
+  "showAllFields": "Mostrar todos los campos",
+  "info": {
+    "original": "original",
+    "excluded": "Excluido"
+  },
   "groups": {
     "summary": "Resumen",
     "record": "Registro",
@@ -14,9 +19,9 @@
     "other": "Otro"
   },
   "features": {
-    "isClustered": "",
+    "isClustered": "Agrupación",
     "isSamplingEvent": "Evento de muestreo",
     "isTreament": "Tratamiento",
-    "isSequenced": ""
+    "isSequenced": "Secuenciado"
   }
 }

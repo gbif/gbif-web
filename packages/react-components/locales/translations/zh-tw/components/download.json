@@ -1,0 +1,9 @@
+{
+  "unsupported.title": "不支援的查詢",
+  "unsupported.description": "全文搜尋可用來探索但不支援下載。",
+  "unsupported.remove": "移除篩選條件",
+  "unsupported.error": "不支援此查詢",
+  "download": "下載",
+  "redirectNotice": "您正將從 GBIF.org 下載資料。{br}{br}請注意您需要 GBIF.org 上的帳號才能下載。",
+  "continueToGBIF": "繼續操作"
+}

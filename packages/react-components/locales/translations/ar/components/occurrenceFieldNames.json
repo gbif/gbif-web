@@ -252,5 +252,7 @@
   "scientificNameAuthorship": "مؤلف الاسم العلمي",
   "undefined": "حقل غير معروف",
   "coordinatesTextual": "تم نشر السجل دون احداثيات. لكنه يشتمل على وصف نصي لموقعه",
-  "coordinatesMissing": "الإحداثيات مفقودة"
+  "coordinatesMissing": "الإحداثيات مفقودة",
+  "taxonomicClassification": "تصنيف",
+  "images": "وسائط متعددة"
 }

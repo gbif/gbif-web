@@ -18,7 +18,7 @@ export function Header({
   const isBelow = useBelow(500);
   const theme = useContext(ThemeContext);
   const item = data?.occurrence;
-  return <Row wrap="no-wrap" css={css.header({ theme })}>
+  return <Row wrap="no-wrap" css={css.header({ theme })} {...props}>
     {!isBelow && data?.occurrence?.volatile?.globe &&
       <Col grow={false} style={{ marginRight: 18 }}>
         <Globe {...data?.occurrence?.volatile?.globe} />

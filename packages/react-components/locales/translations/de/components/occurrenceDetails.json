@@ -1,5 +1,10 @@
 {
-  "occurrence": "",
+  "occurrence": "Vorkommen",
+  "showAllFields": "Alle Felder anzeigen",
+  "info": {
+    "original": "Original",
+    "excluded": "Ausgeschlossen"
+  },
   "groups": {
     "summary": "",
     "record": "",
@@ -14,9 +19,9 @@
     "other": ""
   },
   "features": {
-    "isClustered": "",
-    "isSamplingEvent": "",
-    "isTreament": "",
-    "isSequenced": ""
+    "isClustered": "Cluster",
+    "isSamplingEvent": "Sampling-Ereignis",
+    "isTreament": "Treatment",
+    "isSequenced": "Sequenziert"
   }
 }

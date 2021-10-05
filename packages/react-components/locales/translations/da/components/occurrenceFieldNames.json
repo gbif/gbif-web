@@ -59,5 +59,7 @@
   "genus": "Slægt",
   "vernacularName": "Almindeligt navn",
   "species": "Art",
-  "country": "Land eller område"
+  "country": "Land eller område",
+  "taxonomicClassification": "Klassifikation",
+  "images": "Multimedier"
 }

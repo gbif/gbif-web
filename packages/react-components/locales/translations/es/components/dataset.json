@@ -2,9 +2,9 @@
   "datasetSearchTitle": "Búsqueda de conjuntos de datos",
   "longType": {
     "OCCURRENCE": "Conjunto de datos de registros biológicos",
-    "CHECKLIST": "Conjunto de datos de listas taxonómicas",
+    "CHECKLIST": "Conjunto de datos de listas de especies",
     "SAMPLING_EVENT": "Evento de muestreo",
-    "METADATA": "Juego de datos de metadatos"
+    "METADATA": "Conjunto de datos de metadatos"
   },
   "metricHighlights": {
     "occurrences": "Registros biológicos",
@@ -43,7 +43,7 @@
   "metadataLanguage": "Idioma de los metadatos",
   "dataLanguage": "Idioma de los datos",
   "dataDescriptions": "Descripciones de los datos externos",
-  "purpose": "Finalidad",
+  "purpose": "Propósito",
   "methodology": "Metodología",
   "studyExtent": "Alcance del estudio",
   "keywords": "Palabras clave",
@@ -66,7 +66,7 @@
   "geographicCoverages": "Cobertura geográfica",
   "taxonomicCoverages": "Cobertura taxonómica",
   "additionalInfo": "Información adicional",
-  "publishingCountriesAreas": "Países y áreas de publicación",
+  "publishingCountriesAreas": "Países y áreas que publican",
   "originalArchive": "Archivo fuente",
   "annotatedEml": "Metadatos de GBIF anotados",
   "license": "Licencia",
@@ -79,7 +79,7 @@
   "siblingEvents": "Eventos hermanos",
   "childEvents": "Eventos derivados",
   "events": "Eventos",
-  "occurrenceCount": "Cantidad de registros biológicos",
+  "occurrenceCount": "Total de registros biológicos",
   "inDataset": "En",
   "samplingArticleLink": "Más información sobre los eventos de muestreo en GBIF.org"
 }

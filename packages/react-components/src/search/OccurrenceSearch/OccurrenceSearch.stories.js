@@ -107,7 +107,7 @@ const config = {
   getSuggests, 
   filters, 
   occurrenceSearchTabs: ['TABLE', 'GALLERY', 'MAP', 'DATASETS'],
-  // highlightedFilters: ['country']
+  // highlightedFilters: ['gbifId']
 };
 // const config = { labels, getSuggests, filters, rootPredicate: {type: 'equals', key: 'publishingOrganizationKey', value: '1cd669d0-80ea-11de-a9d0-f1765f95f18b'}};
 
@@ -115,6 +115,7 @@ const config = {
 // const config = { labels, getSuggests, filters, rootPredicate: {type: 'in', key: 'datasetKey', values: inboDatasets}};
 
 export const Example = () => <Router initialEntries={[`/`]}>
+{/* export const Example = () => <Router initialEntries={[`/?filter=eyJtdXN0Ijp7Im9jY3VycmVuY2VJZCI6WyJlIl19LCJtdXN0X25vdCI6eyJvY2N1cnJlbmNlSXNzdWUiOlsiWkVST19DT09SRElOQVRFIl0sIm9jY3VycmVuY2VJZCI6WyIxIiwiMiJdfX0%3D`]}> */}
   <QueryParamProvider ReactRouterRoute={Route}>
     <AddressBar />
     <OccurrenceSearch config={config} style={{ margin: 'auto', maxWidth: 1200, height: 'calc(100vh - 50px)' }}></OccurrenceSearch>

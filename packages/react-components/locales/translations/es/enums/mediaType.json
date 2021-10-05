@@ -1,1 +1,5 @@
-{}
+{
+  "StillImage": "Imagen",
+  "MovingImage": "Imagen en movimiento",
+  "Sound": "Sonido"
+}

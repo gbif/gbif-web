@@ -1,1 +1,6 @@
-{}
+{
+  "loading": "a carregar",
+  "loadError": "Não foi possível carregar",
+  "close": "Fechar",
+  "citation": "Citações"
+}

@@ -65,7 +65,7 @@ export function Summary({ occurrence, fieldGroups, loading, setActiveImage, ...p
         </V></>}
       <T>
         <FormattedMessage
-          id={`occurrenceFieldNames.classification`}
+          id={`occurrenceDetails.taxonomicClassification`}
           defaultMessage={"Classification"}
         />
       </T>

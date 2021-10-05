@@ -1,0 +1,8 @@
+{
+  "unsupported.title": "サポートされていないクエリ",
+  "unsupported.description": "フリーテキスト検索は使用できますが、ダウンロードのサポートはございません。",
+  "unsupported.remove": "フィルターを外す",
+  "unsupported.error": "このクエリはサポートされていないようです",
+  "download": "ダウンロード",
+  "continueToGBIF": "次へ"
+}

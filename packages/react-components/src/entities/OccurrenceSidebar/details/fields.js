@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Properties, GadmClassification, GalleryTiles, GalleryTile, DatasetKeyLink } from '../../../components';
+import { Properties, GadmClassification, GalleryTiles, GalleryTile, DatasetKeyLink, PublisherKeyLink } from '../../../components';
 import { TaxonClassification } from './TaxonClassification/TaxonClassification';
 import { AgentSummary } from './AgentSummary'
 
@@ -54,39 +54,60 @@ export const occurrenceFields = {
       }
     },
     {
-      name: 'classification', Value: ({ name, occurrence, theme }) => {
+      name: 'taxonomicClassification', Value: ({ name, occurrence, theme }) => {
         return <TaxonClassification ranks={occurrence.gbifClassification.classification} />
       }
     },
     {
-      name: 'gadm', condition: ({ occurrence }) => occurrence?.gadm?.level0, Value: ({ name, occurrence, theme }) => {
+      name: 'gadmClassification', condition: ({ occurrence }) => occurrence?.gadm?.level0, Value: ({ name, occurrence, theme }) => {
         return <GadmClassification gadm={occurrence.gadm} />
       }
     },
     {
-      name: 'datasetKey', Value: ({ occurrence }) => {
+      name: 'datasetKey', trKey: 'occurrenceDetails.dataset', Value: ({ occurrence }) => {
         return <DatasetKeyLink id={occurrence.datasetKey}>{occurrence.datasetTitle}</DatasetKeyLink>
+      }
+    },
+    {
+      name: 'publishingOrgKey', trKey: 'occurrenceDetails.publisher', Value: ({ occurrence }) => {
+        return <PublisherKeyLink id={occurrence.publishingOrgKey}>{occurrence.publisherTitle}</PublisherKeyLink>
       }
     },
     { name: 'basisOfRecord', enum: 'basisOfRecord' },
     'recordedBy',
     {
-      name: 'recordedByIDs', condition: ({ occurrence }) => occurrence?.recordedByIDs?.[0], Value: ({ name, occurrence, theme }) => {
-        return <ul style={{listStyle: 'none', padding: 0, margin: 0}}>
-            {occurrence.recordedByIDs
-              .map(x => {
-                if (!x.person) {
-                  return <li key={x.value}>{x.value}</li>
-                }
-                return <li key={x.value} style={{marginBottom: 4}}>
-                  <AgentSummary agent={x} />
-                </li>
-              })
-            }
-          </ul>
+      name: 'recordedById', trKey: 'occurrenceFieldNames.recordedByID', condition: ({ occurrence }) => occurrence?.recordedById?.[0], Value: ({ name, occurrence, theme }) => {
+        return <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+          {occurrence.recordedById
+            .map(x => {
+              if (!x.person) {
+                return <li key={x.value}>{x.value}</li>
+              }
+              return <li key={x.value} style={{ marginBottom: 4 }}>
+                <AgentSummary agent={x} />
+              </li>
+            })
+          }
+        </ul>
       }
     },
     'identifiedBy',
+    {
+      name: 'identifiedById', trKey: 'occurrenceFieldNames.identifiedByID', condition: ({ occurrence }) => occurrence?.identifiedById?.[0], Value: ({ name, occurrence, theme }) => {
+        return <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+          {occurrence.identifiedById
+            .map(x => {
+              if (!x.person) {
+                return <li key={x.value}>{x.value}</li>
+              }
+              return <li key={x.value} style={{ marginBottom: 4 }}>
+                <AgentSummary agent={x} />
+              </li>
+            })
+          }
+        </ul>
+      }
+    },
   ],
   occurrence: [
     'occurrenceID',
@@ -386,6 +407,11 @@ export const occurrenceFields = {
     'temporal',
     'title',
     'type',
-    'valid'
+    'valid',
+    {
+      name: 'key', trKey: 'occurrenceFieldNames.gbifID', Value: ({ occurrence }) => {
+        return <>{occurrence.key}</>
+      }
+    },
   ]
 }

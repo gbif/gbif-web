@@ -1,5 +1,21 @@
 {
   "occurrence": "occurrence",
+  "showAllFields": "Show all fields",
+  "morePhotos": "More photos",
+  "about": "About",
+  "dataset": "Dataset",
+  "publisher": "Publisher",
+  "institution": "Institution",
+  "institutionGrSciColl": "GrSciColl institution",
+  "collection": "Collection",
+  "collectionGrSciColl": "GrSciColl collection",
+  "recordedAndIdentifiedBy": "Recorded and identified by",
+  "info": {
+    "original": "Original",
+    "excluded": "Excluded",
+    "inferred": "Inferred",
+    "altered": "Altered"
+  },
   "groups": {
     "summary": "Summary",
     "record": "Record",

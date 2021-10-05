@@ -77,7 +77,7 @@ query dataset($key: ID!){
     logoUrl
     publishingOrganizationKey
     publishingOrganizationTitle
-    contributors {
+    volatileContributors {
       firstName
       lastName
       position

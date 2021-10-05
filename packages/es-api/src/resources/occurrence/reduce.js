@@ -263,6 +263,7 @@ function reduce(item) {
 
   const gbifSpecific = {
     key:                                source.gbifId,
+    gbifID:                             source.gbifId,
     acceptedScientificName:             source.gbifClassification?.acceptedUsage?.name,
     acceptedTaxonKey:                   source.gbifClassification?.acceptedUsage?.key,
     scientificName:                     source.gbifClassification?.usage?.name,
@@ -282,7 +283,6 @@ function reduce(item) {
     genericName:                        source.gbifClassification?.usageParsedName?.genericName,
     genus:                              source.gbifClassification.genus,
     genusKey:                           source.gbifClassification.genusKey,
-    identifiedByID:                     source.identifiedByID,
     installationKey:                    source.installationKey,
     institutionKey:                     source.institutionKey,
     issues:                             source.issues || [],
@@ -300,7 +300,6 @@ function reduce(item) {
     protocol:                           source.protocol,
     publishingCountry:                  source.publishingCountry,
     publishingOrgKey:                   source.publishingOrganizationKey,
-    recordedByID:                       source.recordedByID,
     relativeOrganismQuantity:           source.relativeOrganismQuantity,
     // repatriated:                        source.repatriated,
     species:                            source.gbifClassification.species,

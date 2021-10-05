@@ -41,15 +41,15 @@
   "occurrenceCountry": {
     "name": "País",
     "count": "",
-    "description": ""
+    "description": "El país o territorio donde ocurrió el evento"
   },
   "publishingCountryCode": {
-    "name": "",
+    "name": "País publicador",
     "count": "",
-    "description": ""
+    "description": "El código ISO para el país o territorio en el que se encuentra el publicador"
   },
   "q": {
-    "name": "",
+    "name": "Búsqueda de texto",
     "count": "",
     "description": ""
   },
@@ -90,7 +90,7 @@
     "count": ""
   },
   "countriesOfResearcher": {
-    "name": "",
+    "name": "País o área del investigador",
     "count": ""
   },
   "typeStatus": {
@@ -171,12 +171,12 @@
     "description": ""
   },
   "recordedById": {
-    "name": "",
+    "name": "Registrado por ID",
     "count": "",
     "description": ""
   },
   "identifiedById": {
-    "name": "",
+    "name": "Identificado por ID",
     "count": "",
     "description": ""
   },
@@ -206,7 +206,7 @@
     "description": ""
   },
   "eventId": {
-    "name": "",
+    "name": "ID del Evento",
     "count": "",
     "description": ""
   },

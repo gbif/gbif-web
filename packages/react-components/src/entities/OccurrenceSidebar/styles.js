@@ -34,6 +34,7 @@ export const entitySummary = ({ ...props }) => css`
 `;
 
 export const header = ({ ...props }) => css`
+  margin: 0 16px;
   .gbif-header-location {
     font-size: 13px;
     display: flex;
@@ -155,6 +156,24 @@ export const clusterCard = ({ theme }) => css`
   margin-bottom: 24px;
   border: 1px solid ${theme.paperBorderColor};
   box-shadow: 0 2px 1px 1px #0000000a;
+`;
+
+export const properties = css`
+  font-size: 85%;
+`;
+
+export const group = () => css`
+  summary {
+    background: #f5f5f5;
+    padding-left: 16px;
+    padding-right: 16px;
+    border-width: 1px 0;
+    border: 1px solid #eee;
+    border-width: 1px 0;
+  }
+  >div {
+    margin: 0 16px 32px 16px;
+  }
 `;
 
 export const chip = ({ theme }) => css`

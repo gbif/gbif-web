@@ -1,5 +1,10 @@
 {
-  "occurrence": "",
+  "occurrence": "发生",
+  "showAllFields": "显示所有字段",
+  "info": {
+    "original": "默认",
+    "excluded": "排除"
+  },
   "groups": {
     "summary": "概要",
     "record": "记录",
@@ -14,9 +19,9 @@
     "other": "其它"
   },
   "features": {
-    "isClustered": "",
+    "isClustered": "群集的",
     "isSamplingEvent": "采样事件",
     "isTreament": "治疗",
-    "isSequenced": ""
+    "isSequenced": "序列"
   }
 }

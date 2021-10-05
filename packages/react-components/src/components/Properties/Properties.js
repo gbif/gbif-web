@@ -9,7 +9,7 @@ import { dl, dt, dd } from './styles';
 export function Properties({as:Dl='dl', breakpoint, horizontal, dense = false, ...props}) {
   const isBelow = useBelow(breakpoint);
   const theme = useContext(ThemeContext);
-  return <Dl css={dl({ theme, horizontal: horizontal ? horizontal : !isBelow, dense })} {...props} />
+  return <Dl css={dl({ theme, horizontal: typeof horizontal !== 'undefined' ? horizontal : !isBelow, dense })} {...props} />
 }
 Properties.propTypes = {
   as: PropTypes.any,

@@ -171,12 +171,12 @@
     "description": ""
   },
   "recordedById": {
-    "name": "",
+    "name": "تم تسجيله بواسطة المعرف ID",
     "count": "",
     "description": ""
   },
   "identifiedById": {
-    "name": "",
+    "name": " تم تحديده بواسطة المعرف",
     "count": "",
     "description": ""
   },
@@ -206,7 +206,7 @@
     "description": ""
   },
   "eventId": {
-    "name": "",
+    "name": "معرف الحدث",
     "count": "",
     "description": ""
   },
