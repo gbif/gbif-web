@@ -44,36 +44,36 @@
     "description": "El país o territorio donde ocurrió el evento"
   },
   "publishingCountryCode": {
-    "name": "País publicador",
-    "count": "",
+    "name": "País de la publicación",
+    "count": "{num, plural, one {país de la publicación} other {# países de la publicación}}\n",
     "description": "El código ISO para el país o territorio en el que se encuentra el publicador"
   },
   "q": {
     "name": "Búsqueda de texto",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {cadena de búsqueda} other {# cadenas de búsqueda}}\n",
+    "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\"."
   },
   "coordinates": {
     "name": "Coordenadas"
   },
   "elevation": {
     "name": "Elevación",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {filtro de elevación} other {# filtros de elevación}}",
+    "description": "La distancia por encima de un punto de referencia vertical (normalmente el nivel del mar o un geoide) en metros."
   },
   "license": {
     "name": "Licencia",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {licencia} other {# licencias}}\n",
+    "description": "La licencia o permiso legal con la que se compartió el registro."
   },
   "datasetKey": {
     "name": "Conjunto de datos",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {conjunto de datos} other {# conjuntos de datos}}\n",
+    "description": "El título del conjunto de datos con el que se compartió el registro."
   },
   "publisherKey": {
     "name": "Publicador",
-    "count": "",
+    "count": "{num, plural, one {publicador} other {# publicadores}}",
     "description": ""
   },
   "hostingOrganizationKey": {
