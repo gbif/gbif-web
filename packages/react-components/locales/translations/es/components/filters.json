@@ -1,13 +1,13 @@
 {
   "dwcaExtension": {
     "name": "Extensión DWCA",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { extensión DWCA } other {# extensiones DWCA}}",
+    "description": "Aquí debe colocarse una breve descripción del componente"
   },
   "taxonKey": {
     "name": "Nombre científico",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {nombre científico} other {# nombres científicos}}",
+    "description": "El nombre científico tal y como aparece en el backbone taxonómico de GBIF. Estos nombres están normalizados para facilitar la búsqueda en los conjuntos de datos. Es posible que un nombre originalmente proporcionado sea malinterpretado o desconocido. Para buscar los nombres tal y como se proporcionaron, utilice el filtro \"Nombre científico original\"."
   },
   "basisOfRecord": {
     "name": "Base del registro",
