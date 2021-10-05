@@ -83,5 +83,7 @@
   "earliestEonOrLowestEonothem": "Vroegste eon of laagste eonothem",
   "latestEonOrHighestEonothem": "Laatste eon of hoogste eonothem",
   "earliestEraOrLowestErathem": "Vroegste hoofdtijdperk of laagste erathem",
-  "latestEraOrHighestErathem": "Laatste hoofdtijdperk of hoogste erathem"
+  "latestEraOrHighestErathem": "Laatste hoofdtijdperk of hoogste erathem",
+  "earliestPeriodOrLowestSystem": "Vroegste periode of laagste systeem",
+  "latestPeriodOrHighestSystem": "Laatste periode of hoogste systeem"
 }
