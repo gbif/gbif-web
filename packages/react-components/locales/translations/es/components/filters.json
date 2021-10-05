@@ -36,11 +36,11 @@
     "count": "{num, plural, one {alerta} other {# alertas}}\n",
     "isNotNull": "Tiene incidencias",
     "isNull": "No tiene incidencias",
-    "description": ""
+    "description": "Los tipos de alertas de interés potencial identificados en el procesamiento de los datos.\n"
   },
   "occurrenceCountry": {
     "name": "País",
-    "count": "",
+    "count": "{num, plural, one {país} other {# países}}",
     "description": "El país o territorio donde ocurrió el evento"
   },
   "publishingCountryCode": {
@@ -83,7 +83,7 @@
   },
   "country": {
     "name": "País",
-    "count": ""
+    "count": "{num, plural, one {país} other {# países}}"
   },
   "countriesOfCoverage": {
     "name": "",
