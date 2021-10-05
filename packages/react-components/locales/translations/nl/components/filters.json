@@ -266,9 +266,9 @@
     "description": ""
   },
   "verbatimScientificName": {
-    "name": "",
+    "name": "Woordelijke wetenschappelijke naam",
     "count": "",
-    "description": ""
+    "description": "De wetenschappelijke naam zoals verstrekt door de instelling die de gegevens deelt zonder enige normalisatie door GBIF."
   },
   "networkKey": {
     "name": "",
