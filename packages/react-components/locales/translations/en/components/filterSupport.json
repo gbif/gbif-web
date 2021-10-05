@@ -10,5 +10,8 @@
   "back": "Back",
   "cancel": "Cancel",
   "apply": "Apply",
+  "wildcardHelp": "",
+  "useWildcardPattern": "",
+  "showSuggestions": "",
   "excludeSelected": "Exclude selected"
 }
