@@ -64,17 +64,17 @@
   "license": {
     "name": "授权条款",
     "count": "{num, plural, one {许可证} other {# 许可证}}",
-    "description": ""
+    "description": "共享记录所依据的合法许可或弃权。"
   },
   "datasetKey": {
     "name": "数据集",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {数据集} other {# 数据集}}",
+    "description": "在其下共享记录的数据集的标题。"
   },
   "publisherKey": {
     "name": "发布者",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {发布者} other {# 发布者}}",
+    "description": "负责共享包含记录的数据集的组织名称。"
   },
   "hostingOrganizationKey": {
     "name": "主办机构",
