@@ -1,9 +1,20 @@
 {
   "occurrence": "",
   "showAllFields": "",
+  "morePhotos": "",
+  "about": "Об организациии",
+  "dataset": "Набор данных",
+  "publisher": "Организация",
+  "institution": "Организация",
+  "institutionGrSciColl": "",
+  "collection": "Коллекция",
+  "collectionGrSciColl": "",
+  "recordedAndIdentifiedBy": "",
   "info": {
     "original": "исходный",
-    "excluded": "не интерпретировано"
+    "excluded": "не интерпретировано",
+    "inferred": "получено из других значений",
+    "altered": "изменено"
   },
   "groups": {
     "summary": "Тема сообщения",
