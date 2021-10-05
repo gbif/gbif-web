@@ -10,5 +10,8 @@
   "back": "返回",
   "cancel": "取消",
   "apply": "",
+  "wildcardHelp": "",
+  "useWildcardPattern": "",
+  "showSuggestions": "",
   "excludeSelected": ""
 }
