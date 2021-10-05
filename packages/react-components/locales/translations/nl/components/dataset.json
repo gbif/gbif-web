@@ -2,9 +2,9 @@
   "datasetSearchTitle": "Dataset zoeken",
   "longType": {
     "OCCURRENCE": "Dataset met voorkomens",
-    "CHECKLIST": "",
+    "CHECKLIST": "Checklistdataset",
     "SAMPLING_EVENT": "Monstername",
-    "METADATA": ""
+    "METADATA": "Metadatadataset"
   },
   "metricHighlights": {
     "occurrences": "Voorkomens",
@@ -18,7 +18,7 @@
   },
   "noStatsForMetadata": "Geen statistieken beschikbaar voor datasets met alleen metadata",
   "viewArticle": "Bekijk artikel",
-  "registeredDate": "",
+  "registeredDate": "Geregistreerd {DATE}",
   "constituentOf": "Onderdeel van",
   "dataset": "Dataset",
   "taxonomy": "Taxonomie",
@@ -43,7 +43,7 @@
   "metadataLanguage": "Metadata taal",
   "dataLanguage": "Taal van de data",
   "dataDescriptions": "",
-  "purpose": "",
+  "purpose": "Doel",
   "methodology": "Methodologie",
   "studyExtent": "",
   "keywords": "Sleutelwoorden",
