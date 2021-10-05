@@ -1,38 +1,38 @@
 {
-  "occurrence": "",
-  "showAllFields": "",
+  "occurrence": "voorkomen",
+  "showAllFields": "Toon alle velden",
   "morePhotos": "",
-  "about": "",
+  "about": "Over",
   "dataset": "Dataset",
-  "publisher": "",
-  "institution": "",
+  "publisher": "Gepubliceerd door",
+  "institution": "Instituut",
   "institutionGrSciColl": "",
-  "collection": "",
+  "collection": "Collectie",
   "collectionGrSciColl": "",
   "recordedAndIdentifiedBy": "",
   "info": {
-    "original": "",
-    "excluded": "",
-    "inferred": "",
-    "altered": ""
+    "original": "origineel",
+    "excluded": "Uitgesloten",
+    "inferred": "Afgeleid",
+    "altered": "Aangepast"
   },
   "groups": {
-    "summary": "",
-    "record": "Record",
-    "occurrence": "",
-    "event": "",
-    "identification": "",
-    "taxon": "",
-    "location": "",
-    "organism": "",
+    "summary": "Samenvatting",
+    "record": "Gegevens",
+    "occurrence": "Voorkomen",
+    "event": "Gebeurtenis",
+    "identification": "Determinatie",
+    "taxon": "Taxon",
+    "location": "Vindplaats",
+    "organism": "Organisme",
     "materialSample": "",
-    "geologicalContext": "",
+    "geologicalContext": "Geologische context",
     "other": ""
   },
   "features": {
-    "isClustered": "",
+    "isClustered": "Gegroepeerd",
     "isSamplingEvent": "",
-    "isTreament": "",
-    "isSequenced": ""
+    "isTreament": "Behandeling",
+    "isSequenced": "Sequentie bepaald"
   }
 }
