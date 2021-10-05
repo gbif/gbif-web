@@ -86,7 +86,7 @@
     "count": "{num, plural, one {país} other {# países}}"
   },
   "countriesOfCoverage": {
-    "name": "",
+    "name": "País de cobertura",
     "count": ""
   },
   "countriesOfResearcher": {
