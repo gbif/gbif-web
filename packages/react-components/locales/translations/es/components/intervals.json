@@ -61,9 +61,9 @@
     "e": ""
   },
   "elevation": {
-    "between": "",
-    "lt": "",
-    "gt": "",
+    "between": "Elevación de {from} a {to}",
+    "lt": "Elevación inferior a {to}",
+    "gt": "Elevación superior a {to}",
     "e": ""
   }
 }
