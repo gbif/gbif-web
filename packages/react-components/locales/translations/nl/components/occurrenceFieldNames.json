@@ -68,5 +68,20 @@
   "minimumDistanceAboveSurfaceInMeters": "Minimale afstand boven oppervlak in meters",
   "maximumDistanceAboveSurfaceInMeters": "Maximale afstand boven oppervlak in meters",
   "location": "Vindplaats",
-  "locationRemarks": "Opmerkingen bij de vindplaats"
+  "locationRemarks": "Opmerkingen bij de vindplaats",
+  "decimalLatitude": "Decimale breedtegraad",
+  "decimalLongitude": "Decimale lengtegraad",
+  "coordinateUncertaintyInMeters": "Coördinaatonzekerheid in meters",
+  "coordinatePrecision": "Coördinaatnauwkeurigheid",
+  "verbatimCoordinateSystem": "Coördinaatsysteem van woordelijke coördinaten",
+  "georeferencedBy": "Gegeorefereerd door",
+  "georeferencedDate": "Gegeorefereerd op",
+  "georeferenceProtocol": "Georefentieprotocol ",
+  "georeferenceSources": "Georeferentiebronnen",
+  "georeferenceVerificationStatus": "Status van de verificatie van de georeferentie",
+  "georeferenceRemarks": "Opmerkingen bij de georeferentie",
+  "earliestEonOrLowestEonothem": "Vroegste eon of laagste eonothem",
+  "latestEonOrHighestEonothem": "Laatste eon of hoogste eonothem",
+  "earliestEraOrLowestErathem": "Vroegste hoofdtijdperk of laagste erathem",
+  "latestEraOrHighestErathem": "Laatste hoofdtijdperk of hoogste erathem"
 }
