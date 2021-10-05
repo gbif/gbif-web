@@ -105,7 +105,6 @@ const tableConfig = {
 };
 
 function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, customConfig }, context) {
-  console.log('build config');
   const {
     labels = {},
     getSuggests = () => ({}),

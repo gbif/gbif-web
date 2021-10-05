@@ -3,6 +3,7 @@ const flatten = require('flat');
 const path = require('path');
 const translationBuilder = require('./stitchFile');
 const createPseudo = require('./createPseudo');
+const gbifLocaleMap = require('./gbifLocaleMap');
 const fs = require('fs');
 const _ = require('lodash');
 const hash = require('object-hash');
@@ -25,7 +26,10 @@ function build(locales) {
   locales
     .map(locale => buildLocale({ locale, enJson, developerEnglishJson, targetDirectory }))
     .forEach(item => {
-      translationVersions[getLocaleName(item.locale)] = `${env.TRANSLATIONS}/${item.locale}.json?v=${item.hash}`
+      translationVersions[getLocaleName(item.locale)] = {
+        messages: `${env.TRANSLATIONS}/${item.locale}.json?v=${item.hash}`,
+        gbifLocale: gbifLocaleMap[item.locale]
+      }
     });
 
   fs.writeFile(targetDirectory + 'translations.json', JSON.stringify(translationVersions, null, 2), function (err) {
