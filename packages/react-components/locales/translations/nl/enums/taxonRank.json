@@ -22,9 +22,19 @@
     "FAMILY": "Familie",
     "SUBFAMILY": "Onderfamilie",
     "INFRAFAMILY": "Infrafamilie",
+    "TRIBE": "Tribus",
+    "SUBTRIBE": "Ondertribus",
+    "INFRATRIBE": "Infratribus",
     "GENUS": "Geslacht",
     "SUBGENUS": "Ondergeslacht",
+    "INFRAGENUS": "Infragenus",
+    "SECTION": "Sectie",
+    "SUBSECTION": "Subsectie",
+    "SERIES": "Serie",
+    "SUBSERIES": "Subserie",
     "SPECIES": "Soort",
     "INFRASPECIFIC_NAME": "Ondersoortnaam",
-    "SUBSPECIES": "Ondersoort"
+    "SUBSPECIES": "Ondersoort",
+    "OTHER": "Anders",
+    "UNRANKED": "Geen rang"
 }
