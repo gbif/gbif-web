@@ -107,18 +107,18 @@
   },
   "sampleSizeUnit": {
     "name": "样品尺寸单位",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {样本量单位} other {# 样本量单位}}",
+    "description": "“样本量值”的计量单位。"
   },
   "coordinateUncertainty": {
     "name": "坐标不确定",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {坐标不确定性} other {# 坐标不确定性过滤器}}",
+    "description": "距离坐标的最小距离（以米为单位）的度量，在该坐标中可以解释某一地点。"
   },
   "depth": {
     "name": "深度",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { 深度 } other {# 深度}}",
+    "description": "当地地表以下的距离，以米为单位。"
   },
   "organismQuantity": {
     "name": "生物个体数量",
