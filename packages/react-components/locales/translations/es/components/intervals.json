@@ -1,58 +1,58 @@
 {
   "description": {
-    "lt": "",
-    "lte": "",
-    "gt": "",
-    "gte": "",
-    "e": ""
+    "lt": "Menos que {to}",
+    "lte": "Menos o igual que {to}",
+    "gt": "Mayor que {from}",
+    "gte": "Mayor o igual que {from}",
+    "e": "Igual a {is}"
   },
   "compact": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "de {from} a {to}",
+    "lt": "Inferior a {to}",
+    "gt": "Superior a {from}",
+    "e": "{from}"
   },
   "compactMeters": {
-    "between": "",
-    "lt": "Debajo de los {to}m",
-    "gt": "Por encima de los {from}m",
-    "e": ""
+    "between": "de {from}m a {to}m",
+    "lt": "Inferior a {to}m",
+    "gt": "Superior a {from}m",
+    "e": "{from}m"
   },
   "compactTime": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "de {from} a {to}",
+    "lt": "Antes del {to}",
+    "gt": "Después de {from}",
+    "e": "{from}"
   },
   "year": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "Año {from} a {to}",
+    "lt": "Antes del año {to}",
+    "gt": "Después del año {from}",
+    "e": "El año es {from}"
   },
   "coordinateUncertainty": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "Incertidumbre de la coordenada de {from}m a {to}m",
+    "lt": "Incertidumbre de la coordenada inferior a {to}m",
+    "gt": "Incertidumbre de la coordenada superior a {from}m",
+    "e": "La incertidumbre de la coordenada es {from}m"
   },
   "depth": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "Profundidad de  {from} a {to}",
+    "lt": "Profundidad inferior a {to}",
+    "gt": "Profundidad superior a {from}",
+    "e": "La profundidad es {from}"
   },
   "organismQuantity": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "Cantidad del organismo de {from} a {to}",
+    "lt": "Cantidad del organismo inferior a {to}",
+    "gt": "Cantidad del organismo superior a {from}",
+    "e": "La cantidad del organismo es {from}"
   },
   "sampleSizeValue": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "Tamaño de la muestra de {from} a {to}",
+    "lt": "Tamaño de la muestra inferior a {to}",
+    "gt": "Tamaño de la muestra superior a {to}",
+    "e": "El tamaño de la muestra es {from}"
   },
   "relativeOrganismQuantity": {
     "between": "",
@@ -61,9 +61,9 @@
     "e": ""
   },
   "elevation": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "Elevación de {from} a {to}",
+    "lt": "Elevación inferior a {to}",
+    "gt": "Elevación superior a {to}",
+    "e": "La elevación es {from}"
   }
 }

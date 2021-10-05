@@ -2,16 +2,16 @@
   "tabs": {
     "table": "Tabla",
     "gallery": "Galería",
-    "map": "Map",
-    "datasets": "Juegos de datos",
+    "map": "Mapa",
+    "datasets": "Conjuntos de datos",
     "download": "Descargar"
   },
   "table": {
-    "lockColumn": ""
+    "lockColumn": "Inmovilizar columna"
   },
   "placeholders": {
     "default": "Buscar",
-    "range": ""
+    "range": "Rango o valor único"
   },
   "loadMore": "Más"
 }
