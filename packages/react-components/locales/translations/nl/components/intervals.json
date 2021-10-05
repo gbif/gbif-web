@@ -1,58 +1,58 @@
 {
   "description": {
-    "lt": "",
-    "lte": "",
-    "gt": "",
-    "gte": "",
-    "e": ""
+    "lt": "Minder dan {to}",
+    "lte": "Minder dan of gelijk aan {to}",
+    "gt": "Groter dan {from}",
+    "gte": "Groter dan of gelijk aan {from}",
+    "e": "Gelijk aan {is}"
   },
   "compact": {
-    "between": "",
-    "lt": "",
-    "gt": "",
+    "between": "{from} tot {to}",
+    "lt": "Onder {to}",
+    "gt": "Boven {from}",
     "e": ""
   },
   "compactMeters": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "{from}m tot {to}m",
+    "lt": "Onder {to}m",
+    "gt": "Boven {from}m",
+    "e": "{from}m"
   },
   "compactTime": {
-    "between": "",
-    "lt": "",
-    "gt": "",
+    "between": "{from} tot {to}",
+    "lt": "Voor {to}",
+    "gt": "Na {from}",
     "e": ""
   },
   "year": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "Jaar {from} tot {to}",
+    "lt": "Voor jaar {to}",
+    "gt": "Na jaar {from}",
+    "e": "Jaar is gelijk aan {from}"
   },
   "coordinateUncertainty": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "Coördinaatonzekerheid {from}m tot {to}m",
+    "lt": "Coördinaatonzekerheid minder dan {to}m",
+    "gt": "Coördinaatonzekerheid meer dan {from}m",
+    "e": "Coördinaatonzekerheid is {from}m"
   },
   "depth": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "Diepte {from} tot {to}",
+    "lt": "Diepte onder {to}",
+    "gt": "Diepte boven {from}",
+    "e": "Diepte is {from}"
   },
   "organismQuantity": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "Aantal organismen {from} tot {to}",
+    "lt": "Aantal organismen lager dan {to}",
+    "gt": "Aantal organismen hoger dan {from}",
+    "e": "Aantal organismen is {from}"
   },
   "sampleSizeValue": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "Monstergrootte {from} tot {to}",
+    "lt": "Monstergrootte lager dan {to}",
+    "gt": "Monstergrootte hoger dan {from}",
+    "e": "Monstergrootte is gelijk aan {from}"
   },
   "relativeOrganismQuantity": {
     "between": "",
@@ -61,9 +61,9 @@
     "e": ""
   },
   "elevation": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "Hoogte {from} tot {to}",
+    "lt": "Hoogte lager dan {to}",
+    "gt": "Hoogte hoger dan {from}",
+    "e": "Hoogte is {from}"
   }
 }
