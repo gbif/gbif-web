@@ -77,9 +77,9 @@
     "description": "De naam van de organisatie die verantwoordelijk is voor het delen van de data."
   },
   "hostingOrganizationKey": {
-    "name": "",
+    "name": "Hostende organisatie",
     "count": "",
-    "description": ""
+    "description": "De naam van de organisatie die de dataset online host."
   },
   "country": {
     "name": "Land",
