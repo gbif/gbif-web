@@ -11,31 +11,31 @@
   },
   "basisOfRecord": {
     "name": "Base del registro",
-    "count": "",
-    "isNotNull": "",
-    "isNull": "",
-    "description": ""
+    "count": "{num, plural, one {base del registro} other {# bases del registro}}",
+    "isNotNull": "Tiene una base del registro",
+    "isNull": "No tiene base del registro",
+    "description": "La naturaleza de las evidencias en las que se basa el registro.\n"
   },
   "institutionCode": {
     "name": "Código de la institución",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {código de la institución} other {# códigos de la institución}}",
+    "description": "El código (o acrónimo) de la institución que tiene la custodia de los objetos o la información a la que se refiere el registro."
   },
   "catalogNumber": {
     "name": "Número de catálogo",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { número de catálogo } other {# números de catálogo}}",
+    "description": "El identificador del registro dentro de un catálogo o colección."
   },
   "mediaType": {
-    "name": "Tipo de medios",
-    "count": "",
-    "description": ""
+    "name": "Tipo de medio",
+    "count": "{num, plural, one {tipo de medio} other {# tipos de medios}}\n",
+    "description": "Los tipos de medios disponibles para este registro.\n"
   },
   "occurrenceIssue": {
-    "name": "Problemas y banderas",
-    "count": "",
-    "isNotNull": "",
-    "isNull": "",
+    "name": "Alertas",
+    "count": "{num, plural, one {alerta} other {# alertas}}\n",
+    "isNotNull": "Tiene incidencias",
+    "isNull": "No tiene incidencias",
     "description": ""
   },
   "occurrenceCountry": {
