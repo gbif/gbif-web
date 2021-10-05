@@ -1,9 +1,20 @@
 {
   "occurrence": "Registro biológico",
   "showAllFields": "Mostrar todos los campos",
+  "morePhotos": "",
+  "about": "Acerca de",
+  "dataset": "Conjunto de datos",
+  "publisher": "Publicador",
+  "institution": "Institución",
+  "institutionGrSciColl": "",
+  "collection": "Colección",
+  "collectionGrSciColl": "",
+  "recordedAndIdentifiedBy": "",
   "info": {
     "original": "original",
-    "excluded": "Excluido"
+    "excluded": "Excluido",
+    "inferred": "Inferido",
+    "altered": "Alterado"
   },
   "groups": {
     "summary": "Resumen",
