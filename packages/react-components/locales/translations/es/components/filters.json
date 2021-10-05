@@ -44,8 +44,8 @@
     "description": "El país o territorio donde ocurrió el evento"
   },
   "publishingCountryCode": {
-    "name": "País de la publicación",
-    "count": "{num, plural, one {país de la publicación} other {# países de la publicación}}\n",
+    "name": "País de publicación",
+    "count": "{num, plural, one {país de publicación} other {# países de publicación}}\n",
     "description": "El código ISO para el país o territorio en el que se encuentra el publicador"
   },
   "q": {
