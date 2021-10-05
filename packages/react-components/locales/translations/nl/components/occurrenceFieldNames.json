@@ -1,1 +1,23 @@
-{}
+{
+  "gbifID": "GBIF ID",
+  "bibliographicCitation": "Bronvermelding",
+  "created": "Aangemaakt",
+  "creator": "Aanmaker",
+  "date": "Datum",
+  "description": "Beschrijving",
+  "identifier": "Identificatiecode",
+  "language": "Taal",
+  "license": "Licentie",
+  "modified": "Gewijzigd",
+  "provenance": "Herkomst",
+  "publisher": "Gepubliceerd door",
+  "references": "Referenties",
+  "rightsHolder": "Rechtenhouder",
+  "source": "Bron",
+  "catalogNumber": "Catalogusnummer",
+  "recordNumber": "Objectnummer",
+  "recordedBy": "Vastgelegd door",
+  "individualCount": "Aantal",
+  "organismQuantity": "Aantal",
+  "sex": "Geslacht"
+}
