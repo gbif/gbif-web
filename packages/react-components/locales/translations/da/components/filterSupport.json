@@ -10,5 +10,8 @@
   "back": "Tilbage",
   "cancel": "Annuller",
   "apply": "",
+  "wildcardHelp": "",
+  "useWildcardPattern": "",
+  "showSuggestions": "",
   "excludeSelected": ""
 }
