@@ -10,5 +10,8 @@
   "back": "Voltar",
   "cancel": "Cancelar",
   "apply": "",
+  "wildcardHelp": "",
+  "useWildcardPattern": "",
+  "showSuggestions": "",
   "excludeSelected": ""
 }
