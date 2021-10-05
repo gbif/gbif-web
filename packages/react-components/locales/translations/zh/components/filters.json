@@ -78,32 +78,32 @@
   },
   "hostingOrganizationKey": {
     "name": "主办机构",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {托管机构} other {# 托管机构}}",
+    "description": "托管发布记录的数据集的组织名称。"
   },
   "country": {
     "name": "国家",
     "count": "{num, plural, one {国家} other {# 国家}}"
   },
   "countriesOfCoverage": {
-    "name": "",
-    "count": ""
+    "name": "覆盖国家",
+    "count": "{num, plural, one {覆盖国家} other {# 覆盖国家}}"
   },
   "countriesOfResearcher": {
-    "name": "",
-    "count": ""
+    "name": "研究人员的国家",
+    "count": "{num, plural, one {研究人员的国家} other {# 研究人员的国家}}"
   },
   "typeStatus": {
     "name": "类型状态",
-    "count": "",
-    "isNotNull": "",
-    "isNull": "",
-    "description": ""
+    "count": "{num, plural, one {类型状态} other {# 类型状态}}",
+    "isNotNull": "有一个类型状态",
+    "isNull": "该类型状态",
+    "description": "一件标本的类型名称。"
   },
   "year": {
     "name": "年份",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {年份过滤器} other {# 年份过滤器}}",
+    "description": "事件发生的年份。"
   },
   "sampleSizeUnit": {
     "name": "样品尺寸单位",
