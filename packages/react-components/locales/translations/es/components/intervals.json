@@ -31,19 +31,19 @@
     "e": "El año es {from}"
   },
   "coordinateUncertainty": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "Incertidumbre de la coordenada de {from}m a {to}m",
+    "lt": "Incertidumbre de la coordenada inferior a {to}m",
+    "gt": "Incertidumbre de la coordenada superior a {from}m",
+    "e": "La incertidumbre de la coordenada es {from}m"
   },
   "depth": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "Profundidad de  {from} a {to}",
+    "lt": "Profundidad inferior a {to}",
+    "gt": "Profundidad superior a {from}",
+    "e": "La profundidad es {from}"
   },
   "organismQuantity": {
-    "between": "",
+    "between": "Cantidad del organismo de {from} a {to}",
     "lt": "",
     "gt": "",
     "e": ""
