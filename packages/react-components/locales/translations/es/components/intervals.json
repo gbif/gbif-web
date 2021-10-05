@@ -14,8 +14,8 @@
   },
   "compactMeters": {
     "between": "de {from}m a {to}m",
-    "lt": "Debajo de los {to}m",
-    "gt": "Por encima de los {from}m",
+    "lt": "Inferior a {to}m",
+    "gt": "Superior a {from}m",
     "e": "{from}m"
   },
   "compactTime": {
@@ -64,6 +64,6 @@
     "between": "Elevación de {from} a {to}",
     "lt": "Elevación inferior a {to}",
     "gt": "Elevación superior a {to}",
-    "e": ""
+    "e": "La elevación es {from}"
   }
 }
