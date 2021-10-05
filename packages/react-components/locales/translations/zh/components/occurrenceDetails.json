@@ -1,9 +1,20 @@
 {
   "occurrence": "发生",
   "showAllFields": "显示所有字段",
+  "morePhotos": "",
+  "about": "关于",
+  "dataset": "数据集",
+  "publisher": "发布者",
+  "institution": "机构",
+  "institutionGrSciColl": "",
+  "collection": "馆藏",
+  "collectionGrSciColl": "",
+  "recordedAndIdentifiedBy": "",
   "info": {
     "original": "默认",
-    "excluded": "排除"
+    "excluded": "排除",
+    "inferred": "推断",
+    "altered": "更改"
   },
   "groups": {
     "summary": "概要",
