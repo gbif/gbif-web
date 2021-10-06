@@ -45,14 +45,14 @@
   "organismQuantity": {
     "between": "生物量 {from} 到 {to}",
     "lt": "生物数量低于 {to}",
-    "gt": "",
-    "e": ""
+    "gt": "生物量多于 {from}",
+    "e": "生物量是 {from}"
   },
   "sampleSizeValue": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "样本量值 {from} 到 {to}",
+    "lt": "样本量值低于 {to}",
+    "gt": "样本量值高于 {from}",
+    "e": "样本量值为 {from}"
   },
   "relativeOrganismQuantity": {
     "between": "",
