@@ -1,17 +1,17 @@
 {
   "nullOrNot": {
-    "isNotNull": "",
-    "isNull": ""
+    "isNotNull": "必须定义",
+    "isNull": "不得定义"
   },
-  "invalidValue": "",
-  "aboutThisFilter": "",
-  "existence": "",
-  "showHelp": "",
+  "invalidValue": "无效值",
+  "aboutThisFilter": "关于此过滤器",
+  "existence": "为了存在的过滤器",
+  "showHelp": "显示帮助文本",
   "back": "返回",
   "cancel": "取消",
-  "apply": "",
+  "apply": "应用",
   "wildcardHelp": "",
   "useWildcardPattern": "",
   "showSuggestions": "",
-  "excludeSelected": ""
+  "excludeSelected": "排除所选"
 }
