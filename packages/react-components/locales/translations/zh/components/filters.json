@@ -133,31 +133,31 @@
   "relativeOrganismQuantity": {
     "name": "相对生物数量",
     "count": "{num, plural, one { 相对生物量 } other {# 相对生物量}}",
-    "description": ""
+    "description": "生物材料相对于样品大小的数量，当有机体数量类型和样品大小单位明确时，计算为每个样品大小的有机体数量。"
   },
   "month": {
     "name": "月份",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { 月 } other {# 月}}",
+    "description": "事件发生的整数月份。"
   },
   "continent": {
     "name": "洲",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { 洲 } other {# 大洲}}",
+    "description": "地理位置所在的大陆的名称。"
   },
   "protocol": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "发布协议",
+    "count": "{num, plural, one { 协议 } other {# 协议}}",
+    "description": "数据集共享的技术协议。"
   },
   "establishmentMeans": {
     "name": "确定方法",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { 建立方法 } other {# 建立方法}}",
+    "description": "有机体在特定时间被引入到特定地点的方法。"
   },
   "recordedBy": {
     "name": "记录者",
-    "count": "",
+    "count": "{num, plural, one { 记录者 } other {# 记录者}}",
     "description": ""
   },
   "recordNumber": {
