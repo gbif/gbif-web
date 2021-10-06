@@ -102,13 +102,13 @@
   },
   "year": {
     "name": "Año",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {filtro de año} other { # filtros de año}}",
+    "description": "El año en que se produjo el evento."
   },
   "sampleSizeUnit": {
     "name": "Unidad del tamaño de la muestra",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {unidad del tamaño de la muestra} other {# unidades del tamaño de la muestra}}",
+    "description": "La unidad de medida para el \"valor del tamaño de la muestra\""
   },
   "coordinateUncertainty": {
     "name": "Incetidumbre de las coordenadas",
@@ -117,7 +117,7 @@
   },
   "depth": {
     "name": "Profundidad",
-    "count": "",
+    "count": "{num, plural, one { profundidad } other {# profundidades}}",
     "description": ""
   },
   "organismQuantity": {
@@ -157,8 +157,8 @@
   },
   "recordedBy": {
     "name": "Registrado por",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { registrado por } other {# registrado por}}",
+    "description": "Los nombres de la persona, personas, grupos u organizaciones responsables de hacer el registro original."
   },
   "recordNumber": {
     "name": "Número de registro",
