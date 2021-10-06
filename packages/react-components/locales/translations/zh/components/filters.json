@@ -202,82 +202,82 @@
   },
   "stateProvince": {
     "name": "州/省",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { 州省 } other {# 州省}}",
+    "description": "比该位置所在的国家小的下一个行政区域的名称。"
   },
   "eventId": {
     "name": "事件编号",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { 事件标识符 } other {# 事件标识符}}",
+    "description": "记录中事件的唯一标识符。"
   },
   "samplingProtocol": {
     "name": "取样草案",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { 采样协议 } other {# 采样协议}}",
+    "description": "事件中使用的方法或协议的名称、引用或描述。"
   },
   "occurrenceStatus": {
     "name": "出现记录状态",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { 发生状态 } other {# 发生状态}}",
+    "description": "某一分类单元中任何生物体的存在或缺失。"
   },
   "gadmGid": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "行政区域",
+    "count": "{num, plural, one { 行政区域 } other {# 行政区域}}",
+    "description": "在记录处理期间确定的来自GADM.org的任何行政区域的名称。"
   },
   "identifiedBy": {
     "name": "识别依据",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}",
+    "description": "负责确定生物体学名的人、人们、团体或组织。"
   },
   "isInCluster": {
     "name": "在集群中",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+    "description": "该记录是否被确定有相关记录。"
   },
   "datasetType": {
     "name": "数据集类型",
-    "count": "",
+    "count": "{num, plural, one { 数据集类型 } other {# 数据集类型}}",
     "description": "这里应该有一个组件的简短描述"
   },
   "datasetSubtype": {
-    "name": "",
-    "count": "",
+    "name": "数据集子类型",
+    "count": "{num, plural, one { 数据集子类型 } other {# 数据集子类型}}",
     "description": "这里应该有一个组件的简短描述"
   },
   "institutionKey": {
     "name": "机构",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { 机构 } other {# 机构}}",
+    "description": "保管记录中提及的物品或信息的机构的名称。"
   },
   "name": {
     "name": "名字",
-    "count": "",
+    "count": "{num, plural, one { 名称 } other {# 名称}}",
     "description": "这里应该有一个组件的简短描述"
   },
   "city": {
     "name": "城市",
-    "count": "",
+    "count": "{num, plural, one { 城市 } other {# 城市}}",
     "description": "这里应该有一个组件的简短描述"
   },
   "code": {
     "name": "代码",
-    "count": "",
+    "count": "{num, plural, one { 代码 } other {# 代码}}",
     "description": "这里应该有一个组件的简短描述"
   },
   "verbatimScientificName": {
     "name": "一字不差的学名",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { 逐字学名 } other {# 逐字学名}}",
+    "description": "由数据发布者提供的未经任何规范化的科学名称。"
   },
   "networkKey": {
-    "name": "",
-    "count": "",
+    "name": "网络密钥",
+    "count": "{num, plural, one { 网络密钥 } other {# 网络密钥}}",
     "description": "这里应该有一个组件的简短描述"
   },
   "literatureType": {
     "name": "文献类型",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { 文献类型 } other {# 文献类型}}",
+    "description": "这些引文来自于什么类型的文献。"
   }
 }
