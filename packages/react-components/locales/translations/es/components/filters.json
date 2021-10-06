@@ -222,8 +222,8 @@
   },
   "gadmGid": {
     "name": "Área administrativa GADM",
-    "count": "{num, plural, one { área administrativa } other {# áreas administrativas}}",
-    "description": "El nombre de cualquier área administrativa de GADM.org determinada durante el procesamiento del registro."
+    "count": "{num, plural, one { área administrativa GADM } other {# áreas administrativas GADM}}",
+    "description": "El nombre del área administrativa en GADM.org según la ubicación de la coordenada."
   },
   "identifiedBy": {
     "name": "Identificado por",
