@@ -192,28 +192,28 @@
   },
   "locality": {
     "name": "Localidad",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { localidad } other {# localidades}}",
+    "description": "La parte específica de la descripción del lugar."
   },
   "waterBody": {
     "name": "Cuerpo de agua",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { cuerpo de agua } other {# cuerpos de agua}}",
+    "description": "El nombre del cuerpo de agua en la que se presenta la ubicación.\n"
   },
   "stateProvince": {
-    "name": "Estado/Provincia",
-    "count": "",
-    "description": ""
+    "name": "Departamento/Estado/Provincia",
+    "count": "{num, plural, one { departamento/estado/provincia } other {# departamentos/estados/provincias}}",
+    "description": "El nombre de la siguiente región administrativa más pequeña del país en el que se encuentra la localidad."
   },
   "eventId": {
-    "name": "ID del Evento",
-    "count": "",
-    "description": ""
+    "name": "ID del evento",
+    "count": "{num, plural, one { ID del evento } other {# ID del evento}}",
+    "description": "El identificador único del evento del registro."
   },
   "samplingProtocol": {
-    "name": "Protocolo de Muestreo",
-    "count": "",
-    "description": ""
+    "name": "Protocolo de muestreo",
+    "count": "{num, plural, one { protocolo de muestreo } other {# protocolos de muestreo}}",
+    "description": "Nombre, referencia o descripción del método o protocolo utilizado durante un evento."
   },
   "occurrenceStatus": {
     "name": "Estado del registro biológico",
@@ -221,8 +221,8 @@
     "description": "La presencia o ausencia de cualquier organismo de un taxón determinado."
   },
   "gadmGid": {
-    "name": "",
-    "count": "",
+    "name": "Área administrativa",
+    "count": "{num, plural, one { área administrativa } other {# áreas administrativas}}",
     "description": ""
   },
   "identifiedBy": {
