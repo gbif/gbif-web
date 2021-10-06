@@ -1,11 +1,11 @@
 {
   "nullOrNot": {
-    "isNotNull": "",
-    "isNull": ""
+    "isNotNull": "Está documentado",
+    "isNull": "No está documentado"
   },
   "invalidValue": "Valor inválido",
   "aboutThisFilter": "Acerca de este filtro",
-  "existence": "",
+  "existence": "Filtrar registros documentados",
   "showHelp": "Mostrar ayuda",
   "back": "Volver",
   "cancel": "Cancelar",

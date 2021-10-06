@@ -5,125 +5,125 @@
     "description": ""
   },
   "taxonKey": {
-    "name": "",
+    "name": "Wetenschappelijke naam",
     "count": "",
-    "description": ""
+    "description": "De wetenschappelijke naam zoals deze in de door GBIF gevolgde taxonomie verschijnt. Deze namen zijn genormaliseerd om het zoeken tussen datasets te vergemakkelijken. Het is mogelijk dat een oorspronkelijk ingevoerde naam verkeerd wordt geïnterpreteerd of onbekend is. Gebruik het filter \"Woordelijke wetenschappelijke naam\" om de door de dataleverancier aangeleverde namen te doorzoeken."
   },
   "basisOfRecord": {
-    "name": "",
+    "name": "Gegevens gebaseerd op",
     "count": "",
-    "isNotNull": "",
-    "isNull": "",
-    "description": ""
+    "isNotNull": "Het veld \"Gegevens gebaseerd op\" is ingevuld",
+    "isNull": "Het veld \"Gegevens gebaseerd op\" is niet ingevuld",
+    "description": "De aard van het bewijs waarop de gegevens zijn gebaseerd."
   },
   "institutionCode": {
-    "name": "",
+    "name": "Instituutscode",
     "count": "",
-    "description": ""
+    "description": "De code (of afkorting) van de instelling die de data beheerd."
   },
   "catalogNumber": {
-    "name": "",
+    "name": "Catalogusnummer",
     "count": "",
-    "description": ""
+    "description": "Het unieke nummer in de collectie."
   },
   "mediaType": {
-    "name": "",
+    "name": "Mediatype",
     "count": "",
-    "description": ""
+    "description": "De mediatypen bij dit object."
   },
   "occurrenceIssue": {
-    "name": "",
+    "name": "Problemen",
     "count": "",
-    "isNotNull": "",
-    "isNull": "",
-    "description": ""
+    "isNotNull": "Heeft problemen",
+    "isNull": "Heeft geen problemen",
+    "description": "De soorten (mogelijke) problemen die automatisch werden vastgesteld bij het verwerken van de gegevens."
   },
   "occurrenceCountry": {
-    "name": "",
+    "name": "Land",
     "count": "",
-    "description": ""
+    "description": "Het land of grondgebied waar de gebeurtenis plaatsvond"
   },
   "publishingCountryCode": {
-    "name": "",
+    "name": "Publicerend land",
     "count": "",
-    "description": ""
+    "description": "De ISO-code voor het land of het gebied waar de instantie zich bevindt die de gegevens deelt"
   },
   "q": {
-    "name": "",
+    "name": "Vrij tekstzoekveld",
     "count": "",
-    "description": ""
+    "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
   },
   "coordinates": {
-    "name": ""
+    "name": "Coördinaten"
   },
   "elevation": {
-    "name": "",
+    "name": "Hoogte",
     "count": "",
-    "description": ""
+    "description": "De afstand boven een verticaal referentiepunt (meestal zeespiegel of geoid) in meters."
   },
   "license": {
-    "name": "",
+    "name": "Licentie",
     "count": "",
-    "description": ""
+    "description": "De licentie waaronder de gegevens worden gedeeld."
   },
   "datasetKey": {
     "name": "Dataset",
     "count": "",
-    "description": ""
+    "description": "De titel van de dataset waaronder de gegevens worden gedeeld."
   },
   "publisherKey": {
-    "name": "",
+    "name": "Gepubliceerd door",
     "count": "",
-    "description": ""
+    "description": "De naam van de organisatie die verantwoordelijk is voor het delen van de data."
   },
   "hostingOrganizationKey": {
-    "name": "",
+    "name": "Hostende organisatie",
     "count": "",
-    "description": ""
+    "description": "De naam van de organisatie die de dataset online host."
   },
   "country": {
-    "name": "",
+    "name": "Land",
     "count": ""
   },
   "countriesOfCoverage": {
-    "name": "",
+    "name": "Land van dekking",
     "count": ""
   },
   "countriesOfResearcher": {
-    "name": "",
+    "name": "Land van onderzoeker",
     "count": ""
   },
   "typeStatus": {
-    "name": "",
+    "name": "Typestatus",
     "count": "",
-    "isNotNull": "",
-    "isNull": "",
+    "isNotNull": "Heeft een typestatus",
+    "isNull": "De typestatus",
     "description": ""
   },
   "year": {
-    "name": "",
+    "name": "Jaar",
     "count": "",
-    "description": ""
+    "description": "Het jaar waarin de gebeurtenis plaatsvond."
   },
   "sampleSizeUnit": {
-    "name": "",
+    "name": "Eenheid van monstergrootte",
     "count": "",
-    "description": ""
+    "description": "De meeteenheid voor de \"Eenheid van monstergrootte\" ."
   },
   "coordinateUncertainty": {
-    "name": "",
+    "name": "Onzekerheid van de coördinaten",
     "count": "",
-    "description": ""
+    "description": "De minimumafstand in meters van een coördinaat waarbinnen de vindplaats ligt."
   },
   "depth": {
-    "name": "",
+    "name": "Diepte",
     "count": "",
-    "description": ""
+    "description": "De afstand onder een oppervlak in meters."
   },
   "organismQuantity": {
-    "name": "",
+    "name": "Aantal organismen",
     "count": "",
-    "description": ""
+    "description": "Het aantal organismen, waar de wijze van tellen wordt gegeven in het veld \"Wijze van tellen\"."
   },
   "sampleSizeValue": {
     "name": "",
@@ -136,14 +136,14 @@
     "description": ""
   },
   "month": {
-    "name": "",
+    "name": "Maand",
     "count": "",
-    "description": ""
+    "description": "Verzamelmaand."
   },
   "continent": {
-    "name": "",
+    "name": "Continent",
     "count": "",
-    "description": ""
+    "description": "Het continent waar de vindplaats ligt."
   },
   "protocol": {
     "name": "",
@@ -156,17 +156,17 @@
     "description": ""
   },
   "recordedBy": {
-    "name": "",
+    "name": "Vastgelegd door",
     "count": "",
-    "description": ""
+    "description": "De naam/namen van de persoon/personen, groepen of organisaties die de oorspronkelijke gegevens hebben vastgelegd."
   },
   "recordNumber": {
-    "name": "",
+    "name": "Objectnummer",
     "count": "",
-    "description": ""
+    "description": "Het objectnummer van het object/de waarneming/data."
   },
   "collectionCode": {
-    "name": "",
+    "name": "Collectiecode",
     "count": "",
     "description": ""
   },
@@ -181,9 +181,9 @@
     "description": ""
   },
   "occurrenceId": {
-    "name": "",
+    "name": "Voorkomen ID",
     "count": "",
-    "description": ""
+    "description": "Het unieke nummer voor het voorkomen."
   },
   "organismId": {
     "name": "",
@@ -191,19 +191,19 @@
     "description": ""
   },
   "locality": {
-    "name": "",
+    "name": "Vindplaats",
     "count": "",
-    "description": ""
+    "description": "De specifieke vindplaats."
   },
   "waterBody": {
-    "name": "",
+    "name": "Waterlichaam",
     "count": "",
-    "description": ""
+    "description": "De naam van het waterlichaam waarin de vindplaats ligt."
   },
   "stateProvince": {
-    "name": "",
+    "name": "Staat/provincie",
     "count": "",
-    "description": ""
+    "description": "De naam van de administratieve regio onder het niveau van land waar de vindplaats zich bevindt."
   },
   "eventId": {
     "name": "",
@@ -211,14 +211,14 @@
     "description": ""
   },
   "samplingProtocol": {
-    "name": "",
+    "name": "Monsterwijze",
     "count": "",
-    "description": ""
+    "description": "De naam van, referentie naar of beschrijving van de methode of protocol gebruikt om de data te verzamelen."
   },
   "occurrenceStatus": {
-    "name": "",
+    "name": "Aanwezigheid",
     "count": "",
-    "description": ""
+    "description": "De aanwezigheid of afwezigheid van het object."
   },
   "gadmGid": {
     "name": "",
@@ -226,14 +226,14 @@
     "description": ""
   },
   "identifiedBy": {
-    "name": "",
+    "name": "Gedetermineerd door",
     "count": "",
-    "description": ""
+    "description": "De naam/namen van de persoon/personen, groepen of organisaties die het organisme determineerden."
   },
   "isInCluster": {
-    "name": "",
+    "name": "Is onderdeel van een cluster",
     "count": "",
-    "description": ""
+    "description": "Of er automatisch verwante gegevens zijn gevonden."
   },
   "datasetType": {
     "name": "",
@@ -246,17 +246,17 @@
     "description": ""
   },
   "institutionKey": {
-    "name": "",
+    "name": "Instituut",
     "count": "",
-    "description": ""
+    "description": "De naam van de instelling die de data beheerd."
   },
   "name": {
-    "name": "",
+    "name": "Naam",
     "count": "",
     "description": ""
   },
   "city": {
-    "name": "",
+    "name": "Stad",
     "count": "",
     "description": ""
   },
@@ -266,9 +266,9 @@
     "description": ""
   },
   "verbatimScientificName": {
-    "name": "",
+    "name": "Woordelijke wetenschappelijke naam",
     "count": "",
-    "description": ""
+    "description": "De wetenschappelijke naam zoals verstrekt door de instelling die de gegevens deelt zonder enige normalisatie door GBIF."
   },
   "networkKey": {
     "name": "",

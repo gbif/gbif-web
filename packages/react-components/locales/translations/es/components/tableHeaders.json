@@ -1,6 +1,7 @@
 {
+  "features": "Atributos",
   "citations": "Citaciones",
-  "occurrences": "Registros de presencia",
+  "occurrences": "Registros biológicos",
   "numberSpecimens": "Número de especímenes",
   "gbifNumberSpecimens": "Especímenes en GBIF",
   "title": "Título",
@@ -8,5 +9,5 @@
   "altmetric": "Altmetric",
   "registered": "Registrado",
   "hostedDatasets": "Conjuntos de datos alojados",
-  "pubDatasets": "Juegos de datos publicados"
+  "pubDatasets": "Conjuntos de datos publicados"
 }

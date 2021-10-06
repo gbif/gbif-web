@@ -2,7 +2,7 @@
   "datasetSearchTitle": "Búsqueda de conjuntos de datos",
   "longType": {
     "OCCURRENCE": "Conjunto de datos de registros biológicos",
-    "CHECKLIST": "Conjunto de datos de listas de especies",
+    "CHECKLIST": "Conjunto de datos de listas de chequeo",
     "SAMPLING_EVENT": "Evento de muestreo",
     "METADATA": "Conjunto de datos de metadatos"
   },

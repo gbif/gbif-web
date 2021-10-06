@@ -1,3 +1,7 @@
 {
-  "citation": "Bronvermelding"
+  "loading": "laden",
+  "loadError": "Laden mislukt",
+  "close": "Sluiten",
+  "citation": "Bronvermelding",
+  "citeAs": "Gebruik deze bronvermelding in publicaties"
 }
