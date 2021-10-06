@@ -223,61 +223,61 @@
   "gadmGid": {
     "name": "Área administrativa",
     "count": "{num, plural, one { área administrativa } other {# áreas administrativas}}",
-    "description": ""
+    "description": "El nombre de cualquier área administrativa de GADM.org determinada durante el procesamiento del registro."
   },
   "identifiedBy": {
     "name": "Identificado por",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { identificado por } other {# identificados por}}",
+    "description": "La persona, personas, grupos u organizaciones responsables de determinar el nombre científico del organismo."
   },
   "isInCluster": {
-    "name": "Está en cluster",
-    "count": "",
-    "description": ""
+    "name": "Está en una agrupación",
+    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+    "description": "Si se determinó que el registro tenía registros relacionados."
   },
   "datasetType": {
-    "name": "Tipo del conjunto de datos",
-    "count": "",
+    "name": "Tipo de conjunto de datos",
+    "count": "{num, plural, one { tipo de conjunto de datos } other {# tipos de conjunto de datos}}",
     "description": "Aquí debe colocarse una breve descripción del componente"
   },
   "datasetSubtype": {
-    "name": "",
-    "count": "",
+    "name": "Subtipo de conjunto de datos",
+    "count": "{num, plural, one { subtipo de conjunto de datos } other {# subtipos de conjunto de datos}}",
     "description": "Aquí debe colocarse una breve descripción del componente"
   },
   "institutionKey": {
     "name": "Institución",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { institución } other {# instituciones}}",
+    "description": "El nombre de la institución que custodia el objeto o la información a la que se refiere el registro."
   },
   "name": {
     "name": "Nombre",
-    "count": "",
+    "count": "{num, plural, one { nombre } other {# nombres}}",
     "description": "Aquí debe colocarse una breve descripción del componente"
   },
   "city": {
     "name": "Ciudad",
-    "count": "",
+    "count": "{num, plural, one { ciudad } other {# ciudades}}",
     "description": "Aquí debe colocarse una breve descripción del componente"
   },
   "code": {
     "name": "Código",
-    "count": "",
+    "count": "{num, plural, one { código } other {# códigos}}",
     "description": "Aquí debe colocarse una breve descripción del componente"
   },
   "verbatimScientificName": {
     "name": "Nombre científico original",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { nombre científico original } other {# nombres científicos originales}}",
+    "description": "El nombre científico suministrado por el publicador de datos sin ninguna normalización."
   },
   "networkKey": {
-    "name": "",
-    "count": "",
+    "name": "Clave de la red",
+    "count": "{num, plural, one { clave de la red } other {# claves de la red}}",
     "description": "Aquí debe colocarse una breve descripción del componente"
   },
   "literatureType": {
     "name": "Tipo de literatura",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { tipo de literatura } other {# tipos de literatura}}",
+    "description": "De qué tipo de literatura proviene la cita."
   }
 }
