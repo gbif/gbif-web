@@ -55,15 +55,15 @@
     "e": "样本量值为 {from}"
   },
   "relativeOrganismQuantity": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "相对生物量 {from} 到 {to}",
+    "lt": "相对生物量低于 {to}",
+    "gt": "相对生物量高于 {from}",
+    "e": "相对生物量是 {from}"
   },
   "elevation": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "海拔 {from} 到 {to}",
+    "lt": "海拔低于 {to}",
+    "gt": "海拔高于 {from}",
+    "e": "海拔是 {from}"
   }
 }
