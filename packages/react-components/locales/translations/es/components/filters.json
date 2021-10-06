@@ -87,16 +87,16 @@
   },
   "countriesOfCoverage": {
     "name": "País de cobertura",
-    "count": ""
+    "count": "{num, plural, one {país de cobertura} other {# países de cobertura}}"
   },
   "countriesOfResearcher": {
     "name": "País o área del investigador",
-    "count": ""
+    "count": "{num, plural, one {país del investigador} other {# países de los investigadores}}"
   },
   "typeStatus": {
-    "name": "Status del tipo",
-    "count": "",
-    "isNotNull": "",
+    "name": "Estado del tipo",
+    "count": "{num, plural, one {estado del tipo} other {# estados del tipo}}",
+    "isNotNull": "Tiene un estado del tipo",
     "isNull": "",
     "description": ""
   },
