@@ -36,7 +36,7 @@
     "count": "{num, plural, one {alerta} other {# alertas}}\n",
     "isNotNull": "Tiene incidencias",
     "isNull": "No tiene incidencias",
-    "description": "Los tipos de alertas de interés potencial identificados en el procesamiento de los datos.\n"
+    "description": "Los tipos de alertas de potencial interés identificados durante el procesamiento de los datos.\n"
   },
   "occurrenceCountry": {
     "name": "País",
