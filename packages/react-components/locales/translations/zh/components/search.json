@@ -7,11 +7,11 @@
     "download": "下载"
   },
   "table": {
-    "lockColumn": ""
+    "lockColumn": "锁定列"
   },
   "placeholders": {
     "default": "搜索",
-    "range": ""
+    "range": "范围或单个值"
   },
   "loadMore": "更多"
 }
