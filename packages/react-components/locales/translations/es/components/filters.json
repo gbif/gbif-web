@@ -34,7 +34,7 @@
   "occurrenceIssue": {
     "name": "Alertas",
     "count": "{num, plural, one {alerta} other {# alertas}}\n",
-    "isNotNull": "Tiene incidencias",
+    "isNotNull": "Tiene alertas",
     "isNull": "No tiene alertas",
     "description": "Los tipos de alertas de potencial interés identificados durante el procesamiento de los datos.\n"
   },
