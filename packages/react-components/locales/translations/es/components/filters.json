@@ -94,11 +94,11 @@
     "count": "{num, plural, one {país del investigador} other {# países de los investigadores}}"
   },
   "typeStatus": {
-    "name": "Estado del tipo",
-    "count": "{num, plural, one {estado del tipo} other {# estados del tipo}}",
-    "isNotNull": "Tiene un estado del tipo",
-    "isNull": "",
-    "description": ""
+    "name": "Tipo nomenclatural",
+    "count": "{num, plural, one {tipo nomenclatural} other {# tipos nomenclaturales}}",
+    "isNotNull": "Tiene un tipo nomenclatural",
+    "isNull": "El tipo nomenclatural",
+    "description": "La designación del tipo de un espécimen."
   },
   "year": {
     "name": "Año",
@@ -111,9 +111,9 @@
     "description": "La unidad de medida para el \"valor del tamaño de la muestra\""
   },
   "coordinateUncertainty": {
-    "name": "Incetidumbre de las coordenadas",
-    "count": "",
-    "description": ""
+    "name": "Incertidumbre de las coordenadas",
+    "count": "{num, plural, one {Incertidumbre de las coordenadas} other {# filtros de incertidumbre de las coordenadas}}",
+    "description": "Una medida de la distancia mínima en metros desde una coordenada dentro de la cual puede interpretarse que se encuentra una localidad."
   },
   "depth": {
     "name": "Profundidad",
