@@ -51,14 +51,14 @@
   "sampleSizeValue": {
     "between": "Tamaño de la muestra de {from} a {to}",
     "lt": "Tamaño de la muestra inferior a {to}",
-    "gt": "Tamaño de la muestra superior a {to}",
+    "gt": "Tamaño de la muestra superior a {from}",
     "e": "El tamaño de la muestra es {from}"
   },
   "relativeOrganismQuantity": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "Cantidad aproximada del organismo {from} a {to}",
+    "lt": "Cantidad aproximada del organismo inferior a {to}",
+    "gt": "Cantidad aproximada del organismo superior a {from}",
+    "e": "Cantidad aproximada del organismo es {from}"
   },
   "elevation": {
     "between": "Elevación de {from} a {to}",
