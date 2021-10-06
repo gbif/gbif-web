@@ -221,7 +221,7 @@
     "description": "La presencia o ausencia de cualquier organismo de un taxón determinado."
   },
   "gadmGid": {
-    "name": "Área administrativa",
+    "name": "Área administrativa GADM",
     "count": "{num, plural, one { área administrativa } other {# áreas administrativas}}",
     "description": "El nombre de cualquier área administrativa de GADM.org determinada durante el procesamiento del registro."
   },
