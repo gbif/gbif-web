@@ -122,17 +122,17 @@
   },
   "organismQuantity": {
     "name": "生物个体数量",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { 生物体数量 } other {# 生物量}}",
+    "description": "生物体数量的值，其中测量类型在“生物体数量类型”中给出。"
   },
   "sampleSizeValue": {
     "name": "样本大小值",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { 样本量值 } other {# 样本量值}}",
+    "description": "样本大小的值，其计量单位在“样本大小单位”中给出。"
   },
   "relativeOrganismQuantity": {
     "name": "相对生物数量",
-    "count": "",
+    "count": "{num, plural, one { 相对生物量 } other {# 相对生物量}}",
     "description": ""
   },
   "month": {
