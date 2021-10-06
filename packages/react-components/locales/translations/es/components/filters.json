@@ -118,42 +118,42 @@
   "depth": {
     "name": "Profundidad",
     "count": "{num, plural, one { profundidad } other {# profundidades}}",
-    "description": ""
+    "description": "La distancia por debajo de una superficie determinada, en metros."
   },
   "organismQuantity": {
-    "name": "Cantidad de organismos",
-    "count": "",
-    "description": ""
+    "name": "Cantidad del organismo",
+    "count": "{num, plural, one { cantidad del organismo } other {# cantidades del organismo}}",
+    "description": "El valor de la cantidad del organismo, donde el tipo de medición se da en el \"Tipo de cantidad del organismo\".\n"
   },
   "sampleSizeValue": {
     "name": "Valor del tamaño de la muestra",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { valor del tamaño de la muestra } other {# valores del tamaño de la muestra}}",
+    "description": "El valor del tamaño de una muestra, cuyas unidades de medida se indican en la \"Unidad del tamaño de la muestra\".\n"
   },
   "relativeOrganismQuantity": {
     "name": "Cantidad relativa del organismo",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { cantidad relativa del organismo } other {# cantidades relativas del organismo}}",
+    "description": "La cantidad de material biológico en relación con el tamaño de una muestra, calculada como \"Cantidad del organismo\" por \"Tamaño de la muestra\" cuando el \"Tipo de cantidad del organismo\" y la \"Unidad del tamaño de la muestra\" son inequívocos.\n"
   },
   "month": {
     "name": "Mes",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { mes } other {# meses}}",
+    "description": "El mes con número entero en el que ocurrió el evento."
   },
   "continent": {
     "name": "Continente",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { continente } other {# continentes}}",
+    "description": "El nombre del continente en el que se encuentra la ubicación.\n"
   },
   "protocol": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Protocolo de publicación",
+    "count": "{num, plural, one { protocolo } other {# protocolos}}",
+    "description": "El protocolo técnico a través del cual se compartió el conjunto de datos."
   },
   "establishmentMeans": {
-    "name": "Medias establecidas",
-    "count": "",
-    "description": ""
+    "name": "Medios de establecimiento",
+    "count": "{num, plural, one { medio de establecimiento } other {# medios de establecimiento}}",
+    "description": "El medio por el que el organismo se introdujo en un lugar y en un momento determinados."
   },
   "recordedBy": {
     "name": "Registrado por",
@@ -162,7 +162,7 @@
   },
   "recordNumber": {
     "name": "Número de registro",
-    "count": "",
+    "count": "{num, plural, one { número de registro } other {# números de registro}}\n",
     "description": ""
   },
   "collectionCode": {
