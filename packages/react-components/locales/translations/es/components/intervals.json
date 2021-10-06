@@ -1,7 +1,7 @@
 {
   "description": {
-    "lt": "Menos que {to}",
-    "lte": "Menos o igual que {to}",
+    "lt": "Menor que {to}",
+    "lte": "Menor o igual que {to}",
     "gt": "Mayor que {from}",
     "gte": "Mayor o igual que {from}",
     "e": "Igual a {is}"
