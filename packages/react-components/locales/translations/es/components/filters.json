@@ -131,8 +131,8 @@
     "description": "El valor del tamaño de una muestra, cuyas unidades de medida se indican en la \"Unidad del tamaño de la muestra\".\n"
   },
   "relativeOrganismQuantity": {
-    "name": "Cantidad relativa del organismo",
-    "count": "{num, plural, one { cantidad relativa del organismo } other {# cantidades relativas del organismo}}",
+    "name": "Cantidad aproximada del organismo",
+    "count": "{num, plural, one { cantidad aproximada del organismo } other {# cantidades aproximadas del organismo}}",
     "description": "La cantidad de material biológico en relación con el tamaño de una muestra, calculada como \"Cantidad del organismo\" por \"Tamaño de la muestra\" cuando el \"Tipo de cantidad del organismo\" y la \"Unidad del tamaño de la muestra\" son inequívocos.\n"
   },
   "month": {
@@ -163,32 +163,32 @@
   "recordNumber": {
     "name": "Número de registro",
     "count": "{num, plural, one { número de registro } other {# números de registro}}\n",
-    "description": ""
+    "description": "Un identificador asignado al registro biológico en el momento en que fue registrado."
   },
   "collectionCode": {
     "name": "Código de la colección",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { código de la colección } other {# códigos de la colección}}\n",
+    "description": "Aquí debe colocarse una breve descripción del componente"
   },
   "recordedById": {
     "name": "Registrado por ID",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { registrado por ID } other {# registrado por ID}}",
+    "description": "El identificador de la persona, personas, grupos u organizaciones responsables de documentar el registro biológico original.\n"
   },
   "identifiedById": {
     "name": "Identificado por ID",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { identificado por ID } other {# identificado por ID}}",
+    "description": "El identificador de la persona, personas, grupos u organizaciones responsables de determinar el nombre científico del organismo."
   },
   "occurrenceId": {
-    "name": "ID del registro de presencia",
-    "count": "",
-    "description": ""
+    "name": "ID del registro biológico",
+    "count": "{num, plural, one { ID del registro biológico } other {# ID del registro biológico}}",
+    "description": "El identificador único para el registro biológico."
   },
   "organismId": {
     "name": "ID del organismo",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { ID del organismo } other {# ID del organismo}}",
+    "description": "El identificador único del organismo en el registro."
   },
   "locality": {
     "name": "Localidad",
@@ -217,8 +217,8 @@
   },
   "occurrenceStatus": {
     "name": "Estado del registro biológico",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { estado del registro biológico } other {# estados del registro biológico}}",
+    "description": "La presencia o ausencia de cualquier organismo de un taxón determinado."
   },
   "gadmGid": {
     "name": "",
@@ -238,12 +238,12 @@
   "datasetType": {
     "name": "Tipo del conjunto de datos",
     "count": "",
-    "description": ""
+    "description": "Aquí debe colocarse una breve descripción del componente"
   },
   "datasetSubtype": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "Aquí debe colocarse una breve descripción del componente"
   },
   "institutionKey": {
     "name": "Institución",
@@ -253,17 +253,17 @@
   "name": {
     "name": "Nombre",
     "count": "",
-    "description": ""
+    "description": "Aquí debe colocarse una breve descripción del componente"
   },
   "city": {
     "name": "Ciudad",
     "count": "",
-    "description": ""
+    "description": "Aquí debe colocarse una breve descripción del componente"
   },
   "code": {
     "name": "Código",
     "count": "",
-    "description": ""
+    "description": "Aquí debe colocarse una breve descripción del componente"
   },
   "verbatimScientificName": {
     "name": "Nombre científico original",
@@ -273,7 +273,7 @@
   "networkKey": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "Aquí debe colocarse una breve descripción del componente"
   },
   "literatureType": {
     "name": "Tipo de literatura",
