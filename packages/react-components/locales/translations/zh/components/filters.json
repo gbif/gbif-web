@@ -158,47 +158,47 @@
   "recordedBy": {
     "name": "记录者",
     "count": "{num, plural, one { 记录者 } other {# 记录者}}",
-    "description": ""
+    "description": "负责记录原始事件发生的人、人们、团体或组织的名称。"
   },
   "recordNumber": {
     "name": "记录号",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { 记录编号 } other {# 记录编号}}",
+    "description": "在记录事件时给出的标识符。"
   },
   "collectionCode": {
     "name": "保藏代码",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { 收集代码 } other {# 收集代码}}",
+    "description": "这里应该有一个组件的简短描述"
   },
   "recordedById": {
     "name": "由ID记录",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { 记录的标识 } other {# 记录的标识}}",
+    "description": "负责记录原始事件的人、人们、团体或组织的标识符。"
   },
   "identifiedById": {
     "name": "由ID标识",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { 由ID标识 } other {# 由ID标识}}",
+    "description": "负责确定生物体学名的人、人们、团体或组织的标识符。"
   },
   "occurrenceId": {
     "name": "出现记录 ID",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {发生ID} other {# 发生ID}}",
+    "description": "发生记录的唯一标识符。"
   },
   "organismId": {
     "name": "生物个体ID",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {生物体标识} other {# 生物体标识}}",
+    "description": "记录中生物体的唯一标识符。"
   },
   "locality": {
     "name": "地点",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { 位置 } other {# 位置}}",
+    "description": "描述地点的具体部分。"
   },
   "waterBody": {
     "name": "水体",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { 水体 } other {# 水体}}",
+    "description": "该位置所在的水体的名称。"
   },
   "stateProvince": {
     "name": "州/省",
@@ -238,12 +238,12 @@
   "datasetType": {
     "name": "数据集类型",
     "count": "",
-    "description": ""
+    "description": "这里应该有一个组件的简短描述"
   },
   "datasetSubtype": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "这里应该有一个组件的简短描述"
   },
   "institutionKey": {
     "name": "机构",
@@ -253,17 +253,17 @@
   "name": {
     "name": "名字",
     "count": "",
-    "description": ""
+    "description": "这里应该有一个组件的简短描述"
   },
   "city": {
     "name": "城市",
     "count": "",
-    "description": ""
+    "description": "这里应该有一个组件的简短描述"
   },
   "code": {
     "name": "代码",
     "count": "",
-    "description": ""
+    "description": "这里应该有一个组件的简短描述"
   },
   "verbatimScientificName": {
     "name": "一字不差的学名",
@@ -273,7 +273,7 @@
   "networkKey": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "这里应该有一个组件的简短描述"
   },
   "literatureType": {
     "name": "文献类型",
