@@ -34,9 +34,9 @@
   "occurrenceIssue": {
     "name": "Alertas",
     "count": "{num, plural, one {alerta} other {# alertas}}\n",
-    "isNotNull": "Tiene incidencias",
-    "isNull": "No tiene incidencias",
-    "description": "Los tipos de alertas de interés potencial identificados en el procesamiento de los datos.\n"
+    "isNotNull": "Tiene alertas",
+    "isNull": "No tiene alertas",
+    "description": "Los tipos de alertas de potencial interés identificados durante el procesamiento de los datos.\n"
   },
   "occurrenceCountry": {
     "name": "País",
@@ -221,9 +221,9 @@
     "description": "La presencia o ausencia de cualquier organismo de un taxón determinado."
   },
   "gadmGid": {
-    "name": "Área administrativa",
-    "count": "{num, plural, one { área administrativa } other {# áreas administrativas}}",
-    "description": "El nombre de cualquier área administrativa de GADM.org determinada durante el procesamiento del registro."
+    "name": "Área administrativa GADM",
+    "count": "{num, plural, one { área administrativa GADM } other {# áreas administrativas GADM}}",
+    "description": "El nombre del área administrativa en GADM.org según la ubicación de la coordenada."
   },
   "identifiedBy": {
     "name": "Identificado por",
