@@ -30,13 +30,13 @@ export const useToc = () => {
               rect.top < 150 &&
               "#" + hash !== location.hash
             ) {
-              history.push({ ...location, hash });
+              history.replace({ ...location, hash });
               setActiveSection(hash);
             }
           }
         });
       } else {
-        history.push({ ...location, hash: null });
+        history.replace({ ...location, hash: null });
         setActiveSection(null);
       }
     },
@@ -54,7 +54,7 @@ export const useToc = () => {
         (obj, key) => (
           (obj[key] = (e) => {
             e.preventDefault();
-            history.push({ ...location, key });
+            history.replace({ ...location, key });
             setActiveSection(key);
             scrollToSection(refs[key]);
           }),
