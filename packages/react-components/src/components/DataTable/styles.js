@@ -54,7 +54,7 @@ export const table = props => css`
   border-collapse: separate;
   background: ${props.theme.background};
   border-spacing: 0;
-  font-size: 12px;
+  font-size: 85%;
   & th, td {
     border-right: 1px solid ${props.theme.paperBorderColor};
     transition: background-color 200ms ease;
