@@ -35,7 +35,7 @@ const offsetTop = number('Offset top', 50);
     <div >
     <div css={withSideBar}>
       <div css={sideBar}>
-        <Toc refs={tocRefs} offsetTop={offsetTop}></Toc>
+        <Toc refs={tocRefs} ></Toc>
       </div>
       <div>
       <h2 style={{scrollMarginTop: `${offsetTop}px`}} ref={node => { tocRefs["lorem-ipsum"] = node; }}>Lorem ipsum</h2>
