@@ -316,7 +316,7 @@ function reduce(item) {
     facts:                              source.measurementOrFactItems || [],
     identifiers:                        [],
     relations:                          [],
-    extensions:                         {},
+    extensions:                         source.verbatim.extensions,
     gbifClassification:                 source.gbifClassification,
 
     // not in v1
