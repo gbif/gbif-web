@@ -78,7 +78,7 @@ const typeDef = gql`
     eventID: String
     eventRemarks: String
     eventTime: String
-    # extensions: String
+    extensions: JSON
     extent: String
     facts: [JSON]
     family: String
