@@ -10,8 +10,8 @@
   "back": "Back",
   "cancel": "Cancel",
   "apply": "Apply",
-  "wildcardHelp": "",
-  "useWildcardPattern": "",
-  "showSuggestions": "",
+  "wildcardHelp": "Searches are case-insensitive, but accents are distinct (e.g. 'rio' vs 'río'). Use a wildcard (e.g. 'r?o') to find all matches.",
+  "useWildcardPattern": "Search for the pattern",
+  "showSuggestions": "Show suggestions",
   "excludeSelected": "Exclude selected"
 }
