@@ -1,5 +1,6 @@
 {
   "nResults": "{total, plural, one {# 结果} other {# 结果}}",
+  "nRecordsTotal": "{total, plural, one {# 总记录} other {# 总记录}}",
   "nSelected": "{total, plural, other {# 选中的}}",
   "nQualityFlags": "{total, plural, one {# 质量标志} other {# 质量标志}}\n",
   "nAudioFiles": "{total, plural, one {# 声音文件} other {# 声音文件}}",
