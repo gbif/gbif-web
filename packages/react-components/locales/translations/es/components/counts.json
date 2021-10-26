@@ -1,5 +1,6 @@
 {
   "nResults": "{total, plural, one {# resultado} other {# resultados}}",
+  "nRecordsTotal": "{total, plural, one {# registro en total} other {# registros en total}}\n",
   "nSelected": "{total, plural, other {# seleccionados}}\n",
   "nQualityFlags": "{total, plural, one {# alerta} other {# alertas}}",
   "nAudioFiles": "{total, plural, one {# archivo de sonido} other {# archivos de sonido}}",
