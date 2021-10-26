@@ -74,6 +74,8 @@
   "recordedByID": "Sammler/Beobachter ID",
   "identifiedByID": "Bestimmer ID",
   "individualCount": "Anzahl der Individuen",
+  "organismQuantity": "Menge des Organismus",
+  "organismQuantityType": "Mengenangabe des Organismus",
   "sex": "Geschlecht",
   "lifeStage": "Lebensstadium",
   "reproductiveCondition": "Reproduktionszustand",
