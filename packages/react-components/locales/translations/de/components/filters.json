@@ -1,6 +1,6 @@
 {
   "dwcaExtension": {
-    "name": "",
+    "name": "DWCA-Erweiterung",
     "count": "",
     "description": ""
   },
@@ -32,7 +32,7 @@
     "description": ""
   },
   "occurrenceIssue": {
-    "name": "",
+    "name": "Probleme und Flags",
     "count": "",
     "isNotNull": "",
     "isNull": "",
@@ -77,7 +77,7 @@
     "description": ""
   },
   "hostingOrganizationKey": {
-    "name": "",
+    "name": "Hosting-Organisation",
     "count": "",
     "description": ""
   },
@@ -131,7 +131,7 @@
     "description": ""
   },
   "relativeOrganismQuantity": {
-    "name": "",
+    "name": "Relative Organismenmenge",
     "count": "",
     "description": ""
   },
@@ -171,22 +171,22 @@
     "description": ""
   },
   "recordedById": {
-    "name": "",
+    "name": "Sammler/Beobachter ID",
     "count": "",
     "description": ""
   },
   "identifiedById": {
-    "name": "",
+    "name": "Bestimmer ID",
     "count": "",
     "description": ""
   },
   "occurrenceId": {
-    "name": "",
+    "name": "Occurrence-ID",
     "count": "",
     "description": ""
   },
   "organismId": {
-    "name": "",
+    "name": "Organismus-ID",
     "count": "",
     "description": ""
   },
@@ -231,7 +231,7 @@
     "description": ""
   },
   "isInCluster": {
-    "name": "",
+    "name": "Ist Teil eines Clusters",
     "count": "",
     "description": ""
   },
@@ -266,7 +266,7 @@
     "description": ""
   },
   "verbatimScientificName": {
-    "name": "",
+    "name": "Ursprünglicher wissenschaftlicher Name",
     "count": "",
     "description": ""
   },
