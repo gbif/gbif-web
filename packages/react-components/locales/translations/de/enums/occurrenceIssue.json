@@ -54,5 +54,15 @@
   "OCCURRENCE_STATUS_UNPARSABLE": "Occurrence-Status nicht interpretierbar",
   "OCCURRENCE_STATUS_INFERRED_FROM_INDIVIDUAL_COUNT": "Occurrence-Status aus Anzahl der Individuen abgeleitet",
   "OCCURRENCE_STATUS_INFERRED_FROM_BASIS_OF_RECORD": "Occurrence-Status aus Basis of Record abgeleitet",
-  "GEOREFERENCED_DATE_UNLIKELY": "Georeferenzierungsdatum unwahrscheinlich"
+  "GEOREFERENCED_DATE_UNLIKELY": "Georeferenzierungsdatum unwahrscheinlich",
+  "GEOREFERENCED_DATE_INVALID": "Georeferenzierungsdatum ungültig",
+  "AMBIGUOUS_INSTITUTION": "Institution mehrdeutig",
+  "AMBIGUOUS_COLLECTION": "Sammlung mehrdeutig",
+  "INSTITUTION_MATCH_NONE": "Institution nicht gefunden",
+  "COLLECTION_MATCH_NONE": "Sammlung nicht gefunden",
+  "INSTITUTION_MATCH_FUZZY": "Institutions-Match unscharf",
+  "COLLECTION_MATCH_FUZZY": "Sammlungs-Match unscharf",
+  "INSTITUTION_COLLECTION_MISMATCH": "Institution und Sammlung widersprechen sich",
+  "POSSIBLY_ON_LOAN": "Möglicherweise verliehen",
+  "DIFFERENT_OWNER_INSTITUTION": "Eigentümerinstitutionen weicht ab"
 }
