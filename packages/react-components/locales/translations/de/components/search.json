@@ -1,17 +1,17 @@
 {
   "tabs": {
-    "table": "",
-    "gallery": "",
-    "map": "",
-    "datasets": "",
-    "download": ""
+    "table": "Liste",
+    "gallery": "Galerie",
+    "map": "Karte",
+    "datasets": "Datasets",
+    "download": "Download"
   },
   "table": {
-    "lockColumn": ""
+    "lockColumn": "Spalte fixieren"
   },
   "placeholders": {
-    "default": "",
-    "range": ""
+    "default": "Suche",
+    "range": "Bereich oder einzelner Wert"
   },
-  "loadMore": ""
+  "loadMore": "Mehr"
 }
