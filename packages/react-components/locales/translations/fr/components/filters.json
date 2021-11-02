@@ -7,14 +7,14 @@
   "taxonKey": {
     "name": "Nom scientifique du taxon",
     "count": "",
-    "description": ""
+    "description": "Le nom scientifique tel qu'il apparaît dans le squelette taxonomique du GBIF. Ces noms sont normalisés pour faciliter la recherche dans tous les jeux de données. Il est possible qu'un nom fourni à l'origine soit mal interprété ou inconnu. Pour rechercher les noms tels que fournis, utilisez le filtre \"Verbatim du nom scientifique\"."
   },
   "basisOfRecord": {
     "name": "Base de registre",
     "count": "",
     "isNotNull": "",
     "isNull": "",
-    "description": ""
+    "description": "La nature des preuves sur lesquelles se fonde l'enregistrement."
   },
   "institutionCode": {
     "name": "Code de l'institution",
