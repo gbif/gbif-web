@@ -41,23 +41,23 @@
   "occurrenceCountry": {
     "name": "Land",
     "count": "{num, plural, one {Land} other {# Länder}}",
-    "description": ""
+    "description": "Land oder Gebiet des Sammlungsereignisses"
   },
   "publishingCountryCode": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Veröffentlichendes Land",
+    "count": "{num, plural, one {Veröffentlichendes Land} other {# Veröffentlichende Länder}}",
+    "description": "ISO-Code des Landes/Gebietes, in dem sich der Daten-Publisher befindet"
   },
   "q": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Volltextsuche",
+    "count": "{num, plural, one {Suchstring} other {# Suchstrings}}",
+    "description": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\"."
   },
   "coordinates": {
-    "name": ""
+    "name": "Koordinaten"
   },
   "elevation": {
-    "name": "",
+    "name": "Höhe",
     "count": "",
     "description": ""
   },
