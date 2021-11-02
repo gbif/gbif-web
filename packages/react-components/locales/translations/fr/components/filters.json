@@ -2,7 +2,7 @@
   "dwcaExtension": {
     "name": "Extension DWCA",
     "count": "",
-    "description": ""
+    "description": "Une courte description de la composante devrait apparaître ici"
   },
   "taxonKey": {
     "name": "Nom scientifique du taxon",
