@@ -1,46 +1,46 @@
 {
   "dwcaExtension": {
     "name": "DWCA-Erweiterung",
-    "count": "",
+    "count": "{num, plural, one { DwCA-Erweiterung } other {# DwCA-Erweiterungen}}",
     "description": ""
   },
   "taxonKey": {
     "name": "Wissenschaftlicher Name",
-    "count": "",
+    "count": "{num, plural, one {wissenschaftlicher Name} other {# wissenschaftliche Namen}}",
     "description": "Der normierte wissenschaftliche Name, wie er in der GBIF-Backbone-Taxonomie erscheint. Die wissenschaftlichen Namen werden normalisiert, um die Suche über Datensätze hinweg zu erleichtern. Es ist möglich, dass ein ursprünglich angegebener Name falsch interpretiert oder unbekannt ist. Für eine Suche in den Originalnamen bitte den Filter \"ursprünglicher wissenschaftlicher Name\" verwenden."
   },
   "basisOfRecord": {
     "name": "Basis of record",
-    "count": "",
+    "count": "{num, plural, one {Basis of Record} other {# Bases of Record}}",
     "isNotNull": "Basis of Record angegeben",
     "isNull": "Basis of Record nicht angegeben",
-    "description": ""
+    "description": "Art des Nachweises für diesen Datensatz."
   },
   "institutionCode": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Institutionscode",
+    "count": "{num, plural, one {Institutionscode} other {# Institutionscodes}}",
+    "description": "Code oder Kürzel der Institution, die die im Datensatz beschriebenen Objekte bzw. Informationen verwahrt."
   },
   "catalogNumber": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Katalognummer",
+    "count": "{num, plural, one { Katalognummer } other {# Katalognummern}}",
+    "description": "Identifikator/Bezeichner des Datensatzes innerhalb eines Katalogs oder einer Sammlung."
   },
   "mediaType": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Medientyp",
+    "count": "{num, plural, one {Medientyp} other {# Medientypen}}",
+    "description": "Die Medientypen, die für diesen Datensatz verfügbar sind."
   },
   "occurrenceIssue": {
     "name": "Probleme und Flags",
-    "count": "",
-    "isNotNull": "",
-    "isNull": "",
-    "description": ""
+    "count": "{num, plural, one {Problem oder Flag} other {# Probleme und Flags}}",
+    "isNotNull": "Hat ein Problem",
+    "isNull": "Ohne Problem",
+    "description": "Die Arten der Probleme/Flags, die bei der Verarbeitung der Daten entdeckt wurden."
   },
   "occurrenceCountry": {
-    "name": "",
-    "count": "",
+    "name": "Land",
+    "count": "{num, plural, one {Land} other {# Länder}}",
     "description": ""
   },
   "publishingCountryCode": {
@@ -83,7 +83,7 @@
   },
   "country": {
     "name": "",
-    "count": ""
+    "count": "{num, plural, one {Land} other {# Länder}}"
   },
   "countriesOfCoverage": {
     "name": "",
