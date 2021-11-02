@@ -123,20 +123,20 @@
   "organismQuantity": {
     "name": "Menge des Organismus",
     "count": "{num, plural, one { Organismenmenge } other {# Organismenmengen}}",
-    "description": ""
+    "description": "Der Wert der Organismenmenge; die Art der Messung wird in \"Art der Organismenmenge\" angegeben."
   },
   "sampleSizeValue": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Wert der Probengröße",
+    "count": "{num, plural, one {Probengrößenwert} other {# Probengrößenwerte}}",
+    "description": "Probengrößenwert; die Einheit der Probengröße wird in \"Einheit Probengröße\" angegeben."
   },
   "relativeOrganismQuantity": {
     "name": "Relative Organismenmenge",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { relative Organismusmenge } other {# relative Organismusmengen}}",
+    "description": "Die Menge an biologischem Material im Verhältnis zur Größe der Probe; berechnet als Organismusmenge pro Probengröße, falls Art der Organismusmenge und Einheit der Probengröße eindeutig sind."
   },
   "month": {
-    "name": "",
+    "name": "Monat",
     "count": "",
     "description": ""
   },
