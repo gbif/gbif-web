@@ -5,15 +5,15 @@
     "description": ""
   },
   "taxonKey": {
-    "name": "",
+    "name": "Wissenschaftlicher Name",
     "count": "",
-    "description": ""
+    "description": "Der normierte wissenschaftliche Name, wie er in der GBIF-Backbone-Taxonomie erscheint. Die wissenschaftlichen Namen werden normalisiert, um die Suche über Datensätze hinweg zu erleichtern. Es ist möglich, dass ein ursprünglich angegebener Name falsch interpretiert oder unbekannt ist. Für eine Suche in den Originalnamen bitte den Filter \"ursprünglicher wissenschaftlicher Name\" verwenden."
   },
   "basisOfRecord": {
-    "name": "",
+    "name": "Basis of record",
     "count": "",
-    "isNotNull": "",
-    "isNull": "",
+    "isNotNull": "Basis of Record angegeben",
+    "isNull": "Basis of Record nicht angegeben",
     "description": ""
   },
   "institutionCode": {
