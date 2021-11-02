@@ -2,7 +2,7 @@
   "dwcaExtension": {
     "name": "DWCA-Erweiterung",
     "count": "{num, plural, one { DwCA-Erweiterung } other {# DwCA-Erweiterungen}}",
-    "description": ""
+    "description": "Bezeichner für die Sammlung, zu der das usprüngliche Objekt gehört."
   },
   "taxonKey": {
     "name": "Wissenschaftlicher Name",
@@ -158,126 +158,126 @@
   "recordedBy": {
     "name": "Sammler/Beobachter",
     "count": "{num, plural, one { Sammler } other {# Sammler}}",
-    "description": ""
+    "description": "Namen der Personen, Gruppen oder Organisationen, die den Beleg gesammelt bzw. die Beobachtung getätigt haben."
   },
   "recordNumber": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Sammlernummer",
+    "count": "{num, plural, one { Sammlernummer } other {# Sammlernummern}}",
+    "description": "Ein Bezeichner für den Beleg oder die Beobachtung zum Zeitpunkt der Aufzeichnung."
   },
   "collectionCode": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Sammlungscode",
+    "count": "{num, plural, one { Sammlungscode } other {# Sammlungscodes}}",
+    "description": "Bezeichner für die Sammlung, zu der das usprüngliche Objekt gehört."
   },
   "recordedById": {
     "name": "Sammler/Beobachter ID",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { Sammler-ID } other {# Sammler-IDs}}",
+    "description": "ID des Sammlers/Beobachters"
   },
   "identifiedById": {
-    "name": "Bestimmer ID",
-    "count": "",
-    "description": ""
+    "name": "Bestimmer-ID",
+    "count": "{num, plural, one { Bestimmer-ID } other {# Bestimmer-IDs}}",
+    "description": "ID des Bestimmers des wissenschaftlichen Namens"
   },
   "occurrenceId": {
     "name": "Occurrence-ID",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { Occurrence-ID } other {# Occurrence-IDs}}",
+    "description": "Ein eindeutiger Bezeichner für den Datensatz."
   },
   "organismId": {
     "name": "Organismus-ID",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { Organismus-ID } other {# Organismus-IDs}}",
+    "description": "Ein eindeutiger Bezeichner für den Organsimus, der im Datensatz beschrieben wird."
   },
   "locality": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Fundort",
+    "count": "{num, plural, one { Fundort } other {# Fundorte}}",
+    "description": "Der spezifische Teil der Ortsbeschreibung."
   },
   "waterBody": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Gewässer",
+    "count": "{num, plural, one { Gewässer} other {# Gewässer}}",
+    "description": "Gewässer des Fundorts."
   },
   "stateProvince": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Bundesland/Kanton/Provinz",
+    "count": "{num, plural, one { Bundesland/Kanton/Provinz} other {# Bundesländer/Kantone/Provinzen}}",
+    "description": "Verwaltungseinheit unterhalb des Landes"
   },
   "eventId": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Ereignis-ID",
+    "count": "{num, plural, one { Ereignis-ID } other {# Ereignis-IDs}}",
+    "description": "Eindeutiger Bezeichner für das Sammlungsereignis."
   },
   "samplingProtocol": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Sampling-Protokoll",
+    "count": "{num, plural, one { Sampling Protokoll } other {# Sampling-Protokolle}}",
+    "description": "Name, Referenz oder Beschreibung der Methode oder des Protokolls, das für die Aufsammlung verwendet wurde."
   },
   "occurrenceStatus": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Occurrence-Status",
+    "count": "{num, plural, one {Occurrence-Status} other {# Occurrence-Status}}",
+    "description": "Vorhanden- oder Nichtvorhandensein von Organismen des angegebenen Taxons."
   },
   "gadmGid": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Verwaltungseinheit",
+    "count": "{num, plural, one { Verwaltungseinheit } other {# Verwaltungseinheiten}}",
+    "description": "Verwaltungseinheit lt. GADM.org, die beim Prozessieren der Daten bestimmt wurde"
   },
   "identifiedBy": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Bestimmer",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}",
+    "description": "Person, Personen, Gruppen oder Organisationen, die den wissenschaftlichen Namens des Organismus bestimmt haben."
   },
   "isInCluster": {
     "name": "Ist Teil eines Clusters",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "description": "Gibt an, ob der Datensatz mit einem oder mehreren anderen Datensätzen gruppiert wurde."
   },
   "datasetType": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Art des Datasets",
+    "count": "{num, plural, one {Dataset-Typ} other {# Dataset-Typen}}",
+    "description": "Art des Datasets"
   },
   "datasetSubtype": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Dataset-Subtyp",
+    "count": "{num, plural, one {Dataset-Subtyp} other {# Dataset-Subtypen}}",
+    "description": "Subtyp des Datatsets"
   },
   "institutionKey": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Institution",
+    "count": "{num, plural, one { Institution } other {# Institutionen}}",
+    "description": "Der Name der Institution, auf das Objekt oder die Informationen zum Datensatz verwahrt."
   },
   "name": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Name",
+    "count": "{num, plural, one { Name } other {# Namen}}",
+    "description": "A short description of the component should be placed here"
   },
   "city": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Stadt",
+    "count": "{num, plural, one { Stadt } other {# Städte}}",
+    "description": "Stadt zum Fundort."
   },
   "code": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Code",
+    "count": "{num, plural, one { Code } other {# Codes}}",
+    "description": "A short description of the component should be placed here"
   },
   "verbatimScientificName": {
     "name": "Ursprünglicher wissenschaftlicher Name",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {ursprünglicher wissenschaftlicher Name} other {# ursprüngliche wissenschaftliche Namen}}",
+    "description": "Wissenschaftliche Name, wie er vom Daten-Publisher angegeben wurde."
   },
   "networkKey": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Network-Key",
+    "count": "{num, plural, one { Network-Key } other {# Network-Keys}}",
+    "description": "Network-Key"
   },
   "literatureType": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Literatur-Typ",
+    "count": "{num, plural, one { Literatur-Typ } other {# Literatur-Typen}}",
+    "description": "Art der Literatur, aus der die Zitierung stammt."
   }
 }
