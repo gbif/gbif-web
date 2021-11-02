@@ -137,27 +137,27 @@
   },
   "month": {
     "name": "Monat",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {Monat} other{# Monate}}",
+    "description": "Monat des Sammlungsereignisses."
   },
   "continent": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Kontinent",
+    "count": "{num, plural, one { Kontinent } other {# Kontinente}}",
+    "description": "Kontinent der Ortsangabe."
   },
   "protocol": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Protokoll, mit dem die Daten veröffentlicht werden.",
+    "count": "{num, plural, one { Protokoll } other {# Protokolle}}",
+    "description": "Technisches Protokoll, mit dem der Datensatz veröffentlicht wird."
   },
   "establishmentMeans": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Etablierungsstatus",
+    "count": "{num, plural, one { Etablierungsstatus } other {# Etablierungsstatus}}",
+    "description": "Die Mittel, mit dem der Organismus zu einem bestimmten Zeitpunkt an einen bestimmten Ort etabliert wurde."
   },
   "recordedBy": {
-    "name": "",
-    "count": "",
+    "name": "Sammler/Beobachter",
+    "count": "{num, plural, one { Sammler } other {# Sammler}}",
     "description": ""
   },
   "recordNumber": {
