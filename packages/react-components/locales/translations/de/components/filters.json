@@ -58,71 +58,71 @@
   },
   "elevation": {
     "name": "Höhe",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {Höhenfilter} other {# Höhenfilter}}",
+    "description": "Die Höhe über einem vertikalen Bezugspunkt (üblicherweise dem mittleren Meeresspiegel oder einem Geoid) in Metern."
   },
   "license": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Lizenz",
+    "count": "{num, plural, one {Lizenz} other {# Lizenzen}}",
+    "description": "Lizenz (oder Waiver), unter der der Datensatz publiziert wurde"
   },
   "datasetKey": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Dataset",
+    "count": "{num, plural, one {Dataset} other {# Datasets}}",
+    "description": "Der Titel des Datasets, das den Datensatz enthält."
   },
   "publisherKey": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Publisher",
+    "count": "{num, plural, one {Publisher} other {# Publisher}}",
+    "description": "Der Name der Organisation, die das Dataset publiziert, zu dem der Datensatz gehört."
   },
   "hostingOrganizationKey": {
     "name": "Hosting-Organisation",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {Host} other {# Hosts}}",
+    "description": "Hosting-Organisation des Datasets, zu dem der Datensatz gehört."
   },
   "country": {
-    "name": "",
+    "name": "Land",
     "count": "{num, plural, one {Land} other {# Länder}}"
   },
   "countriesOfCoverage": {
-    "name": "",
-    "count": ""
+    "name": "Länderabdeckung",
+    "count": "{num, plural, one {Länderabdeckung} other {# Länderabdeckungen}}"
   },
   "countriesOfResearcher": {
-    "name": "",
-    "count": ""
+    "name": "Land des Forschers",
+    "count": "{num, plural, one {Land des Forschers} other {# Länder der Forscher}}"
   },
   "typeStatus": {
-    "name": "",
-    "count": "",
-    "isNotNull": "",
-    "isNull": "",
-    "description": ""
+    "name": "Typ-Status",
+    "count": "{num, plural, one {Typ-Status} other {# type Typ-Status}}",
+    "isNotNull": "Ist ein Typ",
+    "isNull": "Typ-Status",
+    "description": "Typ-Kennzeichnung eines Belegs."
   },
   "year": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Jahr",
+    "count": "{num, plural, one {Jahresfilter} other {# Jahresfilter}}",
+    "description": "Jahr des Sammlungsereignisses."
   },
   "sampleSizeUnit": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Einheit der Probengröße",
+    "count": "{num, plural, one {Einheit der Probengröße} other {# Einheiten der Probengröße}}",
+    "description": "Die Maßeinheit für den Probengrößenwert."
   },
   "coordinateUncertainty": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Koordinatenunsicherheit",
+    "count": "{num, plural, one {Koordinatenunsicherheitsfilter} other {# Koordinatenunsicherheitsfilter}}",
+    "description": "Ein Maß für dem Mindestabstand von einer Koordinate  (in Metern), innerhalb dessen der Fundort liegen könnte."
   },
   "depth": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Tiefe",
+    "count": "{num, plural, one { Tiefe } other {# Tiefen}}",
+    "description": "Die Tiefe unterhalb einer lokalen Oberfläche (in Metern)."
   },
   "organismQuantity": {
-    "name": "",
-    "count": "",
+    "name": "Menge des Organismus",
+    "count": "{num, plural, one { Organismenmenge } other {# Organismenmengen}}",
     "description": ""
   },
   "sampleSizeValue": {
