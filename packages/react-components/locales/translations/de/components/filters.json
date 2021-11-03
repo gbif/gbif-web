@@ -95,7 +95,7 @@
   },
   "typeStatus": {
     "name": "Typ-Status",
-    "count": "{num, plural, one {Typ-Status} other {# type Typ-Status}}",
+    "count": "{num, plural, one {Typ-Status} other {# Typ-Status}}",
     "isNotNull": "Ist ein Typ",
     "isNull": "Typ-Status",
     "description": "Typ-Kennzeichnung eines Belegs."
