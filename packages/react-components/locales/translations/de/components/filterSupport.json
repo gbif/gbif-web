@@ -1,17 +1,17 @@
 {
   "nullOrNot": {
-    "isNotNull": "",
-    "isNull": ""
+    "isNotNull": "Muss angegeben sein",
+    "isNull": "Darf nicht angegeben sein"
   },
-  "invalidValue": "",
-  "aboutThisFilter": "",
-  "existence": "",
-  "showHelp": "",
-  "back": "",
-  "cancel": "",
-  "apply": "",
-  "wildcardHelp": "",
-  "useWildcardPattern": "",
-  "showSuggestions": "",
-  "excludeSelected": ""
+  "invalidValue": "Ungültiger Wert",
+  "aboutThisFilter": "Über diesen Filter",
+  "existence": "Nach Existenz filtern",
+  "showHelp": "Hilfetext anzeigen",
+  "back": "Zurück",
+  "cancel": "Abbrechen",
+  "apply": "Übernehmen",
+  "wildcardHelp": "Suchvorgänge ignorieren Groß-/Kleinschreibung, aber Akzente unterscheiden sich voneinander (z.B. 'rio' vs 'río'). Verwenden Sie einen Platzhalter (z.B. 'r?o'), um alle Treffer zu finden.",
+  "useWildcardPattern": "Nach dem Muster suchen",
+  "showSuggestions": "Vorschläge anzeigen",
+  "excludeSelected": "Ausgewählte ausschließen"
 }
