@@ -16,7 +16,7 @@
   "dependencies": {
     "abort-controller": "^3.0.0",
     "apollo-datasource-rest": "^0.1.5",
-    "apollo-server": "2.6.1",
+    "apollo-server": "2.25.3",
     "apollo-server-express": "^2.12.0",
     "body-parser": "^1.19.0",
     "cheerio": "^1.0.0-rc.3",
