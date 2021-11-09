@@ -38,12 +38,16 @@ function StandardSearchTable({graphQuery, resultKey, offsetName = 'offset', defa
   const first = useCallback(() => {
     setOffset(undefined);
   });
+
+  if (error) {
+    return <div>Failed to fetch data</div>
+  }
   
   return <>
     <ResultsTable
       {...props}
       loading={loading}
-      results={data?.[resultKey].results}
+      results={data?.[resultKey]?.results}
       next={next}
       prev={prev}
       first={first}

@@ -77,7 +77,7 @@ const filters = {
 }
 
 
-const config = { labels, getSuggests, filters };
+const config = { labels, getSuggests, filters, rootFilter: {countriesOfResearcher: ['MX']} };
 
 export const Example = () => <Router initialEntries={[`/`]}>
   <QueryParamProvider ReactRouterRoute={Route}>
