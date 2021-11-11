@@ -46,7 +46,7 @@ async function initializeServer() {
     typeDefs,
     resolvers,
     dataSources: () => Object.keys(api).reduce((a, b) => (a[b] = new api[b](), a), {}), // Every request should have its own instance, see https://github.com/apollographql/apollo-server/issues/1562  
-    validationRules: [depthLimit(10)], // this likely have to be much higher than 6, but let us increase it as needed and not before
+    validationRules: [depthLimit(14)], // this likely have to be much higher than 6, but let us increase it as needed and not before
     cacheControl: {
       defaultMaxAge: 600,
       scope: 'public',
