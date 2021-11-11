@@ -291,7 +291,7 @@ const typeDef = gql`
     """
     Volatile: this is an experimental feature likely to change
     """
-    related: [RelatedOccurrence]
+    related(size: Int, from: Int): RelatedOccurrences
     """
     Volatile: these values are tightly coupled to the webview and are likely to change frequently
     """
@@ -316,6 +316,13 @@ const typeDef = gql`
     reference: String
   }
 
+  type RelatedOccurrences {
+    count: Int
+    size: Int
+    from: Int
+    relatedOccurrences: [RelatedOccurrence]
+  }
+  
   type RelatedOccurrence {
     reasons: [String]!
     occurrence: Occurrence

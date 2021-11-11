@@ -124,9 +124,16 @@ module.exports = {
       return formattedCoordinates({ lat: decimalLatitude, lon: decimalLongitude });
     },
     volatile: (occurrence) => occurrence,
-    related: ({ key }, args, { dataSources }) => {
+    related: ({ key }, { from = 0, size = 20 }, { dataSources }) => {
       return dataSources.occurrenceAPI.getRelated({ key })
-        .then(response => response.relatedOccurrences);
+        .then(response => {
+          return {
+            size, 
+            from, 
+            count: response.relatedOccurrences.length,
+            relatedOccurrences: response.relatedOccurrences.slice(from, from + size)
+          }
+        })
     },
     groups: (occurrence, args, { dataSources }) => {
       return dataSources.occurrenceAPI.getVerbatim({ key: occurrence.key })

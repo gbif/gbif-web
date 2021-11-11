@@ -29,7 +29,7 @@ export function Cluster({
     }
   }, [data]);
 
-  const related = cluster?.occurrence?.related;
+  const related = cluster?.occurrence?.related?.relatedOccurrences;
   if (!data || clusterLoading || !related) {
     return <div>Loading</div>;
   }
@@ -110,40 +110,42 @@ const CLUSTER = `
 query occurrence($key: ID!){
   occurrence(key: $key) {
   	related {
-      reasons
-      stub {
-        gbifId
-        occurrenceID
-        catalogNumber
-        publishingOrgKey
-        publishingOrgName
-        datasetKey
-        datasetName
-      }
-      occurrence {
-        key
-        basisOfRecord
-        datasetTitle
-        publisherTitle
-        coordinates
-        typeStatus
-        soundCount
-        stillImageCount
-        movingImageCount
-        eventDate
-        primaryImage {
-          identifier
+      relatedOccurrences {
+        reasons
+        stub {
+          gbifId
+          occurrenceID
+          catalogNumber
+          publishingOrgKey
+          publishingOrgName
+          datasetKey
+          datasetName
         }
-        gbifClassification {
-          usage {
-            formattedName
+        occurrence {
+          key
+          basisOfRecord
+          datasetTitle
+          publisherTitle
+          coordinates
+          typeStatus
+          soundCount
+          stillImageCount
+          movingImageCount
+          eventDate
+          primaryImage {
+            identifier
           }
-        }
-        volatile {
-          features {
-            isSequenced
-            isSamplingEvent
-            isTreament
+          gbifClassification {
+            usage {
+              formattedName
+            }
+          }
+          volatile {
+            features {
+              isSequenced
+              isSamplingEvent
+              isTreament
+            }
           }
         }
       }
