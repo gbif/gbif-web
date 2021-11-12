@@ -143,7 +143,7 @@
   "continent": {
     "name": "Continent",
     "count": "{num, plural, one { continent } other {# continents}}",
-    "description": "The name of the continent in which the location occurs."
+    "description": "The name of the continent in which the location occurs.  This field is not inferred but only populated if provided by the dataset publisher. Applying this filter may exclude relevant records."
   },
   "protocol": {
     "name": "Publishing protocol",
