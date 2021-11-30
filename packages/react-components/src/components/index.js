@@ -36,4 +36,5 @@ export { useToc } from './Toc/useToc';
 export { AltmetricDonut } from './AltmetricDonut/AltmetricDonut';
 export { Message } from './Message/Message';
 export { ResourceLink, PublisherKeyLink, DatasetKeyLink } from './resourceLinks/resourceLinks';
+export { NavBar, NavItem } from './NavBar/NavBar';
 // -- Add imports above this line (required by plopfile.js) --
