@@ -15,11 +15,11 @@ import { useQueryParam, NumberParam } from 'use-query-params';
 
 import * as css from './styles';
 
-export const TablePresentation = ({ first, prev, next, size, from, data, total, loading }) => {
+export const TablePresentation = ({ first, prev, next, size, from, data, total, loading, columns = [] }) => {
   // const [activeKey, setActiveKey] = useUrlState({ param: 'entity' });
   const [activeKey, setActiveKey] = useQueryParam('entity', NumberParam);
   
-  const { filters, tableConfig, labelMap } = useContext(OccurrenceContext);
+  const { filters, labelMap } = useContext(OccurrenceContext);
   const [fixedColumn, setFixed] = useState(true);
   const dialog = useDialogState({ animated: true, modal: false });
 
@@ -59,7 +59,7 @@ export const TablePresentation = ({ first, prev, next, size, from, data, total, 
   }, [activeKey, items]);
 
   const fixed = fixedColumn;// && !dialog.visible;
-  const headerss = tableConfig.columns.map((col, index) => {
+  const headerss = columns.map((col, index) => {
     const options = index === 0 ? { locked: fixed, toggle: () => setFixed(!fixedColumn) } : null;
     const FilterPopover = col.filterKey ? filters[col.filterKey]?.Popover : null;
     return <Th key={col.trKey} width={col.width} {...options}>
@@ -163,17 +163,17 @@ export const TablePresentation = ({ first, prev, next, size, from, data, total, 
           <tr>{headerss}</tr>
         </thead>
         <TBody rowCount={size} columnCount={7} loading={loading}>
-          {getRows({ tableConfig, labelMap, data, setActiveKey, dialog })}
+          {getRows({ columns, labelMap, data, setActiveKey, dialog })}
         </TBody>
       </DataTable>
     </div>
   </>
 }
 
-const getRows = ({ tableConfig, labelMap, data, setActiveKey, dialog }) => {
+const getRows = ({ columns, labelMap, data, setActiveKey, dialog }) => {
   const results = data?.occurrenceSearch?.documents?.results || [];
   const rows = results.map((row, index) => {
-    const cells = tableConfig.columns.map(
+    const cells = columns.map(
       (field, i) => {
         // const FormatedName = formatters(field).component;
         // const Presentation = <FormatedName id={row._source[field]} />;
