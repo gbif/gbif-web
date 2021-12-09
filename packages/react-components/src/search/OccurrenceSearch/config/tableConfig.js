@@ -118,6 +118,23 @@ export const tableConfig = {
         key: 'identifiedBy',
       },
       width: 'wide'
-    }
+    },
+    {
+      name: 'recordNumber',
+      trKey: 'filters.recordNumber.name',
+      filterKey: 'recordNumber', //optional
+      value: {
+        key: 'recordNumber',
+      }
+    },
+    {
+      name: 'typeStatus',
+      trKey: 'filters.typeStatus.name',
+      filterKey: 'typeStatus', //optional
+      value: {
+        key: 'typeStatus',
+        labelHandle: 'typeStatus'
+      }
+    },
   ]
 };

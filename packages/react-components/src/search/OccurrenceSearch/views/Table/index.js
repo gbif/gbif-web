@@ -43,6 +43,7 @@ query table($predicate: Predicate, $size: Int = 20, $from: Int = 0){
         catalogNumber
         recordedBy
         identifiedBy
+        recordNumber
 
         stillImageCount
         movingImageCount
