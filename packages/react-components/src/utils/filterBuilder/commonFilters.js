@@ -173,7 +173,8 @@ export const commonFilters = {
         },
       },
       specific: {
-        suggestHandle: 'catalogNumber'
+        suggestHandle: 'catalogNumber',
+        supportsExist: true,
       }
     }
   },
@@ -527,6 +528,7 @@ export const commonFilters = {
         // suggestHandle: 'recordedByWildcard',
         id2labelHandle: 'recordedBy',
         placeholder: 'Search by recorded by',
+        supportsExist: true,
         query: `
           query keywordSearch($predicate: Predicate, $size: Int){
             occurrenceSearch(predicate: $predicate) {
@@ -561,6 +563,7 @@ export const commonFilters = {
       specific: {
         suggestHandle: 'recordNumber',
         id2labelHandle: 'recordNumber',
+        supportsExist: true,
       }
     }
   },
@@ -872,6 +875,7 @@ export const commonFilters = {
       },
       specific: {
         placeholder: 'Search by identified by',
+        supportsExist: true,
         query: `
           query keywordSearch($predicate: Predicate, $size: Int){
             occurrenceSearch(predicate: $predicate) {
