@@ -44,6 +44,7 @@ query table($predicate: Predicate, $size: Int = 20, $from: Int = 0){
         recordedBy
         identifiedBy
         recordNumber
+        preparations
 
         stillImageCount
         movingImageCount

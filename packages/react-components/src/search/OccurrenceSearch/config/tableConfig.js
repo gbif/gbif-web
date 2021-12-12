@@ -136,5 +136,12 @@ export const tableConfig = {
         labelHandle: 'typeStatus'
       }
     },
+    {
+      name: 'preparations',
+      trKey: 'occurrenceFieldNames.preparations',
+      value: {
+        key: 'preparations'
+      }
+    },
   ]
 };
