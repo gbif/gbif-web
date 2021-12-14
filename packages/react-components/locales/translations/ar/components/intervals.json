@@ -1,34 +1,34 @@
 {
   "description": {
-    "lt": "",
-    "lte": "",
-    "gt": "",
-    "gte": "",
-    "e": ""
+    "lt": "أقل من{إلى}",
+    "lte": "أقل أو يساوي { إلى }",
+    "gt": "أكبر من { من }",
+    "gte": "أكبر أو يساوي { من }",
+    "e": "يساوي { is }"
   },
   "compact": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "{from} إلى{to}",
+    "lt": "أدنى{to}",
+    "gt": "أعلى{from}",
+    "e": "{from}"
   },
   "compactMeters": {
-    "between": "",
+    "between": "{from} متر إلى{to} متر",
     "lt": "أدنى من {to} متر",
     "gt": "أعلى من {from} متر",
-    "e": ""
+    "e": "{from} متر"
   },
   "compactTime": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "{from} إلى {to}",
+    "lt": "قبل {to}",
+    "gt": "بعد {from}",
+    "e": "{from}"
   },
   "year": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "سنة {from} إلى {to}",
+    "lt": "قبل سنة {to}",
+    "gt": "بعد سنة {from}",
+    "e": "السنة هي {from}"
   },
   "coordinateUncertainty": {
     "between": "",
