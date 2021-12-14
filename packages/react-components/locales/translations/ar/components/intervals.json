@@ -31,28 +31,28 @@
     "e": "السنة هي {from}"
   },
   "coordinateUncertainty": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "تنسيق عدم اليقين {from} متر إلى {to} متر",
+    "lt": "ارتياب الإحداثيات أدنى {to} متر",
+    "gt": "ارتياب الإحداثيات أعلى {from} متر ",
+    "e": "ارتياب الإحداثيات تساوي {from} متر"
   },
   "depth": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "عمق {from} إلى {to}",
+    "lt": "العمق أدنى {to}",
+    "gt": "العمق أعلى {from}",
+    "e": "العمق هو {from}"
   },
   "organismQuantity": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "كمية الكائنات {from} إلى {to}",
+    "lt": "كمية الكائنات أدنى {to}",
+    "gt": "كمية الكائنات أعلى {from}",
+    "e": "تكون كمية الكائنات {from}"
   },
   "sampleSizeValue": {
-    "between": "",
+    "between": "قيمة حجم العينة {from} إلى {to}",
     "lt": "",
-    "gt": "",
-    "e": ""
+    "gt": "قيمة حجم العينة فوق {from}",
+    "e": "تكون قيمة حجم العينة {from}"
   },
   "relativeOrganismQuantity": {
     "between": "",
