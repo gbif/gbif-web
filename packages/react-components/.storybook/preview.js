@@ -70,6 +70,7 @@ addDecorator(storyFn => {
       url: ({queryString}) => `/occurrence/search${queryString ? `?${queryString}` : ''}`,
       route: '/',
     },
+    
     collectionKey: {
       route: '/',
       isHref: true,
@@ -90,7 +91,7 @@ addDecorator(storyFn => {
         return `/iframe.html?id=entities-institution-page--example&viewMode=story&knob-institutionUUID=${key}`;
       }
     },
-    collectionSearch: {
+    institutionSearch: {
       url: () => `/institution/`
     },
 
