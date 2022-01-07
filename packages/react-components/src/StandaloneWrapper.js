@@ -8,6 +8,7 @@ import { LocaleProvider } from './dataManagement/LocaleProvider';
 import { Root } from './components';
 import ThemeContext, { lightTheme } from './style/themes';
 import { ApiContext, ApiClient } from './dataManagement/api';
+import RouteContext, { defaultContext } from './dataManagement/RouteContext';
 import env from '../.env.json';
 
 const client = new ApiClient({
@@ -20,20 +21,25 @@ const client = new ApiClient({
 });
 
 function StandaloneWrapper({
-  defaultBaseName, theme = lightTheme, locale = 'en', messages: customMessages, ...props
+  defaultBaseName, theme = lightTheme, locale = 'en', messages: customMessages, routeContext, ...props
 }) {
   // const defaultBaseName = typeof window !== 'undefined' ? window.location.pathname : undefined;
+  const root = <Root id="application" appRoot>
+    <Router {...props} basename={defaultBaseName}>
+      <QueryParamProvider ReactRouterRoute={Route} {...props} />
+    </Router>
+  </Root>;
+
   return (
     <ApiContext.Provider value={client}>
       <LocaleProvider locale={locale}>
         {/* <IntlProvider locale={locale} messages={customMessages || messages}> */}
-          <ThemeContext.Provider value={theme}>
-            <Root id="application" appRoot>
-              <Router {...props} basename={defaultBaseName}>
-                <QueryParamProvider ReactRouterRoute={Route} {...props} />
-              </Router>
-            </Root>
-          </ThemeContext.Provider>
+        <ThemeContext.Provider value={theme}>
+          {routeContext && <RouteContext.Provider value={{ ...defaultContext, ...routeContext }}>
+            {root}
+          </RouteContext.Provider>}
+          {!routeContext && root}
+        </ThemeContext.Provider>
         {/* </IntlProvider> */}
       </LocaleProvider>
     </ApiContext.Provider>

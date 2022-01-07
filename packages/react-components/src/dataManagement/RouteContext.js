@@ -1,7 +1,7 @@
 import React from 'react';
 const gbifOrg = 'https://www.gbif.org';
 
-export default React.createContext({
+export const defaultContext = {
   occurrenceSearch: {
     url: ({queryString}) => `/occurrence/search${queryString ? `?${queryString}` : ''}`,
     route: '/occurrence/search'
@@ -48,4 +48,6 @@ export default React.createContext({
   publisherSearch: {
     url: () => `/publisher-search/`
   },
-});
+};
+
+export default React.createContext(defaultContext);
