@@ -25,8 +25,29 @@
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
     <!-- <script src="https://unpkg.com/prop-types@15.7.2/prop-types.min.js"></script> -->
 
-    <script type="text/javascript" src="/dist/lib/gbif-react-components.js"></script>
+    <script
+      type="text/javascript"
+      src="/dist/lib/gbif-react-components.js"
+    ></script>
+
     <script>
+      ReactDOM.render(
+        React.createElement(gbifReactComponents.CollectionSearch, {
+          routeContext: {
+            collectionKey: {
+              url: ({key}) => `/collection/${key}`,
+              isHref: true,
+              route: '/collection/:key',
+            },
+          },
+          config: {},
+          style: { height: 'calc(100vh - 20px)' },
+          locale: 'en',
+          // messages: messages
+        }),
+        document.getElementById('root')
+      );
+
       // ReactDOM.render(
       //   React.createElement(
       //     gbifReactComponents.Collection,
@@ -34,20 +55,21 @@
       //   ),
       //   document.getElementById('root')
       // );
-      const messages = {
-        'filter.publisherKey.name': 'test danish name'
-      };
-      ReactDOM.render(
-        React.createElement(
-          gbifReactComponents.DatasetSearch,
-          { 
-            config: {rootPredicate: {type: 'CHECKLIST'}}, style: { height: 'calc(100vh - 20px)' },
-            locale: 'de-ch',
-            // messages: messages
-          }
-        ),
-        document.getElementById('root')
-      );
+
+      // const messages = {
+      //   'filter.publisherKey.name': 'test danish name'
+      // };
+      // ReactDOM.render(
+      //   React.createElement(
+      //     gbifReactComponents.DatasetSearch,
+      //     {
+      //       config: {rootPredicate: {type: 'CHECKLIST'}}, style: { height: 'calc(100vh - 20px)' },
+      //       locale: 'de-ch',
+      //       // messages: messages
+      //     }
+      //   ),
+      //   document.getElementById('root')
+      // );
     </script>
   </body>
 </html>

@@ -33,7 +33,7 @@ query list($institution: [GUID], $code: String, $q: String, $offset: Int, $limit
 const defaultTableConfig = {
   columns: [
     {
-      trKey: 'title',
+      trKey: 'tableHeaders.title',
       value: {
         key: 'name',
         formatter: (value, item) => <ResourceLink type='collectionKey' discreet id={item.key}>{value}</ResourceLink>,
