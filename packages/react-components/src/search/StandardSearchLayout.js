@@ -15,6 +15,7 @@ const Layout = ({
   className = '',
   config,
   Table,
+  style,
   ...props
 }) => {
   const [activeView, setActiveView] = useState('list');
@@ -23,7 +24,7 @@ const Layout = ({
   const elementName = 'searchLayout';
   
   return <div className={`${className} ${prefix}-${elementName}`}
-    css={cssLayout({ theme })} {...props}>
+    css={cssLayout({ theme })} style={style}>
     <Tabs activeId={activeView} onChange={setActiveView} >
       <div css={cssNavBar({ theme })}>
         <div css={cssFilter({ theme })}>
