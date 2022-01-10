@@ -3,5 +3,6 @@
   "loadError": "Échec du chargement",
   "close": "Fermer",
   "citation": "Citation",
-  "citeAs": "Veuillez utiliser cette citation dans les publications"
+  "citeAs": "Veuillez utiliser cette citation dans les publications",
+  "unknownDate": "Date inconnue"
 }
