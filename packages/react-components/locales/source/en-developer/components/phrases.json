@@ -3,5 +3,6 @@
   "loadError": "Failed to load",
   "close": "Close",
   "citation": "Citation",
-  "citeAs": "Please cite as"
+  "citeAs": "Please cite as",
+  "unknownDate": "Unknown date"
 }
