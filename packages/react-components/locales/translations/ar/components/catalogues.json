@@ -1,0 +1,9 @@
+{
+  "occurrences": "{NUMBER, plural,\n0 {تكرارات}\none {تكرار}\nfew {تكرارات}\nmany {تكرارات}\nother {تكرارات}\n}",
+  "datasets": "مجموعات البيانات",
+  "species": "نوع",
+  "publishers": "الناشرون",
+  "literature": "مراجع",
+  "collections": "مجموعات",
+  "institutions": "مؤسسات"
+}
