@@ -1,0 +1,9 @@
+{
+  "occurrences": "{NUMBER, plural,\n0 {Знахідок}\none {Знахідка}\nfew {Знахідки}\nmany {Знахідок}\nother {Знахідок}\n}",
+  "datasets": "Наборів даних",
+  "species": "Вид",
+  "publishers": "Видавці",
+  "literature": "Літературні дані",
+  "collections": "Колекції",
+  "institutions": "Установи"
+}
