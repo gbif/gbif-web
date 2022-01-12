@@ -46,6 +46,7 @@ export const style = (theme) => css`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  margin-bottom: -4px;
   >div {
     max-width: 100%;
     margin-right: 4px; 

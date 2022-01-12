@@ -5,7 +5,7 @@ import ThemeContext from '../../style/themes/ThemeContext';
 import { withFilter } from '../../widgets/Filter/state';
 import { FormattedMessage } from 'react-intl';
 import { cssLayout, cssNavBar, cssViewArea, cssFilter, cssViews, cssFooter } from '../Layout.styles';
-import { Tabs } from '../../components'
+import { Tabs, DataHeader, NavBar, NavItem } from '../../components'
 import Map from './views/Map';
 import Table from './views/Table';
 import Gallery from './views/Gallery';
@@ -31,60 +31,43 @@ const Layout = ({
 
   const tabComponents = {
     TABLE: <Tab tabId="TABLE" key="table">
-      <FormattedMessage id="search.tabs.table" defaultMessage="Table"/>
+      <FormattedMessage id="search.tabs.table" defaultMessage="Table" />
     </Tab>,
     MAP: <Tab tabId="MAP" key="map">
-      <FormattedMessage id="search.tabs.map" defaultMessage="Map"/>
+      <FormattedMessage id="search.tabs.map" defaultMessage="Map" />
     </Tab>,
     GALLERY: <Tab tabId="GALLERY" key="gallery">
-      <FormattedMessage id="search.tabs.gallery" defaultMessage="Gallery"/>
+      <FormattedMessage id="search.tabs.gallery" defaultMessage="Gallery" />
     </Tab>,
     DATASETS: <Tab tabId="DATASETS" key="datasets">
-      <FormattedMessage id="search.tabs.datasets" defaultMessage="Datasets"/>
+      <FormattedMessage id="search.tabs.datasets" defaultMessage="Datasets" />
     </Tab>
   }
 
   return <div className={`${className} ${prefix}-${elementName}`}
     css={cssLayout({ theme })} {...props}>
-    <Tabs activeId={activeView} onChange={setActiveView} >
-      <div css={cssNavBar({ theme })}>
-        <div css={cssFilter({ theme })}>
-          <FilterBar config={config}></FilterBar>
-        </div>
-        <div css={cssViews({ theme })}>
-          <TabList aria-labelledby="Views">
-            {tabs.map(tab => tabComponents[tab])}
-            <TapSeperator />
-            <Tab tabId="download">
-              <FormattedMessage id="search.tabs.download" defaultMessage="Download"/>
-            </Tab>
-            {/* <TapSeperator /> */}
-            {/* <Tab tabId="publisher">Publishers</Tab> */}
-            {/* <TapSpacer />
-            <TapSeperator />
-            <Tab tabId="test">Test</Tab> */}
-          </TabList>
-        </div>
+    <div css={cssNavBar({ theme })}>
+      <div css={cssFilter({ theme })}>
+        <FilterBar config={config}></FilterBar>
       </div>
-      <TabPanel lazy tabId="TABLE" className={`${prefix}-${elementName}-views`} css={cssViewArea({ theme })}>
-        <Table />
-      </TabPanel>
-      <TabPanel lazy tabId="MAP" className={`${prefix}-${elementName}-views`} css={cssViewArea({ theme })}>
-        <Map />
-      </TabPanel>
-      <TabPanel lazy tabId="GALLERY" className={`${prefix}-${elementName}-views`} css={cssViewArea({ theme })}>
-        <Gallery />
-      </TabPanel>
-      <TabPanel lazy tabId="DATASETS" className={`${prefix}-${elementName}-views`} css={cssViewArea({ theme })}>
-        <Datasets />
-      </TabPanel>
-      <TabPanel lazy tabId="download" className={`${prefix}-${elementName}-views`} css={cssViewArea({ theme })}>
-        <Download />
-      </TabPanel>
-      {/* <div className={`${prefix}-${elementName}-footer`} css={cssFooter({ theme })}>
-        <div>Footer content</div>
-      </div> */}
-    </Tabs>
+      <div>
+        <NavBar style={{ marginLeft: 10 }}>
+          <NavItem label="Table" data-targetid="table" onClick={e => setActiveView('TABLE')} isActive={activeView === 'TABLE'} />
+          <NavItem label="Gallery" data-targetid="gallery" onClick={e => setActiveView('GALLERY')} isActive={activeView === 'GALLERY'} />
+          <NavItem label="Map" data-targetid="map" onClick={e => setActiveView('MAP')} isActive={activeView === 'MAP'} />
+          <NavItem label="Download" data-targetid="download" onClick={e => setActiveView('DOWNLOAD')} isActive={activeView === 'DOWNLOAD'} />
+        </NavBar>
+      </div>
+    </div>
+    <div css={cssViewArea({ theme })}>
+      {activeView === 'TABLE' && <Table />}
+      {activeView === 'MAP' && <Map />}
+      {activeView === 'GALLERY' && <Gallery />}
+      {activeView === 'DOWNLOAD' && <Download />}
+    </div>
+    {/* <div className={`${prefix}-${elementName}-footer`} css={cssFooter({ theme })}>
+      <div>Footer content</div>
+    </div> */}
   </div>
 }
 

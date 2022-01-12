@@ -4,7 +4,8 @@ import { jsx } from '@emotion/react';
 import React, { useState, useMemo, useContext } from 'react';
 import { useIntl, FormattedNumber } from 'react-intl';
 import PropTypes from 'prop-types';
-import Layout from './Layout';
+import ComponentLayout from './Layout';
+import PageLayout from './PageLayout';
 import { FilterState } from "../../widgets/Filter/state";
 import { Root } from "../../components";
 import OccurrenceContext from '../SearchContext';
@@ -53,19 +54,21 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
     //   {type: 'not', predicate: {type: 'equals', key: 'taxonKey', value: 212}}
     // ] },
     predicateConfig,
+    availableCatalogues: customConfig.availableCatalogues,
     tableConfig,
     defaultTableColumns: customConfig.defaultTableColumns,
     more: customConfig
   }
 }
 
-function OccurrenceSearch({ config: customConfig = {}, ...props }) {
+function OccurrenceSearch({ config: customConfig = {}, pageLayout, ...props }) {
   const theme = useContext(ThemeContext);
   // const [filter, setFilter] = useState();//useUrlState({param: 'filter', base64encode: true});
   // const [filter, setFilter] = useState({ must: { taxonKey: [2609958] } });
 
   const [filter, setFilter] = useQueryParam('filter', Base64JsonParam);
 
+  const Layout = pageLayout ? PageLayout : ComponentLayout;
   // let filter = { must: { taxonKey: [2609958] } };
   // const setFilter = () => {};
 
@@ -112,22 +115,4 @@ function OccurrenceSearch({ config: customConfig = {}, ...props }) {
   );
 }
 
-// OccurrenceSearch.propTypes = {
-//   theme: PropTypes.object,
-//   settings: PropTypes.object,
-//   locale: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-//   messages: PropTypes.object
-// };
-
 export default OccurrenceSearch;
-
-
-
-/*
-myCustomFilters: new filters that will add/overwrite defaults
-whitelist: only add these filters (applied after custom)
-
-filters // everything that is known to have support
-includedFilters // those that are available to the user
-excludedFilters // those filters that are not hidden in more
-*/

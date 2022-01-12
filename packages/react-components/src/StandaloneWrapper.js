@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { QueryParamProvider } from 'use-query-params';
 import { LocaleProvider } from './dataManagement/LocaleProvider';
+import _get from 'lodash/get';
 
 import { Root } from './components';
 import ThemeContext, { lightTheme } from './style/themes';
@@ -24,8 +25,9 @@ function StandaloneWrapper({
   defaultBaseName, theme = lightTheme, locale = 'en', messages: customMessages, routeContext, ...props
 }) {
   // const defaultBaseName = typeof window !== 'undefined' ? window.location.pathname : undefined;
+  const basename = _get(routeContext, 'basename');
   const root = <Root id="application" appRoot>
-    <Router {...props} basename={defaultBaseName}>
+    <Router {...props} basename={basename}>
       <QueryParamProvider ReactRouterRoute={Route} {...props} />
     </Router>
   </Root>;

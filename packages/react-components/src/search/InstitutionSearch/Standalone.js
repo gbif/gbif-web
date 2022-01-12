@@ -4,7 +4,7 @@ import InstitutionSearch from './InstitutionSearch';
 
 function Standalone(props) {
   return <StandaloneWrapper {...props}>
-    <InstitutionSearch {...props} />
+    <InstitutionSearch pageLayout {...props} />
   </StandaloneWrapper>
 }
 

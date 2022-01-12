@@ -67,8 +67,11 @@ addDecorator(storyFn => {
 
   const routes = {
     occurrenceSearch: {
-      url: ({queryString}) => `/occurrence/search${queryString ? `?${queryString}` : ''}`,
-      route: '/',
+      url: ({queryString}) => {
+        return `iframe.html?id=search-occurrencesearch--example&viewMode=story`;
+      },
+      isHref: true,
+      route: '/occurrence/search',
     },
     
     collectionKey: {
@@ -79,7 +82,12 @@ addDecorator(storyFn => {
       }
     },
     collectionSearch: {
-      url: () => `/collection/`
+      // url: () => `/collection/`,
+      url: ({queryString, basename}) => {
+        return `/iframe.html?id=search-collectionsearch--example&viewMode=story`;
+      },
+      isHref: true,
+      route: '/collection/search',
     },
     collectionSpecimens: {
       url: ({key}) => `/collection/${key}/specimens`
@@ -92,7 +100,12 @@ addDecorator(storyFn => {
       }
     },
     institutionSearch: {
-      url: () => `/institution/`
+      // url: () => `/institution/`,
+      url: ({queryString}) => {
+        return `/iframe.html?id=search-institutionsearch--example&viewMode=story`;
+      },
+      isHref: true,
+      route: '/institution/search',
     },
 
     datasetKey: {
@@ -103,7 +116,13 @@ addDecorator(storyFn => {
       route: '/'
     },
     datasetSearch: {
-      url: () => `/dataset-search/`
+      // url: () => `/dataset-search/`,
+      url: ({queryString}) => {
+        return `/iframe.html?id=search-datasetsearch--example&viewMode=story`;
+        // return `/?path=/story/search-datasetsearch--example`;
+      },
+      isHref: true,
+      route: '/dataset/search',
     },
 
     publisherKey: {
@@ -115,7 +134,20 @@ addDecorator(storyFn => {
       route: '/publisher/:key'
     },
     publisherSearch: {
-      url: () => `/publisher-search/`
+      // url: () => `/publisher-search/`,
+      url: ({queryString}) => {
+        return `/iframe.html?id=search-publishersearch--example&viewMode=story`;
+      },
+      isHref: true,
+      route: '/publisher/search',
+    },
+
+    literatureSearch: {
+      url: ({queryString}) => {
+        return `iframe.html?id=search-literaturesearch--example&viewMode=story`;
+      },
+      isHref: true,
+      route: '/literature/search',
     },
   };
 

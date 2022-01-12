@@ -1,7 +1,8 @@
 // this comment tells babel to convert jsx to calls to a function called jsx instead of React.createElement
 import React, { useMemo, useContext } from 'react';
 import { useIntl } from 'react-intl';
-import Layout from './StandardSearchLayout';
+import ComponentLayout from './StandardSearchLayout';
+import PageLayout from './StandardSearchPageLayout';
 import { FilterState } from "../widgets/Filter/state";
 import { Root } from "../components";
 import SearchContext from './SearchContext';
@@ -11,7 +12,7 @@ import { buildConfig } from './buildSearchConfig';
 import Base64JsonParam from '../dataManagement/state/base64JsonParam';
 import { useQueryParam } from 'use-query-params';
 
-function Search({ config: customConfig = {}, predicateConfig, defaultFilterConfig, Table, ...props },) {
+function Search({ config: customConfig = {}, predicateConfig, defaultFilterConfig, Table, pageLayout, ...props },) {
   const theme = useContext(ThemeContext);
   const [filter, setFilter] = useQueryParam('filter', Base64JsonParam);
   const apiContext = useContext(ApiContext);
@@ -24,11 +25,13 @@ function Search({ config: customConfig = {}, predicateConfig, defaultFilterConfi
     }, { client: apiContext, formatMessage: intl.formatMessage });
   }, [apiContext, intl]);
   
+  const Layout = pageLayout ? PageLayout : ComponentLayout;
+
   return (
     <Root dir={theme.dir}>
       <SearchContext.Provider value={config}>
         <FilterState filter={filter} onChange={setFilter}>
-          <Layout config={config} Table={Table} {...props}></Layout>
+          <Layout config={config} Table={Table} {...props} ></Layout>
         </FilterState>
       </SearchContext.Provider>
     </Root>

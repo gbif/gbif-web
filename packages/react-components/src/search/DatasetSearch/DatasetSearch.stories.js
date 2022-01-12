@@ -80,10 +80,10 @@ const filters = {
 // const config = { labels, getSuggests, filters, rootPredicate: {endorsingNodeKey: '4f829580-180d-46a9-9c87-ed8ec959b545'} };
 const config = { labels, getSuggests, filters };
 
-export const Example = () => <Router initialEntries={[`/`]}>
+export const Example = () => <Router initialEntries={[`/dataset/search`]}>
   <QueryParamProvider ReactRouterRoute={Route}>
     <AddressBar />
-    <DatasetSearch config={config} style={{ margin: 'auto', maxWidth: 1200, height: 'calc(100vh - 50px)' }} />
+    <DatasetSearch pageLayout config={config} style={{ margin: 'auto', height: 'calc(100vh - 50px)' }} />
   </QueryParamProvider>
 </Router>
 

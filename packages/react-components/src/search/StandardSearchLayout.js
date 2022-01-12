@@ -6,7 +6,7 @@ import ThemeContext from '../style/themes/ThemeContext';
 import { withFilter } from '../widgets/Filter/state';
 // import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { cssLayout, cssNavBar, cssViewArea, cssFilter } from './Layout.styles';
-import { Tabs } from '../components'
+import { Tabs, DataHeader, NavBar, NavItem } from '../components'
 import { FilterBar } from './FilterBar';
 
 const { TabList, Tab, TabPanel } = Tabs;
@@ -22,7 +22,7 @@ const Layout = ({
   const theme = useContext(ThemeContext);
   const prefix = theme.prefix || 'gbif';
   const elementName = 'searchLayout';
-  
+
   return <div className={`${className} ${prefix}-${elementName}`}
     css={cssLayout({ theme })} style={style}>
     <Tabs activeId={activeView} onChange={setActiveView} >
@@ -31,9 +31,9 @@ const Layout = ({
           <FilterBar config={config}></FilterBar>
         </div>
       </div>
-      <TabPanel lazy tabId="list" className={`${prefix}-${elementName}-views`} css={cssViewArea({ theme })}>
+      <div css={cssViewArea({ theme })}>
         <Table />
-      </TabPanel>
+      </div>
     </Tabs>
   </div>
 }

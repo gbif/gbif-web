@@ -28,6 +28,7 @@ export function buildConfig({ customConfig, predicateConfig, defaultFilterConfig
     filters: pickBy(pick(filters, includedFilters), e => !!e),
     defaultVisibleFilters: initialVisibleFilters,
     rootPredicate: customConfig.rootFilter,
+    availableCatalogues: customConfig.availableCatalogues,
     predicateConfig
   }
 }

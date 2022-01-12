@@ -9,7 +9,7 @@ function Standalone(props) {
     <Switch>
       <Route
         path={path}
-        render={routeProps => <PublisherSearch {...props} />}
+        render={routeProps => <PublisherSearch pageLayout {...props} />}
       />
     </Switch>
   </StandaloneWrapper>

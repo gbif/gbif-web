@@ -68,7 +68,7 @@ const focus = theme => css`
   }
 `;
 
-const menuOption = theme => css`
+export const menuOption = theme => css`
   padding: 8px 8px;
   display: block;
   display: flex;

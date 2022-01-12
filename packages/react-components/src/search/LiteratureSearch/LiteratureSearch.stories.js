@@ -77,12 +77,18 @@ const filters = {
 }
 
 
-const config = { labels, getSuggests, filters, rootFilter: {countriesOfResearcher: ['MX']} };
+const config = { 
+  labels, 
+  getSuggests, 
+  filters, 
+  // rootFilter: {countriesOfResearcher: ['MX']}
+  availableCatalogues: ['OCCURRENCE', 'LITERATURE'],
+};
 
-export const Example = () => <Router initialEntries={[`/`]}>
+export const Example = () => <Router initialEntries={[`/literature/search`]}>
   <QueryParamProvider ReactRouterRoute={Route}>
     <AddressBar />
-    <LiteratureSearch config={config} style={{ margin: 'auto', maxWidth: 1200, height: 'calc(100vh - 40px)' }} />;
+    <LiteratureSearch pageLayout config={config} style={{ margin: 'auto', height: 'calc(100vh - 60px)' }} />;
   </QueryParamProvider>
 </Router>
 
@@ -91,4 +97,4 @@ Example.story = {
   name: 'Literature search',
 };
 
-export const StandaloneExample = () => <Standalone style={{height: 'calc(100vh - 20px)'}}></Standalone>;
+export const StandaloneExample = () => <Standalone style={{height: 'calc(100vh - 50px)'}}></Standalone>;

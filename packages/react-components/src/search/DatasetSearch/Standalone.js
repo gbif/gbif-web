@@ -9,7 +9,7 @@ function Standalone(props) {
     <Switch>
       <Route
         path={path}
-        render={routeProps => <DatasetSearch {...props} />}
+        render={routeProps => <DatasetSearch pageLayout {...props} />}
       />
     </Switch>
   </StandaloneWrapper>

@@ -1,14 +1,16 @@
+// this implementation is largely based on https://dev.to/shubhamreacts/how-to-implement-a-collapsible-overflow-menu-in-react-5cn8
+
 import { jsx } from '@emotion/react';
 import React, { useRef, useEffect, useState } from "react";
 import OverflowMenu from "./OverflowMenu";
-import { RouterTab } from './NavItems';
+import { NavTab } from './NavItems';
 import * as styles from './styles';
 
 export function NavItem(props) {
   <li {...props} />
 }
 
-export function NavBar({ children }) {
+export function NavBar({ children, ...props }) {
   const navRef = useRef(null);
 
   const [visibilityMap, setVisibilityMap] = useState({});
@@ -46,9 +48,9 @@ export function NavBar({ children }) {
     return () => observer.disconnect();
   }, []);
   return (
-    <ol css={styles.toolbarWrapper} ref={navRef}>
+    <ol css={styles.toolbarWrapper} ref={navRef} {...props} >
       {React.Children.map(children, (child) => {
-        return <RouterTab {...child.props} css={!!visibilityMap[child.props["data-targetid"]] ? styles.visible : styles.invisible} />
+        return <NavTab {...child.props} css={!!visibilityMap[child.props["data-targetid"]] ? styles.visible : styles.invisible} />
         // return cloneElement(child, {
         //   css: !!visibilityMap[child.props["data-targetid"]] ? visible : invisible
         // });

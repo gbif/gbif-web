@@ -80,10 +80,10 @@ const filters = {
 
 const config = { labels, getSuggests, filters };
 
-export const Example = () => <Router initialEntries={[`/`]}>
+export const Example = () => <Router initialEntries={[`/institution/search`]}>
   <QueryParamProvider ReactRouterRoute={Route}>
     <AddressBar />
-    <InstitutionSearch config={config} style={{ margin: 'auto', maxWidth: 1200, height: 'calc(100vh - 40px)' }} />
+    <InstitutionSearch pageLayout config={config} style={{ margin: 'auto', height: 'calc(100vh - 40px)' }} />
   </QueryParamProvider>
 </Router>
 

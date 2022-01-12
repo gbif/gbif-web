@@ -29,7 +29,8 @@ export const routerTab = ({ theme, isActive }) => css`
     outline: none;
     background: rgba(0,0,0,.05);
   }
-  a {
+  a, span {
+    cursor: pointer;
     padding: 10px 10px;
     display: inline-block;
     color: inherit;
