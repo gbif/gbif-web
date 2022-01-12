@@ -45,6 +45,9 @@ query table($predicate: Predicate, $size: Int = 20, $from: Int = 0){
         identifiedBy
         recordNumber
         preparations
+        institutionCode
+        collectionCode
+        locality
 
         stillImageCount
         movingImageCount

@@ -143,5 +143,27 @@ export const tableConfig = {
         key: 'preparations'
       }
     },
+
+    {
+      name: 'collectionCode',
+      trKey: 'occurrenceFieldNames.collectionCode',
+      value: {
+        key: 'collectionCode'
+      }
+    },
+    {
+      name: 'institutionCode',
+      trKey: 'occurrenceFieldNames.institutionCode',
+      value: {
+        key: 'institutionCode'
+      }
+    },
+    {
+      name: 'locality',
+      trKey: 'occurrenceFieldNames.locality',
+      value: {
+        key: 'locality'
+      }
+    },
   ]
 };
