@@ -1,6 +1,9 @@
 const _ = require('lodash');
 
 module.exports = function (predicate) {
+  if (!predicate) {
+    return {}
+  }
   try {
     const copy = JSON.parse(JSON.stringify(predicate));
     const withRange = convertRangeType(copy);
@@ -25,7 +28,7 @@ module.exports = function (predicate) {
     }
   } catch (err) {
     console.log(err);
-    return { err }
+    return { err: 'UNABLE_TO_PARSE_PREDICATE_TO_V1' }
   }
 }
 
