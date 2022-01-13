@@ -1,0 +1,9 @@
+{
+  "occurrences": "{NUMBER, plural,\n0 {オカレンス}\none {オカレンス}\nfew {オカレンス}\nmany {オカレンス}\nother {オカレンス}\n}",
+  "datasets": "データセット",
+  "species": "種",
+  "publishers": "出版者",
+  "literature": "文献",
+  "collections": "コレクション",
+  "institutions": "機関"
+}
