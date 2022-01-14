@@ -1,5 +1,5 @@
 {
-  "occurrences": "{NUMBER, plural,\n0 {Находок}\none {Находка}\nfew {Находки}\nmany {Находок}\nother {Находок}\n}",
+  "occurrences": "Находки",
   "datasets": "Опубликованных наборов данных",
   "species": "Вид",
   "publishers": "Организации",
