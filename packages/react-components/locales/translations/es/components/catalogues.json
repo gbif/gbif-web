@@ -1,6 +1,6 @@
 {
   "occurrences": "{NUMBER, plural,\n0 {Registros biológicos}\none {Registro biológico}\nfew {Registros biológicos}\nmany {Registros biológicos}\nother {Registros biológicos}\n}",
-  "datasets": "Juegos de datos",
+  "datasets": "Conjuntos de datos",
   "species": "Especies",
   "publishers": "Publicadores",
   "literature": "Literatura",
