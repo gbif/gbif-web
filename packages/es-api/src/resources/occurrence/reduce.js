@@ -12,6 +12,17 @@ function removeUndefined(obj) {
   return obj;
 }
 
+/*
+ * Temporary function to parse vocaulary values. The schemas differ in prod and uat, and to easy deployment the UI use a fallback
+ * https://github.com/gbif/gbif-web/issues/109
+ */
+function vocabularFallback(obj) {
+  if (typeof obj === 'object' && obj.concept) {
+    return obj.concept;
+  } else {
+    return obj;
+  }
+}
 /**
  * Map ES response to something similar to v1
  */
@@ -218,13 +229,13 @@ function reduce(item) {
     elevation:                          source.elevation,
     elevationAccuracy:                  source.elevationAccuracy,
     endDayOfYear:                       source.endDayOfYear,
-    establishmentMeans:                 source.establishmentMeans,
+    establishmentMeans:                 vocabularFallback(source.establishmentMeans),
     eventDate:                          source.eventDateSingle,
     identifiedBy:                       source.identifiedBy,
     individualCount:                    source.individualCount,
     institutionCode:                    source.institutionCode,
     license:                            source.license,
-    lifeStage:                          source.lifeStage,
+    lifeStage:                          vocabularFallback(source.lifeStage),
     locality:                           source.locality,
     identifier:                         source.id,
     
