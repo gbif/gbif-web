@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const compression = require('compression');
 const { ApolloServer } = require('apollo-server-express');
+const { ApolloServerPluginLandingPageGraphQLPlayground } = require('apollo-server-core');
 const AbortController = require('abort-controller');
 const get = require('lodash/get');
 const config = require('./config');
@@ -51,6 +52,9 @@ async function initializeServer() {
       defaultMaxAge: 600,
       scope: 'public',
     },
+    plugins: [
+      ApolloServerPluginLandingPageGraphQLPlayground
+    ]
   });
 
   const app = express();
@@ -75,7 +79,8 @@ async function initializeServer() {
   });
 
   app.get('/health', health);
-  
+
+  await server.start();
   server.applyMiddleware({ app });
 
   app.listen({ port: config.port }, () =>
