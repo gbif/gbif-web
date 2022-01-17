@@ -1,5 +1,5 @@
 {
-  "occurrences": "{NUMBER, plural,\n0 {オカレンス}\none {オカレンス}\nfew {オカレンス}\nmany {オカレンス}\nother {オカレンス}\n}",
+  "occurrences": "オカレンス",
   "datasets": "データセット",
   "species": "種",
   "publishers": "出版者",

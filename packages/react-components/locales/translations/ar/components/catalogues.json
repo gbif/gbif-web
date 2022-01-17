@@ -1,5 +1,5 @@
 {
-  "occurrences": "{NUMBER, plural,\n0 {تكرارات}\none {تكرار}\nfew {تكرارات}\nmany {تكرارات}\nother {تكرارات}\n}",
+  "occurrences": "تكرارات",
   "datasets": "مجموعات البيانات",
   "species": "نوع",
   "publishers": "الناشرون",
