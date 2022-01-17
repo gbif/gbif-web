@@ -31,22 +31,22 @@
     ></script>
 
     <script>
-      ReactDOM.render(
-        React.createElement(gbifReactComponents.CollectionSearch, {
-          routeContext: {
-            collectionKey: {
-              url: ({key}) => `/collection/${key}`,
-              isHref: true,
-              route: '/collection/:key',
-            },
-          },
-          config: {},
-          style: { height: 'calc(100vh - 20px)' },
-          locale: 'en',
-          // messages: messages
-        }),
-        document.getElementById('root')
-      );
+      // ReactDOM.render(
+      //   React.createElement(gbifReactComponents.CollectionSearch, {
+      //     routeContext: {
+      //       collectionKey: {
+      //         url: ({key}) => `/collection/${key}`,
+      //         isHref: true,
+      //         route: '/collection/:key',
+      //       },
+      //     },
+      //     config: {},
+      //     style: { height: 'calc(100vh - 20px)' },
+      //     locale: 'en',
+      //     // messages: messages
+      //   }),
+      //   document.getElementById('root')
+      // );
 
       // ReactDOM.render(
       //   React.createElement(
@@ -70,6 +70,20 @@
       //   ),
       //   document.getElementById('root')
       // );
+
+      ReactDOM.render(
+        React.createElement(
+          gbifReactComponents.OccurrenceSearch,
+          {
+            config: {
+              availableCatalogues: ['OCCURRENCE', 'LITERATURE', 'COLLECTION']
+            }, style: { height: 'calc(100vh - 20px)' },
+            locale: 'en',
+            // messages: messages
+          }
+        ),
+        document.getElementById('root')
+      );
     </script>
   </body>
 </html>
