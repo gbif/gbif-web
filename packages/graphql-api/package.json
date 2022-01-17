@@ -4,7 +4,6 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "test": "jest",
     "start": "nodemon src/index.js",
     "start:ci": "node src/index.js",
     "add-resource": "npx plop --plopfile ./tools/plopfile.js",
@@ -44,15 +43,8 @@
   },
   "devDependencies": {
     "eslint": "^6.8.0",
-    "jest": "^23.6.0",
     "nodemon": "^2.0.2",
     "plop": "^2.6.0"
-  },
-  "jest": {
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/__utils"
-    ]
   },
   "nodemonConfig": {
     "ignore": [
