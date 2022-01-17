@@ -1,4 +1,4 @@
-var wkt = require('terraformer-wkt-parser');
+const wkt = require('@terraformer/wkt');
 
 function wktPolygonToCoordinates(wktString) {
   var geojson = wktToGeoJson(wktString);
@@ -9,7 +9,7 @@ function wktPolygonToCoordinates(wktString) {
 }
 
 function wktToGeoJson(wktString) {
-  var geojson = wkt.parse(wktString);
+  var geojson = wkt.wktToGeoJSON(wktString);
   return geojson;
 }
 
