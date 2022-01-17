@@ -236,6 +236,8 @@ function reduce(item) {
     institutionCode:                    source.institutionCode,
     license:                            source.license,
     lifeStage:                          vocabularFallback(source.lifeStage),
+    pathway:                            vocabularFallback(source.pathway),
+    degreeOfEstablishment:              vocabularFallback(source.degreeOfEstablishment),
     locality:                           source.locality,
     identifier:                         source.id,
     
