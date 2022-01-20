@@ -3,14 +3,14 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import labelMaker from './labelMaker';
 import { rangeOrEqualLabel } from './rangeOrEqualLabel';
 
-export function config2labels(config, apiContext) {
+export function config2labels(config, apiContext, localeContext) {
   return Object.keys(config).reduce((acc, cur) => {
-    acc[cur] = config2label(cur, config[cur], apiContext);
+    acc[cur] = config2label(cur, config[cur], apiContext, localeContext);
     return acc;
   }, {});
 }
 
-export function config2label(name, config = {}, apiContext) {
+export function config2label(name, config = {}, apiContext, localeContext) {
   switch (config.type) {
     case 'TRANSLATION': {
       return ({ id }) => <FormattedMessage
@@ -35,11 +35,11 @@ export function config2label(name, config = {}, apiContext) {
 
     }
     case 'ENDPOINT': {
-      const fetchFunction = ({ id }) => apiContext
+      const fetchFunction = ({ id, locale }) => apiContext
         .get(config.template({ id, api: apiContext }))
         .promise
         .then(res => res.data)
-        .then(config.transform || (x => x));
+        .then((result) => config.transform ? config.transform(result, { localeContext }) : result);
 
       const Label = labelMaker(fetchFunction);
       return Label;
@@ -54,7 +54,7 @@ export function config2label(name, config = {}, apiContext) {
     case 'CUSTOM': {
       return config.component;
     }
-    default: return ({id}) => typeof id === 'object' ? id.value : id;
+    default: return ({ id }) => typeof id === 'object' ? id.value : id;
   }
 }
 

@@ -45,9 +45,10 @@ export default (getData, { isHtmlResponse } = {}) =>
               this.setState({ title: result.title, error: false });
             }
           }
-        ).catch(() => {
+        ).catch((err) => {
           if (canceled) return;
           if (this._mounted) {
+            console.log(err);
             this.setState({ title: 'unknown', error: true });
           }
         });

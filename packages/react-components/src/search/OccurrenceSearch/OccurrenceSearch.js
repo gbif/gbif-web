@@ -9,6 +9,7 @@ import PageLayout from './PageLayout';
 import { FilterState } from "../../widgets/Filter/state";
 import { Root } from "../../components";
 import OccurrenceContext from '../SearchContext';
+import LocaleContext from '../../dataManagement/LocaleProvider/LocaleContext';
 import { ApiContext } from '../../dataManagement/api';
 import { commonLabels, config2labels } from '../../utils/labelMaker';
 import { getCommonSuggests, suggestStyle } from '../../utils/suggestConfig/getCommonSuggests';
@@ -34,7 +35,7 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
   const suggestConfigMap = getSuggestConfig({ context, suggestStyle, rootPredicate: customConfig.rootPredicate });
   const suggestConfigMapCustom = getSuggests({ client: context.client, suggestStyle });
   const mergedSuggest = { ...suggestConfigMap, ...suggestConfigMapCustom };
-  const labelMap = config2labels(mergedLabels, context.client);
+  const labelMap = config2labels(mergedLabels, context.client, context.localeSettings);
   const filters = filterBuilder({ filterWidgetConfig: mergedFilters, labelMap, suggestConfigMap: mergedSuggest, context });
 
   const includedFilters = without((customConfig.includedFilters || defaultFilterConfig.included), ...(customConfig.excludedFilters || []));
@@ -63,6 +64,7 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
 
 function OccurrenceSearch({ config: customConfig = {}, pageLayout, ...props }) {
   const theme = useContext(ThemeContext);
+  const localeSettings = useContext(LocaleContext);
   // const [filter, setFilter] = useState();//useUrlState({param: 'filter', base64encode: true});
   // const [filter, setFilter] = useState({ must: { taxonKey: [2609958] } });
 
@@ -80,8 +82,8 @@ function OccurrenceSearch({ config: customConfig = {}, pageLayout, ...props }) {
       getSuggestConfig: getCommonSuggests,
       filterWidgetConfig: commonFilters,
       customConfig
-    }, { client: apiContext, formatMessage: intl.formatMessage });
-  }, [apiContext, intl]);
+    }, { client: apiContext, formatMessage: intl.formatMessage, localeSettings });
+  }, [apiContext, intl, localeSettings]);
 
   //   console.log(`%c 
   //  ,_,

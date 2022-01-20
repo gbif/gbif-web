@@ -26,7 +26,7 @@ function Download() {
   const { rootPredicate, predicateConfig } = useContext(OccurrenceContext);
   const { data, error, loading, load } = useQuery(DOWNLOAD, { lazyLoad: true });
 
-  const localePrefix = localeSettings.gbifLocale;
+  const localePrefix = localeSettings?.localeMap?.gbif_org;
 
   useEffect(() => {
     const predicate = {

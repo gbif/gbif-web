@@ -7,5 +7,9 @@ export default React.createContext({
   },
   es: {
     gbifLocale: 'es',
+    vocabularyLocale: 'es'
+  },
+  'en-DK': {
+    vocabularyLocale: 'es'
   }
 });

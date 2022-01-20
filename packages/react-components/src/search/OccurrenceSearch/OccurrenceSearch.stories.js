@@ -107,7 +107,7 @@ const config = {
   getSuggests, 
   filters, 
   occurrenceSearchTabs: ['TABLE', 'GALLERY', 'MAP', 'DATASETS'],
-  // highlightedFilters: ['gbifId'],
+  // highlightedFilters: ['establishmentMeans'],
   availableCatalogues: ['OCCURRENCE', 'LITERATURE', 'COLLECTION']
   // defaultTableColumns: ['year', 'country']
 };

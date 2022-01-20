@@ -4,8 +4,8 @@ import LocaleContext from './LocaleContext';
 import useTranslation from '../useTranslation';
 
 export function LocaleProvider({locale, messages: customMessages, ...props}) {
-  const { messages, gbifLocale, loading, error } = useTranslation({ locale });
-  return <LocaleContext.Provider value={{gbifLocale}}>
+  const { messages, localeMap, loading, error } = useTranslation({ locale });
+  return <LocaleContext.Provider value={{localeMap}}>
     <IntlProvider locale={locale} messages={customMessages || messages} {...props} />
   </LocaleContext.Provider>
 }

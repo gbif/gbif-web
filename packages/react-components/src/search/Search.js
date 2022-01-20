@@ -7,6 +7,7 @@ import { FilterState } from "../widgets/Filter/state";
 import { Root } from "../components";
 import SearchContext from './SearchContext';
 import { ApiContext } from '../dataManagement/api';
+import LocaleContext from '../dataManagement/LocaleProvider/LocaleContext';
 import ThemeContext from '../style/themes/ThemeContext';
 import { buildConfig } from './buildSearchConfig';
 import Base64JsonParam from '../dataManagement/state/base64JsonParam';
@@ -14,6 +15,7 @@ import { useQueryParam } from 'use-query-params';
 
 function Search({ config: customConfig = {}, predicateConfig, defaultFilterConfig, Table, pageLayout, ...props },) {
   const theme = useContext(ThemeContext);
+  const localeSettings = useContext(LocaleContext);
   const [filter, setFilter] = useQueryParam('filter', Base64JsonParam);
   const apiContext = useContext(ApiContext);
   const intl = useIntl();
@@ -22,7 +24,7 @@ function Search({ config: customConfig = {}, predicateConfig, defaultFilterConfi
       customConfig,
       predicateConfig,
       defaultFilterConfig
-    }, { client: apiContext, formatMessage: intl.formatMessage });
+    }, { client: apiContext, formatMessage: intl.formatMessage, localeSettings });
   }, [apiContext, intl]);
   
   const Layout = pageLayout ? PageLayout : ComponentLayout;

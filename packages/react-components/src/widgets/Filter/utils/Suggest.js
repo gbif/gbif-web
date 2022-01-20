@@ -1,8 +1,10 @@
 import React from "react";
 import { injectIntl } from 'react-intl';
 import { Autocomplete } from '../../../components/Autocomplete/Autocomplete';
+import LocaleContext from '../../../dataManagement/LocaleProvider/LocaleContext';
 
-class Suggest extends React.Component {
+class Suggest extends React.Component { 
+  static contextType = LocaleContext;
   constructor() {
     super();
 
@@ -35,7 +37,7 @@ class Suggest extends React.Component {
       error: undefined,
     });
     let canceled = false;
-    const { promise, cancel } = this.props.getSuggestions({ q: value });
+    const { promise, cancel } = this.props.getSuggestions({ q: value, localeContext: this.context });
     this.suggestions = {
       promise: promise,
       cancel: () => {

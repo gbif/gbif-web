@@ -200,7 +200,7 @@ const config =
     },
     "establishmentMeans": {
       "type": "keyword",
-      "field": "establishmentMeans"
+      "field": "establishmentMeans.concept"
     },
     "eventDate": {
       "field": "eventDate",

@@ -477,11 +477,11 @@ export const commonFilters = {
     }
   },
   establishmentMeans: {
-    type: 'ENUM',
+    type: 'SUGGEST',
     config: {
       std: {
         filterHandle: 'establishmentMeans',
-        id2labelHandle: 'establishmentMeans',
+        id2labelHandle: 'establishmentMeansVocabulary',
         translations: {
           count: 'filters.establishmentMeans.count', // translation path to display names with counts. e.g. "3 scientific names"
           name: 'filters.establishmentMeans.name',// translation path to a title for the popover and the button
@@ -490,6 +490,8 @@ export const commonFilters = {
       },
       specific: {
         options: establishmentMeans,
+        suggestHandle: 'establishmentMeans',
+        id2labelHandle: 'establishmentMeansVocabulary',
       }
     }
   },

@@ -15,7 +15,7 @@ export function buildConfig({ customConfig, predicateConfig, defaultFilterConfig
   const suggestConfigMap = getSuggestConfig({ context, suggestStyle });
   const suggestConfigMapCustom = getSuggests({ client: context.client, suggestStyle });
   const mergedSuggest = { ...suggestConfigMap, ...suggestConfigMapCustom };
-  const labelMap = config2labels(mergedLabels, context.client);
+  const labelMap = config2labels(mergedLabels, context.client, context.localeSettings);
   const filters = filterBuilder({ filterWidgetConfig: mergedFilters, labelMap, suggestConfigMap: mergedSuggest, context });
   
   const includedFilters = without((customConfig.includedFilters || defaultFilterConfig.included), ...(customConfig.excludedFilters || []));
