@@ -51,6 +51,7 @@ export const FilterContent = ({ config, translations, labelledById, LabelFromID,
       return <>
         <Suggest
           {...suggestConfig}
+          allowEmptyQueries={config?.specific?.allowEmptyQueries}
           focusRef={focusRef}
           onKeyPress={e => e.which === keyCodes.ENTER ? onApply({ filter, hide }) : null}
           /*onKeyPress={e => {

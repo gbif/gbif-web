@@ -32,6 +32,9 @@ class Suggest extends React.Component {
       this.suggestions.cancel();
       if (this.suggestions?.promise?.cancel) this.suggestions.promise.cancel();
     }
+    if (!this.props.allowEmptyQueries && value === '') {
+      return;
+    }
     this.setState({
       loading: true,
       error: undefined,

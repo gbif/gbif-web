@@ -492,6 +492,7 @@ export const commonFilters = {
         options: establishmentMeans,
         suggestHandle: 'establishmentMeans',
         id2labelHandle: 'establishmentMeansVocabulary',
+        allowEmptyQueries: true
       }
     }
   },
