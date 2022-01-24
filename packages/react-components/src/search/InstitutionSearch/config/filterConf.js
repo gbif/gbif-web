@@ -1,4 +1,4 @@
-export const all = [
+export const filters = [
   'q', 'code', 'city', 'country', 'name'
 ].sort();
 
@@ -6,4 +6,4 @@ const highlighted = [
   'q', 'code', 'city', 'country'
 ];
 
-export default { filters: all, included: all, highlighted };
+export default { filters, included: filters, highlighted };

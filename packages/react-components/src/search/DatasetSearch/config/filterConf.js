@@ -1,4 +1,4 @@
-export const all = [
+export const filters = [
   'q',
   'datasetType',
   'license',
@@ -27,4 +27,4 @@ const highlighted = [
   'license',
 ];
 
-export default { filters: all, included: included, highlighted };
+export default { filters, included: included, highlighted };

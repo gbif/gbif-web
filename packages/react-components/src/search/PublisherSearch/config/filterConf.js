@@ -1,4 +1,4 @@
-export const all = [
+export const filters = [
   'q',
   'countrySingle',
   'networkKey'
@@ -9,4 +9,4 @@ const highlighted = [
   'countrySingle'
 ];
 
-export default { filters: all, included: highlighted, highlighted };
+export default { filters, included: highlighted, highlighted };

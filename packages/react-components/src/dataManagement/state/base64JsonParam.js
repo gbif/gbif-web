@@ -1,6 +1,6 @@
 import { Base64 } from 'js-base64';
 
-const Base64JsonParam = {
+export const Base64JsonParam = {
   encode: obj => obj ? Base64.encode(JSON.stringify(obj)) : undefined,
   decode: obj => {
     try {

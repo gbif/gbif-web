@@ -1,4 +1,4 @@
-export const all = [
+export const filters = [
   'taxonKey',
   'country',
   'publishingCountryCode',
@@ -54,4 +54,4 @@ const highlighted = [
   'occurrenceIssue'
 ];
 
-export default { filters: all, included: all, highlighted };
+export default { filters, included: filters, highlighted };

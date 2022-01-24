@@ -15,7 +15,8 @@ function StandardSearch({presentationComponent:PresentationComponent=ResultsTabl
   const { data, error, loading, load } = useQuery(graphQuery, { lazyLoad: true });
 
   useEffect(() => {
-    const filter = { ...filter2v1(currentFilterContext.filter, predicateConfig), ...rootPredicate };
+    const { v1Filter, error } = filter2v1(currentFilterContext.filter, predicateConfig);
+    const filter = { ...v1Filter, ...rootPredicate };
     
     load({ keepDataWhileLoading: true, variables: { ...filter, limit, offset } });
   }, [currentFilterContext.filterHash, rootPredicate, offset]);
