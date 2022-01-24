@@ -1,4 +1,5 @@
-import get from 'lodash/get';
+import { filters } from './filterConf';
+// import get from 'lodash/get';
 // import snakeCase from 'lodash/snakeCase';
 // const enum_case = str => snakeCase(str || '').toUpperCase();
 
@@ -21,10 +22,31 @@ const filterConf = {
   },
   fields: {
     q: {
-      defaultType: 'fuzzy'
+      defaultType: 'fuzzy',
+      v1: {
+        supportedTypes: ['fuzzy']
+      }
     },
     coordinateUncertainty: {
-      defaultKey: 'coordinateUncertaintyInMeters'
+      defaultKey: 'coordinateUncertaintyInMeters',
+      v1: {
+        supportedTypes: ['range', 'equals']
+      }
+    },
+    sampleSizeValue: {
+      v1: {
+        supportedTypes: ['range', 'equals']
+      }
+    },
+    relativeOrganismQuantity: {
+      v1: {
+        supportedTypes: ['range', 'equals']
+      }
+    },
+    elevation: {
+      v1: {
+        supportedTypes: ['range', 'equals']
+      }
     },
     publisherKey: {
       defaultKey: 'publishingOrg'
@@ -32,9 +54,9 @@ const filterConf = {
     publishingCountryCode: {
       defaultKey: 'publishingCountry'
     },
-    identifiedBy: {
-      defaultType: 'like'
-    },
+    // identifiedBy: {
+    //   defaultType: 'equals'
+    // },
     occurrenceIssue: {
       defaultKey: 'issue'
     },
@@ -59,8 +81,30 @@ const filterConf = {
       //     must_not: other
       //   }
       // }
-    }
+    },
+    year: {
+      defaultType: 'range',
+      v1: {
+        supportedTypes: ['range', 'equals']
+      }
+    },
+    depth: {
+      defaultType: 'range',
+      v1: {
+        supportedTypes: ['range', 'equals']
+      }
+    },
+    organismQuantity: {
+      defaultType: 'range',
+      v1: {
+        supportedTypes: ['range', 'equals']
+      }
+    },
   }
 }
+
+filters.forEach(filter => {
+  filterConf.fields[filter] = filterConf.fields[filter] || {};
+});
 
 export default filterConf;

@@ -96,7 +96,7 @@ function Table() {
 
   // https://stackoverflow.com/questions/55075604/react-hooks-useeffect-only-on-update
   useUpdateEffect(() => {
-    setFrom(0);
+    // if (from !== 0) setFrom(0);
   }, [currentFilterContext.filterHash]);
 
   const next = useCallback(() => {

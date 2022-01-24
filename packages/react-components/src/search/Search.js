@@ -1,20 +1,23 @@
 // this comment tells babel to convert jsx to calls to a function called jsx instead of React.createElement
-import React, { useMemo, useContext } from 'react';
+import React, { useMemo, useContext, useCallback, useState, useEffect } from 'react';
 import { useIntl } from 'react-intl';
 import ComponentLayout from './StandardSearchLayout';
 import PageLayout from './StandardSearchPageLayout';
-import { FilterState } from "../widgets/Filter/state";
+import { FilterState, FilterContext } from "../widgets/Filter/state";
 import { Root } from "../components";
 import SearchContext from './SearchContext';
 import { ApiContext } from '../dataManagement/api';
 import ThemeContext from '../style/themes/ThemeContext';
 import { buildConfig } from './buildSearchConfig';
-import Base64JsonParam from '../dataManagement/state/base64JsonParam';
-import { useQueryParam } from 'use-query-params';
+import { useFilterParams } from '../dataManagement/state/useFilterParams';
+
+// import { useQueryParams, StringParam, ArrayParam } from 'use-query-params';
+// import { filter2v1 } from '../dataManagement/filterAdapter';
 
 function Search({ config: customConfig = {}, predicateConfig, defaultFilterConfig, Table, pageLayout, ...props },) {
   const theme = useContext(ThemeContext);
-  const [filter, setFilter] = useQueryParam('filter', Base64JsonParam);
+  const [filter, setFilter, updateParams] = useFilterParams({predicateConfig});
+  
   const apiContext = useContext(ApiContext);
   const intl = useIntl();
   const config = useMemo(() => {

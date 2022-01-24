@@ -16,6 +16,7 @@ import { commonFilters, filterBuilder } from '../../utils/filterBuilder';
 import predicateConfig from './config/predicateConfig';
 import ThemeContext from '../../style/themes/ThemeContext';
 import Base64JsonParam from '../../dataManagement/state/base64JsonParam';
+import { useFilterParams } from '../../dataManagement/state/useFilterParams';
 import { useQueryParam, JsonParam } from 'use-query-params';
 import defaultFilterConfig from './config/filterConf';
 import pick from 'lodash/pick';
@@ -66,7 +67,8 @@ function OccurrenceSearch({ config: customConfig = {}, pageLayout, ...props }) {
   // const [filter, setFilter] = useState();//useUrlState({param: 'filter', base64encode: true});
   // const [filter, setFilter] = useState({ must: { taxonKey: [2609958] } });
 
-  const [filter, setFilter] = useQueryParam('filter', Base64JsonParam);
+  // const [filter, setFilter] = useQueryParam('filter', Base64JsonParam);
+  const [filter, setFilter] = useFilterParams({predicateConfig});
 
   const Layout = pageLayout ? PageLayout : ComponentLayout;
   // let filter = { must: { taxonKey: [2609958] } };

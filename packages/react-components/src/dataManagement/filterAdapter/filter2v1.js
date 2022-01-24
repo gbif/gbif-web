@@ -11,25 +11,33 @@ function filter2v1(filter, filterConfig) {
   const { must, must_not } = filter;
 
   let composedFilter = {};
+  let errors = [];
 
   if (must) Object.entries(must)
     .filter(([filterName, values]) => values)
     .forEach(([filterName, values]) => {
-      const fieldFilter = getField({ filterName, values, filterConfig });
+      const fieldFilter = getField({ filterName, values, filterConfig, errors });
       if (fieldFilter) composedFilter[fieldFilter.name] = fieldFilter.values;
     });
   
-  if (must_not) Object.entries(must_not)
-    .filter(([filterName, values]) => values)
-    .forEach(([filterName, values]) => {
-      const fieldFilter = getField({ filterName, values, filterConfig });
-      if (fieldFilter) composedFilter[`!${fieldFilter.name}`] = fieldFilter.values;
-    });
+  // Negation support removed as discussed in https://github.com/gbif/hosted-portals/issues/209
+  // See commit history for version that supported negations
+  if (must_not) {
+    const negatedFields = Object.entries(must_not).filter(([filterName, values]) => values);
+    if (negatedFields.length > 0) {
+      errors.push({
+        errorType: 'UNSUPPORTED_NEGATED_PREDICATE'
+      });
+    }
+  }
 
-  return composedFilter;
+  return {
+    v1Filter: composedFilter,
+    errors: errors.length > 0 ? errors : undefined
+  };
 }
 
-function getField({ filterName, values, filterConfig }) {
+function getField({ filterName, values, filterConfig, errors }) {
   // if no values or an empty array is provided, then there it no predicates to create
   if (values?.length === 0) return;
 
@@ -40,8 +48,8 @@ function getField({ filterName, values, filterConfig }) {
   let mappedValues = typeof config?.transformValue === 'function' ? values.map(config.transformValue) : values;
 
   let serializedValues = mappedValues
-    .map(value => serializeValue({value, config, filterName}))
-    .filter(v => typeof v !== 'undefined');// remove filters that couldn't be transformed to a predicate
+    .map(value => serializeValue({value, config, filterName, errors}))
+    .filter(v => typeof v !== 'undefined');// remove filters that couldn't be parsed
   
   if (config.singleValue) {
     serializedValues = serializedValues[0];
@@ -53,25 +61,46 @@ function getField({ filterName, values, filterConfig }) {
   }
 }
 
-function serializeValue({value, config, filterName}) {
+function serializeValue({value, config, filterName, errors}) {
   // if already string or value, then simply return as is
+  const type = value?.type || config?.defaultType || 'equals';
+  const v1Types = config?.v1?.supportedTypes || ['equals'];
+
+  // test that the type is compatible with API v1
+  if (!v1Types.includes(type)) {
+    errors.push({
+      errorType: 'INVALID_PREDICATE_TYPE',
+      filterName,
+      type
+    });
+    return;
+  }
+
+
   if (typeof value === 'string' || typeof value === 'number') {
     return value;
   } else if (typeof value === 'object' && value !== null) {
     //serlialize object if known type
-    if (['equals', 'fuzzy', 'like', 'within'].includes(value?.type || config?.defaultType || 'equals')) {
+    if (['equals', 'fuzzy', 'like', 'within'].includes(type)) {
       return value.value;
-    } else if((value?.type || config?.defaultType) === 'range' ) {
+    } else if(type === 'range' ) {
       // if a range query, then transform to string format
       return `${value.value.gte || value.value.gt || '*'},${value.value.lte || value.value.lgt || '*'}`;
-    } else if((value?.type || config?.defaultType) === 'isNotNull' ) {
-      // if a range query, then transform to string format
-      return `*`;
     } else {
-      console.warn('Invalid filter provided. It will be ignored. Provided: ', value);  
+      errors.push({
+        errorType: 'UNKNOWN_PREDICATE_TYPE',
+        filterName,
+        type
+      });
+      return;
     }
   } else {
-    console.warn('Invalid filter provided. It will be ignored. Provided: ', value);
+    errors.push({
+      errorType: 'UNKNOWN_PREDICATE_VALUE_FORMAT',
+      filterName,
+      type
+    });
+    return;
   }
 }
 

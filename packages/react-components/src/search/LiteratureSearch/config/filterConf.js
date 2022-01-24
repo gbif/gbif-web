@@ -1,4 +1,4 @@
-export const all = [
+export const filters = [
   'q',
   'year',
   'countriesOfResearcher',
@@ -15,4 +15,4 @@ const highlighted = [
   'datasetKey'
 ];
 
-export default { filters: all, included: all, highlighted };
+export default { filters, included: filters, highlighted };
