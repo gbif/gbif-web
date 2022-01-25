@@ -402,6 +402,18 @@
     "source": "DwcTerm"
   },
   {
+    "simpleName": "degreeOfEstablishment",
+    "qualifiedName": "http://rs.tdwg.org/dwc/terms/degreeOfEstablishment",
+    "group": "Occurrence",
+    "source": "DwcTerm"
+  },
+  {
+    "simpleName": "pathway",
+    "qualifiedName": "http://rs.tdwg.org/dwc/terms/pathway",
+    "group": "Occurrence",
+    "source": "DwcTerm"
+  },
+  {
     "simpleName": "reproductiveCondition",
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/reproductiveCondition",
     "group": "Occurrence",

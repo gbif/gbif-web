@@ -56,6 +56,7 @@ const typeDef = gql`
     day: Int
     decimalLatitude: Float
     decimalLongitude: Float
+    degreeOfEstablishment: String # Is a vocabulary, but only a string in the schema for now
     depth: Float
     depthAccuracy: Float
     description: String
@@ -191,6 +192,7 @@ const typeDef = gql`
     parentEventID: String
     parentNameUsage: String
     parentNameUsageID: String
+    pathway: String # Is a vocabulary, but only a string in the schema for now
     phylum: String
     phylumKey: ID
     pointRadiusSpatialFit: String
