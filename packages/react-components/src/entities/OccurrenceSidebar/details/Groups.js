@@ -107,6 +107,8 @@ function Occurrence({ showAll, termMap, occurrence, setActiveImage }) {
     'associatedTaxa',
     'otherCatalogNumbers',
     'occurrenceRemarks',
+    'degreeOfEstablishment',
+    'pathway',
     'associatedMedia'].find(x => termMap[x]);
   if (!hasContent) return null;
 
@@ -123,7 +125,11 @@ function Occurrence({ showAll, termMap, occurrence, setActiveImage }) {
       <PlainTextField term={termMap.lifeStage} showDetails={showAll} />
       <PlainTextField term={termMap.reproductiveCondition} showDetails={showAll} />
       <PlainTextField term={termMap.behavior} showDetails={showAll} />
+      {/* Voabularies and should really be translated as such */}
       <PlainTextField term={termMap.establishmentMeans} showDetails={showAll} />
+      <PlainTextField term={termMap.degreeOfEstablishment} showDetails={showAll} />
+      <PlainTextField term={termMap.pathway} showDetails={showAll} />
+      
       <EnumField term={termMap.occurrenceStatus} showDetails={showAll} getEnum={value => `enums.occurrenceStatus.${value}`} />
       <PlainTextField term={termMap.preparations} showDetails={showAll} />
       <PlainTextField term={termMap.disposition} showDetails={showAll} />
