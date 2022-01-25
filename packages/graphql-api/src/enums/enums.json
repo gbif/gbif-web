@@ -13,15 +13,15 @@
     "IPT"
   ],
   "BasisOfRecord": [
+    "OBSERVATION",
+    "MACHINE_OBSERVATION",
+    "HUMAN_OBSERVATION",
+    "MATERIAL_SAMPLE",
+    "MATERIAL_CITATION",
     "PRESERVED_SPECIMEN",
     "FOSSIL_SPECIMEN",
     "LIVING_SPECIMEN",
-    "OBSERVATION",
-    "HUMAN_OBSERVATION",
-    "MACHINE_OBSERVATION",
-    "MATERIAL_SAMPLE",
-    "LITERATURE",
-    "UNKNOWN"
+    "OCCURRENCE"
   ],
   "CitesAppendix": [
     "I",
