@@ -200,12 +200,14 @@ function reduce(item) {
     verbatimDepth:                      source.verbatim.core['http://rs.tdwg.org/dwc/terms/verbatimDepth'],
     verbatimElevation:                  source.verbatim.core['http://rs.tdwg.org/dwc/terms/verbatimElevation'],
     verbatimEventDate:                  source.verbatim.core['http://rs.tdwg.org/dwc/terms/verbatimEventDate'],
+    verbatimIdentification:             source.verbatim.core['http://rs.tdwg.org/dwc/terms/verbatimIdentification'],
     verbatimLatitude:                   source.verbatim.core['http://rs.tdwg.org/dwc/terms/verbatimLatitude'],
     verbatimLocality:                   source.verbatim.core['http://rs.tdwg.org/dwc/terms/verbatimLocality'],
     verbatimLongitude:                  source.verbatim.core['http://rs.tdwg.org/dwc/terms/verbatimLongitude'],
     verbatimSRS:                        source.verbatim.core['http://rs.tdwg.org/dwc/terms/verbatimSRS'],
     verbatimTaxonRank:                  source.verbatim.core['http://rs.tdwg.org/dwc/terms/verbatimTaxonRank'],
     vernacularName:                     source.verbatim.core['http://rs.tdwg.org/dwc/terms/vernacularName'],
+    verticalDatum:                      source.verbatim.core['http://rs.tdwg.org/dwc/terms/verticalDatum'],
   });
     
   const normalized = {

@@ -20,8 +20,9 @@ export const Example = () => <Router initialEntries={[`/`]}>
     {/* <OccurrenceSidebar id={text('id', '1702253346')} style={{maxWidth: '100%', width: 700, height: 'calc(100vh - 20px)', flex: '0 0 auto'}} /> */}
     {/* <OccurrenceSidebar id={text('id', '3032729981')} style={{maxWidth: '100%', width: 700, height: 'calc(100vh - 20px)', flex: '0 0 auto'}} /> */}
 
-    {/* fossil */}
-    <OccurrenceSidebar id={text('id', '1316970267')} style={{maxWidth: '100%', width: 700, height: 'calc(100vh - 20px)', flex: '0 0 auto'}} />
+    {/* fossil 1316970267*/}
+    {/* new fields 3005208301*/}
+    <OccurrenceSidebar id={text('id', '3005208301')} style={{maxWidth: '100%', width: 700, height: 'calc(100vh - 20px)', flex: '0 0 auto'}} />
     {/* <StyledProse source={readme}></StyledProse> */}
   </div>
 </Router>;

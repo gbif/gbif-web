@@ -260,6 +260,9 @@ const typeDef = gql`
     vernacularName: String
     waterBody: String
     year: Int
+    verbatimIdentification: String
+    verticalDatum: String
+
 
     """
     Volatile: this is currently an exact mapping of the record in Elastic Search - the format is likely to change over time
