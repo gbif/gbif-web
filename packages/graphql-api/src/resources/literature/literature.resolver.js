@@ -7,10 +7,26 @@
 */
 module.exports = {
   Query: {
-    literatureSearch: (parent, args, { dataSources }) =>
-      dataSources.literatureAPI.searchLiterature({query: args}),
+    literatureSearch: (parent, {predicate, ...params}) => {
+      return {
+        _predicate: predicate,
+        _params: params
+      };
+    },
     literature: (parent, { key }, { dataSources }) =>
       dataSources.literatureAPI.getLiteratureByKey({ key })
+  },
+  LiteratureSearchResult: {
+    documents: (parent, query, { dataSources }) => {
+      return dataSources.literatureAPI.searchLiteratureDocuments({
+        query: { predicate: parent._predicate, ...parent._params, ...query }
+      });
+    },
+    _meta: (parent, query, { dataSources }) => {
+      return dataSources.literatureAPI.meta({
+        query: { predicate: parent._predicate }
+      });
+    }
   },
   Literature: {
     // someField: ({ fieldWithKey: key }, args, { dataSources }) => {

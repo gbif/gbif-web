@@ -5,8 +5,9 @@ import { AltmetricDonut } from '../../../../components';
 import { MdLink } from 'react-icons/md';
 
 const QUERY = `
-query list($publisher:[String], $source: [String], $doi: [String], $gbifDownloadKey: [ID], $openAccess: Boolean, $peerReview: Boolean, $publishingOrganizationKey: [ID], $topics: [String], $relevance: [String], $year: [String], $literatureType: [String], $countriesOfCoverage: [Country], $countriesOfResearcher: [Country], $gbifDatasetKey: [ID], $q: String, $offset: Int, $limit: Int, ){
-  literatureSearch(gbifDatasetKey: $gbifDatasetKey, 
+query list($predicate: Predicate, $publisher:[String], $source: [String], $doi: [String], $gbifDownloadKey: [ID], $openAccess: Boolean, $peerReview: Boolean, $publishingOrganizationKey: [ID], $topics: [String], $relevance: [String], $year: [String], $literatureType: [String], $countriesOfCoverage: [Country], $countriesOfResearcher: [Country], $gbifDatasetKey: [ID], $q: String, $offset: Int, $limit: Int, ){
+  literatureSearch(predicate:$predicate, 
+    gbifDatasetKey: $gbifDatasetKey, 
     q: $q, 
     countriesOfResearcher: $countriesOfResearcher, 
     countriesOfCoverage: $countriesOfCoverage, 
@@ -24,22 +25,24 @@ query list($publisher:[String], $source: [String], $doi: [String], $gbifDownload
     limit: $limit, 
     offset: $offset
     ) {
-    count
-    offset
-    limit
-    results {
-      title
-      abstract
-      authors {
-        firstName
-        lastName
+    documents {
+      count
+      offset
+      limit
+      results {
+        title
+        abstract
+        authors {
+          firstName
+          lastName
+        }
+        literatureType
+        year
+        identifiers {
+          doi
+        }
+        websites
       }
-      literatureType
-      year
-      identifiers {
-        doi
-      }
-      websites
     }
   }
 }
@@ -47,10 +50,10 @@ query list($publisher:[String], $source: [String], $doi: [String], $gbifDownload
 
 
 function getLink(item) {
-  if (item.identifiers.doi) {
+  if (item?.identifiers?.doi) {
     return `https://doi.org/${item.identifiers.doi}`;
   }
-  return item.websites[0];
+  return item?.websites?.[0];
 }
 
 const defaultTableConfig = {
