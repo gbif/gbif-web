@@ -14,10 +14,6 @@ export const commonLabels = {
     type: 'TRANSLATION',
     template: id => id
   },
-  catalogNumber: {
-    type: 'TRANSLATION',
-    template: id => id
-  },
   mediaType: {
     type: 'TRANSLATION',
     template: id => `enums.mediaType.${id}`
@@ -120,10 +116,10 @@ export const commonLabels = {
     type: 'TRANSLATION',
     template: id => `enums.establishmentMeans.${id}`
   },
-  catalogNumber: {
-    type: 'TRANSLATION',
-    template: id => id
-  },
+  // catalogNumber: {
+  //   type: 'TRANSLATION',
+  //   template: id => id
+  // },
   recordNumber: {
     type: 'TRANSLATION',
     template: id => id

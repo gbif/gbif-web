@@ -163,9 +163,11 @@ export const commonFilters = {
     }
   },
   catalogNumber: {
-    type: 'SUGGEST',
+    type: 'KEYWORD_SEARCH',//KEYWORD_SEARCH | SUGGEST
     config: {
       std: {
+        filterHandle: 'catalogNumber',// if nothing else provided, then this is the filterName used
+        id2labelHandle: 'catalogNumber',
         translations: {
           count: 'filters.catalogNumber.count', // translation path to display names with counts. e.g. "3 scientific names"
           name: 'filters.catalogNumber.name',// translation path to a title for the popover and the button
@@ -173,11 +175,60 @@ export const commonFilters = {
         },
       },
       specific: {
-        suggestHandle: 'catalogNumber',
+        id2labelHandle: 'catalogNumber',
+        placeholder: 'Search for a catalog number',
         supportsExist: true,
+        query: `
+          query keywordSearch($predicate: Predicate, $size: Int){
+            occurrenceSearch(predicate: $predicate) {
+              cardinality {
+                catalogNumber
+              }
+              facet {
+                catalogNumber(size: $size) {
+                  key
+                  count
+                }
+              }
+            }
+          }
+        `,
+        queryKey: 'catalogNumber'
       }
     }
+    // type: 'SUGGEST',
+    // config: {
+    //   std: {
+    //     translations: {
+    //       count: 'filters.catalogNumber.count', // translation path to display names with counts. e.g. "3 scientific names"
+    //       name: 'filters.catalogNumber.name',// translation path to a title for the popover and the button
+    //       description: 'filters.catalogNumber.description', // translation path for the filter description
+    //     },
+    //   },
+    //   specific: {
+    //     suggestHandle: 'catalogNumber',
+    //     supportsExist: true,
+    //   }
+    // }
   },
+  // catalogNumber: {
+  //   type: 'SUGGEST',
+  //   config: {
+  //     std: {
+  //       filterHandle: 'catalogNumber',// if nothing else provided, then this is the filterName used
+  //       id2labelHandle: 'catalogNumber',
+  //       translations: {
+  //         count: 'filters.catalogNumber.count', // translation path to display names with counts. e.g. "3 scientific names"
+  //         name: 'filters.catalogNumber.name',// translation path to a title for the popover and the button
+  //         description: 'filters.catalogNumber.description', // translation path for the filter description
+  //       },
+  //     },
+  //     specific: {
+  //       suggestHandle: 'catalogNumber',
+  //       id2labelHandle: 'catalogNumber',
+  //     }
+  //   }
+  // },
   hostingOrganizationKey: {
     type: 'SUGGEST',
     config: {
@@ -490,24 +541,6 @@ export const commonFilters = {
       },
       specific: {
         options: establishmentMeans,
-      }
-    }
-  },
-  catalogNumber: {
-    type: 'SUGGEST',
-    config: {
-      std: {
-        filterHandle: 'catalogNumber',// if nothing else provided, then this is the filterName used
-        id2labelHandle: 'catalogNumber',
-        translations: {
-          count: 'filters.catalogNumber.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.catalogNumber.name',// translation path to a title for the popover and the button
-          description: 'filters.catalogNumber.description', // translation path for the filter description
-        },
-      },
-      specific: {
-        suggestHandle: 'catalogNumber',
-        id2labelHandle: 'catalogNumber',
       }
     }
   },
