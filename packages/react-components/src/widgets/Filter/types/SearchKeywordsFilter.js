@@ -44,7 +44,7 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
           "value": `${q}`
         });
       }
-console.log(size);
+
       load({
         keepDataWhileLoading: size > initialSize,
         variables: {
@@ -145,11 +145,12 @@ console.log(size);
                   <OptionSkeleton helpVisible />
                 </>}
                 {items && <>
-                  {!config.disallowLikeFilters && q !== '' && <div style={{borderBottom: '1px solid #eee', marginBottom: 12, paddingBottom: 12}}><Option
+                  {!config.disallowLikeFilters && q !== '' && <div style={{borderBottom: '1px solid #eee', marginBottom: 12, paddingBottom: 12}}>
+                    <Option
                     key={q}
                     loading={loading}
                     helpVisible={true}
-                    helpText={<FormattedMessage id="filterSupport.useWildcardPattern" defaultMessage="Search for the pattern"/>}
+                    helpText={<FormattedMessage id="filterSupport.useWildcardPattern" defaultMessage="Search for the pattern" values={{distinct: data?.occurrenceSearch?.cardinality?.[queryKey]}}/>}
                     label={q}
                     checked={checkedMap.has(hash({type: 'like', value: q}))}
                     onChange={() => {

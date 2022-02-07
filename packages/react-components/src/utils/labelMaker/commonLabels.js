@@ -14,10 +14,6 @@ export const commonLabels = {
     type: 'TRANSLATION',
     template: id => id
   },
-  catalogNumber: {
-    type: 'TRANSLATION',
-    template: id => id
-  },
   mediaType: {
     type: 'TRANSLATION',
     template: id => `enums.mediaType.${id}`

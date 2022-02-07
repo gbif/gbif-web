@@ -81,7 +81,19 @@ const config = {
   labels, 
   getSuggests, 
   filters, 
-  // rootFilter: {countriesOfResearcher: ['MX']}
+  // rootFilter: {predicate: {type: 'or', predicates: [
+  //   {
+  //     type: 'in', 
+  //     key: 'countriesOfResearcher',
+  //     values: ['US', 'UM', 'AS', 'FM', 'GU', 'MH', 'MP', 'PR', 'PW', 'VI']
+  //   },
+  //   {
+  //     type: 'in', 
+  //     key: 'countriesOfCoverage',
+  //     values: ['US', 'UM', 'AS', 'FM', 'GU', 'MH', 'MP', 'PR', 'PW', 'VI']
+  //   }
+  // ]}},
+  // rootFilter: {countriesOfResearcher: ['MX']},
   availableCatalogues: ['OCCURRENCE', 'LITERATURE'],
 };
 

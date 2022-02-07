@@ -5,6 +5,7 @@ const typeDef = gql`
     literatureSearch(
       limit: Int, 
       offset: Int, 
+      predicate: Predicate,
       q: String,
       countriesOfResearcher: [Country],
       countriesOfCoverage: [Country],
@@ -20,39 +21,43 @@ const typeDef = gql`
       doi: [String],
       source: [String],
       publisher: [String]
-      ): LiteratureSearchResults
+      ): LiteratureSearchResult
     literature(key: ID!): Literature
   }
 
-  type LiteratureSearchResults {
+  type LiteratureSearchResult {
+    """
+    The literature that match the filter
+    """
+    documents(limit: Int, offset: Int): LiteratureDocuments!
+    _predicate: JSON
+    _meta: JSON
+  }
+
+  type LiteratureDocuments {
     results: [Literature]!
     limit: Int!
     offset: Int!
     count: Int!
-    endOfRecords: Boolean!
   }
 
   type Literature {
     id: ID
     abstract: String
-    added: String
     authors: [Author]
     countriesOfCoverage: [String]
     countriesOfResearcher: [String]
     day: Int
-    discovered: String
     gbifDownloadKey: [ID]
     gbifRegion: [GbifRegion]
     identifiers: LiteratureIdentifiers
     keywords: [String]
     language: Language
     literatureType: String
-    modified: DateTime
     month: Int
     notes: String
     openAccess: Boolean
     peerReview: Boolean
-    published: String
     publisher: String
     relevance: [String]
     source: String

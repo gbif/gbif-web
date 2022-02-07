@@ -49,6 +49,7 @@ const typeDef = gql`
     datasetKey: Int!
     publishingOrgKey: Int!
     recordedBy: Int!
+    catalogNumber: Int!
     identifiedBy: Int!
     locality: Int!
     waterBody: Int!
