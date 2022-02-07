@@ -1,7 +1,7 @@
 // const { ApolloError } = require('apollo-server');
 const { RESTDataSource } = require('apollo-datasource-rest');
 const config = require('../../config');
-const { apiEs, apiEsKey, apiv1 } = config;
+const { apiEs, apiEsKey, apiv1, apiv2 } = config;
 const urlSizeLimit = 2000; // use GET for requests that serialized is less than N characters
 
 class OccurrenceAPI extends RESTDataSource {
@@ -65,6 +65,20 @@ class OccurrenceAPI extends RESTDataSource {
     const body = { ...query };
     const response = await this.post('/occurrence/meta', body);
     return response;
+  }
+
+  async registerPredicate({ predicate }) {
+    try {
+    let response = await this.post(`${apiv2}/map/occurrence/adhoc/predicate/`, predicate, { signal: this.context.abortController.signal });
+    return response;
+    } catch(err) {
+      return {
+        err: {
+          error: 'FAILED_TO_REGISTER_PREDICATE'
+        },
+        predicate: null
+      }
+    }
   }
 
   /*

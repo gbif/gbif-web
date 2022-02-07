@@ -60,18 +60,9 @@ class Map extends Component {
   }
 
   addLayer() {
-    var tileString =
-      //"https://esmap.gbif-dev.org/api/tile/{x}/{y}/{z}.mvt?field=coordinates&url=" +
-      `${env.TILE_API}/api/tile/point/{x}/{y}/{z}.mvt?resolution=medium&field=coordinates` +
-      // "http://labs.gbif.org:7012/api/tile/point/{x}/{y}/{z}.mvt?resolution=medium&field=coordinates&url=" +
-      // "http://localhost:4000/tile/point/{x}/{y}/{z}.mvt?resolution=medium&field=coordinates&url=" +
-      // "http://localhost:7012/api/tile/point/{x}/{y}/{z}.mvt?resolution=medium&field=coordinates" +
-      // "http://localhost:3000/api/tile/significant/{x}/{y}/{z}.mvt?field=coordinate_point&significantField=backbone.speciesKey&url=" +
-      //"http://localhost:3001/api/tile/point/{x}/{y}/{z}.mvt?resolution=high&field=coordinates&url=" +
-      "&filter=" + encodeURIComponent(JSON.stringify(this.props.query));
-    // tileString = `https://api.gbif.org/v2/map/occurrence/adhoc/{z}/{x}/{y}.mvt?style=scaled.circles&mode=GEO_CENTROID&locale=en&advanced=false&srs=EPSG%3A4326&squareSize=256`;
+    var tileString = `${env.API_V2}/map/occurrence/adhoc/{z}/{x}/{y}.mvt?style=scaled.circles&mode=GEO_CENTROID&srs=EPSG%3A3857&squareSize=256&predicateHash=${this.props.predicateHash}`;
     this.map.addLayer(
-      getLayerConfig({tileString, theme: this.props.theme}),
+      getLayerConfig({ tileString, theme: this.props.theme }),
       "poi-scalerank2"
     );
 
@@ -95,9 +86,8 @@ class Map extends Component {
         // Change the cursor style as a UI indicator.
         map.getCanvas().style.cursor = 'pointer';
       });
-      
+
       map.on('click', 'occurrences', e => {
-        // console.log(e.features[0].properties);
         this.onPointClick({ geohash: e.features[0].properties.geohash, count: e.features[0].properties.count });
         e.preventDefault();
       });
@@ -109,12 +99,18 @@ class Map extends Component {
       map.on('click', e => {
         if (!e._defaultPrevented && this.props.onMapClick) this.props.onMapClick();
       });
+
+      map.on('error', e => {
+        if (e?.error?.status === 400 && this.props.registerPredicate) {
+          this.props.registerPredicate();
+        }
+      });
     }
     this.mapLoaded = true;
   }
 
   render() {
-    const { query, onMapClick, onPointClick, ...props } = this.props;
+    const { query, onMapClick, onPointClick, predicateHash, ...props } = this.props;
     return <div ref={this.myRef} {...props} />
   }
 }

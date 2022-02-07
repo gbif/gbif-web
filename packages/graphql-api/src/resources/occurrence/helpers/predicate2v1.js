@@ -1,11 +1,20 @@
 const _ = require('lodash');
+const hash = require('object-hash');
 
+const emptyAndHash = hash({ "type": "and", "predicates": [] });
 module.exports = function (predicate) {
   if (!predicate) {
     return {}
   }
   try {
-    const copy = JSON.parse(JSON.stringify(predicate));
+    const strCopy = JSON.stringify(predicate);
+    if (hash(predicate) === emptyAndHash) {
+      return {
+        err: null,
+        predicate: null
+      }
+    }
+    const copy = JSON.parse(strCopy);
     const withRange = convertRangeType(copy);
     // const withLike = convertLikePredicates(withRange);
     const notIssues = convertNotIssues(withRange);
@@ -13,7 +22,7 @@ module.exports = function (predicate) {
     const removedEmpty = removeEmpty(withNotNull);
     const nestingSimplified = removeExcessiveNesting(removedEmpty);
     const withCase = uppercaseKeys(nestingSimplified);
-    
+
     //check for simple known errors
     if (hasFuzzyTypes(withCase)) return {
       err: {

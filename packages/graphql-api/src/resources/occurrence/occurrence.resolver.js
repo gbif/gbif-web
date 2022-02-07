@@ -49,11 +49,13 @@ const facetOccurrenceSearch = (parent) => {
 */
 module.exports = {
   Query: {
-    occurrenceSearch: (parent, args) => {
+    occurrenceSearch: (parent, args, { dataSources }) => {
       // dataSources.occurrenceAPI.searchOccurrences({ query: args }),
+      const v1Predicate = predicate2v1(args.predicate);
       return {
         _predicate: args.predicate,
-        _downloadPredicate: predicate2v1(args.predicate),
+        _downloadPredicate: v1Predicate,
+        _v1PredicateHash: v1Predicate.predicate ? dataSources.occurrenceAPI.registerPredicate({predicate: v1Predicate.predicate}) : null
       };
     },
     occurrence: (parent, { key }, { dataSources }) =>
