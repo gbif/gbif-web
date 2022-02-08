@@ -6,6 +6,7 @@
   "HUMAN_OBSERVATION": "Observación humana",
   "MACHINE_OBSERVATION": "Observación con dispositivos",
   "MATERIAL_SAMPLE": "Muestra del ejemplar",
+  "MATERIAL_CITATION": "Citación de material",
   "LITERATURE": "Literatura",
   "OCCURRENCE": "Registro biológico"
 }
