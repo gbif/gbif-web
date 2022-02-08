@@ -81,6 +81,8 @@
   "reproductiveCondition": "Condition de reproduction",
   "behavior": "Comportement",
   "establishmentMeans": "Mode d'établissement",
+  "degreeOfEstablishment": "Degré d'établissement",
+  "pathway": "Chemin",
   "occurrenceStatus": "Statut de l'occurrence",
   "preparations": "Préparations",
   "disposition": "Disposition",
