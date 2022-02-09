@@ -30,18 +30,10 @@ const Layout = ({
   const elementName = 'occurrenceSearchLayout';
 
   const tabComponents = {
-    TABLE: <Tab tabId="TABLE" key="table">
-      <FormattedMessage id="search.tabs.table" defaultMessage="Table" />
-    </Tab>,
-    MAP: <Tab tabId="MAP" key="map">
-      <FormattedMessage id="search.tabs.map" defaultMessage="Map" />
-    </Tab>,
-    GALLERY: <Tab tabId="GALLERY" key="gallery">
-      <FormattedMessage id="search.tabs.gallery" defaultMessage="Gallery" />
-    </Tab>,
-    DATASETS: <Tab tabId="DATASETS" key="datasets">
-      <FormattedMessage id="search.tabs.datasets" defaultMessage="Datasets" />
-    </Tab>
+    TABLE: <NavItem key="table" label={<FormattedMessage id="search.tabs.table" defaultMessage="Table"/>} data-targetid="table" onClick={e => setActiveView('TABLE')} isActive={activeView === 'TABLE'} />,
+    MAP: <NavItem key="map" label={<FormattedMessage id="search.tabs.map" defaultMessage="Map"/>} data-targetid="map" onClick={e => setActiveView('MAP')} isActive={activeView === 'MAP'} />,
+    GALLERY: <NavItem key="gallery" label={<FormattedMessage id="search.tabs.gallery" defaultMessage="Gallery"/>} data-targetid="gallery" onClick={e => setActiveView('GALLERY')} isActive={activeView === 'GALLERY'} />,
+    DATASETS: <NavItem key="datasets" label={<FormattedMessage id="search.tabs.datasets" defaultMessage="Datasets"/>} data-targetid="dataset" onClick={e => setActiveView('DATASETS')} isActive={activeView === 'DATASETS'} />
   }
 
   return <div className={`${className} ${prefix}-${elementName}`}
@@ -52,9 +44,7 @@ const Layout = ({
       </div>
       <div>
         <NavBar style={{ marginLeft: 10 }}>
-          <NavItem label="Table" data-targetid="table" onClick={e => setActiveView('TABLE')} isActive={activeView === 'TABLE'} />
-          <NavItem label="Gallery" data-targetid="gallery" onClick={e => setActiveView('GALLERY')} isActive={activeView === 'GALLERY'} />
-          <NavItem label="Map" data-targetid="map" onClick={e => setActiveView('MAP')} isActive={activeView === 'MAP'} />
+          {tabs.map(tab => tabComponents[tab])}
           <NavItem label="Download" data-targetid="download" onClick={e => setActiveView('DOWNLOAD')} isActive={activeView === 'DOWNLOAD'} />
         </NavBar>
       </div>
@@ -63,6 +53,7 @@ const Layout = ({
       {activeView === 'TABLE' && <Table />}
       {activeView === 'MAP' && <Map />}
       {activeView === 'GALLERY' && <Gallery />}
+      {activeView === 'DATASETS' && <Datasets />}
       {activeView === 'DOWNLOAD' && <Download />}
     </div>
     {/* <div className={`${prefix}-${elementName}-footer`} css={cssFooter({ theme })}>
