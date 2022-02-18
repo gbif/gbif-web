@@ -106,10 +106,15 @@ const config = {
   labels, 
   getSuggests, 
   filters, 
-  occurrenceSearchTabs: ['TABLE', 'GALLERY', 'MAP', 'DATASETS'],
+  occurrenceSearchTabs: ['MAP', 'GALLERY', 'TABLE', 'DATASETS'],
   // highlightedFilters: ['establishmentMeans'],
-  availableCatalogues: ['OCCURRENCE', 'LITERATURE', 'COLLECTION']
+  availableCatalogues: ['OCCURRENCE', 'LITERATURE', 'COLLECTION'],
   // defaultTableColumns: ['year', 'country']
+  // mapSettings: {
+  //   zoom: 10.290782035199692,
+  //   lng: 4.378666162934309,
+  //   lat: 50.83439252440547
+  // }
 };
 // const config = { labels, getSuggests, filters, rootPredicate: {type: 'equals', key: 'publishingOrganizationKey', value: '1cd669d0-80ea-11de-a9d0-f1765f95f18b'}};
 

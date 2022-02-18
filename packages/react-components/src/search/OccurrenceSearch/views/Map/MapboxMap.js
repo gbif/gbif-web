@@ -20,8 +20,8 @@ class Map extends Component {
     this.map = new mapboxgl.Map({
       container: this.myRef.current,
       style: `mapbox://styles/mapbox/${mapStyle}`,
-      zoom: sessionStorage.getItem('mapZoom') || 0,
-      center: [sessionStorage.getItem('mapLng') || 0, sessionStorage.getItem('mapLat') || 0]
+      zoom: sessionStorage.getItem('mapZoom') || this.props.defaultMapSettings?.zoom || 0,
+      center: [sessionStorage.getItem('mapLng') || this.props.defaultMapSettings?.lng || 0, sessionStorage.getItem('mapLat') || this.props.defaultMapSettings?.lat || 0]
     });
     this.map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-left');
     this.map.on("load", this.addLayer);
