@@ -78,10 +78,10 @@ export function DatasetPresentation({
               <span><FormattedNumber value={occurrenceSearch.documents.total} /> occurrences</span>
             </div>}
             
-            {literatureSearch.count > 0 && <div css={countFeature({ theme })}>
+            {literatureSearch.document?.count > 0 && <div css={countFeature({ theme })}>
               <span>
                 <MdFormatQuote />
-                <FormattedNumber value={literatureSearch.count} />
+                <FormattedNumber value={literatureSearch.documents.count} />
               </span>
               <span>citations</span>
             </div>}
