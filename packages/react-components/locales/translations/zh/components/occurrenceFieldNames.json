@@ -81,6 +81,8 @@
   "reproductiveCondition": "繁殖状况",
   "behavior": "行为",
   "establishmentMeans": "确定方法",
+  "degreeOfEstablishment": "建立的级别",
+  "pathway": "路径",
   "occurrenceStatus": "出现记录状态",
   "preparations": "准备",
   "disposition": "寄存",

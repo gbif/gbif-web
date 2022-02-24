@@ -5,5 +5,6 @@
   "OBSERVATION": "Waarneming",
   "HUMAN_OBSERVATION": "Menselijke waarneming",
   "MACHINE_OBSERVATION": "Machinale waarneming",
-  "LITERATURE": "Literatuur"
+  "LITERATURE": "Literatuur",
+  "OCCURRENCE": "Voorkomen"
 }

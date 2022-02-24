@@ -6,6 +6,7 @@
   "HUMAN_OBSERVATION": "ملاحظة بشرية",
   "MACHINE_OBSERVATION": "ملاحظة آلية",
   "MATERIAL_SAMPLE": "عينة مادية",
+  "MATERIAL_CITATION": "الاستشهاد بالمواد",
   "LITERATURE": "مراجع",
   "OCCURRENCE": "تكرار"
 }
