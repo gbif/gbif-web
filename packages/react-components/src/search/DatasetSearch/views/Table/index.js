@@ -52,15 +52,15 @@ const defaultTableConfig = {
         labelHandle: 'datasetType'
       }
     },
-    {
-      trKey: 'filters.datasetSubtype.name',
-      filterKey: 'datasetSubtype',
-      value: {
-        key: 'subtype',
-        labelHandle: 'datasetSubtype',
-        hideFalsy: true
-      }
-    },
+    // {
+    //   trKey: 'filters.datasetSubtype.name',
+    //   filterKey: 'datasetSubtype',
+    //   value: {
+    //     key: 'subtype',
+    //     labelHandle: 'datasetSubtype',
+    //     hideFalsy: true
+    //   }
+    // },
     {
       trKey: 'tableHeaders.citations',
       value: {
