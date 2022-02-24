@@ -37,7 +37,7 @@ export const defaultContext = {
 
   datasetKey: {
     // url: ({key}) => `/dataset/${key}`,
-    url: ({key}) => `${gbifOrg}/dataset/${key}`,
+    url: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/dataset/${key}`,
     isHref: true,
     route: '/dataset/:key'
   },

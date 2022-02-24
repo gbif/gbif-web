@@ -1,6 +1,7 @@
 import { jsx, css } from '@emotion/react';
 import React, { useContext } from "react";
 import RouteContext from '../../dataManagement/RouteContext';
+import LocaleContext from '../../dataManagement/LocaleProvider/LocaleContext';
 import { Link } from "react-router-dom";
 
 export const ResourceSearchLink = React.forwardRef(({ queryString, type, discreet, ...props }, ref) => {
@@ -17,10 +18,12 @@ export const ResourceSearchLink = React.forwardRef(({ queryString, type, discree
 });
 
 export const ResourceLink = React.forwardRef(({ id, type, discreet, ...props }, ref) => {
+  const localeSettings = useContext(LocaleContext);
   const routeContext = useContext(RouteContext);
   const basename = routeContext.basename;
+  const gbifOrgLocale = localeSettings?.localeMap?.gbif_org;
   const { url, isHref } = routeContext[type];
-  const to = url({ key: id, basename });
+  const to = url({ key: id, basename, gbifOrgLocalePrefix: gbifOrgLocale ? `/${gbifOrgLocale}` : '' });
   const style = discreet ? isDiscreet : null;
   if (isHref) {
     return <a href={to} css={style} {...props} />
