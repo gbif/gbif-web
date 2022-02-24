@@ -1,5 +1,6 @@
 import { jsx } from '@emotion/react';
 import ThemeContext from '../../style/themes/ThemeContext';
+import RouteContext from '../../dataManagement/RouteContext';
 import React, { useContext } from 'react';
 import { getClasses } from '../../utils/util';
 import { MdApps, MdFileDownload, MdInfo, MdCode } from 'react-icons/md';
@@ -18,6 +19,7 @@ export default function CatalogueSelector({
   ...props
 }) {
   const theme = useContext(ThemeContext);
+  const routeContext = useContext(RouteContext);
   const location = useLocation();
   const { classNames } = getClasses(theme.prefix, 'catalogueSelector', {/*modifiers goes here*/ }, className);
 
@@ -26,42 +28,42 @@ export default function CatalogueSelector({
       link: <ResourceSearchLink type="occurrenceSearch" discreet>
         <FormattedMessage id='catalogues.occurrences' />
       </ResourceSearchLink>,
-      route: '/occurrence/search',
+      route: routeContext.occurrenceSearch.route || '/occurrence/search',
       translationId: 'catalogues.occurrences'
     },
     PUBLISHER: {
       link: <ResourceSearchLink type="publisherSearch" discreet>
         <FormattedMessage id='catalogues.publishers' />
       </ResourceSearchLink>,
-      route: '/publisher/search',
+      route: routeContext.publisherSearch.route || '/publisher/search',
       translationId: 'catalogues.publishers'
     },
     DATASET: {
       link: <ResourceSearchLink type="datasetSearch" discreet>
         <FormattedMessage id='catalogues.datasets' />
       </ResourceSearchLink>,
-      route: '/dataset/search',
+      route: routeContext.datasetSearch.route || '/dataset/search',
       translationId: 'catalogues.datasets'
     },
     LITERATURE: {
       link: <ResourceSearchLink type="literatureSearch" discreet>
         <FormattedMessage id='catalogues.literature' />
       </ResourceSearchLink>,
-      route: '/literature/search',
+      route: routeContext.literatureSearch.route || '/literature/search',
       translationId: 'catalogues.literature'
     },
     COLLECTION: {
       link: <ResourceSearchLink type="collectionSearch" discreet>
         <FormattedMessage id='catalogues.collections' />
       </ResourceSearchLink>,
-      route: '/collection/search',
+      route: routeContext.collectionSearch.route || '/collection/search',
       translationId: 'catalogues.collections'
     },
     INSTITUTION: {
       link: <ResourceSearchLink type="institutionSearch" discreet>
         <FormattedMessage id='catalogues.institutions' />
       </ResourceSearchLink>,
-      route: '/institution/search',
+      route: routeContext.institutionSearch.route || '/institution/search',
       translationId: 'catalogues.institutions'
     },
   };
