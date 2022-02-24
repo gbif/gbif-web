@@ -70,7 +70,7 @@ module.exports = {
         .searchLiterature(
           { query: {gbifDatasetKey: key} }
         )
-        .then(response => response.count);
+        .then(response => response.documents.total)
     },
   },
   Dataset: {
