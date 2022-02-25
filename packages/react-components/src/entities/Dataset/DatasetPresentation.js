@@ -78,7 +78,7 @@ export function DatasetPresentation({
               <span><FormattedNumber value={occurrenceSearch.documents.total} /> occurrences</span>
             </div>}
             
-            {literatureSearch.document?.count > 0 && <div css={countFeature({ theme })}>
+            {literatureSearch.documents?.count > 0 && <div css={countFeature({ theme })}>
               <span>
                 <MdFormatQuote />
                 <FormattedNumber value={literatureSearch.documents.count} />
@@ -117,8 +117,8 @@ export function DatasetPresentation({
         <TabList style={{ marginTop: '12px', borderTop: '1px solid #ddd' }}>
           <RouterTab to={url} exact label="About" />
           {/* <RouterTab to={join(url, 'metrics')} label="Metrics"/> */}
-          <RouterTab to={join(url, 'activity')} label="Activity" />
-          <RouterTab to={join(url, 'specimens')} css={css.tab({ theme, noData: occurrenceSearch?.documents?.total === 0 })} label="Occurrences" />
+          {/* <RouterTab to={join(url, 'activity')} label="Activity" /> */}
+          {/* <RouterTab to={join(url, 'specimens')} css={css.tab({ theme, noData: occurrenceSearch?.documents?.total === 0 })} label="Occurrences" /> */}
           {/* <RouterTab to={join(url, 'taxonomy')} label="Taxonomy"/> */}
           <RouterTab to={join(url, 'download')} label="Download" />
         </TabList>

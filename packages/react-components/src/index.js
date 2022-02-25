@@ -20,6 +20,7 @@ export { default as DatasetSearch } from './search/DatasetSearch/Standalone';
 export { default as PublisherSearch } from './search/PublisherSearch/Standalone';
 export { default as Collection } from './entities/Collection/Standalone';
 export { default as Institution } from './entities/Institution/Standalone';
+export { default as Dataset } from './entities/Dataset/Standalone';
 export { default as themeBuilder } from './style/themeBuilder';
 
 // export  { Example as Filter } from './widgets/Filter/Filter.stories';

@@ -73,15 +73,6 @@ export function About({
           <h2 ref={node => { tocRefs["citation"] = node; }}>Citation</h2>
           <Citation data={data} />
         </Prose>}
-
-        {/*         
-        <div css={css.paper({ theme })} style={{ marginTop: 24, marginBottom: 24, fontSize: '15px' }}>
-          <Intro data={data} loading={loading} error={error} />
-          <SamplingDescription data={data} />
-          <BibliographicCitations data={data} />
-          <Contacts data={data} />
-          <Citation data={data} />
-        </div> */}
       </div>
     </div>
   </>
