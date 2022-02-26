@@ -8,8 +8,8 @@
   "institution": "机构",
   "institutionGrSciColl": "科学馆机构",
   "collection": "馆藏",
-  "collectionGrSciColl": "",
-  "recordedAndIdentifiedBy": "",
+  "collectionGrSciColl": "科学馆收藏",
+  "recordedAndIdentifiedBy": "记录并识别由",
   "info": {
     "original": "默认",
     "excluded": "排除",
