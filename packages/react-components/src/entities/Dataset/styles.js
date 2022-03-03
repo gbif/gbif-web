@@ -25,9 +25,6 @@ export const headerWrapper = ({ ...props }) => css`
     font-size: 2rem;
     font-weight: 700;
   }
-  a {
-    color: #1393D8;
-  }
 `;
 
 export const summary = ({ ...props }) => css`

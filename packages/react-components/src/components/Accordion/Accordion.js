@@ -19,6 +19,7 @@ function AccordionControlled({
   return <details css={styles.accordion({ theme })} {...props} open={open} >
     <summary style={summaryStyle} css={styles.summary({ theme })}
       onClick={e => {
+        if (e.target.href) return;
         e.preventDefault();
         onToggle(!open);
       }}>

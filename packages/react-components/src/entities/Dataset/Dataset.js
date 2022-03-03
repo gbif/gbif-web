@@ -1,6 +1,7 @@
 
 import React, { useContext, useState, useEffect } from 'react';
 import ThemeContext from '../../style/themes/ThemeContext';
+import SiteContext from '../../dataManagement/SiteContext';
 import { useQuery } from '../../dataManagement/api';
 import { DatasetPresentation } from './DatasetPresentation';
 
@@ -24,16 +25,26 @@ export function Dataset({
 }) {
   const { data, error, loading, load } = useQuery(DATASET, { lazyLoad: true });
   const theme = useContext(ThemeContext);
+  const siteContext = useContext(SiteContext);
+  const sitePredicate = siteContext?.occurrence?.rootPredicate;
 
   useEffect(() => {
     if (typeof id !== 'undefined') {
+      const datasetPredicate = {
+        type: "equals",
+        key: "datasetKey",
+        value: id
+      };
+      // we also want to know how many of those occurrences are included on the present site
+      const predicates = [datasetPredicate];
+      if (sitePredicate) predicates.push(sitePredicate);
       load({
         variables: {
           key: id,
-          predicate: {
-            type: "equals",
-            key: "datasetKey",
-            value: id
+          predicate: datasetPredicate,
+          sitePredicate: {
+            type: 'and',
+            predicates
           }
         }
       });
@@ -46,8 +57,13 @@ export function Dataset({
 };
 
 const DATASET = `
-query dataset($key: ID!, $predicate: Predicate){
+query dataset($key: ID!, $predicate: Predicate, $sitePredicate: Predicate){
   occurrenceSearch(predicate: $predicate) {
+    documents(size: 0) {
+      total
+    }
+  }
+  siteOccurrences: occurrenceSearch(predicate: $sitePredicate) {
     documents(size: 0) {
       total
     }
@@ -81,6 +97,8 @@ query dataset($key: ID!, $predicate: Predicate){
       organization
       address
       userId
+      email
+      phone
       type
       _highlighted
       roles
@@ -127,6 +145,34 @@ query dataset($key: ID!, $predicate: Predicate){
       text
     }
     license
+    project {
+      title
+      abstract
+      studyAreaDescription
+      designDescription
+      funding
+      contacts {
+        firstName
+        lastName
+
+        organization
+        position
+        roles
+        type
+
+        address
+        city
+        postalCode
+        province
+        country
+        
+        homepage
+        email
+        phone
+        userId
+      }
+      identifier
+    }
   }
 }
 `;

@@ -28,30 +28,7 @@ export function Activity({
     // highlightedFilters: ['taxonKey', 'catalogNumber', 'recordedBy', 'identifiedBy', 'typeStatus']
   };
 
-  return <div css={css.people({ theme })}>
-    <nav css={css.nav({ theme })}>
-      <ul>
-        <li>
-          <NavLink to={url} exact activeClassName="isActive" css={css.navItem({ theme })}>Downloads<span css={cssDataset.tabCountChip()}>{10}</span></NavLink>
-        </li>
-        <li>
-          <NavLink to={join(url, '/citations')} activeClassName="isActive" css={css.navItem({ theme })}>Citations<span css={cssDataset.tabCountChip()}>{20}</span></NavLink>
-        </li>
-      </ul>
-    </nav>
-    <div style={{ width: '100%', margin: 24, overflow: 'hidden' }}>
-      <Switch>
-        <Route path={join(path, '/citations')}>
-          {/* <Citations id={dataset.key} /> */}
-          {/* <div>citation search of the citations</div> */}
-          <LiteratureSearch config={config} style={{ margin: 'auto', maxWidth: '100%', minHeight: 'calc(90vh)' }}></LiteratureSearch>
-        </Route>
-
-        <Route path={path}>
-          {/* <Downloads id={dataset.key} /> */}
-          <div>list of downloads</div>
-        </Route>
-      </Switch>
-    </div>
+  return <div>
+    <LiteratureSearch config={config} style={{ margin: 'auto', maxWidth: '100%', minHeight: 'calc(90vh)' }}></LiteratureSearch>
   </div>
 };

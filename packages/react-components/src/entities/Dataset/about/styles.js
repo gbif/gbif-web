@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 
 export const paper = ({ ...props }) => css`
   background: white;
-  padding: 24px;
+  padding: 24px 48px;
   margin: 12px 0;
 `;
 

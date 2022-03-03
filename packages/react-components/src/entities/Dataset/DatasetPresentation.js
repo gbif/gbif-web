@@ -2,20 +2,20 @@
 import { jsx } from '@emotion/react';
 import React, { useContext, useCallback, useState, useEffect } from 'react';
 import ThemeContext from '../../style/themes/ThemeContext';
-import { Tabs, Eyebrow } from '../../components';
+import { Tabs, Eyebrow, LicenseTag } from '../../components';
 import OccurrenceSearch from '../../search/OccurrenceSearch/OccurrenceSearch';
 import { iconFeature, countFeature } from '../../components/IconFeatures/styles';
 import { About } from './about/About';
+import { Project } from './project/Project';
 import { Activity } from './activity/Activity';
 import { DownloadOptions } from './DownloadOptions';
 import { FormattedMessage, FormattedNumber, FormattedDate } from 'react-intl';
 import { join } from '../../utils/util';
-import get from 'lodash/get';
 
 import * as css from './styles';
 import { MdLocationOn, MdPeople, MdLink, MdPlaylistAddCheck, MdStar, MdFormatQuote } from 'react-icons/md';
 
-import { Switch, Route, useRouteMatch } from 'react-router-dom';
+import { Switch, Route, useRouteMatch, Link } from 'react-router-dom';
 
 const { TabList, RouterTab } = Tabs;
 
@@ -30,7 +30,7 @@ export function DatasetPresentation({
   const theme = useContext(ThemeContext);
 
   if (loading) return <div>loading</div>
-  const { dataset, literatureSearch, occurrenceSearch, taxonSearch } = data;
+  const { dataset, literatureSearch, occurrenceSearch, siteOccurrences, taxonSearch } = data;
 
   if (error || !dataset) {
     // TODO a generic component for failures is needed
@@ -68,6 +68,11 @@ export function DatasetPresentation({
           </div>}
 
           <div css={css.iconFeatures()}>
+
+            <div css={iconFeature({ theme })}>
+              <LicenseTag value={dataset.license} />
+            </div>
+
             {dataset.homepage && <div css={iconFeature({ theme })}>
               <MdLink />
               <span><Hostname href={dataset.homepage} /></span>
@@ -77,13 +82,18 @@ export function DatasetPresentation({
               <MdLocationOn />
               <span><FormattedNumber value={occurrenceSearch.documents.total} /> occurrences</span>
             </div>}
+
+            {siteOccurrences.documents.total > 0 && <div css={iconFeature({ theme })}>
+              <MdLocationOn />
+              <span><FormattedNumber value={siteOccurrences.documents.total} /> occurrences on this site</span>
+            </div>}
             
             {literatureSearch.documents?.count > 0 && <div css={countFeature({ theme })}>
-              <span>
-                <MdFormatQuote />
-                <FormattedNumber value={literatureSearch.documents.count} />
-              </span>
-              <span>citations</span>
+                <span>
+                  <MdFormatQuote />
+                  <FormattedNumber value={literatureSearch.documents.count} />
+                </span>
+                <span><Link to={join(url, 'citations')}>citations</Link></span>
             </div>}
 
             {taxonSearch.count > 0 && <div css={iconFeature({ theme })}>
@@ -116,8 +126,10 @@ export function DatasetPresentation({
         </div>
         <TabList style={{ marginTop: '12px', borderTop: '1px solid #ddd' }}>
           <RouterTab to={url} exact label="About" />
+          {dataset.project && <RouterTab to={join(url, 'project')} label="Project"/>}
           {/* <RouterTab to={join(url, 'metrics')} label="Metrics"/> */}
           {/* <RouterTab to={join(url, 'activity')} label="Activity" /> */}
+          {literatureSearch.documents?.count > 0 && <RouterTab to={join(url, 'citations')} label="Citations" />}
           {/* <RouterTab to={join(url, 'specimens')} css={css.tab({ theme, noData: occurrenceSearch?.documents?.total === 0 })} label="Occurrences" /> */}
           {/* <RouterTab to={join(url, 'taxonomy')} label="Taxonomy"/> */}
           <RouterTab to={join(url, 'download')} label="Download" />
@@ -128,7 +140,7 @@ export function DatasetPresentation({
 
     <section>
       <Switch>
-        <Route path={join(path, 'activity')}>
+        <Route path={join(path, 'citations')}>
           <div css={css.proseWrapper({ theme })}>
             <Activity {...{ dataset }} />
           </div>
@@ -139,7 +151,12 @@ export function DatasetPresentation({
           </div>
         </Route>
         <Route path={join(path, 'specimens')}>
-          <OccurrenceSearch config={config} style={{ margin: 'auto', maxWidth: 1000, minHeight: 'calc(90vh)' }}></OccurrenceSearch>;
+          <OccurrenceSearch config={config} style={{ margin: 'auto', maxWidth: 1000, minHeight: 'calc(90vh)' }}></OccurrenceSearch>
+        </Route>
+        <Route path={join(path, 'project')}>
+          <div css={css.proseWrapper({ theme })}>
+            <Project {...{ data }} />
+          </div>
         </Route>
         <Route path={path}>
           <div css={css.proseWrapper({ theme })}>

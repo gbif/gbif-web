@@ -3,7 +3,7 @@ import { jsx } from '@emotion/react';
 import React, { useContext, useState, useEffect } from 'react';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import * as css from './styles';
-import { Prose, Row, Col, Properties, HyperText, Button, Toc } from "../../../components";
+import { Prose, Row, Col, Properties, HyperText, Button, Toc, ContactList } from "../../../components";
 import RouteContext from '../../../dataManagement/RouteContext';
 import { TaxonomicCoverages, GeographicCoverages, TemporalCoverages, Intro, BibliographicCitations, SamplingDescription, Contacts, Citation } from './details';
 // import {Toc} from "./Toc"
@@ -41,15 +41,15 @@ export function About({
           <h2 ref={node => { tocRefs["purpose"] = node; }}>Purpose</h2>
           <HyperText text={dataset.purpose} />
         </Prose>}
-        {dataset.temporalCoverages && <Prose css={css.paper({ theme })}>
+        {dataset?.temporalCoverages?.length > 0 && <Prose css={css.paper({ theme })}>
           <h2 ref={node => { tocRefs["temporal-scope"] = node; }}>Temporal scope</h2>
           <TemporalCoverages temporalCoverages={dataset.temporalCoverages} />
         </Prose>}
-        {dataset.geographicCoverages && <Prose css={css.paper({ theme })}>
+        {dataset?.geographicCoverages?.length > 0 && <Prose css={css.paper({ theme })}>
           <h2 ref={node => { tocRefs["geographic-scope"] = node; }}>Geographic scope</h2>
           <GeographicCoverages geographicCoverages={dataset.geographicCoverages} />
         </Prose>}
-        {dataset.taxonomicCoverages && <Prose css={css.paper({ theme })}>
+        {dataset?.taxonomicCoverages?.length > 0 && <Prose css={css.paper({ theme })}>
           <h2 ref={node => { tocRefs["taxonomic-scope"] = node; }}>Taxonomic scope</h2>
           <TaxonomicCoverages taxonomicCoverages={dataset.taxonomicCoverages} />
         </Prose>}
@@ -63,9 +63,9 @@ export function About({
         </Prose>}
         {dataset?.volatileContributors && <Prose css={css.paper({ theme })}>
           <h2 ref={node => { tocRefs["contacts"] = node; }}>Contacts</h2>
-          <Contacts data={data}  />
+          <ContactList contacts={dataset.volatileContributors} style={{paddingInlineStart: 0}}/>
         </Prose>}
-        {dataset?.bibliographicCitations && <Prose css={css.paper({ theme })}>
+        {dataset?.bibliographicCitations?.length > 0 && <Prose css={css.paper({ theme })}>
           <h2 ref={node => { tocRefs["bibliographic-citations"] = node; }}>Bibliographic citations</h2>
           <BibliographicCitations bibliographicCitations={dataset?.bibliographicCitations} />
         </Prose>}
