@@ -19,7 +19,7 @@ function Search({ config: customConfig = {}, predicateConfig, defaultFilterConfi
   const theme = useContext(ThemeContext);
   const localeSettings = useContext(LocaleContext);
   const [filter, setFilter, updateParams] = useFilterParams({predicateConfig});
-  
+
   const apiContext = useContext(ApiContext);
   const intl = useIntl();
   const config = useMemo(() => {

@@ -31,7 +31,7 @@ function StandaloneWrapper({
     routes
    } = siteConfig;
 
-  const routeConfig = { ...defaultContext, ...routes };
+  const routeConfig = { ...defaultContext, ...(routes || {}) };
   const basename = _get(routeConfig, 'basename');
   const root = <Root id="application" appRoot>
     <Router {...props} basename={basename}>

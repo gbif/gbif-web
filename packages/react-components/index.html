@@ -100,21 +100,47 @@
 
       ReactDOM.render(
         React.createElement(
-          gbifReactComponents.Dataset,
+          gbifReactComponents.DatasetSearch,
           { 
-            style: { height: 'calc(100vh - 4.25rem);' }, 
+            style: { height: 'calc(100vh - 4.25rem)' }, 
             id: 'ca0d8107-a2bd-47a1-91a1-250179b534ec',
-            routeContext: {
-              datasetKey: {
-                url: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/dataset/${key}`,
-                isHref: true,
-                route: '/'
+            siteConfig: {
+              routes: {
+                datasetSearch: {
+                  url: ({query, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/dataset/search`,
+                  isHref: true,
+                  route: '/'
+                }
+              },
+              dataset: {
+                availableCatalogues: ['OCCURRENCE', 'LITERATURE', 'COLLECTION']
               }
             }
           }
         ),
         document.getElementById('root')
       );
+
+
+      // ReactDOM.render(
+      //   React.createElement(
+      //     gbifReactComponents.Dataset,
+      //     { 
+      //       style: { height: 'calc(100vh - 4.25rem);' }, 
+      //       id: 'ca0d8107-a2bd-47a1-91a1-250179b534ec',
+      //       siteConfig: {
+      //         routes: {
+      //           datasetKey: {
+      //             url: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/dataset/${key}`,
+      //             isHref: true,
+      //             route: '/'
+      //           }
+      //         }
+      //       }
+      //     }
+      //   ),
+      //   document.getElementById('root')
+      // );
 
     </script>
   </body>
