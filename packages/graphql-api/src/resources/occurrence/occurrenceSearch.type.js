@@ -41,7 +41,7 @@ const typeDef = gql`
   type OccurrenceDocuments {
     size: Int!
     from: Int!
-    total: Int!
+    total: Long!
     results: [Occurrence]!
   }
 

@@ -6,6 +6,7 @@ const typeDef = gql`
   scalar EmailAddress
   scalar JSON
   scalar GUID
+  scalar Long
 `;
 
 module.exports = typeDef;
