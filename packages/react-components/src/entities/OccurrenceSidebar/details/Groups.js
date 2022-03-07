@@ -47,9 +47,9 @@ function Summary({ showAll, termMap, occurrence, setActiveImage }) {
       <ScientificName {...{ showAll, termMap, occurrence }} />
       <AcceptedScientificName {...{ showAll, termMap, occurrence }} />
 
-      <BasicField label="occurrenceFieldNames.taxonomicClassification">
+      {occurrence.gbifClassification?.classification?.length > 1 && <BasicField label="occurrenceFieldNames.taxonomicClassification">
         <TaxonClassification ranks={occurrence.gbifClassification.classification} />
-      </BasicField>
+      </BasicField>}
       {occurrence?.gadm?.level0 && <BasicField label="occurrenceFieldNames.gadmClassification">
         <GadmClassification gadm={occurrence.gadm} />
       </BasicField>}
@@ -405,7 +405,7 @@ function Identification({ showAll, termMap, occurrence, setActiveImage }) {
     <Properties css={css.properties} breakpoint={800}>
       <HtmlField term={termMap.identificationID} showDetails={showAll} />
       <PlainTextField term={termMap.identificationQualifier} showDetails={showAll} />
-      <PlainTextField term={termMap.typeStatus} showDetails={showAll} getEnum={value => `enums.typeStatus.${value}`} />
+      <EnumField term={termMap.typeStatus} showDetails={showAll} getEnum={value => `enums.typeStatus.${value}`} />
       <PlainTextField term={termMap.identifiedBy} showDetails={showAll} />
       <IdentifiedById {...{ showAll, termMap, occurrence }} />
       <PlainTextField term={termMap.verbatimIdentification} showDetails={showAll} />

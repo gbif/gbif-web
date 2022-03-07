@@ -13,30 +13,32 @@ const licenseMap = {
 export function HtmlField(props) {
   if (!props.term) return null;
   const { htmlValue } = props.term;
-  return <Field {...props} >
-    <div dangerouslySetInnerHTML={{ __html: (htmlValue) }} />
+  const htmlValues = Array.isArray(htmlValue) ? htmlValue : [htmlValue];
+  return <Field {...props}>
+    {htmlValues.map((htmlContent, i) => <div key={i} dangerouslySetInnerHTML={{ __html: (htmlContent) }} />)}
   </Field>
 }
 
 export function PlainTextField(props) {
   if (!props.term) return null;
   const { value } = props.term;
+  const values = Array.isArray(value) ? value : [value];
   return <Field {...props} >
-    {value}
+    {values.join(' ● ')}
   </Field>
 }
 
 export function CustomValueField(props) {
   if (!props.term) return null;
-  const { value } = props.term;
   return <Field {...props} />
 }
 
 export function EnumField({ getEnum, ...props }) {
   if (!props.term) return null;
   const { value } = props.term;
+  const values = Array.isArray(value) ? value : [value];
   return <Field {...props}>
-    <FormattedMessage id={getEnum(value)} defaultMessage={value} />
+    {values.map((enumValue, i) => <>{i > 0 && ' ● '}<FormattedMessage key={i} id={getEnum(enumValue)} defaultMessage={enumValue} /></>)}
   </Field>
 }
 
@@ -67,11 +69,11 @@ export function BasicField({ label, ...props }) {
 }
 
 export function Field({ term, label, showDetails, hideIssues, hideRemarks, ...props }) {
-  const { simpleName, verbatim, value, htmlValue, remarks, issues } = term;
+  const { simpleName, verbatim, value } = term;
   if (!value && (!verbatim || !showDetails)) return null;
 
   const fieldName = label || `occurrenceFieldNames.${simpleName}`;
-  return <React.Fragment {...props}>
+  return <React.Fragment>
     <T>
       <FormattedMessage
         id={fieldName}
@@ -79,7 +81,7 @@ export function Field({ term, label, showDetails, hideIssues, hideRemarks, ...pr
       />
     </T>
     <V style={{ position: 'relative' }}>
-      <div style={{ display: 'inline-block', paddingRight: 8 }}  {...props}></div>
+      <div style={{ display: 'inline-block', paddingRight: 8 }} {...props}></div>
       <Chips {...term} hideRemarks={hideRemarks} hideIssues={hideIssues}/>
       <Provenance {...{ term, showDetails, hideRemarks }} />
     </V>

@@ -78,29 +78,31 @@ module.exports = function ({ occurrence, verbatim }) {
   }, {})
 
   const enrichedTerms = terms
-    .filter(({ qualifiedName, simpleName }) => {
+    .filter(({ qualifiedName, esField, simpleName }) => {
       // remove terms that have no value (neither verbatim or interpreted)
-      return typeof occurrence[simpleName] !== 'undefined' || typeof verbatim[qualifiedName] !== 'undefined';
+      return typeof occurrence[esField || simpleName] !== 'undefined' || typeof verbatim[qualifiedName] !== 'undefined';
     })
-    .map(({ qualifiedName, simpleName, group = 'other', source, compareWithVerbatim }) => {
+    .map(({ qualifiedName, esField, simpleName, group = 'other', source, compareWithVerbatim }) => {
       // enrich the used terms with related issues, remarks and both verbatim and GBIF view of the value
       const camelGroup = camelize(group);
-      const value = occurrence[simpleName];
-      const cleanValue = typeof value !== 'undefined' ? DOMPurify.sanitize('' + value, { ALLOWED_TAGS: ['i', 'b'] }) : undefined;
+      const value = occurrence[esField || simpleName];
       return {
         qualifiedName, simpleName, group: camelGroup, source,
         label: simpleName,
         issues: field2issues[simpleName],
-        remarks: getRemarks({ value: occurrence[simpleName], verbatim: verbatim[qualifiedName], compareWithVerbatim }),
+        remarks: getRemarks({ value: occurrence[esField || simpleName], verbatim: verbatim[qualifiedName], compareWithVerbatim }),
         value,
         verbatim: verbatim[qualifiedName],
-        htmlValue: getHtmlValue({ value: cleanValue, allowedTags: ['i', 'a', 'b'] })
+        htmlValue: getHtmlValue({ value, allowedTags: ['i', 'a', 'b'] })
       }
     });
   return enrichedTerms;
 }
 
 function getHtmlValue({ value, allowedTags }) {
+  if (Array.isArray(value)) {
+    return value.map(x => getHtmlValue({value: x, allowedTags}))
+  }
   let options = {};
   if (allowedTags) options.ALLOWED_TAGS = allowedTags;
   if (typeof value === 'string' || typeof value === 'number') {

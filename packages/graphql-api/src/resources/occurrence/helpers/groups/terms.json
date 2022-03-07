@@ -296,7 +296,8 @@
     "simpleName": "datasetID",
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/datasetID",
     "group": "Record",
-    "source": "DwcTerm"
+    "source": "DwcTerm",
+    "compareWithVerbatim": false
   },
   {
     "simpleName": "institutionCode",
@@ -314,7 +315,8 @@
     "simpleName": "datasetName",
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/datasetName",
     "group": "Record",
-    "source": "DwcTerm"
+    "source": "DwcTerm",
+    "compareWithVerbatim": false
   },
   {
     "simpleName": "ownerInstitutionCode",
@@ -369,7 +371,8 @@
     "simpleName": "recordedBy",
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/recordedBy",
     "group": "Occurrence",
-    "source": "DwcTerm"
+    "source": "DwcTerm",
+    "compareWithVerbatim": false
   },
   {
     "simpleName": "individualCount",
@@ -442,7 +445,8 @@
     "simpleName": "preparations",
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/preparations",
     "group": "Occurrence",
-    "source": "DwcTerm"
+    "source": "DwcTerm",
+    "compareWithVerbatim": false
   },
   {
     "simpleName": "disposition",
@@ -610,7 +614,8 @@
     "simpleName": "samplingProtocol",
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/samplingProtocol",
     "group": "Event",
-    "source": "DwcTerm"
+    "source": "DwcTerm",
+    "compareWithVerbatim": false
   },
   {
     "simpleName": "samplingEffort",
@@ -989,7 +994,7 @@
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/typeStatus",
     "group": "Identification",
     "source": "DwcTerm",
-    "renderAsType": "enum"
+    "compareWithVerbatim": false
   },
   {
     "simpleName": "verbatimIdentification",
@@ -1001,7 +1006,8 @@
     "simpleName": "identifiedBy",
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/identifiedBy",
     "group": "Identification",
-    "source": "DwcTerm"
+    "source": "DwcTerm",
+    "compareWithVerbatim": false
   },
   {
     "simpleName": "dateIdentified",
@@ -1080,8 +1086,7 @@
     "simpleName": "scientificName",
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/scientificName",
     "group": "Taxon",
-    "source": "DwcTerm",
-    "esField": "gbifClassification.usage.name"
+    "source": "DwcTerm"
   },
   {
     "simpleName": "acceptedScientificName",
@@ -1460,15 +1465,19 @@
   },
   {
     "simpleName": "recordedByID",
-    "qualifiedName": "http://rs.gbif.org/terms/1.0/recordedByID",
+    "qualifiedName": "http://rs.tdwg.org/dwc/terms/recordedByID",
     "group": "Occurrence",
-    "source": "GbifTerm"
+    "source": "DwcTerm",
+    "esField": "recordedByIDs",
+    "compareWithVerbatim": false
   },
   {
     "simpleName": "identifiedByID",
-    "qualifiedName": "http://rs.gbif.org/terms/1.0/identifiedByID",
+    "qualifiedName": "http://rs.tdwg.org/dwc/terms/identifiedByID",
     "group": "Identification",
-    "source": "GbifTerm"
+    "source": "DwcTerm",
+    "esField": "identifiedByIDs",
+    "compareWithVerbatim": false
   },
   {
     "simpleName": "associatedMedia",
