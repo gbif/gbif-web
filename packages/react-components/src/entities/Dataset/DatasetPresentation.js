@@ -77,7 +77,7 @@ export function DatasetPresentation({
               <MdLink />
               <span><Hostname href={dataset.homepage} /></span>
             </div>}
-            
+
             {occurrenceSearch.documents.total > 0 && <div css={iconFeature({ theme })}>
               <MdLocationOn />
               <span><FormattedNumber value={occurrenceSearch.documents.total} /> occurrences</span>
@@ -87,13 +87,13 @@ export function DatasetPresentation({
               <MdLocationOn />
               <span><FormattedNumber value={siteOccurrences.documents.total} /> occurrences on this site</span>
             </div>}
-            
+
             {literatureSearch.documents?.count > 0 && <div css={countFeature({ theme })}>
-                <span>
-                  <MdFormatQuote />
-                  <FormattedNumber value={literatureSearch.documents.count} />
-                </span>
-                <span><Link to={join(url, 'citations')}>citations</Link></span>
+              <span>
+                <MdFormatQuote />
+                <FormattedNumber value={literatureSearch.documents.count} />
+              </span>
+              <span><Link to={join(url, 'citations')}>citations</Link></span>
             </div>}
 
             {taxonSearch.count > 0 && <div css={iconFeature({ theme })}>
@@ -120,13 +120,11 @@ export function DatasetPresentation({
               <span>accepted names</span>
             </div>} */}
           </div>
-          
 
-          
         </div>
         <TabList style={{ marginTop: '12px', borderTop: '1px solid #ddd' }}>
           <RouterTab to={url} exact label="About" />
-          {dataset.project && <RouterTab to={join(url, 'project')} label="Project"/>}
+          {dataset.project && <RouterTab to={join(url, 'project')} label="Project" />}
           {/* <RouterTab to={join(url, 'metrics')} label="Metrics"/> */}
           {/* <RouterTab to={join(url, 'activity')} label="Activity" /> */}
           {literatureSearch.documents?.count > 0 && <RouterTab to={join(url, 'citations')} label="Citations" />}
@@ -168,11 +166,11 @@ export function DatasetPresentation({
   </>
 };
 
-function Hostname({href}) {
+function Hostname({ href }) {
   try {
     const hostname = new URL(href).hostname;
     return <a href={href} css={css.discreetLink}>{hostname}</a>;
-  } catch(err) {
+  } catch (err) {
     return <span>invalid</span>;
   }
 }

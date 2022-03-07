@@ -24,12 +24,12 @@ export function About({
   const { dataset } = data;
   // collect all refs to headlines for the TOC, e.g. ref={node => { tocRefs["description"] = node; }}
   //let tocRefs = {};
-  
+
   return <>
     <div css={css.withSideBar({ theme })}>
       <div css={css.sideBar({ theme })}>
         <nav css={css.sideBarNav({ theme })}>
-          <Toc refs={tocRefs}/>
+          <Toc refs={tocRefs} />
         </nav>
       </div>
       <div style={{ width: '100%', marginLeft: 12 }}>
@@ -63,7 +63,7 @@ export function About({
         </Prose>}
         {dataset?.volatileContributors && <Prose css={css.paper({ theme })}>
           <h2 ref={node => { tocRefs["contacts"] = node; }}>Contacts</h2>
-          <ContactList contacts={dataset.volatileContributors} style={{paddingInlineStart: 0}}/>
+          <ContactList contacts={dataset.volatileContributors} style={{ paddingInlineStart: 0 }} />
         </Prose>}
         {dataset?.bibliographicCitations?.length > 0 && <Prose css={css.paper({ theme })}>
           <h2 ref={node => { tocRefs["bibliographic-citations"] = node; }}>Bibliographic citations</h2>
@@ -73,6 +73,11 @@ export function About({
           <h2 ref={node => { tocRefs["citation"] = node; }}>Citation</h2>
           <Citation data={data} />
         </Prose>}
+      </div>
+      <div css={css.sideBar({ theme })} style={{margin: '0 0 0 12px'}}>
+        <nav css={css.sideBarNav({ theme })}>
+          hej
+        </nav>
       </div>
     </div>
   </>

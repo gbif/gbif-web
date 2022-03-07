@@ -37,6 +37,6 @@ export const summary = ({ ...props }) => css`
 
 export const proseWrapper = ({ ...props }) => css`
   margin: 0 auto;
-  width: 1000px;
+  width: 1350px;
   max-width: 100%;
 `;
