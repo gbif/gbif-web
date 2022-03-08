@@ -5,8 +5,8 @@ import ThemeContext from '../../../style/themes/ThemeContext';
 import * as css from './styles';
 import { Prose, Row, Col, Properties, HyperText, Button } from "../../../components";
 import RouteContext from '../../../dataManagement/RouteContext';
-import { TaxonomicCoverages, GeographicCoverages, TemporalCoverages, Intro, BibliographicCitations, SamplingDescription, Contacts, Citation } from './details';
-
+import { TaxonomicCoverages, GeographicCoverages, TemporalCoverages, Registration, BibliographicCitations, SamplingDescription, Contacts, Citation } from './details';
+// import {Toc} from "./Toc"
 const { Term: T, Value: V } = Properties;
 
 export function About({
@@ -37,6 +37,12 @@ export function About({
         </nav>
       </div>
       <div style={{ width: '100%', marginLeft: 12 }}>
+
+        <Prose css={css.paper({ theme })}>
+          <h2 ref={node => { tocRefs["registration"] = node; }}>Registration</h2>
+          <Registration dataset={dataset} />
+        </Prose>
+
         {dataset.description && <Prose css={css.paper({ theme })}>
           <h2>Description</h2>
           <HyperText text={dataset.description} />
@@ -45,16 +51,16 @@ export function About({
           <h2>Purpose</h2>
           <HyperText text={dataset.purpose} />
         </Prose>}
-        {dataset.temporalCoverages && <Prose css={css.paper({ theme })}>
-          <h2>Temporal scope</h2>
+        {dataset?.temporalCoverages?.length > 0 && <Prose css={css.paper({ theme })}>
+          <h2 ref={node => { tocRefs["temporal-scope"] = node; }}>Temporal scope</h2>
           <TemporalCoverages temporalCoverages={dataset.temporalCoverages} />
         </Prose>}
-        {dataset.geographicCoverages && <Prose css={css.paper({ theme })}>
-          <h2>Geographic scope</h2>
+        {dataset?.geographicCoverages?.length > 0 && <Prose css={css.paper({ theme })}>
+          <h2 ref={node => { tocRefs["geographic-scope"] = node; }}>Geographic scope</h2>
           <GeographicCoverages geographicCoverages={dataset.geographicCoverages} />
         </Prose>}
-        {dataset.taxonomicCoverages && <Prose css={css.paper({ theme })}>
-          <h2>Taxonomic scope</h2>
+        {dataset?.taxonomicCoverages?.length > 0 && <Prose css={css.paper({ theme })}>
+          <h2 ref={node => { tocRefs["taxonomic-scope"] = node; }}>Taxonomic scope</h2>
           <TaxonomicCoverages taxonomicCoverages={dataset.taxonomicCoverages} />
         </Prose>}
         {dataset.samplingDescription && <Prose css={css.paper({ theme })}>
@@ -65,19 +71,21 @@ export function About({
           <h2>Additional info</h2>
           <HyperText text={dataset.additionalInfo} />
         </Prose>}
-        {dataset?.bibliographicCitations && <Prose css={css.paper({ theme })}>
-          <h2>Bibliographic citations</h2>
+        {dataset?.bibliographicCitations?.length > 0 && <Prose css={css.paper({ theme })}>
+          <h2 ref={node => { tocRefs["bibliographic-citations"] = node; }}>Bibliographic citations</h2>
           <BibliographicCitations bibliographicCitations={dataset?.bibliographicCitations} />
         </Prose>}
 
-        {/*         
-        <div css={css.paper({ theme })} style={{ marginTop: 24, marginBottom: 24, fontSize: '15px' }}>
-          <Intro data={data} loading={loading} error={error} />
-          <SamplingDescription data={data} />
-          <BibliographicCitations data={data} />
-          <Contacts data={data} />
+        {/* It isn't clear that this section really has much value for users of the website */}
+        {/* {dataset?.dataDescriptions?.length > 0 && <Prose css={css.paper({ theme })}>
+          <h2 ref={node => { tocRefs["data-descriptions"] = node; }}>Data descriptions</h2>
+          <DataDescriptions dataDescriptions={dataset?.dataDescriptions} />
+        </Prose>} */}
+        
+        {dataset?.citation && <Prose css={css.paper({ theme })}>
+          <h2 ref={node => { tocRefs["citation"] = node; }}>Citation</h2>
           <Citation data={data} />
-        </div> */}
+        </Prose>}
       </div>
     </div>
   </>

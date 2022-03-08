@@ -1,4 +1,5 @@
 const { getContributors } = require('./helpers/contributors')
+const { getHtml } = require('../../util/utils');
 /**
  * Convinent wrapper to generate the facet resolvers.
  * Given a string (facet name) then generate a query a map the result
@@ -84,10 +85,6 @@ module.exports = {
       if (typeof key === 'undefined') return null;
       return dataSources.datasetAPI.getDatasetByKey({ key });
     },
-    hostingOrganization: ({ hostingOrganizationKey: key }, args, { dataSources }) => {
-      if (typeof key === 'undefined') return null;
-      return dataSources.organizationAPI.getOrganizationByKey({ key });
-    },
     publishingOrganizationTitle: ({ publishingOrganizationTitle, publishingOrganizationKey: key }, args, { dataSources }) => {
       if (typeof key === 'undefined') return null;
       if (publishingOrganizationTitle) return publishingOrganizationTitle; // in the search API this field is already added
@@ -111,6 +108,8 @@ module.exports = {
     metrics: ({ key }, args, { dataSources }) => {
       return dataSources.datasetAPI.getMetrics({ key });
     },
+    description: ({ description }) => getHtml(description),
+    purpose: ({ purpose }) => getHtml(purpose),
   },
   DatasetSearchResults: {
     // this looks odd. I'm not sure what is the best way, but I want to transfer the current query to the child, so that it can be used when asking for the individual facets
@@ -132,4 +131,19 @@ module.exports = {
       return dataSources.organizationAPI.getOrganizationByKey({ key });
     },
   },
+  GeographicCoverage: {
+    description: ({ description }) => getHtml(description),
+  },
+  TaxonomicCoverage: {
+    description: ({ description }) => getHtml(description),
+  },
+  SamplingDescription: {
+    studyExtent: ({ studyExtent }) => getHtml(studyExtent),
+    sampling: ({ sampling }) => getHtml(sampling),
+    qualityControl: ({ qualityControl }) => getHtml(qualityControl),
+    methodSteps: ({ methodSteps }) => {
+      if (!Array.isArray(methodSteps) || methodSteps.length === 0) return methodSteps;
+      return methodSteps.map(getHtml);
+    },
+  }
 };

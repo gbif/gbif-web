@@ -63,6 +63,8 @@ query dataset($key: ID!, $predicate: Predicate){
     type
     title
     created
+    modified
+    pubDate
     description
     purpose
     temporalCoverages
@@ -71,7 +73,15 @@ query dataset($key: ID!, $predicate: Predicate){
     publishingOrganizationTitle
     homepage
     additionalInfo
-    contributors {
+    installation {
+      key
+      title
+      organization {
+        key
+        title
+      }
+    }
+    volatileContributors {
       key
       firstName
       lastName
@@ -112,11 +122,29 @@ query dataset($key: ID!, $predicate: Predicate){
       sampling
       qualityControl
       methodSteps
-    } 
+    }
+    dataDescriptions {
+      charset
+      name
+      format
+      formatVersion
+      url
+    }
     citation {
       text
     }
     license
+    endpoints {
+      key
+      type
+      url
+    }
+    identifiers {
+      key
+      type
+      identifier
+    }
+    doi
   }
 }
 `;

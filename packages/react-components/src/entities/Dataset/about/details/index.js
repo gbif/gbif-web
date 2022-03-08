@@ -7,3 +7,5 @@ export { SamplingDescription } from './SamplingDescription';
 export { TemporalCoverages } from './TemporalCoverages';
 export { GeographicCoverages } from './GeographicCoverages';
 export { TaxonomicCoverages } from './TaxonomicCoverages';
+export { DataDescriptions } from './DataDescriptions';
+export { Registration } from './Registration';
