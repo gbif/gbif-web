@@ -12,6 +12,17 @@ function removeUndefined(obj) {
   return obj;
 }
 
+/*
+ * Temporary function to parse vocaulary values. The schemas differ in prod and uat, and to easy deployment the UI use a fallback
+ * https://github.com/gbif/gbif-web/issues/109
+ */
+function vocabularFallback(obj) {
+  if (typeof obj === 'object' && obj.concept) {
+    return obj.concept;
+  } else {
+    return obj;
+  }
+}
 /**
  * Map ES response to something similar to v1
  */
@@ -189,12 +200,14 @@ function reduce(item) {
     verbatimDepth:                      source.verbatim.core['http://rs.tdwg.org/dwc/terms/verbatimDepth'],
     verbatimElevation:                  source.verbatim.core['http://rs.tdwg.org/dwc/terms/verbatimElevation'],
     verbatimEventDate:                  source.verbatim.core['http://rs.tdwg.org/dwc/terms/verbatimEventDate'],
+    verbatimIdentification:             source.verbatim.core['http://rs.tdwg.org/dwc/terms/verbatimIdentification'],
     verbatimLatitude:                   source.verbatim.core['http://rs.tdwg.org/dwc/terms/verbatimLatitude'],
     verbatimLocality:                   source.verbatim.core['http://rs.tdwg.org/dwc/terms/verbatimLocality'],
     verbatimLongitude:                  source.verbatim.core['http://rs.tdwg.org/dwc/terms/verbatimLongitude'],
     verbatimSRS:                        source.verbatim.core['http://rs.tdwg.org/dwc/terms/verbatimSRS'],
     verbatimTaxonRank:                  source.verbatim.core['http://rs.tdwg.org/dwc/terms/verbatimTaxonRank'],
     vernacularName:                     source.verbatim.core['http://rs.tdwg.org/dwc/terms/vernacularName'],
+    verticalDatum:                      source.verbatim.core['http://rs.tdwg.org/dwc/terms/verticalDatum'],
   });
     
   const normalized = {
@@ -218,13 +231,15 @@ function reduce(item) {
     elevation:                          source.elevation,
     elevationAccuracy:                  source.elevationAccuracy,
     endDayOfYear:                       source.endDayOfYear,
-    establishmentMeans:                 source.establishmentMeans,
+    establishmentMeans:                 vocabularFallback(source.establishmentMeans),
     eventDate:                          source.eventDateSingle,
     identifiedBy:                       source.identifiedBy,
     individualCount:                    source.individualCount,
     institutionCode:                    source.institutionCode,
     license:                            source.license,
-    lifeStage:                          source.lifeStage,
+    lifeStage:                          vocabularFallback(source.lifeStage),
+    pathway:                            vocabularFallback(source.pathway),
+    degreeOfEstablishment:              vocabularFallback(source.degreeOfEstablishment),
     locality:                           source.locality,
     identifier:                         source.id,
     
@@ -263,6 +278,7 @@ function reduce(item) {
 
   const gbifSpecific = {
     key:                                source.gbifId,
+    gbifID:                             source.gbifId,
     acceptedScientificName:             source.gbifClassification?.acceptedUsage?.name,
     acceptedTaxonKey:                   source.gbifClassification?.acceptedUsage?.key,
     scientificName:                     source.gbifClassification?.usage?.name,
@@ -282,7 +298,6 @@ function reduce(item) {
     genericName:                        source.gbifClassification?.usageParsedName?.genericName,
     genus:                              source.gbifClassification.genus,
     genusKey:                           source.gbifClassification.genusKey,
-    identifiedByID:                     source.identifiedByID,
     installationKey:                    source.installationKey,
     institutionKey:                     source.institutionKey,
     issues:                             source.issues || [],
@@ -300,7 +315,6 @@ function reduce(item) {
     protocol:                           source.protocol,
     publishingCountry:                  source.publishingCountry,
     publishingOrgKey:                   source.publishingOrganizationKey,
-    recordedByID:                       source.recordedByID,
     relativeOrganismQuantity:           source.relativeOrganismQuantity,
     // repatriated:                        source.repatriated,
     species:                            source.gbifClassification.species,
@@ -317,7 +331,7 @@ function reduce(item) {
     facts:                              source.measurementOrFactItems || [],
     identifiers:                        [],
     relations:                          [],
-    extensions:                         {},
+    extensions:                         source.verbatim.extensions,
     gbifClassification:                 source.gbifClassification,
 
     // not in v1

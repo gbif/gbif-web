@@ -1,0 +1,38 @@
+{
+  "occurrence": "",
+  "showAllFields": "",
+  "morePhotos": "",
+  "about": "درباره",
+  "dataset": "",
+  "publisher": "",
+  "institution": "",
+  "institutionGrSciColl": "",
+  "collection": "مجموعه",
+  "collectionGrSciColl": "",
+  "recordedAndIdentifiedBy": "",
+  "info": {
+    "original": "",
+    "excluded": "",
+    "inferred": "",
+    "altered": ""
+  },
+  "groups": {
+    "summary": "خلاصه",
+    "record": "",
+    "occurrence": "",
+    "event": "",
+    "identification": "",
+    "taxon": "",
+    "location": "",
+    "organism": "",
+    "materialSample": "",
+    "geologicalContext": "",
+    "other": ""
+  },
+  "features": {
+    "isClustered": "",
+    "isSamplingEvent": "",
+    "isTreament": "",
+    "isSequenced": ""
+  }
+}

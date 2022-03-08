@@ -1,0 +1,9 @@
+{
+  "unsupported.title": "Niet-ondersteunde zoekopdracht",
+  "unsupported.description": "Vrij tekst doorzoeken kan worden gebruikt voor verkenning, maar heeft geen downloadondersteuning.",
+  "unsupported.remove": "Verwijder filter",
+  "unsupported.error": "Deze zoekopdracht lijkt niet te worden ondersteund",
+  "download": "Downloaden",
+  "redirectNotice": "U staat op het punt om de data te downloaden en om dit te doen, wordt u doorgestuurd naar GBIF.org. {br}{br} Wees ervan bewust dat er een account nodig is op GBIF.org om de inhoud te downloaden.",
+  "continueToGBIF": "Ga verder"
+}

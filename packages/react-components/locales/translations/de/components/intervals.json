@@ -1,0 +1,69 @@
+{
+  "description": {
+    "lt": "Kleiner als {to}",
+    "lte": "Kleiner als oder gleich {to}",
+    "gt": "Größer als {from}",
+    "gte": "Größer als oder gleich {from}",
+    "e": "Gleich {is}"
+  },
+  "compact": {
+    "between": "{from} bis {to}",
+    "lt": "Unter {to}",
+    "gt": "Über {from}",
+    "e": "{from}"
+  },
+  "compactMeters": {
+    "between": "{from}m bis {to}m",
+    "lt": "Unter {to}m",
+    "gt": "Über {from}m",
+    "e": "{from}m"
+  },
+  "compactTime": {
+    "between": "{from} bis {to}",
+    "lt": "Vor {to}",
+    "gt": "Nach {from}",
+    "e": "{from}"
+  },
+  "year": {
+    "between": "Jahr {from} bis {to}",
+    "lt": "Vor Jahr {to}",
+    "gt": "Nach Jahr {from}",
+    "e": "Jahr ist {from}"
+  },
+  "coordinateUncertainty": {
+    "between": "Koordinatenunsicherheit {from}m bis {to}m",
+    "lt": "Koordinatenunsicherheit unter {to}m",
+    "gt": "Koordinatenunsicherheit über {from}m",
+    "e": "Koordinatenunsicherheit beträgt {from}m"
+  },
+  "depth": {
+    "between": "Tiefe {from} bis {to}",
+    "lt": "Tiefe unter {to}",
+    "gt": "Tiefe über {from}",
+    "e": "Tiefe beträgt {from}"
+  },
+  "organismQuantity": {
+    "between": "Organismus-Menge {from} bis {to}",
+    "lt": "Organismus-Menge unter {to}",
+    "gt": "Organismus-Menge unter {to}",
+    "e": "Organismus-Menge beträgt {from}"
+  },
+  "sampleSizeValue": {
+    "between": "Probengröße {from} bis {to}",
+    "lt": "Probengröße {from} bis {to}",
+    "gt": "Probengröße über {from}",
+    "e": "Probengröße beträgt {from}"
+  },
+  "relativeOrganismQuantity": {
+    "between": "Relative Organismenmenge {from} bis {to}",
+    "lt": "Relative Organismenmenge unter {to}",
+    "gt": "Relative Organismenmenge über {from}",
+    "e": "Relative Organismenmenge beträgt {from}"
+  },
+  "elevation": {
+    "between": "Höhe {from} bis {to}",
+    "lt": "Höhe unter {to}",
+    "gt": "Höhe über {from}",
+    "e": "Höhe beträgt {from}"
+  }
+}

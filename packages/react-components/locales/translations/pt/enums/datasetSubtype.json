@@ -1,0 +1,10 @@
+{
+  "TAXONOMIC_AUTHORITY": "Autoridade taxonómica",
+  "NOMENCLATOR_AUTHORITY": "Autoridade de nomenclatura",
+  "INVENTORY_THEMATIC": "Inventário temático",
+  "INVENTORY_REGIONAL": "Inventário regional",
+  "GLOBAL_SPECIES_DATASET": "Conjunto de dados de espécies global",
+  "DERIVED_FROM_OCCURRENCE": "Derivado da ocorrência",
+  "SPECIMEN": "Espécime",
+  "OBSERVATION": "Observação"
+}

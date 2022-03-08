@@ -19,7 +19,7 @@ export function Summary({ occurrence, fieldGroups, loading, setActiveImage, ...p
   if (loading || !fieldGroups) return <span>Skeleton loader</span>
 
   return <Accordion summary='Summary' defaultOpen={true}>
-    <Properties style={{ fontSize: 13, marginBottom: 12 }} horizontal={true}>
+    <Properties style={{ fontSize: 13, marginBottom: 12 }}>
       {occurrence.stillImages?.length > 0 && <>
         <T>Images</T>
         <V>
@@ -35,7 +35,7 @@ export function Summary({ occurrence, fieldGroups, loading, setActiveImage, ...p
       }
       <T>
         <FormattedMessage
-          id={`ocurrenceFieldNames.scientificName`}
+          id={`occurrenceFieldNames.scientificName`}
           defaultMessage={"Scientific Name"}
         />
       </T>
@@ -46,7 +46,7 @@ export function Summary({ occurrence, fieldGroups, loading, setActiveImage, ...p
           fieldGroups.Taxon.scientificName.issues.map((i) => (
             <span css={css.issuePill(i)} key={i}>
               <FormattedMessage
-                id={`issueEnum.${i.id}`}
+                id={`enums.occurrenceIssue.${i.id}`}
                 defaultMessage={prettifyEnum(i.id)}
               />
             </span>
@@ -55,7 +55,7 @@ export function Summary({ occurrence, fieldGroups, loading, setActiveImage, ...p
       </V>
       {fieldGroups?.Taxon?.synonym?.value === true && fieldGroups?.Taxon?.acceptedScientificName?.value && <> <T>
         <FormattedMessage
-          id={`ocurrenceFieldNames.acceptedScientificName`}
+          id={`occurrenceFieldNames.acceptedScientificName`}
           defaultMessage={"Accepted Scientific Name"}
         />
       </T>
@@ -65,7 +65,7 @@ export function Summary({ occurrence, fieldGroups, loading, setActiveImage, ...p
         </V></>}
       <T>
         <FormattedMessage
-          id={`ocurrenceFieldNames.classification`}
+          id={`occurrenceDetails.taxonomicClassification`}
           defaultMessage={"Classification"}
         />
       </T>
@@ -79,7 +79,7 @@ export function Summary({ occurrence, fieldGroups, loading, setActiveImage, ...p
         day="2-digit" />} />
 
       <T><FormattedMessage
-        id={`ocurrenceFieldNames.dataset`}
+        id={`occurrenceFieldNames.dataset`}
         defaultMessage={"Dataset"}
       /></T>
       <V>
@@ -120,7 +120,7 @@ function FieldPair({ term, occurrence, formattedValue }) {
     return <React.Fragment key={term.label}>
       <T>
         <FormattedMessage
-          id={`ocurrenceFieldNames.${term.label}`}
+          id={`occurrenceFieldNames.${term.label}`}
           defaultMessage={_.startCase(term.label)}
         />
       </T>

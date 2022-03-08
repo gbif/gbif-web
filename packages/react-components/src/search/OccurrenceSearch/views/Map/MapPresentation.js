@@ -10,8 +10,8 @@ import { ViewHeader } from '../ViewHeader';
 import MapboxMap from './MapboxMap';
 import * as css from './map.styles';
 
-function Map({ labelMap, query, pointData, pointError, pointLoading, loading, total, loadPointData, ...props }) {
-  const dialog = useDialogState({ animated: true });
+function Map({ labelMap, query, pointData, pointError, pointLoading, loading, total, predicateHash, registerPredicate, loadPointData, defaultMapSettings, ...props }) {
+  const dialog = useDialogState({ animated: true, modal: false });
   const theme = useContext(ThemeContext);
   const [activeId, setActive] = useState();
   const [activeItem, setActiveItem] = useState();
@@ -33,10 +33,10 @@ function Map({ labelMap, query, pointData, pointError, pointLoading, loading, to
 
   return <>
     <DetailsDrawer href={`https://www.gbif.org/occurrence/${activeItem?.key}`} dialog={dialog} nextItem={nextItem} previousItem={previousItem}>
-      <OccurrenceSidebar id={activeItem?.key} defaultTab='details' style={{ maxWidth: '100%', width: 700, height: '100%' }} />
+      <OccurrenceSidebar id={activeItem?.key} defaultTab='details' style={{ maxWidth: '100%', width: 700, height: '100%' }} onCloseRequest={() => dialog.setVisible(false)} />
     </DetailsDrawer>
     <div css={css.mapArea({theme})}>
-      <ViewHeader message="nResultsWithCoordinates" loading={loading} total={total} />
+      <ViewHeader message="counts.nResultsWithCoordinates" loading={loading} total={total} />
       <div style={{position: 'relative', height: '100%', flex: '1 1 auto', display: 'flex', flexDirection: 'column'}}>
         {listVisible && <ListBox  onCloseRequest={e => showList(false)} 
                                   labelMap={labelMap}
@@ -45,7 +45,7 @@ function Map({ labelMap, query, pointData, pointError, pointLoading, loading, to
                                   loading={pointLoading} 
                                   css={css.resultList({})} 
                                   />}
-        <MapboxMap css={css.mapComponent({theme})} theme={theme} query={query} onMapClick={e => showList(false)} onPointClick={data => { showList(true); loadPointData(data) }} />
+        <MapboxMap defaultMapSettings={defaultMapSettings} predicateHash={predicateHash} css={css.mapComponent({theme})} theme={theme} query={query} onMapClick={e => showList(false)} onPointClick={data => { showList(true); loadPointData(data) }} registerPredicate={registerPredicate} />
       </div>
     </div>
   </>;

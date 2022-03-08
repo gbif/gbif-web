@@ -1,0 +1,17 @@
+{
+  "tabs": {
+    "table": "表",
+    "gallery": "圖片集",
+    "map": "地圖",
+    "datasets": "資料集",
+    "download": "下載"
+  },
+  "table": {
+    "lockColumn": ""
+  },
+  "placeholders": {
+    "default": "搜尋",
+    "range": ""
+  },
+  "loadMore": "更多"
+}

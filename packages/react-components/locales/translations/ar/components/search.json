@@ -1,0 +1,17 @@
+{
+  "tabs": {
+    "table": "جدول",
+    "gallery": "معرض صور",
+    "map": "خارطة",
+    "datasets": "مجموعات البيانات",
+    "download": "تنزيل"
+  },
+  "table": {
+    "lockColumn": ""
+  },
+  "placeholders": {
+    "default": "بحث",
+    "range": ""
+  },
+  "loadMore": "مزيد"
+}

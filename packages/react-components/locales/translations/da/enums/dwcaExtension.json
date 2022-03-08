@@ -1,0 +1,8 @@
+{
+  "http://data.ggbn.org/schemas/ggbn/terms/MaterialSample": "Materiale prøve",
+  "http://rs.tdwg.org/dwc/terms/Identification": "Identifikation",
+  "http://rs.gbif.org/terms/1.0/Identifier": "Identifikator",
+  "http://rs.gbif.org/terms/1.0/Image": "Billede",
+  "http://rs.gbif.org/terms/1.0/Multimedia": "Multimedier",
+  "http://rs.gbif.org/terms/1.0/Reference": "Reference"
+}

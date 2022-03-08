@@ -1,0 +1,16 @@
+{
+  "EML": "EML",
+  "FEED": "Fuente RSS",
+  "WFS": "WFS",
+  "WMS": "WMS",
+  "TCS_RDF": "TCS RDF",
+  "TCS_XML": "TCS XML",
+  "DWC_ARCHIVE": "Archivo Darwin Core",
+  "DIGIR": "DiGIR",
+  "DIGIR_MANIS": "DiGIR MANIS",
+  "TAPIR": "TAPIR",
+  "BIOCASE": "BioCASe",
+  "BIOCASE_XML_ARCHIVE": "Archivo XML BioCASe",
+  "OAI_PMH": "OAI PMH",
+  "OTHER": "Otro"
+}

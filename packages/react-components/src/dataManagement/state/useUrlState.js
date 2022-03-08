@@ -1,20 +1,25 @@
 import React from 'react';
 import { useState, useEffect, useCallback } from 'react';
-import history from '../history';
+// import history from '../history';
 import queryString from 'query-string';
 import isObjectLike from 'lodash/isObjectLike';
 import isEmpty from 'lodash/isEmpty';
 import equal from 'fast-deep-equal/react';
+import { Base64 } from 'js-base64';
+import { useHistory, useLocation } from "react-router-dom";
 
 export function useUrlState({ param, dataType = dynamicParam, replaceState = false, defaultValue, base64encode = false, stripEmptyKeys = true, initialState }) {
   const [value, setValue] = useState();
-  const action = replaceState ? 'replace' : 'push';
+  let history = useHistory();
+  let location = useLocation();
 
+  const action = replaceState ? 'replace' : 'push';
+  
   const updateUrl = useCallback(
     (newValue) => {
       const currentState = queryString.parse(location.search);
       const parsed = queryString.parse(location.search);
-      
+      console.log(location.search);
       // basic check for equality. Do not update if there is nothing to update. This will not work for anything but strings
       if (equal(newValue, currentState[param])) return;
 
@@ -25,7 +30,7 @@ export function useUrlState({ param, dataType = dynamicParam, replaceState = fal
       }
       if (newValue) {
         let stringifiedValue = Array.isArray(newValue) ? newValue.map(x => dataType.stringify(x)) : dataType.stringify(newValue);
-        if (base64encode) stringifiedValue = btoa(stringifiedValue);
+        if (base64encode) stringifiedValue = Base64.encode(stringifiedValue);
         parsed[param] = stringifiedValue;
       } else {
         delete parsed[param];
@@ -34,16 +39,17 @@ export function useUrlState({ param, dataType = dynamicParam, replaceState = fal
         delete parsed[param];
       }
       if (equal(parsed[param], currentState[param])) return;
-      history[action](window.location.pathname + '?' + queryString.stringify(parsed));
+      history[action](location.pathname + '?' + queryString.stringify(parsed));
+      console.log('dep changed in useCallback');
     },
-    [],
+    [location, history],
   );
 
   useEffect(() => {
     const changeHandler = ({ location }) => {
-      const parsed = queryString.parse(location.search);
+      const parsed = queryString.parse(location?.search);
       let parsedValue = parsed[param];
-      if (base64encode && parsedValue) parsedValue = atob(parsedValue);
+      if (base64encode && parsedValue) parsedValue = Base64.decode(parsedValue);
       parsedValue = dataType.parse(parsedValue);
       let parsedNormalizedValue = Array.isArray(parsedValue) ?
         parsedValue.map(x => dataType.parse(x)) :
@@ -53,16 +59,16 @@ export function useUrlState({ param, dataType = dynamicParam, replaceState = fal
       }
       setValue(parsedNormalizedValue);
     };
-    changeHandler({ location: window.location });
+    changeHandler({ location: location });
     const unlisten = history.listen(changeHandler);
 
     if (initialState) updateUrl(initialState);
-
+    console.log('dep changed in useEffect');
     return () => {
       unlisten();
       const parsed = queryString.parse(location.search);
       delete parsed[param];
-      history.replace(window.location.pathname + '?' + queryString.stringify(parsed));
+      // history.replace(location.pathname + '?' + queryString.stringify(parsed));
     };
   }, []);
 

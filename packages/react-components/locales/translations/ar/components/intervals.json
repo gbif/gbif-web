@@ -1,0 +1,69 @@
+{
+  "description": {
+    "lt": "أقل من {to}",
+    "lte": "أقل أو يساوي {to}",
+    "gt": "أكبر من {from}",
+    "gte": "أكبر أو يساوي {from}",
+    "e": "التساويات { is }"
+  },
+  "compact": {
+    "between": "{from} إلى{to}",
+    "lt": "أدنى{to}",
+    "gt": "أعلى{from}",
+    "e": "{from}"
+  },
+  "compactMeters": {
+    "between": "{from} متر إلى{to} متر",
+    "lt": "أدنى من {to} متر",
+    "gt": "أعلى من {from} متر",
+    "e": "{from} متر"
+  },
+  "compactTime": {
+    "between": "{from} إلى {to}",
+    "lt": "قبل {to}",
+    "gt": "بعد {from}",
+    "e": "{from}"
+  },
+  "year": {
+    "between": "سنة {from} إلى {to}",
+    "lt": "قبل سنة {to}",
+    "gt": "بعد سنة {from}",
+    "e": "السنة هي {from}"
+  },
+  "coordinateUncertainty": {
+    "between": "تنسيق عدم اليقين {from} متر إلى {to} متر",
+    "lt": "ارتياب الإحداثيات أدنى {to} متر",
+    "gt": "ارتياب الإحداثيات أعلى {from} متر ",
+    "e": "ارتياب الإحداثيات تساوي {from} متر"
+  },
+  "depth": {
+    "between": "عمق {from} إلى {to}",
+    "lt": "العمق أدنى {to}",
+    "gt": "العمق أعلى {from}",
+    "e": "العمق هو {from}"
+  },
+  "organismQuantity": {
+    "between": "كمية الكائنات {from} إلى {to}",
+    "lt": "كمية الكائنات أدنى {to}",
+    "gt": "كمية الكائنات أعلى {from}",
+    "e": "تكون كمية الكائنات {from}"
+  },
+  "sampleSizeValue": {
+    "between": "قيمة حجم العينة {from} إلى {to}",
+    "lt": "",
+    "gt": "قيمة حجم العينة فوق {from}",
+    "e": "تكون قيمة حجم العينة {from}"
+  },
+  "relativeOrganismQuantity": {
+    "between": "كمية الكائن النسبي {from} إلى {to}",
+    "lt": "كمية الكائن النسبي تحت {to}",
+    "gt": "كمية الكائن النسبي فوق {from}",
+    "e": "تكون كمية الكائن النسبي {from}"
+  },
+  "elevation": {
+    "between": "الترقية {from} إلى {to}",
+    "lt": "الترقية أدنى {to}",
+    "gt": "الترقية أعلى {from}",
+    "e": " الترقية هي {from}"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "TAXONOMIC_AUTHORITY": "分类的机构",
+  "NOMENCLATOR_AUTHORITY": "命名机构",
+  "INVENTORY_THEMATIC": "清单主题",
+  "INVENTORY_REGIONAL": "清单区域",
+  "GLOBAL_SPECIES_DATASET": "全球物种数据集",
+  "DERIVED_FROM_OCCURRENCE": "源自发生",
+  "SPECIMEN": "标本",
+  "OBSERVATION": "观察"
+}

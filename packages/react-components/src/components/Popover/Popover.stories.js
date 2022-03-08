@@ -9,7 +9,6 @@ export default {
 };
 
 const TaxonFilter = React.memo(({ focusRef, hide, ...props }) => {
-  console.log('rerender taxonfilter example');
   return <div>
     <h1>Taxon filter</h1>
     <Button onClick={() => hide()}>Close</Button>

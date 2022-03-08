@@ -10,7 +10,7 @@ export function TemporalCoverages({
   ...props
 }) {
   return <Properties horizontal>
-    {temporalCoverages.map(period => <TemporalCoverage period={period} />)}
+    {temporalCoverages.map((period, idx) => <TemporalCoverage period={period} key={idx} />)}
     </Properties>
 }
 

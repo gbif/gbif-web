@@ -1,0 +1,17 @@
+{
+  "nullOrNot": {
+    "isNotNull": "Moet worden gedefinieerd",
+    "isNull": "Moet niet worden gedefinieerd"
+  },
+  "invalidValue": "Ongeldige waarde",
+  "aboutThisFilter": "Over deze filter",
+  "existence": "Filter op bestaan",
+  "showHelp": "Toon helptekst",
+  "back": "Terug",
+  "cancel": "Annuleren",
+  "apply": "Toepassen",
+  "wildcardHelp": "",
+  "useWildcardPattern": "",
+  "showSuggestions": "",
+  "excludeSelected": "Geselecteerde uitsluiten"
+}

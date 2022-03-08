@@ -1,7 +1,8 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Properties, GadmClassification, GalleryTiles, GalleryTile } from '../../../components';
+import { Properties, GadmClassification, GalleryTiles, GalleryTile, DatasetKeyLink, PublisherKeyLink } from '../../../components';
 import { TaxonClassification } from './TaxonClassification/TaxonClassification';
+import { AgentSummary } from './AgentSummary'
 
 const { Term: T, Value: V } = Properties;
 
@@ -28,7 +29,7 @@ export const occurrenceFields = {
         return <>
           <T>
             <FormattedMessage
-              id={`ocurrenceFieldNames.images`}
+              id={`occurrenceFieldNames.images`}
               defaultMessage={"Images"}
             />
           </T>
@@ -53,40 +54,60 @@ export const occurrenceFields = {
       }
     },
     {
-      name: 'classification', Value: ({ name, occurrence, theme }) => {
+      name: 'taxonomicClassification', Value: ({ name, occurrence, theme }) => {
         return <TaxonClassification ranks={occurrence.gbifClassification.classification} />
       }
     },
     {
-      name: 'gadm', condition: ({ occurrence }) => occurrence?.gadm?.level0, Value: ({ name, occurrence, theme }) => {
+      name: 'gadmClassification', condition: ({ occurrence }) => occurrence?.gadm?.level0, Value: ({ name, occurrence, theme }) => {
         return <GadmClassification gadm={occurrence.gadm} />
       }
     },
     {
-      name: 'datasetKey', Value: ({ occurrence }) => {
-        return <span>{occurrence.datasetTitle}</span>
+      name: 'datasetKey', trKey: 'occurrenceDetails.dataset', Value: ({ occurrence }) => {
+        return <DatasetKeyLink id={occurrence.datasetKey}>{occurrence.datasetTitle}</DatasetKeyLink>
+      }
+    },
+    {
+      name: 'publishingOrgKey', trKey: 'occurrenceDetails.publisher', Value: ({ occurrence }) => {
+        return <PublisherKeyLink id={occurrence.publishingOrgKey}>{occurrence.publisherTitle}</PublisherKeyLink>
       }
     },
     { name: 'basisOfRecord', enum: 'basisOfRecord' },
     'recordedBy',
     {
-      name: 'recordedByIDs', condition: ({ occurrence }) => occurrence?.recordedByIDs?.[0], Value: ({ name, occurrence, theme }) => {
-        return <ul>
-            {occurrence.recordedByIDs
-              .map(x => {
-                if (!x.person) {
-                  return <li key={x.value}>{x.value}</li>
-                }
-                return <li key={x.value}>
-                  <img src={x?.person?.image?.value} />
-                  {x?.person?.name?.value} ({x?.person?.birthDate?.value} - {x?.person?.deathDate?.value})
-                </li>
-              })
-            }
-          </ul>
+      name: 'recordedById', trKey: 'occurrenceFieldNames.recordedByID', condition: ({ occurrence }) => occurrence?.recordedById?.[0], Value: ({ name, occurrence, theme }) => {
+        return <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+          {occurrence.recordedById
+            .map(x => {
+              if (!x.person) {
+                return <li key={x.value}>{x.value}</li>
+              }
+              return <li key={x.value} style={{ marginBottom: 4 }}>
+                <AgentSummary agent={x} />
+              </li>
+            })
+          }
+        </ul>
       }
     },
     'identifiedBy',
+    {
+      name: 'identifiedById', trKey: 'occurrenceFieldNames.identifiedByID', condition: ({ occurrence }) => occurrence?.identifiedById?.[0], Value: ({ name, occurrence, theme }) => {
+        return <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+          {occurrence.identifiedById
+            .map(x => {
+              if (!x.person) {
+                return <li key={x.value}>{x.value}</li>
+              }
+              return <li key={x.value} style={{ marginBottom: 4 }}>
+                <AgentSummary agent={x} />
+              </li>
+            })
+          }
+        </ul>
+      }
+    },
   ],
   occurrence: [
     'occurrenceID',
@@ -240,6 +261,7 @@ export const occurrenceFields = {
     'coordinatePrecision',
     'pointRadiusSpatialFit',
     'verbatimCoordinateSystem',
+    'verticalDatum',
     'verbatimSRS',
     'footprintWKT',
     'footprintSRS',
@@ -289,8 +311,9 @@ export const occurrenceFields = {
   identification: [
     'identificationID',
     'identificationQualifier',
-    'typeStatus',
+    { name: 'typeStatus', enum: 'typeStatus' },
     'identifiedBy',
+    'verbatimIdentification',
     'dateIdentified',
     'identificationReferences',
     'identificationVerificationStatus',
@@ -386,6 +409,11 @@ export const occurrenceFields = {
     'temporal',
     'title',
     'type',
-    'valid'
+    'valid',
+    {
+      name: 'key', trKey: 'occurrenceFieldNames.gbifID', Value: ({ occurrence }) => {
+        return <>{occurrence.key}</>
+      }
+    },
   ]
 }

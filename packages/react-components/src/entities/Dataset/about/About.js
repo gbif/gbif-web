@@ -1,9 +1,9 @@
 
 import { jsx } from '@emotion/react';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import * as css from './styles';
-import { Prose, Row, Col, Properties, HyperText, Button } from "../../../components";
+import { Prose, Row, Col, Properties, HyperText, Button, Toc } from "../../../components";
 import RouteContext from '../../../dataManagement/RouteContext';
 import { TaxonomicCoverages, GeographicCoverages, TemporalCoverages, Registration, BibliographicCitations, SamplingDescription, Contacts, Citation } from './details';
 // import {Toc} from "./Toc"
@@ -13,27 +13,23 @@ export function About({
   data = {},
   loading,
   error,
+  tocState,
   className,
   ...props
 }) {
   const theme = useContext(ThemeContext);
   const routeContext = useContext(RouteContext);
+  const [tocRefs, setTocRefs] = useState({})
   // if (loading || !occurrence) return <h1>Loading</h1>;
-
   const { dataset } = data;
-
+  // collect all refs to headlines for the TOC, e.g. ref={node => { tocRefs["description"] = node; }}
+  //let tocRefs = {};
+  
   return <>
     <div css={css.withSideBar({ theme })}>
       <div css={css.sideBar({ theme })}>
         <nav css={css.sideBarNav({ theme })}>
-          <ul>
-            <li>
-              <Button appearance="text" activeClassName="isActive" css={css.navItem({ theme })}>TODO: table of content should go here</Button>
-            </li>
-            <li>
-              <a onClick={e => { window.location.href = "#contacts"; }} className="isActive" css={css.navItem({ theme })}>Contacts</a>
-            </li>
-          </ul>
+          <Toc refs={tocRefs}/>
         </nav>
       </div>
       <div style={{ width: '100%', marginLeft: 12 }}>
@@ -44,11 +40,11 @@ export function About({
         </Prose>
 
         {dataset.description && <Prose css={css.paper({ theme })}>
-          <h2>Description</h2>
+          <h2 ref={node => { tocRefs["description"] = node; }}>Description</h2>
           <HyperText text={dataset.description} />
         </Prose>}
         {dataset.purpose && <Prose css={css.paper({ theme })}>
-          <h2>Purpose</h2>
+          <h2 ref={node => { tocRefs["purpose"] = node; }}>Purpose</h2>
           <HyperText text={dataset.purpose} />
         </Prose>}
         {dataset?.temporalCoverages?.length > 0 && <Prose css={css.paper({ theme })}>
@@ -64,24 +60,28 @@ export function About({
           <TaxonomicCoverages taxonomicCoverages={dataset.taxonomicCoverages} />
         </Prose>}
         {dataset.samplingDescription && <Prose css={css.paper({ theme })}>
-          <h2>Methodology</h2>
+          <h2 ref={node => { tocRefs["methodology"] = node; }}>Methodology</h2>
           <SamplingDescription dataset={dataset} />
         </Prose>}
         {dataset.additionalInfo && <Prose css={css.paper({ theme })}>
-          <h2>Additional info</h2>
+          <h2 ref={node => { tocRefs["additional-info"] = node; }}>Additional info</h2>
           <HyperText text={dataset.additionalInfo} />
+        </Prose>}
+        {dataset?.volatileContributors && <Prose css={css.paper({ theme })}>
+          <h2 ref={node => { tocRefs["contacts"] = node; }}>Contacts</h2>
+          <Contacts data={data}  />
         </Prose>}
         {dataset?.bibliographicCitations?.length > 0 && <Prose css={css.paper({ theme })}>
           <h2 ref={node => { tocRefs["bibliographic-citations"] = node; }}>Bibliographic citations</h2>
           <BibliographicCitations bibliographicCitations={dataset?.bibliographicCitations} />
         </Prose>}
-
+        
         {/* It isn't clear that this section really has much value for users of the website */}
         {/* {dataset?.dataDescriptions?.length > 0 && <Prose css={css.paper({ theme })}>
           <h2 ref={node => { tocRefs["data-descriptions"] = node; }}>Data descriptions</h2>
           <DataDescriptions dataDescriptions={dataset?.dataDescriptions} />
         </Prose>} */}
-        
+
         {dataset?.citation && <Prose css={css.paper({ theme })}>
           <h2 ref={node => { tocRefs["citation"] = node; }}>Citation</h2>
           <Citation data={data} />

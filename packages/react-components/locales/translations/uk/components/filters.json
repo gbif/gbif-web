@@ -1,0 +1,283 @@
+{
+  "dwcaExtension": {
+    "name": "Розширення DWCA",
+    "count": "",
+    "description": ""
+  },
+  "taxonKey": {
+    "name": "Наукова назва",
+    "count": "",
+    "description": ""
+  },
+  "basisOfRecord": {
+    "name": "Основа запису",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
+  "institutionCode": {
+    "name": "Акронім або код установи",
+    "count": "",
+    "description": ""
+  },
+  "catalogNumber": {
+    "name": "Каталоговий номер",
+    "count": "",
+    "description": ""
+  },
+  "mediaType": {
+    "name": "Тип медіа-файлу",
+    "count": "",
+    "description": ""
+  },
+  "occurrenceIssue": {
+    "name": "Проблеми та відмітки",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
+  "occurrenceCountry": {
+    "name": "Країна",
+    "count": "",
+    "description": ""
+  },
+  "publishingCountryCode": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "q": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "coordinates": {
+    "name": "Координати"
+  },
+  "elevation": {
+    "name": "Висота",
+    "count": "",
+    "description": ""
+  },
+  "license": {
+    "name": "Ліцензія",
+    "count": "",
+    "description": ""
+  },
+  "datasetKey": {
+    "name": "Набір даних",
+    "count": "",
+    "description": ""
+  },
+  "publisherKey": {
+    "name": "Видавець",
+    "count": "",
+    "description": ""
+  },
+  "hostingOrganizationKey": {
+    "name": "Організація хостингу",
+    "count": "",
+    "description": ""
+  },
+  "country": {
+    "name": "Країна",
+    "count": ""
+  },
+  "countriesOfCoverage": {
+    "name": "",
+    "count": ""
+  },
+  "countriesOfResearcher": {
+    "name": "",
+    "count": ""
+  },
+  "typeStatus": {
+    "name": "Статус типового зразка",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
+  "year": {
+    "name": "Рік",
+    "count": "",
+    "description": ""
+  },
+  "sampleSizeUnit": {
+    "name": "Одиниця розміру вибірки",
+    "count": "",
+    "description": ""
+  },
+  "coordinateUncertainty": {
+    "name": "Похибка координат",
+    "count": "",
+    "description": ""
+  },
+  "depth": {
+    "name": "Глибина",
+    "count": "",
+    "description": ""
+  },
+  "organismQuantity": {
+    "name": "Кількість організмів (в одиницях, відсотках, масовій частці тощо)",
+    "count": "",
+    "description": ""
+  },
+  "sampleSizeValue": {
+    "name": "Розмір вибірки",
+    "count": "",
+    "description": ""
+  },
+  "relativeOrganismQuantity": {
+    "name": "Відносна кількість організмів",
+    "count": "",
+    "description": ""
+  },
+  "month": {
+    "name": "Місяць",
+    "count": "",
+    "description": ""
+  },
+  "continent": {
+    "name": "Континент",
+    "count": "",
+    "description": ""
+  },
+  "protocol": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "establishmentMeans": {
+    "name": "Статус організму (наприклад, нативний, інтродукований, інвазійний тощо)",
+    "count": "",
+    "description": ""
+  },
+  "recordedBy": {
+    "name": "Хто створив запис",
+    "count": "",
+    "description": ""
+  },
+  "recordNumber": {
+    "name": "Номер запису",
+    "count": "",
+    "description": ""
+  },
+  "collectionCode": {
+    "name": "Код колекції",
+    "count": "",
+    "description": ""
+  },
+  "recordedById": {
+    "name": "Записано за ID",
+    "count": "",
+    "description": ""
+  },
+  "identifiedById": {
+    "name": "Визначено за ID",
+    "count": "",
+    "description": ""
+  },
+  "occurrenceId": {
+    "name": "ID знахідки",
+    "count": "",
+    "description": ""
+  },
+  "organismId": {
+    "name": "ID організму",
+    "count": "",
+    "description": ""
+  },
+  "locality": {
+    "name": "Місцевість",
+    "count": "",
+    "description": ""
+  },
+  "waterBody": {
+    "name": "Водний об'єкт",
+    "count": "",
+    "description": ""
+  },
+  "stateProvince": {
+    "name": "Область/район",
+    "count": "",
+    "description": ""
+  },
+  "eventId": {
+    "name": "ID події",
+    "count": "",
+    "description": ""
+  },
+  "samplingProtocol": {
+    "name": "Протокол збору ",
+    "count": "",
+    "description": ""
+  },
+  "occurrenceStatus": {
+    "name": "Статус знахідки (відсутня або присутня)",
+    "count": "",
+    "description": ""
+  },
+  "gadmGid": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "identifiedBy": {
+    "name": "Автор визначення",
+    "count": "",
+    "description": ""
+  },
+  "isInCluster": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "datasetType": {
+    "name": "Тип набору даних",
+    "count": "",
+    "description": ""
+  },
+  "datasetSubtype": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "institutionKey": {
+    "name": "Установа",
+    "count": "",
+    "description": ""
+  },
+  "name": {
+    "name": "Ім’я",
+    "count": "",
+    "description": ""
+  },
+  "city": {
+    "name": "Місто",
+    "count": "",
+    "description": ""
+  },
+  "code": {
+    "name": "Код",
+    "count": "",
+    "description": ""
+  },
+  "verbatimScientificName": {
+    "name": "Первинно вжита наукова назва",
+    "count": "",
+    "description": ""
+  },
+  "networkKey": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "literatureType": {
+    "name": "Тип джерела",
+    "count": "",
+    "description": ""
+  }
+}

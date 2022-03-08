@@ -1,0 +1,9 @@
+{
+  "unsupported.title": "Consulta no soportada",
+  "unsupported.description": "La búsqueda de texto libre facilita la exploración de los datos, pero no permite realizar descargas.",
+  "unsupported.remove": "Remover filtro",
+  "unsupported.error": "Esta consulta parece no estar soportada",
+  "download": "Descargar",
+  "redirectNotice": "Será redirigido a GBIF.org para descargar los datos. {br}{br} Tenga en cuenta que necesita una cuenta en GBIF.org para continuar con la descarga.",
+  "continueToGBIF": "Continuar"
+}

@@ -1,0 +1,283 @@
+{
+  "dwcaExtension": {
+    "name": "DWCA拡張形式",
+    "count": "",
+    "description": ""
+  },
+  "taxonKey": {
+    "name": "学名",
+    "count": "",
+    "description": ""
+  },
+  "basisOfRecord": {
+    "name": "データレコードの種類",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
+  "institutionCode": {
+    "name": "機関コード",
+    "count": "",
+    "description": ""
+  },
+  "catalogNumber": {
+    "name": "カタログ番号",
+    "count": "",
+    "description": ""
+  },
+  "mediaType": {
+    "name": "メディアの種類",
+    "count": "",
+    "description": ""
+  },
+  "occurrenceIssue": {
+    "name": "問題とフラグ",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
+  "occurrenceCountry": {
+    "name": "国",
+    "count": "",
+    "description": ""
+  },
+  "publishingCountryCode": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "q": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "coordinates": {
+    "name": "座標"
+  },
+  "elevation": {
+    "name": "標高",
+    "count": "",
+    "description": ""
+  },
+  "license": {
+    "name": "ライセンス",
+    "count": "",
+    "description": ""
+  },
+  "datasetKey": {
+    "name": "データセット",
+    "count": "",
+    "description": ""
+  },
+  "publisherKey": {
+    "name": "出版者",
+    "count": "",
+    "description": ""
+  },
+  "hostingOrganizationKey": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "country": {
+    "name": "国",
+    "count": ""
+  },
+  "countriesOfCoverage": {
+    "name": "",
+    "count": ""
+  },
+  "countriesOfResearcher": {
+    "name": "",
+    "count": ""
+  },
+  "typeStatus": {
+    "name": "タイプ標本の種類",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
+  "year": {
+    "name": "年",
+    "count": "",
+    "description": ""
+  },
+  "sampleSizeUnit": {
+    "name": "サンプルサイズの単位",
+    "count": "",
+    "description": ""
+  },
+  "coordinateUncertainty": {
+    "name": "座標の不確実性",
+    "count": "",
+    "description": ""
+  },
+  "depth": {
+    "name": "深度",
+    "count": "",
+    "description": ""
+  },
+  "organismQuantity": {
+    "name": "生物の数",
+    "count": "",
+    "description": ""
+  },
+  "sampleSizeValue": {
+    "name": "サンプルサイズの値",
+    "count": "",
+    "description": ""
+  },
+  "relativeOrganismQuantity": {
+    "name": "相対生物数",
+    "count": "",
+    "description": ""
+  },
+  "month": {
+    "name": "月",
+    "count": "",
+    "description": ""
+  },
+  "continent": {
+    "name": "大陸",
+    "count": "",
+    "description": ""
+  },
+  "protocol": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "establishmentMeans": {
+    "name": "対象生物の由来",
+    "count": "",
+    "description": ""
+  },
+  "recordedBy": {
+    "name": "採集者・観察者",
+    "count": "",
+    "description": ""
+  },
+  "recordNumber": {
+    "name": "レコード番号",
+    "count": "",
+    "description": ""
+  },
+  "collectionCode": {
+    "name": "コレクションコード",
+    "count": "",
+    "description": ""
+  },
+  "recordedById": {
+    "name": "採集者・観察者ID",
+    "count": "",
+    "description": ""
+  },
+  "identifiedById": {
+    "name": "同定者ID",
+    "count": "",
+    "description": ""
+  },
+  "occurrenceId": {
+    "name": "オカレンスID",
+    "count": "",
+    "description": ""
+  },
+  "organismId": {
+    "name": "生物 ID",
+    "count": "",
+    "description": ""
+  },
+  "locality": {
+    "name": "採集地・観測地",
+    "count": "",
+    "description": ""
+  },
+  "waterBody": {
+    "name": "水域",
+    "count": "",
+    "description": ""
+  },
+  "stateProvince": {
+    "name": "州/地方または都道府県",
+    "count": "",
+    "description": ""
+  },
+  "eventId": {
+    "name": "イベントID",
+    "count": "",
+    "description": ""
+  },
+  "samplingProtocol": {
+    "name": "サンプリング手順",
+    "count": "",
+    "description": ""
+  },
+  "occurrenceStatus": {
+    "name": "オカレンスの有無",
+    "count": "",
+    "description": ""
+  },
+  "gadmGid": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "identifiedBy": {
+    "name": "同定者",
+    "count": "",
+    "description": ""
+  },
+  "isInCluster": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "datasetType": {
+    "name": "データセットタイプ",
+    "count": "",
+    "description": ""
+  },
+  "datasetSubtype": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "institutionKey": {
+    "name": "機関",
+    "count": "",
+    "description": ""
+  },
+  "name": {
+    "name": "名前",
+    "count": "",
+    "description": ""
+  },
+  "city": {
+    "name": "市",
+    "count": "",
+    "description": ""
+  },
+  "code": {
+    "name": "コード",
+    "count": "",
+    "description": ""
+  },
+  "verbatimScientificName": {
+    "name": "オリジナルの学名",
+    "count": "",
+    "description": ""
+  },
+  "networkKey": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "literatureType": {
+    "name": "文献の種類",
+    "count": "",
+    "description": ""
+  }
+}

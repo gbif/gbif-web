@@ -1,0 +1,69 @@
+{
+  "description": {
+    "lt": "小于 {to}",
+    "lte": "小于或等于 {to}",
+    "gt": "大于 {from}",
+    "gte": "大于或等于 {from}",
+    "e": "等于 {is}"
+  },
+  "compact": {
+    "between": "{from} 到 {to}",
+    "lt": "低于 {to}",
+    "gt": "以上 {from}",
+    "e": "{from}"
+  },
+  "compactMeters": {
+    "between": "{from}米 到 {to}米",
+    "lt": "低于 {to}米",
+    "gt": "超过 {from}米",
+    "e": "{from}米"
+  },
+  "compactTime": {
+    "between": "{from} 到 {to}",
+    "lt": "之前 {to}",
+    "gt": "之后 {from}",
+    "e": "{from}"
+  },
+  "year": {
+    "between": "年 {from} 到 {to}",
+    "lt": "年前 {to}",
+    "gt": "年后 {from}",
+    "e": "年份是 {from}"
+  },
+  "coordinateUncertainty": {
+    "between": "坐标不确定性 {from}米 到 {to}米",
+    "lt": "坐标不确定性 以下 {to}米",
+    "gt": "坐标不确定性 高于 {from}米",
+    "e": "坐标不确定性 是 {from}米"
+  },
+  "depth": {
+    "between": "深度 {from} 到 {to}",
+    "lt": "深度以下 {to}",
+    "gt": "Depth above {from}",
+    "e": "深度是 {from}"
+  },
+  "organismQuantity": {
+    "between": "生物量 {from} 到 {to}",
+    "lt": "生物数量低于 {to}",
+    "gt": "生物量多于 {from}",
+    "e": "生物量是 {from}"
+  },
+  "sampleSizeValue": {
+    "between": "样本量值 {from} 到 {to}",
+    "lt": "样本量值低于 {to}",
+    "gt": "样本量值高于 {from}",
+    "e": "样本量值为 {from}"
+  },
+  "relativeOrganismQuantity": {
+    "between": "相对生物量 {from} 到 {to}",
+    "lt": "相对生物量低于 {to}",
+    "gt": "相对生物量高于 {from}",
+    "e": "相对生物量是 {from}"
+  },
+  "elevation": {
+    "between": "海拔 {from} 到 {to}",
+    "lt": "海拔低于 {to}",
+    "gt": "海拔高于 {from}",
+    "e": "海拔是 {from}"
+  }
+}

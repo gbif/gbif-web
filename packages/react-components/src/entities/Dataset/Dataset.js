@@ -53,7 +53,9 @@ query dataset($key: ID!, $predicate: Predicate){
     }
   }
   literatureSearch(gbifDatasetKey: [$key]) {
-    count
+    documents {
+      count
+    }
   }
   taxonSearch(datasetKey: [$key], origin: [SOURCE], status: [ACCEPTED]){
     count
@@ -91,6 +93,14 @@ query dataset($key: ID!, $predicate: Predicate){
       userId
       type
       _highlighted
+      roles
+    }
+    contactsCitation {
+      key
+      abbreviatedName
+      firstName
+      lastName
+      userId
       roles
     }
     geographicCoverages {

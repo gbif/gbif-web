@@ -1,0 +1,69 @@
+{
+  "description": {
+    "lt": "",
+    "lte": "",
+    "gt": "",
+    "gte": "",
+    "e": ""
+  },
+  "compact": {
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": ""
+  },
+  "compactMeters": {
+    "between": "",
+    "lt": "{to}m以下",
+    "gt": "{from}m以上",
+    "e": ""
+  },
+  "compactTime": {
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": ""
+  },
+  "year": {
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": ""
+  },
+  "coordinateUncertainty": {
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": ""
+  },
+  "depth": {
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": ""
+  },
+  "organismQuantity": {
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": ""
+  },
+  "sampleSizeValue": {
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": ""
+  },
+  "relativeOrganismQuantity": {
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": ""
+  },
+  "elevation": {
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": ""
+  }
+}

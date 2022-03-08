@@ -1,5 +1,5 @@
 'use strict';
-const Joi = require('@hapi/joi');
+const Joi = require('joi');
 
 // consider splitting the joined alternative schema into one per predicate
 // we would then need to iterate over them all and evaluate them all individually.

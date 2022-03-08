@@ -2,8 +2,11 @@ import { action } from '@storybook/addon-actions';
 import { text } from '@storybook/addon-knobs';
 import React from 'react';
 import { addDecorator } from '@storybook/react';
-
+import { MemoryRouter as Router, Route } from "react-router-dom";
+import AddressBar from '../../StorybookAddressBar';
 import DatasetSearch from './DatasetSearch';
+import Standalone from './Standalone';
+import { QueryParamProvider } from 'use-query-params';
 
 export default {
   title: 'Search/DatasetSearch',
@@ -62,7 +65,7 @@ const filters = {
         id2labelHandle: 'elevation',
         translations: {
           count: 'filter.elevation.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.elevation.name',// translation path to a title for the popover and the button
+          name: 'filters.elevation.name',// translation path to a title for the popover and the button
           description: 'filter.elevation.description', // translation path for the filter description
         }
       },
@@ -74,10 +77,19 @@ const filters = {
 }
 
 
+// const config = { labels, getSuggests, filters, rootFilter: {endorsingNodeKey: '4f829580-180d-46a9-9c87-ed8ec959b545'} };
 const config = { labels, getSuggests, filters };
 
-export const Example = () => <DatasetSearch config={config} style={{ margin: 'auto', maxWidth: 1200, height: 'calc(100vh)' }} />;
+export const Example = () => <Router initialEntries={[`/dataset/search`]}>
+  <QueryParamProvider ReactRouterRoute={Route}>
+    <AddressBar />
+    <DatasetSearch pageLayout config={config} style={{ margin: 'auto', height: 'calc(100vh - 50px)' }} />
+  </QueryParamProvider>
+</Router>
+
 
 Example.story = {
   name: 'Dataset search',
 };
+
+export const StandaloneExample = () => <Standalone style={{height: 'calc(100vh - 20px)'}}></Standalone>;

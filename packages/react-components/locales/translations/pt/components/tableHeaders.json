@@ -1,0 +1,13 @@
+{
+  "features": "Características",
+  "citations": "Citações",
+  "occurrences": "Ocorrências",
+  "numberSpecimens": "Número de espécimes",
+  "gbifNumberSpecimens": "Espécimes no GBIF",
+  "title": "Título",
+  "titleAndAbstract": "Título e resumo",
+  "altmetric": "Altmetria",
+  "registered": "Registado",
+  "hostedDatasets": "Conjuntos de dados alojados",
+  "pubDatasets": "Conjuntos de dados publicados"
+}

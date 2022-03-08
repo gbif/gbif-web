@@ -1,0 +1,283 @@
+{
+  "dwcaExtension": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "taxonKey": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "basisOfRecord": {
+    "name": "",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
+  "institutionCode": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "catalogNumber": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "mediaType": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "occurrenceIssue": {
+    "name": "",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
+  "occurrenceCountry": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "publishingCountryCode": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "q": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "coordinates": {
+    "name": ""
+  },
+  "elevation": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "license": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "datasetKey": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "publisherKey": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "hostingOrganizationKey": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "country": {
+    "name": "",
+    "count": ""
+  },
+  "countriesOfCoverage": {
+    "name": "",
+    "count": ""
+  },
+  "countriesOfResearcher": {
+    "name": "",
+    "count": ""
+  },
+  "typeStatus": {
+    "name": "",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
+  "year": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "sampleSizeUnit": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "coordinateUncertainty": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "depth": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "organismQuantity": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "sampleSizeValue": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "relativeOrganismQuantity": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "month": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "continent": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "protocol": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "establishmentMeans": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "recordedBy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "recordNumber": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "collectionCode": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "recordedById": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "identifiedById": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "occurrenceId": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "organismId": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "locality": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "waterBody": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "stateProvince": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "eventId": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "samplingProtocol": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "occurrenceStatus": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "gadmGid": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "identifiedBy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "isInCluster": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "datasetType": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "datasetSubtype": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "institutionKey": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "name": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "city": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "code": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "verbatimScientificName": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "networkKey": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "literatureType": {
+    "name": "",
+    "count": "",
+    "description": ""
+  }
+}

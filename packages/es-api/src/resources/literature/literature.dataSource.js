@@ -3,6 +3,7 @@ const Agent = require('agentkeepalive');
 const { ResponseError } = require('../errorHandler');
 const { search } = require('../esRequest');
 const env = require('../../config');
+const { reduce } = require('./reduce');
 const { queryReducer } = require('../../responseAdapter');
 
 const searchIndex = 'literature';
@@ -18,10 +19,6 @@ var client = new Client({
   requestTimeout: env.literature.requestTimeout || 60000,
   agent
 });
-
-function reduce(item) {
-  return item._source;
-}
 
 async function query({ query, aggs, size = 20, from = 0, req }) {
   if (parseInt(from) + parseInt(size) > env.literature.maxResultWindow) {

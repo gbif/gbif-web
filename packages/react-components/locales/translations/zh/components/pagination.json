@@ -1,0 +1,8 @@
+{
+  "first": "第一页",
+  "previous": "前一页",
+  "next": "下一步",
+  "options": "选项",
+  "pageXofY": "{total}中的第{current}页",
+  "moreFilters": "更多"
+}

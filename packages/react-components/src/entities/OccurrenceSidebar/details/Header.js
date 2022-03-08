@@ -1,11 +1,12 @@
 
 import { jsx } from '@emotion/react';
 import React, { useContext } from 'react';
-import { FormattedDate } from 'react-intl';
+import { FormattedDate, FormattedMessage } from 'react-intl';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import * as css from '../styles';
-import { Row, Col, IconFeatures } from "../../../components";
+import { Row, Col, IconFeatures, Eyebrow } from "../../../components";
 import { Globe } from './Globe';
+import useBelow from '../../../utils/useBelow';
 
 export function Header({
   data,
@@ -14,25 +15,27 @@ export function Header({
   className,
   ...props
 }) {
+  const isBelow = useBelow(500);
   const theme = useContext(ThemeContext);
   const item = data?.occurrence;
-  return <Row wrap="no-wrap" css={css.header({ theme })}>
-    {data?.occurrence?.volatile?.globe &&
+  return <Row wrap="no-wrap" css={css.header({ theme })} {...props}>
+    {!isBelow && data?.occurrence?.volatile?.globe &&
       <Col grow={false} style={{ marginRight: 18 }}>
         <Globe {...data?.occurrence?.volatile?.globe} />
       </Col>
     }
     <Col grow>
       <div css={css.headline({ theme })}>
-        <div css={css.breadcrumb({ theme })}>
-          {/* <FormattedMessage id={`enums.basisOfRecord.${data?.occurrence?.basisOfRecord}`} /> */}
-          Occurrence<span css={css.breadcrumbSeperator({ theme })}>
+        <Eyebrow 
+          style={{fontSize: '80%'}}
+          prefix={<FormattedMessage id="occurrenceDetails.occurrence" />} 
+          suffix={data?.occurrence?.eventDate ? 
             <FormattedDate value={data?.occurrence?.eventDate}
               year="numeric"
               month="long"
-              day="2-digit" />
-          </span>
-        </div>
+              day="2-digit" /> : 
+            <FormattedMessage id="phrases.unknownDate"/>} 
+            />
         <h3 dangerouslySetInnerHTML={{ __html: data?.occurrence?.gbifClassification?.usage?.formattedName }}></h3>
         {/* <div style={{color: 'orange', marginTop: 4}}>Published as: Polycauliona polycarpa hoffman</div> */}
         {/* <div style={{fontSize: 13}}><MajorRanks taxon={data?.occurrence?.gbifClassification} rank={data?.occurrence?.gbifClassification?.usage?.rank}/></div> */}

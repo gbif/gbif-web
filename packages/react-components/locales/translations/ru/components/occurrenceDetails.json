@@ -1,0 +1,38 @@
+{
+  "occurrence": "Находка",
+  "showAllFields": "",
+  "morePhotos": "",
+  "about": "Об организациии",
+  "dataset": "Набор данных",
+  "publisher": "Организация",
+  "institution": "Организация",
+  "institutionGrSciColl": "",
+  "collection": "Коллекция",
+  "collectionGrSciColl": "",
+  "recordedAndIdentifiedBy": "",
+  "info": {
+    "original": "исходный",
+    "excluded": "не интерпретировано",
+    "inferred": "получено из других значений",
+    "altered": "изменено"
+  },
+  "groups": {
+    "summary": "Тема сообщения",
+    "record": "Запись",
+    "occurrence": "Находка",
+    "event": "Мероприятие",
+    "identification": "Определение",
+    "taxon": "Таксон",
+    "location": "Местонахождение (топоним)",
+    "organism": "Организм",
+    "materialSample": "Образец из коллекции",
+    "geologicalContext": "Геологические контекст",
+    "other": "Другая"
+  },
+  "features": {
+    "isClustered": "",
+    "isSamplingEvent": "Описания, учеты или сборы",
+    "isTreament": "",
+    "isSequenced": ""
+  }
+}

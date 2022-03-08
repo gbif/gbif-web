@@ -6,15 +6,26 @@ const typeDef = gql`
       limit: Int, 
       offset: Int, 
       q: String,
+      """
+      Not implemented yet
+      """
       country: [Country],
       type: [DatasetType],
+      """
+      Not implemented yet
+      """
       subtype: [DatasetSubtype],
       license: [License],
       keyword: [String],
       publishingOrg: [ID],
+      endorsingNodeKey: [ID],
       hostingOrg: [ID],
+      networkKey: [ID],
       decade: [Int],
       publishingCountry: [Country],
+      """
+      Not implemented yet
+      """
       continent: [Continent],
       hl: Boolean
       ): DatasetSearchResults
@@ -69,10 +80,11 @@ const typeDef = gql`
     additionalInfo: String
     bibliographicCitations: [BibliographicCitation]
     citation: Citation
+    contactsCitation: [ContactsCitation]
     collections: [JSON]
     comments: [JSON]
     contacts: [Contact]
-    contributors: [Contact]
+    volatileContributors: [Contact]
     countryCoverage: [JSON]
     created: DateTime
     createdBy: String
@@ -184,6 +196,16 @@ const typeDef = gql`
 
   type Citation {
     text: String!
+    citationProvidedBySource: Boolean
+  }
+
+  type ContactsCitation {
+    key: Int
+    abbreviatedName: String
+    firstName: String
+    lastName: String
+    roles: [String]
+    userId: [URL]
   }
 
   type GeographicCoverage {

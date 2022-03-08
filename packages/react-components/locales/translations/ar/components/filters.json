@@ -1,0 +1,283 @@
+{
+  "dwcaExtension": {
+    "name": "لاحقة DWCA",
+    "count": "",
+    "description": ""
+  },
+  "taxonKey": {
+    "name": "الاسم العلمي",
+    "count": "",
+    "description": ""
+  },
+  "basisOfRecord": {
+    "name": "قاعدة السجل",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
+  "institutionCode": {
+    "name": "رمز المؤسسة",
+    "count": "",
+    "description": ""
+  },
+  "catalogNumber": {
+    "name": "رقم الدليل",
+    "count": "",
+    "description": ""
+  },
+  "mediaType": {
+    "name": "نوع الوسائط",
+    "count": "",
+    "description": ""
+  },
+  "occurrenceIssue": {
+    "name": "مسائل و رايات",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
+  "occurrenceCountry": {
+    "name": "بلد",
+    "count": "",
+    "description": ""
+  },
+  "publishingCountryCode": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "q": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "coordinates": {
+    "name": "احداثيات"
+  },
+  "elevation": {
+    "name": "ارتفاع",
+    "count": "",
+    "description": ""
+  },
+  "license": {
+    "name": "الرخصة",
+    "count": "",
+    "description": ""
+  },
+  "datasetKey": {
+    "name": "مجموعة البيانات",
+    "count": "",
+    "description": ""
+  },
+  "publisherKey": {
+    "name": "الناشر",
+    "count": "",
+    "description": ""
+  },
+  "hostingOrganizationKey": {
+    "name": "المنظمة المضيفة",
+    "count": "",
+    "description": ""
+  },
+  "country": {
+    "name": "بلد",
+    "count": ""
+  },
+  "countriesOfCoverage": {
+    "name": "",
+    "count": ""
+  },
+  "countriesOfResearcher": {
+    "name": "",
+    "count": ""
+  },
+  "typeStatus": {
+    "name": "حالة النمط",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
+  "year": {
+    "name": "السنة",
+    "count": "",
+    "description": ""
+  },
+  "sampleSizeUnit": {
+    "name": "وحدة حجم العينة",
+    "count": "",
+    "description": ""
+  },
+  "coordinateUncertainty": {
+    "name": "عدم التأكد من الاحداثيات",
+    "count": "",
+    "description": ""
+  },
+  "depth": {
+    "name": "العمق",
+    "count": "",
+    "description": ""
+  },
+  "organismQuantity": {
+    "name": "كمية المتعضي",
+    "count": "",
+    "description": ""
+  },
+  "sampleSizeValue": {
+    "name": "فيمة حجم العينة",
+    "count": "",
+    "description": ""
+  },
+  "relativeOrganismQuantity": {
+    "name": "كمية الكائن النسبية",
+    "count": "",
+    "description": ""
+  },
+  "month": {
+    "name": "الشهر",
+    "count": "",
+    "description": ""
+  },
+  "continent": {
+    "name": "القارة",
+    "count": "",
+    "description": ""
+  },
+  "protocol": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "establishmentMeans": {
+    "name": "وسائل الاسترساء",
+    "count": "",
+    "description": ""
+  },
+  "recordedBy": {
+    "name": "سجلت من قبل",
+    "count": "",
+    "description": ""
+  },
+  "recordNumber": {
+    "name": "رقم السجل",
+    "count": "",
+    "description": ""
+  },
+  "collectionCode": {
+    "name": "رمز المجموعة",
+    "count": "",
+    "description": ""
+  },
+  "recordedById": {
+    "name": "تم تسجيله بواسطة المعرف ID",
+    "count": "",
+    "description": ""
+  },
+  "identifiedById": {
+    "name": " تم تحديده بواسطة المعرف",
+    "count": "",
+    "description": ""
+  },
+  "occurrenceId": {
+    "name": "معرف التكرار",
+    "count": "",
+    "description": ""
+  },
+  "organismId": {
+    "name": "معرف الكائن",
+    "count": "",
+    "description": ""
+  },
+  "locality": {
+    "name": "موقع",
+    "count": "",
+    "description": ""
+  },
+  "waterBody": {
+    "name": "المسطح المائي",
+    "count": "",
+    "description": ""
+  },
+  "stateProvince": {
+    "name": "الولاية/المقاطعة/المحافظة",
+    "count": "",
+    "description": ""
+  },
+  "eventId": {
+    "name": "معرف الحدث",
+    "count": "",
+    "description": ""
+  },
+  "samplingProtocol": {
+    "name": "بروتوكول اخذ العينات",
+    "count": "",
+    "description": ""
+  },
+  "occurrenceStatus": {
+    "name": "حالة التكرار",
+    "count": "",
+    "description": ""
+  },
+  "gadmGid": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "identifiedBy": {
+    "name": "تم تحديده بواسطة",
+    "count": "",
+    "description": ""
+  },
+  "isInCluster": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "datasetType": {
+    "name": "نمط مجموعة البيانات",
+    "count": "",
+    "description": ""
+  },
+  "datasetSubtype": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "institutionKey": {
+    "name": "مؤسسة",
+    "count": "",
+    "description": ""
+  },
+  "name": {
+    "name": "الاسم",
+    "count": "",
+    "description": ""
+  },
+  "city": {
+    "name": "المدينة",
+    "count": "",
+    "description": ""
+  },
+  "code": {
+    "name": "الرمز",
+    "count": "",
+    "description": ""
+  },
+  "verbatimScientificName": {
+    "name": "الاسم العلمي الحرفي",
+    "count": "",
+    "description": ""
+  },
+  "networkKey": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "literatureType": {
+    "name": "نمط  المراجع",
+    "count": "",
+    "description": ""
+  }
+}

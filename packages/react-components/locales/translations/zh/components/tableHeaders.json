@@ -1,0 +1,13 @@
+{
+  "features": "特征",
+  "citations": "引用",
+  "occurrences": "出现记录",
+  "numberSpecimens": "标本数",
+  "gbifNumberSpecimens": "GBIF中的标本",
+  "title": "标题",
+  "titleAndAbstract": "标题和摘要",
+  "altmetric": "替代指标",
+  "registered": "已注册",
+  "hostedDatasets": "托管数据集",
+  "pubDatasets": "已发布的数据集"
+}

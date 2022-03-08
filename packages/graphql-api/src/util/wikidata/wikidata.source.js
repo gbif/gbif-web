@@ -190,7 +190,7 @@ class WikiDataAPI extends RESTDataSource {
       }`;
 
     const response = await this.sparqlQuery({query});
-    return this.getUniquePerson({response});
+    return this.getFirstMatch({response});
   }
 
   async sparqlQuery({query}) {
@@ -200,8 +200,8 @@ class WikiDataAPI extends RESTDataSource {
     return JSON.parse(response);
   }
 
-  getUniquePerson({response}) {
-    if (response?.results?.bindings?.length === 1) {
+  getFirstMatch({response}) {
+    if (response?.results?.bindings?.length >= 1) {
       const person = response.results.bindings[0];
       return {
         source: {
@@ -265,7 +265,7 @@ class WikiDataAPI extends RESTDataSource {
       }`;
 
     const response = await this.sparqlQuery({query});
-    return this.getUniquePerson({response});
+    return this.getFirstMatch({response});
   }
 }
 

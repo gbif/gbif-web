@@ -5,7 +5,19 @@ import OccurrenceContext from '../../../SearchContext';
 import { useQuery } from '../../../../dataManagement/api';
 import { filter2predicate } from '../../../../dataManagement/filterAdapter';
 import { useUrlState } from '../../../../dataManagement/state/useUrlState';
+import { useIntegerParam } from '../../../../dataManagement/state/useIntegerParam';
 import { TablePresentation } from './TablePresentation';
+import { useQueryParam, NumberParam } from 'use-query-params';
+import keyBy from 'lodash/keyBy';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect,
+  useHistory,
+  useLocation
+} from "react-router-dom";
 
 const OCCURRENCE_TABLE = `
 query table($predicate: Predicate, $size: Int = 20, $from: Int = 0){
@@ -28,6 +40,14 @@ query table($predicate: Predicate, $size: Int = 20, $from: Int = 0){
         publisherTitle
         countryCode
         formattedCoordinates
+        catalogNumber
+        recordedBy
+        identifiedBy
+        recordNumber
+        preparations
+        institutionCode
+        collectionCode
+        locality
 
         stillImageCount
         movingImageCount
@@ -50,11 +70,12 @@ query table($predicate: Predicate, $size: Int = 20, $from: Int = 0){
 `;
 
 function Table() {
-  const [from, setFrom] = useUrlState({ param: 'from', defaultValue: 0 });
+  const [from = 0, setFrom] = useQueryParam('from', NumberParam);
+  const [columns, setColumns] = useState([]);
   const size = 50;
   const currentFilterContext = useContext(FilterContext);
-  const { rootPredicate, predicateConfig } = useContext(OccurrenceContext);
-  const { data, error, loading, load } = useQuery(OCCURRENCE_TABLE, { lazyLoad: true, keepDataWhileLoading: true });
+  const { rootPredicate, predicateConfig, tableConfig, defaultTableColumns } = useContext(OccurrenceContext);
+  const { data, error, loading, load } = useQuery(OCCURRENCE_TABLE, { lazyLoad: true });
 
   useEffect(() => {
     const predicate = {
@@ -64,12 +85,18 @@ function Table() {
         filter2predicate(currentFilterContext.filter, predicateConfig)
       ].filter(x => x)
     }
-    load({ variables: { predicate, size, from } });
+    load({ keepDataWhileLoading: true, variables: { predicate, size, from } });
   }, [currentFilterContext.filterHash, rootPredicate, from]);
+
+  useEffect(() => {
+    return function cleanup() {
+      setFrom();
+    };
+  }, []);
 
   // https://stackoverflow.com/questions/55075604/react-hooks-useeffect-only-on-update
   useUpdateEffect(() => {
-    setFrom(0);
+    // if (from !== 0) setFrom(0);
   }, [currentFilterContext.filterHash]);
 
   const next = useCallback(() => {
@@ -84,6 +111,14 @@ function Table() {
     setFrom(0);
   });
 
+  useEffect(() => {
+    const cols = ['scientificName', ...(defaultTableColumns || tableConfig.defaultColumns)];
+    
+    const colMap = keyBy(tableConfig.columns, 'name');
+    const activeCols = cols.map(name => colMap[name]).filter(x => x);
+    setColumns(activeCols);
+  }, [tableConfig, defaultTableColumns]);
+
   return <>
     <TablePresentation
       loading={loading}
@@ -94,6 +129,7 @@ function Table() {
       size={size}
       from={from}
       total={data?.occurrenceSearch?.documents?.total}
+      columns={columns}
     />
   </>
 }

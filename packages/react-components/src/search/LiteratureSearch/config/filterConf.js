@@ -1,9 +1,11 @@
-export const all = [
+export const filters = [
   'q',
   'year',
   'countriesOfResearcher',
   'countriesOfCoverage',
-  'datasetKey'
+  'datasetKey',
+  'publisherKey',
+  'literatureType'
 ].sort();
 
 const highlighted = [
@@ -13,4 +15,4 @@ const highlighted = [
   'datasetKey'
 ];
 
-export default { filters: all, whitelist: all, highlighted };
+export default { filters, included: filters, highlighted };

@@ -14,13 +14,9 @@ export const commonLabels = {
     type: 'TRANSLATION',
     template: id => id
   },
-  catalogNumber: {
+  mediaType: {
     type: 'TRANSLATION',
-    template: id => id
-  },
-  mediaTypes: {
-    type: 'TRANSLATION',
-    template: id => `enums.mediaTypes.${id}`
+    template: id => `enums.mediaType.${id}`
   },
   occurrenceIssue: {
     type: 'TRANSLATION',
@@ -62,14 +58,14 @@ export const commonLabels = {
     template: ({ id, api }) => `${api.v1.endpoint}/organization/${id}`,
     transform: result => ({ title: result.title })
   },
-  hostKey: {
+  hostingOrganizationKey: {
     type: 'ENDPOINT',
     template: ({ id, api }) => `${api.v1.endpoint}/organization/${id}`,
     transform: result => ({ title: result.title })
   },
   datasetKey: {
     type: 'GQL',
-    query: `query label($id: String!){
+    query: `query label($id: ID!){
       dataset(key: $id) {
         title
       }
@@ -78,27 +74,27 @@ export const commonLabels = {
   },
   year: {
     type: 'CUSTOM',
-    component: rangeOrEqualLabel('interval.compactTime')
+    component: rangeOrEqualLabel('intervals.compactTime')
   },
   coordinateUncertainty: {
     type: 'CUSTOM',
-    component: rangeOrEqualLabel('interval.compactMeters')
+    component: rangeOrEqualLabel('intervals.compactMeters')
   },
   depth: {
     type: 'CUSTOM',
-    component: rangeOrEqualLabel('interval.compactMeters')
+    component: rangeOrEqualLabel('intervals.compactMeters')
   },
   organismQuantity: {
     type: 'CUSTOM',
-    component: rangeOrEqualLabel('interval.compact')
+    component: rangeOrEqualLabel('intervals.compact')
   },
   sampleSizeValue: {
     type: 'CUSTOM',
-    component: rangeOrEqualLabel('interval.compact')
+    component: rangeOrEqualLabel('intervals.compact')
   },
   relativeOrganismQuantity: {
     type: 'CUSTOM',
-    component: rangeOrEqualLabel('interval.compact')
+    component: rangeOrEqualLabel('intervals.compact')
   },
   month: {
     type: 'TRANSLATION',
@@ -112,15 +108,23 @@ export const commonLabels = {
     type: 'TRANSLATION',
     template: id => `enums.protocol.${id}`
   },
+  literatureType: {
+    type: 'TRANSLATION',
+    template: id => `enums.literatureType.${id}`
+  },
   establishmentMeans: {
     type: 'TRANSLATION',
     template: id => `enums.establishmentMeans.${id}`
   },
-  catalogNumber: {
-    type: 'TRANSLATION',
-    template: id => id
+  establishmentMeansVocabulary: {
+    type: 'ENDPOINT',
+    template: ({ id, api }) => `${api.v1.endpoint}/vocabularies/EstablishmentMeans/concepts/${id}`,
+    transform: (result, { localeContext } = {}) => {
+      const vocabularyLocale = localeContext?.localeMap?.vocabulary || 'en';
+      return { title: result.label[vocabularyLocale] || result.label.en };
+    }
   },
-  recordedBy: {
+  catalogNumber: {
     type: 'TRANSLATION',
     template: id => id
   },
@@ -130,7 +134,7 @@ export const commonLabels = {
   },
   elevation: {
     type: 'CUSTOM',
-    component: rangeOrEqualLabel('interval.compactMeters')
+    component: rangeOrEqualLabel('intervals.compactMeters')
   },
   occurrenceStatus: {
     type: 'TRANSLATION',
@@ -161,6 +165,19 @@ export const commonLabels = {
       }
     }`,
     transform: result => ({ title: result.data.institution.name })
+  },
+  networkKey: {
+    type: 'ENDPOINT',
+    template: ({ id, api }) => `${api.v1.endpoint}/network/${id}`,
+    transform: result => ({ title: result.title })
+  },
+  literatureType: {
+    type: 'TRANSLATION',
+    template: id => `enums.literatureType.${id}`
+  },
+  dwcaExtension: {
+    type: 'TRANSLATION',
+    template: id => `enums.dwcaExtension.${id}`
   },
   // -- Add labels above this line (required by plopfile.js) --
 }

@@ -22,13 +22,13 @@ export const FilterContent = ({ config, translations, LabelFromID, hide, labelle
     onApply={onApply}
     onCancel={onCancel}
     title={<FormattedMessage
-      id={translations?.name || `filter.${filterHandle}.name`}
+      id={translations?.name || `filters.${filterHandle}.name`}
       defaultMessage={translations?.name}
     />}
     hasHelpTexts={config.hasOptionDescriptions}
     supportsExist={config.supportsExist}
     aboutText={translations.description && <FormattedMessage
-      id={translations.description || `filter.${filterHandle}.description`}
+      id={translations.description || `filters.${filterHandle}.description`}
       defaultMessage={translations.description}
     />}
     isNegated={isNegated}
@@ -46,7 +46,7 @@ export const FilterContent = ({ config, translations, LabelFromID, hide, labelle
         {config.supportsNegation && <AdditionalControl checked={isNegated} onChange={e => {
           negateField(filterHandle, !isNegated);
           setNegated(!isNegated);
-        }}>Exclude selected</AdditionalControl>}
+        }}><FormattedMessage id="filterSupport.excludeSelected" defaultMessage="Exclude selected"/></AdditionalControl>}
         
         <SummaryBar {...summaryProps} />
         <FilterBody onKeyPress={e => {

@@ -83,7 +83,7 @@ const filterWidgetConfig = {
         }
       },
       specific: {
-        placeholder: 'Range or single value'
+        placeholder: 'search.placeholders.range'
       }
     }
   },
@@ -106,13 +106,65 @@ const filterWidgetConfig = {
         description: 'filter.basisOfRecord.description', // translation path for the filter description
       }
     }
+  },
+  // lifeStage: {
+  //   type: 'VOCAB',
+  //   config: {
+  //     std: {
+  //       filterHandle: 'lifeStage',
+  //       id2labelHandle: 'lifeStage',
+  //       translations: {
+  //         count: 'filter.lifeStage.count', // translation path to display names with counts. e.g. "3 scientific names"
+  //         name: 'filter.lifeStage.name',// translation path to a title for the popover and the button
+  //       }
+  //     },
+  //     specific: {
+  //       options: [{key: 'HUMAN_OBSERVATION', desc: 'An observation made by a human being'}, {key: 'OBSERVATION'}, {key: 'LIVING_SPECIMEN'}],
+  //       hasOptionDescriptions: true,
+  //       showOptionHelp: true,
+  //       description: 'filter.lifeStage.description', // translation path for the filter description
+  //     }
+  //   }
+  // },
+  recordedBy: {
+    type: 'KEYWORD_SEARCH',
+    config: {
+      std: {
+        filterHandle: 'recordedBy',
+        id2labelHandle: 'recordedBy',
+        translations: {
+          count: 'filter.recordedBy.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filter.recordedBy.name',// translation path to a title for the popover and the button
+          description: 'filter.recordedBy.description', // translation path for the filter description
+        }
+      },
+      specific: {
+        searchHandle: 'recordedBy',
+        query: `
+          query keywordSearch($predicate: Predicate, $size: Int){
+            occurrenceSearch(predicate: $predicate) {
+              cardinality {
+                recordedBy
+              }
+              facet {
+                recordedBy(size: $size) {
+                  key
+                  count
+                }
+              }
+            }
+          }
+        `,
+        queryKey: 'recordedBy'
+      }
+    }
   }
 }
 
 function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig }, context) {
   const labelMap = config2labels(labelConfig, context.client);
   const suggestConfigMap = getSuggestConfig({ client: context.client });
-  const filters = filterBuilder({ filterWidgetConfig, labelMap, suggestConfigMap, client: context.client });
+  const filters = filterBuilder({ filterWidgetConfig, labelMap, suggestConfigMap, context });
   return {
     labelMap,
     suggestConfigMap,
@@ -137,6 +189,8 @@ const ExampleNested = () => {
     <config.filters.year.Button />
     <config.filters.taxonKey.Button />
     <config.filters.basisOfRecord.Button />
+    {/* <config.filters.lifeStage.Button /> */}
+    <config.filters.recordedBy.Button />
     <h2>Filter</h2>
     <pre>{JSON.stringify(filter, null, 2)}</pre>
   </FilterState>

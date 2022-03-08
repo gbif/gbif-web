@@ -1,6 +1,6 @@
 
-import { jsx } from '@emotion/react';
-import React, { useState } from "react";
+import { css, jsx } from '@emotion/react';
+import React, { useState, useEffect } from "react";
 import PropTypes from 'prop-types';
 import PopoverFilter from './PopoverFilter';
 import { FormattedMessage } from 'react-intl';
@@ -8,14 +8,36 @@ import { nanoid } from 'nanoid';
 import get from 'lodash/get';
 import { keyCodes } from '../../../utils/util';
 import { Input } from '../../../components';
-import { Option, Filter, SummaryBar, FilterBody, Footer, Exists } from '../utils';
+import { AdditionalControl, Option, Filter, SummaryBar, FilterBody, Footer, Exists } from '../utils';
 
 export const FilterContent = ({ config = {}, translations, hide, onApply, onCancel, onFilterChange, focusRef, filterHandle, initFilter }) => {
   const { placeholder = 'Input text' } = config;
   const [id] = React.useState(nanoid);
-  const initialOptions = get(initFilter, `must.${filterHandle}`, []);
-  const [options, setOptions] = useState(initialOptions);
+  const [options, setOptions] = useState([]);
   const [inputValue, setValue] = useState('');
+
+  let mustNotLength = get(initFilter, `must_not.${filterHandle}`, []).length;
+  const [isNegated, setNegated] = useState(mustNotLength > 0 && config.supportsNegation);
+  const [isComplex, setComplex] = useState(false);
+
+  useEffect(() => {
+    const initialMustOptions = get(initFilter, `must.${filterHandle}`, []);
+    const initialMustNotOptions = get(initFilter, `must_not.${filterHandle}`, []);
+    const notNullFilters = initialMustOptions.filter(x => x.type === 'isNotNull');
+    const nullFilters = initialMustNotOptions.filter(x => x.type === 'isNotNull');
+    const typeCount = [initialMustOptions, initialMustNotOptions, notNullFilters, nullFilters].reduce((prev, curr) => {
+      prev += curr.length > 0 ? 1 : 0;
+      return prev;
+    }, 0);
+    setComplex(typeCount > 1);
+    if (typeCount < 2) {
+      setOptions(initialMustOptions.length > 0 ? initialMustOptions : initialMustNotOptions);
+    }
+  }, [initFilter]);
+
+  if (isComplex) {
+    console.log('Complexity above what filter supports. Show dump of filter instead.');
+  }
 
   const singleSelect = config.singleSelect;
 
@@ -23,28 +45,26 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
   return <Filter
     labelledById={false}
     title={<FormattedMessage
-      id={translations?.name || `filter.${filterHandle}.name`}
+      id={translations?.name || `filters.${filterHandle}.name`}
       defaultMessage={translations?.name}
     />}
     aboutText={translations.description && <FormattedMessage
-      id={translations.description || `filter.${filterHandle}.description`}
+      id={translations.description || `filters.${filterHandle}.description`}
       defaultMessage={translations.description}
     />}
     onFilterChange={onFilterChange}
     supportsExist={config.supportsExist}
     filterName={filterHandle}
+    isNegated={isNegated}
     formId={id}
     defaultFilter={initFilter}
   >
-    {({ filter, toggle, setFullField, checkedMap, formId, summaryProps, footerProps, isExistenceFilter }) => {
-      // if (typeof isExistenceFilter === 'undefined') {
-      //   return <div>loading</div>;//TODO create a loader component for these kind of usages
-      // }
+    {({ filter, negateField, toggle, setFullField, checkedMap, formId, summaryProps, footerProps, isExistenceFilter }) => {
       if (isExistenceFilter) {
         return <Exists {...{ footerProps, setFullField, onApply, onCancel, filter, hide, filterHandle }} />
       }
       return <>
-        <div style={{ margin: '10px', zIndex: 10, display: 'inline-block', position: 'relative' }}>
+        <div css={inputStyle}>
           <Input ref={focusRef}
             value={inputValue}
             onChange={e => {
@@ -65,21 +85,27 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
                   onApply({ filter, hide });
                 } else if (singleSelect) {
                   setOptions([value]);
-                  setFullField(filterHandle, [value], [])
+                  const params = isNegated ? [filterHandle, [], [value]] : [filterHandle, [value], []];
+                  setFullField(...params)
                     .then(responseFilter => onApply({ filter: responseFilter, hide }))
                     .catch(err => console.log(err));
                 } else {
                   setValue('');
                   const allOptions = [...new Set([value, ...options])]
                   setOptions(allOptions);
-                  toggle(filterHandle, value);
+                  toggle(filterHandle, value, !isNegated);
                 }
               }
             }}
           />
         </div>
+
+        {typeof isExistenceFilter !== 'undefined' && config.supportsNegation && <AdditionalControl checked={isNegated} onChange={e => {
+          negateField(filterHandle, !isNegated);
+          setNegated(!isNegated);
+        }}><FormattedMessage id="filterSupport.excludeSelected" defaultMessage="Exclude selected" /></AdditionalControl>}
         {options.length > 0 && typeof isExistenceFilter !== 'undefined' && <>
-          <SummaryBar {...summaryProps} style={{ marginTop: 0 }} />
+          <SummaryBar {...summaryProps} />
           <FilterBody>
             <form id={formId} onSubmit={e => e.preventDefault()} >
               {options.map((option) => {
@@ -88,7 +114,7 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
                   helpVisible={false}
                   label={option}
                   checked={checkedMap.has(option)}
-                  onChange={() => toggle(filterHandle, option)}
+                  onChange={() => toggle(filterHandle, option, !isNegated)}
                 />
               })}
             </form>
@@ -128,3 +154,16 @@ export function Popover({ filterHandle, LabelFromID, translations = {}, config, 
     />
   );
 }
+
+export const inputStyle = css`
+  margin: 10px;
+  z-index: 10;
+  display: inline-block;
+  position: relative;
+  & + div {
+    margin-top: 0;
+    >div {
+      margin-top: 0;
+    }
+  }
+`;

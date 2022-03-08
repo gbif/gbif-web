@@ -49,11 +49,13 @@ const facetOccurrenceSearch = (parent) => {
 */
 module.exports = {
   Query: {
-    occurrenceSearch: (parent, args) => {
+    occurrenceSearch: (parent, args, { dataSources }) => {
       // dataSources.occurrenceAPI.searchOccurrences({ query: args }),
-      return { 
+      const v1Predicate = predicate2v1(args.predicate);
+      return {
         _predicate: args.predicate,
-        _downloadPredicate: predicate2v1(args.predicate),
+        _downloadPredicate: v1Predicate,
+        _v1PredicateHash: v1Predicate.predicate ? dataSources.occurrenceAPI.registerPredicate({predicate: v1Predicate.predicate}) : null
       };
     },
     occurrence: (parent, { key }, { dataSources }) =>
@@ -92,41 +94,48 @@ module.exports = {
       return { lat: decimalLatitude, lon: decimalLongitude };
     },
     primaryImage: ({ media }) => {
-      if (typeof media === 'undefined') return null;
+      if (!Array.isArray(media)) return null;
       // extract primary image. for now just any image
       return media.find(x => x.type === 'StillImage');
     },
     stillImageCount: ({ media }) => {
-      if (typeof media === 'undefined') return null;
+      if (!Array.isArray(media)) return null;
       return media.filter(x => x.type === 'StillImage').length;
     },
     movingImageCount: ({ media }) => {
-      if (typeof media === 'undefined') return null;
+      if (!Array.isArray(media)) return null;
       return media.filter(x => x.type === 'MovingImage').length;
     },
     soundCount: ({ media }) => {
-      if (typeof media === 'undefined') return null;
+      if (!Array.isArray(media)) return null;
       return media.filter(x => x.type === 'Sound').length;
     },
     stillImages: ({ media }) => {
-      if (typeof media === 'undefined') return null;
+      if (!Array.isArray(media)) return null;
       return media.filter(x => x.type === 'StillImage');
     },
     movingImages: ({ media }) => {
-      if (typeof media === 'undefined') return null;
+      if (!Array.isArray(media)) return null;
       return media.filter(x => x.type === 'MovingImage');
     },
     sounds: ({ media }) => {
-      if (typeof media === 'undefined') return null;
+      if (!Array.isArray(media)) return null;
       return media.filter(x => x.type === 'Sound');
     },
     formattedCoordinates: ({ decimalLatitude, decimalLongitude }) => {
       return formattedCoordinates({ lat: decimalLatitude, lon: decimalLongitude });
     },
     volatile: (occurrence) => occurrence,
-    related: ({ key }, args, { dataSources }) => {
+    related: ({ key }, { from = 0, size = 20 }, { dataSources }) => {
       return dataSources.occurrenceAPI.getRelated({ key })
-        .then(response => response.relatedOccurrences);
+        .then(response => {
+          return {
+            size, 
+            from, 
+            count: response.relatedOccurrences.length,
+            relatedOccurrences: response.relatedOccurrences.slice(from, from + size)
+          }
+        })
     },
     groups: (occurrence, args, { dataSources }) => {
       return dataSources.occurrenceAPI.getVerbatim({ key: occurrence.key })
@@ -135,11 +144,61 @@ module.exports = {
     terms: (occurrence, args, { dataSources }) => {
       return dataSources.occurrenceAPI.getVerbatim({ key: occurrence.key })
         .then(verbatim => termResolver({ occurrence, verbatim }));
+    },
+    dataset: (occurrence, args, { dataSources }) => {
+      return dataSources.datasetAPI.getDatasetByKey({ key: occurrence.datasetKey });
+    },
+    institution: (occurrence, args, { dataSources }) => {
+      if (typeof occurrence.institutionKey === 'undefined') return null;
+      return dataSources.institutionAPI.getInstitutionByKey({ key: occurrence.institutionKey });
+    },
+    collection: (occurrence, args, { dataSources }) => {
+      if (typeof occurrence.collectionKey === 'undefined') return null;
+      return dataSources.collectionAPI.getCollectionByKey({ key: occurrence.collectionKey });
+    },
+    bionomia: (occurrence, args, { dataSources }) => {
+      return dataSources.occurrenceAPI.getBionomia({ occurrence });
+    },
+  },
+  BionomiaOccurrence: {
+    recorded: (bionomiaOccurrence, args, { dataSources }) => {
+      return bionomiaOccurrence.dataFeedElement[0].item.recorded.map(x => {
+        return {
+          name: x.name,
+          reference: x['@id']
+        }
+      });
+      // return bionomiaOccurrence.dataFeedElement[0].item.recorded.map(x => {
+      //   if (x.sameAs.includes('wikidata')) {
+      //     return {
+      //       type: 'WIKIDATA',
+      //       value: x.sameAs
+      //     }
+      //   } else if (x.sameAs.includes('orcid')) {
+      //     return {
+      //       type: 'ORCID',
+      //       value: x.sameAs
+      //     }
+      //   } else {
+      //     return {
+      //       type: 'OTHER',
+      //       value: x.sameAs
+      //     }
+      //   }
+      // });
+    },
+    identified: (bionomiaOccurrence, args, { dataSources }) => {
+      return bionomiaOccurrence.dataFeedElement[0].item.identified.map(x => {
+        return {
+          name: x.name,
+          reference: x['@id']
+        }
+      });
     }
   },
   AssociatedID: {
     person: (parent, { expand }, { dataSources }) => {
-      return dataSources.personAPI.getPersonByIdentifier({type: parent.type, value: parent.value, dataSources, expand})
+      return dataSources.personAPI.getPersonByIdentifier({ type: parent.type, value: parent.value, dataSources, expand })
     },
     // person: (parent, query, { dataSources }) => {
     //   const key = parent.value.substr(parent.value.lastIndexOf('/') + 1);
@@ -326,7 +385,8 @@ module.exports = {
   },
   RelatedOccurrence: {
     occurrence: (related, args, { dataSources }) => dataSources.occurrenceAPI
-      .getOccurrenceByKey({ key: related.occurrence.gbifId })
+      .getOccurrenceByKey({ key: related.occurrence.gbifId }),
+    stub: (related) => related.occurrence
   },
   // TermGroups: (occurrence, args, { dataSources }) => {
   //   console.log('get verbatim');

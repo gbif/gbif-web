@@ -1,0 +1,17 @@
+{
+  "nullOrNot": {
+    "isNotNull": "必须定义",
+    "isNull": "不得定义"
+  },
+  "invalidValue": "无效值",
+  "aboutThisFilter": "关于此过滤器",
+  "existence": "为了存在的过滤器",
+  "showHelp": "显示帮助文本",
+  "back": "返回",
+  "cancel": "取消",
+  "apply": "应用",
+  "wildcardHelp": "搜索是不区分大小写的，但口音是不同的（例如，'rio'与'río'）。使用通配符（如'r?o'）查找所有匹配项。",
+  "useWildcardPattern": "搜索模式 ({distinct, plural, one {# 区别值 } other {# 区别值}})",
+  "showSuggestions": "显示建议",
+  "excludeSelected": "排除所选"
+}

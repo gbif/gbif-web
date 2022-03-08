@@ -1,0 +1,17 @@
+{
+  "tabs": {
+    "table": "",
+    "gallery": "",
+    "map": "",
+    "datasets": "مجموعه اطلاعات",
+    "download": "دانلود"
+  },
+  "table": {
+    "lockColumn": ""
+  },
+  "placeholders": {
+    "default": "",
+    "range": ""
+  },
+  "loadMore": "بیشتر"
+}

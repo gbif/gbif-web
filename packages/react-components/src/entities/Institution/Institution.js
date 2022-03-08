@@ -65,6 +65,24 @@ query institution($key: String!, $predicate: Predicate){
     phone
     homepage
     catalogUrl
+    alternativeCodes {
+      code
+      description
+    }
+    type
+    apiUrl
+    institutionalGovernance
+    disciplines
+    latitude
+    longitude
+    additionalNames
+    foundingDate
+    geographicDescription
+    taxonomicDescription
+    numberSpecimens
+    indexHerbariorumRecord
+    logoUrl
+
     identifiers {
       identifier
     }
@@ -80,10 +98,6 @@ query institution($key: String!, $predicate: Predicate){
       fax
     }
     numberSpecimens
-    alternativeCodes {
-      code
-      description
-    }
     
     mailingAddress {
       address

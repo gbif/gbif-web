@@ -1,0 +1,17 @@
+{
+  "tabs": {
+    "table": "Таблица",
+    "gallery": "Галерея",
+    "map": "Карта",
+    "datasets": "Опубликованных наборов данных",
+    "download": "Загрузить"
+  },
+  "table": {
+    "lockColumn": ""
+  },
+  "placeholders": {
+    "default": "Поиск",
+    "range": ""
+  },
+  "loadMore": "Еще"
+}

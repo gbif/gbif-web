@@ -18,14 +18,14 @@ import { Suggest, Option, Filter, SummaryBar, FilterBody, Footer, Exists } from 
 export const FilterContent = ({ config, translations, labelledById, LabelFromID, hide, onApply, onCancel, onFilterChange, focusRef, filterHandle, initFilter }) => {
   const [id] = React.useState(nanoid);
   const initialOptions = get(initFilter, `must.${filterHandle}`, []);
-  const [options, setOptions] = useState(initialOptions);
+  const [options, setOptions] = useState(initialOptions.filter(x => x.type !== 'isNotNull'));
 
   const suggestConfig = config.suggestConfig;
   const singleSelect = config.singleSelect;
   const Label = config.LabelFromID || LabelFromID;
 
   const aboutText = translations.description && <FormattedMessage
-    id={translations.description || `filter.${filterHandle}.description`}
+    id={translations.description || `filters.${filterHandle}.description`}
     defaultMessage={translations.description}
   />;
 
@@ -34,7 +34,7 @@ export const FilterContent = ({ config, translations, labelledById, LabelFromID,
     onApply={onApply}
     onCancel={onCancel}
     title={<FormattedMessage
-      id={translations?.name || `filter.${filterHandle}.name`}
+      id={translations?.name || `filters.${filterHandle}.name`}
       defaultMessage={translations?.name}
     />}
     aboutText={aboutText}
@@ -51,6 +51,7 @@ export const FilterContent = ({ config, translations, labelledById, LabelFromID,
       return <>
         <Suggest
           {...suggestConfig}
+          allowEmptyQueries={config?.specific?.allowEmptyQueries}
           focusRef={focusRef}
           onKeyPress={e => e.which === keyCodes.ENTER ? onApply({ filter, hide }) : null}
           /*onKeyPress={e => {

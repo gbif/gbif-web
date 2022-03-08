@@ -1,15 +1,22 @@
-import get from 'lodash/get';
+import { filters } from './filterConf';
 
 const filterConf = {
   fields: {
-    countryCode: {
-      defaultKey: 'country',
-      singleValue: true
+    countrySingle: {
+      singleValue: true,
+      defaultKey: 'country'
     },
     q: {
       singleValue: true
     },
+    networkKey: {
+      singleValue: true
+    }
   }
 }
+
+filters.forEach(filter => {
+  filterConf.fields[filter] = filterConf.fields[filter] || {};
+});
 
 export default filterConf;

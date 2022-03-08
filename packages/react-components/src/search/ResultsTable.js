@@ -16,15 +16,18 @@ const fallbackTableConfig = {
   }]
 };
 
-export const ResultsTable = ({ first, prev, next, size, from, results, total, loading, onSelect, defaultTableConfig = fallbackTableConfig }) => {
+export const ResultsTable = ({ first, prev, next, size, from, results, total, loading, defaultTableConfig = fallbackTableConfig, hideLock }) => {
   const { filters, tableConfig = defaultTableConfig, labelMap } = useContext(SearchContext);
-  const [fixedColumn, setFixed] = useState(true);
+  const [fixedColumn, setFixed] = useState(true && !hideLock);
 
   const fixed = fixedColumn;
   const headerss = tableConfig.columns.map((col, index) => {
-    const options = index === 0 ? { locked: fixed, toggle: () => setFixed(!fixedColumn) } : null;
+    const options = index === 0 && !hideLock ? {
+      locked: fixed, 
+      toggle: () => setFixed(!fixedColumn)
+    } : null;
     const FilterPopover = col.filterKey ? filters[col.filterKey]?.Popover : null;
-    return <Th key={col.trKey} width={col.width} {...options}>
+    return <Th key={col.trKey} width={col.width} >
       <Row wrap="nowrap">
         <Col grow={false} style={{ whiteSpace: 'nowrap' }}><FormattedMessage id={col.trKey} /></Col>
         {FilterPopover && <Col>
@@ -51,13 +54,13 @@ export const ResultsTable = ({ first, prev, next, size, from, results, total, lo
         <tr>{headerss}</tr>
       </thead>
       <TBody rowCount={size} columnCount={7} loading={loading}>
-        {getRows({ tableConfig, labelMap, results, onSelect })}
+        {getRows({ tableConfig, labelMap, results })}
       </TBody>
     </DataTable>
   </div>
 }
 
-const getRows = ({ tableConfig, labelMap, results = [], onSelect = console.log }) => {
+const getRows = ({ tableConfig, labelMap, results = [] }) => {
   const rows = results.map((row, index) => {
     const cells = tableConfig.columns.map(
       (field, i) => {
@@ -73,10 +76,10 @@ const getRows = ({ tableConfig, labelMap, results = [], onSelect = console.log }
           formattedVal = Label ? <Label id={val} /> : val;
         }
 
-        return <Td key={field.trKey} style={field.value.rightAlign ? {textAlign: 'right'} : {}}>{formattedVal}</Td>;
+        return <Td noWrap={field.noWrap} key={field.trKey} style={field.value.rightAlign ? {textAlign: 'right'} : {}}>{formattedVal}</Td>;
       }
     );
-    return <tr key={row.key} onClick={() => { onSelect({key: row.key, row}); }}>{cells}</tr>;
+    return <tr key={row.key || row.id || index}>{cells}</tr>;
   });
   return rows;
 }

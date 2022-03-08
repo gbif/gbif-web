@@ -1,0 +1,17 @@
+{
+  "nullOrNot": {
+    "isNotNull": "",
+    "isNull": ""
+  },
+  "invalidValue": "",
+  "aboutThisFilter": "",
+  "existence": "",
+  "showHelp": "",
+  "back": "",
+  "cancel": "",
+  "apply": "",
+  "wildcardHelp": "",
+  "useWildcardPattern": "",
+  "showSuggestions": "",
+  "excludeSelected": ""
+}

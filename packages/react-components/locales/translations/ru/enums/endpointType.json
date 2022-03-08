@@ -1,0 +1,16 @@
+{
+  "EML": "EML",
+  "FEED": "RSS канал",
+  "WFS": "WFS",
+  "WMS": "WMS",
+  "TCS_RDF": "TCS RDF",
+  "TCS_XML": "TCS XML",
+  "DWC_ARCHIVE": "Архив Darwin Core",
+  "DIGIR": "DiGIR",
+  "DIGIR_MANIS": "DiGIR MANIS",
+  "TAPIR": "TAPIR",
+  "BIOCASE": "BioCASe",
+  "BIOCASE_XML_ARCHIVE": "BioCASe XML архив",
+  "OAI_PMH": "OAI PMH",
+  "OTHER": "Другая"
+}

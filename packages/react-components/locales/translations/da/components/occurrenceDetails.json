@@ -1,0 +1,38 @@
+{
+  "occurrence": "",
+  "showAllFields": "",
+  "morePhotos": "",
+  "about": "Om",
+  "dataset": "Datasæt",
+  "publisher": "Forlægger",
+  "institution": "",
+  "institutionGrSciColl": "",
+  "collection": "",
+  "collectionGrSciColl": "",
+  "recordedAndIdentifiedBy": "",
+  "info": {
+    "original": "",
+    "excluded": "Ekskluderet",
+    "inferred": "Udledt",
+    "altered": "Ændret"
+  },
+  "groups": {
+    "summary": "Resumé",
+    "record": "",
+    "occurrence": "",
+    "event": "Arrangement",
+    "identification": "Identifikation",
+    "taxon": "Takson",
+    "location": "",
+    "organism": "Organisme",
+    "materialSample": "Materiale prøve",
+    "geologicalContext": "Geologisk kontekst",
+    "other": ""
+  },
+  "features": {
+    "isClustered": "",
+    "isSamplingEvent": "Sampling event",
+    "isTreament": "",
+    "isSequenced": ""
+  }
+}

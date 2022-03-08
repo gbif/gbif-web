@@ -1,0 +1,9 @@
+{
+  "unsupported.title": "Nicht unterstützte Abfrage",
+  "unsupported.description": "Die Freitextsuche kann bei der Suche verwendet werden, wird aber nicht für Downloads unterstützt.",
+  "unsupported.remove": "Filter entfernen",
+  "unsupported.error": "Diese Abfrage wird anscheinend nicht unterstützt",
+  "download": "Herunterladen",
+  "redirectNotice": "Zum Herunterladen der Daten werden Sie auf GBIF.org weitergeleitet. {br}{br} Dafür ist ein Account notwendig, der dort erstellt werden kann.",
+  "continueToGBIF": "Weiter"
+}

@@ -24,7 +24,7 @@ export function Activity({
 
   const config = { 
     rootFilter:{gbifDatasetKey: [dataset.key]}, 
-    blacklistedFilters: ['datasetKey'], 
+    excludedFilters: ['datasetKey'], 
     // highlightedFilters: ['taxonKey', 'catalogNumber', 'recordedBy', 'identifiedBy', 'typeStatus']
   };
 

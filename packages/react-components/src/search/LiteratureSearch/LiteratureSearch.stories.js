@@ -2,8 +2,10 @@ import { action } from '@storybook/addon-actions';
 import { text } from '@storybook/addon-knobs';
 import React from 'react';
 import { addDecorator } from '@storybook/react';
-
+import { MemoryRouter as Router, Route } from "react-router-dom";
+import { QueryParamProvider } from 'use-query-params';
 import LiteratureSearch from './LiteratureSearch';
+import AddressBar from '../../StorybookAddressBar';
 import Standalone from './Standalone';
 
 export default {
@@ -75,12 +77,36 @@ const filters = {
 }
 
 
-const config = { labels, getSuggests, filters };
+const config = { 
+  labels, 
+  getSuggests, 
+  filters, 
+  // rootFilter: {predicate: {type: 'or', predicates: [
+  //   {
+  //     type: 'in', 
+  //     key: 'countriesOfResearcher',
+  //     values: ['US', 'UM', 'AS', 'FM', 'GU', 'MH', 'MP', 'PR', 'PW', 'VI']
+  //   },
+  //   {
+  //     type: 'in', 
+  //     key: 'countriesOfCoverage',
+  //     values: ['US', 'UM', 'AS', 'FM', 'GU', 'MH', 'MP', 'PR', 'PW', 'VI']
+  //   }
+  // ]}},
+  // rootFilter: {countriesOfResearcher: ['MX']},
+  availableCatalogues: ['OCCURRENCE', 'LITERATURE'],
+};
 
-export const Example = () => <LiteratureSearch config={config} style={{ margin: 'auto', maxWidth: 1200, height: 'calc(100vh)' }} />;
+export const Example = () => <Router initialEntries={[`/literature/search`]}>
+  <QueryParamProvider ReactRouterRoute={Route}>
+    <AddressBar />
+    <LiteratureSearch pageLayout config={config} style={{ margin: 'auto', height: 'calc(100vh - 60px)' }} />;
+  </QueryParamProvider>
+</Router>
+
 
 Example.story = {
   name: 'Literature search',
 };
 
-export const StandaloneExample = () => <Standalone style={{height: 'calc(100vh - 20px)'}}></Standalone>;
+export const StandaloneExample = () => <Standalone style={{height: 'calc(100vh - 50px)'}}></Standalone>;

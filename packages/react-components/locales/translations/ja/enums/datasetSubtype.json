@@ -1,0 +1,10 @@
+{
+  "TAXONOMIC_AUTHORITY": "分類学的権限",
+  "NOMENCLATOR_AUTHORITY": "命名者の権限",
+  "INVENTORY_THEMATIC": "テーマ別インベントリ",
+  "INVENTORY_REGIONAL": "地域別インベントリ",
+  "GLOBAL_SPECIES_DATASET": "全世界の種のデータセット",
+  "DERIVED_FROM_OCCURRENCE": "オカレンスから抽出された",
+  "SPECIMEN": "標本",
+  "OBSERVATION": "観察記録"
+}

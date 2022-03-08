@@ -31,6 +31,7 @@ const typeDef = gql`
     classKey: ID
     collectionCode: String
     collectionID: String
+    collectionKey: ID
     conformsTo: String
     continent: String
     contributor: String
@@ -55,6 +56,7 @@ const typeDef = gql`
     day: Int
     decimalLatitude: Float
     decimalLongitude: Float
+    degreeOfEstablishment: String # Is a vocabulary, but only a string in the schema for now
     depth: Float
     depthAccuracy: Float
     description: String
@@ -77,7 +79,7 @@ const typeDef = gql`
     eventID: String
     eventRemarks: String
     eventTime: String
-    # extensions: String
+    extensions: JSON
     extent: String
     facts: [JSON]
     family: String
@@ -126,6 +128,7 @@ const typeDef = gql`
     installationKey: ID
     institutionCode: String
     institutionID: String
+    institutionKey: ID
     instructionalMethod: String
     isFormatOf: String
     isPartOf: String
@@ -189,6 +192,7 @@ const typeDef = gql`
     parentEventID: String
     parentNameUsage: String
     parentNameUsageID: String
+    pathway: String # Is a vocabulary, but only a string in the schema for now
     phylum: String
     phylumKey: ID
     pointRadiusSpatialFit: String
@@ -258,6 +262,9 @@ const typeDef = gql`
     vernacularName: String
     waterBody: String
     year: Int
+    verbatimIdentification: String
+    verticalDatum: String
+
 
     """
     Volatile: this is currently an exact mapping of the record in Elastic Search - the format is likely to change over time
@@ -289,7 +296,7 @@ const typeDef = gql`
     """
     Volatile: this is an experimental feature likely to change
     """
-    related: [RelatedOccurrence]
+    related(size: Int, from: Int): RelatedOccurrences
     """
     Volatile: these values are tightly coupled to the webview and are likely to change frequently
     """
@@ -298,11 +305,47 @@ const typeDef = gql`
     Volatile: these values are tightly coupled to the webview and are likely to change frequently
     """
     terms: [Term]
+    dataset: Dataset
+    institution: Institution
+    collection: Collection
+    bionomia: BionomiaOccurrence
   }
 
+  type BionomiaOccurrence {
+    recorded: [BionomiaPerson]
+    identified: [BionomiaPerson]
+  }
+
+  type BionomiaPerson {
+    name: String
+    reference: String
+  }
+
+  type RelatedOccurrences {
+    count: Int
+    size: Int
+    from: Int
+    relatedOccurrences: [RelatedOccurrence]
+  }
+  
   type RelatedOccurrence {
     reasons: [String]!
     occurrence: Occurrence
+    """
+    The occurrence as provided by the cluster API. It only has relev
+    """
+    stub: RelatedOccurrenceStub
+  }
+
+  type RelatedOccurrenceStub {
+    gbifId: ID
+    scientificName: String
+    publishingOrgKey: ID
+    publishingOrgName: String
+    datasetKey: ID
+    datasetName: String
+    occurrenceID: String
+    catalogNumber: String
   }
 
   type Term {
@@ -468,6 +511,7 @@ const typeDef = gql`
     publisher: String
     references: String
     rightsHolder: String
+    description: String
   }
 `;
 

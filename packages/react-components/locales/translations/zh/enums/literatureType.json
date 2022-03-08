@@ -1,0 +1,22 @@
+{
+  "JOURNAL": "期刊文章",
+  "BOOK": "书",
+  "GENERIC": "一般的",
+  "BOOK_SECTION": "书籍章节",
+  "CONFERENCE_PROCEEDINGS": "会议进行",
+  "WORKING_PAPER": "工作文件",
+  "REPORT": "报告",
+  "WEB_PAGE": "网页",
+  "THESIS": "论文",
+  "MAGAZINE_ARTICLE": "杂志文章",
+  "STATUTE": "法规",
+  "PATENT": "专利",
+  "NEWSPAPER_ARTICLE": "新闻报道",
+  "COMPUTER_PROGRAM": "计算机程序",
+  "HEARING": "听觉",
+  "TELEVISION_BROADCAST": "电视广播",
+  "ENCYCLOPEDIA_ARTICLE": "百科全书文章",
+  "CASE": "案例",
+  "FILM": "电影",
+  "BILL": "帐单"
+}

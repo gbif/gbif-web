@@ -1,0 +1,22 @@
+{
+  "JOURNAL": "ジャーナル文献",
+  "BOOK": "書籍",
+  "GENERIC": "一般書",
+  "BOOK_SECTION": "書籍のセクション",
+  "CONFERENCE_PROCEEDINGS": "講演予稿集",
+  "WORKING_PAPER": "ワーキングペーパー",
+  "REPORT": "報告書",
+  "WEB_PAGE": "Webページ",
+  "THESIS": "学位論文",
+  "MAGAZINE_ARTICLE": "雑誌記事",
+  "STATUTE": "法令",
+  "PATENT": "特許",
+  "NEWSPAPER_ARTICLE": "新聞記事",
+  "COMPUTER_PROGRAM": "コンピュータープログラミング",
+  "HEARING": "ヒアリング",
+  "TELEVISION_BROADCAST": "テレビ放送",
+  "ENCYCLOPEDIA_ARTICLE": "百科事典の記事",
+  "CASE": "ケース",
+  "FILM": "映画",
+  "BILL": "法案"
+}

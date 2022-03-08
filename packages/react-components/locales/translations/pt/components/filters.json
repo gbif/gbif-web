@@ -1,0 +1,283 @@
+{
+  "dwcaExtension": {
+    "name": "Extensão DWCA",
+    "count": "{num, plural, one { extensão DWCA } other {# extensões DWCA}}",
+    "description": "Deve colocar aqui uma breve descrição da componente"
+  },
+  "taxonKey": {
+    "name": "Nome científico",
+    "count": "{num, plural, one {nome científico} other {# nomes científicos}}",
+    "description": "O nome científico tal como aparece na taxonomia de referência do GBIF. Esses nomes são normalizados para facilitar a pesquisa por conjunto de dados. É possível que um nome originalmente fornecido possa ser mal interpretado ou desconhecido. Para pesquisar os nomes, conforme fornecido, use o filtro \"Nome científico verbatim\"."
+  },
+  "basisOfRecord": {
+    "name": "Base do registo",
+    "count": "{num, plural, one {base do registo} other {# bases dos registos}}",
+    "isNotNull": "Tem uma base do registo",
+    "isNull": "Não tem base do registo",
+    "description": "A natureza da evidência em que se baseia o registo."
+  },
+  "institutionCode": {
+    "name": "Código da instituição",
+    "count": "{num, plural, one {Código da instituição} other {Códigos da instituição}}",
+    "description": "O código (ou acrónimo) da instituição que tem a custódia do(s) objeto(s) ou informação mencionada no registo."
+  },
+  "catalogNumber": {
+    "name": "Número de catálogo",
+    "count": "{num, plural, one { número de catálogo } other {# números de catálogo}}",
+    "description": "O identificador do registo no catálogo ou coleção."
+  },
+  "mediaType": {
+    "name": "Tipo de média",
+    "count": "{num, plural, one {tipo de média} other {# tipos de média}}",
+    "description": "Os tipos de media disponíveis para este registo."
+  },
+  "occurrenceIssue": {
+    "name": "Questões e sinalizadores",
+    "count": "{num, plural, one {problema ou sinais} other {# problemas e sinais}}",
+    "isNotNull": "Tem problemas",
+    "isNull": "Não tem problemas",
+    "description": "Os tipos de problemas ou sinais de potencial interesse descobertos ao processar os dados."
+  },
+  "occurrenceCountry": {
+    "name": "País",
+    "count": "{num, plural, one {país} other {# países}}",
+    "description": "O país ou território onde ocorreu o evento"
+  },
+  "publishingCountryCode": {
+    "name": "País de publicação",
+    "count": "{num, plural, one {país publicador} other {# países publicadores}}",
+    "description": "O código ISO para o país ou território em que o publicador de dados está localizado"
+  },
+  "q": {
+    "name": "Pesquisa por texto",
+    "count": "{num, plural, one {sequência de texto} other {# sequências de pesquisa}}",
+    "description": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\"."
+  },
+  "coordinates": {
+    "name": "Coordenadas"
+  },
+  "elevation": {
+    "name": "Elevação",
+    "count": "{num, plural, one {filtro de elevação} other {# filtros de elevação}}",
+    "description": "A distância acima de um ponto de referência vertical (geralmente o nível médio do mar ou um geoide) em metros."
+  },
+  "license": {
+    "name": "Licença",
+    "count": "{num, plural, one {licença} other {# licenças}}",
+    "description": "A licença ou o dispensa legal ao abrigo do qual o registo é partilhado."
+  },
+  "datasetKey": {
+    "name": "Conjunto de dados",
+    "count": "{num, plural, one {conjunto de dados} other {# conjuntos de dados}}",
+    "description": "O título do conjunto de dados sob o qual o registo é partilhado."
+  },
+  "publisherKey": {
+    "name": "Publicador",
+    "count": "{num, plural, one {publicador} other {# publicadores}}",
+    "description": "O nome da organização responsável por partilhar o conjunto de dados no qual o registo está incluído."
+  },
+  "hostingOrganizationKey": {
+    "name": "Organização anfitriã",
+    "count": "{num, plural, one {anfitrião} other {# anfitriões}}",
+    "description": "O nome da organização que aloja o conjunto de dados no qual o registo é publicado."
+  },
+  "country": {
+    "name": "País",
+    "count": "{num, plural, one {país} other {# países}}"
+  },
+  "countriesOfCoverage": {
+    "name": "País de cobertura",
+    "count": "{num, plural, one {país de cobertura} other {# países de cobertura}}"
+  },
+  "countriesOfResearcher": {
+    "name": "País do investigador",
+    "count": "{num, plural, one {país do investigador} other {# países dos investigadores}}"
+  },
+  "typeStatus": {
+    "name": "Condição do Tipo",
+    "count": "{num, plural, one {estado do tipo} other {# estados do tipo}}",
+    "isNotNull": "Tem um estado de tipo",
+    "isNull": "O estado do tipo",
+    "description": "A designação tipo do espécime."
+  },
+  "year": {
+    "name": "Ano",
+    "count": "{num, plural, one {filtro do ano} other {# filtros de ano}}",
+    "description": "O ano em que o evento ocorreu."
+  },
+  "sampleSizeUnit": {
+    "name": "Unidade do tamanho da amostra",
+    "count": "{num, plural, one {unidade de tamanho amostral} other {# unidades de tamanho da amostra}}",
+    "description": "A unidade de medida para o \"valor do tamanho da amostra\"."
+  },
+  "coordinateUncertainty": {
+    "name": "Incerteza da coordenada",
+    "count": "{num, plural, one {incerteza da Coordenada} other {# filtros de incerteza das coordenadas}}",
+    "description": "Uma medida da distância mínima em metros de uma coordenada dentro da qual uma localidade possa ser interpretada como existente."
+  },
+  "depth": {
+    "name": "Profundidade",
+    "count": "{num, plural, one { profundidade } other {# profundades}}",
+    "description": "A distância abaixo de uma superfície local, em metros."
+  },
+  "organismQuantity": {
+    "name": "Quantidade de organismos",
+    "count": "{num, plural, one { quantidade do organismo } other {# quantidades do organismo}}",
+    "description": "O valor para a quantidade de organismos, em que o tipo de medida é dado no \"Tipo de quantidade de organismo\"."
+  },
+  "sampleSizeValue": {
+    "name": "Valor do tamanho da amostra",
+    "count": "{num, plural, one { valor do tamanho da amostra} other {# valores do tamanho da amostra}}",
+    "description": "O valor para o tamanho de uma amostra, onde as unidades de medida são fornecidas na \"unidade de tamanho da amostra\"."
+  },
+  "relativeOrganismQuantity": {
+    "name": "Quantidade relativa do organismo",
+    "count": "{num, plural, one { quantidade relativa do organismo } other {# quantidades relativas do organismo}}",
+    "description": "A quantidade de material biológico em relação ao tamanho de uma amostra, calculada como organismQuantity por sampleSize quando o organismQuantityType e a sampleSizeUnit são inequívocos."
+  },
+  "month": {
+    "name": "Mês",
+    "count": "{num, plural, one { mês } other {# meses}}",
+    "description": "O valor inteiro do mês em que o evento ocorreu."
+  },
+  "continent": {
+    "name": "Continente",
+    "count": "{num, plural, one { continente } other {# continentes}}",
+    "description": "O nome do continente onde a localização ocorre."
+  },
+  "protocol": {
+    "name": "Protocolo de publicação",
+    "count": "{num, plural, one { protocolo } other {# protocolos}}",
+    "description": "O protocolo técnico através do qual o conjunto de dados é partilhado."
+  },
+  "establishmentMeans": {
+    "name": "Forma de estabelecimento",
+    "count": "{num, plural, one { meio de estabelecimento } other {# meios de estabelecimento}}",
+    "description": "O modo como o organismo foi introduzido num determinado local num dado momento."
+  },
+  "recordedBy": {
+    "name": "Registado por",
+    "count": "{num, plural, one { registado por } other {# registados por}}",
+    "description": "Os nomes da pessoa, pessoas, grupos ou organizações responsáveis pelo registo da ocorrência original."
+  },
+  "recordNumber": {
+    "name": "Número de registo",
+    "count": "{num, plural, one { número do registo } other {# números do registo}}",
+    "description": "Um identificador dado à ocorrência no momento em que foi registado."
+  },
+  "collectionCode": {
+    "name": "Código de coleção",
+    "count": "{num, plural, one { código da coleção } other {# códigos da coleção}}",
+    "description": "Uma breve descrição do componente deve ser colocada aqui"
+  },
+  "recordedById": {
+    "name": "Registado por ID",
+    "count": "{num, plural, one { registado por ID } other {# registados por IDs}}",
+    "description": "O identificador da pessoa, pessoas, grupos ou organizações responsáveis pelo registo da ocorrência original."
+  },
+  "identifiedById": {
+    "name": "Identificado por ID",
+    "count": "{num, plural, one { identificado por ID } other {# identificados por IDs}}",
+    "description": "O identificador da pessoa, pessoas, grupos ou organizações responsáveis pela determinação do nome científico do organismo."
+  },
+  "occurrenceId": {
+    "name": "ID da Ocorrência",
+    "count": "{num, plural, one { ID da ocorrência } other {# IDs das ocorrências}}",
+    "description": "O identificador exclusivo para o registo de ocorrência."
+  },
+  "organismId": {
+    "name": "ID do organismo",
+    "count": "{num, plural, one { ID do organismo } other {# IDs dos organismos}}",
+    "description": "O identificador único para o organismo no registo."
+  },
+  "locality": {
+    "name": "Localidade",
+    "count": "{num, plural, one { localidade } other {# localidades}}",
+    "description": "A parte específica da descrição do lugar."
+  },
+  "waterBody": {
+    "name": "Massa de água",
+    "count": "{num, plural, one { massa de água } other {# massas de água}}",
+    "description": "O nome da massa da água em que a localização ocorre."
+  },
+  "stateProvince": {
+    "name": "Estado/Província",
+    "count": "{num, plural, one { província ou estado } other {# províncias ou estados}}",
+    "description": "O nome da próxima região administrativa é menor do que o país onde a localização ocorre."
+  },
+  "eventId": {
+    "name": "ID do evento",
+    "count": "{num, plural, one { ID do evento } other {# IDs dos eventos}}",
+    "description": "O identificador único para o evento no registo."
+  },
+  "samplingProtocol": {
+    "name": "Protocolo de amostragem",
+    "count": "{num, plural, one { protocolo de amostragem } other {# protocolos de amostragem}}",
+    "description": "O nome de, referência ou descrição do método ou protocolo usado durante um evento."
+  },
+  "occurrenceStatus": {
+    "name": "Estado da ocorrência (presença/ausência)",
+    "count": "{num, plural, one { estado da ocorrência } other {# estados da ocorrência}}",
+    "description": "A presença ou ausência de qualquer organismo do taxon fornecido."
+  },
+  "gadmGid": {
+    "name": "Área administrativa",
+    "count": "{num, plural, one { área administrativa } other {# áreas administrativas}}",
+    "description": "O nome de qualquer área administrativa de GADM.org determinada durante o processamento do registo."
+  },
+  "identifiedBy": {
+    "name": "Identificado por",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}",
+    "description": "A pessoa, pessoas, grupos ou organizações responsáveis pela determinação do nome científico do organismo."
+  },
+  "isInCluster": {
+    "name": "Está em cluster",
+    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+    "description": "Se foi determinado o registo ter outros registos relacionados."
+  },
+  "datasetType": {
+    "name": "Tipo de conjunto de dados",
+    "count": "{num, plural, one { tipo de conjunto de dados } other {# tipos de conjuntos de dados}}",
+    "description": "Uma breve descrição do componente deve ser colocada aqui"
+  },
+  "datasetSubtype": {
+    "name": "Subtipo do conjunto de dados",
+    "count": "{num, plural, one { subtipo do conjunto de dados } other {# subtipos dos conjuntos de dados}}",
+    "description": "Uma breve descrição do componente deve ser colocada aqui"
+  },
+  "institutionKey": {
+    "name": "Instituição",
+    "count": "{num, plural, one { instituição } other {# instituições}}",
+    "description": "O nome da instituição que tem a custódia do(s) objeto(s) ou informação mencionada no registo."
+  },
+  "name": {
+    "name": "Nome",
+    "count": "{num, plural, one { nome } other {# nomes}}",
+    "description": "Uma breve descrição do componente deve ser colocada aqui"
+  },
+  "city": {
+    "name": "Cidade",
+    "count": "{num, plural, one { cidade } other {# cidades}}",
+    "description": "Uma breve descrição do componente deve ser colocada aqui"
+  },
+  "code": {
+    "name": "Código",
+    "count": "{num, plural, one { código } other {# códigos}}",
+    "description": "Uma breve descrição do componente deve ser colocada aqui"
+  },
+  "verbatimScientificName": {
+    "name": "Nome científico verbatim",
+    "count": "{num, plural, one { nome científico verbatim } other {# nomes científicos verbatins}}",
+    "description": "O nome científico conforme fornecido pelo publicador de dados sem nenhuma normalização."
+  },
+  "networkKey": {
+    "name": "Chave de rede",
+    "count": "{num, plural, one { chave de rede } other {# chaves de rede}}",
+    "description": "Uma breve descrição do componente deve ser colocada aqui"
+  },
+  "literatureType": {
+    "name": "Tipo de bibliografia",
+    "count": "{num, plural, one { tipo de literatura } other {# tipos de literatura}}",
+    "description": "De que tipo de literatura é originada a citação."
+  }
+}

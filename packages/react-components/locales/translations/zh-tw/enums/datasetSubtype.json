@@ -1,0 +1,10 @@
+{
+  "TAXONOMIC_AUTHORITY": "權威分類學的",
+  "NOMENCLATOR_AUTHORITY": "權威命名者",
+  "INVENTORY_THEMATIC": "主題名錄",
+  "INVENTORY_REGIONAL": "區域名錄",
+  "GLOBAL_SPECIES_DATASET": "全球物種資料集",
+  "DERIVED_FROM_OCCURRENCE": "衍生自出現紀錄",
+  "SPECIMEN": "標本",
+  "OBSERVATION": "觀察"
+}

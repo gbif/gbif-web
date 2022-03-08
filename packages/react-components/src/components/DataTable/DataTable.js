@@ -2,9 +2,10 @@
 import { jsx } from '@emotion/react';
 import React, { useContext, Component } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, FormattedNumber } from 'react-intl';
+import { useIntl, FormattedMessage, FormattedNumber } from 'react-intl';
 import { MdLock, MdLockOpen, MdChevronRight, MdChevronLeft, MdFirstPage, MdMoreVert } from "react-icons/md";
 import { Button } from '../Button';
+import { Tooltip } from '../Tooltip/Tooltip';
 import { Skeleton } from '../Skeleton';
 import * as styles from './styles';
 import ThemeContext from '../../style/themes/ThemeContext';
@@ -39,16 +40,18 @@ export const Th = ({ children, width, toggle, locked, ...rest }) => (
       <div style={{ flex: '1 1 auto' }}>
         {children}
       </div>
-      {toggle && <Button appearance="text" onClick={toggle} style={{ display: 'flex', marginLeft: 5 }}>
-        {locked ? <MdLock /> : <MdLockOpen />}
-      </Button>}
+      {toggle && <Tooltip title={<span><FormattedMessage id="search.table.lockColumn" defaultMessage="Lock column" /></span>} placement="auto">
+        <Button appearance="text" onClick={toggle} style={{ display: 'flex', marginLeft: 5 }}>
+          {locked ? <MdLock /> : <MdLockOpen />}
+        </Button>
+      </Tooltip>}
     </div>
   </th>
 );
 
-export const Td = ({ children, width, ...rest }) => (
+export const Td = ({ children, width, noWrap, ...rest }) => (
   <td {...rest}>
-    <span css={styles[width] ? styles[width]() : ''}>{children}</span>
+    <span css={styles.dataCell({width, noWrap})}>{children}</span>
   </td>
 );
 
@@ -79,13 +82,13 @@ class DataTableCore extends Component {
   }
 
   render() {
-    const { theme, children, first, prev, next, size, from, total, fixedColumn, style } = this.props;
+    const { intl, loading, theme, children, first, prev, next, size, from, total, fixedColumn, style, ...props } = this.props;
 
     const page = 1 + Math.floor(from / size);
     const totalPages = Math.ceil(total / size);
     return (
       <React.Fragment>
-        <div css={styles.wrapper({ theme })} style={style}>
+        <div css={styles.wrapper({ theme })} style={style} {...props}>
           <div
             css={styles.occurrenceTable({ theme })}
             onScroll={this.bodyScroll}
@@ -98,20 +101,20 @@ class DataTableCore extends Component {
             </table>
           </div>
           {next && <div css={styles.footer({ theme })}>
-            {first && page > 2 && <Button appearance="text" css={styles.footerItem({ theme })} direction="right" tip="first" onClick={first}>
+            {first && page > 2 && <Button appearance="text" css={styles.footerItem({ theme })} direction="right" tip={intl.formatMessage({id: 'pagination.first'})} onClick={first}>
               <MdFirstPage />
             </Button>}
-            {prev && page > 1 && <Button appearance="text" css={styles.footerItem({ theme })} direction="right" tip="previous" onClick={prev}>
+            {prev && page > 1 && <Button appearance="text" css={styles.footerItem({ theme })} direction="right" tip={intl.formatMessage({id: 'pagination.previous'})} onClick={prev}>
               <MdChevronLeft />
             </Button>}
-            {total && <span css={styles.footerText({ theme })}>
+            {total > 0 && <span css={styles.footerText({ theme })}>
               <FormattedMessage
                 id='pagination.pageXofY'
                 defaultMessage={'Loading'}
                 values={{ current: <FormattedNumber value={page} />, total: <FormattedNumber value={totalPages} /> }}
               />
             </span>}
-            {next && page !== totalPages && <Button appearance="text" css={styles.footerItem({ theme })} direction="left" tip="next" onClick={next}>
+            {next && page < totalPages && <Button appearance="text" css={styles.footerItem({ theme })} direction="left" tip={intl.formatMessage({id: 'pagination.next'})} onClick={next}>
               <MdChevronRight />
             </Button>}
             {/* <Button appearance="text" css={styles.footerItem()} direction="left" tip="options">
@@ -126,7 +129,8 @@ class DataTableCore extends Component {
 
 export function DataTable(props) {
   const theme = useContext(ThemeContext)
-  return <DataTableCore theme={theme} {...props} />
+  const intl = useIntl();
+  return <DataTableCore theme={theme} intl={intl} {...props} />
 }
 
 DataTable.propTypes = {

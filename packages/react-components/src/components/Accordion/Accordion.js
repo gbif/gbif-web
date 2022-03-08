@@ -22,8 +22,10 @@ function AccordionControlled({
         e.preventDefault();
         onToggle(!open);
       }}>
-        <div style={{flex: '1 1 auto'}}>{summary}</div>
-        <span style={{flex: '0 0 auto'}} css={open ? styles.arrowUp({}) : styles.arrowDown({})}></span>
+        <div>
+          <div style={{flex: '1 1 auto'}}>{summary}</div>
+          <div style={{flex: '0 0 auto'}} css={open ? styles.arrowUp({}) : styles.arrowDown({})}></div>
+        </div>
       </summary>
     <div css={styles.content({ theme })}>
       {children}

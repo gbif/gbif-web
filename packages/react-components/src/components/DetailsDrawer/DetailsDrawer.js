@@ -14,18 +14,21 @@ export function DetailsDrawer({ dialog, nextItem, previousItem, href, children, 
   const theme = useContext(ThemeContext);
   useEffect(() => {
     function handleKeypress(e) {
+      if (!dialog.visible) return;
       switch (e.which) {
         case keyCodes.LEFT_ARROW: previousItem ? previousItem() : null; return;
         case keyCodes.RIGHT_ARROW: nextItem ? nextItem() : null; return;
         default: return;
       }
     }
-    if (document) document.addEventListener("keydown", handleKeypress, false);
+    if (document) {
+      document.addEventListener("keydown", handleKeypress, false);
+    }
 
     return function cleanup() {
       if (document) document.removeEventListener("keydown", handleKeypress, false);
     }
-  }, [nextItem, previousItem]);
+  }, [nextItem, previousItem, dialog.visible]);
 
   return (
     <>

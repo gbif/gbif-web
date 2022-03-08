@@ -1,11 +1,11 @@
-import get from 'lodash/get';
+import { filters } from './filterConf';
 
 const filterConf = {
   fields: {
     publisherKey: {
       defaultKey: 'publishingOrg'
     },
-    hostKey: {
+    hostingOrganizationKey: {
       defaultKey: 'hostingOrg'
     },
     publishingCountryCode: {
@@ -22,5 +22,9 @@ const filterConf = {
     }
   }
 }
+
+filters.forEach(filter => {
+  filterConf.fields[filter] = filterConf.fields[filter] || {};
+});
 
 export default filterConf;

@@ -1,0 +1,17 @@
+{
+    "undefined": "Unbekanntes Taxon",
+    "UNKNOWN": "Unbekannt",
+    "DOMAIN": "Domäne",
+    "SUPERKINGDOM": "Superreich",
+    "KINGDOM": "Reich",
+    "SUBKINGDOM": "Unterreich",
+    "INFRAKINGDOM": "Infrareich",
+    "SUPERPHYLUM": "Super-Stamm",
+    "PHYLUM": "Stamm",
+    "SUBPHYLUM": "Unterstamm",
+    "INFRAPHYLUM": "Infra-Phylum",
+    "SUPERCLASS": "Superklasse",
+    "CLASS": "Klasse",
+    "SUBCLASS": "Unterklasse",
+    "INFRACLASS": "Infraklasse"
+}

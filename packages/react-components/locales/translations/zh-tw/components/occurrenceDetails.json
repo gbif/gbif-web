@@ -1,0 +1,38 @@
+{
+  "occurrence": "出現紀錄",
+  "showAllFields": "顯示所有欄位",
+  "morePhotos": "",
+  "about": "關於",
+  "dataset": "資料集",
+  "publisher": "發布者",
+  "institution": "機構",
+  "institutionGrSciColl": "",
+  "collection": "蒐藏集",
+  "collectionGrSciColl": "",
+  "recordedAndIdentifiedBy": "",
+  "info": {
+    "original": "原始的",
+    "excluded": "排除",
+    "inferred": "推斷",
+    "altered": "改變"
+  },
+  "groups": {
+    "summary": "總結",
+    "record": "紀錄",
+    "occurrence": "出現",
+    "event": "活動",
+    "identification": "鑑定",
+    "taxon": "分類群",
+    "location": "地點",
+    "organism": "生物體",
+    "materialSample": "材料樣品",
+    "geologicalContext": "地理背景",
+    "other": "其它"
+  },
+  "features": {
+    "isClustered": "已集聚",
+    "isSamplingEvent": "調查活動",
+    "isTreament": "分類處理",
+    "isSequenced": "已序列化"
+  }
+}

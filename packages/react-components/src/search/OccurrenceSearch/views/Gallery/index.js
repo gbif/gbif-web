@@ -48,7 +48,7 @@ function Table() {
   const size = 50;
   const currentFilterContext = useContext(FilterContext);
   const { rootPredicate, predicateConfig } = useContext(OccurrenceContext);
-  const { data, error, loading, load } = useQuery(OCCURRENCE_GALLERY, { lazyLoad: true, keepDataWhileLoading: true });
+  const { data, error, loading, load } = useQuery(OCCURRENCE_GALLERY, { lazyLoad: true });
 
   const [allData, setAllData] = useState([]);
 
@@ -64,12 +64,12 @@ function Table() {
         filter2predicate(currentFilterContext.filter, predicateConfig),
         {
           type: 'equals',
-          key: 'mediaTypes',
+          key: 'mediaType',
           value: 'StillImage'
         }
       ].filter(x => x)
     }
-    load({ variables: { predicate, size, from } });
+    load({ keepDataWhileLoading: true, variables: { predicate, size, from } });
   }, [from, currentFilterContext.filterHash, rootPredicate]);
 
   useEffect(() => {

@@ -17,7 +17,7 @@ export function BibliographicCitations({
   const hasHidden = bibliographicCitations.length > citations.length;
   return <>
     <ul>
-      {citations.map(x => <BibiliographicCitation citation={x} />)}
+      {citations.map((x, index) => <BibiliographicCitation key={index} citation={x} />)}
     </ul>
     {hasHidden && <Button onClick={() => setThreshold(500)}>Show all</Button>}
   </>
@@ -32,7 +32,7 @@ function BibiliographicCitation({citation}) {
         <HyperText text={citation.text} />
       </div>
     )}
-    {citation.identifier && match && <a href={citation.identifier}><FormattedMessage id="components.dataset.viewArticle" /></a>}
+    {citation.identifier && match && <a href={citation.identifier}><FormattedMessage id="dataset.viewArticle" /></a>}
     {citation.identifier && !match && <><span style={{color: '#888'}}>Identifier: </span><span>{citation.identifier}</span></>}
     {/* {citation.identifier && <a href={'https://scholar.google.com/scholar?q=' + encodeURIComponent(citation.text)}>Google Scholar</a>} */}
   </li>;

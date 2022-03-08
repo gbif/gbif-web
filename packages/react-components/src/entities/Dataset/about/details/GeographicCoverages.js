@@ -1,49 +1,43 @@
-import { jsx } from '@emotion/react';
+import { jsx } from "@emotion/react";
 import React from "react";
 import { Properties } from "../../../../components";
 import { FormattedMessage, FormattedDate } from "react-intl";
 
 const { Term: T, Value: V } = Properties;
 
-export function GeographicCoverages({
-  geographicCoverages,
-  ...props
-}) {
-  return <>
-    {geographicCoverages.map(coverage => <GeographicCoverage coverage={coverage} />)}
-  </>
+export function GeographicCoverages({ geographicCoverages, ...props }) {
+  return (
+    <>
+      {geographicCoverages.map((coverage, idx) => (
+        <GeographicCoverage coverage={coverage} key={idx} />
+      ))}
+    </>
+  );
 }
 
-function GeographicCoverage({coverage}) {
+function GeographicCoverage({ coverage }) {
   let geoJSON;
-  if (coverage?.boundingBox?.minLatitude > -85 && coverage?.boundingBox?.maxLatitude < 85) {
-    const { minLongitude, minLatitude, maxLongitude, maxLatitude } = coverage.boundingBox;
+  if (
+    coverage?.boundingBox?.minLatitude > -85 &&
+    coverage?.boundingBox?.maxLatitude < 85
+  ) {
+    const {
+      minLongitude,
+      minLatitude,
+      maxLongitude,
+      maxLatitude,
+    } = coverage.boundingBox;
     geoJSON = {
-      "type": "Polygon",
-      "coordinates": [
+      type: "Polygon",
+      coordinates: [
         [
-          [
-            minLongitude,
-            minLatitude
-          ],
-          [
-            maxLongitude,
-            minLatitude
-          ],
-          [
-            maxLongitude,
-            maxLatitude
-          ],
-          [
-            minLongitude,
-            maxLatitude
-          ],
-          [
-            minLongitude,
-            minLatitude
-          ]
-        ]
-      ]
+          [minLongitude, minLatitude],
+          [maxLongitude, minLatitude],
+          [maxLongitude, maxLatitude],
+          [minLongitude, maxLatitude],
+          [minLongitude, minLatitude],
+        ],
+      ],
     };
   }
   const Bbox = <Properties horizontal>

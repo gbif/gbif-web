@@ -21,6 +21,8 @@ class FilterState extends React.Component {
       Object.keys(filter).forEach(key => {
         if (typeof filter[key] === 'undefined') delete filter[key];
       })
+      if (isEmpty(filter.must)) delete filter.must;
+      if (isEmpty(filter.must_not)) delete filter.must_not;
       if (Object.keys(filter).length === 0) filter = undefined;
     }
     this.props.onChange(filter);

@@ -1,0 +1,38 @@
+{
+  "occurrence": "ocorrência",
+  "showAllFields": "",
+  "morePhotos": "",
+  "about": "Sobre",
+  "dataset": "Conjunto de dados",
+  "publisher": "Publicador",
+  "institution": "Instituição",
+  "institutionGrSciColl": "",
+  "collection": "Coleção",
+  "collectionGrSciColl": "",
+  "recordedAndIdentifiedBy": "",
+  "info": {
+    "original": "original",
+    "excluded": "Excluído",
+    "inferred": "Inferido",
+    "altered": "Alterado"
+  },
+  "groups": {
+    "summary": "Sumário",
+    "record": "Registo",
+    "occurrence": "Ocorrência",
+    "event": "Evento",
+    "identification": "Identificação",
+    "taxon": "Táxon",
+    "location": "Localização",
+    "organism": "Organismo",
+    "materialSample": "Amostra de material",
+    "geologicalContext": "Contexto geológico",
+    "other": "Outro"
+  },
+  "features": {
+    "isClustered": "Agrupado",
+    "isSamplingEvent": "Evento de colheita",
+    "isTreament": "Tratamento",
+    "isSequenced": "Sequenciado"
+  }
+}

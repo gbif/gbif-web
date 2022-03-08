@@ -1,0 +1,283 @@
+{
+  "dwcaExtension": {
+    "name": "DWCA 扩展",
+    "count": "{num, plural, one { DWCA 扩展 } other {# DWCA 扩展}}",
+    "description": "这里应该有一个组件的简短描述"
+  },
+  "taxonKey": {
+    "name": "学名",
+    "count": "{num, plural, one {科学名称} other {# 科学名称}}",
+    "description": "在GBIF主干分类中出现的学名。这些名称被规范化以简化跨数据集的搜索。最初提供的名称可能会被误解或未知。要搜索提供的名称，请使用“逐字科学名称”过滤器。"
+  },
+  "basisOfRecord": {
+    "name": "记录基础",
+    "count": "{num, plural, one {记录基础} other {# 记录基础}}",
+    "isNotNull": "有记录基础",
+    "isNull": "没有记录基础",
+    "description": "记录所依据的证据的性质。"
+  },
+  "institutionCode": {
+    "name": "机构编码",
+    "count": "{num, plural, one {机构代码} other {# 机构代码}}",
+    "description": "保管记录中提及的对象或信息的机构的代码(或首字母缩写)。"
+  },
+  "catalogNumber": {
+    "name": "目录编号",
+    "count": "{num, plural, one { 目录编号 } other {# 目录编号}}",
+    "description": "目录或集合中记录的标识符。"
+  },
+  "mediaType": {
+    "name": "媒体类型",
+    "count": "{num, plural, one {媒体类型} other {# 媒体类型}}",
+    "description": "此记录可访问的媒体类型。"
+  },
+  "occurrenceIssue": {
+    "name": "问题和标志",
+    "count": "{num, plural, one {问题或标志} other {# 问题和标志}}",
+    "isNotNull": "有问题",
+    "isNull": "没有问题",
+    "description": "在处理数据时发现的问题类型或潜在兴趣标志。"
+  },
+  "occurrenceCountry": {
+    "name": "国家",
+    "count": "{num, plural, one {国家} other {# 国家}}",
+    "description": "事件发生的国家或地区"
+  },
+  "publishingCountryCode": {
+    "name": "发布国家",
+    "count": "{num, plural, one {发布国家} other {# 发布国家}}",
+    "description": "数据发布者所在国家或地区的ISO代码"
+  },
+  "q": {
+    "name": "文本搜索",
+    "count": "{num, plural, one {文本字符串} other {# 搜索字符串}}",
+    "description": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。"
+  },
+  "coordinates": {
+    "name": "坐标"
+  },
+  "elevation": {
+    "name": "海拔",
+    "count": "{num, plural, one {高程过滤器} other {# 高程过滤器}}",
+    "description": "垂直参考点(通常是平均海平面或大地水准面)上方的距离，单位为米。"
+  },
+  "license": {
+    "name": "授权条款",
+    "count": "{num, plural, one {许可证} other {# 许可证}}",
+    "description": "共享记录所依据的合法许可或弃权。"
+  },
+  "datasetKey": {
+    "name": "数据集",
+    "count": "{num, plural, one {数据集} other {# 数据集}}",
+    "description": "在其下共享记录的数据集的标题。"
+  },
+  "publisherKey": {
+    "name": "发布者",
+    "count": "{num, plural, one {发布者} other {# 发布者}}",
+    "description": "负责共享包含记录的数据集的组织名称。"
+  },
+  "hostingOrganizationKey": {
+    "name": "主办机构",
+    "count": "{num, plural, one {托管机构} other {# 托管机构}}",
+    "description": "托管发布记录的数据集的组织名称。"
+  },
+  "country": {
+    "name": "国家",
+    "count": "{num, plural, one {国家} other {# 国家}}"
+  },
+  "countriesOfCoverage": {
+    "name": "覆盖国家",
+    "count": "{num, plural, one {覆盖国家} other {# 覆盖国家}}"
+  },
+  "countriesOfResearcher": {
+    "name": "研究人员的国家",
+    "count": "{num, plural, one {研究人员的国家} other {# 研究人员的国家}}"
+  },
+  "typeStatus": {
+    "name": "类型状态",
+    "count": "{num, plural, one {类型状态} other {# 类型状态}}",
+    "isNotNull": "有一个类型状态",
+    "isNull": "该类型状态",
+    "description": "一件标本的类型名称。"
+  },
+  "year": {
+    "name": "年份",
+    "count": "{num, plural, one {年份过滤器} other {# 年份过滤器}}",
+    "description": "事件发生的年份。"
+  },
+  "sampleSizeUnit": {
+    "name": "样品尺寸单位",
+    "count": "{num, plural, one {样本量单位} other {# 样本量单位}}",
+    "description": "“样本量值”的计量单位。"
+  },
+  "coordinateUncertainty": {
+    "name": "坐标不确定",
+    "count": "{num, plural, one {坐标不确定性} other {# 坐标不确定性过滤器}}",
+    "description": "距离坐标的最小距离（以米为单位）的度量，在该坐标中可以解释某一地点。"
+  },
+  "depth": {
+    "name": "深度",
+    "count": "{num, plural, one { 深度 } other {# 深度}}",
+    "description": "当地地表以下的距离，以米为单位。"
+  },
+  "organismQuantity": {
+    "name": "生物个体数量",
+    "count": "{num, plural, one { 生物体数量 } other {# 生物量}}",
+    "description": "生物体数量的值，其中测量类型在“生物体数量类型”中给出。"
+  },
+  "sampleSizeValue": {
+    "name": "样本大小值",
+    "count": "{num, plural, one { 样本量值 } other {# 样本量值}}",
+    "description": "样本大小的值，其计量单位在“样本大小单位”中给出。"
+  },
+  "relativeOrganismQuantity": {
+    "name": "相对生物数量",
+    "count": "{num, plural, one { 相对生物量 } other {# 相对生物量}}",
+    "description": "生物材料相对于样品大小的数量，当有机体数量类型和样品大小单位明确时，计算为每个样品大小的有机体数量。"
+  },
+  "month": {
+    "name": "月份",
+    "count": "{num, plural, one { 月 } other {# 月}}",
+    "description": "事件发生的整数月份。"
+  },
+  "continent": {
+    "name": "洲",
+    "count": "{num, plural, one { 洲 } other {# 大洲}}",
+    "description": "地理位置所在的大陆的名称。"
+  },
+  "protocol": {
+    "name": "发布协议",
+    "count": "{num, plural, one { 协议 } other {# 协议}}",
+    "description": "数据集共享的技术协议。"
+  },
+  "establishmentMeans": {
+    "name": "确定方法",
+    "count": "{num, plural, one { 建立方法 } other {# 建立方法}}",
+    "description": "有机体在特定时间被引入到特定地点的方法。"
+  },
+  "recordedBy": {
+    "name": "记录者",
+    "count": "{num, plural, one { 记录者 } other {# 记录者}}",
+    "description": "负责记录原始事件发生的人、人们、团体或组织的名称。"
+  },
+  "recordNumber": {
+    "name": "记录号",
+    "count": "{num, plural, one { 记录编号 } other {# 记录编号}}",
+    "description": "在记录事件时给出的标识符。"
+  },
+  "collectionCode": {
+    "name": "保藏代码",
+    "count": "{num, plural, one { 收集代码 } other {# 收集代码}}",
+    "description": "这里应该有一个组件的简短描述"
+  },
+  "recordedById": {
+    "name": "由ID记录",
+    "count": "{num, plural, one { 记录的标识 } other {# 记录的标识}}",
+    "description": "负责记录原始事件的人、人们、团体或组织的标识符。"
+  },
+  "identifiedById": {
+    "name": "由ID标识",
+    "count": "{num, plural, one { 由ID标识 } other {# 由ID标识}}",
+    "description": "负责确定生物体学名的人、人们、团体或组织的标识符。"
+  },
+  "occurrenceId": {
+    "name": "出现记录 ID",
+    "count": "{num, plural, one {发生ID} other {# 发生ID}}",
+    "description": "发生记录的唯一标识符。"
+  },
+  "organismId": {
+    "name": "生物个体ID",
+    "count": "{num, plural, one {生物体标识} other {# 生物体标识}}",
+    "description": "记录中生物体的唯一标识符。"
+  },
+  "locality": {
+    "name": "地点",
+    "count": "{num, plural, one { 位置 } other {# 位置}}",
+    "description": "描述地点的具体部分。"
+  },
+  "waterBody": {
+    "name": "水体",
+    "count": "{num, plural, one { 水体 } other {# 水体}}",
+    "description": "该位置所在的水体的名称。"
+  },
+  "stateProvince": {
+    "name": "州/省",
+    "count": "{num, plural, one { 州省 } other {# 州省}}",
+    "description": "比该位置所在的国家小的下一个行政区域的名称。"
+  },
+  "eventId": {
+    "name": "事件编号",
+    "count": "{num, plural, one { 事件标识符 } other {# 事件标识符}}",
+    "description": "记录中事件的唯一标识符。"
+  },
+  "samplingProtocol": {
+    "name": "取样草案",
+    "count": "{num, plural, one { 采样协议 } other {# 采样协议}}",
+    "description": "事件中使用的方法或协议的名称、引用或描述。"
+  },
+  "occurrenceStatus": {
+    "name": "出现记录状态",
+    "count": "{num, plural, one { 发生状态 } other {# 发生状态}}",
+    "description": "某一分类单元中任何生物体的存在或缺失。"
+  },
+  "gadmGid": {
+    "name": "行政区域",
+    "count": "{num, plural, one { 行政区域 } other {# 行政区域}}",
+    "description": "在记录处理期间确定的来自GADM.org的任何行政区域的名称。"
+  },
+  "identifiedBy": {
+    "name": "识别依据",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}",
+    "description": "负责确定生物体学名的人、人们、团体或组织。"
+  },
+  "isInCluster": {
+    "name": "在集群中",
+    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+    "description": "该记录是否被确定有相关记录。"
+  },
+  "datasetType": {
+    "name": "数据集类型",
+    "count": "{num, plural, one { 数据集类型 } other {# 数据集类型}}",
+    "description": "这里应该有一个组件的简短描述"
+  },
+  "datasetSubtype": {
+    "name": "数据集子类型",
+    "count": "{num, plural, one { 数据集子类型 } other {# 数据集子类型}}",
+    "description": "这里应该有一个组件的简短描述"
+  },
+  "institutionKey": {
+    "name": "机构",
+    "count": "{num, plural, one { 机构 } other {# 机构}}",
+    "description": "保管记录中提及的物品或信息的机构的名称。"
+  },
+  "name": {
+    "name": "名字",
+    "count": "{num, plural, one { 名称 } other {# 名称}}",
+    "description": "这里应该有一个组件的简短描述"
+  },
+  "city": {
+    "name": "城市",
+    "count": "{num, plural, one { 城市 } other {# 城市}}",
+    "description": "这里应该有一个组件的简短描述"
+  },
+  "code": {
+    "name": "代码",
+    "count": "{num, plural, one { 代码 } other {# 代码}}",
+    "description": "这里应该有一个组件的简短描述"
+  },
+  "verbatimScientificName": {
+    "name": "一字不差的学名",
+    "count": "{num, plural, one { 逐字学名 } other {# 逐字学名}}",
+    "description": "由数据发布者提供的未经任何规范化的科学名称。"
+  },
+  "networkKey": {
+    "name": "网络密钥",
+    "count": "{num, plural, one { 网络密钥 } other {# 网络密钥}}",
+    "description": "这里应该有一个组件的简短描述"
+  },
+  "literatureType": {
+    "name": "文献类型",
+    "count": "{num, plural, one { 文献类型 } other {# 文献类型}}",
+    "description": "这些引文来自于什么类型的文献。"
+  }
+}

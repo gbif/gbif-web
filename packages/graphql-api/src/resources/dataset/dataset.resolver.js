@@ -71,7 +71,7 @@ module.exports = {
         .searchLiterature(
           { query: {gbifDatasetKey: key} }
         )
-        .then(response => response.count);
+        .then(response => response.documents.total)
     },
   },
   Dataset: {
@@ -101,7 +101,7 @@ module.exports = {
     constituents: ({ key }, args, { dataSources }) => {
       return dataSources.datasetAPI.getConstituents({ key, query: args });
     },
-    contributors: ({ contacts }) => getContributors(contacts),
+    volatileContributors: ({ contacts }) => getContributors(contacts),
     networks: ({ key }, args, { dataSources }) => {
       return dataSources.datasetAPI.getNetworks({ key });
     },

@@ -1,0 +1,38 @@
+{
+  "occurrence": "voorkomen",
+  "showAllFields": "Toon alle velden",
+  "morePhotos": "",
+  "about": "Over",
+  "dataset": "Dataset",
+  "publisher": "Gepubliceerd door",
+  "institution": "Instituut",
+  "institutionGrSciColl": "",
+  "collection": "Collectie",
+  "collectionGrSciColl": "",
+  "recordedAndIdentifiedBy": "",
+  "info": {
+    "original": "origineel",
+    "excluded": "Uitgesloten",
+    "inferred": "Afgeleid",
+    "altered": "Aangepast"
+  },
+  "groups": {
+    "summary": "Samenvatting",
+    "record": "Gegevens",
+    "occurrence": "Voorkomen",
+    "event": "Gebeurtenis",
+    "identification": "Determinatie",
+    "taxon": "Taxon",
+    "location": "Vindplaats",
+    "organism": "Organisme",
+    "materialSample": "",
+    "geologicalContext": "Geologische context",
+    "other": "Andere"
+  },
+  "features": {
+    "isClustered": "Gegroepeerd",
+    "isSamplingEvent": "",
+    "isTreament": "Behandeling",
+    "isSequenced": "Sequentie bepaald"
+  }
+}

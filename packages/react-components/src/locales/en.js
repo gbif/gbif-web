@@ -1,6 +1,6 @@
 import basisOfRecord from './enums/basisOfRecord.json';
 import countryCode from './enums/countryCode.json';
-import mediaTypes from './enums/mediaTypes.json';
+import mediaType from './enums/mediaType.json';
 import occurrenceIssue from './enums/occurrenceIssue.json';
 import typeStatus from './enums/typeStatus.json';
 import taxonRank from './enums/taxonRank.json';
@@ -11,6 +11,7 @@ import continent from './enums/continent.json';
 import protocol from './enums/protocol.json';
 import establishmentMeans from './enums/establishmentMeans.json';
 import occurrenceStatus from './enums/occurrenceStatus.json';
+import literatureType from './enums/literatureType.json';
 import role from './enums/role.json';
 import isInCluster from './enums/isInCluster.json';
 import datasetType from './enums/datasetType.json';
@@ -31,7 +32,15 @@ export const en = {
   tableHeaders: {
     features: 'Features',
     citations: 'Citations',
-    occurrences: 'Occurrences'
+    occurrences: 'Occurrences',
+    numberSpecimens: 'Number of specimens',
+    gbifNumberSpecimens: 'Specimens in GBIF',
+    title: 'Title',
+    titleAndAbstract: 'Title and abstract',
+    altmetric: 'Altmetric',
+    registered: 'Registered',
+    hostedDatasets: 'Hosted datasets',
+    pubDatasets: 'Published datasets',
   },
   nullOrNot: {
     isNotNull: 'Must be defined',
@@ -44,51 +53,51 @@ export const en = {
     taxonKey: {
       name: 'Scientific name',
       count: '{num, plural, one {scientific name} other {# scientific names}}',
-      description: 'The scientific name as it appears in the GBIF backbone taxonomy. In other words: the names are normalised to ease search across datasets. The downside is that a name might be misinterpreted or be unknown. To search the names as provided use the "Verbatim scientific name"-filter'
+      description: 'The scientific name as it appears in the GBIF backbone taxonomy. These names are normalized to ease search across datasets. It is possible that an originally-provided name might be misinterpreted or unknown. To search the names as provided use the "Verbatim scientific name" filter.'
     },
     basisOfRecord: {
       name: 'Basis of record',
       count: '{num, plural, one {basis of record} other {# bases of records}}',
       isNotNull: 'Has a basis of record',
       isNull: 'Has no basis of record',
-      description: 'You can think of it as the evidence'
+      description: 'The nature of the evidence upon which the record is based.'
     },
     institutionCode: {
       name: 'Institution code',
       count: '{num, plural, one {institution code} other {# institution codes}}',
-      description: 'The institution code for this record'
+      description: 'The code (or acronym) for the institution having custody of the object(s) or information referred to in the record.'
     },
     catalogNumber: {
       name: 'Catalog number',
       count: '{num, plural, one {catalog number} other {# catalog numbers}}',
-      description: 'The catalog number for this record'
+      description: 'The catalog number for this record.'
     },
-    mediaTypes: {
+    mediaType: {
       name: 'Media type',
       count: '{num, plural, one {media type} other {# media types}}',
-      description: 'What can of media should the occurrence have'
+      description: 'The types of media accessible for this record.'
     },
     occurrenceIssue: {
       name: 'Issues and flags',
       count: '{num, plural, one {issue or flag} other {# issues and flags}}',
       isNotNull: 'Has issues',
       isNull: 'Has no issues',
-      description: 'During interpretation we try to detect potential issues and add flags for them. You decide which matters to you.'
+      description: 'The types of issues or flags of potential interest discovered in processing the data.'
     },
-    countryCode: {
+    occurrenceCountry: {
       name: 'Country',
       count: '{num, plural, one {country} other {# countries}}',
-      description: 'Country or area from which the record is located within'
+      description: 'The country or territory where the event occurred'
     },
     publishingCountryCode: {
       name: 'Publishing country',
       count: '{num, plural, one {publishing country} other {# publishing countries}}',
-      description: 'Country or area that published the data'
+      description: 'The country or territory from which the data were published'
     },
     q: {
-      name: 'Similar text',
-      count: '{num, plural, one {text string} other {# text search strings}}',
-      description: 'Search for text similar to the entered across text fields. For structured search on say species names you should use the "Scientific name" filter'
+      name: 'Text search',
+      count: '{num, plural, one {text string} other {# search strings}}',
+      description: 'Find records with similar matching text among text fields. For matching text within a specific field, use corresponding filter, such as the one for "Scientific Name".'
     },
     coordinates: {
       name: 'Coordinates',
@@ -96,22 +105,27 @@ export const en = {
     elevation: {
       name: 'Elevation',
       count: '{num, plural, one {elevation filter} other {# elevation filters}}',
+      description: 'The distance above a vertical reference point (usually mean sea level or a geoid) in meters.'
     },
     license: {
       name: 'License',
       count: '{num, plural, one {license} other {# licenses}}',
+      description: 'The legal license or waiver under which the record is shared.'
     },
     datasetKey: {
       name: 'Dataset',
       count: '{num, plural, one {dataset} other {# datasets}}',
+      description: 'The title of the dataset under which the record is shared.'
     },
     publisherKey: {
       name: 'Publisher',
       count: '{num, plural, one {publisher} other {# publishers}}',
+      description: 'The name of the organization under which the dataset for the record is registered.'
     },
-    hostKey: {
-      name: 'Hosting organisation',
+    hostingOrganizationKey: {
+      name: 'Hosting organization',
       count: '{num, plural, one {host} other {# hosts}}',
+      description: 'The name of the organization hosting the dataset in which the record is published.'
     },
     country: {
       name: 'Country',
@@ -129,78 +143,78 @@ export const en = {
       name: 'Type status',
       count: '{num, plural, one {type status} other {# type statuses}}',
       isNotNull: 'Has a type status',
-      isNull: 'Has no type status',
-      description: 'The specimen has been designated as a type'
+      isNull: 'The type status',
+      description: 'The type designation of a specimen.'
     },
     year: {
       name: 'Year',
       count: '{num, plural, one {year filter} other {# year filters}}',
-      description: 'What year is the record from'
+      description: 'The year in which the event occurred.'
     },
     sampleSizeUnit: {
       name: "Sample size unit",
       count: '{num, plural, one {sample size unit} other {# sample size units}}',
-      description: 'This field is used together with "sample size value" and describes the unit of the meassurement'
+      description: 'The unit of measurement for the "sample size value".'
     },
     coordinateUncertainty: {
       name: 'Coordinate uncertainty',
       count: '{num, plural, one {Coordinate uncertainty} other {# coordinate uncertainty filters}}',
-      description: 'A short description of the component should be placed here'
+      description: 'A measure of the minimum distance in meters from a coordinate within which a locality might be interpreted to be.'
     },
     depth: {
       name: 'Depth',
       count: '{num, plural, one { Depth } other {# Depths}}',
-      description: 'A short description of the component should be placed here'
+      description: 'The distance below a local surface, in meters.'
     },
     organismQuantity: {
       name: 'Organism quantity',
       count: '{num, plural, one { Organism quantity } other {# Organism quantitys}}',
-      description: 'A short description of the component should be placed here'
+      description: 'The value for the quantity of organisms, where the type of measurement is given in the "Organism quantity type".'
     },
     sampleSizeValue: {
       name: 'Sample size value',
       count: '{num, plural, one { sample size value } other {# sample size values}}',
-      description: 'A short description of the component should be placed here'
+      description: 'The value for the size of a sample, where the units of measurement are given in the "Sample size unit".'
     },
     relativeOrganismQuantity: {
       name: 'Relative organism quantity',
       count: '{num, plural, one { relative organism quantity } other {# relative organism quantitys}}',
-      description: 'A short description of the component should be placed here'
+      description: 'The amount of biological material relative to the size of a sample, calculated as organismQuantity per sampleSize when the organismQuantityType and sampleSizeUnit are unambiguous.'
     },
     month: {
       name: 'Month',
       count: '{num, plural, one { month } other {# months}}',
-      description: 'A short description of the component should be placed here'
+      description: 'The integer month in which the Event occurred.'
     },
     continent: {
       name: 'Continent',
       count: '{num, plural, one { continent } other {# continents}}',
-      description: 'A short description of the component should be placed here'
+      description: 'The name of the continent in which the Location occurs.'
     },
     protocol: {
-      name: 'Protocol',
+      name: 'Publishing protocol',
       count: '{num, plural, one { protocol } other {# protocols}}',
-      description: 'A short description of the component should be placed here'
+      description: 'The technical protocol through which the dataset is shared.'
     },
     establishmentMeans: {
       name: 'Establishment means',
       count: '{num, plural, one { establishment means } other {# establishment means}}',
-      description: 'A short description of the component should be placed here'
+      description: 'The means by which the organism was introduced to a given place at a given time.'
     },
     catalogNumber: {
       name: 'Catalog number',
       count: '{num, plural, one { catalog number } other {# catalog numbers}}',
-      description: 'A short description of the component should be placed here'
+      description: 'The identifier for the record within a catalog or collection.'
     },
     recordedBy: {
       name: 'Recorded by',
       count: '{num, plural, one { recorded by } other {# recorded bys}}',
-      description: 'A short description of the component should be placed here'
+      description: 'The names of the people, groups, or organizations responsible for recording the original Occurrence.'
     },
     recordNumber: {
       name: 'Record number',
       count: '{num, plural, one { record number } other {# record numbers}}',
-      description: 'A short description of the component should be placed here'
+      description: 'An identifier given to the Occurrence at the time it was recorded.'
     },
     collectionCode: {
       name: 'Collection code',
@@ -210,72 +224,67 @@ export const en = {
     recordedById: {
       name: 'Recorded by id',
       count: '{num, plural, one { recorded by id } other {# recorded by ids}}',
-      description: 'A short description of the component should be placed here'
+      description: 'The identifier for the people, groups, or organizations responsible for recording the original Occurrence.'
     },
     identifiedById: {
       name: 'Identified by id',
       count: '{num, plural, one { identified by id } other {# identified by ids}}',
-      description: 'A short description of the component should be placed here'
+      description: 'The identifier for the people, groups, or organizations responsible for determining the scientific name of the Organism.'
     },
     occurrenceId: {
       name: 'Occurrence id',
       count: '{num, plural, one { occurrence id } other {# occurrence ids}}',
-      description: 'A short description of the component should be placed here'
+      description: 'The unique identifier for the Occurrence record.'
     },
     organismId: {
       name: 'Organism id',
       count: '{num, plural, one { organism id } other {# organism ids}}',
-      description: 'A short description of the component should be placed here'
+      description: 'The unique identifier for the Organism in the record.'
     },
     locality: {
       name: 'Locality',
       count: '{num, plural, one { locality } other {# localities}}',
-      description: 'A short description of the component should be placed here'
+      description: 'The specific part of the description of the place.'
     },
     waterBody: {
       name: 'Water body',
       count: '{num, plural, one { water body } other {# water bodies}}',
-      description: 'A short description of the component should be placed here'
+      description: 'The name of the water body in which the Location occurs.'
     },
     stateProvince: {
       name: 'State province',
       count: '{num, plural, one { state province } other {# state provinces}}',
-      description: 'A short description of the component should be placed here'
+      description: 'The name of the next smaller administrative region than country in which the Location occurs.'
     },
     eventId: {
       name: 'Event id',
       count: '{num, plural, one { event id } other {# event ids}}',
-      description: 'A short description of the component should be placed here'
+      description: 'The unique identifier for the Event in the record.'
     },
     samplingProtocol: {
       name: 'Sampling protocol',
       count: '{num, plural, one { Sampling protocol } other {# Sampling protocols}}',
-      description: 'A short description of the component should be placed here'
-    },
-    elevation: {
-      name: 'Elevation',
-      count: '{num, plural, one { Elevation } other {# Elevations}}',
-      description: 'A short description of the component should be placed here'
+      description: 'The name of, reference to, or description of the method or protocol used during an Event.'
     },
     occurrenceStatus: {
       name: 'Occurrence status',
       count: '{num, plural, one { Occurrence status } other {# Occurrence statuss}}',
-      description: "'Absent' is applied to an occurrence record when a survey of a taxon at a specific time and place encounters no specimens"
+      description: 'The presence or absence of any organisms of the given Taxon.'
     },
     gadmGid: {
       name: 'Administrative area',
       count: '{num, plural, one { administrative area } other {# administrative areas}}',
-      description: 'Administrative areas as provided by GADM.org - this division can differ from the ISO 3166-1 standard used by GBIF.org for country processing.'
+      description: 'The name of any administrative area from GADM.org determined during record processing.'
     },
     identifiedBy: {
       name: 'Identified by',
       count: '{num, plural, one { Identified by } other {# Identified bys}}',
-      description: 'This filter is an example where one can search using wildcards. ?: matches any single character. *: matches zero or more characters'
+      description: 'The people, groups, or organizations responsible for determining the scientific name of the Organism.'
     },
     isInCluster: {
       name: 'Is in cluster',
       count: '{num, plural, one { Is in cluster } other {# Is in clusters}}',
-      description: 'Should the record be part of a cluster'
+      description: 'Whether the record was determined to have related records.'
     },
     datasetType: {
       name: 'Dataset type',
@@ -290,7 +299,7 @@ export const en = {
     institutionKey: {
       name: 'Institution',
       count: '{num, plural, one { Institution } other {# Institutions}}',
-      description: 'A short description of the component should be placed here'
+      description: 'The name of the institution having custody of the object(s) or information referred to in the record.'
     },
     name: {
       name: 'Name',
@@ -310,7 +319,17 @@ export const en = {
     verbatimScientificName: {
       name: 'Verbatim scientific name',
       count: '{num, plural, one { Verbatim scientific name } other {# Verbatim scientific names}}',
-      description: 'Scientific name as provided without any normalisation. You search the names as they are used, the downside is that the same taxon can appear under multiple spellings and synonyms and typos.'
+      description: 'The scientific name as provided by the data publisher without any normalisation.'
+    },
+    networkKey: {
+      name: 'Network key',
+      count: '{num, plural, one { Network key } other {# Network keys}}',
+      description: 'A short description of the component should be placed here'
+    },
+    literatureType: {
+      name: 'Literature type',
+      count: '{num, plural, one { Literature type } other {# Literature types}}',
+      description: 'What type of literature does the citation come from.'
     },
     // -- Add filter above this line (required by plopfile.js) --
   },
@@ -388,7 +407,7 @@ export const en = {
   enums: {
     basisOfRecord,
     countryCode,
-    mediaTypes,
+    mediaType,
     occurrenceIssue,
     typeStatus,
     taxonRank,
@@ -403,6 +422,7 @@ export const en = {
     isInCluster,
     datasetType,
     datasetSubtype,
+    literatureType,
     // -- Add enum translations above this line (required by plopfile.js) --
   }
 }

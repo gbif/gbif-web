@@ -38,7 +38,7 @@ app.post('/occurrence/meta', asyncMiddleware(postMetaOnly(occurrence)));
 app.get('/occurrence/meta', asyncMiddleware(getMetaOnly(occurrence)));
 
 const temporaryAuthMiddleware = function (req, res, next) {
-  const apiKey = _.get(req, 'query.apiKey') || _.get(req, 'body.apiKey') || _.get(req, 'headers.Authorization', '').substr(10);
+  const apiKey = _.get(req, 'query.apiKey') || _.get(req, 'body.apiKey') || _.get(req, 'headers.Authorization', '').substr(10) || _.get(req, 'headers.authorization', '').substr(10);
   if (!apiKey) {
     next(new ResponseError(401, 'temporaryAuthentication', 'You need to provide an apiKey in the url'));
   } else if (apiKey !== config.apiKey || !config.apiKey) {
@@ -91,33 +91,35 @@ function searchResource(resource) {
 
 function parseQuery(req, res, next, { get2predicate, get2metric }) {
   try {
-    // if body in url, then use that
+    // get body from POST or GET
+    let body = req.body || {};
+    // if GET and body in url, then use that
     if (req.method === 'GET' && req.query.body) {
       try {
-        const body = JSON.parse(req.query.body);
-        return body;
+        body = JSON.parse(req.query.body);
       } catch (err) {
         return next(new ResponseError(400, 'badRequest', `Malformed body`));
       }
     }
+    
+    // take anything but the body from the url query
+    const { body: getBody, ...getQuery } = req.query;
+    // then merge body (from POST or GET) with the url params giving preference to the body
+    const query = {...getQuery, ...body};
 
-    // extract JSON predicate and metrics from body or query param. Given preference to body
-    let jsonPredicate, jsonMetrics, predicate;
-    if (req?.body?.predicate || req?.body?.metrics) {
-      jsonPredicate = req.body.predicate;
-      jsonMetrics = req.body.metrics;
-    } else if (req.query.query) {
-      try {
-        const jsonQuery = JSON.parse(req.query.query);
-        jsonPredicate = jsonQuery.predicate;
-        jsonMetrics = jsonQuery.metrics;
-      } catch (err) {
-        return next(new ResponseError(400, 'badRequest', `Invalid query: ${err.message}`));
-      }
-    }
-    // get any metrics defined in v1 style
-    let v1Predicate = get2predicate(req.query);
-    let v1Metrics = get2metric(req.query);
+    console.log(body);
+    const { 
+      predicate: jsonPredicate, 
+      metrics: jsonMetrics, 
+      size = 20, 
+      from = 0, 
+      includeMeta = false, 
+      ...otherParams 
+    } = query;
+    
+    // get any metrics and predicate defined in v1 style. 
+    let v1Predicate = get2predicate(otherParams);
+    let v1Metrics = get2metric(otherParams);
 
     // merge get style and post style metrics request, giving priority to post style as that is more precise
     let metrics = Object.assign({}, v1Metrics, jsonMetrics)
@@ -130,12 +132,10 @@ function parseQuery(req, res, next, { get2predicate, get2metric }) {
       predicate = v1Predicate ? v1Predicate : jsonPredicate;
     }
 
-    // next parse from, size, includeMeta. Again giving preference to body/post content
-
-    let { size = 20, from = 0, includeMeta = false } = Object.assign({}, req.query, req.body);
-    size = parseInt(size);
-    from = parseInt(from);
-    const result = { metrics, predicate, size, from, includeMeta };
+    const intSize = parseInt(size);
+    const intFrom = parseInt(from);
+    const result = { metrics, predicate, size: intSize, from: intFrom, includeMeta };
+    console.log(JSON.stringify(result, null, 2));
     return result;
   } catch (err) {
     next(err);

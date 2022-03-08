@@ -4,7 +4,7 @@ import CollectionSearch from './CollectionSearch';
 
 function Standalone(props) {
   return <StandaloneWrapper {...props}>
-    <CollectionSearch {...props} />
+    <CollectionSearch pageLayout {...props} />
   </StandaloneWrapper>
 }
 

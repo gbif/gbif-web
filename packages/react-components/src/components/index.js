@@ -31,4 +31,11 @@ export { IdentifierBadge } from './IdentifierBadge/IdentifierBadge';
 export { Eyebrow } from './Eyebrow/Eyebrow';
 export { JazzIcon } from './JazzIcon/JazzIcon';
 export { Prose } from './typography/Prose';
+export { Toc } from './Toc/Toc';
+export { useToc } from './Toc/useToc';
+export { AltmetricDonut } from './AltmetricDonut/AltmetricDonut';
+export { Message } from './Message/Message';
+export { ResourceLink, PublisherKeyLink, DatasetKeyLink, ResourceSearchLink } from './resourceLinks/resourceLinks';
+export { NavBar, NavItem } from './NavBar/NavBar';
+export { DataHeader } from './DataHeader/DataHeader';
 // -- Add imports above this line (required by plopfile.js) --

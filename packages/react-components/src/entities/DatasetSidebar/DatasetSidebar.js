@@ -1,7 +1,7 @@
 
 import { jsx } from '@emotion/react';
 import React, { useContext, useState, useEffect } from 'react';
-import { MdInfo } from 'react-icons/md'
+import { MdInfo, MdClose } from 'react-icons/md'
 import ThemeContext from '../../style/themes/ThemeContext';
 import * as css from './styles';
 import { Row, Col, Tabs } from "../../components";
@@ -13,10 +13,11 @@ import { BibliographicCitations } from './details/BibliographicCitations'
 import { SamplingDescription } from './details/SamplingDescription'
 import { Citation } from './details/Citation'
 
-const { TabList, Tab, TabPanel } = Tabs;
+const { TabList, Tab, TabPanel, TapSeperator } = Tabs;
 
 export function DatasetSidebar({
   onImageChange,
+  onCloseRequest,
   id,
   defaultTab,
   className,
@@ -37,6 +38,12 @@ export function DatasetSidebar({
     <Row wrap="nowrap" style={style} css={css.sideBar({ theme })}>
       <Col shrink={false} grow={false} css={css.detailDrawerBar({ theme })}>
         <TabList style={{ paddingTop: '12px' }} vertical>
+          {onCloseRequest && <>
+            <Tab direction="left" onClick={onCloseRequest}>
+              <MdClose />
+            </Tab>
+            <TapSeperator vertical />
+          </>}
           <Tab tabId="details" direction="left">
             <MdInfo />
           </Tab>
@@ -61,7 +68,7 @@ export function DatasetSidebar({
 };
 
 const DATASET = `
-query dataset($key: String!){
+query dataset($key: ID!){
   dataset(key: $key) {
     title
     created
@@ -70,7 +77,7 @@ query dataset($key: String!){
     logoUrl
     publishingOrganizationKey
     publishingOrganizationTitle
-    contributors {
+    volatileContributors {
       firstName
       lastName
       position

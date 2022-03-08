@@ -17,6 +17,7 @@ export function Description({
 }) {
   const theme = useContext(ThemeContext);
 
+  console.log(institution);
   return <>
     {/* <div style={{margin: '12px 0', textAlign: 'right'}}>
       <Button>Suggest a change</Button>
@@ -27,15 +28,25 @@ export function Description({
         {getPlain(institution, 'name')}
         {getPlain(institution, 'description')}
         {getPlain(institution, 'code')}
-        {/* {getPlain(institution, 'alternativeCodes')} */}
-        {getPlain(institution, 'homePage')}
+        {getPlain(institution, 'alternativeCodes')}
+        {getPlain(institution, 'type')}
         {getPlain(institution, 'active')}
-        {getPlain(institution, 'personalCollection')}
+        {getPlain(institution, 'homepage')}
+        {getPlain(institution, 'phone')}
+        {getPlain(institution, 'email')}
         {getPlain(institution, 'catalogUrl')}
-        {getPlain(institution, 'accessionStatus')}
-        {getPlain(institution, 'institutionName')}
-        {getPlain(institution, 'institutionCode')}
-        {getPlain(institution, 'notes')}
+        {getPlain(institution, 'apiUrl')}
+        {getPlain(institution, 'institutionalGovernance')}
+        {getPlain(institution, 'disciplines')}
+        {getPlain(institution, 'latitude')}
+        {getPlain(institution, 'longitude')}
+        {getPlain(institution, 'additionalNames')}
+        {getPlain(institution, 'foundingDate')}
+        {getPlain(institution, 'geographicDescription')}
+        {getPlain(institution, 'taxonomicDescription')}
+        {getPlain(institution, 'numberSpecimens')}
+        {getPlain(institution, 'herbariumRecord')}
+        {getPlain(institution, 'logoUrl')}
       </Properties>
       {/* </Accordion> */}
 
@@ -62,7 +73,7 @@ export function Description({
 };
 
 function getPlain(institution, fieldName) {
-  return <><T><span style={{paddingRight: 8}}>{fieldName}</span></T><V>{ institution?.[fieldName] ? institution[fieldName] : <span style={{color: '#aaa'}}>Not provided</span>}</V></>
+  return <><T><span style={{paddingRight: 8}}>{fieldName}</span></T><V>{ typeof institution?.[fieldName] !== 'undefined' && typeof institution?.[fieldName] !== 'null' ? institution[fieldName] : <span style={{color: '#aaa'}}>Not provided</span>}</V></>
 }
 
 function getList(institution, fieldName) {

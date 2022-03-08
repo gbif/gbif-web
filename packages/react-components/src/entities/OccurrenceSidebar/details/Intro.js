@@ -2,11 +2,11 @@
 import { jsx } from '@emotion/react';
 import React, { useContext, useState } from 'react';
 import ThemeContext from '../../../style/themes/ThemeContext';
+import { FormattedMessage } from 'react-intl';
 import * as css from '../styles';
 import { Row, Col, Switch } from "../../../components";
 import { Header } from './Header';
-import { Groups } from './Groups'
-import { Summary } from './Summary';
+import { Groups } from './Groups';
 
 export function Intro({
   data = {},
@@ -22,21 +22,23 @@ export function Intro({
   const [showAll, setShowAll] = useState(false);
 
   const { occurrence } = data;
-  if (loading || !occurrence) return <h1>Loading</h1>;
+  if (loading || !occurrence) return <h2>Loading</h2>;//TODO replace with proper skeleton loader
 
   return <Row direction="column" wrap="nowrap" style={{ maxHeight: '100%', overflow: 'hidden' }}>
-    <Col style={{ padding: '12px 16px', paddingBottom: 50, overflow: 'auto' }} grow>
+    <Col style={{ padding: '12px 0', paddingBottom: 50, overflow: 'auto' }} grow>
       <Header data={data} error={error} />
-      {/* <Summary occurrence={occurrence} fieldGroups={fieldGroups} loading={loading} setActiveImage={setActiveImage} /> */}
-
-      <Groups data={data} showAll={showAll} setActiveImage={setActiveImage}/>
+      <Groups occurrence={occurrence} showAll={showAll} setActiveImage={setActiveImage} />
     </Col>
     <Col css={css.controlFooter({ theme })} grow={false}>
       <Row justifyContent="flex-end" halfGutter={8}>
         <Col grow={false}>
-          Show all fields <Switch checked={showAll} onChange={() => setShowAll(!showAll)} direction="top" tip="Shortcut s" />
+          <FormattedMessage id={`occurrenceDetails.showAllFields`}/> <Switch checked={showAll} onChange={() => setShowAll(!showAll)} direction="top" tip="Shortcut s" />
         </Col>
       </Row>
     </Col>
   </Row>
 };
+
+/*
+{$ occurrence.dataset.citation.text $} {$ _meta.domain $}/occurrence/{$ occurrence.record.key $}
+*/

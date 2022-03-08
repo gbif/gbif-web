@@ -1,0 +1,12 @@
+{
+  "features": "Fonctionnalités",
+  "citations": "Citations",
+  "occurrences": "Occurrences",
+  "numberSpecimens": "Nombre de spécimens",
+  "gbifNumberSpecimens": "Spécimens sur GBIF",
+  "title": "Titre",
+  "titleAndAbstract": "Titre et résumé",
+  "registered": "Enregistré",
+  "hostedDatasets": "Jeux de données hébergés",
+  "pubDatasets": "Jeux de données publiés"
+}

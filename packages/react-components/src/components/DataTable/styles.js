@@ -3,7 +3,7 @@ import { tooltip } from '../../style/shared';
 
 export const wrapper = props => css`
   border: 1px solid ${props.theme.paperBorderColor};
-  height: 100%;
+  /* height: 100%; */
 `;
 
 export const occurrenceTable = ({theme}) => css`
@@ -54,7 +54,7 @@ export const table = props => css`
   border-collapse: separate;
   background: ${props.theme.background};
   border-spacing: 0;
-  font-size: 12px;
+  font-size: 85%;
   & th, td {
     border-right: 1px solid ${props.theme.paperBorderColor};
     transition: background-color 200ms ease;
@@ -124,9 +124,17 @@ export const cell = props => css`
   word-break: break-word;
 `;
 
+export const dataCell = ({noWrap, ...props}) => css`
+  ${noWrap ? 'white-space: nowrap;' : ''}
+`;
+
 export const wide = props => css`
-  width: 20em;
+  min-width: 20em;
   ${cell(props)};
+`;
+
+export const noWrap = props => css`
+  white-space: nowrap;
 `;
 
 export const tbodyLoading = ({theme}) => css`

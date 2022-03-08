@@ -2,6 +2,9 @@ import { action } from '@storybook/addon-actions';
 import { text } from '@storybook/addon-knobs';
 import React from 'react';
 import { addDecorator } from '@storybook/react';
+import { MemoryRouter as Router, Route } from "react-router-dom";
+import AddressBar from '../../StorybookAddressBar';
+import { QueryParamProvider } from 'use-query-params';
 
 import CollectionSearch from './CollectionSearch';
 import Standalone from './Standalone';
@@ -77,10 +80,15 @@ const filters = {
 
 const config = { labels, getSuggests, filters };
 
-export const Example = () => <CollectionSearch config={config} style={{ margin: 'auto', maxWidth: 1200, height: 'calc(100vh)' }} />;
+export const Example = () => <Router initialEntries={[`/collection/search`]}>
+  <QueryParamProvider ReactRouterRoute={Route}>
+    <AddressBar />
+    <CollectionSearch pageLayout config={config} style={{ margin: 'auto', height: 'calc(100vh - 40px)' }} />
+  </QueryParamProvider>
+</Router>
 
 Example.story = {
   name: 'Collection search',
 };
 
-export const StandaloneExample = () => <Standalone style={{height: 'calc(100vh - 20px)'}}></Standalone>;
+export const StandaloneExample = () => <Standalone style={{height: 'calc(100vh - 40px)'}}></Standalone>;

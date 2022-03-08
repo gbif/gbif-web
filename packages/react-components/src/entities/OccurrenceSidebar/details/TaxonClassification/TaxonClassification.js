@@ -4,7 +4,6 @@ import ThemeContext from '../../../../style/themes/ThemeContext';
 import React, { useContext } from 'react';
 import { Classification } from '../../../../components';
 import PropTypes from 'prop-types';
-import * as css from './styles';
 
 export function TaxonClassification({
   as: Div = 'div',
@@ -12,7 +11,7 @@ export function TaxonClassification({
   ranks,
   ...props
 }) {
-  const theme = useContext(ThemeContext);
+  // const theme = useContext(ThemeContext);
   return <Classification {...props}>
     {ranks.map((rank, i, { length }) => {
       if (!includeTerminal && length - 1 === i) return null;

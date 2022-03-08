@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const compression = require('compression');
 const { ApolloServer } = require('apollo-server-express');
+const { ApolloServerPluginLandingPageGraphQLPlayground } = require('apollo-server-core');
 const AbortController = require('abort-controller');
 const get = require('lodash/get');
 const config = require('./config');
@@ -46,11 +47,14 @@ async function initializeServer() {
     typeDefs,
     resolvers,
     dataSources: () => Object.keys(api).reduce((a, b) => (a[b] = new api[b](), a), {}), // Every request should have its own instance, see https://github.com/apollographql/apollo-server/issues/1562  
-    validationRules: [depthLimit(10)], // this likely have to be much higher than 6, but let us increase it as needed and not before
+    validationRules: [depthLimit(14)], // this likely have to be much higher than 6, but let us increase it as needed and not before
     cacheControl: {
       defaultMaxAge: 600,
       scope: 'public',
     },
+    plugins: [
+      ApolloServerPluginLandingPageGraphQLPlayground
+    ]
   });
 
   const app = express();
@@ -75,7 +79,8 @@ async function initializeServer() {
   });
 
   app.get('/health', health);
-  
+
+  await server.start();
   server.applyMiddleware({ app });
 
   app.listen({ port: config.port }, () =>

@@ -4,9 +4,9 @@ const stdConfig = `{
         filterHandle: '{{camelCase name}}',
         id2labelHandle: '{{camelCase name}}',
         translations: {
-          count: 'filter.{{camelCase name}}.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.{{camelCase name}}.name',// translation path to a title for the popover and the button
-          description: 'filter.{{camelCase name}}.description', // translation path for the filter description
+          count: 'filters.{{camelCase name}}.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.{{camelCase name}}.name',// translation path to a title for the popover and the button
+          description: 'filters.{{camelCase name}}.description', // translation path for the filter description
         },
       }`;
 
@@ -48,14 +48,14 @@ module.exports = {
   translations: {
     nameAndCount: {
       type: 'modify',
-      path: path.resolve('./src/locales/en.js'),
-      pattern: /(\/\/ -- Add filter above this line \(required by plopfile\.js\) --)/gi,
-      template: `{{camelCase name}}: {
-      name: '{{sentenceCase name}}',
-      count: '{num, plural, one { {{sentenceCase name}} } other {# {{sentenceCase name}}s}}',
-      description: 'A short description of the component should be placed here'
-    },\r\n    $1`
-    }
+      path: path.resolve('./locales/source/en-developer/components/filters.json'),
+      pattern: /("taxonKey": {)/gi,
+      template: `"{{camelCase name}}": {
+  "name": "{{sentenceCase name}}",
+  "count": "{num, plural, one { {{sentenceCase name}} } other {# {{sentenceCase name}}s}}",
+  "description": "A short description of the component should be placed here"
+},\r\n  $1`,
+    },
   },
 
   // labels

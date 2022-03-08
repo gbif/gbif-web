@@ -1,0 +1,17 @@
+{
+  "nullOrNot": {
+    "isNotNull": "Está documentado",
+    "isNull": "No está documentado"
+  },
+  "invalidValue": "Valor inválido",
+  "aboutThisFilter": "Acerca de este filtro",
+  "existence": "Filtrar registros documentados",
+  "showHelp": "Mostrar ayuda",
+  "back": "Volver",
+  "cancel": "Cancelar",
+  "apply": "Aplicar",
+  "wildcardHelp": "Las búsquedas no distinguen entre mayúsculas y minúsculas, pero si entre acentos (por ejemplo, 'rio' vs 'río'). Use un carácter comodín (por ejemplo, 'r?o') para encontrar todas las coincidencias.",
+  "useWildcardPattern": "Busca el patrón ({distinct, plural, one {# valor distinto } other {# valores distintos}})",
+  "showSuggestions": "",
+  "excludeSelected": "Excluir seleccionados"
+}

@@ -1,0 +1,22 @@
+{
+  "JOURNAL": "Article de journal",
+  "BOOK": "Livre",
+  "GENERIC": "Générique",
+  "BOOK_SECTION": "Section de livre",
+  "CONFERENCE_PROCEEDINGS": "Actes du colloque",
+  "WORKING_PAPER": "Document de travail",
+  "REPORT": "Rapport",
+  "WEB_PAGE": "Page Internet",
+  "THESIS": "Thèse",
+  "MAGAZINE_ARTICLE": "Article de magazine",
+  "STATUTE": "Statut",
+  "PATENT": "Brevet",
+  "NEWSPAPER_ARTICLE": "Article de journal",
+  "COMPUTER_PROGRAM": "Programme informatique",
+  "HEARING": "Audience",
+  "TELEVISION_BROADCAST": "Émission de télévision",
+  "ENCYCLOPEDIA_ARTICLE": "Article Encyclopédique",
+  "CASE": "Cas",
+  "FILM": "Film",
+  "BILL": "Facture"
+}

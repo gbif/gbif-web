@@ -1,0 +1,9 @@
+{
+  "occurrences": "{NUMBER, plural,\n0 {Voorkomens}\none {Voorkomen}\nother {Voorkomens}\n}",
+  "datasets": "Datasets",
+  "species": "Soorten",
+  "publishers": "Uitgevers",
+  "literature": "Literatuur",
+  "collections": "Collecties",
+  "institutions": "Instellingen"
+}

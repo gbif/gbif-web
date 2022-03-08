@@ -1,0 +1,38 @@
+{
+  "occurrence": "Знахідка",
+  "showAllFields": "",
+  "morePhotos": "",
+  "about": "Відомості про видавця даних",
+  "dataset": "Набір даних",
+  "publisher": "Видавець",
+  "institution": "Установа",
+  "institutionGrSciColl": "",
+  "collection": "Колекція",
+  "collectionGrSciColl": "",
+  "recordedAndIdentifiedBy": "",
+  "info": {
+    "original": "вихідний",
+    "excluded": "Виключено",
+    "inferred": "Виведено за допомогою аналізу",
+    "altered": "Змінено"
+  },
+  "groups": {
+    "summary": "Підсумок",
+    "record": "Запис",
+    "occurrence": "Знахідка",
+    "event": "Подія",
+    "identification": "Визначення",
+    "taxon": "Таксон",
+    "location": "Місцезнаходження",
+    "organism": "Організм",
+    "materialSample": "Проба матеріалу",
+    "geologicalContext": "Геологічний контекст",
+    "other": "Інше"
+  },
+  "features": {
+    "isClustered": "",
+    "isSamplingEvent": "Описи, обліки або збори",
+    "isTreament": "Таксономічна картка",
+    "isSequenced": ""
+  }
+}

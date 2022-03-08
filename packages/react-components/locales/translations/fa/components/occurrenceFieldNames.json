@@ -1,0 +1,21 @@
+{
+  "abstract": "چکيده",
+  "creator": "ایجاد کننده",
+  "description": "توضیحات",
+  "identifier": "شناسه",
+  "issued": "صادر",
+  "language": "زبان",
+  "modified": "ویرایش شده",
+  "references": "مرجع",
+  "rights": "مجوزها",
+  "title": "عنوان",
+  "type": "نوع",
+  "group": "گروه",
+  "kingdom": "پادشاهی",
+  "phylum": "شاخه",
+  "class": "کلاس",
+  "order": "ترتیب",
+  "family": "خانواده",
+  "genus": "جنس",
+  "taxonRank": "رتبه"
+}

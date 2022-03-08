@@ -1,0 +1,7 @@
+{
+  "nRecordsTotal": "{total, plural, one {# enregistrement au total} other {# enregistrements au total}}",
+  "nQualityFlags": "{total, plural, one {# drapeau de qualité} other {# drapeaux de qualité}}",
+  "nAudioFiles": "{total, plural, one {# fichier sonore} other {# fichiers sonores}}",
+  "nVideos": "{total, plural, one {# vidéo} other {# vidéos}}",
+  "nImages": "{total, plural, one {# image} other {# images}}"
+}

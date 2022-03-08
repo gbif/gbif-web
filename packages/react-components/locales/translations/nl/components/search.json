@@ -1,0 +1,17 @@
+{
+  "tabs": {
+    "table": "Tabel",
+    "gallery": "Afbeeldingen",
+    "map": "Kaart",
+    "datasets": "Datasets",
+    "download": "Downloaden"
+  },
+  "table": {
+    "lockColumn": "Vergrendel kolom"
+  },
+  "placeholders": {
+    "default": "Zoeken",
+    "range": "Bereik of enkele waarde"
+  },
+  "loadMore": "Meer"
+}

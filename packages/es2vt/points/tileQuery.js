@@ -11,6 +11,7 @@ const LRU = require('lru-cache');
 const searchIndex = env.es.index;
 const field = env.es.coordinateField;
 
+const extent = 4096;
 const agent = () => new Agent({
   maxSockets: 1000, // Default = Infinity
   keepAlive: true
@@ -28,7 +29,7 @@ const cache = new LRU({ max: 10000, maxAge: 1000 * 60 * 10 });
 //9 ≈ 2.4 meters
 let resolutions = {
   low: [2, 2, 3, 3, 4, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10],
-  medium: [2, 2, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10],
+  medium: [3, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10],
   high: [2, 2, 3, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10]
 }
 
@@ -67,7 +68,7 @@ async function getTile(x, y, z, q, resolution, req) {
     cache.set(queryKey, data);
   }
 
-  let tile = tileGenerator(data, x, y, z, 4096);
+  let tile = tileGenerator(data, x, y, z, extent);
   let buff = tile2pbf(tile);
 
   return buff;
@@ -76,6 +77,7 @@ async function getTile(x, y, z, q, resolution, req) {
 async function getFromES({ esQuery, req }) {
   let response = await search({ client, index: searchIndex, query: esQuery, req });
   let body = response.body;
+  // console.log(JSON.stringify(body, null, 2));
   return body;
 }
 

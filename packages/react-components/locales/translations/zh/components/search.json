@@ -1,0 +1,17 @@
+{
+  "tabs": {
+    "table": "表格",
+    "gallery": "图库",
+    "map": "地图",
+    "datasets": "数据集",
+    "download": "下载"
+  },
+  "table": {
+    "lockColumn": "锁定列"
+  },
+  "placeholders": {
+    "default": "搜索",
+    "range": "范围或单个值"
+  },
+  "loadMore": "更多"
+}

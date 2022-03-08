@@ -14,9 +14,9 @@ function agg2tile(results, x, y, z, extent) {
   var tile = {
     layers: [
       {
-        name: 'occurrences',
+        name: 'occurrence',
         version: 2,
-        extent: 4096,
+        extent: extent,
         features: features
       }
     ]
@@ -35,14 +35,14 @@ function addFeature(e, x, y, zoomSquared, extent, features) {
   var prop = {
     geometry: [[{ x: tileCoordinates.x, y: tileCoordinates.y }]],
     properties: {
-      count: getSimpleCount(e.geo.count),
+      total: getSimpleCount(e.geo.count),
       geohash: e.key,
       // precision: e.key.length
     },
     type: 1
   };
   if (e.density) {
-    prop.properties.count = e.density.value;
+    prop.properties.total = e.density.value;
   }
 
   features.push(prop);

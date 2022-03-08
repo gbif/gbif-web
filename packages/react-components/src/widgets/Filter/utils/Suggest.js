@@ -1,7 +1,10 @@
 import React from "react";
+import { injectIntl } from 'react-intl';
 import { Autocomplete } from '../../../components/Autocomplete/Autocomplete';
+import LocaleContext from '../../../dataManagement/LocaleProvider/LocaleContext';
 
-class Suggest extends React.Component {
+class Suggest extends React.Component { 
+  static contextType = LocaleContext;
   constructor() {
     super();
 
@@ -29,12 +32,15 @@ class Suggest extends React.Component {
       this.suggestions.cancel();
       if (this.suggestions?.promise?.cancel) this.suggestions.promise.cancel();
     }
+    if (!this.props.allowEmptyQueries && value === '') {
+      return;
+    }
     this.setState({
       loading: true,
       error: undefined,
     });
     let canceled = false;
-    const { promise, cancel } = this.props.getSuggestions({ q: value });
+    const { promise, cancel } = this.props.getSuggestions({ q: value, localeContext: this.context });
     this.suggestions = {
       promise: promise,
       cancel: () => {
@@ -78,11 +84,12 @@ class Suggest extends React.Component {
 
   render() {
     const { value, suggestions, loading, error } = this.state;
-    const { render, getValue, placeholder } = this.props;
+    const { intl, render, getValue, placeholder } = this.props;
 
-    // Autosuggest will pass through all these props to the input.
+    // Autosuggest will pass through all these props to the input
+    const placeholderTranslationString = placeholder || 'search.placeholders.default';
     const inputProps = {
-      placeholder: placeholder || 'Search',
+      placeholder: intl.formatMessage({id: placeholderTranslationString}),
       value,
       onChange: this.onChange,
       onKeyPress: this.props.onKeyPress
@@ -111,4 +118,4 @@ class Suggest extends React.Component {
   }
 }
 
-export default Suggest;
+export default injectIntl(Suggest);

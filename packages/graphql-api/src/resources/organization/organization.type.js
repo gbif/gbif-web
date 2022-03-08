@@ -7,6 +7,7 @@ const typeDef = gql`
       offset: Int,  
       q: String,
       country: Country,
+      networkKey: ID,
       identifier: String,
       identifierType: IdentifierType,
       isEndorsed: Boolean,
@@ -14,7 +15,7 @@ const typeDef = gql`
       machineTagName: String,
       machineTagValue: String,
       ): OrganizationSearchResult
-    organization(key: String!): Organization
+    organization(key: ID!): Organization
   }
 
   type Organization {

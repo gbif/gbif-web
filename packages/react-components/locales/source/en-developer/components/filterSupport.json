@@ -1,0 +1,17 @@
+{
+  "nullOrNot": {
+    "isNotNull": "Must be defined",
+    "isNull": "Must not be defined"
+  },
+  "invalidValue": "Invalid value",
+  "aboutThisFilter": "About this filter",
+  "existence": "Filter for existence",
+  "showHelp": "Show help text",
+  "back": "Back",
+  "cancel": "Cancel",
+  "apply": "Apply",
+  "wildcardHelp": "Searches are case insensitive, but every letter is distinct, so, to find records with Rio or Río, for example, you can use the pattern 'r?o'.",
+  "useWildcardPattern": "Search for the pattern ({distinct, plural, one {# distinct value } other {# distinct values}})",
+  "showSuggestions": "Show suggestions",
+  "excludeSelected": "Exclude selected"
+}

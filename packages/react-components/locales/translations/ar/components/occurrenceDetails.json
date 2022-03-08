@@ -1,0 +1,38 @@
+{
+  "occurrence": "تكرار",
+  "showAllFields": "",
+  "morePhotos": "",
+  "about": "حول",
+  "dataset": "مجموعة البيانات",
+  "publisher": "الناشر",
+  "institution": "مؤسسة",
+  "institutionGrSciColl": "",
+  "collection": "مجموعة",
+  "collectionGrSciColl": "",
+  "recordedAndIdentifiedBy": "",
+  "info": {
+    "original": "أصلي",
+    "excluded": "استُبعِدت",
+    "inferred": "أُشير لها",
+    "altered": "تغيير"
+  },
+  "groups": {
+    "summary": "الملخص",
+    "record": "سجل",
+    "occurrence": "تكرار",
+    "event": "الحدث",
+    "identification": "التعريف",
+    "taxon": "الوحدة التصنيفية",
+    "location": "موقع",
+    "organism": "المتعضي",
+    "materialSample": "عينة مادية",
+    "geologicalContext": "السياق الجيولوجي",
+    "other": "أخرى"
+  },
+  "features": {
+    "isClustered": "",
+    "isSamplingEvent": "حدث أخذ العينات",
+    "isTreament": "معالجة",
+    "isSequenced": ""
+  }
+}

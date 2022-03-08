@@ -1,17 +1,17 @@
-export const all = [
+export const filters = [
   'taxonKey',
-  'countryCode',
+  'country',
   'publishingCountryCode',
   'datasetKey',
   'publisherKey',
   'institutionCode',
   'catalogNumber',
-  'hostKey',
+  'hostingOrganizationKey',
   'year',
   'basisOfRecord',
   'typeStatus',
   'occurrenceIssue',
-  'mediaTypes',
+  'mediaType',
   'sampleSizeUnit',
   'license',
   'coordinateUncertainty',
@@ -43,14 +43,15 @@ export const all = [
   'institutionKey',
   'q',
   'verbatimScientificName',
+  'dwcaExtension'
 ].sort();
 
 const highlighted = [
   'occurrenceStatus',
   'taxonKey',
   'year',
-  'countryCode',
-  'occurrenceIssue',
+  'country',
+  'occurrenceIssue'
 ];
 
-export default { filters: all, whitelist: all, highlighted };
+export default { filters, included: filters, highlighted };

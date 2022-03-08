@@ -1,0 +1,283 @@
+{
+  "dwcaExtension": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "taxonKey": {
+    "name": "Латинское название",
+    "count": "",
+    "description": ""
+  },
+  "basisOfRecord": {
+    "name": "Основа записи",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
+  "institutionCode": {
+    "name": "Код организации",
+    "count": "",
+    "description": ""
+  },
+  "catalogNumber": {
+    "name": "Номер в каталоге",
+    "count": "",
+    "description": ""
+  },
+  "mediaType": {
+    "name": "Тип медиа-файла",
+    "count": "",
+    "description": ""
+  },
+  "occurrenceIssue": {
+    "name": "Автоматически обнаруженные несоответствия",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
+  "occurrenceCountry": {
+    "name": "Страна",
+    "count": "",
+    "description": ""
+  },
+  "publishingCountryCode": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "q": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "coordinates": {
+    "name": "Координаты"
+  },
+  "elevation": {
+    "name": "Высота",
+    "count": "",
+    "description": ""
+  },
+  "license": {
+    "name": "Лицензия",
+    "count": "",
+    "description": ""
+  },
+  "datasetKey": {
+    "name": "Набор данных",
+    "count": "",
+    "description": ""
+  },
+  "publisherKey": {
+    "name": "Организация",
+    "count": "",
+    "description": ""
+  },
+  "hostingOrganizationKey": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "country": {
+    "name": "Страна",
+    "count": ""
+  },
+  "countriesOfCoverage": {
+    "name": "",
+    "count": ""
+  },
+  "countriesOfResearcher": {
+    "name": "",
+    "count": ""
+  },
+  "typeStatus": {
+    "name": "Статус типового экземпляра",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
+  "year": {
+    "name": "Год",
+    "count": "",
+    "description": ""
+  },
+  "sampleSizeUnit": {
+    "name": "Единица измерения объёма (размера) описания, учёта или сбора",
+    "count": "",
+    "description": ""
+  },
+  "coordinateUncertainty": {
+    "name": "Неопределенность координат",
+    "count": "",
+    "description": ""
+  },
+  "depth": {
+    "name": "Глубина",
+    "count": "",
+    "description": ""
+  },
+  "organismQuantity": {
+    "name": "Обилие вида\n",
+    "count": "",
+    "description": ""
+  },
+  "sampleSizeValue": {
+    "name": "Объём (размер) описания, учёта или сбора",
+    "count": "",
+    "description": ""
+  },
+  "relativeOrganismQuantity": {
+    "name": "Относительное обилие вида",
+    "count": "",
+    "description": ""
+  },
+  "month": {
+    "name": "Месяц",
+    "count": "",
+    "description": ""
+  },
+  "continent": {
+    "name": "Континент",
+    "count": "",
+    "description": ""
+  },
+  "protocol": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "establishmentMeans": {
+    "name": "Статус вида в данной местности",
+    "count": "",
+    "description": ""
+  },
+  "recordedBy": {
+    "name": "Кем сделана запись",
+    "count": "",
+    "description": ""
+  },
+  "recordNumber": {
+    "name": "Номер записи",
+    "count": "",
+    "description": ""
+  },
+  "collectionCode": {
+    "name": "Код коллекции",
+    "count": "",
+    "description": ""
+  },
+  "recordedById": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "identifiedById": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "occurrenceId": {
+    "name": "ID находки",
+    "count": "",
+    "description": ""
+  },
+  "organismId": {
+    "name": "ID организма",
+    "count": "",
+    "description": ""
+  },
+  "locality": {
+    "name": "Топоним",
+    "count": "",
+    "description": ""
+  },
+  "waterBody": {
+    "name": "Водный объект",
+    "count": "",
+    "description": ""
+  },
+  "stateProvince": {
+    "name": "Регион",
+    "count": "",
+    "description": ""
+  },
+  "eventId": {
+    "name": "ID описания, учёта или сбора",
+    "count": "",
+    "description": ""
+  },
+  "samplingProtocol": {
+    "name": "Методика сбора (описания)",
+    "count": "",
+    "description": ""
+  },
+  "occurrenceStatus": {
+    "name": "Статус находки",
+    "count": "",
+    "description": ""
+  },
+  "gadmGid": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "identifiedBy": {
+    "name": "Кем определено",
+    "count": "",
+    "description": ""
+  },
+  "isInCluster": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "datasetType": {
+    "name": "Тип набора данных",
+    "count": "",
+    "description": ""
+  },
+  "datasetSubtype": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "institutionKey": {
+    "name": "Организация",
+    "count": "",
+    "description": ""
+  },
+  "name": {
+    "name": "Имя",
+    "count": "",
+    "description": ""
+  },
+  "city": {
+    "name": "Город",
+    "count": "",
+    "description": ""
+  },
+  "code": {
+    "name": "Акроним",
+    "count": "",
+    "description": ""
+  },
+  "verbatimScientificName": {
+    "name": "Латинское название по первоисточнику",
+    "count": "",
+    "description": ""
+  },
+  "networkKey": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "literatureType": {
+    "name": "Источник",
+    "count": "",
+    "description": ""
+  }
+}

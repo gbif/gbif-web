@@ -1,0 +1,10 @@
+{
+  "nResults": "{total, plural, one {# 結果} other {# 結果}}",
+  "nSelected": "{total, plural, other {# 已選取}}",
+  "nQualityFlags": "{total, plural, one {# 品質標記} other {# 品質標記}}",
+  "nAudioFiles": "{total, plural, one {# 聲音檔} other {# 聲音檔}}",
+  "nVideos": "{total, plural, one {# 視訊} other {# 視訊}}",
+  "nImages": "{total, plural, one {# 影像} other {# 影像}}",
+  "nResultsWithCoordinates": "{total, plural, one {# 筆} other {# 筆}}含座標結果",
+  "nResultsWithImages": "{total, plural, one {# 筆} other {# 筆}}含影像結果"
+}

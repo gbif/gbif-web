@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/react';
 import React, { useState } from "react";
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useIntl, FormattedMessage } from 'react-intl';
 import { nanoid } from 'nanoid';
 import get from 'lodash/get';
 import unionBy from 'lodash/unionBy';
@@ -18,20 +18,23 @@ FilterPopover sets a tmp filter scope and adds a footer. inserts the content.
 problem, the footer depends on the content and state (prose or not)
 */
 export const FilterContent = ({ config = {}, translations, labelledById, LabelFromID, hide, onApply, onCancel, onFilterChange, focusRef, filterHandle, initFilter }) => {
+  const { formatMessage } = useIntl();
   const { upperBound = 'lte', lowerBound = 'gte', placeholder = 'E.g. 100,200' } = config;
   const [id] = React.useState(nanoid);
   const initialOptions = get(initFilter, `must.${filterHandle}`, []);
-  const [options, setOptions] = useState(initialOptions);
+  const [options, setOptions] = useState(initialOptions.filter(x => x.type !== 'isNotNull'));
   const [inputValue, setValue] = useState('');
+
+  const formattedPlaceholder = formatMessage({id: placeholder});
 
   return <Filter
     labelledById={labelledById}
     title={<FormattedMessage
-      id={translations?.name || `filter.${filterHandle}.name`}
+      id={translations?.name || `filters.${filterHandle}.name`}
       defaultMessage={translations?.name}
     />}
     aboutText={translations.description && <FormattedMessage
-      id={translations.description || `filter.${filterHandle}.description`}
+      id={translations.description || `filters.${filterHandle}.description`}
       defaultMessage={translations.description}
     />}
     onFilterChange={onFilterChange}
@@ -58,7 +61,7 @@ export const FilterContent = ({ config = {}, translations, labelledById, LabelFr
                 setValue(value);
               }
             }}
-            placeholder={placeholder}
+            placeholder={formattedPlaceholder}
             onKeyPress={e => {
               const value = e.target.value;
               if (e.which === keyCodes.ENTER) {
@@ -83,21 +86,21 @@ export const FilterContent = ({ config = {}, translations, labelledById, LabelFr
                 let helpText;
                 if (option.type === 'equals') {
                   helpText = <FormattedMessage
-                    id={`interval.description.e`}
+                    id={`intervals.description.e`}
                     defaultMessage={'Filter name'}
                     values={{ is: option.value }}
                   />
                 } else {
                   helpText = <>
                     {option?.value && option?.value[lowerBound] && <FormattedMessage
-                      id={`interval.description.${lowerBound}`}
+                      id={`intervals.description.${lowerBound}`}
                       defaultMessage={'Filter name'}
                       values={{ from: option?.value[lowerBound] }}
                     />
                     }
                     {option?.value && option?.value[upperBound] && option?.value[lowerBound] && <>.&nbsp;</>}
                     {option?.value && option?.value[upperBound] && <FormattedMessage
-                      id={`interval.description.${upperBound}`}
+                      id={`intervals.description.${upperBound}`}
                       defaultMessage={'Filter name'}
                       values={{ to: option?.value[upperBound] }}
                     />

@@ -1,0 +1,283 @@
+{
+  "dwcaExtension": {
+    "name": "Extension DWCA",
+    "count": "",
+    "description": "Une courte description de la composante devrait apparaître ici"
+  },
+  "taxonKey": {
+    "name": "Nom scientifique du taxon",
+    "count": "",
+    "description": "Le nom scientifique tel qu'il apparaît dans le squelette taxonomique du GBIF. Ces noms sont normalisés pour faciliter la recherche dans tous les jeux de données. Il est possible qu'un nom fourni à l'origine soit mal interprété ou inconnu. Pour rechercher les noms tels que fournis, utilisez le filtre \"Verbatim du nom scientifique\"."
+  },
+  "basisOfRecord": {
+    "name": "Base de registre",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": "La nature des preuves sur lesquelles se fonde l'enregistrement."
+  },
+  "institutionCode": {
+    "name": "Code de l'institution",
+    "count": "",
+    "description": ""
+  },
+  "catalogNumber": {
+    "name": "Numéro de catalogue",
+    "count": "",
+    "description": ""
+  },
+  "mediaType": {
+    "name": "Type de média",
+    "count": "",
+    "description": ""
+  },
+  "occurrenceIssue": {
+    "name": "Problèmes et drapeaux",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
+  "occurrenceCountry": {
+    "name": "Pays",
+    "count": "",
+    "description": ""
+  },
+  "publishingCountryCode": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "q": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "coordinates": {
+    "name": "Coordonnées"
+  },
+  "elevation": {
+    "name": "Altitude",
+    "count": "",
+    "description": ""
+  },
+  "license": {
+    "name": "Licence",
+    "count": "",
+    "description": ""
+  },
+  "datasetKey": {
+    "name": "Ensemble de données",
+    "count": "",
+    "description": ""
+  },
+  "publisherKey": {
+    "name": "Fournisseurs de données",
+    "count": "",
+    "description": ""
+  },
+  "hostingOrganizationKey": {
+    "name": "Organisation hôte",
+    "count": "",
+    "description": ""
+  },
+  "country": {
+    "name": "Pays",
+    "count": ""
+  },
+  "countriesOfCoverage": {
+    "name": "",
+    "count": ""
+  },
+  "countriesOfResearcher": {
+    "name": "",
+    "count": ""
+  },
+  "typeStatus": {
+    "name": "Statut du type",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
+  "year": {
+    "name": "Année",
+    "count": "",
+    "description": ""
+  },
+  "sampleSizeUnit": {
+    "name": "Unité de la taille d'échantillonnage",
+    "count": "",
+    "description": ""
+  },
+  "coordinateUncertainty": {
+    "name": "Incertitude des coordonnées",
+    "count": "",
+    "description": ""
+  },
+  "depth": {
+    "name": "Profondeur",
+    "count": "",
+    "description": ""
+  },
+  "organismQuantity": {
+    "name": "Quantité de l’organisme",
+    "count": "",
+    "description": ""
+  },
+  "sampleSizeValue": {
+    "name": "Valeur de la taille d'échantillonnage",
+    "count": "",
+    "description": ""
+  },
+  "relativeOrganismQuantity": {
+    "name": "Quantité relative de l'organisme",
+    "count": "",
+    "description": ""
+  },
+  "month": {
+    "name": "Mois",
+    "count": "",
+    "description": ""
+  },
+  "continent": {
+    "name": "Continent",
+    "count": "",
+    "description": ""
+  },
+  "protocol": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "establishmentMeans": {
+    "name": "Mode d'établissement",
+    "count": "",
+    "description": ""
+  },
+  "recordedBy": {
+    "name": "Enregistré par",
+    "count": "",
+    "description": ""
+  },
+  "recordNumber": {
+    "name": "Numéro d'enregristrement",
+    "count": "",
+    "description": ""
+  },
+  "collectionCode": {
+    "name": "Code de la collection",
+    "count": "",
+    "description": ""
+  },
+  "recordedById": {
+    "name": "ID de Enregistré par",
+    "count": "",
+    "description": ""
+  },
+  "identifiedById": {
+    "name": "ID de Identifié par",
+    "count": "",
+    "description": ""
+  },
+  "occurrenceId": {
+    "name": "ID de l'occurence",
+    "count": "",
+    "description": ""
+  },
+  "organismId": {
+    "name": "ID de l’organisme",
+    "count": "",
+    "description": ""
+  },
+  "locality": {
+    "name": "Localité",
+    "count": "",
+    "description": ""
+  },
+  "waterBody": {
+    "name": "Étendue d'eau",
+    "count": "",
+    "description": ""
+  },
+  "stateProvince": {
+    "name": "État/Province",
+    "count": "",
+    "description": ""
+  },
+  "eventId": {
+    "name": "ID de l'événement",
+    "count": "",
+    "description": ""
+  },
+  "samplingProtocol": {
+    "name": "Protocole d'échantillonnage",
+    "count": "",
+    "description": ""
+  },
+  "occurrenceStatus": {
+    "name": "Statut de l'occurrence",
+    "count": "",
+    "description": ""
+  },
+  "gadmGid": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "identifiedBy": {
+    "name": "Identifié par",
+    "count": "",
+    "description": ""
+  },
+  "isInCluster": {
+    "name": "Est dans le regroupement",
+    "count": "",
+    "description": ""
+  },
+  "datasetType": {
+    "name": "Type de jeu de données",
+    "count": "",
+    "description": ""
+  },
+  "datasetSubtype": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "institutionKey": {
+    "name": "Institution",
+    "count": "",
+    "description": ""
+  },
+  "name": {
+    "name": "Nom",
+    "count": "",
+    "description": ""
+  },
+  "city": {
+    "name": "Ville",
+    "count": "",
+    "description": ""
+  },
+  "code": {
+    "name": "Code",
+    "count": "",
+    "description": ""
+  },
+  "verbatimScientificName": {
+    "name": "Verbatim du nom scientifique",
+    "count": "",
+    "description": ""
+  },
+  "networkKey": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "literatureType": {
+    "name": "Type de littérature",
+    "count": "",
+    "description": ""
+  }
+}

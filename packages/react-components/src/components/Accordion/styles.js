@@ -26,8 +26,11 @@ export const accordion = ({...props}) => css`
 `;
 
 export const summary = ({theme, ...props}) => css`
-  display: flex;
-  align-items: center;
+  > div {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+  }
   padding: 12px 0 8px 0;
   border-bottom: 1px solid ${theme.color100};
   list-style: none;
@@ -35,6 +38,9 @@ export const summary = ({theme, ...props}) => css`
   font-weight: 500;
   ${focusStyle()}
   ${noUserSelect()}
+  &::-webkit-details-marker {
+    display:none;
+  }
 `;
 
 export default {

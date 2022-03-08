@@ -33,10 +33,10 @@ export function MapPresentation({ as: Div = "div", location, ...props }) {
           src={`https://api.mapbox.com/styles/v1/mapbox/light-v9/static/pin-s-circle+dedede(${locationMap.decimalLongitude.value},${locationMap.decimalLatitude.value})/${locationMap.decimalLongitude.value},${locationMap.decimalLatitude.value},4,0/200x100@2x?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA`}
         />
       </div>
-      <Properties horizontal={true}>
+      <Properties>
         <T>
           <FormattedMessage
-            id={`ocurrenceFieldNames.latLon`}
+            id={`occurrenceFieldNames.latLon`}
             defaultMessage={"Lat/Lon"}
           />
         </T>

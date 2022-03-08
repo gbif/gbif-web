@@ -1,0 +1,13 @@
+{
+  "features": "特徴",
+  "citations": "引用",
+  "occurrences": "オカレンス",
+  "numberSpecimens": "標本数",
+  "gbifNumberSpecimens": "GBIFの標本",
+  "title": "タイトル",
+  "titleAndAbstract": "タイトルおよび概要",
+  "altmetric": "オルトメトリクス",
+  "registered": "登録済み",
+  "hostedDatasets": "ホストされたデータセット",
+  "pubDatasets": "公開されているデータセット"
+}

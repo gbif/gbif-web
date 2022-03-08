@@ -1,0 +1,12 @@
+{
+  "features": "Eigenschappen",
+  "citations": "Citaties",
+  "occurrences": "Voorkomens",
+  "numberSpecimens": "Aantal exemplaren",
+  "gbifNumberSpecimens": "Exemplaren in GBIF",
+  "title": "Titel",
+  "titleAndAbstract": "Titel en samenvatting",
+  "registered": "Geregistreerd",
+  "hostedDatasets": "Gehoste datasets",
+  "pubDatasets": "Gepubliceerde datasets"
+}

@@ -1,0 +1,17 @@
+{
+  "tabs": {
+    "table": "Tabla",
+    "gallery": "Galería",
+    "map": "Mapa",
+    "datasets": "Conjuntos de datos",
+    "download": "Descargar"
+  },
+  "table": {
+    "lockColumn": "Inmovilizar columna"
+  },
+  "placeholders": {
+    "default": "Buscar",
+    "range": "Rango o valor único"
+  },
+  "loadMore": "Más"
+}

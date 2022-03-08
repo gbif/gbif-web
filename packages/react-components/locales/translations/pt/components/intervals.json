@@ -1,0 +1,69 @@
+{
+  "description": {
+    "lt": "Menor que {to}",
+    "lte": "Menor ou igual {to}",
+    "gt": "Maior que {from}",
+    "gte": "Maior ou igual que {from}",
+    "e": "Iguais {is}"
+  },
+  "compact": {
+    "between": "{from} até {to}",
+    "lt": "Abaixo de {to}",
+    "gt": "Acima de {from}",
+    "e": "{from}"
+  },
+  "compactMeters": {
+    "between": "{from}m a {to}m",
+    "lt": "Abaixo {to}m",
+    "gt": "Acima de {from}m",
+    "e": "{from}m"
+  },
+  "compactTime": {
+    "between": "{from} até {to}",
+    "lt": "Antes de {to}",
+    "gt": "Depois de {from}",
+    "e": "{from}"
+  },
+  "year": {
+    "between": "Ano de {from} a {to}",
+    "lt": "Antes do ano {to}",
+    "gt": "Depois do ano {from}",
+    "e": "O ano é {from}"
+  },
+  "coordinateUncertainty": {
+    "between": "Incerteza da coordenada de {from}m a {to}m",
+    "lt": "Incerteza da coordenada abaixo de {to}m",
+    "gt": "Incerteza da coordenada acima de {from}m",
+    "e": "Incerteza da coordenada é {from}m"
+  },
+  "depth": {
+    "between": "Profundidade de {from} a {to}",
+    "lt": "Profundidade abaixo de {to}",
+    "gt": "Profundidade acima de {from}",
+    "e": "Profundidade é {from}"
+  },
+  "organismQuantity": {
+    "between": "Quantidade de organismo de {from} a {to}",
+    "lt": "Quantidade de organismo abaixo de {to}",
+    "gt": "Quantidade de organismo acima de {from}",
+    "e": "Quantidade do organismo é {from}"
+  },
+  "sampleSizeValue": {
+    "between": "Tamanho da amostra de {from} a {to}",
+    "lt": "Valor do tamanho da amostra abaixo de {to}",
+    "gt": "Valor da amostra acima de {from}",
+    "e": "O valor de tamanho da amostra é {from}"
+  },
+  "relativeOrganismQuantity": {
+    "between": "Quantidade relativa de organismo de {from} a {to}",
+    "lt": "Quantidade relativa de organismo abaixo de {to}",
+    "gt": "Quantidade relativa de organismo acima de {from}",
+    "e": "Quantidade relativa de organismo é {from}"
+  },
+  "elevation": {
+    "between": "Elevação de {from} a {to}",
+    "lt": "Elevação abaixo de {to}",
+    "gt": "Elevação acima de {from}",
+    "e": "Elevação é {from}"
+  }
+}

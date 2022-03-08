@@ -1,5 +1,6 @@
 export { default as filter2v1 } from './filter2v1';
 export { default as filter2predicate } from './filter2predicate';
+export { default as v12filter } from './v12filter';
 
 /*
 configuration examples

@@ -37,8 +37,6 @@ export function DatasetPresentation({
     return <div>Failed to retrieve item</div>
   }
 
-  const highlightedAuthors = get(dataset, 'contributors', []).filter(c => c._highlighted);
-
   const rootPredicate = {
     "type": "equals",
     "value": id,
@@ -47,7 +45,7 @@ export function DatasetPresentation({
 
   const config = {
     rootPredicate,
-    blacklistedFilters: ['datasetCode', 'datasetKey', 'institutionKey', 'institutionCode', 'hostKey', 'protocol', 'publishingCountryCode'],
+    excludedFilters: ['datasetCode', 'datasetKey', 'institutionKey', 'institutionCode', 'hostingOrganizationKey', 'protocol', 'publishingCountryCode'],
     occurrenceSearchTabs: ['TABLE', 'GALLERY', 'MAP'],
     highlightedFilters: ['taxonKey', 'catalogNumber', 'recordedBy', 'identifiedBy', 'typeStatus']
   };
@@ -55,17 +53,17 @@ export function DatasetPresentation({
   return <>
     <div css={css.headerWrapper({ theme })}>
       <div css={css.proseWrapper({ theme })}>
-        <Eyebrow prefix={<FormattedMessage id={`components.dataset.longType.${dataset.type}`} />} suffix={<FormattedMessage id="components.dataset.registeredDate" values={{ DATE: <FormattedDate value={dataset.created} year="numeric" month="long" day="2-digit" /> }} />} />
+        <Eyebrow prefix={<FormattedMessage id={`dataset.longType.${dataset.type}`} />} suffix={<FormattedMessage id="dataset.registeredDate" values={{ DATE: <FormattedDate value={dataset.created} year="numeric" month="long" day="2-digit" /> }} />} />
         <h1>{dataset.title}</h1>
         <div>
           From <a href={`/publisher/${dataset.publishingOrganizationKey}`}>{dataset.publishingOrganizationTitle}</a>
         </div>
 
         <div css={css.summary}>
-          {highlightedAuthors.length > 0 && <div css={iconFeature({ theme })}>
+          {dataset?.contactsCitation?.length > 0 && <div css={iconFeature({ theme })}>
             <MdPeople />
             <div>
-              <ol css={css.bulletList}>{highlightedAuthors.map(p => <li key={p.key}>{p.firstName ? p.firstName + ' ' : ''}{p.lastName}</li>)}</ol>
+              <ol css={css.bulletList}>{dataset?.contactsCitation.map(p => <li key={p.key}>{p.abbreviatedName}</li>)}</ol>
             </div>
           </div>}
 
@@ -80,10 +78,10 @@ export function DatasetPresentation({
               <span><FormattedNumber value={occurrenceSearch.documents.total} /> occurrences</span>
             </div>}
             
-            {literatureSearch.count > 0 && <div css={countFeature({ theme })}>
+            {literatureSearch.documents?.count > 0 && <div css={countFeature({ theme })}>
               <span>
                 <MdFormatQuote />
-                <FormattedNumber value={literatureSearch.count} />
+                <FormattedNumber value={literatureSearch.documents.count} />
               </span>
               <span>citations</span>
             </div>}
@@ -119,8 +117,8 @@ export function DatasetPresentation({
         <TabList style={{ marginTop: '12px', borderTop: '1px solid #ddd' }}>
           <RouterTab to={url} exact label="About" />
           {/* <RouterTab to={join(url, 'metrics')} label="Metrics"/> */}
-          <RouterTab to={join(url, 'activity')} label="Activity" />
-          <RouterTab to={join(url, 'specimens')} css={css.tab({ theme, noData: occurrenceSearch?.documents?.total === 0 })} label="Occurrences" />
+          {/* <RouterTab to={join(url, 'activity')} label="Activity" /> */}
+          {/* <RouterTab to={join(url, 'specimens')} css={css.tab({ theme, noData: occurrenceSearch?.documents?.total === 0 })} label="Occurrences" /> */}
           {/* <RouterTab to={join(url, 'taxonomy')} label="Taxonomy"/> */}
           <RouterTab to={join(url, 'download')} label="Download" />
         </TabList>

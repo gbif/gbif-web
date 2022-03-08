@@ -1,0 +1,38 @@
+{
+  "occurrence": "Occurrence",
+  "showAllFields": "Alle Felder anzeigen",
+  "morePhotos": "Weitere Fotos",
+  "about": "Über",
+  "dataset": "Dataset",
+  "publisher": "Veröffentlicher",
+  "institution": "Institution",
+  "institutionGrSciColl": "GrSciColl Institution",
+  "collection": "Sammlung",
+  "collectionGrSciColl": "GrSciColl Sammlung",
+  "recordedAndIdentifiedBy": "Sammler/Bestimmer",
+  "info": {
+    "original": "Original",
+    "excluded": "Ausgeschlossen",
+    "inferred": "Abgeleitet",
+    "altered": "Abgewandelt"
+  },
+  "groups": {
+    "summary": "Zusammenfassung",
+    "record": "Datensatz",
+    "occurrence": "Occurrence",
+    "event": "Ereignis",
+    "identification": "Bestimmung",
+    "taxon": "Taxon",
+    "location": "Fundort",
+    "organism": "Organismus",
+    "materialSample": "Materialprobe",
+    "geologicalContext": "Geologischer Kontext",
+    "other": "Andere"
+  },
+  "features": {
+    "isClustered": "Cluster",
+    "isSamplingEvent": "Sampling-Ereignis",
+    "isTreament": "Treatment",
+    "isSequenced": "Sequenziert"
+  }
+}

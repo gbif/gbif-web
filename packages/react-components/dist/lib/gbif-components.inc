@@ -1,0 +1,1 @@
+<script type="text/javascript" src="https://react-components.gbif.org/lib/gbif-react-components.js?v=3dcd24ce7a4551f9161ba7257c2741a4"></script>

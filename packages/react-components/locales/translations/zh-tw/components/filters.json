@@ -1,0 +1,283 @@
+{
+  "dwcaExtension": {
+    "name": "達爾文延伸集",
+    "count": "",
+    "description": ""
+  },
+  "taxonKey": {
+    "name": "學名",
+    "count": "",
+    "description": ""
+  },
+  "basisOfRecord": {
+    "name": "紀錄類型",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
+  "institutionCode": {
+    "name": "機構代碼",
+    "count": "",
+    "description": ""
+  },
+  "catalogNumber": {
+    "name": "目錄編號",
+    "count": "",
+    "description": ""
+  },
+  "mediaType": {
+    "name": "媒體類型",
+    "count": "",
+    "description": ""
+  },
+  "occurrenceIssue": {
+    "name": "問題和註記",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
+  "occurrenceCountry": {
+    "name": "國家",
+    "count": "",
+    "description": ""
+  },
+  "publishingCountryCode": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "q": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "coordinates": {
+    "name": "座標"
+  },
+  "elevation": {
+    "name": "海拔",
+    "count": "",
+    "description": ""
+  },
+  "license": {
+    "name": "授權",
+    "count": "",
+    "description": ""
+  },
+  "datasetKey": {
+    "name": "資料集",
+    "count": "",
+    "description": ""
+  },
+  "publisherKey": {
+    "name": "發布者",
+    "count": "",
+    "description": ""
+  },
+  "hostingOrganizationKey": {
+    "name": "維運機構",
+    "count": "",
+    "description": ""
+  },
+  "country": {
+    "name": "國家",
+    "count": ""
+  },
+  "countriesOfCoverage": {
+    "name": "",
+    "count": ""
+  },
+  "countriesOfResearcher": {
+    "name": "",
+    "count": ""
+  },
+  "typeStatus": {
+    "name": "類型狀態",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
+  "year": {
+    "name": "年",
+    "count": "",
+    "description": ""
+  },
+  "sampleSizeUnit": {
+    "name": "取樣大小單位",
+    "count": "",
+    "description": ""
+  },
+  "coordinateUncertainty": {
+    "name": "座標不確定",
+    "count": "",
+    "description": ""
+  },
+  "depth": {
+    "name": "深度",
+    "count": "",
+    "description": ""
+  },
+  "organismQuantity": {
+    "name": "生物數量",
+    "count": "",
+    "description": ""
+  },
+  "sampleSizeValue": {
+    "name": "取樣大小數值",
+    "count": "",
+    "description": ""
+  },
+  "relativeOrganismQuantity": {
+    "name": "相對生物體數量",
+    "count": "",
+    "description": ""
+  },
+  "month": {
+    "name": "月",
+    "count": "",
+    "description": ""
+  },
+  "continent": {
+    "name": "大陸",
+    "count": "",
+    "description": ""
+  },
+  "protocol": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "establishmentMeans": {
+    "name": "建立方法",
+    "count": "",
+    "description": ""
+  },
+  "recordedBy": {
+    "name": "紀錄者：",
+    "count": "",
+    "description": ""
+  },
+  "recordNumber": {
+    "name": "紀錄編號",
+    "count": "",
+    "description": ""
+  },
+  "collectionCode": {
+    "name": "蒐藏品代碼",
+    "count": "",
+    "description": ""
+  },
+  "recordedById": {
+    "name": "記錄者識別碼",
+    "count": "",
+    "description": ""
+  },
+  "identifiedById": {
+    "name": "鑑定者識別碼",
+    "count": "",
+    "description": ""
+  },
+  "occurrenceId": {
+    "name": "出現紀錄 ID",
+    "count": "",
+    "description": ""
+  },
+  "organismId": {
+    "name": "生物體 ID",
+    "count": "",
+    "description": ""
+  },
+  "locality": {
+    "name": "地區",
+    "count": "",
+    "description": ""
+  },
+  "waterBody": {
+    "name": "水體",
+    "count": "",
+    "description": ""
+  },
+  "stateProvince": {
+    "name": "州/省",
+    "count": "",
+    "description": ""
+  },
+  "eventId": {
+    "name": "事件識別碼",
+    "count": "",
+    "description": ""
+  },
+  "samplingProtocol": {
+    "name": "取樣程序",
+    "count": "",
+    "description": ""
+  },
+  "occurrenceStatus": {
+    "name": "出現紀錄狀態",
+    "count": "",
+    "description": ""
+  },
+  "gadmGid": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "identifiedBy": {
+    "name": "鑑定者：",
+    "count": "",
+    "description": ""
+  },
+  "isInCluster": {
+    "name": "在（資料）叢集上",
+    "count": "",
+    "description": ""
+  },
+  "datasetType": {
+    "name": "資料集類型",
+    "count": "",
+    "description": ""
+  },
+  "datasetSubtype": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "institutionKey": {
+    "name": "機構",
+    "count": "",
+    "description": ""
+  },
+  "name": {
+    "name": "名稱",
+    "count": "",
+    "description": ""
+  },
+  "city": {
+    "name": "城市",
+    "count": "",
+    "description": ""
+  },
+  "code": {
+    "name": "蒐藏代碼",
+    "count": "",
+    "description": ""
+  },
+  "verbatimScientificName": {
+    "name": "逐字學名",
+    "count": "",
+    "description": ""
+  },
+  "networkKey": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "literatureType": {
+    "name": "文獻類型",
+    "count": "",
+    "description": ""
+  }
+}

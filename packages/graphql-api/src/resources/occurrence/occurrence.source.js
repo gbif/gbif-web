@@ -1,7 +1,7 @@
 // const { ApolloError } = require('apollo-server');
 const { RESTDataSource } = require('apollo-datasource-rest');
 const config = require('../../config');
-const { apiEs, apiEsKey, apiv1 } = config;
+const { apiEs, apiEsKey, apiv1, apiv2 } = config;
 const urlSizeLimit = 2000; // use GET for requests that serialized is less than N characters
 
 class OccurrenceAPI extends RESTDataSource {
@@ -20,7 +20,7 @@ class OccurrenceAPI extends RESTDataSource {
     // }
 
     // now that we make a public version, we might as well just make it open since the key is shared with everyone
-    request.params.set('apiKey', apiEsKey);
+    request.headers.set('Authorization', `ApiKey-v1 ${apiEsKey}`);
   }
 
   async searchOccurrenceDocuments({ query }) {
@@ -56,10 +56,29 @@ class OccurrenceAPI extends RESTDataSource {
     return this.get(`${apiv1}/occurrence/${key}/verbatim`);
   }
 
+  async getBionomia({occurrence}) {
+    let { datasetKey, occurrenceID } = occurrence;
+    return this.get(`https://bionomia.net/occurrences/search?datasetKey=${datasetKey}&occurrenceID=${occurrenceID}`).then(x => JSON.parse(x));
+  }
+
   async meta({ query }) {
     const body = { ...query };
     const response = await this.post('/occurrence/meta', body);
     return response;
+  }
+
+  async registerPredicate({ predicate }) {
+    try {
+    let response = await this.post(`${apiv2}/map/occurrence/adhoc/predicate/`, predicate, { signal: this.context.abortController.signal });
+    return response;
+    } catch(err) {
+      return {
+        err: {
+          error: 'FAILED_TO_REGISTER_PREDICATE'
+        },
+        predicate: null
+      }
+    }
   }
 
   /*

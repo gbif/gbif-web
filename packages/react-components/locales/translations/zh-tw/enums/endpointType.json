@@ -1,0 +1,16 @@
+{
+  "EML": "EML",
+  "FEED": "RSS 訂閱",
+  "WFS": "網路圖徵服務（WFS）",
+  "WMS": "網路地圖服務（WMS）",
+  "TCS_RDF": "TCS RDF",
+  "TCS_XML": "TCS XML",
+  "DWC_ARCHIVE": "達爾文核心集檔案",
+  "DIGIR": "DiGIR",
+  "DIGIR_MANIS": "DiGIR MANIS",
+  "TAPIR": "TAPIR",
+  "BIOCASE": "生物典藏品檢索服務",
+  "BIOCASE_XML_ARCHIVE": "生物典藏品檢索服務 XML 檔案集",
+  "OAI_PMH": "OAI PMH",
+  "OTHER": "其它"
+}

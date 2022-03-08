@@ -15,7 +15,7 @@ export const ViewHeader = ({ children, total, loading, message, props }) => {
     margin: 0 0 4px 4px;
   `} {...props}>
     {showSkeleton && <Skeleton style={{ width: 100 }} />}
-    {!showSkeleton && <FormattedMessage id={message || "nResults"} values={{ total }} />}
+    {!showSkeleton && <FormattedMessage id={message || "counts.nResults"} values={{ total }} />}
     {children}
   </div>
 }

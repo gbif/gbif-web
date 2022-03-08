@@ -1,0 +1,22 @@
+{
+  "JOURNAL": "期刊文章",
+  "BOOK": "訂閱",
+  "GENERIC": "一般",
+  "BOOK_SECTION": "書籍章節",
+  "CONFERENCE_PROCEEDINGS": "會議進行",
+  "WORKING_PAPER": "工作文件",
+  "REPORT": "報告",
+  "WEB_PAGE": "網頁",
+  "THESIS": "論文",
+  "MAGAZINE_ARTICLE": "雜誌文章",
+  "STATUTE": "法令",
+  "PATENT": "專利",
+  "NEWSPAPER_ARTICLE": "新聞報導",
+  "COMPUTER_PROGRAM": "電腦程式設計",
+  "HEARING": "聽覺",
+  "TELEVISION_BROADCAST": "新聞播報",
+  "ENCYCLOPEDIA_ARTICLE": "生物百科文章",
+  "CASE": "案例",
+  "FILM": "影片",
+  "BILL": "帳單"
+}

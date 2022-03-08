@@ -1,0 +1,9 @@
+{
+    "PARENT_NAME_USAGE_ID_INVALID": "ParentNameUsageID ugyldig",
+    "ACCEPTED_NAME_USAGE_ID_INVALID": "AcceptedNameUsageID ugyldig",
+    "ORIGINAL_NAME_USAGE_ID_INVALID": "OriginalNameUsageID ugyldig",
+    "RANK_INVALID": "Rang ukendt",
+    "NOMENCLATURAL_STATUS_INVALID": "Nomenklaturstatus ukendt",
+    "TAXONOMIC_STATUS_INVALID": "Taxonomisk status ukendt",
+    "SCIENTIFIC_NAME_ASSEMBLED": "ScientificName sammensat"
+}

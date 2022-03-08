@@ -3,6 +3,7 @@ import StandardSearchTable from '../../../StandardSearchTable';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { useHistory } from "react-router-dom";
 import RouteContext from '../../../../dataManagement/RouteContext';
+import { ResourceLink } from '../../../../components';
 
 const QUERY = `
 query list($code: String, $q: String, $offset: Int, $limit: Int, $country: Country, $fuzzyName: String, $city: String, $name: String, $active: Boolean){
@@ -16,6 +17,7 @@ query list($code: String, $q: String, $offset: Int, $limit: Int, $country: Count
       code
       active
       occurrenceCount
+      numberSpecimens
       address {
         city
         country
@@ -30,19 +32,17 @@ query list($code: String, $q: String, $offset: Int, $limit: Int, $country: Count
 `;
 
 const defaultTableConfig = {
-  onSelect: ({key}) => {
-    window.location = `/institution/${key}`
-  },
   columns: [
     {
       trKey: 'title',
       value: {
         key: 'name',
+        formatter: (value, item) => <ResourceLink type='institutionKey' discreet id={item.key}>{value}</ResourceLink>,
       },
       width: 'wide'
     },
     {
-      trKey: 'filter.code.name',
+      trKey: 'filters.code.name',
       value: {
         filterKey: 'code',
         key: 'code',
@@ -50,9 +50,9 @@ const defaultTableConfig = {
       }
     },
     {
-      trKey: 'filter.countryCode.name',
+      trKey: 'filters.country.name',
       value: {
-        filterKey: 'countryCode',
+        filterKey: 'country',
         key: 'key',
         formatter: (value, item) => {
           const countryCode = item.address?.country || item.mailingAddress?.country;
@@ -62,7 +62,7 @@ const defaultTableConfig = {
       }
     },
     {
-      trKey: 'filter.city.name',
+      trKey: 'filters.city.name',
       value: {
         filterKey: 'city',
         key: 'key',
@@ -71,7 +71,16 @@ const defaultTableConfig = {
       }
     },
     {
-      trKey: 'tableHeaders.occurrences',
+      trKey: 'tableHeaders.numberSpecimens',
+      value: {
+        key: 'numberSpecimens',
+        formatter: (value, item) => <FormattedNumber value={value} />,
+        hideFalsy: true,
+        rightAlign: true
+      }
+    },
+    {
+      trKey: 'tableHeaders.gbifNumberSpecimens',
       value: {
         key: 'occurrenceCount',
         formatter: (value, item) => <FormattedNumber value={value} />,
@@ -90,20 +99,7 @@ const defaultTableConfig = {
 };
 
 function Table() {
-  const history = useHistory();
-  const routeContext = useContext(RouteContext);
-
-  function onSelect({key}) {
-    const path = routeContext.institutionKey.url({key});
-    window.location = path;
-    // if (history && !useWindowLocation) {
-    //   history.push(path);
-    // } else {
-    //   
-    // }
-  }
-
-  return <StandardSearchTable onSelect={onSelect} graphQuery={QUERY} resultKey='institutionSearch' defaultTableConfig={defaultTableConfig}/>
+  return <StandardSearchTable graphQuery={QUERY} resultKey='institutionSearch' defaultTableConfig={defaultTableConfig}/>
 }
 
 export default Table;

@@ -1,0 +1,38 @@
+{
+  "occurrence": "发生",
+  "showAllFields": "显示所有字段",
+  "morePhotos": "更多图片",
+  "about": "关于",
+  "dataset": "数据集",
+  "publisher": "发布者",
+  "institution": "机构",
+  "institutionGrSciColl": "科学馆机构",
+  "collection": "馆藏",
+  "collectionGrSciColl": "科学馆收藏",
+  "recordedAndIdentifiedBy": "记录并识别由",
+  "info": {
+    "original": "默认",
+    "excluded": "排除",
+    "inferred": "推断",
+    "altered": "更改"
+  },
+  "groups": {
+    "summary": "概要",
+    "record": "记录",
+    "occurrence": "出现记录",
+    "event": "活动",
+    "identification": "标识",
+    "taxon": "分类群",
+    "location": "位置",
+    "organism": "生物",
+    "materialSample": "材料样本",
+    "geologicalContext": "地质背景",
+    "other": "其它"
+  },
+  "features": {
+    "isClustered": "群集的",
+    "isSamplingEvent": "采样事件",
+    "isTreament": "治疗",
+    "isSequenced": "序列"
+  }
+}

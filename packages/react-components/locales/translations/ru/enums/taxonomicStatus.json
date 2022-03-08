@@ -1,0 +1,11 @@
+{
+  "ACCEPTED": "Валидный",
+  "DOUBTFUL": "Cомнительно",
+  "SYNONYM": "Синоним",
+  "HETEROTYPIC_SYNONYM": "Гетеротипный синоним",
+  "HOMOTYPIC_SYNONYM": "Гомотипный синоним",
+  "PROPARTE_SYNONYM": "Синоним со статусом pro parte",
+  "MISAPPLIED": "Неправильно примененный",
+  "INTERMEDIATE_RANK_SYNONYM": "Синоним промежуточного ранга",
+  "DETERMINATION_SYNONYM": "Синоним определения"
+}

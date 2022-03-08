@@ -30,7 +30,7 @@ export const Autocomplete = React.forwardRef(({
   const [debouncedText] = useDebounce(inputProps.value, delay);
   useEffect(
     () => {
-      if (debouncedText) {
+      if (typeof debouncedText === 'string') {
         onSuggestionsFetchRequested({ value: debouncedText });
       }
     },

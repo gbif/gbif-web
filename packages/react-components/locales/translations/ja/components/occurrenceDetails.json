@@ -1,0 +1,38 @@
+{
+  "occurrence": "オカレンス",
+  "showAllFields": "",
+  "morePhotos": "",
+  "about": "・・・について",
+  "dataset": "データセット",
+  "publisher": "出版者",
+  "institution": "機関",
+  "institutionGrSciColl": "",
+  "collection": "コレクション",
+  "collectionGrSciColl": "",
+  "recordedAndIdentifiedBy": "",
+  "info": {
+    "original": "元の",
+    "excluded": "除外",
+    "inferred": "推測された",
+    "altered": "変更された"
+  },
+  "groups": {
+    "summary": "概要",
+    "record": "記録",
+    "occurrence": "オカレンス",
+    "event": "イベント",
+    "identification": "ID",
+    "taxon": "分類群",
+    "location": "位置情報",
+    "organism": "生物",
+    "materialSample": "試料",
+    "geologicalContext": "地質学的背景",
+    "other": "その他"
+  },
+  "features": {
+    "isClustered": "クラスター化された",
+    "isSamplingEvent": "サンプリング イベント",
+    "isTreament": "処理",
+    "isSequenced": ""
+  }
+}

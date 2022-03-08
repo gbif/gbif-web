@@ -1,0 +1,69 @@
+{
+  "description": {
+    "lt": "",
+    "lte": "",
+    "gt": "",
+    "gte": "",
+    "e": ""
+  },
+  "compact": {
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": ""
+  },
+  "compactMeters": {
+    "between": "",
+    "lt": "Under {to}m",
+    "gt": "Over {from}m",
+    "e": ""
+  },
+  "compactTime": {
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": ""
+  },
+  "year": {
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": ""
+  },
+  "coordinateUncertainty": {
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": ""
+  },
+  "depth": {
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": ""
+  },
+  "organismQuantity": {
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": ""
+  },
+  "sampleSizeValue": {
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": ""
+  },
+  "relativeOrganismQuantity": {
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": ""
+  },
+  "elevation": {
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": ""
+  }
+}

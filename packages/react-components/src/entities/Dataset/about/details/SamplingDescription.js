@@ -11,18 +11,18 @@ export function SamplingDescription({
 }) {
   return <Properties style={{ marginBottom: 12 }} horizontal={true}>
     {dataset.samplingDescription?.sampling && <>
-      <T><FormattedMessage id={`components.dataset.sampling`} defaultMessage="Sampling" /></T>
+      <T><FormattedMessage id={`dataset.sampling`} defaultMessage="Sampling" /></T>
       <V><HyperText text={dataset.samplingDescription.sampling} /></V></>}
     {dataset.samplingDescription?.studyExtent && <>
-      <T><FormattedMessage id={`components.dataset.studyExtent`} defaultMessage="Study extent" /></T>
+      <T><FormattedMessage id={`dataset.studyExtent`} defaultMessage="Study extent" /></T>
       <V><HyperText text={dataset.samplingDescription.studyExtent} /></V></>
     }
     {dataset.samplingDescription?.qualityControl && <>
-      <T><FormattedMessage id={`components.dataset.qualityControl`} defaultMessage="Quality control" /></T>
+      <T><FormattedMessage id={`dataset.qualityControl`} defaultMessage="Quality control" /></T>
       <V><HyperText text={dataset.samplingDescription.qualityControl} /></V></>
     }
     {dataset.samplingDescription?.methodSteps && dataset.samplingDescription?.methodSteps?.length > 0 && <>
-      <T><FormattedMessage id={`components.dataset.methodSteps`} defaultMessage="Method steps" /></T>
+      <T><FormattedMessage id={`dataset.methodSteps`} defaultMessage="Method steps" /></T>
       <V>
         <ol style={{ padding: "0px", margin: 0 }}>
           {dataset.samplingDescription.methodSteps.map((s, i) => <li key={s} style={i < dataset.samplingDescription.methodSteps.length - 1 ? { marginBottom: "12px" } : null}><HyperText text={s} /></li>)}

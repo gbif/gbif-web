@@ -1,0 +1,283 @@
+{
+  "dwcaExtension": {
+    "name": "DWCA-Erweiterung",
+    "count": "{num, plural, one { DwCA-Erweiterung } other {# DwCA-Erweiterungen}}",
+    "description": "Bezeichner für die Sammlung, zu der das usprüngliche Objekt gehört."
+  },
+  "taxonKey": {
+    "name": "Wissenschaftlicher Name",
+    "count": "{num, plural, one {wissenschaftlicher Name} other {# wissenschaftliche Namen}}",
+    "description": "Der normierte wissenschaftliche Name, wie er in der GBIF-Backbone-Taxonomie erscheint. Die wissenschaftlichen Namen werden normalisiert, um die Suche über Datensätze hinweg zu erleichtern. Es ist möglich, dass ein ursprünglich angegebener Name falsch interpretiert oder unbekannt ist. Für eine Suche in den Originalnamen bitte den Filter \"ursprünglicher wissenschaftlicher Name\" verwenden."
+  },
+  "basisOfRecord": {
+    "name": "Basis of record",
+    "count": "{num, plural, one {Basis of Record} other {# Bases of Record}}",
+    "isNotNull": "Basis of Record angegeben",
+    "isNull": "Basis of Record nicht angegeben",
+    "description": "Art des Nachweises für diesen Datensatz."
+  },
+  "institutionCode": {
+    "name": "Institutionscode",
+    "count": "{num, plural, one {Institutionscode} other {# Institutionscodes}}",
+    "description": "Code oder Kürzel der Institution, die die im Datensatz beschriebenen Objekte bzw. Informationen verwahrt."
+  },
+  "catalogNumber": {
+    "name": "Katalognummer",
+    "count": "{num, plural, one { Katalognummer } other {# Katalognummern}}",
+    "description": "Identifikator/Bezeichner des Datensatzes innerhalb eines Katalogs oder einer Sammlung."
+  },
+  "mediaType": {
+    "name": "Medientyp",
+    "count": "{num, plural, one {Medientyp} other {# Medientypen}}",
+    "description": "Die Medientypen, die für diesen Datensatz verfügbar sind."
+  },
+  "occurrenceIssue": {
+    "name": "Probleme und Flags",
+    "count": "{num, plural, one {Problem oder Flag} other {# Probleme und Flags}}",
+    "isNotNull": "Hat ein Problem",
+    "isNull": "Ohne Problem",
+    "description": "Die Arten der Probleme/Flags, die bei der Verarbeitung der Daten entdeckt wurden."
+  },
+  "occurrenceCountry": {
+    "name": "Land",
+    "count": "{num, plural, one {Land} other {# Länder}}",
+    "description": "Land oder Gebiet des Sammlungsereignisses"
+  },
+  "publishingCountryCode": {
+    "name": "Veröffentlichendes Land",
+    "count": "{num, plural, one {Veröffentlichendes Land} other {# Veröffentlichende Länder}}",
+    "description": "ISO-Code des Landes/Gebietes, in dem sich der Daten-Publisher befindet"
+  },
+  "q": {
+    "name": "Volltextsuche",
+    "count": "{num, plural, one {Suchstring} other {# Suchstrings}}",
+    "description": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\"."
+  },
+  "coordinates": {
+    "name": "Koordinaten"
+  },
+  "elevation": {
+    "name": "Höhe",
+    "count": "{num, plural, one {Höhenfilter} other {# Höhenfilter}}",
+    "description": "Die Höhe über einem vertikalen Bezugspunkt (üblicherweise dem mittleren Meeresspiegel oder einem Geoid) in Metern."
+  },
+  "license": {
+    "name": "Lizenz",
+    "count": "{num, plural, one {Lizenz} other {# Lizenzen}}",
+    "description": "Lizenz (oder Waiver), unter der der Datensatz publiziert wurde"
+  },
+  "datasetKey": {
+    "name": "Dataset",
+    "count": "{num, plural, one {Dataset} other {# Datasets}}",
+    "description": "Der Titel des Datasets, das den Datensatz enthält."
+  },
+  "publisherKey": {
+    "name": "Publisher",
+    "count": "{num, plural, one {Publisher} other {# Publisher}}",
+    "description": "Der Name der Organisation, die das Dataset publiziert, zu dem der Datensatz gehört."
+  },
+  "hostingOrganizationKey": {
+    "name": "Hosting-Organisation",
+    "count": "{num, plural, one {Host} other {# Hosts}}",
+    "description": "Hosting-Organisation des Datasets, zu dem der Datensatz gehört."
+  },
+  "country": {
+    "name": "Land",
+    "count": "{num, plural, one {Land} other {# Länder}}"
+  },
+  "countriesOfCoverage": {
+    "name": "Länderabdeckung",
+    "count": "{num, plural, one {Länderabdeckung} other {# Länderabdeckungen}}"
+  },
+  "countriesOfResearcher": {
+    "name": "Land des Forschers",
+    "count": "{num, plural, one {Land des Forschers} other {# Länder der Forscher}}"
+  },
+  "typeStatus": {
+    "name": "Typ-Status",
+    "count": "{num, plural, one {Typ-Status} other {# Typ-Status}}",
+    "isNotNull": "Ist ein Typ",
+    "isNull": "Typ-Status",
+    "description": "Typ-Kennzeichnung eines Belegs."
+  },
+  "year": {
+    "name": "Jahr",
+    "count": "{num, plural, one {Jahresfilter} other {# Jahresfilter}}",
+    "description": "Jahr des Sammlungsereignisses."
+  },
+  "sampleSizeUnit": {
+    "name": "Einheit der Probengröße",
+    "count": "{num, plural, one {Einheit der Probengröße} other {# Einheiten der Probengröße}}",
+    "description": "Die Maßeinheit für den Probengrößenwert."
+  },
+  "coordinateUncertainty": {
+    "name": "Koordinatenunsicherheit",
+    "count": "{num, plural, one {Koordinatenunsicherheitsfilter} other {# Koordinatenunsicherheitsfilter}}",
+    "description": "Ein Maß für dem Mindestabstand von einer Koordinate  (in Metern), innerhalb dessen der Fundort liegen könnte."
+  },
+  "depth": {
+    "name": "Tiefe",
+    "count": "{num, plural, one { Tiefe } other {# Tiefen}}",
+    "description": "Die Tiefe unterhalb einer lokalen Oberfläche (in Metern)."
+  },
+  "organismQuantity": {
+    "name": "Menge des Organismus",
+    "count": "{num, plural, one { Organismenmenge } other {# Organismenmengen}}",
+    "description": "Der Wert der Organismenmenge; die Art der Messung wird in \"Art der Organismenmenge\" angegeben."
+  },
+  "sampleSizeValue": {
+    "name": "Wert der Probengröße",
+    "count": "{num, plural, one {Probengrößenwert} other {# Probengrößenwerte}}",
+    "description": "Probengrößenwert; die Einheit der Probengröße wird in \"Einheit Probengröße\" angegeben."
+  },
+  "relativeOrganismQuantity": {
+    "name": "Relative Organismenmenge",
+    "count": "{num, plural, one { relative Organismusmenge } other {# relative Organismusmengen}}",
+    "description": "Die Menge an biologischem Material im Verhältnis zur Größe der Probe; berechnet als Organismusmenge pro Probengröße, falls Art der Organismusmenge und Einheit der Probengröße eindeutig sind."
+  },
+  "month": {
+    "name": "Monat",
+    "count": "{num, plural, one {Monat} other{# Monate}}",
+    "description": "Monat des Sammlungsereignisses."
+  },
+  "continent": {
+    "name": "Kontinent",
+    "count": "{num, plural, one { Kontinent } other {# Kontinente}}",
+    "description": "Kontinent der Ortsangabe."
+  },
+  "protocol": {
+    "name": "Protokoll, mit dem die Daten veröffentlicht werden.",
+    "count": "{num, plural, one { Protokoll } other {# Protokolle}}",
+    "description": "Technisches Protokoll, mit dem der Datensatz veröffentlicht wird."
+  },
+  "establishmentMeans": {
+    "name": "Etablierungsstatus",
+    "count": "{num, plural, one { Etablierungsstatus } other {# Etablierungsstatus}}",
+    "description": "Die Mittel, mit dem der Organismus zu einem bestimmten Zeitpunkt an einen bestimmten Ort etabliert wurde."
+  },
+  "recordedBy": {
+    "name": "Sammler/Beobachter",
+    "count": "{num, plural, one { Sammler } other {# Sammler}}",
+    "description": "Namen der Personen, Gruppen oder Organisationen, die den Beleg gesammelt bzw. die Beobachtung getätigt haben."
+  },
+  "recordNumber": {
+    "name": "Sammlernummer",
+    "count": "{num, plural, one { Sammlernummer } other {# Sammlernummern}}",
+    "description": "Ein Bezeichner für den Beleg oder die Beobachtung zum Zeitpunkt der Aufzeichnung."
+  },
+  "collectionCode": {
+    "name": "Sammlungscode",
+    "count": "{num, plural, one { Sammlungscode } other {# Sammlungscodes}}",
+    "description": "Bezeichner für die Sammlung, zu der das usprüngliche Objekt gehört."
+  },
+  "recordedById": {
+    "name": "Sammler/Beobachter ID",
+    "count": "{num, plural, one { Sammler-ID } other {# Sammler-IDs}}",
+    "description": "ID des Sammlers/Beobachters"
+  },
+  "identifiedById": {
+    "name": "Bestimmer-ID",
+    "count": "{num, plural, one { Bestimmer-ID } other {# Bestimmer-IDs}}",
+    "description": "ID des Bestimmers des wissenschaftlichen Namens"
+  },
+  "occurrenceId": {
+    "name": "Occurrence-ID",
+    "count": "{num, plural, one { Occurrence-ID } other {# Occurrence-IDs}}",
+    "description": "Ein eindeutiger Bezeichner für den Datensatz."
+  },
+  "organismId": {
+    "name": "Organismus-ID",
+    "count": "{num, plural, one { Organismus-ID } other {# Organismus-IDs}}",
+    "description": "Ein eindeutiger Bezeichner für den Organsimus, der im Datensatz beschrieben wird."
+  },
+  "locality": {
+    "name": "Fundort",
+    "count": "{num, plural, one { Fundort } other {# Fundorte}}",
+    "description": "Der spezifische Teil der Ortsbeschreibung."
+  },
+  "waterBody": {
+    "name": "Gewässer",
+    "count": "{num, plural, one { Gewässer} other {# Gewässer}}",
+    "description": "Gewässer des Fundorts."
+  },
+  "stateProvince": {
+    "name": "Bundesland/Kanton/Provinz",
+    "count": "{num, plural, one { Bundesland/Kanton/Provinz} other {# Bundesländer/Kantone/Provinzen}}",
+    "description": "Verwaltungseinheit unterhalb des Landes"
+  },
+  "eventId": {
+    "name": "Ereignis-ID",
+    "count": "{num, plural, one { Ereignis-ID } other {# Ereignis-IDs}}",
+    "description": "Eindeutiger Bezeichner für das Sammlungsereignis."
+  },
+  "samplingProtocol": {
+    "name": "Sampling-Protokoll",
+    "count": "{num, plural, one { Sampling Protokoll } other {# Sampling-Protokolle}}",
+    "description": "Name, Referenz oder Beschreibung der Methode oder des Protokolls, das für die Aufsammlung verwendet wurde."
+  },
+  "occurrenceStatus": {
+    "name": "Occurrence-Status",
+    "count": "{num, plural, one {Occurrence-Status} other {# Occurrence-Status}}",
+    "description": "Vorhanden- oder Nichtvorhandensein von Organismen des angegebenen Taxons."
+  },
+  "gadmGid": {
+    "name": "Verwaltungseinheit",
+    "count": "{num, plural, one { Verwaltungseinheit } other {# Verwaltungseinheiten}}",
+    "description": "Verwaltungseinheit lt. GADM.org, die beim Prozessieren der Daten bestimmt wurde"
+  },
+  "identifiedBy": {
+    "name": "Bestimmer",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}",
+    "description": "Person, Personen, Gruppen oder Organisationen, die den wissenschaftlichen Namens des Organismus bestimmt haben."
+  },
+  "isInCluster": {
+    "name": "Ist Teil eines Clusters",
+    "count": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "description": "Gibt an, ob der Datensatz mit einem oder mehreren anderen Datensätzen gruppiert wurde."
+  },
+  "datasetType": {
+    "name": "Art des Datasets",
+    "count": "{num, plural, one {Dataset-Typ} other {# Dataset-Typen}}",
+    "description": "Art des Datasets"
+  },
+  "datasetSubtype": {
+    "name": "Dataset-Subtyp",
+    "count": "{num, plural, one {Dataset-Subtyp} other {# Dataset-Subtypen}}",
+    "description": "Subtyp des Datatsets"
+  },
+  "institutionKey": {
+    "name": "Institution",
+    "count": "{num, plural, one { Institution } other {# Institutionen}}",
+    "description": "Der Name der Institution, auf das Objekt oder die Informationen zum Datensatz verwahrt."
+  },
+  "name": {
+    "name": "Name",
+    "count": "{num, plural, one { Name } other {# Namen}}",
+    "description": "A short description of the component should be placed here"
+  },
+  "city": {
+    "name": "Stadt",
+    "count": "{num, plural, one { Stadt } other {# Städte}}",
+    "description": "Stadt zum Fundort."
+  },
+  "code": {
+    "name": "Code",
+    "count": "{num, plural, one { Code } other {# Codes}}",
+    "description": "A short description of the component should be placed here"
+  },
+  "verbatimScientificName": {
+    "name": "Ursprünglicher wissenschaftlicher Name",
+    "count": "{num, plural, one {ursprünglicher wissenschaftlicher Name} other {# ursprüngliche wissenschaftliche Namen}}",
+    "description": "Wissenschaftliche Name, wie er vom Daten-Publisher angegeben wurde."
+  },
+  "networkKey": {
+    "name": "Network-Key",
+    "count": "{num, plural, one { Network-Key } other {# Network-Keys}}",
+    "description": "Network-Key"
+  },
+  "literatureType": {
+    "name": "Literatur-Typ",
+    "count": "{num, plural, one { Literatur-Typ } other {# Literatur-Typen}}",
+    "description": "Art der Literatur, aus der die Zitierung stammt."
+  }
+}

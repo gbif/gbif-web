@@ -1,6 +1,27 @@
 import { css } from '@emotion/react';
 // import { focusStyle } from '../../style/shared';
 
+export const agentSummary = ({ ...props }) => css`
+  border-radius: 4px;
+  border: 1px solid #eee;
+  background: white;
+  overflow: hidden;
+  box-shadow: 0 2px 3px 3px rgb(0 0 0 / 2%);
+  > div:last-of-type {
+    flex: 1 1 auto;
+    padding: 12px;
+  }
+  > div:first-of-type {
+    flex: 0 0 auto;
+    img {
+      display: block;
+    }
+  }
+  h4 {
+    margin: 0;
+  }
+`;
+
 export const features = ({ ...props }) => css`
   margin-top: 4px;
   margin-bottom: 4px;
@@ -13,26 +34,13 @@ export const entitySummary = ({ ...props }) => css`
 `;
 
 export const header = ({ ...props }) => css`
+  margin: 0 16px;
   .gbif-header-location {
     font-size: 13px;
     display: flex;
     align-items: center;
     margin-top: 8px;
   }
-`;
-
-export const breadcrumbSeperator = ({ ...props }) => css`
-  border-left: 2px solid orange;
-  margin-left: 6px;
-  height: 1em;
-  padding-left: 6px;
-`;
-
-export const breadcrumb = ({ ...props }) => css`
-  font-size: 11px;
-  margin-bottom: 4px;
-  /* font-weight: 500; */
-  /* color: #5a5a5a; */
 `;
 
 export const globeOverlay = ({ theme, ...props }) => css`
@@ -84,6 +92,7 @@ export const globeSvg = ({ isTrackingData, theme, ...props }) => css`
 export const sideBar = ({ theme, ...props }) => css`
   background: ${theme.paperBackground500};
   position: relative;
+  max-width: 100%;
 `;
 
 export const detailDrawerBar = ({ theme }) => css`
@@ -108,6 +117,8 @@ export const headline = ({ theme }) => css`
   >h3 {
     display: inline-block;
     margin: 0;
+    font-size: 1.2em;
+    font-weight: 700;
   }
 `;
 
@@ -145,6 +156,24 @@ export const clusterCard = ({ theme }) => css`
   margin-bottom: 24px;
   border: 1px solid ${theme.paperBorderColor};
   box-shadow: 0 2px 1px 1px #0000000a;
+`;
+
+export const properties = css`
+  font-size: 85%;
+`;
+
+export const group = () => css`
+  summary {
+    background: #f5f5f5;
+    padding-left: 16px;
+    padding-right: 16px;
+    border-width: 1px 0;
+    border: 1px solid #eee;
+    border-width: 1px 0;
+  }
+  >div {
+    margin: 0 16px 32px 16px;
+  }
 `;
 
 export const chip = ({ theme }) => css`

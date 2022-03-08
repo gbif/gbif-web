@@ -1,16 +1,16 @@
 import React from "react";
 import { IntlProvider } from "react-intl";
 import PropTypes from "prop-types";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import { QueryParamProvider } from 'use-query-params';
+import { LocaleProvider } from './dataManagement/LocaleProvider';
+import _get from 'lodash/get';
 
 import { Root } from './components';
 import ThemeContext, { lightTheme } from './style/themes';
 import { ApiContext, ApiClient } from './dataManagement/api';
+import RouteContext, { defaultContext } from './dataManagement/RouteContext';
 import env from '../.env.json';
-
-import flatten from 'flat';
-import { en as enNested } from './locales/en';
-const en = flatten(enNested);
 
 const client = new ApiClient({
   gql: {
@@ -22,18 +22,28 @@ const client = new ApiClient({
 });
 
 function StandaloneWrapper({
-  defaultBaseName, theme = lightTheme, locale = 'en', messages = en, ...props
+  defaultBaseName, theme = lightTheme, locale = 'en', messages: customMessages, routeContext, ...props
 }) {
   // const defaultBaseName = typeof window !== 'undefined' ? window.location.pathname : undefined;
+  const basename = _get(routeContext, 'basename');
+  const root = <Root id="application" appRoot>
+    <Router {...props} basename={basename}>
+      <QueryParamProvider ReactRouterRoute={Route} {...props} />
+    </Router>
+  </Root>;
+
   return (
     <ApiContext.Provider value={client}>
-      <IntlProvider locale={locale} messages={messages}>
+      <LocaleProvider locale={locale}>
+        {/* <IntlProvider locale={locale} messages={customMessages || messages}> */}
         <ThemeContext.Provider value={theme}>
-          <Root id="application" appRoot>
-            <Router {...props} basename={defaultBaseName} />
-          </Root>
+          {routeContext && <RouteContext.Provider value={{ ...defaultContext, ...routeContext }}>
+            {root}
+          </RouteContext.Provider>}
+          {!routeContext && root}
         </ThemeContext.Provider>
-      </IntlProvider>
+        {/* </IntlProvider> */}
+      </LocaleProvider>
     </ApiContext.Provider>
   );
 }

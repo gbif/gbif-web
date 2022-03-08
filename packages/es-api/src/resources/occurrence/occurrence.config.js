@@ -64,12 +64,16 @@ const config =
       "field": "coordinates",
       "discarded": true
     },
+    // "country": {
+    //   "type": "text",
+    //   "field": "country",
+    //   "get": {
+    //     "type": "fuzzy"
+    //   }
+    // },
     "country": {
-      "type": "text",
-      "field": "country",
-      "get": {
-        "type": "fuzzy"
-      }
+      "type": "keyword",
+      "field": "countryCode"
     },
     "countryCode": {
       "type": "keyword",
@@ -159,6 +163,10 @@ const config =
         "defaultLowerBound": "lte"
       }
     },
+    "dwcaExtension": {
+      "type": "keyword",
+      "field": "extensions"
+    },
     "elevation": {
       "type": "numeric",
       "field": "elevation",
@@ -192,7 +200,7 @@ const config =
     },
     "establishmentMeans": {
       "type": "keyword",
-      "field": "establishmentMeans"
+      "field": "establishmentMeans.concept"
     },
     "eventDate": {
       "field": "eventDate",
@@ -326,7 +334,7 @@ const config =
       "type": "keyword",
       "field": "mediaLicenses"
     },
-    "mediaTypes": {
+    "mediaType": {
       "type": "keyword",
       "field": "mediaTypes"
     },
@@ -443,7 +451,7 @@ const config =
       "type": "keyword",
       "field": "publishingCountry"
     },
-    "publishingOrgKey": {
+    "publishingOrg": {
       "type": "keyword",
       "field": "publishingOrganizationKey"
     },
@@ -907,19 +915,19 @@ const config =
       "type": "keyword",
       "field": "gbifClassification.usageParsedName.combinationAuthorship.year"
     },
-    "identifiedByIds_type": {
+    "identifiedByIdType": {
       type: "keyword",
       field: "identifiedByIds.type"
     },
-    "identifiedByIds_value": {
+    "identifiedById": {
       type: "keyword",
       field: "identifiedByIds.value"
     },
-    "recordedByIds_type": {
+    "recordedByIdType": {
       type: "keyword",
       field: "recordedByIds.type"
     },
-    "recordedByIds_value": {
+    "recordedById": {
       type: "keyword",
       field: "recordedByIds.value"
     }
