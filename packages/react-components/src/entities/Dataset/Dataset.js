@@ -81,6 +81,8 @@ query dataset($key: ID!, $predicate: Predicate, $sitePredicate: Predicate){
     type
     title
     created
+    modified
+    pubDate
     description
     purpose
     temporalCoverages
@@ -89,6 +91,14 @@ query dataset($key: ID!, $predicate: Predicate, $sitePredicate: Predicate){
     publishingOrganizationTitle
     homepage
     additionalInfo
+    installation {
+      key
+      title
+      organization {
+        key
+        title
+      }
+    }
     volatileContributors {
       key
       firstName
@@ -140,7 +150,14 @@ query dataset($key: ID!, $predicate: Predicate, $sitePredicate: Predicate){
       sampling
       qualityControl
       methodSteps
-    } 
+    }
+    dataDescriptions {
+      charset
+      name
+      format
+      formatVersion
+      url
+    }
     citation {
       text
     }
@@ -173,6 +190,17 @@ query dataset($key: ID!, $predicate: Predicate, $sitePredicate: Predicate){
       }
       identifier
     }
+    endpoints {
+      key
+      type
+      url
+    }
+    identifiers {
+      key
+      type
+      identifier
+    }
+    doi
   }
 }
 `;

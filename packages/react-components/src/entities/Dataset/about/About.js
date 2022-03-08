@@ -5,7 +5,7 @@ import ThemeContext from '../../../style/themes/ThemeContext';
 import * as css from './styles';
 import { Prose, Row, Col, Properties, HyperText, Button, Toc, ContactList } from "../../../components";
 import RouteContext from '../../../dataManagement/RouteContext';
-import { TaxonomicCoverages, GeographicCoverages, TemporalCoverages, Intro, BibliographicCitations, SamplingDescription, Contacts, Citation } from './details';
+import { TaxonomicCoverages, GeographicCoverages, TemporalCoverages, Registration, BibliographicCitations, SamplingDescription, Contacts, Citation } from './details';
 // import {Toc} from "./Toc"
 const { Term: T, Value: V } = Properties;
 
@@ -33,6 +33,12 @@ export function About({
         </nav>
       </div>
       <div style={{ width: '100%', marginLeft: 12 }}>
+
+        <Prose css={css.paper({ theme })}>
+          <h2 ref={node => { tocRefs["registration"] = node; }}>Registration</h2>
+          <Registration dataset={dataset} />
+        </Prose>
+
         {dataset.description && <Prose css={css.paper({ theme })}>
           <h2 ref={node => { tocRefs["description"] = node; }}>Description</h2>
           <HyperText text={dataset.description} />
@@ -69,6 +75,13 @@ export function About({
           <h2 ref={node => { tocRefs["bibliographic-citations"] = node; }}>Bibliographic citations</h2>
           <BibliographicCitations bibliographicCitations={dataset?.bibliographicCitations} />
         </Prose>}
+        
+        {/* It isn't clear that this section really has much value for users of the website */}
+        {/* {dataset?.dataDescriptions?.length > 0 && <Prose css={css.paper({ theme })}>
+          <h2 ref={node => { tocRefs["data-descriptions"] = node; }}>Data descriptions</h2>
+          <DataDescriptions dataDescriptions={dataset?.dataDescriptions} />
+        </Prose>} */}
+
         {dataset?.citation && <Prose css={css.paper({ theme })}>
           <h2 ref={node => { tocRefs["citation"] = node; }}>Citation</h2>
           <Citation data={data} />
