@@ -44,11 +44,6 @@ function getHtml(value, {allowedTags = ['a', 'p', 'i', 'br', 'ul', 'ol', 'li'], 
   if (typeof value === 'string' || typeof value === 'number') {
     const dirty = inline ? md.renderInline('' + value) : md.render('' + value);
     const clean = DOMPurify.sanitize(dirty, options);
-
-    console.log(value);
-    console.log(dirty);
-    console.log(clean);
-
     return clean;
   } else {
     return null;
