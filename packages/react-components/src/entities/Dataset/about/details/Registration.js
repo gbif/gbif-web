@@ -18,7 +18,7 @@ export function Registration({
   const hostingStatus = orphanMachineTag ? orphanMachineTag.value : undefined;
 
   return <div style={{ paddingBottom: 12, marginBottom: 12 }}>
-    <Properties breakpoint={800}>
+    <Properties style={{ marginBottom: 12 }} horizontal={true}>
       <T>created</T>
       <V>{created}</V>
 

@@ -34,11 +34,6 @@ export function About({
       </div>
       <div style={{ width: '100%', marginLeft: 12 }}>
 
-        <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["registration"] = node; }}>Registration</h2>
-          <Registration dataset={dataset} />
-        </Prose>
-
         {dataset.description && <Prose css={css.paper({ theme })}>
           <h2 ref={node => { tocRefs["description"] = node; }}>Description</h2>
           <HyperText text={dataset.description} />
@@ -75,23 +70,28 @@ export function About({
           <h2 ref={node => { tocRefs["bibliographic-citations"] = node; }}>Bibliographic citations</h2>
           <BibliographicCitations bibliographicCitations={dataset?.bibliographicCitations} />
         </Prose>}
-        
+
         {/* It isn't clear that this section really has much value for users of the website */}
         {/* {dataset?.dataDescriptions?.length > 0 && <Prose css={css.paper({ theme })}>
           <h2 ref={node => { tocRefs["data-descriptions"] = node; }}>Data descriptions</h2>
           <DataDescriptions dataDescriptions={dataset?.dataDescriptions} />
         </Prose>} */}
 
+        <Prose css={css.paper({ theme })}>
+          <h2 ref={node => { tocRefs["registration"] = node; }}>Registration</h2>
+          <Registration dataset={dataset} />
+        </Prose>
+
         {dataset?.citation && <Prose css={css.paper({ theme })}>
           <h2 ref={node => { tocRefs["citation"] = node; }}>Citation</h2>
           <Citation data={data} />
         </Prose>}
       </div>
-      <div css={css.sideBar({ theme })} style={{margin: '0 0 0 12px'}}>
+      {/* <div css={css.sideBar({ theme })} style={{margin: '0 0 0 12px'}}>
         <nav css={css.sideBarNav({ theme })}>
           hej
         </nav>
-      </div>
+      </div> */}
     </div>
   </>
 };
