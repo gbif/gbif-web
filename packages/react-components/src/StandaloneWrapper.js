@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { QueryParamProvider } from 'use-query-params';
 import { LocaleProvider } from './dataManagement/LocaleProvider';
 import _get from 'lodash/get';
+import _merge from 'lodash/merge';
 
 import { Root } from './components';
 import ThemeContext, { lightTheme } from './style/themes';
@@ -31,7 +32,7 @@ function StandaloneWrapper({
     routes
    } = siteConfig;
 
-  const routeConfig = { ...defaultContext, ...(routes || {}) };
+  const routeConfig = _merge({}, defaultContext, (routes || {}));
   const basename = _get(routeConfig, 'basename');
   const root = <Root id="application" appRoot>
     <Router {...props} basename={basename}>

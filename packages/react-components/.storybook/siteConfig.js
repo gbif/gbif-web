@@ -4,7 +4,7 @@ const routeConfig = {
       return `iframe.html?id=search-occurrencesearch--example&viewMode=story`;
     },
     isHref: true,
-    route: '/occurrence/search',
+    route: '/',
   },
   
   collectionKey: {
