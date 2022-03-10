@@ -3,8 +3,15 @@ import StandaloneWrapper from '../../StandaloneWrapper';
 import OccurrenceSearch from "./OccurrenceSearch";
 
 function Standalone(props) {
-  return <StandaloneWrapper {...props}>
-    <OccurrenceSearch pageLayout {...props} />
+  // config refactor patch/fallback
+  const siteConfig = props?.siteConfig;
+  let patch = {};
+  if (siteConfig) {
+    patch = {...siteConfig, config: siteConfig.occurrence, routeContext: siteConfig.routes}
+  }
+  
+  return <StandaloneWrapper {...patch} {...props}>
+    <OccurrenceSearch pageLayout {...patch} {...props} />
   </StandaloneWrapper>
 }
 

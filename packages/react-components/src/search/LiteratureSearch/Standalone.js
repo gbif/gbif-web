@@ -3,8 +3,15 @@ import StandaloneWrapper from '../../StandaloneWrapper';
 import LiteratureSearch from './LiteratureSearch';
 
 function Standalone(props) {
-  return <StandaloneWrapper {...props}>
-    <LiteratureSearch {...props} />
+  // config refactor patch/fallback
+  const siteConfig = props?.siteConfig;
+  let patch = {};
+  if (siteConfig) {
+    patch = {...siteConfig, config: siteConfig.literature, routeContext: siteConfig.routes}
+  }
+
+  return <StandaloneWrapper {...patch} {...props}>
+    <LiteratureSearch {...patch} {...props} />
   </StandaloneWrapper>
 }
 
