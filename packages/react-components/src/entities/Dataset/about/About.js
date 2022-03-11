@@ -87,11 +87,63 @@ export function About({
           <Citation data={data} />
         </Prose>}
       </div>
-      {/* <div css={css.sideBar({ theme })} style={{margin: '0 0 0 12px'}}>
-        <nav css={css.sideBarNav({ theme })}>
-          hej
+      <div css={css.sideBar({ theme })} style={{ margin: '0 0 0 12px' }}>
+        <nav>
+
+          <div css={css.testcard}>
+            <div css={css.testcontent}>
+              <h5>8.248.599 occurrences</h5>
+              <p>85% with coordinates</p>
+              <div css={css.progress}><div style={{width: '85%'}}></div></div>
+              <p>32% with year</p>
+              <div css={css.progress}><div style={{width: '32%'}}></div></div>
+              <p>90% with taxon match</p>
+              <div css={css.progress}><div style={{width: '90%'}}></div></div>
+            </div>
+          </div>
+
+          <div css={css.testcard}>
+            <div css={css.testicon}>
+              <div>DNA</div>
+            </div>
+            <div css={css.testcontent}>
+              <h5>Includes DNA</h5>
+              <p>Lorem ipsum sfhkjh sfhlksduf bksk sdkh sdfg </p>
+            </div>
+          </div>
+
+          <div css={css.testcard}>
+            <div css={css.testicon}>
+              <div style={{background: 'deepskyblue'}}>SAM</div>
+            </div>
+            <div css={css.testcontent}>
+              <h5>Contains sampling events</h5>
+              <p>Lorem ipsum sfhkjh sfhlksduf bksk sdkh sdfg </p>
+            </div>
+          </div>
+
+          <div css={css.testcard}>
+            <div css={css.testicon}>
+              <div style={{background: 'orange'}}>80%</div>
+            </div>
+            <div css={css.testcontent}>
+              <h5>Has images</h5>
+              <p>Lorem ipsum sfhkjh sfhlksduf bksk sdkh sdfg </p>
+            </div>
+          </div>
+
+          <div css={css.testcard}>
+            <div css={css.testicon}>
+              <div style={{background: '#555'}}>H</div>
+            </div>
+            <div css={css.testcontent}>
+              <h5>Gridded data</h5>
+              <p>Lorem ipsum sfhkjh sfhlksduf bksk sdkh sdfg </p>
+            </div>
+          </div>
+
         </nav>
-      </div> */}
+      </div>
     </div>
   </>
 };

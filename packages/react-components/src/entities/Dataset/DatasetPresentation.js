@@ -78,7 +78,7 @@ export function DatasetPresentation({
               <span><Hostname href={dataset.homepage} /></span>
             </div>}
 
-            {occurrenceSearch.documents.total > 0 && <div css={iconFeature({ theme })}>
+            {/* {occurrenceSearch.documents.total > 0 && <div css={iconFeature({ theme })}>
               <MdLocationOn />
               <span><FormattedNumber value={occurrenceSearch.documents.total} /> occurrences</span>
             </div>}
@@ -86,7 +86,7 @@ export function DatasetPresentation({
             {siteOccurrences.documents.total > 0 && <div css={iconFeature({ theme })}>
               <MdLocationOn />
               <span><FormattedNumber value={siteOccurrences.documents.total} /> occurrences on this site</span>
-            </div>}
+            </div>} */}
 
             {literatureSearch.documents?.count > 0 && <div css={countFeature({ theme })}>
               <span>

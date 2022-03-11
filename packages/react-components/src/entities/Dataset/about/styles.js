@@ -64,3 +64,52 @@ export const navItem = ({ ...props }) => css`
     font-weight: 500;
   }
 `;
+
+export const testcard = css`
+  margin-right: 12px;
+  padding: 12px;
+  display: flex;
+  /* box-shadow: 0 2px 3px 3px rgba(0,0,0,.02); */
+  background: white;
+  margin-bottom: 8px;
+  border-radius: 4px;
+`;
+
+export const testicon = css`
+  flex: 0 0 auto;
+  div {
+    padding: 8px 0;
+    text-align: center;
+    background: #a147ff;
+    color: white;
+    font-weight: 900;
+    border-radius: 6px;
+    width: 50px;
+  }
+`;
+
+export const progress = css`
+  height: 4px;
+  border-radius: 2px;
+  background: #ddd;
+  > div {
+    background: #76cb7a;
+    height: 4px;
+    border-radius: 2px;
+  }
+  margin-bottom: 12px;
+`;
+
+export const testcontent = css`
+  padding-left: 12px;
+  flex: 1 1 auto;
+  h5 {
+    font-size: 13px;
+    margin: 0 0 12px 0;
+  }
+  p {
+    font-size: 13px;
+    color: #888;
+    margin: 0;
+  }
+`;
