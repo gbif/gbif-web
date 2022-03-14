@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/react';
 import React, { useContext, useCallback, useState, useEffect } from 'react';
 import ThemeContext from '../../style/themes/ThemeContext';
-import { Tabs, Eyebrow, LicenseTag } from '../../components';
+import { Tabs, Eyebrow, LicenseTag, DataHeader } from '../../components';
 import OccurrenceSearch from '../../search/OccurrenceSearch/OccurrenceSearch';
 import { iconFeature, countFeature } from '../../components/IconFeatures/styles';
 import { About } from './about/About';
@@ -13,7 +13,7 @@ import { FormattedMessage, FormattedNumber, FormattedDate } from 'react-intl';
 import { join } from '../../utils/util';
 
 import * as css from './styles';
-import { MdLocationOn, MdPeople, MdLink, MdPlaylistAddCheck, MdStar, MdFormatQuote } from 'react-icons/md';
+import { MdOutlineCode, MdOutlineHelpOutline, MdKeyboardArrowLeft, MdLocationOn, MdPeople, MdLink, MdPlaylistAddCheck, MdStar, MdFormatQuote } from 'react-icons/md';
 
 import { Switch, Route, useRouteMatch, Link } from 'react-router-dom';
 
@@ -51,34 +51,41 @@ export function DatasetPresentation({
   };
 
   return <>
+    <DataHeader 
+      left={<><MdKeyboardArrowLeft /> Dataset</>} style={{ background: 'white'}} right={<div css={css.headerIcons}><MdFormatQuote /><MdOutlineCode /><MdOutlineHelpOutline /></div>}></DataHeader>
     <div css={css.headerWrapper({ theme })}>
       <div css={css.proseWrapper({ theme })}>
-        <Eyebrow prefix={<FormattedMessage id={`dataset.longType.${dataset.type}`} />} suffix={<FormattedMessage id="dataset.registeredDate" values={{ DATE: <FormattedDate value={dataset.created} year="numeric" month="long" day="2-digit" /> }} />} />
-        <h1>{dataset.title}</h1>
-        <div>
-          From <a href={`/publisher/${dataset.publishingOrganizationKey}`}>{dataset.publishingOrganizationTitle}</a>
-        </div>
-
-        <div css={css.summary}>
-          {dataset?.contactsCitation?.length > 0 && <div css={iconFeature({ theme })}>
-            <MdPeople />
+        <div css={css.headerFlex}>
+          <div css={css.headerLogo}>
+            <img src={dataset.logoUrl} />
+          </div>
+          <div css={css.headerContent}>
+            <Eyebrow prefix={<FormattedMessage id={`dataset.longType.${dataset.type}`} />} suffix={<FormattedMessage id="dataset.registeredDate" values={{ DATE: <FormattedDate value={dataset.created} year="numeric" month="long" day="2-digit" /> }} />} />
+            <h1>{dataset.title}</h1>
             <div>
-              <ol css={css.bulletList}>{dataset?.contactsCitation.map(p => <li key={p.key}>{p.abbreviatedName}</li>)}</ol>
-            </div>
-          </div>}
-
-          <div css={css.iconFeatures()}>
-
-            <div css={iconFeature({ theme })}>
-              <LicenseTag value={dataset.license} />
+              From <a href={`/publisher/${dataset.publishingOrganizationKey}`}>{dataset.publishingOrganizationTitle}</a>
             </div>
 
-            {dataset.homepage && <div css={iconFeature({ theme })}>
-              <MdLink />
-              <span><Hostname href={dataset.homepage} /></span>
-            </div>}
+            <div css={css.summary}>
+              {dataset?.contactsCitation?.length > 0 && <div css={iconFeature({ theme })}>
+                <MdPeople />
+                <div>
+                  <ol css={css.bulletList}>{dataset?.contactsCitation.map(p => <li key={p.key}>{p.abbreviatedName}</li>)}</ol>
+                </div>
+              </div>}
 
-            {/* {occurrenceSearch.documents.total > 0 && <div css={iconFeature({ theme })}>
+              <div css={css.iconFeatures()}>
+
+                <div css={iconFeature({ theme })}>
+                  <LicenseTag value={dataset.license} />
+                </div>
+
+                {dataset.homepage && <div css={iconFeature({ theme })}>
+                  <MdLink />
+                  <span><Hostname href={dataset.homepage} /></span>
+                </div>}
+
+                {/* {occurrenceSearch.documents.total > 0 && <div css={iconFeature({ theme })}>
               <MdLocationOn />
               <span><FormattedNumber value={occurrenceSearch.documents.total} /> occurrences</span>
             </div>}
@@ -88,24 +95,24 @@ export function DatasetPresentation({
               <span><FormattedNumber value={siteOccurrences.documents.total} /> occurrences on this site</span>
             </div>} */}
 
-            {literatureSearch.documents?.count > 0 && <div css={countFeature({ theme })}>
+                {/* {literatureSearch.documents?.count > 0 && <div css={countFeature({ theme })}>
               <span>
                 <MdFormatQuote />
                 <FormattedNumber value={literatureSearch.documents.count} />
               </span>
               <span><Link to={join(url, 'citations')}>citations</Link></span>
-            </div>}
+            </div>} */}
 
-            {taxonSearch.count > 0 && <div css={iconFeature({ theme })}>
-              <MdPlaylistAddCheck />
-              <span><FormattedNumber value={taxonSearch.count} /> accepted names</span>
-            </div>}
+                {taxonSearch.count > 0 && <div css={iconFeature({ theme })}>
+                  <MdPlaylistAddCheck />
+                  <span><FormattedNumber value={taxonSearch.count} /> accepted names</span>
+                </div>}
 
-            {/* <div css={countFeature({ theme })}>
+                {/* <div css={countFeature({ theme })}>
               <span>{dataset.license}</span>
             </div> */}
 
-            {/* {occurrenceSearch.documents.total > 0 && <div css={countFeature({ theme })}>
+                {/* {occurrenceSearch.documents.total > 0 && <div css={countFeature({ theme })}>
               <span><FormattedNumber value={occurrenceSearch.documents.total} /></span>
               <span>occurrences</span>
             </div>}
@@ -119,8 +126,10 @@ export function DatasetPresentation({
               <span><FormattedNumber value={taxonSearch.count} /></span>
               <span>accepted names</span>
             </div>} */}
-          </div>
+              </div>
 
+            </div>
+          </div>
         </div>
         <TabList style={{ marginTop: '12px', borderTop: '1px solid #ddd' }}>
           <RouterTab to={url} exact label="About" />

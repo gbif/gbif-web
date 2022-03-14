@@ -14,7 +14,7 @@ export default {
 
 export const Example = () => <Router initialEntries={[`/`]}>
   <QueryParamProvider ReactRouterRoute={Route}>
-    <AddressBar style={{ position: 'sticky', top: 0 }} />
+    {/* <AddressBar style={{ position: 'sticky', top: 0 }} /> */}
     <div style={{ flex: '1 1 auto' }}></div>
     {/* Crustacea */}
     {/* <Dataset id="1d1393bd-7edd-46fe-a224-ac8ff8e38402" /> */}

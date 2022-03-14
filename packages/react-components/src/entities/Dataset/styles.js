@@ -18,7 +18,7 @@ export const tabCountChip = ({ ...props }) => css`
 
 export const headerWrapper = ({ ...props }) => css`
   background: white;
-  padding: 1rem 1rem 0 1rem;
+  padding: 2rem 1rem 0 1rem;
   h1 {
     margin-top: 0;
     margin-bottom: .25em;
@@ -32,6 +32,30 @@ export const summary = ({ ...props }) => css`
   margin-bottom: 1.5rem;
   >div {
     margin-bottom: 8px;
+  }
+`;
+
+export const headerFlex = css`
+  display: flex;
+`;
+
+export const headerContent = css`
+  flex: 1 1 auto;
+`;
+
+export const headerLogo = css`
+  flex: 0 0 auto;
+  padding-right: 48px;
+  max-width: 250px;
+  img {
+    width: 100%;
+  }
+`;
+
+export const headerIcons = css`
+  padding: 0 6px;
+  > svg {
+    margin: 0 6px;
   }
 `;
 
