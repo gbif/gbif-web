@@ -7,6 +7,7 @@ import AddressBar from '../../StorybookAddressBar';
 import { QueryParamProvider } from 'use-query-params';
 
 import PublisherSearch from './PublisherSearch';
+import Standalone from './Standalone';
 
 export default {
   title: 'Search/PublisherSearch',
@@ -91,3 +92,5 @@ export const Example = () => <Router initialEntries={[`/publisher/search`]}>
 Example.story = {
   name: 'Publisher search',
 };
+
+export const StandaloneExample = () => <Standalone style={{height: 'calc(100vh - 40px)'}}></Standalone>;

@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import { discreetLink } from '../../style/shared';
 // import { focusStyle } from '../../style/shared';
 
 export const iconFeature = ({...props}) => css`
@@ -30,6 +31,9 @@ export const countFeature = ({...props}) => css`
   >span:nth-of-type(2), >div {
     margin: 0 0.5em;
   }
+  a {
+    ${discreetLink};
+  }
 `;
 
 export const iconFeatures = ({...props}) => css`
@@ -42,3 +46,4 @@ export const iconFeatures = ({...props}) => css`
     margin: .25em 1em;
   }
 `;
+

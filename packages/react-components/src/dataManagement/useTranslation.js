@@ -34,8 +34,8 @@ function useTranslation({ locale }) {
       .promise
       .then(mappingResponse => {
         const localeMapping = mappingResponse.data;
-        setLocaleMap(localeMapping[locale].localeMap);
-        const messagesUrl = localeMapping[locale].messages;
+        setLocaleMap(localeMapping[locale]?.localeMap);
+        const messagesUrl = localeMapping[locale]?.messages;
         if (messagesUrl) {
           const { promise: localePromise, cancel } = axios.get(messagesUrl);
           // functions cannot be direct values in states as function are taken as a way to create derived states

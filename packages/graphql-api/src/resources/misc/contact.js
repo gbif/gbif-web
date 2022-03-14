@@ -2,7 +2,7 @@ const { gql } = require('apollo-server');
 
 const typeDef = gql`
   type Contact {
-    key: ID!
+    key: ID
     address: [String]!
     city: String
     country: Country

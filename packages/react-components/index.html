@@ -17,9 +17,22 @@
         font-family: Open Sans, Helvetica, Sans;
         background: #ddd;
       }
+      .myheader {
+        background: white;
+        border-bottom: 1px solid #bbb;
+        color: #333;
+        font-size: 24px;
+        position: fixed;
+        width: 100%;
+        top: 0;
+      }
+      #root {
+        margin-top: 30px;
+      }
     </style>
   </head>
   <body>
+    <!-- <header class="myheader">Header</header> -->
     <div id="root"></div>
     <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
@@ -71,19 +84,64 @@
       //   document.getElementById('root')
       // );
 
+      // ReactDOM.render(
+      //   React.createElement(
+      //     gbifReactComponents.OccurrenceSearch,
+      //     {
+      //       config: {
+      //         availableCatalogues: ['OCCURRENCE', 'LITERATURE', 'COLLECTION']
+      //       }, style: { height: 'calc(100vh - 20px)' },
+      //       locale: 'en',
+      //       // messages: messages
+      //     }
+      //   ),
+      //   document.getElementById('root')
+      // );
+
       ReactDOM.render(
         React.createElement(
-          gbifReactComponents.OccurrenceSearch,
-          {
-            config: {
-              availableCatalogues: ['OCCURRENCE', 'LITERATURE', 'COLLECTION']
-            }, style: { height: 'calc(100vh - 20px)' },
-            locale: 'en',
-            // messages: messages
+          gbifReactComponents.DatasetSearch,
+          { 
+            style: { height: 'calc(100vh - 4.25rem)' }, 
+            id: 'ca0d8107-a2bd-47a1-91a1-250179b534ec',
+            siteConfig: {
+              routes: {
+                datasetSearch: {
+                  url: ({query, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/dataset/search`,
+                  isHref: true,
+                  route: '/'
+                }
+              },
+              dataset: {
+                availableCatalogues: ['OCCURRENCE', 'LITERATURE', 'COLLECTION']
+              }
+            }
           }
         ),
         document.getElementById('root')
       );
+
+
+      // ReactDOM.render(
+      //   React.createElement(
+      //     gbifReactComponents.Dataset,
+      //     { 
+      //       style: { height: 'calc(100vh - 4.25rem);' }, 
+      //       id: 'ca0d8107-a2bd-47a1-91a1-250179b534ec',
+      //       siteConfig: {
+      //         routes: {
+      //           datasetKey: {
+      //             url: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/dataset/${key}`,
+      //             isHref: true,
+      //             route: '/'
+      //           }
+      //         }
+      //       }
+      //     }
+      //   ),
+      //   document.getElementById('root')
+      // );
+
     </script>
   </body>
 </html>

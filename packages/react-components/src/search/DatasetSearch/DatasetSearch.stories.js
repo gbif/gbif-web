@@ -78,7 +78,7 @@ const filters = {
 
 
 // const config = { labels, getSuggests, filters, rootFilter: {endorsingNodeKey: '4f829580-180d-46a9-9c87-ed8ec959b545'} };
-const config = { labels, getSuggests, filters };
+const config = { labels, getSuggests, filters, availableCatalogues: ['DATASET', 'OCCURRENCE'] };
 
 export const Example = () => <Router initialEntries={[`/dataset/search`]}>
   <QueryParamProvider ReactRouterRoute={Route}>
@@ -92,4 +92,14 @@ Example.story = {
   name: 'Dataset search',
 };
 
-export const StandaloneExample = () => <Standalone style={{height: 'calc(100vh - 20px)'}}></Standalone>;
+export const StandaloneExample = () => <Standalone siteConfig={{
+  routes: {
+    datasetSearch: {
+      route: '/',
+      url: ({key}) => `https://www.gbif.org/dataset/${key}`
+    }
+  },
+  dataset: {
+    availableCatalogues: ['DATASET', 'OCCURRENCE', 'LITERATURE', 'COLLECTION']
+  }
+}} style={{ height: 'calc(100vh - 20px)' }}></Standalone>;

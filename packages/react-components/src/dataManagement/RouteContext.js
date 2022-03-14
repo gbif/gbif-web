@@ -3,7 +3,7 @@ const gbifOrg = 'https://www.gbif.org';
 
 export const defaultContext = {
   occurrenceSearch: {
-    url: ({queryString, basename}) => `${basename ? `/${basename}` : ''}/occurrence/search${queryString ? `?${queryString}` : ''}`,
+    url: ({route, queryString, basename}) => `${basename ? `/${basename}` : ''}${route}${queryString ? `?${queryString}` : ''}`,
     route: '/occurrence/search',
     isHref: true,
   },

@@ -1,18 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 import StandaloneWrapper from '../../StandaloneWrapper';
 import { Switch, Route } from 'react-router-dom';
 import DatasetSearch from "./DatasetSearch";
+import RouteContext from '../../dataManagement/RouteContext';
 
-function Standalone(props) {
-  const path = window.location.pathname;
-  return <StandaloneWrapper {...props}>
-    <Switch>
-      <Route
-        path={path}
-        render={routeProps => <DatasetSearch pageLayout {...props} />}
-      />
-    </Switch>
+function Wrap({ siteConfig, ...props }) {
+  return <StandaloneWrapper siteConfig={siteConfig}>
+    <Standalone {...props} siteConfig={siteConfig}/>
   </StandaloneWrapper>
 }
 
-export default Standalone;
+function Standalone(props) {
+  const routeContext = useContext(RouteContext);
+  const path = routeContext.datasetSearch.route;
+  return <Switch>
+    <Route
+      path={path}
+      render={routeProps => <DatasetSearch pageLayout config={props?.siteConfig?.dataset} {...props} {...routeProps} />}
+    />
+  </Switch>
+}
+
+export default Wrap;

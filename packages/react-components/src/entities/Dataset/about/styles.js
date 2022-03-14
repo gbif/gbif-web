@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 
 export const paper = ({ ...props }) => css`
   background: white;
-  padding: 24px;
+  padding: 24px 48px;
   margin: 12px 0;
 `;
 
@@ -62,5 +62,77 @@ export const navItem = ({ ...props }) => css`
   &.isActive {
     background: #e0e7ee;
     font-weight: 500;
+  }
+`;
+
+export const area = css`
+  background: white;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  margin-right: 12px;
+`;
+
+export const testcard = css`
+  padding: 12px;
+  display: flex;
+  /* box-shadow: 0 2px 3px 3px rgba(0,0,0,.02); */
+  /* background: white;
+  margin-bottom: 8px;
+  border-radius: 4px; */
+`;
+
+export const testicon = css`
+  flex: 0 0 auto;
+  div {
+    padding: 8px 0;
+    text-align: center;
+    background: #1ea7fd;
+    color: white;
+    font-weight: 900;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    padding: 0;
+    text-align: center;
+    padding-top: 2px;
+  }
+`;
+
+export const progress = css`
+  height: 4px;
+  border-radius: 2px;
+  background: #ddd;
+  > div {
+    background: #1ea7fd;
+    height: 4px;
+    border-radius: 2px;
+  }
+  margin-bottom: 12px;
+`;
+
+export const testcardWrapper = css`
+  img {
+    width: 100%;
+    border-radius: 4px 4px 0 0;
+  }
+`;
+
+export const testcontent = css`
+  padding-left: 12px;
+  flex: 1 1 auto;
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  h5 {
+    font-size: 13px;
+    margin: 0;
+  }
+  p {
+    font-size: 13px;
+    color: #888;
+    margin: 0;
+    margin-top: 8px;
   }
 `;

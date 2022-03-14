@@ -1,3 +1,16 @@
+const createDOMPurify = require('dompurify');
+const { JSDOM } = require('jsdom');
+const window = new JSDOM('').window;
+const DOMPurify = createDOMPurify(window);
+
+const md = require('markdown-it')({
+  html: true, 
+  linkify: false, 
+  typographer: false, 
+  breaks: true
+});
+md.linkify.tlds(['org', 'com'], false);
+
 function formattedCoordinates({lat, lon}) {
   if (typeof lat !== 'number' || typeof lon !== 'number') return;
   
@@ -25,7 +38,20 @@ function isOccurrenceSequenced({occurrence, verbatim}) {
   return false;
 }
 
+function getHtml(value, {allowedTags = ['a', 'p', 'i', 'br', 'ul', 'ol', 'li'], inline } = {}) {
+  let options = {};
+  if (allowedTags) options.ALLOWED_TAGS = allowedTags;
+  if (typeof value === 'string' || typeof value === 'number') {
+    const dirty = inline ? md.renderInline('' + value) : md.render('' + value);
+    const clean = DOMPurify.sanitize(dirty, options);
+    return clean;
+  } else {
+    return null;
+  }
+}
+
 module.exports = {
   formattedCoordinates,
-  isOccurrenceSequenced
+  isOccurrenceSequenced,
+  getHtml
 }

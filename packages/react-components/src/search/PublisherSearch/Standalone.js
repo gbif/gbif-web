@@ -1,18 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 import StandaloneWrapper from '../../StandaloneWrapper';
 import { Switch, Route } from 'react-router-dom';
-import PublisherSearch from "./PublisherSearch";
+import PublisherSearch from './PublisherSearch';
+import RouteContext from '../../dataManagement/RouteContext';
 
-function Standalone(props) {
-  const path = window.location.pathname;
-  return <StandaloneWrapper {...props}>
-    <Switch>
-      <Route
-        path={path}
-        render={routeProps => <PublisherSearch pageLayout {...props} />}
-      />
-    </Switch>
+function Wrap({ siteConfig, ...props }) {
+  return <StandaloneWrapper siteConfig={siteConfig}>
+    <Standalone {...props} siteConfig={siteConfig}/>
   </StandaloneWrapper>
 }
 
-export default Standalone;
+function Standalone(props) {
+  const routeContext = useContext(RouteContext);
+  const path = routeContext.publisherSearch.route;
+  return <Switch>
+    <Route
+      path={path}
+      render={routeProps => <PublisherSearch pageLayout config={props?.siteConfig?.publisher} {...props} {...routeProps} />}
+    />
+  </Switch>
+}
+
+export default Wrap;
