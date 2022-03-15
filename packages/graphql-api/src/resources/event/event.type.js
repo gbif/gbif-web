@@ -289,6 +289,8 @@ const typeDef = gql`
     institution: Institution
     collection: Collection
     bionomia: BionomiaOccurrence
+
+    occurrenceCount: Float
   }
 
   type BionomiaOccurrence {

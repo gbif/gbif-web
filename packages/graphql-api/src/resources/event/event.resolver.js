@@ -91,6 +91,14 @@ module.exports = {
       // extract primary image. for now just any image
       return { lat: decimalLatitude, lon: decimalLongitude };
     },
+    occurrenceCount: ({ eventID }, args, { dataSources }) => {
+      if (typeof eventID === 'undefined') return null;
+      return dataSources.occurrenceAPI
+        .searchOccurrenceDocuments(
+          { query: { predicate: { type: 'equals', key: 'eventId', value: eventID } } }
+        )
+        .then(response => response.total);
+    },
     primaryImage: ({ media }) => {
       if (!Array.isArray(media)) return null;
       // extract primary image. for now just any image

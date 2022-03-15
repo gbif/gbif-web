@@ -347,6 +347,7 @@ export const commonFilters = {
         },
       },
       specific: {
+        supportsExist: true,
         placeholder: 'Units of sample size',
         disallowLikeFilters: true,
         query: `
@@ -452,6 +453,7 @@ export const commonFilters = {
         }
       },
       specific: {
+        supportsExist: true,
         placeholder: 'search.placeholders.range',
         regex: /^((-)?[0-9]{0,4})(,)?((-)?[0-9]{0,4})$/
       }
@@ -845,6 +847,40 @@ export const commonFilters = {
         query: `
           query keywordSearch($predicate: Predicate, $size: Int){
             occurrenceSearch(predicate: $predicate) {
+              cardinality {
+                samplingProtocol
+              }
+              facet {
+                samplingProtocol(size: $size) {
+                  key
+                  count
+                }
+              }
+            }
+          }
+        `,
+        queryKey: 'samplingProtocol'
+      }
+    }
+  },
+  eventSamplingProtocol: {
+    type: 'KEYWORD_SEARCH',
+    config: {
+      std: {
+        filterHandle: 'samplingProtocol',
+        id2labelHandle: 'samplingProtocol',
+        translations: {
+          count: 'filters.samplingProtocol.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.samplingProtocol.name',// translation path to a title for the popover and the button
+          description: 'filters.samplingProtocol.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        supportsExist: true,
+        placeholder: 'Search by sampling protocol',
+        query: `
+          query keywordSearch($predicate: Predicate, $size: Int){
+            eventSearch(predicate: $predicate) {
               cardinality {
                 samplingProtocol
               }

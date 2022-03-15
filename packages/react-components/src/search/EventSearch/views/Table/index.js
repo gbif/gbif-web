@@ -24,6 +24,7 @@ query list($predicate: Predicate, $size: Int = 20, $from: Int = 0){
         eventDate
         decimalLatitude
         decimalLongitude
+        occurrenceCount
       }
     }
   }
@@ -47,8 +48,7 @@ const defaultTableConfig = {
       trKey: 'filters.parentEventId.name',
       filterKey: 'parentEventId',
       value: {
-        key: 'parentEventID',
-        formatter: (value, item) => <ResourceLink type='eventKey' discreet id={item.parentEventID} otherIds={{datasetKey: item.datasetKey}}>{item.parentEventID}</ResourceLink>,
+        key: 'parentEventID'
       }
     },
     {
@@ -90,8 +90,17 @@ const defaultTableConfig = {
       }
     },
     {
+      trKey: 'tableHeaders.occurrences',
+      value: {
+        key: 'occurrenceCount',
+        formatter: (value, item) => <FormattedNumber value={value} />,
+        hideFalsy: true,
+        rightAlign: true
+      }
+    },
+    {
       trKey: 'filters.samplingProtocol.name',
-      filterKey: 'samplingProtocol',
+      filterKey: 'eventSamplingProtocol',
       value: {
         key: 'samplingProtocol',
         hideFalsy: true

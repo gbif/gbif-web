@@ -31,7 +31,7 @@ export const filters = [
   'stateProvince',
   'eventId',
   'parentEventId',
-  'samplingProtocol',
+  'eventSamplingProtocol',
   'elevation',
   'gadmGid',
   'identifiedBy',
@@ -42,7 +42,7 @@ export const filters = [
 const highlighted = [
   'eventId',
   'parentEventId',
-  'samplingProtocol',
+  'eventSamplingProtocol',
   'year',
   'country',
 ];
