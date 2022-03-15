@@ -809,6 +809,24 @@ export const commonFilters = {
       }
     }
   },
+  parentEventId: {
+    type: 'SIMPLE_TEXT',
+    config: {
+      std: {
+        filterHandle: 'parentEventId',
+        id2labelHandle: 'parentEventId',
+        translations: {
+          count: 'filters.parentEventId.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.parentEventId.name',// translation path to a title for the popover and the button
+          description: 'filters.parentEventId.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        placeholder: 'Search by parent event identifier',
+        supportsExist: true
+      }
+    }
+  },
   samplingProtocol: {
     type: 'KEYWORD_SEARCH',
     config: {
@@ -822,6 +840,7 @@ export const commonFilters = {
         },
       },
       specific: {
+        supportsExist: true,
         placeholder: 'Search by sampling protocol',
         query: `
           query keywordSearch($predicate: Predicate, $size: Int){

@@ -6,6 +6,7 @@ const config = require('./config');
 const literature = require('./resources/literature');
 const occurrence = require('./resources/occurrence');
 const dataset = require('./resources/dataset');
+const event = require('./resources/event');
 const { asyncMiddleware, ResponseError, errorHandler, unknownRouteHandler } = require('./resources/errorHandler');
 
 const app = express();
@@ -63,6 +64,10 @@ app.get('/occurrence/suggest/:key', asyncMiddleware(suggestResource(occurrence))
 app.post('/dataset', asyncMiddleware(searchResource(dataset)));
 app.get('/dataset', asyncMiddleware(searchResource(dataset)));
 app.get('/dataset/key/:id', asyncMiddleware(keyResource(dataset)));
+
+app.post('/event', asyncMiddleware(searchResource(event)));
+app.get('/event', asyncMiddleware(searchResource(event)));
+app.get('/event/key/:id', asyncMiddleware(keyResource(event)));
 
 function searchResource(resource) {
   const { dataSource, get2predicate, predicate2query, get2metric, metric2aggs } = resource;

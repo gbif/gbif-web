@@ -45,6 +45,7 @@ async function getSchema() {
     require('./resources/external/person').typeDef,
     require('./resources/literature').typeDef,
     require('./resources/download').typeDef,
+    require('./resources/event').typeDef,
 // -- Add imports above this line (required by plopfile.js) --
   ]);
 

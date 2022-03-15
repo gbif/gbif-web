@@ -210,6 +210,11 @@
     "count": "{num, plural, one { event id } other {# event ids}}",
     "description": "The unique identifier for the Event in the record."
   },
+  "parentEventId": {
+    "name": "Parent event id",
+    "count": "{num, plural, one { parent event } other {# parent events}}",
+    "description": "The unique identifier for the Parent Event in the record."
+  },
   "samplingProtocol": {
     "name": "Sampling protocol",
     "count": "{num, plural, one { Sampling protocol } other {# Sampling protocols}}",

@@ -19,6 +19,7 @@ const resolvers = _.merge(
   require('./resources/external/person').resolver,
   require('./resources/literature').resolver,
   require('./resources/download').resolver,
+  require('./resources/event').resolver,
 // -- Add imports above this line (required by plopfile.js) --
 );
 
