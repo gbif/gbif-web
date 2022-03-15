@@ -19,6 +19,7 @@ const { Term: T, Value: V } = Properties;
 
 export function About({
   data = {},
+  insights,
   loading,
   error,
   tocState,
@@ -34,6 +35,21 @@ export function About({
   // collect all refs to headlines for the TOC, e.g. ref={node => { tocRefs["description"] = node; }}
   //let tocRefs = {};
 
+  const isGridded = (dataset?.machineTags || []).find(m => m.namespace === 'griddedDataSet.jwaller.gbif.org');
+  const hasDna = (insights?.data?.unfiltered?.facet?.dwcaExtension || []).find(ext => ext.key === 'http://rs.gbif.org/terms/1.0/DNADerivedData');
+  
+  const withCoordinates = insights?.data?.withCoordinates?.documents?.total;
+  const withYear = insights?.data?.withYear?.documents?.total;
+  const withTaxonMatch = occurrenceSearch?.documents?.total - insights?.data?.withTaxonMatch?.documents?.total;
+
+  const total = occurrenceSearch?.documents?.total;
+  const withCoordinatesPercentage = asPercentage( withCoordinates / total)
+  const withYearPercentage = asPercentage( withYear / total)
+  const withTaxonMatchPercentage = asPercentage( withTaxonMatch / total)
+
+  const withEventId = insights?.data?.unfiltered?.cardinality?.eventId;
+  const labelAsEventDataset = dataset.type === 'SAMPLING_EVENT_DATASET' || withEventId > 1 && withEventId/total < 0.95;
+
   return <>
     <div css={css.withSideBar({ theme })}>
       <div css={css.sideBar({ theme })}>
@@ -47,9 +63,9 @@ export function About({
           <h2 ref={node => { tocRefs["description"] = node; }}>Description</h2>
           <HyperText text={dataset.description} />
         </Prose>}
-        <div>
-          <img style={{ width: '100%' }} src="https://www.artsobservasjoner.no/MediaLibrary/2022/2/732fc9f7-ac78-49cb-9241-7aa5d8106ae7_image.jpg" />
-        </div>
+        {insights?.data?.images?.documents?.total > 0 && <div>
+          <img style={{ width: '100%' }} src={insights?.data?.images?.documents.results[0].stillImages[0].identifier} />
+        </div>}
         {dataset.purpose && <Prose css={css.paper({ theme })}>
           <h2 ref={node => { tocRefs["purpose"] = node; }}>Purpose</h2>
           <HyperText text={dataset.purpose} />
@@ -119,17 +135,20 @@ export function About({
               <div css={css.testcard}>
                 <div css={css.testcontent}>
                   <h5><FormattedNumber value={occurrenceSearch?.documents?.total} /> occurrences</h5>
-                  <p>85% with coordinates</p>
-                  <div css={css.progress}><div style={{ width: '85%' }}></div></div>
-                  <p>32% with year</p>
-                  <div css={css.progress}><div style={{ width: '32%' }}></div></div>
-                  <p>90% with taxon match</p>
-                  <div css={css.progress}><div style={{ width: '90%' }}></div></div>
+
+                  <p>{withCoordinatesPercentage}% with coordinates</p>
+                  <div css={css.progress}><div style={{ width: `${withCoordinatesPercentage}%` }}></div></div>
+
+                  <p>{withYearPercentage}% with year</p>
+                  <div css={css.progress}><div style={{ width: `${withYearPercentage}%` }}></div></div>
+
+                  <p>{withTaxonMatchPercentage}% with taxon match</p>
+                  <div css={css.progress}><div style={{ width: `${withTaxonMatchPercentage}%` }}></div></div>
                 </div>
               </div>
             </div>
 
-            <div css={css.testcard}>
+            {hasDna && <div css={css.testcard}>
               <div css={css.testicon}>
                 <div><GiDna1 /></div>
               </div>
@@ -137,9 +156,9 @@ export function About({
                 <h5>Includes DNA</h5>
                 <p>Lorem ipsum sfhkjh sfhlksduf bksk sdkh sdfg </p>
               </div>
-            </div>
+            </div>}
 
-            <div css={css.testcard}>
+            {/* <div css={css.testcard}>
               <div css={css.testicon}>
                 <div><MdLockClock /></div>
               </div>
@@ -147,9 +166,9 @@ export function About({
                 <h5>History of stable IDs</h5>
                 <p>Lorem ipsum sfhkjh sfhlksduf bksk sdkh sdfg </p>
               </div>
-            </div>
+            </div> */}
 
-            <div css={css.testcard}>
+            {labelAsEventDataset && <div css={css.testcard}>
               <div css={css.testicon}>
                 <div><MdGridOn /></div>
               </div>
@@ -157,9 +176,9 @@ export function About({
                 <h5>Contains sampling events</h5>
                 <p>Lorem ipsum sfhkjh sfhlksduf bksk sdkh sdfg </p>
               </div>
-            </div>
+            </div>}
 
-            <div css={css.testcard}>
+            {/* <div css={css.testcard}>
               <div css={css.testicon}>
                 <div><MdPhotoLibrary /></div>
               </div>
@@ -167,9 +186,9 @@ export function About({
                 <h5>80% has images</h5>
                 <p>Lorem ipsum sfhkjh sfhlksduf bksk sdkh sdfg </p>
               </div>
-            </div>
+            </div> */}
 
-            <div css={css.testcard}>
+            {isGridded && <div css={css.testcard}>
               <div css={css.testicon}>
                 <div><MdGridOn /></div>
               </div>
@@ -177,7 +196,7 @@ export function About({
                 <h5>Gridded data</h5>
                 <p>Lorem ipsum sfhkjh sfhlksduf bksk sdkh sdfg </p>
               </div>
-            </div>
+            </div>}
           </div>
         </div>
       </div>
@@ -186,3 +205,33 @@ export function About({
 };
 
 
+function asPercentage(fraction, max = 100) {
+  var formatedPercentage = 0;
+  if (!isFinite(fraction)) {
+    return fraction;
+  }
+  fraction = 100 * fraction;
+  if (fraction > 101) {
+    formatedPercentage = fraction.toFixed();
+  } else if (fraction > 100.1) {
+    formatedPercentage = fraction.toFixed(1);
+  } else if (fraction > 100) {
+    formatedPercentage = 100.1;
+  } else if (fraction == 100) {
+    formatedPercentage = 100;
+  } else if (fraction >= 99.9) {
+    formatedPercentage = 99.9;
+  } else if (fraction > 99) {
+    formatedPercentage = fraction.toFixed(1);
+  } else if (fraction >= 1) {
+    formatedPercentage = fraction.toFixed();
+  } else if (fraction >= 0.01) {
+    formatedPercentage = fraction.toFixed(2);
+  } else if (fraction < 0.01 && fraction != 0) {
+    formatedPercentage = 0.01;
+  }
+  if (formatedPercentage > max) {
+    formatedPercentage = max;
+  }
+  return formatedPercentage;
+}

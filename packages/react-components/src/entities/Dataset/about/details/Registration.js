@@ -14,7 +14,7 @@ export function Registration({
   const urlEndpoints = endpoints.filter(x => x.url);
   const visibleIdentifiers = identifiers.filter(x => ['DOI', 'URL', 'LSID', 'FTP', 'UNKNOWN'].indexOf(x.type) > -1);
 
-  const orphanMachineTag = machineTags.find(machineTag =>  namespace === 'orphans.gbif.org' && name === 'status');
+  const orphanMachineTag = machineTags.find(machineTag =>  machineTag.namespace === 'orphans.gbif.org' && name === 'status');
   const hostingStatus = orphanMachineTag ? orphanMachineTag.value : undefined;
 
   return <div style={{ paddingBottom: 12, marginBottom: 12 }}>

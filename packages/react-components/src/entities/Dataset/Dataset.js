@@ -24,6 +24,7 @@ export function Dataset({
   ...props
 }) {
   const { data, error, loading, load } = useQuery(DATASET, { lazyLoad: true });
+  const { data: insights, error: insightsError, loading: insightsLoading, load: loadInsights } = useQuery(DATASET_SECONDARY, { lazyLoad: true });
   const theme = useContext(ThemeContext);
   const siteContext = useContext(SiteContext);
   const sitePredicate = siteContext?.occurrence?.rootPredicate;
@@ -48,13 +49,90 @@ export function Dataset({
           }
         }
       });
+      loadInsights({
+        variables: {
+          key: id,
+          datasetPredicate,
+          imagePredicate: {
+            type: 'and',
+            predicates: [datasetPredicate, {type: 'equals', key: 'mediaType', value: 'StillImage'}]
+          },
+          coordinatePredicate: {
+            type: 'and',
+            predicates: [
+              datasetPredicate, 
+              {type: 'equals', key: 'hasCoordinate', value: 'true'},
+              {type: 'equals', key: 'hasGeospatialIssue', value: 'false'}
+            ]
+          },
+          taxonPredicate: {
+            type: 'and',
+            predicates: [datasetPredicate, {type: 'equals', key: 'issue', value: 'TAXON_MATCH_NONE'}]
+          },
+          yearPredicate: {
+            type: 'and',
+            predicates: [datasetPredicate, {type: 'isNotNull', key: 'year'}]
+          },
+          eventPredicate: {
+            type: 'and',
+            predicates: [datasetPredicate, {type: 'isNotNull', key: 'eventId'}]
+          }
+        }
+      });
     }
   }, [id]);
 
   return <EnsureRouter>
-    <DatasetPresentation {...{ data, error, loading: loading || !data, id }} />
+    <DatasetPresentation {...{ data, error, loading: loading || !data, id }} insights={{data: insights, loading: insightsLoading, error: insightsError}} />
   </EnsureRouter>
 };
+
+const DATASET_SECONDARY = `
+query ($datasetPredicate: Predicate, $imagePredicate: Predicate, $coordinatePredicate: Predicate, $taxonPredicate: Predicate, $yearPredicate: Predicate, $eventPredicate: Predicate){
+  unfiltered: occurrenceSearch(predicate: $datasetPredicate) {
+    cardinality {
+      eventId
+    }
+    facet {
+      dwcaExtension {
+        key
+        count
+      }
+    }
+  }
+  images: occurrenceSearch(predicate: $imagePredicate) {
+    documents(size: 10) {
+      total
+      results {
+        key
+        stillImages {
+          identifier
+        }
+      }
+    }
+  }
+  withCoordinates: occurrenceSearch(predicate: $coordinatePredicate) {
+    documents(size: 10) {
+      total
+    }
+  }
+  withTaxonMatch: occurrenceSearch(predicate: $taxonPredicate) {
+    documents(size: 10) {
+      total
+    }
+  }
+  withYear: occurrenceSearch(predicate: $yearPredicate) {
+    documents(size: 10) {
+      total
+    }
+  }
+  withEventId: occurrenceSearch(predicate: $eventPredicate) {
+    documents(size: 10) {
+      total
+    }
+  }
+}
+`;
 
 const DATASET = `
 query dataset($key: ID!, $predicate: Predicate, $sitePredicate: Predicate){
@@ -201,6 +279,9 @@ query dataset($key: ID!, $predicate: Predicate, $sitePredicate: Predicate){
       identifier
     }
     doi
+    machineTags {
+      namespace
+    }
   }
 }
 `;

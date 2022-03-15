@@ -33,9 +33,8 @@ export function Header({
       </div>
       {data?.dataset?.contactsCitation && getDatasetAuthors(data.dataset, theme)}
     </Col>
-    { <Col>
-    {data?.dataset?.logoUrl &&<Logo url={data.dataset.logoUrl} />}
-    
+    {data?.dataset?.logoUrl && <Col>
+      <Logo url={data.dataset.logoUrl} />
     </Col>}
   </Row>
   <Row>

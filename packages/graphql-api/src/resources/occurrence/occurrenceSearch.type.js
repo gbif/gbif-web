@@ -61,6 +61,7 @@ const typeDef = gql`
     samplingProtocol: Int!
     sampleSizeUnit: Int!
     verbatimScientificName: Int!
+    eventId: Int!
   }
 
   type OccurrenceFacet {
@@ -73,6 +74,7 @@ const typeDef = gql`
     continent(size: Int): [OccurrenceFacetResult_string]
     countryCode(size: Int): [OccurrenceFacetResult_string]
     datasetPublishingCountry(size: Int): [OccurrenceFacetResult_string]
+    dwcaExtension(size: Int): [OccurrenceFacetResult_string]
     establishmentMeans(size: Int): [OccurrenceFacetResult_string]
     eventId(size: Int): [OccurrenceFacetResult_string]
     id(size: Int): [OccurrenceFacetResult_string]

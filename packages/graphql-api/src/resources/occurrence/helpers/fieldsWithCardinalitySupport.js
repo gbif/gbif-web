@@ -10,4 +10,5 @@ module.exports = [
   'samplingProtocol',
   'sampleSizeUnit',
   'verbatimScientificName',
+  'eventId',
 ];

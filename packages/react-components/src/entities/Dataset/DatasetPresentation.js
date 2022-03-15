@@ -22,6 +22,7 @@ const { TabList, RouterTab } = Tabs;
 export function DatasetPresentation({
   id,
   data,
+  insights,
   error,
   loading,
   ...props
@@ -56,9 +57,9 @@ export function DatasetPresentation({
     <div css={css.headerWrapper({ theme })}>
       <div css={css.proseWrapper({ theme })}>
         <div css={css.headerFlex}>
-          <div css={css.headerLogo}>
+          {dataset.logoUrl && <div css={css.headerLogo}>
             <img src={dataset.logoUrl} />
-          </div>
+          </div>}
           <div css={css.headerContent}>
             <Eyebrow prefix={<FormattedMessage id={`dataset.longType.${dataset.type}`} />} suffix={<FormattedMessage id="dataset.registeredDate" values={{ DATE: <FormattedDate value={dataset.created} year="numeric" month="long" day="2-digit" /> }} />} />
             <h1>{dataset.title}</h1>
@@ -167,7 +168,7 @@ export function DatasetPresentation({
         </Route>
         <Route path={path}>
           <div css={css.proseWrapper({ theme })}>
-            <About {...{ data }} />
+            <About {...{ data }} insights={insights}/>
           </div>
         </Route>
       </Switch>
