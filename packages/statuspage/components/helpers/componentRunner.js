@@ -8,7 +8,7 @@
  */
 const _ = require('lodash');
 const { getSummaryState, severity } = require('./severity');
-const { testRunner } = require('./testRunner');
+// const { testRunner } = require('./testRunner');
 const config = require('../../config');
 
 function componentRunner(tests = [], config = {}) {
