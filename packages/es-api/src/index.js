@@ -107,7 +107,6 @@ function parseQuery(req, res, next, { get2predicate, get2metric }) {
     // then merge body (from POST or GET) with the url params giving preference to the body
     const query = {...getQuery, ...body};
 
-    console.log(body);
     const { 
       predicate: jsonPredicate, 
       metrics: jsonMetrics, 
@@ -135,7 +134,6 @@ function parseQuery(req, res, next, { get2predicate, get2metric }) {
     const intSize = parseInt(size);
     const intFrom = parseInt(from);
     const result = { metrics, predicate, size: intSize, from: intFrom, includeMeta };
-    console.log(JSON.stringify(result, null, 2));
     return result;
   } catch (err) {
     next(err);
