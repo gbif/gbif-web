@@ -26,12 +26,12 @@ const key = testRunner({
 });
 
 const logs = testRunner({
-  endpoint: `${config.PRIVATE_KIBANA}/elasticsearch/${varnishIndexName}/_search?q=response:>499%20AND%20request:("//api.gbif.org/v1/occurrence/search*")%20AND%20@timestamp:>{{SECONDS_AGO}}`,
+  endpoint: `${config.PRIVATE_KIBANA}/${varnishIndexName}/_search?q=response:>499%20AND%20request:("//api.gbif.org/v1/occurrence/search*")%20AND%20@timestamp:>{{SECONDS_AGO}}`,
   timeoutMilliSeconds: 300,
   secondsAgo: 5*60,
   expect: response => response
     .hasStatusCode(200, severity.operational)
-    .hasNumberBelow({path: 'hits.total', threshold: 100}, severity.partial_outage)
+    .hasNumberBelow({path: 'hits.total.value', threshold: 100}, severity.partial_outage)
 });
 
 const tests = [
