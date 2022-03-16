@@ -32,7 +32,7 @@ async function getExpectData({ endpoint, query, timeoutMilliSeconds, secondsAgo=
       response,
       elapsed,
       config: {
-        endpoint, timeoutMilliSeconds, start
+        endpoint, timeoutMilliSeconds, start, url
       }
     }
   } catch (error) {
@@ -41,7 +41,7 @@ async function getExpectData({ endpoint, query, timeoutMilliSeconds, secondsAgo=
       error,
       elapsed,
       config: {
-        endpoint, timeoutMilliSeconds, start
+        endpoint, timeoutMilliSeconds, start, url
       }
     }
   }

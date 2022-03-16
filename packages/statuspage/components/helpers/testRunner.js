@@ -29,6 +29,12 @@ function testRunner(config) {
       //check for errors in result
       const hasError = severityMap[result.severity] > severityMap.operational;
       if (hasError) failures++; //if there is an error, then increase counter
+
+      // for debugging in this initial phase to dianogse if we report errors at the appropriate times
+      if (hasError) {
+        console.warn(response);
+      }
+
       // suppress initial errors
       if (!hasError || failures > failureThreshold) {
         failures = 0;

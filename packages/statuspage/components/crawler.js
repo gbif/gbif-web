@@ -1,15 +1,14 @@
 
 const { severity, testRunner, componentRunner } = require('./helpers');
 const config = require('../config');
-const crawlHostName = 'prodcrawler1-vh.gbif.org';
 const publicCrawlIndexName = 'prod-crawl-*';
 
 const logs = testRunner({
-  endpoint: `${config.PUBLIC_KIBANA}/elasticsearch/_search?q=HOSTNAME:"${crawlHostName}"%20AND%20service:"crawler-coordinator-cleanup"%20AND%20@timestamp:%3E{{SECONDS_AGO}}&index=${publicCrawlIndexName}`,
+  endpoint: `${config.PUBLIC_KIBANA}/_search?q=class:crawl%20AND%20@timestamp:%3E{{SECONDS_AGO}}&index=${publicCrawlIndexName}`,
   secondsAgo: 180,
   expect: response => response
     .hasStatusCode(200, severity.operational)
-    .hasNumberAbove({path: 'hits.total', threshold: 0}, severity.major_outage)
+    .hasNumberAbove({path: 'hits.total.value', threshold: 0}, severity.major_outage)
 });
 
 const running = testRunner({

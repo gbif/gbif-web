@@ -6,5 +6,6 @@
   "HUMAN_OBSERVATION": "Menschliche Beobachtung",
   "MACHINE_OBSERVATION": "Maschinelle Beobachtung",
   "MATERIAL_SAMPLE": "Materialprobe",
-  "LITERATURE": "Literatur"
+  "LITERATURE": "Literatur",
+  "OCCURRENCE": "Occurrence"
 }
