@@ -14,6 +14,7 @@ const esUrl = `${config.PRIVATE_KIBANA}/${config.ELK_VARNISH_INDEX}/_search`;
 
 const query = {
   "size": 0,
+  "track_total_hits": true,
   "query": {
       "bool": {
           "filter": [
