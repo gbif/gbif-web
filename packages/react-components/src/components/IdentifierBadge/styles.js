@@ -5,6 +5,14 @@ export const identifierBadge = ({...props}) => css`
   display: inline-block;
   border-radius: 3px;
   font-size: 0.85em;
+  &:hover {
+    color: #333;
+    text-decoration: none;
+    > *:first-child {
+      background: #004d66;
+      border-color: #004d66;
+    }
+  }
   > * {
     padding: 0 5px;
     display: inline-block;
