@@ -1,6 +1,6 @@
 import React from 'react';
 // import { text, boolean, select } from '@storybook/addon-knobs';
-import { IdentifierBadge } from './IdentifierBadge';
+import { IdentifierBadge, Doi } from './IdentifierBadge';
 import readme from './README.md';
 import { StyledProse } from '../typography/StyledProse';
 
@@ -10,9 +10,22 @@ export default {
 };
 
 export const Example = () => <>
-  This component is only a stub
-  <IdentifierBadge style={{fontSize: '12px'}} />
-  {/* <StyledProse source={readme}></StyledProse> */}
+  <IdentifierBadge style={{fontSize: '16px'}}>
+    <span>any</span>
+    <span>thing</span>
+  </IdentifierBadge>
+  <br />
+  <br />
+  <IdentifierBadge as="a" style={{fontSize: '16px'}} href="mailto:somewhere@example.com">
+    <span>mail @</span>
+    <span>link</span>
+  </IdentifierBadge>
+  <br />
+  <br />
+  <Doi id="https://doi.org/10.15468/inygc6" />
+  <br /><br />
+  <Doi id="10.15468/inygc6" />
+  <StyledProse source={readme}></StyledProse>
 </>;
 
 Example.story = {

@@ -134,7 +134,6 @@ function parseQuery(req, res, next, { get2predicate, get2metric }) {
     const intSize = parseInt(size);
     const intFrom = parseInt(from);
     const result = { metrics, predicate, size: intSize, from: intFrom, includeMeta };
-    console.log(JSON.stringify(result, null, 2));
     return result;
   } catch (err) {
     next(err);

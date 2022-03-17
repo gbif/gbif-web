@@ -2,7 +2,7 @@
 Notes for discussion with Tim and Thomas
 
 ## Project structure
-Use node 12.*
+Use node 16.*
 Run in dev (watch) with `npm start`. You will need an .env file with 
 ```
 API_V1=https://api.gbif.org/v1
@@ -134,8 +134,3 @@ Perhaps, because I haven't tried it, but 3 looks frustrating and cumbersome to m
 2 is more appealing, but frustrating having to wrap everything with a {response, error}. If the API was tied to a specific UI, then we could choose to use a wrapper when error handling had known UI consequences, but for a generic API, it would need to be everywhere.
 
 So I guess I prefer 1, even though that doesn't appeal to me either. The errors are not colocated with the item that failed and I have to iterate an array, interpret paths and know custom error enums, to figure out if it is relevant to the component that I'm rendering.
-
-## Improvements
-
-### replace subtypes with a filter on the main search
-instead of having `organization/UUID/hostedDataset` it would be nice to do `dataset/search?hostingOrganizationKey=UUID`. This removed the need to have a seperate type for these results, and it allows searching and faceting on the results.

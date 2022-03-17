@@ -54,8 +54,12 @@ export const headerLogo = css`
 
 export const headerIcons = css`
   padding: 0 6px;
-  > svg {
-    margin: 0 6px;
+  align-items: center;
+  display: flex;
+  > button {
+    padding: 7px;
+    font-size: 18px;
+    color: #555;
   }
 `;
 

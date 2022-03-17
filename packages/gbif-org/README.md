@@ -1,3 +1,3 @@
-# Tecala website
+# GBIF.org website
 
-A small website to test and show the GBIF widgets and search interface
+This project is only a stub. It has so far only been used to test that we could render the react components server side.

@@ -3,5 +3,6 @@
   "loadError": "Konnte nicht geladen werden.",
   "close": "Schließen",
   "citation": "Zitierweise",
-  "citeAs": "Bitte verwenden Sie diese Zitierung in Publikationen"
+  "citeAs": "Bitte verwenden Sie diese Zitierung in Publikationen",
+  "unknownDate": "Unbekanntes Datum"
 }

@@ -7,8 +7,8 @@ const _ = require('lodash');
 const { runMetrics } = require('./runMetrics');
 const config = require('../config');
 const metricID = config.METRIC_OCCURRENCE_SEARCH_API;
-const esUrl = `${config.PRIVATE_KIBANA}/elasticsearch/${config.ELK_VARNISH_INDEX}/_search`;
-const endpointPrefix = 'http://';
+const esUrl = `${config.PRIVATE_KIBANA}/${config.ELK_VARNISH_INDEX}/_search`;
+// const endpointPrefix = 'http://';
 
 const query = {
   "size": 0,
@@ -18,7 +18,7 @@ const query = {
               {
                   "query_string": {
                       "default_field": "request",
-                      "query": `\"${endpointPrefix}${config.API_V1}/occurrence/search\"`
+                      "query": `\"${config.API_V1}/occurrence/search\"`
                   }
               },
               {

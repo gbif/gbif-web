@@ -8,19 +8,20 @@ const { runMetrics } = require('./runMetrics');
 const config = require('../config');
 const metricID = config.METRIC_REQUEST_RATE;
 const intervalInMinutes = 3;
-const endpointPrefix = 'http://';
+// const endpointPrefix = 'http://';
 
-const esUrl = `${config.PRIVATE_KIBANA}/elasticsearch/${config.ELK_VARNISH_INDEX}/_search`;
+const esUrl = `${config.PRIVATE_KIBANA}/${config.ELK_VARNISH_INDEX}/_search`;
 
 const query = {
   "size": 0,
+  "track_total_hits": true,
   "query": {
       "bool": {
           "filter": [
               {
                   "query_string": {
                       "default_field": "request",
-                      "query": `\"${endpointPrefix}${config.API_V1}\" OR \"${endpointPrefix}${config.API_V2}\" OR \"${endpointPrefix}${config.BASEMAP_TILE_API}\"`
+                      "query": `\"${config.API_V1}\" OR \"${config.API_V2}\" OR \"${config.BASEMAP_TILE_API}\"`
                   }
               },
               {
@@ -37,7 +38,7 @@ const query = {
 };
 
 const getValue = body => {
-  const value = _.get(body, 'hits.total');
+  const value = _.get(body, 'hits.total.value');
   if (value) return Math.round(value / (60*intervalInMinutes));// get requests per minute
 };
 

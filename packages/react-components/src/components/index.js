@@ -22,12 +22,11 @@ export { DetailsDrawer } from './DetailsDrawer/DetailsDrawer';
 export { MajorRanks } from './MajorRanks/MajorRanks';
 export { IconFeatures } from './IconFeatures/IconFeatures';
 export { HyperText } from './HyperText/HyperText';
-export { default as Doi } from './Doi/Doi'
 export { Progress } from './Progress/Progress';
 export { Classification } from './Classification/Classification';
 export { Tag, Tags } from './Tag/Tag';
 export { GadmClassification } from './GadmClassification/GadmClassification';
-export { IdentifierBadge } from './IdentifierBadge/IdentifierBadge';
+export { IdentifierBadge, Doi } from './IdentifierBadge';
 export { Eyebrow } from './Eyebrow/Eyebrow';
 export { JazzIcon } from './JazzIcon/JazzIcon';
 export { Prose } from './typography/Prose';
