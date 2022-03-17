@@ -22,9 +22,9 @@ export const Example = () => <>
   </IdentifierBadge>
   <br />
   <br />
-  <Doi link="https://doi.org/10.15468/inygc6" />
+  <Doi id="https://doi.org/10.15468/inygc6" />
   <br /><br />
-  <Doi link="10.15468/inygc6" />
+  <Doi id="10.15468/inygc6" />
   <StyledProse source={readme}></StyledProse>
 </>;
 

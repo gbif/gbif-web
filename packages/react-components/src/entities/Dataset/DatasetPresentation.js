@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/react';
 import React, { useContext, useCallback, useState, useEffect } from 'react';
 import ThemeContext from '../../style/themes/ThemeContext';
-import { Tabs, Eyebrow, LicenseTag, DataHeader } from '../../components';
+import { Tabs, Eyebrow, LicenseTag, DataHeader, Doi, Button } from '../../components';
 import OccurrenceSearch from '../../search/OccurrenceSearch/OccurrenceSearch';
 import { iconFeature, countFeature } from '../../components/IconFeatures/styles';
 import { About } from './about/About';
@@ -53,7 +53,15 @@ export function DatasetPresentation({
 
   return <>
     <DataHeader 
-      left={<><MdKeyboardArrowLeft /> Dataset</>} style={{ background: 'white'}} right={<div css={css.headerIcons}><MdFormatQuote /><MdOutlineCode /><MdOutlineHelpOutline /></div>}></DataHeader>
+      left={<><MdKeyboardArrowLeft /> Dataset</>} 
+      style={{ background: 'white'}} 
+      right={<div css={css.headerIcons}>
+        <Doi id={dataset.doi} />
+        <Button type="text"><MdFormatQuote /></Button>
+        <Button type="text"><MdOutlineCode /></Button>
+        <Button type="text"><MdOutlineHelpOutline /></Button>
+      </div>}>
+    </DataHeader>
     <div css={css.headerWrapper({ theme })}>
       <div css={css.proseWrapper({ theme })}>
         <div css={css.headerFlex}>

@@ -16,11 +16,11 @@ export const IdentifierBadge = React.forwardRef(({
   return <Div ref={ref} {...classNames} css={styles.identifierBadge({theme})} {...props} />
 });
 
-export function Doi({link = '', ...props}) {
-  let id = link.replace(/^(.*doi.org\/)?(doi:)?(10\.)/, '10.');
-  return <IdentifierBadge as="a" href={`https://doi.org/${id}`} {...props}>
+export function Doi({id = '', ...props}) {
+  let sanitizedId = id.replace(/^(.*doi.org\/)?(doi:)?(10\.)/, '10.');
+  return <IdentifierBadge as="a" href={`https://doi.org/${sanitizedId}`} {...props}>
     <span>DOI</span>
-    <span>{id}</span>
+    <span>{sanitizedId}</span>
   </IdentifierBadge>
 }
 

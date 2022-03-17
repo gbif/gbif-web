@@ -3,7 +3,7 @@ import { jsx } from '@emotion/react';
 import Autolinker from 'autolinker';
 import DOMPurify from 'dompurify';
 import doiRegex from 'doi-regex';
-import Doi from '../Doi/Doi';
+import { Doi } from '../IdentifierBadge';
 import Orcid from '../Orcid/Orcid';
 import Lsid from '../Lsid/Lsid';
 import BooleanValue from '../BooleanValue/BooleanValue'
@@ -71,7 +71,7 @@ export const HyperText = ({text}) =>  {
     const sanitized = DOMPurify.sanitize(text);
     const doi = getDoi(sanitized);
     if(doi){
-        return <Doi href={doi}/>
+        return <Doi id={doi}/>
     }
     const orcid = getOrcid(sanitized);
     if(orcid){
