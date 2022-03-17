@@ -13,11 +13,16 @@ export const IdentifierBadge = React.forwardRef(({
 }, ref) => {
   const theme = useContext(ThemeContext);
   const { classNames } = getClasses(theme.prefix, 'identifierBadge', {/*modifiers goes here*/}, className);
-  return <Div ref={ref} {...classNames} css={styles.identifierBadge({theme})} {...props}>
-    <span>VIAF</span>
-    <span>12345678</span>
-  </Div>
+  return <Div ref={ref} {...classNames} css={styles.identifierBadge({theme})} {...props} />
 });
+
+export function Doi({link = '', ...props}) {
+  let id = link.replace(/^(.*doi.org\/)?(doi:)?(10\.)/, '10.');
+  return <IdentifierBadge as="a" href={`https://doi.org/${id}`} {...props}>
+    <span>DOI</span>
+    <span>{id}</span>
+  </IdentifierBadge>
+}
 
 IdentifierBadge.propTypes = {
   as: PropTypes.element

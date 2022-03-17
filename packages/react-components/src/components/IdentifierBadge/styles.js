@@ -4,12 +4,27 @@ import { css } from '@emotion/react';
 export const identifierBadge = ({...props}) => css`
   display: inline-block;
   border-radius: 3px;
-  border: 1px solid #00000033;
+  font-size: 0.85em;
   > * {
     padding: 0 5px;
+    display: inline-block;
+    border: 1px solid #dbe3e7;
   }
-  >span:first-child {
-    background: #439eff;
-    color: white;
+  >*:first-child {
+    transition: all .3s ease;
+    background: #09c;
+    padding: 0 4px;
+    border-radius: 5px 0 0 5px;
+    color: #fff;
+    border-right-width: 0;
+    border-color: #09c;
+  }
+  > *:last-child {
+    background: #fff;
+    padding: 0 7px;
+    border-radius: 0 5px 5px 0;
+    border-left-width: 0;
+    color: #333;
+    text-decoration: none;
   }
 `;
