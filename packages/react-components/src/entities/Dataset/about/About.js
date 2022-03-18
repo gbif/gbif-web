@@ -5,11 +5,12 @@ import ThemeContext from '../../../style/themes/ThemeContext';
 import * as css from './styles';
 import { Prose, Row, Col, Properties, HyperText, Button, Toc, ContactList } from "../../../components";
 import RouteContext from '../../../dataManagement/RouteContext';
-import { TaxonomicCoverages, GeographicCoverages, TemporalCoverages, Registration, BibliographicCitations, SamplingDescription, Contacts, Citation } from './details';
+import { ThumbnailMap, TaxonomicCoverages, GeographicCoverages, TemporalCoverages, Registration, BibliographicCitations, SamplingDescription, Contacts, Citation } from './details';
 
 import { FormattedNumber } from 'react-intl';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { join } from '../../../utils/util';
+import useBelow from '../../../utils/useBelow';
 
 import { MdLockClock, MdFormatQuote, MdGridOn, MdPhotoLibrary } from 'react-icons/md';
 import { GiDna1 } from 'react-icons/gi';
@@ -26,6 +27,7 @@ export function About({
   className,
   ...props
 }) {
+  const isBelowTOC = useBelow(1200);
   let { url, path } = useRouteMatch();
   const theme = useContext(ThemeContext);
   const routeContext = useContext(RouteContext);
@@ -52,11 +54,11 @@ export function About({
 
   return <>
     <div css={css.withSideBar({ theme })}>
-      <div css={css.sideBar({ theme })}>
+      {!isBelowTOC && <div css={css.sideBar({ theme })}>
         <nav css={css.sideBarNav({ theme })}>
           <Toc refs={tocRefs} />
         </nav>
-      </div>
+      </div>}
       <div style={{ width: '100%', marginLeft: 12 }}>
 
         {dataset.description && <Prose css={css.paper({ theme })}>
@@ -131,6 +133,7 @@ export function About({
           </div>
           <div css={css.area}>
             <div css={css.testcardWrapper}>
+              <ThumbnailMap dataset={dataset}/>
               <div css={css.testcard}>
                 <div css={css.testcontent}>
                   <h5><FormattedNumber value={occurrenceSearch?.documents?.total} /> occurrences</h5>

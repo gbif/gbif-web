@@ -136,3 +136,21 @@ export const testcontent = css`
     margin-top: 8px;
   }
 `;
+
+export const thumbnail = css`
+  position: relative;
+  height: 0;
+  padding-bottom: 50%;
+  width: 100%;
+  background: #ddd;
+  > div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    > img {
+      width: 50%;
+      display: inline-block;
+    }
+  }
+`;

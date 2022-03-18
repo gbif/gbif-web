@@ -37,7 +37,7 @@ export const summary = ({ ...props }) => css`
 
 export const headerFlex = css`
   display: flex;
-  margin-top: 2em;
+  margin-top: 1.5em;
 `;
 
 export const headerContent = css`

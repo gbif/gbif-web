@@ -59,9 +59,9 @@ export function DatasetPresentation({
       style={{ borderBottom: `1px solid ${theme.paperBorderColor}`, background: 'white' }}
       right={<div css={css.headerIcons}>
         {!isBelowNarrow && <Doi id={dataset.doi} />}
-        <Button type="text"><MdFormatQuote /></Button>
-        <Button type="text"><MdOutlineCode /></Button>
-        <Button type="text"><MdOutlineHelpOutline /></Button>
+        <Button look="text"><MdFormatQuote /></Button>
+        <Button look="text"><MdOutlineCode /></Button>
+        <Button look="text"><MdOutlineHelpOutline /></Button>
       </div>}>
     </DataHeader>
     <div css={css.headerWrapper({ theme })}>
@@ -74,18 +74,17 @@ export function DatasetPresentation({
           <div css={css.headerContent}>
             {/* <Eyebrow prefix={<FormattedMessage id={`dataset.longType.${dataset.type}`} />} suffix={<FormattedMessage id="dataset.registeredDate" values={{ DATE: <FormattedDate value={dataset.created} year="numeric" month="long" day="2-digit" /> }} />} /> */}
             <Headline>{dataset.title}</Headline>
-            <div>
+            <div css={iconFeature({ theme })}>
+              <MdPeople />
+              <div>
+                <ol css={css.bulletList}>{dataset?.contactsCitation.map(p => <li key={p.key}>{p.abbreviatedName}</li>)}</ol>
+              </div>
+            </div>
+            <div style={{ marginTop: '.5em' }}>
               Published by <ResourceLink css={Prose.css.a(theme)} type="publisherKey" id={dataset.publishingOrganizationKey}>{dataset.publishingOrganizationTitle}</ResourceLink>
             </div>
 
             <div css={css.summary}>
-              {dataset?.contactsCitation?.length > 0 && <div css={iconFeature({ theme })}>
-                <MdPeople />
-                <div>
-                  <ol css={css.bulletList}>{dataset?.contactsCitation.map(p => <li key={p.key}>{p.abbreviatedName}</li>)}</ol>
-                </div>
-              </div>}
-
               <div css={css.iconFeatures()}>
 
                 <div css={iconFeature({ theme })}>
@@ -101,23 +100,23 @@ export function DatasetPresentation({
                   <span><Hostname href={dataset.homepage} /></span>
                 </div>}
 
-                {/* {occurrenceSearch.documents.total > 0 && <div css={iconFeature({ theme })}>
-              <MdLocationOn />
-              <span><FormattedNumber value={occurrenceSearch.documents.total} /> occurrences</span>
-            </div>}
+                {occurrenceSearch.documents.total > 0 && <div css={iconFeature({ theme })}>
+                  <MdLocationOn />
+                  <span><FormattedNumber value={occurrenceSearch.documents.total} /> occurrences</span>
+                </div>}
 
-            {siteOccurrences.documents.total > 0 && <div css={iconFeature({ theme })}>
-              <MdLocationOn />
-              <span><FormattedNumber value={siteOccurrences.documents.total} /> occurrences on this site</span>
-            </div>} */}
+                {/* {siteOccurrences.documents.total > 0 && <div css={iconFeature({ theme })}>
+                  <MdLocationOn />
+                  <span><FormattedNumber value={siteOccurrences.documents.total} /> occurrences on this site</span>
+                </div>} */}
 
                 {/* {literatureSearch.documents?.count > 0 && <div css={countFeature({ theme })}>
-              <span>
-                <MdFormatQuote />
-                <FormattedNumber value={literatureSearch.documents.count} />
-              </span>
-              <span><Link to={join(url, 'citations')}>citations</Link></span>
-            </div>} */}
+                  <span>
+                    <MdFormatQuote />
+                    <FormattedNumber value={literatureSearch.documents.count} />
+                  </span>
+                  <span><Link to={join(url, 'citations')}>citations</Link></span>
+                </div>} */}
 
                 {taxonSearch.count > 0 && <div css={iconFeature({ theme })}>
                   <MdPlaylistAddCheck />
