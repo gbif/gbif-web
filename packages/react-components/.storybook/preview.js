@@ -6,9 +6,8 @@ import flatten from 'flat';
 import { LocaleProvider } from "../src/dataManagement/LocaleProvider";
 
 import { Root } from '../src/components';
-import gbifTheme from './theme';
 
-import ThemeContext, { darkTheme, lightTheme, a11yTheme, vertnetTheme, rtlTheme } from '../src/style/themes';
+import ThemeContext, { darkTheme, lightTheme, a11yTheme, vertnetTheme, rtlTheme, gbifTheme } from '../src/style/themes';
 import ThemeBuilder from '../src/style/themeBuilder';
 import { ApiContext, ApiClient } from '../src/dataManagement/api';
 import env from '../.env.json';
@@ -49,6 +48,7 @@ addDecorator(storyFn => {
     a11y: a11yTheme,
     vertnet: vertnetTheme,
     rtl: rtlTheme,
+    gbif: gbifTheme,
     custom: customTheme
   }
 
@@ -80,12 +80,12 @@ addDecorator(storyFn => {
               value={chooseTheme(
                 select(
                   'Choose Theme',
-                  ['Dark', 'Light', 'A11y', 'Vertnet', 'RTL', 'Custom'],
+                  ['Dark', 'Light', 'A11y', 'Vertnet', 'RTL', 'GBIF', 'Custom'],
                   'Light',
                 ),
               )}
             >
-              <Root id="application" appRoot style={{ padding: 0 }} dir={chooseRtl(
+              <Root id="application" appRoot style={{padding: 0}} dir={chooseRtl(
                 select(
                   'Choose Direction',
                   ['ltr', 'rtl'],

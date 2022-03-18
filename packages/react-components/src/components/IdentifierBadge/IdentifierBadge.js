@@ -13,7 +13,7 @@ export const IdentifierBadge = React.forwardRef(({
 }, ref) => {
   const theme = useContext(ThemeContext);
   const { classNames } = getClasses(theme.prefix, 'identifierBadge', {/*modifiers goes here*/}, className);
-  return <Div ref={ref} {...classNames} css={styles.identifierBadge({theme})} {...props} />
+  return <Div ref={ref} {...classNames} css={styles.identifierBadge} {...props} />
 });
 
 export function Doi({id = '', ...props}) {

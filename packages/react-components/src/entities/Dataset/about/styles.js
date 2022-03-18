@@ -86,7 +86,7 @@ export const testicon = css`
   div {
     padding: 8px 0;
     text-align: center;
-    background: #1ea7fd;
+    background: var(--primary500);
     color: white;
     font-weight: 900;
     border-radius: 50%;
@@ -104,7 +104,7 @@ export const progress = css`
   border-radius: 2px;
   background: #ddd;
   > div {
-    background: #1ea7fd;
+    background: var(--primary500);
     height: 4px;
     border-radius: 2px;
   }

@@ -1,8 +1,7 @@
-
 import { jsx } from '@emotion/react';
 import React, { useContext, useCallback, useState, useEffect } from 'react';
 import ThemeContext from '../../style/themes/ThemeContext';
-import { Tabs, Eyebrow, LicenseTag, DataHeader, Doi, Button } from '../../components';
+import { Prose, Tabs, Eyebrow, LicenseTag, DataHeader, Doi, Button, ResourceLink } from '../../components';
 import OccurrenceSearch from '../../search/OccurrenceSearch/OccurrenceSearch';
 import { iconFeature, countFeature } from '../../components/IconFeatures/styles';
 import { About } from './about/About';
@@ -11,14 +10,16 @@ import { Activity } from './activity/Activity';
 import { DownloadOptions } from './DownloadOptions';
 import { FormattedMessage, FormattedNumber, FormattedDate } from 'react-intl';
 import { join } from '../../utils/util';
+import useBelow from '../../utils/useBelow';
+import { Headline } from '../shared/header';
 
 import * as css from './styles';
-import { MdOutlineCode, MdOutlineHelpOutline, MdKeyboardArrowLeft, MdLocationOn, MdPeople, MdLink, MdPlaylistAddCheck, MdStar, MdFormatQuote } from 'react-icons/md';
+import { MdDownload, MdOutlineCode, MdOutlineHelpOutline, MdKeyboardArrowLeft, MdLocationOn, MdPeople, MdLink, MdPlaylistAddCheck, MdStar, MdFormatQuote } from 'react-icons/md';
 
 import { Switch, Route, useRouteMatch, Link } from 'react-router-dom';
 
 const { TabList, RouterTab } = Tabs;
-
+const { H1 } = Prose;
 export function DatasetPresentation({
   id,
   data,
@@ -27,6 +28,7 @@ export function DatasetPresentation({
   loading,
   ...props
 }) {
+  const isBelowNarrow = useBelow(800);
   let { url, path } = useRouteMatch();
   const theme = useContext(ThemeContext);
 
@@ -52,11 +54,11 @@ export function DatasetPresentation({
   };
 
   return <>
-    <DataHeader 
-      left={<><MdKeyboardArrowLeft /> Dataset</>} 
-      style={{ background: 'white'}} 
+    <DataHeader
+      left={<><MdKeyboardArrowLeft /> Dataset</>}
+      style={{ borderBottom: `1px solid ${theme.paperBorderColor}`, background: 'white' }}
       right={<div css={css.headerIcons}>
-        <Doi id={dataset.doi} />
+        {!isBelowNarrow && <Doi id={dataset.doi} />}
         <Button type="text"><MdFormatQuote /></Button>
         <Button type="text"><MdOutlineCode /></Button>
         <Button type="text"><MdOutlineHelpOutline /></Button>
@@ -64,15 +66,16 @@ export function DatasetPresentation({
     </DataHeader>
     <div css={css.headerWrapper({ theme })}>
       <div css={css.proseWrapper({ theme })}>
+        <Eyebrow prefix={<FormattedMessage id={`dataset.longType.${dataset.type}`} />} suffix={<FormattedMessage id="dataset.registeredDate" values={{ DATE: <FormattedDate value={dataset.created} year="numeric" month="long" day="2-digit" /> }} />} />
         <div css={css.headerFlex}>
-          {dataset.logoUrl && <div css={css.headerLogo}>
+          {!isBelowNarrow && dataset.logoUrl && <div css={css.headerLogo}>
             <img src={dataset.logoUrl} />
           </div>}
           <div css={css.headerContent}>
-            <Eyebrow prefix={<FormattedMessage id={`dataset.longType.${dataset.type}`} />} suffix={<FormattedMessage id="dataset.registeredDate" values={{ DATE: <FormattedDate value={dataset.created} year="numeric" month="long" day="2-digit" /> }} />} />
-            <h1>{dataset.title}</h1>
+            {/* <Eyebrow prefix={<FormattedMessage id={`dataset.longType.${dataset.type}`} />} suffix={<FormattedMessage id="dataset.registeredDate" values={{ DATE: <FormattedDate value={dataset.created} year="numeric" month="long" day="2-digit" /> }} />} /> */}
+            <Headline>{dataset.title}</Headline>
             <div>
-              From <a href={`/publisher/${dataset.publishingOrganizationKey}`}>{dataset.publishingOrganizationTitle}</a>
+              Published by <ResourceLink css={Prose.css.a(theme)} type="publisherKey" id={dataset.publishingOrganizationKey}>{dataset.publishingOrganizationTitle}</ResourceLink>
             </div>
 
             <div css={css.summary}>
@@ -88,6 +91,10 @@ export function DatasetPresentation({
                 <div css={iconFeature({ theme })}>
                   <LicenseTag value={dataset.license} />
                 </div>
+
+                {isBelowNarrow && <div css={iconFeature({ theme })}>
+                  <Doi id={dataset.doi} />
+                </div>}
 
                 {dataset.homepage && <div css={iconFeature({ theme })}>
                   <MdLink />
@@ -176,7 +183,7 @@ export function DatasetPresentation({
         </Route>
         <Route path={path}>
           <div css={css.proseWrapper({ theme })}>
-            <About {...{ data }} insights={insights}/>
+            <About {...{ data }} insights={insights} />
           </div>
         </Route>
       </Switch>

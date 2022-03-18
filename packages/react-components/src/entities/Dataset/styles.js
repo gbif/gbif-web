@@ -17,14 +17,14 @@ export const tabCountChip = ({ ...props }) => css`
 `;
 
 export const headerWrapper = ({ ...props }) => css`
-  background: white;
+  background: var(--paperBackground);
   padding: 2rem 1rem 0 1rem;
-  h1 {
+  /* h1 {
     margin-top: 0;
     margin-bottom: .25em;
     font-size: 2rem;
     font-weight: 700;
-  }
+  } */
 `;
 
 export const summary = ({ ...props }) => css`
@@ -37,6 +37,7 @@ export const summary = ({ ...props }) => css`
 
 export const headerFlex = css`
   display: flex;
+  margin-top: 2em;
 `;
 
 export const headerContent = css`
@@ -45,10 +46,12 @@ export const headerContent = css`
 
 export const headerLogo = css`
   flex: 0 0 auto;
-  padding-right: 48px;
-  max-width: 250px;
+  padding-right: 24px;
+  width: 250px;
+  text-align: center;
   img {
-    width: 100%;
+    padding: 12px;
+    max-width: 100%;
   }
 `;
 
@@ -59,6 +62,8 @@ export const headerIcons = css`
   > button {
     padding: 7px;
     font-size: 18px;
+  }
+  > gbif-button-text {
     color: #555;
   }
 `;

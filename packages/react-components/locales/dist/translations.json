@@ -3,7 +3,7 @@
     "messages": "http://localhost:5002/en-developer.json?v=50c26e5f87cda7884c254d36226aec8e6f3a9a7d"
   },
   "en-ZZ": {
-    "messages": "http://localhost:5002/en-pseudo.json?v=e24768ce0d57d8b32c2e0cc27ed6b8d0c4725c07"
+    "messages": "http://localhost:5002/en-pseudo.json?v=3a4deeb97bcbcc808cd26da8d37c987b23f9836b"
   },
   "en": {
     "messages": "http://localhost:5002/en.json?v=7dc61f58955249c20b72c4d007b18113d0fd9800"
@@ -15,7 +15,7 @@
     "messages": "http://localhost:5002/ar.json?v=4765bb3bcd713b7949ea5702ecb8f518ea2369ea"
   },
   "de": {
-    "messages": "http://localhost:5002/de.json?v=606c8e9a1d993daa94699fc742523abe4a6ed6f8"
+    "messages": "http://localhost:5002/de.json?v=f77235728ba423fb297e58d4ceea5f2260977f3e"
   },
   "es": {
     "messages": "http://localhost:5002/es.json?v=a76fd3b0eb812b8bdfe752cdd9ddd99a20c335ab",
