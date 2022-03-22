@@ -3,9 +3,9 @@ import { jsx } from '@emotion/react';
 import React, { useContext, useState, useEffect } from 'react';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import * as css from './styles';
-import { Prose, Row, Col, Properties, HyperText, Button, Toc, ContactList } from "../../../components";
+import { Prose, Properties, HyperText, Toc, ContactList } from "../../../components";
 import RouteContext from '../../../dataManagement/RouteContext';
-import { ThumbnailMap, TaxonomicCoverages, GeographicCoverages, TemporalCoverages, Registration, BibliographicCitations, SamplingDescription, Contacts, Citation } from './details';
+import { Images, ThumbnailMap, TaxonomicCoverages, GeographicCoverages, TemporalCoverages, Registration, BibliographicCitations, SamplingDescription, Citation } from './details';
 
 import { FormattedNumber } from 'react-intl';
 import { Link, useRouteMatch } from 'react-router-dom';
@@ -59,19 +59,13 @@ export function About({
           <Toc refs={tocRefs} />
         </nav>
       </div>}
-      <div style={{ width: '100%', marginLeft: 12 }}>
+      <div style={{ width: '100%', marginLeft: 12, overflow: 'hidden' }}>
 
         {dataset.description && <Prose css={css.paper({ theme })}>
           <h2 ref={node => { tocRefs["description"] = node; }}>Description</h2>
           <HyperText text={dataset.description} />
         </Prose>}
-        {/* {insights?.data?.images?.documents?.total > 0 && <div style={{display: 'flex', flexWrap: 'wrap'}}>
-          {insights?.data?.images?.documents.results.map(occurrence => {
-            return <div key={occurrence.key} style={{ flex: '0 0 30%' }}>
-              <img src={occurrence.stillImages[0].identifier} style={{width: '100%'}} />
-            </div>
-          })}
-        </div>} */}
+        <Images images={insights?.data?.images} />
         {dataset.purpose && <Prose css={css.paper({ theme })}>
           <h2 ref={node => { tocRefs["purpose"] = node; }}>Purpose</h2>
           <HyperText text={dataset.purpose} />

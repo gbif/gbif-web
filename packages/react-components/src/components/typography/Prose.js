@@ -97,6 +97,7 @@ export const a = (theme) => css`
 export const prose = ({ theme = {} }) => css`
   -webkit-font-smoothing: antialiased;
   line-height: 1.3em;
+  /* line-break: anywhere; might be relevant on smaller devices*/
   /* a {
     ${a(theme)};
   } */

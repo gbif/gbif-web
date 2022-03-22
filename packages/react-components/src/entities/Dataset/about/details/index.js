@@ -10,3 +10,4 @@ export { TaxonomicCoverages } from './TaxonomicCoverages';
 export { DataDescriptions } from './DataDescriptions';
 export { Registration } from './Registration';
 export { ThumbnailMap } from './ThumbnailMap';
+export { Images } from './Images';

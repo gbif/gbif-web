@@ -154,3 +154,34 @@ export const thumbnail = css`
     }
   }
 `;
+
+
+const galleryHeight = '300';
+export const galleryBar = css`
+  height: ${galleryHeight}px;
+  overflow: hidden;
+  position: relative;
+  margin: 0 -6px;
+  > a {
+    position: absolute;
+    margin: 12px;
+    bottom: 0;
+    right: 0;
+  }
+  > div {
+    display: flex;
+    overflow-x: auto;
+    height: ${galleryHeight + 100}px;
+    padding-bottom: 100px;
+    > div {
+      margin-right: 10px;
+      flex: 0 0 auto;
+      height: ${galleryHeight}px;
+    }
+  }
+  img {
+    display: block;
+    height: ${galleryHeight}px;
+    margin: 0 6px;
+  }
+`;
