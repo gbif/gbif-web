@@ -35,7 +35,7 @@ export function DataHeader({
     </>}
 
     <div style={{ flex: '1 1 auto', overflow: 'hidden' }}>
-      {children || <NavBar aria-role="none" style={{visibility: 'hidden', width: 0}}><NavItem label="Table" data-targetid="table" /></NavBar>}
+      {children || <NavBar aria-hidden="true" style={{visibility: 'hidden', width: 0}}><NavItem label="Table" data-targetid="table" /></NavBar>}
     </div>
 
     {right && <>

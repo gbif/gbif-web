@@ -138,6 +138,7 @@ const typeDef = gql`
     constituents(limit: Int, offset: Int): DatasetListResults
     networks: [Network]!
     metrics: DatasetChecklistMetrics
+    gridded: [GridMetric]
 
     """
     Link to homepage with crawling logs.
@@ -165,6 +166,15 @@ const typeDef = gql`
     otherCount: JSON
     synonymsCount: Int
     usagesCount: Int
+  }
+
+  type GridMetric {
+    key: ID
+    totalCount: Float
+    minDist: Float
+    minDistCount: Float
+    percent: Float
+    maxPercent: Float
   }
 
   type DatasetBreakdown {

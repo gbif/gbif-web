@@ -282,6 +282,9 @@ query dataset($key: ID!, $predicate: Predicate, $sitePredicate: Predicate){
     machineTags {
       namespace
     }
+    gridded {
+      percent
+    }
   }
 }
 `;

@@ -37,7 +37,7 @@ export function About({
   // collect all refs to headlines for the TOC, e.g. ref={node => { tocRefs["description"] = node; }}
   //let tocRefs = {};
 
-  const isGridded = (dataset?.machineTags || []).find(m => m.namespace === 'griddedDataSet.jwaller.gbif.org');
+  const isGridded = dataset?.gridded?.[0]?.percent > 0.5; // threshold decided in https://github.com/gbif/gridded-datasets/issues/3
   const hasDna = (insights?.data?.unfiltered?.facet?.dwcaExtension || []).find(ext => ext.key === 'http://rs.gbif.org/terms/1.0/DNADerivedData');
   
   const withCoordinates = insights?.data?.withCoordinates?.documents?.total;
@@ -50,7 +50,7 @@ export function About({
   const withTaxonMatchPercentage = asPercentage( withTaxonMatch / total)
 
   const withEventId = insights?.data?.unfiltered?.cardinality?.eventId;
-  const labelAsEventDataset = dataset.type === 'SAMPLING_EVENT_DATASET' || withEventId > 1 && withEventId/total < 0.95;
+  const labelAsEventDataset = dataset.type === 'SAMPLING_EVENT_DATASET' || withEventId > 1 && withEventId/total < 0.99; // Threshold chosen somewhat randomly. The issue is that some datasets assign random unique eventIds to all their occurrences. Those aren't really event datasets, it is a misunderstanding.
 
   return <>
     <div css={css.withSideBar({ theme })}>
@@ -65,9 +65,13 @@ export function About({
           <h2 ref={node => { tocRefs["description"] = node; }}>Description</h2>
           <HyperText text={dataset.description} />
         </Prose>}
-        {insights?.data?.images?.documents?.total > 0 && <div>
-          <img style={{ width: '100%' }} src={insights?.data?.images?.documents.results[0].stillImages[0].identifier} />
-        </div>}
+        {/* {insights?.data?.images?.documents?.total > 0 && <div style={{display: 'flex', flexWrap: 'wrap'}}>
+          {insights?.data?.images?.documents.results.map(occurrence => {
+            return <div key={occurrence.key} style={{ flex: '0 0 30%' }}>
+              <img src={occurrence.stillImages[0].identifier} style={{width: '100%'}} />
+            </div>
+          })}
+        </div>} */}
         {dataset.purpose && <Prose css={css.paper({ theme })}>
           <h2 ref={node => { tocRefs["purpose"] = node; }}>Purpose</h2>
           <HyperText text={dataset.purpose} />
@@ -196,7 +200,7 @@ export function About({
               </div>
               <div css={css.testcontent}>
                 <h5>Gridded data</h5>
-                <p>Lorem ipsum sfhkjh sfhlksduf bksk sdkh sdfg </p>
+                <p>This dataset looks like it is gridded.</p>
               </div>
             </div>}
           </div>

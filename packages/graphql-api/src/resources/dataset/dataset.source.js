@@ -37,6 +37,10 @@ class DatasetAPI extends RESTDataSource {
   async getMetrics({ key, query }) {
     return this.get(`/dataset/${key}/metrics`, qs.stringify(query, { indices: false }));
   }
+
+  async getGridded({ key, query }) {
+    return this.get(`/dataset/${key}/gridded`, qs.stringify(query, { indices: false }));
+  }
   
 }
 

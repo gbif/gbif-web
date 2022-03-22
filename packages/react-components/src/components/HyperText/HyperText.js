@@ -58,29 +58,29 @@ const getDoi = (text) => {
     } 
 }
 
-export const HyperText = ({text}) =>  {
+export const HyperText = ({text, ...props}) =>  {
     if(text === false || text === true){
-        return <BooleanValue value={text} />
+        return <BooleanValue value={text} {...props}/>
     }
     if(typeof text === "undefined"){
         return null;
     }
     if(typeof text !== "string"){
-        return text;
+        return <span {...props}>{text}</span>;
     }
     const sanitized = DOMPurify.sanitize(text);
     const doi = getDoi(sanitized);
     if(doi){
-        return <Doi id={doi}/>
+        return <Doi id={doi} {...props}/>
     }
     const orcid = getOrcid(sanitized);
     if(orcid){
-        return <Orcid href={orcid}/>
+        return <Orcid href={orcid} {...props}/>
     }
     const lsid = getLsid(sanitized);
     if(lsid){
-        return <Lsid identifier={lsid}/>
+        return <Lsid identifier={lsid} {...props}/>
     }
     
-    return <span css={content()} dangerouslySetInnerHTML={{ __html: autolinker.link(sanitized) }}></span>
+    return <div css={content()} dangerouslySetInnerHTML={{ __html: autolinker.link(sanitized) }} {...props}></div>
 }

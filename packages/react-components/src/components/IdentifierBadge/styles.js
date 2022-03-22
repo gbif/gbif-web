@@ -6,7 +6,7 @@ export const identifierBadge = css`
   font-size: 0.85em;
   &:hover {
     text-decoration: none;
-    > *:first-child {
+    >span:first-of-type, >div:first-of-type {
       background-color: var(--primary700);
     }
   }
@@ -15,7 +15,7 @@ export const identifierBadge = css`
     display: inline-block;
     border: 1px solid #dbe3e7;
   }
-  >*:first-child {
+  >span:first-of-type, >div:first-of-type {
     transition: all .3s ease;
     background-color: var(--primary500);;
     border-color: var(--primary600);;

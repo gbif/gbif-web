@@ -87,9 +87,9 @@ export function DatasetPresentation({
             <div css={css.summary}>
               <div css={css.iconFeatures()}>
 
-                <div css={iconFeature({ theme })}>
+                {/* <div css={iconFeature({ theme })}>
                   <LicenseTag value={dataset.license} />
-                </div>
+                </div> */}
 
                 {isBelowNarrow && <div css={iconFeature({ theme })}>
                   <Doi id={dataset.doi} />

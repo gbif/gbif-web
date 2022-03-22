@@ -20,6 +20,9 @@ function getTag(tagName, styleFn) {
 }
 
 export const ol = (theme) => css`
+  div>p:first-child {
+    margin-top: 0;
+  }
   ol {
     counter-reset: listitem;
     list-style: none; 
@@ -94,9 +97,9 @@ export const a = (theme) => css`
 export const prose = ({ theme = {} }) => css`
   -webkit-font-smoothing: antialiased;
   line-height: 1.3em;
-  a {
+  /* a {
     ${a(theme)};
-  }
+  } */
   h1, h2, h3, h4, h5, h6 {
     font-weight: 500;
   }

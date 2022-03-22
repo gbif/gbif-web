@@ -1,6 +1,6 @@
 import { jsx } from '@emotion/react';
 import React, { useContext, useState } from "react";
-import { Properties, Button, Prose } from "../../../../components";
+import { Properties, Button, HyperText } from "../../../../components";
 // import { FormattedMessage, FormattedDate } from "react-intl";
 import ThemeContext from '../../../../style/themes/ThemeContext';
 import * as css from '../styles';
@@ -28,7 +28,7 @@ function TaxonomicCoverage({coverage}) {
   
   return <Properties horizontal>
     <T>Description</T>
-    <V>{coverage.description}</V>
+    <V><HyperText text={coverage.description} /></V>
     
     <T>Coverage</T>
     <V>

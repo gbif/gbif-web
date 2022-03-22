@@ -25,5 +25,5 @@ export function Doi({id = '', ...props}) {
 }
 
 IdentifierBadge.propTypes = {
-  as: PropTypes.element
+  as: PropTypes.string
 };

@@ -18,8 +18,8 @@ export function Citation({
     <>
       <HyperText text={dataset.citation.text} />
       {doi && <div style={{marginTop: '1em'}}>
-        <Button as="a" href={`https://data.crosscite.org/application/x-research-info-systems/${doi}`} type="primaryOutline" style={{marginRight: '1em'}}>RIS</Button>
-        <Button as="a" href={`https://data.crosscite.org/application/x-bibtex/${doi}`} type="primaryOutline">BibTex</Button>
+        <Button as="a" href={`https://data.crosscite.org/application/x-research-info-systems/${doi}`} look="primaryOutline" style={{marginRight: '1em'}}>RIS</Button>
+        <Button as="a" href={`https://data.crosscite.org/application/x-bibtex/${doi}`} look="primaryOutline">BibTex</Button>
       </div>}
     </>
   ) : null;
