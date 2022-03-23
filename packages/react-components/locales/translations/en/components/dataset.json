@@ -120,6 +120,6 @@
     "lastIngestionFailed": "Last ingestion failed",
     "outOfSync": "Out of sync",
     "becauseTrustedContact": "Because you are trusted contact",
-    "registrationDetails": ""
+    "registrationDetails": "GBIF registration details"
   }
 }
