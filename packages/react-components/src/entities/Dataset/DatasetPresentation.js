@@ -74,12 +74,12 @@ export function DatasetPresentation({
           <div css={css.headerContent}>
             {/* <Eyebrow prefix={<FormattedMessage id={`dataset.longType.${dataset.type}`} />} suffix={<FormattedMessage id="dataset.registeredDate" values={{ DATE: <FormattedDate value={dataset.created} year="numeric" month="long" day="2-digit" /> }} />} /> */}
             <Headline>{dataset.title}</Headline>
-            <div css={iconFeature({ theme })}>
+            {dataset?.contactsCitation.length > 0 && <div css={iconFeature({ theme })}>
               <MdPeople />
               <div>
                 <ol css={css.bulletList}>{dataset?.contactsCitation.map(p => <li key={p.key}>{p.abbreviatedName}</li>)}</ol>
               </div>
-            </div>
+            </div>}
             <div style={{ marginTop: '.5em' }}>
               Published by <ResourceLink css={Prose.css.a(theme)} type="publisherKey" id={dataset.publishingOrganizationKey}>{dataset.publishingOrganizationTitle}</ResourceLink>
             </div>
