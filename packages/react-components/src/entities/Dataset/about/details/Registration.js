@@ -22,17 +22,26 @@ export function Registration({
     <Properties style={{ marginBottom: 12 }} horizontal={true}>
       {created && <>
         <T><FormattedMessage id="dataset.registry.registrationDate" /></T>
-        <V>{created}</V>
+        <V><FormattedDate value={created}
+          year="numeric"
+          month="long"
+          day="2-digit" /></V>
       </>}
 
       {modified && <>
         <T><FormattedMessage id="dataset.registry.metdataLastModified" /></T>
-        <V>{modified}</V>
+        <V><FormattedDate value={modified}
+          year="numeric"
+          month="long"
+          day="2-digit" /></V>
       </>}
 
       {pubDate && <>
         <T><FormattedMessage id="dataset.registry.pubDate" /></T>
-        <V>{pubDate}</V>
+        <V><FormattedDate value={pubDate}
+          year="numeric"
+          month="long"
+          day="2-digit" /></V>
       </>}
 
       {hostingOrganization && <>
