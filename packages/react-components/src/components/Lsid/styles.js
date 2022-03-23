@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 
 
 
-export const lsid = () => css `
+export const lsid = () => css`
 font-size: 12px;
   text-decoration: none;
   display: inline-block;
@@ -12,7 +12,7 @@ font-size: 12px;
 
   >span:first-of-type {
       transition: all 300ms ease;
-      background: #218084;
+      background: var(--primary500);
       padding: 0 4px;
       border-radius: 5px 0 0 5px;
       color: white;
@@ -26,4 +26,5 @@ font-size: 12px;
       padding: 0 7px;
       border-radius: 0 5px 5px 0;
       border-left-width: 0;
-  }`
+  }
+`
