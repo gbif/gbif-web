@@ -1,0 +1,9 @@
+{
+  "position": "Position",
+  "organization": "Organization",
+  "email": "Email",
+  "address": "Address",
+  "roles": "Roles",
+  "userId": "User ID",
+  "name": "Name"
+}

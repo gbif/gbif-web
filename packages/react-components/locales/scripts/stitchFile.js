@@ -20,6 +20,7 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
       filters: getFile(locale, `../${folder}/${locale}/components/filters`),
       filterSupport: getFile(locale, `../${folder}/${locale}/components/filterSupport`),
       counts: getFile(locale, `../${folder}/${locale}/components/counts`),
+      contact: getFile(locale, `../${folder}/${locale}/components/contact`),
       pagination: getFile(locale, `../${folder}/${locale}/components/pagination`),
       search: getFile(locale, `../${folder}/${locale}/components/search`),
       phrases: getFile(locale, `../${folder}/${locale}/components/phrases`),

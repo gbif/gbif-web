@@ -28,14 +28,14 @@ export function DataHeader({
   return <Div css={styles.dataHeader({ theme })} {...props}>
 
     {hasLeftPart && <>
-      <div style={{ flex: '0 0 auto', position: 'relative', margin: '0 12px' }}>
+      <div style={{ flex: '0 0 auto', position: 'relative', margin: '0 12px', display: 'flex', alignItems: 'center' }}>
         {left || <CatalogueSelector label={catalogueLabel} availableCatalogues={availableCatalogues} />}
       </div>
       {children && <Separator />}
     </>}
 
     <div style={{ flex: '1 1 auto', overflow: 'hidden' }}>
-      {children || <NavBar aria-role="none" style={{visibility: 'hidden', width: 0}}><NavItem label="Table" data-targetid="table" /></NavBar>}
+      {children || <NavBar aria-hidden="true" style={{visibility: 'hidden', width: 0}}><NavItem label="Table" data-targetid="table" /></NavBar>}
     </div>
 
     {right && <>
@@ -52,6 +52,6 @@ DataHeader.propTypes = {
   as: PropTypes.element
 };
 
-function Separator() {
+export function Separator() {
   return <div style={{ flex: '0 0 1px', borderRight: '1px solid #aaa', height: '1.5em', margin: '0 6px' }}></div>
 }

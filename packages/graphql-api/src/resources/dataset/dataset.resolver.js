@@ -108,6 +108,9 @@ module.exports = {
     metrics: ({ key }, args, { dataSources }) => {
       return dataSources.datasetAPI.getMetrics({ key });
     },
+    gridded: ({ key }, args, { dataSources }) => {
+      return dataSources.datasetAPI.getGridded({ key });
+    },
     description: ({ description }) => getHtml(description),
     purpose: ({ purpose }) => getHtml(purpose),
   },

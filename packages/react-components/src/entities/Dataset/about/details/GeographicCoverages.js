@@ -1,6 +1,6 @@
 import { jsx } from "@emotion/react";
 import React from "react";
-import { Properties } from "../../../../components";
+import { Properties, HyperText } from "../../../../components";
 import { FormattedMessage, FormattedDate } from "react-intl";
 
 const { Term: T, Value: V } = Properties;
@@ -56,7 +56,7 @@ function GeographicCoverage({ coverage }) {
   return (
     <Properties>
       <T>Description</T>
-      <V>{coverage.description}</V>
+      <V><HyperText text={coverage.description} /></V>
       {geoJSON && (
         <>
           <T></T>

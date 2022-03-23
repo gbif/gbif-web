@@ -12,7 +12,17 @@ export const Prose = ({
   </Div>
 };
 
-export const ol = ({ theme }) => css`
+function getTag(tagName, styleFn) {
+  return function ({ as: Tag = tagName, ...props }) {
+    const theme = useContext(ThemeContext);
+    return <Tag {...props} css={styleFn(theme)} />
+  }
+}
+
+export const ol = (theme) => css`
+  div>p:first-child {
+    margin-top: 0;
+  }
   ol {
     counter-reset: listitem;
     list-style: none; 
@@ -40,7 +50,7 @@ export const ol = ({ theme }) => css`
   }
 `;
 
-export const h6 = ({ theme }) => css`
+export const h6 = (theme) => css`
   font-size: 10px;
   line-height: 18px;
   text-transform: uppercase;
@@ -48,7 +58,7 @@ export const h6 = ({ theme }) => css`
   font-weight: 600;
 `;
 
-export const h5 = ({ theme }) => css`
+export const h5 = (theme) => css`
   font-size: 12px;
   line-height: 24px;
   text-transform: uppercase;
@@ -57,32 +67,40 @@ export const h5 = ({ theme }) => css`
   color: #32536a;
 `;
 
-export const h4 = ({ theme }) => css`
+export const h4 = (theme) => css`
   font-size: 18px;
   line-height: 24px;
 `;
 
-export const h3 = ({ theme }) => css`
+export const h3 = (theme) => css`
   font-size: 20px;
   line-height: 24px;
+  font-family: ${theme.headerFontFamily};
 `;
 
-export const h2 = ({ theme }) => css`
+export const h2 = (theme) => css`
   font-size: 28px;
   line-height: 36px;
+  font-family: ${theme.headerFontFamily};
 `;
 
-export const h1 = ({ theme }) => css`
+export const h1 = (theme) => css`
   font-size: 36px;
   line-height: 48px;
+  font-family: ${theme.headerFontFamily};
 `;
 
-export const prose = ({ theme }) => css`
+export const a = (theme) => css`
+  color: ${theme.linkColor};
+`;
+
+export const prose = ({ theme = {} }) => css`
   -webkit-font-smoothing: antialiased;
   line-height: 1.3em;
-  a {
-    color: ${theme.linkColor};
-  }
+  /* line-break: anywhere; might be relevant on smaller devices*/
+  /* a {
+    ${a(theme)};
+  } */
   h1, h2, h3, h4, h5, h6 {
     font-weight: 500;
   }
@@ -117,3 +135,13 @@ export const prose = ({ theme }) => css`
 `;
 
 
+Prose.H1 = getTag('h1', h1);
+Prose.H2 = getTag('h2', h2);
+Prose.H3 = getTag('h3', h3);
+
+Prose.A = getTag('a', a);
+
+Prose.css = {
+  a,
+  h1, h2, h3, h4, h5
+}

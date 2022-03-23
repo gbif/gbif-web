@@ -20,12 +20,12 @@ export const Button = React.forwardRef(({
   isFullWidth = false,
   isIcon = false,
   appearance,
-  type = 'primary',
+  look = 'primary',
   children,
   truncate,
   ...props
 }, ref) => {
-  appearance = appearance || type;
+  appearance = appearance || look;
   const theme = useContext(ThemeContext);
   const { classesToApply, classNames } = getClasses(theme.prefix, 'button', { appearance, loading, isFullWidth }, className);
   return <ButtonA11y ref={ref} {...classNames} css={css`

@@ -5,6 +5,7 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { getClasses } from '../../utils/util';
 import * as styles from './styles';
+import { IdentifierBadge } from '../IdentifierBadge';
 import licenses from '../../enums/basic/license.json';
 
 const url2enum = {
@@ -29,14 +30,21 @@ export function LicenseTag({
   let licenceEnum = url2enum[val] || value;
   if (licenses.indexOf(licenceEnum) === -1) licenceEnum = 'UNSUPPORTED';
   const url = enum2url[licenceEnum];
-  if (url) {
-    return <a href={url} css={styles.licenseTag({theme})} {...props}>
-    <FormattedMessage id={`enums.license.${licenceEnum}`} />
-  </a>
-  }
-  return <span css={styles.licenseTag({theme})} {...props}>
-    <FormattedMessage id={`enums.license.${licenceEnum}`} />
-  </span>
+  // if (url) {
+  //   return <a href={url} css={styles.licenseTag({theme})} {...props}>
+  //   <FormattedMessage id={`enums.license.${licenceEnum}`} />
+  // </a>
+  // }
+  // return <span css={styles.licenseTag({theme})} {...props}>
+  //   <FormattedMessage id={`enums.license.${licenceEnum}`} />
+  // </span>
+
+  const licenseProps = url ? {as: 'a', href: url} : {};
+
+  return <IdentifierBadge {...licenseProps} {...props}>
+    <span>License</span>
+    <span><FormattedMessage id={`enums.license.${licenceEnum}`} /></span>
+  </IdentifierBadge>
 };
 
 LicenseTag.propTypes = {

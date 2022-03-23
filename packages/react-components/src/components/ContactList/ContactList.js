@@ -21,7 +21,7 @@ export function ContactList({
   const { classNames } = getClasses(theme.prefix, 'contactList', {/*modifiers goes here*/ }, className);
 
   return <ul css={styles.contactList({ theme })} {...props}>
-    {contacts.map((c, i) => <li><Contact contact={c} key={`${c.key || i}`} /></li>)}
+    {contacts.map((c, i) => <li key={`${c.key || i}`}><Contact contact={c} /></li>)}
   </ul>
 };
 
@@ -30,7 +30,7 @@ function Contact({ contact, ...props }) {
   const name = (contact.firstName || contact.lastName) ? `${contact.firstName} ${contact.lastName}`.trim() : undefined;
 
   let roles = contact.roles || (contact.type ? [contact.type] : undefined);
-  const Roles = <>{roles.map((r) => <><FormattedMessage key={r} id={`enums.role.${r}`} defaultMessage={r} /><br /></>)}</>;
+  const Roles = <>{roles.map((r) => <React.Fragment key={r}><FormattedMessage id={`enums.role.${r}`} defaultMessage={r} /><br /></React.Fragment>)}</>;
 
   const userId = contact.userId || [];
   const orcid = userId.find(x => x.indexOf('orcid.org') != -1)
@@ -94,7 +94,7 @@ function ArrayField({ field, contact = {}, value, ...props }) {
       <FormattedMessage id={`contact.${field}`} defaultMessage={field} />
     </T>
     <V>
-      {contact[field].map(v => <><HyperText text={v} /><br /></>)}
+      {contact[field].map((v, i) => <React.Fragment key={i}><HyperText text={v} /><br /></React.Fragment>)}
     </V>
   </>
 }
