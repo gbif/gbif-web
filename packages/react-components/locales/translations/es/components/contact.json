@@ -1,6 +1,9 @@
 {
+  "position": "Cargo",
+  "organization": "Organización",
   "email": "Correo electrónico",
   "address": "Dirección",
   "roles": "Roles",
+  "userId": "ID del usuario",
   "name": "Nombre"
 }
