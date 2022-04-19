@@ -566,13 +566,10 @@ export const commonFilters = {
         placeholder: 'Search by recorded by',
         supportsExist: true,
         query: `
-          query keywordSearch($predicate: Predicate, $size: Int){
+          query keywordSearch($predicate: Predicate, $size: Int, $include: String){
             occurrenceSearch(predicate: $predicate) {
-              cardinality {
-                recordedBy
-              }
               facet {
-                recordedBy(size: $size) {
+                recordedBy(size: $size, include: $include) {
                   key
                   count
                 }

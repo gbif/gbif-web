@@ -14,7 +14,8 @@ function metric2aggs(metrics = {}, config) {
           aggs[name] = {
             terms: {
               field: conf.field,
-              size: metric.size
+              size: metric.size,
+              include: metric.include
             }
           };
           break;

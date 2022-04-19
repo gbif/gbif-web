@@ -256,7 +256,7 @@ const config =
     },
     "identifiedBy": {
       "type": "keyword",
-      "field": "recordedByJoined",
+      "field": "identifiedBy.keyword",
       "suggestField": "identifiedBy.suggest"
     },
     "individualCount": {
@@ -475,7 +475,7 @@ const config =
     },
     "recordedBy": {
       "type": "keyword",
-      "field": "recordedByJoined",
+      "field": "recordedBy.keyword",
       "suggestField": "recordedBy.suggest"
     },
     "references": {
