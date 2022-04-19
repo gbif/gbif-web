@@ -3,7 +3,7 @@
     "messages": "http://localhost:5002/en-developer.json?v=88e7a2217a0f585cdc2fd5464fdce92a5c970a1c"
   },
   "en-ZZ": {
-    "messages": "http://localhost:5002/en-pseudo.json?v=7120a245c60873f0cc15575d49fd3df137b29818"
+    "messages": "http://localhost:5002/en-pseudo.json?v=299193ab87011be24023f09ac0fd781f5047f2e5"
   },
   "en": {
     "messages": "http://localhost:5002/en.json?v=23fd1c91ab96e9a5f60ef48e2529b4bdd8eade4a"
@@ -18,7 +18,7 @@
     "messages": "http://localhost:5002/de.json?v=d08bac98f5829953f5fe4b440d768de20acecef9"
   },
   "es": {
-    "messages": "http://localhost:5002/es.json?v=13d884feaf87070e1b96dc97e9c827093be7d4c6",
+    "messages": "http://localhost:5002/es.json?v=212de7e827c2d8cc027b2ca284c63ca99f4f7e2a",
     "localeMap": {
       "gbif_org": "es",
       "vocabulary": "es-ES"
@@ -31,13 +31,13 @@
     "messages": "http://localhost:5002/fj.json?v=23fd1c91ab96e9a5f60ef48e2529b4bdd8eade4a"
   },
   "fr": {
-    "messages": "http://localhost:5002/fr.json?v=c82133e15030ad400c78cfdc264eb169bc8eabe0",
+    "messages": "http://localhost:5002/fr.json?v=7d5ba38dd1b825d89656f99f568f2c871ddd486c",
     "localeMap": {
       "gbif_org": "fr"
     }
   },
   "ja": {
-    "messages": "http://localhost:5002/ja.json?v=0f43f7ddc9c3f1fe8eda31c04f635e1bde167f13"
+    "messages": "http://localhost:5002/ja.json?v=8a4b5958ca2edeeb03167553f86d993e5bae972a"
   },
   "la": {
     "messages": "http://localhost:5002/la.json?v=23fd1c91ab96e9a5f60ef48e2529b4bdd8eade4a"
@@ -46,7 +46,7 @@
     "messages": "http://localhost:5002/niu.json?v=23fd1c91ab96e9a5f60ef48e2529b4bdd8eade4a"
   },
   "nl": {
-    "messages": "http://localhost:5002/nl.json?v=cba20e98ab9500e3699cb65e0d163d521eba1a70"
+    "messages": "http://localhost:5002/nl.json?v=77fb5d869ce88e2fb65e10f9cc5d9e33fa74f4f3"
   },
   "pis": {
     "messages": "http://localhost:5002/pis.json?v=23fd1c91ab96e9a5f60ef48e2529b4bdd8eade4a"
@@ -76,7 +76,7 @@
     "messages": "http://localhost:5002/uk.json?v=6129e512a51a0425c42861c362b436c5c06fbc84"
   },
   "zh": {
-    "messages": "http://localhost:5002/zh.json?v=b2bc48d8547f6c252b1311e4e4fb616c5b096e99"
+    "messages": "http://localhost:5002/zh.json?v=e28a73c8b2cc7b3fd3f364c5bd00f086b5800943"
   },
   "zh-tw": {
     "messages": "http://localhost:5002/zh-tw.json?v=b341b4321e95080539365a3bc5d0f568c27f485d"
