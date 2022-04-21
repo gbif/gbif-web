@@ -47,6 +47,8 @@ const typeDef = gql`
 
   type OccurrenceStats {
     year: Stats!
+    decimalLatitude: Stats!
+    decimalLongitude: Stats!
   }
 
   type OccurrenceCardinality {

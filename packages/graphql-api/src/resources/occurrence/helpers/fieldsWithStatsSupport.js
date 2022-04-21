@@ -1,3 +1,5 @@
 module.exports = [
-  "year"
+  "year",
+  "decimalLatitude",
+  "decimalLongitude",
 ];
