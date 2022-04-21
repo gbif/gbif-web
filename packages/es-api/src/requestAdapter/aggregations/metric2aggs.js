@@ -28,6 +28,16 @@ function metric2aggs(metrics = {}, config) {
           };
           break;
         }
+        case 'histogram': {
+          if (conf.type !== 'numeric') throw new ResponseError(400, 'badRequest', 'Only numeric fields support this aggregation');
+          aggs[name] = {
+            histogram: {
+              field: conf.field,
+              interval: metric.interval || 45
+            }
+          };
+          break;
+        }
         case 'cardinality': {
           if (!['keyword', 'numeric', 'boolean'].includes(conf.type)) throw new ResponseError(400, 'badRequest', 'Facets are only supported on keywords, boolean and numeric fields');
           aggs[name] = {

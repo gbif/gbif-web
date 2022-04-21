@@ -1,8 +1,9 @@
 const { getGlobe } = require('../../util/globe');
-const { getFacet, getStats, getCardinality } = require('./helpers/getMetrics');
+const { getFacet, getStats, getCardinality, getHistogram } = require('./helpers/getMetrics');
 const fieldsWithFacetSupport = require('./helpers/fieldsWithFacetSupport');
 const fieldsWithStatsSupport = require('./helpers/fieldsWithStatsSupport');
 const fieldsWithCardinalitySupport = require('./helpers/fieldsWithCardinalitySupport');
+const fieldsWithHistogramSupport = require('./helpers/fieldsWithHistogramSupport');
 // const verbatimResolvers = require('./helpers/occurrenceTerms');
 const { formattedCoordinates, isOccurrenceSequenced } = require('../../util/utils');
 const groupResolver = require('./helpers/groups/occurrenceGroups');
@@ -29,6 +30,13 @@ const cardinalityReducer = (dictionary, fieldName) => {
   return dictionary;
 };
 const OccurrenceCardinality = fieldsWithCardinalitySupport.reduce(cardinalityReducer, {});
+
+// there are also many fields that support histograms. Generate them all.
+const histogramReducer = (dictionary, fieldName) => {
+  dictionary[fieldName] = getHistogram(fieldName);
+  return dictionary;
+};
+const OccurrenceHistogram = fieldsWithHistogramSupport.reduce(histogramReducer, {});
 
 const searchOccurrences = (parent, query, { dataSources }) => {
   return dataSources.occurrenceAPI.searchOccurrenceDocuments({
@@ -223,6 +231,9 @@ module.exports = {
     cardinality: (parent) => {
       return { _predicate: parent._predicate };
     },
+    histogram: (parent) => {
+      return { _predicate: parent._predicate };
+    },
     _meta: (parent, query, { dataSources }) => {
       return dataSources.occurrenceAPI.meta({
         query: { predicate: parent._predicate }
@@ -236,6 +247,7 @@ module.exports = {
   OccurrenceStats,
   OccurrenceFacet,
   OccurrenceCardinality,
+  OccurrenceHistogram,
   OccurrenceFacetResult_float: {
     occurrences: facetOccurrenceSearch
   },
