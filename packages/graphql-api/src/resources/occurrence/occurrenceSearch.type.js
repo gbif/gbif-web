@@ -71,7 +71,12 @@ const typeDef = gql`
   }
 
   type OccurrenceHistogram {
-    decimalLongitude(interval: Float): JSON!
+    decimalLongitude(interval: Float): LongitudeHistogram!
+  }
+
+  type LongitudeHistogram {
+    buckets: JSON!
+    bounds: JSON
   }
 
   type OccurrenceFacet {

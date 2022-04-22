@@ -113,7 +113,7 @@ const getHistogram = (field) =>
     };
     // query the API, and throw away anything but the facet counts
     return dataSources.occurrenceAPI.searchOccurrences({ query })
-      .then(data => data.aggregations.histogram);
+      .then(data => ({interval, ...data.aggregations.histogram}));
   }
 
 module.exports = {

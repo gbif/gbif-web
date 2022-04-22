@@ -9,6 +9,7 @@ const { formattedCoordinates, isOccurrenceSequenced } = require('../../util/util
 const groupResolver = require('./helpers/groups/occurrenceGroups');
 const termResolver = require('./helpers/terms/occurrenceTerms');
 const predicate2v1 = require('./helpers/predicate2v1');
+const getLongitudeBounds = require('./helpers/longitudeBounds');
 
 // there are many fields that support facets. This function creates the resolvers for all of them
 const facetReducer = (dictionary, facetName) => {
@@ -400,6 +401,11 @@ module.exports = {
       .getOccurrenceByKey({ key: related.occurrence.gbifId }),
     stub: (related) => related.occurrence
   },
+  LongitudeHistogram: {
+    bounds: ({buckets, interval}, args, { dataSources }) => {
+      return getLongitudeBounds(buckets, interval);
+    }
+  }
   // TermGroups: (occurrence, args, { dataSources }) => {
   //   console.log('get verbatim');
   //   return dataSources.occurrenceAPI.getVerbatim({key: occurrence.key })
