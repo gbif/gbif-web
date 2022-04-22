@@ -42,7 +42,7 @@ function getLongitudeBounds(buckets, intervalSize) {
   const largestHole = maxBy(gaps, 'size');
   const startDataIndex = (largestHole.start + largestHole.size) % length;
   const endDataIndex = largestHole.start;
-  console.log(largestHole);
+
   const west = intervals[startDataIndex];
   let east = intervals[endDataIndex];
   if (east < west) east += 360;
