@@ -3,6 +3,7 @@ const maxBy = require('lodash/maxBy');
 const get = require('lodash/get');
 
 function getLongitudeBounds(buckets, intervalSize) {
+  if (buckets.length === 0) return null;
   const firstNotGap = buckets.find(x => x.doc_count !== 0).key;
   let firstNotGapIndex = 0;
 
