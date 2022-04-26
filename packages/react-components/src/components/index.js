@@ -39,4 +39,5 @@ export { NavBar, NavItem } from './NavBar/NavBar';
 export { DataHeader } from './DataHeader/DataHeader';
 export { ContactList } from './ContactList/ContactList';
 export { LicenseTag } from './LicenseTag/LicenseTag';
+export { OccurrenceMap } from './OccurrenceMap/OccurrenceMap';
 // -- Add imports above this line (required by plopfile.js) --
