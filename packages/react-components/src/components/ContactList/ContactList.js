@@ -27,7 +27,7 @@ export function ContactList({
 
 function Contact({ contact, ...props }) {
   const theme = useContext(ThemeContext);
-  const name = (contact.firstName || contact.lastName) ? `${contact.firstName} ${contact.lastName}`.trim() : undefined;
+  const name = (contact.firstName || contact.lastName) ? `${contact.firstName || ''} ${contact.lastName || ''}`.trim() : undefined;
 
   let roles = contact.roles || (contact.type ? [contact.type] : undefined);
   const Roles = <>{roles.map((r) => <React.Fragment key={r}><FormattedMessage id={`enums.role.${r}`} defaultMessage={r} /><br /></React.Fragment>)}</>;
