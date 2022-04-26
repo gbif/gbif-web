@@ -1,7 +1,7 @@
 import { jsx } from '@emotion/react';
 import React, { useContext, useCallback, useState, useEffect } from 'react';
 import ThemeContext from '../../style/themes/ThemeContext';
-import { Prose, Tabs, Eyebrow, LicenseTag, DataHeader, Doi, Button, ResourceLink } from '../../components';
+import { Prose, Tabs, Eyebrow, LicenseTag, DataHeader, Doi, Button, ResourceLink, ResourceSearchLink, Row, Col } from '../../components';
 import OccurrenceSearch from '../../search/OccurrenceSearch/OccurrenceSearch';
 import { iconFeature, countFeature } from '../../components/IconFeatures/styles';
 import { About } from './about/About';
@@ -55,7 +55,10 @@ export function DatasetPresentation({
 
   return <>
     <DataHeader
-      left={<><MdKeyboardArrowLeft /> Dataset</>}
+      left={<ResourceSearchLink type="datasetSearch" discreet>
+        <MdKeyboardArrowLeft />
+        <FormattedMessage id='catalogues.datasets' />
+      </ResourceSearchLink>}
       style={{ borderBottom: `1px solid ${theme.paperBorderColor}`, background: 'white' }}
       right={<div css={css.headerIcons}>
         {!isBelowNarrow && <Doi id={dataset.doi} />}
@@ -68,82 +71,86 @@ export function DatasetPresentation({
       <div css={css.proseWrapper({ theme })}>
         <Eyebrow prefix={<FormattedMessage id={`dataset.longType.${dataset.type}`} />} suffix={<FormattedMessage id="dataset.registeredDate" values={{ DATE: <FormattedDate value={dataset.created} year="numeric" month="long" day="2-digit" /> }} />} />
         <div css={css.headerFlex}>
-          {!isBelowNarrow && dataset.logoUrl && <div css={css.headerLogo}>
-            <img src={dataset.logoUrl} />
-          </div>}
           <div css={css.headerContent}>
             {/* <Eyebrow prefix={<FormattedMessage id={`dataset.longType.${dataset.type}`} />} suffix={<FormattedMessage id="dataset.registeredDate" values={{ DATE: <FormattedDate value={dataset.created} year="numeric" month="long" day="2-digit" /> }} />} /> */}
             <Headline>{dataset.title}</Headline>
-            {dataset?.contactsCitation.length > 0 && <div css={iconFeature({ theme })}>
-              <MdPeople />
-              <div>
-                <ol css={css.bulletList}>{dataset?.contactsCitation.map(p => <li key={p.key}>{p.abbreviatedName}</li>)}</ol>
-              </div>
-            </div>}
-            <div style={{ marginTop: '.5em' }}>
-              Published by <ResourceLink css={Prose.css.a(theme)} type="publisherKey" id={dataset.publishingOrganizationKey}>{dataset.publishingOrganizationTitle}</ResourceLink>
-            </div>
-
-            <div css={css.summary}>
-              <div css={css.iconFeatures()}>
-
-                {/* <div css={iconFeature({ theme })}>
-                  <LicenseTag value={dataset.license} />
-                </div> */}
-
-                {isBelowNarrow && <div css={iconFeature({ theme })}>
-                  <Doi id={dataset.doi} />
+            <Row wrap="nowrap">
+              {/* {!isBelowNarrow && dataset.logoUrl && <Col css={css.headerLogo}>
+                <img src={dataset.logoUrl} />
+              </Col>} */}
+              <Col grow={true}>
+                {dataset?.contactsCitation.length > 0 && <div css={iconFeature({ theme })}>
+                  <MdPeople />
+                  <div>
+                    <ol css={css.bulletList}>{dataset?.contactsCitation.map(p => <li key={p.key}>{p.abbreviatedName}</li>)}</ol>
+                  </div>
                 </div>}
+                <div style={{ marginTop: '.5em' }}>
+                  Published by <ResourceLink css={Prose.css.a(theme)} type="publisherKey" id={dataset.publishingOrganizationKey}>{dataset.publishingOrganizationTitle}</ResourceLink>
+                </div>
 
-                {dataset.homepage && <div css={iconFeature({ theme })}>
-                  <MdLink />
-                  <span><Hostname href={dataset.homepage} /></span>
-                </div>}
+                <div css={css.summary}>
+                  <div css={css.iconFeatures()}>
 
-                {occurrenceSearch.documents.total > 0 && <div css={iconFeature({ theme })}>
-                  <MdLocationOn />
-                  <span><FormattedNumber value={occurrenceSearch.documents.total} /> occurrences</span>
-                </div>}
+                    <div css={iconFeature({ theme })}>
+                      <LicenseTag value={dataset.license} />
+                    </div>
 
-                {/* {siteOccurrences.documents.total > 0 && <div css={iconFeature({ theme })}>
-                  <MdLocationOn />
-                  <span><FormattedNumber value={siteOccurrences.documents.total} /> occurrences on this site</span>
-                </div>} */}
+                    {isBelowNarrow && <div css={iconFeature({ theme })}>
+                      <Doi id={dataset.doi} />
+                    </div>}
 
-                {/* {literatureSearch.documents?.count > 0 && <div css={countFeature({ theme })}>
-                  <span>
-                    <MdFormatQuote />
-                    <FormattedNumber value={literatureSearch.documents.count} />
-                  </span>
-                  <span><Link to={join(url, 'citations')}>citations</Link></span>
-                </div>} */}
+                    {dataset.homepage && <div css={iconFeature({ theme })}>
+                      <MdLink />
+                      <span><Hostname href={dataset.homepage} /></span>
+                    </div>}
 
-                {taxonSearch.count > 0 && <div css={iconFeature({ theme })}>
-                  <MdPlaylistAddCheck />
-                  <span><FormattedNumber value={taxonSearch.count} /> accepted names</span>
-                </div>}
+                    {occurrenceSearch.documents.total > 0 && <div css={iconFeature({ theme })}>
+                      <MdLocationOn />
+                      <span><FormattedNumber value={occurrenceSearch.documents.total} /> occurrences</span>
+                    </div>}
 
-                {/* <div css={countFeature({ theme })}>
-              <span>{dataset.license}</span>
-            </div> */}
+                    {/* {siteOccurrences.documents.total > 0 && <div css={iconFeature({ theme })}>
+                      <MdLocationOn />
+                      <span><FormattedNumber value={siteOccurrences.documents.total} /> occurrences on this site</span>
+                    </div>} */}
 
-                {/* {occurrenceSearch.documents.total > 0 && <div css={countFeature({ theme })}>
-              <span><FormattedNumber value={occurrenceSearch.documents.total} /></span>
-              <span>occurrences</span>
-            </div>}
-            
-            {literatureSearch.count > 0 && <div css={countFeature({ theme })}>
-              <span><FormattedNumber value={literatureSearch.count} /></span>
-              <span>citations</span>
-            </div>}
+                        {/* {literatureSearch.documents?.count > 0 && <div css={countFeature({ theme })}>
+                      <span>
+                        <MdFormatQuote />
+                        <FormattedNumber value={literatureSearch.documents.count} />
+                      </span>
+                      <span><Link to={join(url, 'citations')}>citations</Link></span>
+                    </div>} */}
 
-            {taxonSearch.count > 0 && <div css={countFeature({ theme })}>
-              <span><FormattedNumber value={taxonSearch.count} /></span>
-              <span>accepted names</span>
-            </div>} */}
-              </div>
+                    {taxonSearch.count > 0 && <div css={iconFeature({ theme })}>
+                      <MdPlaylistAddCheck />
+                      <span><FormattedNumber value={taxonSearch.count} /> accepted names</span>
+                    </div>}
 
-            </div>
+                    {/* <div css={countFeature({ theme })}>
+                      <span>{dataset.license}</span>
+                    </div> */}
+
+                            {/* {occurrenceSearch.documents.total > 0 && <div css={countFeature({ theme })}>
+                      <span><FormattedNumber value={occurrenceSearch.documents.total} /></span>
+                      <span>occurrences</span>
+                    </div>}
+                    
+                    {literatureSearch.count > 0 && <div css={countFeature({ theme })}>
+                      <span><FormattedNumber value={literatureSearch.count} /></span>
+                      <span>citations</span>
+                    </div>}
+
+                    {taxonSearch.count > 0 && <div css={countFeature({ theme })}>
+                      <span><FormattedNumber value={taxonSearch.count} /></span>
+                      <span>accepted names</span>
+                    </div>} */}
+                  </div>
+
+                </div>
+              </Col>
+            </Row>
           </div>
         </div>
         <TabList style={{ marginTop: '12px', borderTop: '1px solid #ddd' }}>

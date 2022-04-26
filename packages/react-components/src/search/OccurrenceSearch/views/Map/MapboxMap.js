@@ -110,8 +110,8 @@ class Map extends Component {
   }
 
   render() {
-    const { query, onMapClick, onPointClick, predicateHash, ...props } = this.props;
-    return <div ref={this.myRef} {...props} />
+    const { query, onMapClick, onPointClick, predicateHash, style, className, ...props } = this.props;
+    return <div ref={this.myRef} {...{style, className}} />
   }
 }
 

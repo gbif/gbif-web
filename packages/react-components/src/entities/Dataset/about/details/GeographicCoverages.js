@@ -40,18 +40,24 @@ function GeographicCoverage({ coverage }) {
       ],
     };
   }
-  const Bbox = <Properties horizontal>
-  <T>Latitude</T>
-  <V>
-    From {coverage.boundingBox.minLatitude} to{" "}
-    {coverage.boundingBox.maxLatitude}
-  </V>
-  <T>Longitude</T>
-  <V>
-    From {coverage.boundingBox.minLongitude} to{" "}
-    {coverage.boundingBox.maxLongitude}
-  </V>
-</Properties>
+
+  let Bbox;
+  if (coverage?.boundingBox?.minLatitude) {
+    Bbox = <Properties horizontal>
+    <T>Latitude</T>
+    <V>
+      From {coverage.boundingBox.minLatitude} to{" "}
+      {coverage.boundingBox.maxLatitude}
+    </V>
+    <T>Longitude</T>
+    <V>
+      From {coverage.boundingBox.minLongitude} to{" "}
+      {coverage.boundingBox.maxLongitude}
+    </V>
+  </Properties>
+  } else {
+    Bbox = null;
+  }
 
   return (
     <Properties>
