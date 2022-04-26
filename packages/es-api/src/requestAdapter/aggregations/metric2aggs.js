@@ -38,6 +38,16 @@ function metric2aggs(metrics = {}, config) {
           };
           break;
         }
+        case 'auto_date_histogram': {
+          if (conf.type !== 'date') throw new ResponseError(400, 'badRequest', 'Only date fields support this aggregation');
+          aggs[name] = {
+            auto_date_histogram: {
+              field: conf.field,
+              buckets: metric.buckets || 10
+            }
+          };
+          break;
+        }
         case 'cardinality': {
           if (!['keyword', 'numeric', 'boolean'].includes(conf.type)) throw new ResponseError(400, 'badRequest', 'Facets are only supported on keywords, boolean and numeric fields');
           aggs[name] = {

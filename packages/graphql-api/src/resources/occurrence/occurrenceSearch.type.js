@@ -33,6 +33,7 @@ const typeDef = gql`
     Get histogram for a numeric field with the option to specify an interval size
     """
     histogram: OccurrenceHistogram
+    autoDateHistogram: OccurrenceAutoDateHistogram
     _predicate: JSON
     _downloadPredicate: JSON
     """
@@ -53,6 +54,7 @@ const typeDef = gql`
     year: Stats!
     decimalLatitude: Stats!
     decimalLongitude: Stats!
+    eventDate: Stats!
   }
 
   type OccurrenceCardinality {
@@ -72,6 +74,10 @@ const typeDef = gql`
 
   type OccurrenceHistogram {
     decimalLongitude(interval: Float): LongitudeHistogram!
+  }
+
+  type OccurrenceAutoDateHistogram {
+    eventDate(buckets: Float): JSON!
   }
 
   type LongitudeHistogram {

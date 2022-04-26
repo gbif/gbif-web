@@ -1,9 +1,10 @@
 const { getGlobe } = require('../../util/globe');
-const { getFacet, getStats, getCardinality, getHistogram } = require('./helpers/getMetrics');
+const { getFacet, getStats, getCardinality, getHistogram, getAutoDateHistogram } = require('./helpers/getMetrics');
 const fieldsWithFacetSupport = require('./helpers/fieldsWithFacetSupport');
 const fieldsWithStatsSupport = require('./helpers/fieldsWithStatsSupport');
 const fieldsWithCardinalitySupport = require('./helpers/fieldsWithCardinalitySupport');
 const fieldsWithHistogramSupport = require('./helpers/fieldsWithHistogramSupport');
+const fieldsWithDateHistogramSupport = require('./helpers/fieldsWithDateHistogramSupport');
 // const verbatimResolvers = require('./helpers/occurrenceTerms');
 const { formattedCoordinates, isOccurrenceSequenced } = require('../../util/utils');
 const groupResolver = require('./helpers/groups/occurrenceGroups');
@@ -38,6 +39,13 @@ const histogramReducer = (dictionary, fieldName) => {
   return dictionary;
 };
 const OccurrenceHistogram = fieldsWithHistogramSupport.reduce(histogramReducer, {});
+
+// there are also many fields that support date histograms. Generate them all.
+const autoDateHistogramReducer = (dictionary, fieldName) => {
+  dictionary[fieldName] = getAutoDateHistogram(fieldName);
+  return dictionary;
+};
+const OccurrenceAutoDateHistogram = fieldsWithDateHistogramSupport.reduce(autoDateHistogramReducer, {});
 
 const searchOccurrences = (parent, query, { dataSources }) => {
   return dataSources.occurrenceAPI.searchOccurrenceDocuments({
@@ -235,6 +243,9 @@ module.exports = {
     histogram: (parent) => {
       return { _predicate: parent._predicate };
     },
+    autoDateHistogram: (parent) => {
+      return { _predicate: parent._predicate };
+    },
     _meta: (parent, query, { dataSources }) => {
       return dataSources.occurrenceAPI.meta({
         query: { predicate: parent._predicate }
@@ -249,6 +260,7 @@ module.exports = {
   OccurrenceFacet,
   OccurrenceCardinality,
   OccurrenceHistogram,
+  OccurrenceAutoDateHistogram,
   OccurrenceFacetResult_float: {
     occurrences: facetOccurrenceSearch
   },
