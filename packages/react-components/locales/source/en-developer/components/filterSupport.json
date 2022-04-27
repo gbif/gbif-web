@@ -11,7 +11,7 @@
   "cancel": "Cancel",
   "apply": "Apply",
   "wildcardHelp": "Searches are case insensitive, but every letter is distinct, so, to find records with Rio or Río, for example, you can use the pattern 'r?o'.",
-  "useWildcardPattern": "Search for the pattern ({distinct, plural, one {# distinct value } other {# distinct values}})",
+  "useWildcardPattern": "Search for the pattern",
   "showSuggestions": "Show suggestions",
   "excludeSelected": "Exclude selected"
 }
