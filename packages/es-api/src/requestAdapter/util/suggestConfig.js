@@ -177,7 +177,7 @@ function mapping2searchConfig(mapping, prefix) {
      Object.keys(x.config.options)
       .forEach(k => {
         const option = x.config.options[k];
-        optionsMap[`${x.config.prefix}.${option.field}`] = {...option, field: `${x.config.prefix}.${option.field}`}
+        optionsMap[`${x.config.prefix}_${option.field.replace('.', '_')}`] = {...option, field: `${x.config.prefix}.${option.field}`}
       })
     });
   
