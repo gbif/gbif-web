@@ -60,6 +60,9 @@ const temporaryAuthMiddleware = function (req, res, next) {
 app.use(temporaryAuthMiddleware)
 
 if (literature) {
+  app.post('/literature/meta', asyncMiddleware(postMetaOnly(literature)));
+  app.get('/literature/meta', asyncMiddleware(getMetaOnly(literature)));
+
   app.post('/literature', asyncMiddleware(searchResource(literature)));
   app.get('/literature', asyncMiddleware(searchResource(literature)));
   app.get('/literature/key/:id', asyncMiddleware(keyResource(literature)));
@@ -79,6 +82,9 @@ if (dataset) {
   app.get('/dataset/key/:id', asyncMiddleware(keyResource(dataset)));
 }
 if (event) {
+  app.post('/event/meta', asyncMiddleware(postMetaOnly(event)));
+  app.get('/event/meta', asyncMiddleware(getMetaOnly(event)));
+  
   app.post('/event', asyncMiddleware(searchResource(event)));
   app.get('/event', asyncMiddleware(searchResource(event)));
   app.get('/event/key/:id', asyncMiddleware(keyResource(event)));

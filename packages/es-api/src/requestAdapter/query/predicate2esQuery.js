@@ -149,6 +149,14 @@ function transform(p, config, isRootQuery) {
         }
       }
     }
+    case 'join': {
+      return {
+        has_child: {
+          type: 'occurrence',
+          query: transform(p.predicate, config.options[p.key].config)
+        }
+      }
+    }
     default: {
       return;
     }

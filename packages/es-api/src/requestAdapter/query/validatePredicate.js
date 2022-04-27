@@ -20,6 +20,12 @@ const schema = Joi.alternatives().try(
     // predicates: Joi.array().items(Joi.link('#predicateItem')),
   }),
   Joi.object({
+    type: Joi.string().valid('join').required(),
+    key: Joi.string().required(),
+    predicate: Joi.link('#predicateItem'),
+    // predicates: Joi.array().items(Joi.link('#predicateItem')),
+  }),
+  Joi.object({
     type: Joi.string().valid('not').required(),
     predicate: Joi.link('#predicateItem'),
   }),

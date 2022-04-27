@@ -11,9 +11,9 @@ async function search({ client, index, query, req }) {
       }
     });
 
-    req.on('close', function () {
-      request.abort();
-    });
+    // req.on('close', function () {
+    //   request.abort();
+    // });
 
     const response = await request;
     return response;

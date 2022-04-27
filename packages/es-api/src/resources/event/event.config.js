@@ -1,4 +1,4 @@
-const config = 
+const config =
 {
   options: {
     all: {
@@ -500,63 +500,135 @@ const config =
       type: 'keyword',
       field: 'metadata.publishingOrganizationKey'
     },
-    occurrence_core_basisOfRecord: {
+    occurrence: {
+      type: 'join',
+      config: {
+        prefix: 'occurrence',
+        options: {
+          basisOfRecord: {
+            type: 'keyword',
+            field: 'core.basisOfRecord'
+          },
+          class: {
+            type: 'keyword',
+            field: 'core.class'
+          },
+          eventID: {
+            type: 'keyword',
+            field: 'core.eventID'
+          },
+          family: {
+            type: 'keyword',
+            field: 'core.family'
+          },
+          genus: {
+            type: 'keyword',
+            field: 'core.genus'
+          },
+          identificationReferences: {
+            type: 'keyword',
+            field: 'core.identificationReferences'
+          },
+          identificationRemarks: {
+            type: 'keyword',
+            field: 'core.identificationRemarks'
+          },
+          kingdom: {
+            type: 'keyword',
+            field: 'core.kingdom'
+          },
+          occurrenceID: {
+            type: 'keyword',
+            field: 'core.occurrenceID'
+          },
+          order: {
+            type: 'keyword',
+            field: 'core.order'
+          },
+          organismQuantity: {
+            type: 'keyword',
+            field: 'core.organismQuantity'
+          },
+          organismQuantityType: {
+            type: 'keyword',
+            field: 'core.organismQuantityType'
+          },
+          phylum: {
+            type: 'keyword',
+            field: 'core.phylum'
+          },
+          scientificName: {
+            type: 'keyword',
+            field: 'core.scientificName'
+          },
+          taxonRank: {
+            type: 'keyword',
+            field: 'core.taxonRank'
+          }
+        }
+      }
+    },
+
+
+
+
+    basisOfRecord: {
       type: 'keyword',
       field: 'occurrence.core.basisOfRecord'
     },
-    occurrence_core_class: {
+    class: {
       type: 'keyword',
       field: 'occurrence.core.class'
     },
-    occurrence_core_eventID: {
+    eventID: {
       type: 'keyword',
       field: 'occurrence.core.eventID'
     },
-    occurrence_core_family: {
+    family: {
       type: 'keyword',
       field: 'occurrence.core.family'
     },
-    occurrence_core_genus: {
+    genus: {
       type: 'keyword',
       field: 'occurrence.core.genus'
     },
-    occurrence_core_identificationReferences: {
+    identificationReferences: {
       type: 'keyword',
       field: 'occurrence.core.identificationReferences'
     },
-    occurrence_core_identificationRemarks: {
+    identificationRemarks: {
       type: 'keyword',
-      field: 'occurrence.core.identificationRemarks'
+      field: 'occurrence.occurrence.core.identificationRemarks'
     },
-    occurrence_core_kingdom: {
+    kingdom: {
       type: 'keyword',
       field: 'occurrence.core.kingdom'
     },
-    occurrence_core_occurrenceID: {
+    occurrenceID: {
       type: 'keyword',
       field: 'occurrence.core.occurrenceID'
     },
-    occurrence_core_order: {
+    order: {
       type: 'keyword',
       field: 'occurrence.core.order'
     },
-    occurrence_core_organismQuantity: {
+    organismQuantity: {
       type: 'keyword',
       field: 'occurrence.core.organismQuantity'
     },
-    occurrence_core_organismQuantityType: {
+    organismQuantityType: {
       type: 'keyword',
       field: 'occurrence.core.organismQuantityType'
     },
-    occurrence_core_phylum: {
+    phylum: {
       type: 'keyword',
       field: 'occurrence.core.phylum'
     },
-    occurrence_core_scientificName: {
+    scientificName: {
       type: 'keyword',
       field: 'occurrence.core.scientificName'
     },
-    occurrence_core_taxonRank: {
+    taxonRank: {
       type: 'keyword',
       field: 'occurrence.core.taxonRank'
     }
