@@ -49,6 +49,7 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
         .replace(/\*/g, '.*')
         .replace(/\?/, '.')
         .replace(/([\?\+\|\{\}\[\]\(\)\"\\])/g, (m, p1) => '\\' + p1)
+        .toLowerCase();
       load({
         keepDataWhileLoading: size > initialSize,
         variables: {
