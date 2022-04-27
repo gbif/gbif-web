@@ -3,9 +3,20 @@ const bodyParser = require('body-parser');
 const compression = require('compression');
 const _ = require('lodash');
 const config = require('./config');
-const literature = require('./resources/literature');
-const occurrence = require('./resources/occurrence');
-const dataset = require('./resources/dataset');
+
+let literature, occurrence, dataset, event;
+if (config.literature) {
+  literature = require('./resources/literature');
+}
+if (config.occurrence) {
+  occurrence = require('./resources/occurrence');
+}
+if (config.dataset) {
+  dataset = require('./resources/dataset');
+}
+if (config.event) {
+  event = require('./resources/event');
+}
 const { asyncMiddleware, ResponseError, errorHandler, unknownRouteHandler } = require('./resources/errorHandler');
 
 const app = express();
@@ -34,9 +45,6 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.post('/occurrence/meta', asyncMiddleware(postMetaOnly(occurrence)));
-app.get('/occurrence/meta', asyncMiddleware(getMetaOnly(occurrence)));
-
 const temporaryAuthMiddleware = function (req, res, next) {
   const apiKey = _.get(req, 'query.apiKey') || _.get(req, 'body.apiKey') || _.get(req, 'headers.Authorization', '').substr(10) || _.get(req, 'headers.authorization', '').substr(10);
   if (!apiKey) {
@@ -51,18 +59,30 @@ const temporaryAuthMiddleware = function (req, res, next) {
 }
 app.use(temporaryAuthMiddleware)
 
-app.post('/literature', asyncMiddleware(searchResource(literature)));
-app.get('/literature', asyncMiddleware(searchResource(literature)));
-app.get('/literature/key/:id', asyncMiddleware(keyResource(literature)));
-
-app.post('/occurrence', asyncMiddleware(searchResource(occurrence)));
-app.get('/occurrence', asyncMiddleware(searchResource(occurrence)));
-app.get('/occurrence/key/:id', asyncMiddleware(keyResource(occurrence)));
-app.get('/occurrence/suggest/:key', asyncMiddleware(suggestResource(occurrence)));
-
-app.post('/dataset', asyncMiddleware(searchResource(dataset)));
-app.get('/dataset', asyncMiddleware(searchResource(dataset)));
-app.get('/dataset/key/:id', asyncMiddleware(keyResource(dataset)));
+if (literature) {
+  app.post('/literature', asyncMiddleware(searchResource(literature)));
+  app.get('/literature', asyncMiddleware(searchResource(literature)));
+  app.get('/literature/key/:id', asyncMiddleware(keyResource(literature)));
+}
+if (occurrence) {
+  app.post('/occurrence/meta', asyncMiddleware(postMetaOnly(occurrence)));
+  app.get('/occurrence/meta', asyncMiddleware(getMetaOnly(occurrence)));
+  
+  app.post('/occurrence', asyncMiddleware(searchResource(occurrence)));
+  app.get('/occurrence', asyncMiddleware(searchResource(occurrence)));
+  app.get('/occurrence/key/:id', asyncMiddleware(keyResource(occurrence)));
+  app.get('/occurrence/suggest/:key', asyncMiddleware(suggestResource(occurrence)));
+}
+if (dataset) {
+  app.post('/dataset', asyncMiddleware(searchResource(dataset)));
+  app.get('/dataset', asyncMiddleware(searchResource(dataset)));
+  app.get('/dataset/key/:id', asyncMiddleware(keyResource(dataset)));
+}
+if (event) {
+  app.post('/event', asyncMiddleware(searchResource(event)));
+  app.get('/event', asyncMiddleware(searchResource(event)));
+  app.get('/event/key/:id', asyncMiddleware(keyResource(event)));
+}
 
 function searchResource(resource) {
   const { dataSource, get2predicate, predicate2query, get2metric, metric2aggs } = resource;
@@ -101,21 +121,21 @@ function parseQuery(req, res, next, { get2predicate, get2metric }) {
         return next(new ResponseError(400, 'badRequest', `Malformed body`));
       }
     }
-    
+
     // take anything but the body from the url query
     const { body: getBody, ...getQuery } = req.query;
     // then merge body (from POST or GET) with the url params giving preference to the body
-    const query = {...getQuery, ...body};
+    const query = { ...getQuery, ...body };
 
-    const { 
-      predicate: jsonPredicate, 
-      metrics: jsonMetrics, 
-      size = 20, 
-      from = 0, 
-      includeMeta = false, 
-      ...otherParams 
+    const {
+      predicate: jsonPredicate,
+      metrics: jsonMetrics,
+      size = 20,
+      from = 0,
+      includeMeta = false,
+      ...otherParams
     } = query;
-    
+
     // get any metrics and predicate defined in v1 style. 
     let v1Predicate = get2predicate(otherParams);
     let v1Metrics = get2metric(otherParams);
