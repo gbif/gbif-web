@@ -211,11 +211,11 @@ const config =
       "type": "keyword",
       "field": "establishmentMeans.concept"
     },
+    // "eventDate": {
+    //   "field": "eventDate",
+    //   "discarded": true
+    // },
     "eventDate": {
-      "field": "eventDate",
-      "discarded": true
-    },
-    "eventDateSingle": {
       "type": "date",
       "field": "eventDateSingle",
       "get": {

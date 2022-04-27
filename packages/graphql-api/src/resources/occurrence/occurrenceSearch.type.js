@@ -29,6 +29,11 @@ const typeDef = gql`
     Get number of distinct values for a field. E.g. how many distinct datasetKeys in this result set
     """
     cardinality: OccurrenceCardinality
+    """
+    Get histogram for a numeric field with the option to specify an interval size
+    """
+    histogram: OccurrenceHistogram
+    autoDateHistogram: OccurrenceAutoDateHistogram
     _predicate: JSON
     _downloadPredicate: JSON
     """
@@ -47,6 +52,9 @@ const typeDef = gql`
 
   type OccurrenceStats {
     year: Stats!
+    decimalLatitude: Stats!
+    decimalLongitude: Stats!
+    eventDate: Stats!
   }
 
   type OccurrenceCardinality {
@@ -62,6 +70,19 @@ const typeDef = gql`
     sampleSizeUnit: Int!
     verbatimScientificName: Int!
     eventId: Int!
+  }
+
+  type OccurrenceHistogram {
+    decimalLongitude(interval: Float): LongitudeHistogram!
+  }
+
+  type OccurrenceAutoDateHistogram {
+    eventDate(buckets: Float): JSON!
+  }
+
+  type LongitudeHistogram {
+    buckets: JSON!
+    bounds: JSON
   }
 
   type OccurrenceFacet {

@@ -93,8 +93,58 @@ const getCardinality = (field) =>
       .then(data => data.aggregations.cardinality.value);
   }
 
+/**
+* Convinent wrapper to generate the histogram resolvers.
+* Given a string (field name) then generate a query and map the result
+* @param {String} field 
+*/
+const getHistogram = (field) =>
+  (parent, { interval = 45 }, { dataSources }) => {
+    // generate the occurrence search facet query, by inherting from the parent query, and map limit/offset to facet equivalents
+    const query = {
+      predicate: parent._predicate,
+      size: 0,
+      metrics: {
+        histogram: {
+          type: 'histogram',
+          key: field,
+          interval: interval
+        }
+      }
+    };
+    // query the API, and throw away anything but the facet counts
+    return dataSources.occurrenceAPI.searchOccurrences({ query })
+      .then(data => ({interval, ...data.aggregations.histogram}));
+  }
+
+/**
+* Convinent wrapper to generate the histogram resolvers.
+* Given a string (field name) then generate a query and map the result
+* @param {String} field 
+*/
+const getAutoDateHistogram = (field) =>
+  (parent, { buckets = 10 }, { dataSources }) => {
+    // generate the occurrence search facet query, by inherting from the parent query, and map limit/offset to facet equivalents
+    const query = {
+      predicate: parent._predicate,
+      size: 0,
+      metrics: {
+        autoDateHistogram: {
+          type: 'auto_date_histogram',
+          key: field,
+          buckets
+        }
+      }
+    };
+    // query the API, and throw away anything but the facet counts
+    return dataSources.occurrenceAPI.searchOccurrences({ query })
+      .then(data => ({buckets, ...data.aggregations.autoDateHistogram}));
+  }
+
 module.exports = {
   getFacet,
   getStats,
-  getCardinality
+  getCardinality,
+  getHistogram,
+  getAutoDateHistogram
 }

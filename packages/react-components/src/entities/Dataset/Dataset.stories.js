@@ -29,7 +29,7 @@ export const Example = () => <Router initialEntries={[`/`]}>
     {/* <Dataset id="42844cb6-421e-4bcf-bdeb-c56039bee08c" /> */}
 
     {/* Gull */}
-    <Dataset id={text('datasetUUID', '83e20573-f7dd-4852-9159-21566e1e691e')} />
+    <Dataset id={text('datasetUUID', '2985efd1-45b1-46de-b6db-0465d2834a5a')} />
 
     {/* Vascan */}
     {/* <Dataset id={text('datasetUUID', '3f8a1297-3259-4700-91fc-acc4170b27ce')} /> */}

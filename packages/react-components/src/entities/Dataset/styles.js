@@ -28,7 +28,7 @@ export const headerWrapper = ({ ...props }) => css`
 `;
 
 export const summary = ({ ...props }) => css`
-  margin-top: 2.5rem;
+  margin-top: 1.5rem;
   margin-bottom: 1.5rem;
   >div {
     margin-bottom: 8px;
@@ -37,7 +37,7 @@ export const summary = ({ ...props }) => css`
 
 export const headerFlex = css`
   display: flex;
-  margin-top: 1.5em;
+  margin-top: .5em;
 `;
 
 export const headerContent = css`

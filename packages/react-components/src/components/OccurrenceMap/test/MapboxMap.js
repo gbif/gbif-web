@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import mapboxgl from 'mapbox-gl';
 import { getLayerConfig } from './getLayerConfig';
-import env from '../../../../../.env.json';
+import env from '../../../../.env.json';
 
 class Map extends Component {
   constructor(props) {
@@ -9,7 +9,7 @@ class Map extends Component {
 
     this.addLayer = this.addLayer.bind(this);
     this.updateLayer = this.updateLayer.bind(this);
-    this.onPointClick = this.onPointClick.bind(this);
+    this.fitBbox = this.fitBbox.bind(this);
     this.myRef = React.createRef();
     this.state = {};
   }
@@ -35,6 +35,9 @@ class Map extends Component {
     if (prevProps.query !== this.props.query && this.mapLoaded) {
       this.updateLayer();
     }
+    if (prevProps.bbox !== this.props.bbox && typeof this.props.bbox !== 'undefined') {
+      this.fitBbox(this.props.bbox);
+    }
     if (prevProps.theme !== this.props.theme && this.mapLoaded) {
       const mapStyle = this.props.theme.darkTheme ? 'dark-v9' : 'light-v9';
       this.map.setStyle(`mapbox://styles/mapbox/${mapStyle}`);
@@ -55,8 +58,13 @@ class Map extends Component {
     }
   }
 
-  onPointClick(pointData) {
-    this.props.onPointClick(pointData);
+  fitBbox({south, west, north, east}) {
+    if (typeof south !== 'number') return null;
+    // https://docs.mapbox.com/mapbox-gl-js/example/fitbounds/
+    this.map.fitBounds([
+      [west, south],
+      [east, north]
+    ], {duration: 0, padding: 100, maxZoom: 8});
   }
 
   addLayer() {
@@ -82,20 +90,6 @@ class Map extends Component {
         sessionStorage.setItem('mapLat', center.lat);
       });
 
-      map.on('mouseenter', 'occurrences', function (e) {
-        // Change the cursor style as a UI indicator.
-        map.getCanvas().style.cursor = 'pointer';
-      });
-
-      map.on('click', 'occurrences', e => {
-        this.onPointClick({ geohash: e.features[0].properties.geohash, count: e.features[0].properties.count });
-        e.preventDefault();
-      });
-
-      map.on('mouseleave', 'occurrences', function () {
-        map.getCanvas().style.cursor = '';
-      });
-
       map.on('click', e => {
         if (!e._defaultPrevented && this.props.onMapClick) this.props.onMapClick();
       });
@@ -110,8 +104,8 @@ class Map extends Component {
   }
 
   render() {
-    const { query, onMapClick, onPointClick, predicateHash, style, className, ...props } = this.props;
-    return <div ref={this.myRef} {...{style, className}} />
+    const { query, onMapClick, predicateHash, ...props } = this.props;
+    return <div ref={this.myRef} {...props} />
   }
 }
 

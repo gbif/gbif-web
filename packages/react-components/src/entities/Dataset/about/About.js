@@ -3,7 +3,7 @@ import { jsx } from '@emotion/react';
 import React, { useContext, useState, useEffect } from 'react';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import * as css from './styles';
-import { Prose, Properties, HyperText, Toc, ContactList } from "../../../components";
+import { Prose, Properties, HyperText, Toc, ContactList, OccurrenceMap } from "../../../components";
 import RouteContext from '../../../dataManagement/RouteContext';
 import { Images, ThumbnailMap, TaxonomicCoverages, GeographicCoverages, TemporalCoverages, Registration, BibliographicCitations, SamplingDescription, Citation } from './details';
 
@@ -61,6 +61,11 @@ export function About({
       </div>}
       <div style={{ width: '100%', marginLeft: 12, overflow: 'hidden' }}>
 
+        <OccurrenceMap rootPredicate={{
+          type: 'equals',
+          key: 'datasetKey',
+          value: dataset.key
+        }}/>
         {dataset.description && <Prose css={css.paper({ theme })}>
           <h2 ref={node => { tocRefs["description"] = node; }}>Description</h2>
           <HyperText text={dataset.description} />
@@ -131,7 +136,7 @@ export function About({
           </div>
           <div css={css.area}>
             <div css={css.testcardWrapper}>
-              <ThumbnailMap dataset={dataset}/>
+              {/* <ThumbnailMap dataset={dataset}/> */}
               <div css={css.testcard}>
                 <div css={css.testcontent}>
                   <h5><FormattedNumber value={occurrenceSearch?.documents?.total} /> occurrences</h5>
