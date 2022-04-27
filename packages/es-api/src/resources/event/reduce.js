@@ -27,7 +27,7 @@ function vocabularFallback(obj) {
  * Map ES response to something similar to v1
  */
 function reduce(item) {
-  return item;
+  return item._source;
   // take dwc items from verbatim
   // overwrite with selected interpreted fields
   const source = item._source;
