@@ -6,6 +6,7 @@ const { search } = require('../esRequest');
 const env = require('../../config');
 const { reduce } = require('./reduce');
 const { queryReducer } = require('../../responseAdapter');
+const { filter } = require('lodash');
 
 const searchIndex = env.event.index || 'event';
 
@@ -25,6 +26,14 @@ async function query({ query, aggs, size = 20, from = 0, req }) {
   if (parseInt(from) + parseInt(size) > env.event.maxResultWindow) {
     throw new ResponseError(400, 'BAD_REQUEST', `'from' + 'size' must be ${env.event.maxResultWindow} or less`);
   }
+  let filter = [
+    {
+      "term": {
+        "type": "event"
+      }
+    }
+  ];
+  if (query) filter.push(query);
   const esQuery = {
     sort: [
       '_score', // if there is any score (but will this be slow even when there is no free text query?)
@@ -37,12 +46,15 @@ async function query({ query, aggs, size = 20, from = 0, req }) {
     track_total_hits: true,
     size,
     from,
-    query,
+    query: {
+      bool: {
+        filter
+      }
+    },
     aggs
   }
 
   let response = await search({ client, index: searchIndex, query: esQuery, req });
-  console.log(response);
   let body = response.body;
   body.hits.hits = body.hits.hits.map(n => reduce(n));
   return {
