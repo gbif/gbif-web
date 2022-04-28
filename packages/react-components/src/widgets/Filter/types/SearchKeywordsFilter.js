@@ -74,7 +74,7 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
     setShowSuggestions(true);
   }, []);
 
-  const items = data?.occurrenceSearch?.facet?.[queryKey];
+  const items = data?.suggestions?.facet?.[queryKey];
 
 
   const pattern = config.restrictWildcards ? /^(?![\*\?]).*/g : undefined;

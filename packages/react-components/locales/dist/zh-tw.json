@@ -358,7 +358,7 @@
   "filterSupport.cancel": "取消",
   "filterSupport.apply": "Apply",
   "filterSupport.wildcardHelp": "Searches are case-insensitive, but accents are distinct (e.g. 'rio' vs 'río'). Use a wildcard (e.g. 'r?o') to find all matches.",
-  "filterSupport.useWildcardPattern": "Search for the pattern ({distinct, plural, one {# distinct value } other {# distinct values}})",
+  "filterSupport.useWildcardPattern": "Search for the pattern",
   "filterSupport.showSuggestions": "Show suggestions",
   "filterSupport.excludeSelected": "Exclude selected",
   "counts.nResults": "{total, plural, one {# 結果} other {# 結果}}",

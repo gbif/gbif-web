@@ -7,10 +7,9 @@ import { filter2v1 } from '../dataManagement/filterAdapter';
 import { ResultsTable } from './ResultsTable';
 import { useQueryParam, NumberParam } from 'use-query-params';
 
-function StandardSearchTable({graphQuery, resultKey, offsetName = 'offset', defaultTableConfig, ...props}) {
+function StandardSearchTable({graphQuery, resultKey, offsetName = 'offset', defaultTableConfig, limit = 25, ...props}) {
   // const [offset, setOffset] = useUrlState({ param: 'offset', defaultValue: 0 });
   const [offset = 0, setOffset] = useQueryParam('from', NumberParam);
-  const limit = 25;
   const currentFilterContext = useContext(FilterContext);
   const { rootPredicate, predicateConfig } = useContext(SearchContext);
   const { data, error, loading, load } = useQuery(graphQuery, { lazyLoad: true });
@@ -46,7 +45,7 @@ function StandardSearchTable({graphQuery, resultKey, offsetName = 'offset', defa
   
   // allow both response types
   const results = data?.[resultKey]?.documents?.results || data?.[resultKey]?.results;
-  const total = data?.[resultKey]?.documents?.count || data?.[resultKey]?.count;
+  const total = data?.[resultKey]?.documents?.total || data?.[resultKey]?.documents?.count || data?.[resultKey]?.count;
 
   return <>
     <ResultsTable
