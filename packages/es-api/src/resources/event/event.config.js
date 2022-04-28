@@ -1,7 +1,7 @@
 const config =
 {
   options: {
-    all: {
+    q: {
       type: 'text',
       field: 'all',
       get: {
@@ -56,23 +56,15 @@ const config =
         defaultLowerBound: 'lte'
       }
     },
-    type: {
-      type: 'keyword',
-      field: 'type'
-    },
     uniqueKey: {
       type: 'keyword',
       field: 'uniqueKey'
     },
-    verbatim: {
-      field: 'verbatim',
-      discarded: true
-    },
-    event_continent: {
+    continent: {
       type: 'keyword',
       field: 'event.continent'
     },
-    event_coordinatePrecision: {
+    coordinatePrecision: {
       type: 'numeric',
       field: 'event.coordinatePrecision',
       get: {
@@ -81,7 +73,7 @@ const config =
         defaultLowerBound: 'lte'
       }
     },
-    event_coordinateUncertaintyInMeters: {
+    coordinateUncertaintyInMeters: {
       type: 'numeric',
       field: 'event.coordinateUncertaintyInMeters',
       get: {
@@ -90,26 +82,26 @@ const config =
         defaultLowerBound: 'lte'
       }
     },
-    event_coordinates: {
+    coordinates: {
       field: 'event.coordinates',
       discarded: true
     },
-    event_country: {
+    country: {
       type: 'text',
       field: 'event.country',
       get: {
         type: 'fuzzy'
       }
     },
-    event_countryCode: {
+    countryCode: {
       type: 'keyword',
       field: 'event.countryCode'
     },
-    event_datasetID: {
+    datasetID: {
       type: 'keyword',
       field: 'event.datasetID'
     },
-    event_datasetName: {
+    datasetName: {
       type: 'text',
       field: 'event.datasetName',
       get: {
@@ -117,7 +109,7 @@ const config =
       },
       suggestField: 'datasetName.suggest'
     },
-    event_day: {
+    day: {
       type: 'numeric',
       field: 'event.day',
       get: {
@@ -126,7 +118,7 @@ const config =
         defaultLowerBound: 'lte'
       }
     },
-    event_decimalLatitude: {
+    decimalLatitude: {
       type: 'numeric',
       field: 'event.decimalLatitude',
       get: {
@@ -135,7 +127,7 @@ const config =
         defaultLowerBound: 'lte'
       }
     },
-    event_decimalLongitude: {
+    decimalLongitude: {
       type: 'numeric',
       field: 'event.decimalLongitude',
       get: {
@@ -144,7 +136,7 @@ const config =
         defaultLowerBound: 'lte'
       }
     },
-    event_endDayOfYear: {
+    endDayOfYear: {
       type: 'numeric',
       field: 'event.endDayOfYear',
       get: {
@@ -153,11 +145,11 @@ const config =
         defaultLowerBound: 'lte'
       }
     },
-    event_eventDate: {
+    eventDate: {
       field: 'event.eventDate',
       discarded: true
     },
-    event_eventDateSingle: {
+    eventDateSingle: {
       type: 'date',
       field: 'event.eventDateSingle',
       get: {
@@ -166,7 +158,7 @@ const config =
         defaultLowerBound: 'lte'
       }
     },
-    event_eventId: {
+    eventId: {
       type: 'text',
       field: 'event.eventId',
       get: {
@@ -174,33 +166,33 @@ const config =
       },
       suggestField: 'eventId.suggest'
     },
-    event_extensions: {
+    extensions: {
       type: 'keyword',
       field: 'event.extensions'
     },
-    event_footprintWKT: {
+    footprintWKT: {
       type: 'text',
       field: 'event.footprintWKT',
       get: {
         type: 'fuzzy'
       }
     },
-    event_hasCoordinate: {
+    hasCoordinate: {
       type: 'boolean',
       field: 'event.hasCoordinate'
     },
-    event_hasGeospatialIssue: {
+    hasGeospatialIssue: {
       type: 'boolean',
       field: 'event.hasGeospatialIssue'
     },
-    event_id: {
+    id: {
       type: 'text',
       field: 'event.id',
       get: {
         type: 'fuzzy'
       }
     },
-    event_institutionCode: {
+    institutionCode: {
       type: 'text',
       field: 'event.institutionCode',
       get: {
@@ -208,11 +200,11 @@ const config =
       },
       suggestField: 'institutionCode.suggest'
     },
-    event_issues: {
+    issues: {
       type: 'keyword',
       field: 'event.issues'
     },
-    event_locality: {
+    locality: {
       type: 'text',
       field: 'event.locality',
       get: {
@@ -220,7 +212,7 @@ const config =
       },
       suggestField: 'locality.suggest'
     },
-    event_maximumDepthInMeters: {
+    maximumDepthInMeters: {
       type: 'numeric',
       field: 'event.maximumDepthInMeters',
       get: {
@@ -229,7 +221,7 @@ const config =
         defaultLowerBound: 'lte'
       }
     },
-    event_maximumDistanceAboveSurfaceInMeters: {
+    maximumDistanceAboveSurfaceInMeters: {
       type: 'numeric',
       field: 'event.maximumDistanceAboveSurfaceInMeters',
       get: {
@@ -238,7 +230,7 @@ const config =
         defaultLowerBound: 'lte'
       }
     },
-    event_maximumElevationInMeters: {
+    maximumElevationInMeters: {
       type: 'numeric',
       field: 'event.maximumElevationInMeters',
       get: {
@@ -247,15 +239,15 @@ const config =
         defaultLowerBound: 'lte'
       }
     },
-    event_mediaLicenses: {
+    mediaLicenses: {
       type: 'keyword',
       field: 'event.mediaLicenses'
     },
-    event_mediaTypes: {
+    mediaTypes: {
       type: 'keyword',
       field: 'event.mediaTypes'
     },
-    event_minimumDepthInMeters: {
+    minimumDepthInMeters: {
       type: 'numeric',
       field: 'event.minimumDepthInMeters',
       get: {
@@ -264,7 +256,7 @@ const config =
         defaultLowerBound: 'lte'
       }
     },
-    event_minimumDistanceAboveSurfaceInMeters: {
+    minimumDistanceAboveSurfaceInMeters: {
       type: 'numeric',
       field: 'event.minimumDistanceAboveSurfaceInMeters',
       get: {
@@ -273,7 +265,7 @@ const config =
         defaultLowerBound: 'lte'
       }
     },
-    event_minimumElevationInMeters: {
+    minimumElevationInMeters: {
       type: 'numeric',
       field: 'event.minimumElevationInMeters',
       get: {
@@ -282,7 +274,7 @@ const config =
         defaultLowerBound: 'lte'
       }
     },
-    event_modified: {
+    modified: {
       type: 'date',
       field: 'event.modified',
       get: {
@@ -291,7 +283,7 @@ const config =
         defaultLowerBound: 'lte'
       }
     },
-    event_month: {
+    month: {
       type: 'numeric',
       field: 'event.month',
       get: {
@@ -300,15 +292,15 @@ const config =
         defaultLowerBound: 'lte'
       }
     },
-    event_multimediaItems: {
+    multimediaItems: {
       field: 'event.multimediaItems',
       discarded: true
     },
-    event_notIssues: {
+    notIssues: {
       type: 'keyword',
       field: 'event.notIssues'
     },
-    event_parentEventId: {
+    parentEventId: {
       type: 'text',
       field: 'event.parentEventId',
       get: {
@@ -316,29 +308,29 @@ const config =
       },
       suggestField: 'parentEventId.suggest'
     },
-    event_publishingCountry: {
+    publishingCountry: {
       type: 'text',
       field: 'event.publishingCountry',
       get: {
         type: 'fuzzy'
       }
     },
-    event_references: {
+    references: {
       type: 'text',
       field: 'event.references',
       get: {
         type: 'fuzzy'
       }
     },
-    event_repatriated: {
+    repatriated: {
       type: 'boolean',
       field: 'event.repatriated'
     },
-    event_sampleSizeUnit: {
+    sampleSizeUnit: {
       type: 'keyword',
       field: 'event.sampleSizeUnit'
     },
-    event_sampleSizeValue: {
+    sampleSizeValue: {
       type: 'numeric',
       field: 'event.sampleSizeValue',
       get: {
@@ -347,7 +339,7 @@ const config =
         defaultLowerBound: 'lte'
       }
     },
-    event_samplingProtocol: {
+    samplingProtocol: {
       type: 'text',
       field: 'event.samplingProtocol',
       get: {
@@ -355,18 +347,18 @@ const config =
       },
       suggestField: 'samplingProtocol.suggest'
     },
-    event_samplingProtocolJoined: {
+    samplingProtocolJoined: {
       type: 'keyword',
       field: 'event.samplingProtocolJoined'
     },
-    event_scoordinates: {
+    scoordinates: {
       type: 'geo_shape',
       field: 'event.scoordinates',
       get: {
         type: 'within'
       }
     },
-    event_startDayOfYear: {
+    startDayOfYear: {
       type: 'numeric',
       field: 'event.startDayOfYear',
       get: {
@@ -375,7 +367,7 @@ const config =
         defaultLowerBound: 'lte'
       }
     },
-    event_stateProvince: {
+    stateProvince: {
       type: 'text',
       field: 'event.stateProvince',
       get: {
@@ -383,15 +375,15 @@ const config =
       },
       suggestField: 'stateProvince.suggest'
     },
-    event_verbatimDepth: {
+    verbatimDepth: {
       type: 'keyword',
       field: 'event.verbatimDepth'
     },
-    event_verbatimElevation: {
+    verbatimElevation: {
       type: 'keyword',
       field: 'event.verbatimElevation'
     },
-    event_waterBody: {
+    waterBody: {
       type: 'text',
       field: 'event.waterBody',
       get: {
@@ -399,7 +391,7 @@ const config =
       },
       suggestField: 'waterBody.suggest'
     },
-    event_year: {
+    year: {
       type: 'numeric',
       field: 'event.year',
       get: {
@@ -408,39 +400,39 @@ const config =
         defaultLowerBound: 'lte'
       }
     },
-    event_gadm_gids: {
+    gadm_gids: {
       type: 'keyword',
       field: 'event.gadm.gids'
     },
-    event_gadm_level0Gid: {
+    gadm_level0Gid: {
       type: 'keyword',
       field: 'event.gadm.level0Gid'
     },
-    event_gadm_level0Name: {
+    gadm_level0Name: {
       type: 'keyword',
       field: 'event.gadm.level0Name'
     },
-    event_gadm_level1Gid: {
+    gadm_level1Gid: {
       type: 'keyword',
       field: 'event.gadm.level1Gid'
     },
-    event_gadm_level1Name: {
+    gadm_level1Name: {
       type: 'keyword',
       field: 'event.gadm.level1Name'
     },
-    event_gadm_level2Gid: {
+    gadm_level2Gid: {
       type: 'keyword',
       field: 'event.gadm.level2Gid'
     },
-    event_gadm_level2Name: {
+    gadm_level2Name: {
       type: 'keyword',
       field: 'event.gadm.level2Name'
     },
-    event_gadm_level3Gid: {
+    gadm_level3Gid: {
       type: 'keyword',
       field: 'event.gadm.level3Gid'
     },
-    event_gadm_level3Name: {
+    gadm_level3Name: {
       type: 'keyword',
       field: 'event.gadm.level3Name'
     },
