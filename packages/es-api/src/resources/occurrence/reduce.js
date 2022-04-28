@@ -59,8 +59,6 @@ function reduce(item) {
     coverage:                           source.verbatim.core['http://purl.org/dc/terms/coverage'],
     creator:                            source.verbatim.core['http://purl.org/dc/terms/creator'],
     dataGeneralizations:                source.verbatim.core['http://rs.tdwg.org/dwc/terms/dataGeneralizations'],
-    datasetID:                          source.verbatim.core['http://rs.tdwg.org/dwc/terms/datasetID'],
-    datasetName:                        source.verbatim.core['http://rs.tdwg.org/dwc/terms/datasetName'],
     date:                               source.verbatim.core['http://purl.org/dc/terms/date'],
     dateAccepted:                       source.verbatim.core['http://purl.org/dc/terms/dateAccepted'],
     dateCopyrighted:                    source.verbatim.core['http://purl.org/dc/terms/dateCopyrighted'],
@@ -159,14 +157,12 @@ function reduce(item) {
     organismScope:                      source.verbatim.core['http://rs.tdwg.org/dwc/terms/organismScope'],
     originalNameUsage:                  source.verbatim.core['http://rs.tdwg.org/dwc/terms/originalNameUsage'],
     originalNameUsageID:                source.verbatim.core['http://rs.tdwg.org/dwc/terms/originalNameUsageID'],
-    otherCatalogNumbers:                source.verbatim.core['http://rs.tdwg.org/dwc/terms/otherCatalogNumbers'],
     ownerInstitutionCode:               source.verbatim.core['http://rs.tdwg.org/dwc/terms/ownerInstitutionCode'],
     parentEventID:                      source.verbatim.core['http://rs.tdwg.org/dwc/terms/parentEventID'],
     parentNameUsage:                    source.verbatim.core['http://rs.tdwg.org/dwc/terms/parentNameUsage'],
     parentNameUsageID:                  source.verbatim.core['http://rs.tdwg.org/dwc/terms/parentNameUsageID'],
     // phylum:                             source.verbatim.core['http://rs.tdwg.org/dwc/terms/phylum'],
     pointRadiusSpatialFit:              source.verbatim.core['http://rs.tdwg.org/dwc/terms/pointRadiusSpatialFit'],
-    preparations:                       source.verbatim.core['http://rs.tdwg.org/dwc/terms/preparations'],
     previousIdentifications:            source.verbatim.core['http://rs.tdwg.org/dwc/terms/previousIdentifications'],
     provenance:                         source.verbatim.core['http://purl.org/dc/terms/provenance'],
     publisher:                          source.verbatim.core['http://purl.org/dc/terms/publisher'],
@@ -274,6 +270,11 @@ function reduce(item) {
     year:                               source.year,
     identifiedByIDs:                    source.identifiedByIds || [],
     recordedByIDs:                      source.recordedByIds || [],
+
+    preparations:                       source.preparations,
+    datasetID:                          source.datasetID,
+    datasetName:                        source.datasetName,
+    otherCatalogNumbers:                source.otherCatalogNumbers,
   };
 
   const gbifSpecific = {

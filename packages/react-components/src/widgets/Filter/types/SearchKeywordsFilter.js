@@ -45,10 +45,16 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
         });
       }
 
+      const includePattern = q
+        .replace(/\*/g, '.*')
+        .replace(/\?/, '.')
+        .replace(/([\?\+\|\{\}\[\]\(\)\"\\])/g, (m, p1) => '\\' + p1)
+        .toLowerCase();
       load({
         keepDataWhileLoading: size > initialSize,
         variables: {
           size,
+          include: includePattern,
           predicate: {
             type: 'and',
             predicates: predicates
@@ -92,6 +98,8 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
       if (isExistenceFilter) {
         return <Exists {...{ footerProps, setFullField, onApply, onCancel, filter, hide, filterHandle }} />
       }
+      const cardinality = data?.occurrenceSearch?.cardinality?.[queryKey];
+      const hasMoreSuggestions = cardinality ? items?.length <= cardinality : items?.length === size;
       return <>
         <div style={{ zIndex: 10, display: 'inline-block', position: 'relative' }}>
           <div style={{margin: '10px 10px 0 10px', display: 'flex'}}>
@@ -150,7 +158,7 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
                     key={q}
                     loading={loading}
                     helpVisible={true}
-                    helpText={<FormattedMessage id="filterSupport.useWildcardPattern" defaultMessage="Search for the pattern" values={{distinct: data?.occurrenceSearch?.cardinality?.[queryKey]}}/>}
+                    helpText={<FormattedMessage id="filterSupport.useWildcardPattern" defaultMessage="Search for the pattern" />}
                     label={q}
                     checked={checkedMap.has(hash({type: 'like', value: q}))}
                     onChange={() => {
@@ -177,7 +185,7 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
                       }}
                     />
                   })}
-                  {items.length < data?.occurrenceSearch?.cardinality?.[queryKey] && <div style={{fontSize: 12, marginLeft: 24, marginTop: 12}}><Button appearance="primaryOutline" onClick={loadMore}>
+                  {hasMoreSuggestions && <div style={{fontSize: 12, marginLeft: 24, marginTop: 12}}><Button appearance="primaryOutline" onClick={loadMore}>
                       <FormattedMessage id="search.loadMore" defaultMessage="More"/>
                     </Button></div>}
                 </>}

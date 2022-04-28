@@ -190,8 +190,8 @@ const typeDef = gql`
     gbifClassification_taxonID(size: Int): [OccurrenceFacetResult_string]
     collectionKey(size: Int): [OccurrenceFacetResult_collection]
     institutionKey(size: Int): [OccurrenceFacetResult_institution]
-    recordedBy(size: Int): [OccurrenceFacetResult_recordedBy]
-    identifiedBy(size: Int): [OccurrenceFacetResult_identifiedBy]
+    recordedBy(size: Int, include: String): [OccurrenceFacetResult_recordedBy]
+    identifiedBy(size: Int, include: String): [OccurrenceFacetResult_identifiedBy]
     
     taxonKey(size: Int):                              [OccurrenceFacetResult_taxon]
     classKey(size: Int):                              [OccurrenceFacetResult_taxon]

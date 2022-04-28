@@ -24,7 +24,7 @@ export function IconFeatures({
   stillImageCount,
   movingImageCount,
   soundCount,
-  typeStatus,
+  typeStatus: typeStatusString,
   basisOfRecord,
   countryCode,
   locality,
@@ -35,6 +35,7 @@ export function IconFeatures({
 }) {
   const theme = useContext(ThemeContext);
   let typeStyle;
+  const typeStatus = typeStatusString === 'NOTATYPE' ? null : typeStatusString;
   if (typeStatus) {
     // Someone will ask at some point. 
     // https://bugguide.net/node/view/359346

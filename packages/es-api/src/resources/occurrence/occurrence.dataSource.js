@@ -7,7 +7,7 @@ const env = require('../../config');
 const { reduce } = require('./reduce');
 const { queryReducer } = require('../../responseAdapter');
 
-const searchIndex = 'occurrence';
+const searchIndex = env.occurrence.index || 'occurrence';
 
 const agent = () => new Agent({
   maxSockets: 1000, // Default = Infinity

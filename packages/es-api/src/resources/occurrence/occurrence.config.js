@@ -97,9 +97,18 @@ const config =
         "defaultLowerBound": "lte"
       }
     },
+    "datasetID": {
+      "type": "keyword",
+      "field": "datasetID"
+    },
     "datasetKey": {
       "type": "keyword",
       "field": "datasetKey"
+    },
+    "datasetName": {
+      "type": "keyword",
+      "field": "datasetName.keyword",
+      "suggestField": "datasetName.suggest"
     },
     "datasetPublishingCountry": {
       "type": "keyword",

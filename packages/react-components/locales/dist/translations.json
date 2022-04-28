@@ -1,9 +1,9 @@
 {
   "en-DK": {
-    "messages": "http://localhost:5002/en-developer.json?v=e9b5c904348f2d4bba1528eae162b59456934516"
+    "messages": "http://localhost:5002/en-developer.json?v=88e7a2217a0f585cdc2fd5464fdce92a5c970a1c"
   },
   "en-ZZ": {
-    "messages": "http://localhost:5002/en-pseudo.json?v=945dd6b0ae370f89eaeba5fbc22223fa85104b77"
+    "messages": "http://localhost:5002/en-pseudo.json?v=a577382e22136de524ee983c3f8f8d8890032391"
   },
   "en": {
     "messages": "http://localhost:5002/en.json?v=23fd1c91ab96e9a5f60ef48e2529b4bdd8eade4a"

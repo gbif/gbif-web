@@ -45,9 +45,9 @@ const typeDef = gql`
     created: DateTime
     creator: String
     dataGeneralizations: String
-    datasetID: String
+    datasetID: [String]
     datasetKey: ID
-    datasetName: String
+    datasetName: [String]
     date: DateTime
     dateAccepted: String
     dateCopyrighted: String
@@ -117,7 +117,7 @@ const typeDef = gql`
     identificationReferences: String
     identificationRemarks: String
     identificationVerificationStatus: String
-    identifiedBy: String
+    identifiedBy: [String]
     identifiedByIDs: [AssociatedID]
     identifier: String
     # Unclear what this field contains
@@ -187,7 +187,7 @@ const typeDef = gql`
     organismScope: String
     originalNameUsage: String
     originalNameUsageID: String
-    otherCatalogNumbers: String
+    otherCatalogNumbers: [String]
     ownerInstitutionCode: String
     parentEventID: String
     parentNameUsage: String
@@ -196,7 +196,7 @@ const typeDef = gql`
     phylum: String
     phylumKey: ID
     pointRadiusSpatialFit: String
-    preparations: String
+    preparations: [String]
     previousIdentifications: String
     protocol: String
     provenance: String
@@ -206,7 +206,7 @@ const typeDef = gql`
     """The ID of the publisher who published this record to GBIF"""
     publishingOrgKey: ID
     recordNumber: String
-    recordedBy: String
+    recordedBy: [String]
     recordedByIDs: [AssociatedID]
     references: String
     relation: String
@@ -220,7 +220,7 @@ const typeDef = gql`
     sampleSizeUnit: String
     sampleSizeValue: Float
     samplingEffort: String
-    samplingProtocol: String
+    samplingProtocol: [String]
     scientificName: String
     scientificNameAuthorship: String
     scientificNameID: String
@@ -245,7 +245,7 @@ const typeDef = gql`
     temporal: String
     title: String
     type: String
-    typeStatus: TypeStatus
+    typeStatus: [TypeStatus]
     typifiedName: String
     valid: String
     verbatimCoordinateSystem: String
@@ -353,7 +353,7 @@ const typeDef = gql`
     verbatim: JSON
     remarks: String
     issues: [JSON]
-    htmlValue: String
+    htmlValue: JSON
     group: String
     simpleName: String
     qualifiedName: String

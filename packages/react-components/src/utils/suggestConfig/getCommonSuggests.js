@@ -222,7 +222,8 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
         }
         const variables = {
           size,
-          predicate
+          predicate,
+          include
         };
         const {promise, cancel} = client.query({query: SEARCH, variables});
         return {
