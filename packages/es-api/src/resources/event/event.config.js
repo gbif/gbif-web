@@ -86,13 +86,6 @@ const config =
       field: 'event.coordinates',
       discarded: true
     },
-    country: {
-      type: 'text',
-      field: 'event.country',
-      get: {
-        type: 'fuzzy'
-      }
-    },
     countryCode: {
       type: 'keyword',
       field: 'event.countryCode'
@@ -102,11 +95,8 @@ const config =
       field: 'event.datasetID'
     },
     datasetName: {
-      type: 'text',
-      field: 'event.datasetName',
-      get: {
-        type: 'fuzzy'
-      },
+      type: 'keyword',
+      field: 'event.datasetName.keyword',
       suggestField: 'datasetName.suggest'
     },
     day: {
@@ -159,11 +149,8 @@ const config =
       }
     },
     eventId: {
-      type: 'text',
-      field: 'event.eventId',
-      get: {
-        type: 'fuzzy'
-      },
+      type: 'keyword',
+      field: 'event.eventId.keyword',
       suggestField: 'eventId.suggest'
     },
     extensions: {
@@ -186,18 +173,12 @@ const config =
       field: 'event.hasGeospatialIssue'
     },
     id: {
-      type: 'text',
-      field: 'event.id',
-      get: {
-        type: 'fuzzy'
-      }
+      type: 'keyword',
+      field: 'event.id.keyword',
     },
     institutionCode: {
-      type: 'text',
-      field: 'event.institutionCode',
-      get: {
-        type: 'fuzzy'
-      },
+      type: 'keyword',
+      field: 'event.institutionCode.keyword',
       suggestField: 'institutionCode.suggest'
     },
     issues: {
@@ -205,11 +186,8 @@ const config =
       field: 'event.issues'
     },
     locality: {
-      type: 'text',
-      field: 'event.locality',
-      get: {
-        type: 'fuzzy'
-      },
+      type: 'keyword',
+      field: 'event.locality.keyword',
       suggestField: 'locality.suggest'
     },
     maximumDepthInMeters: {
@@ -301,19 +279,13 @@ const config =
       field: 'event.notIssues'
     },
     parentEventId: {
-      type: 'text',
-      field: 'event.parentEventId',
-      get: {
-        type: 'fuzzy'
-      },
+      type: 'keyword',
+      field: 'event.parentEventId.keyword',
       suggestField: 'parentEventId.suggest'
     },
     publishingCountry: {
-      type: 'text',
-      field: 'event.publishingCountry',
-      get: {
-        type: 'fuzzy'
-      }
+      type: 'keyword',
+      field: 'event.publishingCountry.keyword',
     },
     references: {
       type: 'text',
@@ -340,16 +312,9 @@ const config =
       }
     },
     samplingProtocol: {
-      type: 'text',
-      field: 'event.samplingProtocol',
-      get: {
-        type: 'fuzzy'
-      },
-      suggestField: 'samplingProtocol.suggest'
-    },
-    samplingProtocolJoined: {
       type: 'keyword',
-      field: 'event.samplingProtocolJoined'
+      field: 'event.samplingProtocol.keyword',
+      suggestField: 'samplingProtocol.suggest'
     },
     scoordinates: {
       type: 'geo_shape',
@@ -368,11 +333,8 @@ const config =
       }
     },
     stateProvince: {
-      type: 'text',
-      field: 'event.stateProvince',
-      get: {
-        type: 'fuzzy'
-      },
+      type: 'keyword',
+      field: 'event.stateProvince.keyword',
       suggestField: 'stateProvince.suggest'
     },
     verbatimDepth: {
@@ -384,11 +346,8 @@ const config =
       field: 'event.verbatimElevation'
     },
     waterBody: {
-      type: 'text',
-      field: 'event.waterBody',
-      get: {
-        type: 'fuzzy'
-      },
+      type: 'keyword',
+      field: 'event.waterBody.keyword',
       suggestField: 'waterBody.suggest'
     },
     year: {
