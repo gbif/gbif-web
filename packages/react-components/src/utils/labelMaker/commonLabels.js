@@ -84,6 +84,10 @@ export const commonLabels = {
     type: 'CUSTOM',
     component: rangeOrEqualLabel('intervals.compactMeters')
   },
+  measurementOrFactCount: {
+    type: 'CUSTOM',
+    component: rangeOrEqualLabel('intervals.compact')
+  },
   organismQuantity: {
     type: 'CUSTOM',
     component: rangeOrEqualLabel('intervals.compact')

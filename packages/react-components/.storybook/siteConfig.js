@@ -1,3 +1,4 @@
+const gbifOrg = 'https://www.gbif.org'
 const routeConfig = {
   occurrenceSearch: {
     url: ({queryString}) => {
@@ -82,6 +83,19 @@ const routeConfig = {
     },
     isHref: true,
     route: '/literature/search',
+  },
+
+  eventKey: {
+    // url: ({key}) => `/publisher/${key}`,
+    // url: ({key, otherIds}) => `${gbifOrg}/dataset/${otherIds.datasetKey}/event/${key}`,
+    url: ({key, otherIds}) => `https://collections.ala.org.au/public/showDataResource/${otherIds.datasetKey}?event=${key}`,
+    isHref: true,
+    route: '/event/:key'
+  },
+  eventSearch: {
+    url: ({queryString, basename}) => `${basename ? `/${basename}` : ''}/event/search`,
+    isHref: true,
+    route: '/publisher/search'
   },
 };
 

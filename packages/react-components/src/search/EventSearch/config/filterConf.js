@@ -1,15 +1,22 @@
 export const filters = [
   'q',
   'eventSamplingProtocol',
-  'continent',
   'country',
+  'datasetKey',
+  'measurementOrFactTypes',
+  'measurementOrFactCount',
+  'year',
+  'eventStateProvince',
+  'eventId',
 ].sort();
 
 const highlighted = [
-  'q',
+  // 'q',
   'eventSamplingProtocol',
-  'continent',
-  'country',
+  'measurementOrFactTypes',
+  'eventId',
+  'year',
+  'eventStateProvince'
 ];
 
 export default { filters, included: filters, highlighted };

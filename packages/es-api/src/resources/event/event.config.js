@@ -26,6 +26,10 @@ const config =
         defaultLowerBound: 'lte'
       }
     },
+    occurrenceCount: {
+      type: 'numeric',
+      field: 'event.occurrenceCount',
+    },
     firstLoaded: {
       type: 'date',
       field: 'firstLoaded',
@@ -153,6 +157,10 @@ const config =
       field: 'event.eventId.keyword',
       suggestField: 'eventId.suggest'
     },
+    eventType_concept: {
+      type: 'keyword',
+      field: 'event.eventType.concept.keyword'
+    },
     extensions: {
       type: 'keyword',
       field: 'event.extensions'
@@ -216,6 +224,14 @@ const config =
         defaultUpperBound: 'gte',
         defaultLowerBound: 'lte'
       }
+    },
+    measurementOrFactCount: {
+      type: 'numeric',
+      field: 'event.measurementOrFactCount'
+    },
+    measurementOrFactTypes: {
+      type: 'keyword',
+      field: 'event.measurementOrFactTypes.keyword'
     },
     mediaLicenses: {
       type: 'keyword',

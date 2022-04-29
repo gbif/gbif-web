@@ -9,7 +9,22 @@ const filterConf = {
       defaultKey: 'countryCode'
     },
     q: {
-      singleValue: true
+      defaultType: 'fuzzy',
+      v1: {
+        supportedTypes: ['fuzzy']
+      }
+    },
+    year: {
+      defaultType: 'range',
+      v1: {
+        supportedTypes: ['range', 'equals']
+      }
+    },
+    measurementOrFactCount: {
+      defaultType: 'range',
+      v1: {
+        supportedTypes: ['range', 'equals']
+      }
     },
   }
 }
@@ -17,5 +32,7 @@ const filterConf = {
 filters.forEach(filter => {
   filterConf.fields[filter] = filterConf.fields[filter] || {};
 });
+
+console.log(filterConf);
 
 export default filterConf;

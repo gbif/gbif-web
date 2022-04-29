@@ -1,15 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
-import StandardSearchTable from '../../../StandardSearchTable';
-import { FormattedMessage, FormattedNumber } from 'react-intl';
-import { AltmetricDonut } from '../../../../components';
-import { MdLink } from 'react-icons/md';
+import PredicateDataFetcher from '../../../PredicateDataFetcher';
+import { ResultsTable } from '../../../ResultsTable';
+import { FormattedNumber } from 'react-intl';
+import { ResourceLink } from '../../../../components';
 
 const QUERY = `
-query list($predicate: Predicate, $limit: Int, $size: Int){
-  eventSearch(
+query list($predicate: Predicate, $offset: Int, $limit: Int){
+  results: eventSearch(
     predicate:$predicate,
     size: $limit, 
-    from: $size
+    from: $offset
     ) {
     documents {
       size
@@ -18,87 +18,144 @@ query list($predicate: Predicate, $limit: Int, $size: Int){
       results {
         eventId
         samplingProtocol
+        eventType {
+          concept
+        }
+        parentEventId
+        year
+        datasetTitle
+        datasetKey
+        formattedCoordinates
+        stateProvince
+        countryCode
+        measurementOrFactTypes
+        measurementOrFactCount
+        occurrenceCount
       }
     }
   }
 }
 `;
 
-
-function getLink(item) {
-  if (item?.identifiers?.doi) {
-    return `https://doi.org/${item.identifiers.doi}`;
-  }
-  return item?.websites?.[0];
-}
-
+const defaultColumns = ['eventId', 'eventType', 'parentEventId', 'dataset', 'year', 'samplingProtcol', 'coordinates', 'stateProvince', 'countryCode', 'measurementTypes', 'measurements', 'OccurrenceCount']
 const defaultTableConfig = {
   columns: [
     {
-      trKey: 'tableHeaders.eventId',
+      trKey: 'filters.eventId.name',
       value: {
         key: 'eventId',
-        formatter: (value, item) => {
-          const maxLength = 200;
-          const truncatedAbstract = item.abstract?.length > maxLength ? `${item.abstract.substr(0, maxLength)}...` : item.abstract;
-          const link = getLink(item);
-
-          return <div>
-            {link ? <div><a href={link} style={{ color: 'inherit', textDecoration: 'none' }}>{value} <MdLink /></a></div> : <div>{value}</div>}
-
-            <div style={{ color: '#aaa' }}>{truncatedAbstract}</div>
-          </div>
-        },
+        formatter: (value, item) => <div>
+          <ResourceLink type='eventKey' discreet id={item.eventId} otherIds={{datasetKey: item.datasetKey}}>{item.eventId}</ResourceLink>
+        </div>
       },
-      width: 'wide'
     },
-    // {
-    //   trKey: 'tableHeaders.altmetric',
-    //   value: {
-    //     key: 'identifiers',
-    //     formatter: (value, item) => {
-    //       return <AltmetricDonut doi={item?.identifiers?.doi} />
-    //     },
-    //     hideFalsy: true
-    //   }
-    // },
     {
       trKey: 'filters.eventType.name',
       value: {
         key: 'eventType',
+        formatter: (value, item) => value?.concept,
         labelHandle: 'eventType',
         hideFalsy: true
       }
     },
     {
-      trKey: 'filters.year.name',
+      trKey: 'filters.parentEventId.name',
+      filterKey: 'parentEventId',
       value: {
-        filterKey: 'year',
+        key: 'parentEventId',
+        hideFalsy: true
+      }
+    },
+    {
+      trKey: 'filters.datasetKey.name',
+      filterKey: 'datasetKey',
+      value: {
+        key: 'datasetKey',
+        formatter: (value, item) => item?.datasetTitle,
+        hideFalsy: true
+      },
+      width: 'wide'
+    },
+    {
+      trKey: 'filters.year.name',
+      filterKey: 'year',
+      value: {
         key: 'year',
         hideFalsy: true
       }
     },
-    // {
-    //   trKey: 'tableHeaders.occurrences',
-    //   value: {
-    //     key: 'occurrenceCount',
-    //     formatter: (value, item) => <FormattedNumber value={value} />,
-    //     hideFalsy: true,
-    //     rightAlign: true
-    //   }
-    // },
-    // {
-    //   trKey: 'active',
-    //   value: {
-    //     key: 'active',
-    //     formatter: (value, item) => value ? 'yes' : 'no'
-    //   }
-    // }
+    {
+      trKey: 'filters.samplingProtocol.name',
+      filterKey: 'eventSamplingProtocol',
+      value: {
+        key: 'samplingProtocol',
+        formatter: (value, item) => item?.samplingProtocol[0],
+        hideFalsy: true
+      }
+    },
+    {
+      name: 'coordinates',
+      trKey: 'filters.coordinates.name',
+      value: {
+        key: 'formattedCoordinates',
+      },
+      noWrap: true
+    },
+    {
+      name: 'stateProvince',
+      trKey: 'filters.stateProvince.name',
+      value: {
+        key: 'stateProvince',
+      }
+    },
+    {
+      name: 'countryCode',
+      trKey: 'filters.country.name',
+      value: {
+        key: 'countryCode',
+        labelHandle: 'countryCode'
+      }
+    },
+    {
+      name: 'measurementOrFactTypes',
+      trKey: 'filters.measurementOrFactTypes.name',
+      value: {
+        key: 'measurementOrFactTypes',
+        formatter: (value, item) => <>{value.join(', ')}</>
+      }
+    },
+    {
+      name: 'measurementOrFactCount',
+      trKey: 'filters.measurementOrFactCount.name',
+      value: {
+        key: 'measurementOrFactCount',
+        hideFalsy: true
+      },
+      noWrap: true,
+    },
+    {
+      name: 'occurrenceCount',
+      trKey: 'tableHeaders.occurrences',
+      value: {
+        key: 'occurrenceCount',
+        formatter: (value, item) => <FormattedNumber value={value} />,
+        hideFalsy: true,
+        rightAlign: true
+      },
+      noWrap: true
+    },
   ]
 };
 
 function Table() {
-  return <StandardSearchTable graphQuery={QUERY} resultKey='eventSearch' defaultTableConfig={defaultTableConfig} limit={50} />
+  return <PredicateDataFetcher
+    graphQuery={QUERY}
+    limit={50}
+    componentProps={{
+      defaultTableConfig
+    }}
+    presentation={ResultsTable}
+  />
 }
 
 export default Table;

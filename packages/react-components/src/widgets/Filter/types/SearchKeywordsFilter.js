@@ -21,7 +21,7 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
   const { data, error, loading, load } = useQuery(config.query, { lazyLoad: true });
   const [size, setSize] = useState(initialSize);
   const [q, setQ] = useState('');
-  const { queryKey, placeholder = 'Input text' } = config;
+  const { queryKey, placeholder = 'Input text', keepCase } = config;
   const [id] = React.useState(nanoid);
   const initialOptions = get(initFilter, `must.${filterHandle}`, []);
   const [options, setOptions] = useState(initialOptions.filter(x => x.type !== 'isNotNull'));
@@ -45,11 +45,12 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
         });
       }
 
-      const includePattern = q
+      let includePattern = q
         .replace(/\*/g, '.*')
         .replace(/\?/, '.')
-        .replace(/([\?\+\|\{\}\[\]\(\)\"\\])/g, (m, p1) => '\\' + p1)
-        .toLowerCase();
+        .replace(/([\?\+\|\{\}\[\]\(\)\"\\])/g, (m, p1) => '\\' + p1);
+      if (!keepCase) includePattern = includePattern.toLowerCase();
+      
       load({
         keepDataWhileLoading: size > initialSize,
         variables: {

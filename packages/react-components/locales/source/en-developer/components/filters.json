@@ -210,6 +210,26 @@
     "count": "{num, plural, one { event id } other {# event ids}}",
     "description": "The unique identifier for the Event in the record."
   },
+  "parentEventId": {
+    "name": "Parent event id",
+    "count": "{num, plural, one { event id } other {# event ids}}",
+    "description": "The unique identifier for the Parent Event in the record."
+  },
+  "measurementOrFactTypes": {
+    "name": "Measurement types",
+    "count": "{num, plural, one { measurement type } other {# measurement types}}",
+    "description": "The type of measurement."
+  },
+  "measurementOrFactCount": {
+    "name": "Measurement count",
+    "count": "{num, plural, one { measurement count } other {# measurement counts}}",
+    "description": "The count of a given measurement type."
+  },
+  "eventType": {
+    "name": "Event type",
+    "count": "{num, plural, one { event type } other {# event types}}",
+    "description": "The type of the sampling event."
+  },
   "samplingProtocol": {
     "name": "Sampling protocol",
     "count": "{num, plural, one { Sampling protocol } other {# Sampling protocols}}",
