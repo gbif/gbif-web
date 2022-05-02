@@ -1109,6 +1109,24 @@ export const commonFilters = {
       }
     }
   },
+  eventTaxonomy: {
+    type: 'SIMPLE_TEXT',
+    config: {
+      std: {
+        filterHandle: 'eventTaxonomy',
+        id2labelHandle: 'taxonKey',
+        translations: {
+          count: 'filters.taxonKey.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.taxonKey.name',// translation path to a title for the popover and the button
+          description: 'filters.taxonKey.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        placeholder: 'Search by institution scientific name',
+        singleSelect: false
+      }
+    }
+  },
   verbatimScientificName: {
     type: 'KEYWORD_SEARCH',
     config: {
@@ -1235,6 +1253,24 @@ export const commonFilters = {
           count: 'filters.measurementOrFactCount.count', // translation path to display names with counts. e.g. "3 scientific names"
           name: 'filters.measurementOrFactCount.name',// translation path to a title for the popover and the button
           description: 'filters.measurementOrFactCount.description', // translation path for the filter description
+        }
+      },
+      specific: {
+        placeholder: 'search.placeholders.range',
+        regex: /^((-)?[0-9]{0,10})(,)?((-)?[0-9]{0,10})$/
+      }
+    }
+  },
+  occurrenceCount: {
+    type: 'NUMBER_RANGE',
+    config: {
+      std: {
+        filterHandle: 'occurrenceCount',
+        id2labelHandle: 'measurementOrFactCount',
+        translations: {
+          count: 'filters.occurrenceCount.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.occurrenceCount.name',// translation path to a title for the popover and the button
+          description: 'filters.occurrenceCount.description', // translation path for the filter description
         }
       },
       specific: {

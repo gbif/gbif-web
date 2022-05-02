@@ -225,6 +225,11 @@
     "count": "{num, plural, one { measurement count } other {# measurement counts}}",
     "description": "The count of a given measurement type."
   },
+  "occurrenceCount": {
+    "name": "Occurrence count",
+    "count": "{num, plural, one { occurrence } other {# occurrences}}",
+    "description": "Amount of occurrences for the event"
+  },
   "eventType": {
     "name": "Event type",
     "count": "{num, plural, one { event type } other {# event types}}",

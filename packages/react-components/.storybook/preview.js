@@ -7,7 +7,7 @@ import { LocaleProvider } from "../src/dataManagement/LocaleProvider";
 
 import { Root } from '../src/components';
 
-import ThemeContext, { darkTheme, lightTheme, a11yTheme, vertnetTheme, rtlTheme, gbifTheme } from '../src/style/themes';
+import ThemeContext, { darkTheme, lightTheme, a11yTheme, vertnetTheme, rtlTheme, alaTheme, gbifTheme } from '../src/style/themes';
 import ThemeBuilder from '../src/style/themeBuilder';
 import { ApiContext, ApiClient } from '../src/dataManagement/api';
 import env from '../.env.json';
@@ -48,6 +48,7 @@ addDecorator(storyFn => {
     a11y: a11yTheme,
     vertnet: vertnetTheme,
     rtl: rtlTheme,
+    ala: alaTheme,
     gbif: gbifTheme,
     custom: customTheme
   }
@@ -80,7 +81,7 @@ addDecorator(storyFn => {
               value={chooseTheme(
                 select(
                   'Choose Theme',
-                  ['Dark', 'Light', 'A11y', 'Vertnet', 'RTL', 'GBIF', 'Custom'],
+                  ['Dark', 'Light', 'A11y', 'Vertnet', 'RTL', 'GBIF', 'ALA', 'Custom'],
                   'Light',
                 ),
               )}

@@ -82,6 +82,23 @@ function getPredicateFromSingleValue({ filterName, value, config }) {
   // the values are expected to be either a predicate object (optionally missing key and type)
   // or a string/number
 
+  if (config?.defaultType === 'occurrenceJoin') {
+    return {
+      type: 'join',
+      key: 'occurrence',
+      predicate: {
+        type: 'or',
+        predicates: ['kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'scientificName'].map(rank => (
+          {
+            type: 'equals',
+            key: rank,
+            value: value
+          })
+        )
+      }
+    }
+  }
+
   if (typeof value === 'string' || typeof value === 'number') {
     return {
       type: config?.defaultType || 'equals',

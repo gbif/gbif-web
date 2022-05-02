@@ -4,6 +4,7 @@ import a11yVariables from './a11y';
 import vertnetVariables from './vertnet';
 import gbifVariables from './gbif';
 import rtlVariables from './rtl';
+import alaVariables from './ala';
 import themeBuilder from '../themeBuilder/index';
 
 export { default } from './ThemeContext';
@@ -14,4 +15,5 @@ export const a11yTheme = themeBuilder.build(a11yVariables);
 export const vertnetTheme = themeBuilder.build(vertnetVariables);
 export const gbifTheme = themeBuilder.build(gbifVariables);
 export const rtlTheme = themeBuilder.build(rtlVariables);
+export const alaTheme = themeBuilder.build(alaVariables);
 

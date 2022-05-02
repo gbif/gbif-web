@@ -77,22 +77,29 @@ const filters = {
 }
 
 
-const config = { 
-  labels, 
-  getSuggests, 
-  filters, 
-  // rootFilter: {predicate: {type: 'or', predicates: [
-  //   {
-  //     type: 'in', 
-  //     key: 'countriesOfResearcher',
-  //     values: ['US', 'UM', 'AS', 'FM', 'GU', 'MH', 'MP', 'PR', 'PW', 'VI']
-  //   },
-  //   {
-  //     type: 'in', 
-  //     key: 'countriesOfCoverage',
-  //     values: ['US', 'UM', 'AS', 'FM', 'GU', 'MH', 'MP', 'PR', 'PW', 'VI']
+const config = {
+  labels,
+  getSuggests,
+  filters,
+  // rootFilter: {
+  //   "type": "join",
+  //   "key": "occurrence",
+  //   "predicate": {
+  //     "type": "and",
+  //     "predicates": [
+  //       {
+  //         "type": "equals",
+  //         "key": "family",
+  //         "value": "Dinolestidae"
+  //       }
+  //     ]
   //   }
-  // ]}},
+  // }
+  // rootFilter: {
+  //   type: 'equals', 
+  //   key: 'family',
+  //   value: 'Dinolestidae'
+  // },
   // rootFilter: {countriesOfResearcher: ['MX']},
   // availableCatalogues: ['OCCURRENCE', 'LITERATURE'],
 };
@@ -100,7 +107,7 @@ const config = {
 export const Example = () => <Router initialEntries={[`/event/search`]}>
   <QueryParamProvider ReactRouterRoute={Route}>
     <AddressBar />
-    <EventSearch pageLayout config={config} style={{ margin: 'auto', height: 'calc(100vh - 60px)' }} />;
+    <EventSearch pageLayout config={config} style={{ margin: 'auto', height: 'calc(100vh - 60px)' }} />
   </QueryParamProvider>
 </Router>
 
@@ -109,4 +116,4 @@ Example.story = {
   name: 'Event search',
 };
 
-export const StandaloneExample = () => <Standalone style={{height: 'calc(100vh - 50px)'}}></Standalone>;
+export const StandaloneExample = () => <Standalone style={{ height: 'calc(100vh - 50px)' }}></Standalone>;

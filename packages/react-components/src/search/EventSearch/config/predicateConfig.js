@@ -26,13 +26,21 @@ const filterConf = {
         supportedTypes: ['range', 'equals']
       }
     },
+    occurrenceCount: {
+      defaultType: 'range',
+      v1: {
+        supportedTypes: ['range', 'equals']
+      }
+    },
+    eventTaxonomy: {
+      defaultType: 'occurrenceJoin',
+      defaultKey: 'family'
+    }
   }
 }
 
 filters.forEach(filter => {
   filterConf.fields[filter] = filterConf.fields[filter] || {};
 });
-
-console.log(filterConf);
 
 export default filterConf;
