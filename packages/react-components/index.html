@@ -100,13 +100,13 @@
 
       ReactDOM.render(
         React.createElement(
-          gbifReactComponents.DatasetSearch,
+          gbifReactComponents.EventSearch,
           { 
             style: { height: 'calc(100vh - 4.25rem)' }, 
             id: 'ca0d8107-a2bd-47a1-91a1-250179b534ec',
             siteConfig: {
               routes: {
-                datasetSearch: {
+                eventSearch: {
                   url: ({query, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/dataset/search`,
                   isHref: true,
                   route: '/'
