@@ -35,6 +35,9 @@ const filterConf = {
     eventTaxonomy: {
       defaultType: 'occurrenceJoin',
       defaultKey: 'family'
+    },
+    eventStateProvince: {
+      defaultKey: 'stateProvince'
     }
   }
 }

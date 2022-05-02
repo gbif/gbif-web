@@ -792,7 +792,7 @@ export const commonFilters = {
     type: 'KEYWORD_SEARCH',
     config: {
       std: {
-        filterHandle: 'stateProvince',
+        filterHandle: 'eventStateProvince',
         id2labelHandle: 'stateProvince',
         translations: {
           count: 'filters.stateProvince.count', // translation path to display names with counts. e.g. "3 scientific names"
