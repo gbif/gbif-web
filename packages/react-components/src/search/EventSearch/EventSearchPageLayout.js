@@ -40,7 +40,7 @@ const Layout = ({
       <div css={cssViewArea({ theme })}>
         {activeView === 'TABLE' && <Table />}
         {activeView === 'MAP' && <h1>Dave: "We need a placeholder for the map"</h1>}
-        {activeView === 'DOWNLOAD' && <h1>Dave: "We need a placeholder for downloads ... <br /><br />make sure it includes an option to download site/species matrixes"</h1>}
+        {activeView === 'DOWNLOAD' && <p>Download - how does download work? What is the API, what are the formats and options. </p>}
       </div>
     </Tabs>
   </div>
