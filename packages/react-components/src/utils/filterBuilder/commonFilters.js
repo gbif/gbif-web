@@ -48,7 +48,7 @@ export const commonFilters = {
         },
       },
       specific: {
-        suggestHandle: 'countryCode',
+        suggestHandle: 'countryCode'
       }
     }
   },
@@ -128,7 +128,9 @@ export const commonFilters = {
         },
       },
       specific: {
-        suggestHandle: 'datasetKey',
+        // suggestHandle: 'datasetKey',
+        suggestHandle: 'datasetKeyFromEventIndex',
+        allowEmptyQueries: true
       }
     }
   },
@@ -548,7 +550,8 @@ export const commonFilters = {
     }
   },
   recordedBy: {
-    type: 'KEYWORD_SEARCH',//KEYWORD_SEARCH | SUGGEST
+    // type: 'KEYWORD_SEARCH',//KEYWORD_SEARCH | SUGGEST
+    type: 'SUGGEST',
     config: {
       std: {
         filterHandle: 'recordedBy',// if nothing else provided, then this is the filterName used
@@ -561,7 +564,7 @@ export const commonFilters = {
       },
       specific: {
         // suggestHandle: 'recordedBy',
-        // suggestHandle: 'recordedByWildcard',
+        suggestHandle: 'recordedByWildcard',
         id2labelHandle: 'recordedBy',
         placeholder: 'Search by recorded by',
         supportsExist: true,

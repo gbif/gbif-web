@@ -411,7 +411,7 @@ const config =
       type: 'keyword',
       field: 'event.gadm.level3Name'
     },
-    metadata_datasetKey: {
+    datasetKey: {
       type: 'keyword',
       field: 'metadata.datasetKey'
     },
@@ -419,7 +419,7 @@ const config =
       type: 'keyword',
       field: 'metadata.datasetPublishingCountry'
     },
-    metadata_datasetTitle: {
+    datasetTitle: {
       type: 'keyword',
       field: 'metadata.datasetTitle'
     },
