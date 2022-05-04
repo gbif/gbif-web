@@ -159,7 +159,7 @@ const config =
     },
     eventType: {
       type: 'keyword',
-      field: 'event.eventType.concept.keyword'
+      field: 'event.eventType.lineage.keyword'
     },
     extensions: {
       type: 'keyword',
