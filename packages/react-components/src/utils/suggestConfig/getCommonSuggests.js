@@ -91,10 +91,12 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
       // how to get the list of suggestion data
       getSuggestions: ({ q, localeContext }) => {
         const vocabularyLocale = localeContext?.localeMap?.vocabulary || 'en';
-        const { promise, cancel } = client.v1Get(`/vocabularies/EventType/concepts?limit=100&q=${q}&locale=${vocabularyLocale}`);
+        // const { promise, cancel } = client.v1Get(`/vocabularies/EventType/concepts?limit=100&q=${q}&locale=${vocabularyLocale}`);
+        const { promise, cancel } = client.v1Get(`/vocabularies/EventType/concepts/suggest?limit=100&q=${q}&locale=${vocabularyLocale}`);
         return {
           promise: promise.then(response => ({
-            data: response.data.results.map(i => ({ key: i.name, title: i.label[vocabularyLocale] || i.label.en }))
+            // data: response.data.results.map(i => ({ key: i.name, title: i.label[vocabularyLocale] || i.label.en }))
+            data: response.data.map(i => ({ key: i.name, title: i.label[vocabularyLocale] || i.label.en }))
           })),
           cancel
         }
