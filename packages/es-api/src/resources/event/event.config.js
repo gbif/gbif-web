@@ -157,7 +157,7 @@ const config =
       field: 'event.eventId.keyword',
       suggestField: 'eventId.suggest'
     },
-    eventType_concept: {
+    eventType: {
       type: 'keyword',
       field: 'event.eventType.concept.keyword'
     },

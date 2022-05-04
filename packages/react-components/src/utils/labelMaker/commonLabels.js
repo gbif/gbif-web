@@ -128,6 +128,14 @@ export const commonLabels = {
       return { title: result.label[vocabularyLocale] || result.label.en };
     }
   },
+  eventTypeVocabulary: {
+    type: 'ENDPOINT',
+    template: ({ id, api }) => `${api.v1.endpoint}/vocabularies/EventType/concepts/${id}`,
+    transform: (result, { localeContext } = {}) => {
+      const vocabularyLocale = localeContext?.localeMap?.vocabulary || 'en';
+      return { title: result.label[vocabularyLocale] || result.label.en };
+    }
+  },
   catalogNumber: {
     type: 'TRANSLATION',
     template: id => id

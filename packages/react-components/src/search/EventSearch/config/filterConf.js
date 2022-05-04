@@ -9,7 +9,8 @@ export const filters = [
   'eventStateProvince',
   'eventId',
   'occurrenceCount',
-  'eventTaxonomy'
+  'eventTaxonomy',
+  'eventType',
 ].sort();
 
 const highlighted = [
@@ -20,7 +21,8 @@ const highlighted = [
   'year',
   'eventStateProvince',
   'occurrenceCount',
-  'eventTaxonomy'
+  'eventTaxonomy',
+  'eventType',
 ];
 
 export default { filters, included: filters, highlighted };

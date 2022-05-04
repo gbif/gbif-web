@@ -52,9 +52,8 @@ const defaultTableConfig = {
     {
       trKey: 'filters.eventType.name',
       value: {
-        key: 'eventType',
-        formatter: (value, item) => value?.concept,
-        labelHandle: 'eventType',
+        key: 'eventType.concept',
+        labelHandle: 'eventTypeVocabulary',
         hideFalsy: true
       }
     },

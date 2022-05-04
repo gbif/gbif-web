@@ -85,6 +85,29 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
         </div>
       }
     },
+    eventType: {
+      //What placeholder to show
+      placeholder: 'search.placeholders.default',
+      // how to get the list of suggestion data
+      getSuggestions: ({ q, localeContext }) => {
+        const vocabularyLocale = localeContext?.localeMap?.vocabulary || 'en';
+        const { promise, cancel } = client.v1Get(`/vocabularies/EventType/concepts?limit=100&q=${q}&locale=${vocabularyLocale}`);
+        return {
+          promise: promise.then(response => ({
+            data: response.data.results.map(i => ({ key: i.name, title: i.label[vocabularyLocale] || i.label.en }))
+          })),
+          cancel
+        }
+      },
+      // how to map the results to a single string value
+      getValue: suggestion => suggestion.title,
+      // how to display the individual suggestions in the list
+      render: function CatalogNumberSuggestItem(suggestion) {
+        return <div style={suggestStyle}>
+          {suggestion.title}
+        </div>
+      }
+    },
     catalogNumber: {
       //What placeholder to show
       placeholder: 'search.placeholders.default',

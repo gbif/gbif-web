@@ -549,6 +549,25 @@ export const commonFilters = {
       }
     }
   },
+  eventType: {
+    type: 'SUGGEST',
+    config: {
+      std: {
+        filterHandle: 'eventType',
+        id2labelHandle: 'eventTypeVocabulary',
+        translations: {
+          count: 'filters.eventType.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.eventType.name',// translation path to a title for the popover and the button
+          description: 'filters.eventType.description', // translation path for the filter description
+        }
+      },
+      specific: {
+        suggestHandle: 'eventType',
+        id2labelHandle: 'eventTypeVocabulary',
+        allowEmptyQueries: true
+      }
+    }
+  },
   recordedBy: {
     // type: 'KEYWORD_SEARCH',//KEYWORD_SEARCH | SUGGEST
     type: 'SUGGEST',
