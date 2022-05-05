@@ -5,36 +5,32 @@ import { FormattedNumber } from 'react-intl';
 import { ResourceLink } from '../../../../components';
 
 const QUERY = `
-query list($predicate: Predicate, $limit: Int){
+query list($predicate: Predicate, $offset: Int, $limit: Int){
   results: eventSearch(
     predicate:$predicate,
+    size: $limit, 
+    from: $offset
     ) {
-    facet {
-      datasetKey(size: $limit) {
-        datasetTitle
-        count
-        events {
-          documents(size: 5) {
-            total
-            results {
-              eventId
-              samplingProtocol
-              eventType {
-                concept
-              }
-              parentEventId
-              year
-              datasetTitle
-              datasetKey
-              formattedCoordinates
-              stateProvince
-              countryCode
-              measurementOrFactTypes
-              measurementOrFactCount
-              occurrenceCount
-            }
-          }
+    documents {
+      size
+      from
+      total
+      results {
+        eventId
+        samplingProtocol
+        eventType {
+          concept
         }
+        parentEventId
+        year
+        datasetTitle
+        datasetKey
+        formattedCoordinates
+        stateProvince
+        countryCode
+        measurementOrFactTypes
+        measurementOrFactCount
+        occurrenceCount
       }
     }
   }
@@ -157,7 +153,7 @@ function Table() {
     componentProps={{
       defaultTableConfig
     }}
-    presentation={(props) => <div>{JSON.stringify(props)}</div>}
+    presentation={ResultsTable}
   />
 }
 
