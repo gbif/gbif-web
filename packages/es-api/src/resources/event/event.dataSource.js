@@ -1,8 +1,9 @@
 // const elasticsearch = require('elasticsearch');
 const { Client } = require('@elastic/elasticsearch');
-const Agent = require('agentkeepalive').HttpsAgent;
+// const Agent = require('agentkeepalive').HttpsAgent;
+const Agent = require('agentkeepalive');
 const { ResponseError } = require('../errorHandler');
-const { search } = require('../esRequest');
+const { search, searchMvt } = require('../esRequest');
 const env = require('../../config');
 const { reduce } = require('./reduce');
 const { queryReducer } = require('../../responseAdapter');
@@ -67,6 +68,37 @@ async function query({ query, aggs, size = 20, from = 0, req }) {
   };
 }
 
+async function queryMvt({ query, aggs, req }) {
+  let filter = [
+    {
+      "term": {
+        "type": "event"
+      }
+    }
+  ];
+  if (query) filter.push(query);
+  const esQuery = {
+    sort: ['_score', '_doc'],
+    track_total_hits: false,
+    query: {
+      bool: {
+        filter
+      }
+    },
+    aggs
+  }
+
+  let tile = await searchMvt({
+    client: client,
+    index: searchIndex,
+    query: esQuery,
+    x: req.params.x,
+    y: req.params.y,
+    z: req.params.z
+  });
+  return tile;
+}
+
 async function suggest({ field, text = '', size = 8, req }) {
   const esQuery = {
     'suggest': {
@@ -114,6 +146,7 @@ async function byKey({ key, req }) {
 
 module.exports = {
   query,
+  queryMvt,
   byKey,
   suggest
 };

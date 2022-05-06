@@ -1,4 +1,6 @@
-const express = require('express');
+const express = require('express')
+    , http = require('http')
+    , https = require('https');
 const bodyParser = require('body-parser');
 const compression = require('compression');
 const _ = require('lodash');
@@ -46,14 +48,14 @@ app.use(function (req, res, next) {
 });
 
 const temporaryAuthMiddleware = function (req, res, next) {
-  const apiKey = _.get(req, 'query.apiKey') || _.get(req, 'body.apiKey') || _.get(req, 'headers.Authorization', '').substr(10) || _.get(req, 'headers.authorization', '').substr(10);
-  if (!apiKey) {
-    next(new ResponseError(401, 'temporaryAuthentication', 'You need to provide an apiKey in the url'));
-  } else if (apiKey !== config.apiKey || !config.apiKey) {
-    next(new ResponseError(403, 'temporaryAuthentication', `Invalid apiKey: ${apiKey}`));
-  }
+  // const apiKey = _.get(req, 'query.apiKey') || _.get(req, 'body.apiKey') || _.get(req, 'headers.Authorization', '').substr(10) || _.get(req, 'headers.authorization', '').substr(10);
+  // if (!apiKey) {
+  //   next(new ResponseError(401, 'temporaryAuthentication', 'You need to provide an apiKey in the url'));
+  // } else if (apiKey !== config.apiKey || !config.apiKey) {
+  //   next(new ResponseError(403, 'temporaryAuthentication', `Invalid apiKey: ${apiKey}`));
+  // }
   // the apiKey shouldn't be used elsewhere and shouldn't be interpreted as a es query param
-  delete req.query.apiKey;
+  // delete req.query.apiKey;
   // Pass to next layer of middleware
   next()
 }
@@ -88,7 +90,33 @@ if (event) {
   app.post('/event', asyncMiddleware(searchResource(event)));
   app.get('/event', asyncMiddleware(searchResource(event)));
   app.get('/event/key/:id', asyncMiddleware(keyResource(event)));
+  app.get('/event/mvt/:z/:x/:y', asyncMiddleware(searchMvt(event)));
 }
+
+function searchMvt(resource) {
+  const { dataSource, get2predicate, predicate2query, get2metric, metric2aggs } = resource;
+  return async (req, res, next) => {
+    try {
+      const { metrics, predicate, size, from, includeMeta } = parseQuery(req, res, next, { get2predicate, get2metric });
+      const aggs = metric2aggs(metrics);
+      const query = predicate2query(predicate);
+      const tile = await dataSource.queryMvt({ query, aggs, req });
+      res.writeHead(200, {
+        'content-disposition': 'inline',
+        'content-length': tile ? `${tile.body.length}` : `0`,
+        'Content-Type': 'application/x-protobuf',
+        'Cache-Control': `public, max-age=0`,
+        'Last-Modified': `${new Date().toUTCString()}`
+      });
+
+      res.end(Buffer.from(tile.body, 'binary'));
+
+    } catch (err) {
+      next(err);
+    }
+  }
+}
+
 
 function searchResource(resource) {
   const { dataSource, get2predicate, predicate2query, get2metric, metric2aggs } = resource;
