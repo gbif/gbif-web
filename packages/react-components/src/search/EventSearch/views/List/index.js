@@ -15,7 +15,7 @@ query list($predicate: Predicate, $limit: Int){
         count
         key
         events {
-          documents(size: 5) {
+          documents(size: 3) {
             total
             results {
               eventId

@@ -14,9 +14,10 @@ const Layout = ({
   className = '',
   config,
   List,
+  Table,
   ...props
 }) => {
-  const [activeView = 'TABLE', setActiveView] = useQueryParam('view', StringParam);
+  const [activeView = 'DATASETS', setActiveView] = useQueryParam('view', StringParam);
   const theme = useContext(ThemeContext);
   const prefix = theme.prefix || 'gbif';
   const elementName = 'searchLayout';
@@ -31,14 +32,16 @@ const Layout = ({
         </div>
         <div>
           <NavBar style={{ marginLeft: 10 }}>
-            <NavItem label={<FormattedMessage id="search.tabs.table" defaultMessage="Table"/>} data-targetid="table" onClick={e => setActiveView('TABLE')} isActive={activeView === 'TABLE'} />
+            <NavItem label={<FormattedMessage id="search.tabs.datasets" defaultMessage="Datasets"/>} data-targetid="dataset" onClick={e => setActiveView('DATASETS')} isActive={activeView === 'DATASETS'} />
+            <NavItem label={<FormattedMessage id="search.tabs.events" defaultMessage="Events"/>} data-targetid="events" onClick={e => setActiveView('EVENTS')} isActive={activeView === 'EVENTS'} />
             <NavItem label={<FormattedMessage id="search.tabs.map" defaultMessage="Map"/>} data-targetid="map" onClick={e => setActiveView('MAP')} isActive={activeView === 'MAP'} />
             <NavItem label="Download" data-targetid="download" onClick={e => setActiveView('DOWNLOAD')} isActive={activeView === 'DOWNLOAD'} />
           </NavBar>
         </div>
       </div>
       <div css={cssViewArea({ theme })}>
-        {activeView === 'TABLE' && <List />}
+        {activeView === 'DATASETS' && <List />}
+        {activeView === 'EVENTS' && <Table />}
         {activeView === 'MAP' && <h1>Dave: "We need a placeholder for the map"</h1>}
         {activeView === 'DOWNLOAD' && <p>Download - how does download work? What is the API, what are the formats and options. </p>}
       </div>
