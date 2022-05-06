@@ -13,7 +13,7 @@ import { useQueryParam, StringParam } from 'use-query-params';
 const Layout = ({
   className = '',
   config,
-  Table,
+  List,
   ...props
 }) => {
   const [activeView = 'TABLE', setActiveView] = useQueryParam('view', StringParam);
@@ -38,7 +38,7 @@ const Layout = ({
         </div>
       </div>
       <div css={cssViewArea({ theme })}>
-        {activeView === 'TABLE' && <Table />}
+        {activeView === 'TABLE' && <List />}
         {activeView === 'MAP' && <h1>Dave: "We need a placeholder for the map"</h1>}
         {activeView === 'DOWNLOAD' && <p>Download - how does download work? What is the API, what are the formats and options. </p>}
       </div>
