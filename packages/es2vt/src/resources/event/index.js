@@ -59,7 +59,7 @@ async function queryMvt({ query: body, tileParams }) {
     client: client,
     index: searchIndex,
     body: esBody,
-    grid_type: 'centroid',
+    field: 'coordinates', //FIXME should this passed as part of the request
     ...tileParams
   });
   return tile;
