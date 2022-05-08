@@ -62,15 +62,8 @@ class Map extends Component {
   addLayer() {
 
     let tileString = `${env.EVENT_TILE_API}/event/mvt/{z}/{x}/{y}?queryId=${this.props.predicateHash}`;
-    this.map.addLayer({
-        id: 'events', // Layer ID
-        type: 'circle',
-        source: {
-          type: "vector",
-          tiles: [tileString]
-        },
-        'source-layer': 'aggs',
-      }
+    this.map.addLayer(
+        getLayerConfig({ tileString, theme: this.props.theme })
     );
 
     const map = this.map
