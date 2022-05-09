@@ -402,6 +402,7 @@
   "search.tabs.gallery": "Gallery",
   "search.tabs.map": "Map",
   "search.tabs.datasets": "Datasets",
+  "search.tabs.events": "Events",
   "search.tabs.download": "Download",
   "search.table.lockColumn": "Lock column",
   "search.placeholders.default": "Search",

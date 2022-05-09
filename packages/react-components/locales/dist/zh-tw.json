@@ -402,6 +402,7 @@
   "search.tabs.gallery": "圖片集",
   "search.tabs.map": "地圖",
   "search.tabs.datasets": "資料集",
+  "search.tabs.events": "Events",
   "search.tabs.download": "下載",
   "search.table.lockColumn": "Lock column",
   "search.placeholders.default": "搜尋",

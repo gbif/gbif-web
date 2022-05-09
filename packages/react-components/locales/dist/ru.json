@@ -402,6 +402,7 @@
   "search.tabs.gallery": "Галерея",
   "search.tabs.map": "Карта",
   "search.tabs.datasets": "Опубликованных наборов данных",
+  "search.tabs.events": "Events",
   "search.tabs.download": "Загрузить",
   "search.table.lockColumn": "Lock column",
   "search.placeholders.default": "Поиск",

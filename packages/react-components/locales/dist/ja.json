@@ -402,6 +402,7 @@
   "search.tabs.gallery": "ギャラリー",
   "search.tabs.map": "マップ",
   "search.tabs.datasets": "データセット",
+  "search.tabs.events": "Events",
   "search.tabs.download": "ダウンロード",
   "search.table.lockColumn": "Lock column",
   "search.placeholders.default": "検索",

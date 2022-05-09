@@ -402,6 +402,7 @@
   "search.tabs.gallery": "图库",
   "search.tabs.map": "地图",
   "search.tabs.datasets": "数据集",
+  "search.tabs.events": "Events",
   "search.tabs.download": "下载",
   "search.table.lockColumn": "锁定列",
   "search.placeholders.default": "搜索",
