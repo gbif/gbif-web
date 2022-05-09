@@ -3,6 +3,7 @@ import React, { useContext, useCallback, useState, useEffect } from 'react';
 import ThemeContext from '../../style/themes/ThemeContext';
 import { Prose, Tabs, Eyebrow, LicenseTag, DataHeader, Doi, Button, ResourceLink, ResourceSearchLink, Row, Col } from '../../components';
 import OccurrenceSearch from '../../search/OccurrenceSearch/OccurrenceSearch';
+import EventSearch from '../../search/EventSearch/EventSearch';
 import { iconFeature, countFeature } from '../../components/IconFeatures/styles';
 import { About } from './about/About';
 import { Project } from './project/Project';
@@ -51,6 +52,14 @@ export function DatasetPresentation({
     excludedFilters: ['datasetCode', 'datasetKey', 'institutionKey', 'institutionCode', 'hostingOrganizationKey', 'protocol', 'publishingCountryCode'],
     occurrenceSearchTabs: ['TABLE', 'GALLERY', 'MAP'],
     highlightedFilters: ['taxonKey', 'catalogNumber', 'recordedBy', 'identifiedBy', 'typeStatus']
+  };
+
+  const eventConfig = { 
+    // rootFilter:{datasetKey: [dataset.key]}, 
+    rootFilter:{type: 'equals', key: 'datasetKey', value: 'dr18391'}, 
+    excludedFilters: ['datasetKey'], 
+    // highlightedFilters: ['taxonKey', 'catalogNumber', 'recordedBy', 'identifiedBy', 'typeStatus'],
+    tabs: ['EVENTS']
   };
 
   return <>
@@ -160,6 +169,7 @@ export function DatasetPresentation({
           {/* <RouterTab to={join(url, 'activity')} label="Activity" /> */}
           {literatureSearch.documents?.count > 0 && <RouterTab to={join(url, 'citations')} label="Citations" />}
           {/* <RouterTab to={join(url, 'specimens')} css={css.tab({ theme, noData: occurrenceSearch?.documents?.total === 0 })} label="Occurrences" /> */}
+          <RouterTab to={join(url, 'events')} css={css.tab({ theme, noData: occurrenceSearch?.documents?.total === 0 })} label="Events" />
           {/* <RouterTab to={join(url, 'taxonomy')} label="Taxonomy"/> */}
           <RouterTab to={join(url, 'download')} label="Download" />
         </TabList>
@@ -181,6 +191,9 @@ export function DatasetPresentation({
         </Route>
         <Route path={join(path, 'specimens')}>
           <OccurrenceSearch config={config} style={{ margin: 'auto', maxWidth: 1000, minHeight: 'calc(90vh)' }}></OccurrenceSearch>
+        </Route>
+        <Route path={join(path, 'events')}>
+          <EventSearch config={eventConfig} tabs={['EVENTS']} style={{ margin: '12px auto', maxWidth: 1350, minHeight: 'calc(90vh)' }}></EventSearch>
         </Route>
         <Route path={join(path, 'project')}>
           <div css={css.proseWrapper({ theme })}>
