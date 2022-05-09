@@ -16,12 +16,20 @@ const Layout = ({
   List,
   Table,
   Map,
+  tabs = ['DATASETS', 'EVENTS', 'MAP', 'DOWNLOAD'],
   ...props
 }) => {
-  const [activeView = 'DATASETS', setActiveView] = useQueryParam('view', StringParam);
+  const [activeView = tabs[0] || 'DATASETS', setActiveView] = useQueryParam('view', StringParam);
   const theme = useContext(ThemeContext);
   const prefix = theme.prefix || 'gbif';
   const elementName = 'searchLayout';
+
+  const tabComponents = {
+    DATASETS: <NavItem label={<FormattedMessage id="search.tabs.datasets" defaultMessage="Datasets"/>} data-targetid="dataset" onClick={e => setActiveView('DATASETS')} isActive={activeView === 'DATASETS'} />,
+    EVENTS: <NavItem label={<FormattedMessage id="search.tabs.events" defaultMessage="Events"/>} data-targetid="events" onClick={e => setActiveView('EVENTS')} isActive={activeView === 'EVENTS'} />,
+    MAP: <NavItem label={<FormattedMessage id="search.tabs.map" defaultMessage="Map"/>} data-targetid="map" onClick={e => setActiveView('MAP')} isActive={activeView === 'MAP'} />,
+    DOWNLOAD: <NavItem label="Download" data-targetid="download" onClick={e => setActiveView('DOWNLOAD')} isActive={activeView === 'DOWNLOAD'} />
+  }
 
   return <div className={`${className} ${prefix}-${elementName}`}
     css={cssLayout({ theme })} {...props}>
@@ -31,14 +39,11 @@ const Layout = ({
         <div css={cssFilter({ theme })}>
           <FilterBar config={config}></FilterBar>
         </div>
-        <div>
+        {tabs.length > 1 && <div>
           <NavBar style={{ marginLeft: 10 }}>
-            <NavItem label={<FormattedMessage id="search.tabs.datasets" defaultMessage="Datasets"/>} data-targetid="dataset" onClick={e => setActiveView('DATASETS')} isActive={activeView === 'DATASETS'} />
-            <NavItem label={<FormattedMessage id="search.tabs.events" defaultMessage="Events"/>} data-targetid="events" onClick={e => setActiveView('EVENTS')} isActive={activeView === 'EVENTS'} />
-            <NavItem label={<FormattedMessage id="search.tabs.map" defaultMessage="Map"/>} data-targetid="map" onClick={e => setActiveView('MAP')} isActive={activeView === 'MAP'} />
-            <NavItem label="Download" data-targetid="download" onClick={e => setActiveView('DOWNLOAD')} isActive={activeView === 'DOWNLOAD'} />
+            {tabs.map(tab => tabComponents[tab])}
           </NavBar>
-        </div>
+        </div>}
       </div>
       <div css={cssViewArea({ theme })}>
         {activeView === 'DATASETS' && <List />}
