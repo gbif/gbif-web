@@ -5,7 +5,6 @@ import { useQuery } from '../../../../dataManagement/api';
 import { filter2predicate } from '../../../../dataManagement/filterAdapter';
 import MapPresentation from './MapPresentation';
 import { getBboxFromFeature } from './esTileHash';
-import Geohash from 'latlon-geohash';
 
 const EVENT_MAP = `
 query map($predicate: Predicate){
