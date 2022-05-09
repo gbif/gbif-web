@@ -149,6 +149,7 @@ const defaultTableConfig = {
 function Table() {
   return <PredicateDataFetcher
     graphQuery={QUERY}
+    graph='EVENT'
     limit={50}
     componentProps={{
       defaultTableConfig

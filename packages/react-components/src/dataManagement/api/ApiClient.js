@@ -5,14 +5,19 @@ class ApiClient {
   constructor(config) {
     this.gql = config.gql;
     this.v1 = config.v1;
-    this.request
+    this.request;
+    this.graphs = {
+      EVENT: config.gqlEvents,
+      DEFAULT: config.gql
+    };
   }
 
-  query({ query, variables }) {
-    if (!this.gql) {
+  query({ query, variables, graph = 'DEFAULT' }) {
+    const client = this.graphs[graph];
+    if (!client) {
       return console.error('No configuration has been provided to the GraphQLClient');
     }
-    return queryGraphQl(query, { variables, client: this.gql });
+    return queryGraphQl(query, { variables, client });
   }
 
   get(url, options) {

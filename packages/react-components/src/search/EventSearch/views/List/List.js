@@ -68,7 +68,7 @@ function DatasetSkeleton() {
   </div>
 }
 function Dataset({ datasetKey, datasetTitle, count, events, ...props }) {
-  const { data, error, loading, load } = useQuery(DATASET_QUERY, { lazyLoad: true });
+  const { data, error, loading, load } = useQuery(DATASET_QUERY, { lazyLoad: true, graph: 'EVENT' });
 
   useEffect(() => {
     load({ keepDataWhileLoading: true, variables: { datasetKey } });
