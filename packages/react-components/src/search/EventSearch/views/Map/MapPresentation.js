@@ -10,14 +10,14 @@ import { ViewHeader } from '../ViewHeader';
 import MapboxMap from './MapboxMap';
 import * as css from './map.styles';
 
-function Map({ labelMap, query, pointData, pointError, pointLoading, loading, total, predicateHash, registerPredicate, loadPointData, defaultMapSettings, ...props }) {
+function Map({ labelMap, query, pointData, pointError, pointLoading, loading, total, predicateHash, registerPredicate, loadPointData, defaultMapSettings, mapLoaded, ...props }) {
   const dialog = useDialogState({ animated: true, modal: false });
   const theme = useContext(ThemeContext);
   const [activeId, setActive] = useState();
   const [activeItem, setActiveItem] = useState();
   const [listVisible, showList] = useState(false);
 
-  const items = pointData?.occurrenceSearch?.documents?.results || [];
+  const items = pointData?.eventSearch?.documents?.results || [];
 
   useEffect(() => {
     setActiveItem(items[activeId]);
@@ -33,7 +33,8 @@ function Map({ labelMap, query, pointData, pointError, pointLoading, loading, to
 
   return <>
     <DetailsDrawer href={`https://www.gbif.org/occurrence/${activeItem?.key}`} dialog={dialog} nextItem={nextItem} previousItem={previousItem}>
-      <OccurrenceSidebar id={activeItem?.key} defaultTab='details' style={{ maxWidth: '100%', width: 700, height: '100%' }} onCloseRequest={() => dialog.setVisible(false)} />
+      {/*<OccurrenceSidebar id={activeItem?.key} defaultTab='details' style={{ maxWidth: '100%', width: 700, height: '100%' }} onCloseRequest={() => dialog.setVisible(false)} />*/}
+      <h1>Hi Dave</h1>
     </DetailsDrawer>
     <div css={css.mapArea({theme})}>
       <ViewHeader message="counts.nResultsWithCoordinates" loading={loading} total={total} />
@@ -45,7 +46,16 @@ function Map({ labelMap, query, pointData, pointError, pointLoading, loading, to
                                   loading={pointLoading} 
                                   css={css.resultList({})} 
                                   />}
-        <MapboxMap defaultMapSettings={defaultMapSettings} predicateHash={predicateHash} css={css.mapComponent({theme})} theme={theme} query={query} onMapClick={e => showList(false)} onPointClick={data => { showList(true); loadPointData(data) }} registerPredicate={registerPredicate} />
+        <MapboxMap
+            defaultMapSettings={defaultMapSettings}
+            predicateHash={predicateHash}
+            css={css.mapComponent({theme})}
+            theme={theme}
+            query={query}
+            onMapClick={e => showList(false)}
+            onPointClick={data => { showList(true); loadPointData(data) }}
+            registerPredicate={registerPredicate}
+        />
       </div>
     </div>
   </>;

@@ -13,7 +13,8 @@ export function getLayerConfig({tileString, theme}) {
         property: "_count",
         type: "interval",
         //stops: [[0, 2]]
-        stops: [[0, 2], [10, 3], [100, 5], [1000, 8], [10000, 12]]
+        // stops: [[0, 2], [10, 3], [100, 5], [1000, 8], [10000, 12]]
+        stops: [[0, 2], [5, 3], [10, 5], [100, 8], [1000, 12]]
       },
       // color circles by ethnicity, using data-driven styles
       "circle-color": {

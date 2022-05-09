@@ -8,22 +8,23 @@ import { FormattedDate } from 'react-intl';
 import ThemeContext from '../../../../style/themes/ThemeContext';
 import { styledScrollBars } from '../../../../style/shared';
 
-function ListItem({ BasisOfRecordLabel, id, item, imageSrc, onClick = () => { }, ...props }) {
+function ListItem({  id, item, imageSrc, onClick = () => { }, ...props }) {
   const theme = useContext(ThemeContext);
 
   return <div css={listItem({ theme })} onClick={e => onClick({ id })}>
     <Row wrap="no-wrap" alignItems="center">
       <Col grow={true} css={listItemContent({ theme })}>
-        <h4 dangerouslySetInnerHTML={{ __html: item.gbifClassification.usage.formattedName }} ></h4>
+        <h4 dangerouslySetInnerHTML={{ __html: item.eventType.concept }} ></h4>
+        {item.eventId }
         {item.eventDate && <div>
           <FormattedDate value={item.eventDate}
             year="numeric"
             month="long"
             day="2-digit" />
         </div>}
-        <div>
-          <BasisOfRecordLabel id={item.basisOfRecord} />
-        </div>
+        {/*<div>*/}
+        {/*  <BasisOfRecordLabel id={item.basisOfRecord} />*/}
+        {/*</div>*/}
       </Col>
       <Col grow={false}>
         <Button className="gbif-map-listItem-chevreon" appearance="text" style={{ padding: 3 }} onClick={e => onClick({ id })}>
@@ -40,7 +41,8 @@ function ListItem({ BasisOfRecordLabel, id, item, imageSrc, onClick = () => { },
 function ListBox({ labelMap, onCloseRequest, onClick, data, error, loading, ...props }) {
   const theme = useContext(ThemeContext);
   if (!error && !loading && !data) return null;
-  const BasisOfRecordLabel = labelMap.basisOfRecord;
+
+  // const BasisOfRecordLabel = labelMap.basisOfRecord;
 
   let content;
   if (loading) {
@@ -62,11 +64,11 @@ function ListBox({ labelMap, onCloseRequest, onClick, data, error, loading, ...p
       </div>
     </section>
   } else if (data) {
-    const results = data?.occurrenceSearch?.documents?.results || [];
+    const results = data?.eventSearch?.documents?.results || [];
     content = <ul css={list({ theme })}>
       {results.map((x, index) => {
         return <li key={x.key}>
-          <ListItem BasisOfRecordLabel={BasisOfRecordLabel} onClick={() => onClick({ index })} id={x.key} item={x} />
+          <ListItem onClick={() => onClick({ index })} id={x.key} item={x} />
         </li>
       })}
     </ul>;
@@ -77,7 +79,7 @@ function ListBox({ labelMap, onCloseRequest, onClick, data, error, loading, ...p
       <Col grow={false} as="header" >
         <Row alignItems="center">
           <Col grow>
-            <FormattedMessage id="counts.nResults" values={{ total: data?.occurrenceSearch?.documents.total }} />
+            <FormattedMessage id="counts.nResults" values={{ total: data?.eventSearch?.documents.total }} />
           </Col>
           <Col grow={false}><Button appearance="outline" onClick={onCloseRequest}>
             <FormattedMessage id="phrases.close" />

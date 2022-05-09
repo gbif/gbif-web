@@ -4,6 +4,7 @@ import { getLayerConfig } from './getLayerConfig';
 import env from '../../../../../.env.json';
 
 class Map extends Component {
+
   constructor(props) {
     super(props);
 
@@ -15,7 +16,8 @@ class Map extends Component {
   }
 
   componentDidMount() {
-    const mapStyle = this.props.theme.darkTheme ? 'dark-v9' : 'light-v9';
+    // const mapStyle = this.props.theme.darkTheme ? 'dark-v9' : 'light-v9';
+    const mapStyle =  'dark-v9';
     mapboxgl.accessToken = env.MAPBOX_KEY;
     this.map = new mapboxgl.Map({
       container: this.myRef.current,
@@ -56,7 +58,8 @@ class Map extends Component {
   }
 
   onPointClick(pointData) {
-    this.props.onPointClick(pointData.lngLat);
+    console.log(pointData);
+    this.props.onPointClick(pointData);
   }
 
   addLayer() {
@@ -88,7 +91,7 @@ class Map extends Component {
       });
 
       map.on('click', 'events', e => {
-        this.onPointClick(e.latLng);
+        this.onPointClick({ geohash:  e.features[0].properties._key, count: e.features[0].properties._count });
         e.preventDefault();
       });
 
@@ -106,7 +109,7 @@ class Map extends Component {
         }
       });
     }
-    this.mapLoaded = true;
+    this.props.mapLoaded = true;
   }
 
   render() {

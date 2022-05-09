@@ -4,6 +4,7 @@ import EventContext from '../../../SearchContext';
 import { useQuery } from '../../../../dataManagement/api';
 import { filter2predicate } from '../../../../dataManagement/filterAdapter';
 import MapPresentation from './MapPresentation';
+import { getBboxFromFeature } from './esTileHash';
 import Geohash from 'latlon-geohash';
 
 const EVENT_MAP = `
@@ -25,6 +26,10 @@ query point($predicate: Predicate){
       total
       results {
         eventId
+        eventType {
+          concept
+        }
+        year
       }
     }
   }
@@ -78,8 +83,8 @@ function Map() {
   const wktBBoxTemplate = '((W S,E S,E N,W N,W S))';
 
   const loadPointData = useCallback(({geohash}) => {
-    const latLon = Geohash.bounds(geohash);
-    const N = latLon.ne.lat, S = latLon.sw.lat, W = latLon.sw.lon, E = latLon.ne.lon;
+    const bbox = getBboxFromFeature(geohash);
+    const N = bbox.north, S = bbox.south, W = bbox.west, E = bbox.east;
     const wkt = 'POLYGON' + wktBBoxTemplate.replace(/N/g, N).replace(/S/g, S).replace(/W/g, W).replace(/E/g, E);
     const predicate = {
       type: 'and',
@@ -95,8 +100,6 @@ function Map() {
     }
     pointLoad({ variables: { predicate } });
   }, [currentFilterContext.filterHash, rootPredicate]);
-
-  console.log( data)
 
   const options = {
     loading,
