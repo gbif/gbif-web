@@ -1,161 +1,67 @@
-import React, { useContext, useEffect, useState } from "react";
-import PredicateDataFetcher from '../../../PredicateDataFetcher';
-import { ResultsTable } from '../../../ResultsTable';
-import { FormattedNumber } from 'react-intl';
-import { ResourceLink } from '../../../../components';
+import React, { useEffect, useContext, useState, useCallback } from "react";
+import { FilterContext } from '../../../../widgets/Filter/state';
+import EventContext from '../../../SearchContext';
+import { useQuery } from '../../../../dataManagement/api';
+import { filter2predicate } from '../../../../dataManagement/filterAdapter';
+import { DownloadPresentation } from './DownloadPresentation';
 
-const QUERY = `
-query list($predicate: Predicate, $offset: Int, $limit: Int){
-  results: eventSearch(
+const DOWNLOADS = `
+query list($predicate: Predicate, $limit: Int){
+  eventSearch(
     predicate:$predicate,
-    size: $limit, 
-    from: $offset
     ) {
-    documents {
-      size
-      from
-      total
-      results {
-        eventId
-        samplingProtocol
-        eventType {
-          concept
-        }
-        parentEventId
-        year
+    facet {
+      datasetKey(size: $limit) {
         datasetTitle
-        datasetKey
-        formattedCoordinates
-        stateProvince
-        countryCode
-        measurementOrFactTypes
-        measurementOrFactCount
-        occurrenceCount
+        count
+        key
+        events {
+          documents(size: 3) {
+            total
+          }
+        }
       }
     }
   }
 }
 `;
 
-const defaultColumns = ['eventId', 'eventType', 'parentEventId', 'dataset', 'year', 'samplingProtcol', 'coordinates', 'stateProvince', 'countryCode', 'measurementTypes', 'measurements', 'OccurrenceCount']
-const defaultTableConfig = {
-  columns: [
-    {
-      trKey: 'filters.eventId.name',
-      value: {
-        key: 'eventId',
-        formatter: (value, item) => <div>
-          <ResourceLink type='eventKey' discreet id={item.eventId} otherIds={{datasetKey: item.datasetKey}}>{item.eventId}</ResourceLink>
-        </div>
-      },
-    },
-    {
-      trKey: 'filters.eventType.name',
-      value: {
-        key: 'eventType',
-        formatter: (value, item) => value?.concept,
-        labelHandle: 'eventType',
-        hideFalsy: true
-      }
-    },
-    {
-      trKey: 'filters.parentEventId.name',
-      filterKey: 'parentEventId',
-      value: {
-        key: 'parentEventId',
-        hideFalsy: true
-      }
-    },
-    {
-      trKey: 'filters.datasetKey.name',
-      filterKey: 'datasetKey',
-      value: {
-        key: 'datasetKey',
-        formatter: (value, item) => item?.datasetTitle,
-        hideFalsy: true
-      },
-      width: 'wide'
-    },
-    {
-      trKey: 'filters.year.name',
-      filterKey: 'year',
-      value: {
-        key: 'year',
-        hideFalsy: true
-      }
-    },
-    {
-      trKey: 'filters.samplingProtocol.name',
-      filterKey: 'eventSamplingProtocol',
-      value: {
-        key: 'samplingProtocol',
-        formatter: (value, item) => item?.samplingProtocol[0],
-        hideFalsy: true
-      }
-    },
-    {
-      name: 'coordinates',
-      trKey: 'filters.coordinates.name',
-      value: {
-        key: 'formattedCoordinates',
-      },
-      noWrap: true
-    },
-    {
-      name: 'stateProvince',
-      trKey: 'filters.stateProvince.name',
-      value: {
-        key: 'stateProvince',
-      }
-    },
-    {
-      name: 'countryCode',
-      trKey: 'filters.country.name',
-      value: {
-        key: 'countryCode',
-        labelHandle: 'countryCode'
-      }
-    },
-    {
-      name: 'measurementOrFactTypes',
-      trKey: 'filters.measurementOrFactTypes.name',
-      value: {
-        key: 'measurementOrFactTypes',
-        formatter: (value, item) => <>{value.join(', ')}</>
-      }
-    },
-    {
-      name: 'measurementOrFactCount',
-      trKey: 'filters.measurementOrFactCount.name',
-      value: {
-        key: 'measurementOrFactCount',
-        hideFalsy: true
-      },
-      noWrap: true,
-    },
-    {
-      name: 'occurrenceCount',
-      trKey: 'tableHeaders.occurrences',
-      value: {
-        key: 'occurrenceCount',
-        formatter: (value, item) => <FormattedNumber value={value} />,
-        hideFalsy: true,
-        rightAlign: true
-      },
-      noWrap: true
-    },
-  ]
-};
+function Downloads() {
 
-function Table() {
-  return <PredicateDataFetcher
-    graphQuery={QUERY}
-    limit={50}
-    componentProps={{
-      defaultTableConfig
-    }}
-    presentation={ResultsTable}
-  />
+  const [size, setSize] = useState(200);
+  const currentFilterContext = useContext(FilterContext);
+  const { rootPredicate, predicateConfig } = useContext(EventContext);
+  const { data, error, loading, load } = useQuery(DOWNLOADS, { lazyLoad: false, graph: 'EVENT' });
+
+  useEffect(() => {
+    const predicate = {
+      type: 'and',
+      predicates: [
+        rootPredicate,
+        filter2predicate(currentFilterContext.filter, predicateConfig)
+      ].filter(x => x)
+    }
+    load({ keepDataWhileLoading: true, variables: { predicate, size } });
+  }, [currentFilterContext.filterHash, rootPredicate]);
+
+  useEffect(() => {
+    setSize(100);
+  }, [currentFilterContext.filterHash]);
+
+  const more = useCallback(() => {
+    setSize(size + 100);
+  });
+
+  return <>
+    <DownloadPresentation
+      loading={loading}
+      data={data}
+      more={more}
+      size={size}
+    />
+  </>
+
 }
 
-export default Table;
+export default Downloads;
+

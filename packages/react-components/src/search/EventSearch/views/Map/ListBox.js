@@ -14,17 +14,16 @@ function ListItem({  id, item, imageSrc, onClick = () => { }, ...props }) {
   return <div css={listItem({ theme })} onClick={e => onClick({ id })}>
     <Row wrap="no-wrap" alignItems="center">
       <Col grow={true} css={listItemContent({ theme })}>
-        <h4 dangerouslySetInnerHTML={{ __html: item.eventType.concept }} ></h4>
-        {item.eventId }
+        <h4 dangerouslySetInnerHTML={{ __html: item.eventType.concept + ' ' +(item.year ? '- year: ' + item.year: '')}} ></h4>
+        {item.datasetTitle}
+        {item.eventId}
+        {item.measurementOrFactTypes.length > 0 ? ' - ' + item.measurementOrFactTypes : ''}
         {item.eventDate && <div>
           <FormattedDate value={item.eventDate}
             year="numeric"
             month="long"
             day="2-digit" />
         </div>}
-        {/*<div>*/}
-        {/*  <BasisOfRecordLabel id={item.basisOfRecord} />*/}
-        {/*</div>*/}
       </Col>
       <Col grow={false}>
         <Button className="gbif-map-listItem-chevreon" appearance="text" style={{ padding: 3 }} onClick={e => onClick({ id })}>

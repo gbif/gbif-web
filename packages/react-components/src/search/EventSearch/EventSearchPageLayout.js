@@ -16,6 +16,7 @@ const Layout = ({
   List,
   Table,
   Map,
+  Download,
   tabs = ['DATASETS', 'EVENTS', 'MAP', 'DOWNLOAD'],
   ...props
 }) => {
@@ -49,7 +50,7 @@ const Layout = ({
         {activeView === 'DATASETS' && <List />}
         {activeView === 'EVENTS' && <Table />}
         {activeView === 'MAP' && <Map />}
-        {activeView === 'DOWNLOAD' && <p>Download - how does download work? What is the API, what are the formats and options. </p>}
+        {activeView === 'DOWNLOAD' && <Download />}
       </div>
     </Tabs>
   </div>

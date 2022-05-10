@@ -24,10 +24,12 @@ query point($predicate: Predicate){
     documents {
       total
       results {
+        datasetTitle
         eventId
         eventType {
           concept
         }
+        measurementOrFactTypes
         year
       }
     }
