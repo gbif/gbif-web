@@ -26,14 +26,14 @@ const client = new Client({
   }
 });
 
-async function query({ query, aggs, size = 20, from = 0, req }) {
+async function query({ query, aggs, size = 20, from = 0, randomSeed, randomize, req }) {
   if (parseInt(from) + parseInt(size) > env.event.maxResultWindow) {
     throw new ResponseError(400, 'BAD_REQUEST', `'from' + 'size' must be ${env.event.maxResultWindow} or less`);
   }
   let filter = [
     {
-      "term": {
-        "type": "event"
+      'term': {
+        'type': 'event'
       }
     }
   ];
@@ -42,10 +42,10 @@ async function query({ query, aggs, size = 20, from = 0, req }) {
     sort: [
       '_score', // if there is any score (but will this be slow even when there is no free text query?)
       '_doc', // I'm not sure, but i hope this will ensure sorting and be the fastest way to do so https://www.elastic.co/guide/en/elasticsearch/reference/current/sort-search-results.html
-      // { year: { "order": "desc" } },
-      // { month: { "order": "desc" } },
-      // { day: { "order": "desc" } },
-      // { "gbifId": "asc" }
+      // { year: { 'order': 'desc' } },
+      // { month: { 'order': 'desc' } },
+      // { day: { 'order': 'desc' } },
+      // { 'gbifId': 'asc' }
     ],
     track_total_hits: true,
     size,
@@ -57,6 +57,25 @@ async function query({ query, aggs, size = 20, from = 0, req }) {
     },
     aggs
   }
+
+  if (randomize) {
+    delete esQuery.sort;
+    esQuery.query.bool.must = [
+      {
+        function_score: {
+          functions: [
+            {
+              random_score: {
+                seed: randomSeed || Math.floor(Math.random * 100000)
+              }
+            }
+          ],
+          boost_mode: 'replace'
+        }
+      }
+    ];
+  }
+
 
   let response = await search({ client, index: searchIndex, query: esQuery, req });
   let body = response.body;
@@ -86,16 +105,34 @@ async function suggest({ field, text = '', size = 8, req }) {
   return suggestions;
 }
 
-async function byKey({ key, req }) {
+async function byKey({ qualifier: datasetKey, key, req }) {
   const query = {
     'size': 1,
     'query': {
       'bool': {
-        'filter': {
-          'term': {
-            'gbifId': key
+        'filter': [
+          {
+            'term': {
+              'type': 'event'
+            }
+          },
+          {
+            'bool': {
+              'filter': [
+                {
+                  'term': {
+                    'metadata.datasetKey': datasetKey
+                  }
+                },
+                {
+                  'term': {
+                    'event.eventId.keyword': key
+                  }
+                }
+              ]
+            }
           }
-        }
+        ]
       }
     }
   };

@@ -87,17 +87,17 @@ if (event) {
   
   app.post('/event', asyncMiddleware(searchResource(event)));
   app.get('/event', asyncMiddleware(searchResource(event)));
-  app.get('/event/key/:id', asyncMiddleware(keyResource(event)));
+  app.get('/event/key/:qualifier/:id', asyncMiddleware(keyResource(event)));
 }
 
 function searchResource(resource) {
   const { dataSource, get2predicate, predicate2query, get2metric, metric2aggs } = resource;
   return async (req, res, next) => {
     try {
-      const { metrics, predicate, size, from, includeMeta } = parseQuery(req, res, next, { get2predicate, get2metric });
+      const { metrics, predicate, size, from, randomSeed, randomize, includeMeta } = parseQuery(req, res, next, { get2predicate, get2metric });
       const aggs = metric2aggs(metrics);
       const query = predicate2query(predicate);
-      const { result, esBody } = await dataSource.query({ query, aggs, size, from, req });
+      const { result, esBody } = await dataSource.query({ query, aggs, size, from, randomSeed, randomize, req });
       const meta = {
         GET: req.query,
         predicate,
@@ -138,6 +138,8 @@ function parseQuery(req, res, next, { get2predicate, get2metric }) {
       metrics: jsonMetrics,
       size = 20,
       from = 0,
+      randomSeed, 
+      randomize,
       includeMeta = false,
       ...otherParams
     } = query;
@@ -159,7 +161,9 @@ function parseQuery(req, res, next, { get2predicate, get2metric }) {
 
     const intSize = parseInt(size);
     const intFrom = parseInt(from);
-    const result = { metrics, predicate, size: intSize, from: intFrom, includeMeta };
+    const intSeed = parseInt(randomSeed);
+    const boolRandomize = (randomize + '').toLowerCase() === 'true';
+    const result = { metrics, predicate, size: intSize, from: intFrom, randomSeed: intSeed, randomize: boolRandomize, includeMeta };
     return result;
   } catch (err) {
     next(err);
@@ -169,7 +173,7 @@ function parseQuery(req, res, next, { get2predicate, get2metric }) {
 function keyResource(resource) {
   const { dataSource } = resource;
   return async (req, res) => {
-    const body = await dataSource.byKey({ key: req.params.id, req });
+    const body = await dataSource.byKey({ key: req.params.id, qualifier: req.params.qualifier, req });
     res.json(body);
   };
 }
