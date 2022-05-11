@@ -34,6 +34,7 @@ class Map extends Component {
   }
 
   componentDidUpdate(prevProps) {
+    console.log('componentDidUpdate');
     if (prevProps.query !== this.props.query && this.mapLoaded) {
       this.updateLayer();
     }
@@ -47,6 +48,7 @@ class Map extends Component {
   }
 
   updateLayer() {
+    console.log('updateLayer');
     var layer = this.map.getSource("events");
     if (layer) {
       this.map.removeLayer("events");
@@ -63,6 +65,7 @@ class Map extends Component {
   }
 
   addLayer() {
+    console.log('addLayer');
 
     let tileString = `${env.EVENT_TILE_API}/event/mvt/{z}/{x}/{y}?queryId=${this.props.predicateHash}`;
     this.map.addLayer(
@@ -109,7 +112,7 @@ class Map extends Component {
         }
       });
     }
-    this.props.mapLoaded = true;
+    this.mapLoaded = true;
   }
 
   render() {
