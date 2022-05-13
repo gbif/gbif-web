@@ -1,6 +1,6 @@
 // const elasticsearch = require('elasticsearch');
 const { Client } = require('@elastic/elasticsearch');
-const Agent = require('agentkeepalive').HttpsAgent;
+const Agent = require('agentkeepalive');
 const { ResponseError } = require('../errorHandler');
 const { search } = require('../esRequest');
 const env = require('../../config');
@@ -75,7 +75,6 @@ async function query({ query, aggs, size = 20, from = 0, randomSeed, randomize, 
       }
     ];
   }
-
 
   let response = await search({ client, index: searchIndex, query: esQuery, req });
   let body = response.body;
