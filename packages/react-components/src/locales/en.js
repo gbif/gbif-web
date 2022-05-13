@@ -201,11 +201,6 @@ export const en = {
       count: '{num, plural, one { establishment means } other {# establishment means}}',
       description: 'The means by which the organism was introduced to a given place at a given time.'
     },
-    catalogNumber: {
-      name: 'Catalog number',
-      count: '{num, plural, one { catalog number } other {# catalog numbers}}',
-      description: 'The identifier for the record within a catalog or collection.'
-    },
     recordedBy: {
       name: 'Recorded by',
       count: '{num, plural, one { recorded by } other {# recorded bys}}',

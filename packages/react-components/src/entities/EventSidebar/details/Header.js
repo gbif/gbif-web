@@ -20,12 +20,12 @@ export function Header({
   const item = data?.event;
   return <Row wrap="no-wrap" css={css.header({ theme })} {...props}>
     <Col grow>
-      <h1>{item.eventType?.concept} {item.eventId} </h1>
+      <h1>{item.eventType?.concept}</h1>
       <div css={css.headline({ theme })}>
         <Eyebrow 
           style={{fontSize: '80%'}}
           prefix={<FormattedMessage id="eventDetails.event" />}
-          suffix={data?.event?.year}
+          suffix={data?.event?.eventId}
             />
         <h3 dangerouslySetInnerHTML={{ __html: data?.event?.eventID }}></h3>
       </div>
