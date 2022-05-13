@@ -10,7 +10,7 @@
   "back": "Zurück",
   "cancel": "Abbrechen",
   "apply": "Übernehmen",
-  "wildcardHelp": "Suchvorgänge ignorieren Groß-/Kleinschreibung, aber Akzente unterscheiden sich voneinander (z.B. 'rio' vs 'río'). Verwenden Sie einen Platzhalter (z.B. 'r?o'), um alle Treffer zu finden.",
+  "wildcardHelp": "Um nach Text- oder Wortbestandteilen zu suchen, bitte Platzhalter verwenden - so findet z.B. Sammler = '*humboldt*' alle Belege, die von Humboldt gesammelt wurden, unabhängig von der Schreibweise seiner Vornamen.\n\nSuchvorgänge sind unabhängig von Groß-/Kleinschreibung, aber Akzente unterscheiden sich voneinander (z.B. 'rio' vs 'río'). Verwenden Sie einen Platzhalter (z.B. 'r?o'), um alle Übereinstimmungen zu finden.",
   "useWildcardPattern": "Nach dem Muster suchen",
   "showSuggestions": "Vorschläge anzeigen",
   "excludeSelected": "Ausgewählte ausschließen"
