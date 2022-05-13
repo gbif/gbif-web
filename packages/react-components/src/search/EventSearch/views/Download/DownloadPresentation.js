@@ -7,6 +7,7 @@ import { DatasetSidebar } from '../../../../entities';
 import { useDialogState } from "reakit/Dialog";
 import * as styles from './downloadPresentation.styles';
 import { ViewHeader } from '../ViewHeader';
+import { Button } from '../../../../components';
 
 export const DownloadPresentation = ({ more, size, data, total, loading }) => {
   const { labelMap } = useContext(EventContext);
@@ -16,7 +17,6 @@ export const DownloadPresentation = ({ more, size, data, total, loading }) => {
   const dialog = useDialogState({ animated: true, modal: false });
 
   const items = data?.eventSearch?.facet?.datasetKey || [];
-  const cardinality = data?.eventSearch?.facet.length;
 
   useEffect(() => {
     setActiveItem(items[activeId]);
@@ -32,7 +32,6 @@ export const DownloadPresentation = ({ more, size, data, total, loading }) => {
 
   return <>
     <div >
-      {/*<ViewHeader loading={loading} total={cardinality}/>*/}
       <div>
         <ul style={{ padding: 0, margin: 0 }}>
           {items.length > 0 && items.map((item, index) => <li>
@@ -78,7 +77,7 @@ function DatasetResult({ largest, item, indicator, theme, setActive, index, dial
         <span>Archive size: 123MB</span>
       </div>
       <div>
-        <button onClick={startDownload} className={' gbif-button gbif-button-primaryOutline css-oo1u65-button-primaryOutline-Button'}>Download</button>
+        <Button onClick={startDownload} look="primaryOutline">Download</Button>
       </div>
     </div>
     {/*<Progress percent={100 * item.count / largest} />*/}
