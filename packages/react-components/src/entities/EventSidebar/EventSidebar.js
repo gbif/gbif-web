@@ -64,7 +64,6 @@ query event($eventID: String, $datasetKey: String){
     eventType {
       concept
     }
-    eventDate
     coordinates
     countryCode
     datasetKey
