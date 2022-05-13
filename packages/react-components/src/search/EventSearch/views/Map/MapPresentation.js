@@ -1,7 +1,7 @@
 
 import { jsx } from '@emotion/react';
 import React, { useContext, useState, useEffect, useCallback } from "react";
-import { DetailsDrawer } from '../../../../components';
+import {Col, DetailsDrawer, Row, Tabs} from '../../../../components';
 import { OccurrenceSidebar } from '../../../../entities';
 import ThemeContext from '../../../../style/themes/ThemeContext';
 import { useDialogState } from "reakit/Dialog";
@@ -9,6 +9,12 @@ import ListBox from './ListBox';
 import { ViewHeader } from '../ViewHeader';
 import MapboxMap from './MapboxMap';
 import * as css from './map.styles';
+import {MdClose, MdInfo, MdInsertPhoto} from "react-icons/md";
+import {ClusterIcon} from "../../../../components/Icons/Icons";
+import {ImageDetails} from "../../../../entities/OccurrenceSidebar/details/ImageDetails";
+import {Intro} from "../../../../entities/OccurrenceSidebar/details/Intro";
+import {Cluster} from "../../../../entities/OccurrenceSidebar/details/Cluster";
+import {EventSidebar} from "../../../../entities/EventSidebar/EventSidebar";
 
 function Map({ labelMap, query, pointData, pointError, pointLoading, loading, total, predicateHash, registerPredicate, loadPointData, defaultMapSettings, mapLoaded, ...props }) {
   const dialog = useDialogState({ animated: true, modal: false });
@@ -32,9 +38,14 @@ function Map({ labelMap, query, pointData, pointError, pointLoading, loading, to
   }, [items, activeId]);
 
   return <>
-    <DetailsDrawer href={`https://www.gbif.org/occurrence/${activeItem?.key}`} dialog={dialog} nextItem={nextItem} previousItem={previousItem}>
-      {/*<OccurrenceSidebar id={activeItem?.key} defaultTab='details' style={{ maxWidth: '100%', width: 700, height: '100%' }} onCloseRequest={() => dialog.setVisible(false)} />*/}
-      <h1>Hi Dave</h1>
+    <DetailsDrawer href={`${activeItem?.eventId}`} dialog={dialog} nextItem={nextItem} previousItem={previousItem}>
+      <EventSidebar
+          eventId={activeItem?.eventId}
+          datasetKey={activeItem?.datasetKey}
+          defaultTab='details'
+          style={{ maxWidth: '100%', width: 700, height: '100%' }}
+          onCloseRequest={() => dialog.setVisible(false)}
+      />
     </DetailsDrawer>
     <div css={css.mapArea({theme})}>
       <ViewHeader message="counts.nResultsWithCoordinates" loading={loading} total={total} />

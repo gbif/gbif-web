@@ -1,0 +1,20 @@
+{
+    "Occurrence": {},
+    "Record": {
+        "dynamicProperties": true
+    },
+    "Organism": {},
+    "MaterialSample": {},
+    "Event": {
+        
+    },
+    "Location": {
+    },
+    "GeologicalContext": {},
+    "Identification": {},
+    "Taxon": {
+        "scientificName": true,
+        "acceptedScientificName": true
+    },
+    "Other": {}
+}

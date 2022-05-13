@@ -25,6 +25,7 @@ query point($predicate: Predicate){
       total
       results {
         datasetTitle
+        datasetKey
         eventId
         eventType {
           concept
