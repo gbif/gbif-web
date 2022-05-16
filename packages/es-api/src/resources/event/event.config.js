@@ -559,10 +559,30 @@ const config =
         }
       }
     },
-
-
-
-
+    kingdoms: {
+      type: 'keyword',
+      field: 'event.kingdoms.keyword'
+    },
+    phyla: {
+      type: 'keyword',
+      field: 'event.phyla.keyword'
+    },
+    orders: {
+      type: 'keyword',
+      field: 'event.orders.keyword'
+    },
+    classes: {
+      type: 'keyword',
+      field: 'event.classes.keyword'
+    },
+    families: {
+      type: 'keyword',
+      field: 'event.families.keyword'
+    },
+    genera: {
+      type: 'keyword',
+      field: 'event.genera.keyword'
+    },
     basisOfRecord: {
       type: 'keyword',
       field: 'occurrence.core.basisOfRecord'

@@ -5,12 +5,11 @@ import * as css from '../styles';
 import { Row, Col, Switch } from "../../../components";
 import { Header } from './Header';
 import { Groups } from './Groups';
+import {Summary} from "./Summary";
 
 export function Intro({
   data = {},
   loading,
-  fieldGroups,
-  setActiveImage,
   error,
   className,
   ...props
@@ -24,7 +23,8 @@ export function Intro({
   return <Row direction="column" wrap="nowrap" style={{ maxHeight: '100%', overflow: 'hidden' }}>
     <Col style={{ padding: '12px 0', paddingBottom: 50, overflow: 'auto' }} grow>
       <Header data={data} error={error} />
-      <Groups event={event} showAll={showAll} setActiveImage={setActiveImage} />
+      <Groups event={event} showAll={showAll}  />
+      <Summary eventID={event.eventId} datasetKey={event.datasetKey}/>
     </Col>
     <Col css={css.controlFooter({ theme })} grow={false}>
       <Row justifyContent="flex-end" halfGutter={8}>

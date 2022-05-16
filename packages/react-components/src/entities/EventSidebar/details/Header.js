@@ -20,14 +20,20 @@ export function Header({
   const item = data?.event;
   return <Row wrap="no-wrap" css={css.header({ theme })} {...props}>
     <Col grow>
-      <h1>{item.eventType?.concept}</h1>
+      <h1>{item.eventType?.concept ? item.eventType.concept : 'Event'}</h1>
       <div css={css.headline({ theme })}>
         <Eyebrow 
           style={{fontSize: '80%'}}
-          prefix={<FormattedMessage id="eventDetails.event" />}
-          suffix={data?.event?.eventId}
+          prefix={<FormattedMessage id="eventDetails.dataset" />}
+          suffix={data?.event?.datasetTitle}
             />
-        <h3 dangerouslySetInnerHTML={{ __html: data?.event?.eventID }}></h3>
+      </div>
+      <div css={css.entitySummary({ theme })}>
+        <IconFeatures css={css.features({ theme })}
+                      eventDate={item.eventDate}
+                      countryCode={item.countryCode}
+                      locality={item.locality}
+        />
       </div>
     </Col>
   </Row>

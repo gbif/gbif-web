@@ -6,14 +6,14 @@ import * as css from "../styles";
 
 const { Term: T, Value: V } = Properties;
 
-export function Groups({ event, showAll, setActiveImage }) {
+export function Groups({ event, showAll }) {
   let termMap = {}
   Object.entries(event).forEach(item => {
     termMap[item[0]] = { "simpleName": item[0], "value": item[1] }
   })
   return <>
-    <Event                {...{ showAll, termMap, event, setActiveImage }} />
-    <Location             {...{ showAll, termMap, event, setActiveImage }} />
+    <Event                {...{ showAll, termMap, event }} />
+    <Location             {...{ showAll, termMap, event }} />
   </>
 }
 
@@ -26,7 +26,7 @@ export function Group({ label, ...props }) {
   />
 }
 
-function Event({ showAll, termMap, event, setActiveImage }) {
+function Event({ showAll, termMap, event }) {
   const hasContent = [
     'eventID',
     'parentEventID',
@@ -50,13 +50,10 @@ function Event({ showAll, termMap, event, setActiveImage }) {
 
   return <Group label="eventDetails.groups.event">
     <Properties css={css.properties} breakpoint={800}>
-      <PlainTextField term={termMap.datasetTitle} showDetails={showAll} />
       <PlainTextField term={termMap.stateProvince} showDetails={showAll} />
-      <PlainTextField term={termMap.eventID} showDetails={showAll} />
+      <PlainTextField term={termMap.eventId} showDetails={showAll} />
       <PlainTextField term={termMap.parentEventId} showDetails={showAll} />
       <PlainTextField term={termMap.eventType?.concept} showDetails={showAll} />
-      <PlainTextField term={termMap.eventTypeHierarchyJoined} showDetails={showAll} />
-      <PlainTextField term={termMap.eventHierarchyJoined} showDetails={showAll} />
       <PlainTextField term={termMap.measurementOrFactTypes} showDetails={showAll} />
       <PlainTextField term={termMap.eventDate} showDetails={showAll} />
       <PlainTextField term={termMap.eventTime} showDetails={showAll} />
@@ -66,25 +63,15 @@ function Event({ showAll, termMap, event, setActiveImage }) {
       {showAll && <PlainTextField term={termMap.month} showDetails={showAll} />}
       {showAll && <PlainTextField term={termMap.day} showDetails={showAll} />}
       <PlainTextField term={termMap.verbatimEventDate} showDetails={showAll} />
-      <HtmlField term={termMap.samplingProtocol} showDetails={showAll} />
       <PlainTextField term={termMap.samplingEffort} showDetails={showAll} />
       <PlainTextField term={termMap.sampleSizeValue} showDetails={showAll} />
       <PlainTextField term={termMap.sampleSizeUnit} showDetails={showAll} />
       <PlainTextField term={termMap.eventRemarks} showDetails={showAll} />
-      <PlainTextField term={termMap.occurrenceCount} showDetails={showAll} />
-
-      <PlainTextField term={termMap.kingdoms} showDetails={showAll} />
-      <PlainTextField term={termMap.phyla} showDetails={showAll} />
-      <PlainTextField term={termMap.orders} showDetails={showAll} />
-      <PlainTextField term={termMap.classes} showDetails={showAll} />
-
-
-
     </Properties>
   </Group>
 }
 
-function Location({ showAll, termMap, event, setActiveImage }) {
+function Location({ showAll, termMap, event }) {
   const hasContent = [
     'locationID',
     'higherGeographyID',

@@ -11,6 +11,8 @@
   "collection": "Collection",
   "collectionGrSciColl": "GrSciColl collection",
   "recordedAndIdentifiedBy": "Recorded and identified by",
+  "eventTypeHierarchyJoined": "Event type hierarchy",
+  "eventHierarchyJoined": "Event hierarchy",
   "info": {
     "original": "Original",
     "excluded": "Excluded",

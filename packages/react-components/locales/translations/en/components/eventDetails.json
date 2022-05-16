@@ -17,6 +17,8 @@
     "altered": "Altered"
   },
   "groups": {
+    "methodology": "Methodology",
+    "taxonomicCoverage": "Taxonomic coverage",
     "summary": "Summary",
     "record": "Record",
     "occurrence": "Occurrence",
