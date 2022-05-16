@@ -303,6 +303,26 @@ const config =
       field: 'event.parentEventId.keyword',
       suggestField: 'parentEventId.suggest'
     },
+    eventHierarchy: {
+      type: 'keyword',
+      field: 'event.eventHierarchy.keyword',
+      suggestField: 'eventHierarchy.suggest'
+    },
+    eventHierarchyJoined: {
+      type: 'keyword',
+      field: 'event.eventHierarchyJoined.keyword',
+      suggestField: 'eventHierarchyJoined.suggest'
+    },
+    eventTypeHierarchy: {
+      type: 'keyword',
+      field: 'event.eventTypeHierarchy.keyword',
+      suggestField: 'eventTypeHierarchy.suggest'
+    },
+    eventTypeHierarchyJoined: {
+      type: 'keyword',
+      field: 'event.eventTypeHierarchyJoined.keyword',
+      suggestField: 'eventTypeHierarchyJoined.suggest'
+    },
     publishingCountry: {
       type: 'keyword',
       field: 'event.publishingCountry.keyword',
