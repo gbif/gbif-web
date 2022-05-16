@@ -3,8 +3,9 @@ import { MdFilterList } from "react-icons/md";
 import { FormattedMessage } from 'react-intl';
 import get from 'lodash/get';
 import SearchContext from './SearchContext';
-import { Button, Row, Col, DataTable, Th, Td, TBody } from '../components';
+import {Button, Row, Col, DataTable, Th, Td, TBody, DetailsDrawer} from '../components';
 import { ResultsHeader } from './ResultsHeader';
+import {OccurrenceSidebar} from "../entities";
 
 const fallbackTableConfig = {
   columns: [{
@@ -21,11 +22,11 @@ export const ResultsTable = ({ first, prev, next, size, from, results, total, lo
   const [fixedColumn, setFixed] = useState(true && !hideLock);
 
   const fixed = fixedColumn;
-  const headerss = tableConfig.columns.map((col, index) => {
-    const options = index === 0 && !hideLock ? {
-      locked: fixed, 
-      toggle: () => setFixed(!fixedColumn)
-    } : null;
+  const headers = tableConfig.columns.map((col, index) => {
+    // const options = index === 0 && !hideLock ? {
+    //   locked: fixed,
+    //   toggle: () => setFixed(!fixedColumn)
+    // } : null;
     const FilterPopover = col.filterKey ? filters[col.filterKey]?.Popover : null;
     return <Th key={col.trKey} width={col.width} >
       <Row wrap="nowrap">
@@ -41,7 +42,8 @@ export const ResultsTable = ({ first, prev, next, size, from, results, total, lo
     </Th>
   });
 
-  return <div style={{
+  return<>
+  <div style={{
     flex: "1 1 100%",
     display: "flex",
     height: "100%",
@@ -51,13 +53,14 @@ export const ResultsTable = ({ first, prev, next, size, from, results, total, lo
     <ResultsHeader loading={loading} total={total} />
     <DataTable fixedColumn={fixed} {...{ first, prev, next, size, from, total, loading }} style={{ flex: "1 1 auto", height: 100, display: 'flex', flexDirection: 'column' }}>
       <thead>
-        <tr>{headerss}</tr>
+        <tr>{headers}</tr>
       </thead>
       <TBody rowCount={size} columnCount={7} loading={loading}>
         {getRows({ tableConfig, labelMap, results })}
       </TBody>
     </DataTable>
   </div>
+  </>
 }
 
 const getRows = ({ tableConfig, labelMap, results = [] }) => {

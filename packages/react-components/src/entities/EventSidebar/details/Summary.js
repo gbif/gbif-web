@@ -90,6 +90,10 @@ query list($predicate: Predicate, $offset: Int, $limit: Int){
         count
         key
       }
+      measurementOrFactTypes {
+        count
+        key
+      }
     }
   }
 }

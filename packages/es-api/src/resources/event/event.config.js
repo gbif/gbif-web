@@ -165,6 +165,10 @@ const config =
       type: 'keyword',
       field: 'event.eventTypeHierarchyJoined.keyword'
     },
+    measurementOrFactTypes: {
+      type: 'keyword',
+      field: 'event.measurementOrFactTypes.keyword'
+    },
     extensions: {
       type: 'keyword',
       field: 'event.extensions'
