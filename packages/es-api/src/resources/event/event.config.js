@@ -161,6 +161,10 @@ const config =
       type: 'keyword',
       field: 'event.eventType.lineage.keyword'
     },
+    eventTypeHierarchyJoined: {
+      type: 'keyword',
+      field: 'event.eventTypeHierarchyJoined.keyword'
+    },
     extensions: {
       type: 'keyword',
       field: 'event.extensions'
