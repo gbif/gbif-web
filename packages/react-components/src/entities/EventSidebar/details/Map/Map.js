@@ -5,7 +5,6 @@ import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { Properties } from "../../../../components";
 const { Term: T, Value: V } = Properties;
-// import * as css from './styles';
 
 export function MapPresentation({ as: Div = "div", location, ...props }) {
   const theme = useContext(ThemeContext);

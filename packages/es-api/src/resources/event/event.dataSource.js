@@ -1,5 +1,5 @@
 const { Client } = require('@elastic/elasticsearch');
-const Agent = require('agentkeepalive').HttpsAgent;
+const Agent = require('agentkeepalive');
 const { ResponseError } = require('../errorHandler');
 const { search } = require('../esRequest');
 const env = require('../../config');

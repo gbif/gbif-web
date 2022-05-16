@@ -82,7 +82,7 @@ query list($predicate: Predicate, $offset: Int, $limit: Int){
         count
         key
       }
-      eventHierarchyJoined {
+      eventTypeHierarchyJoined {
         count
         key
       }
