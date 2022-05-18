@@ -4,8 +4,9 @@ import { FormattedMessage } from 'react-intl';
 import * as css from '../styles';
 import { Row, Col, Switch } from "../../../components";
 import { Header } from './Header';
-import { Groups } from './Groups';
+import {Group, Groups} from './Groups';
 import {Summary} from "./Summary";
+import {Tree} from "./Tree/Tree";
 
 export function Intro({
   data = {},
@@ -24,6 +25,7 @@ export function Intro({
     <Col style={{ padding: '12px 0', paddingBottom: 50, overflow: 'auto' }} grow>
       <Header data={data} error={error} />
       <Groups event={event} showAll={showAll}  />
+
       <Summary eventID={event.eventId} datasetKey={event.datasetKey}/>
     </Col>
     <Col css={css.controlFooter({ theme })} grow={false}>
