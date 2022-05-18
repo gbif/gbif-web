@@ -14,12 +14,15 @@ class TreeNode {
 }
 
 export function TreeN({ treeNode }) {
-  return <ul>
-    <li>
+  const hasChildren = treeNode.children.length > 0;
+  return <li>
       <a href="#">{ treeNode.value }</a>
-      { treeNode.children.map(childNode => <TreeN treeNode={childNode}/>) }
+    { hasChildren ?
+        (<ul>
+          {treeNode.children.map(childNode => <TreeN treeNode={childNode}/>)}
+        </ul>) : ''
+    }
     </li>
-  </ul>
 }
 
 export function Tree({
@@ -66,7 +69,9 @@ export function Tree({
 
   return <Row>
     <div css={styles.tree({ theme })}>
-        <TreeN treeNode={rootNode} />
+        <ul>
+          <TreeN treeNode={rootNode} />
+        </ul>
     </div>
   </Row>
 

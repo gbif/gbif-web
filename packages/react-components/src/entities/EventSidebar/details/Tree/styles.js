@@ -91,12 +91,6 @@ export const tree = ({ theme, ...props }) => css`
       border-color:  #e9453f;
   }
 `;
-export const deep = ({ theme, ...props }) => css`
-    padding-top: 5em!important;
-    &:before {
-        height: 5em!important;
-    }
-`;
 
 export default {
     tree
