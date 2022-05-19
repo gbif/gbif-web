@@ -10,7 +10,7 @@ import { ViewHeader } from '../ViewHeader';
 import MapboxMap from './MapboxMap';
 import * as css from './map.styles';
 
-function Map({ labelMap, query, pointData, pointError, pointLoading, loading, total, predicateHash, registerPredicate, loadPointData, defaultMapSettings, ...props }) {
+function Map({ labelMap, query, q, pointData, pointError, pointLoading, loading, total, predicateHash, registerPredicate, loadPointData, defaultMapSettings, ...props }) {
   const dialog = useDialogState({ animated: true, modal: false });
   const theme = useContext(ThemeContext);
   const [activeId, setActive] = useState();
@@ -45,7 +45,7 @@ function Map({ labelMap, query, pointData, pointError, pointLoading, loading, to
                                   loading={pointLoading} 
                                   css={css.resultList({})} 
                                   />}
-        <MapboxMap defaultMapSettings={defaultMapSettings} predicateHash={predicateHash} css={css.mapComponent({theme})} theme={theme} query={query} onMapClick={e => showList(false)} onPointClick={data => { showList(true); loadPointData(data) }} registerPredicate={registerPredicate} />
+        <MapboxMap defaultMapSettings={defaultMapSettings} predicateHash={predicateHash} q={q} css={css.mapComponent({theme})} theme={theme} query={query} onMapClick={e => showList(false)} onPointClick={data => { showList(true); loadPointData(data) }} registerPredicate={registerPredicate} />
       </div>
     </div>
   </>;

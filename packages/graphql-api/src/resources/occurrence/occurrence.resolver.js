@@ -69,10 +69,11 @@ module.exports = {
     occurrenceSearch: (parent, args, { dataSources }) => {
       // dataSources.occurrenceAPI.searchOccurrences({ query: args }),
       const v1Predicate = predicate2v1(args.predicate);
+      const v1PredicateQStripped = predicate2v1(args.predicate, {shouldRemoveFullTextPredicates: true});
       return {
         _predicate: args.predicate,
         _downloadPredicate: v1Predicate,
-        _v1PredicateHash: v1Predicate.predicate ? dataSources.occurrenceAPI.registerPredicate({predicate: v1Predicate.predicate}) : null
+        _v1PredicateHash: v1PredicateQStripped.predicate ? dataSources.occurrenceAPI.registerPredicate({predicate: v1PredicateQStripped.predicate}) : null
       };
     },
     occurrence: (parent, { key }, { dataSources }) =>

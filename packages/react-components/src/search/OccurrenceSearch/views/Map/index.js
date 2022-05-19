@@ -109,6 +109,8 @@ function Map() {
     pointLoad({ variables: { predicate } });
   }, [currentFilterContext.filterHash, rootPredicate]);
 
+  const q = currentFilterContext.filter?.must?.q?.[0];
+  
   const options = {
     loading,
     error,
@@ -123,6 +125,7 @@ function Map() {
     pointLoading,
     pointError,
     labelMap,
+    q,
     defaultMapSettings: more?.mapSettings
   }
 
