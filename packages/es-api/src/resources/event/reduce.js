@@ -1,11 +1,4 @@
 const _ = require('lodash');
-const gadmLevels = [0,1,2,3,4,5];
-
-const indexedExtraFields = [
-  "collectionKey",
-  "datasetPublishingCountry",
-  "institutionKey",
-];
 
 function removeUndefined(obj) {
   for (let k in obj) if (obj[k] === undefined) delete obj[k];

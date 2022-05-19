@@ -65,7 +65,8 @@ export function IconFeatures({
       </span>
     </div>}
     {formattedCoordinates && <div><MdLocationOn />{!iconsOnly && <span>{formattedCoordinates}</span>}</div>}
-    {countryCode && <div><FaGlobeAfrica />{!iconsOnly && <span><FormattedMessage id={`enums.countryCode.${countryCode}`} />{locality}</span>}</div>}
+    {countryCode && <div><FaGlobeAfrica />{!iconsOnly && <span><span>{locality ? locality + ', ' :''}</span><span><FormattedMessage id={`enums.countryCode.${countryCode}`} />
+    </span></span>}</div>}
     {isSpecimen && <div><MdLabel />{!iconsOnly && <span><FormattedMessage id={`enums.basisOfRecord.${basisOfRecord}`} /></span>}</div>}
     {stillImageCount > 0 && <div>
       {stillImageCount > 1 ? <MdPhotoLibrary /> : <MdImage />}

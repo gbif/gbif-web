@@ -1,12 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { MdInfo, MdClose } from 'react-icons/md'
 import ThemeContext from '../../style/themes/ThemeContext';
 import * as css from './styles';
 import { Row, Col, Tabs } from "../../components";
 import { useQuery } from '../../dataManagement/api';
 import { Intro } from './details/Intro';
 
-const { TabList, Tab, TabPanel } = Tabs;
+const {  TabPanel } = Tabs;
 
 export function EventSidebar({
   onImageChange,
@@ -21,8 +20,6 @@ export function EventSidebar({
   const { data, error, loading, load } = useQuery(EVENT, { lazyLoad: true, graph: 'EVENT' });
   const [activeId, setTab] = useState( 'details');
   const theme = useContext(ThemeContext);
-  const [activeImage, setActiveImage] = useState();
-  const [fieldGroups, setFieldGroups] = useState();
 
   useEffect(() => {
     if (typeof eventId !== 'undefined') {
@@ -34,9 +31,6 @@ export function EventSidebar({
     if (!loading) {
       setTab('details');
     }
-    if (!loading && data?.event) {
-     setFieldGroups(data.event.groups);
-    }
   }, [data, loading]);
 
   return <Tabs activeId={activeId} onChange={id => setTab(id)}>
@@ -44,8 +38,6 @@ export function EventSidebar({
       <Col shrink={false} grow={false} css={css.detailDrawerContent({ theme })} >
         <TabPanel tabId='details' style={{height: '100%'}}>
           <Intro
-              setActiveImage={id => { setActiveImage(id); setTab('images') }}
-              fieldGroups={fieldGroups}
               data={data}
               loading={loading}
               error={error}
@@ -89,4 +81,5 @@ query event($eventID: String, $datasetKey: String){
   }
 }
 `;
+
 

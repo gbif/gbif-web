@@ -19,6 +19,46 @@ export function HtmlField(props) {
   </Field>
 }
 
+export function FacetListInline(props) {
+  if (!props.term) return null;
+  const { value } = props.term;
+  if (value.length > 1) {
+    const listItems = value.map(facet =>
+        facet.key + " ("+ facet.count +") "
+    );
+    return <Field {...props}>
+      {listItems.join(' ● ')}
+    </Field>;
+  } else if (value.length == 1) {
+    return <Field {...props}>
+      {value[0].key} ({value[0].count})
+    </Field>;
+  } else {
+    return null;
+  }
+}
+
+export function FacetList(props) {
+  if (!props.term) return null;
+  const { value } = props.term;
+  if (value.length > 1) {
+    const listItems = value.map(facet =>
+        <li>
+          {facet.key} ({facet.count})
+        </li>
+    );
+    return <Field {...props}>
+      <ul>{listItems}</ul>
+    </Field>;
+  } else if (value.length == 1) {
+    return <Field {...props}>
+      {value[0].key} ({value[0].count})
+    </Field>;
+  } else {
+    return null;
+  }
+}
+
 export function PlainTextField(props) {
   if (!props.term) return null;
   const { value } = props.term;

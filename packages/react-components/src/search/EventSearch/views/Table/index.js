@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import PredicateDataFetcher from '../../../PredicateDataFetcher';
-import { ResultsTable } from '../../../ResultsTable';
+import { EventsTable } from './EventsTable';
 import { FormattedNumber } from 'react-intl';
 import { ResourceLink } from '../../../../components';
 
@@ -154,7 +154,7 @@ function Table() {
     componentProps={{
       defaultTableConfig
     }}
-    presentation={ResultsTable}
+    presentation={EventsTable}
   />
 }
 

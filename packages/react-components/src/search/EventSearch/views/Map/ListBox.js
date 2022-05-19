@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 import React, { useContext } from "react";
 import { MdChevronRight } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
-import { Image, StripeLoader, Button, Row, Col } from '../../../../components';
+import { StripeLoader, Button, Row, Col } from '../../../../components';
 import ThemeContext from '../../../../style/themes/ThemeContext';
 import { styledScrollBars } from '../../../../style/shared';
 
@@ -13,7 +13,7 @@ function ListItem({  id, item, imageSrc, onClick = () => { }, ...props }) {
   return <div css={listItem({ theme })} onClick={e => onClick({ id })}>
     <Row wrap="no-wrap" alignItems="center">
       <Col grow={true} css={listItemContent({ theme })}>
-        <h4 dangerouslySetInnerHTML={{ __html: item.eventType?.concept + ' ' +(item.year ? '- year: ' + item.year: '')}} ></h4>
+        <h4 dangerouslySetInnerHTML={{ __html: (item.eventType?.concept ? item.eventType?.concept : 'Event' ) + ' ' + (item.year ? '- year: ' + item.year: '')}} ></h4>
         {item.datasetTitle}<br/>
         Event ID: {item.eventId}
         {
@@ -25,10 +25,6 @@ function ListItem({  id, item, imageSrc, onClick = () => { }, ...props }) {
           <MdChevronRight />
         </Button>
       </Col>
-
-      {item.primaryImage?.identifier && <Col grow={false}>
-        <Image src={item.primaryImage?.identifier} w={80} h={80} style={{ display: 'block', background: theme.paperBackground200, width: 80, height: 80 }} />
-      </Col>}
     </Row>
   </div>
 }

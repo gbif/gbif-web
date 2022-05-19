@@ -10,6 +10,8 @@
   "collection": "Collection",
   "collectionGrSciColl": "GrSciColl collection",
   "recordedAndIdentifiedBy": "Recorded and identified by",
+  "eventTypeHierarchyJoined": "Event hierarchy",
+
   "info": {
     "original": "original",
     "excluded": "Excluded",
@@ -17,6 +19,9 @@
     "altered": "Altered"
   },
   "groups": {
+    "dataStructure": "Data structure",
+    "methodology": "Methodology",
+    "taxonomicCoverage": "Taxonomic coverage",
     "summary": "Summary",
     "record": "Record",
     "occurrence": "Occurrence",

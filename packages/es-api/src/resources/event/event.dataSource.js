@@ -1,12 +1,10 @@
-// const elasticsearch = require('elasticsearch');
 const { Client } = require('@elastic/elasticsearch');
-const Agent = require('agentkeepalive').HttpsAgent;
+const Agent = require('agentkeepalive');
 const { ResponseError } = require('../errorHandler');
 const { search } = require('../esRequest');
 const env = require('../../config');
 const { reduce } = require('./reduce');
 const { queryReducer } = require('../../responseAdapter');
-const { filter } = require('lodash');
 
 const searchIndex = env.event.index || 'event';
 
