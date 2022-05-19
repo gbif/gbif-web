@@ -124,6 +124,64 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
         </div>
       }
     },
+    datasetKeyFromOccurrenceIndex: {
+      //What placeholder to show
+      placeholder: 'search.placeholders.default',
+      // how to get the list of suggestion data
+      getSuggestions: ({ q, size = 100 }) => {
+        const SEARCH = `
+          query keywordSearch($predicate: Predicate, $size: Int){
+            occurrenceSearch(predicate: $predicate) {
+              facet {
+                datasetKey(size: $size) {
+                  key
+                  count
+                  dataset {
+                    title
+                  }
+                }
+              }
+            }
+          }
+          `;
+        const qPredicate = {
+          "type": "like",
+          "key": "datasetTitle",
+          "value": `*${q.replace(/\s/, '*')}*`
+        }
+
+        let predicate = qPredicate;
+        if (rootPredicate) {
+          predicate = {
+            type: 'and',
+            predicates: [rootPredicate, qPredicate]
+          }
+        }
+        const variables = {
+          size,
+          predicate
+        };
+        const { promise, cancel } = client.query({ query: SEARCH, variables });
+        return {
+          promise: promise.then(response => {
+            return {
+              data: response.data?.occurrenceSearch?.facet?.datasetKey.map(i => ({ ...i, title: i.dataset.title })),
+              rawData: response.data
+            }
+          }),
+          cancel
+        }
+      },
+      // how to map the results to a single string value
+      getValue: suggestion => suggestion.title,
+      // how to display the individual suggestions in the list
+      render: function DatasetSuggestItem(suggestion) {
+        return <div style={suggestStyle}>
+          {suggestion.title}
+          {/* <div style={{ fontSize: '0.85em', color: '#aaa' }}>{suggestion.count} results</div> */}
+        </div>
+      }
+    },
     publisherKey: {
       //What placeholder to show
       placeholder: 'search.placeholders.default',

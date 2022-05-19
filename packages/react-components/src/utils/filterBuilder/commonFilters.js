@@ -128,7 +128,8 @@ export const commonFilters = {
         },
       },
       specific: {
-        suggestHandle: 'datasetKey',
+        suggestHandle: 'datasetKeyFromOccurrenceIndex',
+        allowEmptyQueries: true
       }
     }
   },
