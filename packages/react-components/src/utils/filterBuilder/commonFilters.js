@@ -793,7 +793,7 @@ export const commonFilters = {
         placeholder: 'Search by state province',
         query: `
           query keywordSearch($predicate: Predicate, $size: Int){
-            occurrenceSearch(predicate: $predicate) {
+            suggestions: occurrenceSearch(predicate: $predicate) {
               cardinality {
                 stateProvince
               }
