@@ -1,6 +1,6 @@
 module.exports = [
   'datasetKey',
-  'publishingOrgKey',
+  'publishingOrg',
   'catalogNumber',
   'recordedBy',
   'identifiedBy',
