@@ -144,7 +144,8 @@ export const commonFilters = {
         },
       },
       specific: {
-        suggestHandle: 'publisherKey',
+        suggestHandle: 'publisherKeyFromOccurrenceIndex',
+        allowEmptyQueries: true
       }
     }
   },
