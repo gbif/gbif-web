@@ -836,7 +836,8 @@ export const commonFilters = {
             }
           }
         `,
-        queryKey: 'stateProvince'
+        queryKey: 'stateProvince',
+        graph: 'EVENT',
       }
     }
   },
@@ -874,7 +875,7 @@ export const commonFilters = {
         placeholder: 'Search by sampling protocol',
         query: `
           query keywordSearch($predicate: Predicate, $size: Int, $include: String){
-            eventSearch(predicate: $predicate) {
+            occurrenceSearch(predicate: $predicate) {
               suggestions: facet {
                 samplingProtocol(size: $size, include: $include) {
                   key
@@ -884,7 +885,7 @@ export const commonFilters = {
             }
           }
         `,
-        queryKey: 'samplingProtocol'
+        queryKey: 'samplingProtocol',
       }
     }
   },
@@ -914,7 +915,8 @@ export const commonFilters = {
             }
           }
         `,
-        queryKey: 'samplingProtocol'
+        queryKey: 'samplingProtocol',
+        graph: 'EVENT',
       }
     }
   },
@@ -1260,6 +1262,7 @@ export const commonFilters = {
             }
           }
         `,
+        graph: 'EVENT',
         queryKey: 'measurementOrFactTypes',
         keepCase: true
       }

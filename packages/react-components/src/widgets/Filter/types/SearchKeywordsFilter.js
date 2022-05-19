@@ -18,10 +18,10 @@ import { hash } from '../../../utils/util';
 const initialSize = 25;
 
 export const FilterContent = ({ config = {}, translations, hide, onApply, onCancel, onFilterChange, focusRef, filterHandle, initFilter }) => {
-  const { data, error, loading, load } = useQuery(config.query, { lazyLoad: true });
+  const { queryKey, placeholder = 'Input text', keepCase, graph } = config;
+  const { data, error, loading, load } = useQuery(config.query, { lazyLoad: true, graph });
   const [size, setSize] = useState(initialSize);
   const [q, setQ] = useState('');
-  const { queryKey, placeholder = 'Input text', keepCase } = config;
   const [id] = React.useState(nanoid);
   const initialOptions = get(initFilter, `must.${filterHandle}`, []);
   const [options, setOptions] = useState(initialOptions.filter(x => x.type !== 'isNotNull'));

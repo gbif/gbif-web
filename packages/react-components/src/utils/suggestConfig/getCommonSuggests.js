@@ -183,7 +183,7 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
           size,
           predicate
         };
-        const { promise, cancel } = client.query({ query: SEARCH, variables });
+        const { promise, cancel } = client.query({ query: SEARCH, variables, graph: 'EVENT' });
         return {
           promise: promise.then(response => {
             return {
