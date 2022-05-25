@@ -59,7 +59,6 @@ function Event({ showAll, termMap, event, setActiveEventID }) {
 
   return <Group label="eventDetails.groups.event">
     <Properties css={css.properties} breakpoint={800}>
-      <PlainTextField term={termMap.stateProvince} showDetails={showAll} />
       <PlainTextField term={termMap.eventId} showDetails={showAll} />
       <LinkedField fieldCallback={viewParent} term={termMap.parentEventId} showDetails={showAll} />
       <PlainTextField term={termMap.eventType?.concept} showDetails={showAll} />
