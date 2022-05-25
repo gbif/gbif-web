@@ -1,11 +1,11 @@
 const { ResponseError } = require('./errorHandler');
 
-async function searchMvt({ client, index, body,  x, y, z }) {
+async function searchMvt({ client, index, body, field, x, y, z }) {
   try {
     const tile = await client.searchMvt({
       index: index,
       body,
-      field: 'coordinates',
+      field: field,
       zoom: parseInt(z),
       x: parseInt(x),
       y: parseInt(y),

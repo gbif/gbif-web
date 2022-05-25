@@ -27,9 +27,13 @@ export const EventsTable = ({ first, prev, next, size, from, results, total, loa
   const fixed = fixedColumn;
   const EVENT_SEARCH_URL = env.EVENT_SEARCH_URL;
 
+  // used for the currently selected event
   const [activeEventID, setActiveEventID] = useState(false);
   const [activeDatasetKey, setActiveDatasetKey] = useState(false);
+
   const dialog = useDialogState({ animated: true, modal: false });
+
+  // current result set
   const items = results || [];
 
   useEffect(() => {
@@ -81,10 +85,18 @@ export const EventsTable = ({ first, prev, next, size, from, results, total, loa
     </Th>
   });
 
-  return<>
+  return <>
     {dialog.visible && <DetailsDrawer href={`${EVENT_SEARCH_URL}${activeEventID}`}
                                       dialog={dialog} nextItem={nextItem} previousItem={previousItem}>
-      <EventSidebar eventId={activeEventID} datasetKey={activeDatasetKey} defaultTab='details' style={{ maxWidth: '100%', width: 700, height: '100%' }} onCloseRequest={() => dialog.setVisible(false)} />
+      <EventSidebar
+          eventId={activeEventID}
+          datasetKey={activeDatasetKey}
+          defaultTab='details'
+          style={{ maxWidth: '100%', width: 700, height: '100%' }}
+          onCloseRequest={() => dialog.setVisible(false)}
+          setActiveEventID={setActiveEventID}
+          setActiveDatasetKey={setActiveDatasetKey}
+      />
     </DetailsDrawer>}
   <div style={{
     flex: "1 1 100%",

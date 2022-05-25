@@ -8,8 +8,8 @@ import { Intro } from './details/Intro';
 const {  TabPanel } = Tabs;
 
 export function EventSidebar({
-  onImageChange,
   onCloseRequest,
+  setActiveEventID,
   eventId,
   datasetKey,
   defaultTab,
@@ -41,6 +41,7 @@ export function EventSidebar({
               data={data}
               loading={loading}
               error={error}
+              setActiveEventID={setActiveEventID}
           />
         </TabPanel>
       </Col>

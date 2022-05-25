@@ -11,6 +11,7 @@ import {useQuery} from "../../../dataManagement/api";
 export function Summary({
   eventID,
   datasetKey,
+  setActiveEventID,
   ...props
 }) {
   const theme = useContext(ThemeContext);

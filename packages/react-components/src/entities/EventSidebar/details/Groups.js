@@ -1,18 +1,23 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Accordion, Properties } from "../../../components";
-import {  PlainTextField, EnumField, HtmlField } from './properties';
+import {PlainTextField, EnumField, HtmlField, LinkedField} from './properties';
 import * as css from "../styles";
 
 const { Term: T, Value: V } = Properties;
 
-export function Groups({ event, showAll }) {
+export function Groups({
+     event,
+     setActiveEventID,
+     showAll }) {
+
   let termMap = {}
   Object.entries(event).forEach(item => {
     termMap[item[0]] = { "simpleName": item[0], "value": item[1] }
   })
+
   return <>
-    <Event                {...{ showAll, termMap, event }} />
+    <Event                {...{ showAll, termMap, event, setActiveEventID }} />
     <Location             {...{ showAll, termMap, event }} />
   </>
 }
@@ -26,7 +31,7 @@ export function Group({ label, ...props }) {
   />
 }
 
-function Event({ showAll, termMap, event }) {
+function Event({ showAll, termMap, event, setActiveEventID }) {
   const hasContent = [
     'eventID',
     'parentEventID',
@@ -48,11 +53,15 @@ function Event({ showAll, termMap, event }) {
     'eventRemarks'].find(x => termMap[x]);
   if (!hasContent) return null;
 
+  const viewParent = useCallback(() => {
+      setActiveEventID(termMap.parentEventId.value);
+  }, []);
+
   return <Group label="eventDetails.groups.event">
     <Properties css={css.properties} breakpoint={800}>
       <PlainTextField term={termMap.stateProvince} showDetails={showAll} />
       <PlainTextField term={termMap.eventId} showDetails={showAll} />
-      <PlainTextField term={termMap.parentEventId} showDetails={showAll} />
+      <LinkedField fieldCallback={viewParent} term={termMap.parentEventId} showDetails={showAll} />
       <PlainTextField term={termMap.eventType?.concept} showDetails={showAll} />
       <PlainTextField term={termMap.eventDate} showDetails={showAll} />
       <PlainTextField term={termMap.eventTime} showDetails={showAll} />

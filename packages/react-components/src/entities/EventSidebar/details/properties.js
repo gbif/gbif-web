@@ -59,6 +59,15 @@ export function FacetList(props) {
   }
 }
 
+export function LinkedField(props) {
+  if (!props.term) return null;
+  const { value } = props.term;
+  const values = Array.isArray(value) ? value : [value];
+  return <FieldWithCallback fieldCallback={props.fieldCallback} {...props} >
+      {values.join(' ● ')}
+  </FieldWithCallback>
+}
+
 export function PlainTextField(props) {
   if (!props.term) return null;
   const { value } = props.term;
@@ -127,6 +136,29 @@ export function Field({ term, label, showDetails, hideIssues, hideRemarks, ...pr
     </V>
   </React.Fragment>
 }
+
+export function FieldWithCallback({ term, label, showDetails, hideIssues, hideRemarks, fieldCallback, ...props }) {
+  const { simpleName, verbatim, value } = term;
+  if (!value && (!verbatim || !showDetails)) return null;
+
+  const fieldName = label || `occurrenceFieldNames.${simpleName}`;
+  return <React.Fragment>
+    <T>
+      <FormattedMessage
+          id={fieldName}
+          defaultMessage={_.startCase(simpleName)}
+      />
+    </T>
+    <V style={{ position: 'relative' }}>
+      <a href={'#'} onClick={fieldCallback}>
+        <div style={{ display: 'inline-block', paddingRight: 8 }} {...props}></div>
+      </a>
+      <Chips {...term} hideRemarks={hideRemarks} hideIssues={hideIssues}/>
+      <Provenance {...{ term, showDetails, hideRemarks }} />
+    </V>
+  </React.Fragment>
+}
+
 
 function Provenance({ term, showDetails }) {
   // should show if inferred or different from original value. Or if user has asked to see everything.

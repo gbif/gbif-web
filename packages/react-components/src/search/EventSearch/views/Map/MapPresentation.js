@@ -19,8 +19,10 @@ import {EventSidebar} from "../../../../entities/EventSidebar/EventSidebar";
 function Map({ labelMap, query, pointData, pointError, pointLoading, loading, total, predicateHash, registerPredicate, loadPointData, defaultMapSettings, mapLoaded, ...props }) {
   const dialog = useDialogState({ animated: true, modal: false });
   const theme = useContext(ThemeContext);
+
   const [activeId, setActive] = useState();
   const [activeItem, setActiveItem] = useState();
+
   const [listVisible, showList] = useState(false);
 
   const items = pointData?.eventSearch?.documents?.results || [];
@@ -45,6 +47,7 @@ function Map({ labelMap, query, pointData, pointError, pointLoading, loading, to
           defaultTab='details'
           style={{ maxWidth: '100%', width: 700, height: '100%' }}
           onCloseRequest={() => dialog.setVisible(false)}
+          setActiveEventID={() => console.log('Fix me')}
       />
     </DetailsDrawer>
     <div css={css.mapArea({theme})}>
