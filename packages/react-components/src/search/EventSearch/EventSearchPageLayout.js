@@ -2,7 +2,6 @@
 import { jsx } from '@emotion/react';
 import React, { useState, useContext } from 'react';
 import ThemeContext from '../../style/themes/ThemeContext';
-// import PropTypes from 'prop-types';
 import { withFilter } from '../../widgets/Filter/state';
 import { FormattedMessage } from 'react-intl';
 import { cssLayout, cssNavBar, cssViewArea, cssFilter } from './Layout.styles';
@@ -17,7 +16,8 @@ const Layout = ({
   Table,
   Map,
   Download,
-  tabs = ['DATASETS', 'EVENTS', 'MAP', 'DOWNLOAD'],
+  Sites,
+  tabs = ['DATASETS', 'EVENTS', 'SITES', 'MAP', 'DOWNLOAD'],
   ...props
 }) => {
   const [activeView = tabs[0] || 'DATASETS', setActiveView] = useQueryParam('view', StringParam);
@@ -28,6 +28,7 @@ const Layout = ({
   const tabComponents = {
     DATASETS: <NavItem label={<FormattedMessage id="search.tabs.datasets" defaultMessage="Datasets"/>} data-targetid="dataset" onClick={e => setActiveView('DATASETS')} isActive={activeView === 'DATASETS'} />,
     EVENTS: <NavItem label={<FormattedMessage id="search.tabs.events" defaultMessage="Events"/>} data-targetid="events" onClick={e => setActiveView('EVENTS')} isActive={activeView === 'EVENTS'} />,
+    SITES: <NavItem label={<FormattedMessage id="search.tabs.sites" defaultMessage="Sites"/>} data-targetid="sites" onClick={e => setActiveView('SITES')} isActive={activeView === 'SITES'} />,
     MAP: <NavItem label={<FormattedMessage id="search.tabs.map" defaultMessage="Map"/>} data-targetid="map" onClick={e => setActiveView('MAP')} isActive={activeView === 'MAP'} />,
     DOWNLOAD: <NavItem label="Download" data-targetid="download" onClick={e => setActiveView('DOWNLOAD')} isActive={activeView === 'DOWNLOAD'} />
   }
@@ -49,6 +50,7 @@ const Layout = ({
       <div css={cssViewArea({ theme })}>
         {activeView === 'DATASETS' && <List />}
         {activeView === 'EVENTS' && <Table />}
+        {activeView === 'SITES' && <Sites />}
         {activeView === 'MAP' && <Map />}
         {activeView === 'DOWNLOAD' && <Download />}
       </div>

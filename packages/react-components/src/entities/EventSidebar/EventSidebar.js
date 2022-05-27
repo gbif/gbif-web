@@ -80,6 +80,7 @@ query event($eventID: String, $datasetKey: String){
     decimalLongitude
     locality
     stateProvince
+    locationID
   }
 }
 `;

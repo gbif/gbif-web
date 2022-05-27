@@ -9,8 +9,42 @@ function metric2aggs(metrics = {}, config) {
     if (!conf) continue;
     else {
       switch (metric.type) {
+        case 'subfacet': {
+          if (!['keyword', 'numeric', 'boolean'].includes(conf.type)) {
+            throw new ResponseError(400, 'badRequest', 'Facets are only supported on keywords, boolean and numeric fields');
+          }
+          aggs[name] = {
+            terms: {
+              field: conf.field,
+              size: 50,
+              order: { "_term": "asc" }
+            },
+            aggs: {
+              "year_facet": {
+                terms: {
+                  field: "event.year",
+                  size: 1000,
+                  order: { "_term": "asc" }
+                },
+                aggs: {
+                  "month_facet": {
+                    terms: {
+                      field: "event.month",
+                      order: { "_term": "asc" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          break;
+        }
         case 'facet': {
-          if (!['keyword', 'numeric', 'boolean'].includes(conf.type)) throw new ResponseError(400, 'badRequest', 'Facets are only supported on keywords, boolean and numeric fields');
+          if (!['keyword', 'numeric', 'boolean'].includes(conf.type)) {
+            throw new ResponseError(400, 'badRequest', 'Facets are only supported on keywords, boolean and numeric fields');
+          }
+
           aggs[name] = {
             terms: {
               field: conf.field,
@@ -18,6 +52,7 @@ function metric2aggs(metrics = {}, config) {
               include: metric.include
             }
           };
+
           break;
         }
         case 'stats': {

@@ -206,6 +206,11 @@ const config =
       field: 'event.locality.keyword',
       suggestField: 'locality.suggest'
     },
+    locationID: {
+      type: 'keyword',
+      field: 'event.locationID.keyword',
+      suggestField: 'locationID.suggest'
+    },
     maximumDepthInMeters: {
       type: 'numeric',
       field: 'event.maximumDepthInMeters',

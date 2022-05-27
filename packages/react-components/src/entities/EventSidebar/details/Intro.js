@@ -4,9 +4,8 @@ import { FormattedMessage } from 'react-intl';
 import * as css from '../styles';
 import { Row, Col, Switch } from "../../../components";
 import { Header } from './Header';
-import {Group, Groups} from './Groups';
+import { Groups} from './Groups';
 import {Summary} from "./Summary";
-import {Tree} from "./Tree/Tree";
 
 export function Intro({
   data = {},
