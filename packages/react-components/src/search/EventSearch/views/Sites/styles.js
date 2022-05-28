@@ -19,8 +19,12 @@ export const sites = ({ noOfSites= 10, noOfYears, theme, ...props }) => css`
        white-space:nowrap;
     }
     
+    .sites li:hover {
+       cursor:pointer;
+    }    
+    
     .sites {
-        padding-inline-start: 20px;
+       padding-inline-start: 20px;
        display:inline-block;
     }    
         
@@ -78,13 +82,14 @@ export const sites = ({ noOfSites= 10, noOfYears, theme, ...props }) => css`
       filter: alpha(opacity=50);
       opacity: 0.5;
       width: 90px;
-      background-color: black;
+      background-color:  #196127;
       color: #fff;
       text-align: center;
       border-radius: 6px;
       padding: 5px 0;
       position: absolute;
       z-index: 1;
+      margin-top: -28px;
     }
     
     .squares li:hover .tooltiptext {

@@ -1,5 +1,4 @@
-import React, {useCallback, useContext, useEffect} from "react";
-import PredicateDataFetcher from '../../../PredicateDataFetcher';
+import React, {useCallback, useContext, useEffect, useState} from "react";
 import SitesTable from "./SitesTable";
 import {NumberParam, useQueryParam} from "use-query-params";
 import {FilterContext} from "../../../../widgets/Filter/state";
@@ -8,6 +7,9 @@ import {useQuery} from "../../../../dataManagement/api";
 import hash from "object-hash";
 import {filter2predicate} from "../../../../dataManagement/filterAdapter";
 import {useUpdateEffect} from "react-use";
+import {DetailsDrawer} from "../../../../components";
+import {SiteSidebar} from "../../../../entities/SiteSidebar/SiteSidebar";
+import {useDialogState} from "reakit/Dialog";
 
 const QUERY = `
 query list( $predicate: Predicate, $offset: Int, $limit: Int){
@@ -40,6 +42,10 @@ function Sites() {
   const { rootPredicate, predicateConfig } = useContext(SearchContext);
   const { data, error, loading, load } = useQuery(QUERY, { lazyLoad: true, graph: 'EVENT' });
 
+  const [activeSiteID, setActiveSiteID] = useState(false);
+
+  const dialog = useDialogState({ animated: true, modal: false });
+
   let limit = 100;
   let customVariables = {};
 
@@ -61,6 +67,21 @@ function Sites() {
     setOffset(undefined);
   }, [currentFilterContext.filterHash]);
 
+
+  useEffect(() => {
+    if (activeSiteID) {
+      dialog.show();
+    } else {
+      dialog.hide();
+    }
+  }, [activeSiteID]);
+
+  useUpdateEffect(() => {
+    if (!dialog.visible) {
+      setActiveSiteID(null);
+    }
+  }, [dialog.visible]);
+
   const next = useCallback(() => {
     setOffset(Math.max(0, offset + limit));
   });
@@ -77,16 +98,27 @@ function Sites() {
   if (error) {
     return <div>Failed to fetch data</div>
   }
-  return <SitesTable
-      error={error}
-      loading={loading}
-      data={data}
-      next={next}
-      prev={prev}
-      first={first}
-      from={offset}
-      results={data}
-  />
+  return <>
+    <DetailsDrawer href={`${activeSiteID}`} dialog={dialog}>
+      <SiteSidebar
+          siteID={activeSiteID}
+          defaultTab='details'
+          style={{ maxWidth: '100%', width: 700, height: '100%' }}
+          onCloseRequest={() => dialog.setVisible(false)}
+      />
+    </DetailsDrawer>
+    <SitesTable
+        error={error}
+        loading={loading}
+        data={data}
+        next={next}
+        prev={prev}
+        first={first}
+        from={offset}
+        results={data}
+        setSiteIDCallback={ setActiveSiteID }
+    />
+  </>
 }
 
 export default Sites;

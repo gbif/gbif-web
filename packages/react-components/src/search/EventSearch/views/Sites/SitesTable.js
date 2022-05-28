@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect} from "react";
+import React, {useCallback, useContext, useEffect, useState} from "react";
 import styles from './styles';
 import ThemeContext from "../../../../style/themes/ThemeContext";
 import {Row} from "../../../../components";
@@ -9,10 +9,18 @@ import hash from "object-hash";
 import {useUpdateEffect} from "react-use";
 import SearchContext from "../../../SearchContext";
 
-export const SitesTable = ({ first, prev, next, size, from, results, total, loading }) => {
+export const SitesTable = ({ first, prev, next, size, from, results, total, loading, setSiteIDCallback }) => {
 
-  const { filters } = useContext(SearchContext);
   const theme = useContext(ThemeContext);
+
+  const [activeSiteID, setActiveSiteID] = useState(false);
+
+  useEffect(() => {
+    if (activeSiteID) {
+      setSiteIDCallback(activeSiteID)
+    }
+  }, [activeSiteID]);
+
 
   // current result set
   const items = results;
@@ -64,11 +72,11 @@ export const SitesTable = ({ first, prev, next, size, from, results, total, load
           { years.map(obj => <li>{obj}</li>) }
         </ul>
         <ul className={`sites`}>
-          { site_data.map(obj => <li>{obj.key}</li>) }
+          { site_data.map(obj => <li onClick={() => { setActiveSiteID(obj.key); }}>{obj.key}</li>) }
         </ul>
         <ul className={`squares`}>
-          { squares.map(obj => <li data-level={obj > 0 ? '3': '0'}>
-            {obj > 0 && <span className={`tooltiptext`}>{ obj } events</span> }
+          { squares.map( (obj, i) => <li data-level={obj > 0 ? '3': '0'}>
+            { obj > 0 && <span className={`tooltiptext`}>{ obj } events</span> }
             </li>
           )}
         </ul>
