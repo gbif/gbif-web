@@ -1,26 +1,39 @@
 import React, {useContext, useEffect, useState} from 'react';
 import ThemeContext from '../../style/themes/ThemeContext';
 import * as css from './styles';
-import {Row, Col, Tabs} from "../../components";
+import {Row, Col, Tabs, Accordion, Properties} from "../../components";
 import { useQuery } from '../../dataManagement/api';
 import {TabPanel} from "../../components/Tabs/Tabs";
+import {FormattedMessage} from "react-intl";
+import {EnumField, PlainTextField} from "../EventSidebar/details/properties";
+import Map from "./details/Map/Map";
 
 export function SiteSidebar({
   onCloseRequest,
-  locationID,
+  siteID,
   className,
   style,
   ...props
 }) {
-  const { data, error, loading, load } = useQuery(EVENT, { lazyLoad: true, graph: 'EVENT' });
+  const { data, error, loading, load } = useQuery(SITE, { lazyLoad: true, graph: 'EVENT' });
   const theme = useContext(ThemeContext);
   const [activeId, setTab] = useState( 'details');
+  const location  = data;
 
   useEffect(() => {
-    if (!loading) {
+    if (typeof siteID !== 'undefined') {
+      load({ variables: { locationID: siteID } });
+    }
+  }, [siteID]);
+
+  useEffect(() => {
+    if (!loading && location) {
       setTab('details');
+      console.log(location);
     }
   }, [data, loading]);
+
+  if (loading || !location) return <h2>Loading site information for {siteID} </h2>;
 
   return <Tabs  activeId={activeId} onChange={id => setTab(id)}>
     <Row wrap="nowrap" style={style} css={css.sideBar({ theme })}>
@@ -28,18 +41,29 @@ export function SiteSidebar({
         <TabPanel tabId='details' style={{height: '100%'}}>
           <Row direction="column" wrap="nowrap" style={{ maxHeight: '100%', overflow: 'hidden' }}>
             <Col style={{ padding: '12px', paddingBottom: 50, overflow: 'auto' }} grow>
-              <h2> Site </h2>
-              <p>
-                TO BE ADDED - Breakdown that includes:
+              <h2> Site: {siteID} </h2>
+              <Group label={"Site location"}>
+                <Properties css={css.properties} breakpoint={800}>
+                  <PlainTextField term={ {simpleName: "locality", value: location?.location?.locality}} />
+                  <PlainTextField term={ {simpleName: "stateProvince", value: location?.location?.stateProvince}} />
+                  <EnumField term={ {simpleName: "country", value: location?.location?.countryCode}}
+                             label="occurrenceFieldNames.country"  getEnum={value => `enums.countryCode.${value}`} />
+                  <PlainTextField term={ {simpleName: "decimalLatitude", value: location?.location?.coordinates?.lat}} />
+                  <PlainTextField term={ {simpleName: "decimalLongitude", value: location?.location?.coordinates?.lon}} />
+                </Properties>
+              </Group>
+              <Group label={"Map of site location"}>
+                <Map latitude={location?.location?.coordinates?.lat} longitude={location?.location?.coordinates?.lon} />
+              </Group>
+              <Group label={"Summary of activities at site"}>
                 <ul>
-                  <li>Map of the site</li>
                   <li>Datasets with events at this site</li>
                   <li>Event types record</li>
                   <li>Temporal range, year and month</li>
                   <li>Taxonomic range</li>
                   <li>Measurement types</li>
                 </ul>
-              </p>
+              </Group>
             </Col>
           </Row>
         </TabPanel>
@@ -48,35 +72,20 @@ export function SiteSidebar({
   </Tabs>
 };
 
-const EVENT = `
-query event($eventID: String, $datasetKey: String){
-  event(eventID: $eventID, datasetKey: $datasetKey) {
-    eventId
-    parentEventId
-    eventType {
-      concept
-    }
+export function Group({ label, ...props }) {
+  return <Accordion
+      summary={<FormattedMessage id={label} />}
+      defaultOpen={true}
+      css={css.group()}
+      {...props}
+  />
+}
+
+const SITE = `
+query location($locationID: String){
+  location(locationID: $locationID) {
     coordinates
     countryCode
-    datasetKey
-    datasetTitle
-    kingdoms
-    phyla
-    classes
-    orders
-    families
-    genera
-    year
-    month
-    occurrenceCount
-    measurementOrFactTypes
-    measurementOrFactCount
-    sampleSizeValue
-    samplingProtocol
-    eventTypeHierarchyJoined
-    eventHierarchyJoined
-    decimalLatitude
-    decimalLongitude
     locality
     stateProvince
     locationID
