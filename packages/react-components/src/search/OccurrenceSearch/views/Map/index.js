@@ -101,7 +101,7 @@ function Map() {
         filter2predicate(currentFilterContext.filter, predicateConfig),
         {
           type: 'within',
-          key: 'scoordinates',
+          key: 'geometry',
           value: wkt
         }
       ].filter(x => x)
