@@ -3,7 +3,7 @@ const express = require("express");
 const regeneratorRuntime = require("regenerator-runtime");
 // const MyButton = require("my-button");
 // const { Switch, Button, Checkbox, Root, OccurrenceSearch, Filter, GlobalNavLaptop } = require("gbif-react-components");
-const { OccurrenceSearch } = require("gbif-react-components");
+const { Button, Dataset } = require("gbif-react-components");
 // const Button = require("reakit").Button;
 const React = require("react");
 const renderToString = require("react-dom/server").renderToString;
@@ -32,8 +32,9 @@ app.get('/', (req, res) => {
   // const reactComp = renderToString(React.createElement(Switch,{style:{padding: 20}}));
 
   // const reactComp = renderToString(React.createElement(Root,{}, React.createElement(GlobalNavLaptop,{style:{padding: 20}})));
-  const reactComp = renderToString(React.createElement(OccurrenceSearch,{style:{height: 'calc(100vh - 20px)'}}));
+  // const reactComp = renderToString(React.createElement(OccurrenceSearch,{style:{height: 'calc(100vh - 20px)'}}));
   // const reactComp = renderToString(React.createElement(Button,{}, 'GBIF test button'));
+  const reactComp = renderToString(React.createElement(Dataset,{id: '2985efd1-45b1-46de-b6db-0465d2834a5a'}));
   const htmlToSend = hbsTemplate({ reactele: reactComp });
   res.send(htmlToSend);
 });

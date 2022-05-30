@@ -46,7 +46,8 @@ const env = process.env.NODE_ENV;
 
 export default [
 	{
-		input: 'src/components/Input/Input.js',
+		input: 'src/index.js',
+    // input: 'src/components/Button/Button.js',
 		plugins: [
 			external({
 				includeDependencies: true,

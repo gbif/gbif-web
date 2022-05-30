@@ -48,8 +48,8 @@
     "nanoid": "^3.1.22",
     "object-hash": "^2.1.1",
     "query-string": "^7.0.0",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
     "react-fast-compare": "^3.2.0",
     "react-icons": "^4.2.0",
     "react-intl": "^5.13.4",
@@ -95,5 +95,13 @@
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12"
+  },
+  "peerDependencies": {
+    "react": "16.14.0",
+    "react-dom": "16.14.0"
+  },
+  "overrides": {
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0"
   }
 }
