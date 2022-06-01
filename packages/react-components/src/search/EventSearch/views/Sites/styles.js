@@ -1,16 +1,18 @@
 import { css } from '@emotion/react';
 
-export const sites = ({ noOfSites= 10, noOfYears, theme, ...props }) => css`
+export const sites = ({ noOfSites= 10, noOfYears, showMonth, theme, ...props }) => css`
 
     .graph {
-      --square-size: 12px;
-      --square-width: 4px;
-      --square-height: 12px;
-      --square-gap: 3px;
-      --month-width: calc(var(--square-width) + var(--square-gap));
-      --year-width: calc(var(--month-width) *12)
+      background-color: white;   
+      --square-size: ${showMonth ? '15px;' : '15px'}; ;
+      --square-width: ${showMonth ? '5px;' : '  3px'};
+      --square-height: 15px;
+      --square-gap-width: ${showMonth ? '3px' : '0px'};
+      --square-gap-height: 3px;
+      --month-width: calc(var(--square-width) + var(--square-gap-width));
+      --year-width: calc(var(--month-width) * 12)
     }
-    
+
     .time { grid-area: months; list-style-type: none; padding-left:10px;}
     .sites { grid-area: days; list-style-type: none; list-style-position: outside; }
     .squares { grid-area: squares; list-style-type: none;}
@@ -46,7 +48,7 @@ export const sites = ({ noOfSites= 10, noOfYears, theme, ...props }) => css`
     .squares {
       margin-top: 2px; 
       display: grid;
-      grid-gap: var(--square-gap);
+      grid-gap: var(--square-gap-height) var(--square-gap-width);
       grid-template-rows: repeat(${noOfSites}, var(--square-size));
     }
     

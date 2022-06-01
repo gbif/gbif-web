@@ -19,17 +19,20 @@ query list( $predicate: Predicate, $offset: Int, $limit: Int){
     from: $offset) {
     temporal {
       locationID {
-        key
-        count
-        breakdown {
-          y 
-          c
-          ms {
-            m
+        cardinality
+        results {
+          key
+          count
+          breakdown {
+            y 
             c
+            ms {
+              m
+              c
+            }
           }
-        }
-      } 
+        } 
+      }
     }
   }
 }
@@ -40,13 +43,13 @@ function Sites() {
   const [offset = 0, setOffset] = useQueryParam('offset', NumberParam);
   const currentFilterContext = useContext(FilterContext);
   const { rootPredicate, predicateConfig } = useContext(SearchContext);
-  const { data, error, loading, load } = useQuery(QUERY, { lazyLoad: true, graph: 'EVENT' });
+  const { data, error, loading, load } = useQuery(QUERY, { lazyLoad: true, graph: 'EVENT'});
 
   const [activeSiteID, setActiveSiteID] = useState(false);
 
   const dialog = useDialogState({ animated: true, modal: false });
 
-  let limit = 100;
+  let limit = 40;
   let customVariables = {};
 
   const variableHash = hash(customVariables);
@@ -110,12 +113,13 @@ function Sites() {
     <SitesTable
         error={error}
         loading={loading}
-        data={data}
         next={next}
         prev={prev}
         first={first}
         from={offset}
+        size={limit}
         results={data}
+        total={data?.results?.temporal?.locationID?.cardinality}
         setSiteIDCallback={ setActiveSiteID }
     />
   </>
