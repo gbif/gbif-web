@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import PredicateDataFetcher from '../../../PredicateDataFetcher';
 import { EventsTable } from './EventsTable';
 import { FormattedNumber } from 'react-intl';
-import { ResourceLink } from '../../../../components';
 
 const QUERY = `
 query list($predicate: Predicate, $offset: Int, $limit: Int){
@@ -22,6 +21,7 @@ query list($predicate: Predicate, $offset: Int, $limit: Int){
           concept
         }
         parentEventId
+        locationID
         year
         datasetTitle
         datasetKey
@@ -37,16 +37,13 @@ query list($predicate: Predicate, $offset: Int, $limit: Int){
 }
 `;
 
-const defaultColumns = ['eventId', 'eventType', 'parentEventId', 'dataset', 'year', 'samplingProtcol', 'coordinates', 'stateProvince', 'countryCode', 'measurementTypes', 'measurements', 'OccurrenceCount']
 const defaultTableConfig = {
   columns: [
     {
       trKey: 'filters.eventId.name',
       value: {
         key: 'eventId',
-        formatter: (value, item) => <div>
-          <ResourceLink type='eventKey' discreet id={item.eventId} otherIds={{datasetKey: item.datasetKey}}>{item.eventId}</ResourceLink>
-        </div>
+        hideFalsy: true
       },
     },
     {
@@ -62,6 +59,14 @@ const defaultTableConfig = {
       filterKey: 'parentEventId',
       value: {
         key: 'parentEventId',
+        hideFalsy: true
+      }
+    },
+    {
+      trKey: 'filters.locationID.name',
+      filterKey: 'locationID',
+      value: {
+        key: 'locationID',
         hideFalsy: true
       }
     },

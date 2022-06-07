@@ -215,6 +215,11 @@
     "count": "{num, plural, one { event id } other {# event ids}}",
     "description": "The unique identifier for the Parent Event in the record."
   },
+  "locationID": {
+    "name": "Location id",
+    "count": "{num, plural, one { event id } other {# event ids}}",
+    "description": "The unique identifier for site in the record."
+  },
   "measurementOrFactTypes": {
     "name": "Measurement types",
     "count": "{num, plural, one { measurement type } other {# measurement types}}",
