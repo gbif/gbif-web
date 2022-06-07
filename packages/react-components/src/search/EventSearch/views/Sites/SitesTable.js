@@ -130,7 +130,12 @@ export const SitesTable = ({ first, prev, next, size, from, results, total, load
               {
                 site_matrix.map( (month_column, c_idx) =>
                     month_column.map( (square, ce_idx) =>
-                            <li className={`${c_idx % 12}_col`} id={`${c_idx}_${ce_idx}`} key={`${c_idx}_${ce_idx}`} data-level={ square > 0 ? '3': '0'}>
+                            <li className={`${c_idx % 12}_col`}
+                                id={`${c_idx}_${ce_idx}`}
+                                key={`${c_idx}_${ce_idx}`}
+                                data-level={ square > 0 ? '3': '0'}
+                                onClick={() => { setActiveSiteID(site_data[ce_idx].key); }}
+                            >
                               { square > 0 && <span className={`tooltiptext`}>{ square } events</span> }
                             </li>
                     )
