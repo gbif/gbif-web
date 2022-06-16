@@ -29,7 +29,7 @@ export function Intro({
           setActiveEventID={setActiveEventID}
       />
       <Summary
-          eventID={event.eventId}
+          eventID={event.eventID}
           datasetKey={event.datasetKey}
           setActiveEventID={setActiveEventID}
       />

@@ -10,7 +10,7 @@ const {  TabPanel } = Tabs;
 export function EventSidebar({
   onCloseRequest,
   setActiveEventID,
-  eventId,
+  eventID,
   datasetKey,
   defaultTab,
   className,
@@ -22,10 +22,10 @@ export function EventSidebar({
   const theme = useContext(ThemeContext);
 
   useEffect(() => {
-    if (typeof eventId !== 'undefined') {
-      load({ variables: { eventID: eventId, datasetKey: datasetKey } });
+    if (typeof eventID !== 'undefined') {
+      load({ variables: { eventID: eventID, datasetKey: datasetKey } });
     }
-  }, [eventId, datasetKey]);
+  }, [eventID, datasetKey]);
 
   useEffect(() => {
     if (!loading) {
@@ -52,8 +52,8 @@ export function EventSidebar({
 const EVENT = `
 query event($eventID: String, $datasetKey: String){
   event(eventID: $eventID, datasetKey: $datasetKey) {
-    eventId
-    parentEventId
+    eventID
+    parentEventID
     eventType {
       concept
     }

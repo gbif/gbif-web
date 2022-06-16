@@ -123,7 +123,7 @@ async function byKey({ qualifier: datasetKey, key, req }) {
                 },
                 {
                   'term': {
-                    'event.eventId.keyword': key
+                    'event.eventID.keyword': key
                   }
                 }
               ]

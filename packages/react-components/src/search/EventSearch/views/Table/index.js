@@ -15,12 +15,12 @@ query list($predicate: Predicate, $offset: Int, $limit: Int){
       from
       total
       results {
-        eventId
+        eventID
         samplingProtocol
         eventType {
           concept
         }
-        parentEventId
+        parentEventID
         locationID
         year
         datasetTitle
@@ -40,9 +40,9 @@ query list($predicate: Predicate, $offset: Int, $limit: Int){
 const defaultTableConfig = {
   columns: [
     {
-      trKey: 'filters.eventId.name',
+      trKey: 'filters.eventID.name',
       value: {
-        key: 'eventId',
+        key: 'eventID',
         hideFalsy: true
       },
     },
@@ -55,10 +55,10 @@ const defaultTableConfig = {
       }
     },
     {
-      trKey: 'filters.parentEventId.name',
-      filterKey: 'parentEventId',
+      trKey: 'filters.parentEventID.name',
+      filterKey: 'parentEventID',
       value: {
-        key: 'parentEventId',
+        key: 'parentEventID',
         hideFalsy: true
       }
     },

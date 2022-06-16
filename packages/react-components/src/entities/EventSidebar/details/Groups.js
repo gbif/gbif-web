@@ -59,8 +59,8 @@ function Event({ showAll, termMap, event, setActiveEventID }) {
 
   return <Group label="eventDetails.groups.event">
     <Properties css={css.properties} breakpoint={800}>
-      <PlainTextField term={termMap.eventId} showDetails={showAll} />
-      <LinkedField fieldCallback={viewParent} term={termMap.parentEventId} showDetails={showAll} />
+      <PlainTextField term={termMap.eventID} showDetails={showAll} />
+      <LinkedField fieldCallback={viewParent} term={termMap.parentEventID} showDetails={showAll} />
       <PlainTextField term={termMap.eventType?.concept} showDetails={showAll} />
       <PlainTextField term={termMap.eventDate} showDetails={showAll} />
       <PlainTextField term={termMap.eventTime} showDetails={showAll} />

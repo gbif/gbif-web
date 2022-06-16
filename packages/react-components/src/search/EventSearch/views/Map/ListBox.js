@@ -15,7 +15,7 @@ function ListItem({  id, item, imageSrc, onClick = () => { }, ...props }) {
       <Col grow={true} css={listItemContent({ theme })}>
         <h4 dangerouslySetInnerHTML={{ __html: (item.eventType?.concept ? item.eventType?.concept : 'Event' ) + ' ' + (item.year ? '- year: ' + item.year: '')}} ></h4>
         {item.datasetTitle}<br/>
-        Event ID: {item.eventId}
+        Event ID: {item.eventID}
         {
           item.measurementOrFactTypes.length > 0 ? ' - ' + item.measurementOrFactTypes : ''
         }

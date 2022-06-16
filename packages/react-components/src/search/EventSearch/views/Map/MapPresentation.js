@@ -40,9 +40,9 @@ function Map({ labelMap, query, pointData, pointError, pointLoading, loading, to
   }, [items, activeId]);
 
   return <>
-    <DetailsDrawer href={`${activeItem?.eventId}`} dialog={dialog} nextItem={nextItem} previousItem={previousItem}>
+    <DetailsDrawer href={`${activeItem?.eventID}`} dialog={dialog} nextItem={nextItem} previousItem={previousItem}>
       <EventSidebar
-          eventId={activeItem?.eventId}
+          eventID={activeItem?.eventID}
           datasetKey={activeItem?.datasetKey}
           defaultTab='details'
           style={{ maxWidth: '100%', width: 700, height: '100%' }}

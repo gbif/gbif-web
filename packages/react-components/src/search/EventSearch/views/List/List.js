@@ -97,9 +97,9 @@ function Dataset({ datasetKey, datasetTitle, count, events, ...props }) {
         <div>Occurrences</div>
       </div>
       <ul css={style.eventList}>
-        {events.documents.results.map(x => <li key={x.eventId}>
+        {events.documents.results.map(x => <li key={x.eventID}>
           <div>
-            <div>{x.eventId}</div>
+            <div>{x.eventID}</div>
             <div>{x.year}</div>
             <div>{x.formattedCoordinates}</div>
             <div>{x.occurrenceCount}</div>

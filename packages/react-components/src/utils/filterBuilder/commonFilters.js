@@ -841,16 +841,16 @@ export const commonFilters = {
       }
     }
   },
-  eventId: {
+  eventID: {
     type: 'SIMPLE_TEXT',
     config: {
       std: {
-        filterHandle: 'eventId',
-        id2labelHandle: 'eventId',
+        filterHandle: 'eventID',
+        id2labelHandle: 'eventID',
         translations: {
-          count: 'filters.eventId.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.eventId.name',// translation path to a title for the popover and the button
-          description: 'filters.eventId.description', // translation path for the filter description
+          count: 'filters.eventID.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.eventID.name',// translation path to a title for the popover and the button
+          description: 'filters.eventID.description', // translation path for the filter description
         },
       },
       specific: {

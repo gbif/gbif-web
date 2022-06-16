@@ -49,7 +49,7 @@ export function About({
   const withYearPercentage = asPercentage( withYear / total)
   const withTaxonMatchPercentage = asPercentage( withTaxonMatch / total)
 
-  const withEventId = insights?.data?.unfiltered?.cardinality?.eventId;
+  const withEventId = insights?.data?.unfiltered?.cardinality?.eventID;
   const labelAsEventDataset = dataset.type === 'SAMPLING_EVENT_DATASET' || withEventId > 1 && withEventId/total < 0.99; // Threshold chosen somewhat randomly. The issue is that some datasets assign random unique eventIds to all their occurrences. Those aren't really event datasets, it is a misunderstanding.
 
   return <>

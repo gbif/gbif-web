@@ -18,12 +18,12 @@ query list($predicate: Predicate, $limit: Int){
           documents(size: 3) {
             total
             results {
-              eventId
+              eventID
               samplingProtocol
               eventType {
                 concept
               }
-              parentEventId
+              parentEventID
               year
               datasetTitle
               datasetKey
@@ -42,15 +42,15 @@ query list($predicate: Predicate, $limit: Int){
 }
 `;
 
-const defaultColumns = ['eventId', 'eventType', 'parentEventId', 'dataset', 'year', 'samplingProtcol', 'coordinates', 'stateProvince', 'countryCode', 'measurementTypes', 'measurements', 'OccurrenceCount']
+const defaultColumns = ['eventID', 'eventType', 'parentEventID', 'dataset', 'year', 'samplingProtcol', 'coordinates', 'stateProvince', 'countryCode', 'measurementTypes', 'measurements', 'OccurrenceCount']
 const defaultTableConfig = {
   columns: [
     {
-      trKey: 'filters.eventId.name',
+      trKey: 'filters.eventID.name',
       value: {
-        key: 'eventId',
+        key: 'eventID',
         formatter: (value, item) => <div>
-          <ResourceLink type='eventKey' discreet id={item.eventId} otherIds={{datasetKey: item.datasetKey}}>{item.eventId}</ResourceLink>
+          <ResourceLink type='eventKey' discreet id={item.eventID} otherIds={{datasetKey: item.datasetKey}}>{item.eventID}</ResourceLink>
         </div>
       },
     },
@@ -63,10 +63,10 @@ const defaultTableConfig = {
       }
     },
     {
-      trKey: 'filters.parentEventId.name',
-      filterKey: 'parentEventId',
+      trKey: 'filters.parentEventID.name',
+      filterKey: 'parentEventID',
       value: {
-        key: 'parentEventId',
+        key: 'parentEventID',
         hideFalsy: true
       }
     },

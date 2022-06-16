@@ -52,10 +52,10 @@ export const EventsTable = ({ first, prev, next, size, from, results, total, loa
   }, [dialog.visible]);
 
   const nextItem = useCallback(() => {
-    const activeIndex = items.findIndex(x => x.eventId === activeEventID);
+    const activeIndex = items.findIndex(x => x.eventID === activeEventID);
     const next = Math.min(items.length - 1, activeIndex + 1);
     if (items[next]) {
-      setActiveEventID(items[next].eventId);
+      setActiveEventID(items[next].eventID);
       setActiveDatasetKey(items[next].datasetKey);
     }
   }, [activeEventID, activeDatasetKey, items]);
@@ -64,7 +64,7 @@ export const EventsTable = ({ first, prev, next, size, from, results, total, loa
     const activeIndex = items.findIndex(x => x.key === activeEventID);
     const prev = Math.max(0, activeIndex - 1);
     if (items[prev]) {
-      setActiveEventID(items[prev].eventId);
+      setActiveEventID(items[prev].eventID);
       setActiveDatasetKey(items[prev].datasetKey);
     }
   }, [activeEventID, activeDatasetKey, items]);
@@ -89,7 +89,7 @@ export const EventsTable = ({ first, prev, next, size, from, results, total, loa
     {dialog.visible && <DetailsDrawer href={`${EVENT_SEARCH_URL}${activeEventID}`}
                                       dialog={dialog} nextItem={nextItem} previousItem={previousItem}>
       <EventSidebar
-          eventId={activeEventID}
+          eventID={activeEventID}
           datasetKey={activeDatasetKey}
           defaultTab='details'
           style={{ maxWidth: '100%', width: 700, height: '100%' }}
@@ -137,7 +137,7 @@ const getRows = ({ tableConfig, labelMap, results = [], setActiveEventID, setAct
         return <Td noWrap={field.noWrap} key={field.trKey} style={field.value.rightAlign ? {textAlign: 'right'} : {}}>{formattedVal}</Td>;
       }
     );
-    return <tr key={row.key} onClick={() => { setActiveEventID(row.eventId); setActiveDatasetKey(row.datasetKey); }}>{cells}</tr>;
+    return <tr key={row.key} onClick={() => { setActiveEventID(row.eventID); setActiveDatasetKey(row.datasetKey); }}>{cells}</tr>;
   });
   return rows;
 }

@@ -251,7 +251,7 @@ export const en = {
       count: '{num, plural, one { state province } other {# state provinces}}',
       description: 'The name of the next smaller administrative region than country in which the Location occurs.'
     },
-    eventId: {
+    eventID: {
       name: 'Event id',
       count: '{num, plural, one { event id } other {# event ids}}',
       description: 'The unique identifier for the Event in the record.'
