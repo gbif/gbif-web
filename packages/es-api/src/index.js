@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const compression = require('compression');
 const _ = require('lodash');
+const cors = require('cors');
 const config = require('./config');
 
 let literature, occurrence, dataset, event;
@@ -20,6 +21,7 @@ if (config.event) {
 const { asyncMiddleware, ResponseError, errorHandler, unknownRouteHandler } = require('./resources/errorHandler');
 
 const app = express();
+app.use(cors());
 app.use(compression());
 app.use(express.static('public'));
 app.use(bodyParser.json());

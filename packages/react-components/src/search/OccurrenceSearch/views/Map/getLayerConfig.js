@@ -13,7 +13,7 @@ export function getLayerConfig({tileString, theme}) {
         property: "total",
         type: "interval",
         //stops: [[0, 2]]
-        stops: [[0, 2], [10, 3], [100, 5], [1000, 8], [10000, 12]]
+        stops: [[0, 4], [10, 4], [100,5], [1000, 7], [10000, 10]]
       },
       // color circles by ethnicity, using data-driven styles
       "circle-color": {
@@ -24,14 +24,14 @@ export function getLayerConfig({tileString, theme}) {
       "circle-opacity": {
         property: "total",
         type: "interval",
-        // stops: theme.darkTheme ? [[0, .6], [10, 0.7], [100, 0.8], [1000, 0.8], [10000, 0.9]] : [[0, 1], [10, 0.8], [100, 0.7], [1000, 0.6], [10000, 0.6]]
-        stops: [[0, 1], [10, 0.8], [100, 0.7], [1000, 0.6], [10000, 0.6]]
+        stops: [[0, 1], [10, 0.8], [100, 0.8], [1000, 0.7], [10000, 0.7]]
       },
-      "circle-stroke-color": theme.mapDensityColors[1],
+      "circle-stroke-color": theme.mapDensityColors[2],
       "circle-stroke-width": {
         property: "total",
         type: "interval",
-        stops: [[0, 1], [10, 0]]
+        // stops: [[0, 1], [10, 0]]
+        stops: [[0, 1], [10, 1.5], [100, 0]]
       }
     }
   };

@@ -27,6 +27,7 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
       occurrenceFieldNames: getFile(locale, `../${folder}/${locale}/components/occurrenceFieldNames`),
       occurrenceDetails: getFile(locale, `../${folder}/${locale}/components/occurrenceDetails`),
       download: getFile(locale, `../${folder}/${locale}/components/download`),
+      map: getFile(locale, `../${folder}/${locale}/components/map`),
       enums: {
         basisOfRecord: getFile(locale, `../${folder}/${locale}/enums/basisOfRecord`),
         countryCode: getFile(locale, `../${folder}/${locale}/enums/countryCode`),

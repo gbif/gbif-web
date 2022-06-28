@@ -46,7 +46,7 @@ const build = theme => {
   const brightMapColors = [
     "#fed976",
     "#fd8d3c",
-    "#fd8d3c",
+    "#F7642E",
     "#f03b20",
     "#bd0026"
   ];

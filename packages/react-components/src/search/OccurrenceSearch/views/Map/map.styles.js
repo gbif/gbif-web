@@ -35,3 +35,28 @@ export const resultList = ({ }) => css`
   display: flex;
   flex-direction: column;
 `;
+
+export const mapControls = ({ theme }) => css`
+  display: flex;
+  position: absolute;
+  background: white;
+  z-index: 100;
+  border: 1px solid #ddd;
+  margin: 12px;
+  right: 0;
+  align-items: center;
+  > button, > div > button {
+    padding: 6px;
+    flex: 1 1 auto;
+    font-size: 24px;
+    color: ${theme.color800};
+    text-align: left;
+    white-space: nowrap;
+  }
+  .gb-menuContainer {
+    /* width: 250px; */
+    button {
+      text-align: initial;
+    }
+  }
+`;
