@@ -34,9 +34,9 @@ const defaultLayerOptions = {
 };
 
 function getStyle({ styles = {}, projection, type, lookup = {}, layerOptions }) {
-  const styleKey = lookup?.[projection]?.[type] || `${type}_${projection}`;
-  const fallbackType = layerOptions?.[projection]?.[0];
-  let style = styles[styleKey] || styles[fallbackType];
+  const fallbackStyleName = `${layerOptions?.[projection]?.[0]}_${projection}`
+  const styleKey = lookup?.[projection]?.[type] || `${type}_${projection}`;  
+  let style = styles[styleKey] ? styles[styleKey] : styles[fallbackStyleName];
   return style;
 }
 
