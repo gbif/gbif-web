@@ -1,10 +1,10 @@
 {
     "styles": {
-        "satellite": "",
-        "natural": "",
-        "bright": "",
+        "satellite": "Satellite",
+        "natural": "Nature",
+        "bright": "Lumineux",
         "dark": "Sombre",
-        "outdoor": ""
+        "outdoor": "Extérieur"
     },
     "projections": {
         "ARCTIC": "Arctique",
