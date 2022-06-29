@@ -1,0 +1,15 @@
+{
+    "styles": {
+        "satellite": "",
+        "natural": "",
+        "bright": "",
+        "dark": "Темний",
+        "outdoor": ""
+    },
+    "projections": {
+        "ARCTIC": "Арктична",
+        "MERCATOR": "Меркатор",
+        "ANTARCTIC": "Антарктична",
+        "PLATE_CAREE": "Плате-Карре"
+    }
+}
