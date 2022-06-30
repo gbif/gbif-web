@@ -1,10 +1,10 @@
 {
     "styles": {
-        "satellite": "",
-        "natural": "",
-        "bright": "",
+        "satellite": "卫星",
+        "natural": "自然",
+        "bright": "明亮的",
         "dark": "黑色",
-        "outdoor": ""
+        "outdoor": "户外"
     },
     "projections": {
         "ARCTIC": "北极",
