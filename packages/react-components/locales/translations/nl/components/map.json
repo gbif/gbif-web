@@ -1,15 +1,15 @@
 {
     "styles": {
-        "satellite": "",
-        "natural": "",
-        "bright": "",
-        "dark": "",
-        "outdoor": ""
+        "satellite": "Satelliet",
+        "natural": "Natuur",
+        "bright": "Fel",
+        "dark": "Donker",
+        "outdoor": "Buitenleven"
     },
     "projections": {
-        "ARCTIC": "",
-        "MERCATOR": "",
-        "ANTARCTIC": "",
-        "PLATE_CAREE": ""
+        "ARCTIC": "Arctisch",
+        "MERCATOR": "Mercator",
+        "ANTARCTIC": "Antarctisch",
+        "PLATE_CAREE": "Plate Carrée"
     }
 }
