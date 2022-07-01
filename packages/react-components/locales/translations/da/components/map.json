@@ -1,0 +1,15 @@
+{
+    "styles": {
+        "satellite": "",
+        "natural": "",
+        "bright": "",
+        "dark": "Mørk",
+        "outdoor": ""
+    },
+    "projections": {
+        "ARCTIC": "Arktis",
+        "MERCATOR": "Mercator",
+        "ANTARCTIC": "Antarktis",
+        "PLATE_CAREE": "Plade Carée"
+    }
+}

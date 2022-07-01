@@ -1,0 +1,15 @@
+{
+    "styles": {
+        "satellite": "",
+        "natural": "",
+        "bright": "",
+        "dark": "深色",
+        "outdoor": ""
+    },
+    "projections": {
+        "ARCTIC": "北極",
+        "MERCATOR": "麥卡托投影",
+        "ANTARCTIC": "南極",
+        "PLATE_CAREE": "可利投影"
+    }
+}

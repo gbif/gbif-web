@@ -1,0 +1,15 @@
+{
+    "styles": {
+        "satellite": "卫星",
+        "natural": "自然",
+        "bright": "明亮的",
+        "dark": "黑色",
+        "outdoor": "户外"
+    },
+    "projections": {
+        "ARCTIC": "北极",
+        "MERCATOR": "墨卡托",
+        "ANTARCTIC": "南极",
+        "PLATE_CAREE": "板卡雷"
+    }
+}

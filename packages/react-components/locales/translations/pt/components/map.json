@@ -1,0 +1,15 @@
+{
+    "styles": {
+        "satellite": "",
+        "natural": "",
+        "bright": "",
+        "dark": "Escuro",
+        "outdoor": ""
+    },
+    "projections": {
+        "ARCTIC": "Ártico",
+        "MERCATOR": "Mercator",
+        "ANTARCTIC": "Antártico",
+        "PLATE_CAREE": "Plate Carrée"
+    }
+}

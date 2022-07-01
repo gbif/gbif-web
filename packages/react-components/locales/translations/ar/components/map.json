@@ -1,0 +1,15 @@
+{
+    "styles": {
+        "satellite": "",
+        "natural": "",
+        "bright": "",
+        "dark": "داكن",
+        "outdoor": ""
+    },
+    "projections": {
+        "ARCTIC": "قطبي شمالي",
+        "MERCATOR": "مركاتور(طريقة لرسم الخرائط)",
+        "ANTARCTIC": "القطبي الجنوبي",
+        "PLATE_CAREE": "صفيحة كاري"
+    }
+}
