@@ -4,25 +4,20 @@ export const filters = [
   'country',
   'datasetKey',
   'measurementOrFactTypes',
-  'measurementOrFactCount',
   'year',
   'eventStateProvince',
   'eventID',
-  'occurrenceCount',
   'eventTaxonomy',
   'eventType',
 ].sort();
 
 const highlighted = [
-  // 'q',
+  'datasetKey',
+  'eventType',
   'eventSamplingProtocol',
   'measurementOrFactTypes',
-  'eventID',
   'year',
-  'eventStateProvince',
-  'occurrenceCount',
-  'eventTaxonomy',
-  'eventType',
+  'eventStateProvince'
 ];
 
 export default { filters, included: filters, highlighted };

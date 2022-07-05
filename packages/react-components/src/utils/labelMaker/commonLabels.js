@@ -63,15 +63,19 @@ export const commonLabels = {
     template: ({ id, api }) => `${api.v1.endpoint}/organization/${id}`,
     transform: result => ({ title: result.title })
   },
-  datasetKey: {
-    type: 'GQL',
-    query: `query label($id: ID!){
-      dataset(key: $id) {
-        title
-      }
-    }`,
-    transform: result => result.data.dataset,
-  },
+  // datasetKey: {
+  //   type: 'GQL_EVENTS',
+  //   query: `query label($id: ID!){
+  //     eventsByDataset(datasetKey: $id) {
+  //       documents {
+  //         results {
+  //           datasetTitle
+  //         }
+  //       }
+  //     }
+  //   }`,
+  //   transform: result => result.data.documents.results[0].datasetTitle,
+  // },
   year: {
     type: 'CUSTOM',
     component: rangeOrEqualLabel('intervals.compactTime')
@@ -111,10 +115,6 @@ export const commonLabels = {
   protocol: {
     type: 'TRANSLATION',
     template: id => `enums.protocol.${id}`
-  },
-  literatureType: {
-    type: 'TRANSLATION',
-    template: id => `enums.literatureType.${id}`
   },
   establishmentMeans: {
     type: 'TRANSLATION',

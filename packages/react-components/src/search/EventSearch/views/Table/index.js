@@ -29,8 +29,6 @@ query list($predicate: Predicate, $offset: Int, $limit: Int){
         stateProvince
         countryCode
         measurementOrFactTypes
-        measurementOrFactCount
-        occurrenceCount
       }
     }
   }
@@ -127,27 +125,7 @@ const defaultTableConfig = {
         key: 'measurementOrFactTypes',
         formatter: (value, item) => <>{value.join(', ')}</>
       }
-    },
-    {
-      name: 'measurementOrFactCount',
-      trKey: 'filters.measurementOrFactCount.name',
-      value: {
-        key: 'measurementOrFactCount',
-        hideFalsy: true
-      },
-      noWrap: true,
-    },
-    {
-      name: 'occurrenceCount',
-      trKey: 'tableHeaders.occurrences',
-      value: {
-        key: 'occurrenceCount',
-        formatter: (value, item) => <FormattedNumber value={value} />,
-        hideFalsy: true,
-        rightAlign: true
-      },
-      noWrap: true
-    },
+    }
   ]
 };
 

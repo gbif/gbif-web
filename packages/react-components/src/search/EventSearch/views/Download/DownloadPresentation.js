@@ -2,24 +2,22 @@
 import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { FormattedNumber } from 'react-intl';
 import EventContext from '../../../SearchContext';
-import { DetailsDrawer } from '../../../../components';
-import { DatasetSidebar } from '../../../../entities';
 import { useDialogState } from "reakit/Dialog";
 import * as styles from './downloadPresentation.styles';
-import { ViewHeader } from '../ViewHeader';
-import { Button } from '../../../../components';
+import {Button, Input, Popover} from '../../../../components';
 
-export const DownloadPresentation = ({ more, size, data, total, loading }) => {
+export const DownloadPresentation = ({ more, size, data, total, loading, getPredicate }) => {
+
   const { labelMap } = useContext(EventContext);
-
   const [activeId, setActive] = useState();
   const [activeItem, setActiveItem] = useState();
   const dialog = useDialogState({ animated: true, modal: false });
-
   const items = data?.eventSearch?.facet?.datasetKey || [];
+  const [activePredicate, setActivePredicate] = useState();
 
   useEffect(() => {
     setActiveItem(items[activeId]);
+    setActivePredicate(getPredicate())
   }, [activeId, items]);
 
   const nextItem = useCallback(() => {
@@ -31,7 +29,7 @@ export const DownloadPresentation = ({ more, size, data, total, loading }) => {
   }, [activeId]);
 
   return <>
-    <div >
+    <div>
       <div>
         <ul style={{ padding: 0, margin: 0 }}>
           {items.length > 0 && items.map((item, index) => <li>
@@ -43,12 +41,16 @@ export const DownloadPresentation = ({ more, size, data, total, loading }) => {
   </>
 }
 
-
-
 function DatasetResult({ largest, item, indicator, theme, setActive, index, dialog, ...props }) {
 
-  function startDownload() {
-    alert('This will start a download, once we have downloads !');
+  const [visible, setVisible] = useState(false);
+
+  function startDownload(dataset) {
+    window.location.href = dataset.archive.url;
+  }
+
+  function startFilteredDownload(name, email) {
+    alert('This will start a download for ' + name + ", sending to " + email);
   }
 
   return <div css={styles.dataset({ theme })}>
@@ -72,14 +74,59 @@ function DatasetResult({ largest, item, indicator, theme, setActive, index, dial
         <br/>
         <span>This archive has extension for X, Y, Z and is structure like W...</span>
         <br/>
-        <span>Events: <FormattedNumber value={item.count} /></span>
+        <span>Compressed archive size: {item.archive.fileSizeInMB}MB</span>
         <br/>
-        <span>Archive size: 123MB</span>
+        <span>Format: Darwin core archive / Frictionless data package</span>
+        <br/>
+        <span>Last generated: {item.archive.modified}</span>
       </div>
+
       <div>
-        <Button onClick={startDownload} look="primaryOutline">Download</Button>
+        <Popover
+            trigger={<Button onClick={() => setVisible(true)}>Download filtered archive</Button>}
+            aria-label="Location filter"
+            onClickOutside={action => console.log('close request', action)}
+            visible={visible} >
+          <FilteredDownloadForm
+              hide={() => setVisible(false)}
+              download={(name, email) => startFilteredDownload(name, email)}>
+          </FilteredDownloadForm>
+        </Popover>
+
+        <Button onClick={() => { startDownload(item); }}  look="primaryOutline">
+          Download full dataset archive
+        </Button>
       </div>
     </div>
-    {/*<Progress percent={100 * item.count / largest} />*/}
   </div>
 }
+
+const FilteredDownloadForm = React.memo(({ focusRef, hide, download,...props }) => {
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+
+  return <div style={{ padding: "30px" }}>
+    <h3>Download data for this search</h3>
+    <p>
+      To download this dataset, please supply an email address.<br/>
+      Once the download is generated you'll receive an email with a link <br/>
+      you can use to download the data.
+      <br/>
+    </p>
+    <form>
+      <label>
+        Email:
+        <Input id={email} value={email} onInput={e => setEmail(e.target.value)}/>
+      </label>
+    </form>
+    <br/>
+    <div>
+      <Button onClick={() => download(name, email)} ref={focusRef}>Download</Button>
+      <Button onClick={() => hide()} look="primaryOutline">Close</Button>
+    </div>
+    <br/>
+    <span>Note: this is form is demo purposes only in lieu of proper authentication.</span>
+  </div>
+});
+FilteredDownloadForm.displayName = 'FilteredDownloadForm';

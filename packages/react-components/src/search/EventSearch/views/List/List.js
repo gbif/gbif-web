@@ -1,4 +1,4 @@
-import { jsx } from '@emotion/react';
+import {css, jsx} from '@emotion/react';
 import React, { useEffect, useState, useContext } from 'react';
 import { MdFilterList } from "react-icons/md";
 import { FormattedMessage } from 'react-intl';
@@ -8,9 +8,11 @@ import { Button, Row, Col, Skeleton } from '../../../../components';
 import { ResultsHeader } from '../../../ResultsHeader';
 import { useQuery } from '../../../../dataManagement/api';
 import * as style from './style';
+import {FilterContext} from "../../../../widgets/Filter/state";
 
 export const List = ({ first, prev, next, size, from, data, total, loading }) => {
   const { filters, labelMap } = useContext(SearchContext);
+
 
   const datasets = data?.eventSearch?.facet?.datasetKey;
 
@@ -25,7 +27,7 @@ export const List = ({ first, prev, next, size, from, data, total, loading }) =>
   }}>
     {/* <ResultsHeader loading={loading} total={total} /> */}
     <ul css={style.datasetList}>
-      {datasets.map(x => <li style={{marginBottom: 12}} key={x.key}><Dataset {...x} datasetKey={x.key} /></li>)}
+      {datasets.map(x => <li style={{marginBottom: 12}} key={x.key}><Dataset {...x} datasetKey={x.key} filters={filters} /></li>)}
     </ul>
   </div>
 }
@@ -49,6 +51,10 @@ query list($datasetKey: JSON){
         key
         count
       }
+      families {
+        key
+        count
+      }      
     }
     stats {
       occurrenceCount {
@@ -67,8 +73,9 @@ function DatasetSkeleton() {
      <Skeleton width="random" />
   </div>
 }
-function Dataset({ datasetKey, datasetTitle, count, events, ...props }) {
+function Dataset({ datasetKey, datasetTitle, count, events, filters,...props }) {
   const { data, error, loading, load } = useQuery(DATASET_QUERY, { lazyLoad: true, graph: 'EVENT' });
+  const currentFilterContext = useContext(FilterContext);
 
   useEffect(() => {
     load({ keepDataWhileLoading: true, variables: { datasetKey } });
@@ -76,33 +83,44 @@ function Dataset({ datasetKey, datasetTitle, count, events, ...props }) {
 
   if (!data || loading) return <DatasetSkeleton />;
 
+  const filterByThisDataset = () => {
+    currentFilterContext.setField('datasetKey', [datasetKey], true)
+  }
+
   const {documents, facet, stats} = data.eventSearch;
 
   return <article>
     <div css={style.summary}>
+
       <h2>{datasetTitle}</h2>
       <div css={style.details}>
-        <div>Published by: <span>{documents.results[0].publisherTitle}</span></div>
         <div>Total events: <span>{documents.total}</span></div>
         <div>Total occurrences: <span>{stats.occurrenceCount.sum}</span></div>
+        <div>Taxonomic scope: <span>{facet.families.map(x => x.key).join(' • ')}</span></div>
         <div>Protocols: <span>{facet.samplingProtocol.map(x => x.key).join(' • ')}</span></div>
-        <div>measurement types: <span>{facet.measurementOrFactTypes.map(x => x.key).join(' • ')}</span></div>
+        <div style={{float: 'right' }}>
+          <Button
+              onClick={() => filterByThisDataset() }
+              look="primaryOutline"
+              css={css`margin-left: 30px; font-size: 11px;`}>Add to filter</Button>
+        </div>
+        <div>Measurement types: <span>{facet.measurementOrFactTypes.map(x => x.key).join(' • ')}</span></div>
       </div>
     </div>
     <div css={style.events}>
       <div css={style.tabularListItem}>
         <div>Event ID</div>
+        <div>Event type</div>
         <div>Year</div>
         <div>Coordinates</div>
-        <div>Occurrences</div>
       </div>
       <ul css={style.eventList}>
         {events.documents.results.map(x => <li key={x.eventID}>
           <div>
             <div>{x.eventID}</div>
+            <div>{x.eventType?.concept}</div>
             <div>{x.year}</div>
             <div>{x.formattedCoordinates}</div>
-            <div>{x.occurrenceCount}</div>
           </div>
         </li>)}
       </ul>

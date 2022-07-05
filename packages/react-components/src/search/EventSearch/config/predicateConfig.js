@@ -2,6 +2,9 @@ import { filters } from './filterConf';
 
 const filterConf = {
   fields: {
+    datasetKey: {
+      defaultKey: 'datasetKey'
+    },
     samplingProtocol: {
       defaultKey: 'samplingProtocol'
     },

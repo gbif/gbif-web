@@ -42,7 +42,6 @@ query list($predicate: Predicate, $limit: Int){
 }
 `;
 
-const defaultColumns = ['eventID', 'eventType', 'parentEventID', 'dataset', 'year', 'samplingProtcol', 'coordinates', 'stateProvince', 'countryCode', 'measurementTypes', 'measurements', 'OccurrenceCount']
 const defaultTableConfig = {
   columns: [
     {

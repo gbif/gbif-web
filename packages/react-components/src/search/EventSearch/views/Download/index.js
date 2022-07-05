@@ -15,6 +15,11 @@ query list($predicate: Predicate, $limit: Int){
         datasetTitle
         count
         key
+        archive {
+          url
+          fileSizeInMB
+          modified          
+        }
         events {
           documents(size: 3) {
             total
@@ -33,14 +38,12 @@ function Downloads() {
   const { rootPredicate, predicateConfig } = useContext(EventContext);
   const { data, error, loading, load } = useQuery(DOWNLOADS, { lazyLoad: false, graph: 'EVENT' });
 
+  let predicate = null;
+
   useEffect(() => {
-    const predicate = {
-      type: 'and',
-      predicates: [
-        rootPredicate,
-        filter2predicate(currentFilterContext.filter, predicateConfig)
-      ].filter(x => x)
-    }
+    predicate = getPredicate();
+    console.log(predicate)
+
     load({ keepDataWhileLoading: true, variables: { predicate, size } });
   }, [currentFilterContext.filterHash, rootPredicate]);
 
@@ -52,15 +55,25 @@ function Downloads() {
     setSize(size + 100);
   });
 
+  function getPredicate() {
+    return {
+      type: 'and',
+      predicates: [
+        rootPredicate,
+        filter2predicate(currentFilterContext.filter, predicateConfig)
+      ].filter(x => x)
+    }
+  }
+
   return <>
     <DownloadPresentation
       loading={loading}
       data={data}
       more={more}
       size={size}
+      getPredicate={getPredicate}
     />
   </>
-
 }
 
 export default Downloads;
