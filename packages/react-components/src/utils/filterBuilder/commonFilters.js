@@ -121,6 +121,7 @@ export const commonFilters = {
     type: 'SUGGEST',
     config: {
       std: {
+        id2labelHandle: 'eventDatasetKey',
         translations: {
           count: 'filters.datasetKey.count', // translation path to display names with counts. e.g. "3 scientific names"
           name: 'filters.datasetKey.name',// translation path to a title for the popover and the button

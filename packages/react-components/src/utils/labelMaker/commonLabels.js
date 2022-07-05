@@ -63,6 +63,19 @@ export const commonLabels = {
     template: ({ id, api }) => `${api.v1.endpoint}/organization/${id}`,
     transform: result => ({ title: result.title })
   },
+  eventDatasetKey: {
+    type: 'GQL_EVENTS',
+    query: `query label($id: String!){
+      eventsByDataset(datasetKey: $id) {
+        documents {
+          results {
+            datasetTitle
+          }
+        }
+      }
+    }`,
+    transform: result => ({title: result.data.eventsByDataset.documents.results[0].datasetTitle}),
+  },
   // datasetKey: {
   //   type: 'GQL_EVENTS',
   //   query: `query label($id: ID!){
