@@ -1,84 +1,84 @@
 {
   "en-DK": {
-    "messages": "http://localhost:5002/en-developer.json?v=fd1bd07a0122d9a9614c60b6b619bbade254c65a"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/en-developer.json?v=fd1bd07a0122d9a9614c60b6b619bbade254c65a"
   },
   "en-ZZ": {
-    "messages": "http://localhost:5002/en-pseudo.json?v=0dfdadd05651275373090c1de30f143a745690f0"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/en-pseudo.json?v=480eb63c2356a0cfa153112a6fa58bd189f79609"
   },
   "en": {
-    "messages": "http://localhost:5002/en.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/en.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
   },
   "da": {
-    "messages": "http://localhost:5002/da.json?v=5bf06b87e64d2a9a71aa67b27f6f9666e5c1c2cf"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/da.json?v=885bd5defd42a5f2ae6713dbf070a757d5e3b6c9"
   },
   "ar": {
-    "messages": "http://localhost:5002/ar.json?v=46173f77cdddd7569c1a6601dc1702f169a2a909"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/ar.json?v=721c475896f53c1ed23cc213f3b99e671168013e"
   },
   "de": {
-    "messages": "http://localhost:5002/de.json?v=c130a6da382d5706c2b136ee3aecb9566498d89a"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/de.json?v=c130a6da382d5706c2b136ee3aecb9566498d89a"
   },
   "es": {
-    "messages": "http://localhost:5002/es.json?v=b08c98095c3a755bbf85e0b5c6f5d2ac2fad3d65",
+    "messages": "https://react-components.gbif-staging.org/lib/translations/es.json?v=ab5958721d694d66efafd4ab89cd873929af287a",
     "localeMap": {
       "gbif_org": "es",
       "vocabulary": "es-ES"
     }
   },
   "fa": {
-    "messages": "http://localhost:5002/fa.json?v=4f81c78d3c9f89c246372161f5c4e83044951a92"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/fa.json?v=4f81c78d3c9f89c246372161f5c4e83044951a92"
   },
   "fj": {
-    "messages": "http://localhost:5002/fj.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/fj.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
   },
   "fr": {
-    "messages": "http://localhost:5002/fr.json?v=d20c9a1c4cca4b88cbae9b16fc916ac574043c1a",
+    "messages": "https://react-components.gbif-staging.org/lib/translations/fr.json?v=78223dcb2be30c8e6ec80191bf612095be8c7c86",
     "localeMap": {
       "gbif_org": "fr"
     }
   },
   "ja": {
-    "messages": "http://localhost:5002/ja.json?v=deaa63659cfffa8b98cba0b7428db13245b3e796"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/ja.json?v=ea701459930313eac965ce46adb8414a4ececb13"
   },
   "la": {
-    "messages": "http://localhost:5002/la.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/la.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
   },
   "niu": {
-    "messages": "http://localhost:5002/niu.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/niu.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
   },
   "nl": {
-    "messages": "http://localhost:5002/nl.json?v=8db0d6bd5d88e8dc9e082b6ce731972720ac0832"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/nl.json?v=0a23b8bd7e77d0f1607b25b23498eacf679e6eaa"
   },
   "pis": {
-    "messages": "http://localhost:5002/pis.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/pis.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
   },
   "pt": {
-    "messages": "http://localhost:5002/pt.json?v=381f3c0a7d77eaf39fba89a7ffdf689f2f976e7b"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/pt.json?v=04f817589624041b56d4212418ecbd072a49423e"
   },
   "ru": {
-    "messages": "http://localhost:5002/ru.json?v=39cceb06cce16ae4696ee2ab921845f9a6cd2766"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/ru.json?v=1f0f8d650b84e45e55f8cee9a79b7eef0d5600d5"
   },
   "sm": {
-    "messages": "http://localhost:5002/sm.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/sm.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
   },
   "sw": {
-    "messages": "http://localhost:5002/sw.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/sw.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
   },
   "tkl": {
-    "messages": "http://localhost:5002/tkl.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/tkl.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
   },
   "to": {
-    "messages": "http://localhost:5002/to.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/to.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
   },
   "tvl": {
-    "messages": "http://localhost:5002/tvl.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/tvl.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
   },
   "uk": {
-    "messages": "http://localhost:5002/uk.json?v=86017fc1f4501071cb3e43112c7e32c39bdcd843"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/uk.json?v=fc79ffeaa47b84a2cddd2b704edb21bb17411b80"
   },
   "zh": {
-    "messages": "http://localhost:5002/zh.json?v=b935efadcdc028aa8b72d251ce6aa00e4abaa376"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/zh.json?v=2fef64fbd099ce03495cfc843a1173fffbd5d6ef"
   },
   "zh-tw": {
-    "messages": "http://localhost:5002/zh-tw.json?v=e288640c4e1abc5ca21082d5d61c1eae97f851c7"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/zh-tw.json?v=be6595a477fc097aac874f8f098bdb61d3532c79"
   }
 }

@@ -149,6 +149,22 @@ export const commonFilters = {
       }
     }
   },
+  anyPublisherKey: {
+    type: 'SUGGEST',
+    config: {
+      std: {
+        translations: {
+          count: 'filters.publisherKey.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.publisherKey.name',// translation path to a title for the popover and the button
+          description: 'filters.publisherKey.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        suggestHandle: 'publisherKey',
+        allowEmptyQueries: true
+      }
+    }
+  },
   institutionCode: {
     type: 'SUGGEST',
     config: {
