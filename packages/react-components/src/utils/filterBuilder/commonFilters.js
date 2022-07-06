@@ -153,6 +153,7 @@ export const commonFilters = {
     type: 'SUGGEST',
     config: {
       std: {
+        id2labelHandle: 'publisherKey',
         translations: {
           count: 'filters.publisherKey.count', // translation path to display names with counts. e.g. "3 scientific names"
           name: 'filters.publisherKey.name',// translation path to a title for the popover and the button
