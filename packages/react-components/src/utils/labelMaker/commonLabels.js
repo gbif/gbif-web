@@ -76,19 +76,15 @@ export const commonLabels = {
     }`,
     transform: result => ({title: result.data.eventsByDataset.documents.results[0].datasetTitle}),
   },
-  // datasetKey: {
-  //   type: 'GQL_EVENTS',
-  //   query: `query label($id: ID!){
-  //     eventsByDataset(datasetKey: $id) {
-  //       documents {
-  //         results {
-  //           datasetTitle
-  //         }
-  //       }
-  //     }
-  //   }`,
-  //   transform: result => result.data.documents.results[0].datasetTitle,
-  // },
+  datasetKey: {
+    type: 'GQL',
+    query: `query label($id: ID!){
+      dataset(key: $id) {
+        title
+      }
+    }`,
+    transform: result => result.data.dataset,
+  },
   year: {
     type: 'CUSTOM',
     component: rangeOrEqualLabel('intervals.compactTime')
