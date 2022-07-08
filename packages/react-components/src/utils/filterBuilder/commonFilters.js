@@ -129,7 +129,24 @@ export const commonFilters = {
         },
       },
       specific: {
-        // suggestHandle: 'datasetKey',
+        suggestHandle: 'datasetKeyFromOccurrenceIndex',
+        allowEmptyQueries: true
+      }
+    }
+  },
+  eventDatasetKey: {
+    type: 'SUGGEST',
+    config: {
+      std: {
+        filterHandle: 'datasetKey',
+        id2labelHandle: 'eventDatasetKey',
+        translations: {
+          count: 'filters.datasetKey.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.datasetKey.name',// translation path to a title for the popover and the button
+          description: 'filters.datasetKey.description', // translation path for the filter description
+        },
+      },
+      specific: {
         suggestHandle: 'datasetKeyFromEventIndex',
         allowEmptyQueries: true
       }
@@ -146,7 +163,25 @@ export const commonFilters = {
         },
       },
       specific: {
+        suggestHandle: 'publisherKeyFromOccurrenceIndex',
+        allowEmptyQueries: true
+      }
+    }
+  },
+  anyPublisherKey: {
+    type: 'SUGGEST',
+    config: {
+      std: {
+        id2labelHandle: 'publisherKey',
+        translations: {
+          count: 'filters.publisherKey.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.publisherKey.name',// translation path to a title for the popover and the button
+          description: 'filters.publisherKey.description', // translation path for the filter description
+        },
+      },
+      specific: {
         suggestHandle: 'publisherKey',
+        allowEmptyQueries: true
       }
     }
   },

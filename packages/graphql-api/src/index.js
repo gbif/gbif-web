@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const compression = require('compression');
+const glob = require('glob');
 const { ApolloServer } = require('apollo-server-express');
 const { ApolloServerPluginLandingPageGraphQLPlayground } = require('apollo-server-core');
 const AbortController = require('abort-controller');
@@ -61,14 +62,19 @@ async function initializeServer() {
   app.use(compression());
   app.use(cors({
     methods: 'GET,POST,OPTIONS',
-  }))
+  }));
+  app.use(express.static('public'))
   app.use(bodyParser.json());
 
   // extract query and variables from store if a hash is provided instead of a query or variable
-  app.use(hashMiddleware);
+  // app.use(hashMiddleware);
+  app.get('/graphql', hashMiddleware);
+  app.post('/graphql', hashMiddleware);
 
   // Add script tag to playground with linked query
-  app.use(injectQuery);
+  // app.use(injectQuery);
+  app.get('/graphql', injectQuery);
+  app.post('/graphql', injectQuery);
 
   // link to query and variables
   app.get('/getIds', function (req, res) {
@@ -79,6 +85,13 @@ async function initializeServer() {
   });
 
   app.get('/health', health);
+  
+  // add various supportive endpoints
+  // require('./api-utils/config')(app);
+  let controllers = glob.sync(__dirname + '/api-utils/**/*.ctrl.js');
+  controllers.forEach(function (controller) {
+    require(controller)(app);
+  });
 
   await server.start();
   server.applyMiddleware({ app });

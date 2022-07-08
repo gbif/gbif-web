@@ -2,7 +2,7 @@ export const filters = [
   'q',
   'eventSamplingProtocol',
   'country',
-  'datasetKey',
+  'eventDatasetKey',
   'measurementOrFactTypes',
   'year',
   'eventStateProvince',
@@ -12,7 +12,7 @@ export const filters = [
 ].sort();
 
 const highlighted = [
-  'datasetKey',
+  'eventDatasetKey',
   'eventType',
   'eventSamplingProtocol',
   'measurementOrFactTypes',

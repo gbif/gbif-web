@@ -2,6 +2,11 @@ import React, { Component } from "react";
 import mapboxgl from 'mapbox-gl';
 import { getLayerConfig } from './getLayerConfig';
 import env from '../../../../../.env.json';
+import klokantech from './openlayers/styles/klokantech.json';
+
+const mapStyles = {
+  klokantech
+};
 
 class Map extends Component {
   constructor(props) {
@@ -16,19 +21,31 @@ class Map extends Component {
 
   componentDidMount() {
     const mapStyle = this.props.theme.darkTheme ? 'dark-v9' : 'light-v9';
+    let zoom = sessionStorage.getItem('mapZoom') || this.props.defaultMapSettings?.zoom || 0;
+    zoom = Math.min(Math.max(0, zoom), 20);
+    zoom -= 1;
+
+    let lng = sessionStorage.getItem('mapLng') || this.props.defaultMapSettings?.lng || 0;
+    lng = Math.min(Math.max(-180, lng), 180);
+
+    let lat = sessionStorage.getItem('mapLat') || this.props.defaultMapSettings?.lat || 0;
+    lat = Math.min(Math.max(-85, lat), 85);
+
     mapboxgl.accessToken = env.MAPBOX_KEY;
     this.map = new mapboxgl.Map({
       container: this.myRef.current,
-      style: `mapbox://styles/mapbox/${mapStyle}`,
-      zoom: sessionStorage.getItem('mapZoom') || this.props.defaultMapSettings?.zoom || 0,
-      center: [sessionStorage.getItem('mapLng') || this.props.defaultMapSettings?.lng || 0, sessionStorage.getItem('mapLat') || this.props.defaultMapSettings?.lat || 0]
+      // style: `mapbox://styles/mapbox/${mapStyle}`,
+      // style: 'https://api.mapbox.com/styles/v1/mapbox/light-v9?access_token=pk.eyJ1IjoiZ2JpZiIsImEiOiJja3VmZm50Z3kxcm1vMnBtdnBmeGd5cm9hIn0.M2z2n9QP9fRHZUCw9vbgOA',
+      style: this.getStyle(),
+      zoom,
+      center: [lng, lat]
     });
-    this.map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-left');
+    // this.map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-left');
     this.map.on("load", this.addLayer);
   }
 
   componentWillUnmount() {
-    this.map.remove();
+    if (this.map) this.map.remove();
   }
 
   componentDidUpdate(prevProps) {
@@ -42,10 +59,28 @@ class Map extends Component {
         this.updateLayer();
       });
     }
+    if (prevProps.latestEvent !== this.props.latestEvent && this.mapLoaded) {
+      if (this.props.latestEvent?.type === 'ZOOM_IN') {
+        this.map.zoomIn();
+      } else if (this.props.latestEvent?.type === 'ZOOM_OUT') {
+        this.map.zoomOut();
+      }
+    }
+    if (prevProps.mapConfig !== this.props.mapConfig && this.mapLoaded) {
+      // seems we do not need to remove the sources when we load the style this way
+      this.map.setStyle(this.getStyle());
+      setTimeout(x => this.updateLayer(), 500);// apparently we risk adding the occurrence layer below the layers if we do not wait
+    }
+  }
+
+  getStyle() {
+    const basemapStyle = this.props.mapConfig?.basemapStyle || 'klokantech';
+    const layerStyle = mapStyles[basemapStyle];
+    return layerStyle || this.props.mapConfig?.basemapStyle;
   }
 
   updateLayer() {
-    var layer = this.map.getSource("occurrences");
+    const layer = this.map.getLayer('occurrences');
     if (layer) {
       this.map.removeLayer("occurrences");
       this.map.removeSource("occurrences");
@@ -53,6 +88,7 @@ class Map extends Component {
     } else {
       this.addLayer();
     }
+    // this.addLayer();
   }
 
   onPointClick(pointData) {
@@ -60,10 +96,16 @@ class Map extends Component {
   }
 
   addLayer() {
-    var tileString = `${env.API_V2}/map/occurrence/adhoc/{z}/{x}/{y}.mvt?style=scaled.circles&mode=GEO_CENTROID&srs=EPSG%3A3857&squareSize=256&predicateHash=${this.props.predicateHash}`;
+
+    // const source = this.map.getSource('occurrences');
+    // source.setTiles([`${env.API_V2}/map/occurrence/adhoc/{z}/{x}/{y}.mvt?style=scaled.circles&mode=GEO_CENTROID&srs=EPSG%3A3857&squareSize=256&predicateHash=${this.props.predicateHash}&${this.props.q ? `&q=${this.props.q} ` : ''}`])
+    
+
+    var tileString = `${env.API_V2}/map/occurrence/adhoc/{z}/{x}/{y}.mvt?style=scaled.circles&mode=GEO_CENTROID&srs=EPSG%3A3857&squareSize=256&predicateHash=${this.props.predicateHash}&${this.props.q ? `&q=${this.props.q} ` : ''}`;
+    
     this.map.addLayer(
       getLayerConfig({ tileString, theme: this.props.theme }),
-      "poi-scalerank2"
+      // "poi-scalerank2"
     );
 
     const map = this.map
@@ -71,13 +113,13 @@ class Map extends Component {
       // remember map position
       map.on('zoomend', function () {
         const center = map.getCenter();
-        sessionStorage.setItem('mapZoom', map.getZoom());
+        sessionStorage.setItem('mapZoom', map.getZoom() + 1);
         sessionStorage.setItem('mapLng', center.lng);
         sessionStorage.setItem('mapLat', center.lat);
       });
       map.on('moveend', function () {
         const center = map.getCenter();
-        sessionStorage.setItem('mapZoom', map.getZoom());
+        sessionStorage.setItem('mapZoom', map.getZoom() + 1);
         sessionStorage.setItem('mapLng', center.lng);
         sessionStorage.setItem('mapLat', center.lat);
       });
@@ -111,7 +153,7 @@ class Map extends Component {
 
   render() {
     const { query, onMapClick, onPointClick, predicateHash, style, className, ...props } = this.props;
-    return <div ref={this.myRef} {...{style, className}} />
+    return <div ref={this.myRef} {...{ style, className }} />
   }
 }
 

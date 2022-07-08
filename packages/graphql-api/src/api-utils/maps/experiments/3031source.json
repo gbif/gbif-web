@@ -1,0 +1,22 @@
+{
+    "id": "gbif_basemap_vector_tiles_epsg3031",
+    "center": [
+        2.217461904240059,
+        46.31074186226426,
+        12
+    ],
+    "extent": "4000.488399998866953,6026722.383699981495738,1275559.593000110238791,7131838.662798927165568",
+    "format": "pbf",
+    "version": "1.00",
+    "attribution": "<a href=\"https://www.gbif.org/\" target=\"_blank\">GBIF</a> <a href=\"https://www.openstreetmap.org/copyright\" target=\"_blank\">&copy; OpenStreetMap contributors</a>",
+    "pixel_scale": "256",
+    "tilejson": "2.0.0",
+    "name": "GBIF Antarctic Sterographic basemap",
+    "minzoom": 0,
+    "maxzoom": 14,
+    "crs": "EPSG:3031",
+    "crs_proj4js": "+proj=stere +lat_0=-90 +lat_ts=-71 +lon_0=0 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs",
+    "tiles": [
+        "https://tile.gbif.org/3031/omt/{z}/{x}/{y}.pbf?srs=EPSG%3A3031"
+    ]
+}

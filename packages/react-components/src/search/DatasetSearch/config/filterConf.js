@@ -3,7 +3,7 @@ export const filters = [
   'datasetType',
   'license',
   // 'keyword',
-  'publisherKey',
+  'anyPublisherKey',
   'hostingOrganizationKey',
   // 'decade',
   'publishingCountryCode',
@@ -15,7 +15,7 @@ const included = [
   'q',
   'datasetType',
   'license',
-  'publisherKey',
+  'anyPublisherKey',
   'hostingOrganizationKey',
   'publishingCountryCode',
   'hostingCountry',
@@ -23,7 +23,7 @@ const included = [
 const highlighted = [
   'q',
   'datasetType',
-  'publisherKey',
+  'anyPublisherKey',
   'license',
 ];
 

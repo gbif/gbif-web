@@ -516,7 +516,7 @@ const config =
       "field": "samplingProtocol.keyword",
       "suggestField": "samplingProtocol.suggest"
     },
-    "scoordinates": {
+    "geometry": {
       "type": "geo_shape",
       "field": "scoordinates",
       "get": {

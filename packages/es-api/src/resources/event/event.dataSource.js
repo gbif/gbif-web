@@ -1,5 +1,5 @@
 const { Client } = require('@elastic/elasticsearch');
-const Agent = require('agentkeepalive');
+const Agent = require('agentkeepalive').HttpsAgent;
 const { ResponseError } = require('../errorHandler');
 const { search } = require('../esRequest');
 const env = require('../../config');
@@ -40,10 +40,7 @@ async function query({ query, aggs, size = 20, from = 0, randomSeed, randomize, 
     sort: [
       '_score', // if there is any score (but will this be slow even when there is no free text query?)
       '_doc', // I'm not sure, but i hope this will ensure sorting and be the fastest way to do so https://www.elastic.co/guide/en/elasticsearch/reference/current/sort-search-results.html
-      // { year: { 'order': 'desc' } },
-      // { month: { 'order': 'desc' } },
-      // { day: { 'order': 'desc' } },
-      // { 'gbifId': 'asc' }
+      // We probably need some sorting to ensure that pagination works predictably.
     ],
     track_total_hits: true,
     size,

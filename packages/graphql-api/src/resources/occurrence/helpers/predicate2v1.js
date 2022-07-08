@@ -2,7 +2,7 @@ const _ = require('lodash');
 const hash = require('object-hash');
 
 const emptyAndHash = hash({ "type": "and", "predicates": [] });
-module.exports = function (predicate) {
+module.exports = function (predicate, {shouldRemoveFullTextPredicates = false} = {}) {
   if (!predicate) {
     return {}
   }
@@ -21,10 +21,15 @@ module.exports = function (predicate) {
     const withNotNull = convertIsNotNull(notIssues);
     const removedEmpty = removeEmpty(withNotNull);
     const nestingSimplified = removeExcessiveNesting(removedEmpty);
-    const withCase = uppercaseKeys(nestingSimplified);
+    const geometryPredicate = convertGeometryFilter(nestingSimplified);
+    const withCase = uppercaseKeys(geometryPredicate);
 
+    let cleanedVersion = withCase;
+    if (shouldRemoveFullTextPredicates) {
+      cleanedVersion = removeFullTextSearchPredicates(cleanedVersion)
+    }
     //check for simple known errors
-    if (hasFuzzyTypes(withCase)) return {
+    if (hasFuzzyTypes(cleanedVersion)) return {
       err: {
         type: 'FUZZY_NOT_ALLOWED',
         message: 'Free text filters are not allowed in downloads'
@@ -33,7 +38,7 @@ module.exports = function (predicate) {
 
     return {
       err: null,
-      predicate: withCase
+      predicate: cleanedVersion
     }
   } catch (err) {
     console.log(err);
@@ -138,6 +143,20 @@ function convertNotIssues(obj) {
   return obj;
 }
 
+function convertGeometryFilter(obj) {
+  if (obj.predicate) {
+    convertGeometryFilter(obj.predicate);
+  } else if (obj.predicates && Array.isArray(obj.predicates)) {
+    obj.predicates = obj.predicates.map(convertGeometryFilter);
+  } else if (obj.key === 'geometry') {
+    return {
+      type: 'within',
+      geometry: obj.value
+    }
+  }
+  return obj;
+}
+
 function convertIsNotNull(obj) {
   if (obj.predicate) {
     obj.predicate = convertIsNotNull(obj.predicate);
@@ -177,11 +196,33 @@ function isEmpty(predicate = {}) {
 }
 
 function hasFuzzyTypes(obj) {
+  if (!obj) return false;
   if (obj.predicate) {
     return hasFuzzyTypes(obj.predicate);
   } else if (obj.predicates && Array.isArray(obj.predicates)) {
     return obj.predicates.find(hasFuzzyTypes);
   } else if (obj.type === 'fuzzy') {
+    return true;
+  }
+  return false;
+}
+
+function removeFullTextSearchPredicates(obj) {
+  if (obj.predicate) {
+    if (isFullTextSearchPredicate(obj.predicate)) {
+      delete obj.predicate;
+    }
+  } else if (obj.predicates && Array.isArray(obj.predicates)) {
+    obj.predicates = obj.predicates.filter(p => !isFullTextSearchPredicate(p));
+  } else if (isFullTextSearchPredicate(obj)) {
+    return undefined;
+  }
+  return obj;
+}
+
+function isFullTextSearchPredicate(obj) {
+  // if (obj.type === 'fuzzy' && obj.key === 'Q') {
+  if (obj.type === 'fuzzy') {
     return true;
   }
   return false;
