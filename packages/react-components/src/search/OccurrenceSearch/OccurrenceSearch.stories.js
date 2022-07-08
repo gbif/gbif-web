@@ -134,4 +134,4 @@ Example.story = {
 };
 
 
-export const StandaloneExample = () => <Standalone siteConfig={{apiKeys: env._FOR_DEVELOPMENT_ONLY.apiKeys}} routerContext={{basename: 'la'}} locale="en" style={{height: 'calc(100vh - 20px)'}}></Standalone>;
+export const StandaloneExample = () => <Standalone siteConfig={{apiKeys: env._FOR_STORYBOOK_ONLY?.apiKeys}} routerContext={{basename: 'la'}} locale="en" style={{height: 'calc(100vh - 20px)'}}></Standalone>;

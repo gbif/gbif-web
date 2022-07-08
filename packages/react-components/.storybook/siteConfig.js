@@ -109,9 +109,9 @@ export const siteConfig = {
   collection: {},
   publisher: {},
   apiKeys: {
-    mapbox: env._FOR_DEVELOPMENT_ONLY.apiKeys.mapbox,
+    mapbox: env._FOR_STORYBOOK_BUT_PUBLIC?.apiKeys?.mapbox,
     bing: 'need to make a call to register',
-    maptiler: env._FOR_DEVELOPMENT_ONLY.apiKeys.maptiler
+    maptiler: env._FOR_STORYBOOK_BUT_PUBLIC?.apiKeys?.maptiler
   },
   maps: {
     // locale: 'ja',
