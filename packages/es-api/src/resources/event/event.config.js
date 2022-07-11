@@ -507,23 +507,23 @@ const config =
         options: {
           basisOfRecord: {
             type: 'keyword',
-            field: 'core.basisOfRecord'
+            field: 'basisOfRecord'
           },
           class: {
             type: 'keyword',
-            field: 'core.class'
+            field: 'gbifClassification.class'
           },
           eventID: {
             type: 'keyword',
-            field: 'core.eventID'
+            field: 'eventID'
           },
           family: {
             type: 'keyword',
-            field: 'core.family'
+            field: 'gbifClassification.family'
           },
           genus: {
             type: 'keyword',
-            field: 'core.genus'
+            field: 'gbifClassification.genus'
           },
           identificationReferences: {
             type: 'keyword',
@@ -535,7 +535,7 @@ const config =
           },
           kingdom: {
             type: 'keyword',
-            field: 'core.kingdom'
+            field: 'gbifClassification.kingdom'
           },
           occurrenceID: {
             type: 'keyword',
@@ -543,7 +543,7 @@ const config =
           },
           order: {
             type: 'keyword',
-            field: 'core.order'
+            field: 'gbifClassification.order'
           },
           organismQuantity: {
             type: 'keyword',
@@ -555,15 +555,15 @@ const config =
           },
           phylum: {
             type: 'keyword',
-            field: 'core.phylum'
+            field: 'gbifClassification.phylum'
           },
           scientificName: {
             type: 'keyword',
-            field: 'core.scientificName'
+            field: 'gbifClassification.acceptedUsage.name'
           },
           taxonRank: {
             type: 'keyword',
-            field: 'core.taxonRank'
+            field: 'gbifClassification.acceptedUsage.rank'
           }
         }
       }
