@@ -604,8 +604,7 @@ export const commonFilters = {
     }
   },
   recordedBy: {
-    // type: 'KEYWORD_SEARCH',//KEYWORD_SEARCH | SUGGEST
-    type: 'SUGGEST',
+    type: 'KEYWORD_SEARCH',//KEYWORD_SEARCH | SUGGEST
     config: {
       std: {
         filterHandle: 'recordedBy',// if nothing else provided, then this is the filterName used
@@ -624,7 +623,7 @@ export const commonFilters = {
         supportsExist: true,
         query: `
           query keywordSearch($predicate: Predicate, $size: Int, $include: String){
-            occurrenceSearch(predicate: $predicate) {
+            suggestions: occurrenceSearch(predicate: $predicate) {
               facet {
                 recordedBy(size: $size, include: $include) {
                   key
@@ -762,7 +761,7 @@ export const commonFilters = {
         placeholder: 'Search by locality',
         query: `
           query keywordSearch($predicate: Predicate, $size: Int){
-            occurrenceSearch(predicate: $predicate) {
+            suggestions: occurrenceSearch(predicate: $predicate) {
               cardinality {
                 locality
               }
@@ -795,7 +794,7 @@ export const commonFilters = {
         placeholder: 'Search by water body',
         query: `
           query keywordSearch($predicate: Predicate, $size: Int){
-            occurrenceSearch(predicate: $predicate) {
+            suggestions: occurrenceSearch(predicate: $predicate) {
               cardinality {
                 waterBody
               }
@@ -909,10 +908,10 @@ export const commonFilters = {
       specific: {
         placeholder: 'Search by sampling protocol',
         query: `
-          query keywordSearch($predicate: Predicate, $size: Int, $include: String){
-            occurrenceSearch(predicate: $predicate) {
-              suggestions: facet {
-                samplingProtocol(size: $size, include: $include) {
+          query keywordSearch($predicate: Predicate, $size: Int){
+            suggestions: occurrenceSearch(predicate: $predicate) {
+              facet {
+                samplingProtocol(size: $size) {
                   key
                   count
                 }
@@ -939,10 +938,10 @@ export const commonFilters = {
       specific: {
         placeholder: 'Search by sampling protocol',
         query: `
-          query keywordSearch($predicate: Predicate, $size: Int){
+          query keywordSearch($predicate: Predicate, $size: Int, $include: String){
             suggestions: eventSearch(predicate: $predicate) {
               facet {
-                samplingProtocol(size: $size) {
+                samplingProtocol(size: $size, include: $include) {
                   key
                   count
                 }
