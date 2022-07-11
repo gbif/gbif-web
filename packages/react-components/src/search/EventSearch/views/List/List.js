@@ -40,26 +40,32 @@ query list($datasetKey: JSON){
       results {
         datasetTitle
         datasetKey
+        occurrenceCount
       }
     }
     facet {
+      measurementOrFactTypes {
+        key
+        count
+      }  
+      samplingProtocol {
+        key
+        count
+      }      
+    }   
+    occurrenceFacet {
+      class {
+        key
+        count
+      }    
       samplingProtocol {
         key
         count
       }
-      measurementOrFactTypes {
-        key
-        count
-      }
-      families {
+      stateProvince {
         key
         count
       }      
-    }
-    stats {
-      occurrenceCount {
-        sum
-      }
     }
   }
 }
@@ -73,7 +79,7 @@ function DatasetSkeleton() {
      <Skeleton width="random" />
   </div>
 }
-function Dataset({ datasetKey, datasetTitle, count, events, filters,...props }) {
+function Dataset({ datasetKey, datasetTitle, count,   occurrenceCount, events, filters,...props }) {
   const { data, error, loading, load } = useQuery(DATASET_QUERY, { lazyLoad: true, graph: 'EVENT' });
   const currentFilterContext = useContext(FilterContext);
 
@@ -87,7 +93,7 @@ function Dataset({ datasetKey, datasetTitle, count, events, filters,...props }) 
     currentFilterContext.setField('datasetKey', [datasetKey], true)
   }
 
-  const {documents, facet, stats} = data.eventSearch;
+  const {documents, occurrenceFacet, facet, stats} = data.eventSearch;
 
   return <article>
     <div css={style.summary}>
@@ -95,16 +101,27 @@ function Dataset({ datasetKey, datasetTitle, count, events, filters,...props }) 
       <h2>{datasetTitle}</h2>
       <div css={style.details}>
         <div>Total events: <span>{documents.total}</span></div>
-        <div>Total occurrences: <span>{stats.occurrenceCount.sum}</span></div>
-        <div>Taxonomic scope: <span>{facet.families.map(x => x.key).join(' • ')}</span></div>
-        <div>Protocols: <span>{facet.samplingProtocol.map(x => x.key).join(' • ')}</span></div>
+        <div>Total occurrences: <span>{occurrenceCount}</span></div>
+        <div>Taxonomic scope: <span>{occurrenceFacet.class.map(x => x.key).join(' • ')}</span></div>
+        <div>Protocols:&nbsp;
+          <span>{facet.samplingProtocol.map(x => x.key).join(' • ')}</span>
+          <span>{occurrenceFacet.samplingProtocol.map(x => x.key).join(' • ')}</span>
+        </div>
         <div style={{float: 'right' }}>
           <Button
               onClick={() => filterByThisDataset() }
               look="primaryOutline"
               css={css`margin-left: 30px; font-size: 11px;`}>Add to filter</Button>
         </div>
-        <div>Measurement types: <span>{facet.measurementOrFactTypes.map(x => x.key).join(' • ')}</span></div>
+        {
+          (() => {
+          if (facet.measurementOrFactTypes) {
+            return (
+                <div>Measurement types: <span>{facet.measurementOrFactTypes.map(x => x.key).join(' • ')}</span></div>
+            )
+          }
+        })()
+        }
       </div>
     </div>
     <div css={style.events}>

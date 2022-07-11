@@ -72,6 +72,7 @@ query event($eventID: String, $datasetKey: String){
     occurrenceCount
     measurementOrFactTypes
     measurementOrFactCount
+    sampleSizeUnit
     sampleSizeValue
     samplingProtocol
     eventTypeHierarchyJoined

@@ -16,6 +16,13 @@ export function Summaries({ data, showAll }) {
     }
   })
 
+  Object.entries(data.results.occurrenceFacet).forEach(item => {
+    termMap[item[0]] = {
+      "simpleName": item[0],
+      "value": item[1]
+    }
+  })
+
   return <>
     <Group label="eventDetails.groups.dataStructure">
       <Tree data={termMap.eventTypeHierarchyJoined?.value}/>
@@ -27,23 +34,23 @@ export function Summaries({ data, showAll }) {
 
 function TaxonomicCoverage({ showAll, termMap }) {
   const hasContent = [
-    'kingdoms',
-    'phyla',
-    'orders',
-    'classes',
-    'families',
-    'genera'
+    'kingdom',
+    'phylum',
+    'order',
+    'class',
+    'family',
+    'genus'
   ].find(x => termMap[x]);
   if (!hasContent) return null;
 
   return <Group label="eventDetails.groups.taxonomicCoverage">
     <Properties css={css.properties} breakpoint={800}>
-      <FacetListInline term={termMap.kingdoms} showDetails={showAll}/>
-      <FacetListInline term={termMap.phyla} showDetails={showAll}/>
-      <FacetListInline term={termMap.orders} showDetails={showAll}/>
-      <FacetListInline term={termMap.classes} showDetails={showAll}/>
-      <FacetListInline term={termMap.families} showDetails={showAll}/>
-      <FacetListInline term={termMap.genera} showDetails={showAll}/>
+      <FacetListInline term={termMap.kingdom} showDetails={showAll}/>
+      <FacetListInline term={termMap.phylum} showDetails={showAll}/>
+      <FacetListInline term={termMap.order} showDetails={showAll}/>
+      <FacetListInline term={termMap.class} showDetails={showAll}/>
+      <FacetListInline term={termMap.family} showDetails={showAll}/>
+      <FacetListInline term={termMap.genus} showDetails={showAll}/>
     </Properties>
   </Group>
 }

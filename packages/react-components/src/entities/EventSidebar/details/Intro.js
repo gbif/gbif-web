@@ -4,8 +4,9 @@ import { FormattedMessage } from 'react-intl';
 import * as css from '../styles';
 import { Row, Col, Switch } from "../../../components";
 import { Header } from './Header';
-import { Groups} from './Groups';
+import {Group, Groups} from './Groups';
 import {Summary} from "./Summary";
+import Map from "../../SiteSidebar/details/Map/Map";
 
 export function Intro({
   data = {},
@@ -28,6 +29,9 @@ export function Intro({
           showAll={showAll}
           setActiveEventID={setActiveEventID}
       />
+      <Group label={"Map of site location"}>
+        <Map latitude={event.decimalLatitude} longitude={event.decimalLongitude} />
+      </Group>
       <Summary
           eventID={event.eventID}
           datasetKey={event.datasetKey}

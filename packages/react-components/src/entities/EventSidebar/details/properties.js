@@ -22,14 +22,14 @@ export function HtmlField(props) {
 export function FacetListInline(props) {
   if (!props.term) return null;
   const { value } = props.term;
-  if (value.length > 1) {
+  if (value && value.length > 1) {
     const listItems = value.map(facet =>
         facet.key + " ("+ facet.count +") "
     );
     return <Field {...props}>
       {listItems.join(' ● ')}
     </Field>;
-  } else if (value.length == 1) {
+  } else if (value && value.length == 1) {
     return <Field {...props}>
       {value[0].key} ({value[0].count})
     </Field>;

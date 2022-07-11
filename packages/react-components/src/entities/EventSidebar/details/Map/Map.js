@@ -1,53 +1,49 @@
-import { jsx } from '@emotion/react';
+import React, {useContext, useEffect, useRef, useState} from "react";
+import mapboxgl from 'mapbox-gl';
+import env from '../../../../../.env.json';
+import * as css from './map.styles';
 import ThemeContext from "../../../../style/themes/ThemeContext";
-import { FormattedMessage } from "react-intl";
-import React, { useContext } from "react";
-import PropTypes from "prop-types";
-import { Properties } from "../../../../components";
-const { Term: T, Value: V } = Properties;
 
-export function MapPresentation({ as: Div = "div", location, ...props }) {
+mapboxgl.accessToken = env.MAPBOX_KEY;
+
+export default function Map({latitude, longitude}) {
+
   const theme = useContext(ThemeContext);
-  const locationMap = location.reduce((acc, cur) => {
-    acc[cur.label] = cur;
-    return acc;
-  }, {});
+  const mapContainer = useRef(null);
+  const map = useRef(null);
+  const [lng, setLng] = useState(longitude);
+  const [lat, setLat] = useState(latitude);
+  const [zoom, setZoom] = useState(9);
+
+  useEffect(() => {
+    if (map.current) return; // initialize map only once
+    map.current = new mapboxgl.Map({
+      container: mapContainer.current,
+      style: 'mapbox://styles/mapbox/dark-v9',
+      center: [lng, lat],
+      zoom: zoom
+    });
+
+    new mapboxgl.Marker()
+        .setLngLat([longitude, latitude])
+        .addTo(map.current);
+  });
+
+  useEffect(() => {
+    if (!map.current) return; // wait for map to initialize
+    map.current.on('move', () => {
+      setLng(map.current.getCenter().lng.toFixed(4));
+      setLat(map.current.getCenter().lat.toFixed(4));
+      setZoom(map.current.getZoom().toFixed(2));
+    });
+  });
 
   return (
-    <>
-      <div style={{ maxWidth: "100%", position: "relative" }}>
-        <img
-          style={{ display: "block", maxWidth: "100%" }}
-          src={`https://api.mapbox.com/styles/v1/mapbox/light-v9/static/pin-s-circle+285A98(${locationMap.decimalLongitude.value},${locationMap.decimalLatitude.value})/${locationMap.decimalLongitude.value},${locationMap.decimalLatitude.value},13,0/600x300@2x?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA`}
-        />
-        <img
-          style={{
-            border: "1px solid #aaa",
-            width: "30%",
-            position: "absolute",
-            bottom: 0,
-            right: 0,
-          }}
-          src={`https://api.mapbox.com/styles/v1/mapbox/light-v9/static/pin-s-circle+dedede(${locationMap.decimalLongitude.value},${locationMap.decimalLatitude.value})/${locationMap.decimalLongitude.value},${locationMap.decimalLatitude.value},4,0/200x100@2x?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA`}
-        />
+      <div css={css.map({ theme })}>
+        <div className="sidebar">
+          Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
+        </div>
+        <div ref={mapContainer} className="map-container"  />
       </div>
-      <Properties>
-        <T>
-          <FormattedMessage
-            id={`occurrenceFieldNames.latLon`}
-            defaultMessage={"Lat/Lon"}
-          />
-        </T>
-        <V>
-          {`${locationMap.decimalLatitude.value}/${locationMap.decimalLongitude.value}`}{" "}
-          {locationMap.coordinateUncertaintyInMeters &&
-            ` ± ${locationMap.coordinateUncertaintyInMeters.value}m`}
-        </V>
-      </Properties>
-    </>
   );
 }
-
-MapPresentation.propTypes = {
-  as: PropTypes.element,
-};

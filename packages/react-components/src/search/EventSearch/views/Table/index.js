@@ -22,6 +22,7 @@ query list($predicate: Predicate, $offset: Int, $limit: Int){
         }
         parentEventID
         locationID
+        month
         year
         datasetTitle
         datasetKey
@@ -29,6 +30,7 @@ query list($predicate: Predicate, $offset: Int, $limit: Int){
         stateProvince
         countryCode
         measurementOrFactTypes
+        occurrenceCount
       }
     }
   }
@@ -79,6 +81,14 @@ const defaultTableConfig = {
       width: 'wide'
     },
     {
+      trKey: 'filters.month.name',
+      filterKey: 'month',
+      value: {
+        key: 'month',
+        hideFalsy: true
+      }
+    },
+    {
       trKey: 'filters.year.name',
       filterKey: 'year',
       value: {
@@ -125,6 +135,17 @@ const defaultTableConfig = {
         key: 'measurementOrFactTypes',
         formatter: (value, item) => <>{value.join(', ')}</>
       }
+    },
+    {
+      name: 'occurrenceCount',
+      trKey: 'tableHeaders.occurrences',
+      value: {
+        key: 'occurrenceCount',
+        formatter: (value, item) => <FormattedNumber value={value} />,
+        hideFalsy: true,
+        rightAlign: true
+      },
+      noWrap: true
     }
   ]
 };
