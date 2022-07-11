@@ -17,7 +17,7 @@ function removeUndefined(obj) {
  * https://github.com/gbif/gbif-web/issues/109
  */
 function vocabularFallback(obj) {
-  if (typeof obj === 'object' && obj.concept) {
+    if (typeof obj === 'object' && obj != null && obj.concept) {
     return obj.concept;
   } else {
     return obj;
@@ -29,7 +29,8 @@ function vocabularFallback(obj) {
 function reduce(item) {
   // take dwc items from verbatim
   // overwrite with selected interpreted fields
-  const source = item._source;
+  // const source = item._source;
+  const source = item._source.occurrence != null ? item._source.occurrence : item._source;
   // return _.pick(item._source, whitelist);
   const verbatim = removeUndefined({
     abstract:                           source.verbatim.core['http://purl.org/dc/terms/abstract'],
@@ -323,9 +324,9 @@ function reduce(item) {
     specificEpithet:                    source.gbifClassification?.usageParsedName?.specificEpithet,
     subgenus:                           source.gbifClassification.subgenus,
     subgenusKey:                        source.gbifClassification.subgenusKey,
-    taxonKey:                           source.gbifClassification.usage.key,
+    taxonKey:                           source.gbifClassification.usage?.key,
     taxonomicStatus:                    source.gbifClassification?.diagnostics?.status,
-    taxonRank:                          source.gbifClassification.usage.rank,
+    taxonRank:                          source.gbifClassification.usage?.rank,
     // typifiedName:                       source.typifiedName,
     verbatimScientificName:             source.gbifClassification.verbatimScientificName,
     media:                              source.multimediaItems || [],
