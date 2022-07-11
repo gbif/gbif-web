@@ -9,7 +9,11 @@ const { queryReducer } = require('../../responseAdapter');
 
 const searchIndex = env.occurrence.index || 'occurrence';
 
-const agent = () => new Agent({
+// this isn't an ideal solution, but we keep changing between using an http and https agent. vonfig should require code change as well
+const isHttpsEndpoint = env.event.hosts[0].startsWith('https');
+const AgentType = isHttpsEndpoint ? Agent.HttpsAgent : Agent;
+
+const agent = () => new AgentType({
   maxSockets: 1000, // Default = Infinity
   keepAlive: true
 });
@@ -18,13 +22,25 @@ const client = new Client({
   nodes: env.occurrence.hosts,
   maxRetries: env.occurrence.maxRetries || 3,
   requestTimeout: env.occurrence.requestTimeout || 60000,
-  agent
+  agent,
+  auth: {
+    username: env.event.username,
+    password: env.event.password
+  }
 });
 
 async function query({ query, aggs, size = 20, from = 0, req }) {
   if (parseInt(from) + parseInt(size) > env.occurrence.maxResultWindow) {
     throw new ResponseError(400, 'BAD_REQUEST', `'from' + 'size' must be ${env.occurrence.maxResultWindow} or less`);
   }
+  let filter = [
+    {
+      'term': {
+        'type': 'occurrence'
+      }
+    }
+  ];
+  if (query) filter.push(query);
   const esQuery = {
     sort: [
       '_score', // if there is any score (but will this be slow even when there is no free text query?)
@@ -37,7 +53,11 @@ async function query({ query, aggs, size = 20, from = 0, req }) {
     track_total_hits: true,
     size,
     from,
-    query,
+    query: {
+      bool: {
+        filter
+      }
+    },
     aggs
   }
 
