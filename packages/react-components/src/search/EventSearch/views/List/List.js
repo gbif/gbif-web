@@ -46,26 +46,21 @@ query list($datasetKey: JSON){
     facet {
       measurementOrFactTypes {
         key
-        count
       }  
       samplingProtocol {
         key
-        count
-      }      
+      }    
+      eventTypeHierarchy {
+        key
+      }          
     }   
     occurrenceFacet {
       class {
         key
-        count
       }    
       samplingProtocol {
         key
-        count
       }
-      stateProvince {
-        key
-        count
-      }      
     }
   }
 }
@@ -103,6 +98,9 @@ function Dataset({ datasetKey, datasetTitle, count,   occurrenceCount, events, f
         <div>Total events: <span>{documents.total}</span></div>
         <div>Total occurrences: <span>{occurrenceCount}</span></div>
         <div>Taxonomic scope: <span>{occurrenceFacet.class.map(x => x.key).join(' • ')}</span></div>
+        <div>Structure:&nbsp;
+          <span>{facet.eventTypeHierarchy.map(x => x.key).join(' • ')}</span>
+        </div>
         <div>Protocols:&nbsp;
           <span>{facet.samplingProtocol.map(x => x.key).join(' • ')}</span>
           <span>{occurrenceFacet.samplingProtocol.map(x => x.key).join(' • ')}</span>

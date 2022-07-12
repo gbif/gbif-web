@@ -77,6 +77,8 @@ query event($eventID: String, $datasetKey: String){
     samplingProtocol
     eventTypeHierarchyJoined
     eventHierarchyJoined
+    eventTypeHierarchy
+    eventHierarchy
     decimalLatitude
     decimalLongitude
     locality

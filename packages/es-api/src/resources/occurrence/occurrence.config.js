@@ -229,6 +229,26 @@ const config =
       "field": "occurrence.eventId.keyword",
       "suggestField": "eventId.suggest"
     },
+    eventHierarchy: {
+      type: 'keyword',
+      field: 'event.eventHierarchy.keyword',
+      suggestField: 'eventHierarchy.suggest'
+    },
+    eventHierarchyJoined: {
+      type: 'keyword',
+      field: 'event.eventHierarchyJoined.keyword',
+      suggestField: 'eventHierarchyJoined.suggest'
+    },
+    eventTypeHierarchy: {
+      type: 'keyword',
+      field: 'event.eventTypeHierarchy.keyword',
+      suggestField: 'eventTypeHierarchy.suggest'
+    },
+    eventTypeHierarchyJoined: {
+      type: 'keyword',
+      field: 'event.eventTypeHierarchyJoined.keyword',
+      suggestField: 'eventTypeHierarchyJoined.suggest'
+    },
     "gadmGid": {
       "type": "keyword",
       "field": "occurrence.gadm.gids"

@@ -17,11 +17,13 @@ export function Summary({
     if (typeof eventID !== 'undefined') {
       const predicate = {
         type: 'and',
-        predicates: [{
-          key:  "eventHierarchy",
-          type: "equals",
-          value: eventID
-        },{
+        predicates: [
+          {
+            key: "eventHierarchy",
+            type: "equals",
+            value: eventID
+          }
+         ,{
           key:  "datasetKey",
           type: "equals",
           value: datasetKey
@@ -70,12 +72,16 @@ query list($predicate: Predicate, $offset: Int, $limit: Int){
         count
         key
       }
-    }    
+    }       
     occurrenceFacet {
       family {
         count
         key
       }
+      samplingProtocol {
+        count
+        key
+      }  
     }
   }
 }

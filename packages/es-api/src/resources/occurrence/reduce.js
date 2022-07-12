@@ -276,6 +276,8 @@ function reduce(item) {
     datasetID:                          source.datasetID,
     datasetName:                        source.datasetName,
     otherCatalogNumbers:                source.otherCatalogNumbers,
+    eventHierarchy:                     source.eventHierarchy,
+    eventTypeHierarchy:                 source.eventTypeHierarchy
   };
 
   const gbifSpecific = {
