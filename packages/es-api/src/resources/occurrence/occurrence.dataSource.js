@@ -10,7 +10,7 @@ const { queryReducer } = require('../../responseAdapter');
 const searchIndex = env.occurrence.index || 'occurrence';
 
 // this isn't an ideal solution, but we keep changing between using an http and https agent. vonfig should require code change as well
-const isHttpsEndpoint = env.event.hosts[0].startsWith('https');
+const isHttpsEndpoint = env.occurrence.hosts[0].startsWith('https');
 const AgentType = isHttpsEndpoint ? Agent.HttpsAgent : Agent;
 
 const agent = () => new AgentType({
@@ -22,11 +22,7 @@ const client = new Client({
   nodes: env.occurrence.hosts,
   maxRetries: env.occurrence.maxRetries || 3,
   requestTimeout: env.occurrence.requestTimeout || 60000,
-  agent,
-  auth: {
-    username: env.event.username,
-    password: env.event.password
-  }
+  agent
 });
 
 async function query({ query, aggs, size = 20, from = 0, req }) {
