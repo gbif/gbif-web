@@ -19,7 +19,6 @@ async function search({ client, index, query, req }) {
     return response;
   } catch (err) {
     console.log(err);
-    debugger;
     if (err.meta && err.meta.statusCode) {
       // TODO log error
       throw new ResponseError(err.meta.statusCode || 503, err.displayName || err.name || 'backendFailure', err.message || 'Backend failure');

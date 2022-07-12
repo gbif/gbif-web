@@ -7,7 +7,7 @@ function queryReducer({body, size, from, metrics = {}}) {
     let metric = metrics[metricKey];
     if (metric.type !== 'facet') return;
     if (!metric.from || metric.from < 1) return;
-    let buckets = body.aggregations[metricKey];
+    let buckets = body.aggregations[metricKey].buckets;
     if (Array.isArray(buckets)) {
       body.aggregations[metricKey].buckets = body.aggregations[metricKey].buckets.slice(metric.from);
     }
