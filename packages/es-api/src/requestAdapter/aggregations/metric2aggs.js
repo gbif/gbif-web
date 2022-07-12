@@ -8,13 +8,17 @@ function metric2aggs(metrics = {}, config) {
     const conf = _.get(config, `options[${metric.key}]`);
     if (!conf) continue;
     else {
+      let from = parseInt(metric.from || 0);
+      let size = parseInt(metric.size || 10) || 10;
+      console.log(size);
+      console.log(from);
       switch (metric.type) {
         case 'facet': {
           if (!['keyword', 'numeric', 'boolean'].includes(conf.type)) throw new ResponseError(400, 'badRequest', 'Facets are only supported on keywords, boolean and numeric fields');
           aggs[name] = {
             terms: {
               field: conf.field,
-              size: metric.size,
+              size: size + from,
               include: metric.include
             }
           };

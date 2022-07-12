@@ -93,7 +93,7 @@ function searchResource(resource) {
       const { metrics, predicate, size, from, includeMeta } = parseQuery(req, res, next, { get2predicate, get2metric });
       const aggs = metric2aggs(metrics);
       const query = predicate2query(predicate);
-      const { result, esBody } = await dataSource.query({ query, aggs, size, from, req });
+      const { result, esBody } = await dataSource.query({ query, aggs, size, from, metrics, req });
       const meta = {
         GET: req.query,
         predicate,
