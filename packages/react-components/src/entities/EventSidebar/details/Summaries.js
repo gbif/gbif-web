@@ -24,7 +24,11 @@ export function Summaries({ data, showAll }) {
   })
 
   let hasEventType = false;
-  if (data.results.documents.results && data.results.documents.results[0].eventType){
+  if (data.results.documents.results
+      && data.results.documents.results.length > 0
+      && data.results.documents.results[0].eventType
+      && data.results.documents.results[0].eventType.concept)
+  {
     hasEventType = true;
   }
 
