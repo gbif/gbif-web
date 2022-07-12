@@ -28,7 +28,7 @@ const client = new Client({
   }
 });
 
-async function query({ query, aggs, size = 20, from = 0, randomSeed, randomize, req }) {
+async function query({ query, aggs, size = 20, from = 0, metrics, randomSeed, randomize, req }) {
   if (parseInt(from) + parseInt(size) > env.event.maxResultWindow) {
     throw new ResponseError(400, 'BAD_REQUEST', `'from' + 'size' must be ${env.event.maxResultWindow} or less`);
   }
@@ -80,7 +80,7 @@ async function query({ query, aggs, size = 20, from = 0, randomSeed, randomize, 
   body.hits.hits = body.hits.hits.map(n => reduce(n));
   return {
     esBody: esQuery,
-    result: queryReducer({ body, size, from })
+    result: queryReducer({ body, size, from, metrics })
   };
 }
 

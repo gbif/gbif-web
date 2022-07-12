@@ -25,7 +25,7 @@ const client = new Client({
   agent
 });
 
-async function query({ query, aggs, size = 20, from = 0, req }) {
+async function query({ query, aggs, size = 20, from = 0, metrics, req }) {
   if (parseInt(from) + parseInt(size) > env.occurrence.maxResultWindow) {
     throw new ResponseError(400, 'BAD_REQUEST', `'from' + 'size' must be ${env.occurrence.maxResultWindow} or less`);
   }
@@ -60,9 +60,10 @@ async function query({ query, aggs, size = 20, from = 0, req }) {
   let response = await search({ client, index: searchIndex, query: esQuery, req });
   let body = response.body;
   body.hits.hits = body.hits.hits.map(n => reduce(n));
+
   return {
     esBody: esQuery,
-    result: queryReducer({ body, size, from })
+    result: queryReducer({ body, size, from, metrics })
   };
 }
 
