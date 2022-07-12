@@ -23,9 +23,16 @@ export function Summaries({ data, showAll }) {
     }
   })
 
+  let hasEventType = false;
+  if (data.results.documents.results && data.results.documents.results[0].eventType){
+    hasEventType = true;
+  }
+
   return <>
     <Group label="eventDetails.groups.dataStructure">
-      <Tree data={termMap.eventTypeHierarchyJoined?.value}/>
+      {hasEventType &&
+          <Tree data={termMap.eventTypeHierarchyJoined?.value} selected={data.results.documents.results[0].eventType.concept}/>
+      }
     </Group>
     <Methodology             {...{ showAll, termMap }} />
     <TaxonomicCoverage       {...{ showAll, termMap }} />
@@ -57,6 +64,7 @@ function TaxonomicCoverage({ showAll, termMap }) {
 
 function Methodology({ showAll, termMap }) {
   const hasContent = [
+    'recordedBy',
     'eventTypeHierarchy',
     'eventHierarchy',
     'eventTypeHierarchyJoined',
@@ -68,6 +76,7 @@ function Methodology({ showAll, termMap }) {
   return <Group label="eventDetails.groups.methodology">
     <Properties css={css.properties} breakpoint={800}>
       <FacetList term={termMap.samplingProtocol} showDetails={showAll} />
+      <FacetList term={termMap.recordedBy} showDetails={showAll} />
       <FacetList term={termMap.measurementOrFactTypes} showDetails={showAll} />
     </Properties>
   </Group>

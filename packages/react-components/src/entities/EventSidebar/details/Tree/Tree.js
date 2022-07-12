@@ -4,10 +4,11 @@ import {Row} from "../../../../components";
 import ThemeContext from "../../../../style/themes/ThemeContext";
 
 class TreeNode {
-  constructor(key, value = key, count, parent = null, ch) {
+  constructor(key, value, count, isSelected, parent) {
     this.key = key;
     this.value = value;
     this.count = count;
+    this.isSelected = isSelected
     this.parent = parent;
     this.children = [];
   }
@@ -16,7 +17,7 @@ class TreeNode {
 export function TreeN({ treeNode }) {
   const hasChildren = treeNode.children.length > 0;
   return <li>
-      <a href="#">{ treeNode.value }</a>
+      <a href="#" className={ treeNode.isSelected ? 'selected' : ''}>{ treeNode.value }</a>
     { hasChildren ?
         (<ul>
           {treeNode.children.map(childNode => <TreeN treeNode={childNode}/>)}
@@ -27,13 +28,14 @@ export function TreeN({ treeNode }) {
 
 export function Tree({
   data = {},
+  selected,
   loading,
   error,
   className,
   ...props
 }) {
 
-  const rootNode = new TreeNode("Dataset", "Dataset", null, []);
+  const rootNode = new TreeNode("Dataset", "Dataset", null, false, null);
 
   data.map(branch => {
 
@@ -57,7 +59,8 @@ export function Tree({
 
       if (node == null){
         // create new node, add to parent
-        node = new TreeNode(vertex, vertex, count, currentNode, []);
+        let isSelected = vertex == selected;
+        node = new TreeNode(vertex, vertex, count, isSelected, currentNode);
         currentNode.children.push(node);
       }
 

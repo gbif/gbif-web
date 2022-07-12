@@ -89,6 +89,7 @@ function Dataset({ datasetKey, datasetTitle, count,   occurrenceCount, events, f
   }
 
   const {documents, occurrenceFacet, facet, stats} = data.eventSearch;
+  const hasMeasurements = facet.measurementOrFactTypes != null && facet.measurementOrFactTypes.length > 0
 
   return <article>
     <div css={style.summary}>
@@ -111,15 +112,9 @@ function Dataset({ datasetKey, datasetTitle, count,   occurrenceCount, events, f
               look="primaryOutline"
               css={css`margin-left: 30px; font-size: 11px;`}>Add to filter</Button>
         </div>
-        {
-          (() => {
-          if (facet.measurementOrFactTypes) {
-            return (
-                <div>Measurement types: <span>{facet.measurementOrFactTypes.map(x => x.key).join(' • ')}</span></div>
-            )
-          }
-        })()
-        }
+        { hasMeasurements &&
+          <div>Measurement types: <span>{facet.measurementOrFactTypes.map(x => x.key).join(' • ')}</span></div>
+         }
       </div>
     </div>
     <div css={style.events}>

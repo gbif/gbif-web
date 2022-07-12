@@ -54,22 +54,7 @@ const defaultTableConfig = {
         hideFalsy: true
       }
     },
-    {
-      trKey: 'filters.parentEventID.name',
-      filterKey: 'parentEventID',
-      value: {
-        key: 'parentEventID',
-        hideFalsy: true
-      }
-    },
-    {
-      trKey: 'filters.locationID.name',
-      filterKey: 'locationID',
-      value: {
-        key: 'locationID',
-        hideFalsy: true
-      }
-    },
+
     {
       trKey: 'filters.datasetKey.name',
       filterKey: 'datasetKey',
@@ -102,6 +87,14 @@ const defaultTableConfig = {
       value: {
         key: 'samplingProtocol',
         formatter: (value, item) => item?.samplingProtocol[0],
+        hideFalsy: true
+      }
+    },
+    {
+      trKey: 'filters.locationID.name',
+      filterKey: 'locationID',
+      value: {
+        key: 'locationID',
         hideFalsy: true
       }
     },
