@@ -1,5 +1,4 @@
 export const filters = [
-  'q',
   'eventSamplingProtocol',
   'country',
   'eventDatasetKey',

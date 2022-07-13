@@ -78,6 +78,13 @@ export const tree = ({ theme, ...props }) => css`
       top: 1px;
   }
 
+  li a.selected {
+      background: #e9453f;
+      color: #fff;
+      border: 1px solid #e9453f;
+  }
+    
+
   li a:hover {
       background: #e9453f;
       color: #fff;

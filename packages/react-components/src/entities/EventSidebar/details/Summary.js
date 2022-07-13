@@ -47,6 +47,17 @@ query list($predicate: Predicate, $offset: Int, $limit: Int){
     size: $limit, 
     from: $offset
     ) {
+    documents(size: 1) {
+      total
+      results {
+        datasetTitle
+        datasetKey
+        occurrenceCount
+        eventType {
+          concept
+        }
+      }
+    }    
     facet {
       eventHierarchy {
         count
@@ -74,14 +85,38 @@ query list($predicate: Predicate, $offset: Int, $limit: Int){
       }
     }       
     occurrenceFacet {
+      kingdom {
+        count
+        key
+      }
+      phylum {
+        count
+        key
+      }               
+      order {
+        count
+        key
+      }     
+      class {
+        count
+        key
+      }    
       family {
         count
         key
       }
+      genus {
+        count
+        key
+      }      
       samplingProtocol {
         count
         key
       }  
+      recordedBy {
+        count      
+        key
+      }           
     }
   }
 }
