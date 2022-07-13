@@ -7,7 +7,7 @@ const config = require('./config');
 
 var queue = require('express-queue');
 const queueOptions = { 
-  activeLimit: 50, 
+  activeLimit: 10, 
   queuedLimit: 2000, 
   rejectHandler: (req, res) => {
     res.status(429); 
@@ -93,8 +93,9 @@ if (dataset) {
   app.get('/dataset', queue(queueOptions), asyncMiddleware(searchResource(dataset)));
   app.get('/dataset/key/:id', asyncMiddleware(keyResource(dataset)));
 }
+let eventQueue
 if (event) {
-  let eventQueue = queue(queueOptions);
+  eventQueue = queue(queueOptions);
   app.post('/event/meta', asyncMiddleware(postMetaOnly(event)));
   app.get('/event/meta', asyncMiddleware(getMetaOnly(event)));
   
@@ -107,6 +108,8 @@ function searchResource(resource) {
   const { dataSource, get2predicate, predicate2query, get2metric, metric2aggs } = resource;
   return async (req, res, next) => {
     try {
+      console.log(`queueLength: ${eventQueue.queue.getLength()}`);
+
       const { metrics, predicate, size, from, randomSeed, randomize, includeMeta } = parseQuery(req, res, next, { get2predicate, get2metric });
       const aggs = metric2aggs(metrics);
       const query = predicate2query(predicate);
