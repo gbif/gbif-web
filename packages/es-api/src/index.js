@@ -45,8 +45,10 @@ let setCache = function (req, res, next) {
   // call next() to pass on the request
   next()
 }
-// use middleware
-app.use(setCache)
+if (!config.debug) {
+  // use cache middleware
+  app.use(setCache)
+}
 
 app.use(function (req, res, next) {
   // Website you wish to allow to connect
