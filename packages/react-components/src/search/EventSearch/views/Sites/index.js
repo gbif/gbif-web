@@ -12,13 +12,11 @@ import {SiteSidebar} from "../../../../entities/SiteSidebar/SiteSidebar";
 import {useDialogState} from "reakit/Dialog";
 
 const QUERY = `
-query list( $predicate: Predicate, $offset: Int, $limit: Int){
+query list( $predicate: Predicate, $size: Int = 20, $from: Int = 0){
   results: eventSearch(
-    predicate:$predicate,
-    size: $limit, 
-    from: $offset) {
+    predicate:$predicate) {
     temporal {
-      locationID {
+      locationID(size: $size, from: $from) {
         cardinality
         results {
           key
