@@ -264,7 +264,7 @@ const config =
     },
     "locationID": {
       "type": "keyword",
-      "field": "occurrence.locationID"
+      "field": "occurrence.locationID.keyword"
     },
     "hasGeospatialIssue": {
       "type": "boolean",
@@ -597,7 +597,7 @@ const config =
     },
     "class": {
       "type": "keyword",
-      "field": "occurrence.gbifClassification.class",
+      "field": "occurrence.gbifClassification.class.keyword",
       "get": {
         "type": "fuzzy"
       }
@@ -617,7 +617,7 @@ const config =
     },
     "family": {
       "type": "keyword",
-      "field": "occurrence.gbifClassification.family",
+      "field": "occurrence.gbifClassification.family.keyword",
       "get": {
         "type": "fuzzy"
       }
@@ -633,7 +633,7 @@ const config =
     },
     "genus": {
       "type": "keyword",
-      "field": "occurrence.gbifClassification.genus",
+      "field": "occurrence.gbifClassification.genus.keyword",
       "get": {
         "type": "fuzzy"
       }
@@ -649,7 +649,7 @@ const config =
     },
     "kingdom": {
       "type": "keyword",
-      "field": "occurrence.gbifClassification.kingdom",
+      "field": "occurrence.gbifClassification.kingdom.keyword",
       "get": {
         "type": "fuzzy"
       }
@@ -664,8 +664,8 @@ const config =
       }
     },
     "order": {
-      "type": "text",
-      "field": "occurrence.gbifClassification.order",
+      "type": "keyword",
+      "field": "occurrence.gbifClassification.order.keyword",
       "get": {
         "type": "fuzzy"
       }
@@ -681,7 +681,7 @@ const config =
     },
     "phylum": {
       "type": "keyword",
-      "field": "occurrence.gbifClassification.phylum",
+      "field": "occurrence.gbifClassification.phylum.keyword",
       "get": {
         "type": "fuzzy"
       }
@@ -696,8 +696,8 @@ const config =
       }
     },
     "species": {
-      "type": "text",
-      "field": "occurrence.gbifClassification.species",
+      "type": "keyword",
+      "field": "occurrence.gbifClassification.species.keyword",
       "get": {
         "type": "fuzzy"
       }
