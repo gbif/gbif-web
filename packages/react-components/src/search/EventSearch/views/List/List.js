@@ -93,8 +93,13 @@ function Dataset({ datasetKey, datasetTitle, count,   occurrenceCount, events, f
 
   return <article>
     <div css={style.summary}>
-
       <h2>{datasetTitle}</h2>
+      <div style={{float: 'right'}}>
+        <Button
+            onClick={() => filterByThisDataset() }
+            look="primaryOutline"
+            css={css`margin-left: 30px; font-size: 11px;`}>Add to filter</Button>
+      </div>
       <div css={style.details}>
         <div>Total events: <span>{documents.total}</span></div>
         <div>Total occurrences: <span>{occurrenceCount}</span></div>
@@ -105,12 +110,6 @@ function Dataset({ datasetKey, datasetTitle, count,   occurrenceCount, events, f
         <div>Protocols:&nbsp;
           <span>{facet.samplingProtocol.map(x => x.key).join(' • ')}</span>
           <span>{occurrenceFacet.samplingProtocol.map(x => x.key).join(' • ')}</span>
-        </div>
-        <div style={{float: 'right' }}>
-          <Button
-              onClick={() => filterByThisDataset() }
-              look="primaryOutline"
-              css={css`margin-left: 30px; font-size: 11px;`}>Add to filter</Button>
         </div>
         { hasMeasurements &&
           <div>Measurement types: <span>{facet.measurementOrFactTypes.map(x => x.key).join(' • ')}</span></div>

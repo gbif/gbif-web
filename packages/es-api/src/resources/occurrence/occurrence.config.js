@@ -262,6 +262,10 @@ const config =
       "type": "boolean",
       "field": "occurrence.hasCoordinate"
     },
+    "locationID": {
+      "type": "keyword",
+      "field": "occurrence.locationID"
+    },
     "hasGeospatialIssue": {
       "type": "boolean",
       "field": "occurrence.hasGeospatialIssue"
@@ -644,7 +648,7 @@ const config =
       }
     },
     "kingdom": {
-      "type": "text",
+      "type": "keyword",
       "field": "occurrence.gbifClassification.kingdom",
       "get": {
         "type": "fuzzy"

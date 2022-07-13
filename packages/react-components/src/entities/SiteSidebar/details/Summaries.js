@@ -1,9 +1,8 @@
 import React from 'react';
 import { Properties } from "../../../components";
 import * as css from "../styles";
-import {Group} from "./Groups";
-import {Tree} from "./Tree/Tree";
-import {FacetList, FacetListInline} from "./properties";
+import {FacetList, FacetListInline} from "../../EventSidebar/details/properties";
+import {Group} from "../SiteSidebar";
 
 const { Term: T, Value: V } = Properties;
 
@@ -23,21 +22,7 @@ export function Summaries({ data, showAll }) {
     }
   })
 
-  let hasEventType = false;
-  if (data.results.documents.results
-      && data.results.documents.results.length > 0
-      && data.results.documents.results[0].eventType
-      && data.results.documents.results[0].eventType.concept)
-  {
-    hasEventType = true;
-  }
-
   return <>
-    <Group label="eventDetails.groups.dataStructure">
-      {hasEventType &&
-          <Tree data={termMap.eventTypeHierarchyJoined?.value} selected={data.results.documents.results[0].eventType.concept}/>
-      }
-    </Group>
     <Methodology             {...{ showAll, termMap }} />
     <TaxonomicCoverage       {...{ showAll, termMap }} />
   </>

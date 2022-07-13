@@ -54,7 +54,7 @@ function Event({ showAll, termMap, event, setActiveEventID }) {
   if (!hasContent) return null;
 
   const viewParent = useCallback(() => {
-      setActiveEventID(termMap.parentEventId.value);
+      setActiveEventID(termMap.parentEventID.value);
   }, []);
 
   return <Group label="eventDetails.groups.event">

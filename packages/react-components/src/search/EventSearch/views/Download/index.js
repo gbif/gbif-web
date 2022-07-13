@@ -42,8 +42,6 @@ function Downloads() {
 
   useEffect(() => {
     predicate = getPredicate();
-    console.log(predicate)
-
     load({ keepDataWhileLoading: true, variables: { predicate, size } });
   }, [currentFilterContext.filterHash, rootPredicate]);
 

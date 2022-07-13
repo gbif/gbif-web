@@ -72,8 +72,6 @@ function DatasetResult({ largest, item, indicator, theme, setActive, index, dial
       <div style={{ flex: '1 1 auto' }}>
         {item.datasetTitle}
         <br/>
-        <span>This archive has extension for X, Y, Z and is structure like W...</span>
-        <br/>
         <span>Compressed archive size: {item.archive.fileSizeInMB}MB</span>
         <br/>
         <span>Format: Darwin core archive / Frictionless data package</span>

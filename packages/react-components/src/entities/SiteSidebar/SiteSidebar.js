@@ -7,6 +7,7 @@ import {TabPanel} from "../../components/Tabs/Tabs";
 import {FormattedMessage} from "react-intl";
 import {EnumField, PlainTextField} from "../EventSidebar/details/properties";
 import Map from "./details/Map/Map";
+import {Summary} from "./details/Summary";
 
 export function SiteSidebar({
   onCloseRequest,
@@ -55,15 +56,7 @@ export function SiteSidebar({
               <Group label={"Map of site location"}>
                 <Map latitude={location?.location?.coordinates?.lat} longitude={location?.location?.coordinates?.lon} />
               </Group>
-              <Group label={"Summary of activities at site"}>
-                <ul>
-                  <li>Datasets with events at this site</li>
-                  <li>Event types record</li>
-                  <li>Temporal range, year and month</li>
-                  <li>Taxonomic range</li>
-                  <li>Measurement types</li>
-                </ul>
-              </Group>
+              <Summary locationID={siteID} />
             </Col>
           </Row>
         </TabPanel>
