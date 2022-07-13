@@ -152,9 +152,9 @@ const config =
         defaultLowerBound: 'lte'
       }
     },
-    eventId: {
+    eventID: {
       type: 'keyword',
-      field: 'event.eventId.keyword',
+      field: 'event.eventHierarchy.keyword',
       suggestField: 'eventId.suggest'
     },
     eventType: {
@@ -600,10 +600,10 @@ const config =
       type: 'keyword',
       field: 'occurrence.core.class'
     },
-    eventID: {
-      type: 'keyword',
-      field: 'occurrence.core.eventID'
-    },
+    // eventID: {
+    //   type: 'keyword',
+    //   field: 'occurrence.core.eventID'
+    // },
     family: {
       type: 'keyword',
       field: 'occurrence.core.family'
