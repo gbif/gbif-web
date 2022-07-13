@@ -18,7 +18,7 @@ function metric2aggs(metrics = {}, config) {
           aggs[name] = {
             terms: {
               field: conf.field,
-              size: 50,
+              size: size + from,
               order: { "_term": "asc" }
             },
             aggs: {
