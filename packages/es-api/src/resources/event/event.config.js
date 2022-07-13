@@ -383,7 +383,7 @@ const config =
     },
     stateProvince: {
       type: 'keyword',
-      field: 'event.stateProvince.keyword',
+      field: 'event.stateProvince.verbatim',
       suggestField: 'stateProvince.suggest'
     },
     verbatimDepth: {
