@@ -108,7 +108,7 @@ function searchResource(resource) {
   const { dataSource, get2predicate, predicate2query, get2metric, metric2aggs } = resource;
   return async (req, res, next) => {
     try {
-      console.log(`queueLength: ${eventQueue.queue.getLength()}`);
+      // console.log(`queueLength: ${eventQueue.queue.getLength()}`);
 
       const { metrics, predicate, size, from, randomSeed, randomize, includeMeta } = parseQuery(req, res, next, { get2predicate, get2metric });
       const aggs = metric2aggs(metrics);
