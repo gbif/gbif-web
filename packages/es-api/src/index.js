@@ -5,6 +5,16 @@ const _ = require('lodash');
 const cors = require('cors');
 const config = require('./config');
 
+var queue = require('express-queue');
+const queueOptions = { 
+  activeLimit: 1, 
+  queuedLimit: 2, 
+  rejectHandler: (req, res) => {
+    res.status(429); 
+    res.json({error: 429, message: 'Too many concurrent requests. This threshold is shared across users, so it is not only your requests.'});
+  }
+};
+
 let literature, occurrence, dataset, event;
 if (config.literature) {
   literature = require('./resources/literature');
@@ -62,27 +72,27 @@ const temporaryAuthMiddleware = function (req, res, next) {
 app.use(temporaryAuthMiddleware)
 
 if (literature) {
-  app.post('/literature', asyncMiddleware(searchResource(literature)));
-  app.get('/literature', asyncMiddleware(searchResource(literature)));
+  app.post('/literature', queue(queueOptions), asyncMiddleware(searchResource(literature)));
+  app.get('/literature', queue(queueOptions), asyncMiddleware(searchResource(literature)));
   app.get('/literature/key/:id', asyncMiddleware(keyResource(literature)));
 }
 if (occurrence) {
   app.post('/occurrence/meta', asyncMiddleware(postMetaOnly(occurrence)));
   app.get('/occurrence/meta', asyncMiddleware(getMetaOnly(occurrence)));
   
-  app.post('/occurrence', asyncMiddleware(searchResource(occurrence)));
-  app.get('/occurrence', asyncMiddleware(searchResource(occurrence)));
+  app.post('/occurrence', queue(queueOptions), asyncMiddleware(searchResource(occurrence)));
+  app.get('/occurrence', queue(queueOptions), asyncMiddleware(searchResource(occurrence)));
   app.get('/occurrence/key/:id', asyncMiddleware(keyResource(occurrence)));
   app.get('/occurrence/suggest/:key', asyncMiddleware(suggestResource(occurrence)));
 }
 if (dataset) {
-  app.post('/dataset', asyncMiddleware(searchResource(dataset)));
-  app.get('/dataset', asyncMiddleware(searchResource(dataset)));
+  app.post('/dataset', queue(queueOptions), asyncMiddleware(searchResource(dataset)));
+  app.get('/dataset', queue(queueOptions), asyncMiddleware(searchResource(dataset)));
   app.get('/dataset/key/:id', asyncMiddleware(keyResource(dataset)));
 }
 if (event) {
-  app.post('/event', asyncMiddleware(searchResource(event)));
-  app.get('/event', asyncMiddleware(searchResource(event)));
+  app.post('/event', queue(queueOptions), asyncMiddleware(searchResource(event)));
+  app.get('/event', queue(queueOptions), asyncMiddleware(searchResource(event)));
   app.get('/event/key/:id', asyncMiddleware(keyResource(event)));
 }
 
