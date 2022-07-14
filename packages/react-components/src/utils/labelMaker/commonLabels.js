@@ -200,5 +200,9 @@ export const commonLabels = {
     type: 'TRANSLATION',
     template: id => `enums.dwcaExtension.${id}`
   },
+  locationId: {
+    type: 'TRANSFORM',
+    transform: ({ id }) => id
+  },
   // -- Add labels above this line (required by plopfile.js) --
 }

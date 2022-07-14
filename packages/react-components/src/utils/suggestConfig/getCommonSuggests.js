@@ -539,6 +539,61 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
         </div>
       }
     },
-    // -- Add suggests above this line (required by plopfile.js) --
+    eventLocationId: {
+      //What placeholder to show
+      placeholder: 'Search by location ID (case sensitive)',
+      // how to get the list of suggestion data
+      getSuggestions: ({ q, size = 100 }) => {
+        const SEARCH = `
+          query keywordSearch($predicate: Predicate, $size: Int){
+            eventSearch(predicate: $predicate) {
+              facet {
+                locationID(size: $size) {
+                  key
+                  count
+                }
+              }
+            }
+          }
+          `;
+        const qPredicate = {
+          "type": "like",
+          "key": "locationID",
+          "value": `*${q.replace(/\s/, '*')}*`
+        }
+
+        let predicate = qPredicate;
+        if (rootPredicate) {
+          predicate = {
+            type: 'and',
+            predicates: [rootPredicate, qPredicate]
+          }
+        }
+        const variables = {
+          size,
+          predicate
+        };
+        const { promise, cancel } = client.query({ query: SEARCH, variables, graph: 'EVENT' });
+        return {
+          promise: promise.then(response => {
+            return {
+              data: response.data?.eventSearch?.facet?.locationID.map(i => ({ ...i, title: i.key })),
+              rawData: response.data
+            }
+          }),
+          cancel
+        }
+      },
+      // how to map the results to a single string value
+      getValue: suggestion => suggestion.title,
+      // how to display the individual suggestions in the list
+      render: function LocationIdSuggestItem(suggestion) {
+        return <div style={suggestStyle}>
+          {suggestion.title}
+          <div style={{ fontSize: '0.85em', color: '#aaa' }}>{suggestion.count} results</div>
+        </div>
+      }
+    },
+  // -- Add suggests above this line (required by plopfile.js) --
   }
 }

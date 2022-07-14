@@ -1339,6 +1339,24 @@ export const commonFilters = {
       }
     }
   },
+  locationId: {
+      type: 'SUGGEST',
+      config: {
+        std: {
+        filterHandle: 'locationId',
+        id2labelHandle: 'locationId',
+        translations: {
+          count: 'filters.locationId.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.locationId.name',// translation path to a title for the popover and the button
+          description: 'filters.locationId.description', // translation path for the filter description
+        },
+      },
+        specific: {
+          suggestHandle: 'eventLocationId',
+          id2labelHandle: 'locationId',
+        }
+      }
+    },
   // -- Add filters above this line (required by plopfile.js) --
   q: {
     type: 'CUSTOM_STANDARD',

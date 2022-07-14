@@ -8,6 +8,9 @@ const filterConf = {
     samplingProtocol: {
       defaultKey: 'samplingProtocol'
     },
+    locationId: {
+      defaultKey: 'locationID'
+    },
     country: {
       defaultKey: 'countryCode'
     },
