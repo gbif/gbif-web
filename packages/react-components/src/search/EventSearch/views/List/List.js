@@ -12,14 +12,15 @@ import * as style from './style';
 import { FilterContext } from "../../../../widgets/Filter/state";
 import { EventDatasetSidebar } from '../../../../entities';
 import { useDialogState } from "reakit/Dialog";
-import { useQueryParam, NumberParam } from 'use-query-params';
+import { useQueryParam, StringParam } from 'use-query-params';
 
 export const List = ({ first, prev, next, size, from, data, total, loading }) => {
   const { filters, labelMap } = useContext(SearchContext);
   const dialog = useDialogState({ animated: true, modal: false });
-  const [activeKey, setActiveKey] = useQueryParam('entity', NumberParam);
+  const [activeKey, setActiveKey] = useQueryParam('entity', StringParam);
 
   const datasets = data?.eventSearch?.facet?.datasetKey;
+  console.log(datasets);
 
   useEffect(() => {
     if (activeKey) {
@@ -36,19 +37,19 @@ export const List = ({ first, prev, next, size, from, data, total, loading }) =>
   }, [dialog.visible]);
 
   const nextItem = useCallback(() => {
-    // const activeIndex = items.findIndex(x => x.key === activeKey);
-    // const next = Math.min(items.length - 1, activeIndex + 1);
-    // if (items[next]) {
-    //   setActiveKey(items[next].key);
-    // }
+    const activeIndex = datasets.findIndex(x => x.key === activeKey);
+    const next = Math.min(datasets.length - 1, activeIndex + 1);
+    if (datasets[next]) {
+      setActiveKey(datasets[next].key);
+    }
   }, [activeKey, datasets]);
 
   const previousItem = useCallback(() => {
-    // const activeIndex = items.findIndex(x => x.key === activeKey);
-    // const prev = Math.max(0, activeIndex - 1);
-    // if (items[prev]) {
-    //   setActiveKey(items[prev].key);
-    // }
+    const activeIndex = datasets.findIndex(x => x.key === activeKey);
+    const prev = Math.max(0, activeIndex - 1);
+    if (datasets[prev]) {
+      setActiveKey(datasets[prev].key);
+    }
   }, [activeKey, datasets]);
   
   if (!data || loading) return <><DatasetSkeleton /><DatasetSkeleton /><DatasetSkeleton /></>;

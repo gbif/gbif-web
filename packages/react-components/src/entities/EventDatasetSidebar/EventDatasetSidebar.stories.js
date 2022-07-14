@@ -11,7 +11,7 @@ export default {
 
 export const Example = () => <div style={{ background: '#eee', display: 'flex' }}>
   <div style={{ flex: '1 1 auto' }}></div>
-  <EventDatasetSidebar id="dr18393" style={{ maxWidth: '100%', width: 700, height: 'calc(100vh - 20px)', flex: '0 0 auto' }} />
+  <EventDatasetSidebar id="dr18539" style={{ maxWidth: '100%', width: 700, height: 'calc(100vh - 20px)', flex: '0 0 auto' }} />
 </div>;
 
 Example.story = {
