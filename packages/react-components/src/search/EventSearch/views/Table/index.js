@@ -31,6 +31,7 @@ query list($predicate: Predicate, $offset: Int, $limit: Int){
         countryCode
         measurementOrFactTypes
         occurrenceCount
+        speciesCount
       }
     }
   }
@@ -139,7 +140,18 @@ const defaultTableConfig = {
         rightAlign: true
       },
       noWrap: true
-    }
+    },
+    {
+      name: 'speciesCount',
+      trKey: 'tableHeaders.species',
+      value: {
+        key: 'speciesCount',
+        formatter: (value, item) => <FormattedNumber value={value} />,
+        hideFalsy: true,
+        rightAlign: true
+      },
+      noWrap: true
+    },
   ]
 };
 
