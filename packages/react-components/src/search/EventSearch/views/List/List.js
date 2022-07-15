@@ -82,6 +82,9 @@ query list($datasetKey: JSON){
         occurrenceCount
       }
     }
+    cardinality {
+      locationID
+    }
     facet {
       measurementOrFactTypes {
         key
@@ -127,7 +130,7 @@ function Dataset({ datasetKey, datasetTitle, count, occurrenceCount, events, onC
     currentFilterContext.setField('datasetKey', [datasetKey], true)
   }
 
-  const { documents, occurrenceFacet, facet, stats } = data.eventSearch;
+  const { documents, occurrenceFacet, facet, stats, cardinality } = data.eventSearch;
   const hasMeasurements = facet.measurementOrFactTypes != null && facet.measurementOrFactTypes.length > 0
 
   return <article>
@@ -142,6 +145,7 @@ function Dataset({ datasetKey, datasetTitle, count, occurrenceCount, events, onC
       <div css={style.details}>
         <div>Total events: <span>{documents.total}</span></div>
         <div>Total occurrences: <span>{occurrenceCount}</span></div>
+        <div>Known locations: <span>{cardinality.locationID}</span></div>
         <div>Taxonomic scope: <span>{occurrenceFacet.class.map(x => x.key).join(' • ')}</span></div>
         <div>Structure:&nbsp;
           <span>{facet.eventTypeHierarchy.map(x => x.key).join(' • ')}</span>
