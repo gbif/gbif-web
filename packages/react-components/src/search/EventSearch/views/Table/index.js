@@ -96,6 +96,14 @@ const defaultTableConfig = {
       filterKey: 'locationID',
       value: {
         key: 'locationID',
+        // tricky how to do an untuitive not cluttered UI for this.
+        formatter: (value, item, {filterContext}) => <span 
+          // style={{padding: '0 3px', whiteSpace: 'nowrap', border: '1px solid #aaa', borderRadius: 3}} 
+          onClick={(e) => {
+          filterContext.setField('locationId', [value], true);
+          e.preventDefault();
+          e.stopPropagation();
+        }}>{value}</span>,
         hideFalsy: true
       }
     },

@@ -1,14 +1,15 @@
-import React, {useState, useContext, useEffect, useCallback} from 'react';
+import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { MdFilterList } from "react-icons/md";
 import { FormattedMessage } from 'react-intl';
 import get from 'lodash/get';
 import SearchContext from '../../../SearchContext';
-import {Button, Row, Col, DataTable, Th, Td, TBody, DetailsDrawer} from '../../../../components';
-import {ResultsHeader } from '../../../ResultsHeader';
-import {useDialogState} from "reakit/Dialog";
-import {useUpdateEffect} from "react-use";
-import {EventSidebar} from "../../../../entities/EventSidebar/EventSidebar";
+import { Button, Row, Col, DataTable, Th, Td, TBody, DetailsDrawer } from '../../../../components';
+import { ResultsHeader } from '../../../ResultsHeader';
+import { useDialogState } from "reakit/Dialog";
+import { useUpdateEffect } from "react-use";
+import { EventSidebar } from "../../../../entities/EventSidebar/EventSidebar";
 import env from '../../../../../.env.json';
+import { FilterContext } from "../../../../widgets/Filter/state";
 
 const fallbackTableConfig = {
   columns: [{
@@ -21,7 +22,7 @@ const fallbackTableConfig = {
 };
 
 export const EventsTable = ({ first, prev, next, size, from, results, total, loading, defaultTableConfig = fallbackTableConfig, hideLock }) => {
-
+  const currentFilterContext = useContext(FilterContext);
   const { filters, tableConfig = defaultTableConfig, labelMap } = useContext(SearchContext);
   const [fixedColumn, setFixed] = useState(true && !hideLock);
   const fixed = fixedColumn;
@@ -87,38 +88,38 @@ export const EventsTable = ({ first, prev, next, size, from, results, total, loa
 
   return <>
     {dialog.visible && <DetailsDrawer href={`${EVENT_SEARCH_URL}${activeEventID}`}
-                                      dialog={dialog} nextItem={nextItem} previousItem={previousItem}>
+      dialog={dialog} nextItem={nextItem} previousItem={previousItem}>
       <EventSidebar
-          eventID={activeEventID}
-          datasetKey={activeDatasetKey}
-          defaultTab='details'
-          style={{ maxWidth: '100%', width: 700, height: '100%' }}
-          onCloseRequest={() => dialog.setVisible(false)}
-          setActiveEventID={setActiveEventID}
-          setActiveDatasetKey={setActiveDatasetKey}
+        eventID={activeEventID}
+        datasetKey={activeDatasetKey}
+        defaultTab='details'
+        style={{ maxWidth: '100%', width: 700, height: '100%' }}
+        onCloseRequest={() => dialog.setVisible(false)}
+        setActiveEventID={setActiveEventID}
+        setActiveDatasetKey={setActiveDatasetKey}
       />
     </DetailsDrawer>}
-  <div style={{
-    flex: "1 1 100%",
-    display: "flex",
-    height: "100%",
-    maxHeight: "100vh",
-    flexDirection: "column",
-  }}>
-    <ResultsHeader loading={loading} total={total} />
-    <DataTable fixedColumn={fixed} {...{ first, prev, next, size, from, total, loading }} style={{ flex: "1 1 auto", height: 100, display: 'flex', flexDirection: 'column' }}>
-      <thead>
-        <tr>{headers}</tr>
-      </thead>
-      <TBody rowCount={size} columnCount={7} loading={loading}>
-        {getRows({ tableConfig, labelMap, results, setActiveEventID, setActiveDatasetKey, dialog })}
-      </TBody>
-    </DataTable>
-  </div>
+    <div style={{
+      flex: "1 1 100%",
+      display: "flex",
+      height: "100%",
+      maxHeight: "100vh",
+      flexDirection: "column",
+    }}>
+      <ResultsHeader loading={loading} total={total} />
+      <DataTable fixedColumn={fixed} {...{ first, prev, next, size, from, total, loading }} style={{ flex: "1 1 auto", height: 100, display: 'flex', flexDirection: 'column' }}>
+        <thead>
+          <tr>{headers}</tr>
+        </thead>
+        <TBody rowCount={size} columnCount={7} loading={loading}>
+          {getRows({ tableConfig, labelMap, results, setActiveEventID, setActiveDatasetKey, dialog, currentFilterContext })}
+        </TBody>
+      </DataTable>
+    </div>
   </>
 }
 
-const getRows = ({ tableConfig, labelMap, results = [], setActiveEventID, setActiveDatasetKey, dialog }) => {
+const getRows = ({ tableConfig, labelMap, results = [], setActiveEventID, setActiveDatasetKey, dialog, currentFilterContext }) => {
   const rows = results.map((row, index) => {
     const cells = tableConfig.columns.map(
       (field, i) => {
@@ -128,16 +129,23 @@ const getRows = ({ tableConfig, labelMap, results = [], setActiveEventID, setAct
         if (!val && field.value.hideFalsy === true) {
           formattedVal = '';
         } else if (field.value.formatter) {
-          formattedVal = field.value.formatter(val, row);
+          formattedVal = field.value.formatter(val, row, { filterContext: currentFilterContext });
         } else if (field.value.labelHandle) {
           const Label = labelMap[field.value.labelHandle];
           formattedVal = Label ? <Label id={val} /> : val;
         }
 
-        return <Td noWrap={field.noWrap} key={field.trKey} style={field.value.rightAlign ? {textAlign: 'right'} : {}}>{formattedVal}</Td>;
+        return <Td noWrap={field.noWrap} key={field.trKey} style={field.value.rightAlign ? { textAlign: 'right' } : {}}>{formattedVal}</Td>;
       }
     );
-    return <tr key={row.key} onClick={() => { setActiveEventID(row.eventID); setActiveDatasetKey(row.datasetKey); }}>{cells}</tr>;
+    return <tr key={row.key} onClick={() => {
+      var selection = window.getSelection();
+      if (selection.type !== "Range") {
+        setActiveEventID(row.eventID);
+        setActiveDatasetKey(row.datasetKey);
+      }
+    }
+    }>{cells}</tr>;
   });
   return rows;
 }
