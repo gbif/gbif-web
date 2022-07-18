@@ -307,10 +307,10 @@ const config =
       type: 'keyword',
       field: 'event.notIssues'
     },
-    parentEventId: {
+    parentEventID: {
       type: 'keyword',
-      field: 'event.parentEventId.keyword',
-      suggestField: 'parentEventId.suggest'
+      field: 'event.parentEventID.keyword',
+      suggestField: 'parentEventID.suggest'
     },
     eventHierarchy: {
       type: 'keyword',
