@@ -23,7 +23,7 @@ function PredicateDataFetcher({graphQuery, graph, resultKey, offsetName = 'from'
         filter2predicate(currentFilterContext.filter, predicateConfig)
       ].filter(x => x)
     }
-    load({ keepDataWhileLoading: true, variables: { predicate, size: limit, from: offset, ...customVariables } });
+    load({ keepDataWhileLoading: true, variables: { predicate, limit, offset, ...customVariables } });
   }, [currentFilterContext.filterHash, rootPredicate, offset, limit, variableHash]);
 
   // https://stackoverflow.com/questions/55075604/react-hooks-useeffect-only-on-update
