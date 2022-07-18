@@ -154,8 +154,8 @@ const config =
     },
     eventID: {
       type: 'keyword',
-      field: 'event.eventHierarchy.keyword',
-      suggestField: 'eventId.suggest'
+      field: 'event.eventID.keyword',
+      suggestField: 'eventID.suggest'
     },
     eventType: {
       type: 'keyword',
@@ -600,10 +600,10 @@ const config =
       type: 'keyword',
       field: 'occurrence.core.class'
     },
-    eventID: {
-      type: 'keyword',
-      field: 'occurrence.core.eventID'
-    },
+    // eventID: {
+    //   type: 'keyword',
+    //   field: 'occurrence.core.eventID'
+    // },
     family: {
       type: 'keyword',
       field: 'occurrence.core.family'
