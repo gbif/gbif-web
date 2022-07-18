@@ -8,6 +8,18 @@ export function Measurements({ data }) {
 
     const [fixedColumn, setFixed] = useState(true);
 
+    let hasMeasurements = false;
+    if (data.results.documents.results
+        && data.results.documents.results.length > 0
+        && data.results.documents.results[0].measurementOrFacts)
+    {
+        hasMeasurements = true;
+    }
+
+    if (!hasMeasurements){
+        return <></>
+    }
+
     const results = data.results.documents.results[0].measurementOrFacts;
 
     const getRows = () => {
