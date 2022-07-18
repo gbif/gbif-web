@@ -68,7 +68,11 @@ function Sites() {
     setOffset(undefined);
   }, [currentFilterContext.filterHash]);
 
-
+  // on unmount then reset offset
+  useEffect(() => {
+    return () => setOffset(undefined);
+  }, []);
+  
   useEffect(() => {
     if (activeSiteID) {
       dialog.show();

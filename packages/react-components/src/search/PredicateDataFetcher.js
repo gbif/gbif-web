@@ -31,6 +31,11 @@ function PredicateDataFetcher({graphQuery, graph, resultKey, offsetName = 'from'
     setOffset(undefined);
   }, [currentFilterContext.filterHash]);
 
+  // on unmount then reset offset
+  useEffect(() => {
+    return () => setOffset(undefined);
+  }, []);
+
   const next = useCallback(() => {
     setOffset(Math.max(0, offset + limit));
   });
