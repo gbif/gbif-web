@@ -600,10 +600,10 @@ const config =
       type: 'keyword',
       field: 'occurrence.core.class'
     },
-    // eventID: {
-    //   type: 'keyword',
-    //   field: 'occurrence.core.eventID'
-    // },
+    eventID: {
+      type: 'keyword',
+      field: 'occurrence.core.eventID'
+    },
     family: {
       type: 'keyword',
       field: 'occurrence.core.family'

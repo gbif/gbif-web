@@ -224,6 +224,11 @@ const config =
         "defaultLowerBound": "lte"
       }
     },
+    "eventID": {
+      "type": "keyword",
+      "field": "occurrence.eventId.keyword",
+      "suggestField": "eventId.suggest"
+    },
     "eventId": {
       "type": "keyword",
       "field": "occurrence.eventId.keyword",
@@ -450,6 +455,11 @@ const config =
     "organismQuantityType": {
       "type": "keyword",
       "field": "occurrence.organismQuantityType"
+    },
+    "parentEventID": {
+      "type": "keyword",
+      "field": "occurrence.parentEventId.keyword",
+      "suggestField": "parentEventId.suggest"
     },
     "parentEventId": {
       "type": "keyword",
