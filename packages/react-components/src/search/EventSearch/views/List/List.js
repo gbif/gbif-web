@@ -88,13 +88,13 @@ query list($datasetKey: JSON){
     facet {
       measurementOrFactTypes {
         key
-      }  
+      }
       samplingProtocol {
         key
       }    
       eventTypeHierarchy {
         key
-      }          
+      }
     }   
     occurrenceFacet {
       class {

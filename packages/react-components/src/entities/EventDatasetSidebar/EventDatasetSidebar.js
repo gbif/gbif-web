@@ -4,6 +4,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { MdInfo, MdClose } from 'react-icons/md'
 import ThemeContext from '../../style/themes/ThemeContext';
 import * as css from './styles';
+import { FormattedNumber } from 'react-intl';
 import { Row, Col, Tabs, HyperText, Properties, Button, DatasetKeyLink } from "../../components";
 import { useQuery } from '../../dataManagement/api';
 import { Intro } from './details/Intro';
@@ -60,9 +61,44 @@ export function EventDatasetSidebar({
             <Col style={{ padding: '12px 16px', paddingBottom: 50 }} grow>
               <h1>{dataset.title}</h1>
               <DatasetKeyLink id={id}>Dataset detail page</DatasetKeyLink>
-              
-              <section style={{marginTop: 36}}>
+
+              <section style={{ marginTop: 36 }}>
                 <Properties>
+                  {data.eventSearch?.stats.year?.min && <>
+                    <T>Years</T>
+                    <V>{data.eventSearch?.stats.year?.min} - {data.eventSearch?.stats.year?.max}</V>
+                  </>}
+
+                  <T>Occurrences</T>
+                  <V><FormattedNumber value={data.eventSearch.stats.occurrenceCount.sum} /></V>
+
+                  <T>Events</T>
+                  <V><FormattedNumber value={data.eventSearch.documents.total} /></V>
+
+                  {data.eventSearch?.cardinality.locationID > 0 && <>
+                    <T>Known Locations</T>
+                    <V><FormattedNumber value={data.eventSearch?.cardinality.locationID} /></V>
+                  </>}
+
+                  <T>Protocols</T>
+                  <V>
+                    <span>{data.eventSearch.facet.samplingProtocol.map(x => x.key).join(' • ')}</span>
+                  </V>
+
+                  {data.eventSearch?.measurementOrFactTypes?.length > 0 && <>
+                  <T>Measurement types</T>
+                  <V>
+                    <span>{data.eventSearch.facet.measurementOrFactTypes.map(x => x.key).join(' • ')}</span>
+                  </V>
+                  </>}
+
+                  {data.eventSearch?.eventTypeHierarchy?.length > 0 && <>
+                    <T>Event types</T>
+                    <V>
+                      <span>{data.eventSearch.facet.eventTypeHierarchy.map(x => x.key).join(' • ')}</span>
+                    </V>
+                  </>}
+
                   {dataset?.contact.length > 0 && <>
                     <T>Contacts</T>
                     <V>
@@ -124,6 +160,7 @@ const DATASET = `
 query dataset($key: JSON!){
   eventSearch(predicate: {type: equals, key: "datasetKey", value: $key}) {
     documents(size: 1) {
+      total
       results {
         dataset
       }
@@ -144,7 +181,7 @@ query dataset($key: JSON!){
     facet {
       measurementOrFactTypes {
         key
-      }  
+      }
       samplingProtocol {
         key
       }    
