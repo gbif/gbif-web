@@ -56,6 +56,12 @@ query list($predicate: Predicate, $offset: Int, $limit: Int){
         eventType {
           concept
         }
+        measurementOrFacts {
+          measurementID
+          measurementType
+          measurementValue
+          measurementUnit
+        }        
       }
     }    
     facet {

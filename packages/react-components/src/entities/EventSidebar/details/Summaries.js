@@ -4,6 +4,7 @@ import * as css from "../styles";
 import {Group} from "./Groups";
 import {Tree} from "./Tree/Tree";
 import {FacetList, FacetListInline} from "./properties";
+import {Measurements} from "./Measurements";
 
 const { Term: T, Value: V } = Properties;
 
@@ -40,6 +41,7 @@ export function Summaries({ data, showAll }) {
     </Group>
     <Methodology             {...{ showAll, termMap }} />
     <TaxonomicCoverage       {...{ showAll, termMap }} />
+    <Measurements             data={data}  />
   </>
 }
 

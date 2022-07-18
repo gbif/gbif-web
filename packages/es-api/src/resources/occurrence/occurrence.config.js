@@ -495,7 +495,7 @@ const config =
     },
     "recordedBy": {
       "type": "keyword",
-      "field": "occurrence.recordedBy.keyword",
+      "field": "occurrence.recordedBy.verbatim",
       "suggestField": "recordedBy.suggest"
     },
     "references": {
@@ -597,7 +597,7 @@ const config =
     },
     "class": {
       "type": "keyword",
-      "field": "occurrence.gbifClassification.class.keyword",
+      "field": "occurrence.gbifClassification.class.verbatim",
       "get": {
         "type": "fuzzy"
       }
@@ -617,7 +617,7 @@ const config =
     },
     "family": {
       "type": "keyword",
-      "field": "occurrence.gbifClassification.family.keyword",
+      "field": "occurrence.gbifClassification.family.verbatim",
       "get": {
         "type": "fuzzy"
       }
@@ -633,7 +633,7 @@ const config =
     },
     "genus": {
       "type": "keyword",
-      "field": "occurrence.gbifClassification.genus.keyword",
+      "field": "occurrence.gbifClassification.genus.verbatim",
       "get": {
         "type": "fuzzy"
       }
@@ -649,7 +649,7 @@ const config =
     },
     "kingdom": {
       "type": "keyword",
-      "field": "occurrence.gbifClassification.kingdom.keyword",
+      "field": "occurrence.gbifClassification.kingdom.verbatim",
       "get": {
         "type": "fuzzy"
       }
@@ -665,7 +665,7 @@ const config =
     },
     "order": {
       "type": "keyword",
-      "field": "occurrence.gbifClassification.order.keyword",
+      "field": "occurrence.gbifClassification.order.verbatim",
       "get": {
         "type": "fuzzy"
       }
@@ -681,7 +681,7 @@ const config =
     },
     "phylum": {
       "type": "keyword",
-      "field": "occurrence.gbifClassification.phylum.keyword",
+      "field": "occurrence.gbifClassification.phylum.verbatim",
       "get": {
         "type": "fuzzy"
       }
@@ -697,7 +697,7 @@ const config =
     },
     "species": {
       "type": "keyword",
-      "field": "occurrence.gbifClassification.species.keyword",
+      "field": "occurrence.gbifClassification.species.verbatim",
       "get": {
         "type": "fuzzy"
       }

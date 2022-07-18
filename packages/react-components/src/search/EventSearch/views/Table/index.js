@@ -51,7 +51,8 @@ const defaultTableConfig = {
       trKey: 'filters.eventType.name',
       value: {
         key: 'eventType.concept',
-        labelHandle: 'eventTypeVocabulary',
+        // Commented out for now while we resolve issues with adding values to vocab server
+        // labelHandle: 'eventTypeVocabulary',
         hideFalsy: true
       }
     },
