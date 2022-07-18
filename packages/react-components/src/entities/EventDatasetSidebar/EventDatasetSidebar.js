@@ -88,15 +88,15 @@ export function EventDatasetSidebar({
                   </>}
                   {dataset?.methods.length > 0 && <>
                     <T>Methods</T>
-                    {dataset.methods && dataset.methods.map(method => {
+                    {dataset.methods && dataset.methods.map((method, i) => {
                       if (typeof method !== 'object') return;
-                      return <V>
+                      return <V key={i}>
                         <Properties horizontal={false}>
                           {method.methodStep && <><T>Methods steps</T>
-                            {method.methodStep.map(step => <V>{step.description[0].para[0]}</V>)}
+                            {method.methodStep.map((step, j) => <V key={j}>{step.description[0].para[0]}</V>)}
                           </>}
                           {method.qualityControl && <><T>Methods steps</T>
-                            {method.qualityControl.map(control => <V>{control.description[0].para[0]}</V>)}
+                            {method.qualityControl.map((control, j) => <V key={j}>{control.description[0].para[0]}</V>)}
                           </>}
                         </Properties>
                       </V>
