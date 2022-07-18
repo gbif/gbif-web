@@ -91,8 +91,8 @@ export function EventDatasetSidebar({
                   </>}
                   {dataset?.methods.length > 0 && <>
                     <T>Methods</T>
-                    {dataset.methods && dataset.methods.map((method, i) => {
-                      if (typeof method !== 'object') return;
+                    {dataset.methods.map((method, i) => {
+                      if (typeof method !== 'object') return <V>Unspecified</V>;
                       return <V key={i}>
                         <Properties horizontal={false}>
                           {method.methodStep && <><T>Methods steps</T>
@@ -121,16 +121,18 @@ export function EventDatasetSidebar({
                     <V><FormattedNumber value={data.eventSearch?.cardinality.locationID} /></V>
                   </>}
 
-                  <T>Protocols</T>
-                  <V>
-                    <span>{data.eventSearch.facet.samplingProtocol.map(x => x.key).join(' • ')}</span>
-                  </V>
+                  {data.eventSearch?.facet?.samplingProtocol?.length > 0 && <>
+                    <T>Protocols</T>
+                    <V>
+                      <span>{data.eventSearch.facet.samplingProtocol.map(x => x.key).join(' • ')}</span>
+                    </V>
+                  </>}
 
                   {data.eventSearch?.facet?.measurementOrFactTypes?.length > 0 && <>
-                  <T>Measurement types</T>
-                  <V>
-                    <span>{data.eventSearch.facet.measurementOrFactTypes.map(x => x.key).join(' • ')}</span>
-                  </V>
+                    <T>Measurement types</T>
+                    <V>
+                      <span>{data.eventSearch.facet.measurementOrFactTypes.map(x => x.key).join(' • ')}</span>
+                    </V>
                   </>}
                   {dataset?.purpose && <>
                     <T>Structure</T>
