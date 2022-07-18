@@ -12,7 +12,7 @@ import { Contacts } from './details/Contacts'
 import { BibliographicCitations } from './details/BibliographicCitations'
 import { SamplingDescription } from './details/SamplingDescription'
 import { Citation } from './details/Citation'
-
+import { Tree } from '../EventSidebar/details/Tree/Tree'
 const { TabList, Tab, TabPanel, TapSeperator } = Tabs;
 
 export function EventDatasetSidebar({
@@ -58,7 +58,10 @@ export function EventDatasetSidebar({
               <BibliographicCitations data={data} />
               <Contacts data={data} />
               <Citation data={data} /> */}
-              {JSON.stringify(data)}
+              {data?.eventSearch && <Tree data={data.eventSearch.facet.eventTypeHierarchyJoined} />}
+              <pre>
+                {JSON.stringify(data, null, 2)}
+              </pre>
             </Col>
           </Row>
         </TabPanel>
@@ -73,6 +76,39 @@ query dataset($key: JSON!){
     documents(size: 1) {
       results {
         dataset
+      }
+    }
+    stats {
+      year {
+        min
+        max
+      }
+      occurrenceCount {
+        sum
+      }
+    }
+    cardinality {
+      locationID
+      species
+    }
+    facet {
+      measurementOrFactTypes {
+        key
+      }  
+      samplingProtocol {
+        key
+      }    
+      eventTypeHierarchy {
+        key
+      }  
+      eventTypeHierarchyJoined {
+        key
+        count
+      }        
+    }   
+    occurrenceFacet {
+      family {
+        key
       }
     }
   }
