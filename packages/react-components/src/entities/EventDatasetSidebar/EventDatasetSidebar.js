@@ -5,16 +5,9 @@ import { MdInfo, MdClose } from 'react-icons/md'
 import ThemeContext from '../../style/themes/ThemeContext';
 import * as css from './styles';
 import { FormattedNumber } from 'react-intl';
-import { Row, Col, Tabs, HyperText, Properties, Button, DatasetKeyLink } from "../../components";
+import { Row, Col, Tabs, HyperText, Properties, DatasetKeyLink } from "../../components";
 import { useQuery } from '../../dataManagement/api';
-import { Intro } from './details/Intro';
-import { Header } from './details/Header';
-import { Contacts } from './details/Contacts'
-import { BibliographicCitations } from './details/BibliographicCitations'
-import { SamplingDescription } from './details/SamplingDescription'
-import { Citation } from './details/Citation'
 import { Tree } from '../EventSidebar/details/Tree/Tree'
-import { datasetList } from '../../search/EventSearch/views/List/style';
 
 const { TabList, Tab, TabPanel, TapSeperator } = Tabs;
 const { Term: T, Value: V } = Properties;
@@ -38,7 +31,7 @@ export function EventDatasetSidebar({
   }, [id]);
 
   const dataset = data?.eventSearch?.documents.results?.[0]?.dataset?.value;
-  if (loading || !dataset) return null;
+  const isLoading = loading || !dataset;
 
   return <Tabs activeId={activeId} onChange={id => setTab(id)}>
     <Row wrap="nowrap" style={style} css={css.sideBar({ theme })}>
@@ -58,7 +51,10 @@ export function EventDatasetSidebar({
       <Col shrink={false} grow={false} css={css.detailDrawerContent({ theme })} >
         <TabPanel tabId='details'>
           <Row direction="column">
-            <Col style={{ padding: '12px 16px', paddingBottom: 50 }} grow>
+            {isLoading && <Col style={{ padding: '12px 16px', paddingBottom: 50 }} grow>
+              Loading
+            </Col>}
+            {!isLoading && <Col style={{ padding: '12px 16px', paddingBottom: 50 }} grow>
               <h1>{dataset.title}</h1>
               <DatasetKeyLink id={id}>Dataset detail page</DatasetKeyLink>
 
@@ -142,7 +138,7 @@ export function EventDatasetSidebar({
                   </>}
                 </Properties>
               </section>
-            </Col>
+            </Col>}
           </Row>
         </TabPanel>
       </Col>
