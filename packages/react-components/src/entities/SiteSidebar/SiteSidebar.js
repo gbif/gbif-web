@@ -1,13 +1,13 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ThemeContext from '../../style/themes/ThemeContext';
 import * as css from './styles';
-import {Row, Col, Tabs, Accordion, Properties} from "../../components";
+import { Row, Col, Tabs, Accordion, Properties } from "../../components";
 import { useQuery } from '../../dataManagement/api';
-import {TabPanel} from "../../components/Tabs/Tabs";
-import {FormattedMessage} from "react-intl";
-import {EnumField, PlainTextField} from "../EventSidebar/details/properties";
+import { TabPanel } from "../../components/Tabs/Tabs";
+import { FormattedMessage } from "react-intl";
+import { EnumField, PlainTextField } from "../EventSidebar/details/properties";
 import Map from "./details/Map/Map";
-import {Summary} from "./details/Summary";
+import { Summary } from "./details/Summary";
 
 export function SiteSidebar({
   onCloseRequest,
@@ -18,8 +18,8 @@ export function SiteSidebar({
 }) {
   const { data, error, loading, load } = useQuery(SITE, { lazyLoad: true, graph: 'EVENT' });
   const theme = useContext(ThemeContext);
-  const [activeId, setTab] = useState( 'details');
-  const location  = data;
+  const [activeId, setTab] = useState('details');
+  const location = data;
 
   useEffect(() => {
     if (typeof siteID !== 'undefined') {
@@ -34,23 +34,24 @@ export function SiteSidebar({
     }
   }, [data, loading]);
 
-  if (loading || !location) return <h2>Loading site information for {siteID} </h2>;
+  const isLoading = loading || !location;
 
-  return <Tabs  activeId={activeId} onChange={id => setTab(id)}>
+  return <Tabs activeId={activeId} onChange={id => setTab(id)}>
     <Row wrap="nowrap" style={style} css={css.sideBar({ theme })}>
       <Col shrink={false} grow={false} css={css.detailDrawerContent({ theme })} >
-        <TabPanel tabId='details' style={{height: '100%'}}>
+        <TabPanel tabId='details' style={{ height: '100%' }}>
           <Row direction="column" wrap="nowrap" style={{ maxHeight: '100%', overflow: 'hidden' }}>
-            <Col style={{ padding: '12px', paddingBottom: 50, overflow: 'auto' }} grow>
+            {isLoading && <h2>Loading site information for {siteID} </h2>}
+            {!isLoading && <Col style={{ padding: '12px', paddingBottom: 50, overflow: 'auto' }} grow>
               <h2> Site: {siteID} </h2>
               <Group label={"Site location"}>
                 <Properties css={css.properties} breakpoint={800}>
-                  <PlainTextField term={ {simpleName: "locality", value: location?.location?.locality}} />
-                  <PlainTextField term={ {simpleName: "stateProvince", value: location?.location?.stateProvince}} />
-                  <EnumField term={ {simpleName: "country", value: location?.location?.countryCode}}
-                             label="occurrenceFieldNames.country"  getEnum={value => `enums.countryCode.${value}`} />
-                  <PlainTextField term={ {simpleName: "decimalLatitude", value: location?.location?.coordinates?.lat}} />
-                  <PlainTextField term={ {simpleName: "decimalLongitude", value: location?.location?.coordinates?.lon}} />
+                  <PlainTextField term={{ simpleName: "locality", value: location?.location?.locality }} />
+                  <PlainTextField term={{ simpleName: "stateProvince", value: location?.location?.stateProvince }} />
+                  <EnumField term={{ simpleName: "country", value: location?.location?.countryCode }}
+                    label="occurrenceFieldNames.country" getEnum={value => `enums.countryCode.${value}`} />
+                  <PlainTextField term={{ simpleName: "decimalLatitude", value: location?.location?.coordinates?.lat }} />
+                  <PlainTextField term={{ simpleName: "decimalLongitude", value: location?.location?.coordinates?.lon }} />
                 </Properties>
               </Group>
               <Group label={"Map of site location"}>
@@ -58,6 +59,7 @@ export function SiteSidebar({
               </Group>
               <Summary locationID={siteID} />
             </Col>
+            }
           </Row>
         </TabPanel>
       </Col>
@@ -67,10 +69,10 @@ export function SiteSidebar({
 
 export function Group({ label, ...props }) {
   return <Accordion
-      summary={<FormattedMessage id={label} />}
-      defaultOpen={true}
-      css={css.group()}
-      {...props}
+    summary={<FormattedMessage id={label} />}
+    defaultOpen={true}
+    css={css.group()}
+    {...props}
   />
 }
 
