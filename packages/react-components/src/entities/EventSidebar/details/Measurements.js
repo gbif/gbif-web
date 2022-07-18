@@ -11,8 +11,8 @@ export function Measurements({ data }) {
     let hasMeasurements = false;
     if (data.results.documents.results
         && data.results.documents.results.length > 0
-        && data.results.documents.results[0].measurementOrFacts)
-    {
+        && data.results.documents.results[0].measurementOrFacts
+        && data.results.documents.results[0].measurementOrFacts.length > 0) {
         hasMeasurements = true;
     }
 
@@ -26,7 +26,7 @@ export function Measurements({ data }) {
         const rows = results.map(row => {
             return <tr key={row}>
                 <Td key={`measurementType`}>{row.measurementType}</Td>
-                <Td key={`measurementValue`}>{row.measurementValue}</Td>
+                <Td key={`measurementValue`}>{row.measurementValue}{row.measurementUnit}</Td>
             </tr>;
         });
         return rows;
