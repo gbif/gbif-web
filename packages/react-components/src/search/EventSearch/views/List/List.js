@@ -135,7 +135,7 @@ function Dataset({ datasetKey, datasetTitle, count, occurrenceCount, events, onC
 
   return <article>
     <div css={style.summary}>
-      <Button look="text"><h2 onClick={onClick}>{datasetTitle}</h2></Button>
+      <Button look="link"><h2 onClick={onClick}>{datasetTitle}</h2></Button>
       <div style={{ float: 'right' }}>
         <Button
           onClick={() => filterByThisDataset()}

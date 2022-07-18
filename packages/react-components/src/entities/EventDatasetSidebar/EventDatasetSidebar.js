@@ -4,7 +4,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { MdInfo, MdClose } from 'react-icons/md'
 import ThemeContext from '../../style/themes/ThemeContext';
 import * as css from './styles';
-import { Row, Col, Tabs } from "../../components";
+import { Row, Col, Tabs, HyperText, Properties } from "../../components";
 import { useQuery } from '../../dataManagement/api';
 import { Intro } from './details/Intro';
 import { Header } from './details/Header';
@@ -13,7 +13,10 @@ import { BibliographicCitations } from './details/BibliographicCitations'
 import { SamplingDescription } from './details/SamplingDescription'
 import { Citation } from './details/Citation'
 import { Tree } from '../EventSidebar/details/Tree/Tree'
+import { datasetList } from '../../search/EventSearch/views/List/style';
+
 const { TabList, Tab, TabPanel, TapSeperator } = Tabs;
+const { Term: T, Value: V } = Properties;
 
 export function EventDatasetSidebar({
   onImageChange,
@@ -32,6 +35,9 @@ export function EventDatasetSidebar({
       load({ variables: { key: id } });
     }
   }, [id]);
+
+  const dataset = data?.eventSearch?.documents.results?.[0]?.dataset?.value;
+  if (loading || !dataset) return null;
 
   return <Tabs activeId={activeId} onChange={id => setTab(id)}>
     <Row wrap="nowrap" style={style} css={css.sideBar({ theme })}>
@@ -52,16 +58,58 @@ export function EventDatasetSidebar({
         <TabPanel tabId='details'>
           <Row direction="column">
             <Col style={{ padding: '12px 16px', paddingBottom: 50 }} grow>
-              {/* <Header data={data} error={error} />
-              <Intro data={data} loading={loading} error={error} />
-              <SamplingDescription data={data} />
-              <BibliographicCitations data={data} />
-              <Contacts data={data} />
-              <Citation data={data} /> */}
-              {data?.eventSearch && <Tree data={data.eventSearch.facet.eventTypeHierarchyJoined} />}
-              <pre>
-                {JSON.stringify(data, null, 2)}
-              </pre>
+              <h1>{dataset.title}</h1>
+              <section>
+                <Properties>
+                  {dataset?.contact.length > 0 && <>
+                    <T>Contacts</T>
+                    <V>
+                      <span>{dataset?.contact.map(x => {
+                        if (x.individualName) {
+                          return `${x.individualName[0].givenName} ${x.individualName[0].surName}`;
+                        }
+                        if (x.organizationName) {
+                          return x.organizationName;
+                        }
+                      }).join(' • ')}</span>
+                    </V>
+                  </>}
+                  {dataset?.abstract && <>
+                    <T>Abstract</T>
+                    <V><HyperText text={dataset.abstract} /></V>
+                  </>}
+                  {dataset?.purpose && <>
+                    <T>Purpose</T>
+                    <V><HyperText text={dataset.purpose} /></V>
+                  </>}
+                  {dataset?.intellectualRights && <>
+                    <T>Intellectual rights</T>
+                    <V><HyperText text={dataset.intellectualRights} /></V>
+                  </>}
+                  {dataset?.methods.length > 0 && <>
+                    <T>Methods</T>
+                    {dataset.methods && dataset.methods.map(method => {
+                      if (typeof method !== 'object') return;
+                      return <V>
+                        <Properties horizontal={false}>
+                          {method.methodStep && <><T>Methods steps</T>
+                            {method.methodStep.map(step => <V>{step.description[0].para[0]}</V>)}
+                          </>}
+                          {method.qualityControl && <><T>Methods steps</T>
+                            {method.qualityControl.map(control => <V>{control.description[0].para[0]}</V>)}
+                          </>}
+                        </Properties>
+                      </V>
+                    })}
+                  </>}
+                  {dataset?.purpose && <>
+                    <T>Structure</T>
+                    <V>
+                      {data?.eventSearch && <Tree data={data.eventSearch.facet.eventTypeHierarchyJoined} />}
+                    </V>
+                  </>}
+                </Properties>
+              </section>
             </Col>
           </Row>
         </TabPanel>
