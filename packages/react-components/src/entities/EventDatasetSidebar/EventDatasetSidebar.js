@@ -4,7 +4,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { MdInfo, MdClose } from 'react-icons/md'
 import ThemeContext from '../../style/themes/ThemeContext';
 import * as css from './styles';
-import { Row, Col, Tabs, HyperText, Properties } from "../../components";
+import { Row, Col, Tabs, HyperText, Properties, Button, DatasetKeyLink } from "../../components";
 import { useQuery } from '../../dataManagement/api';
 import { Intro } from './details/Intro';
 import { Header } from './details/Header';
@@ -59,7 +59,9 @@ export function EventDatasetSidebar({
           <Row direction="column">
             <Col style={{ padding: '12px 16px', paddingBottom: 50 }} grow>
               <h1>{dataset.title}</h1>
-              <section>
+              <DatasetKeyLink id={id}>Dataset detail page</DatasetKeyLink>
+              
+              <section style={{marginTop: 36}}>
                 <Properties>
                   {dataset?.contact.length > 0 && <>
                     <T>Contacts</T>

@@ -45,10 +45,11 @@ const routeConfig = {
 
   datasetKey: {
     isHref: true,
-    url: ({ key }) => {
-      // return `/iframe.html?id=entities-dataset-page--example&viewMode=story&knob-datasetUUID=${key}`;
-      return `/?path=/story/entities-dataset-page--example&knob-Choose%20Direction=ltr&knob-Choose%20Theme=gbif&knob-Choose%20locale=en-DK&knob-datasetUUID=${key}`;
-    },
+    url: ({key}) => `https://collections.ala.org.au/public/showDataResource/${key}`,
+    // url: ({ key }) => {
+    //   // return `/iframe.html?id=entities-dataset-page--example&viewMode=story&knob-datasetUUID=${key}`;
+    //   return `/?path=/story/entities-dataset-page--example&knob-Choose%20Direction=ltr&knob-Choose%20Theme=gbif&knob-Choose%20locale=en-DK&knob-datasetUUID=${key}`;
+    // },
     route: '/'
   },
   datasetSearch: {
