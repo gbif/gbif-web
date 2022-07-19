@@ -9,5 +9,6 @@
   "altmetric": "Altmetric",
   "registered": "Registered",
   "hostedDatasets": "Hosted datasets",
-  "pubDatasets": "Published datasets"
+  "pubDatasets": "Published datasets",
+  "species": "Number of species"
 }
