@@ -5,15 +5,18 @@ import EventContext from '../../../SearchContext';
 import { useDialogState } from "reakit/Dialog";
 import * as styles from './downloadPresentation.styles';
 import {Button, Input, Popover} from '../../../../components';
+import SiteContext from '../../../../dataManagement/SiteContext'
 
 export const DownloadPresentation = ({ more, size, data, total, loading, getPredicate }) => {
-
+  const siteContext = useContext(SiteContext);
   const { labelMap } = useContext(EventContext);
   const [activeId, setActive] = useState();
   const [activeItem, setActiveItem] = useState();
   const dialog = useDialogState({ animated: true, modal: false });
   const items = data?.eventSearch?.facet?.datasetKey || [];
   const [activePredicate, setActivePredicate] = useState();
+
+  const customDownload = siteContext?.overwrites?.fn?.filteredEventDatasetDownload;
 
   useEffect(() => {
     setActiveItem(items[activeId]);
@@ -33,7 +36,7 @@ export const DownloadPresentation = ({ more, size, data, total, loading, getPred
       <div>
         <ul style={{ padding: 0, margin: 0 }}>
           {items.length > 0 && items.map((item, index) => <li>
-            <DatasetResult setActive={setActive} index={index} dialog={dialog} key={item.key} item={item} largest={items[0].count} />
+            <DatasetResult activePredicate={activePredicate} filteredDownload={customDownload} setActive={setActive} index={index} dialog={dialog} key={item.key} item={item} largest={items[0].count} />
           </li>)}
         </ul>
       </div>
@@ -41,7 +44,7 @@ export const DownloadPresentation = ({ more, size, data, total, loading, getPred
   </>
 }
 
-function DatasetResult({ largest, item, indicator, theme, setActive, index, dialog, ...props }) {
+function DatasetResult({ largest, item, indicator, theme, setActive, index, dialog, activePredicate, filteredDownload, ...props }) {
 
   const [visible, setVisible] = useState(false);
 
@@ -49,8 +52,12 @@ function DatasetResult({ largest, item, indicator, theme, setActive, index, dial
     window.location.href = dataset.archive.url;
   }
 
-  function startFilteredDownload(name, email) {
-    alert('This will start a download for ' + name + ", sending to " + email);
+  function startFilteredDownload() {
+    if (filteredDownload) {
+      filteredDownload({datasetKey: item.key, predicate: activePredicate})
+    } else {
+      alert('This will start a download');
+    }
   }
 
   return <div css={styles.dataset({ theme })}>
@@ -80,7 +87,8 @@ function DatasetResult({ largest, item, indicator, theme, setActive, index, dial
       </div>
 
       <div>
-        <Popover
+        <Button onClick={startFilteredDownload}>Download filtered archive</Button>
+        {/* <Popover
             trigger={<Button onClick={() => setVisible(true)}>Download filtered archive</Button>}
             aria-label="Location filter"
             onClickOutside={action => console.log('close request', action)}
@@ -89,7 +97,7 @@ function DatasetResult({ largest, item, indicator, theme, setActive, index, dial
               hide={() => setVisible(false)}
               download={(name, email) => startFilteredDownload(name, email)}>
           </FilteredDownloadForm>
-        </Popover>
+        </Popover> */}
 
         <Button onClick={() => { startDownload(item); }}  look="primaryOutline">
           Download full dataset archive

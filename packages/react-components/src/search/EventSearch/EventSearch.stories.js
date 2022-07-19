@@ -118,6 +118,13 @@ Example.story = {
 
 export const StandaloneExample = () => <Standalone 
   siteConfig={{
+    overwrites: {
+      fn: {
+        filteredEventDatasetDownload: context => {
+          alert(`Dave you could do the download here perhaps? ${JSON.stringify(context, null, 2)}`)
+        }
+      }
+    },
     routes: {
       eventSearch: {
         route: '/'
