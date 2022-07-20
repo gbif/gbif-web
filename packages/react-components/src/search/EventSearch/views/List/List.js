@@ -130,7 +130,10 @@ function Dataset({ datasetKey, datasetTitle, count, occurrenceCount, events, onC
   }
 
   const { documents, occurrenceFacet, facet, stats, cardinality } = data.eventSearch;
-  const hasMeasurements = facet.measurementOrFactTypes != null && facet.measurementOrFactTypes.length > 0
+
+  const hasMeasurements = facet.measurementOrFactTypes != null && facet.measurementOrFactTypes.length > 0;
+  const hasStructure = facet.eventTypeHierarchy != null && facet.eventTypeHierarchy.length > 0;
+  const hasProtocols = facet.samplingProtocol != null && facet.samplingProtocol.length > 0;
 
   return <article>
     <div css={style.summary}>
@@ -146,13 +149,17 @@ function Dataset({ datasetKey, datasetTitle, count, occurrenceCount, events, onC
         <div>Total occurrences: <span>{occurrenceCount}</span></div>
         <div>Known locations: <span>{cardinality.locationID}</span></div>
         <div>Taxonomic scope: <span>{occurrenceFacet.class.map(x => x.key).join(' • ')}</span></div>
-        <div>Structure:&nbsp;
-          <span>{facet.eventTypeHierarchy.map(x => x.key).join(' • ')}</span>
-        </div>
-        <div>Protocols:&nbsp;
-          <span>{facet.samplingProtocol.map(x => x.key).join(' • ')}</span>
-          <span>{occurrenceFacet.samplingProtocol.map(x => x.key).join(' • ')}</span>
-        </div>
+        {hasStructure &&
+            <div>Structure:&nbsp;
+              <span>{facet.eventTypeHierarchy.map(x => x.key).join(' • ')}</span>
+            </div>
+        }
+        {hasProtocols &&
+            <div>Protocols:&nbsp;
+              <span>{facet.samplingProtocol.map(x => x.key).join(' • ')}</span>
+              <span>{occurrenceFacet.samplingProtocol.map(x => x.key).join(' • ')}</span>
+            </div>
+        }
         {hasMeasurements &&
           <div>Measurement types: <span>{facet.measurementOrFactTypes.map(x => x.key).join(' • ')}</span></div>
         }

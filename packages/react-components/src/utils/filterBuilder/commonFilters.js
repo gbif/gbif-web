@@ -585,7 +585,7 @@ export const commonFilters = {
     }
   },
   eventType: {
-    type: 'SUGGEST',
+    type: 'KEYWORD_SEARCH',
     config: {
       std: {
         filterHandle: 'eventType',
@@ -597,9 +597,22 @@ export const commonFilters = {
         }
       },
       specific: {
-        suggestHandle: 'eventType',
-        id2labelHandle: 'eventTypeVocabulary',
-        allowEmptyQueries: true
+        placeholder: 'Search by event type',
+        query: `
+            query keywordSearch($predicate: Predicate, $size: Int, $include: String){
+              suggestions: eventSearch(predicate: $predicate) {
+                facet {
+                  eventType(size: $size, include: $include) {
+                    key
+                    count
+                  }
+                }
+              }
+            }
+        `,
+        graph: 'EVENT',
+        queryKey: 'eventType',
+        keepCase: true
       }
     }
   },

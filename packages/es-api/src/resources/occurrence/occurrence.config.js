@@ -607,7 +607,7 @@ const config =
     },
     "class": {
       "type": "keyword",
-      "field": "occurrence.gbifClassification.class.verbatim",
+      "field": "occurrence.gbifClassification.class",
       "get": {
         "type": "fuzzy"
       }
@@ -627,7 +627,7 @@ const config =
     },
     "family": {
       "type": "keyword",
-      "field": "occurrence.gbifClassification.family.verbatim",
+      "field": "occurrence.gbifClassification.family",
       "get": {
         "type": "fuzzy"
       }
@@ -643,7 +643,7 @@ const config =
     },
     "genus": {
       "type": "keyword",
-      "field": "occurrence.gbifClassification.genus.verbatim",
+      "field": "occurrence.gbifClassification.genus",
       "get": {
         "type": "fuzzy"
       }
@@ -659,7 +659,7 @@ const config =
     },
     "kingdom": {
       "type": "keyword",
-      "field": "occurrence.gbifClassification.kingdom.verbatim",
+      "field": "occurrence.gbifClassification.kingdom",
       "get": {
         "type": "fuzzy"
       }
@@ -675,7 +675,7 @@ const config =
     },
     "order": {
       "type": "keyword",
-      "field": "occurrence.gbifClassification.order.verbatim",
+      "field": "occurrence.gbifClassification.order",
       "get": {
         "type": "fuzzy"
       }
@@ -691,7 +691,7 @@ const config =
     },
     "phylum": {
       "type": "keyword",
-      "field": "occurrence.gbifClassification.phylum.verbatim",
+      "field": "occurrence.gbifClassification.phylum",
       "get": {
         "type": "fuzzy"
       }
@@ -707,7 +707,7 @@ const config =
     },
     "species": {
       "type": "keyword",
-      "field": "occurrence.gbifClassification.species.verbatim",
+      "field": "occurrence.gbifClassification.species",
       "get": {
         "type": "fuzzy"
       }
@@ -719,6 +719,13 @@ const config =
         "type": "range_or_term",
         "defaultUpperBound": "gte",
         "defaultLowerBound": "lte"
+      }
+    },
+    "scientificNames": {
+      "type": "keyword",
+      "field": "scientificNames.keyword",
+      "get": {
+        "type": "fuzzy"
       }
     },
     "gbifClassification_synonym": {

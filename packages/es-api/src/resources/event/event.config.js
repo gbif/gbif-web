@@ -226,6 +226,10 @@ const config =
         defaultLowerBound: 'lte'
       }
     },
+    scientificNames: {
+      type: 'keyword',
+      field: 'scientificNames'
+    },
     id: {
       type: 'keyword',
       field: 'id'
@@ -746,7 +750,7 @@ const config =
           },
           scientificName: {
             type: 'keyword',
-            field: 'gbifClassification.acceptedUsage.name'
+            field: 'gbifClassification.acceptedUsage.name.keyword'
           },
           taxonRank: {
             type: 'keyword',

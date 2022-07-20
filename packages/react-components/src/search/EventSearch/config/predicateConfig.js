@@ -14,6 +14,9 @@ const filterConf = {
     country: {
       defaultKey: 'countryCode'
     },
+    family: {
+      defaultKey: 'family'
+    },
     q: {
       defaultType: 'fuzzy',
       v1: {
