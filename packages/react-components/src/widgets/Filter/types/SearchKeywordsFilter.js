@@ -37,15 +37,22 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
       if (searchContext?.rootPredicate) {
         predicates.push(searchContext.rootPredicate);
       }
+      let queryString = q;
+      let postfix = '';
+      if (queryString.indexOf('*') === -1 && queryString.indexOf('?') === -1) {
+        postfix = '*';
+      }
+      queryString = `${q}${postfix}`;
+      
       if (q && q !== '') {
         predicates.push({
           "type": "like",
           "key": queryKey,
-          "value": `${q}`
+          "value": `${queryString}`
         });
       }
 
-      let includePattern = q
+      let includePattern = queryString
         .replace(/\*/g, '.*')
         .replace(/\?/, '.')
         .replace(/([\?\+\|\{\}\[\]\(\)\"\\])/g, (m, p1) => '\\' + p1);
