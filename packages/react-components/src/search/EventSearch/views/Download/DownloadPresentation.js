@@ -33,13 +33,11 @@ export const DownloadPresentation = ({ more, size, data, total, loading, getPred
 
   return <>
     <div>
-      <div>
-        <ul style={{ padding: 0, margin: 0 }}>
-          {items.length > 0 && items.map((item, index) => <li>
+        <ul key={`dataset_results`} style={{ padding: 0, margin: 0 }}>
+          {items.length > 0 && items.map((item, index) => <li key={`dataset_results-${item.key}`}>
             <DatasetResult activePredicate={activePredicate} filteredDownload={customDownload} setActive={setActive} index={index} dialog={dialog} key={item.key} item={item} largest={items[0].count} />
           </li>)}
         </ul>
-      </div>
     </div>
   </>
 }
@@ -85,20 +83,8 @@ function DatasetResult({ largest, item, indicator, theme, setActive, index, dial
         <br/>
         <span>Last generated: {item.archive.modified}</span>
       </div>
-
       <div>
         <Button onClick={startFilteredDownload}>Download filtered archive</Button>
-        {/* <Popover
-            trigger={<Button onClick={() => setVisible(true)}>Download filtered archive</Button>}
-            aria-label="Location filter"
-            onClickOutside={action => console.log('close request', action)}
-            visible={visible} >
-          <FilteredDownloadForm
-              hide={() => setVisible(false)}
-              download={(name, email) => startFilteredDownload(name, email)}>
-          </FilteredDownloadForm>
-        </Popover> */}
-
         <Button onClick={() => { startDownload(item); }}  look="primaryOutline">
           Download full dataset archive
         </Button>

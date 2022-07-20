@@ -36,6 +36,7 @@ export const sites = ({ noOfSites= 10, noOfYears, showMonth, theme, ...props }) 
                            "days squares";
       grid-template-columns: auto 1fr;
       grid-gap: 0px;
+      padding: 0px;
     }
     
     .time {

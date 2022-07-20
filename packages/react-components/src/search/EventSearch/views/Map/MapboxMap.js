@@ -34,7 +34,7 @@ class Map extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log('componentDidUpdate');
+    // console.log('componentDidUpdate');
     if (prevProps.query !== this.props.query && this.mapLoaded) {
       this.updateLayer();
     }
@@ -48,7 +48,7 @@ class Map extends Component {
   }
 
   updateLayer() {
-    console.log('updateLayer');
+    // console.log('updateLayer');
     var layer = this.map.getSource("events");
     if (layer) {
       this.map.removeLayer("events");
@@ -60,7 +60,7 @@ class Map extends Component {
   }
 
   onPointClick(pointData) {
-    console.log(pointData);
+    // console.log(pointData);
     this.props.onPointClick(pointData);
   }
 

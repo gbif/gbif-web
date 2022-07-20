@@ -109,7 +109,7 @@ export const EventsTable = ({ first, prev, next, size, from, results, total, loa
       <ResultsHeader loading={loading} total={total} />
       <DataTable fixedColumn={fixed} {...{ first, prev, next, size, from, total, loading }} style={{ flex: "1 1 auto", height: 100, display: 'flex', flexDirection: 'column' }}>
         <thead>
-          <tr>{headers}</tr>
+          <tr key={`EventsTableHeaders`}>{headers}</tr>
         </thead>
         <TBody rowCount={size} columnCount={7} loading={loading}>
           {getRows({ tableConfig, labelMap, results, setActiveEventID, setActiveDatasetKey, dialog, currentFilterContext })}
@@ -138,8 +138,8 @@ const getRows = ({ tableConfig, labelMap, results = [], setActiveEventID, setAct
         return <Td noWrap={field.noWrap} key={field.trKey} style={field.value.rightAlign ? { textAlign: 'right' } : {}}>{formattedVal}</Td>;
       }
     );
-    return <tr key={row.key} onClick={() => {
-      var selection = window.getSelection();
+    return <tr key={row.eventID} onClick={() => {
+      let selection = window.getSelection();
       if (selection.type !== "Range") {
         setActiveEventID(row.eventID);
         setActiveDatasetKey(row.datasetKey);

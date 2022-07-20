@@ -26,11 +26,11 @@ const Layout = ({
   const elementName = 'searchLayout';
 
   const tabComponents = {
-    DATASETS: <NavItem label={<FormattedMessage id="search.tabs.datasets" defaultMessage="Datasets"/>} data-targetid="dataset" onClick={e => setActiveView('DATASETS')} isActive={activeView === 'DATASETS'} />,
-    EVENTS: <NavItem label={<FormattedMessage id="search.tabs.events" defaultMessage="Events"/>} data-targetid="events" onClick={e => setActiveView('EVENTS')} isActive={activeView === 'EVENTS'} />,
-    SITES: <NavItem label={<FormattedMessage id="search.tabs.sites" defaultMessage="Sites"/>} data-targetid="sites" onClick={e => setActiveView('SITES')} isActive={activeView === 'SITES'} />,
-    MAP: <NavItem label={<FormattedMessage id="search.tabs.map" defaultMessage="Map"/>} data-targetid="map" onClick={e => setActiveView('MAP')} isActive={activeView === 'MAP'} />,
-    DOWNLOAD: <NavItem label="Download" data-targetid="download" onClick={e => setActiveView('DOWNLOAD')} isActive={activeView === 'DOWNLOAD'} />
+    DATASETS: <NavItem key={`DATASET_TAB`} label={<FormattedMessage id="search.tabs.datasets" defaultMessage="Datasets"/>} data-targetid="dataset" onClick={e => setActiveView('DATASETS')} isActive={activeView === 'DATASETS'} />,
+    EVENTS: <NavItem key={`EVENTS_TAB`} label={<FormattedMessage id="search.tabs.events" defaultMessage="Events"/>} data-targetid="events" onClick={e => setActiveView('EVENTS')} isActive={activeView === 'EVENTS'} />,
+    SITES: <NavItem key={`SITES_TAB`} label={<FormattedMessage id="search.tabs.sites" defaultMessage="Sites"/>} data-targetid="sites" onClick={e => setActiveView('SITES')} isActive={activeView === 'SITES'} />,
+    MAP: <NavItem key={`MAP_TAB`} label={<FormattedMessage id="search.tabs.map" defaultMessage="Map"/>} data-targetid="map" onClick={e => setActiveView('MAP')} isActive={activeView === 'MAP'} />,
+    DOWNLOAD: <NavItem key={`DOWNLOAD_TAB`} label="Download" data-targetid="download" onClick={e => setActiveView('DOWNLOAD')} isActive={activeView === 'DOWNLOAD'} />
   }
 
   return <div className={`${className} ${prefix}-${elementName}`}

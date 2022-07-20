@@ -1,16 +1,9 @@
-import React, {useCallback, useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import styles from './styles';
 import ThemeContext from "../../../../style/themes/ThemeContext";
-import {Button, DataTable, Row, Skeleton} from "../../../../components";
-import EventContext from "../../../SearchContext";
-import {useQuery} from "../../../../dataManagement/api";
-import {filter2predicate} from "../../../../dataManagement/filterAdapter";
-import hash from "object-hash";
-import {useUpdateEffect} from "react-use";
-import SearchContext from "../../../SearchContext";
+import {Button, DataTable} from "../../../../components";
 import {ResultsHeader} from "../../../ResultsHeader";
 import {css} from "@emotion/react";
-import {FormattedMessage} from "react-intl";
 
 export const SitesTable = ({ first, prev, next, size, from, results, total, loading, setSiteIDCallback }) => {
 
@@ -63,8 +56,6 @@ export const SitesTable = ({ first, prev, next, size, from, results, total, load
       let earliest_year = Math.min(...all_years);
       let latest_year = Math.max(...all_years);
 
-      // years = all_years.filter((v, i, a) => a.indexOf(v) === i).sort();
-      // years = Array.range(earliest_year, latest_year);
       years = Array.range(earliest_year, latest_year);
 
       no_of_years = years.length;
@@ -117,14 +108,14 @@ export const SitesTable = ({ first, prev, next, size, from, results, total, load
           <Button onClick={() => toggle()} look="primaryOutline" css={css`margin-left: 30px; font-size: 11px;`}>Show year / month</Button>
       </ResultsHeader>
       <DataTable fixedColumn={fixed} {...{ first, prev, next, size, from, total: total_no_points, loading }} style={{ flex: "1 1 auto", height: 100, display: 'flex', flexDirection: 'column' }}>
-        <div css={ styles.sites({ noOfSites: no_of_sites, noOfYears: no_of_years, showMonth: showMonth, theme }) }>
-
-          <div className={`graph`}>
+        <tbody>
+        <tr  css={ styles.sites({ noOfSites: no_of_sites, noOfYears: no_of_years, showMonth: showMonth, theme }) }>
+          <td className={`graph`} >
             <ul className={`time`}>
-              { years.map(obj => <li>{obj}</li>) }
+              { years.map(obj => <li key={`y_${obj}`}>{obj}</li>) }
             </ul>
             <ul className={`sites`}>
-              { site_data.map( (obj, i) => <li key={`site_${i}`} onClick={() => { setActiveSiteID(obj.key); }}>{obj.key}</li>) }
+              { site_data.map( (obj, i) => <li key={`s_${i}`} onClick={() => { setActiveSiteID(obj.key); }}>{obj.key}</li>) }
             </ul>
             <ul className={`squares`}>
               {
@@ -142,10 +133,10 @@ export const SitesTable = ({ first, prev, next, size, from, results, total, load
                 )
               }
             </ul>
-          </div>
-        </div>
+          </td>
+        </tr>
+        </tbody>
       </DataTable>
-
     </div>
   </>
 }
