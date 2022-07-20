@@ -20,7 +20,7 @@ export const List = ({ first, prev, next, size, from, data, total, loading }) =>
   const [activeKey, setActiveKey] = useQueryParam('entity', StringParam);
 
   const datasets = data?.eventSearch?.facet?.datasetKey;
-  
+
   useEffect(() => {
     if (activeKey) {
       dialog.show();
