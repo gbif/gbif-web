@@ -5,7 +5,8 @@
     "map": "Map",
     "datasets": "Datasets",
     "events": "Events",
-    "download": "Download"
+    "download": "Download",
+    "sites": "Sites"
   },
   "table": {
     "lockColumn": "Lock column"
