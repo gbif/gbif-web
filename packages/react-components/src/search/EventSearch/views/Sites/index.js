@@ -7,9 +7,10 @@ import {useQuery} from "../../../../dataManagement/api";
 import hash from "object-hash";
 import {filter2predicate} from "../../../../dataManagement/filterAdapter";
 import {useUpdateEffect} from "react-use";
-import {DetailsDrawer} from "../../../../components";
+import {DetailsDrawer, Skeleton} from "../../../../components";
 import {SiteSidebar} from "../../../../entities/SiteSidebar/SiteSidebar";
 import {useDialogState} from "reakit/Dialog";
+import * as style from "../List/style";
 
 const QUERY = `
 query list( $predicate: Predicate, $size: Int = 20, $from: Int = 0){
@@ -35,6 +36,15 @@ query list( $predicate: Predicate, $size: Int = 20, $from: Int = 0){
   }
 }
 `;
+
+function SitesSkeleton() {
+  return <div css={style.datasetSkeleton}>
+    <Skeleton width="random" style={{ height: '1.5em' }} />
+    <Skeleton width="random" />
+    <Skeleton width="random" />
+    <Skeleton width="random" />
+  </div>
+}
 
 function Sites() {
 
@@ -103,6 +113,9 @@ function Sites() {
   if (error) {
     return <div>Failed to fetch data</div>
   }
+
+  if (!data || loading) return <SitesSkeleton/>;
+
   return <>
     <DetailsDrawer href={`${activeSiteID}`} dialog={dialog}>
       <SiteSidebar

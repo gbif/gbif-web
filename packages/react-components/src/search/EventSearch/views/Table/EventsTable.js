@@ -111,7 +111,7 @@ export const EventsTable = ({ first, prev, next, size, from, results, total, loa
         <thead>
           <tr key={`EventsTableHeaders`}>{headers}</tr>
         </thead>
-        <TBody rowCount={size} columnCount={7} loading={loading}>
+        <TBody rowCount={size} columnCount={13} loading={loading}>
           {getRows({ tableConfig, labelMap, results, setActiveEventID, setActiveDatasetKey, dialog, currentFilterContext })}
         </TBody>
       </DataTable>

@@ -1,9 +1,19 @@
 import React, {useContext, useEffect, useState} from "react";
 import styles from './styles';
 import ThemeContext from "../../../../style/themes/ThemeContext";
-import {Button, DataTable} from "../../../../components";
+import {Button, DataTable, Skeleton} from "../../../../components";
 import {ResultsHeader} from "../../../ResultsHeader";
 import {css} from "@emotion/react";
+import * as style from "../List/style";
+
+function SitesSkeleton() {
+  return <div css={style.datasetSkeleton}>
+    <Skeleton width="random" style={{ height: '1.5em' }} />
+    <Skeleton width="random" />
+    <Skeleton width="random" />
+    <Skeleton width="random" />
+  </div>
+}
 
 export const SitesTable = ({ first, prev, next, size, from, results, total, loading, setSiteIDCallback }) => {
 
