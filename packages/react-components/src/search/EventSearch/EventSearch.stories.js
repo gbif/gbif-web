@@ -15,9 +15,10 @@ export default {
 
 
 const labels = {
-  elevation: {
-    type: 'NUMBER_RANGE',
-    path: 'interval.elevation'
+  taxonKey: {
+    type: 'ENDPOINT',
+    template: ({ id, api }) => `//namematching-ws-test.ala.org.au/api/getByTaxonID?taxonID=${encodeURIComponent(id)}`,
+    transform: result => ({ title: result.scientificName })
   },
 }
 

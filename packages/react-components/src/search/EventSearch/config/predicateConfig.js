@@ -38,9 +38,8 @@ const filterConf = {
         supportedTypes: ['range', 'equals']
       }
     },
-    eventTaxonomy: {
-      defaultType: 'occurrenceJoin',
-      defaultKey: 'family'
+    eventTaxonKey: {
+      defaultKey: 'taxonKey'
     },
     eventStateProvince: {
       defaultKey: 'stateProvince'

@@ -6,7 +6,7 @@ export const filters = [
   'year',
   'eventStateProvince',
   'eventID',
-  'eventTaxonomy',
+  'eventTaxonKey',
   'eventType',
   'locationId',
 ].sort();
@@ -19,6 +19,7 @@ const highlighted = [
   'year',
   'eventStateProvince',
   'locationId',
+  'eventTaxonKey',
 ];
 
 export default { filters, included: filters, highlighted };

@@ -17,6 +17,193 @@ const config =
         defaultLowerBound: 'lte'
       }
     },
+    taxonKey: {
+      join: 'occurrence',
+      config: {
+        options: {
+          taxonKey: {
+            type: 'keyword',
+            field: 'occurrence.gbifClassification.taxonKey'
+          }
+        }
+      }
+    },
+    kingdomKey: {
+      join: 'occurrence',
+      config: {
+        options: {
+          kingdomKey: {
+            type: 'keyword',
+            field: 'occurrence.gbifClassification.kingdomKey'
+          }
+        }
+      }
+    },
+    phylumKey: {
+      join: 'occurrence',
+      config: {
+        options: {
+          phylumKey: {
+            type: 'keyword',
+            field: 'occurrence.gbifClassification.phylumKey'
+          }
+        }
+      }
+    },
+    classKey: {
+      join: 'occurrence',
+      config: {
+        options: {
+          classKey: {
+            type: 'keyword',
+            field: 'occurrence.gbifClassification.classKey'
+          }
+        }
+      }
+    },
+    orderKey: {
+      join: 'occurrence',
+      config: {
+        options: {
+          orderKey: {
+            type: 'keyword',
+            field: 'occurrence.gbifClassification.orderKey'
+          }
+        }
+      }
+    },
+    familyKey: {
+      join: 'occurrence',
+      config: {
+        options: {
+          familyKey: {
+            type: 'keyword',
+            field: 'occurrence.gbifClassification.familyKey'
+          }
+        }
+      }
+    },
+    genusKey: {
+      join: 'occurrence',
+      config: {
+        options: {
+          genusKey: {
+            type: 'keyword',
+            field: 'occurrence.gbifClassification.genusKey'
+          }
+        }
+      }
+    },
+    speciesKey: {
+      join: 'occurrence',
+      config: {
+        options: {
+          speciesKey: {
+            type: 'keyword',
+            field: 'occurrence.gbifClassification.speciesKey'
+          }
+        }
+      }
+    },
+    kingdom: {
+      join: 'occurrence',
+      config: {
+        options: {
+          kingdom: {
+            type: 'keyword',
+            field: 'occurrence.gbifClassification.kingdom'
+          }
+        }
+      }
+    },
+    phylum: {
+      join: 'occurrence',
+      config: {
+        options: {
+          phylum: {
+            type: 'keyword',
+            field: 'occurrence.gbifClassification.phylum'
+          }
+        }
+      }
+    },
+    class: {
+      join: 'occurrence',
+      config: {
+        options: {
+          class: {
+            type: 'keyword',
+            field: 'occurrence.gbifClassification.class'
+          }
+        }
+      }
+    },
+    order: {
+      join: 'occurrence',
+      config: {
+        options: {
+          order: {
+            type: 'keyword',
+            field: 'occurrence.gbifClassification.order'
+          }
+        }
+      }
+    },
+    family: {
+      join: 'occurrence',
+      config: {
+        options: {
+          family: {
+            type: 'keyword',
+            field: 'occurrence.gbifClassification.family'
+          }
+        }
+      }
+    },
+    genus: {
+      join: 'occurrence',
+      config: {
+        options: {
+          genus: {
+            type: 'keyword',
+            field: 'occurrence.gbifClassification.genus'
+          }
+        }
+      }
+    },
+    species: {
+      join: 'occurrence',
+      config: {
+        options: {
+          species: {
+            type: 'keyword',
+            field: 'occurrence.gbifClassification.species'
+          }
+        }
+      }
+    },
+    occurrenceSamplingProtocol: {
+      join: 'occurrence',
+      config: {
+        options: {
+          occurrenceSamplingProtocol: {
+            type: 'keyword',
+            field: 'occurrence.samplingProtocol.keyword'
+          }
+        }
+      }
+    },
+    recordedBy: {
+      join: 'occurrence',
+      config: {
+        options: {
+          recordedBy: {
+            type: 'keyword',
+            field: 'occurrence.recordedBy.verbatim'
+          }
+        }
+      }
+    },
     created: {
       type: 'date',
       field: 'created',
@@ -564,6 +751,10 @@ const config =
           taxonRank: {
             type: 'keyword',
             field: 'gbifClassification.acceptedUsage.rank'
+          },
+          taxonKey: {
+            type: 'keyword',
+            field: 'core.taxonomy.taxonKey'
           }
         }
       }
@@ -619,10 +810,6 @@ const config =
     identificationRemarks: {
       type: 'keyword',
       field: 'occurrence.occurrence.core.identificationRemarks'
-    },
-    kingdom: {
-      type: 'keyword',
-      field: 'occurrence.core.kingdom'
     },
     occurrenceID: {
       type: 'keyword',

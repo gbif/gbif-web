@@ -8,40 +8,18 @@ function metric2aggs(metrics = {}, config) {
     const conf = _.get(config, `options[${metric.key}]`);
     if (!conf) continue;
     else {
+      if (config?.options?.[metric.key]?.join) {
+        aggs[name] = {
+          children: {
+            type: config?.options?.[metric.key]?.join
+          },
+          aggs: metric2aggs({[name]: metric}, config.options[metric.key].config)
+        };
+        continue;
+      }
       let from = parseInt(metric.from || 0);
       let size = parseInt(metric.size || 10) || 10;
       switch (metric.type) {
-        case 'subfacet': {
-          if (!['keyword', 'numeric', 'boolean'].includes(conf.type)) {
-            throw new ResponseError(400, 'badRequest', 'Facets are only supported on keywords, boolean and numeric fields');
-          }
-          aggs[name] = {
-            terms: {
-              field: conf.field,
-              size: size + from,
-              order: { "_term": "asc" }
-            },
-            aggs: {
-              "year_facet": {
-                terms: {
-                  field: "event.year",
-                  size: 1000,
-                  order: { "_term": "asc" }
-                },
-                aggs: {
-                  "month_facet": {
-                    terms: {
-                      field: "event.month",
-                      order: { "_term": "asc" }
-                    }
-                  }
-                }
-              }
-            }
-          }
-
-          break;
-        }
         case 'facet': {
           if (!['keyword', 'numeric', 'boolean'].includes(conf.type)) {
             throw new ResponseError(400, 'badRequest', 'Facets are only supported on keywords, boolean and numeric fields');

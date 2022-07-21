@@ -5,6 +5,7 @@ class ApiClient {
   constructor(config) {
     this.gql = config.gql;
     this.v1 = config.v1;
+    this.esApi = config.esApi;
     this.request;
     this.graphs = {
       EVENT: config.gqlEvents,
@@ -26,6 +27,10 @@ class ApiClient {
 
   v1Get(url, options) {
     return this.get(this.v1.endpoint + url, options);
+  }
+
+  esApiGet(url, options) {
+    return this.get(this.esApi.endpoint + url, options);
   }
 }
 

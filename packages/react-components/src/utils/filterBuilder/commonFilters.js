@@ -1168,11 +1168,11 @@ export const commonFilters = {
       }
     }
   },
-  eventTaxonomy: {
-    type: 'SIMPLE_TEXT',
+  eventTaxonKey: {
+    type: 'SUGGEST',
     config: {
       std: {
-        filterHandle: 'eventTaxonomy',
+        filterHandle: 'eventTaxonKey',
         id2labelHandle: 'taxonKey',
         translations: {
           count: 'filters.taxonKey.count', // translation path to display names with counts. e.g. "3 scientific names"
@@ -1181,8 +1181,8 @@ export const commonFilters = {
         },
       },
       specific: {
-        placeholder: 'Search by institution scientific name',
-        singleSelect: false
+        suggestHandle: 'eventTaxonKey',
+        id2labelHandle: 'id2labelHandle'
       }
     }
   },

@@ -364,6 +364,32 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
         </div>
       }
     },
+    eventTaxonKey: {
+      //What placeholder to show
+      // placeholder: 'Search by scientific name',
+      placeholder: 'search.placeholders.default',
+      // how to get the list of suggestion data
+      getSuggestions: ({ q }) => client.esApiGet(`/occurrence/suggest/taxonKey?q=${q}`),
+      // how to map the results to a single string value
+      getValue: suggestion => suggestion.scientificName,
+      // how to display the individual suggestions in the list
+      render: function ScientificNameSuggestItem(suggestion) {
+        const ranks = ['kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species'].map((rank, i) => {
+          return suggestion[rank] && rank !== suggestion.rank.toLowerCase() ? <span key={rank}>{suggestion[rank]}</span> : null;
+        });
+
+        return <div style={{ maxWidth: '100%' }}>
+          <div style={suggestStyle}>
+            {suggestion.scientificName}
+          </div>
+          <div style={{ color: '#aaa', fontSize: '0.85em' }}>
+            <Classification>
+              {ranks}
+            </Classification>
+          </div>
+        </div>
+      }
+    },
     recordedBy: {
       //What placeholder to show
       placeholder: 'search.placeholders.default',

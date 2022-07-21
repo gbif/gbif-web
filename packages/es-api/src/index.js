@@ -6,12 +6,12 @@ const cors = require('cors');
 const config = require('./config');
 
 var queue = require('express-queue');
-const queueOptions = { 
-  activeLimit: 10, 
-  queuedLimit: 2000, 
+const queueOptions = {
+  activeLimit: 10,
+  queuedLimit: 2000,
   rejectHandler: (req, res) => {
-    res.status(429); 
-    res.json({error: 429, message: 'Too many concurrent requests. This threshold is shared across users, so it is not only your requests.'});
+    res.status(429);
+    res.json({ error: 429, message: 'Too many concurrent requests. This threshold is shared across users, so it is not only your requests.' });
   }
 };
 
@@ -71,28 +71,35 @@ const temporaryAuthMiddleware = function (req, res, next) {
   // Pass to next layer of middleware
   next()
 }
-app.use(temporaryAuthMiddleware)
+// use per route instead
+// app.use(temporaryAuthMiddleware)
 
 if (literature) {
   app.post('/literature/meta', asyncMiddleware(postMetaOnly(literature)));
   app.get('/literature/meta', asyncMiddleware(getMetaOnly(literature)));
 
-  app.post('/literature', queue(queueOptions), asyncMiddleware(searchResource(literature)));
-  app.get('/literature', queue(queueOptions), asyncMiddleware(searchResource(literature)));
+  app.post('/literature', queue(queueOptions), temporaryAuthMiddleware, asyncMiddleware(searchResource(literature)));
+  app.get('/literature', queue(queueOptions), temporaryAuthMiddleware, asyncMiddleware(searchResource(literature)));
   app.get('/literature/key/:id', asyncMiddleware(keyResource(literature)));
 }
 if (occurrence) {
   app.post('/occurrence/meta', asyncMiddleware(postMetaOnly(occurrence)));
   app.get('/occurrence/meta', asyncMiddleware(getMetaOnly(occurrence)));
-  
-  app.post('/occurrence', queue(queueOptions), asyncMiddleware(searchResource(occurrence)));
-  app.get('/occurrence', queue(queueOptions), asyncMiddleware(searchResource(occurrence)));
+
+  app.post('/occurrence', queue(queueOptions), temporaryAuthMiddleware, asyncMiddleware(searchResource(occurrence)));
+  app.get('/occurrence', queue(queueOptions), temporaryAuthMiddleware, asyncMiddleware(searchResource(occurrence)));
   app.get('/occurrence/key/:id', asyncMiddleware(keyResource(occurrence)));
-  app.get('/occurrence/suggest/:key', asyncMiddleware(suggestResource(occurrence)));
+  
+  app.get('/occurrence/suggest/taxonKey', asyncMiddleware(async (req, res) => {
+    const body = await occurrence.scientificNameSuggest({ q: req.query.q, req });
+    res.json(body);
+  }));
+
+  app.get('/occurrence/suggest/:key', temporaryAuthMiddleware, asyncMiddleware(suggestResource(occurrence)));
 }
 if (dataset) {
-  app.post('/dataset', queue(queueOptions), asyncMiddleware(searchResource(dataset)));
-  app.get('/dataset', queue(queueOptions), asyncMiddleware(searchResource(dataset)));
+  app.post('/dataset', queue(queueOptions), temporaryAuthMiddleware, asyncMiddleware(searchResource(dataset)));
+  app.get('/dataset', queue(queueOptions), temporaryAuthMiddleware, asyncMiddleware(searchResource(dataset)));
   app.get('/dataset/key/:id', asyncMiddleware(keyResource(dataset)));
 }
 let eventQueue
@@ -100,10 +107,10 @@ if (event) {
   eventQueue = queue(queueOptions);
   app.post('/event/meta', asyncMiddleware(postMetaOnly(event)));
   app.get('/event/meta', asyncMiddleware(getMetaOnly(event)));
-  
-  app.post('/event', eventQueue, asyncMiddleware(searchResource(event)));
-  app.get('/event', eventQueue, asyncMiddleware(searchResource(event)));
-  app.get('/event/key/:qualifier/:id', asyncMiddleware(keyResource(event)));
+
+  app.post('/event', eventQueue, temporaryAuthMiddleware, asyncMiddleware(searchResource(event)));
+  app.get('/event', eventQueue, temporaryAuthMiddleware, asyncMiddleware(searchResource(event)));
+  app.get('/event/key/:qualifier/:id', temporaryAuthMiddleware, asyncMiddleware(keyResource(event)));
 }
 
 function searchResource(resource) {
@@ -156,7 +163,7 @@ function parseQuery(req, res, next, { get2predicate, get2metric }) {
       metrics: jsonMetrics,
       size = 20,
       from = 0,
-      randomSeed, 
+      randomSeed,
       randomize,
       includeMeta = false,
       ...otherParams
@@ -198,7 +205,7 @@ function keyResource(resource) {
 
 function suggestResource(resource) {
   const { dataSource, getSuggestQuery } = resource;
-  return async (req, res) => {
+  return async (req, res, next) => {
     const suggestQuery = getSuggestQuery({ key: req.params.key, text: req.query.q });
     const body = await dataSource.suggest(suggestQuery);
     res.json(body);

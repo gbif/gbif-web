@@ -112,8 +112,69 @@ async function byKey({ key, req }) {
   }
 }
 
+async function scientificNameSuggest({ q, req } = {}) {
+  const query = {
+    "size": 0,
+    "from": 0,
+    "query": {
+      "nested": {
+        "path": "occurrence.taxonomy",
+        "query": {
+          "bool": {
+            "filter": [
+              {
+                "wildcard": {
+                  "occurrence.taxonomy.name": {
+                    "value": `${q}*`
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "aggs": {
+      "taxonomy": {
+        "nested": {
+          "path": "occurrence.taxonomy"
+        },
+        "aggs": {
+          "suggestions": {
+            "terms": {
+              "field": "occurrence.taxonomy.name",
+              "include": `${q}.*`
+            },
+            "aggs": {
+              "exampleDocument": {
+                "top_hits": {
+                  "size": 1
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  };
+
+  let response = await search({ client, index: searchIndex, query, req });
+  let body = response.body;
+
+  const buckets = body.aggregations.taxonomy.suggestions.buckets;
+  const results = buckets.map(x => {
+    const example = x.exampleDocument.hits.hits[0]._source;
+    return {
+      scientificName: example.name,
+      key: example.taxonKey
+    }
+  })
+  return results;
+}
+
 module.exports = {
   query,
   byKey,
-  suggest
+  suggest,
+  scientificNameSuggest
 };

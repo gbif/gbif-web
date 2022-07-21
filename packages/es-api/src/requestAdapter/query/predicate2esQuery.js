@@ -49,6 +49,14 @@ function groupPredicates(predicates, isRootQuery) {
 function transform(p, config, isRootQuery) {
   const fieldName = getFieldName(p.key, config);
 
+  if (config?.options?.[p.key]?.join) {
+    return {
+          has_child: {
+            type: config.options[p.key].join,
+            query: transform(p, config.options[p.key].config)
+          }
+        }
+  }
   switch (p.type) {
     case 'and': {
       // bool queries is essentially an AND of: must, filter, mut_not and should (if minimum_should_match set to 1)
@@ -85,6 +93,18 @@ function transform(p, config, isRootQuery) {
       }
     }
     case 'equals': {
+      // if (config.options[p.key].join) {
+      //   return {
+      //     has_child: {
+      //       type: config.options[p.key].join,
+      //       query: {
+      //         term: {
+      //           [fieldName]: p.value
+      //         }
+      //       }
+      //     }
+      //   }
+      // }
       return {
         term: {
           [fieldName]: p.value
