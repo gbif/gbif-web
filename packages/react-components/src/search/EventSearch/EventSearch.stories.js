@@ -130,6 +130,9 @@ export const StandaloneExample = () => <Standalone
       eventSearch: {
         route: '/'
       }
+    },
+    event: {
+      labels
     }
   }} 
   style={{ height: 'calc(100vh - 50px)' }}></Standalone>;
