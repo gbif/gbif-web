@@ -369,7 +369,7 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
       // placeholder: 'Search by scientific name',
       placeholder: 'search.placeholders.default',
       // how to get the list of suggestion data
-      getSuggestions: ({ q }) => client.esApiGet(`/occurrence/suggest/taxonKey?q=${q}`),
+      getSuggestions: ({ q }) => client.esApiGet(`/event/suggest/taxonKey?q=${q}`),
       // how to map the results to a single string value
       getValue: suggestion => suggestion.scientificName,
       // how to display the individual suggestions in the list

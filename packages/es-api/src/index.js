@@ -89,11 +89,6 @@ if (occurrence) {
   app.post('/occurrence', queue(queueOptions), temporaryAuthMiddleware, asyncMiddleware(searchResource(occurrence)));
   app.get('/occurrence', queue(queueOptions), temporaryAuthMiddleware, asyncMiddleware(searchResource(occurrence)));
   app.get('/occurrence/key/:id', asyncMiddleware(keyResource(occurrence)));
-  
-  app.get('/occurrence/suggest/taxonKey', asyncMiddleware(async (req, res) => {
-    const body = await occurrence.scientificNameSuggest({ q: req.query.q, req });
-    res.json(body);
-  }));
 
   app.get('/occurrence/suggest/:key', temporaryAuthMiddleware, asyncMiddleware(suggestResource(occurrence)));
 }
@@ -111,6 +106,11 @@ if (event) {
   app.post('/event', eventQueue, temporaryAuthMiddleware, asyncMiddleware(searchResource(event)));
   app.get('/event', eventQueue, temporaryAuthMiddleware, asyncMiddleware(searchResource(event)));
   app.get('/event/key/:qualifier/:id', temporaryAuthMiddleware, asyncMiddleware(keyResource(event)));
+
+  app.get('/event/suggest/taxonKey', asyncMiddleware(async (req, res) => {
+    const body = await event.scientificNameSuggest({ q: req.query.q, req });
+    res.json(body);
+  }));
 }
 
 function searchResource(resource) {

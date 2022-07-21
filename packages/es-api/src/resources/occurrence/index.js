@@ -29,8 +29,7 @@ module.exports = {
   get2metric: query => get2metric(query, config),
   metric2aggs: metrics => metric2aggs(metrics, config),
   getSuggestQuery: ({key, text, next}) => getSuggestQuery(key, text, config, {next}),
-  suggestConfig,
-  scientificNameSuggest: dataSource.scientificNameSuggest,
+  suggestConfig
 }
 
 // suggestConfig().catch(err => console.log(err));
