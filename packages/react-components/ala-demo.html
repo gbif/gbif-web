@@ -897,9 +897,7 @@
           drawerZIndex: 1000
         }});
 
-        var userConfig = typeof siteConfig !== 'undefined' ? siteConfig : {};
-        var routes = userConfig.routes || {
-          // occurrenceSearch: {
+        var routes = {
           eventSearch: {
             route: '/',
           },
@@ -909,7 +907,6 @@
             route: '/event/:key'
           },
           datasetKey: {
-            // url: ({key}) => `/dataset/${key}`,
             url: ({key, gbifOrgLocalePrefix}) => `https://collections-test.ala.org.au/public/showDataResource/${key}`,
             isHref: true,
             route: '/dataset/:key'
@@ -918,7 +915,7 @@
         routes.basename = '/';
 
         var alaSiteConfig = {
-          theme: userTheme,
+          theme: siteTheme,
           routes: routes,
           locale: widgetLocale,
           event: {
