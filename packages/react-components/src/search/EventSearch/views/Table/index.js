@@ -165,6 +165,18 @@ const defaultTableConfig = {
   ]
 };
 
+function predicateMeddler(predicates){
+  // change predicate
+  predicates.predicates.forEach((predicate, idx) => {
+    if (predicate.key == "eventTypeHierarchy"){
+      predicate.key = "eventType"
+    }
+    if (predicate.key == "eventHierarchy"){
+      predicate.key = "eventID"
+    }
+  });
+}
+
 function Table() {
   return <PredicateDataFetcher
     graphQuery={QUERY}
@@ -173,6 +185,7 @@ function Table() {
     componentProps={{
       defaultTableConfig
     }}
+    predicateMeddler={predicateMeddler}
     presentation={EventsTable}
   />
 }

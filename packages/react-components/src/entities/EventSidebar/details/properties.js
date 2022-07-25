@@ -93,7 +93,7 @@ export function DateRangeField(props) {
   const isRange = gte != null && lte != null;
 
   return <Field {...props} >
-    {isRange && <span>from {gte} until {lte}</span>}
+    {isRange && <span> {gte} to {lte}</span>}
     {!isRange && <span> {gte} </span>}
     {!isRange && <span> {lte} </span>}
   </Field>
