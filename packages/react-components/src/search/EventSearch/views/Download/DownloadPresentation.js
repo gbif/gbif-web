@@ -1,19 +1,19 @@
 import React, { useState, useContext, useEffect, useCallback } from 'react';
 import EventContext from '../../../SearchContext';
+import SiteContext from '../../../../dataManagement/SiteContext'
 import { useDialogState } from "reakit/Dialog";
 import * as styles from './downloadPresentation.styles';
 import {Button, Popover} from '../../../../components';
-import {useAuth} from "react-oidc-context";
 import env from '../../../../../.env.json';
 
 export const DownloadPresentation = ({ more, size, data, total, loading, getPredicate }) => {
+  const siteContext = useContext(SiteContext);
   const { labelMap } = useContext(EventContext);
   const [activeId, setActive] = useState();
   const [activeItem, setActiveItem] = useState();
   const dialog = useDialogState({ animated: true, modal: false });
   const items = data?.eventSearch?.facet?.datasetKey || [];
   const [activePredicate, setActivePredicate] = useState();
-  const auth = useAuth();
   const [predicateEmpty, setPredicateEmpty] = useState(true);
 
   useEffect(() => {
@@ -33,19 +33,6 @@ export const DownloadPresentation = ({ more, size, data, total, loading, getPred
     setActive(Math.max(0, activeId - 1));
   }, [activeId]);
 
-  const isLoggedIn = auth.isAuthenticated;
-  const user = auth.user;
-
-  const loginCallback = useCallback(() => {
-    console.log("Redirecting to login page");
-    auth.signinRedirect();
-  }, [auth]);
-
-  const logoutCallback = useCallback(() => {
-    console.log("Redirecting to login page");
-    auth.signoutRedirect();
-  }, [auth]);
-
   return <>
     <div>
         <ul key={`dataset_results`} style={{ padding: 0, margin: 0 }}>
@@ -59,8 +46,7 @@ export const DownloadPresentation = ({ more, size, data, total, loading, getPred
                 key={item.key}
                 item={item}
                 largest={items[0].count}
-                user={user}
-                loginCallback={loginCallback}
+                siteContext={siteContext}
             />
           </li>)}
         </ul>
@@ -69,28 +55,64 @@ export const DownloadPresentation = ({ more, size, data, total, loading, getPred
 }
 
 function DatasetResult({ largest, item, indicator, theme, setActive, index, dialog, activePredicate, predicateEmpty,
-                         user, loginCallback,...props }) {
+                         siteContext,...props }) {
 
   const [visible, setVisible] = useState(false);
 
-  function startDownload(dataset) {
-    window.location.href = dataset.archive.url;
+  async function startFullDownload(dataset) {
+
+    const getUser = siteContext.auth?.getUser;
+    if (siteContext.auth && getUser) {
+      const user = await getUser();
+      if (user) {
+        console.log("User logged in ");
+        console.log(user);
+
+        // validate the predicate - is there any filters set ?
+        window.location.href = dataset.archive.url;
+      } else if (siteContext.auth?.signIn) {
+        siteContext.auth.signIn();
+      }
+    } else {
+      console.log("Site context didnt provide a getUser function")
+    }
   }
 
-  function startFilteredDownload() {
-    // validate the predicate - is there any filters set ?
-    let download = {
-      "datasetId": item.key,
-      "creator": user.profile.email,
-      "notificationAddresses": [user.profile.email],
-      "predicate": activePredicate
-    }
+  async function startFilteredDownload() {
 
-    let request = new XMLHttpRequest();
-    request.open('POST', env.DOWNLOADS_API_URL + '/event/download', true);
-    request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-    request.setRequestHeader('Authorization', 'Bearer ' + user.access_token);
-    request.send(JSON.stringify(download));
+    const signIn = siteContext.auth?.signIn;
+    const getUser = siteContext.auth?.getUser;
+
+    if (siteContext.auth && getUser) {
+      const user = await getUser();
+      if (user) {
+        // validate the predicate - is there any filters set ?
+        let download = {
+          "datasetId": item.key,
+          "creator": user.profile.email,
+          "notificationAddresses": [user.profile.email],
+          "predicate": activePredicate
+        }
+
+        let request = new XMLHttpRequest();
+        request.open('POST', env.DOWNLOADS_API_URL + '/event/download', true);
+        request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+        request.setRequestHeader('Authorization', 'Bearer ' + user.access_token);
+        console.log(download);
+        console.log("JWT = " + user.access_token);
+
+        request.send(JSON.stringify(download));
+
+        console.log("Response text = " + request.responseText);
+        console.log(request.response);
+
+
+      } else if (signIn) {
+        signIn();
+      }
+    } else {
+      console.log("Site context didnt provide a getUser function")
+    }
   }
 
   return <div css={styles.dataset({ theme })}>
@@ -122,18 +144,16 @@ function DatasetResult({ largest, item, indicator, theme, setActive, index, dial
         <Popover
             trigger={<Button onClick={() => setVisible(true)} disabled={predicateEmpty}>Download filtered
               archive</Button>}
-            aria-label="Location filter"
             onClickOutside={action => console.log('close request', action)}
             visible={visible}>
           <FilteredDownloadForm
               hide={() => setVisible(false)}
               download={() => startFilteredDownload()}
-              user={user}
-              loginCallback={loginCallback}
+              siteContext={siteContext}
           >
           </FilteredDownloadForm>
         </Popover>
-        <Button onClick={() => { startDownload(item, user); }}  look="primaryOutline">
+        <Button onClick={() => { startFullDownload(item); }}  look="primaryOutline">
           Download full dataset archive
         </Button>
       </div>
@@ -141,12 +161,13 @@ function DatasetResult({ largest, item, indicator, theme, setActive, index, dial
   </div>
 }
 
-const FilteredDownloadForm = React.memo(({ focusRef, hide, download, user, loginCallback,...props }) => {
+const FilteredDownloadForm = React.memo(({ focusRef, hide, download, siteContext,...props }) => {
 
-  const isUserLoggedIn = user != null;
+  const isUserLoggedIn = siteContext.auth?.getUser != null;
+  const signIn = siteContext.auth?.signIn;
+
   const [downloadButtonText, setDownloadButtonText] = useState("Download");
   const [downloadDisabled, setDownloadDisabled] = useState(false);
-
   const [downloadSent, setDownloadSent] = useState(false);
 
   const startDownload = useCallback(() => {
@@ -180,10 +201,6 @@ const FilteredDownloadForm = React.memo(({ focusRef, hide, download, user, login
           Once the download is generated you'll receive an email with a link <br/>
           you can use to download the data.
           <br/>
-          <br/>
-
-          Note: The email will be sent to <b>{user.profile.email}</b>
-          <br/>
         </p>
         }
 
@@ -191,7 +208,7 @@ const FilteredDownloadForm = React.memo(({ focusRef, hide, download, user, login
           The download will take approximately 10 minutes to create.
           <br/>
           After this time, you will receive an email sent to <br/>
-          <b>{user.profile.email}</b> with a link.
+          your registered email address with a link.
         </p>
         }
         <br/>
@@ -204,7 +221,7 @@ const FilteredDownloadForm = React.memo(({ focusRef, hide, download, user, login
     </div> }
     { !isUserLoggedIn && <div>
       <p>You need to login to download</p>
-      <a href={`#`} onClick={loginCallback}>Click here</a> to login
+      <a href={`#`} onClick={signIn}>Click here</a> to login
     </div> }
   </div>
 });

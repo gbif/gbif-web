@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import StandaloneWrapper from '../../StandaloneWrapper';
 import { Switch, Route } from 'react-router-dom';
 import EventSearch from './EventSearch';
@@ -13,10 +13,17 @@ function Wrap({ siteConfig, ...props }) {
 function Standalone(props) {
   const routeContext = useContext(RouteContext);
   const path = routeContext.eventSearch.route;
+
+  // Handle authentication redirects
+  useEffect(async () => {
+    const initialize = props?.siteConfig?.auth?.initialize;
+    if (initialize) await initialize();
+  });
+
   return <Switch>
     <Route
-      path={path}
-      render={routeProps => <EventSearch pageLayout config={props?.siteConfig?.event} {...props} {...routeProps} />}
+        path={path}
+        render={routeProps => <EventSearch pageLayout config={props?.siteConfig?.event} {...props} {...routeProps} />}
     />
   </Switch>
 }
