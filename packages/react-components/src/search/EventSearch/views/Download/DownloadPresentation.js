@@ -1,26 +1,28 @@
-
 import React, { useState, useContext, useEffect, useCallback } from 'react';
-import { FormattedNumber } from 'react-intl';
 import EventContext from '../../../SearchContext';
 import { useDialogState } from "reakit/Dialog";
 import * as styles from './downloadPresentation.styles';
-import {Button, Input, Popover} from '../../../../components';
-import SiteContext from '../../../../dataManagement/SiteContext'
+import {Button, Popover} from '../../../../components';
+import {useAuth} from "react-oidc-context";
+import env from '../../../../../.env.json';
 
 export const DownloadPresentation = ({ more, size, data, total, loading, getPredicate }) => {
-  const siteContext = useContext(SiteContext);
   const { labelMap } = useContext(EventContext);
   const [activeId, setActive] = useState();
   const [activeItem, setActiveItem] = useState();
   const dialog = useDialogState({ animated: true, modal: false });
   const items = data?.eventSearch?.facet?.datasetKey || [];
   const [activePredicate, setActivePredicate] = useState();
-
-  const customDownload = siteContext?.overwrites?.fn?.filteredEventDatasetDownload;
+  const auth = useAuth();
+  const [predicateEmpty, setPredicateEmpty] = useState(true);
 
   useEffect(() => {
     setActiveItem(items[activeId]);
     setActivePredicate(getPredicate())
+    let predicate = getPredicate();
+    if (predicate && predicate.predicates && predicate.predicates[0].type != "and"){
+      setPredicateEmpty(false)
+    }
   }, [activeId, items]);
 
   const nextItem = useCallback(() => {
@@ -31,18 +33,43 @@ export const DownloadPresentation = ({ more, size, data, total, loading, getPred
     setActive(Math.max(0, activeId - 1));
   }, [activeId]);
 
+  const isLoggedIn = auth.isAuthenticated;
+  const user = auth.user;
+
+  const loginCallback = useCallback(() => {
+    console.log("Redirecting to login page");
+    auth.signinRedirect();
+  }, [auth]);
+
+  const logoutCallback = useCallback(() => {
+    console.log("Redirecting to login page");
+    auth.signoutRedirect();
+  }, [auth]);
+
   return <>
     <div>
         <ul key={`dataset_results`} style={{ padding: 0, margin: 0 }}>
-          {items.length > 0 && items.map((item, index) => <li key={`dataset_results-${item.key}`}>
-            <DatasetResult activePredicate={activePredicate} filteredDownload={customDownload} setActive={setActive} index={index} dialog={dialog} key={item.key} item={item} largest={items[0].count} />
+          {items.length > 0 && items.map((item, index) => <li key={`dataset_results_${item.key}`}>
+            <DatasetResult
+                activePredicate={activePredicate}
+                predicateEmpty={predicateEmpty}
+                setActive={setActive}
+                index={index}
+                dialog={dialog}
+                key={item.key}
+                item={item}
+                largest={items[0].count}
+                user={user}
+                loginCallback={loginCallback}
+            />
           </li>)}
         </ul>
     </div>
   </>
 }
 
-function DatasetResult({ largest, item, indicator, theme, setActive, index, dialog, activePredicate, filteredDownload, ...props }) {
+function DatasetResult({ largest, item, indicator, theme, setActive, index, dialog, activePredicate, predicateEmpty,
+                         user, loginCallback,...props }) {
 
   const [visible, setVisible] = useState(false);
 
@@ -51,11 +78,19 @@ function DatasetResult({ largest, item, indicator, theme, setActive, index, dial
   }
 
   function startFilteredDownload() {
-    if (filteredDownload) {
-      filteredDownload({datasetKey: item.key, predicate: activePredicate})
-    } else {
-      alert('This will start a download');
+    // validate the predicate - is there any filters set ?
+    let download = {
+      "datasetId": item.key,
+      "creator": user.profile.email,
+      "notificationAddresses": [user.profile.email],
+      "predicate": activePredicate
     }
+
+    let request = new XMLHttpRequest();
+    request.open('POST', env.DOWNLOADS_API_URL + '/event/download', true);
+    request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+    request.setRequestHeader('Authorization', 'Bearer ' + user.access_token);
+    request.send(JSON.stringify(download));
   }
 
   return <div css={styles.dataset({ theme })}>
@@ -84,8 +119,21 @@ function DatasetResult({ largest, item, indicator, theme, setActive, index, dial
         <span>Last generated: {item.archive.modified}</span>
       </div>
       <div>
-        <Button onClick={startFilteredDownload}>Download filtered archive</Button>
-        <Button onClick={() => { startDownload(item); }}  look="primaryOutline">
+        <Popover
+            trigger={<Button onClick={() => setVisible(true)} disabled={predicateEmpty}>Download filtered
+              archive</Button>}
+            aria-label="Location filter"
+            onClickOutside={action => console.log('close request', action)}
+            visible={visible}>
+          <FilteredDownloadForm
+              hide={() => setVisible(false)}
+              download={() => startFilteredDownload()}
+              user={user}
+              loginCallback={loginCallback}
+          >
+          </FilteredDownloadForm>
+        </Popover>
+        <Button onClick={() => { startDownload(item, user); }}  look="primaryOutline">
           Download full dataset archive
         </Button>
       </div>
@@ -93,32 +141,71 @@ function DatasetResult({ largest, item, indicator, theme, setActive, index, dial
   </div>
 }
 
-const FilteredDownloadForm = React.memo(({ focusRef, hide, download,...props }) => {
+const FilteredDownloadForm = React.memo(({ focusRef, hide, download, user, loginCallback,...props }) => {
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const isUserLoggedIn = user != null;
+  const [downloadButtonText, setDownloadButtonText] = useState("Download");
+  const [downloadDisabled, setDownloadDisabled] = useState(false);
+
+  const [downloadSent, setDownloadSent] = useState(false);
+
+  const startDownload = useCallback(() => {
+    console.log("Starting download");
+
+    // change button
+    setDownloadDisabled(true);
+    setDownloadButtonText("Requesting download....");
+
+    download();
+
+    // change button
+    setDownloadButtonText("Download sent!");
+    setDownloadSent(true)
+  }, []);
 
   return <div style={{ padding: "30px" }}>
-    <h3>Download data for this search</h3>
-    <p>
-      To download this dataset, please supply an email address.<br/>
-      Once the download is generated you'll receive an email with a link <br/>
-      you can use to download the data.
-      <br/>
-    </p>
-    <form>
-      <label>
-        Email:
-        <Input id={email} value={email} onInput={e => setEmail(e.target.value)}/>
-      </label>
-    </form>
-    <br/>
-    <div>
-      <Button onClick={() => download(name, email)} ref={focusRef}>Download</Button>
-      <Button onClick={() => hide()} look="primaryOutline">Close</Button>
-    </div>
-    <br/>
-    <span>Note: this is form is demo purposes only in lieu of proper authentication.</span>
+
+    {!downloadSent &&
+      <h3>Download data for this search</h3>
+    }
+
+    {downloadSent &&
+        <h3>Download started !</h3>
+    }
+
+    { isUserLoggedIn && <div>
+        {!downloadSent && <p>
+        This will create a download of this dataset filtered to your search.
+          <br/>
+          Once the download is generated you'll receive an email with a link <br/>
+          you can use to download the data.
+          <br/>
+          <br/>
+
+          Note: The email will be sent to <b>{user.profile.email}</b>
+          <br/>
+        </p>
+        }
+
+        {downloadSent && <p>
+          The download will take approximately 10 minutes to create.
+          <br/>
+          After this time, you will receive an email sent to <br/>
+          <b>{user.profile.email}</b> with a link.
+        </p>
+        }
+        <br/>
+      <div>
+        {!downloadSent &&
+            <Button onClick={startDownload} ref={focusRef} disabled={downloadDisabled}>{downloadButtonText}</Button>
+        }
+        <Button onClick={() => hide()} look="primaryOutline">Close</Button>
+      </div>
+    </div> }
+    { !isUserLoggedIn && <div>
+      <p>You need to login to download</p>
+      <a href={`#`} onClick={loginCallback}>Click here</a> to login
+    </div> }
   </div>
 });
 FilteredDownloadForm.displayName = 'FilteredDownloadForm';

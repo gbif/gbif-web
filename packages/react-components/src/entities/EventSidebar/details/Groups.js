@@ -1,7 +1,7 @@
 import React, {useCallback} from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Accordion, Properties } from "../../../components";
-import {PlainTextField, EnumField, HtmlField, LinkedField} from './properties';
+import {PlainTextField, EnumField, HtmlField, LinkedField, DateRangeField, VocabField} from './properties';
 import * as css from "../styles";
 
 const { Term: T, Value: V } = Properties;
@@ -50,7 +50,8 @@ function Event({ showAll, termMap, event, setActiveEventID }) {
     'sampleSizeValue',
     'sampleSizeUnit',
     'fieldNotes',
-    'eventRemarks'].find(x => termMap[x]);
+    'eventRemarks'
+  ].find(x => termMap[x]);
   if (!hasContent) return null;
 
   const viewParent = useCallback(() => {
@@ -61,7 +62,8 @@ function Event({ showAll, termMap, event, setActiveEventID }) {
     <Properties css={css.properties} breakpoint={800}>
       <PlainTextField term={termMap.eventID} showDetails={showAll} />
       <LinkedField fieldCallback={viewParent} term={termMap.parentEventID} showDetails={showAll} />
-      <PlainTextField term={termMap.eventType?.concept} showDetails={showAll} />
+      <VocabField term={termMap.eventType} showDetails={showAll} />
+      <DateRangeField term={termMap.temporalCoverage} showDetails={showAll} />
       <PlainTextField term={termMap.eventDate} showDetails={showAll} />
       <PlainTextField term={termMap.eventTime} showDetails={showAll} />
       {showAll && <PlainTextField term={termMap.startDayOfYear} showDetails={showAll} />}

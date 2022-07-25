@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import PredicateDataFetcher from '../../../PredicateDataFetcher';
 import { EventsTable } from './EventsTable';
-import { FormattedNumber } from 'react-intl';
+import {FormattedMessage, FormattedNumber} from 'react-intl';
 
 const QUERY = `
 query list($predicate: Predicate, $offset: Int, $limit: Int){
@@ -72,6 +72,7 @@ const defaultTableConfig = {
       filterKey: 'month',
       value: {
         key: 'month',
+        formatter: (value, item) => <FormattedMessage id={`enums.month.${value}`} /> ,
         hideFalsy: true
       }
     },
