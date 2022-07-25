@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { Properties, Tag, Tags } from "../../../components";
-import { FormattedMessage } from 'react-intl';
+import {FormattedMessage, FormattedNumber} from 'react-intl';
 import { prettifyEnum } from '../../../utils/labelMaker/config2labels';
 
 const { Term: T, Value: V } = Properties;
@@ -24,14 +24,14 @@ export function FacetListInline(props) {
   const { value } = props.term;
   if (value && value.length > 1) {
     const listItems = value.map(facet =>
-        facet.key + " ("+ facet.count +") "
+        facet.key + " (" + facet.count.toLocaleString() + ") "
     );
     return <Field {...props}>
       {listItems.join(' ● ')}
     </Field>;
   } else if (value && value.length == 1) {
     return <Field {...props}>
-      {value[0].key} ({value[0].count})
+      {value[0].key} ({value[0].count.toLocaleString()})
     </Field>;
   } else {
     return null;
@@ -44,7 +44,7 @@ export function FacetList(props) {
   if (value.length > 1) {
     const listItems = value.map(facet =>
         <li>
-          {facet.key} ({facet.count})
+          {facet.key} ({facet.count.toLocaleString()})
         </li>
     );
     return <Field {...props}>
@@ -52,7 +52,7 @@ export function FacetList(props) {
     </Field>;
   } else if (value.length == 1) {
     return <Field {...props}>
-      {value[0].key} ({value[0].count})
+      {value[0].key} ({value[0].count.toLocaleString()})
     </Field>;
   } else {
     return null;
@@ -77,9 +77,26 @@ export function PlainTextField(props) {
   </Field>
 }
 
-export function CustomValueField(props) {
+export function VocabField(props) {
   if (!props.term) return null;
-  return <Field {...props} />
+  const { value } = props.term;
+  const {concept} = value;
+  return <Field {...props} >
+    {concept}
+  </Field>
+}
+
+export function DateRangeField(props) {
+  if (!props.term) return null;
+  const { value } = props.term;
+  const {gte, lte} = value;
+  const isRange = gte != null && lte != null;
+
+  return <Field {...props} >
+    {isRange && <span>from {gte} until {lte}</span>}
+    {!isRange && <span> {gte} </span>}
+    {!isRange && <span> {lte} </span>}
+  </Field>
 }
 
 export function EnumField({ getEnum, ...props }) {

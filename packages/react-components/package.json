@@ -62,7 +62,8 @@
     "uncontrollable": "^7.2.1",
     "url-regex": "^5.0.0",
     "use-debounce": "^6.0.0",
-    "use-query-params": "1.2.3"
+    "use-query-params": "1.2.3",
+    "wicket": "1.3.8"
   },
   "devDependencies": {
     "@babel/core": "^7.13.10",
