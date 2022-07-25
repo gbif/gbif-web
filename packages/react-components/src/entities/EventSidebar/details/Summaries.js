@@ -60,8 +60,8 @@ function TaxonomicCoverage({ showAll, termMap }) {
     <Properties css={css.properties} breakpoint={800}>
       <FacetListInline term={termMap.kingdom} showDetails={showAll}/>
       <FacetListInline term={termMap.phylum} showDetails={showAll}/>
-      <FacetListInline term={termMap.class} showDetails={showAll}/>
       <FacetListInline term={termMap.order} showDetails={showAll}/>
+      <FacetListInline term={termMap.class} showDetails={showAll}/>
       <FacetListInline term={termMap.family} showDetails={showAll}/>
       <FacetListInline term={termMap.genus} showDetails={showAll}/>
     </Properties>
@@ -83,6 +83,7 @@ function Methodology({ showAll, termMap }) {
     <Properties css={css.properties} breakpoint={800}>
       <FacetList term={termMap.samplingProtocol} showDetails={showAll} />
       <FacetList term={termMap.recordedBy} showDetails={showAll} />
+      <FacetList term={termMap.measurementOrFactTypes} showDetails={showAll} />
     </Properties>
   </Group>
 }

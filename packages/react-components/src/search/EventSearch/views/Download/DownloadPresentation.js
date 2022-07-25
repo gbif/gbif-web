@@ -35,19 +35,32 @@ export const DownloadPresentation = ({ more, size, data, total, loading, getPred
     <div>
         <ul key={`dataset_results`} style={{ padding: 0, margin: 0 }}>
           {items.length > 0 && items.map((item, index) => <li key={`dataset_results-${item.key}`}>
-            <DatasetResult activePredicate={activePredicate} filteredDownload={customDownload} setActive={setActive} index={index} dialog={dialog} key={item.key} item={item} largest={items[0].count} />
+            <DatasetResult activePredicate={activePredicate} filteredDownload={customDownload} setActive={setActive} index={index} dialog={dialog} key={item.key} item={item} largest={items[0].count} siteContext={siteContext} />
           </li>)}
         </ul>
     </div>
   </>
 }
 
-function DatasetResult({ largest, item, indicator, theme, setActive, index, dialog, activePredicate, filteredDownload, ...props }) {
+function DatasetResult({ largest, item, indicator, theme, setActive, index, dialog, activePredicate, filteredDownload, siteContext, ...props }) {
 
   const [visible, setVisible] = useState(false);
 
-  function startDownload(dataset) {
-    window.location.href = dataset.archive.url;
+  async function startDownload(dataset) {
+    const signIn = siteContext.auth?.signIn;
+    const getUser = siteContext.auth?.getUser;
+
+
+    if (getUser) {
+      const user = await getUser();
+      if (user) {
+        alert("User is authenticated - see console");
+        console.log(user);
+      } else if (signIn) {
+        signIn();
+      }
+    }
+    // window.location.href = dataset.archive.url;
   }
 
   function startFilteredDownload() {
@@ -84,7 +97,7 @@ function DatasetResult({ largest, item, indicator, theme, setActive, index, dial
         <span>Last generated: {item.archive.modified}</span>
       </div>
       <div>
-        <Button onClick={startFilteredDownload}>Download filtered archive</Button>
+        <Button onClick={startFilteredDownload} style={{ marginRight: 6 }}>Download filtered archive</Button>
         <Button onClick={() => { startDownload(item); }}  look="primaryOutline">
           Download full dataset archive
         </Button>

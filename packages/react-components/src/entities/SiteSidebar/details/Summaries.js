@@ -43,8 +43,8 @@ function TaxonomicCoverage({ showAll, termMap }) {
     <Properties css={css.properties} breakpoint={800}>
       <FacetListInline term={termMap.kingdom} showDetails={showAll}/>
       <FacetListInline term={termMap.phylum} showDetails={showAll}/>
-      <FacetListInline term={termMap.class} showDetails={showAll}/>
       <FacetListInline term={termMap.order} showDetails={showAll}/>
+      <FacetListInline term={termMap.class} showDetails={showAll}/>
       <FacetListInline term={termMap.family} showDetails={showAll}/>
       <FacetListInline term={termMap.genus} showDetails={showAll}/>
     </Properties>
