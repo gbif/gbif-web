@@ -84,7 +84,7 @@ export function EventDatasetSidebar({
                   {dataset?.intellectualRights && <>
                     <T>Intellectual rights</T>
                     <V>
-                      {dataset?.intellectualRights?.ulink[0]?.citetitle}
+                      <EMLLicence intellectualRights={dataset?.intellectualRights}/>
                     </V>
                   </>}
                   {dataset?.methods.length > 0 && <>
@@ -147,6 +147,15 @@ export function EventDatasetSidebar({
     </Row>
   </Tabs>
 };
+
+export const EMLLicence = ({intellectualRights}) =>  {
+  if (intellectualRights?.ulink && intellectualRights?.ulink.length > 0){
+    return intellectualRights?.ulink.citetitle;
+  }
+  return "";
+}
+
+
 
 const DATASET = `
 query dataset($key: JSON!){
