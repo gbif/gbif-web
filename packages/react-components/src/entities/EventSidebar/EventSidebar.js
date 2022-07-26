@@ -106,6 +106,11 @@ query event($eventID: String, $datasetKey: String){
     locality
     stateProvince
     locationID
+    wktConvexHull
+    temporalCoverage {
+      gte
+      lte
+    }    
   }
 }
 `;

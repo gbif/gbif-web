@@ -145,9 +145,9 @@ function Dataset({ datasetKey, datasetTitle, count, occurrenceCount, events, onC
           css={css`margin-left: 30px; font-size: 11px;`}>Add to filter</Button>
       </div>
       <div css={style.details}>
-        <div>Total events: <span>{documents.total}</span></div>
-        <div>Total occurrences: <span>{occurrenceCount}</span></div>
-        <div>Known locations: <span>{cardinality.locationID}</span></div>
+        <div>Total events: <span>{documents.total?.toLocaleString()}</span></div>
+        <div>Total occurrences: <span>{occurrenceCount?.toLocaleString()}</span></div>
+        <div>Known locations: <span>{cardinality.locationID?.toLocaleString()}</span></div>
         <div>Taxonomic scope: <span>{occurrenceFacet.class.map(x => x.key).join(' • ')}</span></div>
         {hasStructure &&
             <div>Structure:&nbsp;
@@ -182,7 +182,7 @@ function Dataset({ datasetKey, datasetTitle, count, occurrenceCount, events, onC
           </div>
         </li>)}
       </ul>
-      <div style={{ color: '#888', fontSize: '0.85em' }}>Matched events: {count}</div>
+      <div style={{ color: '#888', fontSize: '0.85em' }}>Matched events: {count?.toLocaleString()}</div>
     </div>
   </article>
 }

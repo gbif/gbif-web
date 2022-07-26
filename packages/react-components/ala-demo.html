@@ -89,14 +89,30 @@
     <!-- empty file -->
 
     <!-- EVENT EXAMPLE -->
-    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mapbox-gl/2.1.1/mapbox-gl.min.css" integrity="sha512-j4BKLk7HB2Umio2SKGP4gh1L3jouxJDuBxcWoq4kf1fYIkJyXQUGxs9me8yz2wexxAIHIcQHzn64UfPIG232xQ==" crossorigin="anonymous" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/react/16.14.0/umd/react.production.min.js"
+      integrity="sha512-2YCEuA9o4l9bZd4vpYo2iGMrg3fJ/2SHrPPnYwpXiIegB7i0eAroKyhlR20jxPXhlFXPYPzIyc0e2pTWv2eSpA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.14.0/umd/react-dom.production.min.js"
+      integrity="sha512-JSgXhEcYuP4kZfUMZHZ9ItWdKuZYNPar2FWjPF5M6FJikUbcMZIjT4qKKZGgloVY+DsQYFPna4mGK59g2/tVPw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/mapbox-gl/2.1.1/mapbox-gl.min.css"
+      integrity="sha512-j4BKLk7HB2Umio2SKGP4gh1L3jouxJDuBxcWoq4kf1fYIkJyXQUGxs9me8yz2wexxAIHIcQHzn64UfPIG232xQ=="
+      crossorigin="anonymous"
+    />
 
     <script
       type="text/javascript"
-      src="https://aws-events-test-2022.ala.org.au/dist/lib/gbif-react-components.js?nonse=true"
+      src="dist/lib/gbif-react-components.js"
     ></script>
+    <script type="text/javascript" src="dist/lib/oidc-client-ts.js"></script>
   </head>
   <body class="" id="" onload="">
     <!-- Header -->
@@ -107,8 +123,14 @@
         >Skip to content</a
       >
 
-      <nav class="navbar navbar-inverse navbar-expand-md">
-        <div class="container-fluid header-logo-menu">
+      <nav
+        class="navbar navbar-inverse navbar-expand-md"
+        style="padding-left: 0px; margin-left: 0px"
+      >
+        <div
+          class="container-fluid header-logo-menu"
+          style="padding-left: 0px; margin-left: 0px"
+        >
           <!-- Your site title as branding in the menu -->
           <div class="navbar-header">
             <div>
@@ -167,7 +189,7 @@
                 >
               </button>
               <a
-                href="https://auth.ala.org.au/cas/login?service=https://collections.ala.org.au/public/showDataResource/dr14140"
+                href="https://auth-test.ala.org.au/cas/login?service=https://collections.ala.org.au/public/showDataResource/dr14140"
                 role="button"
                 class="account-mobile hidden-md hidden-lg loginBtn mobile-login-btn"
                 title="Login button"
@@ -175,7 +197,7 @@
                 <i class="fas fa-sign-in"></i>
               </a>
               <a
-                href="https://auth.ala.org.au/userdetails/myprofile/"
+                href="https://auth-test.ala.org.au/userdetails/myprofile/"
                 role="button"
                 class="account-mobile hidden-md hidden-lg myProfileBtn"
                 title="Profile"
@@ -241,19 +263,19 @@
               >
               <div class="account signedOut">
                 <a
-                  href="https://auth.ala.org.au/userdetails/registration/createAccount"
+                  href="https://auth-test.ala.org.au/userdetails/registration/createAccount"
                   class="btn btn-outline-white btn-sm signUpBtn"
                   role="button"
                   >Sign up</a
                 >
                 <a
-                  href="https://auth.ala.org.au/userdetails/myprofile/"
+                  href="https://auth-test.ala.org.au/userdetails/myprofile/"
                   class="btn btn-outline-white btn-sm myProfileBtn"
                   role="button"
                   >Profile</a
                 >
                 <a
-                  href="https://auth.ala.org.au/cas/login?service=https://collections.ala.org.au/public/showDataResource/dr14140"
+                  href="https://auth-test.ala.org.au/cas/login?service=https://collections.ala.org.au/public/showDataResource/dr14140"
                   class="btn btn-primary btn-sm loginBtn"
                   >Login</a
                 >
@@ -854,14 +876,20 @@
 
     <!-- Breadcrumb -->
 
-    <section id="breadcrumb">
-      <div class="container-fluid">
-        <div class="row">
-          <nav aria-label="Breadcrumb" role="navigation">
-            <ol class="breadcrumb-list">
+    <section id="breadcrumb" style="padding-left: 0px; margin-left: 0px">
+      <div class="container-fluid" style="padding-left: 0px; margin-left: 0px">
+        <div class="row" style="padding-left: 0px; margin-left: 0px">
+          <nav
+            aria-label="Breadcrumb"
+            role="navigation"
+            style="padding-left: 0px; margin-left: 0px"
+          >
+            <ol
+              class="breadcrumb-list"
+              style="padding-left: 0px; margin-left: 20px"
+            >
               <li><a href="http://www.ala.org.au">Home</a></li>
-
-              <li class="active">Events</li>
+              <li class="active">Surveys and sampling events</li>
             </ol>
           </nav>
         </div>
@@ -875,42 +903,108 @@
 
     <!-- end banner message -->
     <!-- Container -->
-    
+
     <!-- REACT EVENT SEARCH SCRIPTS -->
-    <div class="container-fluid" id="main" style="padding: 0;">
+    <div class="container-fluid" id="main" style="padding: 0">
       <div id="root"></div>
       <script>
+        // Auth client stuff
+        const authManager = new oidc.UserManager({
+          client_id: 'events-test-oidc',
+          authority: 'https://auth-test.ala.org.au/cas/oidc',
+          redirect_uri:
+            'https://aws-events-test-2022.ala.org.au/?view=DOWNLOAD',
+        });
+
+        // Hacky fix for ALA header authentication
+        async function handleDOMAuth() {
+          const loginBtn = document.querySelector('.account > .loginBtn');
+          const logoutBtn = document.querySelector('.account > .logoutBtn');
+          if ((await authManager.getUser()) !== null) {
+            loginBtn.style.display = 'none';
+            logoutBtn.style.display = 'inline-block';
+          }
+
+          loginBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            authManager.signinRedirect();
+          });
+
+          logoutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            authManager.signoutRedirect();
+          });
+        }
+
+        // Auth initialization code
+        (async () => {
+          handleDOMAuth();
+
+          const { search } = window.location;
+
+          // If we've been redirected from successful authentication
+          if (search.includes('&code=') && search.includes('&state=')) {
+            const params = new URLSearchParams(window.location.search);
+
+            // Attempt to retrieve an access token
+            try {
+              const user = await authManager.signinRedirectCallback();
+              await authManager.storeUser(user);
+              await handleDOMAuth();
+            } catch (error) {
+              console.log(error);
+            }
+
+            // Replace the URL to one without the auth query params
+            params.delete('code');
+            params.delete('state');
+            window.history.replaceState(
+              null,
+              '',
+              `${window.location.origin}${
+                window.location.pathname
+              }?${params.toString()}`
+            );
+          }
+        })();
+
         var widgetLocale = 'en';
 
-        var siteTheme = gbifReactComponents.themeBuilder.extend({baseTheme: 'light', extendWith: {
-          dense: true,
-          primary: '#c44d34',
-          linkColor: '#c44d34',
-          fontSize: '15px',
-          background: '#E7E7E7',
-          paperBackground: '#ffffff',
-          paperBorderColor: '#e0e0e0',
-          color: '#162d3d',
-          darkTheme: false,
-          fontFamily: '"Roboto", BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica", "Arial", sans-serif',
-          borderRadius: 4,
-          drawerZIndex: 1000
-        }});
+        var siteTheme = gbifReactComponents.themeBuilder.extend({
+          baseTheme: 'light',
+          extendWith: {
+            dense: true,
+            primary: '#c44d34',
+            linkColor: '#c44d34',
+            fontSize: '15px',
+            background: '#E7E7E7',
+            paperBackground: '#ffffff',
+            paperBorderColor: '#e0e0e0',
+            color: '#162d3d',
+            darkTheme: false,
+            fontFamily:
+              '"Roboto", BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica", "Arial", sans-serif',
+            borderRadius: 4,
+            drawerZIndex: 1000,
+          },
+        });
 
         var routes = {
           eventSearch: {
             route: '/',
           },
           eventKey: {
-            url: ({key, otherIds}) => `https://collections-test.ala.org.au/public/showDataResource/${otherIds.datasetKey}`,
+            url: ({ key, otherIds }) =>
+              `https://collections-test.ala.org.au/public/showDataResource/${otherIds.datasetKey}`,
             isHref: true,
-            route: '/event/:key'
+            route: '/event/:key',
           },
           datasetKey: {
-            url: ({key, gbifOrgLocalePrefix}) => `https://collections-test.ala.org.au/public/showDataResource/${key}`,
+            url: ({ key, gbifOrgLocalePrefix }) =>
+              `https://collections-test.ala.org.au/public/showDataResource/${key}`,
             isHref: true,
-            route: '/dataset/:key'
-          }          
+            route: '/dataset/:key',
+          },
         };
         routes.basename = '/';
 
@@ -922,22 +1016,30 @@
             labels: {
               taxonKey: {
                 type: 'ENDPOINT',
-                template: function({ id, api }) {
-                  return '//namematching-ws-test.ala.org.au/api/getByTaxonID?taxonID=' + encodeURIComponent(id);
+                template: function ({ id, api }) {
+                  return (
+                    '//namematching-ws-test.ala.org.au/api/getByTaxonID?taxonID=' +
+                    encodeURIComponent(id)
+                  );
                 },
-                transform: function(result) {
-                  return { title: result.scientificName }
-                }
-              }
-            }
-          }
+                transform: function (result) {
+                  return { title: result.scientificName };
+                },
+              },
+            },
+          },
+          auth: {
+            signIn: () => authManager.signinRedirect(),
+            signOut: () => authManager.signoutRedirect(),
+            getUser: async () => await authManager.getUser(),
+          },
         };
 
         ReactDOM.render(
           // React.createElement(gbifReactComponents.OccurrenceSearch, {
           React.createElement(gbifReactComponents.EventSearch, {
             graph: 'EVENT',
-		        style: { height: 'calc(100vh - 148px)' },
+            style: { height: 'calc(100vh - 148px)' },
             siteConfig: alaSiteConfig,
             pageLayout: true,
           }),
@@ -974,19 +1076,19 @@
               />
               <div class="account signedOut">
                 <a
-                  href="https://auth.ala.org.au/userdetails/registration/createAccount"
+                  href="https://auth-test.ala.org.au/userdetails/registration/createAccount"
                   class="btn btn-outline-white btn-sm signUpBtn"
                   role="button"
                   >Sign up</a
                 >
                 <a
-                  href="https://auth.ala.org.au/userdetails/myprofile/"
+                  href="https://auth-test.ala.org.au/userdetails/myprofile/"
                   class="btn btn-outline-white btn-sm myProfileBtn"
                   role="button"
                   >My profile</a
                 >
                 <a
-                  href="https://auth.ala.org.au/cas/login?service=https://collections.ala.org.au/public/showDataResource/dr14140"
+                  href="https://auth-test.ala.org.au/cas/login?service=https://collections.ala.org.au/public/showDataResource/dr14140"
                   class="btn btn-primary btn-sm loginBtn"
                   >Login</a
                 >
@@ -1684,48 +1786,67 @@
     </footer>
     <!-- Google Analytics -->
     <script>
-      window.ga = window.ga || function () {
-        (ga.q = ga.q || []).push(arguments)
-      };
-      ga.l = +new Date;
+      window.ga =
+        window.ga ||
+        function () {
+          (ga.q = ga.q || []).push(arguments);
+        };
+      ga.l = +new Date();
       ga('create', 'UA-4355440-1', 'auto');
       ga('send', 'pageview');
     </script>
-    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <script async src="https://www.google-analytics.com/analytics.js"></script>
     <!-- End Google Analytics -->
     <!-- ALA self hosted analytics -->
     <script type="text/javascript">
       var _paq = window._paq || [];
-      _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
-      _paq.push(["setCookieDomain", "*.ala.org.au"]);
-      _paq.push(["setDomains", ["*.ala.org.au"]]);
+      _paq.push(['setDocumentTitle', document.domain + '/' + document.title]);
+      _paq.push(['setCookieDomain', '*.ala.org.au']);
+      _paq.push(['setDomains', ['*.ala.org.au']]);
       _paq.push(['trackPageView']);
       _paq.push(['enableLinkTracking']);
-      (function() {
-        var u="https://ash.ala.org.au/";
-        _paq.push(['setTrackerUrl', u+'ash.html']);
+      (function () {
+        var u = 'https://ash.ala.org.au/';
+        _paq.push(['setTrackerUrl', u + 'ash.html']);
         _paq.push(['setSiteId', '1']);
-        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-        g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'ash.js'; s.parentNode.insertBefore(g,s);
+        var d = document,
+          g = d.createElement('script'),
+          s = d.getElementsByTagName('script')[0];
+        g.type = 'text/javascript';
+        g.async = true;
+        g.defer = true;
+        g.src = u + 'ash.js';
+        s.parentNode.insertBefore(g, s);
       })();
     </script>
-    <noscript><p><img src="https://ash.ala.org.au/ash.php?idsite=1&amp;rec=1" style="border:0;" alt="" /></p></noscript>
+    <noscript
+      ><p>
+        <img
+          src="https://ash.ala.org.au/ash.php?idsite=1&amp;rec=1"
+          style="border: 0"
+          alt=""
+        /></p
+    ></noscript>
     <!-- End ALA self hosted analytics -->
     <!-- ALA support widget -->
-    <script type="text/javascript" src="https://s3.amazonaws.com/assets.freshdesk.com/widget/freshwidget.js"></script>
+    <script
+      type="text/javascript"
+      src="https://s3.amazonaws.com/assets.freshdesk.com/widget/freshwidget.js"
+    ></script>
     <script type="text/javascript">
-      FreshWidget.init("", {
-        "queryString": "&widgetType=popup&helpdesk_ticket[group_id]=6000207804&helpdesk_ticket[product_id]=6000005589&formTitle=Report+an+issue+or+ask+for+help",
-        "utf8": "✓",
-        "widgetType": "popup",
-        "buttonType": "text",
-        "buttonText": "Need help?",
-        "buttonColor": "white",
-        "buttonBg": "#d5502a",
-        "alignment": "2",
-        "offset": "350px",
-        "formHeight": "500px",
-        "url": "https://support.ala.org.au"
+      FreshWidget.init('', {
+        queryString:
+          '&widgetType=popup&helpdesk_ticket[group_id]=6000207804&helpdesk_ticket[product_id]=6000005589&formTitle=Report+an+issue+or+ask+for+help',
+        utf8: '✓',
+        widgetType: 'popup',
+        buttonType: 'text',
+        buttonText: 'Need help?',
+        buttonColor: 'white',
+        buttonBg: '#d5502a',
+        alignment: '2',
+        offset: '350px',
+        formHeight: '500px',
+        url: 'https://support.ala.org.au',
       });
     </script>
   </body>

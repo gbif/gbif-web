@@ -7,7 +7,7 @@ import { filter2predicate } from '../dataManagement/filterAdapter';
 import { useQueryParam, NumberParam } from 'use-query-params';
 import hash from 'object-hash';
 
-function PredicateDataFetcher({graphQuery, graph, resultKey, offsetName = 'from', limit = 25, customVariables = {}, componentProps, presentation: Presentation, ...props}) {
+function PredicateDataFetcher({graphQuery, graph, resultKey, offsetName = 'from', limit = 25, customVariables = {}, componentProps, presentation: Presentation, predicateMeddler, ...props}) {
   const [offset = 0, setOffset] = useQueryParam('offset', NumberParam);
   const currentFilterContext = useContext(FilterContext);
   const { rootPredicate, predicateConfig } = useContext(SearchContext);
@@ -23,6 +23,11 @@ function PredicateDataFetcher({graphQuery, graph, resultKey, offsetName = 'from'
         filter2predicate(currentFilterContext.filter, predicateConfig)
       ].filter(x => x)
     }
+
+    if (predicateMeddler){
+      predicateMeddler(predicate);
+    }
+
     load({ keepDataWhileLoading: true, variables: { predicate, limit, offset, ...customVariables } });
   }, [currentFilterContext.filterHash, rootPredicate, offset, limit, variableHash]);
 

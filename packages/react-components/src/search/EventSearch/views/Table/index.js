@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import PredicateDataFetcher from '../../../PredicateDataFetcher';
 import { EventsTable } from './EventsTable';
-import { FormattedNumber } from 'react-intl';
+import {FormattedMessage, FormattedNumber} from 'react-intl';
 
 const QUERY = `
 query list($predicate: Predicate, $offset: Int, $limit: Int){
@@ -72,6 +72,7 @@ const defaultTableConfig = {
       filterKey: 'month',
       value: {
         key: 'month',
+        formatter: (value, item) => <FormattedMessage id={`enums.month.${value}`} /> ,
         hideFalsy: true
       }
     },
@@ -164,6 +165,18 @@ const defaultTableConfig = {
   ]
 };
 
+function predicateMeddler(predicates){
+  // change predicate
+  predicates.predicates.forEach((predicate, idx) => {
+    if (predicate.key == "eventTypeHierarchy"){
+      predicate.key = "eventType"
+    }
+    if (predicate.key == "eventHierarchy"){
+      predicate.key = "eventID"
+    }
+  });
+}
+
 function Table() {
   return <PredicateDataFetcher
     graphQuery={QUERY}
@@ -172,6 +185,7 @@ function Table() {
     componentProps={{
       defaultTableConfig
     }}
+    predicateMeddler={predicateMeddler}
     presentation={EventsTable}
   />
 }

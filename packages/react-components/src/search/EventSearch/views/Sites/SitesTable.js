@@ -106,6 +106,10 @@ export const SitesTable = ({ first, prev, next, size, from, results, total, load
 
   renderMatrix();
 
+  if (no_of_sites == 0){
+    return <><div>No site data available</div></>
+  }
+
   return <>
     <div style={{
       flex: "1 1 100%",

@@ -1,11 +1,10 @@
-
 import React, { useState, useContext, useEffect, useCallback } from 'react';
-import { FormattedNumber } from 'react-intl';
 import EventContext from '../../../SearchContext';
+import SiteContext from '../../../../dataManagement/SiteContext'
 import { useDialogState } from "reakit/Dialog";
 import * as styles from './downloadPresentation.styles';
-import {Button, Input, Popover} from '../../../../components';
-import SiteContext from '../../../../dataManagement/SiteContext'
+import {Button, Popover} from '../../../../components';
+import env from '../../../../../.env.json';
 
 export const DownloadPresentation = ({ more, size, data, total, loading, getPredicate }) => {
   const siteContext = useContext(SiteContext);
@@ -15,12 +14,15 @@ export const DownloadPresentation = ({ more, size, data, total, loading, getPred
   const dialog = useDialogState({ animated: true, modal: false });
   const items = data?.eventSearch?.facet?.datasetKey || [];
   const [activePredicate, setActivePredicate] = useState();
-
-  const customDownload = siteContext?.overwrites?.fn?.filteredEventDatasetDownload;
+  const [predicateEmpty, setPredicateEmpty] = useState(true);
 
   useEffect(() => {
     setActiveItem(items[activeId]);
     setActivePredicate(getPredicate())
+    let predicate = getPredicate();
+    if (predicate && predicate.predicates && predicate.predicates[0].type != "and"){
+      setPredicateEmpty(false)
+    }
   }, [activeId, items]);
 
   const nextItem = useCallback(() => {
@@ -34,40 +36,82 @@ export const DownloadPresentation = ({ more, size, data, total, loading, getPred
   return <>
     <div>
         <ul key={`dataset_results`} style={{ padding: 0, margin: 0 }}>
-          {items.length > 0 && items.map((item, index) => <li key={`dataset_results-${item.key}`}>
-            <DatasetResult activePredicate={activePredicate} filteredDownload={customDownload} setActive={setActive} index={index} dialog={dialog} key={item.key} item={item} largest={items[0].count} siteContext={siteContext} />
+          {items.length > 0 && items.map((item, index) => <li key={`dataset_results_${item.key}`}>
+            <DatasetResult
+                activePredicate={activePredicate}
+                predicateEmpty={predicateEmpty}
+                setActive={setActive}
+                index={index}
+                dialog={dialog}
+                key={item.key}
+                item={item}
+                largest={items[0].count}
+                siteContext={siteContext}
+            />
           </li>)}
         </ul>
     </div>
   </>
 }
 
-function DatasetResult({ largest, item, indicator, theme, setActive, index, dialog, activePredicate, filteredDownload, siteContext, ...props }) {
+function DatasetResult({ largest, item, indicator, theme, setActive, index, dialog, activePredicate, predicateEmpty,
+                         siteContext,...props }) {
 
   const [visible, setVisible] = useState(false);
 
-  async function startDownload(dataset) {
+  async function startFullDownload(dataset) {
+
+    const getUser = siteContext.auth?.getUser;
+    if (siteContext.auth && getUser) {
+      const user = await getUser();
+      if (user) {
+        console.log("User logged in ");
+        console.log(user);
+
+        // validate the predicate - is there any filters set ?
+        window.location.href = dataset.archive.url;
+      } else if (siteContext.auth?.signIn) {
+        siteContext.auth.signIn();
+      }
+    } else {
+      console.log("Site context didnt provide a getUser function")
+    }
+  }
+
+  async function startFilteredDownload() {
+
     const signIn = siteContext.auth?.signIn;
     const getUser = siteContext.auth?.getUser;
 
-
-    if (getUser) {
+    if (siteContext.auth && getUser) {
       const user = await getUser();
       if (user) {
-        alert("User is authenticated - see console");
-        console.log(user);
+        // validate the predicate - is there any filters set ?
+        let download = {
+          "datasetId": item.key,
+          "creator": user.profile.email,
+          "notificationAddresses": [user.profile.email],
+          "predicate": activePredicate
+        }
+
+        let request = new XMLHttpRequest();
+        request.open('POST', env.DOWNLOADS_API_URL + '/event/download', true);
+        request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+        request.setRequestHeader('Authorization', 'Bearer ' + user.access_token);
+        console.log(download);
+        console.log("JWT = " + user.access_token);
+
+        request.send(JSON.stringify(download));
+
+        console.log("Response text = " + request.responseText);
+        console.log(request.response);
+
+
       } else if (signIn) {
         signIn();
       }
-    }
-    // window.location.href = dataset.archive.url;
-  }
-
-  function startFilteredDownload() {
-    if (filteredDownload) {
-      filteredDownload({datasetKey: item.key, predicate: activePredicate})
     } else {
-      alert('This will start a download');
+      console.log("Site context didnt provide a getUser function")
     }
   }
 
@@ -97,8 +141,19 @@ function DatasetResult({ largest, item, indicator, theme, setActive, index, dial
         <span>Last generated: {item.archive.modified}</span>
       </div>
       <div>
-        <Button onClick={startFilteredDownload} style={{ marginRight: 6 }}>Download filtered archive</Button>
-        <Button onClick={() => { startDownload(item); }}  look="primaryOutline">
+        <Popover
+            trigger={<Button onClick={() => setVisible(true)} disabled={predicateEmpty}>Download filtered
+              archive</Button>}
+            onClickOutside={action => console.log('close request', action)}
+            visible={visible}>
+          <FilteredDownloadForm
+              hide={() => setVisible(false)}
+              download={() => startFilteredDownload()}
+              siteContext={siteContext}
+          >
+          </FilteredDownloadForm>
+        </Popover>
+        <Button onClick={() => { startFullDownload(item); }}  look="primaryOutline">
           Download full dataset archive
         </Button>
       </div>
@@ -106,32 +161,68 @@ function DatasetResult({ largest, item, indicator, theme, setActive, index, dial
   </div>
 }
 
-const FilteredDownloadForm = React.memo(({ focusRef, hide, download,...props }) => {
+const FilteredDownloadForm = React.memo(({ focusRef, hide, download, siteContext,...props }) => {
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const isUserLoggedIn = siteContext.auth?.getUser != null;
+  const signIn = siteContext.auth?.signIn;
+
+  const [downloadButtonText, setDownloadButtonText] = useState("Download");
+  const [downloadDisabled, setDownloadDisabled] = useState(false);
+  const [downloadSent, setDownloadSent] = useState(false);
+
+  const startDownload = useCallback(() => {
+    console.log("Starting download");
+
+    // change button
+    setDownloadDisabled(true);
+    setDownloadButtonText("Requesting download....");
+
+    download();
+
+    // change button
+    setDownloadButtonText("Download sent!");
+    setDownloadSent(true)
+  }, []);
 
   return <div style={{ padding: "30px" }}>
-    <h3>Download data for this search</h3>
-    <p>
-      To download this dataset, please supply an email address.<br/>
-      Once the download is generated you'll receive an email with a link <br/>
-      you can use to download the data.
-      <br/>
-    </p>
-    <form>
-      <label>
-        Email:
-        <Input id={email} value={email} onInput={e => setEmail(e.target.value)}/>
-      </label>
-    </form>
-    <br/>
-    <div>
-      <Button onClick={() => download(name, email)} ref={focusRef}>Download</Button>
-      <Button onClick={() => hide()} look="primaryOutline">Close</Button>
-    </div>
-    <br/>
-    <span>Note: this is form is demo purposes only in lieu of proper authentication.</span>
+
+    {!downloadSent &&
+      <h3>Download data for this search</h3>
+    }
+
+    {downloadSent &&
+        <h3>Download started !</h3>
+    }
+
+    { isUserLoggedIn && <div>
+        {!downloadSent && <p>
+        This will create a download of this dataset filtered to your search.
+          <br/>
+          Once the download is generated you'll receive an email with a link <br/>
+          you can use to download the data.
+          <br/>
+        </p>
+        }
+
+        {downloadSent && <p>
+          The download will take approximately 10 minutes to create.
+          <br/>
+          After this time, you will receive an email sent to <br/>
+          your registered email address with a link.
+        </p>
+        }
+        <br/>
+      <div>
+        {!downloadSent &&
+            <Button onClick={startDownload} ref={focusRef} disabled={downloadDisabled}>{downloadButtonText}</Button>
+        }
+        <Button onClick={() => hide()} look="primaryOutline">Close</Button>
+      </div>
+    </div> }
+    { !isUserLoggedIn && <div>
+      <p>You need to login to download</p>
+      <a href={`#`} onClick={signIn}>Click here</a> to login
+    </div> }
   </div>
 });
 FilteredDownloadForm.displayName = 'FilteredDownloadForm';

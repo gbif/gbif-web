@@ -8,7 +8,7 @@ export const defaultContext = {
   literature: {},
   institution: {},
   collection: {},
-  publisher: {},
+  publisher: {}
 };
 
 export default React.createContext(defaultContext);

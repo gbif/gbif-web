@@ -91,6 +91,18 @@ query list($predicate: Predicate, $offset: Int, $limit: Int){
       }
     }       
     occurrenceFacet {
+      basisOfRecord {
+        count
+        key
+      } 
+      month {
+        count
+        key
+      }  
+      year {
+        count
+        key
+      }                  
       kingdom {
         count
         key

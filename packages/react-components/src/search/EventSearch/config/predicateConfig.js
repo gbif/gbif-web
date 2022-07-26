@@ -2,6 +2,12 @@ import { filters } from './filterConf';
 
 const filterConf = {
   fields: {
+    eventID: {
+      defaultKey: 'eventHierarchy'
+    },
+    eventType: {
+      defaultKey: 'eventTypeHierarchy'
+    },
     datasetKey: {
       defaultKey: 'datasetKey'
     },
