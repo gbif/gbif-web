@@ -169,12 +169,12 @@ function Dataset({ datasetKey, datasetTitle, count, occurrenceCount, events, onC
               <span>{structure.join(' • ')}</span>
             </div>
         }
-        {hasProtocols &&
-            <div>Protocols:&nbsp;
-              <span>{facet.samplingProtocol.map(x => x.key).join(' • ')}</span>
-              <span>{occurrenceFacet.samplingProtocol.map(x => x.key).join(' • ')}</span>
-            </div>
-        }
+        {/*{hasProtocols &&*/}
+        {/*    <div>Protocols:&nbsp;*/}
+        {/*      <span>{facet.samplingProtocol.map(x => x.key).join(' • ')}</span>*/}
+        {/*      <span>{occurrenceFacet.samplingProtocol.map(x => x.key).join(' • ')}</span>*/}
+        {/*    </div>*/}
+        {/*}*/}
         {hasMeasurements &&
           <div>Measurement types: <span>{facet.measurementOrFactTypes.map(x => x.key).join(' • ')}</span></div>
         }
