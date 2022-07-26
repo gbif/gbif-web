@@ -10,7 +10,7 @@ function removeUndefined(obj) {
  */
 function reduce(item) {
   const source = item._source;
-  const event = {...source.event, ...source.metadata};
+  const event = {...source.event, ...source.metadata, ...source.derivedMetadata};
   return removeUndefined(event);
 }
 
