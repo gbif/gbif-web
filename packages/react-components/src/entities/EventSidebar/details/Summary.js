@@ -4,8 +4,7 @@ import {Summaries} from "./Summaries";
 import {useQuery} from "../../../dataManagement/api";
 
 export function Summary({
-  eventID,
-  datasetKey,
+  event,
   setActiveEventID,
   ...props
 }) {
@@ -14,30 +13,30 @@ export function Summary({
   const { data, error, loading, load } = useQuery(FACET_BREAKDOWN, { lazyLoad: true, graph: 'EVENT' });
 
   useEffect(() => {
-    if (typeof eventID !== 'undefined') {
+    if (typeof event !== 'undefined' && typeof event.eventID !== 'undefined') {
       const predicate = {
         type: 'and',
         predicates: [
           {
             key: "eventHierarchy",
             type: "equals",
-            value: eventID
+            value: event.eventID
           }
          ,{
           key:  "datasetKey",
           type: "equals",
-          value: datasetKey
+          value: event.datasetKey
         }]
       }
       load({ keepDataWhileLoading: true, variables: { predicate, size: 0, from: 0 } });
     }
-  }, [eventID, datasetKey]);
+  }, [event]);
 
   if (loading || !data) {
     return <h2>Loading summary information...</h2>;
   }
 
-  return <Summaries data={data} showAll={showAll}  />
+  return <Summaries event={event} data={data} showAll={showAll}  />
 };
 
 const FACET_BREAKDOWN = `

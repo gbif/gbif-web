@@ -43,8 +43,7 @@ export function Intro({
       }
 
       <Summary
-          eventID={event.eventID}
-          datasetKey={event.datasetKey}
+          event={event}
           setActiveEventID={setActiveEventID}
       />
     </Col>

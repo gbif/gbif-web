@@ -8,7 +8,7 @@ import {Measurements} from "./Measurements";
 
 const { Term: T, Value: V } = Properties;
 
-export function Summaries({ data, showAll }) {
+export function Summaries({ event, data, showAll }) {
   let termMap = {}
   Object.entries(data.results.facet).forEach(item => {
     termMap[item[0]] = {
@@ -59,7 +59,7 @@ export function Summaries({ data, showAll }) {
 
     <Group label="eventDetails.groups.dataStructure">
       {hasEventType &&
-          <Tree data={combinedHierarchy} selected={data.results.documents.results[0].eventType.concept}/>
+          <Tree data={combinedHierarchy} selected={event.eventType.concept}/>
       }
     </Group>
     <Methodology             {...{ showAll, termMap }} />
