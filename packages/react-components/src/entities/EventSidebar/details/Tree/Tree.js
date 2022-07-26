@@ -32,10 +32,11 @@ export function Tree({
   loading,
   error,
   className,
+  highlightRootNode = false,
   ...props
 }) {
 
-  const rootNode = new TreeNode("Dataset", "Dataset", null, false, null);
+  const rootNode = new TreeNode("Dataset", "Dataset", null, highlightRootNode, null);
 
   data.map(branch => {
 

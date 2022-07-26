@@ -33,6 +33,23 @@ export function EventDatasetSidebar({
   const dataset = data?.eventSearch?.documents.results?.[0]?.dataset?.value;
   const isLoading = loading || !dataset;
 
+  // get the hierarchy from
+  const eventHierarchy = data?.eventSearch.facet.eventTypeHierarchyJoined;
+  // get the hierarchy from
+  const occurrenceHierarchy = data?.eventSearch.occurrenceFacet.eventTypeHierarchyJoined;
+
+  let combinedHierarchy = [];
+
+  if (eventHierarchy && occurrenceHierarchy) {
+    eventHierarchy.forEach(h => combinedHierarchy.push(h));
+    occurrenceHierarchy.forEach(h => {
+      combinedHierarchy.push({
+        key: h.key + " / Occurrence",
+        count: h.count
+      })
+    });
+  }
+
   return <Tabs activeId={activeId} onChange={id => setTab(id)}>
     <Row wrap="nowrap" style={style} css={css.sideBar({ theme })}>
       <Col shrink={false} grow={false} css={css.detailDrawerBar({ theme })}>
@@ -84,7 +101,7 @@ export function EventDatasetSidebar({
                   {dataset?.intellectualRights && <>
                     <T>Intellectual rights</T>
                     <V>
-                      <EMLLicence intellectualRights={dataset?.intellectualRights}/>
+                      <EMLLicence intellectualRights={dataset.intellectualRights}/>
                     </V>
                   </>}
                   {dataset?.methods.length > 0 && <>
@@ -132,10 +149,10 @@ export function EventDatasetSidebar({
                       <span>{data.eventSearch.facet.measurementOrFactTypes.map(x => x.key).join(' • ')}</span>
                     </V>
                   </>}
-                  {dataset?.purpose && <>
+                  {combinedHierarchy && <>
                     <T>Structure</T>
                     <V>
-                      {data?.eventSearch && <Tree data={data.eventSearch.facet.eventTypeHierarchyJoined} />}
+                      {data?.eventSearch && <Tree data={combinedHierarchy} highlightRootNode={true}/>}
                     </V>
                   </>}
                 </Properties>
@@ -148,14 +165,19 @@ export function EventDatasetSidebar({
   </Tabs>
 };
 
-export const EMLLicence = ({intellectualRights}) =>  {
+export const EMLLicence = ({ intellectualRights }) =>  {
   if (intellectualRights?.ulink && intellectualRights?.ulink.length > 0){
-    return intellectualRights?.ulink.citetitle;
+
+    let url = intellectualRights.ulink[0].$
+    if (url){
+      return <a href={url.url}>{intellectualRights.ulink[0].citetitle}</a>
+    } else {
+      return intellectualRights.ulink[0].citetitle;
+    }
+  } else {
+    return "No licence information available";
   }
-  return "";
 }
-
-
 
 const DATASET = `
 query dataset($key: JSON!){
@@ -198,6 +220,16 @@ query dataset($key: JSON!){
       family {
         key
       }
+      samplingProtocol {
+        key
+      }    
+      eventTypeHierarchy {
+        key
+      }  
+      eventTypeHierarchyJoined {
+        key
+        count
+      }       
     }
   }
 }

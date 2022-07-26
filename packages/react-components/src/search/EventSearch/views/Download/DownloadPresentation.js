@@ -33,6 +33,10 @@ export const DownloadPresentation = ({ more, size, data, total, loading, getPred
     setActive(Math.max(0, activeId - 1));
   }, [activeId]);
 
+  if (!items || items.length == 0){
+    return <>No datasets matching this search are available for download</>;
+  }
+
   return <>
     <div>
         <ul key={`dataset_results`} style={{ padding: 0, margin: 0 }}>
@@ -114,6 +118,8 @@ function DatasetResult({ largest, item, indicator, theme, setActive, index, dial
       console.log("Site context didnt provide a getUser function")
     }
   }
+
+
 
   return <div css={styles.dataset({ theme })}>
     <a css={styles.actionOverlay({theme})} href={`${item.key}`} onClick={(event) => {

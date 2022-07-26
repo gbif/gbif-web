@@ -33,10 +33,33 @@ export function Summaries({ data, showAll }) {
     hasEventType = true;
   }
 
+  // get the hierarchy from
+  const eventHierarchy = data?.results.facet.eventTypeHierarchyJoined;
+  // get the hierarchy from
+  const occurrenceHierarchy = data?.results.occurrenceFacet.eventTypeHierarchyJoined;
+
+  let combinedHierarchy = [];
+
+  if (eventHierarchy && occurrenceHierarchy) {
+    eventHierarchy.forEach(h => combinedHierarchy.push(h));
+    occurrenceHierarchy.forEach(h => {
+      combinedHierarchy.push({
+        key: h.key + " / Occurrence",
+        count: h.count
+      })
+    });
+  }
+
   return <>
+    <Group label="Occurrences">
+      <Properties css={css.properties} breakpoint={800}>
+        <FacetListInline term={termMap.basisOfRecord} showDetails={showAll}/>
+      </Properties>
+    </Group>
+
     <Group label="eventDetails.groups.dataStructure">
       {hasEventType &&
-          <Tree data={termMap.eventTypeHierarchyJoined?.value} selected={data.results.documents.results[0].eventType.concept}/>
+          <Tree data={combinedHierarchy} selected={data.results.documents.results[0].eventType.concept}/>
       }
     </Group>
     <Methodology             {...{ showAll, termMap }} />
@@ -71,12 +94,7 @@ function TaxonomicCoverage({ showAll, termMap }) {
 function Methodology({ showAll, termMap }) {
   const hasContent = [
     'recordedBy',
-    'eventTypeHierarchy',
-    'eventHierarchy',
-    'eventTypeHierarchyJoined',
-    'eventHierarchyJoined',
-    'samplingProtocol',
-    'measurementOrFactTypes'
+    'samplingProtocol'
   ].find(x => termMap[x]);
   if (!hasContent) return null;
   return <Group label="eventDetails.groups.methodology">

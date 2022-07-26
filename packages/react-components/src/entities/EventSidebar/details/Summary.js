@@ -134,7 +134,14 @@ query list($predicate: Predicate, $offset: Int, $limit: Int){
       recordedBy {
         count      
         key
-      }           
+      }
+      eventTypeHierarchy {
+        key
+      }  
+      eventTypeHierarchyJoined {
+        key
+        count
+      }                    
     }
   }
 }

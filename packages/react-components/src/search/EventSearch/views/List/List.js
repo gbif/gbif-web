@@ -53,6 +53,10 @@ export const List = ({ first, prev, next, size, from, data, total, loading }) =>
   
   if (!data || loading) return <><DatasetSkeleton /><DatasetSkeleton /><DatasetSkeleton /></>;
 
+  if (!datasets || datasets.length == 0){
+    return <>No datasets matching this search</>;
+  }
+
   return <div style={{
     flex: "1 1 100%",
     display: "flex",
@@ -132,8 +136,19 @@ function Dataset({ datasetKey, datasetTitle, count, occurrenceCount, events, onC
   const { documents, occurrenceFacet, facet, stats, cardinality } = data.eventSearch;
 
   const hasMeasurements = facet.measurementOrFactTypes != null && facet.measurementOrFactTypes.length > 0;
-  const hasStructure = facet.eventTypeHierarchy != null && facet.eventTypeHierarchy.length > 0;
+  let hasStructure = facet.eventTypeHierarchy != null && facet.eventTypeHierarchy.length > 0;
   const hasProtocols = facet.samplingProtocol != null && facet.samplingProtocol.length > 0;
+
+  let structure = [];
+  if (hasStructure){
+    structure = facet.eventTypeHierarchy.map(x => x.key)
+    if (occurrenceCount && occurrenceCount > 0){
+      structure.push("Occurrence");
+    }
+  } else if (occurrenceCount && occurrenceCount > 0){
+    structure.push("Occurrence");
+    hasStructure = true;
+  }
 
   return <article>
     <div css={style.summary}>
@@ -147,11 +162,11 @@ function Dataset({ datasetKey, datasetTitle, count, occurrenceCount, events, onC
       <div css={style.details}>
         <div>Total events: <span>{documents.total?.toLocaleString()}</span></div>
         <div>Total occurrences: <span>{occurrenceCount?.toLocaleString()}</span></div>
-        <div>Known locations: <span>{cardinality.locationID?.toLocaleString()}</span></div>
+        <div>Sites: <span>{cardinality.locationID?.toLocaleString()}</span></div>
         <div>Taxonomic scope: <span>{occurrenceFacet.class.map(x => x.key).join(' • ')}</span></div>
         {hasStructure &&
             <div>Structure:&nbsp;
-              <span>{facet.eventTypeHierarchy.map(x => x.key).join(' • ')}</span>
+              <span>{structure.join(' • ')}</span>
             </div>
         }
         {hasProtocols &&
