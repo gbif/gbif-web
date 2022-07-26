@@ -256,6 +256,11 @@ export const en = {
       count: '{num, plural, one { event id } other {# event ids}}',
       description: 'The unique identifier for the Event in the record.'
     },
+    eventName: {
+      name: 'Event name',
+      count: '{num, plural, one { event id } other {# event names}}',
+      description: 'The name for the Event in the record.'
+    },
     samplingProtocol: {
       name: 'Sampling protocol',
       count: '{num, plural, one { Sampling protocol } other {# Sampling protocols}}',

@@ -35,6 +35,7 @@ function Event({ showAll, termMap, event, setActiveEventID }) {
   const hasContent = [
     'eventID',
     'parentEventID',
+    'eventName',
     'fieldNumber',
     'eventDate',
     'eventTime',
@@ -61,6 +62,7 @@ function Event({ showAll, termMap, event, setActiveEventID }) {
   return <Group label="eventDetails.groups.event">
     <Properties css={css.properties} breakpoint={800}>
       <PlainTextField term={termMap.eventID} showDetails={showAll} />
+      <PlainTextField term={termMap.eventName} showDetails={showAll} />
       <LinkedField fieldCallback={viewParent} term={termMap.parentEventID} showDetails={showAll} />
       <VocabField term={termMap.eventType} showDetails={showAll} />
       <DateRangeField term={termMap.temporalCoverage} showDetails={showAll} />

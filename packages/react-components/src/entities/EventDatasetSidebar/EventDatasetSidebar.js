@@ -83,7 +83,9 @@ export function EventDatasetSidebar({
                   </>}
                   {dataset?.intellectualRights && <>
                     <T>Intellectual rights</T>
-                    <V><HyperText text={dataset.intellectualRights} /></V>
+                    <V>
+                      {dataset?.intellectualRights?.ulink[0]?.citetitle}
+                    </V>
                   </>}
                   {dataset?.methods.length > 0 && <>
                     <T>Methods</T>
