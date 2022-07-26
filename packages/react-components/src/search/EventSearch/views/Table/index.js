@@ -84,15 +84,15 @@ const defaultTableConfig = {
         hideFalsy: true
       }
     },
-    {
-      trKey: 'filters.samplingProtocol.name',
-      filterKey: 'eventSamplingProtocol',
-      value: {
-        key: 'samplingProtocol',
-        formatter: (value, item) => item?.samplingProtocol[0],
-        hideFalsy: true
-      }
-    },
+    // {
+    //   trKey: 'filters.samplingProtocol.name',
+    //   filterKey: 'eventSamplingProtocol',
+    //   value: {
+    //     key: 'samplingProtocol',
+    //     formatter: (value, item) => item?.samplingProtocol[0],
+    //     hideFalsy: true
+    //   }
+    // },
     {
       trKey: 'filters.locationID.name',
       filterKey: 'locationID',
