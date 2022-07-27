@@ -19,6 +19,25 @@ export function HtmlField(props) {
   </Field>
 }
 
+export function EnumFacetListInline({getEnum, ...props}) {
+  if (!props.term) return null;
+  const { value } = props.term;
+  if (value && value.length > 1) {
+    const listItems = value.map(facet =>
+        <FormattedMessage id={getEnum(facet.key)} defaultMessage={facet.key} /> + " (" + facet.count.toLocaleString() + ") "
+    );
+    return <Field {...props}>
+      {listItems.join(' ● ')}
+    </Field>;
+  } else if (value && value.length == 1) {
+    return <Field {...props}>
+      <FormattedMessage id={getEnum(value[0].key)} defaultMessage={value[0].key} /> ({value[0].count.toLocaleString()})
+    </Field>;
+  } else {
+    return null;
+  }
+}
+
 export function FacetListInline(props) {
   if (!props.term) return null;
   const { value } = props.term;

@@ -42,7 +42,6 @@ export default function Map({latitude, longitude, wkt}) {
         wicket.read(wkt);
 
         let geojson = wicket.toJson();
-        console.log(geojson)
 
         map.current.addSource('event',
             {
@@ -52,30 +51,37 @@ export default function Map({latitude, longitude, wkt}) {
         map.current.addLayer({
           'id': 'eventLayer',
           'type': 'fill',
-          'source': 'event', // reference the data source
+          'source': 'event',
           'layout': {},
           'paint': {
-            'fill-color': '#0080ff', // blue color fill
+            'fill-color': theme.primary,
             'fill-opacity': 0.5
           }
         });
 
-        const coordinates = geojson.coordinates[0];
+        if (geojson.type == "Point"){
+          new mapboxgl.Marker()
+              .setLngLat([geojson.coordinates[0], geojson.coordinates[1]])
+              .addTo(map.current);
 
-        // Create a 'LngLatBounds' with both corners at the first coordinate.
-        const bounds = new mapboxgl.LngLatBounds(
-            coordinates[0],
-            coordinates[0]
-        );
+        } else {
+          const coordinates = geojson.coordinates[0];
 
-        // Extend the 'LngLatBounds' to include every coordinate in the bounds result.
-        for (const coord of coordinates) {
-          bounds.extend(coord);
+          // Create a 'LngLatBounds' with both corners at the first coordinate.
+          const bounds = new mapboxgl.LngLatBounds(
+              coordinates[0],
+              coordinates[0]
+          );
+
+          // Extend the 'LngLatBounds' to include every coordinate in the bounds result.
+          for (const coord of coordinates) {
+            bounds.extend(coord);
+          }
+
+          map.current.fitBounds(bounds, {
+            padding: 30
+          });
         }
-
-        map.current.fitBounds(bounds, {
-          padding: 30
-        });
 
       } else {
         new mapboxgl.Marker()

@@ -3,7 +3,7 @@ import { Properties } from "../../../components";
 import * as css from "../styles";
 import {Group} from "./Groups";
 import {Tree} from "./Tree/Tree";
-import {FacetList, FacetListInline} from "./properties";
+import {EnumFacetListInline, FacetList, FacetListInline} from "./properties";
 import {Measurements} from "./Measurements";
 
 const { Term: T, Value: V } = Properties;
@@ -53,10 +53,9 @@ export function Summaries({ event, data, showAll }) {
   return <>
     <Group label="Occurrences">
       <Properties css={css.properties} breakpoint={800}>
-        <FacetListInline term={termMap.basisOfRecord} showDetails={showAll}/>
+        <EnumFacetListInline term={termMap.basisOfRecord} showDetails={showAll}  getEnum={value => `enums.basisOfRecord.${value}`}/>
       </Properties>
     </Group>
-
     <Group label="eventDetails.groups.dataStructure">
       {hasEventType &&
           <Tree data={combinedHierarchy} selected={event.eventType.concept}/>
@@ -95,12 +94,12 @@ function Methodology({ showAll, termMap }) {
   const hasContent = [
     'recordedBy',
     'samplingProtocol'
-  ].find(x => termMap[x]);
+  ].find(x => termMap[x] && (Array.isArray(termMap[x]) ? termMap[x].length > 0 : true));
   if (!hasContent) return null;
   return <Group label="eventDetails.groups.methodology">
     <Properties css={css.properties} breakpoint={800}>
-      <FacetList term={termMap.samplingProtocol} showDetails={showAll} />
       <FacetList term={termMap.recordedBy} showDetails={showAll} />
+      <FacetList term={termMap.samplingProtocol} showDetails={showAll} />
     </Properties>
   </Group>
 }
