@@ -21,7 +21,7 @@ export function Intro({
   const { event } = data;
   if (loading || !event) return <h2>Loading event information...</h2>;
 
-  const hasCoordinates = event.decimalLatitude != null || event.wktConvexHull != null;
+  const hasCoordinates = (event.decimalLatitude != null && event.decimalLongitude != null ) || event.wktConvexHull != null;
 
   return <Row direction="column" wrap="nowrap" style={{ maxHeight: '100%', overflow: 'hidden' }}>
     <Col style={{ padding: '12px 0', paddingBottom: 50, overflow: 'auto' }} grow>

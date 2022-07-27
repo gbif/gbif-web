@@ -24,6 +24,7 @@ export default function Map({latitude, longitude, wkt}) {
       center: [lng, lat],
       zoom: zoom
     });
+    map.current.addControl(new mapboxgl.NavigationControl());
   });
 
   useEffect(() => {
@@ -33,6 +34,7 @@ export default function Map({latitude, longitude, wkt}) {
       setLat(map.current.getCenter().lat.toFixed(4));
       setZoom(map.current.getZoom().toFixed(2));
     });
+
     map.current.on('load', () => {
 
       if (wkt){
@@ -63,6 +65,16 @@ export default function Map({latitude, longitude, wkt}) {
           new mapboxgl.Marker()
               .setLngLat([geojson.coordinates[0], geojson.coordinates[1]])
               .addTo(map.current);
+
+          // Create a 'LngLatBounds' with both corners at the first coordinate.
+          const bounds = new mapboxgl.LngLatBounds(
+              geojson.coordinates,
+              geojson.coordinates
+          );
+
+          map.current.fitBounds(bounds, {
+            padding: 100
+          });
 
         } else {
           const coordinates = geojson.coordinates[0];
