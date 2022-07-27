@@ -99,10 +99,14 @@ export function PlainTextField(props) {
 export function VocabField(props) {
   if (!props.term) return null;
   const { value } = props.term;
-  const {concept} = value;
-  return <Field {...props} >
-    {concept}
-  </Field>
+  if (value && value.concept){
+    const {concept} = value;
+    return <Field {...props} >
+      {concept}
+    </Field>
+  } else {
+    return null;
+  }
 }
 
 export function DateRangeField(props) {
