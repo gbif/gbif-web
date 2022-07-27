@@ -33,6 +33,10 @@ export const DownloadPresentation = ({ more, size, data, total, loading, getPred
     setActive(Math.max(0, activeId - 1));
   }, [activeId]);
 
+  if (loading){
+    return <>Loading...</>;
+  }
+
   if (!items || items.length == 0){
     return <>No datasets matching this search are available for download</>;
   }
@@ -62,6 +66,7 @@ function DatasetResult({ largest, item, indicator, theme, setActive, index, dial
                          siteContext,...props }) {
 
   const [visible, setVisible] = useState(false);
+  const [downloadFailure, setDownloadFailure] = useState(false);
 
   async function startFullDownload(dataset) {
 
@@ -81,6 +86,11 @@ function DatasetResult({ largest, item, indicator, theme, setActive, index, dial
       console.log("Site context didnt provide a getUser function")
     }
   }
+
+  function querySupported(){
+    return "This query is supported for download yet. Coming soon...."
+  }
+
 
   async function startFilteredDownload() {
 
@@ -102,14 +112,12 @@ function DatasetResult({ largest, item, indicator, theme, setActive, index, dial
         request.open('POST', env.DOWNLOADS_API_URL + '/event/download', true);
         request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
         request.setRequestHeader('Authorization', 'Bearer ' + user.access_token);
-        console.log(download);
-        console.log("JWT = " + user.access_token);
-
         request.send(JSON.stringify(download));
 
-        console.log("Response text = " + request.responseText);
-        console.log(request.response);
-
+        if (request.status != 200){
+          setDownloadFailure(true);
+          console.log(request.statusText);
+        }
 
       } else if (signIn) {
         signIn();
@@ -118,8 +126,6 @@ function DatasetResult({ largest, item, indicator, theme, setActive, index, dial
       console.log("Site context didnt provide a getUser function")
     }
   }
-
-
 
   return <div css={styles.dataset({ theme })}>
     <a css={styles.actionOverlay({theme})} href={`${item.key}`} onClick={(event) => {
@@ -155,6 +161,7 @@ function DatasetResult({ largest, item, indicator, theme, setActive, index, dial
           <FilteredDownloadForm
               hide={() => setVisible(false)}
               download={() => startFilteredDownload()}
+              querySupported={querySupported}
               siteContext={siteContext}
           >
           </FilteredDownloadForm>
@@ -167,7 +174,7 @@ function DatasetResult({ largest, item, indicator, theme, setActive, index, dial
   </div>
 }
 
-const FilteredDownloadForm = React.memo(({ focusRef, hide, download, siteContext,...props }) => {
+const FilteredDownloadForm = React.memo(({ focusRef, hide, download, querySupported, siteContext,...props }) => {
 
   const isUserLoggedIn = siteContext.auth?.getUser != null;
   const signIn = siteContext.auth?.signIn;
@@ -219,9 +226,7 @@ const FilteredDownloadForm = React.memo(({ focusRef, hide, download, siteContext
         }
         <br/>
       <div>
-        {!downloadSent &&
-            <Button onClick={startDownload} ref={focusRef} disabled={downloadDisabled}>{downloadButtonText}</Button>
-        }
+        <Button onClick={startDownload} ref={focusRef} disabled={downloadDisabled}>{downloadButtonText}</Button>
         <Button onClick={() => hide()} look="primaryOutline">Close</Button>
       </div>
     </div> }

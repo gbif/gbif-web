@@ -245,6 +245,11 @@
     "count": "{num, plural, one { event type } other {# event types}}",
     "description": "The type of the sampling event."
   },
+  "dataStructure": {
+    "name": "Structure",
+    "count": "{num, plural, one { event type } other {# event types}}",
+    "description": "The data structure for the sampling event."
+  },
   "samplingProtocol": {
     "name": "Sampling protocol",
     "count": "{num, plural, one { Sampling protocol } other {# Sampling protocols}}",

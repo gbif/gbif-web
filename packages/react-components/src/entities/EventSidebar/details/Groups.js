@@ -35,6 +35,7 @@ function Event({ showAll, termMap, event, setActiveEventID }) {
   const hasContent = [
     'eventID',
     'parentEventID',
+    'eventTypeHierarchyJoined',
     'eventName',
     'fieldNumber',
     'eventDate',
@@ -65,6 +66,7 @@ function Event({ showAll, termMap, event, setActiveEventID }) {
       <PlainTextField term={termMap.eventName} showDetails={showAll} />
       <LinkedField fieldCallback={viewParent} term={termMap.parentEventID} showDetails={showAll} />
       <VocabField term={termMap.eventType} showDetails={showAll} />
+      {showAll && <PlainTextField term={termMap.eventTypeHierarchyJoined} showDetails={showAll} />}
       <DateRangeField term={termMap.temporalCoverage} showDetails={showAll} />
       <PlainTextField term={termMap.eventDate} showDetails={showAll} />
       <PlainTextField term={termMap.eventTime} showDetails={showAll} />

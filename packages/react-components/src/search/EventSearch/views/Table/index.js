@@ -32,6 +32,7 @@ query list($predicate: Predicate, $offset: Int, $limit: Int){
         measurementOrFactTypes
         occurrenceCount
         speciesCount
+        eventTypeHierarchyJoined
       }
     }
   }
@@ -51,12 +52,16 @@ const defaultTableConfig = {
       trKey: 'filters.eventType.name',
       value: {
         key: 'eventType.concept',
-        // Commented out for now while we resolve issues with adding values to vocab server
-        // labelHandle: 'eventTypeVocabulary',
         hideFalsy: true
       }
     },
-
+    {
+      trKey: 'filters.dataStructure.name',
+      value: {
+        key: 'eventTypeHierarchyJoined',
+        hideFalsy: true
+      }
+    },
     {
       trKey: 'filters.datasetKey.name',
       filterKey: 'datasetKey',
@@ -166,24 +171,24 @@ const defaultTableConfig = {
 };
 
 function predicateMeddler(currentPredicate){
-  // change predicate
-  if (currentPredicate.predicates[0].predicates && Array.isArray(currentPredicate.predicates[0].predicates)){
-    currentPredicate.predicates[0].predicates.forEach((predicate, idx) => {
-      if (predicate.key == "eventTypeHierarchy") {
-        predicate.key = "eventType"
-      }
-      if (predicate.key == "eventHierarchy") {
-        predicate.key = "eventID"
-      }
-    });
-  } else {
-    if (currentPredicate.predicates[0].key == "eventTypeHierarchy") {
-      currentPredicate.predicates[0].key = "eventType"
-    }
-    if (currentPredicate.predicates[0].key == "eventHierarchy") {
-      currentPredicate.predicates[0].key = "eventID"
-    }
-  }
+  // // change predicate
+  // if (currentPredicate.predicates[0].predicates && Array.isArray(currentPredicate.predicates[0].predicates)){
+  //   currentPredicate.predicates[0].predicates.forEach((predicate, idx) => {
+  //     if (predicate.key == "eventTypeHierarchy") {
+  //       predicate.key = "eventType"
+  //     }
+  //     if (predicate.key == "eventHierarchy") {
+  //       predicate.key = "eventID"
+  //     }
+  //   });
+  // } else {
+  //   if (currentPredicate.predicates[0].key == "eventTypeHierarchy") {
+  //     currentPredicate.predicates[0].key = "eventType"
+  //   }
+  //   if (currentPredicate.predicates[0].key == "eventHierarchy") {
+  //     currentPredicate.predicates[0].key = "eventID"
+  //   }
+  // }
 }
 
 function Table() {
