@@ -11,6 +11,7 @@
   },
   "scripts": {
     "build": "npx webpack --mode=production",
+    "develop": "npx webpack --mode=development --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve-translations": "npx serve locales/dist/ -p 5002 --cors",
     "watch-translations": "npx nodemon locales/build.js -w locales/ -i locales/dist/",

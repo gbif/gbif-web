@@ -152,7 +152,7 @@ function DatasetResult({ largest, item, indicator, theme, setActive, index, dial
       </div>
       <div>
         <Popover
-            trigger={<Button onClick={() => setVisible(true)} disabled={predicateEmpty}>Download filtered
+            trigger={<Button onClick={() => setVisible(true)} disabled={predicateEmpty} style={{ marginRight: 6 }}>Download filtered
               archive</Button>}
             onClickOutside={action => console.log('close request', action)}
             visible={visible}>
