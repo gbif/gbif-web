@@ -12,6 +12,7 @@ const {  TabPanel } = Tabs;
 export function EventSidebar({
   onCloseRequest,
   setActiveEventID,
+  addToSearch,
   eventID,
   datasetKey,
   defaultTab,
@@ -63,6 +64,7 @@ export function EventSidebar({
                   loading={loading}
                   error={error}
                   setActiveEventID={setActiveEventID}
+                  addToSearch={addToSearch}
               />
             </TabPanel>
         }

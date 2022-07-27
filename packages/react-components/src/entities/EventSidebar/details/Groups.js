@@ -1,6 +1,6 @@
 import React, {useCallback} from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Accordion, Properties } from "../../../components";
+import {Accordion, Button, Properties} from "../../../components";
 import {PlainTextField, EnumField, HtmlField, LinkedField, DateRangeField, VocabField} from './properties';
 import * as css from "../styles";
 
@@ -9,6 +9,7 @@ const { Term: T, Value: V } = Properties;
 export function Groups({
      event,
      setActiveEventID,
+     addToSearch,
      showAll }) {
 
   let termMap = {}
@@ -17,7 +18,7 @@ export function Groups({
   })
 
   return <>
-    <Event                {...{ showAll, termMap, event, setActiveEventID }} />
+    <Event                {...{ showAll, termMap, event, setActiveEventID, addToSearch }} />
     <Location             {...{ showAll, termMap, event }} />
   </>
 }
@@ -31,7 +32,7 @@ export function Group({ label, ...props }) {
   />
 }
 
-function Event({ showAll, termMap, event, setActiveEventID }) {
+function Event({ showAll, termMap, event, setActiveEventID, addToSearch }) {
   const hasContent = [
     'eventID',
     'parentEventID',
@@ -60,6 +61,11 @@ function Event({ showAll, termMap, event, setActiveEventID }) {
       setActiveEventID(termMap.parentEventID.value);
   }, []);
 
+  const addToSearchCallback = useCallback(() => {
+    addToSearch(termMap.eventID.value);
+  }, []);
+
+
   return <Group label="eventDetails.groups.event">
     <Properties css={css.properties} breakpoint={800}>
       <PlainTextField term={termMap.eventID} showDetails={showAll} />
@@ -81,6 +87,11 @@ function Event({ showAll, termMap, event, setActiveEventID }) {
       <PlainTextField term={termMap.sampleSizeUnit} showDetails={showAll} />
       <PlainTextField term={termMap.eventRemarks} showDetails={showAll} />
     </Properties>
+
+    <Button
+        look="primaryOutline" style={{ marginTop: '20px', fontSize: '11px' }}
+        onClick={addToSearchCallback}>View events related to this {termMap.eventType?.value?.concept}
+    </Button>
   </Group>
 }
 

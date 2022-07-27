@@ -13,6 +13,7 @@ export function Intro({
   loading,
   error,
   setActiveEventID,
+  addToSearch,
   className,
   ...props
 }) {
@@ -30,6 +31,7 @@ export function Intro({
           event={event}
           showAll={showAll}
           setActiveEventID={setActiveEventID}
+          addToSearch={addToSearch}
       />
 
       { hasCoordinates  &&
