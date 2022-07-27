@@ -567,7 +567,7 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
     },
     eventLocationId: {
       //What placeholder to show
-      placeholder: 'Search by location ID (case sensitive)',
+      placeholder: 'search.placeholders.locationID',
       // how to get the list of suggestion data
       getSuggestions: ({ q, size = 100 }) => {
         const SEARCH = `

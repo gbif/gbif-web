@@ -3,7 +3,7 @@ import EventContext from '../../../SearchContext';
 import SiteContext from '../../../../dataManagement/SiteContext'
 import { useDialogState } from "reakit/Dialog";
 import * as styles from './downloadPresentation.styles';
-import {Button, Popover} from '../../../../components';
+import {Button, Popover, Skeleton} from '../../../../components';
 import env from '../../../../../.env.json';
 
 export const DownloadPresentation = ({ more, size, data, total, loading, getPredicate }) => {
@@ -74,9 +74,6 @@ function DatasetResult({ largest, item, indicator, theme, setActive, index, dial
     if (siteContext.auth && getUser) {
       const user = await getUser();
       if (user) {
-        console.log("User logged in ");
-        console.log(user);
-
         // validate the predicate - is there any filters set ?
         window.location.href = dataset.archive.url;
       } else if (siteContext.auth?.signIn) {
@@ -161,7 +158,7 @@ function DatasetResult({ largest, item, indicator, theme, setActive, index, dial
           <FilteredDownloadForm
               hide={() => setVisible(false)}
               download={() => startFilteredDownload()}
-              querySupported={querySupported}
+              activePredicate={activePredicate}
               siteContext={siteContext}
           >
           </FilteredDownloadForm>
@@ -174,7 +171,24 @@ function DatasetResult({ largest, item, indicator, theme, setActive, index, dial
   </div>
 }
 
-const FilteredDownloadForm = React.memo(({ focusRef, hide, download, querySupported, siteContext,...props }) => {
+function UnsupportedFilter({filterName, hide}) {
+  return <div style={{ padding: "30px" }}>
+    <h3>Downloads with {filterName} filter coming soon!</h3>
+    <p>
+      Downloads with {filterName} filter are currently supported
+      <br/>
+      in this prototype.
+      <br/>
+      <br/>
+      We'll add this very soon !
+    </p>
+    <br/>
+    <Button onClick={() => hide()} look="primaryOutline">Close</Button>
+  </div>
+}
+
+
+const FilteredDownloadForm = React.memo(({ focusRef, hide, download, siteContext, activePredicate,...props }) => {
 
   const isUserLoggedIn = siteContext.auth?.getUser != null;
   const signIn = siteContext.auth?.signIn;
@@ -196,6 +210,28 @@ const FilteredDownloadForm = React.memo(({ focusRef, hide, download, querySuppor
     setDownloadButtonText("Download sent!");
     setDownloadSent(true)
   }, []);
+
+
+  console.log(activePredicate);
+
+  // temp code to check for unsupported filters
+  if (activePredicate.predicates[0].predicates && Array.isArray(activePredicate.predicates[0].predicates)){
+    activePredicate.predicates[0].predicates.forEach((predicate, idx) => {
+      if (predicate.key == "taxonKey") {
+        return <UnsupportedFilter filterName={`taxonKey`} hide={hide} />
+      }
+      if (predicate.key == "measurementOrFactTypes") {
+        return <UnsupportedFilter filterName={`measurementOrFactTypes`} hide={hide} />
+      }
+    });
+  } else {
+    if (activePredicate.predicates[0].key == "taxonKey") {
+      return <UnsupportedFilter filterName={`taxonKey`} hide={hide} />
+    }
+    if (activePredicate.predicates[0].key == "measurementOrFactTypes") {
+      return <UnsupportedFilter filterName={`measurementOrFactTypes`} hide={hide} />
+    }
+  }
 
   return <div style={{ padding: "30px" }}>
 
@@ -233,6 +269,9 @@ const FilteredDownloadForm = React.memo(({ focusRef, hide, download, querySuppor
     { !isUserLoggedIn && <div>
       <p>You need to login to download</p>
       <a href={`#`} onClick={signIn}>Click here</a> to login
+      <br/>
+      <br/>
+      <Button onClick={() => hide()} look="primaryOutline">Close</Button>
     </div> }
   </div>
 });

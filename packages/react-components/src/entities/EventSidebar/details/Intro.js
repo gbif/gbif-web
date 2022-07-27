@@ -35,7 +35,7 @@ export function Intro({
       />
 
       { hasCoordinates  &&
-      <Group label={"Map of site location"}>
+      <Group label="eventDetails.map">
         <Map
             latitude={event.decimalLatitude}
             longitude={event.decimalLongitude}

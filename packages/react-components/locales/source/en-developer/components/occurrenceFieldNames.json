@@ -258,6 +258,8 @@
   "taxonomicClassification": "Classification",
   "gadmClassification": "Location according to GADM",
   "images": "Images",
-  "eventTypeHierarchyJoined": "Event hierarchy",
-  "measurementOrFactTypes": "Measurements or facts"
+  "eventTypeHierarchyJoined": "Structure",
+  "measurementOrFactTypes": "Measurements or facts",
+  "temporalCoverage": "Temporal coverage",
+  "eventType": "Event type"
 }
