@@ -33,13 +33,11 @@ export function Summaries({ event, data, showAll }) {
     hasEventType = true;
   }
 
-  // get the hierarchy from
+  // get the hierarchy from events
   const eventHierarchy = data?.results.facet.eventTypeHierarchyJoined;
-  // get the hierarchy from
+  // get the hierarchy from occurrences
   const occurrenceHierarchy = data?.results.occurrenceFacet.eventTypeHierarchyJoined;
-
   let combinedHierarchy = [];
-
   if (eventHierarchy && occurrenceHierarchy) {
     eventHierarchy.forEach(h => combinedHierarchy.push(h));
     occurrenceHierarchy.forEach(h => {
@@ -51,7 +49,7 @@ export function Summaries({ event, data, showAll }) {
   }
 
   return <>
-    <Group label="Occurrences">
+    <Group label="eventDetails.groups.occurrence">
       <Properties css={css.properties} breakpoint={800}>
         <EnumFacetListInline term={termMap.basisOfRecord} showDetails={showAll}  getEnum={value => `enums.basisOfRecord.${value}`}/>
       </Properties>

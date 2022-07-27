@@ -5,6 +5,7 @@ import { useQuery } from '../../../../dataManagement/api';
 import { filter2predicate } from '../../../../dataManagement/filterAdapter';
 import MapPresentation from './MapPresentation';
 import { getBboxFromFeature } from './esTileHash';
+import SiteContext from "../../../../dataManagement/SiteContext";
 
 const EVENT_MAP = `
 query map($predicate: Predicate){
@@ -40,6 +41,7 @@ query point($predicate: Predicate){
 
 
 function Map() {
+  const siteContext = useContext(SiteContext);
   const currentFilterContext = useContext(FilterContext);
   const { labelMap, rootPredicate, predicateConfig, more } = useContext(EventContext);
   const { data, error, loading, load } = useQuery(EVENT_MAP, { lazyLoad: true, graph: 'EVENT' });
@@ -117,7 +119,7 @@ function Map() {
     pointLoading,
     pointError,
     labelMap,
-    defaultMapSettings: more?.mapSettings
+    defaultMapSettings: siteContext.mapSettings ? siteContext.mapSettings : more?.mapSettings
   }
 
   if (typeof window !== 'undefined') {

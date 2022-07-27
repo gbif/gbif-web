@@ -1033,6 +1033,11 @@
         signOut: () => authManager.signoutRedirect(),
         getUser: async () => await authManager.getUser(),
       },
+      mapSettings: {
+        zoom: 3,
+        lat: -29.0,
+        lng: 137.1
+      }
     };
 
     ReactDOM.render(
