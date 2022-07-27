@@ -98,10 +98,11 @@ function DatasetResult({ largest, item, indicator, theme, setActive, index, dial
       const user = await getUser();
       if (user) {
         // validate the predicate - is there any filters set ?
+        console.log(user);
         let download = {
           "datasetId": item.key,
-          "creator": user.profile.email,
-          "notificationAddresses": [user.profile.email],
+          "creator": user.profile.sub,
+          "notificationAddresses": [user.profile.sub],
           "predicate": activePredicate
         }
 
