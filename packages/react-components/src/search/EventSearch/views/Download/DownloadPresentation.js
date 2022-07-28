@@ -108,13 +108,7 @@ function DatasetResult({ largest, item, indicator, theme, setActive, index, dial
         request.setRequestHeader('Authorization', 'Bearer ' + user.access_token);
         request.send(JSON.stringify(download));
 
-        if (request.status != 200){
-          setDownloadFailure(true);
-          console.log(request.statusText);
-          return {success: false, responseText: request.statusText}
-        } else {
-          return {success: true}
-        }
+        return {success: true}
 
       } else if (signIn) {
         signIn();
@@ -216,7 +210,8 @@ const FilteredDownloadForm = React.memo(({ focusRef, hide, download, siteContext
 
     download()
         .then((result) => {
-
+          console.log("Response from download request")
+          console.log(result)
           if (result.success){
             // change button
             setDownloadButtonText("Download sent!");

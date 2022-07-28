@@ -1,7 +1,7 @@
 import React, {useCallback} from 'react';
 import { FormattedMessage } from 'react-intl';
 import {Accordion, Button, Properties} from "../../../components";
-import {PlainTextField, EnumField, HtmlField, LinkedField, DateRangeField, VocabField} from './properties';
+import {PlainTextField, EnumField, HtmlField, LinkedField, DateRangeField, VocabField, Field} from './properties';
 import * as css from "../styles";
 
 const { Term: T, Value: V } = Properties;
@@ -30,6 +30,52 @@ export function Group({ label, ...props }) {
     css={css.group()}
     {...props}
   />
+}
+
+export function Structure({ event, setActiveEvent }) {
+
+  const eventHierarchy = event.eventHierarchy;
+  const eventTypeHierarchy = event.eventTypeHierarchy;
+  let combinedHierarchy = [];
+
+  for (let i = 0; i < eventHierarchy.length; i++) {
+    combinedHierarchy.push({
+      key: eventHierarchy[i],
+      name: eventTypeHierarchy[i],
+      isSelected: eventTypeHierarchy[i] == event.eventType.concept,
+      count: 1
+    });
+  }
+  return <>
+    <span>
+      { combinedHierarchy.map((node, idx) =>
+          <StructureNode
+              eventType={node.name}
+              eventID={node.key}
+              datasetKey={event.datasetKey}
+              idx={idx}
+              isLast={(combinedHierarchy.length -1) == idx}
+              setActiveEvent={setActiveEvent}
+          />)
+      }
+    </span>
+  </>;
+}
+
+export function StructureNode({ eventID, datasetKey, eventType, idx, isLast, setActiveEvent }) {
+  const viewNode = useCallback(() => {
+    setActiveEvent(eventID,  datasetKey);
+  }, []);
+  const first = (idx == 0);
+  return <>
+    {!first && <span> &#8250; </span>}
+    {isLast &&
+        <span>{eventType}</span>
+    }
+    {!isLast &&
+        <a href="#" onClick={viewNode}>{eventType}</a>
+    }
+  </>;
 }
 
 function Event({ showAll, termMap, event, setActiveEvent, addToSearch }) {
@@ -65,6 +111,10 @@ function Event({ showAll, termMap, event, setActiveEvent, addToSearch }) {
     addToSearch(termMap.eventID.value);
   }, []);
 
+  function viewRelative(id){
+    alert(id);
+  }
+
   const isRootNode = !termMap.eventTypeHierarchy?.value || termMap.eventTypeHierarchy?.value.length < 2;
 
   return <Group label="eventDetails.groups.event">
@@ -73,7 +123,12 @@ function Event({ showAll, termMap, event, setActiveEvent, addToSearch }) {
       <PlainTextField term={termMap.eventName} showDetails={showAll} />
       <LinkedField fieldCallback={viewParent} term={termMap.parentEventID} showDetails={showAll} />
       <VocabField term={termMap.eventType} showDetails={showAll} />
-      {!isRootNode && <PlainTextField term={termMap.eventTypeHierarchyJoined} showDetails={showAll} />}
+      {!isRootNode &&
+          // <PlainTextField term={termMap.eventTypeHierarchyJoined} showDetails={showAll} />
+          <Field term={termMap.eventTypeHierarchyJoined} showDetails={showAll}>
+            <Structure event={event} setActiveEvent={setActiveEvent} />
+          </Field>
+      }
       <DateRangeField term={termMap.temporalCoverage} showDetails={showAll} />
       <PlainTextField term={termMap.eventDate} showDetails={showAll} />
       <PlainTextField term={termMap.eventTime} showDetails={showAll} />
@@ -95,6 +150,9 @@ function Event({ showAll, termMap, event, setActiveEvent, addToSearch }) {
     </Button>
   </Group>
 }
+
+
+
 
 function Location({ showAll, termMap, event }) {
   const hasContent = [
