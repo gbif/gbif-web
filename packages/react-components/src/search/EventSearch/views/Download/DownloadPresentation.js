@@ -85,13 +85,13 @@ function DatasetResult({ largest, item, indicator, theme, setActive, index, dial
     }
   }
 
-  async function startFilteredDownload() {
+  function startFilteredDownload() {
 
     const signIn = siteContext.auth?.signIn;
     const getUser = siteContext.auth?.getUser;
 
     if (siteContext.auth && getUser) {
-      const user = await getUser();
+      const user = getUser();
       if (user) {
         // validate the predicate - is there any filters set ?
         console.log(user);
@@ -111,6 +111,9 @@ function DatasetResult({ largest, item, indicator, theme, setActive, index, dial
         if (request.status != 200){
           setDownloadFailure(true);
           console.log(request.statusText);
+          return {success: false, responseText: request.statusText}
+        } else {
+          return {success: true}
         }
 
       } else if (signIn) {
@@ -211,11 +214,16 @@ const FilteredDownloadForm = React.memo(({ focusRef, hide, download, siteContext
     setDownloadDisabled(true);
     setDownloadButtonText("Requesting download....");
 
-    download();
+    let result = download();
 
-    // change button
-    setDownloadButtonText("Download sent!");
-    setDownloadSent(true)
+    if (result.success){
+      // change button
+      setDownloadButtonText("Download sent!");
+      setDownloadSent(true)
+    } else {
+      setDownloadButtonText("There was a problem starting the download. " + result.responseText);
+      setDownloadSent(false)
+    }
   }, []);
 
   // temp code to check for unsupported filters
