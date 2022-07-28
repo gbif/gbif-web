@@ -8,7 +8,7 @@ const { Term: T, Value: V } = Properties;
 
 export function Groups({
      event,
-     setActiveEventID,
+     setActiveEvent,
      addToSearch,
      showAll }) {
 
@@ -18,7 +18,7 @@ export function Groups({
   })
 
   return <>
-    <Event                {...{ showAll, termMap, event, setActiveEventID, addToSearch }} />
+    <Event                {...{ showAll, termMap, event, setActiveEvent, addToSearch }} />
     <Location             {...{ showAll, termMap, event }} />
   </>
 }
@@ -32,7 +32,7 @@ export function Group({ label, ...props }) {
   />
 }
 
-function Event({ showAll, termMap, event, setActiveEventID, addToSearch }) {
+function Event({ showAll, termMap, event, setActiveEvent, addToSearch }) {
   const hasContent = [
     'eventID',
     'parentEventID',
@@ -58,13 +58,14 @@ function Event({ showAll, termMap, event, setActiveEventID, addToSearch }) {
   if (!hasContent) return null;
 
   const viewParent = useCallback(() => {
-      setActiveEventID(termMap.parentEventID.value);
+    setActiveEvent(event.parentEventID, event.datasetKey);
   }, []);
 
   const addToSearchCallback = useCallback(() => {
     addToSearch(termMap.eventID.value);
   }, []);
 
+  const isRootNode = !termMap.eventTypeHierarchy?.value || termMap.eventTypeHierarchy?.value.length < 2;
 
   return <Group label="eventDetails.groups.event">
     <Properties css={css.properties} breakpoint={800}>
@@ -72,7 +73,7 @@ function Event({ showAll, termMap, event, setActiveEventID, addToSearch }) {
       <PlainTextField term={termMap.eventName} showDetails={showAll} />
       <LinkedField fieldCallback={viewParent} term={termMap.parentEventID} showDetails={showAll} />
       <VocabField term={termMap.eventType} showDetails={showAll} />
-      <PlainTextField term={termMap.eventTypeHierarchyJoined} showDetails={showAll} />
+      {!isRootNode && <PlainTextField term={termMap.eventTypeHierarchyJoined} showDetails={showAll} />}
       <DateRangeField term={termMap.temporalCoverage} showDetails={showAll} />
       <PlainTextField term={termMap.eventDate} showDetails={showAll} />
       <PlainTextField term={termMap.eventTime} showDetails={showAll} />

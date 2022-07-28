@@ -15,17 +15,18 @@ import {ImageDetails} from "../../../../entities/OccurrenceSidebar/details/Image
 import {Intro} from "../../../../entities/OccurrenceSidebar/details/Intro";
 import {Cluster} from "../../../../entities/OccurrenceSidebar/details/Cluster";
 import {EventSidebar} from "../../../../entities/EventSidebar/EventSidebar";
+import {FilterContext} from "../../../../widgets/Filter/state";
 
 function Map({ labelMap, query, pointData, pointError, pointLoading, loading, total, predicateHash, registerPredicate, loadPointData, defaultMapSettings, mapLoaded, ...props }) {
   const dialog = useDialogState({ animated: true, modal: false });
   const theme = useContext(ThemeContext);
+  const currentFilterContext = useContext(FilterContext);
 
   const [activeId, setActive] = useState();
   const [activeItem, setActiveItem] = useState();
-
   const [listVisible, showList] = useState(false);
-
   const items = pointData?.eventSearch?.documents?.results || [];
+  const [activeEventID, setActiveEventID] = useState(false);
 
   useEffect(() => {
     setActiveItem(items[activeId]);
@@ -39,6 +40,16 @@ function Map({ labelMap, query, pointData, pointError, pointLoading, loading, to
     setActive(Math.max(0, activeId - 1));
   }, [items, activeId]);
 
+  function setActiveEvent(eventID) {
+    setActiveItem({"eventID": eventID, "datasetKey": activeItem?.datasetKey});
+  }
+
+  function addToSearch (eventID) {
+    currentFilterContext.setField('eventID', [eventID], true);
+    setActiveEventID(null);
+    dialog.setVisible(false)
+  }
+
   return <>
     <DetailsDrawer href={`${activeItem?.eventID}`} dialog={dialog} nextItem={nextItem} previousItem={previousItem}>
       <EventSidebar
@@ -47,7 +58,8 @@ function Map({ labelMap, query, pointData, pointError, pointLoading, loading, to
           defaultTab='details'
           style={{ maxWidth: '100%', width: 700, height: '100%' }}
           onCloseRequest={() => dialog.setVisible(false)}
-          setActiveEventID={() => console.log('Fix me')}
+          setActiveEvent={setActiveEvent}
+          addToSearch={addToSearch}
       />
     </DetailsDrawer>
     <div css={css.mapArea({theme})}>

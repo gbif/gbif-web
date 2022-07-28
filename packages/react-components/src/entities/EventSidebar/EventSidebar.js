@@ -11,7 +11,7 @@ const {  TabPanel } = Tabs;
 
 export function EventSidebar({
   onCloseRequest,
-  setActiveEventID,
+  setActiveEvent,
   addToSearch,
   eventID,
   datasetKey,
@@ -63,7 +63,7 @@ export function EventSidebar({
                   data={data}
                   loading={loading}
                   error={error}
-                  setActiveEventID={setActiveEventID}
+                  setActiveEvent={setActiveEvent}
                   addToSearch={addToSearch}
               />
             </TabPanel>
@@ -102,6 +102,8 @@ query event($eventID: String, $datasetKey: String){
     samplingProtocol
     eventTypeHierarchyJoined
     eventHierarchyJoined
+    eventTypeHierarchy
+    eventHierarchy    
     eventTypeHierarchy
     eventHierarchy
     decimalLatitude

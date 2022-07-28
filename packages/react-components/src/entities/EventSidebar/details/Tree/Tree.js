@@ -17,11 +17,11 @@ class TreeNode {
 export function TreeN({ treeNode }) {
   const hasChildren = treeNode.children.length > 0;
   return <li>
-      <a href="#" className={ treeNode.isSelected ? 'selected' : ''}>{ treeNode.value }</a>
-    { hasChildren ?
-        (<ul>
-          {treeNode.children.map(childNode => <TreeN treeNode={childNode}/>)}
-        </ul>) : ''
+      <span className={ treeNode.isSelected ? 'selected' : ''}>{ treeNode.value }</span>
+    { hasChildren &&
+        <ul>
+          {treeNode.children.map(childNode => <TreeN treeNode={childNode} />)}
+        </ul>
     }
     </li>
 }

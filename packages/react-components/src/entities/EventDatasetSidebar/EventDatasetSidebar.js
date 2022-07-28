@@ -152,7 +152,7 @@ export function EventDatasetSidebar({
                   {combinedHierarchy && <>
                     <T>Structure</T>
                     <V>
-                      {data?.eventSearch && <Tree data={combinedHierarchy} highlightRootNode={true}/>}
+                      {data?.eventSearch && <Tree data={combinedHierarchy} highlightRootNode={true} theme={theme}/>}
                     </V>
                   </>}
                 </Properties>

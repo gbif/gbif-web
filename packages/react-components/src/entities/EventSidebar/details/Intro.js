@@ -12,7 +12,7 @@ export function Intro({
   data = {},
   loading,
   error,
-  setActiveEventID,
+  setActiveEvent,
   addToSearch,
   className,
   ...props
@@ -30,7 +30,7 @@ export function Intro({
       <Groups
           event={event}
           showAll={showAll}
-          setActiveEventID={setActiveEventID}
+          setActiveEvent={setActiveEvent}
           addToSearch={addToSearch}
       />
 
@@ -44,10 +44,7 @@ export function Intro({
       </Group>
       }
 
-      <Summary
-          event={event}
-          setActiveEventID={setActiveEventID}
-      />
+      <Summary event={event} />
     </Col>
     <Col css={css.controlFooter({ theme })} grow={false}>
       <Row justifyContent="flex-end" halfGutter={8}>

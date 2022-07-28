@@ -67,6 +67,7 @@ function DatasetResult({ largest, item, indicator, theme, setActive, index, dial
 
   const [visible, setVisible] = useState(false);
   const [downloadFailure, setDownloadFailure] = useState(false);
+  const isAvailable = item.archive.fileSizeInMB != null;
 
   async function startFullDownload(dataset) {
 
@@ -83,11 +84,6 @@ function DatasetResult({ largest, item, indicator, theme, setActive, index, dial
       console.log("Site context didnt provide a getUser function")
     }
   }
-
-  function querySupported(){
-    return "This query is supported for download yet. Coming soon...."
-  }
-
 
   async function startFilteredDownload() {
 
@@ -143,14 +139,18 @@ function DatasetResult({ largest, item, indicator, theme, setActive, index, dial
     <div css={styles.title({ theme })}>
       <div style={{ flex: '1 1 auto' }}>
         {item.datasetTitle}
-        <br/>
-        <span>Compressed archive size: {item.archive.fileSizeInMB}MB</span>
-        <br/>
-        <span>Format: Darwin core archive / Frictionless data package</span>
-        <br/>
-        <span>Last generated: {item.archive.modified}</span>
+        {isAvailable && <div>
+          <br/>
+          <span>Compressed archive size: {item.archive.fileSizeInMB}MB</span>
+          <br/>
+          <span>Format: Darwin core archive / Frictionless data package</span>
+          <br/>
+          <span>Last generated: {item.archive.modified}</span>
+        </div>}
       </div>
       <div>
+
+        {isAvailable && <div>
         <Popover
             trigger={<Button onClick={() => setVisible(true)} disabled={predicateEmpty} style={{ marginRight: 6 }}>Download filtered
               archive</Button>}
@@ -167,6 +167,12 @@ function DatasetResult({ largest, item, indicator, theme, setActive, index, dial
         <Button onClick={() => { startFullDownload(item); }}  look="primaryOutline">
           Download full dataset archive
         </Button>
+        </div>}
+        {!isAvailable && <div>
+          <Button  look="primaryOutline" disabled={true} >
+            Not currently available for download
+          </Button>
+        </div>}
       </div>
     </div>
   </div>
@@ -211,9 +217,6 @@ const FilteredDownloadForm = React.memo(({ focusRef, hide, download, siteContext
     setDownloadButtonText("Download sent!");
     setDownloadSent(true)
   }, []);
-
-
-  console.log(activePredicate);
 
   // temp code to check for unsupported filters
   if (activePredicate.predicates[0].predicates && Array.isArray(activePredicate.predicates[0].predicates)){

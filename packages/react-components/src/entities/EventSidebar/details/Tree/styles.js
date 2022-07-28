@@ -67,7 +67,7 @@ export const tree = ({ theme, ...props }) => css`
     height: 1em;
   }
 
-  li a {
+  li span {
       border: 1px solid #ccc;
       padding: .5em .75em;
       text-decoration: none;
@@ -78,24 +78,24 @@ export const tree = ({ theme, ...props }) => css`
       top: 1px;
   }
 
-  li a.selected {
-      background: #e9453f;
+  li span.selected {
+      background: ${theme.primary};
       color: #fff;
-      border: 1px solid #e9453f;
+      border: 1px solid #ccc;
   }
     
 
-  li a:hover {
-      background: #e9453f;
+  li span:hover {
+      background: ${theme.primary};
       color: #fff;
-      border: 1px solid #e9453f;
+      border: 1px solid #ccc;
   }
     
-  li a:hover  ul li::after, 
-  li a:hover  ul li::before, 
-  li a:hover  ul::before, 
-  li a:hover  ul ul::before {
-      border-color:  #e9453f;
+  li span:hover  ul li::after, 
+  li span:hover  ul li::before, 
+  li span:hover  ul::before, 
+  li span:hover  ul ul::before {
+      border-color:  #ccc;
   }
 `;
 

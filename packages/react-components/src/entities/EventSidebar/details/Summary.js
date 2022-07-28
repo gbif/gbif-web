@@ -5,7 +5,6 @@ import {useQuery} from "../../../dataManagement/api";
 
 export function Summary({
   event,
-  setActiveEventID,
   ...props
 }) {
   const theme = useContext(ThemeContext);

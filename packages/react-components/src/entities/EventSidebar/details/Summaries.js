@@ -1,14 +1,15 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Properties } from "../../../components";
 import * as css from "../styles";
 import {Group} from "./Groups";
-import {Tree} from "./Tree/Tree";
 import {EnumFacetListInline, FacetList, FacetListInline} from "./properties";
 import {Measurements} from "./Measurements";
+import {SingleTree} from "./Tree/SingleTree";
 
 const { Term: T, Value: V } = Properties;
 
 export function Summaries({ event, data, showAll }) {
+
   let termMap = {}
   Object.entries(data.results.facet).forEach(item => {
     termMap[item[0]] = {
@@ -28,23 +29,63 @@ export function Summaries({ event, data, showAll }) {
   if (data.results.documents.results
       && data.results.documents.results.length > 0
       && data.results.documents.results[0].eventType
-      && data.results.documents.results[0].eventType.concept)
-  {
+      && data.results.documents.results[0].eventType.concept) {
     hasEventType = true;
   }
 
-  // get the hierarchy from events
-  const eventHierarchy = data?.results.facet.eventTypeHierarchyJoined;
-  // get the hierarchy from occurrences
-  const occurrenceHierarchy = data?.results.occurrenceFacet.eventTypeHierarchyJoined;
   let combinedHierarchy = [];
-  if (eventHierarchy && occurrenceHierarchy) {
-    eventHierarchy.forEach(h => combinedHierarchy.push(h));
-    occurrenceHierarchy.forEach(h => {
+
+  if (hasEventType) {
+
+    const eventHierarchy = event.eventHierarchy;
+    const eventTypeHierarchy = event.eventTypeHierarchy;
+
+    for (let i = 0; i < eventHierarchy.length; i++) {
       combinedHierarchy.push({
-        key: h.key + " / Occurrence",
-        count: h.count
-      })
+        key: eventHierarchy[i],
+        name: eventTypeHierarchy[i],
+        isSelected: eventTypeHierarchy[i] == event.eventType.concept,
+        count: 1
+      });
+    }
+
+    // complete the hierarchy
+    const eventHierarchyJoined = data?.results.facet.eventTypeHierarchyJoined.sort(function (a, b) {
+      return a.key.length - b.key.length
+    });
+
+    let completeEventHierarchyAsStr = combinedHierarchy.map(node => node.name).join(" / ");
+
+    eventHierarchyJoined.forEach(h => {
+      if (h.key.startsWith(completeEventHierarchyAsStr + " / ")) {
+        let restOfHierarchy = h.key.substring((completeEventHierarchyAsStr + " / ").length)
+        let verticies = restOfHierarchy.split('/').map(s => s.trim());
+        if (verticies && verticies.length > 0) {
+          let v = verticies[0];
+          combinedHierarchy.push({
+            key: v,
+            name: v,
+            isSelected: false,
+            count: h.count
+          });
+        }
+        completeEventHierarchyAsStr = combinedHierarchy.map(node => node.name).join(" / ");
+      }
+    });
+
+    // add occurrences hierarchy
+    const occurrenceHierarchyJoined = data?.results.occurrenceFacet.eventTypeHierarchyJoined;
+
+    occurrenceHierarchyJoined.forEach(h => {
+      if (h.key.startsWith(completeEventHierarchyAsStr)) {
+        combinedHierarchy.push({
+          key: "Occurrence",
+          name: "Occurrence",
+          count: h.count,
+          isSelected: false,
+        });
+        completeEventHierarchyAsStr = combinedHierarchy.map(node => node.name).join(" / ");
+      }
     });
   }
 
@@ -56,7 +97,7 @@ export function Summaries({ event, data, showAll }) {
     </Group>
     <Group label="eventDetails.groups.dataStructure">
       {hasEventType &&
-          <Tree data={combinedHierarchy} selected={event.eventType.concept}/>
+          <SingleTree hierarchy={combinedHierarchy} />
       }
     </Group>
     <Methodology             {...{ showAll, termMap }} />

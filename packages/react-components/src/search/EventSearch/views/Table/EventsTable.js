@@ -52,6 +52,10 @@ export const EventsTable = ({ first, prev, next, size, from, results, total, loa
     }
   }, [dialog.visible]);
 
+  function setActiveEvent(eventID, datasetKey) {
+    setActiveEventID(eventID);
+    setActiveDatasetKey(datasetKey)
+  }
 
   function addToSearch (eventID) {
     currentFilterContext.setField('eventID', [eventID], true);
@@ -102,8 +106,7 @@ export const EventsTable = ({ first, prev, next, size, from, results, total, loa
         defaultTab='details'
         style={{ maxWidth: '100%', width: 700, height: '100%' }}
         onCloseRequest={() => dialog.setVisible(false)}
-        setActiveEventID={setActiveEventID}
-        setActiveDatasetKey={setActiveDatasetKey}
+        setActiveEvent={setActiveEvent}
         addToSearch={addToSearch}
       />
     </DetailsDrawer>}

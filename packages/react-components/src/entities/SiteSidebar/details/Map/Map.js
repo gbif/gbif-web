@@ -65,16 +65,8 @@ export default function Map({latitude, longitude, wkt}) {
           new mapboxgl.Marker()
               .setLngLat([geojson.coordinates[0], geojson.coordinates[1]])
               .addTo(map.current);
-
-          // Create a 'LngLatBounds' with both corners at the first coordinate.
-          const bounds = new mapboxgl.LngLatBounds(
-              geojson.coordinates,
-              geojson.coordinates
-          );
-
-          map.current.fitBounds(bounds, {
-            padding: 100
-          });
+          map.current.setCenter(geojson.coordinates);
+          map.current.setZoom(6);
 
         } else {
           const coordinates = geojson.coordinates[0];
@@ -99,6 +91,9 @@ export default function Map({latitude, longitude, wkt}) {
         new mapboxgl.Marker()
             .setLngLat([longitude, latitude])
             .addTo(map.current);
+
+        map.current.setCenter([longitude, latitude]);
+        map.current.setZoom(6);
       }
     });
   });
