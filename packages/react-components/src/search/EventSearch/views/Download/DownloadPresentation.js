@@ -5,33 +5,13 @@ import { useDialogState } from "reakit/Dialog";
 import * as styles from './downloadPresentation.styles';
 import {Button, Popover, Skeleton} from '../../../../components';
 import env from '../../../../../.env.json';
+import {FilterContext} from "../../../../widgets/Filter/state";
+import {filter2predicate} from "../../../../dataManagement/filterAdapter";
 
 export const DownloadPresentation = ({ more, size, data, total, loading, getPredicate }) => {
-  const siteContext = useContext(SiteContext);
-  const { labelMap } = useContext(EventContext);
-  const [activeId, setActive] = useState();
-  const [activeItem, setActiveItem] = useState();
+
   const dialog = useDialogState({ animated: true, modal: false });
   const items = data?.eventSearch?.facet?.datasetKey || [];
-  const [activePredicate, setActivePredicate] = useState();
-  const [predicateEmpty, setPredicateEmpty] = useState(true);
-
-  useEffect(() => {
-    setActiveItem(items[activeId]);
-    setActivePredicate(getPredicate())
-    let predicate = getPredicate();
-    if (predicate && predicate.predicates && predicate.predicates[0].type != "and"){
-      setPredicateEmpty(false)
-    }
-  }, [activeId, items]);
-
-  const nextItem = useCallback(() => {
-    setActive(Math.min(items.length - 1, activeId + 1));
-  }, [items, activeId]);
-
-  const previousItem = useCallback(() => {
-    setActive(Math.max(0, activeId - 1));
-  }, [activeId]);
 
   if (loading){
     return <>Loading...</>;
@@ -46,15 +26,11 @@ export const DownloadPresentation = ({ more, size, data, total, loading, getPred
         <ul key={`dataset_results`} style={{ padding: 0, margin: 0 }}>
           {items.length > 0 && items.map((item, index) => <li key={`dataset_results_${item.key}`}>
             <DatasetResult
-                activePredicate={activePredicate}
-                predicateEmpty={predicateEmpty}
-                setActive={setActive}
                 index={index}
                 dialog={dialog}
                 key={item.key}
                 item={item}
                 largest={items[0].count}
-                siteContext={siteContext}
             />
           </li>)}
         </ul>
@@ -62,21 +38,96 @@ export const DownloadPresentation = ({ more, size, data, total, loading, getPred
   </>
 }
 
-function DatasetResult({ largest, item, indicator, theme, setActive, index, dialog, activePredicate, predicateEmpty,
-                         siteContext,...props }) {
+function DatasetResult({ largest, item, indicator, theme,  index, dialog,...props }) {
 
   const [visible, setVisible] = useState(false);
-  const [downloadFailure, setDownloadFailure] = useState(false);
   const isAvailable = item.archive.fileSizeInMB != null;
 
-  async function startFullDownload(dataset) {
+  return <div css={styles.dataset({ theme })}>
+    <a css={styles.actionOverlay({theme})} href={`${item.key}`} onClick={(event) => {
+      if (
+        event.ctrlKey ||
+        event.shiftKey ||
+        event.metaKey || // apple
+        (event.button && event.button == 1) // middle click, >IE9 + everyone else
+      ) {
+        return;
+      } else {
+        dialog.show();
+        event.preventDefault();
+      }
+    }}></a>
+    <div css={styles.title({ theme })}>
+      <div style={{ flex: '1 1 auto' }}>
+        {item.datasetTitle}
+        {isAvailable && <div>
+          <br/>
+          <span>Compressed archive size: {item.archive.fileSizeInMB}MB</span>
+          <br/>
+          <span>Format: Darwin core archive / Frictionless data package</span>
+          <br/>
+          <span>Last generated: {item.archive.modified}</span>
+        </div>}
+      </div>
+      <div>
+        {isAvailable && <div>
+        <Popover
+            trigger={<Button onClick={() => setVisible(true)} style={{ marginRight: 6 }}>Download</Button>}
+            onClickOutside={action => console.log('close request', action)}
+            visible={visible}>
+          <DownloadForm hide={() => setVisible(false)} dataset={item}/>
+        </Popover>
+        </div>}
+        {!isAvailable && <div>
+          <Button  look="primaryOutline" disabled={true} >
+            Not currently available for download
+          </Button>
+        </div>}
+      </div>
+    </div>
+  </div>
+}
 
+const DownloadForm = React.memo(({  hide, dataset }) => {
+
+  const siteContext = useContext(SiteContext);
+  const currentFilterContext = useContext(FilterContext);
+  const { rootPredicate, predicateConfig } = useContext(EventContext);
+
+  const isUserLoggedIn = siteContext.auth?.getUser != null;
+  const signIn = siteContext.auth?.signIn;
+
+  const [fullDownloadStarted, setFullDownloadStarted] = useState(false);
+  const [filteredDownloadStarted, setFilteredDownloadStarted] = useState(false);
+  const [downloadStarted, setDownloadStarted] = useState(false);
+
+  const [downloadSuccess, setDownloadSuccess] = useState(false);
+  const [downloadStatus, setDownloadStatus] = useState("");
+  const [downloadStatusDetailed, setDownloadStatusDetailed] = useState("");
+
+  function getPredicate() {
+    return {
+      type: 'and',
+      predicates: [
+        rootPredicate,
+        filter2predicate(currentFilterContext.filter, predicateConfig)
+      ].filter(x => x)
+    }
+  }
+
+  let activePredicate = getPredicate();
+  let predicateEmpty = false;
+  if (activePredicate && activePredicate.predicates && activePredicate.predicates[0].type != "and"){
+    predicateEmpty = true
+  }
+
+  async function startFullDownload() {
     const getUser = siteContext.auth?.getUser;
     if (siteContext.auth && getUser) {
       const user = await getUser();
       if (user) {
-        // validate the predicate - is there any filters set ?
         window.location.href = dataset.archive.url;
+        return {success: true}
       } else if (siteContext.auth?.signIn) {
         siteContext.auth.signIn();
       }
@@ -96,7 +147,7 @@ function DatasetResult({ largest, item, indicator, theme, setActive, index, dial
         // validate the predicate - is there any filters set ?
         console.log(user);
         let download = {
-          "datasetId": item.key,
+          "datasetId": dataset.key,
           "creator": user.profile.sub,
           "notificationAddresses": [user.profile.sub],
           "predicate": activePredicate
@@ -118,170 +169,128 @@ function DatasetResult({ largest, item, indicator, theme, setActive, index, dial
     }
   }
 
-  return <div css={styles.dataset({ theme })}>
-    <a css={styles.actionOverlay({theme})} href={`${item.key}`} onClick={(event) => {
-      if (
-        event.ctrlKey ||
-        event.shiftKey ||
-        event.metaKey || // apple
-        (event.button && event.button == 1) // middle click, >IE9 + everyone else
-      ) {
-        return;
-      } else {
-        setActive(index);
-        dialog.show();
-        event.preventDefault();
-      }
-    }}></a>
-    <div css={styles.title({ theme })}>
-      <div style={{ flex: '1 1 auto' }}>
-        {item.datasetTitle}
-        {isAvailable && <div>
-          <br/>
-          <span>Compressed archive size: {item.archive.fileSizeInMB}MB</span>
-          <br/>
-          <span>Format: Darwin core archive / Frictionless data package</span>
-          <br/>
-          <span>Last generated: {item.archive.modified}</span>
-        </div>}
-      </div>
-      <div>
-
-        {isAvailable && <div>
-        <Popover
-            trigger={<Button onClick={() => setVisible(true)} disabled={predicateEmpty} style={{ marginRight: 6 }}>Download filtered
-              archive</Button>}
-            onClickOutside={action => console.log('close request', action)}
-            visible={visible}>
-          <FilteredDownloadForm
-              hide={() => setVisible(false)}
-              download={() => startFilteredDownload()}
-              activePredicate={activePredicate}
-              siteContext={siteContext}
-          >
-          </FilteredDownloadForm>
-        </Popover>
-        <Button onClick={() => { startFullDownload(item); }}  look="primaryOutline">
-          Download full dataset archive
-        </Button>
-        </div>}
-        {!isAvailable && <div>
-          <Button  look="primaryOutline" disabled={true} >
-            Not currently available for download
-          </Button>
-        </div>}
-      </div>
-    </div>
-  </div>
-}
-
-function UnsupportedFilter({filterName, hide}) {
-  return <div style={{ padding: "30px" }}>
-    <h3>Downloads with {filterName} filter coming soon!</h3>
-    <p>
-      Downloads with {filterName} filter are currently supported
-      <br/>
-      in this prototype.
-      <br/>
-      <br/>
-      We'll add this very soon !
-    </p>
-    <br/>
-    <Button onClick={() => hide()} look="primaryOutline">Close</Button>
-  </div>
-}
-
-
-const FilteredDownloadForm = React.memo(({ focusRef, hide, download, siteContext, activePredicate,...props }) => {
-
-  const isUserLoggedIn = siteContext.auth?.getUser != null;
-  const signIn = siteContext.auth?.signIn;
-
-  const [downloadButtonText, setDownloadButtonText] = useState("Download");
-  const [downloadDisabled, setDownloadDisabled] = useState(false);
-  const [downloadSent, setDownloadSent] = useState(false);
-
-  const startDownload = useCallback(() => {
-    console.log("Starting download");
-
-    // change button
-    setDownloadDisabled(true);
-    setDownloadButtonText("Requesting download....");
-
-    download()
-        .then((result) => {
-          console.log("Response from download request")
-          console.log(result)
-          if (result.success){
-            // change button
-            setDownloadButtonText("Download sent!");
-            setDownloadSent(true)
-          } else {
-            setDownloadButtonText("There was a problem starting the download. " + result.responseText);
-            setDownloadSent(false)
-          }
-        })
-  }, []);
-
-  // temp code to check for unsupported filters
-  if (activePredicate.predicates[0].predicates && Array.isArray(activePredicate.predicates[0].predicates)){
-    activePredicate.predicates[0].predicates.forEach((predicate, idx) => {
-      if (predicate.key == "taxonKey") {
-        return <UnsupportedFilter filterName={`taxonKey`} hide={hide} />
-      }
-      if (predicate.key == "measurementOrFactTypes") {
-        return <UnsupportedFilter filterName={`measurementOrFactTypes`} hide={hide} />
+  const fullDownload = useCallback(() => {
+    setDownloadStatus("Checking user....");
+    setDownloadStatusDetailed("Checking the user is logged in....");
+    startFullDownload().then((result) => {
+      if (result.success) {
+        setDownloadSuccess(true);
+        setDownloadStatus("Download started !")
+        setDownloadStatusDetailed("Your download has started")
       }
     });
-  } else {
-    if (activePredicate.predicates[0].key == "taxonKey") {
-      return <UnsupportedFilter filterName={`taxonKey`} hide={hide} />
-    }
-    if (activePredicate.predicates[0].key == "measurementOrFactTypes") {
-      return <UnsupportedFilter filterName={`measurementOrFactTypes`} hide={hide} />
-    }
-  }
+    setFullDownloadStarted(true);
+    setDownloadStarted(true);
+  })
+
+  const filteredDownload = useCallback(() => {
+
+    setDownloadStatus("Checking user....");
+    setDownloadStatusDetailed("Checking the user is logged in....");
+
+    setFilteredDownloadStarted(true);
+    setDownloadStarted(true);
+    startFilteredDownload()
+        .then((result) => {
+          if (result.success){
+            console.log("Download started...");
+            setDownloadSuccess(true);
+            setDownloadStatus("Download started !")
+            setDownloadStatusDetailed("Your download has started")
+          } else {
+            console.log("Download failed...");
+            setDownloadSuccess(false);
+            setDownloadStatus("There was a problem !")
+            setDownloadStatusDetailed("Your download has not started.")
+          }
+        });
+  })
 
   return <div style={{ padding: "30px" }}>
 
-    {!downloadSent &&
-      <h3>Download data for this search</h3>
-    }
+      {fullDownloadStarted &&
+        <PostFullDownloadForm hide={hide} downloadStatus={downloadStatus} downloadStatusDetailed={downloadStatusDetailed} />
+      }
 
-    {downloadSent &&
-        <h3>Download started !</h3>
-    }
+      {filteredDownloadStarted &&
+        <PostFilteredDownloadForm hide={hide} downloadStatus={downloadStatus} downloadStatusDetailed={downloadStatusDetailed} downloadSuccess={downloadSuccess}/>
+      }
 
-    { isUserLoggedIn && <div>
-        {!downloadSent && <p>
-        This will create a download of this dataset filtered to your search.
-          <br/>
-          Once the download is generated you'll receive an email with a link <br/>
-          you can use to download the data.
-          <br/>
-        </p>
-        }
+      {!downloadStarted &&
+          <PreDownloadForm
+              isUserLoggedIn={isUserLoggedIn}
+              startFullDownload={fullDownload}
+              startFilterDownload={filteredDownload}
+              predicateEmpty={predicateEmpty}
+              hide={hide}
+              dataset={dataset}
+          />
+      }
+  </div>
+});
 
-        {downloadSent && <p>
+export function PostFullDownloadForm({ hide, downloadStatus, downloadStatusDetailed }) {
+  return <>
+    <h3>{downloadStatus}</h3>
+    <p>{downloadStatusDetailed}</p>
+    <Button onClick={() => hide()} look="primaryOutline">Close</Button>
+  </>
+}
+
+export function PostFilteredDownloadForm({ hide, downloadStatus, downloadStatusDetailed, downloadSuccess }) {
+  return <>
+    <h3>{downloadStatus}</h3>
+    <p>{downloadStatusDetailed}</p>
+    {downloadSuccess &&
+        <p>
           The download will take approximately 10 minutes to create.
           <br/>
           After this time, you will receive an email sent to <br/>
           your registered email address with a link.
         </p>
-        }
-        <br/>
-      <div>
-        <Button onClick={startDownload} ref={focusRef} disabled={downloadDisabled}>{downloadButtonText}</Button>
-        <Button onClick={() => hide()} look="primaryOutline">Close</Button>
-      </div>
-    </div> }
-    { !isUserLoggedIn && <div>
-      <p>You need to login to download</p>
-      <a href={`#`} onClick={signIn}>Click here</a> to login
-      <br/>
-      <br/>
-      <Button onClick={() => hide()} look="primaryOutline">Close</Button>
-    </div> }
-  </div>
-});
-FilteredDownloadForm.displayName = 'FilteredDownloadForm';
+    }
+    <Button onClick={() => hide()} look="primaryOutline">Close</Button>
+  </>
+}
+
+export function PreDownloadForm({ hide, dataset, startFullDownload, startFilterDownload, predicateEmpty }) {
+  return <>
+        <div>
+          <h3>Download full dataset</h3>
+          <p>
+            To download the full dataset in zip format, click the "Download full dataset" button. <br/>
+            This download will start immediately. The file size is {dataset.archive.fileSizeInMB}MB.<br/>
+            <br/>
+            <Button onClick={() => startFullDownload()} look="primaryOutline">Download full dataset</Button>
+          </p>
+          <br/>
+
+          {predicateEmpty &&
+              <div>
+                <hr/>
+                <br/>
+              </div>
+          }
+
+          {predicateEmpty && <div>
+            <h3>Download filtered dataset</h3>
+            <p>
+              To download the dataset filtered to your search, <br/>
+              click the "Download filtered dataset"  button.<br/>
+              This will take about 10 minutes to generate a zip file. <br/>
+              Once generated, you'll received an email with a link. <br/>
+              <br/>
+              <Button onClick={() => startFilterDownload()} look="primaryOutline">Download filtered dataset</Button>
+            </p>
+            <br/>
+            <hr/>
+          </div> }
+
+          <br/>
+          <Button onClick={() => hide()} look="primaryOutline">Close</Button>
+        </div>
+  </>
+}
+
+
+DownloadForm.displayName = 'DownloadForm';
