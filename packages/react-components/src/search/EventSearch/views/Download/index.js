@@ -47,11 +47,11 @@ function Downloads() {
       ].filter(x => x)
     };
     load({ keepDataWhileLoading: true, variables: { predicate, size } });
-  }, [currentFilterContext.filterHash, rootPredicate]);
+  }, [currentFilterContext.filter, rootPredicate]);
 
   useEffect(() => {
     setSize(100);
-  }, [currentFilterContext.filterHash]);
+  }, [currentFilterContext.filter]);
 
   const more = useCallback(() => {
     setSize(size + 100);
