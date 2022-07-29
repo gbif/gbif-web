@@ -8,7 +8,7 @@ import env from '../../../../../.env.json';
 import {FilterContext} from "../../../../widgets/Filter/state";
 import {filter2predicate} from "../../../../dataManagement/filterAdapter";
 
-export const DownloadPresentation = ({ more, size, data, total, loading, getPredicate }) => {
+export const DownloadPresentation = ({ more, size, data, total, loading }) => {
 
   const dialog = useDialogState({ animated: true, modal: false });
   const items = data?.eventSearch?.facet?.datasetKey || [];

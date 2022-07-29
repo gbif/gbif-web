@@ -38,10 +38,14 @@ function Downloads() {
   const { rootPredicate, predicateConfig } = useContext(EventContext);
   const { data, error, loading, load } = useQuery(DOWNLOADS, { lazyLoad: false, graph: 'EVENT' });
 
-  let predicate = null;
-
   useEffect(() => {
-    predicate = getPredicate();
+    const predicate = {
+      type: 'and',
+      predicates: [
+        rootPredicate,
+        filter2predicate(currentFilterContext.filter, predicateConfig)
+      ].filter(x => x)
+    };
     load({ keepDataWhileLoading: true, variables: { predicate, size } });
   }, [currentFilterContext.filterHash, rootPredicate]);
 
@@ -53,23 +57,12 @@ function Downloads() {
     setSize(size + 100);
   });
 
-  function getPredicate() {
-    return {
-      type: 'and',
-      predicates: [
-        rootPredicate,
-        filter2predicate(currentFilterContext.filter, predicateConfig)
-      ].filter(x => x)
-    }
-  }
-
   return <>
     <DownloadPresentation
       loading={loading}
       data={data}
       more={more}
       size={size}
-      getPredicate={getPredicate}
     />
   </>
 }
