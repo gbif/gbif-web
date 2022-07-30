@@ -33,7 +33,7 @@ function metric2aggs(metrics = {}, config) {
           }
           let aggName = {
             terms: {
-              field: conf.field,
+              field: conf.displayField ? conf.displayField : conf.field,
               size: size + from,
               include: metric.include
             }

@@ -400,7 +400,8 @@ const config =
     locationID: {
       type: 'keyword',
       field: 'event.locationID.keyword',
-      suggestField: 'locationID.suggest'
+      suggestField: 'locationID.suggest',
+      displayField: 'event.locationID.verbatim'
     },
     maximumDepthInMeters: {
       type: 'numeric',
@@ -574,8 +575,9 @@ const config =
     },
     stateProvince: {
       type: 'keyword',
-      field: 'event.stateProvince.verbatim',
-      suggestField: 'stateProvince.suggest'
+      field: 'event.stateProvince.keyword',
+      suggestField: 'stateProvince.suggest',
+      displayField: 'event.stateProvince.verbatim'
     },
     verbatimDepth: {
       type: 'keyword',
