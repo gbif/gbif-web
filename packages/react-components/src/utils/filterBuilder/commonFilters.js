@@ -599,10 +599,10 @@ export const commonFilters = {
       specific: {
         placeholder: 'Search by event type',
         query: `
-            query keywordSearch($predicate: Predicate, $size: Int, $include: String){
+            query keywordSearch($predicate: Predicate, $size: Int){
               suggestions: eventSearch(predicate: $predicate) {
                 facet {
-                  eventType(size: $size, include: $include) {
+                  eventType(size: $size) {
                     key
                     count
                   }
