@@ -1,7 +1,8 @@
 import React, { useCallback } from 'react';
 import { Properties, Tag, Tags } from "../../../components";
-import {FormattedMessage, FormattedNumber} from 'react-intl';
+import {useIntl, FormattedMessage, FormattedNumber} from 'react-intl';
 import { prettifyEnum } from '../../../utils/labelMaker/config2labels';
+import intl from 'react-intl';
 
 const { Term: T, Value: V } = Properties;
 const licenseMap = {
@@ -23,11 +24,8 @@ export function EnumFacetListInline({getEnum, ...props}) {
   if (!props.term) return null;
   const { value } = props.term;
   if (value && value.length > 1) {
-    const listItems = value.map(facet =>
-        <FormattedMessage id={getEnum(facet.key)} defaultMessage={facet.key} /> + " (" + facet.count.toLocaleString() + ") "
-    );
     return <Field {...props}>
-      {listItems.join(' ● ')}
+      {value.map((facet, i) => <>{i > 0 && ' ● '}<FormattedMessage key={i} id={getEnum(facet.key)} defaultMessage={facet.key} /><span> ({facet.count.toLocaleString()})</span></>)}
     </Field>;
   } else if (value && value.length == 1) {
     return <Field {...props}>
