@@ -31,6 +31,7 @@ export function EventDatasetSidebar({
   }, [id]);
 
   const dataset = data?.eventSearch?.documents.results?.[0]?.dataset?.value;
+
   const isLoading = loading || !dataset;
 
   // get the hierarchy from
@@ -101,7 +102,13 @@ export function EventDatasetSidebar({
                   {dataset?.intellectualRights && <>
                     <T>Intellectual rights</T>
                     <V>
-                      <EMLLicence intellectualRights={dataset.intellectualRights}/>
+                      <EMLLicence intellectualRights={dataset.intellectualRights} rights={dataset?.rights}/>
+                    </V>
+                  </>}
+                  {dataset?.citation && <>
+                    <T>Citation</T>
+                    <V>
+                      {dataset.citation}
                     </V>
                   </>}
                   {dataset?.methods.length > 0 && <>
@@ -165,17 +172,26 @@ export function EventDatasetSidebar({
   </Tabs>
 };
 
-export const EMLLicence = ({ intellectualRights }) =>  {
+export const EMLLicence = ({ intellectualRights, rights }) =>  {
   if (intellectualRights?.ulink && intellectualRights?.ulink.length > 0){
-
     let url = intellectualRights.ulink[0].$
     if (url){
-      return <a href={url.url}>{intellectualRights.ulink[0].citetitle}</a>
+      return <div><a href={url.url}>
+        {intellectualRights.ulink[0].citetitle}
+      </a>
+        {rights &&
+            <div>
+              <span>{rights}</span>
+            </div>
+        }
+      </div>
     } else {
       return intellectualRights.ulink[0].citetitle;
     }
+  } else if (rights) {
+    return rights;
   } else {
-    return "No licence information available";
+     return "No licence information available";
   }
 }
 
