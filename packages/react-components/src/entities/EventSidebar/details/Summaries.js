@@ -34,57 +34,119 @@ export function Summaries({ event, data, showAll }) {
   }
 
   let combinedHierarchy = [];
-
+  let rootNode = null;
   if (hasEventType) {
 
     const eventHierarchy = event.eventHierarchy;
     const eventTypeHierarchy = event.eventTypeHierarchy;
 
-    for (let i = 0; i < eventHierarchy.length; i++) {
-      combinedHierarchy.push({
+    // build hierarchy from root to current event node
+    let parentCount = 1;
+
+    rootNode = {
+      key: eventHierarchy[0],
+      name: eventTypeHierarchy[0],
+      isSelected: eventTypeHierarchy[0] == event.eventType.concept,
+      count: 1,
+      children: []
+    }
+    let currentNode = rootNode;
+    for (let i = 1; i < eventHierarchy.length; i++) {
+      const newNode = {
         key: eventHierarchy[i],
         name: eventTypeHierarchy[i],
         isSelected: eventTypeHierarchy[i] == event.eventType.concept,
-        count: 1
-      });
+        count: 1,
+        children: []
+      }
+      currentNode.children.push(newNode);
+      currentNode = newNode;
+      parentCount = parentCount + 1;
     }
 
-    // complete the hierarchy
+    // add hierarchy from events
     const eventHierarchyJoined = data?.results.facet.eventTypeHierarchyJoined.sort(function (a, b) {
       return a.key.length - b.key.length
     });
+    eventHierarchyJoined.forEach(hierarchy => {
+      let nodes = hierarchy.key.split(" / ").map(s => s.trim());
+      // add to the last parent (should be the selected event)
+      let startingNode = currentNode;
+      for (let i = parentCount; i < nodes.length; i++){
 
-    let completeEventHierarchyAsStr = combinedHierarchy.map(node => node.name).join(" / ");
-
-    eventHierarchyJoined.forEach(h => {
-      if (h.key.startsWith(completeEventHierarchyAsStr + " / ")) {
-        let restOfHierarchy = h.key.substring((completeEventHierarchyAsStr + " / ").length)
-        let verticies = restOfHierarchy.split('/').map(s => s.trim());
-        if (verticies && verticies.length > 0) {
-          let v = verticies[0];
-          combinedHierarchy.push({
-            key: v,
-            name: v,
+        // do we have this child node already ?
+        let existingChild = startingNode.children.find(node => node.key == nodes[i]);
+        if (!existingChild){
+          let newNode = {
+            key: nodes[i],
+            name: nodes[i],
             isSelected: false,
-            count: h.count
-          });
+            count: hierarchy.count,
+            children: []
+          }
+          startingNode.children.push(newNode);
+          startingNode = newNode;
+        } else {
+          startingNode = existingChild;
         }
-        completeEventHierarchyAsStr = combinedHierarchy.map(node => node.name).join(" / ");
       }
     });
 
-    // add occurrences hierarchy
-    const occurrenceHierarchyJoined = data?.results.occurrenceFacet.eventTypeHierarchyJoined;
+    // add hierarchy from mofs
+    const mofHierarchyJoined = data?.mofResults.facet.eventTypeHierarchyJoined.sort(function (a, b) {
+      return a.key.length - b.key.length
+    });
+    mofHierarchyJoined.forEach(hierarchy => {
+      let nodes = hierarchy.key.split(" / ").map(s => s.trim());
+      nodes.push("Measurement");
+      // add to the last parent (should be the selected event)
+      let startingNode = currentNode;
+      for (let i = parentCount; i < nodes.length; i++){
 
-    occurrenceHierarchyJoined.forEach(h => {
-      if (h.key.startsWith(completeEventHierarchyAsStr)) {
-        combinedHierarchy.push({
-          key: "Occurrence",
-          name: "Occurrence",
-          count: h.count,
-          isSelected: false,
-        });
-        completeEventHierarchyAsStr = combinedHierarchy.map(node => node.name).join(" / ");
+        // do we have this child node already ?
+        let existingChild = startingNode.children.find(node => node.key == nodes[i]);
+        if (!existingChild){
+          let newNode = {
+            key: nodes[i],
+            name: nodes[i],
+            isSelected: false,
+            count: hierarchy.count,
+            children: []
+          }
+          startingNode.children.push(newNode);
+          startingNode = newNode;
+        } else {
+          startingNode = existingChild;
+        }
+      }
+    });
+
+    // add hierarchy from occurrence
+    const occurrenceHierarchyJoined = data?.results.occurrenceFacet.eventTypeHierarchyJoined.sort(function (a, b) {
+      return a.key.length - b.key.length
+    });
+    occurrenceHierarchyJoined.forEach(hierarchy => {
+      let nodes = hierarchy.key.split(" / ").map(s => s.trim());
+      nodes.push("Occurrence");
+      // add to the last parent (should be the selected event)
+      let startingNode = currentNode;
+      for (let i = parentCount; i < nodes.length; i++){
+
+        // do we have this child node already ?
+        let existingChild = startingNode.children.find(node => node.key == nodes[i]);
+        if (!existingChild){
+          let newNode = {
+            key: nodes[i],
+            name: nodes[i],
+            isSelected: false,
+            count: hierarchy.count,
+            children: []
+          }
+          startingNode.children.push(newNode);
+          startingNode = newNode;
+        } else {
+          startingNode = existingChild;
+        }
       }
     });
   }
@@ -96,8 +158,8 @@ export function Summaries({ event, data, showAll }) {
       </Properties>
     </Group>
     <Group label="eventDetails.groups.dataStructure">
-      {hasEventType &&
-          <SingleTree hierarchy={combinedHierarchy} />
+      {rootNode &&
+          <SingleTree rootNode={rootNode} />
       }
     </Group>
     <Methodology             {...{ showAll, termMap }} />
@@ -132,12 +194,16 @@ function TaxonomicCoverage({ showAll, termMap }) {
 function Methodology({ showAll, termMap }) {
   const hasContent = [
     'recordedBy',
+    'recordedById',
+    'identifiedBy',
     'samplingProtocol'
-  ].find(x => termMap[x] && (Array.isArray(termMap[x]) ? termMap[x].length > 0 : true));
+  ].find(x => termMap[x] && termMap[x].value && (Array.isArray(termMap[x].value) ? termMap[x].value.length > 0 : false));
   if (!hasContent) return null;
   return <Group label="eventDetails.groups.methodology">
     <Properties css={css.properties} breakpoint={800}>
       <FacetList term={termMap.recordedBy} showDetails={showAll} />
+      <FacetList term={termMap.recordedById} showDetails={showAll} />
+      <FacetList term={termMap.identifiedBy} showDetails={showAll} />
       <FacetList term={termMap.samplingProtocol} showDetails={showAll} />
     </Properties>
   </Group>

@@ -1,0 +1,3 @@
+npm run build
+cp dist/lib/* ~/dev/nginx/www/dist/lib/
+cp ala-demo-local.html  ~/dev/nginx/www/index.html

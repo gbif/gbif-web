@@ -3,41 +3,47 @@ import styles from './styles';
 import {Row} from "../../../../components";
 import ThemeContext from "../../../../style/themes/ThemeContext";
 
-export function SingleTreeN({ hierarchy }) {
+export function SingleTreeN({ node }) {
 
-  let node = hierarchy.shift();
   if (!node){
     return null;
   }
 
   const keyValueSame = node.key == node.name ;
+  const hasChildren = node.children && node.children.length > 0;
 
-  return <ul>
-    <li>
+  return <li>
       <span className={ node.isSelected ? 'selected' : ''}>
         { node.name }
         <br/>
         {!keyValueSame &&
-            <small>ID: {node.key}</small>
+            <small>ID: {abbrev(node.key)}</small>
         }
         {keyValueSame &&
             <small>{node.count.toLocaleString()} {node.key.toLowerCase()}</small>
         }
       </span>
-      <SingleTreeN hierarchy={ hierarchy }/>
-    </li>
-  </ul>;
+    {hasChildren &&
+      <ul>
+        {node.children.map(child => <SingleTreeN node={ child }/>)}
+      </ul>}
+    </li>;
 }
 
-export function SingleTree({
-  hierarchy = [],
-  ...props
-}) {
+function abbrev(nodeStr){
+  if (nodeStr.length < 30){
+    return nodeStr;
+  }
+  return nodeStr.substring(30) + "...";
+}
+
+export function SingleTree({ rootNode }) {
   const theme = useContext(ThemeContext);
   return <Row>
     <div css={styles.tree({ theme })}>
-      { hierarchy.map(node => <SingleTreeN hierarchy={hierarchy}/>) }
+      <ul>
+       <SingleTreeN node={rootNode}/>
+      </ul>
     </div>
   </Row>
-
 };

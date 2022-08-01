@@ -13,7 +13,7 @@ export function Summary({
 
   useEffect(() => {
     if (typeof event !== 'undefined' && typeof event.eventID !== 'undefined') {
-      const predicate = {
+      const predicate1 = {
         type: 'and',
         predicates: [
           {
@@ -27,7 +27,26 @@ export function Summary({
           value: event.datasetKey
         }]
       }
-      load({ keepDataWhileLoading: true, variables: { predicate, size: 0, from: 0 } });
+
+      const predicate2 = {
+        type: 'and',
+        predicates: [
+          {
+            key: "eventHierarchy",
+            type: "equals",
+            value: event.eventID
+          },
+          {
+            key: "measurementOrFactTypes",
+            type: "isNotNull"
+          }
+          ,{
+            key:  "datasetKey",
+            type: "equals",
+            value: event.datasetKey
+          }]
+      }
+      load({ keepDataWhileLoading: true, variables: { predicate1: predicate1, predicate2: predicate2, size: 0, from: 0 } });
     }
   }, [event]);
 
@@ -39,9 +58,19 @@ export function Summary({
 };
 
 const FACET_BREAKDOWN = `
-query list($predicate: Predicate, $offset: Int, $limit: Int){
+query list($predicate1: Predicate, $predicate2: Predicate, $offset: Int, $limit: Int){
+
+  mofResults: eventSearch(predicate: $predicate2){
+      facet {
+        eventTypeHierarchyJoined {
+          key
+          count
+        }  
+      }
+  }
+
   results: eventSearch(
-    predicate:$predicate,
+    predicate:$predicate1,
     size: $limit, 
     from: $offset
     ) {
@@ -131,6 +160,14 @@ query list($predicate: Predicate, $offset: Int, $limit: Int){
       }  
       recordedBy {
         count      
+        key
+      }
+      recordedById {
+        count
+        key
+      }
+      identifiedBy {
+        count
         key
       }
       eventTypeHierarchy {

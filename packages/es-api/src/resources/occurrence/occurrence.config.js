@@ -281,7 +281,7 @@ const config =
     },
     "identifiedBy": {
       "type": "keyword",
-      "field": "occurrence.identifiedBy.keyword",
+      "field": "occurrence.identifiedBy.verbatim",
       "suggestField": "identifiedBy.suggest"
     },
     "individualCount": {

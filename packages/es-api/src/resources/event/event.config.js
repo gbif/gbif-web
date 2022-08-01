@@ -350,9 +350,7 @@ const config =
     },
     eventType: {
       type: 'keyword',
-      field: 'event.eventTypeHierarchy.keyword',
-      suggestField: 'event.eventTypeHierarchy.suggest',
-      displayField: 'event.eventTypeHierarchy.verbatim'
+      field: 'event.eventType.lineage.keyword'
     },
     eventTypeHierarchyJoined: {
       type: 'keyword',

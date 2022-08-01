@@ -30,12 +30,17 @@ export function EventDatasetSidebar({
     }
   }, [id]);
 
+
+
   const dataset = data?.eventSearch?.documents.results?.[0]?.dataset?.value;
 
   const isLoading = loading || !dataset;
 
   // get the hierarchy from
   const eventHierarchy = data?.eventSearch.facet.eventTypeHierarchyJoined;
+
+  const mofHierarchy = data?.measurementOrFactHierarchy.facet.eventTypeHierarchyJoined;
+
   // get the hierarchy from
   const occurrenceHierarchy = data?.eventSearch.occurrenceFacet.eventTypeHierarchyJoined;
 
@@ -43,6 +48,11 @@ export function EventDatasetSidebar({
 
   if (eventHierarchy && occurrenceHierarchy) {
     eventHierarchy.forEach(h => combinedHierarchy.push(h));
+    mofHierarchy.forEach(h => combinedHierarchy.push(
+        {
+          key: h.key + " / Measurement",
+          count: h.count
+        }));
     occurrenceHierarchy.forEach(h => {
       combinedHierarchy.push({
         key: h.key + " / Occurrence",
@@ -197,7 +207,24 @@ export const EMLLicence = ({ intellectualRights, rights }) =>  {
 
 const DATASET = `
 query dataset($key: JSON!){
-  eventSearch(predicate: {type: equals, key: "datasetKey", value: $key}) {
+  measurementOrFactHierarchy: eventSearch(predicate: { type: and, 
+        predicates: [
+          {type: equals, key: "datasetKey", value: $key}, 
+          {type: isNotNull, key: "measurementOrFactTypes"}
+        ]
+      }){
+      facet {
+        eventType {
+          key
+          count
+        }       
+        eventTypeHierarchyJoined {
+          key
+          count
+        }  
+      }
+  }
+  eventSearch: eventSearch(predicate: {type: equals, key: "datasetKey", value: $key}) {
     documents(size: 1) {
       total
       results {
