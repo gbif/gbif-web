@@ -70,32 +70,57 @@ function DatasetResult({ largest, item, indicator, theme,  index, dialog,...prop
         </div>}
       </div>
       <div>
+
         {isAvailable && <div>
-        <Popover
-            trigger={<Button onClick={() => setVisible(true)} style={{ marginRight: 6 }}>Download</Button>}
-            onClickOutside={action => console.log('close request', action)}
-            visible={visible}>
-          <DownloadForm hide={() => setVisible(false)} dataset={item}/>
-        </Popover>
+              <Popover
+                  trigger={<Button onClick={() => setVisible(true)}>Download</Button>}
+                  onClickOutside={action => console.log('close request', action)}
+                  visible={visible}>
+                <ParentThatFetches hide={() => setVisible(false)}  dataset={item}/>
+              </Popover>
         </div>}
+
         {!isAvailable && <div>
           <Button  look="primaryOutline" disabled={true} >
             Not currently available for download
           </Button>
         </div>}
+
       </div>
     </div>
   </div>
 }
 
-const DownloadForm = React.memo(({  hide, dataset }) => {
+export function  ParentThatFetches ({hide, dataset}) {
+  const [user, setUser] = useState();
+  const siteContext = useContext(SiteContext);
+  useEffect(() => {
+    const getData = async () => {
+      const user = await siteContext.auth?.getUser()
+      setUser(user);
+    }
+    getData();
+  }, []);
+
+  return <>
+    {user && <DownloadForm user={user} hide={hide} dataset={dataset}/>}
+    {!user &&
+        <div style={{ padding: "30px" }}>
+          <h3>Please login to download</h3>
+          <p>
+            Please log in to download.
+          </p>
+          <Button onClick={() => siteContext.auth.signIn()} look="primaryOutline" style={{marginRight: '6px'}}>Login</Button>
+          <Button onClick={() => hide()} look="primaryOutline">Close</Button>
+        </div>}
+  </>
+}
+
+export function DownloadForm ({  hide, dataset, user }) {
 
   const siteContext = useContext(SiteContext);
   const currentFilterContext = useContext(FilterContext);
   const { rootPredicate, predicateConfig } = useContext(EventContext);
-
-  const isUserLoggedIn = siteContext.auth?.getUser != null;
-  const signIn = siteContext.auth?.signIn;
 
   const [fullDownloadStarted, setFullDownloadStarted] = useState(false);
   const [filteredDownloadStarted, setFilteredDownloadStarted] = useState(false);
@@ -122,50 +147,38 @@ const DownloadForm = React.memo(({  hide, dataset }) => {
   }
 
   async function startFullDownload() {
-    const getUser = siteContext.auth?.getUser;
-    if (siteContext.auth && getUser) {
-      const user = await getUser();
-      if (user) {
-        window.location.href = dataset.archive.url;
-        return {success: true}
-      } else if (siteContext.auth?.signIn) {
-        siteContext.auth.signIn();
-      }
+    if (user) {
+      window.location.href = dataset.archive.url;
+      return {success: true}
     } else {
-      console.log("Site context didnt provide a getUser function")
+      siteContext.auth.signIn();
     }
   }
 
   async function startFilteredDownload() {
 
     const signIn = siteContext.auth?.signIn;
-    const getUser = siteContext.auth?.getUser;
 
-    if (siteContext.auth && getUser) {
-      const user = await getUser();
-      if (user) {
-        // validate the predicate - is there any filters set ?
-        console.log(user);
-        let download = {
-          "datasetId": dataset.key,
-          "creator": user.profile.sub,
-          "notificationAddresses": [user.profile.sub],
-          "predicate": activePredicate
-        }
-
-        let request = new XMLHttpRequest();
-        request.open('POST', env.DOWNLOADS_API_URL + '/event/download', true);
-        request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-        request.setRequestHeader('Authorization', 'Bearer ' + user.access_token);
-        request.send(JSON.stringify(download));
-
-        return {success: true}
-
-      } else if (signIn) {
-        signIn();
+    if (user) {
+      // validate the predicate - is there any filters set ?
+      console.log(user);
+      let download = {
+        "datasetId": dataset.key,
+        "creator": user.profile.sub,
+        "notificationAddresses": [user.profile.sub],
+        "predicate": activePredicate
       }
-    } else {
-      console.log("Site context didnt provide a getUser function")
+
+      let request = new XMLHttpRequest();
+      request.open('POST', env.DOWNLOADS_API_URL + '/event/download', true);
+      request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+      request.setRequestHeader('Authorization', 'Bearer ' + user.access_token);
+      request.send(JSON.stringify(download));
+
+      return {success: true}
+
+    } else if (signIn) {
+      signIn();
     }
   }
 
@@ -218,7 +231,6 @@ const DownloadForm = React.memo(({  hide, dataset }) => {
 
       {!downloadStarted &&
           <PreDownloadForm
-              isUserLoggedIn={isUserLoggedIn}
               startFullDownload={fullDownload}
               startFilterDownload={filteredDownload}
               predicateEmpty={predicateEmpty}
@@ -227,7 +239,7 @@ const DownloadForm = React.memo(({  hide, dataset }) => {
           />
       }
   </div>
-});
+}
 
 export function PostFullDownloadForm({ hide, downloadStatus, downloadStatusDetailed }) {
   return <>
@@ -291,6 +303,5 @@ export function PreDownloadForm({ hide, dataset, startFullDownload, startFilterD
         </div>
   </>
 }
-
 
 DownloadForm.displayName = 'DownloadForm';
