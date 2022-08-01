@@ -161,7 +161,7 @@ async function scientificNameSuggest({ q, req } = {}) {
               {
                 "wildcard": {
                   "occurrence.taxonomy.name": {
-                    "value": `${q}*`
+                    "value": `${q?.toLowerCase()}*`
                   }
                 }
               }
@@ -179,7 +179,7 @@ async function scientificNameSuggest({ q, req } = {}) {
           "suggestions": {
             "terms": {
               "field": "occurrence.taxonomy.name",
-              "include": `${q}.*`
+              "include": `${q?.toLowerCase()}.*`
             },
             "aggs": {
               "exampleDocument": {
