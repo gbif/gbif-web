@@ -105,7 +105,7 @@ export function  ParentThatFetches ({hide, dataset}) {
   return <>
     {user && <DownloadForm user={user} hide={hide} dataset={dataset}/>}
     {!user &&
-        <div style={{ padding: "30px" }}>
+        <div style={{ padding: "15px 30px 30px 30px" }}>
           <h3>Please login to download</h3>
           <p>
             Please log in to download.
@@ -219,7 +219,7 @@ export function DownloadForm ({  hide, dataset, user }) {
         });
   })
 
-  return <div style={{ padding: "30px" }}>
+  return <div style={{ padding: "15px 30px 30px 30px" }}>
 
       {fullDownloadStarted &&
         <PostFullDownloadForm hide={hide} downloadStatus={downloadStatus} downloadStatusDetailed={downloadStatusDetailed} />
@@ -275,12 +275,10 @@ export function PreDownloadForm({ hide, dataset, startFullDownload, startFilterD
             <br/>
             <Button onClick={() => startFullDownload()} look="primaryOutline">Download full dataset</Button>
           </p>
-          <br/>
 
           {predicateEmpty &&
               <div>
                 <hr/>
-                <br/>
               </div>
           }
 
@@ -294,7 +292,6 @@ export function PreDownloadForm({ hide, dataset, startFullDownload, startFilterD
               <br/>
               <Button onClick={() => startFilterDownload()} look="primaryOutline">Download filtered dataset</Button>
             </p>
-            <br/>
             <hr/>
           </div> }
 
