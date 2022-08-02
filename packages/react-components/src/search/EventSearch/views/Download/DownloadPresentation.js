@@ -74,7 +74,6 @@ function DatasetResult({ largest, item, indicator, theme,  index, dialog,...prop
         {isAvailable && <div>
               <Popover
                   trigger={<Button onClick={() => setVisible(true)}>Download</Button>}
-                  onClickOutside={action => console.log('close request', action)}
                   visible={visible}>
                 <ParentThatFetches hide={() => setVisible(false)}  dataset={item}/>
               </Popover>
@@ -130,20 +129,27 @@ export function DownloadForm ({  hide, dataset, user }) {
   const [downloadStatus, setDownloadStatus] = useState("");
   const [downloadStatusDetailed, setDownloadStatusDetailed] = useState("");
 
-  function getPredicate() {
-    return {
+  const predicate = {
       type: 'and',
       predicates: [
         rootPredicate,
         filter2predicate(currentFilterContext.filter, predicateConfig)
       ].filter(x => x)
-    }
+    };
+
+
+  let predicateNotEmpty = false;
+
+  // {"type":"and","predicates":[{"type":"in","key":"datasetKey","values":["dr18391"]}]}
+  if (predicate && predicate.predicates && predicate.predicates[0].type != "and"){
+    // single predicate defined
+    predicateNotEmpty = true;
   }
 
-  let activePredicate = getPredicate();
-  let predicateEmpty = false;
-  if (activePredicate && activePredicate.predicates && activePredicate.predicates[0].type != "and"){
-    predicateEmpty = true
+  //{"type":"and","predicates":[{"type":"and","predicates":[{"type":"in","key":"datasetKey","values":["dr18391"]},{"type":"range","key":"year","value":{"gte":"2001","lte":"2022"}}]}]}
+  if (predicate && predicate.predicates && predicate.predicates[0].type == "and" && predicate.predicates[0].predicates && predicate.predicates[0].predicates.length > 0){
+    // multiple predicate defined
+    predicateNotEmpty = true;
   }
 
   async function startFullDownload() {
@@ -161,12 +167,11 @@ export function DownloadForm ({  hide, dataset, user }) {
 
     if (user) {
       // validate the predicate - is there any filters set ?
-      console.log(user);
       let download = {
         "datasetId": dataset.key,
         "creator": user.profile.sub,
         "notificationAddresses": [user.profile.sub],
-        "predicate": activePredicate
+        "predicate": predicate
       }
 
       let request = new XMLHttpRequest();
@@ -206,12 +211,10 @@ export function DownloadForm ({  hide, dataset, user }) {
     startFilteredDownload()
         .then((result) => {
           if (result.success){
-            console.log("Download started...");
             setDownloadSuccess(true);
             setDownloadStatus("Download started !")
             setDownloadStatusDetailed("Your download has started")
           } else {
-            console.log("Download failed...");
             setDownloadSuccess(false);
             setDownloadStatus("There was a problem !")
             setDownloadStatusDetailed("Your download has not started.")
@@ -233,7 +236,7 @@ export function DownloadForm ({  hide, dataset, user }) {
           <PreDownloadForm
               startFullDownload={fullDownload}
               startFilterDownload={filteredDownload}
-              predicateEmpty={predicateEmpty}
+              predicateNotEmpty={predicateNotEmpty}
               hide={hide}
               dataset={dataset}
           />
@@ -265,7 +268,7 @@ export function PostFilteredDownloadForm({ hide, downloadStatus, downloadStatusD
   </>
 }
 
-export function PreDownloadForm({ hide, dataset, startFullDownload, startFilterDownload, predicateEmpty }) {
+export function PreDownloadForm({ hide, dataset, startFullDownload, startFilterDownload, predicateNotEmpty }) {
   return <>
         <div>
           <h3>Download full dataset</h3>
@@ -276,13 +279,13 @@ export function PreDownloadForm({ hide, dataset, startFullDownload, startFilterD
             <Button onClick={() => startFullDownload()} look="primaryOutline">Download full dataset</Button>
           </p>
 
-          {predicateEmpty &&
+          {predicateNotEmpty &&
               <div>
                 <hr/>
               </div>
           }
 
-          {predicateEmpty && <div>
+          {predicateNotEmpty && <div>
             <h3>Download filtered dataset</h3>
             <p>
               To download the dataset filtered to your search, <br/>
