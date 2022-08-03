@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 // import { focusStyle } from '../../style/shared';
 
-export const progress = ({...props}) => css`
+export const progress = ({theme,...props}) => css`
   background: #eee;
   border-radius: 2px;
   height: 4px;
@@ -9,7 +9,7 @@ export const progress = ({...props}) => css`
     transition: width 300ms;
     height: 4px;
     border-radius: 2px;
-    background: #68daa8;
+    background: ${theme.primary};
     max-width: 100%;
   }
 `;

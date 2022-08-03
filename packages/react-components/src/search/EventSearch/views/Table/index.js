@@ -170,27 +170,6 @@ const defaultTableConfig = {
   ]
 };
 
-function predicateMeddler(currentPredicate){
-  // // change predicate
-  // if (currentPredicate.predicates[0].predicates && Array.isArray(currentPredicate.predicates[0].predicates)){
-  //   currentPredicate.predicates[0].predicates.forEach((predicate, idx) => {
-  //     if (predicate.key == "eventTypeHierarchy") {
-  //       predicate.key = "eventType"
-  //     }
-  //     if (predicate.key == "eventHierarchy") {
-  //       predicate.key = "eventID"
-  //     }
-  //   });
-  // } else {
-  //   if (currentPredicate.predicates[0].key == "eventTypeHierarchy") {
-  //     currentPredicate.predicates[0].key = "eventType"
-  //   }
-  //   if (currentPredicate.predicates[0].key == "eventHierarchy") {
-  //     currentPredicate.predicates[0].key = "eventID"
-  //   }
-  // }
-}
-
 function Table() {
   return <PredicateDataFetcher
     graphQuery={QUERY}
@@ -199,7 +178,6 @@ function Table() {
     componentProps={{
       defaultTableConfig
     }}
-    predicateMeddler={predicateMeddler}
     presentation={EventsTable}
   />
 }

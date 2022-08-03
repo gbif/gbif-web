@@ -3,10 +3,13 @@ import EventContext from '../../../SearchContext';
 import SiteContext from '../../../../dataManagement/SiteContext'
 import { useDialogState } from "reakit/Dialog";
 import * as styles from './downloadPresentation.styles';
-import {Button, Popover, Skeleton} from '../../../../components';
+import {Button, Popover, Progress, Skeleton} from '../../../../components';
 import env from '../../../../../.env.json';
 import {FilterContext} from "../../../../widgets/Filter/state";
 import {filter2predicate} from "../../../../dataManagement/filterAdapter";
+import {FormattedNumber} from "react-intl";
+import {useQuery} from "../../../../dataManagement/api";
+import * as style from "../List/style";
 
 export const DownloadPresentation = ({ more, size, data, total, loading }) => {
 
@@ -38,10 +41,39 @@ export const DownloadPresentation = ({ more, size, data, total, loading }) => {
   </>
 }
 
+const DATASET_QUERY = `
+query list($datasetKey: JSON){
+  eventSearch(predicate: {type: equals, key: "datasetKey", value: $datasetKey}) {
+    documents(size: 1) {
+      total
+      results {
+        occurrenceCount
+      }
+    }
+  }
+}
+`;
+
+function DatasetSkeleton() {
+  return <div css={style.datasetSkeleton}>
+    <Skeleton width="random" style={{ height: '1.5em' }} />
+  </div>
+}
+
+
 function DatasetResult({ largest, item, indicator, theme,  index, dialog,...props }) {
 
   const [visible, setVisible] = useState(false);
   const isAvailable = item.archive.fileSizeInMB != null;
+  const { data, error, loading, load } = useQuery(DATASET_QUERY, { lazyLoad: true, graph: 'EVENT' });
+
+  const datasetKey = item.key;
+
+  useEffect(() => {
+    load({ keepDataWhileLoading: true, variables: { datasetKey } });
+  }, [datasetKey]);
+
+  if (!data || loading) return <DatasetSkeleton />;
 
   return <div css={styles.dataset({ theme })}>
     <a css={styles.actionOverlay({theme})} href={`${item.key}`} onClick={(event) => {
@@ -61,16 +93,21 @@ function DatasetResult({ largest, item, indicator, theme,  index, dialog,...prop
       <div style={{ flex: '1 1 auto' }}>
         {item.datasetTitle}
         {isAvailable && <div>
-          <br/>
           <span>Compressed archive size: {item.archive.fileSizeInMB}MB</span>
           <br/>
           <span>Format: Darwin core archive / Frictionless data package</span>
           <br/>
           <span>Last generated: {item.archive.modified}</span>
+          <div css={styles.title({ theme })}>
+            <span>
+              <FormattedNumber value={(item.events.documents.total / data?.eventSearch.documents.total) * 100 } />%
+               of dataset matches search
+            </span>
+          </div>
+          <Progress percent={100 * (item.events.documents.total / data?.eventSearch.documents.total)} />
         </div>}
       </div>
       <div>
-
         {isAvailable && <div>
               <Popover
                   trigger={<Button onClick={() => setVisible(true)}>Download</Button>}
