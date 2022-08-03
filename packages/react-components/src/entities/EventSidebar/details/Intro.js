@@ -14,6 +14,7 @@ export function Intro({
   error,
   setActiveEvent,
   addToSearch,
+  addEventTypeToSearch,
   className,
   ...props
 }) {
@@ -32,6 +33,7 @@ export function Intro({
           showAll={showAll}
           setActiveEvent={setActiveEvent}
           addToSearch={addToSearch}
+          addEventTypeToSearch={addEventTypeToSearch}
       />
 
       { hasCoordinates  &&
@@ -44,7 +46,7 @@ export function Intro({
       </Group>
       }
 
-      <Summary event={event} />
+      <Summary event={event} setActiveEvent={setActiveEvent} addEventTypeToSearch={addEventTypeToSearch} />
     </Col>
     <Col css={css.controlFooter({ theme })} grow={false}>
       <Row justifyContent="flex-end" halfGutter={8}>

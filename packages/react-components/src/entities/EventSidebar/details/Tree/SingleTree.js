@@ -3,7 +3,7 @@ import styles from './styles';
 import {Row} from "../../../../components";
 import ThemeContext from "../../../../style/themes/ThemeContext";
 
-export function SingleTreeN({ node }) {
+export function SingleTreeN({ node, setViewEvent, setSearch }) {
 
   if (!node){
     return null;
@@ -12,8 +12,25 @@ export function SingleTreeN({ node }) {
   const keyValueSame = node.key == node.name ;
   const hasChildren = node.children && node.children.length > 0;
 
+  function onClickNode(){
+    if (!node.isSelected ) {
+      if (keyValueSame) {
+        setSearch(node.key);
+      } else {
+        setViewEvent(node.key);
+      }
+    }
+  }
+
+  let className = ''
+  if (node.isSelected){
+    className = 'selected';
+  } else if (node.isClickable){
+    className = 'clickable';
+  }
+
   return <li>
-      <span className={ node.isSelected ? 'selected' : ''}>
+      <span className={ className } onClick={onClickNode}>
         { node.name }
         <br/>
         {!keyValueSame &&
@@ -25,7 +42,7 @@ export function SingleTreeN({ node }) {
       </span>
     {hasChildren &&
       <ul>
-        {node.children.map(child => <SingleTreeN node={ child }/>)}
+        {node.children.map(child => <SingleTreeN node={ child } setViewEvent={setViewEvent} setSearch={setSearch} />)}
       </ul>}
     </li>;
 }
@@ -37,12 +54,12 @@ function abbrev(nodeStr){
   return nodeStr.substring(30) + "...";
 }
 
-export function SingleTree({ rootNode }) {
+export function SingleTree({ rootNode, setViewEvent, setSearch }) {
   const theme = useContext(ThemeContext);
   return <Row>
     <div css={styles.tree({ theme })}>
       <ul>
-       <SingleTreeN node={rootNode}/>
+       <SingleTreeN node={rootNode} setViewEvent={setViewEvent} setSearch={setSearch} />
       </ul>
     </div>
   </Row>

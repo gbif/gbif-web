@@ -13,6 +13,7 @@ export function EventSidebar({
   onCloseRequest,
   setActiveEvent,
   addToSearch,
+  addEventTypeToSearch,
   eventID,
   datasetKey,
   defaultTab,
@@ -65,6 +66,7 @@ export function EventSidebar({
                   error={error}
                   setActiveEvent={setActiveEvent}
                   addToSearch={addToSearch}
+                  addEventTypeToSearch={addEventTypeToSearch}
               />
             </TabPanel>
         }

@@ -187,7 +187,7 @@
             >
           </button>
           <a
-                  href="https://auth-test.ala.org.au/cas/login?service=https://collections.ala.org.au/public/showDataResource/dr14140"
+                  href="https://auth.ala.org.au/cas/login?service=https://collections.ala.org.au/public/showDataResource/dr14140"
                   role="button"
                   class="account-mobile hidden-md hidden-lg loginBtn mobile-login-btn"
                   title="Login button"
@@ -195,7 +195,7 @@
             <i class="fas fa-sign-in"></i>
           </a>
           <a
-                  href="https://auth-test.ala.org.au/userdetails/myprofile/"
+                  href="https://auth.ala.org.au/userdetails/myprofile/"
                   role="button"
                   class="account-mobile hidden-md hidden-lg myProfileBtn"
                   title="Profile"
@@ -261,19 +261,19 @@
           >
           <div class="account signedOut">
             <a
-                    href="https://auth-test.ala.org.au/userdetails/registration/createAccount"
+                    href="https://auth.ala.org.au/userdetails/registration/createAccount"
                     class="btn btn-outline-white btn-sm signUpBtn"
                     role="button"
             >Sign up</a
             >
             <a
-                    href="https://auth-test.ala.org.au/userdetails/myprofile/"
+                    href="https://auth.ala.org.au/userdetails/myprofile/"
                     class="btn btn-outline-white btn-sm myProfileBtn"
                     role="button"
             >Profile</a
             >
             <a
-                    href="https://auth-test.ala.org.au/cas/login?service=https://collections.ala.org.au/public/showDataResource/dr14140"
+                    href="https://auth.ala.org.au/cas/login?service=https://collections.ala.org.au/public/showDataResource/dr14140"
                     class="btn btn-primary btn-sm loginBtn"
             >Login</a
             >
@@ -908,8 +908,8 @@
   <script>
     // Auth client stuff
     const authManager = new oidc.UserManager({
-      client_id: 'events-test-oidc',
-      authority: 'https://auth-test.ala.org.au/cas/oidc',
+      client_id: 'events-test-oidc-auth-prod',
+      authority: 'https://auth.ala.org.au/cas/oidc',
       redirect_uri:
               'https://events-test.ala.org.au/?view=DOWNLOAD',
     });
@@ -1021,7 +1021,7 @@
             type: 'ENDPOINT',
             template: function ({ id, api }) {
               return (
-                      '//namematching-ws-test.ala.org.au/api/getByTaxonID?taxonID=' +
+                      '//namematching-ws.ala.org.au/api/getByTaxonID?taxonID=' +
                       encodeURIComponent(id)
               );
             },
@@ -1084,19 +1084,19 @@
           />
           <div class="account signedOut">
             <a
-                    href="https://auth-test.ala.org.au/userdetails/registration/createAccount"
+                    href="https://auth.ala.org.au/userdetails/registration/createAccount"
                     class="btn btn-outline-white btn-sm signUpBtn"
                     role="button"
             >Sign up</a
             >
             <a
-                    href="https://auth-test.ala.org.au/userdetails/myprofile/"
+                    href="https://auth.ala.org.au/userdetails/myprofile/"
                     class="btn btn-outline-white btn-sm myProfileBtn"
                     role="button"
             >My profile</a
             >
             <a
-                    href="https://auth-test.ala.org.au/cas/login?service=https://collections.ala.org.au/public/showDataResource/dr14140"
+                    href="https://auth.ala.org.au/cas/login?service=https://collections.ala.org.au/public/showDataResource/dr14140"
                     class="btn btn-primary btn-sm loginBtn"
             >Login</a
             >
@@ -1852,7 +1852,7 @@
     buttonColor: 'white',
     buttonBg: '#d5502a',
     alignment: '2',
-    offset: '350px',
+    offset: '850px',
     formHeight: '500px',
     url: 'https://support.ala.org.au',
   });

@@ -78,17 +78,18 @@ export const tree = ({ theme, ...props }) => css`
       top: 1px;
   }
 
-  li span.selected {
+  li .selected {
       background: ${theme.primary};
       color: #fff;
       border: 1px solid #ccc;
+      
   }
     
-
-  li span:hover {
+  li .clickable:hover {
       background: ${theme.primary};
       color: #fff;
       border: 1px solid #ccc;
+      cursor: pointer;
   }
     
   li span:hover  ul li::after, 

@@ -8,7 +8,7 @@ import {SingleTree} from "./Tree/SingleTree";
 
 const { Term: T, Value: V } = Properties;
 
-export function Summaries({ event, data, showAll }) {
+export function Summaries({ event, setActiveEvent, addToSearch, addEventTypeToSearch, data, showAll }) {
 
   let termMap = {}
   Object.entries(data.results.facet).forEach(item => {
@@ -33,7 +33,6 @@ export function Summaries({ event, data, showAll }) {
     hasEventType = true;
   }
 
-  let combinedHierarchy = [];
   let rootNode = null;
   if (hasEventType) {
 
@@ -48,6 +47,7 @@ export function Summaries({ event, data, showAll }) {
       name: eventTypeHierarchy[0],
       isSelected: eventTypeHierarchy[0] == event.eventType.concept,
       count: 1,
+      isClickable: true,
       children: []
     }
     let currentNode = rootNode;
@@ -57,6 +57,7 @@ export function Summaries({ event, data, showAll }) {
         name: eventTypeHierarchy[i],
         isSelected: eventTypeHierarchy[i] == event.eventType.concept,
         count: 1,
+        isClickable: true,
         children: []
       }
       currentNode.children.push(newNode);
@@ -82,6 +83,7 @@ export function Summaries({ event, data, showAll }) {
             name: nodes[i],
             isSelected: false,
             count: hierarchy.count,
+            isClickable: true,
             children: []
           }
           startingNode.children.push(newNode);
@@ -111,6 +113,7 @@ export function Summaries({ event, data, showAll }) {
             name: nodes[i],
             isSelected: false,
             count: hierarchy.count,
+            isClickable: false,
             children: []
           }
           startingNode.children.push(newNode);
@@ -140,6 +143,7 @@ export function Summaries({ event, data, showAll }) {
             name: nodes[i],
             isSelected: false,
             count: hierarchy.count,
+            isClickable: false,
             children: []
           }
           startingNode.children.push(newNode);
@@ -151,6 +155,16 @@ export function Summaries({ event, data, showAll }) {
     });
   }
 
+  function setViewEvent(eventID){
+    setActiveEvent(eventID, event.datasetKey);
+  }
+
+  function setSearch(eventType){
+    if (eventType != "Occurrence" && eventType != "Measurement"){
+      addEventTypeToSearch(event.eventID, eventType)
+    }
+  }
+
   return <>
     <Group label="eventDetails.groups.occurrence">
       <Properties css={css.properties} breakpoint={800}>
@@ -159,7 +173,7 @@ export function Summaries({ event, data, showAll }) {
     </Group>
     <Group label="eventDetails.groups.dataStructure">
       {rootNode &&
-          <SingleTree rootNode={rootNode} />
+          <SingleTree rootNode={rootNode} setViewEvent={setViewEvent} setSearch={setSearch} />
       }
     </Group>
     <Methodology             {...{ showAll, termMap }} />

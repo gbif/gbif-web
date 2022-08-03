@@ -5,6 +5,9 @@ import {useQuery} from "../../../dataManagement/api";
 
 export function Summary({
   event,
+  setActiveEvent,
+  addToSearch,
+  addEventTypeToSearch,
   ...props
 }) {
   const theme = useContext(ThemeContext);
@@ -54,7 +57,12 @@ export function Summary({
     return <h2>Loading summary information...</h2>;
   }
 
-  return <Summaries event={event} data={data} showAll={showAll}  />
+  return <Summaries event={event}
+                    setActiveEvent={setActiveEvent}
+                    addToSearch={addToSearch}
+                    addEventTypeToSearch={addEventTypeToSearch}
+                    data={data}
+                    showAll={showAll}  />
 };
 
 const FACET_BREAKDOWN = `

@@ -63,6 +63,13 @@ export const EventsTable = ({ first, prev, next, size, from, results, total, loa
     setActiveDatasetKey(null);
   }
 
+  function addEventTypeToSearch (eventID, eventType) {
+    currentFilterContext.setField('eventID', [eventID], true);
+    currentFilterContext.setField('eventType', [eventType], true);
+    setActiveEventID(null);
+    setActiveDatasetKey(null);
+  }
+
   const nextItem = useCallback(() => {
     const activeIndex = items.findIndex(x => x.eventID === activeEventID);
     const next = Math.min(items.length - 1, activeIndex + 1);
@@ -108,6 +115,7 @@ export const EventsTable = ({ first, prev, next, size, from, results, total, loa
         onCloseRequest={() => dialog.setVisible(false)}
         setActiveEvent={setActiveEvent}
         addToSearch={addToSearch}
+        addEventTypeToSearch={addEventTypeToSearch}
       />
     </DetailsDrawer>}
     <div style={{
