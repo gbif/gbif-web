@@ -9,7 +9,7 @@ export const progress = ({theme,...props}) => css`
     transition: width 300ms;
     height: 4px;
     border-radius: 2px;
-    background: ${theme.primary};
+    background: ${theme.progressBar};
     max-width: 100%;
   }
 `;

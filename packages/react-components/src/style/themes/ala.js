@@ -11,5 +11,7 @@ export default {
   darkTheme: false,
   fontFamily: '"Roboto", BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica", "Arial", sans-serif',
   borderRadius: 4,
-  drawerZIndex: 1000
+  drawerZIndex: 1000,
+  progressBar: '#c44d34'
 }
+

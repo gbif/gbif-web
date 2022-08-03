@@ -5,5 +5,6 @@ export default {
   paperBackground: '#ffffff',
   color: '#162d3d',
   fontFamily: '"Lato", "Helvetica Neue", BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica", "Arial", sans-serif',
-  borderRadius: 0
+  borderRadius: 0,
+  progressBar: '#68daa8'
 }

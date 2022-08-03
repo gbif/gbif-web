@@ -14,5 +14,6 @@ export default {
   color: '#e3e5ea',
   darkTheme: true,
   fontFamily: 'BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif',
-  borderRadius: 3
+  borderRadius: 3,
+  progressBar: '#68daa8'
 }
