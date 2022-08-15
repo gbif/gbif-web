@@ -10,7 +10,7 @@ export const suggestStyle = { whiteSpace: 'nowrap', textOverflow: 'ellipsis', wi
 
 export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
   const { client, formatMessage } = context;
-  
+
   const countries = countryCodes.map(code => ({
     title: formatMessage({ id: `enums.countryCode.${code}` }),
     key: code
@@ -25,7 +25,7 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
         return {
           cancel: () => null,
           promise: (async () => {
-            return {data: matchSorter(countries, q, {keys: ['title', 'key']})};
+            return { data: matchSorter(countries, q, { keys: ['title', 'key'] }) };
           })()
         }
       },
@@ -58,9 +58,9 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
       // how to display the individual suggestions in the list
       render: function InstitutionCodeSuggestItem(suggestion) {
         return <div style={suggestStyle}>
-            {suggestion.title}
-          </div>
-        
+          {suggestion.title}
+        </div>
+
       }
     },
     establishmentMeans: {
@@ -82,8 +82,8 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
       // how to display the individual suggestions in the list
       render: function CatalogNumberSuggestItem(suggestion) {
         return <div style={suggestStyle}>
-            {suggestion.title}
-          </div>
+          {suggestion.title}
+        </div>
       }
     },
     catalogNumber: {
@@ -104,8 +104,8 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
       // how to display the individual suggestions in the list
       render: function CatalogNumberSuggestItem(suggestion) {
         return <div style={suggestStyle}>
-            {suggestion.title}
-          </div>
+          {suggestion.title}
+        </div>
       }
     },
     datasetKey: {
@@ -266,13 +266,13 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
       // how to display the individual suggestions in the list
       render: function ScientificNameSuggestItem(suggestion) {
         const ranks = ['kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species'].map((rank, i) => {
-            return suggestion[rank] && rank !== suggestion.rank.toLowerCase() ? <span key={rank}>{suggestion[rank]}</span> : null;
-          });
+          return suggestion[rank] && rank !== suggestion.rank.toLowerCase() ? <span key={rank}>{suggestion[rank]}</span> : null;
+        });
 
-        return <div style={{ maxWidth: '100%'}}>
+        return <div style={{ maxWidth: '100%' }}>
           <div style={suggestStyle}>
-          {suggestion.status !== 'ACCEPTED' && <Tooltip title={<span><FormattedMessage id={`enums.taxonomicStatus.${suggestion.status}`} /></span>}>
-              <span style={{display: 'inline-block', marginRight: 8, width: 8, height: 8, borderRadius: 4, background: 'orange'}}></span>
+            {suggestion.status !== 'ACCEPTED' && <Tooltip title={<span><FormattedMessage id={`enums.taxonomicStatus.${suggestion.status}`} /></span>}>
+              <span style={{ display: 'inline-block', marginRight: 8, width: 8, height: 8, borderRadius: 4, background: 'orange' }}></span>
             </Tooltip>}
             {suggestion.scientificName}
           </div>
@@ -293,7 +293,7 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
         return {
           promise: promise.then(response => ({
             data: response.data.map(i => ({ key: i, title: i }))
-            })),
+          })),
           cancel
         }
       },
@@ -340,7 +340,7 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
           predicate,
           include
         };
-        const {promise, cancel} = client.query({query: SEARCH, variables});
+        const { promise, cancel } = client.query({ query: SEARCH, variables });
         return {
           promise: promise.then(response => {
             return {
@@ -356,35 +356,35 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
       // how to display the individual suggestions in the list
       render: function RecordedBySuggestItem(suggestion) {
         return <div style={suggestStyle}>
-            {suggestion.title}
-            <div style={{fontSize: '0.85em', color: '#aaa'}}>{suggestion.count} results</div>
-          </div>
+          {suggestion.title}
+          <div style={{ fontSize: '0.85em', color: '#aaa' }}>{suggestion.count} results</div>
+        </div>
       }
     },
     recordNumber: {
-    //What placeholder to show
-    placeholder: 'search.placeholders.default',
-    // how to get the list of suggestion data
-    getSuggestions: ({ q }) => {
-      const { promise, cancel } = client.v1Get(`/occurrence/search/recordNumber?limit=8&q=${q}`);
-      return {
-        promise: promise.then(response => ({
-          data: response.data.map(i => ({ key: i, title: i }))
-        })),
-        cancel
-      }
-    },
-    // how to map the results to a single string value
-    getValue: suggestion => suggestion.title,
-    // how to display the individual suggestions in the list
-    render: function RecordNumberSuggestItem(suggestion) {
-      return <div style={suggestStyle}>
+      //What placeholder to show
+      placeholder: 'search.placeholders.default',
+      // how to get the list of suggestion data
+      getSuggestions: ({ q }) => {
+        const { promise, cancel } = client.v1Get(`/occurrence/search/recordNumber?limit=8&q=${q}`);
+        return {
+          promise: promise.then(response => ({
+            data: response.data.map(i => ({ key: i, title: i }))
+          })),
+          cancel
+        }
+      },
+      // how to map the results to a single string value
+      getValue: suggestion => suggestion.title,
+      // how to display the individual suggestions in the list
+      render: function RecordNumberSuggestItem(suggestion) {
+        return <div style={suggestStyle}>
           {suggestion.title}
         </div>
-      
-    }
-  },
-  gadmGid: {
+
+      }
+    },
+    gadmGid: {
       //What placeholder to show
       placeholder: 'search.placeholders.default',
       // how to get the list of suggestion data
@@ -393,7 +393,7 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
         return {
           promise: promise.then(response => {
             return {
-              data: response.data.results.map(x => ({title: x.name, key: x.id, ...x}))
+              data: response.data.results.map(x => ({ title: x.name, key: x.id, ...x }))
             }
           }),
           cancel
@@ -403,41 +403,41 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
       getValue: suggestion => suggestion.title,
       // how to display the individual suggestions in the list
       render: function GadmGidSuggestItem(suggestion) {
-        return <div style={ { maxWidth: '100%' } }>
+        return <div style={{ maxWidth: '100%' }}>
           <div style={suggestStyle}>
             {suggestion.title}
           </div>
-          {suggestion?.higherRegions?.length > 0 && <Classification style={{opacity: .8}}>
+          {suggestion?.higherRegions?.length > 0 && <Classification style={{ opacity: .8 }}>
             {suggestion.higherRegions.map(x => <span>{x.name}</span>)}
           </Classification>}
         </div>
       }
     },
     institutionKey: {
-    //What placeholder to show
-    placeholder: 'search.placeholders.default',
-    // how to get the list of suggestion data
-    getSuggestions: ({ q }) => {
-      const { promise, cancel } = client.v1Get(`/grscicoll/institution/suggest?limit=8&q=${q}`);
-      return {
-        promise: promise.then(response => ({
-          data: response.data.map(i => ({ title: i.name, ...i }))
-        })),
-        cancel
-      }
-    },
-    // how to map the results to a single string value
-    getValue: suggestion => suggestion.title,
-    // how to display the individual suggestions in the list
-    render: function institutionKeySuggestItem(suggestion) {
-      return <div style={suggestStyle}>
+      //What placeholder to show
+      placeholder: 'search.placeholders.default',
+      // how to get the list of suggestion data
+      getSuggestions: ({ q }) => {
+        const { promise, cancel } = client.v1Get(`/grscicoll/institution/suggest?limit=8&q=${q}`);
+        return {
+          promise: promise.then(response => ({
+            data: response.data.map(i => ({ title: i.name, ...i }))
+          })),
+          cancel
+        }
+      },
+      // how to map the results to a single string value
+      getValue: suggestion => suggestion.title,
+      // how to display the individual suggestions in the list
+      render: function institutionKeySuggestItem(suggestion) {
+        return <div style={suggestStyle}>
           {suggestion.title}
           <div>Code: {suggestion.code}</div>
         </div>
-      
-    }
-  },
-  networkKey: {
+
+      }
+    },
+    networkKey: {
       //What placeholder to show
       placeholder: 'search.placeholders.default',
       // how to get the list of suggestion data
@@ -446,7 +446,7 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
       getValue: suggestion => suggestion.title,
       // how to display the individual suggestions in the list
       render: function NetworkKeySuggestItem(suggestion) {
-        return <div style={ { maxWidth: '100%' } }>
+        return <div style={{ maxWidth: '100%' }}>
           <div style={suggestStyle}>
             {suggestion.title}
           </div>
