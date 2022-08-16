@@ -60,9 +60,13 @@ export default [
 			resolve({exportConditions: ['node']}),
 			commonjs(),
       json(),
-			replace({ 'process.env.NODE_ENV': JSON.stringify(env) }),
+			replace({
+        'process.env.NODE_ENV': JSON.stringify(env),
+        preventAssignment: true
+      }),
 		],
 		// external: ['react', '@babel/runtime'],
+		// external: ['react'],
 		output: [
 			{ file: pkg.main, format: 'cjs' },
 			{ file: pkg.module, format: 'es' }
