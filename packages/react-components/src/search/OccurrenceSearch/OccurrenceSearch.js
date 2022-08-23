@@ -64,6 +64,7 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
 }
 
 function OccurrenceSearch({ config: customConfig = {}, pageLayout, ...props }) {
+  console.log('inside occurrenceSEarch component');
   const theme = useContext(ThemeContext);
   const localeSettings = useContext(LocaleContext);
   // const [filter, setFilter] = useState();//useUrlState({param: 'filter', base64encode: true});

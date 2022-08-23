@@ -1,7 +1,10 @@
 import React from 'react';
 import { jsx } from '@emotion/react';
 import Autolinker from 'autolinker';
-import DOMPurify from 'dompurify';
+
+// import DOMPurify from 'dompurify';
+import sanitizeHtml from 'sanitize-html';
+
 import doiRegex from 'doi-regex';
 import { Doi } from '../IdentifierBadge';
 import Orcid from '../Orcid/Orcid';
@@ -68,7 +71,7 @@ export const HyperText = ({text, ...props}) =>  {
     if(typeof text !== "string"){
         return <span {...props}>{text}</span>;
     }
-    const sanitized = DOMPurify.sanitize(text);
+    const sanitized = sanitizeHtml(text);
     const doi = getDoi(sanitized);
     if(doi){
         return <Doi id={doi} {...props}/>

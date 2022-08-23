@@ -3,25 +3,23 @@
   "version": "1.0.0",
   "description": "A small website to test and show the GBIF widgets and search interface",
   "main": "index.js",
+  "engines": {
+    "node": ">=14.16"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "ariakit": "^2.0.0-next.39",
     "compression": "^1.7.4",
     "express": "^4.17.1",
     "gbif-react-components": "*",
     "handlebars": "^4.7.2",
-    "react": "16.14.0",
-    "react-dom": "16.14.0",
     "regenerator-runtime": "^0.13.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
-  },
-  "overrides": {
-    "react": "16.14.0",
-    "react-dom": "16.14.0"
   }
 }

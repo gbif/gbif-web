@@ -12,8 +12,7 @@ function Wrap({ siteConfig, ...props }) {
 
 function Standalone(props) {
   const routeContext = useContext(RouteContext);
-  const path = routeContext.occurrenceSearch.route;
-  console.log(path);
+  const path = '';//routeContext.occurrenceSearch.route;
   return <Switch>
     <Route
       path={path}

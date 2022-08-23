@@ -3,5 +3,9 @@
   "private": true,
   "devDependencies": {
     "lerna": "^5.1.6"
+  },
+  "dependencies": {
+    "react": "16.14.0",
+    "react-dom": "16.14.0"
   }
 }

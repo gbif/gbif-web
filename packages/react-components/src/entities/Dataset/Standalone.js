@@ -12,7 +12,7 @@ function Wrap({ siteConfig, ...props }) {
 
 function Standalone(props) {
   const routeContext = useContext(RouteContext);
-  const path = routeContext.datasetKey.route;
+  const path = '/';//routeContext.datasetKey.route;
   return <Switch>
     <Route
       path={path}

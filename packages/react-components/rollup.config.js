@@ -47,7 +47,7 @@ const env = process.env.NODE_ENV;
 export default [
 	{
 		input: 'src/index.js',
-    // input: 'src/components/Button/Button.js',
+		// input: 'src/components/Button/Button.js',
 		plugins: [
 			external({
 				includeDependencies: true,
@@ -57,13 +57,13 @@ export default [
 				exclude: 'node_modules/**',
 				plugins: ['transform-react-remove-prop-types', '@babel/plugin-transform-runtime'],
 			}),
-			resolve({exportConditions: ['node']}),
+			resolve({  }),
 			commonjs(),
-      json(),
+			json(),
 			replace({
-        'process.env.NODE_ENV': JSON.stringify(env),
-        preventAssignment: true
-      }),
+				'process.env.NODE_ENV': JSON.stringify(env),
+				preventAssignment: true
+			}),
 		],
 		// external: ['react', '@babel/runtime'],
 		// external: ['react'],
@@ -71,10 +71,10 @@ export default [
 			{ file: pkg.main, format: 'cjs' },
 			{ file: pkg.module, format: 'es' }
 		]
-    // output: {
-    //   file: pkg.main,
-    //   format: 'cjs'
-    // }
+		// output: {
+		//   file: pkg.main,
+		//   format: 'cjs'
+		// }
 
 		// output: [
 		//   {

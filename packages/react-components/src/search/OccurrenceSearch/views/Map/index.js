@@ -91,7 +91,7 @@ function Map() {
   }, [currentFilterContext.filterHash, rootPredicate, predicateConfig]);
 
   const loadPointData = useCallback(({geohash}) => {
-    const latLon = Geohash.bounds(geohash);
+    const latLon = Geohash ? Geohash.bounds(geohash) : {};
     const N = latLon.ne.lat, S = latLon.sw.lat, W = latLon.sw.lon, E = latLon.ne.lon;
     const wkt = 'POLYGON' + wktBBoxTemplate.replace(/N/g, N).replace(/S/g, S).replace(/W/g, W).replace(/E/g, E);
     const predicate = {

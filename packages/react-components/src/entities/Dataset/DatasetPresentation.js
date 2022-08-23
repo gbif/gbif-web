@@ -40,6 +40,8 @@ export function DatasetPresentation({
     return <div>Failed to retrieve item</div>
   }
 
+  console.log(data);
+
   const rootPredicate = {
     "type": "equals",
     "value": id,

@@ -23,7 +23,10 @@ const browserConfig = {
         use: {
           loader: "babel-loader",
           options: {
-            plugins: ['transform-react-remove-prop-types', '@babel/plugin-transform-runtime'],
+            plugins: [
+              'transform-react-remove-prop-types', 
+              '@babel/plugin-transform-runtime'
+            ],
             presets: ["@babel/preset-env", "@babel/preset-react", "@emotion/babel-preset-css-prop"]
           }
         }
@@ -37,15 +40,15 @@ const nodeConfig = {
   target: 'node',
   entry: './src/index.js',
   output: {
-    path: path.resolve(__dirname, 'build/esm'),
-    filename: 'index.js',
-    library: 'gbifReactComponents',
-    libraryTarget: 'commonjs2',
+    path: path.resolve(__dirname, 'build/cjs'),
+    filename: 'index.cjs',
+    // library: 'gbifReactComponents',
+    // libraryTarget: 'commonjs2',
   },
-  externals: {
-    'react': 'React', // Case matters here 
-    'react-dom': 'ReactDOM', // Case matters here
-  },
+  // externals: {
+  //   'react': 'React', // Case matters here 
+  //   'react-dom': 'ReactDOM', // Case matters here
+  // },
   module: {
     rules: [
       {

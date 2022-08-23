@@ -9,6 +9,9 @@ const scrollToSection = (elmn) => {
 };
 
 export const useToc = () => {
+  if (typeof document === 'undefined') {
+    return ['', {}, () => {}];
+  }
   const location = useLocation();
   const history = useHistory();
   const [sections, setSections] = useState({});
