@@ -20,12 +20,14 @@ function get2metric(query, config) {
   for (let [type, conf] of Object.entries(parsedQuery)) {
     const keys = Array.isArray(conf.value) ? conf.value : [conf.value];
     keys.filter(key => config.options[key]).forEach(key => {
-      const size = _.get(conf, `size.${key}`)
-      const include = _.get(conf, `include.${key}`)
+      const size = parseInt(_.get(conf, `size.${key}`, 10));
+      const from = parseInt(_.get(conf, `from.${key}`, 0));
+      const include = _.get(conf, `include.${key}`);
       metrics[`${key}_${type}`] = {
         type,
         key,
         ...(size && { size }),
+        ...(from && { from }),
         ...(include && { include }),
       }
     });

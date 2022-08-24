@@ -7,6 +7,7 @@ export const filters = [
   'institutionCode',
   'catalogNumber',
   'hostingOrganizationKey',
+  'networkKey',
   'year',
   'basisOfRecord',
   'typeStatus',

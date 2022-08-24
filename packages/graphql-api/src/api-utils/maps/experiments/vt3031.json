@@ -1,0 +1,25 @@
+{
+    "attribution": "<a href=\"https://www.maptiler.com/copyright/\" target=\"_blank\">&copy; TEST MapTiler</a> <a href=\"https://www.openstreetmap.org/copyright\" target=\"_blank\">&copy; OpenStreetMap contributors</a>",
+    "tilejson": "2.0.0",
+    "name": "Topo",
+    "minzoom": 6,
+    "maxzoom": 16,
+    "bounds": [
+        -12367396.2185,
+        -12367396.2185,
+        12367396.2185,
+        12367396.2185
+    ],
+    "format": "pbf",
+    "type": "baselayer",
+    "center": [
+        0,
+        0,
+        0
+    ],
+    "color": "rgba(232, 230, 223, 1)",
+    "tiles": [],
+    "xtiles": [
+        "https://tile.gbif.org/3031/omt/{z}/{x}/{y}.pbf?srs=EPSG%3A3031"
+    ]
+}

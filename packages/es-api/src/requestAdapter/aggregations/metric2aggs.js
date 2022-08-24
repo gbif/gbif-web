@@ -8,16 +8,32 @@ function metric2aggs(metrics = {}, config) {
     const conf = _.get(config, `options[${metric.key}]`);
     if (!conf) continue;
     else {
+      let from = parseInt(metric.from || 0);
+      let size = parseInt(metric.size || 10) || 10;
       switch (metric.type) {
         case 'facet': {
-          if (!['keyword', 'numeric', 'boolean'].includes(conf.type)) throw new ResponseError(400, 'badRequest', 'Facets are only supported on keywords, boolean and numeric fields');
-          aggs[name] = {
+          if (!['keyword', 'numeric', 'boolean'].includes(conf.type)) {
+            throw new ResponseError(400, 'badRequest', 'Facets are only supported on keywords, boolean and numeric fields');
+          }
+
+          let order;
+          if (metric.order) {
+            if (metric.order === 'TERM_ASC') {
+              order = { "_term": "asc" };
+            }
+          }
+          let aggName = {
             terms: {
               field: conf.field,
-              size: metric.size,
+              size: size + from,
               include: metric.include
             }
           };
+          if (order) {
+            aggName.terms.order = order;
+          }
+          aggs[name] = aggName;
+
           break;
         }
         case 'stats': {
@@ -49,6 +65,16 @@ function metric2aggs(metrics = {}, config) {
           };
           break;
         }
+        case 'date_histogram': {
+          if (conf.type !== 'date') throw new ResponseError(400, 'badRequest', 'Only date fields support this aggregation');
+          aggs[name] = {
+            date_histogram: {
+              field: conf.field,
+              calendar_interval: metric.calendarInterval || '1M'
+            }
+          };
+          break;
+        }
         case 'cardinality': {
           if (!['keyword', 'numeric', 'boolean'].includes(conf.type)) throw new ResponseError(400, 'badRequest', 'Facets are only supported on keywords, boolean and numeric fields');
           aggs[name] = {
@@ -63,6 +89,10 @@ function metric2aggs(metrics = {}, config) {
           // ignore unknown types
           break;
         }
+      }
+      if (aggs[name] && metric.metrics) {
+        const subAggregations = metric2aggs(metric.metrics, config);
+        aggs[name].aggs = subAggregations;
       }
     }
   }

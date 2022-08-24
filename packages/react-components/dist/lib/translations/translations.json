@@ -1,79 +1,84 @@
 {
   "en-DK": {
-    "messages": "http://localhost:5002/en-developer.json?v=164feb5907da7160b48600d519f0d3ccf2b59196"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/en-developer.json?v=88e7a2217a0f585cdc2fd5464fdce92a5c970a1c"
   },
   "en-ZZ": {
-    "messages": "http://localhost:5002/en-pseudo.json?v=4ba01c445d2f5dc51fc334da4374521cca892642"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/en-pseudo.json?v=e2103324bac3bcc5393480509a82b44b0119abc7"
   },
   "en": {
-    "messages": "http://localhost:5002/en.json?v=76eb6f0d696f61912879c2f73bec84de56107fff"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/en.json?v=d44acc791cd9228af63395fa84b370241a5785a2"
   },
   "da": {
-    "messages": "http://localhost:5002/da.json?v=bfbfd6905ed4971a975e414646d2f86addcea471"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/da.json?v=d9c7bd82b55d3c1a16fd30d01aa84678aa8ea265"
   },
   "ar": {
-    "messages": "http://localhost:5002/ar.json?v=0ab6d5c7e027e7a7b15b3028347e32a23133f20a"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/ar.json?v=9537dec0b3cc3f46fb8880c30c9fa3ac71376a4d"
   },
   "de": {
-    "messages": "http://localhost:5002/de.json?v=4d27e06f9711bd18f5de54c8cc09b71f564d93ed"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/de.json?v=0926faef8d59fb2b80538956e682adba06dfbf85"
   },
   "es": {
-    "messages": "http://localhost:5002/es.json?v=0ef786759de986dbc7b2d8a3891f0ad96862eb2e",
-    "gbifLocale": "es"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/es.json?v=212de7e827c2d8cc027b2ca284c63ca99f4f7e2a",
+    "localeMap": {
+      "gbif_org": "es",
+      "vocabulary": "es-ES"
+    }
   },
   "fa": {
-    "messages": "http://localhost:5002/fa.json?v=4524dd69abfdbeb41209ce8863f24d539d69db4e"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/fa.json?v=3160d1645a9672ddcd36b140215e6e189246a212"
   },
   "fj": {
-    "messages": "http://localhost:5002/fj.json?v=76eb6f0d696f61912879c2f73bec84de56107fff"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/fj.json?v=d44acc791cd9228af63395fa84b370241a5785a2"
   },
   "fr": {
-    "messages": "http://localhost:5002/fr.json?v=f7e7fa18c657e1381a1d57121251b5fce81649b4",
-    "gbifLocale": "fr"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/fr.json?v=0d3aa993c49431e57051b3508fc58b7a03d99b93",
+    "localeMap": {
+      "gbif_org": "fr"
+    }
   },
   "ja": {
-    "messages": "http://localhost:5002/ja.json?v=ed0537fb9632948f069c2597945bab70f37ee280"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/ja.json?v=5085f03ae1cfb042ea7609553d4b4d50846b0a65"
   },
   "la": {
-    "messages": "http://localhost:5002/la.json?v=76eb6f0d696f61912879c2f73bec84de56107fff"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/la.json?v=d44acc791cd9228af63395fa84b370241a5785a2"
   },
   "niu": {
-    "messages": "http://localhost:5002/niu.json?v=76eb6f0d696f61912879c2f73bec84de56107fff"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/niu.json?v=d44acc791cd9228af63395fa84b370241a5785a2"
   },
   "nl": {
-    "messages": "http://localhost:5002/nl.json?v=6255a155a81b46c328dd09707ff6f17df5aa69a6"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/nl.json?v=2440f7ab8ee2486381ad3ede053743e70a265f84"
   },
   "pis": {
-    "messages": "http://localhost:5002/pis.json?v=76eb6f0d696f61912879c2f73bec84de56107fff"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/pis.json?v=d44acc791cd9228af63395fa84b370241a5785a2"
   },
   "pt": {
-    "messages": "http://localhost:5002/pt.json?v=23981d8fdddc4c45aaaeaaebed497a1913d3b7e8"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/pt.json?v=a5bba6588bf69475648ec73e6baf7c2d36929f48"
   },
   "ru": {
-    "messages": "http://localhost:5002/ru.json?v=552d20b8ef98727f1b0624ead820b5ba9f89284e"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/ru.json?v=c5880e6437d9e2d3407ed2457e125c47d80e1535"
   },
   "sm": {
-    "messages": "http://localhost:5002/sm.json?v=76eb6f0d696f61912879c2f73bec84de56107fff"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/sm.json?v=d44acc791cd9228af63395fa84b370241a5785a2"
   },
   "sw": {
-    "messages": "http://localhost:5002/sw.json?v=76eb6f0d696f61912879c2f73bec84de56107fff"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/sw.json?v=d44acc791cd9228af63395fa84b370241a5785a2"
   },
   "tkl": {
-    "messages": "http://localhost:5002/tkl.json?v=76eb6f0d696f61912879c2f73bec84de56107fff"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/tkl.json?v=d44acc791cd9228af63395fa84b370241a5785a2"
   },
   "to": {
-    "messages": "http://localhost:5002/to.json?v=76eb6f0d696f61912879c2f73bec84de56107fff"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/to.json?v=d44acc791cd9228af63395fa84b370241a5785a2"
   },
   "tvl": {
-    "messages": "http://localhost:5002/tvl.json?v=76eb6f0d696f61912879c2f73bec84de56107fff"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/tvl.json?v=d44acc791cd9228af63395fa84b370241a5785a2"
   },
   "uk": {
-    "messages": "http://localhost:5002/uk.json?v=3e40a2b372f896348ee356799fabec5abb1cc84e"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/uk.json?v=87ad37a302ec730cd95e7cfe80165525f05cbf18"
   },
   "zh": {
-    "messages": "http://localhost:5002/zh.json?v=b320bf7100e40bdaa1107cfc35a9c25503ee8bfb"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/zh.json?v=e28a73c8b2cc7b3fd3f364c5bd00f086b5800943"
   },
   "zh-tw": {
-    "messages": "http://localhost:5002/zh-tw.json?v=cfb272246df48e63182a60d73b6275186960b637"
+    "messages": "https://react-components.gbif-staging.org/lib/translations/zh-tw.json?v=273c0b121903359b31dee90c893e6aa238d2fb3e"
   }
 }

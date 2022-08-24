@@ -66,6 +66,7 @@
     "SUBFORM": "Subforma",
     "PATHOVAR": "Patovar",
     "BIOVAR": "Biovar",
+    "CHEMOVAR": "Quimiovar",
     "MORPHOVAR": "Morfovar",
     "PHAGOVAR": "Fagovar",
     "SEROVAR": "Serovar",

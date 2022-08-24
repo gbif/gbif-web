@@ -12,16 +12,16 @@ import { Root } from '../Root/Root';
 
 import Switch from '../Switch/Switch';
 
-export const Menu = React.memo(({ trigger, placement, items, ...props }) => {
+export const Menu = React.memo(({ trigger, placement, items, style, ...props }) => {
   const theme = useContext(ThemeContext);
   const menu = useMenuState({ placement: placement || theme.dir === 'rtl' ? 'bottom-start' : 'bottom-end' });
   return (
-    <Root>
+    <Root style={ style }>
       <MenuButton {...menu} {...trigger.props}>
         {disclosureProps => React.cloneElement(trigger, disclosureProps)}
       </MenuButton>
-      <BaseMenu {...menu} {...props} css={focus(theme)} style={{zIndex: 999}}>
-        <div css={menuContainer({theme})}>
+      <BaseMenu {...menu} {...props} css={focus(theme)} style={{ zIndex: 999 }}>
+        <div css={menuContainer({ theme })} className="gb-menuContainer">
           {(typeof items === 'function' ? items(menu) : items).map((item, i) => (
             <MenuItem {...menu} {...item.props} key={i}>
               {itemProps => React.cloneElement(item, itemProps)}
@@ -37,7 +37,7 @@ export const MenuToggle = React.forwardRef(({
   children,
   onChange,
   className,
-  style, 
+  style,
   ...props
 }, ref) => {
   const theme = useContext(ThemeContext);
@@ -94,7 +94,7 @@ const menuAction = theme => css`
   color: ${theme.color900};
 `;
 
-const menuContainer = ({theme}) => css`
+const menuContainer = ({ theme }) => css`
   min-width: 180px;
   max-width: 100%;
   background-color: ${theme.paperBackground100};

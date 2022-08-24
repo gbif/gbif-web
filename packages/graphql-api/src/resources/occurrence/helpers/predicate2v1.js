@@ -21,7 +21,8 @@ module.exports = function (predicate, {shouldRemoveFullTextPredicates = false} =
     const withNotNull = convertIsNotNull(notIssues);
     const removedEmpty = removeEmpty(withNotNull);
     const nestingSimplified = removeExcessiveNesting(removedEmpty);
-    const withCase = uppercaseKeys(nestingSimplified);
+    const geometryPredicate = convertGeometryFilter(nestingSimplified);
+    const withCase = uppercaseKeys(geometryPredicate);
 
     let cleanedVersion = withCase;
     if (shouldRemoveFullTextPredicates) {
@@ -137,6 +138,20 @@ function convertNotIssues(obj) {
           value: obj.value
         }
       }
+    }
+  }
+  return obj;
+}
+
+function convertGeometryFilter(obj) {
+  if (obj.predicate) {
+    convertGeometryFilter(obj.predicate);
+  } else if (obj.predicates && Array.isArray(obj.predicates)) {
+    obj.predicates = obj.predicates.map(convertGeometryFilter);
+  } else if (obj.key === 'geometry') {
+    return {
+      type: 'within',
+      geometry: obj.value
     }
   }
   return obj;
