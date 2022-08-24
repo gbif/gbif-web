@@ -129,11 +129,11 @@ function Map() {
     defaultMapSettings: more?.mapSettings
   }
 
-  if (typeof window !== 'undefined') {
+  // if (typeof window !== 'undefined') {
     return <MapPresentation {...options} />
-  } else {
-    return <h1>Map placeholder</h1>
-  }
+  // } else {
+  //   return <h1>Map placeholder</h1>
+  // }
 }
 
 export default Map;

@@ -33,7 +33,6 @@ function StandaloneWrapper({
    } = siteConfig;
 
   const routeConfig = _merge({}, defaultContext, (routes || {}));
-  console.log(props);
   const basename = _get(routeConfig, 'basename');
   const root = <Root id="application" appRoot>
     <Router {...props} location="/dataset/ca0d8107-a2bd-47a1-91a1-250179b534ec">

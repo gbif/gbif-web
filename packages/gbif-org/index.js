@@ -1,5 +1,7 @@
 const express = require("express");
-// var compression = require('compression')
+const { engine } = require('express-handlebars');
+
+var compression = require('compression')
 const regeneratorRuntime = require("regenerator-runtime");
 const React = require("react");
 // const MyButton = require("my-button");
@@ -7,25 +9,35 @@ const React = require("react");
 const { Button, Dataset, OccurrenceSearch } = require("gbif-react-components");
 
 const renderToString = require("react-dom/server").renderToString;
-const hbs = require("handlebars");
+
+const hbs = require('handlebars');
 
 const app = express();
-// app.use(compression())
 const port = 3000;
+app.use(compression());
+
+//Sets our app to use the handlebars engine
+app.engine('handlebars', engine());
+app.set('view engine', 'handlebars');
+app.set('views', './views');
+
+app.use(express.static('public'))
+
 
 app.get('/dataset/:key', (req, res) => {
-  const theHtml = `
-  <html>
-  <head><title>My First SSR</title></head>
-  <body>
-  <div id="reactele">{{{reactele}}}</div>
-  <script src="/app.js" charset="utf-8"></script>
-  <script src="/vendor.js" charset="utf-8"></script>
-  </body>
-  </html>
-  `;
+  // const theHtml = `
+  // <html>
+  // <head><title>My First SSR</title></head>
+  // <body>
+  // <div id="reactele">{{{reactele}}}</div>
+  // <script src="/app.js" charset="utf-8"></script>
+  // <script src="/vendor.js" charset="utf-8"></script>
+  // </body>
+  // </html>
+  // `;
 
-  const hbsTemplate = hbs.compile(theHtml);
+  // const hbsTemplate = hbs.compile(theHtml);
+  
   // const reactComp = renderToString(React.createElement(Button,{},'My Button'));
   // const reactComp = renderToString(React.createElement(Root,{}, React.createElement(Checkbox,{})));
   // const reactComp = renderToString(React.createElement(Switch,{style:{padding: 20}}));
@@ -64,8 +76,9 @@ app.get('/dataset/:key', (req, res) => {
       }
     }
   }));
-  const htmlToSend = hbsTemplate({ reactele: reactComp });
-  res.send(htmlToSend);
+  // const htmlToSend = hbsTemplate({ reactele: reactComp });
+  // res.send(htmlToSend);
+  res.render('home', {context: {appHtml: reactComp}});
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

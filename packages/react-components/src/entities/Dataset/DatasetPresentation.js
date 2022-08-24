@@ -31,7 +31,6 @@ export function DatasetPresentation({
   const isBelowNarrow = useBelow(800);
   let { url, path } = useRouteMatch();
   const theme = useContext(ThemeContext);
-  console.log(url, path);
 
   if (loading) return <div>loading</div>
   const { dataset, literatureSearch, occurrenceSearch, siteOccurrences, taxonSearch } = data;
@@ -55,7 +54,7 @@ export function DatasetPresentation({
   };
 
   return <>
-    <DataHeader
+    {/* <DataHeader
       left={<ResourceSearchLink type="datasetSearch" discreet>
         <MdKeyboardArrowLeft />
         <FormattedMessage id='catalogues.datasets' />
@@ -67,7 +66,7 @@ export function DatasetPresentation({
         <Button look="text"><MdOutlineCode /></Button>
         <Button look="text"><MdOutlineHelpOutline /></Button>
       </div>}>
-    </DataHeader>
+    </DataHeader> */}
     <div css={css.headerWrapper({ theme })}>
       <div css={css.proseWrapper({ theme })}>
         <Eyebrow prefix={<FormattedMessage id={`dataset.longType.${dataset.type}`} />} suffix={<FormattedMessage id="dataset.registeredDate" values={{ DATE: <FormattedDate value={dataset.created} year="numeric" month="long" day="2-digit" /> }} />} />
@@ -180,9 +179,9 @@ export function DatasetPresentation({
             <DownloadOptions {...{ dataset }} />
           </div>
         </Route>
-        <Route path={join(path, 'specimens')}>
+        {/* <Route path={join(path, 'specimens')}>
           <OccurrenceSearch config={config} style={{ margin: 'auto', maxWidth: 1000, minHeight: 'calc(90vh)' }}></OccurrenceSearch>
-        </Route>
+        </Route> */}
         <Route path={join(path, 'project')}>
           <div css={css.proseWrapper({ theme })}>
             <Project {...{ data }} />
