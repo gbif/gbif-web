@@ -5,14 +5,14 @@ import { Switch, Route } from 'react-router-dom';
 import RouteContext from '../../dataManagement/RouteContext';
 
 function Wrap({ siteConfig, ...props }) {
-  return <StandaloneWrapper siteConfig={siteConfig}>
+  return <StandaloneWrapper siteConfig={siteConfig} {...props}>
     <Standalone {...props} />
   </StandaloneWrapper>
 }
 
 function Standalone(props) {
   const routeContext = useContext(RouteContext);
-  const path = '/';//routeContext.datasetKey.route;
+  const path = routeContext.datasetKey.route;
   return <Switch>
     <Route
       path={path}

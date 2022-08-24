@@ -98,22 +98,44 @@
       //   document.getElementById('root')
       // );
 
+      // ReactDOM.render(
+      //   React.createElement(
+      //     gbifReactComponents.DatasetSearch,
+      //     { 
+      //       style: { height: 'calc(100vh - 4.25rem)' }, 
+      //       id: 'ca0d8107-a2bd-47a1-91a1-250179b534ec',
+      //       siteConfig: {
+      //         routes: {
+      //           datasetSearch: {
+      //             url: ({query, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/dataset/search`,
+      //             isHref: true,
+      //             route: '/'
+      //           }
+      //         },
+      //         dataset: {
+      //           availableCatalogues: ['OCCURRENCE', 'LITERATURE', 'COLLECTION']
+      //         }
+      //       }
+      //     }
+      //   ),
+      //   document.getElementById('root')
+      // );
+
+
       ReactDOM.render(
         React.createElement(
-          gbifReactComponents.DatasetSearch,
+          gbifReactComponents.Dataset,
           { 
-            style: { height: 'calc(100vh - 4.25rem)' }, 
+            style: { height: 'calc(100vh - 4.25rem);' }, 
             id: 'ca0d8107-a2bd-47a1-91a1-250179b534ec',
             siteConfig: {
               routes: {
-                datasetSearch: {
-                  url: ({query, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/dataset/search`,
+                datasetKey: {
+                  url: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/dataset/${key}`,
+                  // url: ({key, gbifOrgLocalePrefix}) => `/dataset/${key}`,
                   isHref: true,
-                  route: '/'
+                  route: '/dataset/:key'
                 }
-              },
-              dataset: {
-                availableCatalogues: ['OCCURRENCE', 'LITERATURE', 'COLLECTION']
               }
             }
           }
@@ -121,17 +143,17 @@
         document.getElementById('root')
       );
 
-
       // ReactDOM.render(
       //   React.createElement(
-      //     gbifReactComponents.Dataset,
+      //     gbifReactComponents.Collection,
       //     { 
       //       style: { height: 'calc(100vh - 4.25rem);' }, 
-      //       id: 'ca0d8107-a2bd-47a1-91a1-250179b534ec',
+      //       id: '85170e4e-64d6-4651-b8e1-a29bdbb214c1',
       //       siteConfig: {
       //         routes: {
-      //           datasetKey: {
-      //             url: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/dataset/${key}`,
+      //           collectionKey: {
+      //             // url: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/dataset/${key}`,
+      //             url: ({key, gbifOrgLocalePrefix}) => `/collection/${key}`,
       //             isHref: true,
       //             route: '/'
       //           }

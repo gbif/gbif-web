@@ -31,6 +31,7 @@ export function DatasetPresentation({
   const isBelowNarrow = useBelow(800);
   let { url, path } = useRouteMatch();
   const theme = useContext(ThemeContext);
+  console.log(url, path);
 
   if (loading) return <div>loading</div>
   const { dataset, literatureSearch, occurrenceSearch, siteOccurrences, taxonSearch } = data;
@@ -39,8 +40,6 @@ export function DatasetPresentation({
     // TODO a generic component for failures is needed
     return <div>Failed to retrieve item</div>
   }
-
-  console.log(data);
 
   const rootPredicate = {
     "type": "equals",

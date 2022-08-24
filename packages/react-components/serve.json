@@ -1,0 +1,6 @@
+{
+    "rewrites": [
+      { "source": "/dataset/**", "destination": "/index.html" },
+      { "source": "/collection/**", "destination": "/index.html" }
+    ]
+  }

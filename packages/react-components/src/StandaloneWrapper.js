@@ -1,5 +1,5 @@
 import React from "react";
-import { MemoryRouter as Router, Route } from "react-router-dom";
+import { StaticRouter as Router, Route } from "react-router-dom";
 import { QueryParamProvider } from 'use-query-params';
 import { LocaleProvider } from './dataManagement/LocaleProvider';
 import _get from 'lodash/get';
@@ -33,11 +33,10 @@ function StandaloneWrapper({
    } = siteConfig;
 
   const routeConfig = _merge({}, defaultContext, (routes || {}));
-  console.log(routeConfig);
+  console.log(props);
   const basename = _get(routeConfig, 'basename');
-  console.log(basename);
   const root = <Root id="application" appRoot>
-    <Router {...props} location='/dataset/2985efd1-45b1-46de-b6db-0465d2834a5a'>
+    <Router {...props} location="/dataset/ca0d8107-a2bd-47a1-91a1-250179b534ec">
       <QueryParamProvider ReactRouterRoute={Route} {...props} />
     </Router>
   </Root>;
