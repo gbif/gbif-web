@@ -14,7 +14,7 @@ export function Eyebrow({
 }) {
   const theme = useContext(ThemeContext);
   const { classNames } = getClasses(theme.prefix, 'eyebrow', {/*modifiers goes here*/}, className);
-  return <Div css={styles.eyebrow({theme})} {...props}>
+  return <Div css={styles.eyebrow} {...props}>
     <div>{prefix}</div>
     {suffix && <>
       <div css={styles.suffix}>

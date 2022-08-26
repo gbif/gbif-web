@@ -55,9 +55,33 @@ export default [
 			babel({
 				babelHelpers: 'runtime',
 				exclude: 'node_modules/**',
-				plugins: ['transform-react-remove-prop-types', '@babel/plugin-transform-runtime'],
+				plugins: [
+					'transform-react-remove-prop-types',
+					'@babel/plugin-transform-runtime',
+					[
+						"import-path-replace",
+						{
+							"rules": [
+								{
+									"match": "latlon-geohash",
+									"replacement": "./GeoHash-MOCK"
+								},
+								{
+									"match": "./MapPresentation",
+									"replacement": "./MapPresentation-MOCK"
+								}
+							]
+						}
+					]
+				],
+				presets: [[
+					"@emotion/babel-preset-css-prop",
+					{
+						"autoLabel": "always"
+					}
+				]]
 			}),
-			resolve({  }),
+			resolve({}),
 			commonjs(),
 			json(),
 			replace({

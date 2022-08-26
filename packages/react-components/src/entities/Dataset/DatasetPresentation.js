@@ -32,7 +32,7 @@ export function DatasetPresentation({
   let { url, path } = useRouteMatch();
   const theme = useContext(ThemeContext);
 
-  if (loading) return <div>loading</div>
+  if (loading && !data) return <div>loading</div>
   const { dataset, literatureSearch, occurrenceSearch, siteOccurrences, taxonSearch } = data;
 
   if (error || !dataset) {

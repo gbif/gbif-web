@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 // import { focusStyle } from '../../style/shared';
 
-export const eyebrow = ({...props}) => css`
+export const eyebrow = css`
   display: flex;
   justify-content: start;
   align-items: center;

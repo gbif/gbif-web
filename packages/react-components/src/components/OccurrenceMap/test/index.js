@@ -97,7 +97,8 @@ function Map({ mapSettings, rootPredicate, ...props }) {
 
   // if (!bbox) return null;
 
-  if (typeof window !== 'undefined') {
+  if (!loading && data) {
+  // if (typeof window !== 'undefined') {
     return <MapPresentation {...options} style={{height: 500}}/>
   } else {
     return <h1>Map placeholder</h1>

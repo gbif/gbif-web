@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
 // import PropTypes from 'prop-types';
 // export const Button = ({ color, ...props }) => {
 //     const [state, setState] = useState(10);
@@ -13,7 +13,7 @@ import React, { useState } from 'react';
 // export { Autocomplete } from './components/Autocomplete/Autocomplete';
 
 
-// export { FilterButton as Button } from './components/Button/Button';
+// export { Eyebrow } from './components';
 export * from './components';
 export { default as OccurrenceSearch } from './search/OccurrenceSearch/Standalone';
 // export { default as OccurrenceSearch } from './search/OccurrenceSearch/SSR';

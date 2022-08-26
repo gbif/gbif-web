@@ -20,9 +20,9 @@ function getTag(tagName, styleFn) {
 }
 
 export const ol = (theme) => css`
-  div>p:first-child {
+  /* div>p:first-child {
     margin-top: 0;
-  }
+  } */
   ol {
     counter-reset: listitem;
     list-style: none; 

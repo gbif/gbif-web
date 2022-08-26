@@ -32,8 +32,8 @@
   "license": "ISC",
   "dependencies": {
     "@babel/runtime": "^7.13.10",
-    "@emotion/babel-preset-css-prop": "^11.2.0",
-    "@emotion/react": "^11.1.5",
+    "@emotion/babel-preset-css-prop": "^11.10.0",
+    "@emotion/react": "11.1.5",
     "autolinker": "^3.14.3",
     "axios": "^0.24.0",
     "babel-plugin-import-path-replace": "^0.1.0",

@@ -6,7 +6,7 @@ const regeneratorRuntime = require("regenerator-runtime");
 const React = require("react");
 // const MyButton = require("my-button");
 // const { Switch, Button, Checkbox, Root, OccurrenceSearch, Filter, GlobalNavLaptop } = require("gbif-react-components");
-const { Button, Dataset, OccurrenceSearch } = require("gbif-react-components");
+const { Dataset } = require("gbif-react-components");
 
 const renderToString = require("react-dom/server").renderToString;
 
@@ -76,8 +76,12 @@ app.get('/dataset/:key', (req, res) => {
       }
     }
   }));
-  // const htmlToSend = hbsTemplate({ reactele: reactComp });
-  // res.send(htmlToSend);
+
+  // const reactComp = renderToString(React.createElement(Eyebrow,{
+  //   prefix: 'Part a',
+  //   suffix: 'Part b'
+  // }));
+
   res.render('home', {context: {appHtml: reactComp}});
 });
 

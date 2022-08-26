@@ -27,7 +27,13 @@ const browserConfig = {
               'transform-react-remove-prop-types', 
               '@babel/plugin-transform-runtime'
             ],
-            presets: ["@babel/preset-env", "@babel/preset-react", "@emotion/babel-preset-css-prop"]
+            // presets: ["@babel/preset-env", "@babel/preset-react", "@emotion/babel-preset-css-prop"]
+            presets: [[
+              "@emotion/babel-preset-css-prop",
+              {
+                "autoLabel": "always"
+              }
+            ]]
           }
         }
       }
@@ -57,7 +63,16 @@ const nodeConfig = {
         use: {
           loader: "babel-loader",
           options: {
-            plugins: ['transform-react-remove-prop-types', '@babel/plugin-transform-runtime'],
+            plugins: [
+              'transform-react-remove-prop-types', 
+              '@babel/plugin-transform-runtime',
+              [
+                "emotion",
+                {
+                  "autoLabel": "never"
+                }
+              ]
+            ],
             presets: ["@babel/preset-env", "@babel/preset-react", "@emotion/babel-preset-css-prop"]
           }
         }
