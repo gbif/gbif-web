@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef, useContext } from 'react';
+import useDeepCompareEffect from 'use-deep-compare-effect';
 import ApiContext from './ApiContext';
+import { CollateContext, DataContext } from '../../dataContext';
 
 const RENEW_REQUEST = 'RENEW_REQUEST';
 
@@ -12,17 +14,22 @@ const useUnmounted = () => {
 }
 
 function useQuery(query, options = {}) {
-  const [data, setData] = useState();
+  const collateContext = useContext(CollateContext);
+  const dataContext = useContext(DataContext);
+  let callId = collateContext.current;
+  collateContext.current++;
+
+  const [data, setData] = useState(dataContext.data?.[callId]?.data?.data || null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   // functions are called when passed to useState so it has to be wrapped. 
   // We provide an empty call, just so we do not have to check for existence subsequently
-  const [cancelRequest, setCancel] = useState(() => () => {});
+  const [cancelRequest, setCancel] = useState(() => () => { });
   const unmounted = useUnmounted();
   const apiClient = useContext(ApiContext);
   const client = options?.client || apiClient;
 
-  function init({keepDataWhileLoading}) {
+  function init({ keepDataWhileLoading }) {
     if (!keepDataWhileLoading) setData();
     setLoading(true);
     setError(false)
@@ -30,12 +37,14 @@ function useQuery(query, options = {}) {
   }
 
   function load(options) {
-    init(options);
+    console.log('load in useQuery called');
+    // //init(options);
     const variables = options?.variables;
-    const { promise: dataPromise, cancel } = client.query({query, variables });
+    const { promise: dataPromise, cancel } = client.query({ query, variables });
+    console.log(collateContext);
     // functions cannot be direct values in states as function are taken as a way to create derived states
     // https://medium.com/swlh/how-to-store-a-function-with-the-usestate-hook-in-react-8a88dd4eede1
-    setCancel(() => cancel);
+    // setCancel(() => cancel);
     dataPromise.
       then(response => {
         if (unmounted.current) return;
@@ -53,6 +62,34 @@ function useQuery(query, options = {}) {
         setData();
         setLoading(false);
       });
+
+    if (!collateContext.resolved) {
+      let cancel = Function.prototype;
+
+      const effectPr = new Promise((resolve) => {
+        cancel = () => {
+          if (!dataContext[callId]) {
+            dataContext[callId] = { error: { message: "timeout" }, id: callId };
+          }
+          resolve(callId);
+        };
+        return dataPromise
+          .then((res) => {
+            dataContext[callId] = { data: res };
+            resolve(callId);
+          })
+          .catch((error) => {
+            dataContext[callId] = { error: { error: true, type: 'unknown' } };
+            resolve(callId);
+          });
+      });
+
+      collateContext.requests.push({
+        id: callId,
+        promise: effectPr,
+        cancel: cancel,
+      });
+    }
   }
 
   // Cancel pending request on unmount
@@ -60,16 +97,19 @@ function useQuery(query, options = {}) {
     cancelRequest();
   }, [cancelRequest]);
 
-  useEffect(() => {
+  useDeepCompareEffect(() => {
     if (!options?.lazyLoad) {
       load(options);
     }
     // we leave cleaning to a seperate useEffect cleanup step
   }, [
     query,
-    options.lazyLoad,
-    options.ignoreVariableUpdates ? void 0 : options.variables
+    options
   ]);
+
+  if (typeof window === 'undefined' && !options?.lazyLoad) {
+    load(options);
+  }
 
   return { data, loading, error, load, cancel: cancelRequest || (() => { }) };
 }

@@ -69,6 +69,7 @@
     "uncontrollable": "^7.2.1",
     "url-regex": "^5.0.0",
     "use-debounce": "^6.0.0",
+    "use-deep-compare-effect": "^1.8.1",
     "use-query-params": "1.2.3"
   },
   "devDependencies": {

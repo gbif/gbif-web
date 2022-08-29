@@ -26,6 +26,7 @@ export { default as OccurrenceSearch } from './search/OccurrenceSearch/Standalon
 // export { default as Institution } from './entities/Institution/Standalone';
 export { default as Dataset } from './entities/Dataset/Standalone';
 // export { default as themeBuilder } from './style/themeBuilder';
+export * from './dataContext';
 
 // export  { Example as Filter } from './widgets/Filter/Filter.stories';
 // export  { GlobalNav, Example } from './components/Navigation/GlobalNav/GlobalNav';

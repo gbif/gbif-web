@@ -6,11 +6,13 @@ const regeneratorRuntime = require("regenerator-runtime");
 const React = require("react");
 // const MyButton = require("my-button");
 // const { Switch, Button, Checkbox, Root, OccurrenceSearch, Filter, GlobalNavLaptop } = require("gbif-react-components");
-const { Dataset } = require("gbif-react-components");
+const { Dataset, createServerContext } = require("gbif-react-components");
 
 const renderToString = require("react-dom/server").renderToString;
-
 const hbs = require('handlebars');
+hbs.registerHelper('json', function(context) {
+  return JSON.stringify(context);
+});
 
 const app = express();
 const port = 3000;
@@ -24,7 +26,7 @@ app.set('views', './views');
 app.use(express.static('public'))
 
 
-app.get('/dataset/:key', (req, res) => {
+app.get('/dataset/:key', async (req, res) => {
   // const theHtml = `
   // <html>
   // <head><title>My First SSR</title></head>
@@ -37,7 +39,7 @@ app.get('/dataset/:key', (req, res) => {
   // `;
 
   // const hbsTemplate = hbs.compile(theHtml);
-  
+
   // const reactComp = renderToString(React.createElement(Button,{},'My Button'));
   // const reactComp = renderToString(React.createElement(Root,{}, React.createElement(Checkbox,{})));
   // const reactComp = renderToString(React.createElement(Switch,{style:{padding: 20}}));
@@ -58,7 +60,7 @@ app.get('/dataset/:key', (req, res) => {
   // }));
   // const reactComp = renderToString(React.createElement(Button,{}, 'GBIF test button'));
   const datasetKey = req.params.key;
-  const reactComp = renderToString(React.createElement(Dataset,{
+  let props = {
     id: datasetKey,
     siteConfig: {
       routes: {
@@ -66,8 +68,8 @@ app.get('/dataset/:key', (req, res) => {
         datasetKey: {
           route: '/dataset/:key',
           isHref: true,
-          url: ({key}) => {
-            return `/dataset/${key}`; 
+          url: ({ key }) => {
+            return `/dataset/${key}`;
           },
         }
       },
@@ -75,14 +77,29 @@ app.get('/dataset/:key', (req, res) => {
         occurrenceSearchTabs: ['TABLE', 'GALLERY', 'MAP', 'DATASETS'],
       }
     }
-  }));
+  };
+  const app = React.createElement(Dataset, props);
+  const { ServerDataContext, resolveData } = createServerContext();
+  const reactComp = renderToString(React.createElement(ServerDataContext, {}, app));
+  
+  // Wait for all effects to finish
+  const data = await resolveData(500);
+  console.log(JSON.stringify(data, null, 2));
+
+  const reactComp2 = renderToString(React.createElement(ServerDataContext, {initialState: data}, app));
 
   // const reactComp = renderToString(React.createElement(Eyebrow,{
   //   prefix: 'Part a',
   //   suffix: 'Part b'
   // }));
 
-  res.render('home', {context: {appHtml: reactComp}});
+  res.render('home', { 
+    context: { 
+      appHtml: reactComp2, 
+      props: JSON.stringify(props, null, 2),
+      initialData: data
+    }
+  });
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

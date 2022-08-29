@@ -67,7 +67,6 @@ The signature is `useQuery(query, [options])`
 
 options
 * variables: What variables to use in the query
-* ignoreVariableUpdates: do not fetch data anew just because variables are updated
 * lazyLoad: do not load data on mount, but wait until explicitly called using `load`
 * client: if no context provided or you want to override it, then you can provide a ApiClient
 

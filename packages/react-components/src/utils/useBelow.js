@@ -3,6 +3,9 @@ import React, { useContext, useState, useEffect } from 'react';
 export default function useBelow(breakpoint = 800) {
   // Initialize state with undefined width/height so server and client renders match
   // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
+  // The downside is that our mobile first paint might have rendered components that should be hidden. 
+  // So CSS needs to handle this to some extent.
+  
   const [isBelow, setBoolean] = useState(false);
 
   useEffect(() => {

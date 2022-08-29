@@ -25,12 +25,12 @@ function StandaloneWrapper({
   siteConfig = {},
   ...props
 }) {
-  const { 
+  const {
     theme = lightTheme,
     locale = 'en',
     messages,
     routes
-   } = siteConfig;
+  } = siteConfig;
 
   const routeConfig = _merge({}, defaultContext, (routes || {}));
   const basename = _get(routeConfig, 'basename');
