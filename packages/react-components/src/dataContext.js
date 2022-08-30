@@ -41,9 +41,11 @@ export function createServerContext() {
 
       await Promise.all(
         collatorState.requests.map((effect) => {
-          return Promise.race([effect.promise, timeOutPr]).catch(() => {
-            return effect.cancel();
-          });
+          return Promise
+            .race([effect.promise, timeOutPr])
+            .catch(() => {
+              return effect.cancel();
+            });
         })
       );
     } else {

@@ -1,5 +1,6 @@
-import React from "react";
-import { StaticRouter as Router, Route } from "react-router-dom";
+import React from 'react';
+import { Route } from 'react-router-dom';
+import Router from 'react-router-dom/BrowserRouter';
 import { QueryParamProvider } from 'use-query-params';
 import { LocaleProvider } from './dataManagement/LocaleProvider';
 import _get from 'lodash/get';
@@ -33,9 +34,10 @@ function StandaloneWrapper({
   } = siteConfig;
 
   const routeConfig = _merge({}, defaultContext, (routes || {}));
-  const basename = _get(routeConfig, 'basename');
+  const basename = _get(routeConfig, 'basename', '');
+  const location = typeof window === 'undefined' ? _get(routeConfig, 'ssr_location') : null;
   const root = <Root id="application" appRoot>
-    <Router {...props} location="/dataset/ca0d8107-a2bd-47a1-91a1-250179b534ec">
+    <Router {...props} {...{basename, location}}>
       <QueryParamProvider ReactRouterRoute={Route} {...props} />
     </Router>
   </Root>;

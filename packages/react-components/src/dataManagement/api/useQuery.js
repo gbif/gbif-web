@@ -2,7 +2,8 @@ import { useState, useEffect, useRef, useContext } from 'react';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 import ApiContext from './ApiContext';
 import { CollateContext, DataContext } from '../../dataContext';
-
+import { useFirstMountState} from 'react-use';
+import hash from 'object-hash';
 const RENEW_REQUEST = 'RENEW_REQUEST';
 
 const useUnmounted = () => {
@@ -19,8 +20,10 @@ function useQuery(query, options = {}) {
   let callId = collateContext.current;
   collateContext.current++;
 
-  const [data, setData] = useState(dataContext.data?.[callId]?.data?.data || null);
+  const [latestVariables, setVariables] = useState(options?.variables);
+  const [data, setData] = useState(dataContext.data?.[callId]?.data || null);
   const [loading, setLoading] = useState(false);
+  
   const [error, setError] = useState(false);
   // functions are called when passed to useState so it has to be wrapped. 
   // We provide an empty call, just so we do not have to check for existence subsequently
@@ -29,22 +32,24 @@ function useQuery(query, options = {}) {
   const apiClient = useContext(ApiContext);
   const client = options?.client || apiClient;
 
-  function init({ keepDataWhileLoading }) {
-    if (!keepDataWhileLoading) setData();
+  function init(options) {
+    if (!options?.keepDataWhileLoading) setData();
     setLoading(true);
     setError(false)
     cancelRequest(RENEW_REQUEST);
   }
 
   function load(options) {
-    console.log('load in useQuery called');
-    // //init(options);
     const variables = options?.variables;
+    if (data && !error && hash(variables) === hash(latestVariables)) return;
     const { promise: dataPromise, cancel } = client.query({ query, variables });
-    console.log(collateContext);
-    // functions cannot be direct values in states as function are taken as a way to create derived states
-    // https://medium.com/swlh/how-to-store-a-function-with-the-usestate-hook-in-react-8a88dd4eede1
-    // setCancel(() => cancel);
+    if (typeof window !== 'undefined') {
+      init(options);  
+      // functions cannot be direct values in states as function are taken as a way to create derived states
+      // https://medium.com/swlh/how-to-store-a-function-with-the-usestate-hook-in-react-8a88dd4eede1
+      setCancel(() => cancel);
+      setVariables(variables);
+    }
     dataPromise.
       then(response => {
         if (unmounted.current) return;
@@ -63,19 +68,22 @@ function useQuery(query, options = {}) {
         setLoading(false);
       });
 
+    // if we are on the server and haven't resolved the intial data, then collect the requests
     if (!collateContext.resolved) {
-      let cancel = Function.prototype;
+      let cancelCollator = Function.prototype;
 
       const effectPr = new Promise((resolve) => {
-        cancel = () => {
+        cancelCollator = () => {
           if (!dataContext[callId]) {
-            dataContext[callId] = { error: { message: "timeout" }, id: callId };
+            dataContext[callId] = { error: { message: 'timeout' }, id: callId };
           }
+          cancel();
           resolve(callId);
         };
         return dataPromise
-          .then((res) => {
-            dataContext[callId] = { data: res };
+          .then((response) => {
+            const { data, error } = response;
+            dataContext[callId] = { data, error };
             resolve(callId);
           })
           .catch((error) => {
@@ -87,7 +95,7 @@ function useQuery(query, options = {}) {
       collateContext.requests.push({
         id: callId,
         promise: effectPr,
-        cancel: cancel,
+        cancel: cancelCollator,
       });
     }
   }
@@ -107,6 +115,7 @@ function useQuery(query, options = {}) {
     options
   ]);
 
+  // On the server we want to load immediately unless specified as lazy loading
   if (typeof window === 'undefined' && !options?.lazyLoad) {
     load(options);
   }

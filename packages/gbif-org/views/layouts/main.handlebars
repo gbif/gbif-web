@@ -18,66 +18,39 @@
             font-family: Open Sans, Helvetica, Sans;
             background: #ddd;
         }
-
         html,
         body {
             margin: 0;
             padding: 0;
         }
-
-        .myheader {
-            background: white;
-            border-bottom: 1px solid #bbb;
-            color: #333;
-            font-size: 24px;
-            position: fixed;
-            width: 100%;
-            top: 0;
-        }
-
-        #root {
-            /* margin-top: 30px; */
-        }
     </style>
 </head>
 
 <body>
-    <!-- <header class="myheader">Header</header> -->
     <div id="root">{{{body}}}</div>
     <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
 
-    <script type="text/javascript" src="/gbif-react-components.js"></script>
+    {{!-- <script type="text/javascript" src="/gbif-react-components.js"></script> --}}
+    <script type="text/javascript" src="http://localhost:3001/gbif-react-components.js"></script>
 
     <script>
-        let properties = {{{ context.props }}};
-        let datasetComponent = React.createElement(
-            gbifReactComponents.Dataset,
-            properties
+        let appComponent = React.createElement(
+            gbifReactComponents["{{ context.componentName }}"],
+            {{{ context.props }}}
         );
         
 
-        ReactDOM.hydrate(
+        ReactDOM.render(
             React.createElement(
                 gbifReactComponents.BrowserDataContext,
                 {
                     initialData: {{{ json context.initialData }}}
                 },
-                datasetComponent
+                appComponent
             ),
             document.getElementById('root')
         );
-
-        /*ReactDOM.hydrate(
-            React.createElement(
-                gbifReactComponents.Eyebrow,
-                {
-                    prefix: 'Part a',
-                    suffix: 'Part b'
-                }
-            ),
-            document.getElementById('root')
-        );*/
     </script>
 </body>
 

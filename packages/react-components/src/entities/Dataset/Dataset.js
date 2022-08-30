@@ -1,6 +1,5 @@
 
 import React, { useContext, useCallback, useState, useEffect } from 'react';
-import ThemeContext from '../../style/themes/ThemeContext';
 import SiteContext from '../../dataManagement/SiteContext';
 import { useQuery } from '../../dataManagement/api';
 import { DatasetPresentation } from './DatasetPresentation';
@@ -24,7 +23,6 @@ export function Dataset({
   ...props
 }) {
   const { data: insights, error: insightsError, loading: insightsLoading, load: loadInsights } = useQuery(DATASET_SECONDARY, { lazyLoad: true });
-  const theme = useContext(ThemeContext);
   const siteContext = useContext(SiteContext);
   const sitePredicate = siteContext?.occurrence?.rootPredicate;
 
@@ -47,64 +45,48 @@ export function Dataset({
     }
   };
 
-  const [variables, setVariables] = useState(getVariables({ sitePredicate, id }));
-
-  const { data, error, loading, load } = useQuery(DATASET, { lazyLoad: false, variables });
-
-  const loadData = useCallback(
-    () => {
-      if (typeof id !== 'undefined') {
-        // const datasetPredicate = {
-        //   type: "equals",
-        //   key: "datasetKey",
-        //   value: id
-        // };
-        // // we also want to know how many of those occurrences are included on the present site
-        // const predicates = [datasetPredicate];
-        // if (sitePredicate) predicates.push(sitePredicate);
-        const variables = getVariables({ sitePredicate, id });
-        const { predicate: datasetPredicate } = variables;
-        load({
-          variables
-        });
-        loadInsights({
-          variables: {
-            key: id,
-            datasetPredicate,
-            imagePredicate: {
-              type: 'and',
-              predicates: [datasetPredicate, { type: 'equals', key: 'mediaType', value: 'StillImage' }]
-            },
-            coordinatePredicate: {
-              type: 'and',
-              predicates: [
-                datasetPredicate,
-                { type: 'equals', key: 'hasCoordinate', value: 'true' },
-                { type: 'equals', key: 'hasGeospatialIssue', value: 'false' }
-              ]
-            },
-            taxonPredicate: {
-              type: 'and',
-              predicates: [datasetPredicate, { type: 'equals', key: 'issue', value: 'TAXON_MATCH_NONE' }]
-            },
-            yearPredicate: {
-              type: 'and',
-              predicates: [datasetPredicate, { type: 'isNotNull', key: 'year' }]
-            },
-            eventPredicate: {
-              type: 'and',
-              predicates: [datasetPredicate, { type: 'isNotNull', key: 'eventId' }]
-            }
-          }
-        });
-      }
-    },
-    [id],
-  );
+  const [variables] = useState(getVariables({ sitePredicate, id }));
+  const { data, error, loading, load } = useQuery(DATASET, { variables });
 
   useEffect(() => {
-    loadData();
-  }, [id, loadData]);
+    if (typeof id !== 'undefined') {
+      const variables = getVariables({ sitePredicate, id });
+      const { predicate: datasetPredicate } = variables;
+      load({
+        variables
+      });
+      loadInsights({
+        variables: {
+          key: id,
+          datasetPredicate,
+          imagePredicate: {
+            type: 'and',
+            predicates: [datasetPredicate, { type: 'equals', key: 'mediaType', value: 'StillImage' }]
+          },
+          coordinatePredicate: {
+            type: 'and',
+            predicates: [
+              datasetPredicate,
+              { type: 'equals', key: 'hasCoordinate', value: 'true' },
+              { type: 'equals', key: 'hasGeospatialIssue', value: 'false' }
+            ]
+          },
+          taxonPredicate: {
+            type: 'and',
+            predicates: [datasetPredicate, { type: 'equals', key: 'issue', value: 'TAXON_MATCH_NONE' }]
+          },
+          yearPredicate: {
+            type: 'and',
+            predicates: [datasetPredicate, { type: 'isNotNull', key: 'year' }]
+          },
+          eventPredicate: {
+            type: 'and',
+            predicates: [datasetPredicate, { type: 'isNotNull', key: 'eventId' }]
+          }
+        }
+      });
+    }
+  }, [id]);
 
   return <EnsureRouter>
     <DatasetPresentation {...{ data, error, loading: loading || !data, id }} insights={{ data: insights, loading: insightsLoading, error: insightsError }} />

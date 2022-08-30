@@ -6,12 +6,12 @@ import { InstitutionPresentation } from './InstitutionPresentation';
 
 import { MemoryRouter, useRouteMatch } from 'react-router-dom';
 
-function EnsureRouter({children}) {
+function EnsureRouter({ children }) {
   let hasRouter;
   try {
     const forTestOnly = useRouteMatch();
     hasRouter = true;
-  } catch(err) {
+  } catch (err) {
     console.log('No router context found, so creating a MemoryRouter for the component');
     hasRouter = false;
   }
@@ -22,7 +22,16 @@ export function Institution({
   id,
   ...props
 }) {
-  const { data, error, loading, load } = useQuery(INSTITUTION, { lazyLoad: true });
+  const { data, error, loading, load } = useQuery(INSTITUTION, {
+    lazyLoad: false, variables: {
+      key: id,
+      predicate: {
+        type: "equals",
+        key: "institutionKey",
+        value: id
+      }
+    }
+  });
   const theme = useContext(ThemeContext);
 
   useEffect(() => {

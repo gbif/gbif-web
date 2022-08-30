@@ -9,7 +9,7 @@ export const defaultContext = {
   },
   collectionKey: {
     // url: ({key}) => `/collection/${key}`,
-    url: ({key}) => `${gbifOrg}/grscicoll/collection/${key}`,
+    url: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/grscicoll/collection/${key}`,
     isHref: true,
     route: '/collection/:key'
   },

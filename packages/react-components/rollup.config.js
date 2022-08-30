@@ -69,6 +69,10 @@ export default [
 								{
 									"match": "./MapPresentation",
 									"replacement": "./MapPresentation-MOCK"
+								},
+								{
+									"match": "react-router-dom/BrowserRouter",
+									"replacement": "react-router-dom/StaticRouter"
 								}
 							]
 						}

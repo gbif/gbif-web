@@ -6,11 +6,11 @@ const regeneratorRuntime = require("regenerator-runtime");
 const React = require("react");
 // const MyButton = require("my-button");
 // const { Switch, Button, Checkbox, Root, OccurrenceSearch, Filter, GlobalNavLaptop } = require("gbif-react-components");
-const { Dataset, createServerContext } = require("gbif-react-components");
+const { Dataset, Institution, Collection, createServerContext } = require("gbif-react-components");
 
 const renderToString = require("react-dom/server").renderToString;
 const hbs = require('handlebars');
-hbs.registerHelper('json', function(context) {
+hbs.registerHelper('json', function (context) {
   return JSON.stringify(context);
 });
 
@@ -26,45 +26,63 @@ app.set('views', './views');
 app.use(express.static('public'))
 
 
-app.get('/dataset/:key', async (req, res) => {
-  // const theHtml = `
-  // <html>
-  // <head><title>My First SSR</title></head>
-  // <body>
-  // <div id="reactele">{{{reactele}}}</div>
-  // <script src="/app.js" charset="utf-8"></script>
-  // <script src="/vendor.js" charset="utf-8"></script>
-  // </body>
-  // </html>
-  // `;
-
-  // const hbsTemplate = hbs.compile(theHtml);
-
-  // const reactComp = renderToString(React.createElement(Button,{},'My Button'));
-  // const reactComp = renderToString(React.createElement(Root,{}, React.createElement(Checkbox,{})));
-  // const reactComp = renderToString(React.createElement(Switch,{style:{padding: 20}}));
-
-  // const reactComp = renderToString(React.createElement(Root,{}, React.createElement(GlobalNavLaptop,{style:{padding: 20}})));
-  // const reactComp = renderToString(React.createElement(OccurrenceSearch,{
-  //   style:{height: 'calc(100vh - 20px)'},
-  //   siteConfig: {
-  //     routes: {
-  //       occurrenceSearch: {
-  //         route: '/occurrence/search'
-  //       }
-  //     },
-  //     occurrence: {
-  //       occurrenceSearchTabs: ['TABLE', 'GALLERY', 'MAP', 'DATASETS'],
-  //     }
-  //   }
-  // }));
-  // const reactComp = renderToString(React.createElement(Button,{}, 'GBIF test button'));
-  const datasetKey = req.params.key;
+app.get('/collection/:key', (req, res) => {
+  let currentKey = req.params.key;
   let props = {
-    id: datasetKey,
+    id: currentKey,
     siteConfig: {
       routes: {
-        // basename: `/dataset/${datasetKey}`,
+        ssr_location: `/collection/${currentKey}`,
+        collectionKey: {
+          route: '/collection/:key',
+          isHref: true,
+          url: ({ key }) => {
+            return `/collection/${key}`;
+          },
+        }
+      }
+    }
+  };
+
+  return render(req, res, {
+    componentName: 'Collection',
+    props,
+    component: Collection
+  });
+});
+
+app.get('/institution/:key', (req, res) => {
+  let currentKey = req.params.key;
+  let props = {
+    id: currentKey,
+    siteConfig: {
+      routes: {
+        ssr_location: `/institution/${currentKey}`,
+        collectionKey: {
+          route: '/institution/:key',
+          isHref: true,
+          url: ({ key }) => {
+            return `/institution/${key}`;
+          },
+        }
+      }
+    }
+  };
+
+  return render(req, res, {
+    componentName: 'Institution',
+    props,
+    component: Institution
+  });
+});
+
+app.get('/dataset/:key', (req, res) => {
+  let currentKey = req.params.key;
+  let props = {
+    id: currentKey,
+    siteConfig: {
+      routes: {
+        ssr_location: `/dataset/${currentKey}`,
         datasetKey: {
           route: '/dataset/:key',
           isHref: true,
@@ -78,28 +96,100 @@ app.get('/dataset/:key', async (req, res) => {
       }
     }
   };
-  const app = React.createElement(Dataset, props);
-  const { ServerDataContext, resolveData } = createServerContext();
-  const reactComp = renderToString(React.createElement(ServerDataContext, {}, app));
-  
-  // Wait for all effects to finish
-  const data = await resolveData(500);
-  console.log(JSON.stringify(data, null, 2));
 
-  const reactComp2 = renderToString(React.createElement(ServerDataContext, {initialState: data}, app));
-
-  // const reactComp = renderToString(React.createElement(Eyebrow,{
-  //   prefix: 'Part a',
-  //   suffix: 'Part b'
-  // }));
-
-  res.render('home', { 
-    context: { 
-      appHtml: reactComp2, 
-      props: JSON.stringify(props, null, 2),
-      initialData: data
-    }
+  return render(req, res, {
+    componentName: 'Dataset',
+    props,
+    component: Dataset
   });
 });
+
+app.get('/dataset/:key/citations', (req, res) => {
+  let currentKey = req.params.key;
+  let props = {
+    id: currentKey,
+    siteConfig: {
+      routes: {
+        ssr_location: `/dataset/${currentKey}/citations`,
+        datasetKey: {
+          route: '/dataset/:key',
+          isHref: true,
+          url: ({ key }) => {
+            return `/dataset/${key}`;
+          },
+        }
+      },
+      occurrence: {
+        occurrenceSearchTabs: ['TABLE', 'GALLERY', 'MAP', 'DATASETS'],
+      }
+    }
+  };
+
+  return render(req, res, {
+    componentName: 'Dataset',
+    props,
+    component: Dataset
+  });
+});
+
+app.get('/dataset/:key/download', (req, res) => {
+  let currentKey = req.params.key;
+  let props = {
+    id: currentKey,
+    siteConfig: {
+      routes: {
+        ssr_location: `/dataset/${currentKey}/download`,
+        datasetKey: {
+          route: '/dataset/:key',
+          isHref: true,
+          url: ({ key }) => {
+            return `/dataset/${key}`;
+          },
+        }
+      },
+      occurrence: {
+        occurrenceSearchTabs: ['TABLE', 'GALLERY', 'MAP', 'DATASETS'],
+      }
+    }
+  };
+
+  return render(req, res, {
+    componentName: 'Dataset',
+    props,
+    component: Dataset
+  });
+});
+
+async function render(req, res, { componentName, props, component, timeout = 500 }) {
+  try {
+    const app = React.createElement(component, props);
+    const { ServerDataContext, resolveData } = createServerContext();
+    // first pass just to trigger the API calls
+    renderToString(React.createElement(ServerDataContext, {}, app));
+
+    // Wait for all effects to finish
+    const data = await resolveData(timeout);
+
+    // Noew render it again, but with the API calls prefetched and used as initial data
+    const reactComp = renderToString(React.createElement(ServerDataContext, { initialState: data }, app));
+
+    res.render('home', {
+      context: {
+        // insert the rendered html into our template
+        appHtml: reactComp,
+        // render the browser component with the same props as on the server
+        props: JSON.stringify(props, null, 2),
+        // Name of the component to render
+        componentName,
+        // And then render the browser components with same initial data as we used to render server side
+        initialData: data
+      }
+    });
+  } catch(error) {
+    console.log('234');
+    res.send(500);
+    console.error(error);
+  }
+}
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

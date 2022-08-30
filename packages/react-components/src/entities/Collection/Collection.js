@@ -9,7 +9,16 @@ export function Collection({
   id,
   ...props
 }) {
-  const { data, error, loading, load } = useQuery(COLLECTION, { lazyLoad: true });
+  const { data, error, loading, load } = useQuery(COLLECTION, {
+    lazyLoad: false, variables: {
+      key: id,
+      predicate: {
+        type: "equals",
+        key: "collectionKey",
+        value: id
+      }
+    }
+  });
   const theme = useContext(ThemeContext);
 
   useEffect(() => {

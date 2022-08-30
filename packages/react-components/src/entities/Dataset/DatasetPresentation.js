@@ -36,8 +36,6 @@ export function DatasetPresentation({
   const { dataset, literatureSearch, occurrenceSearch, siteOccurrences, taxonSearch } = data;
 
   if (error || !dataset) {
-    console.log('failure');
-    console.log(data);
     // TODO a generic component for failures is needed
     return <div>Failed to retrieve item</div>
   }
