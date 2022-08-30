@@ -170,7 +170,10 @@ async function render(req, res, { componentName, props, component, timeout = 500
     // Wait for all effects to finish
     const data = await resolveData(timeout);
 
-    // Noew render it again, but with the API calls prefetched and used as initial data
+    // TODO check if there is any errors and if so make sure it isn't cached or at least has a short cache.
+    // Possible log it
+
+    // Now render it again, but with the API calls prefetched and used as initial data
     const reactComp = renderToString(React.createElement(ServerDataContext, { initialState: data }, app));
 
     res.render('home', {
@@ -186,7 +189,6 @@ async function render(req, res, { componentName, props, component, timeout = 500
       }
     });
   } catch(error) {
-    console.log('234');
     res.send(500);
     console.error(error);
   }
