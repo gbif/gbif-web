@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack && nodemon dist/server.js",
     "watch": "webpack --watch",
-    "build": "webpack --mode=production --devtool=source-map",
+    "build": "webpack --mode=production",
     "test": "jest"
   },
   "devDependencies": {

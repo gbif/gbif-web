@@ -37,7 +37,7 @@ module.exports = [
   },
   {
     mode: 'development',
-    devtool: 'eval-cheap-source-map', // options https://webpack.js.org/configuration/devtool/
+    // devtool: 'eval-cheap-source-map', // options https://webpack.js.org/configuration/devtool/
     optimization: {
       usedExports: true
     },

@@ -70,7 +70,7 @@ export function About({
           <h2 ref={node => { tocRefs["description"] = node; }}>Description</h2>
           <HyperText text={dataset.description} />
         </Prose>}
-        <Images images={insights?.data?.images} />
+        {/* <Images images={insights?.data?.images} /> */}
         {dataset.purpose && <Prose css={css.paper({ theme })}>
           <h2 ref={node => { tocRefs["purpose"] = node; }}>Purpose</h2>
           <HyperText text={dataset.purpose} />
