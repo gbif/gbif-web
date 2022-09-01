@@ -4,7 +4,7 @@
   "description": "React components for use in GBIFs coming websites",
   "module": "./build/esm/index.js",
   "main": "./build/cjs/index.cjs",
-  "browser": "./dist/lib/gbif-react-components.js",
+  "browser": "./build/browser/gbif-react-components.js",
   "exports": {
     "import": "./build/esm/index.js",
     "default": "./build/cjs/index.cjs"

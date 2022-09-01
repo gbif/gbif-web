@@ -94,24 +94,94 @@ export default [
 			}),
 		],
 		// external: ['react', '@babel/runtime'],
-		// external: ['react'],
+		external: ['react', 'react-dom'],
 		output: [
-			{ file: pkg.main, format: 'cjs' },
+			{ file: pkg.main, format: 'cjs' }
+		]
+	},
+	{
+		input: 'src/index.js',
+		plugins: [
+			external({
+				includeDependencies: true,
+			}),
+			babel({
+				babelHelpers: 'runtime',
+				exclude: 'node_modules/**',
+				plugins: [
+					'transform-react-remove-prop-types',
+					'@babel/plugin-transform-runtime',
+					[
+						"import-path-replace",
+						{
+							"rules": [
+								{
+									"match": "latlon-geohash",
+									"replacement": "./GeoHash-MOCK"
+								},
+								{
+									"match": "./MapPresentation",
+									"replacement": "./MapPresentation-MOCK"
+								},
+								{
+									"match": "react-router-dom/BrowserRouter",
+									"replacement": "react-router-dom/StaticRouter"
+								}
+							]
+						}
+					]
+				],
+				presets: [[
+					"@emotion/babel-preset-css-prop",
+					{
+						"autoLabel": "always"
+					}
+				]]
+			}),
+			resolve({}),
+			commonjs(),
+			json(),
+			replace({
+				'process.env.NODE_ENV': JSON.stringify(env),
+				preventAssignment: true
+			}),
+		],
+		external: ['react', 'react-dom'],
+		output: [
 			{ file: pkg.module, format: 'es' }
 		]
-		// output: {
-		//   file: pkg.main,
-		//   format: 'cjs'
-		// }
-
-		// output: [
-		//   {
-		//     file: 'dist/index.cjs.js',
-		//     format: 'cjs',
-		//     name: 'MyLib',
-		//     exports: 'named',
-		//     globals: { react: 'React' }
-		//   }
-		// ]
+	},
+	{
+		input: 'src/index.js',
+		plugins: [
+			external({
+				includeDependencies: true,
+			}),
+			babel({
+				babelHelpers: 'runtime',
+				exclude: 'node_modules/**',
+				plugins: [
+					'transform-react-remove-prop-types',
+					'@babel/plugin-transform-runtime',
+				],
+				presets: [[
+					"@emotion/babel-preset-css-prop",
+					{
+						"autoLabel": "always"
+					}
+				]]
+			}),
+			resolve({}),
+			commonjs(),
+			json(),
+			replace({
+				'process.env.NODE_ENV': JSON.stringify(env),
+				preventAssignment: true
+			}),
+		],
+		external: ['react', 'react-dom'],
+		output: [
+			{ file: pkg.browser, format: 'es' }
+		]
 	}
 ]
