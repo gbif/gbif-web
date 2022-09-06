@@ -44,7 +44,9 @@ export function createServerContext() {
           return Promise
             .race([effect.promise, timeOutPr])
             .catch(() => {
-              return effect.cancel();
+              if (typeof effect?.cancel === 'function') {
+                return effect.cancel();
+              }
             });
         })
       );

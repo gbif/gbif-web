@@ -47,7 +47,6 @@ const env = process.env.NODE_ENV;
 export default [
 	{
 		input: 'src/index.js',
-		// input: 'src/components/Button/Button.js',
 		plugins: [
 			external({
 				includeDependencies: true,
@@ -96,59 +95,8 @@ export default [
 		// external: ['react', '@babel/runtime'],
 		external: ['react', 'react-dom'],
 		output: [
-			{ file: pkg.main, format: 'cjs' }
-		]
-	},
-	{
-		input: 'src/index.js',
-		plugins: [
-			external({
-				includeDependencies: true,
-			}),
-			babel({
-				babelHelpers: 'runtime',
-				exclude: 'node_modules/**',
-				plugins: [
-					'transform-react-remove-prop-types',
-					'@babel/plugin-transform-runtime',
-					[
-						"import-path-replace",
-						{
-							"rules": [
-								{
-									"match": "latlon-geohash",
-									"replacement": "./GeoHash-MOCK"
-								},
-								{
-									"match": "./MapPresentation",
-									"replacement": "./MapPresentation-MOCK"
-								},
-								{
-									"match": "react-router-dom/BrowserRouter",
-									"replacement": "react-router-dom/StaticRouter"
-								}
-							]
-						}
-					]
-				],
-				presets: [[
-					"@emotion/babel-preset-css-prop",
-					{
-						"autoLabel": "always"
-					}
-				]]
-			}),
-			resolve({}),
-			commonjs(),
-			json(),
-			replace({
-				'process.env.NODE_ENV': JSON.stringify(env),
-				preventAssignment: true
-			}),
-		],
-		external: ['react', 'react-dom'],
-		output: [
-			{ file: pkg.module, format: 'es' }
+			{ file: pkg.exports.default, format: 'cjs' },
+			{ file: pkg.main, format: 'es' }
 		]
 	},
 	{

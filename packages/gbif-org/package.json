@@ -12,15 +12,18 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "ariakit": "^2.0.0-next.39",
     "compression": "^1.7.4",
     "express": "^4.17.1",
     "express-handlebars": "^6.0.6",
-    "gbif-react-components": "*",
+    "gbif-react-components": "../react-components",
     "handlebars": "^4.7.2",
     "regenerator-runtime": "^0.13.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
+  },
+  "overwrites": {
+    "react": "16.14.0",
+    "react-dom": "16.14.0"
   }
 }
