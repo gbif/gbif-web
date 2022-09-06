@@ -51,7 +51,7 @@ function useQuery(query, options = {}) {
     }
     dataPromise.
       then(response => {
-        if (unmounted.current) return;
+        if (unmounted?.current) return;
         const { data, error } = response;
         if (error?.isCanceled?.message === RENEW_REQUEST) {
           return;
@@ -61,7 +61,7 @@ function useQuery(query, options = {}) {
         setLoading(false);
       })
       .catch(err => {
-        if (unmounted.current) return;
+        if (unmounted?.current) return;
         setError({ error: true, type: 'unknown' });
         setData();
         setLoading(false);
@@ -76,7 +76,7 @@ function useQuery(query, options = {}) {
           if (!dataContext[callId]) {
             dataContext[callId] = { error: { message: 'timeout' }, id: callId };
           }
-          cancel();
+          if (typeof cancel === 'function' ) cancel();
           resolve(callId);
         };
         return dataPromise
@@ -89,7 +89,7 @@ function useQuery(query, options = {}) {
             dataContext[callId] = { error: { error: true, type: 'unknown' } };
             resolve(callId);
           });
-      });
+      })
 
       collateContext.requests.push({
         id: callId,

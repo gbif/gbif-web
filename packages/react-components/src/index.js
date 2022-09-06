@@ -24,11 +24,16 @@ export * from './components';
 // export { default as LiteratureSearch } from './search/LiteratureSearch/Standalone';
 // export { default as DatasetSearch } from './search/DatasetSearch/Standalone';
 // export { default as PublisherSearch } from './search/PublisherSearch/Standalone';
-export { default as Collection } from './entities/Collection/Standalone';
-export { default as Institution } from './entities/Institution/Standalone';
-export { default as Dataset } from './entities/Dataset/Standalone';
+// export { default as Collection } from './entities/Collection/Standalone';
+// export { default as Institution } from './entities/Institution/Standalone';
+// export { default as Dataset } from './entities/Dataset/Standalone';
 // export { default as themeBuilder } from './style/themeBuilder';
 export * from './dataContext';
+
+export { Collection } from './entities/Collection/Collection';
+export { default as CollectionSearch } from './search/CollectionSearch/CollectionSearch';
+export { default as StandaloneWrapper } from './StandaloneWrapper';
+export { default as RouteContext } from './dataManagement/RouteContext';
 
 // export  { Example as Filter } from './widgets/Filter/Filter.stories';
 // export  { GlobalNav, Example } from './components/Navigation/GlobalNav/GlobalNav';

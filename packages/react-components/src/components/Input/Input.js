@@ -9,7 +9,7 @@ export const Input = React.forwardRef(({
 }, ref) => {
   const theme = useContext(ThemeContext);
   // return <button ref={ref} {...props} css={styles.input({theme})} />
-  return <button ref={ref} {...props} />
+  return <input ref={ref} {...props} css={styles.input({theme})} />
 });
 
 Input.displayName = 'Input'

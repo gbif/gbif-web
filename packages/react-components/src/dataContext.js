@@ -2,6 +2,8 @@
  * This store is only intended as an init store for server rendering. 
  * The default is empty and hence components can use it if it is not empty 
  * to bootstrap content provided by the server.
+ * 
+ * implementaton inspired by https://github.com/kmoskwiak/useSSE
  */
 import React, { useState } from 'react';
 
@@ -36,9 +38,8 @@ export function createServerContext() {
   }
 
   const resolveData = async (timeout) => {
-    if (timeout) {
+    if (timeout && collatorState.requests.length > 0) {
       const timeOutPr = wait(timeout);
-
       await Promise.all(
         collatorState.requests.map((effect) => {
           return Promise
