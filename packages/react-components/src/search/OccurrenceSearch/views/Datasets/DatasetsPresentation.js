@@ -6,7 +6,7 @@ import { FormattedNumber } from 'react-intl';
 import get from 'lodash/get';
 import { FilterContext } from '../../../../widgets/Filter/state';
 import OccurrenceContext from '../../../SearchContext';
-import { Progress, Row, Col, DetailsDrawer } from '../../../../components';
+import { Progress, Row, Col, DetailsDrawer, Button } from '../../../../components';
 import { DatasetSidebar } from '../../../../entities';
 import { useDialogState } from "reakit/Dialog";
 import { ViewHeader } from '../ViewHeader';
@@ -49,6 +49,7 @@ export const DatasetsPresentation = ({ more, size, data, total, loading }) => {
             <DatasetResult setActive={setActive} index={index} dialog={dialog} key={item.key} item={item} largest={items[0].count} />
           </li>)}
         </ul>
+        {cardinality > items.length && <Button onClick={more} disabled={loading}>More</Button>}
       </div>
     </div>
   </>

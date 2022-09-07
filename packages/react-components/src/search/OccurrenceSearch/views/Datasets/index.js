@@ -26,8 +26,10 @@ query table($predicate: Predicate, $size: Int = 100){
 }
 `;
 
+const defaultSize = 2;
+
 function Datasets() {
-  const [size, setSize] = useState(200);
+  const [size, setSize] = useState(defaultSize);
   const currentFilterContext = useContext(FilterContext);
   const { rootPredicate, predicateConfig } = useContext(OccurrenceContext);
   const { data, error, loading, load } = useQuery(DATASETS, { lazyLoad: true });
@@ -41,10 +43,10 @@ function Datasets() {
       ].filter(x => x)
     }
     load({ keepDataWhileLoading: true, variables: { predicate, size } });
-  }, [currentFilterContext.filterHash, rootPredicate]);
+  }, [currentFilterContext.filterHash, rootPredicate, size]);
 
   useEffect(() => {
-    setSize(100);
+    setSize(defaultSize);
   }, [currentFilterContext.filterHash]);
 
   const more = useCallback(() => {
