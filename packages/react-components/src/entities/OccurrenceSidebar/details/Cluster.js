@@ -36,7 +36,7 @@ export function Cluster({
 
   return <div style={{ padding: '12px 16px' }}>
     <Header data={data} />
-    <main style={{ marginTop: 24 }}>
+    <div style={{ marginTop: 24 }}>
       {related.map(x => {
         if (x.occurrence) {
           return <RelatedOccurrence key={x.occurrence.key} onClick={e => setActiveKey(x.occurrence.key)} related={x.occurrence} reasons={x.reasons} original={data.occurrence} />;
@@ -54,7 +54,7 @@ export function Cluster({
           </div>
         }
       })}
-    </main>
+    </div>
   </div>
 };
 
