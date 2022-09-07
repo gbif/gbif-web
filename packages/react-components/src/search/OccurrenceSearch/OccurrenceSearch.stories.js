@@ -130,7 +130,7 @@ export const Example = () => <Router initialEntries={[`/occurrence/search`]}>
 {/* export const Example = () => <Router initialEntries={[`/?filter=eyJtdXN0Ijp7Im9jY3VycmVuY2VJZCI6WyJlIl19LCJtdXN0X25vdCI6eyJvY2N1cnJlbmNlSXNzdWUiOlsiWkVST19DT09SRElOQVRFIl0sIm9jY3VycmVuY2VJZCI6WyIxIiwiMiJdfX0%3D`]}> */}
   <QueryParamProvider ReactRouterRoute={Route} stringifyOptions={{strict: false}}>
     <AddressBar />
-    <OccurrenceSearch pageLayout config={config} style={{ margin: 'auto', height: 'calc(100vh - 50px)' }}></OccurrenceSearch>
+    <OccurrenceSearch pageLayout config={config} style={{ margin: 'auto', minHeight: 'calc(100vh - 50px)' }}></OccurrenceSearch>
   </QueryParamProvider>
 </Router>;
 
@@ -139,4 +139,4 @@ Example.story = {
 };
 
 
-export const StandaloneExample = () => <Standalone siteConfig={{apiKeys: env._FOR_DEVELOPMENT_ONLY.apiKeys}} routerContext={{basename: 'la'}} locale="en" style={{height: 'calc(100vh - 20px)'}}></Standalone>;
+export const StandaloneExample = () => <Standalone siteConfig={{apiKeys: env._FOR_STORYBOOK_BUT_PUBLIC.apiKeys}} routerContext={{basename: 'la'}} locale="en" style={{height: 'calc(100vh - 20px)'}}></Standalone>;
