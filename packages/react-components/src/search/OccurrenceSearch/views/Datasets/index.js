@@ -26,7 +26,7 @@ query table($predicate: Predicate, $size: Int = 100){
 }
 `;
 
-const defaultSize = 2;
+const defaultSize = 100;
 
 function Datasets() {
   const [size, setSize] = useState(defaultSize);
