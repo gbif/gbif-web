@@ -134,7 +134,7 @@ function Map({ labelMap, query, q, pointData, pointError, pointLoading, loading,
     </DetailsDrawer>
     <div css={css.mapArea({ theme })}>
       <ViewHeader message="counts.nResultsWithCoordinates" loading={loading} total={total} />
-      <div style={{ position: 'relative', height: '100%', flex: '1 1 auto', display: 'flex', flexDirection: 'column' }}>
+      <div style={{ position: 'relative', height: '200px', flex: '1 1 auto', display: 'flex', flexDirection: 'column' }}>
         {listVisible && <ListBox onCloseRequest={e => showList(false)}
           labelMap={labelMap}
           onClick={({ index }) => { dialog.show(); setActive(index) }}
