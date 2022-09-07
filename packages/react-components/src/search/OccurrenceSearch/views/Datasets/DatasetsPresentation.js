@@ -44,7 +44,7 @@ export const DatasetsPresentation = ({ more, size, data, total, loading }) => {
         <Col><MdHelp /></Col>
       </Row> */}
       <div>
-        <ul style={{ padding: 0, margin: 0 }}>
+        <ul style={{ padding: 0, margin: 0, listStyle: 'none' }}>
           {items.length > 0 && items.map((item, index) => <li>
             <DatasetResult setActive={setActive} index={index} dialog={dialog} key={item.key} item={item} largest={items[0].count} />
           </li>)}
