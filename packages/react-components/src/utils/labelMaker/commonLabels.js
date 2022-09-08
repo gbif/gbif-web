@@ -49,9 +49,10 @@ export const commonLabels = {
     query: `query label($id: ID!){
       taxon(key: $id) {
         canonicalName
+        scientificName
       }
     }`,
-    transform: result => ({ title: result.data.taxon.canonicalName }),
+    transform: result => ({ title: result.data.taxon.canonicalName || result.data.taxon.scientificName }),
   },
   publisherKey: {
     type: 'ENDPOINT',
