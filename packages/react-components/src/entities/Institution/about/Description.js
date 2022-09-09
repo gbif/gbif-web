@@ -17,7 +17,6 @@ export function Description({
 }) {
   const theme = useContext(ThemeContext);
 
-  console.log(institution);
   return <>
     {/* <div style={{margin: '12px 0', textAlign: 'right'}}>
       <Button>Suggest a change</Button>
@@ -28,7 +27,7 @@ export function Description({
         {getPlain(institution, 'name')}
         {getPlain(institution, 'description')}
         {getPlain(institution, 'code')}
-        {getPlain(institution, 'alternativeCodes')}
+        {/* {getPlain(institution, 'alternativeCodes')} */}
         {getPlain(institution, 'type')}
         {getPlain(institution, 'active')}
         {getPlain(institution, 'homepage')}
