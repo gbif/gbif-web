@@ -14,7 +14,8 @@ export function InlineFilterChip({ filterName, values, ...props }) {
       onClick={e => currentFilterContext.setField(filterName, values, true)}
       style={{
         padding: '1px 5px',
-        color: 'inherit'
+        color: 'inherit',
+        position: 'inherit'
       }} 
       {...props}
        />
