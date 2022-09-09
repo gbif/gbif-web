@@ -16,6 +16,7 @@ query list($institution: [GUID], $code: String, $q: String, $offset: Int, $limit
       name
       code
       active
+      numberSpecimens
       occurrenceCount
       address {
         city
@@ -70,7 +71,16 @@ const defaultTableConfig = {
       }
     },
     {
-      trKey: 'tableHeaders.occurrences',
+      trKey: 'tableHeaders.numberSpecimens',
+      value: {
+        key: 'numberSpecimens',
+        formatter: (value, item) => <FormattedNumber value={value} />,
+        hideFalsy: true,
+        rightAlign: true
+      }
+    },
+    {
+      trKey: 'tableHeaders.gbifNumberSpecimens',
       value: {
         key: 'occurrenceCount',
         formatter: (value, item) => <FormattedNumber value={value} />,
