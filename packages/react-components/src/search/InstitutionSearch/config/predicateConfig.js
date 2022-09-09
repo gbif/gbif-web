@@ -20,6 +20,10 @@ const filterConf = {
     code: {
       singleValue: true
     },
+    active: {
+      singleValue: true,
+      transformValue: x => x === 'true'
+    }
   }
 }
 

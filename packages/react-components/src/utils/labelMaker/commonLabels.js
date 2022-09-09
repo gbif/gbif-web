@@ -150,6 +150,10 @@ export const commonLabels = {
     type: 'TRANSLATION',
     template: id => `enums.isInCluster.${id}`
   },
+  yesNo: {
+    type: 'TRANSLATION',
+    template: id => `enums.yesNo.${id}`
+  },
   datasetType: {
     type: 'TRANSLATION',
     template: id => `enums.datasetType.${id}`

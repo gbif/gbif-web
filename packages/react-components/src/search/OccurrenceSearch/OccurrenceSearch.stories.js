@@ -55,6 +55,42 @@ function getSuggests({ client, suggestStyle }) {
     //     </div>
     //   }
     // }
+    // taxonKey: {
+    //   //What placeholder to show
+    //   // placeholder: 'Search by scientific name',
+    //   placeholder: 'search.placeholders.default',
+    //   // how to get the list of suggestion data
+    //   getSuggestions: ({ q }) => {
+    //     // const { promise, cancel } = client.v1Get(`/species/suggest?datasetKey=${BACKBONE_KEY}&limit=30&q=${q}`);
+    //     const { promise, cancel } = client.v1Get(`/species/suggest?datasetKey=0b1735ff-6a66-454b-8686-cae1cbc732a2&limit=30&q=${q}`);
+    //     return {
+    //       cancel,
+    //       promise,
+    //       // promise: promise.then(response => {
+    //       //   if (response.status === 200) {
+    //       //     response.data = response.data.filter(x => [4,5,7].indexOf(x.kingdomKey) > -1).slice(0,8);
+    //       //   }
+    //       //   return response;
+    //       // })
+    //     }
+    //   },
+    //   // how to map the results to a single string value
+    //   getValue: suggestion => suggestion.scientificName,
+    //   // how to display the individual suggestions in the list
+    //   render: function ScientificNameSuggestItem(suggestion) {
+    //     const ranks = ['kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species'].map((rank, i) => {
+    //       return suggestion[rank] && rank !== suggestion.rank.toLowerCase() ? <span key={rank}>{suggestion[rank]}</span> : null;
+    //     });
+
+    //     return <div style={{ maxWidth: '100%' }}>
+    //       <div style={suggestStyle}>
+    //         {suggestion.scientificName}
+    //       </div>
+    //       <div style={{ color: '#aaa', fontSize: '0.85em' }}>
+    //       </div>
+    //     </div>
+    //   }
+    // },
   };
 }
 
@@ -103,15 +139,15 @@ const rootPredicate = {
 };
 const config = { 
   // rootPredicate, 
-  rootPredicate: {
-    type: 'equals',
-    key: 'year',
-    value: '1790'
-  }, 
+  // rootPredicate: {
+  //   type: 'equals',
+  //   key: 'year',
+  //   value: '1790'
+  // }, 
   labels, 
   getSuggests, 
   filters, 
-  occurrenceSearchTabs: ['MAP', 'GALLERY', 'TABLE', 'DATASETS'],
+  occurrenceSearchTabs: ['MAP', 'DATASETS', 'GALLERY', 'TABLE'],
   // highlightedFilters: ['establishmentMeans'],
   availableCatalogues: ['OCCURRENCE', 'LITERATURE', 'COLLECTION'],
   // defaultTableColumns: ['year', 'country']

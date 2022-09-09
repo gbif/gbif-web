@@ -235,6 +235,11 @@
     "count": "{num, plural, one { Is in cluster } other {# Is in clusters}}",
     "description": "Whether the record was determined to have related records."
   },
+  "active": {
+    "name": "Active",
+    "count": "Active",
+    "description": "Whether or not the institution or collection is still active"
+  },
   "datasetType": {
     "name": "Dataset type",
     "count": "{num, plural, one { Dataset type } other {# Dataset types}}",

@@ -5,6 +5,7 @@ import get from 'lodash/get';
 import SearchContext from './SearchContext';
 import { Button, Row, Col, DataTable, Th, Td, TBody } from '../components';
 import { ResultsHeader } from './ResultsHeader';
+import { FilterContext } from '../widgets/Filter/state';
 
 const fallbackTableConfig = {
   columns: [{
@@ -17,6 +18,7 @@ const fallbackTableConfig = {
 };
 
 export const ResultsTable = ({ first, prev, next, size, from, results, total, loading, defaultTableConfig = fallbackTableConfig, hideLock }) => {
+  const currentFilterContext = useContext(FilterContext);
   const { filters, tableConfig = defaultTableConfig, labelMap } = useContext(SearchContext);
   const [fixedColumn, setFixed] = useState(true && !hideLock);
 
@@ -54,13 +56,13 @@ export const ResultsTable = ({ first, prev, next, size, from, results, total, lo
         <tr>{headerss}</tr>
       </thead>
       <TBody rowCount={size} columnCount={7} loading={loading}>
-        {getRows({ tableConfig, labelMap, results })}
+        {getRows({ tableConfig, labelMap, currentFilterContext, results })}
       </TBody>
     </DataTable>
   </div>
 }
 
-const getRows = ({ tableConfig, labelMap, results = [] }) => {
+const getRows = ({ tableConfig, labelMap, currentFilterContext, results = [] }) => {
   const rows = results.map((row, index) => {
     const cells = tableConfig.columns.map(
       (field, i) => {
@@ -70,7 +72,7 @@ const getRows = ({ tableConfig, labelMap, results = [] }) => {
         if (!val && field.value.hideFalsy === true) {
           formattedVal = '';
         } else if (field.value.formatter) {
-          formattedVal = field.value.formatter(val, row);
+          formattedVal = field.value.formatter(val, row, { filterContext: currentFilterContext, labelMap });
         } else if (field.value.labelHandle) {
           const Label = labelMap[field.value.labelHandle];
           formattedVal = Label ? <Label id={val} /> : val;

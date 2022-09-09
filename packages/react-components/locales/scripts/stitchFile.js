@@ -48,6 +48,7 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
         datasetType: getFile(locale, `../${folder}/${locale}/enums/datasetType`),
         datasetSubtype: getFile(locale, `../${folder}/${locale}/enums/datasetSubtype`),
         dwcaExtension: getFile(locale, `../${folder}/${locale}/enums/dwcaExtension`),
+        yesNo: getFile(locale, `../${folder}/${locale}/enums/yesNo`),
   // -- Add enums above this line (required by plopfile.js) --
       }
     }

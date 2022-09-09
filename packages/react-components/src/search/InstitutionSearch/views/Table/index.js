@@ -1,9 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import StandardSearchTable from '../../../StandardSearchTable';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
-import { useHistory } from "react-router-dom";
-import RouteContext from '../../../../dataManagement/RouteContext';
 import { ResourceLink } from '../../../../components';
+import { InlineFilterChip, InlineFilter } from '../../../../widgets/Filter/utils/FilterChip';
 
 const QUERY = `
 query list($code: String, $q: String, $offset: Int, $limit: Int, $country: Country, $fuzzyName: String, $city: String, $name: String, $active: Boolean){
@@ -34,7 +33,7 @@ query list($code: String, $q: String, $offset: Int, $limit: Int, $country: Count
 const defaultTableConfig = {
   columns: [
     {
-      trKey: 'title',
+      trKey: 'tableHeaders.title',
       value: {
         key: 'name',
         formatter: (value, item) => <ResourceLink type='institutionKey' discreet id={item.key}>{value}</ResourceLink>,
@@ -47,28 +46,35 @@ const defaultTableConfig = {
         filterKey: 'code',
         key: 'code',
         hideFalsy: true
-      }
+      },
+      filterKey: 'code'
     },
     {
       trKey: 'filters.country.name',
+      filterKey: 'country',
       value: {
-        filterKey: 'country',
         key: 'key',
         formatter: (value, item) => {
           const countryCode = item.address?.country || item.mailingAddress?.country;
-          return countryCode ? <FormattedMessage id={`enums.countryCode.${countryCode}`} /> : null;
+          return countryCode ? <InlineFilterChip filterName="country" values={[countryCode]}>
+            <FormattedMessage
+              id={`enums.countryCode.${countryCode}`}
+            /></InlineFilterChip> : null;
         },
-        hideFalsy: true
+        hideFalsy: true,
       }
     },
     {
       trKey: 'filters.city.name',
       value: {
-        filterKey: 'city',
         key: 'key',
-        formatter: (value, item) => item.address?.city || item.mailingAddress?.city,
+        formatter: (value, item) => {
+          const city = item.address?.city || item.mailingAddress?.city;
+          return city ? <InlineFilterChip filterName="city" values={[city]}>{city}</InlineFilterChip> : null;
+        },
         hideFalsy: true
-      }
+      },
+      filterKey: 'city'
     },
     {
       trKey: 'tableHeaders.numberSpecimens',
@@ -89,11 +95,12 @@ const defaultTableConfig = {
       }
     },
     {
-      trKey: 'active',
+      trKey: 'tableHeaders.active',
       value: {
         key: 'active',
-        formatter: (value, item) => value ? 'yes' : 'no'
-      }
+        labelHandle: 'yesNo'
+      },
+      filterKey: 'active'
     }
   ]
 };

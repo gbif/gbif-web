@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import StandardSearchTable from '../../../StandardSearchTable';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
-// import { useHistory } from "react-router-dom";
 import RouteContext from '../../../../dataManagement/RouteContext';
 import { ResourceLink } from '../../../../components';
+import { InlineFilterChip, InlineFilter } from '../../../../widgets/Filter/utils/FilterChip';
 
 const QUERY = `
 query list($institution: [GUID], $code: String, $q: String, $offset: Int, $limit: Int, $country: Country, $fuzzyName: String, $city: String, $name: String, $active: Boolean){
@@ -26,6 +26,10 @@ query list($institution: [GUID], $code: String, $q: String, $offset: Int, $limit
         city
         country
       }
+      institution {
+        key
+        name
+      }
     }
   }
 }
@@ -37,7 +41,14 @@ const defaultTableConfig = {
       trKey: 'tableHeaders.title',
       value: {
         key: 'name',
-        formatter: (value, item) => <ResourceLink type='collectionKey' discreet id={item.key}>{value}</ResourceLink>,
+        formatter: (value, item) => <div>
+          <ResourceLink type='collectionKey' discreet id={item.key} data-loader>{value}</ResourceLink>
+          <div>
+            <InlineFilter filterName="institution" values={[item.institution.key]}>
+              <span style={{color: '#aaa'}} data-loader>{item.institution.name}</span>
+            </InlineFilter>
+          </div>
+        </div>,
       },
       width: 'wide'
     },
@@ -47,7 +58,8 @@ const defaultTableConfig = {
         filterKey: 'code',
         key: 'code',
         hideFalsy: true
-      }
+      },
+      filterKey: 'code',
     },
     {
       trKey: 'filters.country.name',
@@ -56,19 +68,27 @@ const defaultTableConfig = {
         key: 'key',
         formatter: (value, item) => {
           const countryCode = item.address?.country || item.mailingAddress?.country;
-          return countryCode ? <FormattedMessage id={`enums.countryCode.${countryCode}`} /> : null;
+          return countryCode ? <InlineFilterChip filterName="country" values={[countryCode]}>
+            <FormattedMessage
+              id={`enums.countryCode.${countryCode}`}
+            /></InlineFilterChip> : null;
         },
         hideFalsy: true
-      }
+      },
+      filterKey: 'country',
     },
     {
       trKey: 'filters.city.name',
       value: {
         filterKey: 'city',
         key: 'key',
-        formatter: (value, item) => item.address?.city || item.mailingAddress?.city,
+        formatter: (value, item) => {
+          const city = item.address?.city || item.mailingAddress?.city;
+          return city ? <InlineFilterChip filterName="city" values={[city]}>{city}</InlineFilterChip> : null;
+        },
         hideFalsy: true
-      }
+      },
+      filterKey: 'city',
     },
     {
       trKey: 'tableHeaders.numberSpecimens',
@@ -89,11 +109,12 @@ const defaultTableConfig = {
       }
     },
     {
-      trKey: 'active',
+      trKey: 'tableHeaders.active',
       value: {
         key: 'active',
-        formatter: (value, item) => value ? 'yes' : 'no'
-      }
+        labelHandle: 'yesNo'
+      },
+      filterKey: 'active',
     }
   ]
 };
@@ -102,7 +123,7 @@ function Table() {
   // const history = useHistory();
   const routeContext = useContext(RouteContext);
 
-  return <StandardSearchTable graphQuery={QUERY} resultKey='collectionSearch' defaultTableConfig={defaultTableConfig}/>
+  return <StandardSearchTable graphQuery={QUERY} resultKey='collectionSearch' defaultTableConfig={defaultTableConfig} />
 }
 
 export default Table;

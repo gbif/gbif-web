@@ -1,4 +1,4 @@
-export { Button, ButtonGroup, FilterButton } from './Button';
+export { Button, ButtonGroup, FilterButton, TextButton } from './Button';
 export * from './Switch';
 export * from './Checkbox';
 export { Input } from './Input/Input';

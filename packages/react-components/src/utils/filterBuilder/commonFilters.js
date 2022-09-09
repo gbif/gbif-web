@@ -877,26 +877,26 @@ export const commonFilters = {
     }
   },
   occurrenceStatus: {
-      type: 'ENUM',
-      config: {
-        std: {
-          filterHandle: 'occurrenceStatus',
-          id2labelHandle: 'occurrenceStatus',
-          translations: {
-            count: 'filters.occurrenceStatus.count', // translation path to display names with counts. e.g. "3 scientific names"
-            name: 'filters.occurrenceStatus.name',// translation path to a title for the popover and the button
-            description: 'filters.occurrenceStatus.description', // translation path for the filter description
-          }
-        },
-        specific: {
-          options: occurrenceStatus,
+    type: 'ENUM',
+    config: {
+      std: {
+        filterHandle: 'occurrenceStatus',
+        id2labelHandle: 'occurrenceStatus',
+        translations: {
+          count: 'filters.occurrenceStatus.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.occurrenceStatus.name',// translation path to a title for the popover and the button
+          description: 'filters.occurrenceStatus.description', // translation path for the filter description
         }
+      },
+      specific: {
+        options: occurrenceStatus,
       }
-    },
+    }
+  },
   gadmGid: {
-      type: 'SUGGEST',
-      config: {
-        std: {
+    type: 'SUGGEST',
+    config: {
+      std: {
         filterHandle: 'gadmGid',
         id2labelHandle: 'gadmGid',
         translations: {
@@ -905,14 +905,14 @@ export const commonFilters = {
           description: 'filters.gadmGid.description', // translation path for the filter description
         },
       },
-        specific: {
-          suggestHandle: 'gadmGid',
-          id2labelHandle: 'gadmGid',
-          showAboutAsDefault: true,
-          supportsExist: true
-        }
+      specific: {
+        suggestHandle: 'gadmGid',
+        id2labelHandle: 'gadmGid',
+        showAboutAsDefault: true,
+        supportsExist: true
       }
-    },
+    }
+  },
   identifiedBy: {
     type: 'KEYWORD_SEARCH', // SIMPLE_TEXT
     config: {
@@ -948,61 +948,79 @@ export const commonFilters = {
     }
   },
   isInCluster: {
-      type: 'ENUM',
-      config: {
-        std: {
-          filterHandle: 'isInCluster',
-          id2labelHandle: 'isInCluster',
-          translations: {
-            count: 'filters.isInCluster.count', // translation path to display names with counts. e.g. "3 scientific names"
-            name: 'filters.isInCluster.name',// translation path to a title for the popover and the button
-            description: 'filters.isInCluster.description', // translation path for the filter description
-          }
-        },
-        specific: {
-          options: ['true', 'false'],
-          isRadio: true
+    type: 'ENUM',
+    config: {
+      std: {
+        filterHandle: 'isInCluster',
+        id2labelHandle: 'isInCluster',
+        translations: {
+          count: 'filters.isInCluster.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.isInCluster.name',// translation path to a title for the popover and the button
+          description: 'filters.isInCluster.description', // translation path for the filter description
         }
+      },
+      specific: {
+        options: ['true', 'false'],
+        isRadio: true
       }
-    },
+    }
+  },
+  active: {
+    type: 'ENUM',
+    config: {
+      std: {
+        filterHandle: 'active',
+        id2labelHandle: 'yesNo',
+        translations: {
+          count: 'filters.active.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.active.name',// translation path to a title for the popover and the button
+          description: 'filters.active.description', // translation path for the filter description
+        }
+      },
+      specific: {
+        options: ['true', 'false'],
+        isRadio: true
+      }
+    }
+  },
   datasetType: {
-      type: 'ENUM',
-      config: {
-        std: {
-          filterHandle: 'datasetType',
-          id2labelHandle: 'datasetType',
-          translations: {
-            count: 'filters.datasetType.count', // translation path to display names with counts. e.g. "3 scientific names"
-            name: 'filters.datasetType.name',// translation path to a title for the popover and the button
-            description: 'filters.datasetType.description', // translation path for the filter description
-          }
-        },
-        specific: {
-          options: datasetType,
+    type: 'ENUM',
+    config: {
+      std: {
+        filterHandle: 'datasetType',
+        id2labelHandle: 'datasetType',
+        translations: {
+          count: 'filters.datasetType.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.datasetType.name',// translation path to a title for the popover and the button
+          description: 'filters.datasetType.description', // translation path for the filter description
         }
+      },
+      specific: {
+        options: datasetType,
       }
-    },
+    }
+  },
   datasetSubtype: {
-      type: 'ENUM',
-      config: {
-        std: {
-          filterHandle: 'datasetSubtype',
-          id2labelHandle: 'datasetSubtype',
-          translations: {
-            count: 'filters.datasetSubtype.count', // translation path to display names with counts. e.g. "3 scientific names"
-            name: 'filters.datasetSubtype.name',// translation path to a title for the popover and the button
-            description: 'filters.datasetSubtype.description', // translation path for the filter description
-          }
-        },
-        specific: {
-          options: datasetSubtype,
+    type: 'ENUM',
+    config: {
+      std: {
+        filterHandle: 'datasetSubtype',
+        id2labelHandle: 'datasetSubtype',
+        translations: {
+          count: 'filters.datasetSubtype.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.datasetSubtype.name',// translation path to a title for the popover and the button
+          description: 'filters.datasetSubtype.description', // translation path for the filter description
         }
+      },
+      specific: {
+        options: datasetSubtype,
       }
-    },
+    }
+  },
   institutionKey: {
-      type: 'SUGGEST',
-      config: {
-        std: {
+    type: 'SUGGEST',
+    config: {
+      std: {
         filterHandle: 'institutionKey',
         id2labelHandle: 'institutionKey',
         translations: {
@@ -1011,12 +1029,12 @@ export const commonFilters = {
           description: 'filters.institutionKey.description', // translation path for the filter description
         },
       },
-        specific: {
-          suggestHandle: 'institutionKey',
-          id2labelHandle: 'institutionKey',
-        }
+      specific: {
+        suggestHandle: 'institutionKey',
+        id2labelHandle: 'institutionKey',
       }
-    },
+    }
+  },
   name: {
     type: 'SIMPLE_TEXT',
     config: {
@@ -1105,9 +1123,9 @@ export const commonFilters = {
     }
   },
   networkKey: {
-      type: 'SUGGEST',
-      config: {
-        std: {
+    type: 'SUGGEST',
+    config: {
+      std: {
         filterHandle: 'networkKey',
         id2labelHandle: 'networkKey',
         translations: {
@@ -1116,46 +1134,46 @@ export const commonFilters = {
           description: 'filters.networkKey.description', // translation path for the filter description
         },
       },
-        specific: {
-          suggestHandle: 'networkKey',
-          id2labelHandle: 'networkKey',
-        }
+      specific: {
+        suggestHandle: 'networkKey',
+        id2labelHandle: 'networkKey',
       }
-    },
+    }
+  },
   literatureType: {
-      type: 'ENUM',
-      config: {
-        std: {
-          filterHandle: 'literatureType',
-          id2labelHandle: 'literatureType',
-          translations: {
-            count: 'filters.literatureType.count', // translation path to display names with counts. e.g. "3 scientific names"
-            name: 'filters.literatureType.name',// translation path to a title for the popover and the button
-            description: 'filters.literatureType.description', // translation path for the filter description
-          }
-        },
-        specific: {
-          options: literatureType,
+    type: 'ENUM',
+    config: {
+      std: {
+        filterHandle: 'literatureType',
+        id2labelHandle: 'literatureType',
+        translations: {
+          count: 'filters.literatureType.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.literatureType.name',// translation path to a title for the popover and the button
+          description: 'filters.literatureType.description', // translation path for the filter description
         }
+      },
+      specific: {
+        options: literatureType,
       }
-    },
+    }
+  },
   dwcaExtension: {
-      type: 'ENUM',
-      config: {
-        std: {
-          filterHandle: 'dwcaExtension',
-          id2labelHandle: 'dwcaExtension',
-          translations: {
-            count: 'filters.dwcaExtension.count', // translation path to display names with counts. e.g. "3 scientific names"
-            name: 'filters.dwcaExtension.name',// translation path to a title for the popover and the button
-            description: 'filters.dwcaExtension.description', // translation path for the filter description
-          }
-        },
-        specific: {
-          options: dwcaExtension
+    type: 'ENUM',
+    config: {
+      std: {
+        filterHandle: 'dwcaExtension',
+        id2labelHandle: 'dwcaExtension',
+        translations: {
+          count: 'filters.dwcaExtension.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.dwcaExtension.name',// translation path to a title for the popover and the button
+          description: 'filters.dwcaExtension.description', // translation path for the filter description
         }
+      },
+      specific: {
+        options: dwcaExtension
       }
-    },
+    }
+  },
   // -- Add filters above this line (required by plopfile.js) --
   q: {
     type: 'CUSTOM_STANDARD',

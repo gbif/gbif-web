@@ -1,5 +1,5 @@
 export const filters = [
-  'q', 'code', 'city', 'country', 'name'
+  'q', 'code', 'city', 'country', 'name', 'active'
 ].sort();
 
 const highlighted = [

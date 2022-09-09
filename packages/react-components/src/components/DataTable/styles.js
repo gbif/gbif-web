@@ -138,9 +138,9 @@ export const noWrap = props => css`
 `;
 
 export const tbodyLoading = ({theme}) => css`
-  td > * {
+  td > *, td *[data-loader] {
     background-color: ${theme.color100}55;
-    color: transparent;
+    color: transparent !important;
   }
 `;
 

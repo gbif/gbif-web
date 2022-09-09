@@ -88,3 +88,8 @@ FilterButton.propTypes = {
   onClick: PropTypes.func,
   children: PropTypes.any,
 }
+
+export const TextButton = React.forwardRef((props, ref) => {
+  const theme = useContext(ThemeContext);
+  return <ButtonA11y ref={ref} css={styles.text(theme)} {...props} />
+});
