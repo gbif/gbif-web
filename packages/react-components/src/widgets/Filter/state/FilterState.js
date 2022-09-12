@@ -118,7 +118,10 @@ class FilterState extends React.Component {
       toggle: this.toggle,
       negateField: this.negateField,
       filter: this.props.filter,
-      filterHash: hash(this.props.filter || {})
+      filterHash: hash({
+        must: this.props.filter?.must || {},
+        mustNot: this.props.filter?.mustNot || {},
+      })
     };
     return (
       <Context.Provider value={contextValue}>
