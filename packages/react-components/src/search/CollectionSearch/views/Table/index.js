@@ -44,12 +44,9 @@ const defaultTableConfig = {
         formatter: (value, item) => <div>
           <ResourceLink type='collectionKey' discreet id={item.key} data-loader>{value}</ResourceLink>
           <div style={{ color: '#aaa' }}>
-            <span data-loader>{item.institution.name}</span>
-            <InlineFilter filterName="institution" values={[item.institution.key]}>
-              <span style={{ marginLeft: 6, position: 'relative', top: '.2em' }} data-loader>
-                <AddIcon />
-              </span>
-            </InlineFilter>
+            <InlineFilterChip filterName="institution" values={[item.institution.key]}>
+              <span data-loader>{item.institution.name}</span>
+            </InlineFilterChip>
             {!item.institution && <span style={{ fontStyle: 'italic' }} data-loader>
               <FormattedMessage id="collection.institutionUnknown" />
             </span>}
