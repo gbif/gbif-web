@@ -91,4 +91,10 @@ Example.story = {
   name: 'Institution search',
 };
 
-export const StandaloneExample = () => <Standalone style={{height: 'calc(100vh - 20px)'}}></Standalone>;
+export const StandaloneExample = () => <Standalone siteConfig={{
+  routes: {
+    institutionSearch: {
+      route: '/',
+    }
+  },
+}} style={{height: 'calc(100vh - 20px)'}}></Standalone>;
