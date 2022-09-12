@@ -13,13 +13,13 @@ const routeConfig = {
     route: '/',
     isHref: true,
     url: ({ key }) => {
-      return `/iframe.html?id=entities-collection-page--example&viewMode=story&knob-collectionUUID=${key}`;
+      return `/?path=/story/entities-collection-page--example&knob-collectionUUID=${key}`;
     }
   },
   collectionSearch: {
     // url: () => `/collection/`,
     url: ({ queryString, basename }) => {
-      return `/iframe.html?id=search-collectionsearch--example&viewMode=story`;
+      return `/?path=/story/search-collectionsearch--example`;
     },
     isHref: true,
     route: '/collection/search',
