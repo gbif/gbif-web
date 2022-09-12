@@ -235,6 +235,11 @@
     "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
     "description": "Se foi determinado o registo ter outros registos relacionados."
   },
+  "active": {
+    "name": "Ativo",
+    "count": "Ativo",
+    "description": ""
+  },
   "datasetType": {
     "name": "Tipo de conjunto de dados",
     "count": "{num, plural, one { tipo de conjunto de dados } other {# tipos de conjuntos de dados}}",
