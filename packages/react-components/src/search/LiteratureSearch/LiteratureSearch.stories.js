@@ -33,11 +33,7 @@ function getSuggests({ client, suggestStyle }) {
       getValue: suggestion => suggestion.title,
       // how to display the individual suggestions in the list
       render: function DatasetSuggestItem(suggestion) {
-        return <div style={{}}>
-          <div style={suggestStyle}>
-            {suggestion.title}
-          </div>
-        </div>
+        return suggestion.title;
       }
     },
   };
@@ -66,10 +62,10 @@ const filters = {
 }
 
 
-const config = { 
-  labels, 
-  getSuggests, 
-  filters, 
+const config = {
+  labels,
+  getSuggests,
+  filters,
   includedFilters: ['vceDatasetFilter'],
   highlightedFilters: ['vceDatasetFilter'],
   // rootFilter: {predicate: {type: 'or', predicates: [
@@ -100,4 +96,4 @@ Example.story = {
   name: 'Literature search',
 };
 
-export const StandaloneExample = () => <Standalone style={{height: 'calc(100vh - 50px)'}}></Standalone>;
+export const StandaloneExample = () => <Standalone style={{ height: 'calc(100vh - 50px)' }}></Standalone>;
