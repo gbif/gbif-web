@@ -51,6 +51,33 @@ export const text = theme => css`
   font-weight: inherit;
   background: none;
   border-radius: 0;
+  cursor: pointer;
+`;
+
+export const textHover = theme => css`
+  padding: 0;
+  border: none;
+  height: auto;
+  color: inherit;
+  line-height: inherit;
+  font-weight: inherit;
+  background: none;
+  border-radius: 0;
+  cursor: pointer;
+
+  border: 1px solid transparent;
+  border-radius: ${theme.borderRadius}px;
+  box-shadow: none;
+  margin: 0 -4px;
+  padding: 1px 4px;
+  &:hover {
+    background-color: ${theme.primary500};
+    border-color: ${theme.primary600};
+    color: white;
+    * {
+      color: white;
+    }
+  }
 `;
 
 export const primary = theme => css`

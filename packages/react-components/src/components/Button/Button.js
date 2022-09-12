@@ -4,7 +4,7 @@ import ThemeContext from '../../style/themes/ThemeContext';
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Button as ButtonA11y } from "reakit/Button";
-import styles from './Button.styles';
+import * as styles from './Button.styles';
 import { getClasses } from '../../utils/util';
 import { MdClose } from 'react-icons/md';
 
@@ -89,7 +89,7 @@ FilterButton.propTypes = {
   children: PropTypes.any,
 }
 
-export const TextButton = React.forwardRef((props, ref) => {
+export const TextButton = React.forwardRef(({look, ...props}, ref) => {
   const theme = useContext(ThemeContext);
-  return <ButtonA11y ref={ref} css={styles.text(theme)} {...props} />
+  return <ButtonA11y ref={ref} css={css`${styles.text(theme)} ${look ? styles[look](theme): null}`} {...props} />
 });
