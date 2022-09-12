@@ -1,9 +1,9 @@
 export const filters = [
-  'q', 'code', 'city', 'country', 'name', 'active'
-].sort();
+  'active', 'name', 'q', 'code', 'country', 'city'
+];
 
 const highlighted = [
-  'q', 'code', 'city', 'country'
+  'q', 'code', 'country', 'city'
 ];
 
 export default { filters, included: filters, highlighted };
