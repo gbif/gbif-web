@@ -14,6 +14,7 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
     {},
     {
       dataset: getFile(locale, `../${folder}/${locale}/components/dataset`),
+      collection: getFile(locale, `../${folder}/${locale}/components/collection`),
       catalogues: getFile(locale, `../${folder}/${locale}/components/catalogues`),
       tableHeaders: getFile(locale, `../${folder}/${locale}/components/tableHeaders`),
       intervals: getFile(locale, `../${folder}/${locale}/components/intervals`),

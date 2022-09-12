@@ -4,6 +4,7 @@ import { FormattedMessage, FormattedNumber } from 'react-intl';
 import RouteContext from '../../../../dataManagement/RouteContext';
 import { ResourceLink } from '../../../../components';
 import { InlineFilterChip, InlineFilter } from '../../../../widgets/Filter/utils/FilterChip';
+import { AiOutlinePlusCircle as AddIcon } from 'react-icons/ai';
 
 const QUERY = `
 query list($institution: [GUID], $code: String, $q: String, $offset: Int, $limit: Int, $country: Country, $fuzzyName: String, $city: String, $name: String, $active: Boolean){
@@ -43,10 +44,16 @@ const defaultTableConfig = {
         key: 'name',
         formatter: (value, item) => <div>
           <ResourceLink type='collectionKey' discreet id={item.key} data-loader>{value}</ResourceLink>
-          <div>
+          <div style={{ color: '#aaa' }}>
+            <span data-loader>{item.institution.name}</span>
             <InlineFilter filterName="institution" values={[item.institution.key]}>
-              <span style={{color: '#aaa'}} data-loader>{item.institution.name}</span>
+              <span style={{ marginLeft: 6, position: 'relative', top: '.2em' }} data-loader>
+                <AddIcon />
+              </span>
             </InlineFilter>
+            {!item.institution && <span style={{ fontStyle: 'italic' }} data-loader>
+              <FormattedMessage id="collection.institutionUnknown" />
+            </span>}
           </div>
         </div>,
       },
