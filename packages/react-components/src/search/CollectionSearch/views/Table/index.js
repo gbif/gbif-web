@@ -18,7 +18,6 @@ query list($institution: [GUID], $code: String, $q: String, $offset: Int, $limit
       code
       active
       numberSpecimens
-      occurrenceCount
       address {
         city
         country
@@ -106,22 +105,27 @@ const defaultTableConfig = {
         rightAlign: true
       }
     },
-    {
-      trKey: 'tableHeaders.gbifNumberSpecimens',
-      value: {
-        key: 'occurrenceCount',
-        formatter: (value, item) => <FormattedNumber value={value} />,
-        hideFalsy: true,
-        rightAlign: true
-      }
-    },
+    // {
+    //   trKey: 'tableHeaders.gbifNumberSpecimens',
+    //   value: {
+    //     key: 'occurrenceCount',
+    //     formatter: (value, item) => <FormattedNumber value={value} />,
+    //     hideFalsy: true,
+    //     rightAlign: true
+    //   }
+    // },
     {
       trKey: 'tableHeaders.active',
       value: {
         key: 'active',
-        labelHandle: 'yesNo'
+        formatter: (value, item) => {
+          return <InlineFilterChip filterName="active" values={[value.toString()]}>
+            <FormattedMessage
+              id={`enums.yesNo.${value.toString()}`}
+            /></InlineFilterChip>
+        },
       },
-      filterKey: 'active',
+      filterKey: 'active'
     }
   ]
 };
