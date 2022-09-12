@@ -1,84 +1,84 @@
 {
   "en-DK": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/en-developer.json?v=fd1bd07a0122d9a9614c60b6b619bbade254c65a"
+    "messages": "http://localhost:5002/en-developer.json?v=446de57f82d081f9290d3fa3484a941aaf6bef75"
   },
   "en-ZZ": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/en-pseudo.json?v=480eb63c2356a0cfa153112a6fa58bd189f79609"
+    "messages": "http://localhost:5002/en-pseudo.json?v=344257b1108c71b8ab9818011f5189d5f8ff5576"
   },
   "en": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/en.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
+    "messages": "http://localhost:5002/en.json?v=611113c8dcc8e55234f15134e9532b364f486b1b"
   },
   "da": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/da.json?v=885bd5defd42a5f2ae6713dbf070a757d5e3b6c9"
+    "messages": "http://localhost:5002/da.json?v=6a8ca3fb0effc73e7453c91696fe7b4d5dbe31ad"
   },
   "ar": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/ar.json?v=721c475896f53c1ed23cc213f3b99e671168013e"
+    "messages": "http://localhost:5002/ar.json?v=0322678c1e49f2f91a9c804ebebcc85de74314b1"
   },
   "de": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/de.json?v=c130a6da382d5706c2b136ee3aecb9566498d89a"
+    "messages": "http://localhost:5002/de.json?v=8e79844dc2a480d83c1bac1331888074a091cda7"
   },
   "es": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/es.json?v=ab5958721d694d66efafd4ab89cd873929af287a",
+    "messages": "http://localhost:5002/es.json?v=d434ac2195b469d02ce6db1d7551da8eaad814d6",
     "localeMap": {
       "gbif_org": "es",
       "vocabulary": "es-ES"
     }
   },
   "fa": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/fa.json?v=4f81c78d3c9f89c246372161f5c4e83044951a92"
+    "messages": "http://localhost:5002/fa.json?v=e1823f6e8fb97617fa0c4fa22289c047165f6173"
   },
   "fj": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/fj.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
+    "messages": "http://localhost:5002/fj.json?v=611113c8dcc8e55234f15134e9532b364f486b1b"
   },
   "fr": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/fr.json?v=78223dcb2be30c8e6ec80191bf612095be8c7c86",
+    "messages": "http://localhost:5002/fr.json?v=04fff1c3927b588a3c5cb0c977402ec44770c8b8",
     "localeMap": {
       "gbif_org": "fr"
     }
   },
   "ja": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/ja.json?v=ea701459930313eac965ce46adb8414a4ececb13"
+    "messages": "http://localhost:5002/ja.json?v=f531f7d3b9cf9107ec0e5f643aa27838370e0e51"
   },
   "la": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/la.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
+    "messages": "http://localhost:5002/la.json?v=611113c8dcc8e55234f15134e9532b364f486b1b"
   },
   "niu": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/niu.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
+    "messages": "http://localhost:5002/niu.json?v=611113c8dcc8e55234f15134e9532b364f486b1b"
   },
   "nl": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/nl.json?v=0a23b8bd7e77d0f1607b25b23498eacf679e6eaa"
+    "messages": "http://localhost:5002/nl.json?v=fe28f5a81baff97f22aaf97f8b1b4605ae91d56a"
   },
   "pis": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/pis.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
+    "messages": "http://localhost:5002/pis.json?v=611113c8dcc8e55234f15134e9532b364f486b1b"
   },
   "pt": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/pt.json?v=04f817589624041b56d4212418ecbd072a49423e"
+    "messages": "http://localhost:5002/pt.json?v=46fcdf1936cd443f4680cbd354eb9658917a35b2"
   },
   "ru": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/ru.json?v=1f0f8d650b84e45e55f8cee9a79b7eef0d5600d5"
+    "messages": "http://localhost:5002/ru.json?v=d7eb95e37803f17c65787d13e521cb2a5d542e1c"
   },
   "sm": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/sm.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
+    "messages": "http://localhost:5002/sm.json?v=611113c8dcc8e55234f15134e9532b364f486b1b"
   },
   "sw": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/sw.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
+    "messages": "http://localhost:5002/sw.json?v=611113c8dcc8e55234f15134e9532b364f486b1b"
   },
   "tkl": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/tkl.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
+    "messages": "http://localhost:5002/tkl.json?v=611113c8dcc8e55234f15134e9532b364f486b1b"
   },
   "to": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/to.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
+    "messages": "http://localhost:5002/to.json?v=611113c8dcc8e55234f15134e9532b364f486b1b"
   },
   "tvl": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/tvl.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
+    "messages": "http://localhost:5002/tvl.json?v=611113c8dcc8e55234f15134e9532b364f486b1b"
   },
   "uk": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/uk.json?v=fc79ffeaa47b84a2cddd2b704edb21bb17411b80"
+    "messages": "http://localhost:5002/uk.json?v=afd53650af0ec569f1f0c88fd16b885bb6946b8d"
   },
   "zh": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/zh.json?v=2fef64fbd099ce03495cfc843a1173fffbd5d6ef"
+    "messages": "http://localhost:5002/zh.json?v=ba2780cf1a554a6a403a409611b3cd5187ee5bc4"
   },
   "zh-tw": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/zh-tw.json?v=be6595a477fc097aac874f8f098bdb61d3532c79"
+    "messages": "http://localhost:5002/zh-tw.json?v=6a3e25ece7471e1e4038206032c227d8c523b086"
   }
 }

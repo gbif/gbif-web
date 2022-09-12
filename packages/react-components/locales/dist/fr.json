@@ -116,6 +116,7 @@
   "dataset.registry.outOfSync": "Non-synchronisé",
   "dataset.registry.becauseTrustedContact": "Parce que vous êtes contact de confiance",
   "dataset.registry.registrationDetails": "GBIF registration details",
+  "collection.institutionUnknown": "Institution is unknown",
   "catalogues.occurrences": "{NUMBER, plural,\n0 {Occurrences}\none {Occurrence}\nfew {Occurrences}\nmany {Occurrences}\nother {Occurrences}\n}",
   "catalogues.datasets": "Jeux de données",
   "catalogues.species": "Espèce",
@@ -134,6 +135,7 @@
   "tableHeaders.registered": "Enregistré",
   "tableHeaders.hostedDatasets": "Jeux de données hébergés",
   "tableHeaders.pubDatasets": "Jeux de données publiés",
+  "tableHeaders.active": "Is active",
   "intervals.description.lt": "Less than {to}",
   "intervals.description.lte": "Less or equal {to}",
   "intervals.description.gt": "Greater than {from}",
@@ -321,6 +323,9 @@
   "filters.isInCluster.name": "Est dans le regroupement",
   "filters.isInCluster.count": "{num, plural, one { is in cluster } other {# are in clusters}}",
   "filters.isInCluster.description": "Whether the record was determined to have related records.",
+  "filters.active.name": "Active",
+  "filters.active.count": "Active",
+  "filters.active.description": "Whether or not the institution or collection is still active",
   "filters.datasetType.name": "Type de jeu de données",
   "filters.datasetType.count": "{num, plural, one { dataset type } other {# dataset types}}",
   "filters.datasetType.description": "A short description of the component should be placed here",
@@ -361,6 +366,7 @@
   "filterSupport.useWildcardPattern": "Search for the pattern",
   "filterSupport.showSuggestions": "Show suggestions",
   "filterSupport.excludeSelected": "Exclude selected",
+  "filterSupport.updateFilter": "Update filter",
   "counts.nResults": "{total, plural, one {# result} other {# results}}",
   "counts.nRecordsTotal": "{total, plural, one {# enregistrement au total} other {# enregistrements au total}}",
   "counts.nSelected": "{total, plural, other {# selected}}",
@@ -1321,5 +1327,7 @@
   "enums.dwcaExtension.http://rs.tdwg.org/dwc/terms/MeasurementOrFact": "Mesure ou fait",
   "enums.dwcaExtension.http://rs.gbif.org/terms/1.0/Multimedia": "Multimedia",
   "enums.dwcaExtension.http://rs.gbif.org/terms/1.0/Reference": "Référence",
-  "enums.dwcaExtension.http://rs.tdwg.org/dwc/terms/ResourceRelationship": "Relation entre ressources"
+  "enums.dwcaExtension.http://rs.tdwg.org/dwc/terms/ResourceRelationship": "Relation entre ressources",
+  "enums.yesNo.true": "Yes",
+  "enums.yesNo.false": "No"
 }

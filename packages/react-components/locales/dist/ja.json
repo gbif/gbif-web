@@ -116,6 +116,7 @@
   "dataset.registry.outOfSync": "未同期",
   "dataset.registry.becauseTrustedContact": "信頼された連絡先であるので",
   "dataset.registry.registrationDetails": "GBIF registration details",
+  "collection.institutionUnknown": "Institution is unknown",
   "catalogues.occurrences": "オカレンス",
   "catalogues.datasets": "データセット",
   "catalogues.species": "種",
@@ -134,6 +135,7 @@
   "tableHeaders.registered": "登録済み",
   "tableHeaders.hostedDatasets": "ホストされたデータセット",
   "tableHeaders.pubDatasets": "公開されているデータセット",
+  "tableHeaders.active": "Is active",
   "intervals.description.lt": "Less than {to}",
   "intervals.description.lte": "Less or equal {to}",
   "intervals.description.gt": "Greater than {from}",
@@ -321,6 +323,9 @@
   "filters.isInCluster.name": "Is in cluster",
   "filters.isInCluster.count": "{num, plural, one { is in cluster } other {# are in clusters}}",
   "filters.isInCluster.description": "Whether the record was determined to have related records.",
+  "filters.active.name": "Active",
+  "filters.active.count": "Active",
+  "filters.active.description": "Whether or not the institution or collection is still active",
   "filters.datasetType.name": "データセットタイプ",
   "filters.datasetType.count": "{num, plural, one { dataset type } other {# dataset types}}",
   "filters.datasetType.description": "A short description of the component should be placed here",
@@ -361,6 +366,7 @@
   "filterSupport.useWildcardPattern": "Search for the pattern",
   "filterSupport.showSuggestions": "Show suggestions",
   "filterSupport.excludeSelected": "Exclude selected",
+  "filterSupport.updateFilter": "Update filter",
   "counts.nResults": "{total, plural, one {# 結果} other {# 結果}}",
   "counts.nRecordsTotal": "{total, plural, one {# record in total} other {# records in total}}",
   "counts.nSelected": "{total, plural, other {# 選択済み}}",
@@ -1321,5 +1327,7 @@
   "enums.dwcaExtension.http://rs.tdwg.org/dwc/terms/MeasurementOrFact": "測定または事実",
   "enums.dwcaExtension.http://rs.gbif.org/terms/1.0/Multimedia": "マルチメディア",
   "enums.dwcaExtension.http://rs.gbif.org/terms/1.0/Reference": "参考資料",
-  "enums.dwcaExtension.http://rs.tdwg.org/dwc/terms/ResourceRelationship": "資料の関係性"
+  "enums.dwcaExtension.http://rs.tdwg.org/dwc/terms/ResourceRelationship": "資料の関係性",
+  "enums.yesNo.true": "Yes",
+  "enums.yesNo.false": "No"
 }

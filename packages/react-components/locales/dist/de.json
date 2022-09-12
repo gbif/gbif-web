@@ -116,6 +116,7 @@
   "dataset.registry.outOfSync": "Out of sync",
   "dataset.registry.becauseTrustedContact": "Because you are trusted contact",
   "dataset.registry.registrationDetails": "GBIF registration details",
+  "collection.institutionUnknown": "Institution is unknown",
   "catalogues.occurrences": "Occurrences",
   "catalogues.datasets": "Datasets",
   "catalogues.species": "Species",
@@ -134,6 +135,7 @@
   "tableHeaders.registered": "Registriert",
   "tableHeaders.hostedDatasets": "Gehostete Datasets",
   "tableHeaders.pubDatasets": "Veröffentlichte Datasets",
+  "tableHeaders.active": "Is active",
   "intervals.description.lt": "Kleiner als {to}",
   "intervals.description.lte": "Kleiner als oder gleich {to}",
   "intervals.description.gt": "Größer als {from}",
@@ -321,6 +323,9 @@
   "filters.isInCluster.name": "Ist Teil eines Clusters",
   "filters.isInCluster.count": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
   "filters.isInCluster.description": "Gibt an, ob der Datensatz mit einem oder mehreren anderen Datensätzen gruppiert wurde.",
+  "filters.active.name": "Active",
+  "filters.active.count": "Active",
+  "filters.active.description": "Whether or not the institution or collection is still active",
   "filters.datasetType.name": "Art des Datasets",
   "filters.datasetType.count": "{num, plural, one {Dataset-Typ} other {# Dataset-Typen}}",
   "filters.datasetType.description": "Art des Datasets",
@@ -361,6 +366,7 @@
   "filterSupport.useWildcardPattern": "Nach dem Muster suchen",
   "filterSupport.showSuggestions": "Vorschläge anzeigen",
   "filterSupport.excludeSelected": "Ausgewählte ausschließen",
+  "filterSupport.updateFilter": "Update filter",
   "counts.nResults": "{total, plural, one {# Ergebnis} other {# Ergebnisse}}",
   "counts.nRecordsTotal": "{total, plural, one {# Datensatz insgesamt} other {# Datensätze insgesamt}}",
   "counts.nSelected": "{total, plural, other {# ausgewählt}}",
@@ -1321,5 +1327,7 @@
   "enums.dwcaExtension.http://rs.tdwg.org/dwc/terms/MeasurementOrFact": "Messung/Fakt",
   "enums.dwcaExtension.http://rs.gbif.org/terms/1.0/Multimedia": "Multimedia",
   "enums.dwcaExtension.http://rs.gbif.org/terms/1.0/Reference": "Referenz",
-  "enums.dwcaExtension.http://rs.tdwg.org/dwc/terms/ResourceRelationship": "Ressourcenbeziehungen"
+  "enums.dwcaExtension.http://rs.tdwg.org/dwc/terms/ResourceRelationship": "Ressourcenbeziehungen",
+  "enums.yesNo.true": "Yes",
+  "enums.yesNo.false": "No"
 }

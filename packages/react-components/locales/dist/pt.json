@@ -116,6 +116,7 @@
   "dataset.registry.outOfSync": "Sem sincronização",
   "dataset.registry.becauseTrustedContact": "Porque és um contato confiável",
   "dataset.registry.registrationDetails": "GBIF registration details",
+  "collection.institutionUnknown": "Institution is unknown",
   "catalogues.occurrences": "Ocorrências",
   "catalogues.datasets": "Conjuntos de dados",
   "catalogues.species": "Espécie",
@@ -134,6 +135,7 @@
   "tableHeaders.registered": "Registado",
   "tableHeaders.hostedDatasets": "Conjuntos de dados alojados",
   "tableHeaders.pubDatasets": "Conjuntos de dados publicados",
+  "tableHeaders.active": "Is active",
   "intervals.description.lt": "Menor que {to}",
   "intervals.description.lte": "Menor ou igual {to}",
   "intervals.description.gt": "Maior que {from}",
@@ -321,6 +323,9 @@
   "filters.isInCluster.name": "Está em cluster",
   "filters.isInCluster.count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
   "filters.isInCluster.description": "Se foi determinado o registo ter outros registos relacionados.",
+  "filters.active.name": "Active",
+  "filters.active.count": "Active",
+  "filters.active.description": "Whether or not the institution or collection is still active",
   "filters.datasetType.name": "Tipo de conjunto de dados",
   "filters.datasetType.count": "{num, plural, one { tipo de conjunto de dados } other {# tipos de conjuntos de dados}}",
   "filters.datasetType.description": "Uma breve descrição do componente deve ser colocada aqui",
@@ -361,6 +366,7 @@
   "filterSupport.useWildcardPattern": "Search for the pattern",
   "filterSupport.showSuggestions": "Show suggestions",
   "filterSupport.excludeSelected": "Exclude selected",
+  "filterSupport.updateFilter": "Update filter",
   "counts.nResults": "{total, plural, one {# resultado} other {# resultados}}",
   "counts.nRecordsTotal": "{total, plural, one {# record in total} other {# records in total}}",
   "counts.nSelected": "{total, plural, one {} other {# selecionado}}",
@@ -1321,5 +1327,7 @@
   "enums.dwcaExtension.http://rs.tdwg.org/dwc/terms/MeasurementOrFact": "Medição ou facto",
   "enums.dwcaExtension.http://rs.gbif.org/terms/1.0/Multimedia": "Multimédia",
   "enums.dwcaExtension.http://rs.gbif.org/terms/1.0/Reference": "Referência",
-  "enums.dwcaExtension.http://rs.tdwg.org/dwc/terms/ResourceRelationship": "Relação de recursos"
+  "enums.dwcaExtension.http://rs.tdwg.org/dwc/terms/ResourceRelationship": "Relação de recursos",
+  "enums.yesNo.true": "Yes",
+  "enums.yesNo.false": "No"
 }
