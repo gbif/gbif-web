@@ -146,6 +146,7 @@ export const tableConfig = {
 
     {
       name: 'collectionCode',
+      filterKey: 'collectionCode',
       trKey: 'occurrenceFieldNames.collectionCode',
       value: {
         key: 'collectionCode'
@@ -153,13 +154,31 @@ export const tableConfig = {
     },
     {
       name: 'institutionCode',
+      filterKey: 'institutionCode',
       trKey: 'occurrenceFieldNames.institutionCode',
       value: {
         key: 'institutionCode'
       }
     },
     {
+      name: 'institutionKey',
+      filterKey: 'institutionKey',
+      trKey: 'tableHeaders.institution',
+      value: {
+        key: 'institution.name'
+      }
+    },
+    {
+      name: 'collectionKey',
+      filterKey: 'collectionKey',
+      trKey: 'tableHeaders.collection',
+      value: {
+        key: 'collection.name'
+      }
+    },
+    {
       name: 'locality',
+      filterKey: 'locality',
       trKey: 'occurrenceFieldNames.locality',
       value: {
         key: 'locality'
