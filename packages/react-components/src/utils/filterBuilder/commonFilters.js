@@ -1035,6 +1035,24 @@ export const commonFilters = {
       }
     }
   },
+  collectionKey: {
+    type: 'SUGGEST',
+    config: {
+      std: {
+        filterHandle: 'collectionKey',
+        id2labelHandle: 'collectionKey',
+        translations: {
+          count: 'filters.collectionKey.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.collectionKey.name',// translation path to a title for the popover and the button
+          description: 'filters.collectionKey.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        suggestHandle: 'collectionKey',
+        id2labelHandle: 'collectionKey',
+      }
+    }
+  },
   name: {
     type: 'SIMPLE_TEXT',
     config: {

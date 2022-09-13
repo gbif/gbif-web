@@ -171,6 +171,15 @@ export const commonLabels = {
     }`,
     transform: result => ({ title: result.data.institution.name })
   },
+  collectionKey: {
+    type: 'GQL',
+    query: `query label($id: String!){
+      collection(key: $id) {
+        name
+      }
+    }`,
+    transform: result => ({ title: result.data.collection.name })
+  },
   networkKey: {
     type: 'ENDPOINT',
     template: ({ id, api }) => `${api.v1.endpoint}/network/${id}`,
