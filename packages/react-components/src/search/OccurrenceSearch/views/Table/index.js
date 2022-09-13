@@ -54,6 +54,15 @@ query table($predicate: Predicate, $size: Int = 20, $from: Int = 0){
         soundCount
         typeStatus
         issues
+
+        institution {
+          name
+          key
+        }
+        collection {
+          name
+          key
+        }
         
         volatile {
           features {
