@@ -35,7 +35,7 @@ const defaultTableConfig = {
       trKey: 'tableHeaders.title',
       value: {
         key: 'name',
-        formatter: (value, item) => <ResourceLink type='institutionKey' discreet id={item.key}>{value}</ResourceLink>,
+        formatter: (value, item) => <ResourceLink type='institutionKey' id={item.key}>{value}</ResourceLink>,
       },
       width: 'wide'
     },

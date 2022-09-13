@@ -42,7 +42,7 @@ const defaultTableConfig = {
       value: {
         key: 'name',
         formatter: (value, item) => <div>
-          <ResourceLink type='collectionKey' discreet id={item.key} data-loader>{value}</ResourceLink>
+          <ResourceLink type='collectionKey' id={item.key} data-loader>{value}</ResourceLink>
           <div style={{ color: '#aaa' }}>
             <InlineFilterChip filterName="institution" values={[item.institution.key]}>
               <span data-loader>{item.institution.name}</span>
