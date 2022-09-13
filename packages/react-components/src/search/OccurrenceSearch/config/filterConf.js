@@ -42,6 +42,7 @@ export const filters = [
   'identifiedBy',
   'isInCluster',
   'institutionKey',
+  'collectionKey',
   'q',
   'verbatimScientificName',
   'dwcaExtension'
