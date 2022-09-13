@@ -22,7 +22,7 @@ export function InlineFilterChip({ filterName, values, ...props }) {
       {...props}
        /> */}
        <TextButton as="span" look="textHover" onClick={e => currentFilterContext.setField(filterName, values, true)}>
-       {props.children} <span style={{color: '#888', marginLeft: 4, position: 'relative', top: '.2em' }} data-loader>
+       {props.children} <span style={{color: '#888', marginLeft: 4, top: '.2em' }} data-loader>
           <AddIcon />
         </span>
         </TextButton>
