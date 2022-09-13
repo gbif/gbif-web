@@ -17,14 +17,17 @@ export const ResourceSearchLink = React.forwardRef(({ queryString, type, discree
   }
 });
 
-export const ResourceLink = React.forwardRef(({ id, type, discreet, ...props }, ref) => {
+export const ResourceLink = React.forwardRef(({ id, type, discreet, bold,...props }, ref) => {
   const localeSettings = useContext(LocaleContext);
   const routeContext = useContext(RouteContext);
   const basename = routeContext.basename;
   const gbifOrgLocale = localeSettings?.localeMap?.gbif_org;
   const { url, isHref, route } = routeContext[type];
   const to = url({ key: id, route, basename, gbifOrgLocalePrefix: gbifOrgLocale ? `/${gbifOrgLocale}` : '' });
-  const style = discreet ? isDiscreet : null;
+  let style = isDiscreetLink;
+  if (discreet) style = isDiscreet;
+  if (bold) style = isBoldLink;
+
   if (isHref) {
     return <a href={to} css={style} {...props} />
   } else {
@@ -40,10 +43,19 @@ export function DatasetKeyLink(props) {
   return <ResourceLink type='datasetKey' {...props} />
 }
 
-const isDiscreet = css`
-  color: inherit;
+const isDiscreetLink = css`
   text-decoration: none;
   :hover {
     text-decoration: underline;
   }
+`;
+
+const isDiscreet = css`
+  color: inherit;
+  ${isDiscreetLink};
+`;
+
+const isBoldLink = css`
+  font-weight: 500;
+  ${isDiscreetLink}
 `;
