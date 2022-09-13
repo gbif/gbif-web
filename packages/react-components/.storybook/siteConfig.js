@@ -112,21 +112,21 @@ export const siteConfig = {
     },
     // addMapStyles: function ({ mapStyleServer, language, pixelRatio, apiKeys, mapComponents }) {
     //   return {
-    //     BRIGHT_MERCATOR_TEST: {
+    //     MERCATOR_TOWNS: {
     //       component: mapComponents.OpenlayersMap,
-    //       labelKey: 'My custom map',
+    //       labelKey: 'Towns',
     //       mapConfig: {
-    //         basemapStyle: `klokantech`,
+    //         basemapStyle: `http://localhost:3001/assets/map-styles/cities.json`,
     //         projection: 'EPSG_3857'
     //       }
     //     }
     //   }
     // },
-    styleLookup: {
-      MERCATOR: {
-        // BRIGHT: 'BRIGHT_MERCATOR_TEST',
-        NATURAL: 'NATURAL_HILLSHADE_MERCATOR'
-      }
-    }
+    // styleLookup: {
+    //   MERCATOR: {
+    //     BRIGHT: 'MERCATOR_TOWNS',
+    //     NATURAL: 'NATURAL_HILLSHADE_MERCATOR'
+    //   }
+    // }
   }
 };
