@@ -328,8 +328,8 @@
   "filters.isInCluster.name": "Is in cluster",
   "filters.isInCluster.count": "{num, plural, one { is in cluster } other {# are in clusters}}",
   "filters.isInCluster.description": "Whether the record was determined to have related records.",
-  "filters.active.name": "Active",
-  "filters.active.count": "Active",
+  "filters.active.name": "活動中",
+  "filters.active.count": "活動中",
   "filters.active.description": "Whether or not the institution or collection is still active",
   "filters.datasetType.name": "データセットタイプ",
   "filters.datasetType.count": "{num, plural, one { dataset type } other {# dataset types}}",
@@ -372,6 +372,8 @@
   "filterSupport.showSuggestions": "Show suggestions",
   "filterSupport.excludeSelected": "Exclude selected",
   "filterSupport.updateFilter": "Update filter",
+  "filterSupport.setFilter": "Set as filter",
+  "filterSupport.viewDetails": "View details",
   "counts.nResults": "{total, plural, one {# 結果} other {# 結果}}",
   "counts.nRecordsTotal": "{total, plural, one {# record in total} other {# records in total}}",
   "counts.nSelected": "{total, plural, other {# 選択済み}}",
@@ -1333,6 +1335,6 @@
   "enums.dwcaExtension.http://rs.gbif.org/terms/1.0/Multimedia": "マルチメディア",
   "enums.dwcaExtension.http://rs.gbif.org/terms/1.0/Reference": "参考資料",
   "enums.dwcaExtension.http://rs.tdwg.org/dwc/terms/ResourceRelationship": "資料の関係性",
-  "enums.yesNo.true": "Yes",
-  "enums.yesNo.false": "No"
+  "enums.yesNo.true": "はい",
+  "enums.yesNo.false": "いいえ"
 }

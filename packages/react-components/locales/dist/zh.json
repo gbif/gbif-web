@@ -328,8 +328,8 @@
   "filters.isInCluster.name": "在集群中",
   "filters.isInCluster.count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
   "filters.isInCluster.description": "该记录是否被确定有相关记录。",
-  "filters.active.name": "Active",
-  "filters.active.count": "Active",
+  "filters.active.name": "活跃的",
+  "filters.active.count": "活跃的",
   "filters.active.description": "Whether or not the institution or collection is still active",
   "filters.datasetType.name": "数据集类型",
   "filters.datasetType.count": "{num, plural, one { 数据集类型 } other {# 数据集类型}}",
@@ -372,6 +372,8 @@
   "filterSupport.showSuggestions": "显示建议",
   "filterSupport.excludeSelected": "排除所选",
   "filterSupport.updateFilter": "Update filter",
+  "filterSupport.setFilter": "Set as filter",
+  "filterSupport.viewDetails": "View details",
   "counts.nResults": "{total, plural, one {# 结果} other {# 结果}}",
   "counts.nRecordsTotal": "{total, plural, one {# 总记录} other {# 总记录}}",
   "counts.nSelected": "{total, plural, other {# 选中的}}",
@@ -1333,6 +1335,6 @@
   "enums.dwcaExtension.http://rs.gbif.org/terms/1.0/Multimedia": "多媒体",
   "enums.dwcaExtension.http://rs.gbif.org/terms/1.0/Reference": "参考文献",
   "enums.dwcaExtension.http://rs.tdwg.org/dwc/terms/ResourceRelationship": "资源关系",
-  "enums.yesNo.true": "Yes",
-  "enums.yesNo.false": "No"
+  "enums.yesNo.true": "是",
+  "enums.yesNo.false": "否"
 }

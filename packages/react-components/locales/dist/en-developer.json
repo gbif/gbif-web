@@ -372,6 +372,8 @@
   "filterSupport.showSuggestions": "Show suggestions",
   "filterSupport.excludeSelected": "Exclude selected",
   "filterSupport.updateFilter": "Update filter",
+  "filterSupport.setFilter": "Set as filter",
+  "filterSupport.viewDetails": "View details",
   "counts.nResults": "{total, plural, one {# result} other {# results}}",
   "counts.nRecordsTotal": "{total, plural, one {# record in total} other {# records in total}}",
   "counts.nSelected": "{total, plural, other {# selected}}",

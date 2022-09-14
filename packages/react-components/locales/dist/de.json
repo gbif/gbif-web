@@ -372,6 +372,8 @@
   "filterSupport.showSuggestions": "Vorschläge anzeigen",
   "filterSupport.excludeSelected": "Ausgewählte ausschließen",
   "filterSupport.updateFilter": "Update filter",
+  "filterSupport.setFilter": "Set as filter",
+  "filterSupport.viewDetails": "View details",
   "counts.nResults": "{total, plural, one {# Ergebnis} other {# Ergebnisse}}",
   "counts.nRecordsTotal": "{total, plural, one {# Datensatz insgesamt} other {# Datensätze insgesamt}}",
   "counts.nSelected": "{total, plural, other {# ausgewählt}}",

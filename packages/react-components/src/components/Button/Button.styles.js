@@ -54,6 +54,16 @@ export const text = theme => css`
   cursor: pointer;
 `;
 
+export const textHoverLinkColor = theme => css`
+  color: inherit;
+  cursor: pointer;
+  height: auto;
+  line-height: inherit;
+  &:hover {
+    color: ${theme.primary500};
+  }
+`;
+
 export const textHover = theme => css`
   padding: 0;
   border: none;

@@ -328,8 +328,8 @@
   "filters.isInCluster.name": "Is in cluster",
   "filters.isInCluster.count": "{num, plural, one { is in cluster } other {# are in clusters}}",
   "filters.isInCluster.description": "Whether the record was determined to have related records.",
-  "filters.active.name": "Active",
-  "filters.active.count": "Active",
+  "filters.active.name": "نشط",
+  "filters.active.count": "نشط",
   "filters.active.description": "Whether or not the institution or collection is still active",
   "filters.datasetType.name": "نمط مجموعة البيانات",
   "filters.datasetType.count": "{num, plural, one { dataset type } other {# dataset types}}",
@@ -372,6 +372,8 @@
   "filterSupport.showSuggestions": "Show suggestions",
   "filterSupport.excludeSelected": "Exclude selected",
   "filterSupport.updateFilter": "Update filter",
+  "filterSupport.setFilter": "Set as filter",
+  "filterSupport.viewDetails": "View details",
   "counts.nResults": "{total, plural, one {# result} other {# results}}",
   "counts.nRecordsTotal": "{total, plural, one {# record in total} other {# records in total}}",
   "counts.nSelected": "{total, plural, other {# selected}}",
@@ -1333,6 +1335,6 @@
   "enums.dwcaExtension.http://rs.gbif.org/terms/1.0/Multimedia": "وسائط متعددة",
   "enums.dwcaExtension.http://rs.gbif.org/terms/1.0/Reference": "المرجع",
   "enums.dwcaExtension.http://rs.tdwg.org/dwc/terms/ResourceRelationship": "علاقة الموارد",
-  "enums.yesNo.true": "Yes",
-  "enums.yesNo.false": "No"
+  "enums.yesNo.true": "نعم",
+  "enums.yesNo.false": "لا"
 }

@@ -328,8 +328,8 @@
   "filters.isInCluster.name": "Is onderdeel van een cluster",
   "filters.isInCluster.count": "{num, plural, one { is in cluster } other {# are in clusters}}",
   "filters.isInCluster.description": "Of er automatisch verwante gegevens zijn gevonden.",
-  "filters.active.name": "Active",
-  "filters.active.count": "Active",
+  "filters.active.name": "Actief",
+  "filters.active.count": "Actief",
   "filters.active.description": "Whether or not the institution or collection is still active",
   "filters.datasetType.name": "Dataset type",
   "filters.datasetType.count": "{num, plural, one { dataset type } other {# dataset types}}",
@@ -372,6 +372,8 @@
   "filterSupport.showSuggestions": "Show suggestions",
   "filterSupport.excludeSelected": "Geselecteerde uitsluiten",
   "filterSupport.updateFilter": "Update filter",
+  "filterSupport.setFilter": "Set as filter",
+  "filterSupport.viewDetails": "View details",
   "counts.nResults": "{total, plural, one {# result} other {# results}}",
   "counts.nRecordsTotal": "{total, plural, one {# record in total} other {# records in total}}",
   "counts.nSelected": "{total, plural, other {# selected}}",
@@ -1333,6 +1335,6 @@
   "enums.dwcaExtension.http://rs.gbif.org/terms/1.0/Multimedia": "Multimedia",
   "enums.dwcaExtension.http://rs.gbif.org/terms/1.0/Reference": "Verwijzing",
   "enums.dwcaExtension.http://rs.tdwg.org/dwc/terms/ResourceRelationship": "Resource relationship",
-  "enums.yesNo.true": "Yes",
-  "enums.yesNo.false": "No"
+  "enums.yesNo.true": "Ja",
+  "enums.yesNo.false": "Nee"
 }

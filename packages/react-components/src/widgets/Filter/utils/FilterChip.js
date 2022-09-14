@@ -6,19 +6,19 @@ import { AiOutlinePlusCircle as AddIcon } from 'react-icons/ai';
 
 import { FilterContext } from '../state';
 
-export function InlineFilterChip({ filterName, values, children, ...props }) {
+export function InlineFilterChip({ filterName, values, children, addIcon, ...props }) {
   const currentFilterContext = useContext(FilterContext);
-  return <Tooltip placement="right" title={<span><FormattedMessage id="filterSupport.updateFilter" /></span>}>
-    <TextButton as="span" look="textHover" onClick={e => {
+  return <Tooltip placement="right" title={<span><FormattedMessage id="filterSupport.setFilter" /></span>}>
+    <TextButton as="span" look="textHover" style={{marginRight: children ? null : 4}} onClick={e => {
       currentFilterContext.setField(filterName, values, true);
       e.preventDefault();
       e.stopPropagation();
     }
     } {...props}>
       {children}
-      {/* <span style={{ color: '#888', marginLeft: 4 }} data-loader>
+      {addIcon && <span style={{ color: '#888', margin: children ? '0 3px' : null}} data-loader>
         <AddIcon />
-      </span> */}
+      </span>}
     </TextButton>
   </Tooltip>
 }

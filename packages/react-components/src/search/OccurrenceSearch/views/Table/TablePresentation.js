@@ -104,6 +104,7 @@ export const TablePresentation = ({ first, prev, next, size, from, data, total, 
 const getRows = ({ columns, labelMap, data, setActiveKey, dialog, filters }) => {
   const results = data?.occurrenceSearch?.documents?.results || [];
   const rows = results.map((row, index) => {
+    const openInSideBar = () => { setActiveKey(row.key); };
     const cells = columns.map(
       (field, i) => {
         const hasFilter = filters[field?.filterKey];
@@ -115,7 +116,7 @@ const getRows = ({ columns, labelMap, data, setActiveKey, dialog, filters }) => 
 
         let formattedVal = val;
         if (field.value.formatter) {
-          formattedVal = field.value.formatter(val, row);
+          formattedVal = field.value.formatter(val, row, {openInSideBar});
         } else if (field.value.labelHandle) {
           const Label = labelMap[field.value.labelHandle];
           formattedVal = <Label id={val} />
@@ -138,7 +139,7 @@ const getRows = ({ columns, labelMap, data, setActiveKey, dialog, filters }) => 
         // }
       }
     );
-    return <tr key={row.key} onClick={() => { setActiveKey(row.key); }}>{cells}</tr>;
+    return <tr key={row.key} onClick={openInSideBar}>{cells}</tr>;
   });
   return rows;
 }

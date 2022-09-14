@@ -1,6 +1,8 @@
 import React from 'react';
-import { IconFeatures } from '../../../components';
+import { IconFeatures, TextButton, Tooltip } from '../../../components';
 import { InlineFilterChip } from '../../../widgets/Filter/utils/FilterChip';
+// import { MdPreview as OpenInSideBar} from 'react-icons/md';
+import { RiSideBarFill as OpenInSideBar } from 'react-icons/ri';
 import { FormattedMessage } from 'react-intl';
 
 export const tableConfig = {
@@ -12,7 +14,19 @@ export const tableConfig = {
       filterKey: 'taxonKey', // optional
       value: {
         key: 'gbifClassification.usage.formattedName',
-        formatter: (value, occurrence) => <span dangerouslySetInnerHTML={{ __html: value }}></span>
+        formatter: (value, occurrence, { openInSideBar }) => <div style={{ display: 'flex', alignItems: 'center' }}>
+          <Tooltip placement="top" title={<span><FormattedMessage id="filterSupport.viewDetails" /></span>}>
+            <TextButton as="span" look="textHoverLinkColor" style={{ display: 'inline-flex' }}>
+              <OpenInSideBar style={{ fontSize: '1.5em', marginRight: '.75em' }} onClick={(e) => {
+                openInSideBar();
+                e.stopPropagation();
+              }} />
+            </TextButton>
+          </Tooltip>
+          <InlineFilterChip filterName="taxonKey" values={[occurrence.taxonKey]}>
+            <span dangerouslySetInnerHTML={{ __html: value }} data-loader></span>
+          </InlineFilterChip>
+        </div >
       },
       width: 'wide'
     },
@@ -123,7 +137,7 @@ export const tableConfig = {
         key: 'recordedBy',
       },
       width: 'wide',
-      cellFilter: ({row}) => row.recordedBy,
+      cellFilter: ({ row }) => row.recordedBy,
     },
     {
       name: 'identifiedBy',
@@ -133,7 +147,7 @@ export const tableConfig = {
         key: 'identifiedBy',
       },
       width: 'wide',
-      cellFilter: ({row}) => row.identifiedBy,
+      cellFilter: ({ row }) => row.identifiedBy,
     },
     {
       name: 'recordNumber',
@@ -184,7 +198,11 @@ export const tableConfig = {
       filterKey: 'institutionKey',
       trKey: 'tableHeaders.institution',
       value: {
-        key: 'institution.name'
+        key: 'institution.name',
+        formatter: (value, occurrence) => {
+          if (!value) return null;
+          return <>{value} <span>({occurrence.institution.code})</span></>
+        }
       },
       cellFilter: 'institution.key',
     },
@@ -193,7 +211,11 @@ export const tableConfig = {
       filterKey: 'collectionKey',
       trKey: 'tableHeaders.collection',
       value: {
-        key: 'collection.name'
+        key: 'collection.name',
+        formatter: (value, occurrence) => {
+          if (!value) return null;
+          return <>{value} <span>({occurrence.collection.code})</span></>
+        }
       },
       cellFilter: 'collection.key',
     },
@@ -207,3 +229,5 @@ export const tableConfig = {
     },
   ]
 };
+
+console.log(tableConfig.columns.map(x => x.name));

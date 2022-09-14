@@ -328,8 +328,8 @@
   "filters.isInCluster.name": "Está em cluster",
   "filters.isInCluster.count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
   "filters.isInCluster.description": "Se foi determinado o registo ter outros registos relacionados.",
-  "filters.active.name": "Active",
-  "filters.active.count": "Active",
+  "filters.active.name": "Ativo",
+  "filters.active.count": "Ativo",
   "filters.active.description": "Whether or not the institution or collection is still active",
   "filters.datasetType.name": "Tipo de conjunto de dados",
   "filters.datasetType.count": "{num, plural, one { tipo de conjunto de dados } other {# tipos de conjuntos de dados}}",
@@ -372,6 +372,8 @@
   "filterSupport.showSuggestions": "Show suggestions",
   "filterSupport.excludeSelected": "Exclude selected",
   "filterSupport.updateFilter": "Update filter",
+  "filterSupport.setFilter": "Set as filter",
+  "filterSupport.viewDetails": "View details",
   "counts.nResults": "{total, plural, one {# resultado} other {# resultados}}",
   "counts.nRecordsTotal": "{total, plural, one {# record in total} other {# records in total}}",
   "counts.nSelected": "{total, plural, one {} other {# selecionado}}",
@@ -1333,6 +1335,6 @@
   "enums.dwcaExtension.http://rs.gbif.org/terms/1.0/Multimedia": "Multimédia",
   "enums.dwcaExtension.http://rs.gbif.org/terms/1.0/Reference": "Referência",
   "enums.dwcaExtension.http://rs.tdwg.org/dwc/terms/ResourceRelationship": "Relação de recursos",
-  "enums.yesNo.true": "Yes",
-  "enums.yesNo.false": "No"
+  "enums.yesNo.true": "Sim",
+  "enums.yesNo.false": "Não"
 }

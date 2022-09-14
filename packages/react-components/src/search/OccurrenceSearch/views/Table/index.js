@@ -28,10 +28,12 @@ query table($predicate: Predicate, $size: Int = 20, $from: Int = 0){
       from
       results {
         key
+        taxonKey
         gbifClassification{
           usage {
             rank
             formattedName
+            key
           }
         }
         year
@@ -60,10 +62,12 @@ query table($predicate: Predicate, $size: Int = 20, $from: Int = 0){
         institution {
           name
           key
+          code
         }
         collection {
           name
           key
+          code
         }
         
         volatile {
