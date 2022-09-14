@@ -28,7 +28,7 @@ export const tableConfig = {
               <span dangerouslySetInnerHTML={{ __html: value }} data-loader></span>
             </InlineFilterChip>
             {occurrence.hasTaxonIssues && <Tooltip placement="top" title={<span><FormattedMessage id="filterSupport.nameWithTaxonMatchIssue" /></span>}>
-              <div style={{ color: '#fea600' }}>
+              <div style={{ color: '#fea600' }} data-loader>
                 {occurrence.gbifClassification.verbatimScientificName}
               </div>
             </Tooltip>}
