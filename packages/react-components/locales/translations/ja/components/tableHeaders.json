@@ -9,5 +9,7 @@
   "altmetric": "オルトメトリクス",
   "registered": "登録済み",
   "hostedDatasets": "ホストされたデータセット",
-  "pubDatasets": "公開されているデータセット"
+  "pubDatasets": "公開されているデータセット",
+  "institution": "機関",
+  "collection": "コレクション"
 }
