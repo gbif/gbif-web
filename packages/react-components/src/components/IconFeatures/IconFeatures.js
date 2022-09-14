@@ -35,6 +35,7 @@ export function IconFeatures({
 }) {
   const theme = useContext(ThemeContext);
   let typeStyle;
+  if (Array.isArray(typeStatusString)) typeStatusString = typeStatusString?.[0];
   const typeStatus = typeStatusString === 'NOTATYPE' ? null : typeStatusString;
   if (typeStatus) {
     // Someone will ask at some point. 
