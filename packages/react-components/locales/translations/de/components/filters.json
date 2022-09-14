@@ -4,6 +4,11 @@
     "count": "{num, plural, one { DwCA-Erweiterung } other {# DwCA-Erweiterungen}}",
     "description": "Bezeichner für die Sammlung, zu der das usprüngliche Objekt gehört."
   },
+  "collectionKey": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "taxonKey": {
     "name": "Wissenschaftlicher Name",
     "count": "{num, plural, one {wissenschaftlicher Name} other {# wissenschaftliche Namen}}",
