@@ -16,5 +16,6 @@
   "excludeSelected": "Exclude selected",
   "updateFilter": "Update filter",
   "setFilter": "Set as filter",
+  "nameWithTaxonMatchIssue": "Name before normalisation",
   "viewDetails": "View details"
 }

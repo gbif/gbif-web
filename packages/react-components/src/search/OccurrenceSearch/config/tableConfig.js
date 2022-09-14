@@ -23,9 +23,16 @@ export const tableConfig = {
               }} />
             </TextButton>
           </Tooltip>
-          <InlineFilterChip filterName="taxonKey" values={[occurrence.taxonKey]}>
-            <span dangerouslySetInnerHTML={{ __html: value }} data-loader></span>
-          </InlineFilterChip>
+          <div>
+            <InlineFilterChip filterName="taxonKey" values={[occurrence.taxonKey]}>
+              <span dangerouslySetInnerHTML={{ __html: value }} data-loader></span>
+            </InlineFilterChip>
+            {occurrence.hasTaxonIssues && <Tooltip placement="top" title={<span><FormattedMessage id="filterSupport.nameWithTaxonMatchIssue" /></span>}>
+              <div style={{ color: '#fea600' }}>
+                {occurrence.gbifClassification.verbatimScientificName}
+              </div>
+            </Tooltip>}
+          </div>
         </div >
       },
       width: 'wide'

@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const { getGlobe } = require('../../util/globe');
 const { getFacet, getStats, getCardinality, getHistogram, getAutoDateHistogram } = require('./helpers/getMetrics');
 const fieldsWithFacetSupport = require('./helpers/fieldsWithFacetSupport');
@@ -158,6 +159,9 @@ module.exports = {
     groups: (occurrence, args, { dataSources }) => {
       return dataSources.occurrenceAPI.getVerbatim({ key: occurrence.key })
         .then(verbatim => groupResolver({ occurrence, verbatim }));
+    },
+    hasTaxonIssues: ({issues = []}, args, { dataSources }) => {
+      return _.intersection(issues, ['TAXON_MATCH_FUZZY', 'TAXON_MATCH_HIGHERRANK', 'TAXON_MATCH_AGGREGATE', 'TAXON_MATCH_NONE']).length > 0;
     },
     terms: (occurrence, args, { dataSources }) => {
       return dataSources.occurrenceAPI.getVerbatim({ key: occurrence.key })

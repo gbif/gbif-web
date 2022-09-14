@@ -30,6 +30,7 @@ query table($predicate: Predicate, $size: Int = 20, $from: Int = 0){
         key
         taxonKey
         gbifClassification{
+          verbatimScientificName
           usage {
             rank
             formattedName
@@ -58,6 +59,7 @@ query table($predicate: Predicate, $size: Int = 20, $from: Int = 0){
         soundCount
         typeStatus
         issues
+        hasTaxonIssues
 
         institution {
           name
