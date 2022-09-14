@@ -58,11 +58,11 @@ const defaultTableConfig = {
     {
       trKey: 'filters.code.name',
       value: {
-        filterKey: 'code',
         key: 'code',
         hideFalsy: true
       },
       filterKey: 'code',
+      cellFilter: true,
     },
     {
       trKey: 'filters.country.name',

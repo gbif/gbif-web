@@ -2,7 +2,7 @@ import React from "react";
 import StandardSearchTable from '../../../StandardSearchTable';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { ResourceLink } from '../../../../components';
-import { InlineFilterChip, InlineFilter } from '../../../../widgets/Filter/utils/FilterChip';
+import { InlineFilterChip } from '../../../../widgets/Filter/utils/FilterChip';
 
 const QUERY = `
 query list($code: String, $q: String, $offset: Int, $limit: Int, $country: Country, $fuzzyName: String, $city: String, $name: String, $active: Boolean){
@@ -42,11 +42,11 @@ const defaultTableConfig = {
     {
       trKey: 'filters.code.name',
       value: {
-        filterKey: 'code',
         key: 'code',
-        hideFalsy: true
+        hideFalsy: true,
       },
-      filterKey: 'code'
+      filterKey: 'code',
+      cellFilter: true,
     },
     {
       trKey: 'filters.country.name',
@@ -105,7 +105,7 @@ const defaultTableConfig = {
             /></InlineFilterChip>
         },
       },
-      filterKey: 'active'
+      filterKey: 'active',
     }
   ]
 };

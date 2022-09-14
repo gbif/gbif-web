@@ -6,6 +6,7 @@ import SearchContext from './SearchContext';
 import { Button, Row, Col, DataTable, Th, Td, TBody } from '../components';
 import { ResultsHeader } from './ResultsHeader';
 import { FilterContext } from '../widgets/Filter/state';
+import { InlineFilterChip } from '../widgets/Filter/utils/FilterChip';
 
 const fallbackTableConfig = {
   columns: [{
@@ -56,16 +57,17 @@ export const ResultsTable = ({ first, prev, next, size, from, results, total, lo
         <tr>{headerss}</tr>
       </thead>
       <TBody rowCount={size} columnCount={7} loading={loading}>
-        {getRows({ tableConfig, labelMap, currentFilterContext, results })}
+        {getRows({ tableConfig, labelMap, currentFilterContext, results, filters })}
       </TBody>
     </DataTable>
   </div>
 }
 
-const getRows = ({ tableConfig, labelMap, currentFilterContext, results = [] }) => {
+const getRows = ({ tableConfig, labelMap, currentFilterContext, results = [], filters }) => {
   const rows = results.map((row, index) => {
     const cells = tableConfig.columns.map(
       (field, i) => {
+        const hasFilter = filters[field?.filterKey];
         const val = get(row, field.value.key);
         let formattedVal = val;
 
@@ -76,6 +78,9 @@ const getRows = ({ tableConfig, labelMap, currentFilterContext, results = [] }) 
         } else if (field.value.labelHandle) {
           const Label = labelMap[field.value.labelHandle];
           formattedVal = Label ? <Label id={val} /> : val;
+        }
+        if (hasFilter && field?.cellFilter) {
+          formattedVal = <InlineFilterChip filterName={field?.filterKey} values={[val]}>{formattedVal}</InlineFilterChip>
         }
 
         return <Td noWrap={field.noWrap} key={field.trKey} style={field.value.rightAlign ? {textAlign: 'right'} : {}}>{formattedVal}</Td>;
