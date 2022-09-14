@@ -147,10 +147,11 @@ const config = {
   labels, 
   getSuggests, 
   filters, 
-  occurrenceSearchTabs: ['MAP', 'DATASETS', 'GALLERY', 'TABLE'],
+  occurrenceSearchTabs: ['TABLE', 'MAP', 'DATASETS', 'GALLERY'],
   // highlightedFilters: ['establishmentMeans'],
+  // excludedFilters: ['locality'],
   availableCatalogues: ['OCCURRENCE', 'LITERATURE', 'COLLECTION'],
-  // defaultTableColumns: ['year', 'country']
+  // defaultTableColumns: ['recordedBy', 'collectionKey', 'locality', 'year', 'country']
   // mapSettings: {
   //   zoom: 10.290782035199692,
   //   lng: 4.378666162934309,

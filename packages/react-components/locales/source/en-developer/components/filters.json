@@ -4,6 +4,11 @@
     "count": "{num, plural, one { Dwca extension } other {# Dwca extensions}}",
     "description": "A short description of the component should be placed here"
   },
+  "collectionKey": {
+    "name": "Collection",
+    "count": "{num, plural, one { collection } other {# collection}}",
+    "description": "The collection in GrSciColl this record was matched to"
+  },
   "taxonKey": {
     "name": "Scientific name",
     "count": "{num, plural, one {scientific name} other {# scientific names}}",
