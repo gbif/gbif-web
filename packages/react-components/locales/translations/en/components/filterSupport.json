@@ -14,5 +14,7 @@
   "useWildcardPattern": "Search for the pattern",
   "showSuggestions": "Show suggestions",
   "excludeSelected": "Exclude selected",
-  "updateFilter": "Update filter"
+  "updateFilter": "Update filter",
+  "setFilter": "",
+  "viewDetails": ""
 }
