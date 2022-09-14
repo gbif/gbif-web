@@ -64,6 +64,7 @@ export const tableConfig = {
       value: {
         key: 'countryCode',
         labelHandle: 'countryCode',
+        hideFalsy: true,
         // formatter: (countryCode, item) => {
         //   return countryCode ? <InlineFilterChip filterName="country" values={[countryCode]}>
         //     <FormattedMessage

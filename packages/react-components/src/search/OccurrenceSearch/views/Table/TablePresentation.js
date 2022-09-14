@@ -120,7 +120,9 @@ const getRows = ({ columns, labelMap, data, setActiveKey, dialog, filters }) => 
         const val = get(row, field.value.key);
 
         let formattedVal = val;
-        if (field.value.formatter) {
+        if (!val && field.value.hideFalsy === true) {
+          formattedVal = '';
+        } else if (field.value.formatter) {
           formattedVal = field.value.formatter(val, row, {openInSideBar});
         } else if (field.value.labelHandle) {
           const Label = labelMap[field.value.labelHandle];
