@@ -235,6 +235,11 @@
     "count": "",
     "description": ""
   },
+  "active": {
+    "name": "Діяльна",
+    "count": "Діяльна",
+    "description": ""
+  },
   "datasetType": {
     "name": "Тип набору даних",
     "count": "",

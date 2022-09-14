@@ -13,5 +13,6 @@
   "wildcardHelp": "",
   "useWildcardPattern": "",
   "showSuggestions": "",
-  "excludeSelected": "Geselecteerde uitsluiten"
+  "excludeSelected": "Geselecteerde uitsluiten",
+  "updateFilter": ""
 }

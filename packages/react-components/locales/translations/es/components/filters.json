@@ -235,6 +235,11 @@
     "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
     "description": "Si se determinó que el registro tenía registros relacionados."
   },
+  "active": {
+    "name": "Activo/a",
+    "count": "Activo/a",
+    "description": ""
+  },
   "datasetType": {
     "name": "Tipo de conjunto de datos",
     "count": "{num, plural, one { tipo de conjunto de datos } other {# tipos de conjunto de datos}}",

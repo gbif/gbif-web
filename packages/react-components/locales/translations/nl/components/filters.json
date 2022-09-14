@@ -235,6 +235,11 @@
     "count": "",
     "description": "Of er automatisch verwante gegevens zijn gevonden."
   },
+  "active": {
+    "name": "Actief",
+    "count": "Actief",
+    "description": ""
+  },
   "datasetType": {
     "name": "",
     "count": "",

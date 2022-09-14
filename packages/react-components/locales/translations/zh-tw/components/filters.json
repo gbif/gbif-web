@@ -235,6 +235,11 @@
     "count": "",
     "description": ""
   },
+  "active": {
+    "name": "在線",
+    "count": "在線",
+    "description": ""
+  },
   "datasetType": {
     "name": "資料集類型",
     "count": "",
