@@ -315,14 +315,14 @@ module.exports = {
   },
   OccurrenceFacetResult_institution: {
     institution: ({ key }, args, { dataSources }) => {
-      if (typeof key === 'undefined') return null;
+      if (!key) return null;
       return dataSources.institutionAPI.getInstitutionByKey({ key });
     },
     occurrences: facetOccurrenceSearch
   },
   OccurrenceFacetResult_collection: {
     collection: ({ key }, args, { dataSources }) => {
-      if (typeof key === 'undefined') return null;
+      if (!key) return null;
       return dataSources.collectionAPI.getCollectionByKey({ key });
     },
     occurrences: facetOccurrenceSearch
