@@ -12,6 +12,7 @@ import { useDialogState } from "reakit/Dialog";
 import { ViewHeader } from '../ViewHeader';
 // import { useUrlState } from '../../../../dataManagement/state/useUrlState';
 import { useQueryParam, NumberParam } from 'use-query-params';
+import { InlineFilterChip } from '../../../../widgets/Filter/utils/FilterChip';
 
 import * as css from './styles';
 
@@ -76,76 +77,6 @@ export const TablePresentation = ({ first, prev, next, size, from, data, total, 
     </Th>
   });
 
-  // const headers = [
-  //   <Th key='scientificName' width='wide' locked={fixed} toggle={() => setFixed(!fixedColumn)}>
-  //     <Row>
-  //       <Col grow={false}>scientificName</Col>
-  //       <Col>
-  //         <filters.taxonKey.Popover modal placement="auto">
-  //           <Button appearance="text" style={{ display: 'flex' }}>
-  //             <MdFilterList />
-  //             {get(currentFilterContext.filter, 'must.taxonKey.length', '')}
-  //           </Button>
-  //         </filters.taxonKey.Popover>
-  //       </Col>
-  //     </Row>
-  //   </Th>,
-  //   <Th key='year'>
-  //     <Row wrap="nowrap">
-  //       <Col grow={false}>Year</Col>
-  //       <Col>
-  //         <filters.year.Popover modal placement="auto">
-  //           <Button appearance="text" style={{ display: 'flex' }}>
-  //             <MdFilterList />
-  //           </Button>
-  //         </filters.year.Popover>
-  //       </Col>
-  //     </Row>
-  //   </Th>,
-  //   <Th key='basisOfRecord' width='wide'>
-  //     <Row>
-  //       <Col grow={false}>Basis of record</Col>
-  //       <Col>
-  //         <filters.basisOfRecord.Popover modal placement="auto">
-  //           <Button appearance="text" style={{ display: 'flex' }}>
-  //             <MdFilterList />
-  //           </Button>
-  //         </filters.basisOfRecord.Popover>
-  //       </Col>
-  //     </Row>
-  //   </Th>,
-  //   <Th key='datasetTitle' width='wide'>
-  //     <Row>
-  //       <Col grow={false}>Dataset</Col>
-  //       <Col>
-  //         <filters.datasetKey.Popover modal placement="auto">
-  //           <Button appearance="text" style={{ display: 'flex' }}>
-  //             <MdFilterList />
-  //           </Button>
-  //         </filters.datasetKey.Popover>
-  //       </Col>
-  //     </Row>
-  //   </Th>,
-  //   <Th key='publisherTitle' width='wide'>
-  //     <Row>
-  //       <Col grow={false}>Publisher</Col>
-  //       <Col>
-  //         <filters.publisherKey.Popover modal placement="auto">
-  //           <Button appearance="text" style={{ display: 'flex' }}>
-  //             <MdFilterList />
-  //           </Button>
-  //         </filters.publisherKey.Popover>
-  //       </Col>
-  //     </Row>
-  //   </Th>,
-  //   <Th key='countryCode'>
-  //     countryCode
-  //   </Th>,
-  //   <Th key='gbifTaxonRank'>
-  //     rank
-  //   </Th>
-  // ];
-
   return <>
     {dialog.visible && <DetailsDrawer href={`https://www.gbif.org/occurrence/${activeKey}`} dialog={dialog} nextItem={nextItem} previousItem={previousItem}>
       <OccurrenceSidebar id={activeKey} defaultTab='details' style={{ maxWidth: '100%', width: 700, height: '100%' }} onCloseRequest={() => dialog.setVisible(false)} />
@@ -163,18 +94,19 @@ export const TablePresentation = ({ first, prev, next, size, from, data, total, 
           <tr>{headerss}</tr>
         </thead>
         <TBody rowCount={size} columnCount={7} loading={loading}>
-          {getRows({ columns, labelMap, data, setActiveKey, dialog })}
+          {getRows({ columns, labelMap, data, setActiveKey, dialog, filters })}
         </TBody>
       </DataTable>
     </div>
   </>
 }
 
-const getRows = ({ columns, labelMap, data, setActiveKey, dialog }) => {
+const getRows = ({ columns, labelMap, data, setActiveKey, dialog, filters }) => {
   const results = data?.occurrenceSearch?.documents?.results || [];
   const rows = results.map((row, index) => {
     const cells = columns.map(
       (field, i) => {
+        const hasFilter = filters[field?.filterKey];
         // const FormatedName = formatters(field).component;
         // const Presentation = <FormatedName id={row._source[field]} />;
         // if (i === 0) return <Td key={field}><Action onSelect={() => console.log(row._id)}>{Presentation}</Action></Td>;
@@ -187,6 +119,13 @@ const getRows = ({ columns, labelMap, data, setActiveKey, dialog }) => {
         } else if (field.value.labelHandle) {
           const Label = labelMap[field.value.labelHandle];
           formattedVal = <Label id={val} />
+        }
+        if (hasFilter && field?.cellFilter) {
+          let filterValue = [get(row, field.cellFilter, val)];
+          if (typeof field.cellFilter === 'function') {
+            filterValue = field.cellFilter({row, val})
+          }
+          formattedVal = <InlineFilterChip filterName={field?.filterKey} values={filterValue}>{formattedVal}</InlineFilterChip>
         }
 
         return <Td key={field.trKey} noWrap={field.noWrap}>{formattedVal}</Td>;

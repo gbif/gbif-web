@@ -36,7 +36,9 @@ query table($predicate: Predicate, $size: Int = 20, $from: Int = 0){
         }
         year
 				basisOfRecord
+        datasetKey
         datasetTitle
+        publishingOrgKey
         publisherTitle
         countryCode
         formattedCoordinates

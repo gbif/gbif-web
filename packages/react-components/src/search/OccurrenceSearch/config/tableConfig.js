@@ -1,5 +1,7 @@
 import React from 'react';
 import { IconFeatures } from '../../../components';
+import { InlineFilterChip } from '../../../widgets/Filter/utils/FilterChip';
+import { FormattedMessage } from 'react-intl';
 
 export const tableConfig = {
   defaultColumns: ['features', 'country', 'coordinates', 'year', 'basisOfRecord', 'dataset', 'publisher'],
@@ -40,8 +42,15 @@ export const tableConfig = {
       filterKey: 'country', //optional
       value: {
         key: 'countryCode',
-        labelHandle: 'countryCode'
-      }
+        labelHandle: 'countryCode',
+        // formatter: (countryCode, item) => {
+        //   return countryCode ? <InlineFilterChip filterName="country" values={[countryCode]}>
+        //     <FormattedMessage
+        //       id={`enums.countryCode.${countryCode}`}
+        //     /></InlineFilterChip> : null;
+        // },
+      },
+      cellFilter: true,
     },
     {
       name: 'coordinates',
@@ -62,8 +71,9 @@ export const tableConfig = {
       trKey: 'filters.year.name',
       filterKey: 'year', //optional
       value: {
-        key: 'year'
-      }
+        key: 'year',
+      },
+      cellFilter: true
     },
     {
       name: 'basisOfRecord',
@@ -72,7 +82,8 @@ export const tableConfig = {
       value: {
         key: 'basisOfRecord',
         labelHandle: 'basisOfRecord'
-      }
+      },
+      cellFilter: true
     },
     {
       name: 'dataset',
@@ -81,6 +92,7 @@ export const tableConfig = {
       value: {
         key: 'datasetTitle',
       },
+      cellFilter: 'datasetKey',
       width: 'wide'
     },
     {
@@ -90,6 +102,7 @@ export const tableConfig = {
       value: {
         key: 'publisherTitle',
       },
+      cellFilter: 'publishingOrgKey',
       width: 'wide'
     },
     {
@@ -99,7 +112,8 @@ export const tableConfig = {
       value: {
         key: 'catalogNumber',
       },
-      width: 'wide'
+      width: 'wide',
+      cellFilter: true
     },
     {
       name: 'recordedBy',
@@ -108,7 +122,8 @@ export const tableConfig = {
       value: {
         key: 'recordedBy',
       },
-      width: 'wide'
+      width: 'wide',
+      cellFilter: ({row}) => row.recordedBy,
     },
     {
       name: 'identifiedBy',
@@ -117,7 +132,8 @@ export const tableConfig = {
       value: {
         key: 'identifiedBy',
       },
-      width: 'wide'
+      width: 'wide',
+      cellFilter: ({row}) => row.identifiedBy,
     },
     {
       name: 'recordNumber',
@@ -125,7 +141,8 @@ export const tableConfig = {
       filterKey: 'recordNumber', //optional
       value: {
         key: 'recordNumber',
-      }
+      },
+      cellFilter: true
     },
     {
       name: 'typeStatus',
@@ -150,7 +167,8 @@ export const tableConfig = {
       trKey: 'occurrenceFieldNames.collectionCode',
       value: {
         key: 'collectionCode'
-      }
+      },
+      cellFilter: true,
     },
     {
       name: 'institutionCode',
@@ -158,7 +176,8 @@ export const tableConfig = {
       trKey: 'occurrenceFieldNames.institutionCode',
       value: {
         key: 'institutionCode'
-      }
+      },
+      cellFilter: true,
     },
     {
       name: 'institutionKey',
@@ -166,7 +185,8 @@ export const tableConfig = {
       trKey: 'tableHeaders.institution',
       value: {
         key: 'institution.name'
-      }
+      },
+      cellFilter: 'institution.key',
     },
     {
       name: 'collectionKey',
@@ -174,7 +194,8 @@ export const tableConfig = {
       trKey: 'tableHeaders.collection',
       value: {
         key: 'collection.name'
-      }
+      },
+      cellFilter: 'collection.key',
     },
     {
       name: 'locality',
@@ -182,7 +203,7 @@ export const tableConfig = {
       trKey: 'occurrenceFieldNames.locality',
       value: {
         key: 'locality'
-      }
+      },
     },
   ]
 };
