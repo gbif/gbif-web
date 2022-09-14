@@ -14,5 +14,7 @@
   "useWildcardPattern": "",
   "showSuggestions": "",
   "excludeSelected": "Geselecteerde uitsluiten",
-  "updateFilter": ""
+  "updateFilter": "",
+  "setFilter": "",
+  "viewDetails": ""
 }

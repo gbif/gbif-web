@@ -4,6 +4,11 @@
     "count": "",
     "description": "Une courte description de la composante devrait apparaître ici"
   },
+  "collectionKey": {
+    "name": "Collection",
+    "count": "",
+    "description": ""
+  },
   "taxonKey": {
     "name": "Nom scientifique du taxon",
     "count": "",

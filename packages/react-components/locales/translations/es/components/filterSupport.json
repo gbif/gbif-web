@@ -14,5 +14,7 @@
   "useWildcardPattern": "Busca el patrón ({distinct, plural, one {# valor distinto } other {# valores distintos}})",
   "showSuggestions": "",
   "excludeSelected": "Excluir seleccionados",
-  "updateFilter": ""
+  "updateFilter": "",
+  "setFilter": "",
+  "viewDetails": ""
 }

@@ -14,5 +14,7 @@
   "useWildcardPattern": "搜索模式 ({distinct, plural, one {# 区别值 } other {# 区别值}})",
   "showSuggestions": "显示建议",
   "excludeSelected": "排除所选",
-  "updateFilter": ""
+  "updateFilter": "",
+  "setFilter": "",
+  "viewDetails": ""
 }
