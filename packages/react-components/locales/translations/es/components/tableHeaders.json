@@ -11,5 +11,6 @@
   "hostedDatasets": "Conjuntos de datos alojados",
   "pubDatasets": "Conjuntos de datos publicados",
   "institution": "Institución",
-  "collection": "Colección"
+  "collection": "Colección",
+  "active": "Activo"
 }

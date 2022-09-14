@@ -241,8 +241,8 @@
     "description": "Si se determinó que el registro tenía registros relacionados."
   },
   "active": {
-    "name": "Activo/a",
-    "count": "Activo/a",
+    "name": "Activo",
+    "count": "Activo",
     "description": ""
   },
   "datasetType": {
