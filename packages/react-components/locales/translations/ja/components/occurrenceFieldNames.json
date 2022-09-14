@@ -206,7 +206,7 @@
   "infraspecificEpithet": "最も低い分類群の名前",
   "taxonRank": "分類階級",
   "verbatimTaxonRank": "オリジナルの分類階級",
-  "vernacularName": "現地名（和名）",
+  "vernacularName": "コモンネームまたは和名",
   "nomenclaturalCode": "学名命名コード",
   "taxonomicStatus": "学名の分類学的状況",
   "nomenclaturalStatus": "学名命名の状況",
