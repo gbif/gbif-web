@@ -27,6 +27,12 @@ const filterConf = {
     active: {
       singleValue: true,
       transformValue: x => x === 'true'
+    },
+    numberSpecimens: {
+      singleValue: true,
+      v1: {
+        supportedTypes: ['range', 'equals']
+      }
     }
   }
 }

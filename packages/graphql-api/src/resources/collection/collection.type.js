@@ -15,6 +15,7 @@ const typeDef = gql`
       country: Country,
       alternativeCode: String
       active: Boolean
+      numberSpecimens: String
       ): CollectionSearchResults
     collection(key: String!): Collection
   }

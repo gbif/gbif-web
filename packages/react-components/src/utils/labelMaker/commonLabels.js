@@ -193,5 +193,9 @@ export const commonLabels = {
     type: 'TRANSLATION',
     template: id => `enums.dwcaExtension.${id}`
   },
+  numberSpecimens: {
+    type: 'CUSTOM',
+    component: rangeOrEqualLabel('intervals.compact')
+  },
   // -- Add labels above this line (required by plopfile.js) --
 }

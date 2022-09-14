@@ -14,6 +14,7 @@ const typeDef = gql`
       country: Country,
       alternativeCode: String
       active: Boolean
+      numberSpecimens: String
       ): InstitutionSearchResults
     institution(key: String!): Institution
   }

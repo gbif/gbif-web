@@ -1192,6 +1192,23 @@ export const commonFilters = {
       }
     }
   },
+  numberSpecimens: {
+    type: 'NUMBER_RANGE',
+    config: {
+      std: {
+        filterHandle: 'numberSpecimens',
+        id2labelHandle: 'numberSpecimens',
+        translations: {
+          count: 'filters.numberSpecimens.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.numberSpecimens.name',// translation path to a title for the popover and the button
+          description: 'filters.numberSpecimens.description', // translation path for the filter description
+        }
+      },
+      specific: {
+        placeholder: 'Range or single value',
+      }
+    }
+  },
   // -- Add filters above this line (required by plopfile.js) --
   q: {
     type: 'CUSTOM_STANDARD',
