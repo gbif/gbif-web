@@ -9,5 +9,6 @@
   "altmetric": "替代指标",
   "registered": "已注册",
   "hostedDatasets": "托管数据集",
-  "pubDatasets": "已发布的数据集"
+  "pubDatasets": "已发布的数据集",
+  "active": "处于活跃状态"
 }
