@@ -4,6 +4,11 @@
     "count": "{num, plural, one { extensión DWCA } other {# extensiones DWCA}}",
     "description": "Aquí debe colocarse una breve descripción del componente"
   },
+  "collectionKey": {
+    "name": "Colección",
+    "count": "",
+    "description": "La colección en GrSciColl este registro fue igualado a"
+  },
   "taxonKey": {
     "name": "Nombre científico",
     "count": "{num, plural, one {nombre científico} other {# nombres científicos}}",
