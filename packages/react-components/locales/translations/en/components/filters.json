@@ -238,7 +238,7 @@
   "active": {
     "name": "Active",
     "count": "Active",
-    "description": ""
+    "description": "Whether or not the institution or collection is still active"
   },
   "datasetType": {
     "name": "Dataset type",
