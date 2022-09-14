@@ -205,6 +205,7 @@ export const tableConfig = {
         }
       },
       cellFilter: 'institution.key',
+      width: 'wide'
     },
     {
       name: 'collectionKey',
@@ -218,6 +219,7 @@ export const tableConfig = {
         }
       },
       cellFilter: 'collection.key',
+      width: 'wide'
     },
     {
       name: 'locality',
