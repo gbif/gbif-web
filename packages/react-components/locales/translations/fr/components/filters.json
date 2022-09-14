@@ -235,6 +235,11 @@
     "count": "",
     "description": ""
   },
+  "active": {
+    "name": "Activé",
+    "count": "Activé",
+    "description": ""
+  },
   "datasetType": {
     "name": "Type de jeu de données",
     "count": "",

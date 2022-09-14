@@ -235,6 +235,11 @@
     "count": "",
     "description": ""
   },
+  "active": {
+    "name": "نشط",
+    "count": "نشط",
+    "description": ""
+  },
   "datasetType": {
     "name": "نمط مجموعة البيانات",
     "count": "",

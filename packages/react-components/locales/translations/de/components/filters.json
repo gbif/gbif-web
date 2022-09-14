@@ -235,6 +235,11 @@
     "count": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
     "description": "Gibt an, ob der Datensatz mit einem oder mehreren anderen Datensätzen gruppiert wurde."
   },
+  "active": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "datasetType": {
     "name": "Art des Datasets",
     "count": "{num, plural, one {Dataset-Typ} other {# Dataset-Typen}}",
