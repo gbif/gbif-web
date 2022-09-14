@@ -17,6 +17,10 @@ import { InlineFilterChip } from '../../../../widgets/Filter/utils/FilterChip';
 
 import * as css from './styles';
 
+function isEmpty(e) {
+  return e === null || typeof e === 'undefined' || (Array.isArray(e) && e.length === 0);
+}
+
 export const TablePresentation = ({ first, prev, next, size, from, data, total, loading, columns = [] }) => {
   // const [activeKey, setActiveKey] = useUrlState({ param: 'entity' });
   const [activeKey, setActiveKey] = useQueryParam('entity', NumberParam);
@@ -122,7 +126,7 @@ const getRows = ({ columns, labelMap, data, setActiveKey, dialog, filters }) => 
           const Label = labelMap[field.value.labelHandle];
           formattedVal = <Label id={val} />
         }
-        if (hasFilter && field?.cellFilter) {
+        if (!isEmpty(val) &&  hasFilter && field?.cellFilter) {
           let filterValue = [get(row, field.cellFilter, val)];
           if (typeof field.cellFilter === 'function') {
             filterValue = field.cellFilter({row, val})

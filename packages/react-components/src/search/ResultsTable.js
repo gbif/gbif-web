@@ -65,6 +65,10 @@ export const ResultsTable = ({ first, prev, next, size, from, results, total, lo
   </div>
 }
 
+function isEmpty(e) {
+  return e === null || typeof e === 'undefined' || (Array.isArray(e) && e.length === 0);
+}
+
 const getRows = ({ tableConfig, labelMap, currentFilterContext, results = [], filters }) => {
   const rows = results.map((row, index) => {
     const cells = tableConfig.columns.map(
@@ -81,7 +85,7 @@ const getRows = ({ tableConfig, labelMap, currentFilterContext, results = [], fi
           const Label = labelMap[field.value.labelHandle];
           formattedVal = Label ? <Label id={val} /> : val;
         }
-        if (hasFilter && field?.cellFilter) {
+        if (!isEmpty(val) && hasFilter && field?.cellFilter) {
           formattedVal = <InlineFilterChip filterName={field?.filterKey} values={[val]}>{formattedVal}</InlineFilterChip>
         }
 
