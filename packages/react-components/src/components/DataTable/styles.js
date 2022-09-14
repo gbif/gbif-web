@@ -52,9 +52,10 @@ export const table = props => css`
   position: relative;
   min-width: 100%;
   border-collapse: separate;
-  background: ${props.theme.background};
+  /* background: ${props.theme.background}; */
   border-spacing: 0;
   font-size: 85%;
+  background: ${props.theme.paperBackground500};
   & th, td {
     border-right: 1px solid ${props.theme.paperBorderColor};
     transition: background-color 200ms ease;
@@ -71,13 +72,15 @@ export const table = props => css`
   }
   & td {
     padding: 12px;
-    background: ${props.theme.paperBackground500};
   }
   & tbody>tr>td:first-of-type {
     border-right: 1px solid ${props.theme.paperBorderColor};
     background: ${props.theme.paperBackground500};
   }
   ${props.stickyColumn ? stickyColumn(props) : ''};
+  & tr:hover, tbody>tr:hover>td:first-of-type {
+    background-color: ${props.theme.paperBackground700};
+  }
   ${props.scrolled ? scrolled(props) : ''};
   /* ${props.scrollEnd ? scrollEnd(props) : ''}; */
 `;
@@ -91,6 +94,9 @@ export const stickyColumn = props => css`
     position: sticky;
     left: 0;
   }
+  & tbody>tr:hover>td:first-of-type {
+    background-color: ${props.theme.paperBackground600};
+  }
 `;
 
 // export const scrollEnd = props => css`
@@ -100,14 +106,20 @@ export const stickyColumn = props => css`
 // `;
 
 export const scrolled = ({theme}) => css`
-  & td {
+  & tr {
     background-color: ${theme.paperBackground600};
+    &:hover {
+      background-color: ${theme.paperBackground700};
+    }
   }
   & thead th {
     background: ${theme.paperBackground700};
   }
   & thead th:first-of-type {
     background: ${theme.paperBackground500};
+  }
+  & tbody>tr:hover>td:first-of-type {
+    background: ${theme.paperBackground700};
   }
 `;
 

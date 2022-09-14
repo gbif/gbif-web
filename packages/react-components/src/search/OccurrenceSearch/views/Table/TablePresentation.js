@@ -139,7 +139,7 @@ const getRows = ({ columns, labelMap, data, setActiveKey, dialog, filters }) => 
         // }
       }
     );
-    return <tr key={row.key} onClick={openInSideBar}>{cells}</tr>;
+    return <tr key={row.key} onClick={openInSideBar} style={{cursor: 'pointer'}}>{cells}</tr>;
   });
   return rows;
 }
