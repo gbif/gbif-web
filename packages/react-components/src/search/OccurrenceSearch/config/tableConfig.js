@@ -126,7 +126,6 @@ export const tableConfig = {
       value: {
         key: 'catalogNumber',
       },
-      width: 'wide',
       cellFilter: true
     },
     {
