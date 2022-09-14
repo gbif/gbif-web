@@ -3,6 +3,7 @@ import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { useUpdateEffect } from 'react-use';
 import { MdFilterList } from "react-icons/md";
 import { FormattedMessage } from 'react-intl';
+import useBelow from '../../../../utils/useBelow';
 import get from 'lodash/get';
 // import { FilterContext } from '../../../../widgets/Filter/state';
 import OccurrenceContext from '../../../SearchContext';
@@ -19,7 +20,7 @@ import * as css from './styles';
 export const TablePresentation = ({ first, prev, next, size, from, data, total, loading, columns = [] }) => {
   // const [activeKey, setActiveKey] = useUrlState({ param: 'entity' });
   const [activeKey, setActiveKey] = useQueryParam('entity', NumberParam);
-  
+  const noColumnLock = useBelow(1000);
   const { filters, labelMap } = useContext(OccurrenceContext);
   const [fixedColumn, setFixed] = useState(true);
   const dialog = useDialogState({ animated: true, modal: false });
@@ -59,9 +60,9 @@ export const TablePresentation = ({ first, prev, next, size, from, data, total, 
     }
   }, [activeKey, items]);
 
-  const fixed = fixedColumn;// && !dialog.visible;
+  const fixed = fixedColumn && !noColumnLock;// && !dialog.visible;
   const headerss = columns.map((col, index) => {
-    const options = index === 0 ? { locked: fixed, toggle: () => setFixed(!fixedColumn) } : null;
+    const options = index === 0 ? { locked: fixed, toggle: noColumnLock ? null: () => setFixed(!fixedColumn) } : null;
     const FilterPopover = col.filterKey ? filters[col.filterKey]?.Popover : null;
     return <Th key={col.trKey} width={col.width} {...options}>
       <Row wrap="nowrap">

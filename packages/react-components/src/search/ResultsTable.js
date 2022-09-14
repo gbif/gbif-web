@@ -3,6 +3,7 @@ import { MdFilterList } from "react-icons/md";
 import { FormattedMessage } from 'react-intl';
 import get from 'lodash/get';
 import SearchContext from './SearchContext';
+import useBelow from '../utils/useBelow';
 import { Button, Row, Col, DataTable, Th, Td, TBody } from '../components';
 import { ResultsHeader } from './ResultsHeader';
 import { FilterContext } from '../widgets/Filter/state';
@@ -22,12 +23,13 @@ export const ResultsTable = ({ first, prev, next, size, from, results, total, lo
   const currentFilterContext = useContext(FilterContext);
   const { filters, tableConfig = defaultTableConfig, labelMap } = useContext(SearchContext);
   const [fixedColumn, setFixed] = useState(true && !hideLock);
+  const noColumnLock = useBelow(1000);
 
-  const fixed = fixedColumn;
+  const fixed = fixedColumn && !noColumnLock;
   const headerss = tableConfig.columns.map((col, index) => {
     const options = index === 0 && !hideLock ? {
       locked: fixed, 
-      toggle: () => setFixed(!fixedColumn)
+      toggle: noColumnLock ? null : () => setFixed(!fixedColumn)
     } : null;
     const FilterPopover = col.filterKey ? filters[col.filterKey]?.Popover : null;
     return <Th key={col.trKey} width={col.width} >
