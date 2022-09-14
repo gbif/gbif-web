@@ -9,6 +9,11 @@
     "count": "{num, plural, one {# collection } other {# collections}}",
     "description": "The collection in GrSciColl this record was matched to"
   },
+  "numberSpecimens": {
+    "name": "Number of specimens",
+    "count": "",
+    "description": ""
+  },
   "taxonKey": {
     "name": "Scientific name",
     "count": "{num, plural, one {scientific name} other {# scientific names}}",
