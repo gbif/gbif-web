@@ -418,7 +418,7 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
       placeholder: 'search.placeholders.default',
       // how to get the list of suggestion data
       getSuggestions: ({ q }) => {
-        const { promise, cancel } = client.v1Get(`/grscicoll/institution/suggest?limit=8&q=${q}`);
+        const { promise, cancel } = client.v1Get(`/grscicoll/search?entityType=INSTITUTION&displayOnNHCPortal=true&limit=8&q=${q}`);
         return {
           promise: promise.then(response => ({
             data: response.data.map(i => ({ title: i.name, ...i }))
@@ -434,7 +434,6 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
           {suggestion.title}
           <div>Code: {suggestion.code}</div>
         </div>
-
       }
     },
     collectionKey: {
@@ -442,7 +441,7 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
       placeholder: 'search.placeholders.default',
       // how to get the list of suggestion data
       getSuggestions: ({ q }) => {
-        const { promise, cancel } = client.v1Get(`/grscicoll/collection/suggest?limit=8&q=${q}`);
+        const { promise, cancel } = client.v1Get(`/grscicoll/search?entityType=COLLECTION&displayOnNHCPortal=true&limit=8&q=${q}`);
         return {
           promise: promise.then(response => ({
             data: response.data.map(i => ({ title: i.name, ...i }))
