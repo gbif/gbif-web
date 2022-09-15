@@ -15,6 +15,7 @@ const typeDef = gql`
       alternativeCode: String
       active: Boolean
       numberSpecimens: String
+      displayOnNHCPortal: Boolean
       ): InstitutionSearchResults
     institution(key: String!): Institution
   }
