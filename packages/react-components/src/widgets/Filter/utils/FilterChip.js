@@ -41,10 +41,10 @@ export function InlineFilter({ filterName, values, ...props }) {
 
 export function LinkOption({ children, ...props }) {
   return <span css={linkOption}>
-    {children}
     <ResourceLink {...props} data-loader>
       <MdLink/>
     </ResourceLink>
+    {children}
   </span>
 }
 
@@ -52,7 +52,7 @@ const linkOption = css`
   &:has(>a:hover) {
     text-decoration: underline;
   }
-  a:last-child {
-    margin-left: .5em;
+  a:first-of-type {
+    margin-right: .5em;
   }
 `;
