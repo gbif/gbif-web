@@ -1074,7 +1074,7 @@ export const commonFilters = {
     type: 'SUGGEST',
     config: {
       std: {
-        filterHandle: 'institutionKey',
+        filterHandle: 'institutionKeySingle',
         id2labelHandle: 'institutionKey',
         translations: {
           count: 'filters.institutionKey.count', // translation path to display names with counts. e.g. "3 scientific names"
