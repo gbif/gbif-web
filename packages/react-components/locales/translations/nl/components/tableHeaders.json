@@ -8,5 +8,8 @@
   "titleAndAbstract": "Titel en samenvatting",
   "registered": "Geregistreerd",
   "hostedDatasets": "Gehoste datasets",
-  "pubDatasets": "Gepubliceerde datasets"
+  "pubDatasets": "Gepubliceerde datasets",
+  "institution": "Instelling",
+  "collection": "Verzameling",
+  "active": "Is actief"
 }
