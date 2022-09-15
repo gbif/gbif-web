@@ -2,10 +2,11 @@ import { filters } from './filterConf';
 
 const filterConf = {
   fields: {
-    country: {
+    countrySingleGrSciColl: {
+      defaultKey: 'country',
       singleValue: true
     },
-    institutionKey: {
+    institutionKeySingle: {
       defaultKey: 'institution',
       singleValue: true
     },

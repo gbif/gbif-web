@@ -69,6 +69,23 @@ export const commonFilters = {
       }
     }
   },
+  countrySingleGrSciColl: {
+    type: 'SUGGEST',
+    config: {
+      std: {
+        id2labelHandle: 'countryCode',
+        translations: {
+          count: 'filters.occurrenceCountry.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.occurrenceCountry.name',// translation path to a title for the popover and the button
+          description: 'filters.occurrenceCountry.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        suggestHandle: 'countryCode',
+        singleSelect: true
+      }
+    }
+  },
   countriesOfCoverage: {
     type: 'SUGGEST',
     config: {
@@ -1053,6 +1070,25 @@ export const commonFilters = {
       }
     }
   },
+  institutionKeySingle: {
+    type: 'SUGGEST',
+    config: {
+      std: {
+        filterHandle: 'institutionKey',
+        id2labelHandle: 'institutionKey',
+        translations: {
+          count: 'filters.institutionKey.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.institutionKey.name',// translation path to a title for the popover and the button
+          description: 'filters.institutionKey.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        suggestHandle: 'institutionKey',
+        id2labelHandle: 'institutionKey',
+        singleSelect: true
+      }
+    }
+  },
   name: {
     type: 'SIMPLE_TEXT',
     config: {
@@ -1206,6 +1242,7 @@ export const commonFilters = {
       },
       specific: {
         placeholder: 'Range or single value',
+        singleSelect: true
       }
     }
   },

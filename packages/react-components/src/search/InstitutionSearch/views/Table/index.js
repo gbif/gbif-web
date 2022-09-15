@@ -77,6 +77,7 @@ const defaultTableConfig = {
     },
     {
       trKey: 'tableHeaders.numberSpecimens',
+      filterKey: 'numberSpecimens',
       value: {
         key: 'numberSpecimens',
         formatter: (value, item) => <FormattedNumber value={value} />,

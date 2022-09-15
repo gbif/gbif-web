@@ -44,9 +44,10 @@ const defaultTableConfig = {
         formatter: (value, item) => <div>
           <ResourceLink type='collectionKey' id={item.key} data-loader>{value}</ResourceLink>
           <div style={{ color: '#aaa' }}>
-            <InlineFilterChip filterName="institution" values={[item.institution.key]}>
+            {item.institution && <InlineFilterChip filterName="institution" values={[item.institution.key]}>
               <span data-loader>{item.institution.name}</span>
             </InlineFilterChip>
+            }
             {!item.institution && <span style={{ fontStyle: 'italic' }} data-loader>
               <FormattedMessage id="collection.institutionUnknown" />
             </span>}
@@ -95,6 +96,7 @@ const defaultTableConfig = {
     },
     {
       trKey: 'tableHeaders.numberSpecimens',
+      filterKey: 'numberSpecimens',
       value: {
         key: 'numberSpecimens',
         formatter: (value, item) => <FormattedNumber value={value} />,

@@ -24,7 +24,7 @@ export const FilterContent = ({ config = {}, translations, labelledById, LabelFr
   const initialOptions = get(initFilter, `must.${filterHandle}`, []);
   const [options, setOptions] = useState(initialOptions.filter(x => x.type !== 'isNotNull'));
   const [inputValue, setValue] = useState('');
-
+  const singleSelect = config.singleSelect;
   const formattedPlaceholder = formatMessage({id: placeholder});
 
   return <Filter
@@ -72,7 +72,15 @@ export const FilterContent = ({ config = {}, translations, labelledById, LabelFr
                   setValue('');
                   const allOptions = unionBy([q], options, hash);
                   setOptions(allOptions);
-                  toggle(filterHandle, q);
+                  if (singleSelect) {
+                    setOptions([q]);
+                    setFullField(filterHandle, [q], [])
+                      .then(responseFilter => onApply({ filter: responseFilter, hide }))
+                      .catch(err => console.log(err));
+                  } else {
+                    toggle(filterHandle, q);
+                  }
+                  // toggle(filterHandle, q);
                 }
               }
             }}
