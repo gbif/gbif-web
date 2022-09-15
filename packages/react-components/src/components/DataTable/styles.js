@@ -6,6 +6,16 @@ export const wrapper = props => css`
   /* height: 100%; */
 `;
 
+export const loaderOverlay = ({theme}) => css`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background-color: #ffffff88;
+  left: 0;
+  right: 0;
+  z-index: 2;
+`;
+
 export const occurrenceTable = ({theme}) => css`
   width: 100%;
   height: calc(100% - 30px);
