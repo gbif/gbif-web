@@ -1,6 +1,6 @@
 import React from 'react';
 import { IconFeatures, TextButton, Tooltip } from '../../../components';
-import { InlineFilterChip } from '../../../widgets/Filter/utils/FilterChip';
+import { InlineFilterChip, LinkOption } from '../../../widgets/Filter/utils/FilterChip';
 // import { MdPreview as OpenInSideBar} from 'react-icons/md';
 import { RiSideBarFill as OpenInSideBar } from 'react-icons/ri';
 import { FormattedMessage } from 'react-intl';
@@ -206,12 +206,15 @@ export const tableConfig = {
       trKey: 'tableHeaders.institution',
       value: {
         key: 'institution.name',
-        formatter: (value, occurrence) => {
+        formatter: (value, item) => {
           if (!value) return null;
-          return <>{value} <span>({occurrence.institution.code})</span></>
-        }
+          return <LinkOption discreet type='institutionKey' id={item.institution.key} >
+          <InlineFilterChip filterName="institution" values={[item.institution.key]}>
+            <span data-loader>{item.institution.name} <span>({item.institution.code})</span></span>
+          </InlineFilterChip>
+        </LinkOption>
+        },
       },
-      cellFilter: 'institution.key',
       width: 'wide'
     },
     {
@@ -220,12 +223,15 @@ export const tableConfig = {
       trKey: 'tableHeaders.collection',
       value: {
         key: 'collection.name',
-        formatter: (value, occurrence) => {
+        formatter: (value, item) => {
           if (!value) return null;
-          return <>{value} <span>({occurrence.collection.code})</span></>
-        }
+          return <LinkOption discreet type='collectionKey' id={item.collection.key} >
+          <InlineFilterChip filterName="collection" values={[item.collection.key]}>
+            <span data-loader>{item.collection.name} <span>({item.collection.code})</span></span>
+          </InlineFilterChip>
+        </LinkOption>
+        },
       },
-      cellFilter: 'collection.key',
       width: 'wide'
     },
     {
