@@ -12,7 +12,7 @@
   "numberSpecimens": {
     "name": "Number of specimens",
     "count": "",
-    "description": ""
+    "description": "The number of held specimens stated in the description. This number does not reflect how many records have been digitized and shared."
   },
   "taxonKey": {
     "name": "Scientific name",
