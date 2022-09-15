@@ -41,7 +41,7 @@ export function InlineFilter({ filterName, values, ...props }) {
 
 export function LinkOption({ children, ...props }) {
   return <span css={linkOption}>
-    <ResourceLink {...props} data-loader>
+    <ResourceLink {...props} data-loader onClick={(e) => {e.stopPropagation()}}>
       <MdLink/>
     </ResourceLink>
     {children}
