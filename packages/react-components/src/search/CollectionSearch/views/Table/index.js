@@ -47,9 +47,6 @@ const defaultTableConfig = {
               <InlineFilterChip filterName="institution" values={[item.institution.key]}>
                 <span data-loader>{item.institution.name}</span>
               </InlineFilterChip>
-              {/* <ResourceLink discreet type='institutionKey' id={item.institution.key} data-loader>
-                <MdLink />
-              </ResourceLink> */}
             </LinkOption>
             }
             {!item.institution && <span style={{ fontStyle: 'italic' }} data-loader>
