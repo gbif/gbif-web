@@ -1,5 +1,5 @@
 export const filters = [
-  'q', 'institutionKeySingle', 'code', 'countrySingleGrSciColl', 'city', 'active'
+  'q', 'institutionKeySingle', 'code', 'countrySingleGrSciColl', 'city', 'active', 'numberSpecimens'
 ].sort();
 
 const highlighted = [

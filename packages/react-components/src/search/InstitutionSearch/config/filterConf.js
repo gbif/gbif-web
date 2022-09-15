@@ -1,5 +1,5 @@
 export const filters = [
-  'active', 'name', 'q', 'code', 'countrySingleGrSciColl', 'city'
+  'active', 'name', 'q', 'code', 'countrySingleGrSciColl', 'city', 'numberSpecimens'
 ];
 
 const highlighted = [
