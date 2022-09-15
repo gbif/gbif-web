@@ -11,7 +11,7 @@
 
 
 // export { Button } from './components/Button/Button';
-export * from './components';
+// export * from './components';
 export { default as OccurrenceSearch } from './search/OccurrenceSearch/Standalone';
 export { default as CollectionSearch } from './search/CollectionSearch/Standalone';
 export { default as InstitutionSearch } from './search/InstitutionSearch/Standalone';
