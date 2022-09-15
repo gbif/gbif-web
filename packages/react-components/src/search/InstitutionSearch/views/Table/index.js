@@ -50,7 +50,7 @@ const defaultTableConfig = {
     },
     {
       trKey: 'filters.country.name',
-      filterKey: 'country',
+      filterKey: 'countrySingleGrSciColl',
       value: {
         key: 'key',
         formatter: (value, item) => {

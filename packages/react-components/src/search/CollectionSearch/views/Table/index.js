@@ -69,7 +69,6 @@ const defaultTableConfig = {
     {
       trKey: 'filters.country.name',
       value: {
-        filterKey: 'country',
         key: 'key',
         formatter: (value, item) => {
           const countryCode = item.address?.country || item.mailingAddress?.country;
@@ -80,7 +79,7 @@ const defaultTableConfig = {
         },
         hideFalsy: true
       },
-      filterKey: 'country',
+      filterKey: 'countrySingleGrSciColl',
     },
     {
       trKey: 'filters.city.name',
