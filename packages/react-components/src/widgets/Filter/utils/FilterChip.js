@@ -1,8 +1,10 @@
+import { css, jsx } from '@emotion/react';
 import React, { useContext } from "react";
 import PropTypes from 'prop-types';
-import { Button, TextButton, Tooltip } from '../../../components';
+import { TextButton, Tooltip, ResourceLink } from '../../../components';
 import { FormattedMessage } from 'react-intl';
 import { AiOutlinePlusCircle as AddIcon } from 'react-icons/ai';
+import { MdLink } from 'react-icons/md';
 
 import { FilterContext } from '../state';
 
@@ -36,3 +38,21 @@ export function InlineFilter({ filterName, values, ...props }) {
     />
   </Tooltip>
 }
+
+export function LinkOption({ children, ...props }) {
+  return <span css={linkOption}>
+    {children}
+    <ResourceLink {...props} data-loader>
+      <MdLink/>
+    </ResourceLink>
+  </span>
+}
+
+const linkOption = css`
+  &:has(>a:hover) {
+    text-decoration: underline;
+  }
+  a:last-child {
+    margin-left: .5em;
+  }
+`;

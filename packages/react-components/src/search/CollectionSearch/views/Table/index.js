@@ -3,8 +3,7 @@ import StandardSearchTable from '../../../StandardSearchTable';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import RouteContext from '../../../../dataManagement/RouteContext';
 import { ResourceLink } from '../../../../components';
-import { InlineFilterChip, InlineFilter } from '../../../../widgets/Filter/utils/FilterChip';
-import { AiOutlinePlusCircle as AddIcon } from 'react-icons/ai';
+import { InlineFilterChip, LinkOption } from '../../../../widgets/Filter/utils/FilterChip';
 
 const QUERY = `
 query list($institution: [GUID], $code: String, $q: String, $offset: Int, $limit: Int, $country: Country, $fuzzyName: String, $city: String, $name: String, $active: Boolean, $numberSpecimens: String, $displayOnNHCPortal: Boolean){
@@ -44,9 +43,14 @@ const defaultTableConfig = {
         formatter: (value, item) => <div>
           <ResourceLink type='collectionKey' id={item.key} data-loader>{value}</ResourceLink>
           <div style={{ color: '#aaa' }}>
-            {item.institution && <InlineFilterChip filterName="institution" values={[item.institution.key]}>
-              <span data-loader>{item.institution.name}</span>
-            </InlineFilterChip>
+            {item.institution && <LinkOption discreet type='institutionKey' id={item.institution.key} >
+              <InlineFilterChip filterName="institution" values={[item.institution.key]}>
+                <span data-loader>{item.institution.name}</span>
+              </InlineFilterChip>
+              {/* <ResourceLink discreet type='institutionKey' id={item.institution.key} data-loader>
+                <MdLink />
+              </ResourceLink> */}
+            </LinkOption>
             }
             {!item.institution && <span style={{ fontStyle: 'italic' }} data-loader>
               <FormattedMessage id="collection.institutionUnknown" />
