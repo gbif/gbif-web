@@ -5,9 +5,9 @@
     "description": ""
   },
   "collectionKey": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Verzameling",
+    "count": "{num, plural, one {# verzameling } other {# verzamelingen}}",
+    "description": "De verzameling in GrSciColl dit record werd gekoppeld met"
   },
   "taxonKey": {
     "name": "Wetenschappelijke naam",
