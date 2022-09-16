@@ -9,6 +9,11 @@
     "count": "",
     "description": "La colección en GrSciColl este registro fue igualado a"
   },
+  "numberSpecimens": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "taxonKey": {
     "name": "Nombre científico",
     "count": "{num, plural, one {nombre científico} other {# nombres científicos}}",

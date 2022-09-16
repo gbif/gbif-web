@@ -9,6 +9,11 @@
     "count": "",
     "description": ""
   },
+  "numberSpecimens": {
+    "name": "標本數量",
+    "count": "",
+    "description": ""
+  },
   "taxonKey": {
     "name": "學名",
     "count": "",
