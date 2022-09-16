@@ -9,6 +9,11 @@
     "count": "{num, plural, one {# verzameling } other {# verzamelingen}}",
     "description": "De verzameling in GrSciColl dit record werd gekoppeld met"
   },
+  "numberSpecimens": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "taxonKey": {
     "name": "Wetenschappelijke naam",
     "count": "",
