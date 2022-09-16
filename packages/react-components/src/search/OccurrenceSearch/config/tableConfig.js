@@ -209,7 +209,7 @@ export const tableConfig = {
         formatter: (value, item) => {
           if (!value) return null;
           return <LinkOption discreet type='institutionKey' id={item.institution.key} >
-          <InlineFilterChip filterName="institution" values={[item.institution.key]}>
+          <InlineFilterChip filterName="institutionKey" values={[item.institution.key]}>
             <span data-loader>{item.institution.name} <span>({item.institution.code})</span></span>
           </InlineFilterChip>
         </LinkOption>
@@ -226,7 +226,7 @@ export const tableConfig = {
         formatter: (value, item) => {
           if (!value) return null;
           return <LinkOption discreet type='collectionKey' id={item.collection.key} >
-          <InlineFilterChip filterName="collection" values={[item.collection.key]}>
+          <InlineFilterChip filterName="collectionKey" values={[item.collection.key]}>
             <span data-loader>{item.collection.name} <span>({item.collection.code})</span></span>
           </InlineFilterChip>
         </LinkOption>
