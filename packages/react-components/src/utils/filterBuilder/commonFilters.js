@@ -195,6 +195,7 @@ export const commonFilters = {
       },
       specific: {
         suggestHandle: 'institutionCode',
+        supportsExist: true,
       }
     }
   },
@@ -649,7 +650,8 @@ export const commonFilters = {
         },
       },
       specific: {
-        placeholder: 'Search by collection code'
+        placeholder: 'Search by collection code',
+        supportsExist: true,
       }
     }
   },
@@ -1049,6 +1051,7 @@ export const commonFilters = {
       specific: {
         suggestHandle: 'institutionKey',
         id2labelHandle: 'institutionKey',
+        supportsExist: true,
       }
     }
   },
@@ -1067,6 +1070,7 @@ export const commonFilters = {
       specific: {
         suggestHandle: 'collectionKey',
         id2labelHandle: 'collectionKey',
+        supportsExist: true,
       }
     }
   },
