@@ -6,8 +6,8 @@
   },
   "collectionKey": {
     "name": "馆藏",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {# 收藏品 } other {# 收藏品}}",
+    "description": "该记录与GrSciColl中相匹配的收藏品"
   },
   "taxonKey": {
     "name": "学名",
