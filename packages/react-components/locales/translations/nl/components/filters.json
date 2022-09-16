@@ -10,9 +10,9 @@
     "description": "De verzameling in GrSciColl dit record werd gekoppeld met"
   },
   "numberSpecimens": {
-    "name": "",
+    "name": "Aantal specimens",
     "count": "",
-    "description": ""
+    "description": "Het aantal beschikbare specimens zoals vermeld in de beschrijving. Dit nummer geeft niet weer hoeveel records gedigitaliseerd en gedeeld zijn."
   },
   "taxonKey": {
     "name": "Wetenschappelijke naam",
