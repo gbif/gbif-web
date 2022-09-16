@@ -9,6 +9,11 @@
     "count": "{num, plural, one {# 收藏品 } other {# 收藏品}}",
     "description": "该记录与GrSciColl中相匹配的收藏品"
   },
+  "numberSpecimens": {
+    "name": "标本数",
+    "count": "",
+    "description": ""
+  },
   "taxonKey": {
     "name": "学名",
     "count": "{num, plural, one {科学名称} other {# 科学名称}}",
