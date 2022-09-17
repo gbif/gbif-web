@@ -15,7 +15,7 @@
   "showSuggestions": "Show suggestions",
   "excludeSelected": "Exclude selected",
   "updateFilter": "Update filter",
-  "setFilter": "",
+  "setFilter": "Set as filter",
   "nameWithTaxonMatchIssue": "Name before normalization",
-  "viewDetails": ""
+  "viewDetails": "View details"
 }
