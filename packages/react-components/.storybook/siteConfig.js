@@ -3,10 +3,10 @@ import env from '../.env.json';
 const routeConfig = {
   occurrenceSearch: {
     url: ({ queryString }) => {
-      return `?path=/story/search-occurrencesearch--example&viewMode=story`;
+      return `/?path=/story/search-occurrencesearch--example&viewMode=story`;
     },
     isHref: true,
-    route: '/',
+    route: '/occurrence/search',
   },
 
   collectionKey: {
