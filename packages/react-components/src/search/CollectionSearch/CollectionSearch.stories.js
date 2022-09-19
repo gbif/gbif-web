@@ -78,9 +78,15 @@ const filters = {
 }
 
 
-const config = { labels, getSuggests, filters, rootFilter: {
-  displayOnNHCPortal: true
-} };
+const config = {
+  labels, 
+  getSuggests, 
+  filters, 
+  rootFilter: {
+    displayOnNHCPortal: true
+  },
+  availableCatalogues: ['INSTITUTION', 'COLLECTION', 'OCCURRENCE'],
+};
 
 export const Example = () => <Router initialEntries={[`/collection/search`]}>
   <QueryParamProvider ReactRouterRoute={Route}>
@@ -99,4 +105,4 @@ export const StandaloneExample = () => <Standalone siteConfig={{
       route: '/',
     }
   },
-}} style={{height: 'calc(100vh - 40px)'}}></Standalone>;
+}} style={{ height: 'calc(100vh - 40px)' }}></Standalone>;

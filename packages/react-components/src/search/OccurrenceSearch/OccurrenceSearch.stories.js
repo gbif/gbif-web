@@ -141,8 +141,8 @@ const config = {
   // rootPredicate, 
   // rootPredicate: {
   //   type: 'equals',
-  //   key: 'year',
-  //   value: '1790'
+  //   key: 'datasetKey',
+  //   value: '7e380070-f762-11e1-a439-00145eb45e9a'
   // }, 
   labels, 
   getSuggests, 
@@ -157,6 +157,9 @@ const config = {
   //   lng: 4.378666162934309,
   //   lat: 50.83439252440547
   // }
+  // excludedFilters: ['occurrenceStatus', 'networkKey', 'hostingOrganizationKey', 'protocol', 'publishingCountryCode', 'institutionCode', 'collectionCode'],
+  highlightedFilters: ['taxonKey', 'institutionKey', 'collectionKey', 'catalogNumber', 'recordedBy', 'identifiedBy'],
+  defaultTableColumns: ['features', 'institutionKey', 'collectionKey', 'catalogNumber', 'country', 'year', 'recordedBy', 'identifiedBy'],
 };
 // const config = { labels, getSuggests, filters, rootPredicate: {type: 'equals', key: 'publishingOrganizationKey', value: '1cd669d0-80ea-11de-a9d0-f1765f95f18b'}};
 // const config = { labels, getSuggests, filters, rootPredicate: {type: 'in', key: 'datasetKey', values: inboDatasets}};

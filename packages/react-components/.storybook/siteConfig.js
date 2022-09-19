@@ -3,7 +3,7 @@ import env from '../.env.json';
 const routeConfig = {
   occurrenceSearch: {
     url: ({ queryString }) => {
-      return `iframe.html?id=search-occurrencesearch--example&viewMode=story`;
+      return `?path=/story/search-occurrencesearch--example&viewMode=story`;
     },
     isHref: true,
     route: '/',
@@ -37,7 +37,7 @@ const routeConfig = {
   institutionSearch: {
     // url: () => `/institution/`,
     url: ({ queryString }) => {
-      return `/iframe.html?id=search-institutionsearch--example&viewMode=story`;
+      return `/?path=/story/search-institutionsearch--example&viewMode=story`;
     },
     isHref: true,
     route: '/institution/search',
