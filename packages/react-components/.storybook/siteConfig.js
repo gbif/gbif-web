@@ -31,7 +31,7 @@ const routeConfig = {
   institutionKey: {
     isHref: true,
     url: ({ key }) => {
-      return `/iframe.html?id=entities-institution-page--example&viewMode=story&knob-institutionUUID=${key}`;
+      return `/?path=/story/entities-institution-page--example&knob-institutionUUID=${key}`;
     }
   },
   institutionSearch: {
