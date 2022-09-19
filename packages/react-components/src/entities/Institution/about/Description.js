@@ -4,6 +4,7 @@ import React, { useContext, useState } from 'react';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import * as css from './styles';
 import { Row, Col, Properties, Accordion, Button } from "../../../components";
+import env from '../../../../.env.json';
 
 const { Term: T, Value: V } = Properties;
 
@@ -18,10 +19,10 @@ export function Description({
   const theme = useContext(ThemeContext);
 
   return <>
-    {/* <div style={{margin: '12px 0', textAlign: 'right'}}>
-      <Button>Suggest a change</Button>
-    </div> */}
-    <div css={css.paper({ theme })} style={{marginTop: 24, marginBottom: 24}}>
+    <div style={{margin: '12px 0', textAlign: 'right'}}>
+      <Button as="a" href={`${env.GBIF_REGISTRY}/institution/${institution.key}`} look="primaryOutline">Suggest a change</Button>
+    </div>
+    <div css={css.paper({ theme })} style={{marginTop: 0, marginBottom: 24}}>
       {/* <Accordion summary="About" defaultOpen={true}> */}
       <Properties style={{ fontSize: 14, marginBottom: 12 }} horizontal={true}>
         {getPlain(institution, 'name')}

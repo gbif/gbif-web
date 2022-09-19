@@ -113,6 +113,15 @@ query institution($key: String!, $predicate: Predicate){
       postalCode
       country
     }
+    collections {
+      key
+      excerpt
+      code
+      name
+      active
+      numberSpecimens
+      occurrenceCount
+    }
   }
 }
 `;

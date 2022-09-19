@@ -40,4 +40,5 @@ export { DataHeader } from './DataHeader/DataHeader';
 export { ContactList } from './ContactList/ContactList';
 export { LicenseTag } from './LicenseTag/LicenseTag';
 export { OccurrenceMap } from './OccurrenceMap/OccurrenceMap';
+export { TextThumbnail } from './TextThumbnail/TextThumbnail';
 // -- Add imports above this line (required by plopfile.js) --

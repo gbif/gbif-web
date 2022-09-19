@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/react';
 import React, { useContext, useState, useEffect } from 'react';
 import ThemeContext from '../../style/themes/ThemeContext';
-import { Tabs, Eyebrow, DataHeader, ResourceSearchLink } from '../../components';
+import { Tabs, Eyebrow, DataHeader, ResourceSearchLink, ResourceLink, Button } from '../../components';
 import OccurrenceSearch from '../../search/OccurrenceSearch/OccurrenceSearch';
 import { iconFeature } from '../../components/IconFeatures/styles';
 import { Description as About } from './about/Description';
@@ -65,7 +65,7 @@ export function CollectionPresentation({
         <Eyebrow prefix="Collection code" suffix={collection.code} />
         <h1>{collection.name}</h1>
         {collection.institution && <div>
-          From <a href={`/institution/${collection.institution.key}`}>{collection.institution.name}</a>
+          From <ResourceLink type="institutionKey" id={collection.institution.key}>{collection.institution.name}</ResourceLink>
         </div>}
 
         <div css={css.summary}>

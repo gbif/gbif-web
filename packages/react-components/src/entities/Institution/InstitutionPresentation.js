@@ -9,6 +9,7 @@ import OccurrenceSearch from '../../search/OccurrenceSearch/OccurrenceSearch';
 import { iconFeature } from '../../components/IconFeatures/styles';
 import { Description as About } from './about/Description';
 import { People } from './people/People';
+import { Collections } from './collections/Collections';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { join } from '../../utils/util';
 
@@ -72,6 +73,7 @@ export function InstitutionPresentation({
         </div>
         <TabList style={{ marginTop: '12px', borderTop: '1px solid #ddd' }}>
           <RouterTab to={url} exact label="About"/>
+          <RouterTab to={join(url, '/collections')} label="Collections"/>
           <RouterTab to={join(url, '/people')} label="People"/>
           <RouterTab to={join(url, '/specimens')} label="Digitized specimens"/>
         </TabList>
@@ -81,8 +83,13 @@ export function InstitutionPresentation({
 
     <section>
       <Switch>
+        <Route path={join(path, '/collections')}>
+          <div css={css.proseWrapper({ theme })}>
+            <Collections {...{institution}}/>
+          </div>
+        </Route>
         <Route path={join(path, '/people')}>
-        <div css={css.proseWrapper({ theme })}>
+          <div css={css.proseWrapper({ theme })}>
             <People {...{institution}}/>
           </div>
         </Route>
