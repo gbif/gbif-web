@@ -70,6 +70,7 @@ const typeDef = gql`
     comments: Comment
 
     occurrenceCount: Int
+    excerpt: String
   }
 
   type AlternativeCode {

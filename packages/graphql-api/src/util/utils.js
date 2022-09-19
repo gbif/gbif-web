@@ -50,8 +50,18 @@ function getHtml(value, {allowedTags = ['a', 'p', 'i', 'br', 'ul', 'ol', 'li'], 
   }
 }
 
+function getExcerpt({strings = [], length = 200}) {
+  const concatenatedText = strings.filter(x => x).join('. ');
+  let plainText = getHtml(concatenatedText, {allowedTags: [], inline: true});
+  if (plainText.length > length) plainText = plainText.substring(0, length) + '...';
+  return {
+    plainText
+  }
+}
+
 module.exports = {
   formattedCoordinates,
   isOccurrenceSequenced,
-  getHtml
+  getHtml,
+  getExcerpt
 }

@@ -1,3 +1,4 @@
+const { getExcerpt } = require('../../util/utils');
 /** 
  * fieldName: (parent, args, context, info) => data;
  * parent: An object that contains the result returned from the resolver on the parent type
@@ -24,6 +25,10 @@ module.exports = {
           { query: { predicate: { type: 'equals', key: 'collectionKey', value: key } } }
         )
         .then(response => response.total);
+    },
+    excerpt: ({description}, args, { dataSources }) => {
+      if (typeof description === 'undefined') return null;
+      return getExcerpt({strings: [description], length: 300}).plainText;
     },
     // someField: ({ fieldWithKey: key }, args, { dataSources }) => {
     //   if (typeof key === 'undefined') return null;
