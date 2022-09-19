@@ -35,7 +35,7 @@ const typeDef = gql`
     description: String
     type: InstitutionType
     active: Boolean
-    email: [EmailAddress]
+    email: [String]
     phone: [String]
     homepage: URL
     catalogUrl: URL

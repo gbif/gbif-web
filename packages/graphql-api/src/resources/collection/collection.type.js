@@ -38,7 +38,7 @@ const typeDef = gql`
     active: Boolean
     personalCollection: Boolean
     doi: String
-    email: [EmailAddress]
+    email: [String]
     phone: [String]
     homepage: URL
     catalogUrl: URL
