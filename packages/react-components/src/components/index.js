@@ -14,7 +14,7 @@ export { Root } from './Root/Root';
 export { Gallery, GalleryCaption, GalleryTiles, GalleryTile, GalleryTileSkeleton } from './Gallery/Gallery';
 export { ZoomableImage } from './ZoomableImage/ZoomableImage';
 export { Accordion } from './Accordion/Accordion';
-export { Properties } from './Properties/Properties';
+export { Properties, Property } from './Properties/Properties';
 export { Tooltip } from './Tooltip/Tooltip';
 export { Radio } from './Radio/Radio';
 export { Image } from './Image/Image';

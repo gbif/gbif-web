@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 
 export const horizontalProperties = () => css`
   display: grid;
-  grid-template-columns: minmax(75px, 150px) 1fr;
+  grid-template-columns: minmax(75px, 200px) 1fr;
   > dt {
     margin-bottom: 12px;
     &:last-of-type {
@@ -15,6 +15,10 @@ export const horizontalProperties = () => css`
 export const notHorizontalProperties = () => css`
   > dt {
     margin-bottom: .1em;
+    margin-top: 1.5em;
+  }
+  dt {
+    font-weight: bold;
   }
 `;
 
@@ -28,7 +32,7 @@ export const dl = ({ horizontal, dense, ...props }) => css`
 `;
 
 export const dt = ({ horizontal, theme, ...props }) => css`
-  color: ${theme.color400};
+  /* color: ${theme.color400}; */
   margin-bottom : ${horizontal ? 20 : 0}px;
   word-break: break-word;
   &:last-of-type {

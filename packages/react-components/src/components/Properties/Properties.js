@@ -1,16 +1,22 @@
 
-import { jsx } from '@emotion/react';
+import { jsx, css } from '@emotion/react';
 import ThemeContext from '../../style/themes/ThemeContext';
 import React, { useContext } from 'react';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
+import { HyperText } from '../HyperText/HyperText';
+import { Tooltip } from '../Tooltip/Tooltip';
+import { MdOutlineInfo } from 'react-icons/md';
 import PropTypes from 'prop-types';
 import useBelow from '../../utils/useBelow';
 import { dl, dt, dd } from './styles';
+import { bulletList } from '../../style/shared';
 
 export function Properties({as:Dl='dl', breakpoint, horizontal, dense = false, ...props}) {
   const isBelow = useBelow(breakpoint);
   const theme = useContext(ThemeContext);
   return <Dl css={dl({ theme, horizontal: typeof horizontal !== 'undefined' ? horizontal : !isBelow, dense })} {...props} />
 }
+
 Properties.propTypes = {
   as: PropTypes.any,
   horizontal: PropTypes.bool
@@ -34,3 +40,48 @@ Value.propTypes = {
 
 Properties.Term = Term;
 Properties.Value = Value;
+
+export function Property({ value, helpText, helpTextId, labelId, showEmpty, children, ...props }) {
+  // if there is no value, and the user do not ask to show empty values, then do not show anything
+  if ((typeof value === 'undefined' || value === null) && !children) {
+    if (showEmpty) return <span style={{ color: '#aaa' }}>Not provided</span>;
+    return null;
+  }
+  return <>
+    <Term><PropertyLabel id={labelId} {...{helpText, helpTextId}}/></Term>
+    <Value>{children || <AutomaticPropertyValue value={value} {...props} />}</Value>
+  </>
+}
+
+function AutomaticPropertyValue({ value, showEmpty, sanitizeOptions = { ALLOWED_TAGS: ['a', 'strong', 'em', 'p', 'br'] }, ...props }) {
+  if (!value) {
+    if (showEmpty) return <span style={{ color: '#aaa' }}>Not provided</span>;
+    return null;
+  }
+  let val = null;
+  if (typeof value === 'number') {
+    val = <FormattedNumber value={value} />
+  } else if (typeof value === 'string') {
+    val = <HyperText text={value} parseMarkdown inline {...props} />
+  } else if (Array.isArray(value)) {
+    if (value.length === 0) {
+      if (showEmpty) return <span style={{ color: '#aaa' }}>Not provided</span>;
+      return null;
+    }
+    val = <ul css={bulletList}>
+      {value.map((v, i) => <li key={i}><AutomaticPropertyValue value={v} {...props} /></li>)}
+    </ul>
+  }
+  return val;
+}
+
+export function PropertyLabel({ id, helpText, helpTextId, ...props }) {
+  return <span style={{ paddingRight: 8 }} {...props}>
+    <FormattedMessage id={id} defaultMessage={id} />
+    {(helpTextId || helpText) && <Tooltip title={helpText || <FormattedMessage id={helpTextId} defaultMessage={helpTextId} />}>
+      <span>
+        <MdOutlineInfo css={css`position: relative; top: .15em; margin-left: 4px;`} />
+      </span>
+    </Tooltip>}
+  </span>;
+}
