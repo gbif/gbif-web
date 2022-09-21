@@ -84,6 +84,10 @@ query institution($key: String!, $predicate: Predicate){
     logoUrl
     citesPermitNumber
 
+    created
+    deleted
+    modified
+
     identifiers {
       identifier
     }

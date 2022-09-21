@@ -19,19 +19,19 @@ export function Description({
   ...props
 }) {
   const theme = useContext(ThemeContext);
-console.log(occurrenceSearch);
-  return <div style={{paddingBottom: 100}}>
+  return <div style={{ paddingBottom: 100 }}>
+    <div>This collection is no longer active</div>
     <Card style={{ marginTop: 24, marginBottom: 24 }}>
       <CardHeader2>About</CardHeader2>
       <Properties style={{ fontSize: 16, marginBottom: 12 }} breakpoint={800}>
         <Property value={institution.description} labelId="grscicoll.description" showEmpty />
         <Property value={institution.code} labelId="grscicoll.code" showEmpty />
         <Property value={institution.numberSpecimens} labelId="institution.numberSpecimens" />
-        {occurrenceSearch?.documents?.total && <Property value={occurrenceSearch?.documents?.total} labelId="grscicoll.specimensViaGbif" formatter={count => {
+        {occurrenceSearch?.documents?.total > 0 && <Property value={occurrenceSearch?.documents?.total} labelId="grscicoll.specimensViaGbif" formatter={count => {
           return <ResourceLink type="institutionKeySpecimens" id={institution.key}>
             <FormattedNumber value={count} />
           </ResourceLink>
-        }}/>}
+        }} />}
         <Property value={institution.catalogUrl} labelId="grscicoll.catalogUrl" />
         <Property value={institution.apiUrl} labelId="grscicoll.apiUrl" />
         <Property value={institution.taxonomicDescription} labelId="grscicoll.taxonomicDescription" showEmpty />
@@ -53,7 +53,7 @@ console.log(occurrenceSearch);
     <Card style={{ marginTop: 24, marginBottom: 24 }}>
       <CardHeader2>Contact</CardHeader2>
       <Properties style={{ fontSize: 16, marginBottom: 12 }} breakpoint={800}>
-        <Property value={institution?.email} labelId="grscicoll.email" linkOptions={{email: true}} />
+        <Property value={institution?.email} labelId="grscicoll.email" linkOptions={{ email: true }} />
         <Property value={institution?.homepage} labelId="grscicoll.homepage" />
         <Property value={institution?.address?.country} labelId="grscicoll.country" showEmpty formatter={countryCode => <FormattedMessage id={`enums.countryCode.${countryCode}`} />} />
         <Property value={institution?.address?.province} labelId="grscicoll.province" />
@@ -72,5 +72,23 @@ console.log(occurrenceSearch);
         </V>
       </Properties>
     </Card>
+
+    <div css={css`
+      color: #aaa; 
+      display: flex;
+      > div {
+        flex: 0 0 auto;
+        margin: 0 24px 8px 24px;;
+      }
+      `}>
+      <div>Entry created: <FormattedDate value={institution.created}
+        year="numeric"
+        month="long"
+        day="2-digit" /></div>
+      <div>Last modified: <FormattedDate value={institution.modified}
+        year="numeric"
+        month="long"
+        day="2-digit" /></div>
+    </div>
   </div>
 };
