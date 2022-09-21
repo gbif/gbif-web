@@ -3,7 +3,7 @@ import { discreetLink } from '../../style/shared';
 // import { focusStyle } from '../../style/shared';
 
 export const iconFeature = ({...props}) => css`
-  display: flex;
+  display: inline-flex;
   align-items: center;
   flex: 0 0 auto;
   align-items: flex-start;
@@ -13,6 +13,9 @@ export const iconFeature = ({...props}) => css`
   }
   >span, >div {
     margin: 0 0.75em;
+  }
+  a {
+    ${discreetLink};
   }
 `;
 
@@ -42,7 +45,7 @@ export const iconFeatures = ({...props}) => css`
   flex-wrap: wrap;
   align-items: center;
   margin: -.25em -1em;
-  div {
+  > div {
     ${iconFeature(props)}
     margin: .25em 1em;
   }
