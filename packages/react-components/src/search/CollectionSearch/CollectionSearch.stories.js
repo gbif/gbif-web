@@ -85,7 +85,7 @@ const config = {
   rootFilter: {
     displayOnNHCPortal: true
   },
-  availableCatalogues: ['INSTITUTION', 'COLLECTION', 'OCCURRENCE'],
+  availableCatalogues: ['INSTITUTION', 'COLLECTION', 'OCCURRENCE']
 };
 
 export const Example = () => <Router initialEntries={[`/collection/search`]}>
@@ -105,4 +105,7 @@ export const StandaloneExample = () => <Standalone siteConfig={{
       route: '/',
     }
   },
+  collection: {
+    availableCatalogues: ['INSTITUTION', 'COLLECTION', 'OCCURRENCE'],
+  }
 }} style={{ height: 'calc(100vh - 40px)' }}></Standalone>;

@@ -82,6 +82,7 @@ query institution($key: String!, $predicate: Predicate){
     numberSpecimens
     indexHerbariorumRecord
     logoUrl
+    citesPermitNumber
 
     identifiers {
       identifier

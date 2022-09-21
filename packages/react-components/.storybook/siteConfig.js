@@ -34,6 +34,14 @@ const routeConfig = {
       return `/?path=/story/entities-institution-page--example&knob-institutionUUID=${key}`;
     }
   },
+  institutionKeySpecimens: {
+    url: ({key}) => `/specimens`,
+    isHref: false,
+  },
+  institutionKeyCollections: {
+    url: ({key}) => `/collections`,
+    isHref: false,
+  },
   institutionSearch: {
     // url: () => `/institution/`,
     url: ({ queryString }) => {

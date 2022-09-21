@@ -15,6 +15,8 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
     {
       dataset: getFile(locale, `../${folder}/${locale}/components/dataset`),
       collection: getFile(locale, `../${folder}/${locale}/components/collection`),
+      grscicoll: getFile(locale, `../${folder}/${locale}/components/grscicoll`),
+      institution: getFile(locale, `../${folder}/${locale}/components/institution`),
       catalogues: getFile(locale, `../${folder}/${locale}/components/catalogues`),
       tableHeaders: getFile(locale, `../${folder}/${locale}/components/tableHeaders`),
       intervals: getFile(locale, `../${folder}/${locale}/components/intervals`),
@@ -38,6 +40,9 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
         taxonRank: getFile(locale, `../${folder}/${locale}/enums/taxonRank`),
         taxonomicStatus: getFile(locale, `../${folder}/${locale}/enums/taxonomicStatus`),
         license: getFile(locale, `../${folder}/${locale}/enums/license`),
+        discipline: getFile(locale, `../${folder}/${locale}/enums/discipline`),
+        institutionalGovernance: getFile(locale, `../${folder}/${locale}/enums/institutionalGovernance`),
+        institutionType: getFile(locale, `../${folder}/${locale}/enums/institutionType`),
         month: getFile(locale, `../${folder}/${locale}/enums/month`),
         continent: getFile(locale, `../${folder}/${locale}/enums/continent`),
         endpointType: getFile(locale, `../${folder}/${locale}/enums/endpointType`),

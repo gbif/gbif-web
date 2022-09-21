@@ -3,7 +3,8 @@ import React, { useContext, useCallback, useState, useEffect } from 'react';
 import ThemeContext from '../../style/themes/ThemeContext';
 import { Prose, Tabs, Eyebrow, LicenseTag, DataHeader, Doi, Button, ResourceLink, ResourceSearchLink, Row, Col } from '../../components';
 import OccurrenceSearch from '../../search/OccurrenceSearch/OccurrenceSearch';
-import { iconFeature, countFeature } from '../../components/IconFeatures/styles';
+import { iconFeature } from '../../components/IconFeatures/styles';
+import { Homepage, OccurrenceCount } from '../../components/IconFeatures/IconFeatures';
 import { About } from './about/About';
 import { Project } from './project/Project';
 import { Activity } from './activity/Activity';
@@ -100,15 +101,9 @@ export function DatasetPresentation({
                       <Doi id={dataset.doi} />
                     </div>}
 
-                    {dataset.homepage && <div css={iconFeature({ theme })}>
-                      <MdLink />
-                      <span><Hostname href={dataset.homepage} /></span>
-                    </div>}
+                    {dataset.homepage && <Homepage href={dataset.homepage} />}
 
-                    {occurrenceSearch.documents.total > 0 && <div css={iconFeature({ theme })}>
-                      <MdLocationOn />
-                      <span><FormattedNumber value={occurrenceSearch.documents.total} /> occurrences</span>
-                    </div>}
+                    {occurrenceSearch.documents.total > 0 && <OccurrenceCount count={occurrenceSearch.documents.total}/>}
 
                     {/* {siteOccurrences.documents.total > 0 && <div css={iconFeature({ theme })}>
                       <MdLocationOn />
@@ -196,12 +191,3 @@ export function DatasetPresentation({
     </section>
   </>
 };
-
-function Hostname({ href }) {
-  try {
-    const hostname = new URL(href).hostname;
-    return <a href={href} css={css.discreetLink}>{hostname}</a>;
-  } catch (err) {
-    return <span>invalid</span>;
-  }
-}

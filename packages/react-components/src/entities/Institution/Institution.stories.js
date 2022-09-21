@@ -23,4 +23,4 @@ Example.story = {
   name: 'Institution page',
 };
 
-export const StandaloneExample = () => <Standalone id="07558d80-dea0-41f8-a1b7-b147e9515605"></Standalone>;
+export const StandaloneExample = () => <Standalone siteConfig={{messages: {'counts.nOccurrences': '{total, plural, one {# specimen} other {# specimens}}'}}} id={text('institutionUUID', '07558d80-dea0-41f8-a1b7-b147e9515605')}></Standalone>;

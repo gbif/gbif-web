@@ -29,6 +29,16 @@ export const defaultContext = {
     isHref: true,
     route: '/institution/:key'
   },
+  institutionKeySpecimens: {
+    url: ({key}) => `${gbifOrg}/grscicoll/institution/${key}`,
+    isHref: false,
+    route: '/institution/:key/specimens'
+  },
+  institutionKeyCollections: {
+    url: ({key}) => `/collections`,
+    isHref: false,
+    route: '/institution/:key/collections'
+  },
   institutionSearch: {
     url: ({queryString, basename}) => `${basename ? `/${basename}` : ''}/institution/search`,
     isHref: true,

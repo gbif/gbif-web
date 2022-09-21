@@ -10,29 +10,39 @@ export const horizontalProperties = () => css`
       margin-bottom: 0;
     }
   }
+  dt {
+    padding-right: 8px;
+  }
 `;
 
 export const notHorizontalProperties = () => css`
   > dt {
     margin-bottom: .1em;
     margin-top: 1.5em;
+    &:first-of-type {
+      margin-top: 0;
+    }
   }
   dt {
     font-weight: bold;
   }
+  
 `;
 
-export const dl = ({ horizontal, dense, ...props }) => css`
+export const dl = ({ horizontal, dense, theme, ...props }) => css`
     ${horizontal ? horizontalProperties({ ...props }) : notHorizontalProperties()};
     margin-top: 0;
     margin-bottom: 0;
     > * {
       margin-bottom: ${horizontal && dense ? 4 : 12}px;
     }
+    dl dt {
+      color: ${theme.color400};
+      font-weight: normal;
+    }
 `;
 
 export const dt = ({ horizontal, theme, ...props }) => css`
-  /* color: ${theme.color400}; */
   margin-bottom : ${horizontal ? 20 : 0}px;
   word-break: break-word;
   &:last-of-type {
