@@ -52,7 +52,7 @@ export const dt = ({ horizontal, theme, ...props }) => css`
 
 export const dd = ({ ...props }) => css`
   margin-left: 0;
-  line-height: 1.4em;
+  line-height: 1.6em;
   word-break: break-word;
   &:last-of-type {
     margin-bottom: 0;
