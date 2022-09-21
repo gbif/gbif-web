@@ -4,7 +4,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { MdInfo } from 'react-icons/md'
 import ThemeContext from '../../style/themes/ThemeContext';
 // import * as css from './styles';
-import { Tabs, Eyebrow, DataHeader, ResourceSearchLink, Button } from '../../components';
+import { Tabs, Eyebrow, DataHeader, ResourceSearchLink, Button, Tooltip } from '../../components';
 import OccurrenceSearch from '../../search/OccurrenceSearch/OccurrenceSearch';
 import { OccurrenceCount, Homepage, CollectionsCount, FeatureList, Location } from '../../components/IconFeatures/IconFeatures';
 import { iconFeature } from '../../components/IconFeatures/styles';
@@ -17,8 +17,10 @@ import env from '../../../.env.json';
 
 import * as css from './styles';
 import { MdChevronLeft, MdPeople, MdEdit } from 'react-icons/md';
+import { GrGithub as Github } from 'react-icons/gr';
 
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
+import { encode } from 'js-base64';
 
 const { TabList, RouterTab } = Tabs;
 
@@ -56,6 +58,11 @@ export function InstitutionPresentation({
   // if there is at least a countryCode for thee address, then use that, else fall back to the mailing address
   const contactInfo = institution?.address?.countryCode ? institution?.address : institution?.mailingAddress;
 
+  const feedbackTemplate = `Please provide you feedback here, but leave content below for context
+
+---
+Relating to ${env.GBIF_REGISTRY}/institution/${institution.key}
+  `;
   return <>
     <DataHeader
       style={{ borderBottom: '1px solid #ddd', background: 'white' }}
@@ -88,7 +95,12 @@ export function InstitutionPresentation({
             </FeatureList>
           </div>
           <div css={css.summary_secondary}>
-            <Button as="a" href={`${env.GBIF_REGISTRY}/institution/${institution.key}`} look="primaryOutline">Edit</Button>
+            <Tooltip title="No login required to leave suggestions" placement="bottom">
+              <Button as="a" href={`${env.GBIF_REGISTRY}/institution/${institution.key}`} look="primaryOutline">Edit</Button>
+            </Tooltip>
+            <Tooltip title="Leave feedback via Github - requires a free account" placement="bottom">
+              <a style={{ marginLeft: 8, fontSize: 24 }} target="_blank" href={`https://github.com/gbif/portal-feedback/issues/new?title=${encodeURIComponent(`NHC: ${institution.name}`)}&body=${encodeURIComponent(feedbackTemplate)}`}><Github /></a>
+            </Tooltip>
           </div>
         </div>
         <TabList style={{ marginTop: '12px', borderTop: '1px solid #ddd' }}>

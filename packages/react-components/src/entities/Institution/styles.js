@@ -33,6 +33,12 @@ export const summary_primary = ({ ...props }) => css`
 
 export const summary_secondary = ({ ...props }) => css`
   flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  svg {
+    position: relative;
+    top: 0.1em;
+  }
 `;
 
 export const proseWrapper = ({ ...props }) => css`
