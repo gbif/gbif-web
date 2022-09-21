@@ -19,6 +19,7 @@ export function Description({
   ...props
 }) {
   const theme = useContext(ThemeContext);
+  const addressesIdentical = JSON.stringify(institution.mailingAddress) === JSON.stringify(institution.address)
   return <div style={{ paddingBottom: 100 }}>
     <Card style={{ marginTop: 24, marginBottom: 24 }}>
       <CardHeader2>About</CardHeader2>
@@ -59,16 +60,18 @@ export function Description({
         <Property value={institution?.address?.city} labelId="grscicoll.city" />
         <Property value={institution?.address?.postalCode} labelId="grscicoll.postalCode" />
         <Property value={institution?.address?.address} labelId="grscicoll.address" />
-        <T><FormattedMessage id="grscicoll.mailingAddress" /></T>
-        <V>
-          <Properties style={{ fontSize: 16, marginBottom: 12 }} breakpoint={800}>
-            <Property value={institution?.mailingAddress?.country} labelId="grscicoll.country" showEmpty formatter={countryCode => <FormattedMessage id={`enums.countryCode.${countryCode}`} />} />
-            <Property value={institution?.mailingAddress?.province} labelId="grscicoll.province" />
-            <Property value={institution?.mailingAddress?.city} labelId="grscicoll.city" />
-            <Property value={institution?.mailingAddress?.postalCode} labelId="grscicoll.postalCode" />
-            <Property value={institution?.mailingAddress?.address} labelId="grscicoll.address" />
-          </Properties>
-        </V>
+        {!addressesIdentical && <>
+          <T><FormattedMessage id="grscicoll.mailingAddress" /></T>
+          <V>
+            <Properties style={{ fontSize: 16, marginBottom: 12 }} breakpoint={800}>
+              <Property value={institution?.mailingAddress?.country} labelId="grscicoll.country" showEmpty formatter={countryCode => <FormattedMessage id={`enums.countryCode.${countryCode}`} />} />
+              <Property value={institution?.mailingAddress?.province} labelId="grscicoll.province" />
+              <Property value={institution?.mailingAddress?.city} labelId="grscicoll.city" />
+              <Property value={institution?.mailingAddress?.postalCode} labelId="grscicoll.postalCode" />
+              <Property value={institution?.mailingAddress?.address} labelId="grscicoll.address" />
+            </Properties>
+          </V>
+        </>}
       </Properties>
     </Card>
 
