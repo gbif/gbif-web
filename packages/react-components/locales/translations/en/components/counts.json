@@ -1,5 +1,8 @@
 {
   "nResults": "{total, plural, one {# result} other {# results}}",
+  "nOccurrences": "{total, plural, one {# occurrence} other {# occurrences}}",
+  "nSpecimens": "{total, plural, one {# specimen} other {# specimens}}",
+  "nCollections": "{total, plural, one {# collection} other {# collections}}",
   "nRecordsTotal": "{total, plural, one {# record in total} other {# records in total}}",
   "nSelected": "{total, plural, other {# selected}}",
   "nQualityFlags": "{total, plural, one {# quality flag} other {# quality flags}}",
