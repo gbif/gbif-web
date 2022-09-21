@@ -65,7 +65,7 @@ const typeDef = gql`
     machineTags: [MachineTag]
     alternativeCodes: [AlternativeCode]
     comments: [Comment]
-    collections: [Collection]
+    collections(limit: Int, offset: Int): [Collection]
 
     occurrenceCount: Int
   }

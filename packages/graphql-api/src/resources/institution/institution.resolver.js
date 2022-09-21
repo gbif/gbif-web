@@ -13,8 +13,8 @@ module.exports = {
       dataSources.institutionAPI.getInstitutionByKey({ key })
   },
   Institution: {
-    collections: (parent, args, { dataSources }) => {
-      return  dataSources.collectionAPI.getCollectionsByInstitutionKey(parent)
+    collections: ({key}, {limit, offset}, { dataSources }) => {
+      return  dataSources.collectionAPI.getCollectionsByInstitutionKey({key, limit, offset})
     },
     occurrenceCount: ({ key }, args, { dataSources }) => {
       if (typeof key === 'undefined') return null;

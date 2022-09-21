@@ -118,7 +118,7 @@ query institution($key: String!, $predicate: Predicate){
       postalCode
       country
     }
-    collections {
+    collections(limit: 200) {
       key
       excerpt
       code
