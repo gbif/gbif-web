@@ -82,12 +82,16 @@ export const h2 = (theme) => css`
   font-size: 28px;
   line-height: 36px;
   font-family: ${theme.headerFontFamily};
+  margin-block-start: 0.83em;
+  margin-block-end: 0.83em;
+  font-weight: 600;
 `;
 
 export const h1 = (theme) => css`
   font-size: 36px;
   line-height: 48px;
   font-family: ${theme.headerFontFamily};
+  font-weight: 600;
 `;
 
 export const a = (theme) => css`
@@ -102,7 +106,7 @@ export const prose = ({ theme = {} }) => css`
     ${a(theme)};
   } */
   h1, h2, h3, h4, h5, h6 {
-    font-weight: 500;
+    font-weight: 600;
   }
   h1 {
     ${h1(theme)};

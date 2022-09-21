@@ -20,7 +20,7 @@ export function Description({
 }) {
   const theme = useContext(ThemeContext);
 console.log(occurrenceSearch);
-  return <>
+  return <div style={{paddingBottom: 100}}>
     <Card style={{ marginTop: 24, marginBottom: 24 }}>
       <CardHeader2>About</CardHeader2>
       <Properties style={{ fontSize: 16, marginBottom: 12 }} breakpoint={800}>
@@ -72,5 +72,5 @@ console.log(occurrenceSearch);
         </V>
       </Properties>
     </Card>
-  </>
+  </div>
 };
