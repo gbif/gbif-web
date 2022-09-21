@@ -2,6 +2,7 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 import Autolinker from 'autolinker';
 import DOMPurify from 'dompurify';
+import snarkdown from 'snarkdown';
 import doiRegex from 'doi-regex';
 import { Doi } from '../IdentifierBadge';
 import Orcid from '../Orcid/Orcid';
@@ -58,7 +59,7 @@ const getDoi = (text) => {
     } 
 }
 
-export const HyperText = ({text, ...props}) =>  {
+export const HyperText = ({text, parseMarkdown, inline, addLinks = true, linkOptions, sanitizeOptions, ...props}) =>  {
     if(text === false || text === true){
         return <BooleanValue value={text} {...props}/>
     }
@@ -68,19 +69,37 @@ export const HyperText = ({text, ...props}) =>  {
     if(typeof text !== "string"){
         return <span {...props}>{text}</span>;
     }
-    const sanitized = DOMPurify.sanitize(text);
-    const doi = getDoi(sanitized);
+
+    const doi = getDoi(text);
     if(doi){
         return <Doi id={doi} {...props}/>
     }
-    const orcid = getOrcid(sanitized);
+    const orcid = getOrcid(text);
     if(orcid){
         return <Orcid href={orcid} {...props}/>
     }
-    const lsid = getLsid(sanitized);
+    const lsid = getLsid(text);
     if(lsid){
         return <Lsid identifier={lsid} {...props}/>
     }
+
+    let html = text;
+
+    if (addLinks) {
+        if (linkOptions) {
+            // use custom config
+            html = Autolinker.link(html, linkOptions);    
+        } else {
+            //use default link config
+            html = autolinker.link(html);
+        }
+    }
+
+    if (parseMarkdown) {
+        html = snarkdown(html);
+    }
+    const sanitized = DOMPurify.sanitize(html, sanitizeOptions);
+
     
-    return <div css={content()} dangerouslySetInnerHTML={{ __html: autolinker.link(sanitized) }} {...props}></div>
+    return <div css={content({inline})} dangerouslySetInnerHTML={{ __html: sanitized }} {...props}></div>
 }
