@@ -11,7 +11,7 @@
   },
   "numberSpecimens": {
     "name": "Number of specimens",
-    "count": "",
+    "count": "{num, plural, one { specimen count } other {# Specimen counts filters}}",
     "description": "The number of held specimens stated in the description. This number does not reflect how many records have been digitized and shared."
   },
   "taxonKey": {
