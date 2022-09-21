@@ -12,7 +12,7 @@
   "numberSpecimens": {
     "name": "Nombre de spécimens",
     "count": "",
-    "description": ""
+    "description": "Le nombre de spécimens détenus indiqué dans la description. Ce nombre ne correspond pas au nombre d'enregistrements qui ont été numérisés et partagés."
   },
   "taxonKey": {
     "name": "Nom scientifique du taxon",
