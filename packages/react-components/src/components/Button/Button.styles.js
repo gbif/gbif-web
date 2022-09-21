@@ -93,7 +93,7 @@ export const textHover = theme => css`
 export const primary = theme => css`
   background-color: ${theme.primary500};
   border-color: ${theme.primary600};
-  color: white;
+  color: white!important;
   &:not([aria-disabled="true"]) {
     &:hover {
       color: white;
@@ -112,7 +112,7 @@ export const primary = theme => css`
 export const primaryOutline = (theme) => css`
   border-color: ${theme.primary600};
   background: none;
-  color: ${theme.primary700};
+  color: ${theme.primary700}!important;
 `;
 
 export const outline = (theme) => css`
