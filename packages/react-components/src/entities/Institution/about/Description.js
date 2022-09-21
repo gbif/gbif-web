@@ -27,11 +27,11 @@ console.log(occurrenceSearch);
         <Property value={institution.description} labelId="grscicoll.description" showEmpty />
         <Property value={institution.code} labelId="grscicoll.code" showEmpty />
         <Property value={institution.numberSpecimens} labelId="institution.numberSpecimens" />
-        <Property value={occurrenceSearch?.documents?.total} labelId="grscicoll.specimensViaGbif" formatter={count => {
+        {occurrenceSearch?.documents?.total && <Property value={occurrenceSearch?.documents?.total} labelId="grscicoll.specimensViaGbif" formatter={count => {
           return <ResourceLink type="institutionKeySpecimens" id={institution.key}>
             <FormattedNumber value={count} />
           </ResourceLink>
-        }}/>
+        }}/>}
         <Property value={institution.catalogUrl} labelId="grscicoll.catalogUrl" />
         <Property value={institution.apiUrl} labelId="grscicoll.apiUrl" />
         <Property value={institution.taxonomicDescription} labelId="grscicoll.taxonomicDescription" showEmpty />
