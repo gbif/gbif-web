@@ -20,7 +20,6 @@ export function Description({
 }) {
   const theme = useContext(ThemeContext);
   return <div style={{ paddingBottom: 100 }}>
-    <div>This collection is no longer active</div>
     <Card style={{ marginTop: 24, marginBottom: 24 }}>
       <CardHeader2>About</CardHeader2>
       <Properties style={{ fontSize: 16, marginBottom: 12 }} breakpoint={800}>
