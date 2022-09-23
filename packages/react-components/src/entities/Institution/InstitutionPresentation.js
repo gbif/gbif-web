@@ -1,26 +1,23 @@
 
-import { jsx } from '@emotion/react';
+import { jsx, css } from '@emotion/react';
 import React, { useContext, useState, useEffect } from 'react';
 import { MdInfo } from 'react-icons/md'
 import ThemeContext from '../../style/themes/ThemeContext';
-// import * as css from './styles';
 import { Tabs, Eyebrow, DataHeader, ResourceSearchLink, Button, Tooltip } from '../../components';
 import OccurrenceSearch from '../../search/OccurrenceSearch/OccurrenceSearch';
-import { OccurrenceCount, Homepage, CollectionsCount, FeatureList, Location } from '../../components/IconFeatures/IconFeatures';
+import { OccurrenceCount, Homepage, FeatureList, Location } from '../../components/IconFeatures/IconFeatures';
 import { iconFeature } from '../../components/IconFeatures/styles';
 import { Description as About } from './about/Description';
-import { People } from './people/People';
 import { Collections } from './collections/Collections';
-import { FormattedMessage, FormattedNumber } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { join } from '../../utils/util';
 import env from '../../../.env.json';
 
-import * as css from './styles';
-import { MdChevronLeft, MdPeople, MdEdit } from 'react-icons/md';
+import * as styles from './styles';
+import { MdChevronLeft } from 'react-icons/md';
 import { GrGithub as Github } from 'react-icons/gr';
 
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
-import { encode } from 'js-base64';
 
 const { TabList, RouterTab } = Tabs;
 
@@ -58,6 +55,7 @@ export function InstitutionPresentation({
   // if there is at least a countryCode for thee address, then use that, else fall back to the mailing address
   const contactInfo = institution?.address?.countryCode ? institution?.address : institution?.mailingAddress;
 
+  const primaryContacts = institution.contactPersons.filter(x => x.primary);
   const feedbackTemplate = `Please provide you feedback here, but leave content below for context
 
 ---
@@ -70,44 +68,43 @@ Relating to ${env.GBIF_REGISTRY}/institution/${institution.key}
         <MdChevronLeft /> <FormattedMessage id='catalogues.institutions' />
       </ResourceSearchLink>}
     />
-    <div css={css.headerWrapper({ theme })}>
-      <div css={css.proseWrapper({ theme })}>
+    <div css={styles.headerWrapper({ theme })}>
+      <div css={styles.proseWrapper({ theme })}>
         <Eyebrow prefix="Institution code" suffix={institution.code} />
         <h1>{institution.name}</h1>
-
-        <div css={css.summary}>
-          <div css={css.summary_primary}>
+        {/* {primaryContacts.length > 0 && primaryContacts.length < 5 && <div css={iconFeature({ theme })}>
+          <MdPeople />
+          <div>
+            {primaryContacts.map(c => `${c.firstName ? c.firstName : ''} ${c.lastName ? c.lastName : ''}`).join(' • ')}
+          </div>
+        </div>} */}
+        
+        <div css={styles.summary}>
+          <div css={styles.summary_primary}>
             <FeatureList>
               <Homepage href={institution.homepage || institution.catalogUrl} style={{ marginBottom: 8 }} />
               <Location countryCode={contactInfo.country} city={contactInfo.city} />
-              {institution.contacts.length > 0 && <div css={iconFeature({ theme })}>
-                <MdPeople />
-                {institution.contacts.length < 5 && <span>
-                  {institution.contacts.map(c => `${c.firstName ? c.firstName : ''} ${c.lastName ? c.lastName : ''}`).join(' • ')}
-                </span>
-                }
-                {institution.contacts.length >= 5 && <span>{institution.contacts.length} staff members</span>}
-              </div>}
+              {institution.numberSpecimens > 0 && <OccurrenceCount messageId="counts.nSpecimens" count={institution.numberSpecimens} />}
+              {/* {<GbifCount messageId="counts.nSpecimensInGbif" count={occurrenceSearch?.documents?.total} />} */}
             </FeatureList>
-            <FeatureList>
+            {/* <FeatureList>
               {institution.numberSpecimens > 0 && <OccurrenceCount messageId="counts.nSpecimens" count={institution.numberSpecimens} />}
               <CollectionsCount count={institution.collections?.length} />
-            </FeatureList>
+            </FeatureList> */}
           </div>
-          <div css={css.summary_secondary}>
-            <Tooltip title="No login required to leave suggestions" placement="bottom">
+          <div css={styles.summary_secondary}>
+            <Tooltip title="No login required" placement="bottom">
               <Button as="a" href={`${env.GBIF_REGISTRY}/institution/${institution.key}`} look="primaryOutline">Edit</Button>
             </Tooltip>
-            <Tooltip title="Leave feedback via Github - requires a free account" placement="bottom">
+            <Tooltip title="Leave a comment - requires a free Github account" placement="bottom">
               <a style={{ marginLeft: 8, fontSize: 24 }} target="_blank" href={`https://github.com/gbif/portal-feedback/issues/new?title=${encodeURIComponent(`NHC: ${institution.name}`)}&body=${encodeURIComponent(feedbackTemplate)}`}><Github /></a>
             </Tooltip>
           </div>
         </div>
         <TabList style={{ marginTop: '12px', borderTop: '1px solid #ddd' }}>
           <RouterTab to={url} exact label="About" />
-          {institution?.collections?.length > 0 && <RouterTab to={join(url, '/collections')} label="Collections" />}
-          {institution?.contacts?.length > 0 && <RouterTab to={join(url, '/people')} label="People" />}
-          {occurrenceSearch?.documents?.total > 0 && <RouterTab to={join(url, '/specimens')} label="Digitized specimens" />}
+          {<RouterTab to={join(url, '/collections')} css={institution?.collections?.length === 0 ? css`color: var(--color300);` : null} label={<FormattedMessage id="counts.nCollections" values={{ total: institution?.collections?.length }} />} />}
+          {occurrenceSearch?.documents?.total > 0 && <RouterTab to={join(url, '/specimens')} label="Specimens in GBIF" />}
         </TabList>
       </div>
     </div>
@@ -116,20 +113,15 @@ Relating to ${env.GBIF_REGISTRY}/institution/${institution.key}
     <section>
       <Switch>
         <Route path={join(path, '/collections')}>
-          <div css={css.proseWrapper({ theme })}>
+          <div css={styles.proseWrapper({ theme })}>
             <Collections {...{ institution }} />
           </div>
         </Route>
-        <Route path={join(path, '/people')}>
-          <div css={css.proseWrapper({ theme })}>
-            <People {...{ institution }} />
-          </div>
-        </Route>
         <Route path={join(path, '/specimens')}>
-          <OccurrenceSearch config={config} style={{ margin: 'auto', maxWidth: 1000, minHeight: 'calc(90vh)' }}></OccurrenceSearch>;
+          <OccurrenceSearch config={config} style={{ margin: 'auto', maxWidth: 1224, minHeight: 'calc(90vh)' }}></OccurrenceSearch>;
         </Route>
         <Route path={path}>
-          <div css={css.proseWrapper({ theme })}>
+          <div css={styles.proseWrapper({ theme })}>
             <About {...{ institution, occurrenceSearch }} />
           </div>
         </Route>

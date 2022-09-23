@@ -5,7 +5,7 @@ import ThemeContext from '../../style/themes/ThemeContext';
 import { MdGridOn, MdVideocam, MdLocationOn, MdEvent, MdInsertDriveFile, MdLink, MdLabel, MdImage, MdPhotoLibrary, MdStar } from 'react-icons/md';
 import { GiDna1 } from 'react-icons/gi';
 import { FaGlobeAfrica } from 'react-icons/fa';
-import { ClusterIcon } from '../Icons/Icons';
+import { ClusterIcon, GbifLogoIcon } from '../Icons/Icons';
 import { BsLightningFill } from 'react-icons/bs';
 import { AiFillAudio } from 'react-icons/ai';
 import { IoPinSharp as OccurrenceIcon } from 'react-icons/io5';
@@ -115,6 +115,13 @@ export function Homepage({ href, style, className, ...props }) {
 export function OccurrenceCount({ count, messageId = 'counts.nOccurrences', values, ...props }) {
   return <div css={css.iconFeature()}>
     <OccurrenceIcon />
+    <span><FormattedMessage id={messageId} values={values || { total: count }} /></span>
+  </div>
+}
+
+export function GbifCount({ count, messageId = 'counts.nOccurrences', values, ...props }) {
+  return <div css={css.iconFeature()}>
+    <GbifLogoIcon />
     <span><FormattedMessage id={messageId} values={values || { total: count }} /></span>
   </div>
 }

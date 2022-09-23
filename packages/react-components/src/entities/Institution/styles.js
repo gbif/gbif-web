@@ -12,7 +12,7 @@ export const headerWrapper = ({ ...props }) => css`
     font-weight: 700;
   }
   a {
-    color: #1393D8;
+    color: var(--primary);
   }
 `;
 

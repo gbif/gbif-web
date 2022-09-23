@@ -91,16 +91,18 @@ query institution($key: String!, $predicate: Predicate){
     identifiers {
       identifier
     }
-    contacts {
+    contactPersons {
       key
       firstName
       lastName
-      position
-      areaResponsibility
-      researchPursuits
       phone
       email
-      fax
+      taxonomicExpertise
+      primary
+      userIds {
+        type
+        id
+      }
     }
     numberSpecimens
     

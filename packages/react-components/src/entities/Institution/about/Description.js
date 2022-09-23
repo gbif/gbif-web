@@ -4,10 +4,13 @@ import React, { useContext, useState } from 'react';
 import { FormattedDate, FormattedMessage, FormattedNumber } from 'react-intl';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import * as styles from './styles';
-import { Row, Col, Properties, Accordion, Prose, Property, ResourceLink } from "../../../components";
+import { Properties, Property, ResourceLink, ListItem } from "../../../components";
 import { Card, CardHeader2 } from '../../shared';
+import sortBy from 'lodash/sortBy';
+import { MdMailOutline as MailIcon, MdPhone as PhoneIcon } from 'react-icons/md';
 
 const { Term: T, Value: V } = Properties;
+const Name2Avatar = ListItem.Name2Avatar;
 
 export function Description({
   data = {},
@@ -73,14 +76,41 @@ export function Description({
           </V>
         </>}
       </Properties>
+      <div css={css`
+        display: flex;
+        flex-wrap: wrap;
+        > div {
+          flex: 0 0 auto;
+          width: 50%;
+          max-width: 500px;
+          min-width: 300px;
+          margin: 12px;
+        }
+      `}>
+        {sortBy(institution.contactPersons, 'position').map(contact => {
+          let actions = [];
+          if (contact.email?.[0]) actions.push(<a href={`mailto:${contact.email?.[0]}`}><MailIcon />{contact.email?.[0]}</a>);
+          if (contact.phone?.[0]) actions.push(<a href={`tel:${contact.phone?.[0]}`}><PhoneIcon />{contact.phone?.[0]}</a>);
+          return <ListItem
+            key={contact.key}
+            isCard
+            title={`${contact.firstName} ${contact.lastName}`}
+            avatar={<Name2Avatar first={contact.firstName} last={contact.lastName} />}
+            description={contact.position?.[0] || <span>Position unknown</span>}
+            footerActions={actions}>
+            {contact.researchPursuits}
+          </ListItem>
+        })}
+      </div>
     </Card>
 
     <div css={css`
       color: #aaa; 
       display: flex;
+      flex-wrap: wrap;
       > div {
         flex: 0 0 auto;
-        margin: 0 24px 8px 24px;;
+        margin: 0 24px 8px 24px;
       }
       `}>
       <div>Entry created: <FormattedDate value={institution.created}
