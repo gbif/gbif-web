@@ -22,6 +22,7 @@ async function getSchema() {
     require('./input'),
     require('./resources/misc/comment'),
     require('./resources/misc/contact'),
+    require('./resources/misc/ContactPerson'),
     require('./resources/misc/endpoint'),
     require('./resources/misc/identifier'),
     require('./resources/misc/machineTag'),

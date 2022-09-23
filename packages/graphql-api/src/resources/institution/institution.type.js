@@ -61,7 +61,11 @@ const typeDef = gql`
     deleted: DateTime
     tags: [Tag]
     identifiers: [Identifier]
+    """
+    The contacts type is deprecated and will no longer be updated
+    """
     contacts: [StaffMember]
+    contactPersons: [ContactPerson]!
     machineTags: [MachineTag]
     alternativeCodes: [AlternativeCode]
     comments: [Comment]
