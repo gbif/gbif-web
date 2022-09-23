@@ -85,7 +85,7 @@ Relating to ${env.GBIF_REGISTRY}/institution/${institution.key}
           <div css={styles.summary_primary}>
             <FeatureList>
               <Homepage href={institution.homepage || institution.catalogUrl} style={{ marginBottom: 8 }} />
-              <Location countryCode={contactInfo.country} city={contactInfo.city} />
+              {contactInfo?.country && <Location countryCode={contactInfo?.country} city={contactInfo.city} />}
               {institution.numberSpecimens > 0 && <OccurrenceCount messageId="counts.nSpecimens" count={institution.numberSpecimens} />}
               {/* {<GbifCount messageId="counts.nSpecimensInGbif" count={occurrenceSearch?.documents?.total} />} */}
             </FeatureList>
