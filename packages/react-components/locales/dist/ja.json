@@ -407,6 +407,7 @@
   "filterSupport.viewDetails": "View details",
   "counts.nResults": "{total, plural, one {# 結果} other {# 結果}}",
   "counts.nOccurrences": "{total, plural, one {# occurrence} other {# occurrences}}",
+  "counts.nSpecimensInGbif": "{total, plural, one {# specimen in GBIF} other {# specimens in GBIF}}",
   "counts.nSpecimens": "{total, plural, one {# specimen} other {# specimens}}",
   "counts.nCollections": "{total, plural, one {# collection} other {# collections}}",
   "counts.nRecordsTotal": "{total, plural, one {# record in total} other {# records in total}}",
