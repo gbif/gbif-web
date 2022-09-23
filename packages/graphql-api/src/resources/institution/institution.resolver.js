@@ -16,8 +16,12 @@ module.exports = {
     collections: ({key}, {limit, offset}, { dataSources }) => {
       return  dataSources.collectionAPI.getCollectionsByInstitutionKey({key, limit, offset})
     },
+    replacedByInstitution: ({replacedBy}, args, { dataSources }) => {
+      if (!replacedBy) return null;
+      return  dataSources.institutionAPI.getInstitutionByKey({ key: replacedBy })
+    },
     occurrenceCount: ({ key }, args, { dataSources }) => {
-      if (typeof key === 'undefined') return null;
+      if (!key) return null;
       return dataSources.occurrenceAPI
         .searchOccurrenceDocuments(
           { query: { predicate: { type: 'equals', key: 'institutionKey', value: key } } }

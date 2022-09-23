@@ -87,6 +87,10 @@ query institution($key: String!, $predicate: Predicate){
     created
     deleted
     modified
+    replacedByInstitution {
+      name
+      key
+    }
 
     identifiers {
       identifier

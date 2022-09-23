@@ -1,12 +1,12 @@
 
 import { jsx, css } from '@emotion/react';
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { MdInfo } from 'react-icons/md'
 import ThemeContext from '../../style/themes/ThemeContext';
-import { Tabs, Eyebrow, DataHeader, ResourceSearchLink, Button, Tooltip } from '../../components';
+import { Tabs, Eyebrow, DataHeader, ResourceSearchLink, Button, Tooltip, ResourceLink } from '../../components';
 import OccurrenceSearch from '../../search/OccurrenceSearch/OccurrenceSearch';
 import { OccurrenceCount, Homepage, FeatureList, Location } from '../../components/IconFeatures/IconFeatures';
-import { iconFeature } from '../../components/IconFeatures/styles';
+// import { iconFeature } from '../../components/IconFeatures/styles';
 import { Description as About } from './about/Description';
 import { Collections } from './collections/Collections';
 import { FormattedMessage } from 'react-intl';
@@ -72,6 +72,8 @@ Relating to ${env.GBIF_REGISTRY}/institution/${institution.key}
       <div css={styles.proseWrapper({ theme })}>
         <Eyebrow prefix="Institution code" suffix={institution.code} />
         <h1>{institution.name}</h1>
+        {institution.deleted && <div style={{color: 'tomato'}}>This record was deleted on {institution.deleted}</div>}
+        {institution.replacedByInstitution && <div style={{color: 'tomato'}}>It was replaced by <ResourceLink type="institutionKey" id={institution.replacedBy}>{institution.replacedByInstitution.name}</ResourceLink></div>}
         {/* {primaryContacts.length > 0 && primaryContacts.length < 5 && <div css={iconFeature({ theme })}>
           <MdPeople />
           <div>

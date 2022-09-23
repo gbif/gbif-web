@@ -54,6 +54,7 @@ const typeDef = gql`
     created: DateTime
     modified: DateTime
     deleted: DateTime
+    replacedBy: ID
     tags:[Tag]
     identifiers: [Identifier]
     """
