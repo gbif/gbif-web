@@ -26,9 +26,9 @@ module.exports = {
         )
         .then(response => response.total);
     },
-    excerpt: ({description}, args, { dataSources }) => {
+    excerpt: ({description, taxonomicCoverage, geography}, args, { dataSources }) => {
       if (typeof description === 'undefined') return null;
-      return getExcerpt({strings: [description], length: 300}).plainText;
+      return getExcerpt({strings: [description, taxonomicCoverage, geography], length: 300}).plainText;
     },
     // someField: ({ fieldWithKey: key }, args, { dataSources }) => {
     //   if (typeof key === 'undefined') return null;
