@@ -1,6 +1,7 @@
 {
   "nResults": "{total, plural, one {# result} other {# results}}",
   "nOccurrences": "{total, plural, one {# occurrence} other {# occurrences}}",
+  "nSpecimensInGbif": "{total, plural, one {# specimen in GBIF} other {# specimens in GBIF}}",
   "nSpecimens": "{total, plural, one {# specimen} other {# specimens}}",
   "nCollections": "{total, plural, one {# collection} other {# collections}}",
   "nRecordsTotal": "{total, plural, one {# record in total} other {# records in total}}",
