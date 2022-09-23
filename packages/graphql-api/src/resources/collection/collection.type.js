@@ -76,6 +76,13 @@ const typeDef = gql`
 
     occurrenceCount: Int
     excerpt: String
+    completeness: Completeness
+  }
+
+  type Completeness {
+    total: Int
+    present: Int
+    percent: Float
   }
 
   type AlternativeCode {

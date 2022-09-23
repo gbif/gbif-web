@@ -1,4 +1,5 @@
 const { getExcerpt } = require('../../util/utils');
+const _ = require('lodash');
 /** 
  * fieldName: (parent, args, context, info) => data;
  * parent: An object that contains the result returned from the resolver on the parent type
@@ -29,6 +30,18 @@ module.exports = {
     excerpt: ({description, taxonomicCoverage, geography}, args, { dataSources }) => {
       if (typeof description === 'undefined') return null;
       return getExcerpt({strings: [description, taxonomicCoverage, geography], length: 300}).plainText;
+    },
+    completeness: (collection, args, { dataSources }) => {
+      let completeness = 0;
+      let fields = ['description', 'taxonomicCoverage', 'geography', 'address.country', 'code', 'email', 'homepage', 'numberSpecimens'];
+      fields.forEach(x => {
+        if (_.get(collection, x))completeness++;
+      });
+      return {
+        total: fields.length,
+        present: completeness,
+        percent: 100*completeness/fields.length
+      };
     },
     // someField: ({ fieldWithKey: key }, args, { dataSources }) => {
     //   if (typeof key === 'undefined') return null;

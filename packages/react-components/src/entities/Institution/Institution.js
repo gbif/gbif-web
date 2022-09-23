@@ -132,6 +132,11 @@ query institution($key: String!, $predicate: Predicate){
       active
       numberSpecimens
       occurrenceCount
+      completeness {
+        total
+        present
+        percent
+      }
     }
   }
 }

@@ -15,6 +15,7 @@ export const Example = () => <>
   <Progress percent={10} style={{margin: 10}}/>
   <Progress percent={100} style={{margin: 10}}/>
   <Progress percent={200} style={{margin: 10}}/>
+  <Progress percent={50} style={{height: 20, margin: 10}}/>
   {/* <StyledProse source={readme}></StyledProse> */}
 </>;
 
