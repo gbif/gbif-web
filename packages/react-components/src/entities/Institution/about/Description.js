@@ -96,7 +96,7 @@ export function Description({
             isCard
             title={`${contact.firstName} ${contact.lastName}`}
             avatar={<Name2Avatar first={contact.firstName} last={contact.lastName} />}
-            description={contact.position?.[0] || <span>Position unknown</span>}
+            description={contact.position?.[0]}
             footerActions={actions}>
             {contact.researchPursuits}
           </ListItem>

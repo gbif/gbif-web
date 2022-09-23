@@ -4,12 +4,13 @@ import { css } from '@emotion/react';
 export const nameAvatar = css`
   background: var(--color100);
     display: inline-block;
-    width: 60px;
-    height: 60px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
-    line-height: 60px;
+    line-height: 48px;
     text-align: center;
     font-weight: 900;
+    font-size: 15px;
 `;
 
 export const listItem = css`
@@ -72,7 +73,7 @@ export const description = css`
 `;
 
 export const headline = css`
-  margin: 0 0 12px 0;
+  margin: 8px 0 12px 0;
   font-size: 1.05rem;
   a {
     color: inherit;
