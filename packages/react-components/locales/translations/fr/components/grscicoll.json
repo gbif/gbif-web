@@ -1,0 +1,16 @@
+{
+  "geographicDescription": "Description géographique",
+  "taxonomicDescription": "Description taxonomique",
+  "additionalNames": "Autres noms",
+  "description": "Description",
+  "code": "Code",
+  "alternativeCodes": "Codes alternatifs",
+  "apiUrl": "URL pour les services Web de la collection",
+  "homepage": "Page d'accueil",
+  "email": "Courriel",
+  "mailingAddress": "Adresse électronique",
+  "contacts": "Contacts",
+  "address": "Adresse",
+  "country": "Pays",
+  "citesPermitNumber": "Numéro de permis Cites"
+}
