@@ -6,7 +6,7 @@
   },
   "collectionKey": {
     "name": "Colección",
-    "count": "",
+    "count": "{num, plural, one {# colección } other {# colecciones}}",
     "description": "La colección en GrSciColl este registro fue igualado a"
   },
   "numberSpecimens": {
