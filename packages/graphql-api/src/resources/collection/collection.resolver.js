@@ -31,21 +31,36 @@ module.exports = {
       if (typeof description === 'undefined') return null;
       return getExcerpt({strings: [description, taxonomicCoverage, geography], length: 300}).plainText;
     },
-    completeness: (collection, args, { dataSources }) => {
+    richness: (collection, args, { dataSources }) => {
       let completeness = 0;
-      let fields = ['description', 'taxonomicCoverage', 'geography', 'address.country', 'code', 'email', 'homepage', 'numberSpecimens'];
+      let totalAvailable = 0;
+      let fields = ['taxonomicCoverage', 'geography', 'address.country', 'address.address', 'code', 'email', 'homepage', {field: 'numberSpecimens', counts: 2}];
+      //each field gives you point per default. But con be configured to be more than 1 for a field
       fields.forEach(x => {
-        if (_.get(collection, x))completeness++;
+        let conf = {
+          field: x,
+          counts: 1
+        };
+        if (typeof x !== 'string') {
+          conf = x;
+        }
+        totalAvailable += conf.counts;
+        if (_.get(collection, conf.field)) completeness += conf.counts;
       });
-      return {
-        total: fields.length,
-        present: completeness,
-        percent: 100*completeness/fields.length
-      };
+
+      // descriptions can give up to x points depending on length
+      const maxDescPoint = 2;
+      const description = collection.description || '';
+      const descPoints = between(Math.ceil(description.length / 200), 0, maxDescPoint);
+      completeness += descPoints;
+      totalAvailable += maxDescPoint;
+
+      // returns as a percentage rounded up
+      return Math.ceil(100 * completeness / totalAvailable);
     },
-    // someField: ({ fieldWithKey: key }, args, { dataSources }) => {
-    //   if (typeof key === 'undefined') return null;
-    //   dataSources.someAPI.getSomethingByKey({ key })
-    // },
   }
 };
+
+function between(input, min, max) {
+  return Math.min(Math.max(input, min), max);
+}

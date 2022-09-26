@@ -46,7 +46,7 @@ export function Collections({
                 </div>
               </div>
               <div>
-                <div css={styles.progressCircular({ percent: collection.completeness.percent, size: '48px' })}>{collection.completeness.present}/{collection.completeness.total}</div>
+                <div css={styles.progressCircular({ percent: collection.richness, size: '48px' })}>{collection.richness}</div>
               </div>
               <div>
                 <div css={styles.active}>Active</div>
