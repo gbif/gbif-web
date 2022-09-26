@@ -1,4 +1,5 @@
 {
+  "foundingDate": "Date de fondation",
   "geographicDescription": "Description géographique",
   "taxonomicDescription": "Description taxonomique",
   "additionalNames": "Autres noms",
@@ -7,10 +8,14 @@
   "alternativeCodes": "Codes alternatifs",
   "apiUrl": "URL pour les services Web de la collection",
   "homepage": "Page d'accueil",
+  "phone": "Numéro de téléphone",
   "email": "Courriel",
+  "fax": "Numéro de fax",
   "mailingAddress": "Adresse électronique",
   "contacts": "Contacts",
   "address": "Adresse",
+  "postalCode": "Code postal",
+  "city": "Ville",
   "country": "Pays",
   "citesPermitNumber": "Numéro de permis Cites"
 }
