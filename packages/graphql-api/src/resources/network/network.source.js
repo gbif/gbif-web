@@ -10,6 +10,10 @@ class NetworkAPI extends RESTDataSource {
     this.baseURL = API_V1;
   }
 
+  willSendRequest(request) {
+    request.headers.set('User-Agent', `GBIF GraphQL API`);
+  }
+
   async searchNetworks({ query }) {
     return this.get('/network', qs.stringify(query, { indices: false }));
   }

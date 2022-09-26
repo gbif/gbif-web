@@ -10,6 +10,10 @@ class InstallationAPI extends RESTDataSource {
     this.baseURL = API_V1;
   }
 
+  willSendRequest(request) {
+    request.headers.set('User-Agent', `GBIF GraphQL API`);
+  }
+
   async searchInstallations({ query }) {
     return this.get('/installation', qs.stringify(query, { indices: false }));
   }

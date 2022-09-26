@@ -12,6 +12,10 @@ class TaxonAPI extends RESTDataSource {
     this.baseURL = API_V1;
   }
 
+  willSendRequest(request) {
+    request.headers.set('User-Agent', `GBIF GraphQL API`);
+  }
+
   async searchTaxa({ query }) {
     const response = await this.get('/species/search', qs.stringify(query, { indices: false }));
     response._query = query;

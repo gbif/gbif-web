@@ -10,6 +10,10 @@ class OrganizationAPI extends RESTDataSource {
     this.baseURL = API_V1;
   }
 
+  willSendRequest(request) {
+    request.headers.set('User-Agent', `GBIF GraphQL API`);
+  }
+
   async searchOrganizations({ query }) {
     return this.get('/organization', qs.stringify(query, { indices: false }));
   }

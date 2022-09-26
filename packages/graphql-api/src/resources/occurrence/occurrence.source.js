@@ -21,6 +21,7 @@ class OccurrenceAPI extends RESTDataSource {
 
     // now that we make a public version, we might as well just make it open since the key is shared with everyone
     request.headers.set('Authorization', `ApiKey-v1 ${apiEsKey}`);
+    request.headers.set('User-Agent', `GBIF GraphQL API`);
   }
 
   async searchOccurrenceDocuments({ query }) {

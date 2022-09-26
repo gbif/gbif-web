@@ -11,6 +11,7 @@ class LiteratureAPI extends RESTDataSource {
 
   willSendRequest(request) {
     request.headers.set('Authorization', `ApiKey-v1 ${apiEsKey}`);
+    request.headers.set('User-Agent', `GBIF GraphQL API`);
   }
 
   async searchLiteratureDocuments({ query }) {

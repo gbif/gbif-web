@@ -10,6 +10,10 @@ class CollectionAPI extends RESTDataSource {
     this.baseURL = API_V1;
   }
 
+  willSendRequest(request) {
+    request.headers.set('User-Agent', `GBIF GraphQL API`);
+  }
+
   async searchCollections({ query }) {
     return this.get('/grscicoll/collection', qs.stringify(query, { indices: false }));
   }

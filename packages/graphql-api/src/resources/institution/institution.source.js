@@ -10,6 +10,10 @@ class InstitutionAPI extends RESTDataSource {
     this.baseURL = API_V1;
   }
 
+  willSendRequest(request) {
+    request.headers.set('User-Agent', `GBIF GraphQL API`);
+  }
+
   async searchInstitutions({ query }) {
     return this.get('/grscicoll/institution', qs.stringify(query, { indices: false }));
   }

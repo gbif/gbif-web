@@ -9,6 +9,10 @@ class DatasetAPI extends RESTDataSource {
     this.baseURL = API_V1;
   }
 
+  willSendRequest(request) {
+    request.headers.set('User-Agent', `GBIF GraphQL API`);
+  }
+
   async searchDatasets({query}) {
     const response = await this.get('/dataset/search', qs.stringify(query, { indices: false }));
     response._query = query;

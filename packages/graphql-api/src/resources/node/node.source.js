@@ -10,6 +10,10 @@ class NodeAPI extends RESTDataSource {
     this.baseURL = API_V1;
   }
 
+  willSendRequest(request) {
+    request.headers.set('User-Agent', `GBIF GraphQL API`);
+  }
+
   async searchNodes({ query }) {
     return this.get('/node', qs.stringify(query, { indices: false }));
   }
