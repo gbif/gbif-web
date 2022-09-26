@@ -1,0 +1,20 @@
+{
+  "geographicDescription": "Descripción geográfica",
+  "taxonomicDescription": "Descripción taxonómica",
+  "additionalNames": "Nombre adicional",
+  "description": "Descripción",
+  "code": "Código",
+  "alternativeCodes": "Códigos alternativos",
+  "apiUrl": "URL para los Servicios Web de la colección",
+  "homepage": "Página Principal",
+  "phone": "Teléfono",
+  "email": "Correo electrónico",
+  "fax": "Número de Fax",
+  "mailingAddress": "Dirección postal",
+  "contacts": "Contactos",
+  "address": "Dirección",
+  "postalCode": "Código postal",
+  "city": "Ciudad/Pueblo",
+  "country": "País",
+  "citesPermitNumber": "Número de permisos de citas"
+}
