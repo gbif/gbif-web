@@ -11,9 +11,6 @@ export const headerWrapper = ({ ...props }) => css`
     font-size: 2.5rem;
     font-weight: 700;
   }
-  a {
-    color: var(--primary);
-  }
 `;
 
 export const summary = ({ ...props }) => css`

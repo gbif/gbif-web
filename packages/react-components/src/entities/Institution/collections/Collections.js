@@ -1,11 +1,12 @@
 
 import { jsx, css } from '@emotion/react';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
+import { useQuery } from '../../../dataManagement/api';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import * as styles from './styles';
 import { ResourceLink, Progress } from "../../../components";
 import sortBy from 'lodash/sortBy';
-import { MdSearch } from 'react-icons/md';
+// import { MdSearch } from 'react-icons/md';
 // import { FormattedMessage } from 'react-intl';
 
 export function Collections({
@@ -18,6 +19,12 @@ export function Collections({
   const totalGBifSize = collections.reduce((a, c) => a += c.occurrenceCount || 0, 0);
   const totalEstimatedSize = collections.reduce((a, c) => a += c.numberSpecimens || 0, 0);
 
+  if (collections.length === 0) {
+    return <div>
+      There are no collections attached to this institution.
+      <OrphanedCollectionCodes institution={institution} />
+    </div>
+  }
   return <div css={styles.collections({ theme })}>
     <div style={{ width: '100%', marginBottom: 24 }}>
       {/* <div css={css`font-size: 20px; color: #aaa; margin: 48px 0;`}>
@@ -55,6 +62,7 @@ export function Collections({
           </article>
         })}
       </div>
+      <OrphanedCollectionCodes institution={institution} />
     </div>
   </div>
 };
@@ -68,3 +76,65 @@ digitized relative to stated total
 circle: completeness of metadata (description, taxonomicCoverage, geography, numberSpecimens, email, address, homepage)
 status: inactive/active
 */
+
+function OrphanedCollectionCodes({ institution, ...props }) {
+  const { data, error, loading, load } = useQuery(OCCURRENCE_STATS, { lazyLoad: true });
+  const { key } = institution;
+  
+  useEffect(() => {
+    load({
+      variables: {
+        predicate: {
+          type: 'and',
+          predicates: [
+            {
+              type: "equals",
+              key: "institutionKey",
+              value: key
+            },
+            {
+              "type": "not",
+              "predicate": {
+                "type": "isNotNull",
+                "key": "collectionKey"
+              }
+            },
+            {
+              "type": "isNotNull",
+              "key": "collectionCode"
+            }
+          ]
+        }
+      }
+    });
+  }, [key]);
+
+  if (data?.orphaned?.cardinality?.collectionCode === 0 || error || loading) return null;
+
+  return <div>
+    In the digitized data we see these codes being used, but none of them has been associated with a collection for this institution.
+
+    Collection codes that are unaccounted for:
+    <ul>
+      {data?.orphaned?.facet?.collectionCode.map(code => <li key={code.key}>{code.key} ({code.count})</li>)}
+    </ul>
+  </div>
+}
+
+
+const OCCURRENCE_STATS = `
+query ocurrenceSearch($predicate: Predicate, $predicate5: Predicate){
+  orphaned: occurrenceSearch(predicate: $predicate) {
+    cardinality {
+      collectionCode
+    }
+    facet {
+      collectionCode {
+        key
+        count
+      }
+    }
+  }
+}
+`;
+

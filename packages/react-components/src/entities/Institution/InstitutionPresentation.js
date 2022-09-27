@@ -16,10 +16,11 @@ import env from '../../../.env.json';
 import * as styles from './styles';
 import { MdChevronLeft } from 'react-icons/md';
 import { GrGithub as Github } from 'react-icons/gr';
+import { MdLink } from 'react-icons/md';
 
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 
-const { TabList, RouterTab } = Tabs;
+const { TabList, RouterTab, Tab } = Tabs;
 
 export function InstitutionPresentation({
   id,
@@ -99,7 +100,7 @@ Relating to ${env.GBIF_REGISTRY}/institution/${institution.key}
               <Button as="a" href={`${env.GBIF_REGISTRY}/institution/${institution.key}`} look="primaryOutline">Edit</Button>
             </Tooltip>
             <Tooltip title="Leave a comment - requires a free Github account" placement="bottom">
-              <a style={{ marginLeft: 8, fontSize: 24 }} target="_blank" href={`https://github.com/gbif/portal-feedback/issues/new?title=${encodeURIComponent(`NHC: ${institution.name}`)}&body=${encodeURIComponent(feedbackTemplate)}`}><Github /></a>
+              <a style={{ marginLeft: 8, fontSize: 24, color: "var(--primary)" }} target="_blank" href={`https://github.com/gbif/portal-feedback/issues/new?title=${encodeURIComponent(`NHC: ${institution.name}`)}&body=${encodeURIComponent(feedbackTemplate)}`}><Github /></a>
             </Tooltip>
           </div>
         </div>
@@ -107,6 +108,7 @@ Relating to ${env.GBIF_REGISTRY}/institution/${institution.key}
           <RouterTab to={url} exact label="About" />
           {<RouterTab to={join(url, '/collections')} css={institution?.collections?.length === 0 ? css`color: var(--color300);` : null} label={<FormattedMessage id="counts.nCollections" values={{ total: institution?.collections?.length }} />} />}
           {occurrenceSearch?.documents?.total > 0 && <RouterTab to={join(url, '/specimens')} label="Specimens in GBIF" />}
+          {occurrenceSearch?.documents?.total === 0 && institution.catalogUrl && <Tab tabId="0" label="Online catalog"><a css={css`text-decoration: none; color: inherit!important;`} href={institution.catalogUrl}>Explore catalog<MdLink /></a></Tab>}
         </TabList>
       </div>
     </div>

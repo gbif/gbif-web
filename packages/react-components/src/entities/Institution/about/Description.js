@@ -9,6 +9,7 @@ import { MdMailOutline as MailIcon, MdPhone as PhoneIcon } from 'react-icons/md'
 import { TopTaxa } from './stats/TopTaxa';
 import { TopCountries } from './stats/TopCountries';
 import { Quality } from './stats/Quality';
+import { SkeletonLoader } from './stats/SkeletonLoader';
 import useBelow from '../../../utils/useBelow';
 
 const { Term: T, Value: V } = Properties;
@@ -83,10 +84,13 @@ export function Description({
         <div css={css`
         display: flex;
         flex-wrap: wrap;
+        padding-top: 24px;
+        border-top: 1px solid #eee;
+        margin-top: 24px;
         > div {
-          flex: 0 0 auto;
-          width: 50%;
-          max-width: 500px;
+          flex: 1 1 auto;
+          width: 40%;
+          max-width: 400px;
           min-width: 300px;
           margin: 12px;
         }
@@ -147,13 +151,13 @@ export function Description({
 
 
       <div css={css`
-      color: #aaa; 
-      display: flex;
-      flex-wrap: wrap;
-      > div {
-        flex: 0 0 auto;
-        margin: 0 24px 8px 24px;
-      }
+        color: #aaa; 
+        display: flex;
+        flex-wrap: wrap;
+        > div {
+          flex: 0 0 auto;
+          margin: 0 24px 8px 24px;
+        }
       `}>
         <div>Entry created: <FormattedDate value={institution.created}
           year="numeric"
@@ -165,22 +169,25 @@ export function Description({
           day="2-digit" /></div>
       </div>
     </div>
-    {!hideSideBar && <aside css={css`flex: 0 0 300px; margin: 24px 12px;`}>
-      {occurrenceSearch?.documents?.total > 0 && <Card padded={false} style={{ padding: '24px 12px', marginBottom: 12 }}>
+    {!hideSideBar && occurrenceSearch?.documents?.total > 0 && <aside css={css`flex: 0 0 300px; margin: 24px 12px;`}>
+      {loading && <Card style={{ padding: '24px 12px', marginBottom: 12 }}>
+        <SkeletonLoader />
+      </Card>}
+      {occurrenceSearch?.documents?.total > 0 && <Card style={{ padding: '24px 12px', marginBottom: 12 }}>
         <Quality predicate={{
           type: "equals",
           key: "institutionKey",
           value: institution.key
         }} institution={institution} totalOccurrences={occurrenceSearch?.documents?.total}/>
       </Card>}
-      {occurrenceSearch?.documents?.total > 0 && <Card padded={false} style={{ padding: '24px 12px', marginBottom: 12 }}>
+      {occurrenceSearch?.documents?.total > 0 && <Card style={{ padding: '24px 12px', marginBottom: 12 }}>
         <TopTaxa predicate={{
           type: "equals",
           key: "institutionKey",
           value: institution.key
         }} />
       </Card>}
-      {occurrenceSearch?.documents?.total > 0 && <Card padded={false} style={{ padding: '24px 12px', marginBottom: 12 }}>
+      {occurrenceSearch?.documents?.total > 0 && <Card style={{ padding: '24px 12px', marginBottom: 12 }}>
         <TopCountries predicate={{
           type: "equals",
           key: "institutionKey",

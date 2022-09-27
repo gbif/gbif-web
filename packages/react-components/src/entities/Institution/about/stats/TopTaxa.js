@@ -2,6 +2,7 @@ import { jsx, css } from '@emotion/react';
 import React, { useEffect } from 'react';
 import { useQuery } from '../../../../dataManagement/api';
 import { ProgressItem } from "../../../../components";
+import { SkeletonLoader } from './SkeletonLoader';
 
 export function TopTaxa({
   predicate,
@@ -18,6 +19,9 @@ export function TopTaxa({
   }, [predicate]);
 
   const total = data?.occurrenceSearch?.documents?.total;
+
+  if (error) return <div>Failed to load stats</div>
+  if (!data || loading) return <SkeletonLoader />
 
   return <>
     <h4 css={css`margin: 0 0 24px 0; font-size: 14px;`}>Top 10 shared taxa</h4>

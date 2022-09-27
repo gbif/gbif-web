@@ -4,11 +4,12 @@ import { useQuery } from '../../../../dataManagement/api';
 import { ProgressItem, Tooltip } from "../../../../components";
 import { FormattedMessage } from 'react-intl';
 import { MdHelpOutline as HelpIcon } from 'react-icons/md';
+import { SkeletonLoader } from './SkeletonLoader';
 
 export function Quality({
   predicate,
   institution,
-  totalOccurrences,
+  totalOccurrences = 0,
   ...props
 }) {
   const { data, error, loading, load } = useQuery(OCCURRENCE_STATS, { lazyLoad: true });
@@ -60,6 +61,10 @@ export function Quality({
 
   const digitizedFraction = totalOccurrences / institution?.numberSpecimens;
   const collectionsWithDigitizedData = institution.collections.filter(x => x.occurrenceCount > 0).length;
+  
+  if (error) return <div>Failed to load stats</div>
+  if (!data || loading) return <SkeletonLoader />
+
   return <>
     <h4 css={css`margin: 0 0 24px 0; font-size: 14px;`}><FormattedMessage id="counts.nSpecimensInGbif" values={{ total: totalOccurrences }} /></h4>
     <div>
@@ -69,7 +74,7 @@ export function Quality({
           {institution?.numberSpecimens && <ProgressItem color="#4fd970" fraction={data?.withCollection?.documents?.total / totalOccurrences} title="Assigned to a collection" subtleText style={{ marginBottom: 12 }} />}
           {institution?.collections?.length > 0 && <ProgressItem color="#4fd970" fraction={collectionsWithDigitizedData / institution?.collections?.length} title="Collections that share data" subtleText style={{ marginBottom: 12 }} />}
           <ProgressItem color="#4fd970" fraction={data?.big5?.documents?.total / totalOccurrences} title={<>
-            <Tooltip title="Records that has a taxon match, location, year, collector and identifier name.">
+            <Tooltip title="What, where, when and who collected and identified">
               <span>The Big 5 <HelpIcon /></span>
             </Tooltip>
           </>}
