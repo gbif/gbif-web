@@ -5,5 +5,8 @@
   "ARCHAEOLOGY_UNDERWATER": "Archeologie onder water",
   "ANTHROPOLOGY": "Antropologie",
   "ANTHROPOLOGY_BIOLOGICAL": "Anthropologie biologisch",
-  "ANTHROPOLOGY_CULTURAL": "Culturele antropologie"
+  "ANTHROPOLOGY_CULTURAL": "Culturele antropologie",
+  "SPACE_ASTROPHYSICS": "Ruimte astrofysica",
+  "ATMOSPHERIC": "Atmosfeer",
+  "CHEMICAL": "Chemisch"
 }
