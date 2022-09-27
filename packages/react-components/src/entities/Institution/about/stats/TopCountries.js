@@ -1,9 +1,10 @@
 import { jsx, css } from '@emotion/react';
 import React, { useEffect } from 'react';
-import { useQuery } from '../../../dataManagement/api';
-import { ProgressItem } from "../../../components";
+import { useQuery } from '../../../../dataManagement/api';
+import { ProgressItem } from "../../../../components";
+import { FormattedMessage } from 'react-intl';
 
-export function TopTaxa({
+export function TopCountries({
   predicate,
   ...props
 }) {
@@ -20,12 +21,12 @@ export function TopTaxa({
   const total = data?.occurrenceSearch?.documents?.total;
 
   return <>
-    <h4 css={css`margin: 0 0 24px 0; font-size: 14px;`}>Top 10 shared taxa</h4>
+    <h4 css={css`margin: 0 0 24px 0; font-size: 14px;`}>Top 10 countries</h4>
     <div>
       <ul css={css`padding: 0; margin: 0; list-style: none;`}>
-        {data?.occurrenceSearch?.facet?.taxonKey.map((x, i) => {
+        {data?.occurrenceSearch?.facet?.countryCode.map((x, i) => {
           return <li>
-            <ProgressItem style={{ marginBottom: 12 }} fraction={x.count / total} title={<span dangerouslySetInnerHTML={{__html: x.taxon.formattedName}}></span>} subtleText />
+            <ProgressItem style={{ marginBottom: 12 }} fraction={x.count / total} title={<FormattedMessage id={`enums.countryCode.${x.key}`} />} subtleText />
           </li>
         })}
       </ul>
@@ -34,17 +35,15 @@ export function TopTaxa({
 };
 
 const OCCURRENCE_STATS = `
-query topTaxa($predicate: Predicate){
+query topCountries($predicate: Predicate){
   occurrenceSearch(predicate: $predicate) {
     documents(size: 0) {
       total
     }
     facet {
-      taxonKey(size: 10) {
+      countryCode(size: 10) {
         count
-        taxon {
-          formattedName
-        }
+        key
       }
     }
   }

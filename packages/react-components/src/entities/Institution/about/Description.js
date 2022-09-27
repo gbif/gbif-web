@@ -2,11 +2,13 @@
 import { jsx, css } from '@emotion/react';
 import React from 'react';
 import { FormattedDate, FormattedMessage, FormattedNumber } from 'react-intl';
-import { Properties, Property, ResourceLink, ListItem, Image, ProgressItem, HyperText } from "../../../components";
+import { Properties, Property, ResourceLink, ListItem, Image, HyperText } from "../../../components";
 import { Card, CardHeader2 } from '../../shared';
 import sortBy from 'lodash/sortBy';
 import { MdMailOutline as MailIcon, MdPhone as PhoneIcon } from 'react-icons/md';
-import { TopTaxa } from './TopTaxa';
+import { TopTaxa } from './stats/TopTaxa';
+import { TopCountries } from './stats/TopCountries';
+import { Quality } from './stats/Quality';
 import useBelow from '../../../utils/useBelow';
 
 const { Term: T, Value: V } = Properties;
@@ -164,16 +166,22 @@ export function Description({
       </div>
     </div>
     {!hideSideBar && <aside css={css`flex: 0 0 300px; margin: 24px 12px;`}>
-      <Card padded={false} style={{ padding: '24px 12px 12px 12px', marginBottom: 12 }}>
-        <h4 css={css`margin: 0 0 24px 0; font-size: 14px;`}><FormattedMessage id="counts.nSpecimensInGbif" values={{total: occurrenceSearch.documents.total}} /></h4>
-        <div>
-          <ProgressItem fraction={.52394876} title="Assigned to a collection" subtleText style={{ marginBottom: 12 }} />
-          <ProgressItem fraction={.152394876} title="Shared of total estimated" subtleText style={{ marginBottom: 12 }} />
-          {/* <ProgressItem fraction={.13} title="Matched using IDs" subtleText style={{ marginBottom: 12 }} /> */}
-        </div>
-      </Card>
+      {occurrenceSearch?.documents?.total > 0 && <Card padded={false} style={{ padding: '24px 12px', marginBottom: 12 }}>
+        <Quality predicate={{
+          type: "equals",
+          key: "institutionKey",
+          value: institution.key
+        }} institution={institution} totalOccurrences={occurrenceSearch?.documents?.total}/>
+      </Card>}
       {occurrenceSearch?.documents?.total > 0 && <Card padded={false} style={{ padding: '24px 12px', marginBottom: 12 }}>
         <TopTaxa predicate={{
+          type: "equals",
+          key: "institutionKey",
+          value: institution.key
+        }} />
+      </Card>}
+      {occurrenceSearch?.documents?.total > 0 && <Card padded={false} style={{ padding: '24px 12px', marginBottom: 12 }}>
+        <TopCountries predicate={{
           type: "equals",
           key: "institutionKey",
           value: institution.key

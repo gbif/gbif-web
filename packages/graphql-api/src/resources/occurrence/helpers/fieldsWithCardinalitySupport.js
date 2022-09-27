@@ -11,4 +11,5 @@ module.exports = [
   'sampleSizeUnit',
   'verbatimScientificName',
   'eventId',
+  'collectionKey'
 ];
