@@ -43,7 +43,13 @@ async function initializeServer() {
         controller.abort();
       });
 
-      return { user, abortController: controller };
+      return { 
+        user, 
+        abortController: controller,
+        userAgent: get(req, 'headers.User-Agent') || 'GBIF_GRAPHQL_API',
+        // we could also forward the full header I suppose. For now it is just the referer
+        referer: get(req, 'headers.referer') || null
+      };
     },
     typeDefs,
     resolvers,

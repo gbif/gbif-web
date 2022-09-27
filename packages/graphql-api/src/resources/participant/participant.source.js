@@ -19,7 +19,8 @@ class ParticipantAPI extends RESTDataSource {
   willSendRequest(request) {
     const header = createSignedGetHeader(request.path);
     Object.keys(header).forEach(x => request.headers.set(x, header[x]));
-    request.headers.set('User-Agent', `GBIF GraphQL API`);
+    request.headers.set('User-Agent', this.context.userAgent);
+    request.headers.set('referer', this.context.referer);
   }
 
   /*

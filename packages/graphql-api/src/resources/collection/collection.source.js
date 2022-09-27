@@ -11,7 +11,8 @@ class CollectionAPI extends RESTDataSource {
   }
 
   willSendRequest(request) {
-    request.headers.set('User-Agent', `GBIF GraphQL API`);
+    request.headers.set('User-Agent', this.context.userAgent);
+    request.headers.set('referer', this.context.referer);
   }
 
   async searchCollections({ query }) {
