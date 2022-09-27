@@ -1,1 +1,21 @@
-{}
+{
+  "foundingDate": "Oprichtingsdatum",
+  "geographicDescription": "Geografische beschrijving",
+  "taxonomicDescription": "Taxonomische beschrijving",
+  "additionalNames": "Aanvullende namen",
+  "description": "Beschrijving",
+  "code": "Code",
+  "homepage": "Startpagina",
+  "phone": "Telefoonnummer",
+  "email": "E-mail",
+  "fax": "Faxnummer",
+  "mailingAddress": "Mailadres",
+  "physicalAddress": "Fysiek adres",
+  "contacts": "Contacten",
+  "address": "Adres",
+  "province": "Staat/Provincie",
+  "postalCode": "Postcode",
+  "city": "Stad/dorp",
+  "country": "Land",
+  "specimensViaGbif": "Specimens gedeeld met GBIF"
+}
