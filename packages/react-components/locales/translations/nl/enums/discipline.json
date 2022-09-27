@@ -1,1 +1,9 @@
-{}
+{
+  "ARCHAEOLOGY": "Archeologie",
+  "ARCHAEOLOGY_PREHISTORIC": "Archeologie prehistorisch",
+  "ARCHAEOLOGY_HISTORIC": "Archeologie historisch",
+  "ARCHAEOLOGY_UNDERWATER": "Archeologie onder water",
+  "ANTHROPOLOGY": "Antropologie",
+  "ANTHROPOLOGY_BIOLOGICAL": "Anthropologie biologisch",
+  "ANTHROPOLOGY_CULTURAL": "Culturele antropologie"
+}
