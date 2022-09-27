@@ -1,11 +1,11 @@
 import { jsx, css } from '@emotion/react';
 import { h2 as h2Style } from "../../components/typography/Prose";
 
-export function Card({ padded, ...props }) {
+export function Card({ padded = true, ...props }) {
   return <div
     css={css`
       background: white;
-      ${paddedContent}
+      ${padded ? paddedContent : null}
     `}
     {...props}>
   </div>

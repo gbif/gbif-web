@@ -3,14 +3,15 @@ import { jsx } from '@emotion/react';
 import ThemeContext from '../../style/themes/ThemeContext';
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { getClasses } from '../../utils/util';
-import styles from './styles';
+import { getClasses, formatAsPercentage } from '../../utils/util';
+import * as styles from './styles';
 
 const palette = ['orange', 'deepskyblue', 'tomato'];
 
 export function Progress({
   className,
   percent,
+  color,
   // overlays,
   ...props
 }) {
@@ -28,7 +29,8 @@ export function Progress({
   //   });
   // }
   // more = more.sort((a,b) => a.percent < b.percent);
-  return <div css={styles.progress({ theme })} {...props}>
+  console.log(color);
+  return <div css={styles.progress({ color, theme })} {...props}>
     <div style={{ width: `${percent}%` }}></div>
     {/* {more.length > 0 && more.map((x, i) => <div style={{ width: `${x.percent}%`, background: x.color }}></div>)} */}
   </div>
@@ -37,3 +39,13 @@ export function Progress({
 Progress.propTypes = {
   as: PropTypes.element
 };
+
+export function ProgressItem({ fraction, subtleText, title, color, hidePercentage, ...props }) {
+  return <div {...props}>
+    <div css={styles.progressItem({subtleText})}>
+      <div>{title}</div>
+      {!hidePercentage && <span>{formatAsPercentage(fraction)}%</span>}
+    </div>
+    <Progress percent={100 * fraction} size="small" color={color} />
+  </div>
+}

@@ -94,6 +94,7 @@ query institution($key: String!, $predicate: Predicate){
 
     identifiers {
       identifier
+      type
     }
     contactPersons {
       key
@@ -132,11 +133,7 @@ query institution($key: String!, $predicate: Predicate){
       active
       numberSpecimens
       occurrenceCount
-      completeness {
-        total
-        present
-        percent
-      }
+      richness
     }
   }
 }

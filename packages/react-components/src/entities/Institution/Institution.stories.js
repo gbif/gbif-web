@@ -11,7 +11,7 @@ export default {
   component: Institution,
 };
 
-export const Example = () => <Router initialEntries={['/collections']}>
+export const Example = () => <Router initialEntries={['/']}>
   <QueryParamProvider ReactRouterRoute={Route}>
     <AddressBar />
     <div style={{ flex: '1 1 auto' }}></div>
