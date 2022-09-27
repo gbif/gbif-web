@@ -1,1 +1,3 @@
-{}
+{
+  "nOccurrences": "{total, plural, one {# keer} other {# keer}}"
+}
