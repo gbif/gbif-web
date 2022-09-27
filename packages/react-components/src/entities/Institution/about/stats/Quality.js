@@ -54,6 +54,23 @@ export function Quality({
               }
             }
           ]
+        },
+        predicateCode: {
+          type: 'and',
+          predicates: [
+            predicate,
+            {
+              "type": "isNotNull",
+              "key": "collectionCode"
+            },
+            {
+              "type": "not",
+              "predicate": {
+                "type": "isNotNull",
+                "key": "collectionKey"
+              }
+            }
+          ]
         }
       }
     });
@@ -61,7 +78,7 @@ export function Quality({
 
   const digitizedFraction = totalOccurrences / institution?.numberSpecimens;
   const collectionsWithDigitizedData = institution.collections.filter(x => x.occurrenceCount > 0).length;
-  
+
   if (error) return <div>Failed to load stats</div>
   if (!data || loading) return <SkeletonLoader />
 
@@ -71,14 +88,26 @@ export function Quality({
       <ul css={css`padding: 0; margin: 0; list-style: none;`}>
         <li>
           {institution?.numberSpecimens && <ProgressItem color="#4fd970" fraction={digitizedFraction} title="Shared of total estimated" subtleText style={{ marginBottom: 12 }} />}
-          {institution?.numberSpecimens && <ProgressItem color="#4fd970" fraction={data?.withCollection?.documents?.total / totalOccurrences} title="Assigned to a collection" subtleText style={{ marginBottom: 12 }} />}
           {institution?.collections?.length > 0 && <ProgressItem color="#4fd970" fraction={collectionsWithDigitizedData / institution?.collections?.length} title="Collections that share data" subtleText style={{ marginBottom: 12 }} />}
-          <ProgressItem color="#4fd970" fraction={data?.big5?.documents?.total / totalOccurrences} title={<>
-            <Tooltip title="What, where, when and who collected and identified">
-              <span>The Big 5 <HelpIcon /></span>
-            </Tooltip>
-          </>}
-            subtleText style={{ marginBottom: 12 }} />
+          <ProgressItem color="#4fd970"
+            fraction={data?.big5?.documents?.total / totalOccurrences}
+            title={<>
+              <Tooltip title="What, where, when and who collected and identified are all filled.">
+                <span>The Big 5 <HelpIcon /></span>
+              </Tooltip>
+            </>}
+            subtleText style={{ marginBottom: 12 }}
+          />
+          {institution?.numberSpecimens && <ProgressItem color="#4fd970" fraction={data?.withCollection?.documents?.total / totalOccurrences} title="In a collection" subtleText style={{ marginBottom: 12 }} />}
+          {data?.withCode?.documents?.total > 0 && <ProgressItem color="#f15d29"
+            fraction={data?.withCode?.documents?.total / totalOccurrences}
+            title={<>
+              <Tooltip title="Records that have a collection code, but could not be matched to any collections.">
+                <span>Unmatched collection codes <HelpIcon /></span>
+              </Tooltip>
+            </>}
+            subtleText style={{ marginBottom: 12 }}
+          />}
         </li>
       </ul>
     </div>
@@ -86,7 +115,7 @@ export function Quality({
 };
 
 const OCCURRENCE_STATS = `
-query ocurrenceSearch($predicate: Predicate, $predicate5: Predicate){
+query ocurrenceSearch($predicate: Predicate, $predicate5: Predicate, $predicateCode: Predicate){
   withCollection: occurrenceSearch(predicate: $predicate) {
     documents(size: 0) {
       total
@@ -99,6 +128,11 @@ query ocurrenceSearch($predicate: Predicate, $predicate5: Predicate){
         key
         count
       }
+    }
+  }
+  withCode: occurrenceSearch(predicate: $predicateCode) {
+    documents(size: 0) {
+      total
     }
   }
   big5: occurrenceSearch(predicate: $predicate5) {

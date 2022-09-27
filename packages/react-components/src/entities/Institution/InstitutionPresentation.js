@@ -5,7 +5,7 @@ import { MdInfo } from 'react-icons/md'
 import ThemeContext from '../../style/themes/ThemeContext';
 import { Tabs, Eyebrow, DataHeader, ResourceSearchLink, Button, Tooltip, ResourceLink } from '../../components';
 import OccurrenceSearch from '../../search/OccurrenceSearch/OccurrenceSearch';
-import { OccurrenceCount, Homepage, FeatureList, Location } from '../../components/IconFeatures/IconFeatures';
+import { OccurrenceCount, Homepage, FeatureList, Location, GenericFeature } from '../../components/IconFeatures/IconFeatures';
 // import { iconFeature } from '../../components/IconFeatures/styles';
 import { Description as About } from './about/Description';
 import { Collections } from './collections/Collections';
@@ -16,7 +16,7 @@ import env from '../../../.env.json';
 import * as styles from './styles';
 import { MdChevronLeft } from 'react-icons/md';
 import { GrGithub as Github } from 'react-icons/gr';
-import { MdLink } from 'react-icons/md';
+import { MdLink, MdOutlineScreenSearchDesktop as CatalogIcon } from 'react-icons/md';
 
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 
@@ -90,10 +90,13 @@ Relating to ${env.GBIF_REGISTRY}/institution/${institution.key}
               {institution.numberSpecimens > 0 && <OccurrenceCount messageId="counts.nSpecimens" count={institution.numberSpecimens} />}
               {/* {<GbifCount messageId="counts.nSpecimensInGbif" count={occurrenceSearch?.documents?.total} />} */}
             </FeatureList>
-            {/* <FeatureList>
-              {institution.numberSpecimens > 0 && <OccurrenceCount messageId="counts.nSpecimens" count={institution.numberSpecimens} />}
-              <CollectionsCount count={institution.collections?.length} />
-            </FeatureList> */}
+            <FeatureList css={css`margin-top: 8px;`}>
+              {/* {institution.numberSpecimens > 0 && <OccurrenceCount messageId="counts.nSpecimens" count={institution.numberSpecimens} />}
+              <CollectionsCount count={institution.collections?.length} /> */}
+              <GenericFeature>
+                <CatalogIcon /><span><a href={institution.catalogUrl}>Data catalog</a></span>
+              </GenericFeature>
+            </FeatureList>
           </div>
           <div css={styles.summary_secondary}>
             <Tooltip title="No login required" placement="bottom">

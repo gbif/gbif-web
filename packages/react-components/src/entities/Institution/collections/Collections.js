@@ -6,7 +6,8 @@ import ThemeContext from '../../../style/themes/ThemeContext';
 import * as styles from './styles';
 import { ResourceLink, Progress } from "../../../components";
 import sortBy from 'lodash/sortBy';
-// import { MdSearch } from 'react-icons/md';
+import { MdSearch } from 'react-icons/md';
+import { ImDrawer2 } from 'react-icons/im';
 // import { FormattedMessage } from 'react-intl';
 
 export function Collections({
@@ -20,8 +21,10 @@ export function Collections({
   const totalEstimatedSize = collections.reduce((a, c) => a += c.numberSpecimens || 0, 0);
 
   if (collections.length === 0) {
-    return <div>
-      There are no collections attached to this institution.
+    return <div css={css`text-align: center;`}>
+      
+      <div>There are no collections attached to this institution.</div>
+      <ImDrawer2 css={css`font-size: 50px;`}/>
       <OrphanedCollectionCodes institution={institution} />
     </div>
   }

@@ -104,37 +104,43 @@ function Hostname({ href }) {
   }
 }
 
+export function GenericFeature({ style, className, children, ...props }) {
+  return <div css={css.iconFeature()} {...{style, className}} {...props}>
+    {children}
+  </div>
+}
+
 export function Homepage({ href, style, className, ...props }) {
   if (!href) return null;
-  return <div css={css.iconFeature()} {...{style, className}}>
+  return <GenericFeature>
     <MdLink />
     <span><Hostname href={href} {...props} /></span>
-  </div>
+  </GenericFeature>
 }
 
 export function OccurrenceCount({ count, messageId = 'counts.nOccurrences', values, ...props }) {
-  return <div css={css.iconFeature()}>
+  return <GenericFeature>
     <OccurrenceIcon />
     <span><FormattedMessage id={messageId} values={values || { total: count }} /></span>
-  </div>
+  </GenericFeature>
 }
 
 export function GbifCount({ count, messageId = 'counts.nOccurrences', values, ...props }) {
-  return <div css={css.iconFeature()}>
+  return <GenericFeature>
     <GbifLogoIcon />
     <span><FormattedMessage id={messageId} values={values || { total: count }} /></span>
-  </div>
+  </GenericFeature>
 }
 
 export function CollectionsCount({ count, ...props }) {
-  return <div css={css.iconFeature()}>
+  return <GenericFeature>
     <CollectionIcon />
     <span><FormattedMessage id="counts.nCollections" values={{ total: count }} /></span>
-  </div>
+  </GenericFeature>
 }
 
 export function Location({ count, countryCode, city, locality, children, ...props }) {
-  return <div css={css.iconFeature()}>
+  return <GenericFeature>
     <FaGlobeAfrica />
     <Classification>
       {countryCode && <span><FormattedMessage id={`enums.countryCode.${countryCode}`} /></span>}
@@ -142,5 +148,5 @@ export function Location({ count, countryCode, city, locality, children, ...prop
       {locality && <span>{locality}</span>}
       {children}
     </Classification>
-  </div>
+  </GenericFeature>
 }

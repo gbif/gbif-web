@@ -29,7 +29,7 @@ export function Description({
   return <div css={css`padding-bottom: 100px; display: flex; margin: 0 -12px;`}>
     <div css={css`flex: 1 1 auto; margin: 0 12px;`}>
       <Card style={{ marginTop: 24, marginBottom: 24 }}>
-        {/* <CardHeader2>About</CardHeader2> */}
+        <CardHeader2>About</CardHeader2>
         <Properties style={{ fontSize: 16, marginBottom: 12 }} breakpoint={800}>
           <Property value={institution.description} labelId="grscicoll.description" showEmpty />
           <Property value={institution.code} labelId="grscicoll.code" showEmpty />
