@@ -187,7 +187,7 @@
   },
   "identifiedById": {
     "name": "Identified by ID",
-    "count": "{num, plural, one { identified by ID } other {# identified by IDs}}",
+    "count": "",
     "description": "The identifier for the person, people, groups or organizations responsible for determining the scientific name of the organism."
   },
   "occurrenceId": {
@@ -237,7 +237,7 @@
   },
   "identifiedBy": {
     "name": "Identified by",
-    "count": "{num, plural, one { identified by } other {# identified bys}}",
+    "count": "",
     "description": "The person, people, groups or organizations responsible for determining the scientific name of the Organism."
   },
   "isInCluster": {
