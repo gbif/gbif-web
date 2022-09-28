@@ -1,5 +1,9 @@
 {
   "nResults": "{total, plural, one {# 结果} other {# 结果}}",
+  "nOccurrences": "{total, plural, one {# 出现记录} other {# 出现记录}}",
+  "nSpecimensInGbif": "{total, plural, one {# GBIF中的标本} other {# GBIF中的标本}}",
+  "nSpecimens": "{total, plural, one {# 标本} other {# 标本}}",
+  "nCollections": "{total, plural, one {# 收藏} other {# 收藏}}",
   "nRecordsTotal": "{total, plural, one {# 总记录} other {# 总记录}}",
   "nSelected": "{total, plural, other {# 选中的}}",
   "nQualityFlags": "{total, plural, one {# 质量标志} other {# 质量标志}}\n",

@@ -1,0 +1,13 @@
+{
+  "additionalNames": "Другие названия",
+  "description": "Описание",
+  "code": "Акроним",
+  "apiUrl": "Сайт коллекции",
+  "homepage": "Домашняя страница",
+  "email": "Email",
+  "mailingAddress": "Почтовый адрес",
+  "contacts": "Контактные данные",
+  "address": "Адрес (улица, номер дома)",
+  "province": "Регион",
+  "country": "Страна"
+}
