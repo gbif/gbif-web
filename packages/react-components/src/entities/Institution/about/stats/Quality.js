@@ -87,13 +87,13 @@ export function Quality({
     <div>
       <ul css={css`padding: 0; margin: 0; list-style: none;`}>
         <li>
-          {institution?.numberSpecimens && <ProgressItem color="#4fd970" fraction={digitizedFraction} title="Shared of total estimated" subtleText style={{ marginBottom: 12 }} />}
-          {institution?.collections?.length > 0 && <ProgressItem color="#4fd970" fraction={collectionsWithDigitizedData / institution?.collections?.length} title="Collections that share data" subtleText style={{ marginBottom: 12 }} />}
+          {institution?.numberSpecimens && <ProgressItem color="#4fd970" fraction={digitizedFraction} title="Digitized / total" subtleText style={{ marginBottom: 12 }} />}
+          {institution?.collections?.length > 0 && <ProgressItem color="#4fd970" fraction={collectionsWithDigitizedData / institution?.collections?.length} title="Collections with data in GBIF" subtleText style={{ marginBottom: 12 }} />}
           <ProgressItem color="#4fd970"
             fraction={data?.big5?.documents?.total / totalOccurrences}
             title={<>
               <Tooltip title="What, where, when and who collected and identified are all filled.">
-                <span>The Big 5 <HelpIcon /></span>
+                <span>The big five <HelpIcon /></span>
               </Tooltip>
             </>}
             subtleText style={{ marginBottom: 12 }}
