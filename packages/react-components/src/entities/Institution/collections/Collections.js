@@ -5,6 +5,7 @@ import { useQuery } from '../../../dataManagement/api';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import * as styles from './styles';
 import { ResourceLink, Progress } from "../../../components";
+import { EmptyInboxIcon } from "../../../components/Icons/Icons";
 import sortBy from 'lodash/sortBy';
 import { MdSearch } from 'react-icons/md';
 import { ImDrawer2 } from 'react-icons/im';
@@ -21,11 +22,10 @@ export function Collections({
   const totalEstimatedSize = collections.reduce((a, c) => a += c.numberSpecimens || 0, 0);
 
   if (collections.length === 0) {
-    return <div css={css`text-align: center;`}>
-      
-      <div>There are no collections attached to this institution.</div>
-      <ImDrawer2 css={css`font-size: 50px;`}/>
-      <OrphanedCollectionCodes institution={institution} />
+    return <div css={css`text-align: center; margin-top: 96px;`}>
+      <EmptyInboxIcon css={css`font-size: 100px; color: var(--color400);`}/>
+      <div css={css`font-size: 18px; margin: 24px; color: var(--color400); font-weight: 500;`}>This institution has no known collections</div>
+      <OrphanedCollectionCodes institution={institution} css={css`margin-top: 48px;`}/>
     </div>
   }
   return <div css={styles.collections({ theme })}>
@@ -114,25 +114,24 @@ function OrphanedCollectionCodes({ institution, ...props }) {
 
   if (data?.orphaned?.cardinality?.collectionCode === 0 || error || loading) return null;
 
-  return <div>
-    In the digitized data we see these codes being used, but none of them has been associated with a collection for this institution.
-
-    Collection codes that are unaccounted for:
-    <ul>
-      {data?.orphaned?.facet?.collectionCode.map(code => <li key={code.key}>{code.key} ({code.count})</li>)}
+  return <div css={css`padding: 96px; color: var(--color600);`}>
+    <div css={css`font-weight: bold; margin-bottom: 12px;`}>We see these unknown codes being used in published data</div>
+    {/* <ul css={css`margin: 0; padding: 12px 0;`} css=> */}
+    <ul css={styles.bulletList}>
+      {data?.orphaned?.facet?.collectionCode.map(code => <li key={code.key}>{code.key}</li>)}
     </ul>
   </div>
 }
 
 
 const OCCURRENCE_STATS = `
-query ocurrenceSearch($predicate: Predicate, $predicate5: Predicate){
+query ocurrenceSearch($predicate: Predicate){
   orphaned: occurrenceSearch(predicate: $predicate) {
     cardinality {
       collectionCode
     }
     facet {
-      collectionCode {
+      collectionCode(size: 10) {
         key
         count
       }

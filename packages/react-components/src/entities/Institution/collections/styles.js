@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 // import { focusStyle } from '../../style/shared';
+export { bulletList } from '../../../style/shared';
 
 export const comment = ({ ...props }) => css`
   font-size: 13px;

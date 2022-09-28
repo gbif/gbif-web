@@ -71,6 +71,7 @@ const typeDef = gql`
     verbatimScientificName: Int!
     eventId: Int!
     collectionKey: Int!
+    collectionCode: Int!
   }
 
   type OccurrenceHistogram {
