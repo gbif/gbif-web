@@ -1,0 +1,15 @@
+{
+  "geographicDescription": "Географічний опис",
+  "taxonomicDescription": "Таксономічний опис",
+  "additionalNames": "Додаткові назви",
+  "description": "Опис",
+  "code": "Код",
+  "apiUrl": "Посилання на веб-сервіси колекції",
+  "homepage": "Домашня сторінка",
+  "email": "Електронна пошта",
+  "mailingAddress": "Електронна адреса",
+  "contacts": "Контакти",
+  "address": "Адреса",
+  "country": "Країна",
+  "citesPermitNumber": "Номер дозволу Cites"
+}
