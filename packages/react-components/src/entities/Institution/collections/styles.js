@@ -15,6 +15,10 @@ export const summary = ({ ...props }) => css`
   align-items: center;
   > div {
     &:first-of-type {
+      flex: 0 0 auto;
+      margin-right: 24px;
+    }
+    &:nth-of-type(2) {
       flex: 1 1 auto;
       text-align: start;
     }

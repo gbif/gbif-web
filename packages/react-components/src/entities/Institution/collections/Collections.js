@@ -4,7 +4,7 @@ import React, { useContext, useEffect } from 'react';
 import { useQuery } from '../../../dataManagement/api';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import * as styles from './styles';
-import { ResourceLink, Progress, Skeleton } from "../../../components";
+import { ResourceLink, Progress, Skeleton, Tooltip } from "../../../components";
 import { EmptyInboxIcon } from "../../../components/Icons/Icons";
 import sortBy from 'lodash/sortBy';
 import { MdSearch } from 'react-icons/md';
@@ -34,12 +34,17 @@ export function Collections({
         <MdSearch /> Search
       </div> */}
       <div>
-        {sortBy(collections, ['numberSpecimens', 'occurrenceCount']).map(collection => {
+        {sortBy(collections, ['numberSpecimens', 'occurrenceCount']).reverse().map(collection => {
           return <article css={styles.collectionCard}>
             <div css={styles.summary}>
               <div>
+                <Tooltip title={`Metadata richness: ${collection.richness}%`}>
+                  <div css={styles.progressCircular({ percent: collection.richness, size: '48px' })}></div>
+                </Tooltip>
+              </div>
+              <div>
                 <ResourceLink discreet type="collectionKey" id={collection.key}>
-                  <h4>{collection.name}</h4>
+                  <h3>{collection.name} {!collection.active && <span css={css`font-style: italic; color: var(--color400);`}>Inactive</span>}</h3>
                 </ResourceLink>
                 <div css={styles.comment}>Code: {collection.code}</div>
               </div>
@@ -54,12 +59,6 @@ export function Collections({
                 <div css={styles.comment}>
                   {collection.occurrenceCount} in GBIF
                 </div>
-              </div>
-              <div>
-                <div css={styles.progressCircular({ percent: collection.richness, size: '48px' })}>{collection.richness}</div>
-              </div>
-              <div>
-                <div css={styles.active}>Active</div>
               </div>
             </div>
           </article>
@@ -115,7 +114,7 @@ function OrphanedCollectionCodes({ institution, ...props }) {
   if (!data && loading) return <Skeleton style={{margin: '96px 0'}} width="250px"/>
   if (data?.orphaned?.cardinality?.collectionCode === 0 || error || loading) return null;
 
-  return <div css={css`padding: 96px; color: var(--color600);`}>
+  return <div css={css`padding: 96px 0; color: var(--color600);`}>
     <div css={css`font-weight: bold; margin-bottom: 12px;`}>We see these unknown codes being used in published data</div>
     {/* <ul css={css`margin: 0; padding: 12px 0;`} css=> */}
     <ul css={styles.bulletList}>
