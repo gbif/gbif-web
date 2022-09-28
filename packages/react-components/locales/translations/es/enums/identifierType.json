@@ -1,6 +1,18 @@
 {
+  "URL": "URL",
+  "LSID": "LSID",
+  "DOI": "DOI",
+  "UUID": "UUID",
+  "FTP": "FTP",
+  "URI": "URI",
   "UNKNOWN": "Desconocida",
+  "GBIF_PORTAL": "Portal GBIF",
+  "GBIF_NODE": "Nodo GBIF",
+  "GBIF_PARTICIPANT": "Participante GBIF",
+  "GRBIO_ID": "ID GRBIO",
+  "GRBIO_URI": "URI GRBIO",
   "GRSCICOLL_URI": "GRSCICOLL URI",
+  "IH_IRN": "Índice Herbariorum",
   "ROR": "ROR",
   "GRID": "GRID",
   "GRSCICOLL_ID": "GRSCICOLL ID"
