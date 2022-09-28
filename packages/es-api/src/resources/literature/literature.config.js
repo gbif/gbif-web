@@ -173,25 +173,9 @@ const config = {
       type: 'keyword',
       field: 'id'
     },
-    'identifiers.doi': {
-      type: 'nested',
-      field: 'identifiers',
-      config: {
-        prefix: 'identifiers',
-        options: {
-          doi: {
-            type: 'keyword',
-            field: 'doi'
-          }
-        }
-      },
-      get: {
-        type: 'delimted',
-        delimter: '__',
-        termOrder: [
-          'doi',
-        ]
-      }
+    doi: {
+      type: 'keyword',
+      field: 'identifiers.doi'
     },
     identifiers: {
       type: 'nested',
