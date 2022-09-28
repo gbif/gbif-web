@@ -16,5 +16,6 @@
   "postalCode": "Código postal",
   "city": "Ciudad/Pueblo",
   "country": "País",
+  "identifiers": "Identificadores",
   "citesPermitNumber": "Número de permisos de citas"
 }
