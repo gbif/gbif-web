@@ -4,7 +4,7 @@ import React, { useContext, useEffect } from 'react';
 import { useQuery } from '../../../dataManagement/api';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import * as styles from './styles';
-import { ResourceLink, Progress } from "../../../components";
+import { ResourceLink, Progress, Skeleton } from "../../../components";
 import { EmptyInboxIcon } from "../../../components/Icons/Icons";
 import sortBy from 'lodash/sortBy';
 import { MdSearch } from 'react-icons/md';
@@ -112,6 +112,7 @@ function OrphanedCollectionCodes({ institution, ...props }) {
     });
   }, [key]);
 
+  if (!data && loading) return <Skeleton style={{margin: '96px 0'}} width="250px"/>
   if (data?.orphaned?.cardinality?.collectionCode === 0 || error || loading) return null;
 
   return <div css={css`padding: 96px; color: var(--color600);`}>
