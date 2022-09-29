@@ -1,11 +1,12 @@
 
 import { jsx, css } from '@emotion/react';
 import React from 'react';
+import { useLocalStorage } from 'react-use';
 import { FormattedDate, FormattedMessage, FormattedNumber } from 'react-intl';
-import { Properties, Property, ResourceLink, ListItem, Image, HyperText } from "../../../components";
+import { Properties, Property, ResourceLink, ListItem, Image, HyperText, TextButton } from "../../../components";
 import { Card, CardHeader2 } from '../../shared';
 import sortBy from 'lodash/sortBy';
-import { MdMailOutline as MailIcon, MdPhone as PhoneIcon } from 'react-icons/md';
+import { MdMailOutline as MailIcon, MdPhone as PhoneIcon, MdPushPin, MdOutlinePushPin } from 'react-icons/md';
 import { TopTaxa } from './stats/TopTaxa';
 import { TopCountries } from './stats/TopCountries';
 import { Quality } from './stats/Quality';
@@ -24,10 +25,12 @@ export function Description({
   className,
   ...props
 }) {
+  const [isPinned, setPinState, removePinState] = useLocalStorage('pin_metadata', false);
   const hideSideBar = useBelow(1100);
   const addressesIdentical = JSON.stringify(institution.mailingAddress) === JSON.stringify(institution.address);
   return <div css={css`padding-bottom: 100px; display: flex; margin: 0 -12px;`}>
     <div css={css`flex: 1 1 auto; margin: 0 12px;`}>
+      {isPinned && <Metadata institution={institution} isPinned setPinState={() => setPinState(false)} style={{marginTop: 12., marginBottom: -12}}/>}
       <Card style={{ marginTop: 24, marginBottom: 24 }}>
         <CardHeader2>About</CardHeader2>
         <Properties style={{ fontSize: 16, marginBottom: 12 }} breakpoint={800}>
@@ -148,26 +151,7 @@ export function Description({
         </Properties>
       </Card>
 
-
-
-      <div css={css`
-        color: #aaa; 
-        display: flex;
-        flex-wrap: wrap;
-        > div {
-          flex: 0 0 auto;
-          margin: 0 24px 8px 24px;
-        }
-      `}>
-        <div>Entry created: <FormattedDate value={institution.created}
-          year="numeric"
-          month="long"
-          day="2-digit" /></div>
-        <div>Last modified: <FormattedDate value={institution.modified}
-          year="numeric"
-          month="long"
-          day="2-digit" /></div>
-      </div>
+      {!isPinned && <Metadata institution={institution} setPinState={() => setPinState(true)} />}
     </div>
     {!hideSideBar && occurrenceSearch?.documents?.total > 0 && <aside css={css`flex: 0 0 300px; margin: 24px 12px;`}>
       {loading && <Card style={{ padding: '24px 12px', marginBottom: 12 }}>
@@ -178,7 +162,7 @@ export function Description({
           type: "equals",
           key: "institutionKey",
           value: institution.key
-        }} institution={institution} totalOccurrences={occurrenceSearch?.documents?.total}/>
+        }} institution={institution} totalOccurrences={occurrenceSearch?.documents?.total} />
       </Card>}
       {occurrenceSearch?.documents?.total > 0 && <Card style={{ padding: '24px 12px', marginBottom: 12 }}>
         <TopTaxa predicate={{
@@ -197,3 +181,36 @@ export function Description({
     </aside>}
   </div>
 };
+
+function Metadata({ institution, setPinState, isPinned, ...props }) {
+  if (!institution) return null;
+  return <div css={css`
+  color: #aaa; 
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 0 24px;
+  > div {
+    flex: 0 0 auto;
+    margin: 4px 24px;
+  }
+`} {...props}>
+    <TextButton>
+      <MdPushPin style={isPinned ? { color: 'var(--color900)' } : null} onClick={setPinState} />
+    </TextButton>
+    <div>Entry created: <FormattedDate value={institution.created}
+      year="numeric"
+      month="long"
+      day="2-digit" /></div>
+    <div>Last modified: <FormattedDate value={institution.modified}
+      year="numeric"
+      month="long"
+      day="2-digit" /> by {institution.modifiedBy}</div>
+    {institution.masterSourceMetadata && <div>
+      <span>Master source: </span>
+      {institution.masterSourceMetadata.source === 'ORGANIZATION' && <ResourceLink discreet type="publisherKey" id={institution.masterSourceMetadata.sourceId}>GBIF publisher</ResourceLink>}
+      {institution.masterSourceMetadata.source === 'DATASET' && <ResourceLink discreet type="datasetKey" id={institution.masterSourceMetadata.sourceId}>GBIF publisher</ResourceLink>}
+      {institution.masterSourceMetadata.source === 'IH_IRN' && <a css={css`color: inherit;`} href={`http://sweetgum.nybg.org/science/ih/herbarium-details/?irn=${institution.masterSourceMetadata.sourceId}`}>Index Herbariorum</a>}
+    </div>}
+  </div>
+}

@@ -26,6 +26,7 @@ async function getSchema() {
     require('./resources/misc/endpoint'),
     require('./resources/misc/identifier'),
     require('./resources/misc/machineTag'),
+    require('./resources/misc/masterSourceMetadata'),
     require('./resources/misc/tag'),
     require('./resources/misc/address'),
     require('./resources/dataset').typeDef,

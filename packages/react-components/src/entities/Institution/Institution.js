@@ -84,9 +84,16 @@ query institution($key: String!, $predicate: Predicate){
     logoUrl
     citesPermitNumber
 
+    masterSourceMetadata {
+      key
+      source
+      sourceId
+    }
+
     created
     deleted
     modified
+    modifiedBy
     replacedByInstitution {
       name
       key

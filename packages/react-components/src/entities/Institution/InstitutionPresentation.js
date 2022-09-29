@@ -73,7 +73,15 @@ Relating to ${env.GBIF_REGISTRY}/institution/${institution.key}
     <div css={styles.headerWrapper({ theme })}>
       <div css={styles.proseWrapper({ theme })}>
         <Eyebrow prefix="Institution code" suffix={institution.code} />
-        <h1>{institution.name}</h1>
+        <h1 css={css`display: inline; margin-right: 12px;`}>{institution.name}</h1>
+        {!institution.active && <span css={css`
+          display: inline-block;
+          background: tomato;
+          padding: 0.2em;
+          font-size: 2em;
+          border-radius: 4px;
+          color: white;
+          vertical-align: bottom;`}>Inactive</span>}
         {institution.deleted && <div style={{color: 'tomato'}}>This record was deleted on {institution.deleted}</div>}
         {institution.replacedByInstitution && <div style={{color: 'tomato'}}>It was replaced by <ResourceLink type="institutionKey" id={institution.replacedBy}>{institution.replacedByInstitution.name}</ResourceLink></div>}
         {/* {primaryContacts.length > 0 && primaryContacts.length < 5 && <div css={iconFeature({ theme })}>

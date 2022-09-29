@@ -87,7 +87,7 @@ export function Quality({
     <div>
       <ul css={css`padding: 0; margin: 0; list-style: none;`}>
         <li>
-          {institution?.numberSpecimens && <ProgressItem color="#4fd970" fraction={digitizedFraction} title="Digitized / total" subtleText style={{ marginBottom: 12 }} />}
+          {institution?.numberSpecimens > 0 && <ProgressItem color="#4fd970" fraction={digitizedFraction} title="Digitized / total" subtleText style={{ marginBottom: 12 }} />}
           {institution?.collections?.length > 0 && <ProgressItem color="#4fd970" fraction={collectionsWithDigitizedData / institution?.collections?.length} title="Collections with data in GBIF" subtleText style={{ marginBottom: 12 }} />}
           <ProgressItem color="#4fd970"
             fraction={data?.big5?.documents?.total / totalOccurrences}
@@ -98,7 +98,7 @@ export function Quality({
             </>}
             subtleText style={{ marginBottom: 12 }}
           />
-          {institution?.numberSpecimens && <ProgressItem color="#4fd970" fraction={data?.withCollection?.documents?.total / totalOccurrences} title="In a collection" subtleText style={{ marginBottom: 12 }} />}
+          {institution?.numberSpecimens > 0 && <ProgressItem color="#4fd970" fraction={data?.withCollection?.documents?.total / totalOccurrences} title="In a collection" subtleText style={{ marginBottom: 12 }} />}
           {data?.withCode?.documents?.total > 0 && <ProgressItem color="#f15d29"
             fraction={data?.withCode?.documents?.total / totalOccurrences}
             title={<>

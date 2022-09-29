@@ -74,7 +74,10 @@ const typeDef = gql`
     collections(limit: Int, offset: Int): [Collection]
 
     occurrenceCount: Int
+    masterSource: String
+    masterSourceMetadata: MasterSourceMetadata
   }
+
 `;
 
 module.exports = typeDef;
