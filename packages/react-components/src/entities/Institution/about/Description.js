@@ -45,7 +45,7 @@ export function Description({
           <Property value={institution.geographicDescription} labelId="grscicoll.geographicDescription" showEmpty />
           <Property value={institution.disciplines} labelId="institution.disciplines" showEmpty formatter={e => <FormattedMessage id={`enums.discipline.${e}`} defaultMessage={e} />} />
           {institution.foundingDate && <Property labelId="grscicoll.foundingDate">
-            <FormattedDate value={institution.foundingDate} year="numeric" />
+            {institution.foundingDate}
           </Property>}
           <Property value={institution.additionalNames} labelId="grscicoll.additionalNames" />
           {institution.type && <Property labelId="institution.type">

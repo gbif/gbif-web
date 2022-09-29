@@ -47,7 +47,7 @@ const typeDef = gql`
     mailingAddress: Address
     address: Address
     additionalNames: [String]
-    foundingDate: DateTime
+    foundingDate: Int
     geographicDescription: String
     taxonomicDescription: String
     numberSpecimens: Int
