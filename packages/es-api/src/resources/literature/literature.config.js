@@ -174,7 +174,7 @@ const config = {
       field: 'id'
     },
     doi: {
-      type: 'nested',
+      type: 'flatNested',
       field: 'identifiers',
       config: {
         prefix: 'identifiers',
@@ -184,13 +184,6 @@ const config = {
             field: 'doi'
           }
         }
-      },
-      get: {
-        type: 'delimted',
-        delimter: '__',
-        termOrder: [
-          'doi',
-        ]
       }
     },
     identifiers: {

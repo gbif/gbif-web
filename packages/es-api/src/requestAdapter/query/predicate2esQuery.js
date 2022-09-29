@@ -49,6 +49,22 @@ function groupPredicates(predicates, isRootQuery) {
 function transform(p, config, isRootQuery) {
   const fieldName = getFieldName(p.key, config);
 
+  // for making nested fields easier to query
+  if (config?.options?.[p.key]?.type === 'flatNested') {
+    return {
+      nested: {
+        path: fieldName,
+        query: {
+          bool: {
+            must: [
+              transform(p, config?.options?.[p.key]?.config)
+            ]
+          }
+        }
+      }
+    }
+  }
+
   switch (p.type) {
     case 'and': {
       // bool queries is essentially an AND of: must, filter, mut_not and should (if minimum_should_match set to 1)
@@ -65,7 +81,7 @@ function transform(p, config, isRootQuery) {
           filter: filter.map(p => transform(p, config)),
           must_not: must_not.map(p => p.predicate).map(p => transform(p, config)),
           should: should.map(p => transform(p, config)),
-          ...(should.length > 0 && {minimum_should_match: 1})//akward to read, but only add minimum_should_match=1 if there is any elements in should
+          ...(should.length > 0 && { minimum_should_match: 1 })//akward to read, but only add minimum_should_match=1 if there is any elements in should
         }, x => x.length === 0)
       }
     }
