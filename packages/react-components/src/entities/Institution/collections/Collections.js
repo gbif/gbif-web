@@ -115,7 +115,7 @@ function OrphanedCollectionCodes({ institution, ...props }) {
   if (data?.orphaned?.cardinality?.collectionCode === 0 || error || loading) return null;
 
   return <div css={css`padding: 96px 0; color: var(--color600);`}>
-    <div css={css`font-weight: bold; margin-bottom: 12px;`}>We see these unknown codes being used in published data</div>
+    <div css={css`color: orange; font-weight: bold; margin-bottom: 12px;`}>We see these unknown collection codes being used in published data</div>
     {/* <ul css={css`margin: 0; padding: 12px 0;`} css=> */}
     <ul css={styles.bulletList}>
       {data?.orphaned?.facet?.collectionCode.map(code => <li key={code.key}>{code.key}</li>)}
