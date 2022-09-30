@@ -12,5 +12,6 @@
   "pubDatasets": "Published datasets",
   "institution": "Institution",
   "collection": "Collection",
+  "collectionCount": "Collections",
   "active": "Is active"
 }
