@@ -165,6 +165,7 @@
   "tableHeaders.pubDatasets": "مجموعات البيانات المنشورة",
   "tableHeaders.institution": "مؤسسة",
   "tableHeaders.collection": "مجموعة",
+  "tableHeaders.collectionCount": "Collections",
   "tableHeaders.active": "Is active",
   "intervals.description.lt": "أقل من {to}",
   "intervals.description.lte": "أقل أو يساوي {to}",

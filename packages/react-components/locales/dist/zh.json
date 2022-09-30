@@ -165,6 +165,7 @@
   "tableHeaders.pubDatasets": "已发布的数据集",
   "tableHeaders.institution": "机构",
   "tableHeaders.collection": "馆藏",
+  "tableHeaders.collectionCount": "Collections",
   "tableHeaders.active": "处于活跃状态",
   "intervals.description.lt": "小于 {to}",
   "intervals.description.lte": "小于或等于 {to}",

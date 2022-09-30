@@ -165,6 +165,7 @@
   "tableHeaders.pubDatasets": "Conjuntos de datos publicados",
   "tableHeaders.institution": "Institución",
   "tableHeaders.collection": "Colección",
+  "tableHeaders.collectionCount": "Collections",
   "tableHeaders.active": "Activo",
   "intervals.description.lt": "Menor que {to}",
   "intervals.description.lte": "Menor o igual que {to}",

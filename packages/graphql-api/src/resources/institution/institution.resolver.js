@@ -16,6 +16,10 @@ module.exports = {
     collections: ({key}, {limit, offset}, { dataSources }) => {
       return  dataSources.collectionAPI.getCollectionsByInstitutionKey({key, limit, offset})
     },
+    collectionCount: ({key}, args, { dataSources }) => {
+      return  dataSources.collectionAPI.getCollectionsByInstitutionKey({key, limit: 1000})
+        .then(data => data.length)
+    },
     replacedByInstitution: ({replacedBy}, args, { dataSources }) => {
       if (!replacedBy) return null;
       return  dataSources.institutionAPI.getInstitutionByKey({ key: replacedBy })

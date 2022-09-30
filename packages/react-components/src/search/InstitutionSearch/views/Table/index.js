@@ -35,6 +35,7 @@ query list($code: String, $q: String, $offset: Int, $limit: Int, $country: Count
     results {
       key
       occurrenceCount
+      collectionCount
     }
   }
 }
@@ -88,6 +89,15 @@ const defaultTableConfig = {
         hideFalsy: true
       },
       filterKey: 'city'
+    },
+    {
+      trKey: 'tableHeaders.collectionCount',
+      value: {
+        key: 'collectionCount',
+        formatter: (value, item) => <FormattedNumber value={value} />,
+        hideFalsy: true,
+        rightAlign: true
+      }
     },
     {
       trKey: 'tableHeaders.numberSpecimens',

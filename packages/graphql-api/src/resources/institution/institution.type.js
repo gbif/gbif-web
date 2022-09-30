@@ -72,6 +72,10 @@ const typeDef = gql`
     alternativeCodes: [AlternativeCode]
     comments: [Comment]
     collections(limit: Int, offset: Int): [Collection]
+    """
+    collection count will count up to a 1000. After that results will be capped to 1000. This is unlikely to be an issue, but you should worry if you see 1000 results exactly.
+    """
+    collectionCount: Int
 
     occurrenceCount: Int
     masterSource: String

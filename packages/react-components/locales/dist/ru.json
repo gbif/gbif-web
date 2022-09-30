@@ -165,6 +165,7 @@
   "tableHeaders.pubDatasets": "{NUMBER, plural,\n0 {Опубликованных наборов данных}\none {Опубликованный набор данных}\nfew {Опубликованных набора данных}\nmany {Опубликованных наборов данных}\nother {Опубликованных набора данных}\n}",
   "tableHeaders.institution": "Организация",
   "tableHeaders.collection": "Коллекция",
+  "tableHeaders.collectionCount": "Collections",
   "tableHeaders.active": "Активен",
   "intervals.description.lt": "Less than {to}",
   "intervals.description.lte": "Less or equal {to}",

@@ -165,6 +165,7 @@
   "tableHeaders.pubDatasets": "公開されているデータセット",
   "tableHeaders.institution": "機関",
   "tableHeaders.collection": "コレクション",
+  "tableHeaders.collectionCount": "Collections",
   "tableHeaders.active": "Is active",
   "intervals.description.lt": "Less than {to}",
   "intervals.description.lte": "Less or equal {to}",

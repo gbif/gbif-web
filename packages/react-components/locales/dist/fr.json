@@ -165,6 +165,7 @@
   "tableHeaders.pubDatasets": "Jeux de données publiés",
   "tableHeaders.institution": "Institution",
   "tableHeaders.collection": "Collection",
+  "tableHeaders.collectionCount": "Collections",
   "tableHeaders.active": "Est actif",
   "intervals.description.lt": "Less than {to}",
   "intervals.description.lte": "Less or equal {to}",

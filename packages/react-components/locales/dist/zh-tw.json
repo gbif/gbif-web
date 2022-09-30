@@ -165,6 +165,7 @@
   "tableHeaders.pubDatasets": "已發布的資料集",
   "tableHeaders.institution": "機構",
   "tableHeaders.collection": "蒐藏集",
+  "tableHeaders.collectionCount": "Collections",
   "tableHeaders.active": "Is active",
   "intervals.description.lt": "Less than {to}",
   "intervals.description.lte": "Less or equal {to}",
