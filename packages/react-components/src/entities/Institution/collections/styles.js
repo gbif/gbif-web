@@ -2,11 +2,22 @@ import { css } from '@emotion/react';
 // import { focusStyle } from '../../style/shared';
 export { bulletList } from '../../../style/shared';
 
-export const comment = ({ ...props }) => css`
+export const comment = css`
   font-size: 13px;
   font-weight: 900;
   color: #888;
   white-space: nowrap;
+`;
+
+export const headline = css`
+  margin: 10px 0;
+  font-weight: bold;
+  font-size: 16px;
+  ${main}
+`;
+
+export const main = css`
+  height: 20px;
 `;
 
 export const summary = ({ ...props }) => css`

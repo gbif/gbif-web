@@ -9,6 +9,7 @@ import { EmptyInboxIcon } from "../../../components/Icons/Icons";
 import sortBy from 'lodash/sortBy';
 import { MdSearch } from 'react-icons/md';
 import { ImDrawer2 } from 'react-icons/im';
+import { FormattedMessage } from 'react-intl';
 // import { FormattedMessage } from 'react-intl';
 
 export function Collections({
@@ -23,9 +24,9 @@ export function Collections({
 
   if (collections.length === 0) {
     return <div css={css`text-align: center; margin-top: 96px;`}>
-      <EmptyInboxIcon css={css`font-size: 100px; color: var(--color400);`}/>
+      <EmptyInboxIcon css={css`font-size: 100px; color: var(--color400);`} />
       <div css={css`font-size: 18px; margin: 24px; color: var(--color400); font-weight: 500;`}>This institution has no known collections</div>
-      <OrphanedCollectionCodes institution={institution} css={css`margin-top: 48px;`}/>
+      <OrphanedCollectionCodes institution={institution} css={css`margin-top: 48px;`} />
     </div>
   }
   return <div css={styles.collections({ theme })}>
@@ -44,22 +45,33 @@ export function Collections({
               </div>
               <div>
                 <ResourceLink discreet type="collectionKey" id={collection.key}>
-                  <h3>{collection.name} {!collection.active && <span css={css`font-style: italic; color: var(--color400);`}>Inactive</span>}</h3>
+                  <h3 css={styles.headline}>{collection.name} {!collection.active && <span css={css`font-style: italic; color: var(--color400);`}>Inactive</span>}</h3>
                 </ResourceLink>
                 <div css={styles.comment}>Code: {collection.code}</div>
               </div>
               <div>
-                <Progress percent={100 * collection.numberSpecimens / (institution.numberSpecimens || totalEstimatedSize)} style={{ height: 16, margin: 10 }} />
-                <div css={styles.comment}>
-                  {collection.numberSpecimens} specimens
-                </div>
+                <Tooltip title={`Relative to institution size`}>
+                  <div>
+                    <Progress css={styles.main} unknown={!institution.numberSpecimens} percent={institution.numberSpecimens > 0 ? 100 * collection.numberSpecimens / institution.numberSpecimens : 0} style={{ height: 16, margin: 10 }} />
+                    <div css={styles.comment}>
+                      <FormattedMessage id="counts.nRecords" values={{ total: collection.numberSpecimens }} />
+                    </div>
+                  </div>
+                </Tooltip>
               </div>
               <div>
-                <Progress percent={collection.occurrenceCount ? 100 * collection.occurrenceCount / totalGBifSize : 0} style={{ height: 16, margin: 10 }} />
-                <div css={styles.comment}>
-                  {collection.occurrenceCount} in GBIF
-                </div>
+                <Tooltip title={`Relative to collection size`}>
+                  <div>
+                    <Progress css={styles.main} unknown={!collection.numberSpecimens} percent={collection.occurrenceCount ? 100 * collection.occurrenceCount / collection.numberSpecimens : 0} style={{ height: 16, margin: 10 }} />
+                    <div css={styles.comment}>
+                      <FormattedMessage id="counts.inGbif" values={{ total: collection.occurrenceCount }} />
+                    </div>
+                  </div>
+                </Tooltip>
               </div>
+            </div>
+            <div css={css`margin-top: 24px; color: var(--color700);`}>
+              {collection.excerpt}
             </div>
           </article>
         })}
@@ -82,7 +94,7 @@ status: inactive/active
 function OrphanedCollectionCodes({ institution, ...props }) {
   const { data, error, loading, load } = useQuery(OCCURRENCE_STATS, { lazyLoad: true });
   const { key } = institution;
-  
+
   useEffect(() => {
     load({
       variables: {
@@ -111,7 +123,7 @@ function OrphanedCollectionCodes({ institution, ...props }) {
     });
   }, [key]);
 
-  if (!data && loading) return <Skeleton style={{margin: '96px 0'}} width="250px"/>
+  if (!data && loading) return <Skeleton style={{ margin: '96px 0' }} width="250px" />
   if (data?.orphaned?.cardinality?.collectionCode === 0 || error || loading) return null;
 
   return <div css={css`padding: 96px 0; color: var(--color600);`}>

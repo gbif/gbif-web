@@ -12,6 +12,7 @@ export function Progress({
   className,
   percent,
   color,
+  unknown,
   // overlays,
   ...props
 }) {
@@ -29,8 +30,7 @@ export function Progress({
   //   });
   // }
   // more = more.sort((a,b) => a.percent < b.percent);
-  console.log(color);
-  return <div css={styles.progress({ color, theme })} {...props}>
+  return <div css={styles.progress({ color, theme, unknown })} {...props}>
     <div style={{ width: `${percent}%` }}></div>
     {/* {more.length > 0 && more.map((x, i) => <div style={{ width: `${x.percent}%`, background: x.color }}></div>)} */}
   </div>

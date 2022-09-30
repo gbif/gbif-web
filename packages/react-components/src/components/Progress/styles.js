@@ -1,10 +1,11 @@
 import { css } from '@emotion/react';
 // import { focusStyle } from '../../style/shared';
 
-export const progress = ({color, ...props}) => css`
+export const progress = ({color, unknown, ...props}) => css`
   background: #eee;
   border-radius: 2px;
   height: 4px;
+  ${unknown ? `background-image: repeating-linear-gradient(45deg, #fafafa, #fafafa 5px, #eee 5px, #eee 10px);` : null}
   /* position: relative; */
   > div {
     transition: width 300ms;
