@@ -63,7 +63,7 @@ export function Description({
       <Card style={{ marginTop: 24, marginBottom: 24 }}>
         <CardHeader2>Contact</CardHeader2>
         <Properties style={{ fontSize: 16, marginBottom: 12 }} breakpoint={800}>
-          <Property value={institution?.email} labelId="grscicoll.email" linkOptions={{ email: true }} />
+          <Property value={institution?.email} labelId="grscicoll.email" />
           <Property value={institution?.homepage} labelId="grscicoll.homepage" />
           <Property value={institution?.address?.country} labelId="grscicoll.country" showEmpty formatter={countryCode => <FormattedMessage id={`enums.countryCode.${countryCode}`} />} />
           <Property value={institution?.address?.province} labelId="grscicoll.province" />
@@ -84,7 +84,7 @@ export function Description({
           </>}
           <Property value={institution?.logoUrl} labelId="grscicoll.logo" formatter={logoUrl => <Image src={logoUrl} h={150} />} />
         </Properties>
-        <div css={css`
+        {institution?.contactPersons?.legnth > 0 && <div css={css`
         display: flex;
         flex-wrap: wrap;
         padding-top: 24px;
@@ -112,7 +112,7 @@ export function Description({
               {contact.researchPursuits}
             </ListItem>
           })}
-        </div>
+        </div>}
       </Card>
 
       <Card style={{ marginTop: 24, marginBottom: 24 }}>
