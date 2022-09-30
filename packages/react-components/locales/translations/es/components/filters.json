@@ -7,12 +7,12 @@
   "collectionKey": {
     "name": "Colección",
     "count": "{num, plural, one {# colección } other {# colecciones}}",
-    "description": "La colección en GrSciColl este registro fue igualado a"
+    "description": "La colección en GrSciColl este registro es coincidente con"
   },
   "numberSpecimens": {
     "name": "Número de especímenes",
     "count": "",
-    "description": ""
+    "description": "El número de especímenes reportados que se indican en la descripción. Este número no refleja cuántos registros han sido digitalizados y compartidos."
   },
   "taxonKey": {
     "name": "Nombre científico",
