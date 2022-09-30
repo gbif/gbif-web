@@ -142,8 +142,8 @@ export function Description({
                 }
 
                 return <li key={`${i}_${x.identifier}`} css={css`margin-bottom: 8px;`}>
-                  <div css={css`color: var(--color400);`}><FormattedMessage id={`enums.identifierType.${x.type}`} defaultMessage={x.type} /></div>
-                  <div><HyperText text={identifier} /></div>
+                  <div css={css`color: var(--color400); font-size: 0.9em;`}><FormattedMessage id={`enums.identifierType.${x.type}`} defaultMessage={x.type} /></div>
+                  <div><HyperText text={identifier} inline /></div>
                 </li>
               })}
             </ul>
