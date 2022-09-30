@@ -52,7 +52,10 @@ const defaultTableConfig = {
       value: {
         key: 'name',
         formatter: (value, item) => <div>
-          <ResourceLink type='collectionKey' id={item.key} data-loader>{value}</ResourceLink>
+          <div>
+            <ResourceLink type='collectionKey' id={item.key} data-loader style={{marginRight: 4}}>{value}</ResourceLink>
+            {!item.active && <span style={{padding: '0 3px', background: 'tomato', color: 'white', borderRadius: 2}}>Inactive</span>}
+          </div>
           <div style={{ color: '#aaa' }}>
             {item.institution && <LinkOption discreet type='institutionKey' id={item.institution.key} >
               <InlineFilterChip filterName="institution" values={[item.institution.key]}>
@@ -124,19 +127,19 @@ const defaultTableConfig = {
         rightAlign: true
       }
     },
-    {
-      trKey: 'tableHeaders.active',
-      value: {
-        key: 'active',
-        formatter: (value, item) => {
-          return <InlineFilterChip filterName="active" values={[value.toString()]}>
-            <FormattedMessage
-              id={`enums.yesNo.${value.toString()}`}
-            /></InlineFilterChip>
-        },
-      },
-      filterKey: 'active'
-    }
+    // {
+    //   trKey: 'tableHeaders.active',
+    //   value: {
+    //     key: 'active',
+    //     formatter: (value, item) => {
+    //       return <InlineFilterChip filterName="active" values={[value.toString()]}>
+    //         <FormattedMessage
+    //           id={`enums.yesNo.${value.toString()}`}
+    //         /></InlineFilterChip>
+    //     },
+    //   },
+    //   filterKey: 'active'
+    // }
   ]
 };
 
