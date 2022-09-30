@@ -50,7 +50,7 @@ function StandardSearchTable({graphQuery, slowQuery, resultKey, offsetName = 'of
   }
   
   // allow both response types
-  const results = data?.[resultKey]?.documents?.results || data?.[resultKey]?.results || [];
+  const results = data?.[resultKey]?.documents?.results || data?.[resultKey]?.results;
   const slowresults = slowData?.[resultKey]?.documents?.results || slowData?.[resultKey]?.results || [];
   const total = data?.[resultKey]?.documents?.count || data?.[resultKey]?.count;
 
