@@ -1,6 +1,6 @@
-import React from 'react';
 import { jsx } from '@emotion/react';
-import Autolinker from 'autolinker';
+import React from 'react';
+// import Autolinker from 'autolinker';
 import DOMPurify from 'dompurify';
 import MarkdownIt from 'markdown-it';
 import doiRegex from 'doi-regex';
@@ -15,15 +15,18 @@ const md = MarkdownIt({
     linkify: true,
     typographer: false
 });
-md.linkify.tlds(['org', 'com'], false);
+// md.linkify.tlds(['org', 'com'], false);
+md.linkify.set({ fuzzyLink: false });
 
-const autolinker = new Autolinker(
-    {
-        truncate: { length: 64, location: 'middle' },
-        stripPrefix: false,
-        email: false,
-        phone: false
-    });
+// const autolinker = new Autolinker(
+//     {
+//         tldMatches: false,
+//         truncate: { length: 64, location: 'middle' },
+//         stripPrefix: false,
+//         email: false,
+//         phone: false
+//     }
+// );
 
 const getLsid = (text) => {
     if (typeof text !== "string" || /\s/.test(text.trim())) {
@@ -66,7 +69,7 @@ const getDoi = (text) => {
     }
 }
 
-export const HyperText = ({ text, parseMarkdown, inline, addLinks = true, linkOptions, sanitizeOptions, ...props }) => {
+export const HyperText = ({ text, inline, sanitizeOptions = { ALLOWED_TAGS: ['a', 'strong', 'em', 'p', 'br'] }, ...props }) => {
     if (text === false || text === true) {
         return <BooleanValue value={text} {...props} />
     }
@@ -92,20 +95,18 @@ export const HyperText = ({ text, parseMarkdown, inline, addLinks = true, linkOp
 
     let html = text;
 
-    if (addLinks) {
-        if (linkOptions) {
-            // use custom config
-            html = Autolinker.link(html, linkOptions);
-        } else {
-            //use default link config
-            html = autolinker.link(html);
-        }
-    }
+    // if (addLinks) {
+    //     if (linkOptions) {
+    //         // use custom config
+    //         html = Autolinker.link(html, linkOptions);
+    //     } else {
+    //         //use default link config
+    //         html = autolinker.link(html);
+    //     }
+    // }
 
-    if (parseMarkdown) {
-        if (inline) html = md.renderInline(html);
-        else html = md.render(html);
-    }
+    html = inline ? md.renderInline(html) : md.render(html);
+
     const sanitized = DOMPurify.sanitize(html, sanitizeOptions);
 
 

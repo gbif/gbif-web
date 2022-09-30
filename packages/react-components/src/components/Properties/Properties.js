@@ -71,7 +71,7 @@ function AutomaticPropertyValue({ value, formatter, showEmpty, sanitizeOptions =
   } else if (typeof value === 'number') {
     val = <FormattedNumber value={value} />
   } else if (typeof value === 'string') {
-    val = <HyperText text={value} parseMarkdown inline {...props} />
+    val = <HyperText text={value} inline {...props} />
   }
   return val;
 }
