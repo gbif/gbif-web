@@ -11,104 +11,82 @@ import BooleanValue from '../BooleanValue/BooleanValue'
 import { content } from './styles'
 
 const md = MarkdownIt({
-    html: true,
-    linkify: true,
-    typographer: false
+  html: true,
+  linkify: true,
+  typographer: false
 });
 // md.linkify.tlds(['org', 'com'], false);
 md.linkify.set({ fuzzyLink: false });
 
-// const autolinker = new Autolinker(
-//     {
-//         tldMatches: false,
-//         truncate: { length: 64, location: 'middle' },
-//         stripPrefix: false,
-//         email: false,
-//         phone: false
-//     }
-// );
-
 const getLsid = (text) => {
-    if (typeof text !== "string" || /\s/.test(text.trim())) {
-        return null
+  if (typeof text !== "string" || /\s/.test(text.trim())) {
+    return null
+  } else {
+    const trimmed = text.trim();
+    if (trimmed.startsWith('urn:lsid:')) {
+      return trimmed;
     } else {
-        const trimmed = text.trim();
-        if (trimmed.startsWith('urn:lsid:')) {
-            return trimmed;
-        } else {
-            return null
-        }
+      return null
     }
+  }
 }
 
 const getOrcid = (text) => {
-    if (typeof text !== "string" || /\s/.test(text.trim())) {
-        return null
+  if (typeof text !== "string" || /\s/.test(text.trim())) {
+    return null
+  } else {
+    const trimmed = text.trim();
+    if (trimmed.startsWith('orcid.org/')) {
+      return 'https://' + trimmed;
+    } else if (trimmed.startsWith('https://orcid.org/') || trimmed.startsWith('http://orcid.org/')) {
+      return trimmed;
     } else {
-        const trimmed = text.trim();
-        if (trimmed.startsWith('orcid.org/')) {
-            return 'https://' + trimmed;
-        } else if (trimmed.startsWith('https://orcid.org/') || trimmed.startsWith('http://orcid.org/')) {
-            return trimmed;
-        } else {
-            return null
-        }
+      return null
     }
+  }
 }
 
 const getDoi = (text) => {
-    if (typeof text !== "string" || /\s/.test(text.trim())) {
-        return null
+  if (typeof text !== "string" || /\s/.test(text.trim())) {
+    return null
+  } else {
+    const doi = text.trim().match(doiRegex())?.[0];
+    if (doi) {
+      return 'https://doi.org/' + doi;
     } else {
-        const doi = text.trim().match(doiRegex())?.[0];
-        if (doi) {
-            return 'https://doi.org/' + doi;
-        } else {
-            return null;
-        }
+      return null;
     }
+  }
 }
 
 export const HyperText = ({ text, inline, sanitizeOptions = { ALLOWED_TAGS: ['a', 'strong', 'em', 'p', 'br'] }, ...props }) => {
-    if (text === false || text === true) {
-        return <BooleanValue value={text} {...props} />
-    }
-    if (typeof text === "undefined") {
-        return null;
-    }
-    if (typeof text !== "string") {
-        return <span {...props}>{text}</span>;
-    }
+  if (text === false || text === true) {
+    return <BooleanValue value={text} {...props} />
+  }
+  if (typeof text === "undefined") {
+    return null;
+  }
+  if (typeof text !== "string") {
+    return <span {...props}>{text}</span>;
+  }
 
-    const doi = getDoi(text);
-    if (doi) {
-        return <Doi id={doi} {...props} />
-    }
-    const orcid = getOrcid(text);
-    if (orcid) {
-        return <Orcid href={orcid} {...props} />
-    }
-    const lsid = getLsid(text);
-    if (lsid) {
-        return <Lsid identifier={lsid} {...props} />
-    }
+  const doi = getDoi(text);
+  if (doi) {
+    return <Doi id={doi} {...props} />
+  }
+  const orcid = getOrcid(text);
+  if (orcid) {
+    return <Orcid href={orcid} {...props} />
+  }
+  const lsid = getLsid(text);
+  if (lsid) {
+    return <Lsid identifier={lsid} {...props} />
+  }
 
-    let html = text;
+  let html = text;
 
-    // if (addLinks) {
-    //     if (linkOptions) {
-    //         // use custom config
-    //         html = Autolinker.link(html, linkOptions);
-    //     } else {
-    //         //use default link config
-    //         html = autolinker.link(html);
-    //     }
-    // }
+  html = inline ? md.renderInline(html) : md.render(html);
+  const sanitized = DOMPurify.sanitize(html, sanitizeOptions);
 
-    html = inline ? md.renderInline(html) : md.render(html);
-
-    const sanitized = DOMPurify.sanitize(html, sanitizeOptions);
-
-
-    return <div css={content({ inline })} dangerouslySetInnerHTML={{ __html: sanitized }} {...props}></div>
+  return <div css={content({ inline })} dangerouslySetInnerHTML={{ __html: sanitized }} {...props}></div>
 }
