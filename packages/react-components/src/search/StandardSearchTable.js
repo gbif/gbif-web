@@ -6,20 +6,25 @@ import { useQuery } from '../dataManagement/api';
 import { filter2v1 } from '../dataManagement/filterAdapter';
 import { ResultsTable } from './ResultsTable';
 import { useQueryParam, NumberParam } from 'use-query-params';
+import merge from 'lodash/merge';
 
-function StandardSearchTable({graphQuery, resultKey, offsetName = 'offset', defaultTableConfig, ...props}) {
+function StandardSearchTable({graphQuery, slowQuery, resultKey, offsetName = 'offset', defaultTableConfig, ...props}) {
   // const [offset, setOffset] = useUrlState({ param: 'offset', defaultValue: 0 });
   const [offset = 0, setOffset] = useQueryParam('from', NumberParam);
   const limit = 50;
   const currentFilterContext = useContext(FilterContext);
   const { rootPredicate, predicateConfig } = useContext(SearchContext);
   const { data, error, loading, load } = useQuery(graphQuery, { lazyLoad: true });
+  const { data: slowData, error: slowError, loading: slowLoading, load: slowLoad } = useQuery(slowQuery, { lazyLoad: true });
 
   useEffect(() => {
     const { v1Filter, error } = filter2v1(currentFilterContext.filter, predicateConfig);
     const filter = { ...v1Filter, ...rootPredicate };
     
     load({ keepDataWhileLoading: true, variables: { ...filter, limit, offset } });
+    if (slowQuery) {
+      slowLoad({ keepDataWhileLoading: false, variables: { ...filter, limit, offset } });
+    }
   }, [currentFilterContext.filterHash, rootPredicate, offset]);
 
   // https://stackoverflow.com/questions/55075604/react-hooks-useeffect-only-on-update
@@ -45,14 +50,17 @@ function StandardSearchTable({graphQuery, resultKey, offsetName = 'offset', defa
   }
   
   // allow both response types
-  const results = data?.[resultKey]?.documents?.results || data?.[resultKey]?.results;
+  const results = data?.[resultKey]?.documents?.results || data?.[resultKey]?.results || [];
+  const slowresults = slowData?.[resultKey]?.documents?.results || slowData?.[resultKey]?.results || [];
   const total = data?.[resultKey]?.documents?.count || data?.[resultKey]?.count;
+
+  let mergedResults = results ? merge([], results, slowresults) : results;
 
   return <>
     <ResultsTable
       {...props}
       loading={loading}
-      results={results}
+      results={mergedResults}
       next={next}
       prev={prev}
       first={first}

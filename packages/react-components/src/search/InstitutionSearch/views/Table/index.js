@@ -29,6 +29,17 @@ query list($code: String, $q: String, $offset: Int, $limit: Int, $country: Count
 }
 `;
 
+const SLOW_QUERY = `
+query list($code: String, $q: String, $offset: Int, $limit: Int, $country: Country, $fuzzyName: String, $city: String, $name: String, $active: Boolean, $numberSpecimens: String, , $displayOnNHCPortal: Boolean){
+  institutionSearch(code: $code, q: $q, limit: $limit, offset: $offset, country: $country, fuzzyName: $fuzzyName, city: $city, name: $name, active: $active, numberSpecimens: $numberSpecimens, displayOnNHCPortal: $displayOnNHCPortal) {
+    results {
+      key
+      occurrenceCount
+    }
+  }
+}
+`;
+
 const defaultTableConfig = {
   columns: [
     {
@@ -85,15 +96,15 @@ const defaultTableConfig = {
         rightAlign: true
       }
     },
-    // {
-    //   trKey: 'tableHeaders.gbifNumberSpecimens',
-    //   value: {
-    //     key: 'occurrenceCount',
-    //     formatter: (value, item) => <FormattedNumber value={value} />,
-    //     hideFalsy: true,
-    //     rightAlign: true
-    //   }
-    // },
+    {
+      trKey: 'tableHeaders.gbifNumberSpecimens',
+      value: {
+        key: 'occurrenceCount',
+        formatter: (value, item) => <FormattedNumber value={value} />,
+        hideFalsy: true,
+        rightAlign: true
+      }
+    },
     {
       trKey: 'tableHeaders.active',
       value: {
@@ -112,7 +123,7 @@ const defaultTableConfig = {
 };
 
 function Table() {
-  return <StandardSearchTable graphQuery={QUERY} resultKey='institutionSearch' defaultTableConfig={defaultTableConfig} />
+  return <StandardSearchTable graphQuery={QUERY} slowQuery={SLOW_QUERY} resultKey='institutionSearch' defaultTableConfig={defaultTableConfig} />
 }
 
 export default Table;
