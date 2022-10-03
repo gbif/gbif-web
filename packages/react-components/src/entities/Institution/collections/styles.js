@@ -48,9 +48,7 @@ export const active = ({ ...props }) => css`
 `;
 
 export const collectionCard = ({ ...props }) => css`
-  background: white;
   margin: 24px 0;
-  padding: 16px 24px;
   h4 {
     margin: 0;
   }
@@ -75,5 +73,5 @@ export const progressCircular = ({ percent = 10, size, ...props }) => css`
 
 export const collections = ({ ...props }) => css`
   display: flex;
-  margin: 0 12px;
+  margin-top: -12px;
 `;

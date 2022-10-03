@@ -100,11 +100,12 @@ export const a = (theme) => css`
 
 export const prose = ({ theme = {} }) => css`
   -webkit-font-smoothing: antialiased;
-  line-height: 1.3em;
+  line-height: 1.6em;
   /* line-break: anywhere; might be relevant on smaller devices*/
-  /* a {
-    ${a(theme)};
-  } */
+  a {
+    /* ${a(theme)}; */
+    color: var(--linkColor);
+  }
   h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
   }

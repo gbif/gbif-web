@@ -45,14 +45,15 @@ export function DatasetKeyLink(props) {
 
 const isDiscreetLink = css`
   text-decoration: none;
+  color: var(--linkColor);
   :hover {
     text-decoration: underline;
   }
 `;
 
 const isDiscreet = css`
-  color: inherit;
   ${isDiscreetLink};
+  color: inherit;
 `;
 
 const isBoldLink = css`

@@ -126,6 +126,7 @@ query institution($key: String!){
       email
       taxonomicExpertise
       primary
+      position
       userIds {
         type
         id

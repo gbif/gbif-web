@@ -44,41 +44,51 @@ query collection($key: String!, $predicate: Predicate){
   }
   collection(key: $key) {
     key
+    active
     code
     name
     description
+    taxonomicCoverage
+    geography
+    notes
+    homepage
+
+    numberSpecimens
+    incorporatedCollections
+    importantCollectors
+
     contentTypes
-    active
+    
     personalCollection
     email
     phone
-    homepage
+    
     catalogUrl
+    apiUrl
     preservationTypes
     accessionStatus
+    
+    
     institutionKey
-    notes
     identifiers {
       key
       type
       identifier
     }
-    contacts {
+    contactPersons {
       key
       firstName
       lastName
-      position
-      areaResponsibility
-      researchPursuits
       phone
       email
-      fax
+      taxonomicExpertise
+      primary
+      position
+      userIds {
+        type
+        id
+      }
     }
-    numberSpecimens
-    taxonomicCoverage
-    geography
-    incorporatedCollections
-    importantCollectors
     collectionSummary
     alternativeCodes {
       code

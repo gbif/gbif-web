@@ -2,18 +2,18 @@
 import { jsx, css } from '@emotion/react';
 import React from 'react';
 import { useLocalStorage } from 'react-use';
-import { FormattedDate, FormattedMessage, FormattedNumber } from 'react-intl';
-import { Properties, Property, ResourceLink, ListItem, Image, HyperText, TextButton } from "../../../components";
-import { Card, CardHeader2 } from '../../shared';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
+import { Properties, Property, ResourceLink, ListItem, Image, HyperText, Prose } from "../../../components";
+import { Card, CardHeader2, GrSciCollMetadata as Metadata } from '../../shared';
 import sortBy from 'lodash/sortBy';
-import { MdMailOutline as MailIcon, MdPhone as PhoneIcon, MdPushPin, MdOutlinePushPin } from 'react-icons/md';
+import { MdMailOutline as MailIcon, MdPhone as PhoneIcon } from 'react-icons/md';
 import { TopTaxa } from './stats/TopTaxa';
 import { TopCountries } from './stats/TopCountries';
 import { Quality } from './stats/Quality';
 import { SkeletonLoader } from './stats/SkeletonLoader';
 import useBelow from '../../../utils/useBelow';
 
-const { Term: T, Value: V } = Properties;
+const { Term: T, Value: V, EmptyValue } = Properties;
 const Name2Avatar = ListItem.Name2Avatar;
 
 export function Description({
@@ -29,13 +29,19 @@ export function Description({
   const hideSideBar = useBelow(1100);
   const addressesIdentical = JSON.stringify(institution.mailingAddress) === JSON.stringify(institution.address);
   return <div>
-    {isPinned && <Metadata institution={institution} isPinned setPinState={() => setPinState(false)} style={{ marginTop: 12., marginBottom: -12 }} />}
+    {isPinned && <Metadata entity={institution} isPinned setPinState={() => setPinState(false)} />}
     <div css={css`padding-bottom: 100px; display: flex; margin: 0 -12px;`}>
       <div css={css`flex: 1 1 auto; margin: 0 12px;`}>
-        <Card style={{ marginTop: 24, marginBottom: 24 }}>
-          <CardHeader2>About</CardHeader2>
+        <Card style={{ marginTop: 12, marginBottom: 24 }}>
+          <CardHeader2><FormattedMessage id="grscicoll.description" deafultMessage="Description"/></CardHeader2>
+          <Prose style={{marginBottom: 24, maxWidth: '60em', fontSize: '16px'}}>
+            {institution.description && <HyperText text={institution.description} />}
+            {!institution.description && <EmptyValue />}
+          </Prose>
           <Properties style={{ fontSize: 16, marginBottom: 12 }} breakpoint={800}>
-            <Property value={institution.description} labelId="grscicoll.description" showEmpty />
+            {/* <Property value={institution.description} labelId="grscicoll.description" showEmpty /> */}
+            <Property value={institution.taxonomicDescription} labelId="grscicoll.taxonomicDescription" showEmpty />
+            <Property value={institution.geographicDescription} labelId="grscicoll.geographicDescription" showEmpty />
             <Property value={institution.code} labelId="grscicoll.code" showEmpty />
             <Property value={institution.numberSpecimens} labelId="institution.numberSpecimens" />
             {occurrenceSearch?.documents?.total > 0 && <Property value={occurrenceSearch?.documents?.total} labelId="grscicoll.specimensViaGbif" formatter={count => {
@@ -45,8 +51,6 @@ export function Description({
             }} />}
             <Property value={institution.catalogUrl} labelId="grscicoll.catalogUrl" />
             <Property value={institution.apiUrl} labelId="grscicoll.apiUrl" />
-            <Property value={institution.taxonomicDescription} labelId="grscicoll.taxonomicDescription" showEmpty />
-            <Property value={institution.geographicDescription} labelId="grscicoll.geographicDescription" showEmpty />
             <Property value={institution.disciplines} labelId="institution.disciplines" showEmpty formatter={e => <FormattedMessage id={`enums.discipline.${e}`} defaultMessage={e} />} />
             {institution.foundingDate && <Property labelId="grscicoll.foundingDate">
               {institution.foundingDate}
@@ -82,22 +86,22 @@ export function Description({
                 </Properties>
               </V>
             </>}
-            <Property value={institution?.logoUrl} labelId="grscicoll.logo" formatter={logoUrl => <Image src={logoUrl} h={150} />} />
+            <Property value={institution?.logoUrl} labelId="grscicoll.logo" formatter={logoUrl => <Image src={logoUrl} h={120} />} />
           </Properties>
-          {institution?.contactPersons?.legnth > 0 && <div css={css`
-        display: flex;
-        flex-wrap: wrap;
-        padding-top: 24px;
-        border-top: 1px solid #eee;
-        margin-top: 24px;
-        > div {
-          flex: 1 1 auto;
-          width: 40%;
-          max-width: 400px;
-          min-width: 300px;
-          margin: 12px;
-        }
-      `}>
+          {institution?.contactPersons?.length > 0 && <div css={css`
+            display: flex;
+            flex-wrap: wrap;
+            padding-top: 24px;
+            border-top: 1px solid #eee;
+            margin-top: 24px;
+            > div {
+              flex: 1 1 auto;
+              width: 40%;
+              max-width: 400px;
+              min-width: 300px;
+              margin: 12px;
+            }
+          `}>
             {sortBy(institution.contactPersons, 'position').map(contact => {
               let actions = [];
               if (contact.email?.[0]) actions.push(<a href={`mailto:${contact.email?.[0]}`}><MailIcon />{contact.email?.[0]}</a>);
@@ -152,9 +156,9 @@ export function Description({
           </Properties>
         </Card>
 
-        {!isPinned && <Metadata institution={institution} setPinState={() => setPinState(true)} />}
+        {!isPinned && <Metadata entity={institution} setPinState={() => setPinState(true)} />}
       </div>
-      {!hideSideBar && occurrenceSearch?.documents?.total > 0 && <aside css={css`flex: 0 0 300px; margin: 24px 12px;`}>
+      {!hideSideBar && occurrenceSearch?.documents?.total > 0 && <aside css={css`flex: 0 0 280px; margin: 12px;`}>
         {loading && <Card style={{ padding: '24px 12px', marginBottom: 12 }}>
           <SkeletonLoader />
         </Card>}
@@ -183,36 +187,3 @@ export function Description({
     </div>
   </div>
 };
-
-function Metadata({ institution, setPinState, isPinned, ...props }) {
-  if (!institution) return null;
-  return <div css={css`
-  color: #aaa; 
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  padding: 0 24px;
-  > div {
-    flex: 0 0 auto;
-    margin: 4px 24px;
-  }
-`} {...props}>
-    <TextButton>
-      <MdPushPin style={isPinned ? { color: 'var(--color900)' } : null} onClick={setPinState} />
-    </TextButton>
-    <div>Entry created: <FormattedDate value={institution.created}
-      year="numeric"
-      month="long"
-      day="2-digit" /></div>
-    <div>Last modified: <FormattedDate value={institution.modified}
-      year="numeric"
-      month="long"
-      day="2-digit" /> by {institution.modifiedBy}</div>
-    {institution.masterSourceMetadata && <div>
-      <span>Master source: </span>
-      {institution.masterSourceMetadata.source === 'ORGANIZATION' && <ResourceLink discreet type="publisherKey" id={institution.masterSourceMetadata.sourceId}>GBIF publisher</ResourceLink>}
-      {institution.masterSourceMetadata.source === 'DATASET' && <ResourceLink discreet type="datasetKey" id={institution.masterSourceMetadata.sourceId}>GBIF publisher</ResourceLink>}
-      {institution.masterSourceMetadata.source === 'IH_IRN' && <a css={css`color: inherit;`} href={`http://sweetgum.nybg.org/science/ih/herbarium-details/?irn=${institution.masterSourceMetadata.sourceId}`}>Index Herbariorum</a>}
-    </div>}
-  </div>
-}

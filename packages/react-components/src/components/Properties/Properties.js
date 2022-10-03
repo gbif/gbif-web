@@ -40,6 +40,7 @@ Value.propTypes = {
 
 Properties.Term = Term;
 Properties.Value = Value;
+Properties.EmptyValue = EmptyValue;
 
 export function Property({ value, helpText, helpTextId, labelId, children, ...props }) {
   // if there is no value, and the user do not ask to show empty values, then do not show anything

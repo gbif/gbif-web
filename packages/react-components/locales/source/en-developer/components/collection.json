@@ -1,3 +1,5 @@
 {
-  "institutionUnknown": "Institution is unknown"
+  "institutionUnknown": "Institution is unknown",
+  "contentTypes": "Content types",
+  "numberSpecimens": "Number of specimens in collection"
 }

@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 // import { focusStyle } from '../../style/shared';
 
 export const progress = ({color, unknown, ...props}) => css`
-  background: #eee;
+  background: var(--transparentInk10);
   border-radius: 2px;
   height: 4px;
   ${unknown ? `background-image: repeating-linear-gradient(45deg, #fafafa, #fafafa 5px, #eee 5px, #eee 10px);` : null}

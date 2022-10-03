@@ -11,6 +11,7 @@ import { MdSearch } from 'react-icons/md';
 import { ImDrawer2 } from 'react-icons/im';
 import { FormattedMessage } from 'react-intl';
 // import { FormattedMessage } from 'react-intl';
+import { Card, CardHeader2 } from '../../shared';
 
 export function Collections({
   institution,
@@ -36,44 +37,46 @@ export function Collections({
       </div> */}
       <div>
         {sortBy(collections, ['numberSpecimens', 'occurrenceCount']).reverse().map(collection => {
-          return <article css={styles.collectionCard}>
-            <div css={styles.summary}>
-              <div>
-                <Tooltip title={`Metadata richness: ${collection.richness}%`}>
-                  <div css={styles.progressCircular({ percent: collection.richness, size: '48px' })}></div>
-                </Tooltip>
-              </div>
-              <div>
-                <ResourceLink discreet type="collectionKey" id={collection.key}>
-                  <h3 css={styles.headline}>{collection.name} {!collection.active && <span css={css`font-style: italic; color: var(--color400);`}>Inactive</span>}</h3>
-                </ResourceLink>
-                <div css={styles.comment}>Code: {collection.code}</div>
-              </div>
-              <div>
-                <Tooltip title={`Relative to institution size`}>
-                  <div>
-                    <Progress css={styles.main} unknown={!institution.numberSpecimens} percent={institution.numberSpecimens > 0 ? 100 * collection.numberSpecimens / institution.numberSpecimens : 0} style={{ height: 16, margin: 10 }} />
-                    <div css={styles.comment}>
-                      <FormattedMessage id="counts.nRecords" values={{ total: collection.numberSpecimens }} />
+          return <Card css={styles.collectionCard}>
+            <article>
+              <div css={styles.summary}>
+                <div>
+                  <Tooltip title={`Metadata richness: ${collection.richness}%`}>
+                    <div css={styles.progressCircular({ percent: collection.richness, size: '48px' })}></div>
+                  </Tooltip>
+                </div>
+                <div>
+                  <ResourceLink discreet type="collectionKey" id={collection.key}>
+                    <h3 css={styles.headline}>{collection.name} {!collection.active && <span css={css`font-style: italic; color: var(--color400);`}>Inactive</span>}</h3>
+                  </ResourceLink>
+                  <div css={styles.comment}>Code: {collection.code}</div>
+                </div>
+                <div>
+                  <Tooltip title={`Relative to institution size`}>
+                    <div>
+                      <Progress css={styles.main} unknown={!institution.numberSpecimens} percent={institution.numberSpecimens > 0 ? 100 * collection.numberSpecimens / institution.numberSpecimens : 0} style={{ height: 16, margin: 10 }} />
+                      <div css={styles.comment}>
+                        <FormattedMessage id="counts.nRecords" values={{ total: collection.numberSpecimens }} />
+                      </div>
                     </div>
-                  </div>
-                </Tooltip>
-              </div>
-              <div>
-                <Tooltip title={`Relative to collection size`}>
-                  <div>
-                    <Progress css={styles.main} unknown={!collection.numberSpecimens} percent={collection.occurrenceCount ? 100 * collection.occurrenceCount / collection.numberSpecimens : 0} style={{ height: 16, margin: 10 }} />
-                    <div css={styles.comment}>
-                      <FormattedMessage id="counts.inGbif" values={{ total: collection.occurrenceCount }} />
+                  </Tooltip>
+                </div>
+                <div>
+                  <Tooltip title={`Relative to collection size`}>
+                    <div>
+                      <Progress css={styles.main} unknown={!collection.numberSpecimens} percent={collection.occurrenceCount ? 100 * collection.occurrenceCount / collection.numberSpecimens : 0} style={{ height: 16, margin: 10 }} />
+                      <div css={styles.comment}>
+                        <FormattedMessage id="counts.inGbif" values={{ total: collection.occurrenceCount }} />
+                      </div>
                     </div>
-                  </div>
-                </Tooltip>
+                  </Tooltip>
+                </div>
               </div>
-            </div>
-            <div css={css`margin-top: 24px; color: var(--color700);`}>
-              {collection.excerpt}
-            </div>
-          </article>
+              <div css={css`margin-top: 24px; color: var(--color700);`}>
+                {collection.excerpt}
+              </div>
+            </article>
+          </Card>
         })}
       </div>
       <OrphanedCollectionCodes institution={institution} />
