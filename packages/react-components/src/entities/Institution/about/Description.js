@@ -51,7 +51,6 @@ export function Description({
             {institution.foundingDate && <Property labelId="grscicoll.foundingDate">
               {institution.foundingDate}
             </Property>}
-            <Property value={institution.additionalNames} labelId="grscicoll.additionalNames" />
             {institution.type && <Property labelId="institution.type">
               <FormattedMessage id={`enums.institutionType.${institution.type}`} defaultMessage={institution.type} />
             </Property>}
@@ -130,6 +129,7 @@ export function Description({
                 })}
               </ul>
             </Property>}
+            <Property value={institution.additionalNames} labelId="grscicoll.additionalNames" />
             {institution?.identifiers?.length > 0 && <Property value={institution.identifiers} labelId="grscicoll.identifiers">
               <ul css={css`padding: 0; margin: 0; list-style: none;`}>
                 {institution.identifiers.map((x, i) => {
