@@ -45,6 +45,7 @@ export const dl = ({ horizontal, dense, theme, ...props }) => css`
 export const dt = ({ horizontal, theme, ...props }) => css`
   margin-bottom : ${horizontal ? 20 : 0}px;
   word-break: break-word;
+  line-height: 1.6em;
   &:last-of-type {
     margin-bottom: ${horizontal ? 0 : '.1em'};
   }
