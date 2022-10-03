@@ -21,5 +21,6 @@
   "city": "Ville",
   "country": "Pays",
   "specimensViaGbif": "Spécimens partagés avec le GBIF",
+  "identifiers": "Identifiants",
   "citesPermitNumber": "Numéro de permis Cites"
 }

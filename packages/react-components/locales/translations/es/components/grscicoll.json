@@ -1,4 +1,5 @@
 {
+  "foundingDate": "Fecha de fundación",
   "geographicDescription": "Descripción geográfica",
   "taxonomicDescription": "Descripción taxonómica",
   "additionalNames": "Nombre adicional",
@@ -6,15 +7,20 @@
   "code": "Código",
   "alternativeCodes": "Códigos alternativos",
   "apiUrl": "URL para los Servicios Web de la colección",
+  "catalogUrl": "Catálogo/Base de datos en línea",
   "homepage": "Página Principal",
   "phone": "Teléfono",
   "email": "Correo electrónico",
   "fax": "Número de Fax",
   "mailingAddress": "Dirección postal",
+  "physicalAddress": "Dirección postal",
   "contacts": "Contactos",
   "address": "Dirección",
+  "province": "Estado/Provincia",
   "postalCode": "Código postal",
   "city": "Ciudad/Pueblo",
   "country": "País",
+  "specimensViaGbif": "Especímenes compartidos con GBIF",
+  "identifiers": "Identificadores",
   "citesPermitNumber": "Número de permisos de citas"
 }
