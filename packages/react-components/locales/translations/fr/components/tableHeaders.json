@@ -11,5 +11,6 @@
   "pubDatasets": "Jeux de données publiés",
   "institution": "Institution",
   "collection": "Collection",
+  "collectionCount": "Collections",
   "active": "Est actif"
 }
