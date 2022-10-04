@@ -4,5 +4,6 @@
   "HERBARIUM": "Herbier",
   "LIVING_ORGANISM_COLLECTION": "Collection d'organismes vivants",
   "MEDICAL_RESEARCH_INSTITUTE": "Institut de recherche médicale",
-  "MUSEUM": "Musée"
+  "MUSEUM": "Musée",
+  "OTHER_INSTITUTIONAL_TYPE": "Autre type d'institution"
 }
