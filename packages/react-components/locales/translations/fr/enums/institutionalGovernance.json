@@ -1,3 +1,8 @@
 {
-  "OTHER": "Autre"
+  "FEDERAL": "Fédéral",
+  "FOR_PROFIT": "À but lucratif",
+  "LOCAL": "Local",
+  "NON_PROFIT": "Sans but lucratif",
+  "OTHER": "Autre",
+  "STATE": "État"
 }
