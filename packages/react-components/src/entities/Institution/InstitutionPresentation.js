@@ -93,7 +93,7 @@ Relating to ${env.GBIF_REGISTRY}/institution/${institution.key}
           <FeatureList>
             <Homepage href={institution.homepage} style={{ marginBottom: 8 }} />
             {contactInfo?.country && <Location countryCode={contactInfo?.country} city={contactInfo.city} />}
-            {institution.numberSpecimens > 0 && <OccurrenceCount messageId="counts.nSpecimens" count={institution.numberSpecimens} />}
+            <OccurrenceCount messageId="counts.nSpecimens" count={institution.numberSpecimens} zeroMessage="grscicoll.unknownSize"/>
             {hideSideBar && <GbifCount messageId="counts.nSpecimensInGbif" count={occurrenceSearch?.documents?.total} />}
           </FeatureList>
           {institution.catalogUrl && <FeatureList css={css`margin-top: 8px;`}>

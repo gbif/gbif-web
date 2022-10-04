@@ -72,6 +72,8 @@ const typeDef = gql`
     eventId: Int!
     collectionKey: Int!
     collectionCode: Int!
+    speciesKey: Int!
+    preparations: Int!
   }
 
   type OccurrenceHistogram {
@@ -113,6 +115,7 @@ const typeDef = gql`
     organismId(size: Int): [OccurrenceFacetResult_string]
     organismQuantityType(size: Int): [OccurrenceFacetResult_string]
     parentEventId(size: Int): [OccurrenceFacetResult_string]
+    preparations(size: Int): [OccurrenceFacetResult_string]
     programmeAcronym(size: Int): [OccurrenceFacetResult_string]
     projectId(size: Int): [OccurrenceFacetResult_string]
     protocol(size: Int): [OccurrenceFacetResult_string]

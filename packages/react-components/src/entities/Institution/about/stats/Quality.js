@@ -1,10 +1,9 @@
-import { jsx, css } from '@emotion/react';
 import React, { useEffect } from 'react';
 import { useQuery } from '../../../../dataManagement/api';
 import { ProgressItem, Tooltip } from "../../../../components";
 import { FormattedMessage } from 'react-intl';
 import { MdHelpOutline as HelpIcon } from 'react-icons/md';
-import { SkeletonLoader } from './SkeletonLoader';
+import { SideBarError, SideBarLoader, SideBarProgressList, SideBarHeader } from '../../../shared';
 
 export function Quality({
   predicate,
@@ -79,13 +78,15 @@ export function Quality({
   const digitizedFraction = totalOccurrences / institution?.numberSpecimens;
   const collectionsWithDigitizedData = institution.collections.filter(x => x.occurrenceCount > 0).length;
 
-  if (error) return <div>Failed to load stats</div>
-  if (!data || loading) return <SkeletonLoader />
+  if (error) return <SideBarError />
+  if (!data || loading) return <SideBarLoader />
 
   return <>
-    <h4 css={css`margin: 0 0 24px 0; font-size: 14px;`}><FormattedMessage id="counts.nSpecimensInGbif" values={{ total: totalOccurrences }} /></h4>
+    <SideBarHeader>
+      <FormattedMessage id="counts.nSpecimensInGbif" values={{ total: totalOccurrences }} />
+    </SideBarHeader>
     <div>
-      <ul css={css`padding: 0; margin: 0; list-style: none;`}>
+      <SideBarProgressList>
         <li>
           {institution?.numberSpecimens > 0 && <ProgressItem color="#4fd970" fraction={digitizedFraction} title="Digitized / total" subtleText style={{ marginBottom: 12 }} />}
           {institution?.collections?.length > 0 && <ProgressItem color="#4fd970" fraction={collectionsWithDigitizedData / institution?.collections?.length} title="Collections with data in GBIF" subtleText style={{ marginBottom: 12 }} />}
@@ -109,7 +110,7 @@ export function Quality({
             subtleText style={{ marginBottom: 12 }}
           />}
         </li>
-      </ul>
+      </SideBarProgressList>
     </div>
   </>
 };

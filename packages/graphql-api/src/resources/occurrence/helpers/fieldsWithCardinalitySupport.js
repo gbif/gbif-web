@@ -12,5 +12,7 @@ module.exports = [
   'verbatimScientificName',
   'eventId',
   'collectionKey',
-  'collectionCode'
+  'collectionCode',
+  'preparations',
+  'speciesKey'
 ];

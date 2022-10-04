@@ -4,13 +4,11 @@ import React from 'react';
 import { useLocalStorage } from 'react-use';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { Properties, Property, ResourceLink, ListItem, Image, HyperText, Prose } from "../../../components";
-import { Card, CardHeader2, GrSciCollMetadata as Metadata } from '../../shared';
+import { Card, CardHeader2, GrSciCollMetadata as Metadata, SideBarLoader } from '../../shared';
+import { TopTaxa, TopCountries } from '../../shared/stats';
 import sortBy from 'lodash/sortBy';
 import { MdMailOutline as MailIcon, MdPhone as PhoneIcon } from 'react-icons/md';
-import { TopTaxa } from './stats/TopTaxa';
-import { TopCountries } from './stats/TopCountries';
-import { Quality } from './stats/Quality';
-import { SkeletonLoader } from './stats/SkeletonLoader';
+import { Quality } from './stats';
 import useBelow from '../../../utils/useBelow';
 
 const { Term: T, Value: V, EmptyValue } = Properties;
@@ -33,8 +31,8 @@ export function Description({
     <div css={css`padding-bottom: 100px; display: flex; margin: 0 -12px;`}>
       <div css={css`flex: 1 1 auto; margin: 0 12px;`}>
         <Card style={{ marginTop: 12, marginBottom: 24 }}>
-          <CardHeader2><FormattedMessage id="grscicoll.description" deafultMessage="Description"/></CardHeader2>
-          <Prose style={{marginBottom: 24, maxWidth: '60em', fontSize: '16px'}}>
+          <CardHeader2><FormattedMessage id="grscicoll.description" deafultMessage="Description" /></CardHeader2>
+          <Prose style={{ marginBottom: 24, maxWidth: '60em', fontSize: '16px' }}>
             {institution.description && <HyperText text={institution.description} />}
             {!institution.description && <EmptyValue />}
           </Prose>
@@ -160,7 +158,7 @@ export function Description({
       </div>
       {!hideSideBar && occurrenceSearch?.documents?.total > 0 && <aside css={css`flex: 0 0 280px; margin: 12px;`}>
         {loading && <Card style={{ padding: '24px 12px', marginBottom: 12 }}>
-          <SkeletonLoader />
+          <SideBarLoader />
         </Card>}
         {occurrenceSearch?.documents?.total > 0 && <Card style={{ padding: '24px 12px', marginBottom: 12 }}>
           <Quality predicate={{

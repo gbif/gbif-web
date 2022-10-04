@@ -1,8 +1,7 @@
-import { jsx, css } from '@emotion/react';
 import React, { useEffect } from 'react';
-import { useQuery } from '../../../../dataManagement/api';
-import { ProgressItem } from "../../../../components";
-import { SkeletonLoader } from './SkeletonLoader';
+import { useQuery } from '../../../dataManagement/api';
+import { ProgressItem } from "../../../components";
+import { SideBarError, SideBarLoader, SideBarProgressList, SideBarHeader } from '../index';
 
 export function TopTaxa({
   predicate,
@@ -20,19 +19,19 @@ export function TopTaxa({
 
   const total = data?.occurrenceSearch?.documents?.total;
 
-  if (error) return <div>Failed to load stats</div>
-  if (!data || loading) return <SkeletonLoader />
+  if (error) return <SideBarError />
+  if (!data || loading) return <SideBarLoader />
 
   return <>
-    <h4 css={css`margin: 0 0 24px 0; font-size: 14px;`}>Top 10 shared taxa</h4>
+    <SideBarHeader>Top 10 shared taxa</SideBarHeader>
     <div>
-      <ul css={css`padding: 0; margin: 0; list-style: none;`}>
+      <SideBarProgressList>
         {data?.occurrenceSearch?.facet?.taxonKey.map((x, i) => {
           return <li>
             <ProgressItem style={{ marginBottom: 12 }} fraction={x.count / total} title={<span dangerouslySetInnerHTML={{__html: x.taxon.formattedName}}></span>} subtleText />
           </li>
         })}
-      </ul>
+      </SideBarProgressList>
     </div>
   </>
 };

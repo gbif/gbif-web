@@ -27,5 +27,5 @@ Skeleton.displayName = 'Skeleton';
 
 Skeleton.propTypes = {
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  as: PropTypes.oneOf(['span', 'div', 'h1']),
+  as: PropTypes.oneOf(['span', 'div', 'h1', 'p', 'h2']),
 };

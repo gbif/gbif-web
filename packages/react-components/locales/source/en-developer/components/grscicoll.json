@@ -20,9 +20,12 @@
   "postalCode": "Postal/Zip Code",
   "city": "City/Town",
   "country": "Country",
+  "logoUrl": "Logo",
+  "notes": "Notes",
   "specimensViaGbif": "Specimens shared with GBIF",
   "identifiers": "Identifiers",
   "importantCollectors": "Important collectors",
   "incorporatedCollections": "Incorporated collections",
+  "unknownSize": "Unknown size",
   "citesPermitNumber": "Cites permit number"
 }

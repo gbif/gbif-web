@@ -18,7 +18,7 @@ export const defaultContext = {
     isHref: true,
     route: '/collection/search'
   },
-  collectionSpecimens: {
+  collectionKeySpecimens: {
     url: ({key}) => `/collection/${key}/specimens`,
     isHref: true,
   },

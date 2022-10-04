@@ -105,7 +105,7 @@ function Hostname({ href }) {
 }
 
 export function GenericFeature({ style, className, children, ...props }) {
-  return <div css={css.iconFeature()} {...{style, className}} {...props}>
+  return <div css={css.iconFeature()} {...{ style, className }} {...props}>
     {children}
   </div>
 }
@@ -118,10 +118,11 @@ export function Homepage({ href, style, className, ...props }) {
   </GenericFeature>
 }
 
-export function OccurrenceCount({ count, messageId = 'counts.nOccurrences', values, ...props }) {
+export function OccurrenceCount({ count, messageId = 'counts.nOccurrences', zeroMessage, values, ...props }) {
+  const message = zeroMessage && !count ? <FormattedMessage id={zeroMessage} /> : <FormattedMessage id={messageId} values={values || { total: count }} />;
   return <GenericFeature>
     <OccurrenceIcon />
-    <span><FormattedMessage id={messageId} values={values || { total: count }} /></span>
+    <span style={{color: !count && 'var(--color300)'}}>{message}</span>
   </GenericFeature>
 }
 

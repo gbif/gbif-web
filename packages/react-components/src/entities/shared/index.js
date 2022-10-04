@@ -105,3 +105,24 @@ export function PageLoader(props) {
     </ContentWrapper>
   </div>
 }
+
+export function SideBarHeader(props) {
+  return <h4 css={css`margin: 0 0 24px 0; font-size: 14px; font-weight: bold;`} {...props}/>
+}
+
+export function SideBarProgressList(props) {
+  return <ul css={css`padding: 0; margin: 0; list-style: none;`} {...props} />
+}
+
+export function SideBarLoader({lines = 5, ...props}) {
+  return <>
+    <h4><Skeleton /></h4>
+    <div>
+      {Array(lines).fill().map((x, i ) => <Skeleton key={i} width="random" css={css`margin-bottom: .7em;`}/>)}
+    </div>
+  </>
+};
+
+export function SideBarError({...props}) {
+  return <div {...props}>Failed to load</div>
+};

@@ -1,18 +1,15 @@
 
 import { jsx, css } from '@emotion/react';
-import React, { useContext, useState } from 'react';
+import React from 'react';
 import { useLocalStorage } from 'react-use';
-import { FormattedDate, FormattedMessage, FormattedNumber } from 'react-intl';
-import ThemeContext from '../../../style/themes/ThemeContext';
-import * as styles from './styles';
-import { Card, CardHeader2, GrSciCollMetadata as Metadata } from '../../shared';
-import { Properties, Property, ResourceLink, ListItem, Image, HyperText, TextButton, Prose } from "../../../components";
-import RouteContext from '../../../dataManagement/RouteContext';
-import env from '../../../../.env.json';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
+import { Card, CardHeader2, GrSciCollMetadata as Metadata, SideBarLoader } from '../../shared';
+import { Properties, Property, ResourceLink, Image, HyperText, Prose } from "../../../components";
 import useBelow from '../../../utils/useBelow';
 
+import { TopTaxa, TopCountries, TotalAndDistinct } from '../../shared/stats';
+
 const { Term: T, Value: V, EmptyValue } = Properties;
-const Name2Avatar = ListItem.Name2Avatar;
 
 export function Description({
   data = {},
@@ -26,11 +23,6 @@ export function Description({
   const [isPinned, setPinState, removePinState] = useLocalStorage('pin_metadata', false);
   const hideSideBar = useBelow(1100);
   const addressesIdentical = JSON.stringify(collection.mailingAddress) === JSON.stringify(collection.address);
-  const theme = useContext(ThemeContext);
-  const routeContext = useContext(RouteContext);
-  const { occurrence } = data;
-  // if (loading || !occurrence) return <h1>Loading</h1>;
-
 
   return <div>
     {isPinned && <Metadata entity={collection} isPinned setPinState={() => setPinState(false)} />}
@@ -129,95 +121,40 @@ export function Description({
 
         {!isPinned && <Metadata entity={collection} setPinState={() => setPinState(true)} />}
       </div>
-      {/* {!hideSideBar && occurrenceSearch?.documents?.total > 0 && <aside css={css`flex: 0 0 280px; margin: 12px;`}>
+
+      {!hideSideBar && occurrenceSearch?.documents?.total > 0 && <aside css={css`flex: 0 0 280px; margin: 12px;`}>
         {loading && <Card style={{ padding: '24px 12px', marginBottom: 12 }}>
-          <SkeletonLoader />
+          <SideBarLoader />
         </Card>}
-        {occurrenceSearch?.documents?.total > 0 && <Card style={{ padding: '24px 12px', marginBottom: 12 }}>
+        {/* {occurrenceSearch?.documents?.total > 0 && <Card style={{ padding: '24px 12px', marginBottom: 12 }}>
           <Quality predicate={{
             type: "equals",
             key: "institutionKey",
             value: collection.key
           }} institution={institution} totalOccurrences={occurrenceSearch?.documents?.total} />
+        </Card>} */}
+        {occurrenceSearch?.documents?.total > 0 && <Card style={{ padding: '24px 12px', marginBottom: 12 }}>
+          <TotalAndDistinct predicate={{
+            type: "equals",
+            key: "collectionKey",
+            value: collection.key
+          }} />
         </Card>}
         {occurrenceSearch?.documents?.total > 0 && <Card style={{ padding: '24px 12px', marginBottom: 12 }}>
           <TopTaxa predicate={{
             type: "equals",
-            key: "institutionKey",
+            key: "collectionKey",
             value: collection.key
           }} />
         </Card>}
         {occurrenceSearch?.documents?.total > 0 && <Card style={{ padding: '24px 12px', marginBottom: 12 }}>
           <TopCountries predicate={{
             type: "equals",
-            key: "institutionKey",
+            key: "collectionKey",
             value: collection.key
           }} />
         </Card>}
-      </aside>} */}
+      </aside>}
     </div>
-
-
-
-
-
-    {/* <div css={styles.paper({ theme })} style={{ marginTop: 0, marginBottom: 24 }}>
-      <Properties style={{ fontSize: 14, marginBottom: 12 }} horizontal={true}>
-        {getPlain(collection, 'description', { showEmpty: true })}
-        {getPlain(collection, 'code', { showEmpty: true })}
-        {getPlain(collection, 'homePage', { showEmpty: true })}
-        {getPlain(collection, 'active')}
-        {getPlain(collection, 'personalCollection')}
-        {getPlain(collection, 'catalogUrl')}
-        {getPlain(collection, 'accessionStatus')}
-        {collection.institution && <>
-          <T><span style={{ paddingRight: 8 }}>Institution</span></T>
-          <V><a href={routeContext.institutionKey.url({ key: collection.institution.key })}>{collection.institution.name}</a> {collection.institution.code && <>({collection.institution.code})</>}</V>
-        </>}
-        {getPlain(collection, 'notes')}
-      </Properties>
-
-      <Accordion summary="Content" defaultOpen={true} style={{ marginBottom: 24 }}>
-        <Properties style={{ fontSize: 14, marginBottom: 12 }} horizontal={true}>
-          {getList(collection, 'contentTypes')}
-          {getList(collection, 'preservationTypes')}
-          {getPlain(collection, 'taxonomicCoverage', { showEmpty: true })}
-          {getPlain(collection, 'geography', { showEmpty: true })}
-          {getList(collection, 'incorporatedCollections')}
-          {getList(collection, 'importantCollectors')}
-        </Properties>
-      </Accordion>
-
-      <Accordion summary="Contact" defaultOpen={true} style={{ marginBottom: 24 }}>
-        <Properties style={{ fontSize: 14, marginBottom: 12 }} horizontal={true}>
-          {getPlain(collection.address, 'address')}
-          {getPlain(collection.address, 'country')}
-          {getPlain(collection.address, 'postalCode')}
-        </Properties>
-      </Accordion>
-    </div> */}
-
   </div>
 };
-
-function getPlain(collection, fieldName, { showEmpty = false } = {}) {
-  if (!showEmpty && !collection?.[fieldName]) return null;
-  return <><T><span style={{ paddingRight: 8 }}>{fieldName}</span></T><V>{collection?.[fieldName] ? collection[fieldName] : <span style={{ color: '#aaa' }}>Not provided</span>}</V></>
-}
-
-function getList(collection, fieldName, { showEmpty = false } = {}) {
-  if (!showEmpty && (!collection?.[fieldName] || collection?.[fieldName]?.length === 0)) return null;
-  
-  return <>
-    <T><span style={{ paddingRight: 8 }}>{fieldName}</span></T>
-    {collection[fieldName] && collection[fieldName].length > 0 && <div>
-      {collection[fieldName].map(item => <V>{item}</V>)}
-    </div>}
-
-    {/* {collection[fieldName] && collection[fieldName].length > 0 && <ul>
-      {collection[fieldName].map(item => <li>{item}</li>)}
-    </ul>} */}
-
-    {!collection[fieldName] || collection[fieldName].length === 0 && <V><span style={{ color: '#aaa' }}>Not provided</span></V>}
-  </>
-}

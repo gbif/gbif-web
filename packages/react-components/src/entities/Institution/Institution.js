@@ -1,6 +1,5 @@
 
-import React, { useContext, useState, useEffect } from 'react';
-import ThemeContext from '../../style/themes/ThemeContext';
+import React, { useEffect } from 'react';
 import { useQuery } from '../../dataManagement/api';
 import { InstitutionPresentation } from './InstitutionPresentation';
 import merge from 'lodash/merge';
@@ -24,7 +23,6 @@ export function Institution({
 }) {
   const { data, error, loading, load } = useQuery(INSTITUTION, { lazyLoad: true });
   const { data: slowData, error: slowError, loading: slowLoading, load: slowLoad } = useQuery(SLOW_QUERY, { lazyLoad: true });
-  const theme = useContext(ThemeContext);
 
   useEffect(() => {
     if (typeof id !== 'undefined') {
