@@ -1,8 +1,11 @@
 import { jsx, css } from '@emotion/react';
+import React from 'react';
 import { h2 as h2Style } from '../../components/typography/Prose';
-import { TextButton } from '../../components'
+import { Autocomplete, TextButton, Button, Skeleton } from '../../components'
 import { MdPushPin } from 'react-icons/md';
 import { FormattedDate } from 'react-intl';
+import { ContentWrapper, HeaderWrapper } from './header';
+import { BrokenJar } from '../../components/Icons/Icons';
 
 export function Card({ padded = true, ...props }) {
   return <div
@@ -61,5 +64,44 @@ export function GrSciCollMetadata({ entity, setPinState, isPinned, ...props }) {
       {entity.masterSourceMetadata.source === 'DATASET' && <ResourceLink discreet type="datasetKey" id={entity.masterSourceMetadata.sourceId}>GBIF publisher</ResourceLink>}
       {entity.masterSourceMetadata.source === 'IH_IRN' && <a css={css`color: inherit;`} href={`http://sweetgum.nybg.org/science/ih/herbarium-details/?irn=${entity.masterSourceMetadata.sourceId}`}>Index Herbariorum</a>}
     </div>}
+  </div>
+}
+
+export function PageError(props) {
+  return <div style={{ padding: '96px 48px', margin: Autocomplete, textAlign: 'center', minHeight: '80vh' }}>
+    <img src="http://localhost:4000/images/error500.svg" style={{ maxWidth: '100%', width: 280 }} />
+    <h2>500</h2>
+    <p style={{ color: 'var(--color300)' }}>Sorry, something went wrong.</p>
+    <Button>Back home</Button> <Button look="primaryOutline" onClick={() => location.reload()}>Refresh</Button>
+  </div>
+}
+
+export function Page404(props) {
+  return <div style={{ padding: '96px 48px', margin: Autocomplete, textAlign: 'center', minHeight: '80vh' }}>
+    <img src="http://localhost:4000/images/error404.svg" style={{ maxWidth: '100%', width: 280 }} />
+    <h2>404</h2>
+    <p style={{ color: 'var(--color300)' }}>Sorry, the page you visited does not exist.</p>
+    <Button>Back home</Button>
+  </div>
+}
+
+export function PageLoader(props) {
+  return <div>
+    <HeaderWrapper style={{paddingTop: 40, paddingBottom: 40}}>
+      <Skeleton as="p" width={200} />
+      <Skeleton as="h1" style={{width: 600, height:50, marginBottom: 50}} />
+      <Skeleton as="p" width={300} />
+      <Skeleton as="p" width={200} />
+    </HeaderWrapper>
+    <ContentWrapper style={{minHeight: '70vh'}}>
+      <Card style={{minHeight: 500}}>
+        <Skeleton as="h2" style={{width: 600, marginBottom: 30}} />
+        <Skeleton as="p" width={300} />
+        <Skeleton as="p" width={200} />
+        <Skeleton as="p" />
+        <Skeleton as="p" />
+        <Skeleton as="p" />
+      </Card>
+    </ContentWrapper>
   </div>
 }

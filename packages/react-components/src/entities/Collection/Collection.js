@@ -28,7 +28,7 @@ export function Collection({
   }, [id]);
 
   return <EnsureRouter>
-    <CollectionPresentation {...{ data, error, loading: loading || !data, id }} />
+    <CollectionPresentation {...{ data, error, loading: loading, id }} />
   </EnsureRouter>
 };
 

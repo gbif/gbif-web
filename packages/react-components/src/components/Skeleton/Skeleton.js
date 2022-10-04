@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import * as css from './styles';
 
 export const Skeleton = ({
+  as: Span = 'span',
   width = '100%',
   ...props
 }) => {
@@ -19,11 +20,12 @@ export const Skeleton = ({
   } else {
     w = width;
   }
-  return <span css={css.skeleton({theme, width: w})} {...props}>&nbsp;</span>
+  return <Span css={css.skeleton({theme, width: w, inlineElement: ['span'].includes(Span)})} {...props}>&nbsp;</Span>
 };
 
 Skeleton.displayName = 'Skeleton';
 
 Skeleton.propTypes = {
-  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  as: PropTypes.oneOf(['span', 'div', 'h1']),
 };

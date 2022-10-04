@@ -46,7 +46,7 @@ export function Institution({
   let mergedData = data ? merge({}, data, slowData) : data;
 
   return <EnsureRouter>
-    <InstitutionPresentation {...{ data: mergedData, error, loading: loading || !data, id }} />
+    <InstitutionPresentation {...{ data: mergedData, error, loading, id }} />
   </EnsureRouter>
 };
 

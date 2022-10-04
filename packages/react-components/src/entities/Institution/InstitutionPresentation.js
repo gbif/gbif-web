@@ -15,6 +15,7 @@ import env from '../../../.env.json';
 import useBelow from '../../utils/useBelow';
 
 import { DataHeader, HeaderWrapper, ContentWrapper, Headline, DeletedMessage, ErrorMessage, HeaderInfoWrapper, HeaderInfoMain, HeaderInfoEdit } from '../shared/header';
+import { PageError, Page404, PageLoader } from '../shared';
 
 import { GrGithub as Github } from 'react-icons/gr';
 import { MdLink, MdOutlineScreenSearchDesktop as CatalogIcon } from 'react-icons/md';
@@ -33,12 +34,26 @@ export function InstitutionPresentation({
   const hideSideBar = useBelow(1100);
   let { path, url } = useRouteMatch();
 
-  if (loading) return <div>loading</div>
+  if (error) {
+    if (error?.errorPaths?.institution?.status === 404) {
+      return <>
+        <DataHeader searchType="institutionSearch" messageId="catalogues.institutions" />
+        <Page404 />
+      </>
+    } else {
+      return <PageError />
+    }
+  }
+
+  if (loading || !data) return <PageLoader />
   const { institution, occurrenceSearch } = data;
 
   if (error || !institution) {
     // TODO a generic component for failures is needed
-    return <div>Failed to retrieve item</div>
+    return <>
+      <DataHeader searchType="institutionSearch" messageId="catalogues.institutions" />
+      <Page404 />
+    </>
   }
 
   const rootPredicate = {

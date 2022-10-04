@@ -23,6 +23,7 @@ import { GrGithub as Github } from 'react-icons/gr';
 import useBelow from '../../utils/useBelow';
 import { OccurrenceCount, Homepage, FeatureList, Location, GenericFeature, GbifCount } from '../../components/IconFeatures/IconFeatures';
 import { DataHeader, HeaderWrapper, ContentWrapper, Headline, DeletedMessage, ErrorMessage, HeaderInfoWrapper, HeaderInfoMain, HeaderInfoEdit } from '../shared/header';
+import { PageError, Page404, PageLoader } from '../shared';
 
 import env from '../../../.env.json';
 const { TabList, RouterTab, Tab } = Tabs;
@@ -38,14 +39,20 @@ export function CollectionPresentation({
   let { url, path } = useRouteMatch();
   const theme = useContext(ThemeContext);
 
-  if (loading) return <div>loading</div>
+  if (error) {
+    if (error?.errorPaths?.collection?.status === 404) {
+      return <>
+        <DataHeader searchType="collectionSearch" messageId="catalogues.collections" />
+        <Page404 />
+      </>
+    } else {
+      return <PageError />
+    }
+  }
+
+  if (loading || !data) return <PageLoader />
   const { collection, occurrenceSearch } = data;
   const recordedByCardinality = occurrenceSearch?.cardinality?.recordedBy;
-
-  if (error || !collection) {
-    // TODO a generic component for failures is needed
-    return <div>Failed to retrieve item</div>
-  }
 
   const rootPredicate = {
     "type": "equals",
