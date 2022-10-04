@@ -27,6 +27,10 @@ module.exports = {
         )
         .then(response => response.total);
     },
+    replacedByCollection: ({ replacedBy }, args, { dataSources }) => {
+      if (!replacedBy) return null;
+      return  dataSources.collectionAPI.getCollectionByKey({ key: replacedBy })
+    },
     excerpt: ({description, taxonomicCoverage, geography}, args, { dataSources }) => {
       if (typeof description === 'undefined') return null;
       return getExcerpt({strings: [description, taxonomicCoverage, geography], length: 300}).plainText;

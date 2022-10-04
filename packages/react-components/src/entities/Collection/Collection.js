@@ -68,7 +68,15 @@ query collection($key: String!, $predicate: Predicate){
     preservationTypes
     accessionStatus
     
-    
+    created
+    deleted
+    modified
+    modifiedBy
+    replacedByCollection {
+      name
+      key
+    }
+
     institutionKey
     identifiers {
       key

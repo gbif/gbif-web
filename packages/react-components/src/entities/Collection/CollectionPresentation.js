@@ -55,9 +55,10 @@ export function CollectionPresentation({
 
   const config = {
     rootPredicate,
-    excludedFilters: ['collectionCode', 'collectionKey', 'institutionKey', 'institutionCode', 'hostingOrganizationKey', 'protocol', 'publishingCountryCode'],
     occurrenceSearchTabs: ['TABLE', 'GALLERY', 'MAP'],
-    highlightedFilters: ['taxonKey', 'verbatimScientificName', 'catalogNumber', 'recordedBy', 'identifiedBy', 'typeStatus']
+    excludedFilters: ['occurrenceStatus', 'networkKey', 'hostingOrganizationKey', 'protocol', 'publishingCountryCode', 'institutionCode', 'institutionKey', 'institutionKey', 'collectionKey'],
+    highlightedFilters: ['taxonKey', 'verbatimScientificName', 'catalogNumber', 'recordedBy', 'identifiedBy'],
+    defaultTableColumns: ['features', 'catalogNumber', 'country', 'year', 'recordedBy', 'identifiedBy'],
   };
 
   // if there is at least a countryCode for thee address, then use that, else fall back to the mailing address
