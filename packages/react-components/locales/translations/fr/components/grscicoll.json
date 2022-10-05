@@ -20,6 +20,7 @@
   "postalCode": "Code postal",
   "city": "Ville",
   "country": "Pays",
+  "logoUrl": "Logo",
   "specimensViaGbif": "Spécimens partagés avec le GBIF",
   "identifiers": "Identifiants",
   "citesPermitNumber": "Numéro de permis Cites"

@@ -20,6 +20,7 @@
   "postalCode": "邮政编码:",
   "city": "城市/乡镇",
   "country": "国家",
+  "logoUrl": "标识logo",
   "specimensViaGbif": "与GBIF共享的标本",
   "identifiers": "标识符",
   "citesPermitNumber": "引用许可数量"
