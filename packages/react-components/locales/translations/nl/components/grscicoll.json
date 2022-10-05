@@ -17,5 +17,6 @@
   "postalCode": "Postcode",
   "city": "Stad/dorp",
   "country": "Land",
+  "logoUrl": "Logo",
   "specimensViaGbif": "Specimens gedeeld met GBIF"
 }
