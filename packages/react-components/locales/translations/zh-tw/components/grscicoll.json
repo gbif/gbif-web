@@ -19,6 +19,7 @@
   "postalCode": "郵遞區號",
   "city": "城市/城鎮",
   "country": "國家",
+  "logoUrl": "標誌",
   "identifiers": "識別碼",
   "citesPermitNumber": "城市許可編號"
 }
