@@ -5,12 +5,13 @@ import ThemeContext from '../../style/themes/ThemeContext';
 import { Tabs, Eyebrow, ResourceLink, Button, Tooltip } from '../../components';
 import OccurrenceSearch from '../../search/OccurrenceSearch/OccurrenceSearch';
 import { Description as About } from './about/Description';
-import { People } from './people/People';
+// import { People } from './people/People';
 import { FormattedMessage } from 'react-intl';
 import { join } from '../../utils/util';
 
-import * as styles from './styles';
+// import * as styles from './styles';
 import { MdLink, MdPeople, MdOutlineScreenSearchDesktop as CatalogIcon } from 'react-icons/md';
+import { GbifLogoIcon } from '../../components/Icons/Icons'
 
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 
@@ -133,7 +134,7 @@ Relating to ${env.GBIF_REGISTRY}/collection/${collection.key}
       <TabList style={{ marginTop: '12px', borderTop: '1px solid #ddd' }}>
         <RouterTab to={url} exact label="About" />
         {/* <RouterTab to={join(url, 'people')} css={styles.tab({ theme, noData: hasNoPeople })} label="People" /> */}
-        {occurrenceSearch?.documents?.total > 0 && <RouterTab to={join(url, '/specimens')} label="Specimens in GBIF" css={occurrenceSearch?.documents?.total === 0 ? css`color: var(--color300);` : null} />}
+        {occurrenceSearch?.documents?.total > 0 && <RouterTab to={join(url, '/specimens')} tooltip={<FormattedMessage id="grscicoll.specimensViaGbif" defaultMessage="Specimens via GBIF" />} label={<FormattedMessage id="grscicoll.specimens" defaultMessage="Specimens" />} css={occurrenceSearch?.documents?.total === 0 ? css`color: var(--color300);` : null} />}
         {occurrenceSearch?.documents?.total === 0 && collection.catalogUrl && <Tab tabId="0" label="Online catalog"><a css={css`text-decoration: none; color: inherit!important;`} href={collection.catalogUrl}>Explore catalog<MdLink /></a></Tab>}
       </TabList>
     </HeaderWrapper>

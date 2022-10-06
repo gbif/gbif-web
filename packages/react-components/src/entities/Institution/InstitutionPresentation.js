@@ -114,7 +114,7 @@ Relating to ${env.GBIF_REGISTRY}/institution/${institution.key}
       <TabList style={{ marginTop: '12px', borderTop: '1px solid #ddd' }}>
         <RouterTab to={url} exact label="About" />
         {<RouterTab to={join(url, '/collections')} css={institution?.collections?.length === 0 ? css`color: var(--color300);` : null} label={<FormattedMessage id="counts.nCollections" values={{ total: institution?.collections?.length }} />} />}
-        {occurrenceSearch?.documents?.total > 0 && <RouterTab to={join(url, '/specimens')} label="Specimens in GBIF" />}
+        {occurrenceSearch?.documents?.total > 0 && <RouterTab to={join(url, '/specimens')} tooltip={<FormattedMessage id="grscicoll.specimensViaGbif" defaultMessage="Specimens via GBIF" />} label={<FormattedMessage id="grscicoll.specimens" defaultMessage="Specimens" />} css={occurrenceSearch?.documents?.total === 0 ? css`color: var(--color300);` : null} />}
         {occurrenceSearch?.documents?.total === 0 && institution.catalogUrl && <Tab tabId="0" label="Online catalog"><a css={css`text-decoration: none; color: inherit!important;`} href={institution.catalogUrl}>Explore catalog<MdLink /></a></Tab>}
       </TabList>
     </HeaderWrapper>

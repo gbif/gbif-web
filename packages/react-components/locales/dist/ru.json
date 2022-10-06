@@ -143,6 +143,7 @@
   "grscicoll.logoUrl": "Логотип организации (URL)",
   "grscicoll.notes": "Notes",
   "grscicoll.specimensViaGbif": "Specimens shared with GBIF",
+  "grscicoll.specimens": "Specimens",
   "grscicoll.identifiers": "Идентификаторы",
   "grscicoll.importantCollectors": "Important collectors",
   "grscicoll.incorporatedCollections": "Incorporated collections",
