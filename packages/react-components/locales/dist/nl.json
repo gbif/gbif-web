@@ -172,7 +172,7 @@
   "tableHeaders.pubDatasets": "Gepubliceerde datasets",
   "tableHeaders.institution": "Instelling",
   "tableHeaders.collection": "Verzameling",
-  "tableHeaders.collectionCount": "Collections",
+  "tableHeaders.collectionCount": "Collecties",
   "tableHeaders.active": "Is actief",
   "intervals.description.lt": "Minder dan {to}",
   "intervals.description.lte": "Minder dan of gelijk aan {to}",
