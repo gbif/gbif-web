@@ -22,7 +22,7 @@ export function TotalAndDistinct({
   if (error) return <SideBarError />
   if (!data || loading) return <SideBarLoader />
 
-  return <>
+  return <div {...props}>
     <SideBarHeader>
       <FormattedMessage id="counts.nSpecimensInGbif" values={{ total }} />
     </SideBarHeader>
@@ -31,7 +31,7 @@ export function TotalAndDistinct({
         {data?.occurrenceSearch?.cardinality?.speciesKey} distinct species
       </SideBarProgressList>
     </div>
-  </>
+  </div>
 };
 
 const OCCURRENCE_STATS = `

@@ -1,3 +1,5 @@
+export { MapThumbnail } from './MapThumnail';
+
 import { jsx, css } from '@emotion/react';
 import React from 'react';
 import { h2 as h2Style } from '../../components/typography/Prose';

@@ -453,6 +453,7 @@
   "search.loadMore": "More",
   "phrases.loading": "loading",
   "phrases.loadError": "Failed to load",
+  "phrases.unknown": "Unknown",
   "phrases.close": "Close",
   "phrases.citation": "Citation",
   "phrases.citeAs": "Please use this citation in publications",

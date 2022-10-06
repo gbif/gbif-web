@@ -3,13 +3,15 @@ import { jsx, css } from '@emotion/react';
 import React from 'react';
 import { useLocalStorage } from 'react-use';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
-import { Card, CardHeader2, GrSciCollMetadata as Metadata, SideBarLoader } from '../../shared';
-import { Properties, Property, ResourceLink, Image, HyperText, Prose } from "../../../components";
+import { Card, CardHeader2, GrSciCollMetadata as Metadata, SideBarLoader, MapThumbnail } from '../../shared';
+import { Properties, Property, ResourceLink, Image, HyperText, ListItem, Prose } from "../../../components";
 import useBelow from '../../../utils/useBelow';
-
+import sortBy from 'lodash/sortBy';
+import { MdMailOutline as MailIcon, MdPhone as PhoneIcon } from 'react-icons/md';
 import { TopTaxa, TopCountries, TotalAndDistinct } from '../../shared/stats';
 
 const { Term: T, Value: V, EmptyValue } = Properties;
+const Name2Avatar = ListItem.Name2Avatar;
 
 export function Description({
   data = {},
@@ -23,6 +25,7 @@ export function Description({
   const [isPinned, setPinState, removePinState] = useLocalStorage('pin_metadata', false);
   const hideSideBar = useBelow(1100);
   const addressesIdentical = JSON.stringify(collection.mailingAddress) === JSON.stringify(collection.address);
+  const contacts = collection?.contactPersons.filter(x => x.firstName);
 
   return <div>
     {isPinned && <Metadata entity={collection} isPinned setPinState={() => setPinState(false)} />}
@@ -30,8 +33,8 @@ export function Description({
     <div css={css`padding-bottom: 100px; display: flex; margin: 0 -12px;`}>
       <div css={css`flex: 1 1 auto; margin: 0 12px;`}>
         <Card style={{ marginTop: 12, marginBottom: 24 }}>
-          <CardHeader2><FormattedMessage id="grscicoll.description" deafultMessage="Description"/></CardHeader2>
-          <Prose style={{marginBottom: 24, maxWidth: '60em', fontSize: '16px'}}>
+          <CardHeader2><FormattedMessage id="grscicoll.description" deafultMessage="Description" /></CardHeader2>
+          <Prose style={{ marginBottom: 24, maxWidth: '60em', fontSize: '16px' }}>
             {collection.description && <HyperText text={collection.description} />}
             {!collection.description && <EmptyValue />}
           </Prose>
@@ -80,6 +83,36 @@ export function Description({
             </>}
             <Property value={collection?.logoUrl} labelId="grscicoll.logo" formatter={logoUrl => <Image src={logoUrl} h={150} />} />
           </Properties>
+          {contacts?.length > 0 && <div css={css`
+            display: flex;
+            flex-wrap: wrap;
+            padding-top: 24px;
+            border-top: 1px solid #eee;
+            margin-top: 24px;
+            > div {
+              flex: 1 1 auto;
+              width: 40%;
+              max-width: 400px;
+              min-width: 300px;
+              margin: 12px;
+            }
+          `}>
+            {sortBy(contacts, 'position').map(contact => {
+              let actions = [];
+              if (contact.email?.[0]) actions.push(<a href={`mailto:${contact.email?.[0]}`}><MailIcon />{contact.email?.[0]}</a>);
+              if (contact.phone?.[0]) actions.push(<a href={`tel:${contact.phone?.[0]}`}><PhoneIcon />{contact.phone?.[0]}</a>);
+              return <ListItem
+                key={contact.key}
+                isCard
+                firstName={contact.firstName}
+                lastName={contact.lastName}
+                avatar={<Name2Avatar first={contact.firstName} last={contact.lastName} />}
+                description={contact.position?.[0]}
+                footerActions={actions}>
+                {contact.researchPursuits}
+              </ListItem>
+            })}
+          </div>}
         </Card>
 
         <Card style={{ marginTop: 24, marginBottom: 24 }}>
@@ -133,8 +166,14 @@ export function Description({
             value: collection.key
           }} institution={institution} totalOccurrences={occurrenceSearch?.documents?.total} />
         </Card>} */}
-        {occurrenceSearch?.documents?.total > 0 && <Card style={{ padding: '24px 12px', marginBottom: 12 }}>
-          <TotalAndDistinct predicate={{
+        {occurrenceSearch?.documents?.total > 0 && <Card style={{ padding: 0, marginBottom: 12 }}>
+          <MapThumbnail predicate={{
+            type: "equals",
+            key: "collectionKey",
+            value: collection.key
+          }}/>
+          {/* <ThumbnailMap filter={{ collectionKey: collection.key }} /> */}
+          <TotalAndDistinct style={{padding: '24px 12px'}} predicate={{
             type: "equals",
             key: "collectionKey",
             value: collection.key

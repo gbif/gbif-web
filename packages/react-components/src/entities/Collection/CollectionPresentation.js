@@ -69,7 +69,8 @@ export function CollectionPresentation({
   // if there is at least a countryCode for thee address, then use that, else fall back to the mailing address
   const contactInfo = collection?.address?.countryCode ? collection?.address : collection?.mailingAddress;
 
-  const hasNoPeople = !collection?.contactPersons?.length && !recordedByCardinality;
+  const contacts = collection?.contactPersons.filter(x => x.firstName);
+  const hasNoPeople = !contacts.length && !recordedByCardinality;
 
   const feedbackTemplate = `Please provide you feedback here, but leave content below for context
 
@@ -96,11 +97,11 @@ Relating to ${env.GBIF_REGISTRY}/collection/${collection.key}
           <FeatureList style={{ marginTop: 8 }}>
             {collection.contactPersons.length > 0 && <GenericFeature>
               <MdPeople />
-              {collection.contactPersons.length < 5 && <span>
-                {collection.contactPersons.map(c => `${c.firstName ? c.firstName : ''} ${c.lastName ? c.lastName : ''}`).join(' • ')}
+              {contacts.length < 5 && <span>
+                {contacts.map(c => `${c.firstName ? c.firstName : ''} ${c.lastName ? c.lastName : ''}`).join(' • ')}
               </span>
               }
-              {collection.contactPersons.length >= 5 && <span>{collection.contactPersons.length} staff members</span>}
+              {contacts.length >= 5 && <span>{contacts.length} staff members</span>}
             </GenericFeature>}
             <Homepage href={collection.homepage} />
             {contactInfo?.country && <Location countryCode={contactInfo?.country} city={contactInfo.city} />}
@@ -131,7 +132,7 @@ Relating to ${env.GBIF_REGISTRY}/collection/${collection.key}
 
       <TabList style={{ marginTop: '12px', borderTop: '1px solid #ddd' }}>
         <RouterTab to={url} exact label="About" />
-        <RouterTab to={join(url, 'people')} css={styles.tab({ theme, noData: hasNoPeople })} label="People" />
+        {/* <RouterTab to={join(url, 'people')} css={styles.tab({ theme, noData: hasNoPeople })} label="People" /> */}
         {occurrenceSearch?.documents?.total > 0 && <RouterTab to={join(url, '/specimens')} label="Specimens in GBIF" css={occurrenceSearch?.documents?.total === 0 ? css`color: var(--color300);` : null} />}
         {occurrenceSearch?.documents?.total === 0 && collection.catalogUrl && <Tab tabId="0" label="Online catalog"><a css={css`text-decoration: none; color: inherit!important;`} href={collection.catalogUrl}>Explore catalog<MdLink /></a></Tab>}
       </TabList>
@@ -139,11 +140,11 @@ Relating to ${env.GBIF_REGISTRY}/collection/${collection.key}
 
     <section>
       <Switch>
-        <Route path={join(path, 'people')}>
+        {/* <Route path={join(path, 'people')}>
           <ContentWrapper>
             <People {...{ collection, recordedByCardinality }} />
           </ContentWrapper>
-        </Route>
+        </Route> */}
         <Route path={join(path, 'specimens')}>
           <ContentWrapper>
             <OccurrenceSearch config={config} style={{ minHeight: 'calc(90vh)' }}></OccurrenceSearch>

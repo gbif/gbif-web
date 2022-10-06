@@ -42,4 +42,5 @@ export { LicenseTag } from './LicenseTag/LicenseTag';
 export { OccurrenceMap } from './OccurrenceMap/OccurrenceMap';
 export { TextThumbnail } from './TextThumbnail/TextThumbnail';
 export { ListItem } from './ListItem/ListItem';
+export { ThumbnailMap } from './ThumbnailMap/ThumbnailMap';
 // -- Add imports above this line (required by plopfile.js) --

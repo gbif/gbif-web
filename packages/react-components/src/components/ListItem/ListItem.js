@@ -5,11 +5,14 @@ import PropTypes from 'prop-types';
 import { getClasses } from '../../utils/util';
 import * as styles from './styles';
 import { FaUserAlt } from 'react-icons/fa';
+import { FormattedMessage } from 'react-intl';
 
 export function ListItem({
   as: Div = 'div',
   avatar,
   title,
+  firstName,
+  lastName,
   description,
   content,
   footerActions,
@@ -18,12 +21,19 @@ export function ListItem({
   isCard,
   ...props
 }) {
+  let cardTitle;
+  if (title) {
+    cardTitle = title;
+  } else if (firstName) {
+    cardTitle = firstName;
+    if (lastName) cardTitle += ` ${lastName}`;
+  }
   const { classNames } = getClasses('gbif', 'listItem', {/*modifiers goes here*/ }, className);
   return <Div css={isCard ? styles.listItemCard : styles.listItem} {...classNames} {...props}>
     <div css={styles.header}>
       {avatar && <div css={styles.avatar}>{avatar}</div>}
       <div css={styles.titleWrapper}>
-        <h4 css={styles.headline}>{title}</h4>
+        <h4 css={styles.headline}>{cardTitle || <FormattedMessage id="phrases.unknown" defaultMessage="Uknown" />}</h4>
         {description && <div css={styles.description}>{description}</div>}
       </div>
     </div>
