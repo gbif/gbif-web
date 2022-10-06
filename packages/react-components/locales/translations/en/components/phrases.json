@@ -1,6 +1,7 @@
 {
   "loading": "loading",
   "loadError": "Failed to load",
+  "unknown": "Unknown",
   "close": "Close",
   "citation": "Citation",
   "citeAs": "Please use this citation in publications",
