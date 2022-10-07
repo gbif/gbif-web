@@ -1,6 +1,7 @@
 {
   "loading": "en cours de chargement",
   "loadError": "Échec du chargement",
+  "unknown": "Inconnu",
   "close": "Fermer",
   "citation": "Citation",
   "citeAs": "Veuillez utiliser cette citation dans les publications",
