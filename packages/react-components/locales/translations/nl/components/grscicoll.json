@@ -18,5 +18,8 @@
   "city": "Stad/dorp",
   "country": "Land",
   "logoUrl": "Logo",
-  "specimensViaGbif": "Specimens gedeeld met GBIF"
+  "notes": "Opmerkingen",
+  "specimensViaGbif": "Specimens gedeeld met GBIF",
+  "specimens": "Exemplaar",
+  "unknownSize": "Onbekende grootte"
 }
