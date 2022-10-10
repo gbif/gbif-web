@@ -8,11 +8,11 @@ class ApiClient {
     this.request
   }
 
-  query({ query, variables }) {
+  query({ query, variables, queue }) {
     if (!this.gql) {
       return console.error('No configuration has been provided to the GraphQLClient');
     }
-    return queryGraphQl(query, { variables, client: this.gql });
+    return queryGraphQl(query, { variables, client: this.gql }, queue);
   }
 
   get(url, options) {
