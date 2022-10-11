@@ -117,7 +117,7 @@
   "dataset.registry.becauseTrustedContact": "Because you are trusted contact",
   "dataset.registry.registrationDetails": "GBIF registration details",
   "collection.institutionUnknown": "Instituut is onbekend",
-  "collection.contentTypes": "Content types",
+  "collection.contentTypes": "Type inhoud",
   "collection.numberSpecimens": "Number of specimens in collection",
   "grscicoll.foundingDate": "Oprichtingsdatum",
   "grscicoll.geographicDescription": "Geografische beschrijving",
