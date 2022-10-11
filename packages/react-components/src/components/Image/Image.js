@@ -57,7 +57,7 @@ export const OptImage = React.forwardRef(({
     {loading && <>
       <div style={{ width: '100%', height: 100, fontSize: '24px' }}></div>
       </>}
-    {failed && <div style={{ margin: 'auto', padding: '24px 50px', fontSize: '24px' }}>
+    {failed && <div style={{ margin: 'auto', padding: '24px 50px', fontSize: '24px', color: 'var(--color100)' }}>
       <MdBrokenImage />
     </div>}
     {!failed && <Image {...{ src, w, h }} ref={ref} onError={() => {
@@ -66,3 +66,4 @@ export const OptImage = React.forwardRef(({
     }} onLoad={() => setLoading(false)} {...props} />}
   </div>
 });
+OptImage.getImageSrc = getImageSrc;
