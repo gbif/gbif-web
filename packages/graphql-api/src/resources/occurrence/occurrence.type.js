@@ -350,7 +350,7 @@ const typeDef = gql`
     publishingOrgKey: ID
     publishingOrgName: String
     datasetKey: ID
-    datasetName: String
+    datasetName: [String]
     occurrenceID: String
     catalogNumber: String
   }

@@ -46,7 +46,8 @@ export function Cluster({
             <div>
               <Properties style={{ marginTop: 12 }} horizontal dense>
                 <T style={{color: 'white'}}>Publisher</T><V>{x.stub.publishingOrgName}</V>
-                <T style={{color: 'white'}}>Dataset</T><V>{x.stub.datasetName}</V>
+                {/* We can no longer show the original dataset name as the API has been changed.  */}
+                {/* <T style={{color: 'white'}}>Dataset</T><V>{x.stub.datasetName}</V> */}
                 {x.stub.catalogNumber && <><T style={{color: 'white'}}>Catalog number</T><V>{x.stub.catalogNumber}</V></>}
                 {x.stub.occurrenceID && <><T style={{color: 'white'}}>Occurrence ID</T><V>{x.stub.occurrenceID}</V></>}
               </Properties>
@@ -119,7 +120,6 @@ query occurrence($key: ID!){
           publishingOrgKey
           publishingOrgName
           datasetKey
-          datasetName
         }
         occurrence {
           key
