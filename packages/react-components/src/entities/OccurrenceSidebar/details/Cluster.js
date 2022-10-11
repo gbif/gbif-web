@@ -94,7 +94,7 @@ export function RelatedOccurrence({ original, reasons, related, ...props }) {
       <Col grow={false} shrink={false}>
         <div >
           {related?.primaryImage?.identifier && <Image style={{ width: 150, height: 150, display: 'block' }} src={related.primaryImage.identifier} w={180} h={180} />}
-          {!related?.primaryImage?.identifier && related.coordinates && <img style={{ width: 150, height: 150, display: 'block' }} src={`https://api.mapbox.com/styles/v1/mapbox/light-v9/static/pin-s-circle+285A98(${related.coordinates.lon},${related.coordinates.lat})/${related.coordinates.lon},${related.coordinates.lat},8,0/180x180@2x?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA`} />}
+          {!related?.primaryImage?.identifier && related?.coordinates?.lat && <img style={{ width: 150, height: 150, display: 'block' }} src={`https://api.mapbox.com/styles/v1/mapbox/light-v9/static/pin-s-circle+285A98(${related.coordinates.lon},${related.coordinates.lat})/${related.coordinates.lon},${related.coordinates.lat},8,0/180x180@2x?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA`} />}
         </div>
       </Col>
     </Row>
