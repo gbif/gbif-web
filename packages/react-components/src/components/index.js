@@ -17,7 +17,7 @@ export { Accordion } from './Accordion/Accordion';
 export { Properties, Property } from './Properties/Properties';
 export { Tooltip } from './Tooltip/Tooltip';
 export { Radio } from './Radio/Radio';
-export { Image } from './Image/Image';
+export { Image, OptImage } from './Image/Image';
 export { DetailsDrawer } from './DetailsDrawer/DetailsDrawer';
 export { MajorRanks } from './MajorRanks/MajorRanks';
 export { IconFeatures } from './IconFeatures/IconFeatures';

@@ -77,6 +77,32 @@ module.exports = {
         _v1PredicateHash: v1PredicateQStripped.predicate ? dataSources.occurrenceAPI.registerPredicate({predicate: v1PredicateQStripped.predicate}) : null
       };
     },
+    occurrenceClusterSearch: (parent, {predicate, ...query}, { dataSources }) => {
+      // custom cluster search
+      let nodes = [];
+      let links = [];
+      return dataSources.occurrenceAPI.searchOccurrenceDocuments({
+        query: { predicate: {
+          type: 'and',
+          predicates: [
+            {
+              type: 'equals',
+              key: 'isInCluster',
+              value: true
+            },
+            predicate
+          ]
+        },
+        ...query
+      }
+      }).then(response => {
+        console.log(response);
+        return {
+          nodes: [],
+          links: [{ source: 'hej', target: 'goddag' }]
+        }
+      });
+    },
     occurrence: (parent, { key }, { dataSources }) =>
       dataSources.occurrenceAPI.getOccurrenceByKey({ key }),
     globe: (parent, { cLat, cLon, pLat, pLon, sphere, graticule, land }) => {

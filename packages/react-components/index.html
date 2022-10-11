@@ -17,6 +17,10 @@
         font-family: Open Sans, Helvetica, Sans;
         background: #ddd;
       }
+      html, body {
+        padding: 0;
+        margin: 0;
+      }
       .myheader {
         background: white;
         border-bottom: 1px solid #bbb;
@@ -27,7 +31,7 @@
         top: 0;
       }
       #root {
-        margin-top: 30px;
+        /* margin-top: 30px; */
       }
     </style>
   </head>
@@ -98,22 +102,28 @@
       //   document.getElementById('root')
       // );
 
+      const rootPredicate = {
+        "type": "equals",
+        "key": "isInCluster",
+        "value": "true"
+      };
       ReactDOM.render(
         React.createElement(
-          gbifReactComponents.DatasetSearch,
+          gbifReactComponents.OccurrenceSearch,
           { 
-            style: { height: 'calc(100vh - 4.25rem)' }, 
-            id: 'ca0d8107-a2bd-47a1-91a1-250179b534ec',
+            style: { height: 'calc(100vh)' }, 
             siteConfig: {
               routes: {
-                datasetSearch: {
+                occurrenceSearch: {
                   url: ({query, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/dataset/search`,
                   isHref: true,
                   route: '/'
                 }
               },
-              dataset: {
-                availableCatalogues: ['OCCURRENCE', 'LITERATURE', 'COLLECTION']
+              occurrence: {
+                // availableCatalogues: ['OCCURRENCE', 'LITERATURE', 'COLLECTION'],
+                occurrenceSearchTabs: ['CLUSTERS', 'MAP', 'GALLERY', 'TABLE'],
+                rootPredicate: rootPredicate
               }
             }
           }

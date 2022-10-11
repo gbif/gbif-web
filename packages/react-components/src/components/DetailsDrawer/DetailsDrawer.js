@@ -40,8 +40,8 @@ export function DetailsDrawer({ dialog, nextItem, previousItem, href, children, 
               <div style={{flex: '1 1 auto', overflow: 'auto'}}>
                 {children}
               </div>
-              {(previousItem || nextItem) && <div css={css.footerBar({theme})}>
-                {previousItem && <Button css={css.footerItem({theme})} appearance="text" direction="right" tip="previous (left arrow)" onClick={previousItem}>
+              {(previousItem || nextItem || href) && <div css={css.footerBar({theme})}>
+                {previousItem && <Button style={{textAlign: 'center'}} css={css.footerItem({theme})} appearance="text" direction="right" tip="previous (left arrow)" onClick={previousItem}>
                   <MdChevronLeft />
                 </Button>}
 

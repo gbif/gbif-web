@@ -334,7 +334,7 @@ const typeDef = gql`
     from: Int
     relatedOccurrences: [RelatedOccurrence]
   }
-  
+
   type RelatedOccurrence {
     reasons: [String]!
     occurrence: Occurrence
