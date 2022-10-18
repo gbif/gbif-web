@@ -7,7 +7,7 @@ const {
   ApolloServerPluginLandingPageGraphQLPlayground,
   ApolloServerPluginCacheControl,
 } = require("apollo-server-core");
-const AbortController = require("abort-controller");
+const AbortControllerServer = require("abort-controller");
 const get = require("lodash/get");
 const config = require("./config");
 const { hashMiddleware } = require("./hashMiddleware");
@@ -41,7 +41,7 @@ async function initializeServer() {
       // Add express context and a listener for aborted connections. Then data sources have a chance to cancel resources
       // I haven't been able to find any examples of people doing anything with cancellation - which I find odd.
       // Perhaps the overhead isn't worth it in most cases?
-      const controller = new AbortController();
+      const controller = new AbortControllerServer();
       req.on("close", function () {
         controller.abort();
       });
