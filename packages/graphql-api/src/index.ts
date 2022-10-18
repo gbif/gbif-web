@@ -1,31 +1,31 @@
-const express = require("express");
-const cors = require("cors");
-const compression = require("compression");
-const glob = require("glob");
-const { ApolloServer } = require("apollo-server-express");
+const express = require('express');
+const cors = require('cors');
+const compression = require('compression');
+const glob = require('glob');
+const { ApolloServer } = require('apollo-server-express');
 const {
   ApolloServerPluginLandingPageGraphQLPlayground,
   ApolloServerPluginCacheControl,
-} = require("apollo-server-core");
-const AbortControllerServer = require("abort-controller");
-const get = require("lodash/get");
-const config = require("./config");
-const { hashMiddleware } = require("./hashMiddleware");
-const { injectQuery } = require("./injectQueryMiddleware");
-const health = require("./health");
+} = require('apollo-server-core');
+const AbortControllerServer = require('abort-controller');
+const { get } = require('lodash');
+const config = require('./config');
+const { hashMiddleware } = require('./hashMiddleware');
+const { injectQuery } = require('./injectQueryMiddleware');
+const health = require('./health');
 
-const bodyParser = require("body-parser");
+const bodyParser = require('body-parser');
 
 // recommended in the apollo docs https://github.com/stems/graphql-depth-limit
-const depthLimit = require("graphql-depth-limit");
+const depthLimit = require('graphql-depth-limit');
 // get the full schema of what types, enums, scalars and queries are available
-const { getSchema } = require("./typeDefs");
+const { getSchema } = require('./typeDefs');
 // define how to resolve the various types, fields and queries
-const { resolvers } = require("./resolvers");
+const { resolvers } = require('./resolvers');
 // how to fetch the actual data and possible format/remap it to match the schemas
-const { api } = require("./dataSources");
+const { api } = require('./dataSources');
 // we will attach a user if an authorization header is present.
-const extractUser = require("./auth/extractUser");
+const extractUser = require('./auth/extractUser');
 
 // we are doing this async as we need to load the various enumerations from the APIs
 // and generate the schema from those
@@ -34,15 +34,15 @@ async function initializeServer() {
   const typeDefs = await getSchema();
   const server = new ApolloServer({
     debug: config.debug,
-    context: async ({ req }) => {
+    context: async ({ req }: any) => {
       // on all requests attach a user if present
-      const user = await extractUser(get(req, "headers.authorization"));
+      const user = await extractUser(get(req, 'headers.authorization'));
 
       // Add express context and a listener for aborted connections. Then data sources have a chance to cancel resources
       // I haven't been able to find any examples of people doing anything with cancellation - which I find odd.
       // Perhaps the overhead isn't worth it in most cases?
       const controller = new AbortControllerServer();
-      req.on("close", function () {
+      req.on('close', function () {
         controller.abort();
       });
 
@@ -53,7 +53,7 @@ async function initializeServer() {
     dataSources: () =>
       Object.keys(api).reduce(
         (prev, cur) => ({ ...prev, [cur]: new api[cur]() }),
-        {}
+        {},
       ), // Every request should have its own instance, see https://github.com/apollographql/apollo-server/issues/1562
     validationRules: [depthLimit(14)], // this likely have to be much higher than 6, but let us increase it as needed and not before
     plugins: [
@@ -68,36 +68,36 @@ async function initializeServer() {
   app.use(compression());
   app.use(
     cors({
-      methods: "GET,POST,OPTIONS",
-    })
+      methods: 'GET,POST,OPTIONS',
+    }),
   );
-  app.use(express.static("public"));
+  app.use(express.static('public'));
   app.use(bodyParser.json());
 
   // extract query and variables from store if a hash is provided instead of a query or variable
   // app.use(hashMiddleware);
-  app.get("/graphql", hashMiddleware);
-  app.post("/graphql", hashMiddleware);
+  app.get('/graphql', hashMiddleware);
+  app.post('/graphql', hashMiddleware);
 
   // Add script tag to playground with linked query
   // app.use(injectQuery);
-  app.get("/graphql", injectQuery);
-  app.post("/graphql", injectQuery);
+  app.get('/graphql', injectQuery);
+  app.post('/graphql', injectQuery);
 
   // link to query and variables
-  app.get("/getIds", function (req, res) {
+  app.get('/getIds', function (req: any, res: any) {
     res.json({
-      queryId: res.get("X-Graphql-query-ID"),
-      variablesId: res.get("X-Graphql-variables-ID"),
+      queryId: res.get('X-Graphql-query-ID'),
+      variablesId: res.get('X-Graphql-variables-ID'),
     });
   });
 
-  app.get("/health", health);
+  app.get('/health', health);
 
   // add various supportive endpoints
   // require('./api-utils/config')(app);
-  let controllers = glob.sync(__dirname + "/api-utils/**/*.ctrl.js");
-  controllers.forEach(function (controller) {
+  let controllers = glob.sync(__dirname + '/api-utils/**/*.ctrl.js');
+  controllers.forEach((controller: any) => {
     require(controller)(app);
   });
 
@@ -106,8 +106,8 @@ async function initializeServer() {
 
   app.listen({ port: config.port }, () =>
     console.log(
-      `🚀 Server ready at http://localhost:${config.port}${server.graphqlPath}`
-    )
+      `🚀 Server ready at http://localhost:${config.port}${server.graphqlPath}`,
+    ),
   );
 }
 
