@@ -1,12 +1,27 @@
 {
   "extends": [
-    "eslint:recommended"
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "airbnb",
+    "plugin:prettier/recommended"
   ],
-  "env": {
-    "node": true,
-    "es6": true
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "prettier"],
+  "rules": {
+    "no-console": "off",
+    "no-underscore-dangle": "off",
+    "no-undef": "off", // TypeScript already checks this
+    "import/no-unresolved": "off", // TypeScript already checks this
+    "import/extensions": "off",
+    "prettier/prettier": "error",
+    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/no-explicit-any": "error"
   },
-  "parserOptions": {
-    "ecmaVersion": 2018
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "moduleDirectory": ["node_modules", "src/"]
+      }
+    }
   }
 }
