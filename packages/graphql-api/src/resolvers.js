@@ -1,29 +1,27 @@
-const _ = require('lodash');
+import { merge } from 'lodash';
+import * as resources from './resources';
 
-const resolvers = _.merge(
-  require('./resources/scalars').resolver,
-  require('./resources/dataset').resolver,
-  require('./resources/organization').resolver,
-  require('./resources/taxon').resolver,
-  require('./resources/network').resolver,
-  require('./resources/installation').resolver,
-  require('./resources/node').resolver,
-  require('./resources/participant').resolver,
-  require('./resources/occurrence').resolver,
-  require('./util/wikidata').resolver,
-  require('./resources/collection').resolver,
-  require('./resources/institution').resolver,
-  require('./resources/staffMember').resolver,
-  require('./resources/external/orcid').resolver,
-  require('./resources/external/viaf').resolver,
-  require('./resources/external/person').resolver,
-  require('./resources/literature').resolver,
-  require('./resources/download').resolver,
-// -- Add imports above this line (required by plopfile.js) --
+const resolvers = merge(
+  resources.gbif.scalars.resolver,
+  resources.gbif.dataset.resolver,
+  resources.gbif.organization.resolver,
+  resources.gbif.taxon.resolver,
+  resources.gbif.network.resolver,
+  resources.gbif.installation.resolver,
+  resources.gbif.node.resolver,
+  resources.gbif.participant.resolver,
+  resources.gbif.occurrence.resolver,
+  resources.gbif.wikidata.resolver,
+  resources.gbif.collection.resolver,
+  resources.gbif.institution.resolver,
+  resources.gbif.staffMember.resolver,
+  resources.gbif.external.orcid.resolver,
+  resources.gbif.external.viaf.resolver,
+  resources.gbif.external.person.resolver,
+  resources.gbif.literature.resolver,
+  resources.gbif.download.resolver,
 );
 
 // merge resolvers as suggeted in https://blog.apollographql.com/modularizing-your-graphql-schema-code-d7f71d5ed5f2
 // TODO perhaps we should add an alert of keys are used twice
-module.exports = {
-  resolvers
-};
+export default resolvers;

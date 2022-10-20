@@ -1,6 +1,32 @@
-const { gql } = require('apollo-server');
-const _ = require('lodash');
-const { getEnumTypeDefs } = require('./enums');
+import { gql } from 'apollo-server';
+import { flatten } from 'lodash';
+import { getEnumTypeDefs } from '#/helpers/enums';
+import * as resources from './resources';
+
+const inputTypeDef = gql`
+  input Predicate {
+    type: PredicateType
+    key: String
+    value: JSON
+    values: [JSON]
+    predicate: Predicate
+    predicates: [Predicate]
+  }
+
+  enum PredicateType {
+    and
+    or
+    not
+    equals
+    in
+    within
+    isNotNull
+    like
+    fuzzy
+    nested
+    range
+  }
+`;
 
 async function getSchema() {
   // create a string with all the enum options (loaded from the API)
@@ -17,40 +43,37 @@ async function getSchema() {
     }
   `;
 
-  const typeDefs = _.flatten([
+  const typeDefs = flatten([
     rootQuery,
-    require('./input'),
-    require('./resources/misc/comment'),
-    require('./resources/misc/contact'),
-    require('./resources/misc/endpoint'),
-    require('./resources/misc/identifier'),
-    require('./resources/misc/machineTag'),
-    require('./resources/misc/tag'),
-    require('./resources/misc/address'),
-    require('./resources/dataset').typeDef,
-    require('./resources/organization').typeDef,
-    require('./resources/scalars').typeDef,
-    require('./resources/taxon').typeDef,
-    require('./resources/network').typeDef,
-    require('./resources/installation').typeDef,
-    require('./resources/node').typeDef,
-    require('./resources/participant').typeDef,
-    require('./resources/occurrence').typeDef,
-    require('./util/wikidata').typeDef,
-    require('./resources/collection').typeDef,
-    require('./resources/institution').typeDef,
-    require('./resources/staffMember').typeDef,
-    require('./resources/external/orcid').typeDef,
-    require('./resources/external/viaf').typeDef,
-    require('./resources/external/person').typeDef,
-    require('./resources/literature').typeDef,
-    require('./resources/download').typeDef,
-// -- Add imports above this line (required by plopfile.js) --
+    inputTypeDef,
+    resources.gbif.misc.comment,
+    resources.gbif.misc.contact,
+    resources.gbif.misc.endpoint,
+    resources.gbif.misc.identifier,
+    resources.gbif.misc.machineTag,
+    resources.gbif.misc.tag,
+    resources.gbif.misc.address,
+    resources.gbif.dataset.typeDef,
+    resources.gbif.organization.typeDef,
+    resources.gbif.scalars.typeDef,
+    resources.gbif.taxon.typeDef,
+    resources.gbif.network.typeDef,
+    resources.gbif.installation.typeDef,
+    resources.gbif.node.typeDef,
+    resources.gbif.participant.typeDef,
+    resources.gbif.occurrence.typeDef,
+    resources.gbif.wikidata.typeDef,
+    resources.gbif.collection.typeDef,
+    resources.gbif.institution.typeDef,
+    resources.gbif.staffMember.typeDef,
+    resources.gbif.external.orcid.typeDef,
+    resources.gbif.external.viaf.typeDef,
+    resources.gbif.external.person.typeDef,
+    resources.gbif.literature.typeDef,
+    resources.gbif.download.typeDef,
   ]);
 
   return typeDefs;
 }
 
-module.exports = {
-  getSchema
-};
+export default getSchema;

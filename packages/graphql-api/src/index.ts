@@ -18,13 +18,13 @@ import config from './config';
 import { hashMiddleware, injectQuery } from './middleware';
 import health from './health';
 // get the full schema of what types, enums, scalars and queries are available
-import { getSchema } from './typeDefs';
+import getSchema from './typeDefs';
 // define how to resolve the various types, fields and queries
-import { resolvers } from './resolvers';
+import resolvers from './resolvers';
 // how to fetch the actual data and possible format/remap it to match the schemas
-import { api } from './dataSources';
+import api from './dataSources';
 // we will attach a user if an authorization header is present.
-import extractUser from './auth/extractUser';
+import extractUser from './helpers/auth/extractUser';
 
 // we are doing this async as we need to load the various enumerations from the APIs
 // and generate the schema from those
@@ -51,7 +51,7 @@ async function initializeServer() {
     resolvers,
     dataSources: () =>
       Object.keys(api).reduce(
-        (prev, cur) => ({ ...prev, [cur]: new api[cur]() }),
+        (prev, cur) => ({ ...prev, [cur]: new api[cur](config) }),
         {},
       ), // Every request should have its own instance, see https://github.com/apollographql/apollo-server/issues/1562
     validationRules: [depthLimit(14)], // this likely have to be much higher than 6, but let us increase it as needed and not before
