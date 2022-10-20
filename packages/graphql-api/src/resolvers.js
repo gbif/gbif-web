@@ -1,27 +1,21 @@
-import { merge } from 'lodash';
+import { get, merge } from 'lodash';
 import * as resources from './resources';
+import config from './config';
 
-const resolvers = merge(
-  resources.gbif.scalars.resolver,
-  resources.gbif.dataset.resolver,
-  resources.gbif.organization.resolver,
-  resources.gbif.taxon.resolver,
-  resources.gbif.network.resolver,
-  resources.gbif.installation.resolver,
-  resources.gbif.node.resolver,
-  resources.gbif.participant.resolver,
-  resources.gbif.occurrence.resolver,
-  resources.gbif.wikidata.resolver,
-  resources.gbif.collection.resolver,
-  resources.gbif.institution.resolver,
-  resources.gbif.staffMember.resolver,
-  resources.gbif.external.orcid.resolver,
-  resources.gbif.external.viaf.resolver,
-  resources.gbif.external.person.resolver,
-  resources.gbif.literature.resolver,
-  resources.gbif.download.resolver,
+// Treat each top-level configuration entry as an 'organisation' (i.e., GBIF, ALA)
+const organizations = Object.keys(config).filter(
+  (org) => !['debug', 'port'].includes(org),
 );
 
-// merge resolvers as suggeted in https://blog.apollographql.com/modularizing-your-graphql-schema-code-d7f71d5ed5f2
-// TODO perhaps we should add an alert of keys are used twice
+// Map each organisation string to an aggregate object containing all of its resolvers
+const resolvers = organizations
+  .map((org) =>
+    (config[org].resources || []).reduce(
+      (agg, resource) =>
+        merge(agg, get(resources, `${org}.${resource}.resolver`)),
+      {},
+    ),
+  )
+  .reduce((agg, resource) => merge(agg, resource), {});
+
 export default resolvers;

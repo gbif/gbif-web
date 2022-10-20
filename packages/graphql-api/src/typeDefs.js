@@ -1,7 +1,13 @@
 import { gql } from 'apollo-server';
-import { flatten } from 'lodash';
+import { get } from 'lodash';
 import { getEnumTypeDefs } from '#/helpers/enums';
 import * as resources from './resources';
+import config from './config';
+
+// Treat each top-level configuration entry as an 'organisation' (i.e., GBIF, ALA)
+const organizations = Object.keys(config).filter(
+  (org) => !['debug', 'port'].includes(org),
+);
 
 const inputTypeDef = gql`
   input Predicate {
@@ -43,35 +49,16 @@ async function getSchema() {
     }
   `;
 
-  const typeDefs = flatten([
+  // Map each organisation string to an aggregate array containing all of its typeDefs
+  const typeDefs = [
     rootQuery,
     inputTypeDef,
-    resources.gbif.misc.comment,
-    resources.gbif.misc.contact,
-    resources.gbif.misc.endpoint,
-    resources.gbif.misc.identifier,
-    resources.gbif.misc.machineTag,
-    resources.gbif.misc.tag,
-    resources.gbif.misc.address,
-    resources.gbif.dataset.typeDef,
-    resources.gbif.organization.typeDef,
-    resources.gbif.scalars.typeDef,
-    resources.gbif.taxon.typeDef,
-    resources.gbif.network.typeDef,
-    resources.gbif.installation.typeDef,
-    resources.gbif.node.typeDef,
-    resources.gbif.participant.typeDef,
-    resources.gbif.occurrence.typeDef,
-    resources.gbif.wikidata.typeDef,
-    resources.gbif.collection.typeDef,
-    resources.gbif.institution.typeDef,
-    resources.gbif.staffMember.typeDef,
-    resources.gbif.external.orcid.typeDef,
-    resources.gbif.external.viaf.typeDef,
-    resources.gbif.external.person.typeDef,
-    resources.gbif.literature.typeDef,
-    resources.gbif.download.typeDef,
-  ]);
+    ...organizations.map((org) =>
+      (config[org].resources || []).map((resource) =>
+        get(resources, `${org}.${resource}.typeDef`),
+      ),
+    ),
+  ].flat(2);
 
   return typeDefs;
 }
