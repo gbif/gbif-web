@@ -1,4 +1,4 @@
-
+import enumsJson from './enums.json';
 /* 
 async function getLatestInterpretationRemark(){
   // Discretely write latest interpretationRemark
@@ -12,25 +12,24 @@ async function getLatestInterpretationRemark(){
 }
  */
 
-const getSchema = enums => {
-  const schemas = Object.keys(enums).map(enumType => {
-    const list = enums[enumType].reduce( (accumulator, currentValue) => accumulator += currentValue + '\n', '');
+const getSchema = (enums) => {
+  const schemas = Object.keys(enums).map((enumType) => {
+    const list = enums[enumType].reduce(
+      // eslint-disable-next-line no-return-assign, no-param-reassign
+      (accumulator, currentValue) => (accumulator += `${currentValue}\n`),
+      '',
+    );
     return `
       enum ${enumType.replace(/\./g, '_')} {
-      ` + 
-        list + `}
-      `
+      ${list}}
+      `;
   });
-  return schemas.reduce( (acc, curr) => acc + curr, '');
-}
+  return schemas.reduce((acc, curr) => acc + curr, '');
+};
 
 async function getEnumTypeDefs() {
   // enums can be updated: npm run write-enums
-  return getSchema(require('./enums.json'));
+  return getSchema(enumsJson);
 }
 
-
-module.exports = {
-  getEnumTypeDefs,
-  getSchema
-};
+export { getEnumTypeDefs, getSchema };

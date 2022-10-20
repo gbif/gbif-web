@@ -1,8 +1,22 @@
-const hash = require('object-hash');
-const { queryCache, variablesCache } = require('./cache');
+import hash from 'object-hash';
+import LRU from 'lru-cache';
+import { Request, Response, NextFunction } from 'express';
+import { ParsedQs } from 'qs';
 
-function sendHashError(req, res, next, message) {
-  const isStrict = typeof req.query.strict === 'string' && req.query.strict !== 'false';
+const queryCache = new LRU({ max: 1000 });
+const variablesCache = new LRU({ max: 10000 });
+
+type StoredQuery = string | ParsedQs | string[] | ParsedQs[] | undefined;
+
+function sendHashError(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  message: Record<string, any>,
+) {
+  const isStrict =
+    typeof req.query.strict === 'string' && req.query.strict !== 'false';
   if (isStrict) {
     res.set('Cache-Control', 'no-store');
     res.status(400).json(message);
@@ -11,7 +25,8 @@ function sendHashError(req, res, next, message) {
   }
 }
 
-const hashMiddleware = function (req, res, next) {
+// eslint-disable-next-line consistent-return
+const hashMiddleware = (req: Request, res: Response, next: NextFunction) => {
   // When the user provides a hash instead of a query or variables
   // then look it up or return a 404 asking for the full query/variables for future reference
 
@@ -19,11 +34,12 @@ const hashMiddleware = function (req, res, next) {
   const isPOST = req.method === 'POST';
   const query = isPOST ? req.body.query : req.query.query;
   const queryId = isPOST ? req.body.queryId : req.query.queryId;
-  const variables = req.body.variables; // Do not cache variables that come as GET
+  const { variables } = req.body; // Do not cache variables that come as GET
   const variablesId = isPOST ? req.body.variablesId : req.query.variablesId;
 
   // used to track if the provided ids are unknown
-  let unknownQueryId, unknownVariablesId;
+  let unknownQueryId;
+  let unknownVariablesId;
 
   // if query or variables are provided, then hash for future reference
   if (query) {
@@ -32,7 +48,7 @@ const hashMiddleware = function (req, res, next) {
     res.set('X-Graphql-query-ID', queryKey);
     if (queryId && queryId !== queryKey) {
       // A hash has been provided that conflicts with the server hash. return an error
-      return sendHashError(req, res, next, {error: 'HASH_QUERY_CONFLICT'});
+      return sendHashError(req, res, next, { error: 'HASH_QUERY_CONFLICT' });
     }
   }
   if (variables) {
@@ -41,7 +57,9 @@ const hashMiddleware = function (req, res, next) {
     res.set('X-Graphql-variables-ID', variablesKey);
     if (variablesId && variablesId !== variablesKey) {
       // A hash has been provided that conflicts with the server hash. return an error
-      return sendHashError(req, res, next, {error: 'HASH_VARIABLES_CONFLICT'});
+      return sendHashError(req, res, next, {
+        error: 'HASH_VARIABLES_CONFLICT',
+      });
     }
   }
 
@@ -52,7 +70,7 @@ const hashMiddleware = function (req, res, next) {
       unknownQueryId = true;
     } else {
       if (req.method === 'POST') req.body.query = storedQuery;
-      if (req.method === 'GET') req.query.query = storedQuery;
+      if (req.method === 'GET') req.query.query = storedQuery as StoredQuery;
     }
   }
   // if no variables is provided but a hash is, then try to look it up
@@ -62,7 +80,8 @@ const hashMiddleware = function (req, res, next) {
       unknownVariablesId = true;
     } else {
       if (req.method === 'POST') req.body.variables = storedVariables;
-      if (req.method === 'GET') req.query.variables = storedVariables;
+      if (req.method === 'GET')
+        req.query.variables = storedVariables as StoredQuery;
     }
   }
 
@@ -70,11 +89,11 @@ const hashMiddleware = function (req, res, next) {
   if (unknownQueryId || unknownVariablesId) {
     return sendHashError(req, res, next, {
       unknownQueryId,
-      unknownVariablesId
+      unknownVariablesId,
     });
   }
-  
-  next();
-}
 
-module.exports = hashMiddleware;
+  next();
+};
+
+export default hashMiddleware;

@@ -1,31 +1,30 @@
-const express = require('express');
-const cors = require('cors');
-const compression = require('compression');
-const glob = require('glob');
-const { ApolloServer } = require('apollo-server-express');
-const {
+import express from 'express';
+import cors from 'cors';
+import compression from 'compression';
+import glob from 'glob';
+import { ApolloServer } from 'apollo-server-express';
+import {
   ApolloServerPluginLandingPageGraphQLPlayground,
   ApolloServerPluginCacheControl,
-} = require('apollo-server-core');
-const AbortControllerServer = require('abort-controller');
-const { get } = require('lodash');
-const config = require('./config');
-const { hashMiddleware } = require('./hashMiddleware');
-const { injectQuery } = require('./injectQueryMiddleware');
-const health = require('./health');
-
-const bodyParser = require('body-parser');
-
+} from 'apollo-server-core';
+import AbortControllerServer from 'abort-controller';
+import { get } from 'lodash';
+import bodyParser from 'body-parser';
 // recommended in the apollo docs https://github.com/stems/graphql-depth-limit
-const depthLimit = require('graphql-depth-limit');
+import depthLimit from 'graphql-depth-limit';
+
+// Local imports
+import config from './config';
+import { hashMiddleware, injectQuery } from './middleware';
+import health from './health';
 // get the full schema of what types, enums, scalars and queries are available
-const { getSchema } = require('./typeDefs');
+import { getSchema } from './typeDefs';
 // define how to resolve the various types, fields and queries
-const { resolvers } = require('./resolvers');
+import { resolvers } from './resolvers';
 // how to fetch the actual data and possible format/remap it to match the schemas
-const { api } = require('./dataSources');
+import { api } from './dataSources';
 // we will attach a user if an authorization header is present.
-const extractUser = require('./auth/extractUser');
+import extractUser from './auth/extractUser';
 
 // we are doing this async as we need to load the various enumerations from the APIs
 // and generate the schema from those
@@ -34,7 +33,7 @@ async function initializeServer() {
   const typeDefs = await getSchema();
   const server = new ApolloServer({
     debug: config.debug,
-    context: async ({ req }: any) => {
+    context: async ({ req }) => {
       // on all requests attach a user if present
       const user = await extractUser(get(req, 'headers.authorization'));
 
@@ -42,7 +41,7 @@ async function initializeServer() {
       // I haven't been able to find any examples of people doing anything with cancellation - which I find odd.
       // Perhaps the overhead isn't worth it in most cases?
       const controller = new AbortControllerServer();
-      req.on('close', function () {
+      req.on('close', () => {
         controller.abort();
       });
 
@@ -85,7 +84,7 @@ async function initializeServer() {
   app.post('/graphql', injectQuery);
 
   // link to query and variables
-  app.get('/getIds', function (req: any, res: any) {
+  app.get('/getIds', (req, res) => {
     res.json({
       queryId: res.get('X-Graphql-query-ID'),
       variablesId: res.get('X-Graphql-variables-ID'),
@@ -95,11 +94,13 @@ async function initializeServer() {
   app.get('/health', health);
 
   // add various supportive endpoints
-  // require('./api-utils/config')(app);
-  let controllers = glob.sync(__dirname + '/api-utils/**/*.ctrl.js');
-  controllers.forEach((controller: any) => {
-    require(controller)(app);
-  });
+  // require('./api-utils/config').default(app);
+  const controllers = glob.sync(`${__dirname}/api-utils/**/*.ctrl.js`);
+  await Promise.all(
+    controllers.map((controller) => async () => {
+      (await import(controller))(app);
+    }),
+  );
 
   await server.start();
   server.applyMiddleware({ app });
