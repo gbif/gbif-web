@@ -1,12 +1,12 @@
-const got = require('got');
-const { get, zipObject, difference } = require('lodash');
-const config = require('../../config').default;
-const { gql } = require('apollo-server');
-const hash = require('object-hash');
-const { getSchema } = require('#/helpers/enums');
+import got from 'got';
+import hash from 'object-hash';
+import { get, zipObject, difference } from 'lodash';
+import { gql } from 'apollo-server';
+import config from '#/config';
+import { getSchema } from '#/helpers/enums';
 
-const API_V1 = config.apiv1;
-const interval = get(config, 'healthUpdateFrequency.enums', 30000);
+const { apiv1: API_V1 } = config.gbif;
+const interval = get(config.gbif, 'healthUpdateFrequency.enums', 30000);
 let status = { status: 'ok', message: null, error: null };
 
 async function getEnumData(url) {
@@ -43,8 +43,8 @@ const getEnumDiffs = (current, prev, name) => {
   ];
 };
 
-function getChangeReport(currentVersionEnums) {
-  const prevVersionEnums = require('../../enums/enums.json');
+async function getChangeReport(currentVersionEnums) {
+  const prevVersionEnums = await import('#/helpers/enums/enums.json');
 
   if (
     hash(currentVersionEnums, { unorderedArrays: true }) !==
@@ -112,7 +112,7 @@ const schemaIsValid = (enums) => {
 async function update() {
   try {
     const enumMap = await loadEnums();
-    const changeReport = getChangeReport(enumMap);
+    const changeReport = await getChangeReport(enumMap);
     if (changeReport) {
       const validationReport = schemaIsValid(enumMap);
       status = {
@@ -136,9 +136,4 @@ const getEnumStatus = () => status;
 
 update();
 
-module.exports = {
-  getEnumStatus,
-  loadEnums,
-  schemaIsValid,
-  getEnumData,
-};
+export { getEnumStatus, loadEnums, schemaIsValid, getEnumData };
