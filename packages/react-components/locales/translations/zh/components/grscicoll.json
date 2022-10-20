@@ -21,7 +21,10 @@
   "city": "城市/乡镇",
   "country": "国家",
   "logoUrl": "标识logo",
+  "notes": " 备注",
   "specimensViaGbif": "与GBIF共享的标本",
+  "specimens": "标本",
   "identifiers": "标识符",
+  "unknownSize": "尺寸不详",
   "citesPermitNumber": "引用许可数量"
 }

@@ -21,7 +21,10 @@
   "city": "Ville",
   "country": "Pays",
   "logoUrl": "Logo",
+  "notes": "Notes",
   "specimensViaGbif": "Spécimens partagés avec le GBIF",
+  "specimens": "Spécimens",
   "identifiers": "Identifiants",
+  "unknownSize": "Taille inconnue",
   "citesPermitNumber": "Numéro de permis Cites"
 }
