@@ -1,12 +1,13 @@
-const commandLineArgs = require('command-line-args');
+import commandLineArgs from 'command-line-args';
+
 const cliOptions = [
   { name: 'params', alias: 'p', type: String, defaultValue: 'q' },
 ];
 const options = commandLineArgs(cliOptions);
 
 let paramString = '';
-options.params.split(',').forEach(y => {
-  let x = y.trim();
+options.params.split(',').forEach((y) => {
+  const x = y.trim();
   let type = 'String';
   if (x === 'country') type = 'Country';
   if (x === 'identifierType') type = 'IdentifierType';
