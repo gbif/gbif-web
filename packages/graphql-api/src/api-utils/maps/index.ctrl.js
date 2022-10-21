@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import { Router } from 'express';
 import { render } from 'mustache';
-// const satellite = require('./experiments/satellite');
+// import satellitefrom './experiments/satellite';
 // import maptilerSatellite from './experiments/maptilerSatellite';
 // import hillshade from './experiments/hillshade';
 // import positron from './experiments/positron';

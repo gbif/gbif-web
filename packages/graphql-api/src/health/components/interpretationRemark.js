@@ -84,8 +84,6 @@ const getChangeReport = async (current) => {
   return `${msg ? `${msg}; ` : ''}${diffs.join('; ')}`;
 };
 
-//   const prevVersionEnums = require("../../enums/enums.json");
-
 async function update() {
   try {
     const enumMap = await getLatestInterpretationRemark();

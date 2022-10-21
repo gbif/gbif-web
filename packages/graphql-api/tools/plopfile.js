@@ -1,7 +1,7 @@
-const path = require('path');
+import path from 'path';
 
 // Plop documentation https://plopjs.com/documentation/#getting-started
-module.exports = function (plop) {
+export default (plop) => {
   // create generators here
   plop.setGenerator('resource', {
     description: 'Add a new resource',
@@ -14,10 +14,10 @@ module.exports = function (plop) {
           if (typeof value === 'string' && value.length > 0) return true;
           return 'name is required';
         },
-      }
+      },
     ],
-    actions: function () {
-      var actions = [
+    actions: () => {
+      const actions = [
         {
           type: 'add',
           path: path.resolve(
@@ -41,32 +41,33 @@ module.exports = function (plop) {
         },
         {
           type: 'add',
-          path: path.resolve(
-            './src/resources/{{camelCase name}}/index.js',
-          ),
+          path: path.resolve('./src/resources/{{camelCase name}}/index.js'),
           templateFile: 'plop-templates/resources/index.hbs',
         },
         {
           type: 'modify',
           path: path.resolve('./src/typeDefs.js'),
-          pattern: /(\/\/ -- Add imports above this line \(required by plopfile\.js\) --)/gi,
+          pattern:
+            /(\/\/ -- Add imports above this line \(required by plopfile\.js\) --)/gi,
           template: `    require('./resources/{{camelCase name}}').typeDef,\r\n$1`,
         },
         {
           type: 'modify',
           path: path.resolve('./src/resolvers.js'),
-          pattern: /(\/\/ -- Add imports above this line \(required by plopfile\.js\) --)/gi,
+          pattern:
+            /(\/\/ -- Add imports above this line \(required by plopfile\.js\) --)/gi,
           template: `  require('./resources/{{camelCase name}}').resolver,\r\n$1`,
         },
         {
           type: 'modify',
           path: path.resolve('./src/dataSources.js'),
-          pattern: /(\/\/ -- Add imports above this line \(required by plopfile\.js\) --)/gi,
+          pattern:
+            /(\/\/ -- Add imports above this line \(required by plopfile\.js\) --)/gi,
           template: `  require('./resources/{{camelCase name}}').dataSource,\r\n$1`,
-        }
+        },
       ];
 
       return actions;
-    }
+    },
   });
 };
