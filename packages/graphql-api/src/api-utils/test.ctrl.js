@@ -1,10 +1,11 @@
-const express = require('express');
+import express from 'express';
+
 const router = express.Router();
 
-module.exports = function(app) {
-    app.use('/unstable-api', router);
+export default (app) => {
+  app.use('/unstable-api', router);
 };
 
-router.get('/test2', (req, res, next) => {
-    res.send('hej2');
+router.get('/test2', (req, res) => {
+  res.send('hej2');
 });

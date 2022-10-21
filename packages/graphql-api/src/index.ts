@@ -94,7 +94,6 @@ async function initializeServer() {
   app.get('/health', health);
 
   // add various supportive endpoints
-  // require('./api-utils/config').default(app);
   const controllers = glob.sync(`${__dirname}/api-utils/**/*.ctrl.js`);
   await Promise.all(
     controllers.map((controller) => async () => {
