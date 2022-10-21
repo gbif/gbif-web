@@ -2,7 +2,7 @@
  * This resource is from the directory API, which is not a public API.
  * Much of the data can be public though, but be cautious when adding new fields.
  */
-// const { ApolloError } = require('apollo-server');
+
 import { RESTDataSource } from 'apollo-datasource-rest';
 import { stringify } from 'qs';
 import pick from 'lodash/pick';

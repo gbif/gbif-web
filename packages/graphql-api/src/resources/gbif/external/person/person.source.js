@@ -1,5 +1,5 @@
 /* eslint-disable class-methods-use-this */
-// const { ApolloError } = require('apollo-server');
+
 import { RESTDataSource } from 'apollo-datasource-rest';
 
 function reduce(people) {

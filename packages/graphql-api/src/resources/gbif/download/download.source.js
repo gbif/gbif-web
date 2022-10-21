@@ -1,4 +1,3 @@
-// const { ApolloError } = require('apollo-server');
 import { RESTDataSource } from 'apollo-datasource-rest';
 
 class DownloadAPI extends RESTDataSource {

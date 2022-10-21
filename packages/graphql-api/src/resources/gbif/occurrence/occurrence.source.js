@@ -1,4 +1,3 @@
-// const { ApolloError } = require('apollo-server');
 import { RESTDataSource } from 'apollo-datasource-rest';
 
 const urlSizeLimit = 2000; // use GET for requests that serialized is less than N characters

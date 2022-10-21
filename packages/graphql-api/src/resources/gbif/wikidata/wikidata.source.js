@@ -1,5 +1,5 @@
 /* eslint-disable class-methods-use-this */
-// const { ApolloError } = require('apollo-server');
+
 import { get } from 'lodash';
 import { RESTDataSource } from 'apollo-datasource-rest';
 import wikibase from 'wikibase-sdk';

@@ -1,4 +1,3 @@
-// const { ApolloError } = require('apollo-server');
 import { RESTDataSource } from 'apollo-datasource-rest';
 import { stringify } from 'qs';
 import { getParsedName } from '#/helpers/scientificName';
