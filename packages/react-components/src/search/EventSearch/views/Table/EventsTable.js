@@ -3,15 +3,14 @@ import { MdFilterList } from "react-icons/md";
 import { FormattedMessage } from 'react-intl';
 import get from 'lodash/get';
 import SearchContext from '../../../SearchContext';
-import {Input, Button, Row, Col, DataTable, Th, Td, TBody, DetailsDrawer, Popover} from '../../../../components';
+import {Button, Row, Col, DataTable, Th, Td, TBody, DetailsDrawer, Popover} from '../../../../components';
 import { ResultsHeader } from '../../../ResultsHeader';
 import { useDialogState } from "reakit/Dialog";
 import { useUpdateEffect } from "react-use";
 import { EventSidebar } from "../../../../entities/EventSidebar/EventSidebar";
 import env from '../../../../../.env.json';
 import { FilterContext } from "../../../../widgets/Filter/state";
-import EventContext from "../../../SearchContext";
-import {filter2predicate} from "../../../../dataManagement/filterAdapter";
+import GraphQLApiLink from "../Api";
 
 const fallbackTableConfig = {
   columns: [{
@@ -38,8 +37,7 @@ export const EventsTable = ({ first, prev, next, size, from, results, total, loa
 
   // current result set
   const items = results || [];
-  // show api url copy link
-  const [visible, setVisible] = useState(false);
+
 
   useEffect(() => {
     if (activeEventID && activeDatasetKey) {
@@ -132,11 +130,7 @@ export const EventsTable = ({ first, prev, next, size, from, results, total, loa
       <Row>
         <Col><ResultsHeader loading={loading} total={total} /></Col>
         <Col align="right">
-          <Popover
-              trigger={ <Button onClick={() =>setVisible(true) }>API</Button>}
-              visible={visible}>
-            <EventGraphQLLink hide={() => setVisible(false)} queryId = {queryId}/>
-          </Popover>
+            <GraphQLApiLink queryId = {queryId} limit={size} offset={from}/>
         </Col>
       </Row>
 
@@ -151,52 +145,6 @@ export const EventsTable = ({ first, prev, next, size, from, results, total, loa
       </DataTable>
     </div>
   </>
-
-  function EventGraphQLLink ({hide, queryId}){
-
-    const currentFilterContext = useContext(FilterContext);
-    const { rootPredicate, predicateConfig } = useContext(EventContext);
-
-    let predicate = {
-      type: 'and',
-      predicates: [
-        rootPredicate,
-        filter2predicate(currentFilterContext.filter, predicateConfig)
-      ].filter(x => x)
-    };
-
-    const queryUrl = env.EVENT_GRAPH_API + "?queryId="+queryId + "&strict=true&variables=" + JSON.stringify({"predicate":predicate});
-
-    function copyUrl() {
-      const input = document.querySelector('input#eventGraghqlUrl');
-      if (navigator.clipboard) {
-        // navigator clipboard api method'
-        navigator.clipboard.writeText(input.value)
-            .then(() => {
-              document.querySelector('button#copyGraphqlUrl').innerHTML ="Copied"
-            })
-            .catch((error) => { alert( error) })
-      }
-    }
-    return <>
-      <div style={{ padding: "15px 30px 30px 30px" }}>
-        <h3>Event GraphQL service API </h3>
-        <hr/>
-        <Input type="text"
-               value={queryUrl}
-               id="eventGraghqlUrl"
-               readOnly />
-        <span className="input-group-btn">
-            <Button id="copyGraphqlUrl" onClick={copyUrl} >
-                Copy URL
-            </Button>
-        </span>
-        <hr/>
-        <Button onClick={() => hide()} look="primaryOutline">Close</Button>
-      </div>
-    </>
-  }
-
 }
 
 
