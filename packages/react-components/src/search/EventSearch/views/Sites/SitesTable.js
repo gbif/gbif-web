@@ -1,10 +1,11 @@
 import React, {useContext, useEffect, useState} from "react";
 import styles from './styles';
 import ThemeContext from "../../../../style/themes/ThemeContext";
-import {Button, DataTable, Skeleton} from "../../../../components";
+import {Button, Col, DataTable, Row, Skeleton} from "../../../../components";
 import {ResultsHeader} from "../../../ResultsHeader";
 import {css} from "@emotion/react";
 import * as style from "../List/style";
+import GraphQLApiLink from "../Api";
 
 function SitesSkeleton() {
   return <div css={style.datasetSkeleton}>
@@ -15,7 +16,7 @@ function SitesSkeleton() {
   </div>
 }
 
-export const SitesTable = ({ first, prev, next, size, from, results, total, loading, setSiteIDCallback }) => {
+export const SitesTable = ({ first, prev, next, size, from, results, total, loading, queryId, setSiteIDCallback }) => {
 
   const theme = useContext(ThemeContext);
   const [fixedColumn, setFixed] = useState(true);
@@ -118,9 +119,16 @@ export const SitesTable = ({ first, prev, next, size, from, results, total, load
       maxHeight: "100vh",
       flexDirection: "column",
     }}>
-      <ResultsHeader loading={loading} total={total}>
-          <Button onClick={() => toggle()} look="primaryOutline" css={css`margin-left: 30px; font-size: 11px;`}>Show year / month</Button>
-      </ResultsHeader>
+      <Row>
+        <Col>
+          <ResultsHeader loading={loading} total={total}>
+              <Button onClick={() => toggle()} look="primaryOutline" css={css`margin-left: 30px; font-size: 11px;`}>Show year / month</Button>
+          </ResultsHeader>
+        </Col>
+        <Col align="right">
+           <GraphQLApiLink queryId = {queryId} limit={size} offset={from}/>
+        </Col>
+      </Row>
       <DataTable fixedColumn={fixed} {...{ first, prev, next, size, from, total: total_no_points, loading }} style={{ flex: "1 1 auto", height: 100, display: 'flex', flexDirection: 'column' }}>
         <tbody>
         <tr  css={ styles.sites({ noOfSites: no_of_sites, noOfYears: no_of_years, showMonth: showMonth, theme }) }>

@@ -13,8 +13,9 @@ import { FilterContext } from "../../../../widgets/Filter/state";
 import { EventDatasetSidebar } from '../../../../entities';
 import { useDialogState } from "reakit/Dialog";
 import { useQueryParam, StringParam } from 'use-query-params';
+import  GraphQLApiLink from "../Api";
 
-export const List = ({ first, prev, next, size, from, data, total, loading }) => {
+export const List = ({ first, prev, next, size, from, data, total, loading, queryId }) => {
   const { filters, labelMap } = useContext(SearchContext);
   const dialog = useDialogState({ animated: true, modal: false });
   const [activeKey, setActiveKey] = useQueryParam('entity', StringParam);
@@ -68,6 +69,7 @@ export const List = ({ first, prev, next, size, from, data, total, loading }) =>
       <EventDatasetSidebar id={activeKey} defaultTab='details' style={{ maxWidth: '100%', width: 700, height: '100%' }} onCloseRequest={() => dialog.setVisible(false)} />
     </DetailsDrawer>}
     {/* <ResultsHeader loading={loading} total={total} /> */}
+    <Row><Col align="right"><GraphQLApiLink queryId = {queryId} limit={size} offset={from}/></Col></Row>
     <ul css={style.datasetList}>
       {datasets.map(x => <li style={{ marginBottom: 12 }} key={x.key}><Dataset {...x} datasetKey={x.key} filters={filters} onClick={() => { setActiveKey(x.key); }}/></li>)}
     </ul>

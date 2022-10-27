@@ -4,13 +4,14 @@ import EventContext from "../../../SearchContext";
 import {filter2predicate} from "../../../../dataManagement/filterAdapter";
 import env from "../../../../../.env.json";
 import {Row,Col,Button, Input, Popover} from "../../../../components";
+import {css} from "@emotion/react";
 
 function GraphQLApiLink({queryId,limit, offset}) {
     const [visible, setVisible] = useState(false);
 
     return <>
         <Popover
-            trigger={ <Button onClick={() =>setVisible(true) }>API</Button>}
+            trigger={ <Button onClick={() =>setVisible(true) } look="primaryOutline" css={css`margin-left: 30px; font-size: 11px;`}>API</Button>}
             visible={visible}>
             <CopyGraphQLLink hide={() => setVisible(false)} queryId = {queryId} limit={limit} offset={offset}/>
         </Popover>
@@ -18,6 +19,7 @@ function GraphQLApiLink({queryId,limit, offset}) {
 }
 
 function CopyGraphQLLink ({hide, queryId,limit,offset}){
+    const [copyButtonText, setCopyButtonText] = useState("Copy")
     const currentFilterContext = useContext(FilterContext);
     const { rootPredicate, predicateConfig } = useContext(EventContext);
 
@@ -38,31 +40,28 @@ function CopyGraphQLLink ({hide, queryId,limit,offset}){
     const queryUrl = env.EVENT_GRAPH_API + "?queryId="+queryId + "&strict=true&variables=" + JSON.stringify(predicate);
 
     function copyUrl() {
-        const input = document.querySelector('input#eventGraghqlUrl');
         if (navigator.clipboard) {
-            // navigator clipboard api method'
-            navigator.clipboard.writeText(input.value)
+            navigator.clipboard.writeText(queryUrl)
                 .then(() => {
-                    document.querySelector('button#copyGraphqlUrl').innerHTML ="Copied"
+                    setCopyButtonText("Copied")
                 })
                 .catch((error) => { alert( error) })
         }
     }
+
     return <>
         <div style={{ padding: "10px 10px 10px 10px" }}>
-            <h3>Event GraphQL service API </h3>
+            <Row><h3>GraphQL service API</h3></Row>
             <Row>
                 <Col><Input type="text"
                              value={queryUrl}
-                             id="eventGraghqlUrl"
                              readOnly />
-                </Col>
-                <Col><Button id="copyGraphqlUrl" onClick={copyUrl} >Copy</Button></Col>
+                </Col><Col>&nbsp;</Col>
+                <Col><Button onClick={copyUrl} >{copyButtonText}</Button></Col>
             </Row>
             <hr/>
-            <Button onClick={() => hide()}>Close</Button>
+            <Row><Col align="center"><Button onClick={() => hide()}>Close</Button></Col></Row>
         </div>
     </>
 }
-
 export default GraphQLApiLink

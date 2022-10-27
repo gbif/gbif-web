@@ -135,6 +135,7 @@ function Sites() {
         size={limit}
         results={data}
         total={data?.results?.temporal?.locationID?.cardinality}
+        queryId={ hash(QUERY) }
         setSiteIDCallback={ setActiveSiteID }
     />
   </>

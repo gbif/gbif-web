@@ -130,10 +130,9 @@ export const EventsTable = ({ first, prev, next, size, from, results, total, loa
       <Row>
         <Col><ResultsHeader loading={loading} total={total} /></Col>
         <Col align="right">
-            <GraphQLApiLink queryId = {queryId} limit={size} offset={from}/>
+            <GraphQLApiLink queryId = {queryId} limit={size} offset={from} />
         </Col>
       </Row>
-
 
       <DataTable fixedColumn={fixed} {...{ first, prev, next, size, from, total, loading }} style={{ flex: "1 1 auto", height: 100, display: 'flex', flexDirection: 'column' }}>
         <thead>
