@@ -59,6 +59,7 @@ function PredicateDataFetcher({graphQuery, graph, resultKey, offsetName = 'from'
   return <>
     <Presentation
       {...props}
+      queryId = {hash(graphQuery)}
       error={error}
       loading={loading}
       data={data}
@@ -69,6 +70,7 @@ function PredicateDataFetcher({graphQuery, graph, resultKey, offsetName = 'from'
       from={offset}
       total={total}
       results={results}
+
       {...componentProps}
     />
   </>
