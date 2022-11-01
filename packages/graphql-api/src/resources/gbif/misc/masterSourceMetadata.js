@@ -1,6 +1,4 @@
-
-
-const { gql } = require('apollo-server');
+import { gql } from 'apollo-server';
 
 const typeDef = gql`
 type MasterSourceMetadata {
@@ -12,4 +10,4 @@ type MasterSourceMetadata {
 }
 `;
 
-module.exports = typeDef;
+export default { typeDef };
