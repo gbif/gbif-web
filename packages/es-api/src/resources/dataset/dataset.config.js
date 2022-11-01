@@ -232,7 +232,7 @@ const config =
     },
     projectId: {
       type: 'keyword',
-      field: 'projectId'
+      field: 'project.identifier'
     },
     province: {
       type: 'keyword',

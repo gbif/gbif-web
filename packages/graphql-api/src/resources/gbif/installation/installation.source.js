@@ -4,7 +4,12 @@ import { stringify } from 'qs';
 class InstallationAPI extends RESTDataSource {
   constructor(config) {
     super();
-    this.baseURL = config.gbif.apivg;
+    this.baseURL = config.gbif.apiv1;
+  }
+
+  willSendRequest(request) {
+    request.headers.set('User-Agent', this.context.userAgent);
+    request.headers.set('referer', this.context.referer);
   }
 
   async searchInstallations({ query }) {

@@ -173,8 +173,8 @@ const config = {
       type: 'keyword',
       field: 'id'
     },
-    'identifiers.doi': {
-      type: 'nested',
+    doi: {
+      type: 'flatNested',
       field: 'identifiers',
       config: {
         prefix: 'identifiers',
@@ -184,13 +184,6 @@ const config = {
             field: 'doi'
           }
         }
-      },
-      get: {
-        type: 'delimted',
-        delimter: '__',
-        termOrder: [
-          'doi',
-        ]
       }
     },
     identifiers: {

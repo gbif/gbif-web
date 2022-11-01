@@ -9,5 +9,8 @@
   "altmetric": "Altmetria",
   "registered": "Registado",
   "hostedDatasets": "Conjuntos de dados alojados",
-  "pubDatasets": "Conjuntos de dados publicados"
+  "pubDatasets": "Conjuntos de dados publicados",
+  "institution": "Instituição",
+  "collection": "Coleção",
+  "collectionCount": "Coleções"
 }

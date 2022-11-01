@@ -18,7 +18,7 @@ export const defaultContext = {
     isHref: true,
     route: '/collection/search'
   },
-  collectionSpecimens: {
+  collectionKeySpecimens: {
     url: ({key}) => `/collection/${key}/specimens`,
     isHref: true,
   },
@@ -28,6 +28,16 @@ export const defaultContext = {
     url: ({key}) => `${gbifOrg}/grscicoll/institution/${key}`,
     isHref: true,
     route: '/institution/:key'
+  },
+  institutionKeySpecimens: {
+    url: ({key}) => `${gbifOrg}/grscicoll/institution/${key}`,
+    isHref: false,
+    route: '/institution/:key/specimens'
+  },
+  institutionKeyCollections: {
+    url: ({key}) => `/collections`,
+    isHref: false,
+    route: '/institution/:key/collections'
   },
   institutionSearch: {
     url: ({queryString, basename}) => `${basename ? `/${basename}` : ''}/institution/search`,

@@ -76,13 +76,14 @@ addDecorator(storyFn => {
     <div>
       <SiteContext.Provider value={siteConfig}>
         <ApiContext.Provider value={client}>
-          <LocaleProvider locale={chooseLocale(
-            select(
-              'Choose locale',
-              locales,
-              env.STORYBOOK_LOCALE || locales[0],
-            ),
-          )} >
+          <LocaleProvider
+            locale={chooseLocale(
+              select(
+                'Choose locale',
+                locales,
+                env.STORYBOOK_LOCALE || locales[0],
+              ),
+            )}>
             <ThemeContext.Provider
               value={chooseTheme(
                 select(
@@ -92,7 +93,7 @@ addDecorator(storyFn => {
                 ),
               )}
             >
-              <Root id="application" appRoot style={{padding: 0}} dir={chooseRtl(
+              <Root id="application" appRoot style={{ padding: 0 }} dir={chooseRtl(
                 select(
                   'Choose Direction',
                   ['ltr', 'rtl'],

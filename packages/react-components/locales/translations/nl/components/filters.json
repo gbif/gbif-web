@@ -4,6 +4,16 @@
     "count": "",
     "description": ""
   },
+  "collectionKey": {
+    "name": "Verzameling",
+    "count": "{num, plural, one {# verzameling } other {# verzamelingen}}",
+    "description": "De verzameling in GrSciColl dit record werd gekoppeld met"
+  },
+  "numberSpecimens": {
+    "name": "Aantal specimens",
+    "count": "",
+    "description": "Het aantal beschikbare specimens zoals vermeld in de beschrijving. Dit nummer geeft niet weer hoeveel records gedigitaliseerd en gedeeld zijn."
+  },
   "taxonKey": {
     "name": "Wetenschappelijke naam",
     "count": "",
@@ -234,6 +244,11 @@
     "name": "Is onderdeel van een cluster",
     "count": "",
     "description": "Of er automatisch verwante gegevens zijn gevonden."
+  },
+  "active": {
+    "name": "Actief",
+    "count": "Actief",
+    "description": ""
   },
   "datasetType": {
     "name": "",

@@ -2,10 +2,10 @@
 import { jsx } from '@emotion/react';
 import ThemeContext from '../../style/themes/ThemeContext';
 import React, { useContext } from 'react';
-import { Tooltip as TooltipContent, TooltipReference, useTooltipState } from "reakit/Tooltip";
+import { Tooltip as TooltipContent, TooltipReference, TooltipArrow, useTooltipState } from "reakit/Tooltip";
 import PropTypes from 'prop-types';
 // import { oneOfMany } from '../../utils/util';
-import styles from './styles';
+import * as styles from './styles';
 
 // export function Tooltip({
 //   as: Div = 'div',
@@ -28,7 +28,8 @@ export function Tooltip({ children, title, placement, ...props }) {
         {(referenceProps) => React.cloneElement(children, referenceProps)}
       </TooltipReference>
       <TooltipContent {...tooltip} {...props} css={styles.tooltip({theme})}>
-        {title}
+        <TooltipArrow {...tooltip} css={styles.tooltipArrow}/>
+        <div>{title}</div>
       </TooltipContent>
     </>
   );

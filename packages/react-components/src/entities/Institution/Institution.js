@@ -1,9 +1,8 @@
 
-import React, { useContext, useState, useEffect } from 'react';
-import ThemeContext from '../../style/themes/ThemeContext';
+import React, { useEffect } from 'react';
 import { useQuery } from '../../dataManagement/api';
 import { InstitutionPresentation } from './InstitutionPresentation';
-
+import merge from 'lodash/merge';
 import { MemoryRouter, useRouteMatch } from 'react-router-dom';
 
 function EnsureRouter({children}) {
@@ -23,11 +22,11 @@ export function Institution({
   ...props
 }) {
   const { data, error, loading, load } = useQuery(INSTITUTION, { lazyLoad: true });
-  const theme = useContext(ThemeContext);
+  const { data: slowData, error: slowError, loading: slowLoading, load: slowLoad } = useQuery(SLOW_QUERY, { lazyLoad: true });
 
   useEffect(() => {
     if (typeof id !== 'undefined') {
-      load({
+      const query = {
         variables: {
           key: id,
           predicate: {
@@ -36,25 +35,39 @@ export function Institution({
             value: id
           }
         }
-      });
+      };
+      load(query);
+      slowLoad(query);
     }
   }, [id]);
 
+  let mergedData = data ? merge({}, data, slowData) : data;
+
   return <EnsureRouter>
-    <InstitutionPresentation {...{ data, error, loading: loading || !data, id }} />
+    <InstitutionPresentation {...{ data: mergedData, error, loading, id }} />
   </EnsureRouter>
 };
 
-const INSTITUTION = `
+const SLOW_QUERY = `
 query institution($key: String!, $predicate: Predicate){
   occurrenceSearch(predicate: $predicate) {
     documents(size: 0) {
       total
     }
-    cardinality {
-      recordedBy
+  }
+  institution(key: $key) {
+    key
+    collections(limit: 200) {
+      key
+      occurrenceCount
+      richness
     }
   }
+}
+`;
+
+const INSTITUTION = `
+query institution($key: String!){
   institution(key: $key) {
     key
     code
@@ -82,20 +95,40 @@ query institution($key: String!, $predicate: Predicate){
     numberSpecimens
     indexHerbariorumRecord
     logoUrl
+    citesPermitNumber
+
+    masterSourceMetadata {
+      key
+      source
+      sourceId
+    }
+
+    created
+    deleted
+    modified
+    modifiedBy
+    replacedByInstitution {
+      name
+      key
+    }
 
     identifiers {
       identifier
+      type
     }
-    contacts {
+    contactPersons {
       key
       firstName
       lastName
-      position
-      areaResponsibility
-      researchPursuits
       phone
       email
-      fax
+      taxonomicExpertise
+      primary
+      position
+      userIds {
+        type
+        id
+      }
     }
     numberSpecimens
     
@@ -112,6 +145,15 @@ query institution($key: String!, $predicate: Predicate){
       province
       postalCode
       country
+    }
+    collections(limit: 200) {
+      key
+      excerpt
+      code
+      name
+      active
+      numberSpecimens
+      richness
     }
   }
 }

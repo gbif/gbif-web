@@ -1,12 +1,13 @@
 
-import { jsx } from '@emotion/react';
+import { jsx, css } from '@emotion/react';
 import React, { useContext } from 'react';
 import ThemeContext from '../../../style/themes/ThemeContext';
-import * as css from './styles';
+import * as styles from './styles';
 import * as cssCollection from '../styles';
-// import { Properties } from "../../../components";
+import { ListItem } from "../../../components";
 import { Collectors } from './collectors';
 import { join } from '../../../utils/util';
+import { MdMailOutline as MailIcon, MdPhone as PhoneIcon } from 'react-icons/md';
 
 import sortBy from 'lodash/sortBy';
 import {
@@ -15,6 +16,8 @@ import {
   NavLink,
   useRouteMatch,
 } from "react-router-dom";
+
+const Name2Avatar = ListItem.Name2Avatar;
 
 export function People({
   collection,
@@ -26,14 +29,14 @@ export function People({
   const theme = useContext(ThemeContext);
 
   const test = 'collection';
-  return <div css={css.people({ theme })}>
-    <nav css={css.nav({ theme })}>
+  return <div css={styles.people({ theme })}>
+    <nav css={styles.nav({ theme })}>
       <ul>
         <li>
-          <NavLink to={url} exact activeClassName="isActive" css={css.navItem({ theme })}>Staff<span css={cssCollection.tabCountChip()}>{collection.contacts?.length}</span></NavLink>
+          <NavLink to={url} exact activeClassName="isActive" css={styles.navItem({ theme })}>Staff<span css={cssCollection.tabCountChip()}>{collection.contactPersons?.length}</span></NavLink>
         </li>
         <li>
-          <NavLink to={join(url, '/agents')} activeClassName="isActive" css={css.navItem({ theme })}>Collectors and identifiers<span css={cssCollection.tabCountChip()}>{recordedByCardinality}</span></NavLink>
+          <NavLink to={join(url, '/agents')} activeClassName="isActive" css={styles.navItem({ theme })}>Collectors and identifiers<span css={cssCollection.tabCountChip()}>{recordedByCardinality}</span></NavLink>
         </li>
       </ul>
     </nav>
@@ -46,20 +49,45 @@ export function People({
         </Route>
 
         <Route path={path}>
-          {collection?.contacts?.length === 0 && <div>
+          {collection?.contactPerons?.length === 0 && <div>
             There is no staff associated with this record. You can change that. <a herf="">Learn more</a>
           </div>}
-          <div css={css.staffList({ theme })}>
-            {sortBy(collection.contacts, 'position').map(contact => {
+
+          {collection?.contactPersons?.length > 0 && <div css={css`
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: -12px;
+            > div {
+              flex: 1 1 auto;
+              width: calc(50% - 24px);
+              max-width: 400px;
+              min-width: 300px;
+              margin: 12px;
+            }
+          `}>
+            {sortBy(collection.contactPersons, 'position').map(contact => {
+              let actions = [];
+              if (contact.email?.[0]) actions.push(<a href={`mailto:${contact.email?.[0]}`}><MailIcon />{contact.email?.[0]}</a>);
+              if (contact.phone?.[0]) actions.push(<a href={`tel:${contact.phone?.[0]}`}><PhoneIcon />{contact.phone?.[0]}</a>);
+              return <ListItem
+                key={contact.key}
+                isCard
+                title={`${contact.firstName || ''} ${contact.lastName || ''}`}
+                avatar={<Name2Avatar first={contact.firstName} last={contact.lastName} />}
+                description={contact.position?.[0]}
+                footerActions={actions}>
+                {contact.researchPursuits}
+              </ListItem>
+            })}
+          </div>}
+
+          {/* <div css={css.staffList({ theme })}>
+            {sortBy(collection.contactPersons, 'position').map(contact => {
               return <article css={css.person({ theme })}>
-                {/* <div css={css.staffImage({ theme })}>
-                  <JazzIcon seed={contact.email || contact.key} />
-                </div> */}
                 <div css={css.staffDesc({ theme })}>
                   <a href={`staff/${contact.key}`}><h4>{contact.firstName} {contact.lastName}</h4></a>
                   <div css={css.staffPosition({ theme })}>{contact.position}</div>
                   {contact.researchPursuits && <div>Research pursuits: {contact.researchPursuits}</div>}
-                  {/* <div>Associated with <a href="/staff/123">3 collections</a></div> */}
                 </div>
                 <div css={css.staffContact({ theme })}>
                   <div>
@@ -67,11 +95,11 @@ export function People({
                     {contact.phone && <div>{contact.phone}</div>}
                     {contact.fax && <div>{contact.fax}</div>}
                   </div>
-                  {/* <Button as="a" href="/staff/123">More</Button> */}
                 </div>
               </article>
             })}
-          </div>
+          </div> */}
+          
         </Route>
       </Switch>
     </div>

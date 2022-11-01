@@ -109,6 +109,11 @@ class FilterState extends React.Component {
   }
 
   render() {
+    const hashObj = {
+      must: this.props.filter?.must || {},
+      must_not: this.props.filter?.must_not || {},
+    };
+    const filterHash = hash(hashObj);
     const contextValue = {
       setField: this.setField, // updates a single field
       setFullField: this.setFullField, // updates a single field both must and must_not. Ugly hack as I couldn't get it to work begint to calls. The problem is that the filter isn't updated between the two calls in the event loop and hence the first update is ignored
@@ -118,7 +123,7 @@ class FilterState extends React.Component {
       toggle: this.toggle,
       negateField: this.negateField,
       filter: this.props.filter,
-      filterHash: hash(this.props.filter || {})
+      filterHash
     };
     return (
       <Context.Provider value={contextValue}>

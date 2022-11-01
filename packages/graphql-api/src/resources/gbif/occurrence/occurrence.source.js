@@ -19,7 +19,9 @@ class OccurrenceAPI extends RESTDataSource {
     // }
 
     // now that we make a public version, we might as well just make it open since the key is shared with everyone
-    request.headers.set('Authorization', `ApiKey-v1 ${this.config.apiEsKey}`);
+    request.headers.set('Authorization', `ApiKey-v1 ${apiEsKey}`);
+    request.headers.set('User-Agent', this.context.userAgent);
+    request.headers.set('referer', this.context.referer);
   }
 
   async searchOccurrenceDocuments({ query }) {

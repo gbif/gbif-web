@@ -11,7 +11,7 @@ import RouteContext from '../../../dataManagement/RouteContext';
 export const CollectorsPresentation = ({ size, search, loadMore, loading, data, error }) => {
   const routeContext = useContext(RouteContext);
   let history = useHistory();
-  const url = routeContext.collectionSpecimens.url({key: '42844cb6-421e-4bcf-bdeb-c56039bee08c'});
+  const url = routeContext.collectionKeySpecimens.url({key: '42844cb6-421e-4bcf-bdeb-c56039bee08c'});
   console.log(url);
   const [q, setQ] = useState('');
   const theme = useContext(ThemeContext);

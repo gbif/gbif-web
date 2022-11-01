@@ -311,7 +311,14 @@ const typeDef = gql`
     dataset: Dataset
     institution: Institution
     collection: Collection
+    """
+    Volatile: these values are tightly coupled to the webview and are likely to change frequently
+    """
     bionomia: BionomiaOccurrence
+    """
+    Volatile: these values are tightly coupled to the webview and are likely to change frequently
+    """
+    hasTaxonIssues: Boolean
   }
 
   type BionomiaOccurrence {
@@ -346,7 +353,7 @@ const typeDef = gql`
     publishingOrgKey: ID
     publishingOrgName: String
     datasetKey: ID
-    datasetName: String
+    datasetName: [String]
     occurrenceID: String
     catalogNumber: String
   }

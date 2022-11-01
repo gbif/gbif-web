@@ -1,5 +1,11 @@
 {
   "nResults": "{total, plural, one {# result} other {# results}}",
+  "nOccurrences": "{total, plural, one {# occurrence} other {# occurrences}}",
+  "nRecords": "{total, plural, one {# record} other {# records}}",
+  "nSpecimensInGbif": "{total, plural, one {# specimen in GBIF} other {# specimens in GBIF}}",
+  "inGbif": "{total, plural, one {# in GBIF} other {# in GBIF}}",
+  "nSpecimens": "{total, plural, one {# specimen} other {# specimens}}",
+  "nCollections": "{total, plural, one {# collection} other {# collections}}",
   "nRecordsTotal": "{total, plural, one {# record in total} other {# records in total}}",
   "nSelected": "{total, plural, other {# selected}}",
   "nQualityFlags": "{total, plural, one {# quality flag} other {# quality flags}}",

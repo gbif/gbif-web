@@ -9,6 +9,11 @@ class TaxonAPI extends RESTDataSource {
     this.config = config.gbif;
   }
 
+  willSendRequest(request) {
+    request.headers.set('User-Agent', this.context.userAgent);
+    request.headers.set('referer', this.context.referer);
+  }
+
   async searchTaxa({ query }) {
     const response = await this.get(
       '/species/search',

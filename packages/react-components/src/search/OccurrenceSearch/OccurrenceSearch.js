@@ -23,6 +23,7 @@ import defaultFilterConfig from './config/filterConf';
 import pick from 'lodash/pick';
 import pickBy from 'lodash/pickBy';
 import without from 'lodash/without';
+import merge from 'lodash/merge';
 import { tableConfig } from './config/tableConfig';
 
 function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, customConfig }, context) {
@@ -35,7 +36,7 @@ function buildConfig({ labelConfig, getSuggestConfig, filterWidgetConfig, custom
   const mergedFilters = { ...filterWidgetConfig, ...customFilters };
   const suggestConfigMap = getSuggestConfig({ context, suggestStyle, rootPredicate: customConfig.rootPredicate });
   const suggestConfigMapCustom = getSuggests({ client: context.client, suggestStyle });
-  const mergedSuggest = { ...suggestConfigMap, ...suggestConfigMapCustom };
+  const mergedSuggest = merge(suggestConfigMap, suggestConfigMapCustom);
   const labelMap = config2labels(mergedLabels, context.client, context.localeSettings);
   const filters = filterBuilder({ filterWidgetConfig: mergedFilters, labelMap, suggestConfigMap: mergedSuggest, context });
 

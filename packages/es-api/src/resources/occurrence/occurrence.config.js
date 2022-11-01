@@ -468,7 +468,7 @@ const config =
     },
     "preparations": {
       "type": "keyword",
-      "field": "occurrence.preparations"
+      "field": "preparations.keyword"
     },
     "programmeAcronym": {
       "type": "keyword",

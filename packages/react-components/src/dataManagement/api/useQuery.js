@@ -33,7 +33,8 @@ function useQuery(query, options = {}) {
   function load(options) {
     init(options);
     const variables = options?.variables;
-    const { promise: dataPromise, cancel } = client.query({query, variables, graph });
+    const queue = options?.queue;
+    const { promise: dataPromise, cancel } = client.query({query, variables, graph, queue});
     // functions cannot be direct values in states as function are taken as a way to create derived states
     // https://medium.com/swlh/how-to-store-a-function-with-the-usestate-hook-in-react-8a88dd4eede1
     setCancel(() => cancel);

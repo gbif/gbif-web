@@ -18,3 +18,8 @@ Build a static storybook version with `npm run build-storybook`
 
 Run it with `npx http-server /storybook-static`.
 Notice that `serve` instead of `http-server` doesn't really work. The previews do not show then.
+
+## Attribution
+
+**Icons**
+<a href="https://www.flaticon.com/free-icons/empty-state" title="empty state icons">Empty state icons created by Freepik - Flaticon</a>

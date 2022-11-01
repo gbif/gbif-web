@@ -9,5 +9,8 @@
   "altmetric": "另類計量學",
   "registered": "已註冊",
   "hostedDatasets": "代管的資料集",
-  "pubDatasets": "已發布的資料集"
+  "pubDatasets": "已發布的資料集",
+  "institution": "機構",
+  "collection": "蒐藏集",
+  "collectionCount": "蒐藏集"
 }

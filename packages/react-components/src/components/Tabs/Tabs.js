@@ -4,10 +4,9 @@ import { jsx } from '@emotion/react';
 import ThemeContext from '../../style/themes/ThemeContext';
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { oneOfMany } from '../../utils/util';
 import * as styles from './styles';
 import { uncontrollable } from 'uncontrollable';
-
+import { Tooltip } from '../Tooltip/Tooltip';
 import { Link, useRouteMatch } from "react-router-dom";
 
 export const TabsContext = React.createContext({});
@@ -61,6 +60,8 @@ export const RouterTab = ({
   label, 
   to,
   exact,
+  tooltip,
+  tooltipPlacement = 'bottom',
   className,
   ...props
 }) => {
@@ -69,8 +70,10 @@ export const RouterTab = ({
     path: to,
     exact: exact
   });
+  const content = <Link to={to} {...props}>{label}</Link>;
   return <li css={styles.routerTab({ theme, isActive, direction })} className={className}>
-    <Link to={to} {...props}>{label}</Link>
+    {!tooltip && content}
+    {tooltip && <Tooltip title={tooltip} placement={tooltipPlacement}>{content}</Tooltip>}
   </li>
 };
 

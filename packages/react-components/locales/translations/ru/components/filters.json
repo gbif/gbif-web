@@ -4,6 +4,16 @@
     "count": "",
     "description": ""
   },
+  "collectionKey": {
+    "name": "Коллекция",
+    "count": "",
+    "description": ""
+  },
+  "numberSpecimens": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "taxonKey": {
     "name": "Латинское название",
     "count": "",
@@ -233,6 +243,11 @@
   "isInCluster": {
     "name": "",
     "count": "",
+    "description": ""
+  },
+  "active": {
+    "name": "Действующая",
+    "count": "Действующая",
     "description": ""
   },
   "datasetType": {

@@ -1,8 +1,11 @@
 {
   "loading": "loading",
   "loadError": "Failed to load",
+  "unknown": "Unknown",
   "close": "Close",
   "citation": "Citation",
   "citeAs": "Please cite as",
+  "deletedOnDate": "Deleted on {date}",
+  "replacedBy": "Replaced by {newItem}",
   "unknownDate": "Unknown date"
 }

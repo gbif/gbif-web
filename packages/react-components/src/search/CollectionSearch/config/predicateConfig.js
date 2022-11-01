@@ -2,10 +2,11 @@ import { filters } from './filterConf';
 
 const filterConf = {
   fields: {
-    country: {
+    countrySingleGrSciColl: {
+      defaultKey: 'country',
       singleValue: true
     },
-    institutionKey: {
+    institutionKeySingle: {
       defaultKey: 'institution',
       singleValue: true
     },
@@ -24,6 +25,16 @@ const filterConf = {
     code: {
       singleValue: true
     },
+    active: {
+      singleValue: true,
+      transformValue: x => x === 'true'
+    },
+    numberSpecimens: {
+      singleValue: true,
+      v1: {
+        supportedTypes: ['range', 'equals']
+      }
+    }
   }
 }
 

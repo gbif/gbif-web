@@ -13,12 +13,12 @@ class ApiClient {
     };
   }
 
-  query({ query, variables, graph = 'DEFAULT' }) {
+  query({ query, variables, queue, graph = 'DEFAULT' }) {
     const client = this.graphs[graph];
     if (!client) {
       return console.error('No configuration has been provided to the GraphQLClient');
     }
-    return queryGraphQl(query, { variables, client });
+    return queryGraphQl(query, { variables, client }, queue);
   }
 
   get(url, options) {

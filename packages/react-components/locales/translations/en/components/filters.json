@@ -4,6 +4,16 @@
     "count": "{num, plural, one { DWCA extension } other {# DWCA extensions}}",
     "description": "A short description of the component should be placed here"
   },
+  "collectionKey": {
+    "name": "Collection",
+    "count": "{num, plural, one {# collection } other {# collections}}",
+    "description": "The collection in GrSciColl this record was matched to"
+  },
+  "numberSpecimens": {
+    "name": "Number of specimens",
+    "count": "{num, plural, one { specimen count } other {# Specimen counts filters}}",
+    "description": "The number of held specimens stated in the description. This number does not reflect how many records have been digitized and shared."
+  },
   "taxonKey": {
     "name": "Scientific name",
     "count": "{num, plural, one {scientific name} other {# scientific names}}",
@@ -177,7 +187,7 @@
   },
   "identifiedById": {
     "name": "Identified by ID",
-    "count": "{num, plural, one { identified by ID } other {# identified by IDs}}",
+    "count": "{num, plural, one { identified by id } other {identified by #}}",
     "description": "The identifier for the person, people, groups or organizations responsible for determining the scientific name of the organism."
   },
   "occurrenceId": {
@@ -227,13 +237,18 @@
   },
   "identifiedBy": {
     "name": "Identified by",
-    "count": "{num, plural, one { identified by } other {# identified bys}}",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}",
     "description": "The person, people, groups or organizations responsible for determining the scientific name of the Organism."
   },
   "isInCluster": {
     "name": "Is in cluster",
     "count": "{num, plural, one { is in cluster } other {# are in clusters}}",
     "description": "Whether the record was determined to have related records."
+  },
+  "active": {
+    "name": "Active",
+    "count": "Active",
+    "description": "Whether or not the institution or collection is still active"
   },
   "datasetType": {
     "name": "Dataset type",

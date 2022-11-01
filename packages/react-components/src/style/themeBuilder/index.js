@@ -16,6 +16,7 @@ const build = theme => {
 
   fullTheme.transparentInk40 = `${fullTheme.color}40`;
   fullTheme.transparentInk60 = `${fullTheme.color}60`;
+  fullTheme.transparentInk10 = `${fullTheme.color}10`;
   fullTheme.transparentInk20 = `${fullTheme.color}20`;
   fullTheme.transparentInk80 = `${fullTheme.color}80`;
   fullTheme.transparentInk50 = `${fullTheme.color}50`;

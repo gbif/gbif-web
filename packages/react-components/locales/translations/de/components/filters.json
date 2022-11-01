@@ -4,6 +4,16 @@
     "count": "{num, plural, one { DwCA-Erweiterung } other {# DwCA-Erweiterungen}}",
     "description": "Bezeichner für die Sammlung, zu der das usprüngliche Objekt gehört."
   },
+  "collectionKey": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "numberSpecimens": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "taxonKey": {
     "name": "Wissenschaftlicher Name",
     "count": "{num, plural, one {wissenschaftlicher Name} other {# wissenschaftliche Namen}}",
@@ -234,6 +244,11 @@
     "name": "Ist Teil eines Clusters",
     "count": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
     "description": "Gibt an, ob der Datensatz mit einem oder mehreren anderen Datensätzen gruppiert wurde."
+  },
+  "active": {
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "datasetType": {
     "name": "Art des Datasets",

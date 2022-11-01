@@ -15,7 +15,9 @@ const typeDef = gql`
       country: Country
       alternativeCode: String
       active: Boolean
-    ): CollectionSearchResults
+      numberSpecimens: String
+      displayOnNHCPortal: Boolean
+      ): CollectionSearchResults
     collection(key: String!): Collection
   }
 
@@ -36,7 +38,7 @@ const typeDef = gql`
     active: Boolean
     personalCollection: Boolean
     doi: String
-    email: [EmailAddress]
+    email: [String]
     phone: [String]
     homepage: URL
     catalogUrl: URL
@@ -52,9 +54,15 @@ const typeDef = gql`
     created: DateTime
     modified: DateTime
     deleted: DateTime
-    tags: [Tag]
+    replacedBy: ID
+    replacedByCollection: Collection
+    tags:[Tag]
     identifiers: [Identifier]
+    """
+    The contacts type is deprecated and will no longer be updated
+    """
     contacts: [StaffMember]
+    contactPersons: [ContactPerson]!
     indexHerbariorumRecord: Boolean
     numberSpecimens: Int
     machineTags: [MachineTag]
@@ -68,6 +76,8 @@ const typeDef = gql`
     comments: Comment
 
     occurrenceCount: Int
+    excerpt: String
+    richness: Float
   }
 
   type AlternativeCode {

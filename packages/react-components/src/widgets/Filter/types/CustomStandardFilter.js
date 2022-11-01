@@ -36,7 +36,6 @@ export const FilterContent = ({ config, translations, LabelFromID, hide, labelle
       id={translations.description || `filters.${filterHandle}.description`}
       defaultMessage={translations.description}
     />}
-    supportsExist={config.supportsExist}
     onFilterChange={onFilterChange}
     filterName={filterHandle}
     formId={id}

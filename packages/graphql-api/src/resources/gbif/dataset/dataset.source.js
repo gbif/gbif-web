@@ -7,6 +7,11 @@ class DatasetAPI extends RESTDataSource {
     this.baseURL = config.gbif.apiv1;
   }
 
+  willSendRequest(request) {
+    request.headers.set('User-Agent', this.context.userAgent);
+    request.headers.set('referer', this.context.referer);
+  }
+
   async searchDatasets({ query }) {
     const response = await this.get(
       '/dataset/search',

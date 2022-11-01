@@ -28,15 +28,20 @@ query table($predicate: Predicate, $size: Int = 20, $from: Int = 0){
       from
       results {
         key
+        taxonKey
         gbifClassification{
+          verbatimScientificName
           usage {
             rank
             formattedName
+            key
           }
         }
         year
-        basisOfRecord
+				basisOfRecord
+        datasetKey
         datasetTitle
+        publishingOrgKey
         publisherTitle
         countryCode
         formattedCoordinates
@@ -54,6 +59,18 @@ query table($predicate: Predicate, $size: Int = 20, $from: Int = 0){
         soundCount
         typeStatus
         issues
+        hasTaxonIssues
+
+        institution {
+          name
+          key
+          code
+        }
+        collection {
+          name
+          key
+          code
+        }
         
         volatile {
           features {

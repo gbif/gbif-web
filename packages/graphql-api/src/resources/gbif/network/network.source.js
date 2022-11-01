@@ -7,6 +7,11 @@ class NetworkAPI extends RESTDataSource {
     this.baseURL = config.gbif.apiv1;
   }
 
+  willSendRequest(request) {
+    request.headers.set('User-Agent', this.context.userAgent);
+    request.headers.set('referer', this.context.referer);
+  }
+
   async searchNetworks({ query }) {
     return this.get('/network', stringify(query, { indices: false }));
   }

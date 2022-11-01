@@ -1,4 +1,5 @@
 /* eslint-disable no-param-reassign */
+import _ from 'lodash';
 import { getGlobe } from '#/helpers/globe';
 import {
   getFacet,
@@ -93,6 +94,32 @@ export default {
           : null,
       };
     },
+    occurrenceClusterSearch: (parent, {predicate, ...query}, { dataSources }) => {
+      // custom cluster search
+      let nodes = [];
+      let links = [];
+      return dataSources.occurrenceAPI.searchOccurrenceDocuments({
+        query: { predicate: {
+          type: 'and',
+          predicates: [
+            {
+              type: 'equals',
+              key: 'isInCluster',
+              value: true
+            },
+            predicate
+          ]
+        },
+        ...query
+      }
+      }).then(response => {
+        console.log(response);
+        return {
+          nodes: [],
+          links: [{ source: 'hej', target: 'goddag' }]
+        }
+      });
+    },
     occurrence: (parent, { key }, { dataSources }) =>
       dataSources.occurrenceAPI.getOccurrenceByKey({ key }),
     globe: (parent, { cLat, cLon, pLat, pLon, sphere, graticule, land }) => {
@@ -183,6 +210,9 @@ export default {
       return dataSources.occurrenceAPI
         .getVerbatim({ key: occurrence.key })
         .then((verbatim) => groupResolver({ occurrence, verbatim }));
+    },
+    hasTaxonIssues: ({issues = []}, args, { dataSources }) => {
+      return _.intersection(issues, ['TAXON_MATCH_FUZZY', 'TAXON_MATCH_HIGHERRANK', 'TAXON_MATCH_AGGREGATE', 'TAXON_MATCH_NONE']).length > 0;
     },
     terms: (occurrence, args, { dataSources }) => {
       return dataSources.occurrenceAPI
@@ -352,14 +382,14 @@ export default {
   },
   OccurrenceFacetResult_institution: {
     institution: ({ key }, args, { dataSources }) => {
-      if (typeof key === 'undefined') return null;
+      if (!key) return null;
       return dataSources.institutionAPI.getInstitutionByKey({ key });
     },
     occurrences: facetOccurrenceSearch,
   },
   OccurrenceFacetResult_collection: {
     collection: ({ key }, args, { dataSources }) => {
-      if (typeof key === 'undefined') return null;
+      if (!key) return null;
       return dataSources.collectionAPI.getCollectionByKey({ key });
     },
     occurrences: facetOccurrenceSearch,

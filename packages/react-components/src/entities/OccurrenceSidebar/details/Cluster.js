@@ -36,7 +36,7 @@ export function Cluster({
 
   return <div style={{ padding: '12px 16px' }}>
     <Header data={data} />
-    <main style={{ marginTop: 24 }}>
+    <div style={{ marginTop: 24 }}>
       {related.map(x => {
         if (x.occurrence) {
           return <RelatedOccurrence key={x.occurrence.key} onClick={e => setActiveKey(x.occurrence.key)} related={x.occurrence} reasons={x.reasons} original={data.occurrence} />;
@@ -46,7 +46,8 @@ export function Cluster({
             <div>
               <Properties style={{ marginTop: 12 }} horizontal dense>
                 <T style={{color: 'white'}}>Publisher</T><V>{x.stub.publishingOrgName}</V>
-                <T style={{color: 'white'}}>Dataset</T><V>{x.stub.datasetName}</V>
+                {/* We can no longer show the original dataset name as the API has been changed.  */}
+                {/* <T style={{color: 'white'}}>Dataset</T><V>{x.stub.datasetName}</V> */}
                 {x.stub.catalogNumber && <><T style={{color: 'white'}}>Catalog number</T><V>{x.stub.catalogNumber}</V></>}
                 {x.stub.occurrenceID && <><T style={{color: 'white'}}>Occurrence ID</T><V>{x.stub.occurrenceID}</V></>}
               </Properties>
@@ -54,7 +55,7 @@ export function Cluster({
           </div>
         }
       })}
-    </main>
+    </div>
   </div>
 };
 
@@ -93,7 +94,7 @@ export function RelatedOccurrence({ original, reasons, related, ...props }) {
       <Col grow={false} shrink={false}>
         <div >
           {related?.primaryImage?.identifier && <Image style={{ width: 150, height: 150, display: 'block' }} src={related.primaryImage.identifier} w={180} h={180} />}
-          {!related?.primaryImage?.identifier && related.coordinates && <img style={{ width: 150, height: 150, display: 'block' }} src={`https://api.mapbox.com/styles/v1/mapbox/light-v9/static/pin-s-circle+285A98(${related.coordinates.lon},${related.coordinates.lat})/${related.coordinates.lon},${related.coordinates.lat},8,0/180x180@2x?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA`} />}
+          {!related?.primaryImage?.identifier && related?.coordinates?.lat && <img style={{ width: 150, height: 150, display: 'block' }} src={`https://api.mapbox.com/styles/v1/mapbox/light-v9/static/pin-s-circle+285A98(${related.coordinates.lon},${related.coordinates.lat})/${related.coordinates.lon},${related.coordinates.lat},8,0/180x180@2x?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA`} />}
         </div>
       </Col>
     </Row>
@@ -119,7 +120,6 @@ query occurrence($key: ID!){
           publishingOrgKey
           publishingOrgName
           datasetKey
-          datasetName
         }
         occurrence {
           key

@@ -10,5 +10,9 @@
   "registered": "Registered",
   "hostedDatasets": "Hosted datasets",
   "pubDatasets": "Published datasets",
-  "species": "Number of species"
+  "species": "Number of species",
+  "institution": "Institution",
+  "collection": "Collection",
+  "collectionCount": "Collections",
+  "active": "Is active"
 }

@@ -6,7 +6,7 @@ export class QueryError extends Error {
     this.graphQLErrors = graphQLErrors || [];
     this.networkError = networkError || null;
     this.isCanceled = isCanceled || false;
-
+    
     // Generate an error message based on errors if no explicit message is provided
     const generateErrorMessage = err => {
       let message = '';
@@ -30,5 +30,19 @@ export class QueryError extends Error {
     };
 
     this.message = message ? message : generateErrorMessage(this);
+    
+    let errorMap = {};
+    if (isArray(graphQLErrors)) {
+      graphQLErrors.forEach(graphQLError => {
+        const where = (graphQLError?.path || []).join('.');
+        const status = graphQLError.extensions.response.status || 500;
+        const message = graphQLError.message;
+        errorMap[where] = {
+          where, status, message
+        }
+      });
+    }
+
+    this.errorPaths = errorMap;
   }
 }

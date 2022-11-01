@@ -78,8 +78,8 @@ if (literature) {
   app.post('/literature/meta', asyncMiddleware(postMetaOnly(literature)));
   app.get('/literature/meta', asyncMiddleware(getMetaOnly(literature)));
 
-  app.post('/literature', queue(queueOptions), temporaryAuthMiddleware, asyncMiddleware(searchResource(literature)));
-  app.get('/literature', queue(queueOptions), temporaryAuthMiddleware, asyncMiddleware(searchResource(literature)));
+  app.post('/literature', queue(queueOptions), asyncMiddleware(searchResource(literature)));
+  app.get('/literature', queue(queueOptions), asyncMiddleware(searchResource(literature)));
   app.get('/literature/key/:id', asyncMiddleware(keyResource(literature)));
 }
 if (occurrence) {

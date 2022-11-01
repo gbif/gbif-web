@@ -78,7 +78,12 @@ const filters = {
 }
 
 
-const config = { labels, getSuggests, filters };
+const config = {
+  labels,
+  getSuggests,
+  filters,
+  availableCatalogues: ['INSTITUTION', 'COLLECTION', 'OCCURRENCE']
+};
 
 export const Example = () => <Router initialEntries={[`/institution/search`]}>
   <QueryParamProvider ReactRouterRoute={Route}>
@@ -91,4 +96,10 @@ Example.story = {
   name: 'Institution search',
 };
 
-export const StandaloneExample = () => <Standalone style={{height: 'calc(100vh - 20px)'}}></Standalone>;
+export const StandaloneExample = () => <Standalone siteConfig={{
+  routes: {
+    institutionSearch: {
+      route: '/',
+    }
+  },
+}} style={{ height: 'calc(100vh - 20px)' }}></Standalone>;

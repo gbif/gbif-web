@@ -51,6 +51,7 @@ export default [
   'organismQuantity',
   'organismQuantityType',
   'parentEventId',
+  'preparations',
   'programmeAcronym',
   'projectId',
   'protocol',

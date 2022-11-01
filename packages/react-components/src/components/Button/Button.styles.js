@@ -51,12 +51,49 @@ export const text = theme => css`
   font-weight: inherit;
   background: none;
   border-radius: 0;
+  cursor: pointer;
+`;
+
+export const textHoverLinkColor = theme => css`
+  color: inherit;
+  cursor: pointer;
+  height: auto;
+  line-height: inherit;
+  &:hover {
+    color: ${theme.primary500};
+  }
+`;
+
+export const textHover = theme => css`
+  padding: 0;
+  border: none;
+  height: auto;
+  color: inherit;
+  line-height: inherit;
+  font-weight: inherit;
+  background: none;
+  border-radius: 0;
+  cursor: pointer;
+
+  border: 1px solid transparent;
+  border-radius: ${theme.borderRadius}px;
+  box-shadow: none;
+  margin: 0 -4px;
+  padding: 1px 4px;
+  &:hover {
+    background-color: ${theme.primary500};
+    border-color: ${theme.primary600};
+    color: white;
+    * {
+      color: white;
+    }
+  }
 `;
 
 export const primary = theme => css`
   background-color: ${theme.primary500};
   border-color: ${theme.primary600};
-  color: white;
+  color: white!important;
   &:not([aria-disabled="true"]) {
     &:hover {
       color: white;
@@ -75,7 +112,7 @@ export const primary = theme => css`
 export const primaryOutline = (theme) => css`
   border-color: ${theme.primary600};
   background: none;
-  color: ${theme.primary700};
+  color: ${theme.primary700}!important;
 `;
 
 export const outline = (theme) => css`

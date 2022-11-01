@@ -69,6 +69,23 @@ export const commonFilters = {
       }
     }
   },
+  countrySingleGrSciColl: {
+    type: 'SUGGEST',
+    config: {
+      std: {
+        id2labelHandle: 'countryCode',
+        translations: {
+          count: 'filters.occurrenceCountry.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.occurrenceCountry.name',// translation path to a title for the popover and the button
+          description: 'filters.occurrenceCountry.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        suggestHandle: 'countryCode',
+        singleSelect: true
+      }
+    }
+  },
   countriesOfCoverage: {
     type: 'SUGGEST',
     config: {
@@ -196,6 +213,7 @@ export const commonFilters = {
       },
       specific: {
         suggestHandle: 'institutionCode',
+        supportsExist: true,
       }
     }
   },
@@ -683,7 +701,8 @@ export const commonFilters = {
         },
       },
       specific: {
-        placeholder: 'Search by collection code'
+        placeholder: 'Search by collection code',
+        supportsExist: true,
       }
     }
   },
@@ -1075,6 +1094,24 @@ export const commonFilters = {
       }
     }
   },
+  active: {
+    type: 'ENUM',
+    config: {
+      std: {
+        filterHandle: 'active',
+        id2labelHandle: 'yesNo',
+        translations: {
+          count: 'filters.active.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.active.name',// translation path to a title for the popover and the button
+          description: 'filters.active.description', // translation path for the filter description
+        }
+      },
+      specific: {
+        options: ['true', 'false'],
+        isRadio: true
+      }
+    }
+  },
   datasetType: {
     type: 'ENUM',
     config: {
@@ -1124,6 +1161,45 @@ export const commonFilters = {
       specific: {
         suggestHandle: 'institutionKey',
         id2labelHandle: 'institutionKey',
+        supportsExist: true,
+      }
+    }
+  },
+  collectionKey: {
+    type: 'SUGGEST',
+    config: {
+      std: {
+        filterHandle: 'collectionKey',
+        id2labelHandle: 'collectionKey',
+        translations: {
+          count: 'filters.collectionKey.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.collectionKey.name',// translation path to a title for the popover and the button
+          description: 'filters.collectionKey.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        suggestHandle: 'collectionKey',
+        id2labelHandle: 'collectionKey',
+        supportsExist: true,
+      }
+    }
+  },
+  institutionKeySingle: {
+    type: 'SUGGEST',
+    config: {
+      std: {
+        filterHandle: 'institutionKeySingle',
+        id2labelHandle: 'institutionKey',
+        translations: {
+          count: 'filters.institutionKey.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.institutionKey.name',// translation path to a title for the popover and the button
+          description: 'filters.institutionKey.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        suggestHandle: 'institutionKey',
+        id2labelHandle: 'institutionKey',
+        singleSelect: true
       }
     }
   },
@@ -1284,6 +1360,24 @@ export const commonFilters = {
       }
     }
   },
+  numberSpecimens: {
+    type: 'NUMBER_RANGE',
+    config: {
+      std: {
+        filterHandle: 'numberSpecimens',
+        id2labelHandle: 'numberSpecimens',
+        translations: {
+          count: 'filters.numberSpecimens.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.numberSpecimens.name',// translation path to a title for the popover and the button
+          description: 'filters.numberSpecimens.description', // translation path for the filter description
+        }
+      },
+      specific: {
+        placeholder: 'Range or single value',
+        singleSelect: true
+      }
+    }
+  },
   measurementOrFactTypes: {
     type: 'KEYWORD_SEARCH', // SIMPLE_TEXT
     config: {
@@ -1356,14 +1450,14 @@ export const commonFilters = {
     type: 'SUGGEST',
     config: {
       std: {
-      filterHandle: 'locationId',
-      id2labelHandle: 'locationId',
-      translations: {
-        count: 'filters.locationId.count', // translation path to display names with counts. e.g. "3 scientific names"
-        name: 'filters.locationId.name',// translation path to a title for the popover and the button
-        description: 'filters.locationId.description', // translation path for the filter description
+        filterHandle: 'locationId',
+        id2labelHandle: 'locationId',
+        translations: {
+          count: 'filters.locationId.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.locationId.name',// translation path to a title for the popover and the button
+          description: 'filters.locationId.description', // translation path for the filter description
+        },
       },
-    },
       specific: {
         supportsExist: true,
         suggestHandle: 'eventLocationId',

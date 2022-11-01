@@ -4,6 +4,16 @@
     "count": "{num, plural, one { extensión DWCA } other {# extensiones DWCA}}",
     "description": "Aquí debe colocarse una breve descripción del componente"
   },
+  "collectionKey": {
+    "name": "Colección",
+    "count": "{num, plural, one {# colección } other {# colecciones}}",
+    "description": "La colección en GrSciColl este registro es coincidente con"
+  },
+  "numberSpecimens": {
+    "name": "Número de especímenes",
+    "count": "",
+    "description": "El número de especímenes reportados que se indican en la descripción. Este número no refleja cuántos registros han sido digitalizados y compartidos."
+  },
   "taxonKey": {
     "name": "Nombre científico",
     "count": "{num, plural, one {nombre científico} other {# nombres científicos}}",
@@ -234,6 +244,11 @@
     "name": "Está en una agrupación",
     "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
     "description": "Si se determinó que el registro tenía registros relacionados."
+  },
+  "active": {
+    "name": "Activo",
+    "count": "Activo",
+    "description": ""
   },
   "datasetType": {
     "name": "Tipo de conjunto de datos",

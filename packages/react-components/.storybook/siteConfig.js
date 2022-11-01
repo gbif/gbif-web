@@ -3,41 +3,49 @@ import env from '../.env.json';
 const routeConfig = {
   occurrenceSearch: {
     url: ({ queryString }) => {
-      return `iframe.html?id=search-occurrencesearch--example&viewMode=story`;
+      return `/?path=/story/search-occurrencesearch--example&viewMode=story`;
     },
     isHref: true,
-    route: '/',
+    route: '/occurrence/search',
   },
 
   collectionKey: {
     route: '/',
     isHref: true,
     url: ({ key }) => {
-      return `/iframe.html?id=entities-collection-page--example&viewMode=story&knob-collectionUUID=${key}`;
+      return `/?path=/story/entities-collection-page--example&knob-collectionUUID=${key}`;
     }
   },
   collectionSearch: {
     // url: () => `/collection/`,
     url: ({ queryString, basename }) => {
-      return `/iframe.html?id=search-collectionsearch--example&viewMode=story`;
+      return `/?path=/story/search-collectionsearch--example`;
     },
     isHref: true,
     route: '/collection/search',
   },
-  collectionSpecimens: {
+  collectionKeySpecimens: {
     url: ({ key }) => `/collection/${key}/specimens`
   },
 
   institutionKey: {
     isHref: true,
     url: ({ key }) => {
-      return `/iframe.html?id=entities-institution-page--example&viewMode=story&knob-institutionUUID=${key}`;
+      return `/?path=/story/entities-institution-page--example&knob-institutionUUID=${key}`;
     }
+  },
+  institutionKeySpecimens: {
+    url: ({key}) => `/specimens`,
+    isHref: false,
+  },
+  institutionKeyCollections: {
+    url: ({key}) => `/collections`,
+    isHref: false,
   },
   institutionSearch: {
     // url: () => `/institution/`,
     url: ({ queryString }) => {
-      return `/iframe.html?id=search-institutionsearch--example&viewMode=story`;
+      return `/?path=/story/search-institutionsearch--example&viewMode=story`;
     },
     isHref: true,
     route: '/institution/search',
@@ -126,21 +134,21 @@ export const siteConfig = {
     },
     // addMapStyles: function ({ mapStyleServer, language, pixelRatio, apiKeys, mapComponents }) {
     //   return {
-    //     BRIGHT_MERCATOR_TEST: {
+    //     MERCATOR_TOWNS: {
     //       component: mapComponents.OpenlayersMap,
-    //       labelKey: 'My custom map',
+    //       labelKey: 'Towns',
     //       mapConfig: {
-    //         basemapStyle: `klokantech`,
+    //         basemapStyle: `http://localhost:3001/assets/map-styles/cities.json`,
     //         projection: 'EPSG_3857'
     //       }
     //     }
     //   }
     // },
-    styleLookup: {
-      MERCATOR: {
-        // BRIGHT: 'BRIGHT_MERCATOR_TEST',
-        NATURAL: 'NATURAL_HILLSHADE_MERCATOR'
-      }
-    }
+    // styleLookup: {
+    //   MERCATOR: {
+    //     BRIGHT: 'MERCATOR_TOWNS',
+    //     NATURAL: 'NATURAL_HILLSHADE_MERCATOR'
+    //   }
+    // }
   }
 };

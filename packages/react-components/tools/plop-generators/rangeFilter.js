@@ -26,9 +26,9 @@ module.exports = {
         filterHandle: '{{camelCase name}}',
         id2labelHandle: '{{camelCase name}}',
         translations: {
-          count: 'filter.{{camelCase name}}.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.{{camelCase name}}.name',// translation path to a title for the popover and the button
-          description: 'filter.{{camelCase name}}.description', // translation path for the filter description
+          count: 'filters.{{camelCase name}}.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.{{camelCase name}}.name',// translation path to a title for the popover and the button
+          description: 'filters.{{camelCase name}}.description', // translation path for the filter description
         }
       },
       specific: {
@@ -37,26 +37,26 @@ module.exports = {
     }
   },\r\n  $1`,
       },
+    //   {
+    //     type: 'modify',
+    //     path: path.resolve('./locales/source/en-developer/components/intervals.json'),
+    //     pattern: /(\/\/ -- Add interval above this line \(required by plopfile\.js\) --)/gi,
+    //     template: `{{camelCase name}}: {
+    //   between: '{{sentenceCase name}} {from} to {to}',
+    //   lt: '{{sentenceCase name}} below {to}',
+    //   gt: '{{sentenceCase name}} above {from}',
+    //   e: '{{sentenceCase name}} is {from}',
+    // },\r\n    $1`,
+    //   },
       {
         type: 'modify',
-        path: path.resolve('./src/locales/en.js'),
-        pattern: /(\/\/ -- Add interval above this line \(required by plopfile\.js\) --)/gi,
-        template: `{{camelCase name}}: {
-      between: '{{sentenceCase name}} {from} to {to}',
-      lt: '{{sentenceCase name}} below {to}',
-      gt: '{{sentenceCase name}} above {from}',
-      e: '{{sentenceCase name}} is {from}',
-    },\r\n    $1`,
-      },
-      {
-        type: 'modify',
-        path: path.resolve('./src/locales/en.js'),
-        pattern: /(\/\/ -- Add filter above this line \(required by plopfile\.js\) --)/gi,
-        template: `{{camelCase name}}: {
-      name: '{{sentenceCase name}}',
-      count: '{num, plural, one { {{sentenceCase name}} } other {# {{sentenceCase name}}s}}',
-      description: 'A short description of the component should be placed here'
-    },\r\n    $1`,
+        path: path.resolve('./locales/source/en-developer/components/filters.json'),
+        pattern: /("taxonKey": {)/gi, // since it is a json file we need to look for existing keys and not a comment
+        template: `"{{camelCase name}}": {
+          "name": "{{sentenceCase name}}",
+          "count": "{num, plural, one { {{sentenceCase name}} } other {# {{sentenceCase name}}s}}",
+          "description": "A short description of the component should be placed here"
+        },\r\n  $1`,
       },
       {
         type: 'modify',

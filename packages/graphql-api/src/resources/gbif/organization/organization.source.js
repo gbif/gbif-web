@@ -7,6 +7,11 @@ class OrganizationAPI extends RESTDataSource {
     this.baseURL = config.gbif.apiv1;
   }
 
+  willSendRequest(request) {
+    request.headers.set('User-Agent', this.context.userAgent);
+    request.headers.set('referer', this.context.referer);
+  }
+
   async searchOrganizations({ query }) {
     return this.get('/organization', stringify(query, { indices: false }));
   }

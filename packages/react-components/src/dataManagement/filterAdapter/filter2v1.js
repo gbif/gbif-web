@@ -77,7 +77,7 @@ function serializeValue({value, config, filterName, errors}) {
   }
 
 
-  if (typeof value === 'string' || typeof value === 'number') {
+  if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
     return value;
   } else if (typeof value === 'object' && value !== null) {
     //serlialize object if known type

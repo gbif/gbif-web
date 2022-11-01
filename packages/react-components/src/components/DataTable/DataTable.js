@@ -94,6 +94,7 @@ class DataTableCore extends Component {
             onScroll={this.bodyScroll}
             ref={this.myRef}
           >
+            {loading && <div css={styles.loaderOverlay({theme})}></div>}
             <table
               css={styles.table({ theme, stickyColumn: fixedColumn, scrolled: this.state.scrolled && fixedColumn })}
             >

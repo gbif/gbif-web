@@ -5,10 +5,20 @@
     "description": "A short description of the component should be placed here"
   },
   "locationId": {
-  "name": "Location ID",
-  "count": "{num, plural, one { Location ID } other {# Location IDs}}",
-  "description": "Publishers can choose to assign IDs to the location. This field is not normalised, meaning that you search data as provided by the publisher."
-},
+    "name": "Location ID",
+    "count": "{num, plural, one { Location ID } other {# Location IDs}}",
+    "description": "Publishers can choose to assign IDs to the location. This field is not normalised, meaning that you search data as provided by the publisher."
+  },
+  "collectionKey": {
+    "name": "Collection",
+    "count": "{num, plural, one { collection } other {# collection}}",
+    "description": "The collection in GrSciColl this record was matched to"
+  },
+  "numberSpecimens": {
+    "name": "Number of specimens",
+    "count": "{num, plural, one { specimen count } other {# Specimen counts filters}}",
+    "description": "The number of held specimens stated in the description. This number does not say anything about how many records have been digitized and shared."
+  },
   "taxonKey": {
     "name": "Scientific name",
     "count": "{num, plural, one {scientific name} other {# scientific names}}",
@@ -182,7 +192,7 @@
   },
   "identifiedById": {
     "name": "Identified by id",
-    "count": "{num, plural, one { identified by id } other {# identified by ids}}",
+    "count": "{num, plural, one { identified by id } other {identified by #}}",
     "description": "The identifier for the people, groups, or organizations responsible for determining the scientific name of the Organism."
   },
   "occurrenceId": {
@@ -267,13 +277,18 @@
   },
   "identifiedBy": {
     "name": "Identified by",
-    "count": "{num, plural, one { Identified by } other {# Identified bys}}",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}",
     "description": "The people, groups, or organizations responsible for determining the scientific name of the Organism."
   },
   "isInCluster": {
     "name": "Is in cluster",
     "count": "{num, plural, one { Is in cluster } other {# Is in clusters}}",
     "description": "Whether the record was determined to have related records."
+  },
+  "active": {
+    "name": "Active",
+    "count": "Active",
+    "description": "Whether or not the institution or collection is still active"
   },
   "datasetType": {
     "name": "Dataset type",

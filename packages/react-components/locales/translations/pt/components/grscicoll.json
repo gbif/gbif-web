@@ -1,0 +1,17 @@
+{
+  "geographicDescription": "Descrição geográfica",
+  "taxonomicDescription": "Descrição taxonómica",
+  "additionalNames": "Nomes adicionais",
+  "description": "Descrição",
+  "code": "Código",
+  "apiUrl": "URL para os Serviços Web da Coleção",
+  "homepage": "Página inicial",
+  "email": "Email",
+  "mailingAddress": "Endereço de e-mail",
+  "contacts": "Contatos",
+  "address": "Morada",
+  "country": "País",
+  "logoUrl": "Logotipo",
+  "identifiers": "Identificadores",
+  "citesPermitNumber": "Número da autorização Cites"
+}

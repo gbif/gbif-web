@@ -7,6 +7,11 @@ class CollectionAPI extends RESTDataSource {
     this.baseURL = config.gbif.apiv1;
   }
 
+  willSendRequest(request) {
+    request.headers.set('User-Agent', this.context.userAgent);
+    request.headers.set('referer', this.context.referer);
+  }
+
   async searchCollections({ query }) {
     return this.get(
       '/grscicoll/collection',
@@ -18,10 +23,8 @@ class CollectionAPI extends RESTDataSource {
     return this.get(`/grscicoll/collection/${key}`);
   }
 
-  async getCollectionsByInstitutionKey({ key }) {
-    return this.get('/grscicoll/collection', { institution: key }).then(
-      (res) => res.results,
-    );
+  async getCollectionsByInstitutionKey({ key, limit = 20, offset = 0 }) {
+    return this.get('/grscicoll/collection', { institution: key, limit, offset }).then(res => res.results);
   }
 
   /*

@@ -3,5 +3,8 @@
   "occurrences": "تكرارات",
   "title": "عنوان",
   "registered": "مُسجَّل",
-  "pubDatasets": "مجموعات البيانات المنشورة"
+  "pubDatasets": "مجموعات البيانات المنشورة",
+  "institution": "مؤسسة",
+  "collection": "مجموعة",
+  "collectionCount": "مجموعات"
 }

@@ -7,6 +7,7 @@ export const filters = [
   'institutionCode',
   'catalogNumber',
   'hostingOrganizationKey',
+  'networkKey',
   'year',
   'basisOfRecord',
   'typeStatus',
@@ -41,6 +42,7 @@ export const filters = [
   'identifiedBy',
   'isInCluster',
   'institutionKey',
+  'collectionKey',
   'q',
   'verbatimScientificName',
   'dwcaExtension'

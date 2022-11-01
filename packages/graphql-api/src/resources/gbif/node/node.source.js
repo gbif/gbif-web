@@ -7,6 +7,11 @@ class NodeAPI extends RESTDataSource {
     this.baseURL = config.gbif.apiv1;
   }
 
+  willSendRequest(request) {
+    request.headers.set('User-Agent', this.context.userAgent);
+    request.headers.set('referer', this.context.referer);
+  }
+
   async searchNodes({ query }) {
     return this.get('/node', stringify(query, { indices: false }));
   }
