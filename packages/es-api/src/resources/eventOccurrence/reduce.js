@@ -17,7 +17,7 @@ function removeUndefined(obj) {
  * https://github.com/gbif/gbif-web/issues/109
  */
 function vocabularFallback(obj) {
-  if (obj && typeof obj === 'object' && obj.concept) {
+    if (typeof obj === 'object' && obj != null && obj.concept) {
     return obj.concept;
   } else {
     return obj;

@@ -3,48 +3,48 @@ const config =
   options: {
     "q": {
       "type": "text",
-      "field": "all",
+      "field": "occurrence.all",
       "get": {
         "type": "fuzzy"
       }
     },
     "amplificationItems": {
-      "field": "amplificationItems",
+      "field": "occurrence.amplificationItems",
       "discarded": true
     },
     "australiaSpatialLayers": {
-      "field": "australiaSpatialLayers",
+      "field": "occurrence.australiaSpatialLayers",
       "discarded": true
     },
     "basisOfRecord": {
       "type": "keyword",
-      "field": "basisOfRecord"
+      "field": "occurrence.basisOfRecord"
     },
     "catalogNumber": {
       "type": "keyword",
-      "field": "catalogNumber.keyword",
+      "field": "occurrence.catalogNumber.keyword",
       "suggestField": "catalogNumber.suggest"
     },
     "isInCluster": {
       "type": "boolean",
-      "field": "isClustered"
+      "field": "occurrence.isClustered"
     },
     "collectionCode": {
       "type": "keyword",
-      "field": "collectionCode.keyword",
+      "field": "occurrence.collectionCode.keyword",
       "suggestField": "collectionCode.suggest"
     },
     "collectionKey": {
       "type": "keyword",
-      "field": "collectionKey"
+      "field": "occurrence.collectionKey"
     },
     "continent": {
       "type": "keyword",
-      "field": "continent"
+      "field": "occurrence.continent"
     },
     "coordinatePrecision": {
       "type": "numeric",
-      "field": "coordinatePrecision",
+      "field": "occurrence.coordinatePrecision",
       "get": {
         "type": "range_or_term",
         "defaultUpperBound": "gte",
@@ -53,7 +53,7 @@ const config =
     },
     "coordinateUncertaintyInMeters": {
       "type": "numeric",
-      "field": "coordinateUncertaintyInMeters",
+      "field": "occurrence.coordinateUncertaintyInMeters",
       "get": {
         "type": "range_or_term",
         "defaultUpperBound": "gte",
@@ -61,27 +61,27 @@ const config =
       }
     },
     "coordinates": {
-      "field": "coordinates",
+      "field": "occurrence.coordinates",
       "discarded": true
     },
     // "country": {
     //   "type": "text",
-    //   "field": "country",
+    //   "field": "occurrence.country",
     //   "get": {
     //     "type": "fuzzy"
     //   }
     // },
     "country": {
       "type": "keyword",
-      "field": "countryCode"
+      "field": "occurrence.countryCode"
     },
     "countryCode": {
       "type": "keyword",
-      "field": "countryCode"
+      "field": "occurrence.countryCode"
     },
     "crawlId": {
       "type": "numeric",
-      "field": "crawlId",
+      "field": "occurrence.crawlId",
       "get": {
         "type": "range_or_term",
         "defaultUpperBound": "gte",
@@ -90,7 +90,7 @@ const config =
     },
     "created": {
       "type": "date",
-      "field": "created",
+      "field": "occurrence.created",
       "get": {
         "type": "range_or_term",
         "defaultUpperBound": "gte",
@@ -99,28 +99,28 @@ const config =
     },
     "datasetID": {
       "type": "keyword",
-      "field": "datasetID"
+      "field": "occurrence.datasetID"
     },
     "datasetKey": {
       "type": "keyword",
-      "field": "datasetKey"
+      "field": "occurrence.datasetKey"
     },
     "datasetName": {
       "type": "keyword",
-      "field": "datasetName.keyword",
+      "field": "occurrence.datasetName.keyword",
       "suggestField": "datasetName.suggest"
     },
     "datasetPublishingCountry": {
       "type": "keyword",
-      "field": "datasetPublishingCountry"
+      "field": "occurrence.datasetPublishingCountry"
     },
     "datasetTitle": {
       "type": "keyword",
-      "field": "datasetTitle"
+      "field": "occurrence.datasetTitle"
     },
     "dateIdentified": {
       "type": "date",
-      "field": "dateIdentified",
+      "field": "occurrence.dateIdentified",
       "get": {
         "type": "range_or_term",
         "defaultUpperBound": "gte",
@@ -129,7 +129,7 @@ const config =
     },
     "day": {
       "type": "numeric",
-      "field": "day",
+      "field": "occurrence.day",
       "get": {
         "type": "range_or_term",
         "defaultUpperBound": "gte",
@@ -138,7 +138,7 @@ const config =
     },
     "decimalLatitude": {
       "type": "numeric",
-      "field": "decimalLatitude",
+      "field": "occurrence.decimalLatitude",
       "get": {
         "type": "range_or_term",
         "defaultUpperBound": "gte",
@@ -147,7 +147,7 @@ const config =
     },
     "decimalLongitude": {
       "type": "numeric",
-      "field": "decimalLongitude",
+      "field": "occurrence.decimalLongitude",
       "get": {
         "type": "range_or_term",
         "defaultUpperBound": "gte",
@@ -156,7 +156,7 @@ const config =
     },
     "depth": {
       "type": "numeric",
-      "field": "depth",
+      "field": "occurrence.depth",
       "get": {
         "type": "range_or_term",
         "defaultUpperBound": "gte",
@@ -165,7 +165,7 @@ const config =
     },
     "depthAccuracy": {
       "type": "numeric",
-      "field": "depthAccuracy",
+      "field": "occurrence.depthAccuracy",
       "get": {
         "type": "range_or_term",
         "defaultUpperBound": "gte",
@@ -174,11 +174,11 @@ const config =
     },
     "dwcaExtension": {
       "type": "keyword",
-      "field": "extensions"
+      "field": "occurrence.extensions"
     },
     "elevation": {
       "type": "numeric",
-      "field": "elevation",
+      "field": "occurrence.elevation",
       "get": {
         "type": "range_or_term",
         "defaultUpperBound": "gte",
@@ -187,7 +187,7 @@ const config =
     },
     "elevationAccuracy": {
       "type": "numeric",
-      "field": "elevationAccuracy",
+      "field": "occurrence.elevationAccuracy",
       "get": {
         "type": "range_or_term",
         "defaultUpperBound": "gte",
@@ -196,7 +196,7 @@ const config =
     },
     "endDayOfYear": {
       "type": "numeric",
-      "field": "endDayOfYear",
+      "field": "occurrence.endDayOfYear",
       "get": {
         "type": "range_or_term",
         "defaultUpperBound": "gte",
@@ -205,37 +205,58 @@ const config =
     },
     "endorsingNodeKey": {
       "type": "keyword",
-      "field": "endorsingNodeKey"
+      "field": "occurrence.endorsingNodeKey"
     },
     "establishmentMeans": {
       "type": "keyword",
-      "field": "establishmentMeans.concept"
+      "field": "occurrence.establishmentMeans.concept"
     },
     // "eventDate": {
-    //   "field": "eventDate",
+    //   "field": "occurrence.eventDate",
     //   "discarded": true
     // },
     "eventDate": {
       "type": "date",
-      "field": "eventDateSingle",
+      "field": "occurrence.eventDateSingle",
       "get": {
         "type": "range_or_term",
         "defaultUpperBound": "gte",
         "defaultLowerBound": "lte"
       }
     },
+    "eventID": {
+      "type": "keyword",
+      "field": "occurrence.eventId.keyword",
+      "suggestField": "eventId.suggest"
+    },
     "eventId": {
       "type": "keyword",
-      "field": "eventId.keyword",
+      "field": "occurrence.eventId.keyword",
       "suggestField": "eventId.suggest"
+    },
+    "eventHierarchy": {
+      "type": "keyword",
+      "field": "occurrence.eventHierarchy",
+    },
+    "eventHierarchyJoined": {
+      "type": "keyword",
+      "field": "occurrence.eventHierarchyJoined",
+    },
+    "eventTypeHierarchy": {
+      "type": "keyword",
+      "field": "occurrence.eventTypeHierarchy",
+    },
+    "eventTypeHierarchyJoined": {
+      "type": "keyword",
+      "field": "occurrence.eventTypeHierarchyJoined",
     },
     "gadmGid": {
       "type": "keyword",
-      "field": "gadm.gids"
+      "field": "occurrence.gadm.gids"
     },
     "key": {
       "type": "numeric",
-      "field": "gbifId",
+      "field": "occurrence.gbifId",
       "get": {
         "type": "range_or_term",
         "defaultUpperBound": "gte",
@@ -244,24 +265,28 @@ const config =
     },
     "hasCoordinate": {
       "type": "boolean",
-      "field": "hasCoordinate"
+      "field": "occurrence.hasCoordinate"
+    },
+    "locationID": {
+      "type": "keyword",
+      "field": "occurrence.locationID.keyword"
     },
     "hasGeospatialIssue": {
       "type": "boolean",
-      "field": "hasGeospatialIssue"
+      "field": "occurrence.hasGeospatialIssue"
     },
     "id": {
       "type": "keyword",
-      "field": "id"
+      "field": "occurrence.id"
     },
     "identifiedBy": {
       "type": "keyword",
-      "field": "identifiedBy.keyword",
+      "field": "occurrence.identifiedBy.verbatim",
       "suggestField": "identifiedBy.suggest"
     },
     "individualCount": {
       "type": "numeric",
-      "field": "individualCount",
+      "field": "occurrence.individualCount",
       "get": {
         "type": "range_or_term",
         "defaultUpperBound": "gte",
@@ -270,25 +295,25 @@ const config =
     },
     "installationKey": {
       "type": "keyword",
-      "field": "installationKey"
+      "field": "occurrence.installationKey"
     },
     "institutionCode": {
       "type": "keyword",
-      "field": "institutionCode.keyword",
+      "field": "occurrence.institutionCode.keyword",
       "suggestField": "institutionCode.suggest",
       "suggestField": "institutionCode.suggest"
     },
     "institutionKey": {
       "type": "keyword",
-      "field": "institutionKey"
+      "field": "occurrence.institutionKey"
     },
     "issue": {
       "type": "keyword",
-      "field": "issues"
+      "field": "occurrence.issues"
     },
     "lastCrawled": {
       "type": "date",
-      "field": "lastCrawled",
+      "field": "occurrence.lastCrawled",
       "get": {
         "type": "range_or_term",
         "defaultUpperBound": "gte",
@@ -297,20 +322,20 @@ const config =
     },
     "license": {
       "type": "keyword",
-      "field": "license"
+      "field": "occurrence.license"
     },
     "lifeStage": {
       "type": "keyword",
-      "field": "lifeStage"
+      "field": "occurrence.lifeStage"
     },
     "locality": {
       "type": "keyword",
-      "field": "locality.keyword",
+      "field": "occurrence.locality.keyword",
       "suggestField": "locality.suggest"
     },
     "maximumDepthInMeters": {
       "type": "numeric",
-      "field": "maximumDepthInMeters",
+      "field": "occurrence.maximumDepthInMeters",
       "get": {
         "type": "range_or_term",
         "defaultUpperBound": "gte",
@@ -319,7 +344,7 @@ const config =
     },
     "maximumDistanceAboveSurfaceInMeters": {
       "type": "numeric",
-      "field": "maximumDistanceAboveSurfaceInMeters",
+      "field": "occurrence.maximumDistanceAboveSurfaceInMeters",
       "get": {
         "type": "range_or_term",
         "defaultUpperBound": "gte",
@@ -328,7 +353,7 @@ const config =
     },
     "maximumElevationInMeters": {
       "type": "numeric",
-      "field": "maximumElevationInMeters",
+      "field": "occurrence.maximumElevationInMeters",
       "get": {
         "type": "range_or_term",
         "defaultUpperBound": "gte",
@@ -336,20 +361,20 @@ const config =
       }
     },
     "measurementOrFactItems": {
-      "field": "measurementOrFactItems",
+      "field": "occurrence.measurementOrFactItems",
       "discarded": true
     },
     "mediaLicenses": {
       "type": "keyword",
-      "field": "mediaLicenses"
+      "field": "occurrence.mediaLicenses"
     },
     "mediaType": {
       "type": "keyword",
-      "field": "mediaTypes"
+      "field": "occurrence.mediaTypes"
     },
     "minimumDepthInMeters": {
       "type": "numeric",
-      "field": "minimumDepthInMeters",
+      "field": "occurrence.minimumDepthInMeters",
       "get": {
         "type": "range_or_term",
         "defaultUpperBound": "gte",
@@ -358,7 +383,7 @@ const config =
     },
     "minimumDistanceAboveSurfaceInMeters": {
       "type": "numeric",
-      "field": "minimumDistanceAboveSurfaceInMeters",
+      "field": "occurrence.minimumDistanceAboveSurfaceInMeters",
       "get": {
         "type": "range_or_term",
         "defaultUpperBound": "gte",
@@ -367,7 +392,7 @@ const config =
     },
     "minimumElevationInMeters": {
       "type": "numeric",
-      "field": "minimumElevationInMeters",
+      "field": "occurrence.minimumElevationInMeters",
       "get": {
         "type": "range_or_term",
         "defaultUpperBound": "gte",
@@ -376,7 +401,7 @@ const config =
     },
     "modified": {
       "type": "date",
-      "field": "modified",
+      "field": "occurrence.modified",
       "get": {
         "type": "range_or_term",
         "defaultUpperBound": "gte",
@@ -385,7 +410,7 @@ const config =
     },
     "month": {
       "type": "numeric",
-      "field": "month",
+      "field": "occurrence.month",
       "get": {
         "type": "range_or_term",
         "defaultUpperBound": "gte",
@@ -393,34 +418,34 @@ const config =
       }
     },
     "multimediaItems": {
-      "field": "multimediaItems",
+      "field": "occurrence.multimediaItems",
       "discarded": true
     },
     "networkKey": {
       "type": "keyword",
-      "field": "networkKeys"
+      "field": "occurrence.networkKeys"
     },
     "notIssues": {
       "type": "keyword",
-      "field": "notIssues"
+      "field": "occurrence.notIssues"
     },
     "occurrenceId": {
       "type": "keyword",
-      "field": "occurrenceId.keyword",
+      "field": "occurrence.occurrenceId.keyword",
       "suggestField": "occurrenceId.suggest"
     },
     "occurrenceStatus": {
       "type": "keyword",
-      "field": "occurrenceStatus"
+      "field": "occurrence.occurrenceStatus"
     },
     "organismId": {
       "type": "keyword",
-      "field": "organismId.keyword",
+      "field": "occurrence.organismId.keyword",
       "suggestField": "organismId.suggest"
     },
     "organismQuantity": {
       "type": "numeric",
-      "field": "organismQuantity",
+      "field": "occurrence.organismQuantity",
       "get": {
         "type": "range_or_term",
         "defaultUpperBound": "gte",
@@ -429,65 +454,70 @@ const config =
     },
     "organismQuantityType": {
       "type": "keyword",
-      "field": "organismQuantityType"
+      "field": "occurrence.organismQuantityType"
+    },
+    "parentEventID": {
+      "type": "keyword",
+      "field": "occurrence.parentEventId.keyword",
+      "suggestField": "parentEventId.suggest"
     },
     "parentEventId": {
       "type": "keyword",
-      "field": "parentEventId.keyword",
+      "field": "occurrence.parentEventId.keyword",
       "suggestField": "parentEventId.suggest"
     },
     "preparations": {
       "type": "keyword",
-      "field": "preparations.keyword"
+      "field": "occurrence.preparations"
     },
     "programmeAcronym": {
       "type": "keyword",
-      "field": "programmeAcronym"
+      "field": "occurrence.programmeAcronym"
     },
     "projectId": {
       "type": "keyword",
-      "field": "projectId"
+      "field": "occurrence.projectId"
     },
     "protocol": {
       "type": "keyword",
-      "field": "protocol"
+      "field": "occurrence.protocol"
     },
     "publisherTitle": {
       "type": "keyword",
-      "field": "publisherTitle"
+      "field": "occurrence.publisherTitle"
     },
     "publishingCountry": {
       "type": "keyword",
-      "field": "publishingCountry"
+      "field": "occurrence.publishingCountry"
     },
     "publishingOrg": {
       "type": "keyword",
-      "field": "publishingOrganizationKey"
+      "field": "occurrence.publishingOrganizationKey"
     },
     "hostingOrganizationKey": {
       "type": "keyword",
-      "field": "hostingOrganizationKey"
+      "field": "occurrence.hostingOrganizationKey"
     },
     "recordNumber": {
       "type": "keyword",
-      "field": "recordNumber.keyword",
+      "field": "occurrence.recordNumber.keyword",
       "suggestField": "recordNumber.suggest"
     },
     "recordedBy": {
       "type": "keyword",
-      "field": "recordedBy.keyword",
+      "field": "occurrence.recordedBy.verbatim",
       "suggestField": "recordedBy.suggest"
     },
     "references": {
       "type": "text",
-      "field": "references",
+      "field": "occurrence.references",
       "get": {
         "type": "fuzzy"
       }
     },
     "relativeOrganismQuantity": {
       "type": "numeric",
-      "field": "relativeOrganismQuantity",
+      "field": "occurrence.relativeOrganismQuantity",
       "get": {
         "type": "range_or_term",
         "defaultUpperBound": "gte",
@@ -496,15 +526,15 @@ const config =
     },
     "repatriated": {
       "type": "boolean",
-      "field": "repatriated"
+      "field": "occurrence.repatriated"
     },
     "sampleSizeUnit": {
       "type": "keyword",
-      "field": "sampleSizeUnit"
+      "field": "occurrence.sampleSizeUnit"
     },
     "sampleSizeValue": {
       "type": "numeric",
-      "field": "sampleSizeValue",
+      "field": "occurrence.sampleSizeValue",
       "get": {
         "type": "range_or_term",
         "defaultUpperBound": "gte",
@@ -513,23 +543,23 @@ const config =
     },
     "samplingProtocol": {
       "type": "keyword",
-      "field": "samplingProtocol.keyword",
+      "field": "occurrence.samplingProtocol.keyword",
       "suggestField": "samplingProtocol.suggest"
     },
     "geometry": {
       "type": "geo_shape",
-      "field": "scoordinates",
+      "field": "occurrence.scoordinates",
       "get": {
         "type": "within"
       }
     },
     "sex": {
       "type": "keyword",
-      "field": "sex"
+      "field": "occurrence.sex"
     },
     "startDayOfYear": {
       "type": "numeric",
-      "field": "startDayOfYear",
+      "field": "occurrence.startDayOfYear",
       "get": {
         "type": "range_or_term",
         "defaultUpperBound": "gte",
@@ -538,29 +568,29 @@ const config =
     },
     "stateProvince": {
       "type": "keyword",
-      "field": "stateProvince.keyword",
+      "field": "occurrence.stateProvince.keyword",
       "suggestField": "stateProvince.suggest"
     },
     "typeStatus": {
       "type": "keyword",
-      "field": "typeStatus"
+      "field": "occurrence.typeStatus"
     },
     "typifiedName": {
       "type": "keyword",
-      "field": "typifiedName"
+      "field": "occurrence.typifiedName"
     },
     "verbatim": {
-      "field": "verbatim",
+      "field": "occurrence.verbatim",
       "discarded": true
     },
     "waterBody": {
       "type": "keyword",
-      "field": "waterBody.keyword",
+      "field": "occurrence.waterBody.keyword",
       "suggestField": "waterBody.suggest"
     },
     "year": {
       "type": "numeric",
-      "field": "year",
+      "field": "occurrence.year",
       "get": {
         "type": "range_or_term",
         "defaultUpperBound": "gte",
@@ -569,22 +599,22 @@ const config =
     },
     "agentIds_type": {
       "type": "keyword",
-      "field": "agentIds.type"
+      "field": "occurrence.agentIds.type"
     },
     "agentIds_value": {
       "type": "keyword",
-      "field": "agentIds.value"
+      "field": "occurrence.agentIds.value"
     },
     "class": {
-      "type": "text",
-      "field": "gbifClassification.class",
+      "type": "keyword",
+      "field": "occurrence.gbifClassification.class",
       "get": {
         "type": "fuzzy"
       }
     },
     "classKey": {
       "type": "numeric",
-      "field": "gbifClassification.classKey",
+      "field": "occurrence.gbifClassification.classKey",
       "get": {
         "type": "range_or_term",
         "defaultUpperBound": "gte",
@@ -593,18 +623,18 @@ const config =
     },
     "gbifClassification_classificationPath": {
       "type": "keyword",
-      "field": "gbifClassification.classificationPath"
+      "field": "occurrence.gbifClassification.classificationPath"
     },
     "family": {
-      "type": "text",
-      "field": "gbifClassification.family",
+      "type": "keyword",
+      "field": "occurrence.gbifClassification.family",
       "get": {
         "type": "fuzzy"
       }
     },
     "familyKey": {
       "type": "numeric",
-      "field": "gbifClassification.familyKey",
+      "field": "occurrence.gbifClassification.familyKey",
       "get": {
         "type": "range_or_term",
         "defaultUpperBound": "gte",
@@ -612,15 +642,15 @@ const config =
       }
     },
     "genus": {
-      "type": "text",
-      "field": "gbifClassification.genus",
+      "type": "keyword",
+      "field": "occurrence.gbifClassification.genus",
       "get": {
         "type": "fuzzy"
       }
     },
     "genusKey": {
       "type": "numeric",
-      "field": "gbifClassification.genusKey",
+      "field": "occurrence.gbifClassification.genusKey",
       "get": {
         "type": "range_or_term",
         "defaultUpperBound": "gte",
@@ -628,15 +658,15 @@ const config =
       }
     },
     "kingdom": {
-      "type": "text",
-      "field": "gbifClassification.kingdom",
+      "type": "keyword",
+      "field": "occurrence.gbifClassification.kingdom",
       "get": {
         "type": "fuzzy"
       }
     },
     "kingdomKey": {
       "type": "numeric",
-      "field": "gbifClassification.kingdomKey",
+      "field": "occurrence.gbifClassification.kingdomKey",
       "get": {
         "type": "range_or_term",
         "defaultUpperBound": "gte",
@@ -644,15 +674,15 @@ const config =
       }
     },
     "order": {
-      "type": "text",
-      "field": "gbifClassification.order",
+      "type": "keyword",
+      "field": "occurrence.gbifClassification.order",
       "get": {
         "type": "fuzzy"
       }
     },
     "orderKey": {
       "type": "numeric",
-      "field": "gbifClassification.orderKey",
+      "field": "occurrence.gbifClassification.orderKey",
       "get": {
         "type": "range_or_term",
         "defaultUpperBound": "gte",
@@ -660,15 +690,15 @@ const config =
       }
     },
     "phylum": {
-      "type": "text",
-      "field": "gbifClassification.phylum",
+      "type": "keyword",
+      "field": "occurrence.gbifClassification.phylum",
       "get": {
         "type": "fuzzy"
       }
     },
     "phylumKey": {
       "type": "numeric",
-      "field": "gbifClassification.phylumKey",
+      "field": "occurrence.gbifClassification.phylumKey",
       "get": {
         "type": "range_or_term",
         "defaultUpperBound": "gte",
@@ -676,40 +706,47 @@ const config =
       }
     },
     "species": {
-      "type": "text",
-      "field": "gbifClassification.species",
+      "type": "keyword",
+      "field": "occurrence.gbifClassification.species",
       "get": {
         "type": "fuzzy"
       }
     },
     "speciesKey": {
       "type": "numeric",
-      "field": "gbifClassification.speciesKey",
+      "field": "occurrence.gbifClassification.speciesKey",
       "get": {
         "type": "range_or_term",
         "defaultUpperBound": "gte",
         "defaultLowerBound": "lte"
       }
     },
+    "scientificNames": {
+      "type": "keyword",
+      "field": "scientificNames.keyword",
+      "get": {
+        "type": "fuzzy"
+      }
+    },
     "gbifClassification_synonym": {
       "type": "boolean",
-      "field": "gbifClassification.synonym"
+      "field": "occurrence.gbifClassification.synonym"
     },
     "gbifClassification_taxonID": {
       "type": "keyword",
-      "field": "gbifClassification.taxonID"
+      "field": "occurrence.gbifClassification.taxonID"
     },
     "taxonKey": {
       "type": "keyword",
-      "field": "gbifClassification.taxonKey"
+      "field": "occurrence.gbifClassification.taxonKey"
     },
     "verbatimScientificName": {
       "type": "keyword",
-      "field": "gbifClassification.verbatimScientificName"
+      "field": "occurrence.gbifClassification.verbatimScientificName"
     },
     "gbifClassification_acceptedUsage_key": {
       "type": "numeric",
-      "field": "gbifClassification.acceptedUsage.key",
+      "field": "occurrence.gbifClassification.acceptedUsage.key",
       "get": {
         "type": "range_or_term",
         "defaultUpperBound": "gte",
@@ -718,18 +755,18 @@ const config =
     },
     "gbifClassification_acceptedUsage_name": {
       "type": "text",
-      "field": "gbifClassification.acceptedUsage.name",
+      "field": "occurrence.gbifClassification.acceptedUsage.name",
       "get": {
         "type": "fuzzy"
       }
     },
     "gbifClassification_acceptedUsage_rank": {
       "type": "keyword",
-      "field": "gbifClassification.acceptedUsage.rank"
+      "field": "occurrence.gbifClassification.acceptedUsage.rank"
     },
     "gbifClassification_classification_key": {
       "type": "numeric",
-      "field": "gbifClassification.classification.key",
+      "field": "occurrence.gbifClassification.classification.key",
       "get": {
         "type": "range_or_term",
         "defaultUpperBound": "gte",
@@ -738,37 +775,37 @@ const config =
     },
     "gbifClassification_classification_name": {
       "type": "text",
-      "field": "gbifClassification.classification.name",
+      "field": "occurrence.gbifClassification.classification.name",
       "get": {
         "type": "fuzzy"
       }
     },
     "gbifClassification_classification_rank": {
       "type": "keyword",
-      "field": "gbifClassification.classification.rank"
+      "field": "occurrence.gbifClassification.classification.rank"
     },
     "gbifClassification_classification_synonym": {
       "type": "boolean",
-      "field": "gbifClassification.classification.synonym"
+      "field": "occurrence.gbifClassification.classification.synonym"
     },
     "gbifClassification_diagnostics_matchType": {
       "type": "keyword",
-      "field": "gbifClassification.diagnostics.matchType"
+      "field": "occurrence.gbifClassification.diagnostics.matchType"
     },
     "gbifClassification_diagnostics_note": {
       "type": "text",
-      "field": "gbifClassification.diagnostics.note",
+      "field": "occurrence.gbifClassification.diagnostics.note",
       "get": {
         "type": "fuzzy"
       }
     },
     "gbifClassification_diagnostics_status": {
       "type": "keyword",
-      "field": "gbifClassification.diagnostics.status"
+      "field": "occurrence.gbifClassification.diagnostics.status"
     },
     "gbifClassification_usage_key": {
       "type": "numeric",
-      "field": "gbifClassification.usage.key",
+      "field": "occurrence.gbifClassification.usage.key",
       "get": {
         "type": "range_or_term",
         "defaultUpperBound": "gte",
@@ -777,152 +814,152 @@ const config =
     },
     "gbifClassification_usage_name": {
       "type": "keyword",
-      "field": "gbifClassification.usage.name"
+      "field": "occurrence.gbifClassification.usage.name"
     },
     "gbifClassification_usage_rank": {
       "type": "keyword",
-      "field": "gbifClassification.usage.rank"
+      "field": "occurrence.gbifClassification.usage.rank"
     },
     "gbifClassification_usageParsedName_abbreviated": {
       "type": "boolean",
-      "field": "gbifClassification.usageParsedName.abbreviated"
+      "field": "occurrence.gbifClassification.usageParsedName.abbreviated"
     },
     "gbifClassification_usageParsedName_autonym": {
       "type": "boolean",
-      "field": "gbifClassification.usageParsedName.autonym"
+      "field": "occurrence.gbifClassification.usageParsedName.autonym"
     },
     "gbifClassification_usageParsedName_binomial": {
       "type": "boolean",
-      "field": "gbifClassification.usageParsedName.binomial"
+      "field": "occurrence.gbifClassification.usageParsedName.binomial"
     },
     "gbifClassification_usageParsedName_candidatus": {
       "type": "boolean",
-      "field": "gbifClassification.usageParsedName.candidatus"
+      "field": "occurrence.gbifClassification.usageParsedName.candidatus"
     },
     "gbifClassification_usageParsedName_code": {
       "type": "text",
-      "field": "gbifClassification.usageParsedName.code",
+      "field": "occurrence.gbifClassification.usageParsedName.code",
       "get": {
         "type": "fuzzy"
       }
     },
     "gbifClassification_usageParsedName_doubtful": {
       "type": "boolean",
-      "field": "gbifClassification.usageParsedName.doubtful"
+      "field": "occurrence.gbifClassification.usageParsedName.doubtful"
     },
     "gbifClassification_usageParsedName_genericName": {
       "type": "text",
-      "field": "gbifClassification.usageParsedName.genericName",
+      "field": "occurrence.gbifClassification.usageParsedName.genericName",
       "get": {
         "type": "fuzzy"
       }
     },
     "gbifClassification_usageParsedName_genus": {
       "type": "text",
-      "field": "gbifClassification.usageParsedName.genus",
+      "field": "occurrence.gbifClassification.usageParsedName.genus",
       "get": {
         "type": "fuzzy"
       }
     },
     "gbifClassification_usageParsedName_incomplete": {
       "type": "boolean",
-      "field": "gbifClassification.usageParsedName.incomplete"
+      "field": "occurrence.gbifClassification.usageParsedName.incomplete"
     },
     "gbifClassification_usageParsedName_indetermined": {
       "type": "boolean",
-      "field": "gbifClassification.usageParsedName.indetermined"
+      "field": "occurrence.gbifClassification.usageParsedName.indetermined"
     },
     "gbifClassification_usageParsedName_infraspecificEpithet": {
       "type": "text",
-      "field": "gbifClassification.usageParsedName.infraspecificEpithet",
+      "field": "occurrence.gbifClassification.usageParsedName.infraspecificEpithet",
       "get": {
         "type": "fuzzy"
       }
     },
     "gbifClassification_usageParsedName_notho": {
       "type": "keyword",
-      "field": "gbifClassification.usageParsedName.notho"
+      "field": "occurrence.gbifClassification.usageParsedName.notho"
     },
     "gbifClassification_usageParsedName_rank": {
       "type": "keyword",
-      "field": "gbifClassification.usageParsedName.rank"
+      "field": "occurrence.gbifClassification.usageParsedName.rank"
     },
     "gbifClassification_usageParsedName_specificEpithet": {
       "type": "text",
-      "field": "gbifClassification.usageParsedName.specificEpithet",
+      "field": "occurrence.gbifClassification.usageParsedName.specificEpithet",
       "get": {
         "type": "fuzzy"
       }
     },
     "gbifClassification_usageParsedName_state": {
       "type": "keyword",
-      "field": "gbifClassification.usageParsedName.state"
+      "field": "occurrence.gbifClassification.usageParsedName.state"
     },
     "gbifClassification_usageParsedName_terminalEpithet": {
       "type": "text",
-      "field": "gbifClassification.usageParsedName.terminalEpithet",
+      "field": "occurrence.gbifClassification.usageParsedName.terminalEpithet",
       "get": {
         "type": "fuzzy"
       }
     },
     "gbifClassification_usageParsedName_trinomial": {
       "type": "boolean",
-      "field": "gbifClassification.usageParsedName.trinomial"
+      "field": "occurrence.gbifClassification.usageParsedName.trinomial"
     },
     "gbifClassification_usageParsedName_type": {
       "type": "keyword",
-      "field": "gbifClassification.usageParsedName.type"
+      "field": "occurrence.gbifClassification.usageParsedName.type"
     },
     "gbifClassification_usageParsedName_uninomial": {
       "type": "text",
-      "field": "gbifClassification.usageParsedName.uninomial",
+      "field": "occurrence.gbifClassification.usageParsedName.uninomial",
       "get": {
         "type": "fuzzy"
       }
     },
     "gbifClassification_usageParsedName_basionymAuthorship_authors": {
       "type": "text",
-      "field": "gbifClassification.usageParsedName.basionymAuthorship.authors",
+      "field": "occurrence.gbifClassification.usageParsedName.basionymAuthorship.authors",
       "get": {
         "type": "fuzzy"
       }
     },
     "gbifClassification_usageParsedName_basionymAuthorship_empty": {
       "type": "boolean",
-      "field": "gbifClassification.usageParsedName.basionymAuthorship.empty"
+      "field": "occurrence.gbifClassification.usageParsedName.basionymAuthorship.empty"
     },
     "gbifClassification_usageParsedName_basionymAuthorship_exAuthors": {
       "type": "text",
-      "field": "gbifClassification.usageParsedName.basionymAuthorship.exAuthors",
+      "field": "occurrence.gbifClassification.usageParsedName.basionymAuthorship.exAuthors",
       "get": {
         "type": "fuzzy"
       }
     },
     "gbifClassification_usageParsedName_basionymAuthorship_year": {
       "type": "keyword",
-      "field": "gbifClassification.usageParsedName.basionymAuthorship.year"
+      "field": "occurrence.gbifClassification.usageParsedName.basionymAuthorship.year"
     },
     "gbifClassification_usageParsedName_combinationAuthorship_authors": {
       "type": "text",
-      "field": "gbifClassification.usageParsedName.combinationAuthorship.authors",
+      "field": "occurrence.gbifClassification.usageParsedName.combinationAuthorship.authors",
       "get": {
         "type": "fuzzy"
       }
     },
     "gbifClassification_usageParsedName_combinationAuthorship_empty": {
       "type": "boolean",
-      "field": "gbifClassification.usageParsedName.combinationAuthorship.empty"
+      "field": "occurrence.gbifClassification.usageParsedName.combinationAuthorship.empty"
     },
     "gbifClassification_usageParsedName_combinationAuthorship_exAuthors": {
       "type": "text",
-      "field": "gbifClassification.usageParsedName.combinationAuthorship.exAuthors",
+      "field": "occurrence.gbifClassification.usageParsedName.combinationAuthorship.exAuthors",
       "get": {
         "type": "fuzzy"
       }
     },
     "gbifClassification_usageParsedName_combinationAuthorship_year": {
       "type": "keyword",
-      "field": "gbifClassification.usageParsedName.combinationAuthorship.year"
+      "field": "occurrence.gbifClassification.usageParsedName.combinationAuthorship.year"
     },
     "identifiedByIdType": {
       type: "keyword",

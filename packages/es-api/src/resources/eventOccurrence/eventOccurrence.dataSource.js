@@ -1,3 +1,4 @@
+// const elasticsearch = require('elasticsearch');
 const { Client } = require('@elastic/elasticsearch');
 const Agent = require('agentkeepalive');
 const { ResponseError } = require('../errorHandler');
@@ -6,25 +7,36 @@ const env = require('../../config');
 const { reduce } = require('./reduce');
 const { queryReducer } = require('../../responseAdapter');
 
-const searchIndex = env.occurrence.index || 'occurrence';
+const searchIndex = env.eventOccurrence.index || 'occurrence';
 
-const agent = () => new Agent({
+// this isn't an ideal solution, but we keep changing between using an http and https agent. vonfig should require code change as well
+const isHttpsEndpoint = env.eventOccurrence.hosts[0].startsWith('https');
+const AgentType = isHttpsEndpoint ? Agent.HttpsAgent : Agent;
+
+const agent = () => new AgentType({
   maxSockets: 1000, // Default = Infinity
   keepAlive: true
 });
 
 const client = new Client({
-  nodes: env.occurrence.hosts,
-  maxRetries: env.occurrence.maxRetries || 3,
-  requestTimeout: env.occurrence.requestTimeout || 60000,
+  nodes: env.eventOccurrence.hosts,
+  maxRetries: env.eventOccurrence.maxRetries || 3,
+  requestTimeout: env.eventOccurrence.requestTimeout || 60000,
   agent
 });
 
 async function query({ query, aggs, size = 20, from = 0, metrics, req }) {
-  if (parseInt(from) + parseInt(size) > env.occurrence.maxResultWindow) {
-    throw new ResponseError(400, 'BAD_REQUEST', `'from' + 'size' must be ${env.occurrence.maxResultWindow} or less`);
+  if (parseInt(from) + parseInt(size) > env.eventOccurrence.maxResultWindow) {
+    throw new ResponseError(400, 'BAD_REQUEST', `'from' + 'size' must be ${env.eventOccurrence.maxResultWindow} or less`);
   }
-  // metrics only included to allow "fake" pagination on facets
+  let filter = [
+    {
+      'term': {
+        'type': 'occurrence'
+      }
+    }
+  ];
+  if (query) filter.push(query);
   const esQuery = {
     sort: [
       '_score', // if there is any score (but will this be slow even when there is no free text query?)
@@ -37,7 +49,11 @@ async function query({ query, aggs, size = 20, from = 0, metrics, req }) {
     track_total_hits: true,
     size,
     from,
-    query,
+    query: {
+      bool: {
+        filter
+      }
+    },
     aggs
   }
 

@@ -15,9 +15,12 @@ const queueOptions = {
   }
 };
 
-let literature, occurrence, dataset, event;
+let literature, occurrence, eventOccurrence, dataset, event;
 if (config.literature) {
   literature = require('./resources/literature');
+}
+if (config.eventOccurrence) {
+  eventOccurrence = require('./resources/eventOccurrence');
 }
 if (config.occurrence) {
   occurrence = require('./resources/occurrence');
@@ -82,6 +85,7 @@ if (literature) {
   app.get('/literature', queue(queueOptions), asyncMiddleware(searchResource(literature)));
   app.get('/literature/key/:id', asyncMiddleware(keyResource(literature)));
 }
+
 if (occurrence) {
   app.post('/occurrence/meta', asyncMiddleware(postMetaOnly(occurrence)));
   app.get('/occurrence/meta', asyncMiddleware(getMetaOnly(occurrence)));
@@ -92,11 +96,24 @@ if (occurrence) {
 
   app.get('/occurrence/suggest/:key', temporaryAuthMiddleware, asyncMiddleware(suggestResource(occurrence)));
 }
+
+if (eventOccurrence) {
+  app.post('/event-occurrence/meta', asyncMiddleware(postMetaOnly(eventOccurrence)));
+  app.get('/event-occurrence/meta', asyncMiddleware(getMetaOnly(eventOccurrence)));
+
+  app.post('/event-occurrence', queue(queueOptions), temporaryAuthMiddleware, asyncMiddleware(searchResource(eventOccurrence)));
+  app.get('/event-occurrence', queue(queueOptions), temporaryAuthMiddleware, asyncMiddleware(searchResource(eventOccurrence)));
+  app.get('/event-occurrence/key/:id', asyncMiddleware(keyResource(eventOccurrence)));
+
+  app.get('/event-occurrence/suggest/:key', temporaryAuthMiddleware, asyncMiddleware(suggestResource(eventOccurrence)));
+}
+
 if (dataset) {
   app.post('/dataset', queue(queueOptions), temporaryAuthMiddleware, asyncMiddleware(searchResource(dataset)));
   app.get('/dataset', queue(queueOptions), temporaryAuthMiddleware, asyncMiddleware(searchResource(dataset)));
   app.get('/dataset/key/:id', asyncMiddleware(keyResource(dataset)));
 }
+
 let eventQueue
 if (event) {
   eventQueue = queue(queueOptions);
