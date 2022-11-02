@@ -1,9 +1,9 @@
 const env = require('../../config');
-const { config } = require('./occurrence.config');
+const { config } = require('./eventOccurrence.config');
 const { predicate2esQuery, get2predicate, get2esQuery } = require('../../requestAdapter/query');
 const { get2metric, metric2aggs } = require('../../requestAdapter/aggregations');
 const { getSuggestQuery } = require('../../requestAdapter/suggest');
-const dataSource = require('./occurrence.dataSource');
+const dataSource = require('./eventOccurrence.dataSource');
 
 module.exports = {
   dataSource: dataSource,

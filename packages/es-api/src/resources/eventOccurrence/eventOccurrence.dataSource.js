@@ -7,7 +7,7 @@ const env = require('../../config');
 const { reduce } = require('./reduce');
 const { queryReducer } = require('../../responseAdapter');
 
-const searchIndex = env.eventOccurrence.index || 'occurrence';
+const searchIndex = env.eventOccurrence.index || 'eventOccurrence';
 
 // this isn't an ideal solution, but we keep changing between using an http and https agent. vonfig should require code change as well
 const isHttpsEndpoint = env.eventOccurrence.hosts[0].startsWith('https');
