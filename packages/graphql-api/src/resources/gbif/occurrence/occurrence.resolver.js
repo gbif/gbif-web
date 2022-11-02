@@ -78,7 +78,7 @@ const facetOccurrenceSearch = (parent) => {
  */
 export default {
   Query: {
-    occurrenceSearch: (parent, args, { dataSources }) => {
+    occurrenceSearch: (_parent, args, { dataSources }) => {
       // dataSources.occurrenceAPI.searchOccurrences({ query: args }),
       const v1Predicate = predicate2v1(args.predicate);
       const v1PredicateQStripped = predicate2v1(args.predicate, {
@@ -94,35 +94,42 @@ export default {
           : null,
       };
     },
-    occurrenceClusterSearch: (parent, {predicate, ...query}, { dataSources }) => {
+    occurrenceClusterSearch: (
+      _parent,
+      { predicate, ...query },
+      { dataSources },
+    ) => {
       // custom cluster search
-      let nodes = [];
-      let links = [];
-      return dataSources.occurrenceAPI.searchOccurrenceDocuments({
-        query: { predicate: {
-          type: 'and',
-          predicates: [
-            {
-              type: 'equals',
-              key: 'isInCluster',
-              value: true
+      const nodes = [];
+      const links = [];
+      return dataSources.occurrenceAPI
+        .searchOccurrenceDocuments({
+          query: {
+            predicate: {
+              type: 'and',
+              predicates: [
+                {
+                  type: 'equals',
+                  key: 'isInCluster',
+                  value: true,
+                },
+                predicate,
+              ],
             },
-            predicate
-          ]
-        },
-        ...query
-      }
-      }).then(response => {
-        console.log(response);
-        return {
-          nodes: [],
-          links: [{ source: 'hej', target: 'goddag' }]
-        }
-      });
+            ...query,
+          },
+        })
+        .then((response) => {
+          console.log(response);
+          return {
+            nodes: [],
+            links: [{ source: 'hej', target: 'goddag' }],
+          };
+        });
     },
-    occurrence: (parent, { key }, { dataSources }) =>
+    occurrence: (_parent, { key }, { dataSources }) =>
       dataSources.occurrenceAPI.getOccurrenceByKey({ key }),
-    globe: (parent, { cLat, cLon, pLat, pLon, sphere, graticule, land }) => {
+    globe: (_parent, { cLat, cLon, pLat, pLon, sphere, graticule, land }) => {
       const roundedLat = Math.floor(pLat / 30) * 30;
       const simpleLat = Math.min(Math.max(roundedLat, -60), 60);
       const simpleLon = Math.round(pLon / 30) * 30;
@@ -206,37 +213,44 @@ export default {
         };
       });
     },
-    groups: (occurrence, args, { dataSources }) => {
+    groups: (occurrence, _args, { dataSources }) => {
       return dataSources.occurrenceAPI
         .getVerbatim({ key: occurrence.key })
         .then((verbatim) => groupResolver({ occurrence, verbatim }));
     },
-    hasTaxonIssues: ({issues = []}, args, { dataSources }) => {
-      return _.intersection(issues, ['TAXON_MATCH_FUZZY', 'TAXON_MATCH_HIGHERRANK', 'TAXON_MATCH_AGGREGATE', 'TAXON_MATCH_NONE']).length > 0;
+    hasTaxonIssues: ({ issues = [] }) => {
+      return (
+        _.intersection(issues, [
+          'TAXON_MATCH_FUZZY',
+          'TAXON_MATCH_HIGHERRANK',
+          'TAXON_MATCH_AGGREGATE',
+          'TAXON_MATCH_NONE',
+        ]).length > 0
+      );
     },
-    terms: (occurrence, args, { dataSources }) => {
+    terms: (occurrence, _args, { dataSources }) => {
       return dataSources.occurrenceAPI
         .getVerbatim({ key: occurrence.key })
         .then((verbatim) => termResolver({ occurrence, verbatim }));
     },
-    dataset: (occurrence, args, { dataSources }) => {
+    dataset: (occurrence, _args, { dataSources }) => {
       return dataSources.datasetAPI.getDatasetByKey({
         key: occurrence.datasetKey,
       });
     },
-    institution: (occurrence, args, { dataSources }) => {
+    institution: (occurrence, _args, { dataSources }) => {
       if (typeof occurrence.institutionKey === 'undefined') return null;
       return dataSources.institutionAPI.getInstitutionByKey({
         key: occurrence.institutionKey,
       });
     },
-    collection: (occurrence, args, { dataSources }) => {
+    collection: (occurrence, _args, { dataSources }) => {
       if (typeof occurrence.collectionKey === 'undefined') return null;
       return dataSources.collectionAPI.getCollectionByKey({
         key: occurrence.collectionKey,
       });
     },
-    bionomia: (occurrence, args, { dataSources }) => {
+    bionomia: (occurrence, _args, { dataSources }) => {
       return dataSources.occurrenceAPI.getBionomia({ occurrence });
     },
   },
@@ -314,14 +328,14 @@ export default {
     autoDateHistogram: (parent) => {
       return { _predicate: parent._predicate };
     },
-    _meta: (parent, query, { dataSources }) => {
+    _meta: (parent, _query, { dataSources }) => {
       return dataSources.occurrenceAPI.meta({
         query: { predicate: parent._predicate },
       });
     },
   },
   OccurrenceNameUsage: {
-    formattedName: ({ key }, args, { dataSources }) =>
+    formattedName: ({ key }, _args, { dataSources }) =>
       dataSources.taxonAPI.getParsedName({ key }),
   },
   OccurrenceStats,
@@ -339,56 +353,56 @@ export default {
     occurrences: facetOccurrenceSearch,
   },
   OccurrenceFacetResult_dataset: {
-    dataset: ({ key }, args, { dataSources }) => {
+    dataset: ({ key }, _args, { dataSources }) => {
       if (typeof key === 'undefined') return null;
       return dataSources.datasetAPI.getDatasetByKey({ key });
     },
     occurrences: facetOccurrenceSearch,
   },
   OccurrenceFacetResult_node: {
-    node: ({ key }, args, { dataSources }) => {
+    node: ({ key }, _args, { dataSources }) => {
       if (typeof key === 'undefined') return null;
       return dataSources.nodeAPI.getNodeByKey({ key });
     },
     occurrences: facetOccurrenceSearch,
   },
   OccurrenceFacetResult_installation: {
-    installation: ({ key }, args, { dataSources }) => {
+    installation: ({ key }, _args, { dataSources }) => {
       if (typeof key === 'undefined') return null;
       return dataSources.installationAPI.getInstallationByKey({ key });
     },
     occurrences: facetOccurrenceSearch,
   },
   OccurrenceFacetResult_taxon: {
-    taxon: ({ key }, args, { dataSources }) => {
+    taxon: ({ key }, _args, { dataSources }) => {
       if (typeof key === 'undefined') return null;
       return dataSources.taxonAPI.getTaxonByKey({ key });
     },
     occurrences: facetOccurrenceSearch,
   },
   OccurrenceFacetResult_network: {
-    network: ({ key }, args, { dataSources }) => {
+    network: ({ key }, _args, { dataSources }) => {
       if (typeof key === 'undefined') return null;
       return dataSources.networkAPI.getNetworkByKey({ key });
     },
     occurrences: facetOccurrenceSearch,
   },
   OccurrenceFacetResult_organization: {
-    publisher: ({ key }, args, { dataSources }) => {
+    publisher: ({ key }, _args, { dataSources }) => {
       if (typeof key === 'undefined') return null;
       return dataSources.organizationAPI.getOrganizationByKey({ key });
     },
     occurrences: facetOccurrenceSearch,
   },
   OccurrenceFacetResult_institution: {
-    institution: ({ key }, args, { dataSources }) => {
+    institution: ({ key }, _args, { dataSources }) => {
       if (!key) return null;
       return dataSources.institutionAPI.getInstitutionByKey({ key });
     },
     occurrences: facetOccurrenceSearch,
   },
   OccurrenceFacetResult_collection: {
-    collection: ({ key }, args, { dataSources }) => {
+    collection: ({ key }, _args, { dataSources }) => {
       if (!key) return null;
       return dataSources.collectionAPI.getCollectionByKey({ key });
     },
@@ -475,12 +489,12 @@ export default {
     // plazi this won't work in other environments than prod for now. all in all we should have a better way to detect treatments
     isTreament: ({ publishingOrgKey }) =>
       publishingOrgKey === '7ce8aef0-9e92-11dc-8738-b8a03c50a862',
-    isClustered: ({ key }, args, { dataSources }) => {
+    isClustered: ({ key }, _args, { dataSources }) => {
       return dataSources.occurrenceAPI
         .getRelated({ key })
         .then((response) => response.relatedOccurrences.length > 0);
     },
-    isSequenced: (occurrence, args, { dataSources }) => {
+    isSequenced: (occurrence, _args, { dataSources }) => {
       return dataSources.occurrenceAPI
         .getVerbatim({ key: occurrence.key })
         .then((verbatim) => isOccurrenceSequenced({ occurrence, verbatim }));
@@ -489,7 +503,7 @@ export default {
       !!occurrence.eventId && !!occurrence.samplingProtocol,
   },
   RelatedOccurrence: {
-    occurrence: (related, args, { dataSources }) =>
+    occurrence: (related, _args, { dataSources }) =>
       dataSources.occurrenceAPI.getOccurrenceByKey({
         key: related.occurrence.gbifId,
       }),
