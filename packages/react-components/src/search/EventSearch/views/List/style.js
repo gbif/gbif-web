@@ -1,6 +1,13 @@
 import { css } from '@emotion/react';
 // import { focusStyle, noUserSelect } from '../../style/shared';
 
+export const alignDataset = ({theme, ...props}) => css`
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 1000px;
+  `;
+
 export const datasetList = ({theme, ...props}) => css`
   list-style: none;
   padding: 0;
