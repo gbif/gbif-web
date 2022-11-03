@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 import {
   getFacet,
+  getOccurrenceFacet,
   getStats,
   getTemporal,
   getCardinality,
@@ -8,6 +9,7 @@ import {
 import formattedCoordinates from './helpers/utils';
 import fieldsWithTemporalSupport from './helpers/fieldsWithTemporalSupport';
 import fieldsWithFacetSupport from './helpers/fieldsWithFacetSupport';
+import fieldsWithOccurrenceFacetSupport from './helpers/fieldsWithOccurrenceFacetSupport';
 import fieldsWithStatsSupport from './helpers/fieldsWithStatsSupport';
 
 // there are many fields that support facets. This function creates the resolvers for all of them
@@ -15,8 +17,16 @@ const facetReducer = (dictionary, facetName) => {
   dictionary[facetName] = getFacet(facetName);
   return dictionary;
 };
-
 const EventFacet = fieldsWithFacetSupport.reduce(facetReducer, {});
+
+const occurrenceFacetReducer = (dictionary, facetName) => {
+  dictionary[facetName] = getOccurrenceFacet(facetName);
+  return dictionary;
+};
+const EventOccurrenceFacet = fieldsWithOccurrenceFacetSupport.reduce(
+  occurrenceFacetReducer,
+  {},
+);
 
 const temporalReducer = (dictionary, facetName) => {
   dictionary[facetName] = getTemporal(facetName);
@@ -32,8 +42,13 @@ const statsReducer = (dictionary, statsName) => {
 };
 const EventStats = fieldsWithStatsSupport.reduce(statsReducer, {});
 
-const facetEventSearch = (parent) => ({ _predicate: parent._predicate });
-const temporalEventSearch = (parent) => ({ _predicate: parent._predicate });
+const facetEventSearch = (parent) => {
+  return { _predicate: parent._predicate };
+};
+
+const temporalEventSearch = (parent) => {
+  return { _predicate: parent._predicate };
+};
 
 /**
  * fieldName: (parent, args, context, info) => data;
@@ -64,17 +79,27 @@ export default {
     },
     occurrenceCount: (parent, query, { dataSources }) => {
       if (typeof query === 'undefined') return null;
-      return dataSources.occurrenceAPI
+      return dataSources.eventAPI
         .searchOccurrenceDocuments({ query, size: 1 })
         .then((response) => {
           return response.total;
         });
     },
-    occurrenceFacet: (parent) => ({ _predicate: parent._predicate }),
-    facet: (parent) => ({ _predicate: parent._predicate }),
-    cardinality: (parent) => ({ _predicate: parent._predicate }),
-    temporal: (parent) => ({ _predicate: parent._predicate }),
-    stats: (parent) => ({ _predicate: parent._predicate }),
+    occurrenceFacet: (parent) => {
+      return { _predicate: parent._predicate };
+    },
+    facet: (parent) => {
+      return { _predicate: parent._predicate };
+    },
+    cardinality: (parent) => {
+      return { _predicate: parent._predicate };
+    },
+    temporal: (parent) => {
+      return { _predicate: parent._predicate };
+    },
+    stats: (parent) => {
+      return { _predicate: parent._predicate };
+    },
     _meta: (parent, query, { dataSources }) => {
       return dataSources.eventAPI.meta({
         query: { predicate: parent._predicate },
@@ -82,11 +107,12 @@ export default {
     },
   },
   EventFacet,
+  EventOccurrenceFacet,
   EventCardinality: {
     species: (parent, query, { dataSources }) =>
       getCardinality(parent._predicate, query, {
         field: 'species',
-        searchApi: dataSources.occurrenceAPI.searchOccurrences,
+        searchApi: dataSources.eventAPI.searchOccurrences,
       }),
     datasetKey: (parent, query, { dataSources }) =>
       getCardinality(parent._predicate, query, {
@@ -132,7 +158,7 @@ export default {
         {
           dataSources,
           field: 'species',
-          searchApi: dataSources.occurrenceAPI.searchOccurrences,
+          searchApi: dataSources.eventAPI.searchOccurrences,
         },
       );
     },
@@ -148,7 +174,7 @@ export default {
     },
     occurrenceCount: ({ key }, args, { dataSources }) => {
       if (typeof key === 'undefined') return null;
-      return dataSources.occurrenceAPI
+      return dataSources.eventAPI
         .searchOccurrenceDocuments({ query: { datasetKey: key }, size: 1 })
         .then((response) => {
           return response.total;

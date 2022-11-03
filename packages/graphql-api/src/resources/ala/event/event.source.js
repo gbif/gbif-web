@@ -21,6 +21,11 @@ class EventAPI extends RESTDataSource {
     return response.documents;
   }
 
+  async searchOccurrenceDocuments({ query }) {
+    const response = await this.searchOccurrences({ query });
+    return response.documents;
+  }
+
   async getArchive(datasetKey) {
     try {
       const response = await this.get(
@@ -49,6 +54,28 @@ class EventAPI extends RESTDataSource {
       );
     } else {
       response = await this.post('/event', body, {
+        signal: this.context.abortController.signal,
+      });
+    }
+    // map to support APIv1 naming
+    response.documents.count = response.documents.total;
+    response.documents.limit = response.documents.size;
+    response.documents.offset = response.documents.from;
+    response._predicate = body.predicate;
+    return response;
+  };
+
+  searchOccurrences = async ({ query }) => {
+    const body = { ...query, includeMeta: true };
+    let response;
+    if (JSON.stringify(body).length < urlSizeLimit) {
+      response = await this.get(
+        '/event-occurrence',
+        { body: JSON.stringify(body) },
+        { signal: this.context.abortController.signal },
+      );
+    } else {
+      response = await this.post('/event-occurrence', body, {
         signal: this.context.abortController.signal,
       });
     }
