@@ -26,7 +26,7 @@ export default gql`
     """
     Get number of occurrences per distinct values in a field. E.g. how many occurrence per year.
     """
-    occurrenceFacet: OccurrenceFacet
+    occurrenceFacet: EventOccurrenceFacet
     """
     Get number of occurrences matching this search
     """
@@ -81,7 +81,6 @@ export default gql`
     eventDate: String
     decimalLatitude: Float
     decimalLongitude: Float
-    occurrences(size: Int): [Occurrence]
     occurrenceCount: Int
     childEventCount: Int
     coordinates: JSON
@@ -254,5 +253,38 @@ export default gql`
     max: Float
     avg: Float
     sum: Float
+  }
+
+  type EventOccurrenceFacet {
+    datasetKey(size: Int, include: String):       [EventOccurrenceFacetResult_string]
+    kingdom(size: Int, include: String):          [EventOccurrenceFacetResult_string]
+    phylum(size: Int, include: String):           [EventOccurrenceFacetResult_string]
+    class(size: Int, include: String):            [EventOccurrenceFacetResult_string]
+    order(size: Int, include: String):            [EventOccurrenceFacetResult_string]
+    family(size: Int, include: String):           [EventOccurrenceFacetResult_string]
+    genus(size: Int, include: String):            [EventOccurrenceFacetResult_string]
+    species(size: Int, include: String):          [EventOccurrenceFacetResult_string]
+    samplingProtocol(size: Int, include: String): [EventOccurrenceFacetResult_string]
+    locationID(size: Int, include: String):       [EventOccurrenceFacetResult_string]
+    basisOfRecord(size: Int, include: String):    [EventOccurrenceFacetResult_string]
+    stateProvince(size: Int, include: String):    [EventOccurrenceFacetResult_string]
+    recordedBy(size: Int, include: String):       [EventOccurrenceFacetResult_string]
+    recordedById(size: Int, include: String):     [EventOccurrenceFacetResult_string]
+    identifiedBy(size: Int, include: String):     [EventOccurrenceFacetResult_string]
+    identifiedById(size: Int, include: String):   [EventOccurrenceFacetResult_string]
+    scientificNames(size: Int, include: String):  [EventOccurrenceFacetResult_string]
+    month(size: Int, include: String):            [EventOccurrenceFacetResult_string]
+    year(size: Int, include: String):             [EventOccurrenceFacetResult_string]
+
+    eventHierarchyJoined(size: Int, include: String):     [EventOccurrenceFacetResult_string]
+    eventHierarchy(size: Int, include: String):           [EventOccurrenceFacetResult_string]
+    eventTypeHierarchyJoined(size: Int, include: String): [EventOccurrenceFacetResult_string]
+    eventTypeHierarchy(size: Int, include: String):       [EventOccurrenceFacetResult_string]
+  }
+
+  type EventOccurrenceFacetResult_string {
+    key: String!
+    count: Int!
+    _predicate: JSON
   }
 `;
