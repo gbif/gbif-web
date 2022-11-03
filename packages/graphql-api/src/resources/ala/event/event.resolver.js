@@ -125,17 +125,6 @@ export default {
       if (typeof datasetKey === 'undefined' || datasetKey === null) return null;
       return dataSources.eventAPI.getDatasetEML({ datasetKey });
     },
-    occurrences: async ({ eventID }, query, { dataSources }) => {
-      if (typeof eventID === 'undefined' || eventID === null) return null;
-      return (
-        await dataSources.occurrenceAPI.searchOccurrenceDocuments({
-          query: {
-            eventHierarchy: eventID,
-            size: query.size,
-          },
-        })
-      ).results;
-    },
     speciesCount: ({ eventID }, query, { dataSources }) => {
       return getCardinality(
         { type: 'equals', key: 'eventHierarchy', value: eventID },
