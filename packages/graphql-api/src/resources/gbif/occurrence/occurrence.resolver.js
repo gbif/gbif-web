@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import _ from 'lodash';
-import { getGlobe } from '#/helpers/globe';
+import getGlobe from '#/helpers/globe';
 import {
   getFacet,
   getStats,
@@ -239,13 +239,13 @@ export default {
       });
     },
     institution: (occurrence, _args, { dataSources }) => {
-      if (typeof occurrence.institutionKey === 'undefined') return null;
+      if (!occurrence.institutionKey) return null;
       return dataSources.institutionAPI.getInstitutionByKey({
         key: occurrence.institutionKey,
       });
     },
     collection: (occurrence, _args, { dataSources }) => {
-      if (typeof occurrence.collectionKey === 'undefined') return null;
+      if (!occurrence.collectionKey) return null;
       return dataSources.collectionAPI.getCollectionByKey({
         key: occurrence.collectionKey,
       });
