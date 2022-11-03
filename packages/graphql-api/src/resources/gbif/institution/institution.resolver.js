@@ -13,16 +13,23 @@ export default {
       dataSources.institutionAPI.getInstitutionByKey({ key }),
   },
   Institution: {
-    collections: ({key}, {limit, offset}, { dataSources }) => {
-      return  dataSources.collectionAPI.getCollectionsByInstitutionKey({key, limit, offset})
+    collections: ({ key }, { limit, offset }, { dataSources }) => {
+      return dataSources.collectionAPI.getCollectionsByInstitutionKey({
+        key,
+        limit,
+        offset,
+      });
     },
-    collectionCount: ({key}, args, { dataSources }) => {
-      return  dataSources.collectionAPI.getCollectionsByInstitutionKey({key, limit: 1000})
-        .then(data => data.length)
+    collectionCount: ({ key }, args, { dataSources }) => {
+      return dataSources.collectionAPI
+        .getCollectionsByInstitutionKey({ key, limit: 1000 })
+        .then((data) => data.length);
     },
-    replacedByInstitution: ({replacedBy}, args, { dataSources }) => {
+    replacedByInstitution: ({ replacedBy }, args, { dataSources }) => {
       if (!replacedBy) return null;
-      return  dataSources.institutionAPI.getInstitutionByKey({ key: replacedBy })
+      return dataSources.institutionAPI.getInstitutionByKey({
+        key: replacedBy,
+      });
     },
     occurrenceCount: ({ key }, args, { dataSources }) => {
       if (!key) return null;
