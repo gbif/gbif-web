@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { select, geoOrthographic, geoPath, geoGraticule } from 'd3';
-import JSDOM from 'jsdom';
+import { JSDOM } from 'jsdom';
 import { feature } from 'topojson';
 import world from './landmassLowRes.json';
 
