@@ -61,4 +61,14 @@ function getHtml(
   return null;
 }
 
-export { formattedCoordinates, isOccurrenceSequenced, getHtml };
+function getExcerpt({ strings = [], length = 200 }) {
+  const concatenatedText = strings.filter((x) => x).join('. ');
+  let plainText = getHtml(concatenatedText, { allowedTags: [], inline: true });
+  if (plainText.length > length)
+    plainText = `${plainText.substring(0, length)}...`;
+  return {
+    plainText,
+  };
+}
+
+export { formattedCoordinates, isOccurrenceSequenced, getHtml, getExcerpt };
