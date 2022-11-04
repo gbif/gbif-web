@@ -9,7 +9,7 @@ import AddressBar from '../../StorybookAddressBar';
 import Standalone from './Standalone';
 
 export default {
-  title: 'Search/EventSearch',
+  title: 'Search/ALA/EventSearch',
   component: EventSearch
 };
 
