@@ -220,12 +220,12 @@
     "count": "{num, plural, one { state province } other {# state provinces}}",
     "description": "The name of the next smaller administrative region than country in which the Location occurs."
   },
-  "eventID": {
+  "eventId": {
     "name": "Event ID",
     "count": "{num, plural, one { event id } other {# event ids}}",
     "description": "The unique identifier for the Event in the record."
   },
-  "parentEventID": {
+  "parentEventId": {
     "name": "Parent event ID",
     "count": "{num, plural, one { event id } other {# event ids}}",
     "description": "The unique identifier for the Parent Event in the record."

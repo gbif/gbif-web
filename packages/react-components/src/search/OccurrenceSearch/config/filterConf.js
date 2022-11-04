@@ -34,7 +34,7 @@ export const filters = [
   'locality',
   'waterBody',
   'stateProvince',
-  'eventID',
+  'eventId',
   'samplingProtocol',
   'elevation',
   'occurrenceStatus',

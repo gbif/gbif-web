@@ -635,6 +635,7 @@ export const commonFilters = {
     }
   },
   recordedBy: {
+    // type: 'SUGGEST',
     type: 'KEYWORD_SEARCH',//KEYWORD_SEARCH | SUGGEST
     config: {
       std: {
@@ -648,7 +649,7 @@ export const commonFilters = {
       },
       specific: {
         // suggestHandle: 'recordedBy',
-        suggestHandle: 'recordedByWildcard',
+        // suggestHandle: 'recordedByWildcard',
         id2labelHandle: 'recordedBy',
         placeholder: 'Search by recorded by',
         supportsExist: true,
@@ -908,16 +909,16 @@ export const commonFilters = {
       }
     }
   },
-  eventID: {
+  eventId: {
     type: 'SIMPLE_TEXT',
     config: {
       std: {
-        filterHandle: 'eventID',
-        id2labelHandle: 'eventID',
+        filterHandle: 'eventId',
+        id2labelHandle: 'eventId',
         translations: {
-          count: 'filters.eventID.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.eventID.name',// translation path to a title for the popover and the button
-          description: 'filters.eventID.description', // translation path for the filter description
+          count: 'filters.eventId.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.eventId.name',// translation path to a title for the popover and the button
+          description: 'filters.eventId.description', // translation path for the filter description
         },
       },
       specific: {
