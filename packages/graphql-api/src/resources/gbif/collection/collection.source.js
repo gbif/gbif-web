@@ -24,7 +24,11 @@ class CollectionAPI extends RESTDataSource {
   }
 
   async getCollectionsByInstitutionKey({ key, limit = 20, offset = 0 }) {
-    return this.get('/grscicoll/collection', { institution: key, limit, offset }).then(res => res.results);
+    return this.get('/grscicoll/collection', {
+      institution: key,
+      limit,
+      offset,
+    }).then((res) => res.results);
   }
 
   /*
