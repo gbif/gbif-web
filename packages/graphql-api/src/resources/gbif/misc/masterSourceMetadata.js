@@ -10,4 +10,4 @@ type MasterSourceMetadata {
 }
 `;
 
-export default { typeDef };
+export default typeDef;

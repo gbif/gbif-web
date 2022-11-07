@@ -10,14 +10,16 @@ import masterSourceMetadata from './masterSourceMetadata';
 import tag from './tag';
 
 export default {
-  address,
-  comment,
-  contact,
-  contactPerson,
-  endpoint,
-  facetCount,
-  identifier,
-  machineTag,
-  masterSourceMetadata,
-  tag,
+  typeDef: [
+    address,
+    comment,
+    contact,
+    contactPerson,
+    endpoint,
+    facetCount,
+    identifier,
+    machineTag,
+    masterSourceMetadata,
+    tag,
+  ]
 };

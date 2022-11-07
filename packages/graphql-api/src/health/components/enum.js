@@ -5,8 +5,8 @@ import { gql } from 'apollo-server';
 import config from '#/config';
 import { getSchema } from '#/helpers/enums';
 
-const { apiv1: API_V1 } = config.gbif;
-const interval = get(config.gbif, 'healthUpdateFrequency.enums', 30000);
+const { apiv1: API_V1 } = config;
+const interval = get(config, 'healthUpdateFrequency.enums', 30000);
 let status = { status: 'ok', message: null, error: null };
 
 async function getEnumData(url) {

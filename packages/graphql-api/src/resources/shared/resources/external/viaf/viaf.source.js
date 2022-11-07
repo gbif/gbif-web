@@ -28,7 +28,7 @@ function reduce(response) {
 class ViafAPI extends RESTDataSource {
   constructor(config) {
     super();
-    this.baseURL = config.gbif.viaf.api;
+    this.baseURL = config.viaf.api;
   }
 
   willSendRequest(request) {

@@ -5,8 +5,8 @@ const urlSizeLimit = 2000; // use GET for requests that serialized is less than 
 class OccurrenceAPI extends RESTDataSource {
   constructor(config) {
     super();
-    this.baseURL = config.gbif.apiEs;
-    this.config = config.gbif;
+    this.baseURL = config.apiEs;
+    this.config = config;
   }
 
   willSendRequest(request) {

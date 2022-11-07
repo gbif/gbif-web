@@ -1,7 +1,7 @@
 export { default as collection } from './collection';
 export { default as dataset } from './dataset';
 export { default as download } from './download';
-export { default as event } from './event';
+export { default as event } from '../shared/resources/event';
 export { default as installation } from './installation';
 export { default as institution } from './institution';
 export { default as literature } from './literature';
@@ -15,5 +15,8 @@ export { default as participant } from './participant';
 export { default as staffMember } from './staffMember';
 export { default as taxon } from './taxon';
 
-export { default as external } from '../shared/schemas/external';
-export { default as scalars } from '../shared/schemas/scalars';
+// external data sources
+export { orcid, person, viaf } from '../shared/resources/external';
+
+// scalar types
+export { default as scalars } from '../shared/scalars';

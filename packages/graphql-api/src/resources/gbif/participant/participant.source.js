@@ -11,8 +11,8 @@ import { createSignedGetHeader } from '#/helpers/auth/authenticatedGet';
 class ParticipantAPI extends RESTDataSource {
   constructor(config) {
     super();
-    this.baseURL = config.gbif.apiv1;
-    this.config = config.gbif;
+    this.baseURL = config.apiv1;
+    this.config = config;
   }
 
   willSendRequest(request) {

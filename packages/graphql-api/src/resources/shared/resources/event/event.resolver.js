@@ -6,7 +6,7 @@ import {
   getTemporal,
   getCardinality,
 } from './helpers/getMetrics';
-import formattedCoordinates from './helpers/utils';
+import { formattedCoordinates } from '#/helpers/utils';
 import fieldsWithTemporalSupport from './helpers/fieldsWithTemporalSupport';
 import fieldsWithFacetSupport from './helpers/fieldsWithFacetSupport';
 import fieldsWithOccurrenceFacetSupport from './helpers/fieldsWithOccurrenceFacetSupport';

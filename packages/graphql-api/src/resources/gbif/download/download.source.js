@@ -3,7 +3,7 @@ import { RESTDataSource } from 'apollo-datasource-rest';
 class DownloadAPI extends RESTDataSource {
   constructor(config) {
     super();
-    this.baseURL = config.gbif.apiv1;
+    this.baseURL = config.apiv1;
   }
 
   async datasetDownloads({ query }) {

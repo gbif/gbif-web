@@ -4,7 +4,7 @@ import { stringify } from 'qs';
 class StaffMemberAPI extends RESTDataSource {
   constructor(config) {
     super();
-    this.baseURL = config.gbif.apiv1;
+    this.baseURL = config.apiv1;
   }
 
   async searchStaff({ query }) {

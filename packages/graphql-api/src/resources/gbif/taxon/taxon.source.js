@@ -5,8 +5,8 @@ import { getParsedName } from '#/helpers/scientificName';
 class TaxonAPI extends RESTDataSource {
   constructor(config) {
     super();
-    this.baseURL = config.gbif.apiv1;
-    this.config = config.gbif;
+    this.baseURL = config.apiv1;
+    this.config = config;
   }
 
   willSendRequest(request) {
@@ -27,7 +27,7 @@ class TaxonAPI extends RESTDataSource {
     return this.searchTaxa({
       query: {
         ...stringify(query, { indices: false }),
-        datasetKey: this.config.gbifBackboneUUID,
+        datasetKey: this.configBackboneUUID,
       },
     });
   }

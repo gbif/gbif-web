@@ -2,20 +2,13 @@ import { get, merge } from 'lodash';
 import * as resources from './resources';
 import config from './config';
 
-// Treat each top-level configuration entry as an 'organisation' (i.e., GBIF, ALA)
-const organizations = Object.keys(config).filter(
-  (org) => !['debug', 'port'].includes(org),
-);
+const organization = config.organization;
 
-// Map each organisation string to an aggregate object containing all of its resolvers
-const resolvers = organizations
-  .map((org) =>
-    (config[org].resources || []).reduce(
-      (agg, resource) =>
-        merge(agg, get(resources, `${org}.${resource}.resolver`)),
-      {},
-    ),
-  )
-  .reduce((agg, resource) => merge(agg, resource), {});
+// Merge the resovers defined for that organisation
+const resolvers = Object.keys(resources[organization]).reduce(
+  (agg, resource) =>
+    merge(agg, get(resources, `${organization}.${resource}.resolver`)),
+  {},
+);
 
 export default resolvers;

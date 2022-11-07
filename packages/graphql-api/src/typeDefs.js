@@ -4,11 +4,6 @@ import { getEnumTypeDefs } from '#/helpers/enums';
 import * as resources from './resources';
 import config from './config';
 
-// Treat each top-level configuration entry as an 'organisation' (i.e., GBIF, ALA)
-const organizations = Object.keys(config).filter(
-  (org) => !['debug', 'port'].includes(org),
-);
-
 const inputTypeDef = gql`
   input Predicate {
     type: PredicateType
@@ -50,14 +45,13 @@ async function getSchema() {
   `;
 
   // Map each organisation string to an aggregate array containing all of its typeDefs
+  const organization = config.organization;
+  const orgTypeDefs = Object.keys(resources[organization]).map(resource => get(resources, `${organization}.${resource}.typeDef`));
+
   const typeDefs = [
     rootQuery,
     inputTypeDef,
-    ...organizations.map((org) =>
-      (config[org].resources || []).map((resource) =>
-        get(resources, `${org}.${resource}.typeDef`),
-      ),
-    ),
+    ...orgTypeDefs
   ].flat(2);
 
   return typeDefs;

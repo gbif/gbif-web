@@ -3,7 +3,7 @@ import hash from 'object-hash';
 import { getEnumData } from './enum';
 import config from '#/config';
 
-const interval = get(config.gbif, 'healthUpdateFrequency.enums', 30000);
+const interval = get(config, 'healthUpdateFrequency.enums', 30000);
 let status = { status: 'ok', message: null, error: null };
 
 async function getLatestInterpretationRemark() {

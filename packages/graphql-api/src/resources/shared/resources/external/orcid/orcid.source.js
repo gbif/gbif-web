@@ -20,7 +20,7 @@ function reduce(response) {
 class OrcidAPI extends RESTDataSource {
   constructor(config) {
     super();
-    this.baseURL = config.gbif.orcid.pubApi;
+    this.baseURL = config.orcid.pubApi;
   }
 
   // eslint-disable-next-line class-methods-use-this

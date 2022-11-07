@@ -14,7 +14,7 @@ class WikiDataAPI extends RESTDataSource {
   constructor(config) {
     super();
     this.baseURL = '';
-    this.wdk = wikibase(config.gbif.wikidata);
+    this.wdk = wikibase(config.wikidata);
   }
 
   willSendRequest(request) {

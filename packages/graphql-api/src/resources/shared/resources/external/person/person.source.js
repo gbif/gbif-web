@@ -32,7 +32,7 @@ function reduce(people) {
 class PersonAPI extends RESTDataSource {
   constructor(config) {
     super();
-    this.baseURL = config.gbif.orcid.pubApi;
+    this.baseURL = config.orcid.pubApi;
   }
 
   willSendRequest(request) {

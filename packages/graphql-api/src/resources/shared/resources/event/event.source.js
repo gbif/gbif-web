@@ -7,8 +7,8 @@ const urlSizeLimit = 2000; // use GET for requests that serialized is less than 
 class EventAPI extends RESTDataSource {
   constructor(config) {
     super();
-    this.config = config.ala;
-    this.baseURL = config.ala.apiEs;
+    this.config = config;
+    this.baseURL = config.apiEs;
   }
 
   willSendRequest(request) {
