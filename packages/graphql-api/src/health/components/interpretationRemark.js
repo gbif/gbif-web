@@ -106,6 +106,10 @@ async function update() {
 
 const getInterpretationRemarkStatus = () => status;
 
-update();
+if (!config.apiv1) {
+  console.log('\x1b[33m%s\x1b[0m', 'Skipping sync check for GBIF interpretation remarks as config is missing for GBIF APIv1');
+} else {
+  update();
+}
 
 export { getInterpretationRemarkStatus, getLatestInterpretationRemark };
