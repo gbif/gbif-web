@@ -1,7 +1,6 @@
 export { default as collection } from './collection';
 export { default as dataset } from './dataset';
 export { default as download } from './download';
-export { default as event } from '../shared/resources/event';
 export { default as installation } from './installation';
 export { default as institution } from './institution';
 export { default as literature } from './literature';
@@ -14,6 +13,9 @@ export { default as organization } from './organization';
 export { default as participant } from './participant';
 export { default as staffMember } from './staffMember';
 export { default as taxon } from './taxon';
+
+// ALA use this, but we do not have an index for it yet
+// export { default as event } from '../shared/resources/event';
 
 // external data sources
 export { orcid, person, viaf } from '../shared/resources/external';
