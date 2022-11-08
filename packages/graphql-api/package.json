@@ -8,7 +8,6 @@
     "start": "ts-node -r tsconfig-paths/register --transpile-only src/index.ts",
     "start:ci": "ts-node -r tsconfig-paths/register --transpile-only src/index.ts",
     "test": "mocha src/**/*.test.js",
-    "add-resource": "npx plop --plopfile ./tools/plopfile.js",
     "write-enums": "ts-node -r tsconfig-paths/register --transpile-only tools/writeEnums.js",
     "write-interpretation-remark": "ts-node -r tsconfig-paths/register --transpile-only tools/writeInterpretationRemark.js"
   },
