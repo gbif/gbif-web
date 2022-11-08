@@ -2,6 +2,8 @@ import { get, difference, keyBy } from 'lodash';
 import hash from 'object-hash';
 import { getEnumData } from './enum';
 import config from '#/config';
+import prev from '#/helpers/enums/interpretationRemark.json';
+const prevMap = keyBy(prev, 'id');
 
 const interval = get(config, 'healthUpdateFrequency.enums', 30000);
 let status = { status: 'ok', message: null, error: null };
@@ -52,8 +54,6 @@ const getTermDiffs = (current, prev) => {
 };
 
 const getChangeReport = async (current) => {
-  const prev = await import('#/helpers/enums/interpretationRemark.json');
-  const prevMap = keyBy(prev, 'id');
   const currentMap = keyBy(current, 'id');
   const msg = getChangedValues(prevMap, currentMap);
   const diffs = Object.keys(prevMap)
@@ -86,6 +86,7 @@ const getChangeReport = async (current) => {
 
 async function update() {
   try {
+    debugger;
     const enumMap = await getLatestInterpretationRemark();
     const changeReport = await getChangeReport(enumMap);
     if (changeReport) {

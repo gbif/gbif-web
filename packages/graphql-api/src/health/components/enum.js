@@ -4,6 +4,7 @@ import { get, zipObject, difference } from 'lodash';
 import { gql } from 'apollo-server';
 import config from '#/config';
 import { getSchema } from '#/helpers/enums';
+import prevVersionEnums from '#/helpers/enums/enums.json';
 
 const { apiv1: API_V1 } = config;
 const interval = get(config, 'healthUpdateFrequency.enums', 30000);
@@ -44,8 +45,6 @@ const getEnumDiffs = (current, prev, name) => {
 };
 
 async function getChangeReport(currentVersionEnums) {
-  const prevVersionEnums = await import('#/helpers/enums/enums.json');
-
   if (
     hash(currentVersionEnums, { unorderedArrays: true }) !==
     hash(prevVersionEnums, { unorderedArrays: true })

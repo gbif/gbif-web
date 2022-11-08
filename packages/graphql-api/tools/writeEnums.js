@@ -14,11 +14,11 @@ const writeEnums = async () => {
         'GraphQL schema invalid, please adress the following error before starting the application:',
       );
       console.log(validationReport.error);
-      console.log('Writing /src/enums/enums.json');
+      console.log('Writing /src/helpers/enums/enums.json');
     }
     return fs
       .writeFile(
-        `${__dirname}/../src/enums/enums.json`,
+        `${__dirname}/../src/helpers/enums/enums.json`,
         JSON.stringify(enumMap, null, 2),
       )
       .then(() => console.log('Done.'));
