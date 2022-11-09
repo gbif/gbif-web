@@ -7,7 +7,7 @@ import Standalone from './Standalone';
 import { QueryParamProvider } from 'use-query-params';
 
 export default {
-  title: 'Entities/Dataset page',
+  title: 'Entities/WIP/Dataset page',
   component: Dataset,
 };
 
