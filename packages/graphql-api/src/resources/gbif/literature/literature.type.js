@@ -3,8 +3,8 @@ import { gql } from 'apollo-server';
 const typeDef = gql`
   extend type Query {
     literatureSearch(
-      limit: Int
-      offset: Int
+      size: Int
+      from: Int
       predicate: Predicate
       q: String
       countriesOfResearcher: [Country]
@@ -29,16 +29,16 @@ const typeDef = gql`
     """
     The literature that match the filter
     """
-    documents(limit: Int, offset: Int): LiteratureDocuments!
+    documents(size: Int, from: Int): LiteratureDocuments!
     _predicate: JSON
     _meta: JSON
   }
 
   type LiteratureDocuments {
     results: [Literature]!
-    limit: Int!
-    offset: Int!
-    count: Int!
+    size: Int!
+    from: Int!
+    total: Long!
   }
 
   type Literature {
