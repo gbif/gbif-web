@@ -86,7 +86,6 @@ const getChangeReport = async (current) => {
 
 async function update() {
   try {
-    debugger;
     const enumMap = await getLatestInterpretationRemark();
     const changeReport = await getChangeReport(enumMap);
     if (changeReport) {
