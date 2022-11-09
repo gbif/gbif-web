@@ -20,7 +20,6 @@ packages/react-components/locales/dist
 **/lerna-debug.log
 
 # editors
-.vscode/
 .idea/
 *.log
 

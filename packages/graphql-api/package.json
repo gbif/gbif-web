@@ -4,6 +4,7 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
+    "prepare": "ts-patch install -s",
     "develop": "ts-node-dev -r tsconfig-paths/register src/index.ts",
     "start": "ts-node -r tsconfig-paths/register --transpile-only src/index.ts",
     "start:ci": "ts-node -r tsconfig-paths/register --transpile-only src/index.ts",
@@ -69,7 +70,9 @@
     "ts-mocha": "^10.0.0",
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
-    "tsconfig-paths": "^4.1.0"
+    "ts-patch": "^2.0.2",
+    "tsconfig-paths": "^4.1.0",
+    "typescript-transform-paths": "^3.4.4"
   },
   "nodemonConfig": {
     "ignore": [
