@@ -628,7 +628,6 @@ export const commonFilters = {
               }
             }
         `,
-        graph: 'EVENT',
         queryKey: 'eventType',
         keepCase: true
       }
@@ -905,7 +904,6 @@ export const commonFilters = {
           }
         `,
         queryKey: 'stateProvince',
-        graph: 'EVENT',
       }
     }
   },
@@ -984,7 +982,6 @@ export const commonFilters = {
           }
         `,
         queryKey: 'samplingProtocol',
-        graph: 'EVENT',
       }
     }
   },
@@ -1405,7 +1402,6 @@ export const commonFilters = {
             }
           }
         `,
-        graph: 'EVENT',
         queryKey: 'measurementOrFactTypes',
         keepCase: true
       }
