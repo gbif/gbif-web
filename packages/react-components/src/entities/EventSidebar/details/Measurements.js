@@ -9,10 +9,10 @@ export function Measurements({ data }) {
     const [fixedColumn, setFixed] = useState(true);
 
     let hasMeasurements = false;
-    if (data.results.documents.results
-        && data.results.documents.results.length > 0
-        && data.results.documents.results[0].measurementOrFacts
-        && data.results.documents.results[0].measurementOrFacts.length > 0) {
+    if (data.documents.results
+        && data.documents.results.length > 0
+        && data.documents.results[0].measurementOrFacts
+        && data.documents.results[0].measurementOrFacts.length > 0) {
         hasMeasurements = true;
     }
 
@@ -20,7 +20,12 @@ export function Measurements({ data }) {
         return <></>
     }
 
-    const results = data.results.documents.results[0].measurementOrFacts;
+    //const results = data.documents.results[0].measurementOrFacts;
+    let results = data.documents.results.reduce(function(measurements, result){
+        measurements.push(result.measurementOrFacts);
+        return measurements;
+    },[]);
+    results = results.flat();
 
     const getRows = () => {
         const rows = results.map(row => {
