@@ -18,7 +18,7 @@ export function SiteSidebar({
   style,
   ...props
 }) {
-  const { data, error, loading, load } = useQuery(SITE, { lazyLoad: true, graph: 'EVENT' });
+  const { data, error, loading, load } = useQuery(SITE, { lazyLoad: true });
   const theme = useContext(ThemeContext);
   const [activeId, setTab] = useState('details');
   const location = data;

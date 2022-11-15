@@ -16,9 +16,6 @@ const client = new ApiClient({
   gql: {
     endpoint: env.GRAPH_API,
   },
-  gqlEvents: {
-    endpoint: env.EVENT_GRAPH_API,
-  },
   v1: {
     endpoint: env.API_V1
   },

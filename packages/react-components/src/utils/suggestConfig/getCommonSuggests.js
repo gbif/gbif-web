@@ -241,7 +241,7 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
           size,
           predicate
         };
-        const { promise, cancel } = client.query({ query: SEARCH, variables, graph: 'EVENT' });
+        const { promise, cancel } = client.query({ query: SEARCH, variables });
         return {
           promise: promise.then(response => {
             return {
@@ -621,7 +621,7 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
           size,
           predicate
         };
-        const { promise, cancel } = client.query({ query: SEARCH, variables, graph: 'EVENT' });
+        const { promise, cancel } = client.query({ query: SEARCH, variables });
         return {
           promise: promise.then(response => {
             return {

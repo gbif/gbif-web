@@ -25,6 +25,7 @@ import resolvers from './resolvers';
 import api from './dataSources';
 // we will attach a user if an authorization header is present.
 import extractUser from './helpers/auth/extractUser';
+import mapController from './api-utils/maps/index.ctrl.js';
 
 // we are doing this async as we need to load the various enumerations from the APIs
 // and generate the schema from those
@@ -102,14 +103,9 @@ async function initializeServer() {
   });
 
   app.get('/health', health);
-
-  // add various supportive endpoints
-  const controllers = glob.sync(`${__dirname}/api-utils/**/*.ctrl.js`);
-  await Promise.all(
-    controllers.map((controller) => async () => {
-      (await import(controller))(app);
-    }),
-  );
+  
+  // utils for map styles
+  mapController(app);
 
   await server.start();
   server.applyMiddleware({ app });

@@ -120,7 +120,7 @@ function DatasetSkeleton() {
   </div>
 }
 function Dataset({ datasetKey, datasetTitle, count, occurrenceCount, events, onClick, filters, ...props }) {
-  const { data, error, loading, load } = useQuery(DATASET_QUERY, { lazyLoad: true, graph: 'EVENT' });
+  const { data, error, loading, load } = useQuery(DATASET_QUERY, { lazyLoad: true });
   const currentFilterContext = useContext(FilterContext);
 
   useEffect(() => {

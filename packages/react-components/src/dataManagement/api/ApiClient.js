@@ -8,7 +8,6 @@ class ApiClient {
     this.esApi = config.esApi;
     this.request;
     this.graphs = {
-      EVENT: config.gqlEvents,
       DEFAULT: config.gql
     };
   }

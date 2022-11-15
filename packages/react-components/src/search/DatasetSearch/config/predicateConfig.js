@@ -5,6 +5,9 @@ const filterConf = {
     publisherKey: {
       defaultKey: 'publishingOrg'
     },
+    anyPublisherKey: {
+      defaultKey: 'publishingOrg'
+    },
     hostingOrganizationKey: {
       defaultKey: 'hostingOrg'
     },

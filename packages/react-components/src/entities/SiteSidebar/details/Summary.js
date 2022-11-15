@@ -9,7 +9,7 @@ export function Summary({
 }) {
   const theme = useContext(ThemeContext);
   const [showAll, setShowAll] = useState(false);
-  const { data, error, loading, load } = useQuery(FACET_BREAKDOWN, { lazyLoad: true, graph: 'EVENT' });
+  const { data, error, loading, load } = useQuery(FACET_BREAKDOWN, { lazyLoad: true });
 
   useEffect(() => {
     if (typeof locationID !== 'undefined') {
