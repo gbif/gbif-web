@@ -1,11 +1,11 @@
 import { css } from '@emotion/react';
 // import { focusStyle } from '../../style/shared';
 
-export const horizontalProperties = () => css`
+export const horizontalProperties = ({dense}) => css`
   display: grid;
   grid-template-columns: minmax(75px, 200px) 1fr;
   > dt {
-    margin-bottom: 12px;
+    margin-bottom: ${dense ? 4 : 12}px;
     &:last-of-type {
       margin-bottom: 0;
     }
@@ -30,7 +30,7 @@ export const notHorizontalProperties = () => css`
 `;
 
 export const dl = ({ horizontal, dense, theme, ...props }) => css`
-    ${horizontal ? horizontalProperties({ ...props }) : notHorizontalProperties()};
+    ${horizontal ? horizontalProperties({ dense, ...props }) : notHorizontalProperties()};
     margin-top: 0;
     margin-bottom: 0;
     > * {

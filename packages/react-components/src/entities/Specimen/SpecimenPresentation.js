@@ -2,7 +2,7 @@
 import { jsx, css } from '@emotion/react';
 import React, { useContext } from 'react';
 import ThemeContext from '../../style/themes/ThemeContext';
-import { Tabs, Eyebrow, ResourceLink, Button, Tooltip, Classification, Doi, Properties } from '../../components';
+import { Tabs, Switch as Toggle, Eyebrow, ResourceLink, Button, Tooltip, Classification, Doi, Properties } from '../../components';
 import OccurrenceSearch from '../../search/OccurrenceSearch/OccurrenceSearch';
 import { Description as About } from './about/Description';
 // import { People } from './people/People';
@@ -11,6 +11,7 @@ import { join } from '../../utils/util';
 
 // import * as styles from './styles';
 import { MdHelp } from 'react-icons/md';
+// import { TbCircleDot } from 'react-icons/tb';
 
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 
@@ -27,6 +28,7 @@ import env from '../../../.env.json';
 import { Separator } from '../../components/DataHeader/DataHeader';
 import { Term, Value } from '../../components/Properties/Properties';
 import { DataTable } from './DataTable';
+import { Identifications } from './Identifications';
 const { TabList, RouterTab, Tab } = Tabs;
 
 export function SpecimenPresentation({
@@ -67,8 +69,17 @@ export function SpecimenPresentation({
       <Headline css={css`display: inline; margin-right: 12px;`}>{specimen.name}</Headline>
     </HeaderWrapper> */}
 
-
     <div css={css`padding: 12px; width: 1200px; max-width: 100%; margin: auto;`}>
+
+      <div css={css`display: flex; align-items: center; margin-bottom: 8px;`}>
+        <label css={css`margin-inline-end: 8px;`}>
+          <Toggle /> <FormattedMessage id="specimen.extendedView" defaultMessage="Extended view" />
+        </label>
+        <MdHelp />
+      </div>
+
+      <Identifications css={css`margin-bottom: 24px;`} />
+
       <Card padded={false} css={css`
       display: flex;
     `}>
@@ -133,12 +144,12 @@ export function SpecimenPresentation({
         </div>
       </Card>
 
-      <Card padding={false} css={css`margin: 12px 0;`}>
+      <Card css={css`margin: 12px 0;`}>
         <CardHeader2>Agents</CardHeader2>
         <DataTable></DataTable>
       </Card>
     </div>
 
-    
+
   </>
 };
