@@ -2,9 +2,9 @@ import { filters } from './filterConf';
 
 const filterConf = {
   fields: {
-    publisherKey: {
-      defaultKey: 'publishingOrg'
-    },
+    // publisherKey: {
+    //   defaultKey: 'publishingOrg'
+    // },
     anyPublisherKey: {
       defaultKey: 'publishingOrg'
     },
