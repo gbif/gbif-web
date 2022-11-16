@@ -40,7 +40,6 @@ export const cssFooter = ({theme}) => css`
 
 export const cssFilter = ({theme}) => css`
   padding: 10px;
-  border-bottom: 1px solid ${theme.paperBorderColor};
 `;
 
 export const cssViews = ({theme}) => css`
