@@ -26,10 +26,8 @@ export function Summaries({ event, setActiveEvent, addToSearch, addEventTypeToSe
   })
 
   let hasEventType = false;
-  if (data.results.documents.results
-      && data.results.documents.results.length > 0
-      && data.results.documents.results[0].eventType
-      && data.results.documents.results[0].eventType.concept) {
+  if (data.results.documents.results?.length > 0
+      && data.results.documents.results[0]?.eventType?.concept) {
     hasEventType = true;
   }
 
@@ -83,7 +81,7 @@ export function Summaries({ event, setActiveEvent, addToSearch, addEventTypeToSe
             name: nodes[i],
             isSelected: false,
             count: hierarchy.count,
-            isClickable: hierarchy.count == 1 ? true:false,
+            isClickable: hierarchy.count === 1,
             children: []
           }
           startingNode.children.push(newNode);
@@ -101,7 +99,7 @@ export function Summaries({ event, setActiveEvent, addToSearch, addEventTypeToSe
     //Calculate how may measurements attached to 'Survey','Sample','Find' etc
     const measurements = mofHierarchyJoined.reduce(function(measurementsCount, record){
       let total = record.events?.facet?.measurementOrFactTypes.reduce(function(count, mft){
-          count +=mft['count'];
+          count += mft.count;
           return count;
       }, 0)
       measurementsCount[record.key] = total;
