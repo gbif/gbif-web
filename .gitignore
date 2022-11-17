@@ -1,6 +1,6 @@
 # dependencies
 **/node_modules
-
+.history
 # built files
 **/esm
 **/dist-storybook

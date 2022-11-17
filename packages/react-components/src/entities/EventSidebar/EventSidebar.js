@@ -88,12 +88,6 @@ query event($eventID: String, $datasetKey: String){
     countryCode
     datasetKey
     datasetTitle
-    kingdoms
-    phyla
-    classes
-    orders
-    families
-    genera
     year
     month
     occurrenceCount

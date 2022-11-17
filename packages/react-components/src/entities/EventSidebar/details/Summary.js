@@ -161,7 +161,11 @@ query list($predicate1: Predicate, $predicate2: Predicate, $offset: Int, $limit:
       genus {
         count
         key
-      }      
+      }    
+      species {
+        count
+        key
+      }            
       samplingProtocol {
         count
         key
