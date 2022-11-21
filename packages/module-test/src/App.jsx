@@ -1,4 +1,6 @@
-import { EventSearch, OccurrenceSearch, themeBuilder } from 'gbif-react-components';
+import { EventSearch, themeBuilder } from 'gbif-react-components';
+// import EventSearch from 'gbif-react-components/dist/esm/EventSearch/Standalone';
+// import themeBuilder from 'gbif-react-components/dist/esm/style/themeBuilder';
 
 function App() {
   const widgetLocale = 'en';
