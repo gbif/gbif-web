@@ -6,6 +6,7 @@ import union from 'lodash/union';
 import { withFilter } from '../../widgets/Filter/state';
 import ThemeContext from '../../style/themes/ThemeContext';
 import { Trigger as MetaFilter } from '../../widgets/Filter/types/MetaFilter';
+import { MdTune } from 'react-icons/md';
 
 function getVisibleFilters(currentFilter, commonFilters) {
   const visibleFilters = union(commonFilters,
@@ -28,6 +29,9 @@ const FilterBar = ({
   const availableFilters = visibleFilters.map(x => config.filters[x]);
 
   return <div className={`${className} ${prefix}-${elementName}`} css={css`${style(theme)}`} {...props}>
+    <div css={filterIcon(theme)}>
+      <MdTune size={20} />
+    </div>
     {availableFilters.map((x, i) => {
       if (!x) return null; // if no widget is defined for this filter, then do not show anything
       return <x.Button key={i} />
@@ -41,6 +45,15 @@ const FilterBar = ({
 
 FilterBar.propTypes = {
 }
+
+const filterIcon = (theme) =>css`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  background-color: ${theme.paperBorderColor};
+  padding: 0.5em;
+`;
 
 export const style = (theme) => css`
   display: flex;
