@@ -1,22 +1,21 @@
 import { analyzeMetafile, build } from 'esbuild';
 import fsp from 'fs/promises';
 
-const entry = "src/index.js";
 // const shared = {
 //   bundle: true,
-//   entryPoints: [
-//     'src/search/CollectionSearch/Standalone.js',
-//     'src/search/DatasetSearch/Standalone.js',
-//     'src/search/EventSearch/Standalone.js',
-//     'src/search/InstitutionSearch/Standalone.js',
-//     'src/search/LiteratureSearch/Standalone.js',
-//     'src/search/OccurrenceSearch/Standalone.js',
-//     'src/search/PublisherSearch/Standalone.js',
-//     'src/entities/Collection/Standalone.js',
-//     'src/entities/Institution/Standalone.js',
-//     'src/entities/Dataset/Standalone.js',
-//     'src/style/themeBuilder/index.js',
-//   ],
+//   entryPoints: {
+//     CollectionSearch: 'src/search/CollectionSearch/Standalone.js',
+//     DatasetSearch: 'src/search/DatasetSearch/Standalone.js',
+//     EventSearch: 'src/search/EventSearch/Standalone.js',
+//     InstitutionSearch: 'src/search/InstitutionSearch/Standalone.js',
+//     LiteratureSearch: 'src/search/LiteratureSearch/Standalone.js',
+//     OccurrenceSearch: 'src/search/OccurrenceSearch/Standalone.js',
+//     PublisherSearch: 'src/search/PublisherSearch/Standalone.js',
+//     Collection: 'src/entities/Collection/Standalone.js',
+//     Institution: 'src/entities/Institution/Standalone.js',
+//     Dataset: 'src/entities/Dataset/Standalone.js',
+//     themeBuilder: 'src/style/themeBuilder/index.js',
+//   },
 //   mainFields: ['browser', 'module', 'main'],
 //   external: ['react', 'react-dom'],
 //   logLevel: "info",
@@ -32,7 +31,6 @@ const entry = "src/index.js";
 const shared = {
   bundle: true,
   entryPoints: ['src/index.js'],
-  mainFields: ['browser', 'module', 'main'],
   external: ['react', 'react-dom'],
   logLevel: "info",
   target: ['esnext'],
@@ -45,7 +43,7 @@ const shared = {
   jsxImportSource: '@emotion/react',
 };
 
-['esm', 'cjs'].forEach(async (format) => {
+['esm'].forEach(async (format) => {
   const result = await build({
     ...shared,
     format,
