@@ -21,7 +21,10 @@ function useQuery(query, options = {}) {
   if (error?.networkError && options?.throwNetworkErrors) throw error;
   if (error && options?.throwAllErrors) throw error;
 
-  useEffect(() => () => { unmounted.current = true }, []);
+  useEffect(() => {
+    unmounted.current = false;
+    return () => { unmounted.current = true; }
+  }, []);
 
   function init({keepDataWhileLoading}) {
     if (!keepDataWhileLoading) setData();
@@ -45,8 +48,7 @@ function useQuery(query, options = {}) {
     setCancel(() => cancel);
     dataPromise.
       then(response => {
-        console.log('LOAD DATA', unmounted.current, response);
-        // if (unmounted.current) return;
+        if (unmounted.current) return;
         const { data, error } = response;
         if (error?.isCanceled?.message === RENEW_REQUEST) {
           return;
