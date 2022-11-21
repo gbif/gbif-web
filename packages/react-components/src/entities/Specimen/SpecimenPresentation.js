@@ -29,6 +29,7 @@ import { Separator } from '../../components/DataHeader/DataHeader';
 import { Term, Value } from '../../components/Properties/Properties';
 import { DataTable } from './DataTable';
 import { Identifications } from './Identifications';
+import { Media } from './Media';
 const { TabList, RouterTab, Tab } = Tabs;
 
 export function SpecimenPresentation({
@@ -77,6 +78,15 @@ export function SpecimenPresentation({
         </label>
         <MdHelp />
       </div>
+
+      <Media css={css`margin-bottom: 24px;`} />
+      
+      <Card padded={false} css={css`margin-bottom: 24px;`}>
+        <div css={css`padding: 12px 24px;`}>
+          <CardHeader2>Agents</CardHeader2>
+        </div>
+        <DataTable></DataTable>
+      </Card>
 
       <Identifications css={css`margin-bottom: 24px;`} />
 
@@ -142,11 +152,6 @@ export function SpecimenPresentation({
       `}>
           Map goes here
         </div>
-      </Card>
-
-      <Card css={css`margin: 12px 0;`}>
-        <CardHeader2>Agents</CardHeader2>
-        <DataTable></DataTable>
       </Card>
     </div>
 
