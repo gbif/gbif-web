@@ -1,6 +1,6 @@
 import { jsx, css } from '@emotion/react';
 import React from 'react';
-import { GenIcon } from 'react-icons';
+import { GenIcon } from 'react-icons/lib/esm/iconBase';
 
 // https://github.com/react-icons/react-icons/issues/238
 // SVJ => JSON using https://react-icons-json-generator.surge.sh/

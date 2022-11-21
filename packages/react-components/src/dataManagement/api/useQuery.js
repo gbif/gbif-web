@@ -5,14 +5,6 @@ import ApiContext from './ApiContext';
 
 const RENEW_REQUEST = 'RENEW_REQUEST';
 
-const useUnmounted = () => {
-  const unmounted = useRef(false)
-  useEffect(() => () => {
-    unmounted.current = true
-  }, [])
-  return unmounted
-}
-
 function useQuery(query, options = {}) {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
@@ -20,7 +12,7 @@ function useQuery(query, options = {}) {
   // functions are called when passed to useState so it has to be wrapped. 
   // We provide an empty call, just so we do not have to check for existence subsequently
   const [cancelRequest, setCancel] = useState(() => () => {});
-  const unmounted = useUnmounted();
+  const unmounted = useRef(false);
   const apiClient = useContext(ApiContext);
   const client = options?.client || apiClient;
   const queryTag = options?.queryTag;
@@ -28,6 +20,8 @@ function useQuery(query, options = {}) {
 
   if (error?.networkError && options?.throwNetworkErrors) throw error;
   if (error && options?.throwAllErrors) throw error;
+
+  useEffect(() => () => { unmounted.current = true }, []);
 
   function init({keepDataWhileLoading}) {
     if (!keepDataWhileLoading) setData();
@@ -51,7 +45,8 @@ function useQuery(query, options = {}) {
     setCancel(() => cancel);
     dataPromise.
       then(response => {
-        if (unmounted.current) return;
+        console.log('LOAD DATA', unmounted.current, response);
+        // if (unmounted.current) return;
         const { data, error } = response;
         if (error?.isCanceled?.message === RENEW_REQUEST) {
           return;

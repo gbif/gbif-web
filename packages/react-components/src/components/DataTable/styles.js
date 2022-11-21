@@ -23,7 +23,6 @@ export const occurrenceTable = ({theme}) => css`
   position: relative;
   background: ${theme.paperBackground};
   flex: 1 1 auto;
-  /* ${styledScrollBars(props)} */
 `;
 
 export const footer = ({theme}) => css`

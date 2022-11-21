@@ -88,7 +88,6 @@ export function Popover({ filterHandle, LabelFromID, translations = {}, config, 
         filterHandle={filterHandle}
         LabelFromID={LabelFromID}
         translations={translations}
-        translations={translations}
         config={config} />}
     />
   );

@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { Properties, Tag, Tags } from "../../../components";
 import {useIntl, FormattedMessage, FormattedNumber} from 'react-intl';
 import { prettifyEnum } from '../../../utils/labelMaker/config2labels';
-import intl from 'react-intl';
+import startCase from 'lodash/startCase';
 
 const { Term: T, Value: V } = Properties;
 const licenseMap = {
@@ -170,7 +170,7 @@ export function Field({ term, label, showDetails, hideIssues, hideRemarks, ...pr
     <T>
       <FormattedMessage
         id={fieldName}
-        defaultMessage={_.startCase(simpleName)}
+        defaultMessage={startCase(simpleName)}
       />
     </T>
     <V style={{ position: 'relative' }}>
@@ -190,7 +190,7 @@ export function FieldWithCallback({ term, label, showDetails, hideIssues, hideRe
     <T>
       <FormattedMessage
           id={fieldName}
-          defaultMessage={_.startCase(simpleName)}
+          defaultMessage={startCase(simpleName)}
       />
     </T>
     <V style={{ position: 'relative' }}>

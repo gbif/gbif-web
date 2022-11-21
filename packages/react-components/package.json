@@ -2,15 +2,11 @@
   "name": "gbif-react-components",
   "version": "1.0.0",
   "description": "React components for use in GBIFs coming websites",
-  "module": "./build/esm/index.js",
-  "main": "./build/cjs/index.cjs",
-  "browser": "./dist/lib/gbif-react-components.js",
-  "exports": {
-    "import": "./build/esm/index.js",
-    "default": "./build/cjs/index.cjs"
-  },
+  "main": "./dist/index.cjs.js",
+  "module": "./dist/index.esm.js",
   "scripts": {
     "build": "npx webpack --mode=production",
+    "build:new": "node build.mjs",
     "develop": "npx webpack --mode=development --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve-translations": "npx serve locales/dist/ -p 5002 --cors",
@@ -32,7 +28,7 @@
   "dependencies": {
     "@babel/runtime": "^7.13.10",
     "@emotion/babel-preset-css-prop": "^11.2.0",
-    "@emotion/react": "^11.1.5",
+    "@emotion/react": "^11.10.5",
     "axios": "^0.24.0",
     "d3": "^7.1.1",
     "doi-regex": "^0.1.10",
@@ -53,10 +49,8 @@
     "proj4": "^2.8.0",
     "query-string": "^7.0.0",
     "queue-promise": "^2.2.1",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
     "react-fast-compare": "^3.2.0",
-    "react-icons": "4.4.0",
+    "react-icons": "4.6.0",
     "react-intl": "^5.13.4",
     "react-markdown": "^5.0.3",
     "react-router-dom": "^5.2.0",
@@ -67,6 +61,10 @@
     "use-debounce": "^6.0.0",
     "use-query-params": "1.2.3",
     "wicket": "1.3.8"
+  },
+  "peerDependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.13.10",
@@ -81,6 +79,7 @@
     "@storybook/react": "^6.4.12",
     "babel-loader": "^8.2.2",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+    "esbuild": "^0.15.14",
     "flat": "^5.0.2",
     "gulp": "^4.0.2",
     "gulp-if": "^3.0.0",
