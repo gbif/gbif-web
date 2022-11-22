@@ -110,6 +110,7 @@ export function VocabField(props) {
 export function DateRangeField(props) {
   if (!props.term) return null;
   const { value } = props.term;
+  if (!value) return null;
   const {gte, lte} = value;
   const isRange = gte != null && lte != null;
 

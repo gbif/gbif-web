@@ -65,7 +65,7 @@ export const commonLabels = {
     transform: result => ({ title: result.title })
   },
   eventDatasetKey: {
-    type: 'GQL_EVENTS',
+    type: 'GQL',
     query: `query label($id: JSON!){
       eventSearch(predicate: {type:equals, key: "datasetKey", value: $id}) {
         documents(size: 1) {
