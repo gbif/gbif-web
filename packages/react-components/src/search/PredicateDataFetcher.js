@@ -4,6 +4,7 @@ import { FilterContext } from '../widgets/Filter/state';
 import SearchContext from './SearchContext';
 import { useQuery } from '../dataManagement/api';
 import { filter2predicate } from '../dataManagement/filterAdapter';
+import { ErrorBoundary } from "../components/ErrorBoundary";
 import { useQueryParam, NumberParam } from 'use-query-params';
 import hash from 'object-hash';
 
@@ -57,20 +58,22 @@ function PredicateDataFetcher({graphQuery, graph, resultKey, offsetName = 'from'
   const total = data?.results?.documents?.total;
   const results = data?.results?.documents?.results;
   return <>
-    <Presentation
-      {...props}
-      error={error}
-      loading={loading}
-      data={data}
-      next={next}
-      prev={prev}
-      first={first}
-      size={limit}
-      from={offset}
-      total={total}
-      results={results}
-      {...componentProps}
-    />
+    <ErrorBoundary>
+      <Presentation
+        {...props}
+        error={error}
+        loading={loading}
+        data={data}
+        next={next}
+        prev={prev}
+        first={first}
+        size={limit}
+        from={offset}
+        total={total}
+        results={results}
+        {...componentProps}
+      />
+    </ErrorBoundary>
   </>
 }
 
