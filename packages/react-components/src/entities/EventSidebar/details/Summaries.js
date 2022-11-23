@@ -26,10 +26,8 @@ export function Summaries({ event, setActiveEvent, addToSearch, addEventTypeToSe
   })
 
   let hasEventType = false;
-  if (data.results.documents.results
-      && data.results.documents.results.length > 0
-      && data.results.documents.results[0].eventType
-      && data.results.documents.results[0].eventType.concept) {
+  if (data.results.documents.results?.length > 0
+      && data.results.documents.results[0]?.eventType?.concept) {
     hasEventType = true;
   }
 
@@ -83,7 +81,7 @@ export function Summaries({ event, setActiveEvent, addToSearch, addEventTypeToSe
             name: nodes[i],
             isSelected: false,
             count: hierarchy.count,
-            isClickable: true,
+            isClickable: hierarchy.count === 1,
             children: []
           }
           startingNode.children.push(newNode);
@@ -98,21 +96,33 @@ export function Summaries({ event, setActiveEvent, addToSearch, addEventTypeToSe
     const mofHierarchyJoined = data?.mofResults.facet.eventTypeHierarchyJoined.sort(function (a, b) {
       return a.key.length - b.key.length
     });
+    //Calculate how may measurements attached to 'Survey','Sample','Find' etc
+    const measurements = mofHierarchyJoined.reduce(function(measurementsCount, record){
+      let total = record.events?.facet?.measurementOrFactTypes.reduce(function(count, mft){
+          count += mft.count;
+          return count;
+      }, 0)
+      measurementsCount[record.key] = total;
+      return measurementsCount;
+    },{})
+
     mofHierarchyJoined.forEach(hierarchy => {
       let nodes = hierarchy.key.split(" / ").map(s => s.trim());
       nodes.push("Measurement");
       // add to the last parent (should be the selected event)
       let startingNode = currentNode;
       for (let i = parentCount; i < nodes.length; i++){
-
         // do we have this child node already ?
         let existingChild = startingNode.children.find(node => node.key == nodes[i]);
         if (!existingChild){
+          let keyChain = nodes.slice(0, i);
+          let fullKey = keyChain.join(" / ");
+          let measurementCount = measurements[fullKey];
           let newNode = {
             key: nodes[i],
             name: nodes[i],
             isSelected: false,
-            count: hierarchy.count,
+            count: measurementCount,
             isClickable: false,
             children: []
           }
@@ -138,11 +148,12 @@ export function Summaries({ event, setActiveEvent, addToSearch, addEventTypeToSe
         // do we have this child node already ?
         let existingChild = startingNode.children.find(node => node.key == nodes[i]);
         if (!existingChild){
+          let count = data.results.occurrenceFacet?.datasetKey[0]?.count ?? 0;
           let newNode = {
             key: nodes[i],
             name: nodes[i],
             isSelected: false,
-            count: hierarchy.count,
+            count: count,
             isClickable: false,
             children: []
           }
@@ -178,7 +189,7 @@ export function Summaries({ event, setActiveEvent, addToSearch, addEventTypeToSe
     </Group>
     <Methodology             {...{ showAll, termMap }} />
     <TaxonomicCoverage       {...{ showAll, termMap }} />
-    <Measurements             data={data}  />
+    <Measurements             data={data.measurementResults}  />
   </>
 }
 

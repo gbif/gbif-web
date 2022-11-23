@@ -5,9 +5,10 @@ import ThemeContext from '../../style/themes/ThemeContext';
 import { withFilter } from '../../widgets/Filter/state';
 import { FormattedMessage } from 'react-intl';
 import { cssLayout, cssNavBar, cssViewArea, cssFilter } from './Layout.styles';
-import { Tabs, DataHeader, NavBar, NavItem } from '../../components'
+import { Button, Tabs, DataHeader, NavBar, NavItem } from '../../components'
 import { FilterBar } from '../FilterBar';
 import { useQueryParam, StringParam } from 'use-query-params';
+import ClearFilter from "./views/Filter/ClearFilter";
 
 const Layout = ({
   className = '',
@@ -40,6 +41,7 @@ const Layout = ({
         <DataHeader availableCatalogues={config.availableCatalogues} style={{ borderBottom: '1px solid #ddd' }} />
         <div css={cssFilter({ theme })}>
           <FilterBar config={config}></FilterBar>
+          <ClearFilter/>
         </div>
         {tabs.length > 1 && <div>
           <NavBar style={{ marginLeft: 10 }}>
