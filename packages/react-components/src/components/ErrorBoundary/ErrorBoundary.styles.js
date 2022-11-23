@@ -28,11 +28,10 @@ export const stack = css`
   max-height: 300px;
   overflow-y: auto;
   padding: 1em;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 1px 1px #0000000a;
-  margin-top: 20px;
-  & span {
+  background-color: var(--paperBackground);
+  border: 1px solid var(--paperBorderColor);
+  border-radius: var(--borderRadiusPx);
+  pre {
     font-family: monospace;
     font-size: 14px;
   }

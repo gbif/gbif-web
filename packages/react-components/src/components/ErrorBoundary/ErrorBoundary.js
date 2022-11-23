@@ -1,15 +1,13 @@
+import React from "react";
 import * as styles from './ErrorBoundary.styles';
 import { Button } from '../Button';
-import { MdError } from 'react-icons/md';
+import { ErrorImage as ErrorImage } from '../Icons/Icons';
 import { FormattedMessage } from 'react-intl';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { error: null, showStack: true };
-
-    // Bind event handlers
-    this.handleToggleStack = this.handleToggleStack.bind(this);
+    this.state = { error: null, showStack: false };
   }
 
   static getDerivedStateFromError(error) {
@@ -20,7 +18,7 @@ class ErrorBoundary extends React.Component {
     console.error(error, errorInfo);
   }
 
-  handleToggleStack() {
+  handleToggleStack = () => {
     this.setState({
       ...this.state,
       showStack: !this.state.showStack,
@@ -29,52 +27,57 @@ class ErrorBoundary extends React.Component {
 
   render() {
     const { error, showStack } = this.state;
-    return error ? (
-      <div css={styles.container}>
-        <MdError size={72} />
-        <h1 style={{ marginBottom: 0 }}>
-          <FormattedMessage
-            id='error.generic'
-            defaultMessage='An error occurred'
-          />
-        </h1>
-        <h3 style={{ marginTop: 12 }}>
-          {error.message || (
-            <FormattedMessage
-              id='error.unknown'
-              defaultMessage='Unknown error'
-            />
-          )}
-        </h3>
-        <div css={styles.actions}>
-          <Button
-            as='a'
-            target='_blank'
-            href='https://github.com/gbif/gbif-web/issues/new'
-          >
-            <FormattedMessage id='error.report' defaultMessage='Report issue' />
-          </Button>
-          <Button onClick={this.handleToggleStack}>
-            <FormattedMessage
-              id={showStack ? 'error.hideDetails' : 'error.showDetails'}
-              defaultMessage={showStack ? 'Hide details' : 'Show details'}
-            />
-          </Button>
-        </div>
-        {error.stack && showStack && (
-          <div css={styles.stack}>
-            {error.stack
-              .split(' at ')
-              .slice(1)
-              .map((stackItem) => (
-                <span>at {stackItem}</span>
-              ))}
-          </div>
-        )}
+
+    // if there is no error then just return the children
+    if (!error) {
+      return this.props.children;
+    }
+
+    // An error has occurred
+    let errorMessage = `Thank you for reporting this issue. Please describe what happened.\n\n\n\n`;
+
+    if (typeof error?.stack === 'string') errorMessage += '\n**Error message for diagnostics**\n```\n' + error.stack + '\n```';
+    errorMessage += `\nLocation: ${window.location}`;
+
+    return <div css={styles.container}>
+      <ErrorImage style={{ maxWidth: '100%', width: 280 }} />
+      <h1 style={{ marginBottom: 0 }}>
+        <FormattedMessage
+          id='error.genericx'
+          defaultMessage='Something went wrong'
+        />
+      </h1>
+      <div css={styles.actions}>
+        <Button
+          as='a'
+          target='_blank'
+          href={`https://github.com/gbif/gbif-web/issues/new?body=${encodeURIComponent(errorMessage)}`}
+        >
+          <FormattedMessage id='error.report' defaultMessage='Report issue' />
+        </Button>
       </div>
-    ) : (
-      this.props.children
-    );
+      <Button look="text" style={{ color: 'var(--color500)', marginBottom: 8 }} onClick={this.handleToggleStack}>
+        <FormattedMessage
+          id={showStack ? 'error.hideDetails' : 'error.showDetails'}
+          defaultMessage={showStack ? 'Hide details' : 'Show details'}
+        />
+      </Button>
+      {error.stack && showStack && (
+        <div css={styles.stack}>
+          <h4 style={{ marginTop: 12 }}>
+            {error.message || (
+              <FormattedMessage
+                id='error.unknown'
+                defaultMessage='Unknown error'
+              />
+            )}
+          </h4>
+          <pre>
+            {error.stack}
+          </pre>
+        </div>
+      )}
+    </div>
   }
 }
 
