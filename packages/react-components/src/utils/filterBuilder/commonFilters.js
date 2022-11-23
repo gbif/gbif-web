@@ -235,7 +235,7 @@ export const commonFilters = {
         supportsExist: true,
         query: `
           query keywordSearch($predicate: Predicate, $size: Int){
-            occurrenceSearch(predicate: $predicate) {
+            suggestions: occurrenceSearch(predicate: $predicate) {
               cardinality {
                 catalogNumber
               }
@@ -406,7 +406,7 @@ export const commonFilters = {
         disallowLikeFilters: true,
         query: `
           query keywordSearch($predicate: Predicate, $size: Int){
-            occurrenceSearch(predicate: $predicate) {
+            suggestions: occurrenceSearch(predicate: $predicate) {
               cardinality {
                 sampleSizeUnit
               }
@@ -1057,7 +1057,7 @@ export const commonFilters = {
         supportsExist: true,
         query: `
           query keywordSearch($predicate: Predicate, $size: Int){
-            occurrenceSearch(predicate: $predicate) {
+            suggestions: occurrenceSearch(predicate: $predicate) {
               cardinality {
                 identifiedBy
               }
@@ -1289,7 +1289,7 @@ export const commonFilters = {
         placeholder: 'Example: Felis concolor',
         query: `
           query keywordSearch($predicate: Predicate, $size: Int){
-            occurrenceSearch(predicate: $predicate) {
+            suggestions: occurrenceSearch(predicate: $predicate) {
               cardinality {
                 verbatimScientificName
               }
