@@ -222,5 +222,9 @@ export const commonLabels = {
     type: 'CUSTOM',
     component: rangeOrEqualLabel('intervals.compact')
   },
+  identityFn: {
+    type: 'TRANSFORM',
+    transform: ({ id }) => id
+  },
   // -- Add labels above this line (required by plopfile.js) --
 }
