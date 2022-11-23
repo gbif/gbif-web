@@ -33,14 +33,26 @@ class ErrorBoundary extends React.Component {
       <div css={styles.container}>
         <MdError size={72} />
         <h1 style={{ marginBottom: 0 }}>
-          <FormattedMessage id="error.generic" defaultMessage="An error occurred" />
+          <FormattedMessage
+            id='error.generic'
+            defaultMessage='An error occurred'
+          />
         </h1>
         <h3 style={{ marginTop: 12 }}>
-          {error.message || <FormattedMessage id="error.unknown" defaultMessage="Unknown error" />}
+          {error.message || (
+            <FormattedMessage
+              id='error.unknown'
+              defaultMessage='Unknown error'
+            />
+          )}
         </h3>
         <div css={styles.actions}>
-          <Button as="a" target="_blank" href="https://github.com/gbif/gbif-web/issues/new">
-            <FormattedMessage id="error.report" defaultMessage="Report issue" />
+          <Button
+            as='a'
+            target='_blank'
+            href='https://github.com/gbif/gbif-web/issues/new'
+          >
+            <FormattedMessage id='error.report' defaultMessage='Report issue' />
           </Button>
           <Button onClick={this.handleToggleStack}>
             <FormattedMessage
@@ -51,13 +63,18 @@ class ErrorBoundary extends React.Component {
         </div>
         {error.stack && showStack && (
           <div css={styles.stack}>
-            {error.stack.split(' at ').slice(1).map((stackItem) => 
-              <span>at {stackItem}</span>
-            )}
+            {error.stack
+              .split(' at ')
+              .slice(1)
+              .map((stackItem) => (
+                <span>at {stackItem}</span>
+              ))}
           </div>
         )}
       </div>
-    ) : this.props.children; 
+    ) : (
+      this.props.children
+    );
   }
 }
 
