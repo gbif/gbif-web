@@ -7,8 +7,7 @@
   "module": "./dist/index.esm.js",
   "sideEffects": false,
   "scripts": {
-    "build": "npx webpack --mode=production",
-    "build:new": "node build.mjs",
+    "build": "node build.mjs",
     "develop": "npx webpack --mode=development --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve-translations": "npx serve locales/dist/ -p 5002 --cors",
@@ -83,6 +82,7 @@
     "babel-loader": "^8.2.2",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "esbuild": "^0.15.14",
+    "esbuild-plugin-globals": "^0.1.1",
     "flat": "^5.0.2",
     "gulp": "^4.0.2",
     "gulp-if": "^3.0.0",
