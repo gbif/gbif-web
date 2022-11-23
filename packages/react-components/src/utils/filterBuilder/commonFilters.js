@@ -607,7 +607,7 @@ export const commonFilters = {
     config: {
       std: {
         filterHandle: 'eventType',
-        id2labelHandle: 'eventTypeVocabulary',
+        id2labelHandle: 'identityFn',
         translations: {
           count: 'filters.eventType.count', // translation path to display names with counts. e.g. "3 scientific names"
           name: 'filters.eventType.name',// translation path to a title for the popover and the button
