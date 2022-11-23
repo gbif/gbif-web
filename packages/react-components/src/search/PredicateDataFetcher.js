@@ -4,7 +4,7 @@ import { FilterContext } from '../widgets/Filter/state';
 import SearchContext from './SearchContext';
 import { useQuery } from '../dataManagement/api';
 import { filter2predicate } from '../dataManagement/filterAdapter';
-import { ErrorBoundary } from "../components/ErrorBoundary";
+import { ErrorBoundary } from "../components";
 import { useQueryParam, NumberParam } from 'use-query-params';
 import hash from 'object-hash';
 
