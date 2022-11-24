@@ -30,6 +30,7 @@ export function buildConfig({ customConfig, predicateConfig, defaultFilterConfig
     defaultVisibleFilters: initialVisibleFilters,
     rootPredicate: customConfig.rootFilter,
     availableCatalogues: customConfig.availableCatalogues,
+    tableConfig: customConfig.tableConfig,
     predicateConfig
   }
 }
