@@ -173,6 +173,7 @@ const defaultTableConfig = {
 
 function Table() {
   return <PredicateDataFetcher
+    queryProps={{throwAllErrors: true}}
     graphQuery={QUERY}
     graph='EVENT'
     limit={50}
