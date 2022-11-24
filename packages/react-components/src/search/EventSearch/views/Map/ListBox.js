@@ -17,7 +17,7 @@ function ListItem({  id, item, imageSrc, onClick = () => { }, ...props }) {
         {item.datasetTitle}<br/>
         Event ID: {item.eventID}
         {
-          item.measurementOrFactTypes.length > 0 ? ' - ' + item.measurementOrFactTypes : ''
+          item.measurementOrFactTypes?.length > 0 ? ' - ' + item.measurementOrFactTypes : ''
         }
       </Col>
       <Col grow={false}>

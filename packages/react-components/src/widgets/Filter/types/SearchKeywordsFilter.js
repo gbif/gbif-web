@@ -26,7 +26,7 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
   const initialOptions = get(initFilter, `must.${filterHandle}`, []);
   const [options, setOptions] = useState(initialOptions.filter(x => x.type !== 'isNotNull'));
   const [inputValue, setValue] = useState('');
-  const [showSuggestions, setShowSuggestions] = useState('');
+  const [showSuggestions, setShowSuggestions] = useState(initialOptions?.length === 0);
   const searchContext = useContext(SearchContext);
 
   useEffect(() => {
@@ -137,7 +137,7 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
                 }
               }}
             />
-            <Button onClick={() => search(inputValue)}>
+            <Button style={{ marginLeft: 4 }} onClick={() => search(inputValue)}>
               <MdSearch />
             </Button>
           </div>
