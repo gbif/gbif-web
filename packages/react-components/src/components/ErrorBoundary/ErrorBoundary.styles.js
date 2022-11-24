@@ -26,11 +26,12 @@ export const stack = css`
   flex-direction: column;
   text-align: left;
   max-height: 300px;
-  overflow-y: auto;
+  overflow: auto;
   padding: 1em;
   background-color: var(--paperBackground);
   border: 1px solid var(--paperBorderColor);
   border-radius: var(--borderRadiusPx);
+  max-width: 100%;
   pre {
     font-family: monospace;
     font-size: 14px;
