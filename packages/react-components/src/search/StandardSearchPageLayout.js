@@ -6,7 +6,7 @@ import ThemeContext from '../style/themes/ThemeContext';
 import { withFilter } from '../widgets/Filter/state';
 // import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { cssLayout, cssNavBar, cssViewArea, cssFilter } from './Layout.styles';
-import { Tabs, DataHeader, NavBar, NavItem } from '../components'
+import { Tabs, DataHeader, NavBar, NavItem, ErrorBoundary } from '../components'
 import { FilterBar } from './FilterBar';
 
 const { TabList, Tab, TabPanel } = Tabs;
@@ -32,7 +32,7 @@ const Layout = ({
         </div>
       </div>
       <div css={cssViewArea({ theme })}>
-        <Table />
+        <ErrorBoundary><Table /></ErrorBoundary>
       </div>
     </Tabs>
   </div>

@@ -151,17 +151,16 @@ const defaultTableConfig = {
 };
 
 function Table() {
-  return <ErrorBoundary>
-    <PredicateDataFetcher
-      graphQuery={QUERY}
-      graph='EVENT'
-      limit={50}
-      componentProps={{
-        defaultTableConfig
-      }}
-      presentation={List}
-    />
-  </ErrorBoundary>
+  return <PredicateDataFetcher
+    queryProps={{throwAllErrors: true}}
+    graphQuery={QUERY}
+    graph='EVENT'
+    limit={50}
+    componentProps={{
+      defaultTableConfig
+    }}
+    presentation={List}
+  />
 }
 
 export default props => <ErrorBoundary><Table {...props} /></ErrorBoundary>;
