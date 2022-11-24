@@ -18,6 +18,15 @@ class ErrorBoundary extends React.Component {
     console.error(error, errorInfo);
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.invalidateOn !== this.props.invalidateOn) {
+      this.setState({
+        ...this.state,
+        error: false
+      });
+    }
+  }
+
   handleToggleStack = () => {
     this.setState({
       ...this.state,

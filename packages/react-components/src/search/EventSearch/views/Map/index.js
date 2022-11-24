@@ -6,6 +6,7 @@ import { filter2predicate } from '../../../../dataManagement/filterAdapter';
 import MapPresentation from './MapPresentation';
 import { getBboxFromFeature } from './esTileHash';
 import SiteContext from "../../../../dataManagement/SiteContext";
+import { ErrorBoundary } from "../../../../components";
 
 const EVENT_MAP = `
 query map($predicate: Predicate){
@@ -129,5 +130,5 @@ function Map() {
   }
 }
 
-export default Map;
+export default props => <ErrorBoundary><Map {...props} /></ErrorBoundary>;
 

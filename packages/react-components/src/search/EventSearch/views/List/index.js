@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import PredicateDataFetcher from '../../../PredicateDataFetcher';
 import { List } from './List';
 import { FormattedNumber } from 'react-intl';
-import { ResourceLink } from '../../../../components';
+import { ErrorBoundary, ResourceLink } from '../../../../components';
 
 const QUERY = `
 query list($predicate: Predicate, $limit: Int){
@@ -49,7 +49,7 @@ const defaultTableConfig = {
       value: {
         key: 'eventID',
         formatter: (value, item) => <div>
-          <ResourceLink type='eventKey' discreet id={item.eventID} otherIds={{datasetKey: item.datasetKey}}>{item.eventID}</ResourceLink>
+          <ResourceLink type='eventKey' discreet id={item.eventID} otherIds={{ datasetKey: item.datasetKey }}>{item.eventID}</ResourceLink>
         </div>
       },
     },
@@ -151,15 +151,17 @@ const defaultTableConfig = {
 };
 
 function Table() {
-  return <PredicateDataFetcher
-    graphQuery={QUERY}
-    graph='EVENT'
-    limit={50}
-    componentProps={{
-      defaultTableConfig
-    }}
-    presentation={List}
-  />
+  return <ErrorBoundary>
+    <PredicateDataFetcher
+      graphQuery={QUERY}
+      graph='EVENT'
+      limit={50}
+      componentProps={{
+        defaultTableConfig
+      }}
+      presentation={List}
+    />
+  </ErrorBoundary>
 }
 
-export default Table;
+export default props => <ErrorBoundary><Table {...props} /></ErrorBoundary>;

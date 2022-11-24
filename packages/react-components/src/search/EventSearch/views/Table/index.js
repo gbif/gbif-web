@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import PredicateDataFetcher from '../../../PredicateDataFetcher';
 import { EventsTable } from './EventsTable';
 import {FormattedMessage, FormattedNumber} from 'react-intl';
+import { ErrorBoundary } from "../../../../components";
 
 const QUERY = `
 query list($predicate: Predicate, $offset: Int, $limit: Int){
@@ -182,4 +183,4 @@ function Table() {
   />
 }
 
-export default Table;
+export default props => <ErrorBoundary><Table {...props} /></ErrorBoundary>;
