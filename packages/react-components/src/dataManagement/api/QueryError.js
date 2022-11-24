@@ -22,6 +22,17 @@ export class QueryError extends Error {
 
       if (err.networkError) {
         message += 'Network error: ' + err.networkError.message + '\n';
+
+        // If we have an error list present, add that to the error message.
+        const responseErrors = err?.networkError?.data?.errors;
+        if (isArray(responseErrors)) {
+          responseErrors.forEach(graphQLError => {
+            const errorMessage = graphQLError
+              ? graphQLError.message
+              : 'Error message not found.';
+            message += `GraphQL error: ${errorMessage}\n`;
+          });
+        }
       }
 
       // strip newline from the end of the message
