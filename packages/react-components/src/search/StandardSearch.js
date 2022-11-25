@@ -7,12 +7,12 @@ import { filter2v1 } from '../dataManagement/filterAdapter';
 import { ResultsTable } from './ResultsTable';
 import { useQueryParam, NumberParam } from 'use-query-params';
 
-function StandardSearch({presentationComponent:PresentationComponent=ResultsTable, presentationProps, graphQuery, resultKey, offsetName = 'offset', defaultTableConfig, ...props}) {
+function StandardSearch({presentationComponent:PresentationComponent=ResultsTable, presentationProps, graphQuery, resultKey, offsetName = 'offset', defaultTableConfig, queryTag, ...props}) {
   const [offset = 0, setOffset] = useQueryParam('from', NumberParam);
   const limit = 20;
   const currentFilterContext = useContext(FilterContext);
   const { rootPredicate, predicateConfig } = useContext(SearchContext);
-  const { data, error, loading, load } = useQuery(graphQuery, { lazyLoad: true });
+  const { data, error, loading, load } = useQuery(graphQuery, { lazyLoad: true, queryTag });
 
   useEffect(() => {
     const { v1Filter, error } = filter2v1(currentFilterContext.filter, predicateConfig);

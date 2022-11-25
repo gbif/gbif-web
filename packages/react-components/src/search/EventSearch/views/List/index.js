@@ -154,6 +154,7 @@ function Table() {
   return <PredicateDataFetcher
     graphQuery={QUERY}
     graph='EVENT'
+    queryTag='datasets'
     limit={50}
     componentProps={{
       defaultTableConfig

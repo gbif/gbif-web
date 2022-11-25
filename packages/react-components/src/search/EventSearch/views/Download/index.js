@@ -36,7 +36,7 @@ function Downloads() {
   const [size, setSize] = useState(200);
   const currentFilterContext = useContext(FilterContext);
   const { rootPredicate, predicateConfig } = useContext(EventContext);
-  const { data, error, loading, load } = useQuery(DOWNLOADS, { lazyLoad: false });
+  const { data, error, loading, load } = useQuery(DOWNLOADS, { lazyLoad: false, queryTag: 'downloads' });
 
   useEffect(() => {
     const predicate = {

@@ -24,7 +24,7 @@ function Download() {
   const localeSettings = useContext(LocaleContext);
   const currentFilterContext = useContext(FilterContext);
   const { rootPredicate, predicateConfig } = useContext(OccurrenceContext);
-  const { data, error, loading, load } = useQuery(DOWNLOAD, { lazyLoad: true });
+  const { data, error, loading, load } = useQuery(DOWNLOAD, { lazyLoad: true, queryTag: 'downloads' });
 
   const localePrefix = localeSettings?.localeMap?.gbif_org;
 

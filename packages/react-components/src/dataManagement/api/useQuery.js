@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef, useContext } from 'react';
+import { queryTransform } from './queryTransform';
+import SearchContext from '../../search/SearchContext';
 import ApiContext from './ApiContext';
 
 const RENEW_REQUEST = 'RENEW_REQUEST';
@@ -21,6 +23,8 @@ function useQuery(query, options = {}) {
   const unmounted = useUnmounted();
   const apiClient = useContext(ApiContext);
   const client = options?.client || apiClient;
+  const queryTag = options?.queryTag;
+  const { queryConfig } = useContext(SearchContext);
 
   function init({keepDataWhileLoading}) {
     if (!keepDataWhileLoading) setData();
@@ -33,7 +37,12 @@ function useQuery(query, options = {}) {
     init(options);
     const variables = options?.variables;
     const queue = options?.queue;
-    const { promise: dataPromise, cancel } = client.query({query, variables, queue});
+
+    const { promise: dataPromise, cancel } = client.query({
+      query: queryTag ? queryTransform(query, queryConfig, queryTag) : query,
+      variables,
+      queue
+    });
     // functions cannot be direct values in states as function are taken as a way to create derived states
     // https://medium.com/swlh/how-to-store-a-function-with-the-usestate-hook-in-react-8a88dd4eede1
     setCancel(() => cancel);

@@ -14,8 +14,8 @@ function StandardSearchTable({graphQuery, slowQuery, resultKey, offsetName = 'of
   const limit = 50;
   const currentFilterContext = useContext(FilterContext);
   const { rootPredicate, predicateConfig } = useContext(SearchContext);
-  const { data, error, loading, load } = useQuery(graphQuery, { lazyLoad: true });
-  const { data: slowData, error: slowError, loading: slowLoading, load: slowLoad } = useQuery(slowQuery, { lazyLoad: true });
+  const { data, error, loading, load } = useQuery(graphQuery, { lazyLoad: true, queryTag: 'table' });
+  const { data: slowData, error: slowError, loading: slowLoading, load: slowLoad } = useQuery(slowQuery, { lazyLoad: true, queryTag: 'tableSlow' });
 
   useEffect(() => {
     const { v1Filter, error } = filter2v1(currentFilterContext.filter, predicateConfig);

@@ -85,6 +85,7 @@ function Table() {
   return <StandardSearch 
     presentationComponent={ResultsTable}
     graphQuery={QUERY} 
+    queryTag='table'
     resultKey='organizationSearch' 
     defaultTableConfig={defaultTableConfig}
     hideLock={true}
