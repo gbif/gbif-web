@@ -5,7 +5,7 @@ import ThemeContext from '../../style/themes/ThemeContext';
 import { withFilter } from '../../widgets/Filter/state';
 import { FormattedMessage } from 'react-intl';
 import { cssLayout, cssNavBar, cssViewArea, cssFilter, cssViews, cssFooter } from '../Layout.styles';
-import { Tabs, DataHeader, NavBar, NavItem } from '../../components'
+import { Tabs, DataHeader, NavBar, NavItem, ErrorBoundary } from '../../components'
 import Map from './views/Map';
 import Table from './views/Table';
 import Gallery from './views/Gallery';
@@ -52,12 +52,12 @@ const Layout = ({
       </div>
     </div>
     <div css={cssViewArea({ theme })}>
-      {activeView === 'TABLE' && <Table />}
-      {activeView === 'MAP' && <Map />}
-      {activeView === 'GALLERY' && <Gallery />}
-      {activeView === 'DATASETS' && <Datasets />}
-      {activeView === 'CLUSTERS' && <Clusters />}
-      {activeView === 'DOWNLOAD' && <Download />}
+      {activeView === 'TABLE' &&    <ErrorBoundary><Table /></ErrorBoundary>}
+      {activeView === 'MAP' &&      <ErrorBoundary><Map /></ErrorBoundary>}
+      {activeView === 'GALLERY' &&  <ErrorBoundary><Gallery /></ErrorBoundary>}
+      {activeView === 'DATASETS' && <ErrorBoundary><Datasets /></ErrorBoundary>}
+      {activeView === 'CLUSTERS' && <ErrorBoundary><Clusters /></ErrorBoundary>}
+      {activeView === 'DOWNLOAD' && <ErrorBoundary><Download /></ErrorBoundary>}
     </div>
     {/* <div className={`${prefix}-${elementName}-footer`} css={cssFooter({ theme })}>
       <div>Footer content</div>
