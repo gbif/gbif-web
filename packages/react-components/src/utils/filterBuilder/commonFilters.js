@@ -235,7 +235,7 @@ export const commonFilters = {
         supportsExist: true,
         query: `
           query keywordSearch($predicate: Predicate, $size: Int){
-            occurrenceSearch(predicate: $predicate) {
+            suggestions: occurrenceSearch(predicate: $predicate) {
               cardinality {
                 catalogNumber
               }
@@ -406,7 +406,7 @@ export const commonFilters = {
         disallowLikeFilters: true,
         query: `
           query keywordSearch($predicate: Predicate, $size: Int){
-            occurrenceSearch(predicate: $predicate) {
+            suggestions: occurrenceSearch(predicate: $predicate) {
               cardinality {
                 sampleSizeUnit
               }
@@ -607,7 +607,7 @@ export const commonFilters = {
     config: {
       std: {
         filterHandle: 'eventType',
-        id2labelHandle: 'eventTypeVocabulary',
+        id2labelHandle: 'identityFn',
         translations: {
           count: 'filters.eventType.count', // translation path to display names with counts. e.g. "3 scientific names"
           name: 'filters.eventType.name',// translation path to a title for the popover and the button
@@ -1057,7 +1057,7 @@ export const commonFilters = {
         supportsExist: true,
         query: `
           query keywordSearch($predicate: Predicate, $size: Int){
-            occurrenceSearch(predicate: $predicate) {
+            suggestions: occurrenceSearch(predicate: $predicate) {
               cardinality {
                 identifiedBy
               }
@@ -1289,7 +1289,7 @@ export const commonFilters = {
         placeholder: 'Example: Felis concolor',
         query: `
           query keywordSearch($predicate: Predicate, $size: Int){
-            occurrenceSearch(predicate: $predicate) {
+            suggestions: occurrenceSearch(predicate: $predicate) {
               cardinality {
                 verbatimScientificName
               }

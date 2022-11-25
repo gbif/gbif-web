@@ -201,6 +201,7 @@ function TaxonomicCoverage({ showAll, termMap }) {
       <FacetListInline term={termMap.order} showDetails={showAll}/>
       <FacetListInline term={termMap.family} showDetails={showAll}/>
       <FacetListInline term={termMap.genus} showDetails={showAll} style={{ fontStyle: "italic" }} />
+      <FacetListInline term={termMap.species} showDetails={showAll} style={{ fontStyle: "italic" }} />
     </Properties>
   </Group>
 }

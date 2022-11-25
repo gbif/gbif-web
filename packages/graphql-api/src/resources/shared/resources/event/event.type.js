@@ -89,12 +89,6 @@ export default gql`
     measurementOrFactCount: Int
     parentEvent: Event
     measurementOrFacts: [Measurement]
-    kingdoms: [String]
-    phyla: [String]
-    orders: [String]
-    classes: [String]
-    families: [String]
-    genera: [String]
     eventHierarchy: [String]
     eventHierarchyJoined: String
     eventTypeHierarchy: [String]
@@ -142,6 +136,7 @@ export default gql`
     orders(size: Int, include: String): [EventFacetResult_string]
     families(size: Int, include: String): [EventFacetResult_string]
     genera(size: Int, include: String): [EventFacetResult_string]
+    species(size: Int, include: String): [EventFacetResult_string]
 
     eventHierarchyJoined(size: Int, include: String): [EventFacetResult_string]
     eventHierarchy(size: Int, include: String): [EventFacetResult_string]

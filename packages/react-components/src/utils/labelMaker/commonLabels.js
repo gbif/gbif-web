@@ -65,7 +65,7 @@ export const commonLabels = {
     transform: result => ({ title: result.title })
   },
   eventDatasetKey: {
-    type: 'GQL_EVENTS',
+    type: 'GQL',
     query: `query label($id: JSON!){
       eventSearch(predicate: {type:equals, key: "datasetKey", value: $id}) {
         documents(size: 1) {
@@ -221,6 +221,10 @@ export const commonLabels = {
   numberSpecimens: {
     type: 'CUSTOM',
     component: rangeOrEqualLabel('intervals.compact')
+  },
+  identityFn: {
+    type: 'TRANSFORM',
+    transform: ({ id }) => id
   },
   // -- Add labels above this line (required by plopfile.js) --
 }

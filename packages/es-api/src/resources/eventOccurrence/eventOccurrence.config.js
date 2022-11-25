@@ -103,7 +103,7 @@ const config =
     },
     "datasetKey": {
       "type": "keyword",
-      "field": "occurrence.datasetKey"
+      "field": "metadata.datasetKey"
     },
     "datasetName": {
       "type": "keyword",
