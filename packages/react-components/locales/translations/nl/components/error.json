@@ -1,1 +1,7 @@
-{}
+{
+  "generic": "Er is een fout opgetreden",
+  "unknown": "Onbekende fout",
+  "report": "Een probleem melden",
+  "hideDetails": "Details verbergen",
+  "showDetails": "Toon details"
+}
