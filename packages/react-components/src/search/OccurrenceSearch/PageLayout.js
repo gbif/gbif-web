@@ -52,14 +52,12 @@ const Layout = ({
       </div>
     </div>
     <div css={cssViewArea({ theme })}>
-      <ErrorBoundary invalidateOn={activeView}>
-        {activeView === 'TABLE' && <Table />}
-        {activeView === 'MAP' && <Map />}
-        {activeView === 'GALLERY' && <Gallery />}
-        {activeView === 'DATASETS' && <Datasets />}
-        {activeView === 'CLUSTERS' && <Clusters />}
-        {activeView === 'DOWNLOAD' && <Download />}
-      </ErrorBoundary>
+      {activeView === 'TABLE' &&    <ErrorBoundary><Table /></ErrorBoundary>}
+      {activeView === 'MAP' &&      <ErrorBoundary><Map /></ErrorBoundary>}
+      {activeView === 'GALLERY' &&  <ErrorBoundary><Gallery /></ErrorBoundary>}
+      {activeView === 'DATASETS' && <ErrorBoundary><Datasets /></ErrorBoundary>}
+      {activeView === 'CLUSTERS' && <ErrorBoundary><Clusters /></ErrorBoundary>}
+      {activeView === 'DOWNLOAD' && <ErrorBoundary><Download /></ErrorBoundary>}
     </div>
     {/* <div className={`${prefix}-${elementName}-footer`} css={cssFooter({ theme })}>
       <div>Footer content</div>
