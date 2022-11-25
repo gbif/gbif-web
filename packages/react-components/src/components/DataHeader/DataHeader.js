@@ -39,8 +39,8 @@ export function DataHeader({
     </div>
 
     {right && <>
-      <Separator />
-      <div style={{ flex: '0 0 auto' }}>
+      {/* <Separator /> */}
+      <div style={{ flex: '0 0 auto', display: 'flex' }}>
         {right}
       </div>
     </>}

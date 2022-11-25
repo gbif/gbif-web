@@ -13,7 +13,7 @@ export function Classification({
 }) {
   const theme = useContext(ThemeContext);
   const { classNames } = getClasses(theme.prefix, 'classification', {/*modifiers goes here*/}, className);
-  return <Div className={classNames} css={style({theme})} {...props} />
+  return <Div {...classNames} css={style({theme})} {...props} />
 };
 
 Classification.propTypes = {
