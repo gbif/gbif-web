@@ -8,9 +8,8 @@ export const container = css`
   text-align: center;
   width: 100%;
   height: 100%;
-  padding: 1em;
-  padding-bottom: 4em;
-  padding-top: 4em;
+  padding: 96px 1em;
+  min-height: 80vh;
 `;
 
 export const actions = css`
