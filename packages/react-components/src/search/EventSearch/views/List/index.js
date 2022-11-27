@@ -124,7 +124,7 @@ const defaultTableConfig = {
       trKey: 'filters.measurementOrFactTypes.name',
       value: {
         key: 'measurementOrFactTypes',
-        formatter: (value, item) => <>{value.join(', ')}</>
+        formatter: (value, item) => <>{value.join(',')}</>
       }
     },
     {
