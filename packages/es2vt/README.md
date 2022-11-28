@@ -23,3 +23,15 @@ port: 4002
 
 # Start
 for development with Nodemon: `npm start` else `node src/index.js --port=4002`
+
+# Docker
+
+Docker images can be built and published to docker hub using the following command
+```
+docker buildx build . --push --platform linux/amd64,linux/arm64 --tag <DOCKER_HUB_OR_OR_USER>/es2vt:v0.1
+```
+
+To run use:
+```
+docker run -p 4002:4002 --mount type=bind,source="$(pwd)"/.env,target=/usr/src/.env -d <DOCKER_HUB_OR_OR_USER>/es2vt
+```
