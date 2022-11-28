@@ -912,6 +912,7 @@
       authority: 'https://auth.ala.org.au/cas/oidc',
       redirect_uri:
               'https://events-test.ala.org.au/?view=DOWNLOAD',
+      userStore: new oidc.WebStorageStateStore({ store: localStorage })
     });
 
     // Hacky fix for ALA header authentication
@@ -930,7 +931,7 @@
 
       loginBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        authManager.signinRedirect();
+        authManager.signinRedirect({ redirect_uri: location.href });
       });
 
       logoutBtn.addEventListener('click', (e) => {
@@ -946,7 +947,7 @@
       const { search } = window.location;
 
       // If we've been redirected from successful authentication
-      if (search.includes('&code=') && search.includes('&state=')) {
+      if (search.includes('code=') && search.includes('state=')) {
         const params = new URLSearchParams(window.location.search);
 
         // Attempt to retrieve an access token
@@ -1033,7 +1034,7 @@
         },
       },
       auth: {
-        signIn: () => authManager.signinRedirect(),
+        signIn: () => authManager.signinRedirect({ redirect_uri: location.href }),
         signOut: () => authManager.signoutRedirect(),
         getUser: async () => await authManager.getUser(),
       },
