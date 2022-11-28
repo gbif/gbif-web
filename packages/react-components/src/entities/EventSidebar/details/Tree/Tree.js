@@ -20,7 +20,7 @@ export function TreeN({ treeNode }) {
       <span className={ treeNode.isSelected ? 'selected' : ''}>{ treeNode.value }</span>
     { hasChildren &&
         <ul>
-          {treeNode.children.map(childNode => <TreeN treeNode={childNode} />)}
+          {treeNode.children.map(childNode => <TreeN key={childNode.key} treeNode={childNode} />)}
         </ul>
     }
     </li>
