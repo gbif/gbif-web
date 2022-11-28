@@ -5,9 +5,10 @@ import ThemeContext from '../../style/themes/ThemeContext';
 import { withFilter } from '../../widgets/Filter/state';
 import { FormattedMessage } from 'react-intl';
 import { cssLayout, cssNavBar, cssViewArea, cssFilter } from './Layout.styles';
-import { Tabs, DataHeader, NavBar, NavItem } from '../../components'
+import {Button, Tabs, DataHeader, NavBar, NavItem, Row, Col} from '../../components'
 import { FilterBar } from '../FilterBar';
 import { useQueryParam, StringParam } from 'use-query-params';
+import GraphQLApiInfo from "./views/Api";
 
 const Layout = ({
   className = '',
@@ -42,9 +43,13 @@ const Layout = ({
           <FilterBar config={config}></FilterBar>
         </div>
         {tabs.length > 1 && <div>
+          <Row><Col>
           <NavBar style={{ marginLeft: 10 }}>
             {tabs.map(tab => tabComponents[tab])}
           </NavBar>
+          </Col>
+           <Col align="right" >{ (activeView === 'DATASETS' || activeView === 'EVENTS' ||activeView === 'SITES') && <GraphQLApiInfo/>}</Col>
+          </Row>
         </div>}
       </div>
       <div css={cssViewArea({ theme })}>
