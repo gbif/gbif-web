@@ -48,15 +48,16 @@ export function Structure({ event, setActiveEvent }) {
   }
   return <>
     <span>
-      { combinedHierarchy.map((node, idx) =>
-          <StructureNode
-              eventType={node.name}
-              eventID={node.key}
-              datasetKey={event.datasetKey}
-              idx={idx}
-              isLast={(combinedHierarchy.length -1) == idx}
-              setActiveEvent={setActiveEvent}
-          />)
+      {combinedHierarchy.map((node, idx) =>
+        <StructureNode
+            key={node.key}
+            eventType={node.name}
+            eventID={node.key}
+            datasetKey={event.datasetKey}
+            idx={idx}
+            isLast={(combinedHierarchy.length -1) == idx}
+            setActiveEvent={setActiveEvent}
+        />)
       }
     </span>
   </>;
