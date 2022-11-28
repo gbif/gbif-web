@@ -5,7 +5,7 @@ import ThemeContext from '../../style/themes/ThemeContext';
 import { withFilter } from '../../widgets/Filter/state';
 import { FormattedMessage } from 'react-intl';
 import { cssLayout, cssNavBar, cssViewArea, cssFilter } from './Layout.styles';
-import {Button, Tabs, DataHeader, NavBar, NavItem, Row, Col} from '../../components'
+import { Button, Tabs, DataHeader, NavBar, NavItem, Row, Col } from '../../components'
 import { FilterBar } from '../FilterBar';
 import { useQueryParam, StringParam } from 'use-query-params';
 import GraphQLApiInfo from "./views/Api";
