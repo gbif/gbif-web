@@ -162,6 +162,12 @@ export default {
         },
       );
     },
+    relatedTaxa: async ({ eventID }, query, { dataSources }) =>
+      dataSources.occurrenceAPI
+        .searchOccurrenceDocuments({
+          eventID,
+        })
+        .then((response) => response.results),
   },
   EventFacetResult_dataset: {
     datasetTitle: ({ key }, args, { dataSources }) => {

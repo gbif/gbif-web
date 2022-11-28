@@ -105,11 +105,19 @@ export default gql`
     speciesCount: Int!
     wktConvexHull: String
     temporalCoverage: TemporalCoverage
+    relatedTaxa: [RelatedTaxon]!
   }
 
   type TemporalCoverage {
     gte: String
     lte: String
+  }
+
+  type RelatedTaxon {
+    acceptedTaxonKey: Int!
+    species: String
+    speciesKey: String
+    infraspecificEpithet: String
   }
 
   type Measurement {
