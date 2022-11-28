@@ -37,20 +37,20 @@ const Layout = ({
   return <div className={`${className} ${prefix}-${elementName}`}
     css={cssLayout({ theme })} {...props}>
     <Tabs activeId={activeView} onChange={setActiveView} >
+      {tabs.length > 1 && <div>
+        <Row><Col>
+          <NavBar style={{ marginLeft: 10 }}>
+            {tabs.map(tab => tabComponents[tab])}
+          </NavBar>
+        </Col>
+          <Col align="right" >{ (activeView === 'DATASETS' || activeView === 'EVENTS' ||activeView === 'SITES') && <GraphQLApiInfo/>}</Col>
+        </Row>
+      </div>}
       <div css={cssNavBar({ theme })} style={{ margin: '0 0 10px 0', borderRadius: 0 }}>
         <DataHeader availableCatalogues={config.availableCatalogues} style={{ borderBottom: '1px solid #ddd' }} />
         <div css={cssFilter({ theme })}>
           <FilterBar config={config}></FilterBar>
         </div>
-        {tabs.length > 1 && <div>
-          <Row><Col>
-          <NavBar style={{ marginLeft: 10 }}>
-            {tabs.map(tab => tabComponents[tab])}
-          </NavBar>
-          </Col>
-           <Col align="right" >{ (activeView === 'DATASETS' || activeView === 'EVENTS' ||activeView === 'SITES') && <GraphQLApiInfo/>}</Col>
-          </Row>
-        </div>}
       </div>
       <div css={cssViewArea({ theme })}>
         {activeView === 'DATASETS' && <List />}

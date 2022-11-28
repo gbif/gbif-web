@@ -7,11 +7,13 @@ import {Row, Col, Button, Input, Popover, DetailsDrawer} from "../../../../compo
 import {css} from "@emotion/react";
 import {GraphQLSidebar} from "../../../../entities/GraphQLSidebar/GraphQLSidebar";
 import {useDialogState} from "reakit/Dialog";
+import {GrGraphQl} from "react-icons/all";
+
 
 function GraphQLApiInfo({query, queryId,limit, offset}) {
     const dialog = useDialogState({ animated: true, modal: false, visible: false });
     return <>
-        <Button onClick={() =>dialog.setVisible(true) } look="primaryOutline" css={css`margin-left: 30px; font-size: 11px;`}>API</Button>
+        <GrGraphQl  onClick={() =>dialog.setVisible(true)} css={css`margin-top:15px; margin-right: 30px; font-size: 16px;`} ></GrGraphQl>
         <DetailsDrawer dialog={dialog}>
             <GraphQLSidebar
                 defaultTab='details'
