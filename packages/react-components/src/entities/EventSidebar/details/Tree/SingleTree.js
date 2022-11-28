@@ -13,7 +13,7 @@ export function SingleTreeN({ node, setViewEvent, setSearch }) {
   const hasChildren = node.children && node.children.length > 0;
 
   function onClickNode(){
-    if (!node.isSelected ) {
+    if (!node.isSelected && node.isClickable ) {
       if (keyValueSame) {
         setSearch(node.key);
       } else {
