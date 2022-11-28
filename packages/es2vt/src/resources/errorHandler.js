@@ -18,10 +18,17 @@ function errorHandler(err, req, res, next) {
 }
 
 function unknownRouteHandler(req, res) {
-  res.status(404).json({
-    statusCode: 404,
-    message: 'Not found'
-  });
+  if (req.url == "/"){
+    res.status(200).json({
+      statusCode: 200,
+      message: 'es2vt alive'
+    });
+  } else {
+    res.status(404).json({
+      statusCode: 404,
+      message: 'Not found'
+    });
+  }
 }
 
 function asyncMiddleware(fn) {

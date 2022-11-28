@@ -5,7 +5,7 @@ const _ = require('lodash');
 const cors = require('cors');
 const config = require('./config');
 
-var queue = require('express-queue');
+let queue = require('express-queue');
 const queueOptions = {
   activeLimit: 10,
   queuedLimit: 2000,
