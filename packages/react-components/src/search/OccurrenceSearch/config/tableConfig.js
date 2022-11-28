@@ -1,5 +1,9 @@
 import React from 'react';
-import { IconFeatures } from '../../../components';
+import { IconFeatures, TextButton, Tooltip } from '../../../components';
+import { InlineFilterChip, LinkOption } from '../../../widgets/Filter/utils/FilterChip';
+// import { MdPreview as OpenInSideBar} from 'react-icons/md';
+import { RiSideBarFill as OpenInSideBar } from 'react-icons/ri';
+import { FormattedMessage } from 'react-intl';
 
 export const tableConfig = {
   defaultColumns: ['features', 'country', 'coordinates', 'year', 'basisOfRecord', 'dataset', 'publisher'],
@@ -10,7 +14,26 @@ export const tableConfig = {
       filterKey: 'taxonKey', // optional
       value: {
         key: 'gbifClassification.usage.formattedName',
-        formatter: (value, occurrence) => <span dangerouslySetInnerHTML={{ __html: value }}></span>
+        formatter: (value, occurrence, { openInSideBar }) => <div style={{ display: 'flex', alignItems: 'center' }}>
+          <Tooltip placement="top" title={<span><FormattedMessage id="filterSupport.viewDetails" /></span>}>
+            <TextButton as="span" look="textHoverLinkColor" style={{ display: 'inline-flex' }}>
+              <OpenInSideBar style={{ fontSize: '1.5em', marginRight: '.75em' }} onClick={(e) => {
+                openInSideBar();
+                e.stopPropagation();
+              }} />
+            </TextButton>
+          </Tooltip>
+          <div>
+            <InlineFilterChip filterName="taxonKey" values={[occurrence.taxonKey]}>
+              <span dangerouslySetInnerHTML={{ __html: value }} data-loader></span>
+            </InlineFilterChip>
+            {occurrence.hasTaxonIssues && <Tooltip placement="top" title={<span><FormattedMessage id="filterSupport.nameWithTaxonMatchIssue" /></span>}>
+              <div style={{ color: '#fea600' }} data-loader>
+                {occurrence.gbifClassification.verbatimScientificName}
+              </div>
+            </Tooltip>}
+          </div>
+        </div >
       },
       width: 'wide'
     },
@@ -40,8 +63,16 @@ export const tableConfig = {
       filterKey: 'country', //optional
       value: {
         key: 'countryCode',
-        labelHandle: 'countryCode'
-      }
+        labelHandle: 'countryCode',
+        hideFalsy: true,
+        // formatter: (countryCode, item) => {
+        //   return countryCode ? <InlineFilterChip filterName="country" values={[countryCode]}>
+        //     <FormattedMessage
+        //       id={`enums.countryCode.${countryCode}`}
+        //     /></InlineFilterChip> : null;
+        // },
+      },
+      cellFilter: true,
     },
     {
       name: 'coordinates',
@@ -62,8 +93,9 @@ export const tableConfig = {
       trKey: 'filters.year.name',
       filterKey: 'year', //optional
       value: {
-        key: 'year'
-      }
+        key: 'year',
+      },
+      cellFilter: true
     },
     {
       name: 'basisOfRecord',
@@ -72,7 +104,8 @@ export const tableConfig = {
       value: {
         key: 'basisOfRecord',
         labelHandle: 'basisOfRecord'
-      }
+      },
+      cellFilter: true
     },
     {
       name: 'dataset',
@@ -81,6 +114,7 @@ export const tableConfig = {
       value: {
         key: 'datasetTitle',
       },
+      cellFilter: 'datasetKey',
       width: 'wide'
     },
     {
@@ -90,6 +124,7 @@ export const tableConfig = {
       value: {
         key: 'publisherTitle',
       },
+      cellFilter: 'publishingOrgKey',
       width: 'wide'
     },
     {
@@ -99,7 +134,7 @@ export const tableConfig = {
       value: {
         key: 'catalogNumber',
       },
-      width: 'wide'
+      cellFilter: true
     },
     {
       name: 'recordedBy',
@@ -108,7 +143,8 @@ export const tableConfig = {
       value: {
         key: 'recordedBy',
       },
-      width: 'wide'
+      width: 'wide',
+      cellFilter: ({ row }) => row.recordedBy,
     },
     {
       name: 'identifiedBy',
@@ -117,7 +153,8 @@ export const tableConfig = {
       value: {
         key: 'identifiedBy',
       },
-      width: 'wide'
+      width: 'wide',
+      cellFilter: ({ row }) => row.identifiedBy,
     },
     {
       name: 'recordNumber',
@@ -125,7 +162,8 @@ export const tableConfig = {
       filterKey: 'recordNumber', //optional
       value: {
         key: 'recordNumber',
-      }
+      },
+      cellFilter: true
     },
     {
       name: 'typeStatus',
@@ -146,24 +184,65 @@ export const tableConfig = {
 
     {
       name: 'collectionCode',
+      filterKey: 'collectionCode',
       trKey: 'occurrenceFieldNames.collectionCode',
       value: {
         key: 'collectionCode'
-      }
+      },
+      cellFilter: true,
     },
     {
       name: 'institutionCode',
+      filterKey: 'institutionCode',
       trKey: 'occurrenceFieldNames.institutionCode',
       value: {
         key: 'institutionCode'
-      }
+      },
+      cellFilter: true,
+    },
+    {
+      name: 'institutionKey',
+      filterKey: 'institutionKey',
+      trKey: 'tableHeaders.institution',
+      value: {
+        key: 'institution.name',
+        formatter: (value, item) => {
+          if (!value) return null;
+          return <LinkOption discreet type='institutionKey' id={item.institution.key} >
+          <InlineFilterChip filterName="institutionKey" values={[item.institution.key]}>
+            <span data-loader>{item.institution.name} <span>({item.institution.code})</span></span>
+          </InlineFilterChip>
+        </LinkOption>
+        },
+      },
+      width: 'wide'
+    },
+    {
+      name: 'collectionKey',
+      filterKey: 'collectionKey',
+      trKey: 'tableHeaders.collection',
+      value: {
+        key: 'collection.name',
+        formatter: (value, item) => {
+          if (!value) return null;
+          return <LinkOption discreet type='collectionKey' id={item.collection.key} >
+          <InlineFilterChip filterName="collectionKey" values={[item.collection.key]}>
+            <span data-loader>{item.collection.name} <span>({item.collection.code})</span></span>
+          </InlineFilterChip>
+        </LinkOption>
+        },
+      },
+      width: 'wide'
     },
     {
       name: 'locality',
+      filterKey: 'locality',
       trKey: 'occurrenceFieldNames.locality',
       value: {
         key: 'locality'
-      }
+      },
     },
   ]
 };
+
+console.log(tableConfig.columns.map(x => x.name));

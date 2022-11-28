@@ -1,4 +1,3 @@
-// const elasticsearch = require('elasticsearch');
 const { Client } = require('@elastic/elasticsearch');
 const Agent = require('agentkeepalive');
 const { ResponseError } = require('../errorHandler');
@@ -9,11 +8,7 @@ const { queryReducer } = require('../../responseAdapter');
 
 const searchIndex = env.occurrence.index || 'occurrence';
 
-// this isn't an ideal solution, but we keep changing between using an http and https agent. vonfig should require code change as well
-const isHttpsEndpoint = env.occurrence.hosts[0].startsWith('https');
-const AgentType = isHttpsEndpoint ? Agent.HttpsAgent : Agent;
-
-const agent = () => new AgentType({
+const agent = () => new Agent({
   maxSockets: 1000, // Default = Infinity
   keepAlive: true
 });
@@ -29,14 +24,7 @@ async function query({ query, aggs, size = 20, from = 0, metrics, req }) {
   if (parseInt(from) + parseInt(size) > env.occurrence.maxResultWindow) {
     throw new ResponseError(400, 'BAD_REQUEST', `'from' + 'size' must be ${env.occurrence.maxResultWindow} or less`);
   }
-  let filter = [
-    {
-      'term': {
-        'type': 'occurrence'
-      }
-    }
-  ];
-  if (query) filter.push(query);
+  // metrics only included to allow "fake" pagination on facets
   const esQuery = {
     sort: [
       '_score', // if there is any score (but will this be slow even when there is no free text query?)
@@ -49,11 +37,7 @@ async function query({ query, aggs, size = 20, from = 0, metrics, req }) {
     track_total_hits: true,
     size,
     from,
-    query: {
-      bool: {
-        filter
-      }
-    },
+    query,
     aggs
   }
 

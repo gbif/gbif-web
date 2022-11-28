@@ -4,6 +4,16 @@
     "count": "",
     "description": ""
   },
+  "collectionKey": {
+    "name": "Колекція",
+    "count": "",
+    "description": ""
+  },
+  "numberSpecimens": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "taxonKey": {
     "name": "Наукова назва",
     "count": "",
@@ -233,6 +243,11 @@
   "isInCluster": {
     "name": "",
     "count": "",
+    "description": ""
+  },
+  "active": {
+    "name": "Діяльна",
+    "count": "Діяльна",
     "description": ""
   },
   "datasetType": {

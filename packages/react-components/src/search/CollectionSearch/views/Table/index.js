@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
 import StandardSearchTable from '../../../StandardSearchTable';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
-// import { useHistory } from "react-router-dom";
 import RouteContext from '../../../../dataManagement/RouteContext';
 import { ResourceLink } from '../../../../components';
+import { InlineFilterChip, LinkOption } from '../../../../widgets/Filter/utils/FilterChip';
 
 const QUERY = `
-query list($institution: [GUID], $code: String, $q: String, $offset: Int, $limit: Int, $country: Country, $fuzzyName: String, $city: String, $name: String, $active: Boolean){
-  collectionSearch(institution: $institution, code: $code, q: $q, limit: $limit, offset: $offset, country: $country, fuzzyName: $fuzzyName, city: $city, name: $name, active: $active) {
+query list($institution: [GUID], $code: String, $q: String, $offset: Int, $limit: Int, $country: Country, $fuzzyName: String, $city: String, $name: String, $active: Boolean, $numberSpecimens: String, $displayOnNHCPortal: Boolean){
+  collectionSearch(institution: $institution, code: $code, q: $q, limit: $limit, offset: $offset, country: $country, fuzzyName: $fuzzyName, city: $city, name: $name, active: $active, numberSpecimens: $numberSpecimens, displayOnNHCPortal: $displayOnNHCPortal) {
     count
     offset
     limit
@@ -16,7 +16,7 @@ query list($institution: [GUID], $code: String, $q: String, $offset: Int, $limit
       name
       code
       active
-      occurrenceCount
+      numberSpecimens
       address {
         city
         country
@@ -25,6 +25,21 @@ query list($institution: [GUID], $code: String, $q: String, $offset: Int, $limit
         city
         country
       }
+      institution {
+        key
+        name
+      }
+    }
+  }
+}
+`;
+
+const SLOW_QUERY = `
+query list($institution: [GUID], $code: String, $q: String, $offset: Int, $limit: Int, $country: Country, $fuzzyName: String, $city: String, $name: String, $active: Boolean, $numberSpecimens: String, $displayOnNHCPortal: Boolean){
+  collectionSearch(institution: $institution, code: $code, q: $q, limit: $limit, offset: $offset, country: $country, fuzzyName: $fuzzyName, city: $city, name: $name, active: $active, numberSpecimens: $numberSpecimens, displayOnNHCPortal: $displayOnNHCPortal) {
+    results {
+      key
+      occurrenceCount
     }
   }
 }
@@ -36,41 +51,75 @@ const defaultTableConfig = {
       trKey: 'tableHeaders.title',
       value: {
         key: 'name',
-        formatter: (value, item) => <ResourceLink type='collectionKey' discreet id={item.key}>{value}</ResourceLink>,
+        formatter: (value, item) => <div>
+          <div>
+            <ResourceLink type='collectionKey' id={item.key} data-loader style={{marginRight: 4}}>{value}</ResourceLink>
+            {!item.active && <span style={{padding: '0 3px', background: 'tomato', color: 'white', borderRadius: 2}}>Inactive</span>}
+          </div>
+          <div style={{ color: '#aaa' }}>
+            {item.institution && <LinkOption discreet type='institutionKey' id={item.institution.key} >
+              <InlineFilterChip filterName="institution" values={[item.institution.key]}>
+                <span data-loader>{item.institution.name}</span>
+              </InlineFilterChip>
+            </LinkOption>
+            }
+            {!item.institution && <span style={{ fontStyle: 'italic' }} data-loader>
+              <FormattedMessage id="collection.institutionUnknown" />
+            </span>}
+          </div>
+        </div>,
       },
       width: 'wide'
     },
     {
       trKey: 'filters.code.name',
       value: {
-        filterKey: 'code',
         key: 'code',
         hideFalsy: true
-      }
+      },
+      filterKey: 'code',
+      cellFilter: true,
     },
     {
       trKey: 'filters.country.name',
       value: {
-        filterKey: 'country',
         key: 'key',
         formatter: (value, item) => {
           const countryCode = item.address?.country || item.mailingAddress?.country;
-          return countryCode ? <FormattedMessage id={`enums.countryCode.${countryCode}`} /> : null;
+          return countryCode ? <InlineFilterChip filterName="country" values={[countryCode]}>
+            <FormattedMessage
+              id={`enums.countryCode.${countryCode}`}
+            /></InlineFilterChip> : null;
         },
         hideFalsy: true
-      }
+      },
+      filterKey: 'countrySingleGrSciColl',
     },
     {
       trKey: 'filters.city.name',
       value: {
         filterKey: 'city',
         key: 'key',
-        formatter: (value, item) => item.address?.city || item.mailingAddress?.city,
+        formatter: (value, item) => {
+          const city = item.address?.city || item.mailingAddress?.city;
+          return city ? <InlineFilterChip filterName="city" values={[city]}>{city}</InlineFilterChip> : null;
+        },
         hideFalsy: true
+      },
+      filterKey: 'city',
+    },
+    {
+      trKey: 'tableHeaders.numberSpecimens',
+      filterKey: 'numberSpecimens',
+      value: {
+        key: 'numberSpecimens',
+        formatter: (value, item) => <FormattedNumber value={value} />,
+        hideFalsy: true,
+        rightAlign: true
       }
     },
     {
-      trKey: 'tableHeaders.occurrences',
+      trKey: 'tableHeaders.gbifNumberSpecimens',
       value: {
         key: 'occurrenceCount',
         formatter: (value, item) => <FormattedNumber value={value} />,
@@ -78,13 +127,19 @@ const defaultTableConfig = {
         rightAlign: true
       }
     },
-    {
-      trKey: 'active',
-      value: {
-        key: 'active',
-        formatter: (value, item) => value ? 'yes' : 'no'
-      }
-    }
+    // {
+    //   trKey: 'tableHeaders.active',
+    //   value: {
+    //     key: 'active',
+    //     formatter: (value, item) => {
+    //       return <InlineFilterChip filterName="active" values={[value.toString()]}>
+    //         <FormattedMessage
+    //           id={`enums.yesNo.${value.toString()}`}
+    //         /></InlineFilterChip>
+    //     },
+    //   },
+    //   filterKey: 'active'
+    // }
   ]
 };
 
@@ -92,7 +147,7 @@ function Table() {
   // const history = useHistory();
   const routeContext = useContext(RouteContext);
 
-  return <StandardSearchTable graphQuery={QUERY} resultKey='collectionSearch' defaultTableConfig={defaultTableConfig}/>
+  return <StandardSearchTable graphQuery={QUERY} slowQuery={SLOW_QUERY} resultKey='collectionSearch' defaultTableConfig={defaultTableConfig} />
 }
 
 export default Table;

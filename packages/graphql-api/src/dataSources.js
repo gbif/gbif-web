@@ -1,29 +1,14 @@
-const _ = require('lodash');
+import { get, merge } from 'lodash';
+import * as resources from './resources';
+import config from './config';
 
-const api = _.merge(
-  require('./resources/dataset').dataSource,
-  require('./resources/organization').dataSource,
-  require('./resources/taxon').dataSource,
-  require('./resources/network').dataSource,
-  require('./resources/installation').dataSource,
-  require('./resources/node').dataSource,
-  require('./resources/participant').dataSource,
-  require('./resources/occurrence').dataSource,
-  require('./util/wikidata/').dataSource,
-  require('./resources/collection').dataSource,
-  require('./resources/institution').dataSource,
-  require('./resources/staffMember').dataSource,
-  require('./resources/external/orcid').dataSource,
-  require('./resources/external/viaf').dataSource,
-  require('./resources/external/person').dataSource,
-  
-  require('./resources/literature').dataSource,
-  require('./resources/download').dataSource,
-// -- Add imports above this line (required by plopfile.js) --
+const organization = config.organization;
+
+// Merge the resovers defined for that organisation
+const dataSources = Object.keys(resources[organization]).reduce(
+  (agg, resource) =>
+    merge(agg, get(resources, `${organization}.${resource}.dataSource`)),
+  {},
 );
 
-// merge resolvers as suggeted in https://blog.apollographql.com/modularizing-your-graphql-schema-code-d7f71d5ed5f2
-// TODO perhaps we should add an alert of keys are used twice
-module.exports = {
-  api
-};
+export default dataSources;

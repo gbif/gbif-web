@@ -1,1 +1,5 @@
-{}
+{
+  "nOccurrences": "{total, plural, one {# keer} other {# keer}}",
+  "nRecords": "{total, plural, one {# keer} other {# keer}}",
+  "inGbif": "{total, plural, one {# in GBIF} other {# in GBIF}}"
+}

@@ -17,7 +17,7 @@ function removeUndefined(obj) {
  * https://github.com/gbif/gbif-web/issues/109
  */
 function vocabularFallback(obj) {
-    if (typeof obj === 'object' && obj != null && obj.concept) {
+  if (obj && typeof obj === 'object' && obj.concept) {
     return obj.concept;
   } else {
     return obj;
@@ -311,7 +311,7 @@ function reduce(item) {
     // lastInterpreted:                    source.lastInterpreted,
     lastParsed:                         source.lastParsed,
     // mediaType:                          source.mediaType,
-    // networkKey:                         source.networkKeys || [],
+    // networkKey:                         source.networkKeys || [],
     order:                              source.gbifClassification.order,
     orderKey:                           source.gbifClassification.orderKey,
     phylum:                             source.gbifClassification.phylum,

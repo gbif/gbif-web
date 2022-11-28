@@ -20,7 +20,6 @@ export const cssViewArea = ({theme}) => css`
 export const cssLayout = ({theme}) => css`
   display: flex;
   flex-direction: column;
-  height: 100%;
   overflow: auto;
 `;
 

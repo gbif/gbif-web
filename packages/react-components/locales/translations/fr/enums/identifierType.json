@@ -1,0 +1,20 @@
+{
+  "URL": "URL",
+  "LSID": "LSID",
+  "HANDLER": "HANDLER",
+  "DOI": "DOI",
+  "UUID": "UUID (IDentifiant Unique Universel)",
+  "FTP": "FTP",
+  "URI": "URI",
+  "UNKNOWN": "Inconnu",
+  "GBIF_PORTAL": "Portail GBIF",
+  "GBIF_NODE": "Noeud GBIF",
+  "GBIF_PARTICIPANT": "Participant GBIF",
+  "GRBIO_ID": "ID GRBIO",
+  "GRBIO_URI": "URI GRBIO",
+  "GRSCICOLL_URI": "URI GRSCICOLL",
+  "IH_IRN": "Index Herbariorum",
+  "ROR": "ROR",
+  "GRID": "GRID",
+  "GRSCICOLL_ID": "ID GRSCICOLL"
+}

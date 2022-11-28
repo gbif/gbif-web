@@ -8,7 +8,23 @@ export const defaultContext = {
   literature: {},
   institution: {},
   collection: {},
-  publisher: {}
+  publisher: {},
+  apiKeys: {},
+  maps: {
+    defaultProjection: 'MERCATOR',
+    defaultMapStyle: 'NATURAL',
+    mapStyles: {
+      ARCTIC: ['NATURAL', 'BRIGHT'],
+      PLATE_CAREE: ['NATURAL', 'BRIGHT', 'DARK'],
+      MERCATOR: ['NATURAL', 'BRIGHT', 'DARK'],
+      ANTARCTIC: ['NATURAL', 'BRIGHT', 'DARK']
+    },
+    styleLookup: {
+      MERCATOR: {
+        NATURAL: 'NATURAL_HILLSHADE_MERCATOR'
+      }
+    }
+  }
 };
 
 export default React.createContext(defaultContext);

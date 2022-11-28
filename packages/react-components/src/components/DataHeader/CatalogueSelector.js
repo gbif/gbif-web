@@ -23,6 +23,8 @@ export default function CatalogueSelector({
   const location = useLocation();
   const { classNames } = getClasses(theme.prefix, 'catalogueSelector', {/*modifiers goes here*/ }, className);
 
+  const pathname = removeTrailingSlash(location.pathname);
+
   const options = {
     OCCURRENCE: {
       link: <ResourceSearchLink type="occurrenceSearch" discreet>
@@ -68,7 +70,7 @@ export default function CatalogueSelector({
     },
   };
 
-  const activeType = Object.keys(options).find(type => options[type].route === location.pathname);
+  const activeType = Object.keys(options).find(type => options[type].route === pathname);
   const active = options[activeType];
 
   return <Div {...classNames}>
@@ -86,3 +88,7 @@ export default function CatalogueSelector({
     />
   </Div>
 };
+
+function removeTrailingSlash(str) {
+  return str.replace(/\/+$/, '');
+}

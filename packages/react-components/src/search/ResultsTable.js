@@ -3,9 +3,11 @@ import { MdFilterList } from "react-icons/md";
 import { FormattedMessage } from 'react-intl';
 import get from 'lodash/get';
 import SearchContext from './SearchContext';
-import {Button, Row, Col, DataTable, Th, Td, TBody, DetailsDrawer} from '../components';
+import useBelow from '../utils/useBelow';
+import { Button, Row, Col, DataTable, Th, Td, TBody } from '../components';
 import { ResultsHeader } from './ResultsHeader';
-import {OccurrenceSidebar} from "../entities";
+import { FilterContext } from '../widgets/Filter/state';
+import { InlineFilterChip } from '../widgets/Filter/utils/FilterChip';
 
 const fallbackTableConfig = {
   columns: [{
@@ -18,14 +20,16 @@ const fallbackTableConfig = {
 };
 
 export const ResultsTable = ({ first, prev, next, size, from, results, total, loading, defaultTableConfig = fallbackTableConfig, hideLock }) => {
+  const currentFilterContext = useContext(FilterContext);
   const { filters, tableConfig = defaultTableConfig, labelMap } = useContext(SearchContext);
   const [fixedColumn, setFixed] = useState(true && !hideLock);
+  const noColumnLock = useBelow(1000);
 
-  const fixed = fixedColumn;
+  const fixed = fixedColumn && !noColumnLock;
   const headers = tableConfig.columns.map((col, index) => {
     // const options = index === 0 && !hideLock ? {
-    //   locked: fixed,
-    //   toggle: () => setFixed(!fixedColumn)
+    //   locked: fixed, 
+    //   toggle: noColumnLock ? null : () => setFixed(!fixedColumn)
     // } : null;
     const FilterPopover = col.filterKey ? filters[col.filterKey]?.Popover : null;
     return <Th key={col.trKey} width={col.width} >
@@ -56,27 +60,35 @@ export const ResultsTable = ({ first, prev, next, size, from, results, total, lo
         <tr>{headers}</tr>
       </thead>
       <TBody rowCount={size} columnCount={7} loading={loading}>
-        {getRows({ tableConfig, labelMap, results })}
+        {getRows({ tableConfig, labelMap, currentFilterContext, results, filters })}
       </TBody>
     </DataTable>
   </div>
   </>
 }
 
-const getRows = ({ tableConfig, labelMap, results = [] }) => {
+function isEmpty(e) {
+  return e === null || typeof e === 'undefined' || (Array.isArray(e) && e.length === 0);
+}
+
+const getRows = ({ tableConfig, labelMap, currentFilterContext, results = [], filters }) => {
   const rows = results.map((row, index) => {
     const cells = tableConfig.columns.map(
       (field, i) => {
+        const hasFilter = filters[field?.filterKey];
         const val = get(row, field.value.key);
         let formattedVal = val;
 
         if (!val && field.value.hideFalsy === true) {
           formattedVal = '';
         } else if (field.value.formatter) {
-          formattedVal = field.value.formatter(val, row);
+          formattedVal = field.value.formatter(val, row, { filterContext: currentFilterContext, labelMap });
         } else if (field.value.labelHandle) {
           const Label = labelMap[field.value.labelHandle];
           formattedVal = Label ? <Label id={val} /> : val;
+        }
+        if (!isEmpty(val) && hasFilter && field?.cellFilter) {
+          formattedVal = <InlineFilterChip filterName={field?.filterKey} values={[val]}>{formattedVal}</InlineFilterChip>
         }
 
         return <Td noWrap={field.noWrap} key={field.trKey} style={field.value.rightAlign ? {textAlign: 'right'} : {}}>{formattedVal}</Td>;

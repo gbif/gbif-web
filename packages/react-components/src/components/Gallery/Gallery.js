@@ -7,7 +7,7 @@ import { useDialogState, Dialog } from "reakit/Dialog";
 // import PropTypes from 'prop-types';
 // import { oneOfMany } from '../../utils/util';
 import { Button } from '../Button/Button';
-import { Image } from '../Image/Image';
+import { OptImage as Image } from '../Image/Image';
 import * as styles from './styles';
 import { GalleryDetails } from './GalleryDetails';
 
@@ -43,12 +43,12 @@ export const GalleryTile = ({ src, onSelect, height = 150, minWidth, children, s
       onClick={onSelect} {...props}
       title="View details"
     >
-      {src && <Image src={src}
+      <Image src={src}
         width={height}
         h={height}
         onLoad={onLoad}
         alt="Occurrence evidence"
-      />}
+      />
     </Button>
     {children}
   </div>

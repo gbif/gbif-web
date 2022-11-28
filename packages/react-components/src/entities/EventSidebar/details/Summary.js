@@ -12,7 +12,7 @@ export function Summary({
 }) {
   const theme = useContext(ThemeContext);
   const [showAll, setShowAll] = useState(false);
-  const { data, error, loading, load } = useQuery(FACET_BREAKDOWN, { lazyLoad: true, graph: 'EVENT' });
+  const { data, error, loading, load } = useQuery(FACET_BREAKDOWN, { lazyLoad: true });
 
   useEffect(() => {
     if (typeof event !== 'undefined' && typeof event.eventID !== 'undefined') {
@@ -220,7 +220,11 @@ query list($predicate1: Predicate, $predicate2: Predicate, $measurementDetailPre
       genus {
         count
         key
-      }      
+      }    
+      species {
+        count
+        key
+      }            
       samplingProtocol {
         count
         key

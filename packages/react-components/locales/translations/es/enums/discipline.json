@@ -1,0 +1,14 @@
+{
+  "ARCHAEOLOGY": "Arqueología",
+  "ARCHAEOLOGY_PREHISTORIC": "Arqueología prehistórica",
+  "ARCHAEOLOGY_HISTORIC": "Arqueología histórica",
+  "ARCHAEOLOGY_UNDERWATER": "Arqueología bajo el agua",
+  "ANTHROPOLOGY": "Antropología",
+  "ANTHROPOLOGY_BIOLOGICAL": "Antropología biológica",
+  "ANTHROPOLOGY_CULTURAL": "Antropología cultural",
+  "ANTHROPOLOGY_LINGUISTIC": "Antropología lingüística",
+  "SPACE": "Espacio",
+  "SPACE_ASTRONOMY": "Astronomía espacial",
+  "SPACE_ASTROPHYSICS": "Astrofísica espacial",
+  "SPACE_COSMOLOGY": "Cosmología espacial"
+}

@@ -3,14 +3,16 @@ import { root } from '../../style/shared';
 
 export const tooltip = props => css`
   ${root(props)}
-  font-size: 12px;
-  background-color: rgba(33, 33, 33, 0.9);
+  font-size: 14px;
+  background-color: #333;
   padding: 4px 8px;
   border-radius: ${props.theme.borderRadius}px;
   color: white;
   z-index: 1000;
 `;
 
-export default {
-  tooltip
-}
+export const tooltipArrow = props => css`
+  path {
+    fill: #333;
+  }
+`;

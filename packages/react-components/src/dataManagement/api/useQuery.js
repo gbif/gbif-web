@@ -21,7 +21,9 @@ function useQuery(query, options = {}) {
   const unmounted = useUnmounted();
   const apiClient = useContext(ApiContext);
   const client = options?.client || apiClient;
-  const graph = options?.graph;
+
+  if (error?.networkError && options?.throwNetworkErrors) throw error;
+  if (error && options?.throwAllErrors) throw error;
 
   function init({keepDataWhileLoading}) {
     if (!keepDataWhileLoading) setData();
@@ -33,7 +35,8 @@ function useQuery(query, options = {}) {
   function load(options) {
     init(options);
     const variables = options?.variables;
-    const { promise: dataPromise, cancel } = client.query({query, variables, graph });
+    const queue = options?.queue;
+    const { promise: dataPromise, cancel } = client.query({query, variables, queue});
     // functions cannot be direct values in states as function are taken as a way to create derived states
     // https://medium.com/swlh/how-to-store-a-function-with-the-usestate-hook-in-react-8a88dd4eede1
     setCancel(() => cancel);
@@ -50,7 +53,7 @@ function useQuery(query, options = {}) {
       })
       .catch(err => {
         if (unmounted.current) return;
-        setError({ error: true, type: 'unknown' });
+        setError({ error: err, type: 'unknown' });
         setData();
         setLoading(false);
       });

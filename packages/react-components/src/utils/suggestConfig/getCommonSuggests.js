@@ -241,7 +241,7 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
           size,
           predicate
         };
-        const { promise, cancel } = client.query({ query: SEARCH, variables, graph: 'EVENT' });
+        const { promise, cancel } = client.query({ query: SEARCH, variables });
         return {
           promise: promise.then(response => {
             return {
@@ -530,7 +530,7 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
       placeholder: 'search.placeholders.default',
       // how to get the list of suggestion data
       getSuggestions: ({ q }) => {
-        const { promise, cancel } = client.v1Get(`/grscicoll/institution/suggest?limit=8&q=${q}`);
+        const { promise, cancel } = client.v1Get(`/grscicoll/search?entityType=INSTITUTION&displayOnNHCPortal=true&limit=8&q=${q}`);
         return {
           promise: promise.then(response => ({
             data: response.data.map(i => ({ title: i.name, ...i }))
@@ -546,7 +546,29 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
           {suggestion.title}
           <div>Code: {suggestion.code}</div>
         </div>
-
+      }
+    },
+    collectionKey: {
+      //What placeholder to show
+      placeholder: 'search.placeholders.default',
+      // how to get the list of suggestion data
+      getSuggestions: ({ q }) => {
+        const { promise, cancel } = client.v1Get(`/grscicoll/search?entityType=COLLECTION&displayOnNHCPortal=true&limit=8&q=${q}`);
+        return {
+          promise: promise.then(response => ({
+            data: response.data.map(i => ({ title: i.name, ...i }))
+          })),
+          cancel
+        }
+      },
+      // how to map the results to a single string value
+      getValue: suggestion => suggestion.title,
+      // how to display the individual suggestions in the list
+      render: function CollectionKeySuggestItem(suggestion) {
+        return <div style={suggestStyle}>
+          {suggestion.title}
+          <div>Code: {suggestion.code}</div>
+        </div>
       }
     },
     networkKey: {
@@ -599,7 +621,7 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
           size,
           predicate
         };
-        const { promise, cancel } = client.query({ query: SEARCH, variables, graph: 'EVENT' });
+        const { promise, cancel } = client.query({ query: SEARCH, variables });
         return {
           promise: promise.then(response => {
             return {

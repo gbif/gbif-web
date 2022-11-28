@@ -4,6 +4,16 @@
     "count": "{num, plural, one { extensão DWCA } other {# extensões DWCA}}",
     "description": "Deve colocar aqui uma breve descrição da componente"
   },
+  "collectionKey": {
+    "name": "Coleção",
+    "count": "",
+    "description": ""
+  },
+  "numberSpecimens": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "taxonKey": {
     "name": "Nome científico",
     "count": "{num, plural, one {nome científico} other {# nomes científicos}}",
@@ -234,6 +244,11 @@
     "name": "Está em cluster",
     "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
     "description": "Se foi determinado o registo ter outros registos relacionados."
+  },
+  "active": {
+    "name": "Ativo",
+    "count": "Ativo",
+    "description": ""
   },
   "datasetType": {
     "name": "Tipo de conjunto de dados",

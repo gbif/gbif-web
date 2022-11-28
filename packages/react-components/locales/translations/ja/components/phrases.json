@@ -1,6 +1,7 @@
 {
   "loading": "読み込み中",
   "loadError": "読み込みに失敗しました",
+  "unknown": "不明",
   "close": "閉じる",
   "citation": "引用",
   "citeAs": "出版物ではこの引用を使用してください",

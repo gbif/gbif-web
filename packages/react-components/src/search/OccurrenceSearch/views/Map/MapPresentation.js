@@ -103,12 +103,16 @@ function Map({ labelMap, query, q, pointData, pointError, pointLoading, loading,
     setActive(Math.max(0, activeId - 1));
   }, [items, activeId]);
 
-  const menuLayerOptions = menuState => layerOptions?.[projection].map((layerId) => <MenuAction key={layerId} onClick={() => {
-    setLayerId(layerId);
-    sessionStorage.setItem('defaultOccurrenceLayer', layerId);
-  }}>
-    <FormattedMessage id={getStyle({ styles: basemapOptions, projection, type: layerId, lookup: styleLookup }).labelKey || 'unknown'} defaultMessage={layerId.name || 'unknown'} />
-  </MenuAction>);
+  const menuLayerOptions = menuState => layerOptions?.[projection].map((layerId) => {
+    const layerStyle = getStyle({ styles: basemapOptions, projection, type: layerId, lookup: styleLookup });
+    const labelKey = layerStyle.labelKey;
+    return <MenuAction key={layerId} onClick={() => {
+      setLayerId(layerId);
+      sessionStorage.setItem('defaultOccurrenceLayer', layerId);
+    }}>
+      <FormattedMessage id={labelKey || 'unknown'} defaultMessage={labelKey} />
+    </MenuAction>
+  });
 
   const projectionMenuOptions = menuState => projectionOptions.map((proj, i) => <MenuAction key={proj} onClick={() => {
     setProjection(proj);
@@ -134,7 +138,7 @@ function Map({ labelMap, query, q, pointData, pointError, pointLoading, loading,
     </DetailsDrawer>
     <div css={css.mapArea({ theme })}>
       <ViewHeader message="counts.nResultsWithCoordinates" loading={loading} total={total} />
-      <div style={{ position: 'relative', height: '100%', flex: '1 1 auto', display: 'flex', flexDirection: 'column' }}>
+      <div style={{ position: 'relative', height: '200px', flex: '1 1 auto', display: 'flex', flexDirection: 'column' }}>
         {listVisible && <ListBox onCloseRequest={e => showList(false)}
           labelMap={labelMap}
           onClick={({ index }) => { dialog.show(); setActive(index) }}

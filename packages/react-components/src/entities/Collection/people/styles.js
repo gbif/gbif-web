@@ -3,7 +3,6 @@ import { css } from '@emotion/react';
 
 export const people = ({ ...props }) => css`
   display: flex;
-  margin: 0 12px;
 `;
 
 export const navItem = ({ ...props }) => css`

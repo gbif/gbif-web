@@ -84,7 +84,7 @@ function ListBox({ labelMap, onCloseRequest, onClick, data, error, loading, ...p
           </Button></Col>
         </Row>
       </Col>
-      <Col grow as="main">
+      <Col grow as="div">
         {content}
       </Col>
     </Row>

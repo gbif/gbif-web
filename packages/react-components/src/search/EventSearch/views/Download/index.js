@@ -4,6 +4,7 @@ import EventContext from '../../../SearchContext';
 import { useQuery } from '../../../../dataManagement/api';
 import { filter2predicate } from '../../../../dataManagement/filterAdapter';
 import { DownloadPresentation } from './DownloadPresentation';
+import { ErrorBoundary } from "../../../../components";
 
 const DOWNLOADS = `
 query list($predicate: Predicate, $limit: Int){
@@ -36,7 +37,7 @@ function Downloads() {
   const [size, setSize] = useState(200);
   const currentFilterContext = useContext(FilterContext);
   const { rootPredicate, predicateConfig } = useContext(EventContext);
-  const { data, error, loading, load } = useQuery(DOWNLOADS, { lazyLoad: false, graph: 'EVENT' });
+  const { data, error, loading, load } = useQuery(DOWNLOADS, { lazyLoad: false });
 
   useEffect(() => {
     const predicate = {
@@ -67,5 +68,5 @@ function Downloads() {
   </>
 }
 
-export default Downloads;
+export default props => <ErrorBoundary><Downloads {...props} /></ErrorBoundary>;
 

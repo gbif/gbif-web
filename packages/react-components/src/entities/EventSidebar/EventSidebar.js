@@ -21,7 +21,7 @@ export function EventSidebar({
   style,
   ...props
 }) {
-  const { data, error, loading, load } = useQuery(EVENT, { lazyLoad: true, graph: 'EVENT' });
+  const { data, error, loading, load } = useQuery(EVENT, { lazyLoad: true });
   const [activeId, setTab] = useState( 'details');
   const theme = useContext(ThemeContext);
 
@@ -88,12 +88,6 @@ query event($eventID: String, $datasetKey: String){
     countryCode
     datasetKey
     datasetTitle
-    kingdoms
-    phyla
-    classes
-    orders
-    families
-    genera
     year
     month
     occurrenceCount

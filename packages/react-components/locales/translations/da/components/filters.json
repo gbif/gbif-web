@@ -4,6 +4,16 @@
     "count": "",
     "description": ""
   },
+  "collectionKey": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "numberSpecimens": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "taxonKey": {
     "name": "Videnskabeligt navn",
     "count": "",
@@ -231,6 +241,11 @@
     "description": ""
   },
   "isInCluster": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "active": {
     "name": "",
     "count": "",
     "description": ""

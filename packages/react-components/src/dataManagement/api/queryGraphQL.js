@@ -1,11 +1,14 @@
 import hash from 'object-hash';
 import axios from 'axios';
 import { QueryError } from './QueryError';
+import Queue from "queue-promise";
+
+const queues = {};
 
 let CancelToken = axios.CancelToken;
 const maxGETLength = 1000;
 
-function query(query, { variables, client }) {
+function query(query, { variables, client }, {name: queueName, concurrent = 1, interval = 0} = {}) {
   const graphqlEndpoint = client?.endpoint;
   const headers = client?.headers;
   const queryId = hash(query);
@@ -21,10 +24,11 @@ function query(query, { variables, client }) {
   let cancel;
   return {
     promise: new Promise((resolve, reject) => {
-      axios.get(graphqlEndpoint, {
+      const cancelToken = new CancelToken(function executor(c) { cancel = c; });
+      const startRequest = () => axios.get(graphqlEndpoint, {
         params: queryParams,
         headers,
-        cancelToken: new CancelToken(function executor(c) { cancel = c; })
+        cancelToken
       })
         .then(response => resolve(formatResponse(response.data)))
         .catch(error => {
@@ -50,6 +54,18 @@ function query(query, { variables, client }) {
             resolve(netWorkErrorResponse(error));
           }
         })
+       if (!queueName) {
+        startRequest();
+       } else {
+        if (!queues[queueName]) {
+          queues[queueName] = new Queue({
+            concurrent,
+            interval,
+            start: true
+          });
+        }
+        queues[queueName].enqueue(startRequest);
+       }
     }),
     cancel: reason => cancel(reason || 'CANCELED')
   }

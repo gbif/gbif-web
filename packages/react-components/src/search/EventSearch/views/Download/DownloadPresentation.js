@@ -65,7 +65,7 @@ function DatasetResult({ largest, item, indicator, theme,  index, dialog,...prop
 
   const [visible, setVisible] = useState(false);
   const isAvailable = item.archive.fileSizeInMB != null;
-  const { data, error, loading, load } = useQuery(DATASET_QUERY, { lazyLoad: true, graph: 'EVENT' });
+  const { data, error, loading, load } = useQuery(DATASET_QUERY, { lazyLoad: true });
 
   const datasetKey = item.key;
 

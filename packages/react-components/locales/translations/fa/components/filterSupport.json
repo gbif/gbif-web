@@ -13,5 +13,9 @@
   "wildcardHelp": "",
   "useWildcardPattern": "",
   "showSuggestions": "",
-  "excludeSelected": ""
+  "excludeSelected": "",
+  "updateFilter": "",
+  "setFilter": "",
+  "nameWithTaxonMatchIssue": "",
+  "viewDetails": ""
 }

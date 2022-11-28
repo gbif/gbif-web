@@ -51,7 +51,7 @@ function Sites() {
   const [offset = 0, setOffset] = useQueryParam('offset', NumberParam);
   const currentFilterContext = useContext(FilterContext);
   const { rootPredicate, predicateConfig } = useContext(SearchContext);
-  const { data, error, loading, load } = useQuery(QUERY, { lazyLoad: true, graph: 'EVENT'});
+  const { data, error, loading, load } = useQuery(QUERY, { lazyLoad: true, throwNetworkErrors: true });
 
   const [activeSiteID, setActiveSiteID] = useState(false);
 

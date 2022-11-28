@@ -1,6 +1,33 @@
-const { gql } = require('apollo-server');
-const _ = require('lodash');
-const { getEnumTypeDefs } = require('./enums');
+import { gql } from 'apollo-server';
+import { get } from 'lodash';
+import { getEnumTypeDefs } from '#/helpers/enums';
+import * as resources from './resources';
+import config from './config';
+
+const inputTypeDef = gql`
+  input Predicate {
+    type: PredicateType
+    key: String
+    value: JSON
+    values: [JSON]
+    predicate: Predicate
+    predicates: [Predicate]
+  }
+
+  enum PredicateType {
+    and
+    or
+    not
+    equals
+    in
+    within
+    isNotNull
+    like
+    fuzzy
+    nested
+    range
+  }
+`;
 
 async function getSchema() {
   // create a string with all the enum options (loaded from the API)
@@ -17,40 +44,17 @@ async function getSchema() {
     }
   `;
 
-  const typeDefs = _.flatten([
+  // Map each organisation string to an aggregate array containing all of its typeDefs
+  const organization = config.organization;
+  const orgTypeDefs = Object.keys(resources[organization]).map(resource => get(resources, `${organization}.${resource}.typeDef`));
+
+  const typeDefs = [
     rootQuery,
-    require('./input'),
-    require('./resources/misc/comment'),
-    require('./resources/misc/contact'),
-    require('./resources/misc/endpoint'),
-    require('./resources/misc/identifier'),
-    require('./resources/misc/machineTag'),
-    require('./resources/misc/tag'),
-    require('./resources/misc/address'),
-    require('./resources/dataset').typeDef,
-    require('./resources/organization').typeDef,
-    require('./resources/scalars').typeDef,
-    require('./resources/taxon').typeDef,
-    require('./resources/network').typeDef,
-    require('./resources/installation').typeDef,
-    require('./resources/node').typeDef,
-    require('./resources/participant').typeDef,
-    require('./resources/occurrence').typeDef,
-    require('./util/wikidata').typeDef,
-    require('./resources/collection').typeDef,
-    require('./resources/institution').typeDef,
-    require('./resources/staffMember').typeDef,
-    require('./resources/external/orcid').typeDef,
-    require('./resources/external/viaf').typeDef,
-    require('./resources/external/person').typeDef,
-    require('./resources/literature').typeDef,
-    require('./resources/download').typeDef,
-// -- Add imports above this line (required by plopfile.js) --
-  ]);
+    inputTypeDef,
+    ...orgTypeDefs
+  ].flat(2);
 
   return typeDefs;
 }
 
-module.exports = {
-  getSchema
-};
+export default getSchema;

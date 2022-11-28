@@ -4,6 +4,16 @@
     "count": "",
     "description": ""
   },
+  "collectionKey": {
+    "name": "蒐藏集",
+    "count": "",
+    "description": ""
+  },
+  "numberSpecimens": {
+    "name": "標本數量",
+    "count": "",
+    "description": ""
+  },
   "taxonKey": {
     "name": "學名",
     "count": "",
@@ -233,6 +243,11 @@
   "isInCluster": {
     "name": "在（資料）叢集上",
     "count": "",
+    "description": ""
+  },
+  "active": {
+    "name": "在線",
+    "count": "在線",
     "description": ""
   },
   "datasetType": {

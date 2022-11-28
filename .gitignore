@@ -1,6 +1,6 @@
 # dependencies
 **/node_modules
-
+.history
 # built files
 **/esm
 **/dist-storybook
@@ -20,7 +20,6 @@ packages/react-components/locales/dist
 **/lerna-debug.log
 
 # editors
-.vscode/
 .idea/
 *.log
-
+.history

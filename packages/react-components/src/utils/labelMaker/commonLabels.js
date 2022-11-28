@@ -49,9 +49,10 @@ export const commonLabels = {
     query: `query label($id: ID!){
       taxon(key: $id) {
         canonicalName
+        scientificName
       }
     }`,
-    transform: result => ({ title: result.data.taxon.canonicalName }),
+    transform: result => ({ title: result.data.taxon.canonicalName || result.data.taxon.scientificName }),
   },
   publisherKey: {
     type: 'ENDPOINT',
@@ -64,7 +65,7 @@ export const commonLabels = {
     transform: result => ({ title: result.title })
   },
   eventDatasetKey: {
-    type: 'GQL_EVENTS',
+    type: 'GQL',
     query: `query label($id: JSON!){
       eventSearch(predicate: {type:equals, key: "datasetKey", value: $id}) {
         documents(size: 1) {
@@ -170,6 +171,10 @@ export const commonLabels = {
     type: 'TRANSLATION',
     template: id => `enums.isInCluster.${id}`
   },
+  yesNo: {
+    type: 'TRANSLATION',
+    template: id => `enums.yesNo.${id}`
+  },
   datasetType: {
     type: 'TRANSLATION',
     template: id => `enums.datasetType.${id}`
@@ -187,6 +192,15 @@ export const commonLabels = {
     }`,
     transform: result => ({ title: result.data.institution.name })
   },
+  collectionKey: {
+    type: 'GQL',
+    query: `query label($id: String!){
+      collection(key: $id) {
+        name
+      }
+    }`,
+    transform: result => ({ title: result.data.collection.name })
+  },
   networkKey: {
     type: 'ENDPOINT',
     template: ({ id, api }) => `${api.v1.endpoint}/network/${id}`,
@@ -201,6 +215,14 @@ export const commonLabels = {
     template: id => `enums.dwcaExtension.${id}`
   },
   locationId: {
+    type: 'TRANSFORM',
+    transform: ({ id }) => id
+  },
+  numberSpecimens: {
+    type: 'CUSTOM',
+    component: rangeOrEqualLabel('intervals.compact')
+  },
+  identityFn: {
     type: 'TRANSFORM',
     transform: ({ id }) => id
   },

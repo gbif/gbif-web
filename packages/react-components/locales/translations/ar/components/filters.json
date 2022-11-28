@@ -4,6 +4,16 @@
     "count": "",
     "description": ""
   },
+  "collectionKey": {
+    "name": "مجموعة",
+    "count": "",
+    "description": ""
+  },
+  "numberSpecimens": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "taxonKey": {
     "name": "الاسم العلمي",
     "count": "",
@@ -233,6 +243,11 @@
   "isInCluster": {
     "name": "",
     "count": "",
+    "description": ""
+  },
+  "active": {
+    "name": "نشط",
+    "count": "نشط",
     "description": ""
   },
   "datasetType": {

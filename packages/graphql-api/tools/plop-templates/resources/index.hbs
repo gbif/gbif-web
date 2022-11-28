@@ -1,9 +1,0 @@
-const {{pascalCase name}}Api = require('./{{camelCase name}}.source');
-
-module.exports = {
-  resolver: require('./{{camelCase name}}.resolver'),
-  typeDef: require('./{{camelCase name}}.type'),
-  dataSource: {
-    {{camelCase name}}API: {{pascalCase name}}Api
-  }
-};

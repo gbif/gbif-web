@@ -22,13 +22,11 @@ query list($predicate: Predicate, $publisher:[String], $source: [String], $doi: 
     doi: $doi, 
     source: $source, 
     publisher: $publisher
-    limit: $limit, 
-    offset: $offset
     ) {
-    documents {
-      count
-      offset
-      limit
+    documents(size: $limit, from: $offset) {
+      total
+      from
+      size
       results {
         title
         abstract

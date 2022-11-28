@@ -21,7 +21,7 @@ export function EventDatasetSidebar({
   style,
   ...props
 }) {
-  const { data, error, loading, load } = useQuery(DATASET, { lazyLoad: true, graph: 'EVENT' });
+  const { data, error, loading, load } = useQuery(DATASET, { lazyLoad: true });
   const [activeId, setTab] = useState(defaultTab || 'details');
   const theme = useContext(ThemeContext);
   useEffect(() => {

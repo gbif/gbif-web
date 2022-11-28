@@ -3,6 +3,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import ThemeContext from '../../style/themes/ThemeContext';
 import { useQuery } from '../../dataManagement/api';
 import { CollectionPresentation } from './CollectionPresentation';
+import merge from 'lodash/merge';
 import EnsureRouter from '../../EnsureRouter';
 
 export function Collection({
@@ -10,11 +11,12 @@ export function Collection({
   ...props
 }) {
   const { data, error, loading, load } = useQuery(COLLECTION, { lazyLoad: true });
+  const { data: slowData, error: slowError, loading: slowLoading, load: slowLoad } = useQuery(SLOW_QUERY, { lazyLoad: true });
   const theme = useContext(ThemeContext);
 
   useEffect(() => {
     if (typeof id !== 'undefined') {
-      load({
+      const query = {
         variables: {
           key: id,
           predicate: {
@@ -23,17 +25,21 @@ export function Collection({
             value: id
           }
         }
-      });
+      };
+      load(query);
+      slowLoad(query);
     }
   }, [id]);
 
+  let mergedData = data ? merge({}, data, slowData) : data;
+
   return <EnsureRouter>
-    <CollectionPresentation {...{ data, error, loading: loading || !data, id }} />
+    <CollectionPresentation {...{ data: mergedData, error, loading: loading, id }} />
   </EnsureRouter>
 };
 
-const COLLECTION = `
-query collection($key: String!, $predicate: Predicate){
+const SLOW_QUERY = `
+query collection($predicate: Predicate){
   occurrenceSearch(predicate: $predicate) {
     documents(size: 0) {
       total
@@ -42,49 +48,71 @@ query collection($key: String!, $predicate: Predicate){
       recordedBy
     }
   }
+}
+`;
+
+const COLLECTION = `
+query collection($key: String!){
   collection(key: $key) {
     key
+    active
     code
     name
     description
+    taxonomicCoverage
+    geography
+    notes
+    homepage
+
+    numberSpecimens
+    incorporatedCollections
+    importantCollectors
+
     contentTypes
-    active
+    
     personalCollection
     email
     phone
-    homepage
+    
     catalogUrl
+    apiUrl
     preservationTypes
     accessionStatus
+    
+    created
+    deleted
+    modified
+    modifiedBy
+    replacedByCollection {
+      name
+      key
+    }
+
     institutionKey
-    notes
     identifiers {
       key
       type
       identifier
     }
-    contacts {
+    contactPersons {
       key
       firstName
       lastName
-      position
-      areaResponsibility
-      researchPursuits
       phone
       email
-      fax
+      taxonomicExpertise
+      primary
+      position
+      userIds {
+        type
+        id
+      }
     }
-    numberSpecimens
-    taxonomicCoverage
-    geography
-    incorporatedCollections
-    importantCollectors
     collectionSummary
     alternativeCodes {
       code
       description
     }
-    # occurrenceMappings
     institution {
       code
       name

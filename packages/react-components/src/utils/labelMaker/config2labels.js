@@ -33,15 +33,6 @@ export function config2label(name, config = {}, apiContext, localeContext) {
       const Label = labelMaker(fetchFunction, { isHtmlResponse: config.isHtmlResponse });
       return Label;
     }
-    case 'GQL_EVENTS': {
-      const fetchFunction = ({ id }) => apiContext
-          .get(apiContext.graphs.EVENT.endpoint, { params: { query: config.query, variables: { id } } })
-          .promise
-          .then(res => res.data)
-          .then(config.transform || (x => x));
-      const Label = labelMaker(fetchFunction, { isHtmlResponse: config.isHtmlResponse });
-      return Label;
-    }
     case 'ENDPOINT': {
       const fetchFunction = ({ id, locale }) => apiContext
         .get(config.template({ id, api: apiContext }))

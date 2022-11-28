@@ -1,0 +1,17 @@
+{
+  "geographicDescription": "الوصف الجغرافي",
+  "taxonomicDescription": "الوصف التصنيفي",
+  "additionalNames": "اسماء اضافية",
+  "description": "التوصيف",
+  "code": "الرمز",
+  "apiUrl": "URL خدمات الشبكة للمجموعة ",
+  "homepage": "الصفخة الرئيسية",
+  "email": "البريد الإلكتروني",
+  "mailingAddress": "العنوان البريدي",
+  "contacts": "جهات الاتصال",
+  "address": "العنوان",
+  "country": "بلد",
+  "logoUrl": "شعار",
+  "identifiers": "مُعَرّفون",
+  "citesPermitNumber": "رقم ترخيص السايتس"
+}

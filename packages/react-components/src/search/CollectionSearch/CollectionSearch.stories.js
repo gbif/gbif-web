@@ -58,27 +58,35 @@ function getSuggests({ client, suggestStyle }) {
 }
 
 const filters = {
-  elevation: {
-    type: 'NUMBER_RANGE',
-    config: {
-      std: {
-        filterHandle: 'elevation',
-        id2labelHandle: 'elevation',
-        translations: {
-          count: 'filter.elevation.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filter.elevation.name',// translation path to a title for the popover and the button
-          description: 'filter.elevation.description', // translation path for the filter description
-        }
-      },
-      specific: {
-        placeholder: 'Elevation range or single value'
-      }
-    }
-  }
+  // elevation: {
+  //   type: 'NUMBER_RANGE',
+  //   config: {
+  //     std: {
+  //       filterHandle: 'elevation',
+  //       id2labelHandle: 'elevation',
+  //       translations: {
+  //         count: 'filter.elevation.count', // translation path to display names with counts. e.g. "3 scientific names"
+  //         name: 'filter.elevation.name',// translation path to a title for the popover and the button
+  //         description: 'filter.elevation.description', // translation path for the filter description
+  //       }
+  //     },
+  //     specific: {
+  //       placeholder: 'Elevation range or single value'
+  //     }
+  //   }
+  // }
 }
 
 
-const config = { labels, getSuggests, filters };
+const config = {
+  labels, 
+  getSuggests, 
+  filters, 
+  rootFilter: {
+    displayOnNHCPortal: true
+  },
+  availableCatalogues: ['INSTITUTION', 'COLLECTION', 'OCCURRENCE']
+};
 
 export const Example = () => <Router initialEntries={[`/collection/search`]}>
   <QueryParamProvider ReactRouterRoute={Route}>
@@ -91,4 +99,13 @@ Example.story = {
   name: 'Collection search',
 };
 
-export const StandaloneExample = () => <Standalone style={{height: 'calc(100vh - 40px)'}}></Standalone>;
+export const StandaloneExample = () => <Standalone siteConfig={{
+  routes: {
+    collectionSearch: {
+      route: '/',
+    }
+  },
+  collection: {
+    availableCatalogues: ['INSTITUTION', 'COLLECTION', 'OCCURRENCE'],
+  }
+}} style={{ height: 'calc(100vh - 40px)' }}></Standalone>;

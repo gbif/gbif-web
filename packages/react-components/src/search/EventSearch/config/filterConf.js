@@ -5,7 +5,7 @@ export const filters = [
   'measurementOrFactTypes',
   'year',
   'eventStateProvince',
-  'eventID',
+  'eventId',
   'eventTaxonKey',
   'eventType',
   'locationId',

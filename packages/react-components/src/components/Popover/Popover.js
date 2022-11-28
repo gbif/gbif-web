@@ -75,7 +75,7 @@ const backdrop = theme => css`
   right: 0px;
   bottom: 0px;
   left: 0px;
-  z-index: 999;
+  z-index: ${(theme.drawerZIndex || 1000)-2};
 `;
 
 const dialogContent = theme => css`
@@ -89,7 +89,7 @@ const dialog = theme => css`
   top: 28px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 999;
+  z-index: ${(theme.drawerZIndex || 1000)-1};;
   border-radius: ${theme.borderRadius}px;
   outline: 0px;
   border: 1px solid ${theme.paperBorderColor};

@@ -1,6 +1,6 @@
 import React from 'react';
 import { boolean } from '@storybook/addon-knobs';
-import { Properties, Term, Value } from './Properties';
+import { Properties, Term, Value, Property } from './Properties';
 import readme from './README.md';
 import { StyledProse } from '../typography/StyledProse';
 
@@ -11,10 +11,15 @@ export default {
 
 export const Example = () => <>
   <Properties style={{fontSize: 13, maxWidth: 600}} horizontal={boolean("horizontal", true)}>
-    <Term>Description</Term>
-    <Value>
+    <Property labelId="Description">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque finibus efficitur pulvinar. Maecenas ornare lobortis leo vel condimentum. Suspendisse dui lorem, tempus sed pulvinar eu, interdum et tellus. Morbi malesuada facilisis ullamcorper. Donec vehicula purus et neque sagittis mollis. Ut quis diam ex. Donec aliquam lorem vel nunc blandit dignissim. Nulla eget scelerisque neque, ut vulputate neque. Maecenas eu venenatis nisi. Duis sollicitudin, urna quis vestibulum elementum, augue est dapibus urna, in tempor dolor risus nec felis. Cras blandit luctus tortor, vitae fringilla dui ultricies non. Sed rhoncus erat quis tristique hendrerit.
-    </Value>
+    </Property>
+
+    <Property labelId="What is this" helpText="Can be explained here">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    </Property>
+
+    <Property value={`Can *also* contain [markdown](/markdown), which will be sanitized`} labelId="Markdown"/>
 
     <Term>Owner</Term>
     <Value>Don Hobern</Value>

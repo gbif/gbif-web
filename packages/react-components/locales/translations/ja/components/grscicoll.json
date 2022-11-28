@@ -1,0 +1,17 @@
+{
+  "geographicDescription": "地理的記載",
+  "taxonomicDescription": "分類学的記載",
+  "additionalNames": "その他の名称",
+  "description": "説明",
+  "code": "コード",
+  "apiUrl": "コレクションの Web サービスの URL",
+  "homepage": "ホームページ",
+  "email": "メールアドレス",
+  "mailingAddress": "メールアドレス",
+  "contacts": "連絡先",
+  "address": "住所",
+  "country": "国",
+  "logoUrl": "ロゴ",
+  "identifiers": "識別子",
+  "citesPermitNumber": "CITES許可番号"
+}

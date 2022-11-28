@@ -28,15 +28,20 @@ query table($predicate: Predicate, $size: Int = 20, $from: Int = 0){
       from
       results {
         key
+        taxonKey
         gbifClassification{
+          verbatimScientificName
           usage {
             rank
             formattedName
+            key
           }
         }
         year
-        basisOfRecord
+				basisOfRecord
+        datasetKey
         datasetTitle
+        publishingOrgKey
         publisherTitle
         countryCode
         formattedCoordinates
@@ -54,6 +59,18 @@ query table($predicate: Predicate, $size: Int = 20, $from: Int = 0){
         soundCount
         typeStatus
         issues
+        hasTaxonIssues
+
+        institution {
+          name
+          key
+          code
+        }
+        collection {
+          name
+          key
+          code
+        }
         
         volatile {
           features {
@@ -75,7 +92,7 @@ function Table() {
   const size = 50;
   const currentFilterContext = useContext(FilterContext);
   const { rootPredicate, predicateConfig, tableConfig, defaultTableColumns } = useContext(OccurrenceContext);
-  const { data, error, loading, load } = useQuery(OCCURRENCE_TABLE, { lazyLoad: true });
+  const { data, error, loading, load } = useQuery(OCCURRENCE_TABLE, { lazyLoad: true, throwNetworkErrors: true });
 
   useEffect(() => {
     const predicate = {
@@ -119,19 +136,17 @@ function Table() {
     setColumns(activeCols);
   }, [tableConfig, defaultTableColumns]);
 
-  return <>
-    <TablePresentation
-      loading={loading}
-      data={data}
-      next={next}
-      prev={prev}
-      first={first}
-      size={size}
-      from={from}
-      total={data?.occurrenceSearch?.documents?.total}
-      columns={columns}
-    />
-  </>
+  return <TablePresentation
+    loading={loading}
+    data={data}
+    next={next}
+    prev={prev}
+    first={first}
+    size={size}
+    from={from}
+    total={data?.occurrenceSearch?.documents?.total}
+    columns={columns}
+  />
 }
 
 export default Table;

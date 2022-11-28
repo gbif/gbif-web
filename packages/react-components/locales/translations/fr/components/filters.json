@@ -4,6 +4,16 @@
     "count": "",
     "description": "Une courte description de la composante devrait apparaître ici"
   },
+  "collectionKey": {
+    "name": "Collection",
+    "count": "",
+    "description": ""
+  },
+  "numberSpecimens": {
+    "name": "Nombre de spécimens",
+    "count": "",
+    "description": "Le nombre de spécimens détenus indiqué dans la description. Ce nombre ne correspond pas au nombre d'enregistrements qui ont été numérisés et partagés."
+  },
   "taxonKey": {
     "name": "Nom scientifique du taxon",
     "count": "",
@@ -233,6 +243,11 @@
   "isInCluster": {
     "name": "Est dans le regroupement",
     "count": "",
+    "description": ""
+  },
+  "active": {
+    "name": "Activé",
+    "count": "Activé",
     "description": ""
   },
   "datasetType": {
