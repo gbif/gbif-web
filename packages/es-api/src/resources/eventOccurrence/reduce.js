@@ -275,7 +275,7 @@ function reduce(item) {
     key:                                source.id,
     gbifID:                             source.gbifId,
     acceptedScientificName:             source.gbifClassification?.acceptedUsage?.name,
-    acceptedTaxonKey:                   source.gbifClassification?.acceptedUsage?.key,
+    acceptedTaxonKey:                   source.gbifClassification?.acceptedUsage?.guid,
     scientificName:                     source.gbifClassification?.usage?.name,
     class:                              source.gbifClassification?.class,
     classKey:                           source.gbifClassification?.classKey,
@@ -334,6 +334,11 @@ function reduce(item) {
     publisherTitle:                     source.publisherTitle,
     parsedEventDate:                    source.eventDate
   };
+
+  if (gbifSpecific?.gbifClassification?.acceptedUsage?.guid) {
+    gbifSpecific.gbifClassification.acceptedUsage.key = gbifSpecific?.gbifClassification?.acceptedUsage?.guid;
+    delete gbifSpecific?.gbifClassification?.acceptedUsage?.guid;
+  }
 
   // extra gadm specific fields
   let gadm = {gadm:{}};

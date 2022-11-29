@@ -745,13 +745,8 @@ const config =
       "field": "occurrence.gbifClassification.verbatimScientificName"
     },
     "gbifClassification_acceptedUsage_key": {
-      "type": "numeric",
-      "field": "occurrence.gbifClassification.acceptedUsage.key",
-      "get": {
-        "type": "range_or_term",
-        "defaultUpperBound": "gte",
-        "defaultLowerBound": "lte"
-      }
+      "type": "keyword",
+      "field": "occurrence.gbifClassification.acceptedUsage.guid",
     },
     "gbifClassification_acceptedUsage_name": {
       "type": "text",
