@@ -126,6 +126,7 @@ function Sites() {
       />
     </DetailsDrawer>
     <SitesTable
+        query={QUERY}
         error={error}
         loading={loading}
         next={next}

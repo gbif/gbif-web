@@ -6,7 +6,6 @@ import { useQuery } from '../dataManagement/api';
 import { filter2predicate } from '../dataManagement/filterAdapter';
 import { useQueryParam, NumberParam } from 'use-query-params';
 import hash from 'object-hash';
-import GraphQLContext from "./EventSearch/views/Api/GraphQLContext";
 
 function PredicateDataFetcher({graphQuery, graph, resultKey, offsetName = 'from', limit = 25, customVariables = {}, componentProps, presentation: Presentation, queryProps = {}, predicateMeddler, ...props}) {
   const [offset = 0, setOffset] = useQueryParam('offset', NumberParam);
@@ -15,11 +14,6 @@ function PredicateDataFetcher({graphQuery, graph, resultKey, offsetName = 'from'
   const { data, error, loading, load } = useQuery(graphQuery, { lazyLoad: true, graph, ...queryProps });
 
   const variableHash = hash(customVariables);
-  const graphQLQuery = useContext(GraphQLContext)
-  //Update queryContext
-  graphQLQuery.query = graphQuery
-  graphQLQuery.limit = limit
-  graphQLQuery.offset = offset
 
   useEffect(() => {
     const predicate = {

@@ -1,32 +1,30 @@
-import { css, jsx } from '@emotion/react';
+import { css} from '@emotion/react';
 import React, { useEffect, useCallback, useState, useContext } from 'react';
-import { MdFilterList } from "react-icons/md";
-import { FormattedMessage } from 'react-intl';
 import { useUpdateEffect } from 'react-use';
-import get from 'lodash/get';
 import SearchContext from '../../../SearchContext';
-import { Button, Row, Col, Skeleton, DetailsDrawer } from '../../../../components';
-import { ResultsHeader } from '../../../ResultsHeader';
+import { Button, Skeleton, DetailsDrawer } from '../../../../components';
 import { useQuery } from '../../../../dataManagement/api';
 import * as style from './style';
 import { FilterContext } from "../../../../widgets/Filter/state";
 import { EventDatasetSidebar } from '../../../../entities';
 import { useDialogState } from "reakit/Dialog";
 import { useQueryParam, StringParam } from 'use-query-params';
+import {useGraphQLContext} from "../Api/GraphQLContext";
 
-export const List = ({ first, prev, next, size, from, data, total, loading }) => {
+export const List = ({query, first, prev, next, size, from, data, total, loading }) => {
   const { filters, labelMap } = useContext(SearchContext);
   const dialog = useDialogState({ animated: true, modal: false });
   const [activeKey, setActiveKey] = useQueryParam('entity', StringParam);
 
   const datasets = data?.eventSearch?.facet?.datasetKey;
 
+  const {details, setQuery} = useGraphQLContext();
   useEffect(() => {
-    if (activeKey) {
-      dialog.show();
-    } else {
-      dialog.hide();
-    }
+    setQuery({ query, size, from });
+  }, [query, size, from]);
+
+  useEffect(() => {
+    activeKey ? dialog.show() : dialog.hide();
   }, [activeKey]);
 
   useUpdateEffect(() => {

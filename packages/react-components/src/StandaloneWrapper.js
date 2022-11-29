@@ -11,7 +11,7 @@ import { ApiContext, ApiClient } from './dataManagement/api';
 import RouteContext, { defaultContext } from './dataManagement/RouteContext';
 import SiteContext from './dataManagement/SiteContext';
 import env from '../.env.json';
-import GraphQLContext from "./search/EventSearch/views/Api/GraphQLContext";
+import {GraphQLContextProvider} from "./search/EventSearch/views/Api/GraphQLContext";
 
 const client = new ApiClient({
   gql: {
@@ -46,12 +46,11 @@ function StandaloneWrapper({
       <QueryParamProvider ReactRouterRoute={Route} {...props} />
     </Router>
   </Root>;
-  const graphQLQuery = {"query":""};
-  //const [graphQL, setGraphQL] = useState("Example")
+
   return (
     <SiteContext.Provider value={siteConfig}>
       <ApiContext.Provider value={client}>
-        <GraphQLContext.Provider value={graphQLQuery}>
+        <GraphQLContextProvider value={{}}>
           <LocaleProvider locale={locale} messages={messages}>
             <ThemeContext.Provider value={theme}>
               {routes && <RouteContext.Provider value={routeConfig}>
@@ -60,7 +59,7 @@ function StandaloneWrapper({
               {!routes && root}
             </ThemeContext.Provider>
           </LocaleProvider>
-        </GraphQLContext.Provider>
+        </GraphQLContextProvider>
       </ApiContext.Provider>
     </SiteContext.Provider>
   );

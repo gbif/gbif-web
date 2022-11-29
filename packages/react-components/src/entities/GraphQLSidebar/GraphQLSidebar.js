@@ -1,19 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import ThemeContext from '../../style/themes/ThemeContext';
 import * as css from './styles';
-import {Row, Col, Tabs, Accordion, Properties, Button} from "../../components";
-import { useQuery } from '../../dataManagement/api';
+import {Row, Col, Tabs,Button} from "../../components";
 import { TabPanel } from "../../components/Tabs/Tabs";
-import { FormattedMessage } from "react-intl";
-import { EnumField, PlainTextField } from "../EventSidebar/details/properties";
 import {MdClose, MdInfo} from "react-icons/md";
-import {Header} from "../../widgets/Filter/utils";
 import {FilterContext} from "../../widgets/Filter/state";
 import EventContext from "../../search/SearchContext";
 import {filter2predicate} from "../../dataManagement/filterAdapter";
 import env from "../../../.env.json";
 import hash from "object-hash";
-import GraphQLContext from "../../search/EventSearch/views/Api/GraphQLContext";
+import {useGraphQLContext} from "../../search/EventSearch/views/Api/GraphQLContext";
 const { TabList, Tab, TapSeperator } = Tabs;
 
 export function GraphQLSidebar({
@@ -29,10 +25,8 @@ export function GraphQLSidebar({
   const currentFilterContext = useContext(FilterContext);
   const { rootPredicate, predicateConfig } = useContext(EventContext);
 
-  const graphQLQuery = useContext(GraphQLContext);
-  const query = graphQLQuery.query;
-  const limit = graphQLQuery.limit;
-  const offset = graphQLQuery.offset;
+  const {query:graphQLQuery} = useGraphQLContext();
+  const  {query: _query, size: limit , from: offset} = graphQLQuery;
 
   let filter = {
     type: 'and',
@@ -48,12 +42,9 @@ export function GraphQLSidebar({
     "offset": offset
   }
 
-  let queryId = hash(query)
-  let htmlFormattedQuery = query.replace(/\n( *)/g, function (match, p1) {
-    return '<br>' + '&nbsp;'.repeat(p1.length);
-  })
-  let formattedQuery = query.replace(/\n( *)/g, function (match, p1) {
-    return '\\n'.repeat(p1.length);
+  let queryId = hash(_query)
+  let formattedQuery = _query.replace(/\n( *)/g, function (match, p1) {
+    return '\\n'.repeat(1);
   })
 
   const queryUrl = env.EVENT_GRAPH_API + "?queryId="+queryId + "&strict=true&variables=" + JSON.stringify(predicate);
@@ -110,7 +101,7 @@ export function GraphQLSidebar({
                 Try on GraphQL
               </Button>
               <h3>Query</h3>
-              <pre>{query}</pre>
+              <pre>{_query}</pre>
               <h3>Query variables</h3>
               <pre>{ JSON.stringify(predicate,undefined,2)}</pre>
             </Col>

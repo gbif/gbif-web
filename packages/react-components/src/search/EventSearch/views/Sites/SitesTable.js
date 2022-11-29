@@ -5,6 +5,7 @@ import {Button, DataTable, Skeleton} from "../../../../components";
 import {ResultsHeader} from "../../../ResultsHeader";
 import {css} from "@emotion/react";
 import * as style from "../List/style";
+import {useGraphQLContext} from "../Api/GraphQLContext";
 
 function SitesSkeleton() {
   return <div css={style.datasetSkeleton}>
@@ -15,7 +16,7 @@ function SitesSkeleton() {
   </div>
 }
 
-export const SitesTable = ({ first, prev, next, size, from, results, total, loading, setSiteIDCallback }) => {
+export const SitesTable = ({ query, first, prev, next, size, from, results, total, loading, setSiteIDCallback }) => {
 
   const theme = useContext(ThemeContext);
   const [fixedColumn, setFixed] = useState(true);
@@ -23,6 +24,11 @@ export const SitesTable = ({ first, prev, next, size, from, results, total, load
 
   const [activeSiteID, setActiveSiteID] = useState(false);
   const [showMonth, setShowMonth] = useState(true);
+
+  const {details, setQuery} = useGraphQLContext();
+  useEffect(() => {
+    setQuery({ query, size, from });
+  }, [query, size, from]);
 
   const toggle = () => {
     setShowMonth(!showMonth);
