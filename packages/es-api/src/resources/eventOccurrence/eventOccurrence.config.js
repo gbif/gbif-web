@@ -226,13 +226,13 @@ const config =
     },
     "eventID": {
       "type": "keyword",
-      "field": "occurrence.eventId.keyword",
-      "suggestField": "eventId.suggest"
+      "field": "occurrence.eventID.keyword",
+      "suggestField": "eventID.suggest"
     },
     "eventId": {
       "type": "keyword",
-      "field": "occurrence.eventId.keyword",
-      "suggestField": "eventId.suggest"
+      "field": "occurrence.eventID.keyword",
+      "suggestField": "eventID.suggest"
     },
     "eventHierarchy": {
       "type": "keyword",
@@ -458,13 +458,13 @@ const config =
     },
     "parentEventID": {
       "type": "keyword",
-      "field": "occurrence.parentEventId.keyword",
-      "suggestField": "parentEventId.suggest"
+      "field": "occurrence.parentEventID.keyword",
+      "suggestField": "parentEventID.suggest"
     },
     "parentEventId": {
       "type": "keyword",
-      "field": "occurrence.parentEventId.keyword",
-      "suggestField": "parentEventId.suggest"
+      "field": "occurrence.parentEventID.keyword",
+      "suggestField": "parentEventID.suggest"
     },
     "preparations": {
       "type": "keyword",
