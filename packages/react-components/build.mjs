@@ -1,6 +1,6 @@
 import { analyzeMetafile, build } from 'esbuild';
-import fsp from 'fs/promises';
 import GlobalsPlugin from 'esbuild-plugin-globals';
+import fsp from 'fs/promises';
 
 const OUTPUT_META = false;
 
@@ -22,19 +22,19 @@ const configs = [
   {
     format: 'esm',
     entryPoints: ['src/index.js'],
-    outfile: `./dist/index.esm.js`,
+    outfile: `./dist/esm/index.mjs`,
     metafile: OUTPUT_META,
   },
   {
     format: 'cjs',
     entryPoints: ['src/index.js'],
-    outfile: `./dist/index.cjs.js`,
+    outfile: `./dist/cjs/index.cjs`,
   },
   {
     format: 'iife',
     globalName: 'gbifReactComponents',
     entryPoints: ['src/index.js'],
-    outfile: `./dist/index.iife.js`,
+    outfile: `./dist/iife/index.js`,
     external: [],
     plugins: [
       GlobalsPlugin({

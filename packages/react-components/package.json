@@ -2,12 +2,13 @@
   "name": "gbif-react-components",
   "version": "1.0.0",
   "description": "React components for use in GBIFs coming websites",
-  "main": "./dist/index.cjs.js",
-  "browser": "./dist/index.esm.js",
-  "module": "./dist/index.esm.js",
+  "main": "./dist/cjs/index.cjs",
+  "module": "./dist/cjs/index.mjs",
+  "browser": "./dist/iife/index.js",
   "sideEffects": false,
   "scripts": {
     "build": "node build.mjs",
+    "build:babel": "babel src --config-file ./babel.config.json --out-dir ./test",
     "develop": "npx webpack --mode=development --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve-translations": "npx serve locales/dist/ -p 5002 --cors",
@@ -22,8 +23,7 @@
     "add-enum-filter": "npm run generate enumFilter",
     "add-suggestKey-filter": "npm run generate suggestKeyFilter",
     "add-suggest-filter": "npm run generate suggestFilter",
-    "add-text-filter": "npm run generate textFilter",
-    "postinstall": "node build-depsfix.mjs"
+    "add-text-filter": "npm run generate textFilter"
   },
   "author": "",
   "license": "ISC",
@@ -69,8 +69,9 @@
     "react-dom": "^17.0.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.13.10",
-    "@babel/node": "^7.13.10",
+    "@babel/cli": "^7.19.3",
+    "@babel/core": "^7.20.5",
+    "@babel/node": "^7.20.5",
     "@babel/plugin-transform-runtime": "^7.13.10",
     "@storybook/addon-a11y": "^6.4.12",
     "@storybook/addon-actions": "^6.4.12",
@@ -80,6 +81,7 @@
     "@storybook/addons": "^6.4.12",
     "@storybook/react": "^6.4.12",
     "babel-loader": "^8.2.2",
+    "babel-plugin-inline-json-import": "^0.3.2",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "esbuild": "^0.15.14",
     "esbuild-plugin-globals": "^0.1.1",
