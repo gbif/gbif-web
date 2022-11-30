@@ -4,14 +4,14 @@ import GlobalsPlugin from 'esbuild-plugin-globals';
 
 const shared = {
   bundle: true,
-  logLevel: "info",
+  logLevel: 'info',
   target: ['esnext'],
   external: ['react', 'react-dom'],
   minify: true,
   sourcemap: true,
-	loader: {
-		'.js': 'jsx'
-	},
+  loader: {
+    '.js': 'jsx',
+  },
   jsx: 'automatic',
   jsxImportSource: '@emotion/react',
 };
@@ -21,7 +21,7 @@ const configs = [
     format: 'esm',
     entryPoints: ['src/index.js'],
     outfile: `./dist/index.esm.js`,
-    metafile: true,
+    metafile: false,
   },
   {
     format: 'cjs',
@@ -36,11 +36,11 @@ const configs = [
     external: [],
     plugins: [
       GlobalsPlugin({
-        'react': 'window.React',
+        react: 'window.React',
         'react-dom': 'window.ReactDOM',
-      })
-    ]
-  }
+      }),
+    ],
+  },
   // {
   //   format: 'esm',
   //   entryPoints: {
@@ -59,18 +59,18 @@ const configs = [
   //   external: ['react', 'react-dom'],
   //   outdir: './dist/esm',
   // },
-]
+];
 
 configs.forEach(async (configPart) => {
   const result = await build({
     ...shared,
-    ...configPart
-  })
+    ...configPart,
+  });
   if (configPart.format === 'esm') {
     await fsp.writeFile(
       './analysis.txt',
       await analyzeMetafile(result.metafile, {
-        verbose: true
+        verbose: true,
       })
     );
     await fsp.writeFile(
@@ -79,4 +79,3 @@ configs.forEach(async (configPart) => {
     );
   }
 });
-
