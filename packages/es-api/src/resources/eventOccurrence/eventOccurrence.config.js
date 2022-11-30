@@ -226,13 +226,11 @@ const config =
     },
     "eventID": {
       "type": "keyword",
-      "field": "occurrence.eventID.keyword",
-      "suggestField": "eventID.suggest"
+      "field": "occurrence.eventId"
     },
     "eventId": {
       "type": "keyword",
-      "field": "occurrence.eventID.keyword",
-      "suggestField": "eventID.suggest"
+      "field": "occurrence.eventId"
     },
     "eventHierarchy": {
       "type": "keyword",
