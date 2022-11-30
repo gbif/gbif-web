@@ -19,22 +19,22 @@ const shared = {
 };
 
 const configs = [
-  {
-    format: 'esm',
-    entryPoints: ['src/index.js'],
-    outfile: `./dist/esm/index.mjs`,
-    metafile: OUTPUT_META,
-  },
+  // {
+  //   format: 'esm',
+  //   entryPoints: ['src/index.js'],
+  //   outfile: `./dist/esm/index.mjs`,
+  //   metafile: OUTPUT_META,
+  // },
   {
     format: 'cjs',
     entryPoints: ['src/index.js'],
-    outfile: `./dist/cjs/index.cjs`,
+    outfile: `./dist/index.cjs.js`,
   },
   {
     format: 'iife',
     globalName: 'gbifReactComponents',
     entryPoints: ['src/index.js'],
-    outfile: `./dist/iife/index.js`,
+    outfile: `./dist/index.iife.js`,
     external: [],
     plugins: [
       GlobalsPlugin({

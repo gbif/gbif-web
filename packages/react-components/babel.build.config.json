@@ -2,13 +2,17 @@
   "ignore": ["node_modules/**/*"],
   "plugins": [
     "emotion",
-    "@babel/plugin-proposal-class-properties",
+    ["@babel/plugin-proposal-class-properties", { "loose": false }],
+    ["@babel/plugin-proposal-private-methods", { "loose": false }],
+    ["@babel/plugin-proposal-private-property-in-object", { "loose": false }],
+    "@babel/plugin-transform-react-pure-annotations",
     "inline-json-import"
   ],
   "presets": [
     [
       "@babel/preset-env",
       {
+        "loose": true,
         "modules": false
       }
     ],
