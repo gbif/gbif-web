@@ -10,7 +10,7 @@ import { useUpdateEffect } from "react-use";
 import { EventSidebar } from "../../../../entities/EventSidebar/EventSidebar";
 import env from '../../../../../.env.json';
 import { FilterContext } from "../../../../widgets/Filter/state";
-import { useGraphQLContext } from "../Api/GraphQLContext";
+import { useGraphQLContext } from "../../../../dataManagement/api/GraphQLContext";
 
 const fallbackTableConfig = {
   columns: [{

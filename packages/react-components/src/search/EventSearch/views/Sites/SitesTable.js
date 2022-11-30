@@ -5,7 +5,7 @@ import {Button, DataTable, Skeleton} from "../../../../components";
 import {ResultsHeader} from "../../../ResultsHeader";
 import {css} from "@emotion/react";
 import * as style from "../List/style";
-import {useGraphQLContext} from "../Api/GraphQLContext";
+import {useGraphQLContext} from "../../../../dataManagement/api/GraphQLContext";
 
 function SitesSkeleton() {
   return <div css={style.datasetSkeleton}>

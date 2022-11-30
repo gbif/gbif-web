@@ -9,7 +9,7 @@ import EventContext from "../../search/SearchContext";
 import {filter2predicate} from "../../dataManagement/filterAdapter";
 import env from "../../../.env.json";
 import hash from "object-hash";
-import {useGraphQLContext} from "../../search/EventSearch/views/Api/GraphQLContext";
+import {useGraphQLContext} from "../../dataManagement/api/GraphQLContext";
 const { TabList, Tab, TapSeperator } = Tabs;
 
 export function GraphQLSidebar({
@@ -56,11 +56,11 @@ export function GraphQLSidebar({
       "\"variables\":"+JSON.stringify(predicate)+"}'"+
       " --compressed";
 
-  function copyCurlUrl() {
+  const copyCurlUrl = (event) => {
     if (navigator.clipboard) {
       navigator.clipboard.writeText(curlUrl)
           .then(() => {
-            //setCopyButtonText("Copied")
+            event.target.textContent="CURL CMD copied";
           })
           .catch((error) => { alert( error) })
     }

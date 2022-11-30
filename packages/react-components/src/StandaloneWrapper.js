@@ -11,7 +11,7 @@ import { ApiContext, ApiClient } from './dataManagement/api';
 import RouteContext, { defaultContext } from './dataManagement/RouteContext';
 import SiteContext from './dataManagement/SiteContext';
 import env from '../.env.json';
-import {GraphQLContextProvider} from "./search/EventSearch/views/Api/GraphQLContext";
+import {GraphQLContextProvider} from "./dataManagement/api/GraphQLContext";
 
 const client = new ApiClient({
   gql: {

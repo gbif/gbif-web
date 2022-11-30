@@ -9,7 +9,7 @@ import { FilterContext } from "../../../../widgets/Filter/state";
 import { EventDatasetSidebar } from '../../../../entities';
 import { useDialogState } from "reakit/Dialog";
 import { useQueryParam, StringParam } from 'use-query-params';
-import {useGraphQLContext} from "../Api/GraphQLContext";
+import {useGraphQLContext} from "../../../../dataManagement/api/GraphQLContext";
 
 export const List = ({query, first, prev, next, size, from, data, total, loading }) => {
   const { filters, labelMap } = useContext(SearchContext);
