@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import ThemeContext from '../../style/themes/ThemeContext';
 import * as css from './styles';
-import {Row, Col, Tabs,Button} from "../../components";
+import {Row, Col, Tabs, Button, Properties, Property} from "../../components";
 import { TabPanel } from "../../components/Tabs/Tabs";
 import {MdClose, MdInfo} from "react-icons/md";
 import {FilterContext} from "../../widgets/Filter/state";
@@ -10,6 +10,8 @@ import {filter2predicate} from "../../dataManagement/filterAdapter";
 import env from "../../../.env.json";
 import hash from "object-hash";
 import {useGraphQLContext} from "../../dataManagement/api/GraphQLContext";
+import {Summary} from "../EventSidebar/details/Summary";
+import QueryDetails from "./QueryDetails";
 const { TabList, Tab, TapSeperator } = Tabs;
 
 export function GraphQLSidebar({
@@ -24,9 +26,7 @@ export function GraphQLSidebar({
 
   const currentFilterContext = useContext(FilterContext);
   const { rootPredicate, predicateConfig } = useContext(EventContext);
-
-  const {query:graphQLQuery} = useGraphQLContext();
-  const  {query: _query, size: limit , from: offset} = graphQLQuery;
+  const {query:{query: _query, size: limit , from: offset}} = useGraphQLContext();
 
   let filter = {
     type: 'and',
@@ -47,6 +47,8 @@ export function GraphQLSidebar({
     return '\\n'.repeat(1);
   })
 
+  let fullQuery = {"query":_query, "variables": predicate };
+
   const queryUrl = env.EVENT_GRAPH_API + "?queryId="+queryId + "&strict=true&variables=" + JSON.stringify(predicate);
   const curlUrl = "curl "+env.EVENT_GRAPH_API +" -H '"+env.EVENT_GRAPH_API+"' -H 'Accept-Encoding: gzip, deflate, br' -H 'Content-Type: application/json' -H 'Accept: application/json' " +
       "-H 'Connection: keep-alive' -H 'DNT: 1' " +
@@ -61,16 +63,6 @@ export function GraphQLSidebar({
       navigator.clipboard.writeText(curlUrl)
           .then(() => {
             event.target.textContent="CURL CMD copied";
-          })
-          .catch((error) => { alert( error) })
-    }
-  }
-
-  function copyUrl() {
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(queryUrl)
-          .then(() => {
-            //setCopyButtonText("Copied")
           })
           .catch((error) => { alert( error) })
     }
@@ -95,15 +87,35 @@ export function GraphQLSidebar({
         <TabPanel tabId='details' style={{ height: '100%' }}>
           <Row direction="column" wrap="auto" style={{ maxHeight: '100%', overflow: 'hidden' }}>
             <Col align="left">
-              <h2>GraphQL Request details</h2>
-              <Button onClick={copyCurlUrl}>Copy curl command</Button> &nbsp;
-              <Button onClick={() => window.open(queryUrl, '_blank', 'noopener,noreferrer')}>
-                Try on GraphQL
-              </Button>
-              <h3>Query</h3>
-              <pre>{_query}</pre>
-              <h3>Query variables</h3>
-              <pre>{ JSON.stringify(predicate,undefined,2)}</pre>
+              <div style={{margin: "12px 0px", padding: "24px", background: "white", overflow: "hidden"}}>
+                <h2>GraphQL Request details</h2>
+                <footer>
+                  <em>GraphQL is a query language for APIs. We can use it to request the exact data we need, and therefore limit the number of requests we need.</em>
+                </footer>
+                <br/>
+                <Button appearance="primaryOutline" onClick={ () => window.open(queryUrl, '_blank', 'noopener,noreferrer') }>
+                  Try on GraphQL
+                </Button>
+                <h2>cURL</h2>
+                <footer>
+                  <em>curl is one of the most popular tools for accessing HTTP endpoints from the command line.</em>
+                  <p>
+                  <Button appearance="primaryOutline" onClick={copyCurlUrl}>Copy cURL command</Button> &nbsp;
+                  </p>
+                  <em>
+                  The data sent, which is a JSON document that includes: "<strong>query</strong>" and optional "<strong>variables</strong>" as part of the JSON object.
+                  </em>
+                  <p/>
+                  <QueryDetails>
+                    <div>
+                      <h3>Query</h3>
+                      <pre>{_query}</pre>
+                      <h3>Variables</h3>
+                      <pre>{JSON.stringify(predicate,undefined,2)}</pre>
+                    </div>
+                  </QueryDetails>
+                </footer>
+              </div>
             </Col>
           </Row>
         </TabPanel>

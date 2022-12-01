@@ -46,6 +46,14 @@ export const cssFilter = ({theme}) => css`
   justify-content: space-between;
 `;
 
+export const cssClearFilter = ({theme}) => css`
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  float: right;
+`;
+
 export const cssViews = ({theme}) => css`
   margin: 0 10px;
 `;

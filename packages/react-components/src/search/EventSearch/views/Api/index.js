@@ -1,15 +1,16 @@
 import React from "react";
-import {DetailsDrawer} from "../../../../components";
+import {Button, DetailsDrawer, Tooltip} from "../../../../components";
 import {css} from "@emotion/react";
 import {GraphQLSidebar} from "../../../../entities/GraphQLSidebar/GraphQLSidebar";
 import {useDialogState} from "reakit/Dialog";
 import {GrGraphQl} from "react-icons/all";
 
-
 function GraphQLApiInfo() {
     const dialog = useDialogState({ animated: true, modal: false, visible: false });
     return <>
-        <GrGraphQl  onClick={() =>dialog.setVisible(true)} css={css`margin-top:15px; margin-right: 30px; font-size: 16px;`} ></GrGraphQl>
+        <Tooltip title="Display GraphQL query details" placement="auto">
+        <Button  onClick={() =>dialog.setVisible(true)} appearance={"link"} css={css`margin-right: 30px;`}><GrGraphQl  css={css`margin-top:10px; font-size: 16px;`} ></GrGraphQl></Button>
+        </Tooltip>
         <DetailsDrawer dialog={dialog}>
             <GraphQLSidebar
                 defaultTab='details'

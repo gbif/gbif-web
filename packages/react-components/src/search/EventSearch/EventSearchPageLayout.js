@@ -9,6 +9,7 @@ import { Button, Tabs, DataHeader, NavBar, NavItem, Row, Col } from '../../compo
 import { FilterBar } from '../FilterBar';
 import { useQueryParam, StringParam } from 'use-query-params';
 import GraphQLApiInfo from "./views/Api";
+import ClearFilters from "./views/Filter/ClearFilters";
 
 const Layout = ({
   className = '',
@@ -36,7 +37,17 @@ const Layout = ({
 
   return <div className={`${className} ${prefix}-${elementName}`}
     css={cssLayout({ theme })} {...props}>
+
     <Tabs activeId={activeView} onChange={setActiveView} >
+      <div css={cssNavBar({ theme })} style={{ margin: '0 0 10px 0', borderRadius: 0 }}>
+        <DataHeader availableCatalogues={config.availableCatalogues} style={{ borderBottom: '1px solid #ddd' }} />
+        <div css={cssFilter({ theme })}>
+          <Row>
+            <Col><FilterBar config={config}></FilterBar></Col>
+            <Col><ClearFilters/></Col>
+          </Row>
+        </div>
+      </div>
       {tabs.length > 1 && <div>
         <Row><Col>
           <NavBar style={{ marginLeft: 10 }}>
@@ -46,12 +57,6 @@ const Layout = ({
           <Col align="right" >{ (activeView === 'DATASETS' || activeView === 'EVENTS' ||activeView === 'SITES') && <GraphQLApiInfo/>}</Col>
         </Row>
       </div>}
-      <div css={cssNavBar({ theme })} style={{ margin: '0 0 10px 0', borderRadius: 0 }}>
-        <DataHeader availableCatalogues={config.availableCatalogues} style={{ borderBottom: '1px solid #ddd' }} />
-        <div css={cssFilter({ theme })}>
-          <FilterBar config={config}></FilterBar>
-        </div>
-      </div>
       <div css={cssViewArea({ theme })}>
         {activeView === 'DATASETS' && <List />}
         {activeView === 'EVENTS' && <Table />}
