@@ -52,7 +52,7 @@ class ErrorBoundary extends React.Component {
       <ErrorImage style={{ maxWidth: '100%', width: 280 }} />
       <h1 style={{ marginBottom: 0 }}>
         <FormattedMessage
-          id='error.genericx'
+          id='error.generic'
           defaultMessage='Something went wrong'
         />
       </h1>
