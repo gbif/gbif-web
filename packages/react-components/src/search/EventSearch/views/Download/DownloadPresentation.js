@@ -199,16 +199,19 @@ export function DownloadForm ({  hide, dataset, user }) {
   }
 
   async function startFilteredDownload() {
-
     const signIn = siteContext.auth?.signIn;
 
     if (user) {
+      // remove OIDC code
+      const searchUrl = new URL(window.location.href)
+      searchUrl.searchParams.delete('code')
       // validate the predicate - is there any filters set ?
       let download = {
         "datasetId": dataset.key,
         "creator": user.profile.sub,
         "notificationAddresses": [user.profile.sub],
-        "predicate": predicate
+        "predicate": predicate,
+        "eventQueryUrl": searchUrl.toString()
       }
 
       let request = new XMLHttpRequest();
