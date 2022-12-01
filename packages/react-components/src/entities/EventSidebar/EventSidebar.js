@@ -124,6 +124,7 @@ query event($eventID: String, $datasetKey: String){
       lte
     }
     distinctTaxa {
+      acceptedScientificName
       acceptedTaxonKey
       kingdom
       phylum
