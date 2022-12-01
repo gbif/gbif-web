@@ -31,6 +31,7 @@ export function buildConfig({ customConfig, predicateConfig, defaultFilterConfig
     rootPredicate: customConfig.rootFilter,
     availableCatalogues: customConfig.availableCatalogues,
     queryConfig: customConfig.queries,
-    predicateConfig,
+    tableConfig: customConfig.tableConfig,
+    predicateConfig
   }
 }
