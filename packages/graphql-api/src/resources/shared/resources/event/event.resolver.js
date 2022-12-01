@@ -171,7 +171,7 @@ export default {
             facet: 'gbifClassification_acceptedUsage_key',
           },
         })
-        .then((response) => mapFacetsToOccurrences(response)),
+        .then((result) => mapFacetsToOccurrences({ result, dataSources })),
   },
   EventFacetResult_dataset: {
     datasetTitle: ({ key }, args, { dataSources }) => {
