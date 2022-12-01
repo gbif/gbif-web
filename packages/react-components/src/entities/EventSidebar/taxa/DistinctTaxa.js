@@ -28,8 +28,6 @@ function TaxaImage({ taxon }) {
     variables: { taxon: taxon.replace('subsp. ', '') }
   }), [taxon]);
 
-  useEffect(() => { console.log(taxon) }, []);
-
   return (data?.representativeImage && !error) ? (
     <Image
       alt={`Image of ${taxon}`}
