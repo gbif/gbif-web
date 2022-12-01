@@ -6,6 +6,7 @@ import { filter2predicate } from '../../../../dataManagement/filterAdapter';
 import MapPresentation from './MapPresentation';
 import { getBboxFromFeature } from './esTileHash';
 import SiteContext from "../../../../dataManagement/SiteContext";
+import { ErrorBoundary } from "../../../../components";
 
 const EVENT_MAP = `
 query map($predicate: Predicate){
@@ -44,7 +45,7 @@ function Map() {
   const siteContext = useContext(SiteContext);
   const currentFilterContext = useContext(FilterContext);
   const { labelMap, rootPredicate, predicateConfig, more } = useContext(EventContext);
-  const { data, error, loading, load } = useQuery(EVENT_MAP, { lazyLoad: true });
+  const { data, error, loading, load } = useQuery(EVENT_MAP, { lazyLoad: true, throwAllErrors: true });
   const { data: pointData, error: pointError, loading: pointLoading, load: pointLoad } = useQuery(EVENT_POINT, { lazyLoad: true });
 
   useEffect(() => {
@@ -129,5 +130,5 @@ function Map() {
   }
 }
 
-export default Map;
+export default props => <ErrorBoundary><Map {...props} /></ErrorBoundary>;
 
