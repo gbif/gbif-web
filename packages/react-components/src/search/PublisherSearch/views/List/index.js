@@ -22,7 +22,8 @@ query list($country: Country, $q: String, $offset: Int, $limit: Int){
 function List() {
   const routeContext = useContext(RouteContext);
   
-  return <StandardSearch
+  return <StandardSearch 
+    queryProps={{throwAllErrors: true}}
     presentationComponent={ResultsList}
     cardComponent={props => {
     return <div key={props.result.key}>

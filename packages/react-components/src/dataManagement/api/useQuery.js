@@ -26,6 +26,9 @@ function useQuery(query, options = {}) {
   const queryTag = options?.queryTag;
   const { queryConfig } = useContext(SearchContext);
 
+  if (error?.networkError && options?.throwNetworkErrors) throw error;
+  if (error && options?.throwAllErrors) throw error;
+
   function init({keepDataWhileLoading}) {
     if (!keepDataWhileLoading) setData();
     setLoading(true);
@@ -59,7 +62,7 @@ function useQuery(query, options = {}) {
       })
       .catch(err => {
         if (unmounted.current) return;
-        setError({ error: true, type: 'unknown' });
+        setError({ error: err, type: 'unknown' });
         setData();
         setLoading(false);
       });

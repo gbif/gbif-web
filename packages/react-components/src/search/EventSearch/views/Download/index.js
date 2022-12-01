@@ -4,6 +4,7 @@ import EventContext from '../../../SearchContext';
 import { useQuery } from '../../../../dataManagement/api';
 import { filter2predicate } from '../../../../dataManagement/filterAdapter';
 import { DownloadPresentation } from './DownloadPresentation';
+import { ErrorBoundary } from "../../../../components";
 
 const DOWNLOADS = `
 query list($predicate: Predicate, $limit: Int){
@@ -67,5 +68,5 @@ function Downloads() {
   </>
 }
 
-export default Downloads;
+export default props => <ErrorBoundary><Downloads {...props} /></ErrorBoundary>;
 

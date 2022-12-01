@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import ComponentLayout from './Layout';
 import PageLayout from './PageLayout';
 import { FilterState } from "../../widgets/Filter/state";
-import { Root } from "../../components";
+import { ErrorBoundary, Root } from "../../components";
 import OccurrenceContext from '../SearchContext';
 import LocaleContext from '../../dataManagement/LocaleProvider/LocaleContext';
 import { ApiContext } from '../../dataManagement/api';
@@ -120,4 +120,4 @@ function OccurrenceSearch({ config: customConfig = {}, pageLayout, ...props }) {
   );
 }
 
-export default OccurrenceSearch;
+export default props => <ErrorBoundary><OccurrenceSearch {...props} /></ErrorBoundary>;

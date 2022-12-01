@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import PredicateDataFetcher from '../../../PredicateDataFetcher';
 import { EventsTable } from './EventsTable';
 import {FormattedMessage, FormattedNumber} from 'react-intl';
+import { ErrorBoundary } from "../../../../components";
 
 const QUERY = `
 query list($predicate: Predicate, $offset: Int, $limit: Int){
@@ -142,7 +143,7 @@ const defaultTableConfig = {
       trKey: 'filters.measurementOrFactTypes.name',
       value: {
         key: 'measurementOrFactTypes',
-        formatter: (value, item) => <>{(value || []).join(', ')}</>
+        formatter: (value, item) => <>{(value || []).join(',')}</>
       }
     },
     {
@@ -172,6 +173,7 @@ const defaultTableConfig = {
 
 function Table() {
   return <PredicateDataFetcher
+    queryProps={{throwAllErrors: true}}
     graphQuery={QUERY}
     graph='EVENT'
     queryTag='table'
@@ -183,4 +185,4 @@ function Table() {
   />
 }
 
-export default Table;
+export default props => <ErrorBoundary><Table {...props} /></ErrorBoundary>;

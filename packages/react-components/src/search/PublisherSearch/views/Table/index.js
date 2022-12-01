@@ -83,6 +83,7 @@ function Table() {
   const routeContext = useContext(RouteContext);
 
   return <StandardSearch 
+    queryProps={{throwAllErrors: true}}
     presentationComponent={ResultsTable}
     graphQuery={QUERY} 
     queryTag='table'

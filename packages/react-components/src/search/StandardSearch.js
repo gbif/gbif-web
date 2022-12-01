@@ -6,13 +6,14 @@ import { useQuery } from '../dataManagement/api';
 import { filter2v1 } from '../dataManagement/filterAdapter';
 import { ResultsTable } from './ResultsTable';
 import { useQueryParam, NumberParam } from 'use-query-params';
+import { ErrorBoundary } from '../components';
 
-function StandardSearch({presentationComponent:PresentationComponent=ResultsTable, presentationProps, graphQuery, resultKey, offsetName = 'offset', defaultTableConfig, queryTag, ...props}) {
+function StandardSearch({presentationComponent:PresentationComponent=ResultsTable, presentationProps, graphQuery, queryProps = {}, resultKey, offsetName = 'offset', defaultTableConfig, queryTag, ...props}) {
   const [offset = 0, setOffset] = useQueryParam('from', NumberParam);
   const limit = 20;
   const currentFilterContext = useContext(FilterContext);
   const { rootPredicate, predicateConfig } = useContext(SearchContext);
-  const { data, error, loading, load } = useQuery(graphQuery, { lazyLoad: true, queryTag });
+  const { data, error, loading, load } = useQuery(graphQuery, { lazyLoad: true, queryTag, ...queryProps });
 
   useEffect(() => {
     const { v1Filter, error } = filter2v1(currentFilterContext.filter, predicateConfig);
@@ -39,7 +40,7 @@ function StandardSearch({presentationComponent:PresentationComponent=ResultsTabl
     setOffset(undefined);
   });
   
-  return <>
+  return <ErrorBoundary>
     <PresentationComponent
       {...props}
       loading={loading}
@@ -52,7 +53,7 @@ function StandardSearch({presentationComponent:PresentationComponent=ResultsTabl
       total={data?.[resultKey]?.count}
       defaultTableConfig={defaultTableConfig}
     />
-  </>
+  </ErrorBoundary>
 }
 
 export default StandardSearch;

@@ -92,7 +92,7 @@ function Table() {
   const size = 50;
   const currentFilterContext = useContext(FilterContext);
   const { rootPredicate, predicateConfig, tableConfig, defaultTableColumns } = useContext(OccurrenceContext);
-  const { data, error, loading, load } = useQuery(OCCURRENCE_TABLE, { lazyLoad: true, queryTag: 'table' });
+  const { data, error, loading, load } = useQuery(OCCURRENCE_TABLE, { lazyLoad: true, throwNetworkErrors: true, queryTag: 'table' });
 
   useEffect(() => {
     const predicate = {
@@ -136,19 +136,17 @@ function Table() {
     setColumns(activeCols);
   }, [tableConfig, defaultTableColumns]);
 
-  return <>
-    <TablePresentation
-      loading={loading}
-      data={data}
-      next={next}
-      prev={prev}
-      first={first}
-      size={size}
-      from={from}
-      total={data?.occurrenceSearch?.documents?.total}
-      columns={columns}
-    />
-  </>
+  return <TablePresentation
+    loading={loading}
+    data={data}
+    next={next}
+    prev={prev}
+    first={first}
+    size={size}
+    from={from}
+    total={data?.occurrenceSearch?.documents?.total}
+    columns={columns}
+  />
 }
 
 export default Table;
