@@ -4,7 +4,7 @@ const isConfigObject = (customConfig) => customConfig?.hasOwnProperty(''); // Pl
 // Currently, it just overrides the default query with a custom one (if provided),
 // however, it will make the query transformations a bit easier
 // in the future.
-export const queryTransform = (query, queryConfig, queryTag) => {
+export const queryTransform = (query, queryConfig = {}, queryTag) => {
 	const customConfig = queryConfig[queryTag];
 	if (isConfigObject(customConfig)) {
 		// Do some transformations here here
