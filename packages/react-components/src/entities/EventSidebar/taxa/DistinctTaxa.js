@@ -25,18 +25,31 @@ function TaxaImage({ taxon }) {
   // effect hook to load the taxon image
   useEffect(() => load({
     keepDataWhileLoading: true,
-    variables: { taxon: taxon.replace('subsp. ', '') }
+    variables: { taxon: taxon.replace(/[^ ]*\. /, '') }
   }), [taxon]);
 
-  return (data?.representativeImage && !error) ? (
-    <Image
-      alt={`Image of ${taxon}`}
-      style={{ marginRight: '12px', borderRadius: '4px' }}
-      src={data?.representativeImage?.square_url}
-      width={90}
-      height={90}
-    />
-  ) : <Skeleton style={{ width: 90, height: 90, marginRight: '12px' }} />;
+  return (
+    <div style={{ position: 'relative', width: 90, height: 90, marginRight: '12px' }}>
+      <Skeleton
+        style={{
+          position: 'absolute',
+          width: 90,
+          height: 90,
+          marginRight: '12px',
+          borderRadius: '4px'
+        }}
+      />
+      {data?.representativeImage && (
+         <Image
+          alt={`Image of ${taxon}`}
+          style={{ marginRight: '12px', borderRadius: '4px' }}
+          src={data?.representativeImage?.square_url}
+          width={90}
+          height={90}
+        />
+      )}
+    </div>
+  );
 }
 
 export function DistinctTaxa({
