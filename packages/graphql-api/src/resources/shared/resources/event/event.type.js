@@ -116,7 +116,7 @@ export default gql`
   type DistinctTaxon {
     count: Int
     taxonKey: String
-    taxonRank: String
+    rank: String
     scientificName: String
     kingdom: String
     kingdomKey: String

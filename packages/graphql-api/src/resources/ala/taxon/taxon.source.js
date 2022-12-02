@@ -12,7 +12,7 @@ class TaxonAPI extends RESTDataSource {
     );
     return {
       taxonKey: key,
-      taxonRank: taxonConcept.rankString,
+      rank: taxonConcept.rankString,
       scientificName: classification.scientificName,
       kingdom: classification.kingdom,
       kingdomKey: classification.kingdomGuid,
