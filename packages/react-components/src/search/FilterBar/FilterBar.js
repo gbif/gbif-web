@@ -50,10 +50,10 @@ const FilterBar = ({
       <Tooltip title="Clear all filters" placement="auto">
         <Button
           onClick={() => currentFilterContext.setFilter({})}
-          appearance="outline"
-          style={{ marginRight: 8 }}
+          appearance="link"
+          css={css`margin-right: 20px;`}
         >
-          <MdDelete css={css`font-size: 16px;`} />
+          <MdDelete css={css`margin-top:10px; font-size: 16px;`} />
         </Button>
       </Tooltip>
     )}
@@ -74,11 +74,11 @@ export const style = (theme) => css`
     flex-direction: row;
     flex-wrap: wrap;
     margin-bottom: -4px;
-    > div {   
-      max-width: 100%;
-      margin-right: 4px; 
-      margin-bottom: 4px;
-    }
+  }
+  > div > div {   
+    max-width: 100%;
+    margin-right: 4px; 
+    margin-bottom: 4px;
   }
 `;
 
