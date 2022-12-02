@@ -14,7 +14,7 @@ export default function QueryDetails({ children }) {
 
     return <>
         <Button appearance="link" onClick={toggleShow}>{buttonText}</Button>
-        <div className="component-container" style={{"overflow-y": "scroll", "max-height": "400px"}}>
+        <div className="component-container">
             {show && children}
         </div>
     </>

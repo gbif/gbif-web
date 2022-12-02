@@ -9,7 +9,7 @@ function GraphQLApiInfo() {
     const dialog = useDialogState({ animated: true, modal: false, visible: false });
     return <>
         <Tooltip title="Display GraphQL query details" placement="auto">
-        <Button  onClick={() =>dialog.setVisible(true)} appearance={"link"} css={css`margin-right: 30px;`}><GrGraphQl  css={css`margin-top:10px; font-size: 16px;`} ></GrGraphQl></Button>
+        <Button  onClick={() =>dialog.setVisible(true)} appearance={"link"} css={css`margin-right: 30px;`}><GrGraphQl  css={css`margin-top:10px; font-size: 18px;`} ></GrGraphQl></Button>
         </Tooltip>
         <DetailsDrawer dialog={dialog}>
             <GraphQLSidebar

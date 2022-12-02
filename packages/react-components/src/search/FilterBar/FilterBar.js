@@ -53,7 +53,7 @@ const FilterBar = ({
           appearance="link"
           css={css`margin-right: 20px;`}
         >
-          <MdDelete css={css`margin-top:10px; font-size: 16px;`} />
+          <MdDelete css={css`margin-top:8px; font-size: 20px;`} />
         </Button>
       </Tooltip>
     )}

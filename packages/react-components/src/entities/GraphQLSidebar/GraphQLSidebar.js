@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react';
 import ThemeContext from '../../style/themes/ThemeContext';
 import * as css from './styles';
-import {Row, Col, Tabs, Button, Properties, Property} from "../../components";
+import {Row, Col, Tabs, Button} from "../../components";
 import { TabPanel } from "../../components/Tabs/Tabs";
-import {MdClose, MdInfo} from "react-icons/md";
+import {MdClose, MdContentCopy, MdFileDownloadDone, MdInfo} from "react-icons/md";
 import {FilterContext} from "../../widgets/Filter/state";
 import EventContext from "../../search/SearchContext";
 import {filter2predicate} from "../../dataManagement/filterAdapter";
@@ -11,6 +11,7 @@ import env from "../../../.env.json";
 import hash from "object-hash";
 import {useGraphQLContext} from "../../dataManagement/api/GraphQLContext";
 import QueryDetails from "./QueryDetails";
+
 const { TabList, Tab, TapSeperator } = Tabs;
 
 export function GraphQLSidebar({
@@ -22,6 +23,17 @@ export function GraphQLSidebar({
 
   const theme = useContext(ThemeContext);
   const [activeId, setTab] = useState('details');
+
+  const [copyIcon, setCopyIcon] = useState('MdContentCopy')
+
+  const getIcon = (icon) => {
+    switch(icon) {
+      case 'copied':
+        return <MdFileDownloadDone />;
+      default:
+        return <MdContentCopy/>;
+    }
+  }
 
   const currentFilterContext = useContext(FilterContext);
   const { rootPredicate, predicateConfig } = useContext(EventContext);
@@ -61,7 +73,7 @@ export function GraphQLSidebar({
     if (navigator.clipboard) {
       navigator.clipboard.writeText(curlUrl)
           .then(() => {
-            event.target.textContent="CURL CMD copied";
+            setCopyIcon('copied');
           })
           .catch((error) => { alert( error) })
     }
@@ -83,7 +95,7 @@ export function GraphQLSidebar({
         </TabList>
       </Col>
       <Col shrink={false} grow={false} css={css.detailDrawerContent({ theme })} >
-        <TabPanel tabId='details' style={{ height: '100%' }}>
+        <TabPanel tabId='details' style={{ height: '100%' }} style={{"overflow-y": "scroll"}}>
           <Row direction="column" wrap="auto" style={{ maxHeight: '100%', overflow: 'hidden' }}>
             <Col align="left">
               <div style={{margin: "12px 0px", padding: "24px", background: "white", overflow: "hidden"}}>
@@ -99,7 +111,7 @@ export function GraphQLSidebar({
                 <footer>
                   <em>curl is one of the most popular tools for accessing HTTP endpoints from the command line.</em>
                   <p>
-                  <Button appearance="primaryOutline" onClick={copyCurlUrl}>Copy cURL command</Button> &nbsp;
+                  <Button appearance="primaryOutline" onClick={copyCurlUrl}>{getIcon(copyIcon)} &nbsp;  Copy cURL command</Button>
                   </p>
                   <em>
                   The data sent, which is a JSON document that includes: "<strong>query</strong>" and optional "<strong>variables</strong>" as part of the JSON object.
