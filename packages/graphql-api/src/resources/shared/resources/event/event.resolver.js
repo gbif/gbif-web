@@ -169,6 +169,7 @@ export default {
           query: {
             eventID,
             facet: 'gbifClassification_acceptedUsage_key',
+            size: 0,
           },
         })
         .then((result) => mapFacetsToOccurrences({ result, dataSources })),
