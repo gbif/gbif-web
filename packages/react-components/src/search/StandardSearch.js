@@ -8,12 +8,12 @@ import { ResultsTable } from './ResultsTable';
 import { useQueryParam, NumberParam } from 'use-query-params';
 import { ErrorBoundary } from '../components';
 
-function StandardSearch({presentationComponent:PresentationComponent=ResultsTable, presentationProps, graphQuery, queryProps = {}, resultKey, offsetName = 'offset', defaultTableConfig, ...props}) {
+function StandardSearch({presentationComponent:PresentationComponent=ResultsTable, presentationProps, graphQuery, queryProps = {}, resultKey, offsetName = 'offset', defaultTableConfig, queryTag, ...props}) {
   const [offset = 0, setOffset] = useQueryParam('from', NumberParam);
   const limit = 20;
   const currentFilterContext = useContext(FilterContext);
   const { rootPredicate, predicateConfig } = useContext(SearchContext);
-  const { data, error, loading, load } = useQuery(graphQuery, { lazyLoad: true, ...queryProps });
+  const { data, error, loading, load } = useQuery(graphQuery, { lazyLoad: true, queryTag, ...queryProps });
 
   useEffect(() => {
     const { v1Filter, error } = filter2v1(currentFilterContext.filter, predicateConfig);

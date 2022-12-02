@@ -155,6 +155,7 @@ function Table() {
     queryProps={{throwAllErrors: true}}
     graphQuery={QUERY}
     graph='EVENT'
+    queryTag='datasets'
     limit={50}
     componentProps={{
       defaultTableConfig

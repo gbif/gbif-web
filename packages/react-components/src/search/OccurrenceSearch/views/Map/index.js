@@ -46,8 +46,8 @@ const wktBBoxTemplate = '((W S,E S,E N,W N,W S))';
 function Map() {
   const currentFilterContext = useContext(FilterContext);
   const { labelMap, rootPredicate, predicateConfig, more } = useContext(OccurrenceContext);
-  const { data, error, loading, load } = useQuery(OCCURRENCE_MAP, { lazyLoad: true, throwAllErrors: true });
-  const { data: pointData, error: pointError, loading: pointLoading, load: pointLoad } = useQuery(OCCURRENCE_POINT, { lazyLoad: true });
+  const { data, error, loading, load } = useQuery(OCCURRENCE_MAP, { lazyLoad: true, throwAllErrors: true, queryTag: 'map' });
+  const { data: pointData, error: pointError, loading: pointLoading, load: pointLoad } = useQuery(OCCURRENCE_POINT, { lazyLoad: true, queryTag: 'mapPoint' });
 
   useEffect(() => {
     loadHashAndCount({

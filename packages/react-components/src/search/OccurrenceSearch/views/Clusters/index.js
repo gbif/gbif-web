@@ -142,7 +142,7 @@ function Clusters() {
   const size = 30;
   const currentFilterContext = useContext(FilterContext);
   const { rootPredicate, predicateConfig } = useContext(OccurrenceContext);
-  const { data, error, loading, load } = useQuery(OCCURRENCE_CLUSTERS, { lazyLoad: true, throwNetworkErrors: true });
+  const { data, error, loading, load } = useQuery(OCCURRENCE_CLUSTERS, { lazyLoad: true, throwNetworkErrors: true , queryTag: 'clusters' });
 
   useEffect(() => {
     const predicate = {

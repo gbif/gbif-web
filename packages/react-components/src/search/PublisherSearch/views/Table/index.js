@@ -86,6 +86,7 @@ function Table() {
     queryProps={{throwAllErrors: true}}
     presentationComponent={ResultsTable}
     graphQuery={QUERY} 
+    queryTag='table'
     resultKey='organizationSearch' 
     defaultTableConfig={defaultTableConfig}
     hideLock={true}
