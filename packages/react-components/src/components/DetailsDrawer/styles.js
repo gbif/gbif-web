@@ -1,11 +1,11 @@
 import { css } from '@emotion/react';
 import { tooltip } from '../../style/shared';
 
-export const root = ({ ...props }) => css`
+export const root = () => css`
   height: 100%;
 `;
 
-export const drawer = ({ ...props }) => css`
+export const drawer = () => css`
   position: fixed;
   bottom: 0;
   top: 0;

@@ -3,10 +3,11 @@ import { css, jsx } from '@emotion/react';
 import React, { useContext } from 'react';
 import get from 'lodash/get';
 import union from 'lodash/union';
-import { withFilter } from '../../widgets/Filter/state';
+import { FilterContext, withFilter } from '../../widgets/Filter/state';
 import ThemeContext from '../../style/themes/ThemeContext';
 import { Trigger as MetaFilter } from '../../widgets/Filter/types/MetaFilter';
-import ClearFilters from "../EventSearch/views/Filter/ClearFilters";
+import { Button, Tooltip } from '../../components';
+import { MdDelete } from 'react-icons/md';
 
 function getVisibleFilters(currentFilter, commonFilters) {
   const visibleFilters = union(commonFilters,
@@ -22,21 +23,40 @@ const FilterBar = ({
   ...props
 }) => {
   const theme = useContext(ThemeContext);
+  const currentFilterContext = useContext(FilterContext);
   const prefix = theme.prefix || 'gbif';
   const elementName = 'filterBar';
 
   const visibleFilters = getVisibleFilters(filter, config.defaultVisibleFilters);
   const availableFilters = visibleFilters.map(x => config.filters[x]);
+  const currentFilters = Object.keys({
+    ...(currentFilterContext.filter.must || {}),
+    ...(currentFilterContext.filter.must_not || {})
+  });
 
   return <div className={`${className} ${prefix}-${elementName}`} css={css`${style(theme)}`} {...props}>
-    {availableFilters.map((x, i) => {
-      if (!x) return null; // if no widget is defined for this filter, then do not show anything
-      return <x.Button key={i} />
-    })}
-    {Object.keys(config.filters).length !== config.defaultVisibleFilters.length &&
     <div>
-      <MetaFilter />
-    </div>}
+      {availableFilters.map((x, i) => {
+        if (!x) return null; // if no widget is defined for this filter, then do not show anything
+        return <x.Button key={i} />
+      })}
+      {Object.keys(config.filters).length !== config.defaultVisibleFilters.length && (
+        <div>
+          <MetaFilter />
+        </div>
+      )}
+    </div>
+    {currentFilters.length > 0 && (
+      <Tooltip title="Clear all filters" placement="auto">
+        <Button
+          onClick={() => currentFilterContext.setFilter({})}
+          appearance="outline"
+          style={{ marginRight: 8 }}
+        >
+          <MdDelete css={css`font-size: 16px;`} />
+        </Button>
+      </Tooltip>
+    )}
   </div>
 }
 
@@ -46,12 +66,19 @@ FilterBar.propTypes = {
 export const style = (theme) => css`
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
-  margin-bottom: -4px;
-  >div {   
-    max-width: 100%;
-    margin-right: 4px; 
-    margin-bottom: 4px;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  > div {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: -4px;
+    > div {   
+      max-width: 100%;
+      margin-right: 4px; 
+      margin-bottom: 4px;
+    }
   }
 `;
 
