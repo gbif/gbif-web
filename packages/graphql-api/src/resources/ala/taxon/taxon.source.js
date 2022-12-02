@@ -11,7 +11,7 @@ class TaxonAPI extends RESTDataSource {
       `/species/${key}.json`,
     );
     return {
-      taxonKey: key,
+      key,
       rank: taxonConcept.rankString,
       scientificName: classification.scientificName,
       kingdom: classification.kingdom,
