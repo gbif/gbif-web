@@ -10,7 +10,6 @@ import {filter2predicate} from "../../dataManagement/filterAdapter";
 import env from "../../../.env.json";
 import hash from "object-hash";
 import {useGraphQLContext} from "../../dataManagement/api/GraphQLContext";
-import {Summary} from "../EventSidebar/details/Summary";
 import QueryDetails from "./QueryDetails";
 const { TabList, Tab, TapSeperator } = Tabs;
 

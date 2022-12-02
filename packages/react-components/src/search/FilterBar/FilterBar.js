@@ -6,6 +6,7 @@ import union from 'lodash/union';
 import { withFilter } from '../../widgets/Filter/state';
 import ThemeContext from '../../style/themes/ThemeContext';
 import { Trigger as MetaFilter } from '../../widgets/Filter/types/MetaFilter';
+import ClearFilters from "../EventSearch/views/Filter/ClearFilters";
 
 function getVisibleFilters(currentFilter, commonFilters) {
   const visibleFilters = union(commonFilters,
@@ -47,7 +48,7 @@ export const style = (theme) => css`
   flex-direction: row;
   flex-wrap: wrap;
   margin-bottom: -4px;
-  >div {
+  >div {   
     max-width: 100%;
     margin-right: 4px; 
     margin-bottom: 4px;
