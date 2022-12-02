@@ -226,13 +226,11 @@ const config =
     },
     "eventID": {
       "type": "keyword",
-      "field": "occurrence.eventId.keyword",
-      "suggestField": "eventId.suggest"
+      "field": "occurrence.eventId"
     },
     "eventId": {
       "type": "keyword",
-      "field": "occurrence.eventId.keyword",
-      "suggestField": "eventId.suggest"
+      "field": "occurrence.eventId"
     },
     "eventHierarchy": {
       "type": "keyword",
@@ -458,13 +456,13 @@ const config =
     },
     "parentEventID": {
       "type": "keyword",
-      "field": "occurrence.parentEventId.keyword",
-      "suggestField": "parentEventId.suggest"
+      "field": "occurrence.parentEventID.keyword",
+      "suggestField": "parentEventID.suggest"
     },
     "parentEventId": {
       "type": "keyword",
-      "field": "occurrence.parentEventId.keyword",
-      "suggestField": "parentEventId.suggest"
+      "field": "occurrence.parentEventID.keyword",
+      "suggestField": "parentEventID.suggest"
     },
     "preparations": {
       "type": "keyword",
@@ -745,13 +743,8 @@ const config =
       "field": "occurrence.gbifClassification.verbatimScientificName"
     },
     "gbifClassification_acceptedUsage_key": {
-      "type": "numeric",
-      "field": "occurrence.gbifClassification.acceptedUsage.key",
-      "get": {
-        "type": "range_or_term",
-        "defaultUpperBound": "gte",
-        "defaultLowerBound": "lte"
-      }
+      "type": "keyword",
+      "field": "occurrence.gbifClassification.acceptedUsage.guid",
     },
     "gbifClassification_acceptedUsage_name": {
       "type": "text",

@@ -3,7 +3,7 @@ Notes for discussion with Tim and Thomas
 
 ## Project structure
 Use node 16.*
-Run in dev (watch) with `npm start`. You will need an .env file with 
+Run in dev (watch) with `npm start`. You will need an .env file with
 ```
 API_V1=https://api.gbif.org/v1
 APP_KEY
@@ -17,7 +17,7 @@ How far to resolve.
   * I do an occurrence search for q=test and facet=basisOfRecord. Can I then breakdown each basisOfRecord by another facet? It should then carry its filter context and just add an additional parameter. How to do that. I currently add a custom _query field and modify that as you dig deeper.
 
 ## Custom endpoints
-Should these be placed in the graphql project or elsewhere. I tend to say elsewhere, to keep this project cleaner. Examples of such endpoints: 
+Should these be placed in the graphql project or elsewhere. I tend to say elsewhere, to keep this project cleaner. Examples of such endpoints:
 
 * format a scientific name as html
 * extract, parse and format verbatim data for treatment pages
@@ -30,7 +30,7 @@ Some data clearly belongs in the API, other less so, but nice to have there. And
 * **Dataset contact order**. Dataset pages have a custom order of contacts, based on a long set of instructions from Dmitry. It is not in the APIs though. If we believe this is a meaningful and good way to present dataset contacts, should it then be in the API?
 
 ## Translations
-How does these fit in? Are they a part of the API? Can I do 
+How does these fit in? Are they a part of the API? Can I do
 ```
 dataset(key:UUID) {
   type
@@ -77,7 +77,7 @@ Instead of having `node/UUID/dataset` it would be nice to do `dataset/search?nod
 Our current API is mostly consistent, but not always. Should we correct or mirror existing endpoints?
 
 ### Entities differ from search to byKey
-Search results differ from viewing items by key. That means that we cannot reuse our model. That isn't an issue per se, but it makes it more difficult to read and use the API. 
+Search results differ from viewing items by key. That means that we cannot reuse our model. That isn't an issue per se, but it makes it more difficult to read and use the API.
 
 * Having many fields isn't an issue for the GraphQL API (I assume that is why we have stripped some fields).
 * We also have extra fields in the search API (such as resolved titles). I assume this is from when backend and frontend was developed by the same people, so changes to the backend was made to accomodate the frontend. This is less the case now that it is different developers. For the GraphQL API, this is also less of an issue as it is easy to resolve the foreigh keys.
@@ -93,11 +93,11 @@ Are there overlaps? are they synced?
 Enumerations are currently loaded from the enumeration endpoint at startup. Does this need to be dynamic?
 
 ## Protecting the APIs from misuse
-The GBIF APIs are public, which makes them susceptible to misuse through bombarding and complex queries. This becomes even easier with a GraphQL API. It seems reasonable to consider how we can protect the APIs from misuse. 
+The GBIF APIs are public, which makes them susceptible to misuse through bombarding and complex queries. This becomes even easier with a GraphQL API. It seems reasonable to consider how we can protect the APIs from misuse.
 
 > As long as the REST API is completely open, then it does not make sense to spend much energy beyond protecting against accidental benign misuse.
-> 
-> The query-depth-limit already in place, might be sufficient for now. Perhaps combined with a required ApiKey. 
+>
+> The query-depth-limit already in place, might be sufficient for now. Perhaps combined with a required ApiKey.
 
 *Inspiration*
 Github allow a little traffic for anonymous users and more for authenticated (REST API). They have a cost function on the graph API and you can query it.
@@ -126,11 +126,23 @@ https://github.com/ravangen/graphql-rate-limit
 This being new, I'm not sure how I would prefer errors. I've found 3 approaches:
 
 1. The default and suggested in Apollo [reference](https://blog.apollographql.com/full-stack-error-handling-with-graphql-apollo-5c12da407210)
-2. [reference](https://itnext.io/the-definitive-guide-to-handling-graphql-errors-e0c58b52b5e1) Wrap your response in an error wrapper, if the error influence UI 
-3. [reference](https://blog.logrocket.com/handling-graphql-errors-like-a-champ-with-unions-and-interfaces/) Use union types as a way to return either an error or a response for a given query or type. 
+2. [reference](https://itnext.io/the-definitive-guide-to-handling-graphql-errors-e0c58b52b5e1) Wrap your response in an error wrapper, if the error influence UI
+3. [reference](https://blog.logrocket.com/handling-graphql-errors-like-a-champ-with-unions-and-interfaces/) Use union types as a way to return either an error or a response for a given query or type.
 
 Perhaps, because I haven't tried it, but 3 looks frustrating and cumbersome to me. It is nice that the errors are colocated, but the cost is high. Much more complex schemas, more complex queries and I've kind of lost the type safety in my response.
 
 2 is more appealing, but frustrating having to wrap everything with a {response, error}. If the API was tied to a specific UI, then we could choose to use a wrapper when error handling had known UI consequences, but for a generic API, it would need to be everywhere.
 
 So I guess I prefer 1, even though that doesn't appeal to me either. The errors are not colocated with the item that failed and I have to iterate an array, interpret paths and know custom error enums, to figure out if it is relevant to the component that I'm rendering.
+
+# Docker
+
+Docker images can be built and published to docker hub using the following command
+```
+docker buildx build . --push --platform linux/amd64,linux/arm64 --tag <DOCKER_HUB_OR_OR_USER>/graphql-api:v0.1
+```
+
+To run use:
+```
+docker run -p 4000:4000 --mount type=bind,source="$(pwd)"/.env,target=/usr/src/.env -d <DOCKER_HUB_OR_OR_USER>/graphql-api
+```

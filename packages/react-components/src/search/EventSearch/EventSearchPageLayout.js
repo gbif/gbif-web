@@ -36,7 +36,6 @@ const Layout = ({
 
   return <div className={`${className} ${prefix}-${elementName}`}
     css={cssLayout({ theme })} {...props}>
-
     <Tabs activeId={activeView} onChange={setActiveView} >
       <div css={cssNavBar({ theme })} style={{ margin: '0 0 10px 0', borderRadius: 0 }}>
         <DataHeader availableCatalogues={config.availableCatalogues} style={{ borderBottom: '1px solid #ddd' }} />
