@@ -19,16 +19,16 @@ const shared = {
 };
 
 const configs = [
-  // {
-  //   format: 'esm',
-  //   entryPoints: ['src/index.js'],
-  //   outfile: `./dist/esm/index.mjs`,
-  //   metafile: OUTPUT_META,
-  // },
+  {
+    format: 'esm',
+    entryPoints: ['src/index.js'],
+    outfile: `./dist/esm/index.mjs`,
+    metafile: OUTPUT_META,
+  },
   {
     format: 'cjs',
     entryPoints: ['src/index.js'],
-    outfile: `./dist/index.cjs.js`,
+    outfile: `./dist/cjs/index.cjs`,
   },
   {
     format: 'iife',
