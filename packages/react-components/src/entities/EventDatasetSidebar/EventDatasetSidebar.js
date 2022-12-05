@@ -91,14 +91,28 @@ export function EventDatasetSidebar({
                   {dataset?.contact.length > 0 && <>
                     <T>Contacts</T>
                     <V>
-                      <span>{dataset?.contact.map(x => {
-                        if (x.individualName) {
-                          return `${x.individualName[0].givenName} ${x.individualName[0].surName}`;
-                        }
-                        if (x.organizationName) {
-                          return x.organizationName;
-                        }
-                      }).join(' • ')}</span>
+                      <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        {dataset?.contact.map(x => {
+                          let contact;
+                          if (x.individualName) {
+                            contact = `${x.individualName[0].givenName} ${x.individualName[0].surName}`;
+                          }
+                          if (x.organizationName) {
+                            contact = x.organizationName;
+                          }
+                          return (
+                            <span>
+                              {contact}
+                              {x.electronicMailAddress[0] && (
+                                <>
+                                  &nbsp;
+                                  (<a href={`mailto:${x.electronicMailAddress[0]}`}>{x.electronicMailAddress[0]}</a>)
+                                </>
+                              )}
+                            </span>
+                          );
+                        })}
+                      </div>
                     </V>
                   </>}
                   {dataset?.abstract && <>
