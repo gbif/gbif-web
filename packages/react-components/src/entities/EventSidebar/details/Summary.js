@@ -128,6 +128,8 @@ query list($predicate1: Predicate, $predicate2: Predicate, $measurementDetailPre
             measurementType
             measurementValue
             measurementUnit
+            measurementMethod
+            measurementRemarks
           }        
         }
       } 
