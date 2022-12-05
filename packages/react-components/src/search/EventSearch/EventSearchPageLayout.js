@@ -1,5 +1,5 @@
 
-import { jsx } from '@emotion/react';
+import {css, jsx} from '@emotion/react';
 import React, { useState, useContext } from 'react';
 import ThemeContext from '../../style/themes/ThemeContext';
 import { withFilter } from '../../widgets/Filter/state';
@@ -35,22 +35,21 @@ const Layout = ({
   }
 
   return <div className={`${className} ${prefix}-${elementName}`}
-    css={cssLayout({ theme })} {...props}>
+    css={cssLayout({ theme }) } {...props}>
     <Tabs activeId={activeView} onChange={setActiveView} >
       <div css={cssNavBar({ theme })} style={{ margin: '0 0 10px 0', borderRadius: 0 }}>
         <DataHeader availableCatalogues={config.availableCatalogues} style={{ borderBottom: '1px solid #ddd' }} />
-        <div css={cssFilter({ theme })}>
+        <div css={cssFilter({ theme })} >
           <FilterBar config={config}></FilterBar>
         </div>
       </div>
       {tabs.length > 1 && <div>
-        <Row><Col>
-          <NavBar style={{ marginLeft: 10 }}>
+        <div  css={css`display:flex; justify-content: space-between`}>
+          <NavBar style={{ marginLeft: 10, width:"100%"}} >
             {tabs.map(tab => tabComponents[tab])}
           </NavBar>
-        </Col>
-          <Col align="right" >{ (activeView === 'DATASETS' || activeView === 'EVENTS' ||activeView === 'SITES') && <GraphQLApiInfo/>}</Col>
-        </Row>
+          { (activeView === 'DATASETS' || activeView === 'EVENTS' ||activeView === 'SITES') && <GraphQLApiInfo/>}
+        </div>
       </div>}
       <div css={cssViewArea({ theme })}>
         {activeView === 'DATASETS' && <List />}
