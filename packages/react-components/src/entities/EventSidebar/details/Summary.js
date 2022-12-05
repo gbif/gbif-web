@@ -130,6 +130,7 @@ query list($predicate1: Predicate, $predicate2: Predicate, $measurementDetailPre
             measurementUnit
             measurementMethod
             measurementRemarks
+            measurementDeterminedDate
           }        
         }
       } 

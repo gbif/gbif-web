@@ -27,8 +27,8 @@ export function Measurements({ data }) {
     const hasField = (prop) => {
         return flattenResults.filter((mof) => Boolean(mof[`measurement${prop}`])).length > 0;
     };
-    const extraFields = ['Accuracy', 'Method', 'Remarks', 'DeterminedDate'].filter((field) => hasField(field));
-
+    
+    const extraFields = ['Method', 'Remarks', 'DeterminedDate'].filter((field) => hasField(field));
     const getRows = () => {
         const rows = flattenResults.map(row => {
             return <tr key={row}>
