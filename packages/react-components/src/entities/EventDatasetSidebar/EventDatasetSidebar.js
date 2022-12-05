@@ -93,16 +93,15 @@ export function EventDatasetSidebar({
                     <V>
                       <div style={{ display: 'flex', flexDirection: 'column' }}>
                         {dataset?.contact.map(x => {
-                          let contact;
+                          let contactName;
                           if (x.individualName) {
-                            contact = `${x.individualName[0].givenName} ${x.individualName[0].surName}`;
-                          }
-                          if (x.organizationName) {
-                            contact = x.organizationName;
+                            contactName = `${x.individualName[0].givenName} ${x.individualName[0].surName}`;
+                          } else if (x.organizationName) {
+                            contactName = x.organizationName;
                           }
                           return (
                             <span>
-                              {contact}
+                              {contactName}
                               {x.electronicMailAddress[0] && (
                                 <>
                                   &nbsp;
