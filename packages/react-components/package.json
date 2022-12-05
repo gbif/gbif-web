@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "React components for use in GBIFs coming websites",
   "main": "./dist/cjs/index.cjs",
-  "module": "./dist/esm/index.mjs",
+  "module": "./dist/esm/index.js",
   "sideEffects": false,
   "scripts": {
     "build": "node build.mjs",
