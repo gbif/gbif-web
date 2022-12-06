@@ -31,7 +31,7 @@ export function MoreImages({ data, onNavigateBack, className, ...props }) {
 
   // Event handler for active images
   const handleActiveImage = (image) => {
-    if (activeImage === null || activeImage.src !== image.src) {
+    if (activeImage === null || activeImage.identifier !== image.identifier) {
       setLoading(true);
       setActiveImage(image);
     }
@@ -97,16 +97,16 @@ export function MoreImages({ data, onNavigateBack, className, ...props }) {
       )}
       <Group label="eventDetails.groups.images" defaultOpen={true}>
         <GalleryTiles>
-          {data.images.map((image, i) => {
+          {data.images.map((image) => {
             return (
               <GalleryTile
                 style={{ position: 'relative' }}
                 onSelect={() => handleActiveImage(image)}
-                key={i}
+                key={image.identifier}
                 src={image.accessURI}
                 height={80}
               >
-                {image.imageIdentifier === activeImage?.imageIdentifier ? (
+                {image.identifier === activeImage.identifier ? (
                   <span css={css.imageSelectCheck()}>
                     <MdDone />
                   </span>
