@@ -204,3 +204,12 @@ export const issuePill = ({ severity, ...props }) => css`
   padding: 0 4px;
   margin-right: 4px;
 `;
+
+export const imageSelectCheck = (props) => css`
+  position: absolute;
+  left: 0;
+  z-index: 100;
+  background: black;
+  color: white;
+  padding: 5px 5px 2px 5px;
+`;
