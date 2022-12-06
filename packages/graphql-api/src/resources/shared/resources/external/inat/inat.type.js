@@ -32,14 +32,6 @@ const typeDef = gql`
     PixelXDimension: Int
     PixelYDimension: Int
   }
-
-  type ImageOld {
-    square_url: String
-    attribution: String
-    medium_url: String
-    id: Int
-    license_code: String
-  }
 `;
 
 export default typeDef;
