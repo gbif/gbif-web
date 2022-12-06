@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 // import ThemeContext from '../../../style/themes/ThemeContext';
 import * as css from '../styles';
 import { Button, Classification, Image, Skeleton, Tag } from '../../../components';
 import { Row, Col } from "../../../components";
 import { useQuery } from '../../../dataManagement/api';
+import SearchContext from '../../../search/SearchContext';
 
 const IMAGE_QUERY = `
 query image($key: String) {
@@ -67,6 +68,7 @@ export function DistinctTaxa({
   className,
   ...props
 }) {
+  const { sidebar } = useContext(SearchContext);
   const { event } = data;
 
   if (loading || !event) return <h2>Loading event information...</h2>;
@@ -99,6 +101,19 @@ export function DistinctTaxa({
                 target="_blank">
                 Search GenBank
               </Button>
+              {sidebar?.taxonLinks?.map((link) => {
+                const { title, href } = link(taxon);
+                return title && href && (
+                  <Button
+                    as="a"
+                    look="primaryOutline"
+                    style={{ fontSize: '11px', marginRight: '8px' }}
+                    href={href}
+                    target="_blank">
+                    {title}
+                  </Button>
+                );
+              })}
               <Button
                 as="a"
                 look="text"
