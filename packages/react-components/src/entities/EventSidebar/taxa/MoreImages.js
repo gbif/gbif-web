@@ -49,7 +49,7 @@ export function MoreImages({ data, onNavigateBack, className, ...props }) {
             >
               <MdArrowBack />
               &nbsp;
-              Back to search results
+              <FormattedMessage id="eventDetails.backToTaxa" />
             </Button>
           </div>
           <div css={css.imageContainer({ theme })}>
