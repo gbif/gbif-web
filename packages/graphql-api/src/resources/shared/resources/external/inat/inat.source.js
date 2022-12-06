@@ -13,10 +13,7 @@ class PersonAPI extends RESTDataSource {
   }
 
   async getRepresentativeImage({ taxon }) {
-    const { results, total_results: total } = await this.get(
-      `/taxa?q=${taxon}`,
-    );
-    return total > 0 ? results[0].default_photo : null;
+    return (await this.get(`/taxa?q=${taxon}`)).results || [];
   }
 }
 

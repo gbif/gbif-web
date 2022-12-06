@@ -2,21 +2,43 @@ import { gql } from 'apollo-server';
 
 const typeDef = gql`
   extend type Query {
-    representativeImage(taxon: String): RepresentativeImage
+    taxonMedia(key: String): [Image!]!
   }
 
-  type RepresentativeImage {
+  type Image {
+    identifier: String!
+    type: String!
+    subtypeLiteral: String
+    title: String
+    MetadataDate: String
+    metadataLanguage: String
+    metadataLanguageLiteral: String
+    providerManagedID: String
+    rights: String
+    Owner: String
+    WebStatement: String
+    Credit: String
+    creator: String
+    providerLiteral: String
+    description: String
+    tag: String
+    CreateDate: String
+    IDofContainingCollection: String
+    accessURI: String
+    accessOriginalURI: String
+    format: String
+    hashFunction: String
+    hashValue: String
+    PixelXDimension: Int
+    PixelYDimension: Int
+  }
+
+  type ImageOld {
     square_url: String
     attribution: String
     medium_url: String
     id: Int
     license_code: String
-    original_dimensions: RepresentativeImageDimensions
-  }
-
-  type RepresentativeImageDimensions {
-    width: Int
-    height: Int
   }
 `;
 
