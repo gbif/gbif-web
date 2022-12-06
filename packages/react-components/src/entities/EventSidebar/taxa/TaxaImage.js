@@ -24,34 +24,46 @@ query image($key: String) {
 
 export function TaxaImage({ taxon, onImageLoad }) {
   const { data, load } = useQuery(IMAGE_QUERY, { lazyLoad: true });
-  
+
   // useEffect hook to load the taxon image
-  useEffect(() => load({
-    keepDataWhileLoading: true,
-    variables: { key: taxon.scientificName.replace(/[^ ]*\. /, '') }
-  }), [taxon]);
+  useEffect(
+    () =>
+      load({
+        keepDataWhileLoading: true,
+        variables: { key: taxon.scientificName.replace(/[^ ]*\. /, '') },
+      }),
+    [taxon]
+  );
 
   // useEffect hook to hoist the image data into the parent
   // component's state
   useEffect(() => {
-    if (data?.taxonMedia.length > 0) onImageLoad({
-      [taxon.key]: data.taxonMedia
-    });
+    if (data?.taxonMedia.length > 0)
+      onImageLoad({
+        [taxon.key]: data.taxonMedia,
+      });
   }, [data]);
 
   return (
-    <div style={{ position: 'relative', width: 90, height: 90, marginRight: '12px' }}>
+    <div
+      style={{
+        position: 'relative',
+        width: 90,
+        height: 90,
+        marginRight: '12px',
+      }}
+    >
       <Skeleton
         style={{
           position: 'absolute',
           width: 90,
           height: 90,
           marginRight: '12px',
-          borderRadius: '4px'
+          borderRadius: '4px',
         }}
       />
       {data?.taxonMedia?.length > 0 && (
-         <Image
+        <Image
           alt={`Image of ${taxon}`}
           style={{ marginRight: '12px', borderRadius: '4px' }}
           src={data.taxonMedia[0].accessURI}

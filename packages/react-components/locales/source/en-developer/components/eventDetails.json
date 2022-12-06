@@ -31,7 +31,8 @@
     "organism": "Organism",
     "materialSample": "MaterialSample",
     "geologicalContext": "Geological context",
-    "other": "Other",
-    "measurementsOrFacts": "Measurements"
+    "measurementsOrFacts": "Measurements",
+    "images": "Images",
+    "other": "Other"
   }
 }
