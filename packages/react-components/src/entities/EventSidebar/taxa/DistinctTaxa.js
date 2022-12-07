@@ -102,6 +102,7 @@ export function DistinctTaxa({
                           as="a"
                           look="primaryOutline"
                           style={{ fontSize: '11px', marginRight: '8px' }}
+                          key={href}
                           href={href}
                           target="_blank"
                         >
