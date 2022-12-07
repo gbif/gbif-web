@@ -16,7 +16,7 @@ export function DistinctTaxa({
 }) {
   const [highlightedTaxon, setHighlightedTaxon] = useState(null);
   const [taxonImages, setTaxonImages] = useState({});
-  const { sidebar } = useContext(SearchContext);
+  const { sidebarConfig } = useContext(SearchContext);
   const { event } = data;
 
   // Update the taxonImages state
@@ -93,7 +93,7 @@ export function DistinctTaxa({
                   >
                     Search GenBank
                   </Button>
-                  {sidebar?.taxonLinks?.map((link) => {
+                  {sidebarConfig?.taxonLinks?.map((link) => {
                     const { title, href } = link(taxon);
                     return (
                       title &&
