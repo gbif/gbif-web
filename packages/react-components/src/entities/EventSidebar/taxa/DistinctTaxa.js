@@ -1,8 +1,17 @@
 import React, { useContext, useState } from 'react';
-import { Button, Classification, Tag, Row, Col } from '../../../components';
+import {
+  Button,
+  Classification,
+  Tag,
+  Row,
+  Col,
+  Menu,
+  MenuAction,
+} from '../../../components';
 import SearchContext from '../../../search/SearchContext';
 import { MoreImages } from './MoreImages';
 import { TaxaImage } from './TaxaImage';
+import { MdMoreHoriz } from 'react-icons/md';
 
 export function DistinctTaxa({
   data = {},
@@ -29,7 +38,7 @@ export function DistinctTaxa({
   if (loading || !event) return <h2>Loading event information...</h2>;
 
   return (
-    <Row direction="column" wrap="nowrap">
+    <Row direction='column' wrap='nowrap'>
       {highlightedTaxon ? (
         <MoreImages
           data={{
@@ -81,44 +90,64 @@ export function DistinctTaxa({
                       )
                   )}
                 </Classification>
-                <div style={{ paddingTop: '14px' }}>
-                  <Button
-                    as='a'
-                    look='primaryOutline'
-                    style={{ fontSize: '11px', marginRight: '8px' }}
-                    href={`https://www.ncbi.nlm.nih.gov/search/all/?term=${encodeURIComponent(
-                      taxon.scientificName
-                    )}`}
-                    target='_blank'
-                  >
-                    Search GenBank
-                  </Button>
-                  {sidebarConfig?.taxonLinks?.map((link) => {
-                    const { title, href } = link(taxon);
-                    return (
-                      title &&
-                      href && (
-                        <Button
-                          as="a"
-                          look="primaryOutline"
-                          style={{ fontSize: '11px', marginRight: '8px' }}
-                          key={href}
-                          href={href}
-                          target="_blank"
-                        >
-                          {title}
-                        </Button>
-                      )
-                    );
-                  })}
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    paddingTop: '8px',
+                    alignItems: 'center',
+                  }}
+                >
                   <Button
                     disabled={!Boolean(taxonImages[taxon.key])}
                     look='text'
-                    style={{ fontSize: '11px', color: 'var(--color500)' }}
+                    style={{
+                      fontSize: '11px',
+                      color: 'var(--color500)',
+                      marginRight: '12px',
+                    }}
                     onClick={() => setHighlightedTaxon(taxon)}
                   >
                     More images
                   </Button>
+                  <Menu
+                    aria-label='Custom menu'
+                    trigger={
+                      <Button appearance='text'>
+                        <MdMoreHoriz style={{ fontSize: 20 }} />
+                      </Button>
+                    }
+                    items={(state) => [
+                      <MenuAction
+                        onClick={() => {
+                          window.open(
+                            `https://www.ncbi.nlm.nih.gov/search/all/?term=${encodeURIComponent(
+                              taxon.scientificName
+                            )}`,
+                            '_blank'
+                          );
+                        }}
+                      >
+                        Search taxon on GenBank
+                      </MenuAction>,
+                      ...(sidebarConfig?.taxonLinks || []).map((link) => {
+                        const { title, action } = link(taxon, event);
+                        return (
+                          title &&
+                          action && (
+                            <MenuAction
+                              onClick={() => {
+                                action();
+                                state.hide();
+                              }}
+                            >
+                              {title}
+                            </MenuAction>
+                          )
+                        );
+                      }),
+                    ]}
+                  />
                 </div>
               </div>
             </div>
