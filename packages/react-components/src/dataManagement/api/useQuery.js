@@ -16,7 +16,8 @@ function useQuery(query, options = {}) {
   const apiClient = useContext(ApiContext);
   const client = options?.client || apiClient;
   const queryTag = options?.queryTag;
-  const { queryConfig } = useContext(SearchContext);
+  const searchConfig = useContext(SearchContext);
+  const queryConfig = searchConfig?.queryConfig;
 
   if (error?.networkError && options?.throwNetworkErrors) throw error;
   if (error && options?.throwAllErrors) throw error;

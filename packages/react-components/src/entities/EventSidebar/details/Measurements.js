@@ -19,17 +19,26 @@ export function Measurements({ data }) {
     }
 
     //const results = data.documents.results[0].measurementOrFacts;
-    const results = data.documents.results.reduce(function(measurements, result){
+    const results = data.documents.results.reduce((measurements, result) => {
         measurements.push(result.measurementOrFacts);
         return measurements;
     },[]);
     const flattenResults = results.flat();
-
+    const hasField = (prop) => {
+        return flattenResults.filter((mof) => Boolean(mof[`measurement${prop}`])).length > 0;
+    };
+    
+    const extraFields = ['Method', 'Remarks', 'DeterminedDate'].filter((field) => hasField(field));
     const getRows = () => {
         const rows = flattenResults.map(row => {
             return <tr key={row}>
                 <Td key={`measurementType`}>{row.measurementType}</Td>
                 <Td key={`measurementValue`}>{row.measurementValue}{row.measurementUnit}</Td>
+                {extraFields.map(field => (
+                    <Td key={`measurement${field}`}>
+                        {row[`measurement${field}`]}
+                    </Td>
+                ))}
             </tr>;
         });
         return rows;
@@ -41,7 +50,12 @@ export function Measurements({ data }) {
         </Th>,
         <Th key='measurementValue'>
             value
-        </Th>
+        </Th>,
+        ...extraFields.map(field => (
+            <Th key={`measurement${field}`}>
+                {field}
+            </Th>
+        ))
     ];
 
     const first = () => { };
@@ -56,7 +70,7 @@ export function Measurements({ data }) {
                 <thead>
                 <tr>{headers}</tr>
                 </thead>
-                <TBody columnCount={2}>
+                <TBody columnCount={2 + extraFields.length}>
                     {getRows()}
                 </TBody>
             </DataTable>
