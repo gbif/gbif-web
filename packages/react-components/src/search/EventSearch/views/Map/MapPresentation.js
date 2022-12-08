@@ -45,7 +45,7 @@ function Map({ labelMap, query, pointData, pointError, pointLoading, loading, to
   }
 
   function addToSearch (eventID) {
-    currentFilterContext.setField('eventID', [eventID], true);
+    currentFilterContext.setField('eventHierarchy', [eventID], true);
     setActiveEventID(null);
     dialog.setVisible(false)
     showList(false);
