@@ -2,7 +2,7 @@ import { gql } from 'apollo-server';
 
 const typeDef = gql`
   extend type Query {
-    taxonMedia(key: String): [Image!]!
+    taxonMedia(key: String, size: Int, from: Int): [Image!]!
   }
 
   type Image {

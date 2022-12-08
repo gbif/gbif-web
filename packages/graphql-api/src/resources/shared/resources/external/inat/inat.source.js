@@ -2,7 +2,7 @@
 
 import { RESTDataSource } from 'apollo-datasource-rest';
 
-class PersonAPI extends RESTDataSource {
+class iNaturalistAPI extends RESTDataSource {
   constructor(config) {
     super();
     this.baseURL = config.inat;
@@ -35,4 +35,4 @@ class PersonAPI extends RESTDataSource {
   }
 }
 
-export default PersonAPI;
+export default iNaturalistAPI;
