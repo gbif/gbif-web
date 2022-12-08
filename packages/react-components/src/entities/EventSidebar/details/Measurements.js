@@ -9,7 +9,7 @@ export function Measurements({ data }) {
     const [fixedColumn, setFixed] = useState(true);
 
     let hasMeasurements = false;
-    if (data.documents.results?.length > 0
+    if (data?.documents?.results?.length > 0
         && data.documents.results[0]?.measurementOrFacts?.length > 0) {
         hasMeasurements = true;
     }

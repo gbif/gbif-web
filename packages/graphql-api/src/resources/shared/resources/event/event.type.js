@@ -71,7 +71,7 @@ export default gql`
     datasetTitle: String
     samplingProtocol: [String]
     sampleSizeUnit: String
-    sampleSizeValue: Int
+    sampleSizeValue: Float
     stateProvince: String
     country: String
     countryCode: String
