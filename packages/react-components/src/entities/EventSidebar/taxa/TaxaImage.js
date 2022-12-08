@@ -30,7 +30,7 @@ export function TaxaImage({ taxon, onImageLoad }) {
     () =>
       load({
         keepDataWhileLoading: true,
-        variables: { key: taxon.scientificName.replace(/[^ ]*\. /, '') },
+        variables: { key: taxon.key },
       }),
     [taxon]
   );
