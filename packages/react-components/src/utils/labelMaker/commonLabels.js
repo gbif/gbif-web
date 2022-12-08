@@ -224,7 +224,7 @@ export const commonLabels = {
   },
   identityFn: {
     type: 'TRANSFORM',
-    transform: ({ id }) => id
+    transform: ({ id }) => id.value || id
   },
   // -- Add labels above this line (required by plopfile.js) --
 }
