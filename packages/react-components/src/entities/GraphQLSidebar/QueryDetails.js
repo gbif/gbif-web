@@ -13,7 +13,7 @@ export default function QueryDetails({ children }) {
     const buttonText = show ? "Hide Query" : "Show Query";
 
     return <>
-        <Button appearance="link" onClick={toggleShow}>{buttonText}</Button>
+        <Button appearance="primaryOutline" onClick={toggleShow}>{buttonText}</Button>
         <div className="component-container">
             {show && children}
         </div>

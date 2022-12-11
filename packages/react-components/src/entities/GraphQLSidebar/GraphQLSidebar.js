@@ -24,11 +24,13 @@ export function GraphQLSidebar({
   const theme = useContext(ThemeContext);
   const [activeId, setTab] = useState('details');
 
-  const [copyIcon, setCopyIcon] = useState('MdContentCopy')
+  const [curlCopied, setCurlCopied] = useState(false);
+  const [urlCopied, setUrlCopied] = useState(false);
+
 
   const getIcon = (icon) => {
     switch(icon) {
-      case 'copied':
+      case true:
         return <MdFileDownloadDone />;
       default:
         return <MdContentCopy/>;
@@ -69,11 +71,23 @@ export function GraphQLSidebar({
       "\"variables\":"+JSON.stringify(predicate)+"}'"+
       " --compressed";
 
-  const copyCurlUrl = (event) => {
+  const copyCurlUrl = () => {
     if (navigator.clipboard) {
       navigator.clipboard.writeText(curlUrl)
           .then(() => {
-            setCopyIcon('copied');
+            setCurlCopied(true);
+            setUrlCopied(false);
+          })
+          .catch((error) => { alert( error) })
+    }
+  }
+
+  const copyUrl = (event) => {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(queryUrl)
+          .then(() => {
+            setCurlCopied(false);
+            setUrlCopied(true);
           })
           .catch((error) => { alert( error) })
     }
@@ -106,17 +120,11 @@ export function GraphQLSidebar({
                 <br/>
                 <Button appearance="primaryOutline" onClick={ () => window.open(queryUrl, '_blank', 'noopener,noreferrer') }>
                   Try on GraphQL
-                </Button>
-                <h2>cURL</h2>
-                <footer>
-                  <em>curl is one of the most popular tools for accessing HTTP endpoints from the command line.</em>
-                  <p>
-                  <Button appearance="primaryOutline" onClick={copyCurlUrl}>{getIcon(copyIcon)} &nbsp;  Copy cURL command</Button>
-                  </p>
-                  <em>
-                  The data sent, which is a JSON document that includes: "<strong>query</strong>" and optional "<strong>variables</strong>" as part of the JSON object.
-                  </em>
-                  <p/>
+                </Button> &nbsp;
+                <Button appearance="primaryOutline" onClick={copyUrl}>{getIcon(urlCopied)} &nbsp;  Copy GET URL</Button>&nbsp;
+                <Button appearance="primaryOutline" onClick={copyCurlUrl}>{getIcon(curlCopied)} &nbsp;  Copy cURL command</Button>
+                <p/>
+
                   <QueryDetails>
                     <div>
                       <h3>Query</h3>
@@ -125,7 +133,7 @@ export function GraphQLSidebar({
                       <pre>{JSON.stringify(predicate,undefined,2)}</pre>
                     </div>
                   </QueryDetails>
-                </footer>
+
               </div>
             </Col>
           </Row>

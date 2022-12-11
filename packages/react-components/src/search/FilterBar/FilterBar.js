@@ -38,7 +38,7 @@ const FilterBar = ({
     <div>
       {availableFilters.map((x, i) => {
         if (!x) return null; // if no widget is defined for this filter, then do not show anything
-        return <x.Button key={i} />
+        return <x.Button key={i}/>
       })}
       {Object.keys(config.filters).length !== config.defaultVisibleFilters.length && (
         <div>
