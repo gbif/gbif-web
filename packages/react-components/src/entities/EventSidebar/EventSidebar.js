@@ -40,6 +40,7 @@ export function EventSidebar({
   }, [data, loading]);
 
   const isLoading = loading || !data;
+  console.log(data);
 
   return <Tabs activeId={activeId} onChange={id => setTab(id)}>
     <Row wrap="nowrap" style={style} css={css.sideBar({ theme })}>
@@ -54,9 +55,11 @@ export function EventSidebar({
           <Tab tabId="details" direction="left">
             <MdInfo />
           </Tab>
-          <Tab tabId="distinctTaxa" direction="left">
-            <MdImage />
-          </Tab>
+          {data?.event?.distinctTaxa?.length > 0 && (
+            <Tab tabId="distinctTaxa" direction="left">
+              <MdImage />
+            </Tab>
+          )}
         </TabList>
       </Col>
       <Col shrink={false} grow={false} css={css.detailDrawerContent({ theme })} >
