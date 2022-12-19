@@ -12,6 +12,7 @@ import SearchContext from '../../../search/SearchContext';
 import { MoreImages } from './MoreImages';
 import { TaxaImage } from './TaxaImage';
 import { MdMoreHoriz } from 'react-icons/md';
+import env from '../../../../.env.json';
 
 export function DistinctTaxa({
   data = {},
@@ -98,6 +99,13 @@ export function DistinctTaxa({
                     alignItems: 'center',
                   }}
                 >
+                  <Button
+                    as='a'
+                    href={`${env.SPECIES_URL}/${taxon.key}`}
+                    style={{ fontSize: '11px', marginRight: '12px' }}
+                  >
+                    View species
+                  </Button>
                   <Button
                     disabled={!Boolean(taxonImages[taxon.key])}
                     look='text'
