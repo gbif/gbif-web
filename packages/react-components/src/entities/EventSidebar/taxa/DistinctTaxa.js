@@ -103,6 +103,7 @@ export function DistinctTaxa({
                     as='a'
                     href={`${env.SPECIES_URL}/${taxon.key}`}
                     style={{ fontSize: '11px', marginRight: '12px' }}
+                    target="_blank"
                   >
                     View species
                   </Button>
