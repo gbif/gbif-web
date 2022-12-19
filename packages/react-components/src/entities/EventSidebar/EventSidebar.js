@@ -40,7 +40,6 @@ export function EventSidebar({
   }, [data, loading]);
 
   const isLoading = loading || !data;
-  console.log(data);
 
   return <Tabs activeId={activeId} onChange={id => setTab(id)}>
     <Row wrap="nowrap" style={style} css={css.sideBar({ theme })}>

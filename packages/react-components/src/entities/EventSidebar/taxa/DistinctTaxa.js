@@ -7,6 +7,7 @@ import {
   Col,
   Menu,
   MenuAction,
+  ResourceLink,
 } from '../../../components';
 import SearchContext from '../../../search/SearchContext';
 import { MoreImages } from './MoreImages';
@@ -99,14 +100,14 @@ export function DistinctTaxa({
                     alignItems: 'center',
                   }}
                 >
-                  <Button
-                    as='a'
-                    href={`${env.SPECIES_URL}/${taxon.key}`}
+                  <ResourceLink
                     style={{ fontSize: '11px', marginRight: '12px' }}
                     target="_blank"
+                    type="taxonKey"
+                    id={taxon.key}
                   >
-                    View species
-                  </Button>
+                    View taxon details
+                  </ResourceLink>
                   <Button
                     disabled={!Boolean(taxonImages[taxon.key])}
                     look='text'
