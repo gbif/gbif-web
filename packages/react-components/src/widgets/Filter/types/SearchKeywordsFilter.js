@@ -17,7 +17,7 @@ import { hash } from '../../../utils/util';
 
 const initialSize = 25;
 
-export const FilterContent = ({ config = {}, translations, hide, onApply, onCancel, onFilterChange, focusRef, filterHandle, initFilter }) => {
+export const FilterContent = ({ config = {}, translations, hide, onApply, LabelFromID, onCancel, onFilterChange, focusRef, filterHandle, initFilter }) => {
   const { queryKey, placeholder = 'Input text', keepCase, graph } = config;
   const { data, error, loading, load } = useQuery(config.query, { lazyLoad: true, graph });
   const [size, setSize] = useState(initialSize);
@@ -167,7 +167,7 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
                     loading={loading}
                     helpVisible={true}
                     helpText={<FormattedMessage id="filterSupport.useWildcardPattern" defaultMessage="Search for the pattern" />}
-                    label={q}
+                    label={<LabelFromID id={{type: 'like', value: q}} />}
                     checked={checkedMap.has(hash({type: 'like', value: q}))}
                     onChange={() => {
                       const qString = {type: 'like', value: q};
@@ -206,9 +206,14 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
                 {options.map((option) => {
                   return <Option
                     key={hash(option)}
-                    helpVisible={false}
+                    helpVisible={true}
                     // label={option}
-                    label={typeof option === 'string' ? option : option.value}
+                    // label={typeof option === 'string' ? option : option.value}
+                    label={<LabelFromID id={option} />}
+                    helpText={typeof option === 'string' ? 
+                      <FormattedMessage id="filterSupport.useCaseInsensitiveValue" defaultMessage="Search for case insensitive match" /> : 
+                      <FormattedMessage id="filterSupport.useWildcardPattern" defaultMessage="Search for the pattern" />
+                    }
                     checked={checkedMap.has(typeof option === 'string' ? option : hash(option))}
                     onChange={() => toggle(filterHandle, option)}
                   />
