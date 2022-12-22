@@ -1,5 +1,9 @@
 {
   "position": "Positie",
   "organization": "Organisatie",
-  "userId": "GebruikersID"
+  "email": "E-mail",
+  "address": "Adres",
+  "roles": "Rollen",
+  "userId": "GebruikersID",
+  "name": "Naam"
 }
