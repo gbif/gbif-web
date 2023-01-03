@@ -78,8 +78,8 @@
     "@storybook/addon-links": "^6.4.12",
     "@storybook/addon-storysource": "^6.4.12",
     "@storybook/addons": "^6.4.12",
-    "@storybook/react": "^6.4.12",
-    "babel-loader": "^8.2.2",
+    "@storybook/react": "^6.5.15",
+    "babel-loader": "^8.3.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "flat": "^5.0.2",
     "gulp": "^4.0.2",
@@ -91,7 +91,7 @@
     "plop": "^2.7.4",
     "pseudoloc": "^1.1.0",
     "regenerator-runtime": "^0.13.7",
-    "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.12"
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
   }
 }
