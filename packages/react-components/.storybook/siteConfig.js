@@ -113,6 +113,10 @@ export const siteConfig = {
   routeConfig,
   occurrence: {},
   dataset: {},
+  event: {
+    enableGraphQLAPI: true,
+    enableResetFilter: true
+  },
   literature: {},
   institution: {},
   collection: {},

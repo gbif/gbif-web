@@ -9,7 +9,7 @@ import { Button, Tabs, DataHeader, NavBar, NavItem, Row, Col } from '../../compo
 import { FilterBar } from '../FilterBar';
 import { useQueryParam, StringParam } from 'use-query-params';
 import GraphQLApiInfo from "./views/Api";
-import env from "../../../.env.json";
+import SiteContext from "../../dataManagement/SiteContext";
 
 const Layout = ({
   className = '',
@@ -24,6 +24,7 @@ const Layout = ({
 }) => {
   const [activeView = tabs[0] || 'DATASETS', setActiveView] = useQueryParam('view', StringParam);
   const theme = useContext(ThemeContext);
+  const {event: eventConfig} = useContext(SiteContext);
   const prefix = theme.prefix || 'gbif';
   const elementName = 'searchLayout';
 
@@ -43,7 +44,7 @@ const Layout = ({
           <NavBar style={{ marginLeft: 10, width:"100%"}} >
             {tabs.map(tab => tabComponents[tab])}
           </NavBar>
-          { env.ENABLE_GRAPHQL_API && (activeView === 'DATASETS' || activeView === 'EVENTS' ||activeView === 'SITES') && <GraphQLApiInfo/>}
+          { eventConfig.enableGraphQLAPI && (activeView === 'DATASETS' || activeView === 'EVENTS' ||activeView === 'SITES') && <GraphQLApiInfo/>}
       </div>}
       <div css={cssNavBar({ theme })} style={{ margin: '0 0 10px 0', borderRadius: 0 }}>
         <DataHeader availableCatalogues={config.availableCatalogues} style={{ borderBottom: '1px solid #ddd' }} />

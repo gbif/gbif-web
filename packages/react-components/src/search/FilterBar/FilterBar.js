@@ -8,7 +8,7 @@ import ThemeContext from '../../style/themes/ThemeContext';
 import { Trigger as MetaFilter } from '../../widgets/Filter/types/MetaFilter';
 import { Button, Tooltip } from '../../components';
 import { MdDelete } from 'react-icons/md';
-import env from "../../../.env.json";
+import SiteContext from '../../dataManagement/SiteContext';
 
 function getVisibleFilters(currentFilter, commonFilters) {
   const visibleFilters = union(commonFilters,
@@ -25,6 +25,8 @@ const FilterBar = ({
 }) => {
   const theme = useContext(ThemeContext);
   const currentFilterContext = useContext(FilterContext);
+  const {event: eventConfig} = useContext(SiteContext);
+
   const prefix = theme.prefix || 'gbif';
   const elementName = 'filterBar';
 
@@ -47,7 +49,7 @@ const FilterBar = ({
         </div>
       )}
     </div>
-    {currentFilters.length > 0 && env.ENABLE_RESET_FILTER && (
+    {currentFilters.length > 0 && eventConfig?.enableResetFilter && (
       <Tooltip title="Clear all filters" placement="auto">
         <Button
           onClick={() => currentFilterContext.setFilter({})}
