@@ -71,7 +71,7 @@ export default gql`
     datasetTitle: String
     samplingProtocol: [String]
     sampleSizeUnit: String
-    sampleSizeValue: Int
+    sampleSizeValue: Float
     stateProvince: String
     country: String
     countryCode: String
@@ -105,11 +105,33 @@ export default gql`
     speciesCount: Int!
     wktConvexHull: String
     temporalCoverage: TemporalCoverage
+    distinctTaxa: [DistinctTaxon]!
   }
 
   type TemporalCoverage {
     gte: String
     lte: String
+  }
+
+  type DistinctTaxon {
+    count: Int
+    key: String
+    rank: String
+    scientificName: String
+    kingdom: String
+    kingdomKey: String
+    phylum: String
+    phylumKey: String
+    class: String
+    classKey: String
+    order: String
+    orderKey: String
+    family: String
+    familyKey: String
+    genus: String
+    genusKey: String
+    species: String
+    speciesKey: String
   }
 
   type Measurement {

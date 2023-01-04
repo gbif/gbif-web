@@ -44,7 +44,7 @@ export const tree = ({ theme, ...props }) => css`
       :only-child {
         padding-top: 0;
       }
-      :first-child::before,
+      :first-of-type::before,
       :last-child::after {
         border: 0 none;
       }
@@ -52,7 +52,7 @@ export const tree = ({ theme, ...props }) => css`
         border-right: 1px solid #ccc;
         border-radius: 0 5px 0 0;
       }
-      :first-child::after{
+      :first-of-type::after{
         border-radius: 5px 0 0 0;
       }
   }

@@ -11,7 +11,6 @@ import fieldsWithTemporalSupport from './helpers/fieldsWithTemporalSupport';
 import fieldsWithFacetSupport from './helpers/fieldsWithFacetSupport';
 import fieldsWithOccurrenceFacetSupport from './helpers/fieldsWithOccurrenceFacetSupport';
 import fieldsWithStatsSupport from './helpers/fieldsWithStatsSupport';
-
 // there are many fields that support facets. This function creates the resolvers for all of them
 const facetReducer = (dictionary, facetName) => {
   dictionary[facetName] = getFacet(facetName);
@@ -162,6 +161,23 @@ export default {
         },
       );
     },
+    distinctTaxa: async ({ eventID }, query, { dataSources }) =>
+      dataSources.eventAPI
+        .searchOccurrences({
+          query: {
+            eventID,
+            facet: 'gbifClassification_acceptedUsage_key',
+            size: 0,
+          },
+        })
+        .then(({ aggregations }) =>
+          aggregations.gbifClassification_acceptedUsage_key_facet.buckets.map(
+            async ({ key, doc_count: count }) => ({
+              count,
+              ...(await dataSources.taxonAPI.getTaxonByKey({ key })),
+            }),
+          ),
+        ),
   },
   EventFacetResult_dataset: {
     datasetTitle: ({ key }, args, { dataSources }) => {

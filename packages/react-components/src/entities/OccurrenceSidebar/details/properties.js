@@ -38,7 +38,12 @@ export function EnumField({ getEnum, ...props }) {
   const { value } = props.term;
   const values = Array.isArray(value) ? value : [value];
   return <Field {...props}>
-    {values.map((enumValue, i) => <>{i > 0 && ' ● '}<FormattedMessage key={i} id={getEnum(enumValue)} defaultMessage={enumValue} /></>)}
+    {values.map((enumValue, i) => (
+      <React.Fragment key={i}>
+        {i > 0 && ' ● '}
+        <FormattedMessage id={getEnum(enumValue)} defaultMessage={enumValue} />
+      </React.Fragment>
+    ))}
   </Field>
 }
 

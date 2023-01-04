@@ -23,6 +23,7 @@ function List() {
   const routeContext = useContext(RouteContext);
   
   return <StandardSearch 
+    queryProps={{throwAllErrors: true}}
     presentationComponent={ResultsList}
     cardComponent={props => {
     return <div key={props.result.key}>
@@ -30,6 +31,7 @@ function List() {
     </div>}
     }
     graphQuery={QUERY} 
+    queryTag='list'
     resultKey='organizationSearch' 
     />
 }

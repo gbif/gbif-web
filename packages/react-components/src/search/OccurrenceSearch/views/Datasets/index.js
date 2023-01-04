@@ -32,7 +32,7 @@ function Datasets() {
   const [size, setSize] = useState(defaultSize);
   const currentFilterContext = useContext(FilterContext);
   const { rootPredicate, predicateConfig } = useContext(OccurrenceContext);
-  const { data, error, loading, load } = useQuery(DATASETS, { lazyLoad: true });
+  const { data, error, loading, load } = useQuery(DATASETS, { lazyLoad: true, throwNetworkErrors: true, queryTag: 'datasets' });
 
   useEffect(() => {
     const predicate = {

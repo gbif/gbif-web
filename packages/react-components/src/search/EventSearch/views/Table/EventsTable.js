@@ -58,13 +58,13 @@ export const EventsTable = ({ first, prev, next, size, from, results, total, loa
   }
 
   function addToSearch (eventID) {
-    currentFilterContext.setField('eventID', [eventID], true);
+    currentFilterContext.setField('eventHierarchy', [eventID], true);
     setActiveEventID(null);
     setActiveDatasetKey(null);
   }
 
   function addEventTypeToSearch (eventID, eventType) {
-    currentFilterContext.setField('eventID', [eventID], true);
+    currentFilterContext.setField('eventHierarchy', [eventID], true);
     currentFilterContext.setField('eventType', [eventType], true);
     setActiveEventID(null);
     setActiveDatasetKey(null);

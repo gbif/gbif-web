@@ -639,7 +639,7 @@ export const commonFilters = {
     config: {
       std: {
         filterHandle: 'recordedBy',// if nothing else provided, then this is the filterName used
-        id2labelHandle: 'recordedBy',
+        id2labelHandle: 'wildcard',//'recordedBy',
         translations: {
           count: 'filters.recordedBy.count', // translation path to display names with counts. e.g. "3 scientific names"
           name: 'filters.recordedBy.name',// translation path to a title for the popover and the button

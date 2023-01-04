@@ -49,7 +49,31 @@ export function Summary({
             value: event.datasetKey
           }]
       }
-      load({ keepDataWhileLoading: true, variables: { predicate1: predicate1, predicate2: predicate2, size: 0, from: 0 } });
+
+      const measurementDetailPredicate = {
+        type: 'and',
+        predicates: [
+          {
+            key: "eventHierarchy",
+            type: "equals",
+            value: event.eventID
+          },
+          {
+            key: "eventTypeHierarchyJoined",
+            type: "equals",
+            value: event.eventTypeHierarchyJoined
+          },
+          {
+            key: "measurementOrFactTypes",
+            type: "isNotNull"
+          }
+          ,{
+            key:  "datasetKey",
+            type: "equals",
+            value: event.datasetKey
+          }]
+      }
+      load({ keepDataWhileLoading: true, variables: { predicate1: predicate1, predicate2: predicate2, measurementDetailPredicate: measurementDetailPredicate, limit: 10, offset: 0 } });
     }
   }, [event]);
 
@@ -66,16 +90,51 @@ export function Summary({
 };
 
 const FACET_BREAKDOWN = `
-query list($predicate1: Predicate, $predicate2: Predicate, $offset: Int, $limit: Int){
+query list($predicate1: Predicate, $predicate2: Predicate, $measurementDetailPredicate: Predicate, $offset: Int, $limit: Int){
 
   mofResults: eventSearch(predicate: $predicate2){
       facet {
         eventTypeHierarchyJoined {
           key
           count
-        }  
+          events { 
+            facet {
+              measurementOrFactTypes {
+                key
+                count
+              }
+            }          
+          }
+        }
       }
   }
+  
+  measurementResults: eventSearch(
+      predicate:$measurementDetailPredicate,
+      size: $limit, 
+      from: $offset
+      ) {
+      documents(size: $limit) {
+        results {
+          datasetTitle
+          datasetKey
+          occurrenceCount
+          eventTypeHierarchyJoined
+          eventType {
+            concept
+          }
+          measurementOrFacts {
+            measurementID
+            measurementType
+            measurementValue
+            measurementUnit
+            measurementMethod
+            measurementRemarks
+            measurementDeterminedDate
+          }        
+        }
+      } 
+    }
 
   results: eventSearch(
     predicate:$predicate1,
@@ -126,6 +185,9 @@ query list($predicate1: Predicate, $predicate2: Predicate, $offset: Int, $limit:
       }
     }       
     occurrenceFacet {
+      datasetKey {
+        count
+      }
       basisOfRecord {
         count
         key

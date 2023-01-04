@@ -13,7 +13,7 @@ export function SingleTreeN({ node, setViewEvent, setSearch }) {
   const hasChildren = node.children && node.children.length > 0;
 
   function onClickNode(){
-    if (!node.isSelected ) {
+    if (!node.isSelected && node.isClickable ) {
       if (keyValueSame) {
         setSearch(node.key);
       } else {
@@ -42,7 +42,14 @@ export function SingleTreeN({ node, setViewEvent, setSearch }) {
       </span>
     {hasChildren &&
       <ul>
-        {node.children.map(child => <SingleTreeN node={ child } setViewEvent={setViewEvent} setSearch={setSearch} />)}
+        {node.children.map((child) => (
+          <SingleTreeN
+            key={child.key}
+            node={child}
+            setViewEvent={setViewEvent}
+            setSearch={setSearch}
+          />
+        ))}
       </ul>}
     </li>;
 }
