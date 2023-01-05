@@ -16,8 +16,7 @@ class Map extends Component {
   }
 
   componentDidMount() {
-    // const mapStyle = this.props.theme.darkTheme ? 'dark-v9' : 'light-v9';
-    const mapStyle =  'light-v9';
+    const mapStyle = this.props.theme.darkTheme ? 'dark-v9' : 'light-v9';
     mapboxgl.accessToken = env.MAPBOX_KEY;
     this.map = new mapboxgl.Map({
       container: this.myRef.current,
