@@ -35,7 +35,8 @@ function TaxonomicCoverage({ showAll, termMap }) {
     'order',
     'class',
     'family',
-    'genus'
+    'genus',
+    'species'
   ].find(x => termMap[x]);
   if (!hasContent) return null;
 
@@ -46,7 +47,8 @@ function TaxonomicCoverage({ showAll, termMap }) {
       <FacetListInline term={termMap.class} showDetails={showAll}/>
       <FacetListInline term={termMap.order} showDetails={showAll}/>
       <FacetListInline term={termMap.family} showDetails={showAll}/>
-      <FacetListInline term={termMap.genus} showDetails={showAll}/>
+      <FacetListInline term={termMap.genus} showDetails={showAll} style={{ fontStyle: "italic" }}/>
+      <FacetListInline term={termMap.species} showDetails={showAll} style={{ fontStyle: "italic" }}/>
     </Properties>
   </Group>
 }

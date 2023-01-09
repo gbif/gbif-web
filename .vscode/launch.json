@@ -31,6 +31,32 @@
             "type": "node"
         },        
         {
+            "name": "RUN TRANSLATIONS",
+            "request": "launch",
+            "runtimeArgs": [
+                "run", "serve-translations"
+            ],
+            "cwd": "${workspaceFolder}/packages/react-components",
+            "runtimeExecutable": "npm",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "WATCH TRANSLATIONS",
+            "request": "launch",
+            "runtimeArgs": [
+                "run","watch-translations"
+            ],
+            "cwd": "${workspaceFolder}/packages/react-components",
+            "runtimeExecutable": "npm",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node"
+        },
+        {
             // Name of configuration; appears in the launch configuration drop down menu.
             "name": "ES2VT",
             // Type of configuration. Possible values: "node", "mono".

@@ -5,6 +5,8 @@ import {Summaries} from "./Summaries";
 
 export function Summary({
   locationID,
+  year,
+  month,
   ...props
 }) {
   const theme = useContext(ThemeContext);
@@ -13,11 +15,35 @@ export function Summary({
 
   useEffect(() => {
     if (typeof locationID !== 'undefined') {
-      const predicate = {
-          key:  "locationID",
-          type: "equals",
-          value: locationID
+      
+      const singlePredicate = {
+          key:  "locationID", type: "equals", value: locationID
       }
+
+      const predicateYear = {
+        type: 'and',
+        predicates: [
+          { key:  "locationID", type: "equals", value: locationID},
+          { key:  "year", type: "equals", value: year}
+        ]
+      }        
+
+      const predicateYearMonth = {
+        type: 'and',
+        predicates: [
+          { key:  "locationID", type: "equals", value: locationID},
+          { key:  "year", type: "equals", value: year},
+          { key:  "month", type: "equals", value: month}
+        ]
+      }      
+
+      let predicate = singlePredicate;
+      if (month >= 0){
+        predicate = predicateYearMonth;
+      } else if (year){
+        predicate = predicateYear;
+      }
+
       load({ keepDataWhileLoading: true, variables: { predicate, size: 0, from: 0 } });
     }
   }, [locationID]);
@@ -30,7 +56,7 @@ export function Summary({
 const FACET_BREAKDOWN = `
 query list($predicate: Predicate, $offset: Int, $limit: Int){
   results: eventSearch(
-    predicate:$predicate,
+    predicate: $predicate,
     size: $limit, 
     from: $offset
     ) {
@@ -84,7 +110,11 @@ query list($predicate: Predicate, $offset: Int, $limit: Int){
       genus {
         count
         key
-      }      
+      }  
+      species {
+        count
+        key
+      }            
       samplingProtocol {
         count
         key

@@ -60,7 +60,7 @@ export function FacetList(props) {
   const { value } = props.term;
   if (value.length > 1) {
     const listItems = value.map(facet =>
-        <li>
+        <li key={facet.key}>
           {facet.key} ({facet.count.toLocaleString()})
         </li>
     );

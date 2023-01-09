@@ -14,6 +14,8 @@ const { TabList, Tab, TapSeperator } = Tabs;
 export function SiteSidebar({
   onCloseRequest,
   siteID,
+  year,
+  month,
   className,
   style,
   ...props
@@ -32,7 +34,6 @@ export function SiteSidebar({
   useEffect(() => {
     if (!loading && location) {
       setTab('details');
-      console.log(location);
     }
   }, [data, loading]);
 
@@ -58,10 +59,12 @@ export function SiteSidebar({
           <Row direction="column" wrap="nowrap" style={{ maxHeight: '100%', overflow: 'hidden' }}>
             {isLoading && <Col style={{ padding: '12px', paddingBottom: 50, overflow: 'auto' }} grow>
               <h2>Site: {siteID} - Loading information...</h2>
+              <TemporalDisplay year={year} month={month} />
             </Col>}
             {!isLoading && <Col style={{ padding: '12px', paddingBottom: 50, overflow: 'auto' }} grow>
-              <h2> Site: {siteID} </h2>
-              <Group label={"Site location"}>
+              <h2>Site: {siteID}</h2>
+              <TemporalDisplay year={year} month={month} />
+              <Group label={"eventDetails.siteLocation"}>
                 <Properties css={css.properties} breakpoint={800}>
                   <PlainTextField term={{ simpleName: "locality", value: location?.location?.locality }} />
                   <PlainTextField term={{ simpleName: "stateProvince", value: location?.location?.stateProvince }} />
@@ -71,10 +74,10 @@ export function SiteSidebar({
                   <PlainTextField term={{ simpleName: "decimalLongitude", value: location?.location?.coordinates?.lon }} />
                 </Properties>
               </Group>
-              <Group label={"Map of site location"}>
+              <Group label={"eventDetails.map"}>
                 <Map latitude={location?.location?.coordinates?.lat} longitude={location?.location?.coordinates?.lon} />
               </Group>
-              <Summary locationID={siteID} />
+              <Summary locationID={siteID} year={year} month={month} />
             </Col>
             }
           </Row>
@@ -83,6 +86,17 @@ export function SiteSidebar({
     </Row>
   </Tabs>
 };
+
+export function TemporalDisplay({ year, month }) {
+  if (year && month && month > 0){
+    return <h4>Details of activity in <FormattedMessage id={`enums.month.${month}`} defaultMessage={`${month}`} />, {year}</h4>
+  } 
+  if (year){
+    return <h4>Details of activity in {year}</h4>
+  }
+  return null;
+}
+
 
 export function Group({ label, ...props }) {
   return <Accordion
