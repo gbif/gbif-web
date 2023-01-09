@@ -244,5 +244,3 @@ export const tableConfig = {
     },
   ]
 };
-
-console.log(tableConfig.columns.map(x => x.name));

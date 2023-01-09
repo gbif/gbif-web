@@ -157,7 +157,7 @@ const getRows = ({ tableConfig, labelMap, results = [], setActiveEventID, setAct
         return <Td noWrap={field.noWrap} key={field.trKey} style={field.value.rightAlign ? { textAlign: 'right' } : {}}>{formattedVal}</Td>;
       }
     );
-    return <tr key={row.eventID} onClick={() => {
+    return <tr key={row.eventID} style={{cursor: 'pointer'}} onClick={() => {
       let selection = window.getSelection();
       if (selection.type !== "Range") {
         setActiveEventID(row.eventID);
