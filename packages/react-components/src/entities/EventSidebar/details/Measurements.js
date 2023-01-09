@@ -19,7 +19,7 @@ export function Measurements({ data }) {
     }
 
     //const results = data.documents.results[0].measurementOrFacts;
-    const results = data.documents.results.reduce((measurements, result) => {
+    const results = data.documents?.results?.reduce((measurements, result) => {
         measurements.push(result.measurementOrFacts);
         return measurements;
     },[]);
