@@ -23,4 +23,3 @@ packages/react-components/locales/dist
 .idea/
 *.log
 .history
-gbif-web.iml
