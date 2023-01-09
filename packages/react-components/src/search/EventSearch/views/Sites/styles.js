@@ -1,104 +1,158 @@
 import { css } from '@emotion/react';
 
-export const sites = ({ noOfSites= 10, noOfYears, showMonth, theme, ...props }) => css`
+export const sites = ({ noOfSites=10, noOfYears=10, showMonth, theme, ...props }) => css`
 
-    .graph {
-      background-color: white;   
-      --square-size: ${showMonth ? '15px;' : '15px'}; ;
-      --square-width: ${showMonth ? '5px;' : '  3px'};
-      --square-height: 15px;
-      --square-gap-width: ${showMonth ? '3px' : '0px'};
-      --square-gap-height: 3px;
-      --month-width: calc(var(--square-width) + var(--square-gap-width));
-      --year-width: calc(var(--month-width) * 12)
-    }
+.grid-container {
+  padding: 0;
+  margin: 0;
+}
 
-    .time { grid-area: months; list-style-type: none; padding-left:10px;}
-    .sites { grid-area: days; list-style-type: none; list-style-position: outside; }
-    .squares { grid-area: squares; list-style-type: none;}
-    
-    .sites li {
-       white-space:nowrap;
-    }
-    
-    .sites li:hover {
-       cursor:pointer;
-    }    
-    
-    .sites {
-       padding-inline-start: 20px;
-       display:inline-block;
-    }    
-        
-    .graph {
-      display: inline-grid;
-      grid-template-areas: "empty months"
-                           "days squares";
-      grid-template-columns: auto 1fr;
-      grid-gap: 0px;
-      padding: 0px;
-    }
-    
-    .time {
-      margin-bottom: 5px;
-      display: grid;
-      grid-template-columns: repeat(${noOfYears}, var(--year-width));
-    }
-    
-    .sites,
-    .squares {
-      margin-top: 2px; 
-      display: grid;
-      grid-gap: var(--square-gap-height) var(--square-gap-width);
-      grid-template-rows: repeat(${noOfSites}, var(--square-size));
-    }
-    
-    .squares {
-      padding-left:10px;
-      grid-auto-flow: column;
-      grid-auto-columns: var(--square-width);
-    }
-    
-    .squares li {
-      background-color: #ebedf0;
-    }
-    
-    .squares li[data-level="1"] {
-      background-color: #c6e48b;
-    }
-    
-    .squares li[data-level="2"] {
-      background-color: #7bc96f;
-    }
-    
-    .squares li[data-level="3"] {
-      background-color: #196127;
-    }
-    
-    .squares li  {
-      position: relative;
-      display: inline-block;
-    }
-    
-    .squares li  .tooltiptext {
-      visibility: hidden;
-      filter: alpha(opacity=50);
-      opacity: 0.5;
-      width: 90px;
-      background-color:  #196127;
-      color: #fff;
-      text-align: center;
-      border-radius: 6px;
-      padding: 5px 0;
-      position: absolute;
-      z-index: 1;
-      margin-top: -28px;
-    }
-    
-    .squares li:hover .tooltiptext {
-      visibility: visible;
-    }    
-    
+.grid {
+  display: inline-grid;
+  grid-template-areas: "legend header"
+    "sidebar main-grid";
+  grid-template-columns: 150px auto;
+  grid-column-gap: 0px;
+}
+
+.header {
+  grid-area: header;
+}
+
+.header ul {
+  list-style-type: none; 
+}
+
+.header li {
+  display: inline-block;
+}
+
+.sidebar {
+  grid-area: sidebar;
+  list-style-type: none; 
+  list-style-position: outside;  
+  display: inline-block;  
+  position: sticky;
+  left: 0;
+  z-index: 2;  
+  background-color: #FFF;
+  padding-left: 5px;
+}
+
+.legend {
+  grid-area: legend;
+  padding: 5px 5px 5px 10px; 
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background-color: #FFF;
+}
+
+.main-grid {
+  grid-area: main-grid;
+}
+
+.header-grid {
+  display: grid;
+  grid-template-columns: repeat(${noOfYears}, ${showMonth ? '150px': '35px'} );
+  grid-column-gap: 0px;
+  padding: 5px;
+}
+
+.header-grid ul {
+  list-style-type: none; 
+  margin: 0;
+  padding: 0;
+}
+
+.header-grid li {
+  display: inline-block;
+}
+
+.sidebar-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 150px);
+  grid-column-gap: 0px;
+  padding: 5px;
+}
+
+.sidebar-grid ul {
+  list-style-type: none; 
+  margin: 0;
+  padding: 0 0 3px 0;
+  line-height: 18px;
+}
+
+.sidebar-grid li {
+  display: inline-block;
+
+}
+
+.sidebar-grid li:hover { cursor: pointer; }
+
+.data-grid {
+  display: grid;
+  grid-template-columns: repeat(${noOfYears}, ${showMonth ? '150px': '35px'});
+  grid-column-gap: 0;
+  padding: 5px;
+  grid-auto-columns: 3px;  
+}
+
+.year-grid {
+  --square-width: 3px;
+  --square-height: 18px;
+  --square-gap-width: 3px;
+  --square-gap-height: 5px;
+  display: grid;
+  grid-template-columns: repeat(12, ${showMonth ? '9px': '32px'});
+  padding: 0 0 3px 0;
+  list-style-type: none;
+  margin: 0;
+  grid-gap: var(--square-gap-height) var(--square-gap-width);
+  grid-template-rows: repeat(1, var(--square-height));
+}
+
+.year-grid li {
+  background-color: #ebedf0;
+  display: inline-block;
+  position: relative;
+  border: 1px solid #A9A9A9;  
+}
+
+.year-grid li[data-level="1"] {
+  background-color: ${theme.primary};
+  cursor: pointer;
+}
+
+.year-grid li[data-level="2"] {
+  background-color: ${theme.primary};
+  cursor: pointer;
+}
+
+.year-grid li[data-level="3"] {
+  background-color: ${theme.primary};
+  cursor: pointer;
+}
+
+.year-grid li .tooltiptext {
+  visibility: hidden;
+  filter: alpha(opacity=80);
+  opacity: 0.8;
+  width: 90px;
+  background-color: ${theme.primary};
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  margin-top: -28px;
+}
+
+.year-grid li:hover .tooltiptext {
+  visibility: visible;
+} 
+
 `;
 
 export default {
