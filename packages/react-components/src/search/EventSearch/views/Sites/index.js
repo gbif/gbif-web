@@ -10,7 +10,9 @@ import {useUpdateEffect} from "react-use";
 import {DetailsDrawer, Skeleton} from "../../../../components";
 import {SiteSidebar} from "../../../../entities/SiteSidebar/SiteSidebar";
 import {useDialogState} from "reakit/Dialog";
-import * as style from "../List/style";
+import {ResultsHeader} from "../../../ResultsHeader";
+import {Button} from "../../../../components";
+import {css} from "@emotion/react";
 
 const QUERY = `
 query list( $predicate: Predicate, $size: Int = 20, $from: Int = 0){
@@ -38,11 +40,40 @@ query list( $predicate: Predicate, $size: Int = 20, $from: Int = 0){
 `;
 
 function SitesSkeleton() {
-  return <div css={style.datasetSkeleton}>
-    <Skeleton width="random" style={{ height: '1.5em' }} />
-    <Skeleton width="random" />
-    <Skeleton width="random" />
-    <Skeleton width="random" />
+  return <div style={{
+      flex: "1 1 100%",
+      display: "flex",
+      height: "100%",
+      maxHeight: "100vh",
+      flexDirection: "column"
+    }}>
+      <ResultsHeader>
+          <Button look="primaryOutline" css={css`margin-left: 30px; font-size: 11px;`}>
+            Show year / month
+          </Button>
+      </ResultsHeader>    
+
+      
+      <div className={`grid-container`}>
+        <div className={`grid`}>
+          <div className={`legend`}>
+            <Skeleton width="random" />
+          </div>
+          <div className={`header`}>
+            <Skeleton width="random" style={{ height: '1.5em' }} />
+          </div>
+          <div className={`sideBar`}>
+            <Skeleton width="random" />
+            <Skeleton width="random" />
+            <Skeleton width="random" />
+          </div>
+          <div className={`main-grid`}>
+            <Skeleton width="random" />
+            <Skeleton width="random" />
+            <Skeleton width="random" />
+          </div>
+        </div>
+    </div>
   </div>
 }
 
@@ -52,8 +83,8 @@ function Sites() {
   const currentFilterContext = useContext(FilterContext);
   const { rootPredicate, predicateConfig } = useContext(SearchContext);
   const { data, error, loading, load } = useQuery(QUERY, { lazyLoad: true, throwNetworkErrors: true, queryTag: 'sites' });
-
   const [activeSiteID, setActiveSiteID] = useState(false);
+  const [showMonth, setShowMonth] = useState(true);
 
   const dialog = useDialogState({ animated: true, modal: false });
 
@@ -110,6 +141,15 @@ function Sites() {
     setOffset(undefined);
   });
 
+  const toggleMonthYearDisplay = useCallback(() => {
+    setShowMonth(!showMonth);
+  });
+
+  const closeSidebar = () => {
+    setActiveSiteID(null); 
+    dialog.setVisible(false);
+  }
+
   if (error) {
     return <div>Failed to fetch data</div>
   }
@@ -122,21 +162,34 @@ function Sites() {
           siteID={activeSiteID}
           defaultTab='details'
           style={{ maxWidth: '100%', width: 700, height: '100%' }}
-          onCloseRequest={() => dialog.setVisible(false)}
+          onCloseRequest={() => closeSidebar()}
       />
     </DetailsDrawer>
-    <SitesTable
-        error={error}
-        loading={loading}
-        next={next}
-        prev={prev}
-        first={first}
-        from={offset}
-        size={limit}
-        results={data}
-        total={data?.results?.temporal?.locationID?.cardinality}
-        setSiteIDCallback={ setActiveSiteID }
-    />
+    <div style={{
+      flex: "1 1 100%",
+      display: "flex",
+      height: "100%",
+      maxHeight: "100vh",
+      flexDirection: "column"
+    }}>
+      <ResultsHeader loading={loading} total={data?.results?.temporal?.locationID?.cardinality}>
+          <Button onClick={() => toggleMonthYearDisplay()} look="primaryOutline" css={css`margin-left: 30px; font-size: 11px;`}>
+            Show year / month
+          </Button>
+      </ResultsHeader>
+      <SitesTable
+          error={error}
+          loading={loading}
+          next={next}
+          prev={prev}
+          first={first}
+          from={offset}
+          size={limit}
+          results={data}
+          setSiteIDCallback={ setActiveSiteID }
+          showMonth={showMonth}
+      />
+    </div>
   </>
 }
 
