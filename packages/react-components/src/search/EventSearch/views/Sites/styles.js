@@ -41,7 +41,7 @@ export const sites = ({ noOfSites=10, noOfYears=10, showMonth, theme, ...props }
 
 .legend {
   grid-area: legend;
-  padding: 5px 5px 5px 10px; 
+  padding: 15px 5px 5px 10px; 
   position: sticky;
   left: 0;
   z-index: 2;
@@ -54,9 +54,9 @@ export const sites = ({ noOfSites=10, noOfYears=10, showMonth, theme, ...props }
 
 .header-grid {
   display: grid;
-  grid-template-columns: repeat(${noOfYears}, ${showMonth ? '150px': '35px'} );
+  grid-template-columns: repeat(${noOfYears}, ${showMonth ? '150px': '16px'} );
   grid-column-gap: 0px;
-  padding: 5px;
+  padding: 15px 5px 5px 5px;
 }
 
 .header-grid ul {
@@ -67,6 +67,8 @@ export const sites = ({ noOfSites=10, noOfYears=10, showMonth, theme, ...props }
 
 .header-grid li {
   display: inline-block;
+  -webkit-transform: rotate(${showMonth ? '0deg' :  '-60deg'}); 
+  -moz-transform: rotate(${showMonth ? '0deg' :  '-60deg'});   
 }
 
 .sidebar-grid {
@@ -92,7 +94,7 @@ export const sites = ({ noOfSites=10, noOfYears=10, showMonth, theme, ...props }
 
 .data-grid {
   display: grid;
-  grid-template-columns: repeat(${noOfYears}, ${showMonth ? '150px': '35px'});
+  grid-template-columns: repeat(${noOfYears}, ${showMonth ? '150px': '16px'});
   grid-column-gap: 0;
   padding: 5px;
   grid-auto-columns: 3px;  
@@ -102,9 +104,9 @@ export const sites = ({ noOfSites=10, noOfYears=10, showMonth, theme, ...props }
   --square-width: 3px;
   --square-height: 18px;
   --square-gap-width: 3px;
-  --square-gap-height: 5px;
+  --square-gap-height: 5px; 
   display: grid;
-  grid-template-columns: repeat(12, ${showMonth ? '9px': '32px'});
+  grid-template-columns: repeat(12, ${showMonth ? '9px': '14px'});
   padding: 0 0 3px 0;
   list-style-type: none;
   margin: 0;
