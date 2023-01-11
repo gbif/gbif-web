@@ -106,7 +106,7 @@ export const SitesTable = ({ first, prev, next, size, from, results, loading, se
               </div>
              <div className={`sidebar`}>
               <div className={`sidebar-grid`}>   
-                { site_data.map( (obj, i) => <ul><li key={`s_${i}`} onClick={() => { setSiteIDCallback(obj.key); }}>{obj.key}</li></ul>) }
+                { site_data.map( (obj, i) => <ul><li key={`s_${i}`} onClick={() => { setSiteIDCallback({locationID: obj.key}); }}>{obj.key}</li></ul>) }
               </div>
               </div>
               <div className={`main-grid`}>
@@ -133,7 +133,7 @@ export const SitesDataGrid = ({ site_matrix, site_data, years, setSiteIDCallback
                     id={`${site_idx}_${year_idx}_${month_idx}`}
                     key={`${site_idx}_${year_idx}_${month_idx}`}
                     data-level={ month_cell > 0 ? '3': '0'}
-                    onClick={() => { setSiteIDCallback(site_data[site_idx].key); }}
+                    onClick={() => { setSiteIDCallback({locationID: site_data[site_idx].key, year: years[year_idx], month: showMonth ? month_idx + 1 : -1}); }}
                 >
                   <SitesDataGridTooltip month_cell={month_cell} 
                       month_idx={month_idx}

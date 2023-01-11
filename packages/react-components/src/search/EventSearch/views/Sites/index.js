@@ -84,6 +84,9 @@ function Sites() {
   const { rootPredicate, predicateConfig } = useContext(SearchContext);
   const { data, error, loading, load } = useQuery(QUERY, { lazyLoad: true, throwNetworkErrors: true, queryTag: 'sites' });
   const [activeSiteID, setActiveSiteID] = useState(false);
+  const [activeYear, setActiveYear] = useState(false);
+  const [activeMonth, setActiveMonth] = useState(false);
+
   const [showMonth, setShowMonth] = useState(true);
 
   const dialog = useDialogState({ animated: true, modal: false });
@@ -125,6 +128,8 @@ function Sites() {
   useUpdateEffect(() => {
     if (!dialog.visible) {
       setActiveSiteID(null);
+      setActiveYear(null); 
+      setActiveMonth(null);       
     }
   }, [dialog.visible]);
 
@@ -147,8 +152,17 @@ function Sites() {
 
   const closeSidebar = () => {
     setActiveSiteID(null); 
+    setActiveYear(null); 
+    setActiveMonth(null); 
     dialog.setVisible(false);
   }
+
+  const setSiteIDCallback = ({locationID, year, month}) => {
+    setActiveSiteID(locationID);
+    setActiveYear(year);
+    setActiveMonth(month);
+  }
+
 
   if (error) {
     return <div>Failed to fetch data</div>
@@ -160,6 +174,8 @@ function Sites() {
     <DetailsDrawer href={`${activeSiteID}`} dialog={dialog}>
       <SiteSidebar
           siteID={activeSiteID}
+          year={activeYear}
+          month={activeMonth}
           defaultTab='details'
           style={{ maxWidth: '100%', width: 700, height: '100%' }}
           onCloseRequest={() => closeSidebar()}
@@ -186,7 +202,7 @@ function Sites() {
           from={offset}
           size={limit}
           results={data}
-          setSiteIDCallback={ setActiveSiteID }
+          setSiteIDCallback={ setSiteIDCallback }
           showMonth={showMonth}
       />
     </div>
