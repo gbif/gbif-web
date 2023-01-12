@@ -2,56 +2,79 @@ import React, {useContext, useEffect, useState} from "react";
 import styles from './styles';
 import ThemeContext from "../../../../style/themes/ThemeContext";
 import {DataTable} from "../../../../components";
+import {Skeleton} from "../../../../components";
+
+function SitesTableSkeleton() {
+      return <div className={`grid-container`}>
+        <div className={`grid`}>
+          <div className={`legend`}>
+            <Skeleton width="random" />
+          </div>
+          <div className={`header`}>
+            <Skeleton width="random" style={{ height: '1.5em' }} />
+          </div>
+          <div className={`sideBar`}>
+            <Skeleton width="random" />
+            <Skeleton width="random" />
+            <Skeleton width="random" />
+          </div>
+          <div className={`main-grid`}>
+            <Skeleton width="random" />
+            <Skeleton width="random" />
+            <Skeleton width="random" />
+          </div>
+      </div>
+    </div>
+}
 
 export const SitesTable = ({ first, prev, next, size, from, results, loading, setSiteIDCallback, showMonth }) => {
 
   const theme = useContext(ThemeContext);
   const [fixedColumn, setFixed] = useState(true);
   const fixed = fixedColumn;
+  const [siteMatrix, setSiteMatrix] = useState(null);  
+  const [siteData, setSiteData] = useState(null);  
+  const [years, setYears] = useState([]);  
+  const [totalPoints, setTotalPoints] = useState([]);  
 
   Array.range = (start, end) => Array.from({length: (end + 1 - start)}, (v, k) => k + start);
 
-  let site_data = [];
-  let no_of_sites = 0;
-  let no_of_years = 0;
-  let years = [];
-  let no_of_squares_in_row =0;
-  let total_no_points = 0;
+  function renderMatrix(){
 
-  // columns are months by rows are sites,
-  let site_matrix = [];
-
-  const renderMatrix = () => {
+    setYears([]);
+    setSiteMatrix([]);
+    setSiteData([]);
+    setTotalPoints(0);
+    
     let items = results;
     if (items && items.results?.temporal?.locationID?.results){
-      site_data = items.results.temporal.locationID?.results;
-      no_of_sites = site_data.length;
 
+      let site_data = items.results.temporal.locationID?.results;
       let all_years = [];
       site_data.map(obj => obj.breakdown).forEach( breakdown => {
-            breakdown.forEach( yearGroup => {
-              all_years.push(yearGroup.y);
-            })
-          }
+          breakdown.forEach( yearGroup => {
+            all_years.push(yearGroup.y);
+          })
+        }
       )
 
       let earliest_year = Math.min(...all_years);
       let latest_year = Math.max(...all_years);
+      let year_range = [];
       if (earliest_year == latest_year){
-        years = [earliest_year];
+        year_range = [earliest_year];
       } else {
-        years = Array.range(earliest_year, latest_year);
+        year_range = Array.range(earliest_year, latest_year);
       }
 
-      no_of_years = years.length;
-      no_of_squares_in_row = no_of_years * 12;
-      total_no_points = no_of_squares_in_row * no_of_sites;
+      let no_of_squares_in_row = year_range.length * 12;
+      let total_no_points = no_of_squares_in_row * site_data.length;
 
       // build 3d array site_matrix[site][year][month]
-      site_matrix = new Array(no_of_sites);
+      let  site_matrix = new Array(site_data.length);
       for (var i = 0; i < site_matrix.length; i++){
-          var years_arr = new Array(no_of_years);
-          for (var j = 0; j < years_arr.length; j++){
+          var years_arr = new Array(year_range.length);
+          for (var j = 0; j < year_range.length; j++){
              if (showMonth){
               years_arr[j] = new Array(12).fill(0);
              } else {
@@ -63,9 +86,9 @@ export const SitesTable = ({ first, prev, next, size, from, results, loading, se
       
       site_data.forEach( (site, site_index) => {
 
-        //row per site
-        years.forEach( (year, year_idx) => {
-
+        // row per site
+        year_range.forEach( (year, year_idx) => {
+ 
           // get the data for the year
           let yearBreakdown = site.breakdown.filter( breakdown => breakdown.y == year);
           if (yearBreakdown && yearBreakdown.length == 1) {
@@ -81,63 +104,80 @@ export const SitesTable = ({ first, prev, next, size, from, results, loading, se
           }
         })
       })
+
+      setYears(year_range);
+      setSiteMatrix(site_matrix);
+      setSiteData(site_data);
+      setTotalPoints(total_no_points);
     }
   }
 
-  renderMatrix();
+  useEffect(() => {
+    renderMatrix();
+  }, [showMonth]);
 
-  if (no_of_sites == 0){
+
+  if (!results.results.temporal.locationID?.results || results.results.temporal.locationID?.results.length == 0){
     return <><div>No site data available</div></>
   }
 
+  if (!siteMatrix || siteMatrix.length == 0){
+    return <SitesTableSkeleton />
+  }
+
   return <>
-      <DataTable fixedColumn={fixed} {...{ first, prev, next, size, from, total: total_no_points, loading }} style={{ flex: "1 1 auto", height: 100, display: 'flex', flexDirection: 'column' }}>
+      <DataTable fixedColumn={fixed} {...{ first, prev, next, size, from, total: totalPoints, loading }} style={{ flex: "1 1 auto", height: 100, display: 'flex', flexDirection: 'column' }}>
         <tbody>
-        <tr  css={ styles.sites({ noOfSites: no_of_sites, noOfYears: no_of_years, showMonth: showMonth, theme }) }>
-          <td className={`grid-container`}>
-            <div className={`grid`}>
-              <div className={`legend`}> 
-                Site / Year
+          <tr css={ styles.sites({ noOfSites: siteMatrix.length, noOfYears: years.length, showMonth: showMonth, theme }) }>
+            <td className={`grid-container`}>
+              <div className={`grid`}>
+                <div className={`legend`}> 
+                  Site / Year
+                </div>
+                <div className={`header`}>
+                  <div className={`header-grid`}>  
+                    { years.map(obj => <ul><li key={`y_${obj}`}>{obj}</li></ul>) }
+                  </div>                     
+                </div>
+                <div className={`sidebar`}>
+                  <div className={`sidebar-grid`}>   
+                   { siteData.map( (obj, i) => <ul><li key={`s_${i}`} onClick={() => { setSiteIDCallback({locationID: obj.key}); }}>{obj.key}</li></ul>) }
+                  </div>
+                </div>
+                <div className={`main-grid`}>
+                  <SitesDataGrid siteMatrix={siteMatrix} siteData={siteData} years={years} setSiteIDCallback={setSiteIDCallback} showMonth={showMonth} />
+                </div>
               </div>
-              <div className={`header`}>
-                <div className={`header-grid`}>  
-                  { years.map(obj => <ul><li key={`y_${obj}`}>{obj}</li></ul>) }
-                 </div>                     
-              </div>
-             <div className={`sidebar`}>
-              <div className={`sidebar-grid`}>   
-                { site_data.map( (obj, i) => <ul><li key={`s_${i}`} onClick={() => { setSiteIDCallback({locationID: obj.key}); }}>{obj.key}</li></ul>) }
-              </div>
-              </div>
-              <div className={`main-grid`}>
-                <SitesDataGrid site_matrix={site_matrix} site_data={site_data} years={years} setSiteIDCallback={setSiteIDCallback} showMonth={showMonth} />
-              </div>
-            </div>
-          </td>
-        </tr>
+            </td>
+          </tr>
         </tbody>
       </DataTable>
   </>
 }
 
-export const SitesDataGrid = ({ site_matrix, site_data, years, setSiteIDCallback, showMonth }) => {
+
+
+
+export const SitesDataGrid = ({ siteMatrix, siteData, years, setSiteIDCallback, showMonth }) => {
 
   return <div className={`data-grid`}>              
   {
-    site_matrix.map( (site_row, site_idx) => 
-      site_row.map( (year_cell, year_idx) => 
-        <ul className={`year-grid`}>
+    siteMatrix.map( (siteRow, site_idx) => 
+      siteRow.map( (year_cell, year_idx) => 
+        <ul className={`year-grid`} key={`${site_idx}_${year_idx}`}>
           {   
             year_cell.map( (month_cell, month_idx) =>
                 <li className={`${month_idx}_col`}
                     id={`${site_idx}_${year_idx}_${month_idx}`}
                     key={`${site_idx}_${year_idx}_${month_idx}`}
                     data-level={ month_cell > 0 ? '3': '0'}
-                    onClick={() => { setSiteIDCallback({locationID: site_data[site_idx].key, year: years[year_idx], month: showMonth ? month_idx + 1 : -1}); }}
+                    onClick={() => { setSiteIDCallback({locationID: siteData[site_idx].key, year: years[year_idx], month: showMonth ? month_idx + 1 : -1}); }}
                 >
-                  <SitesDataGridTooltip month_cell={month_cell} 
+                  <SitesDataGridTooltip 
+                      key={`${site_idx}_${year_idx}_${month_idx}_tt`}
+                      month_cell={month_cell} 
                       month_idx={month_idx}
-                      site_id={site_data[site_idx].key} 
+                      site_id={siteData[site_idx].key} 
                       year={years[year_idx]} 
                       showMonth={showMonth} />
                 </li>
@@ -156,6 +196,5 @@ export const SitesDataGridTooltip = ({ month_cell, month_idx, site_id, year, sho
   }
   return null;
 }
-
 
 export default SitesTable;

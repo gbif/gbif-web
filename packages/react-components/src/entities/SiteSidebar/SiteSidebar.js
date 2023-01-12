@@ -34,7 +34,6 @@ export function SiteSidebar({
   useEffect(() => {
     if (!loading && location) {
       setTab('details');
-      console.log(location);
     }
   }, [data, loading]);
 
@@ -65,7 +64,7 @@ export function SiteSidebar({
             {!isLoading && <Col style={{ padding: '12px', paddingBottom: 50, overflow: 'auto' }} grow>
               <h2>Site: {siteID}</h2>
               <TemporalDisplay year={year} month={month} />
-              <Group label={"Site location"}>
+              <Group label={"eventDetails.siteLocation"}>
                 <Properties css={css.properties} breakpoint={800}>
                   <PlainTextField term={{ simpleName: "locality", value: location?.location?.locality }} />
                   <PlainTextField term={{ simpleName: "stateProvince", value: location?.location?.stateProvince }} />
@@ -75,7 +74,7 @@ export function SiteSidebar({
                   <PlainTextField term={{ simpleName: "decimalLongitude", value: location?.location?.coordinates?.lon }} />
                 </Properties>
               </Group>
-              <Group label={"Map of site location"}>
+              <Group label={"eventDetails.map"}>
                 <Map latitude={location?.location?.coordinates?.lat} longitude={location?.location?.coordinates?.lon} />
               </Group>
               <Summary locationID={siteID} year={year} month={month} />

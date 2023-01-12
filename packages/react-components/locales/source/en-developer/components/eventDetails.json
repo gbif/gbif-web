@@ -14,6 +14,7 @@
   "eventTypeHierarchyJoined": "Event type hierarchy",
   "eventHierarchyJoined": "Event hierarchy",
   "map": "Map of location",
+  "siteLocation": "Site location",
   "info": {
     "original": "Original",
     "excluded": "Excluded",

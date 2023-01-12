@@ -17,6 +17,13 @@ export const sites = ({ noOfSites=10, noOfYears=10, showMonth, theme, ...props }
 
 .header {
   grid-area: header;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 5;    
+  align-self: start;
+  background-color: #FFF;  
+  padding-bottom: 5px; 
 }
 
 .header ul {
@@ -43,9 +50,11 @@ export const sites = ({ noOfSites=10, noOfYears=10, showMonth, theme, ...props }
   grid-area: legend;
   padding: 15px 5px 5px 10px; 
   position: sticky;
+  top: 0;
   left: 0;
-  z-index: 2;
+  z-index: 6;
   background-color: #FFF;
+  align-self: start;
 }
 
 .main-grid {
@@ -148,7 +157,7 @@ export const sites = ({ noOfSites=10, noOfYears=10, showMonth, theme, ...props }
   padding: 5px 0;
   position: absolute;
   z-index: 1;
-  margin-top: -28px;
+  margin-top: -48px;
 }
 
 .year-grid li:hover .tooltiptext {
