@@ -71,17 +71,17 @@ export function IconFeatures({
     {countryCode && <div><FaGlobeAfrica />{!iconsOnly && <span><span>{locality ? locality + ', ' :''}</span><span><FormattedMessage id={`enums.countryCode.${countryCode}`} />
     </span></span>}</div>}
     {isSpecimen && <div><MdLabel />{!iconsOnly && <span><FormattedMessage id={`enums.basisOfRecord.${basisOfRecord}`} /></span>}</div>}
+    {typeStatus && <div><MdStar />{!iconsOnly && <span style={typeStyle}>
+      <FormattedMessage id={`enums.typeStatus.${typeStatus}`} />
+    </span>}</div>}
+    {isSequenced && <div><GiDna1 />{!iconsOnly && <span><FormattedMessage id="occurrenceDetails.features.isSequenced" /></span>}</div>}
     {stillImageCount > 0 && <div>
       {stillImageCount > 1 ? <MdPhotoLibrary /> : <MdImage />}
       {!iconsOnly && <span><FormattedMessage id="counts.nImages" values={{ total: stillImageCount }} /></span>}
     </div>}
     {movingImageCount > 0 && <div><MdVideocam />{!iconsOnly && <span><FormattedMessage id="counts.nVideos" values={{ total: movingImageCount }} /></span>}</div>}
     {soundCount > 0 && <div><AiFillAudio />{!iconsOnly && <span><FormattedMessage id="counts.nAudioFiles" values={{ total: soundCount }} /></span>}</div>}
-    {isSequenced && <div><GiDna1 />{!iconsOnly && <span><FormattedMessage id="occurrenceDetails.features.isSequenced" /></span>}</div>}
     {isTreament && <div><MdInsertDriveFile />{!iconsOnly && <span><FormattedMessage id="occurrenceDetails.features.isTreatment" /></span>}</div>}
-    {typeStatus && <div><MdStar />{!iconsOnly && <span style={typeStyle}>
-      <FormattedMessage id={`enums.typeStatus.${typeStatus}`} />
-    </span>}</div>}
     {isSamplingEvent && <div><MdGridOn />{!iconsOnly && <span><FormattedMessage id="occurrenceDetails.features.isSamplingEvent" /></span>}</div>}
     {isClustered && <div><ClusterIcon />{!iconsOnly && <span><FormattedMessage id="occurrenceDetails.features.isClustered" /></span>}</div>}
     {issueCount > 0 && <div><BsLightningFill style={{ color: 'orange' }} />{!iconsOnly && <span><FormattedMessage id="counts.nQualityFlags" values={{ total: issueCount }} /></span>}</div>}

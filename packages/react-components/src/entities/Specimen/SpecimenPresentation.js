@@ -8,6 +8,7 @@ import { Description as About } from './about/Description';
 // import { People } from './people/People';
 import { FormattedMessage } from 'react-intl';
 import { join } from '../../utils/util';
+import { Core } from './core/Core';
 
 // import * as styles from './styles';
 import { MdHelp } from 'react-icons/md';
@@ -30,6 +31,10 @@ import { Term, Value } from '../../components/Properties/Properties';
 import { DataTable } from './DataTable';
 import { Identifications } from './Identifications';
 import { Media } from './Media';
+import { Material } from './Material';
+import { Assertions } from './Assertions';
+import { Header } from './Header';
+import { GiWhiteBook } from 'react-icons/gi';
 const { TabList, RouterTab, Tab } = Tabs;
 
 export function SpecimenPresentation({
@@ -40,7 +45,7 @@ export function SpecimenPresentation({
   ...props
 }) {
   const hideSideBar = useBelow(1100);
-  // let { url, path } = useRouteMatch();
+  let { url, path } = useRouteMatch();
 
   if (loading || !data) return <PageLoader />
 
@@ -59,102 +64,36 @@ export function SpecimenPresentation({
       </>}>
       <div style={{ padding: '10px' }}>
         <Classification>
-          <span>Denver Museum of Natural & Science</span>
+          <span>Denver Museum of Nature & Science</span>
+          <span>Mammals</span>
           <span>11098</span>
         </Classification>
       </div>
     </DataHeader>
+    <Header>
+      <TabList style={{ marginTop: '12px', borderTop: '1px solid #ddd' }}>
+        <RouterTab to={url} exact label="Specimen" />
+        <RouterTab to={join(url, 'timeline')} label="Timeline" />
+        <RouterTab to={join(url, 'agents')} label="Agents" />
+      </TabList>
+    </Header>
 
-    {/* <HeaderWrapper>
-      <Eyebrow prefix="Specimen" />
-      <Headline css={css`display: inline; margin-right: 12px;`}>{specimen.name}</Headline>
-    </HeaderWrapper> */}
-
-    <div css={css`padding: 12px; width: 1200px; max-width: 100%; margin: auto;`}>
-
-      <div css={css`display: flex; align-items: center; margin-bottom: 8px;`}>
-        <label css={css`margin-inline-end: 8px;`}>
-          <Toggle /> <FormattedMessage id="specimen.extendedView" defaultMessage="Extended view" />
-        </label>
-        <MdHelp />
-      </div>
-
-      <Media css={css`margin-bottom: 24px;`} />
-      
-      <Card padded={false} css={css`margin-bottom: 24px;`}>
-        <div css={css`padding: 12px 24px;`}>
-          <CardHeader2>Agents</CardHeader2>
-        </div>
-        <DataTable></DataTable>
-      </Card>
-
-      <Identifications css={css`margin-bottom: 24px;`} />
-
-      <Card padded={false} css={css`
-      display: flex;
-    `}>
-        <div css={css`
-        flex: 1 1 auto;
-      `}>
-          <div css={css`
-          border-bottom: 1px solid #ddd;
-          padding: 12px 24px;
-        `}>
-            DMNS:Mamm:101198
-          </div>
-          <div css={css`
-            padding: 12px 24px;
-          `}>
-            <CardHeader2>Tamias quadrivittatus</CardHeader2>
-            <Properties>
-              <Term>Institution</Term>
-              <Value>Denver Museum of Nature & Science</Value>
-
-              <Term>Collection</Term>
-              <Value>Mammals</Value>
-
-              <Term>GADM location</Term>
-              <Value>
-                <Classification>
-                  <span>United States</span>
-                  <span>Colorado</span>
-                  <span>Saguache</span>
-                </Classification>
-              </Value>
-
-              <Term>Collection date</Term>
-              <Value>
-                <FormattedDate value={"2007-07-13"}
-                  year="numeric"
-                  month="long"
-                  day="2-digit" />
-              </Value>
-
-              <Term>Agents</Term>
-              <Value>{['John R. Demboski', 'Roberta Timons'].join(' ● ')} + 5 others</Value>
-
-              <Term>Preparations</Term>
-              <Value>{['liver', 'skin', 'study', 'skeleton', 'heart', 'kidney', 'ectoparasite'].join(' ● ')}</Value>
-
-              <Term>Relations</Term>
-              <Value>
-                <a href="#relations">3 parasites</a> ● <a href="#relations">1 DNA sequenced record</a>
-              </Value>
-            </Properties>
-          </div>
-        </div>
-        <div css={css`
-        flex: 0 0 auto;
-        width: 300px;
-        background: seagreen;
-        color: white;
-        min-height: 200px;
-      `}>
-          Map goes here
-        </div>
-      </Card>
-    </div>
-
-
+    <section>
+      <Switch>
+        <Route path={join(path, 'timeline')}>
+          <ContentWrapper>
+            <h1>Timeline</h1>
+          </ContentWrapper>
+        </Route>
+        <Route path={path}>
+          <ContentWrapper>
+            {/* <Core specimen={data.specimen} /> */}
+            <pre>
+              {JSON.stringify(data, null, 2)}
+            </pre>
+          </ContentWrapper>
+        </Route>
+      </Switch>
+    </section>
   </>
 };

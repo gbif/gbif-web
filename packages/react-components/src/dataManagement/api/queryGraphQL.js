@@ -3,6 +3,8 @@ import axios from 'axios';
 import { QueryError } from './QueryError';
 import Queue from "queue-promise";
 
+const alwaysRetryWithPost = true; console.warn('Temporary hack for specimen page, should be removed before putting into master');
+
 const queues = {};
 
 let CancelToken = axios.CancelToken;
@@ -36,7 +38,7 @@ function query(query, { variables, client }, {name: queueName, concurrent = 1, i
           const unknownVariablesId = error?.response?.data?.unknownVariablesId;
           if (axios.isCancel(error)) {
             resolve(canceledResponse(error.message));
-          } else if (unknownQueryId || unknownVariablesId) {
+          } else if (unknownQueryId || unknownVariablesId || alwaysRetryWithPost) {
             axios.post(graphqlEndpoint, { query, variables },
               {
                 headers,

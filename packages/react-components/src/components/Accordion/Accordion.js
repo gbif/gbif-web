@@ -25,7 +25,7 @@ function AccordionControlled({
       }}>
         <div>
           <div style={{flex: '1 1 auto'}}>{summary}</div>
-          <div style={{flex: '0 0 auto'}} css={open ? styles.arrowUp({}) : styles.arrowDown({})}></div>
+          <div style={{flex: '0 0 auto'}} css={open ? styles.arrowDown({}) : styles.arrowUp({})}></div>
         </div>
       </summary>
     <div css={styles.content({ theme })}>
