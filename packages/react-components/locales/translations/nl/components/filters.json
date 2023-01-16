@@ -5,7 +5,7 @@
     "description": ""
   },
   "locationId": {
-    "name": "",
+    "name": "Locatie ID",
     "count": "",
     "description": ""
   },
@@ -226,7 +226,7 @@
     "description": ""
   },
   "eventID": {
-    "name": "",
+    "name": "Evenement ID",
     "count": "",
     "description": ""
   },
