@@ -2,7 +2,7 @@
 import {css, jsx} from '@emotion/react';
 import React, { useState, useContext } from 'react';
 import ThemeContext from '../../style/themes/ThemeContext';
-import { withFilter } from '../../widgets/Filter/state';
+import {FilterContext, withFilter} from '../../widgets/Filter/state';
 import { FormattedMessage } from 'react-intl';
 import { cssLayout, cssNavBar, cssViewArea, cssFilter } from './Layout.styles';
 import { Button, Tabs, DataHeader, NavBar, NavItem, Row, Col } from '../../components'

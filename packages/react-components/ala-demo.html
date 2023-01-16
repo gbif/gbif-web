@@ -187,7 +187,7 @@
             >
           </button>
           <a
-                  href="https://auth.ala.org.au/cas/login?service=https://collections.ala.org.au/public/showDataResource/dr14140"
+                  href="https://auth.ala.org.au/cas/login?service=https://events.ala.org.au"
                   role="button"
                   class="account-mobile hidden-md hidden-lg loginBtn mobile-login-btn"
                   title="Login button"
@@ -273,16 +273,14 @@
             >Profile</a
             >
             <a
-                    href="https://auth.ala.org.au/cas/login?service=https://collections.ala.org.au/public/showDataResource/dr14140"
+                    href="https://auth.ala.org.au/cas/login"
                     class="btn btn-primary btn-sm loginBtn"
-            >Login</a
-            >
+            >Login</a>
             <a
                     href="https://collections.ala.org.au/logout/logout"
                     class="btn btn-outline-white btn-sm logoutBtn"
                     role="button"
-            >Logout</a
-            >
+            >Logout</a>
           </div>
         </div>
         <div class="main-nav-wrapper">
@@ -910,9 +908,48 @@
     const authManager = new oidc.UserManager({
       client_id: 'events-test-oidc-auth-prod',
       authority: 'https://auth.ala.org.au/cas/oidc',
-      redirect_uri:
-              'https://events-test.ala.org.au/?view=DOWNLOAD',
-      userStore: new oidc.WebStorageStateStore({ store: localStorage })
+      userStore: new oidc.WebStorageStateStore({ store: localStorage }),
+      redirect_uri:'https://events-test.ala.org.au/?view=DOWNLOAD'
+    });
+
+    // Redirect to the previous page after login
+    authManager.events.addUserLoaded(function (loadedUser) {
+      const redirectInfo = localStorage.getItem("redirectUri")
+      if (redirectInfo) {
+        // If we've been redirected from successful authentication
+        const {search} = window.location;
+        if (search.includes('code=') && search.includes('state=')) {
+          const srcParams = new URLSearchParams(window.location.search);
+          localStorage.removeItem("redirectUri")
+          const redirectDetail = JSON.parse(redirectInfo)
+          const now = new Date()
+          // compare the expiry time of the item with the current time
+          if (now.getTime() < redirectDetail.expiry) {
+            if (redirectDetail?.url) {
+              let destUrl = new URL(redirectDetail?.url);
+              destUrl.searchParams.append('code', srcParams.get('code'));
+              destUrl.searchParams.append('state', srcParams.get('state'));
+              window.location.replace(destUrl);
+            }
+          }
+        }
+      }
+    });
+
+    authManager.events.addUserUnloaded(function () {
+      const redirectInfo = localStorage.getItem("redirectUri")
+      if (redirectInfo) {
+        localStorage.removeItem("redirectUri")
+        const redirectDetail = JSON.parse(redirectInfo)
+        const now = new Date()
+        // compare the expiry time of the item with the current time
+        if (now.getTime() < redirectDetail.expiry) {
+          if (redirectDetail?.url) {
+            let destUrl = new URL(redirectDetail?.url);
+            window.location.replace(destUrl);
+          }
+        }
+      }
     });
 
     // Hacky fix for ALA header authentication
@@ -931,13 +968,24 @@
 
       loginBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        authManager.signinRedirect({ redirect_uri: location.href });
+        storeRedirectUri();
+        authManager.signinRedirect();
       });
 
       logoutBtn.addEventListener('click', (e) => {
         e.preventDefault();
+        storeRedirectUri();
         authManager.signoutRedirect();
       });
+    };
+
+    function storeRedirectUri() {
+      const now = new Date()
+      const redirectUri = {
+        url: window.location.href,
+        expiry: now.getTime() + 300000,
+      }
+      localStorage.setItem("redirectUri", JSON.stringify(redirectUri))
     }
 
     // Auth initialization code
@@ -1036,7 +1084,15 @@
         },
       },
       auth: {
-        signIn: () => authManager.signinRedirect({ redirect_uri: location.href }),
+        signIn: () => {
+          const now = new Date()
+          const redirectUri = {
+            url: window.location.href,
+            expiry: now.getTime() + 300000,
+          }
+          localStorage.setItem("redirectUri", JSON.stringify(redirectUri))
+          authManager.signinRedirect()
+        },
         signOut: () => authManager.signoutRedirect(),
         getUser: async () => await authManager.getUser(),
       },
@@ -1107,8 +1163,7 @@
                     href="https://collections.ala.org.au/logout/logout"
                     class="btn btn-outline-white btn-sm logoutBtn"
                     role="button"
-            >Logout</a
-            >
+            >Logout</a>
             <ul class="social">
               <li>
                 <a
