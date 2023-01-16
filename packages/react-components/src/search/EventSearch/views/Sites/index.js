@@ -48,7 +48,7 @@ function SitesSkeleton() {
       flexDirection: "column"
     }}>
       <ResultsHeader>
-          <Button look="primaryOutline" css={css`margin-left: 30px; font-size: 11px;`}>
+          <Button look="primaryOutline" css={css`margin-left: 30px; font-size: 11px;`} disabled>
             Show year / month
           </Button>
       </ResultsHeader>    

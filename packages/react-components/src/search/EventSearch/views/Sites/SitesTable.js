@@ -6,20 +6,20 @@ import {Skeleton} from "../../../../components";
 import { FormattedMessage } from "react-intl";
 
 function SitesTableSkeleton() {
-      return <div className={`grid-container`}>
-        <div className={`grid`}>
-          <div className={`legend`}>
+      return <div className="grid-container">
+        <div className="grid">
+          <div className="legend">
             <Skeleton width="random" />
           </div>
-          <div className={`header`}>
+          <div className="header">
             <Skeleton width="random" style={{ height: '1.5em' }} />
           </div>
-          <div className={`sideBar`}>
+          <div className="sideBar">
             <Skeleton width="random" />
             <Skeleton width="random" />
             <Skeleton width="random" />
           </div>
-          <div className={`main-grid`}>
+          <div className="main-grid">
             <Skeleton width="random" />
             <Skeleton width="random" />
             <Skeleton width="random" />
@@ -130,22 +130,22 @@ export const SitesTable = ({ first, prev, next, size, from, results, loading, se
       <DataTable fixedColumn={fixed} {...{ first, prev, next, size, from, total: totalPoints, loading }} style={{ flex: "1 1 auto", height: 100, display: 'flex', flexDirection: 'column' }}>
         <tbody>
           <tr css={ styles.sites({ noOfSites: siteMatrix.length, noOfYears: years.length, showMonth: showMonth, theme }) }>
-            <td className={`grid-container`}>
-              <div className={`grid`}>
-                <div className={`legend`}> 
+            <td className="grid-container">
+              <div className="grid">
+                <div className="legend"> 
                   <FormattedMessage id="eventDetails.siteTableLegend"/>
                 </div>
-                <div className={`header`}>
-                  <div className={`header-grid`}>  
+                <div className="header">
+                  <div className="header-grid">  
                     { years.map(obj => <ul><li key={`y_${obj}`}>{obj}</li></ul>) }
                   </div>                     
                 </div>
-                <div className={`sidebar`}>
-                  <div className={`sidebar-grid`}>   
+                <div className="sideBar">
+                  <div className="sidebar-grid">   
                    { siteData.map( (obj, i) => <ul><li key={`s_${i}`} onClick={() => { setSiteIDCallback({locationID: obj.key}); }}>{obj.key}</li></ul>) }
                   </div>
                 </div>
-                <div className={`main-grid`}>
+                <div className="main-grid">
                   <SitesDataGrid siteMatrix={siteMatrix} siteData={siteData} years={years} setSiteIDCallback={setSiteIDCallback} showMonth={showMonth} />
                 </div>
               </div>
@@ -158,11 +158,11 @@ export const SitesTable = ({ first, prev, next, size, from, results, loading, se
 
 export const SitesDataGrid = ({ siteMatrix, siteData, years, setSiteIDCallback, showMonth }) => {
 
-  return <div className={`data-grid`}>              
+  return <div className="data-grid">              
   {
     siteMatrix.map( (siteRow, site_idx) => 
       siteRow.map( (year_cell, year_idx) => 
-        <ul className={`year-grid`} key={`${site_idx}_${year_idx}`}>
+        <ul className="year-grid" key={`${site_idx}_${year_idx}`}>
           {   
             year_cell.map( (month_cell, month_idx) =>
                 <li className={`${month_idx}_col`}
@@ -190,8 +190,8 @@ export const SitesDataGrid = ({ siteMatrix, siteData, years, setSiteIDCallback, 
 
 export const SitesDataGridTooltip = ({ month_cell, month_idx, site_id, year, showMonth }) => {
   if (month_cell > 0 ){
-    return <span className={`tooltiptext`}>
-      <FormattedMessage id={"eventDetails.siteTooltip"} 
+    return <span className="tooltiptext">
+      <FormattedMessage id="eventDetails.siteTooltip" 
           values={ {count: month_cell, site: site_id, date: ((showMonth ? ((month_idx + 1) + '/') : '') + year) } }  />
       </span>;  
   }
