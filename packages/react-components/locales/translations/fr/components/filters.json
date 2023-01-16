@@ -227,17 +227,17 @@
   },
   "eventID": {
     "name": "ID de l'événement",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { ID d'événement } other {# IDs d'événement}}",
+    "description": "L'identifiant unique pour l'événement dans l'enregistrement."
   },
   "parentEventId": {
     "name": "ID de l'événement parent",
-    "count": "",
+    "count": "{num, plural, one { ID d'événement } other {# IDs d'événement}}",
     "description": ""
   },
   "locationID": {
     "name": "ID de localisation",
-    "count": "",
+    "count": "{num, plural, one { ID d'événement } other {# IDs d'événement}}",
     "description": ""
   },
   "measurementOrFactTypes": {
