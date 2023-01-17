@@ -75,7 +75,7 @@ export const commonLabels = {
         }
       }
     }`,
-    transform: result => ({title: result.data.eventSearch.documents.results[0].datasetTitle}),
+    transform: result => ({ title: result.data.eventSearch.documents.results[0].datasetTitle }),
   },
   datasetKey: {
     type: 'GQL',
@@ -224,7 +224,21 @@ export const commonLabels = {
   },
   identityFn: {
     type: 'TRANSFORM',
-    transform: ({ id }) => id
+    transform: ({ id }) => id.value || id
   },
+  wildcard: {
+    type: 'CUSTOM',
+    component: ({ id }) => {
+      const value = id?.value || id;
+      const trimmed = value.trim();
+      const displayValue = trimmed.length !== value.length ? `"${value}"` : value;
+
+      if (id.type === 'like' && typeof id.value === 'string') {
+        return <i>{displayValue}</i>;
+      }
+      
+      return displayValue;
+    }
+  }
   // -- Add labels above this line (required by plopfile.js) --
 }

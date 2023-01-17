@@ -64,13 +64,13 @@ export const EventsTable = ({ query, first, prev, next, size, from, results, tot
   }
 
   function addToSearch (eventID) {
-    currentFilterContext.setField('eventID', [eventID], true);
+    currentFilterContext.setField('eventHierarchy', [eventID], true);
     setActiveEventID(null);
     setActiveDatasetKey(null);
   }
 
   function addEventTypeToSearch (eventID, eventType) {
-    currentFilterContext.setField('eventID', [eventID], true);
+    currentFilterContext.setField('eventHierarchy', [eventID], true);
     currentFilterContext.setField('eventType', [eventType], true);
     setActiveEventID(null);
     setActiveDatasetKey(null);
@@ -163,7 +163,7 @@ const getRows = ({ tableConfig, labelMap, results = [], setActiveEventID, setAct
         return <Td noWrap={field.noWrap} key={field.trKey} style={field.value.rightAlign ? { textAlign: 'right' } : {}}>{formattedVal}</Td>;
       }
     );
-    return <tr key={row.eventID} onClick={() => {
+    return <tr key={row.eventID} style={{cursor: 'pointer'}} onClick={() => {
       let selection = window.getSelection();
       if (selection.type !== "Range") {
         setActiveEventID(row.eventID);

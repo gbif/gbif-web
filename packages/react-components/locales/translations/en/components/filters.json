@@ -4,6 +4,11 @@
     "count": "{num, plural, one { DWCA extension } other {# DWCA extensions}}",
     "description": "A short description of the component should be placed here"
   },
+  "locationId": {
+    "name": "Location ID",
+    "count": "",
+    "description": ""
+  },
   "collectionKey": {
     "name": "Collection",
     "count": "{num, plural, one {# collection } other {# collections}}",
@@ -219,6 +224,46 @@
     "name": "Event ID",
     "count": "{num, plural, one { event ID } other {# event IDs}}",
     "description": "The unique identifier for the event in the record."
+  },
+  "eventID": {
+    "name": "Event ID",
+    "count": "{num, plural, one { event ID } other {# event IDs}}",
+    "description": "The unique identifier for the event in the record."
+  },
+  "parentEventId": {
+    "name": "Parent event ID",
+    "count": "{num, plural, one { event ID } other {# event IDs}}",
+    "description": ""
+  },
+  "locationID": {
+    "name": "Location ID",
+    "count": "{num, plural, one { event ID } other {# event IDs}}",
+    "description": ""
+  },
+  "measurementOrFactTypes": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "measurementOrFactCount": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "occurrenceCount": {
+    "name": "Occurrence count",
+    "count": "",
+    "description": ""
+  },
+  "eventType": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "dataStructure": {
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "samplingProtocol": {
     "name": "Sampling protocol",

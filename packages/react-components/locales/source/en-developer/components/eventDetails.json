@@ -14,6 +14,7 @@
   "eventTypeHierarchyJoined": "Event type hierarchy",
   "eventHierarchyJoined": "Event hierarchy",
   "map": "Map of location",
+  "siteLocation": "Site location",
   "info": {
     "original": "Original",
     "excluded": "Excluded",
@@ -33,5 +34,7 @@
     "geologicalContext": "Geological context",
     "other": "Other",
     "measurementsOrFacts": "Measurements"
-  }
+  },
+  "siteTooltip": "{count} events at {site} in {date}",
+  "siteTableLegend" : "Site / Year"
 }

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import ThemeContext from '../../style/themes/ThemeContext';
 import * as css from './styles';
-import { Row, Col, Tabs, Accordion, Properties } from "../../components";
+import { Row, Col, Tabs, Accordion, Properties, Eyebrow } from "../../components";
 import { useQuery } from '../../dataManagement/api';
 import { TabPanel } from "../../components/Tabs/Tabs";
 import { FormattedMessage } from "react-intl";
@@ -14,6 +14,8 @@ const { TabList, Tab, TapSeperator } = Tabs;
 export function SiteSidebar({
   onCloseRequest,
   siteID,
+  year,
+  month,
   className,
   style,
   ...props
@@ -32,7 +34,6 @@ export function SiteSidebar({
   useEffect(() => {
     if (!loading && location) {
       setTab('details');
-      console.log(location);
     }
   }, [data, loading]);
 
@@ -54,35 +55,65 @@ export function SiteSidebar({
         </TabList>
       </Col>
       <Col shrink={false} grow={false} css={css.detailDrawerContent({ theme })} >
-        <TabPanel tabId='details' style={{ height: '100%' }}>
-          <Row direction="column" wrap="nowrap" style={{ maxHeight: '100%', overflow: 'hidden' }}>
-            {isLoading && <Col style={{ padding: '12px', paddingBottom: 50, overflow: 'auto' }} grow>
-              <h2>Site: {siteID} - Loading information...</h2>
-            </Col>}
-            {!isLoading && <Col style={{ padding: '12px', paddingBottom: 50, overflow: 'auto' }} grow>
-              <h2> Site: {siteID} </h2>
-              <Group label={"Site location"}>
-                <Properties css={css.properties} breakpoint={800}>
-                  <PlainTextField term={{ simpleName: "locality", value: location?.location?.locality }} />
-                  <PlainTextField term={{ simpleName: "stateProvince", value: location?.location?.stateProvince }} />
-                  <EnumField term={{ simpleName: "country", value: location?.location?.countryCode }}
-                    label="occurrenceFieldNames.country" getEnum={value => `enums.countryCode.${value}`} />
-                  <PlainTextField term={{ simpleName: "decimalLatitude", value: location?.location?.coordinates?.lat }} />
-                  <PlainTextField term={{ simpleName: "decimalLongitude", value: location?.location?.coordinates?.lon }} />
-                </Properties>
-              </Group>
-              <Group label={"Map of site location"}>
-                <Map latitude={location?.location?.coordinates?.lat} longitude={location?.location?.coordinates?.lon} />
-              </Group>
-              <Summary locationID={siteID} />
-            </Col>
-            }
-          </Row>
-        </TabPanel>
+        {isLoading && (
+          <Col style={{ padding: '12px', paddingBottom: 50, overflow: 'auto' }} grow>
+            <h2>{siteID} - Loading site information...</h2>
+            <TemporalDisplay year={year} month={month} />
+          </Col>
+        )}
+            {!isLoading && (
+              <TabPanel tabId="details" style={{ height: '100%' }}>
+                <Row direction="column" wrap="nowrap" style={{ maxHeight: '100%', overflow: 'hidden' }}>
+                  <Col style={{ paddingBottom: 50, overflow: 'auto' }} grow>
+                    <Row wrap="no-wrap" css={css.header({ theme })}>
+                      <Col grow>
+                        <h1>Site: {siteID}</h1>
+                        <TemporalDisplay year={year} month={month} />
+                      </Col>
+                    </Row>
+                    <Group label={"eventDetails.siteLocation"}>
+                      <Properties css={css.properties} breakpoint={800}>
+                        <PlainTextField term={{ simpleName: "locality", value: location?.location?.locality }} />
+                        <PlainTextField term={{ simpleName: "stateProvince", value: location?.location?.stateProvince }} />
+                        <EnumField term={{ simpleName: "country", value: location?.location?.countryCode }}
+                          label="occurrenceFieldNames.country" getEnum={value => `enums.countryCode.${value}`} />
+                        <PlainTextField term={{ simpleName: "decimalLatitude", value: location?.location?.coordinates?.lat }} />
+                        <PlainTextField term={{ simpleName: "decimalLongitude", value: location?.location?.coordinates?.lon }} />
+                      </Properties>
+                    </Group>
+                    <Group label={"eventDetails.map"}>
+                      <Map latitude={location?.location?.coordinates?.lat} longitude={location?.location?.coordinates?.lon} />
+                    </Group>
+                    <Summary locationID={siteID} year={year} month={month} />
+                  </Col>
+                </Row>
+              </TabPanel>
+            )}
       </Col>
     </Row>
   </Tabs>
 };
+
+export function TemporalDisplay({ year, month }) {
+  if (year && month && month > 0) {
+    return (
+      <Eyebrow 
+        style={{fontSize: '80%'}}
+        prefix={<>Details of activity in <FormattedMessage id={`enums.month.${month}`} defaultMessage={`${month}`} />, {year}</>}
+      />
+    );
+  } else if (year) {
+    return (
+      <Eyebrow 
+        style={{fontSize: '80%'}}
+        prefix={`Details of activity in ${year}`}
+      />
+    );
+  }
+  
+  return null;
+}
+
 
 export function Group({ label, ...props }) {
   return <Accordion

@@ -142,7 +142,7 @@ function Clusters() {
   const size = 30;
   const currentFilterContext = useContext(FilterContext);
   const { rootPredicate, predicateConfig } = useContext(OccurrenceContext);
-  const { data, error, loading, load } = useQuery(OCCURRENCE_CLUSTERS, { lazyLoad: true, throwNetworkErrors: true });
+  const { data, error, loading, load } = useQuery(OCCURRENCE_CLUSTERS, { lazyLoad: true, throwNetworkErrors: true , queryTag: 'clusters' });
 
   useEffect(() => {
     const predicate = {
@@ -242,7 +242,7 @@ function getNodeFromOccurrence(o, isEntry, hasTooManyRelations, rootKey) {
     catalogNumber: o.catalogNumber,
     type: isSpecimen ? 'SPECIMEN' : 'OBSERVATION',
     basisOfRecord: o.basisOfRecord,
-    isType: o.typeStatus,
+    isType: o.typeStatus.length > 0,
     isTreatment: o?.volatile?.features?.isTreament,
     isSequenced: o?.volatile?.features?.isSequenced,
     publishingOrgKey: o.publishingOrgKey,
@@ -323,7 +323,7 @@ function processOccurrence(x, rootKey, nodes, links, isEntry, hasTooManyRelation
   }
 
   // add type nodes
-  if (x?.typeStatus) {
+  if (x?.typeStatus.length > 0) {
     let typeNode = getNodeFromTypeStatus(x);
     nodes.push(typeNode);
     links.push({ source: x.key + '', target: typeNode.name })

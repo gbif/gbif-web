@@ -48,7 +48,7 @@ function Table() {
   const size = 50;
   const currentFilterContext = useContext(FilterContext);
   const { rootPredicate, predicateConfig } = useContext(OccurrenceContext);
-  const { data, error, loading, load } = useQuery(OCCURRENCE_GALLERY, { lazyLoad: true, throwNetworkErrors: true });
+  const { data, error, loading, load } = useQuery(OCCURRENCE_GALLERY, { lazyLoad: true, throwNetworkErrors: true, queryTag: 'gallery' });
 
   const [allData, setAllData] = useState([]);
 

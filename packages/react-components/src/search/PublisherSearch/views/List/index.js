@@ -31,6 +31,7 @@ function List() {
     </div>}
     }
     graphQuery={QUERY} 
+    queryTag='list'
     resultKey='organizationSearch' 
     />
 }

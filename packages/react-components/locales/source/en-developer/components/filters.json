@@ -225,6 +225,11 @@
     "count": "{num, plural, one { event id } other {# event ids}}",
     "description": "The unique identifier for the Event in the record."
   },
+  "eventID": {
+    "name": "Event ID",
+    "count": "{num, plural, one { event id } other {# event ids}}",
+    "description": "The unique identifier for the Event in the record."
+  },  
   "parentEventId": {
     "name": "Parent event ID",
     "count": "{num, plural, one { event id } other {# event ids}}",
