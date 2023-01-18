@@ -23,10 +23,7 @@ export function GraphQLSidebar({
 
   const theme = useContext(ThemeContext);
   const [activeId, setTab] = useState('details');
-
   const [curlCopied, setCurlCopied] = useState(false);
-  const [urlCopied, setUrlCopied] = useState(false);
-
 
   const getIcon = (icon) => {
     switch(icon) {
@@ -60,8 +57,6 @@ export function GraphQLSidebar({
     return '\\n'.repeat(1);
   })
 
-  let fullQuery = {"query":_query, "variables": predicate };
-
   const queryUrl = env.EVENT_GRAPH_API + "?queryId="+queryId + "&strict=true&variables=" + JSON.stringify(predicate);
   const curlUrl = "curl "+env.EVENT_GRAPH_API +" -H '"+env.EVENT_GRAPH_API+"' -H 'Accept-Encoding: gzip, deflate, br' -H 'Content-Type: application/json' -H 'Accept: application/json' " +
       "-H 'Connection: keep-alive' -H 'DNT: 1' " +
@@ -76,18 +71,6 @@ export function GraphQLSidebar({
       navigator.clipboard.writeText(curlUrl)
           .then(() => {
             setCurlCopied(true);
-            setUrlCopied(false);
-          })
-          .catch((error) => { alert( error) })
-    }
-  }
-
-  const copyUrl = (event) => {
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(queryUrl)
-          .then(() => {
-            setCurlCopied(false);
-            setUrlCopied(true);
           })
           .catch((error) => { alert( error) })
     }
@@ -114,14 +97,10 @@ export function GraphQLSidebar({
             <Col align="left">
               <div style={{margin: "12px 0px", padding: "24px", background: "white", overflow: "hidden"}}>
                 <h2>GraphQL Request details</h2>
-                <footer>
-                  <em>GraphQL is a query language for APIs. We can use it to request the exact data we need, and therefore limit the number of requests we need.</em>
-                </footer>
                 <br/>
                 <Button appearance="primaryOutline" onClick={ () => window.open(queryUrl, '_blank', 'noopener,noreferrer') }>
                   Try on GraphQL
                 </Button> &nbsp;
-                <Button appearance="primaryOutline" onClick={copyUrl}>{getIcon(urlCopied)} &nbsp;  Copy GET URL</Button>&nbsp;
                 <Button appearance="primaryOutline" onClick={copyCurlUrl}>{getIcon(curlCopied)} &nbsp;  Copy cURL command</Button>
                 <p/>
 
@@ -133,7 +112,6 @@ export function GraphQLSidebar({
                       <pre>{JSON.stringify(predicate,undefined,2)}</pre>
                     </div>
                   </QueryDetails>
-
               </div>
             </Col>
           </Row>
