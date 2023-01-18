@@ -902,7 +902,8 @@
       authority: 'https://auth.ala.org.au/cas/oidc',
       userStore: new oidc.WebStorageStateStore({ store: localStorage }),
       //The uri must comply with CAS and Api GW audience setting.
-      redirect_uri:'https://events-test.ala.org.au/'
+      redirect_uri:'https://events-test.ala.org.au/',
+      scope: 'oidc profile email'
     });
 
     // Redirect to the previous page after login
@@ -1036,7 +1037,7 @@
     });
 
     var routes = {
-      _Search: {
+      eventSearch: {
         route: '/',
       },
       eventKey: {

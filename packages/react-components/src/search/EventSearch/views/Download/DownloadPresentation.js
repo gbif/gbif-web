@@ -208,8 +208,8 @@ export function DownloadForm ({  hide, dataset, user }) {
         // validate the predicate - is there any filters set ?
         let download = {
           "datasetId": dataset.key,
-          "creator": user.profile.sub,
-          "notificationAddresses": [user.profile.sub],
+          "creator": user.profile.email,
+          "notificationAddresses": [user.profile.email],
           "predicate": predicate,
           "eventQueryUrl": searchUrl.toString()
         }
