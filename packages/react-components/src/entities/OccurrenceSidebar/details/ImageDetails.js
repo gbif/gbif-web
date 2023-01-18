@@ -42,7 +42,7 @@ export function ImageDetails({
                 <FormattedMessage id={`occurrenceFieldNames.${x}`} />
               </Term>
               <Value>
-                <HyperText text={activeImage[x]} />
+                <HyperText text={activeImage[x]} inline />
               </Value>
             </React.Fragment>)}
         </Properties>
