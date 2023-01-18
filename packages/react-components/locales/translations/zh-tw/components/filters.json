@@ -4,6 +4,11 @@
     "count": "",
     "description": ""
   },
+  "locationId": {
+    "name": "地點識別碼",
+    "count": "",
+    "description": ""
+  },
   "collectionKey": {
     "name": "蒐藏集",
     "count": "",
@@ -217,6 +222,46 @@
   },
   "eventId": {
     "name": "事件識別碼",
+    "count": "",
+    "description": ""
+  },
+  "eventID": {
+    "name": "事件識別碼",
+    "count": "",
+    "description": ""
+  },
+  "parentEventId": {
+    "name": "母事件識別碼",
+    "count": "",
+    "description": ""
+  },
+  "locationID": {
+    "name": "地點識別碼",
+    "count": "",
+    "description": ""
+  },
+  "measurementOrFactTypes": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "measurementOrFactCount": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "occurrenceCount": {
+    "name": "出現記錄計數",
+    "count": "",
+    "description": ""
+  },
+  "eventType": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "dataStructure": {
+    "name": "",
     "count": "",
     "description": ""
   },

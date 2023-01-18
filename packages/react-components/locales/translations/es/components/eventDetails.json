@@ -1,0 +1,40 @@
+{
+  "occurrence": "Registro",
+  "event": "Evento",
+  "showAllFields": "Mostrar todos los campos",
+  "morePhotos": "",
+  "about": "Acerca de",
+  "dataset": "Conjunto de datos",
+  "publisher": "Publicador",
+  "institution": "Institución",
+  "institutionGrSciColl": "",
+  "collection": "Colección",
+  "collectionGrSciColl": "",
+  "recordedAndIdentifiedBy": "",
+  "eventTypeHierarchyJoined": "",
+  "eventHierarchyJoined": "",
+  "map": "",
+  "siteLocation": "",
+  "info": {
+    "original": "Original",
+    "excluded": "Excluido",
+    "inferred": "Inferido",
+    "altered": "Alterado"
+  },
+  "groups": {
+    "summary": "Resumen",
+    "record": "Registro",
+    "occurrence": "Registro",
+    "event": "Evento",
+    "identification": "Identificación",
+    "taxon": "Taxón",
+    "location": "Localización/ubicación",
+    "organism": "Organismo",
+    "materialSample": "Muestra de material",
+    "geologicalContext": "Contexto geológico",
+    "other": "Otro",
+    "measurementsOrFacts": ""
+  },
+  "siteTooltip": "",
+  "siteTableLegend": ""
+}

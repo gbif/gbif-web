@@ -4,6 +4,11 @@
     "count": "{num, plural, one { extensão DWCA } other {# extensões DWCA}}",
     "description": "Deve colocar aqui uma breve descrição da componente"
   },
+  "locationId": {
+    "name": "ID da Localização",
+    "count": "",
+    "description": ""
+  },
   "collectionKey": {
     "name": "Coleção",
     "count": "",
@@ -219,6 +224,46 @@
     "name": "ID do evento",
     "count": "{num, plural, one { ID do evento } other {# IDs dos eventos}}",
     "description": "O identificador único para o evento no registo."
+  },
+  "eventID": {
+    "name": "ID do evento",
+    "count": "{num, plural, one { ID do evento } other {# IDs dos eventos}}",
+    "description": "O identificador único para o evento no registo."
+  },
+  "parentEventId": {
+    "name": "ID de evento pai",
+    "count": "{num, plural, one { ID do evento } other {# IDs dos eventos}}",
+    "description": ""
+  },
+  "locationID": {
+    "name": "ID da Localização",
+    "count": "{num, plural, one { ID do evento } other {# IDs dos eventos}}",
+    "description": ""
+  },
+  "measurementOrFactTypes": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "measurementOrFactCount": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "occurrenceCount": {
+    "name": "Número (quantidade) de registos",
+    "count": "",
+    "description": ""
+  },
+  "eventType": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "dataStructure": {
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "samplingProtocol": {
     "name": "Protocolo de amostragem",

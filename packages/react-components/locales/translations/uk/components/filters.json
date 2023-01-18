@@ -4,6 +4,11 @@
     "count": "",
     "description": ""
   },
+  "locationId": {
+    "name": "ID місцезнаходження",
+    "count": "",
+    "description": ""
+  },
   "collectionKey": {
     "name": "Колекція",
     "count": "",
@@ -217,6 +222,46 @@
   },
   "eventId": {
     "name": "ID події",
+    "count": "",
+    "description": ""
+  },
+  "eventID": {
+    "name": "ID події",
+    "count": "",
+    "description": ""
+  },
+  "parentEventId": {
+    "name": "ID батьківської (об'єднуючої) події",
+    "count": "",
+    "description": ""
+  },
+  "locationID": {
+    "name": "ID місцезнаходження",
+    "count": "",
+    "description": ""
+  },
+  "measurementOrFactTypes": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "measurementOrFactCount": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "occurrenceCount": {
+    "name": "Кількість знахідок",
+    "count": "",
+    "description": ""
+  },
+  "eventType": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "dataStructure": {
+    "name": "",
     "count": "",
     "description": ""
   },
