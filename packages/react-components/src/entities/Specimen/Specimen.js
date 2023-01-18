@@ -184,17 +184,17 @@ export function Specimen({
 
         // look up the current identification against the backbone
         const latestName = specimenData.identifications.current.taxa[0].scientificName;
-        const { promise, cancel } = client.get(`https://api.gbif.org/v1/species/match2?name=${latestName}`);
+        let { promise, cancel } = client.get(`https://api.gbif.org/v1/species/match2?name=${latestName}`);
         cList.push(cancel);
         const result = await promise;
         specimenData.identifications.current.taxa[0].gbif = result.data;
 
         //get gbif interpertation of coordinates
-        const { decimalLatitude, decimalLongitude, coordinateUncertaintyInMeters } = get(specimenData.collectionEvent.location.georeference);
-        const { promise2, cancel2 } = client.get(`https://api.gbif.org/v1/geocode/reverse?lat=${decimalLatitude}&lng=${decimalLongitude}&uncertaintyMeters=${coordinateUncertaintyInMeters || 0}`);
-        cList.push(cancel2);
-        const resultLocation = await promise2;
-        specimenData.identifications.current.taxa[0].gbif = resultLocation.data;
+        const { decimalLatitude, decimalLongitude, coordinateUncertaintyInMeters } = get(specimenData, 'collectionEvent.location.georeference');
+        let { promise: promiseGeo, cancel: cancelGeo } = client.get(`https://api.gbif.org/v1/geocode/reverse?lat=${decimalLatitude}&lng=${decimalLongitude}&uncertaintyMeters=${coordinateUncertaintyInMeters || 0}`);
+        cList.push(cancelGeo);
+        const resultLocation = await promiseGeo;
+        specimenData.collectionEvent.location.georeference.gbif = resultLocation.data;
 
         //update value
         setSpecimen(specimenData);
@@ -230,12 +230,45 @@ query($key: String!) {
       disposition
       recordNumber
       associatedReferences
+      institutionCode
+      collectionCode
       
       
-      entityByMaterialEntityId {
-				entityRelationshipsByObjectEntityId {
-        	nodes {
+      coreImages: entityByMaterialEntityId {
+				are:entityRelationshipsByObjectEntityId(condition: {entityRelationshipType: "IMAGE OF"}) {
+        	here:nodes {
           	entityRelationshipType
+            entityBySubjectEntityId {
+              digitalEntityByDigitalEntityId {
+                digitalEntityType
+                accessUri
+                format
+                webStatement
+                license
+                rights
+              }
+            }
+        	}
+				} 
+    	}
+      parts: entityByMaterialEntityId {
+				are:entityRelationshipsByObjectEntityId(condition: {entityRelationshipType: "MATERIAL SAMPLE OF"}) {
+        	here:nodes {
+            material: entityBySubjectEntityId {
+              item: materialEntityByMaterialEntityId {
+                materialEntityId
+                materialEntityType
+                collectionCode
+              }
+              images: digitalEntityByDigitalEntityId {
+                digitalEntityType
+                accessUri
+                format
+                webStatement
+                license
+                rights
+              }
+            }
         	}
 				} 
     	}
@@ -376,6 +409,7 @@ query($key: String!) {
               dateIdentified
               identificationType
               verbatimIdentification
+              typeStatus
               # I would have thought the people identifying would be considered agents?
               identifiedBy
               identifiedById
@@ -432,19 +466,19 @@ function restructure(data) {
   // first extract for catalogItem section
   const catalogItemSource = data?.specimen?.nodes?.[0] || {};
 
-  const { associatedReferences, recordNumber, catalogNumber, otherCatalogNumbers, recordedBy, disposition, associatedSequences, preparations } = catalogItemSource;
+  const { associatedReferences, recordNumber, catalogNumber, otherCatalogNumbers, recordedBy, disposition, associatedSequences, preparations, institutionCode, collectionCode } = catalogItemSource;
   specimen.catalogItem = {
-    associatedReferences, recordNumber, catalogNumber, otherCatalogNumbers, recordedBy, disposition, associatedSequences, preparations
+    associatedReferences, recordNumber, catalogNumber, otherCatalogNumbers, recordedBy, disposition, associatedSequences, preparations, institutionCode, collectionCode
   }
 
   // IDENTIFICATIONS SECTION
   const identificationSource = data?.specimen?.nodes?.[0]?.entityByMaterialEntityId?.identificationEvidencesByEntityId?.nodes;
   let identifications = identificationSource.map(x => {
     const identification = x.identificationByIdentificationId;
-    const { dateIdentified, identificationType, identifiedBy, identifiedById, taxonFormula, verbatimIdentification } = identification;
+    const { dateIdentified, identificationType, identifiedBy, identifiedById, taxonFormula, verbatimIdentification, typeStatus } = identification;
 
     return {
-      dateIdentified, identificationType, identifiedBy, identifiedById, taxonFormula, verbatimIdentification,
+      dateIdentified, identificationType, identifiedBy, identifiedById, taxonFormula, verbatimIdentification, typeStatus,
       taxa: [// I assume it is an array in case the formula requires it
         ...identification?.taxonIdentificationsByIdentificationId?.nodes.map(x => {
           return {
@@ -526,6 +560,17 @@ function restructure(data) {
     georeferenceRemarks: georeferenceSource.georeferenceRemarks,
     preferredSpatialRepresentation: georeferenceSource.preferredSpatialRepresentation,
   }
+
+  const coreImages = get(data, 'specimen.nodes[0].coreImages.are.here', []);
+  // const partImages = get(data, 'specimen.nodes[0].parts.are.here', []);
+  specimen.media = {
+    images: {
+      specimen: coreImages,
+      parts: []
+    },
+    video: {},
+    sound: {},
+  };
 
 
 

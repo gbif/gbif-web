@@ -14,8 +14,7 @@ import { DataHeader, HeaderWrapper, ContentWrapper, Headline, DeletedMessage, Er
 import { OccurrenceCount, Homepage, FeatureList, Location, GenericFeature, GbifCount } from '../../components/IconFeatures/IconFeatures';
 
 export function Header({
-  data,
-  termMap,
+  specimen,
   loading,
   error,
   className,
@@ -24,24 +23,26 @@ export function Header({
 }) {
   const isBelow = useBelow(500);
   const theme = useContext(ThemeContext);
+  if (!specimen || loading) return null;
+
+  const { decimalLatitude, decimalLongitude, gbif } = specimen?.collectionEvent?.location?.georeference;
+  
+  gbif.forEach(x => {
+    if (x.source === 'http://gadm.org/') {
+      x.name = x.title;
+    }
+  });
+  const gadm = {
+    "level0": gbif.find(x => x.type === 'GADM0'),
+    "level1": gbif.find(x => x.type === 'GADM1'),
+    "level2": gbif.find(x => x.type === 'GADM2'),
+    "level3": gbif.find(x => x.type === 'GADM3'),
+  };
   const item = {
-    gadm: {
-      "level0": {
-        "gid": "GRD",
-        "name": "Denmark"
-      },
-      "level1": {
-        "gid": "GRD.4_1",
-        "name": "Syddanmark"
-      },
-      "level2": {
-        "gid": "GRD.4_1",
-        "name": "Kolding"
-      }
-    },
+    gadm,
     globe: {
-      lat: 50,
-      lon: 12
+      lat: Number.parseFloat(decimalLatitude),
+      lon: Number.parseFloat(decimalLongitude)
     }
   };
   return <HeaderWrapper>
@@ -55,10 +56,10 @@ export function Header({
         <div>
           <Eyebrow
             prefix='Catalog number'
-            suffix='C-F-136872' />
+            suffix={specimen?.catalogItem?.catalogNumber} />
 
           <Headline>
-            <i>Cortinarius Koldingensis</i>
+            {specimen.identifications.current.taxa[0].scientificName}
           </Headline>
           {/* <div style={{ marginTop: 8 }}>
             From <Classification style={{display: 'inline'}}>
@@ -85,18 +86,17 @@ export function Header({
                   <FaGlobeAfrica />
                   <div>
                     <GadmClassification gadm={item.gadm} />
-                    <div>Marielund skov</div>
+                    {specimen?.collectionEvent?.location?.locality && <div>{specimen.collectionEvent.location.locality}</div>}
                   </div>
                 </GenericFeature>
               </FeatureList>
 
               <IconFeatures css={features({ theme })}
-                stillImageCount={5}
-                typeStatus={['HOLOTYPE']}
-                basisOfRecord={item.basisOfRecord}
+                stillImageCount={specimen?.media?.images?.specimen?.length}
+                typeStatus={[specimen.identifications.current.typeStatus]}
                 isSequenced={true}
                 isTreament={false}
-                isClustered={true}
+                isClustered={false}
                 isSamplingEvent={false}
               // issueCount={item?.issues?.length}
               // link={termMap.references?.value}

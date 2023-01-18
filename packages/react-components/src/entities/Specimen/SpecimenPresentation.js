@@ -62,15 +62,14 @@ export function SpecimenPresentation({
         <Button look="text">&lt;/ &gt;</Button>
         <Button look="text"><MdHelp /></Button>
       </>}>
-      <div style={{ padding: '10px' }}>
+      {data?.specimen?.catalogItem && <div style={{ padding: '10px' }}>
         <Classification>
-          <span>Denver Museum of Nature & Science</span>
-          <span>Mammals</span>
-          <span>11098</span>
+          <span>{data.specimen.catalogItem.institutionCode}</span>
+          <span>{data.specimen.catalogItem.collectionCode}</span>
         </Classification>
-      </div>
+      </div>}
     </DataHeader>
-    <Header>
+    <Header specimen={data.specimen}>
       <TabList style={{ marginTop: '12px', borderTop: '1px solid #ddd' }}>
         <RouterTab to={url} exact label="Specimen" />
         <RouterTab to={join(url, 'timeline')} label="Timeline" />
