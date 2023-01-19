@@ -33,8 +33,16 @@
     "materialSample": "MaterialSample",
     "geologicalContext": "Geological context",
     "other": "Other",
-    "measurementsOrFacts": "Measurements"
+    "measurementsOrFacts": "Measurements",
+    "methodology": "Methodology",
+    "taxonomicCoverage": "Taxonomic coverage"
   },
   "siteTooltip": "{count} events at {site} in {date}",
-  "siteTableLegend" : "Site / Year"
+  "siteTableLegend" : "Site / Year",
+  "site": "Site: {siteID}",
+  "siteLoading": "Site: {siteID} - loading details",
+  "activityDetails": {
+    "monthYear": "Details of activity in {date, time, ::MMMM::yyyy}",
+    "year": "Details of activity in {date, time, ::yyyy}"
+  }
 }
