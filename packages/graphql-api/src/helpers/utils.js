@@ -71,4 +71,13 @@ function getExcerpt({ strings = [], length = 200 }) {
   };
 }
 
-export { formattedCoordinates, isOccurrenceSequenced, getHtml, getExcerpt };
+// the purpose is to simplify key names that are urls to only take the last part after the slash
+function simplifyUrlObjectKeys(obj) {
+  const keys = Object.keys(obj);
+  const shortenedKeys = keys.map(key => key.substring(key.lastIndexOf('/') + 1));
+  const newObj = {};
+  keys.forEach((k, i) => newObj[shortenedKeys[i]] = obj[k]);
+  return newObj;
+}
+
+export { formattedCoordinates, isOccurrenceSequenced, getHtml, getExcerpt, simplifyUrlObjectKeys };

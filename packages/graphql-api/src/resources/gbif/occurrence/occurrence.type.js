@@ -79,7 +79,7 @@ const typeDef = gql`
     eventID: String
     eventRemarks: String
     eventTime: String
-    extensions: JSON
+    extensions: OccurrenceExtensions
     extent: String
     facts: [JSON]
     family: String
@@ -522,6 +522,32 @@ const typeDef = gql`
     references: String
     rightsHolder: String
     description: String
+  }
+
+  type OccurrenceExtensions {
+    audubon: [JSON]
+    amplification: [JSON]
+    germplasmAccession: [JSON]
+    germplasmMeasurementScore: [JSON]
+    germplasmMeasurementTrait: [JSON]
+    germplasmMeasurementTrial: [JSON]
+    identification: [JSON]
+    identifier: [JSON]
+    image: [JSON]
+    measurementOrFact: [JSON]
+    multimedia: [JSON]
+    reference: [JSON]
+    resourceRelationship: [JSON]
+    cloning: [JSON]
+    gelImage: [JSON]
+    loan: [JSON]
+    materialSample: [JSON]
+    permit: [JSON]
+    preparation: [JSON]
+    preservation: [JSON]
+    extendedMeasurementOrFact: [JSON]
+    chronometricAge: [JSON]
+    dnaDerivedData: [JSON]
   }
 `;
 
