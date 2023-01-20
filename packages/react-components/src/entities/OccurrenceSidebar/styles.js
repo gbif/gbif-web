@@ -162,6 +162,16 @@ export const properties = css`
   font-size: 85%;
 `;
 
+export const extensionProperties = css`
+  ${properties}
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid #eee;
+  &:last-of-type {
+    border: none;
+  }
+`;
+
 export const group = () => css`
   summary {
     background: #f5f5f5;
