@@ -1,9 +1,8 @@
 
 import { jsx, css } from '@emotion/react';
-import React, { useContext, useCallback, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import ThemeContext from '../../style/themes/ThemeContext';
 import { Prose, DataHeader as UnstyledDataHeader, ResourceSearchLink } from '../../components';
-import useBelow from '../../utils/useBelow';
 import * as styles from './styles';
 import { MdChevronLeft } from 'react-icons/md';
 import { FormattedDate as FormatDate, FormattedMessage } from 'react-intl';

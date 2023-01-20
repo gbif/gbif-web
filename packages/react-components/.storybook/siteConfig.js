@@ -14,7 +14,7 @@ const routeConfig = {
     isHref: true,
     url: ({ key }) => {
       return `/?path=/story/entities-collection-page--example&knob-collectionUUID=${key}`;
-    }
+    },
   },
   collectionSearch: {
     // url: () => `/collection/`,
@@ -25,21 +25,21 @@ const routeConfig = {
     route: '/collection/search',
   },
   collectionKeySpecimens: {
-    url: ({ key }) => `/collection/${key}/specimens`
+    url: ({ key }) => `/collection/${key}/specimens`,
   },
 
   institutionKey: {
     isHref: true,
     url: ({ key }) => {
       return `/?path=/story/entities-institution-page--example&knob-institutionUUID=${key}`;
-    }
+    },
   },
   institutionKeySpecimens: {
-    url: ({key}) => `/specimens`,
+    url: ({ key }) => `/specimens`,
     isHref: false,
   },
   institutionKeyCollections: {
-    url: ({key}) => `/collections`,
+    url: ({ key }) => `/collections`,
     isHref: false,
   },
   institutionSearch: {
@@ -58,7 +58,7 @@ const routeConfig = {
       // return `/iframe.html?id=entities-dataset-page--example&viewMode=story&knob-datasetUUID=${key}`;
       return `/?path=/story/entities-dataset-page--example&knob-Choose%20Direction=ltr&knob-Choose%20Theme=gbif&knob-Choose%20locale=en-DK&knob-datasetUUID=${key}`;
     },
-    route: '/'
+    route: '/',
   },
   datasetSearch: {
     // url: () => `/dataset-search/`,
@@ -76,7 +76,7 @@ const routeConfig = {
       // return `/iframe.html?id=entities-publisher-page--example&viewMode=story&knob-publisherUUID=${key}`;
       return `https://www.gbif.org/publisher/${key}`;
     },
-    route: '/publisher/:key'
+    route: '/publisher/:key',
   },
   publisherSearch: {
     // url: () => `/publisher-search/`,
@@ -98,14 +98,29 @@ const routeConfig = {
   eventKey: {
     // url: ({key}) => `/publisher/${key}`,
     // url: ({key, otherIds}) => `${gbifOrg}/dataset/${otherIds.datasetKey}/event/${key}`,
-    url: ({key, otherIds}) => `https://collections.ala.org.au/public/showDataResource/${otherIds.datasetKey}?event=${key}`,
+    url: ({ key, otherIds }) =>
+      `https://collections.ala.org.au/public/showDataResource/${otherIds.datasetKey}?event=${key}`,
     isHref: true,
-    route: '/event/:key'
+    route: '/event/:key',
   },
   eventSearch: {
-    url: ({queryString, basename}) => `${basename ? `/${basename}` : ''}/event/search`,
+    url: ({ queryString, basename }) =>
+      `${basename ? `/${basename}` : ''}/event/search`,
     isHref: true,
-    route: '/publisher/search'
+    route: '/publisher/search',
+  },
+  taxonSearch: {
+    url: ({ queryString }) => {
+      return `/?path=/story/search-ala-taxonsearch--example&viewMode=story`;
+    },
+    isHref: true,
+    route: '/taxon/search',
+  },
+  taxonKey: {
+    isHref: true,
+    url: ({ key }) => {
+      return `/?path=/story/entities-ala-taxon-page--example&knob-taxonUUID=${key}`;
+    },
   },
   taxonKey: {
     // url: ({ key }) => `https://gbif.org/species/${key}`,
@@ -126,7 +141,7 @@ export const siteConfig = {
   apiKeys: {
     mapbox: env._FOR_STORYBOOK_BUT_PUBLIC?.apiKeys?.mapbox,
     bing: 'need to make a call to register',
-    maptiler: env._FOR_STORYBOOK_BUT_PUBLIC?.apiKeys?.maptiler
+    maptiler: env._FOR_STORYBOOK_BUT_PUBLIC?.apiKeys?.maptiler,
   },
   maps: {
     // locale: 'ja',
@@ -136,7 +151,7 @@ export const siteConfig = {
       ARCTIC: ['NATURAL', 'BRIGHT'],
       PLATE_CAREE: ['NATURAL', 'BRIGHT', 'DARK'],
       MERCATOR: ['NATURAL', 'BRIGHT', 'SATELLITE', 'DARK'],
-      ANTARCTIC: ['NATURAL', 'BRIGHT', 'DARK']
+      ANTARCTIC: ['NATURAL', 'BRIGHT', 'DARK'],
     },
     // addMapStyles: function ({ mapStyleServer, language, pixelRatio, apiKeys, mapComponents }) {
     //   return {
@@ -156,5 +171,5 @@ export const siteConfig = {
     //     NATURAL: 'NATURAL_HILLSHADE_MERCATOR'
     //   }
     // }
-  }
+  },
 };
