@@ -122,12 +122,6 @@ const routeConfig = {
       return `/?path=/story/entities-ala-taxon-page--example&knob-taxonUUID=${key}`;
     },
   },
-  taxonKey: {
-    // url: ({ key }) => `https://gbif.org/species/${key}`,
-    url: ({ key }) => `https://bie.ala.org.au/species/${key}`,
-    isHref: true,
-    route: '/taxon/:key'
-  },
 };
 
 export const siteConfig = {
