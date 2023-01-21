@@ -14,7 +14,7 @@ function SitesTableSkeleton() {
           <div className="header">
             <Skeleton width="random" style={{ height: '1.5em' }} />
           </div>
-          <div className="sideBar">
+          <div className="sidebar">
             <Skeleton width="random" />
             <Skeleton width="random" />
             <Skeleton width="random" />
@@ -140,7 +140,7 @@ export const SitesTable = ({ first, prev, next, size, from, results, loading, se
                     { years.map(obj => <ul><li key={`y_${obj}`}>{obj}</li></ul>) }
                   </div>                     
                 </div>
-                <div className="sideBar">
+                <div className="sidebar">
                   <div className="sidebar-grid">   
                    { siteData.map( (obj, i) => <ul><li key={`s_${i}`} onClick={() => { setSiteIDCallback({locationID: obj.key}); }}>{obj.key}</li></ul>) }
                   </div>

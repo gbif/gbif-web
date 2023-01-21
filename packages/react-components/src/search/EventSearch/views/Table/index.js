@@ -1,8 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import PredicateDataFetcher from '../../../PredicateDataFetcher';
 import { EventsTable } from './EventsTable';
-import {FormattedMessage, FormattedNumber} from 'react-intl';
-import { ErrorBoundary } from "../../../../components";
+import {FormattedMessage, FormattedNumber, useIntl} from 'react-intl';
+import {ErrorBoundary, TextButton, Tooltip} from "../../../../components";
+import {RiSideBarFill as OpenInSideBar} from "react-icons/ri";
+import {InlineFilterChip} from "../../../../widgets/Filter/utils/FilterChip";
 
 const QUERY = `
 query list($predicate: Predicate, $offset: Int, $limit: Int){
@@ -46,14 +48,36 @@ const defaultTableConfig = {
       trKey: 'filters.eventID.name',
       value: {
         key: 'eventID',
-        hideFalsy: true
-      },
+        hideFalsy: true,
+        formatter: (value, event, { openInSideBar }) => <div style={{ display: 'flex', alignItems: 'center' }}>
+          <Tooltip placement="top" title={<span><FormattedMessage id="filterSupport.viewDetails" /></span>}>
+            <TextButton as="span" look="textHoverLinkColor" style={{ display: 'inline-flex' }}>
+              <OpenInSideBar style={{ fontSize: '1.5em', marginRight: '.75em' }} onClick={(e) => {
+                openInSideBar();
+                e.stopPropagation();
+              }} />
+            </TextButton>
+          </Tooltip>
+          <div>
+            <InlineFilterChip filterName="eventId" values={[event.eventID]}>
+              <span dangerouslySetInnerHTML={{ __html: value }} data-loader></span>
+            </InlineFilterChip>
+          </div>
+        </div>
+      }
     },
     {
       trKey: 'filters.eventType.name',
       value: {
         key: 'eventType.concept',
-        hideFalsy: true
+        hideFalsy: true,
+        formatter: (value, event) => <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div>
+            <InlineFilterChip filterName="eventType" values={[event.eventType.concept]}>
+              <span dangerouslySetInnerHTML={{ __html: value }} data-loader></span>
+            </InlineFilterChip>
+          </div>
+        </div>
       }
     },
     {
@@ -64,12 +88,25 @@ const defaultTableConfig = {
       }
     },
     {
+      trKey: 'filters.samplingProtocol.name',
+      value: {
+        key: 'samplingProtocol',
+        hideFalsy: true
+      }
+    },
+    {
       trKey: 'filters.datasetKey.name',
       filterKey: 'datasetKey',
       value: {
         key: 'datasetKey',
-        formatter: (value, item) => item?.datasetTitle,
-        hideFalsy: true
+        hideFalsy: true,
+        formatter: (value, event) => <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div>
+            <InlineFilterChip filterName="datasetKey" values={[event.datasetKey]}>
+              <span dangerouslySetInnerHTML={{ __html: event.datasetTitle }} data-loader></span>
+            </InlineFilterChip>
+          </div>
+        </div>
       },
       width: 'wide'
     },
@@ -78,8 +115,14 @@ const defaultTableConfig = {
       filterKey: 'month',
       value: {
         key: 'month',
-        formatter: (value, item) => <FormattedMessage id={`enums.month.${value}`} /> ,
-        hideFalsy: true
+        hideFalsy: true,
+        formatter: (value, event) => <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div>
+            <InlineFilterChip filterName="month" values={[event.month]}>
+              <span dangerouslySetInnerHTML={{ __html:  useIntl().formatMessage({ id: `enums.month.${event.month}` }) }} data-loader></span>
+            </InlineFilterChip>
+          </div>
+        </div>
       }
     },
     {
@@ -87,32 +130,29 @@ const defaultTableConfig = {
       filterKey: 'year',
       value: {
         key: 'year',
-        hideFalsy: true
+        hideFalsy: true,
+        formatter: (value, event) => <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div>
+            <InlineFilterChip filterName="year" values={[event.year]}>
+              <span dangerouslySetInnerHTML={{ __html:  event.year }} data-loader></span>
+            </InlineFilterChip>
+          </div>
+        </div>
       }
     },
-    // {
-    //   trKey: 'filters.samplingProtocol.name',
-    //   filterKey: 'eventSamplingProtocol',
-    //   value: {
-    //     key: 'samplingProtocol',
-    //     formatter: (value, item) => item?.samplingProtocol[0],
-    //     hideFalsy: true
-    //   }
-    // },
     {
       trKey: 'filters.locationID.name',
       filterKey: 'locationID',
       value: {
         key: 'locationID',
-        // tricky how to do an untuitive not cluttered UI for this.
-        formatter: (value, item, {filterContext}) => <span 
-          // style={{padding: '0 3px', whiteSpace: 'nowrap', border: '1px solid #aaa', borderRadius: 3}} 
-          onClick={(e) => {
-          filterContext.setField('locationId', [value], true);
-          e.preventDefault();
-          e.stopPropagation();
-        }}>{value}</span>,
-        hideFalsy: true
+        hideFalsy: true,
+        formatter: (value, event) => <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div>
+            <InlineFilterChip filterName="locationID" values={[event.locationID]}>
+              <span dangerouslySetInnerHTML={{ __html:  event.locationID }} data-loader></span>
+            </InlineFilterChip>
+          </div>
+        </div>
       }
     },
     {
@@ -128,6 +168,14 @@ const defaultTableConfig = {
       trKey: 'filters.stateProvince.name',
       value: {
         key: 'stateProvince',
+        hideFalsy: true,
+        formatter: (value, event) => <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div>
+            <InlineFilterChip filterName="stateProvince" values={[event.stateProvince]}>
+              <span dangerouslySetInnerHTML={{ __html:  event.stateProvince }} data-loader></span>
+            </InlineFilterChip>
+          </div>
+        </div>
       }
     },
     {
@@ -143,7 +191,7 @@ const defaultTableConfig = {
       trKey: 'filters.measurementOrFactTypes.name',
       value: {
         key: 'measurementOrFactTypes',
-        formatter: (value, item) => <>{(value || []).join(',')}</>
+        formatter: (value, item) => <>{(value || []).slice(0, 10).join(', ')}</>
       }
     },
     {

@@ -10,6 +10,7 @@ import { useUpdateEffect } from "react-use";
 import { EventSidebar } from "../../../../entities/EventSidebar/EventSidebar";
 import env from '../../../../../.env.json';
 import { FilterContext } from "../../../../widgets/Filter/state";
+import {InlineFilterChip} from "../../../../widgets/Filter/utils/FilterChip";
 
 const fallbackTableConfig = {
   columns: [{
@@ -20,6 +21,11 @@ const fallbackTableConfig = {
     }
   }]
 };
+
+function isEmpty(e) {
+  return e === null || typeof e === 'undefined' || (Array.isArray(e) && e.length === 0);
+}
+
 
 export const EventsTable = ({ first, prev, next, size, from, results, total, loading, defaultTableConfig = fallbackTableConfig, hideLock }) => {
   const currentFilterContext = useContext(FilterContext);
@@ -131,17 +137,18 @@ export const EventsTable = ({ first, prev, next, size, from, results, total, loa
           <tr key={`EventsTableHeaders`}>{headers}</tr>
         </thead>
         <TBody rowCount={size} columnCount={13} loading={loading}>
-          {getRows({ tableConfig, labelMap, results, setActiveEventID, setActiveDatasetKey, dialog, currentFilterContext })}
+          {getRows({ tableConfig, labelMap, results, setActiveEventID, setActiveDatasetKey, dialog, currentFilterContext, filters })}
         </TBody>
       </DataTable>
     </div>
   </>
 }
 
-const getRows = ({ tableConfig, labelMap, results = [], setActiveEventID, setActiveDatasetKey, dialog, currentFilterContext }) => {
+const getRows = ({ tableConfig, labelMap, results = [], setActiveEventID, setActiveDatasetKey, dialog, currentFilterContext, filters }) => {
   const rows = results.map((row, index) => {
     const cells = tableConfig.columns.map(
       (field, i) => {
+        const hasFilter = filters[field?.filterKey];
         const val = get(row, field.value.key);
         let formattedVal = val;
 
@@ -152,6 +159,13 @@ const getRows = ({ tableConfig, labelMap, results = [], setActiveEventID, setAct
         } else if (field.value.labelHandle) {
           const Label = labelMap[field.value.labelHandle];
           formattedVal = Label ? <Label id={val} /> : val;
+        }
+        if (!isEmpty(val) &&  hasFilter && field?.cellFilter) {
+          let filterValue = [get(row, field.cellFilter, val)];
+          if (typeof field.cellFilter === 'function') {
+            filterValue = field.cellFilter({row, val})
+          }
+          formattedVal = <InlineFilterChip filterName={field?.filterKey} values={filterValue}>{formattedVal}</InlineFilterChip>
         }
 
         return <Td noWrap={field.noWrap} key={field.trKey} style={field.value.rightAlign ? { textAlign: 'right' } : {}}>{formattedVal}</Td>;

@@ -41,9 +41,11 @@ export const sites = ({ noOfSites=10, noOfYears=10, showMonth, theme, ...props }
   display: inline-block;  
   position: sticky;
   left: 0;
+  top: 0;
   z-index: 2;  
   background-color: #FFF;
   padding-left: 5px;
+  align-self: start;
 }
 
 .legend {

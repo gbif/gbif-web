@@ -4,7 +4,7 @@ import * as css from './styles';
 import { Row, Col, Tabs, Accordion, Properties, Eyebrow } from "../../components";
 import { useQuery } from '../../dataManagement/api';
 import { TabPanel } from "../../components/Tabs/Tabs";
-import { FormattedMessage } from "react-intl";
+import  { useIntl, FormattedMessage } from "react-intl";
 import { EnumField, PlainTextField } from "../EventSidebar/details/properties";
 import Map from "./details/Map/Map";
 import { Summary } from "./details/Summary";
@@ -57,7 +57,7 @@ export function SiteSidebar({
       <Col shrink={false} grow={false} css={css.detailDrawerContent({ theme })} >
         {isLoading && (
           <Col style={{ padding: '12px', paddingBottom: 50, overflow: 'auto' }} grow>
-            <h2>{siteID} - Loading site information...</h2>
+            <h2><FormattedMessage id={`eventDetails.siteLoading`} values={{siteID: siteID}} /></h2>
             <TemporalDisplay year={year} month={month} />
           </Col>
         )}
@@ -67,7 +67,7 @@ export function SiteSidebar({
                   <Col style={{ paddingBottom: 50, overflow: 'auto' }} grow>
                     <Row wrap="no-wrap" css={css.header({ theme })}>
                       <Col grow>
-                        <h1>Site: {siteID}</h1>
+                        <h1><FormattedMessage id={`eventDetails.site`}  values={{siteID: siteID}}/></h1>
                         <TemporalDisplay year={year} month={month} />
                       </Col>
                     </Row>
@@ -96,17 +96,16 @@ export function SiteSidebar({
 
 export function TemporalDisplay({ year, month }) {
   if (year && month && month > 0) {
+
     return (
       <Eyebrow 
-        style={{fontSize: '80%'}}
-        prefix={<>Details of activity in <FormattedMessage id={`enums.month.${month}`} defaultMessage={`${month}`} />, {year}</>}
+        prefix={<><FormattedMessage id="eventDetails.activityDetails.monthYear" values={{ date: new Date(year, month) }}  /></>}
       />
     );
   } else if (year) {
     return (
       <Eyebrow 
-        style={{fontSize: '80%'}}
-        prefix={`Details of activity in ${year}`}
+        prefix={<FormattedMessage id="eventDetails.activityDetails.year" values={{ date: new Date(year) }} />}
       />
     );
   }
