@@ -1,0 +1,48 @@
+{
+  "occurrence": "Находка",
+  "event": "Мероприятие",
+  "showAllFields": "",
+  "morePhotos": "",
+  "about": "Об организациии",
+  "dataset": "Набор данных",
+  "publisher": "Организация",
+  "institution": "Организация",
+  "institutionGrSciColl": "",
+  "collection": "Коллекция",
+  "collectionGrSciColl": "",
+  "recordedAndIdentifiedBy": "",
+  "eventTypeHierarchyJoined": "",
+  "eventHierarchyJoined": "",
+  "map": "",
+  "siteLocation": "",
+  "info": {
+    "original": "Исходное значение",
+    "excluded": "не интерпретировано",
+    "inferred": "получено из других значений",
+    "altered": "изменено"
+  },
+  "groups": {
+    "summary": "Тема сообщения",
+    "record": "Запись",
+    "occurrence": "Находка",
+    "event": "Мероприятие",
+    "identification": "Определение",
+    "taxon": "Таксон",
+    "location": "Местонахождение (топоним)",
+    "organism": "Организм",
+    "materialSample": "Образец из коллекции",
+    "geologicalContext": "Геологические контекст",
+    "other": "Другая",
+    "measurementsOrFacts": "",
+    "methodology": "Методология",
+    "taxonomicCoverage": ""
+  },
+  "siteTooltip": "",
+  "siteTableLegend": "",
+  "site": "",
+  "siteLoading": "",
+  "activityDetails": {
+    "monthYear": "",
+    "year": ""
+  }
+}

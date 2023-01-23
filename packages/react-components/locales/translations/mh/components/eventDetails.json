@@ -1,0 +1,48 @@
+{
+  "occurrence": "",
+  "event": "",
+  "showAllFields": "",
+  "morePhotos": "",
+  "about": "",
+  "dataset": "",
+  "publisher": "",
+  "institution": "",
+  "institutionGrSciColl": "",
+  "collection": "",
+  "collectionGrSciColl": "",
+  "recordedAndIdentifiedBy": "",
+  "eventTypeHierarchyJoined": "",
+  "eventHierarchyJoined": "",
+  "map": "",
+  "siteLocation": "",
+  "info": {
+    "original": "",
+    "excluded": "",
+    "inferred": "",
+    "altered": ""
+  },
+  "groups": {
+    "summary": "",
+    "record": "",
+    "occurrence": "",
+    "event": "",
+    "identification": "",
+    "taxon": "",
+    "location": "",
+    "organism": "",
+    "materialSample": "",
+    "geologicalContext": "",
+    "other": "",
+    "measurementsOrFacts": "",
+    "methodology": "",
+    "taxonomicCoverage": ""
+  },
+  "siteTooltip": "",
+  "siteTableLegend": "",
+  "site": "",
+  "siteLoading": "",
+  "activityDetails": {
+    "monthYear": "",
+    "year": ""
+  }
+}

@@ -15,7 +15,7 @@ import {
   histogramFields,
   dateHistogramFields,
 } from './helpers/fields';
-import { formattedCoordinates, isOccurrenceSequenced } from '#/helpers/utils';
+import { formattedCoordinates, isOccurrenceSequenced, simplifyUrlObjectKeys } from '#/helpers/utils';
 import groupResolver from './helpers/groups/occurrenceGroups';
 import termResolver from './helpers/terms/occurrenceTerms';
 import predicate2v1 from './helpers/predicate2v1';
@@ -89,8 +89,8 @@ export default {
         _downloadPredicate: v1Predicate,
         _v1PredicateHash: v1PredicateQStripped.predicate
           ? dataSources.occurrenceAPI.registerPredicate({
-              predicate: v1PredicateQStripped.predicate,
-            })
+            predicate: v1PredicateQStripped.predicate,
+          })
           : null,
       };
     },
@@ -252,6 +252,44 @@ export default {
     },
     bionomia: (occurrence, _args, { dataSources }) => {
       return dataSources.occurrenceAPI.getBionomia({ occurrence });
+    },
+    extensions: (occurrence) => {
+      const extensions = {
+        audubon: occurrence?.extensions?.['http://rs.tdwg.org/ac/terms/Multimedia'],
+        amplification: occurrence?.extensions?.['http://data.ggbn.org/schemas/ggbn/terms/Amplification'],
+        germplasmAccession: occurrence?.extensions?.['http://purl.org/germplasm/germplasmTerm#GermplasmAccession'],
+        germplasmMeasurementScore: occurrence?.extensions?.['http://purl.org/germplasm/germplasmTerm#MeasurementScore'],
+        germplasmMeasurementTrait: occurrence?.extensions?.['http://purl.org/germplasm/germplasmTerm#MeasurementTrait'],
+        germplasmMeasurementTrial: occurrence?.extensions?.['http://purl.org/germplasm/germplasmTerm#MeasurementTrial'],
+        identification: occurrence?.extensions?.['http://rs.tdwg.org/dwc/terms/Identification'],
+        identifier: occurrence?.extensions?.['http://rs.gbif.org/terms/1.0/Identifier'],
+        image: occurrence?.extensions?.['http://rs.gbif.org/terms/1.0/Image'],
+        measurementOrFact: occurrence?.extensions?.['http://rs.tdwg.org/dwc/terms/MeasurementOrFact'],
+        multimedia: occurrence?.extensions?.['http://rs.gbif.org/terms/1.0/Multimedia'],
+        reference: occurrence?.extensions?.['http://rs.gbif.org/terms/1.0/Reference'],
+        resourceRelationship: occurrence?.extensions?.['http://rs.tdwg.org/dwc/terms/ResourceRelationship'],
+        cloning: occurrence?.extensions?.['http://data.ggbn.org/schemas/ggbn/terms/Cloning'],
+        gelImage: occurrence?.extensions?.['http://data.ggbn.org/schemas/ggbn/terms/GelImage'],
+        loan: occurrence?.extensions?.['http://data.ggbn.org/schemas/ggbn/terms/Loan'],
+        materialSample: occurrence?.extensions?.['http://data.ggbn.org/schemas/ggbn/terms/MaterialSample'],
+        permit: occurrence?.extensions?.['http://data.ggbn.org/schemas/ggbn/terms/Permit'],
+        preparation: occurrence?.extensions?.['http://data.ggbn.org/schemas/ggbn/terms/Preparation'],
+        preservation: occurrence?.extensions?.['http://data.ggbn.org/schemas/ggbn/terms/Preservation'],
+        extendedMeasurementOrFact: occurrence?.extensions?.['http://rs.iobis.org/obis/terms/ExtendedMeasurementOrFact'],
+        chronometricAge: occurrence?.extensions?.['http://rs.tdwg.org/chrono/terms/ChronometricAge'],
+        dnaDerivedData: occurrence?.extensions?.['http://rs.gbif.org/terms/1.0/DNADerivedData'],
+      }
+      Object.keys(extensions).forEach(key => {
+        const extension = extensions[key];
+        // remove empty and half empty values
+        if (Array.isArray(extension) && extension.length > 0) {
+          extensions[key] = extension.filter(x => Object.keys(x).length > 0).map(simplifyUrlObjectKeys);
+          if (extensions[key].length === 0) delete extensions[key];
+        } else {
+          delete extensions[key];
+        }
+      });
+      return extensions;
     },
   },
   BionomiaOccurrence: {
@@ -418,9 +456,9 @@ export default {
       };
       const joinedPredicate = parent._parentPredicate
         ? {
-            type: 'and',
-            predicates: [parent._parentPredicate, predicate],
-          }
+          type: 'and',
+          predicates: [parent._parentPredicate, predicate],
+        }
         : predicate;
       return { _predicate: joinedPredicate };
     },
@@ -435,9 +473,9 @@ export default {
       };
       const joinedPredicate = parent._parentPredicate
         ? {
-            type: 'and',
-            predicates: [parent._parentPredicate, predicate],
-          }
+          type: 'and',
+          predicates: [parent._parentPredicate, predicate],
+        }
         : predicate;
       return { _predicate: joinedPredicate };
     },

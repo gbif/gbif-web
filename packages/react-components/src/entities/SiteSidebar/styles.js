@@ -34,6 +34,7 @@ export const entitySummary = ({ ...props }) => css`
 
 export const header = ({ ...props }) => css`
   margin: 0 16px;
+  padding-bottom: 16px;
   .gbif-header-location {
     font-size: 13px;
     display: flex;

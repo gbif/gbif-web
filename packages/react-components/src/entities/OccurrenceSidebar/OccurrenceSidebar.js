@@ -1,22 +1,29 @@
 
 import { jsx } from '@emotion/react';
 import React, { useContext, useState, useEffect } from 'react';
-import { MdInfo, MdInsertPhoto, MdClose } from 'react-icons/md'
+import { MdInfo, MdInsertPhoto, MdClose, MdExtension } from 'react-icons/md'
 import ThemeContext from '../../style/themes/ThemeContext';
 import PropTypes from 'prop-types';
 import get from 'lodash/get';
 import * as css from './styles';
-import { Properties, Row, Col, Tabs } from "../../components";
+import { Properties, Row, Col, Tabs, ErrorBoundary } from "../../components";
 import { useQuery } from '../../dataManagement/api';
 import { ImageDetails } from './details/ImageDetails';
 import { Intro } from './details/Intro';
 import { Cluster } from './details/Cluster';
 import { ClusterIcon } from '../../components/Icons/Icons';
 import LinksContext from '../../search/OccurrenceSearch/config/links/LinksContext';
+import { Extensions } from './details/Extensions';
 
 const { TabList, Tab, TabPanel, TapSeperator } = Tabs;
 
-export function OccurrenceSidebar({
+export function OccurrenceSidebar(props) {
+  return <ErrorBoundary invalidateOn={props.id}>
+    <OccurrenceSidebarCore {...props} />
+  </ErrorBoundary>
+}
+
+export function OccurrenceSidebarCore({
   onImageChange,
   onCloseRequest,
   id,
@@ -30,7 +37,7 @@ export function OccurrenceSidebar({
   // Get the keys for custom dataset links and custom taxon links
   const linkKeys = Object.keys(links).map(k => links[k]?.key).filter(k => !!k).join('\n')
   
-  const { data, error, loading, load } = useQuery(OCCURRENCE(linkKeys), { lazyLoad: true });
+  const { data, error, loading, load } = useQuery(OCCURRENCE(linkKeys), { lazyLoad: true, throwAllErrors: true });
   const [activeId, setTab] = useState(defaultTab || 'details');
   const theme = useContext(ThemeContext);
   const [activeImage, setActiveImage] = useState();
@@ -43,15 +50,20 @@ export function OccurrenceSidebar({
   }, [id]);
 
   useEffect(() => {
-    if (!loading && activeId === 'images' && !data?.occurrence?.stillImages) {
+    if (!loading && activeId === 'images' && data?.occurrence?.stillImageCount === 0) {
+      setTab('details');
+    }
+    const hasExtensions = Object.keys(data?.occurrence?.extensions || {}).find(x => data?.occurrence?.extensions[x]);
+    if (!loading && data && activeId === 'extensions' && !hasExtensions) {
       setTab('details');
     }
     if (!loading && data?.occurrence) {
       setFieldGroups(data.occurrence.groups);
     }
-  }, [data, loading]);
+  }, [data, defaultTab, loading]);
 
   const isSpecimen = get(data, 'occurrence.basisOfRecord', '').indexOf('SPECIMEN') > -1;
+  const hasExtensions = Object.keys(data?.occurrence?.extensions || {}).find(x => data?.occurrence?.extensions[x]);
 
   return <Tabs activeId={activeId} onChange={id => setTab(id)}>
     <Row wrap="nowrap" style={style} css={css.sideBar({ theme })}>
@@ -72,6 +84,9 @@ export function OccurrenceSidebar({
           {data?.occurrence?.volatile?.features?.isClustered && <Tab tabId="cluster" direction="left">
             <ClusterIcon />
           </Tab>}
+          {hasExtensions && <Tab tabId="extensions" direction="left">
+            <MdExtension />
+          </Tab>}
         </TabList>
       </Col>
       <Col shrink={false} grow={false} css={css.detailDrawerContent({ theme })} >
@@ -83,6 +98,9 @@ export function OccurrenceSidebar({
         </TabPanel>
         <TabPanel tabId='cluster'>
           <Cluster data={data} loading={loading} error={error} />
+        </TabPanel>
+        <TabPanel tabId='extensions'>
+          <Extensions data={data} loading={loading} error={error} />
         </TabPanel>
       </Col>
     </Row>
@@ -220,6 +238,32 @@ query occurrence($key: ID!){
       htmlValue
       remarks
       issues
+    }
+
+    extensions {
+      amplification
+      germplasmAccession
+      germplasmMeasurementScore
+      germplasmMeasurementTrait
+      germplasmMeasurementTrial
+      identification
+      identifier
+      measurementOrFact
+      reference
+      resourceRelationship
+      cloning
+      gelImage
+      loan
+      materialSample
+      permit
+      preparation
+      preservation
+      extendedMeasurementOrFact
+      chronometricAge
+      dnaDerivedData
+      audubon
+      multimedia
+      image
     }
   }
 }

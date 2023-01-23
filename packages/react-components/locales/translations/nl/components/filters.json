@@ -4,6 +4,11 @@
     "count": "",
     "description": ""
   },
+  "locationId": {
+    "name": "Locatie ID",
+    "count": "",
+    "description": ""
+  },
   "collectionKey": {
     "name": "Verzameling",
     "count": "{num, plural, one {# verzameling } other {# verzamelingen}}",
@@ -216,6 +221,46 @@
     "description": "De naam van de administratieve regio onder het niveau van land waar de vindplaats zich bevindt."
   },
   "eventId": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "eventID": {
+    "name": "Evenement ID",
+    "count": "",
+    "description": ""
+  },
+  "parentEventId": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "locationID": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "measurementOrFactTypes": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "measurementOrFactCount": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "occurrenceCount": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "eventType": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "dataStructure": {
     "name": "",
     "count": "",
     "description": ""

@@ -10,6 +10,7 @@ export const container = css`
   height: 100%;
   padding: 96px 1em;
   min-height: 80vh;
+  background: white;
 `;
 
 export const actions = css`

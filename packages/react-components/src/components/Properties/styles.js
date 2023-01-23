@@ -5,7 +5,6 @@ export const horizontalProperties = ({dense}) => css`
   display: grid;
   grid-template-columns: minmax(75px, 200px) 1fr;
   > dt {
-    margin-bottom: ${dense ? 4 : 12}px;
     &:last-of-type {
       margin-bottom: 0;
     }

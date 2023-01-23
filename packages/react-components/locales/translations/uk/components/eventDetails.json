@@ -1,0 +1,48 @@
+{
+  "occurrence": "Знахідка",
+  "event": "Подія",
+  "showAllFields": "",
+  "morePhotos": "",
+  "about": "Відомості про видавця даних",
+  "dataset": "Набір даних",
+  "publisher": "Видавець",
+  "institution": "Установа",
+  "institutionGrSciColl": "",
+  "collection": "Колекція",
+  "collectionGrSciColl": "",
+  "recordedAndIdentifiedBy": "",
+  "eventTypeHierarchyJoined": "",
+  "eventHierarchyJoined": "",
+  "map": "",
+  "siteLocation": "",
+  "info": {
+    "original": "Оригінальний вміст",
+    "excluded": "Виключено",
+    "inferred": "Виведено за допомогою аналізу",
+    "altered": "Змінено"
+  },
+  "groups": {
+    "summary": "Підсумок",
+    "record": "Запис",
+    "occurrence": "Знахідка",
+    "event": "Подія",
+    "identification": "Визначення",
+    "taxon": "Таксон",
+    "location": "Місцезнаходження",
+    "organism": "Організм",
+    "materialSample": "Матеріальний зразок",
+    "geologicalContext": "Геологічний контекст",
+    "other": "Інше",
+    "measurementsOrFacts": "",
+    "methodology": "Методологія",
+    "taxonomicCoverage": ""
+  },
+  "siteTooltip": "",
+  "siteTableLegend": "",
+  "site": "",
+  "siteLoading": "",
+  "activityDetails": {
+    "monthYear": "",
+    "year": ""
+  }
+}

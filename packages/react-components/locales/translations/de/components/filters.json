@@ -4,6 +4,11 @@
     "count": "{num, plural, one { DwCA-Erweiterung } other {# DwCA-Erweiterungen}}",
     "description": "Bezeichner für die Sammlung, zu der das usprüngliche Objekt gehört."
   },
+  "locationId": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "collectionKey": {
     "name": "",
     "count": "",
@@ -219,6 +224,46 @@
     "name": "Ereignis-ID",
     "count": "{num, plural, one { Ereignis-ID } other {# Ereignis-IDs}}",
     "description": "Eindeutiger Bezeichner für das Sammlungsereignis."
+  },
+  "eventID": {
+    "name": "",
+    "count": "{num, plural, one { Ereignis-ID } other {# Ereignis-IDs}}",
+    "description": "Eindeutiger Bezeichner für das Sammlungsereignis."
+  },
+  "parentEventId": {
+    "name": "",
+    "count": "{num, plural, one { Ereignis-ID } other {# Ereignis-IDs}}",
+    "description": ""
+  },
+  "locationID": {
+    "name": "",
+    "count": "{num, plural, one { Ereignis-ID } other {# Ereignis-IDs}}",
+    "description": ""
+  },
+  "measurementOrFactTypes": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "measurementOrFactCount": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "occurrenceCount": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "eventType": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "dataStructure": {
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "samplingProtocol": {
     "name": "Sampling-Protokoll",
