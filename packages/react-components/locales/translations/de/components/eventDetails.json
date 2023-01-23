@@ -1,0 +1,40 @@
+{
+  "occurrence": "",
+  "event": "",
+  "showAllFields": "Alle Felder anzeigen",
+  "morePhotos": "Weitere Fotos",
+  "about": "",
+  "dataset": "",
+  "publisher": "",
+  "institution": "",
+  "institutionGrSciColl": "GrSciColl Institution",
+  "collection": "",
+  "collectionGrSciColl": "GrSciColl Sammlung",
+  "recordedAndIdentifiedBy": "Sammler/Bestimmer",
+  "eventTypeHierarchyJoined": "",
+  "eventHierarchyJoined": "",
+  "map": "",
+  "siteLocation": "",
+  "info": {
+    "original": "",
+    "excluded": "",
+    "inferred": "",
+    "altered": ""
+  },
+  "groups": {
+    "summary": "",
+    "record": "",
+    "occurrence": "",
+    "event": "",
+    "identification": "",
+    "taxon": "",
+    "location": "",
+    "organism": "",
+    "materialSample": "",
+    "geologicalContext": "",
+    "other": "",
+    "measurementsOrFacts": ""
+  },
+  "siteTooltip": "",
+  "siteTableLegend": ""
+}

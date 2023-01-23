@@ -12,6 +12,7 @@
   "apply": "",
   "wildcardHelp": "",
   "useWildcardPattern": "",
+  "useCaseInsensitiveValue": "",
   "showSuggestions": "",
   "excludeSelected": "",
   "updateFilter": "",

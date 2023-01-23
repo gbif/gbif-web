@@ -43,13 +43,13 @@ export function OccurrenceSidebar({
   }, [id]);
 
   useEffect(() => {
-    if (!loading && activeId === 'images' && !data?.occurrence?.stillImages) {
+    if (!loading && activeId === 'images' && data?.occurrence?.stillImageCount === 0) {
       setTab('details');
     }
     if (!loading && data?.occurrence) {
       setFieldGroups(data.occurrence.groups);
     }
-  }, [data, loading]);
+  }, [data, defaultTab, loading]);
 
   const isSpecimen = get(data, 'occurrence.basisOfRecord', '').indexOf('SPECIMEN') > -1;
 

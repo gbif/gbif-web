@@ -1,5 +1,10 @@
 {
   "nOccurrences": "{total, plural, one {# keer} other {# keer}}",
   "nRecords": "{total, plural, one {# keer} other {# keer}}",
-  "inGbif": "{total, plural, one {# in GBIF} other {# in GBIF}}"
+  "nSpecimensInGbif": "{total, plural, one {# specimen in GBIF} other {# specimens in GBIF}}",
+  "inGbif": "{total, plural, one {# in GBIF} other {# in GBIF}}",
+  "nAudioFiles": "{total, plural, one {# geluidsbestand} other {# geluidsbestanden}}",
+  "nImages": "{total, plural, one {# afbeelding} other {# afbeeldingen}}",
+  "nResultsWithCoordinates": "{total, plural, one {# resultaat } other {# resultaten}} met coördinaten\n",
+  "nResultsWithImages": "{total, plural, one {# resultaat } other {# resultaten}} met afbeeldingen\n"
 }

@@ -4,6 +4,11 @@
     "count": "",
     "description": ""
   },
+  "locationId": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "collectionKey": {
     "name": "",
     "count": "",
@@ -216,6 +221,46 @@
     "description": ""
   },
   "eventId": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "eventID": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "parentEventId": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "locationID": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "measurementOrFactTypes": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "measurementOrFactCount": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "occurrenceCount": {
+    "name": "Antal observationer",
+    "count": "",
+    "description": ""
+  },
+  "eventType": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "dataStructure": {
     "name": "",
     "count": "",
     "description": ""
