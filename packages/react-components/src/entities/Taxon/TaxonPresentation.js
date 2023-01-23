@@ -1,5 +1,5 @@
 import { jsx, css } from '@emotion/react';
-import React, { useContext } from 'react';
+import React from 'react';
 import { Classification, Tag, Tabs, Tooltip } from '../../components';
 import {
   Homepage,
@@ -25,6 +25,7 @@ import { GrGithub as Github } from 'react-icons/gr';
 
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import { MdPerson } from 'react-icons/md';
+import HeaderImage from './components/HeaderImage';
 
 const { TabList, RouterTab, Tab } = Tabs;
 
@@ -74,19 +75,30 @@ Relating to ${location.href}
             ) : null
           )}
         </Classification>
-        <Headline
-          css={css`
-            display: inline;
-            margin-right: 12px;
-          `}
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}
         >
-          {taxon.scientificName}
-        </Headline>
-        <div style={{ marginTop: 12 }}>
-          {taxon.vernacularName && (
-            <span style={{ marginRight: 12 }}>{taxon.vernacularName}</span>
-          )}
-          <Tag type='info'>{taxon.rank}</Tag>
+          <div>
+            <Headline
+              css={css`
+                display: inline;
+                margin-right: 12px;
+              `}
+            >
+              {taxon.scientificName}
+            </Headline>
+            <div style={{ marginTop: 12 }}>
+              {taxon.vernacularName && (
+                <span style={{ marginRight: 12 }}>{taxon.vernacularName}</span>
+              )}
+              <Tag type='info'>{taxon.rank}</Tag>
+            </div>
+          </div>
+          <HeaderImage guid={id} width={100} height={100} radius={8} />
         </div>
         <HeaderInfoWrapper>
           <HeaderInfoMain>
@@ -119,15 +131,38 @@ Relating to ${location.href}
         </HeaderInfoWrapper>
         <TabList style={{ marginTop: '12px', borderTop: '1px solid #ddd' }}>
           <RouterTab to={url} exact label='About' />
-          <RouterTab to={join(url, '/test')} label='Test' />
+          <RouterTab to={join(url, '/events')} label='Events' />
+          <RouterTab to={join(url, '/map')} label='Map' />
+          <RouterTab to={join(url, '/media')} label='Media' />
+          <RouterTab to={join(url, '/sequences')} label='Sequences' />
         </TabList>
       </HeaderWrapper>
 
       <section>
         <Switch>
-          <Route path={join(path, '/test')}>
+          <Route path={join(path, '/events')}>
             <ContentWrapper>
-              <div>Testing</div>
+              <div>Events</div>
+            </ContentWrapper>
+          </Route>
+          <Route path={join(path, '/map')}>
+            <ContentWrapper>
+              <div>Map</div>
+            </ContentWrapper>
+          </Route>
+          {/* <Route path={join(path, '/occurrences')}>
+            <ContentWrapper>
+              <div>Occurrences</div>
+            </ContentWrapper>
+          </Route> */}
+          <Route path={join(path, '/media')}>
+            <ContentWrapper>
+              <div>Media</div>
+            </ContentWrapper>
+          </Route>
+          <Route path={join(path, '/sequences')}>
+            <ContentWrapper>
+              <div>Sequences</div>
             </ContentWrapper>
           </Route>
           <Route path={path}>
