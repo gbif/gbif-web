@@ -1,9 +1,10 @@
 import { jsx, css } from '@emotion/react';
 import React, { useContext } from 'react';
-import { Tabs, Tooltip } from '../../components';
+import { Classification, Tag, Tabs, Tooltip } from '../../components';
 import {
   Homepage,
   FeatureList,
+  GenericFeature,
 } from '../../components/IconFeatures/IconFeatures';
 import { join } from '../../utils/util';
 import env from '../../../.env.json';
@@ -23,6 +24,7 @@ import About from './about';
 import { GrGithub as Github } from 'react-icons/gr';
 
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
+import { MdPerson } from 'react-icons/md';
 
 const { TabList, RouterTab, Tab } = Tabs;
 
@@ -45,8 +47,7 @@ export function TaxonPresentation({ id, data, error, loading, ...props }) {
   if (loading || !data) return <PageLoader />;
   const { institution, taxon } = data;
 
-  // if (error || !taxon) {
-  if (error) {
+  if (error || !taxon) {
     // TODO a generic component for failures is needed
     return (
       <>
@@ -59,26 +60,43 @@ export function TaxonPresentation({ id, data, error, loading, ...props }) {
   const feedbackTemplate = `Please provide you feedback here, but leave content below for context
 
 ---
-Relating to ${env.GBIF_REGISTRY}/taxon/${id}
+Relating to ${location.href}
   `;
   return (
     <>
       <DataHeader searchType='taxonSearch' messageId='catalogues.taxa' />
       <HeaderWrapper>
         {/* <Eyebrow prefix='Taxon code' suffix='Something here' /> */}
-        {/* CLASSIFICATION COMPONENT HERE */}
+        <Classification style={{ marginBottom: 16 }}>
+          {['order', 'family', 'genus'].map((rank) =>
+            taxon[rank] ? (
+              <span style={{ color: '#aaa', fontSize: 14 }}>{taxon[rank]}</span>
+            ) : null
+          )}
+        </Classification>
         <Headline
           css={css`
             display: inline;
             margin-right: 12px;
           `}
-          // badge={institution?.active ? null : 'Inactive'} USE FOR TAXON RANK
         >
-          {id}
+          {taxon.scientificName}
         </Headline>
+        <div style={{ marginTop: 12 }}>
+          {taxon.vernacularName && (
+            <span style={{ marginRight: 12 }}>{taxon.vernacularName}</span>
+          )}
+          <Tag type='info'>{taxon.rank}</Tag>
+        </div>
         <HeaderInfoWrapper>
           <HeaderInfoMain>
             <FeatureList>
+              {taxon.authorship && (
+                <GenericFeature>
+                  <MdPerson />
+                  <span>{taxon.authorship}</span>
+                </GenericFeature>
+              )}
               <Homepage href={id} style={{ marginBottom: 8 }} />
             </FeatureList>
           </HeaderInfoMain>
@@ -114,7 +132,7 @@ Relating to ${env.GBIF_REGISTRY}/taxon/${id}
           </Route>
           <Route path={path}>
             <ContentWrapper>
-              <About {...{ institution }} />
+              <About taxon={taxon} />
             </ContentWrapper>
           </Route>
         </Switch>

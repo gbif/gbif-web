@@ -24,6 +24,7 @@ export default function About({
   data = {},
   loading,
   error,
+  taxon,
   institution,
   className,
 }) {
@@ -45,8 +46,8 @@ export default function About({
           <Card style={{ marginTop: 12, marginBottom: 24 }}>
             <CardHeader2>
               <FormattedMessage
-                id='grscicoll.description'
-                deafultMessage='Description'
+                id='occurrenceFieldNames.taxonomicClassification'
+                deafultMessage='Classification'
               />
             </CardHeader2>
             <Prose
@@ -61,69 +62,40 @@ export default function About({
               style={{ fontSize: 16, marginBottom: 12 }}
               breakpoint={800}
             >
-              {/* <Property value={institution.description} labelId="grscicoll.description" showEmpty /> */}
               <Property
-                value={institution?.taxonomicDescription}
-                labelId='grscicoll.taxonomicDescription'
+                value={taxon?.kingdom}
+                labelId='occurrenceFieldNames.kingdom'
                 showEmpty
               />
               <Property
-                value={institution?.geographicDescription}
-                labelId='grscicoll.geographicDescription'
+                value={taxon?.phylum}
+                labelId='occurrenceFieldNames.phylum'
                 showEmpty
               />
               <Property
-                value={institution?.code}
-                labelId='grscicoll.code'
+                value={taxon?.class}
+                labelId='occurrenceFieldNames.class'
                 showEmpty
               />
               <Property
-                value={institution?.numberSpecimens}
-                labelId='institution.numberSpecimens'
-              />
-              <Property
-                value={institution?.catalogUrl}
-                labelId='grscicoll.catalogUrl'
-              />
-              <Property
-                value={institution?.apiUrl}
-                labelId='grscicoll.apiUrl'
-              />
-              <Property
-                value={institution?.disciplines}
-                labelId='institution.disciplines'
+                value={taxon?.order}
+                labelId='occurrenceFieldNames.order'
                 showEmpty
-                formatter={(e) => (
-                  <FormattedMessage
-                    id={`enums.discipline.${e}`}
-                    defaultMessage={e}
-                  />
-                )}
               />
-              {institution?.foundingDate && (
-                <Property labelId='grscicoll.foundingDate'>
-                  {institution?.foundingDate}
-                </Property>
-              )}
-              {institution?.type && (
-                <Property labelId='institution.type'>
-                  <FormattedMessage
-                    id={`enums.institutionType.${institution.type}`}
-                    defaultMessage={institution.type}
-                  />
-                </Property>
-              )}
-              {institution?.institutionalGovernance && (
-                <Property labelId='institution.institutionalGovernance'>
-                  <FormattedMessage
-                    id={`enums.institutionalGovernance.${institution.institutionalGovernance}`}
-                    defaultMessage={institution.institutionalGovernance}
-                  />
-                </Property>
-              )}
               <Property
-                value={institution?.citesPermitNumber}
-                labelId='grscicoll.citesPermitNumber'
+                value={taxon?.family}
+                labelId='occurrenceFieldNames.family'
+                showEmpty
+              />
+              <Property
+                value={taxon?.genus}
+                labelId='occurrenceFieldNames.genus'
+                showEmpty
+              />
+              <Property
+                value={taxon?.species}
+                labelId='occurrenceFieldNames.species'
+                showEmpty
               />
             </Properties>
           </Card>

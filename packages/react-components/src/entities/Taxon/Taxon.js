@@ -29,14 +29,7 @@ export function Taxon({ id }) {
   useEffect(() => {
     if (typeof id !== 'undefined') {
       const query = {
-        variables: {
-          key: id,
-          predicate: {
-            type: 'equals',
-            key: 'taxonKey',
-            value: id,
-          },
-        },
+        variables: { id },
       };
       load(query);
     }
@@ -50,13 +43,30 @@ export function Taxon({ id }) {
 }
 
 const QUERY_TAXON = `
-query list($predicate: Predicate) {
-  eventSearch(predicate: $predicate, size: 10) {
-    documents {
-      results {
-        eventID
-      }
-    }
+query info($id: ID!) {
+  taxon(key: $id) {
+    key
+    nubKey
+    kingdom
+    phylum
+    class
+    order
+    family
+    genus
+    species
+    kingdomKey
+    phylumKey
+    classKey
+    orderKey
+    familyKey
+    genusKey
+    speciesKey
+    authorship
+    issues
+    rank
+    remarks
+    scientificName
+    vernacularName
   }
 }
 `;

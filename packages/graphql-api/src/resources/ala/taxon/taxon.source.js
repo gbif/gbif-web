@@ -31,7 +31,7 @@ class TaxonAPI extends RESTDataSource {
           orderKey: data.classification.orderGuid,
           familyKey: data.classification.familyGuid,
           genusKey: data.classification.genusGuid,
-          speciesKey: data.classification.specGuid,
+          speciesKey: data.classification.speciesGuid,
           // accepted: null,
           // acceptedKey: null,
           authorship: data.taxonConcept.author,
@@ -61,7 +61,7 @@ class TaxonAPI extends RESTDataSource {
           taxonID: data.taxonConcept.guid,
           taxonomicStatus:
             data.taxonConcept.taxonomicStatus?.toUpperCase() || null,
-          // vernacularName: null,
+          vernacularName: data.commonNames[0]?.nameString || null,
           // wikiData: null,
         }
       : {
