@@ -33,8 +33,16 @@
     "materialSample": "材料样本",
     "geologicalContext": "地质背景",
     "other": "其它",
-    "measurementsOrFacts": ""
+    "measurementsOrFacts": "",
+    "methodology": "方法",
+    "taxonomicCoverage": ""
   },
   "siteTooltip": "",
-  "siteTableLegend": ""
+  "siteTableLegend": "",
+  "site": "",
+  "siteLoading": "",
+  "activityDetails": {
+    "monthYear": "",
+    "year": ""
+  }
 }

@@ -33,8 +33,16 @@
     "materialSample": "Матеріальний зразок",
     "geologicalContext": "Геологічний контекст",
     "other": "Інше",
-    "measurementsOrFacts": ""
+    "measurementsOrFacts": "",
+    "methodology": "Методологія",
+    "taxonomicCoverage": ""
   },
   "siteTooltip": "",
-  "siteTableLegend": ""
+  "siteTableLegend": "",
+  "site": "",
+  "siteLoading": "",
+  "activityDetails": {
+    "monthYear": "",
+    "year": ""
+  }
 }

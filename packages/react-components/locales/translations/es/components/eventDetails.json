@@ -33,8 +33,16 @@
     "materialSample": "Muestra de material",
     "geologicalContext": "Contexto geológico",
     "other": "Otro",
-    "measurementsOrFacts": ""
+    "measurementsOrFacts": "",
+    "methodology": "Metodología",
+    "taxonomicCoverage": ""
   },
   "siteTooltip": "",
-  "siteTableLegend": ""
+  "siteTableLegend": "",
+  "site": "",
+  "siteLoading": "",
+  "activityDetails": {
+    "monthYear": "",
+    "year": ""
+  }
 }
