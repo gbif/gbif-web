@@ -189,6 +189,16 @@ export function DownloadForm ({  hide, dataset, user }) {
     predicateNotEmpty = true;
   }
 
+  const validateEmail = (email) => {
+    if (!email) {
+      return false;
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+      return false;
+    }
+    return true;
+  }
+
+
   async function startFullDownload() {
     if (user) {
       window.location.href = dataset.archive.url;
@@ -202,33 +212,39 @@ export function DownloadForm ({  hide, dataset, user }) {
     const signIn = siteContext.auth?.signIn;
 
     if (user) {
-      // remove OIDC code
-        const searchUrl = new URL(window.location.href)
-        searchUrl.searchParams.delete('code')
-        // validate the predicate - is there any filters set ?
-        let download = {
-          "datasetId": dataset.key,
-          "creator": user.profile.email,
-          "notificationAddresses": [user.profile.email],
-          "predicate": predicate,
-          "eventQueryUrl": searchUrl.toString()
-        }
+       const email = user.profile?.email;
+       if (validateEmail(email)) {
+         // remove OIDC code
+         const searchUrl = new URL(window.location.href)
+         searchUrl.searchParams.delete('code')
+         // validate the predicate - is there any filters set ?
+         let download = {
+           "datasetId": dataset.key,
+           "creator": user.profile.email,
+           "notificationAddresses": [user.profile.email],
+           "predicate": predicate,
+           "eventQueryUrl": searchUrl.toString()
+         }
 
-        const response = await fetch(env.DOWNLOADS_API_URL + '/event/download', {
-            method: 'POST',
-            mode: 'cors',
-            headers: {
-              'Content-Type': 'application/json; charset=UTF-8',
-              'Authorization': `Bearer ${user.access_token}`
-            },
-            body: JSON.stringify(download)
-          })
+         const response = await fetch(env.DOWNLOADS_API_URL + '/event/download', {
+           method: 'POST',
+           mode: 'cors',
+           headers: {
+             'Content-Type': 'application/json; charset=UTF-8',
+             'Authorization': `Bearer ${user.access_token}`
+           },
+           body: JSON.stringify(download)
+         })
 
-        if (response.ok) {
-            return {success: true}
-        } else {
-            return {success: false, status: response.status}
-        }
+         if (response.ok) {
+           return {success: true}
+         } else {
+           return {success: false, error: response.status}
+         }
+       } else {
+         return {success: false, error: "Invalid creator: " + email}
+       }
+
     } else if (signIn) {
       signIn();
     }
@@ -263,7 +279,7 @@ export function DownloadForm ({  hide, dataset, user }) {
             setDownloadStatusDetailed("Your download has started")
           } else {
             setDownloadSuccess(false);
-            setDownloadStatus(`There was a problem (${result.status}) !`)
+            setDownloadStatus(`There was a problem (${result.error}) !`)
             setDownloadStatusDetailed("Your download has not started.")
           }
         });
