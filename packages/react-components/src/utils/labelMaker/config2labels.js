@@ -2,6 +2,7 @@
 import { FormattedMessage, useIntl } from 'react-intl';
 import labelMaker from './labelMaker';
 import { rangeOrEqualLabel } from './rangeOrEqualLabel';
+import _snakeCase from 'lodash/snakeCase';
 
 export function config2labels(config, apiContext, localeContext) {
   return Object.keys(config).reduce((acc, cur) => {
@@ -61,4 +62,10 @@ export function prettifyEnum(text) {
   return typeof text === 'string'
     ? text.charAt(0) + text.slice(1).toLowerCase().replace(/_/g, ' ')
     : 'Unknown';
+}
+
+export function prettifyString(text) {
+  if (typeof text !== 'string') return 'Unknown';
+  const snake = _snakeCase(text);
+  return snake.charAt(0).toUpperCase() + snake.slice(1).toLowerCase().replace(/_/g, ' ');
 }

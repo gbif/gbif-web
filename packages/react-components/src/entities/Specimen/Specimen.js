@@ -267,6 +267,16 @@ query($key: String!) {
                 webStatement
                 license
                 rights
+                rightsUri
+                accessRights
+                rightsHolder
+                source
+                sourceUri
+                creator
+                created
+                modified
+                language
+                bibliographicCitation
               }
             }
         	}
@@ -425,6 +435,12 @@ query($key: String!) {
                     taxonRank
                     scientificNameId
                     nameAccordingTo
+                    kingdom
+                    phylum
+                    class
+                    order
+                    family
+                    genus
                   }
                 }
               }
@@ -446,13 +462,16 @@ query($key: String!) {
       agentRoleAgentId
     }
   }
-  allAssertions(condition: {assertionTargetId: "5c488c08-8cab-444a-9598-806dd0abec85"}) {
+  catalogedItemAssertions: allAssertions(condition: {assertionTargetId: $key}) {
     nodes {
-      assertionTargetType
       assertionType
       assertionUnit
       assertionValue
       assertionValueNumeric
+      assertionMadeDate
+      assertionProtocol
+      assertionRemarks
+      assertionByAgentName
     }
   }
 }
@@ -478,7 +497,8 @@ function restructure(data) {
     const { dateIdentified, identificationType, identifiedBy, identifiedById, taxonFormula, verbatimIdentification, typeStatus } = identification;
 
     return {
-      dateIdentified, identificationType, identifiedBy, identifiedById, taxonFormula, verbatimIdentification, typeStatus,
+      dateIdentified, identificationType, identifiedById, taxonFormula, verbatimIdentification, typeStatus,
+      identifiedBy: identifiedBy ? identifiedBy.split('|') : null,
       taxa: [// I assume it is an array in case the formula requires it
         ...identification?.taxonIdentificationsByIdentificationId?.nodes.map(x => {
           return {
@@ -561,7 +581,10 @@ function restructure(data) {
     preferredSpatialRepresentation: georeferenceSource.preferredSpatialRepresentation,
   }
 
-  const coreImages = get(data, 'specimen.nodes[0].coreImages.are.here', []);
+  const coreImages = get(data, 'specimen.nodes[0].coreImages.are.here', []).map(x => ({
+    relation: x.entityRelationshipType,
+    media: x.entityBySubjectEntityId.digitalEntityByDigitalEntityId
+  }));
   // const partImages = get(data, 'specimen.nodes[0].parts.are.here', []);
   specimen.media = {
     images: {
@@ -571,6 +594,8 @@ function restructure(data) {
     video: {},
     sound: {},
   };
+
+  specimen.assertions = get(data, 'catalogedItemAssertions.nodes', [])
 
 
 

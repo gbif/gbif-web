@@ -86,7 +86,7 @@ export function SpecimenPresentation({
         </Route>
         <Route path={path}>
           <ContentWrapper>
-            {/* <Core specimen={data.specimen} /> */}
+            <Core specimen={data.specimen} />
             <pre>
               {JSON.stringify(data, null, 2)}
             </pre>

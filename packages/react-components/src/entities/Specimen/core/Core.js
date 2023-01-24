@@ -33,8 +33,8 @@ export function Core({
   const hideSideBar = useBelow(100);
   const [toc, setToc] = useState({});
 
-  const lat = 55.50571;
-  const lon = 9.48711;
+  const lat = specimen?.collectionEvent?.location?.georeference?.decimalLatitude;
+  const lon = specimen?.collectionEvent?.location?.georeference?.decimalLongitude;
 
   useEffect(() => {
     setToc({});
@@ -69,8 +69,8 @@ export function Core({
           </div>
           <nav css={sideNav()}>
             <ul>
-              {/* <Li to="#summary">Summary</Li>
-              <Separator /> */}
+              <Li to="#summary">Summary</Li>
+              <Separator />
               <Li toc={toc} to="#images">Images</Li>
               <Li toc={toc} to="#specimen">Preserved specimen</Li>
               <Li toc={toc} to="#identification">Identification</Li>
@@ -81,14 +81,12 @@ export function Core({
               <Li toc={toc} to="#relationsships">Relationsships</Li>
               <Li toc={toc} to="#other">Other</Li>
               <Separator />
-              {/* <Li style={{ color: '#888', fontSize: '85%' }}>Extensions</Li> */}
               <Li toc={toc} to="#identification">Identifiers</Li>
               <Li toc={toc} to="#gel-image">Literature</Li>
               <Li toc={toc} to="#loan">References <Tag type="light">3</Tag></Li>
               <li style={{ borderBottom: '1px solid #eee' }}></li>
               <Li to="#citation">How to cite</Li>
             </ul>
-            {/* <div onClick={() => setShowAll(!showAll)}>Toggle debug view</div> */}
           </nav>
         </Card>
       </aside>}
@@ -101,11 +99,11 @@ export function Core({
           <MdHelp />
         </div>
         <Media updateToc={addSection} specimen={specimen} />
-        <Sequences updateToc={addSection} specimen={specimen} />
-        <Location updateToc={addSection} specimen={specimen} />
-        <Material css={css`margin-bottom: 24px; margin-top: 24px;`} />
-        <Assertions css={css`margin-bottom: 24px;`} />
-        <Identifications css={css`margin-bottom: 24px;`} />
+        {/* <Sequences updateToc={addSection} specimen={specimen} /> */}
+        {/* <Location updateToc={addSection} specimen={specimen} /> */}
+        <Material specimen={specimen} css={css`margin-bottom: 24px; margin-top: 24px;`} />
+        <Assertions specimen={specimen} css={css`margin-bottom: 24px;`} />
+        <Identifications specimen={specimen} css={css`margin-bottom: 24px;`} />
       </div>
     </div>
   </div>
