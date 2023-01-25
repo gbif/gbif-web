@@ -12,7 +12,7 @@ class TaxonMediaAPI extends RESTDataSource {
     request.headers.set('Accept', 'application/json');
   }
 
-  async getRepresentativeImages({ taxon }) {
+  async getRepresentativeImages({ taxon, size, from }) {
     const params = new URLSearchParams({
       q: `lsid:${taxon}`,
       fq: 'multimedia:"Image"',
@@ -20,7 +20,8 @@ class TaxonMediaAPI extends RESTDataSource {
       sort: 'identification_qualifier_s',
       dir: 'asc',
       im: true,
-      pageSize: 30,
+      start: from || 0,
+      pageSize: (size || 10) + 10, // add a buffer for occurrenes without provided metadata
     });
 
     // Append filter queries
@@ -69,7 +70,8 @@ class TaxonMediaAPI extends RESTDataSource {
             };
           }),
       )
-      .flat();
+      .flat()
+      .slice(0, size);
   }
 }
 
