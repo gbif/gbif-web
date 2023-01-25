@@ -4,12 +4,12 @@
   "subtypeLiteral": "Subtype",
   "title": "Title",
   "rights": "Rights",
-  "Credit": "Credit",
+  "credit": "Credit",
   "providerLiteral": "Provider",
   "description": "Description",
   "accessURI": "URL",
   "accessOriginalURI": "Original URL",
   "format": "Format",
-  "PixelXDimension": "Width",
-  "PixelYDimension": "Height"
+  "pixelXDimension": "Width",
+  "pixelYDimension": "Height"
 }
