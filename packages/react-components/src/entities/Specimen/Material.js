@@ -16,9 +16,6 @@ export function Material({
   return <Card padded={false} {...props}>
     <div css={css`padding: 12px 24px;`}>
       <CardHeader2>Catalog item</CardHeader2>
-      <div css={css``}>
-
-      </div>
       <div css={css`margin-top: 12px;`}>
         <Properties dense>
           {['associatedSequences',

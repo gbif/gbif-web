@@ -40,7 +40,7 @@ export function Assertions({
         </thead>
         <TBody>
           {specimen.assertions.map(x => {
-            return <tr>
+            return <tr key={x.assertionId}>
               <Td>{x.assertionType}</Td>
               <Td>{x.assertionValueNumeric ?? assertionValue}</Td>
               <Td>{x.assertionProtocol}</Td>

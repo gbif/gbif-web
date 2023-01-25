@@ -464,6 +464,7 @@ query($key: String!) {
   }
   catalogedItemAssertions: allAssertions(condition: {assertionTargetId: $key}) {
     nodes {
+      assertionId
       assertionType
       assertionUnit
       assertionValue
@@ -494,10 +495,10 @@ function restructure(data) {
   const identificationSource = data?.specimen?.nodes?.[0]?.entityByMaterialEntityId?.identificationEvidencesByEntityId?.nodes;
   let identifications = identificationSource.map(x => {
     const identification = x.identificationByIdentificationId;
-    const { dateIdentified, identificationType, identifiedBy, identifiedById, taxonFormula, verbatimIdentification, typeStatus } = identification;
+    const { identificationId, dateIdentified, identificationType, identifiedBy, identifiedById, taxonFormula, verbatimIdentification, typeStatus } = identification;
 
     return {
-      dateIdentified, identificationType, identifiedById, taxonFormula, verbatimIdentification, typeStatus,
+      identificationId, dateIdentified, identificationType, identifiedById, taxonFormula, verbatimIdentification, typeStatus,
       identifiedBy: identifiedBy ? identifiedBy.split('|') : null,
       taxa: [// I assume it is an array in case the formula requires it
         ...identification?.taxonIdentificationsByIdentificationId?.nodes.map(x => {

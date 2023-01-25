@@ -1,6 +1,6 @@
 import { jsx, css } from '@emotion/react';
-import React from 'react';
-import { Classification, Properties } from '../../components';
+import React, { useState } from 'react';
+import { Classification, Properties, Button, Switch } from '../../components';
 import { Term, Value } from '../../components/Properties/Properties';
 import { Card, CardHeader2 } from '../shared';
 import { ImBook as ReferenceIcon } from 'react-icons/im'
@@ -8,11 +8,13 @@ import { MdEdit } from 'react-icons/md';
 import { TbCircleDot } from 'react-icons/tb';
 import { prettifyString } from '../../utils/labelMaker/config2labels';
 import { FormattedDate } from '../shared/header';
+import { FormattedMessage } from 'react-intl';
 
 export function Identifications({
   specimen,
   ...props
 }) {
+  const [showHistory, setHistoryState] = useState(false);
   if (!specimen) return null;
   const identifiedBy = specimen.identifications.current.identifiedBy;
   return <Card padded={false} css={css`position: relative;`} {...props}>
@@ -46,26 +48,30 @@ export function Identifications({
                 {['kingdom', 'phylum', 'class', 'order', 'family', 'genus'].map(rank => {
                   const rankName = specimen.identifications.current.taxa[0]?.[rank];
                   if (!rankName) return null;
-                  return <span>{rankName}</span>
+                  return <span key={rank}>{rankName}</span>
                 })}
               </Classification>
             </Value>
             <Value>
               <Classification css={css`display: inline-block; margin-inline-end: 4px;`}>
-                {specimen.identifications.current.taxa[0].gbif.classification.map(rank => <span>{rank.name}</span>)}
+                {specimen.identifications.current.taxa[0].gbif.classification.map(rank => <span key={rank.key}>{rank.name}</span>)}
               </Classification>
               <span css={css`color: #aaa; display: inline-block;`}><ReferenceIcon style={{ verticalAlign: 'middle' }} /> GBIF</span>
             </Value>
           </div>
         </Properties>
+        <label style={{ display: 'block', textAlign: 'end', fontSize: '0.9em' }}>
+          <FormattedMessage id="material.showHistory" defaultMessage="Show history" />
+          <Switch checked={showHistory} onChange={() => setHistoryState(!showHistory)} style={{ marginInlineStart: 8 }} />
+        </label>
       </div>
     </div>
-    <div css={css`padding: 12px 24px; background: var(--paperBackground800); border-top: 1px solid var(--paperBorderColor);`}>
+    {showHistory && <div css={css`padding: 12px 24px; background: var(--paperBackground800); border-top: 1px solid var(--paperBorderColor);`}>
       <h3 css={css`color: var(--color400); font-weight: normal; font-size: 16px;`}>Identifications history</h3>
       <ul css={css`margin: 0; padding: 0; list-style: none;`}>
 
         {specimen.identifications.history.map(identification => {
-          return <li css={css`display: flex; margin-bottom: 12px;`}>
+          return <li key={identification.identificationId} css={css`display: flex; margin-bottom: 12px;`}>
             <div css={css`flex: 0 0 150px; margin-inline-end: 24px; color: var(--color400); margin-top: 18px;`}>
               <FormattedDate value={identification.dateIdentified}
                 year="numeric"
@@ -129,7 +135,7 @@ export function Identifications({
 
 
       </ul>
-    </div>
+    </div>}
 
   </Card>
 };
@@ -158,7 +164,7 @@ function Identification({ identification, ...props }) {
           {['kingdom', 'phylum', 'class', 'order', 'family', 'genus'].map(rank => {
             const rankName = identification.taxa[0]?.[rank];
             if (!rankName) return null;
-            return <span>{rankName}</span>
+            return <span key={rank}>{rankName}</span>
           })}
         </Classification>
       </Value>

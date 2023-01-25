@@ -54,7 +54,7 @@ export function Core({
   return <div>
 
     <div css={css`padding-bottom: 100px; display: flex; margin: 0 -12px;`}>
-      {!hideSideBar && <aside css={css`flex: 0 0 280px; margin: 0 12px;`}>
+      {!hideSideBar && <aside css={stickyAside()}>
         <Card style={{ padding: 0, marginBottom: 12 }}>
           <div css={mapThumb}>
             <img src={`https://api.mapbox.com/styles/v1/mapbox/light-v9/static/pin-s-circle+285A98(${lon},${lat})/${lon},${lat},5,0/250x180@2x?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA`} />
@@ -94,12 +94,12 @@ export function Core({
       <div css={css`flex: 1 1 auto; margin: 0 12px;`}>
         <div css={css`display: flex; align-items: center; margin-bottom: 8px;`}>
           <label css={css`margin-inline-end: 8px;`}>
-            <Toggle /> <FormattedMessage id="specimen.extendedView" defaultMessage="Extended view" />
+            <Toggle /> <FormattedMessage id="specimen.enrichedToggle" defaultMessage="Enriched view" />
           </label>
           <MdHelp />
         </div>
-        <Media updateToc={addSection} specimen={specimen} />
-        {/* <Sequences updateToc={addSection} specimen={specimen} /> */}
+        <Media updateToc={addSection} specimen={specimen} css={css`margin-bottom: 24px;`}/>
+        <Sequences updateToc={addSection} specimen={specimen} css={css`margin-bottom: 24px;`}/>
         {/* <Location updateToc={addSection} specimen={specimen} /> */}
         <Material specimen={specimen} css={css`margin-bottom: 24px; margin-top: 24px;`} />
         <Assertions specimen={specimen} css={css`margin-bottom: 24px;`} />
@@ -170,6 +170,14 @@ const mapThumb = css`
     position: absolute;
     height: 100%;
   }
+`;
+
+const stickyAside = ({ ...props }) => css`
+  flex: 0 0 280px; 
+  margin: 0 12px;
+  align-self: flex-start;
+  position: sticky;
+  top: 12px;
 `;
 
 const sideNav = ({ ...props }) => css`

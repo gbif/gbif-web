@@ -12,9 +12,9 @@ import { prettifyEnum } from '../../../utils/labelMaker/config2labels';
 
 const { Term: T, Value: V } = Properties;
 
-export function Media({ updateToc, specimen }) {
+export function Media({ updateToc, specimen, ...props }) {
   if (!specimen) return null;
-  return <Group>
+  return <Group {...props}>
     <MediaSummary specimen={specimen} />
   </Group>
 }
@@ -41,7 +41,7 @@ function MediaSummary({ specimen, ...props }) {
   if (images.length === 0 && specimen.movingImageCount === 0 && specimen.soundCount === 0) return null;
 
   return <>
-    <div style={{ position: 'relative', background: '#eee' }}>
+    <div style={{ position: 'relative', background: '#eee' }} {...props}>
       {hasPlayableVideo && <video controls style={{ maxWidth: '100%', height: 400, display: 'block', margin: 'auto' }} >
         <source src={activeMedia.identifier} type={activeMedia.format} />
         Unable to play
