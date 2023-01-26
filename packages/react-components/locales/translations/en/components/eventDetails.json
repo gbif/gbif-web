@@ -35,8 +35,16 @@
     "geologicalContext": "Geological context",
     "measurementsOrFacts": "Measurements",
     "images": "Images",
-    "other": "Other"
+    "other": "Other",
+    "methodology": "Methodology",
+    "taxonomicCoverage": ""
   },
   "siteTooltip": "",
-  "siteTableLegend": ""
+  "siteTableLegend": "",
+  "site": "",
+  "siteLoading": "",
+  "activityDetails": {
+    "monthYear": "",
+    "year": ""
+  }
 }
