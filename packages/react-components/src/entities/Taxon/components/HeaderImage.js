@@ -35,8 +35,6 @@ function HeaderImage({ width, height, guid, radius = 0 }) {
     [guid]
   );
 
-  console.log(data, error);
-
   return (
     <div
       style={{

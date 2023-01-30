@@ -1,14 +1,17 @@
 import { jsx, css } from '@emotion/react';
 import React from 'react';
+import { GrGithub as Github } from 'react-icons/gr';
+import { MdPerson } from 'react-icons/md';
+import { Switch, Route, useRouteMatch } from 'react-router-dom';
+import { join } from '../../utils/util';
+
+// Local Components
 import { Classification, Tag, Tabs, Tooltip } from '../../components';
 import {
   Homepage,
   FeatureList,
   GenericFeature,
 } from '../../components/IconFeatures/IconFeatures';
-import { join } from '../../utils/util';
-import env from '../../../.env.json';
-
 import {
   DataHeader,
   HeaderWrapper,
@@ -19,13 +22,11 @@ import {
   HeaderInfoEdit,
 } from '../shared/header';
 import { PageError, Page404, PageLoader } from '../shared';
-import About from './about';
-
-import { GrGithub as Github } from 'react-icons/gr';
-
-import { Switch, Route, useRouteMatch } from 'react-router-dom';
-import { MdPerson } from 'react-icons/md';
 import HeaderImage from './components/HeaderImage';
+
+// Tab pages
+import About from './about';
+import Events from './events';
 
 const { TabList, RouterTab, Tab } = Tabs;
 
@@ -71,7 +72,9 @@ Relating to ${location.href}
         <Classification style={{ marginBottom: 16 }}>
           {['order', 'family', 'genus'].map((rank) =>
             taxon[rank] ? (
-              <span style={{ color: '#aaa', fontSize: 14 }}>{taxon[rank]}</span>
+              <span key={rank} style={{ color: '#aaa', fontSize: 14 }}>
+                {taxon[rank]}
+              </span>
             ) : null
           )}
         </Classification>
@@ -142,7 +145,7 @@ Relating to ${location.href}
         <Switch>
           <Route path={join(path, '/events')}>
             <ContentWrapper>
-              <div>Events</div>
+              <Events />
             </ContentWrapper>
           </Route>
           <Route path={join(path, '/map')}>
