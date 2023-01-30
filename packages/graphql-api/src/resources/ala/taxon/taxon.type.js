@@ -68,10 +68,7 @@ const typeDef = gql`
     taxonID: String
     taxonomicStatus: String
     vernacularName: String
-    """
-    Actual 'wikiData' type: WikiDataTaxonData
-    """
-    wikiData: JSON
+    wikiData: WikiDataTaxonData
   }
 `;
 

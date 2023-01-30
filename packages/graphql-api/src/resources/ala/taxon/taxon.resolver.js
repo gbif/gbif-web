@@ -10,12 +10,12 @@ export default {
     taxon: (parent, { key }, { dataSources }) =>
       dataSources.taxonAPI.getTaxonByKey({ key, useBie: true }),
   },
-  // Taxon: {
-  //   dataset: ({ datasetKey }, args, { dataSources }) =>
-  //     dataSources.datasetAPI.getDatasetByKey({ key: datasetKey }),
-  //   formattedName: ({ key }, args, { dataSources }) =>
-  //     dataSources.taxonAPI.getParsedName({ key }),
-  //   wikiData: ({ key }, args, { dataSources }) =>
-  //     dataSources.wikidataAPI.getWikiDataTaxonData(key),
-  // },
+  Taxon: {
+    // dataset: ({ datasetKey }, args, { dataSources }) =>
+    //   dataSources.datasetAPI.getDatasetByKey({ key: datasetKey }),
+    // formattedName: ({ key }, args, { dataSources }) =>
+    //   dataSources.taxonAPI.getParsedName({ key }),
+    wikiData: ({ key }, args, { dataSources }) =>
+      dataSources.wikidataAPI.getWikiDataTaxonData(key),
+  },
 };
