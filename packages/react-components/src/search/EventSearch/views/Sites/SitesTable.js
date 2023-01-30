@@ -16,7 +16,7 @@ function SitesTableSkeleton() {
           <div className="header">
             <Skeleton width="random" style={{ height: '1.5em' }} />
           </div>
-          <div className="sideBar">
+          <div className="sidebar">
             <Skeleton width="random" />
             <Skeleton width="random" />
             <Skeleton width="random" />
@@ -53,7 +53,7 @@ export const SitesTable = ({ query, first, prev, next, size, from, results, load
     setSiteMatrix([]);
     setSiteData([]);
     setTotalPoints(0);
-
+    
     let items = results;
     if (items && items.results?.temporal?.locationID?.results){
 
@@ -91,12 +91,11 @@ export const SitesTable = ({ query, first, prev, next, size, from, results, load
           }
           site_matrix[i] = years_arr;
       }
-
+      
       site_data.forEach( (site, site_index) => {
 
         // row per site
         year_range.forEach( (year, year_idx) => {
-
           // get the data for the year
           let yearBreakdown = site.breakdown.filter( breakdown => breakdown.y == year);
           if (yearBreakdown && yearBreakdown.length == 1) {
@@ -145,10 +144,10 @@ export const SitesTable = ({ query, first, prev, next, size, from, results, load
                 <div className="header">
                   <div className="header-grid">
                     { years.map(obj => <ul><li key={`y_${obj}`}>{obj}</li></ul>) }
-                  </div>
+                  </div>                     
                 </div>
-                <div className="sideBar">
-                  <div className="sidebar-grid">
+                <div className="sidebar">
+                  <div className="sidebar-grid">   
                    { siteData.map( (obj, i) => <ul><li key={`s_${i}`} onClick={() => { setSiteIDCallback({locationID: obj.key}); }}>{obj.key}</li></ul>) }
                   </div>
                 </div>
@@ -170,7 +169,7 @@ export const SitesDataGrid = ({ siteMatrix, siteData, years, setSiteIDCallback, 
     siteMatrix.map( (siteRow, site_idx) =>
       siteRow.map( (year_cell, year_idx) =>
         <ul className="year-grid" key={`${site_idx}_${year_idx}`}>
-          {
+          {   
             year_cell.map( (month_cell, month_idx) =>
                 <li className={`${month_idx}_col`}
                     id={`${site_idx}_${year_idx}_${month_idx}`}

@@ -28,7 +28,13 @@ function useQuery(query, options = {}) {
   const queryConfig = searchConfig?.queryConfig;
 
   if (error?.networkError && options?.throwNetworkErrors) throw error;
-  if (error && options?.throwAllErrors) throw error;
+  if (error && options?.throwAllErrors) {
+    if (error.isCanceled) {
+      // just ignore this. Since the request was cancelled on purpose we shouldn't throw an error.
+    } else {
+      throw error
+    }
+  }
 
   function init({keepDataWhileLoading}) {
     if (!keepDataWhileLoading) setData();

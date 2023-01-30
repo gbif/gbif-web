@@ -12,6 +12,7 @@
   "apply": "Toepassen",
   "wildcardHelp": "",
   "useWildcardPattern": "",
+  "useCaseInsensitiveValue": "",
   "showSuggestions": "",
   "excludeSelected": "Geselecteerde uitsluiten",
   "updateFilter": "",
