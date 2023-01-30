@@ -5,7 +5,8 @@ import { RESTDataSource } from 'apollo-datasource-rest';
 class TaxonMediaAPI extends RESTDataSource {
   constructor(config) {
     super();
-    this.baseURL = config.alaBiocache;
+    this.baseURL = config.ala.biocache;
+    this.config = config;
   }
 
   willSendRequest(request) {
@@ -21,7 +22,7 @@ class TaxonMediaAPI extends RESTDataSource {
       dir: 'asc',
       im: true,
       start: from || 0,
-      pageSize: (size || 10) + 10, // add a buffer for occurrenes without provided metadata
+      pageSize: size || 10,
     });
 
     // Append filter queries
@@ -38,40 +39,52 @@ class TaxonMediaAPI extends RESTDataSource {
     const { occurrences } = await this.get(
       `/occurrences/search?${params.toString()}`,
     );
+
+    const { results: images } = await this.post(
+      `${this.config.ala.images}/getImageInfoForIdList`,
+      JSON.stringify({
+        imageIds: occurrences.map(({ image }) => image),
+      }),
+    );
+
     return occurrences
-      .filter((occ) => Boolean(occ.imageMetadata))
+      .map((occ) => ({ ...occ, imageMetadata: images[occ.image] }))
       .map(
-        ({ scientificName, speciesGroups, occurrenceDetails, imageMetadata }) =>
-          imageMetadata.map((meta) => {
-            return {
-              identifier: meta.imageIdentifier,
-              type: 'Photograph',
-              subtypeLiteral: meta.type,
-              title: `Image of ${scientificName}`,
-              metadataDate: meta.dateUploaded,
-              metadataLanguage: 'eng',
-              metadataLanguageLiteral: 'English',
-              providerManagedID: meta.imageIdentifier,
-              rights: meta.recognisedLicense?.acronym || 'Unknown',
-              owner: meta.creator,
-              credit: meta.rightsHolder,
-              creator: meta.creator,
-              providerLiteral: meta.publisher,
-              description: occurrenceDetails,
-              tag: speciesGroups.join(', '),
-              createDate: meta.dateTaken,
-              accessURI: meta.squareThumbUrl,
-              accessOriginalURI: meta.imageUrl,
-              format: meta.extension,
-              hashFunction: 'MD5',
-              hashValue: meta.contentMD5Hash,
-              pixelXDimension: meta.width,
-              pixelYDimension: meta.height,
-            };
-          }),
-      )
-      .flat()
-      .slice(0, size);
+        ({
+          scientificName,
+          speciesGroups,
+          occurrenceDetails,
+          imageMetadata,
+        }) => {
+          return {
+            identifier: imageMetadata.imageId,
+            type: 'StillImage',
+            // subtypeLiteral: null,
+            title: imageMetadata.title || `Image of ${scientificName}`,
+            // metadataDate: null,
+            metadataLanguage: 'eng',
+            metadataLanguageLiteral: 'English',
+            providerManagedID: imageMetadata.imageId,
+            rights: imageMetadata.rights || 'Unknown',
+            owner: imageMetadata.rightsHolder,
+            webStatement:
+              imageMetadata.license?.includes('http') && imageMetadata.license,
+            credit: imageMetadata.rights,
+            creator: imageMetadata.creator,
+            // providerLiteral: null,
+            description: imageMetadata.description || occurrenceDetails,
+            tag: speciesGroups.join(', '),
+            // createDate: null,
+            accessURI: imageMetadata.thumbUrl,
+            accessOriginalURI: imageMetadata.imageUrl,
+            format: imageMetadata.mimetype,
+            // hashFunction: null,
+            // hashValue: null,
+            pixelXDimension: imageMetadata.width,
+            pixelYDimension: imageMetadata.height,
+          };
+        },
+      );
   }
 }
 
