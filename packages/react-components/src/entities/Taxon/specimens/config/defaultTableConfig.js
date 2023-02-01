@@ -1,53 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
-import PredicateDataFetcher from '../../../search/PredicateDataFetcher';
-import { EventsTable } from './EventsTable';
-import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
-import { ErrorBoundary, TextButton, Tooltip } from '../../../components';
+import React from 'react';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
+import { TextButton, Tooltip } from '../../../../components';
 import { RiSideBarFill as OpenInSideBar } from 'react-icons/ri';
-import { InlineFilterChip } from '../../../widgets/Filter/utils/FilterChip';
-import StandaloneSearch from '../../../search/Search';
+import { InlineFilterChip } from '../../../../widgets/Filter/utils/FilterChip';
 
-// Config
-import defaultFilterConfig from './config/filterConf';
-import predicateConfig from './config/predicateConfig';
-
-const QUERY = `
-query list($predicate: Predicate, $offset: Int, $limit: Int){
-  results: eventSearch(
-    predicate:$predicate,
-    size: $limit, 
-    from: $offset
-    ) {
-    documents {
-      size
-      from
-      total
-      results {
-        eventID
-        samplingProtocol
-        eventType {
-          concept
-        }
-        parentEventID
-        locationID
-        month
-        year
-        datasetTitle
-        datasetKey
-        formattedCoordinates
-        stateProvince
-        countryCode
-        measurementOrFactTypes
-        occurrenceCount
-        speciesCount
-        eventTypeHierarchyJoined
-      }
-    }
-  }
-}
-`;
-
-const defaultTableConfig = {
+export default (intl) => ({
   columns: [
     {
       trKey: 'filters.eventID.name',
@@ -162,7 +119,7 @@ const defaultTableConfig = {
               <InlineFilterChip filterName='month' values={[event.month]}>
                 <span
                   dangerouslySetInnerHTML={{
-                    __html: useIntl().formatMessage({
+                    __html: intl.formatMessage({
                       id: `enums.month.${event.month}`,
                     }),
                   }}
@@ -289,26 +246,4 @@ const defaultTableConfig = {
       noWrap: true,
     },
   ],
-};
-
-function Table() {
-  return (
-    <PredicateDataFetcher
-      queryProps={{ throwAllErrors: true }}
-      graphQuery={QUERY}
-      graph='EVENT'
-      queryTag='table'
-      limit={50}
-      componentProps={{
-        defaultTableConfig,
-      }}
-      presentation={EventsTable}
-    />
-  );
-}
-
-export default (props) => (
-  <ErrorBoundary>
-    <StandaloneSearch {...{ defaultFilterConfig, predicateConfig, Table }} />
-  </ErrorBoundary>
-);
+});

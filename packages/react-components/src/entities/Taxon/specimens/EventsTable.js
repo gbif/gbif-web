@@ -54,8 +54,6 @@ export const EventsTable = ({
     labelMap,
   } = useContext(SearchContext);
 
-  console.log(tableConfig);
-
   const headers = tableConfig.columns.map((col, index) => {
     const FilterPopover = col.filterKey
       ? filters[col.filterKey]?.Popover
@@ -136,9 +134,9 @@ const getRows = ({
       if (!val && field.value.hideFalsy === true) {
         formattedVal = '';
       } else if (field.value.formatter) {
-        // formattedVal = field.value.formatter(val, row, {
-        //   filterContext: currentFilterContext,
-        // });
+        formattedVal = field.value.formatter(val, row, {
+          filterContext: currentFilterContext,
+        });
       } else if (field.value.labelHandle) {
         const Label = labelMap[field.value.labelHandle];
         formattedVal = Label ? <Label id={val} /> : val;
