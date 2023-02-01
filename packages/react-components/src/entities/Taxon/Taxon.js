@@ -21,7 +21,7 @@ function EnsureRouter({ children }) {
   );
 }
 
-export function Taxon({ id }) {
+export function Taxon({ id, config }) {
   const { data, error, loading, load } = useQuery(QUERY_TAXON, {
     lazyLoad: true,
   });
@@ -37,7 +37,7 @@ export function Taxon({ id }) {
 
   return (
     <EnsureRouter>
-      <TaxonPresentation {...{ data, error, loading, id }} />
+      <TaxonPresentation {...{ data, error, loading, id, config }} />
     </EnsureRouter>
   );
 }

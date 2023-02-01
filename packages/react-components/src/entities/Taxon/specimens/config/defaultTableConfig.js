@@ -1,7 +1,4 @@
 import React from 'react';
-import { FormattedMessage, FormattedNumber } from 'react-intl';
-import { TextButton, Tooltip } from '../../../../components';
-import { RiSideBarFill as OpenInSideBar } from 'react-icons/ri';
 import { InlineFilterChip } from '../../../../widgets/Filter/utils/FilterChip';
 
 export default (intl) => ({
@@ -11,40 +8,6 @@ export default (intl) => ({
       value: {
         key: 'eventID',
         hideFalsy: true,
-        formatter: (value, event, { openInSideBar }) => (
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <Tooltip
-              placement='top'
-              title={
-                <span>
-                  <FormattedMessage id='filterSupport.viewDetails' />
-                </span>
-              }
-            >
-              <TextButton
-                as='span'
-                look='textHoverLinkColor'
-                style={{ display: 'inline-flex' }}
-              >
-                <OpenInSideBar
-                  style={{ fontSize: '1.5em', marginRight: '.75em' }}
-                  onClick={(e) => {
-                    openInSideBar();
-                    e.stopPropagation();
-                  }}
-                />
-              </TextButton>
-            </Tooltip>
-            <div>
-              <InlineFilterChip filterName='eventId' values={[event.eventID]}>
-                <span
-                  dangerouslySetInnerHTML={{ __html: value }}
-                  data-loader
-                ></span>
-              </InlineFilterChip>
-            </div>
-          </div>
-        ),
       },
     },
     {
@@ -69,13 +32,13 @@ export default (intl) => ({
         ),
       },
     },
-    {
-      trKey: 'filters.dataStructure.name',
-      value: {
-        key: 'eventTypeHierarchyJoined',
-        hideFalsy: true,
-      },
-    },
+    // {
+    //   trKey: 'filters.dataStructure.name',
+    //   value: {
+    //     key: 'eventTypeHierarchyJoined',
+    //     hideFalsy: true,
+    //   },
+    // },
     {
       trKey: 'filters.samplingProtocol.name',
       value: {
@@ -174,14 +137,14 @@ export default (intl) => ({
         ),
       },
     },
-    {
-      name: 'coordinates',
-      trKey: 'filters.coordinates.name',
-      value: {
-        key: 'formattedCoordinates',
-      },
-      noWrap: true,
-    },
+    // {
+    //   name: 'coordinates',
+    //   trKey: 'filters.coordinates.name',
+    //   value: {
+    //     key: 'formattedCoordinates',
+    //   },
+    //   noWrap: true,
+    // },
     {
       name: 'stateProvince',
       trKey: 'filters.stateProvince.name',
@@ -205,45 +168,45 @@ export default (intl) => ({
         ),
       },
     },
-    {
-      name: 'countryCode',
-      trKey: 'filters.country.name',
-      value: {
-        key: 'countryCode',
-        labelHandle: 'countryCode',
-      },
-    },
-    {
-      name: 'measurementOrFactTypes',
-      trKey: 'filters.measurementOrFactTypes.name',
-      value: {
-        key: 'measurementOrFactTypes',
-        formatter: (value, item) => (
-          <>{(value || []).slice(0, 10).join(', ')}</>
-        ),
-      },
-    },
-    {
-      name: 'occurrenceCount',
-      trKey: 'tableHeaders.occurrences',
-      value: {
-        key: 'occurrenceCount',
-        formatter: (value, item) => <FormattedNumber value={value} />,
-        hideFalsy: true,
-        rightAlign: true,
-      },
-      noWrap: true,
-    },
-    {
-      name: 'speciesCount',
-      trKey: 'tableHeaders.species',
-      value: {
-        key: 'speciesCount',
-        formatter: (value, item) => <FormattedNumber value={value} />,
-        hideFalsy: true,
-        rightAlign: true,
-      },
-      noWrap: true,
-    },
+    // {
+    //   name: 'countryCode',
+    //   trKey: 'filters.country.name',
+    //   value: {
+    //     key: 'countryCode',
+    //     labelHandle: 'countryCode',
+    //   },
+    // },
+    // {
+    //   name: 'measurementOrFactTypes',
+    //   trKey: 'filters.measurementOrFactTypes.name',
+    //   value: {
+    //     key: 'measurementOrFactTypes',
+    //     formatter: (value, item) => (
+    //       <>{(value || []).slice(0, 10).join(', ')}</>
+    //     ),
+    //   },
+    // },
+    // {
+    //   name: 'occurrenceCount',
+    //   trKey: 'tableHeaders.occurrences',
+    //   value: {
+    //     key: 'occurrenceCount',
+    //     formatter: (value, item) => <FormattedNumber value={value} />,
+    //     hideFalsy: true,
+    //     rightAlign: true,
+    //   },
+    //   noWrap: true,
+    // },
+    // {
+    //   name: 'speciesCount',
+    //   trKey: 'tableHeaders.species',
+    //   value: {
+    //     key: 'speciesCount',
+    //     formatter: (value, item) => <FormattedNumber value={value} />,
+    //     hideFalsy: true,
+    //     rightAlign: true,
+    //   },
+    //   noWrap: true,
+    // },
   ],
 });

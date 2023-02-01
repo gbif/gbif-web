@@ -1,6 +1,6 @@
 import React from 'react';
 import PredicateDataFetcher from '../../../search/PredicateDataFetcher';
-import { EventsTable } from './EventsTable';
+import { SpecimensTable } from './SpecimensTable';
 import { ErrorBoundary } from '../../../components';
 import StandaloneSearch from '../../../search/Search';
 
@@ -58,13 +58,15 @@ function Table() {
       componentProps={{
         defaultTableConfig: defaultTableConfig(intl),
       }}
-      presentation={EventsTable}
+      presentation={SpecimensTable}
     />
   );
 }
 
-export default (props) => (
+export default ({ config }) => (
   <ErrorBoundary>
-    <StandaloneSearch {...{ defaultFilterConfig, predicateConfig, Table }} />
+    <StandaloneSearch
+      {...{ config, defaultFilterConfig, predicateConfig, Table }}
+    />
   </ErrorBoundary>
 );

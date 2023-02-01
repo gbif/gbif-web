@@ -30,7 +30,7 @@ import Specimens from './specimens';
 
 const { TabList, RouterTab, Tab } = Tabs;
 
-export function TaxonPresentation({ id, data, error, loading, ...props }) {
+export function TaxonPresentation({ id, data, error, loading, config }) {
   let { path, url } = useRouteMatch();
 
   if (error) {
@@ -145,7 +145,7 @@ Relating to ${location.href}
         <Switch>
           <Route path={join(path, '/specimens')}>
             <ContentWrapper>
-              <Specimens />
+              <Specimens config={config} />
             </ContentWrapper>
           </Route>
           <Route path={join(path, '/map')}>

@@ -36,7 +36,7 @@ function isEmpty(e) {
   );
 }
 
-export const EventsTable = ({
+export const SpecimensTable = ({
   first,
   prev,
   next,
