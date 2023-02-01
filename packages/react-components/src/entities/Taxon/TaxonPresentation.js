@@ -47,7 +47,7 @@ export function TaxonPresentation({ id, data, error, loading, config }) {
   }
 
   if (loading || !data) return <PageLoader />;
-  const { institution, taxon } = data;
+  const { taxon } = data;
 
   if (error || !taxon) {
     // TODO a generic component for failures is needed
@@ -145,7 +145,7 @@ Relating to ${location.href}
         <Switch>
           <Route path={join(path, '/specimens')}>
             <ContentWrapper>
-              <Specimens config={config} />
+              <Specimens id={id} config={config} />
             </ContentWrapper>
           </Route>
           <Route path={join(path, '/map')}>

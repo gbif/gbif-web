@@ -7,15 +7,14 @@ export const filters = [
   'month',
   'eventStateProvince',
   'eventId',
-  'eventType',
   'locationId',
+  'eventCatalogNumber',
 ].sort();
 
 const highlighted = [
-  'eventId',
+  'eventCatalogNumber',
   'eventType',
   'eventDatasetKey',
-  'eventType',
   'eventSamplingProtocol',
   'measurementOrFactTypes',
   'year',

@@ -106,6 +106,73 @@ export default gql`
     wktConvexHull: String
     temporalCoverage: TemporalCoverage
     distinctTaxa: [DistinctTaxon]!
+    occurrences(size: Int, from: Int): EventOccurrenceDocuments
+  }
+
+  type EventOccurrenceDocuments {
+    size: Int!
+    from: Int!
+    total: Int!
+    results: [EventOccurrence]
+  }
+
+  type EventOccurrence {
+    key: String
+    gbifID: Int
+    identifier: String
+    modified: String
+    acceptedScientificName: String
+    verbatimScientificName: String
+    acceptedTaxonKey: String
+    kindgom: String
+    kingdomKey: String
+    phylum: String
+    phylumKey: String
+    class: String
+    classKey: String
+    order: String
+    orderKey: String
+    family: String
+    familyKey: String
+    genus: String
+    genusKey: String
+    species: String
+    speciesKey: String
+    datasetKey: String
+    parsedEventDate: TemporalCoverage
+    disposition: String
+    eventID: String
+    eventRemarks: String
+    eventDate: String
+    geodeticDatum: String
+    georeferencedBy: String
+    habitat: String
+    nomenclaturalCode: String
+    occurrenceID: String
+    occurrenceRemarks: String
+    occurrenceStatus: String
+    recordNumber: String
+    recordedBy: [String]
+    reproductiveCondition: String
+    scientificNameAuthorship: String
+    verbatimLatitude: String
+    verbatimLongitude: String
+    basisOfRecord: String
+    catalogNumber: String
+    collectionCode: String
+    coordinateUncertaintyInMeters: Int
+    country: String
+    countryCode: String
+    stateProvince: String
+    identifiedBy: [String]
+    dateIdentified: String
+    day: Int
+    month: Int
+    year: Int
+    decimalLatitude: Int
+    decimalLongitude: Int
+    institutionCode: String
+    locality: String
   }
 
   type TemporalCoverage {

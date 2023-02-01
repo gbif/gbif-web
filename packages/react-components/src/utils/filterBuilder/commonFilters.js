@@ -907,6 +907,24 @@ export const commonFilters = {
       }
     }
   },
+  eventCatalogNumber: {
+    type: 'SIMPLE_TEXT',
+    config: {
+      std: {
+        filterHandle: 'eventCatalogNumber',
+        id2labelHandle: 'catalogNumber',
+        translations: {
+          count: 'filters.catalogNumber.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.catalogNumber.name',// translation path to a title for the popover and the button
+          description: 'filters.catalogNumber.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        placeholder: 'Search by Catalog Number',
+        supportsExist: true
+      }
+    }
+  },
   eventId: {
     type: 'SIMPLE_TEXT',
     config: {

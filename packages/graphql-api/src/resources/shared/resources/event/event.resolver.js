@@ -178,6 +178,16 @@ export default {
             }),
           ),
         ),
+    occurrences: async ({ eventID }, { size, from }, { dataSources }) =>
+      dataSources.eventAPI
+        .searchOccurrences({
+          query: {
+            eventID,
+            size: size || 1,
+            from: from || 0,
+          },
+        })
+        .then(({ documents }) => documents),
   },
   EventFacetResult_dataset: {
     datasetTitle: ({ key }, args, { dataSources }) => {

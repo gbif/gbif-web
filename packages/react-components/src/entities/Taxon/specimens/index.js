@@ -40,6 +40,11 @@ query list($predicate: Predicate, $offset: Int, $limit: Int){
         occurrenceCount
         speciesCount
         eventTypeHierarchyJoined
+        occurrences(size: 1) {
+          results {
+            catalogNumber
+          }
+        }
       }
     }
   }
@@ -63,10 +68,34 @@ function Table() {
   );
 }
 
-export default ({ config }) => (
-  <ErrorBoundary>
-    <StandaloneSearch
-      {...{ config, defaultFilterConfig, predicateConfig, Table }}
-    />
-  </ErrorBoundary>
-);
+export default ({ id, config }) => {
+  const taxonConfig = config;
+
+  // Only show accession events related to the current taxa on the taxon page
+  if (id && config.rootFilter) {
+    taxonConfig.rootFilter = {
+      type: "and",
+      predicates: [
+        taxonConfig.rootFilter,
+        {
+          key: "taxonKey",
+          type: "equals",
+          value: id
+        },
+        {
+          key: "eventType",
+          type: "equals",
+          value: "Accession"
+        }
+      ]
+    }
+  }
+
+  return (
+    <ErrorBoundary>
+      <StandaloneSearch
+        {...{ config: taxonConfig, defaultFilterConfig, predicateConfig, Table }}
+      />
+    </ErrorBoundary>
+  )
+};

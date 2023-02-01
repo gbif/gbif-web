@@ -52,7 +52,10 @@ const filterConf = {
     },
     eventStateProvince: {
       defaultKey: 'stateProvince'
-    }
+    },
+    eventCatalogNumber: {
+      defaultKey: 'catalogNumber'
+    },
   }
 }
 

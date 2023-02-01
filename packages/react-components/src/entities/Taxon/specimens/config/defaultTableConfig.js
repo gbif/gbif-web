@@ -4,10 +4,13 @@ import { InlineFilterChip } from '../../../../widgets/Filter/utils/FilterChip';
 export default (intl) => ({
   columns: [
     {
-      trKey: 'filters.eventID.name',
+      trKey: 'filters.catalogNumber.name',
       value: {
-        key: 'eventID',
+        key: 'occurrences',
         hideFalsy: true,
+        formatter: ({ results }) => {
+          return results[0] ? results[0].catalogNumber : 'N/A'
+        }
       },
     },
     {
@@ -39,13 +42,13 @@ export default (intl) => ({
     //     hideFalsy: true,
     //   },
     // },
-    {
-      trKey: 'filters.samplingProtocol.name',
-      value: {
-        key: 'samplingProtocol',
-        hideFalsy: true,
-      },
-    },
+    // {
+    //   trKey: 'filters.samplingProtocol.name',
+    //   value: {
+    //     key: 'samplingProtocol',
+    //     hideFalsy: true,
+    //   },
+    // },
     {
       trKey: 'filters.datasetKey.name',
       filterKey: 'datasetKey',
