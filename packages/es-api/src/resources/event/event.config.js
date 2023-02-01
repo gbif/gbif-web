@@ -204,6 +204,17 @@ const config =
         }
       }
     },
+    catalogNumber: {
+      join: 'occurrence',
+      config: {
+        options: {
+          catalogNumber: {
+            type: 'keyword',
+            field: 'occurrence.catalogNumber.keyword'
+          }
+        }
+      }
+    },
     created: {
       type: 'date',
       field: 'created',
