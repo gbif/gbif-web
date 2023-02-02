@@ -13,10 +13,7 @@ import { Card, CardHeader2 } from '../../shared';
 const { Term: T, Value: V, EmptyValue } = Properties;
 const Name2Avatar = ListItem.Name2Avatar;
 
-export default function About({
-  taxon,
-  institution,
-}) {
+export default function About({ taxon }) {
   return (
     <div>
       <div
@@ -42,10 +39,7 @@ export default function About({
             <Prose
               style={{ marginBottom: 24, maxWidth: '60em', fontSize: '16px' }}
             >
-              {institution?.description && (
-                <HyperText text={institution.description} />
-              )}
-              {!institution?.description && <EmptyValue />}
+              {taxon?.remarks || <EmptyValue />}
             </Prose>
             <Properties
               style={{ fontSize: 16, marginBottom: 12 }}
