@@ -86,8 +86,8 @@
     };
   </script>
 
-  <!-- empty file -->
-
+  <!-- Events config file -->
+  <script type="text/javascript" src="config.js"></script>
   <!-- EVENT EXAMPLE -->
   <script
           src="https://cdnjs.cloudflare.com/ajax/libs/react/16.14.0/umd/react.production.min.js"
@@ -896,11 +896,20 @@
 <div class="container-fluid" id="main" style="padding: 0">
   <div id="root"></div>
   <script>
-    // Auth client related
-    const authServer = 'https://auth.ala.org.au/cas/oidc';
-    const authClientID = 'events-test-oidc-auth-prod'
-    const baseUrl = 'https://events-test.ala.org.au/'
+    let authServer =  'https://auth.ala.org.au/cas/oidc';
+    let authClientID = 'events-oidc-auth-prod'
+    let baseUrl = 'https://events.ala.org.au/'
+    let collectionsServer =  'https://collections.ala.org.au'
 
+    if (typeof config != "undefined") {
+      authServer = config?.authServer || authServer;
+      authClientID = config?.authClientID || authClientID
+      baseUrl = config?.baseUrl || baseUrl
+      collectionsServer = config?.collectionsServer || collectionsServer
+    } else {
+      console.warn("config.js is not found! Using default configurations....");
+    }
+    // Auth client related
     const authManager = new oidc.UserManager({
       client_id: authClientID,
       authority: authServer,
@@ -1046,13 +1055,13 @@
       },
       eventKey: {
         url: ({ key, otherIds }) =>
-                `https://collections-test.ala.org.au/public/showDataResource/${otherIds.datasetKey}`,
+                collectionsServer+`/public/showDataResource/${otherIds.datasetKey}`,
         isHref: true,
         route: '/event/:key',
       },
       datasetKey: {
         url: ({ key, gbifOrgLocalePrefix }) =>
-                `https://collections-test.ala.org.au/public/showDataResource/${key}`,
+                collectionsServer+`/public/showDataResource/${key}`,
         isHref: true,
         route: '/dataset/:key',
       },
