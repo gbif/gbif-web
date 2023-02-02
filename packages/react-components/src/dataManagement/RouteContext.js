@@ -98,6 +98,17 @@ export const defaultContext = {
     isHref: true,
     route: '/taxon/:key'
   },
+  specimenSearch: {
+    url: ({queryString, basename}) => `${basename ? `/${basename}` : ''}/specimen/search`,
+    isHref: true,
+    route: '/specimen/search'
+  },
+  specimenKey: {
+    // url: ({key}) => `/institution/${key}`,
+    url: ({key}) => `${gbifOrg}/specimen/${key}`,
+    isHref: true,
+    route: '/specimen/:key'
+  },
 };
 
 export default React.createContext(defaultContext);

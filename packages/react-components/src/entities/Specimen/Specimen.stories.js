@@ -1,18 +1,18 @@
 import React from 'react';
 import { text } from '@storybook/addon-knobs';
-import { Taxon } from './Taxon';
+import { Specimen } from './Specimen';
 import { MemoryRouter as Router, Route } from 'react-router-dom';
 import AddressBar from '../../StorybookAddressBar';
 import Standalone from './Standalone';
 import { QueryParamProvider } from 'use-query-params';
 
 export default {
-  title: 'Entities/ALA/Taxon page',
-  component: Taxon,
+  title: 'Entities/ALA/Specimen page',
+  component: Specimen,
 };
 
 const siteConfig = {
-  taxon: {
+  specimen: {
     rootFilter: {
       type: 'in',
       key: 'datasetKey',
@@ -26,19 +26,16 @@ export const Example = () => (
     <QueryParamProvider ReactRouterRoute={Route}>
       <AddressBar />
       <div style={{ flex: '1 1 auto' }}></div>
-      <Taxon
-        id={text(
-          'taxonUUID',
-          'https://id.biodiversity.org.au/taxon/apni/51286863'
-        )}
-        config={siteConfig?.taxon}
+      <Specimen
+        id={text('catalogNumber', 'CBG 9012125.2')}
+        config={siteConfig?.specimen}
       />
     </QueryParamProvider>
   </Router>
 );
 
 Example.story = {
-  name: 'Taxon page',
+  name: 'Specimen page',
 };
 
 export const StandaloneExample = () => (
@@ -49,6 +46,6 @@ export const StandaloneExample = () => (
           '{total, plural, one {# specimen} other {# specimens}}',
       },
     }}
-    id={text('taxonUUID', 'https://id.biodiversity.org.au/taxon/apni/51286863')}
+    id={text('catalogNumber', 'CBG 9012125.2')}
   ></Standalone>
 );

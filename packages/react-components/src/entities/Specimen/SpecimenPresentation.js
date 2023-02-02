@@ -27,18 +27,20 @@ import HeaderImage from './components/HeaderImage';
 // Tab pages
 import About from './about';
 import Specimens from './specimens';
-import Media from './media';
 
 const { TabList, RouterTab, Tab } = Tabs;
 
-export function TaxonPresentation({ id, data, error, loading, config }) {
+export function SpecimenPresentation({ id, data, error, loading, config }) {
   let { path, url } = useRouteMatch();
 
   if (error) {
     if (error?.errorPaths?.institution?.status === 404) {
       return (
         <>
-          <DataHeader searchType='taxonSearch' messageId='catalogues.taxa' />
+          <DataHeader
+            searchType='specimenSearch'
+            messageId='catalogues.specimens'
+          />
           <Page404 />
         </>
       );
@@ -54,7 +56,7 @@ export function TaxonPresentation({ id, data, error, loading, config }) {
     // TODO a generic component for failures is needed
     return (
       <>
-        <DataHeader searchType='taxonSearch' messageId='catalogues.taxa' />
+        <DataHeader searchType='specimenSearch' messageId='catalogues.specimens' />
         <Page404 />
       </>
     );
@@ -67,10 +69,10 @@ Relating to ${location.href}
   `;
   return (
     <>
-      <DataHeader searchType='taxonSearch' messageId='catalogues.taxa' />
+      <DataHeader searchType='specimenSearch' messageId='catalogues.specimens' />
       <HeaderWrapper>
         {/* <Eyebrow prefix='Taxon code' suffix='Something here' /> */}
-        <Classification style={{ marginBottom: 16 }}>
+        {/* <Classification style={{ marginBottom: 16 }}>
           {['kingdom', 'phylum', 'class', 'order', 'family'].map((rank) =>
             taxon[rank] ? (
               <span key={rank} style={{ color: '#aaa', fontSize: 14 }}>
@@ -78,7 +80,7 @@ Relating to ${location.href}
               </span>
             ) : null
           )}
-        </Classification>
+        </Classification> */}
         <div
           style={{
             display: 'flex',
@@ -93,7 +95,7 @@ Relating to ${location.href}
                 margin-right: 12px;
               `}
             >
-              {taxon.scientificName}
+              {id}
             </Headline>
             <div style={{ marginTop: 12 }}>
               {taxon.vernacularName && (
@@ -102,7 +104,6 @@ Relating to ${location.href}
               <Tag type='info'>{taxon.rank}</Tag>
             </div>
           </div>
-          <HeaderImage guid={id} width={100} height={100} radius={8} />
         </div>
         <HeaderInfoWrapper>
           <HeaderInfoMain>
@@ -125,7 +126,7 @@ Relating to ${location.href}
                 style={{ marginLeft: 8, fontSize: 24, color: 'var(--primary)' }}
                 target='_blank'
                 href={`https://github.com/gbif/portal-feedback/issues/new?title=${encodeURIComponent(
-                  `Taxon Page: ${id}`
+                  `Specimen Page: ${id}`
                 )}&body=${encodeURIComponent(feedbackTemplate)}`}
               >
                 <Github />
@@ -135,32 +136,15 @@ Relating to ${location.href}
         </HeaderInfoWrapper>
         <TabList style={{ marginTop: '12px', borderTop: '1px solid #ddd' }}>
           <RouterTab to={url} exact label='About' />
-          <RouterTab to={join(url, '/specimens')} label='Specimens' />
-          <RouterTab to={join(url, '/map')} label='Map' />
-          <RouterTab to={join(url, '/media')} label='Media' />
+          <RouterTab to={join(url, '/trials')} label='Trials' />
         </TabList>
       </HeaderWrapper>
 
       <section>
         <Switch>
-          <Route path={join(path, '/specimens')}>
+          <Route path={join(path, '/trials')}>
             <ContentWrapper>
               <Specimens id={id} config={config} />
-            </ContentWrapper>
-          </Route>
-          <Route path={join(path, '/map')}>
-            <ContentWrapper>
-              <div>Map</div>
-            </ContentWrapper>
-          </Route>
-          {/* <Route path={join(path, '/occurrences')}>
-            <ContentWrapper>
-              <div>Occurrences</div>
-            </ContentWrapper>
-          </Route> */}
-          <Route path={join(path, '/media')}>
-            <ContentWrapper>
-              <Media id={id} />
             </ContentWrapper>
           </Route>
           <Route path={path}>

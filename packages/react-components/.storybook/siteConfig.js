@@ -122,6 +122,19 @@ const routeConfig = {
       return `/?path=/story/entities-ala-taxon-page--example&knob-taxonUUID=${key}`;
     },
   },
+  specimenSearch: {
+    url: ({ queryString }) => {
+      return `/?path=/story/search-ala-specimensearch--example&viewMode=story`;
+    },
+    isHref: true,
+    route: '/specimen/search',
+  },
+  specimenKey: {
+    isHref: true,
+    url: ({ key }) => {
+      return `/?path=/story/entities-ala-specimen-page--example&knob-catalogNumber=${key}`;
+    },
+  },
 };
 
 export const siteConfig = {

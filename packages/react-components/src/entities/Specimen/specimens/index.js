@@ -69,14 +69,14 @@ function Table() {
 }
 
 export default ({ id, config }) => {
-  const taxonConfig = config || {};
+  const specimenConfig = config || {};
 
   // Only show accession events related to the current taxa on the taxon page
-  if (!taxonConfig.rootFilter || taxonConfig.rootFilter.type !== 'and') {
-    taxonConfig.rootFilter = {
+  if (!specimenConfig.rootFilter || specimenConfig.rootFilter.type !== 'and') {
+    specimenConfig.rootFilter = {
       type: 'and',
       predicates: [
-        ...(taxonConfig.rootFilter ? [taxonConfig.rootFilter] : []),
+        ...(specimenConfig.rootFilter ? [specimenConfig.rootFilter] : []),
         ...(id
           ? [
               {
@@ -99,7 +99,7 @@ export default ({ id, config }) => {
     <ErrorBoundary>
       <StandaloneSearch
         {...{
-          config: taxonConfig,
+          config: specimenConfig,
           defaultFilterConfig,
           predicateConfig,
           Table,
