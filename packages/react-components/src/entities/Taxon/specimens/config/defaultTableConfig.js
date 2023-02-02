@@ -1,5 +1,8 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
+import { MdDehaze } from 'react-icons/md';
 import { InlineFilterChip } from '../../../../widgets/Filter/utils/FilterChip';
+import { Tooltip, TextButton } from '../../../../components';
 
 export default (intl) => ({
   columns: [
@@ -8,33 +11,48 @@ export default (intl) => ({
       value: {
         key: 'occurrences',
         hideFalsy: true,
-        formatter: ({ results }) => {
-          return results[0] ? results[0].catalogNumber : 'N/A'
-        }
-      },
+        formatter: (value, event) => <div style={{ display: 'flex', alignItems: 'center' }}>
+          <Tooltip placement="top" title={<span><FormattedMessage id="filterSupport.viewDetails" /></span>}>
+            <TextButton as="span" look="textHoverLinkColor" style={{ display: 'inline-flex', marginRight: 8 }}>
+              <MdDehaze />
+            </TextButton>
+          </Tooltip>
+          {value.results[0].catalogNumber}
+        </div>
+      }
     },
-    {
-      trKey: 'filters.eventType.name',
-      value: {
-        key: 'eventType.concept',
-        hideFalsy: true,
-        formatter: (value, event) => (
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <div>
-              <InlineFilterChip
-                filterName='eventType'
-                values={[event.eventType.concept]}
-              >
-                <span
-                  dangerouslySetInnerHTML={{ __html: value }}
-                  data-loader
-                ></span>
-              </InlineFilterChip>
-            </div>
-          </div>
-        ),
-      },
-    },
+    // {
+    //   trKey: 'filters.catalogNumber.name',
+    //   value: {
+    //     key: 'occurrences',
+    //     hideFalsy: true,
+    //     formatter: ({ results }) => {
+    //       return results[0] ? results[0].catalogNumber : 'N/A'
+    //     }
+    //   },
+    // },
+    // {
+    //   trKey: 'filters.eventType.name',
+    //   value: {
+    //     key: 'eventType.concept',
+    //     hideFalsy: true,
+    //     formatter: (value, event) => (
+    //       <div style={{ display: 'flex', alignItems: 'center' }}>
+    //         <div>
+    //           <InlineFilterChip
+    //             filterName='eventType'
+    //             values={[event.eventType.concept]}
+    //           >
+    //             <span
+    //               dangerouslySetInnerHTML={{ __html: value }}
+    //               data-loader
+    //             ></span>
+    //           </InlineFilterChip>
+    //         </div>
+    //       </div>
+    //     ),
+    //   },
+    // },
     // {
     //   trKey: 'filters.dataStructure.name',
     //   value: {

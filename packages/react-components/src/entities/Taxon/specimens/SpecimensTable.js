@@ -95,7 +95,7 @@ export const SpecimensTable = ({
           {...{ first, prev, next, size, from, total, loading }}
           style={{
             flex: '1 1 auto',
-            height: 400,
+            height: 'calc(100vh - 478px)',
             display: 'flex',
             flexDirection: 'column',
           }}

@@ -13,14 +13,11 @@ export const filters = [
 
 const highlighted = [
   'eventCatalogNumber',
-  'eventType',
   'eventDatasetKey',
-  'eventSamplingProtocol',
-  'measurementOrFactTypes',
-  'year',
   'month',
-  'eventStateProvince',
+  'year',
   'locationId',
+  'eventStateProvince',
 ];
 
 export default { filters, included: filters, highlighted };

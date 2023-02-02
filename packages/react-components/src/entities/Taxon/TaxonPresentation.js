@@ -27,6 +27,7 @@ import HeaderImage from './components/HeaderImage';
 // Tab pages
 import About from './about';
 import Specimens from './specimens';
+import Media from './media';
 
 const { TabList, RouterTab, Tab } = Tabs;
 
@@ -160,7 +161,7 @@ Relating to ${location.href}
           </Route> */}
           <Route path={join(path, '/media')}>
             <ContentWrapper>
-              <div>Media</div>
+              <Media id={id} />
             </ContentWrapper>
           </Route>
           <Route path={join(path, '/sequences')}>

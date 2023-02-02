@@ -1,32 +1,21 @@
-import { jsx, css } from '@emotion/react';
+import { css } from '@emotion/react';
 import React from 'react';
-import { useLocalStorage } from 'react-use';
 import { FormattedMessage } from 'react-intl';
 import {
   Properties,
   Property,
   ListItem,
-  Image,
   HyperText,
   Prose,
 } from '../../../components';
 import { Card, CardHeader2 } from '../../shared';
-import sortBy from 'lodash/sortBy';
-import {
-  MdMailOutline as MailIcon,
-  MdPhone as PhoneIcon,
-} from 'react-icons/md';
 
 const { Term: T, Value: V, EmptyValue } = Properties;
 const Name2Avatar = ListItem.Name2Avatar;
 
 export default function About({
-  data = {},
-  loading,
-  error,
   taxon,
   institution,
-  className,
 }) {
   return (
     <div>
