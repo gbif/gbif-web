@@ -69,33 +69,41 @@ function Table() {
 }
 
 export default ({ id, config }) => {
-  const taxonConfig = config;
+  const taxonConfig = config || {};
 
   // Only show accession events related to the current taxa on the taxon page
-  if (id && config.rootFilter) {
-    taxonConfig.rootFilter = {
-      type: "and",
-      predicates: [
-        taxonConfig.rootFilter,
-        {
-          key: "taxonKey",
-          type: "equals",
-          value: id
-        },
-        {
-          key: "eventType",
-          type: "equals",
-          value: "Accession"
-        }
-      ]
-    }
-  }
+  taxonConfig.rootFilter = {
+    type: 'and',
+    predicates: [
+      ...(taxonConfig.rootFilter ? [taxonConfig.rootFilter] : []),
+      ...(id
+        ? [
+            {
+              key: 'taxonKey',
+              type: 'equals',
+              value: id,
+            },
+          ]
+        : []),
+      {
+        key: 'eventType',
+        type: 'equals',
+        value: 'Accession',
+      },
+    ],
+  };
 
   return (
     <ErrorBoundary>
       <StandaloneSearch
-        {...{ config: taxonConfig, defaultFilterConfig, predicateConfig, Table }}
+        {...{
+          config: taxonConfig,
+          defaultFilterConfig,
+          predicateConfig,
+          Table,
+        }}
+        suggestRootFilter
       />
     </ErrorBoundary>
-  )
+  );
 };

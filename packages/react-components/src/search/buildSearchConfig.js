@@ -9,11 +9,11 @@ import without from 'lodash/without';
 import intersection from 'lodash/intersection';
 import merge from 'lodash/merge';
 
-export function buildConfig({ customConfig, predicateConfig, defaultFilterConfig }, context) {
+export function buildConfig({ customConfig, predicateConfig, defaultFilterConfig, suggestRootFilter }, context) {
   const { labels = {}, getSuggests = () => ({}), filters: customFilters = {}, adapters = {} } = customConfig;
   const mergedLabels = { ...labelConfig, ...labels };
   const mergedFilters = { ...filterWidgetConfig, ...customFilters };
-  const suggestConfigMap = getSuggestConfig({ context, suggestStyle });
+  const suggestConfigMap = getSuggestConfig({ context, suggestStyle, rootPredicate: suggestRootFilter && customConfig.rootFilter });
   const suggestConfigMapCustom = getSuggests({ client: context.client, suggestStyle });
   const mergedSuggest = merge(suggestConfigMap, suggestConfigMapCustom);
   const labelMap = config2labels(mergedLabels, context.client, context.localeSettings);

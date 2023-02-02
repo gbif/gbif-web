@@ -15,7 +15,7 @@ import { useFilterParams } from '../dataManagement/state/useFilterParams';
 // import { useQueryParams, StringParam, ArrayParam } from 'use-query-params';
 // import { filter2v1 } from '../dataManagement/filterAdapter';
 
-function Search({ config: customConfig = {}, predicateConfig, defaultFilterConfig, Table, pageLayout, layout, ...props },) {
+function Search({ config: customConfig = {}, predicateConfig, defaultFilterConfig, suggestRootFilter, Table, pageLayout, layout, ...props },) {
   const theme = useContext(ThemeContext);
   const localeSettings = useContext(LocaleContext);
   const [filter, setFilter, updateParams] = useFilterParams({predicateConfig});
@@ -26,7 +26,8 @@ function Search({ config: customConfig = {}, predicateConfig, defaultFilterConfi
     return buildConfig({
       customConfig,
       predicateConfig,
-      defaultFilterConfig
+      defaultFilterConfig,
+      suggestRootFilter
     }, { client: apiContext, formatMessage: intl.formatMessage, localeSettings });
   }, [apiContext, intl]);
   
