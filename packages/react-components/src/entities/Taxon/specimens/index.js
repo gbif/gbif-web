@@ -37,12 +37,13 @@ query list($predicate: Predicate, $offset: Int, $limit: Int){
         stateProvince
         countryCode
         measurementOrFactTypes
-        occurrenceCount
-        speciesCount
-        eventTypeHierarchyJoined
         occurrences(size: 1) {
           results {
             catalogNumber
+            datasetTitle
+            countryCode
+            eventDate
+            locality
           }
         }
       }

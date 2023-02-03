@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { MdDehaze } from 'react-icons/md';
+import { RiSideBarFill as OpenInSideBar } from 'react-icons/ri';
 import { InlineFilterChip } from '../../../../widgets/Filter/utils/FilterChip';
 import { Tooltip, TextButton } from '../../../../components';
 
@@ -26,7 +26,9 @@ export default (intl) => ({
                 look='textHoverLinkColor'
                 style={{ display: 'inline-flex', marginRight: 8 }}
               >
-                <MdDehaze />
+                <OpenInSideBar
+                  style={{ fontSize: '1.5em', marginRight: '.75em' }}
+                />
               </TextButton>
             </Tooltip>
             {value.results[0].catalogNumber}
