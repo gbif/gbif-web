@@ -40,10 +40,20 @@ query list($predicate: Predicate, $offset: Int, $limit: Int){
         occurrenceCount
         speciesCount
         eventTypeHierarchyJoined
-        occurrences(size: 1) {
-          results {
-            catalogNumber
-          }
+        measurementOrFacts {
+          measurementID
+          measurementType
+          measurementUnit
+          measurementValue
+          measurementMethod
+          measurementRemarks
+          measurementAccuracy
+          measurementDeterminedBy
+          measurementDeterminedDate
+        }
+        distinctTaxa {
+          scientificName
+          rank
         }
       }
     }
@@ -80,7 +90,7 @@ export default ({ id, config }) => {
         ...(id
           ? [
               {
-                key: 'taxonKey',
+                key: 'catalogNumber',
                 type: 'equals',
                 value: id,
               },
@@ -89,7 +99,7 @@ export default ({ id, config }) => {
         {
           key: 'eventType',
           type: 'equals',
-          value: 'Accession',
+          value: 'Trial',
         },
       ],
     };

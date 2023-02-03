@@ -12,6 +12,8 @@ import {
   Homepage,
   FeatureList,
   GenericFeature,
+  Location,
+  IconFeatures,
 } from '../../components/IconFeatures/IconFeatures';
 import {
   DataHeader,
@@ -34,13 +36,16 @@ export function SpecimenPresentation({ id, data, error, loading, config }) {
   let { path, url } = useRouteMatch();
 
   if (loading || !data) return <PageLoader />;
-  const [ specimen ] = data?.results?.documents?.results[0]?.occurrences?.results;
+  const [specimen] = data?.results?.documents?.results[0]?.occurrences?.results;
 
   if (error || !specimen) {
     // TODO a generic component for failures is needed
     return (
       <>
-        <DataHeader searchType='specimenSearch' messageId='catalogues.specimens' />
+        <DataHeader
+          searchType='specimenSearch'
+          messageId='catalogues.specimens'
+        />
         <Page404 />
       </>
     );
@@ -53,9 +58,12 @@ Relating to ${location.href}
   `;
   return (
     <>
-      <DataHeader searchType='specimenSearch' messageId='catalogues.specimens' />
+      <DataHeader
+        searchType='specimenSearch'
+        messageId='catalogues.specimens'
+      />
       <HeaderWrapper>
-        <Eyebrow prefix='Institution code' suffix={specimen.institutionCode} />
+        <Eyebrow prefix='Collection code' suffix={specimen.collectionCode} />
         <div
           style={{
             display: 'flex',
@@ -72,12 +80,9 @@ Relating to ${location.href}
             >
               {id}
             </Headline>
-            {/* <div style={{ marginTop: 12 }}>
-              {taxon.vernacularName && (
-                <span style={{ marginRight: 12 }}>{taxon.vernacularName}</span>
-              )}
-              <Tag type='info'>{taxon.rank}</Tag>
-            </div> */}
+            {specimen.datasetTitle && (
+              <div style={{ marginTop: 8 }}>From {specimen.datasetTitle}</div>
+            )}
           </div>
         </div>
         <HeaderInfoWrapper>

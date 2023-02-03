@@ -34,19 +34,19 @@ export function Specimen({ id, config }) {
             type: 'and',
             predicates: [
               {
-                type: "equals",
-                key: "catalogNumber",
-                value: "CANB 866289.4"
+                type: 'equals',
+                key: 'catalogNumber',
+                value: 'CANB 866289.4',
               },
               {
-                type: "equals",
-                key: "eventType",
-                value: "Accession"
-              }
-            ]
+                type: 'equals',
+                key: 'eventType',
+                value: 'Accession',
+              },
+            ],
           },
           offset: 0,
-          limit: 1
+          limit: 1,
         },
       };
       load(query);
@@ -82,7 +82,7 @@ query list($predicate: Predicate, $offset: Int, $limit: Int){
             acceptedScientificName
             verbatimScientificName
             acceptedTaxonKey
-            kindgom
+            kingdom
             kingdomKey
             phylum
             phylumKey
@@ -97,6 +97,7 @@ query list($predicate: Predicate, $offset: Int, $limit: Int){
             species
             speciesKey
             datasetKey
+            datasetTitle
             parsedEventDate {
               gte
               lte

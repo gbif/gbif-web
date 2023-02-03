@@ -27,7 +27,7 @@ export const Example = () => (
       <AddressBar />
       <div style={{ flex: '1 1 auto' }}></div>
       <Specimen
-        id={text('catalogNumber', 'CBG 9012125.2')}
+        id={text('catalogNumber', 'CANB 866289.4')}
         config={siteConfig?.specimen}
       />
     </QueryParamProvider>
@@ -46,6 +46,6 @@ export const StandaloneExample = () => (
           '{total, plural, one {# specimen} other {# specimens}}',
       },
     }}
-    id={text('catalogNumber', 'CBG 9012125.2')}
+    id={text('catalogNumber', 'CANB 866289.4')}
   ></Standalone>
 );
