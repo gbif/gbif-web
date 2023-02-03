@@ -169,8 +169,8 @@ export default gql`
     day: Int
     month: Int
     year: Int
-    decimalLatitude: Int
-    decimalLongitude: Int
+    decimalLatitude: Float
+    decimalLongitude: Float
     institutionCode: String
     locality: String
   }

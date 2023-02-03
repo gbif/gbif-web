@@ -1,12 +1,13 @@
 import { jsx, css } from '@emotion/react';
 import React from 'react';
 import { GrGithub as Github } from 'react-icons/gr';
-import { MdPerson } from 'react-icons/md';
+import { MdEdit } from 'react-icons/md';
+import { RxMagnifyingGlass } from 'react-icons/rx';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import { join } from '../../utils/util';
 
 // Local Components
-import { Classification, Tag, Tabs, Tooltip } from '../../components';
+import { Tag, Tabs, Tooltip, Eyebrow } from '../../components';
 import {
   Homepage,
   FeatureList,
@@ -22,7 +23,6 @@ import {
   HeaderInfoEdit,
 } from '../shared/header';
 import { PageError, Page404, PageLoader } from '../shared';
-import HeaderImage from './components/HeaderImage';
 
 // Tab pages
 import About from './about';
@@ -33,26 +33,10 @@ const { TabList, RouterTab, Tab } = Tabs;
 export function SpecimenPresentation({ id, data, error, loading, config }) {
   let { path, url } = useRouteMatch();
 
-  if (error) {
-    if (error?.errorPaths?.institution?.status === 404) {
-      return (
-        <>
-          <DataHeader
-            searchType='specimenSearch'
-            messageId='catalogues.specimens'
-          />
-          <Page404 />
-        </>
-      );
-    } else {
-      return <PageError />;
-    }
-  }
-
   if (loading || !data) return <PageLoader />;
-  const { taxon } = data;
+  const [ specimen ] = data?.results?.documents?.results[0]?.occurrences?.results;
 
-  if (error || !taxon) {
+  if (error || !specimen) {
     // TODO a generic component for failures is needed
     return (
       <>
@@ -71,16 +55,7 @@ Relating to ${location.href}
     <>
       <DataHeader searchType='specimenSearch' messageId='catalogues.specimens' />
       <HeaderWrapper>
-        {/* <Eyebrow prefix='Taxon code' suffix='Something here' /> */}
-        {/* <Classification style={{ marginBottom: 16 }}>
-          {['kingdom', 'phylum', 'class', 'order', 'family'].map((rank) =>
-            taxon[rank] ? (
-              <span key={rank} style={{ color: '#aaa', fontSize: 14 }}>
-                {taxon[rank]}
-              </span>
-            ) : null
-          )}
-        </Classification> */}
+        <Eyebrow prefix='Institution code' suffix={specimen.institutionCode} />
         <div
           style={{
             display: 'flex',
@@ -97,24 +72,30 @@ Relating to ${location.href}
             >
               {id}
             </Headline>
-            <div style={{ marginTop: 12 }}>
+            {/* <div style={{ marginTop: 12 }}>
               {taxon.vernacularName && (
                 <span style={{ marginRight: 12 }}>{taxon.vernacularName}</span>
               )}
               <Tag type='info'>{taxon.rank}</Tag>
-            </div>
+            </div> */}
           </div>
         </div>
         <HeaderInfoWrapper>
           <HeaderInfoMain>
             <FeatureList>
-              {taxon.authorship && (
+              {specimen.recordedBy && (
                 <GenericFeature>
-                  <MdPerson />
-                  <span>{taxon.authorship}</span>
+                  <MdEdit />
+                  <span>{specimen.recordedBy.join(', ')}</span>
                 </GenericFeature>
               )}
-              <Homepage href={id} style={{ marginBottom: 8 }} />
+              {specimen.identifiedBy && (
+                <GenericFeature>
+                  <RxMagnifyingGlass />
+                  <span>{specimen.identifiedBy.join(', ')}</span>
+                </GenericFeature>
+              )}
+              {/* <Homepage href={id} style={{ marginBottom: 8 }} /> */}
             </FeatureList>
           </HeaderInfoMain>
           <HeaderInfoEdit>
@@ -149,7 +130,7 @@ Relating to ${location.href}
           </Route>
           <Route path={path}>
             <ContentWrapper>
-              <About taxon={taxon} />
+              {/* <About specimen={specimen} /> */}
             </ContentWrapper>
           </Route>
         </Switch>

@@ -34,19 +34,6 @@ const { TabList, RouterTab, Tab } = Tabs;
 export function TaxonPresentation({ id, data, error, loading, config }) {
   let { path, url } = useRouteMatch();
 
-  if (error) {
-    if (error?.errorPaths?.institution?.status === 404) {
-      return (
-        <>
-          <DataHeader searchType='taxonSearch' messageId='catalogues.taxa' />
-          <Page404 />
-        </>
-      );
-    } else {
-      return <PageError />;
-    }
-  }
-
   if (loading || !data) return <PageLoader />;
   const { taxon } = data;
 
