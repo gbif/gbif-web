@@ -26,7 +26,7 @@ import HeaderImage from './components/HeaderImage';
 
 // Tab pages
 import About from './about';
-import Specimens from './specimens';
+import Collections from './collections';
 import Media from './media';
 
 const { TabList, RouterTab, Tab } = Tabs;
@@ -52,6 +52,7 @@ export function TaxonPresentation({ id, data, error, loading, config }) {
 ---
 Relating to ${location.href}
   `;
+
   return (
     <>
       <DataHeader searchType='taxonSearch' messageId='catalogues.taxa' />
@@ -122,7 +123,7 @@ Relating to ${location.href}
         </HeaderInfoWrapper>
         <TabList style={{ marginTop: '12px', borderTop: '1px solid #ddd' }}>
           <RouterTab to={url} exact label='About' />
-          <RouterTab to={join(url, '/specimens')} label='Specimens' />
+          <RouterTab to={join(url, '/collections')} label='Collections' />
           <RouterTab to={join(url, '/map')} label='Map' />
           <RouterTab to={join(url, '/media')} label='Media' />
         </TabList>
@@ -130,9 +131,9 @@ Relating to ${location.href}
 
       <section>
         <Switch>
-          <Route path={join(path, '/specimens')}>
+          <Route path={join(path, '/collections')}>
             <ContentWrapper>
-              <Specimens id={id} config={config} />
+              <Collections id={id} config={config} />
             </ContentWrapper>
           </Route>
           <Route path={join(path, '/map')}>

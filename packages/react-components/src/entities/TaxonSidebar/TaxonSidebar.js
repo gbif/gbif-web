@@ -12,7 +12,7 @@ const { TabPanel } = Tabs;
 
 export function TaxonSidebar({
   onCloseRequest,
-  specimen,
+  collection,
   defaultTab,
   className,
   style,
@@ -20,7 +20,7 @@ export function TaxonSidebar({
 }) {
   const { data, error, loading, load } = useQuery(EVENT, { lazyLoad: true });
   const [activeId, setTab] = useState('details');
-  const { catalogNumber } = specimen;
+  const { catalogNumber } = collection;
   const theme = useContext(ThemeContext);
 
   useEffect(() => {
@@ -42,7 +42,7 @@ export function TaxonSidebar({
         from: 0,
       });
     }
-  }, [specimen]);
+  }, [collection]);
 
   useEffect(() => {
     if (!loading) {
@@ -85,7 +85,7 @@ export function TaxonSidebar({
           )}
           {!isLoading && (
             <>
-              <Header data={specimen} error={error} />
+              <Header data={collection} error={error} />
               {(() => {
                 const trials = data.results.documents.results.filter(
                   ({ eventType }) => eventType.concept === 'Trial'
@@ -95,11 +95,22 @@ export function TaxonSidebar({
                     {trials.length > 0 ? (
                       <TabPanel tabId='details'>
                         {trials.map((trial) => (
-                          <Trial trial={trial} />
+                          <Trial key={trial.eventID} trial={trial} />
                         ))}
                       </TabPanel>
                     ) : (
-                      <>No trial data found.</>
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexGrow: 1,
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <span style={{ color: '#aaa', fontSize: 14 }}>
+                          No trial data found
+                        </span>
+                      </div>
                     )}
                   </div>
                 );
@@ -129,6 +140,9 @@ query list($predicate: Predicate, $offset: Int, $limit: Int){
         eventType {
           concept
         }
+        day
+        month
+        year
         parentEventID
         locationID
         month
@@ -143,6 +157,10 @@ query list($predicate: Predicate, $offset: Int, $limit: Int){
         speciesCount
         eventTypeHierarchyJoined
         locality
+        temporalCoverage {
+          gte
+          lte
+        }
         measurementOrFacts {
           measurementID
           measurementType

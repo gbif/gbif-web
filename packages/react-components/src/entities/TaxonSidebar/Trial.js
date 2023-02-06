@@ -6,17 +6,23 @@ import { Row, Col, Properties, IconFeatures } from '../../components';
 
 const { Term: T, Value: V } = Properties;
 
-const getMof = (mofs, type) => mofs.find((mof) => mof.measurementType === type);
-const getSummaryResults = (mofs) => {
-  return mofs
-    .filter((mof) => mof.measurementType === 'Summary result')
-    .reduce(
-      (prev, cur) => ({
-        ...prev,
-        [cur.measurementMethod]: cur.measurementValue,
-      }),
-      {}
-    );
+const getMof = (mofs, type, method = null) =>
+  mofs.find(
+    (mof) =>
+      mof.measurementType === type &&
+      (method === null || method === mof.measurementMethod)
+  );
+
+const getDate = ({ temporalCoverage: tc }) => {
+  if (tc?.gte && tc?.lte) {
+    return `${tc.gte} to ${tc.lte}`;
+  } else if (tc?.gte) {
+    return tc.gte;
+  } else if (tc?.lte) {
+    return tc.lte;
+  }
+
+  return 'Unknown Date';
 };
 
 export function Trial({ trial, ...props }) {
@@ -28,7 +34,7 @@ export function Trial({ trial, ...props }) {
     <article css={css.clusterCard({ theme })} {...props}>
       <Row wrap='nowrap' halfGutter={6} style={{ padding: 12 }}>
         <Col>
-          <h4 style={{ margin: 0 }}>Trial</h4>
+          <h4 style={{ margin: 0 }}>{getDate(trial)}</h4>
           <div css={css.entitySummary({ theme })}>
             <IconFeatures
               css={css.features({ theme })}
@@ -53,7 +59,11 @@ export function Trial({ trial, ...props }) {
           <div>
             <Properties style={{ fontSize: 12 }} horizontal dense>
               {trial.measurementOrFacts
-                .filter((mof) => mof.measurementType === 'Summary result')
+                .filter(
+                  (mof) =>
+                    mof.measurementType === 'Summary result' ||
+                    mof.measurementMethod === 'Sample size'
+                )
                 .sort(({ measurementMethod: a }, { measurementMethod: b }) =>
                   a.localeCompare(b)
                 )

@@ -36,52 +36,6 @@ export default (intl) => ({
         ),
       },
     },
-    // {
-    //   trKey: 'filters.catalogNumber.name',
-    //   value: {
-    //     key: 'occurrences',
-    //     hideFalsy: true,
-    //     formatter: ({ results }) => {
-    //       return results[0] ? results[0].catalogNumber : 'N/A'
-    //     }
-    //   },
-    // },
-    // {
-    //   trKey: 'filters.eventType.name',
-    //   value: {
-    //     key: 'eventType.concept',
-    //     hideFalsy: true,
-    //     formatter: (value, event) => (
-    //       <div style={{ display: 'flex', alignItems: 'center' }}>
-    //         <div>
-    //           <InlineFilterChip
-    //             filterName='eventType'
-    //             values={[event.eventType.concept]}
-    //           >
-    //             <span
-    //               dangerouslySetInnerHTML={{ __html: value }}
-    //               data-loader
-    //             ></span>
-    //           </InlineFilterChip>
-    //         </div>
-    //       </div>
-    //     ),
-    //   },
-    // },
-    // {
-    //   trKey: 'filters.dataStructure.name',
-    //   value: {
-    //     key: 'eventTypeHierarchyJoined',
-    //     hideFalsy: true,
-    //   },
-    // },
-    // {
-    //   trKey: 'filters.samplingProtocol.name',
-    //   value: {
-    //     key: 'samplingProtocol',
-    //     hideFalsy: true,
-    //   },
-    // },
     {
       trKey: 'filters.datasetKey.name',
       filterKey: 'datasetKey',
@@ -150,11 +104,34 @@ export default (intl) => ({
         ),
       },
     },
+    // {
+    //   trKey: 'filters.locationID.name',
+    //   filterKey: 'locationID',
+    //   value: {
+    //     key: 'locationID',
+    //     hideFalsy: true,
+    //     formatter: (value, event) => (
+    //       <div style={{ display: 'flex', alignItems: 'center' }}>
+    //         <div>
+    //           <InlineFilterChip
+    //             filterName='locationID'
+    //             values={[event.locationID]}
+    //           >
+    //             <span
+    //               dangerouslySetInnerHTML={{ __html: event.locationID }}
+    //               data-loader
+    //             ></span>
+    //           </InlineFilterChip>
+    //         </div>
+    //       </div>
+    //     ),
+    //   },
+    // },
     {
-      trKey: 'filters.locationID.name',
-      filterKey: 'locationID',
+      trKey: 'filters.locality.name',
+      filterKey: 'locality',
       value: {
-        key: 'locationID',
+        key: 'locality',
         hideFalsy: true,
         formatter: (value, event) => (
           <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -164,7 +141,7 @@ export default (intl) => ({
                 values={[event.locationID]}
               >
                 <span
-                  dangerouslySetInnerHTML={{ __html: event.locationID }}
+                  dangerouslySetInnerHTML={{ __html: event.locality }}
                   data-loader
                 ></span>
               </InlineFilterChip>

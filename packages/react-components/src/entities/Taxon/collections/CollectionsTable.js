@@ -1,6 +1,8 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { MdFilterList } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
+import { useUpdateEffect } from 'react-use';
+import { useDialogState } from 'reakit/Dialog';
 import get from 'lodash/get';
 import SearchContext from '../../../search/SearchContext';
 import {
@@ -11,10 +13,12 @@ import {
   Th,
   Td,
   TBody,
+  DetailsDrawer,
 } from '../../../components';
 import { ResultsHeader } from '../../../search/ResultsHeader';
 import { FilterContext } from '../../../widgets/Filter/state';
 import { InlineFilterChip } from '../../../widgets/Filter/utils/FilterChip';
+import { TaxonSidebar } from '../../TaxonSidebar/TaxonSidebar';
 
 const fallbackTableConfig = {
   columns: [
@@ -36,7 +40,7 @@ function isEmpty(e) {
   );
 }
 
-export const SpecimensTable = ({
+export const CollectionsTable = ({
   first,
   prev,
   next,
@@ -47,12 +51,26 @@ export const SpecimensTable = ({
   loading,
   defaultTableConfig = fallbackTableConfig,
 }) => {
+  const [activeCollection, setActiveCollection] = useState(null);
   const currentFilterContext = useContext(FilterContext);
+  const dialog = useDialogState({ animated: true, modal: false });
   const {
     filters,
     tableConfig = defaultTableConfig,
     labelMap,
   } = useContext(SearchContext);
+
+  useEffect(() => {
+    if (activeCollection) {
+      dialog.show();
+    } else {
+      dialog.hide();
+    }
+  }, [activeCollection]);
+
+  useUpdateEffect(() => {
+    if (!dialog.visible) setActiveCollection(null);
+  }, [dialog.visible]);
 
   const headers = tableConfig.columns.map((col, index) => {
     const FilterPopover = col.filterKey
@@ -80,6 +98,20 @@ export const SpecimensTable = ({
 
   return (
     <>
+      {dialog.visible && (
+        <DetailsDrawer
+          // href={`${'tempurl'}${activeCollection.catalogNumber}`}
+          href='https://google.com' // REPLACE
+          dialog={dialog}
+        >
+          <TaxonSidebar
+            collection={activeCollection}
+            defaultTab='details'
+            style={{ maxWidth: '100%', width: 700, height: '100%' }}
+            onCloseRequest={() => dialog.setVisible(false)}
+          />
+        </DetailsDrawer>
+      )}
       <div
         style={{
           flex: '1 1 100%',
@@ -110,6 +142,7 @@ export const SpecimensTable = ({
               results,
               currentFilterContext,
               filters,
+              setActiveCollection,
             })}
           </TBody>
         </DataTable>
@@ -124,6 +157,7 @@ const getRows = ({
   results = [],
   currentFilterContext,
   filters,
+  setActiveCollection,
 }) => {
   const rows = results.map((row, index) => {
     const cells = tableConfig.columns.map((field, i) => {
@@ -166,9 +200,7 @@ const getRows = ({
       <tr
         key={row.eventID}
         style={{ cursor: 'pointer' }}
-        onClick={() => {
-          let selection = window.getSelection();
-        }}
+        onClick={() => setActiveCollection(row.occurrences.results[0])}
       >
         {cells}
       </tr>

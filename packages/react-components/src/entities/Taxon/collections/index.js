@@ -1,6 +1,6 @@
 import React from 'react';
 import PredicateDataFetcher from '../../../search/PredicateDataFetcher';
-import { SpecimensTable } from './SpecimensTable';
+import { CollectionsTable } from './CollectionsTable';
 import { ErrorBoundary } from '../../../components';
 import StandaloneSearch from '../../../search/Search';
 
@@ -29,6 +29,7 @@ query list($predicate: Predicate, $offset: Int, $limit: Int){
         }
         parentEventID
         locationID
+        locality
         month
         year
         datasetTitle
@@ -37,23 +38,14 @@ query list($predicate: Predicate, $offset: Int, $limit: Int){
         stateProvince
         countryCode
         measurementOrFactTypes
-        occurrenceCount
-        speciesCount
-        eventTypeHierarchyJoined
-        measurementOrFacts {
-          measurementID
-          measurementType
-          measurementUnit
-          measurementValue
-          measurementMethod
-          measurementRemarks
-          measurementAccuracy
-          measurementDeterminedBy
-          measurementDeterminedDate
-        }
-        distinctTaxa {
-          scientificName
-          rank
+        occurrences(size: 1) {
+          results {
+            catalogNumber
+            datasetTitle
+            countryCode
+            eventDate
+            locality
+          }
         }
       }
     }
@@ -73,24 +65,24 @@ function Table() {
       componentProps={{
         defaultTableConfig: defaultTableConfig(intl),
       }}
-      presentation={SpecimensTable}
+      presentation={CollectionsTable}
     />
   );
 }
 
 export default ({ id, config }) => {
-  const specimenConfig = config || {};
+  const taxonConfig = config || {};
 
   // Only show accession events related to the current taxa on the taxon page
-  if (!specimenConfig.rootFilter || specimenConfig.rootFilter.type !== 'and') {
-    specimenConfig.rootFilter = {
+  if (!taxonConfig.rootFilter || taxonConfig.rootFilter.type !== 'and') {
+    taxonConfig.rootFilter = {
       type: 'and',
       predicates: [
-        ...(specimenConfig.rootFilter ? [specimenConfig.rootFilter] : []),
+        ...(taxonConfig.rootFilter ? [taxonConfig.rootFilter] : []),
         ...(id
           ? [
               {
-                key: 'catalogNumber',
+                key: 'taxonKey',
                 type: 'equals',
                 value: id,
               },
@@ -99,7 +91,7 @@ export default ({ id, config }) => {
         {
           key: 'eventType',
           type: 'equals',
-          value: 'Trial',
+          value: 'Accession',
         },
       ],
     };
@@ -109,7 +101,7 @@ export default ({ id, config }) => {
     <ErrorBoundary>
       <StandaloneSearch
         {...{
-          config: specimenConfig,
+          config: taxonConfig,
           defaultFilterConfig,
           predicateConfig,
           Table,
