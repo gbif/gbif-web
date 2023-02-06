@@ -68,13 +68,13 @@ export function Trial({ trial, ...props }) {
                   a.localeCompare(b)
                 )
                 .map((mof) => (
-                  <>
+                  <React.Fragment key={mof.measurementID}>
                     <T>{mof.measurementMethod}</T>
                     <V>
                       {mof.measurementValue}
                       {mof.measurementUnit && ` ${mof.measurementUnit}`}
                     </V>
-                  </>
+                  </React.Fragment>
                 ))}
             </Properties>
           </div>
