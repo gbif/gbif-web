@@ -107,6 +107,12 @@ const routeConfig = {
     isHref: true,
     route: '/publisher/search'
   },
+  taxonKey: {
+    // url: ({ key }) => `https://gbif.org/species/${key}`,
+    url: ({ key }) => `https://bie.ala.org.au/species/${key}`,
+    isHref: true,
+    route: '/taxon/:key'
+  },
 };
 
 export const siteConfig = {

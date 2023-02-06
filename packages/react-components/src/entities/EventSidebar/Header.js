@@ -2,11 +2,10 @@
 import { jsx } from '@emotion/react';
 import React, { useContext } from 'react';
 import { FormattedDate, FormattedMessage } from 'react-intl';
-import ThemeContext from '../../../style/themes/ThemeContext';
-import * as css from '../styles';
-import { Row, Col, IconFeatures, Eyebrow } from "../../../components";
-import { Globe } from './Globe';
-import useBelow from '../../../utils/useBelow';
+import ThemeContext from '../../style/themes/ThemeContext';
+import * as css from './styles';
+import { Row, Col, IconFeatures, Eyebrow } from "../../components";
+import useBelow from '../../utils/useBelow';
 
 export function Header({
   data,

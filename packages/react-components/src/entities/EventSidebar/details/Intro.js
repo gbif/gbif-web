@@ -3,7 +3,6 @@ import ThemeContext from '../../../style/themes/ThemeContext';
 import { FormattedMessage } from 'react-intl';
 import * as css from '../styles';
 import { Row, Col, Switch } from "../../../components";
-import { Header } from './Header';
 import {Group, Groups} from './Groups';
 import {Summary} from "./Summary";
 import Map from "../../SiteSidebar/details/Map/Map";
@@ -25,9 +24,8 @@ export function Intro({
 
   const hasCoordinates = (event.decimalLatitude != null && event.decimalLongitude != null ) || event.wktConvexHull != null;
 
-  return <Row direction="column" wrap="nowrap" style={{ maxHeight: '100%', overflow: 'hidden' }}>
+  return <Row direction="column" wrap="nowrap">
     <Col style={{ padding: '12px 0', paddingBottom: 50, overflow: 'auto' }} grow>
-      <Header data={data} error={error} />
       <Groups
           event={event}
           showAll={showAll}
