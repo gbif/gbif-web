@@ -5,6 +5,7 @@ import { Row, Col, Tabs } from '../../components';
 import { useQuery } from '../../dataManagement/api';
 import { Header } from './Header';
 import { MdClose, MdInfo, MdImage } from 'react-icons/md';
+import { Trial } from './Trial';
 
 const { TabList, Tab, TapSeperator } = Tabs;
 const { TabPanel } = Tabs;
@@ -50,7 +51,6 @@ export function TaxonSidebar({
   }, [data, loading]);
 
   const isLoading = loading || !data;
-  console.log(loading, data);
 
   return (
     <Tabs activeId={activeId} onChange={(id) => setTab(id)}>
@@ -90,10 +90,18 @@ export function TaxonSidebar({
                 const trials = data.results.documents.results.filter(
                   ({ eventType }) => eventType.concept === 'Trial'
                 );
-                return trials.length > 0 ? (
-                  <TabPanel tabId='details'>Hello world!</TabPanel>
-                ) : (
-                  <>No trial data found.</>
+                return (
+                  <div style={{ marginTop: 24 }}>
+                    {trials.length > 0 ? (
+                      <TabPanel tabId='details'>
+                        {trials.map((trial) => (
+                          <Trial trial={trial} />
+                        ))}
+                      </TabPanel>
+                    ) : (
+                      <>No trial data found.</>
+                    )}
+                  </div>
                 );
               })()}
             </>

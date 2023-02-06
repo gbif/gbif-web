@@ -34,7 +34,6 @@ export const entitySummary = ({ ...props }) => css`
 `;
 
 export const header = ({ ...props }) => css`
-  margin: 12px 16px;
   .gbif-header-location {
     font-size: 13px;
     display: flex;
@@ -50,7 +49,11 @@ export const globeOverlay = ({ theme, ...props }) => css`
   height: 100%;
   top: 0;
   border-radius: 100%;
-  background-image: radial-gradient(farthest-corner at 30% 35%, ${theme.darkTheme ? '#ffffff33' : '#ffffffaa'} 0%, #fff0 30%);
+  background-image: radial-gradient(
+    farthest-corner at 30% 35%,
+    ${theme.darkTheme ? '#ffffff33' : '#ffffffaa'} 0%,
+    #fff0 30%
+  );
 `;
 export const globe = ({ ...props }) => css`
   position: relative;
@@ -76,16 +79,24 @@ export const globeSvg = ({ isTrackingData, theme, ...props }) => css`
   }
   .point {
     fill: ${theme.color700};
-    ${isTrackingData ? `
+    ${isTrackingData
+      ? `
     fill: #ff3800;
     stroke: #ff38006e;
     animation: hideshow 1s ease infinite;
-    ` : null}
+    `
+      : null}
   }
   @keyframes hideshow {
-    0% { stroke-width: 2px; }
-    50% { stroke-width: 10px; }
-    100% { stroke-width: 2px; }
+    0% {
+      stroke-width: 2px;
+    }
+    50% {
+      stroke-width: 10px;
+    }
+    100% {
+      stroke-width: 2px;
+    }
   }
 `;
 
@@ -102,19 +113,20 @@ export const detailDrawerBar = ({ theme }) => css`
 `;
 
 export const detailDrawerContent = ({ theme }) => css`
+  padding: 12px 16px;
   overflow: auto;
   flex: 1 1 auto;
-  >div {
+  > div {
     /* width: 500px; */
     max-width: 100%;
   }
 `;
 
 export const headline = ({ theme }) => css`
-  >img {
+  > img {
     margin-right: 24px;
   }
-  >h3 {
+  > h3 {
     display: inline-block;
     margin: 0;
     font-size: 1.2em;
@@ -146,7 +158,7 @@ export const imageContainer = ({ theme }) => css`
   background: #88888811;
   border: 1px solid #88888818;
   margin-top: 12px;
-  >img {
+  > img {
     display: block;
     margin: auto;
   }
@@ -171,7 +183,7 @@ export const group = () => css`
     border: 1px solid #eee;
     border-width: 1px 0;
   }
-  >div {
+  > div {
     margin: 0 16px 32px 16px;
   }
 `;
@@ -192,14 +204,14 @@ export const clusterFooter = ({ theme }) => css`
   margin-bottom: -4px;
 `;
 
-export const termRemark = props => css`
+export const termRemark = (props) => css`
   opacity: 0.5;
 `;
 
 export const issuePill = ({ severity, ...props }) => css`
-  background: ${severity === "WARNING" ? "#ffbf4b" : "#a4cdd2"};
+  background: ${severity === 'WARNING' ? '#ffbf4b' : '#a4cdd2'};
   font-size: 85%;
-  color: ${severity === "WARNING" ? "#5f4515" : "#2f585d"};
+  color: ${severity === 'WARNING' ? '#5f4515' : '#2f585d'};
   border-radius: 4px;
   padding: 0 4px;
   margin-right: 4px;
