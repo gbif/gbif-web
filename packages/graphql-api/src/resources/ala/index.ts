@@ -4,5 +4,4 @@ export { default as taxon } from './taxon';
 
 // Taxon media querying using ALA Biocache source
 export { default as taxonMedia } from '../shared/resources/taxonMedia';
-// export { default as inat } from '../shared/resources/external/inat';
 export { default as taxonMediaBiocache } from './taxonMedia';
