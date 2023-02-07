@@ -29,14 +29,14 @@ query image($key: String, $size: Int) {
     subtypeLiteral
     title
     rights
-    Credit
+    credit
     providerLiteral
     description
     accessURI
     accessOriginalURI
     format
-    PixelXDimension
-    PixelYDimension
+    pixelXDimension
+    pixelYDimension
   }
 }
 `;

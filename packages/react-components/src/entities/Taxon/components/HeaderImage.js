@@ -10,14 +10,14 @@ query image($guid: String) {
     subtypeLiteral
     title
     rights
-    Credit
+    credit
     providerLiteral
     description
     accessURI
     accessOriginalURI
     format
-    PixelXDimension
-    PixelYDimension
+    pixelXDimension
+    pixelYDimension
   }
 }
 `;
