@@ -59,6 +59,7 @@
     "react-icons": "4.4.0",
     "react-intl": "^5.13.4",
     "react-markdown": "^5.0.3",
+    "react-responsive-masonry": "^2.1.7",
     "react-router-dom": "^5.2.0",
     "react-router-hash-link": "^2.4.3",
     "react-use": "^17.2.1",

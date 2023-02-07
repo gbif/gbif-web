@@ -8,12 +8,18 @@ import { Tooltip } from '../Tooltip/Tooltip';
 import { MdOutlineInfo } from 'react-icons/md';
 import PropTypes from 'prop-types';
 import useBelow from '../../utils/useBelow';
-import { dl, dt, dd } from './styles';
+import { dl, dt, dd, propTable, table } from './styles';
 import { bulletList } from '../../style/shared';
 
-export function Properties({ as: Dl = 'dl', breakpoint, horizontal, dense = false, ...props }) {
+export function Properties({ as: Dl = 'dl', breakpoint, horizontal, dense = false, visual = 'GRID', ...props }) {
   const isBelow = useBelow(breakpoint);
   const theme = useContext(ThemeContext);
+  if (visual === 'DESCRIPTION') {
+    return <dl css={propTable} {...props}/>
+  }
+  if (visual === 'TABLE') {
+    return <dl css={table} {...props}/>
+  }
   return <Dl css={dl({ theme, horizontal: typeof horizontal !== 'undefined' ? horizontal : !isBelow, dense })} {...props} />
 }
 
@@ -42,15 +48,16 @@ Properties.Term = Term;
 Properties.Value = Value;
 Properties.EmptyValue = EmptyValue;
 
-export function Property({ value, helpText, helpTextId, labelId, children, ...props }) {
+export function Property({ value, helpText, helpTextId, labelId, label, children, group, ...props }) {
   // if there is no value, and the user do not ask to show empty values, then do not show anything
   if ((typeof value === 'undefined' || value === null || (Array.isArray(value) && value.length === 0)) && !children) {
     if (!props.showEmpty) return null;
   }
-  return <>
-    <Term><PropertyLabel id={labelId} {...{ helpText, helpTextId }} /></Term>
+  const Wrapper = props => group ? <div {...props}/> : <>{props.children}</>
+  return <Wrapper>
+    <Term>{label || <PropertyLabel id={labelId} {...{ helpText, helpTextId }} />}</Term>
     <Value>{children || <AutomaticPropertyValue value={value} {...props} />}</Value>
-  </>
+  </Wrapper>
 }
 
 function AutomaticPropertyValue({ value, formatter, showEmpty, sanitizeOptions = { ALLOWED_TAGS: ['a', 'strong', 'em', 'p', 'br'] }, ...props }) {

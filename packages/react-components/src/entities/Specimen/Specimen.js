@@ -191,10 +191,12 @@ export function Specimen({
 
         //get gbif interpertation of coordinates
         const { decimalLatitude, decimalLongitude, coordinateUncertaintyInMeters } = get(specimenData, 'collectionEvent.location.georeference');
-        let { promise: promiseGeo, cancel: cancelGeo } = client.get(`https://api.gbif.org/v1/geocode/reverse?lat=${decimalLatitude}&lng=${decimalLongitude}&uncertaintyMeters=${coordinateUncertaintyInMeters || 0}`);
-        cList.push(cancelGeo);
-        const resultLocation = await promiseGeo;
-        specimenData.collectionEvent.location.georeference.gbif = resultLocation.data;
+        if (decimalLatitude) {
+          let { promise: promiseGeo, cancel: cancelGeo } = client.get(`https://api.gbif.org/v1/geocode/reverse?lat=${decimalLatitude}&lng=${decimalLongitude}&uncertaintyMeters=${coordinateUncertaintyInMeters || 0}`);
+          cList.push(cancelGeo);
+          const resultLocation = await promiseGeo;
+          specimenData.collectionEvent.location.georeference.gbif = resultLocation.data;
+        }
 
         //update value
         setSpecimen(specimenData);
@@ -277,6 +279,83 @@ query($key: String!) {
                 modified
                 language
                 bibliographicCitation
+              }
+            }
+        	}
+				} 
+    	}
+      sequences: entityByMaterialEntityId {
+        entityRelationshipsBySubjectEntityId(condition: {entityRelationshipType: "SEQUENCE OF"}) {
+          nodes {
+            entityRelationshipType
+            entityByObjectEntityId {
+              digitalEntityByDigitalEntityId {
+                digitalEntityId
+                digitalEntityType
+                accessUri
+                format
+                webStatement
+                license
+                rights
+                rightsUri
+                accessRights
+                rightsHolder
+                source
+                sourceUri
+                creator
+                created
+                modified
+                language
+                bibliographicCitation
+
+                geneticSequenceByGeneticSequenceId {
+                  geneticSequenceType
+                  sequence
+                }
+              }
+            }
+          }
+        }
+      }
+      sequencedParts: entityByMaterialEntityId {
+				are:entityRelationshipsByObjectEntityId(condition: {entityRelationshipType: "MATERIAL SAMPLE OF"}) {
+        	here:nodes {
+            entityBySubjectEntityId {
+              materialEntityByMaterialEntityId {
+                materialEntityId
+                catalogNumber
+                preparations
+              }
+              sequences: entityRelationshipsBySubjectEntityId(condition: {entityRelationshipType: "SEQUENCE OF"}) {
+                nodes {
+                  entityRelationshipType
+                  entityByObjectEntityId {
+                    digitalEntityByDigitalEntityId {
+                      digitalEntityId
+                      digitalEntityType
+                      accessUri
+                      format
+                      webStatement
+                      license
+                      rights
+                      rightsUri
+                      accessRights
+                      rightsHolder
+                      source
+                      sourceUri
+                      creator
+                      created
+                      modified
+                      language
+                      bibliographicCitation
+
+                      geneticSequenceByGeneticSequenceId {
+                        geneticSequenceType
+                        sequence
+                      }
+                    }
+                  }
+                }
               }
             }
         	}
@@ -475,6 +554,25 @@ query($key: String!) {
       assertionByAgentName
     }
   }
+  identifiers: allIdentifiers(condition: {identifierTargetId: $key}) {
+    nodes {
+      identifierType
+      identifierValue
+      nodeId
+    }
+  }
+  citations: allCitations(condition: {citationTargetType: MATERIAL_ENTITY, citationTargetId: $key, citationType: "CITED_IN"}) {
+    nodes {
+      citationTargetType
+      citationType
+      referenceByCitationReferenceId {
+        bibliographicCitation
+        referenceIri
+        referenceYear
+        referenceType
+      }
+    }
+  }
 }
 `;
 
@@ -492,7 +590,7 @@ function restructure(data) {
   }
 
   // IDENTIFICATIONS SECTION
-  const identificationSource = data?.specimen?.nodes?.[0]?.entityByMaterialEntityId?.identificationEvidencesByEntityId?.nodes;
+  const identificationSource = data?.specimen?.nodes?.[0]?.entityByMaterialEntityId?.identificationEvidencesByEntityId?.nodes ?? [];
   let identifications = identificationSource.map(x => {
     const identification = x.identificationByIdentificationId;
     const { identificationId, dateIdentified, identificationType, identifiedBy, identifiedById, taxonFormula, verbatimIdentification, typeStatus } = identification;
@@ -541,8 +639,8 @@ function restructure(data) {
     eventRemarks: collectionEvent.eventRemarks,
   }
   specimen.collectionEvent = event;
-  const locationSource = get(collectionEvent, 'locationByLocationId', {});
-  const georeferenceSource = get(locationSource, 'georeferenceByAcceptedGeoreferenceId', {});
+  const locationSource = get(collectionEvent, 'locationByLocationId', {}) ?? {};
+  const georeferenceSource = get(locationSource, 'georeferenceByAcceptedGeoreferenceId', {}) ?? {};
   specimen.collectionEvent.location = {
     higherGeography: locationSource.higherGeography,
     continent: locationSource.continent,
@@ -596,7 +694,24 @@ function restructure(data) {
     sound: {},
   };
 
-  specimen.assertions = get(data, 'catalogedItemAssertions.nodes', [])
+  specimen.assertions = get(data, 'catalogedItemAssertions.nodes', []);
+
+  // SEQUENCES
+  const sequences = get(data, 'specimen.nodes[0].sequences.entityRelationshipsBySubjectEntityId.nodes', []);
+  const partSequences = get(data, 'specimen.nodes[0].sequencedParts.are.here', []).map(x => {
+    const o = x.entityBySubjectEntityId;
+    return {
+      material: o.materialEntityByMaterialEntityId,
+      sequences: o.sequences.nodes.map(s => s.entityByObjectEntityId.digitalEntityByDigitalEntityId)
+    }
+  });
+  specimen.sequences = {
+    material: sequences,
+    parts: partSequences
+  }
+
+  specimen.identifiers = get(data, 'identifiers.nodes', []);
+  specimen.citations = get(data, 'citations.nodes', []).map(x => x.referenceByCitationReferenceId);
 
 
 

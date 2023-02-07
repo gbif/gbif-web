@@ -26,7 +26,9 @@ export const Example = () => <Router initialEntries={[`/`]}>
 
     {/* Entomology from Harvard University, Museum of Comparative Zoology */}
     {/* <Specimen id="42844cb6-421e-4bcf-bdeb-c56039bee08c" /> */}
-    <Specimen id={text('specimenUUID', '5c488c08-8cab-444a-9598-806dd0abec85')} />
+    {/* <Specimen id={text('specimenUUID', '5c488c08-8cab-444a-9598-806dd0abec85')} /> */}
+    <Specimen id={text('specimenUUID', 'B 10 0059081')} />
+    {/* <Specimen id={text('specimenUUID', 'B 10 0059081')} /> */}
     {/* <Switch>
       <Route
         path='/specimen/:key'

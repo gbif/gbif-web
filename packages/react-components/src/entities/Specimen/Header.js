@@ -26,28 +26,33 @@ export function Header({
   if (!specimen || loading) return null;
 
   const { decimalLatitude, decimalLongitude, gbif } = specimen?.collectionEvent?.location?.georeference;
-  
-  gbif.forEach(x => {
-    if (x.source === 'http://gadm.org/') {
-      x.name = x.title;
-    }
-  });
-  const gadm = {
-    "level0": gbif.find(x => x.type === 'GADM0'),
-    "level1": gbif.find(x => x.type === 'GADM1'),
-    "level2": gbif.find(x => x.type === 'GADM2'),
-    "level3": gbif.find(x => x.type === 'GADM3'),
-  };
+  const eventDate = specimen?.collectionEvent?.eventDate;
+
   const item = {
-    gadm,
     globe: {
       lat: Number.parseFloat(decimalLatitude),
       lon: Number.parseFloat(decimalLongitude)
     }
   };
+
+  if (gbif) {
+    gbif.forEach(x => {
+      if (x.source === 'http://gadm.org/') {
+        x.name = x.title;
+      }
+    });
+    const gadm = {
+      "level0": gbif.find(x => x.type === 'GADM0'),
+      "level1": gbif.find(x => x.type === 'GADM1'),
+      "level2": gbif.find(x => x.type === 'GADM2'),
+      "level3": gbif.find(x => x.type === 'GADM3'),
+    };
+    item.gadm = gadm;
+  }
+  
   return <HeaderWrapper>
     <Row wrap="no-wrap" css={header({ theme })} {...props}>
-      {!isBelow &&
+      {!isBelow && !!item.globe.lat &&
         <Col grow={false} style={{ marginRight: 18 }}>
           <Globe {...item.globe} style={{ width: 120, height: 120 }} />
         </Col>
@@ -75,17 +80,17 @@ export function Header({
           <HeaderInfoWrapper>
             <HeaderInfoMain>
               <FeatureList style={{ marginTop: 8, alignItems: 'flex-start' }}>
-                <GenericFeature>
+                {eventDate && <GenericFeature>
                   <MdAccessTime />
                   <div>
-                    <FormattedDate value="2010-10-09" year="numeric" month="long" day="2-digit" />
+                    <FormattedDate value={eventDate} year="numeric" month="long" day="2-digit" />
                   </div>
-                </GenericFeature>
+                </GenericFeature>}
 
                 <GenericFeature>
                   <FaGlobeAfrica />
                   <div>
-                    <GadmClassification gadm={item.gadm} />
+                    {item.gadm && <GadmClassification gadm={item.gadm} />}
                     {specimen?.collectionEvent?.location?.locality && <div>{specimen.collectionEvent.location.locality}</div>}
                   </div>
                 </GenericFeature>

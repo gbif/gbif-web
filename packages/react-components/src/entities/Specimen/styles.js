@@ -120,3 +120,9 @@ export const accordionGroup = () => css`
     margin: 0 16px 32px 16px;
   }
 `;
+
+export const cardFooter = css`
+  padding: 12px 24px; 
+  background: var(--paperBackground700);
+  border-top: 1px solid var(--paperBackground900);
+`;

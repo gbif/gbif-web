@@ -8,26 +8,34 @@ export function Assertions({
   specimen,
   ...props
 }) {
-  if (!specimen) return null;
-  return <Card padded={false} css={css`margin-bottom: 24px;`}>
+  if (!specimen || specimen.assertions.length === 0) return null;
+  // return <Card padded={false} css={css`margin-bottom: 24px;`} {...props}>
+  //   <div css={css`padding: 12px 24px;`}>
+  //     <CardHeader2 style={{color: '#ddd', fontSize: 18, margin: 0}}>No assertions</CardHeader2>
+  //   </div>
+  // </Card>
+  return <Card padded={false} {...props}>
     <div css={css`padding: 12px 24px;`}>
       <CardHeader2>Assertions</CardHeader2>
     </div>
     <div>
       <Table css={css`
-      table {
-        font-size: 1em;
-      }
-      th {
-        font-size: 85%;
-      }
-      td, th {
-        border-right: none!important;
-      }
-      thead>tr>th {
-        background: #f3f6f8;
-      }
-    `}>
+        .gb-dataTable-wrapper {
+          max-height: 500px;
+        }
+        table {
+          font-size: 1em;
+        }
+        th {
+          font-size: 85%;
+        }
+        td, th {
+          border-right: none!important;
+        }
+        thead>tr>th {
+          background: #f3f6f8;
+        }
+      `}>
         <thead>
           <tr>
             <Th>Type</Th>

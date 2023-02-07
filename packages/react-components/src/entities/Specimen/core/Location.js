@@ -1,143 +1,149 @@
-import { jsx } from '@emotion/react';
+import { jsx, css } from '@emotion/react';
 import React, { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import equal from 'fast-deep-equal/react';
 import startCase from 'lodash/startCase';
-import { ButtonGroup, Button, Image, ResourceLink, Accordion, Properties, GadmClassification, GalleryTiles, GalleryTile, DatasetKeyLink, PublisherKeyLink } from "../../../components";
+import { ButtonGroup, Button, Image, ResourceLink, Accordion, Properties, GadmClassification, GalleryTiles, GalleryTile, DatasetKeyLink, PublisherKeyLink, HyperText, Switch } from "../../../components";
 import { CustomValueField, BasicField, PlainTextField, EnumField, HtmlField, LicenseField, Chips } from './properties';
 // import { AgentSummary } from './AgentSummary'
-import { SequenceVisual } from './SequenceVisual';
-import * as css from "../styles";
+import * as styles from "../styles";
 import { Group } from './Groups';
+import get from 'lodash/get';
+import { Card, CardHeader2 } from '../../shared';
+import { prettifyString } from '../../../utils/labelMaker/config2labels';
 
 const { Term: T, Value: V } = Properties;
 
-export function Location({ updateToc, specimen = {}, setActiveImage }) {
-  const { collectionOccurrence } = specimen;
-  // const hasContent = [
-  //   'locationID',
-  //   'higherGeographyID',
-  //   'higherGeography',
-  //   'continent',
-  //   'waterBody',
-  //   'islandGroup',
-  //   'island',
-  //   'countryCode',
-  //   'stateProvince',
-  //   'county',
-  //   'municipality',
-  //   'locality',
-  //   'verbatimLocality',
-  //   'verbatimElevation',
-  //   'verbatimDepth',
-  //   'minimumDistanceAboveSurfaceInMeters',
-  //   'maximumDistanceAboveSurfaceInMeters',
-  //   'locationAccordingTo',
-  //   'locationRemarks',
-  //   'decimalLatitude',
-  //   'decimalLongitude',
-  //   'coordinateUncertaintyInMeters',
-  //   'coordinatePrecision',
-  //   'pointRadiusSpatialFit',
-  //   'verbatimCoordinateSystem',
-  //   'verbatimSRS',
-  //   'footprintWKT',
-  //   'footprintSRS',
-  //   'footprintSpatialFit',
-  //   'georeferencedBy',
-  //   'georeferencedDate',
-  //   'georeferenceProtocol',
-  //   'georeferenceSources',
-  //   'georeferenceVerificationStatus',
-  //   'georeferenceRemarks',
-  //   'country',
-  //   'minimumElevationInMeters',
-  //   'maximumElevationInMeters',
-  //   'elevation',
-  //   'elevationAccuracy',
-  //   'minimumDepthInMeters',
-  //   'maximumDepthInMeters',
-  //   'minimumDepthInMeters',
-  //   'maximumDepthInMeters',
-  //   'depth',
-  //   'depthAccuracy',
-  //   'geodeticDatum',
-  //   'verbatimCoordinates',
-  //   'verbatimLatitude',
-  //   'verbatimLongitude'].find(x => collectionOccurrence[x]);
-  // if (!hasContent) return null;
+export function Location({ updateToc, specimen = {}, setActiveImage, ...props }) {
+  const [displayVerbatim, setDisplayVerbatim] = useState(false);
+  const collectionEvent = get(specimen, 'collectionEvent', {});
+  const location = get(specimen, 'collectionEvent.location', {});
+  const georeference = get(specimen, 'collectionEvent.location.georeference', {});
 
-  const { decimalLongitude, decimalLatitude } = collectionOccurrence?.location?.georeference;
-  
-  return <Group label="occurrenceDetails.groups.location" id="location">
-    <img style={{ width: '100%' }} src={`https://api.mapbox.com/styles/v1/mapbox/light-v9/static/pin-s-circle+285A98(${decimalLongitude},${decimalLatitude})/${decimalLongitude},${decimalLatitude},5,0/800x300@2x?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA`} />
-    <Properties css={css.properties} breakpoint={800}>
-      <PlainTextField label='locationID' value={collectionOccurrence.locationId} />
-      <PlainTextField label='higherGeography' value={collectionOccurrence.location.higherGeography} />
-      <PlainTextField label='continent' value={collectionOccurrence.location.continent} />
-      <PlainTextField label='waterBody' value={collectionOccurrence.location.waterBody} />
-      <PlainTextField label='islandGroup' value={collectionOccurrence.location.islandGroup} />
-      <PlainTextField label='countryCode' value={collectionOccurrence.location.countryCode} />
-      {/* <PlainTextField term={termMap.higherGeographyID} />
-      <PlainTextField term={termMap.higherGeography} />
+  const { decimalLongitude, decimalLatitude } = georeference;
 
-      <EnumField term={termMap.continent} getEnum={value => `enums.continent.${value}`} />
-      <EnumField term={termMap.countryCode} label="occurrenceFieldNames.country" getEnum={value => `enums.countryCode.${value}`} />
-      <PlainTextField term={termMap.waterBody} />
-      <PlainTextField term={termMap.islandGroup} />
-      <PlainTextField term={termMap.island} />
-      <PlainTextField term={termMap.stateProvince} />
-      <PlainTextField term={termMap.county} />
-      <PlainTextField term={termMap.municipality} />
+  return <Card padded={false} {...props}>
+    <div css={css`padding: 12px 24px;`}>
+      <CardHeader2>Location</CardHeader2>
+    </div>
+    {decimalLongitude && <img css={css`
+        width: calc(100% - 24px);
+        border-radius: 12px;
+        border: 1px solid #eee;
+        margin-left: 12px;
+      `} src={`https://api.mapbox.com/styles/v1/mapbox/light-v9/static/pin-s-circle+285A98(${decimalLongitude},${decimalLatitude})/${decimalLongitude},${decimalLatitude},5,0/800x300@2x?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA`} />}
+    <div css={css`padding: 12px 24px;`}>
+      <Properties dense css={styles.properties} breakpoint={800}>
+        {['eventType',
+          'eventName',
+          'fieldNumber',
+          'eventDate',
+          'habitat',
+          'protocolDescription',
+          'sampleSizeUnit',
+          'sampleSizeValue',
+          'eventEffort',
+          'fieldNotes',
+          'eventRemarks',
+          'locationId']
+          .filter(x => !!collectionEvent[x]).map(x => <React.Fragment key={x}>
+            <T>
+              {prettifyString(x)}
+            </T>
+            <V>
+              <HyperText text={collectionEvent[x]} inline />
+            </V>
+          </React.Fragment>)}
 
-      <PlainTextField term={termMap.locality} />
-      <PlainTextField term={termMap.verbatimLocality} />
+        {displayVerbatim && [
+          'verbatimEventDate',
+          'verbatimLocality',
+          'verbatimElevation',
+          'verbatimDepth',
+          'verbatimCoordinates',
+          'verbatimLatitude',
+          'verbatimLongitude',
+          'verbatimCoordinateSystem',
+          'verbatimSrs', ,]
+          .filter(x => !!collectionEvent[x]).map(x => <React.Fragment key={x}>
+            <T>
+              {prettifyString(x)}
+            </T>
+            <V>
+              <HyperText text={collectionEvent[x]} inline />
+            </V>
+          </React.Fragment>)}
 
-      <PlainTextField term={termMap.minimumDistanceAboveSurfaceInMeters} />
-      <PlainTextField term={termMap.maximumDistanceAboveSurfaceInMeters} />
-      <PlainTextField term={termMap.locationAccordingTo} />
-      <PlainTextField term={termMap.locationRemarks} />
+        {['higherGeography',
+          'continent',
+          'waterBody',
+          'islandGroup',
+          'island',
+          'countryCode',
+          'stateProvince',
+          'county',
+          'municipality',
+          'locality',
+          'minimumElevationInMeters',
+          'maximumElevationInMeters',
+          'minimumDistanceAboveSurfaceInMeters',
+          'maximumDistanceAboveSurfaceInMeters',
+          'minimumDepthInMeters',
+          'maximumDepthInMeters',
+          'verticalDatum',
+          'locationAccordingTo',
+          'locationRemarks',]
+          .filter(x => !!location[x]).map(x => <React.Fragment key={x}>
+            <T>
+              {prettifyString(x)}
+            </T>
+            <V>
+              <HyperText text={location[x]} inline />
+            </V>
+          </React.Fragment>)}
 
-      <PlainTextField term={termMap.decimalLatitude} />
-      <PlainTextField term={termMap.decimalLongitude} />
-      <PlainTextField term={termMap.coordinateUncertaintyInMeters} />
-      <PlainTextField term={termMap.coordinatePrecision} />
-      <PlainTextField term={termMap.pointRadiusSpatialFit} />
-      <PlainTextField term={termMap.footprintWKT} />
-      <PlainTextField term={termMap.footprintSRS} />
-      <PlainTextField term={termMap.footprintSpatialFit} />
-      <PlainTextField term={termMap.verbatimCoordinateSystem} />
-      <PlainTextField term={termMap.verbatimSRS} />
+        {displayVerbatim && ['verticalDatum']
+          .filter(x => !!location[x]).map(x => <React.Fragment key={x}>
+            <T>
+              {prettifyString(x)}
+            </T>
+            <V>
+              <HyperText text={location[x]} inline />
+            </V>
+          </React.Fragment>)}
 
-      <PlainTextField term={termMap.georeferencedBy} />
-      <PlainTextField term={termMap.georeferencedDate} />
-      <HtmlField term={termMap.georeferenceProtocol} />
-      <HtmlField term={termMap.georeferenceSources} />
-      <PlainTextField term={termMap.georeferenceVerificationStatus} />
-      <HtmlField term={termMap.georeferenceRemarks} />
+        {['decimalLatitude',
+          'decimalLongitude',
+          'geodeticDatum',
+          'coordinateUncertaintyInMeters',
+          'coordinatePrecision',
+          'pointRadiusSpatialFit',
+          'footprintWkt',
+          'footprintSrs',
+          'footprintSpatialFit',
+          'georeferencedBy',
+          'georeferencedDate',
+          'georeferenceProtocol',
+          'georeferenceSources',
+          'georeferenceRemarks',
+          'preferredSpatialRepresentation',]
+          .filter(x => !!georeference[x]).map(x => <React.Fragment key={x}>
+            <T>
+              {prettifyString(x)}
+            </T>
+            <V>
+              <HyperText text={georeference[x]} inline />
+            </V>
+          </React.Fragment>)}
 
-      <PlainTextField term={termMap.elevation} />
-      <PlainTextField term={termMap.elevationAccuracy} />
-      <PlainTextField term={termMap.minimumElevationInMeters} />
-      <PlainTextField term={termMap.maximumElevationInMeters} />
-      <PlainTextField term={termMap.verbatimElevation} />
-
-      <PlainTextField term={termMap.depth} />
-      <PlainTextField term={termMap.depthAccuracy} />
-      <PlainTextField term={termMap.minimumDepthInMeters} />
-      <PlainTextField term={termMap.maximumDepthInMeters} />
-      <PlainTextField term={termMap.verbatimDepth} />
-
-      <PlainTextField term={termMap.geodeticDatum} />
-      <PlainTextField term={termMap.verbatimCoordinates} />
-      <PlainTextField term={termMap.verbatimLatitude} />
-      <PlainTextField term={termMap.verbatimLongitude} />
-
-      {occurrence?.gadm?.level0 && <BasicField label="occurrenceFieldNames.gadmClassification">
-        <GadmClassification gadm={occurrence.gadm} />
-      </BasicField>} */}
-    </Properties>
-  </Group>
+      </Properties>
+    </div>
+    <div css={styles.cardFooter}>
+      <label>
+        <Switch checked={displayVerbatim} onChange={() => setDisplayVerbatim(!displayVerbatim)} style={{marginInlineEnd: 8}}/> Display verbatim values 
+      </label>
+    </div>
+  </Card>
 }
 
 function GeologicalContext({ updateToc, occurrence, setActiveImage }) {
@@ -163,7 +169,7 @@ function GeologicalContext({ updateToc, occurrence, setActiveImage }) {
   if (!hasContent) return null;
 
   return <Group label="occurrenceDetails.groups.geologicalContext" id="geological-context">
-    <Properties css={css.properties} breakpoint={800}>
+    <Properties css={styles.properties} breakpoint={800}>
       <PlainTextField term={termMap.geologicalContextID} showDetails={showAll} />
       <PlainTextField term={termMap.earliestEonOrLowestEonothem} showDetails={showAll} />
       <PlainTextField term={termMap.latestEonOrHighestEonothem} showDetails={showAll} />

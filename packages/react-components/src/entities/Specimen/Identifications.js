@@ -1,7 +1,7 @@
 import { jsx, css } from '@emotion/react';
 import React, { useState } from 'react';
 import { Classification, Properties, Button, Switch } from '../../components';
-import { Term, Value } from '../../components/Properties/Properties';
+import { Property, Term, Value } from '../../components/Properties/Properties';
 import { Card, CardHeader2 } from '../shared';
 import { ImBook as ReferenceIcon } from 'react-icons/im'
 import { MdEdit } from 'react-icons/md';
@@ -9,6 +9,7 @@ import { TbCircleDot } from 'react-icons/tb';
 import { prettifyString } from '../../utils/labelMaker/config2labels';
 import { FormattedDate } from '../shared/header';
 import { FormattedMessage } from 'react-intl';
+import * as styles from './styles';
 
 export function Identifications({
   specimen,
@@ -17,12 +18,13 @@ export function Identifications({
   const [showHistory, setHistoryState] = useState(false);
   if (!specimen) return null;
   const identifiedBy = specimen.identifications.current.identifiedBy;
-  return <Card padded={false} css={css`position: relative;`} {...props}>
-    <MdEdit css={css`position: absolute; top: 0; right: 0; margin: 12px; font-size: 18px;`} />
+  const hasIdentificationHistory = specimen.identifications.history.length > 1;
+
+  return <Card padded={false} {...props}>
     <div css={css`padding: 12px 24px;`}>
       <CardHeader2>Identification</CardHeader2>
       <div css={css`margin-top: 12px;`}>
-        <Properties>
+        <Properties dense>
           <Term>Scientific name</Term>
           <div>
             <Value>
@@ -38,8 +40,9 @@ export function Identifications({
             <Value>{specimen.identifications.current.identifiedBy.join(', ')}</Value>
           </>}
 
-          <Term>Nature of ID</Term>
-          <Value>{prettifyString(specimen.identifications.current.identificationType)}</Value>
+          {specimen?.identifications?.current?.identificationType && <><Term>Nature of ID</Term>
+            <Value>{specimen.identifications.current.identificationType}</Value>
+          </>}
 
           <Term>Classification</Term>
           <div>
@@ -60,13 +63,9 @@ export function Identifications({
             </Value>
           </div>
         </Properties>
-        <label style={{ display: 'block', textAlign: 'end', fontSize: '0.9em' }}>
-          <FormattedMessage id="material.showHistory" defaultMessage="Show history" />
-          <Switch checked={showHistory} onChange={() => setHistoryState(!showHistory)} style={{ marginInlineStart: 8 }} />
-        </label>
       </div>
     </div>
-    {showHistory && <div css={css`padding: 12px 24px; background: var(--paperBackground800); border-top: 1px solid var(--paperBorderColor);`}>
+    {hasIdentificationHistory && showHistory && <div css={css`padding: 12px 24px; background: var(--paperBackground800); border-top: 1px solid var(--paperBorderColor);`}>
       <h3 css={css`color: var(--color400); font-weight: normal; font-size: 16px;`}>Identifications history</h3>
       <ul css={css`margin: 0; padding: 0; list-style: none;`}>
 
@@ -137,37 +136,36 @@ export function Identifications({
       </ul>
     </div>}
 
+    {hasIdentificationHistory && <div css={styles.cardFooter}>
+      <label>
+        <Switch checked={showHistory} onChange={() => setHistoryState(!showHistory)} style={{ marginInlineEnd: 8 }} />
+        <FormattedMessage id="material.showHistory" defaultMessage="Show history" />
+      </label>
+    </div>}
+
   </Card>
 };
 
 function Identification({ identification, ...props }) {
-  return <Properties>
-    <Term>Scientific name</Term>
-    <div>
-      <Value>
-        <div>{identification.taxa[0].scientificName}</div>
-      </Value>
-    </div>
+  return <Properties dense horizontal={false}>
+    <Property label="Scientific name">
+      {identification.taxa[0].scientificName}
+    </Property>
 
-    {identification.identifiedBy && <>
-      <Term>Identified by</Term>
-      <Value>{identification.identifiedBy.join(', ')}</Value>
-    </>}
+    {identification.identifiedBy && <Property label="Identified by">
+      {identification.identifiedBy.join(', ')}
+    </Property>}
 
-    <Term>Nature of ID</Term>
-    <Value>{prettifyString(identification.identificationType)}</Value>
+    <Property label="Nature of ID" value={identification.identificationType} />
 
-    <Term>Classification</Term>
-    <div>
-      <Value>
-        <Classification>
-          {['kingdom', 'phylum', 'class', 'order', 'family', 'genus'].map(rank => {
-            const rankName = identification.taxa[0]?.[rank];
-            if (!rankName) return null;
-            return <span key={rank}>{rankName}</span>
-          })}
-        </Classification>
-      </Value>
-    </div>
+    {identification.taxa[0].genus && <Property label="Classification">
+      <Classification>
+        {['kingdom', 'phylum', 'class', 'order', 'family', 'genus'].map(rank => {
+          const rankName = identification.taxa[0]?.[rank];
+          if (!rankName) return null;
+          return <span key={rank}>{rankName}</span>
+        })}
+      </Classification>
+    </Property>}
   </Properties>
 }

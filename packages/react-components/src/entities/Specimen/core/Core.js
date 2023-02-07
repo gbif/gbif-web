@@ -17,6 +17,13 @@ import { Identifications } from '../Identifications';
 import { Media } from './Media';
 import { Sequences } from './Sequences';
 import { Location } from './Location';
+import { Relationships } from '../Relationships';
+
+import Masonry from "react-responsive-masonry"
+import { Identifiers } from './Identifiers';
+import { Provenance } from './provenance';
+import { Citations } from './citations';
+
 
 const { Term: T, Value: V, EmptyValue } = Properties;
 const Name2Avatar = ListItem.Name2Avatar;
@@ -30,7 +37,7 @@ export function Core({
   className,
   ...props
 }) {
-  const hideSideBar = useBelow(100);
+  const hideSideBar = useBelow(10000);
   const [toc, setToc] = useState({});
 
   const lat = specimen?.collectionEvent?.location?.georeference?.decimalLatitude;
@@ -56,7 +63,7 @@ export function Core({
     <div css={css`padding-bottom: 100px; display: flex; margin: 0 -12px;`}>
       {!hideSideBar && <aside css={stickyAside()}>
         <Card style={{ padding: 0, marginBottom: 12 }}>
-          <div css={mapThumb}>
+          {lat && <div css={mapThumb}>
             <img src={`https://api.mapbox.com/styles/v1/mapbox/light-v9/static/pin-s-circle+285A98(${lon},${lat})/${lon},${lat},5,0/250x180@2x?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA`} />
             <img className="gb-on-hover"
               src={`https://api.mapbox.com/styles/v1/mapbox/outdoors-v11/static/pin-s-circle+285A98(${lon},${lat})/${lon},${lat},11,0/250x180@2x?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA`}
@@ -66,7 +73,7 @@ export function Core({
               src={`https://api.mapbox.com/styles/v1/mapbox/satellite-v9/static/pin-s-circle+285A98(${lon},${lat})/${lon},${lat},13,0/250x180@2x?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA`}
             />
             <HashLink to="#location" replace></HashLink>
-          </div>
+          </div>}
           <nav css={sideNav()}>
             <ul>
               <Li to="#summary">Summary</Li>
@@ -91,20 +98,30 @@ export function Core({
         </Card>
       </aside>}
 
-      <div css={css`flex: 1 1 auto; margin: 0 12px;`}>
-        <div css={css`display: flex; align-items: center; margin-bottom: 8px;`}>
+      {/* <div css={css`flex: 1 1 auto; margin: 0 12px;`}> */}
+
+      <Masonry columnsCount={2} gutter="24px" style={{margin: '0 12px'}}>
+
+        {/* <div css={css`display: flex; align-items: center; margin-bottom: 8px;`}>
           <label css={css`margin-inline-end: 8px;`}>
             <Toggle /> <FormattedMessage id="specimen.enrichedToggle" defaultMessage="Enriched view" />
           </label>
           <MdHelp />
-        </div>
-        <Media updateToc={addSection} specimen={specimen} css={css`margin-bottom: 24px;`}/>
-        <Sequences updateToc={addSection} specimen={specimen} css={css`margin-bottom: 24px;`}/>
-        {/* <Location updateToc={addSection} specimen={specimen} /> */}
-        <Material specimen={specimen} css={css`margin-bottom: 24px; margin-top: 24px;`} />
-        <Assertions specimen={specimen} css={css`margin-bottom: 24px;`} />
-        <Identifications specimen={specimen} css={css`margin-bottom: 24px;`} />
-      </div>
+        </div> */}
+        {/* <Relationships updateToc={addSection} specimen={specimen} css={cardStyle} /> */}
+        <Material specimen={specimen} css={cardStyle} />
+        <Media updateToc={addSection} specimen={specimen} css={cardStyle} defaultCollapse />
+        <Identifications specimen={specimen} css={cardStyle} />
+        <Sequences updateToc={addSection} specimen={specimen} css={cardStyle} />
+        <Assertions specimen={specimen} css={cardStyle} />
+        <Location updateToc={addSection} specimen={specimen} css={cardStyle}/>
+        <Identifiers specimen={specimen} css={cardStyle} />
+        <Citations specimen={specimen} css={cardStyle} />
+        <Provenance specimen={specimen} css={cardStyle} />
+
+      </Masonry>
+      {/* </div> */}
+
     </div>
   </div>
 };
@@ -174,7 +191,7 @@ const mapThumb = css`
 
 const stickyAside = ({ ...props }) => css`
   flex: 0 0 280px; 
-  margin: 0 12px;
+  margin: 0 0 0 12px;
   align-self: flex-start;
   position: sticky;
   top: 12px;
@@ -209,4 +226,11 @@ const sideNavItem = ({ ...props }) => css`
     background: #e0e7ee;
     font-weight: 500;
   }
+`;
+
+const cardStyle = css`
+  box-shadow: 0 3px 3px 1px rgb(0 0 0 / 5%);
+  border-radius: 10px;
+  overflow: hidden;
+  font-size: 14px;
 `;

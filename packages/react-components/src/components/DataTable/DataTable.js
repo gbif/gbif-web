@@ -90,6 +90,7 @@ class DataTableCore extends Component {
       <React.Fragment>
         <div css={styles.wrapper({ theme })} style={style} {...props}>
           <div
+            className="gb-dataTable-wrapper"
             css={styles.occurrenceTable({ theme })}
             onScroll={this.bodyScroll}
             ref={this.myRef}
