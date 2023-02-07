@@ -10,27 +10,27 @@ const typeDef = gql`
     type: String!
     subtypeLiteral: String
     title: String
-    MetadataDate: String
+    metadataDate: String
     metadataLanguage: String
     metadataLanguageLiteral: String
     providerManagedID: String
     rights: String
-    Owner: String
-    WebStatement: String
-    Credit: String
+    owner: String
+    webStatement: String
+    credit: String
     creator: String
     providerLiteral: String
     description: String
     tag: String
-    CreateDate: String
+    createDate: String
     IDofContainingCollection: String
     accessURI: String
     accessOriginalURI: String
     format: String
     hashFunction: String
     hashValue: String
-    PixelXDimension: Int
-    PixelYDimension: Int
+    pixelXDimension: Int
+    pixelYDimension: Int
   }
 `;
 

@@ -110,7 +110,7 @@ export function DistinctTaxa({
                   </ResourceLink>
                   <Button
                     disabled={!Boolean(taxonImages[taxon.key])}
-                    look='text'
+                    look="text"
                     style={{
                       fontSize: '11px',
                       color: 'var(--color500)',

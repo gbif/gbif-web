@@ -4,15 +4,14 @@ class TaxonAPI extends RESTDataSource {
   constructor(config) {
     super();
     this.config = config;
-    // this.baseURL = config.alaNamematching;
   }
 
   async getTaxonByKey({ key, useBie }) {
     // Call the namematching API & return the taxonomic data
     const data = await this.get(
       useBie
-        ? `${this.config.alaBie}/species/${key}`
-        : `${this.config.alaNamematching}/getByTaxonID?taxonID=${key}`,
+        ? `${this.config.ala.bie}/species/${key}`
+        : `${this.config.ala.namematching}/getByTaxonID?taxonID=${key}`,
     );
     return useBie
       ? {

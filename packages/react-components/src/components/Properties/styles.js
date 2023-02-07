@@ -5,7 +5,6 @@ export const horizontalProperties = () => css`
   display: grid;
   grid-template-columns: minmax(75px, 200px) 1fr;
   > dt {
-    margin-bottom: 12px;
     &:last-of-type {
       margin-bottom: 0;
     }

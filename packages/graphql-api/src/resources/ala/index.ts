@@ -5,5 +5,4 @@ export { default as wikidata } from '../shared/resources/wikidata';
 
 // Taxon media querying using ALA Biocache source
 export { default as taxonMedia } from '../shared/resources/taxonMedia';
-// export { default as inat } from '../shared/resources/external/inat';
 export { default as taxonMediaBiocache } from './taxonMedia';

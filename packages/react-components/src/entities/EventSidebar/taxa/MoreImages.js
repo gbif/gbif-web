@@ -77,7 +77,7 @@ export function MoreImages({ data, onNavigateBack, className, ...props }) {
                 'type',
                 'providerLiteral',
                 'rights',
-                'Credit',
+                'credit',
                 'format',
               ]
                 .filter((property) => Boolean(activeImage[property]))
