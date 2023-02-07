@@ -1,4 +1,4 @@
-import env from '../../../../../../.env.json';
+import env from 'Env';
 
 export const basemaps = {
   'EPSG_4326': {
