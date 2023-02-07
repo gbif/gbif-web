@@ -14,6 +14,7 @@
   "eventTypeHierarchyJoined": "Event type hierarchy",
   "eventHierarchyJoined": "Event hierarchy",
   "map": "Map of location",
+  "backToTaxa": "Back to event taxa",
   "siteLocation": "Site location",
   "info": {
     "original": "Original",
@@ -32,13 +33,14 @@
     "organism": "Organism",
     "materialSample": "MaterialSample",
     "geologicalContext": "Geological context",
-    "other": "Other",
     "measurementsOrFacts": "Measurements",
+    "images": "Images",
+    "other": "Other",
     "methodology": "Methodology",
     "taxonomicCoverage": "Taxonomic coverage"
   },
   "siteTooltip": "{count} events at {site} in {date}",
-  "siteTableLegend" : "Site / Year",
+  "siteTableLegend": "Site / Year",
   "site": "Site: {siteID}",
   "siteLoading": "Site: {siteID} - loading details",
   "activityDetails": {
