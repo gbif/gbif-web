@@ -98,7 +98,7 @@ class TaxonAPI extends RESTDataSource {
 
       // only include vernacular names in the correct language
       responseVernacular.results.forEach(x => {
-        x.vernacularNames = x.vernacularNames.filter(y => y.language === language).map(x => x.vernacularName);
+        x.vernacularNames = x.vernacularNames.filter(y => y.language === language);
       });
 
       // remove results where there is no vernacular name in the correct language
@@ -107,6 +107,11 @@ class TaxonAPI extends RESTDataSource {
 
     // concatenated results, putting scientific names first
     const results = scientificResults.concat(vernacularResults);
+
+    results.forEach(x => {
+      x.vernacularNames = (x.vernacularNames ?? []).map(x => x.vernacularName);
+    });
+
     // remove duplicates, uniqBy keeps ordering
     let uniqueResults = uniqBy(results, 'key');
 
