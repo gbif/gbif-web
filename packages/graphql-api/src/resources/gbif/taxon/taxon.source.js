@@ -81,6 +81,7 @@ class TaxonAPI extends RESTDataSource {
           qField: 'SCIENTIFIC'
         }
       });
+      responseScientific.results.forEach(x => {delete x.vernacularNames});
       scientificResults = responseScientific.results;
     }
 

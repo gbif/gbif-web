@@ -364,6 +364,67 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
         </div>
       }
     },
+    taxonKeyVernacular: {
+      //What placeholder to show
+      // placeholder: 'Search by scientific name',
+      placeholder: 'search.placeholders.default',
+      // how to get the list of suggestion data
+      getSuggestions: ({ q, localeContext }) => {
+        const language = localeContext?.localeMap?.iso3LetterCode ?? 'eng';
+        const SEARCH = `
+          query($q: String, $language: Language){
+            taxonSuggestions( q: $q, language: $language) {
+              key
+              scientificName
+              vernacularName
+              taxonomicStatus
+              acceptedNameOf
+              classification {
+                name
+              }
+            }
+          }    
+        `;
+        const { promise, cancel } = client.query({ query: SEARCH, variables: {q, language: language} });
+        return {
+          promise: promise.then(response => {
+            return {
+              data: response.data?.taxonSuggestions.map(i => i),
+            }
+          }),
+          cancel
+        }
+      },
+      // how to map the results to a single string value
+      getValue: suggestion => suggestion.scientificName,
+      // how to display the individual suggestions in the list
+      render: function ScientificNameSuggestItem(suggestion) {
+        const ranks = suggestion.classification.map((rank, i) => <span key={i}>{rank.name}</span>);
+
+        const commonNameTranslation = formatMessage({ id: `filterSupport.commonName` });
+        const acceptedNameOfTranslation = formatMessage({ id: `filterSupport.acceptedNameOf` });
+
+        return <div style={{ maxWidth: '100%' }}>
+          <div style={suggestStyle}>
+            {suggestion.taxonomicStatus !== 'ACCEPTED' && <Tooltip title={<span><FormattedMessage id={`enums.taxonomicStatus.${suggestion.taxonomicStatus}`} /></span>}>
+              <span style={{ display: 'inline-block', marginRight: 8, width: 8, height: 8, borderRadius: 4, background: 'orange' }}></span>
+            </Tooltip>}
+            {suggestion.scientificName}
+          </div>
+          {suggestion.vernacularName && <div style={{ marginBottom: 8, color: '#888', fontSize: '0.85em', lineHeight: 1.2 }}>
+            <div>{commonNameTranslation}: <span style={{ color: '#555'}}>{suggestion.vernacularName}</span></div>
+          </div>}
+          {!suggestion.vernacularName && suggestion.acceptedNameOf && <div style={{ marginBottom: 8, color: '#888', fontSize: '0.85em', lineHeight: 1.2 }}>
+            <div>{acceptedNameOfTranslation}: <span style={{ color: '#555'}}>{suggestion.acceptedNameOf}</span></div>
+          </div>}
+          <div style={{ color: '#aaa', fontSize: '0.85em' }}>
+            <Classification>
+              {ranks}
+            </Classification>
+          </div>
+        </div>
+      }
+    },
     eventTaxonKey: {
       //What placeholder to show
       // placeholder: 'Search by scientific name',
