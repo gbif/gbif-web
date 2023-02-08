@@ -11,11 +11,11 @@
   },
   "scripts": {
     "build": "npx webpack --mode=production",
-    "develop": "npx webpack --mode=development --watch",
+    "build:test": "npx webpack --mode=development",
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve-translations": "npx serve locales/dist/ -p 5002 --cors",
     "watch-translations": "npx nodemon locales/build.js -w locales/ -i locales/dist/",
-    "start": "node locales/build.js; start-storybook -p 6006;",
+    "start": "cross-env NODE_ENV=development node locales/build.js; start-storybook -p 6006;",
     "build-storybook": "npm run build-locales; build-storybook -o ./dist",
     "build-client": "npm run build-locales; npm run build-storybook; npm run build; npx gulp; npx gzipper compress --brotli --include js,css,html,txt,json,map ./dist",
     "build-locales": "node locales/build",

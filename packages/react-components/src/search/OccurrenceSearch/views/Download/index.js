@@ -9,7 +9,7 @@ import * as css from './styles';
 import ThemeContext from '../../../../style/themes/ThemeContext';
 import { MdFileDownload } from 'react-icons/md'
 import { Button, Message } from '../../../../components';
-import env from '../../../../../.env.json';
+import env from 'Env';
 
 const DOWNLOAD = `
 query($predicate: Predicate){

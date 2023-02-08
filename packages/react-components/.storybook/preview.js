@@ -10,7 +10,7 @@ import { Root } from '../src/components';
 import ThemeContext, { darkTheme, lightTheme, a11yTheme, vertnetTheme, rtlTheme, alaTheme, gbifTheme } from '../src/style/themes';
 import ThemeBuilder from '../src/style/themeBuilder';
 import { ApiContext, ApiClient } from '../src/dataManagement/api';
-import env from '../.env.json';
+import env from 'Env';
 import RouteContext from '../src/dataManagement/RouteContext';
 import SiteContext from '../src/dataManagement/SiteContext';
 import { siteConfig } from './siteConfig';

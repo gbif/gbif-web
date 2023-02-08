@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import mapboxgl from 'mapbox-gl';
 import { getLayerConfig } from './getLayerConfig';
-import env from '../../../../../.env.json';
+import env from 'Env';
 
 class Map extends Component {
 

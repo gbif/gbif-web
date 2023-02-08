@@ -1,6 +1,6 @@
 import React from 'react';
 import ApiClient from './ApiClient';
-import env from '../../../.env.json';
+import env from 'Env';
 
 const client = new ApiClient({
   gql: {

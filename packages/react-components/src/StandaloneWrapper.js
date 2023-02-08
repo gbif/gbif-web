@@ -10,7 +10,7 @@ import ThemeContext, { lightTheme } from './style/themes';
 import { ApiContext, ApiClient } from './dataManagement/api';
 import RouteContext, { defaultContext } from './dataManagement/RouteContext';
 import SiteContext from './dataManagement/SiteContext';
-import env from '../.env.json';
+import env from 'Env';
 
 const client = new ApiClient({
   gql: {
