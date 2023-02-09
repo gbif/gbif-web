@@ -1,9 +1,18 @@
 {
+  "en": {
+    "iso3LetterCode": "eng"
+  },
+  "de": {
+    "iso3LetterCode": "deu",
+    "vocabulary": "de-DE"
+  },
   "es": {
     "gbif_org": "es",
-    "vocabulary": "es-ES"
+    "vocabulary": "es-ES",
+    "iso3LetterCode": "spa"
   },
   "fr": {
-    "gbif_org": "fr"
+    "gbif_org": "fr",
+    "iso3LetterCode": "fra"
   }
 }
