@@ -29,7 +29,7 @@ import About from './about';
 import Collections from './collections';
 import Media from './media';
 
-const { TabList, RouterTab, Tab } = Tabs;
+const { TabList, RouterTab } = Tabs;
 
 export function TaxonPresentation({ id, data, error, loading, config }) {
   let { path, url } = useRouteMatch();
@@ -135,11 +135,6 @@ Relating to ${location.href}
               <Collections id={id} config={config} />
             </ContentWrapper>
           </Route>
-          {/* <Route path={join(path, '/occurrences')}>
-            <ContentWrapper>
-              <div>Occurrences</div>
-            </ContentWrapper>
-          </Route> */}
           <Route path={join(path, '/media')}>
             <ContentWrapper>
               <Media id={id} />

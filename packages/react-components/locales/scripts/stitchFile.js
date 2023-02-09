@@ -30,6 +30,7 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
       occurrenceFieldNames: getFile(locale, `../${folder}/${locale}/components/occurrenceFieldNames`),
       occurrenceDetails: getFile(locale, `../${folder}/${locale}/components/occurrenceDetails`),
       eventDetails: getFile(locale, `../${folder}/${locale}/components/eventDetails`),
+      taxonDetails: getFile(locale, `../${folder}/${locale}/components/taxonDetails`),
       download: getFile(locale, `../${folder}/${locale}/components/download`),
       map: getFile(locale, `../${folder}/${locale}/components/map`),
       images: getFile(locale, `../${folder}/${locale}/components/images`),

@@ -86,7 +86,7 @@ function ListBox({
       <ul css={list({ theme })}>
         {results.map((x, index) => {
           return (
-            <li key={x.key}>
+            <li key={`${x.key}-${index}`}>
               <ListItem
                 onClick={() => onClick({ index })}
                 id={x.key}

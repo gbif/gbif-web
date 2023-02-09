@@ -4,8 +4,8 @@ import * as css from './styles';
 import { Row, Col, Tabs } from '../../components';
 import { useQuery } from '../../dataManagement/api';
 import { Header } from './Header';
-import { MdClose, MdInfo, MdImage } from 'react-icons/md';
-import { Trial } from './Trial';
+import { MdClose, MdInfo } from 'react-icons/md';
+import { Groups } from './details/Groups';
 
 const { TabList, Tab, TapSeperator } = Tabs;
 const { TabPanel } = Tabs;
@@ -51,6 +51,10 @@ export function TaxonSidebar({
   }, [data, loading]);
 
   const isLoading = loading || !data;
+  const accession = data?.results?.documents?.results?.find(
+    ({ eventType }) => eventType.concept === 'Accession'
+  );
+  console.log(accession);
 
   return (
     <Tabs activeId={activeId} onChange={(id) => setTab(id)}>
@@ -80,7 +84,7 @@ export function TaxonSidebar({
               style={{ padding: '12px', paddingBottom: 50, overflow: 'auto' }}
               grow
             >
-              <h2>{catalogNumber} - Loading trial information...</h2>
+              <h2>{catalogNumber} - Loading information...</h2>
             </Col>
           )}
           {!isLoading && (
@@ -94,9 +98,7 @@ export function TaxonSidebar({
                   <div style={{ marginTop: 24 }}>
                     {trials.length > 0 ? (
                       <TabPanel tabId='details'>
-                        {trials.map((trial) => (
-                          <Trial key={trial.eventID} trial={trial} />
-                        ))}
+                        <Groups event={accession} trials={trials} />
                       </TabPanel>
                     ) : (
                       <div
@@ -153,14 +155,14 @@ query list($predicate: Predicate, $offset: Int, $limit: Int){
         stateProvince
         countryCode
         measurementOrFactTypes
-        occurrenceCount
-        speciesCount
-        eventTypeHierarchyJoined
         locality
         temporalCoverage {
           gte
           lte
         }
+        decimalLatitude
+        decimalLongitude
+        wktConvexHull
         measurementOrFacts {
           measurementID
           measurementType

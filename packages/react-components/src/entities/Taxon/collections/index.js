@@ -5,6 +5,7 @@ import Layout from './CollectionsPageLayout';
 
 // Views
 import Table from './views/Table';
+import Trials from './views/Trials';
 import Map from './views/Map';
 
 // Config
@@ -20,19 +21,10 @@ export default ({ id, config }) => {
       type: 'and',
       predicates: [
         ...(taxonConfig.rootFilter ? [taxonConfig.rootFilter] : []),
-        ...(id
-          ? [
-              {
-                key: 'taxonKey',
-                type: 'equals',
-                value: id,
-              },
-            ]
-          : []),
         {
-          key: 'eventType',
+          key: 'taxonKey',
           type: 'equals',
-          value: 'Accession',
+          value: id,
         },
       ],
     };
@@ -46,6 +38,7 @@ export default ({ id, config }) => {
           defaultFilterConfig,
           predicateConfig,
           Table,
+          Trials,
           Map,
         }}
         layout={Layout}

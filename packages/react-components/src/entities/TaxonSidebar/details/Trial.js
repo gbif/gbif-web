@@ -1,8 +1,9 @@
 import { jsx } from '@emotion/react';
 import React, { useContext } from 'react';
-import ThemeContext from '../../style/themes/ThemeContext';
-import * as css from './styles';
-import { Row, Col, Properties, IconFeatures } from '../../components';
+import ThemeContext from '../../../style/themes/ThemeContext';
+import * as css from '../styles';
+import { Row, Col, Properties, IconFeatures } from '../../../components';
+import { FormattedMessage } from 'react-intl';
 
 const { Term: T, Value: V } = Properties;
 
@@ -76,6 +77,13 @@ export function Trial({ trial, ...props }) {
                     </V>
                   </React.Fragment>
                 ))}
+              <T>
+                <FormattedMessage
+                  id='occurrenceFieldsNames.datasetName'
+                  defaultMessage='Dataset name'
+                />
+              </T>
+              <V>{trial.datasetTitle}</V>
             </Properties>
           </div>
         </Col>

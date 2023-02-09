@@ -34,6 +34,7 @@ export const entitySummary = ({ ...props }) => css`
 `;
 
 export const header = ({ ...props }) => css`
+  padding: 12px 16px;
   .gbif-header-location {
     font-size: 13px;
     display: flex;
@@ -113,7 +114,6 @@ export const detailDrawerBar = ({ theme }) => css`
 `;
 
 export const detailDrawerContent = ({ theme }) => css`
-  padding: 12px 16px;
   overflow: auto;
   flex: 1 1 auto;
   > div {
@@ -168,6 +168,7 @@ export const clusterCard = ({ theme }) => css`
   margin-bottom: 24px;
   border: 1px solid ${theme.paperBorderColor};
   box-shadow: 0 2px 1px 1px #0000000a;
+  background-color: ${theme.paperBackground500};
 `;
 
 export const properties = css`

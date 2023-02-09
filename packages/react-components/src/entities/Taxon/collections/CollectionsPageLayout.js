@@ -13,7 +13,8 @@ const Layout = ({
   config,
   Table,
   Map,
-  tabs = ['TABLE', 'MAP'],
+  Trials,
+  tabs = ['TABLE', 'TRIALS', 'MAP'],
   ...props
 }) => {
   const [activeView = tabs[0] || 'TABLE', setActiveView] = useQueryParam(
@@ -29,11 +30,22 @@ const Layout = ({
       <NavItem
         key={`TABLE_TAB`}
         label={
-          <FormattedMessage id='search.tabs.table' defaultMessage='table' />
+          <FormattedMessage id='search.tabs.table' defaultMessage='Table' />
         }
         data-targetid='table'
         onClick={(e) => setActiveView('TABLE')}
         isActive={activeView === 'TABLE'}
+      />
+    ),
+    TRIALS: (
+      <NavItem
+        key={`TRIALS_TAB`}
+        label={
+          <FormattedMessage id='search.tabs.trials' defaultMessage='Trials' />
+        }
+        data-targetid='trials'
+        onClick={(e) => setActiveView('TRIALS')}
+        isActive={activeView === 'TRIALS'}
       />
     ),
     MAP: (
@@ -76,6 +88,7 @@ const Layout = ({
         </div>
         <div css={cssViewArea({ theme })}>
           {activeView === 'TABLE' && <Table />}
+          {activeView === 'TRIALS' && <Trials />}
           {activeView === 'MAP' && <Map />}
           {/* {activeView === 'DOWNLOAD' && <Download />} */}
         </div>
