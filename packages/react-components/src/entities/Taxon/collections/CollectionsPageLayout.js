@@ -64,7 +64,7 @@ const Layout = ({
             style={{ borderBottom: '1px solid #ddd' }}
           />
           <div css={cssFilter({ theme })}>
-            <FilterBar config={config}></FilterBar>
+            <FilterBar label='Filters' config={config}></FilterBar>
           </div>
           {tabs.length > 1 && (
             <div>

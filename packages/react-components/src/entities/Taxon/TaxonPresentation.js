@@ -124,7 +124,6 @@ Relating to ${location.href}
         <TabList style={{ marginTop: '12px', borderTop: '1px solid #ddd' }}>
           <RouterTab to={url} exact label='About' />
           <RouterTab to={join(url, '/collections')} label='Collections' />
-          <RouterTab to={join(url, '/map')} label='Map' />
           <RouterTab to={join(url, '/media')} label='Media' />
         </TabList>
       </HeaderWrapper>
@@ -134,11 +133,6 @@ Relating to ${location.href}
           <Route path={join(path, '/collections')}>
             <ContentWrapper>
               <Collections id={id} config={config} />
-            </ContentWrapper>
-          </Route>
-          <Route path={join(path, '/map')}>
-            <ContentWrapper>
-              <div>Map</div>
             </ContentWrapper>
           </Route>
           {/* <Route path={join(path, '/occurrences')}>
