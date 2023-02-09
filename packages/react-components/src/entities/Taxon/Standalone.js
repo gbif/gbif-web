@@ -6,7 +6,9 @@ import RouteContext from '../../dataManagement/RouteContext';
 
 function Standalone({ siteConfig, ...props }) {
   const routeContext = useContext(RouteContext);
-  const path = routeContext.taxonKey.route;
+  const path =
+    siteConfig?.routes?.taxonKey?.route || routeContext.taxonKey.route;
+
   return (
     <StandaloneWrapper siteConfig={siteConfig} {...props}>
       <Switch>

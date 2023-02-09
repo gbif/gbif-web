@@ -1,8 +1,8 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { RiSideBarFill as OpenInSideBar } from 'react-icons/ri';
-import { InlineFilterChip } from '../../../../widgets/Filter/utils/FilterChip';
-import { Tooltip, TextButton } from '../../../../components';
+import { InlineFilterChip } from '../../../../../widgets/Filter/utils/FilterChip';
+import { Tooltip, TextButton } from '../../../../../components';
 
 export default (intl) => ({
   columns: [

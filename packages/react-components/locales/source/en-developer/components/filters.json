@@ -42,8 +42,8 @@
     "description": "The code (or acronym) for the institution having custody of the object(s) or information referred to in the record."
   },
   "catalogNumber": {
-    "name": "Catalog number",
-    "count": "{num, plural, one { catalog number } other {# catalog numbers}}",
+    "name": "Catalogue number",
+    "count": "{num, plural, one { catalogue number } other {# catalogue numbers}}",
     "description": "The identifier for the record within a catalog or collection."
   },
   "mediaType": {

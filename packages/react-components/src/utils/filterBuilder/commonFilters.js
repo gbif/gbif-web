@@ -22,19 +22,19 @@ export const commonFilters = {
     type: 'SUGGEST',
     config: {
       std: {
-        filterHandle: 'taxonKey',// if nothing else provided, then this is the filterName used
+        filterHandle: 'taxonKey', // if nothing else provided, then this is the filterName used
         id2labelHandle: 'canonicalName',
         translations: {
           count: 'filters.taxonKey.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.taxonKey.name',// translation path to a title for the popover and the button
+          name: 'filters.taxonKey.name', // translation path to a title for the popover and the button
           description: 'filters.taxonKey.description', // translation path for the filter description
         },
       },
       specific: {
         suggestHandle: 'taxonKey',
-        id2labelHandle: 'taxonKey'
-      }
-    }
+        id2labelHandle: 'taxonKey',
+      },
+    },
   },
   country: {
     type: 'SUGGEST',
@@ -43,14 +43,14 @@ export const commonFilters = {
         id2labelHandle: 'countryCode',
         translations: {
           count: 'filters.occurrenceCountry.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.occurrenceCountry.name',// translation path to a title for the popover and the button
+          name: 'filters.occurrenceCountry.name', // translation path to a title for the popover and the button
           description: 'filters.occurrenceCountry.description', // translation path for the filter description
         },
       },
       specific: {
-        suggestHandle: 'countryCode'
-      }
-    }
+        suggestHandle: 'countryCode',
+      },
+    },
   },
   countrySingle: {
     type: 'SUGGEST',
@@ -59,15 +59,15 @@ export const commonFilters = {
         id2labelHandle: 'countryCode',
         translations: {
           count: 'filters.occurrenceCountry.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.occurrenceCountry.name',// translation path to a title for the popover and the button
+          name: 'filters.occurrenceCountry.name', // translation path to a title for the popover and the button
           description: 'filters.occurrenceCountry.description', // translation path for the filter description
         },
       },
       specific: {
         suggestHandle: 'countryCode',
-        singleSelect: true
-      }
-    }
+        singleSelect: true,
+      },
+    },
   },
   countrySingleGrSciColl: {
     type: 'SUGGEST',
@@ -76,15 +76,15 @@ export const commonFilters = {
         id2labelHandle: 'countryCode',
         translations: {
           count: 'filters.occurrenceCountry.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.occurrenceCountry.name',// translation path to a title for the popover and the button
+          name: 'filters.occurrenceCountry.name', // translation path to a title for the popover and the button
           description: 'filters.occurrenceCountry.description', // translation path for the filter description
         },
       },
       specific: {
         suggestHandle: 'countryCode',
-        singleSelect: true
-      }
-    }
+        singleSelect: true,
+      },
+    },
   },
   countriesOfCoverage: {
     type: 'SUGGEST',
@@ -93,14 +93,14 @@ export const commonFilters = {
         id2labelHandle: 'countryCode',
         translations: {
           count: 'filters.countriesOfCoverage.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.countriesOfCoverage.name',// translation path to a title for the popover and the button
+          name: 'filters.countriesOfCoverage.name', // translation path to a title for the popover and the button
           description: 'filters.countriesOfCoverage.description', // translation path for the filter description
         },
       },
       specific: {
         suggestHandle: 'countryCode',
-      }
-    }
+      },
+    },
   },
   countriesOfResearcher: {
     type: 'SUGGEST',
@@ -109,14 +109,14 @@ export const commonFilters = {
         id2labelHandle: 'countryCode',
         translations: {
           count: 'filters.countriesOfResearcher.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.countriesOfResearcher.name',// translation path to a title for the popover and the button
+          name: 'filters.countriesOfResearcher.name', // translation path to a title for the popover and the button
           description: 'filters.countriesOfResearcher.description', // translation path for the filter description
         },
       },
       specific: {
         suggestHandle: 'countryCode',
-      }
-    }
+      },
+    },
   },
   publishingCountryCode: {
     type: 'SUGGEST',
@@ -125,14 +125,14 @@ export const commonFilters = {
         id2labelHandle: 'countryCode',
         translations: {
           count: 'filters.publishingCountryCode.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.publishingCountryCode.name',// translation path to a title for the popover and the button
+          name: 'filters.publishingCountryCode.name', // translation path to a title for the popover and the button
           description: 'filters.publishingCountryCode.description', // translation path for the filter description
         },
       },
       specific: {
-        suggestHandle: 'countryCode'
-      }
-    }
+        suggestHandle: 'countryCode',
+      },
+    },
   },
   datasetKey: {
     type: 'SUGGEST',
@@ -140,15 +140,15 @@ export const commonFilters = {
       std: {
         translations: {
           count: 'filters.datasetKey.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.datasetKey.name',// translation path to a title for the popover and the button
+          name: 'filters.datasetKey.name', // translation path to a title for the popover and the button
           description: 'filters.datasetKey.description', // translation path for the filter description
         },
       },
       specific: {
         suggestHandle: 'datasetKeyFromOccurrenceIndex',
-        allowEmptyQueries: true
-      }
-    }
+        allowEmptyQueries: true,
+      },
+    },
   },
   eventDatasetKey: {
     type: 'SUGGEST',
@@ -158,15 +158,15 @@ export const commonFilters = {
         id2labelHandle: 'eventDatasetKey',
         translations: {
           count: 'filters.datasetKey.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.datasetKey.name',// translation path to a title for the popover and the button
+          name: 'filters.datasetKey.name', // translation path to a title for the popover and the button
           description: 'filters.datasetKey.description', // translation path for the filter description
         },
       },
       specific: {
         suggestHandle: 'datasetKeyFromEventIndex',
-        allowEmptyQueries: true
-      }
-    }
+        allowEmptyQueries: true,
+      },
+    },
   },
   publisherKey: {
     type: 'SUGGEST',
@@ -174,15 +174,15 @@ export const commonFilters = {
       std: {
         translations: {
           count: 'filters.publisherKey.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.publisherKey.name',// translation path to a title for the popover and the button
+          name: 'filters.publisherKey.name', // translation path to a title for the popover and the button
           description: 'filters.publisherKey.description', // translation path for the filter description
         },
       },
       specific: {
         suggestHandle: 'publisherKeyFromOccurrenceIndex',
-        allowEmptyQueries: true
-      }
-    }
+        allowEmptyQueries: true,
+      },
+    },
   },
   anyPublisherKey: {
     type: 'SUGGEST',
@@ -191,15 +191,15 @@ export const commonFilters = {
         id2labelHandle: 'publisherKey',
         translations: {
           count: 'filters.publisherKey.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.publisherKey.name',// translation path to a title for the popover and the button
+          name: 'filters.publisherKey.name', // translation path to a title for the popover and the button
           description: 'filters.publisherKey.description', // translation path for the filter description
         },
       },
       specific: {
         suggestHandle: 'publisherKey',
-        allowEmptyQueries: true
-      }
-    }
+        allowEmptyQueries: true,
+      },
+    },
   },
   institutionCode: {
     type: 'SUGGEST',
@@ -207,31 +207,31 @@ export const commonFilters = {
       std: {
         translations: {
           count: 'filters.institutionCode.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.institutionCode.name',// translation path to a title for the popover and the button
+          name: 'filters.institutionCode.name', // translation path to a title for the popover and the button
           description: 'filters.institutionCode.description', // translation path for the filter description
         },
       },
       specific: {
         suggestHandle: 'institutionCode',
         supportsExist: true,
-      }
-    }
+      },
+    },
   },
   catalogNumber: {
-    type: 'KEYWORD_SEARCH',//KEYWORD_SEARCH | SUGGEST
+    type: 'KEYWORD_SEARCH', //KEYWORD_SEARCH | SUGGEST
     config: {
       std: {
-        filterHandle: 'catalogNumber',// if nothing else provided, then this is the filterName used
+        filterHandle: 'catalogNumber', // if nothing else provided, then this is the filterName used
         id2labelHandle: 'catalogNumber',
         translations: {
           count: 'filters.catalogNumber.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.catalogNumber.name',// translation path to a title for the popover and the button
+          name: 'filters.catalogNumber.name', // translation path to a title for the popover and the button
           description: 'filters.catalogNumber.description', // translation path for the filter description
         },
       },
       specific: {
         id2labelHandle: 'catalogNumber',
-        placeholder: 'Search for a catalog number',
+        placeholder: 'Search for a catalogue number',
         supportsExist: true,
         query: `
           query keywordSearch($predicate: Predicate, $size: Int){
@@ -248,9 +248,9 @@ export const commonFilters = {
             }
           }
         `,
-        queryKey: 'catalogNumber'
-      }
-    }
+        queryKey: 'catalogNumber',
+      },
+    },
     // type: 'SUGGEST',
     // config: {
     //   std: {
@@ -291,15 +291,15 @@ export const commonFilters = {
         id2labelHandle: 'publisherKey',
         translations: {
           count: 'filters.hostingOrganizationKey.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.hostingOrganizationKey.name',// translation path to a title for the popover and the button
+          name: 'filters.hostingOrganizationKey.name', // translation path to a title for the popover and the button
           description: 'filters.hostingOrganizationKey.description', // translation path for the filter description
         },
       },
       specific: {
         suggestHandle: 'publisherKey',
         id2labelHandle: 'publisherKey',
-      }
-    }
+      },
+    },
   },
   year: {
     type: 'NUMBER_RANGE',
@@ -309,16 +309,16 @@ export const commonFilters = {
         id2labelHandle: 'year',
         translations: {
           count: 'filters.year.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.year.name',// translation path to a title for the popover and the button
+          name: 'filters.year.name', // translation path to a title for the popover and the button
           description: 'filters.year.description', // translation path for the filter description
-        }
+        },
       },
       specific: {
         placeholder: 'search.placeholders.range',
         supportsExist: true,
-        regex: /^((-)?[0-9]{0,4})(,)?((-)?[0-9]{0,4})$/
-      }
-    }
+        regex: /^((-)?[0-9]{0,4})(,)?((-)?[0-9]{0,4})$/,
+      },
+    },
   },
   basisOfRecord: {
     type: 'ENUM',
@@ -328,14 +328,14 @@ export const commonFilters = {
         id2labelHandle: 'basisOfRecord',
         translations: {
           count: 'filters.basisOfRecord.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.basisOfRecord.name',// translation path to a title for the popover and the button
+          name: 'filters.basisOfRecord.name', // translation path to a title for the popover and the button
           description: 'filters.basisOfRecord.description', // translation path for the filter description
-        }
+        },
       },
       specific: {
         options: basisofRecord,
-      }
-    }
+      },
+    },
   },
   typeStatus: {
     type: 'ENUM',
@@ -345,14 +345,14 @@ export const commonFilters = {
         id2labelHandle: 'typeStatus',
         translations: {
           count: 'filters.typeStatus.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.typeStatus.name',// translation path to a title for the popover and the button
+          name: 'filters.typeStatus.name', // translation path to a title for the popover and the button
           description: 'filters.typeStatus.description', // translation path for the filter description
-        }
+        },
       },
       specific: {
         options: typeStatus,
-      }
-    }
+      },
+    },
   },
   occurrenceIssue: {
     type: 'ENUM',
@@ -362,16 +362,16 @@ export const commonFilters = {
         id2labelHandle: 'occurrenceIssue',
         translations: {
           count: 'filters.occurrenceIssue.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.occurrenceIssue.name',// translation path to a title for the popover and the button
+          name: 'filters.occurrenceIssue.name', // translation path to a title for the popover and the button
           description: 'filters.occurrenceIssue.description', // translation path for the filter description
-        }
+        },
       },
       specific: {
         options: occurrenceIssue,
         supportsNegation: true,
-        supportsExist: true
-      }
-    }
+        supportsExist: true,
+      },
+    },
   },
   mediaType: {
     type: 'ENUM',
@@ -381,14 +381,14 @@ export const commonFilters = {
         id2labelHandle: 'mediaType',
         translations: {
           count: 'filters.mediaType.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.mediaType.name',// translation path to a title for the popover and the button
+          name: 'filters.mediaType.name', // translation path to a title for the popover and the button
           description: 'filters.mediaType.description', // translation path for the filter description
-        }
+        },
       },
       specific: {
         options: mediaType,
-      }
-    }
+      },
+    },
   },
   sampleSizeUnit: {
     type: 'KEYWORD_SEARCH',
@@ -397,7 +397,7 @@ export const commonFilters = {
         filterHandle: 'sampleSizeUnit',
         translations: {
           count: 'filters.sampleSizeUnit.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.sampleSizeUnit.name',// translation path to a title for the popover and the button
+          name: 'filters.sampleSizeUnit.name', // translation path to a title for the popover and the button
           description: 'filters.sampleSizeUnit.description', // translation path for the filter description
         },
       },
@@ -419,9 +419,9 @@ export const commonFilters = {
             }
           }
         `,
-        queryKey: 'sampleSizeUnit'
-      }
-    }
+        queryKey: 'sampleSizeUnit',
+      },
+    },
   },
   license: {
     type: 'ENUM',
@@ -431,14 +431,14 @@ export const commonFilters = {
         id2labelHandle: 'license',
         translations: {
           count: 'filters.license.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.license.name',// translation path to a title for the popover and the button
+          name: 'filters.license.name', // translation path to a title for the popover and the button
           description: 'filters.license.description', // translation path for the filter description
-        }
+        },
       },
       specific: {
         options: license,
-      }
-    }
+      },
+    },
   },
   coordinateUncertainty: {
     type: 'NUMBER_RANGE',
@@ -448,15 +448,15 @@ export const commonFilters = {
         id2labelHandle: 'coordinateUncertainty',
         translations: {
           count: 'filters.coordinateUncertainty.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.coordinateUncertainty.name',// translation path to a title for the popover and the button
+          name: 'filters.coordinateUncertainty.name', // translation path to a title for the popover and the button
           description: 'filters.coordinateUncertainty.description', // translation path for the filter description
-        }
+        },
       },
       specific: {
         placeholder: 'search.placeholders.range',
-        regex: /^((-)?[0-9]{0,4})(,)?((-)?[0-9]{0,4})$/
-      }
-    }
+        regex: /^((-)?[0-9]{0,4})(,)?((-)?[0-9]{0,4})$/,
+      },
+    },
   },
   depth: {
     type: 'NUMBER_RANGE',
@@ -466,15 +466,15 @@ export const commonFilters = {
         id2labelHandle: 'depth',
         translations: {
           count: 'filters.depth.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.depth.name',// translation path to a title for the popover and the button
+          name: 'filters.depth.name', // translation path to a title for the popover and the button
           description: 'filters.depth.description', // translation path for the filter description
-        }
+        },
       },
       specific: {
         placeholder: 'search.placeholders.range',
-        regex: /^((-)?[0-9]{0,4})(,)?((-)?[0-9]{0,4})$/
-      }
-    }
+        regex: /^((-)?[0-9]{0,4})(,)?((-)?[0-9]{0,4})$/,
+      },
+    },
   },
   organismQuantity: {
     type: 'NUMBER_RANGE',
@@ -484,15 +484,15 @@ export const commonFilters = {
         id2labelHandle: 'organismQuantity',
         translations: {
           count: 'filters.organismQuantity.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.organismQuantity.name',// translation path to a title for the popover and the button
+          name: 'filters.organismQuantity.name', // translation path to a title for the popover and the button
           description: 'filters.organismQuantity.description', // translation path for the filter description
-        }
+        },
       },
       specific: {
         placeholder: 'search.placeholders.range',
-        regex: /^((-)?[0-9]{0,4})(,)?((-)?[0-9]{0,4})$/
-      }
-    }
+        regex: /^((-)?[0-9]{0,4})(,)?((-)?[0-9]{0,4})$/,
+      },
+    },
   },
   sampleSizeValue: {
     type: 'NUMBER_RANGE',
@@ -502,15 +502,15 @@ export const commonFilters = {
         id2labelHandle: 'sampleSizeValue',
         translations: {
           count: 'filters.sampleSizeValue.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.sampleSizeValue.name',// translation path to a title for the popover and the button
+          name: 'filters.sampleSizeValue.name', // translation path to a title for the popover and the button
           description: 'filters.sampleSizeValue.description', // translation path for the filter description
-        }
+        },
       },
       specific: {
         placeholder: 'search.placeholders.range',
-        regex: /^((-)?[0-9]{0,4})(,)?((-)?[0-9]{0,4})$/
-      }
-    }
+        regex: /^((-)?[0-9]{0,4})(,)?((-)?[0-9]{0,4})$/,
+      },
+    },
   },
   relativeOrganismQuantity: {
     type: 'NUMBER_RANGE',
@@ -520,15 +520,15 @@ export const commonFilters = {
         id2labelHandle: 'relativeOrganismQuantity',
         translations: {
           count: 'filters.relativeOrganismQuantity.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.relativeOrganismQuantity.name',// translation path to a title for the popover and the button
+          name: 'filters.relativeOrganismQuantity.name', // translation path to a title for the popover and the button
           description: 'filters.relativeOrganismQuantity.description', // translation path for the filter description
-        }
+        },
       },
       specific: {
         placeholder: 'search.placeholders.range',
-        regex: /^[0-9,\.]{0,10}$/
-      }
-    }
+        regex: /^[0-9,\.]{0,10}$/,
+      },
+    },
   },
   month: {
     type: 'ENUM',
@@ -538,15 +538,15 @@ export const commonFilters = {
         id2labelHandle: 'month',
         translations: {
           count: 'filters.month.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.month.name',// translation path to a title for the popover and the button
+          name: 'filters.month.name', // translation path to a title for the popover and the button
           description: 'filters.month.description', // translation path for the filter description
-        }
+        },
       },
       specific: {
         options: month,
         supportsExist: true,
-      }
-    }
+      },
+    },
   },
   continent: {
     type: 'ENUM',
@@ -556,14 +556,14 @@ export const commonFilters = {
         id2labelHandle: 'continent',
         translations: {
           count: 'filters.continent.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.continent.name',// translation path to a title for the popover and the button
+          name: 'filters.continent.name', // translation path to a title for the popover and the button
           description: 'filters.continent.description', // translation path for the filter description
-        }
+        },
       },
       specific: {
         options: continent,
-      }
-    }
+      },
+    },
   },
   protocol: {
     type: 'ENUM',
@@ -573,14 +573,14 @@ export const commonFilters = {
         id2labelHandle: 'protocol',
         translations: {
           count: 'filters.protocol.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.protocol.name',// translation path to a title for the popover and the button
+          name: 'filters.protocol.name', // translation path to a title for the popover and the button
           description: 'filters.protocol.description', // translation path for the filter description
-        }
+        },
       },
       specific: {
         options: endpointType,
-      }
-    }
+      },
+    },
   },
   establishmentMeans: {
     type: 'SUGGEST',
@@ -590,17 +590,17 @@ export const commonFilters = {
         id2labelHandle: 'establishmentMeansVocabulary',
         translations: {
           count: 'filters.establishmentMeans.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.establishmentMeans.name',// translation path to a title for the popover and the button
+          name: 'filters.establishmentMeans.name', // translation path to a title for the popover and the button
           description: 'filters.establishmentMeans.description', // translation path for the filter description
-        }
+        },
       },
       specific: {
         options: establishmentMeans,
         suggestHandle: 'establishmentMeans',
         id2labelHandle: 'establishmentMeansVocabulary',
-        allowEmptyQueries: true
-      }
-    }
+        allowEmptyQueries: true,
+      },
+    },
   },
   eventType: {
     type: 'KEYWORD_SEARCH',
@@ -610,9 +610,9 @@ export const commonFilters = {
         id2labelHandle: 'identityFn',
         translations: {
           count: 'filters.eventType.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.eventType.name',// translation path to a title for the popover and the button
+          name: 'filters.eventType.name', // translation path to a title for the popover and the button
           description: 'filters.eventType.description', // translation path for the filter description
-        }
+        },
       },
       specific: {
         placeholder: 'Search by event type',
@@ -629,20 +629,20 @@ export const commonFilters = {
             }
         `,
         queryKey: 'eventType',
-        keepCase: true
-      }
-    }
+        keepCase: true,
+      },
+    },
   },
   recordedBy: {
     // type: 'SUGGEST',
-    type: 'KEYWORD_SEARCH',//KEYWORD_SEARCH | SUGGEST
+    type: 'KEYWORD_SEARCH', //KEYWORD_SEARCH | SUGGEST
     config: {
       std: {
-        filterHandle: 'recordedBy',// if nothing else provided, then this is the filterName used
-        id2labelHandle: 'wildcard',//'recordedBy',
+        filterHandle: 'recordedBy', // if nothing else provided, then this is the filterName used
+        id2labelHandle: 'wildcard', //'recordedBy',
         translations: {
           count: 'filters.recordedBy.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.recordedBy.name',// translation path to a title for the popover and the button
+          name: 'filters.recordedBy.name', // translation path to a title for the popover and the button
           description: 'filters.recordedBy.description', // translation path for the filter description
         },
       },
@@ -665,19 +665,19 @@ export const commonFilters = {
           }
         `,
         // keepCase: true,
-        queryKey: 'recordedBy'
-      }
-    }
+        queryKey: 'recordedBy',
+      },
+    },
   },
   recordNumber: {
     type: 'SUGGEST',
     config: {
       std: {
-        filterHandle: 'recordNumber',// if nothing else provided, then this is the filterName used
+        filterHandle: 'recordNumber', // if nothing else provided, then this is the filterName used
         id2labelHandle: 'recordNumber',
         translations: {
           count: 'filters.recordNumber.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.recordNumber.name',// translation path to a title for the popover and the button
+          name: 'filters.recordNumber.name', // translation path to a title for the popover and the button
           description: 'filters.recordNumber.description', // translation path for the filter description
         },
       },
@@ -685,8 +685,8 @@ export const commonFilters = {
         suggestHandle: 'recordNumber',
         id2labelHandle: 'recordNumber',
         supportsExist: true,
-      }
-    }
+      },
+    },
   },
   collectionCode: {
     type: 'SIMPLE_TEXT',
@@ -696,15 +696,15 @@ export const commonFilters = {
         id2labelHandle: 'collectionCode',
         translations: {
           count: 'filters.collectionCode.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.collectionCode.name',// translation path to a title for the popover and the button
+          name: 'filters.collectionCode.name', // translation path to a title for the popover and the button
           description: 'filters.collectionCode.description', // translation path for the filter description
         },
       },
       specific: {
         placeholder: 'Search by collection code',
         supportsExist: true,
-      }
-    }
+      },
+    },
   },
   recordedById: {
     type: 'SIMPLE_TEXT',
@@ -714,15 +714,15 @@ export const commonFilters = {
         id2labelHandle: 'recordedById',
         translations: {
           count: 'filters.recordedById.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.recordedById.name',// translation path to a title for the popover and the button
+          name: 'filters.recordedById.name', // translation path to a title for the popover and the button
           description: 'filters.recordedById.description', // translation path for the filter description
         },
       },
       specific: {
         supportsExist: true,
-        placeholder: 'Example: https://orcid.org/0000-1111-2222-3333'
-      }
-    }
+        placeholder: 'Example: https://orcid.org/0000-1111-2222-3333',
+      },
+    },
   },
   identifiedById: {
     type: 'SIMPLE_TEXT',
@@ -732,15 +732,15 @@ export const commonFilters = {
         id2labelHandle: 'identifiedById',
         translations: {
           count: 'filters.identifiedById.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.identifiedById.name',// translation path to a title for the popover and the button
+          name: 'filters.identifiedById.name', // translation path to a title for the popover and the button
           description: 'filters.identifiedById.description', // translation path for the filter description
         },
       },
       specific: {
         supportsExist: true,
-        placeholder: 'Example: https://orcid.org/0000-1111-2222-3333'
-      }
-    }
+        placeholder: 'Example: https://orcid.org/0000-1111-2222-3333',
+      },
+    },
   },
   occurrenceId: {
     type: 'SIMPLE_TEXT',
@@ -750,15 +750,15 @@ export const commonFilters = {
         id2labelHandle: 'occurrenceId',
         translations: {
           count: 'filters.occurrenceId.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.occurrenceId.name',// translation path to a title for the popover and the button
+          name: 'filters.occurrenceId.name', // translation path to a title for the popover and the button
           description: 'filters.occurrenceId.description', // translation path for the filter description
         },
       },
       specific: {
         supportsNegation: true,
-        placeholder: 'Search by Occurrence identifier'
-      }
-    }
+        placeholder: 'Search by Occurrence identifier',
+      },
+    },
   },
   organismId: {
     type: 'SIMPLE_TEXT',
@@ -768,25 +768,25 @@ export const commonFilters = {
         id2labelHandle: 'organismId',
         translations: {
           count: 'filters.organismId.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.organismId.name',// translation path to a title for the popover and the button
+          name: 'filters.organismId.name', // translation path to a title for the popover and the button
           description: 'filters.organismId.description', // translation path for the filter description
         },
       },
       specific: {
         supportsExist: true,
-        placeholder: 'Search by Organism identifier'
-      }
-    }
+        placeholder: 'Search by Organism identifier',
+      },
+    },
   },
   locality: {
-    type: 'KEYWORD_SEARCH',//KEYWORD_SEARCH | SUGGEST | SIMPLE_TEXT
+    type: 'KEYWORD_SEARCH', //KEYWORD_SEARCH | SUGGEST | SIMPLE_TEXT
     config: {
       std: {
         filterHandle: 'locality',
         id2labelHandle: 'locality',
         translations: {
           count: 'filters.locality.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.locality.name',// translation path to a title for the popover and the button
+          name: 'filters.locality.name', // translation path to a title for the popover and the button
           description: 'filters.locality.description', // translation path for the filter description
         },
       },
@@ -807,9 +807,9 @@ export const commonFilters = {
             }
           }
         `,
-        queryKey: 'locality'
-      }
-    }
+        queryKey: 'locality',
+      },
+    },
   },
   waterBody: {
     type: 'KEYWORD_SEARCH', // SIMPLE_TEXT
@@ -819,7 +819,7 @@ export const commonFilters = {
         id2labelHandle: 'waterBody',
         translations: {
           count: 'filters.waterBody.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.waterBody.name',// translation path to a title for the popover and the button
+          name: 'filters.waterBody.name', // translation path to a title for the popover and the button
           description: 'filters.waterBody.description', // translation path for the filter description
         },
       },
@@ -840,9 +840,9 @@ export const commonFilters = {
             }
           }
         `,
-        queryKey: 'waterBody'
-      }
-    }
+        queryKey: 'waterBody',
+      },
+    },
   },
   stateProvince: {
     type: 'KEYWORD_SEARCH',
@@ -852,7 +852,7 @@ export const commonFilters = {
         id2labelHandle: 'stateProvince',
         translations: {
           count: 'filters.stateProvince.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.stateProvince.name',// translation path to a title for the popover and the button
+          name: 'filters.stateProvince.name', // translation path to a title for the popover and the button
           description: 'filters.stateProvince.description', // translation path for the filter description
         },
       },
@@ -873,9 +873,9 @@ export const commonFilters = {
             }
           }
         `,
-        queryKey: 'stateProvince'
-      }
-    }
+        queryKey: 'stateProvince',
+      },
+    },
   },
   eventStateProvince: {
     type: 'KEYWORD_SEARCH',
@@ -885,7 +885,7 @@ export const commonFilters = {
         id2labelHandle: 'stateProvince',
         translations: {
           count: 'filters.stateProvince.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.stateProvince.name',// translation path to a title for the popover and the button
+          name: 'filters.stateProvince.name', // translation path to a title for the popover and the button
           description: 'filters.stateProvince.description', // translation path for the filter description
         },
       },
@@ -904,8 +904,8 @@ export const commonFilters = {
           }
         `,
         queryKey: 'stateProvince',
-      }
-    }
+      },
+    },
   },
   eventCatalogNumber: {
     type: 'SIMPLE_TEXT',
@@ -915,15 +915,15 @@ export const commonFilters = {
         id2labelHandle: 'catalogNumber',
         translations: {
           count: 'filters.catalogNumber.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.catalogNumber.name',// translation path to a title for the popover and the button
+          name: 'filters.catalogNumber.name', // translation path to a title for the popover and the button
           description: 'filters.catalogNumber.description', // translation path for the filter description
         },
       },
       specific: {
-        placeholder: 'Search by Catalog Number',
-        supportsExist: true
-      }
-    }
+        placeholder: 'Search by Catalogue Number',
+        supportsExist: true,
+      },
+    },
   },
   eventId: {
     type: 'SIMPLE_TEXT',
@@ -933,15 +933,15 @@ export const commonFilters = {
         id2labelHandle: 'eventId',
         translations: {
           count: 'filters.eventId.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.eventId.name',// translation path to a title for the popover and the button
+          name: 'filters.eventId.name', // translation path to a title for the popover and the button
           description: 'filters.eventId.description', // translation path for the filter description
         },
       },
       specific: {
         placeholder: 'Search by Event identifier',
-        supportsExist: true
-      }
-    }
+        supportsExist: true,
+      },
+    },
   },
   samplingProtocol: {
     type: 'KEYWORD_SEARCH',
@@ -951,7 +951,7 @@ export const commonFilters = {
         id2labelHandle: 'samplingProtocol',
         translations: {
           count: 'filters.samplingProtocol.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.samplingProtocol.name',// translation path to a title for the popover and the button
+          name: 'filters.samplingProtocol.name', // translation path to a title for the popover and the button
           description: 'filters.samplingProtocol.description', // translation path for the filter description
         },
       },
@@ -970,8 +970,8 @@ export const commonFilters = {
           }
         `,
         queryKey: 'samplingProtocol',
-      }
-    }
+      },
+    },
   },
   eventSamplingProtocol: {
     type: 'KEYWORD_SEARCH',
@@ -981,7 +981,7 @@ export const commonFilters = {
         id2labelHandle: 'samplingProtocol',
         translations: {
           count: 'filters.samplingProtocol.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.samplingProtocol.name',// translation path to a title for the popover and the button
+          name: 'filters.samplingProtocol.name', // translation path to a title for the popover and the button
           description: 'filters.samplingProtocol.description', // translation path for the filter description
         },
       },
@@ -1000,8 +1000,8 @@ export const commonFilters = {
           }
         `,
         queryKey: 'samplingProtocol',
-      }
-    }
+      },
+    },
   },
   elevation: {
     type: 'NUMBER_RANGE',
@@ -1011,15 +1011,15 @@ export const commonFilters = {
         id2labelHandle: 'elevation',
         translations: {
           count: 'filters.elevation.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.elevation.name',// translation path to a title for the popover and the button
+          name: 'filters.elevation.name', // translation path to a title for the popover and the button
           description: 'filters.elevation.description', // translation path for the filter description
-        }
+        },
       },
       specific: {
         placeholder: 'search.placeholders.range',
-        regex: /^[0-9,\.]{0,10}$/
-      }
-    }
+        regex: /^[0-9,\.]{0,10}$/,
+      },
+    },
   },
   occurrenceStatus: {
     type: 'ENUM',
@@ -1029,14 +1029,14 @@ export const commonFilters = {
         id2labelHandle: 'occurrenceStatus',
         translations: {
           count: 'filters.occurrenceStatus.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.occurrenceStatus.name',// translation path to a title for the popover and the button
+          name: 'filters.occurrenceStatus.name', // translation path to a title for the popover and the button
           description: 'filters.occurrenceStatus.description', // translation path for the filter description
-        }
+        },
       },
       specific: {
         options: occurrenceStatus,
-      }
-    }
+      },
+    },
   },
   gadmGid: {
     type: 'SUGGEST',
@@ -1046,7 +1046,7 @@ export const commonFilters = {
         id2labelHandle: 'gadmGid',
         translations: {
           count: 'filters.gadmGid.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.gadmGid.name',// translation path to a title for the popover and the button
+          name: 'filters.gadmGid.name', // translation path to a title for the popover and the button
           description: 'filters.gadmGid.description', // translation path for the filter description
         },
       },
@@ -1054,9 +1054,9 @@ export const commonFilters = {
         suggestHandle: 'gadmGid',
         id2labelHandle: 'gadmGid',
         showAboutAsDefault: true,
-        supportsExist: true
-      }
-    }
+        supportsExist: true,
+      },
+    },
   },
   identifiedBy: {
     type: 'KEYWORD_SEARCH', // SIMPLE_TEXT
@@ -1066,7 +1066,7 @@ export const commonFilters = {
         id2labelHandle: 'identifiedBy',
         translations: {
           count: 'filters.identifiedBy.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.identifiedBy.name',// translation path to a title for the popover and the button
+          name: 'filters.identifiedBy.name', // translation path to a title for the popover and the button
           description: 'filters.identifiedBy.description', // translation path for the filter description
         },
       },
@@ -1088,9 +1088,9 @@ export const commonFilters = {
             }
           }
         `,
-        queryKey: 'identifiedBy'
-      }
-    }
+        queryKey: 'identifiedBy',
+      },
+    },
   },
   isInCluster: {
     type: 'ENUM',
@@ -1100,15 +1100,15 @@ export const commonFilters = {
         id2labelHandle: 'isInCluster',
         translations: {
           count: 'filters.isInCluster.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.isInCluster.name',// translation path to a title for the popover and the button
+          name: 'filters.isInCluster.name', // translation path to a title for the popover and the button
           description: 'filters.isInCluster.description', // translation path for the filter description
-        }
+        },
       },
       specific: {
         options: ['true', 'false'],
-        isRadio: true
-      }
-    }
+        isRadio: true,
+      },
+    },
   },
   active: {
     type: 'ENUM',
@@ -1118,15 +1118,15 @@ export const commonFilters = {
         id2labelHandle: 'yesNo',
         translations: {
           count: 'filters.active.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.active.name',// translation path to a title for the popover and the button
+          name: 'filters.active.name', // translation path to a title for the popover and the button
           description: 'filters.active.description', // translation path for the filter description
-        }
+        },
       },
       specific: {
         options: ['true', 'false'],
-        isRadio: true
-      }
-    }
+        isRadio: true,
+      },
+    },
   },
   datasetType: {
     type: 'ENUM',
@@ -1136,14 +1136,14 @@ export const commonFilters = {
         id2labelHandle: 'datasetType',
         translations: {
           count: 'filters.datasetType.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.datasetType.name',// translation path to a title for the popover and the button
+          name: 'filters.datasetType.name', // translation path to a title for the popover and the button
           description: 'filters.datasetType.description', // translation path for the filter description
-        }
+        },
       },
       specific: {
         options: datasetType,
-      }
-    }
+      },
+    },
   },
   datasetSubtype: {
     type: 'ENUM',
@@ -1153,14 +1153,14 @@ export const commonFilters = {
         id2labelHandle: 'datasetSubtype',
         translations: {
           count: 'filters.datasetSubtype.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.datasetSubtype.name',// translation path to a title for the popover and the button
+          name: 'filters.datasetSubtype.name', // translation path to a title for the popover and the button
           description: 'filters.datasetSubtype.description', // translation path for the filter description
-        }
+        },
       },
       specific: {
         options: datasetSubtype,
-      }
-    }
+      },
+    },
   },
   institutionKey: {
     type: 'SUGGEST',
@@ -1170,7 +1170,7 @@ export const commonFilters = {
         id2labelHandle: 'institutionKey',
         translations: {
           count: 'filters.institutionKey.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.institutionKey.name',// translation path to a title for the popover and the button
+          name: 'filters.institutionKey.name', // translation path to a title for the popover and the button
           description: 'filters.institutionKey.description', // translation path for the filter description
         },
       },
@@ -1178,8 +1178,8 @@ export const commonFilters = {
         suggestHandle: 'institutionKey',
         id2labelHandle: 'institutionKey',
         supportsExist: true,
-      }
-    }
+      },
+    },
   },
   collectionKey: {
     type: 'SUGGEST',
@@ -1189,7 +1189,7 @@ export const commonFilters = {
         id2labelHandle: 'collectionKey',
         translations: {
           count: 'filters.collectionKey.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.collectionKey.name',// translation path to a title for the popover and the button
+          name: 'filters.collectionKey.name', // translation path to a title for the popover and the button
           description: 'filters.collectionKey.description', // translation path for the filter description
         },
       },
@@ -1197,8 +1197,8 @@ export const commonFilters = {
         suggestHandle: 'collectionKey',
         id2labelHandle: 'collectionKey',
         supportsExist: true,
-      }
-    }
+      },
+    },
   },
   institutionKeySingle: {
     type: 'SUGGEST',
@@ -1208,16 +1208,16 @@ export const commonFilters = {
         id2labelHandle: 'institutionKey',
         translations: {
           count: 'filters.institutionKey.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.institutionKey.name',// translation path to a title for the popover and the button
+          name: 'filters.institutionKey.name', // translation path to a title for the popover and the button
           description: 'filters.institutionKey.description', // translation path for the filter description
         },
       },
       specific: {
         suggestHandle: 'institutionKey',
         id2labelHandle: 'institutionKey',
-        singleSelect: true
-      }
-    }
+        singleSelect: true,
+      },
+    },
   },
   name: {
     type: 'SIMPLE_TEXT',
@@ -1227,15 +1227,15 @@ export const commonFilters = {
         id2labelHandle: 'name',
         translations: {
           count: 'filters.name.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.name.name',// translation path to a title for the popover and the button
+          name: 'filters.name.name', // translation path to a title for the popover and the button
           description: 'filters.name.description', // translation path for the filter description
         },
       },
       specific: {
         placeholder: 'Search by institution name',
-        singleSelect: true
-      }
-    }
+        singleSelect: true,
+      },
+    },
   },
   city: {
     type: 'SIMPLE_TEXT',
@@ -1245,15 +1245,15 @@ export const commonFilters = {
         id2labelHandle: 'city',
         translations: {
           count: 'filters.city.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.city.name',// translation path to a title for the popover and the button
+          name: 'filters.city.name', // translation path to a title for the popover and the button
           description: 'filters.city.description', // translation path for the filter description
         },
       },
       specific: {
         placeholder: 'Search by institution city',
-        singleSelect: true
-      }
-    }
+        singleSelect: true,
+      },
+    },
   },
   code: {
     type: 'SIMPLE_TEXT',
@@ -1263,15 +1263,15 @@ export const commonFilters = {
         id2labelHandle: 'code',
         translations: {
           count: 'filters.code.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.code.name',// translation path to a title for the popover and the button
+          name: 'filters.code.name', // translation path to a title for the popover and the button
           description: 'filters.code.description', // translation path for the filter description
         },
       },
       specific: {
         placeholder: 'Search by institution code',
-        singleSelect: true
-      }
-    }
+        singleSelect: true,
+      },
+    },
   },
   eventTaxonKey: {
     type: 'SUGGEST',
@@ -1281,15 +1281,15 @@ export const commonFilters = {
         id2labelHandle: 'taxonKey',
         translations: {
           count: 'filters.taxonKey.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.taxonKey.name',// translation path to a title for the popover and the button
+          name: 'filters.taxonKey.name', // translation path to a title for the popover and the button
           description: 'filters.taxonKey.description', // translation path for the filter description
         },
       },
       specific: {
         suggestHandle: 'eventTaxonKey',
-        id2labelHandle: 'id2labelHandle'
-      }
-    }
+        id2labelHandle: 'id2labelHandle',
+      },
+    },
   },
   verbatimScientificName: {
     type: 'KEYWORD_SEARCH',
@@ -1299,7 +1299,7 @@ export const commonFilters = {
         id2labelHandle: 'verbatimScientificName',
         translations: {
           count: 'filters.verbatimScientificName.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.verbatimScientificName.name',// translation path to a title for the popover and the button
+          name: 'filters.verbatimScientificName.name', // translation path to a title for the popover and the button
           description: 'filters.verbatimScientificName.description', // translation path for the filter description
         },
       },
@@ -1320,9 +1320,9 @@ export const commonFilters = {
             }
           }
         `,
-        queryKey: 'verbatimScientificName'
-      }
-    }
+        queryKey: 'verbatimScientificName',
+      },
+    },
   },
   networkKey: {
     type: 'SUGGEST',
@@ -1332,15 +1332,15 @@ export const commonFilters = {
         id2labelHandle: 'networkKey',
         translations: {
           count: 'filters.networkKey.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.networkKey.name',// translation path to a title for the popover and the button
+          name: 'filters.networkKey.name', // translation path to a title for the popover and the button
           description: 'filters.networkKey.description', // translation path for the filter description
         },
       },
       specific: {
         suggestHandle: 'networkKey',
         id2labelHandle: 'networkKey',
-      }
-    }
+      },
+    },
   },
   literatureType: {
     type: 'ENUM',
@@ -1350,14 +1350,14 @@ export const commonFilters = {
         id2labelHandle: 'literatureType',
         translations: {
           count: 'filters.literatureType.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.literatureType.name',// translation path to a title for the popover and the button
+          name: 'filters.literatureType.name', // translation path to a title for the popover and the button
           description: 'filters.literatureType.description', // translation path for the filter description
-        }
+        },
       },
       specific: {
         options: literatureType,
-      }
-    }
+      },
+    },
   },
   dwcaExtension: {
     type: 'ENUM',
@@ -1367,14 +1367,14 @@ export const commonFilters = {
         id2labelHandle: 'dwcaExtension',
         translations: {
           count: 'filters.dwcaExtension.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.dwcaExtension.name',// translation path to a title for the popover and the button
+          name: 'filters.dwcaExtension.name', // translation path to a title for the popover and the button
           description: 'filters.dwcaExtension.description', // translation path for the filter description
-        }
+        },
       },
       specific: {
-        options: dwcaExtension
-      }
-    }
+        options: dwcaExtension,
+      },
+    },
   },
   numberSpecimens: {
     type: 'NUMBER_RANGE',
@@ -1384,15 +1384,15 @@ export const commonFilters = {
         id2labelHandle: 'numberSpecimens',
         translations: {
           count: 'filters.numberSpecimens.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.numberSpecimens.name',// translation path to a title for the popover and the button
+          name: 'filters.numberSpecimens.name', // translation path to a title for the popover and the button
           description: 'filters.numberSpecimens.description', // translation path for the filter description
-        }
+        },
       },
       specific: {
         placeholder: 'Range or single value',
-        singleSelect: true
-      }
-    }
+        singleSelect: true,
+      },
+    },
   },
   measurementOrFactTypes: {
     type: 'KEYWORD_SEARCH', // SIMPLE_TEXT
@@ -1402,7 +1402,7 @@ export const commonFilters = {
         id2labelHandle: 'measurementOrFactTypes',
         translations: {
           count: 'filters.measurementOrFactTypes.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.measurementOrFactTypes.name',// translation path to a title for the popover and the button
+          name: 'filters.measurementOrFactTypes.name', // translation path to a title for the popover and the button
           description: 'filters.measurementOrFactTypes.description', // translation path for the filter description
         },
       },
@@ -1421,9 +1421,9 @@ export const commonFilters = {
           }
         `,
         queryKey: 'measurementOrFactTypes',
-        keepCase: true
-      }
-    }
+        keepCase: true,
+      },
+    },
   },
   measurementOrFactCount: {
     type: 'NUMBER_RANGE',
@@ -1433,15 +1433,15 @@ export const commonFilters = {
         id2labelHandle: 'measurementOrFactCount',
         translations: {
           count: 'filters.measurementOrFactCount.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.measurementOrFactCount.name',// translation path to a title for the popover and the button
+          name: 'filters.measurementOrFactCount.name', // translation path to a title for the popover and the button
           description: 'filters.measurementOrFactCount.description', // translation path for the filter description
-        }
+        },
       },
       specific: {
         placeholder: 'search.placeholders.range',
-        regex: /^((-)?[0-9]{0,10})(,)?((-)?[0-9]{0,10})$/
-      }
-    }
+        regex: /^((-)?[0-9]{0,10})(,)?((-)?[0-9]{0,10})$/,
+      },
+    },
   },
   occurrenceCount: {
     type: 'NUMBER_RANGE',
@@ -1451,15 +1451,15 @@ export const commonFilters = {
         id2labelHandle: 'measurementOrFactCount',
         translations: {
           count: 'filters.occurrenceCount.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.occurrenceCount.name',// translation path to a title for the popover and the button
+          name: 'filters.occurrenceCount.name', // translation path to a title for the popover and the button
           description: 'filters.occurrenceCount.description', // translation path for the filter description
-        }
+        },
       },
       specific: {
         placeholder: 'search.placeholders.range',
-        regex: /^((-)?[0-9]{0,10})(,)?((-)?[0-9]{0,10})$/
-      }
-    }
+        regex: /^((-)?[0-9]{0,10})(,)?((-)?[0-9]{0,10})$/,
+      },
+    },
   },
   locationId: {
     type: 'SUGGEST',
@@ -1469,7 +1469,7 @@ export const commonFilters = {
         id2labelHandle: 'locationId',
         translations: {
           count: 'filters.locationId.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.locationId.name',// translation path to a title for the popover and the button
+          name: 'filters.locationId.name', // translation path to a title for the popover and the button
           description: 'filters.locationId.description', // translation path for the filter description
         },
       },
@@ -1477,44 +1477,62 @@ export const commonFilters = {
         supportsExist: true,
         suggestHandle: 'eventLocationId',
         id2labelHandle: 'locationId',
-      }
-    }
+      },
+    },
   },
   // -- Add filters above this line (required by plopfile.js) --
   q: {
     type: 'CUSTOM_STANDARD',
     config: {
       std: {
-        filterHandle: 'q',// if nothing else provided, then this is the filterName used
+        filterHandle: 'q', // if nothing else provided, then this is the filterName used
         translations: {
           count: 'filters.q.count', // translation path to display names with counts. e.g. "3 scientific names"
-          name: 'filters.q.name',// translation path to a title for the popover and the button
+          name: 'filters.q.name', // translation path to a title for the popover and the button
           description: 'filters.q.description', // translation path for the filter description
         },
       },
       specific: {
         description: 'filters.q.description',
-        component: ({ standardComponents, summaryProps, filterHandle, setFullField, toggle, focusRef, footerProps, onApply, filter, onCancel, hide, ...props }) => {
+        component: ({
+          standardComponents,
+          summaryProps,
+          filterHandle,
+          setFullField,
+          toggle,
+          focusRef,
+          footerProps,
+          onApply,
+          filter,
+          onCancel,
+          hide,
+          ...props
+        }) => {
           const { Footer, SummaryBar, FilterBody } = standardComponents;
-          return <>
-            <div style={{ margin: '10px' }} >
-              <Input
-                ref={focusRef}
-                value={filter?.must?.q?.length ? filter.must.q[0] : ''}
-                onChange={e => {
-                  setFullField('q', [e.target.value])
-                }}
-                onKeyPress={e => e.which === 13 ? onApply({ filter, hide }) : null}
+          return (
+            <>
+              <div style={{ margin: '10px' }}>
+                <Input
+                  ref={focusRef}
+                  value={filter?.must?.q?.length ? filter.must.q[0] : ''}
+                  onChange={(e) => {
+                    setFullField('q', [e.target.value]);
+                  }}
+                  onKeyPress={(e) =>
+                    e.which === 13 ? onApply({ filter, hide }) : null
+                  }
+                />
+              </div>
+              <Footer
+                {...footerProps}
+                onApply={() => onApply({ filter, hide })}
+                onCancel={() => onCancel({ filter, hide })}
               />
-            </div>
-            <Footer {...footerProps}
-              onApply={() => onApply({ filter, hide })}
-              onCancel={() => onCancel({ filter, hide })}
-            />
-          </>
+            </>
+          );
         },
-      }
-    }
+      },
+    },
   },
   // sampleSize: {
   //   type: 'CUSTOM_STANDARD',
@@ -1580,4 +1598,4 @@ export const commonFilters = {
   //     }
   //   }
   // },
-}
+};

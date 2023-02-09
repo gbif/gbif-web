@@ -1,74 +1,15 @@
 import React from 'react';
-import PredicateDataFetcher from '../../../search/PredicateDataFetcher';
-import { CollectionsTable } from './CollectionsTable';
 import { ErrorBoundary } from '../../../components';
-import StandaloneSearch from '../../../search/Search';
+import StandardSearch from '../../../search/Search';
+import Layout from './CollectionsPageLayout';
+
+// Views
+import Table from './views/Table';
+import Map from './views/Map';
 
 // Config
 import defaultFilterConfig from './config/filterConf';
 import predicateConfig from './config/predicateConfig';
-import defaultTableConfig from './config/defaultTableConfig';
-import { useIntl } from 'react-intl';
-
-const QUERY = `
-query list($predicate: Predicate, $offset: Int, $limit: Int){
-  results: eventSearch(
-    predicate:$predicate,
-    size: $limit, 
-    from: $offset
-    ) {
-    documents {
-      size
-      from
-      total
-      results {
-        eventID
-        samplingProtocol
-        eventType {
-          concept
-        }
-        parentEventID
-        locationID
-        locality
-        month
-        year
-        datasetTitle
-        datasetKey
-        formattedCoordinates
-        stateProvince
-        countryCode
-        measurementOrFactTypes
-        occurrences(size: 1) {
-          results {
-            catalogNumber
-            datasetTitle
-            countryCode
-            eventDate
-            locality
-          }
-        }
-      }
-    }
-  }
-}
-`;
-
-function Table() {
-  const intl = useIntl();
-  return (
-    <PredicateDataFetcher
-      queryProps={{ throwAllErrors: true }}
-      graphQuery={QUERY}
-      graph='EVENT'
-      queryTag='table'
-      limit={50}
-      componentProps={{
-        defaultTableConfig: defaultTableConfig(intl),
-      }}
-      presentation={CollectionsTable}
-    />
-  );
-}
 
 export default ({ id, config }) => {
   const taxonConfig = config || {};
@@ -99,13 +40,15 @@ export default ({ id, config }) => {
 
   return (
     <ErrorBoundary>
-      <StandaloneSearch
+      <StandardSearch
         {...{
           config: taxonConfig,
           defaultFilterConfig,
           predicateConfig,
           Table,
+          Map,
         }}
+        layout={Layout}
         suggestRootFilter
       />
     </ErrorBoundary>

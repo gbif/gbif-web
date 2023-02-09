@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import { useUpdateEffect } from 'react-use';
 import { useDialogState } from 'reakit/Dialog';
 import get from 'lodash/get';
-import SearchContext from '../../../search/SearchContext';
+import SearchContext from '../../../../../search/SearchContext';
 import {
   Button,
   Row,
@@ -14,11 +14,11 @@ import {
   Td,
   TBody,
   DetailsDrawer,
-} from '../../../components';
-import { ResultsHeader } from '../../../search/ResultsHeader';
-import { FilterContext } from '../../../widgets/Filter/state';
-import { InlineFilterChip } from '../../../widgets/Filter/utils/FilterChip';
-import { TaxonSidebar } from '../../TaxonSidebar/TaxonSidebar';
+} from '../../../../../components';
+import { ResultsHeader } from '../../../../../search/ResultsHeader';
+import { FilterContext } from '../../../../../widgets/Filter/state';
+import { InlineFilterChip } from '../../../../../widgets/Filter/utils/FilterChip';
+import { TaxonSidebar } from '../../../../TaxonSidebar/TaxonSidebar';
 
 const fallbackTableConfig = {
   columns: [
@@ -127,7 +127,7 @@ export const CollectionsTable = ({
           {...{ first, prev, next, size, from, total, loading }}
           style={{
             flex: '1 1 auto',
-            height: 'calc(100vh - 478px)',
+            height: 400,
             display: 'flex',
             flexDirection: 'column',
           }}

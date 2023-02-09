@@ -21,10 +21,11 @@ function EnsureRouter({ children }) {
   );
 }
 
-export function Taxon({ id, config }) {
+export function Taxon({ id: idRaw, config }) {
   const { data, error, loading, load } = useQuery(QUERY_TAXON, {
     lazyLoad: true,
   });
+  const id = decodeURIComponent(idRaw);
 
   useEffect(() => {
     if (typeof id !== 'undefined') {
