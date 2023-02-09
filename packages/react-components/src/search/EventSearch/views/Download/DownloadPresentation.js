@@ -239,10 +239,10 @@ export function DownloadForm ({  hide, dataset, user }) {
          if (response.ok) {
            return {success: true}
          } else {
-           return {success: false, error: response.status}
+           return {success: false, status: "Access API gateway denied!", error: response.status}
          }
        } else {
-         return {success: false, error: "Invalid creator: " + email}
+         return {success: false, status: 400, error: `Invalid creator: ${email}`}
        }
 
     } else if (signIn) {
@@ -279,14 +279,17 @@ export function DownloadForm ({  hide, dataset, user }) {
             setDownloadStatusDetailed("Your download has started")
           } else {
             setDownloadSuccess(false);
-            setDownloadStatus(`There was a problem (${result.error}) !`)
-            setDownloadStatusDetailed("Your download has not started.")
+            setDownloadStatus(`There was a problem (${result.status}), your download has not started. !`)
+            if (result.status == 401) {
+              setDownloadStatusDetailed("Authentication failed, please sign in again!");
+            } else if (result.status == 400 ) {
+              setDownloadStatusDetailed(`Error: ${result.error}`);
+            }
           }
         });
   })
 
   return <div style={{ padding: "15px 30px 30px 30px" }}>
-
       {fullDownloadStarted &&
         <PostFullDownloadForm hide={hide} downloadStatus={downloadStatus} downloadStatusDetailed={downloadStatusDetailed} />
       }
