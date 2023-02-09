@@ -1,4 +1,4 @@
-import env from '../../../../../.env.json';
+import env from 'Env';
 import MapComponentMB from './MapboxMap';
 import MapComponentOL from './OpenlayersMap';
 const pixelRatio = parseInt(window.devicePixelRatio) || 1;

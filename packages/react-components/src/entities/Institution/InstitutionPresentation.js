@@ -11,7 +11,7 @@ import { Description as About } from './about/Description';
 import { Collections } from './collections/Collections';
 import { FormattedMessage } from 'react-intl';
 import { join } from '../../utils/util';
-import env from '../../../.env.json';
+import env from 'Env';
 import useBelow from '../../utils/useBelow';
 
 import { DataHeader, HeaderWrapper, ContentWrapper, Headline, DeletedMessage, ErrorMessage, HeaderInfoWrapper, HeaderInfoMain, HeaderInfoEdit } from '../shared/header';

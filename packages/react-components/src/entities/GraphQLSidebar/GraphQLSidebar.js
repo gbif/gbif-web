@@ -7,7 +7,8 @@ import {MdClose, MdContentCopy, MdFileDownloadDone, MdInfo} from "react-icons/md
 import {FilterContext} from "../../widgets/Filter/state";
 import EventContext from "../../search/SearchContext";
 import {filter2predicate} from "../../dataManagement/filterAdapter";
-import env from "../../../.env.json";
+//import env from "../../../.env.json";
+import env from "Env";
 import hash from "object-hash";
 import {useGraphQLContext} from "../../dataManagement/api/GraphQLContext";
 import QueryDetails from "./QueryDetails";
@@ -57,10 +58,10 @@ export function GraphQLSidebar({
     return '\\n'.repeat(1);
   })
 
-  const queryUrl = env.EVENT_GRAPH_API + "?queryId="+queryId + "&strict=true&variables=" + JSON.stringify(predicate);
-  const curlUrl = "curl "+env.EVENT_GRAPH_API +" -H '"+env.EVENT_GRAPH_API+"' -H 'Accept-Encoding: gzip, deflate, br' -H 'Content-Type: application/json' -H 'Accept: application/json' " +
+  const queryUrl = env.GRAPH_API + "?queryId="+queryId + "&strict=true&variables=" + JSON.stringify(predicate);
+  const curlUrl = "curl "+env.GRAPH_API +" -H '"+env.GRAPH_API+"' -H 'Accept-Encoding: gzip, deflate, br' -H 'Content-Type: application/json' -H 'Accept: application/json' " +
       "-H 'Connection: keep-alive' -H 'DNT: 1' " +
-      "-H 'Origin: "+env.EVENT_GRAPH_API+"' " +
+      "-H 'Origin: "+env.GRAPH_API+"' " +
       "--data-binary " +
       "'{\"query\":\""+formattedQuery+"\"," +
       "\"variables\":"+JSON.stringify(predicate)+"}'"+
