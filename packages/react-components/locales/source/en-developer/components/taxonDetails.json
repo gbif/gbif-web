@@ -1,4 +1,5 @@
 {
+  "dataset": "Dataset",
   "groups": {
     "trials": "Trials",
     "location": "Location",

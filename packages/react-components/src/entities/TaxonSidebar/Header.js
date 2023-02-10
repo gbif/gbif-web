@@ -17,7 +17,7 @@ export function Header({ data, loading, error, className, ...props }) {
         <div css={css.headline({ theme })}>
           <Eyebrow
             style={{ fontSize: '80%' }}
-            prefix={<FormattedMessage id='eventDetails.dataset' />}
+            prefix={<FormattedMessage id='taxonDetails.dataset' />}
             suffix={data.datasetTitle}
           />
         </div>

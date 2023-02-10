@@ -12,7 +12,7 @@ const { TabPanel } = Tabs;
 
 export function TaxonSidebar({
   onCloseRequest,
-  collection,
+  catalogNumber,
   defaultTab,
   className,
   style,
@@ -20,7 +20,6 @@ export function TaxonSidebar({
 }) {
   const { data, error, loading, load } = useQuery(EVENT, { lazyLoad: true });
   const [activeId, setTab] = useState('details');
-  const { catalogNumber } = collection;
   const theme = useContext(ThemeContext);
 
   useEffect(() => {
@@ -42,7 +41,7 @@ export function TaxonSidebar({
         from: 0,
       });
     }
-  }, [collection]);
+  }, [catalogNumber]);
 
   useEffect(() => {
     if (!loading) {
@@ -54,7 +53,6 @@ export function TaxonSidebar({
   const accession = data?.results?.documents?.results?.find(
     ({ eventType }) => eventType.concept === 'Accession'
   );
-  console.log(accession);
 
   return (
     <Tabs activeId={activeId} onChange={(id) => setTab(id)}>
@@ -89,7 +87,7 @@ export function TaxonSidebar({
           )}
           {!isLoading && (
             <>
-              <Header data={collection} error={error} />
+              <Header data={{ ...accession, catalogNumber }} error={error} />
               {(() => {
                 const trials = data.results.documents.results.filter(
                   ({ eventType }) => eventType.concept === 'Trial'
