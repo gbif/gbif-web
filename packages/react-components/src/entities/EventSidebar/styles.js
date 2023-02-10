@@ -34,7 +34,7 @@ export const entitySummary = ({ ...props }) => css`
 `;
 
 export const header = ({ ...props }) => css`
-  margin: 0 16px;
+  margin: 12px 16px;
   .gbif-header-location {
     font-size: 13px;
     display: flex;
@@ -203,4 +203,13 @@ export const issuePill = ({ severity, ...props }) => css`
   border-radius: 4px;
   padding: 0 4px;
   margin-right: 4px;
+`;
+
+export const imageSelectCheck = (props) => css`
+  position: absolute;
+  left: 0;
+  z-index: 100;
+  background: black;
+  color: white;
+  padding: 5px 5px 2px 5px;
 `;

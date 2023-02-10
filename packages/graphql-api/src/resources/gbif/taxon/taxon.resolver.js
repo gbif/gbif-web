@@ -44,6 +44,8 @@ export default {
       dataSources.taxonAPI.getTaxonByKey({ key }),
     checklistRoots: (parent, { datasetKey: key, ...query }, { dataSources }) =>
       dataSources.taxonAPI.getChecklistRoots({ key, query }),
+    taxonSuggestions: (parent, query, { dataSources }) => 
+      dataSources.taxonAPI.getSuggestions(query)
   },
   Taxon: {
     dataset: ({ datasetKey }, args, { dataSources }) =>
@@ -52,6 +54,10 @@ export default {
       dataSources.taxonAPI.getParsedName({ key }),
     wikiData: ({ key }, args, { dataSources }) =>
       dataSources.wikidataAPI.getWikiDataTaxonData(key),
+    backboneTaxon: ({ key, nubKey }, args, { dataSources }) => {
+      if (typeof nubKey === 'undefined' || key === nubKey) return null;
+      return dataSources.taxonAPI.getTaxonByKey({key: nubKey});
+    }
   },
   TaxonSearchResult: {
     facet: (parent) => ({

@@ -69,7 +69,7 @@ async function initializeServer() {
     plugins: [
       ApolloServerPluginLandingPageGraphQLPlayground,
       ApolloServerPluginCacheControl({
-        defaultMaxAge: 600,
+        defaultMaxAge: config.debug ? 0 : 600,
       }),
     ],
   });

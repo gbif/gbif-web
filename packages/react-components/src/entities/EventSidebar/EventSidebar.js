@@ -4,10 +4,12 @@ import * as css from './styles';
 import { Row, Col, Tabs } from "../../components";
 import { useQuery } from '../../dataManagement/api';
 import { Intro } from './details/Intro';
-import {MdClose, MdInfo} from "react-icons/md";
-const { TabList, Tab, TapSeperator } = Tabs;
+import { DistinctTaxa } from './taxa/DistinctTaxa';
+import { Header } from './Header';
+import { MdClose, MdInfo, MdImage } from "react-icons/md";
 
-const {  TabPanel } = Tabs;
+const { TabList, Tab, TapSeperator } = Tabs;
+const { TabPanel } = Tabs;
 
 export function EventSidebar({
   onCloseRequest,
@@ -52,6 +54,11 @@ export function EventSidebar({
           <Tab tabId="details" direction="left">
             <MdInfo />
           </Tab>
+          {data?.event?.distinctTaxa?.length > 0 && (
+            <Tab tabId="distinctTaxa" direction="left">
+              <MdImage />
+            </Tab>
+          )}
         </TabList>
       </Col>
       <Col shrink={false} grow={false} css={css.detailDrawerContent({ theme })} >
@@ -59,16 +66,22 @@ export function EventSidebar({
           <h2>{eventID} - Loading event information...</h2>
         </Col>}
         {!isLoading &&
-            <TabPanel tabId='details' style={{height: '100%'}}>
-              <Intro
-                  data={data}
-                  loading={loading}
-                  error={error}
-                  setActiveEvent={setActiveEvent}
-                  addToSearch={addToSearch}
-                  addEventTypeToSearch={addEventTypeToSearch}
-              />
-            </TabPanel>
+            <>
+              <Header data={data} error={error} />
+              <TabPanel tabId='details'>
+                <Intro
+                    data={data}
+                    loading={loading}
+                    error={error}
+                    setActiveEvent={setActiveEvent}
+                    addToSearch={addToSearch}
+                    addEventTypeToSearch={addEventTypeToSearch}
+                />
+              </TabPanel>
+              <TabPanel tabId='distinctTaxa'>
+                <DistinctTaxa data={data} loading={loading} error={error} />
+              </TabPanel>
+            </>
         }
       </Col>
     </Row>
@@ -111,7 +124,19 @@ query event($eventID: String, $datasetKey: String){
     temporalCoverage {
       gte
       lte
-    }    
+    }
+    distinctTaxa {
+      scientificName
+      key
+      kingdom
+      phylum
+      class
+      order
+      family
+      genus
+      species
+      count
+    }
   }
 }
 `;
