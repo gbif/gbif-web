@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { ResultsHeader } from '../../../../../search/ResultsHeader';
 import { Trial } from '../../../../TaxonSidebar/details/Trial';
 import { Row, Col } from '../../../../../components';
+import range from 'lodash/range';
 
 export const TrialsGrid = ({
   first,
@@ -23,12 +24,24 @@ export const TrialsGrid = ({
       <ResultsHeader loading={loading} total={total} />
       <div style={{ maxHeight: 400, overflowY: 'scroll', paddingRight: 5 }}>
         <Row halfGutter={5} gridGutter>
-          {!loading &&
-            results?.map((trial) => (
-              <Col key={trial.eventID} xs={24} sm={24} md={24} lg={12} xl={12}>
-                <Trial key={trial.eventID} trial={trial} />
-              </Col>
-            ))}
+          {results
+            ? results.map((trial) => (
+                <Col
+                  key={trial.eventID}
+                  xs={24}
+                  sm={24}
+                  md={24}
+                  lg={12}
+                  xl={12}
+                >
+                  <Trial trial={trial} />
+                </Col>
+              ))
+            : range(0, 8).map((key) => (
+                <Col key={key} xs={24} sm={24} md={24} lg={12} xl={12}>
+                  <Trial />
+                </Col>
+              ))}
         </Row>
       </div>
     </div>

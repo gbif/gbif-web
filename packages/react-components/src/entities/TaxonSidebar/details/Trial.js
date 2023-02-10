@@ -2,8 +2,15 @@ import { jsx } from '@emotion/react';
 import React, { useContext } from 'react';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import * as css from '../styles';
-import { Row, Col, Properties, IconFeatures } from '../../../components';
+import {
+  Row,
+  Col,
+  Properties,
+  IconFeatures,
+  Skeleton,
+} from '../../../components';
 import { FormattedMessage } from 'react-intl';
+import range from 'lodash/range';
 
 const { Term: T, Value: V } = Properties;
 
@@ -26,8 +33,49 @@ const getDate = ({ temporalCoverage: tc }) => {
   return 'Unknown Date';
 };
 
+function SkeletonTrial({ ...props }) {
+  const theme = useContext(ThemeContext);
+
+  return (
+    <article css={css.clusterCard({ theme })} {...props}>
+      <Row wrap='nowrap' halfGutter={6} style={{ padding: 12 }}>
+        <Col>
+          <Skeleton width='60%' style={{ height: 18, marginBottom: 18 }} />
+          {/* <div css={css.entitySummary({ theme })}></div> */}
+          <div>
+            <Properties style={{ fontSize: 12 }} horizontal dense>
+              {range(0, 6).map((key) => (
+                <React.Fragment key={key}>
+                  <T>
+                    <Skeleton width='80%' />
+                  </T>
+                  <V>
+                    <Skeleton width='75%' />
+                  </V>
+                </React.Fragment>
+              ))}
+            </Properties>
+          </div>
+        </Col>
+      </Row>
+      <div css={css.clusterFooter({ theme })}>
+        <Properties style={{ fontSize: 12 }} horizontal dense>
+          <T>
+            <Skeleton width='80%' />
+          </T>
+          <V>
+            <Skeleton width='75%' />
+          </V>
+        </Properties>
+      </div>
+    </article>
+  );
+}
+
 export function Trial({ trial, ...props }) {
   const theme = useContext(ThemeContext);
+
+  if (!trial) return <SkeletonTrial />;
 
   const mofBestTest = getMof(trial.measurementOrFacts, 'bestTest');
 
@@ -35,15 +83,15 @@ export function Trial({ trial, ...props }) {
     <article css={css.clusterCard({ theme })} {...props}>
       <Row wrap='nowrap' halfGutter={6} style={{ padding: 12 }}>
         <Col>
-          <h4 style={{ margin: 0 }}>{getDate(trial)}</h4>
-          <div css={css.entitySummary({ theme })}>
+          <h4 style={{ margin: 0, marginBottom: 18 }}>{getDate(trial)}</h4>
+          {/* <div css={css.entitySummary({ theme })}>
             <IconFeatures
               css={css.features({ theme })}
               eventDate={trial.eventDate}
               countryCode={trial.countryCode}
               locality={trial.locality}
             />
-            {/* <IconFeatures
+            <IconFeatures
               css={css.features({ theme })}
               stillImageCount={related.stillImageCount}
               movingImageCount={related.movingImageCount}
@@ -55,8 +103,8 @@ export function Trial({ trial, ...props }) {
               isClustered={related.volatile.features.isClustered}
               isSamplingEvent={related.volatile.features.isSamplingEvent}
               issueCount={related.issues?.length}
-            /> */}
-          </div>
+            />
+          </div> */}
           <div>
             <Properties style={{ fontSize: 12 }} horizontal dense>
               {trial.measurementOrFacts
