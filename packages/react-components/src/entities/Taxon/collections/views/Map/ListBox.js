@@ -22,11 +22,13 @@ function ListItem({ id, item, imageSrc, onClick = () => {}, ...props }) {
             }}
           ></h4>
           {item.datasetTitle}
-          <br />
-          Event ID: {item.eventID}
-          {item.measurementOrFactTypes?.length > 0
-            ? ' - ' + item.measurementOrFactTypes
-            : ''}
+          <div style={{ marginTop: 8 }}>
+            <FormattedMessage
+              id='occurrenceFieldNames.catalogNumber'
+              defaultMessage='Catalogue Number'
+            />
+            : {item.occurrences?.results[0]?.catalogNumber}
+          </div>
         </Col>
         <Col grow={false}>
           <Button

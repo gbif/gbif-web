@@ -7,8 +7,7 @@ import ListBox from './ListBox';
 import { ViewHeader } from '../../../../../search/EventSearch/views/ViewHeader';
 import MapboxMap from './MapboxMap';
 import * as css from './map.styles';
-import { EventSidebar } from '../../../../EventSidebar/EventSidebar';
-import { FilterContext } from '../../../../../widgets/Filter/state';
+import { TaxonSidebar } from '../../../../TaxonSidebar/TaxonSidebar';
 
 function Map({
   labelMap,
@@ -27,53 +26,24 @@ function Map({
 }) {
   const dialog = useDialogState({ animated: true, modal: false });
   const theme = useContext(ThemeContext);
-  const currentFilterContext = useContext(FilterContext);
 
   const [activeId, setActive] = useState();
   const [activeItem, setActiveItem] = useState();
   const [listVisible, showList] = useState(false);
   const items = pointData?.eventSearch?.documents?.results || [];
-  const [activeEventID, setActiveEventID] = useState(false);
 
   useEffect(() => {
     setActiveItem(items[activeId]);
   }, [activeId, items]);
 
-  const nextItem = useCallback(() => {
-    setActive(Math.min(items.length - 1, activeId + 1));
-  }, [items, activeId]);
-
-  const previousItem = useCallback(() => {
-    setActive(Math.max(0, activeId - 1));
-  }, [items, activeId]);
-
-  function setActiveEvent(eventID) {
-    setActiveItem({ eventID: eventID, datasetKey: activeItem?.datasetKey });
-  }
-
-  function addToSearch(eventID) {
-    currentFilterContext.setField('eventHierarchy', [eventID], true);
-    setActiveEventID(null);
-    dialog.setVisible(false);
-    showList(false);
-  }
-
   return (
     <>
-      <DetailsDrawer
-        href={`${activeItem?.eventID}`}
-        dialog={dialog}
-        nextItem={nextItem}
-        previousItem={previousItem}
-      >
-        <EventSidebar
-          eventID={activeItem?.eventID}
-          datasetKey={activeItem?.datasetKey}
+      <DetailsDrawer href={`${activeItem?.eventID}`} dialog={dialog}>
+        <TaxonSidebar
+          catalogNumber={activeItem?.occurrences?.results[0]?.catalogNumber}
           defaultTab='details'
           style={{ maxWidth: '100%', width: 700, height: '100%' }}
           onCloseRequest={() => dialog.setVisible(false)}
-          setActiveEvent={setActiveEvent}
-          addToSearch={addToSearch}
         />
       </DetailsDrawer>
       <div css={css.mapArea({ theme })}>

@@ -41,9 +41,23 @@ function Group({ label, ...props }) {
 function Trials({ trials }) {
   return (
     <Group label='taxonDetails.groups.trials'>
-      {trials.map((trial) => (
-        <Trial key={trial.eventID} trial={trial} />
-      ))}
+      {trials?.length > 0 ? (
+        trials.map((trial) => <Trial key={trial.eventID} trial={trial} />)
+      ) : (
+        <div
+          style={{
+            display: 'flex',
+            flexGrow: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            paddingTop: 24,
+          }}
+        >
+          <span style={{ color: '#aaa', fontSize: 14 }}>
+            No trial data found
+          </span>
+        </div>
+      )}
     </Group>
   );
 }

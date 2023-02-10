@@ -93,26 +93,9 @@ export function TaxonSidebar({
                   ({ eventType }) => eventType.concept === 'Trial'
                 );
                 return (
-                  <div style={{ marginTop: 24 }}>
-                    {trials.length > 0 ? (
-                      <TabPanel tabId='details'>
-                        <Groups event={accession} trials={trials} />
-                      </TabPanel>
-                    ) : (
-                      <div
-                        style={{
-                          display: 'flex',
-                          flexGrow: 1,
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <span style={{ color: '#aaa', fontSize: 14 }}>
-                          No trial data found
-                        </span>
-                      </div>
-                    )}
-                  </div>
+                  <TabPanel tabId='details'>
+                    <Groups event={accession} trials={trials} />
+                  </TabPanel>
                 );
               })()}
             </>
