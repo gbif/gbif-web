@@ -1,14 +1,16 @@
 import { css } from '@emotion/react';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { BiDna } from 'react-icons/bi';
 import {
   Properties,
   Property,
   ListItem,
-  HyperText,
   Prose,
+  ResourceLink,
 } from '../../../components';
-import { Card, CardHeader2 } from '../../shared';
+import { Card, CardHeader2, SideBarHeader } from '../../shared';
+import { ExternalLink } from '../components/ExternalLink';
 
 const { Term: T, Value: V, EmptyValue } = Properties;
 const Name2Avatar = ListItem.Name2Avatar;
@@ -83,6 +85,22 @@ export default function About({ taxon }) {
             </Properties>
           </Card>
         </div>
+        <aside
+          css={css`
+            flex: 0 0 280px;
+            margin: 12px;
+          `}
+        >
+          <Card style={{ padding: '24px 12px', marginBottom: 12 }}>
+            <SideBarHeader>Sequences</SideBarHeader>
+            <ExternalLink
+              type='sequenceKey'
+              id={taxon?.species}
+              label='GenBank'
+              icon={BiDna}
+            />
+          </Card>
+        </aside>
       </div>
     </div>
   );

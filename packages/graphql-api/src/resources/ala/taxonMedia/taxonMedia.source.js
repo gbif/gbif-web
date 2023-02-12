@@ -65,7 +65,7 @@ class TaxonMediaAPI extends RESTDataSource {
             metadataLanguage: 'eng',
             metadataLanguageLiteral: 'English',
             providerManagedID: imageMetadata.imageId,
-            rights: imageMetadata.rights || 'Unknown',
+            rights: imageMetadata.rights,
             owner: imageMetadata.rightsHolder,
             webStatement:
               imageMetadata.license?.includes('http') && imageMetadata.license,

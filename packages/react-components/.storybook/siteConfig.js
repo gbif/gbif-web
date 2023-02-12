@@ -135,6 +135,10 @@ const routeConfig = {
       return `/?path=/story/entities-ala-specimen-page--example&knob-catalogNumber=${key}`;
     },
   },
+  sequenceKey: {
+    url: ({ key }) => `https://www.ncbi.nlm.nih.gov/nuccore/?term=${key}`,
+    isHref: true,
+  },
 };
 
 export const siteConfig = {

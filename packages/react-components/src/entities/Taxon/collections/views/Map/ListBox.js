@@ -18,7 +18,7 @@ function ListItem({ id, item, imageSrc, onClick = () => {}, ...props }) {
               __html:
                 (item.eventType?.concept ? item.eventType?.concept : 'Event') +
                 ' ' +
-                (item.year ? '- year: ' + item.year : ''),
+                (item.year ? '- Year: ' + item.year : ''),
             }}
           ></h4>
           {item.datasetTitle}
