@@ -8,6 +8,7 @@ import {
   Properties,
   IconFeatures,
   Skeleton,
+  Button,
 } from '../../../components';
 import { FormattedMessage } from 'react-intl';
 import range from 'lodash/range';
@@ -72,7 +73,7 @@ function SkeletonTrial({ ...props }) {
   );
 }
 
-export function Trial({ trial, ...props }) {
+export function Trial({ trial, onRelatedClick, ...props }) {
   const theme = useContext(ThemeContext);
 
   if (!trial) return <SkeletonTrial />;
@@ -83,7 +84,25 @@ export function Trial({ trial, ...props }) {
     <article css={css.clusterCard({ theme })} {...props}>
       <Row wrap='nowrap' halfGutter={6} style={{ padding: 12 }}>
         <Col>
-          <h4 style={{ margin: 0, marginBottom: 18 }}>{getDate(trial)}</h4>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              marginBottom: 18,
+            }}
+          >
+            <h4 style={{ margin: 0 }}>{getDate(trial)}</h4>
+            {onRelatedClick && (
+              <Button
+                look='primaryOutline'
+                style={{ fontSize: '11px' }}
+                onClick={() => onRelatedClick(trial)}
+              >
+                View related trials
+              </Button>
+            )}
+          </div>
           {/* <div css={css.entitySummary({ theme })}>
             <IconFeatures
               css={css.features({ theme })}

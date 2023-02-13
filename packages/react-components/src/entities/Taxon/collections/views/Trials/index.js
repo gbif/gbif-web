@@ -54,6 +54,11 @@ query list($predicate: Predicate, $offset: Int, $limit: Int){
           measurementDeterminedBy
           measurementDeterminedDate
         }
+        occurrences(size: 1) {
+          results {
+            catalogNumber
+          }
+        }
       }
     }
   }
