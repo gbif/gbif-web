@@ -11,14 +11,17 @@ import { Group } from './Groups';
 import get from 'lodash/get';
 import { Card, CardHeader2 } from '../../shared';
 import { prettifyString } from '../../../utils/labelMaker/config2labels';
+import _ from 'lodash';
 
 const { Term: T, Value: V } = Properties;
 
 export function Location({ updateToc, specimen = {}, setActiveImage, ...props }) {
   const [displayVerbatim, setDisplayVerbatim] = useState(false);
-  const collectionEvent = get(specimen, 'collectionEvent', {});
-  const location = get(specimen, 'collectionEvent.location', {});
-  const georeference = get(specimen, 'collectionEvent.location.georeference', {});
+  const collectionEvent = _.omitBy(get(specimen, 'collectionEvent', {}), _.isNil);
+  const location = _.omitBy(get(specimen, 'collectionEvent.location'), _.isNil);
+  const georeference = _.omitBy(get(specimen, 'collectionEvent.location.georeference', {}), _.isNil);
+
+  if (_.isEmpty(collectionEvent) && _.isEmpty(location) && _.isEmpty(georeference)) return null;
 
   const { decimalLongitude, decimalLatitude } = georeference;
 

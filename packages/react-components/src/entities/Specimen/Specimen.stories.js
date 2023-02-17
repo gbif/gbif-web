@@ -11,6 +11,15 @@ export default {
   component: Specimen,
 };
 
+// const selectSpecimen = choice => {
+//   const options = {
+//     koldingensis: '5c488c08-8cab-444a-9598-806dd0abec85',
+//     bgbm: 'B 10 0059081'
+//   };
+//   console.log('choice', choice);
+//   return options[choice] ?? '5c488c08-8cab-444a-9598-806dd0abec85';
+// }
+
 export const Example = () => <Router initialEntries={[`/`]}>
   <QueryParamProvider ReactRouterRoute={Route}>
     <AddressBar />
@@ -26,9 +35,22 @@ export const Example = () => <Router initialEntries={[`/`]}>
 
     {/* Entomology from Harvard University, Museum of Comparative Zoology */}
     {/* <Specimen id="42844cb6-421e-4bcf-bdeb-c56039bee08c" /> */}
+
+    {/* Koldingensis */}
     {/* <Specimen id={text('specimenUUID', '5c488c08-8cab-444a-9598-806dd0abec85')} /> */}
-    <Specimen id={text('specimenUUID', 'B 10 0059081')} />
+
+    {/* BGBM */}
     {/* <Specimen id={text('specimenUUID', 'B 10 0059081')} /> */}
+    
+    {/* specify with image */}
+    <Specimen id={text('specimenUUID', 'dcc04c84-1ed3-11e3-bfac-90b11c41863e')} />
+    
+    {/* Has 3d model */}
+    {/* <Specimen id={text('specimenUUID', 'db1fdcde-1ed3-11e3-bfac-90b11c41863e')} /> */}
+    
+    {/* has genetic sequence */}
+    {/* <Specimen id={text('specimenUUID', 'db46a51c-1ed3-11e3-bfac-90b11c41863e')} /> */}
+
     {/* <Switch>
       <Route
         path='/specimen/:key'

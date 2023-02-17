@@ -1,6 +1,6 @@
 import { jsx, css } from '@emotion/react';
 import React, { useState } from 'react';
-import { Classification, Properties, Button, Switch } from '../../components';
+import { Classification, Properties, Button, Switch, HyperText } from '../../components';
 import { Term, Value } from '../../components/Properties/Properties';
 import { Card, CardHeader2 } from '../shared';
 import { ImBook as ReferenceIcon } from 'react-icons/im'
@@ -10,6 +10,41 @@ import { FormattedDate } from '../shared/header';
 import { FormattedMessage } from 'react-intl';
 
 export function Relationships({
+  specimen,
+  ...props
+}) {
+  if (!specimen?.otherRelations?.relationsWhereMaterialIsSubject?.length &&
+      !specimen?.otherRelations?.relationsWhereMaterialIsObject?.length) return null;
+
+  return <Card padded={false} {...props}>
+    <div css={css`padding: 12px 24px;`}>
+      <CardHeader2>Relationships</CardHeader2>
+    </div>
+    <div css={css`padding: 12px 24px; background: var(--paperBackground800); border-top: 1px solid var(--paperBorderColor);`}>
+      {/* <h3 css={css`color: var(--color400); font-weight: normal; font-size: 16px;`}>Where material is subject</h3> */}
+      <ul css={css`margin: 0; padding: 0; list-style: none;`}>
+        {specimen?.otherRelations?.relationsWhereMaterialIsSubject.map((entity) => {
+          return <li css={css`display: flex; margin-bottom: 12px;`} key={entity.entityRelationshipId}>
+            <Card padded={false} style={{ width: '100%' }}>
+              <Relationship entity={entity} isSubject/>
+            </Card>
+          </li>
+        })}
+
+        {specimen?.otherRelations?.relationsWhereMaterialIsObject.map((entity) => {
+          return <li css={css`display: flex; margin-bottom: 12px;`} key={entity.entityRelationshipId}>
+            <Card padded={false} style={{ width: '100%' }}>
+              <Relationship entity={entity} />
+            </Card>
+          </li>
+        })}
+
+      </ul>
+    </div>
+  </Card>
+};
+
+export function RelationshipsDump({
   specimen,
   ...props
 }) {
@@ -109,35 +144,58 @@ export function Relationships({
   </Card>
 };
 
-function Relationship({ identification, ...props }) {
-  return <Properties dense>
-    <Term>Scientific name</Term>
-    <div>
-      <Value>
-        <div>{identification.taxa[0].scientificName}</div>
-      </Value>
+function Relationship({ entity, isSubject, ...props }) {
+  let content = null;
+  if (entity.objectEntityIri) {
+    content = <div css={PropTable}>
+      <div css={KeyValue}>
+        <div>External IRI</div>
+        <div><HyperText inline text={entity.objectEntityIri} /></div>
+      </div>
     </div>
+  }
 
-    {identification.identifiedBy && <>
-      <Term>Identified by</Term>
-      <Value>{identification.identifiedBy.join(', ')}</Value>
-    </>}
+  const material = entity?.entityBySubjectEntityId?.materialEntityByMaterialEntityId || entity?.entityByObjectEntityId?.materialEntityByMaterialEntityId;
+  if (material) {
+    const id = entity?.entityByObjectEntityId?.entityId || entity?.entityBySubjectEntityId?.entityId;
+    content = <div css={PropTable}>
+      {entity.objectEntityIri && <div css={KeyValue}>
+        <div>External IRI</div>
+        <div><HyperText inline text={entity.objectEntityIri} /></div>
+      </div>}
+      <div css={KeyValue}>
+        <div>ID</div>
+        <div><a css={css`color: var(--linkColor);`} href={`/?path=/story/entities-wip-specimen-page--example&knob-Choose%20Direction=ltr&knob-Choose%20Theme=Light&knob-Choose%20locale=en-DK&knob-specimenUUID=${id}`}>{id}</a></div>
+      </div>
+      <div css={KeyValue}>
+        <div>Type</div>
+        <div>{material.materialEntityType}</div>
+      </div>
+      <div css={KeyValue}>
+        <div>preparations</div>
+        <div><HyperText inline text={material.preparations} /></div>
+      </div>
+      <div css={KeyValue}>
+        <div>disposition</div>
+        <div><HyperText inline text={material.disposition} /></div>
+      </div>
+      <div css={KeyValue}>
+        <div>catalogNumber</div>
+        <div><HyperText inline text={material.catalogNumber} /></div>
+      </div>
+      <div css={KeyValue}>
+        <div>associatedSequences</div>
+        <div><HyperText inline text={material.associatedSequences} /></div>
+      </div>
+    </div>
+  }
 
-    <Term>Nature of ID</Term>
-    <Value>{prettifyString(identification.identificationType)}</Value>
-
-    {identification.taxa[0].genus && <><Term>Classification</Term>
-      <Value>
-        <Classification>
-          {['kingdom', 'phylum', 'class', 'order', 'family', 'genus'].map(rank => {
-            const rankName = identification.taxa[0]?.[rank];
-            if (!rankName) return null;
-            return <span key={rank}>{rankName}</span>
-          })}
-        </Classification>
-      </Value>
-    </>}
-  </Properties>
+  return <>
+    {isSubject && <div css={css`padding: 8px 12px; background: #fafafa; border-bottom: 1px solid #eee;`}>Page: <span>{entity.entityRelationshipType}</span>: card</div>}
+    {!isSubject && <div css={css`padding: 8px 12px; background: #fafafa; border-bottom: 1px solid #eee;`}>Card: <span>{entity.entityRelationshipType}</span>: page</div>}
+    <div css={css`padding: 0px;`}>{content}</div>
+    {/* <pre>{JSON.stringify(entity, null, 2)}</pre> */}
+  </>
 }
 
 const PropTable = css`
@@ -159,7 +217,7 @@ const KeyValue = css`
   margin: -1px;
   > div {
     flex: 0 0 auto;
-    padding: 16px 24px;
+    padding: 8px 16px;
     min-width: 33%;
   }
   >div:first-of-type {

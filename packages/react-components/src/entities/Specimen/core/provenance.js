@@ -15,6 +15,9 @@ export function Provenance({
         <div style={{ marginBottom: 24 }}>
           Data mediated by GBIF has a provenance trail, who pulished it, who endorsed the published, where is the publisher located, what is the name of the dataset, the institution etc. Read more about the GBIF publishing model
         </div>
+        <div css={css`margin-bottom: 12px; margin-top: -12px; border-radius: 6px; background: #eee; font-size: 12px; padding: 10px;`}>
+          Currently this section is mocked up with static sample data
+        </div>
         <Properties dense>
           <Property label="Endorsing node" value="SomeBifNode" />
           <Property label="Publisher" value="Some publisher" />

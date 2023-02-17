@@ -8,17 +8,21 @@ import { MdEdit } from 'react-icons/md';
 import { TbCircleDot } from 'react-icons/tb';
 import { prettifyEnum, prettifyString } from '../../utils/labelMaker/config2labels';
 
-export function Material({
+export function Organism({
   specimen,
   ...props
 }) {
   if (!specimen) return null;
   return <Card padded={false} {...props}>
     <div css={css`padding: 12px 24px;`}>
-      <CardHeader2>Catalogue item <span style={{display: 'none', marginLeft: 12, color: '#ddd'}}>{prettifyEnum(specimen.catalogItem.type)}</span></CardHeader2>
+      <CardHeader2>Organism</CardHeader2>
       <div css={css`margin-top: 12px;`}>
         <Properties dense>
-          {['associatedSequences',
+          <Property label="Name" value="Bill 'Seagull' Jonez" />
+          <Property label="Scope" value="Individual" />
+          <Property label="Observations" value="322" />
+
+          {/* {['associatedSequences',
             'preparations',
             'catalogNumber',
             'otherCatalogNumbers',
@@ -30,9 +34,7 @@ export function Material({
             'institutionCode',
             'collectionCode',
             'ownerInstitutionCode',]
-            .filter(x => !!specimen.catalogItem[x]).map(x => <Property label={prettifyString(x)} key={x} value={specimen.catalogItem[x]} />)}
-          <Property label="Organism scope" value={specimen?.organism?.organismScope} />
-          <Property label="Organism name" value={specimen?.organism?.name?.entityByMaterialEntityId?.entityName} />
+            .filter(x => !!specimen.catalogItem[x]).map(x => <Property label={prettifyString(x)} key={x} value={specimen.catalogItem[x]} />)} */}
         </Properties>
       </div>
     </div>

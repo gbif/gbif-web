@@ -16,8 +16,8 @@ export function Identifications({
   ...props
 }) {
   const [showHistory, setHistoryState] = useState(false);
-  if (!specimen) return null;
-  const identifiedBy = specimen.identifications.current.identifiedBy;
+  if (!specimen?.identifications?.current) return null;
+  const identifiedBy = specimen?.identifications?.current?.identifiedBy;
   const hasIdentificationHistory = specimen.identifications.history.length > 1;
 
   return <Card padded={false} {...props}>
@@ -34,15 +34,6 @@ export function Identifications({
               {specimen.identifications.current.taxa[0].gbif.usage.name} <span css={css`color: #aaa;`}><ReferenceIcon style={{ verticalAlign: 'middle', margin: '0 4' }} /> GBIF</span>
             </Value>}
           </div>
-
-          {identifiedBy && <>
-            <Term>Identified by</Term>
-            <Value>{specimen.identifications.current.identifiedBy.join(', ')}</Value>
-          </>}
-
-          {specimen?.identifications?.current?.identificationType && <><Term>Nature of ID</Term>
-            <Value>{specimen.identifications.current.identificationType}</Value>
-          </>}
 
           <Term>Classification</Term>
           <div>
@@ -62,6 +53,20 @@ export function Identifications({
               <span css={css`color: #aaa; display: inline-block;`}><ReferenceIcon style={{ verticalAlign: 'middle' }} /> GBIF</span>
             </Value>
           </div>
+
+          {identifiedBy && <>
+            <Term>Identified by</Term>
+            <Value>{specimen.identifications.current.identifiedBy.join(', ')}</Value>
+          </>}
+
+          {specimen?.identifications?.current?.identificationRemarks && <>
+            <Term>Remarks</Term>
+            <Value>{specimen.identifications.current.identificationRemarks}</Value>
+          </>}
+
+          {specimen?.identifications?.current?.identificationType && <><Term>Nature of ID</Term>
+            <Value>{specimen.identifications.current.identificationType}</Value>
+          </>}
         </Properties>
       </div>
     </div>

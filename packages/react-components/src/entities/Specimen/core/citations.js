@@ -35,7 +35,7 @@ export function Citations({
   specimen,
   ...props
 }) {
-  if (!specimen || specimen.assertions.length === 0) return null;
+  if (!specimen) return null;
   // return <Card padded={false} css={css`margin-bottom: 24px;`} {...props}>
   //   <div css={css`padding: 12px 24px;`}>
   //     <CardHeader2 style={{color: '#ddd', fontSize: 18, margin: 0}}>No assertions</CardHeader2>
@@ -44,6 +44,9 @@ export function Citations({
   return <Card padded={false} css={css`margin-bottom: 24px;`} {...props}>
     <div css={css`padding: 12px 24px 0 24px;`}>
       <CardHeader2>Citations</CardHeader2>
+      <div css={css`margin-bottom: 12px; margin-top: -12px; border-radius: 6px; background: #eee; font-size: 12px; padding: 10px;`}>
+        Other than published citation, this section could include citations linked via GBIF - e.g. Plazi and the citation tracking program. Below adds two mocked entried to show the idea.
+      </div>
     </div>
     <div>
       {/* <h4 css={headerStyle}>Declared by publisher</h4> */}
@@ -57,9 +60,9 @@ export function Citations({
           </tr>
         </thead>
         <TBody>
-          {specimen.citations.map(x => {
-            return <tr key={x.id}>
-              <Td><a style={{color: 'inherit', textDecoration: 'none'}} href={x.referenceIri}>{x.bibliographicCitation}</a></Td>
+          {specimen.citations.map((x, i) => {
+            return <tr key={`${x.referenceIri}_${i}`}>
+              <Td><a css={css`text-decoration: none; color: var(--linkColor);`} href={x.referenceIri}>{x.bibliographicCitation}</a></Td>
               <Td>{x.referenceType}</Td>
               <Td>{x.referenceYear}</Td>
               <Td></Td>

@@ -11,7 +11,7 @@ import { prettifyString } from '../../../utils/labelMaker/config2labels';
 const { Term: T, Value: V } = Properties;
 
 export function Sequences({ specimen, updateToc, ...props }) {
-  if (!specimen || specimen.sequences.material.length === 0 && specimen.sequences.parts.length === 0) return null;
+  if (!specimen || specimen.sequences.material.length === 0 && specimen.sequences.parts.length === 0 && specimen?.sequences?.external.length === 0) return null;
   return <Card padded={false} {...props}>
     <div css={css`padding: 12px 24px;`}>
       <CardHeader2>Sequences</CardHeader2>
@@ -26,6 +26,9 @@ export function Sequences({ specimen, updateToc, ...props }) {
           </li>);
           return seqHtml;
         })}
+        {specimen.sequences.external.map(x => <li key={x.entityRelationshipId}>
+          <Sequence sequence={x} />
+        </li>)}
       </ul>
     </div>
   </Card>;
@@ -46,10 +49,11 @@ function Sequence({ sequence, material }) {
           Sequence
         </T>
         <V>
-          {sequence.geneticSequenceByGeneticSequenceId.sequence.substr(0,100)}... <Button look="outline" style={{fontSize: 12}} onClick={() => {navigator.clipboard.writeText(sequence.geneticSequenceByGeneticSequenceId.sequence)}}>Copy to clipboard</Button>
+          {sequence.geneticSequenceByGeneticSequenceId.sequence.substr(0, 100)}... <Button look="outline" style={{ fontSize: 12 }} onClick={() => { navigator.clipboard.writeText(sequence.geneticSequenceByGeneticSequenceId.sequence) }}>Copy to clipboard</Button>
         </V>
       </>}
-      {['accessUri',
+      {['objectEntityIri',
+        'accessUri',
         'format',
         'webStatement',
         'license',

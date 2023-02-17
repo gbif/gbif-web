@@ -23,6 +23,7 @@ import Masonry from "react-responsive-masonry"
 import { Identifiers } from './Identifiers';
 import { Provenance } from './provenance';
 import { Citations } from './citations';
+import { Organism } from '../Organism';
 
 
 const { Term: T, Value: V, EmptyValue } = Properties;
@@ -55,6 +56,26 @@ export function Core({
     //   setToc(newToc)
     // }
   }, []);
+
+  // test to see if section should be rendered
+  const cards = [];
+  // <Material specimen={specimen} css={cardStyle} />
+  // <Media updateToc={addSection} specimen={specimen} css={cardStyle} defaultCollapse />
+  // <Identifications specimen={specimen} css={cardStyle} />
+  // <Sequences updateToc={addSection} specimen={specimen} css={cardStyle} />
+  // <Assertions specimen={specimen} css={cardStyle} />
+  // <Location updateToc={addSection} specimen={specimen} css={cardStyle}/>
+  // <Identifiers specimen={specimen} css={cardStyle} />
+  // <Citations specimen={specimen} css={cardStyle} />
+  // <Provenance specimen={specimen} css={cardStyle} />
+  cards.push(<Material specimen={specimen} css={cardStyle} />);
+  
+  if (specimen?.media?.images?.specimen?.length > 0) 
+    cards.push(<Media updateToc={addSection} specimen={specimen} css={cardStyle} defaultCollapse />);
+  if (specimen?.otherRelations?.relationsWhereMaterialIsSubject?.length > 0 || specimen?.otherRelations?.relationsWhereMaterialIsObject?.length > 0) 
+    cards.push(<Relationships updateToc={addSection} specimen={specimen} css={cardStyle} />);
+  if (specimen?.identifications?.current)
+    cards.push(<Identifications specimen={specimen} css={cardStyle} />);
 
 
 
@@ -108,7 +129,7 @@ export function Core({
           </label>
           <MdHelp />
         </div> */}
-        {/* <Relationships updateToc={addSection} specimen={specimen} css={cardStyle} /> */}
+        {/* {cards.map(x => x)} */}
         <Material specimen={specimen} css={cardStyle} />
         <Media updateToc={addSection} specimen={specimen} css={cardStyle} defaultCollapse />
         <Identifications specimen={specimen} css={cardStyle} />
@@ -116,6 +137,7 @@ export function Core({
         <Assertions specimen={specimen} css={cardStyle} />
         <Location updateToc={addSection} specimen={specimen} css={cardStyle}/>
         <Identifiers specimen={specimen} css={cardStyle} />
+        <Relationships updateToc={addSection} specimen={specimen} css={cardStyle} />
         <Citations specimen={specimen} css={cardStyle} />
         <Provenance specimen={specimen} css={cardStyle} />
 

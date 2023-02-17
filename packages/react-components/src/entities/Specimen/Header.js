@@ -25,7 +25,7 @@ export function Header({
   const theme = useContext(ThemeContext);
   if (!specimen || loading) return null;
 
-  const { decimalLatitude, decimalLongitude, gbif } = specimen?.collectionEvent?.location?.georeference;
+  const { decimalLatitude, decimalLongitude, gbif } = specimen?.collectionEvent?.location?.georeference ?? {};
   const eventDate = specimen?.collectionEvent?.eventDate;
 
   const item = {
@@ -49,6 +49,9 @@ export function Header({
     };
     item.gadm = gadm;
   }
+
+  const isSequenced = specimen.sequences.material.length > 0 || specimen.sequences.parts.length > 0 || specimen?.catalogItem?.associatedSequences;
+  const currentScientificName = specimen?.identifications?.current?.taxa?.[0]?.scientificName
   
   return <HeaderWrapper>
     <Row wrap="no-wrap" css={header({ theme })} {...props}>
@@ -64,7 +67,7 @@ export function Header({
             suffix={specimen?.catalogItem?.catalogNumber} />
 
           <Headline>
-            {specimen.identifications.current.taxa[0].scientificName}
+            {currentScientificName || 'No identification provided'}
           </Headline>
           {/* <div style={{ marginTop: 8 }}>
             From <Classification style={{display: 'inline'}}>
@@ -87,19 +90,19 @@ export function Header({
                   </div>
                 </GenericFeature>}
 
-                <GenericFeature>
+                {(item.gadm || specimen?.collectionEvent?.location?.locality) && <GenericFeature>
                   <FaGlobeAfrica />
                   <div>
                     {item.gadm && <GadmClassification gadm={item.gadm} />}
                     {specimen?.collectionEvent?.location?.locality && <div>{specimen.collectionEvent.location.locality}</div>}
                   </div>
-                </GenericFeature>
+                </GenericFeature>}
               </FeatureList>
 
               <IconFeatures css={features({ theme })}
                 stillImageCount={specimen?.media?.images?.specimen?.length}
-                typeStatus={[specimen.identifications.current.typeStatus]}
-                isSequenced={true}
+                typeStatus={[specimen?.identifications?.current?.typeStatus]}
+                isSequenced={isSequenced}
                 isTreament={false}
                 isClustered={false}
                 isSamplingEvent={false}

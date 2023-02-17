@@ -27,6 +27,7 @@ export function Media({ updateToc, specimen, defaultCollapse, ...props }) {
 
 function MediaSummary({ specimen, defaultCollapse, ...props }) {
   const [collapsed, setCollapsed] = useState(defaultCollapse);
+  const [limit, setLimit] = useState(8);
   const images = specimen?.media?.images?.specimen || [];
   const [activeMedia, setActive] = useState();
   useEffect(() => {
@@ -94,15 +95,17 @@ function MediaSummary({ specimen, defaultCollapse, ...props }) {
         <div>
           {/* <h4>Images</h4> */}
           <GalleryTiles>
-            {images.map((x, i) => {
-              return <GalleryTile onSelect={() => setActive({ ...x, isImage: true })} key={i} src={x.media.accessUri} height={100}>
+            {images.slice(0,limit).map((x, i) => {
+              return <GalleryTile onSelect={() => setActive({ ...x, isImage: true })} key={i} 
+                src={x.media.digitalEntityType === 'STILL_IMAGE' ? x.media.accessUri : `https://labs.gbif.org/mirador/?manifest=${x.media.accessUri}`} 
+                height={100}>
                 {x === activeMedia ? <span style={{ background: 'black', color: 'white', padding: '5px 5px 2px 5px' }}>
                   <MdDone />
                 </span> : null}
               </GalleryTile>
             })
             }
-            <div></div>
+            {images.length > limit && <div><Button look="primaryOutline" onClick={() => setLimit(200)}>See all {images.length}</Button></div>}
           </GalleryTiles>
         </div>
       }

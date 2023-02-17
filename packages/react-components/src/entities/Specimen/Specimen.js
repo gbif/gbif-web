@@ -5,10 +5,14 @@ import { ApiContext, ApiClient } from '../../dataManagement/api';
 import { useQuery, } from '../../dataManagement/api';
 import { SpecimenPresentation } from './SpecimenPresentation';
 import get from 'lodash/get';
+import _ from 'lodash';
 import EnsureRouter from '../../EnsureRouter';
 // import specimen from './testdata.json';
 import exampleData from './example1';
 
+// requires a graphql endpoint running on the model
+// started with 
+// npx postgraphile -c 'postgresql://localhost/bgbm' --watch --enhance-graphiql --dynamic-json --show-error-stack --cors -p 7002
 const customClient = new ApiClient({
   gql: {
     endpoint: 'http://localhost:7002/graphql',
@@ -183,14 +187,16 @@ export function Specimen({
       (async () => {
 
         // look up the current identification against the backbone
-        const latestName = specimenData.identifications.current.taxa[0].scientificName;
-        let { promise, cancel } = client.get(`https://api.gbif.org/v1/species/match2?name=${latestName}`);
-        cList.push(cancel);
-        const result = await promise;
-        specimenData.identifications.current.taxa[0].gbif = result.data;
+        const latestName = specimenData?.identifications?.current?.taxa?.[0]?.scientificName;
+        if (latestName) {
+          let { promise, cancel } = client.get(`https://api.gbif.org/v1/species/match2?name=${latestName}`);
+          cList.push(cancel);
+          const result = await promise;
+          specimenData.identifications.current.taxa[0].gbif = result.data;
+        }
 
         //get gbif interpertation of coordinates
-        const { decimalLatitude, decimalLongitude, coordinateUncertaintyInMeters } = get(specimenData, 'collectionEvent.location.georeference');
+        const { decimalLatitude, decimalLongitude, coordinateUncertaintyInMeters } = get(specimenData, 'collectionEvent.location.georeference', {});
         if (decimalLatitude) {
           let { promise: promiseGeo, cancel: cancelGeo } = client.get(`https://api.gbif.org/v1/geocode/reverse?lat=${decimalLatitude}&lng=${decimalLongitude}&uncertaintyMeters=${coordinateUncertaintyInMeters || 0}`);
           cList.push(cancelGeo);
@@ -216,6 +222,143 @@ export function Specimen({
   </EnsureRouter>
 };
 
+// reusable query part for event section
+const eventByOccurrenceId = `
+eventByOccurrenceId {
+  eventType
+  eventName
+  fieldNumber
+  eventDate
+  verbatimEventDate
+  verbatimLocality
+  verbatimElevation
+  verbatimDepth
+  verbatimCoordinates
+  verbatimLatitude
+  verbatimLongitude
+  verbatimCoordinateSystem
+  verbatimSrs
+  habitat
+  protocolDescription
+  sampleSizeUnit
+  sampleSizeValue
+  eventEffort
+  fieldNotes
+  eventRemarks
+  locationId # notice that this is different from the provided value. And that the dwc term can have meaning: https://dwc.tdwg.org/terms/#dwc:locationID
+  
+  locationByLocationId {
+    higherGeography
+    continent
+    waterBody
+    islandGroup
+    island
+    countryCode
+    stateProvince
+    county
+    municipality
+    locality
+    minimumElevationInMeters
+    maximumElevationInMeters
+    minimumDistanceAboveSurfaceInMeters
+    maximumDistanceAboveSurfaceInMeters
+    minimumDepthInMeters
+    maximumDepthInMeters
+    verticalDatum
+    locationAccordingTo
+    locationRemarks
+    
+    georeferenceByAcceptedGeoreferenceId {
+      decimalLatitude
+      decimalLongitude
+      geodeticDatum
+      coordinateUncertaintyInMeters
+      coordinatePrecision
+      pointRadiusSpatialFit
+      footprintWkt
+      footprintSrs
+      footprintSpatialFit
+      georeferencedBy
+      georeferencedDate
+      georeferenceProtocol
+      georeferenceSources
+      georeferenceRemarks
+      preferredSpatialRepresentation
+    }
+    # georeferencing history if any
+    georeferencesByLocationId {
+      nodes {
+        georeferenceId
+        georeferencedDate
+      }
+    }
+  }
+}`;
+
+const identificationQuery = `
+  identificationId
+  dateIdentified
+  identificationType
+  verbatimIdentification
+  typeStatus
+  # I would have thought the people identifying would be considered agents?
+  identifiedBy
+  identifiedById
+  identificationId
+  taxonFormula
+  identificationRemarks
+  # I assume the plural is in case the taxon formula states it to by multiple taxa (e.g. the parka coat example)
+  taxonIdentificationsByIdentificationId {
+    nodes {
+      taxonByTaxonId {
+        taxonId
+        scientificName
+        taxonId
+        taxonRank
+        scientificNameId
+        nameAccordingTo
+        kingdom
+        phylum
+        class
+        order
+        family
+        genus
+      }
+    }
+  }
+`;
+const identificationByIdentificationId = `
+  identificationByIdentificationId {
+    ${identificationQuery}
+  }
+`;
+
+const otherRelationships = `
+  entityId
+  materialEntityByMaterialEntityId {
+    materialEntityType
+    preparations
+    disposition
+    catalogNumber
+    associatedSequences
+    associatedReferences
+  }
+  digitalEntityByDigitalEntityId {
+    accessUri
+    format
+  }
+`;
+
+const organismQuery = `
+organismId
+organismScope
+acceptedIdentificationId
+name: materialEntityByOrganismId {
+  entityByMaterialEntityId {
+    entityName
+  }
+}
+`;
 
 const SPECIMEN = `
 query($key: String!) {
@@ -235,6 +378,47 @@ query($key: String!) {
       institutionCode
       collectionCode
       
+      organism: organismByOrganismId {
+        ${organismQuery}
+        identificationsByOrganismId {
+          nodes {
+            ${identificationQuery}
+          }
+        }
+        occurrencesByOrganismId {
+          nodes {
+            associatedTaxa
+            ${eventByOccurrenceId}
+          }
+        }
+      }
+
+      otherRelationships: entityByMaterialEntityId {
+        relationsWhereMaterialIsSubject: entityRelationshipsBySubjectEntityId {
+          totalCount
+          nodes {
+            entityRelationshipId
+            entityRelationshipType
+            entityRelationshipOrder
+            objectEntityIri
+            entityByObjectEntityId {
+              ${otherRelationships}
+            }
+          }
+        }
+        relationsWhereMaterialIsObject: entityRelationshipsByObjectEntityId {
+          totalCount
+          nodes {
+            entityRelationshipId
+            entityRelationshipType
+            entityRelationshipOrder
+            objectEntityIri
+            entityBySubjectEntityId {
+              ${otherRelationships}
+            }
+          }
+        }
+      }
       
       coreImages: entityByMaterialEntityId {
 				are:entityRelationshipsByObjectEntityId(condition: {entityRelationshipType: "IMAGE OF"}) {
@@ -314,6 +498,15 @@ query($key: String!) {
                 }
               }
             }
+          }
+        }
+      }
+      externalSequences: entityByMaterialEntityId {
+        entityRelationshipsBySubjectEntityId(condition: {entityRelationshipType: "has genetic sequence"}) {
+          nodes {
+            entityRelationshipType
+            objectEntityIri
+            entityRelationshipId
           }
         }
       }
@@ -400,90 +593,13 @@ query($key: String!) {
           nodes {
             occurrenceByOccurrenceId {
               occurrenceId
-              
               organismByOrganismId {
-                organismId
-                organismScope
-                acceptedIdentificationId
-                identificationsByOrganismId {
-                  nodes {
-                    identifiedBy
-                  }
-                }
+                ${organismQuery}
               }
               recordedBy
               recordedById
               associatedTaxa
-              eventByOccurrenceId {
-                eventType
-                eventName
-                fieldNumber
-                eventDate
-                verbatimEventDate
-                verbatimLocality
-                verbatimElevation
-                verbatimDepth
-                verbatimCoordinates
-                verbatimLatitude
-                verbatimLongitude
-                verbatimCoordinateSystem
-                verbatimSrs
-                habitat
-                protocolDescription
-                sampleSizeUnit
-                sampleSizeValue
-                eventEffort
-                fieldNotes
-                eventRemarks
-                locationId # notice that this is different from the provided value. And that the dwc term can have meaning: https://dwc.tdwg.org/terms/#dwc:locationID
-                
-                locationByLocationId {
-                  higherGeography
-                  continent
-                  waterBody
-                  islandGroup
-                  island
-                  countryCode
-                  stateProvince
-                  county
-                  municipality
-                  locality
-                  minimumElevationInMeters
-                  maximumElevationInMeters
-                  minimumDistanceAboveSurfaceInMeters
-                  maximumDistanceAboveSurfaceInMeters
-                  minimumDepthInMeters
-                  maximumDepthInMeters
-                  verticalDatum
-                  locationAccordingTo
-                  locationRemarks
-                  
-                  georeferenceByAcceptedGeoreferenceId {
-                    decimalLatitude
-                    decimalLongitude
-                    geodeticDatum
-                    coordinateUncertaintyInMeters
-                    coordinatePrecision
-                    pointRadiusSpatialFit
-                    footprintWkt
-                    footprintSrs
-                    footprintSpatialFit
-                    georeferencedBy
-                    georeferencedDate
-                    georeferenceProtocol
-                    georeferenceSources
-                    georeferenceRemarks
-                    preferredSpatialRepresentation
-                  }
-                  # georeferencing history if any
-                  georeferencesByLocationId {
-                    nodes {
-                      georeferenceId
-                      georeferencedDate
-                    }
-                  }
-                }
-              }
+              ${eventByOccurrenceId}
             }
           }
         }
@@ -493,37 +609,7 @@ query($key: String!) {
         identificationEvidencesByEntityId {
           nodes {
             entityId
-            identificationByIdentificationId {
-              identificationId
-              dateIdentified
-              identificationType
-              verbatimIdentification
-              typeStatus
-              # I would have thought the people identifying would be considered agents?
-              identifiedBy
-              identifiedById
-              identificationId
-              taxonFormula
-              # I assume the plural is in case the taxon formula states it to by multiple taxa (e.g. the parka coat example)
-              taxonIdentificationsByIdentificationId {
-                nodes {
-                  taxonByTaxonId {
-                    taxonId
-                    scientificName
-                    taxonId
-                    taxonRank
-                    scientificNameId
-                    nameAccordingTo
-                    kingdom
-                    phylum
-                    class
-                    order
-                    family
-                    genus
-                  }
-                }
-              }
-            }
+            ${identificationByIdentificationId}
           }
         }
       }
@@ -561,7 +647,7 @@ query($key: String!) {
       nodeId
     }
   }
-  citations: allCitations(condition: {citationTargetType: MATERIAL_ENTITY, citationTargetId: $key, citationType: "CITED_IN"}) {
+  citations: allCitations(condition: {citationTargetId: $key}) {
     nodes {
       citationTargetType
       citationType
@@ -575,6 +661,7 @@ query($key: String!) {
   }
 }
 `;
+// citations: allCitations(condition: {citationTargetType: MATERIAL_ENTITY, citationTargetId: $key, citationType: "CITED_IN"}) {
 
 function restructure(data) {
   const specimen = {};
@@ -584,19 +671,23 @@ function restructure(data) {
   // first extract for catalogItem section
   const catalogItemSource = data?.specimen?.nodes?.[0] || {};
 
-  const { associatedReferences, recordNumber, catalogNumber, otherCatalogNumbers, recordedBy, disposition, associatedSequences, preparations, institutionCode, collectionCode } = catalogItemSource;
+  const { associatedReferences, recordNumber, catalogNumber, otherCatalogNumbers, recordedBy, disposition, associatedSequences, preparations, institutionCode, collectionCode, materialEntityType } = catalogItemSource;
   specimen.catalogItem = {
-    associatedReferences, recordNumber, catalogNumber, otherCatalogNumbers, recordedBy, disposition, associatedSequences, preparations, institutionCode, collectionCode
+    associatedReferences, recordNumber, catalogNumber, otherCatalogNumbers, recordedBy, disposition, associatedSequences, preparations, institutionCode, collectionCode,
+    type: materialEntityType
   }
 
   // IDENTIFICATIONS SECTION
-  const identificationSource = data?.specimen?.nodes?.[0]?.entityByMaterialEntityId?.identificationEvidencesByEntityId?.nodes ?? [];
-  let identifications = identificationSource.map(x => {
-    const identification = x.identificationByIdentificationId;
-    const { identificationId, dateIdentified, identificationType, identifiedBy, identifiedById, taxonFormula, verbatimIdentification, typeStatus } = identification;
+  // const identificationSource = data?.specimen?.nodes?.[0]?.entityByMaterialEntityId?.identificationEvidencesByEntityId?.nodes ?? [];
+  const identificationsFromEvidence = _.get(data, 'specimen.nodes[0].entityByMaterialEntityId.identificationEvidencesByEntityId.nodes', []).map(x => x.identificationByIdentificationId);
+  const identificationsFromOrganism = _.get(data, 'specimen.nodes[0].organism.identificationsByOrganismId.nodes', []);
+  const identificationsUnion = _.unionBy(identificationsFromEvidence, identificationsFromOrganism, 'identificationId');
+
+  let identifications = identificationsUnion.map(identification => {
+    const { identificationId, dateIdentified, identificationType, identifiedBy, identifiedById, identificationRemarks, taxonFormula, verbatimIdentification, typeStatus } = identification;
 
     return {
-      identificationId, dateIdentified, identificationType, identifiedById, taxonFormula, verbatimIdentification, typeStatus,
+      identificationId, dateIdentified, identificationType, identifiedById, identificationRemarks, taxonFormula, verbatimIdentification, typeStatus,
       identifiedBy: identifiedBy ? identifiedBy.split('|') : null,
       taxa: [// I assume it is an array in case the formula requires it
         ...identification?.taxonIdentificationsByIdentificationId?.nodes.map(x => {
@@ -616,7 +707,7 @@ function restructure(data) {
   };
 
   // LOCATION SECTION
-  const event = {
+  const event = _.omitBy({
     eventType: collectionEvent.eventType,
     eventName: collectionEvent.eventName,
     fieldNumber: collectionEvent.fieldNumber,
@@ -637,47 +728,51 @@ function restructure(data) {
     eventEffort: collectionEvent.eventEffort,
     fieldNotes: collectionEvent.fieldNotes,
     eventRemarks: collectionEvent.eventRemarks,
-  }
+  }, _.isNill);
   specimen.collectionEvent = event;
-  const locationSource = get(collectionEvent, 'locationByLocationId', {}) ?? {};
-  const georeferenceSource = get(locationSource, 'georeferenceByAcceptedGeoreferenceId', {}) ?? {};
-  specimen.collectionEvent.location = {
-    higherGeography: locationSource.higherGeography,
-    continent: locationSource.continent,
-    waterBody: locationSource.waterBody,
-    islandGroup: locationSource.islandGroup,
-    island: locationSource.island,
-    countryCode: locationSource.countryCode,
-    stateProvince: locationSource.stateProvince,
-    county: locationSource.county,
-    municipality: locationSource.municipality,
-    locality: locationSource.locality,
-    minimumElevationInMeters: locationSource.minimumElevationInMeters,
-    maximumElevationInMeters: locationSource.maximumElevationInMeters,
-    minimumDistanceAboveSurfaceInMeters: locationSource.minimumDistanceAboveSurfaceInMeters,
-    maximumDistanceAboveSurfaceInMeters: locationSource.maximumDistanceAboveSurfaceInMeters,
-    minimumDepthInMeters: locationSource.minimumDepthInMeters,
-    maximumDepthInMeters: locationSource.maximumDepthInMeters,
-    verticalDatum: locationSource.verticalDatum,
-    locationAccordingTo: locationSource.locationAccordingTo,
-    locationRemarks: locationSource.locationRemarks,
-  };
-  specimen.collectionEvent.location.georeference = {
-    decimalLatitude: georeferenceSource.decimalLatitude,
-    decimalLongitude: georeferenceSource.decimalLongitude,
-    geodeticDatum: georeferenceSource.geodeticDatum,
-    coordinateUncertaintyInMeters: georeferenceSource.coordinateUncertaintyInMeters,
-    coordinatePrecision: georeferenceSource.coordinatePrecision,
-    pointRadiusSpatialFit: georeferenceSource.pointRadiusSpatialFit,
-    footprintWkt: georeferenceSource.footprintWkt,
-    footprintSrs: georeferenceSource.footprintSrs,
-    footprintSpatialFit: georeferenceSource.footprintSpatialFit,
-    georeferencedBy: georeferenceSource.georeferencedBy,
-    georeferencedDate: georeferenceSource.georeferencedDate,
-    georeferenceProtocol: georeferenceSource.georeferenceProtocol,
-    georeferenceSources: georeferenceSource.georeferenceSources,
-    georeferenceRemarks: georeferenceSource.georeferenceRemarks,
-    preferredSpatialRepresentation: georeferenceSource.preferredSpatialRepresentation,
+  const locationSource = get(collectionEvent, 'locationByLocationId');
+  const georeferenceSource = get(locationSource ?? {}, 'georeferenceByAcceptedGeoreferenceId');
+  if (locationSource) {
+    specimen.collectionEvent.location = {
+      higherGeography: locationSource.higherGeography,
+      continent: locationSource.continent,
+      waterBody: locationSource.waterBody,
+      islandGroup: locationSource.islandGroup,
+      island: locationSource.island,
+      countryCode: locationSource.countryCode,
+      stateProvince: locationSource.stateProvince,
+      county: locationSource.county,
+      municipality: locationSource.municipality,
+      locality: locationSource.locality,
+      minimumElevationInMeters: locationSource.minimumElevationInMeters,
+      maximumElevationInMeters: locationSource.maximumElevationInMeters,
+      minimumDistanceAboveSurfaceInMeters: locationSource.minimumDistanceAboveSurfaceInMeters,
+      maximumDistanceAboveSurfaceInMeters: locationSource.maximumDistanceAboveSurfaceInMeters,
+      minimumDepthInMeters: locationSource.minimumDepthInMeters,
+      maximumDepthInMeters: locationSource.maximumDepthInMeters,
+      verticalDatum: locationSource.verticalDatum,
+      locationAccordingTo: locationSource.locationAccordingTo,
+      locationRemarks: locationSource.locationRemarks,
+    };
+  }
+  if (georeferenceSource) {
+    specimen.collectionEvent.location.georeference = {
+      decimalLatitude: georeferenceSource.decimalLatitude,
+      decimalLongitude: georeferenceSource.decimalLongitude,
+      geodeticDatum: georeferenceSource.geodeticDatum,
+      coordinateUncertaintyInMeters: georeferenceSource.coordinateUncertaintyInMeters,
+      coordinatePrecision: georeferenceSource.coordinatePrecision,
+      pointRadiusSpatialFit: georeferenceSource.pointRadiusSpatialFit,
+      footprintWkt: georeferenceSource.footprintWkt,
+      footprintSrs: georeferenceSource.footprintSrs,
+      footprintSpatialFit: georeferenceSource.footprintSpatialFit,
+      georeferencedBy: georeferenceSource.georeferencedBy,
+      georeferencedDate: georeferenceSource.georeferencedDate,
+      georeferenceProtocol: georeferenceSource.georeferenceProtocol,
+      georeferenceSources: georeferenceSource.georeferenceSources,
+      georeferenceRemarks: georeferenceSource.georeferenceRemarks,
+      preferredSpatialRepresentation: georeferenceSource.preferredSpatialRepresentation,
+    }
   }
 
   const coreImages = get(data, 'specimen.nodes[0].coreImages.are.here', []).map(x => ({
@@ -705,13 +800,37 @@ function restructure(data) {
       sequences: o.sequences.nodes.map(s => s.entityByObjectEntityId.digitalEntityByDigitalEntityId)
     }
   });
+  const externalSequences = get(data, 'specimen.nodes[0].externalSequences.entityRelationshipsBySubjectEntityId.nodes', []).map(x => {
+    return {
+      objectEntityIri: x.objectEntityIri,
+      entityRelationshipId: x.entityRelationshipId,
+    }
+  });
   specimen.sequences = {
     material: sequences,
-    parts: partSequences
+    parts: partSequences,
+    external: externalSequences
   }
 
   specimen.identifiers = get(data, 'identifiers.nodes', []);
   specimen.citations = get(data, 'citations.nodes', []).map(x => x.referenceByCitationReferenceId);
+
+  // extract organism from specimen
+  const organismFromEvidence = get(data, 'specimen.nodes[0].entityByMaterialEntityId.occurrenceEvidencesByEntityId.nodes[0].occurrenceByOccurrenceId.organismByOrganismId', {});
+  const organismFromMaterial = get(data, 'specimen.nodes[0].organism', {});
+  const organism = organismFromMaterial || organismFromEvidence;
+  specimen.organism = organism;
+
+
+  // extract other relationships
+  const discardedRelations = ['IMAGE OF', 'has genetic sequence'];
+  const relationsWhereMaterialIsSubject = get(data, 'specimen.nodes[0].otherRelationships.relationsWhereMaterialIsSubject.nodes', [])
+    .filter(x => !discardedRelations.includes(x.entityRelationshipType));
+  const relationsWhereMaterialIsObject = get(data, 'specimen.nodes[0].otherRelationships.relationsWhereMaterialIsObject.nodes', [])
+    .filter(x => !discardedRelations.includes(x.entityRelationshipType));
+
+  const otherRelations = {relationsWhereMaterialIsSubject, relationsWhereMaterialIsObject};
+  specimen.otherRelations = otherRelations;
 
 
 

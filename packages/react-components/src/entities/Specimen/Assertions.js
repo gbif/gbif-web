@@ -50,7 +50,7 @@ export function Assertions({
           {specimen.assertions.map(x => {
             return <tr key={x.assertionId}>
               <Td>{x.assertionType}</Td>
-              <Td>{x.assertionValueNumeric ?? assertionValue}</Td>
+              <Td>{x.assertionValueNumeric ?? x.assertionValue}</Td>
               <Td>{x.assertionProtocol}</Td>
               <Td>{x.assertionRemarks}</Td>
               <Td>{x.assertionByAgentName}</Td>
