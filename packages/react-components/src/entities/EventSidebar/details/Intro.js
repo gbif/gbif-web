@@ -2,10 +2,11 @@ import React, { useContext, useState } from 'react';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import { FormattedMessage } from 'react-intl';
 import * as css from '../styles';
-import { Row, Col, Switch } from "../../../components";
+import {Row, Col, Switch, Button} from "../../../components";
 import {Group, Groups} from './Groups';
 import {Summary} from "./Summary";
 import Map from "../../SiteSidebar/details/Map/Map";
+import {MdOutlineWarningAmber} from "react-icons/md";
 
 export function Intro({
   data = {},
@@ -43,7 +44,6 @@ export function Intro({
         />
       </Group>
       }
-
       <Summary event={event} setActiveEvent={setActiveEvent} addEventTypeToSearch={addEventTypeToSearch} />
     </Col>
     <Col css={css.controlFooter({ theme })} grow={false}>

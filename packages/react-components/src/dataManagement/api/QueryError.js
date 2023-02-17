@@ -46,7 +46,7 @@ export class QueryError extends Error {
     if (isArray(graphQLErrors)) {
       graphQLErrors.forEach(graphQLError => {
         const where = (graphQLError?.path || []).join('.');
-        const status = graphQLError.extensions.response.status || 500;
+        const status = graphQLError?.extensions?.response?.status || 500;
         const message = graphQLError.message;
         errorMap[where] = {
           where, status, message
