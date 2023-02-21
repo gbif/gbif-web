@@ -3,7 +3,7 @@ export { MapThumbnail } from './MapThumnail';
 import { jsx, css } from '@emotion/react';
 import React from 'react';
 import { h2 as h2Style } from '../../components/typography/Prose';
-import { Autocomplete, TextButton, Button, Skeleton } from '../../components'
+import { Autocomplete, TextButton, Button, Skeleton, ResourceLink } from '../../components'
 import { MdPushPin } from 'react-icons/md';
 import { FormattedDate } from 'react-intl';
 import { ContentWrapper, HeaderWrapper } from './header';
