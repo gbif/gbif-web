@@ -28,7 +28,7 @@ for development with Nodemon: `npm start` else `node src/index.js --port=4002`
 
 Docker images can be built and published to docker hub using the following command
 ```
-docker buildx build . --push --platform linux/amd64,linux/arm64 --tag <DOCKER_HUB_OR_OR_USER>/es2vt:v0.1
+docker buildx build . --push --platform linux/amd64,linux/arm64 --tag "$DOCKER_HUB_ORG/es2vt:$(git rev-parse --short HEAD)"
 ```
 
 To run use:
