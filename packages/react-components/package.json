@@ -10,7 +10,7 @@
     "default": "./build/cjs/index.cjs"
   },
   "scripts": {
-    "build": "npx webpack --mode=production",
+    "build": "npx NODE_OPTIONS=--max_old_space_size=4096 webpack --mode=production",
     "build:test": "npx webpack --mode=development",
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve-translations": "npx serve locales/dist/ -p 5002 --cors",
