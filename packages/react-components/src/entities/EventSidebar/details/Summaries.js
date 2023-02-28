@@ -11,14 +11,14 @@ const { Term: T, Value: V } = Properties;
 export function Summaries({ event, setActiveEvent, addToSearch, addEventTypeToSearch, data, showAll }) {
 
   let termMap = {}
-  Object.entries(data.results.facet).forEach(item => {
+  Object.entries(data?.results?.facet).forEach(item => {
     termMap[item[0]] = {
       "simpleName": item[0],
       "value": item[1]
     }
   })
 
-  Object.entries(data.results.occurrenceFacet).forEach(item => {
+  Object.entries(data?.results?.occurrenceFacet).forEach(item => {
     termMap[item[0]] = {
       "simpleName": item[0],
       "value": item[1]
@@ -26,8 +26,8 @@ export function Summaries({ event, setActiveEvent, addToSearch, addEventTypeToSe
   })
 
   let hasEventType = false;
-  if (data.results.documents.results?.length > 0
-      && data.results.documents.results[0]?.eventType?.concept) {
+  if (data?.results?.documents.results?.length > 0
+      && data?.results?.documents.results[0]?.eventType?.concept) {
     hasEventType = true;
   }
 
@@ -43,7 +43,7 @@ export function Summaries({ event, setActiveEvent, addToSearch, addEventTypeToSe
     rootNode = {
       key: eventHierarchy[0],
       name: eventTypeHierarchy[0],
-      isSelected: eventTypeHierarchy[0] == event.eventType.concept,
+      isSelected: eventTypeHierarchy[0] == event?.eventType?.concept,
       count: 1,
       isClickable: true,
       children: []
@@ -53,7 +53,7 @@ export function Summaries({ event, setActiveEvent, addToSearch, addEventTypeToSe
       const newNode = {
         key: eventHierarchy[i],
         name: eventTypeHierarchy[i],
-        isSelected: eventTypeHierarchy[i] == event.eventType.concept,
+        isSelected: eventTypeHierarchy[i] == event?.eventType?.concept,
         count: 1,
         isClickable: true,
         children: []
@@ -64,7 +64,7 @@ export function Summaries({ event, setActiveEvent, addToSearch, addEventTypeToSe
     }
 
     // add hierarchy from events
-    const eventHierarchyJoined = data?.results.facet.eventTypeHierarchyJoined.sort(function (a, b) {
+    const eventHierarchyJoined = data?.results?.facet?.eventTypeHierarchyJoined.sort(function (a, b) {
       return a.key.length - b.key.length
     });
     eventHierarchyJoined.forEach(hierarchy => {
@@ -93,12 +93,12 @@ export function Summaries({ event, setActiveEvent, addToSearch, addEventTypeToSe
     });
 
     // add hierarchy from mofs
-    const mofHierarchyJoined = data?.mofResults.facet.eventTypeHierarchyJoined.sort(function (a, b) {
+    const mofHierarchyJoined = data?.mofResults?.facet?.eventTypeHierarchyJoined.sort(function (a, b) {
       return a.key.length - b.key.length
     });
     //Calculate how may measurements attached to 'Survey','Sample','Find' etc
     const measurements = mofHierarchyJoined.reduce(function(measurementsCount, record){
-      let total = record.events?.facet?.measurementOrFactTypes.reduce(function(count, mft){
+      let total = record?.events?.facet?.measurementOrFactTypes.reduce(function(count, mft){
           count += mft.count;
           return count;
       }, 0)
@@ -135,7 +135,7 @@ export function Summaries({ event, setActiveEvent, addToSearch, addEventTypeToSe
     });
 
     // add hierarchy from occurrence
-    const occurrenceHierarchyJoined = data?.results.occurrenceFacet.eventTypeHierarchyJoined.sort(function (a, b) {
+    const occurrenceHierarchyJoined = data?.results?.occurrenceFacet?.eventTypeHierarchyJoined.sort(function (a, b) {
       return a.key.length - b.key.length
     });
     occurrenceHierarchyJoined.forEach(hierarchy => {
@@ -148,7 +148,7 @@ export function Summaries({ event, setActiveEvent, addToSearch, addEventTypeToSe
         // do we have this child node already ?
         let existingChild = startingNode.children.find(node => node.key == nodes[i]);
         if (!existingChild){
-          let count = data.results.occurrenceFacet?.datasetKey[0]?.count ?? 0;
+          let count = data.results?.occurrenceFacet?.datasetKey[0]?.count ?? 0;
           let newNode = {
             key: nodes[i],
             name: nodes[i],

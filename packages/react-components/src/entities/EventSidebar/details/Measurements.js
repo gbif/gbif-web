@@ -10,7 +10,7 @@ export function Measurements({ data }) {
 
     let hasMeasurements = false;
     if (data?.documents?.results?.length > 0
-        && data.documents.results[0]?.measurementOrFacts?.length > 0) {
+        && data?.documents?.results[0]?.measurementOrFacts?.length > 0) {
         hasMeasurements = true;
     }
 

@@ -1,4 +1,4 @@
-This folder contains some ALA specific configs
+This folder contains ALA specific configs
 
 .env.json provides links used by the events-web.
 
@@ -24,8 +24,8 @@ For example
 docker build --build-arg HOST_SERVER=https://events-test.ala.org.au --build-arg ES_WEB_API=https://events-test.ala.org.au/es
 ````
 
-Or, load from a external file directly:
+Or, load from an external file directly:
 
 ```
-docker build $(cat docker.env | awk -F "=" '{ print "--build-arg " $1"="$2;}' | xargs)
+docker build $(awk -F "=" '{ print "--build-arg " $1"="$2;}' ./docker/docker.local.env | xargs) .
 ```
