@@ -53,22 +53,23 @@ export function SpecimenPresentation({
     name: 'Stub'
   };
   return <>
-    <DataHeader
+    {/* <DataHeader
       searchType="occurrenceSearch"
       messageId="catalogues.occurrences"
-      right={<>
-        <Doi id="https://doi.org/10.15468/5nilie" />
-        <Separator />
-        <Button look="text">&lt;/ &gt;</Button>
-        <Button look="text"><MdHelp /></Button>
-      </>}>
+      // right={<>
+      //   <Doi id="https://doi.org/10.15468/5nilie" />
+      //   <Separator />
+      //   <Button look="text">&lt;/ &gt;</Button>
+      //   <Button look="text"><MdHelp /></Button>
+      // </>}
+      >
       {data?.specimen?.catalogItem && <div style={{ padding: '10px' }}>
         <Classification>
           <span>{data.specimen.catalogItem.institutionCode}</span>
           <span>{data.specimen.catalogItem.collectionCode}</span>
         </Classification>
       </div>}
-    </DataHeader>
+    </DataHeader> */}
     <Header specimen={data.specimen}>
       <TabList style={{ marginTop: '12px', borderTop: '1px solid #ddd' }}>
         <RouterTab to={url} exact label="Specimen" />

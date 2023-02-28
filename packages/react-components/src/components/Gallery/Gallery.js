@@ -15,7 +15,7 @@ export const GalleryTileSkeleton = ({ height = 150, ...props }) => {
   return <div css={styles.skeletonTile({ height })} {...props}></div>
 };
 
-export const GalleryTile = ({ src, onSelect, height = 150, minWidth, children, style, ...props }) => {
+export const GalleryTile = ({ src, onSelect, height = 150, minWidth, children, style, title, ...props }) => {
   const theme = useContext(ThemeContext);
   const [ratio, setRatio] = useState(1);
   const [isValid, setValid] = useState(false);
@@ -41,7 +41,7 @@ export const GalleryTile = ({ src, onSelect, height = 150, minWidth, children, s
       css={styles.galleryTileImage({ theme, height })}
       style={imageStyle}
       onClick={onSelect} {...props}
-      title="View details"
+      title={title ?? 'See details'}
     >
       <Image src={src}
         width={height}

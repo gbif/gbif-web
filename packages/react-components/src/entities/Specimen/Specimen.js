@@ -15,148 +15,10 @@ import exampleData from './example1';
 // npx postgraphile -c 'postgresql://localhost/bgbm' --watch --enhance-graphiql --dynamic-json --show-error-stack --cors -p 7002
 const customClient = new ApiClient({
   gql: {
-    endpoint: 'http://localhost:7002/graphql',
+    endpoint: 'http://labs.gbif.org:7002/graphql',
+    // endpoint: 'http://localhost:7002/graphql',
   }
 });
-
-const specimen_stub = {
-  collectionOccurrence: {
-    "eventType": "OCCURRENCE",
-    "eventName": null,
-    "fieldNumber": "TF2013-640926",
-    "eventDate": "06/10/2013",
-    "verbatimEventDate": null,
-    "verbatimLocality": null,
-    "verbatimElevation": null,
-    "verbatimDepth": null,
-    "verbatimCoordinates": null,
-    "verbatimLatitude": null,
-    "verbatimLongitude": null,
-    "verbatimCoordinateSystem": null,
-    "verbatimSrs": null,
-    "habitat": "Deciduous woodland",
-    "protocolDescription": null,
-    "sampleSizeUnit": null,
-    "sampleSizeValue": null,
-    "eventEffort": null,
-    "fieldNotes": null,
-    "eventRemarks": null,
-    "locationId": "965a6502-4451-44d3-820b-89ee84e81352",
-    "location": {
-      "higherGeography": null,
-      "continent": null,
-      "waterBody": null,
-      "islandGroup": null,
-      "island": null,
-      "countryCode": "DK",
-      "stateProvince": null,
-      "county": null,
-      "municipality": null,
-      "locality": "Kolding, Marielund",
-      "minimumElevationInMeters": null,
-      "maximumElevationInMeters": null,
-      "minimumDistanceAboveSurfaceInMeters": null,
-      "maximumDistanceAboveSurfaceInMeters": null,
-      "minimumDepthInMeters": null,
-      "maximumDepthInMeters": null,
-      "verticalDatum": null,
-      "locationAccordingTo": "Danish Mycological Society",
-      "locationRemarks": null,
-      "georeference": {
-        "decimalLatitude": "55.49949",
-        "decimalLongitude": "9.48942",
-        "geodeticDatum": "WGS84",
-        "coordinateUncertaintyInMeters": "10.0",
-        "coordinatePrecision": null,
-        "pointRadiusSpatialFit": null,
-        "footprintWkt": null,
-        "footprintSrs": null,
-        "footprintSpatialFit": null,
-        "georeferencedBy": null,
-        "georeferencedDate": null,
-        "georeferenceProtocol": null,
-        "georeferenceSources": null,
-        "georeferenceRemarks": null,
-        "preferredSpatialRepresentation": null
-      }
-    }
-  },
-  "stillImageCount": 4,
-  "movingImageCount": 0,
-  "movingImages": [
-    {
-      "type": "MovingImage",
-      "format": "video/mp4",
-      "identifier": "http://fm-digital-assets.fieldmuseum.org/800/168/CT_Seq_Tha_vip_FMNH_201594_201934.mp4",
-      "created": null,
-      "creator": null,
-      "license": "[Copyright] The Field Museum",
-      "publisher": null,
-      "references": null,
-      "rightsHolder": "The Field Museum",
-      "description": "Video of CT image sequences, additional information on supplementary tab. For individual CT images please contact Alan Resetar, Division of Amphibians and Reptiles."
-    }
-  ],
-  "stillImages": [
-    {
-      "type": "StillImage",
-      "format": "image/jpeg",
-      "identifier": "https://svampe.databasen.org/uploads/TF2013-640926_B1sPYTWZg.JPG",
-      "created": null,
-      "creator": "Tobias Frøslev",
-      "license": null,
-      "publisher": null,
-      "references": null,
-      "rightsHolder": "Tobias Frøslev",
-      "description": null
-    },
-    {
-      "type": "StillImage",
-      "format": "image/jpeg",
-      "identifier": "https://svampe.databasen.org/uploads/2013-640926_rJJAieYUi.JPG",
-      "created": null,
-      "creator": "Thomas Stjernegaard Jeppesen",
-      "license": null,
-      "publisher": null,
-      "references": null,
-      "rightsHolder": "Thomas Stjernegaard Jeppesen",
-      "description": null
-    },
-    {
-      "type": "StillImage",
-      "format": "image/jpeg",
-      "identifier": "https://svampe.databasen.org/uploads/2013-640926_Bys5jgKIj.JPG",
-      "created": null,
-      "creator": "Thomas Stjernegaard Jeppesen",
-      "license": null,
-      "publisher": null,
-      "references": null,
-      "rightsHolder": "Thomas Stjernegaard Jeppesen",
-      "description": null
-    },
-    {
-      "type": "StillImage",
-      "format": "image/jpeg",
-      "identifier": "https://svampe.databasen.org/uploads/2013-640926_HyxhsgFLi.JPG",
-      "created": null,
-      "creator": "Thomas Stjernegaard Jeppesen",
-      "license": null,
-      "publisher": null,
-      "references": null,
-      "rightsHolder": "Thomas Stjernegaard Jeppesen",
-      "description": null
-    }
-  ],
-  "extensions": {
-    "http://rs.gbif.org/terms/1.0/DNADerivedData": [
-      {
-        "https://w3id.org/gensc/terms/MIXS:0000044": "ITS",
-        "http://rs.gbif.org/terms/dna_sequence": "AGGAAGTAAAAGTCGTAACAAGGTTTCCGTAGGTGAACCTGCGGAAGGATCATTATTGAAATTAAACTTG\\"
-      }
-    ]
-  },
-  ...exampleData
-};
 
 export function Specimen({
   id,
@@ -215,7 +77,9 @@ export function Specimen({
     }
   }, [data, loading, error]);
 
-
+  if (data?.specimen?.nodes?.length === 0) {
+    return <h2 style={{color: '#aaa', padding: '0px 50px 500px 0px'}}>No such catalogue number</h2>
+  }
 
   return <EnsureRouter>
     <SpecimenPresentation {...{ data: { specimen }, error, loading, id }} />
@@ -363,7 +227,7 @@ name: materialEntityByOrganismId {
 const SPECIMEN = `
 query($key: String!) {
   # start with the preserved specimen fetched by ID (is there an occurrence ID or such that I could use?)
-  specimen: allMaterialEntities(condition: {materialEntityId: $key}) {
+  specimen: allMaterialEntities(condition: {catalogNumber: $key}) {
     nodes {
       materialEntityType
       materialEntityId
@@ -799,7 +663,7 @@ function restructure(data) {
       material: o.materialEntityByMaterialEntityId,
       sequences: o.sequences.nodes.map(s => s.entityByObjectEntityId.digitalEntityByDigitalEntityId)
     }
-  });
+  }).filter(x => x.sequences.length > 0);
   const externalSequences = get(data, 'specimen.nodes[0].externalSequences.entityRelationshipsBySubjectEntityId.nodes', []).map(x => {
     return {
       objectEntityIri: x.objectEntityIri,

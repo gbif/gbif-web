@@ -57,7 +57,8 @@ function MediaSummary({ specimen, defaultCollapse, ...props }) {
           <source src={activeMedia.identifier} type={activeMedia.format} />
           Unable to play
         </video>}
-        {activeMedia && activeMedia.isImage && <Image src={activeMedia.media.accessUri} h={450} style={{ maxWidth: '100%', maxHeight: 450, display: 'block', margin: 'auto' }} />}
+        {activeMedia && activeMedia.isImage && <Image src={activeMedia.media.accessUri} h={450} style={{ maxWidth: '100%', maxHeight: 450, display: 'block', margin: 'auto' }} 
+          onClick={() => {window.open(`${activeMedia.media.accessUri}`, '_blank');}}/>}
       </div>
       <Accordion
         summary={<FormattedMessage id='occurrenceDetails.about' />}
@@ -96,8 +97,29 @@ function MediaSummary({ specimen, defaultCollapse, ...props }) {
           {/* <h4>Images</h4> */}
           <GalleryTiles>
             {images.slice(0,limit).map((x, i) => {
-              return <GalleryTile onSelect={() => setActive({ ...x, isImage: true })} key={i} 
-                src={x.media.digitalEntityType === 'STILL_IMAGE' ? x.media.accessUri : `https://labs.gbif.org/mirador/?manifest=${x.media.accessUri}`} 
+              let src = x.media.accessUri;
+              let title;
+              if (x.media.digitalEntityType === 'INTERACTIVE_RESOURCE') {
+                src = 'https://upload.wikimedia.org/wikipedia/commons/e/e8/International_Image_Interoperability_Framework_logo.png';
+                title = 'Open iiif interactive resource'
+              }
+              if (x.media.digitalEntityType === 'TEXT') {
+                src = 'https://upload.wikimedia.org/wikipedia/commons/a/ae/Icon-txt.svg';
+                title = x.media.webStatement;
+              }
+              return <GalleryTile 
+                title={title}
+                onSelect={() => {
+                  if (x.media.digitalEntityType === 'INTERACTIVE_RESOURCE') {
+                    window.open(`https://labs.gbif.org/mirador/?manifest=${x.media.accessUri}`, '_blank');
+                  } else if (x.media.digitalEntityType === 'TEXT') {
+                    window.open(x.media.accessUri, '_blank');
+                  } else {
+                    setActive({ ...x, isImage: true })};
+                  }
+                }
+                key={i} 
+                src={src} 
                 height={100}>
                 {x === activeMedia ? <span style={{ background: 'black', color: 'white', padding: '5px 5px 2px 5px' }}>
                   <MdDone />

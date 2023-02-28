@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { text } from '@storybook/addon-knobs';
 import { Specimen } from './Specimen';
 import { MemoryRouter as Router, Route } from "react-router-dom";
 import AddressBar from '../../StorybookAddressBar';
 import Standalone from './Standalone';
 import { QueryParamProvider } from 'use-query-params';
+import { Input } from '../../components';
 
 export default {
   title: 'Entities/WIP/Specimen page',
@@ -65,3 +66,23 @@ Example.story = {
 };
 
 export const StandaloneExample = () => <Standalone id="dceb8d52-094c-4c2c-8960-75e0097c6861"></Standalone>;
+
+export const SearchSpecimenByCatalogueNumber = () => {
+  const options = [
+    { value: 'B 10 0059081', label: 'BGBM' },
+    { value: '40560', label: 'Specify' },
+  ];
+  const [catalogueNumber, setCatalogueNumber] = useState(text('specimenUUID', 'dcc04c84-1ed3-11e3-bfac-90b11c41863e'));
+  
+  return <div style={{padding: 12, }}>
+    <div style={{marginBottom: 12, display: 'flex'}}>
+      <select style={{flex: '0 0 auto', border: '1px solid #88888855', marginRight: 12, padding: '0 8px'}} onChange={(e) => setCatalogueNumber(e.target.value)} value={catalogueNumber}>
+        <option value="">Enter catalogue number</option>
+        {options.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
+      </select>
+      <Input style={{flex: '1 1 auto'}} placeholder="Search by catalog number (or select from dropdown)" value={catalogueNumber} onChange={e => setCatalogueNumber(e.target.value)} />
+    </div>
+    {!catalogueNumber && <h2 style={{color: '#aaa', padding: '0px 50px 500px 0px'}}>Please enter a catalogue number</h2>}
+    {catalogueNumber && <Specimen id={catalogueNumber}/>}
+  </div>
+}

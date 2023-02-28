@@ -25,6 +25,17 @@ export function Location({ updateToc, specimen = {}, setActiveImage, ...props })
 
   const { decimalLongitude, decimalLatitude } = georeference;
 
+  const verbatimFieldsNames = ['verbatimEventDate',
+    'verbatimLocality',
+    'verbatimElevation',
+    'verbatimDepth',
+    'verbatimCoordinates',
+    'verbatimLatitude',
+    'verbatimLongitude',
+    'verbatimCoordinateSystem',
+    'verbatimSrs',];
+  const verbatimFields = verbatimFieldsNames.filter(x => !!collectionEvent[x]);
+
   return <Card padded={false} {...props}>
     <div css={css`padding: 12px 24px;`}>
       <CardHeader2>Location</CardHeader2>
@@ -58,16 +69,7 @@ export function Location({ updateToc, specimen = {}, setActiveImage, ...props })
             </V>
           </React.Fragment>)}
 
-        {displayVerbatim && [
-          'verbatimEventDate',
-          'verbatimLocality',
-          'verbatimElevation',
-          'verbatimDepth',
-          'verbatimCoordinates',
-          'verbatimLatitude',
-          'verbatimLongitude',
-          'verbatimCoordinateSystem',
-          'verbatimSrs', ,]
+        {displayVerbatim && verbatimFields
           .filter(x => !!collectionEvent[x]).map(x => <React.Fragment key={x}>
             <T>
               {prettifyString(x)}
@@ -141,11 +143,11 @@ export function Location({ updateToc, specimen = {}, setActiveImage, ...props })
 
       </Properties>
     </div>
-    <div css={styles.cardFooter}>
+    {verbatimFields.length > 0 && <div css={styles.cardFooter}>
       <label>
-        <Switch checked={displayVerbatim} onChange={() => setDisplayVerbatim(!displayVerbatim)} style={{marginInlineEnd: 8}}/> Display verbatim values 
+        <Switch checked={displayVerbatim} onChange={() => setDisplayVerbatim(!displayVerbatim)} style={{ marginInlineEnd: 8 }} /> Display verbatim values
       </label>
-    </div>
+    </div>}
   </Card>
 }
 
