@@ -1,6 +1,6 @@
 import { jsx, css } from '@emotion/react';
 import React from 'react';
-import { DataTable as Table, Th, Td, TBody } from '../../components';
+import { DataTable as Table, Th, Td, TBody, HyperText } from '../../components';
 import { Term, Value } from '../../components/Properties/Properties';
 import { Card, CardHeader2 } from '../shared';
 
@@ -52,7 +52,7 @@ export function Assertions({
               <Td>{x.assertionType}</Td>
               <Td>{x.assertionValueNumeric ?? x.assertionValue}</Td>
               <Td>{x.assertionProtocol}</Td>
-              <Td>{x.assertionRemarks}</Td>
+              <Td><HyperText text={x.assertionRemarks} inline /></Td>
               <Td>{x.assertionByAgentName}</Td>
               <Td>{x.assertionMadeDate}</Td>
             </tr>

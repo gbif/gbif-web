@@ -24,6 +24,7 @@ import { Identifiers } from './Identifiers';
 import { Provenance } from './provenance';
 import { Citations } from './citations';
 import { Organism } from '../Organism';
+import { Insights } from './Insights';
 
 
 const { Term: T, Value: V, EmptyValue } = Properties;
@@ -71,9 +72,9 @@ export function Core({
   cards.push(<Material specimen={specimen} css={cardStyle} />);
   
   if (specimen?.media?.images?.specimen?.length > 0) 
-    cards.push(<Media updateToc={addSection} specimen={specimen} css={cardStyle} defaultCollapse />);
+    cards.push(<Media specimen={specimen} css={cardStyle} defaultCollapse />);
   if (specimen?.otherRelations?.relationsWhereMaterialIsSubject?.length > 0 || specimen?.otherRelations?.relationsWhereMaterialIsObject?.length > 0) 
-    cards.push(<Relationships updateToc={addSection} specimen={specimen} css={cardStyle} />);
+    cards.push(<Relationships specimen={specimen} css={cardStyle} />);
   if (specimen?.identifications?.current)
     cards.push(<Identifications specimen={specimen} css={cardStyle} />);
 
@@ -131,13 +132,15 @@ export function Core({
         </div> */}
         {/* {cards.map(x => x)} */}
         <Material specimen={specimen} css={cardStyle} />
-        <Media updateToc={addSection} specimen={specimen} css={cardStyle} defaultCollapse />
+        <Media specimen={specimen} css={cardStyle} defaultCollapse />
         <Identifications specimen={specimen} css={cardStyle} />
-        <Sequences updateToc={addSection} specimen={specimen} css={cardStyle} />
+        <Sequences specimen={specimen} css={cardStyle} />
         <Assertions specimen={specimen} css={cardStyle} />
-        <Location updateToc={addSection} specimen={specimen} css={cardStyle}/>
+        <Location specimen={specimen} css={cardStyle}/>
+        <Organism specimen={specimen} css={cardStyle} />
         <Identifiers specimen={specimen} css={cardStyle} />
-        <Relationships updateToc={addSection} specimen={specimen} css={cardStyle} />
+        <Relationships specimen={specimen} css={cardStyle} />
+        <Insights specimen={specimen} css={cardStyle} />
         <Citations specimen={specimen} css={cardStyle} />
         <Provenance specimen={specimen} css={cardStyle} />
 

@@ -35,7 +35,7 @@ export function Citations({
   specimen,
   ...props
 }) {
-  if (!specimen) return null;
+  if (!specimen || !specimen?.citations?.length) return null;
   // return <Card padded={false} css={css`margin-bottom: 24px;`} {...props}>
   //   <div css={css`padding: 12px 24px;`}>
   //     <CardHeader2 style={{color: '#ddd', fontSize: 18, margin: 0}}>No assertions</CardHeader2>

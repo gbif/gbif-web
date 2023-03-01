@@ -65,7 +65,7 @@ Example.story = {
   name: 'Specimen page',
 };
 
-export const StandaloneExample = () => <Standalone id="dceb8d52-094c-4c2c-8960-75e0097c6861"></Standalone>;
+export const StandaloneExample = () => <Standalone id="40560"></Standalone>;
 
 export const SearchSpecimenByCatalogueNumber = () => {
   const options = [

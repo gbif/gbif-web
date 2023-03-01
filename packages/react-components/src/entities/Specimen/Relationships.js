@@ -145,6 +145,8 @@ export function RelationshipsDump({
 };
 
 function Relationship({ entity, isSubject, ...props }) {
+  // const { specimen, data, error, loading } = useSpecimenData({ id });
+  console.log(entity);
   let content = null;
   if (entity.objectEntityIri) {
     content = <div css={PropTable}>
@@ -158,6 +160,7 @@ function Relationship({ entity, isSubject, ...props }) {
   const material = entity?.entityBySubjectEntityId?.materialEntityByMaterialEntityId || entity?.entityByObjectEntityId?.materialEntityByMaterialEntityId;
   if (material) {
     const id = entity?.entityByObjectEntityId?.entityId || entity?.entityBySubjectEntityId?.entityId;
+    
     content = <div css={PropTable}>
       {entity.objectEntityIri && <div css={KeyValue}>
         <div>External IRI</div>
@@ -165,7 +168,7 @@ function Relationship({ entity, isSubject, ...props }) {
       </div>}
       <div css={KeyValue}>
         <div>ID</div>
-        <div><a css={css`color: var(--linkColor);`} href={`/?path=/story/entities-wip-specimen-page--example&knob-Choose%20Direction=ltr&knob-Choose%20Theme=Light&knob-Choose%20locale=en-DK&knob-specimenUUID=${id}`}>{id}</a></div>
+        <div><a css={css`color: var(--linkColor);`} href={`/?cat=${id}`}>{id}</a></div>
       </div>
       <div css={KeyValue}>
         <div>Type</div>
@@ -181,7 +184,7 @@ function Relationship({ entity, isSubject, ...props }) {
       </div>
       <div css={KeyValue}>
         <div>catalogNumber</div>
-        <div><HyperText inline text={material.catalogNumber} /></div>
+        <div>{material.catalogNumber}</div>
       </div>
       <div css={KeyValue}>
         <div>associatedSequences</div>

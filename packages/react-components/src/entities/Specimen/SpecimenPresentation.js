@@ -49,11 +49,21 @@ export function SpecimenPresentation({
 
   if (loading || !data) return <PageLoader />
 
-  const specimen = {
-    name: 'Stub'
-  };
+  const collectionInfo = {
+    institution: {
+      code: data?.specimen?.catalogItem?.collection?.institutionCode ?? data?.specimen?.catalogItem?.institutionCode,
+      name: data?.specimen?.catalogItem?.collection?.institutionName,
+      key: data?.specimen?.catalogItem?.collection?.institutionKey,
+    },
+    collection: {
+      code: data?.specimen?.catalogItem?.collection?.code ?? data?.specimen?.catalogItem?.collectionCode,
+      name: data?.specimen?.catalogItem?.collection?.name,
+      key: data?.specimen?.catalogItem?.collection?.key,
+    }
+  }
   return <>
-    {/* <DataHeader
+    <DataHeader
+      disableCategory
       searchType="occurrenceSearch"
       messageId="catalogues.occurrences"
       // right={<>
@@ -65,17 +75,16 @@ export function SpecimenPresentation({
       >
       {data?.specimen?.catalogItem && <div style={{ padding: '10px' }}>
         <Classification>
-          <span>{data.specimen.catalogItem.institutionCode}</span>
-          <span>{data.specimen.catalogItem.collectionCode}</span>
+          <span>{collectionInfo.institution.name ?? collectionInfo.institution.code}</span>
+          <span>{collectionInfo.collection.name ?? collectionInfo.collection.code}</span>
         </Classification>
       </div>}
-    </DataHeader> */}
+    </DataHeader>
     <Header specimen={data.specimen}>
-      <TabList style={{ marginTop: '12px', borderTop: '1px solid #ddd' }}>
+      {/* <TabList style={{ marginTop: '12px', borderTop: '1px solid #ddd' }}>
         <RouterTab to={url} exact label="Specimen" />
         <RouterTab to={join(url, 'timeline')} label="Timeline" />
-        <RouterTab to={join(url, 'agents')} label="Agents" />
-      </TabList>
+      </TabList> */}
     </Header>
 
     <section>

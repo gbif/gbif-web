@@ -57,10 +57,10 @@ export function ContentWrapper({ children, ...props }) {
   </div>
 }
 
-export function DataHeader({ searchType, messageId, ...props }) {
+export function DataHeader({ searchType, messageId, disableCategory, ...props }) {
   return <UnstyledDataHeader
     style={{ borderBottom: '1px solid #ddd', background: 'white' }}
-    left={<ResourceSearchLink type={searchType} discreet style={{ display: 'flex', alignItems: 'center' }}>
+    left={disableCategory ? null : <ResourceSearchLink type={searchType} discreet style={{ display: 'flex', alignItems: 'center' }}>
       <MdChevronLeft /> <FormattedMessage id={messageId} />
     </ResourceSearchLink>}
     {...props}

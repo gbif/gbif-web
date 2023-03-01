@@ -67,6 +67,15 @@ export function Identifications({
           {specimen?.identifications?.current?.identificationType && <><Term>Nature of ID</Term>
             <Value>{specimen.identifications.current.identificationType}</Value>
           </>}
+          {specimen.identifications.current.dateIdentified && <>
+            <Term>Date</Term>
+            <Value>
+              <FormattedDate value={specimen.identifications.current.dateIdentified}
+                year="numeric"
+                month="long"
+                day="2-digit" />
+            </Value>
+          </>}
         </Properties>
       </div>
     </div>

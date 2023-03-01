@@ -57,7 +57,7 @@ function MediaSummary({ specimen, defaultCollapse, ...props }) {
           <source src={activeMedia.identifier} type={activeMedia.format} />
           Unable to play
         </video>}
-        {activeMedia && activeMedia.isImage && <Image src={activeMedia.media.accessUri} h={450} style={{ maxWidth: '100%', maxHeight: 450, display: 'block', margin: 'auto' }} 
+        {activeMedia && activeMedia.isImage && <Image src={activeMedia.media.accessUri} h={450} style={{ cursor: 'pointer', maxWidth: '100%', maxHeight: 450, display: 'block', margin: 'auto' }} 
           onClick={() => {window.open(`${activeMedia.media.accessUri}`, '_blank');}}/>}
       </div>
       <Accordion

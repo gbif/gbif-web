@@ -31,8 +31,8 @@ export function Material({
             'collectionCode',
             'ownerInstitutionCode',]
             .filter(x => !!specimen.catalogItem[x]).map(x => <Property label={prettifyString(x)} key={x} value={specimen.catalogItem[x]} />)}
-          <Property label="Organism scope" value={specimen?.organism?.organismScope} />
-          <Property label="Organism name" value={specimen?.organism?.name?.entityByMaterialEntityId?.entityName} />
+          {/* <Property label="Organism scope" value={specimen?.organism?.organismScope} />
+          <Property label="Organism name" value={specimen?.organism?.name?.entityByMaterialEntityId?.entityName} /> */}
         </Properties>
       </div>
     </div>

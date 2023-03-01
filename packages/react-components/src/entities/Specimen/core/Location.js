@@ -36,16 +36,33 @@ export function Location({ updateToc, specimen = {}, setActiveImage, ...props })
     'verbatimSrs',];
   const verbatimFields = verbatimFieldsNames.filter(x => !!collectionEvent[x]);
 
+  const zoomInLevel = georeference.coordinateUncertaintyInMeters > 2000 ? 12 : 15;
   return <Card padded={false} {...props}>
     <div css={css`padding: 12px 24px;`}>
       <CardHeader2>Location</CardHeader2>
     </div>
-    {decimalLongitude && <img css={css`
+    {decimalLongitude && <div>
+      <div css={mapThumb}>
+        {georeference.coordinateUncertaintyInMeters > 500 && <div className="gb-location-comment">
+          Uncertainty: {georeference.coordinateUncertaintyInMeters}m
+        </div>}
+        <img src={`https://api.mapbox.com/styles/v1/mapbox/outdoors-v9/static/pin-s-circle+ef6a0a(${decimalLongitude},${decimalLatitude})/${decimalLongitude},${decimalLatitude},6,0/800x300@2x?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA`} />
+        <img className="gb-on-hover"
+          src={`https://api.mapbox.com/styles/v1/mapbox/satellite-v9/static/pin-s-circle+ef6a0a(${decimalLongitude},${decimalLatitude})/${decimalLongitude},${decimalLatitude},${zoomInLevel},0/800x300@2x?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA`}
+        />
+        {/* <div className="gb-capped"></div>
+        <img
+          src={`https://api.mapbox.com/styles/v1/mapbox/satellite-v9/static/pin-s-circle+285A98(${decimalLongitude},${decimalLatitude})/${decimalLongitude},${decimalLatitude},15,0/800x300@2x?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA`}
+        /> */}
+      </div>
+    </div>}
+
+    {/* {decimalLongitude && <img css={css`
         width: calc(100% - 24px);
         border-radius: 12px;
         border: 1px solid #eee;
         margin-left: 12px;
-      `} src={`https://api.mapbox.com/styles/v1/mapbox/light-v9/static/pin-s-circle+285A98(${decimalLongitude},${decimalLatitude})/${decimalLongitude},${decimalLatitude},5,0/800x300@2x?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA`} />}
+      `} src={`https://api.mapbox.com/styles/v1/mapbox/light-v9/static/pin-s-circle+285A98(${decimalLongitude},${decimalLatitude})/${decimalLongitude},${decimalLatitude},5,0/800x300@2x?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA`} />} */}
     <div css={css`padding: 12px 24px;`}>
       <Properties dense css={styles.properties} breakpoint={800}>
         {['eventType',
@@ -196,3 +213,64 @@ function GeologicalContext({ updateToc, occurrence, setActiveImage }) {
     </Properties>
   </Group>
 }
+
+
+const mapThumb = css`
+  position: relative;
+  .gb-on-hover {
+    position: absolute;
+    opacity: .001;
+    transition: opacity 300ms ease;
+  }
+  &:hover {
+    .gb-on-hover {
+      opacity: 1;
+    }
+  }
+
+  .gb-location-comment {
+    position: absolute;
+    z-index: 100;
+    background: #444;
+    color: white;
+    font-size: 12px;
+    padding: 5px; 
+    display: inline-block;
+    margin: 6px;
+    width: auto;
+    border-radius: 4px;
+    border: 1px solid #aaa;
+  }
+  .gb-capped {
+    width: 20%;
+    height: 26%;
+    top: 30%;
+    left: 40%;
+    position: absolute;
+    opacity: .001;
+    transition: opacity 300ms ease;
+    background: tomato;
+    z-index: 100;
+    &:hover {
+      + img {
+        opacity: 1;
+      }
+    }
+     + img {
+      position: absolute;
+      opacity: 0;
+      transition: opacity 300ms ease;
+    }
+  }
+  
+  div, img, a {
+    top: 0;
+    width: 100%;
+    margin-bottom: 12px;
+    display: block;
+  }
+  a {
+    position: absolute;
+    height: 100%;
+  }
+`;
