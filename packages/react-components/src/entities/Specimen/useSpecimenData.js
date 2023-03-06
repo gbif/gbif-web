@@ -89,6 +89,7 @@ export default useSpecimenData;
 // reusable query part for event section
 const eventByOccurrenceId = `
 eventByOccurrenceId {
+  eventId
   eventType
   eventName
   fieldNumber
@@ -501,18 +502,6 @@ query($key: String!) {
       }
     }
   }
-  visualIdentificationBy: allAgentRoles(condition: {agentRoleTargetId: "27b13f41-87f2-46f0-8c8a-93d98412ef82", agentRoleTargetType: IDENTIFICATION}) {
-    nodes {
-      agentRoleAgentName
-      agentRoleAgentId
-    }
-  }
-  dnaIdentificationBy: allAgentRoles(condition: {agentRoleTargetId: "aadb06f5-f746-48fa-8cc2-1c70f4765f15", agentRoleTargetType: IDENTIFICATION}) {
-    nodes {
-      agentRoleAgentName
-      agentRoleAgentId
-    }
-  }
   catalogedItemAssertions: allAssertions(condition: {assertionTargetId: $key}) {
     nodes {
       assertionId
@@ -552,14 +541,16 @@ query($key: String!) {
 function restructure(data) {
   const specimen = {};
   console.log(data);
-  const collectionEvent = get(data, 'specimen.nodes[0].entityByMaterialEntityId.occurrenceEvidencesByEntityId.nodes[0].occurrenceByOccurrenceId.eventByOccurrenceId', {});
+  const collectionEvent = get(data, 'specimen.nodes[0].organism.occurrencesByOrganismId.nodes[0].eventByOccurrenceId') 
+                          ?? get(data, 'specimen.nodes[0].entityByMaterialEntityId.occurrenceEvidencesByEntityId.nodes[0].occurrenceByOccurrenceId.eventByOccurrenceId', {});
+  
 
   // first extract for catalogItem section
   const catalogItemSource = data?.specimen?.nodes?.[0] || {};
 
-  const { associatedReferences, recordNumber, catalogNumber, otherCatalogNumbers, recordedBy, disposition, associatedSequences, preparations, institutionCode, collectionCode, materialEntityType, collectionByCollectionId } = catalogItemSource;
+  const { associatedReferences, recordNumber, catalogNumber, otherCatalogNumbers, recordedBy, disposition, associatedSequences, preparations, institutionCode, collectionCode, materialEntityType, collectionByCollectionId, materialEntityId } = catalogItemSource;
   specimen.catalogItem = {
-    associatedReferences, recordNumber, catalogNumber, otherCatalogNumbers, recordedBy, disposition, associatedSequences, preparations, institutionCode, collectionCode, collectionByCollectionId,
+    associatedReferences, recordNumber, catalogNumber, otherCatalogNumbers, recordedBy, disposition, associatedSequences, preparations, institutionCode, collectionCode, collectionByCollectionId, materialEntityId,
     type: materialEntityType
   }
 
@@ -594,6 +585,7 @@ function restructure(data) {
 
   // LOCATION SECTION
   const event = _.omitBy({
+    eventId: collectionEvent.eventId,
     eventType: collectionEvent.eventType,
     eventName: collectionEvent.eventName,
     fieldNumber: collectionEvent.fieldNumber,
@@ -714,7 +706,7 @@ function restructure(data) {
 
 
   // extract other relationships
-  const discardedRelations = ['IMAGE OF', 'has genetic sequence', 'shown in'];
+  const discardedRelations = ['IMAGE OF', 'SEQUENCE OF', 'has genetic sequence', 'shown in'];
   const relationsWhereMaterialIsSubject = get(data, 'specimen.nodes[0].otherRelationships.relationsWhereMaterialIsSubject.nodes', [])
     .filter(x => !discardedRelations.includes(x.entityRelationshipType));
   const relationsWhereMaterialIsObject = get(data, 'specimen.nodes[0].otherRelationships.relationsWhereMaterialIsObject.nodes', [])

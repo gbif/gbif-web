@@ -146,7 +146,6 @@ export function RelationshipsDump({
 
 function Relationship({ entity, isSubject, ...props }) {
   // const { specimen, data, error, loading } = useSpecimenData({ id });
-  console.log(entity);
   let content = null;
   if (entity.objectEntityIri) {
     content = <div css={PropTable}>
@@ -170,26 +169,26 @@ function Relationship({ entity, isSubject, ...props }) {
         <div>ID</div>
         <div><a css={css`color: var(--linkColor);`} href={`/?cat=${id}`}>{id}</a></div>
       </div>
-      <div css={KeyValue}>
+      {material.materialEntityType && <div css={KeyValue}>
         <div>Type</div>
         <div>{material.materialEntityType}</div>
-      </div>
-      <div css={KeyValue}>
+      </div>}
+      {material.preparations && <div css={KeyValue}>
         <div>preparations</div>
         <div><HyperText inline text={material.preparations} /></div>
-      </div>
-      <div css={KeyValue}>
+      </div>}
+      {material.disposition && <div css={KeyValue}>
         <div>disposition</div>
         <div><HyperText inline text={material.disposition} /></div>
-      </div>
-      <div css={KeyValue}>
+      </div>}
+      {material.catalogNumber && <div css={KeyValue}>
         <div>catalogNumber</div>
         <div>{material.catalogNumber}</div>
-      </div>
-      <div css={KeyValue}>
+      </div>}
+      {material.associatedSequences && <div css={KeyValue}>
         <div>associatedSequences</div>
         <div><HyperText inline text={material.associatedSequences} /></div>
-      </div>
+      </div>}
     </div>
   }
 

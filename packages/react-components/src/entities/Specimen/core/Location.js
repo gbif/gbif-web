@@ -12,18 +12,58 @@ import get from 'lodash/get';
 import { Card, CardHeader2 } from '../../shared';
 import { prettifyString } from '../../../utils/labelMaker/config2labels';
 import _ from 'lodash';
+import useRelatedData from '../useRelatedData';
+import { AssertionTable } from '../Assertions';
+import { GeneralInfo } from './GeneralInfo';
 
 const { Term: T, Value: V } = Properties;
 
-export function Location({ updateToc, specimen = {}, setActiveImage, ...props }) {
+export function Location({ event, setActiveImage, ...props }) {
   const [displayVerbatim, setDisplayVerbatim] = useState(false);
-  const collectionEvent = _.omitBy(get(specimen, 'collectionEvent', {}), _.isNil);
-  const location = _.omitBy(get(specimen, 'collectionEvent.location'), _.isNil);
-  const georeference = _.omitBy(get(specimen, 'collectionEvent.location.georeference', {}), _.isNil);
-
+  if (!event) return null;
+  const collectionEvent = event;
+  const location = _.omitBy(get(event, 'location'), _.isNil);
+  const occurrence = _.omitBy(get(event, 'occurrence'), _.isNil);
+  const georeference = _.omitBy(get(event, 'location.georeference', {}), _.isNil);
   if (_.isEmpty(collectionEvent) && _.isEmpty(location) && _.isEmpty(georeference)) return null;
 
   const { decimalLongitude, decimalLatitude } = georeference;
+
+  const eventFields = [
+    'eventName',
+    'fieldNumber',
+    'eventDate',
+    'habitat',
+    'protocolDescription',
+    'sampleSizeUnit',
+    'sampleSizeValue',
+    'eventEffort',
+    'fieldNotes',
+    'eventRemarks',
+    //'locationId'
+  ];
+  const occurrenceFields = [
+    'organismQuantity',
+    'organismQuantityType',
+    'sex',
+    'lifeStage',
+    'reproductiveCondition',
+    'behavior',
+    'establishmentMeans',
+    'occurrenceStatus',
+    'pathway',
+    'degreeOfEstablishment',
+    'georeferenceVerificationStatus',
+    'occurrenceRemarks',
+    'informationWithheld',
+    'dataGeneralizations',
+    'recordedBy',
+    // 'recordedById',
+    'associatedMedia',
+    'associatedOccurrences',
+    'associatedTaxa',
+    'occurrenceId'
+  ];
 
   const verbatimFieldsNames = ['verbatimEventDate',
     'verbatimLocality',
@@ -33,15 +73,60 @@ export function Location({ updateToc, specimen = {}, setActiveImage, ...props })
     'verbatimLatitude',
     'verbatimLongitude',
     'verbatimCoordinateSystem',
-    'verbatimSrs',];
+    'verbatimSrs',
+  ];
   const verbatimFields = verbatimFieldsNames.filter(x => !!collectionEvent[x]);
+
+  const locationFields = [
+    'higherGeography',
+    'continent',
+    'waterBody',
+    'islandGroup',
+    'island',
+    'countryCode',
+    'stateProvince',
+    'county',
+    'municipality',
+    'locality',
+    'minimumElevationInMeters',
+    'maximumElevationInMeters',
+    'minimumDistanceAboveSurfaceInMeters',
+    'maximumDistanceAboveSurfaceInMeters',
+    'minimumDepthInMeters',
+    'maximumDepthInMeters',
+    'verticalDatum',
+    'locationAccordingTo',
+    'locationRemarks',
+    //'locationId'
+  ];
+  const hasLocation = locationFields.some(x => !!location[x]);
+
+  const georeferenceFields = [
+    //'georeferenceId',
+    'decimalLatitude',
+    'decimalLongitude',
+    'geodeticDatum',
+    'coordinateUncertaintyInMeters',
+    'coordinatePrecision',
+    'pointRadiusSpatialFit',
+    'footprintWkt',
+    'footprintSrs',
+    'footprintSpatialFit',
+    'georeferencedBy',
+    'georeferencedDate',
+    'georeferenceProtocol',
+    'georeferenceSources',
+    'georeferenceRemarks',
+    'preferredSpatialRepresentation'
+  ];
+  const hasGeoreference = georeferenceFields.some(x => !!georeference[x]);
 
   const zoomInLevel = georeference.coordinateUncertaintyInMeters > 2000 ? 12 : 15;
   return <Card padded={false} {...props}>
     <div css={css`padding: 12px 24px;`}>
-      <CardHeader2>Location</CardHeader2>
+      <CardHeader2>{prettifyString(event.eventType)}</CardHeader2>
     </div>
-    {decimalLongitude && <div>
+    {collectionEvent.isFirstLocation && decimalLongitude && <div>
       <div css={mapThumb}>
         {georeference.coordinateUncertaintyInMeters > 500 && <div className="gb-location-comment">
           Uncertainty: {georeference.coordinateUncertaintyInMeters}m
@@ -65,24 +150,22 @@ export function Location({ updateToc, specimen = {}, setActiveImage, ...props })
       `} src={`https://api.mapbox.com/styles/v1/mapbox/light-v9/static/pin-s-circle+285A98(${decimalLongitude},${decimalLatitude})/${decimalLongitude},${decimalLatitude},5,0/800x300@2x?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA`} />} */}
     <div css={css`padding: 12px 24px;`}>
       <Properties dense css={styles.properties} breakpoint={800}>
-        {['eventType',
-          'eventName',
-          'fieldNumber',
-          'eventDate',
-          'habitat',
-          'protocolDescription',
-          'sampleSizeUnit',
-          'sampleSizeValue',
-          'eventEffort',
-          'fieldNotes',
-          'eventRemarks',
-          'locationId']
+        {eventFields
           .filter(x => !!collectionEvent[x]).map(x => <React.Fragment key={x}>
             <T>
               {prettifyString(x)}
             </T>
             <V>
               <HyperText text={collectionEvent[x]} inline />
+            </V>
+          </React.Fragment>)}
+        {occurrenceFields
+          .filter(x => !!occurrence[x]).map(x => <React.Fragment key={x}>
+            <T>
+              {prettifyString(x)}
+            </T>
+            <V>
+              <HyperText text={occurrence[x]} inline />
             </V>
           </React.Fragment>)}
 
@@ -95,71 +178,37 @@ export function Location({ updateToc, specimen = {}, setActiveImage, ...props })
               <HyperText text={collectionEvent[x]} inline />
             </V>
           </React.Fragment>)}
-
-        {['higherGeography',
-          'continent',
-          'waterBody',
-          'islandGroup',
-          'island',
-          'countryCode',
-          'stateProvince',
-          'county',
-          'municipality',
-          'locality',
-          'minimumElevationInMeters',
-          'maximumElevationInMeters',
-          'minimumDistanceAboveSurfaceInMeters',
-          'maximumDistanceAboveSurfaceInMeters',
-          'minimumDepthInMeters',
-          'maximumDepthInMeters',
-          'verticalDatum',
-          'locationAccordingTo',
-          'locationRemarks',]
-          .filter(x => !!location[x]).map(x => <React.Fragment key={x}>
-            <T>
-              {prettifyString(x)}
-            </T>
-            <V>
-              <HyperText text={location[x]} inline />
-            </V>
-          </React.Fragment>)}
-
-        {displayVerbatim && ['verticalDatum']
-          .filter(x => !!location[x]).map(x => <React.Fragment key={x}>
-            <T>
-              {prettifyString(x)}
-            </T>
-            <V>
-              <HyperText text={location[x]} inline />
-            </V>
-          </React.Fragment>)}
-
-        {['decimalLatitude',
-          'decimalLongitude',
-          'geodeticDatum',
-          'coordinateUncertaintyInMeters',
-          'coordinatePrecision',
-          'pointRadiusSpatialFit',
-          'footprintWkt',
-          'footprintSrs',
-          'footprintSpatialFit',
-          'georeferencedBy',
-          'georeferencedDate',
-          'georeferenceProtocol',
-          'georeferenceSources',
-          'georeferenceRemarks',
-          'preferredSpatialRepresentation',]
-          .filter(x => !!georeference[x]).map(x => <React.Fragment key={x}>
-            <T>
-              {prettifyString(x)}
-            </T>
-            <V>
-              <HyperText text={georeference[x]} inline />
-            </V>
-          </React.Fragment>)}
-
       </Properties>
+      {hasLocation && collectionEvent.isFirstLocation && <div css={dataSection}>
+        <h3 css={sectionHeader}>Location</h3>
+        <Properties dense css={styles.properties} breakpoint={800}>
+          {locationFields
+            .filter(x => !!location[x]).map(x => <React.Fragment key={x}>
+              <T>
+                {prettifyString(x)}
+              </T>
+              <V>
+                <HyperText text={location[x]} inline />
+              </V>
+            </React.Fragment>)}
+        </Properties>
+      </div>}
+      {collectionEvent.isFirstLocation && hasGeoreference && <div css={dataSection}>
+        <h3 css={sectionHeader}>Georeference</h3>
+        <Properties dense css={styles.properties} breakpoint={800}>
+          {georeferenceFields
+            .filter(x => !!georeference[x]).map(x => <React.Fragment key={x}>
+              <T>
+                {prettifyString(x)}
+              </T>
+              <V>
+                <HyperText text={georeference[x]} inline />
+              </V>
+            </React.Fragment>)}
+        </Properties>
+      </div>}
     </div>
+    <GeneralInfo id={collectionEvent.eventId} type="OCCURRENCE" />
     {verbatimFields.length > 0 && <div css={styles.cardFooter}>
       <label>
         <Switch checked={displayVerbatim} onChange={() => setDisplayVerbatim(!displayVerbatim)} style={{ marginInlineEnd: 8 }} /> Display verbatim values
@@ -214,6 +263,19 @@ function GeologicalContext({ updateToc, occurrence, setActiveImage }) {
   </Group>
 }
 
+
+const dataSection = css`
+  border-top: 1px solid var(--paperBorderColor);
+  margin-top: 8px;
+`;
+
+const sectionHeader = css`
+  color: var(--color400);
+  font-weight: normal;
+  font-size: 14px;
+  margin: 4px 0 0px 0;
+  text-align: end;
+`;
 
 const mapThumb = css`
   position: relative;

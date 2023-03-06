@@ -30,9 +30,6 @@ export function Identifications({
             <Value>
               <div>{specimen.identifications.current.taxa[0].scientificName}</div>
             </Value>
-            {specimen.identifications.current.taxa[0].scientificName !== specimen.identifications.current.taxa[0].gbif.usage.name && <Value>
-              {specimen.identifications.current.taxa[0].gbif.usage.name} <span css={css`color: #aaa;`}><ReferenceIcon style={{ verticalAlign: 'middle', margin: '0 4' }} /> GBIF</span>
-            </Value>}
           </div>
 
           <Term>Classification</Term>
@@ -45,14 +42,24 @@ export function Identifications({
                   return <span key={rank}>{rankName}</span>
                 })}
               </Classification>
+              &nbsp;
             </Value>
+          </div>
+
+          
+          {specimen.identifications.current.taxa[0].scientificName !== specimen.identifications.current.taxa[0].gbif.usage.name && 
+          <>
+            <Term>Scientific name (GBIF)</Term>
+            <Value>
+              {specimen.identifications.current.taxa[0].gbif.usage.name}
+            </Value>
+            <Term>Classification (GBIF)</Term>
             <Value>
               <Classification css={css`display: inline-block; margin-inline-end: 4px;`}>
                 {specimen.identifications.current.taxa[0].gbif.classification.map(rank => <span key={rank.key}>{rank.name}</span>)}
               </Classification>
-              <span css={css`color: #aaa; display: inline-block;`}><ReferenceIcon style={{ verticalAlign: 'middle' }} /> GBIF</span>
             </Value>
-          </div>
+          </>}
 
           {identifiedBy && <>
             <Term>Identified by</Term>

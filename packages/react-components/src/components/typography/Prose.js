@@ -79,8 +79,8 @@ export const h3 = (theme) => css`
 `;
 
 export const h2 = (theme) => css`
-  font-size: 28px;
-  line-height: 36px;
+  font-size: 24px;
+  line-height: 30px;
   font-family: ${theme.headerFontFamily};
   margin-block-start: 0.83em;
   margin-block-end: 0.83em;

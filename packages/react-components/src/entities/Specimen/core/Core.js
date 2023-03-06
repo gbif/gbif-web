@@ -25,7 +25,9 @@ import { Provenance } from './provenance';
 import { Citations } from './citations';
 import { Organism } from '../Organism';
 import { Insights } from './Insights';
-
+import { RolesCard } from '../Roles';
+import useRelatedData from '../useRelatedData';
+import { Events } from './Events';
 
 const { Term: T, Value: V, EmptyValue } = Properties;
 const Name2Avatar = ListItem.Name2Avatar;
@@ -41,6 +43,7 @@ export function Core({
 }) {
   const hideSideBar = useBelow(10000);
   const [toc, setToc] = useState({});
+  const [generalInfo] = useRelatedData({ id: specimen?.catalogItem?.materialEntityId, type: 'MATERIAL_ENTITY' });
 
   const lat = specimen?.collectionEvent?.location?.georeference?.decimalLatitude;
   const lon = specimen?.collectionEvent?.location?.georeference?.decimalLongitude;
@@ -70,10 +73,10 @@ export function Core({
   // <Citations specimen={specimen} css={cardStyle} />
   // <Provenance specimen={specimen} css={cardStyle} />
   cards.push(<Material specimen={specimen} css={cardStyle} />);
-  
-  if (specimen?.media?.images?.specimen?.length > 0) 
+
+  if (specimen?.media?.images?.specimen?.length > 0)
     cards.push(<Media specimen={specimen} css={cardStyle} defaultCollapse />);
-  if (specimen?.otherRelations?.relationsWhereMaterialIsSubject?.length > 0 || specimen?.otherRelations?.relationsWhereMaterialIsObject?.length > 0) 
+  if (specimen?.otherRelations?.relationsWhereMaterialIsSubject?.length > 0 || specimen?.otherRelations?.relationsWhereMaterialIsObject?.length > 0)
     cards.push(<Relationships specimen={specimen} css={cardStyle} />);
   if (specimen?.identifications?.current)
     cards.push(<Identifications specimen={specimen} css={cardStyle} />);
@@ -122,7 +125,7 @@ export function Core({
 
       {/* <div css={css`flex: 1 1 auto; margin: 0 12px;`}> */}
 
-      <Masonry columnsCount={2} gutter="24px" style={{margin: '0 12px'}}>
+      <Masonry columnsCount={2} gutter="24px" style={{ margin: '0 12px' }}>
 
         {/* <div css={css`display: flex; align-items: center; margin-bottom: 8px;`}>
           <label css={css`margin-inline-end: 8px;`}>
@@ -132,11 +135,13 @@ export function Core({
         </div> */}
         {/* {cards.map(x => x)} */}
         <Material specimen={specimen} css={cardStyle} />
+        <Events specimen={specimen} css={cardStyle} />
         <Media specimen={specimen} css={cardStyle} defaultCollapse />
         <Identifications specimen={specimen} css={cardStyle} />
         <Sequences specimen={specimen} css={cardStyle} />
         <Assertions specimen={specimen} css={cardStyle} />
-        <Location specimen={specimen} css={cardStyle}/>
+        {/* <Location event={specimen?.collectionEvent} css={cardStyle} /> */}
+        <RolesCard roles={generalInfo?.roles} css={cardStyle} />
         <Organism specimen={specimen} css={cardStyle} />
         <Identifiers specimen={specimen} css={cardStyle} />
         <Relationships specimen={specimen} css={cardStyle} />

@@ -12,12 +12,13 @@ const { Term: T, Value: V } = Properties;
 
 export function Sequences({ specimen, updateToc, ...props }) {
   if (!specimen || specimen.sequences.material.length === 0 && specimen.sequences.parts.length === 0 && specimen?.sequences?.external.length === 0) return null;
+  
   return <Card padded={false} {...props}>
     <div css={css`padding: 12px 24px;`}>
       <CardHeader2>Sequences</CardHeader2>
 
       <ul css={css`list-style: none; margin: 0; padding: 0;`}>
-        {specimen.sequences.material.map(seq => <li key={seq.digitalEntityId}>
+        {specimen.sequences.material.map(seq => seq.entityByObjectEntityId.digitalEntityByDigitalEntityId).map(seq => <li key={seq.digitalEntityId}>
           <Sequence sequence={seq} />
         </li>)}
         {specimen.sequences.parts.map(({ material, sequences }) => {

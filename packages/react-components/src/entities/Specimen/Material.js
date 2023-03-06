@@ -7,6 +7,7 @@ import { ImBook as ReferenceIcon } from 'react-icons/im'
 import { MdEdit } from 'react-icons/md';
 import { TbCircleDot } from 'react-icons/tb';
 import { prettifyEnum, prettifyString } from '../../utils/labelMaker/config2labels';
+import { GeneralInfo } from './core/GeneralInfo';
 
 export function Material({
   specimen,
@@ -36,5 +37,7 @@ export function Material({
         </Properties>
       </div>
     </div>
+    {/* <GeneralInfo id={specimen?.catalogItem?.materialEntityId} type="ORGANISM" />
+    <GeneralInfo id={specimen?.catalogItem?.materialEntityId} type="MATERIAL" /> */}
   </Card>
 };

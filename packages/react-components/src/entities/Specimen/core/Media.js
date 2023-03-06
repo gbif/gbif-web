@@ -120,7 +120,7 @@ function MediaSummary({ specimen, defaultCollapse, ...props }) {
                 }
                 key={i} 
                 src={src} 
-                height={100}>
+                height={150}>
                 {x === activeMedia ? <span style={{ background: 'black', color: 'white', padding: '5px 5px 2px 5px' }}>
                   <MdDone />
                 </span> : null}
