@@ -4,6 +4,8 @@ import ThemeContext from "../../../../style/themes/ThemeContext";
 import {DataTable} from "../../../../components";
 import {Skeleton} from "../../../../components";
 import { FormattedMessage } from "react-intl";
+import {useGraphQLContext} from "../../../../dataManagement/api/GraphQLContext";
+
 
 function SitesTableSkeleton() {
       return <div className="grid-container">
@@ -28,15 +30,20 @@ function SitesTableSkeleton() {
     </div>
 }
 
-export const SitesTable = ({ first, prev, next, size, from, results, loading, setSiteIDCallback, showMonth }) => {
+export const SitesTable = ({ query, first, prev, next, size, from, results, loading, setSiteIDCallback, showMonth }) => {
 
   const theme = useContext(ThemeContext);
   const [fixedColumn, setFixed] = useState(true);
   const fixed = fixedColumn;
-  const [siteMatrix, setSiteMatrix] = useState(null);  
-  const [siteData, setSiteData] = useState(null);  
-  const [years, setYears] = useState([]);  
-  const [totalPoints, setTotalPoints] = useState([]);  
+  const [siteMatrix, setSiteMatrix] = useState(null);
+  const [siteData, setSiteData] = useState(null);
+  const [years, setYears] = useState([]);
+  const [totalPoints, setTotalPoints] = useState([]);
+
+  const {details, setQuery} = useGraphQLContext();
+  useEffect(() => {
+    setQuery({ query, size, from });
+  }, [query, size, from]);
 
   Array.range = (start, end) => Array.from({length: (end + 1 - start)}, (v, k) => k + start);
 
@@ -89,14 +96,13 @@ export const SitesTable = ({ first, prev, next, size, from, results, loading, se
 
         // row per site
         year_range.forEach( (year, year_idx) => {
- 
           // get the data for the year
           let yearBreakdown = site.breakdown.filter( breakdown => breakdown.y == year);
           if (yearBreakdown && yearBreakdown.length == 1) {
             if (showMonth) {
               if (yearBreakdown[0].ms) {
-                yearBreakdown[0].ms.forEach(ms_month => 
-                  site_matrix[site_index][year_idx][ms_month.m - 1] = ms_month.c 
+                yearBreakdown[0].ms.forEach(ms_month =>
+                  site_matrix[site_index][year_idx][ms_month.m - 1] = ms_month.c
                 );
               }
             } else {
@@ -132,11 +138,11 @@ export const SitesTable = ({ first, prev, next, size, from, results, loading, se
           <tr css={ styles.sites({ noOfSites: siteMatrix.length, noOfYears: years.length, showMonth: showMonth, theme }) }>
             <td className="grid-container">
               <div className="grid">
-                <div className="legend"> 
+                <div className="legend">
                   <FormattedMessage id="eventDetails.siteTableLegend"/>
                 </div>
                 <div className="header">
-                  <div className="header-grid">  
+                  <div className="header-grid">
                     { years.map(obj => <ul><li key={`y_${obj}`}>{obj}</li></ul>) }
                   </div>                     
                 </div>
@@ -158,10 +164,10 @@ export const SitesTable = ({ first, prev, next, size, from, results, loading, se
 
 export const SitesDataGrid = ({ siteMatrix, siteData, years, setSiteIDCallback, showMonth }) => {
 
-  return <div className="data-grid">              
+  return <div className="data-grid">
   {
-    siteMatrix.map( (siteRow, site_idx) => 
-      siteRow.map( (year_cell, year_idx) => 
+    siteMatrix.map( (siteRow, site_idx) =>
+      siteRow.map( (year_cell, year_idx) =>
         <ul className="year-grid" key={`${site_idx}_${year_idx}`}>
           {   
             year_cell.map( (month_cell, month_idx) =>
@@ -171,12 +177,12 @@ export const SitesDataGrid = ({ siteMatrix, siteData, years, setSiteIDCallback, 
                     data-level={ month_cell > 0 ? '3': '0'}
                     onClick={() => { setSiteIDCallback({locationID: siteData[site_idx].key, year: years[year_idx], month: showMonth ? month_idx + 1 : -1}); }}
                 >
-                  <SitesDataGridTooltip 
+                  <SitesDataGridTooltip
                       key={`${site_idx}_${year_idx}_${month_idx}_tt`}
-                      month_cell={month_cell} 
+                      month_cell={month_cell}
                       month_idx={month_idx}
-                      site_id={siteData[site_idx].key} 
-                      year={years[year_idx]} 
+                      site_id={siteData[site_idx].key}
+                      year={years[year_idx]}
                       showMonth={showMonth} />
                 </li>
             )
@@ -191,9 +197,9 @@ export const SitesDataGrid = ({ siteMatrix, siteData, years, setSiteIDCallback, 
 export const SitesDataGridTooltip = ({ month_cell, month_idx, site_id, year, showMonth }) => {
   if (month_cell > 0 ){
     return <span className="tooltiptext">
-      <FormattedMessage id="eventDetails.siteTooltip" 
+      <FormattedMessage id="eventDetails.siteTooltip"
           values={ {count: month_cell, site: site_id, date: ((showMonth ? ((month_idx + 1) + '/') : '') + year) } }  />
-      </span>;  
+      </span>;
   }
   return null;
 }

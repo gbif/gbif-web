@@ -59,6 +59,7 @@ function PredicateDataFetcher({graphQuery, graph, resultKey, offsetName = 'from'
   return <>
       <Presentation
         {...props}
+        query = {graphQuery}
         error={error}
         loading={loading}
         data={data}
