@@ -10,7 +10,7 @@ export function Measurements({ data }) {
 
     let hasMeasurements = false;
     if (data?.documents?.results?.length > 0
-        && data.documents.results[0]?.measurementOrFacts?.length > 0) {
+        && data?.documents?.results[0]?.measurementOrFacts?.length > 0) {
         hasMeasurements = true;
     }
 
@@ -27,7 +27,7 @@ export function Measurements({ data }) {
     const hasField = (prop) => {
         return flattenResults.filter((mof) => Boolean(mof[`measurement${prop}`])).length > 0;
     };
-    
+
     const extraFields = ['Method', 'Remarks', 'DeterminedDate'].filter((field) => hasField(field));
     const getRows = () => {
         const rows = flattenResults.map(row => {
