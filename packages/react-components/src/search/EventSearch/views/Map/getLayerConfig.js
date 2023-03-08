@@ -1,4 +1,11 @@
 export function getLayerConfig({tileString, theme}) {
+  const brightMapColors = [
+    "#f4ae72",
+    "#fe9176",
+    "#F7642E",
+    "#f03b20",
+    "#bd0026"
+  ];
   return {
     id: "events",
     type: "circle",
@@ -12,15 +19,13 @@ export function getLayerConfig({tileString, theme}) {
       "circle-radius": {
         property: "_count",
         type: "interval",
-        //stops: [[0, 2]]
-        // stops: [[0, 2], [10, 3], [100, 5], [1000, 8], [10000, 12]]
-        stops: [[0, 2], [5, 3], [10, 5], [100, 8], [1000, 12]]
+        stops: [[0, 3.6], [5, 4.8], [10, 6], [100, 9.6], [1000, 14]]
       },
       // color circles by ethnicity, using data-driven styles
       "circle-color": {
         property: "_count",
         type: "interval",
-        stops: [0, 10, 100, 1000, 10000].map((x, i) => [x, theme.mapDensityColors[i]])
+        stops: [0, 10, 100, 1000, 10000].map((x, i) => [x, brightMapColors[i]])
       },
       "circle-opacity": {
         property: "_count",
@@ -32,7 +37,7 @@ export function getLayerConfig({tileString, theme}) {
       "circle-stroke-width": {
         property: "_count",
         type: "interval",
-        stops: [[0, 1], [10, 0]]
+        stops: [[5, 1], [10, 0]]
       }
     }
   };
