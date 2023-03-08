@@ -51,9 +51,9 @@ function SitesSkeleton() {
           <Button look="primaryOutline" css={css`margin-left: 30px; font-size: 11px;`} disabled>
             Show year / month
           </Button>
-      </ResultsHeader>    
+      </ResultsHeader>
 
-      
+
       <div className={`grid-container`}>
         <div className={`grid`}>
           <div className={`legend`}>
@@ -128,8 +128,8 @@ function Sites() {
   useUpdateEffect(() => {
     if (!dialog.visible) {
       setActiveSiteID(null);
-      setActiveYear(null); 
-      setActiveMonth(null);       
+      setActiveYear(null);
+      setActiveMonth(null);
     }
   }, [dialog.visible]);
 
@@ -151,9 +151,9 @@ function Sites() {
   });
 
   const closeSidebar = () => {
-    setActiveSiteID(null); 
-    setActiveYear(null); 
-    setActiveMonth(null); 
+    setActiveSiteID(null);
+    setActiveYear(null);
+    setActiveMonth(null);
     dialog.setVisible(false);
   }
 
@@ -194,6 +194,7 @@ function Sites() {
           </Button>
       </ResultsHeader>
       <SitesTable
+          query={QUERY}
           error={error}
           loading={loading}
           next={next}
@@ -202,6 +203,7 @@ function Sites() {
           from={offset}
           size={limit}
           results={data}
+          total={data?.results?.temporal?.locationID?.cardinality}
           setSiteIDCallback={ setSiteIDCallback }
           showMonth={showMonth}
       />

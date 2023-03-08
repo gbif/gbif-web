@@ -92,7 +92,7 @@ export const defaultContext = {
     url: ({ key }) => `https://bie.ala.org.au/species/${key}`,
     isHref: true,
     route: '/taxon/:key'
-  },
+  }
 };
 
 export default React.createContext(defaultContext);

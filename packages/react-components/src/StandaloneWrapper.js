@@ -11,6 +11,7 @@ import { ApiContext, ApiClient } from './dataManagement/api';
 import RouteContext, { defaultContext } from './dataManagement/RouteContext';
 import SiteContext from './dataManagement/SiteContext';
 import env from '../.env.json';
+import {GraphQLContextProvider} from "./dataManagement/api/GraphQLContext";
 
 const client = new ApiClient({
   gql: {
@@ -49,14 +50,16 @@ function StandaloneWrapper({
   return (
     <SiteContext.Provider value={siteConfig}>
       <ApiContext.Provider value={client}>
-        <LocaleProvider locale={locale} messages={messages}>
-          <ThemeContext.Provider value={theme}>
-            {routes && <RouteContext.Provider value={routeConfig}>
-              {root}
-            </RouteContext.Provider>}
-            {!routes && root}
-          </ThemeContext.Provider>
-        </LocaleProvider>
+        <GraphQLContextProvider value={{}}>
+          <LocaleProvider locale={locale} messages={messages}>
+            <ThemeContext.Provider value={theme}>
+              {routes && <RouteContext.Provider value={routeConfig}>
+                {root}
+              </RouteContext.Provider>}
+              {!routes && root}
+            </ThemeContext.Provider>
+          </LocaleProvider>
+        </GraphQLContextProvider>
       </ApiContext.Provider>
     </SiteContext.Provider>
   );

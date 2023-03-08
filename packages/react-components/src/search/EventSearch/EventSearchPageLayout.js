@@ -1,13 +1,15 @@
 
-import { jsx } from '@emotion/react';
+import {css, jsx} from '@emotion/react';
 import React, { useState, useContext } from 'react';
 import ThemeContext from '../../style/themes/ThemeContext';
-import { withFilter } from '../../widgets/Filter/state';
+import {FilterContext, withFilter} from '../../widgets/Filter/state';
 import { FormattedMessage } from 'react-intl';
 import { cssLayout, cssNavBar, cssViewArea, cssFilter } from './Layout.styles';
-import { Button, Tabs, DataHeader, NavBar, NavItem } from '../../components'
+import { Button, Tabs, DataHeader, NavBar, NavItem, Row, Col } from '../../components'
 import { FilterBar } from '../FilterBar';
 import { useQueryParam, StringParam } from 'use-query-params';
+import GraphQLApiInfo from "./views/Api";
+import SiteContext from "../../dataManagement/SiteContext";
 
 const Layout = ({
   className = '',
@@ -22,6 +24,7 @@ const Layout = ({
 }) => {
   const [activeView = tabs[0] || 'DATASETS', setActiveView] = useQueryParam('view', StringParam);
   const theme = useContext(ThemeContext);
+  const {event: eventConfig} = useContext(SiteContext);
   const prefix = theme.prefix || 'gbif';
   const elementName = 'searchLayout';
 
@@ -34,18 +37,20 @@ const Layout = ({
   }
 
   return <div className={`${className} ${prefix}-${elementName}`}
-    css={cssLayout({ theme })} {...props}>
+    css={cssLayout({ theme }) } {...props}>
     <Tabs activeId={activeView} onChange={setActiveView} >
-      <div css={cssNavBar({ theme })} style={{ margin: '0 0 10px 0', borderRadius: 0 }}>
-        <DataHeader availableCatalogues={config.availableCatalogues} style={{ borderBottom: '1px solid #ddd' }} />
-        <div css={cssFilter({ theme })}>
-          <FilterBar config={config}></FilterBar>
-        </div>
-        {tabs.length > 1 && <div>
-          <NavBar style={{ marginLeft: 10 }}>
+      {tabs.length > 1 &&
+        <div  css={css`display:flex; justify-content: stretch`}>
+          <NavBar style={{ marginLeft: 10, width:"100%"}} >
             {tabs.map(tab => tabComponents[tab])}
           </NavBar>
-        </div>}
+          { eventConfig.enableGraphQLAPI && (activeView === 'DATASETS' || activeView === 'EVENTS' ||activeView === 'SITES') && <GraphQLApiInfo/>}
+      </div>}
+      <div css={cssNavBar({ theme })} style={{ margin: '0 0 10px 0', borderRadius: 0 }}>
+        <DataHeader availableCatalogues={config.availableCatalogues} style={{ borderBottom: '1px solid #ddd' }} />
+        <div css={cssFilter({ theme })} >
+          <FilterBar config={config}></FilterBar>
+        </div>
       </div>
       <div css={cssViewArea({ theme })}>
         {activeView === 'DATASETS' && <List />}

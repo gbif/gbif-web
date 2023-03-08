@@ -10,7 +10,7 @@ module.exports = {
   },
   devtool: 'source-map',
   externals: {
-    'react': 'React', // Case matters here 
+    'react': 'React', // Case matters here
     'react-dom': 'ReactDOM', // Case matters here
   },
   module: {
