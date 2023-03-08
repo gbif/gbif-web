@@ -116,7 +116,7 @@ function Event({ showAll, termMap, event, setActiveEvent, addToSearch }) {
     alert(id);
   }
 
-  const isRootNode = !termMap.eventTypeHierarchy?.value || termMap.eventTypeHierarchy?.value.length < 2;
+  const isRootNode = !termMap?.eventTypeHierarchy?.value || termMap?.eventTypeHierarchy?.value.length < 2;
 
   return <Group label="eventDetails.groups.event">
     <Properties css={css.properties} breakpoint={800}>

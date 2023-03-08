@@ -187,7 +187,7 @@ export const SitesDataGrid = ({ siteMatrix, siteData, years, setSiteIDCallback, 
                 </li>
             )
           }
-        </ul>  
+        </ul>
       )
     )
   }
