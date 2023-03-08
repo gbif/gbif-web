@@ -24,7 +24,7 @@ import { OccurrenceCount, Homepage, FeatureList, Location, GenericFeature, GbifC
 import { DataHeader, HeaderWrapper, ContentWrapper, Headline, DeletedMessage, ErrorMessage, HeaderInfoWrapper, HeaderInfoMain, HeaderInfoEdit } from '../shared/header';
 import { PageError, Page404, PageLoader } from '../shared';
 
-import env from 'Env';
+import env from '../../../.env.json';
 const { TabList, RouterTab, Tab } = Tabs;
 
 export function CollectionPresentation({

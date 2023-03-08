@@ -20,7 +20,7 @@ import { ViewHeader } from '../ViewHeader';
 import MapComponentMB from './MapboxMap';
 import MapComponentOL from './OpenlayersMap';
 import * as css from './map.styles';
-import env from 'Env';
+import env from '../../../../../.env.json';
 import SiteContext from '../../../../dataManagement/SiteContext';
 import { FormattedMessage } from 'react-intl';
 import { getMapStyles } from './standardMapStyles';

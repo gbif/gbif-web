@@ -8,7 +8,7 @@ import { ResultsHeader } from '../../../ResultsHeader';
 import { useDialogState } from "reakit/Dialog";
 import { useUpdateEffect } from "react-use";
 import { EventSidebar } from "../../../../entities/EventSidebar/EventSidebar";
-import env from 'Env';
+import env from '../../../../../.env.json';
 import { FilterContext } from "../../../../widgets/Filter/state";
 import { useGraphQLContext } from "../../../../dataManagement/api/GraphQLContext";
 import {InlineFilterChip} from "../../../../widgets/Filter/utils/FilterChip";

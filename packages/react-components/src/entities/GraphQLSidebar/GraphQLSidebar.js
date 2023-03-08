@@ -7,8 +7,7 @@ import {MdClose, MdContentCopy, MdFileDownloadDone, MdInfo} from "react-icons/md
 import {FilterContext} from "../../widgets/Filter/state";
 import EventContext from "../../search/SearchContext";
 import {filter2predicate} from "../../dataManagement/filterAdapter";
-//import env from "../../../.env.json";
-import env from "Env";
+import env from "../../../.env.json";
 import hash from "object-hash";
 import {useGraphQLContext} from "../../dataManagement/api/GraphQLContext";
 import QueryDetails from "./QueryDetails";

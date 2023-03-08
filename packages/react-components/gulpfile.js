@@ -2,7 +2,7 @@ const { src, dest, parallel } = require('gulp');
 const replace = require('gulp-replace');
 const gulpif = require('gulp-if');
 const md5File = require('md5-file');
-const env = require('Env');
+const env = require('./.env.json');
 
 // we don't really care to index our storybook
 function noIndex() {

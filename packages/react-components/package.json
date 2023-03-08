@@ -10,12 +10,14 @@
     "default": "./build/cjs/index.cjs"
   },
   "scripts": {
-    "build": "npx webpack --mode=production",
-    "build:test": "npx webpack --mode=development",
+    "build": "path-exists .env.production.json && shx cp .env.production.json .env.json && echo \"Using .env.production.json\";  npx webpack --mode=production",
+    "build:test": "path-exists .env.development.json && shx cp .env.development.json .env.json && echo \"Build with .env.development.json \";  npx webpack --mode=development",
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve-translations": "npx serve locales/dist/ -p 5002 --cors",
     "watch-translations": "npx nodemon locales/build.js -w locales/ -i locales/dist/",
-    "start": "cross-env NODE_ENV=development node locales/build.js; start-storybook -p 6006;",
+
+    "prestart": "echo \"This app requires node 16.13.1 \nCurrent version is \" ; node -v",
+    "start": "path-exists .env.development.json && shx cp .env.development.json .env.json && echo \"Running with .env.development.json\"; node locales/build.js; start-storybook -p 6006;",
     "build-storybook": "npm run build-locales; build-storybook -o ./dist",
     "build-client": "npm run build-locales; npm run build-storybook; npm run build; npx gulp; npx gzipper compress --brotli --include js,css,html,txt,json,map ./dist",
     "build-locales": "node locales/build",
@@ -93,6 +95,7 @@
     "regenerator-runtime": "^0.13.7",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
-    "cross-env": "7.0.3"
+    "path-exists-cli": "^2.0.0",
+    "shx": "^0.3.4"
   }
 }

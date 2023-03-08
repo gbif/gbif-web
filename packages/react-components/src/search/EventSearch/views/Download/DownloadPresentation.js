@@ -4,7 +4,7 @@ import SiteContext from '../../../../dataManagement/SiteContext'
 import { useDialogState } from "reakit/Dialog";
 import * as styles from './downloadPresentation.styles';
 import {Button, Popover, Progress, Skeleton} from '../../../../components';
-import env from 'Env';
+import env from '../../../../../.env.json';
 import {FilterContext} from "../../../../widgets/Filter/state";
 import {filter2predicate} from "../../../../dataManagement/filterAdapter";
 import {FormattedNumber} from "react-intl";

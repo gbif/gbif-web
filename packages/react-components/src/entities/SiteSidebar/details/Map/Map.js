@@ -1,6 +1,6 @@
 import React, {Component, useContext, useEffect, useRef, useState} from "react";
 import mapboxgl from 'mapbox-gl';
-import env from 'Env';
+import env from '../../../../../.env.json';
 import * as css from './map.styles';
 import ThemeContext from "../../../../style/themes/ThemeContext";
 import Wkt from 'wicket'

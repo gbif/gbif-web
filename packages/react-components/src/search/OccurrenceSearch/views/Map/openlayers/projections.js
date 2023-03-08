@@ -1,5 +1,5 @@
 import proj4 from 'proj4';
-import env from 'Env';
+import env from '../../../../../../.env.json';
 import queryString from 'query-string';
 import { basemaps } from './basemaps';
 import createBasicBaseMapStyle from './styles/basicBaseMap';

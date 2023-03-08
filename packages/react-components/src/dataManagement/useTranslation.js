@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import axios from './api/axios';
-import env from 'Env';
+import env from '../../.env.json';
 import en from '../../locales/dist/en.json'; 
 
 const localeMappingPromise = axios.get(`${env.TRANSLATIONS}/translations.json`);

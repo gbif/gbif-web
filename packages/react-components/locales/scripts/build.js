@@ -7,11 +7,11 @@ const localeMaps = require('./localeMaps');
 const fs = require('fs');
 const _ = require('lodash');
 const hash = require('object-hash');
-
+const env = require('../../.env.json');
 
 module.exports = build;
 
-function build(locales, env) {
+function build(locales) {
   const targetDirectory = path.normalize(__dirname + '/../dist/');
   ensureDirectoryExistence(targetDirectory + 'translation.json');
 
