@@ -7,6 +7,7 @@ export const cssNavBar = ({theme, isActive}) => css`
   flex: 0 0 auto;
   margin: 10px;
   border-radius: ${theme.borderRadius}px;
+  overflow: auto;
 `;
 
 export const cssViewArea = ({theme}) => css`
@@ -44,6 +45,7 @@ export const cssFilter = ({theme}) => css`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  
 `;
 
 export const cssViews = ({theme}) => css`

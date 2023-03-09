@@ -14,6 +14,7 @@ import env from '../.env.json';
 import RouteContext from '../src/dataManagement/RouteContext';
 import SiteContext from '../src/dataManagement/SiteContext';
 import { siteConfig } from './siteConfig';
+import {GraphQLContextProvider} from "../src/dataManagement/api/GraphQLContext";
 
 const availableLocales = env.LOCALES || ['en-developer'];
 const locales = availableLocales.map(x => {
@@ -73,36 +74,38 @@ addDecorator(storyFn => {
     <div>
       <SiteContext.Provider value={siteConfig}>
         <ApiContext.Provider value={client}>
-          <LocaleProvider
-            locale={chooseLocale(
-              select(
-                'Choose locale',
-                locales,
-                env.STORYBOOK_LOCALE || locales[0],
-              ),
-            )}>
-            <ThemeContext.Provider
-              value={chooseTheme(
+          <GraphQLContextProvider value={{}}>
+            <LocaleProvider
+              locale={chooseLocale(
                 select(
-                  'Choose Theme',
-                  ['Dark', 'Light', 'A11y', 'Vertnet', 'RTL', 'GBIF', 'ALA', 'Custom'],
-                  'Light',
-                ),
-              )}
-            >
-              <Root id="application" appRoot style={{ padding: 0 }} dir={chooseRtl(
-                select(
-                  'Choose Direction',
-                  ['ltr', 'rtl'],
-                  'ltr',
+                  'Choose locale',
+                  locales,
+                  env.STORYBOOK_LOCALE || locales[0],
                 ),
               )}>
-                <RouteContext.Provider value={siteConfig.routeConfig}>
-                  {storyFn()}
-                </RouteContext.Provider>
-              </Root>
-            </ThemeContext.Provider>
-          </LocaleProvider>
+              <ThemeContext.Provider
+                value={chooseTheme(
+                  select(
+                    'Choose Theme',
+                    ['Dark', 'Light', 'A11y', 'Vertnet', 'RTL', 'GBIF', 'ALA', 'Custom'],
+                    'Light',
+                  ),
+                )}
+              >
+                <Root id="application" appRoot style={{ padding: 0 }} dir={chooseRtl(
+                  select(
+                    'Choose Direction',
+                    ['ltr', 'rtl'],
+                    'ltr',
+                  ),
+                )}>
+                  <RouteContext.Provider value={siteConfig.routeConfig}>
+                    {storyFn()}
+                  </RouteContext.Provider>
+                </Root>
+              </ThemeContext.Provider>
+            </LocaleProvider>
+          </GraphQLContextProvider>
         </ApiContext.Provider>
       </SiteContext.Provider>
     </div>

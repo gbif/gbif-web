@@ -10,6 +10,7 @@ import { useUpdateEffect } from "react-use";
 import { EventSidebar } from "../../../../entities/EventSidebar/EventSidebar";
 import env from '../../../../../.env.json';
 import { FilterContext } from "../../../../widgets/Filter/state";
+import { useGraphQLContext } from "../../../../dataManagement/api/GraphQLContext";
 import {InlineFilterChip} from "../../../../widgets/Filter/utils/FilterChip";
 
 const fallbackTableConfig = {
@@ -26,8 +27,7 @@ function isEmpty(e) {
   return e === null || typeof e === 'undefined' || (Array.isArray(e) && e.length === 0);
 }
 
-
-export const EventsTable = ({ first, prev, next, size, from, results, total, loading, defaultTableConfig = fallbackTableConfig, hideLock }) => {
+export const EventsTable = ({ query, first, prev, next, size, from, results, total, loading, defaultTableConfig = fallbackTableConfig, hideLock }) => {
   const currentFilterContext = useContext(FilterContext);
   const { filters, tableConfig = defaultTableConfig, labelMap } = useContext(SearchContext);
   const [fixedColumn, setFixed] = useState(true && !hideLock);
@@ -42,6 +42,11 @@ export const EventsTable = ({ first, prev, next, size, from, results, total, loa
 
   // current result set
   const items = results || [];
+
+  const {details, setQuery} = useGraphQLContext();
+  useEffect(() => {
+    setQuery({ query, size, from });
+  }, [query, size, from]);
 
   useEffect(() => {
     if (activeEventID && activeDatasetKey) {
