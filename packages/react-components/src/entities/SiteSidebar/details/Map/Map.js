@@ -15,12 +15,13 @@ export default function Map({latitude, longitude, wkt}) {
   const [lng, setLng] = useState(longitude);
   const [lat, setLat] = useState(latitude);
   const [zoom, setZoom] = useState(9);
+  const mapStyle = theme.darkTheme ? 'dark-v9' : 'light-v9';
 
   useEffect(() => {
     if (map.current) return; // initialize map only once
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/dark-v9',
+      style: `mapbox://styles/mapbox/${mapStyle}`,
       center: [lng, lat],
       zoom: zoom
     });
