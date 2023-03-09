@@ -86,8 +86,8 @@
     };
   </script>
 
-  <!-- empty file -->
-
+  <!-- Events config file -->
+  <script type="text/javascript" src="config.js"></script>
   <!-- EVENT EXAMPLE -->
   <script
           src="https://cdnjs.cloudflare.com/ajax/libs/react/16.14.0/umd/react.production.min.js"
@@ -187,7 +187,7 @@
             >
           </button>
           <a
-                  href="https://auth.ala.org.au/cas/login?service=https://collections.ala.org.au/public/showDataResource/dr14140"
+                  href="https://auth.ala.org.au/cas/login?service=https://events.ala.org.au"
                   role="button"
                   class="account-mobile hidden-md hidden-lg loginBtn mobile-login-btn"
                   title="Login button"
@@ -223,7 +223,6 @@
             </svg>
           </a>
           <a
-                  href="https://collections.ala.org.au/logout/logout"
                   role="button"
                   class="account-mobile hidden-md hidden-lg logoutBtn mobile-logout-btn"
                   title="Logout"
@@ -272,17 +271,8 @@
                     role="button"
             >Profile</a
             >
-            <a
-                    href="https://auth.ala.org.au/cas/login?service=https://collections.ala.org.au/public/showDataResource/dr14140"
-                    class="btn btn-primary btn-sm loginBtn"
-            >Login</a
-            >
-            <a
-                    href="https://collections.ala.org.au/logout/logout"
-                    class="btn btn-outline-white btn-sm logoutBtn"
-                    role="button"
-            >Logout</a
-            >
+            <a href="https://auth.ala.org.au/cas/login" class="btn btn-primary btn-sm loginBtn" >Login</a>
+            <a class="btn btn-outline-white btn-sm logoutBtn" role="button" >Logout</a>
           </div>
         </div>
         <div class="main-nav-wrapper">
@@ -906,71 +896,136 @@
 <div class="container-fluid" id="main" style="padding: 0">
   <div id="root"></div>
   <script>
-    // Auth client stuff
+    let authServer =  'https://auth.ala.org.au/cas/oidc';
+    let authClientID = 'events-oidc-auth-prod'
+    let baseUrl = 'https://events.ala.org.au/'
+    let collectionsServer =  'https://collections.ala.org.au'
+
+    if (typeof config != "undefined") {
+      authServer = config?.authServer || authServer;
+      authClientID = config?.authClientID || authClientID
+      baseUrl = config?.baseUrl || baseUrl
+      collectionsServer = config?.collectionsServer || collectionsServer
+    } else {
+      console.warn("config.js is not found! Using default configurations....");
+    }
+    // Auth client related
     const authManager = new oidc.UserManager({
-      client_id: 'events-test-oidc-auth-prod',
-      authority: 'https://auth.ala.org.au/cas/oidc',
-      redirect_uri:
-              'https://events-test.ala.org.au/?view=DOWNLOAD',
-      userStore: new oidc.WebStorageStateStore({ store: localStorage })
+      client_id: authClientID,
+      authority: authServer,
+      userStore: new oidc.WebStorageStateStore({ store: localStorage }),
+      //The uri must comply with CAS and Api GW audience setting.
+      redirect_uri: baseUrl,
+      scope: 'oidc profile email'
+    });
+
+    // Redirect to the previous page after login
+    authManager.events.addUserLoaded(function (loadedUser) {
+      const redirectInfo = localStorage.getItem("redirectUri")
+      if (redirectInfo) {
+        const {search} = window.location;
+        localStorage.removeItem("redirectUri")
+        const redirectDetail = JSON.parse(redirectInfo)
+        const now = new Date()
+        // compare the expiry time of the item with the current time
+        if (now.getTime() < redirectDetail.expiry) {
+          if (redirectDetail?.url) {
+            let destUrl = new URL(redirectDetail?.url);
+            //Add authentication code, If we've been redirected from successful authentication
+            if (search.includes('code=') && search.includes('state=')) {
+              const srcParams = new URLSearchParams(window.location.search);
+              destUrl.searchParams.append('code', srcParams.get('code'));
+              destUrl.searchParams.append('state', srcParams.get('state'));
+            }
+            window.location.replace(destUrl);
+          }
+        }
+      }
+    });
+
+    authManager.events.addUserUnloaded(function () {
+      const redirectInfo = localStorage.getItem("redirectUri")
+      if (redirectInfo) {
+        localStorage.removeItem("redirectUri")
+        const redirectDetail = JSON.parse(redirectInfo)
+        const now = new Date()
+        // compare the expiry time of the item with the current time
+        if (now.getTime() < redirectDetail.expiry) {
+          if (redirectDetail?.url) {
+            let destUrl = new URL(redirectDetail?.url);
+            window.location.replace(destUrl);
+          }
+        }
+      }
     });
 
     // Hacky fix for ALA header authentication
     async function handleDOMAuth() {
-      const loginBtn = document.querySelector('.account > .loginBtn');
-      const logoutBtn = document.querySelector('.account > .logoutBtn');
-      const signUpBtn = document.querySelector('.account > .signUpBtn');
-      const myProfileBtn = document.querySelector('.account > .myProfileBtn');
+      const loginBtn = $('.account > .loginBtn');
+      const logoutBtn = $('.account > .logoutBtn');
+      const signUpBtn = $('.account > .signUpBtn');
+      const myProfileBtn = $('.account > .myProfileBtn');
 
       if ((await authManager.getUser()) !== null) {
-        loginBtn.style.display = 'none';
-        logoutBtn.style.display = 'inline-block';
-        signUpBtn.style.display = 'none';
-        myProfileBtn.style.display = 'inline-block';
+        loginBtn.hide();
+        logoutBtn.css('display', 'inline-block');
+        signUpBtn.hide();
+        myProfileBtn.css('display', 'inline-block');
       }
 
-      loginBtn.addEventListener('click', (e) => {
+      loginBtn.on('click',function(e){
         e.preventDefault();
-        authManager.signinRedirect({ redirect_uri: location.href });
+        storeRedirectUri();
+        authManager.signinRedirect();
       });
 
-      logoutBtn.addEventListener('click', (e) => {
+      logoutBtn.on('click', function(e){
         e.preventDefault();
+        storeRedirectUri();
         authManager.signoutRedirect();
       });
+    };
+
+    function storeRedirectUri() {
+      const now = new Date()
+      const redirectUri = {
+        url: window.location.href,
+        expiry: now.getTime() + 300000,
+      }
+      localStorage.setItem("redirectUri", JSON.stringify(redirectUri))
     }
 
-    // Auth initialization code
-    (async () => {
-      await handleDOMAuth();
+    $( document ).ready(function() {
+            // Auth initialization code
+         (async () => {
+              await handleDOMAuth();
+              const { search } = window.location;
+              // If we've been redirected from successful authentication
+              if (search.includes('code=') && search.includes('state=')) {
+                const params = new URLSearchParams(window.location.search);
 
-      const { search } = window.location;
+                // Attempt to retrieve an access token
+                try {
+                  const user = await authManager.signinRedirectCallback();
+                  await authManager.storeUser(user);
+                  await handleDOMAuth();
+                } catch (error) {
+                  console.log(error);
+                }
 
-      // If we've been redirected from successful authentication
-      if (search.includes('code=') && search.includes('state=')) {
-        const params = new URLSearchParams(window.location.search);
-
-        // Attempt to retrieve an access token
-        try {
-          const user = await authManager.signinRedirectCallback();
-          await authManager.storeUser(user);
-          await handleDOMAuth();
-        } catch (error) {
-          console.log(error);
-        }
-
-        // Replace the URL to one without the auth query params
-        params.delete('code');
-        params.delete('state');
-        window.history.replaceState(
-                null,
-                '',
-                `${window.location.origin}${
-                        window.location.pathname
-                }?${params.toString()}`
-        );
-      }
-    })();
+                // Replace the URL to one without the auth query params
+                params.delete('code');
+                params.delete('state');
+                window.history.replaceState(
+                        null,
+                        '',
+                        `${window.location.origin}${
+                                window.location.pathname
+                        }?${params.toString()}`
+                );
+             }
+      })();
+    });
 
     var widgetLocale = 'en';
 
@@ -1000,13 +1055,13 @@
       },
       eventKey: {
         url: ({ key, otherIds }) =>
-                `https://collections-test.ala.org.au/public/showDataResource/${otherIds.datasetKey}`,
+                collectionsServer+`/public/showDataResource/${otherIds.datasetKey}`,
         isHref: true,
         route: '/event/:key',
       },
       datasetKey: {
         url: ({ key, gbifOrgLocalePrefix }) =>
-                `https://collections-test.ala.org.au/public/showDataResource/${key}`,
+                collectionsServer+`/public/showDataResource/${key}`,
         isHref: true,
         route: '/dataset/:key',
       },
@@ -1018,6 +1073,8 @@
       routes: routes,
       locale: widgetLocale,
       event: {
+        enableGraphQLAPI: true,
+        enableResetFilter: true,
         labels: {
           taxonKey: {
             type: 'ENDPOINT',
@@ -1034,7 +1091,15 @@
         },
       },
       auth: {
-        signIn: () => authManager.signinRedirect({ redirect_uri: location.href }),
+        signIn: () => {
+          const now = new Date()
+          const redirectUri = {
+            url: window.location.href,
+            expiry: now.getTime() + 300000,
+          }
+          localStorage.setItem("redirectUri", JSON.stringify(redirectUri))
+          authManager.signinRedirect()
+        },
         signOut: () => authManager.signoutRedirect(),
         getUser: async () => await authManager.getUser(),
       },
@@ -1096,17 +1161,8 @@
                     role="button"
             >My profile</a
             >
-            <a
-                    href="https://auth.ala.org.au/cas/login?service=https://collections.ala.org.au/public/showDataResource/dr14140"
-                    class="btn btn-primary btn-sm loginBtn"
-            >Login</a
-            >
-            <a
-                    href="https://collections.ala.org.au/logout/logout"
-                    class="btn btn-outline-white btn-sm logoutBtn"
-                    role="button"
-            >Logout</a
-            >
+            <a class="btn btn-primary btn-sm loginBtn">Login</a>
+            <a class="btn btn-outline-white btn-sm logoutBtn" role="button">Logout</a>
             <ul class="social">
               <li>
                 <a

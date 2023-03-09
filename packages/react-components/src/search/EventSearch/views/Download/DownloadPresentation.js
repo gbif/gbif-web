@@ -189,6 +189,16 @@ export function DownloadForm ({  hide, dataset, user }) {
     predicateNotEmpty = true;
   }
 
+  const validateEmail = (email) => {
+    if (!email) {
+      return false;
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+      return false;
+    }
+    return true;
+  }
+
+
   async function startFullDownload() {
     if (user) {
       window.location.href = dataset.archive.url;
@@ -202,25 +212,38 @@ export function DownloadForm ({  hide, dataset, user }) {
     const signIn = siteContext.auth?.signIn;
 
     if (user) {
-      // remove OIDC code
-      const searchUrl = new URL(window.location.href)
-      searchUrl.searchParams.delete('code')
-      // validate the predicate - is there any filters set ?
-      let download = {
-        "datasetId": dataset.key,
-        "creator": user.profile.sub,
-        "notificationAddresses": [user.profile.sub],
-        "predicate": predicate,
-        "eventQueryUrl": searchUrl.toString()
-      }
+       const email = user.profile?.email;
+       if (validateEmail(email)) {
+         // remove OIDC code
+         const searchUrl = new URL(window.location.href)
+         searchUrl.searchParams.delete('code')
+         // validate the predicate - is there any filters set ?
+         let download = {
+           "datasetId": dataset.key,
+           "creator": user.profile.email,
+           "notificationAddresses": [user.profile.email],
+           "predicate": predicate,
+           "eventQueryUrl": searchUrl.toString()
+         }
 
-      let request = new XMLHttpRequest();
-      request.open('POST', env.DOWNLOADS_API_URL + '/event/download', true);
-      request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-      request.setRequestHeader('Authorization', 'Bearer ' + user.access_token);
-      request.send(JSON.stringify(download));
+         const response = await fetch(env.DOWNLOADS_API_URL + '/event/download', {
+           method: 'POST',
+           mode: 'cors',
+           headers: {
+             'Content-Type': 'application/json; charset=UTF-8',
+             'Authorization': `Bearer ${user.access_token}`
+           },
+           body: JSON.stringify(download)
+         })
 
-      return {success: true}
+         if (response.ok) {
+           return {success: true}
+         } else {
+           return {success: false, status: "Access API gateway denied!", error: response.status}
+         }
+       } else {
+         return {success: false, status: 400, error: `Invalid creator: ${email}`}
+       }
 
     } else if (signIn) {
       signIn();
@@ -256,14 +279,17 @@ export function DownloadForm ({  hide, dataset, user }) {
             setDownloadStatusDetailed("Your download has started")
           } else {
             setDownloadSuccess(false);
-            setDownloadStatus("There was a problem !")
-            setDownloadStatusDetailed("Your download has not started.")
+            setDownloadStatus(`There was a problem (${result.status}), your download has not started. !`)
+            if (result.status == 401) {
+              setDownloadStatusDetailed("Authentication failed, please sign in again!");
+            } else if (result.status == 400 ) {
+              setDownloadStatusDetailed(`Error: ${result.error}`);
+            }
           }
         });
   })
 
   return <div style={{ padding: "15px 30px 30px 30px" }}>
-
       {fullDownloadStarted &&
         <PostFullDownloadForm hide={hide} downloadStatus={downloadStatus} downloadStatusDetailed={downloadStatusDetailed} />
       }
