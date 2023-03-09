@@ -28,38 +28,40 @@ export function Identifications({
           <Term>Scientific name</Term>
           <div>
             <Value>
-              <div>{specimen.identifications.current.taxa[0].scientificName}</div>
+              <div>{specimen?.identifications?.current?.taxa?.[0]?.scientificName ?? <Unknown />}</div>
             </Value>
           </div>
 
-          <Term>Classification</Term>
-          <div>
-            <Value>
-              <Classification>
-                {['kingdom', 'phylum', 'class', 'order', 'family', 'genus'].map(rank => {
-                  const rankName = specimen.identifications.current.taxa[0]?.[rank];
-                  if (!rankName) return null;
-                  return <span key={rank}>{rankName}</span>
-                })}
-              </Classification>
-              &nbsp;
-            </Value>
-          </div>
-
-          
-          {specimen.identifications.current.taxa[0].scientificName !== specimen.identifications.current.taxa[0].gbif.usage.name && 
-          <>
-            <Term>Scientific name (GBIF)</Term>
-            <Value>
-              {specimen.identifications.current.taxa[0].gbif.usage.name}
-            </Value>
-            <Term>Classification (GBIF)</Term>
-            <Value>
-              <Classification css={css`display: inline-block; margin-inline-end: 4px;`}>
-                {specimen.identifications.current.taxa[0].gbif.classification.map(rank => <span key={rank.key}>{rank.name}</span>)}
-              </Classification>
-            </Value>
+          {specimen?.identifications?.current?.taxa?.[0]?.scientificName && <>
+            <Term>Classification</Term>
+            <div>
+              <Value>
+                <Classification>
+                  {['kingdom', 'phylum', 'class', 'order', 'family', 'genus'].map(rank => {
+                    const rankName = specimen?.identifications?.current?.taxa?.[0]?.[rank];
+                    if (!rankName) return null;
+                    return <span key={rank}>{rankName}</span>
+                  })}
+                </Classification>
+                &nbsp;
+              </Value>
+            </div>
           </>}
+
+
+          {specimen?.identifications?.current?.taxa?.[0]?.scientificName !== specimen.identifications.current?.taxa?.[0]?.gbif?.usage?.name &&
+            <>
+              <Term>Scientific name (GBIF)</Term>
+              <Value>
+                {specimen.identifications.current.taxa[0].gbif.usage.name}
+              </Value>
+              <Term>Classification (GBIF)</Term>
+              <Value>
+                <Classification css={css`display: inline-block; margin-inline-end: 4px;`}>
+                  {specimen.identifications.current.taxa[0].gbif.classification.map(rank => <span key={rank.key}>{rank.name}</span>)}
+                </Classification>
+              </Value>
+            </>}
 
           {identifiedBy && <>
             <Term>Identified by</Term>
@@ -70,6 +72,13 @@ export function Identifications({
             <Term>Remarks</Term>
             <Value>{specimen.identifications.current.identificationRemarks}</Value>
           </>}
+
+          {specimen?.identifications?.current?.verbatimIdentification && <>
+            <Term>Verbatim identification</Term>
+            <Value>{specimen.identifications.current.verbatimIdentification}</Value>
+          </>}
+
+
 
           {specimen?.identifications?.current?.identificationType && <><Term>Nature of ID</Term>
             <Value>{specimen.identifications.current.identificationType}</Value>
@@ -189,4 +198,8 @@ function Identification({ identification, ...props }) {
       </Classification>
     </Property>}
   </Properties>
+}
+
+function Unknown() {
+  return <span style={{ color: '#aaa' }}>Not provided</span>
 }

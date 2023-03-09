@@ -17,8 +17,19 @@ export function Sequences({ specimen, updateToc, ...props }) {
     <div css={css`padding: 12px 24px;`}>
       <CardHeader2>Sequences</CardHeader2>
 
-      <ul css={css`list-style: none; margin: 0; padding: 0;`}>
-        {specimen.sequences.material.map(seq => seq.entityByObjectEntityId.digitalEntityByDigitalEntityId).map(seq => <li key={seq.digitalEntityId}>
+      <ul css={css`
+        list-style: none; 
+        margin: 0; 
+        padding: 0;
+        > li {
+          border-bottom: 1px solid #eee;
+          padding-bottom: 12px;
+          &:last-of-type {
+            border-bottom: none;
+          }
+        }
+      `}>
+        {specimen.sequences.material.map(seq => seq.entityBySubjectEntityId.digitalEntityByDigitalEntityId).map(seq => <li key={seq.digitalEntityId}>
           <Sequence sequence={seq} />
         </li>)}
         {specimen.sequences.parts.map(({ material, sequences }) => {

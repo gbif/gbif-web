@@ -167,7 +167,7 @@ function Relationship({ entity, isSubject, ...props }) {
       </div>}
       <div css={KeyValue}>
         <div>ID</div>
-        <div><a css={css`color: var(--linkColor);`} href={`/?cat=${id}`}>{id}</a></div>
+        <div><a css={css`color: var(--linkColor);`} href={`/?entityId=${id}`}>{id}</a></div>
       </div>
       {material.materialEntityType && <div css={KeyValue}>
         <div>Type</div>

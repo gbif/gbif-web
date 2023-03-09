@@ -62,7 +62,7 @@ export function Location({ event, setActiveImage, ...props }) {
     'associatedMedia',
     'associatedOccurrences',
     'associatedTaxa',
-    'occurrenceId'
+    // 'occurrenceId'
   ];
 
   const verbatimFieldsNames = ['verbatimEventDate',

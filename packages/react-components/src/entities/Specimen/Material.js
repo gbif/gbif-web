@@ -19,21 +19,25 @@ export function Material({
       <CardHeader2>Catalogue item <span style={{display: 'none', marginLeft: 12, color: '#ddd'}}>{prettifyEnum(specimen.catalogItem.type)}</span></CardHeader2>
       <div css={css`margin-top: 12px;`}>
         <Properties dense>
-          {['associatedSequences',
-            'preparations',
+          {['preparations',
             'catalogNumber',
             'otherCatalogNumbers',
             'recordedBy',
             'recordedById',
             'disposition',
             'recordNumber',
-            'associatedReferences',
             'institutionCode',
             'collectionCode',
             'ownerInstitutionCode',]
             .filter(x => !!specimen.catalogItem[x]).map(x => <Property label={prettifyString(x)} key={x} value={specimen.catalogItem[x]} />)}
           {/* <Property label="Organism scope" value={specimen?.organism?.organismScope} />
           <Property label="Organism name" value={specimen?.organism?.name?.entityByMaterialEntityId?.entityName} /> */}
+          {specimen?.catalogItem?.associatedSequences && <Property label="Associated sequences">
+            {specimen?.catalogItem?.associatedSequences.split('|').map(x => <HyperText key={x} inline text={x} style={{marginBottom: 8}} />)}
+          </Property>}
+          {specimen?.catalogItem?.associatedReferences && <Property label="Associated references">
+            {specimen?.catalogItem?.associatedReferences.split('|').map(x => <HyperText key={x} inline text={x} style={{marginBottom: 8}} />)}
+          </Property>}
         </Properties>
       </div>
     </div>

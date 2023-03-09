@@ -355,10 +355,10 @@ query($key: String!) {
 				} 
     	}
       sequences: entityByMaterialEntityId {
-        entityRelationshipsBySubjectEntityId(condition: {entityRelationshipType: "SEQUENCE OF"}) {
+        entityRelationshipsByObjectEntityId(condition: {entityRelationshipType: "SEQUENCE OF"}) {
           nodes {
             entityRelationshipType
-            entityByObjectEntityId {
+            entityBySubjectEntityId {
               digitalEntityByDigitalEntityId {
                 digitalEntityId
                 digitalEntityType
@@ -405,10 +405,10 @@ query($key: String!) {
                 catalogNumber
                 preparations
               }
-              sequences: entityRelationshipsBySubjectEntityId(condition: {entityRelationshipType: "SEQUENCE OF"}) {
+              sequences: entityRelationshipsByObjectEntityId(condition: {entityRelationshipType: "SEQUENCE OF"}) {
                 nodes {
                   entityRelationshipType
-                  entityByObjectEntityId {
+                  entityBySubjectEntityId {
                     digitalEntityByDigitalEntityId {
                       digitalEntityId
                       digitalEntityType
@@ -675,12 +675,12 @@ function restructure(data) {
   specimen.assertions = get(data, 'catalogedItemAssertions.nodes', []);
 
   // SEQUENCES
-  const sequences = get(data, 'specimen.nodes[0].sequences.entityRelationshipsBySubjectEntityId.nodes', []);
+  const sequences = get(data, 'specimen.nodes[0].sequences.entityRelationshipsByObjectEntityId.nodes', []);
   const partSequences = get(data, 'specimen.nodes[0].sequencedParts.are.here', []).map(x => {
     const o = x.entityBySubjectEntityId;
     return {
       material: o.materialEntityByMaterialEntityId,
-      sequences: o.sequences.nodes.map(s => s.entityByObjectEntityId.digitalEntityByDigitalEntityId)
+      sequences: o.sequences.nodes.map(s => s.entityBySubjectEntityId.digitalEntityByDigitalEntityId)
     }
   }).filter(x => x.sequences.length > 0);
   const externalSequences = get(data, 'specimen.nodes[0].externalSequences.entityRelationshipsBySubjectEntityId.nodes', []).map(x => {
