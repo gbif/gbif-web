@@ -6,7 +6,16 @@ import { useQuery } from '../../dataManagement/api';
 import { Intro } from './details/Intro';
 import { DistinctTaxa } from './taxa/DistinctTaxa';
 import { Header } from './Header';
-import { MdClose, MdInfo, MdImage } from "react-icons/md";
+import {
+  MdClose,
+  MdInfo,
+  MdImage,
+  MdWarning,
+  MdWarningAmber,
+  MdErrorOutline,
+  MdOutlineWifiTetheringErrorRounded, MdError, MdOutlineWarningAmber
+} from "react-icons/md";
+import {Group} from "./details/Groups";
 
 const { TabList, Tab, TapSeperator } = Tabs;
 const { TabPanel } = Tabs;
@@ -26,6 +35,10 @@ export function EventSidebar({
   const { data, error, loading, load } = useQuery(EVENT, { lazyLoad: true });
   const [activeId, setTab] = useState( 'details');
   const theme = useContext(ThemeContext);
+
+  function showError() {
+    setTab("error");
+  }
 
   useEffect(() => {
     if (typeof eventID !== 'undefined') {
@@ -54,10 +67,15 @@ export function EventSidebar({
           <Tab tabId="details" direction="left">
             <MdInfo />
           </Tab>
-          {data?.event?.distinctTaxa?.length > 0 && (
+          {data?.event?.distinctTaxa?.filter(Boolean).length > 0 && (
             <Tab tabId="distinctTaxa" direction="left">
               <MdImage />
             </Tab>
+          )}
+          {error && (
+              <Tab tabId="error" direction="left">
+                <MdOutlineWarningAmber color="red"  />
+              </Tab>
           )}
         </TabList>
       </Col>
@@ -67,7 +85,7 @@ export function EventSidebar({
         </Col>}
         {!isLoading &&
             <>
-              <Header data={data} error={error} />
+              <Header data={data} error={error} showError={showError}/>
               <TabPanel tabId='details'>
                 <Intro
                     data={data}
@@ -78,9 +96,22 @@ export function EventSidebar({
                     addEventTypeToSearch={addEventTypeToSearch}
                 />
               </TabPanel>
-              <TabPanel tabId='distinctTaxa'>
-                <DistinctTaxa data={data} loading={loading} error={error} />
-              </TabPanel>
+              {data?.event?.distinctTaxa?.filter(Boolean).length > 0 && (
+                  <TabPanel tabId='distinctTaxa'>
+                    < DistinctTaxa data={data} loading={loading} error={error} />
+                  </TabPanel>
+              )}
+              {error && (
+                  <TabPanel tabId='error'>
+                    {error && (
+                        <Group label="Errors" defaultOpen={true}>
+                          <div>
+                            <pre>{JSON.stringify(error,undefined,2)}</pre>
+                          </div>
+                        </Group>
+                    )}
+                  </TabPanel>
+              )}
             </>
         }
       </Col>
