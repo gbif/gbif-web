@@ -55,6 +55,11 @@ query($key: String!, $type: CommonTargets) {
       assertionProtocol
       assertionRemarks
       assertionByAgentName
+      agentByAssertionByAgentId {
+        nodeId
+        agentId
+        preferredAgentName
+      }
     }
   }
   allIdentifiers(condition: {identifierTargetId: $key}) {

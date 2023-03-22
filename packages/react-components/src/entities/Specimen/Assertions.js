@@ -30,7 +30,7 @@ export function AssertionTable({
   const hasProtocol = assertions.some(x => x.assertionProtocol);
   // const hasUnits = assertions.some(x => x.assertionUnit);
   const hasRemarks = assertions.some(x => x.assertionRemarks);
-  const hasAgent = assertions.some(x => x.assertionByAgentName);
+  const hasAgent = assertions.some(x => x.assertionByAgentName || x.agentByAssertionByAgentId);
   const hasDate = assertions.some(x => x.assertionMadeDate);
 
   return <div>
@@ -70,7 +70,7 @@ export function AssertionTable({
             {/* {hasUnits && <Td>{x.assertionUnit}</Td>} */}
             {hasProtocol && <Td>{x.assertionProtocol}</Td>}
             {hasRemarks && <Td><HyperText text={x.assertionRemarks} inline /></Td>}
-            {hasAgent && <Td>{x.assertionByAgentName}</Td>}
+            {hasAgent && <Td>{x.assertionByAgentName ?? x.agentByAssertionByAgentId.preferredAgentName}</Td>}
             {hasDate && <Td>{x.assertionMadeDate}</Td>}
           </tr>
         })}

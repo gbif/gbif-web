@@ -17,14 +17,14 @@ export function Identifications({
 }) {
   const [showHistory, setHistoryState] = useState(false);
   if (!specimen?.identifications?.current) return null;
-  const identifiedBy = specimen?.identifications?.current?.identifiedBy;
   const hasIdentificationHistory = specimen.identifications.history.length > 1;
 
   return <Card padded={false} {...props}>
     <div css={css`padding: 12px 24px;`}>
       <CardHeader2>Identification</CardHeader2>
       <div css={css`margin-top: 12px;`}>
-        <Properties dense>
+        <Identification2 identification={specimen.identifications.current} />
+        {/* <Properties dense>
           <Term>Scientific name</Term>
           <div>
             <Value>
@@ -92,7 +92,7 @@ export function Identifications({
                 day="2-digit" />
             </Value>
           </>}
-        </Properties>
+        </Properties> */}
       </div>
     </div>
     {hasIdentificationHistory && showHistory && <div css={css`padding: 12px 24px; background: var(--paperBackground800); border-top: 1px solid var(--paperBorderColor);`}>
@@ -109,60 +109,11 @@ export function Identifications({
             </div>
             <div css={css`flex: 1 1 auto;`}>
               <Card padded={false} css={css`padding: 12px;`}>
-                <Identification identification={identification} />
+                <Identification2 identification={identification} dense horizontal={false}/>
               </Card>
             </div>
           </li>
         })}
-
-
-        {/* 
-        ITEM WITH SOURCE LISTED ABOVE
-        <li css={css`display: flex;`}>
-          <div css={css`flex: 0 0 auto; margin-inline-end: 24px; color: var(--color400); margin-top: 1em;`}>
-            24 June 2019
-          </div>
-          <div css={css`flex: 1 1 auto;`}>
-            <Card padded={false}>
-              <div css={css`padding: 8px 12px; border-bottom: 1px solid var(--paperBorderColor); display: flex; align-items: center;`}>
-                <Properties dense css={css`flex: 1 1 auto;`}>
-                  <Term>Source</Term>
-                  <Value>Plazi</Value>
-                </Properties>
-                <div css={css`flex: 0 0 auto;`}>
-                  <div css={css`padding: 3px; background: #ffd41e; box-shadow: 0 1px 2px rgba(0,0,0,.05); border-radius: var(--borderRadiusPx);`}>
-                    <TbCircleDot css={css`font-size: 18px; vertical-align: middle;`} />
-                  </div>
-                </div>
-              </div>
-              <div css={css`padding: 12px;`}>
-                <Properties dense>
-                  <Term>Scientific name</Term>
-                  <Value>Netta</Value>
-
-                  <Term>Identified by</Term>
-                  <Value>John R. Demboski</Value>
-
-                  <Term>Nature of ID</Term>
-                  <Value>Molecular</Value>
-
-                  <Term>Classification</Term>
-                  <Value>
-                    <Classification>
-                      <span>Animalia</span>
-                      <span>Chordata</span>
-                      <span>Mam.</span>
-                      <span>Sciuro.</span>
-                      <span>Tamias</span>
-                    </Classification>
-                  </Value>
-                </Properties>
-              </div>
-            </Card>
-          </div>
-        </li> */}
-
-
       </ul>
     </div>}
 
@@ -179,7 +130,7 @@ export function Identifications({
 function Identification({ identification, ...props }) {
   return <Properties dense horizontal={false}>
     <Property label="Scientific name">
-      {identification.taxa[0].scientificName}
+      {identification?.taxa?.[0]?.scientificName ?? <Unknown />}
     </Property>
 
     {identification.identifiedBy && <Property label="Identified by">
@@ -188,10 +139,10 @@ function Identification({ identification, ...props }) {
 
     <Property label="Nature of ID" value={identification.identificationType} />
 
-    {identification.taxa[0].genus && <Property label="Classification">
+    {identification?.taxa?.[0]?.genus && <Property label="Classification">
       <Classification>
         {['kingdom', 'phylum', 'class', 'order', 'family', 'genus'].map(rank => {
-          const rankName = identification.taxa[0]?.[rank];
+          const rankName = identification?.taxa[0]?.[rank];
           if (!rankName) return null;
           return <span key={rank}>{rankName}</span>
         })}
@@ -202,4 +153,79 @@ function Identification({ identification, ...props }) {
 
 function Unknown() {
   return <span style={{ color: '#aaa' }}>Not provided</span>
+}
+
+function Identification2({identification, ...props}) {
+  if (!identification) return <div>Empty identification</div>;
+  const identifiedBy = identification.identifiedBy;
+  
+  return <Properties {...props}>
+  <Term>Scientific name</Term>
+  <div>
+    <Value>
+      <div>{identification.taxa?.[0]?.scientificName ?? <Unknown />}</div>
+    </Value>
+  </div>
+
+  {identification.taxa?.[0]?.scientificName && <>
+    <Term>Classification</Term>
+    <div>
+      <Value>
+        <Classification>
+          {['kingdom', 'phylum', 'class', 'order', 'family', 'genus'].map(rank => {
+            const rankName = identification.taxa?.[0]?.[rank];
+            if (!rankName) return null;
+            return <span key={rank}>{rankName}</span>
+          })}
+        </Classification>
+        &nbsp;
+      </Value>
+    </div>
+  </>}
+
+
+  {identification.taxa?.[0]?.scientificName !== identification.taxa?.[0]?.gbif?.usage?.name &&
+    <>
+      <Term>Scientific name (GBIF)</Term>
+      <Value>
+        {identification.taxa[0].gbif.usage.name}
+      </Value>
+      <Term>Classification (GBIF)</Term>
+      <Value>
+        <Classification css={css`display: inline-block; margin-inline-end: 4px;`}>
+          {identification.taxa[0].gbif.classification.map(rank => <span key={rank.key}>{rank.name}</span>)}
+        </Classification>
+      </Value>
+    </>}
+
+  {identifiedBy && <>
+    <Term>Identified by</Term>
+    <Value>{identification.identifiedBy.join(', ')}</Value>
+  </>}
+
+  {identification.identificationRemarks && <>
+    <Term>Remarks</Term>
+    <Value>{identification.identificationRemarks}</Value>
+  </>}
+
+  {identification.verbatimIdentification && <>
+    <Term>Verbatim identification</Term>
+    <Value>{identification.verbatimIdentification}</Value>
+  </>}
+
+
+
+  {identification.identificationType && <><Term>Nature of ID</Term>
+    <Value>{identification.identificationType}</Value>
+  </>}
+  {identification.dateIdentified && <>
+    <Term>Date</Term>
+    <Value>
+      <FormattedDate value={identification.dateIdentified}
+        year="numeric"
+        month="long"
+        day="2-digit" />
+    </Value>
+  </>}
+</Properties>
 }
