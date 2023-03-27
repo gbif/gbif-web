@@ -59,7 +59,7 @@ const getDoi = (text) => {
   }
 }
 
-export const HyperText = ({ text, inline, sanitizeOptions = { ALLOWED_TAGS: ['a', 'strong', 'em', 'p', 'br'] }, ...props }) => {
+export const HyperText = ({ text, inline, lineClamp, sanitizeOptions = { ALLOWED_TAGS: ['a', 'strong', 'em', 'p', 'br'] }, ...props }) => {
   if (text === false || text === true) {
     return <BooleanValue value={text} {...props} />
   }
@@ -88,5 +88,5 @@ export const HyperText = ({ text, inline, sanitizeOptions = { ALLOWED_TAGS: ['a'
   html = inline ? md.renderInline(html) : md.render(html);
   const sanitized = DOMPurify.sanitize(html, sanitizeOptions);
 
-  return <div css={content({ inline })} dangerouslySetInnerHTML={{ __html: sanitized }} {...props}></div>
+  return <div css={content({ inline, lineClamp })} dangerouslySetInnerHTML={{ __html: sanitized }} {...props}></div>
 }

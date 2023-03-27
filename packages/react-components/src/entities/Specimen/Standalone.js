@@ -20,8 +20,10 @@ function Content(props) {
     { value: 'id.gbif.ch/989939123', label: 'SwissCollNet (example 1)' },
     { value: 'id.gbif.ch/737579597', label: 'SwissCollNet (example 2)' },
     { value: 'id.gbif.ch/2062472674', label: 'SwissCollNet (example 3)' },
+    { value: 'https://arctos.database.museum/guid/MSB:Host:20914', label: 'Arctos (Gyraulus parvus)' },
+    { value: 'https://arctos.database.museum/guid/MSB:Para:19028', label: 'Arctos (Apicomplexa)' },
   ];
-  const [entityId = 'B 10 0059081', setEntityId] = useQueryParam('entityId', StringParam);
+  const [entityId = 'https://arctos.database.museum/guid/MSB:Host:20914', setEntityId] = useQueryParam('entityId', StringParam);
 
   return <div style={{ padding: 12, }}>
     <div style={{ marginBottom: 12, display: 'flex' }}>

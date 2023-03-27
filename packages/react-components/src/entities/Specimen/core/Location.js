@@ -202,7 +202,7 @@ export function Location({ event, setActiveImage, ...props }) {
                 {prettifyString(x)}
               </T>
               <V>
-                <HyperText text={georeference[x]} inline />
+                <HyperText text={georeference[x]} inline lineClamp={5} />
               </V>
             </React.Fragment>)}
         </Properties>

@@ -8,10 +8,20 @@ import useEventData from './useEventData';
 import { prettifyString } from '../../../utils/labelMaker/config2labels';
 import { Location } from './Location';
 
-export function Events({ specimen, ...props }) {
+export function Events({
+  specimen,
+  setSection,
+  name = 'events',
+  ...props
+}) {
   const [events, error, loading] = useEventData({ eventId: specimen?.collectionEvent?.eventId });
+  if (loading || !events) return null;
 
-  if (!events || events?.length === 0) return null;
+  if (events?.length === 0) {
+    setSection(name, false);
+    return null;
+  }
+  setSection(name, true);
 
   const eventItems = events.map(event => <Event event={event} />);
   return <div>

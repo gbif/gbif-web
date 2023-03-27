@@ -6,9 +6,16 @@ import { Card, CardHeader2 } from '../shared';
 
 export function RolesCard({
   roles,
+  setSection,
+  name = 'roles',
   ...props
 }) {
-  if (!roles || roles?.length === 0) return null;
+  if (!roles) return null;
+  if (roles?.length === 0) {
+    setSection(name, false);
+    return null;
+  }
+  setSection(name, true);
   return <Card padded={false} {...props}>
     <div css={css`padding: 12px 24px;`}>
       <CardHeader2>Roles</CardHeader2>

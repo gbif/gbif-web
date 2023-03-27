@@ -11,10 +11,17 @@ import { GeneralInfo } from './core/GeneralInfo';
 
 export function Material({
   specimen,
+  setSection,
+  name = 'material',
   ...props
 }) {
-  if (!specimen) return null;
-  return <Card padded={false} {...props}>
+  if (!specimen) {
+    setSection(name, false);
+    return null;
+  }
+  setSection(name, true);
+
+  return <Card padded={false} {...props} id={name}>
     <div css={css`padding: 12px 24px;`}>
       <CardHeader2>Catalogue item <span style={{display: 'none', marginLeft: 12, color: '#ddd'}}>{prettifyEnum(specimen.catalogItem.type)}</span></CardHeader2>
       <div css={css`margin-top: 12px;`}>

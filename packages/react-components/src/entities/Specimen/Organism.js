@@ -10,24 +10,30 @@ import { prettifyEnum, prettifyString } from '../../utils/labelMaker/config2labe
 
 export function Organism({
   specimen,
+  setSection,
+  name = 'organism',
   ...props
 }) {
   const organism = specimen?.organism;
-  if (!organism) return null;
+  if (!organism) {
+    setSection(name, false);
+    return null;
+  }
+  setSection(name, true);
 
   const occurrenceCount = organism?.occurrencesByOrganismId?.totalCount ?? 0;
   const scope = organism?.organismScope;
-  const name = organism?.name?.entityByMaterialEntityId?.entityName;
+  const organismName = organism?.name?.entityByMaterialEntityId?.entityName;
 
   
-  if (!scope && !name && occurrenceCount < 2) return null;
+  if (!scope && !organismName && occurrenceCount < 2) return null;
 
   return <Card padded={false} {...props}>
     <div css={css`padding: 12px 24px;`}>
       <CardHeader2>Organism</CardHeader2>
       <div css={css`margin-top: 12px;`}>
         <Properties dense>
-          {name && <Property label="Name" value={name} />}
+          {organismName && <Property label="Name" value={organismName} />}
           {scope && <Property label="Scope" value={scope} />}
           {occurrenceCount > 1 && <Property label="Observations" value={occurrenceCount} />}
         </Properties>

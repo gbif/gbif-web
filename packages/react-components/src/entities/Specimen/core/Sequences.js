@@ -10,8 +10,12 @@ import { Card, CardHeader2 } from '../../shared';
 import { prettifyString } from '../../../utils/labelMaker/config2labels';
 const { Term: T, Value: V } = Properties;
 
-export function Sequences({ specimen, updateToc, ...props }) {
-  if (!specimen || specimen.sequences.material.length === 0 && specimen.sequences.parts.length === 0 && specimen?.sequences?.external.length === 0) return null;
+export function Sequences({ specimen, updateToc, setSection, name = 'sequences', ...props }) {
+  if (!specimen || specimen.sequences.material.length === 0 && specimen.sequences.parts.length === 0 && specimen?.sequences?.external.length === 0) {
+    setSection(name, false);
+    return null;
+  }
+  setSection(name, true);
   
   return <Card padded={false} {...props}>
     <div css={css`padding: 12px 24px;`}>

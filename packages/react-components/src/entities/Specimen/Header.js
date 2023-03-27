@@ -50,7 +50,7 @@ export function Header({
     item.gadm = gadm;
   }
 
-  const isSequenced = specimen.sequences.material.length > 0 || specimen.sequences.parts.length > 0 || specimen?.catalogItem?.associatedSequences;
+  const isSequenced = specimen.sequences.material.length > 0 || specimen.sequences.parts.length > 0 || specimen?.catalogItem?.associatedSequences || specimen?.sequences?.external.length > 0;
   const currentScientificName = specimen?.identifications?.current?.taxa?.[0]?.scientificName
   
   return <HeaderWrapper>

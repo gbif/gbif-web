@@ -50,39 +50,38 @@ export function Core({
 
   useEffect(() => {
     setToc({});
-  }, []);// make sure it updates in data change
+  }, [specimen]);// make sure it updates in data change
 
-  const addSection = useCallback((section) => {
-    // console.log(toc);
-    // if (!toc[section]) {
-    //   const newToc = {...toc, [section]: true};
-    //   debugger;
-    //   setToc(newToc)
-    // }
-  }, []);
+  const setSection = useCallback((section, show = true) => {
+    if (typeof toc[section] === 'undefined' || toc[section] !== show) {
+      const newToc = { ...toc, [section]: show };
+      //setToc(newToc)
+    }
+  }, [toc, setToc]);
 
-  // test to see if section should be rendered
-  const cards = [];
-  // <Material specimen={specimen} css={cardStyle} />
-  // <Media updateToc={addSection} specimen={specimen} css={cardStyle} defaultCollapse />
-  // <Identifications specimen={specimen} css={cardStyle} />
-  // <Sequences updateToc={addSection} specimen={specimen} css={cardStyle} />
-  // <Assertions specimen={specimen} css={cardStyle} />
-  // <Location updateToc={addSection} specimen={specimen} css={cardStyle}/>
-  // <Identifiers specimen={specimen} css={cardStyle} />
-  // <Citations specimen={specimen} css={cardStyle} />
-  // <Provenance specimen={specimen} css={cardStyle} />
-  cards.push(<Material specimen={specimen} css={cardStyle} />);
+  if (!specimen) return null;
 
-  if (specimen?.media?.images?.specimen?.length > 0)
-    cards.push(<Media specimen={specimen} css={cardStyle} defaultCollapse />);
-  if (specimen?.otherRelations?.relationsWhereMaterialIsSubject?.length > 0 || specimen?.otherRelations?.relationsWhereMaterialIsObject?.length > 0)
-    cards.push(<Relationships specimen={specimen} css={cardStyle} />);
-  if (specimen?.identifications?.current)
-    cards.push(<Identifications specimen={specimen} css={cardStyle} />);
+  function show(section) {
+    return true;
+    if (toc[section] || toc[section] === undefined) return true;
+  }
 
-
-
+  const sections = {
+    material: <Material specimen={specimen} css={cardStyle} setSection={setSection} name="material" />,
+    events: <Events specimen={specimen} css={cardStyle} setSection={setSection} name="events" />,
+    media: <Media specimen={specimen} css={cardStyle} defaultCollapse setSection={setSection} name="media" />,
+    identifications: <Identifications specimen={specimen} css={cardStyle} setSection={setSection} name="identifications" />,
+    sequences: <Sequences specimen={specimen} css={cardStyle} setSection={setSection} name="sequences" />,
+    assertions: <Assertions specimen={specimen} css={cardStyle} setSection={setSection} name="assertions" />,
+    roles: <RolesCard roles={generalInfo?.roles} css={cardStyle} setSection={setSection} name="roles" />,
+    organism: <Organism specimen={specimen} css={cardStyle} setSection={setSection} name="organism" />,
+    identifiers: <Identifiers specimen={specimen} css={cardStyle} setSection={setSection} name="identifiers" />,
+    relationships: <Relationships specimen={specimen} css={cardStyle} setSection={setSection} name="relationships" />,
+    citations: <Citations specimen={specimen} css={cardStyle} setSection={setSection} name="citations" />,
+  }
+  const content = Object.keys(sections)
+    .filter(section => show(section))
+    .map(section => sections[section]);
   return <div>
 
     <div css={css`padding-bottom: 100px; display: flex; margin: 0 -12px;`}>
@@ -134,20 +133,21 @@ export function Core({
           <MdHelp />
         </div> */}
         {/* {cards.map(x => x)} */}
-        <Material specimen={specimen} css={cardStyle} />
-        <Events specimen={specimen} css={cardStyle} />
-        <Media specimen={specimen} css={cardStyle} defaultCollapse />
-        <Identifications specimen={specimen} css={cardStyle} />
-        <Sequences specimen={specimen} css={cardStyle} />
-        <Assertions specimen={specimen} css={cardStyle} />
-        {/* <Location event={specimen?.collectionEvent} css={cardStyle} /> */}
-        <RolesCard roles={generalInfo?.roles} css={cardStyle} />
-        <Organism specimen={specimen} css={cardStyle} />
-        <Identifiers specimen={specimen} css={cardStyle} />
-        <Relationships specimen={specimen} css={cardStyle} />
-        <Insights specimen={specimen} css={cardStyle} />
-        <Citations specimen={specimen} css={cardStyle} />
-        <Provenance specimen={specimen} css={cardStyle} />
+        {/* {show('material') && <Material specimen={specimen} css={cardStyle} setSection={setSection} />} */}
+        {content}
+        {/* <Material specimen={specimen} css={cardStyle} setSection={setSection} />
+        <Events specimen={specimen} css={cardStyle} setSection={setSection} />
+        <Media specimen={specimen} css={cardStyle} defaultCollapse setSection={setSection} />
+        <Identifications specimen={specimen} css={cardStyle} setSection={setSection} />
+        <Sequences specimen={specimen} css={cardStyle} setSection={setSection} />
+        <Assertions specimen={specimen} css={cardStyle} setSection={setSection} />
+        <RolesCard roles={generalInfo?.roles} css={cardStyle} setSection={setSection} />
+        <Organism specimen={specimen} css={cardStyle} setSection={setSection} />
+        <Identifiers specimen={specimen} css={cardStyle} setSection={setSection} />
+        <Relationships specimen={specimen} css={cardStyle} setSection={setSection} />
+        <Citations specimen={specimen} css={cardStyle} setSection={setSection} /> */}
+        {/* <Insights specimen={specimen} css={cardStyle} /> */}
+        {/* <Provenance specimen={specimen} css={cardStyle} /> */}
 
       </Masonry>
       {/* </div> */}

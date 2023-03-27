@@ -6,14 +6,16 @@ import { Card, CardHeader2 } from '../shared';
 
 export function Assertions({
   specimen,
+  setSection,
+  name = 'assertions',
   ...props
 }) {
-  if (!specimen || specimen.assertions.length === 0) return null;
-  // return <Card padded={false} css={css`margin-bottom: 24px;`} {...props}>
-  //   <div css={css`padding: 12px 24px;`}>
-  //     <CardHeader2 style={{color: '#ddd', fontSize: 18, margin: 0}}>No assertions</CardHeader2>
-  //   </div>
-  // </Card>
+  if (!specimen || specimen.assertions.length === 0) {
+    setSection(name, false);
+    return null;
+  }
+  setSection(name, true);
+
   return <Card padded={false} {...props}>
     <div css={css`padding: 12px 24px;`}>
       <CardHeader2>Assertions</CardHeader2>

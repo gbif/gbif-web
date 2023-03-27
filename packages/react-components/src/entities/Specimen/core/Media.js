@@ -13,10 +13,14 @@ import { Card, CardHeader2 } from '../../shared';
 
 const { Term: T, Value: V } = Properties;
 
-export function Media({ updateToc, specimen, defaultCollapse, ...props }) {
-  if (!specimen) return null;
+export function Media({ updateToc, specimen, defaultCollapse, setSection, name = 'media', ...props }) {
   const images = specimen?.media?.images?.specimen || [];
-  if (images.length === 0) return null;
+  if (!specimen || images.length === 0) {
+    setSection(name, false);
+    return null;
+  }
+  setSection(name, true);
+
   return <Card padded={false} {...props}>
     {/* <div css={css`padding: 12px 24px;`}>
       <CardHeader2>Media</CardHeader2>

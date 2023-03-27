@@ -13,17 +13,24 @@ import * as styles from './styles';
 
 export function Identifications({
   specimen,
+  setSection,
+  name = 'identifications',
   ...props
 }) {
   const [showHistory, setHistoryState] = useState(false);
-  if (!specimen?.identifications?.current) return null;
+  if (!specimen?.identifications?.current) {
+    setSection(name, false);
+    return null;
+  }
+  setSection(name, true);
+
   const hasIdentificationHistory = specimen.identifications.history.length > 1;
 
   return <Card padded={false} {...props}>
     <div css={css`padding: 12px 24px;`}>
       <CardHeader2>Identification</CardHeader2>
       <div css={css`margin-top: 12px;`}>
-        <Identification2 identification={specimen.identifications.current} />
+        <Identification2 dense identification={specimen.identifications.current} />
         {/* <Properties dense>
           <Term>Scientific name</Term>
           <div>
@@ -109,7 +116,7 @@ export function Identifications({
             </div>
             <div css={css`flex: 1 1 auto;`}>
               <Card padded={false} css={css`padding: 12px;`}>
-                <Identification2 identification={identification} dense horizontal={false}/>
+                <Identification2 identification={identification} dense horizontal={false} />
               </Card>
             </div>
           </li>
@@ -155,77 +162,79 @@ function Unknown() {
   return <span style={{ color: '#aaa' }}>Not provided</span>
 }
 
-function Identification2({identification, ...props}) {
+function Identification2({ identification, ...props }) {
   if (!identification) return <div>Empty identification</div>;
   const identifiedBy = identification.identifiedBy;
-  
-  return <Properties {...props}>
-  <Term>Scientific name</Term>
-  <div>
-    <Value>
-      <div>{identification.taxa?.[0]?.scientificName ?? <Unknown />}</div>
-    </Value>
-  </div>
 
-  {identification.taxa?.[0]?.scientificName && <>
-    <Term>Classification</Term>
+  return <Properties {...props}>
+    <Term>Scientific name</Term>
     <div>
       <Value>
-        <Classification>
-          {['kingdom', 'phylum', 'class', 'order', 'family', 'genus'].map(rank => {
-            const rankName = identification.taxa?.[0]?.[rank];
-            if (!rankName) return null;
-            return <span key={rank}>{rankName}</span>
-          })}
-        </Classification>
-        &nbsp;
+        <div>{identification.taxa?.[0]?.scientificName ?? <Unknown />}</div>
       </Value>
     </div>
-  </>}
 
-
-  {identification.taxa?.[0]?.scientificName !== identification.taxa?.[0]?.gbif?.usage?.name &&
-    <>
-      <Term>Scientific name (GBIF)</Term>
-      <Value>
-        {identification.taxa[0].gbif.usage.name}
-      </Value>
-      <Term>Classification (GBIF)</Term>
-      <Value>
-        <Classification css={css`display: inline-block; margin-inline-end: 4px;`}>
-          {identification.taxa[0].gbif.classification.map(rank => <span key={rank.key}>{rank.name}</span>)}
-        </Classification>
-      </Value>
+    {identification.taxa?.[0]?.scientificName && <>
+      <Term>Classification</Term>
+      <div>
+        <Value>
+          <Classification>
+            {['kingdom', 'phylum', 'class', 'order', 'family', 'genus'].map(rank => {
+              const rankName = identification.taxa?.[0]?.[rank];
+              if (!rankName) return null;
+              return <span key={rank}>{rankName}</span>
+            })}
+          </Classification>
+          &nbsp;
+        </Value>
+      </div>
     </>}
 
-  {identifiedBy && <>
-    <Term>Identified by</Term>
-    <Value>{identification.identifiedBy.join(', ')}</Value>
-  </>}
 
-  {identification.identificationRemarks && <>
-    <Term>Remarks</Term>
-    <Value>{identification.identificationRemarks}</Value>
-  </>}
+    {identification.taxa?.[0]?.scientificName !== identification.taxa?.[0]?.gbif?.usage?.name &&
+      <>
+        <Term>Scientific name (GBIF)</Term>
+        <Value>
+          {identification.taxa[0].gbif?.usage?.name ?? 'Unknown'}
+        </Value>
+        {identification.taxa[0].gbif?.usage?.name && <>
+          <Term>Classification (GBIF)</Term>
+          <Value>
+            <Classification css={css`display: inline-block; margin-inline-end: 4px;`}>
+              {identification.taxa[0].gbif.classification.map(rank => <span key={rank.key}>{rank.name}</span>)}
+            </Classification>
+          </Value>
+        </>}
+      </>}
 
-  {identification.verbatimIdentification && <>
-    <Term>Verbatim identification</Term>
-    <Value>{identification.verbatimIdentification}</Value>
-  </>}
+    {identifiedBy && <>
+      <Term>Identified by</Term>
+      <Value>{identification.identifiedBy.join(', ')}</Value>
+    </>}
+
+    {identification.identificationRemarks && <>
+      <Term>Remarks</Term>
+      <Value>{identification.identificationRemarks}</Value>
+    </>}
+
+    {identification.verbatimIdentification && <>
+      <Term>Verbatim identification</Term>
+      <Value>{identification.verbatimIdentification}</Value>
+    </>}
 
 
 
-  {identification.identificationType && <><Term>Nature of ID</Term>
-    <Value>{identification.identificationType}</Value>
-  </>}
-  {identification.dateIdentified && <>
-    <Term>Date</Term>
-    <Value>
-      <FormattedDate value={identification.dateIdentified}
-        year="numeric"
-        month="long"
-        day="2-digit" />
-    </Value>
-  </>}
-</Properties>
+    {identification.identificationType && <><Term>Nature of ID</Term>
+      <Value>{identification.identificationType}</Value>
+    </>}
+    {identification.dateIdentified && <>
+      <Term>Date</Term>
+      <Value>
+        <FormattedDate value={identification.dateIdentified}
+          year="numeric"
+          month="long"
+          day="2-digit" />
+      </Value>
+    </>}
+  </Properties>
 }

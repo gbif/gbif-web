@@ -11,10 +11,16 @@ import { FormattedMessage } from 'react-intl';
 
 export function Relationships({
   specimen,
+  setSection,
+  name = 'relationships',
   ...props
 }) {
   if (!specimen?.otherRelations?.relationsWhereMaterialIsSubject?.length &&
-      !specimen?.otherRelations?.relationsWhereMaterialIsObject?.length) return null;
+    !specimen?.otherRelations?.relationsWhereMaterialIsObject?.length) {
+    setSection(name, false);
+    return null;
+  }
+  setSection(name, true);
 
   return <Card padded={false} {...props}>
     <div css={css`padding: 12px 24px;`}>
@@ -26,7 +32,7 @@ export function Relationships({
         {specimen?.otherRelations?.relationsWhereMaterialIsSubject.map((entity) => {
           return <li css={css`display: flex; margin-bottom: 12px;`} key={entity.entityRelationshipId}>
             <Card padded={false} style={{ width: '100%' }}>
-              <Relationship entity={entity} isSubject/>
+              <Relationship entity={entity} isSubject />
             </Card>
           </li>
         })}
@@ -159,7 +165,7 @@ function Relationship({ entity, isSubject, ...props }) {
   const material = entity?.entityBySubjectEntityId?.materialEntityByMaterialEntityId || entity?.entityByObjectEntityId?.materialEntityByMaterialEntityId;
   if (material) {
     const id = entity?.entityByObjectEntityId?.entityId || entity?.entityBySubjectEntityId?.entityId;
-    
+
     content = <div css={PropTable}>
       {entity.objectEntityIri && <div css={KeyValue}>
         <div>External IRI</div>

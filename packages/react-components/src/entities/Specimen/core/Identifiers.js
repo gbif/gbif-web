@@ -6,9 +6,16 @@ import { prettifyString } from '../../../utils/labelMaker/config2labels';
 
 export function Identifiers({
   specimen,
+  setSection,
+  name = 'identifiers',
   ...props
 }) {
-  if (!specimen || !specimen?.identifiers?.length) return null;
+  if (!specimen || !specimen?.identifiers?.length) {
+    setSection(name, false);
+    return null;
+  }
+  setSection(name, true);
+  
   return <Card padded={false} {...props}>
     <div css={css`padding: 12px 24px;`}>
       <CardHeader2>Identifiers</CardHeader2>
