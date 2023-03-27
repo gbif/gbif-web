@@ -102,7 +102,7 @@ export function EventDatasetSidebar({
                           return (
                             <span>
                               {contactName}
-                              {x.electronicMailAddress[0] && (
+                              {x.electronicMailAddress && x.electronicMailAddress[0] && (
                                 <>
                                   &nbsp;
                                   (<a href={`mailto:${x.electronicMailAddress[0]}`}>{x.electronicMailAddress[0]}</a>)

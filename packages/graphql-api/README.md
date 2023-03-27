@@ -139,7 +139,7 @@ So I guess I prefer 1, even though that doesn't appeal to me either. The errors 
 
 Docker images can be built and published to docker hub using the following command
 ```
-docker buildx build . --push --platform linux/amd64,linux/arm64 --tag <DOCKER_HUB_OR_OR_USER>/graphql-api:v0.1
+docker buildx build . --push --platform linux/amd64,linux/arm64 --tag "$DOCKER_HUB_ORG/graphql-api:$(git rev-parse --short HEAD)"
 ```
 
 To run use:

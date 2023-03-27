@@ -54,7 +54,8 @@ export function DistinctTaxa({
           style={{ padding: '12px', paddingBottom: '48px', overflow: 'auto' }}
           grow
         >
-          {event.distinctTaxa.map((taxon) => (
+          {
+            event.distinctTaxa?.filter(Boolean).map((taxon) => (
             <div
               key={taxon.key}
               style={{

@@ -17,6 +17,7 @@ const typeDef = gql`
       nomenclaturalStatus: [NomenclaturalStatus]
       issue: [NameUsageIssue]
       hl: Boolean
+      qField: [TaxonSearchQField]
     ): TaxonSearchResult!
     backboneSearch(
       limit: Int
@@ -30,10 +31,24 @@ const typeDef = gql`
       nameType: [NameType]
       nomenclaturalStatus: [NomenclaturalStatus]
       issue: [NameUsageIssue]
-      hl: Boolean
+      hl: Boolean,
+      qField: [TaxonSearchQField]
     ): TaxonSearchResult!
     taxon(key: ID!): Taxon
     checklistRoots(datasetKey: ID!, limit: Int, offset: Int): TaxonListResult
+
+    """
+    Unstable endpoint! Will return a list of taxon suggestions based on the provided query string. The returned taxonKeys are for the backbone. The datasetKey parameter can be used to restrict the suggestions to a specific checklist, but the results will be matched to the backbone and discarded if there is no match. The limit parameter is indicative only, as the number of results returned may be less than the limit if there are no matches in the backbone or if there is duplicate matches.
+    """
+    taxonSuggestions(
+      limit: Int
+      q: String
+      language: Language
+      preferAccepted: Boolean
+      vernacularNamesOnly: Boolean
+      strictMatching: Boolean
+      datasetKey: ID
+    ): [TaxonSuggestion]!
   }
 
   type TaxonSearchResult {
@@ -102,7 +117,9 @@ const typeDef = gql`
     taxonID: String
     taxonomicStatus: String
     vernacularName: String
+
     wikiData: WikiDataTaxonData
+    backboneTaxon: Taxon
   }
 
   type TaxonBreakdown {
@@ -153,6 +170,23 @@ const typeDef = gql`
       issue: [NameUsageIssue]
       hl: String
     ): TaxonSearchResult!
+  }
+
+  enum TaxonSearchQField {
+    DESCRIPTION
+    VERNACULAR
+    SCIENTIFIC
+  }
+
+  type TaxonSuggestion {
+    key: Int!
+    scientificName: String
+    canonicalName: String
+    rank: Rank
+    classification: [Classification]
+    vernacularName: String
+    taxonomicStatus: TaxonomicStatus
+    acceptedNameOf: String
   }
 `;
 

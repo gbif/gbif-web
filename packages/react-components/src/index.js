@@ -4,6 +4,7 @@
 // export { default as LiteratureSearch } from './search/LiteratureSearch/Standalone';
 // export { default as DatasetSearch } from './search/DatasetSearch/Standalone';
 // export { default as PublisherSearch } from './search/PublisherSearch/Standalone';
+// export { default as EventSearch } from './search/EventSearch/Standalone';
 // export { default as Collection } from './entities/Collection/Standalone';
 // export { default as Institution } from './entities/Institution/Standalone';
 // export { default as Dataset } from './entities/Dataset/Standalone';

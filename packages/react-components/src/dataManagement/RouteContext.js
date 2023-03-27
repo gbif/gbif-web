@@ -126,6 +126,12 @@ export const defaultContext = {
     url: ({ key }) => `https://www.ncbi.nlm.nih.gov/nuccore/?term=${key}`,
     isHref: true,
   },
+  taxonKey: {
+    // url: ({ key }) => `https://gbif.org/species/${key}`,
+    url: ({ key }) => `https://bie.ala.org.au/species/${key}`,
+    isHref: true,
+    route: '/taxon/:key'
+  }
 };
 
 export default React.createContext(defaultContext);
