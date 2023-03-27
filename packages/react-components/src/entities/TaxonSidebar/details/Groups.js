@@ -13,6 +13,8 @@ import Map from '../../SiteSidebar/details/Map/Map';
 const { Term: T, Value: V } = Properties;
 
 export function Groups({ trials, event, showAll }) {
+  if (!event) return null;
+
   let termMap = {};
   Object.entries(event).forEach((item) => {
     termMap[item[0]] = { simpleName: item[0], value: item[1] };

@@ -89,7 +89,7 @@ export function TaxonSidebar({
             <>
               <Header data={{ ...accession, catalogNumber }} error={error} />
               {(() => {
-                const trials = data.results.documents.results.filter(
+                const trials = data?.results?.documents?.results?.filter(
                   ({ eventType }) => eventType.concept === 'Trial'
                 );
                 return (

@@ -146,7 +146,7 @@ export function Trial({ trial, onRelatedClick, ...props }) {
                 ))}
               <T>
                 <FormattedMessage
-                  id='occurrenceFieldsNames.datasetName'
+                  id='occurrenceFieldNames.datasetName'
                   defaultMessage='Dataset name'
                 />
               </T>
