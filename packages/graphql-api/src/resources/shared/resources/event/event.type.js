@@ -106,6 +106,7 @@ export default gql`
     wktConvexHull: String
     temporalCoverage: TemporalCoverage
     distinctTaxa: [DistinctTaxon]!
+    extensions: EventExtensions
   }
 
   type TemporalCoverage {
@@ -152,40 +153,28 @@ export default gql`
   }
 
   type EventFacet {
-    kingdoms(size: Int, include: String): [EventFacetResult_string]
-    phyla(size: Int, include: String): [EventFacetResult_string]
-    classes(size: Int, include: String): [EventFacetResult_string]
-    orders(size: Int, include: String): [EventFacetResult_string]
-    families(size: Int, include: String): [EventFacetResult_string]
-    genera(size: Int, include: String): [EventFacetResult_string]
-    species(size: Int, include: String): [EventFacetResult_string]
-
-    eventHierarchyJoined(size: Int, include: String): [EventFacetResult_string]
-    eventHierarchy(size: Int, include: String): [EventFacetResult_string]
-    eventTypeHierarchyJoined(
-      size: Int
-      include: String
-    ): [EventFacetResult_string]
-    eventTypeHierarchy(size: Int, include: String): [EventFacetResult_string]
-    locality(size: Int, include: String): [EventFacetResult_string]
-    samplingProtocol(size: Int, include: String): [EventFacetResult_string]
-    measurementOrFactTypes(
-      size: Int
-      include: String
-    ): [EventFacetResult_string]
-    stateProvince(size: Int, include: String): [EventFacetResult_string]
-    datasetKey(size: Int, include: String): [EventFacetResult_dataset]
-    measurementOfFactTypes(
-      size: Int
-      include: String
-    ): [EventFacetResult_dataset]
-    locationID(size: Int, from: Int): [EventFacetResult_string]
-
-    year(size: Int, from: Int): [EventFacetResult_float]
-    month(size: Int, from: Int): [EventFacetResult_float]
-
-    eventType(size: Int, include: String): [EventFacetResult_string]
-    scientificNames(size: Int, include: String): [EventFacetResult_string]
+    kingdoms(size: Int, include: String):                 [EventFacetResult_string]
+    phyla(size: Int, include: String):                    [EventFacetResult_string]
+    classes(size: Int, include: String):                  [EventFacetResult_string]
+    orders(size: Int, include: String):                   [EventFacetResult_string]
+    families(size: Int, include: String):                 [EventFacetResult_string]
+    genera(size: Int, include: String):                   [EventFacetResult_string]
+    species(size: Int, include: String):                  [EventFacetResult_string]
+    eventHierarchyJoined(size: Int, include: String):     [EventFacetResult_string]
+    eventHierarchy(size: Int, include: String):           [EventFacetResult_string]
+    eventTypeHierarchyJoined(size: Int, include: String): [EventFacetResult_string]
+    eventTypeHierarchy(size: Int, include: String):       [EventFacetResult_string]
+    locality(size: Int, include: String):                 [EventFacetResult_string]
+    samplingProtocol(size: Int, include: String):         [EventFacetResult_string]
+    measurementOrFactTypes(size: Int, include: String):   [EventFacetResult_string]
+    stateProvince(size: Int, include: String):            [EventFacetResult_string]
+    datasetKey(size: Int, include: String):               [EventFacetResult_dataset]
+    measurementOfFactTypes(size: Int, include: String):   [EventFacetResult_dataset]
+    locationID(size: Int, from: Int):                     [EventFacetResult_string]
+    year(size: Int, from: Int):                           [EventFacetResult_float]
+    month(size: Int, from: Int):                          [EventFacetResult_float]
+    eventType(size: Int, include: String):                [EventFacetResult_string]
+    scientificNames(size: Int, include: String):          [EventFacetResult_string]
   }
 
   type EventCardinality {
@@ -292,7 +281,6 @@ export default gql`
     scientificNames(size: Int, include: String):  [EventOccurrenceFacetResult_string]
     month(size: Int, include: String):            [EventOccurrenceFacetResult_string]
     year(size: Int, include: String):             [EventOccurrenceFacetResult_string]
-
     eventHierarchyJoined(size: Int, include: String):     [EventOccurrenceFacetResult_string]
     eventHierarchy(size: Int, include: String):           [EventOccurrenceFacetResult_string]
     eventTypeHierarchyJoined(size: Int, include: String): [EventOccurrenceFacetResult_string]
@@ -303,5 +291,9 @@ export default gql`
     key: String!
     count: Int!
     _predicate: JSON
+  }
+
+  type EventExtensions {
+    seedbank: SeedBankExtension
   }
 `;
