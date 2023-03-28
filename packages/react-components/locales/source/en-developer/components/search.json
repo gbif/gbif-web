@@ -17,5 +17,6 @@
     "range": "Range or single value",
     "locationID": "Search by location ID (case sensitive)"
   },
-  "loadMore": "More"
+  "loadMore": "More",
+  "filters": "Filters"
 }
