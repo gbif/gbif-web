@@ -66,7 +66,7 @@ export const TrialsGrid = ({
                       trial={trial}
                       onRelatedClick={() => {
                         setActiveCatalog(
-                          trial.occurrences.results[0].catalogNumber
+                          trial.occurrences?.results?.[0].catalogNumber
                         );
                         if (!dialog.visible) dialog.setVisible(true);
                       }}

@@ -34,15 +34,6 @@ query list($predicate: Predicate, $offset: Int, $limit: Int){
         stateProvince
         countryCode
         measurementOrFactTypes
-        occurrences(size: 1) {
-          results {
-            catalogNumber
-            datasetTitle
-            countryCode
-            eventDate
-            locality
-          }
-        }
       }
     }
   }

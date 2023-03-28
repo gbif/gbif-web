@@ -200,7 +200,7 @@ const getRows = ({
       <tr
         key={row.eventID}
         style={{ cursor: 'pointer' }}
-        onClick={() => setActiveCollection(row.occurrences.results[0])}
+        onClick={() => setActiveCollection(row.occurrences?.results?.[0])}
       >
         {cells}
       </tr>
