@@ -1,0 +1,90 @@
+import { jsx } from '@emotion/react';
+import React, { useState, useContext } from 'react';
+import ThemeContext from '../../../style/themes/ThemeContext';
+import { withFilter } from '../../../widgets/Filter/state';
+import { FormattedMessage } from 'react-intl';
+import { cssLayout, cssNavBar, cssViewArea, cssFilter } from './Layout.styles';
+import { Button, Tabs, DataHeader, NavBar, NavItem } from '../../../components';
+import { FilterBar } from '../../../search/FilterBar';
+import { useQueryParam, StringParam } from 'use-query-params';
+
+const Layout = ({
+  className = '',
+  config,
+  Table,
+  Cards,
+  tabs = ['TABLE', 'CARDS'],
+  ...props
+}) => {
+  const [activeView = tabs[0] || 'TABLE', setActiveView] = useQueryParam(
+    'view',
+    StringParam
+  );
+  const theme = useContext(ThemeContext);
+  const prefix = theme.prefix || 'gbif';
+  const elementName = 'searchLayout';
+
+  const tabComponents = {
+    TABLE: (
+      <NavItem
+        key={`TABLE_TAB`}
+        label={
+          <FormattedMessage id='search.tabs.table' defaultMessage='Table' />
+        }
+        data-targetid='table'
+        onClick={(e) => setActiveView('TABLE')}
+        isActive={activeView === 'TABLE'}
+      />
+    ),
+    CARDS: (
+      <NavItem
+        key={`CARDS_TAB`}
+        label={
+          <FormattedMessage id='search.tabs.cards' defaultMessage='Cards' />
+        }
+        data-targetid='trials'
+        onClick={(e) => setActiveView('CARDS')}
+        isActive={activeView === 'CARDS'}
+      />
+    ),
+    // DOWNLOAD: <NavItem key={`DOWNLOAD_TAB`} label="Download" data-targetid="download" onClick={e => setActiveView('DOWNLOAD')} isActive={activeView === 'DOWNLOAD'} />
+  };
+
+  return (
+    <div
+      className={`${className} ${prefix}-${elementName}`}
+      css={cssLayout({ theme })}
+      {...props}
+    >
+      <Tabs activeId={activeView} onChange={setActiveView}>
+        <div
+          css={cssNavBar({ theme })}
+          style={{ margin: '0 0 10px 0', borderRadius: 0 }}
+        >
+          <DataHeader
+            availableCatalogues={config.availableCatalogues}
+            style={{ borderBottom: '1px solid #ddd' }}
+          />
+          <div css={cssFilter({ theme })}>
+            <FilterBar label='Filters' config={config}></FilterBar>
+          </div>
+          {tabs.length > 1 && (
+            <div>
+              <NavBar style={{ marginLeft: 10 }}>
+                {tabs.map((tab) => tabComponents[tab])}
+              </NavBar>
+            </div>
+          )}
+        </div>
+        <div css={cssViewArea({ theme })}>
+          {activeView === 'TABLE' && <Table />}
+          {activeView === 'CARDS' && <Cards />}
+          {/* {activeView === 'DOWNLOAD' && <Download />} */}
+        </div>
+      </Tabs>
+    </div>
+  );
+};
+
+const mapContextToProps = ({ test }) => ({ test });
+export default withFilter(mapContextToProps)(Layout);

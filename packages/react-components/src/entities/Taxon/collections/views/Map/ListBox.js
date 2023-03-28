@@ -27,7 +27,7 @@ function ListItem({ id, item, imageSrc, onClick = () => {}, ...props }) {
               id='occurrenceFieldNames.catalogNumber'
               defaultMessage='Catalogue Number'
             />
-            : {item.occurrences?.results[0]?.catalogNumber}
+            : {item.occurrences?.results[0]?.catalogNumber || 'N/A'}
           </div>
         </Col>
         <Col grow={false}>

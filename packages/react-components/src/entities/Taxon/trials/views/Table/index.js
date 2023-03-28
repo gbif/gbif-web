@@ -62,7 +62,7 @@ export default function Table() {
         {
           key: 'eventType',
           type: 'equals',
-          value: 'Accession',
+          value: 'Trial',
         },
       ]}
     />

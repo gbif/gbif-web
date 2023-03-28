@@ -1,10 +1,9 @@
 import React from 'react';
 import PredicateDataFetcher from '../../../../../search/PredicateDataFetcher';
-import { CollectionsTable } from './Table';
+import { TrialsGrid } from './Grid';
 
 // Config
 import { useIntl } from 'react-intl';
-import tableConfig from './tableConfig';
 
 const QUERY = `
 query list($predicate: Predicate, $offset: Int, $limit: Int){
@@ -23,9 +22,11 @@ query list($predicate: Predicate, $offset: Int, $limit: Int){
         eventType {
           concept
         }
+        day
+        month
+        year
         parentEventID
         locationID
-        locality
         month
         year
         datasetTitle
@@ -34,10 +35,24 @@ query list($predicate: Predicate, $offset: Int, $limit: Int){
         stateProvince
         countryCode
         measurementOrFactTypes
-        extensions {
-          seedbank {
-            accessionNumber
-          }
+        occurrenceCount
+        speciesCount
+        eventTypeHierarchyJoined
+        locality
+        temporalCoverage {
+          gte
+          lte
+        }
+        measurementOrFacts {
+          measurementID
+          measurementType
+          measurementUnit
+          measurementValue
+          measurementMethod
+          measurementRemarks
+          measurementAccuracy
+          measurementDeterminedBy
+          measurementDeterminedDate
         }
       }
     }
@@ -54,15 +69,12 @@ export default function Table() {
       graph='EVENT'
       queryTag='table'
       limit={50}
-      componentProps={{
-        defaultTableConfig: tableConfig(intl),
-      }}
-      presentation={CollectionsTable}
+      presentation={TrialsGrid}
       predicates={[
         {
           key: 'eventType',
           type: 'equals',
-          value: 'Accession',
+          value: 'Trial',
         },
       ]}
     />

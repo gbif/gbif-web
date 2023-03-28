@@ -34,15 +34,6 @@ query point($predicate: Predicate){
         }
         measurementOrFactTypes
         year
-        occurrences(size: 1) {
-          results {
-            catalogNumber
-            datasetTitle
-            countryCode
-            eventDate
-            locality
-          }
-        }
       }
     }
   }

@@ -9,31 +9,31 @@ export default (intl) => ({
     {
       trKey: 'filters.catalogNumber.name',
       value: {
-        key: 'eventID',
+        key: 'extensions',
         hideFalsy: true,
-        // formatter: (value, event) => (
-        //   <div style={{ display: 'flex', alignItems: 'center' }}>
-        //     <Tooltip
-        //       placement='top'
-        //       title={
-        //         <span>
-        //           <FormattedMessage id='filterSupport.viewDetails' />
-        //         </span>
-        //       }
-        //     >
-        //       <TextButton
-        //         as='span'
-        //         look='textHoverLinkColor'
-        //         style={{ display: 'inline-flex', marginRight: 8 }}
-        //       >
-        //         <OpenInSideBar
-        //           style={{ fontSize: '1.5em', marginRight: '.75em' }}
-        //         />
-        //       </TextButton>
-        //     </Tooltip>
-        //     {value.results[0].catalogNumber}
-        //   </div>
-        // ),
+        formatter: (value, event) => (
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <Tooltip
+              placement='top'
+              title={
+                <span>
+                  <FormattedMessage id='filterSupport.viewDetails' />
+                </span>
+              }
+            >
+              <TextButton
+                as='span'
+                look='textHoverLinkColor'
+                style={{ display: 'inline-flex', marginRight: 8 }}
+              >
+                <OpenInSideBar
+                  style={{ fontSize: '1.5em', marginRight: '.75em' }}
+                />
+              </TextButton>
+            </Tooltip>
+            {JSON.stringify(value.seedbank)}
+          </div>
+        ),
       },
     },
     {
