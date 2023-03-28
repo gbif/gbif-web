@@ -5,7 +5,6 @@ import Layout from './CollectionsPageLayout';
 
 // Views
 import Table from './views/Table';
-import Trials from './views/Trials';
 import Map from './views/Map';
 
 // Config
@@ -38,7 +37,6 @@ export default ({ id, config }) => {
           defaultFilterConfig,
           predicateConfig,
           Table,
-          Trials,
           Map,
         }}
         layout={Layout}

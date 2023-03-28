@@ -67,7 +67,7 @@ export default (intl) => ({
       },
     },
     {
-      trKey: 'filters.catalogNumber.name',
+      trKey: 'filters.eventID.name',
       value: {
         key: 'eventID',
         hideFalsy: true,
