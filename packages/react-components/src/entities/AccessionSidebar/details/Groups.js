@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Accordion, Properties } from '../../../components';
 import {
@@ -9,6 +9,7 @@ import {
 import * as css from '../../EventSidebar/styles';
 import { Trial } from './Trial';
 import Map from '../../SiteSidebar/details/Map/Map';
+import ThemeContext from '../../../style/themes/ThemeContext';
 
 const { Term: T, Value: V } = Properties;
 
@@ -22,6 +23,7 @@ export function Groups({ trials, event, showAll }) {
 
   return (
     <>
+      <Accession {...{ showAll, termMap, event }} />
       <Trials {...{ showAll, termMap, trials }} />
       <Location {...{ showAll, termMap, event }} />
       <MapAccordion {...{ showAll, termMap, event }} />
@@ -40,9 +42,67 @@ function Group({ label, ...props }) {
   );
 }
 
+function Accession({ event }) {
+  const fields = [
+    'accessionNumber',
+    'seedPerGram',
+    'formInStorage',
+    'sampleWeightInGrams',
+    'sampleSize',
+    'collectionFillRate',
+    'purityDebrisPercentage',
+    'purityPercentage',
+    'dateCollected',
+    'dateInStorage',
+    'storageTemperatureInCelsius',
+    'relativeHumidityPercentage',
+    'publicationDOI',
+    'preStorageTreatmentNotesHistory',
+    'primaryStorageSeedBank',
+    'degreeOfEstablishment',
+    'primaryCollector',
+    'plantForm',
+    'duplicatesReplicates',
+    'collectionPermitNumber',
+    'thousandSeedWeight',
+    'numberPlantsSampled',
+    'storageBehaviour',
+    'embryoType',
+    'dormancyClass',
+  ];
+  const accession = event.extensions?.seedbank;
+  const theme = useContext(ThemeContext);
+  console.log(theme);
+  return (
+    <Group label='extensions.seedbank.groups.accessionDetails'>
+      <Properties style={{ fontSize: 12 }} horizontal dense>
+        {fields.map((field) => (
+          <React.Fragment key={field}>
+            <T>
+              <FormattedMessage
+                id={`extensions.seedbank.fields.${field}.name`}
+                defaultMessage={field}
+              />
+            </T>
+            <V style={{ color: accession[field] ? theme.color : '#aaa' }}>
+              {accession[field] || 'Not Supplied'}
+              {accession[field] && (
+                <FormattedMessage
+                  id={`extensions.seedbank.fields.${field}.unit`}
+                  defaultMessage=' '
+                />
+              )}
+            </V>
+          </React.Fragment>
+        ))}
+      </Properties>
+    </Group>
+  );
+}
+
 function Trials({ trials }) {
   return (
-    <Group label='taxonDetails.groups.trials'>
+    <Group label='extensions.seedbank.groups.trials'>
       {trials?.length > 0 ? (
         trials.map((trial) => <Trial key={trial.eventID} trial={trial} />)
       ) : (
@@ -70,7 +130,7 @@ function MapAccordion({ event }) {
     event?.wktConvexHull !== null;
 
   return hasCoordinates ? (
-    <Group label='taxonDetails.groups.map'>
+    <Group label='extensions.seedbank.groups.map'>
       <Map
         latitude={event.decimalLatitude}
         longitude={event.decimalLongitude}
@@ -137,7 +197,7 @@ function Location({ showAll, termMap }) {
   if (!hasContent) return null;
 
   return (
-    <Group label='taxonDetails.groups.location'>
+    <Group label='extensions.seedbank.groups.location'>
       <Properties css={css.properties} breakpoint={800}>
         <PlainTextField term={termMap.locationID} showDetails={showAll} />
         <PlainTextField

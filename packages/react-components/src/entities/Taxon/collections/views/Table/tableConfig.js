@@ -105,7 +105,7 @@ export default (intl) => ({
       },
     },
     {
-      trKey: 'extensions.seedbank.thousandSeedWeight',
+      trKey: 'extensions.seedbank.fields.thousandSeedWeight.name',
       filterKey: 'thousandSeedWeight',
       value: {
         key: 'extensions.seedbank.thousandSeedWeight',
@@ -113,10 +113,13 @@ export default (intl) => ({
         formatter: (value, event) => (
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <div>
-              <InlineFilterChip filterName='thousandSeedWeight' values={[value]}>
+              <InlineFilterChip
+                filterName='thousandSeedWeight'
+                values={[value]}
+              >
                 <span
                   dangerouslySetInnerHTML={{
-                    __html: value
+                    __html: value,
                   }}
                   data-loader
                 ></span>
@@ -127,7 +130,7 @@ export default (intl) => ({
       },
     },
     {
-      trKey: 'extensions.seedbank.primaryCollector',
+      trKey: 'extensions.seedbank.fields.primaryCollector.name',
       filterKey: 'primaryCollector',
       value: {
         key: 'extensions.seedbank.primaryCollector',
@@ -138,7 +141,7 @@ export default (intl) => ({
               <InlineFilterChip filterName='primaryCollector' values={[value]}>
                 <span
                   dangerouslySetInnerHTML={{
-                    __html: value
+                    __html: value,
                   }}
                   data-loader
                 ></span>
@@ -149,7 +152,7 @@ export default (intl) => ({
       },
     },
     {
-      trKey: 'extensions.seedbank.purityPercentage',
+      trKey: 'extensions.seedbank.fields.purityPercentage.name',
       filterKey: 'purityPercentage',
       value: {
         key: 'extensions.seedbank.purityPercentage',
@@ -160,7 +163,7 @@ export default (intl) => ({
               <InlineFilterChip filterName='purityPercentage' values={[value]}>
                 <span
                   dangerouslySetInnerHTML={{
-                    __html: value
+                    __html: value,
                   }}
                   data-loader
                 ></span>

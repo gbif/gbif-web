@@ -16,16 +16,16 @@ export const TrialsGrid = ({
   total,
   loading,
 }) => {
-  const [activeCatalog, setActiveCatalog] = useState();
+  const [activeItem, setActiveItem] = useState();
   const dialog = useDialogState({ animated: true, modal: false });
 
   useEffect(() => {
-    if (activeCatalog) {
+    if (activeItem) {
       dialog.show();
     } else {
       dialog.hide();
     }
-  }, [activeCatalog]);
+  }, [activeItem]);
 
   return (
     <>
@@ -36,7 +36,8 @@ export const TrialsGrid = ({
           dialog={dialog}
         >
           <AccessionSidebar
-            catalogNumber={activeCatalog}
+            eventID={activeItem?.eventID}
+            catalogNumber={activeItem?.extensions?.seedbank?.accessionNumber}
             defaultTab='details'
             style={{ maxWidth: '100%', width: 700, height: '100%' }}
             onCloseRequest={() => dialog.setVisible(false)}
@@ -65,9 +66,7 @@ export const TrialsGrid = ({
                     <Trial
                       trial={trial}
                       onRelatedClick={() => {
-                        setActiveCatalog(
-                          trial.occurrences?.results?.[0].catalogNumber
-                        );
+                        setActiveItem(trial);
                         if (!dialog.visible) dialog.setVisible(true);
                       }}
                     />

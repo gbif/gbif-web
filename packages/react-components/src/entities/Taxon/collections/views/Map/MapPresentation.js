@@ -40,7 +40,8 @@ function Map({
     <>
       <DetailsDrawer href={`${activeItem?.eventID}`} dialog={dialog}>
         <AccessionSidebar
-          catalogNumber={activeItem?.occurrences?.results[0]?.catalogNumber}
+          eventID={activeItem?.eventID}
+          catalogNumber={activeItem?.extensions?.seedbank?.accessionNumber}
           defaultTab='details'
           style={{ maxWidth: '100%', width: 700, height: '100%' }}
           onCloseRequest={() => dialog.setVisible(false)}

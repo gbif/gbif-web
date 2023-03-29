@@ -13,11 +13,11 @@ export function Header({ data, loading, error, className, ...props }) {
   return (
     <Row wrap='no-wrap' css={css.header({ theme })} {...props}>
       <Col grow>
-        <h1>{catalogNumber}</h1>
+        <h1>{catalogNumber || 'Not Supplied'}</h1>
         <div css={css.headline({ theme })}>
           <Eyebrow
             style={{ fontSize: '80%' }}
-            prefix={<FormattedMessage id='taxonDetails.dataset' />}
+            prefix={<FormattedMessage id='eventDetails.dataset' />}
             suffix={data.datasetTitle}
           />
         </div>

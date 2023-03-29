@@ -51,7 +51,7 @@ export const CollectionsTable = ({
   loading,
   defaultTableConfig = fallbackTableConfig,
 }) => {
-  const [activeCollection, setActiveCollection] = useState(null);
+  const [activeItem, setActiveItem] = useState(null);
   const currentFilterContext = useContext(FilterContext);
   const dialog = useDialogState({ animated: true, modal: false });
   const {
@@ -61,15 +61,15 @@ export const CollectionsTable = ({
   } = useContext(SearchContext);
 
   useEffect(() => {
-    if (activeCollection) {
+    if (activeItem) {
       dialog.show();
     } else {
       dialog.hide();
     }
-  }, [activeCollection]);
+  }, [activeItem]);
 
   useUpdateEffect(() => {
-    if (!dialog.visible) setActiveCollection(null);
+    if (!dialog.visible) setActiveItem(null);
   }, [dialog.visible]);
 
   const headers = tableConfig.columns.map((col, index) => {
@@ -105,7 +105,8 @@ export const CollectionsTable = ({
           dialog={dialog}
         >
           <AccessionSidebar
-            catalogNumber={activeCollection.catalogNumber}
+            eventID={activeItem?.eventID}
+            catalogNumber={activeItem?.extensions?.seedbank?.accessionNumber}
             defaultTab='details'
             style={{ maxWidth: '100%', width: 700, height: '100%' }}
             onCloseRequest={() => dialog.setVisible(false)}
@@ -142,7 +143,7 @@ export const CollectionsTable = ({
               results,
               currentFilterContext,
               filters,
-              setActiveCollection,
+              setActiveItem,
             })}
           </TBody>
         </DataTable>
@@ -157,7 +158,7 @@ const getRows = ({
   results = [],
   currentFilterContext,
   filters,
-  setActiveCollection,
+  setActiveItem,
 }) => {
   const rows = results.map((row, index) => {
     const cells = tableConfig.columns.map((field, i) => {
@@ -200,7 +201,7 @@ const getRows = ({
       <tr
         key={row.eventID}
         style={{ cursor: 'pointer' }}
-        onClick={() => setActiveCollection(row.extensions?.seedbank?.accessionNumber)}
+        onClick={() => setActiveItem(row)}
       >
         {cells}
       </tr>

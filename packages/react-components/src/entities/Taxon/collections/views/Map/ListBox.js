@@ -24,14 +24,14 @@ function ListItem({ id, item, imageSrc, onClick = () => {}, ...props }) {
           {item.datasetTitle}
           <div style={{ marginTop: 8 }}>
             <FormattedMessage
-              id='extensions.seedbank.primaryCollector'
+              id='extensions.seedbank.fields.primaryCollector.name'
               defaultMessage='Collector'
             />
             : {item.extensions?.seedbank?.primaryCollector || 'Not Supplied'}
           </div>
           <div style={{ marginTop: 8 }}>
             <FormattedMessage
-              id='extensions.seedbank.dateCollected'
+              id='extensions.seedbank.fields.dateCollected.name'
               defaultMessage='Date collected'
             />
             : {item.extensions?.seedbank?.dateCollected || 'Not Supplied'}

@@ -105,7 +105,7 @@ export default (intl) => ({
       },
     },
     {
-      trKey: 'extensions.seedbank.testLengthInDays',
+      trKey: 'extensions.seedbank.fields.testLengthInDays.name',
       filterKey: 'testLengthInDays',
       value: {
         key: 'extensions.seedbank.testLengthInDays',
@@ -116,7 +116,7 @@ export default (intl) => ({
               <InlineFilterChip filterName='testLengthInDays' values={[value]}>
                 <span
                   dangerouslySetInnerHTML={{
-                    __html: value
+                    __html: value,
                   }}
                   data-loader
                 ></span>
@@ -127,7 +127,7 @@ export default (intl) => ({
       },
     },
     {
-      trKey: 'extensions.seedbank.germinationRateInDays',
+      trKey: 'extensions.seedbank.fields.germinationRateInDays.name',
       filterKey: 'germinationRateInDays',
       value: {
         key: 'extensions.seedbank.germinationRateInDays',
@@ -135,10 +135,13 @@ export default (intl) => ({
         formatter: (value, event) => (
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <div>
-              <InlineFilterChip filterName='germinationRateInDays' values={[value]}>
+              <InlineFilterChip
+                filterName='germinationRateInDays'
+                values={[value]}
+              >
                 <span
                   dangerouslySetInnerHTML={{
-                    __html: value
+                    __html: value,
                   }}
                   data-loader
                 ></span>
@@ -149,7 +152,7 @@ export default (intl) => ({
       },
     },
     {
-      trKey: 'extensions.seedbank.numberGerminated',
+      trKey: 'extensions.seedbank.fields.numberGerminated.name',
       filterKey: 'numberGerminated',
       value: {
         key: 'extensions.seedbank.numberGerminated',
@@ -160,7 +163,7 @@ export default (intl) => ({
               <InlineFilterChip filterName='numberGerminated' values={[value]}>
                 <span
                   dangerouslySetInnerHTML={{
-                    __html: value
+                    __html: value,
                   }}
                   data-loader
                 ></span>
@@ -171,7 +174,7 @@ export default (intl) => ({
       },
     },
     {
-      trKey: 'extensions.seedbank.adjustedGerminationPercentage',
+      trKey: 'extensions.seedbank.fields.adjustedGerminationPercentage.name',
       filterKey: 'adjustedGerminationPercentage',
       value: {
         key: 'extensions.seedbank.adjustedGerminationPercentage',
@@ -179,10 +182,13 @@ export default (intl) => ({
         formatter: (value, event) => (
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <div>
-              <InlineFilterChip filterName='adjustedGerminationPercentage' values={[value]}>
+              <InlineFilterChip
+                filterName='adjustedGerminationPercentage'
+                values={[value]}
+              >
                 <span
                   dangerouslySetInnerHTML={{
-                    __html: value
+                    __html: value,
                   }}
                   data-loader
                 ></span>

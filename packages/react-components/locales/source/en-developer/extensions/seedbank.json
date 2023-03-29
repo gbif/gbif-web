@@ -1,43 +1,179 @@
 {
-	"degreeOfEstablishment": "Cultivated",
-	"accessionNumber": "Catalogue number",
-	"seedPerGram": "Seed per gram",
-	"formInStorage": "Form in storage",
-	"sampleWeightInGrams": "Sample weight",
-	"sampleSize": "Sample size",
-	"purityDebrisPercentage": "Purity / debris",
-	"purityPercentage": "Purity",
-	"dateCollected": "Date collected",
-	"dateInStorage": "Date in storage",
-	"storageTemperatureInCelsius": "Storage temperature",
-	"relativeHumidityPercentage": "Relative humidity",
-	"publicationDOI": "Publication DOI",
-	"preStorageTreatmentNotesHistory": "Pre-storage treatment notes / history",
-	"primaryStorageSeedBank": "Storage seed bank",
-	"primaryCollector": "Collector",
-	"plantForm": "Plant form",
-	"duplicatesReplicates": "Duplicates / replicates",
-	"collectionPermitNumber": "Collection Permit",
-	"thousandSeedWeight": "Thousand seed weight",
-	"numberPlantsSampled": "Number plants sampled",
-	"storageBehaviour": "Storage behaviour",
-	"embryoType": "Embryo type",
-	"dormancyClass": "Dormancy class",
-	"testDateStarted": "Test date start",
-	"testLengthInDays": "Test length",
-	"collectionFillRate": "Collection fill rate",
-	"numberGerminated": "Number germinated",
-	"germinationRateInDays": "Germination rate",
-	"adjustedGerminationPercentage": "Adjusted germination",
-	"viabilityPercentage": "Viability",
-	"numberFull": "Number full",
-	"numberEmpty": "Number empty",
-	"numberTested": "Number tested",
-	"preTestProcessingNotes": "Pre-test processing / notes",
-	"pretreatment": "Pre-treatment",
-	"mediaSubstrate": "Media / substrate",
-	"nightTemperatureInCelsius": "Night temperature",
-	"dayTemperatureInCelsius": "Day temperature",
-	"darkHours": "Dark hours",
-	"lightHours": "Light hours"
+  "fields": {
+    "degreeOfEstablishment": {
+      "name": "Cultivated",
+      "unit": ""
+    },
+    "accessionNumber": {
+      "name": "Catalogue number",
+      "unit": ""
+    },
+    "seedPerGram": {
+      "name": "Seed per gram",
+      "unit": " seeds"
+    },
+    "formInStorage": {
+      "name": "Form in storage",
+      "unit": ""
+    },
+    "sampleWeightInGrams": {
+      "name": "Sample weight",
+      "unit": " grams"
+    },
+    "sampleSize": {
+      "name": "Sample size",
+      "unit": " ea"
+    },
+    "purityDebrisPercentage": {
+      "name": "Purity/debris",
+      "unit": "%"
+    },
+    "purityPercentage": {
+      "name": "Purity",
+      "unit": "%"
+    },
+    "dateCollected": {
+      "name": "Date collected",
+      "unit": ""
+    },
+    "dateInStorage": {
+      "name": "Date in storage",
+      "unit": ""
+    },
+    "storageTemperatureInCelsius": {
+      "name": "Storage temperature",
+      "unit": "°C"
+    },
+    "relativeHumidityPercentage": {
+      "name": "Relative humidity",
+      "unit": "%"
+    },
+    "publicationDOI": {
+      "name": "Publication DOI",
+      "unit": ""
+    },
+    "preStorageTreatmentNotesHistory": {
+      "name": "Pre-storage notes/history",
+      "unit": ""
+    },
+    "primaryStorageSeedBank": {
+      "name": "Storage seed bank",
+      "unit": ""
+    },
+    "primaryCollector": {
+      "name": "Collector",
+      "unit": ""
+    },
+    "plantForm": {
+      "name": "Plant form",
+      "unit": ""
+    },
+    "duplicatesReplicates": {
+      "name": "Duplicates/replicates",
+      "unit": ""
+    },
+    "collectionPermitNumber": {
+      "name": "Collection permit",
+      "unit": ""
+    },
+    "thousandSeedWeight": {
+      "name": "Thousand seed weight",
+      "unit": " grams"
+    },
+    "numberPlantsSampled": {
+      "name": "Number plants sampled",
+      "unit": ""
+    },
+    "storageBehaviour": {
+      "name": "Storage behaviour",
+      "unit": ""
+    },
+    "embryoType": {
+      "name": "Embryo type",
+      "unit": ""
+    },
+    "dormancyClass": {
+      "name": "Dormancy class",
+      "unit": ""
+    },
+    "testDateStarted": {
+      "name": "Test date start",
+      "unit": ""
+    },
+    "testLengthInDays": {
+      "name": "Test length",
+      "unit": " days"
+    },
+    "collectionFillRate": {
+      "name": "Collection fill rate",
+      "unit": ""
+    },
+    "numberGerminated": {
+      "name": "Number germinated",
+      "unit": " seeds"
+    },
+    "germinationRateInDays": {
+      "name": "Germination rate",
+      "unit": " days"
+    },
+    "adjustedGerminationPercentage": {
+      "name": "Adjusted germination",
+      "unit": "%"
+    },
+    "viabilityPercentage": {
+      "name": "Viability",
+      "unit": "%"
+    },
+    "numberFull": {
+      "name": "Number full",
+      "unit": " seeds"
+    },
+    "numberEmpty": {
+      "name": "Number empty",
+      "unit": " seeds"
+    },
+    "numberTested": {
+      "name": "Number tested",
+      "unit": " seeds"
+    },
+    "preTestProcessingNotes": {
+      "name": "Pre-test processing/notes",
+      "unit": ""
+    },
+    "pretreatment": {
+      "name": "Pre-treatment",
+      "unit": ""
+    },
+    "mediaSubstrate": {
+      "name": "Media/substrate",
+      "unit": ""
+    },
+    "nightTemperatureInCelsius": {
+      "name": "Night temperature",
+      "unit": "°C"
+    },
+    "dayTemperatureInCelsius": {
+      "name": "Day temperature",
+      "unit": "°C"
+    },
+    "darkHours": {
+      "name": "Dark hours",
+      "unit": " hrs"
+    },
+    "lightHours": {
+      "name": "Light hours",
+      "unit": " hrs"
+    },
+    "dataset": {
+      "name": "Dataset",
+      "unit": ""
+    }
+  },
+  "groups": {
+    "accessionDetails": "Accession Details",
+    "trialDetails": "Trial Details",
+    "trials": "Trials",
+    "location": "Location",
+    "map": "Map"
+  }
 }

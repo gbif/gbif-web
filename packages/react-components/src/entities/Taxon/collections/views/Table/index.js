@@ -37,6 +37,15 @@ query list($predicate: Predicate, $offset: Int, $limit: Int){
         extensions {
           seedbank {
             accessionNumber
+            seedPerGram
+            formInStorage
+            sampleWeightInGrams
+            sampleSize
+            purityDebrisPercentage
+            purityPercentage
+            primaryStorageSeedBank
+            primaryCollector
+            thousandSeedWeight
           }
         }
       }
