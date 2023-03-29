@@ -16,18 +16,25 @@ function ListItem({ id, item, imageSrc, onClick = () => {}, ...props }) {
           <h4
             dangerouslySetInnerHTML={{
               __html:
-                (item.eventType?.concept ? item.eventType?.concept : 'Event') +
+                (item.eventType?.concept || 'Event') +
                 ' ' +
-                (item.year ? '- Year: ' + item.year : ''),
+                (item.extensions?.seedbank?.accessionNumber || 'Not Supplied'),
             }}
           ></h4>
           {item.datasetTitle}
           <div style={{ marginTop: 8 }}>
             <FormattedMessage
-              id='occurrenceFieldNames.catalogNumber'
-              defaultMessage='Catalogue Number'
+              id='extensions.seedbank.primaryCollector'
+              defaultMessage='Collector'
             />
-            : {item.occurrences?.results[0]?.catalogNumber || 'N/A'}
+            : {item.extensions?.seedbank?.primaryCollector || 'Not Supplied'}
+          </div>
+          <div style={{ marginTop: 8 }}>
+            <FormattedMessage
+              id='extensions.seedbank.dateCollected'
+              defaultMessage='Date collected'
+            />
+            : {item.extensions?.seedbank?.dateCollected || 'Not Supplied'}
           </div>
         </Col>
         <Col grow={false}>

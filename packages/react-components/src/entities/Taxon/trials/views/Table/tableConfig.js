@@ -6,70 +6,10 @@ import { Tooltip, TextButton } from '../../../../../components';
 
 export default (intl) => ({
   columns: [
-    // {
-    //   trKey: 'filters.catalogNumber.name',
-    //   value: {
-    //     key: 'eventType',
-    //     hideFalsy: true,
-    //     formatter: (value, event) => (
-    //       <div style={{ display: 'flex', alignItems: 'center' }}>
-    //         <Tooltip
-    //           placement='top'
-    //           title={
-    //             <span>
-    //               <FormattedMessage id='filterSupport.viewDetails' />
-    //             </span>
-    //           }
-    //         >
-    //           <TextButton
-    //             as='span'
-    //             look='textHoverLinkColor'
-    //             style={{ display: 'inline-flex', marginRight: 8 }}
-    //           >
-    //             <OpenInSideBar
-    //               style={{ fontSize: '1.5em', marginRight: '.75em' }}
-    //             />
-    //           </TextButton>
-    //         </Tooltip>
-    //         {value.concept}
-    //       </div>
-    //     ),
-    //   },
-    // },
     {
       trKey: 'filters.catalogNumber.name',
       value: {
-        key: 'extensions',
-        hideFalsy: true,
-        formatter: (value, event) => (
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <Tooltip
-              placement='top'
-              title={
-                <span>
-                  <FormattedMessage id='filterSupport.viewDetails' />
-                </span>
-              }
-            >
-              <TextButton
-                as='span'
-                look='textHoverLinkColor'
-                style={{ display: 'inline-flex', marginRight: 8 }}
-              >
-                <OpenInSideBar
-                  style={{ fontSize: '1.5em', marginRight: '.75em' }}
-                />
-              </TextButton>
-            </Tooltip>
-            {JSON.stringify(value.seedbank)}
-          </div>
-        ),
-      },
-    },
-    {
-      trKey: 'filters.eventID.name',
-      value: {
-        key: 'eventID',
+        key: 'extensions.seedbank.accessionNumber',
         hideFalsy: true,
         formatter: (value, event) => (
           <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -156,6 +96,94 @@ export default (intl) => ({
               <InlineFilterChip filterName='year' values={[event.year]}>
                 <span
                   dangerouslySetInnerHTML={{ __html: event.year }}
+                  data-loader
+                ></span>
+              </InlineFilterChip>
+            </div>
+          </div>
+        ),
+      },
+    },
+    {
+      trKey: 'extensions.seedbank.testLengthInDays',
+      filterKey: 'testLengthInDays',
+      value: {
+        key: 'extensions.seedbank.testLengthInDays',
+        hideFalsy: true,
+        formatter: (value, event) => (
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div>
+              <InlineFilterChip filterName='testLengthInDays' values={[value]}>
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: value
+                  }}
+                  data-loader
+                ></span>
+              </InlineFilterChip>
+            </div>
+          </div>
+        ),
+      },
+    },
+    {
+      trKey: 'extensions.seedbank.germinationRateInDays',
+      filterKey: 'germinationRateInDays',
+      value: {
+        key: 'extensions.seedbank.germinationRateInDays',
+        hideFalsy: true,
+        formatter: (value, event) => (
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div>
+              <InlineFilterChip filterName='germinationRateInDays' values={[value]}>
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: value
+                  }}
+                  data-loader
+                ></span>
+              </InlineFilterChip>
+            </div>
+          </div>
+        ),
+      },
+    },
+    {
+      trKey: 'extensions.seedbank.numberGerminated',
+      filterKey: 'numberGerminated',
+      value: {
+        key: 'extensions.seedbank.numberGerminated',
+        hideFalsy: true,
+        formatter: (value, event) => (
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div>
+              <InlineFilterChip filterName='numberGerminated' values={[value]}>
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: value
+                  }}
+                  data-loader
+                ></span>
+              </InlineFilterChip>
+            </div>
+          </div>
+        ),
+      },
+    },
+    {
+      trKey: 'extensions.seedbank.adjustedGerminationPercentage',
+      filterKey: 'adjustedGerminationPercentage',
+      value: {
+        key: 'extensions.seedbank.adjustedGerminationPercentage',
+        hideFalsy: true,
+        formatter: (value, event) => (
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div>
+              <InlineFilterChip filterName='adjustedGerminationPercentage' values={[value]}>
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: value
+                  }}
                   data-loader
                 ></span>
               </InlineFilterChip>

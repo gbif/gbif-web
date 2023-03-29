@@ -9,7 +9,7 @@ export default (intl) => ({
     {
       trKey: 'filters.catalogNumber.name',
       value: {
-        key: 'extensions',
+        key: 'extensions.seedbank.accessionNumber',
         hideFalsy: true,
         formatter: (value, event) => (
           <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -31,7 +31,7 @@ export default (intl) => ({
                 />
               </TextButton>
             </Tooltip>
-            {JSON.stringify(value.seedbank)}
+            {value}
           </div>
         ),
       },
@@ -104,6 +104,72 @@ export default (intl) => ({
         ),
       },
     },
+    {
+      trKey: 'extensions.seedbank.thousandSeedWeight',
+      filterKey: 'thousandSeedWeight',
+      value: {
+        key: 'extensions.seedbank.thousandSeedWeight',
+        hideFalsy: true,
+        formatter: (value, event) => (
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div>
+              <InlineFilterChip filterName='thousandSeedWeight' values={[value]}>
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: value
+                  }}
+                  data-loader
+                ></span>
+              </InlineFilterChip>
+            </div>
+          </div>
+        ),
+      },
+    },
+    {
+      trKey: 'extensions.seedbank.primaryCollector',
+      filterKey: 'primaryCollector',
+      value: {
+        key: 'extensions.seedbank.primaryCollector',
+        hideFalsy: true,
+        formatter: (value, event) => (
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div>
+              <InlineFilterChip filterName='primaryCollector' values={[value]}>
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: value
+                  }}
+                  data-loader
+                ></span>
+              </InlineFilterChip>
+            </div>
+          </div>
+        ),
+      },
+    },
+    {
+      trKey: 'extensions.seedbank.purityPercentage',
+      filterKey: 'purityPercentage',
+      value: {
+        key: 'extensions.seedbank.purityPercentage',
+        hideFalsy: true,
+        formatter: (value, event) => (
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div>
+              <InlineFilterChip filterName='purityPercentage' values={[value]}>
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: value
+                  }}
+                  data-loader
+                ></span>
+              </InlineFilterChip>
+            </div>
+          </div>
+        ),
+      },
+    },
     // {
     //   trKey: 'filters.locationID.name',
     //   filterKey: 'locationID',
@@ -158,14 +224,14 @@ export default (intl) => ({
     //   },
     //   noWrap: true,
     // },
-    {
-      name: 'countryCode',
-      trKey: 'filters.country.name',
-      value: {
-        key: 'countryCode',
-        labelHandle: 'countryCode',
-      },
-    },
+    // {
+    //   name: 'countryCode',
+    //   trKey: 'filters.country.name',
+    //   value: {
+    //     key: 'countryCode',
+    //     labelHandle: 'countryCode',
+    //   },
+    // },
     {
       name: 'stateProvince',
       trKey: 'filters.stateProvince.name',
@@ -189,37 +255,5 @@ export default (intl) => ({
         ),
       },
     },
-    // {
-    //   name: 'measurementOrFactTypes',
-    //   trKey: 'filters.measurementOrFactTypes.name',
-    //   value: {
-    //     key: 'measurementOrFactTypes',
-    //     formatter: (value, item) => (
-    //       <>{(value || []).slice(0, 10).join(', ')}</>
-    //     ),
-    //   },
-    // },
-    // {
-    //   name: 'occurrenceCount',
-    //   trKey: 'tableHeaders.occurrences',
-    //   value: {
-    //     key: 'occurrenceCount',
-    //     formatter: (value, item) => <FormattedNumber value={value} />,
-    //     hideFalsy: true,
-    //     rightAlign: true,
-    //   },
-    //   noWrap: true,
-    // },
-    // {
-    //   name: 'speciesCount',
-    //   trKey: 'tableHeaders.species',
-    //   value: {
-    //     key: 'speciesCount',
-    //     formatter: (value, item) => <FormattedNumber value={value} />,
-    //     hideFalsy: true,
-    //     rightAlign: true,
-    //   },
-    //   noWrap: true,
-    // },
   ],
 });
