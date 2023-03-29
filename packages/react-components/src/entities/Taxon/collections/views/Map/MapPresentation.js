@@ -7,7 +7,7 @@ import ListBox from './ListBox';
 import { ViewHeader } from '../../../../../search/EventSearch/views/ViewHeader';
 import MapboxMap from './MapboxMap';
 import * as css from './map.styles';
-import { TaxonSidebar } from '../../../../TaxonSidebar/TaxonSidebar';
+import { CollectionSidebar } from '../../../../CollectionSidebar/CollectionSidebar';
 
 function Map({
   labelMap,
@@ -39,7 +39,7 @@ function Map({
   return (
     <>
       <DetailsDrawer href={`${activeItem?.eventID}`} dialog={dialog}>
-        <TaxonSidebar
+        <CollectionSidebar
           catalogNumber={activeItem?.occurrences?.results[0]?.catalogNumber}
           defaultTab='details'
           style={{ maxWidth: '100%', width: 700, height: '100%' }}

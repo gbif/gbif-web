@@ -18,7 +18,7 @@ import {
 import { ResultsHeader } from '../../../../../search/ResultsHeader';
 import { FilterContext } from '../../../../../widgets/Filter/state';
 import { InlineFilterChip } from '../../../../../widgets/Filter/utils/FilterChip';
-import { TaxonSidebar } from '../../../../TaxonSidebar/TaxonSidebar';
+import { CollectionSidebar } from '../../../../CollectionSidebar/CollectionSidebar';
 
 const fallbackTableConfig = {
   columns: [
@@ -104,7 +104,7 @@ export const CollectionsTable = ({
           href='https://google.com' // REPLACE
           dialog={dialog}
         >
-          <TaxonSidebar
+          <CollectionSidebar
             catalogNumber={activeCollection.catalogNumber}
             defaultTab='details'
             style={{ maxWidth: '100%', width: 700, height: '100%' }}
@@ -200,7 +200,7 @@ const getRows = ({
       <tr
         key={row.eventID}
         style={{ cursor: 'pointer' }}
-        onClick={() => setActiveCollection(row.occurrences?.results?.[0])}
+        onClick={() => setActiveCollection(row.extensions?.seedbank?.accessionNumber)}
       >
         {cells}
       </tr>
