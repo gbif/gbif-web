@@ -10,6 +10,7 @@ import * as css from '../../EventSidebar/styles';
 import { Trial } from './Trial';
 import Map from '../../SiteSidebar/details/Map/Map';
 import ThemeContext from '../../../style/themes/ThemeContext';
+import { Measurements } from './Measurements';
 
 const { Term: T, Value: V } = Properties;
 
@@ -24,6 +25,7 @@ export function Groups({ trials, event, showAll }) {
   return (
     <>
       <Accession {...{ showAll, termMap, event }} />
+      <Measurements {...{ showAll, termMap, event }} />
       <Trials {...{ showAll, termMap, trials }} />
       <Location {...{ showAll, termMap, event }} />
       <MapAccordion {...{ showAll, termMap, event }} />
@@ -31,7 +33,7 @@ export function Groups({ trials, event, showAll }) {
   );
 }
 
-function Group({ label, ...props }) {
+export function Group({ label, ...props }) {
   return (
     <Accordion
       summary={<FormattedMessage id={label} />}
@@ -43,37 +45,57 @@ function Group({ label, ...props }) {
 }
 
 function Accession({ event }) {
-  const fields = [
-    'accessionNumber',
-    'seedPerGram',
-    'formInStorage',
-    'sampleWeightInGrams',
-    'sampleSize',
+  const collectionFields = [
     'collectionFillRate',
     'purityDebrisPercentage',
     'purityPercentage',
+    'sampleWeightInGrams',
+    'sampleSize',
+    'seedPerGram',
     'dateCollected',
-    'dateInStorage',
-    'storageTemperatureInCelsius',
-    'relativeHumidityPercentage',
-    'publicationDOI',
-    'preStorageTreatmentNotesHistory',
-    'primaryStorageSeedBank',
+    'thousandSeedWeight',
     'degreeOfEstablishment',
     'primaryCollector',
     'plantForm',
-    'duplicatesReplicates',
     'collectionPermitNumber',
-    'thousandSeedWeight',
     'numberPlantsSampled',
-    'storageBehaviour',
     'embryoType',
+    'publicationDOI',
+  ];
+
+  const storageFields = [
+    'formInStorage',
+    'dateInStorage',
+    'storageTemperatureInCelsius',
+    'relativeHumidityPercentage',
+    'preStorageTreatmentNotesHistory',
+    'primaryStorageSeedBank',
+    'duplicatesReplicates',
+    'storageBehaviour',
     'dormancyClass',
   ];
+
+  return (
+    <>
+      <AccessionFields
+        event={event}
+        fields={collectionFields}
+        groupLabel='extensions.seedbank.groups.collection'
+      />
+      <AccessionFields
+        event={event}
+        fields={storageFields}
+        groupLabel='extensions.seedbank.groups.storage'
+      />
+    </>
+  );
+}
+
+function AccessionFields({ event, fields, groupLabel }) {
   const accession = event.extensions?.seedbank;
   const theme = useContext(ThemeContext);
   return (
-    <Group label='extensions.seedbank.groups.accessionDetails'>
+    <Group label={groupLabel}>
       <Properties style={{ fontSize: 12 }} horizontal dense>
         {fields.map((field) => (
           <React.Fragment key={field}>

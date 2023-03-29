@@ -4,7 +4,7 @@ export { default as taxon } from './taxon';
 export { default as wikidata } from '../shared/resources/wikidata';
 
 // Seed bank extension type
-export { default as seedBankExtension } from '../shared/resources/extension/seedbank';
+export { default as seedBankExtension } from '../shared/resources/extensions/seedbank';
 
 // Taxon media querying using ALA Biocache source
 export { default as taxonMedia } from '../shared/resources/taxonMedia';

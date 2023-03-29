@@ -16,7 +16,14 @@ const siteConfig = {
     rootFilter: {
       type: 'in',
       key: 'datasetKey',
-      values: ['dr18527'],
+      values: [
+        'dr18527',
+        'dr18695',
+        'dr18697',
+        'dr18698',
+        'dr18699',
+        'dr18705',
+      ],
     },
   },
 };

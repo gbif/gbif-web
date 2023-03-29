@@ -170,10 +170,11 @@
     }
   },
   "groups": {
-    "accessionDetails": "Details",
-    "trialDetails": "Details",
+    "collection": "Collection",
+    "storage": "Storage",
+    "additionalDetails": "Additional Details",
     "trials": "Trials",
     "location": "Location",
-    "map": "Collection Map"
+    "map": "Location Collected"
   }
 }

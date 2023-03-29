@@ -7,7 +7,7 @@ const typeDef = gql`
     accessionNumber: String
     seedPerGram: Int
     formInStorage: String
-    sampleWeightInGrams: Int
+    sampleWeightInGrams: Float
     sampleSize: Int
     purityDebrisPercentage: Int
     purityPercentage: Int
@@ -22,7 +22,7 @@ const typeDef = gql`
     plantForm: String
     duplicatesReplicates: String
     collectionPermitNumber: String
-    thousandSeedWeight: Int
+    thousandSeedWeight: Float
     numberPlantsSampled: String
     storageBehaviour: String
     embryoType: String
