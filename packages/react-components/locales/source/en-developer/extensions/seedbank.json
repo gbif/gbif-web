@@ -170,10 +170,10 @@
     }
   },
   "groups": {
-    "accessionDetails": "Accession Details",
-    "trialDetails": "Trial Details",
+    "accessionDetails": "Details",
+    "trialDetails": "Details",
     "trials": "Trials",
     "location": "Location",
-    "map": "Map"
+    "map": "Collection Map"
   }
 }

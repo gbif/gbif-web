@@ -26,7 +26,7 @@ import HeaderImage from './components/HeaderImage';
 
 // Tab pages
 import About from './about';
-import Collections from './collections';
+import Accessions from './accessions';
 import Trials from './trials';
 import Media from './media';
 
@@ -124,7 +124,7 @@ Relating to ${location.href}
         </HeaderInfoWrapper>
         <TabList style={{ marginTop: '12px', borderTop: '1px solid #ddd' }}>
           <RouterTab to={url} exact label='About' />
-          <RouterTab to={join(url, '/collections')} label='Collections' />
+          <RouterTab to={join(url, '/accessions')} label='Accessions' />
           <RouterTab to={join(url, '/trials')} label='Trials' />
           <RouterTab to={join(url, '/media')} label='Media' />
         </TabList>
@@ -132,9 +132,9 @@ Relating to ${location.href}
 
       <section>
         <Switch>
-          <Route path={join(path, '/collections')}>
+          <Route path={join(path, '/accessions')}>
             <ContentWrapper>
-              <Collections id={id} config={config} />
+              <Accessions id={id} config={config} />
             </ContentWrapper>
           </Route>
           <Route path={join(path, '/trials')}>

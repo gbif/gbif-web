@@ -72,7 +72,6 @@ function Accession({ event }) {
   ];
   const accession = event.extensions?.seedbank;
   const theme = useContext(ThemeContext);
-  console.log(theme);
   return (
     <Group label='extensions.seedbank.groups.accessionDetails'>
       <Properties style={{ fontSize: 12 }} horizontal dense>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { ErrorBoundary } from '../../../components';
 import StandardSearch from '../../../search/Search';
-import Layout from './CollectionsPageLayout';
+import Layout from './AccessionsPageLayout';
 
 // Views
 import Table from './views/Table';
