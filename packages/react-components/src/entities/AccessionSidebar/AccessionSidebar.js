@@ -10,7 +10,7 @@ import { Groups } from './details/Groups';
 const { TabList, Tab, TapSeperator } = Tabs;
 const { TabPanel } = Tabs;
 
-export function CollectionSidebar({
+export function AccessionSidebar({
   onCloseRequest,
   catalogNumber,
   defaultTab,

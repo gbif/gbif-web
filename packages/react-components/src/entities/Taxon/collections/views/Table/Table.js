@@ -18,7 +18,7 @@ import {
 import { ResultsHeader } from '../../../../../search/ResultsHeader';
 import { FilterContext } from '../../../../../widgets/Filter/state';
 import { InlineFilterChip } from '../../../../../widgets/Filter/utils/FilterChip';
-import { CollectionSidebar } from '../../../../CollectionSidebar/CollectionSidebar';
+import { AccessionSidebar } from '../../../../AccessionSidebar/AccessionSidebar';
 
 const fallbackTableConfig = {
   columns: [
@@ -104,7 +104,7 @@ export const CollectionsTable = ({
           href='https://google.com' // REPLACE
           dialog={dialog}
         >
-          <CollectionSidebar
+          <AccessionSidebar
             catalogNumber={activeCollection.catalogNumber}
             defaultTab='details'
             style={{ maxWidth: '100%', width: 700, height: '100%' }}

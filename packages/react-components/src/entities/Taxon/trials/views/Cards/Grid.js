@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDialogState } from 'reakit/Dialog';
-import { CollectionSidebar } from '../../../../CollectionSidebar/CollectionSidebar';
+import { AccessionSidebar } from '../../../../AccessionSidebar/AccessionSidebar';
 import { ResultsHeader } from '../../../../../search/ResultsHeader';
-import { Trial } from '../../../../CollectionSidebar/details/Trial';
+import { Trial } from '../../../../AccessionSidebar/details/Trial';
 import { Row, Col, DetailsDrawer } from '../../../../../components';
 import range from 'lodash/range';
 
@@ -35,7 +35,7 @@ export const TrialsGrid = ({
           href='https://google.com' // REPLACE
           dialog={dialog}
         >
-          <CollectionSidebar
+          <AccessionSidebar
             catalogNumber={activeCatalog}
             defaultTab='details'
             style={{ maxWidth: '100%', width: 700, height: '100%' }}
