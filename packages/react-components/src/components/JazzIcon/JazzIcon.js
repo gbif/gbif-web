@@ -61,7 +61,7 @@ function getJazzicon(seed, diameter) {
     return `<rect x="0" y="0" width="${diameter}" height="${diameter}" transform="${transform}" fill="${fill}"></rect>`;
   }
 
-  var jazzicon = `<div style="border-radius: 100%; overflow: hidden;width: ${diameter}px;height: ${diameter}px;display: inline-block;background: ${genColor(colors, random)};">
+  var jazzicon = `<div style="border-radius: 100%; overflow: hidden;width: 100%;height: 100%;display: inline-block;background: ${genColor(colors, random)};">
 		<svg x="0" y="0" viewBox="0 0 ${diameter} ${diameter}">
 			${getRectangle(colors, 3, 0)}
 			${getRectangle(colors, 3, 1)}

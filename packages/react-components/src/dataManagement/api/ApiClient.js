@@ -24,6 +24,14 @@ class ApiClient {
     return axios.get(url, options);
   }
 
+  put(url, options) {
+    return axios.put(url, options);
+  }
+
+  delete(url, options) {
+    return axios.delete(url, options);
+  }
+
   v1Get(url, options) {
     return this.get(this.v1.endpoint + url, options);
   }
