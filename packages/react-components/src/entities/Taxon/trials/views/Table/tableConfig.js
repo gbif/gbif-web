@@ -160,6 +160,84 @@ export default (intl) => ({
       },
     },
     {
+      trKey: 'extensions.seedbank.fields.numberTested.name',
+      filterKey: 'numberGerminated',
+      value: {
+        key: 'extensions.seedbank.numberTested',
+        hideFalsy: true,
+        formatter: (value, event) => (
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div>
+              <InlineFilterChip filterName='numberTested' values={[value]}>
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      value +
+                      intl.formatMessage({
+                        id: 'extensions.seedbank.fields.numberTested.unit',
+                      }),
+                  }}
+                  data-loader
+                ></span>
+              </InlineFilterChip>
+            </div>
+          </div>
+        ),
+      },
+    },
+    {
+      trKey: 'extensions.seedbank.fields.numberEmpty.name',
+      filterKey: 'numberEmpty',
+      value: {
+        key: 'extensions.seedbank.numberEmpty',
+        hideFalsy: true,
+        formatter: (value, event) => (
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div>
+              <InlineFilterChip filterName='numberEmpty' values={[value]}>
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      value +
+                      intl.formatMessage({
+                        id: 'extensions.seedbank.fields.numberEmpty.unit',
+                      }),
+                  }}
+                  data-loader
+                ></span>
+              </InlineFilterChip>
+            </div>
+          </div>
+        ),
+      },
+    },
+    {
+      trKey: 'extensions.seedbank.fields.numberFull.name',
+      filterKey: 'numberGerminated',
+      value: {
+        key: 'extensions.seedbank.numberFull',
+        hideFalsy: true,
+        formatter: (value, event) => (
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div>
+              <InlineFilterChip filterName='numberFull' values={[value]}>
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      value +
+                      intl.formatMessage({
+                        id: 'extensions.seedbank.fields.numberFull.unit',
+                      }),
+                  }}
+                  data-loader
+                ></span>
+              </InlineFilterChip>
+            </div>
+          </div>
+        ),
+      },
+    },
+    {
       trKey: 'extensions.seedbank.fields.numberGerminated.name',
       filterKey: 'numberGerminated',
       value: {
@@ -204,6 +282,64 @@ export default (intl) => ({
                       value +
                       intl.formatMessage({
                         id: 'extensions.seedbank.fields.adjustedGerminationPercentage.unit',
+                      }),
+                  }}
+                  data-loader
+                ></span>
+              </InlineFilterChip>
+            </div>
+          </div>
+        ),
+      },
+    },
+    {
+      trKey: 'extensions.seedbank.fields.viabilityPercentage.name',
+      filterKey: 'viabilityPercentage',
+      value: {
+        key: 'extensions.seedbank.viabilityPercentage',
+        hideFalsy: true,
+        formatter: (value, event) => (
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div>
+              <InlineFilterChip
+                filterName='viabilityPercentage'
+                values={[value]}
+              >
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      value +
+                      intl.formatMessage({
+                        id: 'extensions.seedbank.fields.viabilityPercentage.unit',
+                      }),
+                  }}
+                  data-loader
+                ></span>
+              </InlineFilterChip>
+            </div>
+          </div>
+        ),
+      },
+    },
+    {
+      trKey: 'extensions.seedbank.fields.preTestProcessingNotes.name',
+      filterKey: 'preTestProcessingNotes',
+      value: {
+        key: 'extensions.seedbank.preTestProcessingNotes',
+        hideFalsy: true,
+        formatter: (value, event) => (
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div>
+              <InlineFilterChip
+                filterName='preTestProcessingNotes'
+                values={[value]}
+              >
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      value +
+                      intl.formatMessage({
+                        id: 'extensions.seedbank.fields.preTestProcessingNotes.unit',
                       }),
                   }}
                   data-loader

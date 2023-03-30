@@ -106,7 +106,7 @@ export function AccessionSidebar({
   const { data, error, loading, load } = useQuery(ACCESSION_EVENT, {
     lazyLoad: true,
   });
-  const [activeId, setTab] = useState('details');
+  const [activeId, setTab] = useState(defaultTab || 'details');
   const theme = useContext(ThemeContext);
 
   useEffect(() => {
@@ -118,8 +118,8 @@ export function AccessionSidebar({
             predicates: [
               {
                 type: 'equals',
-                key: 'eventID',
-                value: eventID,
+                key: 'catalogNumber',
+                value: catalogNumber,
               },
             ],
           },
