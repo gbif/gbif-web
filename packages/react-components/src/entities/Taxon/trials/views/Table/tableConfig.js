@@ -116,7 +116,11 @@ export default (intl) => ({
               <InlineFilterChip filterName='testLengthInDays' values={[value]}>
                 <span
                   dangerouslySetInnerHTML={{
-                    __html: value,
+                    __html:
+                      value +
+                      intl.formatMessage({
+                        id: 'extensions.seedbank.fields.testLengthInDays.unit',
+                      }),
                   }}
                   data-loader
                 ></span>
@@ -141,7 +145,11 @@ export default (intl) => ({
               >
                 <span
                   dangerouslySetInnerHTML={{
-                    __html: value,
+                    __html:
+                      value +
+                      intl.formatMessage({
+                        id: 'extensions.seedbank.fields.germinationRateInDays.unit',
+                      }),
                   }}
                   data-loader
                 ></span>
@@ -163,7 +171,11 @@ export default (intl) => ({
               <InlineFilterChip filterName='numberGerminated' values={[value]}>
                 <span
                   dangerouslySetInnerHTML={{
-                    __html: value,
+                    __html:
+                      value +
+                      intl.formatMessage({
+                        id: 'extensions.seedbank.fields.numberGerminated.unit',
+                      }),
                   }}
                   data-loader
                 ></span>
@@ -188,7 +200,11 @@ export default (intl) => ({
               >
                 <span
                   dangerouslySetInnerHTML={{
-                    __html: value,
+                    __html:
+                      value +
+                      intl.formatMessage({
+                        id: 'extensions.seedbank.fields.adjustedGerminationPercentage.unit',
+                      }),
                   }}
                   data-loader
                 ></span>

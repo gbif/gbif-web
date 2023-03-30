@@ -119,7 +119,11 @@ export default (intl) => ({
               >
                 <span
                   dangerouslySetInnerHTML={{
-                    __html: value,
+                    __html:
+                      value +
+                      intl.formatMessage({
+                        id: 'extensions.seedbank.fields.thousandSeedWeight.unit',
+                      }),
                   }}
                   data-loader
                 ></span>
@@ -163,7 +167,11 @@ export default (intl) => ({
               <InlineFilterChip filterName='purityPercentage' values={[value]}>
                 <span
                   dangerouslySetInnerHTML={{
-                    __html: value,
+                    __html:
+                      value +
+                      intl.formatMessage({
+                        id: 'extensions.seedbank.fields.purityPercentage.unit',
+                      }),
                   }}
                   data-loader
                 ></span>

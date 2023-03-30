@@ -37,6 +37,16 @@ query list($predicate: Predicate, $offset: Int, $limit: Int){
         extensions {
           seedbank {
             accessionNumber
+            testDateStarted
+            testLengthInDays
+            numberGerminated
+            germinationRateInDays
+            adjustedGerminationPercentage
+            viabilityPercentage
+            numberFull
+            numberEmpty
+            numberTested
+            preTestProcessingNotes
           }
         }
       }
