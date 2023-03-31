@@ -14,8 +14,11 @@ function reduce(item) {
 
   // Handle seedbank extension
   let seedbankRecord;
-  const [seedbankVerbatim] = source.verbatim.extensions?.['http://replace-me/terms/seedbankextension'];
-  if (seedbankVerbatim) {
+  const seedbankExtension = source.verbatim.extensions?.['http://replace-me/terms/seedbankextension'];
+
+  // Ensure the seed bank extension exists before mapping the verbatim values
+  if (seedbankExtension) {
+    const [seedbankVerbatim] = seedbankExtension;
     seedbankRecord = removeUndefined({
       id:                               event.seedbankRecord?.id,
       eventID:                          seedbankVerbatim['http://rs.tdwg.org/dwc/terms/eventID'],
