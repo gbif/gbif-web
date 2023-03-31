@@ -13,7 +13,7 @@ const Layout = ({
   config,
   Table,
   Cards,
-  tabs = ['TABLE', 'CARDS'],
+  tabs = ['TABLE'],
   ...props
 }) => {
   const [activeView = tabs[0] || 'TABLE', setActiveView] = useQueryParam(

@@ -106,8 +106,9 @@ export const CollectionsTable = ({
         >
           <AccessionSidebar
             eventID={activeItem.eventID}
+            trialEventID={activeItem.eventID}
             catalogNumber={activeItem?.extensions?.seedbank?.accessionNumber}
-            defaultTab='details'
+            defaultTab='trial'
             style={{ maxWidth: '100%', width: 700, height: '100%' }}
             onCloseRequest={() => dialog.setVisible(false)}
           />

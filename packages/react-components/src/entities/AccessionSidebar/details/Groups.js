@@ -26,7 +26,7 @@ export function Groups({ trials, event, showAll }) {
     <>
       <Accession {...{ showAll, termMap, event }} />
       <Measurements {...{ showAll, termMap, event }} />
-      <Trials {...{ showAll, termMap, trials }} />
+      {/* <Trials {...{ showAll, termMap, trials }} /> */}
       <Location {...{ showAll, termMap, event }} />
       <MapAccordion {...{ showAll, termMap, event }} />
     </>

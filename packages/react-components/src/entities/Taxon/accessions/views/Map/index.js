@@ -34,6 +34,13 @@ query point($predicate: Predicate){
         }
         measurementOrFactTypes
         year
+        extensions {
+          seedbank {
+            accessionNumber
+            primaryCollector
+            dateCollected
+          }
+        }
       }
     }
   }

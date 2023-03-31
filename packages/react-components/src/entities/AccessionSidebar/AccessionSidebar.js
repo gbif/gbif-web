@@ -4,13 +4,14 @@ import * as css from './styles';
 import { Row, Col, Tabs } from '../../components';
 import { useQuery } from '../../dataManagement/api';
 import { Header } from './Header';
-import { MdClose, MdInfo } from 'react-icons/md';
-import { Groups } from './details/Groups';
+import { MdClose, MdInfo, MdScience } from 'react-icons/md';
+import { Groups as Details } from './details/Groups';
+import { Groups as Trial } from './trial/Groups';
 
 const { TabList, Tab, TapSeperator } = Tabs;
 const { TabPanel } = Tabs;
 
-const ACCESSION_EVENT = `
+const TRIAL_EVENT = `
 query list($predicate: Predicate, $offset: Int, $limit: Int){
   results: eventSearch(
     predicate:$predicate,
@@ -86,6 +87,17 @@ query list($predicate: Predicate, $offset: Int, $limit: Int){
             storageBehaviour
             embryoType
             dormancyClass
+
+            testDateStarted
+            testLengthInDays
+            numberGerminated
+            germinationRateInDays
+            adjustedGerminationPercentage
+            viabilityPercentage
+            numberFull
+            numberEmpty
+            numberTested
+            preTestProcessingNotes
           }
         }
       }
@@ -97,13 +109,14 @@ query list($predicate: Predicate, $offset: Int, $limit: Int){
 export function AccessionSidebar({
   onCloseRequest,
   eventID,
+  trialEventID,
   catalogNumber,
   defaultTab,
   className,
   style,
   ...props
 }) {
-  const { data, error, loading, load } = useQuery(ACCESSION_EVENT, {
+  const { data, error, loading, load } = useQuery(TRIAL_EVENT, {
     lazyLoad: true,
   });
   const [activeId, setTab] = useState(defaultTab || 'details');
@@ -132,13 +145,16 @@ export function AccessionSidebar({
 
   useEffect(() => {
     if (!loading) {
-      setTab('details');
+      setTab(defaultTab || 'details');
     }
   }, [data, loading]);
 
   const isLoading = loading || !data;
   const event = data?.results?.documents?.results?.find(
     ({ eventType }) => eventType.concept === 'Accession'
+  );
+  const trials = data?.results?.documents?.results?.filter(
+    ({ eventType }) => eventType.concept === 'Trial'
   );
 
   return (
@@ -157,6 +173,11 @@ export function AccessionSidebar({
             <Tab tabId='details' direction='left'>
               <MdInfo />
             </Tab>
+            {trialEventID && (
+              <Tab tabId='trial' direction='left'>
+                <MdScience />
+              </Tab>
+            )}
           </TabList>
         </Col>
         <Col
@@ -175,16 +196,18 @@ export function AccessionSidebar({
           {!isLoading && (
             <>
               <Header data={{ ...event, catalogNumber }} error={error} />
-              {(() => {
-                const trials = data?.results?.documents?.results?.filter(
-                  ({ eventType }) => eventType.concept === 'Trial'
-                );
-                return (
-                  <TabPanel tabId='details'>
-                    <Groups event={event} trials={trials} />
-                  </TabPanel>
-                );
-              })()}
+              <TabPanel tabId='details'>
+                <Details event={event} trials={trials} />
+              </TabPanel>
+              {trialEventID && (
+                <TabPanel tabId='trial'>
+                  <Trial
+                    event={trials.find(
+                      ({ eventID }) => eventID === trialEventID
+                    )}
+                  />
+                </TabPanel>
+              )}
             </>
           )}
         </Col>

@@ -9,6 +9,8 @@ import { styledScrollBars } from '../../../../../style/shared';
 function ListItem({ id, item, imageSrc, onClick = () => {}, ...props }) {
   const theme = useContext(ThemeContext);
 
+  console.log(item);
+
   return (
     <div css={listItem({ theme })} onClick={(e) => onClick({ id })}>
       <Row wrap='no-wrap' alignItems='center'>
