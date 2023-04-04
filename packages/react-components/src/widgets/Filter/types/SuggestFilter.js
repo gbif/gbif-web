@@ -50,6 +50,7 @@ export const FilterContent = ({ config, translations, labelledById, LabelFromID,
       }
       return <>
         <Suggest
+          style={{ margin: 12 }}
           {...suggestConfig}
           allowEmptyQueries={config?.specific?.allowEmptyQueries}
           focusRef={focusRef}

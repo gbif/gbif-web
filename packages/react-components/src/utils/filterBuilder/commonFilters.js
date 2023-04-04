@@ -32,7 +32,8 @@ export const commonFilters = {
       },
       specific: {
         suggestHandle: 'taxonKey',
-        id2labelHandle: 'taxonKey'
+        id2labelHandle: 'taxonKey',
+        singleSelect: true
       }
     }
   },

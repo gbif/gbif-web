@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import axios from '../../dataManagement/api/axios';
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
@@ -8,11 +8,14 @@ import { CommentForm } from './CommentForm';
 import { FormattedDate } from 'react-intl';
 import WKT from 'ol/format/WKT.js';
 import GeoJSON from 'ol/format/GeoJSON.js';
+import SearchContext from '../../search/SearchContext';
 
 const Card = ({ annotation, onSupport, onContest, onRemoveSupport, onRemoveContest, onDelete, token }) => {
   const [comments, setComments] = useState([]);
   const [showComments, setShowComments] = useState(false);
-  const geoJsonString = getFeature(annotation.geometry);
+  const { labelMap } = useContext(SearchContext);
+
+  const { geojson: geoJsonString, error: wktError } = getFeature(annotation.geometry);
 
   const userProfileString = atob(token.split('.')[1]);
   const userProfile = JSON.parse(userProfileString);
@@ -61,9 +64,13 @@ const Card = ({ annotation, onSupport, onContest, onRemoveSupport, onRemoveConte
   const titleMap = {
     'IDENTIFICATION': 'Wrong identification',
     'LOCATION': 'Wrong location',
+    'INTRODUCED': 'Introduced',
+    'NATIVE': 'Native',
+    'VAGRANT': 'Vagrant',
+    'CAPTIVITY': 'Captivity',
   }
   const author = annotation.createdBy;
-  const title = titleMap[annotation.errorType] || annotation.errorType;
+  const title = titleMap[annotation.errorType ?? annotation.enrichmentType] || 'Unknown type';
   const hasSupported = annotation.supportedBy && annotation.supportedBy.includes(userName);
   const hasContested = annotation.contestedBy && annotation.contestedBy.includes(userName);
   const hasCommented = comments.find(x => x.createdBy === userName);
@@ -71,12 +78,16 @@ const Card = ({ annotation, onSupport, onContest, onRemoveSupport, onRemoveConte
   const firstComment = comments.slice(-1)[0];
   const showDescription = firstComment?.createdBy === author;
 
+  const TaxonLabel = labelMap.taxonKey;
   return (
     <AnnotationWrapper style={{ margin: 12 }}>
       <CardWrapper>
-        <TitleImage>
+        {geoJsonString && <TitleImage>
           <img src={`https://api.mapbox.com/styles/v1/mapbox/streets-v12/static/geojson(${encodeURIComponent(geoJsonString)})/auto/400x200?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA&padding=50`} alt="Title image" />
-        </TitleImage>
+        </TitleImage>}
+        {wktError && <TitleImage css={css`background: linear-gradient(to right top, #ea3365, #ee3054, #ef3142, #ee362d, #eb3e12); text-align: center;`}>
+          <div css={css`background: #00000011; display: inline-block; border-radius: 4px; padding: 5px 8px; color: #880000; border: 1px solid #88000088; margin-top: 65px;`}>Invalid geometry</div>
+        </TitleImage>}
         <ContentWrapper>
           <MediaWrapper>
             <AuthorImage>
@@ -95,9 +106,10 @@ const Card = ({ annotation, onSupport, onContest, onRemoveSupport, onRemoveConte
               </CardAuthor>
             </div>
           </MediaWrapper>
-          {showDescription && <div style={{ color: 'rgba(0,0,0,.45)' }}>
-            <p>{firstComment.comment}</p>
-          </div>}
+          <div style={{ color: 'rgba(0,0,0,.65)' }}>
+            {annotation.contextType === 'TAXON' && <p>Taxon: <TaxonLabel id={annotation.contextKey} /></p>}
+            {showDescription && <p css={css`white-space: pre;`}>{firstComment.comment}</p>}
+          </div>
         </ContentWrapper>
         <ActionBar>
           {!isExpired && author === userName && <DeleteAction isActive={false} onClick={handleDelete} />}
@@ -108,9 +120,9 @@ const Card = ({ annotation, onSupport, onContest, onRemoveSupport, onRemoveConte
         </ActionBar>
       </CardWrapper>
       {showComments && <CommentWrapper>
-        <CommentForm token={token} id={annotation.id} onCreate={fetchComments} />
+        {!isExpired && <CommentForm token={token} id={annotation.id} onCreate={fetchComments} />}
         {comments.map((comment) => (
-          <Comment comment={comment} onDelete={handleCommentDelete} token={token} key={comment.id} userName={userName} isExpired={isExpired}/>
+          <Comment comment={comment} onDelete={handleCommentDelete} token={token} key={comment.id} userName={userName} isExpired={isExpired} />
         ))}
       </CommentWrapper>}
     </AnnotationWrapper>
@@ -161,7 +173,7 @@ const Comment = ({ comment, onDelete, userName, isExpired }) => {
               year="numeric"
               month="long"
               day="2-digit" /></div>
-          <div>{comment.comment}</div>
+          <div css={css`white-space: pre;`}>{comment.comment}</div>
         </CardAuthor>
       </div>
     </MediaWrapper>
@@ -284,7 +296,11 @@ const format = new WKT();
 function getFeature(wktStr) {
   // https://openlayers.org/en/latest/examples/wkt.html
   // https://openlayers.org/en/latest/examples/geojson.html
-  const feature = format.readFeature(wktStr);
-  const geoJsonString = new GeoJSON().writeFeature(feature);
-  return geoJsonString;
+  try {
+    const feature = format.readFeature(wktStr);
+    const geoJsonString = new GeoJSON().writeFeature(feature);
+    return { geojson: geoJsonString };
+  } catch (e) {
+    return { geojson: null, error: e };
+  }
 }

@@ -3,17 +3,20 @@ import axios from '../../dataManagement/api/axios';
 import { css } from '@emotion/react';
 import Card from './Card';
 
-export const AnnotationList = ({ token, ...props }) => {
+export const AnnotationList = ({ token, contextType, contextKey, ...props }) => {
   const [annotations, setAnnotations] = useState([]);
 
   useEffect(() => {
     const fetchAnnotations = async () => {
-      const response = await (axios.get('http://labs.gbif.org:7013/v1/occurrence/annotation/rule')).promise;
+      let params = {};
+      if (contextType) params = Object.assign(params, { contextType });
+      if (contextKey) params = Object.assign(params, { contextKey });
+      const response = await (axios.get('http://labs.gbif.org:7013/v1/occurrence/annotation/rule', {params})).promise;
       setAnnotations(response.data);
     };
 
     fetchAnnotations();
-  }, []);
+  }, [contextType, contextKey]);
 
   const handleSupport = async (id) => {
     const response = await (axios.post(`http://labs.gbif.org:7013/v1/occurrence/annotation/rule/${id}/support`,

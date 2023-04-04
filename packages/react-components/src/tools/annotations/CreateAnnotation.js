@@ -1,8 +1,13 @@
+import { css, jsx } from '@emotion/react';
 import React, { useState } from 'react';
+import { MdArrowBack, MdSend } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
-import { Classification, Tooltip } from '../../components';
+import { StringParam, useQueryParam } from 'use-query-params';
+import { Button, ButtonGroup, Classification, Input, Tooltip } from '../../components';
 import axios from '../../dataManagement/api/axios';
-import { Suggest } from '../../widgets/Filter/utils';
+import { placeholder } from '../../style/shared';
+import { Option, Suggest } from '../../widgets/Filter/utils';
+import { Context } from './Context';
 
 const suggestStyle = { whiteSpace: 'nowrap', textOverflow: 'ellipsis', width: '100%', overflow: 'hidden' };
 
@@ -38,11 +43,26 @@ const suggestConfig = {
   }
 };
 
-function AnnotationForm({token, ...props}) {
-  const [contextType, setContextType] = useState('TAXON');
-  const [contextKey, setContextKey] = useState('');
+function AnnotationForm({ token, onClose, onCreate, ...props }) {
+  const errorOptions = [
+    { value: 'LOCATION', label: 'Location' },
+    { value: 'IDENTIFICATION', label: 'Identification' },
+  ];
+
+  const enrichmentOptions = [
+    { value: 'NATIVE', label: 'Native' },
+    { value: 'VAGRANT', label: 'Vagrant' },
+    { value: 'CAPTIVITY', label: 'Captivity' },
+    { value: 'INTRODUCED', label: 'Introduced' },
+  ];
+
+  const [contextType = 'TAXON', setContextType] = useQueryParam('type', StringParam);
+  const [contextKey, setContextKey] = useQueryParam('key', StringParam);
   const [geometry, setGeometry] = useState('');
-  const [errorType, setErrorType] = useState('IDENTIFICATION');
+  const [project, setProject] = useState();
+  const [feedbackType, setFeedbackType] = useState('ERROR');
+  const [error, setError] = useState(errorOptions[0]);
+  const [enrichment, setEnrichment] = useState(enrichmentOptions[0]);
   const [comment, setComment] = useState('');
 
   const handleSubmit = async (e) => {
@@ -53,8 +73,14 @@ function AnnotationForm({token, ...props}) {
         contextType,
         contextKey,
         geometry,
-        errorType,
+        project,
       };
+      if (feedbackType === 'ERROR') {
+        annotationRule.errorType = error.value;
+      } else if (feedbackType === 'ENRICHMENT') {
+        annotationRule.enrichmentType = enrichment.value;
+      }
+
       const res = await (axios.post(
         'http://labs.gbif.org:7013/v1/occurrence/annotation/rule',
         annotationRule,
@@ -62,16 +88,18 @@ function AnnotationForm({token, ...props}) {
           headers: { Authorization: `Bearer ${token}` },
         }
       )).promise;
-      const commentData = { comment };
-      debugger;
-      const commentRes = await (axios.post(
-        `http://labs.gbif.org:7013/v1/occurrence/annotation/rule/${res.data.id}/comment`,
-        commentData,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      )).promise;
-      alert('Annotation created successfully');
+      if (comment && comment.length > 0) {
+        const commentData = { comment };
+
+        const commentRes = await (axios.post(
+          `http://labs.gbif.org:7013/v1/occurrence/annotation/rule/${res.data.id}/comment`,
+          commentData,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        )).promise;
+      }
+      onCreate(res.data);
     } catch (err) {
       console.error(err);
       alert('Error creating annotation');
@@ -79,8 +107,101 @@ function AnnotationForm({token, ...props}) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
+    <>
+      <form onSubmit={handleSubmit}>
+        <Context onChange={(context) => {
+          setContextType(contextType);
+          setContextKey(contextKey);
+        }} />
+
+        <div css={css`background: white; border-radius: 4px; margin: 12px; border: 1px solid var(--paperBorderColor);`}>
+          <Input placeholder="Geometry as WKT" onChange={e => setGeometry(e.target.value)} style={{ border: 'none' }} />
+        </div>
+
+        <div css={css`background: white; border-radius: 4px; margin: 12px; border: 1px solid var(--paperBorderColor);`}>
+          <div>
+            <ButtonGroup css={css`
+            width: 100%;
+            border-bottom: 1px solid var(--paperBorderColor);
+            >button {
+              flex: 1 1 50%!important;
+              border-bottom-left-radius: 0!important;
+              border-bottom-right-radius: 0!important;
+              border: none!important;
+            }
+          `}>
+              <Button appearance={feedbackType === 'ERROR' ? 'primary' : 'primaryOutline'} truncate onClick={() => setFeedbackType('ERROR')}>Error</Button>
+              <Button appearance={feedbackType === 'ENRICHMENT' ? 'primary' : 'primaryOutline'} onClick={() => setFeedbackType('ENRICHMENT')}>Enrichment</Button>
+            </ButtonGroup>
+          </div>
+          <fieldset css={css`
+        border:none;
+        padding: 12px;
+        margin: 0;
+        `}>
+            {feedbackType === 'ERROR' && errorOptions.map(option => <Option
+              key={option.value}
+              isRadio={true}
+              helpVisible={!!option.help}
+              helpText={option.help}
+              label={option.label}
+              checked={option.value === error.value}
+              onChange={() => setError(option)}
+            />
+            )}
+            {feedbackType === 'ENRICHMENT' && enrichmentOptions.map(option => <Option
+              key={option.value}
+              isRadio={true}
+              helpVisible={!!option.help}
+              helpText={option.help}
+              label={option.label}
+              checked={option.value === enrichment.value}
+              onChange={() => setEnrichment(option)}
+            />
+            )}
+          </fieldset>
+        </div>
+
+        <div css={css`background: white; border-radius: 4px; margin: 12px; border: 1px solid var(--paperBorderColor);`}>
+          <Suggest
+            css={css`
+            margin: 0;
+            border: none;
+            width: 100%;
+            input {
+              border: none;
+            }
+            `}
+            {...suggestConfig}
+            placeholder="Project (optional)"
+            // allowEmptyQueries={config?.specific?.allowEmptyQueries}
+            // focusRef={focusRef}
+            onKeyPress={e => e.which === keyCodes.ENTER ? onApply({ filter, hide }) : null}
+            onSuggestionSelected={({ item }) => {
+              setProject(item.key)
+            }}
+          />
+        </div>
+
+        <div css={css`background: white; border-radius: 4px; margin: 12px; border: 1px solid var(--paperBorderColor);`}>
+          <textarea
+            placeholder="Comment (optional)"
+            id="comment"
+            value={comment}
+            onChange={e => setComment(e.target.value)}
+            css={css`
+            padding: 4px 11px;
+            border: none; 
+            width: 100%;
+            height: 100px;
+            font-size: inherit;
+            line-height: 1.5;
+            background-color: #fcfdfd;
+            resize: vertical;
+          `} />
+        </div>
+
+        {/* <div>
         <label htmlFor="contextType">Context Type:</label>
         <select
           id="contextType"
@@ -98,39 +219,6 @@ function AnnotationForm({token, ...props}) {
           id="contextKey"
           value={contextKey}
           onChange={(e) => setContextKey(e.target.value)}
-        />
-        <Suggest
-          {...suggestConfig}
-          // allowEmptyQueries={config?.specific?.allowEmptyQueries}
-          // focusRef={focusRef}
-          onKeyPress={e => e.which === keyCodes.ENTER ? onApply({ filter, hide }) : null}
-          /*onKeyPress={e => {
-            if (e.which === keyCodes.ENTER) {
-              if (e.target.value === '') {
-                onApply({ filter, hide });
-              } else {
-                const val = e.target.value;
-                const allOptions = union(options, [val]);
-                setOptions(allOptions);
-                toggle(filterHandle, val);
-              }
-            }
-          }}*/
-          onSuggestionSelected={({ item }) => {
-            console.log(item);
-            setContextKey(item.key)
-            // if (!item) return;
-            // const allOptions = union(options, [item.key]);
-            // setOptions(allOptions);
-            // if (singleSelect) {
-            //   setOptions([item.key]);
-            //   setFullField(filterHandle, [item.key], [])
-            //     .then(responseFilter => onApply({ filter: responseFilter, hide }))
-            //     .catch(err => console.log(err));
-            // } else {
-            //   toggle(filterHandle, item.key);
-            // }
-          }}
         />
       </div>
       <div>
@@ -172,11 +260,18 @@ function AnnotationForm({token, ...props}) {
           value={comment}
           onChange={(e) => setComment(e.target.value)}
         />
-      </div>
-      <div>
-        <button type="submit">Submit</button>
-      </div>
-    </form>
+      </div>*/}
+        <div css={css`text-align: end; margin: 12px; display: flex; flex-direction: row;`}>
+          <Button look="outline" onClick={onClose}>
+            Cancel
+          </Button>
+          <div css={css`flex: 1 1 100%;`}></div>
+          <Button look="primary" type="submit">
+            Create
+          </Button>
+        </div>
+      </form>
+    </>
   );
 }
 

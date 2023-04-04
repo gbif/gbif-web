@@ -1,10 +1,10 @@
 import { jsx, css } from '@emotion/react';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useLocalStorage } from 'react-use';
 import { MdSearch } from 'react-icons/md';
 import { useQuery } from '../../dataManagement/api';
 import { filter2predicate } from '../../dataManagement/filterAdapter';
-import { Button, Input, HyperText, ErrorBoundary, NavBar, NavItem } from '../../components';
+import { Button, Input, HyperText, ErrorBoundary, NavBar, NavItem, ButtonGroup } from '../../components';
 import { FormattedNumber } from 'react-intl';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import { join } from '../../utils/util';
@@ -12,6 +12,12 @@ import { StringParam, useQueryParam } from 'use-query-params';
 import { AnnotationList } from './AnnotationList';
 import { AnnotationForm } from './CreateAnnotation';
 import env from '../../../.env.json';
+import CustomSelect from './CustomSelect';
+import { Context } from './Context';
+import { SearchWrapper } from '../../search/Search';
+import predicateConfig from './config/predicateConfig';
+import defaultFilterConfig from './config/filterConf';
+
 /*
 This component is a widget that allows the user to search for annotations. 
 add annotation rules, create projects to contain annotations, and view annotations. 
@@ -34,10 +40,9 @@ function Annotations(props) {
           </nav>
           <div css={css`flex: 1 1 100%; background: #f3f3f3; overflow: auto; max-height: 100%;`}>
             {/* <Projects /> */}
-            <div>
-              <AnnotationList token={env._tmp_token}/>
-              {/* <AnnotationForm token={env._tmp_token}/> */}
-            </div>
+            <SearchWrapper {...{predicateConfig, defaultFilterConfig}}>
+              <Rules />
+            </SearchWrapper>
           </div>
         </div>
       </div>
@@ -47,6 +52,55 @@ function Annotations(props) {
 
 export default Annotations;
 
+function Rules(props) {
+  const [contextType = 'TAXON', setType] = useQueryParam('type', StringParam);
+  const [contextKey, setKey] = useQueryParam('key', StringParam);
+  const [showNewRule, setShowNewRule] = useState(false);
+  const [showCreateSuccess, setShowCreateSuccess] = useState(false);
+  
+  return <div style={{paddingBottom: 48}}>
+    {/* <CustomSelect options={[{value: 'TAXON', label: "Taxon"}, {value: 'DATASET', label: "Dataset"}]} value="Pumas" inputPlaceholder="Select context" /> */}
+    {showNewRule && <AnnotationForm token={env._tmp_token} onCreate={(annotation) => {
+      setShowNewRule(false); 
+      setShowCreateSuccess(true);
+      setType(annotation.contextType);
+      setKey(annotation.contextKey);
+      }} 
+      onClose={() => setShowNewRule(false)}
+      />}
+    {!showNewRule && <>
+      {showCreateSuccess && <SuccessCard onCreate={() => setShowNewRule(true)} onClose={() => setShowCreateSuccess(false)}/>}
+      {!showCreateSuccess && <Context onChange={(context) => {
+        setType(context.type);
+        setKey(context.key);
+      }} />}
+      <AnnotationList token={env._tmp_token} contextType={contextType} contextKey={contextKey} />
+    </>}
+
+    {!showNewRule && <>
+       <div css={css`position: absolute; bottom: 12px; right: 24px;`}>
+        <Button onClick={() => setShowNewRule(true)} css={css`box-shadow: 0 3px 3px 3px rgba(0,0,0,.15);`}>Create new rule</Button>
+      </div>
+    </>}
+    {/* <div>
+    <div css={css`margin: 8px; overflow: hidden; border-radius: 4px;`}>
+      <img css={css`width: 100%; display: block;`} src="https://cdn.discordapp.com/attachments/1017143593351258192/1091055752023642172/Morten100_tech_illustration_woman_classifying_geomtric_lines_er_28b388c3-d5f1-4e2f-b359-77a370f94477.png" />
+    </div>
+  </div> */}
+  </div>
+}
+
+function SuccessCard({ onCreate, onClose, ...props }) {
+  return <div css={css`background: white; margin: 12px; border-radius: 4px; text-align: center; padding: 12px;`}>
+    <img css={css`width: 100%; display: block; max-width: 250px; margin: 0 auto; margin-bottom: -24px;`}
+      src="https://cdn.discordapp.com/attachments/1017143593351258192/1091342958684545044/Morten100_tech_illustration_biodiversity_confetti_by_slack_and__faf2c4d0-a991-43f3-b6cb-7c8e593219c7.png" alt="Confetti" />
+      <div>
+        <p>Your annotation rule was created.</p>
+      </div>
+    <Button onClick={onCreate} style={{marginInlineEnd: 8}}>Create another</Button>
+    <Button look="primaryOutline" onClick={onClose}>Close</Button>
+  </div>
+}
 
 function Projects({ ...props }) {
   return <div css={css``}>

@@ -2,7 +2,6 @@ import { css } from '@emotion/react';
 import { focusStyle, placeholder } from '../../style/shared';
 
 export const input = props => css`
-  -webkit-box-sizing: border-box;
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -24,6 +23,7 @@ export const input = props => css`
     transition: all 0.3s;
     ${focusStyle(props)};
     ${placeholder(props)};
+    text-overflow: ellipsis;
 `;
 
 // export const inputGroup = ({theme}) => css`

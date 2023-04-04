@@ -51,6 +51,7 @@ export const FilterContent = ({ focusRef, ...props }) => {
       </Header> */}
       <>
         <Suggest
+          style={{ margin: 12 }}
           defaultIsOpen={true}
           value={value}
           // placeholder={formatMessage({id: 'search.table.lockColumn'})}

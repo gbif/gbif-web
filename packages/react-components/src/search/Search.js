@@ -46,3 +46,32 @@ function Search({ config: customConfig = {}, predicateConfig, defaultFilterConfi
 }
 
 export default Search;
+
+export function SearchWrapper({ config: customConfig = {}, predicateConfig, defaultFilterConfig, children, ...props },) {
+  const theme = useContext(ThemeContext);
+  const localeSettings = useContext(LocaleContext);
+  const [filter, setFilter, updateParams] = useFilterParams({ predicateConfig });
+  // const [filter, setFilter] = useState({});
+
+  const apiContext = useContext(ApiContext);
+  const intl = useIntl();
+  const config = useMemo(() => {
+    return buildConfig({
+      customConfig,
+      predicateConfig,
+      defaultFilterConfig
+    }, { client: apiContext, formatMessage: intl.formatMessage, localeSettings });
+  }, [apiContext, intl]);
+
+  return (
+    <Root dir={theme.dir}>
+      <SearchContext.Provider value={config}>
+        <FilterState filter={filter} onChange={setFilter}>
+          <ErrorBoundary>
+            {children}
+          </ErrorBoundary>
+        </FilterState>
+      </SearchContext.Provider>
+    </Root>
+  );
+}

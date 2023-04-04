@@ -84,7 +84,7 @@ class Suggest extends React.Component {
 
   render() {
     const { value, suggestions, loading, error } = this.state;
-    const { intl, render, getValue, placeholder } = this.props;
+    const { intl, render, getValue, placeholder, ...props } = this.props;
 
     // Autosuggest will pass through all these props to the input
     const placeholderTranslationString = placeholder || 'search.placeholders.default';
@@ -99,7 +99,7 @@ class Suggest extends React.Component {
     return (
       <>
         <Autocomplete
-          style={{ margin: '10px' }}
+          {...props}
           suggestions={suggestions}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}

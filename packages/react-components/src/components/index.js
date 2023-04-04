@@ -4,7 +4,7 @@ export * from './Checkbox';
 export { Input } from './Input/Input';
 export { Popover } from './Popover';
 export { StripeLoader } from './Loaders';
-export { Autocomplete } from './Autocomplete/Autocomplete';
+export { Autocomplete, Suggest } from './Autocomplete';
 export { Tabs } from './Tabs/Tabs';
 export { Row, Col } from './Row/Row';
 export { Menu, MenuAction, MenuToggle } from './Menu';

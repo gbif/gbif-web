@@ -46,8 +46,16 @@ export const menu = props => css`
   ${styledScrollBars(props)}
 `;
 
+export const clearButton = ({theme, ...props}) => css`
+  position: absolute;
+  top: 0;
+  height: 32px;
+  right: 8px;
+`;
+
 export default {
   wrapper,
   menu,
-  item
+  item,
+  clearButton
 }

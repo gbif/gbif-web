@@ -7,6 +7,8 @@ import { useDebounce } from "use-debounce"; // example here https://codesandbox.
 import { Input } from '../Input/Input';
 import { StripeLoader } from '../Loaders/StripeLoader';
 import styles from './styles';
+import { MdClear } from 'react-icons/md';
+import { Button } from '../Button';
 
 export const Autocomplete = React.forwardRef(({
   onSuggestionsFetchRequested,
@@ -19,6 +21,8 @@ export const Autocomplete = React.forwardRef(({
   suggestions,
   loadingError,
   style,
+  allowClear,
+  onClear,
   listCss,
   menuCss,
   delay = 300,
@@ -64,7 +68,7 @@ export const Autocomplete = React.forwardRef(({
       selectedItem,
       getRootProps,
     }) => (
-        <div style={{ position: 'relative', display: 'inline-block', ...style }}>
+        <div style={{ position: 'relative', display: 'inline-block', ...style }} {...props}>
           {/* <label {...getLabelProps()}>Enter a fruit</label> */}
           <div
             {...getRootProps({}, { suppressRefError: true })}
@@ -81,7 +85,9 @@ export const Autocomplete = React.forwardRef(({
                   }
                 }
               }
-            })} />
+            })} 
+            style={allowClear ? {paddingInlineEnd: 24} : null} />
+            {allowClear && <Button look="text" css={styles.clearButton({ theme })} onClick={() => onClear(null)}><MdClear /></Button>}
           </div>
           <div css={wrapperStyle({ theme, isOpen })}>
             {isOpen && <>
