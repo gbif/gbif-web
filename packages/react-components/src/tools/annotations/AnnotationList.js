@@ -3,7 +3,7 @@ import axios from '../../dataManagement/api/axios';
 import { css } from '@emotion/react';
 import Card from './Card';
 
-export const AnnotationList = ({ token, contextType, contextKey, ...props }) => {
+export const AnnotationList = ({ token, contextType, contextKey, activeAnnotation, ...props }) => {
   const [annotations, setAnnotations] = useState([]);
 
   useEffect(() => {
@@ -90,7 +90,15 @@ export const AnnotationList = ({ token, contextType, contextKey, ...props }) => 
 
   return (
     <div css={listStyle}>
-      {annotations.map((annotation) => (
+      {annotations
+      .filter(annotation => {
+        if (activeAnnotation) {
+          return annotation.id === activeAnnotation.id;
+        } else {
+          return true;
+        }
+      })
+      .map((annotation) => (
         <Card 
           key={annotation.id}
           annotation={annotation}
