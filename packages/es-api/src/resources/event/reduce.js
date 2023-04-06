@@ -29,7 +29,7 @@ function reduce(item) {
       sampleWeightInGrams:              event.seedbankRecord?.sampleWeightInGrams,
       sampleSize:                       event.seedbankRecord?.sampleSize,
       purityDebrisPercentage:           event.seedbankRecord?.purityDebrisPercentage,
-      purityPercentage:                 event.seedbankRecord?.purityDebrisPercentage,
+      purityPercentage:                 event.seedbankRecord?.purityPercentage,
       dateCollected:                    event.seedbankRecord?.dateCollected,
       dateInStorage:                    event.seedbankRecord?.dateInStorage,
       storageTemperatureInCelsius:      event.seedbankRecord?.storageTemperatureInCelsius,
