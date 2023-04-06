@@ -11,8 +11,8 @@ const typeDef = gql`
     sampleSize: Int
     purityDebrisPercentage: Int
     purityPercentage: Int
-    dateCollected: String
-    dateInStorage: String
+    dateCollected: Long
+    dateInStorage: Long
     storageTemperatureInCelsius: Int
     relativeHumidityPercentage: Int
     publicationDOI: String
@@ -27,7 +27,7 @@ const typeDef = gql`
     storageBehaviour: String
     embryoType: String
     dormancyClass: String
-    testDateStarted: String
+    testDateStarted: Long
     testLengthInDays: Int
     collectionFillRate: String
     numberGerminated: Int
