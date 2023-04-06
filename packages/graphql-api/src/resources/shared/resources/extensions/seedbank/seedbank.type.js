@@ -27,7 +27,7 @@ const typeDef = gql`
     storageBehaviour: String
     embryoType: String
     dormancyClass: String
-    testDateStarted: String
+    testDateStarted: Long
     testLengthInDays: Int
     collectionFillRate: String
     numberGerminated: Int
