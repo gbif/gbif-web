@@ -5,16 +5,16 @@ const typeDef = gql`
     id: String!
     degreeOfEstablishment: String
     accessionNumber: String
-    seedPerGram: Int
+    seedPerGram: Float
     formInStorage: String
-    sampleWeightInGrams: Int
+    sampleWeightInGrams: Float
     sampleSize: Int
-    purityDebrisPercentage: Int
-    purityPercentage: Int
+    purityDebrisPercentage: Float
+    purityPercentage: Float
     dateCollected: Long
     dateInStorage: Long
-    storageTemperatureInCelsius: Int
-    relativeHumidityPercentage: Int
+    storageTemperatureInCelsius: Float
+    relativeHumidityPercentage: Float
     publicationDOI: String
     preStorageTreatmentNotesHistory: String
     primaryStorageSeedBank: String
@@ -22,7 +22,7 @@ const typeDef = gql`
     plantForm: String
     duplicatesReplicates: String
     collectionPermitNumber: String
-    thousandSeedWeight: Int
+    thousandSeedWeight: Float
     numberPlantsSampled: String
     storageBehaviour: String
     embryoType: String
@@ -32,18 +32,18 @@ const typeDef = gql`
     collectionFillRate: String
     numberGerminated: Int
     germinationRateInDays: Int
-    adjustedGerminationPercentage: Int
-    viabilityPercentage: Int
+    adjustedGerminationPercentage: Float
+    viabilityPercentage: Float
     numberFull: Int
     numberEmpty: Int
     numberTested: Int
     preTestProcessingNotes: String
     pretreatment: String
     mediaSubstrate: String
-    nightTemperatureInCelsius: Int
-    dayTemperatureInCelsius: Int
-    darkHours: Int
-    lightHours: Int
+    nightTemperatureInCelsius: Float
+    dayTemperatureInCelsius: Float
+    darkHours: Float
+    lightHours: Float
   }
 `;
 
