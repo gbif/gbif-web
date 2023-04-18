@@ -32,6 +32,24 @@ export const commonFilters = {
       },
       specific: {
         suggestHandle: 'taxonKey',
+        id2labelHandle: 'taxonKey'
+      }
+    }
+  },
+  taxonKeySingle: {
+    type: 'SUGGEST',
+    config: {
+      std: {
+        filterHandle: 'taxonKey',// if nothing else provided, then this is the filterName used
+        id2labelHandle: 'canonicalName',
+        translations: {
+          count: 'filters.taxonKey.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.taxonKey.name',// translation path to a title for the popover and the button
+          description: 'filters.taxonKey.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        suggestHandle: 'taxonKey',
         id2labelHandle: 'taxonKey',
         singleSelect: true
       }
@@ -148,6 +166,25 @@ export const commonFilters = {
       specific: {
         suggestHandle: 'datasetKeyFromOccurrenceIndex',
         allowEmptyQueries: true
+      }
+    }
+  },
+  datasetKeySingle: {
+    type: 'SUGGEST',
+    config: {
+      std: {
+        filterHandle: 'datasetKey',
+        id2labelHandle: 'datasetKey',
+        translations: {
+          count: 'filters.datasetKey.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.datasetKey.name',// translation path to a title for the popover and the button
+          description: 'filters.datasetKey.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        suggestHandle: 'datasetKeyFromOccurrenceIndex',
+        allowEmptyQueries: true,
+        singleSelect: true
       }
     }
   },

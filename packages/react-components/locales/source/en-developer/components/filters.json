@@ -1,4 +1,9 @@
 {
+  "annotationProject": {
+    "name": "Project",
+    "count": "{num, plural, one { project } other {# projects}}",
+    "description": "The annotation project the rule belongs to"
+  },
   "dwcaExtension": {
     "name": "Dwca extension",
     "count": "{num, plural, one { Dwca extension } other {# Dwca extensions}}",

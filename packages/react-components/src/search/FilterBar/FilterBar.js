@@ -9,6 +9,7 @@ import { Trigger as MetaFilter } from '../../widgets/Filter/types/MetaFilter';
 import { Button, Tooltip } from '../../components';
 import { MdDelete } from 'react-icons/md';
 import SiteContext from '../../dataManagement/SiteContext';
+import SearchContext from '../SearchContext';
 
 function getVisibleFilters(currentFilter, commonFilters) {
   const visibleFilters = union(commonFilters,
@@ -19,19 +20,19 @@ function getVisibleFilters(currentFilter, commonFilters) {
 
 const FilterBar = ({
   className = '',
-  config,
   filter,
   ...props
 }) => {
   const theme = useContext(ThemeContext);
+  const config = useContext(SearchContext);
   const currentFilterContext = useContext(FilterContext);
   const {event: eventConfig} = useContext(SiteContext);
 
   const prefix = theme.prefix || 'gbif';
   const elementName = 'filterBar';
 
-  const visibleFilters = getVisibleFilters(filter, config.defaultVisibleFilters);
-  const availableFilters = visibleFilters.map(x => config.filters[x]);
+  const visibleFilters = getVisibleFilters(filter, config?.defaultVisibleFilters);
+  const availableFilters = visibleFilters.map(x => config.filters?.[x]);
   const currentFilters = Object.keys({
     ...(currentFilterContext.filter.must || {}),
     ...(currentFilterContext.filter.must_not || {})
@@ -43,7 +44,7 @@ const FilterBar = ({
         if (!x) return null; // if no widget is defined for this filter, then do not show anything
         return <x.Button key={i}/>
       })}
-      {Object.keys(config.filters).length !== config.defaultVisibleFilters.length && (
+      {Object.keys(config?.filters ?? {}).length !== config?.defaultVisibleFilters.length && (
         <div>
           <MetaFilter />
         </div>

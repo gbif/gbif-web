@@ -12,18 +12,9 @@ import { Style, Fill, Stroke } from 'ol/style';
 import { WKT } from 'ol/format';
 import Select from 'ol/interaction/Select';
 import { altKeyOnly, click, pointerMove } from 'ol/events/condition';
+import { colorMap } from './colorMap';
 
 var format = new WKT();
-
-const colorMap = {
-  'default': 'rgba(255, 255, 255, 0.5)',
-  'LOCATION': '#e41a1c',
-  'IDENTIFICATION': '#ff7f00"',
-  'NATIVE': '#4daf4a',
-  'VAGRANT': '#377eb8',
-  'CAPTIVITY': '#ffff33',
-  'INTRODUCED': '#984ea3',
-};
 
 function itemToFeature({ geometry, ...item }) {
   // Parse the WKT string using OpenLayers
@@ -34,7 +25,7 @@ function itemToFeature({ geometry, ...item }) {
     });
 
     // Set the color property on the feature's properties object
-    feature.setProperties({...item, color: colorMap[item.errorType ?? item.enrichmentType] || colorMap['default']});
+    feature.setProperties({...item, color: colorMap[item.annotation] || colorMap['OTHER']});
     return { feature };
   } catch (e) {
     return { error: e }
@@ -45,7 +36,7 @@ const OpenLayersMap = ({ data, onPolygonSelect }) => {
   const mapRef = useRef(null);
   const popupRef = useRef(null);
   const popupCloseRef = useRef(null);
-  const [selectedFeature, setSelectedFeature] = React.useState(null);
+  const [selectedFeatures, setSelectedFeatures] = React.useState(null);
 
   useEffect(() => {
     if (mapRef.current) {
@@ -135,15 +126,19 @@ const OpenLayersMap = ({ data, onPolygonSelect }) => {
             return layer === vectorLayer;
           }
         });
+        
         const feature = clickedFeatures[0];
-
         // If we found a feature, create a popup and display its properties
         if (feature) {
+          if (clickedFeatures.length > 1) {
+            
+          } else if (clickedFeatures.length === 1) {
+          }
 
-          setSelectedFeature(feature.getProperties());
+          setSelectedFeatures(clickedFeatures.map(f => f.getProperties()));
 
           // Call your function with the feature properties
-          onPolygonSelect(feature.getProperties(), clickedFeatures.map(f => f.getProperties()));
+          onPolygonSelect(feature.getProperties(), clickedFeatures.map(f => f.getProperties().id));
 
           // Create the popup overlay
           var popupOverlay = new Overlay({
@@ -159,7 +154,7 @@ const OpenLayersMap = ({ data, onPolygonSelect }) => {
           popupCloseRef.current.onclick = function () {
             popupOverlay.setPosition(undefined);
             popupCloseRef.current.blur();
-            setSelectedFeature();
+            setSelectedFeatures();
             selectClick.getFeatures().clear();
             return false;
           };
@@ -177,13 +172,13 @@ const OpenLayersMap = ({ data, onPolygonSelect }) => {
         }
       };
     }
-  }, [data, onPolygonSelect, setSelectedFeature]);
+  }, [data, onPolygonSelect, setSelectedFeatures]);
 
   return <>
     <div ref={mapRef} style={{ width: '100%', height: '100%' }}></div>
-    <div ref={popupRef} css={popup} style={{display: selectedFeature ? 'block' : 'none'}}>
+    <div ref={popupRef} css={popup} style={{display: selectedFeatures ? 'block' : 'none'}}>
       <a ref={popupCloseRef} href="#" id="popup-closer" css={popupCloser}></a>
-      {selectedFeature && <div id="popup-content">{selectedFeature.errorType ?? selectedFeature.enrichmentType}</div>}
+      {selectedFeatures && <div id="popup-content">{selectedFeatures.map(x => x.annotation).join(', ')}</div>}
     </div>
   </>;
 };

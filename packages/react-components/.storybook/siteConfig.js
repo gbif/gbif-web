@@ -113,6 +113,14 @@ const routeConfig = {
     isHref: true,
     route: '/taxon/:key'
   },
+
+  annotations: {
+    url: ({ queryString }) => {
+      return `/iframe.html?id=tools-annotations--example&viewMode=story&args=`;
+    },
+    isHref: true,
+    route: '/annotations'
+  },
 };
 
 export const siteConfig = {

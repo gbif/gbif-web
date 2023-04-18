@@ -1,15 +1,17 @@
 import React, { useState, useEffect, useCallback, useContext } from 'react';
-import axios from '../../dataManagement/api/axios';
+import axios from '../../../dataManagement/api/axios';
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { JazzIcon } from "../../components";
-import { MdDelete, MdModeComment, MdOutlineThumbUp, MdThumbDown, MdThumbUp } from "react-icons/md";
+import { JazzIcon } from "../../../components";
+import { MdDelete, MdModeComment, MdThumbDown, MdThumbUp } from "react-icons/md";
 import { CommentForm } from './CommentForm';
 import { FormattedDate } from 'react-intl';
 import WKT from 'ol/format/WKT.js';
 import GeoJSON from 'ol/format/GeoJSON.js';
-import SearchContext from '../../search/SearchContext';
+import SearchContext from '../../../search/SearchContext';
+import MapWithGeoJSON from './MapWithGeoJSON';
 
+const MAPBOX_GEOJSON_SIZE_LIMIT = 1;
 const Card = ({ annotation, onSupport, onContest, onRemoveSupport, onRemoveContest, onDelete, token }) => {
   const [comments, setComments] = useState([]);
   const [showComments, setShowComments] = useState(false);
@@ -62,31 +64,36 @@ const Card = ({ annotation, onSupport, onContest, onRemoveSupport, onRemoveConte
   };
 
   const titleMap = {
-    'IDENTIFICATION': 'Wrong identification',
-    'LOCATION': 'Wrong location',
-    'INTRODUCED': 'Introduced',
     'NATIVE': 'Native',
+    'INTRODUCED': 'Introduced',
+    'MANAGED': 'Managed',
+    'FORMER': 'Former',
     'VAGRANT': 'Vagrant',
     'CAPTIVITY': 'Captivity',
+    'SUSPICIOUS': 'Suspicious',
+    'OTHER': 'Other',
   }
   const author = annotation.createdBy;
-  const title = titleMap[annotation.errorType ?? annotation.enrichmentType] || 'Unknown type';
+  const title = titleMap[annotation.annotation] || 'Unknown type';
   const hasSupported = annotation.supportedBy && annotation.supportedBy.includes(userName);
   const hasContested = annotation.contestedBy && annotation.contestedBy.includes(userName);
   const hasCommented = comments.find(x => x.createdBy === userName);
 
   const firstComment = comments.slice(-1)[0];
   const showDescription = firstComment?.createdBy === author;
-
+  
   const TaxonLabel = labelMap.taxonKey;
   return (
     <AnnotationWrapper style={{ margin: 12 }}>
       <CardWrapper>
-        {geoJsonString && <TitleImage>
+        {geoJsonString?.length < MAPBOX_GEOJSON_SIZE_LIMIT && <TitleImage>
           <img src={`https://api.mapbox.com/styles/v1/mapbox/streets-v12/static/geojson(${encodeURIComponent(geoJsonString)})/auto/400x200?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA&padding=50`} alt="Title image" />
         </TitleImage>}
+        {geoJsonString?.length >= MAPBOX_GEOJSON_SIZE_LIMIT && <TitleImage>
+          <MapWithGeoJSON type={annotation.annotation} geojson={JSON.parse(geoJsonString)} style={{width: '100%', height: '100%'}}/>
+        </TitleImage>}
         {wktError && <TitleImage css={css`background: linear-gradient(to right top, #ea3365, #ee3054, #ef3142, #ee362d, #eb3e12); text-align: center;`}>
-          <div css={css`background: #00000011; display: inline-block; border-radius: 4px; padding: 5px 8px; color: #880000; border: 1px solid #88000088; margin-top: 65px;`}>Invalid geometry</div>
+          <span css={css`background: #00000011; display: inline-block; border-radius: 4px; padding: 5px 8px; color: #880000; border: 1px solid #88000088; margin-top: 65px;`}>Invalid geometry</span>
         </TitleImage>}
         <ContentWrapper>
           <MediaWrapper>
@@ -107,7 +114,7 @@ const Card = ({ annotation, onSupport, onContest, onRemoveSupport, onRemoveConte
             </div>
           </MediaWrapper>
           <div style={{ color: 'rgba(0,0,0,.65)' }}>
-            {annotation.contextType === 'TAXON' && <p>Taxon: <TaxonLabel id={annotation.contextKey} /></p>}
+            {typeof annotation.taxonKey !== 'undefined' && <p>Taxon: <TaxonLabel id={annotation.taxonKey} /></p>}
             {showDescription && <p css={css`white-space: pre;`}>{firstComment.comment}</p>}
           </div>
         </ContentWrapper>
@@ -219,11 +226,12 @@ const TitleImage = styled.div`
   padding-bottom: 50%;
   width: 100%;
   position: relative;
-  > img {
+  > img, > div {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
+    height: 100%;
   }
 `;
 

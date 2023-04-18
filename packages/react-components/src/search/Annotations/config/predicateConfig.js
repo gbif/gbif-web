@@ -4,6 +4,12 @@ const filterConf = {
   fields: {
     taxonKey: {
       singleValue: true
+    },
+    projectId: {
+      singleValue: true
+    },
+    datasetKey: {
+      singleValue: true
     }
   }
 }

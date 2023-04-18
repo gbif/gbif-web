@@ -26,6 +26,7 @@ import api from './dataSources';
 // we will attach a user if an authorization header is present.
 import extractUser from './helpers/auth/extractUser';
 import mapController from './api-utils/maps/index.ctrl.js';
+import geometryController from './api-utils/geometry/index.ctrl.js';
 
 // we are doing this async as we need to load the various enumerations from the APIs
 // and generate the schema from those
@@ -106,6 +107,7 @@ async function initializeServer() {
   
   // utils for map styles
   mapController(app);
+  geometryController(app);
 
   await server.start();
   server.applyMiddleware({ app });

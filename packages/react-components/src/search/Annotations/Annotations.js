@@ -1,23 +1,78 @@
 import { jsx, css } from '@emotion/react';
 import React, { useEffect, useState, useContext, useCallback } from 'react';
-import { useLocalStorage } from 'react-use';
-import { MdSearch } from 'react-icons/md';
 import { useQuery } from '../../dataManagement/api';
 import { filter2predicate } from '../../dataManagement/filterAdapter';
 import { Button, Input, HyperText, ErrorBoundary, NavBar, NavItem, ButtonGroup } from '../../components';
 import { FormattedNumber } from 'react-intl';
-import { Route, Switch, useRouteMatch } from 'react-router-dom';
-import { join } from '../../utils/util';
 import { StringParam, useQueryParam } from 'use-query-params';
-import { AnnotationList } from './AnnotationList';
-import { AnnotationForm } from './CreateAnnotation';
+// import { AnnotationList } from './AnnotationList';
+// import { AnnotationForm } from './CreateAnnotation';
 import env from '../../../.env.json';
-import CustomSelect from './CustomSelect';
-import { Context } from './Context';
+// import { Context } from './Context';
 import { SearchWrapper } from '../../search/Search';
 import predicateConfig from './config/predicateConfig';
 import defaultFilterConfig from './config/filterConf';
-import { MapWrapper } from './MapWrapper';
+import Layout from './Layout';
+
+function searchJsonObjects(jsonList, queryString) {
+  const result = [];
+  const searchWords = queryString.toLowerCase().split(' ');
+
+  for (let i = 0; i < jsonList.length; i++) {
+    const jsonObj = jsonList[i];
+    const jsonStr = JSON.stringify(jsonObj).toLowerCase();
+
+    let matchFound = true;
+    for (let j = 0; j < searchWords.length; j++) {
+      if (!jsonStr.includes(searchWords[j])) {
+        matchFound = false;
+        break;
+      }
+    }
+
+    if (matchFound) {
+      result.push(jsonObj);
+    }
+  }
+
+  return result;
+}
+
+
+function getSuggests({ client, suggestStyle }) {
+  return {
+    annotationProject: {
+      //What placeholder to show
+      placeholder: 'Search by scientific name',
+      // how to get the list of suggestion data
+      getSuggestions: ({ q }) => {
+        const { promise, cancel } = client.get(`http://labs.gbif.org:7013/v1/occurrence/annotation/project`);
+        return {
+          cancel,
+          promise: promise.then(response => {
+            if (response.status === 200) {
+              response.data = searchJsonObjects(response.data, q).map(x => ({ title: x.name, key: x.id, ...x }));
+            }
+            return response;
+          })
+        }
+      },
+      // how to map the results to a single string value
+      getValue: suggestion => suggestion.title,
+      // how to display the individual suggestions in the list
+      render: function AnnotationProjectSuggestItem(suggestion) {
+        return <div style={{ maxWidth: '100%' }}>
+          <div>
+            {suggestion.title}
+          </div>
+          {/* <div style={{ color: '#aaa', fontSize: '0.85em' }}>
+            <Classification taxon={suggestion} />
+          </div> */}
+        </div>
+      }
+    }
+  };
+}
 
 /*
 This component is a widget that allows the user to search for annotations. 
@@ -25,7 +80,41 @@ add annotation rules, create projects to contain annotations, and view annotatio
 as well as comment on individual annotations.
  */
 function Annotations(props) {
-  const [activeView = 'annotations', setActiveView] = useQueryParam('view', StringParam);
+  // const [activeView = 'annotations', setActiveView] = useQueryParam('view', StringParam);
+
+  return <SearchWrapper {...{ predicateConfig, defaultFilterConfig }}
+    config={{
+      availableCatalogues: ['ANNOTATION', 'OCCURRENCE'],
+      getSuggests,
+      labels: {
+        projectId: {
+          type: 'ENDPOINT',
+          template: ({ id, api }) => `http://labs.gbif.org:7013/v1/occurrence/annotation/project/${id}`,
+          transform: result => ({ title: result.name })
+        },
+      },
+      filters: {
+        projectId: {
+          type: 'SUGGEST',
+          config: {
+            std: {
+              translations: {
+                count: 'filters.annotationProject.count', // translation path to display names with counts. e.g. "3 scientific names"
+                name: 'filters.annotationProject.name',// translation path to a title for the popover and the button
+                description: 'filters.annotationProject.description', // translation path for the filter description
+              },
+            },
+            specific: {
+              suggestHandle: 'annotationProject',
+              allowEmptyQueries: true,
+              singleSelect: true
+            }
+          }
+        }
+      }
+    }}>
+    <Layout />
+  </SearchWrapper >
 
   const [activeAnnotation, setActiveAnnotation] = useState();
   const handlePolygonSelect = useCallback((annotation, annotationList) => {
@@ -49,8 +138,8 @@ function Annotations(props) {
           </nav>
           <div css={css`flex: 1 1 100%; background: #f3f3f3; overflow: auto; max-height: 100%;`}>
             {/* <Projects /> */}
-            <SearchWrapper {...{predicateConfig, defaultFilterConfig}}>
-              <Rules activeAnnotation={activeAnnotation}/>
+            <SearchWrapper {...{ predicateConfig, defaultFilterConfig }}>
+              <Rules activeAnnotation={activeAnnotation} clearActive={() => setActiveAnnotation()} />
             </SearchWrapper>
           </div>
         </div>
@@ -61,34 +150,40 @@ function Annotations(props) {
 
 export default Annotations;
 
-function Rules({activeAnnotation, ...props}) {
+function Rules({ activeAnnotation, clearActive, ...props }) {
   const [contextType = 'TAXON', setType] = useQueryParam('type', StringParam);
   const [contextKey, setKey] = useQueryParam('key', StringParam);
   const [showNewRule, setShowNewRule] = useState(false);
   const [showCreateSuccess, setShowCreateSuccess] = useState(false);
-  
-  return <div style={{paddingBottom: 48}}>
+
+  return <div style={{ paddingBottom: 48 }}>
     {/* {activeAnnotation && <pre>{JSON.stringify(activeAnnotation, null, 2)}</pre>} */}
     {/* <CustomSelect options={[{value: 'TAXON', label: "Taxon"}, {value: 'DATASET', label: "Dataset"}]} value="Pumas" inputPlaceholder="Select context" /> */}
-    {showNewRule && <AnnotationForm token={env._tmp_token} onCreate={(annotation) => {
-      setShowNewRule(false); 
-      setShowCreateSuccess(true);
-      setType(annotation.contextType);
-      setKey(annotation.contextKey);
-      }} 
-      onClose={() => setShowNewRule(false)}
+    {!activeAnnotation && <>
+      {showNewRule && <AnnotationForm token={env._tmp_token} onCreate={(annotation) => {
+        setShowNewRule(false);
+        setShowCreateSuccess(true);
+        setType(annotation.contextType);
+        setKey(annotation.contextKey);
+      }}
+        onClose={() => setShowNewRule(false)}
       />}
-    {!showNewRule && <>
-      {showCreateSuccess && <SuccessCard onCreate={() => setShowNewRule(true)} onClose={() => setShowCreateSuccess(false)}/>}
-      {!showCreateSuccess && <Context onChange={(context) => {
-        setType(context.type);
-        setKey(context.key);
-      }} />}
+      {!showNewRule && <>
+        {showCreateSuccess && <SuccessCard onCreate={() => setShowNewRule(true)} onClose={() => setShowCreateSuccess(false)} />}
+        {!showCreateSuccess && <Context onChange={(context) => {
+          setType(context.type);
+          setKey(context.key);
+        }} />}
+        <AnnotationList token={env._tmp_token} contextType={contextType} contextKey={contextKey} />
+      </>}
+    </>}
+    {activeAnnotation && <>
+      <Button style={{ margin: '12px 0 0 12px' }} look="primaryOutline" onClick={clearActive}>Back</Button>
       <AnnotationList activeAnnotation={activeAnnotation} token={env._tmp_token} contextType={contextType} contextKey={contextKey} />
     </>}
 
     {!showNewRule && <>
-       <div css={css`position: absolute; bottom: 12px; right: -24px;`}>
+      <div css={css`position: absolute; bottom: 12px; right: -24px;`}>
         <Button onClick={() => setShowNewRule(true)} css={css`box-shadow: 0 3px 3px 3px rgba(0,0,0,.15); border-radius: 4px 16px 16px 4px;`}>
           Create new
         </Button>
@@ -106,10 +201,10 @@ function SuccessCard({ onCreate, onClose, ...props }) {
   return <div css={css`background: white; margin: 12px; border-radius: 4px; text-align: center; padding: 12px;`}>
     <img css={css`width: 100%; display: block; max-width: 250px; margin: 0 auto; margin-bottom: -24px;`}
       src="https://cdn.discordapp.com/attachments/1017143593351258192/1091342958684545044/Morten100_tech_illustration_biodiversity_confetti_by_slack_and__faf2c4d0-a991-43f3-b6cb-7c8e593219c7.png" alt="Confetti" />
-      <div>
-        <p>Your annotation rule was created.</p>
-      </div>
-    <Button onClick={onCreate} style={{marginInlineEnd: 8}}>Create another</Button>
+    <div>
+      <p>Your annotation rule was created.</p>
+    </div>
+    <Button onClick={onCreate} style={{ marginInlineEnd: 8 }}>Create another</Button>
     <Button look="primaryOutline" onClick={onClose}>Close</Button>
   </div>
 }

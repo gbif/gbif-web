@@ -1,9 +1,9 @@
 export const filters = [
-  'q', 'datasetKey', 'projectId', 'taxonKey'
+  'datasetKeySingle', 'projectId', 'taxonKeySingle'
 ].sort();
 
 const highlighted = [
-  'datasetKey', 'taxonKey', 'projectId'
+  'taxonKeySingle', 'datasetKeySingle', 'projectId'
 ];
 
 export default { filters, included: filters, highlighted };

@@ -68,6 +68,14 @@ export default function CatalogueSelector({
       route: routeContext.institutionSearch.route || '/institution/search',
       translationId: 'catalogues.institutions'
     },
+    ANNOTATION: {
+      link: <ResourceSearchLink type="annotations" discreet>
+        <FormattedMessage id='catalogues.annotations' />
+      </ResourceSearchLink>,
+      route: routeContext.annotations.route || '/annotations',
+      translationId: 'catalogues.annotations'
+    },
+
   };
 
   const activeType = Object.keys(options).find(type => options[type].route === pathname);
@@ -79,7 +87,7 @@ export default function CatalogueSelector({
       aria-label="Custom menu"
       trigger={<Button appearance="text">
         <MdApps />
-        <span style={{ marginLeft: 6 }}>{label || (active ? <FormattedMessage id={active.translationId} /> : null)}</span>
+        <span style={{ marginLeft: 6 }}>{label || (active ? <FormattedMessage id={active.translationId} defaultMessage={active.translationId}/> : null)}</span>
       </Button>}
       items={menuState => availableCatalogues.map(name => <div key={name} css={menuOption(theme)} style={{ fontSize: '1em', background: location.pathname === options[name].route ? '#eee' : null }}>
         {options[name].link}

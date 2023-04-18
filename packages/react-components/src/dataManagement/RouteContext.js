@@ -92,6 +92,12 @@ export const defaultContext = {
     url: ({ key }) => `https://bie.ala.org.au/species/${key}`,
     isHref: true,
     route: '/taxon/:key'
+  },
+
+  annotations: {
+    url: ({queryString, basename}) => `${basename ? `/${basename}` : ''}/annotations`,
+    isHref: true,
+    route: '/annotations'
   }
 };
 
