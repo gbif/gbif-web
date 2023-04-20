@@ -204,6 +204,17 @@ const config =
         }
       }
     },
+    catalogNumber: {
+      join: 'occurrence',
+      config: {
+        options: {
+          catalogNumber: {
+            type: 'keyword',
+            field: 'occurrence.catalogNumber.keyword'
+          }
+        }
+      }
+    },
     created: {
       type: 'date',
       field: 'created',
@@ -693,6 +704,102 @@ const config =
     metadata_publishingOrganizationKey: {
       type: 'keyword',
       field: 'metadata.publishingOrganizationKey'
+    },
+    seedbank_seedPerGram: {
+      type: 'numeric',
+      field: 'event.seedbankRecord.seedPerGram',
+    },
+    seedbank_sampleWeightInGrams: {
+      type: 'numeric',
+      field: 'event.seedbankRecord.sampleWeightInGrams',
+    },
+    seedbank_sampleSize: {
+      type: 'numeric',
+      field: 'event.seedbankRecord.sampleSize',
+    },
+    seedbank_purityDebrisPercentage: {
+      type: 'numeric',
+      field: 'event.seedbankRecord.purityDebrisPercentage',
+    },
+    seedbank_purityPercentage: {
+      type: 'numeric',
+      field: 'event.seedbankRecord.purityPercentage',
+    },
+    seedbank_dateCollected: {
+      type: 'numeric',
+      field: 'event.seedbankRecord.dateCollected',
+    },
+    seedbank_dateInStorage: {
+      type: 'numeric',
+      field: 'event.seedbankRecord.dateInStorage',
+    },
+    seedbank_storageTemperatureInCelsius: {
+      type: 'numeric',
+      field: 'event.seedbankRecord.storageTemperatureInCelsius',
+    },
+    seedbank_relativeHumidityPercentage: {
+      type: 'numeric',
+      field: 'event.seedbankRecord.relativeHumidityPercentage',
+    },
+    seedbank_thousandSeedWeight: {
+      type: 'numeric',
+      field: 'event.seedbankRecord.thousandSeedWeight',
+    },
+    seedbank_numberPlantsSampled: {
+      type: 'numeric',
+      field: 'event.seedbankRecord.numberPlantsSampled',
+    },
+    seedbank_testDateStarted: {
+      type: 'numeric',
+      field: 'event.seedbankRecord.testDateStarted',
+    },
+    seedbank_testLengthInDays: {
+      type: 'numeric',
+      field: 'event.seedbankRecord.testLengthInDays',
+    },
+    seedbank_numberGerminated: {
+      type: 'numeric',
+      field: 'event.seedbankRecord.numberGerminated',
+    },
+    seedbank_germinationRateInDays: {
+      type: 'numeric',
+      field: 'event.seedbankRecord.germinationRateInDays',
+    },
+    seedbank_adjustedGerminationPercentage: {
+      type: 'numeric',
+      field: 'event.seedbankRecord.adjustedGerminationPercentage',
+    },
+    seedbank_viabilityPercentage: {
+      type: 'numeric',
+      field: 'event.seedbankRecord.viabilityPercentage',
+    },
+    seedbank_numberFull: {
+      type: 'numeric',
+      field: 'event.seedbankRecord.numberFull',
+    },
+    seedbank_numberEmpty: {
+      type: 'numeric',
+      field: 'event.seedbankRecord.numberEmpty',
+    },
+    seedbank_numberTested: {
+      type: 'numeric',
+      field: 'event.seedbankRecord.numberTested',
+    },
+    seedbank_nightTemperatureInCelsius: {
+      type: 'numeric',
+      field: 'event.seedbankRecord.nightTemperatureInCelsius',
+    },
+    seedbank_dayTemperatureInCelsius: {
+      type: 'numeric',
+      field: 'event.seedbankRecord.dayTemperatureInCelsius',
+    },
+    seedbank_darkHours: {
+      type: 'numeric',
+      field: 'event.seedbankRecord.darkHours',
+    },
+    seedbank_lightHours: {
+      type: 'numeric',
+      field: 'event.seedbankRecord.lightHours',
     },
     occurrence: {
       type: 'join',
