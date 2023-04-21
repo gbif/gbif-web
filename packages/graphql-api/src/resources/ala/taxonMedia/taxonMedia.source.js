@@ -48,7 +48,13 @@ class TaxonMediaAPI extends RESTDataSource {
     );
 
     return occurrences
-      .map((occ) => ({ ...occ, imageMetadata: images[occ.image] }))
+      .map((occ) => ({
+        ...occ,
+        imageMetadata: {
+          ...(occ.imageMetadata?.[0] || {}),
+          ...images[occ.image],
+        },
+      }))
       .map(
         ({
           scientificName,
@@ -61,7 +67,7 @@ class TaxonMediaAPI extends RESTDataSource {
             type: 'StillImage',
             // subtypeLiteral: null,
             title: imageMetadata.title || `Image of ${scientificName}`,
-            // metadataDate: null,
+            metadataDate: imageMetadata.dateUploaded,
             metadataLanguage: 'eng',
             metadataLanguageLiteral: 'English',
             providerManagedID: imageMetadata.imageId,
@@ -74,12 +80,12 @@ class TaxonMediaAPI extends RESTDataSource {
             // providerLiteral: null,
             description: imageMetadata.description || occurrenceDetails,
             tag: speciesGroups.join(', '),
-            // createDate: null,
+            createDate: imageMetadata.created,
             accessURI: imageMetadata.thumbUrl,
             accessOriginalURI: imageMetadata.imageUrl,
             format: imageMetadata.mimetype,
-            // hashFunction: null,
-            // hashValue: null,
+            hashFunction: imageMetadata.contentMD5Hash ? 'MD5' : null,
+            hashValue: imageMetadata.contentMD5Hash,
             pixelXDimension: imageMetadata.width,
             pixelYDimension: imageMetadata.height,
           };
