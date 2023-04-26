@@ -6,7 +6,9 @@
     "datasets": "Datasets",
     "events": "Events",
     "download": "Download",
-    "sites": "Sites"
+    "sites": "Sites",
+    "rules": "Rules",
+    "projects": "Projects"
   },
   "table": {
     "lockColumn": "Lock column"

@@ -1,11 +1,12 @@
 import { jsx, css } from '@emotion/react';
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect, useContext } from 'react';
 import { Button, ErrorBoundary } from '../../../components';
 import { FormattedNumber } from 'react-intl';
 import { AnnotationList } from './AnnotationList';
 import { AnnotationForm } from './CreateAnnotation';
 import env from '../../../../.env.json';
 import { MapWrapper } from './MapWrapper';
+import { FilterContext } from '../../../widgets/Filter/state';
 
 /*
 This component is a widget that allows the user to search for annotations. 
@@ -14,10 +15,15 @@ as well as comment on individual annotations.
  */
 function RulesWrapper(props) {
   const [activeAnnotations, setActiveAnnotations] = useState([]);
+  const currentFilterContext = useContext(FilterContext);
+
   const handlePolygonSelect = useCallback((annotation, annotationList) => {
     setActiveAnnotations(annotationList);
-    console.log(annotation);
   }, []);
+
+  useEffect(() => {
+    setActiveAnnotations([]);
+  }, [currentFilterContext.filterHash]);
 
   return <ErrorBoundary>
     <div css={css`

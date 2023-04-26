@@ -239,11 +239,11 @@ class Map extends Component {
   }
 
   onPointClick(pointData) {
-    this.props.onPointClick(pointData);
+    if (this.props.onPointClick) this.props.onPointClick(pointData);
   }
 
   addLayer() {
-    console.log('add occ layer');
+    this.removeLayer('occurrences');
 
     const currentProjection = projections[this.props.mapConfig?.projection || 'EPSG_3031'];
     const occurrenceLayer = currentProjection.getAdhocLayer({
@@ -264,10 +264,9 @@ class Map extends Component {
     // occurrenceLayer.setZIndex(0);
     this.map.addLayer(occurrenceLayer);
 
-    console.log(this.map.getAllLayers());
     const map = this.map
     if (this.props.onLayerChange) {
-      // this.props.onLayerChange(map);
+      this.props.onLayerChange(map);
     }
 
     map.on('moveend', function (e) {
@@ -290,30 +289,33 @@ class Map extends Component {
     //     sessionStorage.setItem('mapLat', center.lat);
     //   });
 
-    const pointClickHandler = this.onPointClick;
-    const clickHandler = this.props.onMapClick;
-    map.on('singleclick', event => {
-      // todo : hover and click do not agree on wether there is a point or not
-      occurrenceLayer.getFeatures(event.pixel).then(function (features) {
-        const feature = features.length ? features[0] : undefined;
-        if (feature) {
-          const properties = feature.properties_;
-          pointClickHandler({ geohash: properties.geohash, count: properties.total });
-        } else if (clickHandler) {
-          clickHandler();
-        }
+    if (typeof this.props.onPointClick === 'function') {
+      const pointClickHandler = this.onPointClick;
+      const clickHandler = this.props.onMapClick;
+      map.on('singleclick', event => {
+        // todo : hover and click do not agree on wether there is a point or not
+        occurrenceLayer.getFeatures(event.pixel).then(function (features) {
+          const feature = features.length ? features[0] : undefined;
+          if (feature) {
+            const properties = feature.properties_;
+            pointClickHandler({ geohash: properties.geohash, count: properties.total });
+          } else if (clickHandler) {
+            clickHandler();
+          }
+        });
       });
-    });
 
-    map.on('pointermove', function (e) {
-      var pixel = map.getEventPixel(e.originalEvent);
-      var hit = map.hasFeatureAtPixel(pixel, { layerFilter: l => l.values_.name === 'occurrences' });
-      map.getViewport().style.cursor = hit ? 'pointer' : '';
-    });
+
+      map.on('pointermove', function (e) {
+        var pixel = map.getEventPixel(e.originalEvent);
+        var hit = map.hasFeatureAtPixel(pixel, { layerFilter: l => l.values_.name === 'occurrences' });
+        map.getViewport().style.cursor = hit ? 'pointer' : '';
+      });
+    }
   }
 
   render() {
-    const { query, onMapClick, onPointClick, predicateHash, ...props } = this.props;
+    const { query, onMapClick, onPointClick, predicateHash, onLayerChange, mapConfig, onMapCreate, ...props } = this.props;
     return <div ref={this.myRef} {...props} />
   }
 }

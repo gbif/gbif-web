@@ -2,19 +2,21 @@ import React, { useState, useEffect, useCallback, useContext } from 'react';
 import axios from '../../../dataManagement/api/axios';
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { JazzIcon } from "../../../components";
+import { Button, JazzIcon } from "../../../components";
 import { MdDelete, MdModeComment, MdThumbDown, MdThumbUp } from "react-icons/md";
 import { CommentForm } from './CommentForm';
 import { FormattedDate } from 'react-intl';
 import SearchContext from '../../../search/SearchContext';
 import MapWithGeoJSON from './MapWithGeoJSON';
 import getFeature from './getFeature';
+import { FilterContext } from '../../../widgets/Filter/state';
 
 const MAPBOX_GEOJSON_SIZE_LIMIT = 1;
 const Card = ({ annotation, onSupport, onContest, onRemoveSupport, onRemoveContest, onDelete, token }) => {
   const [comments, setComments] = useState([]);
   const [showComments, setShowComments] = useState(false);
   const { labelMap } = useContext(SearchContext);
+  const currentFilterContext = useContext(FilterContext);
 
   const { geojson: geoJsonString, error: wktError } = getFeature(annotation.geometry);
 
@@ -113,7 +115,7 @@ const Card = ({ annotation, onSupport, onContest, onRemoveSupport, onRemoveConte
             </div>
           </MediaWrapper>
           <div style={{ color: 'rgba(0,0,0,.65)' }}>
-            {typeof annotation.taxonKey !== 'undefined' && <p>Taxon: <TaxonLabel id={annotation.taxonKey} /></p>}
+            {typeof annotation.taxonKey !== 'undefined' && <p>Taxon: <Button look="text" onClick={e => currentFilterContext.setField('taxonKey', [annotation.taxonKey])}><TaxonLabel id={annotation.taxonKey} /></Button></p>}
             {showDescription && <p css={css`white-space: pre;`}>{firstComment.comment}</p>}
           </div>
         </ContentWrapper>
