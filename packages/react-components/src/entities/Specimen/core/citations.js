@@ -46,9 +46,9 @@ export function Citations({
   return <Card padded={false} css={css`margin-bottom: 24px;`} {...props}>
     <div css={css`padding: 12px 24px 0 24px;`}>
       <CardHeader2>Citations</CardHeader2>
-      <div css={css`margin-bottom: 12px; margin-top: -12px; border-radius: 6px; background: #eee; font-size: 12px; padding: 10px;`}>
+      {/* <div css={css`margin-bottom: 12px; margin-top: -12px; border-radius: 6px; background: #eee; font-size: 12px; padding: 10px;`}>
         Other than published citation, this section could include citations linked via GBIF - e.g. Plazi and the citation tracking program. Below adds two mocked entried to show the idea.
-      </div>
+      </div> */}
     </div>
     <div>
       {/* <h4 css={headerStyle}>Declared by publisher</h4> */}
@@ -58,7 +58,7 @@ export function Citations({
             <Th>Title</Th>
             <Th>type</Th>
             <Th>Year</Th>
-            <Th>Linked by</Th>
+            {/* <Th>Linked by</Th> */}
           </tr>
         </thead>
         <TBody>
@@ -67,17 +67,17 @@ export function Citations({
               <Td><a css={css`text-decoration: none; color: var(--linkColor);`} href={x.referenceIri}>{x.bibliographicCitation}</a></Td>
               <Td>{x.referenceType}</Td>
               <Td>{x.referenceYear}</Td>
-              <Td></Td>
+              {/* <Td></Td> */}
             </tr>
           })}
-          {gbifMediatedCitations.map(x => {
+          {/* {gbifMediatedCitations.map(x => {
             return <tr key={x.id}>
               <Td>{x.title}</Td>
               <Td>{x.type}</Td>
               <Td>{x.year}</Td>
               <Td>{x.source}</Td>
             </tr>
-          })}
+          })} */}
         </TBody>
       </Table>
     </div>
