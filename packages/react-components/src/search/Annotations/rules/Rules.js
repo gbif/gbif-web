@@ -26,12 +26,7 @@ function RulesWrapper(props) {
         display: flex;
         `}>
       <div css={css`z-index: 2; position: relative; flex: 0 0 auto; height: calc(100% - 48px); width: 350px; top: 0; left: 0; margin-right: 12px;`}>
-        <div css={css`background: white; border: 1px solid #eee; box-shadow: 0 2px 2px 2px rgba(0,0,0,.1); border-radius: 8px; height: 100%; display: flex; flex-direction: column; overflow: hidden;`}>
-          rules
-          <div css={css`flex: 1 1 100%; background: #f3f3f3; overflow: auto; max-height: 100%;`}>
-            <Rules activeAnnotations={activeAnnotations} clearActive={() => setActiveAnnotations([])} />
-          </div>
-        </div>
+        <Rules activeAnnotations={activeAnnotations} clearActive={() => setActiveAnnotations([])} />
       </div>
       <div css={css`flex: 1 1 100%; width: 100%; height: 100%; background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);`}>
         <MapWrapper onPolygonSelect={handlePolygonSelect} />
@@ -46,22 +41,36 @@ function Rules({ activeAnnotations, clearActive, ...props }) {
   const [showNewRule, setShowNewRule] = useState(false);
   const [showCreateSuccess, setShowCreateSuccess] = useState(false);
 
+  return <div css={css`background: white; border: 1px solid #eee; box-shadow: 0 2px 2px 2px rgba(0,0,0,.1); border-radius: 8px; height: 100%; display: flex; flex-direction: column; overflow: hidden;`}>
+    <div css={css`padding: 8px 12px;`}>
+      Rules
+    </div>
+    <div css={css`flex: 1 1 100%; background: #f3f3f3; overflow: auto; max-height: 100%;`}>
+      <List activeAnnotations={activeAnnotations} clearActive={clearActive} />
+    </div>
+  </div>
+}
+
+function List({ activeAnnotations, clearActive, ...props }) {
+  const [showNewRule, setShowNewRule] = useState(false);
+  const [showCreateSuccess, setShowCreateSuccess] = useState(false);
+
   return <div style={{ paddingBottom: 48 }}>
     {/* {activeAnnotation && <pre>{JSON.stringify(activeAnnotation, null, 2)}</pre>} */}
     {/* <CustomSelect options={[{value: 'TAXON', label: "Taxon"}, {value: 'DATASET', label: "Dataset"}]} value="Pumas" inputPlaceholder="Select context" /> */}
-    {activeAnnotations.length === 0 && <>
-      {showNewRule && <AnnotationForm token={env._tmp_token} onCreate={(annotation) => {
-        setShowNewRule(false);
-        setShowCreateSuccess(true);
-      }}
-        onClose={() => setShowNewRule(false)}
-      />}
-      {!showNewRule && <>
-        {showCreateSuccess && <SuccessCard onCreate={() => setShowNewRule(true)} onClose={() => setShowCreateSuccess(false)} />}
-        <AnnotationList token={env._tmp_token} />
-      </>}
+    
+    {showNewRule && <AnnotationForm token={env._tmp_token} onCreate={(annotation) => {
+      setShowNewRule(false);
+      setShowCreateSuccess(true);
+    }}
+      onClose={() => setShowNewRule(false)}
+    />}
+    {!showNewRule && activeAnnotations.length === 0 && <>
+      {showCreateSuccess && <SuccessCard onCreate={() => setShowNewRule(true)} onClose={() => setShowCreateSuccess(false)} />}
+      <AnnotationList token={env._tmp_token} />
     </>}
-    {activeAnnotations.length > 0 && <>
+    
+    {!showNewRule && activeAnnotations.length > 0 && <>
       <Button style={{ margin: '12px 0 0 12px' }} look="primaryOutline" onClick={clearActive}>Back</Button>
       <AnnotationList activeAnnotations={activeAnnotations} token={env._tmp_token} />
     </>}

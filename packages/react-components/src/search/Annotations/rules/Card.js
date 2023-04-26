@@ -6,10 +6,9 @@ import { JazzIcon } from "../../../components";
 import { MdDelete, MdModeComment, MdThumbDown, MdThumbUp } from "react-icons/md";
 import { CommentForm } from './CommentForm';
 import { FormattedDate } from 'react-intl';
-import WKT from 'ol/format/WKT.js';
-import GeoJSON from 'ol/format/GeoJSON.js';
 import SearchContext from '../../../search/SearchContext';
 import MapWithGeoJSON from './MapWithGeoJSON';
+import getFeature from './getFeature';
 
 const MAPBOX_GEOJSON_SIZE_LIMIT = 1;
 const Card = ({ annotation, onSupport, onContest, onRemoveSupport, onRemoveContest, onDelete, token }) => {
@@ -298,17 +297,3 @@ const actionButton = ({ color = 'tomato', isActive }) => css`
     margin: 0 4px;
   }
 `;
-
-const format = new WKT();
-
-function getFeature(wktStr) {
-  // https://openlayers.org/en/latest/examples/wkt.html
-  // https://openlayers.org/en/latest/examples/geojson.html
-  try {
-    const feature = format.readFeature(wktStr);
-    const geoJsonString = new GeoJSON().writeFeature(feature);
-    return { geojson: geoJsonString };
-  } catch (e) {
-    return { geojson: null, error: e };
-  }
-}

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useCallback, useState, useEffect, useContext } from 'react';
 import { css } from '@emotion/react';
 import 'ol/ol.css';
 import { Map, Overlay, View } from 'ol';
@@ -14,6 +14,10 @@ import Select from 'ol/interaction/Select';
 import { altKeyOnly, click, pointerMove } from 'ol/events/condition';
 import { colorMap } from './colorMap';
 
+import MapComponentOL from '../../OccurrenceSearch/views/Map/OpenlayersMap';
+import SearchContext from '../../SearchContext';
+import { FilterContext } from '../../../widgets/Filter/state';
+import { filter2v1 } from '../../../dataManagement/filterAdapter';
 var format = new WKT();
 
 function itemToFeature({ geometry, ...item }) {
@@ -21,11 +25,11 @@ function itemToFeature({ geometry, ...item }) {
   try {
     var feature = format.readFeature(geometry, {
       dataProjection: 'EPSG:4326',
-      featureProjection: 'EPSG:3857',
+      featureProjection: 'EPSG:4326',
     });
 
     // Set the color property on the feature's properties object
-    feature.setProperties({...item, color: colorMap[item.annotation] || colorMap['OTHER']});
+    feature.setProperties({ ...item, color: colorMap[item.annotation] || colorMap['OTHER'] });
     return { feature };
   } catch (e) {
     return { error: e }
@@ -33,6 +37,94 @@ function itemToFeature({ geometry, ...item }) {
 }
 
 const OpenLayersMap = ({ data, onPolygonSelect }) => {
+  const [params, setParams] = useState({});
+  const currentFilterContext = useContext(FilterContext);
+  const { rootPredicate, predicateConfig } = useContext(SearchContext);
+  const [map, setMap] = useState(null);
+
+  const handleMapCreation = useCallback((olMap) => {
+    setMap(olMap);
+  }, []);
+
+
+  const handleLayerChange = useCallback((map) => {
+    // if (map) {
+    //   const vectorLayer = new VectorLayer({
+    //     source: new VectorSource({
+    //       features: data.map(itemToFeature).filter(({ error }) => !error).map(({ feature }) => feature)
+    //     }),
+    //     style: feature => {
+    //       const color = '#ff0000';
+    //       return new Style({
+    //         fill: new Fill({
+    //           color: color + '80'
+    //         }),
+    //         stroke: new Stroke({
+    //           color: color,
+    //           width: 2
+    //         })
+    //       });
+    //     }
+    //   });
+    //   vectorLayer.setZIndex(100);
+    //   // map.addLayer(vectorLayer);
+    // }
+  }, [map, data]);
+
+  useEffect(() => {
+    const { v1Filter, error } = filter2v1(currentFilterContext.filter, predicateConfig);
+    const filter = { ...v1Filter, ...rootPredicate };
+    setParams(filter);
+  }, [currentFilterContext.filterHash]);
+
+  useEffect(() => {
+    if (map) {
+
+      map.on('click', function (e) {
+        console.log(map.getAllLayers());
+        debugger;
+        // const vectorLayer = new VectorLayer({
+        //   source: new VectorSource({
+        //     features: data.map(itemToFeature).filter(({ error }) => !error).map(({ feature }) => feature)
+        //   }),
+        //   style: feature => {
+        //     const color = '#ff0000';
+        //     return new Style({
+        //       fill: new Fill({
+        //         color: color + '80'
+        //       }),
+        //       stroke: new Stroke({
+        //         color: color,
+        //         width: 2
+        //       })
+        //     });
+        //   }
+        // });
+        // map.addLayer(vectorLayer);
+
+      });
+
+    }
+  }, [map, data]);
+
+  return <MapComponentOL mapConfig={{
+    "basemapStyle": "https://graphql.gbif-staging.org/unstable-api/map-styles/4326/gbif-raster?styleName=natural&background=%23e5e9cd&language=en&pixelRatio=2",
+    "projection": "EPSG_4326"
+  }}
+    // onMapCreate={handleMapCreation}
+    // onLayerChange={handleLayerChange}
+    // params={params}
+    // data={data.map(itemToFeature).filter(({ error }) => !error).map(({ feature }) => feature)}
+    css={css`width: 100%; height: 100%;`}
+  // latestEvent={latestEvent} 
+  // defaultMapSettings={defaultMapSettings} 
+  // predicateHash={predicateHash} 
+  // q={q} 
+  // query={query} 
+  // onMapClick={e => showList(false)} 
+  // onPointClick={data => { showList(true); loadPointData(data) }} 
+  // registerPredicate={registerPredicate}
+  />
   const mapRef = useRef(null);
   const popupRef = useRef(null);
   const popupCloseRef = useRef(null);
@@ -126,12 +218,12 @@ const OpenLayersMap = ({ data, onPolygonSelect }) => {
             return layer === vectorLayer;
           }
         });
-        
+
         const feature = clickedFeatures[0];
         // If we found a feature, create a popup and display its properties
         if (feature) {
           if (clickedFeatures.length > 1) {
-            
+
           } else if (clickedFeatures.length === 1) {
           }
 
@@ -158,7 +250,7 @@ const OpenLayersMap = ({ data, onPolygonSelect }) => {
             selectClick.getFeatures().clear();
             return false;
           };
-          
+
 
           // Add the popup overlay to the map and show it at the clicked location
           map.addOverlay(popupOverlay);
@@ -176,7 +268,7 @@ const OpenLayersMap = ({ data, onPolygonSelect }) => {
 
   return <>
     <div ref={mapRef} style={{ width: '100%', height: '100%' }}></div>
-    <div ref={popupRef} css={popup} style={{display: selectedFeatures ? 'block' : 'none'}}>
+    <div ref={popupRef} css={popup} style={{ display: selectedFeatures ? 'block' : 'none' }}>
       <a ref={popupCloseRef} href="#" id="popup-closer" css={popupCloser}></a>
       {selectedFeatures && <div id="popup-content">{selectedFeatures.map(x => x.annotation).join(', ')}</div>}
     </div>

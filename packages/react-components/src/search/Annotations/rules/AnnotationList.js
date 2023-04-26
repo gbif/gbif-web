@@ -11,7 +11,6 @@ export const AnnotationList = ({ token, activeAnnotations, ...props }) => {
   const currentFilterContext = useContext(FilterContext);
   const { rootPredicate, predicateConfig } = useContext(SearchContext);
 
-
   useEffect(() => {
     const fetchAnnotations = async () => {
       const { v1Filter, error } = filter2v1(currentFilterContext.filter, predicateConfig);

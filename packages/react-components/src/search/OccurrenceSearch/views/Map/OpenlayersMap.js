@@ -12,6 +12,10 @@ import { MVT as MVTFormat } from 'ol/format';
 import TileGrid from 'ol/tilegrid/TileGrid';
 import klokantech from './openlayers/styles/klokantech.json';
 
+import VectorLayer from 'ol/layer/Vector';
+import VectorSource from 'ol/source/Vector';
+import { Style, Fill, Stroke } from 'ol/style';
+
 var interactions = olInteraction.defaults({ altShiftDragRotate: false, pinchRotate: false, mouseWheelZoom: true });
 
 const mapStyles = {
@@ -41,6 +45,9 @@ class Map extends Component {
       interactions,
     };
     this.map = new OlMap(mapConfig);
+    if (this.props.onMapCreate) {
+      this.props.onMapCreate(this.map);
+    }
     this.updateMapLayers();
     this.mapLoaded = true;
     this.addLayer();
@@ -236,6 +243,7 @@ class Map extends Component {
   }
 
   addLayer() {
+    console.log('add occ layer');
 
     const currentProjection = projections[this.props.mapConfig?.projection || 'EPSG_3031'];
     const occurrenceLayer = currentProjection.getAdhocLayer({
@@ -243,6 +251,7 @@ class Map extends Component {
       mode: 'GEO_CENTROID',
       squareSize: 512,
       predicateHash: this.props.predicateHash,
+      ...this.props.params,
       onError: e => {
         // there seem to be no simple way to get the statuscode, so we will just reregister on any type of error
         if (this.props.registerPredicate) {
@@ -255,7 +264,11 @@ class Map extends Component {
     // occurrenceLayer.setZIndex(0);
     this.map.addLayer(occurrenceLayer);
 
+    console.log(this.map.getAllLayers());
     const map = this.map
+    if (this.props.onLayerChange) {
+      // this.props.onLayerChange(map);
+    }
 
     map.on('moveend', function (e) {
       if (this.refreshingView) return;

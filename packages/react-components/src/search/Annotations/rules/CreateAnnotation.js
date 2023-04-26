@@ -6,6 +6,8 @@ import { Option, Suggest } from '../../../widgets/Filter/utils';
 import { FilterContext } from '../../../widgets/Filter/state';
 import SearchContext from '../../SearchContext';
 import { filter2v1 } from '../../../dataManagement/filterAdapter';
+import MapWithGeoJSON from './MapWithGeoJSON';
+import getFeature from './getFeature';
 
 const suggestStyle = { whiteSpace: 'nowrap', textOverflow: 'ellipsis', width: '100%', overflow: 'hidden' };
 
@@ -13,7 +15,7 @@ const BACKBONE_KEY = 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c';
 
 const suggestConfig = {
   //What placeholder to show
-  placeholder: 'search.placeholders.default',
+  placeholder: 'Load geometry from GADM',
   // how to get the list of suggestion data
   getSuggestions: ({ q }) => {
     const { promise, cancel } = axios.get(`http://api.gbif.org/v1/geocode/gadm/search?limit=100&q=${q}`);
@@ -101,7 +103,7 @@ function AnnotationForm({ token, onClose, onCreate, ...props }) {
       const annotationRule = {
         ...filter,
         geometry,
-        project,
+        // project,
       };
       annotationRule.annotation = annotationType.value;
       annotationRule?.taxonKey && (annotationRule.taxonKey = Number.parseInt(annotationRule.taxonKey));
@@ -137,28 +139,36 @@ function AnnotationForm({ token, onClose, onCreate, ...props }) {
     }
   };
 
+  const { geojson: geoJsonString, error: wktError } = getFeature(geometry);
+
   return (
     <>
+      <div>
+        <MapWithGeoJSON type={annotationType.value} geojson={JSON.parse(geoJsonString)} style={{width: '100%', height: '300px'}}/>
+      </div>
       <form onSubmit={handleSubmit}>
         <div css={css`background: white; border-radius: 4px; margin: 12px; border: 1px solid var(--paperBorderColor);`}>
           <Input placeholder="Geometry as WKT" onChange={e => setGeometry(e.target.value)} value={geometry} style={{ border: 'none' }} />
-          <Suggest
-            css={css`
-              margin: 0;
-              border: none;
-              width: 100%;
-              input {
-                border-radius: 0 0 4px 4px;
-                border: none;
-              }
-            `}
-            {...suggestConfig}
-            onSuggestionSelected={(item) => {
-              onGadmSelect(item.item);
-            }}
-            allowClear={true}
-          />
         </div>
+
+        <div css={css`background: white; border-radius: 4px; margin: 12px; border: 1px solid var(--paperBorderColor);`}>
+            <Suggest
+              css={css`
+                width: 100%;
+                margin: 0;
+                border: none;
+                input {
+                  border-radius: 0 0 4px 4px;
+                  border: none;
+                }
+              `}
+              {...suggestConfig}
+              onSuggestionSelected={(item) => {
+                onGadmSelect(item.item);
+              }}
+              allowClear={false}
+            />
+          </div>
 
         <div css={css`background: white; border-radius: 4px; margin: 12px; border: 1px solid var(--paperBorderColor);`}>
           <fieldset css={css`
@@ -179,7 +189,7 @@ function AnnotationForm({ token, onClose, onCreate, ...props }) {
           </fieldset>
         </div>
 
-        <div css={css`background: white; border-radius: 4px; margin: 12px; border: 1px solid var(--paperBorderColor);`}>
+        {/* <div css={css`background: white; border-radius: 4px; margin: 12px; border: 1px solid var(--paperBorderColor);`}>
           <Suggest
             css={css`
             margin: 0;
@@ -198,7 +208,7 @@ function AnnotationForm({ token, onClose, onCreate, ...props }) {
               setProject(item.key)
             }}
           />
-        </div>
+        </div> */}
 
         <div css={css`background: white; border-radius: 4px; margin: 12px; border: 1px solid var(--paperBorderColor);`}>
           <textarea
