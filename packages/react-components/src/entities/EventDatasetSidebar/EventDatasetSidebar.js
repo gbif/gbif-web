@@ -62,7 +62,7 @@ export function EventDatasetSidebar({
   }
 
   return <Tabs activeId={activeId} onChange={id => setTab(id)}>
-    <Row wrap="nowrap" style={style} css={css.sideBar({ theme })}>
+    <Row wrap="nowrap" style={style} css={css.largeSideBar({ theme })}>
       <Col shrink={false} grow={false} css={css.detailDrawerBar({ theme })}>
         <TabList style={{ paddingTop: '12px' }} vertical>
           {onCloseRequest && <>
@@ -85,7 +85,6 @@ export function EventDatasetSidebar({
             {!isLoading && <Col style={{ padding: '12px 16px', paddingBottom: 50 }} grow>
               <h1>{dataset.title}</h1>
               <DatasetKeyLink id={id}>Dataset detail page</DatasetKeyLink>
-
               <section style={{ marginTop: 36 }}>
                 <Properties>
                   {dataset?.contact.length > 0 && <>
@@ -179,14 +178,12 @@ export function EventDatasetSidebar({
                       <span>{data.eventSearch.facet.measurementOrFactTypes.map(x => x.key).join(' • ')}</span>
                     </V>
                   </>}
-                  {combinedHierarchy && <>
-                    <T>Structure</T>
-                    <V>
-                      {data?.eventSearch && <Tree data={combinedHierarchy} highlightRootNode={true} theme={theme}/>}
-                    </V>
-                  </>}
                 </Properties>
               </section>
+              {combinedHierarchy && <div>
+                <h3>Structure</h3>
+                {data?.eventSearch && <Tree data={combinedHierarchy} highlightRootNode={true} theme={theme}/>}
+              </div>}
             </Col>}
           </Row>
         </TabPanel>

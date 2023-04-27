@@ -95,6 +95,17 @@ export const sideBar = ({ theme, ...props }) => css`
   max-width: 100%;
 `;
 
+export const largeSideBar = ({ theme, ...props }) => css`
+  background: ${theme.paperBackground500};
+  position: relative;
+  width: 900px;
+  overflow: wrap;
+  >dd {
+    overflow: wrap;
+    max-width: 500px;
+  }  
+`;
+
 export const detailDrawerBar = ({ theme }) => css`
   border: 1px solid ${theme.paperBorderColor};
   border-width: 0 1px;

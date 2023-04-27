@@ -10,12 +10,10 @@ import {
   MdClose,
   MdInfo,
   MdImage,
-  MdWarning,
-  MdWarningAmber,
-  MdErrorOutline,
-  MdOutlineWifiTetheringErrorRounded, MdError, MdOutlineWarningAmber
+  MdOutlineWarningAmber, MdList
 } from "react-icons/md";
 import {Group} from "./details/Groups";
+import {EventOccurrence} from "./occurrences/EventOccurrences";
 
 const { TabList, Tab, TapSeperator } = Tabs;
 const { TabPanel } = Tabs;
@@ -52,10 +50,11 @@ export function EventSidebar({
     }
   }, [data, loading]);
 
+
   const isLoading = loading || !data;
 
   return <Tabs activeId={activeId} onChange={id => setTab(id)}>
-    <Row wrap="nowrap" style={style} css={css.sideBar({ theme })}>
+    <Row wrap="nowrap" style={style} css={css.largeSideBar({ theme })}>
       <Col shrink={false} grow={false} css={css.detailDrawerBar({ theme })}>
         <TabList style={{ paddingTop: '12px' }} vertical>
           {onCloseRequest && <>
@@ -72,9 +71,12 @@ export function EventSidebar({
               <MdImage />
             </Tab>
           )}
+          <Tab tabId="occurrences" direction="left">
+            <MdList />
+          </Tab>
           {error && (
               <Tab tabId="error" direction="left">
-                <MdOutlineWarningAmber color="red"  />
+                <MdOutlineWarningAmber color="red" />
               </Tab>
           )}
         </TabList>
@@ -94,13 +96,17 @@ export function EventSidebar({
                     setActiveEvent={setActiveEvent}
                     addToSearch={addToSearch}
                     addEventTypeToSearch={addEventTypeToSearch}
+                    setTab={setTab}
                 />
               </TabPanel>
               {data?.event?.distinctTaxa?.filter(Boolean).length > 0 && (
                   <TabPanel tabId='distinctTaxa'>
-                    < DistinctTaxa data={data} loading={loading} error={error} />
+                    <DistinctTaxa data={data} loading={loading} error={error} />
                   </TabPanel>
               )}
+              <TabPanel tabId='occurrences'>
+                <EventOccurrence eventID={data?.event?.eventID} datasetKey={data?.event?.datasetKey} />
+              </TabPanel>
               {error && (
                   <TabPanel tabId='error'>
                     {error && (

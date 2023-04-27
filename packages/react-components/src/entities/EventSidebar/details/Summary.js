@@ -1,5 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
-import ThemeContext from '../../../style/themes/ThemeContext';
+import React, { useEffect, useState} from 'react';
 import {Summaries} from "./Summaries";
 import {useQuery} from "../../../dataManagement/api";
 
@@ -8,9 +7,9 @@ export function Summary({
   setActiveEvent,
   addToSearch,
   addEventTypeToSearch,
+  setTab,
   ...props
 }) {
-  const theme = useContext(ThemeContext);
   const [showAll, setShowAll] = useState(false);
   const { data, error, loading, load } = useQuery(FACET_BREAKDOWN, { lazyLoad: true });
 
@@ -58,16 +57,16 @@ export function Summary({
             type: "equals",
             value: event.eventID
           },
-          {
-            key: "eventTypeHierarchyJoined",
-            type: "equals",
-            value: event.eventTypeHierarchyJoined
-          },
+          // {
+          //   key: "eventTypeHierarchyJoined",
+          //   type: "equals",
+          //   value: event.eventTypeHierarchyJoined
+          // },
           {
             key: "measurementOrFactTypes",
             type: "isNotNull"
-          }
-          ,{
+          },
+          {
             key:  "datasetKey",
             type: "equals",
             value: event.datasetKey
@@ -78,7 +77,7 @@ export function Summary({
   }, [event]);
 
   if (loading || !data) {
-    return <h2>Loading summary information...</h2>;
+    return <h3 style={{ paddingLeft: '10px' }}>Loading summary information...</h3>;
   }
 
   return <Summaries event={event}
@@ -86,7 +85,9 @@ export function Summary({
                     addToSearch={addToSearch}
                     addEventTypeToSearch={addEventTypeToSearch}
                     data={data}
-                    showAll={showAll}  />
+                    showAll={showAll}
+                    setTab={setTab}
+  />
 };
 
 const FACET_BREAKDOWN = `
@@ -192,6 +193,10 @@ query list($predicate1: Predicate, $predicate2: Predicate, $measurementDetailPre
         count
         key
       } 
+      occurrenceStatus {
+        count
+        key
+      }       
       month {
         count
         key
@@ -199,7 +204,7 @@ query list($predicate1: Predicate, $predicate2: Predicate, $measurementDetailPre
       year {
         count
         key
-      }                  
+      }
       kingdom {
         count
         key

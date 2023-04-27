@@ -15,10 +15,10 @@ class TaxonMediaAPI extends RESTDataSource {
 
   async getRepresentativeImages({ taxon, size, from }) {
     const params = new URLSearchParams({
-      q: `lsid:${taxon}`,
+      q: `taxonConceptID:${taxon}`,
       fq: 'multimedia:"Image"',
       facet: 'off',
-      sort: 'identification_qualifier_s',
+      sort: 'identificationQualifier',
       dir: 'asc',
       im: true,
       start: from || 0,
@@ -27,12 +27,12 @@ class TaxonMediaAPI extends RESTDataSource {
 
     // Append filter queries
     [
-      '-type_status:*',
-      '-basis_of_record:PreservedSpecimen',
-      '-identification_qualifier_s:"Uncertain"',
-      'geospatial_kosher:true',
-      '-user_assertions:50001',
-      '-user_assertions:50005',
+      '-typeStatus:*',
+      '-basisOfRecord:PreservedSpecimen',
+      '-identificationQualifier:"Uncertain"',
+      'spatiallyValid:true',
+      '-userAssertions:50001',
+      '-userAssertions:50005',
     ].forEach((filter) => params.append('fq', filter));
 
     // Perform the occurrence search

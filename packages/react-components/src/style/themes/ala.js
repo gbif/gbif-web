@@ -12,6 +12,8 @@ export default {
   fontFamily: '"Roboto", BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica", "Arial", sans-serif',
   borderRadius: 4,
   drawerZIndex: 1000,
-  progressBar: '#c44d34'
+  progressBar: '#c44d34',
+  colorRangeStart: '#ffffff',
+  colorRangeEnd: '#c44d34',
 }
 

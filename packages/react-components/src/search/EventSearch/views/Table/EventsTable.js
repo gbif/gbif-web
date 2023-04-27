@@ -81,6 +81,12 @@ export const EventsTable = ({ query, first, prev, next, size, from, results, tot
     setActiveDatasetKey(null);
   }
 
+  function closeDialog(){
+    setActiveEventID(null);
+    setActiveDatasetKey(null);
+    dialog.setVisible(false);
+  }
+
   const nextItem = useCallback(() => {
     const activeIndex = items.findIndex(x => x.eventID === activeEventID);
     const next = Math.min(items.length - 1, activeIndex + 1);
@@ -122,8 +128,8 @@ export const EventsTable = ({ query, first, prev, next, size, from, results, tot
         eventID={activeEventID}
         datasetKey={activeDatasetKey}
         defaultTab='details'
-        style={{ maxWidth: '100%', width: 700, height: '100%' }}
-        onCloseRequest={() => dialog.setVisible(false)}
+        style={{ maxWidth: '100%', height: '100%' }}
+        onCloseRequest={() => closeDialog()}
         setActiveEvent={setActiveEvent}
         addToSearch={addToSearch}
         addEventTypeToSearch={addEventTypeToSearch}

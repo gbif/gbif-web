@@ -14,4 +14,5 @@ export default [
   'month',
   'eventType',
   'scientificNames',
+  'surveyID'
 ];

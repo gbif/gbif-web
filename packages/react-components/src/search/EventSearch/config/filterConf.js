@@ -20,6 +20,7 @@ const highlighted = [
   'year',
   'month',
   'eventStateProvince',
+  'eventId',
   'locationId',
   'eventTaxonKey',
 ];

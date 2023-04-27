@@ -2,11 +2,10 @@ import React, { useContext, useState } from 'react';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import { FormattedMessage } from 'react-intl';
 import * as css from '../styles';
-import {Row, Col, Switch, Button} from "../../../components";
+import {Row, Col, Switch} from "../../../components";
 import {Group, Groups} from './Groups';
 import {Summary} from "./Summary";
 import Map from "../../SiteSidebar/details/Map/Map";
-import {MdOutlineWarningAmber} from "react-icons/md";
 
 export function Intro({
   data = {},
@@ -16,6 +15,7 @@ export function Intro({
   addToSearch,
   addEventTypeToSearch,
   className,
+  setTab,
   ...props
 }) {
   const theme = useContext(ThemeContext);
@@ -44,13 +44,13 @@ export function Intro({
         />
       </Group>
       }
-      <Summary event={event} setActiveEvent={setActiveEvent} addEventTypeToSearch={addEventTypeToSearch} />
+      <Summary event={event} setActiveEvent={setActiveEvent} addEventTypeToSearch={addEventTypeToSearch} setTab={setTab}/>
     </Col>
     <Col css={css.controlFooter({ theme })} grow={false}>
       <Row justifyContent="flex-end" halfGutter={8}>
         <Col grow={false}>
           <FormattedMessage id={`eventDetails.showAllFields`}/>
-          <Switch checked={showAll} onChange={() => setShowAll(!showAll)} direction="top" tip="Shortcut s" />
+          <Switch checked={showAll} onChange={() => setShowAll(!showAll)} direction="top" tip="Shortcut" />
         </Col>
       </Row>
     </Col>

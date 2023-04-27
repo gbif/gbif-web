@@ -348,9 +348,13 @@ const config =
       field: 'event.eventID.keyword',
       suggestField: 'eventID.suggest'
     },
+    surveyID: {
+      type: 'keyword',
+      field: 'event.surveyID.keyword'
+    },
     eventType: {
       type: 'keyword',
-      field: 'event.eventType.lineage.keyword'
+      field: 'event.eventType.concept'
     },
     eventTypeHierarchyJoined: {
       type: 'keyword',

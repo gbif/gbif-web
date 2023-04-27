@@ -42,6 +42,10 @@ export function DatasetKeyLink(props) {
   return <ResourceLink type='datasetKey' {...props} />
 }
 
+export function OccurrenceLink(props) {
+  return <ResourceLink type='occurrenceKey' {...props} />
+}
+
 const isDiscreetLink = css`
   text-decoration: none;
   color: var(--linkColor);

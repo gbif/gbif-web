@@ -1,5 +1,4 @@
 import { css } from '@emotion/react';
-// import { focusStyle } from '../../style/shared';
 
 export const mapArea = ({ theme }) => css`
   flex: 1 1 100%;

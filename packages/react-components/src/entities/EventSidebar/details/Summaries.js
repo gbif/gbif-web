@@ -1,16 +1,18 @@
-import React, {useContext} from 'react';
-import { Properties } from "../../../components";
+import React, {useContext, useState} from 'react';
+import {Button, Properties} from "../../../components";
 import * as css from "../styles";
 import {Group} from "./Groups";
-import {EnumFacetListInline, FacetList, FacetListInline} from "./properties";
+import {EnumFacetListInline, FacetList} from "./properties";
 import {Measurements} from "./Measurements";
 import {SingleTree} from "./Tree/SingleTree";
+import TaxonChart from "../../../components/TaxonChart/TaxonChart";
+import ApiContext from "../../../dataManagement/api/ApiContext";
 
 const { Term: T, Value: V } = Properties;
 
-export function Summaries({ event, setActiveEvent, addToSearch, addEventTypeToSearch, data, showAll }) {
+export function Summaries({ event, setActiveEvent, addEventTypeToSearch, setTab, data, showAll }) {
 
-  let termMap = {}
+  let termMap = {};
   Object.entries(data?.results?.facet).forEach(item => {
     termMap[item[0]] = {
       "simpleName": item[0],
@@ -180,7 +182,13 @@ export function Summaries({ event, setActiveEvent, addToSearch, addEventTypeToSe
     <Group label="eventDetails.groups.occurrence">
       <Properties css={css.properties} breakpoint={800}>
         <EnumFacetListInline term={termMap.basisOfRecord} showDetails={showAll}  getEnum={value => `enums.basisOfRecord.${value}`}/>
+        <EnumFacetListInline term={termMap.occurrenceStatus} showDetails={showAll}  getEnum={value => `enums.occurrenceStatus.${value}`}/>
       </Properties>
+      <Button look="primaryOutline" style={{ marginTop: '20px', fontSize: '11px' }}
+        onClick={() => setTab("occurrences")}
+      >
+        View occurrences
+      </Button>
     </Group>
     <Group label="eventDetails.groups.dataStructure">
       {rootNode &&
@@ -188,32 +196,159 @@ export function Summaries({ event, setActiveEvent, addToSearch, addEventTypeToSe
       }
     </Group>
     <Methodology             {...{ showAll, termMap }} />
-    <TaxonomicCoverage       {...{ showAll, termMap }} />
+    <TaxonomicCoverage       {...{ showAll, termMap, event }} />
     <Measurements             data={data.measurementResults}  />
   </>
 }
 
-function TaxonomicCoverage({ showAll, termMap }) {
-  const hasContent = [
+function TaxonomicCoverage({ showAll, termMap, event }) {
+
+  const apiClient = useContext(ApiContext);
+  const taxonLevels = [
     'kingdom',
     'phylum',
-    'order',
     'class',
+    'order',
     'family',
-    'genus'
-  ].find(x => termMap[x]);
+    'genus',
+    'species'
+  ]
+
+  const hasContent = taxonLevels.find(x => termMap[x].value);
   if (!hasContent) return null;
 
+  function initialise(taxonLevels, termMap) {
+
+    let initialLevel = 0
+    let initialChartData = termMap[taxonLevels[initialLevel]].value;
+    let initialTaxonomy = []
+
+    while (initialChartData.length == 1 && initialLevel  < taxonLevels.length) {
+      initialTaxonomy.push(
+          {rank: taxonLevels[initialLevel], name: termMap[taxonLevels[initialLevel]].value[0].key}
+      );
+
+      if (initialLevel + 1 == taxonLevels.length){
+        break;
+      }
+
+      initialLevel = initialLevel + 1;
+      initialChartData = termMap[taxonLevels[initialLevel]].value;
+    }
+    return {
+      level: initialLevel,
+      chartData: initialChartData,
+      selectedTaxonomy: initialTaxonomy
+    }
+  }
+
+  let result = initialise(taxonLevels, termMap);
+  const iSelectedTaxonomy = result.selectedTaxonomy;
+  const iChartData = result.chartData;
+
+  if (!iChartData || iChartData.length == 0){
+    return null;
+  }
+
+  // initial values
+  let { level, chartData, selectedTaxonomy}  = initialise(taxonLevels, termMap);
+
+  const reset = () => {
+    const initialValues = initialise(taxonLevels, termMap);
+    level = initialValues.level;
+    chartData = initialValues.chartData;
+    selectedTaxonomy = initialValues.selectedTaxonomy;
+  }
+
+  const onSelection = (selectedIndex, callback) => {
+
+    if (level == taxonLevels.length -1){
+      return;
+    }
+
+    console.log("Selected " + chartData[selectedIndex].key)
+    let taxonName = chartData[selectedIndex].key;
+    selectedTaxonomy.push({rank: taxonLevels[level], name: taxonName});
+
+    level = level + 1;
+    const facetKey = taxonLevels[level];
+    const query = `
+        query list($predicate: Predicate){
+          results: eventSearch(predicate:$predicate){
+            occurrenceFacet {
+              ${facetKey} {
+                count
+                key
+              }
+            }       
+          }
+        }
+    `;
+
+    let higherTaxaParams = selectedTaxonomy.map(item => {
+      return item.rank +'=' + item.name;
+    }).join('&')
+
+    let queryUUrl = "https://namematching-ws.ala.org.au/api/searchByClassification?scientificName=" + taxonName + '&' + higherTaxaParams;
+    // console.log(queryUUrl);
+
+    // translate to sci names - add higher classification
+    fetch(queryUUrl, { method: 'GET'})
+    .then((response) => response.json())
+    .then((taxonLookup) => {
+
+      let taxonID = taxonLookup.taxonConceptID;
+
+      // load the tree
+      const predicate = {
+        type: "and",
+        predicates: [
+          { type: "equals", key: "taxonKey", value: taxonID },
+          { type: "equals", key: "eventHierarchy", value: event.eventID }
+        ]
+      }
+
+      // get the key of the selected node
+      // do the GraphQL query to get list of taxa
+      const { promise: dataPromise, cancel } = apiClient.query({
+        query: query, variables: {predicate:predicate}
+      });
+
+      dataPromise.then(response => {
+        const {data, error} = response;
+        chartData = data.results.occurrenceFacet[facetKey];
+        if (chartData && chartData.length > 0) {
+          callback(chartData, selectedTaxonomy);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+  }
+
   return <Group label="eventDetails.groups.taxonomicCoverage">
-    <Properties css={css.properties} breakpoint={800}>
-      <FacetListInline term={termMap.kingdom} showDetails={showAll}/>
-      <FacetListInline term={termMap.phylum} showDetails={showAll}/>
-      <FacetListInline term={termMap.class} showDetails={showAll}/>
-      <FacetListInline term={termMap.order} showDetails={showAll}/>
-      <FacetListInline term={termMap.family} showDetails={showAll}/>
-      <FacetListInline term={termMap.genus} showDetails={showAll} style={{ fontStyle: "italic" }} />
-      <FacetListInline term={termMap.species} showDetails={showAll} style={{ fontStyle: "italic" }} />
-    </Properties>
+    <TaxonChart
+        initialData={iChartData}
+        initialPath={iSelectedTaxonomy}
+        onSelection={onSelection}
+        resetCallback={() => reset()}
+    />
+
+    {/*<Properties css={css.properties} breakpoint={800}>*/}
+    {/*  <FacetListInline term={termMap.kingdom} showDetails={showAll}/>*/}
+    {/*  <FacetListInline term={termMap.phylum} showDetails={showAll}/>*/}
+    {/*  <FacetListInline term={termMap.class} showDetails={showAll}/>*/}
+    {/*  <FacetListInline term={termMap.order} showDetails={showAll}/>*/}
+    {/*  <FacetListInline term={termMap.family} showDetails={showAll}/>*/}
+    {/*  <FacetListInline term={termMap.genus} showDetails={showAll} style={{ fontStyle: "italic" }} />*/}
+    {/*  <FacetListInline term={termMap.species} showDetails={showAll} style={{ fontStyle: "italic" }} />*/}
+    {/*</Properties>    */}
+
   </Group>
 }
 

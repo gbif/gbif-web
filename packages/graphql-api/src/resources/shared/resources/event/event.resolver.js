@@ -67,6 +67,9 @@ export default {
     },
     event: (parent, { eventID, datasetKey }, { dataSources }) =>
       dataSources.eventAPI.getEventByKey({ eventID, datasetKey }),
+    occurrences: (parent, { eventID, datasetKey, locationID,  month, year, size, from }, { dataSources }) => {
+      return dataSources.eventAPI.searchEventOccurrences({ eventID, datasetKey, locationID, month, year, size, from });
+    },
     location: (parent, { locationID }, { dataSources }) =>
       dataSources.eventAPI.getLocation({ locationID }),
   },
@@ -87,8 +90,11 @@ export default {
     occurrenceFacet: (parent) => {
       return { _predicate: parent._predicate };
     },
-    facet: (parent) => {
-      return { _predicate: parent._predicate };
+    facet: (parent, {size, from}) => {
+      return {
+        size: size,
+        from: from,
+        _predicate: parent._predicate };
     },
     cardinality: (parent) => {
       return { _predicate: parent._predicate };
@@ -126,6 +132,11 @@ export default {
     parentEventID: (parent, query, { dataSources }) =>
       getCardinality(parent._predicate, query, {
         field: 'parentEventID',
+        searchApi: dataSources.eventAPI.searchEvents,
+      }),
+    surveyID: (parent, query, { dataSources }) =>
+      getCardinality(parent._predicate, query, {
+        field: 'surveyID',
         searchApi: dataSources.eventAPI.searchEvents,
       }),
   },
@@ -210,4 +221,5 @@ export default {
   EventTemporalResult_string: {
     events: temporalEventSearch,
   },
+
 };

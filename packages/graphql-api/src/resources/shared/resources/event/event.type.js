@@ -11,6 +11,9 @@ export default gql`
 
     event(eventID: String, datasetKey: String): Event
 
+    occurrences(eventID: String, datasetKey: String, locationID: String, month:Int, year:Int
+      size: Int, from: Int): SimpleOccurrenceResults
+
     location(locationID: String): Event
   }
 
@@ -22,7 +25,7 @@ export default gql`
     """
     Get number of events per distinct values in a field. E.g. how many events per year.
     """
-    facet: EventFacet
+    facet(size: Int, from: Int): EventFacet
     """
     Get number of occurrences per distinct values in a field. E.g. how many occurrence per year.
     """
@@ -60,8 +63,16 @@ export default gql`
     results: [Event]!
   }
 
+  type SimpleOccurrenceResults {
+    size: Int!
+    from: Int!
+    total: Int!
+    results: [SimpleOccurrence]!
+  }
+
   type Event {
     eventID: String
+    surveyID:String
     type: String
     eventType: EventType
     eventName: String
@@ -113,6 +124,16 @@ export default gql`
     lte: String
   }
 
+  type SimpleOccurrence {
+    key: String
+    scientificName: String
+    kingdom: String
+    family: String
+    individualCount: String
+    occurrenceStatus: String
+    basisOfRecord: String
+  }
+
   type DistinctTaxon {
     count: Int
     key: String
@@ -162,6 +183,7 @@ export default gql`
 
     eventHierarchyJoined(size: Int, include: String): [EventFacetResult_string]
     eventHierarchy(size: Int, include: String): [EventFacetResult_string]
+    surveyID(size: Int, include: String): [EventFacetResult_string]
     eventTypeHierarchyJoined(
       size: Int
       include: String
@@ -193,6 +215,7 @@ export default gql`
     datasetKey: Int!
     locationID: Int!
     parentEventID: Int!
+    surveyID: Int!
   }
 
   type EventTemporal {
@@ -284,6 +307,7 @@ export default gql`
     samplingProtocol(size: Int, include: String): [EventOccurrenceFacetResult_string]
     locationID(size: Int, include: String):       [EventOccurrenceFacetResult_string]
     basisOfRecord(size: Int, include: String):    [EventOccurrenceFacetResult_string]
+    occurrenceStatus(size: Int, include: String): [EventOccurrenceFacetResult_string]
     stateProvince(size: Int, include: String):    [EventOccurrenceFacetResult_string]
     recordedBy(size: Int, include: String):       [EventOccurrenceFacetResult_string]
     recordedById(size: Int, include: String):     [EventOccurrenceFacetResult_string]

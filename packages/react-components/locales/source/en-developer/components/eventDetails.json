@@ -46,6 +46,6 @@
   "siteLoading": "Site: {siteID} - loading details",
   "activityDetails": {
     "monthYear": "Details of activity in {date, time, ::MMMM::yyyy}",
-    "year": "Details of activity in {date, time, ::yyyy}"
+    "year": "Details of activity in {year}"
   }
 }

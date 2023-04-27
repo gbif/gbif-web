@@ -26,6 +26,27 @@ class EventAPI extends RESTDataSource {
     return response.documents;
   }
 
+  async searchEventOccurrences({ eventID, datasetKey, locationID, month, year, size, from }) {
+    const response = await this.eventOccurrences({eventID, datasetKey, locationID, month, year, size, from });
+    let results =  response.documents.results.map(doc => {
+      return {
+        key: doc.key,
+        scientificName: doc.acceptedScientificName,
+        kingdom: doc.kingdom,
+        family: doc.family,
+        individualCount: doc.individualCount,
+        occurrenceStatus: doc.occurrenceStatus,
+        basisOfRecord: doc.basisOfRecord
+      }
+    });
+    return {
+      total: response.documents.total,
+      size: response.documents.size,
+      from: response.documents.from,
+      results: results
+    }
+  }
+
   async getArchive(datasetKey) {
     try {
       const response = await this.get(
@@ -62,6 +83,30 @@ class EventAPI extends RESTDataSource {
     response.documents.limit = response.documents.size;
     response.documents.offset = response.documents.from;
     response._predicate = body.predicate;
+    return response;
+  };
+
+  eventOccurrences = async ({ eventID, datasetKey, locationID, month, year, size, from }) => {
+
+    const params = {
+      size,
+      from,
+      ...(eventID && { eventHierarchy: eventID }),
+      ...(datasetKey && { datasetKey }),
+      ...(locationID && { locationID }),
+      ...(month && { month }),
+      ...(year && { year })
+    };
+
+    let response = await this.get(
+      '/event-occurrence',params,
+      { signal: this.context.abortController.signal },
+    );
+
+    // map to support APIv1 naming
+    response.documents.count = response.documents.total;
+    response.documents.limit = response.documents.size;
+    response.documents.offset = response.documents.from;
     return response;
   };
 

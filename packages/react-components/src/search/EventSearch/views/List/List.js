@@ -2,7 +2,7 @@ import { css} from '@emotion/react';
 import React, { useEffect, useCallback, useState, useContext } from 'react';
 import { useUpdateEffect } from 'react-use';
 import SearchContext from '../../../SearchContext';
-import { Button, Skeleton, DetailsDrawer } from '../../../../components';
+import {Button, Skeleton, DetailsDrawer, Row, Col} from '../../../../components';
 import { useQuery } from '../../../../dataManagement/api';
 import * as style from './style';
 import { FilterContext } from "../../../../widgets/Filter/state";
@@ -12,13 +12,14 @@ import { useQueryParam, StringParam } from 'use-query-params';
 import {useGraphQLContext} from "../../../../dataManagement/api/GraphQLContext";
 
 export const List = ({query, first, prev, next, size, from, data, total, loading }) => {
-  const { filters, labelMap } = useContext(SearchContext);
+  const { filters } = useContext(SearchContext);
   const dialog = useDialogState({ animated: true, modal: false });
   const [activeKey, setActiveKey] = useQueryParam('entity', StringParam);
 
   const datasets = data?.eventSearch?.facet?.datasetKey;
 
   const {details, setQuery} = useGraphQLContext();
+
   useEffect(() => {
     setQuery({ query, size, from });
   }, [query, size, from]);
@@ -63,9 +64,8 @@ export const List = ({query, first, prev, next, size, from, data, total, loading
     flexDirection: "column",
   }}>
     {dialog.visible && <DetailsDrawer dialog={dialog} nextItem={nextItem} previousItem={previousItem}>
-      <EventDatasetSidebar id={activeKey} defaultTab='details' style={{ maxWidth: '100%', width: 700, height: '100%' }} onCloseRequest={() => dialog.setVisible(false)} />
+      <EventDatasetSidebar id={activeKey} defaultTab='details' style={{ maxWidth: '100%', height: '100%' }} onCloseRequest={() => dialog.setVisible(false)} />
     </DetailsDrawer>}
-    {/* <ResultsHeader loading={loading} total={total} /> */}
     <ul css={style.datasetList}>
       {datasets.map(x => <li style={{ marginBottom: 12 }} key={x.key}><Dataset {...x} datasetKey={x.key} filters={filters} onClick={() => { setActiveKey(x.key); }}/></li>)}
     </ul>
@@ -85,7 +85,8 @@ query list($datasetKey: JSON){
     }
     cardinality {
       locationID
-    }
+      surveyID
+    }    
     facet {
       measurementOrFactTypes {
         key
@@ -117,6 +118,7 @@ function DatasetSkeleton() {
     <Skeleton width="random" />
   </div>
 }
+
 function Dataset({ datasetKey, datasetTitle, count, occurrenceCount, events, onClick, filters, ...props }) {
   const { data, error, loading, load } = useQuery(DATASET_QUERY, { lazyLoad: true });
   const currentFilterContext = useContext(FilterContext);
@@ -149,33 +151,44 @@ function Dataset({ datasetKey, datasetTitle, count, occurrenceCount, events, onC
 
   return <article>
     <div css={style.summary}>
-      <Button look="link"><h2 onClick={onClick}>{datasetTitle}</h2></Button>
-      <div style={{ float: 'right' }}>
-        <Button
-          onClick={() => filterByThisDataset()}
-          look="primaryOutline"
-          css={css`margin-left: 30px; font-size: 11px;`}>Add to filter</Button>
-      </div>
-      <div css={style.details}>
-        <div>Total events: <span>{documents.total?.toLocaleString()}</span></div>
-        <div>Total occurrences: <span>{occurrenceCount?.toLocaleString()}</span></div>
-        <div>Sites: <span>{cardinality.locationID?.toLocaleString()}</span></div>
-        <div>Taxonomic scope: <span>{occurrenceFacet.class.map(x => x.key).join(' • ')}</span></div>
-        {hasStructure &&
-            <div>Structure:&nbsp;
-              <span>{structure.join(' • ')}</span>
-            </div>
-        }
-        {hasMeasurements &&
-          <div>Measurement types: <span>{facet.measurementOrFactTypes.map(x => x.key).join(' • ')}</span></div>
-        }
-      </div>
+      <Button look="link"><h2 style={{ fontSize: "20px"}} onClick={onClick}>{datasetTitle}</h2></Button>
+      <Row>
+        <Col style={{ width: '50px'}}>
+          <div css={style.details} style={{ fontSize: "18px"}}>
+            <div>Events: <span>{documents.total?.toLocaleString()}</span></div>
+            <div>Occurrences: <span>{occurrenceCount?.toLocaleString()}</span></div>
+            {cardinality.surveyID > 0 &&
+                <div>Surveys: <span>{cardinality.surveyID?.toLocaleString()}</span></div>
+            }
+            <div>Sites: <span>{cardinality.locationID?.toLocaleString()}</span></div>
+            <Button
+                onClick={() => filterByThisDataset()}
+                look="primaryOutline"
+                css={css` margin-top: 10px; font-size: 14px;`}>Add to filter</Button>
+          </div>
+        </Col>
+        <Col style={{ width: '700px'}}>
+          <div css={style.details}>
+            {hasStructure &&
+                <div>Structure:&nbsp;
+                  <span>{structure.join(' → ')}</span>
+                </div>
+            }
+            <div style={{ paddingTop: '5px'}}>Taxonomic scope: <span>{occurrenceFacet.class.map(x => x.key).join(' • ')}</span></div>
+            {hasMeasurements &&
+              <div style={{ paddingTop: '5px'}}>Measurements: <span>{facet.measurementOrFactTypes.map(x => x.key).join(', ')}</span>
+              </div>
+            }
+          </div>
+        </Col>
+      </Row>
     </div>
     <div css={style.events}>
       <div css={style.tabularListItem}>
         <div>Event ID</div>
         <div>Event type</div>
         <div>Year</div>
+        <div>State</div>
         <div>Coordinates</div>
       </div>
       <ul css={style.eventList}>
@@ -184,6 +197,7 @@ function Dataset({ datasetKey, datasetTitle, count, occurrenceCount, events, onC
             <div>{x.eventID}</div>
             <div>{x.eventType?.concept}</div>
             <div>{x.year}</div>
+            <div>{x.stateProvince}</div>
             <div>{x.formattedCoordinates}</div>
           </div>
         </li>)}
