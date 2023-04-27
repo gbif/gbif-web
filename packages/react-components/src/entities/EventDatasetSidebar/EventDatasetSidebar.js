@@ -85,7 +85,6 @@ export function EventDatasetSidebar({
             {!isLoading && <Col style={{ padding: '12px 16px', paddingBottom: 50 }} grow>
               <h1>{dataset.title}</h1>
               <DatasetKeyLink id={id}>Dataset detail page</DatasetKeyLink>
-
               <section style={{ marginTop: 36 }}>
                 <Properties>
                   {dataset?.contact.length > 0 && <>

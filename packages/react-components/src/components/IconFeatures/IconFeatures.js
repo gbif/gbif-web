@@ -62,7 +62,7 @@ export function IconFeatures({
     {eventDate && <div>
       <MdEvent />
       <span>
-        <FormattedDate value={eventDate}
+        <formatteddate value={eventdate}
           year="numeric"
           month="long"
           day="2-digit" />

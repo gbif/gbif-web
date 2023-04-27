@@ -44,5 +44,5 @@ export { TextThumbnail } from './TextThumbnail/TextThumbnail';
 export { ListItem } from './ListItem/ListItem';
 export { ThumbnailMap } from './ThumbnailMap/ThumbnailMap';
 export { ErrorBoundary } from './ErrorBoundary/ErrorBoundary';
-export { TaxonTreeMap } from './TaxonTreeMap/TaxonTreeMap';
+export { TaxonChart } from './TaxonChart/TaxonChart';
 // -- Add imports above this line (required by plopfile.js) --

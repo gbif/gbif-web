@@ -13,7 +13,7 @@ export default {
   borderRadius: 4,
   drawerZIndex: 1000,
   progressBar: '#c44d34',
-  colorRangeStart: '#000000',
+  colorRangeStart: '#ffffff',
   colorRangeEnd: '#c44d34',
 }
 

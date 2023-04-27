@@ -1,11 +1,7 @@
 import React, { useEffect, useState} from 'react';
 import {useQuery} from "../../../dataManagement/api";
 import { DataTable, TBody} from "../../../components";
-import {
-    OccurrenceLink,
-    OccurrenceLocationSearchLink
-} from "../../../components/resourceLinks/resourceLinks";
-import {MdOutbound} from "react-icons/md";
+import {OccurrenceLink} from "../../../components/resourceLinks/resourceLinks";
 
 const EVENT_MY_QUERY = `
 query list ($locationID: String, $month: Int, $year: Int, $size:Int, $from:Int) {
@@ -78,13 +74,6 @@ export function EventOccurrence({ locationID, month, year }) {
 
     return <>
         <div style={{paddingLeft: '20px', paddingRight: '30px'}}>
-        {total > 0 &&
-            <span>
-                <OccurrenceLocationSearchLink id={locationID} otherIds={{ month: month > 0 ? month : null, year: year  > 0 ? year : null }}>
-                    <MdOutbound style={{marginRight:'5px'}} />Explore all records
-                </OccurrenceLocationSearchLink>
-            </span>
-        }
         <h3>Occurrences ({ !total ? 'loading' : total?.toLocaleString()})</h3>
         <DataTable {...{  first, prev, next, size, from, total, loading }}
            style={{ flex: "1 1 auto",  display: 'flex', flexDirection: 'column' }}>

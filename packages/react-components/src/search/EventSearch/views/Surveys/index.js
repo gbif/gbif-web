@@ -10,10 +10,10 @@ query list($predicate: Predicate, $offset: Int, $limit: Int){
     size: $limit, 
     from: $offset
     ) {
-    cardinality {
-      surveyID
-    }    
-    facet(size: $limit, from: $offset) {
+    documents {
+      total
+    }
+    facet(size: 100, from: 0) {
       surveyID {
         key
         count

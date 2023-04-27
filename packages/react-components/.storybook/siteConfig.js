@@ -94,6 +94,7 @@ const routeConfig = {
     isHref: true,
     route: '/literature/search',
   },
+
   eventKey: {
     // url: ({key}) => `/publisher/${key}`,
     // url: ({key, otherIds}) => `${gbifOrg}/dataset/${otherIds.datasetKey}/event/${key}`,
@@ -117,31 +118,6 @@ const routeConfig = {
     url: ({ key }) => `https://biocache-dev.ala.org.au/occurrences/${key}`,
     isHref: true,
     route: '/occurrence/:key'
-  },
-  occurrenceEventSearch: {
-    // https://biocache-test.ala.org.au/occurrences/search?fq=eventHierarchy:${eventID}&fq=dataResourceUid:${datasetKey}`
-    // url: ({ key }) => `https://gbif.org/occurrence/${key}`,
-    url: ({ key, otherIds }) => `https://biocache-dev.ala.org.au/occurrences/search?fq=eventHierarchy:${key}&fq=dataResourceUid:${otherIds.datasetKey}`,
-    isHref: true,
-    route: '/occurrences/search'
-  },
-  occurrenceLocationSearch: {
-    // https://biocache-test.ala.org.au/occurrences/search?fq=eventHierarchy:${eventID}&fq=dataResourceUid:${datasetKey}`
-    // url: ({ key }) => `https://gbif.org/occurrence/${key}`,
-    url: ({ key, otherIds }) => {
-      if (!otherIds.month && !otherIds.year){
-        return `https://biocache-dev.ala.org.au/occurrences/search?fq=locationID:${key}`;
-      }
-      if (!otherIds.month && otherIds.year){
-        return `https://biocache-dev.ala.org.au/occurrences/search?fq=locationID:${key}&fq=year:${otherIds.year}`;
-      }
-      if (otherIds.month && !otherIds.year){
-        return `https://biocache-dev.ala.org.au/occurrences/search?fq=locationID:${key}&fq=month:${otherIds.month}`;
-      }
-      return `https://biocache-dev.ala.org.au/occurrences/search?fq=locationID:${key}&fq=month:${otherIds.month}&fq=year:${otherIds.year}`;
-    },
-    isHref: true,
-    route: '/occurrences/search'
   }
 };
 
