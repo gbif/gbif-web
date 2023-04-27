@@ -14,6 +14,8 @@ import { useQuery } from '../../../dataManagement/api';
 import SearchContext from '../../../search/SearchContext';
 import unionBy from 'lodash/unionBy';
 import { hash } from '../../../utils/util';
+import { FilterContext } from "../../Filter/state";
+import {filter2predicate} from "../../../dataManagement/filterAdapter";
 
 const initialSize = 25;
 
@@ -28,15 +30,21 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, LabelF
   const [inputValue, setValue] = useState('');
   const [showSuggestions, setShowSuggestions] = useState(initialOptions?.length === 0);
   const searchContext = useContext(SearchContext);
+  const currentFilterContext = useContext(FilterContext);
+
+  const { rootPredicate, predicateConfig } = useContext(SearchContext);
 
   useEffect(() => {
     if (typeof id !== 'undefined') {
-      const predicates = [
-         // TODO the search function need to be defined in context
-      ];
-      if (searchContext?.rootPredicate) {
-        predicates.push(searchContext.rootPredicate);
+
+      const predicates = {
+        type: 'and',
+        predicates: [
+          rootPredicate,
+          filter2predicate(currentFilterContext.filter, predicateConfig)
+        ].filter(x => x)
       }
+
       let queryString = q;
       let postfix = '';
       if (queryString.indexOf('*') === -1 && queryString.indexOf('?') === -1) {
@@ -45,7 +53,7 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, LabelF
       queryString = `${q}${postfix}`;
       
       if (q && q !== '') {
-        predicates.push({
+        predicates.predicates.push({
           "type": "like",
           "key": queryKey,
           "value": `${queryString}`

@@ -23,6 +23,7 @@ export function IconFeatures({
   isSamplingEvent,
   formattedCoordinates,
   eventDate,
+  temporalCoverage,
   stillImageCount,
   movingImageCount,
   soundCount,
@@ -61,12 +62,30 @@ export function IconFeatures({
     {eventDate && <div>
       <MdEvent />
       <span>
-        <FormattedDate value={eventDate}
+        <formatteddate value={eventdate}
           year="numeric"
           month="long"
           day="2-digit" />
       </span>
     </div>}
+    {temporalCoverage && <div>
+      <MdEvent />
+      <span>
+        <FormattedDate value={temporalCoverage.gte}
+                       year="numeric"
+                       month="long"
+                       day="2-digit" />
+      </span>
+      {temporalCoverage.lte && temporalCoverage.gte && <span>to</span>}
+      {temporalCoverage.lte &&
+          <span>
+            <FormattedDate value={temporalCoverage.lte}
+                       year="numeric"
+                       month="long"
+                       day="2-digit" />
+          </span>}
+    </div>}
+
     {formattedCoordinates && <div><MdLocationOn />{!iconsOnly && <span>{formattedCoordinates}</span>}</div>}
     {countryCode && <div><FaGlobeAfrica />{!iconsOnly && <span><span>{locality ? locality + ', ' :''}</span><span><FormattedMessage id={`enums.countryCode.${countryCode}`} />
     </span></span>}</div>}

@@ -10,6 +10,7 @@ import { FilterBar } from '../FilterBar';
 import { useQueryParam, StringParam } from 'use-query-params';
 import GraphQLApiInfo from "./views/Api";
 import SiteContext from "../../dataManagement/SiteContext";
+import {Surveys} from "./views/Surveys";
 
 const Layout = ({
   className = '',
@@ -19,7 +20,8 @@ const Layout = ({
   Map,
   Download,
   Sites,
-  tabs = ['DATASETS', 'EVENTS', 'SITES', 'MAP', 'DOWNLOAD'],
+  Surveys,
+  tabs = ['DATASETS', 'SURVEYS', 'EVENTS', 'SITES', 'MAP', 'DOWNLOAD'],
   ...props
 }) => {
   const [activeView = tabs[0] || 'DATASETS', setActiveView] = useQueryParam('view', StringParam);
@@ -30,6 +32,7 @@ const Layout = ({
 
   const tabComponents = {
     DATASETS: <NavItem key={`DATASET_TAB`} label={<FormattedMessage id="search.tabs.datasets" defaultMessage="Datasets"/>} data-targetid="dataset" onClick={e => setActiveView('DATASETS')} isActive={activeView === 'DATASETS'} />,
+    SURVEYS: <NavItem key={`SURVEYS_TAB`} label={<FormattedMessage id="search.tabs.surveys" defaultMessage="Surveys"/>} data-targetid="surveys" onClick={e => setActiveView('SURVEYS')} isActive={activeView === 'SURVEYS'} />,
     EVENTS: <NavItem key={`EVENTS_TAB`} label={<FormattedMessage id="search.tabs.events" defaultMessage="Events"/>} data-targetid="events" onClick={e => setActiveView('EVENTS')} isActive={activeView === 'EVENTS'} />,
     SITES: <NavItem key={`SITES_TAB`} label={<FormattedMessage id="search.tabs.sites" defaultMessage="Sites"/>} data-targetid="sites" onClick={e => setActiveView('SITES')} isActive={activeView === 'SITES'} />,
     MAP: <NavItem key={`MAP_TAB`} label={<FormattedMessage id="search.tabs.map" defaultMessage="Map"/>} data-targetid="map" onClick={e => setActiveView('MAP')} isActive={activeView === 'MAP'} />,
@@ -44,7 +47,7 @@ const Layout = ({
           <NavBar style={{ marginLeft: 10, width:"100%"}} >
             {tabs.map(tab => tabComponents[tab])}
           </NavBar>
-          { eventConfig.enableGraphQLAPI && (activeView === 'DATASETS' || activeView === 'EVENTS' ||activeView === 'SITES') && <GraphQLApiInfo/>}
+          { eventConfig.enableGraphQLAPI && (activeView === 'DATASETS' || activeView === 'EVENTS' || activeView === 'SITES' || activeView === 'SURVEYS') && <GraphQLApiInfo/>}
       </div>}
       <div css={cssNavBar({ theme })} style={{ margin: '0 0 10px 0', borderRadius: 0 }}>
         <DataHeader availableCatalogues={config.availableCatalogues} style={{ borderBottom: '1px solid #ddd' }} />
@@ -54,6 +57,7 @@ const Layout = ({
       </div>
       <div css={cssViewArea({ theme })}>
         {activeView === 'DATASETS' && <List />}
+        {activeView === 'SURVEYS' && <Surveys />}
         {activeView === 'EVENTS' && <Table />}
         {activeView === 'SITES' && <Sites />}
         {activeView === 'MAP' && <Map />}

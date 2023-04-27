@@ -32,11 +32,11 @@ export function Header({
           style={{fontSize: '80%'}}
           prefix={<FormattedMessage id="eventDetails.dataset" />}
           suffix={data?.event?.datasetTitle}
-            />
+          />
       </div>
       <div css={css.entitySummary({ theme })}>
         <IconFeatures css={css.features({ theme })}
-                      eventDate={item.eventDate}
+                      temporalCoverage={item.temporalCoverage}
                       countryCode={item.countryCode}
                       locality={item.locality}
         />

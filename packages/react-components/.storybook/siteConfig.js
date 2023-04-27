@@ -113,6 +113,12 @@ const routeConfig = {
     isHref: true,
     route: '/taxon/:key'
   },
+  occurrenceKey: {
+    // url: ({ key }) => `https://gbif.org/occurrence/${key}`,
+    url: ({ key }) => `https://biocache-dev.ala.org.au/occurrences/${key}`,
+    isHref: true,
+    route: '/occurrence/:key'
+  }
 };
 
 export const siteConfig = {

@@ -11,7 +11,7 @@ export const sites = ({ noOfSites=10, noOfYears=10, showMonth, theme, ...props }
   display: inline-grid;
   grid-template-areas: "legend header"
     "sidebar main-grid";
-  grid-template-columns: 150px auto;
+  grid-template-columns: 165px auto;
   grid-column-gap: 0px;
 }
 
@@ -65,7 +65,7 @@ export const sites = ({ noOfSites=10, noOfYears=10, showMonth, theme, ...props }
 
 .header-grid {
   display: grid;
-  grid-template-columns: repeat(${noOfYears}, ${showMonth ? '150px': '16px'} );
+  grid-template-columns: repeat(${noOfYears}, ${showMonth ? '165px': '16px'} );
   grid-column-gap: 0px;
   padding: 15px 5px 5px 5px;
 }
@@ -84,7 +84,7 @@ export const sites = ({ noOfSites=10, noOfYears=10, showMonth, theme, ...props }
 
 .sidebar-grid {
   display: grid;
-  grid-template-columns: repeat(1, 150px);
+  grid-template-columns: repeat(1, 165px);
   grid-column-gap: 0px;
   padding: 5px;
 }
@@ -98,14 +98,13 @@ export const sites = ({ noOfSites=10, noOfYears=10, showMonth, theme, ...props }
 
 .sidebar-grid li {
   display: inline-block;
-
 }
 
 .sidebar-grid li:hover { cursor: pointer; }
 
 .data-grid {
   display: grid;
-  grid-template-columns: repeat(${noOfYears}, ${showMonth ? '150px': '16px'});
+  grid-template-columns: repeat(${noOfYears}, ${showMonth ? '165px': '16px'});
   grid-column-gap: 0;
   padding: 5px;
   grid-auto-columns: 3px;  

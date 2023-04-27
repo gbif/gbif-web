@@ -12,5 +12,8 @@ export default {
   fontFamily: '"Helvetica Neue", BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica", "Arial", sans-serif',
   borderRadius: 3,
   drawerZIndex: 1000,
-  progressBar: '#68daa8'
+  progressBar: '#68daa8',
+  colorRangeStart: '#ffffff',
+  colorRangeEnd: '#1ea7fd'
+
 }

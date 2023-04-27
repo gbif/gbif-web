@@ -5,7 +5,7 @@
  */
 const getFacet =
   (field) =>
-  (parent, { size = 10, from = 0, include }, { dataSources }) => {
+  (parent, { size = 100, from = 0, include }, { dataSources }) => {
     // generate the event search facet query, by inheriting from the parent query, and map limit/offset to facet equivalents
     const query = {
       predicate: parent._predicate,
@@ -86,7 +86,7 @@ const getMultiFacet = ({ _predicate, size, from }, {}, { searchApi, fields } ) =
 
 const getOccurrenceFacet =
   (field) =>
-  (parent, { size = 10, include }, { dataSources }) => {
+  (parent, { size = 100, include }, { dataSources }) => {
     // generate the event search facet query, by inheriting from the parent query, and map limit/offset to facet equivalents
     const query = {
       predicate: parent._predicate,

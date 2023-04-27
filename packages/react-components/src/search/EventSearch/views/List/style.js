@@ -8,7 +8,6 @@ export const datasetList = ({theme, ...props}) => css`
   li {
     margin-bottom: 12px;
     max-width: 100%;
-    width: 1000px;
   }
 `;
 
@@ -16,7 +15,6 @@ export const datasetSkeleton = ({theme, ...props}) => css`
   padding: 24px;
   background: white;
   border: 1px solid #eee;
-  width: 1000px;
   margin-bottom: 12px;
   h2 {
     color: none;
