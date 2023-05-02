@@ -21,6 +21,7 @@ export const Autocomplete = React.forwardRef(({
   suggestions,
   loadingError,
   style,
+  className, 
   allowClear,
   onClear,
   listCss,
@@ -68,7 +69,7 @@ export const Autocomplete = React.forwardRef(({
       selectedItem,
       getRootProps,
     }) => (
-        <div style={{ position: 'relative', display: 'inline-block', ...style }} {...props}>
+        <div style={{ position: 'relative', display: 'inline-block', ...style }} className={className}>
           {/* <label {...getLabelProps()}>Enter a fruit</label> */}
           <div
             {...getRootProps({}, { suppressRefError: true })}

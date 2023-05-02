@@ -337,14 +337,15 @@ class Map extends Component {
         return false;
       };
 
-      drawSource.on('addfeature', function (event) {
-        console.log('feature added to layer');
-      });
-
       this.draw = draw;
       this.modify = modify;
-      this.updatePolygons();
+    } else {
+      const found = map.getLayers().getArray().find(layer => layer.get('name') == 'draw');
+      if (!found) {
+        map.addLayer(this.drawLayer);
+      }
     }
+    this.updatePolygons();
   }
 
   // draw polygon layer from list of WKT polygons. Do son the the draw layer
@@ -458,8 +459,8 @@ class Map extends Component {
   }
 
   render() {
-    const { query, onMapClick, onPointClick, predicateHash, onLayerChange, mapConfig, onMapCreate, ...props } = this.props;
-    return <div ref={this.myRef} {...props} />
+    const { query, onMapClick, onPointClick, predicateHash, onLayerChange, mapConfig, onMapCreate, style, className, ...props } = this.props;
+    return <div ref={this.myRef} {...{style, className}} />
   }
 }
 

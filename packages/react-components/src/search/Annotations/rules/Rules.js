@@ -7,6 +7,10 @@ import { AnnotationForm } from './CreateAnnotation';
 import env from '../../../../.env.json';
 import { MapWrapper } from './MapWrapper';
 import { FilterContext } from '../../../widgets/Filter/state';
+import { filter2v1 } from '../../../dataManagement/filterAdapter';
+import axios from '../../../dataManagement/api/axios';
+import SearchContext from '../../SearchContext';
+import { MdArrowBack } from 'react-icons/md';
 
 /*
 This component is a widget that allows the user to search for annotations. 
@@ -15,7 +19,25 @@ as well as comment on individual annotations.
  */
 function RulesWrapper(props) {
   const [activeAnnotations, setActiveAnnotations] = useState([]);
+  const [annotations, setAnnotations] = useState([]);
+  const [polygons, updatePolygons] = useState([]);
   const currentFilterContext = useContext(FilterContext);
+  const { rootPredicate, predicateConfig } = useContext(SearchContext);
+
+  const setPolygons = useCallback((list) => {
+    updatePolygons(list);
+  }, []);
+
+  useEffect(() => {
+    const fetchAnnotations = async () => {
+      const { v1Filter, error } = filter2v1(currentFilterContext.filter, predicateConfig);
+      const filter = { ...v1Filter, ...rootPredicate };
+      const response = await (axios.get('http://labs.gbif.org:7013/v1/occurrence/annotation/rule', { params: filter })).promise;
+      setAnnotations(response.data);
+    };
+
+    fetchAnnotations();
+  }, [currentFilterContext.filterHash]);
 
   const handlePolygonSelect = useCallback((annotation, annotationList) => {
     setActiveAnnotations(annotationList);
@@ -32,10 +54,10 @@ function RulesWrapper(props) {
         display: flex;
         `}>
       <div css={css`z-index: 2; position: relative; flex: 0 0 auto; height: calc(100% - 48px); width: 350px; top: 0; left: 0; margin-right: 12px;`}>
-        <Rules activeAnnotations={activeAnnotations} clearActive={() => setActiveAnnotations([])} />
+        <Rules {...{polygons, setPolygons, annotations, activeAnnotations}} setAnnotations={(list) => setAnnotations(list)} clearActive={() => setActiveAnnotations([])} />
       </div>
       <div css={css`flex: 1 1 100%; width: 100%; height: 100%;`}>
-        <MapWrapper onPolygonSelect={handlePolygonSelect} />
+        <MapWrapper {...{polygons, setPolygons, annotations}} onPolygonSelect={handlePolygonSelect} />
       </div>
     </div>
   </ErrorBoundary>
@@ -43,56 +65,54 @@ function RulesWrapper(props) {
 
 export default RulesWrapper;
 
-function Rules({ activeAnnotations, clearActive, ...props }) {
+function Rules({ polygons, setPolygons, annotations, setAnnotations, activeAnnotations, clearActive, ...props }) {
   const [showNewRule, setShowNewRule] = useState(false);
   const [showCreateSuccess, setShowCreateSuccess] = useState(false);
+
+  // show new rule if there are polygons in the list
+  useEffect(() => {
+    if (polygons.length > 0) {
+      setShowNewRule(true);
+    }
+  }, [polygons]);
 
   return <div css={css`background: white; border: 1px solid #eee; box-shadow: 0 2px 2px 2px rgba(0,0,0,.1); border-radius: 8px; height: 100%; display: flex; flex-direction: column; overflow: hidden;`}>
-    <div css={css`padding: 8px 12px;`}>
-      Rules
+    <div css={css`padding: 8px 12px; display: flex; align-items: center; border-bottom: 1px solid #eee;`}>
+      <div css={css`flex: 1 1 auto; padding: 6px 0;`}>
+        {!showNewRule && <>{annotations.length} rules</>}
+        {showNewRule && <>
+        Create new rule
+        </>}
+      </div>
+      {!showNewRule && <Button onClick={() => setShowNewRule(true)} look="primary" style={{ fontSize: 14 }}>Create new</Button>}
+      {showNewRule && <Button onClick={() => setShowNewRule(false)} look="primaryOutline" style={{ fontSize: 14 }}>Cancel</Button>}
     </div>
     <div css={css`flex: 1 1 100%; background: #f3f3f3; overflow: auto; max-height: 100%;`}>
-      <List activeAnnotations={activeAnnotations} clearActive={clearActive} />
-    </div>
-  </div>
-}
+      <div style={{ paddingBottom: 48 }}>
+        {showNewRule && <AnnotationForm {...{polygons, setPolygons}} token={env._tmp_token} onCreate={(annotation) => {
+          setShowNewRule(false);
+          setShowCreateSuccess(true);
+          setAnnotations([annotation, ...annotations]);
+          setPolygons([]);
+        }}
+          onClose={() => setShowNewRule(false)}
+        />}
+        {!showNewRule && activeAnnotations.length === 0 && <>
+          {showCreateSuccess && <SuccessCard onCreate={() => setShowNewRule(true)} onClose={() => setShowCreateSuccess(false)} />}
+          <AnnotationList annotations={annotations} setAnnotations={setAnnotations} token={env._tmp_token} />
+        </>}
 
-function List({ activeAnnotations, clearActive, ...props }) {
-  const [showNewRule, setShowNewRule] = useState(false);
-  const [showCreateSuccess, setShowCreateSuccess] = useState(false);
-
-  return <div style={{ paddingBottom: 48 }}>
-    {/* {activeAnnotation && <pre>{JSON.stringify(activeAnnotation, null, 2)}</pre>} */}
-    {/* <CustomSelect options={[{value: 'TAXON', label: "Taxon"}, {value: 'DATASET', label: "Dataset"}]} value="Pumas" inputPlaceholder="Select context" /> */}
-    
-    {showNewRule && <AnnotationForm token={env._tmp_token} onCreate={(annotation) => {
-      setShowNewRule(false);
-      setShowCreateSuccess(true);
-    }}
-      onClose={() => setShowNewRule(false)}
-    />}
-    {!showNewRule && activeAnnotations.length === 0 && <>
-      {showCreateSuccess && <SuccessCard onCreate={() => setShowNewRule(true)} onClose={() => setShowCreateSuccess(false)} />}
-      <AnnotationList token={env._tmp_token} />
-    </>}
-    
-    {!showNewRule && activeAnnotations.length > 0 && <>
-      <Button style={{ margin: '12px 0 0 12px' }} look="primaryOutline" onClick={clearActive}>Back</Button>
-      <AnnotationList activeAnnotations={activeAnnotations} token={env._tmp_token} />
-    </>}
-
-    {!showNewRule && <>
-      <div css={css`position: absolute; bottom: 12px; right: -24px;`}>
-        <Button onClick={() => setShowNewRule(true)} css={css`box-shadow: 0 3px 3px 3px rgba(0,0,0,.15); border-radius: 4px 16px 16px 4px;`}>
-          Create new
-        </Button>
+        {!showNewRule && activeAnnotations.length > 0 && <>
+          <Button style={{ margin: '12px 0 0 12px' }} look="primaryOutline" onClick={clearActive}>Back</Button>
+          <AnnotationList annotations={annotations} activeAnnotations={activeAnnotations} setAnnotations={setAnnotations} token={env._tmp_token} />
+        </>}
+        {/* <div>
+          <div css={css`margin: 8px; overflow: hidden; border-radius: 4px;`}>
+            <img css={css`width: 100%; display: block;`} src="https://cdn.discordapp.com/attachments/1017143593351258192/1091055752023642172/Morten100_tech_illustration_woman_classifying_geomtric_lines_er_28b388c3-d5f1-4e2f-b359-77a370f94477.png" />
+          </div>
+        </div> */}
       </div>
-    </>}
-    {/* <div>
-    <div css={css`margin: 8px; overflow: hidden; border-radius: 4px;`}>
-      <img css={css`width: 100%; display: block;`} src="https://cdn.discordapp.com/attachments/1017143593351258192/1091055752023642172/Morten100_tech_illustration_woman_classifying_geomtric_lines_er_28b388c3-d5f1-4e2f-b359-77a370f94477.png" />
     </div>
-  </div> */}
   </div>
 }
 

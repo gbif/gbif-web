@@ -20,7 +20,6 @@ export const CommentForm = ({ id, token, onCreate }) => {
           },
         }
       );
-      console.log(response.data);
       setCommentText('');
       onCreate(response.data);
     } catch (error) {

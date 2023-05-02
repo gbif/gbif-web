@@ -1,55 +1,30 @@
 import React, { useRef, useCallback, useState, useEffect, useContext } from 'react';
 import { css } from '@emotion/react';
 import 'ol/ol.css';
-import { Map, Overlay, View } from 'ol';
-import TileLayer from 'ol/layer/Tile';
-import OSM from 'ol/source/OSM';
+import { Overlay } from 'ol';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
-import GeoJSON from 'ol/format/GeoJSON';
-import { transform } from 'ol/proj';
 import { Style, Fill, Stroke } from 'ol/style';
 import { WKT } from 'ol/format';
-import Select from 'ol/interaction/Select';
-import { altKeyOnly, click, pointerMove } from 'ol/events/condition';
 import { colorMap } from './colorMap';
+import { MultiPolygon, Polygon } from 'ol/geom.js';
 
-import MapComponentOL from '../../OccurrenceSearch/views/Map/OpenlayersMap';
+
 import MapPresentation from '../../OccurrenceSearch/views/Map/MapPresentation';
 import SearchContext from '../../SearchContext';
-import Draw from 'ol/interaction/Draw.js';
-import { MdDelete, MdDeleteOutline, MdDraw } from 'react-icons/md';
+import { MdDeleteOutline as DeleteIcon, MdDraw } from 'react-icons/md';
 
 import { FilterContext } from '../../../widgets/Filter/state';
 import { filter2v1 } from '../../../dataManagement/filterAdapter';
 import { Button } from '../../../components';
-
-var format = new WKT();
-
-function itemToFeature({ geometry, ...item }) {
-  // Parse the WKT string using OpenLayers
-  try {
-    var feature = format.readFeature(geometry, {
-      dataProjection: 'EPSG:4326',
-      featureProjection: 'EPSG:4326',
-    });
-
-    // Set the color property on the feature's properties object
-    feature.setProperties({ ...item, color: colorMap[item.annotation] || colorMap['OTHER'] });
-    return { feature };
-  } catch (e) {
-    return { error: e }
-  }
-}
 
 const mapConfig = {
   "basemapStyle": "https://graphql.gbif-staging.org/unstable-api/map-styles/4326/gbif-raster?styleName=geyser&background=%23e5e9cd&language=en&pixelRatio=2",
   "projection": "EPSG_4326"
 };
 
-const OpenLayersMap = ({ data, onPolygonSelect }) => {
+const Map = ({ data, polygons, setPolygons, onPolygonSelect }) => {
   const [params, setParams] = useState({});
-  const [polygons, setPolygons] = useState([]);
   const [drawActive, setDrawState] = useState(false);
   const [deleteActive, setDeleteState] = useState(false);
   const currentFilterContext = useContext(FilterContext);
@@ -168,7 +143,6 @@ const OpenLayersMap = ({ data, onPolygonSelect }) => {
   }, [map, data, drawActive]);
 
   return <>
-  <div>{polygons.length}</div>
     <MapPresentation mapConfig={mapConfig}
       params={params}
       query={params}
@@ -178,8 +152,8 @@ const OpenLayersMap = ({ data, onPolygonSelect }) => {
           onMapCreate: handleMapCreation,
           onLayerChange: handleLayerChange,
           polygons,
-          onPolygonsChanged: (polygonList, { action } = {}) => {
-            setPolygons(polygonList);
+          onPolygonsChanged: (polygonList = [], { action } = {}) => {
+            setPolygons(createMultiPolygonFromWKTs(polygonList));
             if (action === 'DELETE') {
               setDeleteState(false);
             }
@@ -194,10 +168,10 @@ const OpenLayersMap = ({ data, onPolygonSelect }) => {
             setDrawState(!drawActive);
             setDeleteState(false);
           }}><MdDraw /></Button>
-          <Button look={deleteActive ? 'danger' : 'ghost'} onClick={() => {
+          <Button look={deleteActive ? 'primary' : 'ghost'} onClick={() => {
             setDeleteState(!deleteActive);
             setDrawState(false);
-          }}><MdDeleteOutline /></Button>
+          }}><DeleteIcon /></Button>
         </>
       }
     />
@@ -208,7 +182,60 @@ const OpenLayersMap = ({ data, onPolygonSelect }) => {
   </>
 };
 
-export default OpenLayersMap;
+export default Map;
+
+
+var wktFormat = new WKT();
+
+function itemToFeature({ geometry, ...item }) {
+  // Parse the WKT string using OpenLayers
+  try {
+    var feature = wktFormat.readFeature(geometry, {
+      dataProjection: 'EPSG:4326',
+      featureProjection: 'EPSG:4326',
+    });
+
+    // Set the color property on the feature's properties object
+    feature.setProperties({ ...item, color: colorMap[item.annotation] || colorMap['OTHER'] });
+    return { feature };
+  } catch (e) {
+    return { error: e }
+  }
+}
+
+function createMultiPolygonFromWKTs(wkts) {
+  if (wkts.length === 0) return [];
+  // create an empty array to store polygon geometries
+  var polygons = [];
+
+  // iterate through the list of WKTs
+  for (var i = 0; i < wkts.length; i++) {
+    // create a new polygon geometry from the WKT
+    var polygon = wktFormat.readGeometry(wkts[i]);
+
+    // check if the geometry is a polygon or multipolygon
+    if (polygon instanceof Polygon) {
+      // if it's a polygon, add it to the array of polygons
+      polygons.push(polygon);
+    } else if (polygon instanceof MultiPolygon) {
+      // if it's a multipolygon, append its components to the array of polygons
+      polygons = polygons.concat(polygon.getPolygons());
+    } else {
+      // if it's not a polygon or multipolygon, throw an error
+      throw new Error('Invalid geometry type: ' + polygon.getType());
+    }
+  }
+
+  // create a new multipolygon geometry from the list of polygon geometries
+  var multiPolygon = new MultiPolygon(polygons);
+
+  // create a WKT format object and write the multipolygon geometry as WKT
+  var wktMultiPolygon = wktFormat.writeGeometry(multiPolygon);
+
+  // return the WKT multipolygon
+  return [wktMultiPolygon];
+}
+
 
 const popup = css`
   position: absolute;

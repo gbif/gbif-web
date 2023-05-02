@@ -1,5 +1,5 @@
 import { css, jsx } from '@emotion/react';
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Button, Classification, Input } from '../../../components';
 import axios from '../../../dataManagement/api/axios';
 import { Option, Suggest } from '../../../widgets/Filter/utils';
@@ -10,8 +10,6 @@ import MapWithGeoJSON from './MapWithGeoJSON';
 import getFeature from './getFeature';
 
 const suggestStyle = { whiteSpace: 'nowrap', textOverflow: 'ellipsis', width: '100%', overflow: 'hidden' };
-
-const BACKBONE_KEY = 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c';
 
 const suggestConfig = {
   //What placeholder to show
@@ -43,7 +41,7 @@ const suggestConfig = {
   }
 };
 
-function AnnotationForm({ token, onClose, onCreate, ...props }) {
+function AnnotationForm({ polygons, setPolygons, token, onClose, onCreate, ...props }) {
   const annotationOptions = [
     {
       "value": "NATIVE",
@@ -66,10 +64,6 @@ function AnnotationForm({ token, onClose, onCreate, ...props }) {
       "label": "Vagrant"
     },
     {
-      "value": "CAPTIVITY",
-      "label": "Captivity"
-    },
-    {
       "value": "SUSPICIOUS",
       "label": "Suspicious"
     },
@@ -89,9 +83,14 @@ function AnnotationForm({ token, onClose, onCreate, ...props }) {
   const onGadmSelect = (gadm) => {
     const { promise, cancel } = axios.get(`http://localhost:4000/unstable-api/geometry/simplify/gadm/${gadm.gadmLevel}/${gadm.id}?format=WKT`);
     promise.then(response => {
-      setGeometry(response.data.wkt)
+      setPolygons([response.data.wkt])
     });
   };
+
+  // set geometry to first polygon in list
+  useEffect(() => {
+    setGeometry(polygons[0]);
+  }, [polygons]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -148,7 +147,7 @@ function AnnotationForm({ token, onClose, onCreate, ...props }) {
       </div>
       <form onSubmit={handleSubmit}>
         <div css={css`background: white; border-radius: 4px; margin: 12px; border: 1px solid var(--paperBorderColor);`}>
-          <Input placeholder="Geometry as WKT" onChange={e => setGeometry(e.target.value)} value={geometry} style={{ border: 'none' }} />
+          <Input placeholder="Geometry as WKT" onChange={e => setPolygons([e.target.value])} value={polygons[0]} style={{ border: 'none' }} />
         </div>
 
         <div css={css`background: white; border-radius: 4px; margin: 12px; border: 1px solid var(--paperBorderColor);`}>
