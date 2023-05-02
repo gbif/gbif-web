@@ -15,6 +15,10 @@ import klokantech from './openlayers/styles/klokantech.json';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { Style, Fill, Stroke } from 'ol/style';
+import { Draw, Modify, Delete } from 'ol/interaction';
+import WKT from 'ol/format/WKT.js';
+
+const format = new WKT();
 
 var interactions = olInteraction.defaults({ altShiftDragRotate: false, pinchRotate: false, mouseWheelZoom: true });
 
@@ -51,6 +55,8 @@ class Map extends Component {
     this.updateMapLayers();
     this.mapLoaded = true;
     this.addLayer();
+    this.addDrawLayer();
+    this.updatePolygons();
   }
 
   componentWillUnmount() {
@@ -74,7 +80,38 @@ class Map extends Component {
         this.zoomIn();
       } else if (this.props.latestEvent?.type === 'ZOOM_OUT') {
         this.zoomOut();
+      } else if (this.props.latestEvent?.type === 'START_DRAW') {
+        this.startDrawInteraction();
+      } else if (this.props.latestEvent?.type === 'STOP_DRAW') {
+        this.stopDrawInteraction();
+      } else if (this.props.latestEvent?.type === 'START_DELETE') {
+        this.startDeleteInteraction();
+      } else if (this.props.latestEvent?.type === 'STOP_DELETE') {
+        this.stopDeleteInteraction();
       }
+    }
+
+    //watch props drawMode and start/stop interactions accordingly
+    if (prevProps.drawMode !== this.props.drawMode && this.mapLoaded) {
+      if (this.props.drawMode === true) {
+        this.startDrawInteraction();
+      } else {
+        this.stopDrawInteraction();
+      }
+    }
+
+    //watch deletemode and start/stop interactions accordingly
+    if (prevProps.deleteMode !== this.props.deleteMode && this.mapLoaded) {
+      if (this.props.deleteMode === true) {
+        this.startDeleteInteraction();
+      } else {
+        this.stopDeleteInteraction();
+      }
+    }
+
+    // check if polygons prop has changed
+    if (prevProps.polygons !== this.props.polygons && this.mapLoaded) {
+      this.updatePolygons();
     }
 
     // TODO: monitor theme and update maps accordingly
@@ -128,6 +165,7 @@ class Map extends Component {
     this.setState({ epsg })
 
     this.map.getLayers().clear();
+    console.log('clear layers');
     // this.updateProjection();
 
     // update projection
@@ -220,6 +258,7 @@ class Map extends Component {
     this.map.setView(newView);
 
     this.addLayer();
+    this.addDrawLayer();
   }
 
   // async updateProjection() {
@@ -236,10 +275,111 @@ class Map extends Component {
       .filter(layer => layer.get('name') === 'occurrences')
       .forEach(layer => this.map.removeLayer(layer));
     this.addLayer();
+    this.addDrawLayer();
   }
 
   onPointClick(pointData) {
     if (this.props.onPointClick) this.props.onPointClick(pointData);
+  }
+
+  addDrawLayer() {
+    const map = this.map;
+    const that = this;
+    if (!this.drawLayer) {
+      const drawSource = new VectorSource({ wrapX: true });
+      const drawLayer = new VectorLayer({
+        source: drawSource,
+        name: 'draw'
+      });
+      this.map.addLayer(drawLayer);
+      this.drawLayer = drawLayer;
+      drawLayer.setZIndex(1001);
+
+      let draw = new Draw({
+        source: drawSource,
+        type: 'Polygon',
+      });
+
+      let modify = new Modify({ source: drawSource });
+
+      const polygonChangeHandler = ({action} = {}) => {
+        var features = drawLayer.getSource().getFeatures();
+        const polygons = features.map(feature => {
+          const format = new WKT();
+          return format.writeGeometry(feature.getGeometry());
+        });
+        setTimeout(() => that.props.onPolygonsChanged(polygons, {action}), 0);
+      }
+      modify.on('modifyend', (event) => {
+        polygonChangeHandler();
+      });
+
+      draw.on('drawend', function (event) {
+        var feature = event.feature;
+        var newWktPolygon = format.writeGeometry(feature.getGeometry());
+        const newPolygons = [...(that.props.polygons || []), newWktPolygon];
+        setTimeout(() => that.props.onPolygonsChanged(newPolygons), 0);
+      });
+
+      // add delete interaction for the draw layer. If the user clicks a polygon, then call the onPolygonsChanged prop with the clicked polygon removed
+      this.deleteListener = function (event) {
+        map.forEachFeatureAtPixel(event.pixel, function (feature, layer) {
+          drawSource.removeFeature(feature);
+          return feature;
+        }, {
+          layerFilter: function (layer) {
+            return layer.get('name') === 'draw';
+          }
+        });
+        polygonChangeHandler({action: 'DELETE'});
+        event.stopPropagation();
+        event.preventDefault();
+        return false;
+      };
+
+      drawSource.on('addfeature', function (event) {
+        console.log('feature added to layer');
+      });
+
+      this.draw = draw;
+      this.modify = modify;
+      this.updatePolygons();
+    }
+  }
+
+  // draw polygon layer from list of WKT polygons. Do son the the draw layer
+  updatePolygons() {
+    if (!this.drawLayer) return;
+    const drawSource = this.drawLayer.getSource();
+    drawSource.clear();
+    window.drawSource = drawSource;
+    const format = new WKT();
+    const features = (this.props.polygons || []).map(polygon => {
+      try {
+        const f = format.readFeature(polygon);
+        return f;
+      } catch (e) {
+        return null;
+      }
+    }).filter(x => x);
+    drawSource.addFeatures(features);
+  }
+
+  startDrawInteraction() {
+    this.map.addInteraction(this.draw);
+    this.map.addInteraction(this.modify);
+    this.stopDeleteInteraction();
+  }
+  stopDrawInteraction() {
+    this.map.removeInteraction(this.draw);
+    this.map.removeInteraction(this.modify);
+  }
+  startDeleteInteraction() {
+    this.stopDrawInteraction();
+    this.map.on('click', this.deleteListener);
+  }
+  stopDeleteInteraction() {
+    this.map.un('click', this.deleteListener);
   }
 
   addLayer() {
@@ -264,7 +404,7 @@ class Map extends Component {
     // occurrenceLayer.setZIndex(0);
     this.map.addLayer(occurrenceLayer);
 
-    const map = this.map
+    const map = this.map;
     if (this.props.onLayerChange) {
       this.props.onLayerChange(map);
     }
@@ -289,10 +429,12 @@ class Map extends Component {
     //     sessionStorage.setItem('mapLat', center.lat);
     //   });
 
+    const that = this;
     if (typeof this.props.onPointClick === 'function') {
       const pointClickHandler = this.onPointClick;
       const clickHandler = this.props.onMapClick;
       map.on('singleclick', event => {
+        if (that.props.drawMode || that.props.deleteMode) return;
         // todo : hover and click do not agree on wether there is a point or not
         occurrenceLayer.getFeatures(event.pixel).then(function (features) {
           const feature = features.length ? features[0] : undefined;
@@ -307,6 +449,7 @@ class Map extends Component {
 
 
       map.on('pointermove', function (e) {
+        if (that.props.drawMode || that.props.deleteMode) return;
         var pixel = map.getEventPixel(e.originalEvent);
         var hit = map.hasFeatureAtPixel(pixel, { layerFilter: l => l.values_.name === 'occurrences' });
         map.getViewport().style.cursor = hit ? 'pointer' : '';

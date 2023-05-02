@@ -34,7 +34,7 @@ function RulesWrapper(props) {
       <div css={css`z-index: 2; position: relative; flex: 0 0 auto; height: calc(100% - 48px); width: 350px; top: 0; left: 0; margin-right: 12px;`}>
         <Rules activeAnnotations={activeAnnotations} clearActive={() => setActiveAnnotations([])} />
       </div>
-      <div css={css`flex: 1 1 100%; width: 100%; height: 100%; background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);`}>
+      <div css={css`flex: 1 1 100%; width: 100%; height: 100%;`}>
         <MapWrapper onPolygonSelect={handlePolygonSelect} />
       </div>
     </div>

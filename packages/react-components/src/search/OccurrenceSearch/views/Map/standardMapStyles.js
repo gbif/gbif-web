@@ -58,7 +58,7 @@ export function getMapStyles({ apiKeys = {}, language = 'en' }) {
     },
     SATELLITE_MERCATOR: {
       labelKey: 'map.styles.satellite',
-      component: MapComponentMB,
+      component: MapComponentOL,
       mapConfig: {
         basemapStyle: `${env.MAP_STYLES}/3857/satellite_maptiler?maptilerApiKey=${apiKeys.maptiler}`,
         projection: 'EPSG_3857'

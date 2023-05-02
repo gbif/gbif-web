@@ -121,7 +121,7 @@ export const outline = (theme) => css`
 `;
 
 export const ghost = (theme) => css`
-  border-color: #808080;
+  border-color: transparent;
   color: #808080;
   background: none;
 `;

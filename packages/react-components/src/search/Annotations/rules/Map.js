@@ -15,11 +15,15 @@ import { altKeyOnly, click, pointerMove } from 'ol/events/condition';
 import { colorMap } from './colorMap';
 
 import MapComponentOL from '../../OccurrenceSearch/views/Map/OpenlayersMap';
+import MapPresentation from '../../OccurrenceSearch/views/Map/MapPresentation';
 import SearchContext from '../../SearchContext';
 import Draw from 'ol/interaction/Draw.js';
+import { MdDelete, MdDeleteOutline, MdDraw } from 'react-icons/md';
 
 import { FilterContext } from '../../../widgets/Filter/state';
 import { filter2v1 } from '../../../dataManagement/filterAdapter';
+import { Button } from '../../../components';
+
 var format = new WKT();
 
 function itemToFeature({ geometry, ...item }) {
@@ -45,6 +49,9 @@ const mapConfig = {
 
 const OpenLayersMap = ({ data, onPolygonSelect }) => {
   const [params, setParams] = useState({});
+  const [polygons, setPolygons] = useState([]);
+  const [drawActive, setDrawState] = useState(false);
+  const [deleteActive, setDeleteState] = useState(false);
   const currentFilterContext = useContext(FilterContext);
   const { rootPredicate, predicateConfig } = useContext(SearchContext);
   const [map, setMap] = useState(null);
@@ -86,27 +93,6 @@ const OpenLayersMap = ({ data, onPolygonSelect }) => {
       });
       vectorLayer.setZIndex(1000);
       map.addLayer(vectorLayer);
-
-      // // https://openlayers.org/en/latest/examples/draw-features.html
-      // const drawSource = new VectorSource({ wrapX: false });
-      // const drawLayer = new VectorLayer({
-      //   source: drawSource,
-      //   name: 'draw'
-      // });
-      // let draw; // global so we can remove it later
-      // draw = new Draw({
-      //   source: drawSource,
-      //   type: 'Polygon',
-      // });
-      // map.addInteraction(draw);
-
-      // draw.on('drawend', function (event) {
-      //   var feature = event.feature;
-      //   var features = drawLayer.getSource().getFeatures();
-      //   features = features.concat(feature);
-      //   console.log(features);
-      // });
-      
     }
   }, [map, data]);
 
@@ -122,8 +108,11 @@ const OpenLayersMap = ({ data, onPolygonSelect }) => {
   }, [data, map]);
 
   useEffect(() => {
+    let clickListener;
     if (map) {
-      map.on('click', function (e) {
+      clickListener = function (e) {
+        // if the draw is active, we don't want to show the popup
+        if (drawActive) return;
         // Find the feature that was clicked on
         const clickedFeatures = [];
         // var feature = map.forEachFeatureAtPixel(e.pixel, function (feature, layer) {
@@ -139,11 +128,6 @@ const OpenLayersMap = ({ data, onPolygonSelect }) => {
         const feature = clickedFeatures[0];
         // If we found a feature, create a popup and display its properties
         if (feature) {
-          if (clickedFeatures.length > 1) {
-
-          } else if (clickedFeatures.length === 1) {
-          }
-
           setSelectedFeatures(clickedFeatures.map(f => f.getProperties()));
 
           // Call your function with the feature properties
@@ -173,178 +157,55 @@ const OpenLayersMap = ({ data, onPolygonSelect }) => {
           map.addOverlay(popupOverlay);
           popupOverlay.setPosition(e.coordinate);
         }
-      });
+      }
+      map.on('click', clickListener);
     }
-  }, [map, data]);
+    return function cleanup() {
+      if (clickListener && map) {
+        map.un('click', clickListener);
+      }
+    };
+  }, [map, data, drawActive]);
 
   return <>
-    <MapComponentOL mapConfig={mapConfig}
-      onMapCreate={handleMapCreation}
-      onLayerChange={handleLayerChange}
+  <div>{polygons.length}</div>
+    <MapPresentation mapConfig={mapConfig}
       params={params}
       query={params}
       css={css`width: 100%; height: 100%;`}
-    // latestEvent={latestEvent} 
-    // defaultMapSettings={defaultMapSettings} 
-    // predicateHash={predicateHash} 
-    // q={q} 
-    // query={query} 
-    // onMapClick={e => showList(false)} 
-    // onPointClick={data => { showList(true); loadPointData(data) }} 
-    // registerPredicate={registerPredicate}
+      mapProps={
+        {
+          onMapCreate: handleMapCreation,
+          onLayerChange: handleLayerChange,
+          polygons,
+          onPolygonsChanged: (polygonList, { action } = {}) => {
+            setPolygons(polygonList);
+            if (action === 'DELETE') {
+              setDeleteState(false);
+            }
+          },
+          drawMode: drawActive,
+          deleteMode: deleteActive
+        }
+      }
+      AdditionalButtons={({emitEvent, ...props}) =>
+        <>
+          <Button look={drawActive ? 'primary' : 'ghost'} onClick={() => {
+            setDrawState(!drawActive);
+            setDeleteState(false);
+          }}><MdDraw /></Button>
+          <Button look={deleteActive ? 'danger' : 'ghost'} onClick={() => {
+            setDeleteState(!deleteActive);
+            setDrawState(false);
+          }}><MdDeleteOutline /></Button>
+        </>
+      }
     />
     <div ref={popupRef} css={popup} style={{ display: selectedFeatures ? 'block' : 'none' }}>
       <a ref={popupCloseRef} href="#" id="popup-closer" css={popupCloser}></a>
       {selectedFeatures && <div id="popup-content">{selectedFeatures.map(x => x.annotation).join(', ')}</div>}
     </div>
   </>
-  const mapRef = useRef(null);
-  // const popupRef = useRef(null);
-  // const popupCloseRef = useRef(null);
-  // const [selectedFeatures, setSelectedFeatures] = React.useState(null);
-
-  useEffect(() => {
-    if (mapRef.current) {
-      const osmLayer = new TileLayer({
-        source: new OSM()
-      });
-
-      const vectorLayer = new VectorLayer({
-        source: new VectorSource({
-          features: data.map(itemToFeature).filter(({ error }) => !error).map(({ feature }) => feature)
-        }),
-        style: feature => {
-          const { color } = feature.getProperties();
-          const test = feature.getProperties();
-          return new Style({
-            fill: new Fill({
-              color: color + '80'
-            }),
-            stroke: new Stroke({
-              color: color,
-              width: 2
-            })
-          });
-        }
-      });
-
-      const map = new Map({
-        target: mapRef.current,
-        layers: [osmLayer, vectorLayer],
-        view: new View({
-          center: transform([0, 0], 'EPSG:4326', 'EPSG:3857'),
-          zoom: 2
-        })
-      });
-
-      // vectorLayer.getSource().on('featureclick', event => {
-      //   const feature = event.feature;
-      //   const { id } = feature.getProperties();
-      //   onPolygonSelect(id);
-      // });
-
-
-
-      // const selected = new Style({
-      //   fill: new Fill({
-      //     color: '#eeeeee',
-      //   }),
-      //   stroke: new Stroke({
-      //     color: 'rgba(255, 255, 255, 0.7)',
-      //     width: 2,
-      //   }),
-      // });
-
-      // function selectStyle(feature) {
-      //   const color = feature.get('COLOR') || '#eeeeee';
-      //   selected.getFill().setColor(color);
-      //   return selected;
-      // }
-
-      // // select interaction working on "click"
-      // const selectClick = new Select({
-      //   condition: click,
-      //   style: selectStyle,
-      // });
-
-      // map.addInteraction(selectClick);
-
-      // selectClick.on('select', function(evt){
-      //   if (evt.selected.length === 0) {
-
-      //   }
-      // });
-
-
-      // When the map is clicked, run this function
-      map.on('click', function (e) {
-
-        // Find the feature that was clicked on
-        const clickedFeatures = [];
-        // var feature = map.forEachFeatureAtPixel(e.pixel, function (feature, layer) {
-        map.forEachFeatureAtPixel(e.pixel, function (feature, layer) {
-          // return feature;
-          clickedFeatures.push(feature);
-        }, {
-          layerFilter: function (layer) {
-            return layer === vectorLayer;
-          }
-        });
-
-        const feature = clickedFeatures[0];
-        // If we found a feature, create a popup and display its properties
-        if (feature) {
-          if (clickedFeatures.length > 1) {
-
-          } else if (clickedFeatures.length === 1) {
-          }
-
-          setSelectedFeatures(clickedFeatures.map(f => f.getProperties()));
-
-          // Call your function with the feature properties
-          onPolygonSelect(feature.getProperties(), clickedFeatures.map(f => f.getProperties().id));
-
-          // Create the popup overlay
-          var popupOverlay = new Overlay({
-            element: popupRef.current,
-            positioning: 'bottom-center',
-            offset: [0, -15],
-            autoPan: true,
-            autoPanAnimation: {
-              duration: 250
-            }
-          });
-
-          popupCloseRef.current.onclick = function () {
-            popupOverlay.setPosition(undefined);
-            popupCloseRef.current.blur();
-            setSelectedFeatures();
-            selectClick.getFeatures().clear();
-            return false;
-          };
-
-
-          // Add the popup overlay to the map and show it at the clicked location
-          map.addOverlay(popupOverlay);
-          popupOverlay.setPosition(e.coordinate);
-        }
-      });
-
-      return () => {
-        if (map) {
-          map.dispose();
-        }
-      };
-    }
-  }, [data, onPolygonSelect, setSelectedFeatures]);
-
-  return <>
-    <div ref={mapRef} style={{ width: '100%', height: '100%' }}></div>
-    <div ref={popupRef} css={popup} style={{ display: selectedFeatures ? 'block' : 'none' }}>
-      <a ref={popupCloseRef} href="#" id="popup-closer" css={popupCloser}></a>
-      {selectedFeatures && <div id="popup-content">{selectedFeatures.map(x => x.annotation).join(', ')}</div>}
-    </div>
-  </>;
 };
 
 export default OpenLayersMap;
