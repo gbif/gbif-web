@@ -87,7 +87,7 @@ function Sites() {
   const [activeYear, setActiveYear] = useState(false);
   const [activeMonth, setActiveMonth] = useState(false);
 
-  const [showMonth, setShowMonth] = useState(true);
+  const [showMonth, setShowMonth] = useState(false);
 
   const dialog = useDialogState({ animated: true, modal: false });
 

@@ -3,13 +3,13 @@ import Chart from "react-apexcharts";
 import ThemeContext from "../../style/themes/ThemeContext";
 import {Button} from "reakit/Button";
 
-const TaxonChart = ({ initialData, initialPath, onSelection, resetCallback }) => {
+const TaxonTreeMap = ({ initialData, initialPath, onSelection, resetCallback }) => {
 
   const theme = useContext(ThemeContext);
+
   const convertToSeries = (data) => {
-    const dataElements = data.map( ({ label, key, count, value }) => {
+    const dataElements = data.map( ({ key, count, value }) => {
       return {
-        label: label,
         x: key,
         y: count ? count : value
       }
@@ -51,12 +51,12 @@ const TaxonChart = ({ initialData, initialPath, onSelection, resetCallback }) =>
             {
               from: 1,
               to: 1000000,
-              color: '#76818E' //theme.colorRangeStart
+              color: theme.colorRangeStart
             },
             {
               from: 1000000,
               to: 10000000000,
-              color: '#c44d34' //theme.colorRangeEnd
+              color: theme.colorRangeEnd
             }
           ]
         }
@@ -66,7 +66,9 @@ const TaxonChart = ({ initialData, initialPath, onSelection, resetCallback }) =>
 
   return (
       <>
-      <span style={{ marginTop: '10px'}}>{currentPath.map(taxon=> {return taxon.name;}).join(' → ')}</span>
+      <div style={{ paddingLeft: '5px', paddingTop: '8px', fontSize: '14px' }}>
+        <span>{currentPath.map(taxon=> {return taxon.name;}).join(' → ')}</span>
+      </div>
       <Chart
           options={options}
           series={series}
@@ -79,4 +81,4 @@ const TaxonChart = ({ initialData, initialPath, onSelection, resetCallback }) =>
   );
 };
 
-export { TaxonChart };
+export default TaxonTreeMap;

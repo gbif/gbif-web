@@ -8,6 +8,9 @@ query list($predicate: Predicate, $limit: Int){
   eventSearch(
     predicate:$predicate,
     ) {
+    cardinality {
+      datasetKey
+    }
     facet {
       datasetKey(size: $limit) {
         datasetTitle
