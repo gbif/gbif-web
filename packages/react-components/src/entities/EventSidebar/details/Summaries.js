@@ -5,7 +5,7 @@ import {Group} from "./Groups";
 import {EnumFacetListInline, FacetList} from "./properties";
 import {Measurements} from "./Measurements";
 import {SingleTree} from "./Tree/SingleTree";
-import TaxonChart from "../../../components/TaxonChart/TaxonChart";
+import {TaxonChart} from "../../../components/TaxonChart/TaxonChart";
 import ApiContext from "../../../dataManagement/api/ApiContext";
 
 const { Term: T, Value: V } = Properties;
