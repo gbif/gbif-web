@@ -5,7 +5,7 @@ import {Group} from "./Groups";
 import {EnumFacetListInline, FacetList} from "./properties";
 import {Measurements} from "./Measurements";
 import {SingleTree} from "./Tree/SingleTree";
-import {TaxonChart} from "../../../components/TaxonChart/TaxonChart";
+import TaxonTreeMap from "../../../components/TaxonTreeMap/TaxonTreeMap";
 import ApiContext from "../../../dataManagement/api/ApiContext";
 
 const { Term: T, Value: V } = Properties;
@@ -266,7 +266,6 @@ function TaxonomicCoverage({ showAll, termMap, event }) {
       return;
     }
 
-    console.log("Selected " + chartData[selectedIndex].key)
     let taxonName = chartData[selectedIndex].key;
     selectedTaxonomy.push({rank: taxonLevels[level], name: taxonName});
 
@@ -286,14 +285,14 @@ function TaxonomicCoverage({ showAll, termMap, event }) {
     `;
 
     let higherTaxaParams = selectedTaxonomy.map(item => {
-      return item.rank +'=' + item.name;
+      return item.rank + '=' + item.name;
     }).join('&')
 
-    let queryUUrl = "https://namematching-ws.ala.org.au/api/searchByClassification?scientificName=" + taxonName + '&' + higherTaxaParams;
-    // console.log(queryUUrl);
+    //  to be removed..
+    let queryUrl = "https://namematching-ws.ala.org.au/api/searchByClassification?scientificName=" + taxonName + '&' + higherTaxaParams;
 
     // translate to sci names - add higher classification
-    fetch(queryUUrl, { method: 'GET'})
+    fetch(queryUrl, { method: 'GET'})
     .then((response) => response.json())
     .then((taxonLookup) => {
 
@@ -332,23 +331,12 @@ function TaxonomicCoverage({ showAll, termMap, event }) {
   }
 
   return <Group label="eventDetails.groups.taxonomicCoverage">
-    <TaxonChart
+    <TaxonTreeMap
         initialData={iChartData}
         initialPath={iSelectedTaxonomy}
         onSelection={onSelection}
         resetCallback={() => reset()}
     />
-
-    {/*<Properties css={css.properties} breakpoint={800}>*/}
-    {/*  <FacetListInline term={termMap.kingdom} showDetails={showAll}/>*/}
-    {/*  <FacetListInline term={termMap.phylum} showDetails={showAll}/>*/}
-    {/*  <FacetListInline term={termMap.class} showDetails={showAll}/>*/}
-    {/*  <FacetListInline term={termMap.order} showDetails={showAll}/>*/}
-    {/*  <FacetListInline term={termMap.family} showDetails={showAll}/>*/}
-    {/*  <FacetListInline term={termMap.genus} showDetails={showAll} style={{ fontStyle: "italic" }} />*/}
-    {/*  <FacetListInline term={termMap.species} showDetails={showAll} style={{ fontStyle: "italic" }} />*/}
-    {/*</Properties>    */}
-
   </Group>
 }
 

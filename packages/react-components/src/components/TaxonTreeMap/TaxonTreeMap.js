@@ -63,6 +63,7 @@ const TaxonTreeMap = ({ initialData, initialPath, onSelection, resetCallback }) 
       },
     }
   };
+
   return (
       <>
       <div style={{ paddingLeft: '5px', paddingTop: '8px', fontSize: '14px' }}>
@@ -76,7 +77,6 @@ const TaxonTreeMap = ({ initialData, initialPath, onSelection, resetCallback }) 
       <Button look="primaryOutline" style={{ fontSize: '11px' }} onClick={() => reset()}>
         Reset
       </Button>
-      <span style={{marginLeft: '50px'}}><b>Tip:</b> Click the boxes in the chart to explore different taxonomic groups</span>
     </>
   );
 };
