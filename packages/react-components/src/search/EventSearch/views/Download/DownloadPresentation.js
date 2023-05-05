@@ -226,7 +226,7 @@ export function DownloadForm ({  hide, dataset, user }) {
            "eventQueryUrl": searchUrl.toString()
          }
 
-         const response = await fetch(env.DOWNLOADS_API_URL + '/event/download', {
+         const response = await fetch(env.DOWNLOADS_API_URL, {
            method: 'POST',
            mode: 'cors',
            headers: {
