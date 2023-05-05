@@ -10,6 +10,7 @@ import { EventDatasetSidebar } from '../../../../entities';
 import { useDialogState } from "reakit/Dialog";
 import { useQueryParam, StringParam } from 'use-query-params';
 import {useGraphQLContext} from "../../../../dataManagement/api/GraphQLContext";
+import {ResultsHeader} from "../../../ResultsHeader";
 
 export const List = ({query, first, prev, next, size, from, data, total, loading }) => {
   const { filters } = useContext(SearchContext);
@@ -17,6 +18,8 @@ export const List = ({query, first, prev, next, size, from, data, total, loading
   const [activeKey, setActiveKey] = useQueryParam('entity', StringParam);
 
   const datasets = data?.eventSearch?.facet?.datasetKey;
+
+  const noOfDatasets = data?.eventSearch?.cardinality.datasetKey;
 
   const {details, setQuery} = useGraphQLContext();
 
@@ -66,6 +69,7 @@ export const List = ({query, first, prev, next, size, from, data, total, loading
     {dialog.visible && <DetailsDrawer dialog={dialog} nextItem={nextItem} previousItem={previousItem}>
       <EventDatasetSidebar id={activeKey} defaultTab='details' style={{ maxWidth: '100%', height: '100%' }} onCloseRequest={() => dialog.setVisible(false)} />
     </DetailsDrawer>}
+    <ResultsHeader loading={loading} total={noOfDatasets} />
     <ul css={style.datasetList}>
       {datasets.map(x => <li style={{ marginBottom: 12 }} key={x.key}><Dataset {...x} datasetKey={x.key} filters={filters} onClick={() => { setActiveKey(x.key); }}/></li>)}
     </ul>
