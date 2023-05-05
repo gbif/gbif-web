@@ -79,4 +79,4 @@ const TaxonChart = ({ initialData, initialPath, onSelection, resetCallback }) =>
   );
 };
 
-export default TaxonChart;
+export { TaxonChart };
