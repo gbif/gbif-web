@@ -4,13 +4,11 @@ import { Button, ErrorBoundary } from '../../../components';
 import { FormattedNumber } from 'react-intl';
 import { AnnotationList } from './AnnotationList';
 import { AnnotationForm } from './CreateAnnotation';
-import env from '../../../../.env.json';
 import { MapWrapper } from './MapWrapper';
 import { FilterContext } from '../../../widgets/Filter/state';
 import { filter2v1 } from '../../../dataManagement/filterAdapter';
 import axios from '../../../dataManagement/api/axios';
 import SearchContext from '../../SearchContext';
-import { MdArrowBack } from 'react-icons/md';
 import UserContext from '../../../dataManagement/UserProvider/UserContext';
 
 /*
@@ -110,7 +108,7 @@ function Rules({ polygons, setPolygons, annotations, setAnnotations, activeAnnot
 
         {!showNewRule && activeAnnotations.length > 0 && <>
           <Button style={{ margin: '12px 0 0 12px' }} look="primaryOutline" onClick={clearActive}>Back</Button>
-          <AnnotationList annotations={annotations} activeAnnotations={activeAnnotations} setAnnotations={setAnnotations} token={env._tmp_token} />
+          <AnnotationList annotations={annotations} activeAnnotations={activeAnnotations} setAnnotations={setAnnotations} />
         </>}
         {/* <div>
           <div css={css`margin: 8px; overflow: hidden; border-radius: 4px;`}>

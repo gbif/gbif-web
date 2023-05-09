@@ -9,6 +9,7 @@ import { filter2v1 } from '../../../dataManagement/filterAdapter';
 import MapWithGeoJSON from './MapWithGeoJSON';
 import getFeature from './getFeature';
 import UserContext from '../../../dataManagement/UserProvider/UserContext';
+import env from '../../../../.env.json';
 
 const suggestStyle = { whiteSpace: 'nowrap', textOverflow: 'ellipsis', width: '100%', overflow: 'hidden' };
 
@@ -85,7 +86,7 @@ function AnnotationForm({ polygons, setPolygons, onClose, onCreate, ...props }) 
   const [comment, setComment] = useState('');
 
   const onGadmSelect = (gadm) => {
-    const { promise, cancel } = axios.get(`http://localhost:4000/unstable-api/geometry/simplify/gadm/${gadm.gadmLevel}/${gadm.id}?format=WKT`);
+    const { promise, cancel } = axios.get(`${env.UTILS_API}/geometry/simplify/gadm/${gadm.gadmLevel}/${gadm.id}?format=WKT`);
     promise.then(response => {
       setPolygons([response.data.wkt])
     });
