@@ -6,7 +6,7 @@ import env from '../../../.env.json';
 import { deleteCookie, getCookie, setCookie } from '../../utils/util';
 
 const JWT_STORAGE_NAME = 'GBIF_JWT';
-const refreshInterval = 5 * 60 * 1000; // 5 minutes
+const refreshInterval = 20 * 60 * 1000; // 20 minutes
 
 const useUnmounted = () => {
   const unmounted = useRef(false)
