@@ -102,3 +102,63 @@ export function formatAsPercentage(fraction, max = 100) {
   }
   return formatedPercentage;
 }
+
+/**
+ * Returns cookie value
+ * @param name - cookie name
+ * @returns {string} - value or undefined
+ */
+export const getCookie = name => {
+  let matches = document.cookie.match(new RegExp(
+    '(?:^|; )' + name.replace(/([.$?*|{}()[]\\\/+^])/g, '\\$1') + '=([^;]*)'
+  ));
+  return matches ? decodeURIComponent(matches[1]) : undefined;
+};
+
+/**
+ * Set cookie
+ * Note: cookie set without expiration date will be remove if user closes the browser
+ *
+ * @param {string} name - name with which it will be possible to get cookie later
+ * @param {string} value - cookie value
+ * @param {object} options - additional settings { path, expires, domain, secure }
+ */
+export const setCookie = (name, value, options = {}) => {
+  let expires = options.expires;
+  if (!options.path) {
+    options.path = '/';
+  }
+
+  if (typeof expires == 'number' && expires) {
+    let d = new Date();
+    d.setTime(d.getTime() + expires * 1000);
+    expires = options.expires = d;
+  }
+  if (expires && expires.toUTCString) {
+    options.expires = expires.toUTCString();
+  }
+
+  value = encodeURIComponent(value);
+
+  let updatedCookie = name + '=' + value;
+
+  for (let propName of Object.keys(options)) {
+    updatedCookie += '; ' + propName;
+    let propValue = options[propName];
+    if (propValue !== true) {
+      updatedCookie += '=' + propValue;
+    }
+  }
+
+  document.cookie = updatedCookie;
+};
+
+/**
+ * Delete cookie
+ * @param {string} name - cookie name
+ */
+export const deleteCookie = name => {
+  setCookie(name, '', {
+    expires: -1
+  });
+};

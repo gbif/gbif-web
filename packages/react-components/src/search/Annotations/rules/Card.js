@@ -12,7 +12,7 @@ import getFeature from './getFeature';
 import { FilterContext } from '../../../widgets/Filter/state';
 
 const MAPBOX_GEOJSON_SIZE_LIMIT = 1;
-const Card = ({ annotation, onSupport, onContest, onRemoveSupport, onRemoveContest, onDelete, token }) => {
+const Card = ({ user, signHeaders, annotation, onSupport, onContest, onRemoveSupport, onRemoveContest, onDelete }) => {
   const [comments, setComments] = useState([]);
   const [showComments, setShowComments] = useState(false);
   const { labelMap } = useContext(SearchContext);
@@ -20,10 +20,7 @@ const Card = ({ annotation, onSupport, onContest, onRemoveSupport, onRemoveConte
 
   const { geojson: geoJsonString, error: wktError } = getFeature(annotation.geometry);
 
-  const userProfileString = atob(token.split('.')[1]);
-  const userProfile = JSON.parse(userProfileString);
-  const { userName, exp } = userProfile;
-  const isExpired = exp < Date.now() / 1000;
+  const isExpired = !user;
 
   const fetchComments = useCallback(async () => {
     const response = await (axios.get(`http://labs.gbif.org:7013/v1/occurrence/annotation/rule/${annotation.id}/comment`)).promise;
@@ -57,7 +54,7 @@ const Card = ({ annotation, onSupport, onContest, onRemoveSupport, onRemoveConte
   const handleCommentDelete = async (id) => {
     const response = await axios.delete(`http://labs.gbif.org:7013/v1/occurrence/annotation/rule/${annotation.id}/comment/${id}`,
       {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: signHeaders(),
       });
     if (response.status === 200) {
       setComments((prevComments) => prevComments.filter((comment) => comment.id !== id));
@@ -76,9 +73,9 @@ const Card = ({ annotation, onSupport, onContest, onRemoveSupport, onRemoveConte
   }
   const author = annotation.createdBy;
   const title = titleMap[annotation.annotation] || 'Unknown type';
-  const hasSupported = annotation.supportedBy && annotation.supportedBy.includes(userName);
-  const hasContested = annotation.contestedBy && annotation.contestedBy.includes(userName);
-  const hasCommented = comments.find(x => x.createdBy === userName);
+  const hasSupported = annotation.supportedBy && annotation.supportedBy.includes(user?.userName);
+  const hasContested = annotation.contestedBy && annotation.contestedBy.includes(user?.userName);
+  const hasCommented = comments.find(x => x.createdBy === user?.userName);
 
   const firstComment = comments.slice(-1)[0];
   const showDescription = firstComment?.createdBy === author;
@@ -120,7 +117,7 @@ const Card = ({ annotation, onSupport, onContest, onRemoveSupport, onRemoveConte
           </div>
         </ContentWrapper>
         <ActionBar>
-          {!isExpired && author === userName && <DeleteAction isActive={false} onClick={handleDelete} />}
+          {author === user?.userName && <DeleteAction isActive={false} onClick={handleDelete} />}
           <span style={{ flex: '1 1 100%' }}></span>
           <SupportAction isActive={hasSupported} count={annotation.supportedBy.length} onClick={hasSupported ? handleRemoveSupport : handleSupport} />
           <ContestAction isActive={hasContested} count={annotation.contestedBy.length} onClick={hasContested ? handleRemoveContest : handleContest} />
@@ -128,9 +125,9 @@ const Card = ({ annotation, onSupport, onContest, onRemoveSupport, onRemoveConte
         </ActionBar>
       </CardWrapper>
       {showComments && <CommentWrapper>
-        {!isExpired && <CommentForm token={token} id={annotation.id} onCreate={fetchComments} />}
+        {user && <CommentForm signHeaders={signHeaders} id={annotation.id} onCreate={fetchComments} />}
         {comments.map((comment) => (
-          <Comment comment={comment} onDelete={handleCommentDelete} token={token} key={comment.id} userName={userName} isExpired={isExpired} />
+          <Comment comment={comment} onDelete={handleCommentDelete} signHeaders={signHeaders} key={comment.id} userName={user?.userName} isExpired={isExpired} />
         ))}
       </CommentWrapper>}
     </AnnotationWrapper>

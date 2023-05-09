@@ -44,4 +44,6 @@ export { TextThumbnail } from './TextThumbnail/TextThumbnail';
 export { ListItem } from './ListItem/ListItem';
 export { ThumbnailMap } from './ThumbnailMap/ThumbnailMap';
 export { ErrorBoundary } from './ErrorBoundary/ErrorBoundary';
+export { Modal } from './Modal/Modal';
+export { Login, LoginButton } from './Login/Login';
 // -- Add imports above this line (required by plopfile.js) --

@@ -68,7 +68,7 @@ Popover.propTypes = {
   children: PropTypes.any,
 };
 
-const backdrop = theme => css`
+export const backdrop = theme => css`
   background-color: ${theme.darkTheme ? '#0000006b' : '#00000040'};
   position: fixed;
   top: 0px;
@@ -83,7 +83,7 @@ const dialogContent = theme => css`
   /* overflow: auto; */
 `;
 
-const dialog = theme => css`
+export const dialog = theme => css`
   background-color: ${theme.paperBackground500};
   /* position: fixed; */
   top: 28px;

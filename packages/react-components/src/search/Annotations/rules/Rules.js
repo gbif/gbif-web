@@ -11,6 +11,7 @@ import { filter2v1 } from '../../../dataManagement/filterAdapter';
 import axios from '../../../dataManagement/api/axios';
 import SearchContext from '../../SearchContext';
 import { MdArrowBack } from 'react-icons/md';
+import UserContext from '../../../dataManagement/UserProvider/UserContext';
 
 /*
 This component is a widget that allows the user to search for annotations. 
@@ -54,7 +55,7 @@ function RulesWrapper(props) {
         display: flex;
         `}>
       <div css={css`z-index: 2; position: relative; flex: 0 0 auto; height: calc(100% - 48px); width: 350px; top: 0; left: 0; margin-right: 12px;`}>
-        <Rules {...{polygons, setPolygons, annotations, activeAnnotations}} setAnnotations={(list) => setAnnotations(list)} clearActive={() => setActiveAnnotations([])} />
+        <Rules {...{polygons, setPolygons, annotations, activeAnnotations, setActiveAnnotations}} setAnnotations={(list) => setAnnotations(list)} clearActive={() => setActiveAnnotations([])} />
       </div>
       <div css={css`flex: 1 1 100%; width: 100%; height: 100%;`}>
         <MapWrapper {...{polygons, setPolygons, annotations}} onPolygonSelect={handlePolygonSelect} />
@@ -65,7 +66,8 @@ function RulesWrapper(props) {
 
 export default RulesWrapper;
 
-function Rules({ polygons, setPolygons, annotations, setAnnotations, activeAnnotations, clearActive, ...props }) {
+function Rules({ polygons, setPolygons, annotations, setAnnotations, activeAnnotations, setActiveAnnotations, clearActive, ...props }) {
+  const { user } = useContext(UserContext);
   const [showNewRule, setShowNewRule] = useState(false);
   const [showCreateSuccess, setShowCreateSuccess] = useState(false);
 
@@ -73,6 +75,7 @@ function Rules({ polygons, setPolygons, annotations, setAnnotations, activeAnnot
   useEffect(() => {
     if (polygons.length > 0) {
       setShowNewRule(true);
+      setActiveAnnotations([]);
     }
   }, [polygons]);
 
@@ -84,22 +87,25 @@ function Rules({ polygons, setPolygons, annotations, setAnnotations, activeAnnot
         Create new rule
         </>}
       </div>
-      {!showNewRule && <Button onClick={() => setShowNewRule(true)} look="primary" style={{ fontSize: 14 }}>Create new</Button>}
-      {showNewRule && <Button onClick={() => setShowNewRule(false)} look="primaryOutline" style={{ fontSize: 14 }}>Cancel</Button>}
+      {user && !showNewRule && <Button onClick={() => setShowNewRule(true)} look="primary" style={{ fontSize: 14 }}>Create new</Button>}
+      {showNewRule && <Button onClick={() => {setShowNewRule(false); setPolygons([]);}} look="primaryOutline" style={{ fontSize: 14 }}>Cancel</Button>}
     </div>
     <div css={css`flex: 1 1 100%; background: #f3f3f3; overflow: auto; max-height: 100%;`}>
       <div style={{ paddingBottom: 48 }}>
-        {showNewRule && <AnnotationForm {...{polygons, setPolygons}} token={env._tmp_token} onCreate={(annotation) => {
+        {showNewRule && <AnnotationForm {...{polygons, setPolygons}} onCreate={(annotation) => {
           setShowNewRule(false);
           setShowCreateSuccess(true);
           setAnnotations([annotation, ...annotations]);
           setPolygons([]);
         }}
-          onClose={() => setShowNewRule(false)}
+          onClose={() => {
+            setShowNewRule(false);
+            setPolygons([]);
+          }}
         />}
         {!showNewRule && activeAnnotations.length === 0 && <>
           {showCreateSuccess && <SuccessCard onCreate={() => setShowNewRule(true)} onClose={() => setShowCreateSuccess(false)} />}
-          <AnnotationList annotations={annotations} setAnnotations={setAnnotations} token={env._tmp_token} />
+          <AnnotationList annotations={annotations} setAnnotations={setAnnotations} />
         </>}
 
         {!showNewRule && activeAnnotations.length > 0 && <>

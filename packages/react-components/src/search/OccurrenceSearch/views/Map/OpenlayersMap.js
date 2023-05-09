@@ -14,8 +14,7 @@ import klokantech from './openlayers/styles/klokantech.json';
 
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
-import { Style, Fill, Stroke } from 'ol/style';
-import { Draw, Modify, Delete } from 'ol/interaction';
+import { Draw, Modify } from 'ol/interaction';
 import WKT from 'ol/format/WKT.js';
 
 const format = new WKT();
@@ -302,13 +301,13 @@ class Map extends Component {
 
       let modify = new Modify({ source: drawSource });
 
-      const polygonChangeHandler = ({action} = {}) => {
+      const polygonChangeHandler = ({ action } = {}) => {
         var features = drawLayer.getSource().getFeatures();
         const polygons = features.map(feature => {
           const format = new WKT();
           return format.writeGeometry(feature.getGeometry());
         });
-        setTimeout(() => that.props.onPolygonsChanged(polygons, {action}), 0);
+        setTimeout(() => that.props.onPolygonsChanged(polygons, { action }), 0);
       }
       modify.on('modifyend', (event) => {
         polygonChangeHandler();
@@ -435,7 +434,7 @@ class Map extends Component {
       const pointClickHandler = this.onPointClick;
       const clickHandler = this.props.onMapClick;
       map.on('singleclick', event => {
-        if (that.props.drawMode || that.props.deleteMode) return;
+        if (that.props.drawMode || that.props.deleteMode) return;
         // todo : hover and click do not agree on wether there is a point or not
         occurrenceLayer.getFeatures(event.pixel).then(function (features) {
           const feature = features.length ? features[0] : undefined;
@@ -450,7 +449,7 @@ class Map extends Component {
 
 
       map.on('pointermove', function (e) {
-        if (that.props.drawMode || that.props.deleteMode) return;
+        if (that.props.drawMode || that.props.deleteMode) return;
         var pixel = map.getEventPixel(e.originalEvent);
         var hit = map.hasFeatureAtPixel(pixel, { layerFilter: l => l.values_.name === 'occurrences' });
         map.getViewport().style.cursor = hit ? 'pointer' : '';
@@ -460,7 +459,7 @@ class Map extends Component {
 
   render() {
     const { query, onMapClick, onPointClick, predicateHash, onLayerChange, mapConfig, onMapCreate, style, className, ...props } = this.props;
-    return <div ref={this.myRef} {...{style, className}} />
+    return <div ref={this.myRef} {...{ style, className }} />
   }
 }
 

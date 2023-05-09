@@ -12,6 +12,7 @@ import RouteContext, { defaultContext } from './dataManagement/RouteContext';
 import SiteContext from './dataManagement/SiteContext';
 import env from '../.env.json';
 import {GraphQLContextProvider} from "./dataManagement/api/GraphQLContext";
+import { UserProvider } from "./dataManagement/UserProvider";
 
 const client = new ApiClient({
   gql: {
@@ -53,10 +54,12 @@ function StandaloneWrapper({
         <GraphQLContextProvider value={{}}>
           <LocaleProvider locale={locale} messages={messages}>
             <ThemeContext.Provider value={theme}>
-              {routes && <RouteContext.Provider value={routeConfig}>
-                {root}
-              </RouteContext.Provider>}
-              {!routes && root}
+              <UserProvider>
+                {routes && <RouteContext.Provider value={routeConfig}>
+                  {root}
+                </RouteContext.Provider>}
+                {!routes && root}
+              </UserProvider>
             </ThemeContext.Provider>
           </LocaleProvider>
         </GraphQLContextProvider>

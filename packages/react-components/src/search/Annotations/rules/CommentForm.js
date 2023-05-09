@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 import axios from 'axios';
 import { MdSend } from 'react-icons/md';
 
-export const CommentForm = ({ id, token, onCreate }) => {
+export const CommentForm = ({ id, signHeaders, onCreate }) => {
   const [commentText, setCommentText] = useState('');
 
   const handleSubmit = async (event) => {
@@ -15,9 +15,7 @@ export const CommentForm = ({ id, token, onCreate }) => {
           comment: commentText,
         },
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: signHeaders()
         }
       );
       setCommentText('');

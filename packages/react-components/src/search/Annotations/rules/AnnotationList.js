@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import axios from '../../../dataManagement/api/axios';
 import { css } from '@emotion/react';
 import Card from './Card';
+import UserContext from '../../../dataManagement/UserProvider/UserContext';
 
 export const AnnotationList = ({ token, annotations, setAnnotations, activeAnnotations, ...props }) => {
+  const { user, signHeaders } = useContext(UserContext);
   const handleSupport = async (id) => {
     const response = await (axios.post(`http://labs.gbif.org:7013/v1/occurrence/annotation/rule/${id}/support`,
       null,
       {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: signHeaders(),
       })).promise;
     if (response.status === 200) {
       setAnnotations((prevAnnotations) =>
@@ -23,7 +25,7 @@ export const AnnotationList = ({ token, annotations, setAnnotations, activeAnnot
     const response = await (axios.post(`http://labs.gbif.org:7013/v1/occurrence/annotation/rule/${id}/contest`,
       null,
       {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: signHeaders(),
       })).promise;
     if (response.status === 200) {
       setAnnotations((prevAnnotations) =>
@@ -38,7 +40,7 @@ export const AnnotationList = ({ token, annotations, setAnnotations, activeAnnot
     const response = await (axios.post(`http://labs.gbif.org:7013/v1/occurrence/annotation/rule/${id}/removeSupport`,
       null,
       {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: signHeaders(),
       })).promise;
     if (response.status === 200) {
       setAnnotations((prevAnnotations) =>
@@ -53,7 +55,7 @@ export const AnnotationList = ({ token, annotations, setAnnotations, activeAnnot
     const response = await (axios.post(`http://labs.gbif.org:7013/v1/occurrence/annotation/rule/${id}/removeContest`,
       null,
       {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: signHeaders(),
       })).promise;
     if (response.status === 200) {
       setAnnotations((prevAnnotations) =>
@@ -67,7 +69,7 @@ export const AnnotationList = ({ token, annotations, setAnnotations, activeAnnot
   const handleDelete = async (id) => {
     const response = await axios.delete(`http://labs.gbif.org:7013/v1/occurrence/annotation/rule/${id}`,
       {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: signHeaders(),
       });
     if (response.status === 200) {
       setAnnotations((prevAnnotations) => prevAnnotations.filter((annotation) => annotation.id !== id));
@@ -93,7 +95,7 @@ export const AnnotationList = ({ token, annotations, setAnnotations, activeAnnot
             onRemoveSupport={handleRemoveSupport}
             onRemoveContest={handleRemoveContest}
             onDelete={handleDelete}
-            token={token}
+            {...{user, signHeaders}}
           />
         ))}
     </div>

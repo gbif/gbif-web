@@ -17,6 +17,7 @@ import { MdDeleteOutline as DeleteIcon, MdDraw } from 'react-icons/md';
 import { FilterContext } from '../../../widgets/Filter/state';
 import { filter2v1 } from '../../../dataManagement/filterAdapter';
 import { Button } from '../../../components';
+import UserContext from '../../../dataManagement/UserProvider/UserContext';
 
 const mapConfig = {
   "basemapStyle": "https://graphql.gbif-staging.org/unstable-api/map-styles/4326/gbif-raster?styleName=geyser&background=%23e5e9cd&language=en&pixelRatio=2",
@@ -24,6 +25,7 @@ const mapConfig = {
 };
 
 const Map = ({ data, polygons, setPolygons, onPolygonSelect }) => {
+  const { user } = useContext(UserContext);
   const [params, setParams] = useState({});
   const [drawActive, setDrawState] = useState(false);
   const [deleteActive, setDeleteState] = useState(false);
@@ -162,8 +164,9 @@ const Map = ({ data, polygons, setPolygons, onPolygonSelect }) => {
           deleteMode: deleteActive
         }
       }
-      AdditionalButtons={({emitEvent, ...props}) =>
-        <>
+      AdditionalButtons={({ emitEvent, ...props }) => {
+        if (!user) return null;
+        return <>
           <Button look={drawActive ? 'primary' : 'ghost'} onClick={() => {
             setDrawState(!drawActive);
             setDeleteState(false);
@@ -173,7 +176,7 @@ const Map = ({ data, polygons, setPolygons, onPolygonSelect }) => {
             setDrawState(false);
           }}><DeleteIcon /></Button>
         </>
-      }
+      }}
     />
     <div ref={popupRef} css={popup} style={{ display: selectedFeatures ? 'block' : 'none' }}>
       <a ref={popupCloseRef} href="#" id="popup-closer" css={popupCloser}></a>
@@ -228,6 +231,11 @@ function createMultiPolygonFromWKTs(wkts) {
 
   // create a new multipolygon geometry from the list of polygon geometries
   var multiPolygon = new MultiPolygon(polygons);
+
+  const polygonList = multiPolygon.getPolygons();
+  if (polygonList.length === 1) {
+    multiPolygon = polygonList[0];
+  }
 
   // create a WKT format object and write the multipolygon geometry as WKT
   var wktMultiPolygon = wktFormat.writeGeometry(multiPolygon);

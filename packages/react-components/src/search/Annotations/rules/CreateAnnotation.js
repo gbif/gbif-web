@@ -8,6 +8,7 @@ import SearchContext from '../../SearchContext';
 import { filter2v1 } from '../../../dataManagement/filterAdapter';
 import MapWithGeoJSON from './MapWithGeoJSON';
 import getFeature from './getFeature';
+import UserContext from '../../../dataManagement/UserProvider/UserContext';
 
 const suggestStyle = { whiteSpace: 'nowrap', textOverflow: 'ellipsis', width: '100%', overflow: 'hidden' };
 
@@ -41,7 +42,9 @@ const suggestConfig = {
   }
 };
 
-function AnnotationForm({ polygons, setPolygons, token, onClose, onCreate, ...props }) {
+function AnnotationForm({ polygons, setPolygons, onClose, onCreate, ...props }) {
+  const { user, signHeaders } = useContext(UserContext);
+
   const annotationOptions = [
     {
       "value": "NATIVE",
@@ -76,6 +79,7 @@ function AnnotationForm({ polygons, setPolygons, token, onClose, onCreate, ...pr
   const currentFilterContext = useContext(FilterContext);
   const { rootPredicate, predicateConfig } = useContext(SearchContext);
   const [geometry, setGeometry] = useState('');
+  const [gadm, setGadm] = useState('');
   const [project, setProject] = useState();
   const [annotationType, setAnnotationType] = useState(annotationOptions[0]);
   const [comment, setComment] = useState('');
@@ -117,7 +121,7 @@ function AnnotationForm({ polygons, setPolygons, token, onClose, onCreate, ...pr
         'http://labs.gbif.org:7013/v1/occurrence/annotation/rule',
         annotationRule,
         {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: signHeaders()
         }
       )).promise;
       if (comment && comment.length > 0) {
@@ -127,7 +131,7 @@ function AnnotationForm({ polygons, setPolygons, token, onClose, onCreate, ...pr
           `http://labs.gbif.org:7013/v1/occurrence/annotation/rule/${res.data.id}/comment`,
           commentData,
           {
-            headers: { Authorization: `Bearer ${token}` },
+            headers: signHeaders()
           }
         )).promise;
       }
@@ -138,7 +142,7 @@ function AnnotationForm({ polygons, setPolygons, token, onClose, onCreate, ...pr
     }
   };
 
-  const { geojson: geoJsonString, error: wktError } = getFeature(geometry);
+  const { geojson: geoJsonString, error: wktError } = getFeature(polygons[0] || '');
 
   return (
     <>
@@ -147,7 +151,7 @@ function AnnotationForm({ polygons, setPolygons, token, onClose, onCreate, ...pr
       </div>
       <form onSubmit={handleSubmit}>
         <div css={css`background: white; border-radius: 4px; margin: 12px; border: 1px solid var(--paperBorderColor);`}>
-          <Input placeholder="Geometry as WKT" onChange={e => setPolygons([e.target.value])} value={polygons[0]} style={{ border: 'none' }} />
+          <Input placeholder="Geometry as WKT" onChange={e => setPolygons([e.target.value])} value={polygons[0] || ''} style={{ border: 'none' }} />
         </div>
 
         <div css={css`background: white; border-radius: 4px; margin: 12px; border: 1px solid var(--paperBorderColor);`}>
@@ -171,10 +175,10 @@ function AnnotationForm({ polygons, setPolygons, token, onClose, onCreate, ...pr
 
         <div css={css`background: white; border-radius: 4px; margin: 12px; border: 1px solid var(--paperBorderColor);`}>
           <fieldset css={css`
-        border:none;
-        padding: 12px;
-        margin: 0;
-        `}>
+            border:none;
+            padding: 12px;
+            margin: 0;
+            `}>
             {annotationOptions.map(option => <Option
               key={option.value}
               isRadio={true}

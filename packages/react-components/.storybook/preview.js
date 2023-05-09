@@ -15,6 +15,7 @@ import RouteContext from '../src/dataManagement/RouteContext';
 import SiteContext from '../src/dataManagement/SiteContext';
 import { siteConfig } from './siteConfig';
 import {GraphQLContextProvider} from "../src/dataManagement/api/GraphQLContext";
+import { UserProvider } from '../src/dataManagement/UserProvider';
 
 const availableLocales = env.LOCALES || ['en-developer'];
 const locales = availableLocales.map(x => {
@@ -92,17 +93,19 @@ addDecorator(storyFn => {
                   ),
                 )}
               >
-                <Root id="application" appRoot style={{ padding: 0 }} dir={chooseRtl(
-                  select(
-                    'Choose Direction',
-                    ['ltr', 'rtl'],
-                    'ltr',
-                  ),
-                )}>
-                  <RouteContext.Provider value={siteConfig.routeConfig}>
-                    {storyFn()}
-                  </RouteContext.Provider>
-                </Root>
+                <UserProvider>
+                  <Root id="application" appRoot style={{ padding: 0 }} dir={chooseRtl(
+                    select(
+                      'Choose Direction',
+                      ['ltr', 'rtl'],
+                      'ltr',
+                    ),
+                  )}>
+                    <RouteContext.Provider value={siteConfig.routeConfig}>
+                      {storyFn()}
+                    </RouteContext.Provider>
+                  </Root>
+                </UserProvider>
               </ThemeContext.Provider>
             </LocaleProvider>
           </GraphQLContextProvider>
