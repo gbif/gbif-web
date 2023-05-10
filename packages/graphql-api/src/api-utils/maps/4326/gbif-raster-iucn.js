@@ -1,6 +1,6 @@
 import gbifTileAttribution from '../gbif-tile-attribution';
 
-export default function ({iucnTaxonID = 6924, styleName, language, pixelRatio}) {
+export default function ({iucnTaxonID, styleName, language, pixelRatio}) {
   let template = {
     version: 8,
     name: `gbif-${styleName}-4326`,

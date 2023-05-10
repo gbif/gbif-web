@@ -29,14 +29,24 @@ function RulesWrapper(props) {
   }, []);
 
   useEffect(() => {
+    let cancelPending = null;
     const fetchAnnotations = async () => {
       const { v1Filter, error } = filter2v1(currentFilterContext.filter, predicateConfig);
       const filter = { ...v1Filter, ...rootPredicate };
-      const response = await (axios.get(`${env.ANNOTATION_API}/occurrence/annotation/rule`, { params: filter })).promise;
-      setAnnotations(response.data);
+      const { promise, cancel } = axios.get(`${env.ANNOTATION_API}/occurrence/annotation/rule`, { params: filter });
+      cancelPending = cancel;
+      // setCancel(cancel);
+      promise.then((response) => {
+        setAnnotations(response.data);  
+      });
     };
 
     fetchAnnotations();
+    return () => {
+      if (cancelPending) {
+        cancelPending();
+      }
+    }
   }, [currentFilterContext.filterHash]);
 
   const handlePolygonSelect = useCallback((annotation, annotationList) => {
