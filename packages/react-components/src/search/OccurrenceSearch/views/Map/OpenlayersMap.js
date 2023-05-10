@@ -16,6 +16,7 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { Draw, Modify } from 'ol/interaction';
 import WKT from 'ol/format/WKT.js';
+import axios from "axios";
 
 const format = new WKT();
 
@@ -113,6 +114,11 @@ class Map extends Component {
       this.updatePolygons();
     }
 
+    // check if basemapParams prop has changed
+    if (prevProps.basemapParams !== this.props.basemapParams && this.mapLoaded) {
+      this.updateMapLayers();
+    }
+
     // TODO: monitor theme and update maps accordingly
     // if (prevProps.theme !== this.props.theme && this.mapLoaded) {
     //   const mapStyle = this.props.theme.darkTheme ? 'dark-v9' : 'light-v9';
@@ -182,7 +188,7 @@ class Map extends Component {
       this.map.addLayer(baseLayer);
     } else if (epsg !== 'EPSG_3857') {
 
-      const styleResponse = await fetch(this.props.mapConfig?.basemapStyle).then(response => response.json());
+      const styleResponse = (await axios.get(this.props.mapConfig?.basemapStyle, {params: this.props.basemapParams})).data;
 
       if (!styleResponse?.metadata?.['gb:reproject']) {
         const baseLayer = currentProjection.getBaseLayer();

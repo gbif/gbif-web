@@ -23,7 +23,7 @@ function getStyle({ styles = {}, projection, type, lookup = {}, layerOptions }) 
 
 function useMapConfig({ mapSettings } = {}) {
   const siteContext = useContext(SiteContext);
-  const mapConfig = (siteContext?.maps || mapSettings);
+  const mapConfig = (mapSettings || siteContext?.maps);
   const styleLookup = mapConfig?.styleLookup || {};
   const mapStyles = mapConfig.mapStyles || defaultLayerOptions;
   const supportedProjections = Object.keys(mapStyles);
@@ -74,7 +74,7 @@ function useMapConfig({ mapSettings } = {}) {
     </MenuAction>
   });
 
-  const projectionMenuOptions = menuState => projectionOptions.map((proj, i) => <MenuAction key={proj} onClick={() => {
+  const projectionMenuOptions = () => projectionOptions.map((proj, i) => <MenuAction key={proj} onClick={() => {
     setProjection(proj);
     sessionStorage.setItem('defaultOccurrenceProjection', proj);
   }}>
@@ -89,13 +89,13 @@ function useMapConfig({ mapSettings } = {}) {
     layerOptions
   });
 
-  const projectionsButton = projectionOptions.length === 0 ? null : <Menu style={{ display: 'inline-block' }}
+  const projectionsButton = projectionOptions.length < 2 ? null : <Menu style={{ display: 'inline-block' }}
     aria-label="Select projection"
     trigger={<Button appearance="text"><MdLanguage /></Button>}
     items={projectionMenuOptions}
   />;
 
-  const layerButton = layerOptions?.[projection]?.length === 0 ? null : <Menu style={{ display: 'inline-block' }}
+  const layerButton = layerOptions?.[projection]?.length < 2 ? null : <Menu style={{ display: 'inline-block' }}
     aria-label="Select layers"
     trigger={<Button appearance="text"><MdOutlineLayers /></Button>}
     items={menuLayerOptions}

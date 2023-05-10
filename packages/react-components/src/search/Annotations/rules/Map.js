@@ -20,13 +20,18 @@ import { Button } from '../../../components';
 import UserContext from '../../../dataManagement/UserProvider/UserContext';
 
 const mapConfig = {
-  "basemapStyle": "https://graphql.gbif-staging.org/unstable-api/map-styles/4326/gbif-raster?styleName=geyser&background=%23e5e9cd&language=en&pixelRatio=2",
-  "projection": "EPSG_4326"
-};
+  defaultProjection: 'PLATE_CAREE',
+  defaultMapStyle: 'NATURAL',
+  mapStyles: {
+    PLATE_CAREE: ['NATURAL', 'BRIGHT', 'DARK', 'BRIGHT_IUCN'],
+    // MERCATOR: ['SATELLITE'],
+  },
+}
 
 const Map = ({ data, polygons, setPolygons, onPolygonSelect }) => {
   const { user } = useContext(UserContext);
   const [params, setParams] = useState({});
+  const [basemapParams, setBasemapParams] = useState({});
   const [drawActive, setDrawState] = useState(false);
   const [deleteActive, setDeleteState] = useState(false);
   const currentFilterContext = useContext(FilterContext);
@@ -77,6 +82,7 @@ const Map = ({ data, polygons, setPolygons, onPolygonSelect }) => {
     const { v1Filter, error } = filter2v1(currentFilterContext.filter, predicateConfig);
     const filter = { ...v1Filter, ...rootPredicate };
     setParams(filter);
+    setBasemapParams({ taxonKey: filter.taxonKey });
     setSelectedFeatures();
   }, [currentFilterContext.filterHash]);
 
@@ -145,7 +151,8 @@ const Map = ({ data, polygons, setPolygons, onPolygonSelect }) => {
   }, [map, data, drawActive]);
 
   return <>
-    <MapPresentation mapConfig={mapConfig}
+    <MapPresentation mapSettings={mapConfig}
+      basemapParams={basemapParams}
       params={params}
       query={params}
       css={css`width: 100%; height: 100%;`}

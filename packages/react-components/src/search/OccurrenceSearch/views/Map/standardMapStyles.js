@@ -48,6 +48,14 @@ export function getMapStyles({ apiKeys = {}, language = 'en' }) {
         projection: 'EPSG_4326'
       }
     },
+    BRIGHT_IUCN_PLATE_CAREE: {
+      labelKey: 'map.styles.bright_iucn',
+      component: MapComponentOL,
+      mapConfig: {
+        basemapStyle: `${env.MAP_STYLES}/4326/gbif-raster-iucn?${light}`,
+        projection: 'EPSG_4326'
+      }
+    },
     DARK_PLATE_CAREE: {
       labelKey: 'map.styles.dark',
       component: MapComponentOL,

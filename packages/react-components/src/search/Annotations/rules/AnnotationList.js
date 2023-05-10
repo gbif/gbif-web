@@ -3,11 +3,12 @@ import axios from '../../../dataManagement/api/axios';
 import { css } from '@emotion/react';
 import Card from './Card';
 import UserContext from '../../../dataManagement/UserProvider/UserContext';
+import env from '../../../../.env.json';
 
 export const AnnotationList = ({ token, annotations, setAnnotations, activeAnnotations, ...props }) => {
   const { user, signHeaders } = useContext(UserContext);
   const handleSupport = async (id) => {
-    const response = await (axios.post(`http://labs.gbif.org:7013/v1/occurrence/annotation/rule/${id}/support`,
+    const response = await (axios.post(`${env.ANNOTATION_API}/occurrence/annotation/rule/${id}/support`,
       null,
       {
         headers: signHeaders(),
@@ -22,7 +23,7 @@ export const AnnotationList = ({ token, annotations, setAnnotations, activeAnnot
   };
 
   const handleContest = async (id) => {
-    const response = await (axios.post(`http://labs.gbif.org:7013/v1/occurrence/annotation/rule/${id}/contest`,
+    const response = await (axios.post(`${env.ANNOTATION_API}/occurrence/annotation/rule/${id}/contest`,
       null,
       {
         headers: signHeaders(),
@@ -37,7 +38,7 @@ export const AnnotationList = ({ token, annotations, setAnnotations, activeAnnot
   };
 
   const handleRemoveSupport = async (id) => {
-    const response = await (axios.post(`http://labs.gbif.org:7013/v1/occurrence/annotation/rule/${id}/removeSupport`,
+    const response = await (axios.post(`${env.ANNOTATION_API}/occurrence/annotation/rule/${id}/removeSupport`,
       null,
       {
         headers: signHeaders(),
@@ -52,7 +53,7 @@ export const AnnotationList = ({ token, annotations, setAnnotations, activeAnnot
   };
 
   const handleRemoveContest = async (id) => {
-    const response = await (axios.post(`http://labs.gbif.org:7013/v1/occurrence/annotation/rule/${id}/removeContest`,
+    const response = await (axios.post(`${env.ANNOTATION_API}/occurrence/annotation/rule/${id}/removeContest`,
       null,
       {
         headers: signHeaders(),
@@ -67,7 +68,7 @@ export const AnnotationList = ({ token, annotations, setAnnotations, activeAnnot
   };
 
   const handleDelete = async (id) => {
-    const response = await axios.delete(`http://labs.gbif.org:7013/v1/occurrence/annotation/rule/${id}`,
+    const response = await axios.delete(`${env.ANNOTATION_API}/occurrence/annotation/rule/${id}`,
       {
         headers: signHeaders(),
       });

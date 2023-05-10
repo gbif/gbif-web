@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useContext } from 'react';
 import axios from '../../../dataManagement/api/axios';
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { Button, JazzIcon } from "../../../components";
+import { Button, JazzIcon, Tooltip } from "../../../components";
 import { MdDelete, MdModeComment, MdThumbDown, MdThumbUp } from "react-icons/md";
 import { CommentForm } from './CommentForm';
 import { FormattedDate } from 'react-intl';
@@ -10,21 +10,27 @@ import SearchContext from '../../../search/SearchContext';
 import MapWithGeoJSON from './MapWithGeoJSON';
 import getFeature from './getFeature';
 import { FilterContext } from '../../../widgets/Filter/state';
+import equal from 'fast-deep-equal/react';
+import env from '../../../../.env.json';
 
-const MAPBOX_GEOJSON_SIZE_LIMIT = 1;
 const Card = ({ user, signHeaders, annotation, onSupport, onContest, onRemoveSupport, onRemoveContest, onDelete }) => {
   const [comments, setComments] = useState([]);
+  const [geometry, setGeometry] = useState({});
   const [showComments, setShowComments] = useState(false);
   const { labelMap } = useContext(SearchContext);
   const currentFilterContext = useContext(FilterContext);
 
-  const { geojson: geoJsonString, error: wktError } = getFeature(annotation.geometry);
-
-  const isExpired = !user;
+  const { geojson, wktError } = geometry;
 
   const fetchComments = useCallback(async () => {
-    const response = await (axios.get(`http://labs.gbif.org:7013/v1/occurrence/annotation/rule/${annotation.id}/comment`)).promise;
+    const response = await (axios.get(`${env.ANNOTATION_API}/occurrence/annotation/rule/${annotation.id}/comment`)).promise;
     setComments(response.data);
+  }, [annotation]);
+
+  useEffect(() => {
+    const { geojson, error: wktError } = getFeature(annotation.geometry);
+    if (equal(geojson, geometry.geojson)) return;
+    setGeometry({geojson, wktError});
   }, [annotation]);
 
   useEffect(() => {
@@ -52,7 +58,7 @@ const Card = ({ user, signHeaders, annotation, onSupport, onContest, onRemoveSup
   };
 
   const handleCommentDelete = async (id) => {
-    const response = await axios.delete(`http://labs.gbif.org:7013/v1/occurrence/annotation/rule/${annotation.id}/comment/${id}`,
+    const response = await axios.delete(`${env.ANNOTATION_API}/occurrence/annotation/rule/${annotation.id}/comment/${id}`,
       {
         headers: signHeaders(),
       });
@@ -84,11 +90,8 @@ const Card = ({ user, signHeaders, annotation, onSupport, onContest, onRemoveSup
   return (
     <AnnotationWrapper style={{ margin: 12 }}>
       <CardWrapper>
-        {geoJsonString?.length < MAPBOX_GEOJSON_SIZE_LIMIT && <TitleImage>
-          <img src={`https://api.mapbox.com/styles/v1/mapbox/streets-v12/static/geojson(${encodeURIComponent(geoJsonString)})/auto/400x200?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA&padding=50`} alt="Title image" />
-        </TitleImage>}
-        {geoJsonString?.length >= MAPBOX_GEOJSON_SIZE_LIMIT && <TitleImage>
-          <MapWithGeoJSON type={annotation.annotation} geojson={JSON.parse(geoJsonString)} style={{width: '100%', height: '100%'}}/>
+        {geojson && <TitleImage>
+          <MapWithGeoJSON type={annotation.annotation} geojson={geojson} style={{width: '100%', height: '100%'}}/>
         </TitleImage>}
         {wktError && <TitleImage css={css`background: linear-gradient(to right top, #ea3365, #ee3054, #ef3142, #ee362d, #eb3e12); text-align: center;`}>
           <span css={css`background: #00000011; display: inline-block; border-radius: 4px; padding: 5px 8px; color: #880000; border: 1px solid #88000088; margin-top: 65px;`}>Invalid geometry</span>
@@ -119,7 +122,11 @@ const Card = ({ user, signHeaders, annotation, onSupport, onContest, onRemoveSup
         <ActionBar>
           {author === user?.userName && <DeleteAction isActive={false} onClick={handleDelete} />}
           <span style={{ flex: '1 1 100%' }}></span>
-          <SupportAction isActive={hasSupported} count={annotation.supportedBy.length} onClick={hasSupported ? handleRemoveSupport : handleSupport} />
+          {/* <Tooltip title={annotation.supportedBy.length && annotation.supportedBy.join(', ')}>
+            <div> */}
+              <SupportAction isActive={hasSupported} count={annotation.supportedBy.length} onClick={hasSupported ? handleRemoveSupport : handleSupport} />
+            {/* </div>
+          </Tooltip> */}
           <ContestAction isActive={hasContested} count={annotation.contestedBy.length} onClick={hasContested ? handleRemoveContest : handleContest} />
           <CommentAction isActive={hasCommented} count={comments.length} onClick={() => setShowComments(!showComments)} />
         </ActionBar>
@@ -127,7 +134,7 @@ const Card = ({ user, signHeaders, annotation, onSupport, onContest, onRemoveSup
       {showComments && <CommentWrapper>
         {user && <CommentForm signHeaders={signHeaders} id={annotation.id} onCreate={fetchComments} />}
         {comments.map((comment) => (
-          <Comment comment={comment} onDelete={handleCommentDelete} signHeaders={signHeaders} key={comment.id} userName={user?.userName} isExpired={isExpired} />
+          <Comment comment={comment} onDelete={handleCommentDelete} signHeaders={signHeaders} key={comment.id} userName={user?.userName} isExpired={!user} />
         ))}
       </CommentWrapper>}
     </AnnotationWrapper>

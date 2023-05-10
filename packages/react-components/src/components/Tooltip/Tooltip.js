@@ -27,10 +27,10 @@ export function Tooltip({ children, title, placement, ...props }) {
       <TooltipReference {...tooltip} ref={children.ref} {...children.props}>
         {(referenceProps) => React.cloneElement(children, referenceProps)}
       </TooltipReference>
-      <TooltipContent {...tooltip} {...props} css={styles.tooltip({theme})}>
+      {!!title && <TooltipContent {...tooltip} {...props} css={styles.tooltip({theme})}>
         <TooltipArrow {...tooltip} css={styles.tooltipArrow}/>
         <div>{title}</div>
-      </TooltipContent>
+      </TooltipContent>}
     </>
   );
 }

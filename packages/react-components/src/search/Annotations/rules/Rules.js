@@ -10,6 +10,7 @@ import { filter2v1 } from '../../../dataManagement/filterAdapter';
 import axios from '../../../dataManagement/api/axios';
 import SearchContext from '../../SearchContext';
 import UserContext from '../../../dataManagement/UserProvider/UserContext';
+import env from '../../../../.env.json';
 
 /*
 This component is a widget that allows the user to search for annotations. 
@@ -31,7 +32,7 @@ function RulesWrapper(props) {
     const fetchAnnotations = async () => {
       const { v1Filter, error } = filter2v1(currentFilterContext.filter, predicateConfig);
       const filter = { ...v1Filter, ...rootPredicate };
-      const response = await (axios.get('http://labs.gbif.org:7013/v1/occurrence/annotation/rule', { params: filter })).promise;
+      const response = await (axios.get(`${env.ANNOTATION_API}/occurrence/annotation/rule`, { params: filter })).promise;
       setAnnotations(response.data);
     };
 

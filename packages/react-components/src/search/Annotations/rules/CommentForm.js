@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { css } from '@emotion/react';
 import axios from 'axios';
 import { MdSend } from 'react-icons/md';
+import env from '../../../../.env.json';
 
 export const CommentForm = ({ id, signHeaders, onCreate }) => {
   const [commentText, setCommentText] = useState('');
@@ -10,7 +11,7 @@ export const CommentForm = ({ id, signHeaders, onCreate }) => {
     event.preventDefault();
     try {
       const response = await axios.post(
-        `http://labs.gbif.org:7013/v1/occurrence/annotation/rule/${id}/comment`,
+        `${env.ANNOTATION_API}/occurrence/annotation/rule/${id}/comment`,
         {
           comment: commentText,
         },

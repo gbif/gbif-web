@@ -119,7 +119,7 @@ function AnnotationForm({ polygons, setPolygons, onClose, onCreate, ...props }) 
       if (geometry === '') throw new Error('Geometry is required');
 
       const res = await (axios.post(
-        'http://labs.gbif.org:7013/v1/occurrence/annotation/rule',
+        `${env.ANNOTATION_API}/occurrence/annotation/rule`,
         annotationRule,
         {
           headers: signHeaders()
@@ -129,7 +129,7 @@ function AnnotationForm({ polygons, setPolygons, onClose, onCreate, ...props }) 
         const commentData = { comment };
 
         const commentRes = await (axios.post(
-          `http://labs.gbif.org:7013/v1/occurrence/annotation/rule/${res.data.id}/comment`,
+          `${env.ANNOTATION_API}/occurrence/annotation/rule/${res.data.id}/comment`,
           commentData,
           {
             headers: signHeaders()
@@ -143,12 +143,12 @@ function AnnotationForm({ polygons, setPolygons, onClose, onCreate, ...props }) 
     }
   };
 
-  const { geojson: geoJsonString, error: wktError } = getFeature(polygons[0] || '');
+  const { geojson, error: wktError } = getFeature(polygons[0] || '');
 
   return (
     <>
       <div>
-        <MapWithGeoJSON type={annotationType.value} geojson={JSON.parse(geoJsonString)} style={{width: '100%', height: '300px'}}/>
+        <MapWithGeoJSON type={annotationType.value} geojson={geojson} style={{width: '100%', height: '300px'}}/>
       </div>
       <form onSubmit={handleSubmit}>
         <div css={css`background: white; border-radius: 4px; margin: 12px; border: 1px solid var(--paperBorderColor);`}>

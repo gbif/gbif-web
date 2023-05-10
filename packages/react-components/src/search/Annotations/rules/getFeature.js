@@ -9,7 +9,7 @@ export default function getFeature(wktStr) {
   try {
     const feature = format.readFeature(wktStr);
     const geoJsonString = new GeoJSON().writeFeature(feature);
-    return { geojson: geoJsonString };
+    return { geojson: JSON.parse(geoJsonString) };
   } catch (e) {
     return { geojson: null, error: e };
   }

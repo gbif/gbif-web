@@ -9,7 +9,7 @@ export default {
   component: Annotations
 };
 
-export const Example = () => <Router initialEntries={[`/annotations?taxonKey=5219404`]}>
+export const Example = () => <Router initialEntries={[`/annotations?taxonKey=2434454`]}>
   <QueryParamProvider ReactRouterRoute={Route}>
     <AddressBar />
     <Annotations />

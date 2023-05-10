@@ -22,10 +22,10 @@ import * as css from './map.styles';
 import useMapConfig from './useMapConfig';
 import useOccurrenceLayer from './useOccurrenceLayer';
 
-function Map({ mapConfig, mapProps, AdditionalButtons, ...props }) {
+function Map({ mapSettings, basemapParams, mapProps, AdditionalButtons, ...props }) {
   const dialog = useDialogState({ animated: true, modal: false });
   const theme = useContext(ThemeContext);
-  const { layerButton, projectionsButton, basemapOptions, mapConfiguration } = useMapConfig({ mapConfig });
+  const { layerButton, projectionsButton, basemapOptions, mapConfiguration } = useMapConfig({ mapSettings });
   const { labelMap, query, q, pointData, pointError, pointLoading, loading, total, predicateHash, registerPredicate, loadPointData, defaultMapSettings } = useOccurrenceLayer();
 
   const [latestEvent, broadcastEvent] = useState();
@@ -69,9 +69,9 @@ function Map({ mapConfig, mapProps, AdditionalButtons, ...props }) {
           <Button appearance="text" onClick={() => broadcastEvent({ type: 'ZOOM_OUT' })}><MdZoomOut /></Button>
           {projectionsButton}
           {layerButton}
-          <AdditionalButtons emitEvent={eventType => broadcastEvent({ type: eventType })}/>
+          {AdditionalButtons && <AdditionalButtons emitEvent={eventType => broadcastEvent({ type: eventType })}/>}
         </div>
-        <MapComponent mapConfig={mapConfiguration.mapConfig} latestEvent={latestEvent} defaultMapSettings={defaultMapSettings} predicateHash={predicateHash} q={q} css={css.mapComponent({ theme })} theme={theme} query={query} onMapClick={e => showList(false)} onPointClick={data => { showList(true); loadPointData(data) }} registerPredicate={registerPredicate} {...mapProps} />
+        <MapComponent basemapParams={basemapParams} mapConfig={mapConfiguration.mapConfig} latestEvent={latestEvent} defaultMapSettings={defaultMapSettings} predicateHash={predicateHash} q={q} css={css.mapComponent({ theme })} theme={theme} query={query} onMapClick={e => showList(false)} onPointClick={data => { showList(true); loadPointData(data) }} registerPredicate={registerPredicate} {...mapProps} />
       </div>
     </div>
   </>;
