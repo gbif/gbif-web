@@ -5,7 +5,7 @@ import { useQuery } from '../../../../dataManagement/api';
 import { filter2predicate } from '../../../../dataManagement/filterAdapter';
 import Geohash from 'latlon-geohash';
 
-function useOccurrenceLayer({ SearchContext = OccurrenceContext } = {}) {
+function useOccurrenceLayer({ SearchContext = OccurrenceContext, predicate: controlledPredicate } = {}) {
   const currentFilterContext = useContext(FilterContext);
   const { labelMap, rootPredicate, predicateConfig, more } = useContext(SearchContext);
   const { data, error, loading, load } = useQuery(OCCURRENCE_MAP, { lazyLoad: true, throwAllErrors: true, queryTag: 'map' });
@@ -16,22 +16,26 @@ function useOccurrenceLayer({ SearchContext = OccurrenceContext } = {}) {
     loadHashAndCount({
       filter: currentFilterContext.filter,
       predicateConfig,
-      rootPredicate
+      rootPredicate,
+      controlledPredicate
     });
-  }, [currentFilterContext.filterHash, rootPredicate, predicateConfig]);
+  }, [currentFilterContext.filterHash, rootPredicate, predicateConfig, controlledPredicate]);
 
-  const loadHashAndCount = useCallback(({ filter, predicateConfig, rootPredicate }) => {
-    const predicate = {
-      type: 'and',
-      predicates: [
-        rootPredicate,
-        filter2predicate(filter, predicateConfig),
-        {
-          type: 'equals',
-          key: 'hasCoordinate',
-          value: true
-        }
-      ].filter(x => x)
+  const loadHashAndCount = useCallback(({ filter, predicateConfig, rootPredicate, controlledPredicate }) => {
+    let predicate = controlledPredicate;
+    if (typeof predicate !== 'object') {
+      predicate = {
+        type: 'and',
+        predicates: [
+          rootPredicate,
+          filter2predicate(filter, predicateConfig),
+          {
+            type: 'equals',
+            key: 'hasCoordinate',
+            value: true
+          }
+        ].filter(x => x)
+      };
     }
     load({ keepDataWhileLoading: true, variables: { predicate } });
   }, []);

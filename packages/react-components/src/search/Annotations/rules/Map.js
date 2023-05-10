@@ -15,7 +15,7 @@ import SearchContext from '../../SearchContext';
 import { MdDeleteOutline as DeleteIcon, MdDraw } from 'react-icons/md';
 
 import { FilterContext } from '../../../widgets/Filter/state';
-import { filter2v1 } from '../../../dataManagement/filterAdapter';
+import { filter2predicate, filter2v1 } from '../../../dataManagement/filterAdapter';
 import { Button } from '../../../components';
 import UserContext from '../../../dataManagement/UserProvider/UserContext';
 
@@ -30,6 +30,7 @@ const mapConfig = {
 
 const Map = ({ data, polygons, setPolygons, onPolygonSelect }) => {
   const { user } = useContext(UserContext);
+  const [predicate, setPredicate] = useState();
   const [params, setParams] = useState({});
   const [basemapParams, setBasemapParams] = useState({});
   const [drawActive, setDrawState] = useState(false);
@@ -84,6 +85,30 @@ const Map = ({ data, polygons, setPolygons, onPolygonSelect }) => {
     setParams(filter);
     setBasemapParams({ taxonKey: filter.taxonKey });
     setSelectedFeatures();
+    
+    // remove projectId from filter
+    const prunedFilter = { ...currentFilterContext.filter };
+    delete prunedFilter?.must?.projectId;
+    // construct controlled predicate for map presentation
+    const predicate = {
+      type: 'and',
+      predicates: [
+        rootPredicate,
+        filter2predicate(prunedFilter, predicateConfig),
+        {
+          type: 'equals',
+          key: 'hasCoordinate',
+          value: true
+        },
+        {
+          type: 'equals',
+          key: 'hasGeospatialIssue',
+          value: false
+        }
+      ].filter(x => x)
+    };
+    setPredicate(predicate);
+    console.log('predicate', predicate);
   }, [currentFilterContext.filterHash]);
 
   useEffect(() => {
@@ -151,7 +176,9 @@ const Map = ({ data, polygons, setPolygons, onPolygonSelect }) => {
   }, [map, data, drawActive]);
 
   return <>
-    <MapPresentation mapSettings={mapConfig}
+    <MapPresentation 
+      mapSettings={mapConfig}
+      predicate={predicate}
       basemapParams={basemapParams}
       params={params}
       query={params}
@@ -250,7 +277,6 @@ function createMultiPolygonFromWKTs(wkts) {
   // return the WKT multipolygon
   return [wktMultiPolygon];
 }
-
 
 const popup = css`
   position: absolute;

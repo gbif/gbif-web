@@ -49,6 +49,13 @@ function RulesWrapper(props) {
     }
   }, [currentFilterContext.filterHash]);
 
+  // on unmount, clear the filter
+  useEffect(() => {
+    return () => {
+      currentFilterContext.setFilter({});
+    }
+  }, []);
+
   const handlePolygonSelect = useCallback((annotation, annotationList) => {
     setActiveAnnotations(annotationList);
   }, []);

@@ -65,13 +65,17 @@ router.get('/3857/gbif-raster-hillshade', (req, res, next) => {
 // GBIF Raster IUCN
 router.get('/4326/gbif-raster-iucn', async (req, res, next) => {
   const taxonKey = req.query.taxonKey;
-  let query = {...req.query};
+  let query = { ...req.query };
   if (taxonKey && !query.iucnTaxonID) {
-    // fetch the IUCN Redlist category, and from that the species entry. From there we can get to the taxonID that is used in the map tiles
-    const iucnRedListCategory = (await axios.get(`https://api.gbif.org/v1/species/${taxonKey}/iucnRedListCategory`)).data;
-    const iucnSpecies = (await axios.get(`https://api.gbif.org/v1/species/${iucnRedListCategory.usageKey}`)).data;
-    const iucnTaxonID = iucnSpecies.taxonID;
-    query.iucnTaxonID = iucnTaxonID;
+    try {
+      // fetch the IUCN Redlist category, and from that the species entry. From there we can get to the taxonID that is used in the map tiles
+      const iucnRedListCategory = (await axios.get(`https://api.gbif.org/v1/species/${taxonKey}/iucnRedListCategory`)).data;
+      const iucnSpecies = (await axios.get(`https://api.gbif.org/v1/species/${iucnRedListCategory.usageKey}`)).data;
+      const iucnTaxonID = iucnSpecies.taxonID;
+      query.iucnTaxonID = iucnTaxonID;
+    } catch (err) {
+      console.log(err);
+    }
   }
   returnTemplate(req, res, next, gbifRasterIUCN4326, query);
 });

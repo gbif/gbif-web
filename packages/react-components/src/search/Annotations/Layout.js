@@ -11,9 +11,8 @@ import { FilterBar } from '../FilterBar';
 // import FilterBar from './FilterBar';
 import { FormattedMessage } from 'react-intl';
 import RulesWrapper from './rules/Rules';
-import UserContext from '../../dataManagement/UserProvider/UserContext';
-
-const { TabList, Tab, TabPanel } = Tabs;
+import ProjectWrapper from './projects/Projects';
+import { StringParam, useQueryParam } from 'use-query-params';
 
 const Layout = ({
   className = '',
@@ -21,7 +20,7 @@ const Layout = ({
   Table,
   ...props
 }) => {
-  const [activeView, setActiveView] = useState('RULES');
+  const [activeView = 'RULES', setActiveView] = useQueryParam('view', StringParam);
   const theme = useContext(ThemeContext);
   const prefix = theme.prefix || 'gbif';
   const elementName = 'searchLayout';
@@ -37,12 +36,13 @@ const Layout = ({
             <NavItem label={<FormattedMessage id="search.tabs.projects" defaultMessage="Projects" />} data-targetid="projects" onClick={e => setActiveView('PROJECTS')} isActive={activeView === 'PROJECTS'} />
           </NavBar>
         </DataHeader>
-        <div css={cssFilter({ theme })}>
+        {activeView === 'RULES' && <div css={cssFilter({ theme })}>
           <FilterBar config={config}></FilterBar>
-        </div>
+        </div>}
       </div>
       <div css={cssViewArea({ theme })}>
-        <RulesWrapper />
+        {activeView === 'RULES' && <RulesWrapper />}
+        {activeView === 'PROJECTS' && <ProjectWrapper />}
       </div>
     </Tabs>
   </div>
