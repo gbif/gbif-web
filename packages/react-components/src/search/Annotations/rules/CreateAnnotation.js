@@ -18,7 +18,7 @@ const suggestConfig = {
   placeholder: 'Load geometry from GADM',
   // how to get the list of suggestion data
   getSuggestions: ({ q }) => {
-    const { promise, cancel } = axios.get(`http://api.gbif.org/v1/geocode/gadm/search?limit=100&q=${q}`);
+    const { promise, cancel } = axios.get(`${env.API_V1}/geocode/gadm/search?limit=100&q=${q}`);
     return {
       promise: promise.then(response => {
         return {
