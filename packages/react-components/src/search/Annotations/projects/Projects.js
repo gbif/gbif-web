@@ -1,12 +1,12 @@
 import { jsx, css } from '@emotion/react';
-import React, { useState, useCallback, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Button, ErrorBoundary } from '../../../components';
 import { FormattedNumber } from 'react-intl';
 import { FilterContext } from '../../../widgets/Filter/state';
-import { filter2v1 } from '../../../dataManagement/filterAdapter';
 import axios from '../../../dataManagement/api/axios';
 import UserContext from '../../../dataManagement/UserProvider/UserContext';
 import env from '../../../../.env.json';
+import { StringParam, useQueryParam } from 'use-query-params';
 
 /*
 This component is a widget that allows the user to search for annotation projects. 
@@ -14,7 +14,8 @@ When clicking a project, the user can view the annotations associated with that 
  */
 function ProjectWrapper(props) {
   const [projects, setProjects] = useState([]);
-  const currentFilterContext = useContext(FilterContext);
+  const { setField } = useContext(FilterContext);
+  const [activeView, setActiveView] = useQueryParam('view', StringParam);
 
   useEffect(() => {
     let cancelPending = null;
@@ -47,7 +48,10 @@ function ProjectWrapper(props) {
           >li {
             margin-bottom: 12px;
           }`}>
-          {projects.map(x => <li key={x.id}><Project project={x} /></li>)}
+          {projects.map(x => <li key={x.id}><Project project={x} addProjectFilter={(id) => {
+            setField('projectId', [id]);
+            setActiveView('RULES');
+          }} /></li>)}
         </ul>
       </div>
     </div>
@@ -57,8 +61,8 @@ function ProjectWrapper(props) {
 export default ProjectWrapper;
 
 
-function Project({ project, ...props }) {
-  return <article css={css`background: white; border-radius: 4px;`}>
+function Project({ project, addProjectFilter, ...props }) {
+  return <article css={css`background: white; border-radius: 4px;`} onClick={() => addProjectFilter(project.id)}>
     <div css={css`padding: 8px;`}>
       <h1>Legume</h1>
       <p>Suggested annotations for data dealing with faberceae</p>
