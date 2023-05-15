@@ -11,13 +11,24 @@ import {FormattedNumber} from "react-intl";
 import {useQuery} from "../../../../dataManagement/api";
 import * as style from "../List/style";
 
+
+function DownloadSkeleton() {
+  return <div css={style.datasetSkeleton}>
+    <Skeleton width="random" style={{ height: '1.5em' }} />
+    <Skeleton width="random" />
+    <Skeleton width="random" />
+    <Skeleton width="random" />
+  </div>
+}
+
+
 export const DownloadPresentation = ({ more, size, data, total, loading }) => {
 
   const dialog = useDialogState({ animated: true, modal: false });
-  const items = data?.eventSearch?.facet?.datasetKey || [];
+  const items = data?.downloadsList?.facet?.datasetKey || [];
 
   if (loading){
-    return <>Loading...</>;
+    return <DownloadSkeleton />;
   }
 
   if (!items || items.length == 0){

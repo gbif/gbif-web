@@ -1,14 +1,14 @@
 import React, { useEffect, useContext, useState, useCallback } from "react";
 import { FilterContext } from '../../../../widgets/Filter/state';
-import EventContext from '../../../SearchContext';
 import { useQuery } from '../../../../dataManagement/api';
 import { filter2predicate } from '../../../../dataManagement/filterAdapter';
 import { DownloadPresentation } from './DownloadPresentation';
 import { ErrorBoundary } from "../../../../components";
+import SearchContext from "../../../SearchContext";
 
 const DOWNLOADS = `
-query list($predicate: Predicate, $limit: Int){
-  eventSearch(
+query downloads($predicate: Predicate, $limit: Int){
+  downloadsList: eventSearch(
     predicate:$predicate,
     ) {
     facet {
@@ -36,7 +36,7 @@ function Downloads() {
 
   const [size, setSize] = useState(200);
   const currentFilterContext = useContext(FilterContext);
-  const { rootPredicate, predicateConfig } = useContext(EventContext);
+  const { rootPredicate, predicateConfig } = useContext(SearchContext);
   const { data, error, loading, load } = useQuery(DOWNLOADS, { lazyLoad: false, queryTag: 'downloads' });
 
   useEffect(() => {
