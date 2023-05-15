@@ -1,7 +1,7 @@
 import React, {useEffect, useCallback, useContext, useState} from 'react';
 import { useUpdateEffect } from 'react-use';
 import SearchContext from '../../../SearchContext';
-import {Button, Col, DetailsDrawer, Row, Skeleton} from '../../../../components';
+import {Button, Col, DetailsDrawer, Row, Skeleton, Tag, Tags} from '../../../../components';
 import { useQuery } from '../../../../dataManagement/api';
 import * as style from "../List/style";
 import { FilterContext } from "../../../../widgets/Filter/state";
@@ -300,39 +300,59 @@ function Survey({ eventID, setActiveEvent, filters, ...props }) {
     return <article>
         <div css={style.summary}>
             <Row>
-                <Col style={{ width: '600px' }}>
+                <Col>
                     <Button look="link">
                         <h2 css={css` font-size: 1.4rem;`} onClick={onClick}>{event.eventType?.concept}: {event.eventName} {event.eventID}</h2>
                     </Button>
-                    <div css={style.details} style={{ fontSize: "16px"}}>
-                        <div>Dataset: <span>{event.datasetTitle}</span></div>
-                        <div>Sites: <span>{cardinality.locationID?.toLocaleString()}</span></div>
-                        {facet.samplingProtocol && facet.samplingProtocol.length > 0 &&
-                            <div>Sampling protocol: <span>{facet.samplingProtocol.map(x => x.key).join(', ')}</span>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', flex: '0 0 100%'}}>
+                        <div style={{ flex: '1 30%',  width: '100%', flexShrink: 0, boxSizing: 'border-box'}}>
+                            <div css={style.details} style={{ fontSize: "18px", paddingRight: '20px', borderRight: '1px solid #E6E6E6' }}>
+                                <div>Dataset: <span>{event.datasetTitle}</span></div>
+                                <div>Sites: <span>{cardinality.locationID?.toLocaleString()}</span></div>
+                                {facet.samplingProtocol && facet.samplingProtocol.length > 0 &&
+                                    <div>Sampling protocol: <span>{facet.samplingProtocol.map(x => x.key).join(', ')}</span>
+                                    </div>
+                                }
+                                {hasOccurrenceData && <div style={{ marginTop: '20px'}}>
+                                        {hasPresenceData && hasAbsenceData &&
+                                            <Tag type="light">Species presence and absence data </Tag>
+                                        }
+                                        {hasPresenceData && !hasAbsenceData &&
+                                            <Tag type="light">Species presence data only </Tag>
+                                        }
+                                        {!hasPresenceData && hasAbsenceData &&
+                                            <Tag type="light">Species absence data only </Tag>
+                                        }
+                                    </div>
+                                }
                             </div>
-                        }
-                        {hasOccurrenceData &&
-                            <div>Occurrence data: <span>
-                            {hasPresenceData && hasAbsenceData &&
-                                <span>Species presence and absence data </span>
+                        </div>
+                        <div css={style.details} style={{ paddingLeft: '20px', fontSize: '16px', flex: '1 30%',  flexShrink: 0, width: '100%', boxSizing: 'border-box'}}>
+                            {event.temporalCoverage?.gte &&
+                                <div>Start date: <span>{event.temporalCoverage?.gte}</span></div>
                             }
-                                {hasPresenceData && !hasAbsenceData &&
-                                    <span>Species presence data only </span>
+                            {event.temporalCoverage?.lte &&
+                                <div style={{ marginTop: '10px'}}>End date: <span>{event.temporalCoverage?.lte}</span> </div>
+                            }
+                            {facet.measurementOrFactTypes && facet.measurementOrFactTypes.length > 0 &&
+                                <div style={{
+                                    marginTop: "8px",
+                                }}><div style={{ marginBottom: '10px'}}>Measurements</div>
+                                    <Tags style={{fontSize: '12px'}}>
+                                        {facet.measurementOrFactTypes.map(x => <Tag key={x.key} type="light" outline={true}>{x.key}</Tag>)}
+                                    </Tags>
+                                </div>
+                            }
+                        </div>
+                        <div style={{ fontSize: '16px',flex: '1 40%',  flexShrink: 0, width: '100%', boxSizing: 'border-box'}}>
+                            <div style={{ float: 'right' }}>
+                                {extent && geojson &&
+                                    <img
+                                        src={`https://api.mapbox.com/styles/v1/mapbox/light-v10/static/geojson(${JSON.stringify(geojson)})/${JSON.stringify(extent)}/400x250?access_token=${env.MAPBOX_KEY}`}/>
                                 }
-                                {!hasPresenceData && hasAbsenceData &&
-                                    <span>Species absence data only </span>
-                                }
-                            </span>
                             </div>
-                        }
+                        </div>
                     </div>
-                    {facet.measurementOrFactTypes && facet.measurementOrFactTypes.length > 0 &&
-                        <div style={{
-                            marginTop: "8px",
-                            maxWidth: "500px"
-                        }}>Measurements: <span>{facet.measurementOrFactTypes.map(x => x.key).join(', ')}</span></div>
-                    }
-                    <br/>
                     <Button
                         onClick={() => filterByThisSurvey(event)}
                         look="primaryOutline"
@@ -340,22 +360,7 @@ function Survey({ eventID, setActiveEvent, filters, ...props }) {
                     </Button>
                 </Col>
                 <Col>
-                    <div css={style.details} style={{ paddingTop: '35px', fontSize: '16px', float: 'right'}}>
-                        {event.temporalCoverage?.gte &&
-                            <div>Start date: <span>{event.temporalCoverage?.gte}</span></div>
-                        }
-                        {event.temporalCoverage?.lte &&
-                            <div style={{ marginTop: '10px'}}>End date: <span>{event.temporalCoverage?.lte}</span> </div>
-                        }
-                    </div>
-                </Col>
-                <Col>
-                    <div style={{ float: 'right' }}>
-                    {extent && geojson &&
-                        <img
-                            src={`https://api.mapbox.com/styles/v1/mapbox/light-v10/static/geojson(${JSON.stringify(geojson)})/${JSON.stringify(extent)}/400x250?access_token=${env.MAPBOX_KEY}`}/>
-                    }
-                    </div>
+
                 </Col>
             </Row>
         </div>

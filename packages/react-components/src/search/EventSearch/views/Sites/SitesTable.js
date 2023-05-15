@@ -6,7 +6,6 @@ import {Skeleton} from "../../../../components";
 import { FormattedMessage } from "react-intl";
 import {useGraphQLContext} from "../../../../dataManagement/api/GraphQLContext";
 
-
 function SitesTableSkeleton() {
       return <div className="grid-container">
         <div className="grid">
@@ -39,8 +38,8 @@ export const SitesTable = ({ query, first, prev, next, size, from, results, load
   const [siteData, setSiteData] = useState(null);
   const [years, setYears] = useState([]);
   const [totalPoints, setTotalPoints] = useState([]);
-
   const {details, setQuery} = useGraphQLContext();
+
   useEffect(() => {
     setQuery({ query, size, from });
   }, [query, size, from]);

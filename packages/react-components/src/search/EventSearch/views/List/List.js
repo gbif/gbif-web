@@ -2,7 +2,7 @@ import { css} from '@emotion/react';
 import React, { useEffect, useCallback, useState, useContext } from 'react';
 import { useUpdateEffect } from 'react-use';
 import SearchContext from '../../../SearchContext';
-import {Button, Skeleton, DetailsDrawer, Row, Col} from '../../../../components';
+import {Button, Skeleton, DetailsDrawer, Row, Col, Tag, Tags} from '../../../../components';
 import { useQuery } from '../../../../dataManagement/api';
 import * as style from './style';
 import { FilterContext } from "../../../../widgets/Filter/state";
@@ -154,40 +154,45 @@ function Dataset({ datasetKey, datasetTitle, count, occurrenceCount, events, onC
   }
 
   return <article>
-    <div css={style.summary}>
+    <div css={style.summary} >
       <Button look="link"><h2 style={{ fontSize: "20px"}} onClick={onClick}>{datasetTitle}</h2></Button>
-      <Row>
-        <Col style={{ width: '50px'}}>
-          <div css={style.details} style={{ fontSize: "18px"}}>
+      <div style={{ display: 'flex', flexWrap: 'wrap'}}>
+        <div style={{flex: '1 15%', boxSizing: 'border-box', paddingRight: '10px', borderRight: '1px solid #fcfcfc' }}>
+          <div css={style.details} style={{ fontSize: "18px", borderRight: '1px solid #E6E6E6' }}>
             <div>Events: <span>{documents.total?.toLocaleString()}</span></div>
             <div>Occurrences: <span>{occurrenceCount?.toLocaleString()}</span></div>
             {cardinality.surveyID > 0 &&
                 <div>Surveys: <span>{cardinality.surveyID?.toLocaleString()}</span></div>
             }
             <div>Sites: <span>{cardinality.locationID?.toLocaleString()}</span></div>
-            <Button
-                onClick={() => filterByThisDataset()}
-                look="primaryOutline"
-                css={css` margin-top: 10px; font-size: 14px;`}>Add to filter</Button>
           </div>
-        </Col>
-        <Col style={{ width: '700px'}}>
-          <div css={style.details}>
-            {hasStructure &&
-                <div>Structure:&nbsp;
-                  <span>{structure.join(' → ')}</span>
-                </div>
-            }
-            <div style={{ paddingTop: '5px'}}>Taxonomic scope: <span>{occurrenceFacet.class.map(x => x.key).join(' • ')}</span></div>
-            {hasMeasurements &&
-              <div style={{ paddingTop: '5px'}}>Measurements: <span>{facet.measurementOrFactTypes.map(x => x.key).join(', ')}</span>
+        </div>
+        <div css={style.details} style={{flex: '1 75%', boxSizing: 'border-box', paddingLeft: '5px' }}>
+          <div>
+             <Tags style={{fontSize: '18px'}}>
+                { occurrenceFacet.class.map(x => <Tag key={x.key} type="light" outline={true}>{x.key}</Tag>) }
+             </Tags>
+          </div>
+          {hasMeasurements &&
+            <div style={{ marginTop: '25px'}}>
+              <div style={{ marginBottom: '10px'}}>Measurements</div>
+              <div>
+                <Tags style={{fontSize: '14px'}}>
+                  {facet.measurementOrFactTypes.map(x =>
+                      <Tag key={x.key}  type="light" outline={true} >{x.key}</Tag>
+                  )}
+                </Tags>
               </div>
-            }
-          </div>
-        </Col>
-      </Row>
+            </div>
+          }
+        </div>
+      </div>
+      <Button
+          onClick={() => filterByThisDataset()}
+          look="primaryOutline"
+          css={css` margin-top: 10px; font-size: 14px;`}>Add to filter</Button>
     </div>
-    <div css={style.events}>
+    <div css={style.events} style={{ display: 'none'}}>
       <div css={style.tabularListItem}>
         <div>Event ID</div>
         <div>Event type</div>
