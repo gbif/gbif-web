@@ -6,7 +6,7 @@ import UserContext from '../../../dataManagement/UserProvider/UserContext';
 import env from '../../../../.env.json';
 
 export const AnnotationList = ({ token, annotations, setAnnotations, activeAnnotations, ...props }) => {
-  const { user, signHeaders } = useContext(UserContext);
+  const { user, signHeaders, broadcastLoginEvent } = useContext(UserContext);
   const handleSupport = async (id) => {
     const response = await (axios.post(`${env.ANNOTATION_API}/occurrence/annotation/rule/${id}/support`,
       null,
@@ -96,7 +96,7 @@ export const AnnotationList = ({ token, annotations, setAnnotations, activeAnnot
             onRemoveSupport={handleRemoveSupport}
             onRemoveContest={handleRemoveContest}
             onDelete={handleDelete}
-            {...{user, signHeaders}}
+            {...{user, signHeaders, broadcastLoginEvent}}
           />
         ))}
     </div>

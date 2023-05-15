@@ -1,5 +1,5 @@
 import { jsx, css } from '@emotion/react';
-import React, { useContext, useCallback, useState } from 'react';
+import React, { useContext, useCallback, useState, useEffect } from 'react';
 
 import * as styles from './styles';
 import { Button } from '../Button';
@@ -57,7 +57,14 @@ export function Login({ onSuccessfulLogin = () => { } }) {
 
 export function LoginButton(props) {
   const [open, setOpen] = useState(false);
-  const { user, logout } = useContext(UserContext);
+  const { user, logout, loginEvent } = useContext(UserContext);
+
+  // watch for login events
+  useEffect(() => {
+    if (!user && loginEvent?.type === 'LOGIN_REQUEST') {
+      setOpen(true);
+    }
+  }, [loginEvent]);
   
   if (user) {
     return <Menu

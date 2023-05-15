@@ -13,7 +13,7 @@ import { FilterContext } from '../../../widgets/Filter/state';
 import equal from 'fast-deep-equal/react';
 import env from '../../../../.env.json';
 
-const Card = ({ user, signHeaders, annotation, onSupport, onContest, onRemoveSupport, onRemoveContest, onDelete }) => {
+const Card = ({ broadcastLoginEvent = () => {}, user, signHeaders, annotation, onSupport, onContest, onRemoveSupport, onRemoveContest, onDelete }) => {
   const [comments, setComments] = useState([]);
   const [geometry, setGeometry] = useState({});
   const [showComments, setShowComments] = useState(false);
@@ -38,26 +38,44 @@ const Card = ({ user, signHeaders, annotation, onSupport, onContest, onRemoveSup
   }, []);
 
   const handleSupport = () => {
+    if (!user) {
+      return broadcastLoginEvent({type: 'LOGIN_REQUEST'});
+    }
     onSupport(annotation.id);
   };
 
   const handleContest = () => {
+    if (!user) {
+      return broadcastLoginEvent({type: 'LOGIN_REQUEST'});
+    }
     onContest(annotation.id);
   };
 
   const handleRemoveSupport = () => {
+    if (!user) {
+      return broadcastLoginEvent({type: 'LOGIN_REQUEST'});
+    }
     onRemoveSupport(annotation.id);
   };
 
   const handleRemoveContest = () => {
+    if (!user) {
+      return broadcastLoginEvent({type: 'LOGIN_REQUEST'});
+    }
     onRemoveContest(annotation.id);
   };
 
   const handleDelete = () => {
+    if (!user) {
+      return broadcastLoginEvent({type: 'LOGIN_REQUEST'});
+    }
     onDelete(annotation.id);
   };
 
   const handleCommentDelete = async (id) => {
+    if (!user) {
+      return broadcastLoginEvent({type: 'LOGIN_REQUEST'});
+    }
     const response = await axios.delete(`${env.ANNOTATION_API}/occurrence/annotation/rule/${annotation.id}/comment/${id}`,
       {
         headers: signHeaders(),
@@ -133,6 +151,7 @@ const Card = ({ user, signHeaders, annotation, onSupport, onContest, onRemoveSup
       </CardWrapper>
       {showComments && <CommentWrapper>
         {user && <CommentForm signHeaders={signHeaders} id={annotation.id} onCreate={fetchComments} />}
+        {!user && <div css={css`padding: 12px;`}>Please <Button look="link" onClick={() => broadcastLoginEvent({type: 'LOGIN_REQUEST'})}>login</Button></div>}
         {comments.map((comment) => (
           <Comment comment={comment} onDelete={handleCommentDelete} signHeaders={signHeaders} key={comment.id} userName={user?.userName} isExpired={!user} />
         ))}

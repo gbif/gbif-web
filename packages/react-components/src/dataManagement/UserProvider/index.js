@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useCallback } from 'react';
 import { Base64 } from 'js-base64';
 import UserContext from './UserContext';
 import axios from '../api/axios';
@@ -19,6 +19,7 @@ const useUnmounted = () => {
 
 export function UserProvider(props) {
   const [user, setUser] = React.useState(null);
+  const [loginEvent, setLoginEvent] = React.useState(null);
   const unmounted = useUnmounted();
 
   useEffect(() => {
@@ -129,5 +130,10 @@ export function UserProvider(props) {
     getUser({ reloadIfExpired: false });
   }, []);
 
-  return <UserContext.Provider value={{ logout, login, signHeaders, user, JWT_STORAGE_NAME }} {...props} />
+  // allow user to broadcast login event
+  const broadcastLoginEvent = useCallback((event) => {
+    setLoginEvent(event);
+  }, []);
+
+  return <UserContext.Provider value={{ logout, login, signHeaders, broadcastLoginEvent, loginEvent, user, JWT_STORAGE_NAME }} {...props} />
 }
