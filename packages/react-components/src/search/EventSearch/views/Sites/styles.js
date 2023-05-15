@@ -36,6 +36,7 @@ export const sites = ({ noOfSites=10, noOfYears=10, showMonth, theme, ...props }
 
 .sidebar {
   grid-area: sidebar;
+  // width: 220px;
   list-style-type: none; 
   list-style-position: outside;  
   display: inline-block;  
@@ -50,6 +51,7 @@ export const sites = ({ noOfSites=10, noOfYears=10, showMonth, theme, ...props }
 
 .legend {
   grid-area: legend;
+  // width: 220px;
   padding: 15px 5px 5px 10px; 
   position: sticky;
   top: 0;
@@ -84,7 +86,7 @@ export const sites = ({ noOfSites=10, noOfYears=10, showMonth, theme, ...props }
 
 .sidebar-grid {
   display: grid;
-  grid-template-columns: repeat(1, 165px);
+  // grid-template-columns: repeat(1, 220px);
   grid-column-gap: 0px;
   padding: 5px;
 }

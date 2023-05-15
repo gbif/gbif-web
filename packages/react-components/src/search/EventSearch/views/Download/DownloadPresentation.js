@@ -26,7 +26,7 @@ export const DownloadPresentation = ({ more, size, data, total, loading }) => {
 
   return <>
     <div>
-        <ul key={`dataset_results`} style={{ padding: 0, margin: 0 }}>
+        <ul key={`dataset_results`} style={{ padding: 0, margin: 0, listStyle: 'none' }}>
           {items.length > 0 && items.map((item, index) => <li key={`dataset_results_${item.key}`}>
             <DatasetResult
                 index={index}
