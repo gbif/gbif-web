@@ -86,7 +86,7 @@ export const sites = ({ noOfSites=10, noOfYears=10, showMonth, theme, ...props }
 
 .sidebar-grid {
   display: grid;
-  grid-template-columns: repeat(1, 165px);
+  // grid-template-columns: repeat(1, 220px);
   grid-column-gap: 0px;
   padding: 5px;
 }

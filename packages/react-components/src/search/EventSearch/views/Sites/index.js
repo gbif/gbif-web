@@ -13,6 +13,7 @@ import {useDialogState} from "reakit/Dialog";
 import {ResultsHeader} from "../../../ResultsHeader";
 import {Button} from "../../../../components";
 import {css} from "@emotion/react";
+import Switch from "../../../../components/Switch/Switch";
 
 const QUERY = `
 query list( $predicate: Predicate, $size: Int = 20, $from: Int = 0){
@@ -163,7 +164,6 @@ function Sites() {
     setActiveMonth(month);
   }
 
-
   if (error) {
     return <div>Failed to fetch data</div>
   }
@@ -189,9 +189,8 @@ function Sites() {
       flexDirection: "column"
     }}>
       <ResultsHeader loading={loading} total={data?.results?.temporal?.locationID?.cardinality}>
-          <Button onClick={() => toggleMonthYearDisplay()} look="primaryOutline" css={css`margin-left: 30px; font-size: 11px;`}>
-            Show year / month
-          </Button>
+          <Switch checked={showMonth} style={{fontSize: 18, margin: 0, marginLeft: '20px', marginRight: '5px'}}
+                  onClick={() => toggleMonthYearDisplay()} />  Show months
       </ResultsHeader>
       <SitesTable
           query={QUERY}
