@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect, useContext, useState, useCallback } from "react";
+import { FilterContext } from '../../../../widgets/Filter/state';
+import { useQuery } from '../../../../dataManagement/api';
+import { filter2predicate } from '../../../../dataManagement/filterAdapter';
+import { DownloadPresentation } from './DownloadPresentation';
 import { ErrorBoundary } from "../../../../components";
-import PredicateDataFetcher from "../../../PredicateDataFetcher";
-import {List} from "./List";
+import SearchContext from "../../../SearchContext";
 
-const DOWNLOADS_QUERY = `
+const DOWNLOADS = `
 query downloads($predicate: Predicate, $limit: Int){
   downloadsList: eventSearch(
     predicate:$predicate,
@@ -28,15 +31,42 @@ query downloads($predicate: Predicate, $limit: Int){
   }
 }
 `;
-function Table() {
-  return <PredicateDataFetcher
-      queryProps={{ throwAllErrors: true }}
-      graphQuery={DOWNLOADS_QUERY}
-      queryTag='download'
-      limit={50}
-      presentation={List}
-  />
+
+function Downloads() {
+
+  const [size, setSize] = useState(200);
+  const currentFilterContext = useContext(FilterContext);
+  const { rootPredicate, predicateConfig } = useContext(SearchContext);
+  const { data, error, loading, load } = useQuery(DOWNLOADS, { lazyLoad: false, queryTag: 'downloads' });
+
+  useEffect(() => {
+    const predicate = {
+      type: 'and',
+      predicates: [
+        rootPredicate,
+        filter2predicate(currentFilterContext.filter, predicateConfig)
+      ].filter(x => x)
+    };
+    load({ keepDataWhileLoading: true, variables: { predicate, size } });
+  }, [currentFilterContext.filter, rootPredicate]);
+
+  useEffect(() => {
+    setSize(100);
+  }, [currentFilterContext.filter]);
+
+  const more = useCallback(() => {
+    setSize(size + 100);
+  });
+
+  return <>
+    <DownloadPresentation
+      loading={loading}
+      data={data}
+      more={more}
+      size={size}
+    />
+  </>
 }
 
-export default props => <ErrorBoundary><Table {...props} /></ErrorBoundary>;
+export default props => <ErrorBoundary><Downloads {...props} /></ErrorBoundary>;
 
