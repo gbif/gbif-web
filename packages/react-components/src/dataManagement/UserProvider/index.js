@@ -6,7 +6,8 @@ import env from '../../../.env.json';
 import { deleteCookie, getCookie, setCookie } from '../../utils/util';
 
 const JWT_STORAGE_NAME = 'GBIF_JWT';
-const refreshInterval = 20 * 60 * 1000; // 20 minutes
+const refreshInterval = 10 * 60 * 1000; // 2 minutes
+let refreshTimer = null;
 
 const useUnmounted = () => {
   const unmounted = useRef(false)
@@ -20,6 +21,35 @@ export function UserProvider(props) {
   const [user, setUser] = React.useState(null);
   const unmounted = useUnmounted();
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      console.log('check jwt');
+      // if no user, no need to check
+      if (!user) {
+        clearInterval(interval);
+        return;
+      };
+      // check of jwt has expired
+      const jwt = getCookie(JWT_STORAGE_NAME);
+      if (jwt) {
+        const jwtPayload = JSON.parse(Base64.decode(jwt.split('.')[1]));
+        const now = new Date().getTime();
+        if (now > jwtPayload.exp * 1000) {
+          // jwt has expired
+          logout();
+        }
+      } else {
+        // no jwt
+        logout();
+      }
+    }, 5000);
+    // clean up interval on unmount
+    return () => {
+      console.log('clear interval');
+      clearInterval(interval);
+    }
+  }, [user]);
+
   const signHeaders = (headers = {}) => {
     const jwt = getCookie(JWT_STORAGE_NAME);
     if (jwt) {
@@ -29,6 +59,7 @@ export function UserProvider(props) {
   }
 
   const getUser = async ({ reloadIfExpired }) => {
+    console.log('get user');
     const jwt = getCookie(JWT_STORAGE_NAME);
     if (!jwt) return;
 
@@ -46,9 +77,11 @@ export function UserProvider(props) {
       if (!unmounted?.current) {
         setUser(user);
         refreshToken();
+      } else {
+        if (refreshTimer) clearTimeout(refreshTimer);
       }
     } catch (err) {
-      const statusCode = err.response.status;
+      const statusCode = err?.response?.status;
       if (statusCode < 500) {
         // The jwt is no longer valid - delete the token
         logout();
@@ -60,12 +93,12 @@ export function UserProvider(props) {
   };
 
   // refresh jwt token by calling getUser every 10 minutes
-  let refreshTimer = null;
+  
   const refreshToken = () => {
+    console.log('refresh token');
     if (refreshTimer) clearTimeout(refreshTimer);
     refreshTimer = setTimeout(() => {
       getUser({ reloadIfExpired: false });
-      refreshToken();
     }, refreshInterval);
   }
 
