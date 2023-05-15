@@ -335,7 +335,7 @@ function Survey({ eventID, setActiveEvent, filters, ...props }) {
                         }
                         {facet.measurementOrFactTypes && facet.measurementOrFactTypes.length > 0 &&
                             <div style={{
-                                marginTop: "8px",
+                                marginTop: "20px",
                             }}><div style={{ marginBottom: '10px'}}>Measurements</div>
                                 <Tags style={{fontSize: '12px'}}>
                                     {facet.measurementOrFactTypes.map(x => <Tag key={x.key} type="light" outline={true}>{x.key}</Tag>)}
