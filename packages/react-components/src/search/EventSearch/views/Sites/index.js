@@ -49,12 +49,8 @@ function SitesSkeleton() {
       flexDirection: "column"
     }}>
       <ResultsHeader>
-          <Button look="primaryOutline" css={css`margin-left: 30px; font-size: 11px;`} disabled>
-            Show year / month
-          </Button>
+        <Switch style={{fontSize: 18, margin: 0, marginLeft: '20px', marginRight: '5px'}} disabled /> Show months
       </ResultsHeader>
-
-
       <div className={`grid-container`}>
         <div className={`grid`}>
           <div className={`legend`}>
