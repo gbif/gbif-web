@@ -111,8 +111,8 @@ function AnnotationForm({ polygons, setPolygons, onClose, onCreate, ...props }) 
       };
       annotationRule.annotation = annotationType.value;
       annotationRule?.taxonKey && (annotationRule.taxonKey = Number.parseInt(annotationRule.taxonKey));
-      annotationRule.project = annotationRule.projectId;
-      delete annotationRule.projectId;
+      annotationRule.projectId && (annotationRule.projectId = Number.parseInt(annotationRule.projectId));
+      delete annotationRule.project;
       
       // if no taxonKey and no datasetKey, then throw an error)
       if (!annotationRule.taxonKey && !annotationRule.datasetKey) throw new Error('Taxon or dataset is required');

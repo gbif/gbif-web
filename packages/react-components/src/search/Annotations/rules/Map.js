@@ -87,7 +87,7 @@ const Map = ({ data, polygons, setPolygons, onPolygonSelect }) => {
     setSelectedFeatures();
     
     // remove projectId from filter
-    const prunedFilter = { ...currentFilterContext.filter };
+    const prunedFilter = JSON.parse(JSON.stringify(currentFilterContext.filter));
     delete prunedFilter?.must?.projectId;
     // construct controlled predicate for map presentation
     const predicate = {
