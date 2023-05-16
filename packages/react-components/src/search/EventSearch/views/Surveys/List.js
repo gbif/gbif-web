@@ -299,33 +299,28 @@ function Survey({ eventID, setActiveEvent, filters, ...props }) {
 
     return <article>
         <div css={style.summary}>
-            <Button look="link">
-                <h2 css={css` font-size: 1.4rem;`} onClick={onClick}>{event.eventType?.concept}: {event.eventName} {event.eventID}</h2>
-            </Button>
+
             <div style={{ display: 'flex', width: '100%'}}>
-                <div style={{ flex: '1', flexBasis: '30%'}}>
+                <div style={{ flex: '1', flexBasis: '35%'}}>
                     <div css={style.details} style={{ fontSize: "18px", paddingRight: '20px', borderRight: '1px solid #E6E6E6', height: '100%' }}>
+                        <Button look="link">
+                            <h2 css={css` font-size: 1.4rem;`} onClick={onClick}>{event.eventType?.concept}: {event.eventName} {event.eventID}</h2>
+                        </Button>
                         <div>Dataset: <span>{event.datasetTitle}</span></div>
                         <div>Sites: <span>{cardinality.locationID?.toLocaleString()}</span></div>
                         {facet.samplingProtocol && facet.samplingProtocol.length > 0 &&
-                            <div>Sampling protocol: <span>{facet.samplingProtocol.map(x => x.key).join(', ')}</span>
-                            </div>
+                            <div>Sampling protocol: <span>{facet.samplingProtocol.map(x => x.key).join(', ')}</span></div>
                         }
-                        {hasOccurrenceData && <div style={{ marginTop: '20px'}}>
-                                {hasPresenceData && hasAbsenceData &&
-                                    <Tag type="light">Species presence and absence data </Tag>
-                                }
-                                {hasPresenceData && !hasAbsenceData &&
-                                    <Tag type="light">Species presence data only </Tag>
-                                }
-                                {!hasPresenceData && hasAbsenceData &&
-                                    <Tag type="light">Species absence data only </Tag>
-                                }
-                            </div>
-                        }
+
+                        <Button
+                            style={{ marginTop: '20px' }}
+                            onClick={() => filterByThisSurvey(event)}
+                            look="primaryOutline"
+                            css={css` font-size: 14px;`}>Add to filter
+                        </Button>
                     </div>
                 </div>
-                <div  style={{ flex: '1',  flexBasis: '30%'}}>
+                <div  style={{ flex: '1',  flexBasis: '25%'}}>
                     <div css={style.details} style={{ paddingLeft: '20px', fontSize: '16px'}}>
                         {event.temporalCoverage?.gte &&
                             <div>Start date: <span>{event.temporalCoverage?.gte}</span></div>
@@ -342,22 +337,30 @@ function Survey({ eventID, setActiveEvent, filters, ...props }) {
                                 </Tags>
                             </div>
                         }
+                        {hasOccurrenceData && <div style={{ marginTop: '20px'}}>
+                            {hasPresenceData && hasAbsenceData &&
+                                <Tag type="light">Species presence and absence data </Tag>
+                            }
+                            {hasPresenceData && !hasAbsenceData &&
+                                <Tag type="light">Species presence data only </Tag>
+                            }
+                            {!hasPresenceData && hasAbsenceData &&
+                                <Tag type="light">Species absence data only </Tag>
+                            }
+                        </div>
+                        }
                     </div>
                 </div>
                 <div style={{  flex: '1',  flexBasis: '40%' }}>
                     <div style={{ float: 'right' }}>
                         {extent && geojson &&
                             <img
-                                src={`https://api.mapbox.com/styles/v1/mapbox/light-v10/static/geojson(${JSON.stringify(geojson)})/${JSON.stringify(extent)}/400x250?access_token=${env.MAPBOX_KEY}`}/>
+                                src={`https://api.mapbox.com/styles/v1/mapbox/light-v10/static/geojson(${JSON.stringify(geojson)})/${JSON.stringify(extent)}/350x200?access_token=${env.MAPBOX_KEY}`}/>
                         }
                     </div>
                 </div>
             </div>
-            <Button
-                onClick={() => filterByThisSurvey(event)}
-                look="primaryOutline"
-                css={css` font-size: 14px;`}>Add to filter
-            </Button>
+
         </div>
     </article>;
 }
