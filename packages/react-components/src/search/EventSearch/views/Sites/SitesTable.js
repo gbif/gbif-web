@@ -166,7 +166,7 @@ export const SitesTable = ({ query, first, prev, next, size, from, results, load
                 </div>
                 <div className="sidebar">
                   <div className="sidebar-grid">   
-                   { siteData.map( (obj, i) => <ul><li key={`s_${i}`} onClick={() => { setSiteIDCallback({locationID: obj.key}); }}> { locationIDs.get(obj.key) } {obj.key}</li></ul>) }
+                   { siteData.map( (obj, i) => <ul><li key={`s_${i}`} onClick={() => { setSiteIDCallback({locationID: obj.key}); }}> { locationIDs.get(obj.key) } {obj.key?.substring(0, 18)}</li></ul>) }
                   </div>
                 </div>
                 <div className="main-grid">
