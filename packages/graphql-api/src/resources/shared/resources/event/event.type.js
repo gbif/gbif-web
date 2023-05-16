@@ -27,6 +27,10 @@ export default gql`
     """
     facet(size: Int, from: Int): EventFacet
     """
+    Get number of events per distinct values in two or more fields. E.g. how many events per year.
+    """
+    multifacet(size: Int, from: Int): EventMultiFacet
+    """
     Get number of occurrences per distinct values in a field. E.g. how many occurrence per year.
     """
     occurrenceFacet: EventOccurrenceFacet
@@ -172,6 +176,10 @@ export default gql`
     lineage: [String]
   }
 
+  type EventMultiFacet {
+    locationIDStateProvince(size: Int, include: String): [EventMultiFacetResult_string]
+  }
+
   type EventFacet {
     kingdoms(size: Int, include: String): [EventFacetResult_string]
     phyla(size: Int, include: String): [EventFacetResult_string]
@@ -234,6 +242,13 @@ export default gql`
 
   type EventFacetResult_string {
     key: String!
+    count: Int!
+    events(size: Int, from: Int): EventSearchResult!
+    _predicate: JSON
+  }
+
+  type EventMultiFacetResult_string {
+    keys: [String]
     count: Int!
     events(size: Int, from: Int): EventSearchResult!
     _predicate: JSON

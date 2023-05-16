@@ -6,7 +6,7 @@ function metric2aggs(metrics = {}, config) {
   let aggs = {};
   for (let [name, metric] of Object.entries(metrics)) {
     const conf = _.get(config, `options[${metric.key}]`);
-    if (!conf) continue;
+    if (metric.type != "multifacet" && !conf) continue;
     else {
       if (config?.options?.[metric.key]?.join) {
         aggs[name] = {
@@ -38,6 +38,38 @@ function metric2aggs(metrics = {}, config) {
               include: metric.include
             }
           };
+          if (order) {
+            aggName.terms.order = order;
+          }
+          aggs[name] = aggName;
+
+          break;
+        }
+        case 'multifacet': {
+
+          metric.keys.forEach( key => {
+            const conf = _.get(config, `options[${key}]`);
+            if (!['keyword', 'numeric', 'boolean'].includes(conf.type)) {
+              throw new ResponseError(400, 'badRequest', 'Facets are only supported on keywords, boolean and numeric fields');
+            }
+          });
+
+          let order;
+          if (metric.order) {
+            if (metric.order === 'TERM_ASC') {
+              order = { "_term": "asc" };
+            }
+          }
+
+          let terms = Array();
+          metric.keys.forEach( key => {
+            const conf = _.get(config, `options[${key}]`);
+            terms.push({
+              field: conf.displayField ? conf.displayField : conf.field
+            });
+          });
+
+          let aggName = { multi_terms : { terms: terms, size: size + from } };
           if (order) {
             aggName.terms.order = order;
           }

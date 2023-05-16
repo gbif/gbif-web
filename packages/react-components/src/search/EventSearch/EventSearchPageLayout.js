@@ -49,7 +49,7 @@ const Layout = ({
           </NavBar>
           { eventConfig.enableGraphQLAPI && (activeView === 'DATASETS' || activeView === 'EVENTS' || activeView === 'SITES' || activeView === 'SURVEYS') && <GraphQLApiInfo/>}
       </div>}
-      <div css={cssNavBar({ theme })} style={{ margin: '0 0 10px 0', borderRadius: 0 }}>
+      <div css={cssNavBar({ theme })} style={{ margin: '0 0 10px 0', borderRadius: 0, backgroundColor: '#f6f6f6' }}>
         <DataHeader availableCatalogues={config.availableCatalogues} style={{ borderBottom: '1px solid #ddd' }} />
         <div css={cssFilter({ theme })} >
           <FilterBar config={config}></FilterBar>

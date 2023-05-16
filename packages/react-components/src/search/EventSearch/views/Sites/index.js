@@ -11,20 +11,16 @@ import {DetailsDrawer, Skeleton} from "../../../../components";
 import {SiteSidebar} from "../../../../entities/SiteSidebar/SiteSidebar";
 import {useDialogState} from "reakit/Dialog";
 import {ResultsHeader} from "../../../ResultsHeader";
-import {Button} from "../../../../components";
-import {css} from "@emotion/react";
 import Switch from "../../../../components/Switch/Switch";
 
 const QUERY = `
 query list( $predicate: Predicate, $size: Int = 20, $from: Int = 0){
-  results: eventSearch(
-    predicate:$predicate) {
+  results: eventSearch(predicate:$predicate) {
     temporal {
       locationID(size: $size, from: $from) {
         cardinality
         results {
           key
-          count
           breakdown {
             y 
             c
@@ -35,6 +31,13 @@ query list( $predicate: Predicate, $size: Int = 20, $from: Int = 0){
           }
         } 
       }
+    }
+  }
+  locations: eventSearch(predicate:$predicate) {
+    multifacet(size: $size, from: $from) {
+      locationIDStateProvince {
+        keys
+      }      
     }
   }
 }

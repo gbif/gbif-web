@@ -71,7 +71,7 @@ const switchClass = ({theme, disabled}) => css`
     }
   }
   & input:checked + span {
-    background-color: #2196F3;
+    background-color: ${theme.primary};
   }
   & input:focus + span {
     outline: none;

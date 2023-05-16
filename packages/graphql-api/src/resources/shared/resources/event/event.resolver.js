@@ -4,7 +4,7 @@ import {
   getOccurrenceFacet,
   getStats,
   getTemporal,
-  getCardinality,
+  getCardinality, getMultiFacet,
 } from './helpers/getMetrics';
 import { formattedCoordinates } from '#/helpers/utils';
 import fieldsWithTemporalSupport from './helpers/fieldsWithTemporalSupport';
@@ -96,6 +96,12 @@ export default {
         from: from,
         _predicate: parent._predicate };
     },
+    multifacet: (parent, {size, from}) => {
+      return {
+        size: size,
+        from: from,
+        _predicate: parent._predicate };
+    },
     cardinality: (parent) => {
       return { _predicate: parent._predicate };
     },
@@ -112,6 +118,15 @@ export default {
     },
   },
   EventFacet,
+  EventMultiFacet: {
+    locationIDStateProvince: (parent, query, { dataSources }) => {
+      let result = getMultiFacet(parent, query, {
+        fields: Array('locationID', 'stateProvince'),
+        searchApi: dataSources.eventAPI.searchEvents
+      })
+      return result;
+    }
+  },
   EventOccurrenceFacet,
   EventCardinality: {
     species: (parent, query, { dataSources }) =>

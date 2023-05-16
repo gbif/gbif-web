@@ -103,9 +103,24 @@ query list($datasetKey: JSON){
       }
     }   
     occurrenceFacet {
+      kingdom {
+        key
+      } 
+      phylum {
+        key
+      }            
       class {
         key
+      } 
+      order {
+        key
+      }         
+      family {
+        key
       }    
+      genus {
+        key
+      }            
       samplingProtocol {
         key
       }
@@ -153,6 +168,21 @@ function Dataset({ datasetKey, datasetTitle, count, occurrenceCount, events, onC
     hasStructure = true;
   }
 
+  function getSensibleLevel(occurrenceFacet){
+
+    let levels = Array("kingdom", "phylum", "class", "order", "family", "genus");
+    let result = occurrenceFacet[levels[0]];
+    for (var i = 1; i < levels.length; i++){
+      if (occurrenceFacet[levels[i]] && occurrenceFacet[levels[i]].length < 20){
+        result = occurrenceFacet[levels[i]];
+      } else {
+        break;
+      }
+    }
+    return result;
+  }
+
+
   return <article>
     <div css={style.summary} >
       <Button look="link"><h2 style={{ fontSize: "20px"}} onClick={onClick}>{datasetTitle}</h2></Button>
@@ -168,9 +198,10 @@ function Dataset({ datasetKey, datasetTitle, count, occurrenceCount, events, onC
           </div>
         </div>
         <div css={style.details} style={{flex: '1 75%', boxSizing: 'border-box', paddingLeft: '5px' }}>
+          <div style={{ marginBottom: '10px'}}>Taxonomy</div>
           <div>
              <Tags style={{fontSize: '18px'}}>
-                { occurrenceFacet.class.map(x => <Tag key={x.key} type="light" outline={true}>{x.key}</Tag>) }
+                { getSensibleLevel(occurrenceFacet).map(x => <Tag key={x.key} type="light" outline={true}>{x.key}</Tag>) }
              </Tags>
           </div>
           {hasMeasurements &&
