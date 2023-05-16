@@ -709,17 +709,13 @@ const config =
       type: 'numeric',
       field: 'event.seedbankRecord.seedPerGram',
     },
-    seedbank_sampleWeightInGrams: {
+    seedbank_quantityInGrams: {
       type: 'numeric',
-      field: 'event.seedbankRecord.sampleWeightInGrams',
+      field: 'event.seedbankRecord.quantityInGrams',
     },
-    seedbank_sampleSize: {
+    seedbank_quantityCount: {
       type: 'numeric',
-      field: 'event.seedbankRecord.sampleSize',
-    },
-    seedbank_purityDebrisPercentage: {
-      type: 'numeric',
-      field: 'event.seedbankRecord.purityDebrisPercentage',
+      field: 'event.seedbankRecord.quantityCount',
     },
     seedbank_purityPercentage: {
       type: 'numeric',
@@ -737,9 +733,9 @@ const config =
       type: 'numeric',
       field: 'event.seedbankRecord.storageTemperatureInCelsius',
     },
-    seedbank_relativeHumidityPercentage: {
+    seedbank_storageRelativeHumidityPercentage: {
       type: 'numeric',
-      field: 'event.seedbankRecord.relativeHumidityPercentage',
+      field: 'event.seedbankRecord.storageRelativeHumidityPercentage',
     },
     seedbank_thousandSeedWeight: {
       type: 'numeric',

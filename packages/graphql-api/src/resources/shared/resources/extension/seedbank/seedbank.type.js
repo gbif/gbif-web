@@ -7,16 +7,15 @@ const typeDef = gql`
     accessionNumber: String
     seedPerGram: Float
     formInStorage: String
-    sampleWeightInGrams: Float
-    sampleSize: Int
-    purityDebrisPercentage: Float
+    quantityInGrams: Float
+    quantityCount: Int
     purityPercentage: Float
     dateCollected: Long
     dateInStorage: Long
     storageTemperatureInCelsius: Float
-    relativeHumidityPercentage: Float
+    storageRelativeHumidityPercentage: Float
     publicationDOI: String
-    preStorageTreatmentNotesHistory: String
+    preStorageTreatment: String
     primaryStorageSeedBank: String
     primaryCollector: String
     plantForm: String
@@ -25,11 +24,11 @@ const typeDef = gql`
     thousandSeedWeight: Float
     numberPlantsSampled: String
     storageBehaviour: String
-    embryoType: String
+    esRatio: String
     dormancyClass: String
     testDateStarted: Long
     testLengthInDays: Int
-    collectionFillRate: String
+    collectionFill: String
     numberGerminated: Int
     germinationRateInDays: Int
     adjustedGerminationPercentage: Float
