@@ -38,11 +38,23 @@ export const SitesTable = ({ query, first, prev, next, size, from, results, load
   const [siteData, setSiteData] = useState(null);
   const [years, setYears] = useState([]);
   const [totalPoints, setTotalPoints] = useState([]);
+  const [locationIDs, setLocationIDs] = useState(null);
   const {details, setQuery} = useGraphQLContext();
 
   useEffect(() => {
     setQuery({ query, size, from });
   }, [query, size, from]);
+
+  //TODO move to i18n
+  const stateProvinces = {
+    "new south wales": "NSW",
+    "victoria": "VIC",
+    "australian capital territory": "ACT",
+    "northern territory": "NT ",
+    "queensland": "QLD",
+    "western australia": "WA ",
+    "tasmania": "TAS"
+  }
 
   Array.range = (start, end) => Array.from({length: (end + 1 - start)}, (v, k) => k + start);
 
@@ -55,6 +67,12 @@ export const SitesTable = ({ query, first, prev, next, size, from, results, load
     
     let items = results;
     if (items && items.results?.temporal?.locationID?.results){
+
+      const locationIDLookup = new Map();
+
+      items.locations.multifacet.locationIDStateProvince.forEach(details => {
+        locationIDLookup.set(details.keys[0], stateProvinces[details.keys[1]?.toLowerCase()]);
+      });
 
       let site_data = items.results.temporal.locationID?.results;
       let all_years = [];
@@ -111,6 +129,7 @@ export const SitesTable = ({ query, first, prev, next, size, from, results, load
         })
       })
 
+      setLocationIDs(locationIDLookup);
       setYears(year_range);
       setSiteMatrix(site_matrix);
       setSiteData(site_data);
@@ -147,7 +166,7 @@ export const SitesTable = ({ query, first, prev, next, size, from, results, load
                 </div>
                 <div className="sidebar">
                   <div className="sidebar-grid">   
-                   { siteData.map( (obj, i) => <ul><li key={`s_${i}`} onClick={() => { setSiteIDCallback({locationID: obj.key}); }}>{obj.key}</li></ul>) }
+                   { siteData.map( (obj, i) => <ul><li key={`s_${i}`} onClick={() => { setSiteIDCallback({locationID: obj.key}); }}> { locationIDs.get(obj.key) } {obj.key}</li></ul>) }
                   </div>
                 </div>
                 <div className="main-grid">
