@@ -94,6 +94,7 @@ export default gql`
     eventTypeHierarchy: [String]
     eventTypeHierarchyJoined: String
     eventHierarchyLevels: Int
+    eventRemarks: String
     locationID: String
     """
     get dataset information via EML

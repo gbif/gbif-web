@@ -12,6 +12,11 @@ function reduce(item) {
   const source = item._source;
   const { event } = source;
 
+  // Additional event verbatim fields
+  const eventVerbatim = removeUndefined({
+    eventRemarks: source.verbatim.core['http://rs.tdwg.org/dwc/terms/eventRemarks']
+  });
+
   // Handle seedbank extension
   let seedbankRecord;
   const seedbankExtension = source.verbatim.extensions?.['http://ala.org.au/terms/seedbank/0.1/SeedbankRecord'];
@@ -69,6 +74,7 @@ function reduce(item) {
     ...source.event,
     ...source.metadata,
     ...source.derivedMetadata,
+    ...eventVerbatim,
     seedbankRecord
   });
 }
