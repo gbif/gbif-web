@@ -896,13 +896,16 @@
 <div class="container-fluid" id="main" style="padding: 0">
   <div id="root"></div>
   <script>
-    let authServer =  'https://auth.ala.org.au/cas/oidc';
+    let authServer = 'https://auth.ala.org.au/';
+    let authServerOidc = "";
     let authClientID = 'events-oidc-auth-prod'
     let baseUrl = 'https://events.ala.org.au/'
     let collectionsServer =  'https://collections.ala.org.au'
 
+
     if (typeof config != "undefined") {
-      authServer = config?.authServer || authServer;
+      authServer = config?.authServer || authServer
+      authServerOidc = (config?.authServer || authServer) + "cas/oidc";
       authClientID = config?.authClientID || authClientID
       baseUrl = config?.baseUrl || baseUrl
       collectionsServer = config?.collectionsServer || collectionsServer
@@ -912,11 +915,11 @@
     // Auth client related
     const authManager = new oidc.UserManager({
       client_id: authClientID,
-      authority: authServer,
+      authority: authServerOidc,
       userStore: new oidc.WebStorageStateStore({ store: localStorage }),
       //The uri must comply with CAS and Api GW audience setting.
       redirect_uri: baseUrl,
-      scope: 'oidc profile email'
+      scope: 'openid profile email'
     });
 
     // Redirect to the previous page after login
@@ -965,6 +968,11 @@
       const logoutBtn = $('.account > .logoutBtn');
       const signUpBtn = $('.account > .signUpBtn');
       const myProfileBtn = $('.account > .myProfileBtn');
+
+      signUpBtn.attr("href", authServer + "userdetails/registration/createAccount");
+      myProfileBtn.attr("href", authServer + "userdetails/myprofile/");
+      // https://auth.ala.org.au/cas/login?service=https://events.ala.org.au
+      loginBtn.attr("href", authServer + "cas/login?service=" + baseUrl);
 
       if ((await authManager.getUser()) !== null) {
         loginBtn.hide();
