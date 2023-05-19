@@ -7,7 +7,7 @@ import {useQuery} from "../../../../dataManagement/api";
 import hash from "object-hash";
 import {filter2predicate} from "../../../../dataManagement/filterAdapter";
 import {useUpdateEffect} from "react-use";
-import {DetailsDrawer, Skeleton} from "../../../../components";
+import {DetailsDrawer, ErrorBoundary, Skeleton} from "../../../../components";
 import {SiteSidebar} from "../../../../entities/SiteSidebar/SiteSidebar";
 import {useDialogState} from "reakit/Dialog";
 import {ResultsHeader} from "../../../ResultsHeader";
@@ -209,4 +209,4 @@ function Sites() {
   </>
 }
 
-export default Sites;
+export default props => <ErrorBoundary><Sites {...props} /></ErrorBoundary>;
