@@ -87,7 +87,7 @@
   </script>
 
   <!-- Events config file -->
-  <script type="text/javascript" src="config.js"></script>
+    <script type="text/javascript" src="config.js"></script>
   <!-- EVENT EXAMPLE -->
   <script
           src="https://cdnjs.cloudflare.com/ajax/libs/react/16.14.0/umd/react.production.min.js"
@@ -1006,34 +1006,34 @@
     }
 
     $( document ).ready(function() {
-            // Auth initialization code
-         (async () => {
-              await handleDOMAuth();
-              const { search } = window.location;
-              // If we've been redirected from successful authentication
-              if (search.includes('code=') && search.includes('state=')) {
-                const params = new URLSearchParams(window.location.search);
+      // Auth initialization code
+      (async () => {
+        await handleDOMAuth();
+        const { search } = window.location;
+        // If we've been redirected from successful authentication
+        if (search.includes('code=') && search.includes('state=')) {
+          const params = new URLSearchParams(window.location.search);
 
-                // Attempt to retrieve an access token
-                try {
-                  const user = await authManager.signinRedirectCallback();
-                  await authManager.storeUser(user);
-                  await handleDOMAuth();
-                } catch (error) {
-                  console.log(error);
-                }
+          // Attempt to retrieve an access token
+          try {
+            const user = await authManager.signinRedirectCallback();
+            await authManager.storeUser(user);
+            await handleDOMAuth();
+          } catch (error) {
+            console.log(error);
+          }
 
-                // Replace the URL to one without the auth query params
-                params.delete('code');
-                params.delete('state');
-                window.history.replaceState(
-                        null,
-                        '',
-                        `${window.location.origin}${
-                                window.location.pathname
-                        }?${params.toString()}`
-                );
-             }
+          // Replace the URL to one without the auth query params
+          params.delete('code');
+          params.delete('state');
+          window.history.replaceState(
+                  null,
+                  '',
+                  `${window.location.origin}${
+                          window.location.pathname
+                  }?${params.toString()}`
+          );
+        }
       })();
     });
 
@@ -1055,9 +1055,7 @@
                 '"Roboto", BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica", "Arial", sans-serif',
         borderRadius: 4,
         drawerZIndex: 1000,
-        progressBar: '#ba4931',
-        colorRangeStart: '#000000',
-        colorRangeEnd: '#c44d34',
+        progressBar: '#ba4931'
       },
     });
 
@@ -1073,7 +1071,7 @@
       },
       datasetKey: {
         url: ({ key, gbifOrgLocalePrefix }) =>
-`${collectionsServer}/public/showDataResource/${key}`,
+                `${collectionsServer}/public/showDataResource/${key}`,
         isHref: true,
         route: '/dataset/:key',
       },
@@ -1081,27 +1079,6 @@
         url: ({ key }) => `${biocacheUrl}/occurrences/${key}`,
         isHref: true,
         route: '/occurrence/:key'
-      },
-      occurrenceEventSearch: {
-        url: ({ key, otherIds }) => `${biocacheUrl}/occurrences/search?fq=eventHierarchy:${key}&fq=dataResourceUid:${otherIds.datasetKey}`,
-        isHref: true,
-        route: '/occurrences/search'
-      },
-      occurrenceLocationSearch: {
-        url: ({ key, otherIds }) => {
-          if (!otherIds.month && !otherIds.year){
-            return `${biocacheUrl}/occurrences/search?fq=locationID:${key}`;
-          }
-          if (!otherIds.month && otherIds.year){
-            return `${biocacheUrl}/occurrences/search?fq=locationID:${key}&fq=year:${otherIds.year}`;
-          }
-          if (otherIds.month && !otherIds.year){
-            return `${biocacheUrl}/occurrences/search?fq=locationID:${key}&fq=month:${otherIds.month}`;
-          }
-          return `${biocacheUrl}/occurrences/search?fq=locationID:${key}&fq=month:${otherIds.month}&fq=year:${otherIds.year}`;
-        },
-        isHref: true,
-        route: '/occurrences/search'
       }
     };
     routes.basename = '/';
