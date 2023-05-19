@@ -1,12 +1,14 @@
 import gbifTileAttribution from '../gbif-tile-attribution';
+import config from '../../../config';
 
-export default function ({iucnTaxonID, styleName, language, pixelRatio}) {
+export default function ({ iucnTaxonID, styleName, language, pixelRatio }) {
   let template = {
     version: 8,
     name: `gbif-${styleName}-4326`,
     metadata: {
       'gb:reproject': true,
     },
+    sprite: `${config.domain}/map/test/css_sprite`,
     sources: {
       iucn: {
         type: 'vector',
@@ -91,8 +93,10 @@ export default function ({iucnTaxonID, styleName, language, pixelRatio}) {
         "source": "iucn",
         "source-layer": "iucn",
         "paint": {
-          "fill-color": "#e51515",
-          "fill-opacity": 0.25
+          "fill-antialias": false,
+          "fill-color": "rgba(276, 0, 0, 1)",
+          "fill-opacity": 0.3,
+          "fill-pattern": "iucn_pattern"
         }
       },
     ])

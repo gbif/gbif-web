@@ -108,7 +108,16 @@ export function getMapStyles({ apiKeys = {}, language = 'en' }) {
       labelKey: 'map.styles.bright',
       component: MapComponentMB,
       mapConfig: {
-        basemapStyle: `https://api.mapbox.com/styles/v1/mapbox/light-v9?access_token=${apiKeys.mapbox}`,
+        _basemapStyle: `https://api.mapbox.com/styles/v1/mapbox/light-v9?access_token=${apiKeys.mapbox}`,
+        basemapStyle: `http://localhost:4000/map/test/positron_mercator.json`,
+        projection: 'EPSG_3857'
+      }
+    },
+    BRIGHT_OPENLAYERS_MERCATOR: {
+      labelKey: 'map.styles.bright',
+      component: MapComponentOL,
+      mapConfig: {
+        basemapStyle: `http://localhost:4000/map/test/positron_mercator.json`,
         projection: 'EPSG_3857'
       }
     },

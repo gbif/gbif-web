@@ -189,6 +189,8 @@ class Map extends Component {
     } else if (epsg !== 'EPSG_3857') {
 
       const styleResponse = (await axios.get(this.props.mapConfig?.basemapStyle, {params: this.props.basemapParams})).data;
+      const spriteData = styleResponse.sprite ? (await axios.get(`${styleResponse.sprite}@2x.json`)).data : undefined;
+      const spriteImageUrl = styleResponse.sprite ? `${styleResponse.sprite}@2x.png` : undefined;
 
       if (!styleResponse?.metadata?.['gb:reproject']) {
         const baseLayer = currentProjection.getBaseLayer();
@@ -202,7 +204,6 @@ class Map extends Component {
 
         const mapPos = this.getStoredMapPosition();
         const map = this.map;
-
         const mapboxStyle = this.map.get('mapbox-style');
         this.map.getLayers().forEach(function (layer) {
           const mapboxSource = layer.get('mapbox-source');
@@ -221,8 +222,8 @@ class Map extends Component {
                   attributions: [sourceConfig.attribution]
                 })
               );
-
-              stylefunction(layer, styleResponse, mapboxSource, sourceConfig.tilegridOptions.resolutions);
+              
+              stylefunction(layer, styleResponse, mapboxSource, sourceConfig.tilegridOptions.resolutions, spriteData, spriteImageUrl);
 
               // update the view projection to match the data projection
               const newView = currentProjection.getView(mapPos.lat, mapPos.lng, mapPos.zoom);
