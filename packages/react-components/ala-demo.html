@@ -87,7 +87,7 @@
   </script>
 
   <!-- Events config file -->
-  <script type="text/javascript" src="config.js"></script>
+    <script type="text/javascript" src="config.js"></script>
   <!-- EVENT EXAMPLE -->
   <script
           src="https://cdnjs.cloudflare.com/ajax/libs/react/16.14.0/umd/react.production.min.js"
@@ -864,7 +864,7 @@
 
 <!-- Breadcrumb -->
 
-<section id="breadcrumb" style="padding-left: 0px; margin-left: 0px">
+<section id="breadcrumb">
   <div class="container-fluid" style="padding-left: 0px; margin-left: 0px">
     <div class="row" style="padding-left: 0px; margin-left: 0px">
       <nav
@@ -893,30 +893,35 @@
 <!-- Container -->
 
 <!-- REACT EVENT SEARCH SCRIPTS -->
-<div class="container-fluid" id="main" style="padding: 0">
+<div class="container-fluid" id="main" style="margin-left: 20px; margin-right: 20px;">
+  <h2 style="margin-top: 0; margin-bottom: 15px;">Surveys and sample datasets</h2>
   <div id="root"></div>
   <script>
-    let authServer =  'https://auth.ala.org.au/cas/oidc';
+    let authServer =  'https://auth.ala.org.au/';
+    let authServerOidc = "";
     let authClientID = 'events-oidc-auth-prod'
     let baseUrl = 'https://events.ala.org.au/'
     let collectionsServer =  'https://collections.ala.org.au'
+    let biocacheUrl = 'https://biocache-test.ala.org.au'
 
     if (typeof config != "undefined") {
       authServer = config?.authServer || authServer;
+      authServerOidc = (config?.authServer || authServer) + "cas/oidc";
       authClientID = config?.authClientID || authClientID
       baseUrl = config?.baseUrl || baseUrl
       collectionsServer = config?.collectionsServer || collectionsServer
+      biocacheUrl  = config?.biocacheUrl || biocacheUrl
     } else {
       console.warn("config.js is not found! Using default configurations....");
     }
     // Auth client related
     const authManager = new oidc.UserManager({
       client_id: authClientID,
-      authority: authServer,
+      authority: authServerOidc,
       userStore: new oidc.WebStorageStateStore({ store: localStorage }),
       //The uri must comply with CAS and Api GW audience setting.
       redirect_uri: baseUrl,
-      scope: 'oidc profile email'
+      scope: 'openid profile email'
     });
 
     // Redirect to the previous page after login
@@ -966,6 +971,11 @@
       const signUpBtn = $('.account > .signUpBtn');
       const myProfileBtn = $('.account > .myProfileBtn');
 
+      signUpBtn.attr("href", authServer + "userdetails/registration/createAccount");
+      myProfileBtn.attr("href", authServer + "userdetails/myprofile/");
+      // https://auth.ala.org.au/cas/login?service=https://events.ala.org.au
+      loginBtn.attr("href", authServer + "cas/login?service=" + baseUrl);
+
       if ((await authManager.getUser()) !== null) {
         loginBtn.hide();
         logoutBtn.css('display', 'inline-block');
@@ -996,34 +1006,34 @@
     }
 
     $( document ).ready(function() {
-            // Auth initialization code
-         (async () => {
-              await handleDOMAuth();
-              const { search } = window.location;
-              // If we've been redirected from successful authentication
-              if (search.includes('code=') && search.includes('state=')) {
-                const params = new URLSearchParams(window.location.search);
+      // Auth initialization code
+      (async () => {
+        await handleDOMAuth();
+        const { search } = window.location;
+        // If we've been redirected from successful authentication
+        if (search.includes('code=') && search.includes('state=')) {
+          const params = new URLSearchParams(window.location.search);
 
-                // Attempt to retrieve an access token
-                try {
-                  const user = await authManager.signinRedirectCallback();
-                  await authManager.storeUser(user);
-                  await handleDOMAuth();
-                } catch (error) {
-                  console.log(error);
-                }
+          // Attempt to retrieve an access token
+          try {
+            const user = await authManager.signinRedirectCallback();
+            await authManager.storeUser(user);
+            await handleDOMAuth();
+          } catch (error) {
+            console.log(error);
+          }
 
-                // Replace the URL to one without the auth query params
-                params.delete('code');
-                params.delete('state');
-                window.history.replaceState(
-                        null,
-                        '',
-                        `${window.location.origin}${
-                                window.location.pathname
-                        }?${params.toString()}`
-                );
-             }
+          // Replace the URL to one without the auth query params
+          params.delete('code');
+          params.delete('state');
+          window.history.replaceState(
+                  null,
+                  '',
+                  `${window.location.origin}${
+                          window.location.pathname
+                  }?${params.toString()}`
+          );
+        }
       })();
     });
 
@@ -1055,16 +1065,21 @@
       },
       eventKey: {
         url: ({ key, otherIds }) =>
-                collectionsServer+`/public/showDataResource/${otherIds.datasetKey}`,
+                `${collectionsServer}/public/showDataResource/${otherIds.datasetKey}`,
         isHref: true,
         route: '/event/:key',
       },
       datasetKey: {
         url: ({ key, gbifOrgLocalePrefix }) =>
-                collectionsServer+`/public/showDataResource/${key}`,
+                `${collectionsServer}/public/showDataResource/${key}`,
         isHref: true,
         route: '/dataset/:key',
       },
+      occurrenceKey: {
+        url: ({ key }) => `${biocacheUrl}/occurrences/${key}`,
+        isHref: true,
+        route: '/occurrence/:key'
+      }
     };
     routes.basename = '/';
 
