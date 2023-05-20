@@ -84,7 +84,7 @@ export const List = ({query, first, prev, next, size, from, data, total, loading
     if (!data || loading) return <><DatasetSkeleton /><DatasetSkeleton /><DatasetSkeleton /></>;
 
     if (!surveys || surveys.length == 0){
-        return <>No datasets matching this search</>;
+        return <>No surveys matching this search</>;
     }
 
     return <div style={{
