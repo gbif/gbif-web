@@ -62,10 +62,15 @@ export const SitesTable = ({ query, first, prev, next, size, from, data, total, 
     "new south wales": "NSW",
     "victoria": "VIC",
     "australian capital territory": "ACT",
+    "south australia": "SA",
     "northern territory": "NT ",
     "queensland": "QLD",
     "western australia": "WA ",
-    "tasmania": "TAS"
+    "tasmania": "TAS",
+    "norfolk island": "NF",
+    "christmas island":"CX",
+    "coral sea islands territory":"CSIT",
+    "ashmore & cartier islands":"AT"
   }
 
   Array.range = (start, end) => Array.from({length: (end + 1 - start)}, (v, k) => k + start);
