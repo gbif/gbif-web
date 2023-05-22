@@ -57,7 +57,8 @@ export function GraphQLSidebar({
     return '\\n'.repeat(1);
   })
 
-  const queryUrl = env.GRAPH_API + "?queryId="+queryId + "&strict=true&variables=" + JSON.stringify(predicate);
+  const queryString =encodeURIComponent("queryId="+queryId + "&strict=true&variables=" + JSON.stringify(predicate))
+  const queryUrl = env.GRAPH_API + "?"+queryString;
   const curlUrl = "curl "+env.GRAPH_API +" -H '"+env.GRAPH_API+"' -H 'Accept-Encoding: gzip, deflate, br' -H 'Content-Type: application/json' -H 'Accept: application/json' " +
       "-H 'Connection: keep-alive' -H 'DNT: 1' " +
       "-H 'Origin: "+env.GRAPH_API+"' " +
