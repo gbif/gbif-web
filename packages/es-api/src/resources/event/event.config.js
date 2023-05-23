@@ -560,7 +560,8 @@ const config =
     samplingProtocol: {
       type: 'keyword',
       field: 'event.samplingProtocol.keyword',
-      suggestField: 'samplingProtocol.suggest'
+      suggestField: 'samplingProtocol.suggest',
+      displayField: 'event.samplingProtocol.verbatim'
     },
     scoordinates: {
       type: 'geo_shape',
