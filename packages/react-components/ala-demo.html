@@ -864,7 +864,7 @@
 
 <!-- Breadcrumb -->
 
-<section id="breadcrumb" style="padding-left: 0px; margin-left: 0px">
+<section id="breadcrumb">
   <div class="container-fluid" style="padding-left: 0px; margin-left: 0px">
     <div class="row" style="padding-left: 0px; margin-left: 0px">
       <nav
@@ -893,7 +893,8 @@
 <!-- Container -->
 
 <!-- REACT EVENT SEARCH SCRIPTS -->
-<div class="container-fluid" id="main" style="padding: 0">
+<div class="container-fluid" id="main" style="margin-left: 20px; margin-right: 20px;">
+  <h2 style="margin-top: 0; margin-bottom: 15px;">Surveys and sample datasets</h2>
   <div id="root"></div>
   <script>
     let authServer = 'https://auth.ala.org.au/';
@@ -901,6 +902,7 @@
     let authClientID = 'events-oidc-auth-prod'
     let baseUrl = 'https://events.ala.org.au/'
     let collectionsServer =  'https://collections.ala.org.au'
+    let biocacheUrl = 'https://biocache-test.ala.org.au'
 
 
     if (typeof config != "undefined") {
@@ -909,6 +911,7 @@
       authClientID = config?.authClientID || authClientID
       baseUrl = config?.baseUrl || baseUrl
       collectionsServer = config?.collectionsServer || collectionsServer
+      biocacheUrl  = config?.biocacheUrl || biocacheUrl
     } else {
       console.warn("config.js is not found! Using default configurations....");
     }
@@ -1053,7 +1056,9 @@
                 '"Roboto", BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica", "Arial", sans-serif',
         borderRadius: 4,
         drawerZIndex: 1000,
-        progressBar: '#ba4931'
+        progressBar: '#ba4931',
+        colorRangeStart: '#000000',
+        colorRangeEnd: '#c44d34',
       },
     });
 
@@ -1063,16 +1068,21 @@
       },
       eventKey: {
         url: ({ key, otherIds }) =>
-                collectionsServer+`/public/showDataResource/${otherIds.datasetKey}`,
+                `${collectionsServer}/public/showDataResource/${otherIds.datasetKey}`,
         isHref: true,
         route: '/event/:key',
       },
       datasetKey: {
         url: ({ key, gbifOrgLocalePrefix }) =>
-                collectionsServer+`/public/showDataResource/${key}`,
+                `${collectionsServer}/public/showDataResource/${key}`,
         isHref: true,
         route: '/dataset/:key',
       },
+      occurrenceKey: {
+        url: ({ key }) => `${biocacheUrl}/occurrences/${key}`,
+        isHref: true,
+        route: '/occurrence/:key'
+      }
     };
     routes.basename = '/';
 

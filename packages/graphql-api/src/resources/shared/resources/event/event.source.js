@@ -50,7 +50,7 @@ class EventAPI extends RESTDataSource {
   async getArchive(datasetKey) {
     try {
       const response = await this.get(
-        `${this.config.apiDownloads}/event/dataset/${datasetKey}`,
+        this.config.apiDownloads.replace('{datasetKey}', datasetKey),
         { signal: this.context.abortController.signal },
       );
       // map to support APIv1 naming
