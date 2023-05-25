@@ -24,3 +24,6 @@ packages/react-components/locales/dist
 *.log
 .history
 gbif-web.iml
+packages/react-components/dist/lib/gbif-react-components.js
+packages/react-components/dist/lib/gbif-react-components.js
+packages/react-components/dist/lib/gbif-react-components.js.map

@@ -8,6 +8,7 @@ import {SingleTree} from "./Tree/SingleTree";
 import {TaxonTreeMap} from "../../../components/TaxonTreeMap/TaxonTreeMap";
 import ApiContext from "../../../dataManagement/api/ApiContext";
 import {MeasurementSummary} from "./MeasurementSummary";
+import env from '../../../../.env.json';
 
 const { Term: T, Value: V } = Properties;
 
@@ -103,7 +104,7 @@ export function Summaries({ event, setActiveEvent, addEventTypeToSearch, setTab,
     });
 
     function checkIfHasMeasurement(mofHierarchyJoined) {
-      if (mofHierarchyJoined.length == 1 && (mofHierarchyJoined[0].key == "Survey / Find" ||  mofHierarchyJoined[0].key == "Survey / SiteVisit" ||  mofHierarchyJoined[0].key == "Survey / Subsurvey")) {
+      if (mofHierarchyJoined.length == 1 && (mofHierarchyJoined[0].key.endsWith("Find") ||  mofHierarchyJoined[0].key.endsWith("SiteVisit") ||  mofHierarchyJoined[0].key.endsWith("Subsurvey"))) {
           return true;
       } else {
         return false;
@@ -303,7 +304,7 @@ function TaxonomicCoverage({ showAll, termMap, event }) {
     }).join('&')
 
     //  to be removed..
-    let queryUrl = "https://namematching-ws.ala.org.au/api/searchByClassification?scientificName=" + taxonName + '&' + higherTaxaParams;
+    let queryUrl = env.NAME_MATCHING_WS_URL + "searchByClassification?scientificName=" + taxonName + '&' + higherTaxaParams;
 
     // translate to sci names - add higher classification
     fetch(queryUrl, { method: 'GET'})

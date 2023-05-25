@@ -33,13 +33,19 @@ export function Measurements({ data }) {
         return memo;
     }, [])
 
+    let sortedFlattenResults = flattenResults.sort(function(a,b) {
+        let textA = a.measurementType.toUpperCase();
+        let textB = b.measurementType.toUpperCase();
+        return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+    })
+
     const hasField = (prop) => {
-        return flattenResults.filter((mof) => Boolean(mof[`measurement${prop}`])).length > 0;
+        return sortedFlattenResults.filter((mof) => Boolean(mof[`measurement${prop}`])).length > 0;
     };
 
     const extraFields = ['Method', 'Remarks', 'DeterminedDate'].filter((field) => hasField(field));
     const getRows = () => {
-        const rows = flattenResults.map(row => {
+        const rows = sortedFlattenResults.map(row => {
             return <tr key={row}>
                 <Td key={`measurementType`}>{row.measurementType}</Td>
                 <Td key={`measurementValue`}>{row.measurementValue}{row.measurementUnit}</Td>

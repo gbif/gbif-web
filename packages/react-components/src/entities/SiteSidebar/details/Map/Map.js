@@ -12,8 +12,8 @@ export default function Map({latitude, longitude, wkt}) {
   const theme = useContext(ThemeContext);
   const mapContainer = useRef(null);
   const map = useRef(null);
-  const [lng, setLng] = useState(longitude);
-  const [lat, setLat] = useState(latitude);
+  const [lng, setLng] = useState(longitude? longitude: 135.50);
+  const [lat, setLat] = useState(latitude? latitude:-26.83);
   const [zoom, setZoom] = useState(9);
   const mapStyle = theme.darkTheme ? 'dark-v9' : 'light-v9';
 
@@ -70,10 +70,17 @@ export default function Map({latitude, longitude, wkt}) {
           map.current.setZoom(6);
 
         } else {
-          const coordinates = geojson.coordinates[0];
+          let coordinates = null;
+
+          //Ways of calculating bounds of Polygon / LineString are different
+          if (geojson.type == "LineString") {
+             coordinates = geojson.coordinates;
+          } else {
+             coordinates = geojson.coordinates[0];
+          }
 
           // Create a 'LngLatBounds' with both corners at the first coordinate.
-          const bounds = new mapboxgl.LngLatBounds(
+          let bounds = new mapboxgl.LngLatBounds(
               coordinates[0],
               coordinates[0]
           );
