@@ -13,9 +13,16 @@ class TaxonMediaAPI extends RESTDataSource {
     request.headers.set('Accept', 'application/json');
   }
 
-  async getRepresentativeImages({ taxon, size, from }) {
-    const params = new URLSearchParams({
-      q: `lsid:${taxon}`,
+  async getRepresentativeImages({ taxon, size, from, params }) {
+    let query = `lsid:${taxon}`;
+
+    // Append any additional filters to the query string
+    Object.entries(params?.query || {}).forEach(([key, value]) => {
+      query += ` AND ${key}:${value}`;
+    });
+
+    const searchParams = new URLSearchParams({
+      q: query,
       fq: 'multimedia:"Image"',
       facet: 'off',
       sort: 'identification_qualifier_s',
@@ -23,6 +30,11 @@ class TaxonMediaAPI extends RESTDataSource {
       im: true,
       start: from || 0,
       pageSize: size || 10,
+    });
+
+    // Append any additional filters to the search params
+    Object.entries(params?.search || {}).forEach(([key, value]) => {
+      searchParams.append(key, value);
     });
 
     // Append filter queries
@@ -33,12 +45,16 @@ class TaxonMediaAPI extends RESTDataSource {
       'geospatial_kosher:true',
       '-user_assertions:50001',
       '-user_assertions:50005',
-    ].forEach((filter) => params.append('fq', filter));
+      ...Object.entries(params?.filter || {}).map(
+        ([key, value]) => `${key}:${value}`,
+      ),
+    ].forEach((filter) => searchParams.append('fq', filter));
 
     // Perform the occurrence search
     const { occurrences } = await this.get(
-      `/occurrences/search?${params.toString()}`,
+      `/occurrences/search?${searchParams.toString()}`,
     );
+    if (occurrences.length < 1) return [];
 
     const { results: images } = await this.post(
       `${this.config.ala.images}/getImageInfoForIdList`,
