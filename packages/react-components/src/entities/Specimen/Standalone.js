@@ -22,6 +22,8 @@ function Content(props) {
     { value: 'id.gbif.ch/2062472674', label: 'SwissCollNet (example 3)' },
     { value: 'https://arctos.database.museum/guid/MSB:Host:20914', label: 'Arctos (Gyraulus parvus)' },
     { value: 'https://arctos.database.museum/guid/MSB:Para:19028', label: 'Arctos (Apicomplexa)' },
+    { value: 'c4c44c9970ff46014801f0ef53b1c62043b996f7', label: 'Conabio Bees (Bombus ephippiatus)' },
+    { value: '005c81149104777d30b2b1ec6331391e', label: 'Conabio Agro (Zea mays ssp. mays)' },
   ];
   const [entityId = 'https://arctos.database.museum/guid/MSB:Host:20914', setEntityId] = useQueryParam('entityId', StringParam);
 
