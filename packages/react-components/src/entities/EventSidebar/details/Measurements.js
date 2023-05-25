@@ -18,12 +18,21 @@ export function Measurements({ data }) {
         return null;
     }
 
-    //const results = data.documents.results[0].measurementOrFacts;
+        //const results = data.documents.results[0].measurementOrFacts;
     const results = data.documents.results.reduce((measurements, result) => {
         measurements.push(result.measurementOrFacts);
         return measurements;
     },[]);
-    const flattenResults = results.flat();
+
+    const flattenResults = results.flat().reduce(function(memo, e1){
+        let matches = memo.filter(function(e2){
+            return e1.measurementType == e2.measurementType && e1.measurementValue == e2.measurementValue
+        })
+        if (matches.length == 0)
+            memo.push(e1)
+        return memo;
+    }, [])
+
     const hasField = (prop) => {
         return flattenResults.filter((mof) => Boolean(mof[`measurement${prop}`])).length > 0;
     };
