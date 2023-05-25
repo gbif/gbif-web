@@ -8,11 +8,12 @@
 
 export default {
   Query: {
-    taxonMedia: (parent, { key, size, from }, { dataSources }) =>
+    taxonMedia: (parent, { key, size, from, params }, { dataSources }) =>
       dataSources.taxonMediaAPI.getRepresentativeImages({
         taxon: key,
         size,
         from,
+        params,
       }),
   },
 };
