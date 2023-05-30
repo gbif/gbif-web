@@ -178,6 +178,7 @@ export default {
             }),
           ),
         ),
+    extensions: ({ seedbankRecord }) => ({ seedbank: seedbankRecord }),
   },
   EventFacetResult_dataset: {
     datasetTitle: ({ key }, args, { dataSources }) => {
