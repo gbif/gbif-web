@@ -38,7 +38,7 @@ export function EventOccurrence({ eventID, datasetKey }) {
 
     const prev = () => {
         const offsetValue = Math.max(0, offset - size);
-        setOffset(offsetValue !== 0 ? offsetValue : undefined);
+        setOffset(offsetValue !== 0 ? offsetValue : 0);
     };
 
     const first = () => {
