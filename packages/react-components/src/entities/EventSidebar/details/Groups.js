@@ -148,6 +148,9 @@ function Event({ showAll, termMap, event, setActiveEvent, addToSearch }) {
   </Group>
 }
 
+
+
+
 function Location({ showAll, termMap, event }) {
   const hasContent = [
     'locationID',
@@ -241,10 +244,10 @@ function Location({ showAll, termMap, event }) {
 
       <PlainTextField term={termMap.georeferencedBy} showDetails={showAll} />
       <PlainTextField term={termMap.georeferencedDate} showDetails={showAll} />
-      <HtmlField      term={termMap.georeferenceProtocol} showDetails={showAll} />
-      <HtmlField      term={termMap.georeferenceSources} showDetails={showAll} />
+      <HtmlField term={termMap.georeferenceProtocol} showDetails={showAll} />
+      <HtmlField term={termMap.georeferenceSources} showDetails={showAll} />
       <PlainTextField term={termMap.georeferenceVerificationStatus} showDetails={showAll} />
-      <HtmlField      term={termMap.georeferenceRemarks} showDetails={showAll} />
+      <HtmlField term={termMap.georeferenceRemarks} showDetails={showAll} />
 
       <PlainTextField term={termMap.elevation} showDetails={showAll} />
       <PlainTextField term={termMap.elevationAccuracy} showDetails={showAll} />
