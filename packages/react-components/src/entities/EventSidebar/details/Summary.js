@@ -57,11 +57,6 @@ export function Summary({
             type: "equals",
             value: event.eventID
           },
-          // {
-          //   key: "eventTypeHierarchyJoined",
-          //   type: "equals",
-          //   value: event.eventTypeHierarchyJoined
-          // },
           {
             key: "measurementOrFactTypes",
             type: "isNotNull"

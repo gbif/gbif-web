@@ -78,7 +78,7 @@ export const defaultContext = {
   eventKey: {
     // url: ({key}) => `/publisher/${key}`,
     // url: ({key, otherIds}) => `${gbifOrg}/dataset/${otherIds.datasetKey}/event/${key}`,
-    url: ({key, otherIds}) => `https://collections-test.ala.org.au/public/showDataResource/${otherIds.datasetKey}`,
+    url: ({key, otherIds}) => `https://collections.ala.org.au/public/showDataResource/${otherIds.datasetKey}`,
     isHref: true,
     route: '/event/:key'
   },
