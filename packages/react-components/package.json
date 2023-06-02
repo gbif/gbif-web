@@ -15,7 +15,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve-translations": "npx serve locales/dist/ -p 5002 --cors",
     "watch-translations": "npx nodemon locales/build.js -w locales/ -i locales/dist/",
-
     "prestart": "echo \"This app requires node 16.13.1 \nCurrent version is \" ; node -v",
     "start": "path-exists .env.development.json && shx cp .env.development.json .env.json && echo \"Running with .env.development.json\"; node locales/build.js; start-storybook -p 6006;",
     "build-storybook": "npm run build-locales; build-storybook -o ./dist",
@@ -90,12 +89,12 @@
     "gzipper": "^6.2.1",
     "md5-file": "^5.0.0",
     "nodemon": "^2.0.12",
+    "path-exists-cli": "^2.0.0",
     "plop": "^2.7.4",
     "pseudoloc": "^1.1.0",
     "regenerator-runtime": "^0.13.7",
+    "shx": "^0.3.4",
     "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.12",
-    "path-exists-cli": "^2.0.0",
-    "shx": "^0.3.4"
+    "webpack-cli": "^3.3.12"
   }
 }

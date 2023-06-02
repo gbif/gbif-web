@@ -1,11 +1,14 @@
 const path = require('path');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: {
+    'gbif': './src/index.js',
+    'ala': './src/ala-react-components.js',
+  },
   output: {
     path: path.resolve(__dirname, 'dist/lib'),
-    filename: 'gbif-react-components.js',
-    library: 'gbifReactComponents',
+    filename: '[name]-react-components.js',
+    library: '[name]ReactComponents',
     libraryTarget: 'var'
   },
   devtool: 'source-map',
