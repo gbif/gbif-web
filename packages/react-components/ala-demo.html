@@ -1081,6 +1081,13 @@
         url: ({ key }) => `${biocacheUrl}/occurrences/${key}`,
         isHref: true,
         route: '/occurrence/:key'
+      },
+      occurrenceEventSearch: {
+        // https://biocache-test.ala.org.au/occurrences/search?fq=eventHierarchy:${eventID}&fq=dataResourceUid:${datasetKey}`
+        // url: ({ key }) => `https://gbif.org/occurrence/${key}`,
+        url: ({ key, otherIds }) => `${biocacheUrl}/occurrences/search?fq=eventHierarchy:${key}&fq=dataResourceUid:${otherIds.datasetKey}`,
+        isHref: true,
+        route: '/occurrences/search'
       }
     };
     routes.basename = '/';

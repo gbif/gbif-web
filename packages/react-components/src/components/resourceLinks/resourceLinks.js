@@ -46,6 +46,10 @@ export function OccurrenceLink(props) {
   return <ResourceLink type='occurrenceKey' {...props} />
 }
 
+export function OccurrenceEventSearchLink(props) {
+  return <ResourceLink type='occurrenceEventSearch' {...props} />
+}
+
 const isDiscreetLink = css`
   text-decoration: none;
   color: var(--linkColor);
