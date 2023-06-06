@@ -13,6 +13,7 @@ import {css} from "@emotion/react";
 import env from "../../../../../.env.json";
 import ThemeContext from "../../../../style/themes/ThemeContext";
 import {ResultsHeader} from "../../../ResultsHeader";
+import {MdLocationPin, MdOutlineDeviceThermostat} from "react-icons/all";
 
 export const List = ({query, first, prev, next, size, from, data, total, loading }) => {
 
@@ -299,19 +300,17 @@ function Survey({ eventID, setActiveEvent, filters, ...props }) {
 
     return <article>
         <div css={style.summary}>
-
             <div style={{ display: 'flex', width: '100%'}}>
                 <div style={{ flex: '1', flexBasis: '35%'}}>
-                    <div css={style.details} style={{ fontSize: "18px", paddingRight: '20px', borderRight: '1px solid #E6E6E6', height: '100%' }}>
+                    <div css={style.details} style={{ fontSize: "18px", paddingRight: '20px', borderRight: '2px solid #E6E6E6', height: '100%' }}>
                         <Button look="link">
                             <h2 css={css` font-size: 1.4rem;`} onClick={onClick}>{event.eventType?.concept}: {event.eventName} {event.eventID}</h2>
                         </Button>
                         <div>Dataset: <span>{event.datasetTitle}</span></div>
-                        <div>Sites: <span>{cardinality.locationID?.toLocaleString()}</span></div>
+                        <div><MdLocationPin /> Sites: <span>{cardinality.locationID?.toLocaleString()}</span></div>
                         {facet.samplingProtocol && facet.samplingProtocol.length > 0 &&
                             <div>Sampling protocol: <span>{facet.samplingProtocol.map(x => x.key).join(', ')}</span></div>
                         }
-
                         <Button
                             style={{ marginTop: '20px' }}
                             onClick={() => filterByThisSurvey(event)}
@@ -331,7 +330,7 @@ function Survey({ eventID, setActiveEvent, filters, ...props }) {
                         {facet.measurementOrFactTypes && facet.measurementOrFactTypes.length > 0 &&
                             <div style={{
                                 marginTop: "20px",
-                            }}><div style={{ marginBottom: '10px'}}>Measurements</div>
+                            }}><div style={{ marginBottom: '10px'}}> <MdOutlineDeviceThermostat/> Measurements</div>
                                 <Tags style={{fontSize: '12px'}}>
                                     {facet.measurementOrFactTypes.map(x => <Tag key={x.key} type="light" outline={true}>{x.key}</Tag>)}
                                 </Tags>
