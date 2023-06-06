@@ -16,7 +16,8 @@ query list($predicate: Predicate, $limit: Int){
         datasetTitle
         count
         key
-        occurrenceCount        
+        occurrenceCount   
+        extensions     
         events {
           documents(size: 3) {
             total

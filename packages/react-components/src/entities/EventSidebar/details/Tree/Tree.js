@@ -17,7 +17,7 @@ class TreeNode {
 export function TreeN({ treeNode }) {
   const hasChildren = treeNode.children.length > 0;
   return <li>
-      <span className={ treeNode.isSelected ? 'selected' : ''}>{ treeNode.value }</span>
+      <span className={ treeNode.isSelected ? 'selected' : ''}>{ treeNode.value && treeNode.value != 'null' ? treeNode.value : 'Event' }</span>
     { hasChildren &&
         <ul>
           {treeNode.children.map(childNode => <TreeN key={childNode.key} treeNode={childNode} />)}

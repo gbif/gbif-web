@@ -26,7 +26,7 @@ export function Header({
 
   return <Row wrap="no-wrap" css={css.header({ theme })} {...props}>
     <Col grow>
-      <h1>{item.eventType?.concept ? item.eventType.concept : 'Event'}</h1>
+      <h1>{item.eventType?.concept ? item.eventType?.concept : 'Event'}</h1>
       <div css={css.headline({ theme })}>
         <Eyebrow 
           style={{fontSize: '80%'}}
