@@ -138,7 +138,7 @@ function DatasetSkeleton() {
   </div>
 }
 
-function Dataset({ datasetKey, datasetTitle, count, occurrenceCount, events, onClick, filters, ...props }) {
+function Dataset({ datasetKey, datasetTitle, count, occurrenceCount, extensions, events, onClick, filters, ...props }) {
   const { data, error, loading, load } = useQuery(DATASET_QUERY, { lazyLoad: true });
   const currentFilterContext = useContext(FilterContext);
 
@@ -169,7 +169,6 @@ function Dataset({ datasetKey, datasetTitle, count, occurrenceCount, events, onC
   }
 
   function getSensibleLevel(occurrenceFacet){
-
     let levels = Array("kingdom", "phylum", "class", "order", "family", "genus");
     let result = occurrenceFacet[levels[0]];
     for (var i = 1; i < levels.length; i++){
@@ -180,6 +179,20 @@ function Dataset({ datasetKey, datasetTitle, count, occurrenceCount, events, onC
       }
     }
     return result;
+  }
+
+  function getLastPartOfURL(url) {
+    // Create a URL object with the given URL
+    const parsedURL = new URL(url);
+
+    // Get the pathname from the parsed URL
+    const pathname = parsedURL.pathname;
+
+    // Split the pathname by '/' and get the last part
+    const parts = pathname.split('/');
+    const lastPart = parts[parts.length - 1];
+
+    return lastPart;
   }
 
 
@@ -197,7 +210,7 @@ function Dataset({ datasetKey, datasetTitle, count, occurrenceCount, events, onC
             <div>Sites: <span>{cardinality.locationID?.toLocaleString()}</span></div>
           </div>
         </div>
-        <div css={style.details} style={{flex: '1 75%', boxSizing: 'border-box', paddingLeft: '5px' }}>
+        <div css={style.details} style={{flex: '1 40%', boxSizing: 'border-box', paddingLeft: '5px', borderRight: '1px solid #fcfcfc'}}>
           <div style={{ marginBottom: '10px'}}>Taxonomy</div>
           <div>
              <Tags style={{fontSize: '18px'}}>
@@ -216,6 +229,14 @@ function Dataset({ datasetKey, datasetTitle, count, occurrenceCount, events, onC
               </div>
             </div>
           }
+        </div>
+        <div css={style.details} style={{flex: '1 20%', boxSizing: 'border-box', paddingLeft: '5px'  }}>
+          <div style={{ marginBottom: '10px'}}>Data extensions</div>
+          <div>
+            <Tags style={{fontSize: '18px'}}>
+              { extensions.map(x => <><Tag key={x} type="light" outline={true}>{getLastPartOfURL(x)}</Tag><br/></>) }
+            </Tags>
+          </div>
         </div>
       </div>
       <Button
