@@ -11,6 +11,14 @@ import { useDialogState } from "reakit/Dialog";
 import { useQueryParam, StringParam } from 'use-query-params';
 import {useGraphQLContext} from "../../../../dataManagement/api/GraphQLContext";
 import {ResultsHeader} from "../../../ResultsHeader";
+import {
+  MdAccountTree,
+  MdLocationPin,
+  MdOutlineDeviceHub,
+  MdOutlineDeviceThermostat,
+  RiSurveyLine
+} from "react-icons/all";
+import {MdEvent} from "react-icons/md";
 
 export const List = ({query, first, prev, next, size, from, data, total, loading }) => {
   const { filters } = useContext(SearchContext);
@@ -200,18 +208,18 @@ function Dataset({ datasetKey, datasetTitle, count, occurrenceCount, extensions,
     <div css={style.summary} >
       <Button look="link"><h2 style={{ fontSize: "20px"}} onClick={onClick}>{datasetTitle}</h2></Button>
       <div style={{ display: 'flex', flexWrap: 'wrap'}}>
-        <div style={{flex: '1 15%', boxSizing: 'border-box', paddingRight: '10px', borderRight: '1px solid #fcfcfc' }}>
-          <div css={style.details} style={{ fontSize: "18px", borderRight: '1px solid #E6E6E6' }}>
-            <div>Events: <span>{documents.total?.toLocaleString()}</span></div>
+        <div                     style={{flex: '1 15%', boxSizing: 'border-box', paddingRight: '10px', borderRight: '2px solid  #E6E6E6' }}>
+          <div css={style.details} style={{ fontSize: "18px" }}>
+            <div><MdEvent/> Events: <span>{documents.total?.toLocaleString()}</span></div>
             <div>Occurrences: <span>{occurrenceCount?.toLocaleString()}</span></div>
             {cardinality.surveyID > 0 &&
-                <div>Surveys: <span>{cardinality.surveyID?.toLocaleString()}</span></div>
+                <div><RiSurveyLine /> Surveys: <span>{cardinality.surveyID?.toLocaleString()}</span></div>
             }
-            <div>Sites: <span>{cardinality.locationID?.toLocaleString()}</span></div>
+            <div><MdLocationPin /> Sites: <span>{cardinality.locationID?.toLocaleString()}</span></div>
           </div>
         </div>
-        <div css={style.details} style={{flex: '1 40%', boxSizing: 'border-box', paddingLeft: '5px', borderRight: '1px solid #fcfcfc'}}>
-          <div style={{ marginBottom: '10px'}}>Taxonomy</div>
+        <div css={style.details} style={{flex: '1 60%', boxSizing: 'border-box', paddingRight: '10px', paddingLeft: '25px', borderRight: '2px solid  #E6E6E6' }}>
+          <div style={{ marginBottom: '10px'}}><MdOutlineDeviceHub/> Taxonomy</div>
           <div>
              <Tags style={{fontSize: '18px'}}>
                 { getSensibleLevel(occurrenceFacet).map(x => <Tag key={x.key} type="light" outline={true}>{x.key}</Tag>) }
@@ -219,7 +227,8 @@ function Dataset({ datasetKey, datasetTitle, count, occurrenceCount, extensions,
           </div>
           {hasMeasurements &&
             <div style={{ marginTop: '25px'}}>
-              <div style={{ marginBottom: '10px'}}>Measurements</div>
+              <div style={{ marginBottom: '10px'}}>
+                <MdOutlineDeviceThermostat/> Measurements</div>
               <div>
                 <Tags style={{fontSize: '14px'}}>
                   {facet.measurementOrFactTypes.map(x =>
@@ -230,8 +239,8 @@ function Dataset({ datasetKey, datasetTitle, count, occurrenceCount, extensions,
             </div>
           }
         </div>
-        <div css={style.details} style={{flex: '1 20%', boxSizing: 'border-box', paddingLeft: '5px'  }}>
-          <div style={{ marginBottom: '10px'}}>Data extensions</div>
+        <div css={style.details} style={{flex: '1 25%', boxSizing: 'border-box', paddingRight: '0',    paddingLeft: '25px'  }}>
+          <div style={{ marginBottom: '10px'}} style={{fontSize: '18px'}}><MdAccountTree style={{fontSize: '14px'}} /> Data extensions</div>
           <div>
             <Tags style={{fontSize: '18px'}}>
               { extensions.map(x => <><Tag key={x} type="light" outline={true}>{getLastPartOfURL(x)}</Tag><br/></>) }
