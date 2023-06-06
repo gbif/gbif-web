@@ -11,6 +11,9 @@ export default gql`
 
     event(eventID: String, datasetKey: String): Event
 
+    occurrences(eventID: String, datasetKey: String, locationID: String, month:Int, year:Int
+      size: Int, from: Int): SimpleOccurrenceResults
+
     location(locationID: String): Event
   }
 
@@ -22,7 +25,11 @@ export default gql`
     """
     Get number of events per distinct values in a field. E.g. how many events per year.
     """
-    facet: EventFacet
+    facet(size: Int, from: Int): EventFacet
+    """
+    Get number of events per distinct values in two or more fields. E.g. how many events per year.
+    """
+    multifacet(size: Int, from: Int): EventMultiFacet
     """
     Get number of occurrences per distinct values in a field. E.g. how many occurrence per year.
     """
@@ -60,8 +67,16 @@ export default gql`
     results: [Event]!
   }
 
+  type SimpleOccurrenceResults {
+    size: Int!
+    from: Int!
+    total: Int!
+    results: [SimpleOccurrence]!
+  }
+
   type Event {
     eventID: String
+    surveyID:String
     type: String
     eventType: EventType
     eventName: String
@@ -115,6 +130,16 @@ export default gql`
     lte: String
   }
 
+  type SimpleOccurrence {
+    key: String
+    scientificName: String
+    kingdom: String
+    family: String
+    individualCount: String
+    occurrenceStatus: String
+    basisOfRecord: String
+  }
+
   type DistinctTaxon {
     count: Int
     key: String
@@ -153,6 +178,10 @@ export default gql`
     lineage: [String]
   }
 
+  type EventMultiFacet {
+    locationIDStateProvince(size: Int, include: String): [EventMultiFacetResult_string]
+  }
+
   type EventFacet {
     kingdoms(size: Int, include: String):                 [EventFacetResult_string]
     phyla(size: Int, include: String):                    [EventFacetResult_string]
@@ -165,6 +194,7 @@ export default gql`
     eventHierarchy(size: Int, include: String):           [EventFacetResult_string]
     eventTypeHierarchyJoined(size: Int, include: String): [EventFacetResult_string]
     eventTypeHierarchy(size: Int, include: String):       [EventFacetResult_string]
+    surveyID(size: Int, include: String):                 [EventFacetResult_string]
     locality(size: Int, include: String):                 [EventFacetResult_string]
     samplingProtocol(size: Int, include: String):         [EventFacetResult_string]
     measurementOrFactTypes(size: Int, include: String):   [EventFacetResult_string]
@@ -183,6 +213,7 @@ export default gql`
     datasetKey: Int!
     locationID: Int!
     parentEventID: Int!
+    surveyID: Int!
   }
 
   type EventTemporal {
@@ -201,6 +232,13 @@ export default gql`
 
   type EventFacetResult_string {
     key: String!
+    count: Int!
+    events(size: Int, from: Int): EventSearchResult!
+    _predicate: JSON
+  }
+
+  type EventMultiFacetResult_string {
+    keys: [String]
     count: Int!
     events(size: Int, from: Int): EventSearchResult!
     _predicate: JSON
@@ -237,6 +275,7 @@ export default gql`
     key: String!
     count: Int!
     occurrenceCount: Int
+    extensions: [String]
     datasetTitle: String!
     archive: DataArchive
     events(size: Int, from: Int): EventSearchResult!
@@ -274,6 +313,7 @@ export default gql`
     samplingProtocol(size: Int, include: String): [EventOccurrenceFacetResult_string]
     locationID(size: Int, include: String):       [EventOccurrenceFacetResult_string]
     basisOfRecord(size: Int, include: String):    [EventOccurrenceFacetResult_string]
+    occurrenceStatus(size: Int, include: String): [EventOccurrenceFacetResult_string]
     stateProvince(size: Int, include: String):    [EventOccurrenceFacetResult_string]
     recordedBy(size: Int, include: String):       [EventOccurrenceFacetResult_string]
     recordedById(size: Int, include: String):     [EventOccurrenceFacetResult_string]

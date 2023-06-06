@@ -5,6 +5,7 @@ import {
   getStats,
   getTemporal,
   getCardinality,
+  getMultiFacet,
 } from './helpers/getMetrics';
 import { formattedCoordinates } from '#/helpers/utils';
 import fieldsWithTemporalSupport from './helpers/fieldsWithTemporalSupport';
@@ -67,6 +68,9 @@ export default {
     },
     event: (parent, { eventID, datasetKey }, { dataSources }) =>
       dataSources.eventAPI.getEventByKey({ eventID, datasetKey }),
+    occurrences: (parent, { eventID, datasetKey, locationID,  month, year, size, from }, { dataSources }) => {
+      return dataSources.eventAPI.searchEventOccurrences({ eventID, datasetKey, locationID, month, year, size, from });
+    },
     location: (parent, { locationID }, { dataSources }) =>
       dataSources.eventAPI.getLocation({ locationID }),
   },
@@ -87,8 +91,17 @@ export default {
     occurrenceFacet: (parent) => {
       return { _predicate: parent._predicate };
     },
-    facet: (parent) => {
-      return { _predicate: parent._predicate };
+    facet: (parent, {size, from}) => {
+      return {
+        size: size,
+        from: from,
+        _predicate: parent._predicate };
+    },
+    multifacet: (parent, {size, from}) => {
+      return {
+        size: size,
+        from: from,
+        _predicate: parent._predicate };
     },
     cardinality: (parent) => {
       return { _predicate: parent._predicate };
@@ -106,6 +119,15 @@ export default {
     },
   },
   EventFacet,
+  EventMultiFacet: {
+    locationIDStateProvince: (parent, query, { dataSources }) => {
+      let result = getMultiFacet(parent, query, {
+        fields: Array('locationID', 'stateProvince'),
+        searchApi: dataSources.eventAPI.searchEvents
+      })
+      return result;
+    }
+  },
   EventOccurrenceFacet,
   EventCardinality: {
     species: (parent, query, { dataSources }) =>
@@ -126,6 +148,11 @@ export default {
     parentEventID: (parent, query, { dataSources }) =>
       getCardinality(parent._predicate, query, {
         field: 'parentEventID',
+        searchApi: dataSources.eventAPI.searchEvents,
+      }),
+    surveyID: (parent, query, { dataSources }) =>
+      getCardinality(parent._predicate, query, {
+        field: 'surveyID',
         searchApi: dataSources.eventAPI.searchEvents,
       }),
   },
@@ -197,6 +224,20 @@ export default {
           return response.total;
         });
     },
+    extensions: ({ key }, args, { dataSources }) => {
+      if (typeof key === 'undefined') return null;
+      return dataSources.eventAPI
+        .searchEvents({
+          query: {
+            datasetKey: key,
+            facet: 'extensions',
+            size: 0,
+          },
+        })
+        .then(({ aggregations }) =>
+          aggregations.extensions_facet.buckets.map(({ key, doc_count}) => key)
+        )
+    },
     events: facetEventSearch,
     archive: ({ key }, args, { dataSources }) => {
       return dataSources.eventAPI.getArchive(key);
@@ -211,4 +252,5 @@ export default {
   EventTemporalResult_string: {
     events: temporalEventSearch,
   },
+
 };

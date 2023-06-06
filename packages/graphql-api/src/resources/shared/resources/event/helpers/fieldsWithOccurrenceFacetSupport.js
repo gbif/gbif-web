@@ -11,6 +11,7 @@ export default [
   'species',
   'locationID',
   'basisOfRecord',
+  'occurrenceStatus',
   'recordedById',
   'recordedBy',
   'scientificNames',

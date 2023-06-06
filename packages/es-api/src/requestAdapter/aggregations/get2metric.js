@@ -1,10 +1,10 @@
 const _ = require('lodash');
-const allowedTypes = ['facet', 'stats', 'cardinality'];
+const allowedTypes = ['facet', 'stats', 'cardinality', 'multifacet'];
 
 function get2metric(query, config) {
   // query example: {facet: [year, datasetKey], stats: year, facet.size.year:3}
   const parsedQuery = Object.keys(query).reduce((acc, cur) => {
-    // only conider keys starting with the allowed types (facet, stats, etc.)
+    // only consider keys starting with the allowed types (facet, stats, etc.)
     const firstPart = cur.split('.')[0];
     if (!allowedTypes.includes(firstPart)) return acc;
 
@@ -18,14 +18,16 @@ function get2metric(query, config) {
 
   let metrics = {};
   for (let [type, conf] of Object.entries(parsedQuery)) {
-    const keys = Array.isArray(conf.value) ? conf.value : [conf.value];
+    const keys = Array.isArray(conf.value) ? conf.value : conf.value.split(",");
+    const size = parseInt(_.get(conf, `size.${keys[0]}`, 10));
+    const from = parseInt(_.get(conf, `from.${keys[0]}`, 0));
+    const include = _.get(conf, `include.${keys[0]}`);
+    const key = `${keys.join('-')}`;
     keys.filter(key => config.options[key]).forEach(key => {
-      const size = parseInt(_.get(conf, `size.${key}`, 10));
-      const from = parseInt(_.get(conf, `from.${key}`, 0));
-      const include = _.get(conf, `include.${key}`);
       metrics[`${key}_${type}`] = {
         type,
         key,
+        keys,
         ...(size && { size }),
         ...(from && { from }),
         ...(include && { include }),
