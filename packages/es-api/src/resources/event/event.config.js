@@ -359,9 +359,13 @@ const config =
       field: 'event.eventID.keyword',
       suggestField: 'eventID.suggest'
     },
+    surveyID: {
+      type: 'keyword',
+      field: 'event.surveyID.keyword'
+    },
     eventType: {
       type: 'keyword',
-      field: 'event.eventType.lineage.keyword'
+      field: 'event.eventType.concept'
     },
     eventTypeHierarchyJoined: {
       type: 'keyword',
@@ -567,7 +571,8 @@ const config =
     samplingProtocol: {
       type: 'keyword',
       field: 'event.samplingProtocol.keyword',
-      suggestField: 'samplingProtocol.suggest'
+      suggestField: 'samplingProtocol.suggest',
+      displayField: 'event.samplingProtocol.verbatim'
     },
     scoordinates: {
       type: 'geo_shape',

@@ -14,7 +14,7 @@ class TaxonMediaAPI extends RESTDataSource {
   }
 
   async getRepresentativeImages({ taxon, size, from, params }) {
-    let query = `lsid:${taxon}`;
+    let query = `taxonConceptID:${taxon}`;
 
     // Append any additional filters to the query string
     Object.entries(params?.query || {}).forEach(([key, value]) => {
@@ -25,7 +25,7 @@ class TaxonMediaAPI extends RESTDataSource {
       q: query,
       fq: 'multimedia:"Image"',
       facet: 'off',
-      sort: 'identification_qualifier_s',
+      sort: 'identificationQualifier',
       dir: 'asc',
       im: true,
       start: from || 0,
@@ -39,12 +39,12 @@ class TaxonMediaAPI extends RESTDataSource {
 
     // Append filter queries
     [
-      '-type_status:*',
-      '-basis_of_record:PreservedSpecimen',
-      '-identification_qualifier_s:"Uncertain"',
-      'geospatial_kosher:true',
-      '-user_assertions:50001',
-      '-user_assertions:50005',
+      '-typeStatus:*',
+      '-basisOfRecord:PreservedSpecimen',
+      '-identificationQualifier:"Uncertain"',
+      'spatiallyValid:true',
+      '-userAssertions:50001',
+      '-userAssertions:50005',
       ...Object.entries(params?.filter || {}).map(
         ([key, value]) => `${key}:${value}`,
       ),
