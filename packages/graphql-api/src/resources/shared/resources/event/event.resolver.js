@@ -91,17 +91,19 @@ export default {
     occurrenceFacet: (parent) => {
       return { _predicate: parent._predicate };
     },
-    facet: (parent, {size, from}) => {
+    facet: (parent, { size, from }) => {
       return {
-        size: size,
-        from: from,
-        _predicate: parent._predicate };
+        size,
+        from,
+        _predicate: parent._predicate,
+      };
     },
-    multifacet: (parent, {size, from}) => {
+    multifacet: (parent, { size, from }) => {
       return {
-        size: size,
-        from: from,
-        _predicate: parent._predicate };
+        size,
+        from,
+        _predicate: parent._predicate,
+      };
     },
     cardinality: (parent) => {
       return { _predicate: parent._predicate };
@@ -121,12 +123,12 @@ export default {
   EventFacet,
   EventMultiFacet: {
     locationIDStateProvince: (parent, query, { dataSources }) => {
-      let result = getMultiFacet(parent, query, {
-        fields: Array('locationID', 'stateProvince'),
-        searchApi: dataSources.eventAPI.searchEvents
-      })
+      const result = getMultiFacet(parent, query, {
+        fields: ['locationID', 'stateProvince'],
+        searchApi: dataSources.eventAPI.searchEvents,
+      });
       return result;
-    }
+    },
   },
   EventOccurrenceFacet,
   EventCardinality: {
@@ -235,8 +237,8 @@ export default {
           },
         })
         .then(({ aggregations }) =>
-          aggregations.extensions_facet.buckets.map(({ key, doc_count}) => key)
-        )
+          aggregations.extensions_facet.buckets.map(({ key: facetKey }) => facetKey),
+        );
     },
     events: facetEventSearch,
     archive: ({ key }, args, { dataSources }) => {
