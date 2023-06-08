@@ -1087,6 +1087,11 @@
         isHref: true,
         route: '/occurrences/search'
       },
+      occurrenceDatasetSearch: {
+        url: ({ key }) => `${biocacheUrl}/occurrences/search?fq=dataResourceUid:${key}`,
+        isHref: true,
+        route: '/occurrences/search'
+      },
       occurrenceLocationSearch: {
         url: ({ key, otherIds }) => {
           if (!otherIds.month && !otherIds.year){

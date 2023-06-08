@@ -2,7 +2,7 @@ import { css} from '@emotion/react';
 import React, { useEffect, useCallback, useState, useContext } from 'react';
 import { useUpdateEffect } from 'react-use';
 import SearchContext from '../../../SearchContext';
-import {Button, Skeleton, DetailsDrawer, Row, Col, Tag, Tags} from '../../../../components';
+import {Button, Skeleton, DetailsDrawer, Row, Col, Tag, Tags, ResourceLink} from '../../../../components';
 import { useQuery } from '../../../../dataManagement/api';
 import * as style from './style';
 import { FilterContext } from "../../../../widgets/Filter/state";
@@ -19,7 +19,8 @@ import {
   MdOutlineDeviceThermostat,
   RiSurveyLine
 } from "react-icons/all";
-import {MdEvent} from "react-icons/md";
+import {MdEvent, MdOutbound} from "react-icons/md";
+import {OccurrenceDatasetSearchLink} from "../../../../components/resourceLinks/resourceLinks";
 
 export const List = ({query, first, prev, next, size, from, data, total, loading }) => {
   const { filters } = useContext(SearchContext);
@@ -150,6 +151,7 @@ function DatasetSkeleton() {
 function Dataset({ datasetKey, datasetTitle, count, occurrenceCount, extensions, events, onClick, filters, ...props }) {
   const { data, error, loading, load } = useQuery(DATASET_QUERY, { lazyLoad: true });
   const currentFilterContext = useContext(FilterContext);
+  const [activeView,  setActiveView] = useQueryParam('view', StringParam);
 
   useEffect(() => {
     load({ keepDataWhileLoading: true, variables: { datasetKey } });
@@ -157,8 +159,35 @@ function Dataset({ datasetKey, datasetTitle, count, occurrenceCount, extensions,
 
   if (!data || loading) return <DatasetSkeleton />;
 
+  const isDiscreetLink = css`
+  text-decoration: none;
+  color: var(--linkColor);
+  :hover {
+    text-decoration: underline;
+  }
+`;
+
   const filterByThisDataset = () => {
     currentFilterContext.setField('datasetKey', [datasetKey], true)
+  }
+
+  const viewSitesForDataset = () => {
+    currentFilterContext.setField('datasetKey', [datasetKey], true)
+    setActiveView("SITES")
+  }
+
+  const viewSurveysForDataset = () => {
+    currentFilterContext.setField('datasetKey', [datasetKey], true)
+    setActiveView("SURVEYS")
+  }
+
+  const viewEventsForDataset = () => {
+    currentFilterContext.setField('datasetKey', [datasetKey], true)
+    setActiveView("EVENTS")
+  }
+
+  const addMofFilter = (mof) => {
+    currentFilterContext.setField('measurementOrFactTypes', [mof], true)
   }
 
   const { documents, occurrenceFacet, facet, stats, cardinality } = data.eventSearch;
@@ -191,32 +220,31 @@ function Dataset({ datasetKey, datasetTitle, count, occurrenceCount, extensions,
   }
 
   function getLastPartOfURL(url) {
-    // Create a URL object with the given URL
     const parsedURL = new URL(url);
-
-    // Get the pathname from the parsed URL
     const pathname = parsedURL.pathname;
-
-    // Split the pathname by '/' and get the last part
     const parts = pathname.split('/');
     const lastPart = parts[parts.length - 1];
-
     return lastPart;
   }
-
 
   return <article>
     <div css={style.summary} >
       <Button look="link"><h2 style={{ fontSize: "20px"}} onClick={onClick}>{datasetTitle}</h2></Button>
       <div style={{ display: 'flex', flexWrap: 'wrap'}}>
-        <div                     style={{flex: '1 25%', boxSizing: 'border-box', paddingRight: '10px', borderRight: '2px solid  #E6E6E6' }}>
+        <div style={{flex: '1 25%', boxSizing: 'border-box', paddingRight: '10px', borderRight: '2px solid  #E6E6E6' }}>
           <div css={style.details} style={{ fontSize: "18px" }}>
-            <div><MdEvent/> Events: <span>{documents.total?.toLocaleString()}</span></div>
-            <div><GiPlantsAndAnimals/> Occurrences: <span>{occurrenceCount?.toLocaleString()}</span></div>
+            <div><MdEvent style={{ verticalAlign: 'bottom', marginBottom: '2px' }} /> Events: <span><a href="#" css={isDiscreetLink} onClick={() => viewEventsForDataset()}>{documents.total?.toLocaleString()}</a></span></div>
+            <div><GiPlantsAndAnimals style={{ verticalAlign: 'bottom', marginBottom: '2px'}} /> Occurrences: <span>
+                <OccurrenceDatasetSearchLink id={datasetKey}>{occurrenceCount?.toLocaleString()} <MdOutbound style={{ verticalAlign: 'bottom' , marginBottom: '2px'}} /></OccurrenceDatasetSearchLink>
+            </span></div>
             {cardinality.surveyID > 0 &&
-                <div><RiSurveyLine /> Surveys: <span>{cardinality.surveyID?.toLocaleString()}</span></div>
+                <div><RiSurveyLine style={{ verticalAlign: 'bottom', marginBottom: '2px' }} /> Surveys: <span><a href="#" css={isDiscreetLink} onClick={() => viewSurveysForDataset()}>{cardinality.surveyID?.toLocaleString()}</a></span></div>
             }
-            <div><MdLocationPin /> Sites: <span>{cardinality.locationID?.toLocaleString()}</span></div>
+            <div>
+                <MdLocationPin style={{ verticalAlign: 'bottom', marginBottom: '2px' }} /> Sites: <span>
+                  <a href="#" css={isDiscreetLink} onClick={() => viewSitesForDataset()}>{cardinality.locationID?.toLocaleString()}</a>
+              </span>
+            </div>
           </div>
         </div>
         <div css={style.details} style={{flex: '1 50%', boxSizing: 'border-box', paddingRight: '10px', paddingLeft: '25px', borderRight: '2px solid  #E6E6E6' }}>
@@ -233,7 +261,11 @@ function Dataset({ datasetKey, datasetTitle, count, occurrenceCount, extensions,
               <div>
                 <Tags style={{fontSize: '14px'}}>
                   {facet.measurementOrFactTypes.map(x =>
-                      <Tag key={x.key}  type="light" outline={true} >{x.key}</Tag>
+                      <Tag key={x.key}  type="light" outline={true} >
+                        <a href="#" css={isDiscreetLink} onClick={() => addMofFilter(x.key)}>
+                          {x.key}
+                        </a>
+                        </Tag>
                   )}
                 </Tags>
               </div>

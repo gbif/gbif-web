@@ -125,6 +125,13 @@ const routeConfig = {
     isHref: true,
     route: '/occurrences/search'
   },
+  occurrenceDatasetSearch: {
+    // https://biocache-test.ala.org.au/occurrences/search?fq=eventHierarchy:${eventID}&fq=dataResourceUid:${datasetKey}`
+    // url: ({ key }) => `https://gbif.org/occurrence/${key}`,
+    url: ({ key }) => `https://biocache-dev.ala.org.au/occurrences/search?fq=dataResourceUid:${key}`,
+    isHref: true,
+    route: '/occurrences/search'
+  },
   occurrenceLocationSearch: {
     // https://biocache-test.ala.org.au/occurrences/search?fq=eventHierarchy:${eventID}&fq=dataResourceUid:${datasetKey}`
     // url: ({ key }) => `https://gbif.org/occurrence/${key}`,

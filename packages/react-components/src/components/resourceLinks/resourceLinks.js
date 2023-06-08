@@ -50,6 +50,10 @@ export function OccurrenceEventSearchLink(props) {
   return <ResourceLink type='occurrenceEventSearch' {...props} />
 }
 
+export function OccurrenceDatasetSearchLink(props){
+  return <ResourceLink type='occurrenceDatasetSearch' {...props} />
+}
+
 export function OccurrenceLocationSearchLink(props){
   return <ResourceLink type='occurrenceLocationSearch' {...props} />
 }

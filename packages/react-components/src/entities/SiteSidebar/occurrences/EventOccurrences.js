@@ -81,7 +81,7 @@ export function EventOccurrence({ locationID, month, year }) {
         {total > 0 &&
             <span>
                 <OccurrenceLocationSearchLink id={locationID} otherIds={{ month: month > 0 ? month : null, year: year  > 0 ? year : null }}>
-                    <MdOutbound style={{marginRight:'5px'}} />Explore all records
+                    Explore all records<MdOutbound style={{verticalAlign: 'bottom' , marginBottom: '2px', marginLeft: '2px' }} />
                 </OccurrenceLocationSearchLink>
             </span>
         }

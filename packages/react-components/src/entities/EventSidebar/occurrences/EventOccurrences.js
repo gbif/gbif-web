@@ -53,7 +53,7 @@ export function EventOccurrence({ eventID, datasetKey }) {
             {total > 0 &&
                 <span>
                     <OccurrenceEventSearchLink id={eventID} otherIds={{datasetKey: datasetKey}}>
-                        <MdOutbound style={{marginRight:'5px'}} />Explore all records
+                        Explore all records <MdOutbound style={{verticalAlign: 'bottom' , marginBottom: '2px', marginLeft: '2px'}} />
                     </OccurrenceEventSearchLink>
                 </span>
             }

@@ -20,6 +20,7 @@ import {
     MdOutlineDeviceThermostat
 } from "react-icons/all";
 import {MdEvent} from "react-icons/md";
+import {StringParam, useQueryParam} from "use-query-params";
 
 export const List = ({query, first, prev, next, size, from, data, total, loading }) => {
 
@@ -183,6 +184,7 @@ function DatasetSkeleton() {
 function Survey({ eventID, setActiveEvent, filters, ...props }) {
 
     const theme = useContext(ThemeContext);
+    const [activeView,  setActiveView] = useQueryParam('view', StringParam);
     const eventDetailsPredicate = { type: "and", predicates: [
             {
                 type: "equals",
@@ -205,8 +207,29 @@ function Survey({ eventID, setActiveEvent, filters, ...props }) {
         ]}
     ;
 
+    const isDiscreetLink = css`
+          text-decoration: none;
+          color: var(--linkColor);
+          :hover {
+            text-decoration: underline;
+          }
+        `;
+
     const { data, error, loading, load } = useQuery(SURVEY_QUERY, { lazyLoad: true });
     const currentFilterContext = useContext(FilterContext);
+
+    const viewSitesForSurvey = () => {
+        currentFilterContext.setField('eventHierarchy', [eventID], true)
+        setActiveView("SITES")
+    }
+
+    // const setSamplingProtocol = () => {
+    //     currentFilterContext.setField('samplingProtocol', [data.], true)
+    // }
+
+    const addMofFilter = (mof) => {
+        currentFilterContext.setField('measurementOrFactTypes', [mof], true)
+    }
 
     useEffect(() => {
         load({ keepDataWhileLoading: true, variables: {
@@ -307,16 +330,16 @@ function Survey({ eventID, setActiveEvent, filters, ...props }) {
 
     return <article>
         <div css={style.summary}>
-            <div style={{ display: 'flex', width: '100%'}}>
+            <div style={{ display: 'flex', flexWrap: 'wrap'}}>
                 <div style={{ flex: '1', flexBasis: '35%' }}>
                     <div css={style.details} style={{ fontSize: "18px", paddingRight: '20px', borderRight: '2px solid #E6E6E6', height: '100%' }}>
                         <Button look="link">
                             <h2 css={css` font-size: 1.4rem;`} onClick={onClick}>{event.eventType?.concept}: {event.eventName} {event.eventID}</h2>
                         </Button>
-                        <div><GiBarrel /> Dataset: <span>{event.datasetTitle}</span></div>
-                        <div><MdLocationPin /> Sites: <span>{cardinality.locationID?.toLocaleString()}</span></div>
+                        <div><GiBarrel style={{ verticalAlign: 'bottom', marginBottom: '2px' }} /> Dataset: <span>{event.datasetTitle}</span></div>
+                        <div><MdLocationPin style={{ verticalAlign: 'bottom', marginBottom: '2px' }} /> Sites: <span><a href="#" css={isDiscreetLink} onClick={() => viewSitesForSurvey()}>{cardinality.locationID?.toLocaleString()}</a></span></div>
                         {facet.samplingProtocol && facet.samplingProtocol.length > 0 &&
-                            <div><FaCreativeCommonsSampling /> Sampling protocol: <span>{facet.samplingProtocol.map(x => x.key).join(', ')}</span></div>
+                            <div><FaCreativeCommonsSampling style={{ verticalAlign: 'bottom', marginBottom: '2px' }} /> Sampling protocol: <span>{facet.samplingProtocol.map(x => x.key).join(', ')}</span></div>
                         }
                         <Button
                             style={{ marginTop: '20px' }}
@@ -346,7 +369,11 @@ function Survey({ eventID, setActiveEvent, filters, ...props }) {
                                 marginTop: "20px",
                             }}><div style={{ marginBottom: '10px'}}> <MdOutlineDeviceThermostat/> Measurements</div>
                                 <Tags style={{ fontSize: '12px' }}>
-                                    {facet.measurementOrFactTypes.map(x => <Tag key={x.key} type="light" outline={true}>{x.key}</Tag>)}
+                                    {facet.measurementOrFactTypes.map(x => <Tag key={x.key} type="light" outline={true}>
+                                        <a href="#" css={isDiscreetLink} onClick={() => addMofFilter(x.key)}>
+                                        {x.key}
+                                        </a>
+                                    </Tag>)}
                                 </Tags>
                             </div>
                         }
