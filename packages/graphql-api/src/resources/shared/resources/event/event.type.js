@@ -194,7 +194,7 @@ export default gql`
     eventHierarchy(size: Int, include: String):           [EventFacetResult_string]
     eventTypeHierarchyJoined(size: Int, include: String): [EventFacetResult_string]
     eventTypeHierarchy(size: Int, include: String):       [EventFacetResult_string]
-    surveyID(size: Int, include: String):                 [EventFacetResult_string]
+    surveyID(size: Int, from: Int, include: String):      [EventFacetResult_string]
     locality(size: Int, include: String):                 [EventFacetResult_string]
     samplingProtocol(size: Int, include: String):         [EventFacetResult_string]
     measurementOrFactTypes(size: Int, include: String):   [EventFacetResult_string]
