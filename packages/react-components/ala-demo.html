@@ -110,7 +110,7 @@
 
   <script
           type="text/javascript"
-          src="dist/lib/gbif-react-components.js"
+          src="dist/lib/ala-react-components.js"
   ></script>
   <script type="text/javascript" src="dist/lib/oidc-client-ts.js"></script>
 </head>
@@ -877,7 +877,7 @@
                 style="padding-left: 0px; margin-left: 20px"
         >
           <li><a href="http://www.ala.org.au">Home</a></li>
-          <li class="active">Surveys and sampling events</li>
+          <li class="active">Surveys and sampling datasets</li>
         </ol>
       </nav>
     </div>
@@ -1039,7 +1039,7 @@
 
     var widgetLocale = 'en';
 
-    var siteTheme = gbifReactComponents.themeBuilder.extend({
+    var siteTheme = alaReactComponents.themeBuilder.extend({
       baseTheme: 'light',
       extendWith: {
         dense: true,
@@ -1150,7 +1150,7 @@
 
     ReactDOM.render(
             // React.createElement(gbifReactComponents.OccurrenceSearch, {
-            React.createElement(gbifReactComponents.EventSearch, {
+            React.createElement(alaReactComponents.EventSearch, {
               style: { height: 'calc(100vh - 148px)' },
               siteConfig: alaSiteConfig,
               pageLayout: true,
