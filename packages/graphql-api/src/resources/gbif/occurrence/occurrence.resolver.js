@@ -552,22 +552,4 @@ export default {
       return getLongitudeBounds(buckets, interval);
     },
   },
-  // TermGroups: (occurrence, args, { dataSources }) => {
-  //   console.log('get verbatim');
-  //   return dataSources.occurrenceAPI.getVerbatim({key: occurrence.key })
-  //     .then(verbatim => {
-  //       console.log('sdf');
-  //       groupResolver({occurrence, verbatim})
-  //     });
-  // }
 };
-
-// var ggbn = ['Amplification', 'MaterialSample', 'Permit', 'Preparation', 'Preservation'];
-//   vm.isSequenced = function(extensions) {
-//     if (!extensions) return false;
-//     for (var i = 0; i < ggbn.length; i++) {
-//       var ext = extensions['http://data.ggbn.org/schemas/ggbn/terms/' + ggbn[i]];
-//       if (ext && ext.length > 0) return true;
-//     }
-//     return false;
-//   };
