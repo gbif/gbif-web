@@ -15,6 +15,7 @@ export const cssViewArea = ({theme}) => css`
   margin-top: 0;
   display: flex;
   flex-direction: column;
+  height: 500px;
 `;
 
 export const cssLayout = ({theme}) => css`

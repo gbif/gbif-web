@@ -19,7 +19,7 @@ const fallbackTableConfig = {
   }]
 };
 
-export const ResultsTable = ({ first, prev, next, size, from, results, total, loading, defaultTableConfig = fallbackTableConfig, hideLock }) => {
+export const ResultsTable = ({ first, prev, next, size, from, results, total, loading, defaultTableConfig = fallbackTableConfig, hideLock, style }) => {
   const currentFilterContext = useContext(FilterContext);
   const { filters, tableConfig = defaultTableConfig, labelMap } = useContext(SearchContext);
   const [fixedColumn, setFixed] = useState(true && !hideLock);
@@ -53,6 +53,7 @@ export const ResultsTable = ({ first, prev, next, size, from, results, total, lo
     height: "100%",
     maxHeight: "100vh",
     flexDirection: "column",
+    ...style
   }}>
     <ResultsHeader loading={loading} total={total} />
     <DataTable fixedColumn={fixed} {...{ first, prev, next, size, from, total, loading }} style={{ flex: "1 1 auto", height: 100, display: 'flex', flexDirection: 'column' }}>
