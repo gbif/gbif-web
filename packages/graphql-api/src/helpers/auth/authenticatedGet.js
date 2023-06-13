@@ -4,12 +4,12 @@ import { createHmac } from 'crypto';
 
 const NEWLINE = '\n';
 
-const createHeader = ({ canonicalPath }) => ({
+const createHeader = ({ canonicalPath, appKey }) => ({
   'x-url': canonicalPath,
   'x-gbif-user': appKey,
 });
 
-function signHeader(method, headers, appSecret) {
+function signHeader(method, headers, appKey, appSecret) {
   let stringToSign = method + NEWLINE + headers['x-url'];
   stringToSign += NEWLINE + headers['x-gbif-user'];
   const signature = createHmac('sha1', appSecret)
@@ -17,12 +17,14 @@ function signHeader(method, headers, appSecret) {
     .digest('base64');
   // eslint-disable-next-line no-param-reassign
   headers.Authorization = `GBIF ${appKey}:${signature}`;
+  return headers;
 }
 
 function createSignedGetHeader(canonicalPath, config) {
   return signHeader(
     'GET',
     createHeader({ canonicalPath, appKey: config.appKey }),
+    config.appKey,
     config.appSecret,
   );
 }
