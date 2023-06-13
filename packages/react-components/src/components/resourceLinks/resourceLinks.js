@@ -2,7 +2,7 @@ import { jsx, css } from '@emotion/react';
 import React, { useContext } from "react";
 import RouteContext from '../../dataManagement/RouteContext';
 import LocaleContext from '../../dataManagement/LocaleProvider/LocaleContext';
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 export const ResourceSearchLink = React.forwardRef(({ queryString, type, discreet, ...props }, ref) => {
   const routeContext = useContext(RouteContext);
@@ -17,11 +17,15 @@ export const ResourceSearchLink = React.forwardRef(({ queryString, type, discree
   }
 });
 
-export const ResourceLink = React.forwardRef(({ id, type, otherIds, discreet, bold,...props }, ref) => {
+export const ResourceLink = React.forwardRef(({ id, type, otherIds, discreet, bold, localeContext: localeOverwrite, routeContext: routeOverwrite, ...props }, ref) => {
   const localeSettings = useContext(LocaleContext);
-  const routeContext = useContext(RouteContext);
+  const routeSettings = useContext(RouteContext);
+
+  const localeContext = localeOverwrite || localeSettings;
+  const routeContext = routeOverwrite || routeSettings;
+
   const basename = routeContext.basename;
-  const gbifOrgLocale = localeSettings?.localeMap?.gbif_org;
+  const gbifOrgLocale = localeContext?.localeMap?.gbif_org;
   const { url, isHref, route } = routeContext[type];
   const to = url({ key: id, otherIds, route, basename, gbifOrgLocalePrefix: gbifOrgLocale ? `/${gbifOrgLocale}` : '' });
   let style = isDiscreetLink;
@@ -33,6 +37,22 @@ export const ResourceLink = React.forwardRef(({ id, type, otherIds, discreet, bo
     return <Link to={to} css={style} {...props} />
   }
 });
+
+export const ResourceAction =  ({ id, type, otherIds }) => {
+  const history = useHistory();
+  const localeSettings = useContext(LocaleContext);
+  const routeContext = useContext(RouteContext);
+  const basename = routeContext.basename;
+  const gbifOrgLocale = localeSettings?.localeMap?.gbif_org;
+  const { url, isHref, route } = routeContext[type];
+  const to = url({ key: id, otherIds, route, basename, gbifOrgLocalePrefix: gbifOrgLocale ? `/${gbifOrgLocale}` : '' });
+  if (isHref) {
+    location.href = to;
+  } else {
+    history.push(to);
+  }
+  return null;
+}
 
 export function PublisherKeyLink(props) {
   return <ResourceLink type='publisherKey' {...props} />
