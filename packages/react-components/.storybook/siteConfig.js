@@ -94,6 +94,7 @@ const routeConfig = {
     isHref: true,
     route: '/literature/search',
   },
+
   eventKey: {
     // url: ({key}) => `/publisher/${key}`,
     // url: ({key, otherIds}) => `${gbifOrg}/dataset/${otherIds.datasetKey}/event/${key}`,
