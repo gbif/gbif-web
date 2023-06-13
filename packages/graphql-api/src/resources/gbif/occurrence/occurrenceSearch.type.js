@@ -208,6 +208,8 @@ const typeDef = gql`
     hasGeospatialIssue(size: Int): [OccurrenceFacetResult_boolean]
     repatriated(size: Int): [OccurrenceFacetResult_boolean]
     gbifClassification_synonym(size: Int): [OccurrenceFacetResult_boolean]
+    occurrenceStatus(size: Int): [OccurrenceFacetResult_boolean]
+
     gbifClassification_classification_synonym(
       size: Int
     ): [OccurrenceFacetResult_boolean]
