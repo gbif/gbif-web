@@ -7,6 +7,7 @@
   <meta name="description" content="Atlas of Living Australia" />
   <meta name="author" content="Atlas of Living Australia" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.usefathom.com/script.js" data-site="QDWZORBB" defer></script>
   <!-- Favicon -->
   <link
           href="https://www.ala.org.au/app/uploads/2019/01/cropped-favicon-32x32.png"
@@ -897,7 +898,7 @@
   <h2 style="margin-top: 0; margin-bottom: 15px;">Surveys and sample datasets</h2>
   <div id="root"></div>
   <script>
-    let authServer =  'https://auth.ala.org.au/';
+    let authServer = 'https://auth.ala.org.au/';
     let authServerOidc = "";
     let authClientID = 'events-oidc-auth-prod'
     let baseUrl = 'https://events.ala.org.au/'
@@ -1073,7 +1074,7 @@
       },
       datasetKey: {
         url: ({ key, gbifOrgLocalePrefix }) =>
-`${collectionsServer}/public/showDataResource/${key}`,
+                `${collectionsServer}/public/showDataResource/${key}`,
         isHref: true,
         route: '/dataset/:key',
       },
@@ -1892,50 +1893,7 @@
     <!-- container end -->
   </div>
 </footer>
-<!-- Google Analytics -->
-<script>
-  window.ga =
-          window.ga ||
-          function () {
-            (ga.q = ga.q || []).push(arguments);
-          };
-  ga.l = +new Date();
-  ga('create', 'UA-4355440-1', 'auto');
-  ga('send', 'pageview');
-</script>
-<script async src="https://www.google-analytics.com/analytics.js"></script>
-<!-- End Google Analytics -->
-<!-- ALA self hosted analytics -->
-<script type="text/javascript">
-  var _paq = window._paq || [];
-  _paq.push(['setDocumentTitle', document.domain + '/' + document.title]);
-  _paq.push(['setCookieDomain', '*.ala.org.au']);
-  _paq.push(['setDomains', ['*.ala.org.au']]);
-  _paq.push(['trackPageView']);
-  _paq.push(['enableLinkTracking']);
-  (function () {
-    var u = 'https://ash.ala.org.au/';
-    _paq.push(['setTrackerUrl', u + 'ash.html']);
-    _paq.push(['setSiteId', '1']);
-    var d = document,
-            g = d.createElement('script'),
-            s = d.getElementsByTagName('script')[0];
-    g.type = 'text/javascript';
-    g.async = true;
-    g.defer = true;
-    g.src = u + 'ash.js';
-    s.parentNode.insertBefore(g, s);
-  })();
-</script>
-<noscript
-><p>
-  <img
-          src="https://ash.ala.org.au/ash.php?idsite=1&amp;rec=1"
-          style="border: 0"
-          alt=""
-  /></p
-></noscript>
-<!-- End ALA self hosted analytics -->
+
 <!-- ALA support widget -->
 <script
         type="text/javascript"

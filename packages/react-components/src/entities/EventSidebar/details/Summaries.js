@@ -7,6 +7,8 @@ import {Measurements} from "./Measurements";
 import {SingleTree} from "./Tree/SingleTree";
 import TaxonTreeMap from "../../../components/TaxonTreeMap/TaxonTreeMap";
 import ApiContext from "../../../dataManagement/api/ApiContext";
+import {MeasurementSummary} from "./MeasurementSummary";
+import env from '../../../../.env.json';
 
 const { Term: T, Value: V } = Properties;
 
@@ -34,6 +36,8 @@ export function Summaries({ event, setActiveEvent, addEventTypeToSearch, setTab,
   }
 
   let rootNode = null;
+  let mofHierarchyJoined = [];
+  let hasMeasurement = false;
   if (hasEventType) {
 
     const eventHierarchy = event.eventHierarchy;
@@ -95,9 +99,19 @@ export function Summaries({ event, setActiveEvent, addEventTypeToSearch, setTab,
     });
 
     // add hierarchy from mofs
-    const mofHierarchyJoined = data?.mofResults?.facet?.eventTypeHierarchyJoined.sort(function (a, b) {
+    mofHierarchyJoined = data?.mofResults?.facet?.eventTypeHierarchyJoined.sort(function (a, b) {
       return a.key.length - b.key.length
     });
+
+    function checkIfHasMeasurement(mofHierarchyJoined) {
+      if (mofHierarchyJoined.length == 1 && (mofHierarchyJoined[0].key.endsWith("Find") ||  mofHierarchyJoined[0].key.endsWith("SiteVisit") ||  mofHierarchyJoined[0].key.endsWith("Subsurvey"))) {
+          return true;
+      } else {
+        return false;
+      }
+    }
+    hasMeasurement = checkIfHasMeasurement(mofHierarchyJoined);
+
     //Calculate how may measurements attached to 'Survey','Sample','Find' etc
     const measurements = mofHierarchyJoined.reduce(function(measurementsCount, record){
       let total = record?.events?.facet?.measurementOrFactTypes.reduce(function(count, mft){
@@ -197,7 +211,8 @@ export function Summaries({ event, setActiveEvent, addEventTypeToSearch, setTab,
     </Group>
     <Methodology             {...{ showAll, termMap }} />
     <TaxonomicCoverage       {...{ showAll, termMap, event }} />
-    <Measurements             data={data.measurementResults}  />
+    {hasMeasurement &&  <Measurements data={data.measurementResults}  /> }
+    {!hasMeasurement &&  <MeasurementSummary data={mofHierarchyJoined}  /> }
   </>
 }
 
@@ -289,7 +304,7 @@ function TaxonomicCoverage({ showAll, termMap, event }) {
     }).join('&')
 
     //  to be removed..
-    let queryUrl = "https://namematching-ws.ala.org.au/api/searchByClassification?scientificName=" + taxonName + '&' + higherTaxaParams;
+    let queryUrl = env.NAME_MATCHING_WS_URL + "searchByClassification?scientificName=" + taxonName + '&' + higherTaxaParams;
 
     // translate to sci names - add higher classification
     fetch(queryUrl, { method: 'GET'})

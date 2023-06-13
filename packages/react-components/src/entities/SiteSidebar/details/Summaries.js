@@ -2,7 +2,7 @@ import React from 'react';
 import { Properties } from "../../../components";
 import * as css from "../styles";
 import {FacetList, FacetListInline} from "../../EventSidebar/details/properties";
-import {Group} from "../SiteSidebar";
+import { Group } from "../SiteSidebar";
 
 const { Term: T, Value: V } = Properties;
 

@@ -308,19 +308,47 @@ function Survey({ eventID, setActiveEvent, filters, ...props }) {
         wicket.read(event.wktConvexHull);
 
         // convert to geojson
-        geojson = wicket.toJson();
-        if (geojson.type != "Point"){
+        geojson = wicket.toJson()
+        let style = {}
+        //LineString cannot have fill property
+        if (geojson.type == "LineString") {
+            style = {
+                'strokeColor': theme.primary.replace('#','%23')
+            }
+        } else {
+            style = {
+                'fill': theme.primary.replace('#','%23'),
+                'strokeColor': theme.primary.replace('#','%23')
+            }
+        }
+        if (geojson.type == "Point"){
+            //Only support single point
+            let coordinates = geojson.coordinates
+            geojson =
+                {
+                    "type": "FeatureCollection",
+                    "features": [
+                        {
+                            "type": "Feature",
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": coordinates
+                            },
+                            properties: {}
+                        }
+                    ]
+                }
+            //Latitude must be between -85.0511-85.0511
+            let l_lat= coordinates[1]-2 > 85 ? 85 : coordinates[1]-2 < -85 ? -85 : coordinates[1]-2
+            let u_lat= coordinates[1]+2 > 85 ? 85 : coordinates[1]+2 < -85 ? -85 : coordinates[1]+2
+            extent = JSON.stringify([coordinates[0]-2,l_lat,coordinates[0]+2,u_lat]);
+        } else {
             geojson = {
                 "type": "Feature",
                 "geometry": geojson,
-                "properties":{
-                    'fill': theme.primary.replace('#','%23'),
-                    'strokeColor': theme.primary.replace('#','%23')
+                "properties": style
                 }
-            }
-            extent = getBbox(geojson);
-        } else {
-            geojson = null;
+            extent = "auto";
         }
     }
 
@@ -395,7 +423,7 @@ function Survey({ eventID, setActiveEvent, filters, ...props }) {
                     <div style={{ float: 'right' }}>
                         {extent && geojson &&
                             <img
-                                src={`https://api.mapbox.com/styles/v1/mapbox/light-v10/static/geojson(${JSON.stringify(geojson)})/${JSON.stringify(extent)}/350x200?access_token=${env.MAPBOX_KEY}`}/>
+                                src={`https://api.mapbox.com/styles/v1/mapbox/light-v10/static/geojson(${JSON.stringify(geojson)})/${extent}/350x200?access_token=${env.MAPBOX_KEY}`}/>
                         }
                     </div>
                 </div>

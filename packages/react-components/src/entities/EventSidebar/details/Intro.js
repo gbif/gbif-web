@@ -50,7 +50,7 @@ export function Intro({
       <Row justifyContent="flex-end" halfGutter={8}>
         <Col grow={false}>
           <FormattedMessage id={`eventDetails.showAllFields`}/>
-          <Switch checked={showAll} onChange={() => setShowAll(!showAll)} direction="top" tip="Shortcut" />
+          <Switch checked={showAll} style={{marginLeft: '10px'}} onChange={() => setShowAll(!showAll)} direction="top" tip="Shortcut" />
         </Col>
       </Row>
     </Col>

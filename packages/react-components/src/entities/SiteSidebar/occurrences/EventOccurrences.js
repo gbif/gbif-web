@@ -6,6 +6,7 @@ import {
     OccurrenceLocationSearchLink
 } from "../../../components/resourceLinks/resourceLinks";
 import {MdOutbound} from "react-icons/md";
+import {MdHorizontalRule} from "react-icons/all";
 
 const EVENT_MY_QUERY = `
 query list ($locationID: String, $month: Int, $year: Int, $size:Int, $from:Int) {
@@ -67,7 +68,7 @@ export function EventOccurrence({ locationID, month, year }) {
 
     const prev = () => {
         const offsetValue = Math.max(0, offset - size);
-        setOffset(offsetValue !== 0 ? offsetValue : undefined);
+        setOffset(offsetValue !== 0 ? offsetValue : 0);
     };
 
     const first = () => {
@@ -78,33 +79,38 @@ export function EventOccurrence({ locationID, month, year }) {
 
     return <>
         <div style={{paddingLeft: '20px', paddingRight: '30px'}}>
-        {total > 0 &&
-            <span>
-                <OccurrenceLocationSearchLink id={locationID} otherIds={{ month: month > 0 ? month : null, year: year  > 0 ? year : null }}>
-                    Explore all records<MdOutbound style={{verticalAlign: 'bottom' , marginBottom: '2px', marginLeft: '2px' }} />
-                </OccurrenceLocationSearchLink>
+
+        <h3>Occurrences ({ !total ? 'loading' : total?.toLocaleString()})
+            {total > 0 &&
+                <span style={{ marginLeft:'5px'}}>
+                    <MdHorizontalRule style={{ verticalAlign: 'bottom', marginRight: '5px'}}/>
+                    <OccurrenceLocationSearchLink id={locationID} otherIds={{ month: month > 0 ? month : null, year: year  > 0 ? year : null }}>
+                        explore all records<MdOutbound style={{verticalAlign: 'bottom' , marginBottom: '2px', marginLeft: '2px' }} />
+                    </OccurrenceLocationSearchLink>
             </span>
-        }
-        <h3>Occurrences ({ !total ? 'loading' : total?.toLocaleString()})</h3>
-        <DataTable {...{  first, prev, next, size, from, total, loading }}
-           style={{ flex: "1 1 auto",  display: 'flex', flexDirection: 'column' }}>
-            <thead>
-                <th>Family</th>
-                <th>Scientific name</th>
-                <th>Basis of record</th>
-                <th>Occurrence status</th>
-                <th></th>
-            </thead>
-            <TBody rowCount={size} columnCount={5} loading={loading}>
-                {data?.occurrences?.results?.map(x => <tr key={x.key}>
-                    <td>{x.family}</td>
-                    <td>{x.scientificName}</td>
-                    <td>{x.basisOfRecord}</td>
-                    <td>{x.occurrenceStatus}</td>
-                    <td><OccurrenceLink id={x.key}>View details</OccurrenceLink></td>
-                </tr>)}
-            </TBody>
-        </DataTable>
+            }
+        </h3>
+            { total > 0 &&
+                <DataTable {...{  first, prev, next, size, from, total, loading }}
+                   style={{ flex: "1 1 auto",  display: 'flex', flexDirection: 'column' }}>
+                    <thead>
+                        <th>Family</th>
+                        <th>Scientific name</th>
+                        <th>Basis of record</th>
+                        <th>Occurrence status</th>
+                        <th></th>
+                    </thead>
+                    <TBody rowCount={size} columnCount={5} loading={loading}>
+                        {data?.occurrences?.results?.map(x => <tr key={x.key}>
+                            <td>{x.family}</td>
+                            <td>{x.scientificName}</td>
+                            <td>{x.basisOfRecord}</td>
+                            <td>{x.occurrenceStatus}</td>
+                            <td><OccurrenceLink id={x.key}>View details</OccurrenceLink></td>
+                        </tr>)}
+                    </TBody>
+                </DataTable>
+            }
         </div>
     </>
 }
