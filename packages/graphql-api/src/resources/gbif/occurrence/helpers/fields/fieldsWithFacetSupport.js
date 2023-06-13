@@ -47,7 +47,6 @@ export default [
   'networkKey',
   // "notIssues",
   'occurrenceId',
-  'occurrenceStatus',
   'organismId',
   'organismQuantity',
   'organismQuantityType',
