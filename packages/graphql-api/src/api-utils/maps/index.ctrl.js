@@ -18,6 +18,7 @@ import gbifRaster4326 from './4326/gbif-raster';
 import satellite3031 from './3031/satellite';
 import satellite3857_maptiler from './3857/satellite_maptiler';
 import satellite3857_bing from './3857/satellite_bing';
+import { getInstitutionsGeojson } from './institutions/institutions';
 
 const router = Router();
 
@@ -69,4 +70,10 @@ router.get('/3857/satellite_maptiler', (req, res, next) => {
 });
 router.get('/3857/satellite_bing', (req, res, next) => {
   returnTemplate(req, res, next, satellite3857_bing);
+});
+
+// institutions
+router.get('/3031/institutions.geojson', async (req, res, next) => {
+  const institutions = await getInstitutionsGeojson(req.query, req);
+  res.json(institutions);
 });
