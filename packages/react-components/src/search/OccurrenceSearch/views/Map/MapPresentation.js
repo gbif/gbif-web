@@ -160,7 +160,18 @@ function Map({ labelMap, query, q, pointData, pointError, pointLoading, loading,
             items={menuLayerOptions}
           />}
         </div>
-        <MapComponent mapConfig={mapConfiguration.mapConfig} latestEvent={latestEvent} defaultMapSettings={defaultMapSettings} predicateHash={predicateHash} q={q} css={css.mapComponent({ theme })} theme={theme} query={query} onMapClick={e => showList(false)} onPointClick={data => { showList(true); loadPointData(data) }} registerPredicate={registerPredicate} />
+        <MapComponent 
+          mapConfig={mapConfiguration.mapConfig} 
+          latestEvent={latestEvent} 
+          defaultMapSettings={defaultMapSettings} 
+          predicateHash={predicateHash} 
+          q={q} 
+          css={css.mapComponent({ theme })} 
+          theme={theme} 
+          query={query} 
+          onMapClick={e => showList(false)} 
+          onPointClick={data => { showList(true); loadPointData(data) }} 
+          registerPredicate={registerPredicate} />
       </div>
     </div>
   </>;
