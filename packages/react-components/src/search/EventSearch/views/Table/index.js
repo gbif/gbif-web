@@ -95,6 +95,28 @@ const defaultTableConfig = {
       }
     },
     {
+      name: 'occurrenceCount',
+      trKey: 'tableHeaders.occurrences',
+      value: {
+        key: 'occurrenceCount',
+        formatter: (value, item) => <FormattedNumber value={value} />,
+        hideFalsy: true,
+        rightAlign: true
+      },
+      noWrap: true
+    },
+    {
+      name: 'speciesCount',
+      trKey: 'tableHeaders.species',
+      value: {
+        key: 'speciesCount',
+        formatter: (value, item) => <FormattedNumber value={value} />,
+        hideFalsy: true,
+        rightAlign: true
+      },
+      noWrap: true
+    },
+    {
       trKey: 'filters.datasetKey.name',
       filterKey: 'datasetKey',
       value: {
@@ -179,43 +201,13 @@ const defaultTableConfig = {
       }
     },
     {
-      name: 'countryCode',
-      trKey: 'filters.country.name',
-      value: {
-        key: 'countryCode',
-        labelHandle: 'countryCode'
-      }
-    },
-    {
       name: 'measurementOrFactTypes',
       trKey: 'filters.measurementOrFactTypes.name',
       value: {
         key: 'measurementOrFactTypes',
         formatter: (value, item) => <>{(value || []).slice(0, 10).join(', ')}</>
       }
-    },
-    {
-      name: 'occurrenceCount',
-      trKey: 'tableHeaders.occurrences',
-      value: {
-        key: 'occurrenceCount',
-        formatter: (value, item) => <FormattedNumber value={value} />,
-        hideFalsy: true,
-        rightAlign: true
-      },
-      noWrap: true
-    },
-    {
-      name: 'speciesCount',
-      trKey: 'tableHeaders.species',
-      value: {
-        key: 'speciesCount',
-        formatter: (value, item) => <FormattedNumber value={value} />,
-        hideFalsy: true,
-        rightAlign: true
-      },
-      noWrap: true
-    },
+    }
   ]
 };
 

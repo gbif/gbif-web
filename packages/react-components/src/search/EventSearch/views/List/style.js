@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
-// import { focusStyle, noUserSelect } from '../../style/shared';
+import {Button} from "../../../../components";
+import React from "react";
 
 export const datasetList = ({theme, ...props}) => css`
   list-style: none;
@@ -29,11 +30,81 @@ export const datasetSkeleton = ({theme, ...props}) => css`
 `;
 
 export const details = ({theme, ...props}) => css`
-  > div {
+  display: flex;
+  flex-wrap: wrap;
+  @media (max-width: 1000px) {
+    div {
+      flex-basis: 100%; 
+      padding-left: 0px;  
+      margin-top: 10px;
+      border-right: 0px;
+    }
+  }  
+`;
+
+export const details_col1 = ({theme, ...props}) => css`
+   flex: 1 30%;
+   box-sizing: border-box; 
+   padding-right: 10px;
+   border-right: 2px solid  #E6E6E6;
+   margin-bottom: 0.4em;
+   width: 100%;
+   > div {
+    font-size: 18px; 
+    display: block;
     margin-bottom: 0.4em;
-    >span {
+    > svg {
+      vertical-align: bottom;
+      margin-bottom: 2px;
+    }
+    > span {
+      margin-left: 5px;
       font-weight: 500;
     }
+  }  
+`;
+
+export const details_col2 = ({theme, ...props}) => css`
+    flex: 1 40%;
+    padding-left: 25px;    
+    box-sizing: border-box;
+    padding-right: 10px;
+    border-right: 2px solid  #E6E6E6;
+    margin-bottom: 0.4em;
+`;
+
+export const details_col3 = ({theme, ...props}) => css`
+    flex: 1 30%;
+    box-sizing: border-box;
+    padding-right: 0;
+    padding-left: 25px;
+    margin-bottom: 0.4em;
+`;
+
+export const details_map = ({theme, ...props}) => css`
+    @media (max-width: 1000px) {
+      float: none;
+    } 
+    @media (max-width: 1400px) {
+      > img {
+         width:250px;   
+      }
+    }        
+`;
+
+export const filter_by = ({theme, ...props}) => css`
+    margin-top: 20px;
+    font-size: 14px;
+    @media (max-width: 1400px) {
+            
+    }        
+`;
+
+export const discreet_link = ({theme, ...props}) => css`
+  text-decoration: none;
+  color: var(--linkColor);
+  :hover {
+    text-decoration: underline;
   }
 `;
 

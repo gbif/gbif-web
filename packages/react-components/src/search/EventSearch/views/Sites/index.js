@@ -37,8 +37,14 @@ function Table() {
   return <PredicateDataFetcher
       queryProps={{ throwAllErrors: true}}
       graphQuery={SITES_QUERY}
-      queryTag='surveys'
+      queryTag='sites'
       presentation={SitesTable}
+      predicateMeddler={(predicate) => {
+        predicate.predicates.push({
+          type: "isNotNull",
+          key: "year"
+        });
+      }}
   />
 }
 

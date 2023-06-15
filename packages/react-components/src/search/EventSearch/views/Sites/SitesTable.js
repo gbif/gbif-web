@@ -11,23 +11,30 @@ import {useDialogState} from "reakit/Dialog";
 import {useUpdateEffect} from "react-use";
 
 function SitesTableSkeleton() {
-      return <div className="grid-container">
-        <div className="grid">
+  return <div className="grid-container"  style={{ width: '100%' }}>
+        <div className="grid"  style={{width: '65%'}}>
           <div className="legend">
-            <Skeleton width="random" />
+            <FormattedMessage id="eventDetails.siteTableLegend"/>
           </div>
-          <div className="header">
-            <Skeleton width="random" style={{ height: '1.5em' }} />
+          <div className="header" style={{paddingBottom: '0', width: '65%'}}>
+            <div className="header-grid">
+            </div>
           </div>
           <div className="sidebar">
-            <Skeleton width="random" />
-            <Skeleton width="random" />
-            <Skeleton width="random" />
+            <div className="sidebar-grid">
+            {Array.from({ length: 40 }).map((_, index) => (
+                <ul>
+                  <li style={{width: '70%'}}>
+                    <Skeleton width="random" />
+                  </li>
+                </ul>
+            ))}
+            </div>
           </div>
-          <div className="main-grid">
-            <Skeleton width="random" />
-            <Skeleton width="random" />
-            <Skeleton width="random" />
+          <div className="main-grid" style={{width: '65%'}}>
+              {Array.from({ length: 40 }).map((_, index) => (
+                  <Skeleton width="100%" style={{ marginTop: '3px'}} />
+              ))}
           </div>
       </div>
     </div>
@@ -197,13 +204,12 @@ export const SitesTable = ({ query, first, prev, next, size, from, data, total, 
               onCloseRequest={() => closeSidebar()}
           />
         </DetailsDrawer>
-        <div style={{
-          flex: "1 1 100%",
-          display: "flex",
-          height: "100%",
-          maxHeight: "100vh",
-          flexDirection: "column"
-        }}>
+        <div css={styles.sites({
+          noOfSites: loading ? 40 : siteMatrix.length,
+          noOfYears: loading ? 100 : years.length,
+          showMonth: loading ? false : showMonth,
+          theme
+        })}>
           <ResultsHeader loading={loading} total={data?.results?.temporal?.locationID?.cardinality}>
               <Switch checked={showMonth} style={{fontSize: 18, margin: 0, marginLeft: '20px', marginRight: '5px'}}
                       onClick={() => toggleMonthYearDisplay()} />  Show months
@@ -211,16 +217,10 @@ export const SitesTable = ({ query, first, prev, next, size, from, data, total, 
           { loading &&
             <SitesTableSkeleton />
           }
-          {!loading &&
-              <DataTable fixedColumn={fixed} {...{first, prev, next, size, from, total: totalPoints, loading}}
-                         style={{flex: "1 1 auto", height: 100, display: 'flex', flexDirection: 'column'}}>
+          { !loading &&
+              <DataTable fixedColumn={fixed} {...{first, prev, next, size, from, total: totalPoints, loading}}>
                 <tbody>
-                <tr css={styles.sites({
-                  noOfSites: siteMatrix.length,
-                  noOfYears: years.length,
-                  showMonth: showMonth,
-                  theme
-                })}>
+                <tr>
                   <td className="grid-container">
                     <div className="grid">
                       <div className="legend">
@@ -238,8 +238,7 @@ export const SitesTable = ({ query, first, prev, next, size, from, data, total, 
                           {siteData.map((obj, i) => <ul>
                             <li key={`s_${i}`} onClick={() => {
                               setSiteIDCallback({locationID: obj.key});
-                            }}><span
-                                style={{fontWeight: 'bold'}}>{locationIDs.get(obj.key)}</span> {obj.key?.substring(0, 18)}
+                            }}><span>{locationIDs.get(obj.key)}</span> {obj.key?.substring(0, 18)}
                             </li>
                           </ul>)}
                         </div>
@@ -286,12 +285,7 @@ const SitesDataGrid = ({ siteMatrix, siteData, years, onCellClick, showMonth }) 
 
 const GridCell = ({ site_idx, year_idx, month_idx, month_cell, onCellClick, years, siteData, showMonth}) => {
 
-  const onClickDead = () => {
-    console.log('Clicked dead')
-  }
-
   const onClick = () => {
-    console.log('Clicked')
     onCellClick({
       locationID: siteData[site_idx].key,
       year: years[year_idx],
@@ -303,7 +297,6 @@ const GridCell = ({ site_idx, year_idx, month_idx, month_cell, onCellClick, year
     return <li id={`${site_idx}_${year_idx}_${month_idx}`}
                key={`${site_idx}_${year_idx}_${month_idx}`}
                data-level={'0'}
-               onClick={() => onClickDead()}
     ></li>
   } else {
     return <li id={`${site_idx}_${year_idx}_${month_idx}`}

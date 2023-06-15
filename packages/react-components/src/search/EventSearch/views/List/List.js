@@ -141,10 +141,26 @@ query list($datasetKey: JSON){
 
 function DatasetSkeleton() {
   return <div css={style.datasetSkeleton}>
-    <Skeleton width="random" style={{ height: '1.5em' }} />
-    <Skeleton width="random" />
-    <Skeleton width="random" />
-    <Skeleton width="random" />
+    <Skeleton width="random" style={{ marginBottom: '30px', width: '50%'}}  />
+    <div css={style.details}>
+      <div css={style.details_col1}>
+        <Skeleton width="random" />
+        <Skeleton width="random" />
+        <Skeleton width="random" />
+        <Skeleton width="random" />
+      </div>
+      <div css={style.details_col2}>
+        <Skeleton width="random" />
+        <Skeleton width="random" />
+        <Skeleton width="random" style={{ marginTop: '20px'}} />
+        <Skeleton width="random" />
+      </div>
+      <div css={style.details_col3}>
+        <Skeleton width="random" />
+        <Skeleton width="random" />
+        <Skeleton width="random" />
+      </div>
+    </div>
   </div>
 }
 
@@ -159,13 +175,7 @@ function Dataset({ datasetKey, datasetTitle, count, occurrenceCount, extensions,
 
   if (!data || loading) return <DatasetSkeleton />;
 
-  const isDiscreetLink = css`
-  text-decoration: none;
-  color: var(--linkColor);
-  :hover {
-    text-decoration: underline;
-  }
-`;
+
 
   const filterByThisDataset = () => {
     currentFilterContext.setField('datasetKey', [datasetKey], true)
@@ -229,25 +239,33 @@ function Dataset({ datasetKey, datasetTitle, count, occurrenceCount, extensions,
 
   return <article>
     <div css={style.summary} >
-      <Button look="link"><h2 style={{ fontSize: "20px"}} onClick={onClick}>{datasetTitle}</h2></Button>
-      <div style={{ display: 'flex', flexWrap: 'wrap'}}>
-        <div style={{flex: '1 25%', boxSizing: 'border-box', paddingRight: '10px', borderRight: '2px solid  #E6E6E6' }}>
-          <div css={style.details} style={{ fontSize: "18px" }}>
-            <div><MdEvent style={{ verticalAlign: 'bottom', marginBottom: '2px' }} /> Events: <span><a href="#" css={isDiscreetLink} onClick={() => viewEventsForDataset()}>{documents.total?.toLocaleString()}</a></span></div>
-            <div><GiPlantsAndAnimals style={{ verticalAlign: 'bottom', marginBottom: '2px'}} /> Occurrences: <span>
-                <OccurrenceDatasetSearchLink id={datasetKey}>{occurrenceCount?.toLocaleString()} <MdOutbound style={{ verticalAlign: 'bottom' , marginBottom: '2px'}} /></OccurrenceDatasetSearchLink>
-            </span></div>
-            {cardinality.surveyID > 0 &&
-                <div><RiSurveyLine style={{ verticalAlign: 'bottom', marginBottom: '2px' }} /> Surveys: <span><a href="#" css={isDiscreetLink} onClick={() => viewSurveysForDataset()}>{cardinality.surveyID?.toLocaleString()}</a></span></div>
-            }
+      <Button look="link">
+        <h2 style={{ fontSize: "20px"}} onClick={onClick}>{datasetTitle}</h2>
+      </Button>
+      <div css={style.details}>
+        <div css={style.details_col1}>
             <div>
-                <MdLocationPin style={{ verticalAlign: 'bottom', marginBottom: '2px' }} /> Sites: <span>
-                  <a href="#" css={isDiscreetLink} onClick={() => viewSitesForDataset()}>{cardinality.locationID?.toLocaleString()}</a>
+              <MdEvent /> Events:
+              <span>
+                <a href="#" css={style.discreet_link} onClick={() => viewEventsForDataset()}>{documents.total?.toLocaleString()}</a>
               </span>
             </div>
-          </div>
+            <div><GiPlantsAndAnimals /> Occurrences: <span>
+                <OccurrenceDatasetSearchLink id={datasetKey}>{occurrenceCount?.toLocaleString()} <MdOutbound /></OccurrenceDatasetSearchLink>
+            </span></div>
+            {cardinality.surveyID > 0 &&
+                <div>
+                  <RiSurveyLine /> Surveys:
+                  <span><a href="#" css={style.discreet_link} onClick={() => viewSurveysForDataset()}>{cardinality.surveyID?.toLocaleString()}</a></span>
+                </div>
+            }
+            <div>
+                <MdLocationPin /> Sites: <span>
+                  <a href="#" css={style.discreet_link} onClick={() => viewSitesForDataset()}>{cardinality.locationID?.toLocaleString()}</a>
+              </span>
+            </div>
         </div>
-        <div css={style.details} style={{flex: '1 50%', boxSizing: 'border-box', paddingRight: '10px', paddingLeft: '25px', borderRight: '2px solid  #E6E6E6' }}>
+        <div css={style.details_col2}>
           <div style={{ marginBottom: '10px'}}><MdOutlineDeviceHub/> Taxonomy</div>
           <div>
              <Tags style={{fontSize: '18px'}}>
@@ -262,7 +280,7 @@ function Dataset({ datasetKey, datasetTitle, count, occurrenceCount, extensions,
                 <Tags style={{fontSize: '14px'}}>
                   {facet.measurementOrFactTypes.map(x =>
                       <Tag key={x.key}  type="light" outline={true} >
-                        <a href="#" css={isDiscreetLink} onClick={() => addMofFilter(x.key)}>
+                        <a href="#" css={style.discreet_link} onClick={() => addMofFilter(x.key)}>
                           {x.key}
                         </a>
                         </Tag>
@@ -272,7 +290,7 @@ function Dataset({ datasetKey, datasetTitle, count, occurrenceCount, extensions,
             </div>
           }
         </div>
-        <div css={style.details} style={{flex: '1 25%', boxSizing: 'border-box', paddingRight: '0',    paddingLeft: '25px'  }}>
+        <div css={style.details_col3}>
           <div style={{ marginBottom: '10px'}}><MdAccountTree style={{fontSize: '12px'}} /> Data extensions</div>
           <div>
             <Tags style={{fontSize: '18px'}}>
@@ -285,27 +303,6 @@ function Dataset({ datasetKey, datasetTitle, count, occurrenceCount, extensions,
           onClick={() => filterByThisDataset()}
           look="primaryOutline"
           css={css` margin-top: 10px; font-size: 14px;`}>Add to filter</Button>
-    </div>
-    <div css={style.events} style={{ display: 'none'}}>
-      <div css={style.tabularListItem}>
-        <div>Event ID</div>
-        <div>Event type</div>
-        <div>Year</div>
-        <div>State</div>
-        <div>Coordinates</div>
-      </div>
-      <ul css={style.eventList}>
-        {events.documents.results.map(x => <li key={x.eventID}>
-          <div>
-            <div>{x.eventID}</div>
-            <div>{x.eventType?.concept}</div>
-            <div>{x.year}</div>
-            <div>{x.stateProvince}</div>
-            <div>{x.formattedCoordinates}</div>
-          </div>
-        </li>)}
-      </ul>
-      <div style={{ color: '#888', fontSize: '0.85em' }}>Matched events: {count?.toLocaleString()}</div>
     </div>
   </article>
 }

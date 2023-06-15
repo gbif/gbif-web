@@ -174,10 +174,24 @@ const SURVEY_QUERY = `
 
 function DatasetSkeleton() {
     return <div css={style.datasetSkeleton}>
-        <Skeleton width="random" style={{ height: '1.5em' }} />
-        <Skeleton width="random" />
-        <Skeleton width="random" />
-        <Skeleton width="random" />
+        <Skeleton width="random" style={{ marginBottom: '30px', width: '50%'}}  />
+        <div css={style.details}>
+            <div css={style.details_col1}>
+                <Skeleton width="random" />
+                <Skeleton width="random" />
+                <Skeleton width="random" />
+                <Skeleton width="random" />
+            </div>
+            <div css={style.details_col2}>
+                <Skeleton width="random" />
+                <Skeleton width="random" />
+                <Skeleton width="random" style={{ marginTop: '20px'}} />
+                <Skeleton width="random" />
+            </div>
+            <div css={style.details_col3}>
+                <Skeleton width="random" style={{height: '200px', width: '350px'}} />
+            </div>
+        </div>
     </div>
 }
 
@@ -222,10 +236,6 @@ function Survey({ eventID, setActiveEvent, filters, ...props }) {
         currentFilterContext.setField('eventHierarchy', [eventID], true)
         setActiveView("SITES")
     }
-
-    // const setSamplingProtocol = () => {
-    //     currentFilterContext.setField('samplingProtocol', [data.], true)
-    // }
 
     const addMofFilter = (mof) => {
         currentFilterContext.setField('measurementOrFactTypes', [mof], true)
@@ -358,75 +368,70 @@ function Survey({ eventID, setActiveEvent, filters, ...props }) {
 
     return <article>
         <div css={style.summary}>
-            <div style={{ display: 'flex', flexWrap: 'wrap'}}>
-                <div style={{ flex: '1', flexBasis: '35%' }}>
-                    <div css={style.details} style={{ fontSize: "18px", paddingRight: '20px', borderRight: '2px solid #E6E6E6', height: '100%' }}>
-                        <Button look="link">
-                            <h2 css={css` font-size: 1.4rem;`} onClick={onClick}>{event.eventType?.concept}: {event.eventName} {event.eventID}</h2>
-                        </Button>
-                        <div><GiBarrel style={{ verticalAlign: 'bottom', marginBottom: '2px' }} /> Dataset: <span>{event.datasetTitle}</span></div>
-                        <div><MdLocationPin style={{ verticalAlign: 'bottom', marginBottom: '2px' }} /> Sites: <span><a href="#" css={isDiscreetLink} onClick={() => viewSitesForSurvey()}>{cardinality.locationID?.toLocaleString()}</a></span></div>
-                        {facet.samplingProtocol && facet.samplingProtocol.length > 0 &&
-                            <div><FaCreativeCommonsSampling style={{ verticalAlign: 'bottom', marginBottom: '2px' }} /> Sampling protocol: <span>{facet.samplingProtocol.map(x => x.key).join(', ')}</span></div>
-                        }
-                        <Button
-                            style={{ marginTop: '20px' }}
-                            onClick={() => filterByThisSurvey(event)}
-                            look="primaryOutline"
-                            css={css` font-size: 14px;`}>Add to filter
-                        </Button>
-                    </div>
+            <Button look="link">
+                <h2 onClick={onClick}>{event.eventType?.concept}: {event.eventName} {event.eventID}</h2>
+            </Button>
+            <div css={style.details}>
+                <div css={style.details_col1}>
+                    <div><GiBarrel /> Dataset: <span>{event.datasetTitle}</span></div>
+                    <div><MdLocationPin /> Sites: <span><a href="#" css={isDiscreetLink} onClick={() => viewSitesForSurvey()}>{cardinality.locationID?.toLocaleString()}</a></span></div>
+                    {facet.samplingProtocol && facet.samplingProtocol.length > 0 &&
+                        <div><FaCreativeCommonsSampling  /> Sampling protocol: <span>{facet.samplingProtocol.map(x => x.key).join(', ')}</span></div>
+                    }
                 </div>
-                <div style={{ flex: '1', flexBasis: '25%' }}>
-                    <div css={style.details} style={{ paddingLeft: '20px', fontSize: '16px'}}>
-                        <div>
-                            <MdEvent style={{ marginRight: '5px', paddingTop:'4px'}} />
-                            {event.temporalCoverage?.gte &&
-                                <span>{event.temporalCoverage?.gte}</span>
-                            }
-                            {event.temporalCoverage?.gte && event.temporalCoverage?.lte &&
-                                <span><MdHorizontalRule style={{ marginLeft:'3px', marginRight:'3px', paddingTop:'4px'}}/></span>
-                            }
-                            {event.temporalCoverage?.lte &&
-                                <span>{event.temporalCoverage?.lte}</span>
-                            }
-                        </div>
+                <div css={style.details_col2}>
+                    <div>
+                        <MdEvent />
+                        {event.temporalCoverage?.gte &&
+                            <span>{event.temporalCoverage?.gte}</span>
+                        }
+                        {event.temporalCoverage?.gte && event.temporalCoverage?.lte &&
+                            <span><MdHorizontalRule style={{ marginLeft:'3px', marginRight:'3px', paddingTop:'4px'}}/></span>
+                        }
+                        {event.temporalCoverage?.lte &&
+                            <span>{event.temporalCoverage?.lte}</span>
+                        }
+                    </div>
 
-                        {facet.measurementOrFactTypes && facet.measurementOrFactTypes.length > 0 &&
-                            <div style={{
-                                marginTop: "20px",
-                            }}><div style={{ marginBottom: '10px'}}> <MdOutlineDeviceThermostat/> Measurements</div>
-                                <Tags style={{ fontSize: '12px' }}>
-                                    {facet.measurementOrFactTypes.map(x => <Tag key={x.key} type="light" outline={true}>
-                                        <a href="#" css={isDiscreetLink} onClick={() => addMofFilter(x.key)}>
-                                        {x.key}
-                                        </a>
-                                    </Tag>)}
-                                </Tags>
-                            </div>
-                        }
-                        {hasOccurrenceData && <div style={{ marginTop: '20px'}}>
-                            {hasPresenceData && hasAbsenceData &&
-                                <Tag type="light"><GrDocumentVerified/> <GrDocumentMissing style={{marginRight: '5px'}}/> Species presence and absence data </Tag>
-                            }
-                            {hasPresenceData && !hasAbsenceData &&
-                                <Tag type="light"><GrDocumentVerified style={{marginRight: '5px'}}/> Species presence data only </Tag>
-                            }
-                            {!hasPresenceData && hasAbsenceData &&
-                                <Tag type="light"><GrDocumentMissing style={{marginRight: '5px'}}/> Species absence data only </Tag>
-                            }
+                    {facet.measurementOrFactTypes && facet.measurementOrFactTypes.length > 0 &&
+                        <div style={{
+                            marginTop: "20px",
+                        }}><div style={{ marginBottom: '10px'}}> <MdOutlineDeviceThermostat/> Measurements</div>
+                            <Tags style={{ fontSize: '12px' }}>
+                                {facet.measurementOrFactTypes.map(x => <Tag key={x.key} type="light" outline={true}>
+                                    <a href="#" css={style.discreet_link} onClick={() => addMofFilter(x.key)}>
+                                    {x.key}
+                                    </a>
+                                </Tag>)}
+                            </Tags>
                         </div>
+                    }
+                    {hasOccurrenceData && <div style={{ marginTop: '20px'}}>
+                        {hasPresenceData && hasAbsenceData &&
+                            <Tag type="light"><GrDocumentVerified/> <GrDocumentMissing style={{marginRight: '5px'}}/> Species presence and absence data </Tag>
+                        }
+                        {hasPresenceData && !hasAbsenceData &&
+                            <Tag type="light"><GrDocumentVerified style={{marginRight: '5px'}}/> Species presence data only </Tag>
+                        }
+                        {!hasPresenceData && hasAbsenceData &&
+                            <Tag type="light"><GrDocumentMissing style={{marginRight: '5px'}}/> Species absence data only </Tag>
                         }
                     </div>
+                    }
                 </div>
-                <div style={{ flex: '1', flexBasis: '40%' }}>
-                    <div style={{ float: 'right' }}>
+                <div css={style.details_col3}>
+                    <div css={style.details_map}>
                         {extent && geojson &&
                             <img
                                 src={`https://api.mapbox.com/styles/v1/mapbox/light-v10/static/geojson(${JSON.stringify(geojson)})/${extent}/350x200?access_token=${env.MAPBOX_KEY}`}/>
                         }
                     </div>
                 </div>
+                <Button
+                    onClick={() => filterByThisSurvey(event)}
+                    look="primaryOutline"
+                    css={style.filter_by}>Add to filter
+                </Button>
             </div>
         </div>
     </article>;

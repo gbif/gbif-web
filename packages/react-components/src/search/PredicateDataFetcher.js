@@ -24,6 +24,10 @@ function PredicateDataFetcher({graphQuery, graph, resultKey, offsetName = 'from'
       ].filter(x => x)
     }
 
+    if (predicateMeddler){
+      predicateMeddler(predicate);
+    }
+
     load({ keepDataWhileLoading: true, variables: { predicate, limit, offset, ...customVariables } });
   }, [currentFilterContext.filterHash, rootPredicate, offset, limit, variableHash]);
 

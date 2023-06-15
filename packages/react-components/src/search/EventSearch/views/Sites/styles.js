@@ -2,6 +2,14 @@ import { css } from '@emotion/react';
 
 export const sites = ({ noOfSites=10, noOfYears=10, showMonth, theme, ...props }) => css`
 
+.sites {
+  flex: 1 1 100%;
+  display: flex;
+  height: 100%;
+  max-height: 100vh;
+  flex=direction: column;
+}
+
 .grid-container {
   padding: 0;
   margin: 0;
@@ -100,6 +108,9 @@ export const sites = ({ noOfSites=10, noOfYears=10, showMonth, theme, ...props }
 
 .sidebar-grid li {
   display: inline-block;
+  > span {
+    font-weight: bold;
+  }
 }
 
 .sidebar-grid li:hover { cursor: pointer; }
@@ -165,6 +176,7 @@ export const sites = ({ noOfSites=10, noOfYears=10, showMonth, theme, ...props }
 
 .year-grid li:hover .tooltiptext {
   visibility: visible;
+  z-index: 9999;
 } 
 
 `;

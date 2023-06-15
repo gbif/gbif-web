@@ -28,7 +28,7 @@ export const List = ({query, first, prev, next, size, from, data, total, loading
   const items = data?.downloadsList?.facet?.datasetKey || [];
 
   if (loading){
-    return <DownloadSkeleton />;
+    return <><DownloadSkeleton /><DownloadSkeleton /><DownloadSkeleton /></>;
   }
 
   if (!items || items.length == 0){
