@@ -23,12 +23,16 @@ export const Button = React.forwardRef(({
   look = 'primary',
   children,
   truncate,
+  as,
   ...props
 }, ref) => {
   appearance = appearance || look;
   const theme = useContext(ThemeContext);
   const { classesToApply, classNames } = getClasses(theme.prefix, 'button', { appearance, loading, isFullWidth }, className);
-  return <ButtonA11y ref={ref} {...classNames} css={css`
+  if (look === 'text' && !as) {
+    as = 'span';
+  }
+  return <ButtonA11y as={as} ref={ref} {...classNames} css={css`
         ${styles.button(theme)}
         ${classesToApply.map(x => styles[x](theme))};
 `} {...props}>

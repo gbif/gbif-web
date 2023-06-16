@@ -52,6 +52,8 @@ export const text = theme => css`
   background: none;
   border-radius: 0;
   cursor: pointer;
+  display: inline;
+  text-align: start;
 `;
 
 export const textHoverLinkColor = theme => css`
