@@ -49,7 +49,7 @@ function ProjectWrapper(props) {
 
   return <ErrorBoundary>
     <div css={css`text-align: center; margin: 12px 0 24px 0;`}>
-      <Input style={{maxWidth: 500, padding: 24}} changeHandler={q} placeholder="Search projects" onChange={(e) => setQ(e.currentTarget.value)} />
+      <Input style={{ maxWidth: 500, padding: 24 }} changeHandler={q} placeholder="Search projects" onChange={(e) => setQ(e.currentTarget.value)} />
     </div>
     <div css={css`
         width: 100%; 
@@ -110,7 +110,9 @@ function Project({ project, addProjectFilter, ...props }) {
     border-radius: 4px; 
     width: 300px; 
     box-shadow: 0 0 4px rgba(0,0,0,0.2);
-    `} onClick={() => addProjectFilter(project.id)}>
+    position: relative;
+    `}>
+    <a href="#" onClick={() => addProjectFilter(project.id)} css={css`position: absolute; top: 0; right: 0; bottom: 0; left: 0;`}></a>
     <div css={css`
       font-size: 250px;
       font-weight: 900;
