@@ -3,6 +3,7 @@ import { css } from '@emotion/react';
 import axios from 'axios';
 import { MdSend } from 'react-icons/md';
 import env from '../../../../.env.json';
+import { Button } from '../../../components';
 
 export const CommentForm = ({ id, signHeaders, onCreate }) => {
   const [commentText, setCommentText] = useState('');
@@ -75,3 +76,14 @@ export const CommentForm = ({ id, signHeaders, onCreate }) => {
 };
 
 export default Comment
+
+export function CommentFormWrapper({ id, signHeaders, onCreate, defaultShow = false }) {
+  const [show, setShow] = useState(defaultShow);
+  
+  if (!show) {
+    return <div style={{textAlign: 'end', marginBottom: 8}}>
+      <Button look="primaryOutline" style={{fontSize: '12px'}} onClick={() => setShow(true)}>Leave a comment</Button>
+    </div>
+  }
+  return <CommentForm id={id} signHeaders={signHeaders} onCreate={onCreate} />
+}

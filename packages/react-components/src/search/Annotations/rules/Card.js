@@ -4,7 +4,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Button, JazzIcon, Tooltip } from "../../../components";
 import { MdDelete, MdModeComment, MdThumbDown, MdThumbUp } from "react-icons/md";
-import { CommentForm } from './CommentForm';
+import { CommentFormWrapper } from './CommentForm';
 import { FormattedDate } from 'react-intl';
 import SearchContext from '../../../search/SearchContext';
 import MapWithGeoJSON from './MapWithGeoJSON';
@@ -134,7 +134,7 @@ const Card = ({ broadcastLoginEvent = () => {}, user, signHeaders, annotation, o
           </MediaWrapper>
           <div style={{ color: 'rgba(0,0,0,.65)' }}>
             {typeof annotation.taxonKey !== 'undefined' && <p>Taxon: <Button look="text" onClick={e => currentFilterContext.setField('taxonKey', [annotation.taxonKey])}><TaxonLabel id={annotation.taxonKey} /></Button></p>}
-            {showDescription && <p css={css`white-space: pre;`}>{firstComment.comment}</p>}
+            {showDescription && <p>{firstComment.comment}</p>}
           </div>
         </ContentWrapper>
         <ActionBar>
@@ -150,7 +150,7 @@ const Card = ({ broadcastLoginEvent = () => {}, user, signHeaders, annotation, o
         </ActionBar>
       </CardWrapper>
       {showComments && <CommentWrapper>
-        {user && <CommentForm signHeaders={signHeaders} id={annotation.id} onCreate={fetchComments} />}
+        {user && <CommentFormWrapper defaultShow={comments?.length === 0} signHeaders={signHeaders} id={annotation.id} onCreate={fetchComments} />}
         {!user && <div css={css`padding: 12px;`}>Please <Button look="link" onClick={() => broadcastLoginEvent({type: 'LOGIN_REQUEST'})}>login</Button></div>}
         {comments.map((comment) => (
           <Comment comment={comment} onDelete={handleCommentDelete} signHeaders={signHeaders} key={comment.id} userName={user?.userName} isExpired={!user} />
@@ -204,7 +204,7 @@ const Comment = ({ comment, onDelete, userName, isExpired }) => {
               year="numeric"
               month="long"
               day="2-digit" /></div>
-          <div css={css`white-space: pre;`}>{comment.comment}</div>
+          <div>{comment.comment}</div>
         </CardAuthor>
       </div>
     </MediaWrapper>
@@ -281,6 +281,7 @@ const AuthorImage = styled.div`
   margin-right: 16px;
   width: 40px;
   height: 40px;
+  flex: 0 0 auto;
 `;
 
 const CardAuthor = styled.div`
