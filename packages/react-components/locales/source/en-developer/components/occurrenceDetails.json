@@ -33,7 +33,16 @@
     "isClustered": "Clustered",
     "isSamplingEvent": "Sampling event",
     "isTreament": "Treatment",
-    "isSequenced": "Sequenced"
+    "isSequenced": "Sequenced",
+    "hasIssues": "Issues and remarks",
+    "hasCoordinates": "Has coordinates",
+    "hasCountry": "Country",
+    "hasImages": "Images",
+    "hasSound": "Sound",
+    "hasVideo": "Video",
+    "isSpecimen": "Specimen",
+    "eventDate": "Event date",
+    "isType": "Type specimen"
   },
   "extensions": {
     "audubon": {

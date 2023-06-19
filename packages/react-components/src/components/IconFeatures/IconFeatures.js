@@ -14,6 +14,7 @@ import { Classification } from '../../components/Classification/Classification';
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import * as css from './styles';
+import { Tooltip } from '../Tooltip/Tooltip';
 
 export function IconFeatures({
   isSequenced,
@@ -58,7 +59,7 @@ export function IconFeatures({
   }
   return <div css={css.iconFeatures({ theme })} {...props}>
     {children && <div>{children}</div>}
-    {eventDate && <div>
+    {eventDate && <Tooltip title={<FormattedMessage id="occurrenceDetails.features.eventDate" />}><div>
       <MdEvent />
       <span>
         <FormattedDate value={eventDate}
@@ -66,25 +67,25 @@ export function IconFeatures({
           month="long"
           day="2-digit" />
       </span>
-    </div>}
-    {formattedCoordinates && <div><MdLocationOn />{!iconsOnly && <span>{formattedCoordinates}</span>}</div>}
-    {countryCode && <div><FaGlobeAfrica />{!iconsOnly && <span><span>{locality ? locality + ', ' :''}</span><span><FormattedMessage id={`enums.countryCode.${countryCode}`} />
-    </span></span>}</div>}
-    {isSpecimen && <div><MdLabel />{!iconsOnly && <span><FormattedMessage id={`enums.basisOfRecord.${basisOfRecord}`} /></span>}</div>}
-    {stillImageCount > 0 && <div>
+    </div></Tooltip>}
+    {formattedCoordinates && <Tooltip title={<FormattedMessage id="occurrenceDetails.features.hasCoordinates" />}><div><MdLocationOn />{!iconsOnly && <span>{formattedCoordinates}</span>}</div></Tooltip>}
+    {countryCode && <Tooltip title={<FormattedMessage id="occurrenceDetails.features.hasCountry" />}><div><FaGlobeAfrica />{!iconsOnly && <span><span>{locality ? locality + ', ' :''}</span><span><FormattedMessage id={`enums.countryCode.${countryCode}`} />
+    </span></span>}</div></Tooltip>}
+    {isSpecimen && <Tooltip title={<FormattedMessage id="occurrenceDetails.features.isSpecimen" />}><div><MdLabel />{!iconsOnly && <span><FormattedMessage id={`enums.basisOfRecord.${basisOfRecord}`} /></span>}</div></Tooltip>}
+    {stillImageCount > 0 && <Tooltip title={<FormattedMessage id="occurrenceDetails.features.hasImages" />}><div>
       {stillImageCount > 1 ? <MdPhotoLibrary /> : <MdImage />}
       {!iconsOnly && <span><FormattedMessage id="counts.nImages" values={{ total: stillImageCount }} /></span>}
-    </div>}
-    {movingImageCount > 0 && <div><MdVideocam />{!iconsOnly && <span><FormattedMessage id="counts.nVideos" values={{ total: movingImageCount }} /></span>}</div>}
-    {soundCount > 0 && <div><AiFillAudio />{!iconsOnly && <span><FormattedMessage id="counts.nAudioFiles" values={{ total: soundCount }} /></span>}</div>}
-    {isSequenced && <div><GiDna1 />{!iconsOnly && <span><FormattedMessage id="occurrenceDetails.features.isSequenced" /></span>}</div>}
-    {isTreament && <div><MdInsertDriveFile />{!iconsOnly && <span><FormattedMessage id="occurrenceDetails.features.isTreatment" /></span>}</div>}
-    {typeStatus && <div><MdStar />{!iconsOnly && <span style={typeStyle}>
+    </div></Tooltip>}
+    {movingImageCount > 0 && <Tooltip title={<FormattedMessage id="occurrenceDetails.features.hasVideo" />}><div><MdVideocam />{!iconsOnly && <span><FormattedMessage id="counts.nVideos" values={{ total: movingImageCount }} /></span>}</div></Tooltip>}
+    {soundCount > 0 && <Tooltip title={<FormattedMessage id="occurrenceDetails.features.hasSound" />}><div><AiFillAudio />{!iconsOnly && <span><FormattedMessage id="counts.nAudioFiles" values={{ total: soundCount }} /></span>}</div></Tooltip>}
+    {isSequenced && <Tooltip title={<FormattedMessage id="occurrenceDetails.features.isSequenced" />}><div><GiDna1 />{!iconsOnly && <span><FormattedMessage id="occurrenceDetails.features.isSequenced" /></span>}</div></Tooltip>}
+    {isTreament && <Tooltip title={<FormattedMessage id="occurrenceDetails.features.isTreament" />}><div><MdInsertDriveFile />{!iconsOnly && <span><FormattedMessage id="occurrenceDetails.features.isTreatment" /></span>}</div></Tooltip>}
+    {typeStatus && <Tooltip title={<FormattedMessage id="occurrenceDetails.features.isType" />}><div><MdStar />{!iconsOnly && <span style={typeStyle}>
       <FormattedMessage id={`enums.typeStatus.${typeStatus}`} />
-    </span>}</div>}
-    {isSamplingEvent && <div><MdGridOn />{!iconsOnly && <span><FormattedMessage id="occurrenceDetails.features.isSamplingEvent" /></span>}</div>}
-    {isClustered && <div><ClusterIcon />{!iconsOnly && <span><FormattedMessage id="occurrenceDetails.features.isClustered" /></span>}</div>}
-    {issueCount > 0 && <div><BsLightningFill style={{ color: 'orange' }} />{!iconsOnly && <span><FormattedMessage id="counts.nQualityFlags" values={{ total: issueCount }} /></span>}</div>}
+    </span>}</div></Tooltip>}
+    {isSamplingEvent && <Tooltip title={<FormattedMessage id="occurrenceDetails.features.isSamplingEvent" />}><div><MdGridOn />{!iconsOnly && <span><FormattedMessage id="occurrenceDetails.features.isSamplingEvent" /></span>}</div></Tooltip>}
+    {isClustered && <Tooltip title={<FormattedMessage id="occurrenceDetails.features.isClustered" />}><div><ClusterIcon />{!iconsOnly && <span><FormattedMessage id="occurrenceDetails.features.isClustered" /></span>}</div></Tooltip>}
+    {issueCount > 0 && <Tooltip title={<FormattedMessage id="occurrenceDetails.features.hasIssues" />}><div><BsLightningFill style={{ color: 'orange' }} />{!iconsOnly && <span><FormattedMessage id="counts.nQualityFlags" values={{ total: issueCount }} /></span>}</div></Tooltip>}
   </div>
 };
 
