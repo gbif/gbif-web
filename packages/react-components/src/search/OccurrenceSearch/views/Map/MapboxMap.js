@@ -64,6 +64,12 @@ class Map extends Component {
         this.map.zoomIn();
       } else if (this.props.latestEvent?.type === 'ZOOM_OUT') {
         this.map.zoomOut();
+      } else if (this.props.latestEvent?.type === 'ZOOM_TO') {
+        this.map.flyTo({
+          center: [this.props.latestEvent.lng, this.props.latestEvent.lat],
+          zoom: this.props.latestEvent.zoom,
+          essential: true // this animation is considered essential with respect to prefers-reduced-motion
+        });
       }
     }
     if (prevProps.mapConfig !== this.props.mapConfig && this.mapLoaded) {

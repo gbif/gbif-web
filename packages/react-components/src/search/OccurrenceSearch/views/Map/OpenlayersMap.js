@@ -69,6 +69,10 @@ class Map extends Component {
         this.zoomIn();
       } else if (this.props.latestEvent?.type === 'ZOOM_OUT') {
         this.zoomOut();
+      } else if (this.props.latestEvent?.type === 'ZOOM_TO') {
+        const currentProjection = projections[this.props.mapConfig?.projection || 'EPSG_3031'];
+        const newView = currentProjection.getView(this.props.latestEvent.lat, this.props.latestEvent.lng, this.props.latestEvent.zoom);
+        this.map.setView(newView);
       }
     }
 

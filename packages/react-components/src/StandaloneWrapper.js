@@ -4,7 +4,7 @@ import { QueryParamProvider } from 'use-query-params';
 import { LocaleProvider } from './dataManagement/LocaleProvider';
 import _get from 'lodash/get';
 import _merge from 'lodash/merge';
-
+import { ToastContainer } from 'react-toast'
 import { Root } from './components';
 import ThemeContext, { lightTheme } from './style/themes';
 import { ApiContext, ApiClient } from './dataManagement/api';
@@ -57,6 +57,9 @@ function StandaloneWrapper({
                 {root}
               </RouteContext.Provider>}
               {!routes && root}
+              <div style={{zIndex: 10000, position: 'fixed'}}>
+                <ToastContainer position="bottom-center" delay={3000} />
+              </div>
             </ThemeContext.Provider>
           </LocaleProvider>
         </GraphQLContextProvider>

@@ -117,7 +117,11 @@ const routeConfig = {
 
 export const siteConfig = {
   routeConfig,
-  occurrence: {},
+  occurrence: {
+    mapSettings: {
+      userLocationEnabled: true,
+    }
+  },
   dataset: {},
   event: {
     enableGraphQLAPI: true,

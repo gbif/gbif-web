@@ -1,7 +1,7 @@
 import React from 'react';
 import { addDecorator } from '@storybook/react';
 import { select } from '@storybook/addon-knobs';
-import flatten from 'flat';
+import { ToastContainer } from 'react-toast'
 
 import { LocaleProvider } from "../src/dataManagement/LocaleProvider";
 
@@ -102,6 +102,9 @@ addDecorator(storyFn => {
                   <RouteContext.Provider value={siteConfig.routeConfig}>
                     {storyFn()}
                   </RouteContext.Provider>
+                  <div style={{zIndex: 10000, position: 'fixed'}}>
+                    <ToastContainer position="bottom-center" delay={3000} />
+                  </div>
                 </Root>
               </ThemeContext.Provider>
             </LocaleProvider>

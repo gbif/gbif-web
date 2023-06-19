@@ -183,6 +183,9 @@ export const StandaloneExample = () => <Standalone siteConfig={{
     }
   },
   occurrence: {
+    mapSettings: {
+      userLocationEnabled: true,
+    },
     availableCatalogues: ['INSTITUTION', 'COLLECTION', 'OCCURRENCE'],
   }
 }} style={{ height: 'calc(100vh - 40px)' }}></Standalone>;
