@@ -8,12 +8,12 @@ export default function ({ iucnTaxonID, styleName, language, pixelRatio }) {
     metadata: {
       'gb:reproject': true,
     },
-    sprite: `${config.domain}/map/test/css_sprite`,
+    sprite: `${config.origin}/map/test/css_sprite`,
     sources: {
       iucn: {
         type: 'vector',
         tiles: [
-          `https://api.gbif-dev.org/v1/geocode/tile/iucn/{z}/{x}/{y}.mvt`,
+          `${config.apiv1}/geocode/tile/iucn/{z}/{x}/{y}.mvt`,
         ],
         attribution: gbifTileAttribution,
         tileSize: 512,
