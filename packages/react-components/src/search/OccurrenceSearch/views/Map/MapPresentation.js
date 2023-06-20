@@ -38,7 +38,7 @@ const defaultLayerOptions = {
 
 function getStyle({ styles = {}, projection, type, lookup = {}, layerOptions }) {
   const fallbackStyleName = `${layerOptions?.[projection]?.[0]}_${projection}`
-  const styleKey = lookup?.[projection]?.[type] || `${type}_${projection}`;  
+  const styleKey = lookup?.[projection]?.[type] || `${type}_${projection}`;
   let style = styles[styleKey] ? styles[styleKey] : styles[fallbackStyleName];
   return style;
 }
@@ -116,7 +116,10 @@ function Map({ labelMap, query, q, pointData, pointError, pointLoading, loading,
         const { latitude, longitude } = position.coords;
         broadcastEvent({ type: 'ZOOM_TO', lat: latitude, lng: longitude, zoom: 11 });
       }, err => {
-        toast.error('Unable to get location', {
+        toast.error(<div>
+          <h3><FormattedMessage id='map.failedToGetUserLocation.title' defaultMessage="Unable to get location." /></h3>
+          <FormattedMessage id='map.failedToGetUserLocation.message' defaultMessage="Check browser settings." />
+        </div>, {
           backgroundColor: 'tomato',
           color: '#ffffff',
         });
@@ -183,17 +186,17 @@ function Map({ labelMap, query, q, pointData, pointError, pointLoading, loading,
           />}
           {userLocationEnabled && <Button loading={searchingLocation} appearance="text" onClick={getUserLocation}><MdMyLocation /></Button>}
         </div>
-        <MapComponent 
-          mapConfig={mapConfiguration.mapConfig} 
-          latestEvent={latestEvent} 
-          defaultMapSettings={defaultMapSettings} 
-          predicateHash={predicateHash} 
-          q={q} 
-          css={css.mapComponent({ theme })} 
-          theme={theme} 
-          query={query} 
-          onMapClick={e => showList(false)} 
-          onPointClick={data => { showList(true); loadPointData(data) }} 
+        <MapComponent
+          mapConfig={mapConfiguration.mapConfig}
+          latestEvent={latestEvent}
+          defaultMapSettings={defaultMapSettings}
+          predicateHash={predicateHash}
+          q={q}
+          css={css.mapComponent({ theme })}
+          theme={theme}
+          query={query}
+          onMapClick={e => showList(false)}
+          onPointClick={data => { showList(true); loadPointData(data) }}
           registerPredicate={registerPredicate} />
       </div>
     </div>
