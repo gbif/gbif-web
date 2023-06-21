@@ -8,6 +8,7 @@ import { GalleryTiles, GalleryTile, GalleryCaption, DetailsDrawer, GalleryTileSk
 import { OccurrenceSidebar } from '../../../../entities';
 import { ViewHeader } from '../ViewHeader';
 import ThemeContext from '../../../../style/themes/ThemeContext';
+import env from '../../../../../.env.json';
 import * as css from './gallery.styles';
 
 export const GalleryPresentation = ({ first, prev, next, size, from, data, total, loading, error }) => {
@@ -47,7 +48,7 @@ export const GalleryPresentation = ({ first, prev, next, size, from, data, total
   }
 
   return <>
-    <DetailsDrawer href={`https://www.gbif.org/occurrence/${activeItem?.key}`} dialog={dialog} nextItem={nextItem} previousItem={previousItem}>
+    <DetailsDrawer href={`${env.GBIF_ORG}/occurrence/${activeItem?.key}`} dialog={dialog} nextItem={nextItem} previousItem={previousItem}>
       <OccurrenceSidebar id={activeItem?.key} defaultTab='images' style={{ maxWidth: '100%', width: 700, height: '100%' }} onCloseRequest={() => dialog.setVisible(false)} />
     </DetailsDrawer>
     <ViewHeader message="counts.nResultsWithImages" loading={loading} total={total} />
@@ -62,7 +63,7 @@ export const GalleryPresentation = ({ first, prev, next, size, from, data, total
               // in this case we have a special url format for the occurrence images. This is in preparation for the new image service that will disable any unsafe urls
               // see also https://github.com/gbif/gbif-web/issues/303
               try {
-                const url = `https://api.gbif.org/v1/image/unsafe/${w}x${h}/occurrence/${item.key}/media/${md5(item.primaryImage.identifier ?? '')}`;
+                const url = `${env.OCCURRENCE_IMAGE_CACHE}/${w}x${h}/occurrence/${item.key}/media/${md5(item.primaryImage.identifier ?? '')}`;
                 return url;
               } catch(err) {
                 console.warn(err);
