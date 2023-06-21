@@ -1,5 +1,6 @@
 
 import { jsx } from '@emotion/react';
+import md5 from 'md5';
 import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDialogState } from "reakit/Dialog";
@@ -56,6 +57,18 @@ export const GalleryPresentation = ({ first, prev, next, size, from, data, total
           return <GalleryTile height={150} key={item.key}
             minWidth={100}
             src={item.primaryImage.identifier}
+            getSrc={({ src, w = '', h = '' }) => {
+              // the get source function is used to generate the image url in cases where we want to use something else than standard thumbor
+              // in this case we have a special url format for the occurrence images. This is in preparation for the new image service that will disable any unsafe urls
+              // see also https://github.com/gbif/gbif-web/issues/303
+              try {
+                const url = `https://api.gbif.org/v1/image/unsafe/${w}x${h}/occurrence/${item.key}/media/${md5(item.primaryImage.identifier ?? '')}`;
+                return url;
+              } catch(err) {
+                console.warn(err);
+                return '';
+              }
+            }}
             onSelect={() => { setActive(index); dialog.show(); }}>
             <GalleryCaption>
               <div style={{ marginBottom: 2 }} dangerouslySetInnerHTML={{ __html: item.gbifClassification.usage.formattedName }}></div>
@@ -84,3 +97,15 @@ export const GalleryPresentation = ({ first, prev, next, size, from, data, total
     </div>
   </>
 }
+
+/*
+.filter('occurrenceImgCache', function(env) {
+    return function(identifier, occurrenceKey, params) {
+        if (params) {
+            return env.customImageCache + params + '/occurrence/' + occurrenceKey + '/media/' + md5(identifier);
+        } else {
+            return env.customImageCache + 'occurrence/' + occurrenceKey + '/media/' + md5(identifier);
+        }
+    };
+})
+*/

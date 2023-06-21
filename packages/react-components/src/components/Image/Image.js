@@ -10,9 +10,11 @@ export const Image = React.forwardRef(({
   src,
   w = '',
   h = '',
+  getSrc,
   ...props
 }, ref) => {
-  return <img src={getImageSrc({ src, w, h })} ref={ref} {...props} />
+  const getSource = getSrc ?? getImageSrc;
+  return <img src={getSource({ src, w, h })} ref={ref} {...props} />
 });
 
 Image.propTypes = {
@@ -41,6 +43,7 @@ export const OptImage = React.forwardRef(({
   src,
   w = '',
   h = '',
+  getSrc,
   wrapperProps,
   ...props
 }, ref) => {
@@ -60,7 +63,7 @@ export const OptImage = React.forwardRef(({
     {failed && <div style={{ margin: 'auto', padding: '24px 50px', fontSize: '24px', color: 'var(--color100)' }}>
       <MdBrokenImage />
     </div>}
-    {!failed && <Image {...{ src, w, h }} ref={ref} onError={() => {
+    {!failed && <Image getSrc={getSrc} {...{ src, w, h }} ref={ref} onError={() => {
       markAsFailed(true);
       setLoading(false);
     }} onLoad={() => setLoading(false)} {...props} />}
