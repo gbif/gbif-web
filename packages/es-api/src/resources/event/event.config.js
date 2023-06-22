@@ -786,6 +786,10 @@ const config =
       type: 'numeric',
       field: 'event.seedbankRecord.numberTested',
     },
+    seedbank_numberNotViable: {
+      type: 'numeric',
+      field: 'event.seedbankRecord.numberNotViable',
+    },
     seedbank_nightTemperatureInCelsius: {
       type: 'numeric',
       field: 'event.seedbankRecord.nightTemperatureInCelsius',

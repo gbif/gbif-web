@@ -60,6 +60,7 @@ function reduce(item) {
       numberFull:                         event.seedbankRecord?.numberFull,
       numberEmpty:                        event.seedbankRecord?.numberEmpty,
       numberTested:                       event.seedbankRecord?.numberTested,
+      numberNotViable:                    event.seedbankRecord?.numberNotViable,
       preTestProcessingNotes:             seedbankVerbatim['http://ala.org.au/terms/seedbank/0.1/preTestProcessingNotes'],
       pretreatment:                       seedbankVerbatim['http://ala.org.au/terms/seedbank/0.1/pretreatment'],
       mediaSubstrate:                     seedbankVerbatim['http://ala.org.au/terms/seedbank/0.1/mediaSubstrate'],

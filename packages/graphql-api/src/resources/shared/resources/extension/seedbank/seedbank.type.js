@@ -36,6 +36,7 @@ const typeDef = gql`
     numberFull: Int
     numberEmpty: Int
     numberTested: Int
+    numberNotViable: Int
     preTestProcessingNotes: String
     pretreatment: String
     mediaSubstrate: String
