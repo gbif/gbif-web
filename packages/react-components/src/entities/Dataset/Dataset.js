@@ -148,7 +148,7 @@ query dataset($key: ID!, $predicate: Predicate, $sitePredicate: Predicate){
   }
   literatureSearch(gbifDatasetKey: [$key]) {
     documents {
-      count
+      total
     }
   }
   taxonSearch(datasetKey: [$key], origin: [SOURCE], status: [ACCEPTED]){
