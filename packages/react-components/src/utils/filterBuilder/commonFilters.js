@@ -222,7 +222,7 @@ export const commonFilters = {
     config: {
       std: {
         filterHandle: 'catalogNumber',// if nothing else provided, then this is the filterName used
-        id2labelHandle: 'catalogNumber',
+        id2labelHandle: 'wildcard',
         translations: {
           count: 'filters.catalogNumber.count', // translation path to display names with counts. e.g. "3 scientific names"
           name: 'filters.catalogNumber.name',// translation path to a title for the popover and the button
@@ -230,7 +230,7 @@ export const commonFilters = {
         },
       },
       specific: {
-        id2labelHandle: 'catalogNumber',
+        id2labelHandle: 'wildcard',
         placeholder: 'Search for a catalog number',
         supportsExist: true,
         query: `
@@ -651,7 +651,6 @@ export const commonFilters = {
       specific: {
         // suggestHandle: 'recordedBy',
         // suggestHandle: 'recordedByWildcard',
-        id2labelHandle: 'recordedBy',
         placeholder: 'Search by recorded by',
         supportsExist: true,
         query: `
