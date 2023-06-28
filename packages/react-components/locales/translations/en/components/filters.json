@@ -6,8 +6,8 @@
   },
   "locationId": {
     "name": "Location ID",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { Location ID } other {# Location IDs}}",
+    "description": "Publishers can choose to assign IDs to the location. This field is not normalized, meaning that you search data as provided by the publisher."
   },
   "collectionKey": {
     "name": "Collection",
@@ -54,13 +54,13 @@
     "description": "The types of issues or flags of potential interest discovered in processing the data."
   },
   "occurrenceCountry": {
-    "name": "Country",
-    "count": "{num, plural, one {country} other {# countries}}",
+    "name": "Country or area",
+    "count": "{num, plural, one {country or area} other {# countries or areas}}",
     "description": "The country or territory where the event occurred"
   },
   "publishingCountryCode": {
-    "name": "Publishing country",
-    "count": "{num, plural, one {publishing country} other {# publishing countries}}",
+    "name": "Publishing country or area",
+    "count": "{num, plural, one {publishing country or area} other {# publishing countries or areas}}",
     "description": "The ISO code for the country or territory in which the data publisher is located"
   },
   "q": {
@@ -97,16 +97,16 @@
     "description": "The name of the organization hosting the dataset in which the record is published."
   },
   "country": {
-    "name": "Country",
-    "count": "{num, plural, one {country} other {# countries}}"
+    "name": "Country or area",
+    "count": "{num, plural, one {country or area} other {# countries or areas}}"
   },
   "countriesOfCoverage": {
-    "name": "Country of coverage",
-    "count": "{num, plural, one {country of coverage} other {# countries of coverage}}"
+    "name": "Country or area of coverage",
+    "count": "{num, plural, one {country or area of coverage} other {# countries or area of coverage}}"
   },
   "countriesOfResearcher": {
-    "name": "Country of researcher",
-    "count": "{num, plural, one {country of researcher} other {# countries of researchers}}"
+    "name": "Country or area of researcher",
+    "count": "{num, plural, one {country or area of researcher} other {# countries or areas of researchers}}"
   },
   "typeStatus": {
     "name": "Type status",
@@ -233,37 +233,37 @@
   "parentEventId": {
     "name": "Parent event ID",
     "count": "{num, plural, one { event ID } other {# event IDs}}",
-    "description": ""
+    "description": "The unique identifier for the Parent Event in the record."
   },
   "locationID": {
     "name": "Location ID",
     "count": "{num, plural, one { event ID } other {# event IDs}}",
-    "description": ""
+    "description": "The unique identifier for the site in the record."
   },
   "measurementOrFactTypes": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Measurement types",
+    "count": "{num, plural, one { measurement type } other {# measurement types}}",
+    "description": "The type of measurement."
   },
   "measurementOrFactCount": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Measurement count",
+    "count": "{num, plural, one { measurement count } other {# measurement counts}}",
+    "description": "The count of a given measurement type."
   },
   "occurrenceCount": {
     "name": "Occurrence count",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { occurrence } other {# occurrences}}",
+    "description": "Number of occurrences for the event"
   },
   "eventType": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Event type",
+    "count": "{num, plural, one { event type } other {# event types}}",
+    "description": "The type of the sampling event."
   },
   "dataStructure": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Structure",
+    "count": "{num, plural, one { event type } other {# event types}}",
+    "description": "The data structure for the sampling event."
   },
   "samplingProtocol": {
     "name": "Sampling protocol",

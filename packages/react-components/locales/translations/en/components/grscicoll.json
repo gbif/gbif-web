@@ -25,6 +25,8 @@
   "specimensViaGbif": "Specimens shared with GBIF",
   "specimens": "Specimens",
   "identifiers": "Identifiers",
+  "importantCollectors": "Important collectors",
+  "incorporatedCollections": "Incorporated collections",
   "unknownSize": "Unknown size",
   "citesPermitNumber": "Cites permit number"
 }

@@ -5,5 +5,7 @@
   "close": "Close",
   "citation": "Citation",
   "citeAs": "Please use this citation in publications",
+  "deletedOnDate": "Deleted on {date}",
+  "replacedBy": "Replaced by {newItem}",
   "unknownDate": "Unknown date"
 }
