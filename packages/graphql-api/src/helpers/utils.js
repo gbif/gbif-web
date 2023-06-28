@@ -23,10 +23,7 @@ function formattedCoordinates({ lat, lon }) {
 
 const ggbnFields = [
   'Amplification',
-  'MaterialSample',
-  'Permit',
-  'Preparation',
-  'Preservation',
+  'Cloning'
 ];
 function isOccurrenceSequenced({ occurrence, verbatim }) {
   // lets hope that publisher do not put "no" into this
@@ -40,6 +37,13 @@ function isOccurrenceSequenced({ occurrence, verbatim }) {
   for (let i = 0; i < ggbnFields.length; i += 1) {
     const ext =
       extensions[`http://data.ggbn.org/schemas/ggbn/terms/${ggbnFields[i]}`];
+    if (ext && ext.length > 0) return true;
+  }
+
+  // if the DNADerivedData extension in use, then it is sequenced
+  for (let i = 0; i < ggbnFields.length; i += 1) {
+    const ext =
+      extensions[`http://rs.gbif.org/terms/1.0/DNADerivedData`];
     if (ext && ext.length > 0) return true;
   }
 
