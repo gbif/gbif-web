@@ -121,7 +121,7 @@ class Map extends Component {
         data: geojsonData,
         cluster: true,
         clusterMaxZoom: 12, // Max zoom to cluster points on
-        clusterRadius: 25 // Radius of each cluster when clustering points (defaults to 50)
+        clusterRadius: 15 // Radius of each cluster when clustering points (defaults to 50)
       });
     }
 
