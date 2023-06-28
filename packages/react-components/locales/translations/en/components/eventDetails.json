@@ -11,11 +11,11 @@
   "collection": "Collection",
   "collectionGrSciColl": "GrSciColl collection",
   "recordedAndIdentifiedBy": "Recorded and identified by",
-  "eventTypeHierarchyJoined": "Event hierarchy",
-  "backToTaxa": "Back to event taxa",
-  "eventHierarchyJoined": "",
-  "map": "",
-  "siteLocation": "",
+  "eventTypeHierarchyJoined": "Event type hierarchy",
+  "eventHierarchyJoined": "Event hierarchy",
+  "map": "Map of location",
+  "backToTaxa": "",
+  "siteLocation": "Site location",
   "info": {
     "original": "Original",
     "excluded": "Excluded",
@@ -27,6 +27,7 @@
     "record": "Record",
     "occurrence": "Occurrence",
     "event": "Event",
+    "dataStructure": "",
     "identification": "Identification",
     "taxon": "Taxon",
     "location": "Location",
@@ -34,17 +35,17 @@
     "materialSample": "MaterialSample",
     "geologicalContext": "Geological context",
     "measurementsOrFacts": "Measurements",
-    "images": "Images",
+    "images": "Multimedia",
     "other": "Other",
     "methodology": "Methodology",
-    "taxonomicCoverage": ""
+    "taxonomicCoverage": "Taxonomic coverage"
   },
-  "siteTooltip": "",
-  "siteTableLegend": "",
-  "site": "",
-  "siteLoading": "",
+  "siteTooltip": "{count, plural, one {# event} other {# events}} at {site} in {date}",
+  "siteTableLegend": "Site / Year",
+  "site": "Site: {siteID}",
+  "siteLoading": "Site: {siteID} - loading details",
   "activityDetails": {
-    "monthYear": "",
-    "year": ""
+    "monthYear": "Details of activity in {date, time, ::MMMM::yyyy}",
+    "year": "Details of activity in {date, time, ::yyyy}"
   }
 }
