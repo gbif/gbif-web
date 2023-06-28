@@ -42,5 +42,6 @@ export default {
     speciesProfiles: taxonDetails('speciesProfiles'),
     vernacularNames: taxonDetails('vernacularNames'),
     typeSpecimens: taxonDetails('typeSpecimens'),
+    iucnRedListCategory: taxonDetails('iucnRedListCategory'),
   },
 };

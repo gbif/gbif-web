@@ -286,6 +286,10 @@ const config =
       "type": "keyword",
       "field": "issues"
     },
+    "iucnRedListCategoryCode": {
+      "type": "keyword",
+      "field": "gbifClassification.iucnRedListCategoryCode"
+    },
     "lastCrawled": {
       "type": "date",
       "field": "lastCrawled",
@@ -723,10 +727,10 @@ const config =
         "type": "fuzzy"
       }
     },
-    "gbifClassification_acceptedUsage_rank": {
-      "type": "keyword",
-      "field": "gbifClassification.acceptedUsage.rank"
-    },
+    // "gbifClassification_acceptedUsage_rank": {
+    //   "type": "keyword",
+    //   "field": "gbifClassification.acceptedUsage.rank"
+    // },
     "gbifClassification_classification_key": {
       "type": "numeric",
       "field": "gbifClassification.classification.key",

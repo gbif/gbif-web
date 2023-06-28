@@ -136,6 +136,14 @@ const typeDef = gql`
     typeDesignatedBy: String
   }
 
+  type IucnRedListCategoryResult {
+    category: ThreatStatus
+    usageKey: Int!
+    scientificName: String
+    taxonomicStatus: TaxonomicStatus
+    code: String
+  }
+
   extend type Taxon {
     """
     Lists all direct child usages for a name usage
@@ -193,6 +201,11 @@ const typeDef = gql`
     Lists all type specimens for a name usage, see also lmitations: https://github.com/gbif/portal-feedback/issues/1146#issuecomment-366260607
     """
     typeSpecimens(limit: Int, offset: Int): TaxonTypeSpecimenResult
+
+    """
+    Lists all type specimens for a name usage, see also lmitations: https://github.com/gbif/portal-feedback/issues/1146#issuecomment-366260607
+    """
+    iucnRedListCategory: IucnRedListCategoryResult
   }
 `;
 

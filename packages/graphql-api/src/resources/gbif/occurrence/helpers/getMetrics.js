@@ -6,7 +6,7 @@
  */
 const getFacet =
   (field) =>
-  (parent, { size = 10, include }, { dataSources }) => {
+  (parent, { size = 10, from = 0, include }, { dataSources }) => {
     // generate the occurrence search facet query, by inherting from the parent query, and map limit/offset to facet equivalents
     const query = {
       predicate: parent._predicate,
@@ -16,6 +16,7 @@ const getFacet =
           type: 'facet',
           key: field,
           size,
+          from,
           include,
         },
       },
