@@ -4,14 +4,17 @@
     "gallery": "Gallery",
     "map": "Map",
     "datasets": "Datasets",
-    "download": "Download"
+    "events": "Events",
+    "download": "Download",
+    "sites": ""
   },
   "table": {
     "lockColumn": "Lock column"
   },
   "placeholders": {
     "default": "Search",
-    "range": "Range or single value"
+    "range": "Range or single value",
+    "locationID": ""
   },
   "loadMore": "More"
 }
