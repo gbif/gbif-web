@@ -286,7 +286,7 @@ const config =
       "type": "keyword",
       "field": "issues"
     },
-    "iucnRedListCategoryCode": {
+    "iucnRedListCategory": {
       "type": "keyword",
       "field": "gbifClassification.iucnRedListCategoryCode"
     },

@@ -337,6 +337,7 @@ function reduce(item) {
     relations:                          [],
     extensions:                         source.verbatim.extensions,
     gbifClassification:                 source.gbifClassification,
+    iucnRedListCategory:                source.gbifClassification.iucnRedListCategoryCode,
 
     // not in v1
     datasetTitle:                       source.datasetTitle,
