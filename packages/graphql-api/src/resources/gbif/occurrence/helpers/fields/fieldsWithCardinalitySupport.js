@@ -11,6 +11,7 @@ export default [
   'sampleSizeUnit',
   'verbatimScientificName',
   'eventId',
+  'month',
   'collectionKey',
   'collectionCode',
   'preparations',

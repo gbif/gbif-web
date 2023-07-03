@@ -78,6 +78,7 @@ const typeDef = gql`
     sampleSizeUnit: Int!
     verbatimScientificName: Int!
     eventId: Int!
+    month: Int!
     collectionKey: Int!
     collectionCode: Int!
     taxonKey: Int!
