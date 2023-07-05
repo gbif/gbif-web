@@ -18,7 +18,7 @@
   "updateFilter": "Update filter",
   "setFilter": "Set as filter",
   "nameWithTaxonMatchIssue": "Name before normalization",
-  "commonName": "",
-  "acceptedNameOf": "",
+  "commonName": "Common name",
+  "acceptedNameOf": "Accepted name for",
   "viewDetails": "View details"
 }
