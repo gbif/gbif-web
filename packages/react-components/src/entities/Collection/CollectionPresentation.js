@@ -25,6 +25,7 @@ import { DataHeader, HeaderWrapper, ContentWrapper, Headline, DeletedMessage, Er
 import { PageError, Page404, PageLoader } from '../shared';
 
 import env from '../../../.env.json';
+import RouteContext from '../../dataManagement/RouteContext';
 const { TabList, RouterTab, Tab } = Tabs;
 
 export function CollectionPresentation({
@@ -37,6 +38,8 @@ export function CollectionPresentation({
   const hideSideBar = useBelow(1100);
   let { url, path } = useRouteMatch();
   const theme = useContext(ThemeContext);
+  const routeContext = useContext(RouteContext);
+  const hasCollectionSearch = routeContext?.collectionSearch?.disabled !== true;
 
   if (error) {
     if (error?.errorPaths?.collection?.status === 404) {
@@ -80,7 +83,7 @@ Relating to ${env.GBIF_REGISTRY}/collection/${collection.key}
   `;
 
   return <>
-    <DataHeader searchType="collectionSearch" messageId="catalogues.collections" />
+    {hasCollectionSearch && <DataHeader searchType="collectionSearch" messageId="catalogues.collections" />}
 
     <HeaderWrapper>
       <Eyebrow prefix="Collection code" suffix={collection.code} />
