@@ -68,11 +68,12 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
       // how to get the list of suggestion data
       getSuggestions: ({ q, localeContext }) => {
         const vocabularyLocale = localeContext?.localeMap?.vocabulary || 'en';
-        const { promise, cancel } = client.v1Get(`/vocabularies/EstablishmentMeans/concepts?limit=100&q=${q}&locale=${vocabularyLocale}`);
+        const { promise, cancel } = client.v1Get(`/vocabularies/EstablishmentMeans/concepts?limit=100&q=${q}&lang=${vocabularyLocale}`);
         return {
-          promise: promise.then(response => ({
-            data: response.data.results.map(i => ({ key: i.name, title: i.label[vocabularyLocale] || i.label.en }))
-          })),
+          promise: promise.then(extractTitle(vocabularyLocale)).then(response => ({
+            data: response.data.results.map(i => ({ key: i.name, title: i.title }))
+          }
+          )),
           cancel
         }
       },
@@ -385,7 +386,7 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
             }
           }    
         `;
-        const { promise, cancel } = client.query({ query: SEARCH, variables: {q, language: language} });
+        const { promise, cancel } = client.query({ query: SEARCH, variables: { q, language: language } });
         return {
           promise: promise.then(response => {
             return {
@@ -412,10 +413,10 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
             {suggestion.scientificName}
           </div>
           {suggestion.vernacularName && <div style={{ marginBottom: 8, color: '#888', fontSize: '0.85em', lineHeight: 1.2 }}>
-            <div>{commonNameTranslation}: <span style={{ color: '#555'}}>{suggestion.vernacularName}</span></div>
+            <div>{commonNameTranslation}: <span style={{ color: '#555' }}>{suggestion.vernacularName}</span></div>
           </div>}
           {!suggestion.vernacularName && suggestion.acceptedNameOf && <div style={{ marginBottom: 8, color: '#888', fontSize: '0.85em', lineHeight: 1.2 }}>
-            <div>{acceptedNameOfTranslation}: <span style={{ color: '#555'}}>{suggestion.acceptedNameOf}</span></div>
+            <div>{acceptedNameOfTranslation}: <span style={{ color: '#555' }}>{suggestion.acceptedNameOf}</span></div>
           </div>}
           <div style={{ color: '#aaa', fontSize: '0.85em' }}>
             <Classification>
@@ -703,6 +704,20 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
         </div>
       }
     },
-  // -- Add suggests above this line (required by plopfile.js) --
+    // -- Add suggests above this line (required by plopfile.js) --
   }
 }
+
+const extractTitle = (vocabularyLocale) => {
+  return (response) => {
+    // transform result labels to an object with language as keys
+    const results = response.data.results.map(result => {
+      const labels = result.label.reduce((acc, label) => {
+        acc[label.language] = label.value;
+        return acc;
+      }, {});
+      return { ...result, title: labels[vocabularyLocale] || labels.en || result.name || 'Unknown' };
+    });
+    return { data: { ...response.data, results } };
+  }
+};

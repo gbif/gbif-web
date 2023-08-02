@@ -133,18 +133,12 @@ export const commonLabels = {
   establishmentMeansVocabulary: {
     type: 'ENDPOINT',
     template: ({ id, api }) => `${api.v1.endpoint}/vocabularies/EstablishmentMeans/concepts/${id}`,
-    transform: (result, { localeContext } = {}) => {
-      const vocabularyLocale = localeContext?.localeMap?.vocabulary || 'en';
-      return { title: result.label[vocabularyLocale] || result.label.en };
-    }
+    transform: getVocabularyLabel
   },
   eventTypeVocabulary: {
     type: 'ENDPOINT',
     template: ({ id, api }) => `${api.v1.endpoint}/vocabularies/EventType/concepts/${id}`,
-    transform: (result, { localeContext } = {}) => {
-      const vocabularyLocale = localeContext?.localeMap?.vocabulary || 'en';
-      return { title: result.label[vocabularyLocale] || result.label.en };
-    }
+    transform: getVocabularyLabel
   },
   catalogNumber: {
     type: 'TRANSLATION',
@@ -236,9 +230,22 @@ export const commonLabels = {
       if (id.type === 'like' && typeof id.value === 'string') {
         return <i>{displayValue}</i>;
       }
-      
+
       return displayValue;
     }
   }
   // -- Add labels above this line (required by plopfile.js) --
+}
+
+function getVocabularyLabel(result, { localeContext } = {}) {
+  const vocabularyLocale = localeContext?.localeMap?.vocabulary || 'en';
+
+  // transform result labels to an object with language as keys
+  const labels = result.label.reduce((acc, label) => {
+    acc[label.language] = label.value;
+    return acc;
+  }, {});
+
+  let title = labels[vocabularyLocale] || labels.en || result.name || 'Unknown';
+  return { title };
 }
