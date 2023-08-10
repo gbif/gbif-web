@@ -34,7 +34,7 @@
     "@babel/runtime": "^7.13.10",
     "@emotion/babel-preset-css-prop": "^11.2.0",
     "@emotion/react": "^11.1.5",
-    "axios": "^0.24.0",
+    "axios": "^1.4.0",
     "d3": "^7.1.1",
     "doi-regex": "^0.1.10",
     "dompurify": "^2.2.7",
