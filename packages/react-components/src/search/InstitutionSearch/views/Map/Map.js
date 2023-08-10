@@ -6,6 +6,7 @@ import env from '../../../../../.env.json';
 import axios from "../../../../dataManagement/api/axios";
 import { filter2v1 } from "../../../../dataManagement/filterAdapter";
 import SiteContext from "../../../../dataManagement/SiteContext";
+import queryString from "query-string";
 
 function Map(props) {
   const currentFilterContext = useContext(FilterContext);
@@ -18,14 +19,24 @@ function Map(props) {
 
   useEffect(() => {
     const { v1Filter, error } = filter2v1(currentFilterContext.filter, predicateConfig);
-    const filter = { ...v1Filter, ...rootPredicate };
+    const filter = { ...rootPredicate, ...v1Filter };
     setFilter(filter);
-    const { promise, cancel } = axios.get(`${env.UTILS_API}/map-styles/3031/institutions.geojson`, { params: filter });
-    setLoading(true);
-    promise.then(({ data }) => {
-      setGeojsonData(data);
-      setLoading(false);
+    const { promise, cancel } = axios.get(`${env.UTILS_API}/map-styles/3031/institutions.geojson`, {
+      params: filter,
+      // https://github.com/axios/axios#request-config
+      paramsSerializer: function (params) {
+        return queryString.stringify(params, { arrayFormat: 'repeat' })
+      },
     });
+    setLoading(true);
+    promise
+      .then(({ data }) => {
+        setGeojsonData(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.log(err);
+      });
     return cancel;
   }, [currentFilterContext.filterHash, rootPredicate]);
 

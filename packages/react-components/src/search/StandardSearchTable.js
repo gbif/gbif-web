@@ -19,7 +19,7 @@ function StandardSearchTable({graphQuery, slowQuery, resultKey, offsetName = 'of
 
   useEffect(() => {
     const { v1Filter, error } = filter2v1(currentFilterContext.filter, predicateConfig);
-    const filter = { ...v1Filter, ...rootPredicate };
+    const filter = { ...rootPredicate, ...v1Filter };
     
     load({ keepDataWhileLoading: true, variables: { ...filter, limit, offset } });
     if (slowQuery) {

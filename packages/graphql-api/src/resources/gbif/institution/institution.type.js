@@ -11,7 +11,7 @@ const typeDef = gql`
       name: String
       fuzzyName: String
       city: String
-      country: Country
+      country: [Country]
       alternativeCode: String
       active: Boolean
       numberSpecimens: String

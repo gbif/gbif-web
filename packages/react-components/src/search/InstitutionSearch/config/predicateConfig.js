@@ -4,7 +4,6 @@ const filterConf = {
   fields: {
     countrySingleGrSciColl: {
       defaultKey: 'country',
-      singleValue: true
     },
     q: {
       singleValue: true

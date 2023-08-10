@@ -82,6 +82,9 @@ const config = {
   labels,
   getSuggests,
   filters,
+  // rootFilter: {
+  //   country: ['DK', 'IS']
+  // },
   availableCatalogues: ['INSTITUTION', 'COLLECTION', 'OCCURRENCE']
 };
 

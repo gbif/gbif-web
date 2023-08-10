@@ -83,7 +83,8 @@ const config = {
   getSuggests, 
   filters, 
   rootFilter: {
-    displayOnNHCPortal: true
+    displayOnNHCPortal: true,
+    // country: ['DK', 'IS']
   },
   availableCatalogues: ['INSTITUTION', 'COLLECTION', 'OCCURRENCE']
 };

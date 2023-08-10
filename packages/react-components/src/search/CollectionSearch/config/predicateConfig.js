@@ -3,8 +3,7 @@ import { filters } from './filterConf';
 const filterConf = {
   fields: {
     countrySingleGrSciColl: {
-      defaultKey: 'country',
-      singleValue: true
+      defaultKey: 'country'
     },
     institutionKeySingle: {
       defaultKey: 'institution',
