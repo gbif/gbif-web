@@ -2,6 +2,8 @@
 // and concatenate the results into a single array
 import axios from 'axios';
 import config from '../../../config';
+import queryString from 'query-string';
+
 let allInstitutions = [];
 
 export const getInstitutions = async ({limit: size, offset: from, ...filter} = {}, req) => {
@@ -11,13 +13,17 @@ export const getInstitutions = async ({limit: size, offset: from, ...filter} = {
   let total = 0;
 
   do {
+    const params ={
+      limit,
+      offset,
+      hasCoordinate: true, // this filter doesn't exist in the API, but it should for this to work well
+      ...filter
+    }
     const response = await axios.get(`${config.apiv1}/grscicoll/institution`, {
-      params: {
-        limit,
-        offset,
-        hasCoordinate: true, // this filter doesn't exist in the API, but it should for this to work well
-        ...filter
-      }
+      params: params,
+      paramsSerializer: function (params) {
+        return queryString.stringify(params, { arrayFormat: 'repeat' })
+      },
     });
 
     // prune response to only include a subset of the fields, to reduce the size of the response
