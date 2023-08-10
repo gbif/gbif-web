@@ -18,7 +18,7 @@ function query(query, { variables, client }, {name: queueName, concurrent = 1, i
   if (variablesTooLongForGET) {
     queryParams.variablesId = hash(variables);
   } else {
-    queryParams.variables = variables;
+    queryParams.variables = JSON.stringify(variables);
   }
 
   let cancel;
