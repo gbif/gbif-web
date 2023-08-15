@@ -444,7 +444,7 @@ const config =
       "type": "keyword",
       "field": "preparations.keyword"
     },
-    "programmeAcronym": {
+    "programme": {
       "type": "keyword",
       "field": "programmeAcronym"
     },
