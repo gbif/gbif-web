@@ -102,7 +102,8 @@ function metric2aggs(metrics = {}, config) {
           aggs[name] = {
             auto_date_histogram: {
               field: conf.field,
-              buckets: metric.buckets || 10
+              buckets: metric.buckets || 10,
+              minimum_interval: metric.minimum_interval
             }
           };
           break;
