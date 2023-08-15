@@ -56,17 +56,14 @@ export function getColumnOptions({ serie, onClick, interactive }) {
       text: ''
     },
     xAxis: {
-      type: 'datetime',
-      // categories: categories,
-      labels: { 
-        enabled: true,
-    },
-      // crosshair: true,//!!categories && data.results.length > 1,
-      // labels: {
-      //   formatter: function () {
-      //     return truncate(this.value, 50);
-      //   }
-      // },
+      // type: 'datetime',
+      categories: categories,
+      crosshair: true,//!!categories && data.results.length > 1,
+      labels: {
+        formatter: function () {
+          return truncate(this.value, 50);
+        }
+      },
       lineColor: '#d0d2da',
     },
     yAxis: {
