@@ -20,7 +20,7 @@ export const contentWrapper = css`
   margin: 0 auto;
   width: 1350px;
   max-width: 100%;
-  padding: 12px 12px 0 12px;
+  padding: 12px 36px 0 36px;
   margin-left: max(0px, calc((100vw - 1350px) / 2));
 `;
 

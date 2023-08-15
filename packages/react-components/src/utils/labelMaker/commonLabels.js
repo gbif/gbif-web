@@ -233,7 +233,11 @@ export const commonLabels = {
 
       return displayValue;
     }
-  }
+  },
+  threatStatus: {
+    type: 'TRANSLATION',
+    template: id => `enums.threatStatus.${id}`
+  },
   // -- Add labels above this line (required by plopfile.js) --
 }
 

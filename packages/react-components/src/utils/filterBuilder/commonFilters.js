@@ -15,6 +15,7 @@ import datasetType from '../../enums/basic/datasetType.json';
 import datasetSubtype from '../../enums/basic/datasetSubtype.json';
 import literatureType from '../../enums/cms/literatureType.json';
 import dwcaExtension from '../../enums/basic/dwcaExtension.json';
+import iucnRedListCategory from '../../enums/basic/iucnRedListCategory.json';
 // -- Add imports above this line (required by plopfile.js) --
 
 export const commonFilters = {
@@ -1482,6 +1483,23 @@ export const commonFilters = {
       }
     }
   },
+  iucnRedListCategory: {
+      type: 'ENUM',
+      config: {
+        std: {
+          filterHandle: 'iucnRedListCategory',
+          id2labelHandle: 'iucnRedListCategory',
+          translations: {
+            count: 'filters.iucnRedListCategory.count', // translation path to display names with counts. e.g. "3 scientific names"
+            name: 'filters.iucnRedListCategory.name',// translation path to a title for the popover and the button
+            description: 'filters.iucnRedListCategory.description', // translation path for the filter description
+          }
+        },
+        specific: {
+          options: iucnRedListCategory
+        }
+      }
+    },
   // -- Add filters above this line (required by plopfile.js) --
   q: {
     type: 'CUSTOM_STANDARD',

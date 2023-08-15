@@ -6,14 +6,14 @@ export const progress = ({color, unknown, ...props}) => css`
   border-radius: 2px;
   height: 4px;
   ${unknown ? `background-image: repeating-linear-gradient(45deg, #fafafa, #fafafa 5px, #eee 5px, #eee 10px);` : null}
-  /* position: relative; */
+  position: relative;
+  overflow: hidden;
   > div {
     transition: width 300ms;
     height: 100%;//px;
-    border-radius: 2px;
     background: ${color ? color : 'var(--primary)'};
     max-width: 100%;
-    /* position: absolute; */
+    position: absolute;
   }
 `;
 

@@ -44,6 +44,7 @@ export const filters = [
   'institutionKey',
   'collectionKey',
   'q',
+  'iucnRedListCategory',
   'verbatimScientificName',
   'dwcaExtension'
 ].sort();

@@ -3,18 +3,19 @@ import env from '../.env.json';
 const routeConfig = {
   occurrenceSearch: {
     url: ({ queryString }) => {
-      return `/?path=/story/search-occurrencesearch--example&viewMode=story`;
+      return `/?path=/story/search-occurrencesearch--example&viewMode=story&${queryString}`;
     },
+    // url: ({route, queryString, basename}) => `${basename ? `/${basename}` : ''}${route}${queryString ? `?${queryString}` : ''}`,
     isHref: true,
     route: '/occurrence/search',
   },
 
   collectionKey: {
-    route: '/',
     isHref: true,
     url: ({ key }) => {
       return `/?path=/story/entities-collection-page--example&knob-collectionUUID=${key}`;
-    }
+    },
+    route: '/',
   },
   collectionSearch: {
     // url: () => `/collection/`,
@@ -25,7 +26,14 @@ const routeConfig = {
     route: '/collection/search',
   },
   collectionKeySpecimens: {
-    url: ({ key }) => `/collection/${key}/specimens`
+    // url: ({ key }) => `/collection/${key}/specimens`
+    url: ({route, queryString, basename, key}) => `${basename ? `/${basename}` : ''}/collection/${key}/specimens${queryString ? `?${queryString}` : ''}`,
+    route: '/specimens',
+  },
+  collectionKeyDashboard: {
+    // url: ({ key }) => `/collection/${key}/specimens`
+    url: ({route, queryString, basename, key}) => `${basename ? `/${basename}` : ''}/collection/${key}/specimens${queryString ? `?${queryString}` : ''}`,
+    route: '/dashboard',
   },
 
   institutionKey: {
@@ -108,10 +116,14 @@ const routeConfig = {
     route: '/publisher/search'
   },
   taxonKey: {
-    // url: ({ key }) => `https://gbif.org/species/${key}`,
-    url: ({ key }) => `https://bie.ala.org.au/species/${key}`,
+    url: ({ key }) => `https://gbif.org/species/${key}`,
     isHref: true,
     route: '/taxon/:key'
+  },
+  networkKey: {
+    isHref: true,
+    url: ({key}) => `${env.GBIF_ORG}/network/${key}`,
+    route: '/'
   },
 };
 

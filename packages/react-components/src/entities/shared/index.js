@@ -7,7 +7,7 @@ import { Autocomplete, TextButton, Button, Skeleton } from '../../components'
 import { MdPushPin } from 'react-icons/md';
 import { FormattedDate } from 'react-intl';
 import { ContentWrapper, HeaderWrapper } from './header';
-import { BrokenJar } from '../../components/Icons/Icons';
+// import { BrokenJar } from '../../components/Icons/Icons';
 
 export function Card({ padded = true, ...props }) {
   return <div
@@ -17,13 +17,6 @@ export function Card({ padded = true, ...props }) {
       border: 1px solid var(--paperBorderColor);
       border-radius: var(--borderRadiusPx);
     `}
-    {...props}>
-  </div>
-}
-
-function PaddedContent(props) {
-  return <div
-    css={paddedContent}
     {...props}>
   </div>
 }
@@ -117,12 +110,12 @@ export function SideBarProgressList(props) {
 }
 
 export function SideBarLoader({lines = 5, ...props}) {
-  return <>
-    <h4><Skeleton /></h4>
+  return <div {...props}>
+    <SideBarHeader><Skeleton /></SideBarHeader>
     <div>
       {Array(lines).fill().map((x, i ) => <Skeleton key={i} width="random" css={css`margin-bottom: .7em;`}/>)}
     </div>
-  </>
+  </div>
 };
 
 export function SideBarError({...props}) {

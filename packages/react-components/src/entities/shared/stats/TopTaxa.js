@@ -27,7 +27,7 @@ export function TopTaxa({
     <div>
       <SideBarProgressList>
         {data?.occurrenceSearch?.facet?.taxonKey.map((x, i) => {
-          return <li>
+          return <li key={i}>
             <ProgressItem style={{ marginBottom: 12 }} fraction={x.count / total} title={<span dangerouslySetInnerHTML={{__html: x.taxon.formattedName}}></span>} subtleText />
           </li>
         })}

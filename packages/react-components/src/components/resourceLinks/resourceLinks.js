@@ -38,14 +38,20 @@ export const ResourceLink = React.forwardRef(({ id, type, otherIds, discreet, bo
   }
 });
 
-export const ResourceAction =  ({ id, type, otherIds }) => {
-  const history = useHistory();
-  const localeSettings = useContext(LocaleContext);
-  const routeContext = useContext(RouteContext);
+export const resourceAction =  ({ id: key, type, history, localeSettings, routeContext, ...rest }) => {
   const basename = routeContext.basename;
   const gbifOrgLocale = localeSettings?.localeMap?.gbif_org;
   const { url, isHref, route } = routeContext[type];
-  const to = url({ key: id, otherIds, route, basename, gbifOrgLocalePrefix: gbifOrgLocale ? `/${gbifOrgLocale}` : '' });
+  const gbifOrgLocalePrefix = gbifOrgLocale ? `/${gbifOrgLocale}` : '';
+  const to = url({
+    key, 
+    route, 
+    basename, 
+    gbifOrgLocalePrefix,
+    gbifOrgLocale,
+    isHref,
+    ...rest
+  });
   if (isHref) {
     location.href = to;
   } else {

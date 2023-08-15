@@ -16,7 +16,7 @@ export const Menu = React.memo(({ trigger, placement, items, style, ...props }) 
   const theme = useContext(ThemeContext);
   const menu = useMenuState({ placement: placement || theme.dir === 'rtl' ? 'bottom-start' : 'bottom-end' });
   return (
-    <Root style={ style }>
+    <>
       <MenuButton {...menu} {...trigger.props}>
         {disclosureProps => React.cloneElement(trigger, disclosureProps)}
       </MenuButton>
@@ -29,7 +29,7 @@ export const Menu = React.memo(({ trigger, placement, items, style, ...props }) 
           ))}
         </div>
       </BaseMenu>
-    </Root>
+    </>
   );
 });
 

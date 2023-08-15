@@ -28,7 +28,7 @@ export function TopCountries({
     <div>
       <SideBarProgressList>
         {data?.occurrenceSearch?.facet?.countryCode.map((x, i) => {
-          return <li>
+          return <li key={i}>
             <ProgressItem style={{ marginBottom: 12 }} fraction={x.count / total} title={<FormattedMessage id={`enums.countryCode.${x.key}`} />} subtleText />
           </li>
         })}

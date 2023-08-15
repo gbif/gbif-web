@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 
 
 export const tab = ({ noData, ...props }) => css`
-  color: ${noData ? '#888' : null}
+  color: ${noData ? '#888' : null};
 `;
 
 export const tabCountChip = ({ ...props }) => css`

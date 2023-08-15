@@ -1,8 +1,8 @@
 import { text, boolean, select } from '@storybook/addon-knobs';
 import { withA11y } from '@storybook/addon-a11y';
 import React from 'react';
-import { Button, ButtonGroup, FilterButton } from './index';
-import { MdClose } from 'react-icons/md';
+import { Button, ButtonGroup, FilterButton, DropdownButton } from './index';
+import DocsWrapper from '../DocsWrapper';
 
 export default {
   title: 'Components/Button',
@@ -64,6 +64,36 @@ export const Filter = () => <div style={{ width: 250 }}>
     Basis of record will be truncated
   </FilterButton>
 </div>;
+
+Filter.story = {
+  name: 'Filter button',
+};
+
+export const Dropdown = () => <DocsWrapper>
+  <DropdownButton
+    look="primary"
+    style={{ margin: 24 }}
+    menuItems={menuState => [
+      <DropdownButton.MenuAction onClick={e => { console.log('button action clicked', menuState); menuState.hide() }}>About this filter</DropdownButton.MenuAction>,
+      <DropdownButton.MenuAction onClick={e => { console.log('button action clicked', menuState); menuState.hide() }}>About this filter</DropdownButton.MenuAction>,
+    ]}>
+    Basis of record will be truncated
+  </DropdownButton>
+
+  <DropdownButton
+    look="primaryOutline"
+    style={{ margin: 24 }}
+    menuItems={menuState => [
+      <DropdownButton.MenuAction onClick={e => { console.log('button action clicked', menuState); menuState.hide() }}>About this filter</DropdownButton.MenuAction>,
+      <DropdownButton.MenuAction onClick={e => { console.log('button action clicked', menuState); menuState.hide() }}>About this filter</DropdownButton.MenuAction>,
+    ]}>
+    Basis of record will be truncated
+  </DropdownButton>
+
+  <DropdownButton look="primaryOutline">
+    Basis of record will be truncated
+  </DropdownButton>
+</DocsWrapper>;
 
 Filter.story = {
   name: 'Filter button',

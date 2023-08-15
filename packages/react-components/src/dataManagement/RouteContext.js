@@ -20,7 +20,13 @@ export const defaultContext = {
   },
   collectionKeySpecimens: {
     url: ({key}) => `/collection/${key}/specimens`,
-    isHref: true,
+    isHref: false,
+    route: '/collection/:key/specimens'
+  },
+  collectionKeyDashboard: {
+    url: ({key}) => `/collection/${key}/specimens`,
+    isHref: false,
+    route: '/collection/:key/dashboard'
   },
 
   institutionKey: {

@@ -34,6 +34,7 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
       map: getFile(locale, `../${folder}/${locale}/components/map`),
       images: getFile(locale, `../${folder}/${locale}/components/images`),
       error: getFile(locale, `../${folder}/${locale}/components/error`),
+      dashboard: getFile(locale, `../${folder}/${locale}/components/dashboard`),
       enums: {
         basisOfRecord: getFile(locale, `../${folder}/${locale}/enums/basisOfRecord`),
         countryCode: getFile(locale, `../${folder}/${locale}/enums/countryCode`),
@@ -59,6 +60,8 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
         dwcaExtension: getFile(locale, `../${folder}/${locale}/enums/dwcaExtension`),
         identifierType: getFile(locale, `../${folder}/${locale}/enums/identifierType`),
         yesNo: getFile(locale, `../${folder}/${locale}/enums/yesNo`),
+        threatStatus: getFile(locale, `../${folder}/${locale}/enums/threatStatus`),
+        iucnRedListCategory: getFile(locale, `../${folder}/${locale}/enums/iucnRedListCategory`),
   // -- Add enums above this line (required by plopfile.js) --
       }
     }

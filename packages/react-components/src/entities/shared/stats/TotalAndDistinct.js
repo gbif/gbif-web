@@ -19,8 +19,8 @@ export function TotalAndDistinct({
 
   const total = data?.occurrenceSearch?.documents?.total;
 
-  if (error) return <SideBarError />
-  if (!data || loading) return <SideBarLoader />
+  if (error) return <SideBarError style={props.style}/>
+  if (!data || loading) return <SideBarLoader style={props.style}/>
 
   return <div {...props}>
     <SideBarHeader>

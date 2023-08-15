@@ -30,13 +30,14 @@ query map($predicate: Predicate){
 function Map({ mapSettings, rootPredicate, ...props }) {
   const { data, error, loading, load } = useQuery(OCCURRENCE_MAP, { lazyLoad: true });
   const [bbox, setBbox] = useState();
-  const [queryId, setQueryID] = useState(hash(rootPredicate));
+  const [queryId, setQueryID] = useState(hash(rootPredicate ?? {}));
 
   useEffect(() => {
     loadHashAndCount({
       rootPredicate
     });
   }, [queryId]);
+
 
   useEffect(() => {
     if (data?.occurrenceSearch) {

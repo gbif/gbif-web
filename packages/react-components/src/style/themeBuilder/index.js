@@ -13,6 +13,8 @@ const build = theme => {
   fullTheme.primary700 = shadeHexColor(fullTheme.primary, -0.1);
   fullTheme.primary400 = shadeHexColor(fullTheme.primary, 0.05);
   fullTheme.primary300 = shadeHexColor(fullTheme.primary, 0.1);
+  fullTheme.primary200 = shadeHexColor(fullTheme.primary, 0.35);
+  fullTheme.primary100 = shadeHexColor(fullTheme.primary, 0.6);
 
   fullTheme.transparentInk40 = `${fullTheme.color}40`;
   fullTheme.transparentInk60 = `${fullTheme.color}60`;

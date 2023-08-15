@@ -6,7 +6,8 @@ import PropTypes from 'prop-types';
 import { Button as ButtonA11y } from "reakit/Button";
 import * as styles from './Button.styles';
 import { getClasses } from '../../utils/util';
-import { MdClose } from 'react-icons/md';
+import { MdMoreHoriz, MdClose } from 'react-icons/md';
+import { Menu, MenuAction } from '../Menu/Menu';
 
 const truncateStyle = {
   overflow: 'hidden',
@@ -75,7 +76,7 @@ export const FilterButton = React.forwardRef(({
   }
   return <ButtonGroup style={{ maxWidth: '100%' }}>
     {isNegated && <Button {...props} title="Negated filter" appearance="primary" onClick={onClick} loading={loading}><span>Exclude</span></Button>}
-    <Button {...props} style={{maxWidth: 400}} title={title} truncate appearance="primary" ref={ref} onClick={onClick} loading={loading}>{children}</Button>
+    <Button {...props} style={{ maxWidth: 400 }} title={title} truncate appearance="primary" ref={ref} onClick={onClick} loading={loading}>{children}</Button>
     <Button appearance="primary" onClick={onClearRequest} style={{ flex: '0 0 auto' }}>
       <MdClose style={{ verticalAlign: 'middle' }} />
     </Button>
@@ -89,7 +90,39 @@ FilterButton.propTypes = {
   children: PropTypes.any,
 }
 
-export const TextButton = React.forwardRef(({look, ...props}, ref) => {
+export const TextButton = React.forwardRef(({ look, ...props }, ref) => {
   const theme = useContext(ThemeContext);
-  return <ButtonA11y ref={ref} css={css`${styles.text(theme)} ${look ? styles[look](theme): null}`} {...props} />
+  return <ButtonA11y ref={ref} css={css`${styles.text(theme)} ${look ? styles[look](theme) : null}`} {...props} />
 });
+
+export const DropdownButton = React.forwardRef(({
+  isActive,
+  onClick,
+  loading,
+  title,
+  children,
+  ariaLabel = "Menu",
+  menuItems = () => [],
+  look,
+  style,
+  ...props
+}, ref) => {
+
+  return <ButtonGroup style={style}>
+    {children}
+    {menuItems.length > 0 && <Menu
+      aria-label={ariaLabel}
+      trigger={<Button look={look} style={{ flex: '0 0 auto' }}>
+        <MdMoreHoriz style={{ verticalAlign: 'middle' }} />
+      </Button>}
+      items={menuItems}
+    />}
+  </ButtonGroup>
+});
+
+DropdownButton.propTypes = {
+  onClick: PropTypes.func,
+  children: PropTypes.any,
+}
+
+DropdownButton.MenuAction = MenuAction;

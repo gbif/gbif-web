@@ -35,7 +35,7 @@ query list($institution: [GUID], $code: String, $q: String, $offset: Int, $limit
 `;
 
 const SLOW_QUERY = `
-query list($institution: [GUID], $code: String, $q: String, $offset: Int, $limit: Int, $country: Country, $fuzzyName: String, $city: String, $name: String, $active: Boolean, $numberSpecimens: String, $displayOnNHCPortal: Boolean){
+query list($institution: [GUID], $code: String, $q: String, $offset: Int, $limit: Int, $country: [Country], $fuzzyName: String, $city: String, $name: String, $active: Boolean, $numberSpecimens: String, $displayOnNHCPortal: Boolean){
   collectionSearch(institution: $institution, code: $code, q: $q, limit: $limit, offset: $offset, country: $country, fuzzyName: $fuzzyName, city: $city, name: $name, active: $active, numberSpecimens: $numberSpecimens, displayOnNHCPortal: $displayOnNHCPortal) {
     results {
       key

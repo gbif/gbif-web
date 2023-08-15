@@ -11,7 +11,7 @@ export default {
   component: Collection,
 };
 
-export const Example = () => <Router initialEntries={[`/`]}>
+export const Example = () => <Router initialEntries={[`/dashboard`]}>
   <QueryParamProvider ReactRouterRoute={Route}>
     <AddressBar />
     <div style={{ flex: '1 1 auto' }}></div>
@@ -26,7 +26,7 @@ export const Example = () => <Router initialEntries={[`/`]}>
 
     {/* Entomology from Harvard University, Museum of Comparative Zoology */}
     {/* <Collection id="42844cb6-421e-4bcf-bdeb-c56039bee08c" /> */}
-    <Collection id={text('collectionUUID', '42844cb6-421e-4bcf-bdeb-c56039bee08c')} />
+    <Collection id={text('collectionUUID', 'dceb8d52-094c-4c2c-8960-75e0097c6861')} />
     {/* <Switch>
       <Route
         path='/collection/:key'
