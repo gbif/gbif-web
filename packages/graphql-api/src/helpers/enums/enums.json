@@ -393,6 +393,10 @@
     "XZ",
     "ZZ"
   ],
+  "CountryUsageSortField": [
+    "COUNTRY_CODE",
+    "RECORD_COUNT"
+  ],
   "DatasetSubtype": [
     "TAXONOMIC_AUTHORITY",
     "NOMENCLATOR_AUTHORITY",
@@ -407,7 +411,13 @@
     "OCCURRENCE",
     "CHECKLIST",
     "METADATA",
-    "SAMPLING_EVENT"
+    "SAMPLING_EVENT",
+    "MATERIAL_ENTITY"
+  ],
+  "DatasetUsageSortField": [
+    "DATASET_TITLE",
+    "COUNTRY_CODE",
+    "RECORD_COUNT"
   ],
   "Discipline": [
     "ARCHAEOLOGY",
@@ -532,6 +542,7 @@
     "BIOCASE_XML_ARCHIVE",
     "OAI_PMH",
     "COLDP",
+    "CAMTRAP_DP_v_0_4",
     "OTHER"
   ],
   "EstablishmentMeans": [
@@ -572,7 +583,8 @@
     "PRESERVATION",
     "EXTENDED_MEASUREMENT_OR_FACT",
     "CHRONOMETRIC_AGE",
-    "CHRONOMETRIC_DATE"
+    "CHRONOMETRIC_DATE",
+    "DNA_DERIVED_DATA"
   ],
   "GbifRegion": [
     "AFRICA",
@@ -615,7 +627,10 @@
     "IH_IRN",
     "ROR",
     "GRID",
-    "CITES"
+    "CITES",
+    "SYMBIOTA_UUID",
+    "WIKIDATA",
+    "NCBI_BIOCOLLECTION"
   ],
   "InstallationType": [
     "IPT_INSTALLATION",
@@ -939,6 +954,7 @@
     "IRREGULAR",
     "NOT_PLANNED",
     "UNKOWN",
+    "UNKNOWN",
     "OTHER_MAINTENANCE_PERIOD"
   ],
   "MasterSourceType": [
@@ -949,7 +965,8 @@
   "MediaType": [
     "StillImage",
     "MovingImage",
-    "Sound"
+    "Sound",
+    "InteractiveResource"
   ],
   "MetadataType": [
     "EML",
@@ -1151,6 +1168,11 @@
     "PRESENT",
     "ABSENT"
   ],
+  "OrganizationUsageSortField": [
+    "ORGANIZATION_TITLE",
+    "COUNTRY_CODE",
+    "RECORD_COUNT"
+  ],
   "Origin": [
     "SOURCE",
     "DENORMED_CLASSIFICATION",
@@ -1175,7 +1197,10 @@
   "PipelineStep.Status": [
     "RUNNING",
     "FAILED",
-    "COMPLETED"
+    "SUBMITTED",
+    "COMPLETED",
+    "ABORTED",
+    "QUEUED"
   ],
   "PreservationMethodType": [
     "NO_TREATMENT",
@@ -1318,6 +1343,10 @@
     "MALE",
     "FEMALE",
     "HERMAPHRODITE"
+  ],
+  "SortOrder": [
+    "ASC",
+    "DESC"
   ],
   "Source": [
     "DATASET",
