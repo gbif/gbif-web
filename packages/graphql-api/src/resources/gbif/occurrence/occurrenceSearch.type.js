@@ -68,6 +68,7 @@ const typeDef = gql`
   type OccurrenceCardinality {
     datasetKey: Int!
     publishingOrg: Int!
+    hostingOrganizationKey: Int!
     recordedBy: Int!
     catalogNumber: Int!
     identifiedBy: Int!
@@ -79,8 +80,15 @@ const typeDef = gql`
     verbatimScientificName: Int!
     eventId: Int!
     month: Int!
+    license: Int!
+    basisOfRecord: Int!
+    issue: Int!
     collectionKey: Int!
+    institutionKey: Int!
     collectionCode: Int!
+    institutionCode: Int!
+    networkKey: Int!
+    programme: Int!
     taxonKey: Int!
     classKey: Int!
     familyKey: Int!
@@ -89,20 +97,48 @@ const typeDef = gql`
     orderKey: Int!
     phylumKey: Int!
     speciesKey: Int!
+    gbifClassification_usage_key: Int!
     preparations: Int!
+    iucnRedListCategory: Int!
+    establishmentMeans: Int!
+    countryCode: Int!
+    gadmGid: Int!
   }
 
   type OccurrenceHistogram {
     decimalLongitude(interval: Float): LongitudeHistogram!
+    year(interval: Float): JSON
   }
 
   type OccurrenceAutoDateHistogram {
-    eventDate(buckets: Float): JSON!
+    eventDate(buckets: Float, minimum_interval: String): AutoDateHistogramResult!
+  }
+
+  type AutoDateHistogramResult {
+    bucketSize: Int!
+    buckets: [AutoDateHistogramBucket]
+    interval: String!
+  }
+
+  type AutoDateHistogramBucket {
+    date: DateTime!
+    key: ID!
+    count: Long!
   }
 
   type LongitudeHistogram {
     buckets: JSON!
     bounds: JSON
+  }
+
+  type Histogram {
+    interval: Int
+    buckets: [HistogramBucket]
+  }
+
+  type HistogramBucket {
+    key: ID!
+    count: Long!
   }
 
   type OccurrenceFacet {
@@ -116,11 +152,10 @@ const typeDef = gql`
     countryCode(size: Int, from: Int): [OccurrenceFacetResult_string]
     datasetPublishingCountry(size: Int, from: Int): [OccurrenceFacetResult_string]
     dwcaExtension(size: Int, from: Int): [OccurrenceFacetResult_string]
-    establishmentMeans(size: Int, from: Int): [OccurrenceFacetResult_string]
     eventId(size: Int, from: Int): [OccurrenceFacetResult_string]
     id(size: Int, from: Int): [OccurrenceFacetResult_string]
     institutionCode(size: Int, from: Int): [OccurrenceFacetResult_string]
-    issues(size: Int, from: Int): [OccurrenceFacetResult_string]
+    issue(size: Int, from: Int): [OccurrenceFacetResult_string]
     license(size: Int, from: Int): [OccurrenceFacetResult_string]
     lifeStage(size: Int, from: Int): [OccurrenceFacetResult_string]
     locality(size: Int, from: Int): [OccurrenceFacetResult_string]
@@ -132,7 +167,7 @@ const typeDef = gql`
     organismQuantityType(size: Int, from: Int): [OccurrenceFacetResult_string]
     parentEventId(size: Int, from: Int): [OccurrenceFacetResult_string]
     preparations(size: Int, from: Int): [OccurrenceFacetResult_string]
-    programmeAcronym(size: Int, from: Int): [OccurrenceFacetResult_string]
+    programme(size: Int, from: Int): [OccurrenceFacetResult_string]
     projectId(size: Int, from: Int): [OccurrenceFacetResult_string]
     protocol(size: Int, from: Int): [OccurrenceFacetResult_string]
     publishingCountry(size: Int, from: Int): [OccurrenceFacetResult_string]
@@ -160,6 +195,7 @@ const typeDef = gql`
     gbifClassification_usageParsedName_type(size: Int, from: Int): [OccurrenceFacetResult_string]
     gbifClassification_usageParsedName_basionymAuthorship_year(size: Int, from: Int): [OccurrenceFacetResult_string]
     gbifClassification_usageParsedName_combinationAuthorship_year(size: Int, from: Int): [OccurrenceFacetResult_string]
+    iucnRedListCategory(size: Int, from: Int): [OccurrenceFacetResult_string]
 
     coordinatePrecision(size: Int, from: Int): [OccurrenceFacetResult_float]
     coordinateUncertaintyInMeters(size: Int, from: Int): [OccurrenceFacetResult_float]
@@ -208,6 +244,11 @@ const typeDef = gql`
     installationKey(size: Int, from: Int): [OccurrenceFacetResult_installation]
     networkKey(size: Int, from: Int): [OccurrenceFacetResult_network]
     publishingOrg(size: Int, from: Int): [OccurrenceFacetResult_organization]
+    hostingOrganizationKey(size: Int, from: Int): [OccurrenceFacetResult_organization]
+
+    establishmentMeans(size: Int, from: Int): [OccurrenceFacetResult_establishmentMeans]
+
+    gadmGid(size: Int, from: Int): [OccurrenceFacetResult_gadm]
 
     gbifClassification_taxonID(size: Int, from: Int): [OccurrenceFacetResult_string]
     collectionKey(size: Int, from: Int): [OccurrenceFacetResult_collection]
@@ -231,6 +272,22 @@ const typeDef = gql`
   type OccurrenceFacetResult_float {
     key: Float!
     count: Int!
+    occurrences(size: Int, from: Int): OccurrenceSearchResult!
+    _predicate: JSON
+  }
+
+  type OccurrenceFacetResult_establishmentMeans {
+    key: String!
+    count: Int!
+    concept: VocabularyConcept!
+    occurrences(size: Int, from: Int): OccurrenceSearchResult!
+    _predicate: JSON
+  }
+
+  type OccurrenceFacetResult_gadm {
+    key: String!
+    count: Int!
+    gadm: Gadm!
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
     _predicate: JSON
   }

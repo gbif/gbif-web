@@ -14,6 +14,8 @@ export { default as organization } from './organization';
 export { default as participant } from './participant';
 export { default as staffMember } from './staffMember';
 export { default as taxon } from './taxon';
+export { default as vocabulary } from './vocabulary';
+export { default as gadm } from './gadm';
 
 // ALA use this, but we do not have an index for it yet
 // export { default as event } from '../shared/resources/event';

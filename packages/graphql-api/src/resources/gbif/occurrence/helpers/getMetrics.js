@@ -132,7 +132,7 @@ const getHistogram =
  */
 const getAutoDateHistogram =
   (field) =>
-  (parent, { buckets = 10 }, { dataSources }) => {
+  (parent, { buckets = 10, minimum_interval }, { dataSources }) => {
     // generate the occurrence search facet query, by inherting from the parent query, and map limit/offset to facet equivalents
     const query = {
       predicate: parent._predicate,
@@ -140,6 +140,7 @@ const getAutoDateHistogram =
       metrics: {
         autoDateHistogram: {
           type: 'auto_date_histogram',
+          minimum_interval,
           key: field,
           buckets,
         },
@@ -148,7 +149,10 @@ const getAutoDateHistogram =
     // query the API, and throw away anything but the facet counts
     return dataSources.occurrenceAPI
       .searchOccurrences({ query })
-      .then((data) => ({ buckets, ...data.aggregations.autoDateHistogram }));
+      .then((data) => ({
+        bucketSize: buckets, 
+        ...data.aggregations.autoDateHistogram, 
+        buckets: data.aggregations.autoDateHistogram.buckets.map(x => ({...x, date: x.key_as_string, count: x.doc_count})) }));
   };
 
 export {
