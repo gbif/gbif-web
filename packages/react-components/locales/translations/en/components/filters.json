@@ -22,7 +22,17 @@
   "iucnRedListCategory": {
     "name": "",
     "count": "",
-    "description": "A short description of the component should be placed here"
+    "description": ""
+  },
+  "relevance": {
+    "name": "Relevance",
+    "count": "",
+    "description": ""
+  },
+  "topics": {
+    "name": "Topic",
+    "count": "",
+    "description": ""
   },
   "taxonKey": {
     "name": "Scientific name",
