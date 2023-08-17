@@ -22,17 +22,17 @@
   "iucnRedListCategory": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "The IUCN Red List of Threatened Species groups taxa by how threatened they are."
   },
   "relevance": {
     "name": "Relevance",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { relevance } other {# relevance filters}}",
+    "description": "How is GBIF used in the literature."
   },
   "topics": {
     "name": "Topic",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { topic } other {# topics}}",
+    "description": "What are the topics of the record."
   },
   "taxonKey": {
     "name": "Scientific name",
