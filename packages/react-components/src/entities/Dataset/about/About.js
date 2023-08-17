@@ -52,6 +52,7 @@ export function About({
   const withEventId = insights?.data?.unfiltered?.cardinality?.eventID;
   const labelAsEventDataset = dataset.type === 'SAMPLING_EVENT_DATASET' || withEventId > 1 && withEventId/total < 0.99; // Threshold chosen somewhat randomly. The issue is that some datasets assign random unique eventIds to all their occurrences. Those aren't really event datasets, it is a misunderstanding.
 
+  const hasSamplingDescription = dataset?.samplingDescription?.studyExtent || dataset?.samplingDescription?.sampling || dataset?.samplingDescription?.qualityControl || (dataset?.samplingDescription?.methodSteps && dataset?.samplingDescription?.methodSteps?.length > 0);
   return <>
     <div css={css.withSideBar({ theme })}>
       {!isBelowTOC && <div css={css.sideBar({ theme })}>
@@ -87,7 +88,7 @@ export function About({
           <h2 ref={node => { tocRefs["taxonomic-scope"] = node; }}>Taxonomic scope</h2>
           <TaxonomicCoverages taxonomicCoverages={dataset.taxonomicCoverages} />
         </Prose>}
-        {dataset.samplingDescription && <Prose css={css.paper({ theme })}>
+        {hasSamplingDescription && <Prose css={css.paper({ theme })}>
           <h2 ref={node => { tocRefs["methodology"] = node; }}>Methodology</h2>
           <SamplingDescription dataset={dataset} />
         </Prose>}

@@ -87,7 +87,7 @@ const config = {
 export const Example = () => <Router initialEntries={[`/literature/search`]}>
   <QueryParamProvider ReactRouterRoute={Route}>
     <AddressBar />
-    <LiteratureSearch pageLayout config={config} style={{ margin: 'auto', height: 'calc(100vh - 60px)' }} />;
+    <LiteratureSearch pageLayout config={config} style={{ margin: 'auto', height: 'calc(100vh - 60px)' }} />
   </QueryParamProvider>
 </Router>
 
