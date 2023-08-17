@@ -11,7 +11,7 @@ const filterConf = {
     datasetKey: {
       defaultKey: 'gbifDatasetKey'
     },
-    publisherKey: {
+    gbifPublisherKey: {
       defaultKey: 'publishingOrganizationKey'
     },
     year: {

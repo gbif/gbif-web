@@ -202,6 +202,23 @@ export const commonFilters = {
       }
     }
   },
+  gbifPublisherKey: { // same as any publisher, but with a more explicit naming
+    type: 'SUGGEST',
+    config: {
+      std: {
+        id2labelHandle: 'publisherKey',
+        translations: {
+          count: 'filters.gbifPublisherKey.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.gbifPublisherKey.name',// translation path to a title for the popover and the button
+          description: 'filters.gbifPublisherKey.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        suggestHandle: 'publisherKey',
+        allowEmptyQueries: true
+      }
+    }
+  },
   institutionCode: {
     type: 'SUGGEST',
     config: {

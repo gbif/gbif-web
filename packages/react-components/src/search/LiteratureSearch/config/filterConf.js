@@ -4,7 +4,7 @@ export const filters = [
   'countriesOfResearcher',
   'countriesOfCoverage',
   'datasetKey',
-  'publisherKey',
+  'gbifPublisherKey',
   'literatureType'
 ].sort();
 

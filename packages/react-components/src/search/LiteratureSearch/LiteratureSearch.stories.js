@@ -66,8 +66,8 @@ const config = {
   labels,
   getSuggests,
   filters,
-  includedFilters: ['vceDatasetFilter'],
-  highlightedFilters: ['vceDatasetFilter'],
+  // includedFilters: ['vceDatasetFilter'],
+  // highlightedFilters: ['vceDatasetFilter'],
   // rootFilter: {predicate: {type: 'or', predicates: [
   //   {
   //     type: 'in', 
