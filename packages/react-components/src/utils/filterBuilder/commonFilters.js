@@ -14,6 +14,8 @@ import occurrenceStatus from '../../enums/basic/occurrenceStatus.json';
 import datasetType from '../../enums/basic/datasetType.json';
 import datasetSubtype from '../../enums/basic/datasetSubtype.json';
 import literatureType from '../../enums/cms/literatureType.json';
+import relevance from '../../enums/cms/relevance.json';
+import topics from '../../enums/cms/topics.json';
 import dwcaExtension from '../../enums/basic/dwcaExtension.json';
 import iucnRedListCategory from '../../enums/basic/iucnRedListCategory.json';
 // -- Add imports above this line (required by plopfile.js) --
@@ -352,6 +354,40 @@ export const commonFilters = {
       },
       specific: {
         options: basisofRecord,
+      }
+    }
+  },
+  relevance: {
+    type: 'ENUM',
+    config: {
+      std: {
+        filterHandle: 'relevance',
+        id2labelHandle: 'relevance',
+        translations: {
+          count: 'filters.relevance.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.relevance.name',// translation path to a title for the popover and the button
+          description: 'filters.relevance.description', // translation path for the filter description
+        }
+      },
+      specific: {
+        options: relevance,
+      }
+    }
+  },
+  topics: {
+    type: 'ENUM',
+    config: {
+      std: {
+        filterHandle: 'topics',
+        id2labelHandle: 'topics',
+        translations: {
+          count: 'filters.topics.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.topics.name',// translation path to a title for the popover and the button
+          description: 'filters.topics.description', // translation path for the filter description
+        }
+      },
+      specific: {
+        options: topics,
       }
     }
   },

@@ -22,7 +22,17 @@
   "iucnRedListCategory": {
     "name": "IUCN Global Red List Category",
     "count": "{num, plural, one { IUCN Global Red List category } other {# IUCN Global Red List categories}}",
-    "description": "A short description of the component should be placed here"
+    "description": "The IUCN Global Redlist groups taxa by how threatned they are."
+  },
+  "relevance": {
+    "name": "Relevance",
+    "count": "{num, plural, one { relevance } other {# relevance filters}}",
+    "description": "How is GBIF used in the literature."
+  },
+  "topics": {
+    "name": "Topic",
+    "count": "{num, plural, one { topic } other {# topics}}",
+    "description": "What are the topics of the record."
   },
   "taxonKey": {
     "name": "Scientific name",

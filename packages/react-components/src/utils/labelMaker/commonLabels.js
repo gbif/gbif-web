@@ -6,6 +6,14 @@ export const commonLabels = {
     type: 'TRANSLATION',
     template: id => `enums.basisOfRecord.${id}`
   },
+  topics: {
+    type: 'TRANSLATION',
+    template: id => `enums.topics.${id}`
+  },
+  relevance: {
+    type: 'TRANSLATION',
+    template: id => `enums.relevance.${id}`
+  },
   typeStatus: {
     type: 'TRANSLATION',
     template: id => `enums.typeStatus.${id}`

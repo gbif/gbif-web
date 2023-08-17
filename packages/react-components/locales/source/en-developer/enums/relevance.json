@@ -1,0 +1,11 @@
+{
+  "GBIF_USED": "GBIF used",
+  "GBIF_CITED": "GBIF cited",
+  "GBIF_DISCUSSED": "GBIF discussed",
+  "GBIF_PRIMARY": "GBIF primary",
+  "GBIF_ACKNOWLEDGED": "GBIF acknowledged",
+  "GBIF_PUBLISHED": "GBIF published",
+  "GBIF_AUTHOR": "GBIF author",
+  "GBIF_MENTIONED": "GBIF mentioned",
+  "GBIF_FUNDED": "GBIF funded"
+}
