@@ -46,25 +46,25 @@ export const ResultsTable = ({ first, prev, next, size, from, results, total, lo
     </Th>
   });
 
-  return<>
-  <div style={{
-    flex: "1 1 100%",
-    display: "flex",
-    height: "100%",
-    maxHeight: "100vh",
-    flexDirection: "column",
-    ...style
-  }}>
-    <ResultsHeader loading={loading} total={total} />
-    <DataTable fixedColumn={fixed} {...{ first, prev, next, size, from, total, loading }} style={{ flex: "1 1 auto", height: 100, display: 'flex', flexDirection: 'column' }}>
-      <thead>
-        <tr>{headers}</tr>
-      </thead>
-      <TBody rowCount={size} columnCount={7} loading={loading}>
-        {getRows({ tableConfig, labelMap, currentFilterContext, results, filters })}
-      </TBody>
-    </DataTable>
-  </div>
+  return <>
+    <div style={{
+      flex: "1 1 100%",
+      display: "flex",
+      height: "100%",
+      maxHeight: "100vh",
+      flexDirection: "column",
+      ...style
+    }}>
+      <ResultsHeader loading={loading} total={total} />
+      <DataTable fixedColumn={fixed} {...{ first, prev, next, size, from, total, loading }} style={{ flex: "1 1 auto", height: 100, display: 'flex', flexDirection: 'column' }}>
+        <thead>
+          <tr>{headers}</tr>
+        </thead>
+        <TBody rowCount={size} columnCount={7} loading={loading}>
+          {getRows({ tableConfig, labelMap, currentFilterContext, results, filters })}
+        </TBody>
+      </DataTable>
+    </div>
   </>
 }
 
@@ -76,26 +76,50 @@ const getRows = ({ tableConfig, labelMap, currentFilterContext, results = [], fi
   const rows = results.map((row, index) => {
     const cells = tableConfig.columns.map(
       (field, i) => {
-        const hasFilter = filters[field?.filterKey];
         const val = get(row, field.value.key);
-        let formattedVal = val;
+        // const hasFilter = filters[field?.filterKey];
+        // const val = get(row, field.value.key);
+        // let formattedVal = val;
 
-        if (!val && field.value.hideFalsy === true) {
-          formattedVal = '';
-        } else if (field.value.formatter) {
-          formattedVal = field.value.formatter(val, row, { filterContext: currentFilterContext, labelMap });
-        } else if (field.value.labelHandle) {
-          const Label = labelMap[field.value.labelHandle];
-          formattedVal = Label ? <Label id={val} /> : val;
-        }
-        if (!isEmpty(val) && hasFilter && field?.cellFilter) {
-          formattedVal = <InlineFilterChip filterName={field?.filterKey} values={[val]}>{formattedVal}</InlineFilterChip>
-        }
+        // if (!val && field.value.hideFalsy === true) {
+        //   formattedVal = '';
+        // } else if (field.value.formatter) {
+        //   formattedVal = field.value.formatter(val, row, { filterContext: currentFilterContext, labelMap });
+        // } else if (field.value.labelHandle) {
+        //   const Label = labelMap[field.value.labelHandle];
+        //   formattedVal = Label ? <Label id={val} /> : val;
+        // }
+        // if (!isEmpty(val) && hasFilter && field?.cellFilter) {
+        //   formattedVal = <InlineFilterChip filterName={field?.filterKey} values={[val]}>{formattedVal}</InlineFilterChip>
+        // }
 
-        return <Td noWrap={field.noWrap} key={field.trKey} style={field.value.rightAlign ? {textAlign: 'right'} : {}}>{formattedVal}</Td>;
+        const formattedVal = getFieldValue({val, row, field, filters, labelMap, currentFilterContext});
+        return <Td noWrap={field.noWrap} key={field.trKey} style={field.value.rightAlign ? { textAlign: 'right' } : {}}>{formattedVal}</Td>;
       }
     );
     return <tr key={row.key || row.id || index}>{cells}</tr>;
   });
   return rows;
+}
+
+function getFieldValue({ val, row, field, filters, currentFilterContext, labelMap }) {
+  const hasFilter = filters[field?.filterKey];
+  let formattedVal = val;
+  if (Array.isArray(val)) {
+    const content = val.map((v, i, list) => <span key={i}>{getFieldValue({val: v, row, field, filters, currentFilterContext, labelMap})}{i < list.length -1 && ', '}</span>);
+    return content;
+  }
+
+  if (!val && field.value.hideFalsy === true) {
+    formattedVal = '';
+  } else if (field.value.formatter) {
+    formattedVal = field.value.formatter(val, row, { filterContext: currentFilterContext, labelMap });
+  } else if (field.value.labelHandle) {
+    const Label = labelMap[field.value.labelHandle];
+    formattedVal = Label ? <Label id={val} /> : val;
+  }
+  if (!isEmpty(val) && hasFilter && field?.cellFilter) {
+    formattedVal = <InlineFilterChip filterName={field?.filterKey} values={[val]}>{formattedVal}</InlineFilterChip>
+  }
+  return formattedVal;
 }

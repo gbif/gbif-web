@@ -21,6 +21,7 @@ const whitelist = ['authors', 'countriesOfCoverage', 'countriesOfResearcher', 'd
  */
 function reduce(item) {
   const source = item._source;
+  source.relevance = ['GBIF_PUBLISHED', 'GBIF_DISCUSSED']
   return _.pick(item._source, whitelist);
 }
 
