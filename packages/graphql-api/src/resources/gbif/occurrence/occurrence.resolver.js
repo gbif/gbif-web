@@ -7,7 +7,7 @@ import {
   getCardinality,
   getHistogram,
   getAutoDateHistogram,
-} from './helpers/getMetrics';
+} from '../getMetrics';
 import {
   facetFields,
   statsFields,
@@ -21,37 +21,39 @@ import termResolver from './helpers/terms/occurrenceTerms';
 import predicate2v1 from './helpers/predicate2v1';
 import getLongitudeBounds from './helpers/longitudeBounds';
 
+const getSourceSearch = (dataSources) => args => dataSources.occurrenceAPI.searchOccurrences.call(dataSources.occurrenceAPI, args);
+
 // there are many fields that support facets. This function creates the resolvers for all of them
 const facetReducer = (dictionary, facetName) => {
-  dictionary[facetName] = getFacet(facetName);
+  dictionary[facetName] = getFacet(facetName, getSourceSearch);
   return dictionary;
 };
 const OccurrenceFacet = facetFields.reduce(facetReducer, {});
 
 // there are also many fields that support stats. Generate them all.
 const statsReducer = (dictionary, statsName) => {
-  dictionary[statsName] = getStats(statsName);
+  dictionary[statsName] = getStats(statsName, getSourceSearch);
   return dictionary;
 };
 const OccurrenceStats = statsFields.reduce(statsReducer, {});
 
 // there are also many fields that support cardinality. Generate them all.
 const cardinalityReducer = (dictionary, fieldName) => {
-  dictionary[fieldName] = getCardinality(fieldName);
+  dictionary[fieldName] = getCardinality(fieldName, getSourceSearch);
   return dictionary;
 };
 const OccurrenceCardinality = cardinalityFields.reduce(cardinalityReducer, {});
 
 // there are also many fields that support histograms. Generate them all.
 const histogramReducer = (dictionary, fieldName) => {
-  dictionary[fieldName] = getHistogram(fieldName);
+  dictionary[fieldName] = getHistogram(fieldName, getSourceSearch);
   return dictionary;
 };
 const OccurrenceHistogram = histogramFields.reduce(histogramReducer, {});
 
 // there are also many fields that support date histograms. Generate them all.
 const autoDateHistogramReducer = (dictionary, fieldName) => {
-  dictionary[fieldName] = getAutoDateHistogram(fieldName);
+  dictionary[fieldName] = getAutoDateHistogram(fieldName, getSourceSearch);
   return dictionary;
 };
 const OccurrenceAutoDateHistogram = dateHistogramFields.reduce(
