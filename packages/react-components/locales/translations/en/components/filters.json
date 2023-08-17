@@ -102,8 +102,8 @@
     "description": "The name of the organization responsible for sharing the dataset in which the record is included."
   },
   "gbifPublisherKey": {
-    "name": "",
-    "count": "",
+    "name": "GBIF publisher",
+    "count": "{num, plural, one {GBIF publisher} other {# GBIF publishers}}",
     "description": "The name of the organization responsible for sharing the dataset in which the record is included."
   },
   "hostingOrganizationKey": {
