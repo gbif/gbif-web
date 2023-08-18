@@ -59,6 +59,16 @@ export function DataQuality({
             }
           ]
         },
+        hasYear: {
+          type: 'and',
+          predicates: [
+            predicate,
+            {
+              "type": "isNotNull",
+              "key": "year"
+            }
+          ]
+        },
       },
       queue: { name: 'dashboard' }
     });
@@ -110,8 +120,8 @@ export function DataQuality({
             </td> */}
           </tr>
           <tr>
-            <td><BarItem percent={100 * data?.rank?.documents?.total / total}>With collection year</BarItem></td>
-            <td><FormattedNumber value={data?.rank?.documents?.total} /></td>
+            <td><BarItem percent={100 * data?.hasYear?.documents?.total / total}>With collection year</BarItem></td>
+            <td><FormattedNumber value={data?.hasYear?.documents?.total} /></td>
             {/* <td>
               <Progress percent={100 * data?.rank?.documents?.total / total} style={{ height: '1em', marginLeft: 'auto' }} />
             </td> */}
@@ -138,7 +148,7 @@ export function DataQuality({
 };
 
 const OCCURRENCE_STATS = `
-query summary($predicate: Predicate, $hasSpeciesRank: Predicate, $hasCoordinates: Predicate, $hasMedia: Predicate, $hasCollector: Predicate){
+query summary($predicate: Predicate, $hasSpeciesRank: Predicate, $hasCoordinates: Predicate, $hasMedia: Predicate, $hasCollector: Predicate, $hasYear: Predicate){
   occurrenceSearch(predicate: $predicate) {
     documents(size: 0) {
       total
@@ -160,6 +170,11 @@ query summary($predicate: Predicate, $hasSpeciesRank: Predicate, $hasCoordinates
     }
   }
   hasCollector: occurrenceSearch(predicate: $hasCollector) {
+    documents(size: 0) {
+      total
+    }
+  }
+  hasYear: occurrenceSearch(predicate: $hasYear) {
     documents(size: 0) {
       total
     }

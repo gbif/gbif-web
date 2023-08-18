@@ -14,7 +14,7 @@ export function Images({
     <div>
       {images.documents.results.map(occurrence => {
         return <div key={occurrence.key}>
-          <Image src={occurrence.stillImages[0].identifier} height={300} />
+          <Image src={occurrence.stillImages[0].identifier} h={300} />
         </div>
       })}
     </div>

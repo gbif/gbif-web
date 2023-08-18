@@ -1,15 +1,16 @@
 import { css } from '@emotion/react';
 // import { focusStyle } from '../../style/shared';
 
-export const paper = ({ ...props }) => css`
-  background: white;
+export const paper = ({ transparent, ...props }) => css`
+  background: ${transparent ? '' : 'white'};
   padding: 24px 48px;
   margin: 12px 0;
 `;
 
-export const withSideBar = ({ ...props }) => css`
-  display: flex;
-  /* margin: 0 12px; */
+export const withSideBar = ({ hasSidebar, ...props }) => css`
+  display: grid;
+  grid-template-columns: 1fr ${hasSidebar ? '350px' : ''};
+  grid-column-gap: 12px;
 `;
 
 export const sideBarNav = ({ ...props }) => css`
@@ -18,6 +19,9 @@ export const sideBarNav = ({ ...props }) => css`
   border-radius: 4px;
   overflow: hidden;
   padding: 4px;
+  position: sticky;
+  margin-right: 12px;
+  top: var(--stickyOffset);
   ul {
     list-style: none;
     padding: 0;
@@ -156,10 +160,11 @@ export const thumbnail = css`
 `;
 
 
-const galleryHeight = '300';
+const galleryHeight = '200';
 export const galleryBar = css`
   height: ${galleryHeight}px;
   overflow: hidden;
+  width: 100%;
   position: relative;
   margin: 0 -6px;
   > a {

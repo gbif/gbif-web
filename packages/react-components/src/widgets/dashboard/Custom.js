@@ -12,6 +12,7 @@ function TaxaMain({
   handleRedirect,
   detailsRoute,
   visibilityThreshold,
+  interactive,
   ...props
 }) {
   const [query, setQuery] = useState(getTaxonQuery('familyKey'));
@@ -31,6 +32,7 @@ function TaxaMain({
     </CardTitle>
     <GroupBy {...{
       facetResults,
+      interactive,
       onClick: handleRedirect,
       transform: data => {
         return data?.occurrenceSearch?.facet?.results?.map(x => {
@@ -91,6 +93,7 @@ function IucnMain({
   handleRedirect,
   visibilityThreshold,
   detailsRoute,
+  interactive,
   ...props
 }) {
   const facetResults = useFacets({
@@ -117,6 +120,7 @@ function IucnMain({
     </CardTitle>
     <GroupBy {...{
       facetResults,
+      interactive,
       onClick: handleRedirect,
       transform: data => {
         return data?.occurrenceSearch?.facet?.results?.map(x => {

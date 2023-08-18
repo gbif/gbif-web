@@ -59,9 +59,9 @@ export function ContentWrapper({ children, ...props }) {
 
 export function DataHeader({ searchType, messageId, ...props }) {
   return <UnstyledDataHeader
-    style={{ borderBottom: '1px solid #ddd', background: 'white' }}
+    style={{ background: 'white' }}
     left={<ResourceSearchLink type={searchType} discreet style={{ display: 'flex', alignItems: 'center' }}>
-      <MdChevronLeft /> <FormattedMessage id={messageId} />
+      <FormattedMessage id={messageId} />
     </ResourceSearchLink>}
     {...props}
   />;

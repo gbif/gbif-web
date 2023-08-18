@@ -3,7 +3,7 @@ import env from '../.env.json';
 const routeConfig = {
   occurrenceSearch: {
     url: ({ queryString }) => {
-      return `/?path=/story/search-occurrencesearch--example&viewMode=story&${queryString}`;
+      return `/iframe.html?args=&id=search-occurrencesearch--standalone-example&viewMode=story${queryString}`;
     },
     // url: ({route, queryString, basename}) => `${basename ? `/${basename}` : ''}${route}${queryString ? `?${queryString}` : ''}`,
     isHref: true,
@@ -64,7 +64,7 @@ const routeConfig = {
     // url: ({key}) => `https://collections.ala.org.au/public/showDataResource/${key}`,
     url: ({ key }) => {
       // return `/iframe.html?id=entities-dataset-page--example&viewMode=story&knob-datasetUUID=${key}`;
-      return `/?path=/story/entities-dataset-page--example&knob-Choose%20Direction=ltr&knob-Choose%20Theme=gbif&knob-Choose%20locale=en-DK&knob-datasetUUID=${key}`;
+      return `/?path=/story/entities-dataset-page--example&knob-Choose%20Direction=ltr&knob-Choose%20locale=en-DK&knob-datasetUUID=${key}`;
     },
     route: '/'
   },
@@ -155,6 +155,7 @@ export const siteConfig = {
     bing: 'need to make a call to register',
     maptiler: env._FOR_STORYBOOK_BUT_PUBLIC?.apiKeys?.maptiler
   },
+  availableCatalogues: ['OCCURRENCE', 'DATASET', 'PUBLISHER', 'LITERATURE', 'COLLECTION', 'INSTITUTION'],
   maps: {
     // locale: 'ja',
     defaultProjection: 'MERCATOR',

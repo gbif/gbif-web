@@ -6,6 +6,7 @@ import { getClasses } from '../../utils/util';
 import styles from './styles';
 import CatalogueSelector from './CatalogueSelector';
 import { NavBar, NavItem } from '../NavBar/NavBar';
+import SiteContext from '../../dataManagement/SiteContext';
 
 export function DataHeader({
   as: Div = 'div',
@@ -17,8 +18,10 @@ export function DataHeader({
   children,
   ...props
 }) {
+  const siteConfig = useContext(SiteContext);
   const theme = useContext(ThemeContext);
-  const showCatalogue = availableCatalogues && availableCatalogues.length > 1;
+  const catalogues = availableCatalogues ?? siteConfig.availableCatalogues;
+  const showCatalogue = catalogues && catalogues.length > 1;
 
   const hasLeftPart = left || catalogueLabel || showCatalogue;
   // if there is nothing configured, then do not show at all
@@ -29,7 +32,8 @@ export function DataHeader({
 
     {hasLeftPart && <>
       <div style={{ flex: '0 0 auto', position: 'relative', margin: '0 12px', display: 'flex', alignItems: 'center' }}>
-        {left || <CatalogueSelector label={catalogueLabel} availableCatalogues={availableCatalogues} />}
+        { showCatalogue && <CatalogueSelector label={catalogueLabel} availableCatalogues={availableCatalogues} /> }
+        {left}
       </div>
       {children && <Separator />}
     </>}
@@ -39,7 +43,7 @@ export function DataHeader({
     </div>
 
     {right && <>
-      <Separator />
+      {/* <Separator /> */}
       <div style={{ flex: '0 0 auto' }}>
         {right}
       </div>

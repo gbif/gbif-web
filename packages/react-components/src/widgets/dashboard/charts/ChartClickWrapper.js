@@ -4,7 +4,7 @@ import { useLocation, useHistory } from 'react-router-dom';
 import { FilterContext } from '../../Filter/state';
 import { mergeDeep } from '../../../utils/util';
 
-export default function ChartClickWrapper({children, ...props}) {
+export default function ChartClickWrapper({children, interactive, ...props}) {
   const { detailsRoute } = props;
 
   const location = useLocation();
@@ -12,7 +12,7 @@ export default function ChartClickWrapper({children, ...props}) {
   const { filter: filterContext, setFilter } = useContext(FilterContext);
   
   const handleRedirect = useCallback(({ filter }) => {
-    if (!filter) return;
+    if (!filter || !interactive) return;
     if (!detailsRoute && !setFilter) {
       console.warn('ChartClickWrapper: no detailsRoute or setFilter provided');
       return;
@@ -25,7 +25,7 @@ export default function ChartClickWrapper({children, ...props}) {
     } else {
       setFilter(mergedFilter);
     }
-  }, [detailsRoute, location.pathname, filterContext]);
+  }, [detailsRoute, location.pathname, filterContext, interactive]);
 
-  return React.cloneElement(children, { handleRedirect, ...props })
+  return React.cloneElement(children, { handleRedirect, interactive, ...props })
 }

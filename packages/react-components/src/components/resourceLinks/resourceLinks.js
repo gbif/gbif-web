@@ -7,6 +7,10 @@ import { Link, useHistory } from "react-router-dom";
 export const ResourceSearchLink = React.forwardRef(({ queryString, type, discreet, ...props }, ref) => {
   const routeContext = useContext(RouteContext);
   const basename = routeContext.basename;
+  if (!routeContext[type]) {
+    console.warn(`No such route: ${type}`)
+    return null;
+  }
   const { url, isHref, route } = routeContext[type];
   const to = url({ queryString, basename, route });
   const style = discreet ? isDiscreet : null;

@@ -25,7 +25,7 @@ export const contentWrapper = css`
 `;
 
 export const summary = css`
-  margin-top: 2.5rem;
+  margin-top: 1.5rem;
   margin-bottom: 1rem;
   display: flex;
   flex-direction: row;

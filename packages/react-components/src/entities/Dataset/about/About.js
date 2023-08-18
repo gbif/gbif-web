@@ -6,7 +6,7 @@ import * as css from './styles';
 import { Prose, Properties, HyperText, Toc, ContactList, OccurrenceMap } from "../../../components";
 import RouteContext from '../../../dataManagement/RouteContext';
 import { Images, ThumbnailMap, TaxonomicCoverages, GeographicCoverages, TemporalCoverages, Registration, BibliographicCitations, SamplingDescription, Citation } from './details';
-
+import qs from 'query-string';
 import { FormattedNumber } from 'react-intl';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { join } from '../../../utils/util';
@@ -14,6 +14,7 @@ import useBelow from '../../../utils/useBelow';
 
 import { MdLockClock, MdFormatQuote, MdGridOn, MdPhotoLibrary } from 'react-icons/md';
 import { GiDna1 } from 'react-icons/gi';
+import { Dashboard } from './Dashboard';
 
 // import {Toc} from "./Toc"
 const { Term: T, Value: V } = Properties;
@@ -27,51 +28,50 @@ export function About({
   className,
   ...props
 }) {
-  const isBelowTOC = useBelow(1200);
+  const isBelowSidebar = useBelow(1000);
   let { url, path } = useRouteMatch();
   const theme = useContext(ThemeContext);
   const routeContext = useContext(RouteContext);
   const [tocRefs, setTocRefs] = useState({})
-  // if (loading || !occurrence) return <h1>Loading</h1>;
   const { dataset, occurrenceSearch, literatureSearch } = data;
   // collect all refs to headlines for the TOC, e.g. ref={node => { tocRefs["description"] = node; }}
-  //let tocRefs = {};
+  
+  const hasOccurrenceSearch = routeContext?.occurrenceSearch?.disabled !== true;
 
   const isGridded = dataset?.gridded?.[0]?.percent > 0.5; // threshold decided in https://github.com/gbif/gridded-datasets/issues/3
-  const hasDna = (insights?.data?.unfiltered?.facet?.dwcaExtension || []).find(ext => ext.key === 'http://rs.gbif.org/terms/1.0/DNADerivedData');
-  
+  const hasDna = (insights?.data?.unfiltered?.facet?.dwcaExtension || []).find(ext => ext.key === 'http://rs.gbif.org/terms/1.0/DNADerivedData');
+
   const withCoordinates = insights?.data?.withCoordinates?.documents?.total;
   const withYear = insights?.data?.withYear?.documents?.total;
   const withTaxonMatch = occurrenceSearch?.documents?.total - insights?.data?.withTaxonMatch?.documents?.total;
 
   const total = occurrenceSearch?.documents?.total;
-  const withCoordinatesPercentage = asPercentage( withCoordinates / total)
-  const withYearPercentage = asPercentage( withYear / total)
-  const withTaxonMatchPercentage = asPercentage( withTaxonMatch / total)
+  const withCoordinatesPercentage = asPercentage(withCoordinates / total);
+  const withYearPercentage = asPercentage(withYear / total);
+  const withTaxonMatchPercentage = asPercentage(withTaxonMatch / total);
 
-  const withEventId = insights?.data?.unfiltered?.cardinality?.eventID;
-  const labelAsEventDataset = dataset.type === 'SAMPLING_EVENT_DATASET' || withEventId > 1 && withEventId/total < 0.99; // Threshold chosen somewhat randomly. The issue is that some datasets assign random unique eventIds to all their occurrences. Those aren't really event datasets, it is a misunderstanding.
+  const withEventId = insights?.data?.unfiltered?.cardinality?.eventId;
+  const labelAsEventDataset = dataset.type === 'SAMPLING_EVENT' || withEventId > 1 && withEventId / total < 0.99; // Threshold chosen somewhat randomly. The issue is that some datasets assign random unique eventIds to all their occurrences. Those aren't really event datasets, it is a misunderstanding.
 
   const hasSamplingDescription = dataset?.samplingDescription?.studyExtent || dataset?.samplingDescription?.sampling || dataset?.samplingDescription?.qualityControl || (dataset?.samplingDescription?.methodSteps && dataset?.samplingDescription?.methodSteps?.length > 0);
   return <>
-    <div css={css.withSideBar({ theme })}>
-      {!isBelowTOC && <div css={css.sideBar({ theme })}>
-        <nav css={css.sideBarNav({ theme })}>
-          <Toc refs={tocRefs} />
-        </nav>
-      </div>}
-      <div style={{ width: '100%', marginLeft: 12, overflow: 'hidden' }}>
+    <div css={css.withSideBar({ theme, hasSidebar: !isBelowSidebar })}>
+      <div style={{ width: '100%', marginLeft: 12, overflow: 'auto' }}>
 
-        <OccurrenceMap rootPredicate={{
+        {/* <OccurrenceMap rootPredicate={{
           type: 'equals',
           key: 'datasetKey',
           value: dataset.key
-        }}/>
+        }}/> */}
         {dataset.description && <Prose css={css.paper({ theme })}>
           <h2 ref={node => { tocRefs["description"] = node; }}>Description</h2>
           <HyperText text={dataset.description} />
         </Prose>}
-        <Images images={insights?.data?.images} />
+        {insights?.data?.images?.documents?.total > 0 && <>
+          {/* We cannot register the images, because the TOC component puts it in the end - consider creating an issue for Thomas*/}
+          {/* <h2 ref={node => { tocRefs["images"] = node; }}></h2> */}
+          <Images images={insights?.data?.images} />
+        </>}
         {dataset.purpose && <Prose css={css.paper({ theme })}>
           <h2 ref={node => { tocRefs["purpose"] = node; }}>Purpose</h2>
           <HyperText text={dataset.purpose} />
@@ -92,6 +92,12 @@ export function About({
           <h2 ref={node => { tocRefs["methodology"] = node; }}>Methodology</h2>
           <SamplingDescription dataset={dataset} />
         </Prose>}
+        {total > 1 && <>
+          <Prose css={css.paper({ theme, transparent: true })} style={{paddingTop: 0, paddingBottom: 0}}>
+            <h2 ref={node => { tocRefs["metrics"] = node; }}>Metrics</h2>
+          </Prose>
+          <Dashboard dataset={dataset} loading={loading} error={error}/>
+        </>}
         {dataset.additionalInfo && <Prose css={css.paper({ theme })}>
           <h2 ref={node => { tocRefs["additional-info"] = node; }}>Additional info</h2>
           <HyperText text={dataset.additionalInfo} />
@@ -121,7 +127,7 @@ export function About({
           <Citation data={data} />
         </Prose>}
       </div>
-      <div css={css.sideBar({ theme })} style={{ margin: '0 0 0 12px', position: 'relative' }}>
+      {!isBelowSidebar && <div css={css.sideBar({ theme })} style={{ margin: '0 0 0 12px' }}>
         <div>
           <div css={css.area}>
             <div css={css.testcard}>
@@ -130,29 +136,30 @@ export function About({
               </div>
               <div css={css.testcontent}>
                 <h5>
-                  <Link to={join(url, 'citations')}><FormattedNumber value={literatureSearch.documents.count} /> citations</Link>
+                  <Link to={join(url, 'citations')}><FormattedNumber value={literatureSearch.documents.total} /> citations</Link>
                 </h5>
               </div>
             </div>
           </div>
           <div css={css.area}>
-            <div css={css.testcardWrapper}>
-              {/* <ThumbnailMap dataset={dataset}/> */}
+          { (total > 0 || dataset.type === 'OCCURRENCE') && <div css={css.testcardWrapper}>
+              {total > 0 && <ThumbnailMap dataset={dataset}/>}
               <div css={css.testcard}>
                 <div css={css.testcontent}>
-                  <h5><FormattedNumber value={occurrenceSearch?.documents?.total} /> occurrences</h5>
+                  <h5><FormattedNumber value={total} /> occurrences</h5>
+                  {total > 0 && <>
+                    <p>{withCoordinatesPercentage}% with coordinates</p>
+                    <div css={css.progress}><div style={{ width: `${withCoordinatesPercentage}%` }}></div></div>
 
-                  <p>{withCoordinatesPercentage}% with coordinates</p>
-                  <div css={css.progress}><div style={{ width: `${withCoordinatesPercentage}%` }}></div></div>
+                    <p>{withYearPercentage}% with year</p>
+                    <div css={css.progress}><div style={{ width: `${withYearPercentage}%` }}></div></div>
 
-                  <p>{withYearPercentage}% with year</p>
-                  <div css={css.progress}><div style={{ width: `${withYearPercentage}%` }}></div></div>
-
-                  <p>{withTaxonMatchPercentage}% with taxon match</p>
-                  <div css={css.progress}><div style={{ width: `${withTaxonMatchPercentage}%` }}></div></div>
+                    <p>{withTaxonMatchPercentage}% with taxon match</p>
+                    <div css={css.progress}><div style={{ width: `${withTaxonMatchPercentage}%` }}></div></div>
+                  </>}
                 </div>
               </div>
-            </div>
+            </div>}
 
             {hasDna && <div css={css.testcard}>
               <div css={css.testicon}>
@@ -205,7 +212,10 @@ export function About({
             </div>}
           </div>
         </div>
-      </div>
+        <nav css={css.sideBarNav({ theme })}>
+          <Toc refs={tocRefs} />
+        </nav>
+      </div>}
     </div>
   </>
 };
@@ -213,6 +223,9 @@ export function About({
 
 function asPercentage(fraction, max = 100) {
   var formatedPercentage = 0;
+  if (Number.isNaN(fraction)) {
+    return 0;
+  }
   if (!isFinite(fraction)) {
     return fraction;
   }

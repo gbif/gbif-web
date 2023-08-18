@@ -75,7 +75,7 @@ export function Dataset({
           },
           eventPredicate: {
             type: 'and',
-            predicates: [datasetPredicate, {type: 'isNotNull', key: 'eventID'}]
+            predicates: [datasetPredicate, {type: 'isNotNull', key: 'eventId'}]
           }
         }
       });
@@ -91,7 +91,7 @@ const DATASET_SECONDARY = `
 query ($datasetPredicate: Predicate, $imagePredicate: Predicate, $coordinatePredicate: Predicate, $taxonPredicate: Predicate, $yearPredicate: Predicate, $eventPredicate: Predicate){
   unfiltered: occurrenceSearch(predicate: $datasetPredicate) {
     cardinality {
-      eventID
+      eventId
     }
     facet {
       dwcaExtension {
@@ -160,6 +160,11 @@ query dataset($key: ID!, $predicate: Predicate, $sitePredicate: Predicate){
     title
     created
     modified
+    deleted
+    duplicateOfDataset {
+      key
+      title
+    }
     pubDate
     description
     purpose

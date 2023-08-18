@@ -21,11 +21,6 @@ export function Project({
   
   return <>
     <div css={css.withSideBar({ theme })}>
-      <div css={css.sideBar({ theme })}>
-        <nav css={css.sideBarNav({ theme })}>
-          <Toc refs={tocRefs}/>
-        </nav>
-      </div>
       <div style={{ width: '100%', marginLeft: 12 }}>
         {(project.abstract || project.title) && <Prose css={css.paper({ theme })}>
           <h2 ref={node => { tocRefs["abstract"] = node; }}>{ project.title }</h2>
@@ -47,6 +42,11 @@ export function Project({
           <h2 ref={node => { tocRefs["contacts"] = node; }}>Contacts</h2>
           <ContactList contacts={project.contacts} style={{paddingInlineStart: 0}}/>
         </Prose>}
+      </div>
+      <div css={css.sideBar({ theme })}>
+        <nav css={css.sideBarNav({ theme })}>
+          <Toc refs={tocRefs}/>
+        </nav>
       </div>
     </div>
   </>
