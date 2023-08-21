@@ -35,19 +35,19 @@ export function HeaderWrapper({ children, ...props }) {
 
 export function HeaderInfoWrapper({ children, ...props }) {
   return <div css={styles.summary} {...props}>
-      {children}
+    {children}
   </div>
 }
 
 export function HeaderInfoMain({ children, ...props }) {
   return <div css={styles.summary_primary} {...props}>
-      {children}
+    {children}
   </div>
 }
 
 export function HeaderInfoEdit({ children, ...props }) {
   return <div css={styles.summary_secondary} {...props}>
-      {children}
+    {children}
   </div>
 }
 
@@ -58,11 +58,13 @@ export function ContentWrapper({ children, ...props }) {
 }
 
 export function DataHeader({ searchType, messageId, ...props }) {
+  const left = searchType ? <ResourceSearchLink type={searchType} discreet style={{ display: 'flex', alignItems: 'center' }}>
+    <FormattedMessage id={messageId} />
+  </ResourceSearchLink> : null;
+
   return <UnstyledDataHeader
     style={{ background: 'white' }}
-    left={<ResourceSearchLink type={searchType} discreet style={{ display: 'flex', alignItems: 'center' }}>
-      <FormattedMessage id={messageId} />
-    </ResourceSearchLink>}
+    left={left}
     {...props}
   />;
 }
