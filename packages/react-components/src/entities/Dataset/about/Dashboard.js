@@ -26,7 +26,7 @@ export function Dashboard({
       <charts.Iucn predicate={predicate} visibilityThreshold={0}  interactive={false}/>
       <charts.IucnCounts predicate={predicate} visibilityThreshold={1}  interactive={false}/>
       <charts.RecordedBy predicate={predicate} visibilityThreshold={0}  defaultOption="TABLE" interactive={false}/>
-      <charts.Country predicate={predicate} visibilityThreshold={1}  options={['PIE', 'TABLE']} interactive={false}/>
+      <charts.Country predicate={predicate} visibilityThreshold={1}  options={['TABLE', 'PIE']} interactive={false}/>
       <charts.OccurrenceIssue predicate={predicate} visibilityThreshold={0} interactive={false} />
     </DashBoardLayout>
   </div>
