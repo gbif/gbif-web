@@ -188,5 +188,6 @@ export const galleryBar = css`
     display: block;
     height: ${galleryHeight}px;
     margin: 0 6px;
+    max-width: initial;
   }
 `;
