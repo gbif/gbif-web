@@ -8,13 +8,15 @@ import LocaleContext from '../../../dataManagement/LocaleProvider/LocaleContext'
 import env from '../../../../.env.json';
 
 export function DownloadOptions({
-  dataset,
+  data,
   className,
   ...props
 }) {
   const theme = useContext(ThemeContext);
   const localeSettings = useContext(LocaleContext);
   const localePrefix = localeSettings?.localeMap?.gbif_org;
+  const { dataset, occurrenceSearch } = data;
+  const total = occurrenceSearch?.documents?.total;
 
   const fullPredicate = {
     type: 'equals',
@@ -28,7 +30,7 @@ export function DownloadOptions({
 
   return <div>
     <div css={css.options({ theme })}>
-      <div>
+      {!!total && <div>
         <div css={css.card({ theme })}>
           <h4>GBIF annotated occurrence archive</h4>
           <div>
@@ -44,13 +46,13 @@ export function DownloadOptions({
             href={`${env.GBIF_ORG}/${localePrefix ? `${localePrefix}/` : ''}occurrence/download/request?predicate=${encodeURIComponent(JSON.stringify(fullPredicate))}#create`}
             appearance="primary"><Message id="download.continueToGBIF" /></Button>
         </div>
-      </div>
+      </div>}
 
       {dwcAEndpoint && <div>
         <div css={css.card({ theme })}>
           <h4>Source archive</h4>
           <div>
-            The source archive is the data as published to GBIF. For checklists, this is the natural choice.
+            The source archive is the data as published to GBIF.
           </div>
           <Button as="a" appeance="outline" href={`${dwcAEndpoint.url}`} rel="noopener noreferrer">source archive</Button>
         </div>
