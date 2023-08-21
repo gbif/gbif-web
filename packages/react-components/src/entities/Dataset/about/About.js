@@ -1,18 +1,17 @@
 
-import { jsx } from '@emotion/react';
-import React, { useContext, useState, useEffect } from 'react';
+import { jsx, css as cssStyle } from '@emotion/react';
+import React, { useContext, useState } from 'react';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import * as css from './styles';
 import { Prose, Properties, HyperText, Toc, ContactList, OccurrenceMap, ResourceSearchLink } from "../../../components";
 import RouteContext from '../../../dataManagement/RouteContext';
 import { Images, ThumbnailMap, TaxonomicCoverages, GeographicCoverages, TemporalCoverages, Registration, BibliographicCitations, SamplingDescription, Citation } from './details';
-import qs from 'query-string';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { join } from '../../../utils/util';
 import useBelow from '../../../utils/useBelow';
 
-import { MdLockClock, MdFormatQuote, MdGridOn, MdPhotoLibrary } from 'react-icons/md';
+import { MdFormatQuote, MdGridOn, MdPinDrop as OccurrenceIcon } from 'react-icons/md';
 import { GiDna1 } from 'react-icons/gi';
 import { Dashboard } from './Dashboard';
 
@@ -56,6 +55,38 @@ export function About({
     <div css={css.withSideBar({ theme, hasSidebar: !isBelowSidebar })}>
       <div style={{ width: '100%', marginLeft: 12, overflow: 'auto' }}>
 
+        {isBelowSidebar && <div css={cssStyle`
+          display: flex;
+          flex-wrap: wrap;
+          margin-top: 12px;
+        `}>
+          <div css={css.area}>
+            <div css={css.testcard}>
+              <div css={css.testicon}>
+                <div><MdFormatQuote /></div>
+              </div>
+              <div css={css.testcontent}>
+                <h5>
+                  <Link to={join(url, 'citations')}><FormattedNumber value={literatureSearch.documents.total} /> citations</Link>
+                </h5>
+              </div>
+            </div>
+          </div>
+          <div css={css.area}>
+            <div css={css.testcard}>
+              <div css={css.testicon}>
+                <div><OccurrenceIcon /></div>
+              </div>
+              <div css={css.testcontent}>
+                <ResourceSearchLink type="occurrenceSearch" queryString={`datasetKey=${dataset.key}`} discreet >
+                  <h5><FormattedNumber value={total} /> occurrences</h5>
+                </ResourceSearchLink>
+              </div>
+            </div>
+          </div>
+
+        </div>}
+
         {/* <OccurrenceMap rootPredicate={{
           type: 'equals',
           key: 'datasetKey',
@@ -70,7 +101,7 @@ export function About({
         {insights?.data?.images?.documents?.total > 0 && <>
           {/* We cannot register the images, because the TOC component puts it in the end - consider creating an issue for Thomas*/}
           {/* <h2 ref={node => { tocRefs["images"] = node; }}></h2> */}
-          <Images images={insights?.data?.images} />
+          <Images images={insights?.data?.images} dataset={dataset} />
         </>}
         {dataset.purpose && <Prose css={css.paper({ theme })}>
           <h2 ref={node => { tocRefs["purpose"] = node; }}>
