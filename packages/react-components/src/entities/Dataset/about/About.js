@@ -102,7 +102,7 @@ export function About({
           <h2 ref={node => { tocRefs["additional-info"] = node; }}>Additional info</h2>
           <HyperText text={dataset.additionalInfo} />
         </Prose>}
-        {dataset?.volatileContributors && <Prose css={css.paper({ theme })}>
+        {dataset?.volatileContributors?.length > 0 && <Prose css={css.paper({ theme })}>
           <h2 ref={node => { tocRefs["contacts"] = node; }}>Contacts</h2>
           <ContactList contacts={dataset.volatileContributors} style={{ paddingInlineStart: 0 }} />
         </Prose>}
@@ -167,7 +167,7 @@ export function About({
               </div>
               <div css={css.testcontent}>
                 <h5>Includes DNA</h5>
-                <p>Lorem ipsum sfhkjh sfhlksduf bksk sdkh sdfg </p>
+                <p>There are records in this dataset that contain sequence data. Learn more about sequence derived occurrences here ...</p>
               </div>
             </div>}
 
@@ -180,14 +180,14 @@ export function About({
                 <p>Lorem ipsum sfhkjh sfhlksduf bksk sdkh sdfg </p>
               </div>
             </div> */}
-
+  
             {labelAsEventDataset && <div css={css.testcard}>
               <div css={css.testicon}>
                 <div><MdGridOn /></div>
               </div>
               <div css={css.testcontent}>
                 <h5>Contains sampling events</h5>
-                <p>Lorem ipsum sfhkjh sfhlksduf bksk sdkh sdfg </p>
+                <p>This dataset contains sampling data. Sampling datasets typically allow for differnt types of analysis than more oportunistc datasets. Lorem ipsum dolores. Learn more about sampling datasets here ...</p>
               </div>
             </div>}
 
