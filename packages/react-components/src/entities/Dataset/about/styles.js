@@ -22,7 +22,7 @@ export const sideBarNav = ({ ...props }) => css`
     border-radius: 4px;
     overflow: hidden;
     padding: 4px;
-    margin-right: 112px;
+    margin-right: 12px;
     ul {
       list-style: none;
       padding: 0;
