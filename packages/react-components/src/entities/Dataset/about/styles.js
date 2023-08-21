@@ -134,6 +134,7 @@ export const testcontent = css`
   h5 {
     font-size: 13px;
     margin: 0;
+    font-weight: bold;
   }
   p {
     font-size: 13px;
