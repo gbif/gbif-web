@@ -79,9 +79,12 @@ export function DatasetPresentation({
     {hasTypeSearch && <DataHeader
       right={<div css={styles.headerIcons}>
         {!isBelowNarrow && <Doi id={dataset.doi} />}
-        <Button look="text"><MdFormatQuote /></Button>
+        
+        {/* The idea is that these should provide information on how to cite, how to access by API and a general help about this page */}
+        {/* <Button look="text"><MdFormatQuote /></Button>
         <Button look="text"><MdOutlineCode /></Button>
-        <Button look="text"><MdOutlineHelpOutline /></Button>
+        <Button look="text"><MdOutlineHelpOutline /></Button> */}
+
       </div>}
     />}
 
