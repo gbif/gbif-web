@@ -19,7 +19,8 @@ function GeographicCoverage({ coverage }) {
   let geoJSON;
   if (
     coverage?.boundingBox?.minLatitude > -85 &&
-    coverage?.boundingBox?.maxLatitude < 85
+    coverage?.boundingBox?.maxLatitude < 85 && 
+    coverage?.boundingBox?.minLatitude < coverage?.boundingBox?.maxLatitude
   ) {
     const {
       minLongitude,
