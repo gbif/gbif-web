@@ -7,7 +7,7 @@ const DOMPurify = createDOMPurify(window);
 
 const md = mdit({
   html: true,
-  linkify: false,
+  linkify: true,
   typographer: false,
   breaks: true,
 });
