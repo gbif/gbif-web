@@ -45,10 +45,10 @@ export const iconFeatures = ({...props}) => css`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  margin: -.25em -1em;
+  margin: -.25em 0;
   > div {
     ${iconFeature(props)}
-    margin: .25em 1em;
+    margin: .25em 1em 0.25em 0;
   }
 `;
 
