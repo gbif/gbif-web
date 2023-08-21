@@ -114,7 +114,9 @@ export function DatasetPresentation({
               {dataset?.contactsCitation.length >= 10 && <span>{dataset?.contactsCitation.length} authors</span>}
             </GenericFeature>}
             <Homepage href={dataset.homepage} />
-            <LicenseTag value={dataset.license} />
+            <GenericFeature>
+              <LicenseTag value={dataset.license} />
+            </GenericFeature>
 
             {/* {contactInfo?.country && <Location countryCode={contactInfo?.country} city={contactInfo.city} />} */}
             {/* <OccurrenceCount messageId="counts.nSpecimens" count={dataset.numberSpecimens} zeroMessage="grscicoll.unknownSize" />
@@ -163,7 +165,7 @@ export function DatasetPresentation({
         </Route>
         <Route path={join(path, 'download')}>
           <div css={styles.proseWrapper({ theme })}>
-            <DownloadOptions {...{ dataset }} />
+            <DownloadOptions {...{ data }} />
           </div>
         </Route>
         <Route path={join(path, 'specimens')}>
