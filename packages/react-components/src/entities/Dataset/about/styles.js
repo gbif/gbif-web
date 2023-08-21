@@ -14,18 +14,20 @@ export const withSideBar = ({ hasSidebar, ...props }) => css`
 `;
 
 export const sideBarNav = ({ ...props }) => css`
-  background: white;
-  margin-bottom: 12px;
-  border-radius: 4px;
-  overflow: hidden;
-  padding: 4px;
-  position: sticky;
-  margin-right: 12px;
   top: var(--stickyOffset);
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  position: sticky;
+  div {
+    background: white;
+    margin-bottom: 12px;
+    border-radius: 4px;
+    overflow: hidden;
+    padding: 4px;
+    margin-right: 112px;
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
   }
 `;
 
@@ -184,10 +186,20 @@ export const galleryBar = css`
       height: ${galleryHeight}px;
     }
   }
-  img {
+  img, .gb-image-failed {
     display: block;
     height: ${galleryHeight}px;
     margin: 0 6px;
     max-width: initial;
+  }
+  .gb-image-failed {
+    > div {
+      height: 100%;
+      margin: auto;
+      padding: 24px 50px;
+      font-size: 24px;
+      color: var(--color100);
+      background: rgba(0,0,0,.05);
+    }
   }
 `;
