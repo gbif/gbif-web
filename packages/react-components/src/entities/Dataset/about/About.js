@@ -167,10 +167,14 @@ export function About({
           </div>
           <div css={css.area}>
             {(total > 0 || dataset.type === 'OCCURRENCE') && <div css={css.testcardWrapper}>
-              {total > 0 && <ThumbnailMap dataset={dataset} />}
+              {total > 0 && <Link to={`${routeContext.occurrenceSearch.route}?datasetKey=${dataset.key}&view=MAP`}>
+                <ThumbnailMap dataset={dataset} />
+              </Link>}
               <div css={css.testcard}>
                 <div css={css.testcontent}>
-                  <h5><FormattedNumber value={total} /> occurrences</h5>
+                  <Link to={`${routeContext.occurrenceSearch.route}?datasetKey=${dataset.key}`}>
+                    <h5><FormattedNumber value={total} /> occurrences</h5>
+                  </Link>
                   {total > 0 && <>
                     <p>{withCoordinatesPercentage}% with coordinates</p>
                     <div css={css.progress}><div style={{ width: `${withCoordinatesPercentage}%` }}></div></div>
@@ -191,19 +195,9 @@ export function About({
               </div>
               <div css={css.testcontent}>
                 <h5>Includes DNA</h5>
-                <p>There are records in this dataset that contain sequence data. Learn more about sequence derived occurrences here ...</p>
+                <p>There are records in this dataset that contain sequence data.</p>
               </div>
             </div>}
-
-            {/* <div css={css.testcard}>
-              <div css={css.testicon}>
-                <div><MdLockClock /></div>
-              </div>
-              <div css={css.testcontent}>
-                <h5>History of stable IDs</h5>
-                <p>Lorem ipsum sfhkjh sfhlksduf bksk sdkh sdfg </p>
-              </div>
-            </div> */}
 
             {labelAsEventDataset && <div css={css.testcard}>
               <div css={css.testicon}>
@@ -211,19 +205,9 @@ export function About({
               </div>
               <div css={css.testcontent}>
                 <h5>Contains sampling events</h5>
-                <p>This dataset contains sampling data. Sampling datasets typically allow for differnt types of analysis than more oportunistc datasets. Lorem ipsum dolores. Learn more about sampling datasets here ...</p>
+                <p>This dataset contains sampling data. The details of how the sampling took place should be in a methodology section.</p>
               </div>
             </div>}
-
-            {/* <div css={css.testcard}>
-              <div css={css.testicon}>
-                <div><MdPhotoLibrary /></div>
-              </div>
-              <div css={css.testcontent}>
-                <h5>80% has images</h5>
-                <p>Lorem ipsum sfhkjh sfhlksduf bksk sdkh sdfg </p>
-              </div>
-            </div> */}
 
             {isGridded && <div css={css.testcard}>
               <div css={css.testicon}>
@@ -231,7 +215,7 @@ export function About({
               </div>
               <div css={css.testcontent}>
                 <h5>Gridded data</h5>
-                <p>This dataset looks like it is gridded.</p>
+                <p>Based on out analysis of the points it looks like this dataset contains gridden data.</p>
               </div>
             </div>}
           </div>
