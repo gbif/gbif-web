@@ -19,6 +19,21 @@
     "count": "{num, plural, one { specimen count } other {# Specimen counts filters}}",
     "description": "The number of held specimens stated in the description. This number does not reflect how many records have been digitized and shared."
   },
+  "iucnRedListCategory": {
+    "name": "",
+    "count": "",
+    "description": "The IUCN Red List of Threatened Species groups taxa by how threatened they are."
+  },
+  "relevance": {
+    "name": "Relevance",
+    "count": "{num, plural, one { relevance } other {# relevance filters}}",
+    "description": "How is GBIF used in the literature."
+  },
+  "topics": {
+    "name": "Topic",
+    "count": "{num, plural, one { topic } other {# topics}}",
+    "description": "What are the topics of the record."
+  },
   "taxonKey": {
     "name": "Scientific name",
     "count": "{num, plural, one {scientific name} other {# scientific names}}",
@@ -58,6 +73,11 @@
     "count": "{num, plural, one {country or area} other {# countries or areas}}",
     "description": "The country or territory where the event occurred"
   },
+  "preparations": {
+    "name": "Preparations",
+    "count": "",
+    "description": ""
+  },
   "publishingCountryCode": {
     "name": "Publishing country or area",
     "count": "{num, plural, one {publishing country or area} other {# publishing countries or areas}}",
@@ -89,6 +109,11 @@
   "publisherKey": {
     "name": "Publisher",
     "count": "{num, plural, one {publisher} other {# publishers}}",
+    "description": "The name of the organization responsible for sharing the dataset in which the record is included."
+  },
+  "gbifPublisherKey": {
+    "name": "GBIF publisher",
+    "count": "{num, plural, one {GBIF publisher} other {# GBIF publishers}}",
     "description": "The name of the organization responsible for sharing the dataset in which the record is included."
   },
   "hostingOrganizationKey": {
@@ -331,8 +356,8 @@
     "description": "The scientific name as provided by the data publisher without any normalization."
   },
   "networkKey": {
-    "name": "Network key",
-    "count": "{num, plural, one { network key } other {# network keys}}",
+    "name": "Network",
+    "count": "",
     "description": "A short description of the component should be placed here"
   },
   "literatureType": {

@@ -3,6 +3,7 @@
   "organization": "Organization",
   "email": "Email",
   "address": "Address",
+  "phone": "Phone",
   "roles": "Roles",
   "userId": "User ID",
   "name": "Name"
