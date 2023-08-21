@@ -3,7 +3,7 @@ import { jsx } from '@emotion/react';
 import React, { useContext, useState, useEffect } from 'react';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import * as css from './styles';
-import { Prose, Properties, HyperText, Toc, ContactList, OccurrenceMap } from "../../../components";
+import { Prose, Properties, HyperText, Toc, ContactList, OccurrenceMap, ResourceSearchLink } from "../../../components";
 import RouteContext from '../../../dataManagement/RouteContext';
 import { Images, ThumbnailMap, TaxonomicCoverages, GeographicCoverages, TemporalCoverages, Registration, BibliographicCitations, SamplingDescription, Citation } from './details';
 import qs from 'query-string';
@@ -35,8 +35,6 @@ export function About({
   const [tocRefs, setTocRefs] = useState({})
   const { dataset, occurrenceSearch, literatureSearch } = data;
   // collect all refs to headlines for the TOC, e.g. ref={node => { tocRefs["description"] = node; }}
-
-  const hasOccurrenceSearch = routeContext?.occurrenceSearch?.disabled !== true;
 
   const isGridded = dataset?.gridded?.[0]?.percent > 0.5; // threshold decided in https://github.com/gbif/gridded-datasets/issues/3
   const hasDna = (insights?.data?.unfiltered?.facet?.dwcaExtension || []).find(ext => ext.key === 'http://rs.gbif.org/terms/1.0/DNADerivedData');
@@ -125,8 +123,8 @@ export function About({
           <ContactList contacts={dataset.volatileContributors} style={{ paddingInlineStart: 0 }} />
         </Prose>}
         {dataset?.bibliographicCitations?.length > 0 && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["bibliographic-citations"] = node; }}>
-            <FormattedMessage id="dataset.bibliographicCitations" />
+          <h2 ref={node => { tocRefs["bibliography"] = node; }}>
+            <FormattedMessage id="dataset.bibliography" />
           </h2>
           <BibliographicCitations bibliographicCitations={dataset?.bibliographicCitations} />
         </Prose>}
@@ -167,14 +165,14 @@ export function About({
           </div>
           <div css={css.area}>
             {(total > 0 || dataset.type === 'OCCURRENCE') && <div css={css.testcardWrapper}>
-              {total > 0 && <Link to={`${routeContext.occurrenceSearch.route}?datasetKey=${dataset.key}&view=MAP`}>
+              {total > 0 && <ResourceSearchLink type="occurrenceSearch" queryString={`datasetKey=${dataset.key}&view=MAP`} discreet >
                 <ThumbnailMap dataset={dataset} />
-              </Link>}
+              </ResourceSearchLink>}
               <div css={css.testcard}>
                 <div css={css.testcontent}>
-                  <Link to={`${routeContext.occurrenceSearch.route}?datasetKey=${dataset.key}`}>
+                  <ResourceSearchLink type="occurrenceSearch" queryString={`datasetKey=${dataset.key}`} discreet >
                     <h5><FormattedNumber value={total} /> occurrences</h5>
-                  </Link>
+                  </ResourceSearchLink>
                   {total > 0 && <>
                     <p>{withCoordinatesPercentage}% with coordinates</p>
                     <div css={css.progress}><div style={{ width: `${withCoordinatesPercentage}%` }}></div></div>
@@ -221,7 +219,9 @@ export function About({
           </div>
         </div>
         <nav css={css.sideBarNav({ theme })}>
-          <Toc refs={tocRefs} />
+          <div>
+            <Toc refs={tocRefs} />
+          </div>
         </nav>
       </div>}
     </div>
