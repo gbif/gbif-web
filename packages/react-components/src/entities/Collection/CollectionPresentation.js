@@ -83,7 +83,7 @@ Relating to ${env.GBIF_REGISTRY}/collection/${collection.key}
   `;
 
   return <>
-    {hasCollectionSearch && <DataHeader searchType="collectionSearch" messageId="catalogues.collections" />}
+    {hasCollectionSearch && <DataHeader />}
 
     <HeaderWrapper>
       <Eyebrow prefix="Collection code" suffix={collection.code} />
