@@ -1,11 +1,12 @@
 import { jsx } from '@emotion/react';
 import React from "react";
-import { Button, Tooltip, OptImage } from "../../../../components";
+import { Button, Tooltip, OptImage, ResourceSearchLink } from "../../../../components";
 import { FormattedMessage, FormattedNumber } from "react-intl";
 import * as css from '../styles';
 import { MdImage } from 'react-icons/md'
 
 export function Images({
+  dataset,
   images = [],
   ...props
 }) {
@@ -19,9 +20,11 @@ export function Images({
       })}
     </div>
     <Tooltip title={<span>Records with images</span>} placement="auto">
-      <Button look="primary" as="a" href="/">
-        <MdImage style={{marginRight: 8}}/> <FormattedNumber value={images?.documents?.total} />
-      </Button>
+      <ResourceSearchLink type="occurrenceSearch" queryString={`datasetKey=${dataset.key}&view=GALLERY`} discreet >
+        <Button look="primary" >
+          <MdImage style={{ marginRight: 8 }} /> <FormattedNumber value={images?.documents?.total} />
+        </Button>
+      </ResourceSearchLink>
     </Tooltip>
   </div>
 }
