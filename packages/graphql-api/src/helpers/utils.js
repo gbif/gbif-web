@@ -1,5 +1,6 @@
 import createDOMPurify from 'dompurify';
 import mdit from 'markdown-it';
+import { decode } from 'html-entities';
 import { JSDOM } from 'jsdom';
 
 const { window } = new JSDOM('');
@@ -11,7 +12,6 @@ const md = mdit({
   typographer: false,
   breaks: true,
 });
-md.linkify.tlds(['org', 'com'], false);
 
 function formattedCoordinates({ lat, lon }) {
   if (typeof lat !== 'number' || typeof lon !== 'number') return undefined;
@@ -59,7 +59,9 @@ function getHtml(
   if (allowedTags) options.ALLOWED_TAGS = allowedTags;
   if (typeof value === 'string' || typeof value === 'number') {
     const dirty = inline ? md.renderInline(`${value}`) : md.render(`${value}`);
-    const clean = DOMPurify.sanitize(dirty, options);
+    const decoded = decode(dirty);
+    const dirtyV2 = md.renderInline(`${decoded}`);
+    const clean = DOMPurify.sanitize(dirtyV2, options);
     return clean;
   }
   return null;
