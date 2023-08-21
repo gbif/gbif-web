@@ -1,6 +1,6 @@
 import { jsx } from '@emotion/react';
 import React from "react";
-import { Button, Tooltip, Image } from "../../../../components";
+import { Button, Tooltip, OptImage } from "../../../../components";
 import { FormattedMessage, FormattedNumber } from "react-intl";
 import * as css from '../styles';
 import { MdImage } from 'react-icons/md'
@@ -14,7 +14,7 @@ export function Images({
     <div>
       {images.documents.results.map(occurrence => {
         return <div key={occurrence.key}>
-          <Image src={occurrence.stillImages[0].identifier} h={300} />
+          <OptImage src={occurrence.stillImages[0].identifier} h={300} />
         </div>
       })}
     </div>
