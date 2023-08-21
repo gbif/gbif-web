@@ -4,6 +4,7 @@ import React, { useContext, useState } from 'react';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import * as css from './styles';
 import { Prose, HyperText, Toc, ContactList } from "../../../components";
+import { FormattedMessage } from 'react-intl';
 
 export function Project({
   data = {},
@@ -27,19 +28,27 @@ export function Project({
           <HyperText text={project.abstract} />
         </Prose>}
         {project.studyAreaDescription && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["studyAreaDescription"] = node; }}>studyAreaDescription</h2>
+          <h2 ref={node => { tocRefs["studyAreaDescription"] = node; }}>
+            <FormattedMessage id="dataset.studyArea" />
+          </h2>
           <HyperText text={project.studyAreaDescription} />
         </Prose>}
         {project.designDescription && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["designDescription"] = node; }}>designDescription</h2>
+          <h2 ref={node => { tocRefs["designDescription"] = node; }}>
+            <FormattedMessage id="dataset.description" />
+          </h2>
           <HyperText text={project.designDescription} />
         </Prose>}
         {project.funding && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["funding"] = node; }}>funding</h2>
+          <h2 ref={node => { tocRefs["funding"] = node; }}>
+          <FormattedMessage id="dataset.funding" />
+          </h2>
           <HyperText text={project.funding} />
         </Prose>}
         {project?.contacts && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["contacts"] = node; }}>Contacts</h2>
+          <h2 ref={node => { tocRefs["contacts"] = node; }}>
+          <FormattedMessage id="dataset.contacts" />
+          </h2>
           <ContactList contacts={project.contacts} style={{paddingInlineStart: 0}}/>
         </Prose>}
       </div>

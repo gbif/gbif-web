@@ -7,7 +7,7 @@ import { Prose, Properties, HyperText, Toc, ContactList, OccurrenceMap } from ".
 import RouteContext from '../../../dataManagement/RouteContext';
 import { Images, ThumbnailMap, TaxonomicCoverages, GeographicCoverages, TemporalCoverages, Registration, BibliographicCitations, SamplingDescription, Citation } from './details';
 import qs from 'query-string';
-import { FormattedNumber } from 'react-intl';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { join } from '../../../utils/util';
 import useBelow from '../../../utils/useBelow';
@@ -35,7 +35,7 @@ export function About({
   const [tocRefs, setTocRefs] = useState({})
   const { dataset, occurrenceSearch, literatureSearch } = data;
   // collect all refs to headlines for the TOC, e.g. ref={node => { tocRefs["description"] = node; }}
-  
+
   const hasOccurrenceSearch = routeContext?.occurrenceSearch?.disabled !== true;
 
   const isGridded = dataset?.gridded?.[0]?.percent > 0.5; // threshold decided in https://github.com/gbif/gridded-datasets/issues/3
@@ -64,7 +64,9 @@ export function About({
           value: dataset.key
         }}/> */}
         {dataset.description && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["description"] = node; }}>Description</h2>
+          <h2 ref={node => { tocRefs["description"] = node; }}>
+            <FormattedMessage id="dataset.description" />
+          </h2>
           <HyperText text={dataset.description} />
         </Prose>}
         {insights?.data?.images?.documents?.total > 0 && <>
@@ -73,41 +75,59 @@ export function About({
           <Images images={insights?.data?.images} />
         </>}
         {dataset.purpose && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["purpose"] = node; }}>Purpose</h2>
+          <h2 ref={node => { tocRefs["purpose"] = node; }}>
+            <FormattedMessage id="dataset.purpose" />
+          </h2>
           <HyperText text={dataset.purpose} />
         </Prose>}
         {dataset?.geographicCoverages?.length > 0 && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["geographic-scope"] = node; }}>Geographic scope</h2>
+          <h2 ref={node => { tocRefs["geographic-scope"] = node; }}>
+            <FormattedMessage id="dataset.geographicCoverages" />
+          </h2>
           <GeographicCoverages geographicCoverages={dataset.geographicCoverages} />
         </Prose>}
         {dataset?.temporalCoverages?.length > 0 && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["temporal-scope"] = node; }}>Temporal scope</h2>
+          <h2 ref={node => { tocRefs["temporal-scope"] = node; }}>
+            <FormattedMessage id="dataset.temporalCoverages" />
+          </h2>
           <TemporalCoverages temporalCoverages={dataset.temporalCoverages} />
         </Prose>}
         {dataset?.taxonomicCoverages?.length > 0 && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["taxonomic-scope"] = node; }}>Taxonomic scope</h2>
+          <h2 ref={node => { tocRefs["taxonomic-scope"] = node; }}>
+            <FormattedMessage id="dataset.taxonomicCoverages" />
+          </h2>
           <TaxonomicCoverages taxonomicCoverages={dataset.taxonomicCoverages} />
         </Prose>}
         {hasSamplingDescription && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["methodology"] = node; }}>Methodology</h2>
+          <h2 ref={node => { tocRefs["methodology"] = node; }}>
+            <FormattedMessage id="dataset.methodology" />
+          </h2>
           <SamplingDescription dataset={dataset} />
         </Prose>}
         {total > 1 && <>
-          <Prose css={css.paper({ theme, transparent: true })} style={{paddingTop: 0, paddingBottom: 0}}>
-            <h2 ref={node => { tocRefs["metrics"] = node; }}>Metrics</h2>
+          <Prose css={css.paper({ theme, transparent: true })} style={{ paddingTop: 0, paddingBottom: 0 }}>
+            <h2 ref={node => { tocRefs["metrics"] = node; }}>
+              <FormattedMessage id="dataset.metrics" />
+            </h2>
           </Prose>
-          <Dashboard dataset={dataset} loading={loading} error={error}/>
+          <Dashboard dataset={dataset} loading={loading} error={error} />
         </>}
         {dataset.additionalInfo && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["additional-info"] = node; }}>Additional info</h2>
+          <h2 ref={node => { tocRefs["additional-info"] = node; }}>
+            <FormattedMessage id="dataset.additionalInfo" />
+          </h2>
           <HyperText text={dataset.additionalInfo} />
         </Prose>}
         {dataset?.volatileContributors?.length > 0 && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["contacts"] = node; }}>Contacts</h2>
+          <h2 ref={node => { tocRefs["contacts"] = node; }}>
+            <FormattedMessage id="dataset.contacts" />
+          </h2>
           <ContactList contacts={dataset.volatileContributors} style={{ paddingInlineStart: 0 }} />
         </Prose>}
         {dataset?.bibliographicCitations?.length > 0 && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["bibliographic-citations"] = node; }}>Bibliographic citations</h2>
+          <h2 ref={node => { tocRefs["bibliographic-citations"] = node; }}>
+            <FormattedMessage id="dataset.bibliographicCitations" />
+          </h2>
           <BibliographicCitations bibliographicCitations={dataset?.bibliographicCitations} />
         </Prose>}
 
@@ -118,12 +138,16 @@ export function About({
         </Prose>} */}
 
         <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["registration"] = node; }}>Registration</h2>
+          <h2 ref={node => { tocRefs["registration"] = node; }}>
+            <FormattedMessage id="dataset.registration" />
+          </h2>
           <Registration dataset={dataset} />
         </Prose>
 
         {dataset?.citation && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["citation"] = node; }}>Citation</h2>
+          <h2 ref={node => { tocRefs["citation"] = node; }}>
+            <FormattedMessage id="dataset.citation" />
+          </h2>
           <Citation data={data} />
         </Prose>}
       </div>
@@ -142,8 +166,8 @@ export function About({
             </div>
           </div>
           <div css={css.area}>
-          { (total > 0 || dataset.type === 'OCCURRENCE') && <div css={css.testcardWrapper}>
-              {total > 0 && <ThumbnailMap dataset={dataset}/>}
+            {(total > 0 || dataset.type === 'OCCURRENCE') && <div css={css.testcardWrapper}>
+              {total > 0 && <ThumbnailMap dataset={dataset} />}
               <div css={css.testcard}>
                 <div css={css.testcontent}>
                   <h5><FormattedNumber value={total} /> occurrences</h5>
@@ -180,7 +204,7 @@ export function About({
                 <p>Lorem ipsum sfhkjh sfhlksduf bksk sdkh sdfg </p>
               </div>
             </div> */}
-  
+
             {labelAsEventDataset && <div css={css.testcard}>
               <div css={css.testicon}>
                 <div><MdGridOn /></div>
