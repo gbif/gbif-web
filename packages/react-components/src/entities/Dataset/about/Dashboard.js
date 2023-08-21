@@ -16,7 +16,7 @@ export function Dashboard({
     key: "datasetKey",
     value: dataset.key
   };
-  return <div>
+  return <div style={{overflow: 'hidden'}}>
     <DashBoardLayout>
       <charts.OccurrenceSummary predicate={predicate} />
       <charts.DataQuality predicate={predicate} />
