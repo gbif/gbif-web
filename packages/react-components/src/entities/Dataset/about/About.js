@@ -33,7 +33,7 @@ export function About({
   const routeContext = useContext(RouteContext);
   const [tocRefs, setTocRefs] = useState({})
   const { dataset, occurrenceSearch, literatureSearch } = data;
-  // collect all refs to headlines for the TOC, e.g. ref={node => { tocRefs["description"] = node; }}
+  // collect all refs to headlines for the TOC, e.g. ref={node => { tocRefs["description"] = {node, index: 0}; }}
 
   const isGridded = dataset?.gridded?.[0]?.percent > 0.5; // threshold decided in https://github.com/gbif/gridded-datasets/issues/3
   const hasDna = (insights?.data?.unfiltered?.facet?.dwcaExtension || []).find(ext => ext.key === 'http://rs.gbif.org/terms/1.0/DNADerivedData');
@@ -93,68 +93,67 @@ export function About({
           value: dataset.key
         }}/> */}
         {dataset.description && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["description"] = node; }}>
+          <h2 ref={node => { tocRefs["description"] = {node, index: 0, title: <FormattedMessage id="dataset.description" />} }}>
             <FormattedMessage id="dataset.description" />
           </h2>
           <HyperText text={dataset.description} />
         </Prose>}
         {insights?.data?.images?.documents?.total > 0 && <>
           {/* We cannot register the images, because the TOC component puts it in the end - consider creating an issue for Thomas*/}
-          {/* <h2 ref={node => { tocRefs["images"] = node; }}></h2> */}
           <Images images={insights?.data?.images} dataset={dataset} />
         </>}
         {dataset.purpose && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["purpose"] = node; }}>
+          <h2 ref={node => { tocRefs["purpose"] = {node, index: 1, title: <FormattedMessage id="dataset.purpose" />} }}>
             <FormattedMessage id="dataset.purpose" />
           </h2>
           <HyperText text={dataset.purpose} />
         </Prose>}
         {dataset?.geographicCoverages?.length > 0 && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["geographic-scope"] = node; }}>
+          <h2 ref={node => { tocRefs["geographic-scope"] = {node, index: 2, title: <FormattedMessage id="dataset.geographicCoverages" />} }}>
             <FormattedMessage id="dataset.geographicCoverages" />
           </h2>
           <GeographicCoverages geographicCoverages={dataset.geographicCoverages} />
         </Prose>}
         {dataset?.temporalCoverages?.length > 0 && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["temporal-scope"] = node; }}>
+          <h2 ref={node => { tocRefs["temporal-scope"] = {node, index: 3, title: <FormattedMessage id="dataset.temporalCoverages" />} }}>
             <FormattedMessage id="dataset.temporalCoverages" />
           </h2>
           <TemporalCoverages temporalCoverages={dataset.temporalCoverages} />
         </Prose>}
         {dataset?.taxonomicCoverages?.length > 0 && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["taxonomic-scope"] = node; }}>
+          <h2 ref={node => { tocRefs["taxonomic-scope"] = {node, index: 4, title: <FormattedMessage id="dataset.taxonomicCoverages" />}; }}>
             <FormattedMessage id="dataset.taxonomicCoverages" />
           </h2>
           <TaxonomicCoverages taxonomicCoverages={dataset.taxonomicCoverages} />
         </Prose>}
         {hasSamplingDescription && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["methodology"] = node; }}>
+          <h2 ref={node => { tocRefs["methodology"] = {node, index: 5, title: <FormattedMessage id="dataset.methodology" />}; }}>
             <FormattedMessage id="dataset.methodology" />
           </h2>
           <SamplingDescription dataset={dataset} />
         </Prose>}
         {total > 1 && <>
           <Prose css={css.paper({ theme, transparent: true })} style={{ paddingTop: 0, paddingBottom: 0 }}>
-            <h2 ref={node => { tocRefs["metrics"] = node; }}>
+            <h2 ref={node => { tocRefs["metrics"] = {node, index: 6, title: <FormattedMessage id="dataset.metrics" />}; }}>
               <FormattedMessage id="dataset.metrics" />
             </h2>
           </Prose>
           <Dashboard dataset={dataset} loading={loading} error={error} />
         </>}
         {dataset.additionalInfo && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["additional-info"] = node; }}>
+          <h2 ref={node => { tocRefs["additional-info"] = {node, index: 7, title: <FormattedMessage id="dataset.additionalInfo" />}; }}>
             <FormattedMessage id="dataset.additionalInfo" />
           </h2>
           <HyperText text={dataset.additionalInfo} />
         </Prose>}
         {dataset?.volatileContributors?.length > 0 && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["contacts"] = node; }}>
+          <h2 ref={node => { tocRefs["contacts"] = {node, index: 8, title: <FormattedMessage id="dataset.contacts" />}; }}>
             <FormattedMessage id="dataset.contacts" />
           </h2>
           <ContactList contacts={dataset.volatileContributors} style={{ paddingInlineStart: 0 }} />
         </Prose>}
         {dataset?.bibliographicCitations?.length > 0 && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["bibliography"] = node; }}>
+          <h2 ref={node => { tocRefs["bibliography"] = {node, index: 9, title: <FormattedMessage id="dataset.bibliography" />}; }}>
             <FormattedMessage id="dataset.bibliography" />
           </h2>
           <BibliographicCitations bibliographicCitations={dataset?.bibliographicCitations} />
@@ -162,19 +161,19 @@ export function About({
 
         {/* It isn't clear that this section really has much value for users of the website */}
         {/* {dataset?.dataDescriptions?.length > 0 && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["data-descriptions"] = node; }}>Data descriptions</h2>
+          <h2 ref={node => { tocRefs["data-descriptions"] = {node, index: 0}; }}>Data descriptions</h2>
           <DataDescriptions dataDescriptions={dataset?.dataDescriptions} />
         </Prose>} */}
 
         <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["registration"] = node; }}>
+          <h2 ref={node => { tocRefs["registration"] = {node, index: 10, title: <FormattedMessage id="dataset.registration" />}; }}>
             <FormattedMessage id="dataset.registration" />
           </h2>
           <Registration dataset={dataset} />
         </Prose>
 
         {dataset?.citation && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["citation"] = node; }}>
+          <h2 ref={node => { tocRefs["citation"] = {node, index: 11}; }}>
             <FormattedMessage id="dataset.citation" />
           </h2>
           <Citation data={data} />
