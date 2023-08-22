@@ -52,7 +52,7 @@ export function About({
 
   const hasSamplingDescription = dataset?.samplingDescription?.studyExtent || dataset?.samplingDescription?.sampling || dataset?.samplingDescription?.qualityControl || (dataset?.samplingDescription?.methodSteps && dataset?.samplingDescription?.methodSteps?.length > 0);
 
-  const citationArea = <div css={css.area}>
+  const citationArea = literatureSearch.documents.total > 0 ? <div css={css.area}>
     <div css={css.testcard}>
       <div css={css.testicon}>
         <div><MdFormatQuote /></div>
@@ -65,7 +65,7 @@ export function About({
         </h5>
       </div>
     </div>
-  </div>;
+  </div> : null;
 
   return <>
     <div css={css.withSideBar({ theme, hasSidebar: !isBelowSidebar })}>
@@ -77,7 +77,7 @@ export function About({
           margin-top: 12px;
         `}>
           {citationArea}
-          <div css={css.area}>
+          {total > 0 && <div css={css.area}>
             <div css={css.testcard}>
               <div css={css.testicon}>
                 <div><OccurrenceIcon /></div>
@@ -90,7 +90,7 @@ export function About({
                 </ResourceSearchLink>
               </div>
             </div>
-          </div>
+          </div>}
 
         </div>}
 
@@ -189,8 +189,8 @@ export function About({
       {!isBelowSidebar && <div css={css.sideBar({ theme })} style={{ margin: '0 0 0 12px' }}>
         <div>
           {citationArea}
-          <div css={css.area}>
-            {(total > 0 || dataset.type === 'OCCURRENCE') && <div css={css.testcardWrapper}>
+          {(total > 0 || dataset.type === 'OCCURRENCE') && <div css={css.area}>
+            <div css={css.testcardWrapper}>
               {total > 0 && <ResourceSearchLink type="occurrenceSearch" queryString={`datasetKey=${dataset.key}&view=MAP`} discreet >
                 <ThumbnailMap dataset={dataset} />
               </ResourceSearchLink>}
@@ -213,7 +213,7 @@ export function About({
                   </>}
                 </div>
               </div>
-            </div>}
+            </div>
 
             {hasDna && <div css={css.testcard}>
               <div css={css.testicon}>
@@ -244,7 +244,7 @@ export function About({
                 <p>Based on out analysis of the points it looks like this dataset contains gridden data.</p>
               </div>
             </div>}
-          </div>
+          </div>}
         </div>
         <nav css={css.sideBarNav({ theme })}>
           <div>
