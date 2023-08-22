@@ -51,6 +51,22 @@ export function About({
   const labelAsEventDataset = dataset.type === 'SAMPLING_EVENT' || withEventId > 1 && withEventId / total < 0.99; // Threshold chosen somewhat randomly. The issue is that some datasets assign random unique eventIds to all their occurrences. Those aren't really event datasets, it is a misunderstanding.
 
   const hasSamplingDescription = dataset?.samplingDescription?.studyExtent || dataset?.samplingDescription?.sampling || dataset?.samplingDescription?.qualityControl || (dataset?.samplingDescription?.methodSteps && dataset?.samplingDescription?.methodSteps?.length > 0);
+
+  const citationArea = <div css={css.area}>
+    <div css={css.testcard}>
+      <div css={css.testicon}>
+        <div><MdFormatQuote /></div>
+      </div>
+      <div css={css.testcontent}>
+        <h5>
+          <Link to={join(url, 'citations')}>
+            <FormattedMessage id="counts.nCitations" values={{ total: literatureSearch.documents.total }} />
+          </Link>
+        </h5>
+      </div>
+    </div>
+  </div>;
+
   return <>
     <div css={css.withSideBar({ theme, hasSidebar: !isBelowSidebar })}>
       <div style={{ width: '100%', marginLeft: 12, overflow: 'auto' }}>
@@ -60,18 +76,7 @@ export function About({
           flex-wrap: wrap;
           margin-top: 12px;
         `}>
-          <div css={css.area}>
-            <div css={css.testcard}>
-              <div css={css.testicon}>
-                <div><MdFormatQuote /></div>
-              </div>
-              <div css={css.testcontent}>
-                <h5>
-                  <Link to={join(url, 'citations')}><FormattedNumber value={literatureSearch.documents.total} /> citations</Link>
-                </h5>
-              </div>
-            </div>
-          </div>
+          {citationArea}
           <div css={css.area}>
             <div css={css.testcard}>
               <div css={css.testicon}>
@@ -79,7 +84,9 @@ export function About({
               </div>
               <div css={css.testcontent}>
                 <ResourceSearchLink type="occurrenceSearch" queryString={`datasetKey=${dataset.key}`} discreet >
-                  <h5><FormattedNumber value={total} /> occurrences</h5>
+                  <h5>
+                    <FormattedMessage id="counts.nOccurrences" values={{ total }} />
+                  </h5>
                 </ResourceSearchLink>
               </div>
             </div>
@@ -93,7 +100,7 @@ export function About({
           value: dataset.key
         }}/> */}
         {dataset.description && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["description"] = {node, index: 0, title: <FormattedMessage id="dataset.description" />} }}>
+          <h2 ref={node => { tocRefs["description"] = { node, index: 0, title: <FormattedMessage id="dataset.description" /> } }}>
             <FormattedMessage id="dataset.description" />
           </h2>
           <HyperText text={dataset.description} />
@@ -103,57 +110,57 @@ export function About({
           <Images images={insights?.data?.images} dataset={dataset} />
         </>}
         {dataset.purpose && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["purpose"] = {node, index: 1, title: <FormattedMessage id="dataset.purpose" />} }}>
+          <h2 ref={node => { tocRefs["purpose"] = { node, index: 1, title: <FormattedMessage id="dataset.purpose" /> } }}>
             <FormattedMessage id="dataset.purpose" />
           </h2>
           <HyperText text={dataset.purpose} />
         </Prose>}
         {dataset?.geographicCoverages?.length > 0 && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["geographic-scope"] = {node, index: 2, title: <FormattedMessage id="dataset.geographicCoverages" />} }}>
+          <h2 ref={node => { tocRefs["geographic-scope"] = { node, index: 2, title: <FormattedMessage id="dataset.geographicCoverages" /> } }}>
             <FormattedMessage id="dataset.geographicCoverages" />
           </h2>
           <GeographicCoverages geographicCoverages={dataset.geographicCoverages} />
         </Prose>}
         {dataset?.temporalCoverages?.length > 0 && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["temporal-scope"] = {node, index: 3, title: <FormattedMessage id="dataset.temporalCoverages" />} }}>
+          <h2 ref={node => { tocRefs["temporal-scope"] = { node, index: 3, title: <FormattedMessage id="dataset.temporalCoverages" /> } }}>
             <FormattedMessage id="dataset.temporalCoverages" />
           </h2>
           <TemporalCoverages temporalCoverages={dataset.temporalCoverages} />
         </Prose>}
         {dataset?.taxonomicCoverages?.length > 0 && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["taxonomic-scope"] = {node, index: 4, title: <FormattedMessage id="dataset.taxonomicCoverages" />}; }}>
+          <h2 ref={node => { tocRefs["taxonomic-scope"] = { node, index: 4, title: <FormattedMessage id="dataset.taxonomicCoverages" /> }; }}>
             <FormattedMessage id="dataset.taxonomicCoverages" />
           </h2>
           <TaxonomicCoverages taxonomicCoverages={dataset.taxonomicCoverages} />
         </Prose>}
         {hasSamplingDescription && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["methodology"] = {node, index: 5, title: <FormattedMessage id="dataset.methodology" />}; }}>
+          <h2 ref={node => { tocRefs["methodology"] = { node, index: 5, title: <FormattedMessage id="dataset.methodology" /> }; }}>
             <FormattedMessage id="dataset.methodology" />
           </h2>
           <SamplingDescription dataset={dataset} />
         </Prose>}
         {total > 1 && <>
           <Prose css={css.paper({ theme, transparent: true })} style={{ paddingTop: 0, paddingBottom: 0 }}>
-            <h2 ref={node => { tocRefs["metrics"] = {node, index: 6, title: <FormattedMessage id="dataset.metrics" />}; }}>
+            <h2 ref={node => { tocRefs["metrics"] = { node, index: 6, title: <FormattedMessage id="dataset.metrics" /> }; }}>
               <FormattedMessage id="dataset.metrics" />
             </h2>
           </Prose>
           <Dashboard dataset={dataset} loading={loading} error={error} />
         </>}
         {dataset.additionalInfo && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["additional-info"] = {node, index: 7, title: <FormattedMessage id="dataset.additionalInfo" />}; }}>
+          <h2 ref={node => { tocRefs["additional-info"] = { node, index: 7, title: <FormattedMessage id="dataset.additionalInfo" /> }; }}>
             <FormattedMessage id="dataset.additionalInfo" />
           </h2>
           <HyperText text={dataset.additionalInfo} />
         </Prose>}
         {dataset?.volatileContributors?.length > 0 && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["contacts"] = {node, index: 8, title: <FormattedMessage id="dataset.contacts" />}; }}>
+          <h2 ref={node => { tocRefs["contacts"] = { node, index: 8, title: <FormattedMessage id="dataset.contacts" /> }; }}>
             <FormattedMessage id="dataset.contacts" />
           </h2>
           <ContactList contacts={dataset.volatileContributors} style={{ paddingInlineStart: 0 }} />
         </Prose>}
         {dataset?.bibliographicCitations?.length > 0 && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["bibliography"] = {node, index: 9, title: <FormattedMessage id="dataset.bibliography" />}; }}>
+          <h2 ref={node => { tocRefs["bibliography"] = { node, index: 9, title: <FormattedMessage id="dataset.bibliography" /> }; }}>
             <FormattedMessage id="dataset.bibliography" />
           </h2>
           <BibliographicCitations bibliographicCitations={dataset?.bibliographicCitations} />
@@ -166,14 +173,14 @@ export function About({
         </Prose>} */}
 
         <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["registration"] = {node, index: 10, title: <FormattedMessage id="dataset.registration" />}; }}>
+          <h2 ref={node => { tocRefs["registration"] = { node, index: 10, title: <FormattedMessage id="dataset.registration" /> }; }}>
             <FormattedMessage id="dataset.registration" />
           </h2>
           <Registration dataset={dataset} />
         </Prose>
 
         {dataset?.citation && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["citation"] = {node, index: 11}; }}>
+          <h2 ref={node => { tocRefs["citation"] = { node, index: 11, title: <FormattedMessage id="dataset.citation" /> }; }}>
             <FormattedMessage id="dataset.citation" />
           </h2>
           <Citation data={data} />
@@ -181,18 +188,7 @@ export function About({
       </div>
       {!isBelowSidebar && <div css={css.sideBar({ theme })} style={{ margin: '0 0 0 12px' }}>
         <div>
-          <div css={css.area}>
-            <div css={css.testcard}>
-              <div css={css.testicon}>
-                <div><MdFormatQuote /></div>
-              </div>
-              <div css={css.testcontent}>
-                <h5>
-                  <Link to={join(url, 'citations')}><FormattedNumber value={literatureSearch.documents.total} /> citations</Link>
-                </h5>
-              </div>
-            </div>
-          </div>
+          {citationArea}
           <div css={css.area}>
             {(total > 0 || dataset.type === 'OCCURRENCE') && <div css={css.testcardWrapper}>
               {total > 0 && <ResourceSearchLink type="occurrenceSearch" queryString={`datasetKey=${dataset.key}&view=MAP`} discreet >
@@ -201,16 +197,18 @@ export function About({
               <div css={css.testcard}>
                 <div css={css.testcontent}>
                   <ResourceSearchLink type="occurrenceSearch" queryString={`datasetKey=${dataset.key}`} discreet >
-                    <h5><FormattedNumber value={total} /> occurrences</h5>
+                    <h5>
+                      <FormattedMessage id="counts.nOccurrences" values={{ total }} />
+                    </h5>
                   </ResourceSearchLink>
                   {total > 0 && <>
-                    <p>{withCoordinatesPercentage}% with coordinates</p>
+                    <p><FormattedMessage id="counts.percentWithCoordinates" values={{ percent: withCoordinatesPercentage }} /></p>
                     <div css={css.progress}><div style={{ width: `${withCoordinatesPercentage}%` }}></div></div>
 
-                    <p>{withYearPercentage}% with year</p>
+                    <p><FormattedMessage id="counts.percentWithYear" values={{ percent: withYearPercentage }} /></p>
                     <div css={css.progress}><div style={{ width: `${withYearPercentage}%` }}></div></div>
 
-                    <p>{withTaxonMatchPercentage}% with taxon match</p>
+                    <p><FormattedMessage id="counts.percentWithTaxonMatch" values={{ percent: withTaxonMatchPercentage }} /></p>
                     <div css={css.progress}><div style={{ width: `${withTaxonMatchPercentage}%` }}></div></div>
                   </>}
                 </div>

@@ -2,9 +2,13 @@ import { css } from '@emotion/react';
 // import { focusStyle } from '../../style/shared';
 
 export const paper = ({ transparent, ...props }) => css`
-  background: ${transparent ? '' : 'white'};
   padding: 24px 48px;
   margin: 12px 0;
+  ${transparent ? '' : `
+    background: white;
+    border: 1px solid var(--paperBorderColor);
+    border-radius: var(--borderRadiusPx);
+  `}
 `;
 
 export const withSideBar = ({ hasSidebar, ...props }) => css`
@@ -73,9 +77,10 @@ export const navItem = ({ ...props }) => css`
 
 export const area = css`
   background: white;
-  border-radius: 4px;
+  border-radius: var(--borderRadiusPx);
   margin-bottom: 8px;
   margin-right: 12px;
+  border: 1px solid var(--paperBorderColor);
 `;
 
 export const testcard = css`

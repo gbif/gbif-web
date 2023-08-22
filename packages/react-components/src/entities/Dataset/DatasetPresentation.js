@@ -99,7 +99,7 @@ export function DatasetPresentation({
       </ErrorMessage>} */}
 
       {dataset.publishingOrganizationKey && <div style={{ marginTop: 8 }}>
-        From <ResourceLink type="publisherKey" id={dataset.publishingOrganizationKey}>{dataset.publishingOrganizationTitle}</ResourceLink>
+        <FormattedMessage id="dataset.publishedBy" /> <ResourceLink type="publisherKey" id={dataset.publishingOrganizationKey}>{dataset.publishingOrganizationTitle}</ResourceLink>
       </div>}
 
       <HeaderInfoWrapper>
@@ -144,15 +144,15 @@ export function DatasetPresentation({
         {occurrenceSearch?.documents?.total > 0 && <RouterTab to={join(url, '/dashboard')} label={<FormattedMessage id="grscicoll.dashboard" defaultMessage="Dashboard" />} />}
       </TabList> */}
       <TabList style={{ marginTop: '12px', borderTop: '1px solid #ddd' }}>
-        <RouterTab to={url} exact label="About" />
-        {dataset.project && <RouterTab to={join(url, 'project')} label="Project" />}
+        <RouterTab to={url} exact label={<FormattedMessage id="phrases.about" />} />
+        {dataset.project && <RouterTab to={join(url, 'project')} label={<FormattedMessage id="phrases.project" />} />}
         {/* <RouterTab to={join(url, 'metrics')} label="Metrics"/> */}
         {/* <RouterTab to={join(url, 'activity')} label="Activity" /> */}
-        {literatureSearch.documents?.total > 0 && <RouterTab to={join(url, 'citations')} label="Citations" />}
+        {literatureSearch.documents?.total > 0 && <RouterTab to={join(url, 'citations')} label={<FormattedMessage id="phrases.citations" />} />}
         {/* <RouterTab to={join(url, 'specimens')} css={styles.tab({ theme, noData: occurrenceSearch?.documents?.total === 0 })} label="Occurrences" /> */}
         {/* <RouterTab to={join(url, 'events')} css={styles.tab({ theme, noData: occurrenceSearch?.documents?.total === 0 })} label="Events" /> */}
         {/* <RouterTab to={join(url, 'taxonomy')} label="Taxonomy"/> */}
-        <RouterTab to={join(url, 'download')} label="Download" />
+        <RouterTab to={join(url, 'download')} label={<FormattedMessage id="phrases.download" />} />
       </TabList>
     </HeaderWrapper>
 

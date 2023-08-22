@@ -42,7 +42,7 @@ export function LicenseTag({
   const licenseProps = url ? {as: 'a', href: url} : {};
 
   return <IdentifierBadge {...licenseProps} {...props}>
-    <span>License</span>
+    <span><FormattedMessage id="phrases.license" /></span>
     <span><FormattedMessage id={`enums.license.${licenceEnum}`} /></span>
   </IdentifierBadge>
 };

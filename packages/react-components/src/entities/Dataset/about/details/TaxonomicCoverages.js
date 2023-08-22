@@ -4,6 +4,7 @@ import { Properties, Button, HyperText } from "../../../../components";
 // import { FormattedMessage, FormattedDate } from "react-intl";
 import ThemeContext from '../../../../style/themes/ThemeContext';
 import * as css from '../styles';
+import { FormattedMessage } from 'react-intl';
 
 const { Term: T, Value: V } = Properties;
 
@@ -27,13 +28,13 @@ function TaxonomicCoverage({coverage}) {
   const hasHidden = coverage.coverages.length > coverages.length;
   
   return <Properties>
-    <T>Description</T>
+    <T><FormattedMessage id="dataset.description" /></T>
     <V><HyperText text={coverage.description} /></V>
     
-    <T>Coverage</T>
+    <T><FormattedMessage id="dataset.coverage" /></T>
     <V>
       {coverages.map((c, i) => <CoverageItem key={i} item={c} lastItem={coverage.coverages[i-1]} />)}
-      {hasHidden && <><br /><Button onClick={() => setThreshold(500)}>Show all</Button></>}
+      {hasHidden && <><br /><Button onClick={() => setThreshold(500)}><FormattedMessage id="phrases.showAll" /></Button></>}
     </V>
   </Properties>
 }

@@ -19,7 +19,7 @@ export function BibliographicCitations({
     <ul>
       {citations.map((x, index) => <BibiliographicCitation key={index} citation={x} />)}
     </ul>
-    {hasHidden && <Button onClick={() => setThreshold(500)}>Show all</Button>}
+    {hasHidden && <Button onClick={() => setThreshold(500)}><FormattedMessage id="phrases.showAll" /></Button>}
   </>
 }
 
@@ -33,7 +33,7 @@ function BibiliographicCitation({citation}) {
       </div>
     )}
     {citation.identifier && match && <a href={citation.identifier}><FormattedMessage id="dataset.viewArticle" /></a>}
-    {citation.identifier && !match && <><span style={{color: '#888'}}>Identifier: </span><span>{citation.identifier}</span></>}
+    {citation.identifier && !match && <><span style={{color: '#888'}}><FormattedMessage id="phrases.identifier" />: </span><span>{citation.identifier}</span></>}
     {/* {citation.identifier && <a href={'https://scholar.google.com/scholar?q=' + encodeURIComponent(citation.text)}>Google Scholar</a>} */}
   </li>;
 }

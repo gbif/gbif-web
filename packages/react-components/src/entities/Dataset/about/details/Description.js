@@ -11,7 +11,7 @@ export function Description({
 }) {
   const { dataset } = data;
   return <section>
-    <h2>Description</h2>
+    <h2><FormattedMessage id="dataset.description" /></h2>
     <HyperText text={dataset.description}/>
   </section>;
 };
