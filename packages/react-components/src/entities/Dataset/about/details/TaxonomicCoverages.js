@@ -26,7 +26,7 @@ function TaxonomicCoverage({coverage}) {
   const coverages = coverage.coverages.length < 10 ? coverage.coverages : coverage.coverages.slice(0,threshold);
   const hasHidden = coverage.coverages.length > coverages.length;
   
-  return <Properties horizontal>
+  return <Properties>
     <T>Description</T>
     <V><HyperText text={coverage.description} /></V>
     

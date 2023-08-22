@@ -9,7 +9,7 @@ export function SamplingDescription({
   dataset,
   ...props
 }) {
-  return <Properties style={{ marginBottom: 12 }} horizontal={true}>
+  return <Properties style={{ marginBottom: 12 }} >
     {dataset.samplingDescription?.sampling && <>
       <T><FormattedMessage id={`dataset.sampling`} defaultMessage="Sampling" /></T>
       <V><HyperText text={dataset.samplingDescription.sampling} /></V></>}

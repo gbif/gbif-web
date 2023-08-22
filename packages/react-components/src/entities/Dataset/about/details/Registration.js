@@ -19,7 +19,7 @@ export function Registration({
   const hostingStatus = orphanMachineTag ? orphanMachineTag.value : undefined;
 
   return <div style={{ paddingBottom: 12, marginBottom: 12 }}>
-    <Properties style={{ marginBottom: 12 }} horizontal={true}>
+    <Properties style={{ marginBottom: 12 }}>
       {created && <>
         <T><FormattedMessage id="dataset.registry.registrationDate" /></T>
         <V><FormattedDate value={created}
