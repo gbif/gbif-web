@@ -113,9 +113,9 @@ function IucnMain({
 
   return <Card {...props}>
     <CardTitle>
-      IUCN Threat Status
+      <FormattedMessage id={`dashboard.iucnThreatStatus`} />
       <div css={css`font-weight: 400; color: var(--color300); font-size: 0.95em;`}>
-        <div>Species that are near threatened or more vulnerable according to the Global IUCN Redlist</div>
+        <div><FormattedMessage id={'dashboard.iucnThreatStatusDescription'} /></div>
       </div>
     </CardTitle>
     <GroupBy {...{

@@ -7,7 +7,7 @@ import qs from 'query-string';
 import Highcharts from './highcharts';
 import HighchartsReact from 'highcharts-react-official'
 import { getPieOptions } from './pie';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { getColumnOptions } from './column';
 // import { getTimeSeriesOptions } from './area';
 import { GroupBy, Pagging, useFacets } from './GroupByTable';
@@ -65,11 +65,15 @@ export function OneDimensionalChart({
   interactive = true,
   ...props
 }) {
+  const intl = useIntl();
   const facetResults = useFacets(facetQuery);
   const [view, setView] = useState(defaultOption ?? options?.[0] ?? 'TABLE');
   const showChart = facetResults?.results?.length > 0;
   const { otherCount, emptyCount, distinct } = facetResults;
 
+  const translations = {
+    occurrences: intl.formatMessage({id: 'dashboard.occurrences'})
+  }
   facetResults?.results?.forEach(x => x.filter = { [filterKey ?? predicateKey]: [x.key] });
   const data = facetResults?.results?.map(x => {
     return {
@@ -97,7 +101,7 @@ export function OneDimensionalChart({
     if (!disableOther && otherCount) {
       data.push({
         y: otherCount,
-        name: 'Other',
+        name: intl.formatMessage({id: 'dashboard.other'}),
         color: "url(#other1)",
         visible: true
       });
@@ -105,7 +109,7 @@ export function OneDimensionalChart({
     if (showUnknownInChart && emptyCount) {
       data.push({
         y: emptyCount,
-        name: 'Unknown',
+        name: intl.formatMessage({id: 'dashboard.unknown'}),
         visible: true,
         color: "url(#unknown2)",
         filter: { must_not: { [predicateKey]: [{ "type": "isNotNull" }] } },
@@ -115,17 +119,18 @@ export function OneDimensionalChart({
 
   const serie = {
     innerSize: '25%',
-    name: 'Occurrences',
+    name: intl.formatMessage({id: 'dashboard.occurrences'}),
     data,
   };
 
   const pieOptions = getPieOptions({
     serie,
     onClick: handleRedirect,
-    interactive
+    interactive,
+    translations
   });
   
-  const columnOptions = getColumnOptions({ serie, onClick: handleRedirect, interactive });
+  const columnOptions = getColumnOptions({ serie, onClick: handleRedirect, interactive, translations });
 
   // if time series then create the area chart options
   let timeSeriesOptions;
@@ -178,7 +183,7 @@ export function OneDimensionalChart({
     // create the serie
     const histogramSerie = {
       innerSize: '25%',
-      name: 'Occurrences',
+      name: intl.formatMessage({id: 'dashboard.occurrences'}),
       // pointStart: -10476864000000,
       pointStart: Number.parseInt(data?.[0]?.utc),//Date.UTC(1638, 0, 1), // first of April
       // pointRange: 3600 * 1000 * 24 * 365 * 10, // hourly data
@@ -192,13 +197,13 @@ export function OneDimensionalChart({
       data,
     };
 
-    timeSeriesOptions = getTimeSeriesOptions({ serie: histogramSerie, onClick: handleRedirect, interactive });
+    timeSeriesOptions = getTimeSeriesOptions({ serie: histogramSerie, onClick: handleRedirect, interactive, translations });
   }
 
   const filledPercentage = facetResults?.data?.isNotNull?.documents?.total / facetResults?.data?.occurrenceSearch?.documents?.total;
 
   if (!disableUnknown) {
-    messages.push(<div>{formatAsPercentage(filledPercentage)}% of all records have a value</div>);
+    messages.push(<div><FormattedMessage id="dashboard.percentWithValue" values={{percent: formatAsPercentage(filledPercentage)}} /></div>);
   }
   const renderedView = view;
   // the idea with this was that it looks odd with a pie chart with only one value, but it looks even worse with a table with only one value. Similar for column charts. But in reality it was also confusing changing the layout when changing filters, so we removed this.

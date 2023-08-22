@@ -1,4 +1,4 @@
-export function getTimeSeriesOptions({ serie, onClick, interactive }) {
+export function getTimeSeriesOptions({ serie, onClick, interactive, translations }) {
   const categories = serie?.data?.map(x => x.name);
   const options = {
     chart: {
@@ -71,7 +71,7 @@ export function getTimeSeriesOptions({ serie, onClick, interactive }) {
     },
     yAxis: {
       title: {
-        text: 'occurrences'
+        text: translations.occurrences || 'Occurrences'
       },
       gridLineDashStyle: 'LongDash',
       lineColor: '#d0d2da',

@@ -34,6 +34,11 @@
     "count": "{num, plural, one { topic } other {# topics}}",
     "description": "What are the topics of the record."
   },
+  "eventDate": {
+    "name": "Event date",
+    "count": "{num, plural, one { event date } other {# event dates}}",
+    "description": "When was the record collected or observed."
+  },
   "taxonKey": {
     "name": "Scientific name",
     "count": "{num, plural, one {scientific name} other {# scientific names}}",

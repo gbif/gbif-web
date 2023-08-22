@@ -81,7 +81,7 @@ export function DataQuality({
   const total = summary?.documents?.total;
 
   return <Card {...props}>
-    <CardTitle>Data richness</CardTitle>
+    <CardTitle><FormattedMessage id="dashboard.richness" defaultMessage="Data richness"/></CardTitle>
     <div>
       <Table removeBorder>
         <tbody css={css`
@@ -103,7 +103,7 @@ export function DataQuality({
           `}>
           <tr>
             <td>
-              <BarItem percent={100 * data?.rank?.documents?.total / total}>Identified to species</BarItem>
+              <BarItem percent={100 * data?.rank?.documents?.total / total}><FormattedMessage id="dashboard.identifiedToSpecies" defaultMessage="Identified to species"/></BarItem>
             </td>
             <td>
               <FormattedNumber value={data?.rank?.documents?.total} />
@@ -113,21 +113,21 @@ export function DataQuality({
             </td> */}
           </tr>
           <tr>
-            <td><BarItem percent={100 * data?.hasCoordinates?.documents?.total / total}>With coordinates</BarItem></td>
+            <td><BarItem percent={100 * data?.hasCoordinates?.documents?.total / total}><FormattedMessage id="dashboard.withCoordinates" /></BarItem></td>
             <td><FormattedNumber value={data?.hasCoordinates?.documents?.total} /></td>
             {/* <td>
               <Progress percent={100 * data?.hasCoordinates?.documents?.total / total} style={{ height: '1em', marginLeft: 'auto' }} />
             </td> */}
           </tr>
           <tr>
-            <td><BarItem percent={100 * data?.hasYear?.documents?.total / total}>With collection year</BarItem></td>
+            <td><BarItem percent={100 * data?.hasYear?.documents?.total / total}><FormattedMessage id="dashboard.withYear" /></BarItem></td>
             <td><FormattedNumber value={data?.hasYear?.documents?.total} /></td>
             {/* <td>
               <Progress percent={100 * data?.rank?.documents?.total / total} style={{ height: '1em', marginLeft: 'auto' }} />
             </td> */}
           </tr>
           <tr>
-            <td><BarItem percent={100 * data?.hasCollector?.documents?.total / total}>With collector</BarItem></td>
+            <td><BarItem percent={100 * data?.hasCollector?.documents?.total / total}><FormattedMessage id="dashboard.withCollector" /></BarItem></td>
             <td><FormattedNumber value={data?.hasCollector?.documents?.total} /></td>
             {/* <td>
               <Progress percent={100 * data?.hasCollector?.documents?.total / total} style={{ height: '1em', marginLeft: 'auto' }} />
@@ -135,7 +135,7 @@ export function DataQuality({
           </tr>
           <tr>
             {/* <td><div>With media</div></td> */}
-            <td><BarItem percent={100 * data?.hasMedia?.documents?.total / total}>With media</BarItem></td>
+            <td><BarItem percent={100 * data?.hasMedia?.documents?.total / total}><FormattedMessage id="dashboard.withMedia" /></BarItem></td>
             <td><FormattedNumber value={data?.hasMedia?.documents?.total} /></td>
             {/* <td>
               <Progress percent={100 * data?.hasMedia?.documents?.total / total} style={{ height: '1em', marginLeft: 'auto' }} />

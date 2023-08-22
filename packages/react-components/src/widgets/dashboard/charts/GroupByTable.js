@@ -1,7 +1,7 @@
 import { jsx, css } from '@emotion/react';
 import React, { useCallback, useState } from 'react';
 import { Button, Progress, Skeleton } from '../../../components';
-import { FormattedNumber, useIntl } from 'react-intl';
+import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import { Table } from '../shared';
 import { useQuery } from '../../../dataManagement/api';
 import { useDeepCompareEffect } from 'react-use';
@@ -83,7 +83,7 @@ export function GroupBy({ facetResults, transform, ...props }) {
   return <>
     <div css={css`font-size: 13px; color: #888; margin-bottom: 8px;`}>
       {loading && <Skeleton as="div" width="100px" />}
-      {!loading && distinct > 0 && <>{distinct} results</>}
+      {!loading && distinct > 0 && <><FormattedMessage id="counts.nResults" values={{total: distinct}} /></>}
     </div>
     <GroupByTable results={mappedResults} total={total} {...props} loading={loading} />
   </>
@@ -93,8 +93,8 @@ export function Pagging({ facetResults, ...props }) {
   const { next, prev, isLastPage, isFirstPage } = facetResults;
   if (isFirstPage && isLastPage) return null;
   return <div css={css`margin-left: auto; font-size: 12px;`}>
-    {!(isLastPage && isFirstPage) && <Button look="ghost" onClick={prev} css={css`margin-right: 8px; `} disabled={isFirstPage}>Previous</Button>}
-    {!isLastPage && <Button look="ghost" onClick={next}>Next</Button>}
+    {!(isLastPage && isFirstPage) && <Button look="ghost" onClick={prev} css={css`margin-right: 8px; `} disabled={isFirstPage}><FormattedMessage id="pagination.previous" /></Button>}
+    {!isLastPage && <Button look="ghost" onClick={next}><FormattedMessage id="pagination.next" /></Button>}
   </div>
 }
 

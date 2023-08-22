@@ -1,5 +1,22 @@
 {
   "numberOfOccurrences": "Number of occurrences",
   "noData": "No data",
+  "statistics": "Statistics",
+  "occurrenceRecords": "Occurrence records",
+  "species": "Species",
+  "taxa": "Taxa",
+  "yearRange": "Year range",
+  "identifiedToSpecies": "Identified to species",
+  "withCoordinates": "With coordinates",
+  "withYear": "With year",
+  "withCollector": "With collector",
+  "withMedia": "With media",
+  "richness": "Data richness",
+  "percentWithValue": "{percent}% of all records have a value",
+  "occurrences": "Occurrences",
+  "other": "Other",
+  "unknown": "Uknown",
+  "iucnThreatStatus": "IUCN threat status",
+  "iucnThreatStatusDescription": "Species that are near threatened or more vulnerable according to the Global IUCN Redlist",
   "notVocabularyWarning": "Non-interpreted values - same concept might appear with different names."
 }

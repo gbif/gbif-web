@@ -5,6 +5,7 @@ import { useQuery } from '../../dataManagement/api';
 import { Skeleton } from '../../components';
 // import { FormattedMessage } from 'react-intl';
 import { Card, CardTitle, Table, FormattedNumber } from './shared';
+import { FormattedMessage } from 'react-intl';
 
 export function OccurrenceSummary({
   predicate,
@@ -60,7 +61,7 @@ export function OccurrenceSummary({
   const summary = data?.occurrenceSearch;
 
   return <Card {...props}>
-    <CardTitle>Statistics</CardTitle>
+    <CardTitle><FormattedMessage id="dashboard.statistics" defaultMessage="Statistics"/></CardTitle>
     <div>
       <Table>
         <tbody css={css`
@@ -74,20 +75,20 @@ export function OccurrenceSummary({
             } */
             `}>
           <tr>
-            <td><div>Occurrence records</div></td>
+            <td><div><FormattedMessage id="dashboard.occurrenceRecords" defaultMessage="Occurrence records"/></div></td>
             <td><FormattedNumber value={summary?.documents?.total} /></td>
           </tr>
           <tr>
-            <td>Species</td>
+            <td><FormattedMessage id="dashboard.species" defaultMessage="Species"/></td>
             <td><FormattedNumber value={summary?.cardinality?.speciesKey} /></td>
           </tr>
           <tr>
-            <td>Taxa</td>
+            <td><FormattedMessage id="dashboard.taxa" defaultMessage="Taxa"/></td>
             <td><FormattedNumber value={summary?.cardinality.taxonKey} /></td>
           </tr>
           <tr>
-            <td>Year range</td>
-            <td>{summary ? <span>{summary.stats.year.min} - {summary.stats.year.max}</span> : <Skeleton width="70px" />}</td>
+            <td><FormattedMessage id="dashboard.yearRange" defaultMessage="Year range"/></td>
+            <td>{summary?.stats?.year ? <span><FormattedMessage id="intervals.description.between" values={{from: summary.stats.year.min, to: summary.stats.year.max}}/></span> : <FormattedMessage id="dashboard.noData" />}</td>
           </tr>
         </tbody>
       </Table>
