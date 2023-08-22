@@ -123,7 +123,8 @@ export const Dataset = {
   networks: ({ key }, args, { dataSources }) => {
     return dataSources.datasetAPI.getNetworks({ key });
   },
-  metrics: ({ key }, args, { dataSources }) => {
+  metrics: ({ type, key }, args, { dataSources }) => {
+    if (type !== 'CHECKLIST') return null;
     return dataSources.datasetAPI.getMetrics({ key });
   },
   gridded: ({ key }, args, { dataSources }) => {
