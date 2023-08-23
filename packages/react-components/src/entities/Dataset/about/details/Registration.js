@@ -1,7 +1,7 @@
 
 import { jsx } from '@emotion/react';
-import React from 'react';
-import { Properties, HyperText } from '../../../../components'
+import React, { useState } from 'react';
+import { Properties, HyperText, Button } from '../../../../components'
 import { FormattedMessage, FormattedDate } from "react-intl";
 
 const { Term: T, Value: V } = Properties;
@@ -13,10 +13,17 @@ export function Registration({
   const { machineTags = [], doi, endpoints = [], identifiers = [], created, modified, pubDate, installation } = dataset;
   const { organization: hostingOrganization } = installation;
   const urlEndpoints = endpoints.filter(x => x.url);
-  const visibleIdentifiers = identifiers.filter(x => ['DOI', 'URL', 'LSID', 'FTP', 'UNKNOWN'].indexOf(x.type) > -1);
+  const availableIdentifiers = identifiers.filter(x => ['DOI', 'URL', 'LSID', 'FTP', 'UNKNOWN'].indexOf(x.type) > -1);
 
   const orphanMachineTag = machineTags.find(machineTag => machineTag.namespace === 'orphans.gbif.org' && name === 'status');
   const hostingStatus = orphanMachineTag ? orphanMachineTag.value : undefined;
+
+  // I really dislike "show all"-buttons that only show me one more item. Just show the damn item to begin with then. It is such a disappointing experience.
+  // So instead we do: if less than 10 items then show them all. If above 10, then show 5 + expand button.
+  // then it feels like you are rewarded for your action
+  const [threshold, setThreshold] = useState(5);
+  const visibleIdentifiers = availableIdentifiers.length < 10 ? availableIdentifiers : availableIdentifiers.slice(0, threshold);
+  const hasHidden = availableIdentifiers.length > visibleIdentifiers.length;
 
   return <div style={{ paddingBottom: 12, marginBottom: 12 }}>
     <Properties style={{ marginBottom: 12 }}>
@@ -81,10 +88,13 @@ export function Registration({
         <T><FormattedMessage id="dataset.registry.alternativeIdentifier" /></T>
         <V>
           <Properties breakpoint={800} horizontal={false}>
-            {visibleIdentifiers.map(identifier => <React.Fragment key={identifier.key}>
+
+            {visibleIdentifiers.map((identifier, i) => <React.Fragment key={identifier.key}>
               {/* <T>{ identifier.type }</T> */}
               <V><HyperText text={identifier.identifier} /></V>
             </React.Fragment>)}
+
+            {hasHidden && <><br /><Button onClick={() => setThreshold(500)}><FormattedMessage id="phrases.showAll" /></Button></>}
           </Properties>
         </V>
       </>}
