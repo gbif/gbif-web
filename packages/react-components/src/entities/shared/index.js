@@ -9,7 +9,8 @@ import { FormattedDate } from 'react-intl';
 import { ContentWrapper, HeaderWrapper } from './header';
 // import { BrokenJar } from '../../components/Icons/Icons';
 
-export function Card({ padded = true, ...props }) {
+export function Card({ noPadding, ...props }) {
+  const padded = !noPadding;
   return <div
     css={css`
       background: var(--paperBackground);
@@ -24,6 +25,14 @@ export function Card({ padded = true, ...props }) {
 export const CardHeader2 = React.forwardRef((props, ref) => {
   return <h2 ref={ref} css={h2Style} {...props} />
 });
+
+export function SideBarCard({ children, ...props }) {
+  return <div style={{paddingTop: 12}} {...props}>
+    <Card noPadding>
+      {children}
+    </Card>
+  </div>
+}
 
 const paddedContent = css`
   padding: 24px 48px;

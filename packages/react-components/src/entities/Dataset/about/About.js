@@ -15,7 +15,7 @@ import useBelow from '../../../utils/useBelow';
 import { MdFormatQuote, MdGridOn, MdPlaylistAddCheck, MdPinDrop as OccurrenceIcon } from 'react-icons/md';
 import { GiDna1 } from 'react-icons/gi';
 import { Dashboard } from './Dashboard';
-import { Card, CardHeader2 } from '../../shared';
+import { Card, CardHeader2, SideBarCard } from '../../shared';
 
 export function About({
   data = {},
@@ -55,7 +55,7 @@ export function About({
 
   const hasSamplingDescription = dataset?.samplingDescription?.studyExtent || dataset?.samplingDescription?.sampling || dataset?.samplingDescription?.qualityControl || (dataset?.samplingDescription?.methodSteps && dataset?.samplingDescription?.methodSteps?.length > 0);
 
-  const citationArea = literatureSearch.documents.total > 0 ? <div css={styles.area}>
+  const citationArea = literatureSearch.documents.total > 0 ? <SideBarCard>
     <div css={styles.testcard}>
       <div css={styles.testicon}>
         <div><MdFormatQuote /></div>
@@ -68,7 +68,7 @@ export function About({
         </h5>
       </div>
     </div>
-  </div> : null;
+  </SideBarCard> : null;
 
   return <>
     <div css={sharedStyles.withSideBar({ hasSidebar: !isBelowSidebar })}>
@@ -216,7 +216,7 @@ export function About({
         <div>
           {citationArea}
 
-          {(dataset.type === 'CHECKLIST') && <div css={styles.area}>
+          {(dataset.type === 'CHECKLIST') && <SideBarCard>
             <div css={styles.testcardWrapper}>
               <div css={styles.testcard}>
                 <div css={styles.testicon}>
@@ -244,9 +244,9 @@ export function About({
                 </div>
               </div>
             </div>
-          </div>}
+          </SideBarCard>}
 
-          {(total > 0 || dataset.type === 'OCCURRENCE') && <div css={styles.area}>
+          {(total > 0 || dataset.type === 'OCCURRENCE') && <SideBarCard>
             <div css={styles.testcardWrapper}>
               {total > 0 && <ResourceSearchLink type="occurrenceSearch" queryString={`datasetKey=${dataset.key}&view=MAP`} discreet >
                 <ThumbnailMap dataset={dataset} />
@@ -304,18 +304,17 @@ export function About({
                 <p>Based on out analysis of the points it looks like this dataset contains gridden data.</p>
               </div>
             </div>}
-          </div>}
+          </SideBarCard>}
         </div>
         <nav css={sharedStyles.sideBarNav({ theme })}>
-          <div>
+          <SideBarCard>
             <Toc refs={tocRefs} />
-          </div>
+          </SideBarCard>
         </nav>
       </div>}
     </div>
   </>
 };
-
 
 function asPercentage(fraction, max = 100) {
   var formatedPercentage = 0;

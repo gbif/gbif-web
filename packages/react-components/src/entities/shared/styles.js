@@ -77,24 +77,15 @@ export const withSideBar = ({ hasSidebar, ...props }) => css`
 export const sideBarNav = ({ ...props }) => css`
   top: var(--stickyOffset);
   position: sticky;
-  div {
-    background: white;
-    margin-bottom: 12px;
-    overflow: hidden;
-    padding: 4px;
-    border: 1px solid var(--paperBorderColor);
-    border-radius: var(--borderRadiusPx);
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 8px 0;
   }
 `;
 
 export const sideBar = ({ ...props }) => css`
   flex: 0 0 250px;
-  padding-top: 12px;
   margin: 0;
   font-size: 14px;
   position: sticky;

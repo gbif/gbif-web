@@ -5,7 +5,7 @@ import ThemeContext from '../../../style/themes/ThemeContext';
 import * as css from './styles';
 import { Prose, HyperText, Toc, ContactList } from "../../../components";
 import { FormattedMessage } from 'react-intl';
-import { Card, CardHeader2 } from '../../shared';
+import { Card, CardHeader2, SideBarCard } from '../../shared';
 import * as sharedStyles from '../../shared/styles';
 import useBelow from '../../../utils/useBelow';
 
@@ -66,9 +66,9 @@ export function Project({
       </div>
       <div css={sharedStyles.sideBar({ theme })}>
         <nav css={sharedStyles.sideBarNav({ theme })}>
-          <div>
+          <SideBarCard>
             <Toc refs={tocRefs} />
-          </div>
+          </SideBarCard>
         </nav>
       </div>
     </div>
