@@ -23,10 +23,10 @@ export const sideBarNav = ({ ...props }) => css`
   div {
     background: white;
     margin-bottom: 12px;
-    border-radius: 4px;
     overflow: hidden;
     padding: 4px;
-    margin-right: 12px;
+    border: 1px solid var(--paperBorderColor);
+    border-radius: var(--borderRadiusPx);
     ul {
       list-style: none;
       padding: 0;
@@ -79,7 +79,6 @@ export const area = css`
   background: white;
   border-radius: var(--borderRadiusPx);
   margin-bottom: 8px;
-  margin-right: 12px;
   border: 1px solid var(--paperBorderColor);
 `;
 

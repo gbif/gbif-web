@@ -2,6 +2,7 @@ import { jsx } from "@emotion/react";
 import React from "react";
 import { Properties, HyperText } from "../../../../components";
 import { FormattedMessage, FormattedDate } from "react-intl";
+import * as sharedStyles from '../../../shared/styles';
 
 const { Term: T, Value: V } = Properties;
 
@@ -66,7 +67,7 @@ function GeographicCoverage({ coverage }) {
   }
 
   return (
-    <Properties>
+    <Properties css={sharedStyles.cardProperties}>
       <T><FormattedMessage id="dataset.description" /></T>
       <V><HyperText text={coverage.description} /></V>
       {geoJSON && (

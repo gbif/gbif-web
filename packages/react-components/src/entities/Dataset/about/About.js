@@ -1,8 +1,9 @@
 
-import { jsx, css as cssStyle } from '@emotion/react';
+import { jsx, css as css } from '@emotion/react';
 import React, { useContext, useState } from 'react';
 import ThemeContext from '../../../style/themes/ThemeContext';
-import * as css from './styles';
+import * as styles from './styles';
+import * as sharedStyles from '../../shared/styles';
 import { Prose, Properties, HyperText, Toc, ContactList, OccurrenceMap, ResourceSearchLink } from "../../../components";
 import RouteContext from '../../../dataManagement/RouteContext';
 import { Images, ThumbnailMap, TaxonomicCoverages, GeographicCoverages, TemporalCoverages, Registration, BibliographicCitations, SamplingDescription, Citation } from './details';
@@ -14,9 +15,7 @@ import useBelow from '../../../utils/useBelow';
 import { MdFormatQuote, MdGridOn, MdPlaylistAddCheck, MdPinDrop as OccurrenceIcon } from 'react-icons/md';
 import { GiDna1 } from 'react-icons/gi';
 import { Dashboard } from './Dashboard';
-
-// import {Toc} from "./Toc"
-const { Term: T, Value: V } = Properties;
+import { Card, CardHeader2 } from '../../shared';
 
 export function About({
   data = {},
@@ -28,10 +27,9 @@ export function About({
   ...props
 }) {
   const isBelowSidebar = useBelow(1000);
-  let { url, path } = useRouteMatch();
+  let { url } = useRouteMatch();
   const theme = useContext(ThemeContext);
-  const routeContext = useContext(RouteContext);
-  const [tocRefs, setTocRefs] = useState({})
+  const [tocRefs] = useState({})
   const { dataset, occurrenceSearch, literatureSearch, totalTaxa, accepted, synonyms } = data;
   // collect all refs to headlines for the TOC, e.g. ref={node => { tocRefs["description"] = {node, index: 0}; }}
 
@@ -57,12 +55,12 @@ export function About({
 
   const hasSamplingDescription = dataset?.samplingDescription?.studyExtent || dataset?.samplingDescription?.sampling || dataset?.samplingDescription?.qualityControl || (dataset?.samplingDescription?.methodSteps && dataset?.samplingDescription?.methodSteps?.length > 0);
 
-  const citationArea = literatureSearch.documents.total > 0 ? <div css={css.area}>
-    <div css={css.testcard}>
-      <div css={css.testicon}>
+  const citationArea = literatureSearch.documents.total > 0 ? <div css={styles.area}>
+    <div css={styles.testcard}>
+      <div css={styles.testicon}>
         <div><MdFormatQuote /></div>
       </div>
-      <div css={css.testcontent}>
+      <div css={styles.testcontent}>
         <h5>
           <Link to={join(url, 'citations')}>
             <FormattedMessage id="counts.nCitations" values={{ total: literatureSearch.documents.total }} />
@@ -73,22 +71,22 @@ export function About({
   </div> : null;
 
   return <>
-    <div css={css.withSideBar({ theme, hasSidebar: !isBelowSidebar })}>
-      <div style={{ width: '100%', marginLeft: 12, overflow: 'auto' }}>
+    <div css={sharedStyles.withSideBar({ hasSidebar: !isBelowSidebar })}>
+      <div style={{ width: '100%', overflow: 'auto' }}>
 
-        {isBelowSidebar && <div css={cssStyle`
+        {isBelowSidebar && <div css={css`
           display: flex;
           flex-wrap: wrap;
           margin-top: 12px;
           margin-bottom: -12px;
         `}>
           {citationArea}
-          {total > 0 && <div css={css.area}>
-            <div css={css.testcard}>
-              <div css={css.testicon}>
+          {total > 0 && <div css={styles.area}>
+            <div css={styles.testcard}>
+              <div css={styles.testicon}>
                 <div><OccurrenceIcon /></div>
               </div>
-              <div css={css.testcontent}>
+              <div css={styles.testcontent}>
                 <ResourceSearchLink type="occurrenceSearch" queryString={`datasetKey=${dataset.key}`} discreet >
                   <h5>
                     <FormattedMessage id="counts.nOccurrences" values={{ total }} />
@@ -98,12 +96,12 @@ export function About({
             </div>
           </div>}
 
-          {totalTaxa?.count > 0 && <div css={css.area}>
-            <div css={css.testcard}>
-              <div css={css.testicon}>
+          {totalTaxa?.count > 0 && <div css={styles.area}>
+            <div css={styles.testcard}>
+              <div css={styles.testicon}>
                 <div><MdPlaylistAddCheck /></div>
               </div>
-              <div css={css.testcontent}>
+              <div css={styles.testcontent}>
                 <ResourceSearchLink type="speciesSearch" queryString={`origin=SOURCE&advanced=1&dataset_key=${dataset.key}`} discreet >
                   <h5>
                     <FormattedMessage id="counts.nTaxa" values={{ total: totalTaxa?.count }} />
@@ -120,104 +118,111 @@ export function About({
           key: 'datasetKey',
           value: dataset.key
         }}/> */}
-        {dataset.description && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["description"] = { node, index: 0, title: <FormattedMessage id="dataset.description" /> } }}>
+
+        {dataset.description && <Card css={sharedStyles.cardMargins}>
+          <CardHeader2 ref={node => { tocRefs["description"] = { node, index: 0, title: <FormattedMessage id="dataset.description" /> } }}>
             <FormattedMessage id="dataset.description" />
-          </h2>
-          <HyperText text={dataset.description} />
-        </Prose>}
+          </CardHeader2>
+          <Prose css={sharedStyles.cardProse}>
+            <HyperText text={dataset.description} />
+          </Prose>
+        </Card>}
         {insights?.data?.images?.documents?.total > 0 && <>
           {/* We cannot register the images, because the TOC component puts it in the end - consider creating an issue for Thomas*/}
           <Images images={insights?.data?.images} dataset={dataset} />
         </>}
-        {dataset.purpose && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["purpose"] = { node, index: 1, title: <FormattedMessage id="dataset.purpose" /> } }}>
+        {dataset.purpose && <Card css={sharedStyles.cardMargins}>
+          <CardHeader2 ref={node => { tocRefs["purpose"] = { node, index: 1, title: <FormattedMessage id="dataset.purpose" /> } }}>
             <FormattedMessage id="dataset.purpose" />
-          </h2>
-          <HyperText text={dataset.purpose} />
-        </Prose>}
-        {dataset?.geographicCoverages?.length > 0 && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["geographic-scope"] = { node, index: 2, title: <FormattedMessage id="dataset.geographicCoverages" /> } }}>
+          </CardHeader2>
+          <Prose css={sharedStyles.cardProse}>
+            <HyperText text={dataset.purpose} />
+          </Prose>
+        </Card>}
+        {dataset?.geographicCoverages?.length > 0 && <Card css={sharedStyles.cardMargins}>
+          <CardHeader2 ref={node => { tocRefs["geographic-scope"] = { node, index: 2, title: <FormattedMessage id="dataset.geographicCoverages" /> } }}>
             <FormattedMessage id="dataset.geographicCoverages" />
-          </h2>
+          </CardHeader2>
           <GeographicCoverages geographicCoverages={dataset.geographicCoverages} />
-        </Prose>}
-        {dataset?.temporalCoverages?.length > 0 && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["temporal-scope"] = { node, index: 3, title: <FormattedMessage id="dataset.temporalCoverages" /> } }}>
+        </Card>}
+        {dataset?.temporalCoverages?.length > 0 && <Card css={sharedStyles.cardMargins}>
+          <CardHeader2 ref={node => { tocRefs["temporal-scope"] = { node, index: 3, title: <FormattedMessage id="dataset.temporalCoverages" /> } }}>
             <FormattedMessage id="dataset.temporalCoverages" />
-          </h2>
+          </CardHeader2>
           <TemporalCoverages temporalCoverages={dataset.temporalCoverages} />
-        </Prose>}
-        {dataset?.taxonomicCoverages?.length > 0 && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["taxonomic-scope"] = { node, index: 4, title: <FormattedMessage id="dataset.taxonomicCoverages" /> }; }}>
+        </Card>}
+        {dataset?.taxonomicCoverages?.length > 0 && <Card css={sharedStyles.cardMargins}>
+          <CardHeader2 ref={node => { tocRefs["taxonomic-scope"] = { node, index: 4, title: <FormattedMessage id="dataset.taxonomicCoverages" /> }; }}>
             <FormattedMessage id="dataset.taxonomicCoverages" />
-          </h2>
+          </CardHeader2>
           <TaxonomicCoverages taxonomicCoverages={dataset.taxonomicCoverages} />
-        </Prose>}
-        {hasSamplingDescription && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["methodology"] = { node, index: 5, title: <FormattedMessage id="dataset.methodology" /> }; }}>
+        </Card>}
+        {hasSamplingDescription && <Card css={sharedStyles.cardMargins}>
+          <CardHeader2 ref={node => { tocRefs["methodology"] = { node, index: 5, title: <FormattedMessage id="dataset.methodology" /> }; }}>
             <FormattedMessage id="dataset.methodology" />
-          </h2>
+          </CardHeader2>
           <SamplingDescription dataset={dataset} />
-        </Prose>}
+        </Card>}
         {total > 1 && <>
-          <Prose css={css.paper({ theme, transparent: true })} style={{ paddingTop: 0, paddingBottom: 0 }}>
-            <h2 ref={node => { tocRefs["metrics"] = { node, index: 6, title: <FormattedMessage id="dataset.metrics" /> }; }}>
+          <Prose css={styles.paper({ theme, transparent: true })} style={{ paddingTop: 0, paddingBottom: 0 }}>
+            <CardHeader2 ref={node => { tocRefs["metrics"] = { node, index: 6, title: <FormattedMessage id="dataset.metrics" /> }; }}>
               <FormattedMessage id="dataset.metrics" />
-            </h2>
+            </CardHeader2>
           </Prose>
           <Dashboard dataset={dataset} loading={loading} error={error} />
         </>}
-        {dataset.additionalInfo && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["additional-info"] = { node, index: 7, title: <FormattedMessage id="dataset.additionalInfo" /> }; }}>
+        {dataset.additionalInfo && <Card css={sharedStyles.cardMargins}>
+          <CardHeader2 ref={node => { tocRefs["additional-info"] = { node, index: 7, title: <FormattedMessage id="dataset.additionalInfo" /> }; }}>
             <FormattedMessage id="dataset.additionalInfo" />
-          </h2>
-          <HyperText text={dataset.additionalInfo} />
-        </Prose>}
-        {dataset?.volatileContributors?.length > 0 && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["contacts"] = { node, index: 8, title: <FormattedMessage id="dataset.contacts" /> }; }}>
+          </CardHeader2>
+          <Prose css={sharedStyles.cardProse}>
+            <HyperText text={dataset.additionalInfo} />
+          </Prose>
+        </Card>}
+        {dataset?.volatileContributors?.length > 0 && <Card css={sharedStyles.cardMargins}>
+          <CardHeader2 ref={node => { tocRefs["contacts"] = { node, index: 8, title: <FormattedMessage id="dataset.contacts" /> }; }}>
             <FormattedMessage id="dataset.contacts" />
-          </h2>
+          </CardHeader2>
           <ContactList contacts={dataset.volatileContributors} style={{ paddingInlineStart: 0 }} />
-        </Prose>}
-        {dataset?.bibliographicCitations?.length > 0 && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["bibliography"] = { node, index: 9, title: <FormattedMessage id="dataset.bibliography" /> }; }}>
+        </Card>}
+        {dataset?.bibliographicCitations?.length > 0 && <Card css={sharedStyles.cardMargins}>
+          <CardHeader2 ref={node => { tocRefs["bibliography"] = { node, index: 9, title: <FormattedMessage id="dataset.bibliography" /> }; }}>
             <FormattedMessage id="dataset.bibliography" />
-          </h2>
+          </CardHeader2>
           <BibliographicCitations bibliographicCitations={dataset?.bibliographicCitations} />
-        </Prose>}
+        </Card>}
 
         {/* It isn't clear that this section really has much value for users of the website */}
-        {/* {dataset?.dataDescriptions?.length > 0 && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["data-descriptions"] = {node, index: 0}; }}>Data descriptions</h2>
+        {/* {dataset?.dataDescriptions?.length > 0 && <Card css={sharedStyles.cardMargins}>
+          <CardHeader2 ref={node => { tocRefs["data-descriptions"] = {node, index: 0}; }}>Data descriptions</CardHeader2>
           <DataDescriptions dataDescriptions={dataset?.dataDescriptions} />
-        </Prose>} */}
+        </Card>} */}
 
-        <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["registration"] = { node, index: 10, title: <FormattedMessage id="dataset.registration" /> }; }}>
+        <Card css={sharedStyles.cardMargins}>
+          <CardHeader2 ref={node => { tocRefs["registration"] = { node, index: 10, title: <FormattedMessage id="dataset.registration" /> }; }}>
             <FormattedMessage id="dataset.registration" />
-          </h2>
+          </CardHeader2>
           <Registration dataset={dataset} />
-        </Prose>
+        </Card>
 
-        {dataset?.citation && <Prose css={css.paper({ theme })}>
-          <h2 ref={node => { tocRefs["citation"] = { node, index: 11, title: <FormattedMessage id="dataset.citation" /> }; }}>
+        {dataset?.citation && <Card css={sharedStyles.cardMargins}>
+          <CardHeader2 ref={node => { tocRefs["citation"] = { node, index: 11, title: <FormattedMessage id="dataset.citation" /> }; }}>
             <FormattedMessage id="dataset.citation" />
-          </h2>
+          </CardHeader2>
           <Citation data={data} />
-        </Prose>}
+        </Card>}
       </div>
-      {!isBelowSidebar && <div css={css.sideBar({ theme })} style={{ margin: '0 0 0 12px' }}>
+      {!isBelowSidebar && <div css={sharedStyles.sideBar({ theme })}>
         <div>
           {citationArea}
 
-          {(dataset.type === 'CHECKLIST') && <div css={css.area}>
-            <div css={css.testcardWrapper}>
-              <div css={css.testcard}>
-                <div css={css.testicon}>
+          {(dataset.type === 'CHECKLIST') && <div css={styles.area}>
+            <div css={styles.testcardWrapper}>
+              <div css={styles.testcard}>
+                <div css={styles.testicon}>
                   <div><MdPlaylistAddCheck /></div>
                 </div>
-                <div css={css.testcontent}>
+                <div css={styles.testcontent}>
                   <ResourceSearchLink type="occurrenceSearch" queryString={`datasetKey=${dataset.key}`} discreet >
                     <h5>
                       <FormattedMessage id="counts.nNames" values={{ total: totalTaxa.count }} />
@@ -225,32 +230,32 @@ export function About({
                   </ResourceSearchLink>
                   <>
                     <p><FormattedMessage id="counts.nAcceptedNames" values={{ total: accepted.count }} /></p>
-                    <div css={css.progress}><div style={{ width: `${acceptedPercentage}%` }}></div></div>
+                    <div css={styles.progress}><div style={{ width: `${acceptedPercentage}%` }}></div></div>
 
                     <p><FormattedMessage id="counts.nSynonyms" values={{ total: synonyms.count }} /></p>
-                    <div css={css.progress}><div style={{ width: `${synonymsPercentage}%` }}></div></div>
+                    <div css={styles.progress}><div style={{ width: `${synonymsPercentage}%` }}></div></div>
 
                     <p><FormattedMessage id="counts.gbifOverlapPercent" values={{ percent: gbifOverlap }} /></p>
-                    <div css={css.progress}><div style={{ width: `${gbifOverlap}%` }}></div></div>
+                    <div css={styles.progress}><div style={{ width: `${gbifOverlap}%` }}></div></div>
 
                     <p><FormattedMessage id="counts.colOverlapPercent" values={{ percent: colOverlap }} /></p>
-                    <div css={css.progress}><div style={{ width: `${colOverlap}%` }}></div></div>
+                    <div css={styles.progress}><div style={{ width: `${colOverlap}%` }}></div></div>
                   </>
                 </div>
               </div>
             </div>
           </div>}
 
-          {(total > 0 || dataset.type === 'OCCURRENCE') && <div css={css.area}>
-            <div css={css.testcardWrapper}>
+          {(total > 0 || dataset.type === 'OCCURRENCE') && <div css={styles.area}>
+            <div css={styles.testcardWrapper}>
               {total > 0 && <ResourceSearchLink type="occurrenceSearch" queryString={`datasetKey=${dataset.key}&view=MAP`} discreet >
                 <ThumbnailMap dataset={dataset} />
               </ResourceSearchLink>}
-              <div css={css.testcard}>
-                <div css={css.testicon}>
+              <div css={styles.testcard}>
+                <div css={styles.testicon}>
                   <div><OccurrenceIcon /></div>
                 </div>
-                <div css={css.testcontent}>
+                <div css={styles.testcontent}>
                   <ResourceSearchLink type="occurrenceSearch" queryString={`datasetKey=${dataset.key}`} discreet >
                     <h5>
                       <FormattedMessage id="counts.nOccurrences" values={{ total }} />
@@ -258,50 +263,50 @@ export function About({
                   </ResourceSearchLink>
                   {total > 0 && <>
                     <p><FormattedMessage id="counts.percentWithCoordinates" values={{ percent: withCoordinatesPercentage }} /></p>
-                    <div css={css.progress}><div style={{ width: `${withCoordinatesPercentage}%` }}></div></div>
+                    <div css={styles.progress}><div style={{ width: `${withCoordinatesPercentage}%` }}></div></div>
 
                     <p><FormattedMessage id="counts.percentWithYear" values={{ percent: withYearPercentage }} /></p>
-                    <div css={css.progress}><div style={{ width: `${withYearPercentage}%` }}></div></div>
+                    <div css={styles.progress}><div style={{ width: `${withYearPercentage}%` }}></div></div>
 
                     <p><FormattedMessage id="counts.percentWithTaxonMatch" values={{ percent: withTaxonMatchPercentage }} /></p>
-                    <div css={css.progress}><div style={{ width: `${withTaxonMatchPercentage}%` }}></div></div>
+                    <div css={styles.progress}><div style={{ width: `${withTaxonMatchPercentage}%` }}></div></div>
                   </>}
                 </div>
               </div>
             </div>
 
-            {hasDna && <div css={css.testcard}>
-              <div css={css.testicon}>
+            {hasDna && <div css={styles.testcard}>
+              <div css={styles.testicon}>
                 <div><GiDna1 /></div>
               </div>
-              <div css={css.testcontent}>
+              <div css={styles.testcontent}>
                 <h5>Includes DNA</h5>
                 <p>There are records in this dataset that contain sequence data.</p>
               </div>
             </div>}
 
-            {labelAsEventDataset && <div css={css.testcard}>
-              <div css={css.testicon}>
+            {labelAsEventDataset && <div css={styles.testcard}>
+              <div css={styles.testicon}>
                 <div><MdGridOn /></div>
               </div>
-              <div css={css.testcontent}>
+              <div css={styles.testcontent}>
                 <h5>Contains sampling events</h5>
                 <p>This dataset contains sampling data. The details of how the sampling took place should be in a methodology section.</p>
               </div>
             </div>}
 
-            {isGridded && <div css={css.testcard}>
-              <div css={css.testicon}>
+            {isGridded && <div css={styles.testcard}>
+              <div css={styles.testicon}>
                 <div><MdGridOn /></div>
               </div>
-              <div css={css.testcontent}>
+              <div css={styles.testcontent}>
                 <h5>Gridded data</h5>
                 <p>Based on out analysis of the points it looks like this dataset contains gridden data.</p>
               </div>
             </div>}
           </div>}
         </div>
-        <nav css={css.sideBarNav({ theme })}>
+        <nav css={sharedStyles.sideBarNav({ theme })}>
           <div>
             <Toc refs={tocRefs} />
           </div>

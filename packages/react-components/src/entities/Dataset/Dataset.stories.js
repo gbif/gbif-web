@@ -12,7 +12,7 @@ export default {
 };
 
 
-export const Example = () => <Router initialEntries={[`/`]}>
+export const Example = () => <Router initialEntries={[`/project`]}>
   <QueryParamProvider ReactRouterRoute={Route}>
     <AddressBar style={{ position: 'sticky', top: 0, zIndex: 1000 }} />
     <div style={{ flex: '1 1 auto' }}></div>

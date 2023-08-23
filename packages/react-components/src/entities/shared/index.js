@@ -21,9 +21,9 @@ export function Card({ padded = true, ...props }) {
   </div>
 }
 
-export function CardHeader2(props) {
-  return <h2 css={h2Style} {...props} />
-}
+export const CardHeader2 = React.forwardRef((props, ref) => {
+  return <h2 ref={ref} css={h2Style} {...props} />
+});
 
 const paddedContent = css`
   padding: 24px 48px;

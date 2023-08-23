@@ -3,6 +3,7 @@ import { jsx } from '@emotion/react';
 import React, { useState } from 'react';
 import { Properties, HyperText, Button } from '../../../../components'
 import { FormattedMessage, FormattedDate } from "react-intl";
+import * as sharedStyles from '../../../shared/styles';
 
 const { Term: T, Value: V } = Properties;
 
@@ -25,8 +26,8 @@ export function Registration({
   const visibleIdentifiers = availableIdentifiers.length < 10 ? availableIdentifiers : availableIdentifiers.slice(0, threshold);
   const hasHidden = availableIdentifiers.length > visibleIdentifiers.length;
 
-  return <div style={{ paddingBottom: 12, marginBottom: 12 }}>
-    <Properties style={{ marginBottom: 12 }}>
+  return <div>
+    <Properties css={sharedStyles.cardProperties}>
       {created && <>
         <T><FormattedMessage id="dataset.registry.registrationDate" /></T>
         <V><FormattedDate value={created}

@@ -1,10 +1,15 @@
 import { css } from '@emotion/react';
 // import { focusStyle } from '../../style/shared';
 
-export const paper = ({ ...props }) => css`
+export const paper = ({ transparent, ...props }) => css`
   background: white;
   padding: 24px 48px;
   margin: 12px 0;
+  ${transparent ? '' : `
+    background: white;
+    border: 1px solid var(--paperBorderColor);
+    border-radius: var(--borderRadiusPx);
+  `}
 `;
 
 export const withSideBar = ({ ...props }) => css`

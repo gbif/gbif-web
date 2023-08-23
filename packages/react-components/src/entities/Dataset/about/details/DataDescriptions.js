@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { jsx, css } from '@emotion/react';
 import { Properties, Button, HyperText } from "../../../../components";
 import { FormattedMessage } from "react-intl";
+import * as sharedStyles from '../../../shared/styles';
 
 const { Term: T, Value: V } = Properties;
 

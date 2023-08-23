@@ -2,6 +2,7 @@ import { jsx } from "@emotion/react";
 import React, { useContext, useState } from "react";
 import { FormattedMessage, FormattedDate } from "react-intl";
 import { Properties, Accordion, HyperText } from "../../../../components";
+import * as sharedStyles from '../../../shared/styles';
 
 const { Term: T, Value: V } = Properties;
 

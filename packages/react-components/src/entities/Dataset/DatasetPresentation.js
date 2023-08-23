@@ -75,11 +75,11 @@ export function DatasetPresentation({
     tabs: ['EVENTS']
   };
 
-  return <>
+  return <div style={{minHeight: '80vh'}}>
     {hasTypeSearch && <DataHeader
       right={<div css={styles.headerIcons}>
         <Doi id={dataset.doi} />
-        
+
         {/* The idea is that these should provide information on how to cite, how to access by API and a general help about this page */}
         {/* <Button look="text"><MdFormatQuote /></Button>
         <Button look="text"><MdOutlineCode /></Button>
@@ -153,32 +153,38 @@ export function DatasetPresentation({
     <section>
       <Switch>
         <Route path={join(path, 'citations')}>
-          <div css={styles.proseWrapper({ theme })}>
+          {/* <div css={styles.proseWrapper({ theme })}> */}
+          <ContentWrapper>
             <Activity {...{ dataset }} />
-          </div>
+          </ContentWrapper>
+          {/* </div> */}
         </Route>
         <Route path={join(path, 'download')}>
-          <div css={styles.proseWrapper({ theme })}>
+          <ContentWrapper>
             <DownloadOptions {...{ data }} />
-          </div>
+          </ContentWrapper>
         </Route>
         <Route path={join(path, 'specimens')}>
-          <OccurrenceSearch config={config} style={{ margin: 'auto', maxWidth: 1000, minHeight: 'calc(90vh)' }}></OccurrenceSearch>
+          <ContentWrapper>
+            <OccurrenceSearch config={config} style={{ margin: 'auto', maxWidth: 1000, minHeight: 'calc(90vh)' }}></OccurrenceSearch>
+          </ContentWrapper>
         </Route>
         <Route path={join(path, 'events')}>
-          <EventSearch config={eventConfig} tabs={['EVENTS']} style={{ margin: '12px auto', maxWidth: 1350, minHeight: 'calc(90vh)' }}></EventSearch>
+          <ContentWrapper>
+            <EventSearch config={eventConfig} tabs={['EVENTS']} style={{ margin: '12px auto', maxWidth: 1350, minHeight: 'calc(90vh)' }}></EventSearch>
+          </ContentWrapper>
         </Route>
         <Route path={join(path, 'project')}>
-          <div css={styles.proseWrapper({ theme })}>
+          <ContentWrapper>
             <Project {...{ data }} />
-          </div>
+          </ContentWrapper>
         </Route>
         <Route path={path}>
-          <div css={styles.proseWrapper({ theme })}>
+          <ContentWrapper>
             <About {...{ data }} insights={insights} />
-          </div>
+          </ContentWrapper>
         </Route>
       </Switch>
     </section>
-  </>
+  </div>
 };

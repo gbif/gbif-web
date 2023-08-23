@@ -5,6 +5,7 @@ import { Properties, Button, HyperText } from "../../../../components";
 import ThemeContext from '../../../../style/themes/ThemeContext';
 import * as css from '../styles';
 import { FormattedMessage } from 'react-intl';
+import * as sharedStyles from '../../../shared/styles';
 
 const { Term: T, Value: V } = Properties;
 
@@ -26,7 +27,7 @@ function TaxonomicCoverage({coverage}) {
   const coverages = coverage.coverages.length < 10 ? coverage.coverages : coverage.coverages.slice(0,threshold);
   const hasHidden = coverage.coverages.length > coverages.length;
   
-  return <Properties>
+  return <Properties css={sharedStyles.cardProperties}>
     <T><FormattedMessage id="dataset.description" /></T>
     <V><HyperText text={coverage.description} /></V>
     

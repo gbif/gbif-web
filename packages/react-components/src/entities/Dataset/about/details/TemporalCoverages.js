@@ -2,6 +2,7 @@ import { jsx } from '@emotion/react';
 import React from "react";
 import { Properties } from "../../../../components";
 import { FormattedMessage, FormattedDate } from "react-intl";
+import * as sharedStyles from '../../../shared/styles';
 
 const { Term: T, Value: V } = Properties;
 
@@ -10,7 +11,7 @@ export function TemporalCoverages({
   ...props
 }) {
   return <>
-    <Properties>
+    <Properties css={sharedStyles.cardProperties}>
       {temporalCoverages.map((period, idx) => <TemporalCoverage period={period} key={idx} />)}
     </Properties>
   </>
