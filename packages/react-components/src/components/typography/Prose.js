@@ -85,6 +85,10 @@ export const h2 = (theme) => css`
   margin-block-start: 0.83em;
   margin-block-end: 0.83em;
   font-weight: 600;
+  @media (max-width: 800px) {
+    font-size: 24px;
+    line-height: 32px;
+  }
 `;
 
 export const h1 = (theme) => css`
@@ -92,6 +96,11 @@ export const h1 = (theme) => css`
   line-height: 48px;
   font-family: ${theme.headerFontFamily};
   font-weight: 600;
+  // make headline smaller on small devices
+  @media (max-width: 800px) {
+    font-size: 28px;
+    line-height: 36px;
+  }
 `;
 
 export const a = (theme) => css`

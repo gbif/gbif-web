@@ -36,6 +36,10 @@ export function SideBarCard({ children, ...props }) {
 
 const paddedContent = css`
   padding: 24px 48px;
+  // less padding on small devices
+  @media (max-width: 800px) {
+    padding: 24px 24px;
+  }
 `;
 
 export function GrSciCollMetadata({ entity, setPinState, isPinned, ...props }) {
