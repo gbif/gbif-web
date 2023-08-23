@@ -4,7 +4,7 @@ import React, { useContext, useState } from 'react';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import * as styles from './styles';
 import * as sharedStyles from '../../shared/styles';
-import { Prose, Properties, HyperText, Toc, ContactList, OccurrenceMap, ResourceSearchLink } from "../../../components";
+import { Prose, Properties, HyperText, Toc, ContactList, OccurrenceMap, ResourceSearchLink, Tag, Button } from "../../../components";
 import RouteContext from '../../../dataManagement/RouteContext';
 import { Images, ThumbnailMap, TaxonomicCoverages, GeographicCoverages, TemporalCoverages, Registration, BibliographicCitations, SamplingDescription, Citation } from './details';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
@@ -78,9 +78,24 @@ export function About({
           display: flex;
           flex-wrap: wrap;
           margin-top: 12px;
-          margin-bottom: -12px;
+          font-size: 15px;
         `}>
-          {citationArea}
+          {total > 0 && <ResourceSearchLink type="occurrenceSearch" queryString={`datasetKey=${dataset.key}`} discreet >
+            <Button look="primary" style={{ marginRight: 12 }}>
+              <OccurrenceIcon style={{marginRight: 12}}/> <FormattedMessage id="counts.nOccurrences" values={{ total }} />
+            </Button>
+          </ResourceSearchLink>}
+          
+          {totalTaxa?.count > 0 && <ResourceSearchLink type="speciesSearch" queryString={`origin=SOURCE&advanced=1&dataset_key=${dataset.key}`} discreet >
+            <Button look="primary" style={{ marginRight: 12 }}>
+              <MdPlaylistAddCheck style={{marginRight: 12}}/> <FormattedMessage id="counts.nTaxa" values={{ total: totalTaxa?.count }} />
+            </Button>
+          </ResourceSearchLink>}
+
+          {literatureSearch.documents.total > 0 && <Button as={Link} to={join(url, 'dashboard')} look="primary" style={{ marginRight: 12 }}>
+            <MdFormatQuote style={{marginRight: 12}}/> <FormattedMessage id="counts.nCitations" values={{ total: literatureSearch.documents.total }} />
+          </Button>}
+          {/* {citationArea}
           {total > 0 && <div css={styles.area}>
             <div css={styles.testcard}>
               <div css={styles.testicon}>
@@ -109,7 +124,7 @@ export function About({
                 </ResourceSearchLink>
               </div>
             </div>
-          </div>}
+          </div>} */}
 
         </div>}
 
