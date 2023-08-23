@@ -2,8 +2,12 @@
   "nResults": "{total, plural, one {# result} other {# results}}",
   "nOccurrences": "{total, plural, one {# occurrence} other {# occurrences}}",
   "nRecords": "{total, plural, one {# record} other {# records}}",
+  "nTaxa": "{total, plural, one {# taxon} other {# taxa}}",
   "nCitations": "{total, plural, one {# citation} other {# citations}}",
   "nSpecimensInGbif": "{total, plural, one {# specimen in GBIF} other {# specimens in GBIF}}",
+  "nNames": "{total, plural, one {# name} other {# names}}",
+  "nAcceptedNames": "{total, plural, one {# accepted name} other {# accepted names}}",
+  "nSynonyms": "{total, plural, one {# synonym} other {# synonyms}}",
   "inGbif": "{total, plural, one {# in GBIF} other {# in GBIF}}",
   "nSpecimens": "{total, plural, one {# specimen} other {# specimens}}",
   "nCollections": "{total, plural, one {# collection} other {# collections}}",
@@ -17,5 +21,7 @@
   "percentWithCoordinates": "{percent}% with coordinates",
   "percentWithYear": "{percent}% with year",
   "percentWithTaxonMatch": "{percent}% with taxon match",
-  "nResultsWithImages": "{total, plural, one {# result } other {# results}} with images\n"
+  "nResultsWithImages": "{total, plural, one {# result } other {# results}} with images\n",
+  "gbifOverlapPercent": "{percent}% overlap with GBIF Backbone",
+  "colOverlapPercent": "{percent}% overlap with Catalogue of Life"
 }
