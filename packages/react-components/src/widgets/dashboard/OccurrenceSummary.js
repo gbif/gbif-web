@@ -88,7 +88,7 @@ export function OccurrenceSummary({
           </tr>
           <tr>
             <td><FormattedMessage id="dashboard.yearRange" defaultMessage="Year range"/></td>
-            <td>{summary?.stats?.year ? <span><FormattedMessage id="intervals.description.between" values={{from: summary.stats.year.min, to: summary.stats.year.max}}/></span> : <FormattedMessage id="dashboard.noData" />}</td>
+            <td>{summary?.stats?.year?.min ? <span><FormattedMessage id="intervals.description.between" values={{from: summary.stats.year.min, to: summary.stats.year.max}}/></span> : <FormattedMessage id="dashboard.noData" />}</td>
           </tr>
         </tbody>
       </Table>
