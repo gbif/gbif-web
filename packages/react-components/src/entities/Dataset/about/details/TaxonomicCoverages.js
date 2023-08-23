@@ -19,7 +19,6 @@ export function TaxonomicCoverages({
 }
 
 function TaxonomicCoverage({coverage}) {
-  const theme = useContext(ThemeContext);
   // I really dislike "show all"-buttons that only show me one more item. Just show the damn item to begin with then. It is such a disappointing experience.
   // So instead we do: if less than 10 items then show them all. If above 10, then show 5 + expand button.
   // then it feels like you are rewarded for your action
