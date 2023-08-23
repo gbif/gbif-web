@@ -10,7 +10,7 @@ export const tags = ({ ...props }) => css`
   }
 `;
 
-export const tag = ({ type, ...props }) => css`
+export const tag = ({ type, outline, ...props }) => css`
   /* font-size: 85%;
   border-radius: 4px;
   padding: 3px 6px; */
@@ -26,7 +26,8 @@ export const tag = ({ type, ...props }) => css`
   padding-left: .75em;
   padding-right: .75em;
   white-space: nowrap;
-  ${types[type] ? types[type]({ props }) : null}  
+  ${types[type] ? types[type]({ props }) : null}
+  ${outline ? 'border: 1px solid var(--paperBorderColor)' : null}
 `;
 
 const types = {
