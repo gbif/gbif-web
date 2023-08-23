@@ -16,7 +16,7 @@ function query(query, { variables, client }, {name: queueName, concurrent = 1, i
   const variablesTooLongForGET = variables && encodeURIComponent(JSON.stringify(variables)).length > maxGETLength;
   // this is a bit silly. why serialize and then hash the object. would be cheaper to simply hash the serialized
   if (variablesTooLongForGET) {
-    queryParams.variablesId = hash(variables);
+    queryParams.variablesId = hash(JSON.parse(JSON.stringify(variables))); // it feels insane having to stringify and then parse again, but the  hash function cannot handle when multiple parts ot object reference the same object. E.g. no reuse. See https://github.com/puleos/object-hash/issues/78
   } else {
     queryParams.variables = JSON.stringify(variables);
   }
