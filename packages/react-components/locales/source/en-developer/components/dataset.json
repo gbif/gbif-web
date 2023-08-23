@@ -12,9 +12,7 @@
     "withCoordinates": "With coordinates",
     "withYear": "With year",
     "acceptedNames": "Accepted names",
-    "synonyms": "Synonyms",
-    "overlapWithNub": "Overlap with GBIF Backbone",
-    "overlapWithCol": "Overlap with Catalogue of Life"
+    "synonyms": "Synonyms"
   },
   "noStatsForMetadata": "No stats available for metadata only datasets",
   "viewArticle": "View article",

@@ -11,7 +11,7 @@ import { Link, useRouteMatch } from 'react-router-dom';
 import { join } from '../../../utils/util';
 import useBelow from '../../../utils/useBelow';
 
-import { MdFormatQuote, MdGridOn, MdPinDrop as OccurrenceIcon } from 'react-icons/md';
+import { MdFormatQuote, MdGridOn, MdPlaylistAddCheck, MdPinDrop as OccurrenceIcon } from 'react-icons/md';
 import { GiDna1 } from 'react-icons/gi';
 import { Dashboard } from './Dashboard';
 
@@ -32,7 +32,7 @@ export function About({
   const theme = useContext(ThemeContext);
   const routeContext = useContext(RouteContext);
   const [tocRefs, setTocRefs] = useState({})
-  const { dataset, occurrenceSearch, literatureSearch } = data;
+  const { dataset, occurrenceSearch, literatureSearch, totalTaxa, accepted, synonyms } = data;
   // collect all refs to headlines for the TOC, e.g. ref={node => { tocRefs["description"] = {node, index: 0}; }}
 
   const isGridded = dataset?.gridded?.[0]?.percent > 0.5; // threshold decided in https://github.com/gbif/gridded-datasets/issues/3
@@ -46,6 +46,11 @@ export function About({
   const withCoordinatesPercentage = asPercentage(withCoordinates / total);
   const withYearPercentage = asPercentage(withYear / total);
   const withTaxonMatchPercentage = asPercentage(withTaxonMatch / total);
+
+  const synonymsPercentage = asPercentage(synonyms.count / totalTaxa.count);
+  const acceptedPercentage = asPercentage(accepted.count / totalTaxa.count);
+  const gbifOverlap = dataset.metrics?.nubCoveragePct;
+  const colOverlap = dataset.metrics?.colCoveragePct;
 
   const withEventId = insights?.data?.unfiltered?.cardinality?.eventId;
   const labelAsEventDataset = dataset.type === 'SAMPLING_EVENT' || withEventId > 1 && withEventId / total < 0.99; // Threshold chosen somewhat randomly. The issue is that some datasets assign random unique eventIds to all their occurrences. Those aren't really event datasets, it is a misunderstanding.
@@ -75,6 +80,7 @@ export function About({
           display: flex;
           flex-wrap: wrap;
           margin-top: 12px;
+          margin-bottom: -12px;
         `}>
           {citationArea}
           {total > 0 && <div css={css.area}>
@@ -86,6 +92,21 @@ export function About({
                 <ResourceSearchLink type="occurrenceSearch" queryString={`datasetKey=${dataset.key}`} discreet >
                   <h5>
                     <FormattedMessage id="counts.nOccurrences" values={{ total }} />
+                  </h5>
+                </ResourceSearchLink>
+              </div>
+            </div>
+          </div>}
+
+          {totalTaxa?.count > 0 && <div css={css.area}>
+            <div css={css.testcard}>
+              <div css={css.testicon}>
+                <div><MdPlaylistAddCheck /></div>
+              </div>
+              <div css={css.testcontent}>
+                <ResourceSearchLink type="speciesSearch" queryString={`origin=SOURCE&advanced=1&dataset_key=${dataset.key}`} discreet >
+                  <h5>
+                    <FormattedMessage id="counts.nTaxa" values={{ total: totalTaxa?.count }} />
                   </h5>
                 </ResourceSearchLink>
               </div>
@@ -189,12 +210,46 @@ export function About({
       {!isBelowSidebar && <div css={css.sideBar({ theme })} style={{ margin: '0 0 0 12px' }}>
         <div>
           {citationArea}
+
+          {(dataset.type === 'CHECKLIST') && <div css={css.area}>
+            <div css={css.testcardWrapper}>
+              <div css={css.testcard}>
+                <div css={css.testicon}>
+                  <div><MdPlaylistAddCheck /></div>
+                </div>
+                <div css={css.testcontent}>
+                  <ResourceSearchLink type="occurrenceSearch" queryString={`datasetKey=${dataset.key}`} discreet >
+                    <h5>
+                      <FormattedMessage id="counts.nNames" values={{ total: totalTaxa.count }} />
+                    </h5>
+                  </ResourceSearchLink>
+                  <>
+                    <p><FormattedMessage id="counts.nAcceptedNames" values={{ total: accepted.count }} /></p>
+                    <div css={css.progress}><div style={{ width: `${acceptedPercentage}%` }}></div></div>
+
+                    <p><FormattedMessage id="counts.nSynonyms" values={{ total: synonyms.count }} /></p>
+                    <div css={css.progress}><div style={{ width: `${synonymsPercentage}%` }}></div></div>
+
+                    <p><FormattedMessage id="counts.gbifOverlapPercent" values={{ percent: gbifOverlap }} /></p>
+                    <div css={css.progress}><div style={{ width: `${gbifOverlap}%` }}></div></div>
+
+                    <p><FormattedMessage id="counts.colOverlapPercent" values={{ percent: colOverlap }} /></p>
+                    <div css={css.progress}><div style={{ width: `${colOverlap}%` }}></div></div>
+                  </>
+                </div>
+              </div>
+            </div>
+          </div>}
+
           {(total > 0 || dataset.type === 'OCCURRENCE') && <div css={css.area}>
             <div css={css.testcardWrapper}>
               {total > 0 && <ResourceSearchLink type="occurrenceSearch" queryString={`datasetKey=${dataset.key}&view=MAP`} discreet >
                 <ThumbnailMap dataset={dataset} />
               </ResourceSearchLink>}
               <div css={css.testcard}>
+                <div css={css.testicon}>
+                  <div><OccurrenceIcon /></div>
+                </div>
                 <div css={css.testcontent}>
                   <ResourceSearchLink type="occurrenceSearch" queryString={`datasetKey=${dataset.key}`} discreet >
                     <h5>

@@ -52,7 +52,7 @@ export function DatasetPresentation({
 
   if (loading || !data) return <PageLoader />
 
-  const { dataset, literatureSearch, occurrenceSearch, siteOccurrences, taxonSearch } = data;
+  const { dataset, literatureSearch, occurrenceSearch, siteOccurrences } = data;
 
   const rootPredicate = {
     "type": "equals",
@@ -78,7 +78,7 @@ export function DatasetPresentation({
   return <>
     {hasTypeSearch && <DataHeader
       right={<div css={styles.headerIcons}>
-        {!isBelowNarrow && <Doi id={dataset.doi} />}
+        <Doi id={dataset.doi} />
         
         {/* The idea is that these should provide information on how to cite, how to access by API and a general help about this page */}
         {/* <Button look="text"><MdFormatQuote /></Button>
@@ -121,12 +121,6 @@ export function DatasetPresentation({
             {/* {contactInfo?.country && <Location countryCode={contactInfo?.country} city={contactInfo.city} />} */}
             {/* <OccurrenceCount messageId="counts.nSpecimens" count={dataset.numberSpecimens} zeroMessage="grscicoll.unknownSize" />
             {hideSideBar && <GbifCount messageId="counts.nSpecimensInGbif" count={occurrenceSearch?.documents?.total} />} */}
-          </FeatureList>
-          <FeatureList css={css`margin-top: 8px;`}>
-            {taxonSearch.count > 0 && <GenericFeature>
-              <MdPlaylistAddCheck />
-              <span><FormattedNumber value={taxonSearch.count} /> accepted names</span>
-            </GenericFeature>}
           </FeatureList>
 
           {/* {collection.catalogUrl && <FeatureList css={css`margin-top: 8px;`}>

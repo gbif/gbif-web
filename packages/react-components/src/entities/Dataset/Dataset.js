@@ -151,7 +151,13 @@ query dataset($key: ID!, $predicate: Predicate, $sitePredicate: Predicate){
       total
     }
   }
-  taxonSearch(datasetKey: [$key], origin: [SOURCE], status: [ACCEPTED]){
+  totalTaxa: taxonSearch(datasetKey: [$key], origin: [SOURCE]){
+    count
+  }
+  accepted: taxonSearch(datasetKey: [$key], origin: [SOURCE], status: [ACCEPTED]){
+    count
+  }
+  synonyms: taxonSearch(datasetKey: [$key], origin: [SOURCE], status: [SYNONYM, HETEROTYPIC_SYNONYM, PROPARTE_SYNONYM, HOMOTYPIC_SYNONYM]){
     count
   }
   dataset(key: $key) {
@@ -164,6 +170,12 @@ query dataset($key: ID!, $predicate: Predicate, $sitePredicate: Predicate){
     duplicateOfDataset {
       key
       title
+    }
+    metrics {
+      colCoveragePct
+      nubCoveragePct
+      nubMatchingCount
+      colMatchingCount
     }
     pubDate
     description
