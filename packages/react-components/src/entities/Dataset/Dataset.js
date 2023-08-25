@@ -162,6 +162,9 @@ query dataset($key: ID!, $predicate: Predicate, $sitePredicate: Predicate){
   }
   dataset(key: $key) {
     key
+    checklistBankDataset {
+      key
+    }
     type
     title
     created

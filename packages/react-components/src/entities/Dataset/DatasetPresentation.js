@@ -1,7 +1,7 @@
 import { jsx, css } from '@emotion/react';
 import React, { useContext, useCallback, useState, useEffect } from 'react';
 import ThemeContext from '../../style/themes/ThemeContext';
-import { Prose, Tabs, Eyebrow, LicenseTag, Doi, Button, ResourceLink, ResourceSearchLink, Row, Col } from '../../components';
+import { Prose, Tabs, Eyebrow, LicenseTag, Doi, Button, ResourceLink, ResourceSearchLink, Row, Col, Tooltip } from '../../components';
 import OccurrenceSearch from '../../search/OccurrenceSearch/OccurrenceSearch';
 import EventSearch from '../../search/EventSearch/EventSearch';
 import { iconFeature } from '../../components/IconFeatures/styles';
@@ -23,7 +23,7 @@ import { MdDownload, MdOutlineCode, MdOutlineHelpOutline, MdKeyboardArrowLeft, M
 import { Switch, Route, useRouteMatch, Link } from 'react-router-dom';
 import RouteContext from '../../dataManagement/RouteContext';
 
-const { TabList, RouterTab } = Tabs;
+const { TabList, RouterTab, Tab } = Tabs;
 const { H1 } = Prose;
 export function DatasetPresentation({
   id,
@@ -143,6 +143,7 @@ export function DatasetPresentation({
         {/* <RouterTab to={join(url, 'metrics')} label="Metrics"/> */}
         {/* <RouterTab to={join(url, 'activity')} label="Activity" /> */}
         {literatureSearch.documents?.total > 0 && <RouterTab to={join(url, 'citations')} label={<FormattedMessage id="phrases.citations" />} />}
+        {dataset?.checklistBankDataset?.key && <Tab tabId="0" label="Checklist Bank"><Tooltip title={<FormattedMessage id="dataset.exploreInChecklistBank" defaultMessage="Explore taxonomy via Checklist Bank" />} placement="bottom"><a css={css`text-decoration: none; color: inherit!important;`} href={`https://checklistbank.org/dataset/gbif-${dataset.key}/classification`}>Taxonomy<MdLink /></a></Tooltip></Tab>}
         {/* <RouterTab to={join(url, 'specimens')} css={styles.tab({ theme, noData: occurrenceSearch?.documents?.total === 0 })} label="Occurrences" /> */}
         {/* <RouterTab to={join(url, 'events')} css={styles.tab({ theme, noData: occurrenceSearch?.documents?.total === 0 })} label="Events" /> */}
         {/* <RouterTab to={join(url, 'taxonomy')} label="Taxonomy"/> */}
