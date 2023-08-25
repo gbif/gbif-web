@@ -48,6 +48,16 @@ export function DownloadOptions({
         </div>
       </div>}
 
+      {dataset?.checklistBankDataset?.key && <div>
+        <div css={css.card({ theme })}>
+          <h4>Download from Checklist Bank</h4>
+          <div>
+            This archived comes to GBIF via Checklist Bank. Checklist Bank provides multiple download formats as well as options to filter checklists before downloading.
+          </div>
+          <Button as="a" appeance="outline" href={`${env.CHECKLIST_BANK_WEBSITE}/dataset/gbif-${dataset.key}/download`} rel="noopener noreferrer">Checklist Bank</Button>
+        </div>
+      </div>}
+
       {dwcAEndpoint && <div>
         <div css={css.card({ theme })}>
           <h4>Source archive</h4>
@@ -57,6 +67,7 @@ export function DownloadOptions({
           <Button as="a" appeance="outline" href={`${dwcAEndpoint.url}`} rel="noopener noreferrer">source archive</Button>
         </div>
       </div>}
+      
     </div>
     <div>
       <div style={{color: "#888"}}>
