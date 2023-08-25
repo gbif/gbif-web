@@ -12,6 +12,7 @@ import { DownloadOptions } from './DownloadOptions';
 import { FormattedMessage, FormattedNumber, FormattedDate } from 'react-intl';
 import { join } from '../../utils/util';
 import useBelow from '../../utils/useBelow';
+import env from '../../../.env.json';
 
 import { OccurrenceCount, Homepage, FeatureList, Location, GenericFeature, GbifCount } from '../../components/IconFeatures/IconFeatures';
 import { DataHeader, HeaderWrapper, ContentWrapper, Headline, DeletedMessage, ErrorMessage, HeaderInfoWrapper, HeaderInfoMain, HeaderInfoEdit } from '../shared/header';
@@ -143,7 +144,7 @@ export function DatasetPresentation({
         {/* <RouterTab to={join(url, 'metrics')} label="Metrics"/> */}
         {/* <RouterTab to={join(url, 'activity')} label="Activity" /> */}
         {literatureSearch.documents?.total > 0 && <RouterTab to={join(url, 'citations')} label={<FormattedMessage id="phrases.citations" />} />}
-        {dataset?.checklistBankDataset?.key && <Tab tabId="0" label="Checklist Bank"><Tooltip title={<FormattedMessage id="dataset.exploreInChecklistBank" defaultMessage="Explore taxonomy via Checklist Bank" />} placement="bottom"><a css={css`text-decoration: none; color: inherit!important;`} href={`https://checklistbank.org/dataset/gbif-${dataset.key}/classification`}>Taxonomy<MdLink /></a></Tooltip></Tab>}
+        {dataset?.checklistBankDataset?.key && <Tab tabId="0" label="Checklist Bank"><Tooltip title={<FormattedMessage id="dataset.exploreInChecklistBank" defaultMessage="Explore taxonomy via Checklist Bank" />} placement="bottom"><a css={css`text-decoration: none; color: inherit!important;`} href={`${env.CHECKLIST_BANK_WEBSITE}/dataset/gbif-${dataset.key}/classification`}>Taxonomy<MdLink /></a></Tooltip></Tab>}
         {/* <RouterTab to={join(url, 'specimens')} css={styles.tab({ theme, noData: occurrenceSearch?.documents?.total === 0 })} label="Occurrences" /> */}
         {/* <RouterTab to={join(url, 'events')} css={styles.tab({ theme, noData: occurrenceSearch?.documents?.total === 0 })} label="Events" /> */}
         {/* <RouterTab to={join(url, 'taxonomy')} label="Taxonomy"/> */}

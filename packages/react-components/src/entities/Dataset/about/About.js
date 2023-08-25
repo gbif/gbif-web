@@ -11,6 +11,7 @@ import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { join } from '../../../utils/util';
 import useBelow from '../../../utils/useBelow';
+import env from '../../../../.env.json';
 
 import { MdFormatQuote, MdGridOn, MdPlaylistAddCheck, MdPinDrop as OccurrenceIcon } from 'react-icons/md';
 import { GiDna1 } from 'react-icons/gi';
@@ -238,11 +239,11 @@ export function About({
                   <div><MdPlaylistAddCheck /></div>
                 </div>
                 <div css={styles.testcontent}>
-                  <ResourceSearchLink type="occurrenceSearch" queryString={`datasetKey=${dataset.key}`} discreet >
+                  <a href={`${env.CHECKLIST_BANK_WEBSITE}/dataset/gbif-${dataset.key}/imports`}>
                     <h5>
                       <FormattedMessage id="counts.nNames" values={{ total: totalTaxa.count }} />
                     </h5>
-                  </ResourceSearchLink>
+                  </a>
                   <>
                     <p><FormattedMessage id="counts.nAcceptedNames" values={{ total: accepted.count }} /></p>
                     <div css={styles.progress}><div style={{ width: `${acceptedPercentage}%` }}></div></div>
