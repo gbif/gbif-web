@@ -16,12 +16,14 @@ export const headerWrapper = css`
   font-size: 16px;
 `;
 
+const contentWidth = 1450;
+
 export const contentWrapper = css`
   margin: 0 auto;
-  width: 1350px;
+  width: ${contentWidth}px;
   max-width: 100%;
   padding: 12px 12px 0 12px;
-  margin-left: max(0px, calc((100vw - 1350px) / 2));
+  margin-left: max(0px, calc((100vw - ${contentWidth}px) / 2));
   @media (min-width: 1200px) {
     padding: 12px 36px 0 36px;
   }
@@ -72,6 +74,10 @@ export const withSideBar = ({ hasSidebar, ...props }) => css`
   display: grid;
   grid-template-columns: 1fr ${hasSidebar ? '350px' : ''};
   grid-column-gap: 12px;
+  // on smaller screen, then make sidebar a bit narrower
+  @media (max-width: 1200px) {
+    grid-template-columns: 1fr ${hasSidebar ? '300px' : ''};
+  }
 `;
 
 export const sideBarNav = ({ ...props }) => css`
