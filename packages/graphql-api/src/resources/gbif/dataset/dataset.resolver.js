@@ -42,6 +42,7 @@ export const Query = {
   dataset: (parent, { key }, { dataSources }) =>
     dataSources.datasetAPI.getDatasetByKey({ key }),
 };
+
 export const DatasetSearchStub = {
   dataset: ({ key }, args, { dataSources }) =>
     dataSources.datasetAPI.getDatasetByKey({ key }),
@@ -78,6 +79,7 @@ export const DatasetSearchStub = {
       .then((response) => response.documents.total);
   },
 };
+
 export const Dataset = {
   logInterfaceUrl: ({ key }) => {
     return `https://logs.gbif.org/app/kibana#/discover?_g=(refreshInterval:(display:Off,pause:!f,value:0),time:(from:now-7d,mode:quick,to:now))&_a=(columns:!(_source),index:AWyLao3iHCKcR6PFXuPR,interval:auto,query:(query_string:(analyze_wildcard:!t,query:'datasetKey:%22${key}%22')),sort:!('@timestamp',desc))`;
@@ -132,7 +134,19 @@ export const Dataset = {
   },
   description: ({ description }) => getHtml(description),
   purpose: ({ purpose }) => getHtml(purpose),
+  checklistBankDataset: ({ key }, args, { dataSources }) => {
+    return dataSources.datasetAPI.getFromChecklistBank({ key });
+  },
 };
+
+export const ChecklistBankDataset = {
+  import: ({ key }, args, { dataSources }) => {
+    const query = Object.keys(args).length > 0 ? args : undefined;
+    return dataSources.datasetAPI.getChecklistBankImport({ key, query })
+      .then(response => response?.[0]);
+  }
+};
+
 export const DatasetSearchResults = {
   // this looks odd. I'm not sure what is the best way, but I want to transfer the current query to the child, so that it can be used when asking for the individual facets
   facet: (parent) => ({

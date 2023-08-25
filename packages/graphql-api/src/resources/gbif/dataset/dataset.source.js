@@ -5,6 +5,7 @@ class DatasetAPI extends RESTDataSource {
   constructor(config) {
     super();
     this.baseURL = config.apiv1;
+    this.config = config;
   }
 
   willSendRequest(request) {
@@ -54,6 +55,19 @@ class DatasetAPI extends RESTDataSource {
   async getGridded({ key, query }) {
     return this.get(
       `/dataset/${key}/gridded`,
+      stringify(query, { indices: false }),
+    );
+  }
+
+  async getFromChecklistBank({ key }) {
+    return this.get(
+      `${this.config.checklistBank}/dataset/gbif-${key}.json`,
+    );
+  }
+
+  async getChecklistBankImport({ key, query = { state: 'finished', limit: 1 } }) {
+    return this.get(
+      `${this.config.checklistBank}/dataset/${key}/import`,
       stringify(query, { indices: false }),
     );
   }

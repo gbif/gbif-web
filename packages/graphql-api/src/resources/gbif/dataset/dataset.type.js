@@ -144,6 +144,11 @@ const typeDef = gql`
     Link to homepage with crawling logs.
     """
     logInterfaceUrl: String
+
+    """
+    Get the dataset as it looks like in checklist bank. Only available for checklists. And not for all of them.
+    """
+    checklistBankDataset: ChecklistBankDataset
   }
 
   type DatasetChecklistMetrics {
