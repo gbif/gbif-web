@@ -68,7 +68,7 @@ export function Registration({
           <Properties breakpoint={800} horizontal={false}>
             {urlEndpoints.map(endpoint => <React.Fragment key={endpoint.key}>
               <T><FormattedMessage id={`enums.endpointType.${endpoint.type}`} /></T>
-              <V><a>{endpoint.url} {endpoint.type}</a></V>
+              <V><HyperText text={endpoint.url} /></V>
             </React.Fragment>)}
           </Properties>
         </V>
