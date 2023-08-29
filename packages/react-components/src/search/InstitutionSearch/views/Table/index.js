@@ -10,8 +10,8 @@ import useBelow from '../../../../utils/useBelow';
 import SiteContext from '../../../../dataManagement/SiteContext';
 
 const QUERY = `
-query list($code: String, $q: String, $offset: Int, $limit: Int, $country: [Country], $fuzzyName: String, $city: String, $name: String, $active: Boolean, $numberSpecimens: String, , $displayOnNHCPortal: Boolean){
-  institutionSearch(code: $code, q: $q, limit: $limit, offset: $offset, country: $country, fuzzyName: $fuzzyName, city: $city, name: $name, active: $active, numberSpecimens: $numberSpecimens, displayOnNHCPortal: $displayOnNHCPortal) {
+query list($occurrenceCount: String, $code: String, $q: String, $offset: Int, $limit: Int, $country: [Country], $fuzzyName: String, $city: String, $name: String, $active: Boolean, $numberSpecimens: String, , $displayOnNHCPortal: Boolean){
+  institutionSearch(occurrenceCount: $occurrenceCount, code: $code, q: $q, limit: $limit, offset: $offset, country: $country, fuzzyName: $fuzzyName, city: $city, name: $name, active: $active, numberSpecimens: $numberSpecimens, displayOnNHCPortal: $displayOnNHCPortal) {
     count
     offset
     limit
@@ -21,6 +21,7 @@ query list($code: String, $q: String, $offset: Int, $limit: Int, $country: [Coun
       code
       active
       numberSpecimens
+      occurrenceCount
       address {
         city
         country
@@ -39,7 +40,6 @@ query list($code: String, $q: String, $offset: Int, $limit: Int, $country: [Coun
   institutionSearch(code: $code, q: $q, limit: $limit, offset: $offset, country: $country, fuzzyName: $fuzzyName, city: $city, name: $name, active: $active, numberSpecimens: $numberSpecimens, displayOnNHCPortal: $displayOnNHCPortal) {
     results {
       key
-      occurrenceCount
       collectionCount
     }
   }

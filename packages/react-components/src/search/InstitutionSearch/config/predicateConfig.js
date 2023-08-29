@@ -29,7 +29,14 @@ const filterConf = {
       v1: {
         supportedTypes: ['range', 'equals']
       }
-    }
+    },
+    specimensInGbif: {
+      singleValue: true,
+      defaultKey: 'occurrenceCount',
+      v1: {
+        supportedTypes: ['range', 'equals']
+      }
+    },
   }
 }
 

@@ -340,6 +340,26 @@ export const commonFilters = {
       }
     }
   },
+  specimensInGbif: {
+    type: 'NUMBER_RANGE',
+    config: {
+      std: {
+        filterHandle: 'specimensInGbif',
+        id2labelHandle: 'interval',
+        translations: {
+          count: 'filters.specimensInGbif.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.specimensInGbif.name',// translation path to a title for the popover and the button
+          description: 'filters.specimensInGbif.description', // translation path for the filter description
+        }
+      },
+      specific: {
+        placeholder: 'search.placeholders.range',
+        supportsExist: true,
+        singleSelect: true,
+        regex: /^((-)?[0-9]{0,12})(,)?((-)?[0-9]{0,12})$/
+      }
+    }
+  },
   basisOfRecord: {
     type: 'ENUM',
     config: {

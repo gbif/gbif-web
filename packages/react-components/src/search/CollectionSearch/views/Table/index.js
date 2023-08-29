@@ -6,8 +6,8 @@ import { ResourceLink } from '../../../../components';
 import { InlineFilterChip, LinkOption } from '../../../../widgets/Filter/utils/FilterChip';
 
 const QUERY = `
-query list($institution: [GUID], $code: String, $q: String, $offset: Int, $limit: Int, $country: [Country], $fuzzyName: String, $city: String, $name: String, $active: Boolean, $numberSpecimens: String, $displayOnNHCPortal: Boolean){
-  collectionSearch(institution: $institution, code: $code, q: $q, limit: $limit, offset: $offset, country: $country, fuzzyName: $fuzzyName, city: $city, name: $name, active: $active, numberSpecimens: $numberSpecimens, displayOnNHCPortal: $displayOnNHCPortal) {
+query list($occurrenceCount: String, $institution: [GUID], $code: String, $q: String, $offset: Int, $limit: Int, $country: [Country], $fuzzyName: String, $city: String, $name: String, $active: Boolean, $numberSpecimens: String, $displayOnNHCPortal: Boolean){
+  collectionSearch(occurrenceCount: $occurrenceCount, institution: $institution, code: $code, q: $q, limit: $limit, offset: $offset, country: $country, fuzzyName: $fuzzyName, city: $city, name: $name, active: $active, numberSpecimens: $numberSpecimens, displayOnNHCPortal: $displayOnNHCPortal) {
     count
     offset
     limit
@@ -17,6 +17,7 @@ query list($institution: [GUID], $code: String, $q: String, $offset: Int, $limit
       code
       active
       numberSpecimens
+      occurrenceCount
       address {
         city
         country
@@ -29,17 +30,6 @@ query list($institution: [GUID], $code: String, $q: String, $offset: Int, $limit
         key
         name
       }
-    }
-  }
-}
-`;
-
-const SLOW_QUERY = `
-query list($institution: [GUID], $code: String, $q: String, $offset: Int, $limit: Int, $country: [Country], $fuzzyName: String, $city: String, $name: String, $active: Boolean, $numberSpecimens: String, $displayOnNHCPortal: Boolean){
-  collectionSearch(institution: $institution, code: $code, q: $q, limit: $limit, offset: $offset, country: $country, fuzzyName: $fuzzyName, city: $city, name: $name, active: $active, numberSpecimens: $numberSpecimens, displayOnNHCPortal: $displayOnNHCPortal) {
-    results {
-      key
-      occurrenceCount
     }
   }
 }
@@ -147,7 +137,7 @@ function Table() {
   // const history = useHistory();
   const routeContext = useContext(RouteContext);
 
-  return <StandardSearchTable graphQuery={QUERY} slowQuery={SLOW_QUERY} resultKey='collectionSearch' defaultTableConfig={defaultTableConfig} />
+  return <StandardSearchTable graphQuery={QUERY} resultKey='collectionSearch' defaultTableConfig={defaultTableConfig} />
 }
 
 export default Table;

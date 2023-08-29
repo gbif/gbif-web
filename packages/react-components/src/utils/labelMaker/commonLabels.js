@@ -106,6 +106,10 @@ export const commonLabels = {
     type: 'CUSTOM',
     component: rangeOrEqualLabel('intervals.compactMeters')
   },
+  interval: {
+    type: 'CUSTOM',
+    component: rangeOrEqualLabel('intervals.compact')
+  },
   measurementOrFactCount: {
     type: 'CUSTOM',
     component: rangeOrEqualLabel('intervals.compact')

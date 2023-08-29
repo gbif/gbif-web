@@ -1,9 +1,9 @@
 export const filters = [
-  'q', 'institutionKeySingle', 'code', 'countrySingleGrSciColl', 'city', 'active', 'numberSpecimens'
+  'q', 'institutionKeySingle', 'code', 'countrySingleGrSciColl', 'city', 'active', 'numberSpecimens', 'specimensInGbif'
 ].sort();
 
 const highlighted = [
-  'q', 'institutionKeySingle', 'code', 'countrySingleGrSciColl', 'city', 'active'
+  'q', 'institutionKeySingle', 'code', 'countrySingleGrSciColl', 'city', 'active', 'specimensInGbif'
 ];
 
 export default { filters, included: filters, highlighted };
