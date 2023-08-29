@@ -88,9 +88,9 @@ export function Quality({
     <div>
       <SideBarProgressList>
         <li>
-          {institution?.numberSpecimens > 0 && <ProgressItem color="#4fd970" fraction={digitizedFraction} title="Digitized / total" subtleText style={{ marginBottom: 12 }} />}
-          {institution?.collections?.length > 0 && <ProgressItem color="#4fd970" fraction={collectionsWithDigitizedData / institution?.collections?.length} title="Collections with data in GBIF" subtleText style={{ marginBottom: 12 }} />}
-          <ProgressItem color="#4fd970"
+          {institution?.numberSpecimens > 0 && <ProgressItem fraction={digitizedFraction} title="Digitized / total" subtleText style={{ marginBottom: 12 }} />}
+          {institution?.collections?.length > 0 && <ProgressItem fraction={collectionsWithDigitizedData / institution?.collections?.length} title="Collections with data in GBIF" subtleText style={{ marginBottom: 12 }} />}
+          <ProgressItem 
             fraction={data?.big5?.documents?.total / totalOccurrences}
             title={<>
               <Tooltip title="What, where, when and who collected and identified are all filled.">
@@ -99,7 +99,7 @@ export function Quality({
             </>}
             subtleText style={{ marginBottom: 12 }}
           />
-          {institution?.numberSpecimens > 0 && <ProgressItem color="#4fd970" fraction={data?.withCollection?.documents?.total / totalOccurrences} title="In a collection" subtleText style={{ marginBottom: 12 }} />}
+          {institution?.numberSpecimens > 0 && <ProgressItem fraction={data?.withCollection?.documents?.total / totalOccurrences} title="In a collection" subtleText style={{ marginBottom: 12 }} />}
           {data?.withCode?.documents?.total > 0 && <ProgressItem color="#f15d29"
             fraction={data?.withCode?.documents?.total / totalOccurrences}
             title={<>
