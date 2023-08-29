@@ -15,7 +15,7 @@ import env from '../../../.env.json';
 import useBelow from '../../utils/useBelow';
 
 import { DataHeader, HeaderWrapper, ContentWrapper, Headline, DeletedMessage, ErrorMessage, HeaderInfoWrapper, HeaderInfoMain, HeaderInfoEdit } from '../shared/header';
-import { PageError, Page404, PageLoader } from '../shared';
+import { Page404, PageLoader } from '../shared';
 
 import { GrGithub as Github } from 'react-icons/gr';
 import { MdLink, MdOutlineScreenSearchDesktop as CatalogIcon } from 'react-icons/md';

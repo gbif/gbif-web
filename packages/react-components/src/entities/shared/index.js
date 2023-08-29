@@ -80,15 +80,6 @@ export function GrSciCollMetadata({ entity, setPinState, isPinned, ...props }) {
   </div>
 }
 
-export function PageError(props) {
-  return <div style={{ padding: '96px 48px', margin: Autocomplete, textAlign: 'center', minHeight: '80vh' }}>
-    <ErrorImage style={{ maxWidth: '100%', width: 280 }} />
-    <h2>500</h2>
-    <p style={{ color: 'var(--color300)' }}>Sorry, something went wrong.</p>
-    <Button>Back home</Button> <Button look="primaryOutline" onClick={() => location.reload()}>Refresh</Button>
-  </div>
-}
-
 export function Page404(props) {
   return <div style={{ padding: '96px 48px', margin: Autocomplete, textAlign: 'center', minHeight: '80vh' }}>
     <Error404Image style={{ maxWidth: '100%', width: 280 }} />

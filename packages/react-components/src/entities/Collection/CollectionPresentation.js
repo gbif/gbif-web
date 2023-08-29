@@ -14,7 +14,7 @@ import { GrGithub as Github } from 'react-icons/gr';
 import useBelow from '../../utils/useBelow';
 import { OccurrenceCount, Homepage, FeatureList, Location, GenericFeature, GbifCount } from '../../components/IconFeatures/IconFeatures';
 import { DataHeader, HeaderWrapper, ContentWrapper, Headline, DeletedMessage, ErrorMessage, HeaderInfoWrapper, HeaderInfoMain, HeaderInfoEdit } from '../shared/header';
-import { PageError, Page404, PageLoader } from '../shared';
+import { Page404, PageLoader } from '../shared';
 
 import env from '../../../.env.json';
 const { TabList, RouterTab, Tab } = Tabs;
