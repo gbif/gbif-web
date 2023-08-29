@@ -6,6 +6,8 @@ import * as css from './styles';
 import { Button, Message } from '../../../components';
 import LocaleContext from '../../../dataManagement/LocaleProvider/LocaleContext';
 import env from '../../../../.env.json';
+import { Card, CardHeader3 } from '../../shared';
+import { FormattedMessage } from 'react-intl';
 
 export function DownloadOptions({
   data,
@@ -31,48 +33,39 @@ export function DownloadOptions({
   return <div>
     <div css={css.options({ theme })}>
       {!!total && <div>
-        <div css={css.card({ theme })}>
-          <h4>GBIF annotated occurrence archive</h4>
+        <Card>
+          <CardHeader3><FormattedMessage id="dataset.processedOccurrences" /></CardHeader3>
           <div>
-            <p>
-              Download the occurrence records after GBIF processing. During processing, names, dates etc are normalised. The data is also enriched with information from other sources.
-            </p>
-            <p>
-              Be aware that an account is needed to download the content.
-            </p>
+            <Message id="dataset.processedOccurrencesDescription" />
           </div>
           <Button
             as="a"
             href={`${env.GBIF_ORG}/${localePrefix ? `${localePrefix}/` : ''}occurrence/download/request?predicate=${encodeURIComponent(JSON.stringify(fullPredicate))}#create`}
-            appearance="primary"><Message id="download.continueToGBIF" /></Button>
-        </div>
+            appearance="primary"><Message id="download.continueToGBIF" inline /></Button>
+        </Card>
       </div>}
 
       {dataset?.checklistBankDataset?.key && <div>
-        <div css={css.card({ theme })}>
-          <h4>Download from Checklist Bank</h4>
-          <div>
-            This archived comes to GBIF via Checklist Bank. Checklist Bank provides multiple download formats as well as options to filter checklists before downloading.
-          </div>
+        <Card>
+          <CardHeader3><FormattedMessage id="dataset.checklistBankDownload" /></CardHeader3>
+          <Message id="dataset.checklistBankDownloadDescription" />
           <Button as="a" appeance="outline" href={`${env.CHECKLIST_BANK_WEBSITE}/dataset/gbif-${dataset.key}/download`} rel="noopener noreferrer">Checklist Bank</Button>
-        </div>
+        </Card>
       </div>}
 
       {dwcAEndpoint && <div>
-        <div css={css.card({ theme })}>
-          <h4>Source archive</h4>
-          <div>
-            The source archive is the data as published to GBIF.
-          </div>
+        <Card>
+          <CardHeader3><FormattedMessage id="dataset.originalArchive" /></CardHeader3>
+          <Message id="dataset.originalArchiveDescription" />
           <Button as="a" appeance="outline" href={`${dwcAEndpoint.url}`} rel="noopener noreferrer">source archive</Button>
-        </div>
+        </Card>
       </div>}
       
     </div>
     <div>
       <div style={{color: "#888"}}>
         <p>
-          For diagnostics you might want to look at the EML record after normalisation. <a href={`${env.API_V1}/dataset/${dataset.key}/document`}>Download processed EML</a>
+          For diagnostics you might want to look at the EML record after normalisation. <a style={{color: 'inherit'}} href={`${env.API_V1}/dataset/${dataset.key}/document`}>Download processed EML</a>
         </p>
       </div>
     </div>

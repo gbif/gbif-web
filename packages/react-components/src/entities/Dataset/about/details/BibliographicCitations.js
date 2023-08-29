@@ -26,11 +26,9 @@ function BibiliographicCitation({ citation }) {
   const pattern = /^http(s)?:\/\/.+/;
   const match = citation.identifier ? citation.identifier.match(pattern) : null;
   return <li>
-    {citation.text && (
-      <div>
-        <HyperText text={citation.text} />
+    <div>
+        <HyperText text={citation?.text} fallback />
       </div>
-    )}
     {citation.identifier && match && <a href={citation.identifier}><FormattedMessage id="dataset.viewArticle" /></a>}
     {citation.identifier && !match && <><span style={{ color: '#888' }}><FormattedMessage id="phrases.identifier" />: </span><span>{citation.identifier}</span></>}
     {/* {citation.identifier && <a href={'https://scholar.google.com/scholar?q=' + encodeURIComponent(citation.text)}>Google Scholar</a>} */}

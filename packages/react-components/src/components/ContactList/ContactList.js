@@ -9,6 +9,7 @@ import { Properties } from '../Properties/Properties';
 import { Accordion } from '../Accordion/Accordion';
 import { HyperText } from '../HyperText/HyperText';
 import { FormattedMessage } from "react-intl";
+import { Unknown } from '../Message/Message';
 
 const { Term: T, Value: V } = Properties;
 
@@ -38,7 +39,7 @@ function Contact({ contact, ...props }) {
   const summary = <div css={styles.contactListItem({ theme })}>
     <div>
       <div>
-        <h4>{name || contact.organization}</h4>
+        <h4>{name || contact.organization || <Unknown />}</h4>
         {/* <div className="gb-discreet">{roles && Roles}</div> */}
       </div>
     </div>

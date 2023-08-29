@@ -2,7 +2,7 @@ export { MapThumbnail } from './MapThumnail';
 
 import { jsx, css } from '@emotion/react';
 import React from 'react';
-import { h2 as h2Style } from '../../components/typography/Prose';
+import { h2 as h2Style, h3 as h3Style } from '../../components/typography/Prose';
 import { Autocomplete, TextButton, Button, Skeleton, ResourceLink } from '../../components'
 import { MdPushPin } from 'react-icons/md';
 import { FormattedDate } from 'react-intl';
@@ -24,6 +24,10 @@ export function Card({ noPadding, ...props }) {
 
 export const CardHeader2 = React.forwardRef((props, ref) => {
   return <h2 ref={ref} css={h2Style} {...props} />
+});
+
+export const CardHeader3 = React.forwardRef((props, ref) => {
+  return <h3 ref={ref} css={h3Style} {...props} />
 });
 
 export function SideBarCard({ children, ...props }) {

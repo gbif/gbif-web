@@ -33,7 +33,7 @@ export { Prose } from './typography/Prose';
 export { Toc } from './Toc/Toc';
 export { useToc } from './Toc/useToc';
 export { AltmetricDonut } from './AltmetricDonut/AltmetricDonut';
-export { Message } from './Message/Message';
+export { Message, Unknown } from './Message/Message';
 export { ResourceLink, PublisherKeyLink, DatasetKeyLink, ResourceSearchLink, resourceAction } from './resourceLinks/resourceLinks';
 export { NavBar, NavItem } from './NavBar/NavBar';
 export { DataHeader } from './DataHeader/DataHeader';
