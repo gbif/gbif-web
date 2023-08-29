@@ -35,7 +35,7 @@ export function Description({
         <Card style={{ marginTop: 12, marginBottom: 24 }}>
           <CardHeader2><FormattedMessage id="grscicoll.description" deafultMessage="Description" /></CardHeader2>
           <Prose style={{ marginBottom: 24, maxWidth: '60em', fontSize: '16px' }}>
-            {collection.description && <HyperText text={collection.description} />}
+            {collection.description && <HyperText text={collection.description} sanitizeOptions={{ ALLOWED_TAGS: ['a', 'strong', 'em', 'p', 'h3', 'li', 'ul', 'ol'] }} />}
             {!collection.description && <EmptyValue />}
           </Prose>
           <Properties style={{ fontSize: 16, marginBottom: 12 }} breakpoint={800}>
