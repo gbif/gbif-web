@@ -333,7 +333,7 @@
   "personalCollection": {
     "name": "Personal collection",
     "count": "Personal collection",
-    "description": ""
+    "description": "Whether the collection is personal"
   },
   "datasetType": {
     "name": "Dataset type",
