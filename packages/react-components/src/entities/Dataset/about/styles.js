@@ -82,7 +82,7 @@ export const area = css`
   border: 1px solid var(--paperBorderColor);
 `;
 
-export const testcard = css`
+export const sidebarCard = css`
   padding: 12px;
   display: flex;
   /* box-shadow: 0 2px 3px 3px rgba(0,0,0,.02); */
@@ -91,7 +91,7 @@ export const testcard = css`
   border-radius: 4px; */
 `;
 
-export const testicon = css`
+export const sidebarIcon = css`
   flex: 0 0 auto;
   div {
     padding: 8px 0;
@@ -121,14 +121,14 @@ export const progress = css`
   margin-bottom: 12px;
 `;
 
-export const testcardWrapper = css`
+export const sidebarCardWrapper = css`
   img {
     width: 100%;
     border-radius: 4px 4px 0 0;
   }
 `;
 
-export const testcontent = css`
+export const sidebarCardContent = css`
   padding-left: 12px;
   flex: 1 1 auto;
   a {
