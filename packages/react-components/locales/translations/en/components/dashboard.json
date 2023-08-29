@@ -7,5 +7,6 @@
   "withCoordinates": "With coordinates",
   "withYear": "With year",
   "occurrences": "Occurrences",
-  "other": "Other"
+  "other": "Other",
+  "metricsFromGbifData": "These metrics are based on records shared via GBIF"
 }
