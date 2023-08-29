@@ -32,7 +32,7 @@ export function DataHeader({
 
     {hasLeftPart && <>
       <div style={{ flex: '0 0 auto', position: 'relative', margin: '0 12px', display: 'flex', alignItems: 'center' }}>
-        { showCatalogue && <CatalogueSelector label={catalogueLabel} availableCatalogues={availableCatalogues} /> }
+        { showCatalogue && <CatalogueSelector label={catalogueLabel} availableCatalogues={catalogues} /> }
         {left}
       </div>
       {children && <Separator />}
