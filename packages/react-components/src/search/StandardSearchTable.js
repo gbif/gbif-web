@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useCallback } from "react";
+import React, { useEffect, useContext, useCallback, useState } from "react";
 import { useUpdateEffect } from 'react-use';
 import { FilterContext } from '../widgets/Filter/state';
 import SearchContext from './SearchContext';
@@ -8,7 +8,7 @@ import { ResultsTable } from './ResultsTable';
 import { useQueryParam, NumberParam } from 'use-query-params';
 import merge from 'lodash/merge';
 
-function StandardSearchTable({graphQuery, slowQuery, resultKey, offsetName = 'offset', defaultTableConfig, ...props}) {
+function StandardSearchTable({graphQuery, slowQuery, resultKey, offsetName = 'offset', defaultTableConfig, exportTemplate = () => null, ...props}) {
   // const [offset, setOffset] = useUrlState({ param: 'offset', defaultValue: 0 });
   const [offset = 0, setOffset] = useQueryParam('from', NumberParam);
   const limit = 50;
@@ -16,16 +16,19 @@ function StandardSearchTable({graphQuery, slowQuery, resultKey, offsetName = 'of
   const { rootPredicate, predicateConfig } = useContext(SearchContext);
   const { data, error, loading, load } = useQuery(graphQuery, { lazyLoad: true, throwAllErrors: true, queryTag: 'table' });
   const { data: slowData, error: slowError, loading: slowLoading, load: slowLoad } = useQuery(slowQuery, { lazyLoad: true, queryTag: 'tableSlow' });
+  const [v1Filter, setv1Filter] = useState();
+  
 
   useEffect(() => {
     const { v1Filter, error } = filter2v1(currentFilterContext.filter, predicateConfig);
     const filter = { ...rootPredicate, ...v1Filter };
+    setv1Filter(filter);
     
     load({ keepDataWhileLoading: true, variables: { ...filter, limit, offset } });
     if (slowQuery) {
       slowLoad({ keepDataWhileLoading: false, variables: { ...filter, limit, offset } });
     }
-  }, [currentFilterContext.filterHash, rootPredicate, offset]);
+  }, [currentFilterContext.filterHash, rootPredicate, offset, setv1Filter]);
 
   // https://stackoverflow.com/questions/55075604/react-hooks-useeffect-only-on-update
   useUpdateEffect(() => {
@@ -68,6 +71,7 @@ function StandardSearchTable({graphQuery, slowQuery, resultKey, offsetName = 'of
       from={offset}
       total={total}
       defaultTableConfig={defaultTableConfig}
+      downloadAsTsvUrl={exportTemplate({filter: v1Filter})}
     />
   </>
 }

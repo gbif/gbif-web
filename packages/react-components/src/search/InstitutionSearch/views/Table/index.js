@@ -8,6 +8,8 @@ import Map from '../Map/Map';
 import { MdMap } from 'react-icons/md';
 import useBelow from '../../../../utils/useBelow';
 import SiteContext from '../../../../dataManagement/SiteContext';
+import queryString from 'query-string';
+import env from '../../../../../.env.json';
 
 const QUERY = `
 query list($occurrenceCount: String, $code: String, $q: String, $offset: Int, $limit: Int, $country: [Country], $fuzzyName: String, $city: String, $name: String, $active: Boolean, $numberSpecimens: String, , $displayOnNHCPortal: Boolean){
@@ -175,7 +177,14 @@ function Table() {
         <MdMap />
       </Button>
     </div>}
-    {tableView && <StandardSearchTable style={{ width: '50%', flex: '1 0 50%', marginRight: showMap && !noSplitPane ? 12 : 0 }} graphQuery={QUERY} slowQuery={SLOW_QUERY} resultKey='institutionSearch' defaultTableConfig={defaultTableConfig} />}
+    {tableView && <StandardSearchTable 
+      style={{ width: '50%', flex: '1 0 50%', marginRight: showMap && !noSplitPane ? 12 : 0 }} 
+      graphQuery={QUERY} 
+      slowQuery={SLOW_QUERY} 
+      resultKey='institutionSearch' 
+      defaultTableConfig={defaultTableConfig} 
+      exportTemplate={({filter}) => `${env.API_V1}/grscicoll/institution/export?format=TSV&${filter ? queryString.stringify(filter) : ''}`}
+      />}
     {mapVisible && <Map style={{ width: '50%', flex: '1 0 50%' }} />}
   </div>
 }

@@ -13,9 +13,10 @@ export const ResultsHeader = ({ children, total, loading, message, props }) => {
     color: ${theme.color500};
     font-size: 12px;
     margin: 0 0 4px 4px;
+    display: flex;
   `} {...props}>
     {showSkeleton && <Skeleton style={{ width: 100 }} />}
-    {!showSkeleton && <FormattedMessage id={message || "counts.nResults"} values={{ total }} />}
-    {children}
+    {!showSkeleton && <span><FormattedMessage id={message || "counts.nResults"} values={{ total }} /></span>}
+    {!showSkeleton && children}
   </div>
 }

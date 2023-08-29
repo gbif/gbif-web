@@ -3,10 +3,12 @@ import RouteContext from '../../../../dataManagement/RouteContext';
 import StandardSearchTable from '../../../StandardSearchTable';
 import { FormattedNumber } from 'react-intl';
 import { DatasetKeyLink } from '../../../../components';
+import queryString from 'query-string';
+import env from '../../../../../.env.json';
 
 const DATASET_LIST = `
-query list($endorsingNodeKey: [ID], $networkKey: [ID], $publishingOrg: [ID], $hostingOrg: [ID], $publishingCountry: [Country], $q: String, $offset: Int, $limit: Int, $type: [DatasetType], $subtype: [DatasetSubtype]){
-  datasetSearch(endorsingNodeKey:$endorsingNodeKey, networkKey:$networkKey, publishingOrg:$publishingOrg, hostingOrg: $hostingOrg, publishingCountry: $publishingCountry, q: $q, limit: $limit, offset: $offset, type: $type, subtype: $subtype) {
+query list($license: [License], $endorsingNodeKey: [ID], $networkKey: [ID], $publishingOrg: [ID], $hostingOrg: [ID], $publishingCountry: [Country], $q: String, $offset: Int, $limit: Int, $type: [DatasetType], $subtype: [DatasetSubtype]){
+  datasetSearch(license: $license, endorsingNodeKey:$endorsingNodeKey, networkKey:$networkKey, publishingOrg:$publishingOrg, hostingOrg: $hostingOrg, publishingCountry: $publishingCountry, q: $q, limit: $limit, offset: $offset, type: $type, subtype: $subtype) {
     count
     offset
     limit
@@ -84,7 +86,12 @@ const defaultTableConfig = {
 
 function Table() {
   const routeContext = useContext(RouteContext);
-  return <StandardSearchTable graphQuery={DATASET_LIST} resultKey='datasetSearch' defaultTableConfig={defaultTableConfig}/>
+  return <StandardSearchTable 
+    graphQuery={DATASET_LIST} 
+    resultKey='datasetSearch' 
+    defaultTableConfig={defaultTableConfig}
+    exportTemplate={({filter}) => `${env.API_V1}/dataset/search/export?format=TSV&${filter ? queryString.stringify(filter) : ''}`}
+    />
 }
 
 export default Table;

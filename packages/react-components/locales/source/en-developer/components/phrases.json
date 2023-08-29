@@ -14,5 +14,6 @@
   "citations": "Citations",
   "project": "Project",
   "license": "License",
+  "downloadAsTsv": "Download as TSV",
   "download": "Download"
 }
