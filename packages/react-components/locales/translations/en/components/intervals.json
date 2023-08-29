@@ -4,7 +4,8 @@
     "lte": "Less or equal {to}",
     "gt": "Greater than {from}",
     "gte": "Greater or equal {from}",
-    "e": "Equals {is}"
+    "e": "Equals {is}",
+    "between": "From {from} to {to}"
   },
   "compact": {
     "between": "{from} to {to}",

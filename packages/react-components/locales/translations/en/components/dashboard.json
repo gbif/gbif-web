@@ -1,3 +1,11 @@
 {
-  "noData": "No data"
+  "noData": "No data",
+  "occurrenceRecords": "Occurrence records",
+  "species": "Species",
+  "taxa": "Taxa",
+  "yearRange": "Year range",
+  "withCoordinates": "With coordinates",
+  "withYear": "With year",
+  "occurrences": "Occurrences",
+  "other": "Other"
 }

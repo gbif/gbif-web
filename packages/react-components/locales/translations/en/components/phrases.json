@@ -7,5 +7,12 @@
   "citeAs": "Please use this citation in publications",
   "deletedOnDate": "Deleted on {date}",
   "replacedBy": "Replaced by {newItem}",
-  "unknownDate": "Unknown date"
+  "showAll": "Show all",
+  "identifier": "Identifier",
+  "unknownDate": "Unknown date",
+  "about": "About",
+  "citations": "Citations",
+  "project": "Project",
+  "license": "Licence",
+  "download": "Download"
 }
