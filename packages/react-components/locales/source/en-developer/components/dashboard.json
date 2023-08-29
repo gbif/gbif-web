@@ -18,5 +18,6 @@
   "unknown": "Uknown",
   "iucnThreatStatus": "IUCN threat status",
   "iucnThreatStatusDescription": "Species that are near threatened or more vulnerable according to the Global IUCN Redlist",
+  "metricsFromGbifData": "These metrics are based on records shared via GBIF",
   "notVocabularyWarning": "Non-interpreted values - same concept might appear with different names."
 }

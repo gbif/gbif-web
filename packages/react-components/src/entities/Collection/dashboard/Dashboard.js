@@ -4,7 +4,9 @@ import { OccurrenceMap } from '../../../components';
 import * as charts from '../../../widgets/dashboard';
 import useBelow from '../../../utils/useBelow';
 import RouteContext from '../../../dataManagement/RouteContext';
-
+import { Card } from '../../shared';
+import { MdInfo } from 'react-icons/md';
+import { FormattedMessage } from 'react-intl';
 export function Dashboard({
   data = {},
   loading,
@@ -22,6 +24,9 @@ export function Dashboard({
   };
   const specimenSearchRoute = routeContext.collectionKeySpecimens.route.replace(':key', collection.key);
   return <div>
+    <Card noPadding style={{ padding: 12, marginBottom: 12 }}>
+      <FormattedMessage id="dashboard.metricsFromGbifData" />
+    </Card>
     <DashBoardLayout>
       <charts.OccurrenceSummary predicate={predicate} />
       <charts.DataQuality predicate={predicate} />
