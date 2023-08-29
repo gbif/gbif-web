@@ -83,7 +83,7 @@ export function GrSciCollMetadata({ entity, setPinState, isPinned, ...props }) {
 export function Page404(props) {
   return <div style={{ padding: '96px 48px', margin: Autocomplete, textAlign: 'center', minHeight: '80vh' }}>
     <Error404Image style={{ maxWidth: '100%', width: 280 }} />
-    <h2><FormattedMessage id="phrases.pageNotFound" /></h2>
+    <CardHeader2><FormattedMessage id="phrases.pageNotFound" /></CardHeader2>
     <p style={{ color: 'var(--color300)', marginBottom: 12 }}><FormattedMessage id="phrases.pageNotFoundDescription" /></p>
     <Button as="a" href="/"><FormattedMessage id="phrases.backHome" /></Button>
   </div>
