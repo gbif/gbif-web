@@ -8,11 +8,11 @@ export const iconFeature = ({...props}) => css`
   flex: 0 0 auto;
   align-items: flex-start;
   max-width: 100%;
-  svg {
+  >svg, >span:first-child {
     flex: 0 0 auto;
     height: 1.2em; // because that is our lineheight in root and we want this centered on the first line. We cannot siply center with flex, because we want it top aligned when there are multiple lines
   }
-  >span, >div {
+  >span:last-child, >div:last-child {
     margin: 0 0.75em;
   }
   a {

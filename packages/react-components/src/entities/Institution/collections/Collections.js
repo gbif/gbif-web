@@ -7,11 +7,11 @@ import * as styles from './styles';
 import { ResourceLink, Progress, Skeleton, Tooltip } from "../../../components";
 import { EmptyInboxIcon } from "../../../components/Icons/Icons";
 import sortBy from 'lodash/sortBy';
-import { MdSearch } from 'react-icons/md';
-import { ImDrawer2 } from 'react-icons/im';
 import { FormattedMessage } from 'react-intl';
 // import { FormattedMessage } from 'react-intl';
 import { Card, CardHeader2 } from '../../shared';
+import { FeatureList, GbifCount, GenericFeature } from '../../../components/IconFeatures/IconFeatures';
+import { MdOutlineScreenSearchDesktop as CatalogIcon } from 'react-icons/md';
 
 export function Collections({
   institution,
@@ -41,15 +41,22 @@ export function Collections({
             <article>
               <div css={styles.summary}>
                 <div>
-                  <Tooltip title={`Metadata richness: ${collection.richness}%`}>
-                    <div css={styles.progressCircular({ percent: collection.richness, size: '48px' })}></div>
-                  </Tooltip>
-                </div>
-                <div>
                   <ResourceLink discreet type="collectionKey" id={collection.key}>
                     <h3 css={styles.headline}>{collection.name} {!collection.active && <span css={css`font-style: italic; color: var(--color400);`}>Inactive</span>}</h3>
                   </ResourceLink>
-                  <div css={styles.comment}>Code: {collection.code}</div>
+                  <div css={styles.comment}>
+                    <div>Code: {collection.code}</div>
+                  </div>
+                </div>
+                <div>
+                  <Tooltip title={`Metadata richness: ${collection.richness}%`}>
+                    <div>
+                      <Progress css={styles.main} unknown={!collection.numberSpecimens} percent={collection.richness} style={{ height: 16, margin: 10 }} />
+                      <div css={styles.comment}>
+                        <FormattedMessage id="counts.metadataRichness" defaultMessage="Metadata" values={{ total: collection.richness }} />
+                      </div>
+                    </div>
+                  </Tooltip>
                 </div>
                 <div>
                   <Tooltip title={`Relative to institution size`}>
@@ -61,20 +68,16 @@ export function Collections({
                     </div>
                   </Tooltip>
                 </div>
-                <div>
-                  <Tooltip title={`Relative to collection size`}>
-                    <div>
-                      <Progress css={styles.main} unknown={!collection.numberSpecimens} percent={collection.occurrenceCount ? 100 * collection.occurrenceCount / collection.numberSpecimens : 0} style={{ height: 16, margin: 10 }} />
-                      <div css={styles.comment}>
-                        <FormattedMessage id="counts.inGbif" values={{ total: collection.occurrenceCount }} />
-                      </div>
-                    </div>
-                  </Tooltip>
-                </div>
               </div>
               <div css={css`margin-top: 24px; color: var(--color700);`}>
                 {collection.excerpt}
               </div>
+              <FeatureList css={css`margin-top: 8px;`}>
+                {collection.catalogUrl && <GenericFeature>
+                  <CatalogIcon /><span><a href={collection.catalogUrl}>Data catalog</a></span>
+                </GenericFeature>}
+                {collection.occurrenceCount > 0 && <GbifCount messageId="counts.nSpecimensInGbif" count={collection.occurrenceCount} />}
+              </FeatureList>
             </article>
           </Card>
         })}

@@ -12,7 +12,7 @@ export const comment = css`
 export const headline = css`
   margin: 10px 0;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 20px;
   ${main}
 `;
 
@@ -26,10 +26,6 @@ export const summary = ({ ...props }) => css`
   align-items: center;
   > div {
     &:first-of-type {
-      flex: 0 0 auto;
-      margin-right: 24px;
-    }
-    &:nth-of-type(2) {
       flex: 1 1 auto;
       text-align: start;
     }
