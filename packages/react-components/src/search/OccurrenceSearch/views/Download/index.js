@@ -51,7 +51,7 @@ function Download() {
     </div>
 
     {hasFreeTextSearch && <>
-      <h4 css={css.title({ theme })}><Message id="download.unsupported.title" /></h4>
+      <h4 css={css.title({ theme })}><Message inline id="download.unsupported.title" /></h4>
       <div css={css.description({ theme })}>
         <Message id="download.unsupported.description" />
       </div>
@@ -60,28 +60,22 @@ function Download() {
 
     {!hasFreeTextSearch && <>
       {err && <>
-        <h4 css={css.title({ theme })}><Message id="download.unsupported.title" /></h4>
+        <h4 css={css.title({ theme })}><Message inline id="download.unsupported.title" /></h4>
         <div css={css.description({ theme })}>
           <p><Message id="download.unsupported.error" /></p>
           {err.message}
         </div>
       </>}
       {!err && fullPredicate && <>
-        <h4 css={css.title({ theme })}><Message id="download.download" /></h4>
+        <h4 css={css.title({ theme })}><Message inline id="download.download" /></h4>
         <div css={css.description({ theme })}>
-          <Message allowNewLines id="download.redirectNotice"
-            values={{
-              p: chunks => <p>{chunks}</p>,
-              br: chunks => <><br />{chunks}</>,
-              icon: <svg />,
-            }}
-          />
+          <Message id="download.redirectNotice"/>
         </div>
         <Button
           as="a"
           href={`${env.GBIF_ORG}/${localePrefix ? `${localePrefix}/` : ''}occurrence/download/request?predicate=${encodeURIComponent(JSON.stringify(fullPredicate))}#create`}
           disabled={loading}
-          appearance="primary"><Message id="download.continueToGBIF" /></Button>
+          appearance="primary"><Message inline id="download.continueToGBIF" /></Button>
       </>}
     </>}
   </div>
