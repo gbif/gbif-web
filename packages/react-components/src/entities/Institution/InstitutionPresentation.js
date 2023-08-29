@@ -41,7 +41,7 @@ export function InstitutionPresentation({
         <Page404 />
       </>
     } else {
-      return <PageError />
+      throw new Error(error);
     }
   }
 

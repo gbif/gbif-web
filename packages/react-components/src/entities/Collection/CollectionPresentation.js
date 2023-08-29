@@ -32,11 +32,11 @@ export function CollectionPresentation({
   if (error) {
     if (error?.errorPaths?.collection?.status === 404) {
       return <>
-        <DataHeader searchType="collectionSearch" messageId="catalogues.collections" />
+        <DataHeader />
         <Page404 />
       </>
     } else {
-      return <PageError />
+      throw new Error(error);
     }
   }
 

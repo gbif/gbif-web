@@ -5,8 +5,9 @@ import React from 'react';
 import { h2 as h2Style, h3 as h3Style } from '../../components/typography/Prose';
 import { Autocomplete, TextButton, Button, Skeleton, ResourceLink } from '../../components'
 import { MdPushPin } from 'react-icons/md';
-import { FormattedDate } from 'react-intl';
+import { FormattedDate, FormattedMessage } from 'react-intl';
 import { ContentWrapper, HeaderWrapper } from './header';
+import { Error404Image, ErrorImage } from '../../components/Icons/Icons';
 // import { BrokenJar } from '../../components/Icons/Icons';
 
 export function Card({ noPadding, ...props }) {
@@ -81,7 +82,7 @@ export function GrSciCollMetadata({ entity, setPinState, isPinned, ...props }) {
 
 export function PageError(props) {
   return <div style={{ padding: '96px 48px', margin: Autocomplete, textAlign: 'center', minHeight: '80vh' }}>
-    <img src="http://localhost:4000/images/error500.svg" style={{ maxWidth: '100%', width: 280 }} />
+    <ErrorImage style={{ maxWidth: '100%', width: 280 }} />
     <h2>500</h2>
     <p style={{ color: 'var(--color300)' }}>Sorry, something went wrong.</p>
     <Button>Back home</Button> <Button look="primaryOutline" onClick={() => location.reload()}>Refresh</Button>
@@ -90,10 +91,10 @@ export function PageError(props) {
 
 export function Page404(props) {
   return <div style={{ padding: '96px 48px', margin: Autocomplete, textAlign: 'center', minHeight: '80vh' }}>
-    <img src="http://localhost:4000/images/error404.svg" style={{ maxWidth: '100%', width: 280 }} />
-    <h2>404</h2>
-    <p style={{ color: 'var(--color300)' }}>Sorry, the page you visited does not exist.</p>
-    <Button>Back home</Button>
+    <Error404Image style={{ maxWidth: '100%', width: 280 }} />
+    <h2><FormattedMessage id="phrases.pageNotFound" /></h2>
+    <p style={{ color: 'var(--color300)' }}><FormattedMessage id="phrases.pageNotFoundDescription" /></p>
+    <Button as="a" href="/"><FormattedMessage id="phrases.backHome" /></Button>
   </div>
 }
 

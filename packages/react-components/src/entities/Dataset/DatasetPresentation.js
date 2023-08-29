@@ -14,7 +14,7 @@ import env from '../../../.env.json';
 
 import { Homepage, FeatureList, GenericFeature } from '../../components/IconFeatures/IconFeatures';
 import { DataHeader, HeaderWrapper, ContentWrapper, Headline, DeletedMessage, ErrorMessage, HeaderInfoWrapper, HeaderInfoMain } from '../shared/header';
-import { PageError, Page404, PageLoader } from '../shared';
+import { Page404, PageLoader } from '../shared';
 
 import * as styles from './styles';
 import { MdPeople, MdLink } from 'react-icons/md';
@@ -36,11 +36,11 @@ export function DatasetPresentation({
   if (error) {
     if (error?.errorPaths?.dataset?.status === 404) {
       return <>
-        <DataHeader searchType="datasetSearch" messageId="catalogues.datasets" />
+        <DataHeader />
         <Page404 />
       </>
     } else {
-      return <PageError />
+      throw new Error(error);
     }
   }
 
