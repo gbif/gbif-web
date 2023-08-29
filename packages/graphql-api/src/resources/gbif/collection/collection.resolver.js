@@ -24,16 +24,17 @@ export default {
       if (typeof key === 'undefined') return null;
       return dataSources.institutionAPI.getInstitutionByKey({ key });
     },
-    occurrenceCount: ({ key }, args, { dataSources }) => {
-      if (typeof key === 'undefined') return null;
-      return dataSources.occurrenceAPI
-        .searchOccurrenceDocuments({
-          query: {
-            predicate: { type: 'equals', key: 'collectionKey', value: key },
-          },
-        })
-        .then((response) => response.total);
-    },
+    // This would fetch the updated number, but we have since added a batch job to update counts. Which is likely good enough
+    // occurrenceCount: ({ key }, args, { dataSources }) => {
+    //   if (typeof key === 'undefined') return null;
+    //   return dataSources.occurrenceAPI
+    //     .searchOccurrenceDocuments({
+    //       query: {
+    //         predicate: { type: 'equals', key: 'collectionKey', value: key },
+    //       },
+    //     })
+    //     .then((response) => response.total);
+    // },
     replacedByCollection: ({ replacedBy }, args, { dataSources }) => {
       if (!replacedBy) return null;
       return dataSources.collectionAPI.getCollectionByKey({ key: replacedBy });

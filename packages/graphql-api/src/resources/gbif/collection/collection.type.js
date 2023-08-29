@@ -16,6 +16,7 @@ const typeDef = gql`
       alternativeCode: String
       active: Boolean
       numberSpecimens: String
+      occurrenceCount: String
       displayOnNHCPortal: Boolean
       ): CollectionSearchResults
     collection(key: String!): Collection

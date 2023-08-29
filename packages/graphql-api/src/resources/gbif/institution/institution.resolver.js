@@ -31,16 +31,17 @@ export default {
         key: replacedBy,
       });
     },
-    occurrenceCount: ({ key }, args, { dataSources }) => {
-      if (!key) return null;
-      return dataSources.occurrenceAPI
-        .searchOccurrenceDocuments({
-          query: {
-            predicate: { type: 'equals', key: 'institutionKey', value: key },
-          },
-        })
-        .then((response) => response.total);
-    },
+    // this has since been added to the API as a regularly updated field.
+    // occurrenceCount: ({ key }, args, { dataSources }) => {
+    //   if (!key) return null;
+    //   return dataSources.occurrenceAPI
+    //     .searchOccurrenceDocuments({
+    //       query: {
+    //         predicate: { type: 'equals', key: 'institutionKey', value: key },
+    //       },
+    //     })
+    //     .then((response) => response.total);
+    // },
     // someField: ({ fieldWithKey: key }, args, { dataSources }) => {
     //   if (typeof key === 'undefined') return null;
     //   dataSources.someAPI.getSomethingByKey({ key })
