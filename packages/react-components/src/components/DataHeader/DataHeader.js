@@ -25,9 +25,8 @@ export function DataHeader({
 
   const hasLeftPart = left || catalogueLabel || showCatalogue;
   // if there is nothing configured, then do not show at all
-  if (!hasLeftPart && !children && !right) return null;
+  // if (!hasLeftPart && !children && !right) return null;
 
-  const { classNames } = getClasses(theme.prefix, 'dataHeader', {/*modifiers goes here*/ }, className);
   return <Div css={styles.dataHeader({ theme })} {...props}>
 
     {hasLeftPart && <>

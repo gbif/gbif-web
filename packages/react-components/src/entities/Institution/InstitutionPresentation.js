@@ -79,7 +79,7 @@ export function InstitutionPresentation({
 Relating to ${env.GBIF_REGISTRY}/institution/${institution.key}
   `;
   return <>
-    <DataHeader searchType="institutionSearch" messageId="catalogues.institutions" />
+    <DataHeader />
     <HeaderWrapper>
       <Eyebrow prefix="Institution code" suffix={institution.code} />
       <Headline css={css`display: inline; margin-right: 12px;`} badge={institution.active ? null : 'Inactive'}>{institution.name}</Headline>
