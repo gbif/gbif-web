@@ -330,6 +330,11 @@
     "count": "Active",
     "description": "Whether or not the institution or collection is still active"
   },
+  "personalCollection": {
+    "name": "Personal collection",
+    "count": "Personal collection",
+    "description": "Whether or not the collections is personal"
+  },
   "datasetType": {
     "name": "Dataset type",
     "count": "{num, plural, one { Dataset type } other {# Dataset types}}",

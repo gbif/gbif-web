@@ -6,8 +6,8 @@ import { ResourceLink } from '../../../../components';
 import { InlineFilterChip, LinkOption } from '../../../../widgets/Filter/utils/FilterChip';
 
 const QUERY = `
-query list($occurrenceCount: String, $institution: [GUID], $code: String, $q: String, $offset: Int, $limit: Int, $country: [Country], $fuzzyName: String, $city: String, $name: String, $active: Boolean, $numberSpecimens: String, $displayOnNHCPortal: Boolean){
-  collectionSearch(occurrenceCount: $occurrenceCount, institution: $institution, code: $code, q: $q, limit: $limit, offset: $offset, country: $country, fuzzyName: $fuzzyName, city: $city, name: $name, active: $active, numberSpecimens: $numberSpecimens, displayOnNHCPortal: $displayOnNHCPortal) {
+query list($personalCollection: Boolean, $occurrenceCount: String, $institution: [GUID], $code: String, $q: String, $offset: Int, $limit: Int, $country: [Country], $fuzzyName: String, $city: String, $name: String, $active: Boolean, $numberSpecimens: String, $displayOnNHCPortal: Boolean){
+  collectionSearch(personalCollection: $personalCollection, occurrenceCount: $occurrenceCount, institution: $institution, code: $code, q: $q, limit: $limit, offset: $offset, country: $country, fuzzyName: $fuzzyName, city: $city, name: $name, active: $active, numberSpecimens: $numberSpecimens, displayOnNHCPortal: $displayOnNHCPortal) {
     count
     offset
     limit
