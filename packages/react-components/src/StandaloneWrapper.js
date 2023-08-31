@@ -38,7 +38,7 @@ function StandaloneWrapper({
     theme = lightTheme,
     locale = 'en',
     messages,
-    routeConfig: routes
+    routes
   } = siteConfig;
 
   const routeConfig = _merge({}, defaultContext, (routes || {}));
