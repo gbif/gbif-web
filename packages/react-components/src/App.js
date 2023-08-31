@@ -55,17 +55,17 @@ function Standalone(props) {
     <Route
       exact
       path={routeContext.publisherSearch.route}
-      render={routeProps => <PublisherSearch pageLayout config={props?.siteConfig?.dataset} {...props} {...routeProps} />}
+      render={routeProps => <PublisherSearch pageLayout config={props?.siteConfig?.publisher} {...props} {...routeProps} />}
     />
     <Route
       exact
       path={routeContext.literatureSearch.route}
-      render={routeProps => <LiteratureSearch pageLayout config={props?.siteConfig?.dataset} {...props} {...routeProps} />}
+      render={routeProps => <LiteratureSearch pageLayout config={props?.siteConfig?.literature} {...props} {...routeProps} />}
     />
     <Route
       exact
       path={routeContext.occurrenceSearch.route}
-      render={routeProps => <OccurrenceSearch pageLayout config={props?.siteConfig?.dataset} {...props} {...routeProps} />}
+      render={routeProps => <OccurrenceSearch pageLayout config={props?.siteConfig?.occurrence} {...props} {...routeProps} />}
     />
     <Route
       path='/'
