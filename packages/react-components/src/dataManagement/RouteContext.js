@@ -1,21 +1,26 @@
 import React from 'react';
 const gbifOrg = 'https://www.gbif.org';
 
+// no matter if it is a plain a-tag link or a react-router link, we need to know how to contruct the url
+// and we need to know how to construct the route
+// and finally we need to know if it is a react-router link or not
 export const defaultContext = {
   occurrenceSearch: {
     url: ({route, queryString, basename}) => `${basename ? `/${basename}` : ''}${route}${queryString ? `?${queryString}` : ''}`,
+    gbifUrl: ({route, queryString}) => `${gbifOrg}/occurrence/search${queryString ? `?${queryString}` : ''}`,
     route: '/occurrence/search',
-    isHref: true,
+    isHref: false,
   },
   collectionKey: {
-    // url: ({key}) => `/collection/${key}`,
-    url: ({key}) => `${gbifOrg}/grscicoll/collection/${key}`,
-    isHref: true,
+    url: ({key}) => `/collection/${key}`,
+    gbifUrl: ({key}) => `${gbifOrg}/grscicoll/collection/${key}`,
+    isHref: false,
     route: '/collection/:key'
   },
   collectionSearch: {
     url: ({queryString, basename}) => `${basename ? `/${basename}` : ''}/collection/search`,
-    isHref: true,
+    gbifUrl: ({route, queryString}) => `${gbifOrg}/grscicoll/collection/search${queryString ? `?${queryString}` : ''}`,
+    isHref: false,
     route: '/collection/search'
   },
   collectionKeySpecimens: {
@@ -25,14 +30,15 @@ export const defaultContext = {
   },
   collectionKeyDashboard: {
     url: ({key}) => `/collection/${key}/specimens`,
+    gbifUrl: ({key}) => `${gbifOrg}/grscicoll/collection/${key}/metrics`,
     isHref: false,
     route: '/collection/:key/dashboard'
   },
 
   institutionKey: {
-    // url: ({key}) => `/institution/${key}`,
-    url: ({key}) => `${gbifOrg}/grscicoll/institution/${key}`,
-    isHref: true,
+    url: ({key}) => `/institution/${key}`,
+    gbifUrl: ({key}) => `${gbifOrg}/grscicoll/institution/${key}`,
+    isHref: false,
     route: '/institution/:key'
   },
   institutionKeySpecimens: {
@@ -47,37 +53,55 @@ export const defaultContext = {
   },
   institutionSearch: {
     url: ({queryString, basename}) => `${basename ? `/${basename}` : ''}/institution/search`,
-    isHref: true,
+    gbifUrl: ({route, queryString}) => `${gbifOrg}/grscicoll/institution/search${queryString ? `?${queryString}` : ''}`,
+    isHref: false,
     route: '/institution/search'
   },
 
   datasetKey: {
-    // url: ({key}) => `/dataset/${key}`,
-    url: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/dataset/${key}`,
-    isHref: true,
+    url: ({key}) => `/dataset/${key}`,
+    gbifUrl: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/dataset/${key}`,
+    isHref: false,
     route: '/dataset/:key'
   },
+  // datasetKey: {
+  //   isHref: true,
+  //   url: ({ key }) => `/dataset/${key}`,
+  //   route: '/dataset/:key'
+  // },
+  // datasetCitations: {
+  //   route: '/dataset/:key/citations',
+  //   url: ({ key }) => `/dataset/${key}/citations`
+  // },
+  // datasetDownload: {
+  //   route: '/dataset/:key/download',
+  //   url: ({ key }) => `/dataset/${key}/download`
+  // },
   datasetSearch: {
     url: ({queryString, basename}) => `${basename ? `/${basename}` : ''}/dataset/search`,
-    isHref: true,
+    gbifUrl: ({route, queryString}) => `${gbifOrg}/dataset/search${queryString ? `?${queryString}` : ''}`,
+    isHref: false,
     route: '/dataset/search'
   },
 
   publisherKey: {
     // url: ({key}) => `/publisher/${key}`,
     url: ({key}) => `${gbifOrg}/publisher/${key}`,
+    gbifUrl: ({key}) => `${gbifOrg}/publisher/${key}`,
     isHref: true,
     route: '/publisher/:key'
   },
   publisherSearch: {
     url: ({queryString, basename}) => `${basename ? `/${basename}` : ''}/publisher/search`,
-    isHref: true,
+    gbifUrl: ({route, queryString}) => `${gbifOrg}/publisher/search${queryString ? `?${queryString}` : ''}`,
+    isHref: false,
     route: '/publisher/search'
   },
 
   literatureSearch: {
     url: ({queryString, basename}) => `${basename ? `/${basename}` : ''}/literature/search`,
-    isHref: true,
+    gbifUrl: ({route, queryString}) => `${gbifOrg}/resource/search?contentType=literature&${queryString ? `${queryString}` : ''}`,
+    isHref: false,
     route: '/literature/search'
   },
 

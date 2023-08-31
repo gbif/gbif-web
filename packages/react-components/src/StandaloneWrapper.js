@@ -11,7 +11,7 @@ import { ApiContext, ApiClient } from './dataManagement/api';
 import RouteContext, { defaultContext } from './dataManagement/RouteContext';
 import SiteContext from './dataManagement/SiteContext';
 import env from '../.env.json';
-import {GraphQLContextProvider} from "./dataManagement/api/GraphQLContext";
+import { GraphQLContextProvider } from "./dataManagement/api/GraphQLContext";
 
 const client = new ApiClient({
   gql: {
@@ -30,21 +30,24 @@ const client = new ApiClient({
 
 function StandaloneWrapper({
   siteConfig = {},
+  router,
+  id,
   ...props
 }) {
-  const { 
+  const {
     theme = lightTheme,
     locale = 'en',
     messages,
-    routes
-   } = siteConfig;
+    routeConfig: routes
+  } = siteConfig;
 
   const routeConfig = _merge({}, defaultContext, (routes || {}));
   const basename = _get(routeConfig, 'basename');
+  const SelectedRouter = router ?? Router;
   const root = <Root id="application" appRoot>
-    <Router {...props} basename={basename}>
+    <SelectedRouter {...props} basename={basename}>
       <QueryParamProvider ReactRouterRoute={Route} {...props} />
-    </Router>
+    </SelectedRouter>
   </Root>;
 
   return (
@@ -53,11 +56,10 @@ function StandaloneWrapper({
         <GraphQLContextProvider value={{}}>
           <LocaleProvider locale={locale} messages={messages}>
             <ThemeContext.Provider value={theme}>
-              {routes && <RouteContext.Provider value={routeConfig}>
+              {<RouteContext.Provider value={routeConfig}>
                 {root}
               </RouteContext.Provider>}
-              {!routes && root}
-              <div style={{zIndex: 10000, position: 'fixed'}}>
+              <div style={{ zIndex: 10000, position: 'fixed' }}>
                 <ToastContainer position="bottom-center" delay={3000} />
               </div>
             </ThemeContext.Provider>

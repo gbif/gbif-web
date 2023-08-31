@@ -12,9 +12,9 @@ export default {
 };
 
 
-export const Example = () => <Router initialEntries={[`/project`]}>
+export const Example = () => <Router initialEntries={[`/download`]}>
   <QueryParamProvider ReactRouterRoute={Route}>
-    <AddressBar style={{ position: 'sticky', top: 0, zIndex: 1000 }} />
+    {/* <AddressBar style={{ position: 'sticky', top: 0, zIndex: 1000 }} /> */}
     <div style={{ flex: '1 1 auto' }}></div>
     {/* Crustacea */}
     {/* <Dataset id="1d1393bd-7edd-46fe-a224-ac8ff8e38402" /> */}
@@ -48,13 +48,14 @@ Example.story = {
 };
 
 const siteConfig = {
-  // locale: 'es',
-  // messages: {
-  //   'dataset.longType.OCCURRENCE': 'TEsT'
-  // },
-  // occurrence: {
-  //   rootPredicate: { type: 'equals', key: 'country', value: 'DE' }
-  // }
+  locale: 'es',
+  availableCatalogues: ['DATASET', 'OCCURRENCE'],
+  messages: {
+    'dataset.longType.OCCURRENCE': 'TEsT'
+  },
+  occurrence: {
+    rootPredicate: { type: 'equals', key: 'country', value: 'DE' }
+  }
 };
 
 export const StandaloneExample = () => <Standalone siteConfig={siteConfig} id="83e20573-f7dd-4852-9159-21566e1e691e"></Standalone>;

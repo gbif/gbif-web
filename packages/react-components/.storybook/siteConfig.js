@@ -1,4 +1,5 @@
 import env from '../.env.json';
+const gbifOrg = 'https://www.gbif.org';
 
 const routeConfig = {
   occurrenceSearch: {
@@ -8,6 +9,12 @@ const routeConfig = {
     // url: ({route, queryString, basename}) => `${basename ? `/${basename}` : ''}${route}${queryString ? `?${queryString}` : ''}`,
     isHref: true,
     route: '/occurrence/search',
+  },
+
+  speciesSearch: {
+    url: ({ queryString }) => `${gbifOrg}/species/search?${queryString}`,
+    isHref: true,
+    route: '/species/search',
   },
 
   collectionKey: {
@@ -27,12 +34,12 @@ const routeConfig = {
   },
   collectionKeySpecimens: {
     // url: ({ key }) => `/collection/${key}/specimens`
-    url: ({route, queryString, basename, key}) => `${basename ? `/${basename}` : ''}/collection/${key}/specimens${queryString ? `?${queryString}` : ''}`,
+    url: ({ route, queryString, basename, key }) => `${basename ? `/${basename}` : ''}/collection/${key}/specimens${queryString ? `?${queryString}` : ''}`,
     route: '/specimens',
   },
   collectionKeyDashboard: {
     // url: ({ key }) => `/collection/${key}/specimens`
-    url: ({route, queryString, basename, key}) => `${basename ? `/${basename}` : ''}/collection/${key}/specimens${queryString ? `?${queryString}` : ''}`,
+    url: ({ route, queryString, basename, key }) => `${basename ? `/${basename}` : ''}/collection/${key}/specimens${queryString ? `?${queryString}` : ''}`,
     route: '/dashboard',
   },
 
@@ -40,14 +47,15 @@ const routeConfig = {
     isHref: true,
     url: ({ key }) => {
       return `/?path=/story/entities-institution-page--example&knob-institutionUUID=${key}`;
-    }
+    },
+    route: '/institution/:key',
   },
   institutionKeySpecimens: {
-    url: ({key}) => `/specimens`,
+    url: ({ key }) => `/specimens`,
     isHref: false,
   },
   institutionKeyCollections: {
-    url: ({key}) => `/collections`,
+    url: ({ key }) => `/collections`,
     isHref: false,
   },
   institutionSearch: {
@@ -67,6 +75,14 @@ const routeConfig = {
       return `/?path=/story/entities-dataset-page--example&knob-Choose%20Direction=ltr&knob-Choose%20locale=en-DK&knob-datasetUUID=${key}`;
     },
     route: '/'
+  },
+  datasetCitations: {
+    route: '/dataset/:key/citations',
+    url: ({ key }) => `/dataset/${key}/citations`
+  },
+  datasetDownload: {
+    route: '/dataset/:key/download',
+    url: ({ key }) => `/dataset/${key}/download`
   },
   datasetSearch: {
     // url: () => `/dataset-search/`,
@@ -106,12 +122,12 @@ const routeConfig = {
   eventKey: {
     // url: ({key}) => `/publisher/${key}`,
     // url: ({key, otherIds}) => `${gbifOrg}/dataset/${otherIds.datasetKey}/event/${key}`,
-    url: ({key, otherIds}) => `https://collections.ala.org.au/public/showDataResource/${otherIds.datasetKey}?event=${key}`,
+    url: ({ key, otherIds }) => `https://collections.ala.org.au/public/showDataResource/${otherIds.datasetKey}?event=${key}`,
     isHref: true,
     route: '/event/:key'
   },
   eventSearch: {
-    url: ({queryString, basename}) => `${basename ? `/${basename}` : ''}/event/search`,
+    url: ({ queryString, basename }) => `${basename ? `/${basename}` : ''}/event/search`,
     isHref: true,
     route: '/publisher/search'
   },
@@ -122,7 +138,7 @@ const routeConfig = {
   },
   networkKey: {
     isHref: true,
-    url: ({key}) => `${env.GBIF_ORG}/network/${key}`,
+    url: ({ key }) => `${env.GBIF_ORG}/network/${key}`,
     route: '/'
   },
 };

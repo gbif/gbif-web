@@ -10,6 +10,7 @@ export const defaultContext = {
   collection: {},
   publisher: {},
   apiKeys: {},
+  availableCatalogues: ['OCCURRENCE', 'DATASET', 'PUBLISHER', 'LITERATURE', 'COLLECTION', 'INSTITUTION'],
   maps: {
     defaultProjection: 'MERCATOR',
     defaultMapStyle: 'NATURAL',
