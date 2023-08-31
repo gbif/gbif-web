@@ -11,10 +11,12 @@ export const ResourceSearchLink = React.forwardRef(({ queryString, type, discree
     console.warn(`No such route: ${type}`)
     return null;
   }
+  const { alwaysUseHrefs = false } = routeContext;
   const { url, isHref, route } = routeContext[type];
   const to = url({ queryString, basename, route });
   const style = discreet ? isDiscreet : null;
-  if (isHref) {
+
+  if (alwaysUseHrefs || isHref) {
     return <a href={to} css={style} ref={ref} {...props} />
   } else {
     return <Link to={to} css={style} ref={ref} {...props} />
@@ -30,12 +32,14 @@ export const ResourceLink = React.forwardRef(({ id, type, otherIds, discreet, bo
 
   const basename = routeContext.basename;
   const gbifOrgLocale = localeContext?.localeMap?.gbif_org;
+  const { alwaysUseHrefs = false } = routeContext;
+
   const { url, isHref, route } = routeContext[type];
   const to = url({ key: id, otherIds, route, basename, gbifOrgLocalePrefix: gbifOrgLocale ? `/${gbifOrgLocale}` : '' });
   let style = isDiscreetLink;
   if (discreet) style = isDiscreet;
   if (bold) style = isBoldLink;
-  if (isHref) {
+  if (alwaysUseHrefs || isHref) {
     return <a href={to} css={style} {...props} />
   } else {
     return <Link to={to} css={style} {...props} />
@@ -45,6 +49,7 @@ export const ResourceLink = React.forwardRef(({ id, type, otherIds, discreet, bo
 export const resourceAction =  ({ id: key, type, history, localeSettings, routeContext, ...rest }) => {
   const basename = routeContext.basename;
   const gbifOrgLocale = localeSettings?.localeMap?.gbif_org;
+  const { alwaysUseHrefs = false } = routeContext;
   const { url, isHref, route } = routeContext[type];
   const gbifOrgLocalePrefix = gbifOrgLocale ? `/${gbifOrgLocale}` : '';
   const to = url({
@@ -56,7 +61,7 @@ export const resourceAction =  ({ id: key, type, history, localeSettings, routeC
     isHref,
     ...rest
   });
-  if (isHref) {
+  if (alwaysUseHrefs || isHref) {
     location.href = to;
   } else {
     history.push(to);

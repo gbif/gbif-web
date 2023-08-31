@@ -5,6 +5,7 @@ const gbifOrg = 'https://www.gbif.org';
 // and we need to know how to construct the route
 // and finally we need to know if it is a react-router link or not
 export const defaultContext = {
+  alwaysUseHrefs: false,
   occurrenceSearch: {
     url: ({route, queryString, basename}) => `${basename ? `/${basename}` : ''}${route}${queryString ? `?${queryString}` : ''}`,
     gbifUrl: ({route, queryString}) => `${gbifOrg}/occurrence/search${queryString ? `?${queryString}` : ''}`,
