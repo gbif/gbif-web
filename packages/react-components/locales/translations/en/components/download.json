@@ -3,6 +3,6 @@
   "unsupported.description": "Free text search can be used for exploration but does not have download support.",
   "unsupported.remove": "Remove filter",
   "download": "Download",
-  "redirectNotice": "You are about to download data and to do so, you will be redirected to GBIF.org. \n\n Be aware that an account is needed on GBIF.org to download the content.",
+  "redirectNotice": "You are about to download, to do so you will be redirected to GBIF.org. \n\n Be aware that an account is needed to download the content.",
   "continueToGBIF": "Continue"
 }

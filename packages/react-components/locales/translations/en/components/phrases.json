@@ -14,5 +14,9 @@
   "citations": "Citations",
   "project": "Project",
   "license": "Licence",
+  "downloadAsTsv": "Download as TSV",
+  "backHome": "Back home",
+  "pageNotFound": "404",
+  "pageNotFoundDescription": "Sorry, the page you visited does not exist.",
   "download": "Download"
 }

@@ -19,6 +19,11 @@
     "count": "{num, plural, one { specimen count } other {# Specimen counts filters}}",
     "description": "The number of held specimens stated in the description. This number does not reflect how many records have been digitized and shared."
   },
+  "specimensInGbif": {
+    "name": "Specimens in GBIF",
+    "count": "{num, plural, one { GBIF specimen count } other {# specimens in GBIF}}",
+    "description": "The number of held specimens shared with GBIF."
+  },
   "iucnRedListCategory": {
     "name": "",
     "count": "",
@@ -324,6 +329,11 @@
     "name": "Active",
     "count": "Active",
     "description": "Whether or not the institution or collection is still active"
+  },
+  "personalCollection": {
+    "name": "Personal collection",
+    "count": "Personal collection",
+    "description": "Whether the collection is personal"
   },
   "datasetType": {
     "name": "Dataset type",
