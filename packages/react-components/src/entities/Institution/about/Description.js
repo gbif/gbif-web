@@ -33,7 +33,7 @@ export function Description({
         <Card style={{ marginTop: 12, marginBottom: 24 }}>
           <CardHeader2><FormattedMessage id="grscicoll.description" deafultMessage="Description" /></CardHeader2>
           <Prose style={{ marginBottom: 24, maxWidth: '60em', fontSize: '16px' }}>
-            {institution.description && <HyperText text={institution.description} />}
+            {institution.description && <HyperText text={institution.description}  sanitizeOptions={{ ALLOWED_TAGS: ['a', 'strong', 'em', 'p', 'h3', 'li', 'ul', 'ol'] }} />}
             {!institution.description && <EmptyValue />}
           </Prose>
           <Properties style={{ fontSize: 16, marginBottom: 12 }} breakpoint={800}>

@@ -25,14 +25,13 @@ export function DataHeader({
 
   const hasLeftPart = left || catalogueLabel || showCatalogue;
   // if there is nothing configured, then do not show at all
-  if (!hasLeftPart && !children && !right) return null;
+  // if (!hasLeftPart && !children && !right) return null;
 
-  const { classNames } = getClasses(theme.prefix, 'dataHeader', {/*modifiers goes here*/ }, className);
   return <Div css={styles.dataHeader({ theme })} {...props}>
 
     {hasLeftPart && <>
       <div style={{ flex: '0 0 auto', position: 'relative', margin: '0 12px', display: 'flex', alignItems: 'center' }}>
-        { showCatalogue && <CatalogueSelector label={catalogueLabel} availableCatalogues={availableCatalogues} /> }
+        { showCatalogue && <CatalogueSelector label={catalogueLabel} availableCatalogues={catalogues} /> }
         {left}
       </div>
       {children && <Separator />}

@@ -57,11 +57,11 @@ export function About({
   const hasSamplingDescription = dataset?.samplingDescription?.studyExtent || dataset?.samplingDescription?.sampling || dataset?.samplingDescription?.qualityControl || (dataset?.samplingDescription?.methodSteps && dataset?.samplingDescription?.methodSteps?.length > 0);
 
   const citationArea = literatureSearch.documents.total > 0 ? <SideBarCard>
-    <div css={styles.testcard}>
-      <div css={styles.testicon}>
+    <div css={styles.sidebarCard}>
+      <div css={styles.sidebarIcon}>
         <div><MdFormatQuote /></div>
       </div>
-      <div css={styles.testcontent}>
+      <div css={styles.sidebarCardContent}>
         <h5>
           <Link to={join(url, 'citations')}>
             <FormattedMessage id="counts.nCitations" values={{ total: literatureSearch.documents.total }} />
@@ -98,11 +98,11 @@ export function About({
           </Button>}
           {/* {citationArea}
           {total > 0 && <div css={styles.area}>
-            <div css={styles.testcard}>
-              <div css={styles.testicon}>
+            <div css={styles.sidebarCard}>
+              <div css={styles.sidebarIcon}>
                 <div><OccurrenceIcon /></div>
               </div>
-              <div css={styles.testcontent}>
+              <div css={styles.sidebarCardContent}>
                 <ResourceSearchLink type="occurrenceSearch" queryString={`datasetKey=${dataset.key}`} discreet >
                   <h5>
                     <FormattedMessage id="counts.nOccurrences" values={{ total }} />
@@ -113,11 +113,11 @@ export function About({
           </div>}
 
           {totalTaxa?.count > 0 && <div css={styles.area}>
-            <div css={styles.testcard}>
-              <div css={styles.testicon}>
+            <div css={styles.sidebarCard}>
+              <div css={styles.sidebarIcon}>
                 <div><MdPlaylistAddCheck /></div>
               </div>
-              <div css={styles.testcontent}>
+              <div css={styles.sidebarCardContent}>
                 <ResourceSearchLink type="speciesSearch" queryString={`origin=SOURCE&advanced=1&dataset_key=${dataset.key}`} discreet >
                   <h5>
                     <FormattedMessage id="counts.nTaxa" values={{ total: totalTaxa?.count }} />
@@ -233,12 +233,12 @@ export function About({
           {citationArea}
 
           {(dataset.type === 'CHECKLIST') && <SideBarCard>
-            <div css={styles.testcardWrapper}>
-              <div css={styles.testcard}>
-                <div css={styles.testicon}>
+            <div css={styles.sidebarCardWrapper}>
+              <div css={styles.sidebarCard}>
+                <div css={styles.sidebarIcon}>
                   <div><MdPlaylistAddCheck /></div>
                 </div>
-                <div css={styles.testcontent}>
+                <div css={styles.sidebarCardContent}>
                   <a href={`${env.CHECKLIST_BANK_WEBSITE}/dataset/gbif-${dataset.key}/imports`}>
                     <h5>
                       <FormattedMessage id="counts.nNames" values={{ total: totalTaxa.count }} />
@@ -263,15 +263,15 @@ export function About({
           </SideBarCard>}
 
           {(total > 0 || dataset.type === 'OCCURRENCE') && <SideBarCard>
-            <div css={styles.testcardWrapper}>
+            <div css={styles.sidebarCardWrapper}>
               {total > 0 && <ResourceSearchLink type="occurrenceSearch" queryString={`datasetKey=${dataset.key}&view=MAP`} discreet >
                 <ThumbnailMap dataset={dataset} />
               </ResourceSearchLink>}
-              <div css={styles.testcard}>
-                <div css={styles.testicon}>
+              <div css={styles.sidebarCard}>
+                <div css={styles.sidebarIcon}>
                   <div><OccurrenceIcon /></div>
                 </div>
-                <div css={styles.testcontent}>
+                <div css={styles.sidebarCardContent}>
                   <ResourceSearchLink type="occurrenceSearch" queryString={`datasetKey=${dataset.key}`} discreet >
                     <h5>
                       <FormattedMessage id="counts.nOccurrences" values={{ total }} />
@@ -291,31 +291,31 @@ export function About({
               </div>
             </div>
 
-            {hasDna && <div css={styles.testcard}>
-              <div css={styles.testicon}>
+            {hasDna && <div css={styles.sidebarCard}>
+              <div css={styles.sidebarIcon}>
                 <div><GiDna1 /></div>
               </div>
-              <div css={styles.testcontent}>
+              <div css={styles.sidebarCardContent}>
                 <h5>Includes DNA</h5>
                 <p>There are records in this dataset that contain sequence data.</p>
               </div>
             </div>}
 
-            {labelAsEventDataset && <div css={styles.testcard}>
-              <div css={styles.testicon}>
+            {labelAsEventDataset && <div css={styles.sidebarCard}>
+              <div css={styles.sidebarIcon}>
                 <div><MdGridOn /></div>
               </div>
-              <div css={styles.testcontent}>
+              <div css={styles.sidebarCardContent}>
                 <h5>Contains sampling events</h5>
                 <p>This dataset contains sampling data. The details of how the sampling took place should be in a methodology section.</p>
               </div>
             </div>}
 
-            {isGridded && <div css={styles.testcard}>
-              <div css={styles.testicon}>
+            {isGridded && <div css={styles.sidebarCard}>
+              <div css={styles.sidebarIcon}>
                 <div><MdGridOn /></div>
               </div>
-              <div css={styles.testcontent}>
+              <div css={styles.sidebarCardContent}>
                 <h5>Gridded data</h5>
                 <p>Based on out analysis of the points it looks like this dataset contains gridden data.</p>
               </div>

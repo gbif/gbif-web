@@ -9,6 +9,7 @@ import Orcid from '../Orcid/Orcid';
 import Lsid from '../Lsid/Lsid';
 import BooleanValue from '../BooleanValue/BooleanValue'
 import { content } from './styles'
+import { Unknown } from '../Message/Message';
 
 const md = MarkdownIt({
   html: true,
@@ -59,12 +60,18 @@ const getDoi = (text) => {
   }
 }
 
-export const HyperText = ({ text, inline, sanitizeOptions = { ALLOWED_TAGS: ['a', 'strong', 'em', 'p', 'br'] }, ...props }) => {
+export const HyperText = ({ text, inline, sanitizeOptions = { ALLOWED_TAGS: ['a', 'strong', 'em', 'p', 'br'] }, fallback, ...props }) => {
   if (text === false || text === true) {
     return <BooleanValue value={text} {...props} />
   }
   if (typeof text === "undefined") {
+    if (fallback) {
+      return <Unknown id={fallback ?? 'phrases.notProvided'} />
+    }
     return null;
+  }
+  if (text === '' && fallback) {
+    return <Unknown id={typeof fallback === 'String' ? fallback : 'phrases.notProvided'} />
   }
   if (typeof text !== "string") {
     return <span {...props}>{text}</span>;

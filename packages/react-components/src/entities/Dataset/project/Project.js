@@ -3,7 +3,7 @@ import { jsx } from '@emotion/react';
 import React, { useContext, useState } from 'react';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import * as css from './styles';
-import { Prose, HyperText, Toc, ContactList } from "../../../components";
+import { Prose, HyperText, Toc, ContactList, Unknown } from "../../../components";
 import { FormattedMessage } from 'react-intl';
 import { Card, CardHeader2, SideBarCard } from '../../shared';
 import * as sharedStyles from '../../shared/styles';
@@ -28,9 +28,9 @@ export function Project({
     <div css={sharedStyles.withSideBar({ hasSidebar: !isBelowSidebar })}>
       <div>
         {(project.abstract || project.title) && <Card css={sharedStyles.cardMargins}>
-          <CardHeader2 ref={node => { tocRefs["abstract"] = node; }}>{project.title}</CardHeader2>
+          <CardHeader2 ref={node => { tocRefs["abstract"] = node; }}>{project.title ?? <Unknown id="phrases.notProvided" />}</CardHeader2>
           <Prose css={sharedStyles.cardProse}>
-            <HyperText text={project.abstract} />
+            <HyperText text={project.abstract} fallback />
           </Prose>
         </Card>}
         {project.studyAreaDescription && <Card css={sharedStyles.cardMargins}>

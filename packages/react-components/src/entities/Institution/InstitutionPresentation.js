@@ -15,7 +15,7 @@ import env from '../../../.env.json';
 import useBelow from '../../utils/useBelow';
 
 import { DataHeader, HeaderWrapper, ContentWrapper, Headline, DeletedMessage, ErrorMessage, HeaderInfoWrapper, HeaderInfoMain, HeaderInfoEdit } from '../shared/header';
-import { PageError, Page404, PageLoader } from '../shared';
+import { Page404, PageLoader } from '../shared';
 
 import { GrGithub as Github } from 'react-icons/gr';
 import { MdLink, MdOutlineScreenSearchDesktop as CatalogIcon } from 'react-icons/md';
@@ -41,7 +41,7 @@ export function InstitutionPresentation({
         <Page404 />
       </>
     } else {
-      return <PageError />
+      throw new Error(error);
     }
   }
 
@@ -79,7 +79,7 @@ export function InstitutionPresentation({
 Relating to ${env.GBIF_REGISTRY}/institution/${institution.key}
   `;
   return <>
-    <DataHeader searchType="institutionSearch" messageId="catalogues.institutions" />
+    <DataHeader />
     <HeaderWrapper>
       <Eyebrow prefix="Institution code" suffix={institution.code} />
       <Headline css={css`display: inline; margin-right: 12px;`} badge={institution.active ? null : 'Inactive'}>{institution.name}</Headline>

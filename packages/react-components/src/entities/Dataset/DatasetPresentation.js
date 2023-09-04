@@ -1,28 +1,24 @@
 import { jsx, css } from '@emotion/react';
-import React, { useContext, useCallback, useState, useEffect } from 'react';
-import ThemeContext from '../../style/themes/ThemeContext';
-import { Prose, Tabs, Eyebrow, LicenseTag, Doi, Button, ResourceLink, ResourceSearchLink, Row, Col, Tooltip } from '../../components';
+import React from 'react';
+import { Prose, Tabs, Eyebrow, LicenseTag, Doi, ResourceLink, Tooltip } from '../../components';
 import OccurrenceSearch from '../../search/OccurrenceSearch/OccurrenceSearch';
 import EventSearch from '../../search/EventSearch/EventSearch';
-import { iconFeature } from '../../components/IconFeatures/styles';
 import { About } from './about/About';
 import { Project } from './project/Project';
 import { Activity } from './activity/Activity';
 import { DownloadOptions } from './DownloadOptions';
-import { FormattedMessage, FormattedNumber, FormattedDate } from 'react-intl';
+import { FormattedMessage, FormattedDate } from 'react-intl';
 import { join } from '../../utils/util';
 import useBelow from '../../utils/useBelow';
 import env from '../../../.env.json';
 
-import { OccurrenceCount, Homepage, FeatureList, Location, GenericFeature, GbifCount } from '../../components/IconFeatures/IconFeatures';
-import { DataHeader, HeaderWrapper, ContentWrapper, Headline, DeletedMessage, ErrorMessage, HeaderInfoWrapper, HeaderInfoMain, HeaderInfoEdit } from '../shared/header';
-import { PageError, Page404, PageLoader } from '../shared';
+import { Homepage, FeatureList, GenericFeature } from '../../components/IconFeatures/IconFeatures';
+import { DataHeader, HeaderWrapper, ContentWrapper, Headline, DeletedMessage, ErrorMessage, HeaderInfoWrapper, HeaderInfoMain } from '../shared/header';
+import { Page404, PageLoader } from '../shared';
 
 import * as styles from './styles';
-import { MdDownload, MdOutlineCode, MdOutlineHelpOutline, MdKeyboardArrowLeft, MdLocationOn, MdPeople, MdLink, MdPlaylistAddCheck, MdStar, MdFormatQuote } from 'react-icons/md';
-
-import { Switch, Route, useRouteMatch, Link } from 'react-router-dom';
-import RouteContext from '../../dataManagement/RouteContext';
+import { MdPeople, MdLink } from 'react-icons/md';
+import { Switch, Route, useRouteMatch } from 'react-router-dom';
 
 const { TabList, RouterTab, Tab } = Tabs;
 const { H1 } = Prose;
@@ -36,18 +32,15 @@ export function DatasetPresentation({
 }) {
   const isBelowNarrow = useBelow(800);
   let { url, path } = useRouteMatch();
-  const theme = useContext(ThemeContext);
-  const routeContext = useContext(RouteContext);
-  const hasTypeSearch = routeContext?.datasetSearch?.disabled !== true;
 
   if (error) {
     if (error?.errorPaths?.dataset?.status === 404) {
       return <>
-        <DataHeader searchType="datasetSearch" messageId="catalogues.datasets" />
+        <DataHeader />
         <Page404 />
       </>
     } else {
-      return <PageError />
+      throw new Error(error);
     }
   }
 
@@ -77,7 +70,7 @@ export function DatasetPresentation({
   };
 
   return <div style={{minHeight: '80vh'}}>
-    {hasTypeSearch && <DataHeader
+    <DataHeader
       right={<div css={styles.headerIcons}>
         <Doi id={dataset.doi} />
 
@@ -87,7 +80,7 @@ export function DatasetPresentation({
         <Button look="text"><MdOutlineHelpOutline /></Button> */}
 
       </div>}
-    />}
+    />
 
     <HeaderWrapper>
       <Eyebrow prefix={<FormattedMessage id={`dataset.longType.${dataset.type}`} />} suffix={<FormattedMessage id="dataset.registeredDate" values={{ DATE: <FormattedDate value={dataset.created} year="numeric" month="long" day="2-digit" /> }} />} />

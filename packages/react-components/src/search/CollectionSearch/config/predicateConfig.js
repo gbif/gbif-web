@@ -28,6 +28,10 @@ const filterConf = {
       singleValue: true,
       transformValue: x => x === 'true'
     },
+    personalCollection: {
+      singleValue: true,
+      transformValue: x => x === 'true'
+    },
     numberSpecimens: {
       singleValue: true,
       v1: {

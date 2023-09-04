@@ -4,13 +4,14 @@ import { useQuery } from '../../dataManagement/api';
 import { InstitutionPresentation } from './InstitutionPresentation';
 import merge from 'lodash/merge';
 import { MemoryRouter, useRouteMatch } from 'react-router-dom';
+import { ErrorBoundary } from '../../components';
 
-function EnsureRouter({children}) {
+function EnsureRouter({ children }) {
   let hasRouter;
   try {
     const forTestOnly = useRouteMatch();
     hasRouter = true;
-  } catch(err) {
+  } catch (err) {
     console.log('No router context found, so creating a MemoryRouter for the component');
     hasRouter = false;
   }
@@ -44,7 +45,9 @@ export function Institution({
   let mergedData = data ? merge({}, data, slowData) : data;
 
   return <EnsureRouter>
-    <InstitutionPresentation {...{ data: mergedData, error, loading, id }} />
+    <ErrorBoundary>
+      <InstitutionPresentation {...{ data: mergedData, error, loading, id }} />
+    </ErrorBoundary>
   </EnsureRouter>
 };
 

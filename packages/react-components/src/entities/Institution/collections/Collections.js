@@ -51,7 +51,7 @@ export function Collections({
                 <div>
                   <Tooltip title={`Metadata richness: ${collection.richness}%`}>
                     <div>
-                      <Progress css={styles.main} unknown={!collection.numberSpecimens} percent={collection.richness} style={{ height: 16, margin: 10 }} />
+                      <Progress css={styles.main} percent={collection.richness} style={{ height: 16, margin: 10 }} />
                       <div css={styles.comment}>
                         <FormattedMessage id="counts.metadataRichness" defaultMessage="Metadata" values={{ total: collection.richness }} />
                       </div>

@@ -1,31 +1,22 @@
 
 import { jsx, css } from '@emotion/react';
-import React, { useContext } from 'react';
-import ThemeContext from '../../style/themes/ThemeContext';
+import React from 'react';
 import { Tabs, Eyebrow, ResourceLink, Button, Tooltip } from '../../components';
 import OccurrenceSearch from '../../search/OccurrenceSearch/OccurrenceSearch';
 import { Description as About } from './about/Description';
 // import { People } from './people/People';
 import { FormattedMessage } from 'react-intl';
 import { join } from '../../utils/util';
-
-import { tab as tabStyle } from './styles';
 import { MdLink, MdPeople, MdOutlineScreenSearchDesktop as CatalogIcon } from 'react-icons/md';
 import { Dashboard } from './dashboard/Dashboard';
-
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
-
-
-
 import { GrGithub as Github } from 'react-icons/gr';
-
 import useBelow from '../../utils/useBelow';
 import { OccurrenceCount, Homepage, FeatureList, Location, GenericFeature, GbifCount } from '../../components/IconFeatures/IconFeatures';
 import { DataHeader, HeaderWrapper, ContentWrapper, Headline, DeletedMessage, ErrorMessage, HeaderInfoWrapper, HeaderInfoMain, HeaderInfoEdit } from '../shared/header';
-import { PageError, Page404, PageLoader } from '../shared';
+import { Page404, PageLoader } from '../shared';
 
 import env from '../../../.env.json';
-import RouteContext from '../../dataManagement/RouteContext';
 const { TabList, RouterTab, Tab } = Tabs;
 
 export function CollectionPresentation({
@@ -37,24 +28,21 @@ export function CollectionPresentation({
 }) {
   const hideSideBar = useBelow(1100);
   let { url, path } = useRouteMatch();
-  const theme = useContext(ThemeContext);
-  const routeContext = useContext(RouteContext);
-  const hasCollectionSearch = routeContext?.collectionSearch?.disabled !== true;
 
   if (error) {
     if (error?.errorPaths?.collection?.status === 404) {
       return <>
-        <DataHeader searchType="collectionSearch" messageId="catalogues.collections" />
+        <DataHeader />
         <Page404 />
       </>
     } else {
-      return <PageError />
+      throw new Error(error);
     }
   }
 
   if (loading || !data) return <PageLoader />
   const { collection, occurrenceSearch } = data;
-  const recordedByCardinality = occurrenceSearch?.cardinality?.recordedBy;
+  // const recordedByCardinality = occurrenceSearch?.cardinality?.recordedBy;
 
   const rootPredicate = {
     "type": "equals",
@@ -74,7 +62,7 @@ export function CollectionPresentation({
   const contactInfo = collection?.address?.countryCode ? collection?.address : collection?.mailingAddress;
 
   const contacts = collection?.contactPersons.filter(x => x.firstName);
-  const hasNoPeople = !contacts.length && !recordedByCardinality;
+  // const hasNoPeople = !contacts.length && !recordedByCardinality;
 
   const feedbackTemplate = `Please provide you feedback here, but leave content below for context
 
@@ -83,7 +71,7 @@ Relating to ${env.GBIF_REGISTRY}/collection/${collection.key}
   `;
 
   return <>
-    {hasCollectionSearch && <DataHeader />}
+    <DataHeader />
 
     <HeaderWrapper>
       <Eyebrow prefix="Collection code" suffix={collection.code} />

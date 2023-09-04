@@ -1204,6 +1204,24 @@ export const commonFilters = {
       }
     }
   },
+  personalCollection: {
+    type: 'ENUM',
+    config: {
+      std: {
+        filterHandle: 'personalCollection',
+        id2labelHandle: 'yesNo',
+        translations: {
+          count: 'filters.personalCollection.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.personalCollection.name',// translation path to a title for the popover and the button
+          description: 'filters.personalCollection.description', // translation path for the filter description
+        }
+      },
+      specific: {
+        options: ['true', 'false'],
+        isRadio: true
+      }
+    }
+  },
   datasetType: {
     type: 'ENUM',
     config: {

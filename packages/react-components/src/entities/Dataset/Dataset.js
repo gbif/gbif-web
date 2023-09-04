@@ -6,6 +6,7 @@ import { useQuery } from '../../dataManagement/api';
 import { DatasetPresentation } from './DatasetPresentation';
 
 import { MemoryRouter, useRouteMatch } from 'react-router-dom';
+import { ErrorBoundary } from '../../components';
 
 function EnsureRouter({children}) {
   let hasRouter;
@@ -83,7 +84,9 @@ export function Dataset({
   }, [id]);
 
   return <EnsureRouter>
-    <DatasetPresentation {...{ data, error, loading: loading || !data, id }} insights={{data: insights, loading: insightsLoading, error: insightsError}} />
+    <ErrorBoundary>
+      <DatasetPresentation {...{ data, error, loading: loading || !data, id }} insights={{data: insights, loading: insightsLoading, error: insightsError}} />
+    </ErrorBoundary>
   </EnsureRouter>
 };
 

@@ -19,7 +19,7 @@ const fallbackTableConfig = {
   }]
 };
 
-export const ResultsTable = ({ first, prev, next, size, from, results, total, loading, defaultTableConfig = fallbackTableConfig, hideLock, style }) => {
+export const ResultsTable = ({ first, prev, next, size, from, results, total, loading, downloadAsTsvUrl, defaultTableConfig = fallbackTableConfig, hideLock, style }) => {
   const currentFilterContext = useContext(FilterContext);
   const { filters, tableConfig = defaultTableConfig, labelMap } = useContext(SearchContext);
   const [fixedColumn, setFixed] = useState(true && !hideLock);
@@ -55,7 +55,9 @@ export const ResultsTable = ({ first, prev, next, size, from, results, total, lo
       flexDirection: "column",
       ...style
     }}>
-      <ResultsHeader loading={loading} total={total} />
+      <ResultsHeader loading={loading} total={total}>
+        {downloadAsTsvUrl && <a href={downloadAsTsvUrl} style={{marginInlineStart: 8, color: 'inherit'}}><FormattedMessage id="phrases.downloadAsTsv" defaultMessage="Download as TSV" /></a>}
+      </ResultsHeader>
       <DataTable fixedColumn={fixed} {...{ first, prev, next, size, from, total, loading }} style={{ flex: "1 1 auto", height: 100, display: 'flex', flexDirection: 'column' }}>
         <thead>
           <tr>{headers}</tr>

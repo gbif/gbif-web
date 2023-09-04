@@ -15,6 +15,7 @@ const typeDef = gql`
       country: [Country]
       alternativeCode: String
       active: Boolean
+      personalCollection: Boolean
       numberSpecimens: String
       occurrenceCount: String
       displayOnNHCPortal: Boolean

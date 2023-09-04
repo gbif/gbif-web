@@ -5,6 +5,7 @@ import { useQuery } from '../../dataManagement/api';
 import { CollectionPresentation } from './CollectionPresentation';
 import merge from 'lodash/merge';
 import EnsureRouter from '../../EnsureRouter';
+import { ErrorBoundary } from '../../components';
 
 export function Collection({
   id,
@@ -34,7 +35,9 @@ export function Collection({
   let mergedData = data ? merge({}, data, slowData) : data;
 
   return <EnsureRouter>
-    <CollectionPresentation {...{ data: mergedData, error, loading: loading, id }} />
+    <ErrorBoundary>
+      <CollectionPresentation {...{ data: mergedData, error, loading: loading, id }} />
+    </ErrorBoundary>
   </EnsureRouter>
 };
 

@@ -4,6 +4,6 @@
   "unsupported.remove": "Remover filtro",
   "unsupported.error": "Esta consulta parece não ser suportada",
   "download": "Transferir",
-  "redirectNotice": "Está prestes a transferir os dados e para fazer isso, será redirecionado para GBIF.org. {br}{br} Tenha presente de que é necessária uma conta no GBIF.org para transferir o conteúdo.",
+  "redirectNotice": "Está prestes a transferir os dados e para fazer isso, será redirecionado para GBIF.org. \n\n Tenha presente de que é necessária uma conta no GBIF.org para transferir o conteúdo.",
   "continueToGBIF": "Continuar"
 }
