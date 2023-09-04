@@ -40,9 +40,7 @@ class TaxonMediaAPI extends RESTDataSource {
     // Append filter queries
     [
       '-typeStatus:*',
-      '-basisOfRecord:PreservedSpecimen',
       '-identificationQualifier:"Uncertain"',
-      'spatiallyValid:true',
       '-userAssertions:50001',
       '-userAssertions:50005',
       ...Object.entries(params?.filter || {}).map(
