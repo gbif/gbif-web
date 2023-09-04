@@ -52,10 +52,10 @@ const config = {
       field: 'id'
     },
     keywords: {
-      type: 'text',
-      field: 'keywords',
+      type: 'keyword',
+      field: 'keywords.keyword',
       get: {
-        type: 'fuzzy'
+        type: 'keyword'
       }
     },
     locale: {
