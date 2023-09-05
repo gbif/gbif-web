@@ -15,7 +15,10 @@ const queueOptions = {
   }
 };
 
-let literature, occurrence, eventOccurrence, dataset, event;
+let content, literature, occurrence, eventOccurrence, dataset, event;
+if (config.content) {
+  content = require('./resources/content');
+}
 if (config.literature) {
   literature = require('./resources/literature');
 }
@@ -76,6 +79,15 @@ const temporaryAuthMiddleware = function (req, res, next) {
 }
 // use per route instead
 // app.use(temporaryAuthMiddleware)
+
+if (content) {
+  app.post('/content/meta', asyncMiddleware(postMetaOnly(content)));
+  app.get('/content/meta', asyncMiddleware(getMetaOnly(content)));
+
+  app.post('/content', queue(queueOptions), asyncMiddleware(searchResource(content)));
+  app.get('/content', queue(queueOptions), asyncMiddleware(searchResource(content)));
+  app.get('/content/key/:id', asyncMiddleware(keyResource(content)));
+}
 
 if (literature) {
   app.post('/literature/meta', asyncMiddleware(postMetaOnly(literature)));
