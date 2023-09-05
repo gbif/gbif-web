@@ -5,7 +5,7 @@ import LocaleContext from '../../dataManagement/LocaleProvider/LocaleContext';
 import { Link, useHistory } from "react-router-dom";
 
 // a temporary fallback for sites that haven't added explicit configuration for what routes to include
-const fallbackRoutes = ['occurrenceSearch', 'institutionKey', 'institutionSearch', 'publisherSearch', 'collectionKey', 'collectionSearch', 'literature'];
+const fallbackRoutes = ['occurrenceSearch', 'institutionKey', 'institutionSearch', 'publisherSearch', 'collectionKey', 'collectionSearch', 'literatureSearch'];
 
 export const ResourceLink = React.forwardRef(({ id, type, queryString, otherIds, discreet, bold, localeContext: localeOverwrite, routeContext: routeOverwrite, ...props }, ref) => {
   const localeSettings = useContext(LocaleContext);
