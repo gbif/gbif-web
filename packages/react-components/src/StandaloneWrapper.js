@@ -38,10 +38,16 @@ function StandaloneWrapper({
     theme = lightTheme,
     locale = 'en',
     messages,
-    routes
+    routes = {}
   } = siteConfig;
 
-  const routeConfig = _merge({}, defaultContext, (routes || {}));
+  // a temporary fallback for sites that haven't added explicit configuration for what routes to include
+  // instead use the routes that have been explicitly configured
+  const fallbackRoutes = ['occurrenceSearch', 'institutionKey', 'institutionSearch', 'publisherSearch', 'collectionKey', 'collectionSearch', 'literatureSearch'];
+  const enabledRoutesFallback = Object.keys(routes).filter(key => fallbackRoutes.includes(key));
+  const routeConfig = _merge({}, defaultContext, routes);
+  routeConfig.enabledRoutes = routeConfig?.enabledRoutes ?? enabledRoutesFallback;
+
   const basename = _get(routeConfig, 'basename');
   const SelectedRouter = router ?? Router;
   const root = <Root id="application" appRoot>

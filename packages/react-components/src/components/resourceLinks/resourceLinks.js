@@ -4,9 +4,6 @@ import RouteContext from '../../dataManagement/RouteContext';
 import LocaleContext from '../../dataManagement/LocaleProvider/LocaleContext';
 import { Link, useHistory } from "react-router-dom";
 
-// a temporary fallback for sites that haven't added explicit configuration for what routes to include
-const fallbackRoutes = ['occurrenceSearch', 'institutionKey', 'institutionSearch', 'publisherSearch', 'collectionKey', 'collectionSearch', 'literatureSearch'];
-
 export const ResourceLink = React.forwardRef(({ id, type, queryString, otherIds, discreet, bold, localeContext: localeOverwrite, routeContext: routeOverwrite, ...props }, ref) => {
   const localeSettings = useContext(LocaleContext);
   const routeSettings = useContext(RouteContext);
@@ -21,17 +18,13 @@ export const ResourceLink = React.forwardRef(({ id, type, queryString, otherIds,
   }
 
   const gbifOrgLocale = localeContext?.localeMap?.gbif_org;
-  const { alwaysUseHrefs = false, enabledRoutes } = routeContext;
+  const { alwaysUseHrefs = false, enabledRoutes = [] } = routeContext;
   const { url, isHref, route, gbifUrl, parent } = routeContext[type];
-
-  // if no list of enabled routes, then look at those that have been explicitly configured and use those
-  // a temporary fallback for sites that haven't added explicit configuration for what routes to include
-  const enabledRoutesFallback = Object.keys(routeContext).filter(key => fallbackRoutes.includes(key));
 
   // check to see if the route is enabled or we should use GBIF routes
   const types = [type];
   if (parent) types.push(parent);
-  const intersection = (enabledRoutes ?? enabledRoutesFallback).filter(value => types.includes(value));
+  const intersection = enabledRoutes.filter(value => types.includes(value));
   const useGBIF = intersection.length === 0;
 
   const urlBuilder = useGBIF ? (gbifUrl ?? url) : (url ?? gbifUrl);
