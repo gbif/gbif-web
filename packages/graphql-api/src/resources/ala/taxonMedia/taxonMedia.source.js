@@ -74,6 +74,8 @@ class TaxonMediaAPI extends RESTDataSource {
           scientificName,
           speciesGroups,
           occurrenceDetails,
+          dataResourceUid,
+          dataResourceName,
           imageMetadata,
         }) => {
           return {
@@ -91,7 +93,8 @@ class TaxonMediaAPI extends RESTDataSource {
               imageMetadata.license?.includes('http') && imageMetadata.license,
             credit: imageMetadata.rights,
             creator: imageMetadata.creator,
-            // providerLiteral: null,
+            provider: dataResourceUid,
+            providerLiteral: dataResourceName,
             description: imageMetadata.description || occurrenceDetails,
             tag: speciesGroups.join(', '),
             createDate: imageMetadata.created,

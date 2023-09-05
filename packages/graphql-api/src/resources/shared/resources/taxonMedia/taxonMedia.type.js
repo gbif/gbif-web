@@ -19,6 +19,7 @@ const typeDef = gql`
     webStatement: String
     credit: String
     creator: String
+    provider: String
     providerLiteral: String
     description: String
     tag: String
