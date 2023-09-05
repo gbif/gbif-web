@@ -59,7 +59,7 @@ export const defaultContext = {
   },
   institutionSearch: {
     url: ({queryString, basename}) => `${basename ? `/${basename}` : ''}/institution/search`,
-    gbifUrl: ({route, queryString}) => `${gbifOrg}${gbifOrgLocalePrefix}/grscicoll/institution/search${queryString ? `?${queryString}` : ''}`,
+    gbifUrl: ({route, queryString, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/grscicoll/institution/search${queryString ? `?${queryString}` : ''}`,
     isHref: false,
     route: '/institution/search'
   },
