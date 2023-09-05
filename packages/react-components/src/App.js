@@ -75,8 +75,8 @@ function Standalone(props) {
           <li><Link to={routeContext.collectionSearch.route}>Collection search</Link></li>
           <li><Link to="/collection/dceb8d52-094c-4c2c-8960-75e0097c6861">Collection example</Link></li>
           <li><Link to={routeContext.institutionSearch.route}>Institution search</Link></li>
-          <li><Link to="/institution/fa252605-26f6-426c-9892-94d071c2c77f">Collection example</Link></li>
-          <li><Link to={routeContext.datasetSearch.route}>Dataset</Link></li>
+          <li><Link to="/institution/fa252605-26f6-426c-9892-94d071c2c77f">Institution example</Link></li>
+          <li><Link to={routeContext.datasetSearch.route}>Dataset search</Link></li>
           <li><Link to="/dataset/2985efd1-45b1-46de-b6db-0465d2834a5a">Dataset example</Link></li>
           <li><Link to={routeContext.publisherSearch.route}>Publisher search</Link></li>
           <li><Link to={routeContext.literatureSearch.route}>Literature search</Link></li>

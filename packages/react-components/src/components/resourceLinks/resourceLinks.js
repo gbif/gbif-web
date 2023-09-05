@@ -4,26 +4,10 @@ import RouteContext from '../../dataManagement/RouteContext';
 import LocaleContext from '../../dataManagement/LocaleProvider/LocaleContext';
 import { Link, useHistory } from "react-router-dom";
 
-export const ResourceSearchLink = React.forwardRef(({ queryString, type, discreet, ...props }, ref) => {
-  const routeContext = useContext(RouteContext);
-  const basename = routeContext.basename;
-  if (!routeContext[type]) {
-    console.warn(`No such route: ${type}`)
-    return null;
-  }
-  const { alwaysUseHrefs = false } = routeContext;
-  const { url, isHref, route } = routeContext[type];
-  const to = url({ queryString, basename, route });
-  const style = discreet ? isDiscreet : null;
+// a temporary fallback for sites that haven't added explicit configuration for what routes to include
+const fallbackRoutes = ['occurrenceSearch', 'institutionKey', 'institutionSearch', 'publisherSearch', 'collectionKey', 'collectionSearch', 'literature'];
 
-  if (alwaysUseHrefs || isHref) {
-    return <a href={to} css={style} ref={ref} {...props} />
-  } else {
-    return <Link to={to} css={style} ref={ref} {...props} />
-  }
-});
-
-export const ResourceLink = React.forwardRef(({ id, type, otherIds, discreet, bold, localeContext: localeOverwrite, routeContext: routeOverwrite, ...props }, ref) => {
+export const ResourceLink = React.forwardRef(({ id, type, queryString, otherIds, discreet, bold, localeContext: localeOverwrite, routeContext: routeOverwrite, ...props }, ref) => {
   const localeSettings = useContext(LocaleContext);
   const routeSettings = useContext(RouteContext);
 
@@ -31,20 +15,39 @@ export const ResourceLink = React.forwardRef(({ id, type, otherIds, discreet, bo
   const routeContext = routeOverwrite || routeSettings;
 
   const basename = routeContext.basename;
-  const gbifOrgLocale = localeContext?.localeMap?.gbif_org;
-  const { alwaysUseHrefs = false } = routeContext;
+  if (!routeContext[type]) {
+    console.warn(`No such route: ${type}`)
+    return null;
+  }
 
-  const { url, isHref, route } = routeContext[type];
-  const to = url({ key: id, otherIds, route, basename, gbifOrgLocalePrefix: gbifOrgLocale ? `/${gbifOrgLocale}` : '' });
+  const gbifOrgLocale = localeContext?.localeMap?.gbif_org;
+  const { alwaysUseHrefs = false, enabledRoutes } = routeContext;
+  const { url, isHref, route, gbifUrl, parent } = routeContext[type];
+
+  // if no list of enabled routes, then look at those that have been explicitly configured and use those
+  // a temporary fallback for sites that haven't added explicit configuration for what routes to include
+  const enabledRoutesFallback = Object.keys(routeContext).filter(key => fallbackRoutes.includes(key));
+
+  // check to see if the route is enabled or we should use GBIF routes
+  const types = [type];
+  if (parent) types.push(parent);
+  const intersection = (enabledRoutes ?? enabledRoutesFallback).filter(value => types.includes(value));
+  const useGBIF = intersection.length === 0;
+
+  const urlBuilder = useGBIF ? (gbifUrl ?? url) : (url ?? gbifUrl);
+
+  const to = urlBuilder({ key: id, otherIds, queryString, route, basename, gbifOrgLocalePrefix: gbifOrgLocale ? `/${gbifOrgLocale}` : '' });
   let style = isDiscreetLink;
   if (discreet) style = isDiscreet;
   if (bold) style = isBoldLink;
-  if (alwaysUseHrefs || isHref) {
-    return <a href={to} css={style} {...props} />
+  if (useGBIF || alwaysUseHrefs || isHref) {
+    return <a href={to} css={style} ref={ref} {...props} />
   } else {
-    return <Link to={to} css={style} {...props} />
+    return <Link to={to} css={style} ref={ref} {...props} />
   }
 });
+
+export const ResourceSearchLink = ResourceLink;
 
 export const resourceAction =  ({ id: key, type, history, localeSettings, routeContext, ...rest }) => {
   const basename = routeContext.basename;

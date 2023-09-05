@@ -10,7 +10,7 @@ const siteConfig = {
   },
   occurrence: {
     rootPredicate: { type: 'equals', key: 'country', value: 'DE' }
-  }
+  },
 };
 
 export const StandaloneExample = () => <App siteConfig={defaultSiteConfig} router={Router} />;

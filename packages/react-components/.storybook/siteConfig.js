@@ -2,6 +2,7 @@ import env from '../.env.json';
 const gbifOrg = 'https://www.gbif.org';
 
 const routeConfig = {
+  enabledRoutes: ['datasetSearch', 'occurrenceSearch', 'institution', 'institutionSearch', 'publisherSearch', 'collectionKey'],
   occurrenceSearch: {
     url: ({ queryString }) => {
       return `/iframe.html?args=&id=search-occurrencesearch--standalone-example&viewMode=story${queryString}`;
@@ -22,7 +23,7 @@ const routeConfig = {
     url: ({ key }) => {
       return `/?path=/story/entities-collection-page--example&knob-collectionUUID=${key}`;
     },
-    route: '/',
+    route: '/'
   },
   collectionSearch: {
     // url: () => `/collection/`,
@@ -33,11 +34,13 @@ const routeConfig = {
     route: '/collection/search',
   },
   collectionKeySpecimens: {
+    parent: 'collectionKey',
     // url: ({ key }) => `/collection/${key}/specimens`
     url: ({ route, queryString, basename, key }) => `${basename ? `/${basename}` : ''}/collection/${key}/specimens${queryString ? `?${queryString}` : ''}`,
     route: '/specimens',
   },
   collectionKeyDashboard: {
+    parent: 'collectionKey',
     // url: ({ key }) => `/collection/${key}/specimens`
     url: ({ route, queryString, basename, key }) => `${basename ? `/${basename}` : ''}/collection/${key}/specimens${queryString ? `?${queryString}` : ''}`,
     route: '/dashboard',
