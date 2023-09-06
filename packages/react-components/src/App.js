@@ -17,7 +17,7 @@ import RouteContext from './dataManagement/RouteContext';
 
 function Wrap({ siteConfig, router, ...props }) {
   return <StandaloneWrapper siteConfig={siteConfig} router={router}>
-    <Standalone {...props} />
+    <Standalone {...props} siteConfig={siteConfig} />
   </StandaloneWrapper>
 }
 
