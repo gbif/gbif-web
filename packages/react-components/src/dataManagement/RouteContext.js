@@ -6,7 +6,7 @@ const gbifOrg = 'https://www.gbif.org';
 // and finally we need to know if it is a react-router link or not
 export const defaultContext = {
   alwaysUseHrefs: false,
-  // enabledRoutes: ['occurrenceSearch', 'institutionKey', 'institutionSearch', 'publisherSearch', 'collectionKey', 'collectionSearch'],
+  // enabledRoutes: ['datasetSearch', 'occurrenceSearch', 'institutionKey', 'institutionSearch', 'publisherSearch', 'collectionSearch', 'collectionKey', 'datasetKey'],
   occurrenceSearch: {
     url: ({route, queryString, basename}) => `${basename ? `/${basename}` : ''}${route}${queryString ? `?${queryString}` : ''}`,
     gbifUrl: ({route, queryString, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/occurrence/search${queryString ? `?${queryString}` : ''}`,
@@ -46,7 +46,7 @@ export const defaultContext = {
     route: '/institution/:key'
   },
   institutionKeySpecimens: {
-    url: ({key}) => `${gbifOrg}/grscicoll/institution/${key}`,
+    url: ({key}) => `${gbifOrg}${gbifOrgLocalePrefix}/grscicoll/institution/${key}`,
     gbifUrl: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/grscicoll/institution/${key}`,
     isHref: false,
     route: '/institution/:key/specimens'

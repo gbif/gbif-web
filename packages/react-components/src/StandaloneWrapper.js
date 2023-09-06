@@ -45,7 +45,7 @@ function StandaloneWrapper({
   // instead use the routes that have been explicitly configured
   const fallbackRoutes = ['occurrenceSearch', 'institutionKey', 'institutionSearch', 'publisherSearch', 'collectionKey', 'collectionSearch', 'literatureSearch', 'datasetKey', 'publisherKey'];
   const enabledRoutesFallback = Object.keys(routes).filter(key => fallbackRoutes.includes(key));
-  enabledRoutesFallback.push('occurrenceSearch', 'collectionSearch', 'institutionSearch', 'publisherSearch', 'literatureSearch');
+  enabledRoutesFallback.push('occurrenceSearch', 'collectionSearch', 'institutionSearch', 'publisherSearch', 'literatureSearch', 'eventSearch');
   const routeConfig = _merge({}, defaultContext, routes);
   routeConfig.enabledRoutes = routeConfig?.enabledRoutes ?? enabledRoutesFallback;
 

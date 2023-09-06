@@ -2,7 +2,7 @@ import env from '../.env.json';
 const gbifOrg = 'https://www.gbif.org';
 
 const routeConfig = {
-  enabledRoutes: ['datasetSearch', 'occurrenceSearch', 'institution', 'institutionSearch', 'publisherSearch', 'collectionKey'],
+  enabledRoutes: ['datasetSearch', 'occurrenceSearch', 'institutionKey', 'institutionSearch', 'publisherSearch', 'collectionSearch', 'collectionKey', 'datasetKey'],
   occurrenceSearch: {
     url: ({ queryString }) => {
       return `/iframe.html?args=&id=search-occurrencesearch--standalone-example&viewMode=story${queryString}`;
@@ -147,7 +147,7 @@ const routeConfig = {
 };
 
 export const siteConfig = {
-  routeConfig,
+  routes: routeConfig,
   occurrence: {
     mapSettings: {
       userLocationEnabled: true,
@@ -174,7 +174,7 @@ export const siteConfig = {
     bing: 'need to make a call to register',
     maptiler: env._FOR_STORYBOOK_BUT_PUBLIC?.apiKeys?.maptiler
   },
-  availableCatalogues: ['OCCURRENCE', 'DATASET', 'PUBLISHER', 'LITERATURE', 'COLLECTION', 'INSTITUTION'],
+  // availableCatalogues: ['OCCURRENCE', 'DATASET', 'PUBLISHER', 'LITERATURE', 'COLLECTION', 'INSTITUTION'],
   maps: {
     // locale: 'ja',
     defaultProjection: 'MERCATOR',

@@ -22,8 +22,7 @@ function Wrap({ siteConfig, router, ...props }) {
 }
 
 function Standalone(props) {
-  const routeContext = useContext(RouteContext);
-  const path = routeContext.datasetKey.route;
+  const routeContext = useContext(RouteContext); 
   return <Switch>
     <Route
       exact

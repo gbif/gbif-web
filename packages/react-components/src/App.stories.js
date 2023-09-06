@@ -71,7 +71,7 @@ var livingNorway = {
   }
 };
 
-export const StandaloneExample = () => <App siteConfig={livingNorway} router={Router} />;
+export const StandaloneExample = () => <App siteConfig={defaultSiteConfig} router={Router} />;
 
 export default {
   title: 'App/Hosted portal',

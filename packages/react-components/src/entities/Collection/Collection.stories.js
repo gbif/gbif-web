@@ -12,7 +12,7 @@ export default {
   component: Collection,
 };
 
-export const Example = () => <Router initialEntries={[`/dashboard`]}>
+export const Example = () => <Router initialEntries={[`/`]}>
   <QueryParamProvider ReactRouterRoute={Route}>
     <AddressBar />
     <div style={{ flex: '1 1 auto' }}></div>

@@ -5,6 +5,7 @@ import { Switch, Route } from 'react-router-dom';
 import RouteContext from '../../dataManagement/RouteContext';
 
 function Wrap({ siteConfig, router, ...props }) {
+  if (siteConfig?.routes) siteConfig.routes.alwaysUseHrefs = true;
   return <StandaloneWrapper siteConfig={siteConfig} router={router}>
     <Standalone {...props} />
   </StandaloneWrapper>
@@ -12,14 +13,17 @@ function Wrap({ siteConfig, router, ...props }) {
 
 function Standalone(props) {
   const routeContext = useContext(RouteContext);
-  console.log(routeContext);
-  const path = routeContext.collectionKey.route;
-  return <Switch>
-    <Route
-      path={path}
-      render={routeProps => <Collection id={routeProps.match.params.key} {...props} {...routeProps}/>}
-    />
-  </Switch>
+  // if an explitit id is passed in, use it instead of extracting it from the route
+  if (props.id) {
+    return <Collection {...props} />
+  }
+  // const path = routeContext.collectionKey.route;
+  // return <Switch>
+  //   <Route
+  //     path={path}
+  //     render={routeProps => <Collection id={routeProps.match.params.key} {...props} {...routeProps}/>}
+  //   />
+  // </Switch>
 }
 
 export default Wrap;
