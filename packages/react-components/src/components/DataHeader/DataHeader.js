@@ -16,6 +16,7 @@ export function DataHeader({
   availableCatalogues,
   right,
   children,
+  showEmpty = false,
   ...props
 }) {
   const siteConfig = useContext(SiteContext);
@@ -25,7 +26,7 @@ export function DataHeader({
 
   const hasLeftPart = left || catalogueLabel || showCatalogue;
   // if there is nothing configured, then do not show at all
-  // if (!hasLeftPart && !children && !right) return null;
+  if (!hasLeftPart && !children && !right && !showEmpty) return null;
 
   return <Div css={styles.dataHeader({ theme })} {...props}>
 
