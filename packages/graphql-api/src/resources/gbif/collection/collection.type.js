@@ -19,6 +19,8 @@ const typeDef = gql`
       numberSpecimens: String
       occurrenceCount: String
       displayOnNHCPortal: Boolean
+      sortBy: CollectionsSortField
+      sortOrder: SortOrder
       ): CollectionSearchResults
     collection(key: String!): Collection
   }
