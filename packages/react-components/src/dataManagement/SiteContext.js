@@ -2,7 +2,7 @@ import React from 'react';
 import { defaultContext as defaultRouteConfig } from './RouteContext';
 
 export const defaultContext = {
-  routeConfig: defaultRouteConfig,
+  routes: defaultRouteConfig,
   occurrence: {},
   dataset: {},
   literature: {},
@@ -10,6 +10,7 @@ export const defaultContext = {
   collection: {},
   publisher: {},
   apiKeys: {},
+  availableCatalogues: ['OCCURRENCE', 'DATASET', 'PUBLISHER', 'LITERATURE', 'COLLECTION', 'INSTITUTION'],
   maps: {
     defaultProjection: 'MERCATOR',
     defaultMapStyle: 'NATURAL',
