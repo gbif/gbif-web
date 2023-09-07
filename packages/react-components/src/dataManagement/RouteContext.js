@@ -48,7 +48,7 @@ export const defaultContext = {
   },
   institutionKeySpecimens: {
     parent: 'institutionKey',
-    url: ({key}) => `${gbifOrg}${gbifOrgLocalePrefix}/grscicoll/institution/${key}`,
+    url: ({key}) => `/institution/${key}/specimens`,
     gbifUrl: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/grscicoll/institution/${key}`,
     isHref: false,
     route: '/institution/:key/specimens'
