@@ -18,14 +18,12 @@ function Standalone(props) {
     return <Institution {...props} />
   }
   const path = routeContext.institutionKey.route;
-  return <StandaloneWrapper {...props}>
-    <Switch>
-      <Route
-        path={path}
-        render={routeProps => <Institution id={routeProps.match.params.key} {...props} {...routeProps}/>}
-      />
-    </Switch>
-  </StandaloneWrapper>
+  return <Switch>
+    <Route
+      path={path}
+      render={routeProps => <Institution id={routeProps.match.params.key} {...props} {...routeProps}/>}
+    />
+  </Switch>
 }
 
 export default Wrap;
