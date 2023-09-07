@@ -99,7 +99,7 @@ addDecorator(storyFn => {
                     'ltr',
                   ),
                 )}>
-                  <RouteContext.Provider value={siteConfig.routeConfig}>
+                  <RouteContext.Provider value={siteConfig.routes}>
                     {storyFn()}
                   </RouteContext.Provider>
                   <div style={{zIndex: 10000, position: 'fixed'}}>
