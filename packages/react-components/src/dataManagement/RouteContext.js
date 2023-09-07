@@ -33,6 +33,7 @@ export const defaultContext = {
     route: '/collection/:key/specimens'
   },
   collectionKeyDashboard: {
+    parent: 'collectionKey',
     url: ({key}) => `/collection/${key}/specimens`,
     gbifUrl: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/grscicoll/collection/${key}/metrics`,
     isHref: false,
@@ -46,12 +47,14 @@ export const defaultContext = {
     route: '/institution/:key'
   },
   institutionKeySpecimens: {
+    parent: 'institutionKey',
     url: ({key}) => `${gbifOrg}${gbifOrgLocalePrefix}/grscicoll/institution/${key}`,
     gbifUrl: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/grscicoll/institution/${key}`,
     isHref: false,
     route: '/institution/:key/specimens'
   },
   institutionKeyCollections: {
+    parent: 'institutionKey',
     url: ({key}) => `/collections`,
     gbifUrl: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/grscicoll/institution/${key}`,
     isHref: false,
@@ -69,6 +72,27 @@ export const defaultContext = {
     gbifUrl: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/dataset/${key}`,
     isHref: false,
     route: '/dataset/:key'
+  },
+  datasetKeyCitations: {
+    parent: 'datasetKey',
+    url: ({key}) => `/dataset/${key}/citations`,
+    gbifUrl: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/dataset/${key}`,
+    isHref: false,
+    route: '/dataset/:key/citations'
+  },
+  datasetKeyDownload: {
+    parent: 'datasetKey',
+    url: ({key}) => `/dataset/${key}/download`,
+    gbifUrl: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/dataset/${key}`,
+    isHref: false,
+    route: '/dataset/:key/download'
+  },
+  datasetKeyProject: {
+    parent: 'datasetKey',
+    url: ({key}) => `/dataset/${key}/project`,
+    gbifUrl: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/dataset/${key}`,
+    isHref: false,
+    route: '/dataset/:key/project'
   },
   datasetSearch: {
     url: ({queryString, basename}) => `${basename ? `/${basename}` : ''}/dataset/search`,
