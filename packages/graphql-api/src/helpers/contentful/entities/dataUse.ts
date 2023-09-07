@@ -1,0 +1,27 @@
+import { Link, PossiblyNotLoaded, Image } from "./_shared";
+
+export type DataUse = {
+    contentType: 'dataUse';
+    id: string;
+    title: string;
+    summary?: string;
+    body?: string;
+    primaryImage?: PossiblyNotLoaded<Image>;
+    primaryLink?: PossiblyNotLoaded<Link>;
+    secondaryLinks: PossiblyNotLoaded<Link>[];
+    citation?: string;
+    resourceUsed?: string;
+    // Language codes
+    countriesOfResearchers: string[];
+    // Language codes
+    countriesOfCoverage: string[];
+    // TODO: Should probably be an enum
+    topics: PossiblyNotLoaded<string>[];
+    // TODO: Should probably be an enum
+    purposes: PossiblyNotLoaded<string>[];
+    // TODO: Should probably be an enum
+    audiences: PossiblyNotLoaded<string>[];
+    keywords: string[];
+    searchable: boolean;
+    homepage: boolean;
+}

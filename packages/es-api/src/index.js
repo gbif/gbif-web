@@ -85,7 +85,7 @@ if (content) {
   app.get('/content/meta', asyncMiddleware(getMetaOnly(content)));
 
   app.post('/content', queue(queueOptions), asyncMiddleware(searchResource(content)));
-  app.get('/content', queue(queueOptions), asyncMiddleware(searchResource(content)));
+  app.get('/content', (req, res, next) => { console.log(req.originalUrl); next(); }, queue(queueOptions), asyncMiddleware(searchResource(content)));
   app.get('/content/key/:id', asyncMiddleware(keyResource(content)));
 }
 

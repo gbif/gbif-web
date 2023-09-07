@@ -1,10 +1,11 @@
 import { GraphQLError } from "graphql";
-import { Event } from "./event.type";
-import ContentfulEventAPI from "./event.source";
+import { ContentfulService } from "#/helpers/contentful/ContentfulService";
+import { Event } from "#/helpers/contentful/entities/event";
+import { CountryWithTitle, Image, Link } from "#/helpers/contentful/entities/_shared";
 
 interface PartialContext {
     dataSources: {
-        contentfulEventAPI: ContentfulEventAPI;
+        contentfulService: ContentfulService;
     }
 }
 
@@ -18,32 +19,57 @@ interface PartialContext {
 export default {
     Query: {
         event: async (_: unknown, args: { id: string }, context: PartialContext): Promise<Event> => {
-            const entry = await context.dataSources.contentfulEventAPI.getEntry(args.id);
+            const entry = await context.dataSources.contentfulService.getEntityById(args.id);
             if (entry == null) throw new GraphQLError(`There is no news entry with an id of ${args.id}`);
+            if (entry.contentType !== 'event') throw new GraphQLError(`The entry with an id of ${args.id} is not a news entry`);
             return entry;
         }
     },
     Event: {
-        title: src => src.title,
-        summary: src => src.summary,
-        body: src => src.body,
-        primaryImageId: src => src.primaryImageId,
-        primaryLink: src => src.primaryLink,
-        secondaryLinks: src => src.secondaryLinks,
-        start: src => src.start.toISOString(),
-        end: src => src.end.toISOString(),
-        allDayEvent: src => src.allDayEvent,
-        organisingParticipantsIds: src => src.organisingParticipantsIds,
-        venue: src => src.venue,
-        location: src => src.location,
-        countryId: src => src.countryId,
-        coordinates: src => src.coordinates,
-        eventLanguage: src => src.eventLanguage,
+        id: (src): string => src.id,
+        title: (src): string => src.title,
+        summary: (src): string | undefined => src.summary,
+        body: (src): string | undefined => src.body,
+        primaryImage: (src): Image | undefined => {
+            if (src.primaryImage == null) return;
+            if ('file' in src.primaryImage) return src.primaryImage;
+
+            // TODO: fetch the image from the contentful service (must add a new mapper for the Image type)
+            return;
+        },
+        primaryLink: (src): Link | undefined => {
+            if (src.primaryLink == null) return;
+            if ('url' in src.primaryLink) return src.primaryLink;
+
+            // TODO: fetch the link from the contentful service (must add a new mapper for the Link type)
+            return;
+        },
+        secondaryLinks: (src): Array<Link | undefined> => src.secondaryLinks.map(link => {
+            if ('url' in link) return link;
+
+            // TODO: fetch the link from the contentful service (must add a new mapper for the Link type)
+            return;
+        }),
+        start: (src): string => src.start.toISOString(),
+        end: (src): string => src.end.toISOString(),
+        allDayEvent: (src): boolean | undefined => src.allDayEvent,
+        organisingParticipants: (src): Array<CountryWithTitle | undefined> => src.organisingParticipants.map(country => {
+            if ('country' in country) return country;
+
+            // TODO: fetch the country from the contentful service (must add a new mapper for the Country type)
+            return;
+        }),
+        venue: (src): string | undefined => src.venue,
+        location: (src): string | undefined => src.location,
+        country: (src): string | undefined => src.country,
+        // TODO: Figure out the type of coordinates
+        coordinates: (src): unknown | undefined => src.coordinates,
+        eventLanguage: (src): string | undefined => src.eventLanguage,
         documents: src => src.documents,
-        attendees: src => src.attendees,
-        keywords: src => src.keywords,
-        searchable: src => src.searchable,
-        homepage: src => src.homepage,
+        attendees: (src): string | undefined => src.attendees,
+        keywords: (src): string[] => src.keywords,
+        searchable: (src): boolean | undefined => src.searchable,
+        homepage: (src): boolean | undefined => src.homepage,
     } as Record<string, (src: Event) => unknown>
 }
 

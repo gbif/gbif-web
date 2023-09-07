@@ -1,0 +1,19 @@
+{
+  "sys": {
+    "id": "7mX71IxyCMfzwIbjx7Vw39",
+    "contentType": {
+      "sys": {
+        "id": "notification"
+      }
+    }
+  },
+  "fields": {
+    "title": "Indexing paused",
+    "summary": "We are reindexing all occurrences",
+    "body": "(updated 7 September) Indexing of **all** datasets is now paused in preparation for [better linking to GrSciColl](https://github.com/gbif/registry/issues/496).\n\nWe anticipate resuming indexing monday 11 September.",
+    "start": "2023-09-06T08:50:00.000Z",
+    "end": "2023-09-11T10:30:00.000Z",
+    "notificationType": "INFO",
+    "severity": "INFO"
+  }
+}

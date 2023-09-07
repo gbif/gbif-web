@@ -20,6 +20,7 @@ export { default as news } from './news';
 export { default as dataUse } from './dataUse';
 export { default as event } from './event';
 export { default as notification } from './notification';
+export { default as resourceSearch } from './resourceSearch';
 
 // ALA use this, but we do not have an index for it yet
 // export { default as event } from '../shared/resources/event';

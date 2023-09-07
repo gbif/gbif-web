@@ -1,10 +1,10 @@
 import { GraphQLError } from "graphql";
-import ContentfulNotificationAPI from "./notification.source";
-import { Notification } from "./notification.type";
+import { ContentfulService } from "#/helpers/contentful/ContentfulService";
+import { Notification } from "#/helpers/contentful/entities/notification";
 
 interface PartialContext {
     dataSources: {
-        contentfulNotificationAPI: ContentfulNotificationAPI;
+        contentfulService: ContentfulService;
     }
 }
 
@@ -18,20 +18,22 @@ interface PartialContext {
 export default {
     Query: {
         notification: async (_: unknown, args: { id: string }, context: PartialContext): Promise<Notification> => {
-            const entry = await context.dataSources.contentfulNotificationAPI.getEntry(args.id);
-            if (entry == null) throw new GraphQLError(`There is no news entry with an id of ${args.id}`);
+            const entry = await context.dataSources.contentfulService.getEntityById(args.id);
+            if (entry == null) throw new GraphQLError(`There is no notification entry with an id of ${args.id}`);
+            if (entry.contentType !== 'notification') throw new GraphQLError(`The entry with an id of ${args.id} is not a notification entry`);
             return entry;
         }
     },
     Notification: {
-        title: src => src.title,
-        summary: src => src.summary,
-        body: src => src.body,
-        start: src => src.start.toISOString(),
-        end: src => src.end.toISOString(),
-        url: src => src.url,
-        notificationType: src => src.notificationType,
-        severity: src => src.severity,
+        id: (src): string => src.id,
+        title: (src): string => src.title,
+        summary: (src): string | undefined => src.summary,
+        body: (src): string | undefined => src.body,
+        start: (src): string => src.start.toISOString(),
+        end: (src): string => src.end.toISOString(),
+        url: (src): string | undefined => src.url,
+        notificationType: (src): string => src.notificationType,
+        severity: (src): string => src.severity,
     } as Record<string, (src: Notification) => unknown>
 }
 

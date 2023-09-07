@@ -1,11 +1,13 @@
 import typeDef from "./dataUse.type"
 import resolver from "./dataUse.resolver"
-import ContentfulDataUseAPI from "./dataUse.source"
+import { ElasticSearchService } from "#/helpers/contentful/ElasticSearchService"
+import { ContentfulService } from "#/helpers/contentful/ContentfulService"
 
 export default {
     resolver,
     typeDef,
     dataSource: {
-        contentfulDataUseAPI: ContentfulDataUseAPI,
+        elasticSearchService: ElasticSearchService,
+        contentfulService: ContentfulService,
     },
 }

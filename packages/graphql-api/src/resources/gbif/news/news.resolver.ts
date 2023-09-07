@@ -1,10 +1,11 @@
 import { GraphQLError } from "graphql";
-import ContentfulNewsAPI from "./news.source";
-import { News } from "./news.type";
+import { News } from "#/helpers/contentful/entities/news";
+import { ContentfulService } from "#/helpers/contentful/ContentfulService";
+import { Image, Link } from "#/helpers/contentful/entities/_shared";
 
 interface PartialContext {
     dataSources: {
-        contentfulNewsAPI: ContentfulNewsAPI;
+        contentfulService: ContentfulService;
     }
 }
 
@@ -18,26 +19,63 @@ interface PartialContext {
 export default {
     Query: {
         news: async (_: unknown, args: { id: string }, context: PartialContext): Promise<News> => {
-            const entry = await context.dataSources.contentfulNewsAPI.getEntry(args.id);
-            if (entry == null) throw new GraphQLError(`There is no news entry with an id of ${args.id}`);
-            return entry;
+            const entity = await context.dataSources.contentfulService.getEntityById(args.id);
+            if (entity == null) throw new GraphQLError(`There is no news entry with an id of ${args.id}`);
+            if (entity.contentType !== 'news') throw new GraphQLError(`The entry with an id of ${args.id} is not a news entry`);
+            return entity;
         }
     },
     News: {
-        title: src => src.title,
-        summary: src => src.summary,
-        body: src => src.body,
-        primaryImageId: src => src.primaryImageId,
-        primaryLink: src => src.primaryLink,
-        secondaryLinks: src => src.secondaryLinks,
-        citation: src => src.citation,
-        countriesOfCoverageIds: src => src.countriesOfCoverageIds,
-        topicIds: src => src.topicIds,
-        purposes: src => src.purposes,
-        audiences: src => src.audiences,
-        keywords: src => src.keywords,
-        searchable: src => src.searchable,
-        homepage: src => src.homepage,
+        id: (src): string => src.id,
+        title: (src): string => src.title,
+        summary: (src): string | undefined => src.summary,
+        body: (src): string | undefined => src.body,
+        primaryImage: (src): Image | undefined => {
+            if (src.primaryImage == null) return;
+            if ('file' in src.primaryImage) return src.primaryImage;
+
+            // TODO: fetch the image from the contentful service (must add a new mapper for the Image type)
+            return;
+        },
+        primaryLink: (src): Link | undefined => {
+            if (src.primaryLink == null) return;
+            if ('url' in src.primaryLink) return src.primaryLink;
+
+            // TODO: fetch the link from the contentful service (must add a new mapper for the Link type)
+            return;
+        },
+        secondaryLinks: (src): Array<Link | undefined> => src.secondaryLinks.map(link => {
+            if ('url' in link) return link;
+
+            // TODO: fetch the link from the contentful service (must add a new mapper for the Link type)
+            return;
+        }),
+        citation: (src): string | undefined => src.citation,
+        countriesOfCoverage: (src): string[] => src.countriesOfCoverage,
+        topics: (src): Array<string | undefined> => src.topics.map(topic => {
+            if (typeof topic === 'object') {
+                // TODO: fetch the topic from the contentful service (must add a new mapper for the Topic type)
+                return;
+            }
+            return topic;
+        }),
+        purposes: (src): Array<string | undefined> => src.purposes.map(purpose => {
+            if (typeof purpose === 'object') {
+                // TODO: fetch the purpose from the contentful service (must add a new mapper for the Purpose type)
+                return;
+            }
+            return purpose;
+        }),
+        audiences: (src): Array<string | undefined> => src.audiences.map(audience => {
+            if (typeof audience === 'object') {
+                // TODO: fetch the audience from the contentful service (must add a new mapper for the Audience type)
+                return;
+            }
+            return audience;
+        }),
+        keywords: (src): string[] => src.keywords,
+        searchable: (src): boolean => src.searchable,
+        homepage: (src): boolean  => src.homepage,
     } as Record<string, (src: News) => unknown>
 }
 
