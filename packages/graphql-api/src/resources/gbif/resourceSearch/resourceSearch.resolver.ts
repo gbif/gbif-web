@@ -1,5 +1,5 @@
 import { ElasticSearchSearchParams, ElasticSearchService, ElasticSearchMapperResult } from "#/helpers/contentful/ElasticSearchService";
-import { PaginatedSearchResult } from "./resourceSearch.type";
+import { PaginatedSearchResult, SearchInput } from "./resourceSearch.type";
 
 type PartialContext = {
     dataSources: {
@@ -16,13 +16,33 @@ type PartialContext = {
  */
 export default {
     Query: {
-        resourceSearch: async (_: unknown, args: { input: ElasticSearchSearchParams }, context: PartialContext): Promise<PaginatedSearchResult> => {
-            const result = await context.dataSources.elasticSearchService.search(args.input);
+        resourceSearch: async (_: unknown, args: { input: SearchInput }, context: PartialContext): Promise<PaginatedSearchResult> => {
+            // Validate the input arguments
+            if ((args.input.limit ?? 0) + (args.input.offset ?? 0) > 10000) throw new Error('The limit + offset cannot be greater than 10000');
+
+            // Map the GraphQL input to the ElasticSearch input
+            let elasticSearchInput: Partial<ElasticSearchSearchParams> = {
+                q: args.input.q,
+                size: args.input.limit,
+                from: args.input.offset,
+                contentType: args.input.contentType,
+                topics: args.input.topics,
+                countriesOfCoverage: args.input.countriesOfCoverage,
+                countriesOfResearcher: args.input.countriesOfResearcher,
+            }
+
+            // Remove the null values from the input
+            Object.entries(elasticSearchInput).forEach(([key, value]) => {
+                if (key in elasticSearchInput && value == null) delete elasticSearchInput[key as keyof ElasticSearchSearchParams];
+            });
+
+            const result = await context.dataSources.elasticSearchService.search(elasticSearchInput);
+
             return {
-                count: 0,
-                endOfRecords: false,
-                limit: 0,
-                offset: 0,
+                count: result.results.length,
+                endOfRecords: result.total <= (result.from + result.size),
+                limit: args.input.limit ?? 10,
+                offset: result.from,
                 results: result.results,
             }
         },

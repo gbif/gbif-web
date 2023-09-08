@@ -6,7 +6,6 @@ export { ElasticSearchMapperResult} from "./mappers";
 
 export type ElasticSearchSearchParams = {
     q: string
-    from: number
     contentType: string;
     // TODO: Should be an enum
     topics: string[];
@@ -15,6 +14,8 @@ export type ElasticSearchSearchParams = {
     // TODO: Should be an enum of lang codes
     countriesOfResearcher: string[];
     // TODO: find better alternative to _showPastEvents
+    from: number;
+    size: number;
 }
 
 type ElasticSearchServiceConfig = {
