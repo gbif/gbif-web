@@ -28,6 +28,7 @@ export function DatasetPresentation({
   insights,
   error,
   loading,
+  disableCatalog,
   ...props
 }) {
   const isBelowNarrow = useBelow(800);
@@ -69,8 +70,9 @@ export function DatasetPresentation({
     tabs: ['EVENTS']
   };
 
-  return <div style={{minHeight: '80vh'}}>
+  return <div style={{minHeight: '80vh', background: 'var(--background)'}} {...props}>
     <DataHeader
+      availableCatalogues={disableCatalog ? [] : undefined}
       right={<div css={styles.headerIcons}>
         <Doi id={dataset.doi} />
 
