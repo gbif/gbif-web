@@ -4,7 +4,7 @@ import React, { useContext, useState } from 'react';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import * as styles from './styles';
 import * as sharedStyles from '../../shared/styles';
-import { Prose, Properties, HyperText, Toc, ContactList, OccurrenceMap, ResourceSearchLink, Tag, Button } from "../../../components";
+import { Prose, Properties, HyperText, Toc, ContactList, OccurrenceMap, ResourceSearchLink, Alert, Button } from "../../../components";
 import RouteContext from '../../../dataManagement/RouteContext';
 import { Images, ThumbnailMap, TaxonomicCoverages, GeographicCoverages, TemporalCoverages, Registration, BibliographicCitations, SamplingDescription, Citation } from './details';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
@@ -31,7 +31,7 @@ export function About({
   let { url } = useRouteMatch();
   const theme = useContext(ThemeContext);
   const [tocRefs] = useState({})
-  const { dataset, occurrenceSearch, literatureSearch, totalTaxa, accepted, synonyms } = data;
+  const { dataset, occurrenceSearch, literatureSearch, totalTaxa, accepted, synonyms, siteOccurrences } = data;
   // collect all refs to headlines for the TOC, e.g. ref={node => { tocRefs["description"] = {node, index: 0}; }}
 
   const isGridded = dataset?.gridded?.[0]?.percent > 0.5; // threshold decided in https://github.com/gbif/gridded-datasets/issues/3
@@ -75,6 +75,8 @@ export function About({
     <div css={sharedStyles.withSideBar({ hasSidebar: !isBelowSidebar })}>
       <div style={{ width: '100%', overflow: 'auto' }}>
 
+        {siteOccurrences.documents.total - total < 0 && <Alert style={{width: '100%', marginTop: 12}} as="a" href={`https://www.gbif.org/dataset/${dataset.key}`} tagText="Info" tagType="info">Not all records from the dataset is included on this site. Visit GBIF.org to learn more.</Alert>}
+
         {isBelowSidebar && <div css={css`
           display: flex;
           flex-wrap: wrap;
@@ -96,6 +98,7 @@ export function About({
           {literatureSearch.documents.total > 0 && <Button as={Link} to={join(url, 'dashboard')} look="primary" style={{ marginRight: 12 }}>
             <MdFormatQuote style={{marginRight: 12}}/> <FormattedMessage id="counts.nCitations" values={{ total: literatureSearch.documents.total }} />
           </Button>}
+
           {/* {citationArea}
           {total > 0 && <div css={styles.area}>
             <div css={styles.sidebarCard}>

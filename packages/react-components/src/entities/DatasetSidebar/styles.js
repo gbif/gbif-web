@@ -95,6 +95,7 @@ export const detailDrawerBar = ({ theme }) => css`
 export const detailDrawerContent = ({ theme }) => css`
   overflow: auto;
   flex: 1 1 auto;
+  background: var(--background);
   >div {
     /* width: 500px; */
     max-width: 100%;
