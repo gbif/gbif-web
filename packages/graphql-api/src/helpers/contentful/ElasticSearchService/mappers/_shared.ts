@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { Image, Link } from "../../entities/_shared";
+import { Image, Link } from "../../contentTypes/_shared";
 import { pickLanguage } from "../../utils";
 
 export const ElasticSearchLinkSchema = z.object({
@@ -62,5 +62,47 @@ export function parseElasticSearchLinkDTO(linkDto: z.infer<typeof ElasticSearchL
     return {
         label: pickLanguage(linkDto.label),
         url: pickLanguage(linkDto.url),
+    }
+}
+
+export interface DataMapper<T> {
+    contentType: string;
+    parse: (dto: unknown) => T | null;
+}
+
+function createSchema<TContentType extends string, TFields extends z.ZodObject<any>>(contentType: TContentType, fields: TFields) {
+    return z.object({
+        contentType: z.literal(contentType)
+    }).merge(fields)
+}
+
+export function createElasticSearchMapper<
+    TResult,
+    TContentType extends string,
+    TFields extends z.ZodObject<any>,
+    TSchema extends ReturnType<typeof createSchema<TContentType, TFields>>>
+    (config: {
+        contentType: TContentType,
+        fields: TFields,
+        map: (dto: z.infer<TSchema>) => TResult
+    }
+    ): DataMapper<TResult> {
+    const Schema = createSchema(config.contentType, config.fields);
+
+    return {
+        contentType: config.contentType,
+        parse: (dto: unknown): TResult | null => {
+            // Try to parse the DTO
+            const result = Schema.safeParse(dto);
+
+            // If the DTO is invalid, return null
+            if (!result.success) {
+                console.error(`Failed to parse ElasticSearch DTO of type '${config.contentType}'`, result.error);
+                return null;
+            }
+
+            // Otherwise, map the DTO to the entity
+            return config.map(result.data);
+        }
     }
 }

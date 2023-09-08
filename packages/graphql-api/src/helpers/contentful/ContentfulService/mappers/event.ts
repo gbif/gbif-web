@@ -1,16 +1,9 @@
 import { z } from "zod";
-import { Event } from "../../entities/event";
-import { ContentfulReferenceSchema, DateAsStringSchema } from "./_shared";
+import { Event } from "../../contentTypes/event";
+import { ContentfulReferenceSchema, DataMapper, DateAsStringSchema, createContentfulMapper } from "./_shared";
 
-export const ContentfulEventDTOSchema = z.object({
-    sys: z.object({
-        id: z.string(),
-        contentType: z.object({
-            sys: z.object({
-                id: z.literal('Event')
-            })
-        })
-    }),
+export const contentfulEventMapper: DataMapper<Event> = createContentfulMapper({
+    contentType: 'Event',
     fields: z.object({
         title: z.string(),
         summary: z.string().optional(),
@@ -32,32 +25,29 @@ export const ContentfulEventDTOSchema = z.object({
         keywords: z.array(z.string()).optional(),
         searchable: z.boolean(),
         homepage: z.boolean()
+    }),
+    map: dto => ({
+        contentType: 'event',
+        id: dto.sys.id,
+        title: dto.fields.title,
+        summary: dto.fields.summary,
+        body: dto.fields.body,
+        primaryImage: dto.fields.primaryImage?.sys.id != null ? { id: dto.fields.primaryImage.sys.id } : undefined,
+        primaryLink: dto.fields.primaryLink?.sys.id != null ? { id: dto.fields.primaryLink.sys.id } : undefined,
+        secondaryLinks: dto.fields.secondaryLinks?.map(l => ({ id: l.sys.id })) ?? [],
+        start: dto.fields.start,
+        end: dto.fields.end,
+        allDayEvent: dto.fields.allDayEvent,
+        organisingParticipants: dto.fields.organisingParticipants?.map(l => ({ id: l.sys.id })) ?? [],
+        venue: dto.fields.venue,
+        location: dto.fields.location,
+        country: dto.fields.country?.sys.id,
+        coordinates: dto.fields.coordinates,
+        eventLanguage: dto.fields.eventLanguage,
+        documents: dto.fields.documents?.map(l => ({ id: l.sys.id })) ?? [],
+        attendees: dto.fields.attendees,
+        keywords: dto.fields.keywords ?? [],
+        searchable: dto.fields.searchable,
+        homepage: dto.fields.homepage,
     })
 });
-
-export function parseContentfulEventDTO(eventDTO: z.infer<typeof ContentfulEventDTOSchema>): Event {
-    return {
-        contentType: 'event',
-        id: eventDTO.sys.id,
-        title: eventDTO.fields.title,
-        summary: eventDTO.fields.summary,
-        body: eventDTO.fields.body,
-        primaryImage: eventDTO.fields.primaryImage?.sys.id != null ? { id: eventDTO.fields.primaryImage.sys.id } : undefined,
-        primaryLink: eventDTO.fields.primaryLink?.sys.id != null ? { id: eventDTO.fields.primaryLink.sys.id } : undefined,
-        secondaryLinks: eventDTO.fields.secondaryLinks?.map(l => ({ id: l.sys.id })) ?? [],
-        start: eventDTO.fields.start,
-        end: eventDTO.fields.end,
-        allDayEvent: eventDTO.fields.allDayEvent,
-        organisingParticipants: eventDTO.fields.organisingParticipants?.map(l => ({ id: l.sys.id })) ?? [],
-        venue: eventDTO.fields.venue,
-        location: eventDTO.fields.location,
-        country: eventDTO.fields.country?.sys.id,
-        coordinates: eventDTO.fields.coordinates,
-        eventLanguage: eventDTO.fields.eventLanguage,
-        documents: eventDTO.fields.documents?.map(l => ({ id: l.sys.id })) ?? [],
-        attendees: eventDTO.fields.attendees,
-        keywords: eventDTO.fields.keywords ?? [],
-        searchable: eventDTO.fields.searchable,
-        homepage: eventDTO.fields.homepage,
-    };
-}

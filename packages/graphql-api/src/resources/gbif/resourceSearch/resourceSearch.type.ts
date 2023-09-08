@@ -1,13 +1,8 @@
-import { DataUse } from "#/helpers/contentful/entities/dataUse";
-import { Event } from "#/helpers/contentful/entities/event";
-import { News } from "#/helpers/contentful/entities/news";
-import { Notification } from "#/helpers/contentful/entities/notification";
+import { ElasticSearchMapperResult } from "#/helpers/contentful/ElasticSearchService";
 import { gql } from "apollo-server-core";
 
-export type SingleSearchResult = DataUse | Event | Notification | News;
-
 export type PaginatedSearchResult = {
-    results: SingleSearchResult[]
+    results: ElasticSearchMapperResult[]
     limit: number
     offset: number
     count: number

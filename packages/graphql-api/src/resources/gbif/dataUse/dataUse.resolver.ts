@@ -1,7 +1,7 @@
 import { GraphQLError } from "graphql";
 import { ContentfulService } from "#/helpers/contentful/ContentfulService";
-import { DataUse } from "#/helpers/contentful/entities/dataUse";
-import { Image, Link } from "#/helpers/contentful/entities/_shared";
+import { DataUse } from "#/helpers/contentful/contentTypes/dataUse";
+import { Image, Link } from "#/helpers/contentful/contentTypes/_shared";
 
 type PartialContext = {
     dataSources: {

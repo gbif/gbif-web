@@ -1,4 +1,4 @@
-import { ElasticSearchSearchParams, ElasticSearchService, Entities } from "#/helpers/contentful/ElasticSearchService";
+import { ElasticSearchSearchParams, ElasticSearchService, ElasticSearchMapperResult } from "#/helpers/contentful/ElasticSearchService";
 import { PaginatedSearchResult } from "./resourceSearch.type";
 
 type PartialContext = {
@@ -28,7 +28,8 @@ export default {
         },
     },
     SingleSearchResult: {
-        __resolveType: (src: Entities): string => {
+        __resolveType: (src: Exclude<ElasticSearchMapperResult, null>): string => {
+            // Map the content types from ElasticSearch to the GraphQL types
             switch (src.contentType) {
                 case 'dataUse': return 'DataUse';
                 case 'event': return 'Event';

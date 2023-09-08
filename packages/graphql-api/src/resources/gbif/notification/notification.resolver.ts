@@ -1,6 +1,6 @@
 import { GraphQLError } from "graphql";
 import { ContentfulService } from "#/helpers/contentful/ContentfulService";
-import { Notification } from "#/helpers/contentful/entities/notification";
+import { Notification } from "#/helpers/contentful/contentTypes/notification";
 
 interface PartialContext {
     dataSources: {

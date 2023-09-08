@@ -1,16 +1,9 @@
 import { z } from "zod";
-import { News } from "../../entities/news";
-import { ContentfulReferenceSchema } from "./_shared";
+import { News } from "../../contentTypes/news";
+import { ContentfulReferenceSchema, DataMapper, createContentfulMapper } from "./_shared";
 
-export const ContentfulNewsDTOSchema = z.object({
-    sys: z.object({
-        id: z.string(),
-        contentType: z.object({
-            sys: z.object({
-                id: z.literal('News')
-            })
-        })
-    }),
+export const contentfulNewsMapper: DataMapper<News> = createContentfulMapper({
+    contentType: 'News',
     fields: z.object({
         title: z.string(),
         summary: z.string().optional(),
@@ -26,26 +19,23 @@ export const ContentfulNewsDTOSchema = z.object({
         keywords: z.array(z.string()).optional(),
         searchable: z.boolean(),
         homepage: z.boolean()
-    })
-});
-
-export function parseContentfulNewsDTO(newsDTO: z.infer<typeof ContentfulNewsDTOSchema>): News {
-    return {
+    }),
+    map: dto => ({
         contentType: 'news',
-        id: newsDTO.sys.id,
-        title: newsDTO.fields.title,
-        summary: newsDTO.fields.summary,
-        body: newsDTO.fields.body,
-        primaryImage: newsDTO.fields.primaryImage?.sys.id != null ? { id: newsDTO.fields.primaryImage.sys.id } : undefined,
-        primaryLink: newsDTO.fields.primaryLink?.sys.id != null ? { id: newsDTO.fields.primaryLink.sys.id } : undefined,
-        secondaryLinks: newsDTO.fields.secondaryLinks?.map(l => ({ id: l.sys.id })) ?? [],
-        citation: newsDTO.fields.citation,
-        countriesOfCoverage: newsDTO.fields.countriesOfCoverage?.map(c => c.sys.id) ?? [],
-        topics: newsDTO.fields.topics?.map(t => ({ id: t.sys.id })) ?? [],
-        purposes: newsDTO.fields.purposes?.map(p => ({ id: p.sys.id })) ?? [],
-        audiences: newsDTO.fields.audiences?.map(a => ({ id: a.sys.id })) ?? [],
-        keywords: newsDTO.fields.keywords ?? [],
-        searchable: newsDTO.fields.searchable,
-        homepage: newsDTO.fields.homepage,
-    };
-}
+        id: dto.sys.id,
+        title: dto.fields.title,
+        summary: dto.fields.summary,
+        body: dto.fields.body,
+        primaryImage: dto.fields.primaryImage?.sys.id != null ? { id: dto.fields.primaryImage.sys.id } : undefined,
+        primaryLink: dto.fields.primaryLink?.sys.id != null ? { id: dto.fields.primaryLink.sys.id } : undefined,
+        secondaryLinks: dto.fields.secondaryLinks?.map(l => ({ id: l.sys.id })) ?? [],
+        citation: dto.fields.citation,
+        countriesOfCoverage: dto.fields.countriesOfCoverage?.map(c => c.sys.id) ?? [],
+        topics: dto.fields.topics?.map(t => ({ id: t.sys.id })) ?? [],
+        purposes: dto.fields.purposes?.map(p => ({ id: p.sys.id })) ?? [],
+        audiences: dto.fields.audiences?.map(a => ({ id: a.sys.id })) ?? [],
+        keywords: dto.fields.keywords ?? [],
+        searchable: dto.fields.searchable,
+        homepage: dto.fields.homepage,
+    })
+})
