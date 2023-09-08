@@ -46,6 +46,8 @@ function StandaloneWrapper({
   const enabledRoutesFallback = Object.keys(routes).filter(key => fallbackRoutes.includes(key));
   enabledRoutesFallback.push('occurrenceSearch', 'collectionSearch', 'institutionSearch', 'publisherSearch', 'literatureSearch', 'eventSearch');
   const routeConfig = _merge({}, defaultContext, routes);
+  //handle previous versions of routeConfig
+  if (!siteConfig?.version || siteConfig?.version < 2) routeConfig.alwaysUseHrefs = true;
   routeConfig.enabledRoutes = routeConfig?.enabledRoutes ?? enabledRoutesFallback;
 
   const basename = _get(routeConfig, 'basename');

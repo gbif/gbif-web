@@ -2,6 +2,7 @@ import React from 'react';
 import { defaultContext as defaultRouteConfig } from './RouteContext';
 
 export const defaultContext = {
+  version: 2,
   routes: defaultRouteConfig,
   occurrence: {},
   dataset: {},

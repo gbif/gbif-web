@@ -5,7 +5,6 @@ import { Switch, Route } from 'react-router-dom';
 import RouteContext from '../../dataManagement/RouteContext';
 
 function Wrap({ siteConfig, ...props }) {
-  if (siteConfig?.routes) siteConfig.routes.alwaysUseHrefs = true;
   return <StandaloneWrapper siteConfig={siteConfig}>
     <Standalone {...props} />
   </StandaloneWrapper>
