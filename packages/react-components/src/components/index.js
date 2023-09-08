@@ -24,7 +24,7 @@ export { IconFeatures } from './IconFeatures/IconFeatures';
 export { HyperText } from './HyperText/HyperText';
 export { Progress, ProgressItem } from './Progress/Progress';
 export { Classification } from './Classification/Classification';
-export { Tag, Tags, Alert } from './Tag/Tag';
+export { Tag, Tags } from './Tag/Tag';
 export { GadmClassification } from './GadmClassification/GadmClassification';
 export { IdentifierBadge, Doi } from './IdentifierBadge';
 export { Eyebrow } from './Eyebrow/Eyebrow';

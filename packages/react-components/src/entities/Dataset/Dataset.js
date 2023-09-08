@@ -8,23 +8,20 @@ import { DatasetPresentation } from './DatasetPresentation';
 import { MemoryRouter, useRouteMatch } from 'react-router-dom';
 import { ErrorBoundary } from '../../components';
 
-function EnsureRouter({useMemoryRouter, children}) {
+function EnsureRouter({children}) {
   let hasRouter;
-  if (!useMemoryRouter) {
-    try {
-      const forTestOnly = useRouteMatch();
-      hasRouter = true;
-    } catch(err) {
-      console.log('No router context found, so creating a MemoryRouter for the component');
-      hasRouter = false;
-    }
+  try {
+    const forTestOnly = useRouteMatch();
+    hasRouter = true;
+  } catch(err) {
+    console.log('No router context found, so creating a MemoryRouter for the component');
+    hasRouter = false;
   }
   return hasRouter ? <>{children}</> : <MemoryRouter initialEntries={['/']}>{children}</MemoryRouter>
 }
 
 export function Dataset({
   id,
-  useMemoryRouter,
   ...props
 }) {
   const { data, error, loading, load } = useQuery(DATASET, { lazyLoad: true });
@@ -86,9 +83,9 @@ export function Dataset({
     }
   }, [id]);
 
-  return <EnsureRouter useMemoryRouter={useMemoryRouter}>
+  return <EnsureRouter>
     <ErrorBoundary>
-      <DatasetPresentation {...{ data, error, loading: loading || !data, id }} insights={{data: insights, loading: insightsLoading, error: insightsError}} {...props}/>
+      <DatasetPresentation {...{ data, error, loading: loading || !data, id }} insights={{data: insights, loading: insightsLoading, error: insightsError}} />
     </ErrorBoundary>
   </EnsureRouter>
 };
@@ -314,3 +311,4 @@ query dataset($key: ID!, $predicate: Predicate, $sitePredicate: Predicate){
   }
 }
 `;
+

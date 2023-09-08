@@ -30,66 +30,33 @@ export const tag = ({ type, outline, ...props }) => css`
   ${outline ? 'border: 1px solid var(--paperBorderColor)' : null}
 `;
 
-const bgColors = {
-  error: '#ff6c4b',
-  warning: '#ffbf4b',
-  info: '#3298dc',
-  success: '#48c774',
-  white: '#fff',
-  light: '#f5f5f5',
-  dark: '#363636'
-};
-const colors = {
-  error: '#fff',
-  warning: '#5f4515',
-  info: '#fff',
-  success: '#fff',
-  white: 'rgba(0,0,0,.7)',
-  light: 'rgba(0,0,0,.7)',
-  dark: '#fff'
-}
-
 const types = {
   error: props => css`
-    background-color: ${bgColors.error};
-    color: ${colors.error};
+    background-color: #ff6c4b;
+    color: #fff;
   `,
   warning: props => css`
-    background-color: ${bgColors.warning};
-    color: ${colors.warning};
+    background-color: #ffbf4b;
+    color: #5f4515;
   `,
   info: props => css`
-    background-color: ${bgColors.info};
-    color: ${colors.info};
+    background-color: #3298dc;
+    color: #fff;
   `,
   success: props => css`
-    background-color: ${bgColors.success};
-    color: ${colors.success};
+    background-color: #48c774;
+    color: #ffffff;
   `,
   white: props => css`
-    background-color: ${bgColors.white};
-    color: ${colors.white};
+    background-color: #fff;
+    color: rgba(0,0,0,.7);
   `,
   light: props => css`
-    background-color: ${bgColors.light};
-    color: ${colors.light};
+    background-color: #f5f5f5;
+    color: rgba(0,0,0,.7);
   `,
   dark: props => css`
-    background-color: ${bgColors.dark};
-    color: ${colors.dark};
+    background-color: #363636;
+    color: #fff;
   `
 }
-
-export const alert = ({type}) => css`
-  display: inline-flex;
-  background-color: ${bgColors[type]}aa;
-  color: ${colors[type]};
-  padding: 0.5rem;
-  align-items: center;
-  border-radius: var(--borderRadiusPx);
-  text-decoration: none;
-  > div {
-    margin: 0 0.5rem;
-    flex: 1 1 auto;
-  }
-`;

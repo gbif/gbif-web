@@ -6,7 +6,12 @@ import ThemeContext from '../../style/themes/ThemeContext';
 import * as css from './styles';
 import { Row, Col, Tabs } from "../../components";
 import { useQuery } from '../../dataManagement/api';
-import { Dataset } from '../Dataset/Dataset'
+import { Intro } from './details/Intro';
+import { Header } from './details/Header';
+import { Contacts } from './details/Contacts'
+import { BibliographicCitations } from './details/BibliographicCitations'
+import { SamplingDescription } from './details/SamplingDescription'
+import { Citation } from './details/Citation'
 
 const { TabList, Tab, TabPanel, TapSeperator } = Tabs;
 
@@ -47,7 +52,14 @@ export function DatasetSidebar({
       <Col shrink={false} grow={false} css={css.detailDrawerContent({ theme })} >
         <TabPanel tabId='details'>
           <Row direction="column">
-          <Dataset id={id} useMemoryRouter disableCatalog/>
+            <Col style={{ padding: '12px 16px', paddingBottom: 50 }} grow>
+              <Header data={data} error={error} />
+              <Intro data={data} loading={loading} error={error} />
+              <SamplingDescription data={data} />
+              <BibliographicCitations data={data} />
+              <Contacts data={data} />
+              <Citation data={data} />
+            </Col>
           </Row>
         </TabPanel>
       </Col>

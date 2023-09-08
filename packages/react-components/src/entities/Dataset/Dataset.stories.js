@@ -52,11 +52,9 @@ const siteConfig = {
   // messages: {
   //   'dataset.longType.OCCURRENCE': 'TEsT'
   // },
-  occurrence: {
-    rootPredicate: { type: 'equals', key: 'country', value: 'DE' }
-  },
-  routes: {},
-  availableCatalogues: ['OCCURRENCE', 'DATASET', 'PUBLISHER', 'LITERATURE', 'COLLECTION', 'INSTITUTION'],
+  // occurrence: {
+  //   rootPredicate: { type: 'equals', key: 'country', value: 'DE' }
+  // }
 };
 
-export const StandaloneExample = () => <Standalone siteConfig={siteConfig} id="2985efd1-45b1-46de-b6db-0465d2834a5a"></Standalone>;
+export const StandaloneExample = () => <Standalone siteConfig={siteConfig} id="83e20573-f7dd-4852-9159-21566e1e691e"></Standalone>;

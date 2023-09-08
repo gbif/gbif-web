@@ -23,7 +23,7 @@ export const contentWrapper = css`
   width: ${contentWidth}px;
   max-width: 100%;
   padding: 12px 12px 0 12px;
-  margin-left: max(0px, calc((100% - ${contentWidth}px) / 2));
+  margin-left: max(0px, calc((100vw - ${contentWidth}px) / 2));
   @media (min-width: 1200px) {
     padding: 12px 36px 0 36px;
   }
