@@ -24,7 +24,7 @@ export function Year({
           total
         }
         facet: autoDateHistogram {
-          results: eventDate(buckets: 50) {
+          results: eventDate(buckets: 50, minimum_interval: "day") {
             interval
             buckets {
               key: date
