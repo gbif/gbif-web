@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import RouteContext from '../../../../dataManagement/RouteContext';
 import StandardSearchTable from '../../../StandardSearchTable';
 import { FormattedNumber } from 'react-intl';
-import { DatasetKeyLink } from '../../../../components';
+import { DatasetKeyLink, Skeleton } from '../../../../components';
 import queryString from 'query-string';
 import env from '../../../../../.env.json';
 
@@ -20,6 +20,16 @@ query list($license: [License], $endorsingNodeKey: [ID], $networkKey: [ID], $pub
       type
       subtype
       recordCount
+    }
+  }
+}
+`;
+
+const SLOW_QUERY = `
+query list($license: [License], $endorsingNodeKey: [ID], $networkKey: [ID], $publishingOrg: [ID], $hostingOrg: [ID], $publishingCountry: [Country], $q: String, $offset: Int, $limit: Int, $type: [DatasetType], $subtype: [DatasetSubtype]){
+  datasetSearch(license: $license, endorsingNodeKey:$endorsingNodeKey, networkKey:$networkKey, publishingOrg:$publishingOrg, hostingOrg: $hostingOrg, publishingCountry: $publishingCountry, q: $q, limit: $limit, offset: $offset, type: $type, subtype: $subtype) {
+    results {
+      key
       occurrenceCount
       literatureCount
     }
@@ -67,8 +77,11 @@ const defaultTableConfig = {
       trKey: 'tableHeaders.citations',
       value: {
         key: 'literatureCount',
-        formatter: (value, item) => <FormattedNumber value={value} />,
-        hideFalsy: true,
+        formatter: (value, item) => {
+          if (typeof value === 'undefined') return <Skeleton />;
+          return <FormattedNumber value={value} />
+        },
+        hideFalsy: false,
         rightAlign: true
       }
     },
@@ -76,8 +89,11 @@ const defaultTableConfig = {
       trKey: 'tableHeaders.occurrences',
       value: {
         key: 'occurrenceCount',
-        formatter: (value, item) => <FormattedNumber value={value} />,
-        hideFalsy: true,
+        formatter: (value, item) => {
+          if (typeof value === 'undefined') return <Skeleton />;
+          return <FormattedNumber value={value} />
+        },
+        hideFalsy: false,
         rightAlign: true
       }
     }
@@ -88,6 +104,7 @@ function Table() {
   const routeContext = useContext(RouteContext);
   return <StandardSearchTable 
     graphQuery={DATASET_LIST} 
+    slowQuery={SLOW_QUERY} 
     resultKey='datasetSearch' 
     defaultTableConfig={defaultTableConfig}
     exportTemplate={({filter}) => `${env.API_V1}/dataset/search/export?format=TSV&${filter ? queryString.stringify(filter) : ''}`}
