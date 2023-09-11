@@ -28,6 +28,7 @@ export function About({
   ...props
 }) {
   const isBelowSidebar = useBelow(1000);
+  const isBelowHorisontal = useBelow(700);
   let { url } = useRouteMatch();
   const theme = useContext(ThemeContext);
   const [tocRefs] = useState({})
@@ -71,13 +72,111 @@ export function About({
     </div>
   </SideBarCard> : null;
 
+  const sideBarMetrics = <div>
+    {citationArea}
+
+    {(dataset.type === 'CHECKLIST') && <SideBarCard>
+      <div css={styles.sidebarCardWrapper}>
+        <div css={styles.sidebarCard}>
+          <div css={styles.sidebarIcon}>
+            <div><MdPlaylistAddCheck /></div>
+          </div>
+          <div css={styles.sidebarCardContent}>
+            <a href={`${env.CHECKLIST_BANK_WEBSITE}/dataset/gbif-${dataset.key}/imports`}>
+              <h5>
+                <FormattedMessage id="counts.nNames" values={{ total: totalTaxa.count }} />
+              </h5>
+            </a>
+            <>
+              <p><FormattedMessage id="counts.nAcceptedNames" values={{ total: accepted.count }} /></p>
+              <div css={styles.progress}><div style={{ width: `${acceptedPercentage}%` }}></div></div>
+
+              <p><FormattedMessage id="counts.nSynonyms" values={{ total: synonyms.count }} /></p>
+              <div css={styles.progress}><div style={{ width: `${synonymsPercentage}%` }}></div></div>
+
+              <p><FormattedMessage id="counts.gbifOverlapPercent" values={{ percent: gbifOverlap }} /></p>
+              <div css={styles.progress}><div style={{ width: `${gbifOverlap}%` }}></div></div>
+
+              <p><FormattedMessage id="counts.colOverlapPercent" values={{ percent: colOverlap }} /></p>
+              <div css={styles.progress}><div style={{ width: `${colOverlap}%` }}></div></div>
+            </>
+          </div>
+        </div>
+      </div>
+    </SideBarCard>}
+
+    {(total > 0 || dataset.type === 'OCCURRENCE') && <SideBarCard>
+      <div css={styles.sidebarOccurrenceCardWrapper({isHorisontal: isBelowSidebar && !isBelowHorisontal})}>
+        {total > 0 && <ResourceSearchLink type="occurrenceSearch" queryString={`datasetKey=${dataset.key}&view=MAP`} discreet >
+          <ThumbnailMap dataset={dataset} />
+        </ResourceSearchLink>}
+        <div css={styles.sidebarCard}>
+          <div css={styles.sidebarIcon}>
+            <div><OccurrenceIcon /></div>
+          </div>
+          <div css={styles.sidebarCardContent}>
+            <ResourceSearchLink type="occurrenceSearch" queryString={`datasetKey=${dataset.key}`} discreet >
+              <h5>
+                <FormattedMessage id="counts.nOccurrences" values={{ total }} />
+              </h5>
+            </ResourceSearchLink>
+            {total > 0 && <>
+              <p><FormattedMessage id="counts.percentWithCoordinates" values={{ percent: withCoordinatesPercentage }} /></p>
+              <div css={styles.progress}><div style={{ width: `${withCoordinatesPercentage}%` }}></div></div>
+
+              <p><FormattedMessage id="counts.percentWithYear" values={{ percent: withYearPercentage }} /></p>
+              <div css={styles.progress}><div style={{ width: `${withYearPercentage}%` }}></div></div>
+
+              <p><FormattedMessage id="counts.percentWithTaxonMatch" values={{ percent: withTaxonMatchPercentage }} /></p>
+              <div css={styles.progress}><div style={{ width: `${withTaxonMatchPercentage}%` }}></div></div>
+            </>}
+          </div>
+        </div>
+      </div>
+
+      {hasDna && <div css={styles.sidebarCard}>
+        <div css={styles.sidebarIcon}>
+          <div><GiDna1 /></div>
+        </div>
+        <div css={styles.sidebarCardContent}>
+          <h5>Includes DNA</h5>
+          <p>There are records in this dataset that contain sequence data.</p>
+        </div>
+      </div>}
+
+      {labelAsEventDataset && <div css={styles.sidebarCard}>
+        <div css={styles.sidebarIcon}>
+          <div><MdGridOn /></div>
+        </div>
+        <div css={styles.sidebarCardContent}>
+          <h5>Contains sampling events</h5>
+          <p>This dataset contains sampling data. The details of how the sampling took place should be in a methodology section.</p>
+        </div>
+      </div>}
+
+      {isGridded && <div css={styles.sidebarCard}>
+        <div css={styles.sidebarIcon}>
+          <div><MdGridOn /></div>
+        </div>
+        <div css={styles.sidebarCardContent}>
+          <h5>Gridded data</h5>
+          <p>Based on out analysis of the points it looks like this dataset contains gridden data.</p>
+        </div>
+      </div>}
+    </SideBarCard>}
+  </div>;
+
   return <>
     <div css={sharedStyles.withSideBar({ hasSidebar: !isBelowSidebar })}>
       <div style={{ width: '100%', overflow: 'auto' }}>
 
-        {siteOccurrences.documents.total - total < 0 && <Alert style={{width: '100%', marginTop: 12}} as="a" href={`https://www.gbif.org/dataset/${dataset.key}`} tagText="Info" tagType="info">Not all records from the dataset is included on this site. Visit GBIF.org to learn more.</Alert>}
+        {siteOccurrences.documents.total - total < 0 && <Alert style={{ width: '100%', marginTop: 12 }} as="a" href={`https://www.gbif.org/dataset/${dataset.key}`} tagText="Info" tagType="info">Not all records from the dataset is included on this site. Visit GBIF.org to learn more.</Alert>}
 
-        {isBelowSidebar && <div css={css`
+        {isBelowSidebar && <div>
+          {sideBarMetrics}
+        </div>}
+
+        {/* {false && isBelowSidebar && <div css={css`
           display: flex;
           flex-wrap: wrap;
           margin-top: 12px;
@@ -85,52 +184,20 @@ export function About({
         `}>
           {total > 0 && <ResourceSearchLink type="occurrenceSearch" queryString={`datasetKey=${dataset.key}`} discreet >
             <Button look="primary" style={{ marginRight: 12 }}>
-              <OccurrenceIcon style={{marginRight: 12}}/> <FormattedMessage id="counts.nOccurrences" values={{ total }} />
+              <OccurrenceIcon style={{ marginRight: 12 }} /> <FormattedMessage id="counts.nOccurrences" values={{ total }} />
             </Button>
           </ResourceSearchLink>}
-          
+
           {totalTaxa?.count > 0 && <ResourceSearchLink type="speciesSearch" queryString={`origin=SOURCE&advanced=1&dataset_key=${dataset.key}`} discreet >
             <Button look="primary" style={{ marginRight: 12 }}>
-              <MdPlaylistAddCheck style={{marginRight: 12}}/> <FormattedMessage id="counts.nTaxa" values={{ total: totalTaxa?.count }} />
+              <MdPlaylistAddCheck style={{ marginRight: 12 }} /> <FormattedMessage id="counts.nTaxa" values={{ total: totalTaxa?.count }} />
             </Button>
           </ResourceSearchLink>}
 
           {literatureSearch.documents.total > 0 && <Button as={Link} to={join(url, 'dashboard')} look="primary" style={{ marginRight: 12 }}>
-            <MdFormatQuote style={{marginRight: 12}}/> <FormattedMessage id="counts.nCitations" values={{ total: literatureSearch.documents.total }} />
+            <MdFormatQuote style={{ marginRight: 12 }} /> <FormattedMessage id="counts.nCitations" values={{ total: literatureSearch.documents.total }} />
           </Button>}
-
-          {/* {citationArea}
-          {total > 0 && <div css={styles.area}>
-            <div css={styles.sidebarCard}>
-              <div css={styles.sidebarIcon}>
-                <div><OccurrenceIcon /></div>
-              </div>
-              <div css={styles.sidebarCardContent}>
-                <ResourceSearchLink type="occurrenceSearch" queryString={`datasetKey=${dataset.key}`} discreet >
-                  <h5>
-                    <FormattedMessage id="counts.nOccurrences" values={{ total }} />
-                  </h5>
-                </ResourceSearchLink>
-              </div>
-            </div>
-          </div>}
-
-          {totalTaxa?.count > 0 && <div css={styles.area}>
-            <div css={styles.sidebarCard}>
-              <div css={styles.sidebarIcon}>
-                <div><MdPlaylistAddCheck /></div>
-              </div>
-              <div css={styles.sidebarCardContent}>
-                <ResourceSearchLink type="speciesSearch" queryString={`origin=SOURCE&advanced=1&dataset_key=${dataset.key}`} discreet >
-                  <h5>
-                    <FormattedMessage id="counts.nTaxa" values={{ total: totalTaxa?.count }} />
-                  </h5>
-                </ResourceSearchLink>
-              </div>
-            </div>
-          </div>} */}
-
-        </div>}
+        </div>} */}
 
         {/* <OccurrenceMap rootPredicate={{
           type: 'equals',
@@ -232,99 +299,7 @@ export function About({
         </Card>}
       </div>
       {!isBelowSidebar && <div css={sharedStyles.sideBar({ theme })}>
-        <div>
-          {citationArea}
-
-          {(dataset.type === 'CHECKLIST') && <SideBarCard>
-            <div css={styles.sidebarCardWrapper}>
-              <div css={styles.sidebarCard}>
-                <div css={styles.sidebarIcon}>
-                  <div><MdPlaylistAddCheck /></div>
-                </div>
-                <div css={styles.sidebarCardContent}>
-                  <a href={`${env.CHECKLIST_BANK_WEBSITE}/dataset/gbif-${dataset.key}/imports`}>
-                    <h5>
-                      <FormattedMessage id="counts.nNames" values={{ total: totalTaxa.count }} />
-                    </h5>
-                  </a>
-                  <>
-                    <p><FormattedMessage id="counts.nAcceptedNames" values={{ total: accepted.count }} /></p>
-                    <div css={styles.progress}><div style={{ width: `${acceptedPercentage}%` }}></div></div>
-
-                    <p><FormattedMessage id="counts.nSynonyms" values={{ total: synonyms.count }} /></p>
-                    <div css={styles.progress}><div style={{ width: `${synonymsPercentage}%` }}></div></div>
-
-                    <p><FormattedMessage id="counts.gbifOverlapPercent" values={{ percent: gbifOverlap }} /></p>
-                    <div css={styles.progress}><div style={{ width: `${gbifOverlap}%` }}></div></div>
-
-                    <p><FormattedMessage id="counts.colOverlapPercent" values={{ percent: colOverlap }} /></p>
-                    <div css={styles.progress}><div style={{ width: `${colOverlap}%` }}></div></div>
-                  </>
-                </div>
-              </div>
-            </div>
-          </SideBarCard>}
-
-          {(total > 0 || dataset.type === 'OCCURRENCE') && <SideBarCard>
-            <div css={styles.sidebarCardWrapper}>
-              {total > 0 && <ResourceSearchLink type="occurrenceSearch" queryString={`datasetKey=${dataset.key}&view=MAP`} discreet >
-                <ThumbnailMap dataset={dataset} />
-              </ResourceSearchLink>}
-              <div css={styles.sidebarCard}>
-                <div css={styles.sidebarIcon}>
-                  <div><OccurrenceIcon /></div>
-                </div>
-                <div css={styles.sidebarCardContent}>
-                  <ResourceSearchLink type="occurrenceSearch" queryString={`datasetKey=${dataset.key}`} discreet >
-                    <h5>
-                      <FormattedMessage id="counts.nOccurrences" values={{ total }} />
-                    </h5>
-                  </ResourceSearchLink>
-                  {total > 0 && <>
-                    <p><FormattedMessage id="counts.percentWithCoordinates" values={{ percent: withCoordinatesPercentage }} /></p>
-                    <div css={styles.progress}><div style={{ width: `${withCoordinatesPercentage}%` }}></div></div>
-
-                    <p><FormattedMessage id="counts.percentWithYear" values={{ percent: withYearPercentage }} /></p>
-                    <div css={styles.progress}><div style={{ width: `${withYearPercentage}%` }}></div></div>
-
-                    <p><FormattedMessage id="counts.percentWithTaxonMatch" values={{ percent: withTaxonMatchPercentage }} /></p>
-                    <div css={styles.progress}><div style={{ width: `${withTaxonMatchPercentage}%` }}></div></div>
-                  </>}
-                </div>
-              </div>
-            </div>
-
-            {hasDna && <div css={styles.sidebarCard}>
-              <div css={styles.sidebarIcon}>
-                <div><GiDna1 /></div>
-              </div>
-              <div css={styles.sidebarCardContent}>
-                <h5>Includes DNA</h5>
-                <p>There are records in this dataset that contain sequence data.</p>
-              </div>
-            </div>}
-
-            {labelAsEventDataset && <div css={styles.sidebarCard}>
-              <div css={styles.sidebarIcon}>
-                <div><MdGridOn /></div>
-              </div>
-              <div css={styles.sidebarCardContent}>
-                <h5>Contains sampling events</h5>
-                <p>This dataset contains sampling data. The details of how the sampling took place should be in a methodology section.</p>
-              </div>
-            </div>}
-
-            {isGridded && <div css={styles.sidebarCard}>
-              <div css={styles.sidebarIcon}>
-                <div><MdGridOn /></div>
-              </div>
-              <div css={styles.sidebarCardContent}>
-                <h5>Gridded data</h5>
-                <p>Based on out analysis of the points it looks like this dataset contains gridden data.</p>
-              </div>
-            </div>}
-          </SideBarCard>}
-        </div>
+        {sideBarMetrics}
         <nav css={sharedStyles.sideBarNav({ theme })}>
           <SideBarCard>
             <Toc refs={tocRefs} />
