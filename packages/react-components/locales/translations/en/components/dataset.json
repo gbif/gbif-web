@@ -15,7 +15,7 @@
     "synonyms": "Synonyms"
   },
   "noStatsForMetadata": "No statistics available for metadata only datasets",
-  "siteScopeSmallerThanDataset": "",
+  "siteScopeSmallerThanDataset": "Not all records from the dataset are included on this site. Visit [GBIF.org]({datasetUrl}) to explore the full dataset.",
   "viewArticle": "View article",
   "registeredDate": "Registered {DATE}",
   "constituentOf": "Constituent of",
@@ -23,7 +23,7 @@
   "taxonomy": "Taxonomy",
   "project": "Project",
   "metrics": "Metrics",
-  "metricsOccurrenceHelpText": "",
+  "metricsOccurrenceHelpText": "Metrics are based on interpreted data",
   "constituents": "Constituents",
   "download": "Download",
   "datasetHomepage": "Home page",
