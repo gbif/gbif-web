@@ -9,7 +9,7 @@ import RouteContext from '../../../dataManagement/RouteContext';
 import { Images, ThumbnailMap, TaxonomicCoverages, GeographicCoverages, TemporalCoverages, Registration, BibliographicCitations, SamplingDescription, Citation } from './details';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { Link, useRouteMatch } from 'react-router-dom';
-import { join } from '../../../utils/util';
+import { formatAsPercentage, join } from '../../../utils/util';
 import useBelow from '../../../utils/useBelow';
 import env from '../../../../.env.json';
 
@@ -43,12 +43,12 @@ export function About({
   const withTaxonMatch = occurrenceSearch?.documents?.total - insights?.data?.withTaxonMatch?.documents?.total;
 
   const total = occurrenceSearch?.documents?.total;
-  const withCoordinatesPercentage = asPercentage(withCoordinates / total);
-  const withYearPercentage = asPercentage(withYear / total);
-  const withTaxonMatchPercentage = asPercentage(withTaxonMatch / total);
+  const withCoordinatesPercentage = formatAsPercentage(withCoordinates / total);
+  const withYearPercentage = formatAsPercentage(withYear / total);
+  const withTaxonMatchPercentage = formatAsPercentage(withTaxonMatch / total);
 
-  const synonymsPercentage = asPercentage(synonyms.count / totalTaxa.count);
-  const acceptedPercentage = asPercentage(accepted.count / totalTaxa.count);
+  const synonymsPercentage = formatAsPercentage(synonyms.count / totalTaxa.count);
+  const acceptedPercentage = formatAsPercentage(accepted.count / totalTaxa.count);
   const gbifOverlap = dataset.metrics?.nubCoveragePct;
   const colOverlap = dataset.metrics?.colCoveragePct;
 
@@ -309,37 +309,3 @@ export function About({
     </div>
   </>
 };
-
-function asPercentage(fraction, max = 100) {
-  var formatedPercentage = 0;
-  if (Number.isNaN(fraction)) {
-    return 0;
-  }
-  if (!isFinite(fraction)) {
-    return fraction;
-  }
-  fraction = 100 * fraction;
-  if (fraction > 101) {
-    formatedPercentage = fraction.toFixed();
-  } else if (fraction > 100.1) {
-    formatedPercentage = fraction.toFixed(1);
-  } else if (fraction > 100) {
-    formatedPercentage = 100.1;
-  } else if (fraction == 100) {
-    formatedPercentage = 100;
-  } else if (fraction >= 99.9) {
-    formatedPercentage = 99.9;
-  } else if (fraction > 99) {
-    formatedPercentage = fraction.toFixed(1);
-  } else if (fraction >= 1) {
-    formatedPercentage = fraction.toFixed();
-  } else if (fraction >= 0.01) {
-    formatedPercentage = fraction.toFixed(2);
-  } else if (fraction < 0.01 && fraction != 0) {
-    formatedPercentage = 0.01;
-  }
-  if (formatedPercentage > max) {
-    formatedPercentage = max;
-  }
-  return formatedPercentage;
-}
