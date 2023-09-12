@@ -4,7 +4,7 @@ import React, { useContext, useEffect } from 'react';
 import { useQuery } from '../../../dataManagement/api';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import * as styles from './styles';
-import { ResourceLink, Progress, Skeleton, Tooltip } from "../../../components";
+import { ResourceLink, Progress, Skeleton, Tooltip, Button } from "../../../components";
 import { EmptyInboxIcon } from "../../../components/Icons/Icons";
 import sortBy from 'lodash/sortBy';
 import { FormattedMessage } from 'react-intl';
@@ -12,6 +12,7 @@ import { FormattedMessage } from 'react-intl';
 import { Card, CardHeader2 } from '../../shared';
 import { FeatureList, GbifCount, GenericFeature } from '../../../components/IconFeatures/IconFeatures';
 import { MdOutlineScreenSearchDesktop as CatalogIcon } from 'react-icons/md';
+import env from '../../../../.env.json';
 
 export function Collections({
   institution,
@@ -20,14 +21,19 @@ export function Collections({
 }) {
   const theme = useContext(ThemeContext);
   const { collections } = institution;
-  const totalGBifSize = collections.reduce((a, c) => a += c.occurrenceCount || 0, 0);
-  const totalEstimatedSize = collections.reduce((a, c) => a += c.numberSpecimens || 0, 0);
+  // const totalGBifSize = collections.reduce((a, c) => a += c.occurrenceCount || 0, 0);
+  // const totalEstimatedSize = collections.reduce((a, c) => a += c.numberSpecimens || 0, 0);
+
+  const createCollectionButton = <Button as="a" href={`${env.GBIF_REGISTRY}/collection/create?institutionKey=${institution.key}`} look="primaryOutline">
+    <FormattedMessage id="institution.addCollection" defaultMessage="Add collection" />
+  </Button>;
 
   if (collections.length === 0) {
-    return <div css={css`text-align: center; margin-top: 96px;`}>
+    return <div css={css`text-align: center; margin-top: 96px; min-height: 60vh;`}>
       <EmptyInboxIcon css={css`font-size: 100px; color: var(--color400);`} />
       <div css={css`font-size: 18px; margin: 24px; color: var(--color400); font-weight: 500;`}>This institution has no known collections</div>
       <OrphanedCollectionCodes institution={institution} css={css`margin-top: 48px;`} />
+      {createCollectionButton}
     </div>
   }
   return <div css={styles.collections({ theme })}>
@@ -82,6 +88,7 @@ export function Collections({
           </Card>
         })}
       </div>
+      {createCollectionButton}
       <OrphanedCollectionCodes institution={institution} />
     </div>
   </div>
