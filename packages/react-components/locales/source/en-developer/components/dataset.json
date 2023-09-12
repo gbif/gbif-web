@@ -23,6 +23,7 @@
   "taxonomy": "Taxonomy",
   "project": "Project",
   "metrics": "Metrics",
+  "metricsOccurrenceHelpText": "Metrics are based on interpreted data",
   "constituents": "Constituents",
   "download": "Download",
   "datasetHomepage": "Home page",

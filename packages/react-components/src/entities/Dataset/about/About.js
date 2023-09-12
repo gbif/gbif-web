@@ -4,7 +4,7 @@ import React, { useContext, useState } from 'react';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import * as styles from './styles';
 import * as sharedStyles from '../../shared/styles';
-import { Prose, Properties, HyperText, Toc, ContactList, OccurrenceMap, ResourceSearchLink, Alert, Button } from "../../../components";
+import { Prose, Properties, HyperText, Toc, ContactList, OccurrenceMap, ResourceSearchLink, Alert, Button, Tooltip } from "../../../components";
 import RouteContext from '../../../dataManagement/RouteContext';
 import { Images, ThumbnailMap, TaxonomicCoverages, GeographicCoverages, TemporalCoverages, Registration, BibliographicCitations, SamplingDescription, Citation } from './details';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -13,7 +13,7 @@ import { formatAsPercentage, join } from '../../../utils/util';
 import useBelow from '../../../utils/useBelow';
 import env from '../../../../.env.json';
 
-import { MdFormatQuote, MdGridOn, MdPlaylistAddCheck, MdPinDrop as OccurrenceIcon } from 'react-icons/md';
+import { MdFormatQuote, MdGridOn, MdInfo, MdInfoOutline, MdPlaylistAddCheck, MdPinDrop as OccurrenceIcon } from 'react-icons/md';
 import { GiDna1 } from 'react-icons/gi';
 import { Dashboard } from './Dashboard';
 import { Card, CardHeader2, SideBarCard } from '../../shared';
@@ -257,6 +257,11 @@ export function About({
           <Prose css={styles.paper({ theme, transparent: true })} style={{ paddingTop: 0, paddingBottom: 0 }}>
             <CardHeader2 ref={node => { tocRefs["metrics"] = { node, index: 6, title: <FormattedMessage id="dataset.metrics" /> }; }}>
               <FormattedMessage id="dataset.metrics" />
+              <Tooltip title={<FormattedMessage id="dataset.metricsOccurrenceHelpText" />}>
+                <span>
+                  <MdInfoOutline style={{ verticalAlign: 'middle' }} />
+                </span>
+              </Tooltip>
             </CardHeader2>
           </Prose>
           <Dashboard dataset={dataset} loading={loading} error={error} />
