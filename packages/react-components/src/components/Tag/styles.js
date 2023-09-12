@@ -88,6 +88,7 @@ export const alert = ({type}) => css`
   align-items: center;
   border-radius: var(--borderRadiusPx);
   text-decoration: none;
+  align-items: flex-start;
   &:hover {
     color: ${colors[type]};
     text-decoration: none;

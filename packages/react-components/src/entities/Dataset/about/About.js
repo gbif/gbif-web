@@ -173,7 +173,7 @@ export function About({
       <div style={{ width: '100%', overflow: 'auto' }}>
 
         {siteOccurrences.documents.total - total < 0 && <Alert css={css`width: 100%; margin-top: 12px; a { color: inherit!important; text-decoration: underline!important;}`} tagText="Info" tagType="info">
-          <HyperText text={scopeSmallerThanDatasetMessage} sanitizeOptions={{ALLOWED_TAGS: ['a', 'strong', 'em', 'p', 'br']}} />
+          <HyperText inline text={scopeSmallerThanDatasetMessage} sanitizeOptions={{ALLOWED_TAGS: ['a', 'strong', 'em', 'p', 'br']}} />
           </Alert>}
 
         {isBelowSidebar && <div>
@@ -312,6 +312,11 @@ export function About({
         <nav css={sharedStyles.sideBarNav({ theme })}>
           <SideBarCard>
             <Toc refs={tocRefs} />
+            <ul style={{borderTop: '1px solid #eee'}}>
+              <li>
+                <a href={`https://www.gbif.org/dataset/${dataset.key}`}>View on GBIF.org</a>
+              </li>
+            </ul>
           </SideBarCard>
         </nav>
       </div>}
