@@ -7,7 +7,7 @@ import * as sharedStyles from '../../shared/styles';
 import { Prose, Properties, HyperText, Toc, ContactList, OccurrenceMap, ResourceSearchLink, Alert, Button } from "../../../components";
 import RouteContext from '../../../dataManagement/RouteContext';
 import { Images, ThumbnailMap, TaxonomicCoverages, GeographicCoverages, TemporalCoverages, Registration, BibliographicCitations, SamplingDescription, Citation } from './details';
-import { FormattedMessage, FormattedNumber } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { formatAsPercentage, join } from '../../../utils/util';
 import useBelow from '../../../utils/useBelow';
@@ -27,6 +27,7 @@ export function About({
   className,
   ...props
 }) {
+  const { formatMessage } = useIntl();
   const isBelowSidebar = useBelow(1000);
   const isBelowHorisontal = useBelow(700);
   let { url } = useRouteMatch();
@@ -35,6 +36,7 @@ export function About({
   const { dataset, occurrenceSearch, literatureSearch, totalTaxa, accepted, synonyms, siteOccurrences } = data;
   // collect all refs to headlines for the TOC, e.g. ref={node => { tocRefs["description"] = {node, index: 0}; }}
 
+  const scopeSmallerThanDatasetMessage = formatMessage({ id: "dataset.siteScopeSmallerThanDataset", defaultMessage: "Visit [GBIF.org]({datasetUrl}) to explore the full dataset." }, { datasetUrl: `https://www.gbif.org/dataset/${dataset.key}` });
   const isGridded = dataset?.gridded?.[0]?.percent > 0.5; // threshold decided in https://github.com/gbif/gridded-datasets/issues/3
   const hasDna = (insights?.data?.unfiltered?.facet?.dwcaExtension || []).find(ext => ext.key === 'http://rs.gbif.org/terms/1.0/DNADerivedData');
 
@@ -170,7 +172,9 @@ export function About({
     <div css={sharedStyles.withSideBar({ hasSidebar: !isBelowSidebar })}>
       <div style={{ width: '100%', overflow: 'auto' }}>
 
-        {siteOccurrences.documents.total - total < 0 && <Alert style={{ width: '100%', marginTop: 12 }} as="a" href={`https://www.gbif.org/dataset/${dataset.key}`} tagText="Info" tagType="info">Not all records from the dataset is included on this site. Visit GBIF.org to learn more.</Alert>}
+        {siteOccurrences.documents.total - total < 0 && <Alert css={css`width: 100%; margin-top: 12px; a { color: inherit!important; text-decoration: underline!important;}`} tagText="Info" tagType="info">
+          <HyperText text={scopeSmallerThanDatasetMessage} sanitizeOptions={{ALLOWED_TAGS: ['a', 'strong', 'em', 'p', 'br']}} />
+          </Alert>}
 
         {isBelowSidebar && <div>
           {sideBarMetrics}
