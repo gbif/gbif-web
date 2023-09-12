@@ -1,11 +1,9 @@
 
 import { jsx, css as css } from '@emotion/react';
 import React, { useContext, useState } from 'react';
-import ThemeContext from '../../../style/themes/ThemeContext';
 import * as styles from './styles';
 import * as sharedStyles from '../../shared/styles';
 import { Prose, Properties, HyperText, Toc, ContactList, OccurrenceMap, ResourceSearchLink, Alert, Button, Tooltip } from "../../../components";
-import RouteContext from '../../../dataManagement/RouteContext';
 import { Images, ThumbnailMap, TaxonomicCoverages, GeographicCoverages, TemporalCoverages, Registration, BibliographicCitations, SamplingDescription, Citation } from './details';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Link, useRouteMatch } from 'react-router-dom';
@@ -13,11 +11,13 @@ import { formatAsPercentage, join } from '../../../utils/util';
 import useBelow from '../../../utils/useBelow';
 import env from '../../../../.env.json';
 
-import { MdFormatQuote, MdGridOn, MdInfo, MdInfoOutline, MdPlaylistAddCheck, MdPinDrop as OccurrenceIcon } from 'react-icons/md';
+import { MdFormatQuote, MdGridOn, MdInfoOutline, MdLink, MdPlaylistAddCheck, MdPinDrop as OccurrenceIcon } from 'react-icons/md';
 import { GiDna1 } from 'react-icons/gi';
 import { Dashboard } from './Dashboard';
 import { Card, CardHeader2, SideBarCard } from '../../shared';
+import SiteContext from '../../../dataManagement/SiteContext';
 
+const { NavItem } = Toc;
 export function About({
   data = {},
   insights,
@@ -31,7 +31,7 @@ export function About({
   const isBelowSidebar = useBelow(1000);
   const isBelowHorisontal = useBelow(700);
   let { url } = useRouteMatch();
-  const theme = useContext(ThemeContext);
+  const siteContext = useContext(SiteContext);
   const [tocRefs] = useState({})
   const { dataset, occurrenceSearch, literatureSearch, totalTaxa, accepted, synonyms, siteOccurrences } = data;
   // collect all refs to headlines for the TOC, e.g. ref={node => { tocRefs["description"] = {node, index: 0}; }}
@@ -254,7 +254,7 @@ export function About({
           <SamplingDescription dataset={dataset} />
         </Card>}
         {total > 1 && <>
-          <Prose css={styles.paper({ theme, transparent: true })} style={{ paddingTop: 0, paddingBottom: 0 }}>
+          <Prose css={styles.paper({ transparent: true })} style={{ paddingTop: 0, paddingBottom: 0 }}>
             <CardHeader2 ref={node => { tocRefs["metrics"] = { node, index: 6, title: <FormattedMessage id="dataset.metrics" /> }; }}>
               <FormattedMessage id="dataset.metrics" />
               <Tooltip title={<FormattedMessage id="dataset.metricsOccurrenceHelpText" />}>
@@ -307,16 +307,16 @@ export function About({
           <Citation data={data} />
         </Card>}
       </div>
-      {!isBelowSidebar && <div css={sharedStyles.sideBar({ theme })}>
+      {!isBelowSidebar && <div css={sharedStyles.sideBar}>
         {sideBarMetrics}
-        <nav css={sharedStyles.sideBarNav({ theme })}>
+        <nav css={sharedStyles.sideBarNav}>
           <SideBarCard>
             <Toc refs={tocRefs} />
-            <ul style={{borderTop: '1px solid #eee'}}>
+            {!siteContext?.dataset?.disableGbifTocLink && <ul style={{borderTop: '1px solid #eee', paddingTop: 12}}>
               <li>
-                <a href={`https://www.gbif.org/dataset/${dataset.key}`}>View on GBIF.org</a>
+                <NavItem href={`${env.GBIF_ORG}/dataset/${dataset.key}`}>View on GBIF.org <MdLink /></NavItem>
               </li>
-            </ul>
+            </ul>}
           </SideBarCard>
         </nav>
       </div>}

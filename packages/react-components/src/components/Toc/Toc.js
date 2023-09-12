@@ -1,7 +1,7 @@
 import { jsx } from "@emotion/react";
 import React, { useContext, useState, useEffect } from "react";
 import ThemeContext from "../../style/themes/ThemeContext";
-import * as css from "./Toc.styles";
+import * as css from "./styles";
 import { useLocation, useHistory } from "react-router-dom";
 import _ from "lodash";
 import { useToc } from "./useToc";
@@ -52,7 +52,7 @@ export const Toc = ({ refs, ...props }) => {
             href={`#${section.key}`}
             onClick={clickHandlers[section.key]}
             className={activeSection === section.key ? "isActive" : null}
-            css={css.navItem({ theme })}
+            css={css.navItem}
           >
             {section.title ?? _.startCase(section.key)}
           </a>
@@ -61,3 +61,9 @@ export const Toc = ({ refs, ...props }) => {
     </ul>
   );
 }
+
+function TocNavItem(props) {
+  return <a css={css.navItem} {...props} />
+}
+
+Toc.NavItem = TocNavItem;

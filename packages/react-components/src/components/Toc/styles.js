@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 
 
-export const navItem = ({ ...props }) => css`
+export const navItem = css`
   padding: 8px 12px;
   line-height: 1em;
   display: block;

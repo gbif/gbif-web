@@ -80,7 +80,7 @@ export const withSideBar = ({ hasSidebar, ...props }) => css`
   }
 `;
 
-export const sideBarNav = ({ ...props }) => css`
+export const sideBarNav = css`
   top: var(--stickyOffset);
   position: sticky;
   ul {
@@ -90,7 +90,7 @@ export const sideBarNav = ({ ...props }) => css`
   }
 `;
 
-export const sideBar = ({ ...props }) => css`
+export const sideBar = css`
   flex: 0 0 250px;
   margin: 0;
   font-size: 14px;
