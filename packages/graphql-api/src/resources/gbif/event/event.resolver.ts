@@ -1,7 +1,9 @@
 import { GraphQLError } from "graphql";
 import { ContentfulService } from "#/helpers/contentful/ContentfulService";
 import { Event } from "#/helpers/contentful/contentTypes/event";
-import { CountryWithTitle, Image, Link } from "#/helpers/contentful/contentTypes/_shared";
+import { Asset } from "#/helpers/contentful/contentTypes/asset";
+import { Link } from "#/helpers/contentful/contentTypes/link";
+import { Participant } from "#/helpers/contentful/contentTypes/participant";
 
 interface PartialContext {
     dataSources: {
@@ -30,46 +32,66 @@ export default {
         title: (src): string => src.title,
         summary: (src): string | undefined => src.summary,
         body: (src): string | undefined => src.body,
-        primaryImage: (src): Image | undefined => {
+        primaryImage: async (src, _, context): Promise<Asset | undefined> => {
             if (src.primaryImage == null) return;
             if ('file' in src.primaryImage) return src.primaryImage;
 
-            // TODO: fetch the image from the contentful service (must add a new mapper for the Image type)
-            return;
+            // Get the asset from contentful
+            const asset = await context.dataSources.contentfulService.getAssetById(src.primaryImage.id);
+            if (asset == null) throw new GraphQLError(`There is no asset with an id of ${src.primaryImage.id}`);
+            if (asset.contentType !== 'asset') throw new GraphQLError(`The asset with an id of ${src.primaryImage.id} is not a asset`);
+            return asset;
         },
-        primaryLink: (src): Link | undefined => {
+        primaryLink: async (src, _, context): Promise<Link | undefined> => {
             if (src.primaryLink == null) return;
             if ('url' in src.primaryLink) return src.primaryLink;
 
-            // TODO: fetch the link from the contentful service (must add a new mapper for the Link type)
-            return;
+            // Get the link from contentful
+            const entity = await context.dataSources.contentfulService.getEntityById(src.primaryLink.id);
+            if (entity == null) throw new GraphQLError(`There is no entry with an id of ${src.primaryLink.id}`);
+            if (entity.contentType !== 'link') throw new GraphQLError(`The entry with an id of ${src.primaryLink.id} is not a link entry`);
+            return entity;
         },
-        secondaryLinks: (src): Array<Link | undefined> => src.secondaryLinks.map(link => {
+        secondaryLinks: (src, _, context): Promise<Array<Link | undefined>> => Promise.all(src.secondaryLinks.map(async link => {
             if ('url' in link) return link;
 
-            // TODO: fetch the link from the contentful service (must add a new mapper for the Link type)
-            return;
-        }),
+            // Get the link from contentful
+            const entity = await context.dataSources.contentfulService.getEntityById(link.id);
+            if (entity == null) throw new GraphQLError(`There is no entry with an id of ${link.id}`);
+            if (entity.contentType !== 'link') throw new GraphQLError(`The entry with an id of ${link.id} is not a link entry`);
+            return entity;
+        })),
         start: (src): string => src.start.toISOString(),
         end: (src): string => src.end.toISOString(),
         allDayEvent: (src): boolean | undefined => src.allDayEvent,
-        organisingParticipants: (src): Array<CountryWithTitle | undefined> => src.organisingParticipants.map(country => {
-            if ('country' in country) return country;
+        organisingParticipants: (src, _, context): Promise<Array<Participant | undefined>> => Promise.all(src.organisingParticipants.map(async participant => {
+            if ('country' in participant) return participant;
 
-            // TODO: fetch the country from the contentful service (must add a new mapper for the Country type)
-            return;
-        }),
+            // Get the paticipant from contentful
+            const entity = await context.dataSources.contentfulService.getEntityById(participant.id);
+            if (entity == null) throw new GraphQLError(`There is no entry with an id of ${participant.id}`);
+            if (entity.contentType !== 'participant') throw new GraphQLError(`The entry with an id of ${participant.id} is not a participant entry`);
+            return entity;
+        })),
         venue: (src): string | undefined => src.venue,
         location: (src): string | undefined => src.location,
         country: (src): string | undefined => src.country,
         // TODO: Figure out the type of coordinates
         coordinates: (src): unknown | undefined => src.coordinates,
         eventLanguage: (src): string | undefined => src.eventLanguage,
-        documents: src => src.documents,
+        documents: (src, _, context): Promise<Array<Asset | undefined>> => Promise.all(src.documents.map(async document => {
+            if ('file' in document) return document;
+
+            // Get the asset from contentful
+            const asset = await context.dataSources.contentfulService.getAssetById(document.id);
+            if (asset == null) throw new GraphQLError(`There is no asset with an id of ${document.id}`);
+            if (asset.contentType !== 'asset') throw new GraphQLError(`The asset with an id of ${document.id} is not a asset`);
+            return asset;
+        })),
         attendees: (src): string | undefined => src.attendees,
         keywords: (src): string[] => src.keywords,
         searchable: (src): boolean | undefined => src.searchable,
         homepage: (src): boolean | undefined => src.homepage,
-    } as Record<string, (src: Event) => unknown>
+    } as Record<string, (src: Event, args: unknown, context: PartialContext) => unknown>
 }
 

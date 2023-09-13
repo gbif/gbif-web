@@ -1,5 +1,6 @@
 import { z } from "zod";
-import { Image, Link } from "../../contentTypes/_shared";
+import { Link } from "../../contentTypes/link";
+import { Asset } from "../../contentTypes/asset";
 import { pickLanguage } from "../../utils";
 
 export const ElasticSearchLinkSchema = z.object({
@@ -8,14 +9,14 @@ export const ElasticSearchLinkSchema = z.object({
     url: z.record(z.string(), z.string()),
 })
 
-export const ElasticSearchImageSchema = z.object({
+export const ElasticSearchAssetSchema = z.object({
     file: z.record(
         z.string(),
         z.object({
             url: z.string(),
             details: z.object({
                 size: z.number(),
-                image: z.object({ width: z.number(), height: z.number() })
+                image: z.object({ width: z.number(), height: z.number() }).optional(),
             }),
             fileName: z.string(),
             contentType: z.string()
@@ -25,32 +26,17 @@ export const ElasticSearchImageSchema = z.object({
     title: z.record(z.string(), z.string()).optional(),
 });
 
-export const ElasticSearchDocumentSchema = z.object({
-    file: z.record(
-        z.string(),
-        z.object({
-            url: z.string(),
-            details: z.object({
-                size: z.number(),
-            }),
-            fileName: z.string(),
-            contentType: z.string()
-        })
-    ),
-    description: z.record(z.string(), z.string()).optional(),
-    title: z.record(z.string(), z.string()).optional(),
-});
-
-export function parseElasticSearchImageDTO(imageDto: z.infer<typeof ElasticSearchImageSchema>): Image {
+export function parseElasticSearchAssetDTO(imageDto: z.infer<typeof ElasticSearchAssetSchema>): Asset {
     return {
+        contentType: 'asset',
         title: imageDto.title == null ? undefined : pickLanguage(imageDto.title),
         description: imageDto.description == null ? undefined : pickLanguage(imageDto.description),
         file: {
             url: pickLanguage(imageDto.file).url,
             details: {
                 size: pickLanguage(imageDto.file).details.size,
-                width: pickLanguage(imageDto.file).details.image.width,
-                height: pickLanguage(imageDto.file).details.image.height,
+                width: pickLanguage(imageDto.file).details.image?.width,
+                height: pickLanguage(imageDto.file).details.image?.height,
             },
             fileName: pickLanguage(imageDto.file).fileName,
             contentType: pickLanguage(imageDto.file).contentType,
@@ -60,6 +46,7 @@ export function parseElasticSearchImageDTO(imageDto: z.infer<typeof ElasticSearc
 
 export function parseElasticSearchLinkDTO(linkDto: z.infer<typeof ElasticSearchLinkSchema>): Link {
     return {
+        contentType: 'link',
         label: pickLanguage(linkDto.label),
         url: pickLanguage(linkDto.url),
     }

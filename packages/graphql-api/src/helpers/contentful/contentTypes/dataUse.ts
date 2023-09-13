@@ -1,4 +1,9 @@
-import { Link, PossiblyNotLoaded, Image } from "./_shared";
+import { PossiblyNotLoaded } from "./_shared";
+import { Asset } from "./asset";
+import { Audience } from "./audience";
+import { Link } from "./link";
+import { Purpose } from "./purpose";
+import { Topic } from "./topic";
 
 export type DataUse = {
     contentType: 'dataUse';
@@ -6,7 +11,7 @@ export type DataUse = {
     title: string;
     summary?: string;
     body?: string;
-    primaryImage?: PossiblyNotLoaded<Image>;
+    primaryImage?: PossiblyNotLoaded<Asset>;
     primaryLink?: PossiblyNotLoaded<Link>;
     secondaryLinks: PossiblyNotLoaded<Link>[];
     citation?: string;
@@ -15,12 +20,9 @@ export type DataUse = {
     countriesOfResearchers: string[];
     // Language codes
     countriesOfCoverage: string[];
-    // TODO: Should probably be an enum
-    topics: PossiblyNotLoaded<string>[];
-    // TODO: Should probably be an enum
-    purposes: PossiblyNotLoaded<string>[];
-    // TODO: Should probably be an enum
-    audiences: PossiblyNotLoaded<string>[];
+    topics: PossiblyNotLoaded<Topic>[];
+    purposes: PossiblyNotLoaded<Purpose>[];
+    audiences: PossiblyNotLoaded<Audience>[];
     keywords: string[];
     searchable: boolean;
     homepage: boolean;

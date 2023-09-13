@@ -21,14 +21,20 @@ export interface DataMapper<T> {
 
 function createSchema<TContentType extends string, TFields extends z.ZodObject<any>>(contentType: TContentType, fields: TFields) {
     return z.object({
-        sys: z.object({
-            id: z.string(),
-            contentType: z.object({
-                sys: z.object({
-                    id: z.literal(contentType)
+        sys: z.union([
+            z.object({
+                id: z.string(),
+                contentType: z.object({
+                    sys: z.object({
+                        id: z.literal(contentType)
+                    })
                 })
-            })
-        }),
+            }),
+            z.object({
+                id: z.string(),
+                type: z.literal(contentType)
+            }),
+        ]),
         fields,
     })
 }

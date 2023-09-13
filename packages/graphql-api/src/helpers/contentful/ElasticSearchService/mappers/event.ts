@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { DateAsStringSchema, pickLanguage } from "../../utils";
-import { DataMapper, ElasticSearchDocumentSchema, ElasticSearchImageSchema, ElasticSearchLinkSchema, parseElasticSearchImageDTO, parseElasticSearchLinkDTO, createElasticSearchMapper } from "./_shared";
+import { DataMapper, ElasticSearchAssetSchema, ElasticSearchLinkSchema, parseElasticSearchAssetDTO, parseElasticSearchLinkDTO, createElasticSearchMapper } from "./_shared";
 import { Event } from "../../contentTypes/event";
 
 export const elasticSearchEventMapper: DataMapper<Event> = createElasticSearchMapper({
@@ -10,7 +10,7 @@ export const elasticSearchEventMapper: DataMapper<Event> = createElasticSearchMa
         title: z.record(z.string(), z.string()),
         summary: z.record(z.string(), z.string()).optional(),
         body: z.record(z.string(), z.string()).optional(),
-        primaryImage: ElasticSearchImageSchema.optional(),
+        primaryImage: ElasticSearchAssetSchema.optional(),
         primaryLink: ElasticSearchLinkSchema.optional(),
         secondaryLinks: z.array(ElasticSearchLinkSchema).optional(),
         start: DateAsStringSchema,
@@ -28,7 +28,7 @@ export const elasticSearchEventMapper: DataMapper<Event> = createElasticSearchMa
         country: z.string().optional(),
         coordinates: z.unknown().optional(),
         eventLanguage: z.record(z.string(), z.string()).optional(),
-        documents: z.array(ElasticSearchDocumentSchema).optional(),
+        documents: z.array(ElasticSearchAssetSchema).optional(),
         attendees: z.unknown().optional(),
         keywords: z.array(z.string()).optional(),
         searchable: z.boolean().optional().default(false),
@@ -40,7 +40,7 @@ export const elasticSearchEventMapper: DataMapper<Event> = createElasticSearchMa
         title: pickLanguage(dto.title),
         summary: dto.summary == null ? undefined : pickLanguage(dto.summary),
         body: dto.body == null ? undefined : pickLanguage(dto.body),
-        primaryImage: dto.primaryImage == null ? undefined : parseElasticSearchImageDTO(dto.primaryImage),
+        primaryImage: dto.primaryImage == null ? undefined : parseElasticSearchAssetDTO(dto.primaryImage),
         primaryLink: dto.primaryLink == null ? undefined : parseElasticSearchLinkDTO(dto.primaryLink),
         secondaryLinks: dto.secondaryLinks == null ? [] : dto.secondaryLinks.map(parseElasticSearchLinkDTO),
         start: dto.start,
@@ -56,18 +56,7 @@ export const elasticSearchEventMapper: DataMapper<Event> = createElasticSearchMa
         country: dto.country,
         coordinates: dto.coordinates,
         eventLanguage: dto.eventLanguage == null ? undefined : pickLanguage(dto.eventLanguage),
-        documents: dto.documents == null ? undefined : dto.documents.map(d => ({
-            title: d.title == null ? undefined : pickLanguage(d.title),
-            description: d.description == null ? undefined : pickLanguage(d.description),
-            file: {
-                url: pickLanguage(d.file).url,
-                details: {
-                    size: pickLanguage(d.file).details.size,
-                },
-                fileName: pickLanguage(d.file).fileName,
-                contentType: pickLanguage(d.file).contentType,
-            },
-        })),
+        documents: dto.documents == null ? [] : dto.documents.map(parseElasticSearchAssetDTO),
         keywords: dto.keywords ?? [],
         searchable: dto.searchable,
         homepage: dto.homepage,
