@@ -1,4 +1,4 @@
-import { ElasticSearchMapperResult } from "#/helpers/contentful/ElasticSearchService";
+import { ElasticSearchMapperResult } from "#/helpers/contentful/ContentfulSearchService";
 import { gql } from "apollo-server-core";
 
 export type PaginatedSearchResult = {

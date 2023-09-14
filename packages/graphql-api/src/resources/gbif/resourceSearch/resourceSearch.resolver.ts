@@ -1,4 +1,4 @@
-import { ElasticSearchSearchParams, ElasticSearchService, ElasticSearchMapperResult } from "#/helpers/contentful/ElasticSearchService";
+import { ElasticSearchSearchParams, ElasticSearchService, ElasticSearchMapperResult } from "#/helpers/contentful/ContentfulSearchService";
 import { PaginatedSearchResult, SearchInput } from "./resourceSearch.type";
 
 type PartialContext = {

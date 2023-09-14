@@ -1,7 +1,7 @@
 import { z } from "zod";
-import { Link } from "../../contentTypes/link";
-import { Asset } from "../../contentTypes/asset";
-import { pickLanguage } from "../../utils";
+import { Link } from "../contentTypes/link";
+import { Asset } from "../contentTypes/asset";
+import { pickLanguage } from "../utils";
 
 export const ElasticSearchLinkSchema = z.object({
     id: z.string(),

@@ -1,6 +1,6 @@
 import { RESTDataSource } from "apollo-datasource-rest";
 import { z } from "zod";
-import { nullFilter, objectToQueryString } from "../utils";
+import { nullFilter, objectToQueryString } from "./utils";
 import { ElasticSearchMapperResult, elasticSearchMappers } from "./mappers";
 export { ElasticSearchMapperResult} from "./mappers";
 

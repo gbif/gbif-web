@@ -1,7 +1,7 @@
 import { z } from "zod";
-import { DateAsStringSchema, pickLanguage } from "../../utils";
+import { DateAsStringSchema, pickLanguage } from "../utils";
 import { DataMapper, ElasticSearchAssetSchema, ElasticSearchLinkSchema, parseElasticSearchAssetDTO, parseElasticSearchLinkDTO, createElasticSearchMapper } from "./_shared";
-import { Event } from "../../contentTypes/event";
+import { Event } from "../contentTypes/event";
 
 export const elasticSearchEventMapper: DataMapper<Event> = createElasticSearchMapper({
     contentType: 'event',

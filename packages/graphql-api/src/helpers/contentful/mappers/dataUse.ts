@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { pickLanguage } from "../../utils";
-import { DataUse } from "../../contentTypes/dataUse";
+import { pickLanguage } from "../utils";
+import { DataUse } from "../contentTypes/dataUse";
 import { DataMapper, ElasticSearchAssetSchema, ElasticSearchLinkSchema, parseElasticSearchAssetDTO, parseElasticSearchLinkDTO, createElasticSearchMapper } from "./_shared";
 
 export const elasticSearchDataUseMapper: DataMapper<DataUse> = createElasticSearchMapper({

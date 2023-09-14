@@ -3,7 +3,7 @@
 
 import { RESTDataSource } from "apollo-datasource-rest";
 import { z } from 'zod';
-import { ElasticSearchMapperResult, elasticSearchMappers } from '../ElasticSearchService/mappers';
+import { ElasticSearchMapperResult, elasticSearchMappers } from './mappers';
 
 const SuccessResponseSchema =
     z.object({ contentType: z.string() })

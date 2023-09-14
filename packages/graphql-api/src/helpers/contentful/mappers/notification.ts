@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { DateAsStringSchema, pickLanguage } from "../../utils";
-import { Notification } from "../../contentTypes/notification";
+import { DateAsStringSchema, pickLanguage } from "../utils";
+import { Notification } from "../contentTypes/notification";
 import { DataMapper, createElasticSearchMapper } from "./_shared";
 
 export const elasticSearchNotificationMapper: DataMapper<Notification> = createElasticSearchMapper({
