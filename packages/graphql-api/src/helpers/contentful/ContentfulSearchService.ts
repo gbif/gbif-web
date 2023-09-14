@@ -18,7 +18,7 @@ export type ElasticSearchSearchParams = {
     size: number;
 }
 
-type ElasticSearchServiceConfig = {
+type ContentfulSearchServiceConfig = {
     apiEs: string;
 }
 
@@ -38,8 +38,8 @@ type SearchResult = {
     results: ElasticSearchMapperResult[];
 }
 
-export class ElasticSearchService extends RESTDataSource {
-    constructor(config: ElasticSearchServiceConfig) {
+export class ContentfulSearchService extends RESTDataSource {
+    constructor(config: ContentfulSearchServiceConfig) {
         super();
         this.baseURL = config.apiEs;
     }

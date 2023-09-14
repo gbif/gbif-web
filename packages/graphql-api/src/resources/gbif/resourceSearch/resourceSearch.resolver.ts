@@ -1,9 +1,9 @@
-import { ElasticSearchSearchParams, ElasticSearchService, ElasticSearchMapperResult } from "#/helpers/contentful/ContentfulSearchService";
+import { ElasticSearchSearchParams, ContentfulSearchService, ElasticSearchMapperResult } from "#/helpers/contentful/ContentfulSearchService";
 import { PaginatedSearchResult, SearchInput } from "./resourceSearch.type";
 
 type PartialContext = {
     dataSources: {
-        elasticSearchService: ElasticSearchService
+        contentfulSearchService: ContentfulSearchService
     }
 }
 
@@ -36,7 +36,7 @@ export default {
                 if (key in elasticSearchInput && value == null) delete elasticSearchInput[key as keyof ElasticSearchSearchParams];
             });
 
-            const result = await context.dataSources.elasticSearchService.search(elasticSearchInput);
+            const result = await context.dataSources.contentfulSearchService.search(elasticSearchInput);
 
             return {
                 count: result.results.length,

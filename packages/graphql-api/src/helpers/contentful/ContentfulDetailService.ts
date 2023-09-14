@@ -5,14 +5,18 @@ import { RESTDataSource } from "apollo-datasource-rest";
 import { z } from 'zod';
 import { ElasticSearchMapperResult, elasticSearchMappers } from './mappers';
 
+type ContentfulDetailServiceConfig = {
+    apiv1: string;
+}
+
 const SuccessResponseSchema =
     z.object({ contentType: z.string() })
     .and(z.record(z.string(), z.unknown()));
 
 export class ContentfulDetailService extends RESTDataSource {
-    constructor() {
+    constructor(config: ContentfulDetailServiceConfig) {
         super();
-        this.baseURL = 'https://api.gbif.org/v1';
+        this.baseURL = config.apiv1;
     }
 
     public getById = async (id: string, preview: boolean = false, language?: string): Promise<ElasticSearchMapperResult> => {
