@@ -16,7 +16,7 @@ const typeDef = gql`
         start: String!
         end: String!
         allDayEvent: Boolean
-        organisingParticipants: [CountryWithTitle]
+        organisingParticipants: [Participant]
         venue: String
         location: String
         country: String
@@ -57,7 +57,7 @@ const typeDef = gql`
     }
 
     # All types that compose the Country type
-    type CountryWithTitle {
+    type Participant {
         country: String!
         title: String!
     }
