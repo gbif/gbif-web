@@ -44,7 +44,7 @@ export class ElasticSearchService extends RESTDataSource {
         this.baseURL = config.apiEs;
     }
 
-    public search = async (params?: Partial<ElasticSearchSearchParams>): Promise<SearchResult> => {
+    public search = async (params?: Partial<ElasticSearchSearchParams>, language?: string): Promise<SearchResult> => {
         const response = await this.get(`/content`, objectToQueryString({
             // Restirct the content types returned to the ones we have mappers for. This can be overwritte by the params
             contentType: elasticSearchMappers.map(m => m.contentType),
@@ -79,7 +79,7 @@ export class ElasticSearchService extends RESTDataSource {
                 }
 
                 // Otherwise, parse the result
-                return mapper.parse(result);
+                return mapper.parse(result, language);
             }).filter(nullFilter),
         }
     }

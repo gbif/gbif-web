@@ -22,15 +22,15 @@ export const elasticSearchNewsMapper: DataMapper<News> = createElasticSearchMapp
         searchable: z.boolean().optional().default(false),
         homepage: z.boolean().optional().default(false),
     }),
-    map: dto => ({
+    map: (dto, language) => ({
         contentType: 'news',
         id: dto.id,
-        title: pickLanguage(dto.title),
-        summary: dto.summary == null ? undefined : pickLanguage(dto.summary),
-        body: dto.body == null ? undefined : pickLanguage(dto.body),
-        primaryImage: dto.primaryImage == null ? undefined : parseElasticSearchAssetDTO(dto.primaryImage),
-        primaryLink: dto.primaryLink == null ? undefined : parseElasticSearchLinkDTO(dto.primaryLink),
-        secondaryLinks: dto.secondaryLinks?.map(parseElasticSearchLinkDTO) ?? [],
+        title: pickLanguage(dto.title, language),
+        summary: dto.summary == null ? undefined : pickLanguage(dto.summary, language),
+        body: dto.body == null ? undefined : pickLanguage(dto.body, language),
+        primaryImage: dto.primaryImage == null ? undefined : parseElasticSearchAssetDTO(dto.primaryImage, language),
+        primaryLink: dto.primaryLink == null ? undefined : parseElasticSearchLinkDTO(dto.primaryLink, language),
+        secondaryLinks: dto.secondaryLinks?.map(l => parseElasticSearchLinkDTO(l, language)) ?? [],
         citation: dto.citation,
         countriesOfCoverage: dto.countriesOfCoverage ?? [],
         topics: dto.topics?.map(topic => ({

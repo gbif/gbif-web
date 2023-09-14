@@ -26,35 +26,37 @@ export const ElasticSearchAssetSchema = z.object({
     title: z.record(z.string(), z.string()).optional(),
 });
 
-export function parseElasticSearchAssetDTO(imageDto: z.infer<typeof ElasticSearchAssetSchema>): Asset {
+export function parseElasticSearchAssetDTO(imageDto: z.infer<typeof ElasticSearchAssetSchema>, language?: string): Asset {
+    const file = pickLanguage(imageDto.file, language);
+
     return {
         contentType: 'asset',
-        title: imageDto.title == null ? undefined : pickLanguage(imageDto.title),
-        description: imageDto.description == null ? undefined : pickLanguage(imageDto.description),
+        title: imageDto.title == null ? undefined : pickLanguage(imageDto.title, language),
+        description: imageDto.description == null ? undefined : pickLanguage(imageDto.description, language),
         file: {
-            url: pickLanguage(imageDto.file).url,
+            url: file.url,
             details: {
-                size: pickLanguage(imageDto.file).details.size,
-                width: pickLanguage(imageDto.file).details.image?.width,
-                height: pickLanguage(imageDto.file).details.image?.height,
+                size: file.details.size,
+                width: file.details.image?.width,
+                height: file.details.image?.height,
             },
-            fileName: pickLanguage(imageDto.file).fileName,
-            contentType: pickLanguage(imageDto.file).contentType,
+            fileName: file.fileName,
+            contentType: file.contentType,
         },
     }
 }
 
-export function parseElasticSearchLinkDTO(linkDto: z.infer<typeof ElasticSearchLinkSchema>): Link {
+export function parseElasticSearchLinkDTO(linkDto: z.infer<typeof ElasticSearchLinkSchema>, language?: string): Link {
     return {
         contentType: 'link',
-        label: pickLanguage(linkDto.label),
-        url: pickLanguage(linkDto.url),
+        label: pickLanguage(linkDto.label, language),
+        url: pickLanguage(linkDto.url, language),
     }
 }
 
 export interface DataMapper<T> {
     contentType: string;
-    parse: (dto: unknown) => T | null;
+    parse: (dto: unknown, language?: string) => T | null;
 }
 
 function createSchema<TContentType extends string, TFields extends z.ZodObject<any>>(contentType: TContentType, fields: TFields) {
@@ -71,14 +73,14 @@ export function createElasticSearchMapper<
     (config: {
         contentType: TContentType,
         fields: TFields,
-        map: (dto: z.infer<TSchema>) => TResult
+        map: (dto: z.infer<TSchema>, language?: string) => TResult
     }
     ): DataMapper<TResult> {
     const Schema = createSchema(config.contentType, config.fields);
 
     return {
         contentType: config.contentType,
-        parse: (dto: unknown): TResult | null => {
+        parse: (dto: unknown, language?: string): TResult | null => {
             // Try to parse the DTO
             const result = Schema.safeParse(dto);
 
@@ -89,7 +91,7 @@ export function createElasticSearchMapper<
             }
 
             // Otherwise, map the DTO to the entity
-            return config.map(result.data);
+            return config.map(result.data, language);
         }
     }
 }

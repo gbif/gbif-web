@@ -16,12 +16,12 @@ export const elasticSearchNotificationMapper: DataMapper<Notification> = createE
         notificationType: z.string(),
         severity: z.string(),
     }),
-    map: dto => ({
+    map: (dto, language) => ({
         contentType: 'notification',
         id: dto.id,
-        title: pickLanguage(dto.title),
+        title: pickLanguage(dto.title, language),
         summary: dto.summary,
-        body: dto.body == null ? undefined : pickLanguage(dto.body),
+        body: dto.body == null ? undefined : pickLanguage(dto.body, language),
         start: dto.start,
         end: dto.end,
         url: dto.url,

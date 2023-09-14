@@ -15,7 +15,7 @@ export class ContentfulDetailService extends RESTDataSource {
         this.baseURL = 'https://api.gbif.org/v1';
     }
 
-    public getById = async (id: string, preview: boolean = false): Promise<ElasticSearchMapperResult> => {
+    public getById = async (id: string, preview: boolean = false, language?: string): Promise<ElasticSearchMapperResult> => {
         let path = `/content/${id}`;
         if (preview) path += '/preview';
 
@@ -43,6 +43,6 @@ export class ContentfulDetailService extends RESTDataSource {
         }
 
         // Otherwise, parse the result
-        return mapper.parse(data);
+        return mapper.parse(data, language);
     }
 }
