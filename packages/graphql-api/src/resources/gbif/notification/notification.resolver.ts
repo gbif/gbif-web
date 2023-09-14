@@ -1,11 +1,16 @@
 import { GraphQLError } from "graphql";
-import { ContentfulService } from "#/helpers/contentful/ContentfulService";
 import { Notification } from "#/helpers/contentful/contentTypes/notification";
+import { ContentfulDetailService } from "#/helpers/contentful/ContentfulDetailService";
 
 interface PartialContext {
     dataSources: {
-        contentfulService: ContentfulService;
+        contentfulDetailService: ContentfulDetailService
     }
+}
+
+type NotificationQueryArgs = {
+    id: string
+    preview?: boolean
 }
 
 /**
@@ -17,8 +22,8 @@ interface PartialContext {
  */
 export default {
     Query: {
-        notification: async (_: unknown, args: { id: string }, context: PartialContext): Promise<Notification> => {
-            const entry = await context.dataSources.contentfulService.getEntityById(args.id);
+        notification: async (_: unknown, args: NotificationQueryArgs, context: PartialContext): Promise<Notification> => {
+            const entry = await context.dataSources.contentfulDetailService.getById(args.id);
             if (entry == null) throw new GraphQLError(`There is no notification entry with an id of ${args.id}`);
             if (entry.contentType !== 'notification') throw new GraphQLError(`The entry with an id of ${args.id} is not a notification entry`);
             return entry;

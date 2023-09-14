@@ -1,4 +1,3 @@
-import { PossiblyNotLoaded } from "./_shared";
 import { Asset } from "./asset";
 import { Link } from "./link";
 import { Participant } from "./participant";
@@ -9,20 +8,20 @@ export type Event = {
     title: string;
     summary?: string;
     body?: string;
-    primaryImage?: PossiblyNotLoaded<Asset>;
-    primaryLink?: PossiblyNotLoaded<Link>;
-    secondaryLinks: PossiblyNotLoaded<Link>[];
+    primaryImage?: Asset;
+    primaryLink?: Link;
+    secondaryLinks: Link[];
     start: Date;
     end: Date;
     allDayEvent?: boolean;
-    organisingParticipants: PossiblyNotLoaded<Participant>[];
+    organisingParticipants: Participant[];
     venue?: string;
     location?: string;
     country?: string;
     coordinates?: unknown;
     eventLanguage?: string;
     // Ids of contentful Asset entries
-    documents: PossiblyNotLoaded<Asset>[];
+    documents: Asset[];
     attendees?: string;
     keywords: string[];
     searchable: boolean;

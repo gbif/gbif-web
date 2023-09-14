@@ -1,4 +1,3 @@
-import { PossiblyNotLoaded } from "./_shared";
 import { Asset } from "./asset";
 import { Audience } from "./audience";
 import { Link } from "./link";
@@ -11,18 +10,18 @@ export type DataUse = {
     title: string;
     summary?: string;
     body?: string;
-    primaryImage?: PossiblyNotLoaded<Asset>;
-    primaryLink?: PossiblyNotLoaded<Link>;
-    secondaryLinks: PossiblyNotLoaded<Link>[];
+    primaryImage?: Asset;
+    primaryLink?: Link;
+    secondaryLinks: Link[];
     citation?: string;
     resourceUsed?: string;
     // Language codes
     countriesOfResearchers: string[];
     // Language codes
     countriesOfCoverage: string[];
-    topics: PossiblyNotLoaded<Topic>[];
-    purposes: PossiblyNotLoaded<Purpose>[];
-    audiences: PossiblyNotLoaded<Audience>[];
+    topics: Topic[];
+    purposes: Purpose[];
+    audiences: Audience[];
     keywords: string[];
     searchable: boolean;
     homepage: boolean;

@@ -1,13 +1,18 @@
 import { GraphQLError } from "graphql";
-import { ContentfulService } from "#/helpers/contentful/ContentfulService";
 import { DataUse } from "#/helpers/contentful/contentTypes/dataUse";
 import { Asset } from "#/helpers/contentful/contentTypes/asset";
 import { Link } from "#/helpers/contentful/contentTypes/link";
+import { ContentfulDetailService } from "#/helpers/contentful/ContentfulDetailService";
 
 type PartialContext = {
     dataSources: {
-        contentfulService: ContentfulService
+        contentfulDetailService: ContentfulDetailService
     }
+}
+
+type DataUseQueryArgs = {
+    id: string;
+    preview?: boolean;
 }
 
 /**
@@ -19,8 +24,8 @@ type PartialContext = {
  */
 export default {
     Query: {
-        dataUse: async (_: unknown, args: { id: string }, context: PartialContext): Promise<DataUse> => {
-            const entry = await context.dataSources.contentfulService.getEntityById(args.id);
+        dataUse: async (_: unknown, args: DataUseQueryArgs, context: PartialContext): Promise<DataUse> => {
+            const entry = await context.dataSources.contentfulDetailService.getById(args.id, args.preview);
             if (entry == null) throw new GraphQLError(`There is no news entry with an id of ${args.id}`);
             if (entry.contentType !== 'dataUse') throw new GraphQLError(`The entry with an id of ${args.id} is not a dataUse entry`);
             return entry;
@@ -31,67 +36,17 @@ export default {
         title: (src): string => src.title,
         summary: (src): string | undefined => src.summary,
         body: (src): string | undefined => src.body,
-        primaryImage: async (src, _, context): Promise<Asset | undefined>=> {
-            if (src.primaryImage == null) return;
-            if ('file' in src.primaryImage) return src.primaryImage;
-
-            // Get the asset from contentful
-            const asset = await context.dataSources.contentfulService.getAssetById(src.primaryImage.id);
-            if (asset == null) throw new GraphQLError(`There is no asset with an id of ${src.primaryImage.id}`);
-            if (asset.contentType !== 'asset') throw new GraphQLError(`The asset with an id of ${src.primaryImage.id} is not a asset`);
-            return asset;
-        },
-        primaryLink: async (src, _, context): Promise<Link | undefined> => {
-            if (src.primaryLink == null) return;
-            if ('url' in src.primaryLink) return src.primaryLink;
-
-            // Get the link from contentful
-            const entity = await context.dataSources.contentfulService.getEntityById(src.primaryLink.id);
-            if (entity == null) throw new GraphQLError(`There is no entry with an id of ${src.primaryLink.id}`);
-            if (entity.contentType !== 'link') throw new GraphQLError(`The entry with an id of ${src.primaryLink.id} is not a link entry`);
-            return entity;
-        },
-        secondaryLinks: (src, _, context): Promise<Array<Link | undefined>> => Promise.all(src.secondaryLinks.map(async link => {
-            if ('url' in link) return link;
-
-            // Get the link from contentful
-            const entity = await context.dataSources.contentfulService.getEntityById(link.id);
-            if (entity == null) throw new GraphQLError(`There is no entry with an id of ${link.id}`);
-            if (entity.contentType !== 'link') throw new GraphQLError(`The entry with an id of ${link.id} is not a link entry`);
-            return entity;
-        })),
+        primaryImage: (src): Asset | undefined=> src.primaryImage,
+        primaryLink: (src): Link | undefined => src.primaryLink,
+        secondaryLinks: (src): Link[] => src.secondaryLinks,
         citation: (src): string | undefined => src.citation,
         resourceUsed: (src): string | undefined => src.resourceUsed,
         countriesOfResearchers: (src): string[] => src.countriesOfResearchers,
         countriesOfCoverage: (src): string[] => src.countriesOfCoverage,
-        topics: (src, _, context): Promise<Array<string | undefined>> => Promise.all(src.topics.map(async topic => {
-            if ('contentType' in topic) return topic.term;
-
-            // Get the topic from contentful
-            const entity = await context.dataSources.contentfulService.getEntityById(topic.id);
-            if (entity == null) throw new GraphQLError(`There is no entry with an id of ${topic.id}`);
-            if (entity.contentType !== 'topic') throw new GraphQLError(`The entry with an id of ${topic.id} is not a topic entry`);
-            return entity.term;
-        })),
-        purposes: (src, _, context): Promise<Array<string | undefined>> => Promise.all(src.purposes.map(async purpose => {
-            if ('contentType' in purpose) return purpose.term;
-
-            // Get the purposes from contentful
-            const entity = await context.dataSources.contentfulService.getEntityById(purpose.id);
-            if (entity == null) throw new GraphQLError(`There is no entry with an id of ${purpose.id}`);
-            if (entity.contentType !== 'purpose') throw new GraphQLError(`The entry with an id of ${purpose.id} is not a purpose entry`);
-            return entity.term;
-        })),
-        audiences: (src, _, context): Promise<Array<string | undefined>> => Promise.all(src.audiences.map(async audience => {
-            if ('contentType' in audience) return audience.term;
-
-            // Get the audience from contentful
-            const entity = await context.dataSources.contentfulService.getEntityById(audience.id);
-            if (entity == null) throw new GraphQLError(`There is no entry with an id of ${audience.id}`);
-            if (entity.contentType !== 'audience') throw new GraphQLError(`The entry with an id of ${audience.id} is not a audience entry`);
-            return entity.term;
-        })),
-        keywords: (src): Array<string>  => src.keywords,
+        topics: (src): string[] => src.topics.map(topic => topic.term),
+        purposes: (src): string[] => src.purposes.map(purpose => purpose.term),
+        audiences: (src): string[] => src.audiences.map(audience => audience.term),
+        keywords: (src): string[]  => src.keywords,
         searchable: (src): boolean => src.searchable,
         homepage: (src): boolean => src.homepage,
     } as Record<string, (src: DataUse, args: unknown, context: PartialContext) => unknown>

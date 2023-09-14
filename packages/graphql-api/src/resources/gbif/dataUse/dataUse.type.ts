@@ -2,7 +2,7 @@ import { gql } from "apollo-server";
 
 const typeDef = gql`
     extend type Query {
-        dataUse(id: String!): DataUse!
+        dataUse(id: String!, preview: Boolean): DataUse!
     }
 
     type DataUse {

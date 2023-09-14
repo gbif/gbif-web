@@ -2,7 +2,7 @@ import { gql } from "apollo-server";
 
 const typeDef = gql`
     extend type Query {
-        notification(id: String!): Notification!
+        notification(id: String!, preview: Boolean): Notification!
     }
 
     type Notification {

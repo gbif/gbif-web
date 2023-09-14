@@ -47,6 +47,7 @@ export const elasticSearchEventMapper: DataMapper<Event> = createElasticSearchMa
         end: dto.end,
         allDayEvent: dto.allDayEvent,
         organisingParticipants: dto.organisingParticipants?.map(p => ({
+            contentType: 'participant',
             id: p.id,
             country: p.country,
             title: pickLanguage(p.title),

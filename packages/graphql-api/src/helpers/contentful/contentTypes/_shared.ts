@@ -1,1 +1,0 @@
-export type PossiblyNotLoaded<T> = T | { id: string };
