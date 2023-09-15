@@ -1,5 +1,6 @@
 import { z } from "zod";
-import { DateAsStringSchema, pickLanguage } from "../utils";
+import { DateAsStringSchema } from "../utils";
+import { pickLanguage } from "../languages";
 import { Notification } from "../contentTypes/notification";
 import { DataMapper, createElasticSearchMapper } from "./_shared";
 

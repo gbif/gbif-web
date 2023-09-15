@@ -5,6 +5,7 @@ type PartialContext = {
     dataSources: {
         contentfulSearchService: ContentfulSearchService
     }
+    language?: string
 }
 
 /**
@@ -36,7 +37,7 @@ export default {
                 if (key in elasticSearchInput && value == null) delete elasticSearchInput[key as keyof ElasticSearchSearchParams];
             });
 
-            const result = await context.dataSources.contentfulSearchService.search(elasticSearchInput);
+            const result = await context.dataSources.contentfulSearchService.search(elasticSearchInput, context.language);
 
             return {
                 count: result.results.length,

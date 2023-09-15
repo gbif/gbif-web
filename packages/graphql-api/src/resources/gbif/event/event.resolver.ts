@@ -5,10 +5,11 @@ import { Link } from "#/helpers/contentful/contentTypes/link";
 import { Participant } from "#/helpers/contentful/contentTypes/participant";
 import { ContentfulDetailService } from "#/helpers/contentful/ContentfulDetailService";
 
-interface PartialContext {
+type PartialContext = {
     dataSources: {
         contentfulDetailService: ContentfulDetailService
     }
+    language?: string
 }
 
 type EventQueryArgs = {
@@ -26,7 +27,7 @@ type EventQueryArgs = {
 export default {
     Query: {
         event: async (_: unknown, args: EventQueryArgs, context: PartialContext): Promise<Event> => {
-            const entry = await context.dataSources.contentfulDetailService.getById(args.id, args.preview);
+            const entry = await context.dataSources.contentfulDetailService.getById(args.id, args.preview, context.language);
             if (entry == null) throw new GraphQLError(`There is no news entry with an id of ${args.id}`);
             if (entry.contentType !== 'event') throw new GraphQLError(`The entry with an id of ${args.id} is not a news entry`);
             return entry;

@@ -8,6 +8,7 @@ type PartialContext = {
     dataSources: {
         contentfulDetailService: ContentfulDetailService
     }
+    language?: string
 }
 
 type DataUseQueryArgs = {
@@ -25,7 +26,7 @@ type DataUseQueryArgs = {
 export default {
     Query: {
         dataUse: async (_: unknown, args: DataUseQueryArgs, context: PartialContext): Promise<DataUse> => {
-            const entry = await context.dataSources.contentfulDetailService.getById(args.id, args.preview);
+            const entry = await context.dataSources.contentfulDetailService.getById(args.id, args.preview, context.language);
             if (entry == null) throw new GraphQLError(`There is no news entry with an id of ${args.id}`);
             if (entry.contentType !== 'dataUse') throw new GraphQLError(`The entry with an id of ${args.id} is not a dataUse entry`);
             return entry;

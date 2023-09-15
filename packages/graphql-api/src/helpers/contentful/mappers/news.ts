@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { DataMapper, ElasticSearchAssetSchema, ElasticSearchLinkSchema, parseElasticSearchAssetDTO, parseElasticSearchLinkDTO, createElasticSearchMapper } from "./_shared";
 import { News } from "../contentTypes/news";
-import { pickLanguage } from "../utils";
+import { pickLanguage } from "../languages";
 
 export const elasticSearchNewsMapper: DataMapper<News> = createElasticSearchMapper({
     contentType: 'news',

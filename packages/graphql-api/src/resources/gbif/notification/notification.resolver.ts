@@ -2,10 +2,11 @@ import { GraphQLError } from "graphql";
 import { Notification } from "#/helpers/contentful/contentTypes/notification";
 import { ContentfulDetailService } from "#/helpers/contentful/ContentfulDetailService";
 
-interface PartialContext {
+type PartialContext = {
     dataSources: {
         contentfulDetailService: ContentfulDetailService
     }
+    language?: string
 }
 
 type NotificationQueryArgs = {
@@ -23,7 +24,7 @@ type NotificationQueryArgs = {
 export default {
     Query: {
         notification: async (_: unknown, args: NotificationQueryArgs, context: PartialContext): Promise<Notification> => {
-            const entry = await context.dataSources.contentfulDetailService.getById(args.id);
+            const entry = await context.dataSources.contentfulDetailService.getById(args.id, args.preview, context.language);
             if (entry == null) throw new GraphQLError(`There is no notification entry with an id of ${args.id}`);
             if (entry.contentType !== 'notification') throw new GraphQLError(`The entry with an id of ${args.id} is not a notification entry`);
             return entry;

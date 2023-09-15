@@ -4,10 +4,11 @@ import { Asset } from "#/helpers/contentful/contentTypes/asset";
 import { Link } from "#/helpers/contentful/contentTypes/link";
 import { ContentfulDetailService } from "#/helpers/contentful/ContentfulDetailService";
 
-interface PartialContext {
+type PartialContext = {
     dataSources: {
         contentfulDetailService: ContentfulDetailService
     }
+    language?: string
 }
 
 type NewsQueryArgs = {
@@ -25,7 +26,7 @@ type NewsQueryArgs = {
 export default {
     Query: {
         news: async (_: unknown, args: NewsQueryArgs, context: PartialContext): Promise<News> => {
-            const entity = await context.dataSources.contentfulDetailService.getById(args.id, args.preview);
+            const entity = await context.dataSources.contentfulDetailService.getById(args.id, args.preview, context.language);
             if (entity == null) throw new GraphQLError(`There is no news entry with an id of ${args.id}`);
             if (entity.contentType !== 'news') throw new GraphQLError(`The entry with an id of ${args.id} is not a news entry`);
             return entity;

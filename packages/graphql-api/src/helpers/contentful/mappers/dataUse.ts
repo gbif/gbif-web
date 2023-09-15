@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { pickLanguage } from "../utils";
+import { pickLanguage } from "../languages";
 import { DataUse } from "../contentTypes/dataUse";
 import { DataMapper, ElasticSearchAssetSchema, ElasticSearchLinkSchema, parseElasticSearchAssetDTO, parseElasticSearchLinkDTO, createElasticSearchMapper } from "./_shared";
 
