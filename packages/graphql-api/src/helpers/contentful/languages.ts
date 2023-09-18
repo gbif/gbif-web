@@ -5,6 +5,8 @@ type Language = {
     fallbackCode: string | null;
 }
 
+// This config is extracted from the Contentful API. It should be updated if the languages change.
+// https://cdn.contentful.com/spaces/{SPACE}/environments/{environment}/locales?access_token={ACCESS_TOKEN}
 const languages: Language[] = [
     {
         "code": "en-GB",
