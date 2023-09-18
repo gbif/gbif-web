@@ -18,6 +18,8 @@ import relevance from '../../enums/cms/relevance.json';
 import topics from '../../enums/cms/topics.json';
 import dwcaExtension from '../../enums/basic/dwcaExtension.json';
 import iucnRedListCategory from '../../enums/basic/iucnRedListCategory.json';
+import institutionType from '../../enums/basic/institutionType.json';
+import discipline from '../../enums/basic/discipline.json';
 // -- Add imports above this line (required by plopfile.js) --
 
 export const commonFilters = {
@@ -1627,6 +1629,41 @@ export const commonFilters = {
       }
     }
   },
+  institutionType: {
+      type: 'ENUM',
+      config: {
+        std: {
+          filterHandle: 'institutionType',
+          id2labelHandle: 'institutionType',
+          translations: {
+            count: 'filters.institutionType.count', // translation path to display names with counts. e.g. "3 scientific names"
+            name: 'filters.institutionType.name',// translation path to a title for the popover and the button
+            description: 'filters.institutionType.description', // translation path for the filter description
+          }
+        },
+        specific: {
+          options: institutionType,
+          isRadio: true
+        }
+      }
+    },
+  discipline: {
+      type: 'ENUM',
+      config: {
+        std: {
+          filterHandle: 'discipline',
+          id2labelHandle: 'discipline',
+          translations: {
+            count: 'filters.discipline.count', // translation path to display names with counts. e.g. "3 scientific names"
+            name: 'filters.discipline.name',// translation path to a title for the popover and the button
+            description: 'filters.discipline.description', // translation path for the filter description
+          }
+        },
+        specific: {
+          options: discipline
+        }
+      }
+    },
   // -- Add filters above this line (required by plopfile.js) --
   q: {
     type: 'CUSTOM_STANDARD',

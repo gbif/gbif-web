@@ -54,6 +54,16 @@
   "count": "{num, plural, one { Identifier } other {# Identifiers}}",
   "description": "A short description of the component should be placed here"
 },
+  "institutionType": {
+    "name": "Type",
+    "count": "{num, plural, one { type } other {# types}}",
+    "description": "What type of institution is it."
+  },
+  "discipline": {
+    "name": "Discipline",
+    "count": "{num, plural, one { Discipline } other {# Disciplines}}",
+    "description": "What disciplines is the institution working with."
+  },
   "taxonKey": {
     "name": "Scientific name",
     "count": "{num, plural, one {scientific name} other {# scientific names}}",
@@ -89,7 +99,7 @@
     "description": "The types of issues or flags of potential interest discovered in processing the data."
   },
   "occurrenceCountry": {
-    "name": "Country",
+    "name": "Country or area",
     "count": "{num, plural, one {country} other {# countries}}",
     "description": "The country or territory where the event occurred"
   },

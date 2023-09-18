@@ -30,6 +30,13 @@ const filterConf = {
     identifier: {
       singleValue: true
     },
+    institutionType: {
+      singleValue: true,
+      defaultKey: 'type',
+    },
+    discipline: {
+      
+    },
     numberSpecimens: {
       singleValue: true,
       v1: {
