@@ -282,8 +282,11 @@ const config =
       field: 'taxonKey'
     },
     title: {
-      type: 'keyword',
-      field: 'title'
+      type: 'text',
+      field: 'title',
+      get: {
+        type: 'fuzzy'
+      }
     },
     type: {
       type: 'keyword',
