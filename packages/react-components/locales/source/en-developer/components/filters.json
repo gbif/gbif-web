@@ -44,6 +44,16 @@
     "count": "{num, plural, one { event date } other {# event dates}}",
     "description": "When was the record collected or observed."
   },
+  "alternativeCode": {
+    "name": "Alternative code",
+    "count": "{num, plural, one { Alternative code } other {# Alternative codes}}",
+    "description": "What alternative codes are the record using. This could be previos codes, or codes from merged collections."
+  },
+  "identifier": {
+  "name": "Identifier",
+  "count": "{num, plural, one { Identifier } other {# Identifiers}}",
+  "description": "A short description of the component should be placed here"
+},
   "taxonKey": {
     "name": "Scientific name",
     "count": "{num, plural, one {scientific name} other {# scientific names}}",

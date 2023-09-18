@@ -1591,6 +1591,42 @@ export const commonFilters = {
         }
       }
     },
+  alternativeCode: {
+    type: 'SIMPLE_TEXT',
+    config: {
+      std: {
+        filterHandle: 'alternativeCode',
+        id2labelHandle: 'alternativeCode',
+        translations: {
+          count: 'filters.alternativeCode.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.alternativeCode.name',// translation path to a title for the popover and the button
+          description: 'filters.alternativeCode.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        placeholder: 'E.g. NHM-K',
+        singleSelect: true
+      }
+    }
+  },
+  identifier: {
+    type: 'SIMPLE_TEXT',
+    config: {
+      std: {
+        filterHandle: 'identifier',
+        id2labelHandle: 'identifier',
+        translations: {
+          count: 'filters.identifier.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.identifier.name',// translation path to a title for the popover and the button
+          description: 'filters.identifier.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        placeholder: '264378',
+        singleSelect: true
+      }
+    }
+  },
   // -- Add filters above this line (required by plopfile.js) --
   q: {
     type: 'CUSTOM_STANDARD',

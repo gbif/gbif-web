@@ -24,6 +24,12 @@ const filterConf = {
       singleValue: true,
       transformValue: x => x === 'true'
     },
+    alternativeCode: {
+      singleValue: true
+    },
+    identifier: {
+      singleValue: true
+    },
     numberSpecimens: {
       singleValue: true,
       v1: {

@@ -16,6 +16,7 @@ const typeDef = gql`
       active: Boolean
       numberSpecimens: String
       occurrenceCount: String
+      identifier: String
       displayOnNHCPortal: Boolean
       ): InstitutionSearchResults
     institution(key: String!): Institution
