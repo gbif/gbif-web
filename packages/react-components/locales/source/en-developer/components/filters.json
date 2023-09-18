@@ -373,7 +373,7 @@
   "name": {
     "name": "Name",
     "count": "{num, plural, one { Name } other {# Names}}",
-    "description": "A short description of the component should be placed here"
+    "description": "The name of the institution or collection"
   },
   "city": {
     "name": "City",
