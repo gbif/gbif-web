@@ -44,6 +44,26 @@
     "count": "",
     "description": ""
   },
+  "alternativeCode": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "identifier": {
+    "name": "Identifier",
+    "count": "",
+    "description": "A short description of the component should be placed here"
+  },
+  "institutionType": {
+    "name": "Type",
+    "count": "",
+    "description": ""
+  },
+  "discipline": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "taxonKey": {
     "name": "Scientific name",
     "count": "{num, plural, one {scientific name} other {# scientific names}}",
@@ -353,7 +373,7 @@
   "name": {
     "name": "Name",
     "count": "{num, plural, one { name } other {# names}}",
-    "description": "A short description of the component should be placed here"
+    "description": ""
   },
   "city": {
     "name": "City",
