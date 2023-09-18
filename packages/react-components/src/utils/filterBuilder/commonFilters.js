@@ -20,6 +20,8 @@ import dwcaExtension from '../../enums/basic/dwcaExtension.json';
 import iucnRedListCategory from '../../enums/basic/iucnRedListCategory.json';
 import institutionType from '../../enums/basic/institutionType.json';
 import discipline from '../../enums/basic/discipline.json';
+import collectionContentType from '../../enums/basic/collectionContentType.json';
+import preservationType from '../../enums/basic/preservationType.json';
 // -- Add imports above this line (required by plopfile.js) --
 
 export const commonFilters = {
@@ -1661,6 +1663,40 @@ export const commonFilters = {
         },
         specific: {
           options: discipline
+        }
+      }
+    },
+  collectionContentType: {
+      type: 'ENUM',
+      config: {
+        std: {
+          filterHandle: 'collectionContentType',
+          id2labelHandle: 'collectionContentType',
+          translations: {
+            count: 'filters.collectionContentType.count', // translation path to display names with counts. e.g. "3 scientific names"
+            name: 'filters.collectionContentType.name',// translation path to a title for the popover and the button
+            description: 'filters.collectionContentType.description', // translation path for the filter description
+          }
+        },
+        specific: {
+          options: collectionContentType
+        }
+      }
+    },
+  preservationType: {
+      type: 'ENUM',
+      config: {
+        std: {
+          filterHandle: 'preservationType',
+          id2labelHandle: 'preservationType',
+          translations: {
+            count: 'filters.preservationType.count', // translation path to display names with counts. e.g. "3 scientific names"
+            name: 'filters.preservationType.name',// translation path to a title for the popover and the button
+            description: 'filters.preservationType.description', // translation path for the filter description
+          }
+        },
+        specific: {
+          options: preservationType
         }
       }
     },
