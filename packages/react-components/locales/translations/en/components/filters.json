@@ -64,6 +64,16 @@
     "count": "",
     "description": ""
   },
+  "collectionContentType": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "preservationType": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "taxonKey": {
     "name": "Scientific name",
     "count": "{num, plural, one {scientific name} other {# scientific names}}",
