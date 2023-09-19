@@ -20,20 +20,38 @@ var client = new Client({
   agent
 });
 
-async function query({ query, aggs, size = 20, from = 0, metrics, req }) {
+async function query({ query, aggs, size = 20, from = 0, sortBy = 'createdAt', sortOrder = 'desc', metrics, req }) {
   if (parseInt(from) + parseInt(size) > env.content.maxResultWindow) {
     throw new ResponseError(400, 'BAD_REQUEST', `'from' + 'size' must be ${env.content.maxResultWindow} or less`);
+  }
+  console.log(sortBy);
+
+  const sortableFields = {
+    createdAt: 'date',
+    start: 'date',
+    end: 'date',
+    // venue: 'string'
+  }
+  // if sortBy field isn't sortable, default to createdAt
+  if (!sortableFields[sortBy]) {
+    sortBy = 'createdAt';
   }
   const esQuery = {
     sort: [
       '_score',
-      // { created: { "order": "desc" } }
+      {
+        [sortBy]: {
+          order: sortOrder,
+          missing: '_last',
+          unmapped_type: sortableFields[sortBy]
+        }
+      },
     ],
     track_total_hits: true,
     size,
     from,
-    query,
     aggs,
+    query
   }
   let response = await search({ client, index: searchIndex, query: esQuery, req });
   let body = response.body;
