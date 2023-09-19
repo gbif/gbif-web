@@ -3,7 +3,7 @@ import { css, jsx } from '@emotion/react';
 import React, { useState, useEffect } from "react";
 import PropTypes from 'prop-types';
 import PopoverFilter from './PopoverFilter';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { nanoid } from 'nanoid';
 import get from 'lodash/get';
 import { keyCodes } from '../../../utils/util';
@@ -11,6 +11,7 @@ import { Input } from '../../../components';
 import { AdditionalControl, Option, Filter, SummaryBar, FilterBody, Footer, Exists } from '../utils';
 
 export const FilterContent = ({ config = {}, translations, hide, onApply, onCancel, onFilterChange, focusRef, filterHandle, initFilter }) => {
+  const { formatMessage } = useIntl();
   const { placeholder = 'Input text' } = config;
   const [id] = React.useState(nanoid);
   const [options, setOptions] = useState([]);
@@ -19,6 +20,7 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
   let mustNotLength = get(initFilter, `must_not.${filterHandle}`, []).length;
   const [isNegated, setNegated] = useState(mustNotLength > 0 && config.supportsNegation);
   const [isComplex, setComplex] = useState(false);
+  const formattedPlaceholder = formatMessage({id: placeholder, defaultMessage: placeholder});
 
   useEffect(() => {
     const initialMustOptions = get(initFilter, `must.${filterHandle}`, []);
@@ -77,7 +79,7 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, onCanc
                 setValue(value);
               }
             }}
-            placeholder={placeholder}
+            placeholder={formattedPlaceholder}
             onKeyPress={e => {
               const value = e.target.value;
               if (e.which === keyCodes.ENTER) {
