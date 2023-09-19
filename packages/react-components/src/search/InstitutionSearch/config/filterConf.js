@@ -1,6 +1,6 @@
 export const filters = [
   'active', 'name', 'q', 'code', 'countrySingleGrSciColl', 'city', 'numberSpecimens', 
-  'specimensInGbif', 'alternativeCode', 'identifier', 'institutionType', 'discipline'
+  'specimensInGbif', 'alternativeCode', 'institutionType', 'discipline'
 ];
 
 const highlighted = [

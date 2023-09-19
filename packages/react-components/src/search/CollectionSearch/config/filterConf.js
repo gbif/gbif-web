@@ -1,7 +1,7 @@
 export const filters = [
   'q', 'institutionKeySingle', 'code', 'countrySingleGrSciColl', 'city', 
   'personalCollection', 'active', 'numberSpecimens', 'specimensInGbif',
-  'name', 'alternativeCode', 'identifier', 'collectionContentType', 'preservationType'
+  'name', 'alternativeCode', 'collectionContentType', 'preservationType'
 ].sort();
 
 const highlighted = [
