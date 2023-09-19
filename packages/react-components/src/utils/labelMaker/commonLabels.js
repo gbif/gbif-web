@@ -250,6 +250,14 @@ export const commonLabels = {
     type: 'TRANSLATION',
     template: id => `enums.threatStatus.${id}`
   },
+  collectionContentType: {
+    type: 'TRANSLATION',
+    template: id => `enums.collectionContentType.${id}`
+  },
+  preservationType: {
+    type: 'TRANSLATION',
+    template: id => `enums.preservationType.${id}`
+  },
   // -- Add labels above this line (required by plopfile.js) --
 }
 

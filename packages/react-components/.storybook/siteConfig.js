@@ -1,6 +1,8 @@
 import env from '../.env.json';
+const gbifOrg = 'https://www.gbif.org';
 
 const routeConfig = {
+  enabledRoutes: ['datasetSearch', 'occurrenceSearch', 'institutionKey', 'institutionSearch', 'publisherSearch', 'collectionSearch', 'collectionKey', 'datasetKey'],
   occurrenceSearch: {
     url: ({ queryString }) => {
       return `/iframe.html?args=&id=search-occurrencesearch--standalone-example&viewMode=story${queryString}`;
@@ -10,12 +12,18 @@ const routeConfig = {
     route: '/occurrence/search',
   },
 
+  speciesSearch: {
+    url: ({ queryString }) => `${gbifOrg}/species/search?${queryString}`,
+    isHref: true,
+    route: '/species/search',
+  },
+
   collectionKey: {
     isHref: true,
     url: ({ key }) => {
       return `/?path=/story/entities-collection-page--example&knob-collectionUUID=${key}`;
     },
-    route: '/',
+    route: '/'
   },
   collectionSearch: {
     // url: () => `/collection/`,
@@ -26,13 +34,15 @@ const routeConfig = {
     route: '/collection/search',
   },
   collectionKeySpecimens: {
+    parent: 'collectionKey',
     // url: ({ key }) => `/collection/${key}/specimens`
-    url: ({route, queryString, basename, key}) => `${basename ? `/${basename}` : ''}/collection/${key}/specimens${queryString ? `?${queryString}` : ''}`,
+    url: ({ route, queryString, basename, key }) => `${basename ? `/${basename}` : ''}/collection/${key}/specimens${queryString ? `?${queryString}` : ''}`,
     route: '/specimens',
   },
   collectionKeyDashboard: {
+    parent: 'collectionKey',
     // url: ({ key }) => `/collection/${key}/specimens`
-    url: ({route, queryString, basename, key}) => `${basename ? `/${basename}` : ''}/collection/${key}/specimens${queryString ? `?${queryString}` : ''}`,
+    url: ({ route, queryString, basename, key }) => `${basename ? `/${basename}` : ''}/collection/${key}/specimens${queryString ? `?${queryString}` : ''}`,
     route: '/dashboard',
   },
 
@@ -40,14 +50,15 @@ const routeConfig = {
     isHref: true,
     url: ({ key }) => {
       return `/?path=/story/entities-institution-page--example&knob-institutionUUID=${key}`;
-    }
+    },
+    route: '/institution/:key',
   },
   institutionKeySpecimens: {
-    url: ({key}) => `/specimens`,
+    url: ({ key }) => `/specimens`,
     isHref: false,
   },
   institutionKeyCollections: {
-    url: ({key}) => `/collections`,
+    url: ({ key }) => `/collections`,
     isHref: false,
   },
   institutionSearch: {
@@ -67,6 +78,14 @@ const routeConfig = {
       return `/?path=/story/entities-dataset-page--example&knob-Choose%20Direction=ltr&knob-Choose%20locale=en-DK&knob-datasetUUID=${key}`;
     },
     route: '/'
+  },
+  datasetCitations: {
+    route: '/dataset/:key/citations',
+    url: ({ key }) => `/dataset/${key}/citations`
+  },
+  datasetDownload: {
+    route: '/dataset/:key/download',
+    url: ({ key }) => `/dataset/${key}/download`
   },
   datasetSearch: {
     // url: () => `/dataset-search/`,
@@ -106,12 +125,12 @@ const routeConfig = {
   eventKey: {
     // url: ({key}) => `/publisher/${key}`,
     // url: ({key, otherIds}) => `${gbifOrg}/dataset/${otherIds.datasetKey}/event/${key}`,
-    url: ({key, otherIds}) => `https://collections.ala.org.au/public/showDataResource/${otherIds.datasetKey}?event=${key}`,
+    url: ({ key, otherIds }) => `https://collections.ala.org.au/public/showDataResource/${otherIds.datasetKey}?event=${key}`,
     isHref: true,
     route: '/event/:key'
   },
   eventSearch: {
-    url: ({queryString, basename}) => `${basename ? `/${basename}` : ''}/event/search`,
+    url: ({ queryString, basename }) => `${basename ? `/${basename}` : ''}/event/search`,
     isHref: true,
     route: '/publisher/search'
   },
@@ -122,13 +141,13 @@ const routeConfig = {
   },
   networkKey: {
     isHref: true,
-    url: ({key}) => `${env.GBIF_ORG}/network/${key}`,
+    url: ({ key }) => `${env.GBIF_ORG}/network/${key}`,
     route: '/'
   },
 };
 
 export const siteConfig = {
-  routeConfig,
+  routes: routeConfig,
   occurrence: {
     mapSettings: {
       userLocationEnabled: true,
@@ -155,7 +174,7 @@ export const siteConfig = {
     bing: 'need to make a call to register',
     maptiler: env._FOR_STORYBOOK_BUT_PUBLIC?.apiKeys?.maptiler
   },
-  availableCatalogues: ['OCCURRENCE', 'DATASET', 'PUBLISHER', 'LITERATURE', 'COLLECTION', 'INSTITUTION'],
+  // availableCatalogues: ['OCCURRENCE', 'DATASET', 'PUBLISHER', 'LITERATURE', 'COLLECTION', 'INSTITUTION'],
   maps: {
     // locale: 'ja',
     defaultProjection: 'MERCATOR',

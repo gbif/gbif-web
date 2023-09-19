@@ -24,6 +24,18 @@ const filterConf = {
     code: {
       singleValue: true
     },
+    alternativeCode: {
+      singleValue: true
+    },
+    identifier: {
+      singleValue: true
+    },
+    collectionContentType: {
+      defaultKey: 'contentType'
+    },
+    preservationType: {
+      
+    },
     active: {
       singleValue: true,
       transformValue: x => x === 'true'

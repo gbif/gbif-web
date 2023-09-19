@@ -1,8 +1,6 @@
 
 import { jsx } from '@emotion/react';
-import React, { useContext, useState } from 'react';
-import ThemeContext from '../../../style/themes/ThemeContext';
-import * as css from './styles';
+import React, { useState } from 'react';
 import { Prose, HyperText, Toc, ContactList, Unknown } from "../../../components";
 import { FormattedMessage } from 'react-intl';
 import { Card, CardHeader2, SideBarCard } from '../../shared';
@@ -18,7 +16,6 @@ export function Project({
   ...props
 }) {
   const isBelowSidebar = useBelow(1000);
-  const theme = useContext(ThemeContext);
   const [tocRefs] = useState({})
   const { dataset } = data;
   const { project } = dataset;
@@ -64,8 +61,8 @@ export function Project({
           <ContactList contacts={project.contacts} style={{ paddingInlineStart: 0 }} />
         </Card>}
       </div>
-      <div css={sharedStyles.sideBar({ theme })}>
-        <nav css={sharedStyles.sideBarNav({ theme })}>
+      <div css={sharedStyles.sideBar}>
+        <nav css={sharedStyles.sideBarNav}>
           <SideBarCard>
             <Toc refs={tocRefs} />
           </SideBarCard>

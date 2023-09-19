@@ -18,6 +18,10 @@ import relevance from '../../enums/cms/relevance.json';
 import topics from '../../enums/cms/topics.json';
 import dwcaExtension from '../../enums/basic/dwcaExtension.json';
 import iucnRedListCategory from '../../enums/basic/iucnRedListCategory.json';
+import institutionType from '../../enums/basic/institutionType.json';
+import discipline from '../../enums/basic/discipline.json';
+import collectionContentType from '../../enums/basic/collectionContentType.json';
+import preservationType from '../../enums/basic/preservationType.json';
 // -- Add imports above this line (required by plopfile.js) --
 
 export const commonFilters = {
@@ -80,7 +84,7 @@ export const commonFilters = {
         translations: {
           count: 'filters.occurrenceCountry.count', // translation path to display names with counts. e.g. "3 scientific names"
           name: 'filters.occurrenceCountry.name',// translation path to a title for the popover and the button
-          description: 'filters.occurrenceCountry.description', // translation path for the filter description
+          description: 'filters.grsciCollCountry.description', // translation path for the filter description
         },
       },
       specific: {
@@ -1326,7 +1330,7 @@ export const commonFilters = {
         },
       },
       specific: {
-        placeholder: 'Search by institution name',
+        placeholder: "filters.name.searchPlaceholder",
         singleSelect: true
       }
     }
@@ -1588,6 +1592,111 @@ export const commonFilters = {
         },
         specific: {
           options: iucnRedListCategory
+        }
+      }
+    },
+  alternativeCode: {
+    type: 'SIMPLE_TEXT',
+    config: {
+      std: {
+        filterHandle: 'alternativeCode',
+        id2labelHandle: 'alternativeCode',
+        translations: {
+          count: 'filters.alternativeCode.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.alternativeCode.name',// translation path to a title for the popover and the button
+          description: 'filters.alternativeCode.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        placeholder: 'E.g. NHM-K',
+        singleSelect: true
+      }
+    }
+  },
+  identifier: {
+    type: 'SIMPLE_TEXT',
+    config: {
+      std: {
+        filterHandle: 'identifier',
+        id2labelHandle: 'identifier',
+        translations: {
+          count: 'filters.identifier.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.identifier.name',// translation path to a title for the popover and the button
+          description: 'filters.identifier.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        placeholder: '264378',
+        singleSelect: true
+      }
+    }
+  },
+  institutionType: {
+      type: 'ENUM',
+      config: {
+        std: {
+          filterHandle: 'institutionType',
+          id2labelHandle: 'institutionType',
+          translations: {
+            count: 'filters.institutionType.count', // translation path to display names with counts. e.g. "3 scientific names"
+            name: 'filters.institutionType.name',// translation path to a title for the popover and the button
+            description: 'filters.institutionType.description', // translation path for the filter description
+          }
+        },
+        specific: {
+          options: institutionType,
+          isRadio: true
+        }
+      }
+    },
+  discipline: {
+      type: 'ENUM',
+      config: {
+        std: {
+          filterHandle: 'discipline',
+          id2labelHandle: 'discipline',
+          translations: {
+            count: 'filters.discipline.count', // translation path to display names with counts. e.g. "3 scientific names"
+            name: 'filters.discipline.name',// translation path to a title for the popover and the button
+            description: 'filters.discipline.description', // translation path for the filter description
+          }
+        },
+        specific: {
+          options: discipline
+        }
+      }
+    },
+  collectionContentType: {
+      type: 'ENUM',
+      config: {
+        std: {
+          filterHandle: 'collectionContentType',
+          id2labelHandle: 'collectionContentType',
+          translations: {
+            count: 'filters.collectionContentType.count', // translation path to display names with counts. e.g. "3 scientific names"
+            name: 'filters.collectionContentType.name',// translation path to a title for the popover and the button
+            description: 'filters.collectionContentType.description', // translation path for the filter description
+          }
+        },
+        specific: {
+          options: collectionContentType
+        }
+      }
+    },
+  preservationType: {
+      type: 'ENUM',
+      config: {
+        std: {
+          filterHandle: 'preservationType',
+          id2labelHandle: 'preservationType',
+          translations: {
+            count: 'filters.preservationType.count', // translation path to display names with counts. e.g. "3 scientific names"
+            name: 'filters.preservationType.name',// translation path to a title for the popover and the button
+            description: 'filters.preservationType.description', // translation path for the filter description
+          }
+        },
+        specific: {
+          options: preservationType
         }
       }
     },

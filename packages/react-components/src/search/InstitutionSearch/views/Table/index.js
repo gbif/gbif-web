@@ -12,8 +12,8 @@ import queryString from 'query-string';
 import env from '../../../../../.env.json';
 
 const QUERY = `
-query list($occurrenceCount: String, $code: String, $q: String, $offset: Int, $limit: Int, $country: [Country], $fuzzyName: String, $city: String, $name: String, $active: Boolean, $numberSpecimens: String, , $displayOnNHCPortal: Boolean){
-  institutionSearch(occurrenceCount: $occurrenceCount, code: $code, q: $q, limit: $limit, offset: $offset, country: $country, fuzzyName: $fuzzyName, city: $city, name: $name, active: $active, numberSpecimens: $numberSpecimens, displayOnNHCPortal: $displayOnNHCPortal) {
+query list($discipline: [String], $type: String, $identifier: String, $alternativeCode: String, $occurrenceCount: String, $code: String, $q: String, $offset: Int, $limit: Int, $country: [Country], $fuzzyName: String, $city: String, $name: String, $active: Boolean, $numberSpecimens: String, , $displayOnNHCPortal: Boolean){
+  institutionSearch(discipline: $discipline, type: $type, identifier: $identifier, alternativeCode: $alternativeCode, occurrenceCount: $occurrenceCount, code: $code, q: $q, limit: $limit, offset: $offset, country: $country, fuzzyName: $fuzzyName, city: $city, name: $name, active: $active, numberSpecimens: $numberSpecimens, displayOnNHCPortal: $displayOnNHCPortal) {
     count
     offset
     limit
@@ -38,8 +38,8 @@ query list($occurrenceCount: String, $code: String, $q: String, $offset: Int, $l
 `;
 
 const SLOW_QUERY = `
-query list($occurrenceCount: String, $code: String, $q: String, $offset: Int, $limit: Int, $country: [Country], $fuzzyName: String, $city: String, $name: String, $active: Boolean, $numberSpecimens: String, , $displayOnNHCPortal: Boolean){
-  institutionSearch(occurrenceCount: $occurrenceCount, code: $code, q: $q, limit: $limit, offset: $offset, country: $country, fuzzyName: $fuzzyName, city: $city, name: $name, active: $active, numberSpecimens: $numberSpecimens, displayOnNHCPortal: $displayOnNHCPortal) {
+query list($discipline: [String], $type: String, $identifier: String, $alternativeCode: String, $occurrenceCount: String, $code: String, $q: String, $offset: Int, $limit: Int, $country: [Country], $fuzzyName: String, $city: String, $name: String, $active: Boolean, $numberSpecimens: String, , $displayOnNHCPortal: Boolean){
+  institutionSearch(discipline: $discipline, type: $type, identifier: $identifier, alternativeCode: $alternativeCode, occurrenceCount: $occurrenceCount, code: $code, q: $q, limit: $limit, offset: $offset, country: $country, fuzzyName: $fuzzyName, city: $city, name: $name, active: $active, numberSpecimens: $numberSpecimens, displayOnNHCPortal: $displayOnNHCPortal) {
     results {
       key
       collectionCount

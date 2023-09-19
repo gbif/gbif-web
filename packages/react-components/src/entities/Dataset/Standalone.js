@@ -12,6 +12,10 @@ function Wrap({ siteConfig, ...props }) {
 
 function Standalone(props) {
   const routeContext = useContext(RouteContext);
+  // if an explitit id is passed in, use it instead of extracting it from the route
+  if (props.id) {
+    return <Dataset {...props} />
+  }
   const path = routeContext.datasetKey.route;
   return <Switch>
     <Route

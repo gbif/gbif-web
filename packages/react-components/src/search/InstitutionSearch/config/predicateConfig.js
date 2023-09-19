@@ -24,6 +24,19 @@ const filterConf = {
       singleValue: true,
       transformValue: x => x === 'true'
     },
+    alternativeCode: {
+      singleValue: true
+    },
+    identifier: {
+      singleValue: true
+    },
+    institutionType: {
+      singleValue: true,
+      defaultKey: 'type',
+    },
+    discipline: {
+      
+    },
     numberSpecimens: {
       singleValue: true,
       v1: {

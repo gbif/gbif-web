@@ -64,6 +64,8 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
         iucnRedListCategory: getFile(locale, `../${folder}/${locale}/enums/iucnRedListCategory`),
         relevance: getFile(locale, `../${folder}/${locale}/enums/relevance`),
         topics: getFile(locale, `../${folder}/${locale}/enums/topics`),
+        collectionContentType: getFile(locale, `../${folder}/${locale}/enums/collectionContentType`),
+        preservationType: getFile(locale, `../${folder}/${locale}/enums/preservationType`),
   // -- Add enums above this line (required by plopfile.js) --
       }
     }

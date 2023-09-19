@@ -71,7 +71,7 @@ Relating to ${env.GBIF_REGISTRY}/collection/${collection.key}
   `;
 
   return <>
-    <DataHeader />
+    <DataHeader showEmpty />
 
     <HeaderWrapper>
       <Eyebrow prefix="Collection code" suffix={collection.code} />

@@ -14,11 +14,16 @@ const typeDef = gql`
       city: String
       country: [Country]
       alternativeCode: String
+      identifier: String
       active: Boolean
       personalCollection: Boolean
       numberSpecimens: String
       occurrenceCount: String
+      contentType: [CollectionContentType]
+      preservationType: [PreservationType]
       displayOnNHCPortal: Boolean
+      sortBy: CollectionsSortField
+      sortOrder: SortOrder
       ): CollectionSearchResults
     collection(key: String!): Collection
   }

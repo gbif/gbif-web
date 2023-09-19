@@ -1,7 +1,7 @@
 import { jsx, css } from '@emotion/react';
 import React, { useState } from 'react';
 import { Card, CardTitle } from './shared';
-import { GroupBy, useFacets } from './charts/GroupByTable';
+import { GroupBy, Pagging, useFacets } from './charts/GroupByTable';
 import { Classification, DropdownButton, Tooltip } from '../../components';
 import { useIntl, FormattedMessage } from 'react-intl';
 import ChartClickWrapper from './charts/ChartClickWrapper';
@@ -51,6 +51,7 @@ function TaxaMain({
         });
       }
     }} />
+    <Pagging facetResults={facetResults} />
   </Card>
 };
 
@@ -141,6 +142,7 @@ function IucnMain({
         });
       }
     }} />
+    <Pagging facetResults={facetResults} />
   </Card>
 };
 const IUCN_FACETS = `

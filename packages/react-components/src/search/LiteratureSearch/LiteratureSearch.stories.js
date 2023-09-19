@@ -96,4 +96,10 @@ Example.story = {
   name: 'Literature search',
 };
 
-export const StandaloneExample = () => <Standalone style={{ height: 'calc(100vh - 50px)' }}></Standalone>;
+export const StandaloneExample = () => <Standalone siteConfig={{
+  routes: {
+    literatureSearch: {
+      route: '/',
+    }
+  },
+}} style={{ height: 'calc(100vh - 50px)' }}></Standalone>;

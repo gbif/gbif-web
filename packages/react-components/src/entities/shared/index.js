@@ -90,7 +90,7 @@ export function Page404(props) {
 }
 
 export function PageLoader(props) {
-  return <div>
+  return <div style={{maxWidth: '100%'}}>
     <HeaderWrapper style={{paddingTop: 40, paddingBottom: 40}}>
       <Skeleton as="p" width={200} />
       <Skeleton as="h1" style={{width: 600, height:50, marginBottom: 50}} />

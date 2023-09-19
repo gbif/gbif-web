@@ -1,10 +1,11 @@
 import { jsx, css } from '@emotion/react';
 import React, { useCallback, useState } from 'react';
-import { Button, Progress, Skeleton } from '../../../components';
+import { Button, Progress, Skeleton, Tooltip } from '../../../components';
 import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import { Table } from '../shared';
 import { useQuery } from '../../../dataManagement/api';
 import { useDeepCompareEffect } from 'react-use';
+import { formatAsPercentage } from '../../../utils/util';
 
 export function GroupByTable({
   predicate,
@@ -57,6 +58,7 @@ export function GroupByTable({
         }
         `}>
         {results.map((e, i) => {
+          const perentageOfTotal = e.count / total;
           return <tr key={e.key}>
             <td>
               {e.filter && <div onClick={() => {
@@ -68,7 +70,9 @@ export function GroupByTable({
             </td>
             <td css={css`text-align: end;`}><FormattedNumber value={e.count} /></td>
             <td>
-              <Progress color="var(--primary200)" overlays={[{ percent: 100 * e.count / total, color: 'var(--primary)' }]} percent={100 * e.count / maxCount} style={{ height: '1em', marginLeft: 'auto' }} />
+              <Tooltip title={`${formatAsPercentage(perentageOfTotal)}% of total`} placement="auto">
+                <Progress color="var(--primary)" percent={100 * e.count / maxCount} style={{ height: '1em', marginLeft: 'auto' }} />
+              </Tooltip>
             </td>
           </tr>
         })}

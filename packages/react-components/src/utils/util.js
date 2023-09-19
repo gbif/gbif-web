@@ -74,6 +74,9 @@ export function join(){
 
 export function formatAsPercentage(fraction, max = 100) {
   var formatedPercentage = 0;
+  if (Number.isNaN(fraction)) {
+    return 0;
+  }
   if (!isFinite(fraction)) {
     return fraction;
   }
@@ -102,6 +105,7 @@ export function formatAsPercentage(fraction, max = 100) {
   }
   return formatedPercentage;
 }
+
 
 // From https://stackoverflow.com/questions/27936772/how-to-deep-merge-instead-of-shallow-merge
 /**

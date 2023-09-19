@@ -121,6 +121,18 @@ export const progress = css`
   margin-bottom: 12px;
 `;
 
+export const sidebarOccurrenceCardWrapper = ({isHorisontal}) => css`
+${isHorisontal ? `
+    display: flex;
+    flex-direction: row-reverse;
+    border-bottom: 1px solid #eee;
+    > a, > div {
+      flex: 0 0 50%;
+    }
+  ` : ''}
+  ${sidebarCardWrapper}
+`;
+
 export const sidebarCardWrapper = css`
   img {
     width: 100%;

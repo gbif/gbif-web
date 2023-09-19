@@ -40,9 +40,7 @@ class TaxonMediaAPI extends RESTDataSource {
     // Append filter queries
     [
       '-typeStatus:*',
-      '-basisOfRecord:PreservedSpecimen',
       '-identificationQualifier:"Uncertain"',
-      'spatiallyValid:true',
       '-userAssertions:50001',
       '-userAssertions:50005',
       ...Object.entries(params?.filter || {}).map(
@@ -76,6 +74,8 @@ class TaxonMediaAPI extends RESTDataSource {
           scientificName,
           speciesGroups,
           occurrenceDetails,
+          dataResourceUid,
+          dataResourceName,
           imageMetadata,
         }) => {
           return {
@@ -93,7 +93,8 @@ class TaxonMediaAPI extends RESTDataSource {
               imageMetadata.license?.includes('http') && imageMetadata.license,
             credit: imageMetadata.rights,
             creator: imageMetadata.creator,
-            // providerLiteral: null,
+            provider: dataResourceUid,
+            providerLiteral: dataResourceName,
             description: imageMetadata.description || occurrenceDetails,
             tag: speciesGroups.join(', '),
             createDate: imageMetadata.created,
