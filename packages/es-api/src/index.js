@@ -42,6 +42,14 @@ app.use(compression());
 app.use(express.static('public'));
 app.use(bodyParser.json());
 
+// Add logging in debug mode
+if (config.debug) {
+  app.use((req, res, next) => {
+    console.log(`[${new Date().toISOString()}] ${req.method} - ${req.url}`)
+    next();
+  })
+}
+
 let setCache = function (req, res, next) {
   const period = 600; // unit seconds
   // if GET request, then add caching

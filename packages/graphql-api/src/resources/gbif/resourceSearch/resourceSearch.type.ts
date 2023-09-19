@@ -9,11 +9,11 @@ export type PaginatedSearchResult = {
     endOfRecords: boolean
 }
 
-export type SearchInput = {
+export type ResourceSearchInput = {
     q?: string
     limit?: number
     offset?: number
-    contentType?: string
+    contentTypes?: string[]
     topics?: string[]
     countriesOfCoverage?: string[]
     countriesOfResearcher?: string[]
@@ -21,14 +21,14 @@ export type SearchInput = {
 
 const typeDef = gql`
     extend type Query {
-        resourceSearch(input: SearchInput!): PaginatedSearchResult!
+        resourceSearch(input: ResourceSearchInput!): PaginatedSearchResult!
     }
 
-    input SearchInput {
+    input ResourceSearchInput {
         q: String
         limit: Int
         offset: Int
-        contentType: String
+        contentTypes: [String!]
         topics: [String!]
         countriesOfCoverage: [String!]
         countriesOfResearcher: [String!]

@@ -1,5 +1,5 @@
 import { ElasticSearchSearchParams, ContentfulSearchService, ElasticSearchMapperResult } from "#/helpers/contentful/ContentfulSearchService";
-import { PaginatedSearchResult, SearchInput } from "./resourceSearch.type";
+import { PaginatedSearchResult, ResourceSearchInput } from "./resourceSearch.type";
 
 type PartialContext = {
     dataSources: {
@@ -17,7 +17,7 @@ type PartialContext = {
  */
 export default {
     Query: {
-        resourceSearch: async (_: unknown, args: { input: SearchInput }, context: PartialContext): Promise<PaginatedSearchResult> => {
+        resourceSearch: async (_: unknown, args: { input: ResourceSearchInput }, context: PartialContext): Promise<PaginatedSearchResult> => {
             // Validate the input arguments
             if ((args.input.limit ?? 0) + (args.input.offset ?? 0) > 10000) throw new Error('The limit + offset cannot be greater than 10000');
 
@@ -26,7 +26,7 @@ export default {
                 q: args.input.q,
                 size: args.input.limit,
                 from: args.input.offset,
-                contentType: args.input.contentType,
+                contentType: args.input.contentTypes,
                 topics: args.input.topics,
                 countriesOfCoverage: args.input.countriesOfCoverage,
                 countriesOfResearcher: args.input.countriesOfResearcher,
