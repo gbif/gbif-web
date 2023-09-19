@@ -22,7 +22,7 @@
   "specimensInGbif": {
     "name": "Specimens in GBIF",
     "count": "{num, plural, one { GBIF specimen count } other {# specimens in GBIF}}",
-    "description": "The number of held specimens shared with GBIF."
+    "description": ""
   },
   "iucnRedListCategory": {
     "name": "",
@@ -113,6 +113,9 @@
     "count": "{num, plural, one {country or area} other {# countries or areas}}",
     "description": "The country or territory where the event occurred"
   },
+  "grsciCollCountry": {
+    "description": ""
+  },
   "preparations": {
     "name": "Preparations",
     "count": "",
@@ -126,7 +129,7 @@
   "q": {
     "name": "Text search",
     "count": "{num, plural, one {text string} other {# search strings}}",
-    "description": "Find records with similar matching text among text fields. For matching text within a specific field, use corresponding filter, such as the one for \"Scientific Name\"."
+    "description": ""
   },
   "coordinates": {
     "name": "Coordinates"
@@ -358,12 +361,12 @@
   "active": {
     "name": "Active",
     "count": "Active",
-    "description": "Whether or not the institution or collection is still active"
+    "description": ""
   },
   "personalCollection": {
     "name": "Personal collection",
     "count": "Personal collection",
-    "description": "Whether the collection is personal"
+    "description": ""
   },
   "datasetType": {
     "name": "Dataset type",
@@ -383,17 +386,18 @@
   "name": {
     "name": "Name",
     "count": "{num, plural, one { name } other {# names}}",
-    "description": ""
+    "description": "",
+    "searchPlaceholder": ""
   },
   "city": {
     "name": "City",
     "count": "{num, plural, one { city } other {# cities}}",
-    "description": "A short description of the component should be placed here"
+    "description": ""
   },
   "code": {
     "name": "Code",
     "count": "{num, plural, one { code } other {# codes}}",
-    "description": "A short description of the component should be placed here"
+    "description": ""
   },
   "verbatimScientificName": {
     "name": "Verbatim scientific name",
