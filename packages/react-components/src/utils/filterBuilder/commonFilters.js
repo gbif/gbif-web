@@ -84,7 +84,7 @@ export const commonFilters = {
         translations: {
           count: 'filters.occurrenceCountry.count', // translation path to display names with counts. e.g. "3 scientific names"
           name: 'filters.occurrenceCountry.name',// translation path to a title for the popover and the button
-          description: 'filters.occurrenceCountry.description', // translation path for the filter description
+          description: 'filters.grsciCollCountry.description', // translation path for the filter description
         },
       },
       specific: {
@@ -1330,7 +1330,7 @@ export const commonFilters = {
         },
       },
       specific: {
-        placeholder: 'Search by institution name',
+        placeholder: "filters.name.searchPlaceholder",
         singleSelect: true
       }
     }

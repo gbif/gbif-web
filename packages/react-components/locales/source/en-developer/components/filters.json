@@ -22,7 +22,7 @@
   "specimensInGbif": {
     "name": "Specimens in GBIF",
     "count": "{num, plural, one { GBIF specimen count } other {# specimens in GBIF}}",
-    "description": "The number of held specimens shared with GBIF."
+    "description": "Number of specimen occurrences published on GBIF and linked to the institution entry."
   },
   "iucnRedListCategory": {
     "name": "IUCN Global Red List Category",
@@ -47,7 +47,7 @@
   "alternativeCode": {
     "name": "Alternative code",
     "count": "{num, plural, one { Alternative code } other {# Alternative codes}}",
-    "description": "What alternative codes are the record using. This could be previos codes, or codes from merged collections."
+    "description": "Any additional code that is already in use for the same record in other contexts (for example, historical codes)."
   },
   "identifier": {
   "name": "Identifier",
@@ -67,12 +67,12 @@
   "collectionContentType": {
     "name": "Content type",
     "count": "{num, plural, one { Content type } other {# Content types}}",
-    "description": "What type of collection is it"
+    "description": "The type of objects available in the collection."
   },
   "preservationType": {
     "name": "Preservation type",
     "count": "{num, plural, one { Preservation type } other {# Preservation types}}",
-    "description": "How are the specimens in the collection preserved."
+    "description": "The method used to preserve the objects available in the collection."
   },
   "taxonKey": {
     "name": "Scientific name",
@@ -113,6 +113,9 @@
     "count": "{num, plural, one {country} other {# countries}}",
     "description": "The country or territory where the event occurred"
   },
+  "grsciCollCountry": {
+    "description": "Country or territory in the record's address."
+  },
   "preparations": {
     "name": "Preparations",
     "count": "{num, plural, one {preparations} other {# preparationss}}",
@@ -126,7 +129,7 @@
   "q": {
     "name": "Text search",
     "count": "{num, plural, one {text string} other {# search strings}}",
-    "description": "Find records with similar matching text among text fields. For matching text within a specific field, use corresponding filter, such as the one for \"Scientific Name\"."
+    "description": "Free text search across several fields."
   },
   "coordinates": {
     "name": "Coordinates"
@@ -358,12 +361,12 @@
   "active": {
     "name": "Active",
     "count": "Active",
-    "description": "Whether or not the institution or collection is still active"
+    "description": "Whether the entry correspond to an active collection/institution or a historical listing that no longer exists."
   },
   "personalCollection": {
     "name": "Personal collection",
     "count": "Personal collection",
-    "description": "Whether or not the collections is personal"
+    "description": "Selects private or personal collections."
   },
   "datasetType": {
     "name": "Dataset type",
@@ -383,17 +386,18 @@
   "name": {
     "name": "Name",
     "count": "{num, plural, one { Name } other {# Names}}",
-    "description": "The name of the institution or collection"
+    "description": "The entity's name.",
+    "searchPlaceholder": "Search by title/name"
   },
   "city": {
     "name": "City",
     "count": "{num, plural, one { City } other {# Cities}}",
-    "description": "A short description of the component should be placed here"
+    "description": "City where it can be found."
   },
   "code": {
     "name": "Code",
     "count": "{num, plural, one { Code } other {# Codes}}",
-    "description": "A short description of the component should be placed here"
+    "description": "The primary code that identifies the record as a whole. If you get no result, try the Alternative code filter."
   },
   "verbatimScientificName": {
     "name": "Verbatim scientific name",
