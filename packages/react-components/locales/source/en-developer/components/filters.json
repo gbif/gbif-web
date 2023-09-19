@@ -57,12 +57,12 @@
   "institutionType": {
     "name": "Type",
     "count": "{num, plural, one { type } other {# types}}",
-    "description": "What type of institution is it."
+    "description": "Institution type (Museum, Herbarium, etc.)"
   },
   "discipline": {
     "name": "Discipline",
     "count": "{num, plural, one { Discipline } other {# Disciplines}}",
-    "description": "What disciplines is the institution working with."
+    "description": "The research disciplines the the institution houses."
   },
   "collectionContentType": {
     "name": "Content type",
