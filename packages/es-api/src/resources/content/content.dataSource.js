@@ -20,33 +20,36 @@ var client = new Client({
   agent
 });
 
-async function query({ query, aggs, size = 20, from = 0, sortBy = 'createdAt', sortOrder = 'desc', metrics, req }) {
+async function query({ query, aggs, size = 20, from = 0, sortBy, sortOrder = 'desc', metrics, req }) {
   if (parseInt(from) + parseInt(size) > env.content.maxResultWindow) {
     throw new ResponseError(400, 'BAD_REQUEST', `'from' + 'size' must be ${env.content.maxResultWindow} or less`);
   }
-  console.log(sortBy);
 
   const sortableFields = {
     createdAt: 'date',
     start: 'date',
-    end: 'date',
-    // venue: 'string'
+    end: 'date'
+  }
+  // use score if no sortBy param provided or the sortBy param is unknown
+  const sort = [];
+  if (!sortBy || !sortableFields[sortBy]) {
+    sort.push('_score');
   }
   // if sortBy field isn't sortable, default to createdAt
   if (!sortableFields[sortBy]) {
     sortBy = 'createdAt';
   }
+  // always sort by createdAt as a secondary sort
+  sort.push({
+    [sortBy]: {
+      order: sortOrder,
+      missing: '_last',
+      unmapped_type: sortableFields[sortBy]
+    }
+  });
+
   const esQuery = {
-    sort: [
-      '_score',
-      {
-        [sortBy]: {
-          order: sortOrder,
-          missing: '_last',
-          unmapped_type: sortableFields[sortBy]
-        }
-      },
-    ],
+    sort,
     track_total_hits: true,
     size,
     from,
