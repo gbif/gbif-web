@@ -42,9 +42,9 @@ export const dl = ({ horizontal, dense, theme, ...props }) => css`
 `;
 
 export const dt = ({ horizontal, theme, ...props }) => css`
-  margin-bottom : ${horizontal ? 20 : 0}px;
+  margin-bottom : ${horizontal ? '1.5em' : '1em'};
   word-break: break-word;
-  line-height: 1.6em;
+  line-height: 1.3em;
   &:last-of-type {
     margin-bottom: ${horizontal ? 0 : '.1em'};
   }
