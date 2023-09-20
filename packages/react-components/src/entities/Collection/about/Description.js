@@ -52,7 +52,8 @@ export function Description({
             }} />}
             <Property value={collection.catalogUrl} labelId="grscicoll.catalogUrl" />
             <Property value={collection.apiUrl} labelId="grscicoll.apiUrl" />
-            <Property value={collection.disciplines} labelId="collection.contentTypes" formatter={e => <FormattedMessage id={`enums.contentTypes.${e}`} defaultMessage={e} />} />
+            <Property value={collection.contentTypes} labelId="collection.contentTypes" formatter={e => <FormattedMessage id={`enums.collectionContentType.${e}`} defaultMessage={e} />} />
+            <Property value={collection.preservationTypes} labelId="collection.preservationTypes" formatter={e => <FormattedMessage id={`enums.preservationType.${e}`} defaultMessage={e} />} />
 
             <Property value={collection.incorporatedCollections} labelId="grscicoll.incorporatedCollections" />
             <Property value={collection.importantCollectors} labelId="grscicoll.importantCollectors" />
@@ -61,7 +62,7 @@ export function Description({
                 {collection.importantCollectors.map((v, i) => <li key={i}><Link to={{pathname: "/specimens", search: `?recordedBy=${encodeURIComponent(v)}`}}>{v}</Link></li>)}
               </ul>
             </Property> */}
-            {/* <Property value={collection.personalCollection} labelId="grscicoll.personalCollection" /> */}
+            {collection.personalCollection && <Property value={collection.personalCollection} labelId="collection.personalCollection" formatter={e => <FormattedMessage id={`enums.yesNo.${e}`} defaultMessage={e} />}/>}
           </Properties>
         </Card>
         <Card style={{ marginTop: 24, marginBottom: 24 }}>
