@@ -17,7 +17,7 @@ function Map({ total, geojsonData, filterHash, labelMap, query, q, loading, defa
   const routeContext = useContext(RouteContext);
   const [latestEvent, broadcastEvent] = useState();
 
-  const FeatureComponent = ({data}) => <ResourceLink localeContext={localeContext} routeContext={routeContext} type='institutionKey' id={data.key}>{data.name}</ResourceLink>;
+  const FeatureComponent = ({data}) => <ResourceLink forceHref localeContext={localeContext} routeContext={routeContext} type='institutionKey' id={data.key}>{data.name}</ResourceLink>;
 
   return <>
     <div css={mapCss.mapArea({ theme })}>
