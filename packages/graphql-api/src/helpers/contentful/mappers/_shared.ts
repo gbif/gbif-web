@@ -22,7 +22,7 @@ export const ElasticSearchAssetSchema = z.object({
             contentType: z.string()
         })
     ),
-    description: z.record(z.string(), z.string()).optional(),
+    description: z.record(z.string(), z.string().nullable()).optional(),
     title: z.record(z.string(), z.string()).optional(),
 });
 
@@ -32,7 +32,7 @@ export function parseElasticSearchAssetDTO(imageDto: z.infer<typeof ElasticSearc
     return {
         contentType: 'asset',
         title: imageDto.title == null ? undefined : pickLanguage(imageDto.title, language),
-        description: imageDto.description == null ? undefined : pickLanguage(imageDto.description, language),
+        description: imageDto.description == null ? undefined : (pickLanguage(imageDto.description, language) ?? undefined),
         file: {
             url: file.url,
             details: {

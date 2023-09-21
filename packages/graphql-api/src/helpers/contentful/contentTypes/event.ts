@@ -12,7 +12,7 @@ export type Event = {
     primaryLink?: Link;
     secondaryLinks: Link[];
     start: Date;
-    end: Date;
+    end?: Date;
     allDayEvent?: boolean;
     organisingParticipants: Participant[];
     venue?: string;

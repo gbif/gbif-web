@@ -15,12 +15,12 @@ export const elasticSearchEventMapper: DataMapper<Event> = createElasticSearchMa
         primaryLink: ElasticSearchLinkSchema.optional(),
         secondaryLinks: z.array(ElasticSearchLinkSchema).optional(),
         start: DateAsStringSchema,
-        end: DateAsStringSchema,
+        end: DateAsStringSchema.optional(),
         allDayEvent: z.boolean().optional(),
         organisingParticipants: z.array(
             z.object({
                 id: z.string(),
-                country: z.string(),
+                country: z.string().optional(),
                 title: z.record(z.string(), z.string())
             })
         ).optional(),

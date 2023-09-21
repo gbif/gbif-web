@@ -93,7 +93,7 @@ if (defaultLanguage == null) throw new Error("There is no default language");
 
 export function pickLanguage<T>(data: Record<string, T>, locale?: string): T {
     // If no language is specified, return the default translation
-    if (locale == null && data[defaultLanguage!.code] != null) return data[defaultLanguage!.code];
+    if (locale == null) return data[defaultLanguage!.code];
 
     // Validate the language
     const language = languages.find(l => l.code === locale);

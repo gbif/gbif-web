@@ -1,6 +1,7 @@
 import { GraphQLError } from "graphql";
 import { Notification } from "#/helpers/contentful/contentTypes/notification";
 import { ContentfulDetailService } from "#/helpers/contentful/ContentfulDetailService";
+import { getHtml } from "#/helpers/utils";
 
 type PartialContext = {
     dataSources: {
@@ -32,8 +33,8 @@ export default {
     },
     Notification: {
         id: (src): string => src.id,
-        title: (src): string => src.title,
-        summary: (src): string | undefined => src.summary,
+        title: (src): string => getHtml(src.title, { inline: true }),
+        summary: (src): string | undefined => getHtml(src.summary),
         body: (src): string | undefined => src.body,
         start: (src): string => src.start.toISOString(),
         end: (src): string => src.end.toISOString(),

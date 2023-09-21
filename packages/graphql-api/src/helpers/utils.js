@@ -53,7 +53,7 @@ function isOccurrenceSequenced({ occurrence, verbatim }) {
 
 function getHtml(
   value,
-  { allowedTags = ['a', 'p', 'i', 'ul', 'ol', 'li'], inline } = {},
+  { allowedTags = ['a', 'p', 'i', 'ul', 'ol', 'li', 'strong'], inline } = {},
 ) {
   const options = {};
   if (allowedTags) options.ALLOWED_TAGS = allowedTags;

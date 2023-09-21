@@ -3,6 +3,8 @@ import { News } from "#/helpers/contentful/contentTypes/news";
 import { Asset } from "#/helpers/contentful/contentTypes/asset";
 import { Link } from "#/helpers/contentful/contentTypes/link";
 import { ContentfulDetailService } from "#/helpers/contentful/ContentfulDetailService";
+import { getHtml } from "#/helpers/utils";
+import { previewText } from "#/helpers/ts-utils";
 
 type PartialContext = {
     dataSources: {
@@ -34,9 +36,10 @@ export default {
     },
     News: {
         id: (src): string => src.id,
-        title: (src): string => src.title,
-        summary: (src): string | undefined => src.summary,
-        body: (src): string | undefined => src.body,
+        title: (src): string => getHtml(src.title, { inline: true }),
+        summary: (src): string | undefined => getHtml(src.summary),
+        body: (src): string | undefined => getHtml(src.body),
+        previewText: (src): string | undefined => previewText(src),
         primaryImage: (src): Asset | undefined=> src.primaryImage,
         primaryLink: (src): Link | undefined => src.primaryLink,
         secondaryLinks: (src): Link[] => src.secondaryLinks,

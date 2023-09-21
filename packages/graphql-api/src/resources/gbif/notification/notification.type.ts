@@ -10,6 +10,7 @@ const typeDef = gql`
         title: String!
         summary: String
         body: String
+        previewText: String
         start: String!
         end: String!
         url: String

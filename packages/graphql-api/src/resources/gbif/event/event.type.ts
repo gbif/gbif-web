@@ -10,11 +10,12 @@ const typeDef = gql`
         title: String!
         summary: String
         body: String
+        previewText: String
         primaryImage: Image
         primaryLink: Link
         secondaryLinks: [Link]
         start: String!
-        end: String!
+        end: String
         allDayEvent: Boolean
         organisingParticipants: [Participant]
         venue: String

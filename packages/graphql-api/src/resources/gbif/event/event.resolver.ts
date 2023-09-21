@@ -4,6 +4,8 @@ import { Asset } from "#/helpers/contentful/contentTypes/asset";
 import { Link } from "#/helpers/contentful/contentTypes/link";
 import { Participant } from "#/helpers/contentful/contentTypes/participant";
 import { ContentfulDetailService } from "#/helpers/contentful/ContentfulDetailService";
+import { getHtml } from "#/helpers/utils";
+import { previewText } from "#/helpers/ts-utils";
 
 type PartialContext = {
     dataSources: {
@@ -16,6 +18,7 @@ type EventQueryArgs = {
     id: string;
     preview?: boolean;
 }
+
 
 /**
  * fieldName: (parent, args, context, info) => data;
@@ -35,14 +38,15 @@ export default {
     },
     Event: {
         id: (src): string => src.id,
-        title: (src): string => src.title,
-        summary: (src): string | undefined => src.summary,
-        body: (src): string | undefined => src.body,
+        title: (src): string => getHtml(src.title, { inline: true }),
+        summary: (src): string | undefined => getHtml(src.summary),
+        body: (src): string | undefined => getHtml(src.body),
+        previewText: (src): string | undefined => previewText(src),
         primaryImage: (src): Asset | undefined => src.primaryImage,
         primaryLink: (src): Link | undefined => src.primaryLink,
         secondaryLinks: (src): Array<Link | undefined> => src.secondaryLinks,
         start: (src): string => src.start.toISOString(),
-        end: (src): string => src.end.toISOString(),
+        end: (src): string | undefined => src.end?.toISOString(),
         allDayEvent: (src): boolean | undefined => src.allDayEvent,
         organisingParticipants: (src): Array<Participant | undefined> => src.organisingParticipants,
         venue: (src): string | undefined => src.venue,
