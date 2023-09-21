@@ -1,6 +1,6 @@
 const config = {
   options: {
-    _all: {
+    q: {
       type: 'text',
       field: '_all',
       get: {
