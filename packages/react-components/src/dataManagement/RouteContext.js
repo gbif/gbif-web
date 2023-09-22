@@ -102,6 +102,7 @@ export const defaultContext = {
   },
 
   publisherKey: {
+    url: ({key}) => `/publisher/${key}`,
     gbifUrl: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/publisher/${key}`,
     isHref: true,
     route: '/publisher/:key'
