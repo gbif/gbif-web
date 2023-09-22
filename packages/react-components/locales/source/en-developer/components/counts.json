@@ -23,5 +23,7 @@
   "percentWithTaxonMatch": "{percent}% with taxon match",
   "nResultsWithImages": "{total, plural, one {# result } other {# results}} with images",
   "gbifOverlapPercent": "{percent}% overlap with GBIF Backbone",
-  "colOverlapPercent": "{percent}% overlap with Catalogue of Life"
+  "colOverlapPercent": "{percent}% overlap with Catalogue of Life",
+  "nDatasets": "{NUMBER_FORMATED} {NUMBER, plural, one{dataset} other{datasets}}",
+  "nOccurrencesHosted": "{NUMBER_FORMATED} {NUMBER, plural, one{hosted occurrence} other{hosted occurrences}}"
 }
