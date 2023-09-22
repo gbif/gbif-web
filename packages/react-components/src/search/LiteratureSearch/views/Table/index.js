@@ -4,6 +4,8 @@ import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { AltmetricDonut } from '../../../../components';
 import { MdLink } from 'react-icons/md';
 import { InlineFilterChip } from "../../../../widgets/Filter/utils/FilterChip";
+import queryString from 'query-string';
+import env from '../../../../../.env.json';
 
 const QUERY = `
 query list($predicate: Predicate, $publisher:[String], $source: [String], $doi: [String], $gbifDownloadKey: [ID], $openAccess: Boolean, $peerReview: Boolean, $publishingOrganizationKey: [ID], $topics: [String], $relevance: [String], $year: [String], $literatureType: [String], $countriesOfCoverage: [Country], $countriesOfResearcher: [Country], $gbifDatasetKey: [ID], $q: String, $offset: Int, $limit: Int, ){
@@ -146,7 +148,12 @@ const defaultTableConfig = {
 };
 
 function Table() {
-  return <StandardSearchTable graphQuery={QUERY} resultKey='literatureSearch' defaultTableConfig={defaultTableConfig} />
+  return <StandardSearchTable 
+    graphQuery={QUERY} 
+    resultKey='literatureSearch' 
+    defaultTableConfig={defaultTableConfig}
+    exportTemplate={({filter}) => `${env.API_V1}/literature/export?format=TSV&${filter ? queryString.stringify(filter) : ''}`}
+    />
 }
 
 export default Table;
