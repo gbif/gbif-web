@@ -19,3 +19,36 @@ export function shadeBlend(p,c0,c1) {
       return "#"+(0x1000000+(u(((t>>16)-R1)*n)+R1)*0x10000+(u(((t>>8&0x00FF)-G1)*n)+G1)*0x100+(u(((t&0x0000FF)-B1)*n)+B1)).toString(16).slice(1)
   }
 }
+
+// below can calculate contrasts, but work with rgb values, not hex
+// https://stackoverflow.com/questions/9733288/how-to-programmatically-calculate-the-contrast-ratio-between-two-colors
+/*
+const RED = 0.2126;
+const GREEN = 0.7152;
+const BLUE = 0.0722;
+
+const GAMMA = 2.4;
+
+function luminance(r, g, b) {
+  var a = [r, g, b].map((v) => {
+    v /= 255;
+    return v <= 0.03928
+      ? v / 12.92
+      : Math.pow((v + 0.055) / 1.055, GAMMA);
+  });
+  return a[0] * RED + a[1] * GREEN + a[2] * BLUE;
+}
+
+function contrast(rgb1, rgb2) {
+  var lum1 = luminance(...rgb1);
+  var lum2 = luminance(...rgb2);
+  var brightest = Math.max(lum1, lum2);
+  var darkest = Math.min(lum1, lum2);
+  return (brightest + 0.05) / (darkest + 0.05);
+}
+
+console.log(contrast([255, 255, 255], [255, 255, 0])); // 1.074 for yellow
+console.log(contrast([255, 255, 255], [0, 0, 255])); // 8.592 for blue
+
+// note: minimal recommended contrast ratio is 4.5, or 3 for larger font-sizes
+*/
