@@ -28,7 +28,7 @@ export function DataHeader({
   // if there is nothing configured, then do not show at all
   if (!hasLeftPart && !children && !right && !showEmpty) return null;
 
-  return <Div css={styles.dataHeader({ theme })} {...props}>
+  return <Div css={styles.dataHeader} {...props}>
 
     {hasLeftPart && <>
       <div style={{ flex: '0 0 auto', position: 'relative', margin: '0 12px', display: 'flex', alignItems: 'center' }}>
@@ -44,7 +44,7 @@ export function DataHeader({
 
     {right && <>
       {/* <Separator /> */}
-      <div style={{ flex: '0 0 auto' }}>
+      <div css={styles.dataHeaderRight}>
         {right}
       </div>
     </>}
