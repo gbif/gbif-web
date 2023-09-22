@@ -95,7 +95,7 @@ export const defaultContext = {
     route: '/dataset/:key/project'
   },
   datasetSearch: {
-    url: ({queryString, basename}) => `${basename ? `/${basename}` : ''}/dataset/search`,
+    url: ({queryString, basename}) => `${basename ? `/${basename}` : ''}/dataset/search?${queryString}`,
     gbifUrl: ({route, queryString, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/dataset/search${queryString ? `?${queryString}` : ''}`,
     isHref: false,
     route: '/dataset/search'

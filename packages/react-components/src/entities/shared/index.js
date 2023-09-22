@@ -15,7 +15,7 @@ export function Card({ noPadding, ...props }) {
   return <div
     css={css`
       background: var(--paperBackground);
-      ${padded ? paddedContent : null}
+      ${padded ? paddedCardContent : null}
       border: 1px solid var(--paperBorderColor);
       border-radius: var(--borderRadiusPx);
     `}
@@ -32,14 +32,21 @@ export const CardHeader3 = React.forwardRef((props, ref) => {
 });
 
 export function SideBarCard({ children, ...props }) {
-  return <div style={{paddingTop: 12}} {...props}>
+  return <div style={{ paddingTop: 12 }} {...props}>
     <Card noPadding>
       {children}
     </Card>
   </div>
 }
 
-const paddedContent = css`
+export function SideBarCardContentWrap({ ...props }) {
+  return <div css={css`
+      padding: 12px;
+      display: flex;
+    `} {...props} />
+}
+
+export const paddedCardContent = css`
   padding: 24px 48px;
   // less padding on small devices
   @media (max-width: 800px) {
@@ -90,16 +97,16 @@ export function Page404(props) {
 }
 
 export function PageLoader(props) {
-  return <div style={{maxWidth: '100%'}}>
-    <HeaderWrapper style={{paddingTop: 40, paddingBottom: 40}}>
+  return <div style={{ maxWidth: '100%' }}>
+    <HeaderWrapper style={{ paddingTop: 40, paddingBottom: 40 }}>
       <Skeleton as="p" width={200} />
-      <Skeleton as="h1" style={{width: 600, height:50, marginBottom: 50}} />
+      <Skeleton as="h1" style={{ width: 600, height: 50, marginBottom: 50 }} />
       <Skeleton as="p" width={300} />
       <Skeleton as="p" width={200} />
     </HeaderWrapper>
-    <ContentWrapper style={{minHeight: '70vh'}}>
-      <Card style={{minHeight: 500}}>
-        <Skeleton as="h2" style={{width: 600, marginBottom: 30}} />
+    <ContentWrapper style={{ minHeight: '70vh' }}>
+      <Card style={{ minHeight: 500 }}>
+        <Skeleton as="h2" style={{ width: 600, marginBottom: 30 }} />
         <Skeleton as="p" width={300} />
         <Skeleton as="p" width={200} />
         <Skeleton as="p" />
@@ -111,22 +118,22 @@ export function PageLoader(props) {
 }
 
 export function SideBarHeader(props) {
-  return <h4 css={css`margin: 0 0 24px 0; font-size: 14px; font-weight: bold;`} {...props}/>
+  return <h4 css={css`margin: 0 0 24px 0; font-size: 14px; font-weight: bold;`} {...props} />
 }
 
 export function SideBarProgressList(props) {
   return <ul css={css`padding: 0; margin: 0; list-style: none;`} {...props} />
 }
 
-export function SideBarLoader({lines = 5, ...props}) {
+export function SideBarLoader({ lines = 5, ...props }) {
   return <div {...props}>
     <SideBarHeader><Skeleton /></SideBarHeader>
     <div>
-      {Array(lines).fill().map((x, i ) => <Skeleton key={i} width="random" css={css`margin-bottom: .7em;`}/>)}
+      {Array(lines).fill().map((x, i) => <Skeleton key={i} width="random" css={css`margin-bottom: .7em;`} />)}
     </div>
   </div>
 };
 
-export function SideBarError({...props}) {
+export function SideBarError({ ...props }) {
   return <div {...props}>Failed to load</div>
 };
