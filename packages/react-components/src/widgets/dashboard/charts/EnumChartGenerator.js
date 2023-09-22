@@ -13,11 +13,12 @@ export function EnumChartGenerator({
   disableOther,
   disableUnknown,
   currentFilter = {}, //excluding root predicate
+  searchType = 'occurrenceSearch',
   ...props
 }) {
   const GQL_QUERY = `
     query summary($predicate: Predicate${!disableUnknown ? ', $hasPredicate: Predicate' : ''}, $size: Int, $from: Int){
-      occurrenceSearch(predicate: $predicate) {
+      search: ${searchType}(predicate: $predicate) {
         documents(size: 0) {
           total
         }
@@ -31,7 +32,7 @@ export function EnumChartGenerator({
           }
         }
       }
-      ${!disableUnknown ? `isNotNull: occurrenceSearch(predicate: $hasPredicate) {
+      ${!disableUnknown ? `isNotNull: ${searchType}(predicate: $hasPredicate) {
         documents(size: 0) {
           total
         }
@@ -61,6 +62,15 @@ export function ChartWrapper({
   currentFilter = {}, //excluding root predicate
   ...props
 }) {
+  const hasPredicates = [
+    {
+      type: 'isNotNull',
+      key: predicateKey
+    }
+  ];
+  if (predicate) {
+    hasPredicates.push(predicate);
+  }
   const facetQuery = {
     size: facetSize,
     keys: enumKeys,
@@ -70,13 +80,7 @@ export function ChartWrapper({
     otherVariables: {
       hasPredicate: {
         type: 'and',
-        predicates: [
-          predicate,
-          {
-            type: 'isNotNull',
-            key: predicateKey
-          }
-        ]
+        predicates: hasPredicates
       }
     }
   };

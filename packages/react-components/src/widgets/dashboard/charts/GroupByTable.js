@@ -132,7 +132,7 @@ export function useFacets({ predicate, otherVariables = {}, keys, translationTem
     setFrom(0);
   });
 
-  let buckets = Array.isArray(data?.occurrenceSearch?.facet?.results) ? data?.occurrenceSearch?.facet?.results : data?.occurrenceSearch?.facet?.results?.buckets;
+  let buckets = Array.isArray(data?.search?.facet?.results) ? data?.search?.facet?.results : data?.search?.facet?.results?.buckets;
 
   let results = buckets?.map(x => {
     return {
@@ -170,11 +170,11 @@ export function useFacets({ predicate, otherVariables = {}, keys, translationTem
     });
   }
 
-  const distinct = data?.occurrenceSearch?.cardinality?.total ?? buckets?.length ?? 0;
+  const distinct = data?.search?.cardinality?.total ?? buckets?.length ?? 0;
 
-  const total = data?.occurrenceSearch?.documents?.total ?? 0;
+  const total = data?.search?.documents?.total ?? 0;
   const isNotNull = data?.isNotNull?.documents?.total;
-  // what is the sum of values in the current page. Sum the data?.occurrenceSearch?.facet?.results
+  // what is the sum of values in the current page. Sum the data?.search?.facet?.results
   const pageSum = results?.reduce((acc, x) => acc + x.count, 0) ?? 0;
   // what is the difference between the total and the sum of the current page
   const otherOrEmptyCount = total - pageSum;
