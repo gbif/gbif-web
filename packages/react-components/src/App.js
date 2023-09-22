@@ -9,6 +9,7 @@ import InstitutionSearch from './search/InstitutionSearch/InstitutionSearch';
 import { Dataset } from './entities/Dataset/Dataset';
 import DatasetSearch from './search/DatasetSearch/DatasetSearch';
 import PublisherSearch from './search/PublisherSearch/PublisherSearch';
+import { Publisher } from './entities/Publisher/Publisher';
 import LiteratureSearch from './search/LiteratureSearch/LiteratureSearch';
 import OccurrenceSearch from './search/OccurrenceSearch/OccurrenceSearch';
 
@@ -57,6 +58,10 @@ function Standalone(props) {
       render={routeProps => <PublisherSearch pageLayout config={props?.siteConfig?.publisher} {...props} {...routeProps} />}
     />
     <Route
+      path={routeContext.publisherKey.route}
+      render={routeProps => <Publisher id={routeProps.match.params.key} {...props} {...routeProps} />}
+    />
+    <Route
       exact
       path={routeContext.literatureSearch.route}
       render={routeProps => <LiteratureSearch pageLayout config={props?.siteConfig?.literature} {...props} {...routeProps} />}
@@ -78,6 +83,7 @@ function Standalone(props) {
           <li><Link to={routeContext.datasetSearch.route}>Dataset search</Link></li>
           <li><Link to="/dataset/2985efd1-45b1-46de-b6db-0465d2834a5a">Dataset example</Link></li>
           <li><Link to={routeContext.publisherSearch.route}>Publisher search</Link></li>
+          <li><Link to="/publisher/e2e717bf-551a-4917-bdc9-4fa0f342c530">Publisher example</Link></li>
           <li><Link to={routeContext.literatureSearch.route}>Literature search</Link></li>
           <li><Link to={routeContext.occurrenceSearch.route}>Occurrence search</Link></li>
         </ul>
