@@ -5,6 +5,7 @@ const typeDef = gql`
     id: String!
     degreeOfEstablishment: String
     accessionNumber: String
+    herbariumVoucher: String
     seedPerGram: Float
     formInStorage: String
     quantityInGrams: Float
