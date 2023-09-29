@@ -5,7 +5,7 @@ export type Notification = {
     summary?: string;
     body?: string;
     start: Date;
-    end: Date;
+    end?: Date;
     url?: string;
     // TODO: Should probably be an enum
     notificationType: string;

@@ -12,7 +12,7 @@ const typeDef = gql`
         body: String
         previewText: String
         start: String!
-        end: String!
+        end: String
         url: String
         notificationType: String!
         severity: String!

@@ -34,7 +34,7 @@ const typeDef = gql`
         countriesOfResearcher: [String!]
     }
 
-    union SingleSearchResult = DataUse | Event | Notification | News
+    union SingleSearchResult = DataUse | Event | Notification | News | CMSProject | Composition
 
     type PaginatedSearchResult {
         results: [SingleSearchResult!]!

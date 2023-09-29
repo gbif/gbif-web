@@ -58,8 +58,8 @@ export default {
         documents: (src): Array<Asset | undefined> => src.documents,
         attendees: (src): string | undefined => src.attendees,
         keywords: (src): string[] => src.keywords,
-        searchable: (src): boolean | undefined => src.searchable,
-        homepage: (src): boolean | undefined => src.homepage,
+        searchable: (src): boolean => src.searchable,
+        homepage: (src): boolean => src.homepage,
     } as Record<string, (src: Event, args: unknown, context: PartialContext) => unknown>
 }
 

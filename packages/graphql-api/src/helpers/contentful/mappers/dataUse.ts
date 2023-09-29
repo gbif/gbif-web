@@ -1,28 +1,28 @@
 import { z } from "zod";
 import { pickLanguage } from "../languages";
 import { DataUse } from "../contentTypes/dataUse";
-import { DataMapper, ElasticSearchAssetSchema, ElasticSearchLinkSchema, parseElasticSearchAssetDTO, parseElasticSearchLinkDTO, createElasticSearchMapper } from "./_shared";
+import { DataMapper, ElasticSearchAssetSchema, ElasticSearchLinkSchema, parseElasticSearchAssetDTO, parseElasticSearchLinkDTO, createElasticSearchMapper, localized } from "./_shared";
 
 export const elasticSearchDataUseMapper: DataMapper<DataUse> = createElasticSearchMapper({
     contentType: 'dataUse',
     fields: z.object({
         id: z.string(),
-        title: z.record(z.string(), z.string()),
-        summary: z.record(z.string(), z.string()).optional(),
-        body: z.record(z.string(), z.string()).optional(),
+        title: localized(z.string()),
+        summary: localized(z.string()).optional(),
+        body: localized(z.string()).optional(),
         primaryImage: ElasticSearchAssetSchema.optional(),
         primaryLink: ElasticSearchLinkSchema.optional(),
         secondaryLinks: z.array(ElasticSearchLinkSchema).optional(),
         citation: z.string().optional(),
-        resourceUsed: z.record(z.string(), z.string()).optional(),
+        resourceUsed: localized(z.string()).optional(),
         countriesOfResearcher: z.array(z.string()).optional(),
         countriesOfCoverage: z.array(z.string()).optional(),
         topics: z.array(z.string()).optional(),
         purposes: z.array(z.string()).optional(),
         audiences: z.array(z.string()).optional(),
         keywords: z.array(z.string()).optional(),
-        searchable: z.boolean().optional().default(false),
-        homepage: z.boolean().optional().default(false),
+        searchable: z.boolean(),
+        homepage: z.boolean(),
     }),
     map: (dto, language) => ({
         contentType: 'dataUse',

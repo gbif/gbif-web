@@ -27,8 +27,8 @@ const typeDef = gql`
         documents: [Document]
         attendees: String
         keywords: [String]
-        searchable: Boolean
-        homepage: Boolean
+        searchable: Boolean!
+        homepage: Boolean!
     }
 
     # All types that compose the Image type

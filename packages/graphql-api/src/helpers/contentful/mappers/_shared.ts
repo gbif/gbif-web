@@ -3,27 +3,45 @@ import { Link } from "../contentTypes/link";
 import { Asset } from "../contentTypes/asset";
 import { pickLanguage } from "../languages";
 
+export const localized = (schema: z.ZodType<any>) => z.record(z.string(), schema);
+
+export const CoordinatesSchema = z.object({
+    lat: z.number(),
+    lon: z.number(),
+})
+
+export const PartnerSchema = z.object({
+    id: z.string(),
+    country: z.string().optional(),
+    title: localized(z.string()),
+})
+
+export function parseElasticSearchPartnerDTO(partnerDto: z.infer<typeof PartnerSchema>, language?: string) {
+    return {
+        id: partnerDto.id,
+        country: partnerDto.country,
+        title: pickLanguage(partnerDto.title, language),
+    }
+}
+
 export const ElasticSearchLinkSchema = z.object({
     id: z.string(),
-    label: z.record(z.string(), z.string()),
-    url: z.record(z.string(), z.string()),
+    label: localized(z.string()),
+    url: localized(z.string()),
 })
 
 export const ElasticSearchAssetSchema = z.object({
-    file: z.record(
-        z.string(),
-        z.object({
-            url: z.string(),
-            details: z.object({
-                size: z.number(),
-                image: z.object({ width: z.number(), height: z.number() }).optional(),
-            }),
-            fileName: z.string(),
-            contentType: z.string()
-        })
-    ),
-    description: z.record(z.string(), z.string().nullable()).optional(),
-    title: z.record(z.string(), z.string()).optional(),
+    file: localized(z.object({
+        url: z.string(),
+        details: z.object({
+            size: z.number(),
+            image: z.object({ width: z.number(), height: z.number() }).optional(),
+        }),
+        fileName: z.string(),
+        contentType: z.string()
+    })),
+    description: localized(z.string().nullable()).optional(),
+    title: localized(z.string()).optional(),
 });
 
 export function parseElasticSearchAssetDTO(imageDto: z.infer<typeof ElasticSearchAssetSchema>, language?: string): Asset {

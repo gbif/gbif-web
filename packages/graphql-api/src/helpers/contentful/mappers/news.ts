@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { DataMapper, ElasticSearchAssetSchema, ElasticSearchLinkSchema, parseElasticSearchAssetDTO, parseElasticSearchLinkDTO, createElasticSearchMapper } from "./_shared";
+import { DataMapper, ElasticSearchAssetSchema, ElasticSearchLinkSchema, parseElasticSearchAssetDTO, parseElasticSearchLinkDTO, createElasticSearchMapper, localized } from "./_shared";
 import { News } from "../contentTypes/news";
 import { pickLanguage } from "../languages";
 
@@ -7,9 +7,9 @@ export const elasticSearchNewsMapper: DataMapper<News> = createElasticSearchMapp
     contentType: 'news',
     fields: z.object({
         id: z.string(),
-        title: z.record(z.string(), z.string()),
-        summary: z.record(z.string(), z.string()).optional(),
-        body: z.record(z.string(), z.string()).optional(),
+        title: localized(z.string()),
+        summary: localized(z.string()).optional(),
+        body: localized(z.string()).optional(),
         primaryImage: ElasticSearchAssetSchema.optional(),
         primaryLink: ElasticSearchLinkSchema.optional(),
         secondaryLinks: z.array(ElasticSearchLinkSchema).optional(),
@@ -19,8 +19,8 @@ export const elasticSearchNewsMapper: DataMapper<News> = createElasticSearchMapp
         purposes: z.array(z.string()).optional(),
         audiences: z.array(z.string()).optional(),
         keywords: z.array(z.string()).optional(),
-        searchable: z.boolean().optional().default(false),
-        homepage: z.boolean().optional().default(false),
+        searchable: z.boolean(),
+        homepage: z.boolean(),
     }),
     map: (dto, language) => ({
         contentType: 'news',

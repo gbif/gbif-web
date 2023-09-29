@@ -1,39 +1,40 @@
 import { z } from "zod";
 import { DateAsStringSchema } from "../utils";
 import { pickLanguage } from "../languages";
-import { DataMapper, ElasticSearchAssetSchema, ElasticSearchLinkSchema, parseElasticSearchAssetDTO, parseElasticSearchLinkDTO, createElasticSearchMapper } from "./_shared";
+import { DataMapper, ElasticSearchAssetSchema, ElasticSearchLinkSchema, parseElasticSearchAssetDTO, parseElasticSearchLinkDTO, createElasticSearchMapper, localized, CoordinatesSchema } from "./_shared";
 import { Event } from "../contentTypes/event";
 
 export const elasticSearchEventMapper: DataMapper<Event> = createElasticSearchMapper({
     contentType: 'event',
     fields: z.object({
         id: z.string(),
-        title: z.record(z.string(), z.string()),
-        summary: z.record(z.string(), z.string()).optional(),
-        body: z.record(z.string(), z.string()).optional(),
+        title: localized(z.string()),
+        summary: localized(z.string()).optional(),
+        body: localized(z.string()).optional(),
         primaryImage: ElasticSearchAssetSchema.optional(),
         primaryLink: ElasticSearchLinkSchema.optional(),
         secondaryLinks: z.array(ElasticSearchLinkSchema).optional(),
         start: DateAsStringSchema,
         end: DateAsStringSchema.optional(),
         allDayEvent: z.boolean().optional(),
+        // TODO: This datatype is has a lot of infomation, i don't know if we need all the data
         organisingParticipants: z.array(
             z.object({
                 id: z.string(),
                 country: z.string().optional(),
-                title: z.record(z.string(), z.string())
+                title: localized(z.string())
             })
         ).optional(),
         venue: z.string().optional(),
         location: z.string().optional(),
         country: z.string().optional(),
-        coordinates: z.unknown().optional(),
-        eventLanguage: z.record(z.string(), z.string()).optional(),
+        coordinates: CoordinatesSchema.optional(),
+        eventLanguage: localized(z.string()).optional(),
         documents: z.array(ElasticSearchAssetSchema).optional(),
-        attendees: z.unknown().optional(),
+        attendees: z.string().optional(),
         keywords: z.array(z.string()).optional(),
-        searchable: z.boolean().optional().default(false),
-        homepage: z.boolean().optional().default(false),
+        searchable: z.boolean(),
+        homepage: z.boolean(),
     }),
     map: (dto, language) => ({
         contentType: 'event',

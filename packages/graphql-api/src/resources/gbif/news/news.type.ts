@@ -20,8 +20,8 @@ const typeDef = gql`
         purposes: [String]
         audiences: [String]
         keywords: [String]
-        searchable: Boolean
-        homepage: Boolean
+        searchable: Boolean!
+        homepage: Boolean!
     }
 `;
 

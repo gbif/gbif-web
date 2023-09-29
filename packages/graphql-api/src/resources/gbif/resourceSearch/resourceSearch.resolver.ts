@@ -56,6 +56,9 @@ export default {
                 case 'event': return 'Event';
                 case 'news': return 'News';
                 case 'notification': return 'Notification';
+                case 'project': return 'CMSProject';
+                case 'composition': return 'Composition';
+                case 'help': return 'Help';
             }
         }
     }

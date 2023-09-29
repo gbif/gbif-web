@@ -21,6 +21,8 @@ export { default as dataUse } from './dataUse';
 export { default as event } from './event';
 export { default as notification } from './notification';
 export { default as resourceSearch } from './resourceSearch';
+export { default as project } from './project';
+export { default as composition } from './composition';
 
 // ALA use this, but we do not have an index for it yet
 // export { default as event } from '../shared/resources/event';

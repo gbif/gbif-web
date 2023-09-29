@@ -37,7 +37,7 @@ export default {
         summary: (src): string | undefined => getHtml(src.summary),
         body: (src): string | undefined => src.body,
         start: (src): string => src.start.toISOString(),
-        end: (src): string => src.end.toISOString(),
+        end: (src): string | undefined => src.end?.toISOString(),
         url: (src): string | undefined => src.url,
         notificationType: (src): string => src.notificationType,
         severity: (src): string => src.severity,
