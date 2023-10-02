@@ -3,7 +3,7 @@
 
 import { RESTDataSource } from "apollo-datasource-rest";
 import { z } from 'zod';
-import { ElasticSearchMapperResult, elasticSearchMappers } from './mappers';
+import { MapperResult, mappers } from "./mappers";
 
 type ContentfulDetailServiceConfig = {
     apiv1: string;
@@ -11,7 +11,7 @@ type ContentfulDetailServiceConfig = {
 
 const SuccessResponseSchema =
     z.object({ contentType: z.string() })
-    .and(z.record(z.string(), z.unknown()));
+        .and(z.record(z.string(), z.unknown()));
 
 export class ContentfulDetailService extends RESTDataSource {
     constructor(config: ContentfulDetailServiceConfig) {
@@ -19,7 +19,7 @@ export class ContentfulDetailService extends RESTDataSource {
         this.baseURL = config.apiv1;
     }
 
-    public getById = async (id: string, preview: boolean = false, language?: string): Promise<ElasticSearchMapperResult> => {
+    public getById = async (id: string, preview: boolean = false, language?: string): Promise<MapperResult | null> => {
         let path = `/content/${id}`;
         if (preview) path += '/preview';
 
@@ -38,7 +38,7 @@ export class ContentfulDetailService extends RESTDataSource {
 
         // Try to get the mapper for the content type
         const contentType = data.contentType;
-        const mapper = elasticSearchMappers.find(m => m.contentType === contentType);
+        const mapper = mappers.find(m => m.contentType === contentType);
 
         // If there is no mapper, return null
         if (mapper == null) {
@@ -47,6 +47,14 @@ export class ContentfulDetailService extends RESTDataSource {
         }
 
         // Otherwise, parse the result
-        return mapper.parse(data, language);
+        const parseResult = mapper.Schema.safeParse(data);
+        if (!parseResult.success) {
+            console.warn(`Unable to parse result from ElasticSearch: ${parseResult.error.message}`);
+            return null;
+        }
+
+        // Map the DTO to the entry
+        const dto = parseResult.data;
+        return mapper.map(dto as any, language);
     }
 }

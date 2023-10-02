@@ -1,6 +1,6 @@
 import { GraphQLError } from "graphql";
-import { Notification } from "#/helpers/contentful/contentTypes/notification";
 import { ContentfulDetailService } from "#/helpers/contentful/ContentfulDetailService";
+import { Notification } from "#/helpers/contentful/mappers/notification";
 import { getHtml } from "#/helpers/utils";
 
 type PartialContext = {
@@ -32,15 +32,10 @@ export default {
         }
     },
     Notification: {
-        id: (src): string => src.id,
         title: (src): string => getHtml(src.title, { inline: true }),
         summary: (src): string | undefined => getHtml(src.summary),
-        body: (src): string | undefined => src.body,
         start: (src): string => src.start.toISOString(),
         end: (src): string | undefined => src.end?.toISOString(),
-        url: (src): string | undefined => src.url,
-        notificationType: (src): string => src.notificationType,
-        severity: (src): string => src.severity,
     } as Record<string, (src: Notification) => unknown>
 }
 

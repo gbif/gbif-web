@@ -1,14 +1,13 @@
 import { z } from "zod";
-import { DataMapper, ElasticSearchAssetSchema, ElasticSearchLinkSchema, createElasticSearchMapper, localized, parseElasticSearchAssetDTO, parseElasticSearchLinkDTO } from "./_shared";
-import { Asset } from "../contentTypes/asset";
-import { Link } from "../contentTypes/link";
+import { Mapper, localized } from "./_shared";
+import { Asset, AssetDTOSchema, parseAssetDTO } from "./asset";
+import { LinkDTOSchema, parseLinkDTO, Link } from "./link";
 import { pickLanguage } from "../languages";
-import { Topic } from "../contentTypes/topic";
-import { Purpose } from "../contentTypes/purpose";
-import { Audience } from "../contentTypes/audience";
 
-type Article = {
-    contentType: 'article';
+export const articleContentType = 'article';
+
+export type Article = {
+    contentType: typeof articleContentType;
     id: string;
     title: string;
     summary?: string;
@@ -17,9 +16,9 @@ type Article = {
     secondaryLinks: Link[];
     documents: Asset[];
     citation?: string;
-    topics: Topic[];
-    purposes: Purpose[];
-    audiences: Audience[];
+    topics: string[];
+    purposes: string[];
+    audiences: string[];
     keywords: string[];
     searchable: boolean;
     displayDate?: boolean;
@@ -27,15 +26,14 @@ type Article = {
     urlAlias?: string;
 }
 
-const ArticleSchema = z.object({
-    contentType: z.literal('article'),
+export const ArticleDTOSchema = z.object({
     id: z.string(),
     title: localized(z.string()),
     summary: localized(z.string()).optional(),
     body: localized(z.string()),
-    primaryImage: ElasticSearchAssetSchema.optional(),
-    secondaryLinks: z.array(ElasticSearchLinkSchema).optional(),
-    documents: z.array(ElasticSearchAssetSchema).optional(),
+    primaryImage: AssetDTOSchema.optional(),
+    secondaryLinks: z.array(LinkDTOSchema).optional(),
+    documents: z.array(AssetDTOSchema).optional(),
     citation: z.string().optional(),
     topics: z.array(z.string()).optional(),
     purposes: z.array(z.string()).optional(),
@@ -47,29 +45,20 @@ const ArticleSchema = z.object({
     urlAlias: z.string().optional(),
 });
 
-function parseArticleDTO(dto: z.infer<typeof ArticleSchema>, language?: string): Article {
+export function parseArticleDTO(dto: z.infer<typeof ArticleDTOSchema>, language?: string): Article {
     return {
-        contentType: 'article',
+        contentType: articleContentType,
         id: dto.id,
         title: pickLanguage(dto.title, language),
         summary: dto.summary == null ? undefined : pickLanguage(dto.summary, language),
         body: pickLanguage(dto.body, language),
-        primaryImage: dto.primaryImage == null ? undefined : parseElasticSearchAssetDTO(dto.primaryImage),
-        secondaryLinks: dto.secondaryLinks?.map(l => parseElasticSearchLinkDTO(l, language)) ?? [],
-        documents: dto.documents?.map(d => parseElasticSearchAssetDTO(d)) ?? [],
+        primaryImage: dto.primaryImage == null ? undefined : parseAssetDTO(dto.primaryImage),
+        secondaryLinks: dto.secondaryLinks?.map(l => parseLinkDTO(l, language)) ?? [],
+        documents: dto.documents?.map(d => parseAssetDTO(d)) ?? [],
         citation: dto.citation,
-        topics: dto.topics?.map(topic => ({
-            contentType: 'topic',
-            term: topic,
-        })) ?? [],
-        purposes: dto.purposes?.map(purpose => ({
-            contentType: 'purpose',
-            term: purpose,
-        })) ?? [],
-        audiences: dto.audiences?.map(audience => ({
-            contentType: 'audience',
-            term: audience,
-        })) ?? [],
+        topics: dto.topics ?? [],
+        purposes: dto.purposes ?? [],
+        audiences: dto.audiences ?? [],
         keywords: dto.keywords ?? [],
         searchable: dto.searchable,
         displayDate: dto.displayDate,
@@ -78,35 +67,8 @@ function parseArticleDTO(dto: z.infer<typeof ArticleSchema>, language?: string):
     }
 }
 
-export const elasticSearchArticleMapper: DataMapper<Article> = createElasticSearchMapper({
-    contentType: 'article',
-    fields: ArticleSchema,
-    map: (dto, language) => ({
-        contentType: 'article',
-        id: dto.id,
-        title: pickLanguage(dto.title, language),
-        summary: dto.summary == null ? undefined : pickLanguage(dto.summary, language),
-        body: pickLanguage(dto.body, language),
-        primaryImage: dto.primaryImage == null ? undefined : parseElasticSearchAssetDTO(dto.primaryImage),
-        secondaryLinks: dto.secondaryLinks?.map(l => parseElasticSearchLinkDTO(l, language)) ?? [],
-        documents: dto.documents?.map(d => parseElasticSearchAssetDTO(d)) ?? [],
-        citation: dto.citation,
-        topics: dto.topics?.map(topic => ({
-            contentType: 'topic',
-            term: topic,
-        })) ?? [],
-        purposes: dto.purposes?.map(purpose => ({
-            contentType: 'purpose',
-            term: purpose,
-        })) ?? [],
-        audiences: dto.audiences?.map(audience => ({
-            contentType: 'audience',
-            term: audience,
-        })) ?? [],
-        keywords: dto.keywords ?? [],
-        searchable: dto.searchable,
-        displayDate: dto.displayDate,
-        articleType: dto.articleType,
-        urlAlias: dto.urlAlias,
-    }),
-})
+export const articleMapper: Mapper<Article, typeof ArticleDTOSchema> = {
+    contentType: articleContentType,
+    Schema: ArticleDTOSchema,
+    map: parseArticleDTO,
+}

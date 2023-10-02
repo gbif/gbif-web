@@ -93,7 +93,7 @@ if (defaultLanguage == null) throw new Error("There is no default language");
 
 export function pickLanguage<T>(data: Record<string, T>, locale?: string): T {
     // If no language is specified, return the default translation
-    if (locale == null) return data[defaultLanguage!.code];
+    if (locale == null) return data[defaultLanguage!.code] as T;
 
     // Validate the language
     const language = languages.find(l => l.code === locale);
@@ -102,11 +102,13 @@ export function pickLanguage<T>(data: Record<string, T>, locale?: string): T {
     }
 
     // Try to get the specified translation
-    if (data[language.code] != null) return data[language.code];
+    if (data[language.code] != null) return data[language.code] as T;
 
     // Try to get the fallback translation
-    if (language.fallbackCode != null && data[language.fallbackCode] != null) return data[language.fallbackCode];
+    if (language.fallbackCode != null && data[language.fallbackCode] != null) return data[language.fallbackCode] as T;
   
     // return the default translation
-    return data[defaultLanguage!.code];
-  }
+    return data[defaultLanguage!.code] as T;
+}
+
+const testData = { 'en-GB': 'test' }

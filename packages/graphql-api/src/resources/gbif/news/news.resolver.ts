@@ -1,10 +1,8 @@
 import { GraphQLError } from "graphql";
-import { News } from "#/helpers/contentful/contentTypes/news";
-import { Asset } from "#/helpers/contentful/contentTypes/asset";
-import { Link } from "#/helpers/contentful/contentTypes/link";
 import { ContentfulDetailService } from "#/helpers/contentful/ContentfulDetailService";
 import { getHtml } from "#/helpers/utils";
 import { previewText } from "#/helpers/ts-utils";
+import { News } from "#/helpers/contentful/mappers/news";
 
 type PartialContext = {
     dataSources: {
@@ -35,22 +33,10 @@ export default {
         }
     },
     News: {
-        id: (src): string => src.id,
         title: (src): string => getHtml(src.title, { inline: true }),
         summary: (src): string | undefined => getHtml(src.summary),
         body: (src): string | undefined => getHtml(src.body),
         previewText: (src): string | undefined => previewText(src),
-        primaryImage: (src): Asset | undefined=> src.primaryImage,
-        primaryLink: (src): Link | undefined => src.primaryLink,
-        secondaryLinks: (src): Link[] => src.secondaryLinks,
-        citation: (src): string | undefined => src.citation,
-        countriesOfCoverage: (src): string[] => src.countriesOfCoverage,
-        topics: (src): string[] => src.topics.map(topic => topic.term),
-        purposes: (src): string[] => src.purposes.map(purpose => purpose.term),
-        audiences: (src): string[] => src.audiences.map(audience => audience.term),
-        keywords: (src): string[] => src.keywords,
-        searchable: (src): boolean => src.searchable,
-        homepage: (src): boolean  => src.homepage,
     } as Record<string, (src: News, args: unknown, context: PartialContext) => unknown>
 }
 

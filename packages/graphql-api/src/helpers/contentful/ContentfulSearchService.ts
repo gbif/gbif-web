@@ -1,8 +1,9 @@
 import { RESTDataSource } from "apollo-datasource-rest";
 import { z } from "zod";
 import { nullFilter, objectToQueryString } from "./utils";
-import { ElasticSearchMapperResult, elasticSearchMappers } from "./mappers";
-export { ElasticSearchMapperResult} from "./mappers";
+import { MapperResult, mappers } from "./mappers";
+
+export type ElasticSearchMapperResult = MapperResult;
 
 export type ElasticSearchSearchParams = {
     q: string
@@ -31,7 +32,7 @@ type SearchResult = {
     size: number;
     from: number;
     total: number;
-    results: ElasticSearchMapperResult[];
+    results: MapperResult[];
 }
 
 export class ContentfulSearchService extends RESTDataSource {
@@ -43,7 +44,7 @@ export class ContentfulSearchService extends RESTDataSource {
     public search = async (params?: Partial<ElasticSearchSearchParams>, language?: string): Promise<SearchResult> => {
         const response = await this.get(`/content`, objectToQueryString({
             // Restirct the content types returned to the ones we have mappers for. This can be overwritte by the params
-            contentType: elasticSearchMappers.map(m => m.contentType),
+            contentType: mappers.map(m => m.contentType),
             ...params,
         }));
 
@@ -66,7 +67,7 @@ export class ContentfulSearchService extends RESTDataSource {
             results: data.documents.results.map(result => {
                 // Try to get the mapper for the content type
                 const contentType = result.contentType;
-                const mapper = elasticSearchMappers.find(m => m.contentType === contentType);
+                const mapper = mappers.find(m => m.contentType === contentType);
 
                 // If there is no mapper, return null
                 if (mapper == null) {
@@ -75,7 +76,15 @@ export class ContentfulSearchService extends RESTDataSource {
                 }
 
                 // Otherwise, parse the result
-                return mapper.parse(result, language);
+                const parseResult = mapper.Schema.safeParse(result);
+                if (!parseResult.success) {
+                    console.warn(`Unable to parse result from ElasticSearch: ${parseResult.error.message}`);
+                    return null;
+                }
+
+                // Map the DTO to the entry
+                const dto = parseResult.data;
+                return mapper.map(dto as any, language);
             }).filter(nullFilter),
         }
     }

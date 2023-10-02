@@ -1,11 +1,8 @@
 import { GraphQLError } from "graphql";
-import { Event } from "#/helpers/contentful/contentTypes/event";
-import { Asset } from "#/helpers/contentful/contentTypes/asset";
-import { Link } from "#/helpers/contentful/contentTypes/link";
-import { Participant } from "#/helpers/contentful/contentTypes/participant";
 import { ContentfulDetailService } from "#/helpers/contentful/ContentfulDetailService";
 import { getHtml } from "#/helpers/utils";
 import { previewText } from "#/helpers/ts-utils";
+import { Event } from "#/helpers/contentful/mappers/event";
 
 type PartialContext = {
     dataSources: {
@@ -37,29 +34,12 @@ export default {
         }
     },
     Event: {
-        id: (src): string => src.id,
         title: (src): string => getHtml(src.title, { inline: true }),
         summary: (src): string | undefined => getHtml(src.summary),
         body: (src): string | undefined => getHtml(src.body),
         previewText: (src): string | undefined => previewText(src),
-        primaryImage: (src): Asset | undefined => src.primaryImage,
-        primaryLink: (src): Link | undefined => src.primaryLink,
-        secondaryLinks: (src): Array<Link | undefined> => src.secondaryLinks,
         start: (src): string => src.start.toISOString(),
         end: (src): string | undefined => src.end?.toISOString(),
-        allDayEvent: (src): boolean | undefined => src.allDayEvent,
-        organisingParticipants: (src): Array<Participant | undefined> => src.organisingParticipants,
-        venue: (src): string | undefined => src.venue,
-        location: (src): string | undefined => src.location,
-        country: (src): string | undefined => src.country,
-        // TODO: Figure out the type of coordinates
-        coordinates: (src): unknown | undefined => src.coordinates,
-        eventLanguage: (src): string | undefined => src.eventLanguage,
-        documents: (src): Array<Asset | undefined> => src.documents,
-        attendees: (src): string | undefined => src.attendees,
-        keywords: (src): string[] => src.keywords,
-        searchable: (src): boolean => src.searchable,
-        homepage: (src): boolean => src.homepage,
     } as Record<string, (src: Event, args: unknown, context: PartialContext) => unknown>
 }
 

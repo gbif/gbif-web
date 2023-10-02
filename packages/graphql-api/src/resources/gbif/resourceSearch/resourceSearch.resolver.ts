@@ -59,6 +59,10 @@ export default {
                 case 'project': return 'CMSProject';
                 case 'composition': return 'Composition';
                 case 'help': return 'Help';
+                case 'document': return 'Document';
+                case 'call': return 'Call';
+                case 'article': return 'Article';
+                case 'tool': return 'Tool';
             }
         }
     }

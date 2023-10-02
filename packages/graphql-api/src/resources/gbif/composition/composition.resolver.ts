@@ -1,5 +1,5 @@
 import { ContentfulDetailService } from "#/helpers/contentful/ContentfulDetailService"
-import { Composition } from "#/helpers/contentful/contentTypes/composition"
+import { Composition } from "#/helpers/contentful/mappers/composition"
 import { GraphQLError } from "graphql"
 
 type PartialContext = {
@@ -31,6 +31,5 @@ export default {
         }
     },
     Composition: {
-        id: (src): string => src.id,
     } as Record<string, (src: Composition, args: unknown, context: PartialContext) => unknown>
 }
