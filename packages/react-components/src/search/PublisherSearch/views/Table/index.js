@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import RouteContext from '../../../../dataManagement/RouteContext';
-import StandardSearch from '../../../StandardSearch';
+import StandardSearchTable from '../../../StandardSearchTable';
 import { ResultsTable } from '../../../ResultsTable';
 import { PublisherKeyLink } from '../../../../components';
 import { FormattedMessage, FormattedNumber, FormattedDate } from 'react-intl';
@@ -82,7 +82,7 @@ const defaultTableConfig = {
 function Table() {
   const routeContext = useContext(RouteContext);
 
-  return <StandardSearch 
+  return <StandardSearchTable 
     queryProps={{throwAllErrors: true}}
     presentationComponent={ResultsTable}
     graphQuery={QUERY} 
