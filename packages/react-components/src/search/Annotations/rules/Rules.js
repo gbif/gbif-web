@@ -11,6 +11,8 @@ import axios from '../../../dataManagement/api/axios';
 import SearchContext from '../../SearchContext';
 import UserContext from '../../../dataManagement/UserProvider/UserContext';
 import env from '../../../../.env.json';
+import { NumberParam, useQueryParam } from 'use-query-params';
+import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 
 /*
 This component is a widget that allows the user to search for annotations. 
@@ -23,6 +25,8 @@ function RulesWrapper(props) {
   const [polygons, updatePolygons] = useState([]);
   const currentFilterContext = useContext(FilterContext);
   const { rootPredicate, predicateConfig } = useContext(SearchContext);
+  const [limit = 20, setLimit] = useQueryParam('limit', NumberParam);
+  const [offset = 0, setOffset] = useQueryParam('offset', NumberParam);
 
   const setPolygons = useCallback((list) => {
     updatePolygons(list);
@@ -32,7 +36,7 @@ function RulesWrapper(props) {
     let cancelPending = null;
     const fetchAnnotations = async () => {
       const { v1Filter, error } = filter2v1(currentFilterContext.filter, predicateConfig);
-      const filter = { ...v1Filter, ...rootPredicate };
+      const filter = { ...v1Filter, ...rootPredicate, limit, offset };
       const { promise, cancel } = axios.get(`${env.ANNOTATION_API}/occurrence/annotation/rule`, { params: filter });
       cancelPending = cancel;
       // setCancel(cancel);
@@ -47,18 +51,32 @@ function RulesWrapper(props) {
         cancelPending();
       }
     }
+  }, [currentFilterContext.filterHash, limit, offset]);
+
+  useEffect(() => {
+    setOffset();
   }, [currentFilterContext.filterHash]);
 
   // on unmount, clear the filter
   useEffect(() => {
     return () => {
       currentFilterContext.setFilter({});
+      setOffset();
+      setLimit();
     }
   }, []);
 
   const handlePolygonSelect = useCallback((annotation, annotationList) => {
     setActiveAnnotations(annotationList);
   }, []);
+
+  const next = useCallback(() => {
+    setOffset(offset + limit);
+  }, [offset, limit]);
+
+  const previous = useCallback(() => {
+    setOffset(Math.max(0, offset - limit));
+  }, [offset, limit]);
 
   useEffect(() => {
     setActiveAnnotations([]);
@@ -71,7 +89,7 @@ function RulesWrapper(props) {
         display: flex;
         `}>
       <div css={css`z-index: 2; position: relative; flex: 0 0 auto; height: calc(100% - 48px); width: 350px; top: 0; left: 0; margin-right: 12px;`}>
-        <Rules {...{polygons, setPolygons, annotations, activeAnnotations, setActiveAnnotations}} setAnnotations={(list) => setAnnotations(list)} clearActive={() => setActiveAnnotations([])} />
+        <Rules {...{polygons, setPolygons, annotations, activeAnnotations, setActiveAnnotations, limit, offset, next, previous}} setAnnotations={(list) => setAnnotations(list)} clearActive={() => setActiveAnnotations([])} />
       </div>
       <div css={css`flex: 1 1 100%; width: 100%; height: 100%;`}>
         <MapWrapper {...{polygons, setPolygons, annotations}} onPolygonSelect={handlePolygonSelect} />
@@ -82,7 +100,7 @@ function RulesWrapper(props) {
 
 export default RulesWrapper;
 
-function Rules({ polygons, setPolygons, annotations, setAnnotations, activeAnnotations, setActiveAnnotations, clearActive, ...props }) {
+function Rules({ polygons, setPolygons, annotations, setAnnotations, activeAnnotations, setActiveAnnotations, clearActive, limit, offset, next, previous, ...props }) {
   const { user } = useContext(UserContext);
   const [showNewRule, setShowNewRule] = useState(false);
   const [showCreateSuccess, setShowCreateSuccess] = useState(false);
@@ -97,8 +115,14 @@ function Rules({ polygons, setPolygons, annotations, setAnnotations, activeAnnot
 
   return <div css={css`background: white; border: 1px solid #eee; box-shadow: 0 2px 2px 2px rgba(0,0,0,.1); border-radius: 8px; height: 100%; display: flex; flex-direction: column; overflow: hidden;`}>
     <div css={css`padding: 8px 12px; display: flex; align-items: center; border-bottom: 1px solid #eee;`}>
-      <div css={css`flex: 1 1 auto; padding: 6px 0;`}>
-        {!showNewRule && <>{annotations.length} rules</>}
+      <div css={css`flex: 1 1 auto; padding: 6px 0; display: flex; align-items: center;`}>
+        {!showNewRule && <>
+          <span>Showing {annotations.length} rules</span>
+          <span style={{fontSize: 12, marginLeft: 8}}>
+            <Button disabled={offset <= 0} look="outline" onClick={e => previous()}><MdChevronLeft /></Button>
+            <Button disabled={annotations.length < limit} look="outline" onClick={e => next()}><MdChevronRight /></Button>
+          </span>
+        </>}
         {showNewRule && <>
         Create new rule
         </>}
