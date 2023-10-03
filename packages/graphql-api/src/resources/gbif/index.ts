@@ -21,8 +21,14 @@ export { default as dataUse } from './dataUse';
 export { default as event } from './event';
 export { default as notification } from './notification';
 export { default as resourceSearch } from './resourceSearch';
-export { default as project } from './project';
+export { default as project } from './gbifProject';
 export { default as composition } from './composition';
+export { default as contentful } from './contentful';
+export { default as article } from './article';
+export { default as gbifDocument } from './gbifDocument';
+export { default as help } from './help';
+export { default as tool } from './tool';
+export { default as call } from './call';
 
 // ALA use this, but we do not have an index for it yet
 // export { default as event } from '../shared/resources/event';

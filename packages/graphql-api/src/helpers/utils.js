@@ -86,4 +86,63 @@ function simplifyUrlObjectKeys(obj) {
   return newObj;
 }
 
-export { formattedCoordinates, isOccurrenceSequenced, getHtml, getExcerpt, simplifyUrlObjectKeys };
+// This function will translate a contentful response to the requested locale
+// If the requested locale is not available, it will default to english
+// It will recursively translate all objects and arrays in the response
+function translateContentfulResponse(source, locale) {
+  // Handle translation of arrays
+  if (Array.isArray(source)) {
+    return source.map(item => translateContentfulResponse(item, locale))
+  }
+
+  // Handle translation of objects
+  if (typeof source === 'object' && source !== null) {
+    // If the field is localized, translate it to the requested locale or default to english
+    const isLocalized = 'en-GB' in source;
+    if (isLocalized) return source[locale] ?? source['en-GB'];
+
+    // If the field is not localized, translate its children
+    return Object.entries(source).reduce((acc, [key, value]) => {
+      acc[key] = translateContentfulResponse(value, locale);
+      return acc;
+    }, {});
+  }
+
+  // All other data types are returned as-is
+  return source;
+}
+
+function truncateText(sourceText, maxLength) {
+  if (sourceText.length <= maxLength) return sourceText;
+  const truncatedText = sourceText.slice(0, maxLength);
+  const lastSpaceIndex = truncatedText.lastIndexOf(' ');
+  return truncatedText.slice(0, lastSpaceIndex) + '...';
+}
+
+function previewText({ summary, body }, maxLength = 200) {
+  if (summary != null) return getHtml(summary);
+  if (body == null) return;
+
+  // Parse the body and remove all tags
+  const bodyHtml = getHtml(body, { inline: false, allowedTags: [] });
+  return truncateText(bodyHtml, maxLength);
+}
+
+function objectToQueryString(params) {
+  const urlParams = new URLSearchParams();
+
+  for (const [key, value] of Object.entries(params)) {
+    if (Array.isArray(value)) {
+      for (const element of value) {
+        urlParams.append(key, String(element));
+      }
+    } else {
+      urlParams.append(key, String(value));
+    }
+  }
+
+  return urlParams.toString();
+}
+
+
+export { formattedCoordinates, isOccurrenceSequenced, getHtml, getExcerpt, simplifyUrlObjectKeys, translateContentfulResponse, previewText, objectToQueryString };
