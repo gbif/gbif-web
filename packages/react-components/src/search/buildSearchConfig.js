@@ -19,7 +19,7 @@ export function buildConfig({ customConfig, predicateConfig, defaultFilterConfig
       mergedFilters[key] = merge(filterWidgetConfig[key], customFilters[key]);
     }
   });
-  const suggestConfigMap = getSuggestConfig({ context, suggestStyle });
+  const suggestConfigMap = getSuggestConfig({ context, suggestStyle, rootPredicate: customConfig.rootPredicate });
   const suggestConfigMapCustom = getSuggests({ client: context.client, suggestStyle });
   const mergedSuggest = merge(suggestConfigMap, suggestConfigMapCustom);
   const labelMap = config2labels(mergedLabels, context.client, context.localeSettings);
