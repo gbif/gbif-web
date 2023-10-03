@@ -13,6 +13,12 @@ export function buildConfig({ customConfig, predicateConfig, defaultFilterConfig
   const { labels = {}, getSuggests = () => ({}), filters: customFilters = {}, adapters = {} } = customConfig;
   const mergedLabels = { ...labelConfig, ...labels };
   const mergedFilters = { ...filterWidgetConfig, ...customFilters };
+  // for each of the custom filters, check if there is a merge: true flag. If so, merge the individual configs with the default ones
+  Object.keys(customFilters).forEach(key => {
+    if (customFilters[key].merge) {
+      mergedFilters[key] = merge(filterWidgetConfig[key], customFilters[key]);
+    }
+  });
   const suggestConfigMap = getSuggestConfig({ context, suggestStyle });
   const suggestConfigMapCustom = getSuggests({ client: context.client, suggestStyle });
   const mergedSuggest = merge(suggestConfigMap, suggestConfigMapCustom);
@@ -28,11 +34,13 @@ export function buildConfig({ customConfig, predicateConfig, defaultFilterConfig
     suggestConfigMap,
     filters: pickBy(pick(filters, includedFilters), e => !!e),
     defaultVisibleFilters: initialVisibleFilters,
-    rootPredicate: customConfig.rootFilter,
+    rootPredicate: customConfig.rootFilter || customConfig.rootPredicate,
     availableCatalogues: customConfig.availableCatalogues,
     queryConfig: customConfig.queries,
     sidebarConfig: customConfig.sidebar,
     tableConfig: customConfig.tableConfig,
-    predicateConfig
+    predicateConfig,
+    defaultTableColumns: customConfig.defaultTableColumns,
+    more: customConfig
   }
 }
