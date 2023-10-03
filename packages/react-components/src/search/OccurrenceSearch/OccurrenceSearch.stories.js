@@ -25,6 +25,19 @@ const labels = {
 
 function getSuggests({ client, suggestStyle }) {
   return {
+    // gadmGid: {
+    //   getSuggestions: ({ q }) => {
+    //     const { promise, cancel } = client.v1Get(`/geocode/gadm/search?gadmGid=DEU&limit=100&q=${q}`); // this gadmGid=DEU is the new part, that means that the suggester will now only suggest things in Germany
+    //     return {
+    //       promise: promise.then(response => {
+    //         return {
+    //           data: response.data.results.map(x => ({ title: x.name, key: x.id, ...x }))
+    //         }
+    //       }),
+    //       cancel
+    //     }
+    //   }
+    // },
     // taxonKey: {
     //   //What placeholder to show
     //   placeholder: 'Search by scientific name',
@@ -95,6 +108,23 @@ function getSuggests({ client, suggestStyle }) {
 }
 
 const filters = {
+    datasetKey: {
+      merge: true,
+      config: {
+        specific: {
+          supportsNegation: false
+        }
+      }
+    },
+    taxonKey: {
+      merge: true,
+      config: {
+        specific: {
+          supportsNegation: true
+        }
+      }
+    }
+
   // elevation: {
   //   type: 'NUMBER_RANGE',
   //   config: {
@@ -151,20 +181,20 @@ const config = {
   // highlightedFilters: ['establishmentMeans'],
   // excludedFilters: ['locality'],
   availableCatalogues: ['OCCURRENCE', 'LITERATURE', 'COLLECTION'],
-  // defaultTableColumns: ['recordedBy', 'collectionKey', 'locality', 'year', 'country']
+  // defaultTableColumns: ['recordedBy', 'collectionKey', 'locality', 'year', 'country'],
   // mapSettings: {
   //   zoom: 10.290782035199692,
   //   lng: 4.378666162934309,
   //   lat: 50.83439252440547
-  // }
+  // },
   // excludedFilters: ['occurrenceStatus', 'networkKey', 'hostingOrganizationKey', 'protocol', 'publishingCountryCode', 'institutionCode', 'collectionCode'],
-  highlightedFilters: ['taxonKey', 'institutionKey', 'collectionKey', 'catalogNumber', 'recordedBy', 'identifiedBy'],
+  highlightedFilters: ['datasetKey', 'taxonKey', 'institutionKey', 'collectionKey', 'catalogNumber', 'recordedBy', 'identifiedBy'],
   defaultTableColumns: ['features', 'institutionKey', 'collectionKey', 'catalogNumber', 'country', 'year', 'recordedBy', 'identifiedBy'],
 };
 // const config = { labels, getSuggests, filters, rootPredicate: {type: 'equals', key: 'publishingOrganizationKey', value: '1cd669d0-80ea-11de-a9d0-f1765f95f18b'}};
 // const config = { labels, getSuggests, filters, rootPredicate: {type: 'in', key: 'datasetKey', values: inboDatasets}};
 
-export const Example = () => <Router initialEntries={[`/occurrence/search?view=DATASETS`]}>
+export const Example = () => <Router initialEntries={[`/occurrence/search?`]}>
 {/* export const Example = () => <Router initialEntries={[`/?filter=eyJtdXN0Ijp7Im9jY3VycmVuY2VJZCI6WyJlIl19LCJtdXN0X25vdCI6eyJvY2N1cnJlbmNlSXNzdWUiOlsiWkVST19DT09SRElOQVRFIl0sIm9jY3VycmVuY2VJZCI6WyIxIiwiMiJdfX0%3D`]}> */}
   <QueryParamProvider ReactRouterRoute={Route} stringifyOptions={{strict: false}}>
     <AddressBar />
