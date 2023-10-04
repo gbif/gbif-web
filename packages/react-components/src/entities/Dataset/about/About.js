@@ -1,9 +1,8 @@
 
-import { jsx, css as css } from '@emotion/react';
+import { jsx, css } from '@emotion/react';
 import React, { useContext, useState } from 'react';
-import * as styles from './styles';
 import * as sharedStyles from '../../shared/styles';
-import { Prose, Properties, HyperText, Toc, ContactList, OccurrenceMap, ResourceSearchLink, Alert, Button, Tooltip } from "../../../components";
+import { Prose, HyperText, Toc, ContactList, ResourceSearchLink, Alert, Tooltip, Progress } from "../../../components";
 import { Images, ThumbnailMap, TaxonomicCoverages, GeographicCoverages, TemporalCoverages, Registration, BibliographicCitations, SamplingDescription, Citation } from './details';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Link, useRouteMatch } from 'react-router-dom';
@@ -14,7 +13,7 @@ import env from '../../../../.env.json';
 import { MdFormatQuote, MdGridOn, MdInfoOutline, MdLink, MdPlaylistAddCheck, MdPinDrop as OccurrenceIcon } from 'react-icons/md';
 import { GiDna1 } from 'react-icons/gi';
 import { Dashboard } from './Dashboard';
-import { Card, CardHeader2, SideBarCard } from '../../shared';
+import { Card, CardHeader2, SideBarCard, SideBarCardContentWrap, paddedCardContent } from '../../shared';
 import SiteContext from '../../../dataManagement/SiteContext';
 
 const { NavItem } = Toc;
@@ -60,30 +59,29 @@ export function About({
   const hasSamplingDescription = dataset?.samplingDescription?.studyExtent || dataset?.samplingDescription?.sampling || dataset?.samplingDescription?.qualityControl || (dataset?.samplingDescription?.methodSteps && dataset?.samplingDescription?.methodSteps?.length > 0);
 
   const citationArea = literatureSearch.documents.total > 0 ? <SideBarCard>
-    <div css={styles.sidebarCard}>
-      <div css={styles.sidebarIcon}>
+    <SideBarCardContentWrap>
+      <div css={sharedStyles.sidebarIcon}>
         <div><MdFormatQuote /></div>
       </div>
-      <div css={styles.sidebarCardContent}>
+      <div css={sharedStyles.sidebarCardContent}>
         <h5>
           <Link to={join(url, 'citations')}>
             <FormattedMessage id="counts.nCitations" values={{ total: literatureSearch.documents.total }} />
           </Link>
         </h5>
       </div>
-    </div>
+    </SideBarCardContentWrap>
   </SideBarCard> : null;
 
   const sideBarMetrics = <div>
     {citationArea}
 
     {(dataset.type === 'CHECKLIST') && <SideBarCard>
-      <div css={styles.sidebarCardWrapper}>
-        <div css={styles.sidebarCard}>
-          <div css={styles.sidebarIcon}>
+        <SideBarCardContentWrap>
+          <div css={sharedStyles.sidebarIcon}>
             <div><MdPlaylistAddCheck /></div>
           </div>
-          <div css={styles.sidebarCardContent}>
+          <div css={sharedStyles.sidebarCardContent}>
             <a href={`${env.CHECKLIST_BANK_WEBSITE}/dataset/gbif-${dataset.key}/imports`}>
               <h5>
                 <FormattedMessage id="counts.nNames" values={{ total: totalTaxa.count }} />
@@ -91,32 +89,31 @@ export function About({
             </a>
             <>
               <p><FormattedMessage id="counts.nAcceptedNames" values={{ total: accepted.count }} /></p>
-              <div css={styles.progress}><div style={{ width: `${acceptedPercentage}%` }}></div></div>
+              <Progress percent={acceptedPercentage} />
 
               <p><FormattedMessage id="counts.nSynonyms" values={{ total: synonyms.count }} /></p>
-              <div css={styles.progress}><div style={{ width: `${synonymsPercentage}%` }}></div></div>
+              <Progress percent={synonymsPercentage} />
 
               <p><FormattedMessage id="counts.gbifOverlapPercent" values={{ percent: gbifOverlap }} /></p>
-              <div css={styles.progress}><div style={{ width: `${gbifOverlap}%` }}></div></div>
+              <Progress percent={gbifOverlap} />
 
               <p><FormattedMessage id="counts.colOverlapPercent" values={{ percent: colOverlap }} /></p>
-              <div css={styles.progress}><div style={{ width: `${colOverlap}%` }}></div></div>
+              <Progress percent={colOverlap} />
             </>
           </div>
-        </div>
-      </div>
+        </SideBarCardContentWrap>
     </SideBarCard>}
 
     {(total > 0 || dataset.type === 'OCCURRENCE') && <SideBarCard>
-      <div css={styles.sidebarOccurrenceCardWrapper({isHorisontal: isBelowSidebar && !isBelowHorisontal})}>
+      <div css={sharedStyles.sidebarOccurrenceCardWrapper({isHorisontal: isBelowSidebar && !isBelowHorisontal})}>
         {total > 0 && <ResourceSearchLink type="occurrenceSearch" queryString={`datasetKey=${dataset.key}&view=MAP`} discreet >
           <ThumbnailMap dataset={dataset} />
         </ResourceSearchLink>}
-        <div css={styles.sidebarCard}>
-          <div css={styles.sidebarIcon}>
+        <SideBarCardContentWrap>
+          <div css={sharedStyles.sidebarIcon}>
             <div><OccurrenceIcon /></div>
           </div>
-          <div css={styles.sidebarCardContent}>
+          <div css={sharedStyles.sidebarCardContent}>
             <ResourceSearchLink type="occurrenceSearch" queryString={`datasetKey=${dataset.key}`} discreet >
               <h5>
                 <FormattedMessage id="counts.nOccurrences" values={{ total }} />
@@ -124,47 +121,47 @@ export function About({
             </ResourceSearchLink>
             {total > 0 && <>
               <p><FormattedMessage id="counts.percentWithCoordinates" values={{ percent: withCoordinatesPercentage }} /></p>
-              <div css={styles.progress}><div style={{ width: `${withCoordinatesPercentage}%` }}></div></div>
+              <Progress percent={100 * withCoordinates / total} />
 
               <p><FormattedMessage id="counts.percentWithYear" values={{ percent: withYearPercentage }} /></p>
-              <div css={styles.progress}><div style={{ width: `${withYearPercentage}%` }}></div></div>
+              <Progress percent={100 * withYear / total} />
 
               <p><FormattedMessage id="counts.percentWithTaxonMatch" values={{ percent: withTaxonMatchPercentage }} /></p>
-              <div css={styles.progress}><div style={{ width: `${withTaxonMatchPercentage}%` }}></div></div>
+              <Progress percent={100 * withTaxonMatch / total} />
             </>}
           </div>
-        </div>
+        </SideBarCardContentWrap>
       </div>
 
-      {hasDna && <div css={styles.sidebarCard}>
-        <div css={styles.sidebarIcon}>
+      {hasDna && <SideBarCardContentWrap>
+        <div css={sharedStyles.sidebarIcon}>
           <div><GiDna1 /></div>
         </div>
-        <div css={styles.sidebarCardContent}>
+        <div css={sharedStyles.sidebarCardContent}>
           <h5>Includes DNA</h5>
           <p>There are records in this dataset that contain sequence data.</p>
         </div>
-      </div>}
+      </SideBarCardContentWrap>}
 
-      {labelAsEventDataset && <div css={styles.sidebarCard}>
-        <div css={styles.sidebarIcon}>
+      {labelAsEventDataset && <SideBarCardContentWrap>
+        <div css={sharedStyles.sidebarIcon}>
           <div><MdGridOn /></div>
         </div>
-        <div css={styles.sidebarCardContent}>
+        <div css={sharedStyles.sidebarCardContent}>
           <h5>Contains sampling events</h5>
           <p>This dataset contains sampling data. The details of how the sampling took place should be in a methodology section.</p>
         </div>
-      </div>}
+      </SideBarCardContentWrap>}
 
-      {isGridded && <div css={styles.sidebarCard}>
-        <div css={styles.sidebarIcon}>
+      {isGridded && <SideBarCardContentWrap>
+        <div css={sharedStyles.sidebarIcon}>
           <div><MdGridOn /></div>
         </div>
-        <div css={styles.sidebarCardContent}>
+        <div css={sharedStyles.sidebarCardContent}>
           <h5>Gridded data</h5>
           <p>Based on out analysis of the points it looks like this dataset contains gridden data.</p>
         </div>
-      </div>}
+      </SideBarCardContentWrap>}
     </SideBarCard>}
   </div>;
 
@@ -179,35 +176,6 @@ export function About({
         {isBelowSidebar && <div>
           {sideBarMetrics}
         </div>}
-
-        {/* {false && isBelowSidebar && <div css={css`
-          display: flex;
-          flex-wrap: wrap;
-          margin-top: 12px;
-          font-size: 15px;
-        `}>
-          {total > 0 && <ResourceSearchLink type="occurrenceSearch" queryString={`datasetKey=${dataset.key}`} discreet >
-            <Button look="primary" style={{ marginRight: 12 }}>
-              <OccurrenceIcon style={{ marginRight: 12 }} /> <FormattedMessage id="counts.nOccurrences" values={{ total }} />
-            </Button>
-          </ResourceSearchLink>}
-
-          {totalTaxa?.count > 0 && <ResourceSearchLink type="speciesSearch" queryString={`origin=SOURCE&advanced=1&dataset_key=${dataset.key}`} discreet >
-            <Button look="primary" style={{ marginRight: 12 }}>
-              <MdPlaylistAddCheck style={{ marginRight: 12 }} /> <FormattedMessage id="counts.nTaxa" values={{ total: totalTaxa?.count }} />
-            </Button>
-          </ResourceSearchLink>}
-
-          {literatureSearch.documents.total > 0 && <Button as={Link} to={join(url, 'dashboard')} look="primary" style={{ marginRight: 12 }}>
-            <MdFormatQuote style={{ marginRight: 12 }} /> <FormattedMessage id="counts.nCitations" values={{ total: literatureSearch.documents.total }} />
-          </Button>}
-        </div>} */}
-
-        {/* <OccurrenceMap rootPredicate={{
-          type: 'equals',
-          key: 'datasetKey',
-          value: dataset.key
-        }}/> */}
 
         {dataset.description && <Card css={sharedStyles.cardMargins}>
           <CardHeader2 ref={node => { tocRefs["description"] = { node, index: 0, title: <FormattedMessage id="dataset.description" /> } }}>
@@ -235,6 +203,11 @@ export function About({
           </CardHeader2>
           <GeographicCoverages geographicCoverages={dataset.geographicCoverages} />
         </Card>}
+        {/* <OccurrenceMap css={sharedStyles.cardMargins} rootPredicate={{
+          type: 'equals',
+          key: 'datasetKey',
+          value: dataset.key
+        }}/> */}
         {dataset?.temporalCoverages?.length > 0 && <Card css={sharedStyles.cardMargins}>
           <CardHeader2 ref={node => { tocRefs["temporal-scope"] = { node, index: 3, title: <FormattedMessage id="dataset.temporalCoverages" /> } }}>
             <FormattedMessage id="dataset.temporalCoverages" />
@@ -254,7 +227,7 @@ export function About({
           <SamplingDescription dataset={dataset} />
         </Card>}
         {total > 1 && <>
-          <Prose css={styles.paper({ transparent: true })} style={{ paddingTop: 0, paddingBottom: 0 }}>
+          <div css={paddedCardContent} style={{ paddingTop: 0, paddingBottom: 0 }}>
             <CardHeader2 ref={node => { tocRefs["metrics"] = { node, index: 6, title: <FormattedMessage id="dataset.metrics" /> }; }}>
               <FormattedMessage id="dataset.metrics" />
               <Tooltip title={<FormattedMessage id="dataset.metricsOccurrenceHelpText" />}>
@@ -263,7 +236,7 @@ export function About({
                 </span>
               </Tooltip>
             </CardHeader2>
-          </Prose>
+          </div>
           <Dashboard dataset={dataset} loading={loading} error={error} />
         </>}
         {dataset.additionalInfo && <Card css={sharedStyles.cardMargins}>

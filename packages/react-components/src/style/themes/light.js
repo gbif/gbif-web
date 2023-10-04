@@ -1,8 +1,7 @@
 export default {
   name: 'light',
   dense: true,
-  primary: '#1ea7fd',
-  linkColor: '#1393D8',
+  primary: '#1393D8',
   fontSize: '15px',
   background: '#f1f5f8',
   paperBackground: '#ffffff',

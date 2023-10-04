@@ -5,6 +5,7 @@ import { FormattedNumber } from 'react-intl';
 import { DatasetKeyLink, Skeleton } from '../../../../components';
 import queryString from 'query-string';
 import env from '../../../../../.env.json';
+import { InlineFilterChip } from "../../../../widgets/Filter/utils/FilterChip";
 
 const DATASET_LIST = `
 query list($license: [License], $endorsingNodeKey: [ID], $networkKey: [ID], $publishingOrg: [ID], $hostingOrg: [ID], $publishingCountry: [Country], $q: String, $offset: Int, $limit: Int, $type: [DatasetType], $subtype: [DatasetSubtype]){
@@ -49,12 +50,15 @@ const defaultTableConfig = {
     },
     {
       trKey: 'filters.publisherKey.name',
-      filterKey: 'publisherKey', // optional
+      filterKey: 'anyPublisherKey', // optional
       value: {
         key: 'publishingOrganizationKey',
-        formatter: (value, item) => item.publishingOrganizationTitle
+        // formatter: (value, item) => item.publishingOrganizationTitle
+        formatter: (value, item) => <InlineFilterChip filterName="publishingOrg" values={[item.publishingOrganizationKey]}>
+        <span data-loader>{item.publishingOrganizationTitle}</span>
+      </InlineFilterChip>
       },
-      width: 'wide'
+      width: 'wide',
     },
     {
       trKey: 'filters.datasetType.name',
@@ -62,7 +66,8 @@ const defaultTableConfig = {
       value: {
         key: 'type',
         labelHandle: 'datasetType'
-      }
+      },
+      cellFilter: true,
     },
     // {
     //   trKey: 'filters.datasetSubtype.name',

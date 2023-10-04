@@ -90,7 +90,7 @@ const routeConfig = {
   datasetSearch: {
     // url: () => `/dataset-search/`,
     url: ({ queryString }) => {
-      return `/iframe.html?id=search-datasetsearch--example&viewMode=story`;
+      return `/iframe.html?id=search-datasetsearch--example&viewMode=story&${queryString}`;
       // return `/?path=/story/search-datasetsearch--example`;
     },
     isHref: true,
@@ -100,15 +100,15 @@ const routeConfig = {
   publisherKey: {
     isHref: true,
     url: ({ key }) => {
-      // return `/iframe.html?id=entities-publisher-page--example&viewMode=story&knob-publisherUUID=${key}`;
-      return `https://www.gbif.org/publisher/${key}`;
+      return `/iframe.html?id=entities-publisher-page--example&viewMode=story&knob-publisherUUID=${key}`;
+      // return `https://www.gbif.org/publisher/${key}`;
     },
     route: '/publisher/:key'
   },
   publisherSearch: {
     // url: () => `/publisher-search/`,
     url: ({ queryString }) => {
-      return `/iframe.html?id=search-publishersearch--example&viewMode=story`;
+      return `/iframe.html?id=search-publishersearch--example&viewMode=story&${queryString}`;
     },
     isHref: true,
     route: '/publisher/search',

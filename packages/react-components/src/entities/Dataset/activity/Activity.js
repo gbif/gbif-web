@@ -3,7 +3,6 @@ import { jsx } from '@emotion/react';
 import React, { useContext } from 'react';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import * as css from './styles';
-import * as cssDataset from '../styles';
 import { join } from '../../../utils/util';
 import LiteratureSearch from '../../../search/LiteratureSearch/LiteratureSearch';
 

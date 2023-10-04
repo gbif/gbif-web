@@ -95,7 +95,7 @@ function ArrayField({ field, contact = {}, value, ...props }) {
       <FormattedMessage id={`contact.${field}`} defaultMessage={field} />
     </T>
     <V>
-      {contact[field].map((v, i) => <React.Fragment key={i}><HyperText text={v} /><br /></React.Fragment>)}
+      {contact[field].map((v, i) => <React.Fragment key={i}><HyperText inline text={v} /><br /></React.Fragment>)}
     </V>
   </>
 }

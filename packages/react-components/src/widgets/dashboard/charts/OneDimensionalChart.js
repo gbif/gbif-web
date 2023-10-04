@@ -135,7 +135,7 @@ export function OneDimensionalChart({
   // if time series then create the area chart options
   let timeSeriesOptions;
   if (view === 'TIME') {
-    const interval = facetResults?.data?.occurrenceSearch?.facet?.results?.interval; // e.g. 10y = 10 years, could also be months, days, hours, minutes, seconds, abbreviated as y, M, d, h, m, s
+    const interval = facetResults?.data?.search?.facet?.results?.interval; // e.g. 10y = 10 years, could also be months, days, hours, minutes, seconds, abbreviated as y, M, d, h, m, s
     // extract the unit and value from the interval
     const unit = interval?.slice(-1);
     const value = parseInt(interval?.slice(0, -1));
@@ -200,7 +200,7 @@ export function OneDimensionalChart({
     timeSeriesOptions = getTimeSeriesOptions({ serie: histogramSerie, onClick: handleRedirect, interactive, translations });
   }
 
-  const filledPercentage = facetResults?.data?.isNotNull?.documents?.total / facetResults?.data?.occurrenceSearch?.documents?.total;
+  const filledPercentage = facetResults?.data?.isNotNull?.documents?.total / facetResults?.data?.search?.documents?.total;
 
   if (!disableUnknown) {
     messages.push(<div><FormattedMessage id="dashboard.percentWithValue" values={{percent: formatAsPercentage(filledPercentage)}} /></div>);

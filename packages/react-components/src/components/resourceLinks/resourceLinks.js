@@ -4,7 +4,7 @@ import RouteContext from '../../dataManagement/RouteContext';
 import LocaleContext from '../../dataManagement/LocaleProvider/LocaleContext';
 import { Link, useHistory } from "react-router-dom";
 
-export const ResourceLink = React.forwardRef(({ id, type, queryString, otherIds, discreet, bold, localeContext: localeOverwrite, routeContext: routeOverwrite, ...props }, ref) => {
+export const ResourceLink = React.forwardRef(({ id, type, forceHref = false, queryString, otherIds, discreet, bold, localeContext: localeOverwrite, routeContext: routeOverwrite, ...props }, ref) => {
   const localeSettings = useContext(LocaleContext);
   const routeSettings = useContext(RouteContext);
 
@@ -18,7 +18,7 @@ export const ResourceLink = React.forwardRef(({ id, type, queryString, otherIds,
   }
 
   const gbifOrgLocale = localeContext?.localeMap?.gbif_org;
-  const { alwaysUseHrefs = false, enabledRoutes = [] } = routeContext;
+  const { alwaysUseHrefs, enabledRoutes = [] } = routeContext;
   const { url, isHref, route, gbifUrl, parent } = routeContext[type];
 
   // check to see if the route is enabled or we should use GBIF routes
@@ -33,7 +33,7 @@ export const ResourceLink = React.forwardRef(({ id, type, queryString, otherIds,
   let style = isDiscreetLink;
   if (discreet) style = isDiscreet;
   if (bold) style = isBoldLink;
-  if (useGBIF || alwaysUseHrefs || isHref) {
+  if (forceHref || useGBIF || alwaysUseHrefs || isHref) {
     return <a href={to} css={style} ref={ref} {...props} />
   } else {
     return <Link to={to} css={style} ref={ref} {...props} />

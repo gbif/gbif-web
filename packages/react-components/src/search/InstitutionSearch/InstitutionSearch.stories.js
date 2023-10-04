@@ -8,6 +8,7 @@ import { QueryParamProvider } from 'use-query-params';
 
 import InstitutionSearch from './InstitutionSearch';
 import Standalone from './Standalone';
+import { siteConfig } from '../../../.storybook/siteConfig';
 
 export default {
   title: 'Search/InstitutionSearch',
@@ -100,7 +101,10 @@ Example.story = {
 };
 
 export const StandaloneExample = () => <Standalone siteConfig={{
+  ...siteConfig,
+  version: 2,
   routes: {
+    enabledRoutes: ['occurrenceSearch', 'collectionSearch', 'collectionKey', 'institutionSearch', 'institutionKey'],
     institutionSearch: {
       route: '/',
     }

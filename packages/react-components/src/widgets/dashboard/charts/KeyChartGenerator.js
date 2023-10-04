@@ -14,11 +14,12 @@ export function KeyChartGenerator({
   disableUnknown,
   currentFilter = {}, // excluding root predicate
   gqlEntity, // e.g. `dataset {title}`
+  searchType = 'occurrenceSearch',
   ...props
 }) {
   const GQL_QUERY = `
     query summary($predicate: Predicate${!disableUnknown ? ', $hasPredicate: Predicate' : ''}, $size: Int, $from: Int){
-      occurrenceSearch(predicate: $predicate) {
+      search: ${searchType}(predicate: $predicate) {
         documents(size: 0) {
           total
         }
@@ -33,7 +34,7 @@ export function KeyChartGenerator({
           }
         }
       }
-      ${!disableUnknown ? `isNotNull: occurrenceSearch(predicate: $hasPredicate) {
+      ${!disableUnknown ? `isNotNull: ${searchType}(predicate: $hasPredicate) {
         documents(size: 0) {
           total
         }

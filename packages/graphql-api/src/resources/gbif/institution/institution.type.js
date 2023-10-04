@@ -20,6 +20,8 @@ const typeDef = gql`
       type: String
       discipline: [String]
       displayOnNHCPortal: Boolean
+      sortBy: CollectionsSortField
+      sortOrder: SortOrder
       ): InstitutionSearchResults
     institution(key: String!): Institution
   }

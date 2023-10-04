@@ -1,9 +1,6 @@
-import { jsx } from '@emotion/react';
-import React, { useContext, useState } from "react";
+import { jsx, css } from '@emotion/react';
+import React, { useState } from "react";
 import { Properties, Button, HyperText } from "../../../../components";
-// import { FormattedMessage, FormattedDate } from "react-intl";
-import ThemeContext from '../../../../style/themes/ThemeContext';
-import * as css from '../styles';
 import { FormattedMessage } from 'react-intl';
 import * as sharedStyles from '../../../shared/styles';
 
@@ -43,9 +40,22 @@ function CoverageItem({item, lastItem}) {
   return <>
     {/* Assuming that taxa is ordered by rank, then a simple way to add some ordering is to add a line break when rank changes */}
     {lastItem && lastItem?.rank?.interpreted !== item?.rank?.interpreted && <br />}
-    <span css={css.coverageItem}>
+    <span css={coverageItem}>
       <span>{item.scientificName}</span>
-      <span css={css.coverageItem_common}>{item.commonName}</span>
+      <span css={coverageItem_common}>{item.commonName}</span>
     </span>
   </>
 }
+
+const coverageItem_common = ({ ...props }) => css`
+  color: #888;
+  margin-left: 4px;
+`;
+
+const coverageItem = ({ ...props }) => css`
+  margin: 3px;
+  padding: 1px 3px;
+  border: 1px solid #ddd;
+  display: inline-block;
+  background: #efefef;
+`;

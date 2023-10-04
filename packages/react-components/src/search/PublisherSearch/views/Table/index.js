@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
 import RouteContext from '../../../../dataManagement/RouteContext';
-import StandardSearch from '../../../StandardSearch';
+import StandardSearchTable from '../../../StandardSearchTable';
 import { ResultsTable } from '../../../ResultsTable';
 import { PublisherKeyLink } from '../../../../components';
 import { FormattedMessage, FormattedNumber, FormattedDate } from 'react-intl';
 import { MdLink } from 'react-icons/md';
+import { InlineFilterChip } from "../../../../widgets/Filter/utils/FilterChip";
 
 const QUERY = `
 query list($networkKey: ID, $country: Country, $q: String, $offset: Int, $limit: Int){
@@ -41,10 +42,16 @@ const defaultTableConfig = {
       trKey: 'filters.publishingCountryCode.name',
       value: {
         key: 'country',
-        labelHandle: 'countryCode',
-        hideFalsy: true
+        // labelHandle: 'countryCode',
+        hideFalsy: true,
+        formatter: (countryCode, item) => {
+          return countryCode ? <InlineFilterChip filterName="country" values={[countryCode]}>
+            <FormattedMessage
+              id={`enums.countryCode.${countryCode}`}
+            /></InlineFilterChip> : null;
+        },
       },
-      filterKey: 'country'
+      filterKey: 'countrySingle'
     },
     {
       trKey: 'tableHeaders.pubDatasets',
@@ -82,7 +89,7 @@ const defaultTableConfig = {
 function Table() {
   const routeContext = useContext(RouteContext);
 
-  return <StandardSearch 
+  return <StandardSearchTable 
     queryProps={{throwAllErrors: true}}
     presentationComponent={ResultsTable}
     graphQuery={QUERY} 

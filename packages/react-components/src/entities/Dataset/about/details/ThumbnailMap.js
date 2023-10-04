@@ -1,14 +1,12 @@
-import { jsx } from '@emotion/react';
-import React, { useContext } from 'react';
-import ThemeContext from '../../../../style/themes/ThemeContext';
-import * as css from '../styles';
+import { jsx, css } from '@emotion/react';
+import React from 'react';
 import env from '../../../../../.env.json';
 
 export function ThumbnailMap({
   dataset,
   ...props
 }) {
-  return <div css={css.thumbnail}>
+  return <div css={thumbnail}>
     <div>
       <img src={`${env.BASEMAPS}/4326/omt/0/0/0@1x.png?style=gbif-light&srs=EPSG%3A4326`} />
       <img src={`${env.BASEMAPS}/4326/omt/0/1/0@1x.png?style=gbif-light&srs=EPSG%3A4326`} />
@@ -19,3 +17,21 @@ export function ThumbnailMap({
     </div>
   </div>
 };
+
+const thumbnail = css`
+  position: relative;
+  height: 0;
+  padding-bottom: 50%;
+  width: 100%;
+  background: #ddd;
+  > div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    > img {
+      width: 50%;
+      display: inline-block;
+    }
+  }
+`;

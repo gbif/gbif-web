@@ -99,3 +99,57 @@ export const sideBar = css`
   align-self: flex-start;
   height: 100%;
 `;
+
+
+export const sidebarIcon = css`
+  flex: 0 0 auto;
+  div {
+    padding: 8px 0;
+    text-align: center;
+    background: var(--primary500);
+    color: white;
+    font-weight: 900;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    padding: 0;
+    text-align: center;
+    padding-top: 2px;
+  }
+`;
+
+export const sidebarOccurrenceCardWrapper = ({isHorisontal}) => css`
+${isHorisontal ? `
+    display: flex;
+    flex-direction: row-reverse;
+    border-bottom: 1px solid #eee;
+    > a, > div {
+      flex: 0 0 50%;
+    }
+  ` : ''}
+  img {
+    width: 100%;
+    border-radius: 4px 4px 0 0;
+  }
+`;
+
+export const sidebarCardContent = css`
+  padding-left: 12px;
+  flex: 1 1 auto;
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  h5 {
+    font-size: 13px;
+    margin: 3px 0 0 0;
+    font-weight: bold;
+  }
+  p {
+    font-size: 13px;
+    color: #888;
+    margin: 0;
+    margin-top: 8px;
+  }
+`;

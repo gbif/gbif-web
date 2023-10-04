@@ -1,7 +1,6 @@
-import { jsx, css } from '@emotion/react';
 import React from 'react';
 import * as charts from '../../../widgets/dashboard';
-import useBelow from '../../../utils/useBelow';
+import DashBoardLayout from '../../../widgets/dashboard/DashboardLayout';
 
 export function Dashboard({
   data = {},
@@ -31,33 +30,3 @@ export function Dashboard({
     </DashBoardLayout>
   </div>
 };
-
-function DashBoardLayout({ children, predicate, queueUpdates = false, ...props }) {
-  const isBelow800 = useBelow(800);
-
-  // const childrenArray = (Array.isArray(children) ? children : [children]).map((child, index) => <DashboardSection>{child}</DashboardSection>);
-  const childrenArray = (Array.isArray(children) ? children : [children]).map((child, index) => React.cloneElement(child, {style: {marginBottom: 12}}));
-  if (isBelow800) {
-    return <div>{childrenArray}</div>
-  }
-
-  return <div css={css`
-    display: flex; margin: -7px; flex-wrap: wrap;
-    > div {
-      flex: 0 1 calc(50% - 12px); margin: 6px;
-      overflow: hidden;
-    }
-  `}>
-    <div>
-      {childrenArray
-        .filter((x, i) => i % 2 === 0)
-        .map((x, i) => <React.Fragment key={i}>{x}</React.Fragment>)}
-    </div>
-    <div>
-      {childrenArray
-        .filter((x, i) => i % 2 !== 0)
-        .map((x, i) => <React.Fragment key={i}>{x}</React.Fragment>)}
-    </div>
-  </div>
-
-}

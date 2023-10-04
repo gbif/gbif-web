@@ -34,11 +34,11 @@ const typeDef = gql`
     endorsementApproved: Boolean
     endorsingNodeKey: ID
     endpoints: [Endpoint]
-    homepage: [URL]
+    homepage: [String]
     identifiers: [Identifier]
     language: Language
     latitude: Float
-    logoUrl: URL
+    logoUrl: String
     longitude: Float
     machineTags: [MachineTag]
     modified: DateTime

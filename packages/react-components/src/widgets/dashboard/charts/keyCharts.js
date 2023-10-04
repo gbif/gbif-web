@@ -21,7 +21,7 @@ export function Datasets({
     title: <FormattedMessage id="filters.datasetKey.name" defaultMessage="Dataset" />,
     subtitleKey: "dashboard.numberOfOccurrences",
     transform: data => {
-      return data?.occurrenceSearch?.facet?.results?.map(x => {
+      return data?.search?.facet?.results?.map(x => {
         return {
           key: x.key,
           title: <span>{x?.entity?.title} <ResourceLink discreet type="datasetKey" id={x.key}><MdLink /></ResourceLink></span>,
@@ -51,7 +51,7 @@ export function Publishers({
     title: <FormattedMessage id="filters.publisherKey.name" defaultMessage="Publisher" />,
     subtitleKey: "dashboard.numberOfOccurrences",
     transform: data => {
-      return data?.occurrenceSearch?.facet?.results?.map(x => {
+      return data?.search?.facet?.results?.map(x => {
         return {
           key: x.key,
           title: <span>{x?.entity?.title} <ResourceLink discreet type="publisherKey" id={x.key}><MdLink /></ResourceLink></span>,
@@ -81,7 +81,7 @@ export function HostingOrganizations({
     title: <FormattedMessage id="filters.hostingOrganizationKey.name" defaultMessage="Hosting organization" />,
     subtitleKey: "dashboard.numberOfOccurrences",
     transform: data => {
-      return data?.occurrenceSearch?.facet?.results?.map(x => {
+      return data?.search?.facet?.results?.map(x => {
         return {
           key: x.key,
           title: <span>{x?.entity?.title} <ResourceLink discreet type="publisherKey" id={x.key}><MdLink /></ResourceLink></span>,
@@ -110,7 +110,7 @@ export function Collections({
     title: <FormattedMessage id="filters.collectionKey.name" defaultMessage="Dataset" />,
     subtitleKey: "dashboard.numberOfOccurrences",
     transform: data => {
-      return data?.occurrenceSearch?.facet?.results?.map(x => {
+      return data?.search?.facet?.results?.map(x => {
         return {
           key: x.key,
           title: <span>{x?.entity?.title} <ResourceLink discreet type="collectionKey" id={x.key}><MdLink /></ResourceLink></span>,
@@ -140,7 +140,7 @@ export function Institutions({
     title: <FormattedMessage id="filters.institutionKey.name" defaultMessage="Institution" />,
     subtitleKey: "dashboard.numberOfOccurrences",
     transform: data => {
-      return data?.occurrenceSearch?.facet?.results?.map(x => {
+      return data?.search?.facet?.results?.map(x => {
         return {
           key: x.key,
           title: <span>{x?.entity?.title} <ResourceLink discreet type="institutionKey" id={x.key}><MdLink /></ResourceLink></span>,
@@ -170,7 +170,7 @@ export function Networks({
     title: <FormattedMessage id="filters.networkKey.name" defaultMessage="Network" />,
     subtitleKey: "dashboard.numberOfOccurrences",
     transform: data => {
-      return data?.occurrenceSearch?.facet?.results?.map(x => {
+      return data?.search?.facet?.results?.map(x => {
         return {
           key: x.key,
           title: <span>{x?.entity?.title} <ResourceLink discreet type="networkKey" id={x.key}><MdLink /></ResourceLink></span>,
@@ -203,7 +203,7 @@ export function EstablishmentMeans({
     title: <FormattedMessage id="filters.establishmentMeans.name" defaultMessage="establishmentMeans" />,
     subtitleKey: "dashboard.numberOfOccurrences",
     transform: data => {
-      return data?.occurrenceSearch?.facet?.results?.map(x => {
+      return data?.search?.facet?.results?.map(x => {
         return {
           key: x.key,
           title: x?.entity?.title,
@@ -248,7 +248,7 @@ export function Synonyms({
     title: <FormattedMessage id="filters.synonyms.name" defaultMessage="Synonyms" />,
     subtitleKey: "dashboard.numberOfOccurrences",
     transform: data => {
-      return data?.occurrenceSearch?.facet?.results?.map(x => {
+      return data?.search?.facet?.results?.map(x => {
         return {
           key: x.key,
           title: <span>{x?.entity?.title} <ResourceLink discreet type="taxonKey" id={x.key}><MdLink /></ResourceLink></span>,
@@ -261,3 +261,35 @@ export function Synonyms({
     }
   }} {...props} />
 }
+
+// export function LiteratureTopics({
+//   predicate,
+//   detailsRoute,
+//   currentFilter = {}, //excluding root predicate
+//   ...props
+// }) {
+//   const localeContext = useContext(LocaleContext);
+//   const vocabularyLocale = localeContext?.localeMap?.vocabulary || 'en';
+
+//   return <KeyChartGenerator {...{
+//     predicate, detailsRoute, currentFilter,
+//     fieldName: 'topics',
+//     disableUnknown: true,
+//     disableOther: true,
+//     facetSize: 10,
+//     searchType: 'literatureSearch',
+//     title: <FormattedMessage id="filters.topics.name" defaultMessage="topics" />,
+//     subtitleKey: "dashboard.numberOfOccurrences",
+//     transform: data => {
+//       return data?.literatureSearch?.facet?.results?.map(x => {
+//         return {
+//           key: x.key,
+//           title: 'sdf',//x?.key,
+//           count: x.count,
+//           description: x.entity.description,
+//           filter: { must: { topics: [x.key] } },
+//         }
+//       });
+//     }
+//   }} {...props} />
+// }

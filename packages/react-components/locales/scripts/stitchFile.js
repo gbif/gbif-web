@@ -14,6 +14,7 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
     {},
     {
       dataset: getFile(locale, `../${folder}/${locale}/components/dataset`),
+      publisher: getFile(locale, `../${folder}/${locale}/components/publisher`),
       collection: getFile(locale, `../${folder}/${locale}/components/collection`),
       grscicoll: getFile(locale, `../${folder}/${locale}/components/grscicoll`),
       institution: getFile(locale, `../${folder}/${locale}/components/institution`),
