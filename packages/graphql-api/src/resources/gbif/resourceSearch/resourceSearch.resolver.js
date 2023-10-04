@@ -9,7 +9,7 @@ import { SEARCH_RESULT_OPTIONS } from './resourceSearch.constants';
  */
 export default {
     Query: {
-        resourceSearch: async (_, args, context) => {
+        resourceSearch: async (_, args, { dataSources, locale }) => {
             // Validate the input arguments
             // if ((args.input.limit ?? 0) + (args.input.offset ?? 0) > 10000) throw new Error('The limit + offset cannot be greater than 10000');
 
@@ -30,7 +30,7 @@ export default {
                 if (key in elasticSearchInput && value == null) delete elasticSearchInput[key];
             });
 
-            const searchResult = await context.dataSources.contentfulSearchAPI.search(elasticSearchInput, context.language);
+            const searchResult = await dataSources.contentfulSearchAPI.search(elasticSearchInput, locale);
 
             return {
                 count: searchResult.results.length,

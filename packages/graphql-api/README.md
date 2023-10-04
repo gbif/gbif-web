@@ -148,7 +148,7 @@ docker run -p 4000:4000 --mount type=bind,source="$(pwd)"/.env,target=/usr/src/.
 ```
 
 # Translation of Resources (Contentful Data)
-To translate content from Contentful, you must provide an HTTP header called "language" with a value corresponding to the desired language.  
+To translate content from Contentful, you must provide an HTTP header called "locale" with a value corresponding to the desired language.  
 ## The available languages are as follows:
 1. U.K. English (en-GB) - Default, No Fallback
 2. Russian (ru) - Fallback: en-GB
