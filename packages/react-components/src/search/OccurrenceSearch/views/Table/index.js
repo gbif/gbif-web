@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState, useRef, useCallback } from "react";
-import { useUpdateEffect } from 'react-use';
+import { useLocalStorage, useUpdateEffect } from 'react-use';
 import { FilterContext } from '../../../..//widgets/Filter/state';
 import OccurrenceContext from '../../../SearchContext';
 import { useQuery } from '../../../../dataManagement/api';
@@ -88,10 +88,13 @@ query table($predicate: Predicate, $size: Int = 20, $from: Int = 0){
 
 function Table() {
   const [from = 0, setFrom] = useQueryParam('from', NumberParam);
-  const [columns, setColumns] = useState([]);
+  const [visibleColumnNames, setVisibleColumnNames, removeVisibleColumnNames] = useLocalStorage('visibleOccurrenceColumns');
+  const [visibleColumns, setVisibleColumns] = useState([]);
+  const [availableColumns, setAvailableColumns] = useState([]);
   const size = 50;
   const currentFilterContext = useContext(FilterContext);
-  const { rootPredicate, predicateConfig, tableConfig, defaultTableColumns } = useContext(OccurrenceContext);
+  const { rootPredicate, predicateConfig, tableConfig, defaultTableColumns, more } = useContext(OccurrenceContext);
+  const { availableTableColumns } = more;
   const { data, error, loading, load } = useQuery(OCCURRENCE_TABLE, { lazyLoad: true, throwNetworkErrors: true, queryTag: 'table' });
 
   useEffect(() => {
@@ -128,13 +131,51 @@ function Table() {
     setFrom(0);
   });
 
+  // generate the list of available column
   useEffect(() => {
-    const cols = ['scientificName', ...(defaultTableColumns || tableConfig.defaultColumns)];
-    
+    // lookup for all column configurations
     const colMap = keyBy(tableConfig.columns, 'name');
-    const activeCols = cols.map(name => colMap[name]).filter(x => x);
-    setColumns(activeCols);
-  }, [tableConfig, defaultTableColumns]);
+    // list of all column names
+    const allColumnNames = Object.keys(colMap);
+    
+    // now create the list of available columns config objects
+    const possibleColumns = availableTableColumns || allColumnNames;
+    const distinctAvailableColumns = [...new Set(['scientificName'].concat(possibleColumns))];
+    const availableCols = distinctAvailableColumns
+      .map(name => colMap[name])
+      .filter(x => x);
+    setAvailableColumns(availableCols, 'name');
+  }, [tableConfig, availableTableColumns]);
+
+  // fetch visible columns from local storage or the defaults from config
+  useEffect(() => {
+    console.log(availableColumns);
+    const colMap = keyBy(availableColumns, 'name');
+    // now create the list of visible columns (name/key only)
+    const columnNames = [...(visibleColumnNames ?? defaultTableColumns ?? availableTableColumns ?? tableConfig.defaultColumns)];
+    // remove duplicates and add scientificName as the first entry
+    const distinctVisibleColumns = [...new Set(['scientificName'].concat(columnNames))]
+    // remove any columns that are not available
+    const visibleCols = distinctVisibleColumns.map(name => colMap[name]).filter(x => x);
+    // sort them to match the order of availableCols
+    const sortedVisibleCols = visibleCols.sort((a, b) => availableColumns.indexOf(a) - availableColumns.indexOf(b));
+    setVisibleColumns(sortedVisibleCols);
+  }, [tableConfig.defaultColumns, availableColumns, defaultTableColumns, visibleColumnNames]);
+
+  const toggleColumn = useCallback((columnName) => {
+    if (!columnName) {
+      removeVisibleColumnNames();
+      return;
+    }
+    const columnNames = [...visibleColumns.map(x => x.name)];
+    const index = columnNames.indexOf(columnName);
+    if (index > -1) {
+      columnNames.splice(index, 1);
+    } else {
+      columnNames.push(columnName);
+    }
+    setVisibleColumnNames(columnNames);
+  });
 
   return <TablePresentation
     loading={loading}
@@ -145,7 +186,9 @@ function Table() {
     size={size}
     from={from}
     total={data?.occurrenceSearch?.documents?.total}
-    columns={columns}
+    visibleColumns={visibleColumns}
+    availableColumns={availableColumns}
+    toggleColumn={toggleColumn}
   />
 }
 
