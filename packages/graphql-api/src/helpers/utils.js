@@ -99,7 +99,7 @@ function translateContentfulResponse(source, locale) {
   if (typeof source === 'object' && source !== null) {
     // If the field is localized, translate it to the requested locale or default to english
     const isLocalized = 'en-GB' in source;
-    if (isLocalized) return source[locale] ?? source['en-GB'];
+    if (isLocalized) return translateContentfulResponse(source[locale] ?? source['en-GB'], locale);
 
     // If the field is not localized, translate its children
     return Object.entries(source).reduce((acc, [key, value]) => {
@@ -119,7 +119,7 @@ function truncateText(sourceText, maxLength) {
   return truncatedText.slice(0, lastSpaceIndex) + '...';
 }
 
-function previewText({ summary, body }, maxLength = 200) {
+function excerpt({ summary, body }, maxLength = 200) {
   if (summary != null) return getHtml(summary);
   if (body == null) return;
 
@@ -145,4 +145,4 @@ function objectToQueryString(params) {
 }
 
 
-export { formattedCoordinates, isOccurrenceSequenced, getHtml, getExcerpt, simplifyUrlObjectKeys, translateContentfulResponse, previewText, objectToQueryString };
+export { formattedCoordinates, isOccurrenceSequenced, getHtml, getExcerpt, simplifyUrlObjectKeys, translateContentfulResponse, excerpt, objectToQueryString };
