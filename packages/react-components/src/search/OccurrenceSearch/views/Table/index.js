@@ -140,6 +140,18 @@ function Table() {
     
     // now create the list of available columns config objects
     const possibleColumns = availableTableColumns || allColumnNames;
+    // if no available columns are specified, then sort possibleColumns to match the defaultTableColumns, putting unknown last
+    if (!availableTableColumns) {
+      possibleColumns.sort((a, b) => {
+        const aIndex = defaultTableColumns.indexOf(a);
+        const bIndex = defaultTableColumns.indexOf(b);
+        if (aIndex === -1 && bIndex === -1) return 0;
+        if (aIndex === -1) return 1;
+        if (bIndex === -1) return -1;
+        return aIndex - bIndex;
+      });
+    }
+
     const distinctAvailableColumns = [...new Set(['scientificName'].concat(possibleColumns))];
     const availableCols = distinctAvailableColumns
       .map(name => colMap[name])
