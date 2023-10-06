@@ -141,7 +141,7 @@ function Table() {
     // now create the list of available columns config objects
     const possibleColumns = availableTableColumns || allColumnNames;
     // if no available columns are specified, then sort possibleColumns to match the defaultTableColumns, putting unknown last
-    if (!availableTableColumns) {
+    if (!availableTableColumns && defaultTableColumns) {
       possibleColumns.sort((a, b) => {
         const aIndex = defaultTableColumns.indexOf(a);
         const bIndex = defaultTableColumns.indexOf(b);
