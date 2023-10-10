@@ -1,11 +1,11 @@
 import { SEARCH_RESULT_OPTIONS } from './resourceSearch.constants';
 
 function emumContentTypeToElasticSearchType(enumContentType) {
-    return SEARCH_RESULT_OPTIONS.find(option => option.enumContentType === enumContentType).elasticSearchType;
+  return SEARCH_RESULT_OPTIONS.find(option => option.enumContentType === enumContentType).elasticSearchType;
 }
 
 function elasticSearchTypeToGraphQLType(elasticSearchType) {
-    return SEARCH_RESULT_OPTIONS.find(option => option.elasticSearchType === elasticSearchType).graphQLType;
+  return SEARCH_RESULT_OPTIONS.find(option => option.elasticSearchType === elasticSearchType).graphQLType;
 }
 
 /**
@@ -16,46 +16,43 @@ function elasticSearchTypeToGraphQLType(elasticSearchType) {
  * info: Information about the execution state of the operation which should only be used in advanced cases
  */
 export default {
-    Query: {
-        resourceSearch: async (_, args, { dataSources, locale }) => {
-            // Validate the input arguments
-            // if ((args.input.limit ?? 0) + (args.input.offset ?? 0) > 10000) throw new Error('The limit + offset cannot be greater than 10000');
+  Query: {
+    resourceSearch: async (_, args, { dataSources, locale }) => {
+      // Map the GraphQL input to the ElasticSearch input
+      let elasticSearchInput = {
+        q: args?.input?.q,
+        size: args?.input?.limit,
+        from: args?.input?.offset,
+        // By default, restrict the search options to the ones the API supports
+        contentType: args?.input?.contentType?.map(emumContentTypeToElasticSearchType)
+          ?? SEARCH_RESULT_OPTIONS.map(option => option.elasticSearchType),
+        topics: args?.input?.topics,
+        countriesOfCoverage: args?.input?.countriesOfCoverage,
+        countriesOfResearcher: args?.input?.countriesOfResearcher,
+      }
 
-            // Map the GraphQL input to the ElasticSearch input
-            let elasticSearchInput = {
-                q: args?.input?.q,
-                size: args?.input?.limit,
-                from: args?.input?.offset,
-                // By default, restrict the search options to the ones the API supports
-                contentType: args?.input?.contentType?.map(emumContentTypeToElasticSearchType) 
-                    ?? SEARCH_RESULT_OPTIONS.map(option => option.elasticSearchType),
-                topics: args?.input?.topics,
-                countriesOfCoverage: args?.input?.countriesOfCoverage,
-                countriesOfResearcher: args?.input?.countriesOfResearcher,
-            }
+      // Remove the null values from the input
+      Object.entries(elasticSearchInput).forEach(([key, value]) => {
+        if (key in elasticSearchInput && value == null) delete elasticSearchInput[key];
+      });
 
-            // Remove the null values from the input
-            Object.entries(elasticSearchInput).forEach(([key, value]) => {
-                if (key in elasticSearchInput && value == null) delete elasticSearchInput[key];
-            });
+      const searchResult = await dataSources.resourceSearchAPI.search(elasticSearchInput, locale);
 
-            const searchResult = await dataSources.resourceSearchAPI.search(elasticSearchInput, locale);
-
-            return {
-                count: searchResult.results.length,
-                endOfRecords: searchResult.total <= (searchResult.from + searchResult.size),
-                limit: elasticSearchInput?.size ?? 10,
-                offset: searchResult.from,
-                results: searchResult.results,
-            }
-        },
+      return {
+        count: searchResult.results.length,
+        endOfRecords: searchResult.total <= (searchResult.from + searchResult.size),
+        limit: elasticSearchInput?.size ?? 10,
+        offset: searchResult.from,
+        results: searchResult.results,
+      }
     },
-    SingleSearchResult: {
-        __resolveType: src => {
-            const graphqlType = elasticSearchTypeToGraphQLType(src.contentType);
-            if (graphqlType) return graphqlType;
-            console.warn(`Unknown content type in resourceSearch.resolver.js: ${src.contentType}`);
-        },
-    }
+  },
+  SingleSearchResult: {
+    __resolveType: src => {
+      const graphqlType = elasticSearchTypeToGraphQLType(src.contentType);
+      if (graphqlType) return graphqlType;
+      console.warn(`Unknown content type in resourceSearch.resolver.js: ${src.contentType}`);
+    },
+  }
 }
 

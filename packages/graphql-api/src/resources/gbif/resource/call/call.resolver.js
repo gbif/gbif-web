@@ -8,13 +8,13 @@ import { getHtml, excerpt } from "#/helpers/utils";
  * info: Information about the execution state of the operation which should only be used in advanced cases
  */
 export default {
-    Query: {
-        call: (_, { id, preview }, { dataSources, locale }) =>
-            dataSources.resourceAPI.getEntryById({ id, preview, locale })
-    },
-    Call: {
-        title: src => getHtml(src.title, { inline: true}),
-        body: src => getHtml(src.body),
-        excerpt: src => excerpt(src),
-    }
+  Query: {
+    call: (_, { id, preview }, { dataSources, locale }) =>
+      dataSources.resourceAPI.getEntryById({ id, preview, locale })
+  },
+  Call: {
+    title: src => getHtml(src.title, { inline: true }),
+    body: src => getHtml(src.body),
+    excerpt: src => excerpt(src),
+  }
 }

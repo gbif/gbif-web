@@ -8,12 +8,12 @@ import { getHtml } from "#/helpers/utils";
  * info: Information about the execution state of the operation which should only be used in advanced cases
  */
 export default {
-    Query: {
-        composition: (_, { id, preview }, { dataSources, locale }) =>
-            dataSources.resourceAPI.getEntryById({ id, preview, locale })
-    },
-    Composition: {
-        title: src => getHtml(src.title, { inline: true}),
-        summary: src => getHtml(src.summary),
-    }
+  Query: {
+    composition: (_, { id, preview }, { dataSources, locale }) =>
+      dataSources.resourceAPI.getEntryById({ id, preview, locale })
+  },
+  Composition: {
+    title: src => getHtml(src.title, { inline: true }),
+    summary: src => getHtml(src.summary),
+  }
 }

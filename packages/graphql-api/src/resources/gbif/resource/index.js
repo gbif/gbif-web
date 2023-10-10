@@ -15,36 +15,36 @@ import typeDef from './resource.type';
 import { merge, get } from 'lodash';
 
 const children = [
-    article,
-    call,
-    composition,
-    dataUse,
-    event,
-    gbifDocument,
-    gbifProject,
-    help,
-    news,
-    notification,
-    resourceSearch,
-    tool,
+  article,
+  call,
+  composition,
+  dataUse,
+  event,
+  gbifDocument,
+  gbifProject,
+  help,
+  news,
+  notification,
+  resourceSearch,
+  tool,
 ].map(resource => resource.default);
 
 export default {
-    resolver: Object.keys(children).reduce(
-        (agg, resource) =>
-            merge(agg, get(children, `${resource}.resolver`)),
-        {},
+  resolver: Object.keys(children).reduce(
+    (agg, resource) =>
+      merge(agg, get(children, `${resource}.resolver`)),
+    {},
+  ),
+  typeDef: [typeDef, ...children.map(resource => resource.typeDef)],
+  dataSource: merge(
+    {
+      resourceAPI: ResourceAPI,
+      resourceSearchAPI: ResourceSearchAPI,
+    },
+    Object.keys(children).reduce(
+      (agg, resource) =>
+        merge(agg, get(resource, `${resource}.dataSource`)),
+      {},
     ),
-    typeDef: [typeDef, ...children.map(resource => resource.typeDef)],
-    dataSource: merge(
-        {
-            resourceAPI: ResourceAPI,
-            resourceSearchAPI: ResourceSearchAPI,
-        },
-        Object.keys(children).reduce(
-            (agg, resource) =>
-                merge(agg, get(resource, `${resource}.dataSource`)),
-            {},
-        ),
-    )
+  )
 }

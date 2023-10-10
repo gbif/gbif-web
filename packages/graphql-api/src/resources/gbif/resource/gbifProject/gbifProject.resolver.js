@@ -2,7 +2,7 @@ import config from "#/config";
 import { getHtml, excerpt } from "#/helpers/utils";
 
 function isNoneEmptyArray(source) {
-    return source != null && Array.isArray(source) && source.length > 0;
+  return source != null && Array.isArray(source) && source.length > 0;
 }
 
 /**
@@ -13,34 +13,34 @@ function isNoneEmptyArray(source) {
  * info: Information about the execution state of the operation which should only be used in advanced cases
  */
 export default {
-    Query: {
-        gbifProject: (_, { id, preview }, { dataSources, locale }) =>
-            dataSources.resourceAPI.getEntryById({ id, preview, locale })
-    },
-    GbifProject: {
-        title: src => getHtml(src.title, { inline: true}),
-        body: src => getHtml(src.summary),
-        summary: src => getHtml(src.body),
-        excerpt: src => excerpt(src),
-        events: (src, _, { dataSources, locale }) => {
-            if (!isNoneEmptyArray(src.events)) return null;
+  Query: {
+    gbifProject: (_, { id, preview }, { dataSources, locale }) =>
+      dataSources.resourceAPI.getEntryById({ id, preview, locale })
+  },
+  GbifProject: {
+    title: src => getHtml(src.title, { inline: true }),
+    body: src => getHtml(src.summary),
+    summary: src => getHtml(src.body),
+    excerpt: src => excerpt(src),
+    events: (src, _, { dataSources, locale }) => {
+      if (!isNoneEmptyArray(src.events)) return null;
 
-            const ids = src.events.map(event => event.id);
-            return Promise.all(ids.map(id => dataSources.resourceAPI.getEntryById({ id, preview: false, locale })));
-        },
-        news: (src, _, { dataSources, locale }) => {
-            if (!isNoneEmptyArray(src.news)) return null;
-
-            const ids = src.news.map(news => news.id);
-            return Promise.all(ids.map(id => dataSources.resourceAPI.getEntryById({ id, preview: false, locale })));
-        },
-        call: (src, _, context) => context.dataSources.getEntryById(src.call.id, false, context.locale),
-        gbifHref: src => `${config.gbifLinkTargetOrigin}/project/${src.id}`
+      const ids = src.events.map(event => event.id);
+      return Promise.all(ids.map(id => dataSources.resourceAPI.getEntryById({ id, preview: false, locale })));
     },
-    Programme: {
-        title: src => getHtml(src.title, { inline: true}),
-        summary: src => getHtml(src.summary),
-        body: src => getHtml(src.body),
-        excerpt: src => excerpt(src),
-    }
+    news: (src, _, { dataSources, locale }) => {
+      if (!isNoneEmptyArray(src.news)) return null;
+
+      const ids = src.news.map(news => news.id);
+      return Promise.all(ids.map(id => dataSources.resourceAPI.getEntryById({ id, preview: false, locale })));
+    },
+    call: (src, _, context) => context.dataSources.getEntryById(src.call.id, false, context.locale),
+    gbifHref: src => `${config.gbifLinkTargetOrigin}/project/${src.id}`
+  },
+  Programme: {
+    title: src => getHtml(src.title, { inline: true }),
+    summary: src => getHtml(src.summary),
+    body: src => getHtml(src.body),
+    excerpt: src => excerpt(src),
+  }
 }

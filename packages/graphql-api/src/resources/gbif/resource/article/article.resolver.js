@@ -9,15 +9,15 @@ import { getHtml, excerpt } from "#/helpers/utils";
  * info: Information about the execution state of the operation which should only be used in advanced cases
  */
 export default {
-    Query: {
-        article: (_, { id, preview }, { dataSources, locale }) =>
-            dataSources.resourceAPI.getEntryById({ id, preview, locale })
-    },
-    Article: {
-        title: src => getHtml(src.title, { inline: true}),
-        summary: src => getHtml(src.summary),
-        body: src => getHtml(src.body),
-        excerpt: src => excerpt(src),
-        gbifHref: src => `${config.gbifLinkTargetOrigin}/article/${src.id}`
-    }
+  Query: {
+    article: (_, { id, preview }, { dataSources, locale }) =>
+      dataSources.resourceAPI.getEntryById({ id, preview, locale })
+  },
+  Article: {
+    title: src => getHtml(src.title, { inline: true }),
+    summary: src => getHtml(src.summary),
+    body: src => getHtml(src.body),
+    excerpt: src => excerpt(src),
+    gbifHref: src => `${config.gbifLinkTargetOrigin}/article/${src.id}`
+  }
 }

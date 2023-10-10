@@ -1,19 +1,19 @@
 import { gql } from 'apollo-server';
 
 const typeDef = gql`
-    extend type Query {
-        help(id: String!, preview: Boolean): Help
-    }
+  extend type Query {
+    help(id: String!, preview: Boolean): Help
+  }
 
-    type Help {
-        id: ID
-        identifier: String
-        title: String
-        body: String
-        excerpt: String
-        createdAt: DateTime
-        updatedAt: DateTime
-    }
+  type Help {
+    id: ID
+    identifier: String
+    title: String
+    body: String
+    excerpt: String
+    createdAt: DateTime
+    updatedAt: DateTime
+  }
 `;
 
 export default typeDef;
