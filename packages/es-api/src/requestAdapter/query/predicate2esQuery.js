@@ -212,7 +212,7 @@ function transform(p, config, isRootQuery) {
 }
 
 function getFieldName(key, type, config) {
-  if (!key && !['geoDistance'].includes[type]) return;
+  if (!key && !['geoDistance'].includes(type)) return;
   
   const fieldKey = key || type;
   return config.prefix ? `${config.prefix}.${config.options[fieldKey].field}` : config.options[fieldKey].field;

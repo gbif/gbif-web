@@ -528,7 +528,7 @@ const config =
       }
     },
     "geoDistance": {
-      "type": "geo_shape",
+      "type": "geo_distance",
       "field": "coordinates",
       "get": {
         "type": "geo_distance"
