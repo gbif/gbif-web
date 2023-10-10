@@ -47,7 +47,7 @@ function groupPredicates(predicates, isRootQuery) {
 }
 
 function transform(p, config, isRootQuery) {
-  const fieldName = getFieldName(p.key || p.type, config);
+  const fieldName = getFieldName(p.key, p.type, config);
 
   // for handling joins records
   if (config?.options?.[p.key]?.join) {
@@ -211,9 +211,11 @@ function transform(p, config, isRootQuery) {
   }
 }
 
-function getFieldName(key, config) {
-  if (!key) return;
-  return config.prefix ? `${config.prefix}.${config.options[key].field}` : config.options[key].field;
+function getFieldName(key, type, config) {
+  if (!key && !['geoDistance'].includes[type]) return;
+  
+  const fieldKey = key || type;
+  return config.prefix ? `${config.prefix}.${config.options[fieldKey].field}` : config.options[fieldKey].field;
 }
 
 module.exports = {
