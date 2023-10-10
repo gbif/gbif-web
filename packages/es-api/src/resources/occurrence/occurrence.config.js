@@ -527,6 +527,13 @@ const config =
         "type": "within"
       }
     },
+    "geoDistance": {
+      "type": "geo_shape",
+      "field": "coordinates",
+      "get": {
+        "type": "geo_distance"
+      }
+    },
     "sex": {
       "type": "keyword",
       "field": "sex"

@@ -47,7 +47,7 @@ function groupPredicates(predicates, isRootQuery) {
 }
 
 function transform(p, config, isRootQuery) {
-  const fieldName = getFieldName(p.key, config);
+  const fieldName = getFieldName(p.key || p.type, config);
 
   // for handling joins records
   if (config?.options?.[p.key]?.join) {
@@ -165,6 +165,17 @@ function transform(p, config, isRootQuery) {
               coordinates: wktPolygonToCoordinates(p.value)
             },
             relation: 'within'
+          }
+        }
+      }
+    }
+    case 'geoDistance': {
+      return {
+        geo_distance: {
+          distance: p.distance,
+          [fieldName]: {
+            lat: p.latitude,
+            lon: p.longitude
           }
         }
       }
