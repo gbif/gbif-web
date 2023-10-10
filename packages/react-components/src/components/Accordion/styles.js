@@ -36,7 +36,7 @@ export const summary = ({theme, ...props}) => css`
   list-style: none;
   list-style-type: none;
   /* font-weight: 500; */
-  ${focusStyle()}
+  ${focusStyle}
   ${noUserSelect()}
   &::-webkit-details-marker {
     display:none;

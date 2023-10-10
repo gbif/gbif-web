@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import { focusStyle, placeholder } from '../../style/shared';
 
 export const input = props => css`
-  -webkit-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -22,8 +22,8 @@ export const input = props => css`
     border: 1px solid #88888855;
     border-radius: ${props.theme.borderRadius}px;
     transition: all 0.3s;
-    ${focusStyle(props)};
-    ${placeholder(props)};
+    ${focusStyle};
+    ${placeholder};
 `;
 
 // export const inputGroup = ({theme}) => css`
