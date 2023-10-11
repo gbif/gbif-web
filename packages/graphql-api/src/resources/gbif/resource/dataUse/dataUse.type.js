@@ -17,7 +17,7 @@ const typeDef = gql`
     secondaryLinks: [Link]
     citation: String
     resourceUsed: String
-    countriesOfResearchers: [String]
+    countriesOfResearcher: [String]
     countriesOfCoverage: [String]
     topics: [String]
     purposes: [String]
