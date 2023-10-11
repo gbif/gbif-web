@@ -52,19 +52,19 @@ async function initializeServer() {
         userAgent: get(req, 'headers.User-Agent') || 'GBIF_GRAPHQL_API',
         // we could also forward the full header I suppose. For now it is just the referer
         referer: get(req, 'headers.referer') || null,
+        locale: get(req, 'headers.locale'),
       };
     },
     typeDefs,
     resolvers,
-    dataSources: () =>
-      Object.keys(api).reduce(
-        (prev, cur) => ({
-          ...prev,
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          [cur]: new (api as { [key: string]: any })[cur](config),
-        }),
-        {},
-      ), // Every request should have its own instance, see https://github.com/apollographql/apollo-server/issues/1562
+    dataSources: () => Object.keys(api).reduce(
+      (prev, cur) => ({
+        ...prev,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        [cur]: new (api as { [key: string]: any })[cur](config),
+      }),
+      {},
+    ), // Every request should have its own instance, see https://github.com/apollographql/apollo-server/issues/1562
     validationRules: [depthLimit(14)], // this likely have to be much higher than 6, but let us increase it as needed and not before
     plugins: [
       ApolloServerPluginLandingPageGraphQLPlayground,
@@ -103,7 +103,7 @@ async function initializeServer() {
   });
 
   app.get('/health', health);
-  
+
   // utils for map styles
   mapController(app);
 

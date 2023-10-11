@@ -117,6 +117,7 @@ const typeDef = gql`
   type Literature {
     id: ID
     abstract: String
+    excerpt: String
     authors: [Author]
     countriesOfCoverage: [String]
     countriesOfResearcher: [String]

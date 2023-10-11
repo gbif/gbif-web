@@ -1,3 +1,4 @@
+import { excerpt } from '#/helpers/utils';
 import {
   getFacet,
   getStats,
@@ -101,6 +102,7 @@ export default {
   LiteratureAutoDateHistogram,
   LiteratureStats,
   Literature: {
+    excerpt: src => excerpt({ body: src.abstract }),
     // someField: ({ fieldWithKey: key }, args, { dataSources }) => {
     //   if (typeof key === 'undefined') return null;
     //   dataSources.someAPI.getSomethingByKey({ key })

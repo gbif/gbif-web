@@ -56,7 +56,7 @@ async function getSchema() {
     rootQuery,
     inputTypeDef,
     ...orgTypeDefs
-  ].flat(2);
+  ].flat();
 
   return typeDefs;
 }
