@@ -148,7 +148,8 @@ function objectToQueryString(params) {
 const contentfulLocaleToGbifLocaleMap = {
   'en-GB': null,
   'ar': 'ar',
-  'zh-Hant': 'zh',
+  'zh-Hant': 'zh-tw',
+  'zh-Hans': 'zh',
   'fr': 'fr',
   'ru': 'ru',
   'es': 'es',
