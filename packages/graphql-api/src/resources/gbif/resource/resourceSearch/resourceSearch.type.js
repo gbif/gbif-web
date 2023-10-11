@@ -11,6 +11,7 @@ const typeDef = gql`
     limit: Int
     offset: Int
     contentType: [ContentType!]
+    locale: [String!]
     topics: [String!]
     countriesOfCoverage: [String!]
     countriesOfResearcher: [String!]

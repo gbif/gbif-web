@@ -19,16 +19,13 @@ export default {
   Query: {
     resourceSearch: async (_, args, { dataSources, locale }) => {
       // Map the GraphQL input to the ElasticSearch input
+      const { limit: size, offset: from, contentType, ...rest } = args?.input;
       let elasticSearchInput = {
-        q: args?.input?.q,
-        size: args?.input?.limit,
-        from: args?.input?.offset,
+        size, from,
+        ...rest,
         // By default, restrict the search options to the ones the API supports
-        contentType: args?.input?.contentType?.map(emumContentTypeToElasticSearchType)
+        contentType: contentType?.map(emumContentTypeToElasticSearchType)
           ?? SEARCH_RESULT_OPTIONS.map(option => option.elasticSearchType),
-        topics: args?.input?.topics,
-        countriesOfCoverage: args?.input?.countriesOfCoverage,
-        countriesOfResearcher: args?.input?.countriesOfResearcher,
       }
 
       // Remove the null values from the input
