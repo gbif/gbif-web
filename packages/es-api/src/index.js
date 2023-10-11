@@ -15,8 +15,11 @@ const queueOptions = {
   }
 };
 
-let literature, occurrence, eventOccurrence, dataset, event;
-if (config.literature) {
+let content, literature, occurrence, eventOccurrence, dataset, event;
+if (config.content) {
+  content = require('./resources/content');
+}
+if (config.content) {
   literature = require('./resources/literature');
 }
 if (config.eventOccurrence) {
@@ -38,6 +41,14 @@ app.use(cors());
 app.use(compression());
 app.use(express.static('public'));
 app.use(bodyParser.json());
+
+// Add logging in debug mode
+if (config.debug) {
+  app.use((req, res, next) => {
+    console.log(`[${new Date().toISOString()}] ${req.method} - ${req.url}`)
+    next();
+  })
+}
 
 let setCache = function (req, res, next) {
   const period = 600; // unit seconds
@@ -76,6 +87,15 @@ const temporaryAuthMiddleware = function (req, res, next) {
 }
 // use per route instead
 // app.use(temporaryAuthMiddleware)
+
+if (content) {
+  app.post('/content/meta', asyncMiddleware(postMetaOnly(content)));
+  app.get('/content/meta', asyncMiddleware(getMetaOnly(content)));
+
+  app.post('/content', queue(queueOptions), asyncMiddleware(searchResource(content)));
+  app.get('/content', queue(queueOptions), asyncMiddleware(searchResource(content)));
+  app.get('/content/key/:id', asyncMiddleware(keyResource(content)));
+}
 
 if (literature) {
   app.post('/literature/meta', asyncMiddleware(postMetaOnly(literature)));
@@ -136,10 +156,10 @@ function searchResource(resource) {
     try {
       // console.log(`queueLength: ${eventQueue.queue.getLength()}`);
 
-      const { metrics, predicate, size, from, randomSeed, randomize, includeMeta } = parseQuery(req, res, next, { get2predicate, get2metric });
+      const { metrics, predicate, size, from, randomSeed, randomize, includeMeta, sortBy, sortOrder } = parseQuery(req, res, next, { get2predicate, get2metric });
       const aggs = metric2aggs(metrics);
       const query = predicate2query(predicate);
-      const { result, esBody } = await dataSource.query({ query, aggs, size, from, metrics, randomSeed, randomize, req });
+      const { result, esBody } = await dataSource.query({ query, aggs, size, from, metrics, randomSeed, randomize, sortBy, sortOrder, req });
       const meta = {
         GET: req.query,
         predicate,
@@ -183,6 +203,8 @@ function parseQuery(req, res, next, { get2predicate, get2metric }) {
       randomSeed,
       randomize,
       includeMeta = false,
+      sortBy,
+      sortOrder,
       ...otherParams
     } = query;
 
@@ -205,7 +227,7 @@ function parseQuery(req, res, next, { get2predicate, get2metric }) {
     const intFrom = parseInt(from);
     const intSeed = parseInt(randomSeed);
     const boolRandomize = (randomize + '').toLowerCase() === 'true';
-    const result = { metrics, predicate, size: intSize, from: intFrom, randomSeed: intSeed, randomize: boolRandomize, includeMeta };
+    const result = { metrics, predicate, size: intSize, from: intFrom, randomSeed: intSeed, randomize: boolRandomize, includeMeta, sortBy, sortOrder };
     return result;
   } catch (err) {
     next(err);
