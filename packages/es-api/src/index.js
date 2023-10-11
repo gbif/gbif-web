@@ -19,7 +19,7 @@ let content, literature, occurrence, eventOccurrence, dataset, event;
 if (config.content) {
   content = require('./resources/content');
 }
-if (config.literature) {
+if (config.content) {
   literature = require('./resources/literature');
 }
 if (config.eventOccurrence) {

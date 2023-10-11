@@ -14,15 +14,15 @@ const agent = () => new Agent({
 });
 
 var client = new Client({
-  nodes: env.literature.hosts,
-  maxRetries: env.literature.maxRetries || 3,
-  requestTimeout: env.literature.requestTimeout || 60000,
+  nodes: env.content.hosts,
+  maxRetries: env.content.maxRetries || 3,
+  requestTimeout: env.content.requestTimeout || 60000,
   agent
 });
 
 async function query({ query, aggs, size = 20, from = 0, metrics, req }) {
-  if (parseInt(from) + parseInt(size) > env.literature.maxResultWindow) {
-    throw new ResponseError(400, 'BAD_REQUEST', `'from' + 'size' must be ${env.literature.maxResultWindow} or less`);
+  if (parseInt(from) + parseInt(size) > env.content.maxResultWindow) {
+    throw new ResponseError(400, 'BAD_REQUEST', `'from' + 'size' must be ${env.content.maxResultWindow} or less`);
   }
   const esQuery = {
     sort: [
