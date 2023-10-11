@@ -116,6 +116,9 @@ function getPredicateFromSingleValue(field, value, config) {
     case 'range_or_term': {
       return rangeOrTerm(field, value, config);
     }
+    case 'geo_distance': {
+      return geoDistance(field, value, config);
+    }
     case 'delimted': {
       return delimted(field, value, config);
     }
@@ -202,6 +205,16 @@ function within(field, value) {
     type: 'within',
     key: field,
     value: value
+  }
+}
+
+function geoDistance(field, value) {
+  const [lat = 0, lon = 0, distance = '0m'] = value.split(',');
+  return {
+    type: 'geoDistance',
+    distance: distance,
+    latitude: lat,
+    longitude: lon
   }
 }
 

@@ -10,6 +10,9 @@ const inputTypeDef = gql`
     key: String
     value: JSON
     values: [JSON]
+    latitude: JSON
+    longitude: JSON
+    distance: String
     predicate: Predicate
     predicates: [Predicate]
   }
@@ -26,6 +29,7 @@ const inputTypeDef = gql`
     fuzzy
     nested
     range
+    geoDistance
   }
 `;
 

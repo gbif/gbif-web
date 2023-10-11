@@ -2,6 +2,7 @@ export { Button, ButtonGroup, FilterButton, TextButton, DropdownButton } from '.
 export * from './Switch';
 export * from './Checkbox';
 export { Input } from './Input/Input';
+export { Select } from './Select/Select';
 export { Popover } from './Popover';
 export { StripeLoader, EllipsisLoader } from './Loaders';
 export { Autocomplete } from './Autocomplete/Autocomplete';

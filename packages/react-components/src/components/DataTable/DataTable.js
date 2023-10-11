@@ -34,9 +34,10 @@ TBody.propTypes = {
   rowCount: PropTypes.number
 }
 
-export const Th = ({ children, width, toggle, locked, ...rest }) => (
+export const Th = ({ children, width, toggle, locked, prefix, ...rest }) => (
   <th {...rest}>
     <div style={{ display: 'flex', alignItems: 'center', wrap: 'no-wrap' }} css={styles[width] ? styles[width]() : ''}>
+      {prefix}
       <div style={{ flex: '1 1 auto' }}>
         {children}
       </div>
@@ -118,7 +119,7 @@ class DataTableCore extends Component {
             {next && page < totalPages && <Button appearance="text" css={styles.footerItem({ theme })} direction="left" tip={intl.formatMessage({id: 'pagination.next'})} onClick={next}>
               <MdChevronRight />
             </Button>}
-            {/* <Button appearance="text" css={styles.footerItem()} direction="left" tip="options">
+            {/* <Button appearance="text" css={styles.footerItem({ theme })} direction="left" tip="options">
               <MdMoreVert />
             </Button> */}
           </div>}

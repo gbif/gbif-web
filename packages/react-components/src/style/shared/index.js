@@ -1,8 +1,8 @@
 import { css, keyframes } from '@emotion/react';
 
-export const placeholder = props => css`
+export const placeholder = css`
   &::placeholder {
-    color: ${props.theme.color500};
+    color: var(--color500);
   }
 `;
 
@@ -11,7 +11,7 @@ export const noUserSelect = props => css`
   user-select: none;
 `;
 
-export const focusStyle = props => css`
+export const focusStyle = css`
   &:focus {
     outline: none;
     box-shadow: 0 0 0 0.125em rgba(50, 115, 220, 0.25);
