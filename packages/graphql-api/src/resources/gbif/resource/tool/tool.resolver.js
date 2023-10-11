@@ -1,5 +1,4 @@
-import config from "#/config";
-import { getHtml, excerpt } from "#/helpers/utils";
+import { getHtml, excerpt, createLocalizedGbifHref } from "#/helpers/utils";
 
 /**
  * fieldName: (parent, args, context, info) => data;
@@ -18,6 +17,6 @@ export default {
     summary: src => getHtml(src.summary),
     body: src => getHtml(src.body),
     excerpt: src => excerpt(src),
-    gbifHref: src => `${config.gbifLinkTargetOrigin}/tool/${src.id}`
+    gbifHref: (src, _, context) => createLocalizedGbifHref(context.locale, 'tool', src.id),
   }
 }

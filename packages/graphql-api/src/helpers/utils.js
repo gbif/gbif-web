@@ -2,6 +2,7 @@ import createDOMPurify from 'dompurify';
 import mdit from 'markdown-it';
 import { decode } from 'html-entities';
 import { JSDOM } from 'jsdom';
+import config from '#/config';
 
 const { window } = new JSDOM('');
 const DOMPurify = createDOMPurify(window);
@@ -144,5 +145,31 @@ function objectToQueryString(params) {
   return urlParams.toString();
 }
 
+const contentfulLocaleToGbifLocaleMap = {
+  'en-GB': null,
+  'ar': 'ar',
+  'zh-Hant': 'zh',
+  'fr': 'fr',
+  'ru': 'ru',
+  'es': 'es',
+  'ja': 'ja',
+  'pt': 'pt',
+  'uk': 'uk',
+  'ko': null, // Has no GBIF translation
+  'pl': null, // Has no GBIF translation
+};
 
-export { formattedCoordinates, isOccurrenceSequenced, getHtml, getExcerpt, simplifyUrlObjectKeys, translateContentfulResponse, excerpt, objectToQueryString };
+function createLocalizedGbifHref(locale, path, id) {
+  const gbifLocale = contentfulLocaleToGbifLocaleMap[locale];
+
+  const url = [
+    config.gbifLinkTargetOrigin,
+    gbifLocale,
+    path,
+    id,
+  ].filter(Boolean).join('/');
+
+  return url;
+}
+
+export { formattedCoordinates, isOccurrenceSequenced, getHtml, getExcerpt, simplifyUrlObjectKeys, translateContentfulResponse, excerpt, objectToQueryString, createLocalizedGbifHref };

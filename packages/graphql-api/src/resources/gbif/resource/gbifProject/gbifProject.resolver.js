@@ -1,5 +1,4 @@
-import config from "#/config";
-import { getHtml, excerpt } from "#/helpers/utils";
+import { getHtml, excerpt, createLocalizedGbifHref } from "#/helpers/utils";
 
 function isNoneEmptyArray(source) {
   return source != null && Array.isArray(source) && source.length > 0;
@@ -35,7 +34,7 @@ export default {
       return Promise.all(ids.map(id => dataSources.resourceAPI.getEntryById({ id, preview: false, locale })));
     },
     call: (src, _, context) => context.dataSources.getEntryById(src.call.id, false, context.locale),
-    gbifHref: src => `${config.gbifLinkTargetOrigin}/project/${src.id}`
+    gbifHref: (src, _, context) => createLocalizedGbifHref(context.locale, 'project', src.id),
   },
   Programme: {
     title: src => getHtml(src.title, { inline: true }),

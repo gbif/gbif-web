@@ -52,7 +52,7 @@ async function initializeServer() {
         userAgent: get(req, 'headers.User-Agent') || 'GBIF_GRAPHQL_API',
         // we could also forward the full header I suppose. For now it is just the referer
         referer: get(req, 'headers.referer') || null,
-        locale: get(req, 'headers.locale'),
+        locale: get(req, 'headers.locale') || 'en-GB',
       };
     },
     typeDefs,
