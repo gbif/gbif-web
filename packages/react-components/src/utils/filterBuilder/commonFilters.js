@@ -43,6 +43,28 @@ export const commonFilters = {
       }
     }
   },
+  geoDistance: {
+    type: 'GEO_DISTANCE',
+    config: {
+      std: {
+        id2labelHandle: 'geoDistance',
+        translations: {
+          count: 'filters.geoDistance.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.geoDistance.name',// translation path to a title for the popover and the button
+          description: 'filters.geoDistance.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        // These are far from precise, but they can help the user avoid the worst mistakes i hope
+        latRegex: /^([1-9]{1})?[0-9]{0,1}((\.)[0-9]{0,8})?$/,
+        lonRegex: /^([1]{1})?[0-9]{0,2}((\.)[0-9]{0,8})?$/,
+        kmRegex: /^[0-9]*((\.)[0-9]{0,8})?$/,
+        placeholderLat:  'filters.geoDistance.placeholderLat',
+        placeholderLon:  'filters.geoDistance.placeholderLon',
+        placeholderDist: 'filters.geoDistance.placeholderDist'
+      }
+    }
+  },
   country: {
     type: 'SUGGEST',
     config: {

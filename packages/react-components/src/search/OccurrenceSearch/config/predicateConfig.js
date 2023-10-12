@@ -88,6 +88,12 @@ const filterConf = {
         supportedTypes: ['range', 'equals']
       }
     },
+    geoDistance: {
+      defaultType: 'geoDistance',
+      v1: {
+        supportedTypes: ['geoDistance']
+      }
+    },
     depth: {
       defaultType: 'range',
       v1: {

@@ -25,7 +25,7 @@ export function buildConfig({ customConfig, predicateConfig, defaultFilterConfig
   const labelMap = config2labels(mergedLabels, context.client, context.localeSettings);
   const filters = filterBuilder({ filterWidgetConfig: mergedFilters, labelMap, suggestConfigMap: mergedSuggest, context });
   
-  const includedFilters = without((customConfig.includedFilters || defaultFilterConfig.included), ...(customConfig.excludedFilters || []));
+  const includedFilters = without([...(customConfig.includedFilters || defaultFilterConfig.included), ...(customConfig?.additionalFilters || [])], ...(customConfig.excludedFilters || []));
   const highlightedFilters = customConfig.highlightedFilters || defaultFilterConfig.highlighted;
   const initialVisibleFilters = intersection(highlightedFilters, includedFilters);
 

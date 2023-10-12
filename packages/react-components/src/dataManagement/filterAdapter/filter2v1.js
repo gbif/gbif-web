@@ -19,7 +19,7 @@ function filter2v1(filter, filterConfig) {
       const fieldFilter = getField({ filterName, values, filterConfig, errors });
       if (fieldFilter) composedFilter[fieldFilter.name] = fieldFilter.values;
     });
-  
+
   // Negation support removed as discussed in https://github.com/gbif/hosted-portals/issues/209
   // See commit history for version that supported negations
   if (must_not) {
@@ -48,9 +48,9 @@ function getField({ filterName, values, filterConfig, errors }) {
   let mappedValues = typeof config?.transformValue === 'function' ? values.map(config.transformValue) : values;
 
   let serializedValues = mappedValues
-    .map(value => serializeValue({value, config, filterName, errors}))
+    .map(value => serializeValue({ value, config, filterName, errors }))
     .filter(v => typeof v !== 'undefined');// remove filters that couldn't be parsed
-  
+
   if (config.singleValue) {
     serializedValues = serializedValues[0];
   }
@@ -61,7 +61,7 @@ function getField({ filterName, values, filterConfig, errors }) {
   }
 }
 
-function serializeValue({value, config, filterName, errors}) {
+function serializeValue({ value, config, filterName, errors }) {
   // if already string or value, then simply return as is
   const type = value?.type || config?.defaultType || 'equals';
   const v1Types = config?.v1?.supportedTypes || ['equals'];
@@ -83,9 +83,12 @@ function serializeValue({value, config, filterName, errors}) {
     //serlialize object if known type
     if (['equals', 'fuzzy', 'like', 'within'].includes(type)) {
       return value.value;
-    } else if(type === 'range' ) {
+    } else if (type === 'range') {
       // if a range query, then transform to string format
       return `${value.value.gte || value.value.gt || '*'},${value.value.lte || value.value.lgt || '*'}`;
+    } else if (type === 'geoDistance') {
+      // if a geoDistance query, then transform to string format
+      return `${value.latitude},${value.longitude},${value.distance}`;
     } else {
       errors.push({
         errorType: 'UNKNOWN_PREDICATE_TYPE',

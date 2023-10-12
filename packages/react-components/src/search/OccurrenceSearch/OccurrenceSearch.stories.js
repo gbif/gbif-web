@@ -108,22 +108,22 @@ function getSuggests({ client, suggestStyle }) {
 }
 
 const filters = {
-    datasetKey: {
-      merge: true,
-      config: {
-        specific: {
-          supportsNegation: false
-        }
-      }
-    },
-    taxonKey: {
-      merge: true,
-      config: {
-        specific: {
-          supportsNegation: true
-        }
+  datasetKey: {
+    merge: true,
+    config: {
+      specific: {
+        supportsNegation: false
       }
     }
+  },
+  taxonKey: {
+    merge: true,
+    config: {
+      specific: {
+        supportsNegation: true
+      }
+    }
+  }
 
   // elevation: {
   //   type: 'NUMBER_RANGE',
@@ -163,20 +163,40 @@ const filters = {
 }
 
 const rootPredicate = {
-  "type": "equals",
-  "key": "country",
-  "value": "VE"
+  type: "and",
+  predicates: [
+    {
+      type: 'in', key: 'datasetKey',
+      values: [
+        '6ac3f774-d9fb-4796-b3e9-92bf6c81c084', //naturgucker
+        'e6fab7b3-c733-40b9-8df3-2a03e49532c1', //Flora von Deutschland (Phanerogamen)
+        'ad0d1a24-e952-11e2-961f-00145eb45e9a', //VegetWeb - Repositorium von Vegetationsaufnahmen
+        '77ecd330-b09e-11e2-a01d-00145eb45e9a', //Insekten Sachsen
+        '50c9509d-22c7-4a22-a47d-8c48425ef4a7', //iNaturalist Research-grade Observations
+        'e0908eee-ad49-4e91-b4d0-1f05dd17b291', //Harmonised freshwater fish data
+        '82a421d4-f762-11e1-a439-00145eb45e9a', //Edaphobase
+        '8a863029-f435-446a-821e-275f4f641165', // Observation org
+        '4fa7b334-ce0d-4e88-aaae-2e0c138d049e', //eBird
+        '8277b324-f762-11e1-a439-00145eb45e9a' // The Spider Collection SMNK
+      ]
+    },
+    { type: 'equals', key: 'country', value: 'DE' },
+    {
+      type: 'not', predicate:
+        { type: 'equals', key: 'hasGeospatialIssue', value: 'true' }
+    }
+  ]
 };
-const config = { 
-  // rootPredicate, 
+const config = {
+  rootPredicate,
   // rootPredicate: {
   //   type: 'equals',
   //   key: 'datasetKey',
   //   value: '7e380070-f762-11e1-a439-00145eb45e9a'
   // }, 
-  labels, 
-  getSuggests, 
-  filters, 
+  labels,
+  getSuggests,
+  filters,
   occurrenceSearchTabs: ['TABLE', 'MAP', 'DATASETS', 'GALLERY'],
   // highlightedFilters: ['establishmentMeans'],
   // excludedFilters: ['locality'],
@@ -187,16 +207,24 @@ const config = {
   //   lng: 4.378666162934309,
   //   lat: 50.83439252440547
   // },
+  includedFilters: ['geoDistance'],
+  additionalFilters: ['geoDistance'],
   // excludedFilters: ['occurrenceStatus', 'networkKey', 'hostingOrganizationKey', 'protocol', 'publishingCountryCode', 'institutionCode', 'collectionCode'],
-  highlightedFilters: ['datasetKey', 'taxonKey', 'institutionKey', 'collectionKey', 'catalogNumber', 'recordedBy', 'identifiedBy'],
-  defaultTableColumns: ['features', 'institutionKey', 'collectionKey', 'catalogNumber', 'country', 'year', 'recordedBy', 'identifiedBy'],
+  highlightedFilters: ['geoDistance'],
+  // defaultTableColumns: ['features', 'institutionKey', 'collectionKey', 'catalogNumber', 'country', 'year', 'recordedBy', 'identifiedBy', 'locality'],
+  // availableTableColumns: [
+  //   "locality",
+  //   "year",
+  //   "basisOfRecord",
+  //   "institutionKey",
+  // ]
 };
 // const config = { labels, getSuggests, filters, rootPredicate: {type: 'equals', key: 'publishingOrganizationKey', value: '1cd669d0-80ea-11de-a9d0-f1765f95f18b'}};
 // const config = { labels, getSuggests, filters, rootPredicate: {type: 'in', key: 'datasetKey', values: inboDatasets}};
 
 export const Example = () => <Router initialEntries={[`/occurrence/search?`]}>
-{/* export const Example = () => <Router initialEntries={[`/?filter=eyJtdXN0Ijp7Im9jY3VycmVuY2VJZCI6WyJlIl19LCJtdXN0X25vdCI6eyJvY2N1cnJlbmNlSXNzdWUiOlsiWkVST19DT09SRElOQVRFIl0sIm9jY3VycmVuY2VJZCI6WyIxIiwiMiJdfX0%3D`]}> */}
-  <QueryParamProvider ReactRouterRoute={Route} stringifyOptions={{strict: false}}>
+  {/* export const Example = () => <Router initialEntries={[`/?filter=eyJtdXN0Ijp7Im9jY3VycmVuY2VJZCI6WyJlIl19LCJtdXN0X25vdCI6eyJvY2N1cnJlbmNlSXNzdWUiOlsiWkVST19DT09SRElOQVRFIl0sIm9jY3VycmVuY2VJZCI6WyIxIiwiMiJdfX0%3D`]}> */}
+  <QueryParamProvider ReactRouterRoute={Route} stringifyOptions={{ strict: false }}>
     <AddressBar />
     <OccurrenceSearch pageLayout config={config} style={{ margin: 'auto', minHeight: 'calc(100vh - 50px)' }}></OccurrenceSearch>
   </QueryParamProvider>
