@@ -23,7 +23,7 @@ export const actionOverlay = ({ theme }) => css`
   left: 0;
   right: 0;
   top: 0;
-  ${focusStyle({theme})}
+  ${focusStyle}
 `;
 
 export const title = ({ theme }) => css`
