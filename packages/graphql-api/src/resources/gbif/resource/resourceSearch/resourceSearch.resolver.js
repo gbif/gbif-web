@@ -36,7 +36,7 @@ export default {
       const searchResult = await dataSources.resourceSearchAPI.search(elasticSearchInput, locale);
 
       return {
-        count: searchResult.results.length,
+        count: searchResult.total,
         endOfRecords: searchResult.total <= (searchResult.from + searchResult.size),
         limit: elasticSearchInput?.size ?? 10,
         offset: searchResult.from,
