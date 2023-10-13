@@ -87,7 +87,7 @@ export function Description({
                 </Properties>
               </V>
             </>}
-            <Property value={collection?.logoUrl} labelId="grscicoll.logo" formatter={logoUrl => <Image src={logoUrl} h={150} />} />
+            <Property value={collection?.logoUrl} labelId="grscicoll.logoUrl" formatter={logoUrl => <Image src={logoUrl} h={150} />} />
           </Properties>
           {contacts?.length > 0 && <div css={css`
             display: flex;
