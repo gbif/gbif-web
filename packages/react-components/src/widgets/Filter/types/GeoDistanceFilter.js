@@ -134,7 +134,6 @@ export const FilterContent = ({ config = {}, translations, labelledById, LabelFr
             setLon('');
             const allOptions = unionBy([q], options, hash);
             setOptions(allOptions);
-            debugger;
             if (singleSelect) {
               setOptions([q]);
               setFullField(filterHandle, [q], [])
