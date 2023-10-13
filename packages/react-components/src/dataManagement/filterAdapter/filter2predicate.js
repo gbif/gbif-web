@@ -107,6 +107,9 @@ function getPredicateFromSingleValue({ filterName, value, config }) {
       value: value
     }
   } else if (typeof value === 'object' && value !== null) {
+    if (value.type === 'geoDistance') {
+      return value;
+    }
     return {
       type: config?.defaultType || 'equals',
       key: config?.defaultKey || filterName,

@@ -46,6 +46,20 @@ export default function v12filter(query, filterConfig) {
         }
       });
     }
+
+    //if range type then transform values
+    if (v1Types.includes('geoDistance')) {
+      arrayValue = value.map(val => {
+        const parts = val.split(',');
+        return {
+          type: 'geoDistance', 
+          latitude: parts[0],
+          longitude: parts[1],
+          distance: parts[2],
+        };
+      });
+    }
+
     must[name] = arrayValue;
   });
   return {must};

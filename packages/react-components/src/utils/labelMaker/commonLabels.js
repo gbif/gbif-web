@@ -228,6 +228,17 @@ export const commonLabels = {
     type: 'CUSTOM',
     component: rangeOrEqualLabel('intervals.compact')
   },
+  // geoDistance: {
+  //   type: 'TRANSLATION_VALUES',
+  //   template: 'intervals.geoDistance.short'
+  // },
+  geoDistance: {
+    type: 'CUSTOM',
+    component: ({ id }) => {
+      const { distance, latitude, longitude } = id;
+      return formatCoordinates({lat: latitude, lng: longitude, locale: 'en'}) + ' ±' + distance;
+    }
+  },
   identityFn: {
     type: 'TRANSFORM',
     transform: ({ id }) => id.value || id
@@ -273,3 +284,16 @@ function getVocabularyLabel(result, { localeContext } = {}) {
   let title = labels[vocabularyLocale] || labels.en || result.name || 'Unknown';
   return { title };
 }
+
+function formatCoordinates({lat, lng, locale}) {
+  if (isNaN(lat) || isNaN(lng)) {
+      return 'Invalid coordinates';
+  } else {
+      // return as formatted number
+      const latString = new Intl.NumberFormat(locale, { maximumFractionDigits: 1 }).format(Number(lat));
+      const lngString = new Intl.NumberFormat(locale, { maximumFractionDigits: 1 }).format(Number(lng));
+      const la = latString + (lat < 0 ? 'S' : 'N');
+      var lo = lngString + (lng < 0 ? 'W' : 'E');
+      return la + ', ' + lo;
+  }
+};

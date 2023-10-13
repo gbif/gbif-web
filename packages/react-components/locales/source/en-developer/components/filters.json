@@ -29,6 +29,14 @@
     "count": "{num, plural, one { IUCN Global Red List category } other {# IUCN Global Red List categories}}",
     "description": "The IUCN Global Redlist groups taxa by how threatned they are."
   },
+  "geoDistance": {
+    "name": "Distance from coordinates",
+    "count": "{num, plural, one { filter } other {# filters }}",
+    "description": "Filter on records within a given distance from a point.",
+    "placeholderLat": "Latitude",
+    "placeholderLon": "Longitude",
+    "placeholderDist": "Distance"
+  },
   "relevance": {
     "name": "Relevance",
     "count": "{num, plural, one { relevance } other {# relevance filters}}",
