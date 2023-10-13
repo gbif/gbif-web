@@ -43,12 +43,38 @@ export const StateProvince = getStringChart({
 
 export const IdentifiedBy = getStringChart({
   fieldName: 'identifiedBy', 
-  title: <FormattedMessage id="filters.identifiedBy.name" defaultMessage="Identified by" />
+  title: <FormattedMessage id="filters.identifiedBy.name" defaultMessage="Identified by" />,
+  gqlEntity: `occurrences {documents(size: 1) {results {identifiedBy}}}`,
+  transform: data => {
+    return data?.search?.facet?.results?.map(x => {
+      // extract the identifiedBy value from the first result. Filter the recordedBy array by lower case matching and select the first match
+      const title = x.entity?.documents?.results?.[0]?.identifiedBy?.find(r => r.toLowerCase() === x.key);
+      return {
+        key: x.key,
+        count: x.count,
+        title: title,
+        filter: { identifiedBy: [title] },
+      }
+    });
+  }
 });
 
 export const RecordedBy = getStringChart({
   fieldName: 'recordedBy', 
-  title: <FormattedMessage id="filters.recordedBy.name" defaultMessage="Recorded by" />
+  title: <FormattedMessage id="filters.recordedBy.name" defaultMessage="Recorded by" />,
+  gqlEntity: `occurrences {documents(size: 1) {results {recordedBy}}}`,
+  transform: data => {
+    return data?.search?.facet?.results?.map(x => {
+      // extract the recordedBy value from the first result. Filter the recordedBy array by lower case matching and select the first match
+      const title = x.entity?.documents?.results?.[0]?.recordedBy?.find(r => r.toLowerCase() === x.key);
+      return {
+        key: x.key,
+        count: x.count,
+        title: title,
+        filter: { recordedBy: [title] },
+      }
+    });
+  }
 });
 
 export const Preparations = getStringChart({
