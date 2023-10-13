@@ -66,5 +66,17 @@
     "lt": "Elevation below {to}",
     "gt": "Elevation above {from}",
     "e": "Elevation is {from}"
+  },
+  "geoDistance": {
+    "short": "",
+    "description": ""
+  },
+  "units": {
+    "name": {
+      "km": "",
+      "m": "",
+      "mi": "",
+      "ft": ""
+    }
   }
 }
