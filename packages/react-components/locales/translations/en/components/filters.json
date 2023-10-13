@@ -29,6 +29,14 @@
     "count": "",
     "description": "The IUCN Red List of Threatened Species groups taxa by how threatened they are."
   },
+  "geoDistance": {
+    "name": "",
+    "count": "",
+    "description": "",
+    "placeholderLat": "",
+    "placeholderLon": "",
+    "placeholderDist": ""
+  },
   "relevance": {
     "name": "Relevance",
     "count": "{num, plural, one { relevance } other {# relevance filters}}",
