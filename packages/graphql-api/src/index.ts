@@ -1,7 +1,6 @@
 import express from 'express';
 import cors from 'cors';
 import compression from 'compression';
-import glob from 'glob';
 import { ApolloServer } from 'apollo-server-express';
 import {
   ApolloServerPluginLandingPageGraphQLPlayground,
@@ -26,6 +25,7 @@ import api from './dataSources';
 // we will attach a user if an authorization header is present.
 import extractUser from './helpers/auth/extractUser';
 import mapController from './api-utils/maps/index.ctrl.js';
+import { errorLoggingPlugin, slowQueryLoggingPlugin } from './plugins';
 
 // we are doing this async as we need to load the various enumerations from the APIs
 // and generate the schema from those
@@ -71,7 +71,10 @@ async function initializeServer() {
       ApolloServerPluginCacheControl({
         defaultMaxAge: config.debug ? 0 : 600,
       }),
+      errorLoggingPlugin,
+      slowQueryLoggingPlugin,
     ],
+    logger: console,
   });
 
   const app = express();
