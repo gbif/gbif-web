@@ -1,12 +1,20 @@
 {
+  "numberOfOccurrences": "Number of occurrences",
   "noData": "No data",
+  "statistics": "Statistics",
   "occurrenceRecords": "Occurrence records",
   "species": "Species",
   "taxa": "Taxa",
   "yearRange": "Year range",
+  "identifiedToSpecies": "Identified to species",
   "withCoordinates": "With coordinates",
   "withYear": "With year",
+  "withCollector": "With collector",
+  "withMedia": "With media",
+  "richness": "Data richness",
+  "percentWithValue": "{percent}% of all records have a value",
   "occurrences": "Occurrences",
   "other": "Other",
+  "unknown": "Unknown",
   "metricsFromGbifData": "These metrics are based on records shared via GBIF"
 }
