@@ -62,8 +62,7 @@ class TaxonMediaAPI extends RESTDataSource {
         }
       }
     } catch (err) {
-      console.log(inatTaxonId);
-      console.log(err);
+      // console.log(err);
     }
 
     // get media from the gbif api v1 taxon/key/media endpoint
