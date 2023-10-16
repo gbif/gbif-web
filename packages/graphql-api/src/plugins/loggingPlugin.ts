@@ -24,7 +24,6 @@ export const loggingPlugin: PluginDefinition = {
             variables: requestContext.request.variables,
             headers: Object.fromEntries(requestContext.request.http?.headers.entries() as any),
           },
-          origin: config.origin,
           errors: requestContext.errors,
           playgroundLink: `${config.origin}/graphql?query=${encodeURIComponent(requestContext.request.query!)}`
         });
