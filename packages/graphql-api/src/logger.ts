@@ -1,13 +1,12 @@
 import winston from 'winston';
 import config from './config';
-import { ElasticsearchTransport } from 'winston-elasticsearch'
 
 const logger = winston.createLogger({
   format: winston.format.json(),
   defaultMeta: {
     'class': 'web',
     'service': 'graphql',
-    // TODO: Add enviroment to log prod|staging|uat|dev
+    // TODO: Add enviroment to log prod|staging|uat|dev is this info available or should i add it to config?
     'environment': 'dev',
   },
   transports: [
@@ -16,15 +15,5 @@ const logger = winston.createLogger({
     })
   ]
 });
-
-console.log(process.env.NODE_ENV);
-
-// if (process.env.NODE_ENV === 'production') {
-//   logger.add(new ElasticsearchTransport({
-//     clientOpts: {
-//       node: 'https://private-logstash.gbif.org'
-//     }
-//   }));
-// }
 
 export default logger;

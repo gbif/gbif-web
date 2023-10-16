@@ -25,7 +25,7 @@ import api from './dataSources';
 // we will attach a user if an authorization header is present.
 import extractUser from './helpers/auth/extractUser';
 import mapController from './api-utils/maps/index.ctrl.js';
-import { errorLoggingPlugin, slowQueryLoggingPlugin } from './plugins';
+import { loggingPlugin } from './plugins/loggingPlugin';
 
 // we are doing this async as we need to load the various enumerations from the APIs
 // and generate the schema from those
@@ -71,8 +71,7 @@ async function initializeServer() {
       ApolloServerPluginCacheControl({
         defaultMaxAge: config.debug ? 0 : 600,
       }),
-      errorLoggingPlugin,
-      slowQueryLoggingPlugin,
+      loggingPlugin,
     ],
     logger: console,
   });
