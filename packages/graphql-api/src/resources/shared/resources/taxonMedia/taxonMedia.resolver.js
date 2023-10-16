@@ -14,6 +14,7 @@ export default {
         size,
         from,
         params,
+        dataSources,
       }),
   },
 };
