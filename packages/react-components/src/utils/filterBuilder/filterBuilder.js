@@ -7,6 +7,7 @@ import { Popover as SimpleTextPopover, FilterContent as SimpleTextContent } from
 import { Popover as CustomStandardPopover, FilterContent as CustomStandardContent } from '../../widgets/Filter/types/CustomStandardFilter';
 import { Popover as VocabPopover, FilterContent as VocabContent } from '../../widgets/Filter/types/VocabularyFilter';
 import { Popover as SearchKeywordPopover, FilterContent as SearchKeywordContent } from '../../widgets/Filter/types/SearchKeywordsFilter';
+import { Popover as GeoDistancePopover, FilterContent as GeoDistanceContent } from '../../widgets/Filter/types/GeoDistanceFilter';
 import { FilterContext } from '../../widgets/Filter/state';
 import { TriggerButton } from '../../widgets/Filter/utils/TriggerButton';
 import { FormattedMessage } from 'react-intl';
@@ -83,6 +84,8 @@ export function filterBuilder({ labelMap, suggestConfigMap, filterWidgetConfig, 
       filter = buildVocab(builderConfig);
     } else if (type === 'KEYWORD_SEARCH') {
       filter = buildKeywordSearch(builderConfig);
+    } else if (type === 'GEO_DISTANCE') {
+      filter = buildGeoDistanceSearch(builderConfig);
     }
     const trNameId = config.std?.translations?.name || `filters.${config?.std?.filterHandle || widgetHandle}.name`;
     acc[widgetHandle] = {
@@ -117,6 +120,22 @@ function buildSuggest({ widgetHandle, config, labelMap, suggestConfigMap, contex
   };
 }
 
+function buildGeoDistanceSearch({ widgetHandle, config, labelMap, context }) {
+  const LabelFromID = labelMap[config.std.id2labelHandle || widgetHandle];
+  const conf = {
+    filterHandle: config.std.filterHandle || widgetHandle,
+    translations: config.std.translations,
+    config: config.specific,
+    LabelFromID
+  }
+  const Popover = props => <GeoDistancePopover {...conf} {...props} />;
+  return {
+    Button: getButton(Popover, conf),
+    Popover,
+    Content: props => <GeoDistanceContent {...conf} {...props} />,
+    LabelFromID
+  };
+}
 
 function buildNumberRange({ widgetHandle, config, labelMap, context }) {
   const LabelFromID = labelMap[config.std.id2labelHandle || widgetHandle];

@@ -1,9 +1,9 @@
+import { css, jsx } from '@emotion/react';
 import React, { useContext, useCallback } from "react";
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { FilterButton } from '../../../components/Button';
 import { FilterContext } from '../state';
-import get from 'lodash/get';
 
 export const TriggerButton = React.forwardRef(({ mustOptions = [], mustNotOptions = [], filterHandle, translations = {}, DisplayName = ({ id }) => <>{id}</>, loading, ...props }, ref) => {
   const currentFilterContext = useContext(FilterContext);
@@ -60,11 +60,25 @@ export const TriggerButton = React.forwardRef(({ mustOptions = [], mustNotOption
     </>
   } else if (options.length > 1) {
     // multiple selected
-    TextSummary = <FormattedMessage
-      id={count}
-      defaultMessage={count}
-      values={{ num: options.length }}
+    // TextSummary = <FormattedMessage
+    //   id={count}
+    //   defaultMessage={count}
+    //   values={{ num: options.length }}
+    // />
+
+    TextSummary = <><FormattedMessage
+      id={name}
     />
+      <span css={css`
+        background-color: #00000033;
+        border-radius: 10px;
+        padding: 3px 5px;
+        margin-inline-start: 8px;
+        font-size: 85%;
+        font-weight: bold;
+        line-height: 85%;
+      `}>{options.length}</span>
+    </>
   }
 
   return <FilterButton
@@ -72,6 +86,7 @@ export const TriggerButton = React.forwardRef(({ mustOptions = [], mustNotOption
     isActive={options.length > 0}
     onClearRequest={onClear}
     ref={ref}
+    truncate={options.length < 2}
     isNegated={isNegated}
     {...props}
   >

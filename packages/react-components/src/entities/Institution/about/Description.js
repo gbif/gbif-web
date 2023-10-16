@@ -84,7 +84,7 @@ export function Description({
                 </Properties>
               </V>
             </>}
-            <Property value={institution?.logoUrl} labelId="grscicoll.logo" formatter={logoUrl => <Image src={logoUrl} h={120} />} />
+            <Property value={institution?.logoUrl} labelId="grscicoll.logoUrl" formatter={logoUrl => <Image src={logoUrl} h={120} />} />
           </Properties>
           {institution?.contactPersons?.length > 0 && <div css={css`
             display: flex;

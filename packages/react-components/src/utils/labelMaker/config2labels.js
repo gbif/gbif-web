@@ -18,6 +18,13 @@ export function config2label(name, config = {}, apiContext, localeContext) {
         defaultMessage={prettifyEnum(id)}
       />
     }
+    case 'TRANSLATION_VALUES': {
+      return ({ id }) => <FormattedMessage
+        id={config.template}
+        defaultMessage="Unknown"
+        values={id}
+      />
+    }
     case 'TRANSFORM': {
       return ({ id }) => {
         const intl = useIntl()
