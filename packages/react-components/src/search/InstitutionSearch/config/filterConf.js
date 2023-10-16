@@ -1,10 +1,10 @@
 export const filters = [
-  'active', 'name', 'q', 'code', 'countrySingleGrSciColl', 'city', 'numberSpecimens', 
+  'active', 'name', 'q', 'code', 'countryGrSciColl', 'city', 'numberSpecimens', 
   'specimensInGbif', 'alternativeCode', 'institutionType', 'discipline'
 ];
 
 const highlighted = [
-  'q', 'code', 'countrySingleGrSciColl', 'numberSpecimens', 'specimensInGbif'
+  'q', 'code', 'countryGrSciColl', 'numberSpecimens', 'specimensInGbif'
 ];
 
 export default { filters, included: filters, highlighted };

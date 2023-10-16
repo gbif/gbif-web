@@ -99,7 +99,7 @@ export const commonFilters = {
       }
     }
   },
-  countrySingleGrSciColl: {
+  countryGrSciColl: {
     type: 'SUGGEST',
     config: {
       std: {
@@ -111,8 +111,7 @@ export const commonFilters = {
         },
       },
       specific: {
-        suggestHandle: 'countryCode',
-        singleSelect: true
+        suggestHandle: 'countryCode'
       }
     }
   },

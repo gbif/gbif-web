@@ -2,7 +2,7 @@ import { filters } from './filterConf';
 
 const filterConf = {
   fields: {
-    countrySingleGrSciColl: {
+    countryGrSciColl: {
       defaultKey: 'country',
     },
     q: {
