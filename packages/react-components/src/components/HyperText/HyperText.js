@@ -97,3 +97,5 @@ export const HyperText = ({ text, inline, sanitizeOptions = { ALLOWED_TAGS: ['a'
 
   return <div css={content({ inline })} dangerouslySetInnerHTML={{ __html: sanitized }} {...props}></div>
 }
+
+HyperText.content = content;
