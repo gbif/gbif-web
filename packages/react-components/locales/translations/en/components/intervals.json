@@ -68,15 +68,15 @@
     "e": "Elevation is {from}"
   },
   "geoDistance": {
-    "short": "",
-    "description": ""
+    "short": "Within {distance} of {latitude},{longitude}",
+    "description": "Latitude {latitude}, longitude: {longitude}, distance: {distance}"
   },
   "units": {
     "name": {
-      "km": "",
-      "m": "",
-      "mi": "",
-      "ft": ""
+      "km": "kilometres",
+      "m": "metres",
+      "mi": "miles",
+      "ft": "feet"
     }
   }
 }

@@ -30,12 +30,12 @@
     "description": "The IUCN Red List of Threatened Species groups taxa by how threatened they are."
   },
   "geoDistance": {
-    "name": "",
-    "count": "",
-    "description": "",
-    "placeholderLat": "",
-    "placeholderLon": "",
-    "placeholderDist": ""
+    "name": "Distance from coordinates",
+    "count": "{num, plural, one { filter } other {# filters }}",
+    "description": "Filter on records within a given distance from a point",
+    "placeholderLat": "Latitude",
+    "placeholderLon": "Longitude",
+    "placeholderDist": "Distance"
   },
   "relevance": {
     "name": "Relevance",
