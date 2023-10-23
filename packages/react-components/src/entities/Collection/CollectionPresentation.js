@@ -59,7 +59,7 @@ export function CollectionPresentation({
   };
 
   // if there is at least a countryCode for thee address, then use that, else fall back to the mailing address
-  const contactInfo = collection?.address?.countryCode ? collection?.address : collection?.mailingAddress;
+  const contactInfo = collection?.address?.country ? collection?.address : collection?.mailingAddress;
 
   const contacts = collection?.contactPersons.filter(x => x.firstName);
   // const hasNoPeople = !contacts.length && !recordedByCardinality;
