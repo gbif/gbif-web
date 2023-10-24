@@ -1,22 +1,24 @@
 {
   "nullOrNot": {
-    "isNotNull": "",
-    "isNull": ""
+    "isNotNull": "必須定義",
+    "isNull": "必須未被定義"
   },
-  "invalidValue": "",
-  "aboutThisFilter": "",
-  "existence": "",
-  "showHelp": "",
+  "invalidValue": "無效的值",
+  "aboutThisFilter": "關於這個篩選",
+  "existence": "篩選現存",
+  "showHelp": "顯示協助資訊",
   "back": "返回",
   "cancel": "取消",
-  "apply": "",
+  "apply": "套用",
   "wildcardHelp": "",
-  "useWildcardPattern": "",
+  "useWildcardPattern": "以此形式搜尋",
   "useCaseInsensitiveValue": "",
-  "showSuggestions": "",
-  "excludeSelected": "",
+  "showSuggestions": "顯示建議資訊",
+  "excludeSelected": "排除已選取項目",
   "updateFilter": "",
   "setFilter": "",
   "nameWithTaxonMatchIssue": "",
+  "commonName": "",
+  "acceptedNameOf": "",
   "viewDetails": ""
 }
