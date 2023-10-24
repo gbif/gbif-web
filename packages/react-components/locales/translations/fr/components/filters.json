@@ -1,7 +1,7 @@
 {
   "dwcaExtension": {
     "name": "Extension DWCA",
-    "count": "",
+    "count": "{num, plural, one { extension DWCA } other {# extensions DWCA}}",
     "description": "Une courte description de la composante devrait apparaître ici"
   },
   "locationId": {
@@ -11,24 +11,87 @@
   },
   "collectionKey": {
     "name": "Collection",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {# collection } other {# collections}}",
+    "description": "La collection de GrSciColl à laquelle cet enregistrement a été associé"
   },
   "numberSpecimens": {
     "name": "Nombre de spécimens",
     "count": "",
     "description": "Le nombre de spécimens détenus indiqué dans la description. Ce nombre ne correspond pas au nombre d'enregistrements qui ont été numérisés et partagés."
   },
+  "specimensInGbif": {
+    "name": "Spécimens sur GBIF",
+    "count": "",
+    "description": "Archive annotée par GBIF"
+  },
+  "iucnRedListCategory": {
+    "name": "Archive annotée par GBIF",
+    "count": "Archive annotée par GBIF",
+    "description": ""
+  },
+  "geoDistance": {
+    "name": "",
+    "count": "",
+    "description": "",
+    "placeholderLat": "",
+    "placeholderLon": "",
+    "placeholderDist": ""
+  },
+  "relevance": {
+    "name": "Pertinence",
+    "count": "",
+    "description": ""
+  },
+  "topics": {
+    "name": "Thème",
+    "count": "",
+    "description": ""
+  },
+  "eventDate": {
+    "name": "Date de l'événement",
+    "count": "Archive annotée par GBIF",
+    "description": "Archive annotée par GBIF"
+  },
+  "alternativeCode": {
+    "name": "Archive annotée par GBIF",
+    "count": "Archive annotée par GBIF",
+    "description": "Archive annotée par GBIF"
+  },
+  "identifier": {
+    "name": "Identifiant",
+    "count": "Archive annotée par GBIF",
+    "description": ""
+  },
+  "institutionType": {
+    "name": "Type ",
+    "count": "Archive annotée par GBIF",
+    "description": "Archive annotée par GBIF"
+  },
+  "discipline": {
+    "name": "Archive annotée par GBIF",
+    "count": "Archive annotée par GBIF",
+    "description": "Archive annotée par GBIF"
+  },
+  "collectionContentType": {
+    "name": "Archive annotée par GBIF",
+    "count": "Archive annotée par GBIF",
+    "description": "Archive annotée par GBIF"
+  },
+  "preservationType": {
+    "name": "Archive annotée par GBIF",
+    "count": "Archive annotée par GBIF",
+    "description": "Archive annotée par GBIF"
+  },
   "taxonKey": {
     "name": "Nom scientifique du taxon",
-    "count": "",
+    "count": "{num, plural, one {nom scientifique} other {# noms scientifiques}}",
     "description": "Le nom scientifique tel qu'il apparaît dans le squelette taxonomique du GBIF. Ces noms sont normalisés pour faciliter la recherche dans tous les jeux de données. Il est possible qu'un nom fourni à l'origine soit mal interprété ou inconnu. Pour rechercher les noms tels que fournis, utilisez le filtre \"Verbatim du nom scientifique\"."
   },
   "basisOfRecord": {
     "name": "Base de registre",
-    "count": "",
-    "isNotNull": "",
-    "isNull": "",
+    "count": "{num, plural, one {base d'enregistrement} other {# bases d'enregistrements}}",
+    "isNotNull": "A une base d'enregistrement",
+    "isNull": "N'a pas une base d'enregistrement",
     "description": "La nature des preuves sur lesquelles se fonde l'enregistrement."
   },
   "institutionCode": {
@@ -58,15 +121,23 @@
     "count": "",
     "description": ""
   },
+  "grsciCollCountry": {
+    "description": "Archive annotée par GBIF"
+  },
+  "preparations": {
+    "name": "Préparations",
+    "count": "Archive annotée par GBIF",
+    "description": "Archive annotée par GBIF"
+  },
   "publishingCountryCode": {
-    "name": "",
+    "name": "Pays ou région qui publie",
     "count": "",
     "description": ""
   },
   "q": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "Archive annotée par GBIF"
   },
   "coordinates": {
     "name": "Coordonnées"
@@ -91,6 +162,11 @@
     "count": "",
     "description": ""
   },
+  "gbifPublisherKey": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "hostingOrganizationKey": {
     "name": "Organisation hôte",
     "count": "",
@@ -101,11 +177,11 @@
     "count": ""
   },
   "countriesOfCoverage": {
-    "name": "",
+    "name": "Pays ou région de couverture",
     "count": ""
   },
   "countriesOfResearcher": {
-    "name": "",
+    "name": "Pays ou région du chercheur",
     "count": ""
   },
   "typeStatus": {
@@ -293,7 +369,12 @@
   "active": {
     "name": "Activé",
     "count": "Activé",
-    "description": ""
+    "description": "Archive annotée par GBIF"
+  },
+  "personalCollection": {
+    "name": "Collection personnelle",
+    "count": "Collection personnelle",
+    "description": "Archive annotée par GBIF"
   },
   "datasetType": {
     "name": "Type de jeu de données",
@@ -313,17 +394,18 @@
   "name": {
     "name": "Nom",
     "count": "",
-    "description": ""
+    "description": "Archive annotée par GBIF",
+    "searchPlaceholder": "Archive annotée par GBIF"
   },
   "city": {
     "name": "Ville",
     "count": "",
-    "description": ""
+    "description": "Archive annotée par GBIF"
   },
   "code": {
     "name": "Code",
     "count": "",
-    "description": ""
+    "description": "Archive annotée par GBIF"
   },
   "verbatimScientificName": {
     "name": "Verbatim du nom scientifique",
@@ -331,8 +413,8 @@
     "description": ""
   },
   "networkKey": {
-    "name": "",
-    "count": "",
+    "name": "Réseau",
+    "count": "Archive annotée par GBIF",
     "description": ""
   },
   "literatureType": {
