@@ -6,7 +6,11 @@
   "ANTHROPOLOGY": "Antropologie",
   "ANTHROPOLOGY_BIOLOGICAL": "Anthropologie biologisch",
   "ANTHROPOLOGY_CULTURAL": "Culturele antropologie",
+  "SPACE": "Spatie",
+  "SPACE_ASTRONOMY": "astronomie",
   "SPACE_ASTROPHYSICS": "Ruimte astrofysica",
+  "SPACE_COSMOLOGY": "Kosmologie",
   "ATMOSPHERIC": "Atmosfeer",
-  "CHEMICAL": "Chemisch"
+  "CHEMICAL": "Chemisch",
+  "OCEAN": "Oceaan"
 }
