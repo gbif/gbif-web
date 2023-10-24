@@ -1,4 +1,13 @@
 {
   "unknown": "Ukendt",
-  "unknownDate": "Ukendt dato"
+  "showAll": "Vis alle",
+  "identifier": "Identifikator",
+  "unknownDate": "Ukendt dato",
+  "about": "Om",
+  "metrics": "Grafer",
+  "datasets": "Datasæt",
+  "occurrenceMetrics": "Observations-grafer",
+  "project": "Projekt",
+  "license": "Licens",
+  "download": "Download"
 }
