@@ -19,6 +19,69 @@
     "count": "",
     "description": "说明中所述的持有标本数量。这个数字并不反映有多少记录已经被数字化和共享。"
   },
+  "specimensInGbif": {
+    "name": "GBIF中的标本",
+    "count": "",
+    "description": "GBIF附加说明的归档"
+  },
+  "iucnRedListCategory": {
+    "name": "GBIF附加说明的归档",
+    "count": "GBIF附加说明的归档",
+    "description": ""
+  },
+  "geoDistance": {
+    "name": "",
+    "count": "",
+    "description": "",
+    "placeholderLat": "",
+    "placeholderLon": "",
+    "placeholderDist": ""
+  },
+  "relevance": {
+    "name": "相关性",
+    "count": "",
+    "description": ""
+  },
+  "topics": {
+    "name": "主题",
+    "count": "",
+    "description": ""
+  },
+  "eventDate": {
+    "name": "事件日期",
+    "count": "GBIF附加说明的归档",
+    "description": "GBIF附加说明的归档"
+  },
+  "alternativeCode": {
+    "name": "GBIF附加说明的归档",
+    "count": "GBIF附加说明的归档",
+    "description": "GBIF附加说明的归档"
+  },
+  "identifier": {
+    "name": "标识符",
+    "count": "GBIF附加说明的归档",
+    "description": "这里应该有一个组件的简短描述"
+  },
+  "institutionType": {
+    "name": "类型",
+    "count": "GBIF附加说明的归档",
+    "description": "GBIF附加说明的归档"
+  },
+  "discipline": {
+    "name": "GBIF附加说明的归档",
+    "count": "GBIF附加说明的归档",
+    "description": "GBIF附加说明的归档"
+  },
+  "collectionContentType": {
+    "name": "GBIF附加说明的归档",
+    "count": "GBIF附加说明的归档",
+    "description": "GBIF附加说明的归档"
+  },
+  "preservationType": {
+    "name": "GBIF附加说明的归档",
+    "count": "GBIF附加说明的归档",
+    "description": "GBIF附加说明的归档"
+  },
   "taxonKey": {
     "name": "学名",
     "count": "{num, plural, one {科学名称} other {# 科学名称}}",
@@ -58,6 +121,14 @@
     "count": "{num, plural, one {国家} other {# 国家}}",
     "description": "事件发生的国家或地区"
   },
+  "grsciCollCountry": {
+    "description": "GBIF附加说明的归档"
+  },
+  "preparations": {
+    "name": "准备",
+    "count": "GBIF附加说明的归档",
+    "description": "GBIF附加说明的归档"
+  },
   "publishingCountryCode": {
     "name": "发布国家",
     "count": "{num, plural, one {发布国家} other {# 发布国家}}",
@@ -89,6 +160,11 @@
   "publisherKey": {
     "name": "发布者",
     "count": "{num, plural, one {发布者} other {# 发布者}}",
+    "description": "负责共享包含记录的数据集的组织名称。"
+  },
+  "gbifPublisherKey": {
+    "name": "",
+    "count": "",
     "description": "负责共享包含记录的数据集的组织名称。"
   },
   "hostingOrganizationKey": {
@@ -293,7 +369,12 @@
   "active": {
     "name": "活跃的",
     "count": "活跃的",
-    "description": ""
+    "description": "GBIF附加说明的归档"
+  },
+  "personalCollection": {
+    "name": "个人收藏",
+    "count": "个人收藏",
+    "description": "GBIF附加说明的归档"
   },
   "datasetType": {
     "name": "数据集类型",
@@ -313,17 +394,18 @@
   "name": {
     "name": "名字",
     "count": "{num, plural, one { 名称 } other {# 名称}}",
-    "description": "这里应该有一个组件的简短描述"
+    "description": "GBIF附加说明的归档",
+    "searchPlaceholder": "GBIF附加说明的归档"
   },
   "city": {
     "name": "城市",
     "count": "{num, plural, one { 城市 } other {# 城市}}",
-    "description": "这里应该有一个组件的简短描述"
+    "description": "GBIF附加说明的归档"
   },
   "code": {
     "name": "代码",
     "count": "{num, plural, one { 代码 } other {# 代码}}",
-    "description": "这里应该有一个组件的简短描述"
+    "description": "GBIF附加说明的归档"
   },
   "verbatimScientificName": {
     "name": "一字不差的学名",
