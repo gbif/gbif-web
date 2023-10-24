@@ -1,0 +1,20 @@
+{
+  "AGRICULTURE": "Agriculture",
+  "BIODIVERSITY_SCIENCE": "Sciences de la biodiversité",
+  "BIOGEOGRAPHY": "Biogéographie",
+  "CITIZEN_SCIENCE": "Science citoyenne",
+  "CLIMATE_CHANGE": "Changement climatique",
+  "CONSERVATION": "Conservation",
+  "DATA_MANAGEMENT": "La gestion des données",
+  "DATA_PAPER": "Article de données",
+  "ECOLOGY": "Écologie",
+  "ECOSYSTEM_SERVICES": "Services écosystémiques",
+  "EVOLUTION": "Évolution",
+  "FRESHWATER": "Eau douce",
+  "HUMAN_HEALTH": "Santé humaine",
+  "INVASIVES": "Espèces envahissantes",
+  "MARINE": "Marine",
+  "PHYLOGENETICS": "Phylogénétique",
+  "SPECIES_DISTRIBUTIONS": "Distribution des espèces",
+  "TAXONOMY": "Taxonomie"
+}
