@@ -1,3 +1,5 @@
 {
-  "contentTypes": "コンテンツの種類"
+  "contentTypes": "コンテンツの種類",
+  "preservationTypes": "保存のタイプ",
+  "personalCollection": "個人コレクション"
 }
