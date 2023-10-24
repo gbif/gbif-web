@@ -1,1 +1,9 @@
-{}
+{
+  "loading": "wczytywanie",
+  "loadError": "nie udało się załadować",
+  "unknown": "Nieznane",
+  "close": "zamknij",
+  "citation": "Cytowanie",
+  "unknownDate": "data nieznana",
+  "datasets": "Zbiory danych"
+}
