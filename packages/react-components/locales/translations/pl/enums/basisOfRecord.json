@@ -1,1 +1,7 @@
-{}
+{
+  "PRESERVED_SPECIMEN": "Zachowany okaz",
+  "FOSSIL_SPECIMEN": "Kopalny okaz",
+  "LIVING_SPECIMEN": "Żywy okaz ",
+  "OBSERVATION": "Obserwacja",
+  "LITERATURE": "Literatura"
+}
