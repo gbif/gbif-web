@@ -4,14 +4,17 @@
     "gallery": "",
     "map": "",
     "datasets": "",
-    "download": ""
+    "events": "",
+    "download": "",
+    "sites": ""
   },
   "table": {
     "lockColumn": ""
   },
   "placeholders": {
     "default": "",
-    "range": ""
+    "range": "",
+    "locationID": ""
   },
   "loadMore": ""
 }

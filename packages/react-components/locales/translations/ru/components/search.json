@@ -4,14 +4,17 @@
     "gallery": "Галерея",
     "map": "Карта",
     "datasets": "Опубликованных наборов данных",
-    "download": "Загрузить"
+    "events": "Мероприятия",
+    "download": "Загрузить",
+    "sites": "Архив, аннотированный GBIF"
   },
   "table": {
     "lockColumn": ""
   },
   "placeholders": {
     "default": "Поиск",
-    "range": ""
+    "range": "",
+    "locationID": "Архив, аннотированный GBIF"
   },
   "loadMore": "Еще"
 }

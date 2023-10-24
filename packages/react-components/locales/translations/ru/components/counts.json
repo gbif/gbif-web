@@ -1,1 +1,3 @@
-{}
+{
+  "nDatasets": "{NUMBER_FORMATED} {NUMBER, plural,\n0 {наборов}\none {набор}\nfew {набора}\nmany {наборов}\nother {наборов}\n} данных"
+}

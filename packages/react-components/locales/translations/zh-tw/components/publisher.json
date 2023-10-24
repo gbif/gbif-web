@@ -1,0 +1,25 @@
+{
+  "searchTitle": "發布者搜尋",
+  "tabs": {
+    "aboutPublisher": "關於",
+    "metrics": "指標",
+    "publishersHomepage": "首頁"
+  },
+  "joinedAgo": "於 {TIME_AGO} 前加入",
+  "newPublisher": "新發布者",
+  "technicalContact": "技術聯繫",
+  "country": "國家或地區",
+  "hosting": "託管",
+  "description": "描述",
+  "endorsedBy": "認可者：",
+  "pendingEndorsementBy": "待認可",
+  "endorsementWithheld": "認可保留中",
+  "installations": "安裝",
+  "getDownloadReport": "",
+  "contacts": "聯絡資訊",
+  "administrativeContact": "行政聯繫",
+  "header": {
+    "publisher": "發布者",
+    "sinceDate": "自 {DATE}"
+  }
+}

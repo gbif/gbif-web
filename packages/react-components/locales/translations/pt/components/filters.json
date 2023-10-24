@@ -19,6 +19,69 @@
     "count": "",
     "description": ""
   },
+  "specimensInGbif": {
+    "name": "Espécimes no GBIF",
+    "count": "",
+    "description": "Ficheiros registados no GBIF"
+  },
+  "iucnRedListCategory": {
+    "name": "Ficheiros registados no GBIF",
+    "count": "Ficheiros registados no GBIF",
+    "description": ""
+  },
+  "geoDistance": {
+    "name": "",
+    "count": "",
+    "description": "",
+    "placeholderLat": "",
+    "placeholderLon": "",
+    "placeholderDist": ""
+  },
+  "relevance": {
+    "name": "Relevância",
+    "count": "",
+    "description": ""
+  },
+  "topics": {
+    "name": "Tópico",
+    "count": "",
+    "description": ""
+  },
+  "eventDate": {
+    "name": "Data do evento",
+    "count": "Ficheiros registados no GBIF",
+    "description": "Ficheiros registados no GBIF"
+  },
+  "alternativeCode": {
+    "name": "Ficheiros registados no GBIF",
+    "count": "Ficheiros registados no GBIF",
+    "description": "Ficheiros registados no GBIF"
+  },
+  "identifier": {
+    "name": "Identificador",
+    "count": "Ficheiros registados no GBIF",
+    "description": "Uma breve descrição do componente deve ser colocada aqui"
+  },
+  "institutionType": {
+    "name": "Tipo",
+    "count": "Ficheiros registados no GBIF",
+    "description": "Ficheiros registados no GBIF"
+  },
+  "discipline": {
+    "name": "Ficheiros registados no GBIF",
+    "count": "Ficheiros registados no GBIF",
+    "description": "Ficheiros registados no GBIF"
+  },
+  "collectionContentType": {
+    "name": "Ficheiros registados no GBIF",
+    "count": "Ficheiros registados no GBIF",
+    "description": "Ficheiros registados no GBIF"
+  },
+  "preservationType": {
+    "name": "Ficheiros registados no GBIF",
+    "count": "Ficheiros registados no GBIF",
+    "description": "Ficheiros registados no GBIF"
+  },
   "taxonKey": {
     "name": "Nome científico",
     "count": "{num, plural, one {nome científico} other {# nomes científicos}}",
@@ -58,6 +121,14 @@
     "count": "{num, plural, one {país} other {# países}}",
     "description": "O país ou território onde ocorreu o evento"
   },
+  "grsciCollCountry": {
+    "description": "Ficheiros registados no GBIF"
+  },
+  "preparations": {
+    "name": "Preparações",
+    "count": "Ficheiros registados no GBIF",
+    "description": "Ficheiros registados no GBIF"
+  },
   "publishingCountryCode": {
     "name": "País de publicação",
     "count": "{num, plural, one {país publicador} other {# países publicadores}}",
@@ -89,6 +160,11 @@
   "publisherKey": {
     "name": "Publicador",
     "count": "{num, plural, one {publicador} other {# publicadores}}",
+    "description": "O nome da organização responsável por partilhar o conjunto de dados no qual o registo está incluído."
+  },
+  "gbifPublisherKey": {
+    "name": "",
+    "count": "",
     "description": "O nome da organização responsável por partilhar o conjunto de dados no qual o registo está incluído."
   },
   "hostingOrganizationKey": {
@@ -293,7 +369,12 @@
   "active": {
     "name": "Ativo",
     "count": "Ativo",
-    "description": ""
+    "description": "Ficheiros registados no GBIF"
+  },
+  "personalCollection": {
+    "name": "Coleção pessoal",
+    "count": "Coleção pessoal",
+    "description": "Ficheiros registados no GBIF"
   },
   "datasetType": {
     "name": "Tipo de conjunto de dados",
@@ -313,7 +394,8 @@
   "name": {
     "name": "Nome",
     "count": "{num, plural, one { nome } other {# nomes}}",
-    "description": "Uma breve descrição do componente deve ser colocada aqui"
+    "description": "Uma breve descrição do componente deve ser colocada aqui",
+    "searchPlaceholder": "Ficheiros registados no GBIF"
   },
   "city": {
     "name": "Cidade",

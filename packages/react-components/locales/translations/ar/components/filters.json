@@ -19,6 +19,69 @@
     "count": "",
     "description": ""
   },
+  "specimensInGbif": {
+    "name": "",
+    "count": "",
+    "description": "أرشيف شروح \"جيبف\""
+  },
+  "iucnRedListCategory": {
+    "name": "أرشيف شروح \"جيبف\"",
+    "count": "أرشيف شروح \"جيبف\"",
+    "description": ""
+  },
+  "geoDistance": {
+    "name": "",
+    "count": "",
+    "description": "",
+    "placeholderLat": "",
+    "placeholderLon": "",
+    "placeholderDist": ""
+  },
+  "relevance": {
+    "name": "الصلة بموضوع ",
+    "count": "",
+    "description": ""
+  },
+  "topics": {
+    "name": "موضوع",
+    "count": "",
+    "description": ""
+  },
+  "eventDate": {
+    "name": "تاريخ الحدث",
+    "count": "أرشيف شروح \"جيبف\"",
+    "description": "أرشيف شروح \"جيبف\""
+  },
+  "alternativeCode": {
+    "name": "أرشيف شروح \"جيبف\"",
+    "count": "أرشيف شروح \"جيبف\"",
+    "description": "أرشيف شروح \"جيبف\""
+  },
+  "identifier": {
+    "name": "المعرِّف",
+    "count": "أرشيف شروح \"جيبف\"",
+    "description": ""
+  },
+  "institutionType": {
+    "name": "نمط",
+    "count": "أرشيف شروح \"جيبف\"",
+    "description": "أرشيف شروح \"جيبف\""
+  },
+  "discipline": {
+    "name": "أرشيف شروح \"جيبف\"",
+    "count": "أرشيف شروح \"جيبف\"",
+    "description": "أرشيف شروح \"جيبف\""
+  },
+  "collectionContentType": {
+    "name": "أرشيف شروح \"جيبف\"",
+    "count": "أرشيف شروح \"جيبف\"",
+    "description": "أرشيف شروح \"جيبف\""
+  },
+  "preservationType": {
+    "name": "أرشيف شروح \"جيبف\"",
+    "count": "أرشيف شروح \"جيبف\"",
+    "description": "أرشيف شروح \"جيبف\""
+  },
   "taxonKey": {
     "name": "الاسم العلمي",
     "count": "",
@@ -58,15 +121,23 @@
     "count": "",
     "description": ""
   },
+  "grsciCollCountry": {
+    "description": "أرشيف شروح \"جيبف\""
+  },
+  "preparations": {
+    "name": "تحضيرات",
+    "count": "أرشيف شروح \"جيبف\"",
+    "description": "أرشيف شروح \"جيبف\""
+  },
   "publishingCountryCode": {
-    "name": "",
+    "name": "بلد او منطقة النشر",
     "count": "",
     "description": ""
   },
   "q": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "أرشيف شروح \"جيبف\""
   },
   "coordinates": {
     "name": "احداثيات"
@@ -91,6 +162,11 @@
     "count": "",
     "description": ""
   },
+  "gbifPublisherKey": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "hostingOrganizationKey": {
     "name": "المنظمة المضيفة",
     "count": "",
@@ -101,11 +177,11 @@
     "count": ""
   },
   "countriesOfCoverage": {
-    "name": "",
+    "name": "بلد أو منطقة التغطية",
     "count": ""
   },
   "countriesOfResearcher": {
-    "name": "",
+    "name": "بلد أو منطقة الباحث",
     "count": ""
   },
   "typeStatus": {
@@ -293,7 +369,12 @@
   "active": {
     "name": "نشط",
     "count": "نشط",
-    "description": ""
+    "description": "أرشيف شروح \"جيبف\""
+  },
+  "personalCollection": {
+    "name": "مجموعة شخصية",
+    "count": "مجموعة شخصية",
+    "description": "أرشيف شروح \"جيبف\""
   },
   "datasetType": {
     "name": "نمط مجموعة البيانات",
@@ -313,17 +394,18 @@
   "name": {
     "name": "الاسم",
     "count": "",
-    "description": ""
+    "description": "أرشيف شروح \"جيبف\"",
+    "searchPlaceholder": "أرشيف شروح \"جيبف\""
   },
   "city": {
     "name": "المدينة",
     "count": "",
-    "description": ""
+    "description": "أرشيف شروح \"جيبف\""
   },
   "code": {
     "name": "الرمز",
     "count": "",
-    "description": ""
+    "description": "أرشيف شروح \"جيبف\""
   },
   "verbatimScientificName": {
     "name": "الاسم العلمي الحرفي",
@@ -331,8 +413,8 @@
     "description": ""
   },
   "networkKey": {
-    "name": "",
-    "count": "",
+    "name": "شبكة",
+    "count": "أرشيف شروح \"جيبف\"",
     "description": ""
   },
   "literatureType": {

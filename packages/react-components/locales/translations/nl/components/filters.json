@@ -19,6 +19,69 @@
     "count": "",
     "description": "Het aantal beschikbare specimens zoals vermeld in de beschrijving. Dit nummer geeft niet weer hoeveel records gedigitaliseerd en gedeeld zijn."
   },
+  "specimensInGbif": {
+    "name": "Exemplaren in GBIF",
+    "count": "",
+    "description": ""
+  },
+  "iucnRedListCategory": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "geoDistance": {
+    "name": "",
+    "count": "",
+    "description": "",
+    "placeholderLat": "",
+    "placeholderLon": "",
+    "placeholderDist": ""
+  },
+  "relevance": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "topics": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "eventDate": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "alternativeCode": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "identifier": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "institutionType": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "discipline": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "collectionContentType": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "preservationType": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "taxonKey": {
     "name": "Wetenschappelijke naam",
     "count": "",
@@ -58,6 +121,14 @@
     "count": "",
     "description": "Het land of grondgebied waar de gebeurtenis plaatsvond"
   },
+  "grsciCollCountry": {
+    "description": ""
+  },
+  "preparations": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "publishingCountryCode": {
     "name": "Publicerend land",
     "count": "",
@@ -88,6 +159,11 @@
   },
   "publisherKey": {
     "name": "Gepubliceerd door",
+    "count": "",
+    "description": "De naam van de organisatie die verantwoordelijk is voor het delen van de data."
+  },
+  "gbifPublisherKey": {
+    "name": "",
     "count": "",
     "description": "De naam van de organisatie die verantwoordelijk is voor het delen van de data."
   },
@@ -295,6 +371,11 @@
     "count": "Actief",
     "description": ""
   },
+  "personalCollection": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "datasetType": {
     "name": "",
     "count": "",
@@ -313,7 +394,8 @@
   "name": {
     "name": "Naam",
     "count": "",
-    "description": ""
+    "description": "",
+    "searchPlaceholder": ""
   },
   "city": {
     "name": "Stad",

@@ -1,3 +1,8 @@
 {
-  "unknown": "ناشناس"
+  "unknown": "ناشناس",
+  "identifier": "شناسه",
+  "about": "درباره",
+  "citations": "استناد",
+  "datasets": "مجموعه اطلاعات",
+  "download": "دانلود"
 }

@@ -1,0 +1,20 @@
+{
+  "AGRICULTURE": "الزراعة",
+  "BIODIVERSITY_SCIENCE": "علوم التنوع الحيوي",
+  "BIOGEOGRAPHY": "الحغرافية الحيوية",
+  "CITIZEN_SCIENCE": "إشراك المواطن في العلم",
+  "CLIMATE_CHANGE": "التغير المناخي",
+  "CONSERVATION": "الحفظ",
+  "DATA_MANAGEMENT": "إدارة البيانات",
+  "DATA_PAPER": "ورقة بيانات",
+  "ECOLOGY": "علم البيئة",
+  "ECOSYSTEM_SERVICES": "خدمات النظام البيئي",
+  "EVOLUTION": "التطور",
+  "FRESHWATER": "المياه العذبة",
+  "HUMAN_HEALTH": "الصحة البشرية",
+  "INVASIVES": "انواع غازية",
+  "MARINE": "بحري",
+  "PHYLOGENETICS": "تطور السلالات",
+  "SPECIES_DISTRIBUTIONS": "توزعات الأنواع",
+  "TAXONOMY": "التصنيف"
+}

@@ -4,14 +4,17 @@
     "gallery": "Afbeeldingen",
     "map": "Kaart",
     "datasets": "Datasets",
-    "download": "Downloaden"
+    "events": "",
+    "download": "Downloaden",
+    "sites": ""
   },
   "table": {
     "lockColumn": "Vergrendel kolom"
   },
   "placeholders": {
     "default": "Zoeken",
-    "range": "Bereik of enkele waarde"
+    "range": "Bereik of enkele waarde",
+    "locationID": ""
   },
   "loadMore": "Meer"
 }

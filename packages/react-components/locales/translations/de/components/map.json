@@ -1,15 +1,19 @@
 {
     "styles": {
-        "satellite": "",
-        "natural": "",
-        "bright": "",
-        "dark": "",
-        "outdoor": ""
+        "satellite": "Satellit",
+        "natural": "Natur",
+        "bright": "Hell",
+        "dark": "Dunkel",
+        "outdoor": "Outdoor"
     },
     "projections": {
-        "ARCTIC": "",
-        "MERCATOR": "",
-        "ANTARCTIC": "",
-        "PLATE_CAREE": ""
+        "ARCTIC": "Arktis",
+        "MERCATOR": "Mercator-Projektion",
+        "ANTARCTIC": "Antarktis",
+        "PLATE_CAREE": "Plattenkarte"
+    },
+    "failedToGetUserLocation": {
+        "title": "GBIF-kommentiertes Archiv",
+        "message": "GBIF-kommentiertes Archiv"
     }
 }

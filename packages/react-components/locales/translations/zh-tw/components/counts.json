@@ -1,10 +1,19 @@
 {
   "nResults": "{total, plural, one {# 結果} other {# 結果}}",
+  "nOccurrences": "{total, plural, one{出現紀錄} other{出現紀錄}}",
+  "nRecords": "{total, plural, one{紀錄} other{紀錄}}",
+  "nSpecimensInGbif": "{total, plural, one{ GBIF 標本} other{ GBIF 標本}}",
+  "inGbif": "{total, plural, one{在 GBIF} other{在 GBIF}}",
+  "nSpecimens": "{total, plural, one{標本} other{標本}}",
+  "nCollections": "{total, plural, one{蒐藏} other{蒐藏}}",
+  "nRecordsTotal": "{total, plural, one{所有紀錄} other{所有紀錄}}",
   "nSelected": "{total, plural, other {# 已選取}}",
   "nQualityFlags": "{total, plural, one {# 品質標記} other {# 品質標記}}",
   "nAudioFiles": "{total, plural, one {# 聲音檔} other {# 聲音檔}}",
   "nVideos": "{total, plural, one {# 視訊} other {# 視訊}}",
   "nImages": "{total, plural, one {# 影像} other {# 影像}}",
   "nResultsWithCoordinates": "{total, plural, one {# 筆} other {# 筆}}含座標結果",
-  "nResultsWithImages": "{total, plural, one {# 筆} other {# 筆}}含影像結果"
+  "nResultsWithImages": "{total, plural, one {# 筆} other {# 筆}}含影像結果",
+  "nDatasets": "{NUMBER_FORMATED} 個{NUMBER, plural, one{資料集}other{資料集}}",
+  "nOccurrencesHosted": "{NUMBER_FORMATED} {NUMBER, plural, one{代管的出現紀錄} other{代管的出現紀錄}}"
 }

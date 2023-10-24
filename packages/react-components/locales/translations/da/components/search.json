@@ -4,14 +4,17 @@
     "gallery": "Galleri",
     "map": "Kort",
     "datasets": "Datasæt",
-    "download": "Download"
+    "events": "Arrangementer",
+    "download": "Download",
+    "sites": "GBIF annoteret Arkiv"
   },
   "table": {
     "lockColumn": ""
   },
   "placeholders": {
     "default": "Søg",
-    "range": ""
+    "range": "",
+    "locationID": "GBIF annoteret Arkiv"
   },
   "loadMore": "Flere"
 }

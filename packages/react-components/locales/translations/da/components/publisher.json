@@ -1,0 +1,25 @@
+{
+  "searchTitle": "",
+  "tabs": {
+    "aboutPublisher": "Om",
+    "metrics": "Grafer",
+    "publishersHomepage": ""
+  },
+  "joinedAgo": "Registreret for {TIME_AGO}",
+  "newPublisher": "Ny forlægger",
+  "technicalContact": "",
+  "country": "Land eller område",
+  "hosting": "Vært",
+  "description": "Beskriveslse",
+  "endorsedBy": "Godkendt af",
+  "pendingEndorsementBy": "Afventer godkendelse fra",
+  "endorsementWithheld": "",
+  "installations": "Installationer",
+  "getDownloadReport": "",
+  "contacts": "Kontakter",
+  "administrativeContact": "",
+  "header": {
+    "publisher": "Forlægger",
+    "sinceDate": "Siden {DATE}"
+  }
+}

@@ -5,5 +5,16 @@
   "close": "Cerrar",
   "citation": "Cita",
   "citeAs": "Por favor, utilice esta cita en las publicaciones",
-  "unknownDate": "Fecha desconocida"
+  "showAll": "Mostrar todo",
+  "identifier": "Identificador",
+  "unknownDate": "Fecha desconocida",
+  "about": "Acerca de",
+  "citations": "Citaciones",
+  "metrics": "Estadísticas",
+  "datasets": "Conjuntos de datos",
+  "hostedDatasets": "Conjuntos de datos alojados",
+  "occurrenceMetrics": "Métricas de registros de presencias",
+  "project": "Proyecto",
+  "license": "Licencia",
+  "download": "Descargar"
 }

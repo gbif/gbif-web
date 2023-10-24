@@ -19,6 +19,69 @@
     "count": "",
     "description": ""
   },
+  "specimensInGbif": {
+    "name": "GBIFの標本",
+    "count": "",
+    "description": "GBIFがアノーテーションしたアーカイブ"
+  },
+  "iucnRedListCategory": {
+    "name": "GBIFがアノーテーションしたアーカイブ",
+    "count": "GBIFがアノーテーションしたアーカイブ",
+    "description": ""
+  },
+  "geoDistance": {
+    "name": "",
+    "count": "",
+    "description": "",
+    "placeholderLat": "",
+    "placeholderLon": "",
+    "placeholderDist": ""
+  },
+  "relevance": {
+    "name": "関連性",
+    "count": "",
+    "description": ""
+  },
+  "topics": {
+    "name": "トピック",
+    "count": "",
+    "description": ""
+  },
+  "eventDate": {
+    "name": "イベント日付",
+    "count": "GBIFがアノーテーションしたアーカイブ",
+    "description": "GBIFがアノーテーションしたアーカイブ"
+  },
+  "alternativeCode": {
+    "name": "GBIFがアノーテーションしたアーカイブ",
+    "count": "GBIFがアノーテーションしたアーカイブ",
+    "description": "GBIFがアノーテーションしたアーカイブ"
+  },
+  "identifier": {
+    "name": "ID",
+    "count": "GBIFがアノーテーションしたアーカイブ",
+    "description": ""
+  },
+  "institutionType": {
+    "name": "タイプ",
+    "count": "GBIFがアノーテーションしたアーカイブ",
+    "description": "GBIFがアノーテーションしたアーカイブ"
+  },
+  "discipline": {
+    "name": "GBIFがアノーテーションしたアーカイブ",
+    "count": "GBIFがアノーテーションしたアーカイブ",
+    "description": "GBIFがアノーテーションしたアーカイブ"
+  },
+  "collectionContentType": {
+    "name": "GBIFがアノーテーションしたアーカイブ",
+    "count": "GBIFがアノーテーションしたアーカイブ",
+    "description": "GBIFがアノーテーションしたアーカイブ"
+  },
+  "preservationType": {
+    "name": "GBIFがアノーテーションしたアーカイブ",
+    "count": "GBIFがアノーテーションしたアーカイブ",
+    "description": "GBIFがアノーテーションしたアーカイブ"
+  },
   "taxonKey": {
     "name": "学名",
     "count": "",
@@ -58,15 +121,23 @@
     "count": "",
     "description": ""
   },
+  "grsciCollCountry": {
+    "description": "GBIFがアノーテーションしたアーカイブ"
+  },
+  "preparations": {
+    "name": "標本の準備または保存方法",
+    "count": "GBIFがアノーテーションしたアーカイブ",
+    "description": "GBIFがアノーテーションしたアーカイブ"
+  },
   "publishingCountryCode": {
-    "name": "",
+    "name": "データ出版国または地域",
     "count": "",
     "description": ""
   },
   "q": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "GBIFがアノーテーションしたアーカイブ"
   },
   "coordinates": {
     "name": "座標"
@@ -91,6 +162,11 @@
     "count": "",
     "description": ""
   },
+  "gbifPublisherKey": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "hostingOrganizationKey": {
     "name": "",
     "count": "",
@@ -101,11 +177,11 @@
     "count": ""
   },
   "countriesOfCoverage": {
-    "name": "",
+    "name": "範囲の国または地域",
     "count": ""
   },
   "countriesOfResearcher": {
-    "name": "",
+    "name": "研究者の出身国または地域",
     "count": ""
   },
   "typeStatus": {
@@ -293,7 +369,12 @@
   "active": {
     "name": "活動中",
     "count": "活動中",
-    "description": ""
+    "description": "GBIFがアノーテーションしたアーカイブ"
+  },
+  "personalCollection": {
+    "name": "個人コレクション",
+    "count": "個人コレクション",
+    "description": "GBIFがアノーテーションしたアーカイブ"
   },
   "datasetType": {
     "name": "データセットタイプ",
@@ -313,17 +394,18 @@
   "name": {
     "name": "名前",
     "count": "",
-    "description": ""
+    "description": "GBIFがアノーテーションしたアーカイブ",
+    "searchPlaceholder": "GBIFがアノーテーションしたアーカイブ"
   },
   "city": {
     "name": "市",
     "count": "",
-    "description": ""
+    "description": "GBIFがアノーテーションしたアーカイブ"
   },
   "code": {
     "name": "コード",
     "count": "",
-    "description": ""
+    "description": "GBIFがアノーテーションしたアーカイブ"
   },
   "verbatimScientificName": {
     "name": "オリジナルの学名",
@@ -331,8 +413,8 @@
     "description": ""
   },
   "networkKey": {
-    "name": "",
-    "count": "",
+    "name": "ネットワーク",
+    "count": "GBIFがアノーテーションしたアーカイブ",
     "description": ""
   },
   "literatureType": {

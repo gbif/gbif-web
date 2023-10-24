@@ -5,5 +5,16 @@
   "close": "关闭",
   "citation": "引用",
   "citeAs": "请在出版物中使用此引文",
-  "unknownDate": "日期未知"
+  "showAll": "显示全部",
+  "identifier": "标识符",
+  "unknownDate": "日期未知",
+  "about": "关于",
+  "citations": "引用",
+  "metrics": "指标",
+  "datasets": "数据集",
+  "hostedDatasets": "托管数据集",
+  "occurrenceMetrics": "物种出现记录统计",
+  "project": "项目",
+  "license": "授权条款",
+  "download": "下载"
 }

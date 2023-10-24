@@ -1,0 +1,25 @@
+{
+  "searchTitle": "Búsqueda del publicador",
+  "tabs": {
+    "aboutPublisher": "Acerca de",
+    "metrics": "Estadísticas",
+    "publishersHomepage": "Página de inicio"
+  },
+  "joinedAgo": "Conectado",
+  "newPublisher": "Nuevo proveedor",
+  "technicalContact": "Contacto técnico",
+  "country": "País o área",
+  "hosting": "Alojamiento",
+  "description": "Descripción",
+  "endorsedBy": "Respaldado por",
+  "pendingEndorsementBy": "Pendiente de respaldo por",
+  "endorsementWithheld": "",
+  "installations": "Instalaciones",
+  "getDownloadReport": "",
+  "contacts": "Contactos",
+  "administrativeContact": "Contacto administrativo",
+  "header": {
+    "publisher": "Publicador",
+    "sinceDate": "Desde {DATE}"
+  }
+}

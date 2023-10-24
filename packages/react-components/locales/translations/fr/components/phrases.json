@@ -5,5 +5,16 @@
   "close": "Fermer",
   "citation": "Citation",
   "citeAs": "Veuillez utiliser cette citation dans les publications",
-  "unknownDate": "Date inconnue"
+  "showAll": "Tout afficher",
+  "identifier": "Identifiant",
+  "unknownDate": "Date inconnue",
+  "about": "À propos",
+  "citations": "Citations",
+  "metrics": "Statistiques",
+  "datasets": "Jeux de données",
+  "hostedDatasets": "Jeux de données hébergés",
+  "occurrenceMetrics": "Statistique sur les occurrences",
+  "project": "Projet",
+  "license": "Licence",
+  "download": "Télécharger"
 }

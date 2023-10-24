@@ -1,3 +1,6 @@
 {
-  "contentTypes": "Tipos de conteúdo"
+  "institutionUnknown": "A instituição é desconhecida",
+  "contentTypes": "Tipos de conteúdo",
+  "preservationTypes": "Tipos de Preservação",
+  "personalCollection": "Coleção pessoal"
 }

@@ -1,0 +1,21 @@
+{
+  "AGRICULTURE": "農業",
+  "BIODIVERSITY_SCIENCE": "生物多樣性科學",
+  "BIOGEOGRAPHY": "生物地理學",
+  "CITIZEN_SCIENCE": "公民科學",
+  "CLIMATE_CHANGE": "氣候變遷",
+  "CONSERVATION": "保育",
+  "DATA_MANAGEMENT": "資料管理",
+  "DATA_PAPER": "資料論文",
+  "ECOLOGY": "生態",
+  "ECOSYSTEM_SERVICES": "生態系服務",
+  "EVOLUTION": "演化",
+  "FRESHWATER": "淡水",
+  "HUMAN_HEALTH": "人類健康",
+  "INVASIVES": "入侵的",
+  "MARINE": "海洋",
+  "PHYLOGENETICS": "系統發育",
+  "SPECIES_DISTRIBUTIONS": "物種分布",
+  "DNA": "去氧核醣核酸",
+  "TAXONOMY": "分類學"
+}

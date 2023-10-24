@@ -1,0 +1,22 @@
+{
+  "AGRICULTURE": "农业",
+  "BIODIVERSITY_SCIENCE": "生物多样性科学",
+  "BIOGEOGRAPHY": "生物地理学",
+  "CITIZEN_SCIENCE": "公众科学",
+  "CLIMATE_CHANGE": "气候变化",
+  "CONSERVATION": "保护",
+  "DATA_MANAGEMENT": "数据管理",
+  "DATA_PAPER": "数据论文",
+  "ECOLOGY": "生态学",
+  "ECOSYSTEM_SERVICES": "生态系统服务",
+  "EVOLUTION": "进化",
+  "FRESHWATER": "淡水",
+  "HUMAN_HEALTH": "人类健康",
+  "INVASIVES": "入侵的",
+  "MARINE": "海洋",
+  "PHYLOGENETICS": "系统发育",
+  "SPECIES_DISTRIBUTIONS": "物种分布",
+  "INFRASTRUCTURE": "基础设施",
+  "DNA": "脱氧核糖核酸",
+  "TAXONOMY": "分类学"
+}

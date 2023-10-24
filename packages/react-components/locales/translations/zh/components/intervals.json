@@ -4,7 +4,8 @@
     "lte": "小于或等于 {to}",
     "gt": "大于 {from}",
     "gte": "大于或等于 {from}",
-    "e": "等于 {is}"
+    "e": "等于 {is}",
+    "between": ""
   },
   "compact": {
     "between": "{from} 到 {to}",
@@ -65,5 +66,17 @@
     "lt": "海拔低于 {to}",
     "gt": "海拔高于 {from}",
     "e": "海拔是 {from}"
+  },
+  "geoDistance": {
+    "short": "",
+    "description": ""
+  },
+  "units": {
+    "name": {
+      "km": "",
+      "m": "",
+      "mi": "",
+      "ft": ""
+    }
   }
 }

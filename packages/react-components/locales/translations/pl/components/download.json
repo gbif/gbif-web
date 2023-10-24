@@ -1,1 +1,8 @@
-{}
+{
+  "unsupported.title": "Nieobsługiwane zapytanie",
+  "unsupported.description": "Swobodne wyszukiwanie tekstowe może być użyte, ale bez opcji pobierania",
+  "unsupported.remove": "Usuń filtry",
+  "download": "Pobierz",
+  "redirectNotice": "Zamierzasz pobrać dane, aby to zrobić, zostaniesz przekierowany do GBIF.org. {br}{br} Musisz posiadać konto na GBIF.org, żeby pobrać zawartość.",
+  "continueToGBIF": "Dalej"
+}

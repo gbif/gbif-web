@@ -4,14 +4,17 @@
     "gallery": "图库",
     "map": "地图",
     "datasets": "数据集",
-    "download": "下载"
+    "events": "事件",
+    "download": "下载",
+    "sites": "GBIF附加说明的归档"
   },
   "table": {
     "lockColumn": "锁定列"
   },
   "placeholders": {
     "default": "搜索",
-    "range": "范围或单个值"
+    "range": "范围或单个值",
+    "locationID": "GBIF附加说明的归档"
   },
   "loadMore": "更多"
 }

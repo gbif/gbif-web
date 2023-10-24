@@ -3,6 +3,7 @@
   "organization": "団体",
   "email": "メールアドレス",
   "address": "住所",
+  "phone": "電話番号",
   "roles": "役割",
   "userId": "ユーザーID",
   "name": "名前"

@@ -11,5 +11,9 @@
         "MERCATOR": "Mercator",
         "ANTARCTIC": "Antártico",
         "PLATE_CAREE": "Proyección Geográfica"
+    },
+    "failedToGetUserLocation": {
+        "title": "Archivo de GBIF anotado",
+        "message": "Archivo de GBIF anotado"
     }
 }

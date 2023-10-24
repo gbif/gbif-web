@@ -1,0 +1,11 @@
+{
+  "EX": "Extinto",
+  "EW": "Extinto en estado silvestre",
+  "CR": "En peligro crítico",
+  "EN": "En peligro",
+  "VU": "Vulnerable",
+  "NT": "Casi amenazado",
+  "LC": "Preocupación menor",
+  "DD": "Datos insuficientes",
+  "NE": "No evaluado"
+}

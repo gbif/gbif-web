@@ -1,1 +1,9 @@
-{}
+{
+  "occurrences": "Wystąpienia",
+  "datasets": "Zbiory danych",
+  "species": "Gatunki",
+  "publishers": "Publikujący dane",
+  "literature": "Literatura",
+  "collections": "Kolekcje",
+  "institutions": "Instytucje"
+}

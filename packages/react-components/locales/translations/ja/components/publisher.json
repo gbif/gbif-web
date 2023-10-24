@@ -1,0 +1,25 @@
+{
+  "searchTitle": "出版者の検索",
+  "tabs": {
+    "aboutPublisher": "・・・について",
+    "metrics": "メトリクス",
+    "publishersHomepage": "ホームページ"
+  },
+  "joinedAgo": "{TIME_AGO} に参加",
+  "newPublisher": "新しい出版者",
+  "technicalContact": "技術的な事項についての連絡先",
+  "country": "国または地域",
+  "hosting": "ホスティング",
+  "description": "説明",
+  "endorsedBy": "承認",
+  "pendingEndorsementBy": "～による承認が保留中",
+  "endorsementWithheld": "",
+  "installations": "インストール",
+  "getDownloadReport": "",
+  "contacts": "連絡先",
+  "administrativeContact": "管理者の連絡先",
+  "header": {
+    "publisher": "出版者",
+    "sinceDate": "{DATE} 以来"
+  }
+}

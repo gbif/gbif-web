@@ -19,6 +19,69 @@
     "count": "",
     "description": ""
   },
+  "specimensInGbif": {
+    "name": "Belege in GBIF",
+    "count": "",
+    "description": "GBIF-kommentiertes Archiv"
+  },
+  "iucnRedListCategory": {
+    "name": "GBIF-kommentiertes Archiv",
+    "count": "GBIF-kommentiertes Archiv",
+    "description": ""
+  },
+  "geoDistance": {
+    "name": "",
+    "count": "",
+    "description": "",
+    "placeholderLat": "",
+    "placeholderLon": "",
+    "placeholderDist": ""
+  },
+  "relevance": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "topics": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "eventDate": {
+    "name": "",
+    "count": "GBIF-kommentiertes Archiv",
+    "description": "GBIF-kommentiertes Archiv"
+  },
+  "alternativeCode": {
+    "name": "GBIF-kommentiertes Archiv",
+    "count": "GBIF-kommentiertes Archiv",
+    "description": "GBIF-kommentiertes Archiv"
+  },
+  "identifier": {
+    "name": "",
+    "count": "GBIF-kommentiertes Archiv",
+    "description": "Bezeichner für die Sammlung, zu der das usprüngliche Objekt gehört."
+  },
+  "institutionType": {
+    "name": "",
+    "count": "GBIF-kommentiertes Archiv",
+    "description": "GBIF-kommentiertes Archiv"
+  },
+  "discipline": {
+    "name": "GBIF-kommentiertes Archiv",
+    "count": "GBIF-kommentiertes Archiv",
+    "description": "GBIF-kommentiertes Archiv"
+  },
+  "collectionContentType": {
+    "name": "GBIF-kommentiertes Archiv",
+    "count": "GBIF-kommentiertes Archiv",
+    "description": "GBIF-kommentiertes Archiv"
+  },
+  "preservationType": {
+    "name": "GBIF-kommentiertes Archiv",
+    "count": "GBIF-kommentiertes Archiv",
+    "description": "GBIF-kommentiertes Archiv"
+  },
   "taxonKey": {
     "name": "Wissenschaftlicher Name",
     "count": "{num, plural, one {wissenschaftlicher Name} other {# wissenschaftliche Namen}}",
@@ -58,6 +121,14 @@
     "count": "{num, plural, one {Land} other {# Länder}}",
     "description": "Land oder Gebiet des Sammlungsereignisses"
   },
+  "grsciCollCountry": {
+    "description": "GBIF-kommentiertes Archiv"
+  },
+  "preparations": {
+    "name": "",
+    "count": "GBIF-kommentiertes Archiv",
+    "description": "GBIF-kommentiertes Archiv"
+  },
   "publishingCountryCode": {
     "name": "Veröffentlichendes Land",
     "count": "{num, plural, one {Veröffentlichendes Land} other {# Veröffentlichende Länder}}",
@@ -89,6 +160,11 @@
   "publisherKey": {
     "name": "Publisher",
     "count": "{num, plural, one {Publisher} other {# Publisher}}",
+    "description": "Der Name der Organisation, die das Dataset publiziert, zu dem der Datensatz gehört."
+  },
+  "gbifPublisherKey": {
+    "name": "",
+    "count": "",
     "description": "Der Name der Organisation, die das Dataset publiziert, zu dem der Datensatz gehört."
   },
   "hostingOrganizationKey": {
@@ -251,7 +327,7 @@
     "description": ""
   },
   "occurrenceCount": {
-    "name": "",
+    "name": "Anzahl Vorkommen",
     "count": "",
     "description": ""
   },
@@ -293,7 +369,12 @@
   "active": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "GBIF-kommentiertes Archiv"
+  },
+  "personalCollection": {
+    "name": "",
+    "count": "",
+    "description": "GBIF-kommentiertes Archiv"
   },
   "datasetType": {
     "name": "Art des Datasets",
@@ -313,7 +394,8 @@
   "name": {
     "name": "Name",
     "count": "{num, plural, one { Name } other {# Namen}}",
-    "description": "A short description of the component should be placed here"
+    "description": "A short description of the component should be placed here",
+    "searchPlaceholder": "GBIF-kommentiertes Archiv"
   },
   "city": {
     "name": "Stadt",

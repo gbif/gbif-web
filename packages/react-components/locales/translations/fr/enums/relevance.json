@@ -1,0 +1,11 @@
+{
+  "GBIF_USED": "Utilisant le GBIF",
+  "GBIF_CITED": "Citant le GBIF",
+  "GBIF_DISCUSSED": "Traitant du GBIF",
+  "GBIF_PRIMARY": "GBIF source primaire de données",
+  "GBIF_ACKNOWLEDGED": "Reconnaissant le GBIF",
+  "GBIF_PUBLISHED": "Publié dans le GBIF",
+  "GBIF_AUTHOR": "Auteur du GBIF",
+  "GBIF_MENTIONED": "Le GBIF est mentionné",
+  "GBIF_FUNDED": "Financé par le GBIF"
+}

@@ -4,14 +4,17 @@
     "gallery": "Galerie",
     "map": "Carte",
     "datasets": "Jeux de données",
-    "download": "Télécharger"
+    "events": "Évènements",
+    "download": "Télécharger",
+    "sites": "Archive annotée par GBIF"
   },
   "table": {
     "lockColumn": ""
   },
   "placeholders": {
     "default": "Rechercher",
-    "range": ""
+    "range": "",
+    "locationID": "Archive annotée par GBIF"
   },
   "loadMore": "Plus"
 }
