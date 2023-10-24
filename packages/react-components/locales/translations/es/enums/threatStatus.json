@@ -1,0 +1,11 @@
+{
+  "EXTINCT": "Extinto",
+  "EXTINCT_IN_THE_WILD": "Extinto en estado silvestre",
+  "CRITICALLY_ENDANGERED": "En peligro crítico",
+  "ENDANGERED": "En peligro",
+  "VULNERABLE": "Vulnerable",
+  "NEAR_THREATENED": "Casi amenazado",
+  "LEAST_CONCERN": "Preocupación menor",
+  "DATA_DEFICIENT": "Datos insuficientes",
+  "NOT_EVALUATED": "No evaluado"
+}
