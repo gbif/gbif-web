@@ -4,14 +4,17 @@
     "gallery": "ギャラリー",
     "map": "マップ",
     "datasets": "データセット",
-    "download": "ダウンロード"
+    "events": "イベント",
+    "download": "ダウンロード",
+    "sites": "GBIFがアノーテーションしたアーカイブ"
   },
   "table": {
     "lockColumn": ""
   },
   "placeholders": {
     "default": "検索",
-    "range": ""
+    "range": "",
+    "locationID": "GBIFがアノーテーションしたアーカイブ"
   },
   "loadMore": "もっと読み込む"
 }
