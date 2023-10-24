@@ -11,5 +11,9 @@
         "MERCATOR": "墨卡托",
         "ANTARCTIC": "南极",
         "PLATE_CAREE": "板卡雷"
+    },
+    "failedToGetUserLocation": {
+        "title": "GBIF附加说明的归档",
+        "message": "GBIF附加说明的归档"
     }
 }
