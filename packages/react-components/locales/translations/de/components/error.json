@@ -1,1 +1,7 @@
-{}
+{
+  "generic": "Ein Fehler ist aufgetreten",
+  "unknown": "Unbekannter Fehler",
+  "report": "Problem melden",
+  "hideDetails": "Details verstecken",
+  "showDetails": "Details anzeigen"
+}
