@@ -5,7 +5,7 @@
     "gt": "",
     "gte": "",
     "e": "",
-    "between": ""
+    "between": "De {from} à {to}"
   },
   "compact": {
     "between": "",
@@ -69,14 +69,14 @@
   },
   "geoDistance": {
     "short": "",
-    "description": ""
+    "description": "Latitude {latitude}, longitude: {longitude}, distance : {distance}"
   },
   "units": {
     "name": {
-      "km": "",
-      "m": "",
-      "mi": "",
-      "ft": ""
+      "km": "kilomètres",
+      "m": "mètres",
+      "mi": "miles",
+      "ft": "pieds"
     }
   }
 }
