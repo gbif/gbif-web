@@ -1,4 +1,6 @@
 {
   "institutionUnknown": "Учреждение неизвестно",
-  "contentTypes": "Содержимое коллекции"
+  "contentTypes": "Содержимое коллекции",
+  "preservationTypes": "Способ хранения образцов",
+  "personalCollection": "Личная коллекция"
 }
