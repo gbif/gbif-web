@@ -1,0 +1,25 @@
+{
+  "searchTitle": "بحث عن الناشر",
+  "tabs": {
+    "aboutPublisher": "حول",
+    "metrics": "المقاييس",
+    "publishersHomepage": "الصفحة الرئيسية"
+  },
+  "joinedAgo": "انضم {TIME_AGO}",
+  "newPublisher": "ناشر جديد",
+  "technicalContact": "جهة التواصل التقنية",
+  "country": "بلد او منطقة",
+  "hosting": "استضافة",
+  "description": "التوصيف",
+  "endorsedBy": "صادق عليه من قبل",
+  "pendingEndorsementBy": "انتظار المصادقة عليه من قبل",
+  "endorsementWithheld": "",
+  "installations": "تركيبات",
+  "getDownloadReport": "",
+  "contacts": "جهات الاتصال",
+  "administrativeContact": "جهة الاتصال الادارية",
+  "header": {
+    "publisher": "الناشر",
+    "sinceDate": "منذ {DATE}"
+  }
+}
