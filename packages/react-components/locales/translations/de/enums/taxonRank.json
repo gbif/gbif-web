@@ -13,5 +13,10 @@
     "SUPERCLASS": "Superklasse",
     "CLASS": "Klasse",
     "SUBCLASS": "Unterklasse",
-    "INFRACLASS": "Infraklasse"
+    "INFRACLASS": "Infraklasse",
+    "ORDER": "Ordnung",
+    "FAMILY": "Familie",
+    "SUBFAMILY": "Unterfamilie",
+    "TRIBE": "Stamm",
+    "SUBTRIBE": "Unterstamm"
 }
