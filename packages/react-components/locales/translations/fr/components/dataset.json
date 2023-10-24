@@ -84,7 +84,7 @@
   "siblingEvents": "Événements associés",
   "childEvents": "Sous-événements",
   "events": "Évènements",
-  "boundingBox": "",
+  "boundingBox": "Cadre de sélection",
   "latitude": "Latitude",
   "longitude": "Longitude",
   "verbatim": "Original",
