@@ -4,7 +4,8 @@
     "lte": "",
     "gt": "",
     "gte": "",
-    "e": ""
+    "e": "",
+    "between": ""
   },
   "compact": {
     "between": "",
@@ -65,5 +66,17 @@
     "lt": "",
     "gt": "",
     "e": ""
+  },
+  "geoDistance": {
+    "short": "",
+    "description": ""
+  },
+  "units": {
+    "name": {
+      "km": "",
+      "m": "",
+      "mi": "",
+      "ft": ""
+    }
   }
 }
