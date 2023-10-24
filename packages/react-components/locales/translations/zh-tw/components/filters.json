@@ -1,8 +1,8 @@
 {
   "dwcaExtension": {
     "name": "達爾文延伸集",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { DWCA 延伸集 } other {# DWCA 延伸集}}",
+    "description": "在此輸入關於此項目的簡短敘述"
   },
   "locationId": {
     "name": "地點識別碼",
@@ -11,22 +11,85 @@
   },
   "collectionKey": {
     "name": "蒐藏集",
-    "count": "",
-    "description": ""
+    "count": "{num, plural,one {#蒐藏}other {#蒐藏}}",
+    "description": "這個紀錄與在 GrSciColl 中的蒐藏相符合"
   },
   "numberSpecimens": {
     "name": "標本數量",
     "count": "",
+    "description": "描述裡記載持有標本的數量。此數量並未反映有多少筆紀錄已經數位化且共享。"
+  },
+  "specimensInGbif": {
+    "name": "GBIF 的標本",
+    "count": "",
+    "description": "GBIF 註記的存檔"
+  },
+  "iucnRedListCategory": {
+    "name": "GBIF 註記的存檔",
+    "count": "GBIF 註記的存檔",
     "description": ""
+  },
+  "geoDistance": {
+    "name": "",
+    "count": "",
+    "description": "",
+    "placeholderLat": "",
+    "placeholderLon": "",
+    "placeholderDist": ""
+  },
+  "relevance": {
+    "name": "相關性",
+    "count": "",
+    "description": ""
+  },
+  "topics": {
+    "name": "主題",
+    "count": "",
+    "description": ""
+  },
+  "eventDate": {
+    "name": "事件日期",
+    "count": "GBIF 註記的存檔",
+    "description": "GBIF 註記的存檔"
+  },
+  "alternativeCode": {
+    "name": "GBIF 註記的存檔",
+    "count": "GBIF 註記的存檔",
+    "description": "GBIF 註記的存檔"
+  },
+  "identifier": {
+    "name": "識別碼",
+    "count": "GBIF 註記的存檔",
+    "description": ""
+  },
+  "institutionType": {
+    "name": "類型",
+    "count": "GBIF 註記的存檔",
+    "description": "GBIF 註記的存檔"
+  },
+  "discipline": {
+    "name": "GBIF 註記的存檔",
+    "count": "GBIF 註記的存檔",
+    "description": "GBIF 註記的存檔"
+  },
+  "collectionContentType": {
+    "name": "GBIF 註記的存檔",
+    "count": "GBIF 註記的存檔",
+    "description": "GBIF 註記的存檔"
+  },
+  "preservationType": {
+    "name": "GBIF 註記的存檔",
+    "count": "GBIF 註記的存檔",
+    "description": "GBIF 註記的存檔"
   },
   "taxonKey": {
     "name": "學名",
-    "count": "",
+    "count": "{num, plural,one {科學命名} other {#科學命名}}",
     "description": ""
   },
   "basisOfRecord": {
     "name": "紀錄類型",
-    "count": "",
+    "count": "{num, plural,one {紀錄基礎} other {#記錄基礎}}",
     "isNotNull": "",
     "isNull": "",
     "description": ""
@@ -58,15 +121,23 @@
     "count": "",
     "description": ""
   },
+  "grsciCollCountry": {
+    "description": "GBIF 註記的存檔"
+  },
+  "preparations": {
+    "name": "準備",
+    "count": "GBIF 註記的存檔",
+    "description": "GBIF 註記的存檔"
+  },
   "publishingCountryCode": {
-    "name": "",
+    "name": "發布國家或地區",
     "count": "",
     "description": ""
   },
   "q": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "GBIF 註記的存檔"
   },
   "coordinates": {
     "name": "座標"
@@ -91,6 +162,11 @@
     "count": "",
     "description": ""
   },
+  "gbifPublisherKey": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "hostingOrganizationKey": {
     "name": "維運機構",
     "count": "",
@@ -101,18 +177,18 @@
     "count": ""
   },
   "countriesOfCoverage": {
-    "name": "",
+    "name": "國家覆蓋率",
     "count": ""
   },
   "countriesOfResearcher": {
-    "name": "",
+    "name": "研究者的國家",
     "count": ""
   },
   "typeStatus": {
     "name": "類型狀態",
     "count": "",
     "isNotNull": "",
-    "isNull": "",
+    "isNull": "模式狀態",
     "description": ""
   },
   "year": {
@@ -293,7 +369,12 @@
   "active": {
     "name": "在線",
     "count": "在線",
-    "description": ""
+    "description": "GBIF 註記的存檔"
+  },
+  "personalCollection": {
+    "name": "私人典藏",
+    "count": "私人典藏",
+    "description": "GBIF 註記的存檔"
   },
   "datasetType": {
     "name": "資料集類型",
@@ -313,17 +394,18 @@
   "name": {
     "name": "名稱",
     "count": "",
-    "description": ""
+    "description": "GBIF 註記的存檔",
+    "searchPlaceholder": "GBIF 註記的存檔"
   },
   "city": {
     "name": "城市",
     "count": "",
-    "description": ""
+    "description": "GBIF 註記的存檔"
   },
   "code": {
     "name": "蒐藏代碼",
     "count": "",
-    "description": ""
+    "description": "GBIF 註記的存檔"
   },
   "verbatimScientificName": {
     "name": "逐字學名",
@@ -331,8 +413,8 @@
     "description": ""
   },
   "networkKey": {
-    "name": "",
-    "count": "",
+    "name": "網絡",
+    "count": "GBIF 註記的存檔",
     "description": ""
   },
   "literatureType": {
