@@ -10,5 +10,13 @@
   "SPACE": "Espacio",
   "SPACE_ASTRONOMY": "Astronomía espacial",
   "SPACE_ASTROPHYSICS": "Astrofísica espacial",
-  "SPACE_COSMOLOGY": "Cosmología espacial"
+  "SPACE_COSMOLOGY": "Cosmología espacial",
+  "SPACE_PLANETARY_SCIENCE": "Ciencia planetaria espacial",
+  "ATMOSPHERIC": "Atmosférico",
+  "ATMOSPHERIC_PHYSICS_DYNAMICS": "Dinámica de la física atmosférica",
+  "ATMOSPHERIC_CLIMATOLOGY": "Climatología atmosférica",
+  "ATMOSPHERIC_METEOROLOGY": "Meteorología atmosférica",
+  "CHEMICAL": "Química",
+  "CHEMICAL_ANALYTICAL": "Química analítica",
+  "CHEMICAL_ASTROCHEMISTRY": "Química astroquímica"
 }
