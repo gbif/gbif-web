@@ -4,14 +4,17 @@
     "gallery": "",
     "map": "",
     "datasets": "مجموعه اطلاعات",
-    "download": "دانلود"
+    "events": "",
+    "download": "دانلود",
+    "sites": ""
   },
   "table": {
     "lockColumn": ""
   },
   "placeholders": {
     "default": "",
-    "range": ""
+    "range": "",
+    "locationID": ""
   },
   "loadMore": "بیشتر"
 }
