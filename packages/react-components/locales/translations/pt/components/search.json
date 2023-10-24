@@ -4,14 +4,17 @@
     "gallery": "Galeria",
     "map": "Mapa",
     "datasets": "Conjuntos de dados",
-    "download": "Transferir"
+    "events": "Eventos",
+    "download": "Transferir",
+    "sites": "Ficheiros registados no GBIF"
   },
   "table": {
     "lockColumn": ""
   },
   "placeholders": {
     "default": "Pesquisa",
-    "range": ""
+    "range": "",
+    "locationID": "Ficheiros registados no GBIF"
   },
   "loadMore": "Mais"
 }
