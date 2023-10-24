@@ -1,3 +1,9 @@
 {
-  "literature": "Literatur"
+  "occurrences": "Vorkommen",
+  "datasets": "Datensätze",
+  "species": "Art",
+  "publishers": "Herausgeber",
+  "literature": "Literatur",
+  "collections": "Sammlungen",
+  "institutions": "Institutionen"
 }
