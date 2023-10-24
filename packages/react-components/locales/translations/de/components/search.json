@@ -4,14 +4,17 @@
     "gallery": "Galerie",
     "map": "Karte",
     "datasets": "Datasets",
-    "download": "Download"
+    "events": "",
+    "download": "Download",
+    "sites": "GBIF-kommentiertes Archiv"
   },
   "table": {
     "lockColumn": "Spalte fixieren"
   },
   "placeholders": {
     "default": "Suche",
-    "range": "Bereich oder einzelner Wert"
+    "range": "Bereich oder einzelner Wert",
+    "locationID": "GBIF-kommentiertes Archiv"
   },
   "loadMore": "Mehr"
 }
