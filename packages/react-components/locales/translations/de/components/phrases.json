@@ -5,5 +5,9 @@
   "close": "Schließen",
   "citation": "Zitierweise",
   "citeAs": "Bitte verwenden Sie diese Zitierung in Publikationen",
-  "unknownDate": "Unbekanntes Datum"
+  "unknownDate": "Unbekanntes Datum",
+  "metrics": "Kennzahlen",
+  "datasets": "Datensätze",
+  "hostedDatasets": "Gehostete Datasets",
+  "project": "Projekt"
 }
