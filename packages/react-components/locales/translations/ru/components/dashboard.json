@@ -1,11 +1,15 @@
 {
+  "numberOfOccurrences": "Число наблюдений",
   "noData": "Нет данных",
+  "statistics": "Статистика",
   "occurrenceRecords": "Число записей о находках видов",
   "species": "Вид",
   "taxa": "Таксоны",
   "yearRange": "Временной диапазон",
+  "identifiedToSpecies": "Идентифицировано до вида",
   "withCoordinates": "С координатами",
   "withYear": "С указанием года",
+  "withMedia": "Содержит медиа",
   "occurrences": "Находки",
   "other": "Другая",
   "unknown": "Неизвестно"
