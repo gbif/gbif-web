@@ -1,1 +1,3 @@
-{}
+{
+  "nDatasets": "{NUMBER_FORMATED} {NUMBER, select, other{datasæt}}"
+}
