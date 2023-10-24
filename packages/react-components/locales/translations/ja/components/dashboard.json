@@ -1,0 +1,12 @@
+{
+  "noData": "データなし",
+  "occurrenceRecords": "オカレンスレコード",
+  "species": "種",
+  "taxa": "分類群",
+  "yearRange": "記録年のレンジ",
+  "withCoordinates": "経緯度",
+  "withYear": "年",
+  "occurrences": "オカレンス",
+  "other": "その他",
+  "unknown": "不明"
+}
