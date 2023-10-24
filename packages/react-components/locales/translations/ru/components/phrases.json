@@ -11,5 +11,7 @@
   "occurrenceMetrics": "Показатели для находок",
   "project": "Проект",
   "license": "Лицензия",
+  "pageNotFound": "Ошибка 404",
+  "pageNotFoundDescription": "К сожалению, запрашиваемая вами страница не существует.",
   "download": "Загрузить"
 }
