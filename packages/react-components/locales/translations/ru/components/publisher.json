@@ -13,9 +13,9 @@
   "description": "Описание",
   "endorsedBy": "Одобрена",
   "pendingEndorsementBy": "Ожидает одобрения",
-  "endorsementWithheld": "",
+  "endorsementWithheld": "Отказано в одобрении",
   "installations": "Поддерживаемые инсталляции",
-  "getDownloadReport": "",
+  "getDownloadReport": "Отчет об активности загрузок",
   "contacts": "Контактные данные",
   "administrativeContact": "Административный контакт",
   "header": {
