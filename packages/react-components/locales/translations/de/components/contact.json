@@ -1,1 +1,9 @@
-{}
+{
+  "position": "Position",
+  "organization": "Organisation",
+  "email": "E-Mail",
+  "address": "Adresse",
+  "roles": "Rollen",
+  "userId": "Benutzer-ID",
+  "name": "Name"
+}
