@@ -1,6 +1,10 @@
 {
+  "position": "職位",
+  "organization": "組織",
   "email": "電子郵件",
   "address": "地址",
+  "phone": "電話",
   "roles": "角色",
+  "userId": "使用者ID",
   "name": "名稱"
 }
