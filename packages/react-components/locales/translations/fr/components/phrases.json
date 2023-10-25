@@ -5,6 +5,8 @@
   "close": "Fermer",
   "citation": "Citation",
   "citeAs": "Veuillez utiliser cette citation dans les publications",
+  "deletedOnDate": "Supprimé le {date}",
+  "replacedBy": "Remplacé par {newItem}",
   "showAll": "Tout afficher",
   "identifier": "Identifiant",
   "unknownDate": "Date inconnue",
@@ -16,5 +18,8 @@
   "occurrenceMetrics": "Statistique sur les occurrences",
   "project": "Projet",
   "license": "Licence",
+  "downloadAsTsv": "Télécharger en tant que TSV",
+  "backHome": "Retour à la page d'accueil",
+  "pageNotFound": "404",
   "download": "Télécharger"
 }

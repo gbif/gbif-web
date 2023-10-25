@@ -6,5 +6,9 @@
   "nAudioFiles": "{total, plural, one {# geluidsbestand} other {# geluidsbestanden}}",
   "nImages": "{total, plural, one {# afbeelding} other {# afbeeldingen}}",
   "nResultsWithCoordinates": "{total, plural, one {# resultaat } other {# resultaten}} met coördinaten\n",
-  "nResultsWithImages": "{total, plural, one {# resultaat } other {# resultaten}} met afbeeldingen\n"
+  "percentWithYear": "{percent}% met jaar",
+  "percentWithTaxonMatch": "{percent}% overeenkomst met taxon",
+  "nResultsWithImages": "{total, plural, one {# resultaat } other {# resultaten}} met afbeeldingen\n",
+  "gbifOverlapPercent": "{percent}% overlap met GBIF Backbone",
+  "colOverlapPercent": "{percent}% overlap met Catalogue of Life"
 }

@@ -33,9 +33,9 @@
     "name": "",
     "count": "",
     "description": "",
-    "placeholderLat": "",
-    "placeholderLon": "",
-    "placeholderDist": ""
+    "placeholderLat": "Широта",
+    "placeholderLon": "Долгота",
+    "placeholderDist": "Расстояние"
   },
   "relevance": {
     "name": "Отношение публикации к GBIF",

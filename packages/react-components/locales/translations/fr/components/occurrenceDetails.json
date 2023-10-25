@@ -34,15 +34,15 @@
     "isSamplingEvent": "Événement d'échantillonnage",
     "isTreament": "Traitement",
     "isSequenced": "Séquencé",
-    "hasIssues": "",
-    "hasCoordinates": "",
+    "hasIssues": "Problèmes et remarques",
+    "hasCoordinates": "A des coordonnées",
     "hasCountry": "Pays",
     "hasImages": "Multimedia",
     "hasSound": "Son",
     "hasVideo": "Vidéo",
     "isSpecimen": "Spécimen",
     "eventDate": "Date de l'événement",
-    "isType": ""
+    "isType": "Spécimens type"
   },
   "extensions": {
     "audubon": {
@@ -50,15 +50,15 @@
       "properties": {
         "identifier": "Identifiant",
         "type": "Type ",
-        "subtypeLiteral": "",
-        "subtype": "",
+        "subtypeLiteral": "Sous-type littéral",
+        "subtype": "Sous-type",
         "title": "Titre",
         "modified": "Modifié",
-        "MetadataDate": "",
-        "metadataLanguageLiteral": "",
+        "MetadataDate": "Date des métadonnées",
+        "metadataLanguageLiteral": "Langue littérale des métadonnées",
         "metadataLanguage": "Langue des métadonnées",
-        "providerManagedID": "",
-        "Rating": "",
+        "providerManagedID": "Id géré par le fournisseur",
+        "Rating": "Évaluation",
         "commenterLiteral": "",
         "commenter": "Archive annotée par GBIF",
         "comments": "Commentaires",
@@ -277,7 +277,7 @@
       "name": "Identification",
       "properties": {
         "identificationID": "Archive annotée par GBIF",
-        "verbatimIdentification": "",
+        "verbatimIdentification": "Verbatim de l'identification",
         "identificationQualifier": "Qualificateur d’identification",
         "typeStatus": "Statut du type",
         "identifiedBy": "Identifié par",
@@ -311,10 +311,10 @@
         "genus": "Genre",
         "genericName": "Nom générique",
         "subgenus": "Sous-genre",
-        "infragenericEpithet": "",
+        "infragenericEpithet": "Épithète infragénérique",
         "specificEpithet": "Epithète spécifique",
         "infraspecificEpithet": "épithète infraspécifique",
-        "cultivarEpithet": "",
+        "cultivarEpithet": "Épithète du cultivar",
         "taxonRank": "Archive annotée par GBIF",
         "verbatimTaxonRank": "Archive annotée par GBIF",
         "scientificNameAuthorship": "créateur du nom scientifique",
@@ -548,7 +548,7 @@
       }
     },
     "chronometricAge": {
-      "name": "",
+      "name": "Âge chronométrique",
       "properties": {
         "chronometricAgeID": "Archive annotée par GBIF",
         "verbatimChronometricAge": "Archive annotée par GBIF",
@@ -571,7 +571,7 @@
       }
     },
     "dnaDerivedData": {
-      "name": "",
+      "name": "Données dérivées de l'ADN",
       "properties": {}
     }
   }

@@ -27,25 +27,25 @@
   "iucnRedListCategory": {
     "name": "Archive annotée par GBIF",
     "count": "Archive annotée par GBIF",
-    "description": ""
+    "description": "La Liste rouge des espèces menacées de l'UICN regroupe les taxons selon le niveau de menaces auxquels ils font face."
   },
   "geoDistance": {
-    "name": "",
-    "count": "",
-    "description": "",
-    "placeholderLat": "",
-    "placeholderLon": "",
-    "placeholderDist": ""
+    "name": "Distance par rapport aux coordonnées",
+    "count": "{num, plural, one { filtre } other {# filtres }}",
+    "description": "Filtrer les enregistrements à une distance donnée d'un point",
+    "placeholderLat": "Latitude",
+    "placeholderLon": "Longitude",
+    "placeholderDist": "Distance"
   },
   "relevance": {
     "name": "Pertinence",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { pertinence } other {# filtres de pertinence}}",
+    "description": "Comment le GBIF est-il utilisé dans la littérature."
   },
   "topics": {
     "name": "Thème",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { sujet } other {# sujets}}",
+    "description": "Quels sont les sujets de l'enregistrement."
   },
   "eventDate": {
     "name": "Date de l'événement",
@@ -60,7 +60,7 @@
   "identifier": {
     "name": "Identifiant",
     "count": "Archive annotée par GBIF",
-    "description": ""
+    "description": "Une courte description de la composante devrait apparaître ici"
   },
   "institutionType": {
     "name": "Type ",
@@ -163,9 +163,9 @@
     "description": ""
   },
   "gbifPublisherKey": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Éditeur GBIF",
+    "count": "{num, plural, one {éditeur GBIF} other {# éditeurs GBIF}}",
+    "description": "Le nom de l'organisation responsable du partage du jeu de données dans lequel l'enregistrement est inclus."
   },
   "hostingOrganizationKey": {
     "name": "Organisation hôte",
