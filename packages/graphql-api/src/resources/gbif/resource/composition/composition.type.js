@@ -12,7 +12,7 @@ const typeDef = gql`
     # TODO: Add blocks when the changes has been made in the API
     title: String
     updatedAt: DateTime
-    primaryImage: Image
+    primaryImage: AssetImage
     keywords: [String]
     urlAlias: String
     machineIdentifier: String
