@@ -1,4 +1,4 @@
-import { getHtml } from "#/helpers/utils";
+import { getHtml, trustedTags } from "#/helpers/utils";
 
 /**
  * fieldName: (parent, args, context, info) => data;
@@ -15,5 +15,6 @@ export default {
   Notification: {
     title: src => getHtml(src.title, { inline: true }),
     summary: src => getHtml(src.summary),
+    body: src => getHtml(src.body, {allowedTags: trustedTags}),
   }
 }
