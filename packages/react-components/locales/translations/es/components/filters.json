@@ -33,9 +33,9 @@
     "name": "",
     "count": "",
     "description": "",
-    "placeholderLat": "",
-    "placeholderLon": "",
-    "placeholderDist": ""
+    "placeholderLat": "Latitud",
+    "placeholderLon": "Longitud",
+    "placeholderDist": "Distancia"
   },
   "relevance": {
     "name": "Relevancia",
