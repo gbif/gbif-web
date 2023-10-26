@@ -26,6 +26,12 @@
   "EARTH_PLANETARY_SOILS": "Почвы планеты Земля",
   "EARTH_PLANETARY_SPACE_EXPOSED_MATERIALS": "Материалы, подвергшиеся воздействию планетарного космоса Земли",
   "EARTH_PLANETARY_WATER": "Планетарная вода",
+  "PALEONTOLOGICAL_OTHER": "Другие палеонтологические свидетельства",
   "PALEONTOLOGICAL_CONODONTS": "Палеонтологические конодонты",
-  "PALEONTOLOGICAL_INVERTEBRATE_FOSSILS": "Палеонтологические окаменелости беспозвоночных"
+  "PALEONTOLOGICAL_INVERTEBRATE_FOSSILS": "Палеонтологические окаменелости беспозвоночных",
+  "PALEONTOLOGICAL_INVERTEBRATE_MICROFOSSILS": "Палеонтологические микрофоссилии (микроокаменелости) беспозвоночных",
+  "PALEONTOLOGICAL_PETRIFIED_WOOD": "Палеонтологическое окаменевшее дерево",
+  "PALEONTOLOGICAL_PLANT_FOSSILS": "Палеонтологические окаменелости растений",
+  "PALEONTOLOGICAL_TRACE_FOSSILS": "Палеонтологические окаменелости следов",
+  "PALEONTOLOGICAL_VERTEBRATE_FOSSILS": "Палеонтологические окаменелости позвоночных"
 }
