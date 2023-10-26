@@ -73,10 +73,10 @@
   },
   "units": {
     "name": {
-      "km": "",
-      "m": "",
-      "mi": "",
-      "ft": ""
+      "km": "kilometers",
+      "m": "meters",
+      "mi": "mijl",
+      "ft": "voet"
     }
   }
 }
