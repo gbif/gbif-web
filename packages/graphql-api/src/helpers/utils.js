@@ -215,7 +215,14 @@ function sanitize(dirty, { allowedTags = standardTags} = {}) {
       'a': function (tagName, attr) {
         attr.href = prefixLinkUrl(attr.href);
         return {
-          tagName: 'a',
+          tagName,
+          attribs: attr
+        };
+      },
+      'img': function (tagName, attr) {
+        attr.src = prefixLinkUrl(attr.src);
+        return {
+          tagName,
           attribs: attr
         };
       }
