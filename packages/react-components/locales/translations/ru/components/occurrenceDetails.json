@@ -54,7 +54,7 @@
         "subtype": "Подтип",
         "title": "Название",
         "modified": "\nОбновлено",
-        "MetadataDate": "",
+        "MetadataDate": "Дата метаданных",
         "metadataLanguageLiteral": "",
         "metadataLanguage": "Язык метаданных",
         "providerManagedID": "",
@@ -141,7 +141,7 @@
       }
     },
     "amplification": {
-      "name": "",
+      "name": "Усиление",
       "properties": {
         "amplificationDate": "Архив, аннотированный GBIF",
         "amplificationStaff": "Архив, аннотированный GBIF",
@@ -510,7 +510,7 @@
       }
     },
     "preparation": {
-      "name": "",
+      "name": "Препарирование",
       "properties": {
         "preparationType": "Архив, аннотированный GBIF",
         "preparationProcess": "Архив, аннотированный GBIF",
@@ -521,7 +521,7 @@
       }
     },
     "preservation": {
-      "name": "",
+      "name": "Сохранение",
       "properties": {
         "preservationType": "Архив, аннотированный GBIF",
         "preservationTemperature": "Архив, аннотированный GBIF",
@@ -548,7 +548,7 @@
       }
     },
     "chronometricAge": {
-      "name": "",
+      "name": "Хронометрический возраст",
       "properties": {
         "chronometricAgeID": "Архив, аннотированный GBIF",
         "verbatimChronometricAge": "Архив, аннотированный GBIF",
@@ -571,7 +571,7 @@
       }
     },
     "dnaDerivedData": {
-      "name": "",
+      "name": "Данные, полученные на основе ДНК",
       "properties": {}
     }
   }
