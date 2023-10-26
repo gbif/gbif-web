@@ -30,9 +30,9 @@
     "description": ""
   },
   "geoDistance": {
-    "name": "",
+    "name": "Distancia de coordenadas",
     "count": "",
-    "description": "",
+    "description": "Filtrar los registros dentro de una distancia determinada desde un punto",
     "placeholderLat": "Latitud",
     "placeholderLon": "Longitud",
     "placeholderDist": "Distancia"
@@ -40,12 +40,12 @@
   "relevance": {
     "name": "Relevancia",
     "count": "",
-    "description": ""
+    "description": "¿Cómo se utiliza GBIF en la literatura?"
   },
   "topics": {
     "name": "Tema",
     "count": "",
-    "description": ""
+    "description": "¿Cuáles son los temas del registro?"
   },
   "eventDate": {
     "name": "Fecha del Evento",
