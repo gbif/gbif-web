@@ -8,7 +8,6 @@ export class ResourceAPI extends RESTDataSource {
   }
 
   async getEntryById({ id, preview, locale }) {
-    console.log('getEntryById', id, preview, locale);
     let path = `/content/${id}`;
     if (preview) path += `/preview?cacheBust=${Date.now()}`;
 
