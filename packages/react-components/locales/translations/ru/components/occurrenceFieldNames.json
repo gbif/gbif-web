@@ -255,5 +255,7 @@
   "coordinatesTextual": "Эта запись опубликована без координат, но она содержит текстовое описание местонахождения.",
   "coordinatesMissing": "Координаты отсутствуют",
   "taxonomicClassification": "Классификация",
-  "images": "Мультимедиа"
+  "images": "Мультимедиа",
+  "eventTypeHierarchyJoined": "Структура",
+  "eventType": "Тип события"
 }
