@@ -5,7 +5,7 @@
     "gt": "Mayor que {from}",
     "gte": "Mayor o igual que {from}",
     "e": "Igual a {is}",
-    "between": ""
+    "between": "De {from} a {to}"
   },
   "compact": {
     "between": "de {from} a {to}",
@@ -68,8 +68,8 @@
     "e": "La elevación es {from}"
   },
   "geoDistance": {
-    "short": "",
-    "description": ""
+    "short": "Dentro de {distance} de {latitude},{longitude}",
+    "description": "Latitud {latitude}, longitud: {longitude}, distancia: {distance}"
   },
   "units": {
     "name": {
