@@ -1,6 +1,8 @@
 {
   "unknown": "Неизвестно",
   "citation": "Цитирование",
+  "deletedOnDate": "Удалено {date}",
+  "replacedBy": "Заменено на {newItem}",
   "showAll": "Показать все",
   "identifier": "Идентификатор",
   "unknownDate": "Неизвестная дата",
