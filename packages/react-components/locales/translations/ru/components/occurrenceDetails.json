@@ -285,7 +285,7 @@
         "dateIdentified": "Дата определения",
         "identificationReferences": "Ссылка на определение",
         "identificationVerificationStatus": "Определение проверено",
-        "identificationRemarks": "Комментарии к определению",
+        "identificationRemarks": "Комментарии к идентификации",
         "taxonID": "Архив, аннотированный GBIF",
         "scientificNameID": "Архив, аннотированный GBIF",
         "acceptedNameUsageID": "Архив, аннотированный GBIF",
@@ -294,7 +294,7 @@
         "nameAccordingToID": "Архив, аннотированный GBIF",
         "namePublishedInID": "Архив, аннотированный GBIF",
         "taxonConceptID": "Архив, аннотированный GBIF",
-        "scientificName": "Латинское название",
+        "scientificName": "Научное название",
         "acceptedNameUsage": "Указанное валидное название",
         "parentNameUsage": "Указанный родительский таксон",
         "originalNameUsage": "Использование исходного названия",
@@ -303,7 +303,7 @@
         "namePublishedInYear": "Название опубликовано в году",
         "higherClassification": "Вышестоящие таксоны",
         "kingdom": "Царство",
-        "phylum": "Тип / Отдел",
+        "phylum": "Тип",
         "class": "Класс",
         "order": "Отряд / Порядок",
         "family": "Семейство",
@@ -319,7 +319,7 @@
         "verbatimTaxonRank": "Архив, аннотированный GBIF",
         "scientificNameAuthorship": "Автор латинского названия",
         "vernacularName": "Название на национальном языке",
-        "nomenclaturalCode": "Номенклатурный кодекс",
+        "nomenclaturalCode": "Номенклатурный код",
         "taxonomicStatus": "Таксономический статус",
         "nomenclaturalStatus": "Номенклатурный статус",
         "taxonRemarks": "Примечания к таксону"
@@ -382,7 +382,7 @@
         "created": "Создано",
         "creator": "Автор",
         "contributor": "Участник",
-        "publisher": "Организация",
+        "publisher": "Организация, публикующая данные",
         "audience": "Аудитория",
         "source": "Источник",
         "license": "Лицензия",
@@ -473,7 +473,7 @@
       }
     },
     "materialSample": {
-      "name": "Образец из коллекции",
+      "name": "Образец материала",
       "properties": {
         "materialSampleType": "Архив, аннотированный GBIF",
         "concentration": "Архив, аннотированный GBIF",
@@ -533,7 +533,7 @@
       "name": "",
       "properties": {
         "measurementID": "Архив, аннотированный GBIF",
-        "occurrenceID": "ID находки",
+        "occurrenceID": "Идентификатор события",
         "measurementType": "Архив, аннотированный GBIF",
         "measurementTypeID": "Архив, аннотированный GBIF",
         "measurementValue": "Архив, аннотированный GBIF",
