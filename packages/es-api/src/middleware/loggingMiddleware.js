@@ -18,7 +18,7 @@ function loggingMiddleware(req, res, next) {
 		logger.info({
 			message: 'ES-API Request',
 			time: date.toISOString(),
-			timeInCopenhagen: date.toLocaleString('da-DK', { timeZone: 'Europe/Copenhagen' }),
+			timeInCopenhagen: date.toLocaleString('en-GB', { timeZone: 'Europe/Copenhagen' }),
 			executionTimeMs: Math.round(elapsedMilliseconds),
 			request: {
 				headers: req.headers,

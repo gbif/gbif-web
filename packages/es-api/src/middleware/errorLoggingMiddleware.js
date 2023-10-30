@@ -10,7 +10,7 @@ function errorLoggingMiddleware(error, req, res, next) {
 		message: 'ES-API Error',
 		error,
 		time: date.toISOString(),
-		timeInCopenhagen: date.toLocaleString('da-DK', { timeZone: 'Europe/Copenhagen' }),
+		timeInCopenhagen: date.toLocaleString('en-GB', { timeZone: 'Europe/Copenhagen' }),
 		request: {
 			headers: req.headers,
 			body: req.body,

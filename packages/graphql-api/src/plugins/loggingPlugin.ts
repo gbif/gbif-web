@@ -17,7 +17,7 @@ export const loggingPlugin: PluginDefinition = {
         logger.error({
           message: 'GraphQL Error',
           time: date.toISOString(),
-          timeInCopenhagen: date.toLocaleString('da-DK', { timeZone: 'Europe/Copenhagen' }),
+          timeInCopenhagen: date.toLocaleString('en-GB', { timeZone: 'Europe/Copenhagen' }),
           request: {
             operationName: requestContext.request.operationName,
             query: requestContext.request.query,
@@ -42,7 +42,7 @@ export const loggingPlugin: PluginDefinition = {
         logger.info({
           message: 'GraphQL Query',
           time: date.toISOString(),
-          timeInCopenhagen: date.toLocaleString('da-DK', { timeZone: 'Europe/Copenhagen' }),
+          timeInCopenhagen: date.toLocaleString('en-GB', { timeZone: 'Europe/Copenhagen' }),
           executionTimeMs: Math.round(elapsedMilliseconds),
           request: {
             operationName: requestContext.request.operationName,
