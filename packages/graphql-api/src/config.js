@@ -13,9 +13,14 @@ const env = YAML.parse(file);
 const cliOptions = [
   { name: 'port', alias: 'p', type: Number },
   { name: 'debug', type: Boolean, defaultOption: false },
+  { name: 'environment', type: String },
 ];
 const options = commandLineArgs(cliOptions);
 
-const config = merge({ debug: false }, env, options);
+const config = merge(
+  { debug: false, environment: 'dev' }, 
+  env, 
+  options,
+);
 
 export default config;
