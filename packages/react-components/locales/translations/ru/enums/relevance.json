@@ -1,11 +1,11 @@
 {
-  "GBIF_USED": "Количественный анализ данных GBIF",
-  "GBIF_CITED": "Упомянуты данные GBIF",
-  "GBIF_DISCUSSED": "Обсуждение портала GBIF",
+  "GBIF_USED": "Использованные материалы GBIF",
+  "GBIF_CITED": "Цитирование GBIF",
+  "GBIF_DISCUSSED": "Обсуждаемый в GBIF",
   "GBIF_PRIMARY": "GBIF - основной источник данных",
-  "GBIF_ACKNOWLEDGED": "Выражена благодарность GBIF",
-  "GBIF_PUBLISHED": "Обсуждение опубликованных данных",
-  "GBIF_AUTHOR": "Сотрудники GBIF среди соавторов",
-  "GBIF_MENTIONED": "Прочие упоминания GBIF",
-  "GBIF_FUNDED": "Исследование финансировано GBIF"
+  "GBIF_ACKNOWLEDGED": "Подтверждён GBIF",
+  "GBIF_PUBLISHED": "Опубликовано GBIF",
+  "GBIF_AUTHOR": "Автор, сотрудник GBIF",
+  "GBIF_MENTIONED": "Упоминания GBIF",
+  "GBIF_FUNDED": "Финансируемый GBIF"
 }

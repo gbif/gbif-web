@@ -35,20 +35,20 @@
     "description": "",
     "placeholderLat": "Breedtegraad",
     "placeholderLon": "Lengtegraad",
-    "placeholderDist": ""
+    "placeholderDist": "Afstand"
   },
   "relevance": {
-    "name": "",
+    "name": "Relevantie",
     "count": "",
     "description": ""
   },
   "topics": {
-    "name": "",
+    "name": "Onderwerp",
     "count": "",
-    "description": ""
+    "description": "Wat zijn de onderwerpen van het dossier."
   },
   "eventDate": {
-    "name": "",
+    "name": "Datum van gebeurtenis",
     "count": "",
     "description": ""
   },

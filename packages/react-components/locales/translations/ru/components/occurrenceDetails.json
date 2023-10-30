@@ -39,9 +39,9 @@
     "hasCountry": "Страна",
     "hasImages": "Мультимедиа",
     "hasSound": "Аудио",
-    "hasVideo": "Видеозапись",
+    "hasVideo": "Видео",
     "isSpecimen": "Образец",
-    "eventDate": "Дата",
+    "eventDate": "Дата события",
     "isType": ""
   },
   "extensions": {
@@ -54,7 +54,7 @@
         "subtype": "Подтип",
         "title": "Название",
         "modified": "\nОбновлено",
-        "MetadataDate": "",
+        "MetadataDate": "Дата метаданных",
         "metadataLanguageLiteral": "",
         "metadataLanguage": "Язык метаданных",
         "providerManagedID": "",
@@ -108,8 +108,8 @@
         "nameAccordingTo": "Название согласно",
         "scientificNameID": "Архив, аннотированный GBIF",
         "otherScientificName": "Архив, аннотированный GBIF",
-        "identifiedBy": "Кем определено",
-        "dateIdentified": "Дата определения",
+        "identifiedBy": "Идентифицировано",
+        "dateIdentified": "Дата идентификации",
         "taxonCount": "Архив, аннотированный GBIF",
         "subjectPart": "Архив, аннотированный GBIF",
         "sex": "Пол",
@@ -141,7 +141,7 @@
       }
     },
     "amplification": {
-      "name": "",
+      "name": "Усиление",
       "properties": {
         "amplificationDate": "Архив, аннотированный GBIF",
         "amplificationStaff": "Архив, аннотированный GBIF",
@@ -279,13 +279,13 @@
         "identificationID": "Архив, аннотированный GBIF",
         "verbatimIdentification": "",
         "identificationQualifier": "Комментарии автора определения",
-        "typeStatus": "Статус типового экземпляра",
-        "identifiedBy": "Кем определено",
+        "typeStatus": "Статус типа",
+        "identifiedBy": "Идентифицировано",
         "identifiedByID": "Идентифицировано по ID",
-        "dateIdentified": "Дата определения",
-        "identificationReferences": "Ссылка на определение",
-        "identificationVerificationStatus": "Определение проверено",
-        "identificationRemarks": "Комментарии к определению",
+        "dateIdentified": "Дата идентификации",
+        "identificationReferences": "Рекомендации к идентификации",
+        "identificationVerificationStatus": "Статус проверки идентификации",
+        "identificationRemarks": "Комментарии к идентификации",
         "taxonID": "Архив, аннотированный GBIF",
         "scientificNameID": "Архив, аннотированный GBIF",
         "acceptedNameUsageID": "Архив, аннотированный GBIF",
@@ -294,7 +294,7 @@
         "nameAccordingToID": "Архив, аннотированный GBIF",
         "namePublishedInID": "Архив, аннотированный GBIF",
         "taxonConceptID": "Архив, аннотированный GBIF",
-        "scientificName": "Латинское название",
+        "scientificName": "Научное название",
         "acceptedNameUsage": "Указанное валидное название",
         "parentNameUsage": "Указанный родительский таксон",
         "originalNameUsage": "Использование исходного названия",
@@ -303,7 +303,7 @@
         "namePublishedInYear": "Название опубликовано в году",
         "higherClassification": "Вышестоящие таксоны",
         "kingdom": "Царство",
-        "phylum": "Тип / Отдел",
+        "phylum": "Тип",
         "class": "Класс",
         "order": "Отряд / Порядок",
         "family": "Семейство",
@@ -319,7 +319,7 @@
         "verbatimTaxonRank": "Архив, аннотированный GBIF",
         "scientificNameAuthorship": "Автор латинского названия",
         "vernacularName": "Название на национальном языке",
-        "nomenclaturalCode": "Номенклатурный кодекс",
+        "nomenclaturalCode": "Номенклатурный код",
         "taxonomicStatus": "Таксономический статус",
         "nomenclaturalStatus": "Номенклатурный статус",
         "taxonRemarks": "Примечания к таксону"
@@ -382,7 +382,7 @@
         "created": "Создано",
         "creator": "Автор",
         "contributor": "Участник",
-        "publisher": "Организация",
+        "publisher": "Организация, публикующая данные",
         "audience": "Аудитория",
         "source": "Источник",
         "license": "Лицензия",
@@ -473,7 +473,7 @@
       }
     },
     "materialSample": {
-      "name": "Образец из коллекции",
+      "name": "Образец материала",
       "properties": {
         "materialSampleType": "Архив, аннотированный GBIF",
         "concentration": "Архив, аннотированный GBIF",
@@ -510,7 +510,7 @@
       }
     },
     "preparation": {
-      "name": "",
+      "name": "Препарирование",
       "properties": {
         "preparationType": "Архив, аннотированный GBIF",
         "preparationProcess": "Архив, аннотированный GBIF",
@@ -521,7 +521,7 @@
       }
     },
     "preservation": {
-      "name": "",
+      "name": "Сохранение",
       "properties": {
         "preservationType": "Архив, аннотированный GBIF",
         "preservationTemperature": "Архив, аннотированный GBIF",
@@ -533,7 +533,7 @@
       "name": "",
       "properties": {
         "measurementID": "Архив, аннотированный GBIF",
-        "occurrenceID": "ID находки",
+        "occurrenceID": "Идентификатор события",
         "measurementType": "Архив, аннотированный GBIF",
         "measurementTypeID": "Архив, аннотированный GBIF",
         "measurementValue": "Архив, аннотированный GBIF",
@@ -548,7 +548,7 @@
       }
     },
     "chronometricAge": {
-      "name": "",
+      "name": "Хронометрический возраст",
       "properties": {
         "chronometricAgeID": "Архив, аннотированный GBIF",
         "verbatimChronometricAge": "Архив, аннотированный GBIF",
@@ -571,7 +571,7 @@
       }
     },
     "dnaDerivedData": {
-      "name": "",
+      "name": "Данные, полученные на основе ДНК",
       "properties": {}
     }
   }
