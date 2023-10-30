@@ -3,15 +3,18 @@
     "table": "",
     "gallery": "",
     "map": "",
-    "datasets": "",
-    "download": ""
+    "datasets": "Zbiory danych",
+    "events": "",
+    "download": "",
+    "sites": ""
   },
   "table": {
     "lockColumn": ""
   },
   "placeholders": {
     "default": "",
-    "range": ""
+    "range": "",
+    "locationID": ""
   },
   "loadMore": ""
 }

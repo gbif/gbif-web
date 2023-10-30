@@ -257,5 +257,7 @@
   "coordinatesMissing": "Coordonnées absentes",
   "taxonomicClassification": "Classification",
   "gadmClassification": "Localisation selon GADM",
-  "images": "Multimedia"
+  "images": "Multimedia",
+  "eventTypeHierarchyJoined": "Identifiant de Structure",
+  "eventType": "Type d'évènement"
 }

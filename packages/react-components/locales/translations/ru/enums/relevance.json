@@ -1,0 +1,11 @@
+{
+  "GBIF_USED": "Использованные материалы GBIF",
+  "GBIF_CITED": "Цитирование GBIF",
+  "GBIF_DISCUSSED": "Обсуждаемый в GBIF",
+  "GBIF_PRIMARY": "GBIF - основной источник данных",
+  "GBIF_ACKNOWLEDGED": "Подтверждён GBIF",
+  "GBIF_PUBLISHED": "Опубликовано GBIF",
+  "GBIF_AUTHOR": "Автор, сотрудник GBIF",
+  "GBIF_MENTIONED": "Упоминания GBIF",
+  "GBIF_FUNDED": "Финансируемый GBIF"
+}

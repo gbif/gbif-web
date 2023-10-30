@@ -1,4 +1,4 @@
-import { getHtml, excerpt, createLocalizedGbifHref } from "#/helpers/utils";
+import { getHtml, excerpt, trustedTags, createLocalizedGbifHref } from "#/helpers/utils";
 
 /**
  * fieldName: (parent, args, context, info) => data;
@@ -15,7 +15,7 @@ export default {
   Event: {
     title: src => getHtml(src.title, { inline: true }),
     summary: src => getHtml(src.summary),
-    body: src => getHtml(src.body),
+    body: src => getHtml(src.body, {allowedTags: trustedTags}),
     excerpt: src => excerpt(src),
     gbifHref: (src, _, context) => createLocalizedGbifHref(context.locale, 'event', src.id),
   }

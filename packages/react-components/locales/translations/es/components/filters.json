@@ -19,6 +19,69 @@
     "count": "",
     "description": "El número de especímenes reportados que se indican en la descripción. Este número no refleja cuántos registros han sido digitalizados y compartidos."
   },
+  "specimensInGbif": {
+    "name": "Especímenes en GBIF",
+    "count": "",
+    "description": "Archivo de GBIF anotado"
+  },
+  "iucnRedListCategory": {
+    "name": "Archivo de GBIF anotado",
+    "count": "Archivo de GBIF anotado",
+    "description": ""
+  },
+  "geoDistance": {
+    "name": "Distancia de coordenadas",
+    "count": "",
+    "description": "Filtrar los registros dentro de una distancia determinada desde un punto",
+    "placeholderLat": "Latitud",
+    "placeholderLon": "Longitud",
+    "placeholderDist": "Distancia"
+  },
+  "relevance": {
+    "name": "Relevancia",
+    "count": "",
+    "description": "¿Cómo se utiliza GBIF en la literatura?"
+  },
+  "topics": {
+    "name": "Tema",
+    "count": "",
+    "description": "¿Cuáles son los temas del registro?"
+  },
+  "eventDate": {
+    "name": "Fecha del Evento",
+    "count": "Archivo de GBIF anotado",
+    "description": "Archivo de GBIF anotado"
+  },
+  "alternativeCode": {
+    "name": "Archivo de GBIF anotado",
+    "count": "Archivo de GBIF anotado",
+    "description": "Archivo de GBIF anotado"
+  },
+  "identifier": {
+    "name": "Identificador",
+    "count": "Archivo de GBIF anotado",
+    "description": "Aquí debe colocarse una breve descripción del componente"
+  },
+  "institutionType": {
+    "name": "Tipo",
+    "count": "Archivo de GBIF anotado",
+    "description": "Archivo de GBIF anotado"
+  },
+  "discipline": {
+    "name": "Archivo de GBIF anotado",
+    "count": "Archivo de GBIF anotado",
+    "description": "Archivo de GBIF anotado"
+  },
+  "collectionContentType": {
+    "name": "Archivo de GBIF anotado",
+    "count": "Archivo de GBIF anotado",
+    "description": "Archivo de GBIF anotado"
+  },
+  "preservationType": {
+    "name": "Archivo de GBIF anotado",
+    "count": "Archivo de GBIF anotado",
+    "description": "Archivo de GBIF anotado"
+  },
   "taxonKey": {
     "name": "Nombre científico",
     "count": "{num, plural, one {nombre científico} other {# nombres científicos}}",
@@ -58,6 +121,14 @@
     "count": "{num, plural, one {país} other {# países}}",
     "description": "El país o territorio donde ocurrió el evento"
   },
+  "grsciCollCountry": {
+    "description": "Archivo de GBIF anotado"
+  },
+  "preparations": {
+    "name": "Preparaciones",
+    "count": "Archivo de GBIF anotado",
+    "description": "Archivo de GBIF anotado"
+  },
   "publishingCountryCode": {
     "name": "País de publicación",
     "count": "{num, plural, one {país de publicación} other {# países de publicación}}\n",
@@ -89,6 +160,11 @@
   "publisherKey": {
     "name": "Publicador",
     "count": "{num, plural, one {publicador} other {# publicadores}}",
+    "description": "El nombre de la organización responsable que ha compartido el conjunto de datos en el que se incluye el registro."
+  },
+  "gbifPublisherKey": {
+    "name": "",
+    "count": "",
     "description": "El nombre de la organización responsable que ha compartido el conjunto de datos en el que se incluye el registro."
   },
   "hostingOrganizationKey": {
@@ -293,7 +369,12 @@
   "active": {
     "name": "Activo",
     "count": "Activo",
-    "description": ""
+    "description": "Archivo de GBIF anotado"
+  },
+  "personalCollection": {
+    "name": "Colección personal",
+    "count": "Colección personal",
+    "description": "Archivo de GBIF anotado"
   },
   "datasetType": {
     "name": "Tipo de conjunto de datos",
@@ -313,17 +394,18 @@
   "name": {
     "name": "Nombre",
     "count": "{num, plural, one { nombre } other {# nombres}}",
-    "description": "Aquí debe colocarse una breve descripción del componente"
+    "description": "Archivo de GBIF anotado",
+    "searchPlaceholder": "Archivo de GBIF anotado"
   },
   "city": {
     "name": "Ciudad",
     "count": "{num, plural, one { ciudad } other {# ciudades}}",
-    "description": "Aquí debe colocarse una breve descripción del componente"
+    "description": "Archivo de GBIF anotado"
   },
   "code": {
     "name": "Código",
     "count": "{num, plural, one { código } other {# códigos}}",
-    "description": "Aquí debe colocarse una breve descripción del componente"
+    "description": "Archivo de GBIF anotado"
   },
   "verbatimScientificName": {
     "name": "Nombre científico original",
@@ -331,7 +413,7 @@
     "description": "El nombre científico suministrado por el publicador de datos sin ninguna normalización."
   },
   "networkKey": {
-    "name": "Clave de la red",
+    "name": "Red de datos",
     "count": "{num, plural, one { clave de la red } other {# claves de la red}}",
     "description": "Aquí debe colocarse una breve descripción del componente"
   },

@@ -3,6 +3,7 @@
   "organization": "组织机构",
   "email": "电子邮件",
   "address": "地址",
+  "phone": "电话",
   "roles": "角色",
   "userId": "用户标识",
   "name": "名字"

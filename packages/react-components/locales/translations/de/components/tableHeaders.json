@@ -9,5 +9,9 @@
   "altmetric": "Altmetrisch",
   "registered": "Registriert",
   "hostedDatasets": "Gehostete Datasets",
-  "pubDatasets": "Veröffentlichte Datasets"
+  "pubDatasets": "Veröffentlichte Datasets",
+  "institution": "Institution",
+  "collection": "Sammlung",
+  "collectionCount": "Sammlungen",
+  "active": "Ist aktiv"
 }

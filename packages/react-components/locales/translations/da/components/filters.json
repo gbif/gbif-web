@@ -19,6 +19,69 @@
     "count": "",
     "description": ""
   },
+  "specimensInGbif": {
+    "name": "",
+    "count": "",
+    "description": "GBIF annoteret Arkiv"
+  },
+  "iucnRedListCategory": {
+    "name": "GBIF annoteret Arkiv",
+    "count": "GBIF annoteret Arkiv",
+    "description": ""
+  },
+  "geoDistance": {
+    "name": "",
+    "count": "",
+    "description": "",
+    "placeholderLat": "",
+    "placeholderLon": "",
+    "placeholderDist": ""
+  },
+  "relevance": {
+    "name": "Relevans",
+    "count": "",
+    "description": ""
+  },
+  "topics": {
+    "name": "Emne",
+    "count": "",
+    "description": ""
+  },
+  "eventDate": {
+    "name": "",
+    "count": "GBIF annoteret Arkiv",
+    "description": "GBIF annoteret Arkiv"
+  },
+  "alternativeCode": {
+    "name": "GBIF annoteret Arkiv",
+    "count": "GBIF annoteret Arkiv",
+    "description": "GBIF annoteret Arkiv"
+  },
+  "identifier": {
+    "name": "Identifikator",
+    "count": "GBIF annoteret Arkiv",
+    "description": ""
+  },
+  "institutionType": {
+    "name": "",
+    "count": "GBIF annoteret Arkiv",
+    "description": "GBIF annoteret Arkiv"
+  },
+  "discipline": {
+    "name": "GBIF annoteret Arkiv",
+    "count": "GBIF annoteret Arkiv",
+    "description": "GBIF annoteret Arkiv"
+  },
+  "collectionContentType": {
+    "name": "GBIF annoteret Arkiv",
+    "count": "GBIF annoteret Arkiv",
+    "description": "GBIF annoteret Arkiv"
+  },
+  "preservationType": {
+    "name": "GBIF annoteret Arkiv",
+    "count": "GBIF annoteret Arkiv",
+    "description": "GBIF annoteret Arkiv"
+  },
   "taxonKey": {
     "name": "Videnskabeligt navn",
     "count": "",
@@ -58,6 +121,14 @@
     "count": "",
     "description": ""
   },
+  "grsciCollCountry": {
+    "description": "GBIF annoteret Arkiv"
+  },
+  "preparations": {
+    "name": "",
+    "count": "GBIF annoteret Arkiv",
+    "description": "GBIF annoteret Arkiv"
+  },
   "publishingCountryCode": {
     "name": "",
     "count": "",
@@ -66,7 +137,7 @@
   "q": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "GBIF annoteret Arkiv"
   },
   "coordinates": {
     "name": "Koordinater"
@@ -91,6 +162,11 @@
     "count": "",
     "description": ""
   },
+  "gbifPublisherKey": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "hostingOrganizationKey": {
     "name": "",
     "count": "",
@@ -101,11 +177,11 @@
     "count": ""
   },
   "countriesOfCoverage": {
-    "name": "",
+    "name": "Land eller område der diskuteres",
     "count": ""
   },
   "countriesOfResearcher": {
-    "name": "",
+    "name": "Forskers land eller område",
     "count": ""
   },
   "typeStatus": {
@@ -293,7 +369,12 @@
   "active": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "GBIF annoteret Arkiv"
+  },
+  "personalCollection": {
+    "name": "",
+    "count": "",
+    "description": "GBIF annoteret Arkiv"
   },
   "datasetType": {
     "name": "",
@@ -313,17 +394,18 @@
   "name": {
     "name": "Navn",
     "count": "",
-    "description": ""
+    "description": "GBIF annoteret Arkiv",
+    "searchPlaceholder": "GBIF annoteret Arkiv"
   },
   "city": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "GBIF annoteret Arkiv"
   },
   "code": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "GBIF annoteret Arkiv"
   },
   "verbatimScientificName": {
     "name": "",
@@ -332,7 +414,7 @@
   },
   "networkKey": {
     "name": "",
-    "count": "",
+    "count": "GBIF annoteret Arkiv",
     "description": ""
   },
   "literatureType": {

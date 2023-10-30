@@ -3,6 +3,7 @@
   "organization": "Organización",
   "email": "Correo electrónico",
   "address": "Dirección",
+  "phone": "Teléfono",
   "roles": "Roles",
   "userId": "ID del usuario",
   "name": "Nombre"

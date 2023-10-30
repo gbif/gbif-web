@@ -5,5 +5,16 @@
   "close": "關閉",
   "citation": "引用",
   "citeAs": "請在發表中引用",
-  "unknownDate": "未知日期"
+  "showAll": "顯示全部",
+  "identifier": "識別碼",
+  "unknownDate": "未知日期",
+  "about": "關於",
+  "citations": "引用",
+  "metrics": "指標",
+  "datasets": "資料集",
+  "hostedDatasets": "代管的資料集",
+  "occurrenceMetrics": "出現紀錄指標",
+  "project": "專案",
+  "license": "授權",
+  "download": "下載"
 }

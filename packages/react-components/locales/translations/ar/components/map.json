@@ -11,5 +11,9 @@
         "MERCATOR": "مركاتور(طريقة لرسم الخرائط)",
         "ANTARCTIC": "القطبي الجنوبي",
         "PLATE_CAREE": "صفيحة كاري"
+    },
+    "failedToGetUserLocation": {
+        "title": "أرشيف شروح \"جيبف\"",
+        "message": "أرشيف شروح \"جيبف\""
     }
 }

@@ -81,6 +81,8 @@
   "reproductiveCondition": "Reproduktionszustand",
   "behavior": "Verhaltensweise",
   "establishmentMeans": "Etablierungsstatus",
+  "degreeOfEstablishment": "Grad der Etablierung",
+  "pathway": "Verbringungsweg",
   "occurrenceStatus": "Occurrence-Status",
   "preparations": "Präparationen",
   "disposition": "Verfügbarkeit",

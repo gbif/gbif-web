@@ -1,0 +1,11 @@
+{
+  "GBIF_USED": "GBIF を使用",
+  "GBIF_CITED": "GBIF を引用",
+  "GBIF_DISCUSSED": "GBIFについて議論",
+  "GBIF_PRIMARY": "GBIFが主要なトピック",
+  "GBIF_ACKNOWLEDGED": "GBIFへの謝辞",
+  "GBIF_PUBLISHED": "GBIFが出版",
+  "GBIF_AUTHOR": "GBIFが著者",
+  "GBIF_MENTIONED": "GBIFについて言及",
+  "GBIF_FUNDED": "GBIFが資金提供"
+}

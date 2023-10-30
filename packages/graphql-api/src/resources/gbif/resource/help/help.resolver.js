@@ -1,4 +1,4 @@
-import { getHtml, excerpt } from "#/helpers/utils";
+import { getHtml, excerpt, trustedTags } from "#/helpers/utils";
 
 /**
  * fieldName: (parent, args, context, info) => data;
@@ -14,7 +14,7 @@ export default {
   },
   Help: {
     title: src => getHtml(src.title, { inline: true }),
-    body: src => getHtml(src.body),
+    body: src => getHtml(src.body, {allowedTags: trustedTags}),
     excerpt: src => excerpt(src),
   }
 }

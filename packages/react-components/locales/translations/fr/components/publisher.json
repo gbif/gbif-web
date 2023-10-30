@@ -1,0 +1,25 @@
+{
+  "searchTitle": "Recherche de fournisseurs de données",
+  "tabs": {
+    "aboutPublisher": "À propos",
+    "metrics": "Statistiques",
+    "publishersHomepage": "Page d'accueil"
+  },
+  "joinedAgo": "Rejoint le {TIME_AGO}",
+  "newPublisher": "Nouveau fournisseur de données",
+  "technicalContact": "Contact technique",
+  "country": "Pays",
+  "hosting": "Hébergement",
+  "description": "Description",
+  "endorsedBy": "Approuvée par",
+  "pendingEndorsementBy": "Approbation en attente par",
+  "endorsementWithheld": "",
+  "installations": "Installations",
+  "getDownloadReport": "Télécharger le rapport d'activité",
+  "contacts": "Contacts",
+  "administrativeContact": "Contact administratif",
+  "header": {
+    "publisher": "Fournisseurs de données",
+    "sinceDate": "Depuis {DATE}"
+  }
+}

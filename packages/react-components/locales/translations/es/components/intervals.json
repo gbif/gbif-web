@@ -4,7 +4,8 @@
     "lte": "Menor o igual que {to}",
     "gt": "Mayor que {from}",
     "gte": "Mayor o igual que {from}",
-    "e": "Igual a {is}"
+    "e": "Igual a {is}",
+    "between": "De {from} a {to}"
   },
   "compact": {
     "between": "de {from} a {to}",
@@ -65,5 +66,17 @@
     "lt": "Elevación inferior a {to}",
     "gt": "Elevación superior a {to}",
     "e": "La elevación es {from}"
+  },
+  "geoDistance": {
+    "short": "Dentro de {distance} de {latitude},{longitude}",
+    "description": "Latitud {latitude}, longitud: {longitude}, distancia: {distance}"
+  },
+  "units": {
+    "name": {
+      "km": "kilómetros ",
+      "m": "metros",
+      "mi": "millas",
+      "ft": "pies"
+    }
   }
 }

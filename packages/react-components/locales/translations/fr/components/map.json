@@ -11,5 +11,9 @@
         "MERCATOR": "Mercator",
         "ANTARCTIC": "Antarctique",
         "PLATE_CAREE": "Plate carrée"
+    },
+    "failedToGetUserLocation": {
+        "title": "Archive annotée par GBIF",
+        "message": "Archive annotée par GBIF"
     }
 }

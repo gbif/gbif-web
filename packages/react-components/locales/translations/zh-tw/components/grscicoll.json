@@ -7,6 +7,7 @@
   "code": "蒐藏代碼",
   "alternativeCodes": "其它代碼",
   "apiUrl": "蒐藏網頁服務的 URL 位址",
+  "catalogUrl": "線上目錄/資料庫",
   "homepage": "首頁",
   "phone": "電話號碼",
   "email": "電子郵件",
@@ -20,6 +21,10 @@
   "city": "城市/城鎮",
   "country": "國家",
   "logoUrl": "標誌",
+  "notes": "備註",
+  "specimensViaGbif": "與 GBIF 共享的標本",
+  "specimens": "標本",
   "identifiers": "識別碼",
+  "unknownSize": "未知數量",
   "citesPermitNumber": "城市許可編號"
 }

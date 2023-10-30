@@ -1,0 +1,25 @@
+{
+  "searchTitle": "",
+  "tabs": {
+    "aboutPublisher": "Об организациии",
+    "metrics": "Показатели",
+    "publishersHomepage": "Сайт организации"
+  },
+  "joinedAgo": "Присоединилась к GBIF {TIME_AGO}",
+  "newPublisher": "Новая организация",
+  "technicalContact": "Технический контакт",
+  "country": "Страна (территория)",
+  "hosting": "Хостинг",
+  "description": "Описание",
+  "endorsedBy": "Одобрена",
+  "pendingEndorsementBy": "Ожидает одобрения от",
+  "endorsementWithheld": "Отказано в одобрении",
+  "installations": "Поддерживаемые инсталляции",
+  "getDownloadReport": "Отчет об активности загрузок",
+  "contacts": "Контакты",
+  "administrativeContact": "Административный контакт",
+  "header": {
+    "publisher": "Организация, публикующая данные",
+    "sinceDate": "Начиная с {DATE}"
+  }
+}

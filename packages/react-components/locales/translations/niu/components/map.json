@@ -11,5 +11,9 @@
         "MERCATOR": "",
         "ANTARCTIC": "",
         "PLATE_CAREE": ""
+    },
+    "failedToGetUserLocation": {
+        "title": "",
+        "message": ""
     }
 }

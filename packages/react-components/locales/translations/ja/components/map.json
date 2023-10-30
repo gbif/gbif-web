@@ -11,5 +11,9 @@
         "MERCATOR": "メルカトル図法",
         "ANTARCTIC": "南極点から投影",
         "PLATE_CAREE": "正距円筒図法（plate carrée）"
+    },
+    "failedToGetUserLocation": {
+        "title": "GBIFがアノーテーションしたアーカイブ",
+        "message": "GBIFがアノーテーションしたアーカイブ"
     }
 }

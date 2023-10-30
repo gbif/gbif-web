@@ -120,6 +120,11 @@ const typeDef = gql`
 
     wikiData: WikiDataTaxonData
     backboneTaxon: Taxon
+
+    """
+    This is an experiment that might be stopped at any time. It is not part of the stable API. It will attempt ti find a nice image to represent the taxon.
+    """
+    taxonImages_volatile(size: Int): [Image]!
   }
 
   type TaxonBreakdown {

@@ -1,3 +1,15 @@
 {
-  "UNKNOWN": "Unbekannt"
+  "URL": "URL",
+  "LSID": "LSID",
+  "DOI": "DOI",
+  "UUID": "UUID",
+  "FTP": "FTP",
+  "URI": "URI",
+  "UNKNOWN": "Unbekannt",
+  "GBIF_PORTAL": "GBIF Portal",
+  "GBIF_NODE": "GBIF-Knoten",
+  "GBIF_PARTICIPANT": "GBIF Teilnehmer",
+  "GRBIO_ID": "GRBIO ID",
+  "GRBIO_URI": "GRBIO URI",
+  "GRSCICOLL_URI": "GRSCICOLL URI"
 }

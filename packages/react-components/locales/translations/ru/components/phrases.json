@@ -1,5 +1,19 @@
 {
   "unknown": "Неизвестно",
   "citation": "Цитирование",
-  "unknownDate": "Неизвестная дата"
+  "deletedOnDate": "Удалено {date}",
+  "replacedBy": "Заменено на {newItem}",
+  "showAll": "Показать все",
+  "identifier": "Идентификатор",
+  "unknownDate": "Неизвестная дата",
+  "about": "Подробнее",
+  "citations": "Цитирования",
+  "metrics": "Показатели",
+  "datasets": "Наборы данных",
+  "occurrenceMetrics": "Показатели встречаемости",
+  "project": "Проект",
+  "license": "Лицензия",
+  "pageNotFound": "Ошибка 404",
+  "pageNotFoundDescription": "К сожалению, запрашиваемая вами страница не существует.",
+  "download": "Загрузить"
 }

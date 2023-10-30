@@ -213,7 +213,7 @@
   "taxonomicStatus": "Estado taxonómico",
   "nomenclaturalStatus": "Estado nomenclatural",
   "taxonRemarks": "Comentarios del taxón",
-  "datasetKey": "Clave del conjunto de datos",
+  "datasetKey": "ID del conjunto de datos",
   "publishingCountry": "País o área que publica",
   "lastInterpreted": "Última interpretación",
   "elevation": "Elevación",

@@ -1,0 +1,20 @@
+{
+  "numberOfOccurrences": "Nombre d'occurrences",
+  "noData": "Aucune donnée",
+  "statistics": "Statistiques",
+  "occurrenceRecords": "Occurrences",
+  "species": "Espèce",
+  "taxa": "Taxa",
+  "yearRange": "Plage temporelle",
+  "identifiedToSpecies": "Identifié à l'espèce",
+  "withCoordinates": "Avec coordonnées",
+  "withYear": "Avec l’année",
+  "withCollector": "Avec récolteur",
+  "withMedia": "Avec médias",
+  "richness": "Richesse des données",
+  "percentWithValue": "{percent}% de tous les enregistrements ont une valeur",
+  "occurrences": "Occurrences",
+  "other": "Autre",
+  "unknown": "Inconnu",
+  "metricsFromGbifData": "Ces mesures sont basées sur les enregistrements partagés via GBIF"
+}

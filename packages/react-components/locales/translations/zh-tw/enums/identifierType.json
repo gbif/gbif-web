@@ -1,6 +1,20 @@
 {
+  "URL": "URL",
+  "LSID": "LSID",
+  "HANDLER": "控制器",
+  "DOI": "DOI",
+  "UUID": "UUID",
+  "FTP": "FTP",
+  "URI": "URI",
   "UNKNOWN": "未知",
+  "GBIF_PORTAL": "GBIF入口網",
+  "GBIF_NODE": "GBIF節點",
+  "GBIF_PARTICIPANT": "GBIF 會員",
+  "GRBIO_ID": "GRBIO 識別碼",
+  "GRBIO_URI": "GRBIO URI",
   "GRSCICOLL_URI": "科學蒐藏統一資源標識符",
+  "IH_IRN": "植物標本館索引",
+  "ROR": "ROR",
   "GRID": "網格",
   "GRSCICOLL_ID": "科學蒐藏統一資源識別碼"
 }

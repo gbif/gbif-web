@@ -71,7 +71,7 @@ export function InstitutionPresentation({
   };
 
   // if there is at least a countryCode for thee address, then use that, else fall back to the mailing address
-  const contactInfo = institution?.address?.countryCode ? institution?.address : institution?.mailingAddress;
+  const contactInfo = institution?.address?.country ? institution?.address : institution?.mailingAddress;
 
   const feedbackTemplate = `Please provide you feedback here, but leave content below for context
 

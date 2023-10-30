@@ -85,7 +85,7 @@ const defaultTableConfig = {
         },
         hideFalsy: true
       },
-      filterKey: 'countrySingleGrSciColl',
+      filterKey: 'countryGrSciColl',
     },
     {
       trKey: 'filters.city.name',

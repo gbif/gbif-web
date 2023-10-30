@@ -1,6 +1,7 @@
 {
   "email": "Email",
   "address": "Morada",
+  "phone": "Telefone",
   "roles": "Perfis",
   "name": "Nome"
 }

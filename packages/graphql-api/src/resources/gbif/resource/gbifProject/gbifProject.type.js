@@ -18,7 +18,7 @@ const typeDef = gql`
     start: DateTime
     end: DateTime
     matchingFunds: Int
-    primaryImage: Image
+    primaryImage: AssetImage
     fundsAllocated: Int
     leadContact: String
     searchable: Boolean

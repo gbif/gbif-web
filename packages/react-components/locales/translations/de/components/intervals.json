@@ -4,7 +4,8 @@
     "lte": "Kleiner als oder gleich {to}",
     "gt": "Größer als {from}",
     "gte": "Größer als oder gleich {from}",
-    "e": "Gleich {is}"
+    "e": "Gleich {is}",
+    "between": ""
   },
   "compact": {
     "between": "{from} bis {to}",
@@ -65,5 +66,17 @@
     "lt": "Höhe unter {to}",
     "gt": "Höhe über {from}",
     "e": "Höhe beträgt {from}"
+  },
+  "geoDistance": {
+    "short": "",
+    "description": ""
+  },
+  "units": {
+    "name": {
+      "km": "",
+      "m": "",
+      "mi": "",
+      "ft": ""
+    }
   }
 }

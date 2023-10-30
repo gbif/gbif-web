@@ -18,5 +18,7 @@
   "updateFilter": "",
   "setFilter": "",
   "nameWithTaxonMatchIssue": "",
+  "commonName": "Общепринятое название",
+  "acceptedNameOf": "Общепринятое имя для",
   "viewDetails": ""
 }

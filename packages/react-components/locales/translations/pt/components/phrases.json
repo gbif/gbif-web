@@ -4,5 +4,16 @@
   "unknown": "Desconhecido",
   "close": "Fechar",
   "citation": "Citações",
-  "unknownDate": "Data desconhecida"
+  "showAll": "Mostrar tudo",
+  "identifier": "Identificador",
+  "unknownDate": "Data desconhecida",
+  "about": "Sobre",
+  "citations": "Citações",
+  "metrics": "Métricas",
+  "datasets": "Conjuntos de dados",
+  "hostedDatasets": "Conjuntos de dados alojados",
+  "occurrenceMetrics": "Métrica de ocorrências",
+  "project": "Projeto",
+  "license": "Licença",
+  "download": "Transferir"
 }

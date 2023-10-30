@@ -19,6 +19,69 @@
     "count": "",
     "description": ""
   },
+  "specimensInGbif": {
+    "name": "Образцы в GBIF",
+    "count": "",
+    "description": "Архив, аннотированный GBIF"
+  },
+  "iucnRedListCategory": {
+    "name": "Архив, аннотированный GBIF",
+    "count": "Архив, аннотированный GBIF",
+    "description": ""
+  },
+  "geoDistance": {
+    "name": "",
+    "count": "",
+    "description": "",
+    "placeholderLat": "Широта",
+    "placeholderLon": "Долгота",
+    "placeholderDist": "Расстояние"
+  },
+  "relevance": {
+    "name": "Отношение публикации к GBIF",
+    "count": "",
+    "description": ""
+  },
+  "topics": {
+    "name": "Тематика",
+    "count": "",
+    "description": ""
+  },
+  "eventDate": {
+    "name": "Дата",
+    "count": "Архив, аннотированный GBIF",
+    "description": "Архив, аннотированный GBIF"
+  },
+  "alternativeCode": {
+    "name": "Архив, аннотированный GBIF",
+    "count": "Архив, аннотированный GBIF",
+    "description": "Архив, аннотированный GBIF"
+  },
+  "identifier": {
+    "name": "Идентификатор",
+    "count": "Архив, аннотированный GBIF",
+    "description": ""
+  },
+  "institutionType": {
+    "name": "Тип записи",
+    "count": "Архив, аннотированный GBIF",
+    "description": "Архив, аннотированный GBIF"
+  },
+  "discipline": {
+    "name": "Архив, аннотированный GBIF",
+    "count": "Архив, аннотированный GBIF",
+    "description": "Архив, аннотированный GBIF"
+  },
+  "collectionContentType": {
+    "name": "Архив, аннотированный GBIF",
+    "count": "Архив, аннотированный GBIF",
+    "description": "Архив, аннотированный GBIF"
+  },
+  "preservationType": {
+    "name": "Архив, аннотированный GBIF",
+    "count": "Архив, аннотированный GBIF",
+    "description": "Архив, аннотированный GBIF"
+  },
   "taxonKey": {
     "name": "Латинское название",
     "count": "",
@@ -58,15 +121,23 @@
     "count": "",
     "description": ""
   },
+  "grsciCollCountry": {
+    "description": "Архив, аннотированный GBIF"
+  },
+  "preparations": {
+    "name": "Способ препарирования",
+    "count": "Архив, аннотированный GBIF",
+    "description": "Архив, аннотированный GBIF"
+  },
   "publishingCountryCode": {
-    "name": "",
+    "name": "Страна или регион, в которых опубликованы данные",
     "count": "",
     "description": ""
   },
   "q": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "Архив, аннотированный GBIF"
   },
   "coordinates": {
     "name": "Координаты"
@@ -91,6 +162,11 @@
     "count": "",
     "description": ""
   },
+  "gbifPublisherKey": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "hostingOrganizationKey": {
     "name": "",
     "count": "",
@@ -101,11 +177,11 @@
     "count": ""
   },
   "countriesOfCoverage": {
-    "name": "",
+    "name": "Страна (территория) интереса",
     "count": ""
   },
   "countriesOfResearcher": {
-    "name": "",
+    "name": "Страна (территория) исследователей",
     "count": ""
   },
   "typeStatus": {
@@ -186,12 +262,12 @@
     "description": ""
   },
   "recordedById": {
-    "name": "",
+    "name": "Записано по ID",
     "count": "",
     "description": ""
   },
   "identifiedById": {
-    "name": "",
+    "name": "Идентифицировано по ID",
     "count": "",
     "description": ""
   },
@@ -293,7 +369,12 @@
   "active": {
     "name": "Действующая",
     "count": "Действующая",
-    "description": ""
+    "description": "Архив, аннотированный GBIF"
+  },
+  "personalCollection": {
+    "name": "Личная коллекция",
+    "count": "Личная коллекция",
+    "description": "Архив, аннотированный GBIF"
   },
   "datasetType": {
     "name": "Тип набора данных",
@@ -313,17 +394,18 @@
   "name": {
     "name": "Имя",
     "count": "",
-    "description": ""
+    "description": "Архив, аннотированный GBIF",
+    "searchPlaceholder": "Архив, аннотированный GBIF"
   },
   "city": {
     "name": "Город",
     "count": "",
-    "description": ""
+    "description": "Архив, аннотированный GBIF"
   },
   "code": {
     "name": "Акроним",
     "count": "",
-    "description": ""
+    "description": "Архив, аннотированный GBIF"
   },
   "verbatimScientificName": {
     "name": "Латинское название по первоисточнику",
@@ -331,8 +413,8 @@
     "description": ""
   },
   "networkKey": {
-    "name": "",
-    "count": "",
+    "name": "Сеть",
+    "count": "Архив, аннотированный GBIF",
     "description": ""
   },
   "literatureType": {

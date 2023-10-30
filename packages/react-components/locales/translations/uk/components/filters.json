@@ -19,6 +19,69 @@
     "count": "",
     "description": ""
   },
+  "specimensInGbif": {
+    "name": "",
+    "count": "",
+    "description": "Архів анотований GBIF"
+  },
+  "iucnRedListCategory": {
+    "name": "Архів анотований GBIF",
+    "count": "Архів анотований GBIF",
+    "description": ""
+  },
+  "geoDistance": {
+    "name": "",
+    "count": "",
+    "description": "",
+    "placeholderLat": "",
+    "placeholderLon": "",
+    "placeholderDist": ""
+  },
+  "relevance": {
+    "name": "Релевантність",
+    "count": "",
+    "description": ""
+  },
+  "topics": {
+    "name": "Тема",
+    "count": "",
+    "description": ""
+  },
+  "eventDate": {
+    "name": "Дата події",
+    "count": "Архів анотований GBIF",
+    "description": "Архів анотований GBIF"
+  },
+  "alternativeCode": {
+    "name": "Архів анотований GBIF",
+    "count": "Архів анотований GBIF",
+    "description": "Архів анотований GBIF"
+  },
+  "identifier": {
+    "name": "Автор визначення",
+    "count": "Архів анотований GBIF",
+    "description": ""
+  },
+  "institutionType": {
+    "name": "Тип",
+    "count": "Архів анотований GBIF",
+    "description": "Архів анотований GBIF"
+  },
+  "discipline": {
+    "name": "Архів анотований GBIF",
+    "count": "Архів анотований GBIF",
+    "description": "Архів анотований GBIF"
+  },
+  "collectionContentType": {
+    "name": "Архів анотований GBIF",
+    "count": "Архів анотований GBIF",
+    "description": "Архів анотований GBIF"
+  },
+  "preservationType": {
+    "name": "Архів анотований GBIF",
+    "count": "Архів анотований GBIF",
+    "description": "Архів анотований GBIF"
+  },
   "taxonKey": {
     "name": "Наукова назва",
     "count": "",
@@ -58,15 +121,23 @@
     "count": "",
     "description": ""
   },
+  "grsciCollCountry": {
+    "description": "Архів анотований GBIF"
+  },
+  "preparations": {
+    "name": "Підготовчі дії щодо зразка (наприклад, відфотографовано, відпрепаровано тощо)",
+    "count": "Архів анотований GBIF",
+    "description": "Архів анотований GBIF"
+  },
   "publishingCountryCode": {
-    "name": "",
+    "name": "Країна або регіон, що публікує дані",
     "count": "",
     "description": ""
   },
   "q": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "Архів анотований GBIF"
   },
   "coordinates": {
     "name": "Координати"
@@ -91,6 +162,11 @@
     "count": "",
     "description": ""
   },
+  "gbifPublisherKey": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "hostingOrganizationKey": {
     "name": "Організація хостингу",
     "count": "",
@@ -101,11 +177,11 @@
     "count": ""
   },
   "countriesOfCoverage": {
-    "name": "",
+    "name": "Країна або область покриття",
     "count": ""
   },
   "countriesOfResearcher": {
-    "name": "",
+    "name": "Країна або територія дослідника",
     "count": ""
   },
   "typeStatus": {
@@ -293,7 +369,12 @@
   "active": {
     "name": "Діяльна",
     "count": "Діяльна",
-    "description": ""
+    "description": "Архів анотований GBIF"
+  },
+  "personalCollection": {
+    "name": "Приватна колекція",
+    "count": "Приватна колекція",
+    "description": "Архів анотований GBIF"
   },
   "datasetType": {
     "name": "Тип набору даних",
@@ -313,17 +394,18 @@
   "name": {
     "name": "Ім’я",
     "count": "",
-    "description": ""
+    "description": "Архів анотований GBIF",
+    "searchPlaceholder": "Архів анотований GBIF"
   },
   "city": {
     "name": "Місто",
     "count": "",
-    "description": ""
+    "description": "Архів анотований GBIF"
   },
   "code": {
     "name": "Код",
     "count": "",
-    "description": ""
+    "description": "Архів анотований GBIF"
   },
   "verbatimScientificName": {
     "name": "Первинно вжита наукова назва",
@@ -331,8 +413,8 @@
     "description": ""
   },
   "networkKey": {
-    "name": "",
-    "count": "",
+    "name": "Мережа",
+    "count": "Архів анотований GBIF",
     "description": ""
   },
   "literatureType": {

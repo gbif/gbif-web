@@ -18,5 +18,7 @@
   "updateFilter": "",
   "setFilter": "",
   "nameWithTaxonMatchIssue": "",
+  "commonName": "Nom commun ",
+  "acceptedNameOf": "Nom accepté pour",
   "viewDetails": ""
 }

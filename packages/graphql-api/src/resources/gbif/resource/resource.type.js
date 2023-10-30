@@ -20,7 +20,7 @@ const typeDef = gql`
     contentType: String
   }
 
-  type Image {
+  type AssetImage {
     file: ImageFile
     description: String
     title: String

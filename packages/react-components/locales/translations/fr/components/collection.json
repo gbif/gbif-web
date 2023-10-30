@@ -1,4 +1,7 @@
 {
   "institutionUnknown": "Institution inconnue",
-  "contentTypes": "Types de contenus"
+  "contentTypes": "Types de contenus",
+  "preservationTypes": "Types de conservation",
+  "personalCollection": "Collection personnelle",
+  "numberSpecimens": "Nombre de spécimens dans la collection"
 }

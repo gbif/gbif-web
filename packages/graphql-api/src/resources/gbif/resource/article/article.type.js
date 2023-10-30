@@ -12,7 +12,7 @@ const typeDef = gql`
     summary: String
     body: String
     excerpt: String
-    primaryImage: Image
+    primaryImage: AssetImage
     secondaryLinks: [Link]
     urlAlias: String
     documents: [DocumentAsset]

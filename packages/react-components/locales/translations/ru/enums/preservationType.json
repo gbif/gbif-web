@@ -1,0 +1,14 @@
+{
+  "SAMPLE_CRYOPRESERVED": "Образец, подвергнутый криоконсервации",
+  "SAMPLE_DRIED": "Высушенный образец",
+  "SAMPLE_EMBEDDED": "Укреплённый образец",
+  "SAMPLE_FLUID_PRESERVED": "Образец, сохранённый в жидкости",
+  "SAMPLE_PINNED": "Образец, прикреплённый булавкой",
+  "SAMPLE_PRESSED": "Прессованный образец",
+  "SAMPLE_SKELETONIZED": "Скелетонизированный образец",
+  "SAMPLE_SLIDE_MOUNT": "Образец с держателем",
+  "SAMPLE_SURFACE_COATING": "Образец с покрытой поверхностью",
+  "SAMPLE_TANNED": "Образец, обработанный раствором танина",
+  "SAMPLE_WAX_BLOCK": "Образец в блоке воска",
+  "SAMPLE_OTHER": "Образец другого вида"
+}

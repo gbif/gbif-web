@@ -62,7 +62,7 @@ export function Description({
                 {collection.importantCollectors.map((v, i) => <li key={i}><Link to={{pathname: "/specimens", search: `?recordedBy=${encodeURIComponent(v)}`}}>{v}</Link></li>)}
               </ul>
             </Property> */}
-            {collection.personalCollection && <Property value={collection.personalCollection} labelId="collection.personalCollection" formatter={e => <FormattedMessage id={`enums.yesNo.${e}`} defaultMessage={e} />}/>}
+            {collection.personalCollection && <Property value={collection.personalCollection} labelId="collection.personalCollection" formatter={e => <FormattedMessage id={`enums.yesNo.${e}`} defaultMessage={e} />} />}
           </Properties>
         </Card>
         <Card style={{ marginTop: 24, marginBottom: 24 }}>
@@ -139,13 +139,22 @@ export function Description({
             {collection?.identifiers?.length > 0 && <Property value={collection.identifiers} labelId="grscicoll.identifiers">
               <ul css={css`padding: 0; margin: 0; list-style: none;`}>
                 {collection.identifiers.map((x, i) => {
+
+                  const IdentifierItem = ({ link, text, type }) => <li css={css`margin-bottom: 8px;`}>
+                    <div css={css`color: var(--color400); font-size: 0.9em;`}><FormattedMessage id={`enums.identifierType.${type}`} defaultMessage={type} /></div>
+                    <div css={HyperText.content()}><a href={link}>{text}</a></div>
+                  </li>
+
                   let identifier = x.identifier;
-                  if (x.type === 'ROR') {
-                    identifier = 'https://ror.org/' + x.identifier;
-                  } else if (x.type === 'GRID') {
-                    identifier = 'https://grid.ac/institutes/' + x.identifier; // GRID doesn't exists anymore. They left the space and refer to ROR as checked today September 2022
-                  } else if (x.type === 'IH_IRN') {
-                    identifier = 'http://sweetgum.nybg.org/science/ih/herbarium-details/?irn=' + x.identifier.substr(12);
+                  if (['ROR', 'GRID', 'IH_IRN'].includes(x.type)) {
+                    if (x.type === 'ROR') {
+                      identifier = 'https://ror.org/' + x.identifier;
+                    } else if (x.type === 'GRID') {
+                      identifier = 'https://grid.ac/institutes/' + x.identifier; // GRID doesn't exists anymore. They left the space and refer to ROR as checked today September 2022
+                    } else if (x.type === 'IH_IRN') {
+                      identifier = 'http://sweetgum.nybg.org/science/ih/herbarium-details/?irn=' + x.identifier.substr(12);
+                    }
+                    return <IdentifierItem key={`${i}_${x.identifier}`} link={identifier} type={x.type} text={x.identifier} />
                   }
 
                   return <li key={`${i}_${x.identifier}`} css={css`margin-bottom: 8px;`}>
