@@ -4,8 +4,9 @@ const compression = require('compression');
 const _ = require('lodash');
 const cors = require('cors');
 const config = require('./config');
-
 var queue = require('express-queue');
+const { loggingMiddleware, errorLoggingMiddleware } = require('./middleware');
+
 const queueOptions = {
   activeLimit: 10,
   queuedLimit: 2000,
@@ -42,14 +43,6 @@ app.use(compression());
 app.use(express.static('public'));
 app.use(bodyParser.json());
 
-// Add logging in debug mode
-if (config.debug) {
-  app.use((req, res, next) => {
-    console.log(`[${new Date().toISOString()}] ${req.method} - ${req.url}`)
-    next();
-  })
-}
-
 let setCache = function (req, res, next) {
   const period = 600; // unit seconds
   // if GET request, then add caching
@@ -63,6 +56,9 @@ if (!config.debug) {
   // use cache middleware
   app.use(setCache)
 }
+
+// Add logging middleware
+app.use(loggingMiddleware);
 
 app.use(function (req, res, next) {
   // Website you wish to allow to connect
@@ -292,6 +288,7 @@ function getMetaOnly(resource) {
 
 app.get('*', unknownRouteHandler);
 app.use(errorHandler);
+app.use(errorLoggingMiddleware);
 
 app.listen({ port: config.port }, () =>
   console.log(`🚀 Server ready at http://localhost:${config.port}`)
