@@ -30,6 +30,7 @@
   "RECORDED_DATE_UNLIKELY": "дата находки маловероятна",
   "TAXON_MATCH_FUZZY": "таксон указан неточно",
   "TAXON_MATCH_HIGHERRANK": "таксон более высокого ранга",
+  "TAXON_MATCH_AGGREGATE": "Совокупность соответствия таксона",
   "TAXON_MATCH_NONE": "таксон не найден",
   "DEPTH_NOT_METRIC": "неметрическое значение глубины",
   "DEPTH_UNLIKELY": "глубина маловероятна",
@@ -47,5 +48,7 @@
   "TYPE_STATUS_INVALID": "некорректный статус типа ",
   "MULTIMEDIA_DATE_INVALID": "дата мультимедиа некорректна",
   "INTERPRETATION_ERROR": "ошибка интерпретации сведений о находке",
-  "INDIVIDUAL_COUNT_INVALID": "некорректное число особей"
+  "INDIVIDUAL_COUNT_INVALID": "некорректное число особей",
+  "INDIVIDUAL_COUNT_CONFLICTS_WITH_OCCURRENCE_STATUS": "Количество индивидуальных наблюдений конфликтует со статусом наблюдения",
+  "OCCURRENCE_STATUS_UNPARSABLE": "Статус наблюдения невозможно определить"
 }
