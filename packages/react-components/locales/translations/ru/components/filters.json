@@ -48,7 +48,7 @@
     "description": ""
   },
   "eventDate": {
-    "name": "Дата",
+    "name": "Дата события",
     "count": "Архив, аннотированный GBIF",
     "description": "Архив, аннотированный GBIF"
   },
@@ -168,7 +168,7 @@
     "description": ""
   },
   "hostingOrganizationKey": {
-    "name": "",
+    "name": "Принимающая организация",
     "count": "",
     "description": ""
   },
