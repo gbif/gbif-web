@@ -11,6 +11,8 @@
   "COORDINATE_ACCURACY_INVALID": "undefined",
   "COORDINATE_PRECISION_INVALID": "некорректная точность координат",
   "COORDINATE_PRECISION_UNCERTAINTY_MISMATCH": "несоответствие точности и неопределенности координат",
+  "FOOTPRINT_SRS_INVALID": "Отпечаток SRS неверный",
+  "FOOTPRINT_WKT_INVALID": "Отпечаток WKT неверный",
   "COUNTRY_COORDINATE_MISMATCH": "координаты не соответствуют стране",
   "COUNTRY_MISMATCH": "несоответствие кода и названия страны",
   "COUNTRY_INVALID": "страна указана некорректно",
@@ -28,6 +30,7 @@
   "RECORDED_DATE_UNLIKELY": "дата находки маловероятна",
   "TAXON_MATCH_FUZZY": "таксон указан неточно",
   "TAXON_MATCH_HIGHERRANK": "таксон более высокого ранга",
+  "TAXON_MATCH_AGGREGATE": "Совокупность соответствия таксона",
   "TAXON_MATCH_NONE": "таксон не найден",
   "DEPTH_NOT_METRIC": "неметрическое значение глубины",
   "DEPTH_UNLIKELY": "глубина маловероятна",
@@ -45,5 +48,7 @@
   "TYPE_STATUS_INVALID": "некорректный статус типа ",
   "MULTIMEDIA_DATE_INVALID": "дата мультимедиа некорректна",
   "INTERPRETATION_ERROR": "ошибка интерпретации сведений о находке",
-  "INDIVIDUAL_COUNT_INVALID": "некорректное число особей"
+  "INDIVIDUAL_COUNT_INVALID": "некорректное число особей",
+  "INDIVIDUAL_COUNT_CONFLICTS_WITH_OCCURRENCE_STATUS": "Количество индивидуальных наблюдений конфликтует со статусом наблюдения",
+  "OCCURRENCE_STATUS_UNPARSABLE": "Статус наблюдения невозможно определить"
 }

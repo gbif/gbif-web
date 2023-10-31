@@ -6,6 +6,7 @@
   "HUMAN_OBSERVATION": "Наблюдение человеком",
   "MACHINE_OBSERVATION": "Автоматическое наблюдение",
   "MATERIAL_SAMPLE": "Образец из коллекции",
+  "MATERIAL_CITATION": "Цитирование материала",
   "LITERATURE": "Литературные данные",
   "OCCURRENCE": "Находка"
 }
