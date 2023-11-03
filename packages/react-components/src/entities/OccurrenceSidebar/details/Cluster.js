@@ -3,10 +3,11 @@ import { jsx, css } from '@emotion/react';
 import React, { useContext, useState, useEffect } from 'react';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import * as styles from '../styles';
-import { Row, Col, Image, Properties, IconFeatures } from "../../../components";
+import { Row, Col, Image, Properties, IconFeatures, ResourceLink } from "../../../components";
 import { useQuery } from '../../../dataManagement/api';
 import { Header } from './Header';
 import { prettifyEnum } from '../../../utils/labelMaker/config2labels';
+import env from '../../../../.env.json';
 
 import { useUrlState } from '../../../dataManagement/state/useUrlState';
 
@@ -67,6 +68,7 @@ export function Cluster({
 
 export function RelatedOccurrence({ original, reasons, related, ...props }) {
   const theme = useContext(ThemeContext);
+  
   return <article css={styles.clusterCard({ theme })} {...props}>
     <Row wrap="nowrap" halfGutter={6} style={{ padding: 12 }}>
       <Col>
@@ -90,11 +92,12 @@ export function RelatedOccurrence({ original, reasons, related, ...props }) {
             issueCount={related.issues?.length}
           />
         </div>
-        <div>
-          <Properties style={{ fontSize: 12 }} horizontal dense>
+        <div style={{ fontSize: 12 }}>
+          <Properties horizontal dense>
             <T>Publisher</T><V>{related.publisherTitle}</V>
             <T>Dataset</T><V>{related.datasetTitle}</V>
           </Properties>
+          <a onClick={e => e.stopPropagation()} href={`${env.GBIF_ORG}/occurrence/${related.key}`}>View on GBIF.org</a>
         </div>
       </Col>
       <Col grow={false} shrink={false}>
