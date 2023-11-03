@@ -85,7 +85,7 @@ export function OccurrenceSidebarCore({
             <ClusterIcon />
           </Tab>}
           {hasExtensions && <Tab tabId="extensions" direction="left">
-            <MdExtension />
+            <MdExtension title="Extensions"/>
           </Tab>}
         </TabList>
       </Col>
