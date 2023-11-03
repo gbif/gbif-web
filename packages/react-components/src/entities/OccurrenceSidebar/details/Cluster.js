@@ -1,8 +1,8 @@
 
-import { jsx } from '@emotion/react';
+import { jsx, css } from '@emotion/react';
 import React, { useContext, useState, useEffect } from 'react';
 import ThemeContext from '../../../style/themes/ThemeContext';
-import * as css from '../styles';
+import * as styles from '../styles';
 import { Row, Col, Image, Properties, IconFeatures } from "../../../components";
 import { useQuery } from '../../../dataManagement/api';
 import { Header } from './Header';
@@ -35,8 +35,14 @@ export function Cluster({
   }
 
   return <div style={{ padding: '12px 16px' }}>
-    <Header data={data} />
-    <div style={{ marginTop: 24 }}>
+    {/* Based on feedback in https://github.com/gbif/hosted-portals/issues/263 I have removed the header and instead repeated the information in a format similar to the other clustered records */}
+    {/* <Header data={data} /> */}
+    <div>
+      <RelatedOccurrence onClick={e => setActiveKey(data.occurrence.key)} related={data.occurrence} css={css`
+        border-color: var(--primary);
+        background: var(--paperBackground700);
+        border-radius: var(--borderRadiusPx);
+      `}/>
       {related.map(x => {
         if (x.occurrence) {
           return <RelatedOccurrence key={x.occurrence.key} onClick={e => setActiveKey(x.occurrence.key)} related={x.occurrence} reasons={x.reasons} original={data.occurrence} />;
@@ -61,17 +67,17 @@ export function Cluster({
 
 export function RelatedOccurrence({ original, reasons, related, ...props }) {
   const theme = useContext(ThemeContext);
-  return <article css={css.clusterCard({ theme })} {...props}>
+  return <article css={styles.clusterCard({ theme })} {...props}>
     <Row wrap="nowrap" halfGutter={6} style={{ padding: 12 }}>
       <Col>
         <h4 style={{ margin: 0 }} dangerouslySetInnerHTML={{ __html: related.gbifClassification.usage.formattedName }}></h4>
-        <div css={css.entitySummary({ theme })}>
-          <IconFeatures css={css.features({ theme })}
+        <div css={styles.entitySummary({ theme })}>
+          <IconFeatures css={styles.features({ theme })}
             eventDate={related.eventDate}
             countryCode={related.countryCode}
             locality={related.locality}
           />
-          <IconFeatures css={css.features({ theme })}
+          <IconFeatures css={styles.features({ theme })}
             stillImageCount={related.stillImageCount}
             movingImageCount={related.movingImageCount}
             soundCount={related.soundCount}
@@ -98,11 +104,12 @@ export function RelatedOccurrence({ original, reasons, related, ...props }) {
         </div>
       </Col>
     </Row>
-    <div css={css.clusterFooter({ theme })}>
-      <Properties style={{ fontSize: 12 }} horizontal dense>
+    <div css={styles.clusterFooter({ theme })}>
+      {!reasons && <div>Current record</div>}
+      {reasons && <Properties style={{ fontSize: 12 }} horizontal dense>
         <T>Similarities</T>
-        <V>{ reasons.map(reason => <span css={css.chip({ theme })} key={reason}>{prettifyEnum(reason)}</span>) }</V>
-      </Properties>
+        <V>{ reasons.map(reason => <span css={styles.chip({ theme })} key={reason}>{prettifyEnum(reason)}</span>) }</V>
+      </Properties>}
     </div>
   </article>
 };

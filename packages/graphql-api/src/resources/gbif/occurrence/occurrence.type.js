@@ -335,11 +335,20 @@ const typeDef = gql`
     count: Int
     size: Int
     from: Int
+    currentOccurrence: RelatedCurrentOccurrence!
     relatedOccurrences: [RelatedOccurrence]
   }
 
   type RelatedOccurrence {
     reasons: [String]!
+    occurrence: Occurrence
+    """
+    The occurrence as provided by the cluster API. It only has relev
+    """
+    stub: RelatedOccurrenceStub
+  }
+
+  type RelatedCurrentOccurrence {
     occurrence: Occurrence
     """
     The occurrence as provided by the cluster API. It only has relev

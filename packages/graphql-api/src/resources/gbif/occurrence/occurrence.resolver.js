@@ -208,6 +208,7 @@ export default {
           size,
           from,
           count: response.relatedOccurrences.length,
+          currentOccurrence: response.currentOccurrence,
           relatedOccurrences: response.relatedOccurrences.slice(
             from,
             from + size,
@@ -562,6 +563,13 @@ export default {
         key: related.occurrence.gbifId,
       }),
     stub: (related) => related.occurrence,
+  },
+  RelatedCurrentOccurrence: {
+    occurrence: (current, _args, { dataSources }) =>
+      dataSources.occurrenceAPI.getOccurrenceByKey({
+        key: current.gbifId,
+      }),
+    stub: (current) => current,
   },
   LongitudeHistogram: {
     bounds: ({ buckets, interval }) => {
