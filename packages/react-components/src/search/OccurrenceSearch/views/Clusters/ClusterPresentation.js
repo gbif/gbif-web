@@ -188,55 +188,61 @@ export const ClusterPresentation = ({ reload, first, prev, next, size, from, err
               <div>
                 <div style={{ borderRadius: '50%', width: 25, height: 25, background: '#fab93d' }}></div>
               </div>
-              <div style={{ flex: '1 1 auto;' }}>Specimen</div>
+              <div style={{ flex: '1 1 auto' }}>Specimen</div>
             </div>
             <div css={css.legendItem}>
               <div>
                 <div style={{ borderRadius: '50%', width: 25, height: 25, background: '#5295a4' }}></div>
               </div>
-              <div style={{ flex: '1 1 auto;' }}>Observation</div>
+              <div style={{ flex: '1 1 auto' }}>Observation</div>
             </div>
             <div css={css.legendItem}>
               <div>
                 <div style={{ borderRadius: '50%', width: 25, height: 25, background: '#56bda7' }}></div>
               </div>
-              <div style={{ flex: '1 1 auto;' }}>Treatment</div>
+              <div style={{ flex: '1 1 auto' }}>Treatment</div>
             </div>
             <div css={css.legendItem}>
               <div>
                 <div css={css.stripes} style={{ borderRadius: '50%', width: 25, height: 25 }}></div>
               </div>
-              <div style={{ flex: '1 1 auto;' }}>Contains differemt identifications</div>
+              <div style={{ flex: '1 1 auto' }}>Contains differemt identifications</div>
             </div>
             <div css={css.legendItem}>
               <div>
                 <div style={{ borderRadius: '50%', width: 15, height: 15, background: '#e9c0dc' }}></div>
               </div>
-              <div style={{ flex: '1 1 auto;' }}>Sequence</div>
+              <div style={{ flex: '1 1 auto' }}>Sequence</div>
             </div>
             <div css={css.legendItem}>
               <div>
                 <div style={{ borderRadius: '50%', width: 15, height: 15, background: 'rgb(203, 56, 53)' }}></div>
               </div>
-              <div style={{ flex: '1 1 auto;' }}>Type specimen</div>
+              <div style={{ flex: '1 1 auto' }}>Type specimen</div>
             </div>
             <div css={css.legendItem}>
               <div>
                 <div style={{ borderRadius: '50%', width: 15, height: 15, background: 'rgb(44, 79, 123)' }}></div>
               </div>
-              <div style={{ flex: '1 1 auto;' }}>Images</div>
+              <div style={{ flex: '1 1 auto' }}>Images</div>
             </div>
             <div css={css.legendItem}>
               <div>
                 <div style={{ width: 25, height: 3, background: 'pink' }}></div>
               </div>
-              <div style={{ flex: '1 1 auto;' }}>Different publishers</div>
+              <div style={{ flex: '1 1 auto' }}>Different publishers</div>
             </div>
             <div css={css.legendItem}>
               <div>
                 <div style={{ width: 15, height: 3, background: 'deepskyblue' }}></div>
               </div>
-              <div style={{ flex: '1 1 auto;' }}>Same publisher</div>
+              <div style={{ flex: '1 1 auto' }}>Same publisher</div>
+            </div>
+            <div css={css.legendItem}>
+              <div>
+                <div style={{ borderRadius: '50%', width: 25, height: 25, border: '3px solid #888888' }}></div>
+              </div>
+              <div style={{ flex: '1 1 auto' }}>Entry point</div>
             </div>
           </InfoCard>
         </div>
