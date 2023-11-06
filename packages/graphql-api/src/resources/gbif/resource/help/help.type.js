@@ -2,7 +2,7 @@ import { gql } from 'apollo-server';
 
 const typeDef = gql`
   extend type Query {
-    help(id: String!, preview: Boolean): Help
+    help(identifier: String!, locale: String, preview: Boolean): Help
   }
 
   type Help {

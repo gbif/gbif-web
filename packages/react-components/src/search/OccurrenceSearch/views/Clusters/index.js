@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState, useRef, useCallback } from "react";
+import React, { useEffect, useContext, useState, useCallback } from "react";
 import { useUpdateEffect } from 'react-use';
 import { FilterContext } from '../../../..//widgets/Filter/state';
 import OccurrenceContext from '../../../SearchContext';
@@ -7,8 +7,6 @@ import { filter2predicate } from '../../../../dataManagement/filterAdapter';
 import { ClusterPresentation } from './ClusterPresentation';
 import { useQueryParam, NumberParam } from 'use-query-params';
 import uniqBy from 'lodash/uniqBy'
-import uniq from 'lodash/uniq'
-import { findDOMNode } from "react-dom";
 
 const OCCURRENCE_CLUSTERS = `
 query clusters($predicate: Predicate, $size: Int = 20, $from: Int = 0){
@@ -28,7 +26,7 @@ query clusters($predicate: Predicate, $size: Int = 20, $from: Int = 0){
         datasetKey
         datasetTitle
         typeStatus
-        taxonKey
+        taxonKey: acceptedTaxonKey
         volatile {
           features {
             isSequenced
@@ -57,7 +55,7 @@ query clusters($predicate: Predicate, $size: Int = 20, $from: Int = 0){
               datasetKey
               datasetTitle
               typeStatus
-              taxonKey
+              taxonKey: acceptedTaxonKey
               volatile {
                 features {
                   isSequenced
@@ -84,7 +82,7 @@ query clusters($predicate: Predicate, $size: Int = 20, $from: Int = 0){
                     datasetKey
                     datasetTitle
                     typeStatus
-                    taxonKey
+                    taxonKey: acceptedTaxonKey
                     volatile {
                       features {
                         isSequenced
@@ -111,7 +109,7 @@ query clusters($predicate: Predicate, $size: Int = 20, $from: Int = 0){
                           datasetKey
                           datasetTitle
                           typeStatus
-                          taxonKey
+                          taxonKey: acceptedTaxonKey
                           volatile {
                             features {
                               isSequenced
@@ -245,27 +243,13 @@ function getNodeFromOccurrence(o, isEntry, hasTooManyRelations, rootKey) {
     isType: o.typeStatus.length > 0,
     isTreatment: o?.volatile?.features?.isTreament,
     isSequenced: o?.volatile?.features?.isSequenced,
+    stillImageCount: o.stillImageCount,
     publishingOrgKey: o.publishingOrgKey,
     taxonKey: o.taxonKey,
+    // taxonKey: o.taxon,
     isEntry,
     capped: hasTooManyRelations,
     rootKey: rootKey || o.key
-  };
-}
-
-function getNodeFromDataset(o) {
-  return {
-    name: o.datasetKey,
-    title: o.datasetTitle,
-    type: 'CITATION'
-  };
-}
-
-function getNodeFromPublisher(o, rootKey) {
-  return {
-    name: o.publishingOrgKey + `_${o.key}`,
-    title: o.publisherTitle,
-    type: 'PUBLISHER'
   };
 }
 
@@ -297,16 +281,6 @@ function getNodeFromTypeStatus(o) {
 function processOccurrence(x, rootKey, nodes, links, isEntry, hasTooManyRelations) {
   const mainNode = getNodeFromOccurrence(x, isEntry, hasTooManyRelations, rootKey);
   nodes.push(mainNode);
-
-  // add publisher nodes
-  // nodes.push(getNodeFromPublisher(x, rootKey));
-  // links.push({ source: x.key + '', target: x.publishingOrgKey + `_${x.key}` })
-
-  // add treatment nodes
-  // if (x?.volatile?.features?.isTreament) {
-  //   nodes.push(getNodeFromDataset(x));
-  //   links.push({ source: x.key + '', target: x.datasetKey })
-  // }
 
   //add sequence node
   if (x?.volatile?.features?.isSequenced) {
@@ -358,6 +332,10 @@ function transformResult({ data }) {
   let clusterMap = {};
   const items = data.occurrenceSearch.documents.results;
   items.forEach(x => {
+    // should we compare using accepted taxonKeys or not?
+    // x.taxon = x.acceptedTaxonKey;
+    // x.taxon = x.taxonKey;
+
     let clusterContext = {clusterNodes: []};
     if (x.related && x.related.count > 0) {
       const mainNode = processOccurrence(x, x.key, nodes, links, true, x.related.count > x.related.relatedOccurrences.length);

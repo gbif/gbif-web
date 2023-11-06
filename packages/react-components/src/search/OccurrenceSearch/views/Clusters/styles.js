@@ -1,9 +1,6 @@
 import { css, keyframes } from '@emotion/react';
 import { tooltip } from '../../../../style/shared';
 
-//This media query approach isn't ideal. 
-// Better would be to calculate the available space and decide based on that since the number of 
-// filters applied influence the decision. But this simple approach will perform better and is used for now.
 export const clusters = props => css`
   width: 100%;
   height: 100%;
@@ -102,9 +99,7 @@ export const clusters = props => css`
 
   .node-multiple-identifications + .node-overlay {
     display: block;
-    fill: url(#diagonalHatch)
-    /* background-image: linear-gradient(45deg, #00000000 25%, #00000088 25%, #00000088 50%, #00000000 50%, #00000000 75%, #00000088 75%, #00000088 100%);
-    background-size: 10px 10px; */
+    fill: url(#diagonalHatch);
   }
 
   .node-overlay {
@@ -138,6 +133,8 @@ export const clusters = props => css`
   .nodeContent-wrapper {
     border-radius: 50%;
   }
+  
+  /* Hover effect on nodes */
   /* .nodeContent-wrapper:hover {
     box-shadow: 0 0 10px 10px #ff000055;
     border-radius: 50%;
@@ -147,6 +144,7 @@ export const clusters = props => css`
   
 `;
 
+// A pulse animation that is used to highlight nodes as they are desselected
 export const pulseRing = keyframes`
   0% {
     opacity: 1;
@@ -203,7 +201,7 @@ export const footerText = props => css`
 `;
 
 export const clusterWrapper = props => css`
-  flex: 1 1 auto;
+  flex: 1 1 100%;
   display: flex;
   flex-direction: column;
   >div:first-of-type {
@@ -214,7 +212,7 @@ export const clusterWrapper = props => css`
 `;
 
 export const meta = props => css`
-  flex: 0 0 280px;
+  flex: 1 0 280px;
   margin-left: 8px;
 `;
 
@@ -252,7 +250,7 @@ export const headline = props => css`
 
 export const contentWrapper = props => css`
   overflow: auto;
-  max-height: 300px;
+  /* max-height: 300px; */
 `;
 
 export const content = props => css`
@@ -269,7 +267,8 @@ export const tooltipContent = props => css`
   color: white;
   border-radius: 4px;
   font-size: .85em;
-  max-width: 250px;
+  width: auto;
+  max-width: 450px;
   > div {
     margin-bottom: 12px;
   }

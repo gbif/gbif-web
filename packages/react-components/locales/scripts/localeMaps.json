@@ -1,18 +1,22 @@
 {
   "en": {
-    "iso3LetterCode": "eng"
+    "iso3LetterCode": "eng",
+    "cms": "en-GB"
   },
   "de": {
     "iso3LetterCode": "deu",
-    "vocabulary": "de-DE"
+    "vocabulary": "de-DE",
+    "cms": "de"
   },
   "es": {
     "gbif_org": "es",
     "vocabulary": "es-ES",
-    "iso3LetterCode": "spa"
+    "iso3LetterCode": "spa",
+    "cms": "es"
   },
   "fr": {
     "gbif_org": "fr",
-    "iso3LetterCode": "fra"
+    "iso3LetterCode": "fra",
+    "cms": "fr"
   }
 }

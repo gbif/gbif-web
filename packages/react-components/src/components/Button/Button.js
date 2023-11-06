@@ -101,20 +101,22 @@ export const DropdownButton = React.forwardRef(({
   onClick,
   loading,
   title,
+  label,
   children,
   ariaLabel = "Menu",
   menuItems = () => [],
   look,
   style,
+  truncate,
   ...props
 }, ref) => {
 
   return <ButtonGroup style={style}>
-    {children}
+    {children && <Button {...props} style={{ maxWidth: 400 }} truncate={truncate} look={look} ref={ref} onClick={onClick} loading={loading}>{children}</Button>}
     {menuItems.length > 0 && <Menu
       aria-label={ariaLabel}
       trigger={<Button look={look} style={{ flex: '0 0 auto' }}>
-        <MdMoreHoriz style={{ verticalAlign: 'middle' }} />
+        {label} <MdMoreHoriz style={{ marginInlineStart: label ? '6px' : 0, verticalAlign: 'middle' }} />
       </Button>}
       items={menuItems}
     />}

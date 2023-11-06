@@ -39,6 +39,7 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
       enums: {
         basisOfRecord: getFile(locale, `../${folder}/${locale}/enums/basisOfRecord`),
         countryCode: getFile(locale, `../${folder}/${locale}/enums/countryCode`),
+        clusterReasons: getFile(locale, `../${folder}/${locale}/enums/clusterReasons`),// sourced from https://github.com/gbif/pipelines/blob/dev/sdks/core/src/main/java/org/gbif/pipelines/core/parsers/clustering/RelationshipAssertion.java#L16C1-L36C4
         mediaType: getFile(locale, `../${folder}/${locale}/enums/mediaType`),
         occurrenceIssue: getFile(locale, `../${folder}/${locale}/enums/occurrenceIssue`),
         typeStatus: getFile(locale, `../${folder}/${locale}/enums/typeStatus`),

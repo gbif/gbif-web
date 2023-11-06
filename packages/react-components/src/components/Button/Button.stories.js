@@ -90,8 +90,22 @@ export const Dropdown = () => <DocsWrapper>
     Basis of record will be truncated
   </DropdownButton>
 
-  <DropdownButton look="primaryOutline">
-    Basis of record will be truncated
+  <DropdownButton look="primaryOutline" 
+    label={<span>Label</span>}
+    style={{ margin: 24 }}
+    menuItems={menuState => [
+      <DropdownButton.MenuAction onClick={e => { console.log('button action clicked', menuState); menuState.hide() }}>About this filter</DropdownButton.MenuAction>,
+      <DropdownButton.MenuAction onClick={e => { console.log('button action clicked', menuState); menuState.hide() }}>About this filter</DropdownButton.MenuAction>,
+    ]}
+    >
+  </DropdownButton>
+
+  <DropdownButton look="primaryOutline" 
+    menuItems={menuState => [
+      <DropdownButton.MenuAction onClick={e => { console.log('button action clicked', menuState); menuState.hide() }}>About this filter</DropdownButton.MenuAction>,
+      <DropdownButton.MenuAction onClick={e => { console.log('button action clicked', menuState); menuState.hide() }}>About this filter</DropdownButton.MenuAction>,
+    ]}
+    >
   </DropdownButton>
 </DocsWrapper>;
 

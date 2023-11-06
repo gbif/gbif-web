@@ -1,22 +1,21 @@
-import { jsx } from '@emotion/react';
+import { jsx, css } from '@emotion/react';
 import React, { useRef, useState, useContext, useEffect, useCallback } from 'react';
 import { useUpdateEffect } from 'react-use';
 // import { FilterContext } from '../../../../widgets/Filter/state';
-import OccurrenceContext from '../../../SearchContext';
 import { useIntl, FormattedMessage, FormattedNumber } from 'react-intl';
-import { DetailsDrawer, Button, OptImage as Image } from '../../../../components';
+import { DetailsDrawer, Button, DropdownButton, HelpText } from '../../../../components';
 import { OccurrenceSidebar } from '../../../../entities';
 import { useDialogState } from "reakit/Dialog";
-import { ViewHeader } from '../ViewHeader';
 import { MdChevronRight, MdChevronLeft, MdFirstPage, MdExpandMore, MdExpandLess } from "react-icons/md";
 // import { useUrlState } from '../../../../dataManagement/state/useUrlState';
 import { useQueryParam, NumberParam } from 'use-query-params';
 import ThemeContext from '../../../../style/themes/ThemeContext';
-import * as d3 from 'd3';
-import test, { highlightNode } from './test';
+import graphOfClusters, { highlightNode } from './clusterGraph';
 import { prettifyEnum } from '../../../../utils/labelMaker/config2labels';
 
-import * as css from './styles';
+import * as styles from './styles';
+import { ResultsHeader } from '../../../ResultsHeader';
+import useBelow from '../../../../utils/useBelow';
 
 export const ClusterPresentation = ({ reload, first, prev, next, size, from, error, data, graph, total, loading }) => {
   const theme = useContext(ThemeContext);
@@ -26,7 +25,8 @@ export const ClusterPresentation = ({ reload, first, prev, next, size, from, err
   const [activeCluster, setActiveCluster] = useState();
   const [tooltipItem, setTooltipItem] = useState();
   const dialog = useDialogState({ animated: true, modal: false });
-  const items = data?.occurrenceSearch?.documents?.results || [];
+  const useMobileLayout = useBelow(1000);
+  const [mobileTab, setMobileTab] = useState('clusters');
 
   const page = 1 + Math.floor(from / size);
   const totalPages = Math.ceil(total / size);
@@ -77,12 +77,9 @@ export const ClusterPresentation = ({ reload, first, prev, next, size, from, err
   }, [activeKey, activeCluster]);
 
   useEffect(() => {
-    // d3.select(ref.current)
-    //  .append('p')
-    //  .text('Hello from D3');
     if (ref && ref.current) {
       if (graph) {
-        test({
+        graphOfClusters({
           element: ref.current,
           nodes_data: graph.nodes,
           links_data: graph.links,
@@ -92,7 +89,7 @@ export const ClusterPresentation = ({ reload, first, prev, next, size, from, err
           setTooltipItem
         })
       } else {
-        test({
+        graphOfClusters({
           element: ref.current,
           nodes_data: [],
           links_data: [],
@@ -116,136 +113,151 @@ export const ClusterPresentation = ({ reload, first, prev, next, size, from, err
       maxHeight: "100vh",
       flexDirection: "column",
     }}>
-      <ViewHeader loading={loading} total={total} />
-      <div css={css.main}>
-        {error && <div css={css.requestError}>
+      <ResultsHeader loading={loading} total={total}>
+        <div style={{ flex: '1 1 auto' }}></div>
+        {useMobileLayout && <div><DropdownButton look="primaryOutline"
+          label={<FormattedMessage id={`search.occurrenceClustersView.${mobileTab}`} />}
+          menuItems={menuState => [
+            <DropdownButton.MenuAction onClick={e => { setMobileTab('about'); menuState.hide() }}><FormattedMessage id="search.occurrenceClustersView.about" /></DropdownButton.MenuAction>,
+            <DropdownButton.MenuAction onClick={e => { setMobileTab('clusters'); menuState.hide() }}><FormattedMessage id="search.occurrenceClustersView.clusters" /></DropdownButton.MenuAction>,
+          ]} /></div>}
+      </ResultsHeader>
+      <div css={styles.main}>
+        {error && <div css={styles.requestError}>
           Failed to load data
           <div>
             <Button onClick={reload}>Retry</Button>
           </div>
         </div>}
-        {!error && <div css={css.clusterWrapper}>
+        {!error && <div css={styles.clusterWrapper} style={(useMobileLayout && mobileTab !== 'clusters') ? {display: 'none'} : {} }>
           <div>
-            <div id="gb-cluster-tooltip" css={css.tooltipWrapper}>
-              <div id="gb-cluster-tooltip-content" css={css.tooltipContent}>
+            <div id="gb-cluster-tooltip" css={styles.tooltipWrapper}>
+              <div id="gb-cluster-tooltip-content" css={styles.tooltipContent}>
                 {tooltipItem && <>
                   {tooltipItem.link && <>
                     {tooltipItem.link?.reasons?.length > 0 && <div>
-                      About the link: {tooltipItem.link.reasons.map(x => <span>{prettifyEnum(x)} </span>)}
+                      <div><FormattedMessage id="search.occurrenceClustersView.aboutLink" /></div>
+                      <ul style={{ whiteSpace: 'pre' }}>
+                        {tooltipItem.link.reasons.map(x => <li><FormattedMessage id={`enums.clusterReasons.${x}`} defaultMessage={prettifyEnum(x)}/> </li>)}
+                      </ul>
                     </div>}
                     <div>
                       {tooltipItem.link.source.taxonKey !== tooltipItem.link.target.taxonKey && <div>
-                        Identifications differ
+                        <FormattedMessage id="search.occurrenceClustersView.hasMultipleTaxonKeys" />
                       </div>}
                       {tooltipItem.link.source.publishingOrgKey !== tooltipItem.link.target.publishingOrgKey && <div>
-                        Different publishers
+                        <FormattedMessage id="search.occurrenceClustersView.differentPublishers" />
                       </div>}
                     </div>
                   </>}
                   {tooltipItem.node && <>
-                    {tooltipItem.node.type === 'DELETED' && <div>This record has since been deleted</div>}
-                    {tooltipItem.node.basisOfRecord && <div style={{ whiteSpace: 'nowrap' }}>Basis of record: <FormattedMessage id={`enums.basisOfRecord.${tooltipItem.node.basisOfRecord}`} /></div>}
-                    {!tooltipItem.node.basisOfRecord && <div>{tooltipItem.node.type}</div>}
-                    {tooltipItem.node.isTreatment && <div>Treatment</div>}
-                    {tooltipItem.node.distinctTaxa > 1 && <div>Cluster contains different identifications</div>}
-                    {tooltipItem.node.capped && <div>This node has more connections, than shown here. Go to the record to see the full list.</div>}
+                    {tooltipItem.node.type === 'DELETED' && <div><FormattedMessage id="search.occurrenceClustersView.isDeleted" /></div>}
+                    {tooltipItem.node.basisOfRecord && <div style={{ whiteSpace: 'nowrap' }}><FormattedMessage id="occurrenceFieldNames.basisOfRecord" />: <FormattedMessage id={`enums.basisOfRecord.${tooltipItem.node.basisOfRecord}`} /></div>}
+                    {!tooltipItem.node.basisOfRecord && tooltipItem.node.type !== 'DELETED' && <div><FormattedMessage id={`search.occurrenceClustersView.nodeType.${tooltipItem.node.type}`} /></div>}
+                    {tooltipItem.node.isTreatment && <div><FormattedMessage id={`search.occurrenceClustersView.nodeType.TREATMENT`} /></div>}
+                    {tooltipItem.node.distinctTaxa > 1 && <div><FormattedMessage id="search.occurrenceClustersView.hasMultipleTaxonKeys" /></div>}
+                    {tooltipItem.node.capped && <div><FormattedMessage id="search.occurrenceClustersView.isCapped" /></div>}
+                    {/* I've decided not to add images as they often are slow to load, and since there can be many image per record, it doesn't tell you if they are the same anyway. */}
                     {/* {tooltipItem.node.image && <div>
-                      <Image src={tooltipItem.node.image.identifier} w={200}/></div>} */}
+                      <img src={tooltipItem.node.image.identifier} width={200}/></div>} */}
                   </>}
                 </>}
               </div>
             </div>
-            <svg css={css.clusters} ref={ref} style={{ pointerEvents: loading ? 'none' : null, filter: loading ? 'grayscale(8)' : null, opacity: loading ? 0.5 : 1 }}></svg>
+            <svg css={styles.clusters} ref={ref} style={{ pointerEvents: loading ? 'none' : null, filter: loading ? 'grayscale(8)' : null, opacity: loading ? 0.5 : 1 }}></svg>
           </div>
-          {next && <div css={css.footer({ theme })}>
-            {first && page > 2 && <Button appearance="text" css={css.footerItem({ theme })} direction="right" tip={intl.formatMessage({ id: 'pagination.first' })} onClick={first}>
+          {next && <div css={styles.footer({ theme })}>
+            {first && page > 2 && <Button appearance="text" css={styles.footerItem({ theme })} direction="right" tip={intl.formatMessage({ id: 'pagination.first' })} onClick={first}>
               <MdFirstPage />
             </Button>}
-            {prev && page > 1 && <Button appearance="text" css={css.footerItem({ theme })} direction="right" tip={intl.formatMessage({ id: 'pagination.previous' })} onClick={prev}>
+            {prev && page > 1 && <Button appearance="text" css={styles.footerItem({ theme })} direction="right" tip={intl.formatMessage({ id: 'pagination.previous' })} onClick={prev}>
               <MdChevronLeft />
             </Button>}
-            {total > 0 && <span css={css.footerText({ theme })}>
+            {total > 0 && <span css={styles.footerText({ theme })}>
               <FormattedMessage
                 id='pagination.pageXofY'
                 defaultMessage={'Loading'}
                 values={{ current: <FormattedNumber value={page} />, total: <FormattedNumber value={totalPages} /> }}
               />
             </span>}
-            {next && page < totalPages && <Button appearance="text" css={css.footerItem({ theme })} direction="left" tip={intl.formatMessage({ id: 'pagination.next' })} onClick={next}>
+            {next && page < totalPages && <Button appearance="text" css={styles.footerItem({ theme })} direction="left" tip={intl.formatMessage({ id: 'pagination.next' })} onClick={next}>
               <MdChevronRight />
             </Button>}
           </div>}
         </div>}
-        <div css={css.meta}>
-          <InfoCard headline="About" >
-          <p style={{fontWeight: 800}}>This is an experimental feature</p>
-
-          <p>GBIF automatically detects records that may be related. Examples could be a specimen sequenced by another institution, type material deposited at different institutions, or two people reporting the same bird at the same location and time.</p>
-          <p>This view shows the first N occurrences from the result, and for each record shows the related records. The same cluster may appear multiple times as it is not a list of distinct clusters, but of the occurrences.</p>
+        {(!useMobileLayout || mobileTab === 'about') && <div css={styles.meta}>
+          <InfoCard headline={<FormattedMessage id={`phrases.about`} />} >
+            <HelpText identifier="cluster-explorer" css={css`blockquote {
+              margin: 0;
+              padding: 5px 20px;
+              background-color: var(--color600);
+              color: var(--background);
+            }`}>
+            </HelpText>
           </InfoCard>
-          <InfoCard headline="Legend" collapsible={false} style={{ marginTop: 8 }}>
-            <div css={css.legendItem}>
+          <InfoCard headline={<FormattedMessage id={`phrases.legend`} />} collapsible={false} style={{ marginTop: 8 }}>
+            <div css={styles.legendItem}>
               <div>
                 <div style={{ borderRadius: '50%', width: 25, height: 25, background: '#fab93d' }}></div>
               </div>
-              <div style={{ flex: '1 1 auto' }}>Specimen</div>
+              <div style={{ flex: '1 1 auto' }}><FormattedMessage id={`search.occurrenceClustersView.nodeType.SPECIMEN`} /></div>
             </div>
-            <div css={css.legendItem}>
+            <div css={styles.legendItem}>
               <div>
                 <div style={{ borderRadius: '50%', width: 25, height: 25, background: '#5295a4' }}></div>
               </div>
-              <div style={{ flex: '1 1 auto' }}>Observation</div>
+              <div style={{ flex: '1 1 auto' }}><FormattedMessage id={`search.occurrenceClustersView.nodeType.OBSERVATION`} /></div>
             </div>
-            <div css={css.legendItem}>
+            <div css={styles.legendItem}>
               <div>
                 <div style={{ borderRadius: '50%', width: 25, height: 25, background: '#56bda7' }}></div>
               </div>
-              <div style={{ flex: '1 1 auto' }}>Treatment</div>
+              <div style={{ flex: '1 1 auto' }}><FormattedMessage id={`search.occurrenceClustersView.nodeType.TREATMENT`} /></div>
             </div>
-            <div css={css.legendItem}>
+            <div css={styles.legendItem}>
               <div>
-                <div css={css.stripes} style={{ borderRadius: '50%', width: 25, height: 25 }}></div>
+                <div css={styles.stripes} style={{ borderRadius: '50%', width: 25, height: 25 }}></div>
               </div>
-              <div style={{ flex: '1 1 auto' }}>Contains differemt identifications</div>
+              <div style={{ flex: '1 1 auto' }}><FormattedMessage id={`search.occurrenceClustersView.hasMultipleTaxonKeys`} /></div>
             </div>
-            <div css={css.legendItem}>
+            <div css={styles.legendItem}>
               <div>
                 <div style={{ borderRadius: '50%', width: 15, height: 15, background: '#e9c0dc' }}></div>
               </div>
-              <div style={{ flex: '1 1 auto' }}>Sequence</div>
+              <div style={{ flex: '1 1 auto' }}><FormattedMessage id={`search.occurrenceClustersView.nodeType.SEQUENCE`} /></div>
             </div>
-            <div css={css.legendItem}>
+            <div css={styles.legendItem}>
               <div>
                 <div style={{ borderRadius: '50%', width: 15, height: 15, background: 'rgb(203, 56, 53)' }}></div>
               </div>
-              <div style={{ flex: '1 1 auto' }}>Type specimen</div>
+              <div style={{ flex: '1 1 auto' }}><FormattedMessage id={`search.occurrenceClustersView.nodeType.TYPE`} /></div>
             </div>
-            <div css={css.legendItem}>
+            <div css={styles.legendItem}>
               <div>
                 <div style={{ borderRadius: '50%', width: 15, height: 15, background: 'rgb(44, 79, 123)' }}></div>
               </div>
-              <div style={{ flex: '1 1 auto' }}>Images</div>
+              <div style={{ flex: '1 1 auto' }}><FormattedMessage id={`search.occurrenceClustersView.nodeType.IMAGE`} /></div>
             </div>
-            <div css={css.legendItem}>
+            <div css={styles.legendItem}>
               <div>
                 <div style={{ width: 25, height: 3, background: 'pink' }}></div>
               </div>
-              <div style={{ flex: '1 1 auto' }}>Different publishers</div>
+              <div style={{ flex: '1 1 auto' }}><FormattedMessage id={`search.occurrenceClustersView.differentPublishers`} /></div>
             </div>
-            <div css={css.legendItem}>
+            <div css={styles.legendItem}>
               <div>
                 <div style={{ width: 15, height: 3, background: 'deepskyblue' }}></div>
               </div>
-              <div style={{ flex: '1 1 auto' }}>Same publisher</div>
+              <div style={{ flex: '1 1 auto' }}><FormattedMessage id={`search.occurrenceClustersView.samePublishers`} /></div>
             </div>
-            <div css={css.legendItem}>
+            <div css={styles.legendItem}>
               <div>
                 <div style={{ borderRadius: '50%', width: 25, height: 25, border: '3px solid #888888' }}></div>
               </div>
-              <div style={{ flex: '1 1 auto' }}>Entry point</div>
+              <div style={{ flex: '1 1 auto' }}><FormattedMessage id={`search.occurrenceClustersView.entryPoint`} /></div>
             </div>
           </InfoCard>
-        </div>
+        </div>}
       </div>
     </div>
   </>
@@ -253,15 +265,15 @@ export const ClusterPresentation = ({ reload, first, prev, next, size, from, err
 
 function InfoCard({ headline, children, style, collapsible = true, collapsed = false, props }) {
   const [expanded, setExpanded] = useState(!collapsed);
-  return <div css={css.card} style={style}>
-    <div css={css.headline}>
+  return <div css={styles.card} style={style}>
+    <div css={styles.headline}>
       <h2>{headline}</h2>
       {collapsible && <Button appearance="text" onClick={() => setExpanded(!expanded)} >
         {expanded ? <MdExpandMore /> : <MdExpandLess />}
       </Button>}
     </div>
-    {expanded && <div css={css.contentWrapper}>
-      <div css={css.content}>
+    {expanded && <div css={styles.contentWrapper}>
+      <div css={styles.content}>
         {children}
       </div>
     </div>}

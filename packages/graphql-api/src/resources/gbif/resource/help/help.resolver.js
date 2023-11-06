@@ -9,8 +9,9 @@ import { getHtml, excerpt, trustedTags } from "#/helpers/utils";
  */
 export default {
   Query: {
-    help: (_, { id, preview }, { dataSources, locale }) =>
-      dataSources.resourceAPI.getEntryById({ id, preview, locale })
+    help: (_, {locale: localeOverwrite, ...params}, { dataSources, locale }) =>
+      // dataSources.resourceAPI.getEntryById({ id, preview, locale })
+      dataSources.resourceSearchAPI.getFirstEntryByQuery({...params, contentType: 'help'}, localeOverwrite ?? locale)
   },
   Help: {
     title: src => getHtml(src.title, { inline: true }),

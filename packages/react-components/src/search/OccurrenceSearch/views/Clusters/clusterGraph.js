@@ -1,3 +1,30 @@
+/*
+this is forked from https://bl.ocks.org/puzzler10/4438752bb93f45dc5ad5214efaa12e4a and modified to my needs
+
+INTERSTING REFERENCES for future improvements:
+i think i might rather wnt to use another force as in this example https://observablehq.com/@d3/disjoint-force-directed-graph
+filtering nodes https://bl.ocks.org/denisemauldin/cdd667cbaf7b45d600a634c8ae32fae5
+https://observablehq.com/@john-guerra/force-in-a-box
+
+might be interesting as a way to make the graphs fill the rectangular area available
+bounding box on nodes
+https://tomroth.com.au/fdg-bounding-box/
+
+http://jsfiddle.net/Bull/4btFx/1/
+different symbols per node
+
+run first version without animating it
+https://stackoverflow.com/questions/47510853/how-to-disable-animation-in-a-force-directed-graph
+
+linear gradients on connecting lines
+https://stackoverflow.com/questions/42874203/linear-gradient-across-svg-line
+
+clamp to disallow draggin outside bounds
+https://observablehq.com/@d3/sticky-force-layout?collection=@d3/d3-drag
+
+ideas for server side rendering this 
+https://gist.github.com/danioyuan/d776a8034b64ceaa80bb
+*/
 import * as d3 from 'd3';
 
 export function highlightNode({ element, key, remove }) {
@@ -13,29 +40,8 @@ export function highlightNode({ element, key, remove }) {
     });
 }
 
-export default function test({ element, links_data, nodes_data, onNodeClick, setTooltipItem }) {
-  // this is forked from https://bl.ocks.org/puzzler10/4438752bb93f45dc5ad5214efaa12e4a and modified to my needs
-
-  // i think i might rather wnt to use another force as in this example https://observablehq.com/@d3/disjoint-force-directed-graph
-
-  // filtering nodes https://bl.ocks.org/denisemauldin/cdd667cbaf7b45d600a634c8ae32fae5
-
-  // https://observablehq.com/@john-guerra/force-in-a-box
-  // might be interesting as a way to make the graphs fill the rectangular area available
-
-  // bounding box on nodes
-  // https://tomroth.com.au/fdg-bounding-box/
-
-  // http://jsfiddle.net/Bull/4btFx/1/
-  // different symbols per node
-
-  // run first version without animating it
-  // https://stackoverflow.com/questions/47510853/how-to-disable-animation-in-a-force-directed-graph
-
-  // linear gradients on connecting lines
-  // https://stackoverflow.com/questions/42874203/linear-gradient-across-svg-line
-
-  //create somewhere to put the force directed graph
+export default function graphOfClusters({ element, links_data, nodes_data, onNodeClick, setTooltipItem }) {
+  // First we select the element we want to apply the graph to
   const svg = d3.select(element);
   const width = element.clientWidth;
   const height = element.clientHeight;
@@ -43,6 +49,7 @@ export default function test({ element, links_data, nodes_data, onNodeClick, set
 
   svg.selectAll("*").remove();
 
+  // define a pattern that we can use to fill certain nodes. In this case nodes that are part of a cluster with multiple identifications
   svg.append('defs')
     .append('pattern')
     .attr('id', 'diagonalHatch')
@@ -104,6 +111,7 @@ export default function test({ element, links_data, nodes_data, onNodeClick, set
 
   // attaching events to links
   // https://stackoverflow.com/questions/19132118/d3js-force-directed-mouseover-on-line-link-doesnt-work-properly
+  // I'm unable to get hover styles working on links
   // link.on("mouseover", function () { d3.select(this).style("stroke", "red"); });
   // link.on("mouseleave", function () { d3.select(this).style("stroke", "pink"); });
 
@@ -112,11 +120,6 @@ export default function test({ element, links_data, nodes_data, onNodeClick, set
       .style("left", () => {
         setTooltipItem({ link: d });
         return e.x + 10 + "px";
-        if (e.x > width - 100) {
-          return e.x - 100 + "px"
-        } else {
-          return e.x + 10 + "px"
-        }
       })
       .style("top", e.y + 20 + "px")
       .transition()
@@ -149,15 +152,16 @@ export default function test({ element, links_data, nodes_data, onNodeClick, set
       if (d.type === 'TYPE') return 5;
       return radius
     })
-    // .attr("fill", circleColour)
     .attr("class", circleClass);
-  // node.html(testContent);
+
+  // experiment, with adding an inner SVG with text. The initial idea was to show information about the node when zoomed in, but it did not feel intuitive, so opted for hovers and click for more info.
   // var innerSVG = node.append("svg")
   // innerSVG
   //   .attr("y", -10)
   //   .append("text")
   //   .attr("y", 10)
   //   .text("this text is in the inner SVG");
+
   node.append("circle")
     .attr("r", d => {
       if (d.type === 'IMAGE') return 5;
@@ -199,11 +203,6 @@ export default function test({ element, links_data, nodes_data, onNodeClick, set
       .style("left", () => {
         setTooltipItem({ node: d });
         return e.x + 'px';
-        // if (e.x > width - 100) {
-        //   return e.x - 100 + "px"
-        // } else {
-        //   return e.x + 10 + "px"
-        // }
       })
       .style("top", e.y + 20 + "px")
       .transition()
@@ -293,7 +292,6 @@ export default function test({ element, links_data, nodes_data, onNodeClick, set
     }
     return str;
   }
-  
 
   //Function to choose the line colour and thickness 
   //If the link type is "A" return green 
@@ -305,8 +303,6 @@ export default function test({ element, links_data, nodes_data, onNodeClick, set
       } else {
         return 'deepskyblue';
       }
-      //let index = parseInt(d.source.name) % 13;
-      return "pink";//colorPool[index];
     } catch (err) {
       console.log(err.message);
       return 'purple';
@@ -322,12 +318,6 @@ export default function test({ element, links_data, nodes_data, onNodeClick, set
   }
 
   node.call(drag(simulation));
-
-  //https://observablehq.com/@d3/sticky-force-layout?collection=@d3/d3-drag
-  function clamp(x, lo, hi) {
-    return x;
-    return x < lo ? lo : x > hi ? hi : x;
-  }
 
   function drag(simulation) {
     function dragstarted(event) {
@@ -354,14 +344,7 @@ export default function test({ element, links_data, nodes_data, onNodeClick, set
   }
 
   function tickActions() {
-    //update circle positions each tick of the simulation 
-    /*       node
-            .attr("cx", function(d) { return d.x; })
-            .attr("cy", function(d) { return d.y; });*/
     node.attr("transform", function (d) {
-      // const x = Math.max(radius, Math.min(width - radius, d.x));
-      // const y = Math.max(radius, Math.min(height - radius, d.y));
-      // return "translate(" + x + "," + y + ")";
       return "translate(" + d.x + "," + d.y + ")";
     });
 
@@ -399,7 +382,7 @@ export default function test({ element, links_data, nodes_data, onNodeClick, set
     if (width == 0 || height == 0) return; // nothing to fit
     var scale = (paddingPercent || 0.75) / Math.max(width / fullWidth, height / fullHeight);
     var translate = [fullWidth / 2 - scale * midX, fullHeight / 2 - scale * midY];
-    
+
     var transform = d3.zoomIdentity
       .translate(translate[0], translate[1])
       .scale(scale);
@@ -413,7 +396,4 @@ export default function test({ element, links_data, nodes_data, onNodeClick, set
   globalThis.lapsedZoomFit = lapsedZoomFit;
   // lapsedZoomFit(undefined, 0);
   lapsedZoomFit(200, 0);
-
-  // ideasfor server side rendering this 
-  // https://gist.github.com/danioyuan/d776a8034b64ceaa80bb
 }
