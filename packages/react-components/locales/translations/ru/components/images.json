@@ -3,5 +3,6 @@
   "title": "Название",
   "rights": "Права",
   "description": "Описание",
+  "accessURI": "Ссылка",
   "format": "Формат"
 }
