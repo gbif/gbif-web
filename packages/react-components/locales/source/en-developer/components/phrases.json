@@ -23,6 +23,7 @@
   "downloadAsTsv": "Download as TSV",
   "backHome": "Back home",
   "pageNotFound": "404",
+  "viewOnGBif": "View on GBIF.org",
   "failedToLoadData": "Failed to load data",
   "retry": "Retry",
   "pageNotFoundDescription": "Sorry, the page you visited does not exist.",

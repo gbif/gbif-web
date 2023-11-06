@@ -29,6 +29,8 @@
     "aboutLink": "About the link",
     "isCapped": "This node has more connections, than shown here. Go to the record to see the full list.",
     "isDeleted": "This record has since been deleted.",
+    "similarities": "Similarities",
+    "currentRecord": "Current record",
     "nodeType": {
       "IMAGE": "Image",
       "TYPE": "Type specimen",

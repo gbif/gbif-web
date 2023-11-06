@@ -10,6 +10,7 @@ import { prettifyEnum } from '../../../utils/labelMaker/config2labels';
 import env from '../../../../.env.json';
 
 import { useUrlState } from '../../../dataManagement/state/useUrlState';
+import { FormattedMessage } from 'react-intl';
 
 const { Term: T, Value: V } = Properties;
 
@@ -49,14 +50,14 @@ export function Cluster({
           return <RelatedOccurrence key={x.occurrence.key} onClick={e => setActiveKey(x.occurrence.key)} related={x.occurrence} reasons={x.reasons} original={data.occurrence} />;
         } else {
           return <div style={{padding: 30, background: 'tomato', color: 'white', borderRadius: 4}}>
-            This record has since been removed from the dataset. 
+            <FormattedMessage id="search.occurrenceClustersView.isDeleted" />
             <div>
               <Properties style={{ marginTop: 12 }} horizontal dense>
-                <T style={{color: 'white'}}>Publisher</T><V>{x.stub.publishingOrgName}</V>
+                <T style={{color: 'white'}}><FormattedMessage id="occurrenceDetails.publisher" /></T><V>{x.stub.publishingOrgName}</V>
                 {/* We can no longer show the original dataset name as the API has been changed.  */}
                 {/* <T style={{color: 'white'}}>Dataset</T><V>{x.stub.datasetName}</V> */}
-                {x.stub.catalogNumber && <><T style={{color: 'white'}}>Catalog number</T><V>{x.stub.catalogNumber}</V></>}
-                {x.stub.occurrenceID && <><T style={{color: 'white'}}>Occurrence ID</T><V>{x.stub.occurrenceID}</V></>}
+                {x.stub.catalogNumber && <><T style={{color: 'white'}}><FormattedMessage id="occurrenceFieldNames.catalogNumber" /></T><V>{x.stub.catalogNumber}</V></>}
+                {x.stub.occurrenceID && <><T style={{color: 'white'}}><FormattedMessage id="occurrenceFieldNames.occurrenceID" /></T><V>{x.stub.occurrenceID}</V></>}
               </Properties>
             </div>
           </div>
@@ -94,10 +95,10 @@ export function RelatedOccurrence({ original, reasons, related, ...props }) {
         </div>
         <div style={{ fontSize: 12 }}>
           <Properties horizontal dense>
-            <T>Publisher</T><V>{related.publisherTitle}</V>
-            <T>Dataset</T><V>{related.datasetTitle}</V>
+            <T><FormattedMessage id="occurrenceDetails.publisher" /></T><V>{related.publisherTitle}</V>
+            <T><FormattedMessage id="occurrenceDetails.dataset" /></T><V>{related.datasetTitle}</V>
           </Properties>
-          <a onClick={e => e.stopPropagation()} href={`${env.GBIF_ORG}/occurrence/${related.key}`}>View on GBIF.org</a>
+          <a onClick={e => e.stopPropagation()} href={`${env.GBIF_ORG}/occurrence/${related.key}`}><FormattedMessage id="phrases.viewOnGBif" /></a>
         </div>
       </Col>
       <Col grow={false} shrink={false}>
@@ -108,10 +109,12 @@ export function RelatedOccurrence({ original, reasons, related, ...props }) {
       </Col>
     </Row>
     <div css={styles.clusterFooter({ theme })}>
-      {!reasons && <div>Current record</div>}
+      {!reasons && <div><FormattedMessage id="search.occurrenceClustersView.currentRecord" /></div>}
       {reasons && <Properties style={{ fontSize: 12 }} horizontal dense>
-        <T>Similarities</T>
-        <V>{ reasons.map(reason => <span css={styles.chip({ theme })} key={reason}>{prettifyEnum(reason)}</span>) }</V>
+        <T><FormattedMessage id="search.occurrenceClustersView.similarities" /></T>
+        <V>{ reasons.map(reason => <span css={styles.chip({ theme })} key={reason}>
+          <FormattedMessage id={`enums.clusterReasons.${reason}`} defaultMessage={prettifyEnum(reason)} />
+        </span>) }</V>
       </Properties>}
     </div>
   </article>
