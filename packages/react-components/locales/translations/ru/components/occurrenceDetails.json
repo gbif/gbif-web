@@ -42,11 +42,11 @@
     "hasVideo": "Видео",
     "isSpecimen": "Образец",
     "eventDate": "Дата события",
-    "isType": ""
+    "isType": "Типовой образец"
   },
   "extensions": {
     "audubon": {
-      "name": "",
+      "name": "Мультимедиа Audubon",
       "properties": {
         "identifier": "Идентификатор",
         "type": "Тип записи",
@@ -357,7 +357,7 @@
       }
     },
     "measurementOrFact": {
-      "name": "",
+      "name": "Измерение или факт",
       "properties": {
         "measurementID": "Архив, аннотированный GBIF",
         "measurementType": "Архив, аннотированный GBIF",
@@ -422,7 +422,7 @@
       }
     },
     "cloning": {
-      "name": "",
+      "name": "Клонирование",
       "properties": {
         "cloningDate": "Архив, аннотированный GBIF",
         "cloningStaff": "Архив, аннотированный GBIF",
@@ -530,7 +530,7 @@
       }
     },
     "extendedMeasurementOrFact": {
-      "name": "",
+      "name": "Расширенное измерение или факт",
       "properties": {
         "measurementID": "Архив, аннотированный GBIF",
         "occurrenceID": "Идентификатор события",

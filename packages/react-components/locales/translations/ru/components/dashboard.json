@@ -11,7 +11,9 @@
   "withYear": "С указанием года",
   "withMedia": "Содержит медиа",
   "richness": "Обилие данных",
+  "percentWithValue": "{percent}% всех записей имеют значение",
   "occurrences": "Находки",
   "other": "Другая",
-  "unknown": "Неизвестно"
+  "unknown": "Неизвестно",
+  "metricsFromGbifData": "Эти показатели основаны на записях, предоставляемых GBIF."
 }

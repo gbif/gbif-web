@@ -27,12 +27,12 @@
   "iucnRedListCategory": {
     "name": "Архив, аннотированный GBIF",
     "count": "Архив, аннотированный GBIF",
-    "description": ""
+    "description": "В Красной книге МСОП (IUCN Red List) таксоны группируются по степени их угрозы."
   },
   "geoDistance": {
-    "name": "",
+    "name": "Расстояние, полученное из координат",
     "count": "",
-    "description": "",
+    "description": "Фильтрация записей по заданному расстоянию от точки",
     "placeholderLat": "Широта",
     "placeholderLon": "Долгота",
     "placeholderDist": "Расстояние"
@@ -40,7 +40,7 @@
   "relevance": {
     "name": "Отношение публикации к GBIF",
     "count": "",
-    "description": ""
+    "description": "Как GBIF используется в литературе."
   },
   "topics": {
     "name": "Тематика",
@@ -60,7 +60,7 @@
   "identifier": {
     "name": "Идентификатор",
     "count": "Архив, аннотированный GBIF",
-    "description": ""
+    "description": "Здесь следует разместить краткое описание компонента"
   },
   "institutionType": {
     "name": "Тип записи",
@@ -163,9 +163,9 @@
     "description": ""
   },
   "gbifPublisherKey": {
-    "name": "",
+    "name": "Публикатор GBIF",
     "count": "",
-    "description": ""
+    "description": "Название организации, ответственной за совместное использование набора данных, в который включена запись."
   },
   "hostingOrganizationKey": {
     "name": "Принимающая организация",

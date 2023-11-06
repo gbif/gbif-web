@@ -1,3 +1,8 @@
 {
+  "percentWithCoordinates": "{percent}% с указанием координат",
+  "percentWithYear": "{percent}% с указанием года",
+  "percentWithTaxonMatch": "{percent}% с соответствием таксона",
+  "gbifOverlapPercent": "Совпадение с Таксономической основой GBIF {percent}%",
+  "colOverlapPercent": "Совпадение с Catalogue of Life {percent}%",
   "nDatasets": "{NUMBER_FORMATED} {NUMBER, plural,\n0 {наборов}\none {набор}\nfew {набора}\nmany {наборов}\nother {наборов}\n} данных"
 }

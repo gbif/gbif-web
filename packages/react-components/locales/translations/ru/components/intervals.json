@@ -5,7 +5,7 @@
     "gt": "",
     "gte": "",
     "e": "",
-    "between": ""
+    "between": "От {from} до {to}"
   },
   "compact": {
     "between": "",
@@ -68,8 +68,8 @@
     "e": ""
   },
   "geoDistance": {
-    "short": "",
-    "description": ""
+    "short": "В пределах {distance} в зависимости от {latitude},{longitude}",
+    "description": "Широта {latitude}, долгота: {longitude}, расстояние: {distance}"
   },
   "units": {
     "name": {
