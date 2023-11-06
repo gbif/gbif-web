@@ -6,7 +6,7 @@
     "datasets": "Datasets",
     "events": "Events",
     "download": "Download",
-    "clusters": "Related records",
+    "clusters": "Related",
     "sites": "Sites"
   },
   "table": {
@@ -20,7 +20,7 @@
   "loadMore": "More",
   "occurrenceClustersView": {
     "about": "About",
-    "clusters": "Related records",
+    "clusters": "Related",
     "legend": "Legend",
     "differentPublishers": "Different publishers",
     "samePublishers": "Same publisher",
