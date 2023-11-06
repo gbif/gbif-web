@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { useQuery } from '../../dataManagement/api';
 import { ErrorImage } from '../Icons/Icons';
 import LocaleContext from '../../dataManagement/LocaleProvider/LocaleContext';
+import { FormattedMessage } from 'react-intl';
+import { StripeLoader } from '../Loaders';
 
 export function HelpText({
   identifier,
@@ -13,10 +15,10 @@ export function HelpText({
   const { title, body, error, loading } = useHelp(identifier);
 
   return <div {...props}>
-    {loading && <div>Loading...</div>}
+    {loading && <div><StripeLoader active={true} /></div>}
     {!loading && error && <div style={{textAlign: 'center'}}>
       <ErrorImage style={{width: 150, maxWidth: '100%'}}/>
-      <div>Unable to load help text</div>
+      <div><FormattedMessage id="phrases.failedToLoadData" /></div>
     </div>}
     {!loading && !error && <>
       {includeTitle && <h3>{title}</h3>}

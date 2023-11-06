@@ -124,9 +124,9 @@ export const ClusterPresentation = ({ reload, first, prev, next, size, from, err
       </ResultsHeader>
       <div css={styles.main}>
         {error && <div css={styles.requestError}>
-          Failed to load data
+        <FormattedMessage id={`phrases.failedToLoadData`} />
           <div>
-            <Button onClick={reload}>Retry</Button>
+            <Button onClick={reload}><FormattedMessage id={`phrases.retry`} /></Button>
           </div>
         </div>}
         {!error && <div css={styles.clusterWrapper} style={(useMobileLayout && mobileTab !== 'clusters') ? {display: 'none'} : {} }>
