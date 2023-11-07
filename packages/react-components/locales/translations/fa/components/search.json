@@ -6,6 +6,7 @@
     "datasets": "مجموعه اطلاعات",
     "events": "",
     "download": "دانلود",
+    "clusters": "",
     "sites": ""
   },
   "table": {
@@ -16,5 +17,27 @@
     "range": "",
     "locationID": ""
   },
-  "loadMore": "بیشتر"
+  "loadMore": "بیشتر",
+  "occurrenceClustersView": {
+    "about": "درباره",
+    "clusters": "",
+    "legend": "",
+    "differentPublishers": "",
+    "samePublishers": "",
+    "entryPoint": "",
+    "hasMultipleTaxonKeys": "",
+    "aboutLink": "",
+    "isCapped": "",
+    "isDeleted": "",
+    "similarities": "",
+    "currentRecord": "",
+    "nodeType": {
+      "IMAGE": "",
+      "TYPE": "",
+      "TREATMENT": "",
+      "OBSERVATION": "",
+      "SPECIMEN": "",
+      "SEQUENCE": ""
+    }
+  }
 }
