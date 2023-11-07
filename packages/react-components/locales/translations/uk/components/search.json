@@ -6,7 +6,7 @@
     "datasets": "Наборів даних",
     "events": "Заходи",
     "download": "Завантажити",
-    "clusters": "Архів анотований GBIF",
+    "clusters": "",
     "sites": "Архів анотований GBIF"
   },
   "table": {
@@ -20,24 +20,24 @@
   "loadMore": "Більше",
   "occurrenceClustersView": {
     "about": "Відомості про видавця даних",
-    "clusters": "Архів анотований GBIF",
-    "legend": "Архів анотований GBIF",
-    "differentPublishers": "Архів анотований GBIF",
-    "samePublishers": "Архів анотований GBIF",
-    "entryPoint": "Архів анотований GBIF",
-    "hasMultipleTaxonKeys": "Архів анотований GBIF",
-    "aboutLink": "Архів анотований GBIF",
-    "isCapped": "Архів анотований GBIF",
-    "isDeleted": "Архів анотований GBIF",
-    "similarities": "Архів анотований GBIF",
-    "currentRecord": "Архів анотований GBIF",
+    "clusters": "",
+    "legend": "",
+    "differentPublishers": "",
+    "samePublishers": "",
+    "entryPoint": "",
+    "hasMultipleTaxonKeys": "",
+    "aboutLink": "",
+    "isCapped": "",
+    "isDeleted": "",
+    "similarities": "",
+    "currentRecord": "",
     "nodeType": {
       "IMAGE": "Зображення",
       "TYPE": "Типовий зразок",
       "TREATMENT": "Таксономічна картка",
       "OBSERVATION": "Спостереження",
       "SPECIMEN": "Зразок",
-      "SEQUENCE": "Архів анотований GBIF"
+      "SEQUENCE": ""
     }
   }
 }
