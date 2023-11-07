@@ -34,9 +34,9 @@
     "nodeType": {
       "IMAGE": "Изображение",
       "TYPE": "Типовой образец",
-      "TREATMENT": "",
+      "TREATMENT": "Обработка",
       "OBSERVATION": "Наблюдение",
-      "SPECIMEN": "",
+      "SPECIMEN": "Образец",
       "SEQUENCE": "Архив, аннотированный GBIF"
     }
   }
