@@ -167,7 +167,9 @@ export const siteConfig = {
       zoom: 5.4
     },
   },
-  collection: {},
+  collection: {
+    //availableOccurrenceSearchTabs: ['TABLE', 'GALLERY', 'MAP'],
+  },
   publisher: {},
   apiKeys: {
     mapbox: env._FOR_STORYBOOK_BUT_PUBLIC?.apiKeys?.mapbox,

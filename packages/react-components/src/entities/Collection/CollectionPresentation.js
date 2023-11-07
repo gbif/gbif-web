@@ -1,6 +1,6 @@
 
 import { jsx, css } from '@emotion/react';
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Tabs, Eyebrow, ResourceLink, Button, Tooltip } from '../../components';
 import OccurrenceSearch from '../../search/OccurrenceSearch/OccurrenceSearch';
 import { Description as About } from './about/Description';
@@ -17,6 +17,7 @@ import { DataHeader, HeaderWrapper, ContentWrapper, Headline, DeletedMessage, Er
 import { Page404, PageLoader } from '../shared';
 
 import env from '../../../.env.json';
+import SiteContext from '../../dataManagement/SiteContext';
 const { TabList, RouterTab, Tab } = Tabs;
 
 export function CollectionPresentation({
@@ -27,7 +28,44 @@ export function CollectionPresentation({
   ...props
 }) {
   const hideSideBar = useBelow(1100);
+  const { collection: collectionContext } = useContext(SiteContext);
   let { url, path } = useRouteMatch();
+
+  const rootPredicate = {
+    "type": "equals",
+    "value": id,
+    "key": "collectionKey"
+  };
+
+  const configState = {
+    rootPredicate,
+    occurrenceSearchTabs: ['TABLE'],
+    excludedFilters: ['occurrenceStatus', 'networkKey', 'hostingOrganizationKey', 'protocol', 'publishingCountryCode', 'institutionCode', 'institutionKey', 'institutionKey', 'collectionKey'],
+    highlightedFilters: ['taxonKey', 'verbatimScientificName', 'catalogNumber', 'recordedBy', 'identifiedBy'],
+    defaultTableColumns: ['features', 'catalogNumber', 'country', 'year', 'recordedBy', 'identifiedBy'],
+  };
+  const [config, setConfig] = useState(configState);
+
+  // once we get the slow query back with information about how many records have coordinates, iages and is in a cluster, then we can decide what tabs to show
+  useEffect(() => {
+    let occurrenceSearchTabs = [];
+    if (data?.withCoordinates?.documents?.total > 0) occurrenceSearchTabs.push('MAP');
+    if (data?.withImages?.documents?.total > 0) occurrenceSearchTabs.push('GALLERY');
+    if (data?.withClusters?.documents?.total > 0) occurrenceSearchTabs.push('CLUSTERS');
+    // and then take the intersection with the available occurrence tabs defined in the site context. 
+    if (collectionContext?.availableOccurrenceSearchTabs) {
+      try {
+        occurrenceSearchTabs = occurrenceSearchTabs.filter(x => collectionContext?.availableOccurrenceSearchTabs?.includes(x));
+      } catch(err) {
+        // ignore error in user config
+        console.error(err);
+      }
+    }
+    // insert TABLE as first tab
+    occurrenceSearchTabs.unshift('TABLE');
+    setConfig({...config, occurrenceSearchTabs})
+  }, [data?.withImages]);
+
 
   if (error) {
     if (error?.errorPaths?.collection?.status === 404) {
@@ -43,20 +81,6 @@ export function CollectionPresentation({
   if (loading || !data) return <PageLoader />
   const { collection, occurrenceSearch } = data;
   // const recordedByCardinality = occurrenceSearch?.cardinality?.recordedBy;
-
-  const rootPredicate = {
-    "type": "equals",
-    "value": id,
-    "key": "collectionKey"
-  };
-
-  const config = {
-    rootPredicate,
-    occurrenceSearchTabs: ['TABLE', 'GALLERY', 'MAP'],
-    excludedFilters: ['occurrenceStatus', 'networkKey', 'hostingOrganizationKey', 'protocol', 'publishingCountryCode', 'institutionCode', 'institutionKey', 'institutionKey', 'collectionKey'],
-    highlightedFilters: ['taxonKey', 'verbatimScientificName', 'catalogNumber', 'recordedBy', 'identifiedBy'],
-    defaultTableColumns: ['features', 'catalogNumber', 'country', 'year', 'recordedBy', 'identifiedBy'],
-  };
 
   // if there is at least a countryCode for thee address, then use that, else fall back to the mailing address
   const contactInfo = collection?.address?.country ? collection?.address : collection?.mailingAddress;

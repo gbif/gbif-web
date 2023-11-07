@@ -16,6 +16,8 @@ import { useFilterParams } from '../../dataManagement/state/useFilterParams';
 import defaultFilterConfig from './config/filterConf';
 import { tableConfig } from './config/tableConfig';
 import { buildConfig } from '../buildSearchConfig';
+import hash from 'object-hash';
+
 
 function OccurrenceSearch({ config: customConfig = {}, pageLayout, ...props }) {
   const theme = useContext(ThemeContext);
@@ -35,7 +37,7 @@ function OccurrenceSearch({ config: customConfig = {}, pageLayout, ...props }) {
       predicateConfig,
       defaultFilterConfig
     }, { client: apiContext, formatMessage: intl.formatMessage, localeSettings });
-  }, [apiContext, intl, localeSettings]);
+  }, [apiContext, intl, localeSettings, hash(customConfig)]);
 
   return (
     <Root dir={theme.dir}>

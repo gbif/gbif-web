@@ -17,18 +17,42 @@ export function Collection({
 
   useEffect(() => {
     if (typeof id !== 'undefined') {
+      const collectionPredicate = {
+        type: "equals",
+        key: "collectionKey",
+        value: id
+      };
+
       const query = {
         variables: {
           key: id,
-          predicate: {
-            type: "equals",
-            key: "collectionKey",
-            value: id
-          }
+          predicate: collectionPredicate
         }
       };
       load(query);
-      slowLoad(query);
+      slowLoad({
+        variables: {
+          predicate: collectionPredicate,
+          imagePredicate: {
+            type: 'and',
+            predicates: [collectionPredicate, { type: 'equals', key: 'mediaType', value: 'StillImage' }]
+          },
+          coordinatePredicate: {
+            type: 'and',
+            predicates: [
+              collectionPredicate,
+              { type: 'equals', key: 'hasCoordinate', value: 'true' }
+            ]
+          },
+          clusterPredicate: {
+            type: 'and',
+            predicates: [
+              collectionPredicate,
+              { type: 'equals', key: 'isInCluster', value: 'true' }
+            ]
+          },
+        }
+      });
     }
   }, [id]);
 
@@ -42,13 +66,28 @@ export function Collection({
 };
 
 const SLOW_QUERY = `
-query collection($predicate: Predicate){
+query collection($predicate: Predicate, $imagePredicate: Predicate, $coordinatePredicate: Predicate, $clusterPredicate: Predicate){
   occurrenceSearch(predicate: $predicate) {
     documents(size: 0) {
       total
     }
     cardinality {
       recordedBy
+    }
+  }
+  withImages: occurrenceSearch(predicate: $imagePredicate) {
+    documents(size: 0) {
+      total
+    }
+  }
+  withCoordinates: occurrenceSearch(predicate: $coordinatePredicate) {
+    documents(size: 0) {
+      total
+    }
+  }
+  withClusters: occurrenceSearch(predicate: $clusterPredicate) {
+    documents(size: 0) {
+      total
     }
   }
 }
