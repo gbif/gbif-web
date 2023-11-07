@@ -16,6 +16,7 @@ import { prettifyEnum } from '../../../../utils/labelMaker/config2labels';
 import * as styles from './styles';
 import { ResultsHeader } from '../../../ResultsHeader';
 import useBelow from '../../../../utils/useBelow';
+import { CircularLoader, EllipsisLoader } from '../../../../components/Loaders';
 
 export const ClusterPresentation = ({ reload, first, prev, next, size, from, error, data, graph, total, loading }) => {
   const theme = useContext(ThemeContext);
@@ -164,7 +165,8 @@ export const ClusterPresentation = ({ reload, first, prev, next, size, from, err
                 </>}
               </div>
             </div>
-            <svg css={styles.clusters} ref={ref} style={{ pointerEvents: loading ? 'none' : null, filter: loading ? 'grayscale(8)' : null, opacity: loading ? 0.5 : 1 }}></svg>
+            {loading && !graph && <div style={{margin: '48px auto', width: 100}}><EllipsisLoader /></div>}
+            {graph && <svg css={styles.clusters} ref={ref} style={{ pointerEvents: loading ? 'none' : null, filter: loading ? 'grayscale(8)' : null, opacity: loading ? 0.5 : 1 }}></svg>}
           </div>
           {next && <div css={styles.footer({ theme })}>
             {first && page > 2 && <Button appearance="text" css={styles.footerItem({ theme })} direction="right" tip={intl.formatMessage({ id: 'pagination.first' })} onClick={first}>
