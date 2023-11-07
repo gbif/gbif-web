@@ -6,10 +6,11 @@
   "homepage": "Домашняя страница",
   "email": "Email",
   "mailingAddress": "Почтовый адрес",
-  "contacts": "Контактные данные",
+  "contacts": "Контакты",
   "address": "Адрес (улица, номер дома)",
   "province": "Регион",
   "country": "Страна",
   "logoUrl": "Логотип организации (URL)",
-  "identifiers": "Идентификаторы"
+  "identifiers": "Идентификаторы",
+  "importantCollectors": "Крупнейшие коллекторы"
 }
