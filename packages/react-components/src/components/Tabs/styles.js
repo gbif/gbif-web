@@ -53,6 +53,7 @@ export const tabList = ({ theme, vertical }) => css`
   display: flex;
   flex-direction: ${vertical ? 'column' : 'row'};
   flex-wrap: nowrap;
+  overflow: auto;
 `;
 
 export const tabSeperator = ({ theme, vertical }) => css`
