@@ -72,7 +72,7 @@ export const TablePresentation = ({ first, prev, next, size, from, data, total, 
       const { trKey, name } = col;
       return <MenuAction>
         <label>
-          <Switch disabled={index == 0} checked={visibleColumnNames.includes(name)} onClick={e => toggleColumn(name)} /> <FormattedMessage id={trKey} />
+          <Switch disabled={index == 0} checked={visibleColumnNames.includes(name)} onChange={e => toggleColumn(name)} /> <FormattedMessage id={trKey} />
         </label>
       </MenuAction>
     });
