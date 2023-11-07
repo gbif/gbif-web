@@ -9,6 +9,7 @@
   "identifiedToSpecies": "Идентифицировано до вида",
   "withCoordinates": "С координатами",
   "withYear": "С указанием года",
+  "withCollector": "С коллектором",
   "withMedia": "Содержит медиа",
   "richness": "Обилие данных",
   "percentWithValue": "{percent}% всех записей имеют значение",
