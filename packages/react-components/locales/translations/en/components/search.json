@@ -6,7 +6,7 @@
     "datasets": "Datasets",
     "events": "Events",
     "download": "Download",
-    "clusters": "",
+    "clusters": "Related",
     "sites": ""
   },
   "table": {
@@ -20,24 +20,24 @@
   "loadMore": "More",
   "occurrenceClustersView": {
     "about": "About",
-    "clusters": "",
-    "legend": "",
-    "differentPublishers": "",
-    "samePublishers": "",
-    "entryPoint": "",
-    "hasMultipleTaxonKeys": "",
-    "aboutLink": "",
-    "isCapped": "",
-    "isDeleted": "",
-    "similarities": "",
-    "currentRecord": "",
+    "clusters": "Related",
+    "legend": "Legend",
+    "differentPublishers": "Different publishers",
+    "samePublishers": "Same publisher",
+    "entryPoint": "Entry point",
+    "hasMultipleTaxonKeys": "Contains different identifications",
+    "aboutLink": "About the link",
+    "isCapped": "This node has more connections than shown here. Go to the record to see the full list.",
+    "isDeleted": "This record has since been deleted.",
+    "similarities": "Similarities",
+    "currentRecord": "Current record",
     "nodeType": {
       "IMAGE": "Image",
       "TYPE": "Type specimen",
       "TREATMENT": "Treatment",
       "OBSERVATION": "Observation",
       "SPECIMEN": "Specimen",
-      "SEQUENCE": ""
+      "SEQUENCE": "Sequence"
     }
   }
 }

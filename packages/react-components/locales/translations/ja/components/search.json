@@ -6,6 +6,7 @@
     "datasets": "データセット",
     "events": "イベント",
     "download": "ダウンロード",
+    "clusters": "GBIFがアノーテーションしたアーカイブ",
     "sites": "GBIFがアノーテーションしたアーカイブ"
   },
   "table": {
@@ -16,5 +17,27 @@
     "range": "",
     "locationID": "GBIFがアノーテーションしたアーカイブ"
   },
-  "loadMore": "もっと読み込む"
+  "loadMore": "もっと読み込む",
+  "occurrenceClustersView": {
+    "about": "・・・について",
+    "clusters": "GBIFがアノーテーションしたアーカイブ",
+    "legend": "GBIFがアノーテーションしたアーカイブ",
+    "differentPublishers": "GBIFがアノーテーションしたアーカイブ",
+    "samePublishers": "GBIFがアノーテーションしたアーカイブ",
+    "entryPoint": "GBIFがアノーテーションしたアーカイブ",
+    "hasMultipleTaxonKeys": "GBIFがアノーテーションしたアーカイブ",
+    "aboutLink": "GBIFがアノーテーションしたアーカイブ",
+    "isCapped": "GBIFがアノーテーションしたアーカイブ",
+    "isDeleted": "GBIFがアノーテーションしたアーカイブ",
+    "similarities": "GBIFがアノーテーションしたアーカイブ",
+    "currentRecord": "GBIFがアノーテーションしたアーカイブ",
+    "nodeType": {
+      "IMAGE": "画像",
+      "TYPE": "",
+      "TREATMENT": "処理",
+      "OBSERVATION": "観察記録",
+      "SPECIMEN": "標本",
+      "SEQUENCE": "GBIFがアノーテーションしたアーカイブ"
+    }
+  }
 }

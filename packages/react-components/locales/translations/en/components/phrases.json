@@ -11,6 +11,7 @@
   "identifier": "Identifier",
   "unknownDate": "Unknown date",
   "about": "About",
+  "legend": "Legend",
   "citations": "Citations",
   "metrics": "Metrics",
   "datasets": "Datasets",
@@ -21,6 +22,9 @@
   "downloadAsTsv": "Download as TSV",
   "backHome": "Back home",
   "pageNotFound": "404",
+  "viewOnGBif": "View on GBIF.org",
+  "failedToLoadData": "Failed to load data",
+  "retry": "Retry",
   "pageNotFoundDescription": "Sorry, the page you visited does not exist.",
   "download": "Download"
 }

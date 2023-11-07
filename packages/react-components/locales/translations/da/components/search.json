@@ -6,6 +6,7 @@
     "datasets": "Datasæt",
     "events": "Arrangementer",
     "download": "Download",
+    "clusters": "GBIF annoteret Arkiv",
     "sites": "GBIF annoteret Arkiv"
   },
   "table": {
@@ -16,5 +17,27 @@
     "range": "",
     "locationID": "GBIF annoteret Arkiv"
   },
-  "loadMore": "Flere"
+  "loadMore": "Flere",
+  "occurrenceClustersView": {
+    "about": "Om",
+    "clusters": "GBIF annoteret Arkiv",
+    "legend": "GBIF annoteret Arkiv",
+    "differentPublishers": "GBIF annoteret Arkiv",
+    "samePublishers": "GBIF annoteret Arkiv",
+    "entryPoint": "GBIF annoteret Arkiv",
+    "hasMultipleTaxonKeys": "GBIF annoteret Arkiv",
+    "aboutLink": "GBIF annoteret Arkiv",
+    "isCapped": "GBIF annoteret Arkiv",
+    "isDeleted": "GBIF annoteret Arkiv",
+    "similarities": "GBIF annoteret Arkiv",
+    "currentRecord": "GBIF annoteret Arkiv",
+    "nodeType": {
+      "IMAGE": "Billede",
+      "TYPE": "",
+      "TREATMENT": "",
+      "OBSERVATION": "Observation_xxx",
+      "SPECIMEN": "",
+      "SEQUENCE": "GBIF annoteret Arkiv"
+    }
+  }
 }
