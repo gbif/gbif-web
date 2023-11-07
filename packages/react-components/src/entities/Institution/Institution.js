@@ -27,18 +27,43 @@ export function Institution({
 
   useEffect(() => {
     if (typeof id !== 'undefined') {
+      const institutionPredicate = {
+        type: "equals",
+        key: "institutionKey",
+        value: id
+      };
+
       const query = {
         variables: {
           key: id,
-          predicate: {
-            type: "equals",
-            key: "institutionKey",
-            value: id
-          }
+          predicate: institutionPredicate
         }
       };
       load(query);
-      slowLoad(query);
+      slowLoad({
+        variables: {
+          key: id,
+          predicate: institutionPredicate,
+          imagePredicate: {
+            type: 'and',
+            predicates: [institutionPredicate, { type: 'equals', key: 'mediaType', value: 'StillImage' }]
+          },
+          coordinatePredicate: {
+            type: 'and',
+            predicates: [
+              institutionPredicate,
+              { type: 'equals', key: 'hasCoordinate', value: 'true' }
+            ]
+          },
+          clusterPredicate: {
+            type: 'and',
+            predicates: [
+              institutionPredicate,
+              { type: 'equals', key: 'isInCluster', value: 'true' }
+            ]
+          },
+        }
+      });
     }
   }, [id]);
 
@@ -52,7 +77,7 @@ export function Institution({
 };
 
 const SLOW_QUERY = `
-query institution($key: String!, $predicate: Predicate){
+query institution($key: String!, $predicate: Predicate, $imagePredicate: Predicate, $coordinatePredicate: Predicate, $clusterPredicate: Predicate){
   occurrenceSearch(predicate: $predicate) {
     documents(size: 0) {
       total
@@ -64,6 +89,21 @@ query institution($key: String!, $predicate: Predicate){
       key
       occurrenceCount
       richness
+    }
+  }
+  withImages: occurrenceSearch(predicate: $imagePredicate) {
+    documents(size: 0) {
+      total
+    }
+  }
+  withCoordinates: occurrenceSearch(predicate: $coordinatePredicate) {
+    documents(size: 0) {
+      total
+    }
+  }
+  withClusters: occurrenceSearch(predicate: $clusterPredicate) {
+    documents(size: 0) {
+      total
     }
   }
 }

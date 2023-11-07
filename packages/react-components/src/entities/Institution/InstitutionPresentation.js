@@ -1,8 +1,6 @@
 
 import { jsx, css } from '@emotion/react';
-import React, { useContext } from 'react';
-import { MdInfo } from 'react-icons/md'
-import ThemeContext from '../../style/themes/ThemeContext';
+import React, { useState, useEffect } from 'react';
 import { Tabs, Eyebrow, Button, Tooltip, ResourceLink } from '../../components';
 import OccurrenceSearch from '../../search/OccurrenceSearch/OccurrenceSearch';
 import { OccurrenceCount, Homepage, FeatureList, Location, GenericFeature, GbifCount } from '../../components/IconFeatures/IconFeatures';
@@ -34,6 +32,30 @@ export function InstitutionPresentation({
   const hideSideBar = useBelow(1100);
   let { path, url } = useRouteMatch();
 
+  const rootPredicate = {
+    "type": "equals",
+    "value": id,
+    "key": "institutionKey"
+  };
+
+  const configState = {
+    rootPredicate,
+    occurrenceSearchTabs: ['TABLE', 'GALLERY', 'MAP'],
+    excludedFilters: ['occurrenceStatus', 'networkKey', 'hostingOrganizationKey', 'protocol', 'publishingCountryCode', 'institutionCode', 'institutionKey', 'institutionKey'],
+    highlightedFilters: ['taxonKey', 'verbatimScientificName', 'catalogNumber', 'recordedBy', 'identifiedBy'],
+    defaultTableColumns: ['features', 'collectionKey', 'collectionCode', 'catalogNumber', 'country', 'year', 'recordedBy', 'identifiedBy'],
+  };
+  const [config, setConfig] = useState(configState);
+
+  // once we get the slow query back with information about how many records have coordinates, iages and is in a cluster, then we can decide what tabs to show
+  useEffect(() => {
+    let occurrenceSearchTabs = ['TABLE'];
+    if (data?.withCoordinates?.documents?.total > 0) occurrenceSearchTabs.push('MAP');
+    if (data?.withImages?.documents?.total > 0) occurrenceSearchTabs.push('GALLERY');
+    if (data?.withClusters?.documents?.total > 0) occurrenceSearchTabs.push('CLUSTERS');
+    setConfig({...config, occurrenceSearchTabs})
+  }, [data?.withImages]);
+
   if (error) {
     if (error?.errorPaths?.institution?.status === 404) {
       return <>
@@ -55,20 +77,6 @@ export function InstitutionPresentation({
       <Page404 />
     </>
   }
-
-  const rootPredicate = {
-    "type": "equals",
-    "value": id,
-    "key": "institutionKey"
-  };
-
-  const config = {
-    rootPredicate,
-    occurrenceSearchTabs: ['TABLE', 'GALLERY', 'MAP'],
-    excludedFilters: ['occurrenceStatus', 'networkKey', 'hostingOrganizationKey', 'protocol', 'publishingCountryCode', 'institutionCode', 'institutionKey', 'institutionKey'],
-    highlightedFilters: ['taxonKey', 'verbatimScientificName', 'catalogNumber', 'recordedBy', 'identifiedBy'],
-    defaultTableColumns: ['features', 'collectionKey', 'collectionCode', 'catalogNumber', 'country', 'year', 'recordedBy', 'identifiedBy'],
-  };
 
   // if there is at least a countryCode for thee address, then use that, else fall back to the mailing address
   const contactInfo = institution?.address?.country ? institution?.address : institution?.mailingAddress;
