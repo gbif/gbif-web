@@ -187,12 +187,15 @@ export const ClusterPresentation = ({ reload, first, prev, next, size, from, err
         </div>}
         {(!useMobileLayout || mobileTab === 'about') && <div css={styles.meta}>
           <InfoCard headline={<FormattedMessage id={`phrases.about`} />} >
-            <HelpText identifier="cluster-explorer" css={css`blockquote {
-              margin: 12px 0;
-              padding: 5px 20px;
-              background-color: var(--color600);
-              color: var(--background);
-            }`}>
+            <HelpText identifier="cluster-explorer" css={css`
+              margin-block: 12px; 
+              blockquote {
+                margin: 12px 0;
+                padding: 5px 20px;
+                background-color: var(--color600);
+                color: var(--background);
+              }
+            `}>
             </HelpText>
           </InfoCard>
           <InfoCard headline={<FormattedMessage id={`phrases.legend`} />} collapsible={false} style={{ marginTop: 8 }}>
