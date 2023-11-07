@@ -6,7 +6,7 @@
     "datasets": "مجموعات البيانات",
     "events": "أحداث",
     "download": "تنزيل",
-    "clusters": "أرشيف شروح \"جيبف\"",
+    "clusters": "",
     "sites": "أرشيف شروح \"جيبف\""
   },
   "table": {
@@ -20,24 +20,24 @@
   "loadMore": "مزيد",
   "occurrenceClustersView": {
     "about": "حول",
-    "clusters": "أرشيف شروح \"جيبف\"",
-    "legend": "أرشيف شروح \"جيبف\"",
-    "differentPublishers": "أرشيف شروح \"جيبف\"",
-    "samePublishers": "أرشيف شروح \"جيبف\"",
-    "entryPoint": "أرشيف شروح \"جيبف\"",
-    "hasMultipleTaxonKeys": "أرشيف شروح \"جيبف\"",
-    "aboutLink": "أرشيف شروح \"جيبف\"",
-    "isCapped": "أرشيف شروح \"جيبف\"",
-    "isDeleted": "أرشيف شروح \"جيبف\"",
-    "similarities": "أرشيف شروح \"جيبف\"",
-    "currentRecord": "أرشيف شروح \"جيبف\"",
+    "clusters": "",
+    "legend": "",
+    "differentPublishers": "",
+    "samePublishers": "",
+    "entryPoint": "",
+    "hasMultipleTaxonKeys": "",
+    "aboutLink": "",
+    "isCapped": "",
+    "isDeleted": "",
+    "similarities": "",
+    "currentRecord": "",
     "nodeType": {
       "IMAGE": "صورة",
       "TYPE": "نوع النموذج",
       "TREATMENT": "معالجة",
       "OBSERVATION": "ملاحظة",
       "SPECIMEN": "نموذج",
-      "SEQUENCE": "أرشيف شروح \"جيبف\""
+      "SEQUENCE": ""
     }
   }
 }
