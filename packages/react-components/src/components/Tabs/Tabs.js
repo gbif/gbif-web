@@ -8,6 +8,7 @@ import * as styles from './styles';
 import { uncontrollable } from 'uncontrollable';
 import { Tooltip } from '../Tooltip/Tooltip';
 import { Link, useRouteMatch } from "react-router-dom";
+import { Button } from 'reakit';
 
 export const TabsContext = React.createContext({});
 
@@ -92,7 +93,7 @@ export const Tab = ({
     'id': `${tabId}_tab`,
     'onClick': () => tabContext.onChange(tabId)
   }
-  return <li
+  return <Button as="li"
     tabIndex="0"
     css={styles.tab({ theme, isActive, direction })}
     {...tabProps}
