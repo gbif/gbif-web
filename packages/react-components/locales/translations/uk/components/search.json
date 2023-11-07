@@ -33,10 +33,10 @@
     "currentRecord": "Архів анотований GBIF",
     "nodeType": {
       "IMAGE": "Зображення",
-      "TYPE": "",
+      "TYPE": "Типовий зразок",
       "TREATMENT": "Таксономічна картка",
       "OBSERVATION": "Спостереження",
-      "SPECIMEN": "",
+      "SPECIMEN": "Зразок",
       "SEQUENCE": "Архів анотований GBIF"
     }
   }
