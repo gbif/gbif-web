@@ -161,7 +161,6 @@ function Table() {
 
   // fetch visible columns from local storage or the defaults from config
   useEffect(() => {
-    console.log(availableColumns);
     const colMap = keyBy(availableColumns, 'name');
     // now create the list of visible columns (name/key only)
     const columnNames = [...(visibleColumnNames ?? defaultTableColumns ?? availableTableColumns ?? tableConfig.defaultColumns)];
