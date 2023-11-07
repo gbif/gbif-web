@@ -21,7 +21,7 @@ function Map(props) {
     const { v1Filter, error } = filter2v1(currentFilterContext.filter, predicateConfig);
     const filter = { ...rootPredicate, ...v1Filter };
     setFilter(filter);
-    const { promise, cancel } = axios.get(`${env.UTILS_API}/map-styles/3031/institutions.geojson`, {
+    const { promise, cancel } = axios.get(`${env.API_V1}/grscicoll/institution/geojson`, {
       params: filter,
       // https://github.com/axios/axios#request-config
       paramsSerializer: function (params) {
