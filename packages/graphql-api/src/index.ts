@@ -25,6 +25,7 @@ import api from './dataSources';
 // we will attach a user if an authorization header is present.
 import extractUser from './helpers/auth/extractUser';
 import mapController from './api-utils/maps/index.ctrl.js';
+import ipController from './api-utils/ip2country.ctrl.js';
 import { loggingPlugin } from './plugins/loggingPlugin';
 
 // we are doing this async as we need to load the various enumerations from the APIs
@@ -108,6 +109,7 @@ async function initializeServer() {
 
   // utils for map styles
   mapController(app);
+  ipController(app);
 
   await server.start();
   server.applyMiddleware({ app });
