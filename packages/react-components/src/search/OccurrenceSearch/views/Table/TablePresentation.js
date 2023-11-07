@@ -76,8 +76,8 @@ export const TablePresentation = ({ first, prev, next, size, from, data, total, 
         </label>
       </MenuAction>
     });
-    items.push(<MenuAction>
-      <Button look="text" onClick={() => {toggleColumn(); menuState.hide();}}>Reset</Button>
+    items.push(<MenuAction onClick={() => {toggleColumn(); menuState.hide();}}>
+      Reset
     </MenuAction>)
     return items;
   }
