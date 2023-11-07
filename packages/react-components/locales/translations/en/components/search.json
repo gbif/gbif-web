@@ -6,6 +6,7 @@
     "datasets": "Datasets",
     "events": "Events",
     "download": "Download",
+    "clusters": "",
     "sites": ""
   },
   "table": {
@@ -16,5 +17,27 @@
     "range": "Range or single value",
     "locationID": ""
   },
-  "loadMore": "More"
+  "loadMore": "More",
+  "occurrenceClustersView": {
+    "about": "About",
+    "clusters": "",
+    "legend": "",
+    "differentPublishers": "",
+    "samePublishers": "",
+    "entryPoint": "",
+    "hasMultipleTaxonKeys": "",
+    "aboutLink": "",
+    "isCapped": "",
+    "isDeleted": "",
+    "similarities": "",
+    "currentRecord": "",
+    "nodeType": {
+      "IMAGE": "Image",
+      "TYPE": "Type specimen",
+      "TREATMENT": "Treatment",
+      "OBSERVATION": "Observation",
+      "SPECIMEN": "Specimen",
+      "SEQUENCE": ""
+    }
+  }
 }
