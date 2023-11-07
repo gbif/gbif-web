@@ -6,6 +6,7 @@
     "datasets": "Datasets",
     "events": "",
     "download": "Download",
+    "clusters": "GBIF-kommentiertes Archiv",
     "sites": "GBIF-kommentiertes Archiv"
   },
   "table": {
@@ -16,5 +17,27 @@
     "range": "Bereich oder einzelner Wert",
     "locationID": "GBIF-kommentiertes Archiv"
   },
-  "loadMore": "Mehr"
+  "loadMore": "Mehr",
+  "occurrenceClustersView": {
+    "about": "",
+    "clusters": "GBIF-kommentiertes Archiv",
+    "legend": "GBIF-kommentiertes Archiv",
+    "differentPublishers": "GBIF-kommentiertes Archiv",
+    "samePublishers": "GBIF-kommentiertes Archiv",
+    "entryPoint": "GBIF-kommentiertes Archiv",
+    "hasMultipleTaxonKeys": "GBIF-kommentiertes Archiv",
+    "aboutLink": "GBIF-kommentiertes Archiv",
+    "isCapped": "GBIF-kommentiertes Archiv",
+    "isDeleted": "GBIF-kommentiertes Archiv",
+    "similarities": "GBIF-kommentiertes Archiv",
+    "currentRecord": "GBIF-kommentiertes Archiv",
+    "nodeType": {
+      "IMAGE": "",
+      "TYPE": "",
+      "TREATMENT": "",
+      "OBSERVATION": "Beobachtung",
+      "SPECIMEN": "Exemplar",
+      "SEQUENCE": "GBIF-kommentiertes Archiv"
+    }
+  }
 }

@@ -6,6 +6,7 @@
     "datasets": "数据集",
     "events": "事件",
     "download": "下载",
+    "clusters": "GBIF附加说明的归档",
     "sites": "GBIF附加说明的归档"
   },
   "table": {
@@ -16,5 +17,27 @@
     "range": "范围或单个值",
     "locationID": "GBIF附加说明的归档"
   },
-  "loadMore": "更多"
+  "loadMore": "更多",
+  "occurrenceClustersView": {
+    "about": "关于",
+    "clusters": "GBIF附加说明的归档",
+    "legend": "GBIF附加说明的归档",
+    "differentPublishers": "GBIF附加说明的归档",
+    "samePublishers": "GBIF附加说明的归档",
+    "entryPoint": "GBIF附加说明的归档",
+    "hasMultipleTaxonKeys": "GBIF附加说明的归档",
+    "aboutLink": "GBIF附加说明的归档",
+    "isCapped": "GBIF附加说明的归档",
+    "isDeleted": "GBIF附加说明的归档",
+    "similarities": "GBIF附加说明的归档",
+    "currentRecord": "GBIF附加说明的归档",
+    "nodeType": {
+      "IMAGE": "图片",
+      "TYPE": "",
+      "TREATMENT": "治疗",
+      "OBSERVATION": "观察",
+      "SPECIMEN": "标本",
+      "SEQUENCE": "GBIF附加说明的归档"
+    }
+  }
 }

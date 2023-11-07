@@ -6,6 +6,7 @@
     "datasets": "Опубликованных наборов данных",
     "events": "Мероприятия",
     "download": "Загрузить",
+    "clusters": "Архив, аннотированный GBIF",
     "sites": "Архив, аннотированный GBIF"
   },
   "table": {
@@ -16,5 +17,27 @@
     "range": "",
     "locationID": "Архив, аннотированный GBIF"
   },
-  "loadMore": "Еще"
+  "loadMore": "Еще",
+  "occurrenceClustersView": {
+    "about": "Об организациии",
+    "clusters": "Архив, аннотированный GBIF",
+    "legend": "Архив, аннотированный GBIF",
+    "differentPublishers": "Архив, аннотированный GBIF",
+    "samePublishers": "Архив, аннотированный GBIF",
+    "entryPoint": "Архив, аннотированный GBIF",
+    "hasMultipleTaxonKeys": "Архив, аннотированный GBIF",
+    "aboutLink": "Архив, аннотированный GBIF",
+    "isCapped": "Архив, аннотированный GBIF",
+    "isDeleted": "Архив, аннотированный GBIF",
+    "similarities": "Архив, аннотированный GBIF",
+    "currentRecord": "Архив, аннотированный GBIF",
+    "nodeType": {
+      "IMAGE": "Изображение",
+      "TYPE": "Типовой образец",
+      "TREATMENT": "Обработка",
+      "OBSERVATION": "Наблюдение",
+      "SPECIMEN": "Образец",
+      "SEQUENCE": "Архив, аннотированный GBIF"
+    }
+  }
 }

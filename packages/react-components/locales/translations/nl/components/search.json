@@ -6,6 +6,7 @@
     "datasets": "Datasets",
     "events": "",
     "download": "Downloaden",
+    "clusters": "",
     "sites": ""
   },
   "table": {
@@ -16,5 +17,27 @@
     "range": "Bereik of enkele waarde",
     "locationID": ""
   },
-  "loadMore": "Meer"
+  "loadMore": "Meer",
+  "occurrenceClustersView": {
+    "about": "",
+    "clusters": "",
+    "legend": "",
+    "differentPublishers": "",
+    "samePublishers": "",
+    "entryPoint": "",
+    "hasMultipleTaxonKeys": "",
+    "aboutLink": "",
+    "isCapped": "",
+    "isDeleted": "",
+    "similarities": "",
+    "currentRecord": "",
+    "nodeType": {
+      "IMAGE": "",
+      "TYPE": "",
+      "TREATMENT": "",
+      "OBSERVATION": "",
+      "SPECIMEN": "Exemplaar",
+      "SEQUENCE": ""
+    }
+  }
 }
