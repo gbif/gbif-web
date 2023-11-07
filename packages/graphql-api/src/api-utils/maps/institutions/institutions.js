@@ -13,18 +13,27 @@ export const getInstitutions = async ({limit: size, offset: from, ...filter} = {
   let total = 0;
 
   do {
-    const params ={
+    const params = {
       limit,
       offset,
       hasCoordinate: true, // this filter doesn't exist in the API, but it should for this to work well
-      ...filter
-    }
-    const response = await axios.get(`${config.apiv1}/grscicoll/institution`, {
-      params: params,
-      paramsSerializer: function (params) {
-        return queryString.stringify(params, { arrayFormat: 'repeat' })
-      },
-    });
+      ...filter,
+    };
+    let response;
+
+		// In some instances, this API call returns 503 and crashes the graphql-api package.
+		// Wrap in a try-catch to handle it
+		try  {
+			response = await axios.get(`${config.apiv1}/grscicoll/institution`, {
+				params: params,
+				paramsSerializer: function (params) {
+					return queryString.stringify(params, { arrayFormat: 'repeat' })
+				},
+			});
+		} catch (error) {
+			console.error(error);
+			return null;
+		}
 
     // prune response to only include a subset of the fields, to reduce the size of the response
     // the fields are latitude, longitude, code, name, key, active, numberSpecimens
