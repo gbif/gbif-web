@@ -6,6 +6,7 @@
     "datasets": "資料集",
     "events": "事件",
     "download": "下載",
+    "clusters": "GBIF 註記的存檔",
     "sites": "GBIF 註記的存檔"
   },
   "table": {
@@ -16,5 +17,27 @@
     "range": "範圍或單一數值",
     "locationID": "GBIF 註記的存檔"
   },
-  "loadMore": "更多"
+  "loadMore": "更多",
+  "occurrenceClustersView": {
+    "about": "關於",
+    "clusters": "GBIF 註記的存檔",
+    "legend": "GBIF 註記的存檔",
+    "differentPublishers": "GBIF 註記的存檔",
+    "samePublishers": "GBIF 註記的存檔",
+    "entryPoint": "GBIF 註記的存檔",
+    "hasMultipleTaxonKeys": "GBIF 註記的存檔",
+    "aboutLink": "GBIF 註記的存檔",
+    "isCapped": "GBIF 註記的存檔",
+    "isDeleted": "GBIF 註記的存檔",
+    "similarities": "GBIF 註記的存檔",
+    "currentRecord": "GBIF 註記的存檔",
+    "nodeType": {
+      "IMAGE": "圖像",
+      "TYPE": "",
+      "TREATMENT": "分類處理",
+      "OBSERVATION": "觀察",
+      "SPECIMEN": "標本",
+      "SEQUENCE": "GBIF 註記的存檔"
+    }
+  }
 }
