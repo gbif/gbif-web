@@ -6,6 +6,7 @@
     "datasets": "مجموعات البيانات",
     "events": "أحداث",
     "download": "تنزيل",
+    "clusters": "أرشيف شروح \"جيبف\"",
     "sites": "أرشيف شروح \"جيبف\""
   },
   "table": {
@@ -16,5 +17,27 @@
     "range": "",
     "locationID": "أرشيف شروح \"جيبف\""
   },
-  "loadMore": "مزيد"
+  "loadMore": "مزيد",
+  "occurrenceClustersView": {
+    "about": "حول",
+    "clusters": "أرشيف شروح \"جيبف\"",
+    "legend": "أرشيف شروح \"جيبف\"",
+    "differentPublishers": "أرشيف شروح \"جيبف\"",
+    "samePublishers": "أرشيف شروح \"جيبف\"",
+    "entryPoint": "أرشيف شروح \"جيبف\"",
+    "hasMultipleTaxonKeys": "أرشيف شروح \"جيبف\"",
+    "aboutLink": "أرشيف شروح \"جيبف\"",
+    "isCapped": "أرشيف شروح \"جيبف\"",
+    "isDeleted": "أرشيف شروح \"جيبف\"",
+    "similarities": "أرشيف شروح \"جيبف\"",
+    "currentRecord": "أرشيف شروح \"جيبف\"",
+    "nodeType": {
+      "IMAGE": "صورة",
+      "TYPE": "",
+      "TREATMENT": "معالجة",
+      "OBSERVATION": "ملاحظة",
+      "SPECIMEN": "",
+      "SEQUENCE": "أرشيف شروح \"جيبف\""
+    }
+  }
 }
