@@ -82,7 +82,6 @@ const Layout = ({
           </NavBar> */}
         </div>
       </div>
-      <div css={cssViewArea({ theme })}>
         <TabPanel lazy tabId="TABLE" className={`${prefix}-${elementName}-views`} css={cssViewArea({ theme })}>
           <ErrorBoundary><Table /></ErrorBoundary>
         </TabPanel>
@@ -111,7 +110,6 @@ const Layout = ({
         {activeView === 'CLUSTERS' && <ErrorBoundary><Clusters /></ErrorBoundary>}
         {activeView === 'DASHBOARD' && <ErrorBoundary><h1>sdkfjh</h1></ErrorBoundary>}
         {activeView === 'DOWNLOAD' && <ErrorBoundary><Download /></ErrorBoundary>} */}
-      </div>
     </Tabs>
     {/* <div className={`${prefix}-${elementName}-footer`} css={cssFooter({ theme })}>
       <div>Footer content</div>
