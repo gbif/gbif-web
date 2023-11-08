@@ -19,7 +19,7 @@
   },
   "loadMore": "Meer",
   "occurrenceClustersView": {
-    "about": "",
+    "about": "Over",
     "clusters": "",
     "legend": "",
     "differentPublishers": "",
@@ -32,10 +32,10 @@
     "similarities": "",
     "currentRecord": "",
     "nodeType": {
-      "IMAGE": "",
-      "TYPE": "",
-      "TREATMENT": "",
-      "OBSERVATION": "",
+      "IMAGE": "Afbeelding",
+      "TYPE": "Soort specimen",
+      "TREATMENT": "Behandeling",
+      "OBSERVATION": "Waarneming",
       "SPECIMEN": "Exemplaar",
       "SEQUENCE": ""
     }
