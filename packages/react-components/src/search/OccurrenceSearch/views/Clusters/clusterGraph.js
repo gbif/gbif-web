@@ -136,7 +136,7 @@ export default function graphOfClusters({ element, links_data, nodes_data, onNod
       .transition()
       .style("visibility", () => {
         setTooltipItem();
-        // return "hidden";
+        return "hidden";
       });
   });
 
