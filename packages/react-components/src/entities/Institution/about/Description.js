@@ -107,7 +107,8 @@ export function Description({
               return <ListItem
                 key={contact.key}
                 isCard
-                title={`${contact.firstName} ${contact.lastName}`}
+                firstName={contact.firstName}
+                lastName={contact.lastName}
                 avatar={<Name2Avatar first={contact.firstName} last={contact.lastName} />}
                 description={contact.position?.[0]}
                 footerActions={actions}>
