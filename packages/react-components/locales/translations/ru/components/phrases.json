@@ -7,6 +7,7 @@
   "identifier": "Идентификатор",
   "unknownDate": "Неизвестная дата",
   "about": "Подробнее",
+  "legend": "Легенда",
   "citations": "Цитирования",
   "metrics": "Показатели",
   "datasets": "Наборы данных",
@@ -16,6 +17,9 @@
   "downloadAsTsv": "Скачать в формате TSV",
   "backHome": "Назад",
   "pageNotFound": "Ошибка 404",
+  "viewOnGBif": "Посмотреть на GBIF.org",
+  "failedToLoadData": "Не удалось загрузить данные",
+  "retry": "Повторить",
   "pageNotFoundDescription": "К сожалению, запрашиваемая вами страница не существует.",
   "download": "Загрузить"
 }
