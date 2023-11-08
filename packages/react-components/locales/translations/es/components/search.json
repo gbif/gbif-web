@@ -6,7 +6,7 @@
     "datasets": "Conjuntos de datos",
     "events": "Eventos",
     "download": "Descargar",
-    "clusters": "Archivo de GBIF anotado",
+    "clusters": "",
     "sites": "Archivo de GBIF anotado"
   },
   "table": {
@@ -20,24 +20,24 @@
   "loadMore": "Más",
   "occurrenceClustersView": {
     "about": "Acerca de",
-    "clusters": "Archivo de GBIF anotado",
-    "legend": "Archivo de GBIF anotado",
-    "differentPublishers": "Archivo de GBIF anotado",
-    "samePublishers": "Archivo de GBIF anotado",
-    "entryPoint": "Archivo de GBIF anotado",
-    "hasMultipleTaxonKeys": "Archivo de GBIF anotado",
-    "aboutLink": "Archivo de GBIF anotado",
-    "isCapped": "Archivo de GBIF anotado",
-    "isDeleted": "Archivo de GBIF anotado",
-    "similarities": "Archivo de GBIF anotado",
-    "currentRecord": "Archivo de GBIF anotado",
+    "clusters": "",
+    "legend": "",
+    "differentPublishers": "",
+    "samePublishers": "",
+    "entryPoint": "",
+    "hasMultipleTaxonKeys": "",
+    "aboutLink": "",
+    "isCapped": "",
+    "isDeleted": "",
+    "similarities": "",
+    "currentRecord": "",
     "nodeType": {
       "IMAGE": "Imagen",
       "TYPE": "Espécimen tipo",
       "TREATMENT": "Tratamiento",
       "OBSERVATION": "Observación",
       "SPECIMEN": "Espécimen",
-      "SEQUENCE": "Archivo de GBIF anotado"
+      "SEQUENCE": ""
     }
   }
 }

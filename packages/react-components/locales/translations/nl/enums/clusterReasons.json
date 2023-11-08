@@ -1,1 +1,14 @@
-{}
+{
+  "SAME_ACCEPTED_SPECIES": "Dezelfde geaccepteerde soorten",
+  "SAME_DATE": "Dezelfde datum",
+  "NON_CONFLICTING_DATE": "Niet-conflicterende datum",
+  "APPROXIMATE_DATE": "Geschatte datum",
+  "DIFFERENT_DATE": "Verschillende datum",
+  "SAME_COORDINATES": "Dezelfde coördinaten",
+  "WITHIN_200m": "Binnen 200 m",
+  "WITHIN_2Km": "Binnen 2 km",
+  "SAME_COUNTRY": "Hetzelfde land",
+  "DIFFERENT_COUNTRY": "Ander land",
+  "SAME_SPECIMEN": "Hetzelfde specimen",
+  "TYPIFICATION_RELATION": "Typering relatie"
+}

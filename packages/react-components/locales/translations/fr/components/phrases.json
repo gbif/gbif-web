@@ -11,6 +11,7 @@
   "identifier": "Identifiant",
   "unknownDate": "Date inconnue",
   "about": "À propos",
+  "legend": "Légende",
   "citations": "Citations",
   "metrics": "Statistiques",
   "datasets": "Jeux de données",
@@ -21,5 +22,8 @@
   "downloadAsTsv": "Télécharger en tant que TSV",
   "backHome": "Retour à la page d'accueil",
   "pageNotFound": "404",
+  "viewOnGBif": "Voir sur GBIF.org",
+  "failedToLoadData": "Échec du chargement des données",
+  "retry": "Réessayer",
   "download": "Télécharger"
 }

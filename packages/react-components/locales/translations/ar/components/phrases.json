@@ -5,11 +5,15 @@
   "identifier": "المعرِّف",
   "unknownDate": "تاريخ غير معروف",
   "about": "حول",
+  "legend": "أسطورة",
   "citations": "اقتباسات",
   "metrics": "المقاييس",
   "datasets": "مجموعات البيانات",
   "occurrenceMetrics": "مقاييس التكرار",
   "project": "مشروع",
   "license": "الرخصة",
+  "viewOnGBif": "عرض على موقع GBIF.org",
+  "failedToLoadData": "تعذر تحميل البيانات",
+  "retry": "أعد  ",
   "download": "تنزيل"
 }
