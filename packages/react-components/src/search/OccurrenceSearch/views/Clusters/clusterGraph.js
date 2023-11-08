@@ -46,6 +46,8 @@ export default function graphOfClusters({ element, links_data, nodes_data, onNod
   const width = element.clientWidth;
   const height = element.clientHeight;
   const ratio = width / height;
+  const tooltipWrapperElement = document.getElementById('gb-cluster-tooltip');
+  const clusterWrapperElement = tooltipWrapperElement.parentElement;
 
   svg.selectAll("*").remove();
 
@@ -121,7 +123,11 @@ export default function graphOfClusters({ element, links_data, nodes_data, onNod
         setTooltipItem({ link: d });
         return e.x + 10 + "px";
       })
-      .style("top", e.y + 20 + "px")
+      .style("top", () => {
+        var scrollTop = window.scrollY || document.documentElement.scrollTop;
+        var offset = clusterWrapperElement.getBoundingClientRect().y;
+        return e.pageY - offset - scrollTop + "px";
+      })
       .transition()
       .style("visibility", "visible");
   });
@@ -130,7 +136,7 @@ export default function graphOfClusters({ element, links_data, nodes_data, onNod
       .transition()
       .style("visibility", () => {
         setTooltipItem();
-        return "hidden";
+        // return "hidden";
       });
   });
 
@@ -204,7 +210,11 @@ export default function graphOfClusters({ element, links_data, nodes_data, onNod
         setTooltipItem({ node: d });
         return e.x + 'px';
       })
-      .style("top", e.y + 20 + "px")
+      .style("top", () => {
+        var scrollTop = window.scrollY || document.documentElement.scrollTop;
+        var offset = clusterWrapperElement.getBoundingClientRect().y;
+        return e.pageY - offset - scrollTop + "px";
+      })
       .transition()
       .style("visibility", "visible");
 
@@ -212,7 +222,7 @@ export default function graphOfClusters({ element, links_data, nodes_data, onNod
       .attr("style", function (d) {
         let style = '';
         if (e.x > width - 100) {
-          style += 'right: 20px; ';
+          style += 'right: 10px; ';
         } else {
           style += 'left: 0px; ';
         }

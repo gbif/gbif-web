@@ -208,6 +208,7 @@ export const clusterWrapper = props => css`
     width: 100%;
     flex: 1 1 auto;
     overflow: hidden;
+    position: relative;
   }
 `;
 
