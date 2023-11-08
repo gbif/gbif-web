@@ -1,1 +1,19 @@
-{}
+{
+  "SAME_ACCEPTED_SPECIES": "Такие же одобренные виды",
+  "SAME_DATE": "Та же дата",
+  "NON_CONFLICTING_DATE": "Не конфликтующая дата",
+  "APPROXIMATE_DATE": "Примерная дата",
+  "DIFFERENT_DATE": "Другая дата",
+  "SAME_COORDINATES": "Те же координаты",
+  "WITHIN_200m": "В пределах 200 м",
+  "WITHIN_2Km": "В пределах 2 км",
+  "NON_CONFLICTING_COORDINATES": "Не противоречащие координаты",
+  "SAME_COUNTRY": "Та же страна",
+  "NON_CONFLICTING_COUNTRY": "Не противоречащая страна",
+  "DIFFERENT_COUNTRY": "Другая страна",
+  "IDENTIFIERS_OVERLAP": "Перекрытие идентификаторов",
+  "OTHER_CATALOG_NUMBERS_OVERLAP": "Перекрытие с другими номерами каталога",
+  "SAME_RECORDER_NAME": "Такое же имя регистратора",
+  "SAME_SPECIMEN": "Такой же образец",
+  "TYPIFICATION_RELATION": "Связь с типификацией"
+}
