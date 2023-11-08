@@ -208,7 +208,9 @@ export default function graphOfClusters({ element, links_data, nodes_data, onNod
     d3.select("#gb-cluster-tooltip")
       .style("left", () => {
         setTooltipItem({ node: d });
-        return e.x + 'px';
+        var scrollLeft = window.scrollX || document.documentElement.scrollLeft;
+        var offset = clusterWrapperElement.getBoundingClientRect().x;
+        return e.pageX - offset - scrollLeft + "px";
       })
       .style("top", () => {
         var scrollTop = window.scrollY || document.documentElement.scrollTop;
