@@ -6,5 +6,9 @@
   "citation": "Bronvermelding",
   "citeAs": "Gebruik deze bronvermelding in publicaties",
   "unknownDate": "Onbekende datum",
-  "hostedDatasets": "Gehoste datasets"
+  "legend": "Legenda",
+  "hostedDatasets": "Gehoste datasets",
+  "viewOnGBif": "Toon op GBIF.org",
+  "failedToLoadData": "Kan geen gegevens laden",
+  "retry": "Probeer opnieuw"
 }

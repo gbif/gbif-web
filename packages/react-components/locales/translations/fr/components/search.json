@@ -6,7 +6,7 @@
     "datasets": "Jeux de données",
     "events": "Évènements",
     "download": "Télécharger",
-    "clusters": "Archive annotée par GBIF",
+    "clusters": "",
     "sites": "Archive annotée par GBIF"
   },
   "table": {
@@ -20,24 +20,24 @@
   "loadMore": "Plus",
   "occurrenceClustersView": {
     "about": "À propos",
-    "clusters": "Archive annotée par GBIF",
-    "legend": "Archive annotée par GBIF",
-    "differentPublishers": "Archive annotée par GBIF",
-    "samePublishers": "Archive annotée par GBIF",
-    "entryPoint": "Archive annotée par GBIF",
-    "hasMultipleTaxonKeys": "Archive annotée par GBIF",
-    "aboutLink": "Archive annotée par GBIF",
-    "isCapped": "Archive annotée par GBIF",
-    "isDeleted": "Archive annotée par GBIF",
-    "similarities": "Archive annotée par GBIF",
-    "currentRecord": "Archive annotée par GBIF",
+    "clusters": "",
+    "legend": "",
+    "differentPublishers": "",
+    "samePublishers": "",
+    "entryPoint": "",
+    "hasMultipleTaxonKeys": "",
+    "aboutLink": "",
+    "isCapped": "",
+    "isDeleted": "",
+    "similarities": "",
+    "currentRecord": "",
     "nodeType": {
       "IMAGE": "Image",
       "TYPE": "Spécimens type",
       "TREATMENT": "Traitement",
       "OBSERVATION": "Observation",
       "SPECIMEN": "Spécimen",
-      "SEQUENCE": "Archive annotée par GBIF"
+      "SEQUENCE": ""
     }
   }
 }

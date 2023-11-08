@@ -6,7 +6,7 @@
     "datasets": "Conjuntos de dados",
     "events": "Eventos",
     "download": "Transferir",
-    "clusters": "Ficheiros registados no GBIF",
+    "clusters": "",
     "sites": "Ficheiros registados no GBIF"
   },
   "table": {
@@ -20,24 +20,24 @@
   "loadMore": "Mais",
   "occurrenceClustersView": {
     "about": "Sobre",
-    "clusters": "Ficheiros registados no GBIF",
-    "legend": "Ficheiros registados no GBIF",
-    "differentPublishers": "Ficheiros registados no GBIF",
-    "samePublishers": "Ficheiros registados no GBIF",
-    "entryPoint": "Ficheiros registados no GBIF",
-    "hasMultipleTaxonKeys": "Ficheiros registados no GBIF",
-    "aboutLink": "Ficheiros registados no GBIF",
-    "isCapped": "Ficheiros registados no GBIF",
-    "isDeleted": "Ficheiros registados no GBIF",
-    "similarities": "Ficheiros registados no GBIF",
-    "currentRecord": "Ficheiros registados no GBIF",
+    "clusters": "",
+    "legend": "",
+    "differentPublishers": "",
+    "samePublishers": "",
+    "entryPoint": "",
+    "hasMultipleTaxonKeys": "",
+    "aboutLink": "",
+    "isCapped": "",
+    "isDeleted": "",
+    "similarities": "",
+    "currentRecord": "",
     "nodeType": {
       "IMAGE": "Imagem",
       "TYPE": "",
       "TREATMENT": "Tratamento",
       "OBSERVATION": "Observação",
       "SPECIMEN": "Espécime",
-      "SEQUENCE": "Ficheiros registados no GBIF"
+      "SEQUENCE": ""
     }
   }
 }
