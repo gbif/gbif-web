@@ -71,13 +71,3 @@ router.get('/3857/satellite_maptiler', (req, res, next) => {
 router.get('/3857/satellite_bing', (req, res, next) => {
   returnTemplate(req, res, next, satellite3857_bing);
 });
-
-// institutions
-router.get('/3031/institutions.geojson', async (req, res, next) => {
-  try {
-    const institutions = await getInstitutionsGeojson(req.query, req);
-    res.json(institutions);
-  } catch (err) {
-    next(err);
-  }
-});
