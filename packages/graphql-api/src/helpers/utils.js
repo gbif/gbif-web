@@ -1,4 +1,5 @@
 import sanitizeHtml from 'sanitize-html';
+import * as cheerio from 'cheerio';
 import mdit from 'markdown-it';
 import { decode } from 'html-entities';
 import config from '#/config';
@@ -13,7 +14,7 @@ export const standardTags = [
   "col", "colgroup", "table", "tbody", "td", "tfoot", "th", "thead", "tr",
 ];
 export const defaultAttributes = {
-  a: [ 'href', 'name', 'target' ]
+  a: ['href', 'name', 'target']
 };
 
 export const publishedTags = [
@@ -24,7 +25,7 @@ export const publishedTags = [
 export const trustedTags = [...standardTags, 'iframe', 'img'];
 export const trustedAttributes = {
   ...defaultAttributes,
-  img: [ 'src', 'srcset', 'alt', 'title', 'width', 'height', 'loading' ]
+  img: ['src', 'srcset', 'alt', 'title', 'width', 'height', 'loading']
 };
 
 const md = mdit({
@@ -74,9 +75,9 @@ function isOccurrenceSequenced({ occurrence, verbatim }) {
 
 function getHtml(
   value,
-  { allowedTags = ['a', 'p', 'i', 'ul', 'ol', 'li', 'strong'], allowedAttributes = defaultAttributes, inline } = {},
+  { allowedTags = ['a', 'p', 'i', 'ul', 'ol', 'li', 'strong'], allowedAttributes = defaultAttributes, inline, wrapTables } = {},
 ) {
-  const options = {};
+  const options = { wrapTables };
   if (allowedTags) options.allowedTags = allowedTags;
   if (allowedAttributes) options.allowedAttributes = allowedAttributes;
   if (typeof value === 'string' || typeof value === 'number') {
@@ -205,9 +206,9 @@ function prefixLinkUrl(str = '') {
   return str;
 }
 
-function sanitize(dirty, { allowedTags = standardTags} = {}) {
+function sanitize(dirty, { allowedTags = standardTags, wrapTables } = {}) {
   dirty = dirty || '';
-  return sanitizeHtml(dirty, {
+  let sanitized = sanitizeHtml(dirty, {
     allowedTags,
     allowedAttributes: false,
     allowedIframeHostnames: ['www.youtube.com', 'player.vimeo.com', 'vimeo.com'],
@@ -227,8 +228,27 @@ function sanitize(dirty, { allowedTags = standardTags} = {}) {
         };
       }
     }
-  }
-  );
+  });
+  if (!wrapTables) return sanitized;
+
+  // else wrap tables in divs for easier styling
+  // Load the HTML content into Cheerio
+  const $ = cheerio.load(sanitized);
+  
+  // Find all table tags and wrap them in a div
+  $('table').each((index, element) => {
+    const table = $(element);
+    const div = $('<div class="gbif-table-wrapper"></div>');
+
+    // Replace the table with the wrapped div
+    table.replaceWith(div.append(table.clone()));
+  });
+
+  // Get the modified HTML
+  const modifiedHtml = $.html();
+  console.log(modifiedHtml);
+
+  return modifiedHtml;
 }
 
 export { formattedCoordinates, isOccurrenceSequenced, getHtml, getExcerpt, simplifyUrlObjectKeys, translateContentfulResponse, excerpt, objectToQueryString, createLocalizedGbifHref };

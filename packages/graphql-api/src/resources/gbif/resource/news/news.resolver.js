@@ -15,7 +15,7 @@ export default {
   News: {
     title: src => getHtml(src.title, { inline: true }),
     summary: src => getHtml(src.summary),
-    body: src => getHtml(src.body, {allowedTags: trustedTags}),
+    body: src => getHtml(src.body, {allowedTags: trustedTags, wrapTables: true}),
     excerpt: src => excerpt(src),
     citation: src => getHtml(src.citation, {allowedTags: trustedTags}),
     gbifHref: (src, _, context) => createLocalizedGbifHref(context.locale, 'news', src.id),

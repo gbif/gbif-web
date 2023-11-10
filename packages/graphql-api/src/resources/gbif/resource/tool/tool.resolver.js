@@ -15,7 +15,7 @@ export default {
   Tool: {
     title: src => getHtml(src.title, { inline: true }),
     summary: src => getHtml(src.summary),
-    body: src => getHtml(src.body, {allowedTags: trustedTags}),
+    body: src => getHtml(src.body, {allowedTags: trustedTags, wrapTables: true}),
     excerpt: src => excerpt(src),
     gbifHref: (src, _, context) => createLocalizedGbifHref(context.locale, 'tool', src.id),
   }
