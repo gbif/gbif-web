@@ -10,8 +10,8 @@ import * as news from './news';
 import * as notification from './notification';
 import * as resourceSearch from './resourceSearch';
 import * as tool from './tool';
+import * as misc from './misc';
 import { ResourceAPI, ResourceSearchAPI } from './resource.source';
-import typeDef from './resource.type';
 import { merge, get } from 'lodash';
 
 const children = [
@@ -27,6 +27,7 @@ const children = [
   notification,
   resourceSearch,
   tool,
+  misc,
 ].map(resource => resource.default);
 
 export default {
@@ -35,7 +36,7 @@ export default {
       merge(agg, get(children, `${resource}.resolver`)),
     {},
   ),
-  typeDef: [typeDef, ...children.map(resource => resource.typeDef)],
+  typeDef: children.map(resource => resource.typeDef),
   dataSource: merge(
     {
       resourceAPI: ResourceAPI,

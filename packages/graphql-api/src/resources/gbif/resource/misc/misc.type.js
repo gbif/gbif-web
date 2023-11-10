@@ -18,6 +18,7 @@ const typeDef = gql`
     details: ImageFileDetails
     fileName: String
     contentType: String
+    thumbor(width: Int, height: Int, fitIn: Boolean): String
   }
 
   type AssetImage {
