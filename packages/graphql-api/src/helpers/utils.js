@@ -252,7 +252,6 @@ function sanitize(dirty, { allowedTags = standardTags, wrapTables } = {}) {
 
   // Get the modified HTML
   const modifiedHtml = $.html();
-  console.log(modifiedHtml);
 
   return modifiedHtml;
 }
