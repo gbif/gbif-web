@@ -3,6 +3,7 @@ import * as cheerio from 'cheerio';
 import mdit from 'markdown-it';
 import { decode } from 'html-entities';
 import config from '#/config';
+import mdAnchor from 'markdown-it-anchor';
 
 export const standardTags = [
   "address", "article", "aside", "footer", "header", "h1", "h2", "h3", "h4",
@@ -33,6 +34,11 @@ const md = mdit({
   linkify: true,
   typographer: false,
   breaks: true,
+});
+
+// adding anchor headers to markdown would be nice, but the problem is the navbar offset
+md.use(mdAnchor, {
+  // slugify: function(str){return '_' + encodeURIComponent(format.getSlug(str))}, // option to add a custom slug function. I'm not sure how well the default works - we should test that on the vadious languages
 });
 
 function formattedCoordinates({ lat, lon }) {
@@ -233,7 +239,7 @@ function sanitize(dirty, { allowedTags = standardTags, wrapTables } = {}) {
 
   // else wrap tables in divs for easier styling
   // Load the HTML content into Cheerio
-  const $ = cheerio.load(sanitized);
+  const $ = cheerio.load(sanitized, null, false);
   
   // Find all table tags and wrap them in a div
   $('table').each((index, element) => {
