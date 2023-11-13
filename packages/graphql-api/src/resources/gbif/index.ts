@@ -17,6 +17,7 @@ export { default as taxon } from './taxon';
 export { default as vocabulary } from './vocabulary';
 export { default as gadm } from './gadm';
 export { default as resource } from './resource';
+export { default as directoryPerson } from './directoryPerson';
 
 // experimental taxonmedia service. The idea it to provide a few high quality images per taxon
 export { default as taxonMedia } from '../shared/resources/taxonMedia';
