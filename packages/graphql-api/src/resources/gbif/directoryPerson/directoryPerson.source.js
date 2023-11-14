@@ -37,6 +37,7 @@ class DirectoryPersonAPI extends RESTDataSource {
       'jobTitle',
       'institutionName',
       'roles',
+      'countryCode',
       'certifications',
       'languages',
       'areasExpertise',

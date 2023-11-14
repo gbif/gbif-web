@@ -39,13 +39,35 @@ const typeDef = gql`
     orcidId: String
     jobTitle: String
     institutionName: String
-    email: String
-    # secondaryEmail: String
     phone: String
-    # skype: String
-    # address: String
     countryCode: String
-    # fax: String
+    createdBy: String
+    modifiedBy: String
+    created: DateTime
+    modified: DateTime
+    roles: [DirectoryPersonRole]
+    certifications: [Certification]
+    languages: [String]
+    areasExpertise: [String]
+    profileDescriptions: [ProfileDescription]
+    profilePicture(base64: Boolean): String
+  }
+
+  type DirectoryContact {
+    id: ID!
+    firstName: String
+    surname: String
+    title: String
+    orcidId: String
+    jobTitle: String
+    institutionName: String
+    email: String
+    secondaryEmail: String
+    phone: String
+    skype: String
+    address: String
+    countryCode: String
+    fax: String
     createdBy: String
     modifiedBy: String
     created: DateTime
