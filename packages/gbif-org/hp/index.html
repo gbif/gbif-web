@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HP Test</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="/occurrence/search">Occurrence Search</a>
+      </nav>
+    </header>
+    <div id="root"></div>
+
+    <script type="module">
+      import { render } from '/gbif-lib.js';
+
+      render(document.getElementById('root'), {
+        graphqlEndpoint: 'https://graphql.gbif-staging.org/graphql',
+        pages: [
+          {
+            key: 'occurrence-search-page',
+          },
+          {
+            key: 'occurrence-page',
+          },
+          // Uncomment this object to enable the dataset page. Otherwise it will link to GBIF.org
+          {
+            key: 'dataset-page',
+          },
+        ],
+        languages: [
+          {
+            code: 'en',
+            label: 'English',
+            default: true,
+            textDirection: 'ltr',
+          },
+          {
+            code: 'da',
+            label: 'Dansk',
+            default: false,
+            textDirection: 'ltr',
+          },
+          {
+            code: 'ar',
+            label: 'العربية',
+            default: false,
+            textDirection: 'rtl',
+          },
+        ],
+        occurrencePredicate: {
+          type: 'and',
+          predicates: [
+            {
+              type: 'range',
+              key: 'year',
+              value: {
+                gte: '2009',
+                lte: '2012',
+              },
+            },
+          ],
+        },
+        theme: {
+          colors: {
+            primary: 'blue',
+          },
+          borderRadius: 0,
+        },
+      });
+    </script>
+  </body>
+</html>

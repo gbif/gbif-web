@@ -81,7 +81,7 @@ const facetOccurrenceSearch = (parent) => {
 export default {
   Query: {
     occurrenceSearch: (_parent, args, { dataSources }) => {
-      // dataSources.occurrenceAPI.searchOccurrences({ query: args }),
+      // return dataSources.occurrenceAPI.searchOccurrences({ query: args });
       const v1Predicate = predicate2v1(args.predicate);
       const v1PredicateQStripped = predicate2v1(args.predicate, {
         shouldRemoveFullTextPredicates: true,
