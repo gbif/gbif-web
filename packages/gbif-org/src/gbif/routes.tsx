@@ -5,10 +5,10 @@ import { configureRoutes } from '@/utils/configureRoutes';
 import { HomePage } from '@/routes/HomePage';
 import { NotFound } from '@/routes/NotFound';
 import { RootErrorPage } from '@/routes/RootErrorPage';
-import {
-  DetailedOccurrencePage,
-  loader as detailedOccurrenceLoader,
-} from '@/routes/occurrence/key/DetailedOccurrencePage';
+// import {
+//   DetailedOccurrencePage,
+//   loader as detailedOccurrenceLoader,
+// } from '@/routes/occurrence/key/DetailedOccurrencePage';
 import {
   OccurrenceSearchPage,
   loader as occurrenceSearchLoader,
@@ -23,6 +23,10 @@ import { DatasetAboutTab } from '@/routes/dataset/key/AboutTab';
 import { DatasetDashboardTab } from '@/routes/dataset/key/DashboardTab';
 import { DatasetOccurrencesTab } from '@/routes/dataset/key/OccurrencesTab';
 import { DatasetDownloadTab } from '@/routes/dataset/key/DownloadTab';
+import {
+  DeferredOcurrencePage,
+  deferredOccurrenceLoader,
+} from '@/routes/occurrence/key/DeferredOccurrencePage';
 
 const baseRoutes: SourceRouteObject[] = [
   {
@@ -44,8 +48,10 @@ const baseRoutes: SourceRouteObject[] = [
           {
             key: 'occurrence-page',
             path: 'occurrence/:key',
-            loader: detailedOccurrenceLoader,
-            element: <DetailedOccurrencePage />,
+            // loader: detailedOccurrenceLoader,
+            // element: <DetailedOccurrencePage />,
+            loader: deferredOccurrenceLoader,
+            element: <DeferredOcurrencePage />,
           },
           {
             key: 'dataset-page',
