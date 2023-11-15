@@ -7,6 +7,7 @@ export default defineConfig({
   define: {
     'process.env.NODE_ENV': JSON.stringify('production'),
   },
+  envPrefix: 'PUBLIC_',
   plugins: [react()],
   root: 'hp',
   build: {

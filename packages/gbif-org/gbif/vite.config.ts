@@ -7,6 +7,7 @@ export default defineConfig({
   server: {
     port: 3000,
   },
+  envPrefix: 'PUBLIC_',
   plugins: [react()],
   root: 'gbif',
   build: {

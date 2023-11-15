@@ -1,8 +1,8 @@
 import { Config } from '@/contexts/config';
 
-const graphqlEndpoint = import.meta.env.VITE_GRAPHQL_ENDPOINT;
+const graphqlEndpoint = import.meta.env.PUBLIC_GRAPHQL_ENDPOINT;
 if (typeof graphqlEndpoint !== 'string') {
-  throw new Error('Missing VITE_GRAPHQL_ENDPOINT env variable');
+  throw new Error('Missing PUBLIC_GRAPHQL_ENDPOINT env variable');
 }
 
 export const gbifConfig: Config = {
