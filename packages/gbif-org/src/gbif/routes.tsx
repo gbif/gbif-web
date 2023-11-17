@@ -7,6 +7,7 @@ import { NotFound } from '@/routes/NotFound';
 import { RootErrorPage } from '@/routes/RootErrorPage';
 import {
   DetailedOccurrencePage,
+  DetailedOccurrencePageLoading,
   loader as detailedOccurrenceLoader,
 } from '@/routes/occurrence/key/DetailedOccurrencePage';
 import {
@@ -23,6 +24,7 @@ import { DatasetAboutTab } from '@/routes/dataset/key/AboutTab';
 import { DatasetDashboardTab } from '@/routes/dataset/key/DashboardTab';
 import { DatasetOccurrencesTab } from '@/routes/dataset/key/OccurrencesTab';
 import { DatasetDownloadTab } from '@/routes/dataset/key/DownloadTab';
+import { NextLoadingElementWrapper } from '@/components/NextLoadingElementWrapper';
 
 const baseRoutes: SourceRouteObject[] = [
   {
@@ -39,13 +41,18 @@ const baseRoutes: SourceRouteObject[] = [
             key: 'occurrence-search-page',
             path: 'occurrence/search',
             loader: occurrenceSearchLoader,
-            element: <OccurrenceSearchPage />,
+            element: (
+              <NextLoadingElementWrapper>
+                <OccurrenceSearchPage />
+              </NextLoadingElementWrapper>
+            ),
           },
           {
             key: 'occurrence-page',
             path: 'occurrence/:key',
             loader: detailedOccurrenceLoader,
             element: <DetailedOccurrencePage />,
+            loadingElement: <DetailedOccurrencePageLoading />,
           },
           {
             key: 'dataset-page',

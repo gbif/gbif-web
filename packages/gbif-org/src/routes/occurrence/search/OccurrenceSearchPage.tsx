@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigation, useSearchParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { MyLink } from '@/components/MyLink';
 import { ExtractPaginatedResult, LoaderArgs } from '@/types';
@@ -8,6 +8,7 @@ import { columns } from '@/routes/occurrence/search/columns';
 import { notNull } from '@/utils/notNull';
 import { OccurrenceSearchQuery, OccurrenceSearchQueryVariables } from '@/gql/graphql';
 import { createGraphQLHelpers } from '@/utils/createGraphQLHelpers';
+import { useNextLoadingElement } from '@/hooks/useNextLoadingElement';
 
 const { load, useTypedLoaderData } = createGraphQLHelpers<
   OccurrenceSearchQuery,

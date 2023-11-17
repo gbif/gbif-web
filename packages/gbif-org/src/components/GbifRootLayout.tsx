@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink, useNavigation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { LanguageSelector } from '@/components/LanguageSelector';
 import { MyLink } from '@/components/MyLink';
 
@@ -8,11 +8,8 @@ type Props = {
 };
 
 export function GbifRootLayout({ children }: Props) {
-  const navigation = useNavigation();
-
   return (
     <>
-      {navigation.state === 'loading' && <p>Loading...</p>}
       <header style={{ display: 'flex', gap: '10px' }}>
         <LanguageSelector />
         <nav style={{ display: 'flex', gap: '10px' }}>

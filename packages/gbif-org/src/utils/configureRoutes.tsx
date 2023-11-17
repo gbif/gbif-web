@@ -51,6 +51,7 @@ function createRouteMetadataRecursively(
     const targetRouteMetadata: RouteMetadata = {
       path: route.path,
       key: route.key,
+      loadingElement: route.loadingElement,
       gbifRedirect: route.gbifRedirect,
       children: Array.isArray(route.children)
         ? createRouteMetadataRecursively(route.children, config)
