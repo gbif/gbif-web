@@ -25,6 +25,11 @@ import { DatasetDashboardTab } from '@/routes/dataset/key/DashboardTab';
 import { DatasetOccurrencesTab } from '@/routes/dataset/key/OccurrencesTab';
 import { DatasetDownloadTab } from '@/routes/dataset/key/DownloadTab';
 
+async function fakeLoader() {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  return {};
+}
+
 const baseRoutes: SourceRouteObject[] = [
   {
     element: <GbifRootLayout children={<Outlet />} />,
@@ -34,13 +39,16 @@ const baseRoutes: SourceRouteObject[] = [
         children: [
           {
             index: true,
+            loader: fakeLoader,
             element: <HomePage />,
+            loadingElement: <p>Loading home page...</p>,
           },
           {
             key: 'occurrence-search-page',
             path: 'occurrence/search',
             loader: occurrenceSearchLoader,
             element: <OccurrenceSearchPage />,
+            loadingElement: <p>Loading occurrence search...</p>,
           },
           {
             key: 'occurrence-page',
@@ -58,10 +66,13 @@ const baseRoutes: SourceRouteObject[] = [
             path: 'dataset/:key',
             loader: datasetLoader,
             element: <DatasetPage />,
+            loadingElement: <p>Loading dataset...</p>,
             children: [
               {
                 index: true,
+                loader: fakeLoader,
                 element: <DatasetAboutTab />,
+                loadingElement: <p>Loading dataset about...</p>,
               },
               {
                 path: 'dashboard',
@@ -69,11 +80,15 @@ const baseRoutes: SourceRouteObject[] = [
               },
               {
                 path: 'occurrences',
+                loader: fakeLoader,
                 element: <DatasetOccurrencesTab />,
+                loadingElement: <p>Loading dataset occurrences...</p>,
               },
               {
                 path: 'download',
+                loader: fakeLoader,
                 element: <DatasetDownloadTab />,
+                loadingElement: <p>Loading dataset download...</p>,
               },
             ],
           },
@@ -86,14 +101,19 @@ const baseRoutes: SourceRouteObject[] = [
             path: 'publisher/:key',
             loader: publisherLoader,
             element: <PublisherPage />,
+            loadingElement: <p>Loading publisher...</p>,
             children: [
               {
                 index: true,
+                loader: fakeLoader,
                 element: <PublisherAboutTab />,
+                loadingElement: <p>Loading publisher about...</p>,
               },
               {
                 path: 'occurrences',
+                loader: fakeLoader,
                 element: <PublisherOccurrencesTab />,
+                loadingElement: <p>Loading publisher occurrences...</p>,
               },
             ],
           },

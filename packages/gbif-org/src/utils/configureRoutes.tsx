@@ -3,6 +3,9 @@ import { Helmet } from 'react-helmet-async';
 import { Config } from '@/contexts/config';
 import { I18nProvider } from '@/contexts/i18n';
 import { SourceRouteObject, RouteMetadata } from '@/types';
+import { LoadingEvent } from '@/contexts/loadingElement';
+import { LoadingElementWrapper } from '@/components/LoadingElementWrapper';
+import { v4 as uuid } from 'uuid';
 
 type ConfigureRoutesResult = {
   routes: RouteObject[];
@@ -65,7 +68,8 @@ function createRouteMetadataRecursively(
 function createRoutesRecursively(
   routes: SourceRouteObject[],
   config: Config,
-  locale: Config['languages'][number]
+  locale: Config['languages'][number],
+  nestingLevel = 0
 ): RouteObject[] {
   return routes
     .filter((route) => {
@@ -81,15 +85,52 @@ function createRoutesRecursively(
     .map((route) => {
       const clone = { ...route } as RouteObject;
 
-      // Inject the config and locale into the loader
+      // Add loading element wrapper to the elements
+      if (route.element) {
+        clone.element = (
+          <LoadingElementWrapper nestingLevel={nestingLevel} lang={locale.code}>
+            {route.element}
+          </LoadingElementWrapper>
+        );
+      }
+
+      // Inject the config and locale into the loader & add loading events
       const loader = route.loader;
       if (typeof loader === 'function') {
-        clone.loader = (args: any) => loader({ ...args, config, locale });
+        clone.loader = async (args: any) => {
+          const id = uuid();
+
+          if (route.loadingElement && typeof window !== 'undefined') {
+            window.dispatchEvent(
+              new LoadingEvent('start-loading', {
+                id,
+                lang: locale.code,
+                nestingLevel,
+                loadingElement: route.loadingElement,
+              })
+            );
+          }
+
+          const result = await loader({ ...args, config, locale });
+
+          if (route.loadingElement && typeof window !== 'undefined') {
+            window.dispatchEvent(
+              new LoadingEvent('done-loading', {
+                id,
+                lang: locale.code,
+                nestingLevel,
+                loadingElement: route.loadingElement,
+              })
+            );
+          }
+
+          return result;
+        };
       }
 
       // Recurse into children
       if (Array.isArray(route.children)) {
-        clone.children = createRoutesRecursively(route.children, config, locale);
+        clone.children = createRoutesRecursively(route.children, config, locale, nestingLevel + 1);
       }
 
       return clone;
