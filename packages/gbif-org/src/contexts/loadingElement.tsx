@@ -1,5 +1,8 @@
 import React from 'react';
 
+const START_LOADING_EVENT = 'gbif-start-loading';
+const DONE_RENDERING_EVENT = 'gbif-done-rendering';
+
 type ILoadingElementContext = {
   id: string;
   lang: string;
@@ -21,12 +24,12 @@ export function LoadingElementProvider({ children }: Props) {
     // This context is only used in the browser
     if (typeof window === 'undefined') return;
 
-    function handleLoadingStart(event: LoadingEvent) {
+    function handleLoadingStart(event: StartLoadingEvent) {
       const { loadingElement, nestingLevel, id, lang } = event.detail;
       setLoadingElements((prev) => [...prev, { loadingElement, nestingLevel, id, lang }]);
     }
 
-    function handleLoadingEnd(event: LoadingEvent) {
+    function handleLoadingEnd(event: DoneRenderingEvent) {
       const { id } = event.detail;
       setLoadingElements((prev) => {
         const lastLoadingElement = prev[prev.length - 1];
@@ -34,12 +37,12 @@ export function LoadingElementProvider({ children }: Props) {
       });
     }
 
-    window.addEventListener('start-loading', handleLoadingStart as any);
-    window.addEventListener('done-loading', handleLoadingEnd as any);
+    window.addEventListener(START_LOADING_EVENT, handleLoadingStart as any);
+    window.addEventListener(DONE_RENDERING_EVENT, handleLoadingEnd as any);
 
     return () => {
-      window.removeEventListener('start-loading', handleLoadingStart as any);
-      window.removeEventListener('done-loading', handleLoadingEnd as any);
+      window.removeEventListener(START_LOADING_EVENT, handleLoadingStart as any);
+      window.removeEventListener(DONE_RENDERING_EVENT, handleLoadingEnd as any);
     };
   }, [setLoadingElements]);
 
@@ -50,26 +53,44 @@ export function LoadingElementProvider({ children }: Props) {
   );
 }
 
-export function useLoadingElement(nestingLevel: number, lang: string): React.ReactNode | undefined {
+export function useLoadingElement(
+  nestingLevel: number,
+  lang: string,
+  id: string
+): React.ReactNode | undefined {
   const loadingElements = React.useContext(LoadingElementContext);
   const firstLoadingElement = loadingElements[0];
   if (!firstLoadingElement) return;
 
-  // Only return the loading element if it's the first one and at the current nesting level and has the same lang
-  if (firstLoadingElement.nestingLevel === nestingLevel && firstLoadingElement.lang === lang) {
+  // Only return the loading element if it's the first one and at the current nesting level and has the same lang and does not have the same id
+  if (
+    firstLoadingElement.nestingLevel === nestingLevel &&
+    firstLoadingElement.lang === lang &&
+    firstLoadingElement.id !== id
+  ) {
     return firstLoadingElement.loadingElement;
   }
 }
 
-type LoadingDetail = {
+type StartLoadingDetail = {
   id: string;
   lang: string;
   loadingElement: React.ReactNode;
   nestingLevel: number;
 };
 
-export class LoadingEvent extends CustomEvent<LoadingDetail> {
-  constructor(typeArg: 'start-loading' | 'done-loading', detail: LoadingDetail) {
-    super(typeArg, { detail });
+export class StartLoadingEvent extends CustomEvent<StartLoadingDetail> {
+  constructor(detail: StartLoadingDetail) {
+    super(START_LOADING_EVENT, { detail });
+  }
+}
+
+type DoneRenderingDetail = {
+  id: string;
+};
+
+export class DoneRenderingEvent extends CustomEvent<DoneRenderingDetail> {
+  constructor(detail: DoneRenderingDetail) {
+    super(DONE_RENDERING_EVENT, { detail });
   }
 }
