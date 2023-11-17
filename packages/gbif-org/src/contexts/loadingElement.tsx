@@ -21,14 +21,17 @@ export function LoadingElementProvider({ children }: Props) {
 
   // Event listners are used to communicate between this context and the react router loader functions
   React.useEffect(() => {
-    // This context is only used in the browser
+    // This useEffect should only run when used in the browser
     if (typeof window === 'undefined') return;
 
+    // Add the loading element to the end of the loadingElements array
     function handleLoadingStart(event: StartLoadingEvent) {
       const { loadingElement, nestingLevel, id, lang } = event.detail;
       setLoadingElements((prev) => [...prev, { loadingElement, nestingLevel, id, lang }]);
     }
 
+    // Only remove the loading element from the loadingElements array if it's the last one
+    // This will prevent parent loading elements from being removed when a child route is loading
     function handleLoadingEnd(event: DoneRenderingEvent) {
       const { id } = event.detail;
       setLoadingElements((prev) => {
@@ -64,8 +67,10 @@ export function useLoadingElement(
 
   // Only return the loading element if it's the first one and at the current nesting level and has the same lang and does not have the same id
   if (
+    // This will make sure that loading elements are only showed when navigating between siblings
     firstLoadingElement.nestingLevel === nestingLevel &&
     firstLoadingElement.lang === lang &&
+    // This will make sure that a route never shows its own loading element, as it would never have to
     firstLoadingElement.id !== id
   ) {
     return firstLoadingElement.loadingElement;

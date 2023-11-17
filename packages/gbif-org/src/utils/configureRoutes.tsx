@@ -84,6 +84,8 @@ function createRoutesRecursively(
     })
     .map((route) => {
       const clone = { ...route } as RouteObject;
+
+      // Generate a unique id for the loading element
       const id = uuid();
 
       // Add loading element wrapper to the elements
@@ -98,7 +100,7 @@ function createRoutesRecursively(
       // Inject the config and locale into the loader & add loading events
       const loader = route.loader;
       if (typeof loader === 'function') {
-        clone.loader = async (args: any) => {
+        clone.loader = (args: any) => {
           if (route.loadingElement && typeof window !== 'undefined') {
             window.dispatchEvent(
               new StartLoadingEvent({
