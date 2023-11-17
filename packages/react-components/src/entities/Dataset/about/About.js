@@ -159,7 +159,7 @@ export function About({
         </div>
         <div css={sharedStyles.sidebarCardContent}>
           <h5>Gridded data</h5>
-          <p>Based on out analysis of the points it looks like this dataset contains gridden data.</p>
+          <p>Based on our analysis of the points it looks like this dataset contains gridded data.</p>
         </div>
       </SideBarCardContentWrap>}
     </SideBarCard>}
