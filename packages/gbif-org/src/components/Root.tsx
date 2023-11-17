@@ -3,7 +3,7 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { Config, ConfigProvider } from '@/contexts/config';
 import { MetadataRoutesProvider } from '@/contexts/metadataRoutes';
 import { RouteMetadata } from '@/types';
-import '@/index.css';
+import { LoadingElementProvider } from '@/contexts/loadingElement';
 
 type Props = {
   config: Config;
@@ -17,12 +17,14 @@ export function Root({ config, helmetContext, children, metadataRoutes }: Props)
     <React.StrictMode>
       <ConfigProvider config={config}>
         <MetadataRoutesProvider metadataRoutes={metadataRoutes}>
-          <HelmetProvider context={helmetContext}>
-            <Helmet>
-              <title>{config.defaultTitle}</title>
-            </Helmet>
-            {children}
-          </HelmetProvider>
+          <LoadingElementProvider>
+            <HelmetProvider context={helmetContext}>
+              <Helmet>
+                <title>{config.defaultTitle}</title>
+              </Helmet>
+              {children}
+            </HelmetProvider>
+          </LoadingElementProvider>
         </MetadataRoutesProvider>
       </ConfigProvider>
     </React.StrictMode>

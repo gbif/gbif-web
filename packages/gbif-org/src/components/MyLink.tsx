@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useI18n } from '@/contexts/i18n';
 import { useDefaultLocale } from '@/hooks/useDefaultLocale';
-import { useExternalGbifLink } from '@/contexts/metadataRoutes';
+import { useExternalGbifLink } from '@/hooks/useExternalGbifLink';
 
 type Props<T extends React.ElementType> = React.ComponentProps<T> & {
   to: string;

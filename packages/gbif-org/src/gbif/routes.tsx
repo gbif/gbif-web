@@ -7,6 +7,7 @@ import { NotFound } from '@/routes/NotFound';
 import { RootErrorPage } from '@/routes/RootErrorPage';
 import {
   DetailedOccurrencePage,
+  DetailedOccurrencePageLoading,
   loader as detailedOccurrenceLoader,
 } from '@/routes/occurrence/key/DetailedOccurrencePage';
 import {
@@ -39,12 +40,14 @@ const baseRoutes: SourceRouteObject[] = [
             key: 'occurrence-search-page',
             path: 'occurrence/search',
             loader: occurrenceSearchLoader,
+            loadingElement: <p>Loading occurrence search...</p>,
             element: <OccurrenceSearchPage />,
           },
           {
             key: 'occurrence-page',
             path: 'occurrence/:key',
             loader: detailedOccurrenceLoader,
+            loadingElement: <DetailedOccurrencePageLoading />,
             element: <DetailedOccurrencePage />,
           },
           {
@@ -55,6 +58,7 @@ const baseRoutes: SourceRouteObject[] = [
             },
             path: 'dataset/:key',
             loader: datasetLoader,
+            loadingElement: <p>Loading dataset...</p>,
             element: <DatasetPage />,
             children: [
               {
@@ -83,6 +87,7 @@ const baseRoutes: SourceRouteObject[] = [
             },
             path: 'publisher/:key',
             loader: publisherLoader,
+            loadingElement: <p>Loading publisher...</p>,
             element: <PublisherPage />,
             children: [
               {
@@ -98,6 +103,7 @@ const baseRoutes: SourceRouteObject[] = [
           {
             path: 'resource/:key',
             loader: newsLoader,
+            loadingElement: <p>Loading news...</p>,
             element: <News />,
           },
           {

@@ -66,3 +66,7 @@ export async function loader({ request, params, config }: LoaderArgs) {
     },
   });
 }
+
+export function DetailedOccurrencePageLoading() {
+  return <div>Loading...</div>;
+}
