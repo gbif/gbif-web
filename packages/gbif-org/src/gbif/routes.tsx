@@ -24,7 +24,6 @@ import { DatasetAboutTab } from '@/routes/dataset/key/AboutTab';
 import { DatasetDashboardTab } from '@/routes/dataset/key/DashboardTab';
 import { DatasetOccurrencesTab } from '@/routes/dataset/key/OccurrencesTab';
 import { DatasetDownloadTab } from '@/routes/dataset/key/DownloadTab';
-import { NextLoadingElementWrapper } from '@/components/NextLoadingElementWrapper';
 
 const baseRoutes: SourceRouteObject[] = [
   {
@@ -41,11 +40,7 @@ const baseRoutes: SourceRouteObject[] = [
             key: 'occurrence-search-page',
             path: 'occurrence/search',
             loader: occurrenceSearchLoader,
-            element: (
-              <NextLoadingElementWrapper>
-                <OccurrenceSearchPage />
-              </NextLoadingElementWrapper>
-            ),
+            element: <OccurrenceSearchPage />,
           },
           {
             key: 'occurrence-page',
