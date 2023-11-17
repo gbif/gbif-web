@@ -16,7 +16,9 @@ type Props = {
 export function LoadingElementProvider({ children }: Props) {
   const [loadingElements, setLoadingElements] = React.useState<ILoadingElementContext[]>([]);
 
+  // Event listners are used to communicate between this context and the react router loader functions
   React.useEffect(() => {
+    // This context is only used in the browser
     if (typeof window === 'undefined') return;
 
     function handleLoadingStart(event: LoadingEvent) {
@@ -48,11 +50,12 @@ export function LoadingElementProvider({ children }: Props) {
   );
 }
 
-// Only return the loading element if it's the first one and at the current nesting level and has the same lang
 export function useLoadingElement(nestingLevel: number, lang: string): React.ReactNode | undefined {
   const loadingElements = React.useContext(LoadingElementContext);
   const firstLoadingElement = loadingElements[0];
   if (!firstLoadingElement) return;
+
+  // Only return the loading element if it's the first one and at the current nesting level and has the same lang
   if (firstLoadingElement.nestingLevel === nestingLevel && firstLoadingElement.lang === lang) {
     return firstLoadingElement.loadingElement;
   }
