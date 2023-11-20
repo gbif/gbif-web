@@ -139,7 +139,6 @@ export const sidebarCardContent = css`
   flex: 1 1 auto;
   a {
     color: inherit;
-    text-decoration: none;
   }
   h5 {
     font-size: 13px;
