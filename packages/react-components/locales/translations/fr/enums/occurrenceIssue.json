@@ -56,5 +56,6 @@
   "OCCURRENCE_STATUS_UNPARSABLE": "Le statut de l'occurrence ne peut être interprété",
   "OCCURRENCE_STATUS_INFERRED_FROM_INDIVIDUAL_COUNT": "Statut de l'occurrence déduit du nombre d'individus",
   "GEOREFERENCED_DATE_UNLIKELY": "Date de géoréférencement improbable",
-  "DIFFERENT_OWNER_INSTITUTION": "Institution propriétaire différente"
+  "DIFFERENT_OWNER_INSTITUTION": "Institution propriétaire différente",
+  "TAXON_ID_NOT_FOUND": "ID de taxon introuvable"
 }
