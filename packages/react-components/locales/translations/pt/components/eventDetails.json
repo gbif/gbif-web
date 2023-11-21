@@ -14,7 +14,7 @@
   "eventTypeHierarchyJoined": "",
   "eventHierarchyJoined": "",
   "map": "",
-  "backToTaxa": "Ficheiros registados no GBIF",
+  "backToTaxa": "Uma breve descrição do componente deve ser colocada aqui",
   "siteLocation": "",
   "info": {
     "original": "Original",
@@ -27,7 +27,7 @@
     "record": "Registo",
     "occurrence": "Ocorrência",
     "event": "Evento",
-    "dataStructure": "Ficheiros registados no GBIF",
+    "dataStructure": "Uma breve descrição do componente deve ser colocada aqui",
     "identification": "Identificação",
     "taxon": "Táxon",
     "location": "Localização",
