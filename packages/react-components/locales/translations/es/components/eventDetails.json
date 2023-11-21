@@ -14,7 +14,7 @@
   "eventTypeHierarchyJoined": "",
   "eventHierarchyJoined": "",
   "map": "",
-  "backToTaxa": "Archivo de GBIF anotado",
+  "backToTaxa": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
   "siteLocation": "",
   "info": {
     "original": "Original",
@@ -27,7 +27,7 @@
     "record": "Registro",
     "occurrence": "Registro",
     "event": "Evento",
-    "dataStructure": "Archivo de GBIF anotado",
+    "dataStructure": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
     "identification": "Identificación",
     "taxon": "Taxón",
     "location": "Localización/ubicación",
