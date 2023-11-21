@@ -1,5 +1,6 @@
 {
   "unknown": "Неизвестно",
+  "notProvided": "Не указано",
   "citation": "Цитирование",
   "deletedOnDate": "Удалено {date}",
   "replacedBy": "Заменено на {newItem}",
