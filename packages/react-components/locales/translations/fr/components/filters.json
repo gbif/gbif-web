@@ -25,7 +25,7 @@
     "description": "Archive annotée par GBIF"
   },
   "iucnRedListCategory": {
-    "name": "Archive annotée par GBIF",
+    "name": "",
     "count": "Archive annotée par GBIF",
     "description": "La Liste rouge des espèces menacées de l'UICN regroupe les taxons selon le niveau de menaces auxquels ils font face."
   },
