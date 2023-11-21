@@ -22,11 +22,11 @@
   "specimensInGbif": {
     "name": "Belege in GBIF",
     "count": "",
-    "description": "GBIF-kommentiertes Archiv"
+    "description": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\"."
   },
   "iucnRedListCategory": {
-    "name": "GBIF-kommentiertes Archiv",
-    "count": "GBIF-kommentiertes Archiv",
+    "name": "Kategorie in der Roten Liste gefährdeter Arten",
+    "count": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
     "description": ""
   },
   "geoDistance": {
@@ -49,38 +49,38 @@
   },
   "eventDate": {
     "name": "",
-    "count": "GBIF-kommentiertes Archiv",
-    "description": "GBIF-kommentiertes Archiv"
+    "count": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
+    "description": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\"."
   },
   "alternativeCode": {
-    "name": "GBIF-kommentiertes Archiv",
-    "count": "GBIF-kommentiertes Archiv",
-    "description": "GBIF-kommentiertes Archiv"
+    "name": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
+    "count": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
+    "description": "Stadt zum Fundort."
   },
   "identifier": {
     "name": "",
-    "count": "GBIF-kommentiertes Archiv",
+    "count": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
     "description": "Bezeichner für die Sammlung, zu der das usprüngliche Objekt gehört."
   },
   "institutionType": {
     "name": "",
-    "count": "GBIF-kommentiertes Archiv",
-    "description": "GBIF-kommentiertes Archiv"
+    "count": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
+    "description": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\"."
   },
   "discipline": {
-    "name": "GBIF-kommentiertes Archiv",
-    "count": "GBIF-kommentiertes Archiv",
-    "description": "GBIF-kommentiertes Archiv"
+    "name": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
+    "count": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
+    "description": "Stadt zum Fundort."
   },
   "collectionContentType": {
-    "name": "GBIF-kommentiertes Archiv",
-    "count": "GBIF-kommentiertes Archiv",
-    "description": "GBIF-kommentiertes Archiv"
+    "name": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
+    "count": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
+    "description": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\"."
   },
   "preservationType": {
-    "name": "GBIF-kommentiertes Archiv",
-    "count": "GBIF-kommentiertes Archiv",
-    "description": "GBIF-kommentiertes Archiv"
+    "name": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
+    "count": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
+    "description": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\"."
   },
   "taxonKey": {
     "name": "Wissenschaftlicher Name",
@@ -122,12 +122,12 @@
     "description": "Land oder Gebiet des Sammlungsereignisses"
   },
   "grsciCollCountry": {
-    "description": "GBIF-kommentiertes Archiv"
+    "description": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\"."
   },
   "preparations": {
     "name": "",
-    "count": "GBIF-kommentiertes Archiv",
-    "description": "GBIF-kommentiertes Archiv"
+    "count": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
+    "description": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\"."
   },
   "publishingCountryCode": {
     "name": "Veröffentlichendes Land",
@@ -369,12 +369,12 @@
   "active": {
     "name": "",
     "count": "",
-    "description": "GBIF-kommentiertes Archiv"
+    "description": "Stadt zum Fundort."
   },
   "personalCollection": {
     "name": "",
     "count": "",
-    "description": "GBIF-kommentiertes Archiv"
+    "description": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\"."
   },
   "datasetType": {
     "name": "Art des Datasets",
@@ -395,7 +395,7 @@
     "name": "Name",
     "count": "{num, plural, one { Name } other {# Namen}}",
     "description": "A short description of the component should be placed here",
-    "searchPlaceholder": "GBIF-kommentiertes Archiv"
+    "searchPlaceholder": "Stadt zum Fundort."
   },
   "city": {
     "name": "Stadt",
