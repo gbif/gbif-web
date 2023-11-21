@@ -15,7 +15,7 @@
   "placeholders": {
     "default": "Rechercher",
     "range": "",
-    "locationID": "Archive annotée par GBIF"
+    "locationID": ""
   },
   "loadMore": "Plus",
   "occurrenceClustersView": {
