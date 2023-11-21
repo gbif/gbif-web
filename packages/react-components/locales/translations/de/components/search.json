@@ -7,7 +7,7 @@
     "events": "",
     "download": "Download",
     "clusters": "",
-    "sites": "GBIF-kommentiertes Archiv"
+    "sites": "Stadt zum Fundort."
   },
   "table": {
     "lockColumn": "Spalte fixieren"
@@ -15,7 +15,7 @@
   "placeholders": {
     "default": "Suche",
     "range": "Bereich oder einzelner Wert",
-    "locationID": "GBIF-kommentiertes Archiv"
+    "locationID": ""
   },
   "loadMore": "Mehr",
   "occurrenceClustersView": {
