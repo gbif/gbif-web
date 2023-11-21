@@ -7,7 +7,7 @@
     "events": "Eventos",
     "download": "Descargar",
     "clusters": "",
-    "sites": "Archivo de GBIF anotado"
+    "sites": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\"."
   },
   "table": {
     "lockColumn": "Inmovilizar columna"
@@ -15,7 +15,7 @@
   "placeholders": {
     "default": "Buscar",
     "range": "Rango o valor único",
-    "locationID": "Archivo de GBIF anotado"
+    "locationID": ""
   },
   "loadMore": "Más",
   "occurrenceClustersView": {
