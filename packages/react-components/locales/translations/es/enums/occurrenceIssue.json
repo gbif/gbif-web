@@ -56,5 +56,7 @@
   "GEOREFERENCED_DATE_UNLIKELY": "Fecha de georeferenciación improbable",
   "GEOREFERENCED_DATE_INVALID": "Fecha de georeferenciación inválida",
   "POSSIBLY_ON_LOAN": "Posiblemente en préstamo",
-  "DIFFERENT_OWNER_INSTITUTION": "Institución propietaria diferente"
+  "DIFFERENT_OWNER_INSTITUTION": "Institución propietaria diferente",
+  "TAXON_ID_NOT_FOUND": "ID de taxón no encontrado",
+  "SCIENTIFIC_NAME_AND_ID_INCONSISTENT": "Nombre científico e ID inconsistentes"
 }
