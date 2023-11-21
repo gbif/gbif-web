@@ -10,11 +10,11 @@
     "sites": "Archive annotée par GBIF"
   },
   "table": {
-    "lockColumn": ""
+    "lockColumn": "Verrouiller la colonne"
   },
   "placeholders": {
     "default": "Rechercher",
-    "range": "",
+    "range": "Intervalle ou valeur unique",
     "locationID": ""
   },
   "loadMore": "Plus",
