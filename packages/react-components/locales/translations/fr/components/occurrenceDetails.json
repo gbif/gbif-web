@@ -1,15 +1,15 @@
 {
   "occurrence": "occurrence",
   "showAllFields": "Afficher tous les champs",
-  "morePhotos": "",
+  "morePhotos": "Plus de photos",
   "about": "À propos",
   "dataset": "Ensemble de données",
   "publisher": "Fournisseurs de données",
   "institution": "Institution",
-  "institutionGrSciColl": "",
+  "institutionGrSciColl": "Institution GrSciColl",
   "collection": "Collection",
-  "collectionGrSciColl": "",
-  "recordedAndIdentifiedBy": "",
+  "collectionGrSciColl": "Collection GrSciColl",
+  "recordedAndIdentifiedBy": "Enregistré et identifié par",
   "info": {
     "original": "original",
     "excluded": "Exclu",
@@ -222,7 +222,7 @@
       }
     },
     "germplasmMeasurementScore": {
-      "name": "",
+      "name": "Germplasm: Score de la mesure",
       "properties": {
         "measurementID": "",
         "measurementValue": "Archive annotée par GBIF",
@@ -245,7 +245,7 @@
       }
     },
     "germplasmMeasurementTrait": {
-      "name": "",
+      "name": "Germplasm: Caractère de la mesure",
       "properties": {
         "measurementTraitID": "",
         "measurementTraitIdentifier": "",
@@ -259,7 +259,7 @@
       }
     },
     "germplasmMeasurementTrial": {
-      "name": "",
+      "name": "Germplasm: Essai de la mesure",
       "properties": {
         "measurementTrailID": "",
         "measurementTrailIdentifier": "",
