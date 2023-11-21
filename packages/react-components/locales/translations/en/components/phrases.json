@@ -2,6 +2,7 @@
   "loading": "loading",
   "loadError": "Failed to load",
   "unknown": "Unknown",
+  "notProvided": "Not provided",
   "close": "Close",
   "citation": "Citation",
   "citeAs": "Please use this citation in publications",
