@@ -91,7 +91,7 @@
   "occurrenceCount": "Total de registros biológicos",
   "inDataset": "En",
   "samplingArticleLink": "Más información sobre los eventos de muestreo en GBIF.org",
-  "includesDna": "",
+  "includesDna": "Incluye ADN",
   "includesDnaDescription": "",
   "containsSamplingEvents": "",
   "containsSamplingEventsDescription": "",
