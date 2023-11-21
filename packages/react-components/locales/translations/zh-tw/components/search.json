@@ -15,7 +15,7 @@
   "placeholders": {
     "default": "搜尋",
     "range": "範圍或單一數值",
-    "locationID": "GBIF 註記的存檔"
+    "locationID": ""
   },
   "loadMore": "更多",
   "occurrenceClustersView": {
