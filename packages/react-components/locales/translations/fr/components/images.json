@@ -4,5 +4,6 @@
   "rights": "Droits",
   "description": "Description",
   "accessURI": "URL",
-  "format": "Format"
+  "format": "Format",
+  "pixelXDimension": "Largeur"
 }
