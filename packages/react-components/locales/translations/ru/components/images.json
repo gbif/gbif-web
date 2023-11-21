@@ -1,8 +1,11 @@
 {
+  "identifier": "ID (идентификатор)",
   "type": "Тип записи",
   "title": "Название",
   "rights": "Права",
+  "providerLiteral": "Провайдер",
   "description": "Описание",
   "accessURI": "Ссылка",
-  "format": "Формат"
+  "format": "Формат",
+  "pixelXDimension": "Ширина"
 }
