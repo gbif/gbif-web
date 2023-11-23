@@ -15,6 +15,8 @@ const { routes, metadataRoutes } = configureGbifRoutes(gbifConfig);
 const { query, dataRoutes } = createStaticHandler(routes);
 
 export async function render(req: ExpressRequest) {
+  // Convert the Express request to a Fetch request
+  // This is necessary because the query function expects a Fetch request
   const fetchRequest = createFetchRequest(req);
   const context = await query(fetchRequest);
 
