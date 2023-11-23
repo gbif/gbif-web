@@ -220,7 +220,25 @@ For using CSS pre-processors like `.scss`, `.sass`, `.less`, or `.styl`, they ca
 
 ### Theming
 
-### Enabling/Disabeling routes
+### Enabling/Disabling Routes
+
+### Localization
+
+## How to
+
+### Add a New Route with Server-Side and Client-Side Rendering
+
+### Add a New Route with Only Client-Side Rendering
+
+### Code-Split a Section of the App
+
+## Known Issues
+### Loading Screens
+Loading screens are displayed only when navigating between routes, not during the initial rendering. This leads to a suboptimal experience for the Hosted Portals where server-side rendering is not utilized.
+
+The loading screens are shown while technically still on the route being navigated away from. This means that the URL in the browser will still reflect the previous route while the new one is loading.
+
+Loading screens do not apply when navigating to the same route with different parameters.
 
 ## Common Errors
 Document any recurrent errors here, along with their solutions.
