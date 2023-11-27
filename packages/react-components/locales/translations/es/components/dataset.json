@@ -96,7 +96,7 @@
   "containsSamplingEvents": "",
   "containsSamplingEventsDescription": "",
   "griddedData": "",
-  "griddedDataDescription": "",
+  "griddedDataDescription": "Basado en el análisis de los registros, es probable que este conjunto de datos contenga datos en cuadrículas. Lee más en este [post sobre conjuntos de datos en cuadrículas](https://data-blog.gbif.org/post/gridded-datasets-update/).",
   "registry": {
     "failedSinceSuccess": "Intentos fallidos desde la última integración exitosa",
     "lastFailed": "Último intento fallido",
