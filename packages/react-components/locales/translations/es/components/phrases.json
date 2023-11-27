@@ -2,6 +2,7 @@
   "loading": "cargando",
   "loadError": "Error al cargar",
   "unknown": "Desconocida",
+  "notProvided": "No especificado",
   "close": "Cerrar",
   "citation": "Cita",
   "citeAs": "Por favor, utilice esta cita en las publicaciones",
