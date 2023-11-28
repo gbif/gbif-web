@@ -78,3 +78,10 @@
 .box-shadow-b {
   box-shadow: inset 0 -1px 0 var(--border);
 }
+
+/* on resource pages tables are wrapped in a div with gbif-table-wrapper class */
+.gbifProse {
+  .gbif-table-wrapper {
+    overflow-x: auto;
+  }
+}

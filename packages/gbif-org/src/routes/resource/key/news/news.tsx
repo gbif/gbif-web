@@ -96,7 +96,7 @@ export function News() {
           )}
         </div>
         {resource.body && (
-          <div className={`max-w-3xl m-auto mt-2 prose ${styles.resourceProse}`}>
+          <div className={`max-w-3xl m-auto mt-2 prose gbifProse ${styles.resourceProse}`}>
             <div dangerouslySetInnerHTML={{ __html: resource.body }}></div>
           </div>
         )}
