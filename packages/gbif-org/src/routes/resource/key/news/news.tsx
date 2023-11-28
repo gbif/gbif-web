@@ -4,6 +4,7 @@ import { LoaderArgs } from '@/types';
 import { NewsQuery, NewsQueryVariables } from '@/gql/graphql';
 import { createGraphQLHelpers } from '@/utils/createGraphQLHelpers';
 import styles from './resource.module.css';
+import { FormattedMessage } from 'react-intl';
 
 const { load, useTypedLoaderData } = createGraphQLHelpers<
   NewsQuery,
@@ -82,8 +83,8 @@ export function News() {
           {normal && mobile && (
             <figure className="m-auto">
               <picture className="rounded-md">
-                <source srcSet={normal} media="(min-width: 800px)" />
-                <img src={mobile} alt="A description of the image." className="rounded-md"/>
+                <source srcSet={normal} media="(min-width: 800px)" width="1200" height="500"/>
+                <img src={mobile} alt={resource?.primaryImage?.description ?? 'No image description provided'} className="rounded-md bg-slate-200" width="800" height="400"/>
               </picture>
               {resource.primaryImage?.description && (
                 <figcaption
