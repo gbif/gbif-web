@@ -28,6 +28,7 @@ const typeDef = gql`
     homepage: Boolean
     createdAt: DateTime
     updatedAt: DateTime
+    meta: JSON
   }
 `;
 

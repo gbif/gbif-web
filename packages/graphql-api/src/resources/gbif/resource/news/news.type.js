@@ -28,6 +28,7 @@ const typeDef = gql`
     updatedAt: DateTime
     programmeTag: [String]
     projectTag: [String]
+    meta: JSON
   }
 `;
 

@@ -33,6 +33,7 @@ const typeDef = gql`
     createdAt: DateTime
     updatedAt: DateTime
     gbifsAttendee: String
+    meta: JSON
   }
 `
 

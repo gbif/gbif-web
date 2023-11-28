@@ -24,6 +24,7 @@ const typeDef = gql`
     keywords: [String]
     purposes: [String]
     topics: [String]
+    meta: JSON
   }
 `;
 

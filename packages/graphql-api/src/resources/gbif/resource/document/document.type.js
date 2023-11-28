@@ -18,6 +18,7 @@ const typeDef = gql`
     excerpt: String
     citation: String
     keywords: [String]
+    meta: JSON
   }
 `;
 
