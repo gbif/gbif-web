@@ -10,10 +10,11 @@ export type Config = {
   defaultTitle?: string;
   graphqlEndpoint: string;
   languages: {
-    code: string;
+    code: string; // this codes are passed to react-intl, so they must be valid locale codes. Altenatively we need an extra field for the locale code used by react-intl
     label: string;
     default: boolean;
     textDirection: 'ltr' | 'rtl';
+    cmsLocale?: string; // this is the locale code used by the CMS
   }[];
   occurrencePredicate: any;
   pages?: PageConfig[];

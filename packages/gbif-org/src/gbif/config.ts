@@ -22,6 +22,13 @@ export const gbifConfig: Config = {
       textDirection: 'ltr',
     },
     {
+      code: 'fr',
+      label: 'Français',
+      default: false,
+      textDirection: 'ltr',
+      cmsLocale: 'fr',// what locale code to use when fetching data from the cms endpoints
+    },
+    {
       code: 'ar',
       label: 'العربية',
       default: false,
