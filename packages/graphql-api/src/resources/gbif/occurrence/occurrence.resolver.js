@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
+import md5 from 'md5';
 import _ from 'lodash';
-import Thumbor from 'thumbor';
 import getGlobe from '#/helpers/globe';
 import {
   getFacet,
@@ -22,8 +22,6 @@ import termResolver from './helpers/terms/occurrenceTerms';
 import predicate2v1 from './helpers/predicate2v1';
 import getLongitudeBounds from './helpers/longitudeBounds';
 import config from '../../../config';
-
-const thumbor = new Thumbor(config.thumborSecurityKey, config.thumbor ?? 'https://api.gbif.org/v1/image');
 
 const getSourceSearch = (dataSources) => args => dataSources.occurrenceAPI.searchOccurrences.call(dataSources.occurrenceAPI, args);
 
@@ -165,16 +163,20 @@ export default {
     },
   },
   MultimediaItem: {
-    thumbor: ({identifier: url, type}, {fitIn, width = '', height = ''}) => {
-      if (!url) return null;
+    thumbor: ({identifier, type, occurrenceKey}, {fitIn, width = '', height = ''}) => {
+      if (!identifier) return null;
       if (type !== 'StillImage') return null;
-      let img = thumbor.setImagePath(url);
-      if (fitIn) {
-        img = img.fitIn(width, height);
-      } else {
-        img = img.resize(width, height);
+      if (!occurrenceKey) return null;
+      // do not use the thumbor service.
+      // for occurrences we have a special url format for the occurrence images. This is in preparation for the new image service that will disable any unsafe urls
+      // it also has a different cache purge strategy
+      // see also https://github.com/gbif/gbif-web/issues/303
+      try {
+        const url = `${config.occurrenceImageCache}/${fitIn ? 'fit-in/' : ''}${width}x${height}/occurrence/${occurrenceKey}/media/${md5(identifier ?? '')}`;
+        return url;
+      } catch(err) {
+        return identifier;
       }
-      return img.buildUrl();
     }
   },
   Occurrence: {
@@ -183,10 +185,20 @@ export default {
       // extract primary image. for now just any image
       return { lat: decimalLatitude, lon: decimalLongitude };
     },
-    primaryImage: ({ media }) => {
+    media: ({ key, media }) => {
+      // add occurrence key to the media objects
+      return media.map((x) => {
+        return { ...x, occurrenceKey: key };
+      });
+    },
+    primaryImage: ({ key, media }) => {
       if (!Array.isArray(media)) return null;
       // extract primary image. for now just any image
-      return media.find((x) => x.type === 'StillImage');
+      const img = media.find((x) => x.type === 'StillImage');
+      if (img) {
+        return {...img, occurrenceKey: key};
+      }
+      return null;
     },
     stillImageCount: ({ media }) => {
       if (!Array.isArray(media)) return null;
@@ -200,9 +212,11 @@ export default {
       if (!Array.isArray(media)) return null;
       return media.filter((x) => x.type === 'Sound').length;
     },
-    stillImages: ({ media }) => {
+    stillImages: ({ media, key }) => {
       if (!Array.isArray(media)) return null;
-      return media.filter((x) => x.type === 'StillImage');
+      return media.filter((x) => x.type === 'StillImage').map((x) => {
+        return { ...x, occurrenceKey: key };
+      });
     },
     movingImages: ({ media }) => {
       if (!Array.isArray(media)) return null;
