@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 import _ from 'lodash';
+import Thumbor from 'thumbor';
 import getGlobe from '#/helpers/globe';
 import {
   getFacet,
@@ -20,6 +21,9 @@ import groupResolver from './helpers/groups/occurrenceGroups';
 import termResolver from './helpers/terms/occurrenceTerms';
 import predicate2v1 from './helpers/predicate2v1';
 import getLongitudeBounds from './helpers/longitudeBounds';
+import config from '../../../config';
+
+const thumbor = new Thumbor(config.thumborSecurityKey, config.thumbor ?? 'https://api.gbif.org/v1/image');
 
 const getSourceSearch = (dataSources) => args => dataSources.occurrenceAPI.searchOccurrences.call(dataSources.occurrenceAPI, args);
 
@@ -159,6 +163,19 @@ export default {
         lon,
       };
     },
+  },
+  MultimediaItem: {
+    thumbor: ({identifier: url, type}, {fitIn, width = '', height = ''}) => {
+      if (!url) return null;
+      if (type !== 'StillImage') return null;
+      let img = thumbor.setImagePath(url);
+      if (fitIn) {
+        img = img.fitIn(width, height);
+      } else {
+        img = img.resize(width, height);
+      }
+      return img.buildUrl();
+    }
   },
   Occurrence: {
     coordinates: ({ decimalLatitude, decimalLongitude }) => {

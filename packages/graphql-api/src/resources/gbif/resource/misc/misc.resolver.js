@@ -12,8 +12,7 @@ const thumbor = new Thumbor(config.thumborSecurityKey, config.thumbor ?? 'https:
  */
 export default {
   ImageFile: {
-    thumbor: ({url}, {fitIn, width, height}) => {
-      // const newUrl = thumbor.setImagePath(`http:${url}`).resize(width, height).buildUrl();
+    thumbor: ({url}, {fitIn, width = '', height = ''}) => {
       let img = thumbor.setImagePath(`http:${url}`);
       if (fitIn) {
         img = img.fitIn(width, height);
