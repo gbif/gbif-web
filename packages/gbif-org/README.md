@@ -43,6 +43,7 @@
       - [Adding the Page to the Router](#adding-the-page-to-the-router)
     - [Add a New Route with Only Client-Side Rendering](#add-a-new-route-with-only-client-side-rendering)
     - [Code-Split a Section of the App](#code-split-a-section-of-the-app)
+    - [Lazy Load a Page](#lazy-load-a-page)
   - [Code Formatting](#code-formatting)
   - [ESLint](#eslint)
   - [Known Issues](#known-issues)
@@ -172,7 +173,7 @@ We utilize a custom type `SourceRouteObject` for route definition, enhancing sta
 Our custom type for route definition, incorporating additional functionalities.
 
 ```ts
-type SourceRouteObject = Omit<RouteObject, 'loader' | 'children'> & {
+type SourceRouteObject = Omit<RouteObject, 'loader' | 'children' | 'lazy'> & {
   // 'key' is optionally used to activate or deactivate the route in the global configuration.
   key?: string;
 
@@ -187,6 +188,9 @@ type SourceRouteObject = Omit<RouteObject, 'loader' | 'children'> & {
 
   // 'gbifRedirect' is an optional function enabling redirection to gbif.org for routes not active on hosted portals.
   gbifRedirect?: (params: Record<string, string | undefined>) => string;
+
+  // 'lazy' is a function for lazy loading the route's component, improving performance by loading the component only when required.
+  lazy?: () => Promise<Pick<RouteObject, 'element'>>;
 };
 ```
 
@@ -230,6 +234,12 @@ This function transforms our custom route definitions to a format compatible wit
 
   // An element displayed in case of loader or element errors
   errorElement: <DatasetErrorPage />,
+
+  // Function for lazy loading the route component, improving performance by loading only when needed. 'element' should not be used in conjunction with 'lazy'
+  async lazy: () {
+    const { DatasetPage } = await import('@/routes/dataset/key/Page');
+    return { element: <DatasetPage /> }
+  }
 
   // Child routes for features like tabs, with the default route marked by { index: true }
   children: [
@@ -478,6 +488,26 @@ This approach is particularly beneficial for large components or features that a
 It could make sense to wrap a `Suspense` component with an `ErrorBoundary` to handle scenarios where the dynamically imported component fails to load. This approach provides a robust error handling mechanism, ensuring that your application can gracefully manage loading errors and enhance the overall user experience.
 
 By implementing an `ErrorBoundary` around `Suspense`, you can effectively catch and handle any unexpected issues that might arise during the lazy loading of components, maintaining application stability even in the face of unforeseen errors.
+
+### Lazy Load a Page
+Lazy loading an entire page is a strategy to reduce the size of the main bundle, resulting in faster hydration processes. `react-router-dom` natively supports this feature.
+
+Here's an example of how to lazy load a route:
+
+```tsx
+{
+  key: 'occurrence-search-page',
+  path: 'occurrence/search',
+  async lazy: () {
+    const { OccurrenceSearchPage } = await import('@/routes/occurrence/search/Page');
+    return { element: <OccurrenceSearchPage /> }
+  },
+  loader: occurrenceSearchLoader,
+  loadingElement: <OccurrenceSearchPageLoading />,
+},
+```
+
+Note: To ensure proper code splitting, the `element` should be placed in a different file than the `loader` and `loadingElement`. This division allows the main bundle to remain smaller, accelerating the initial load. Additionally, the `loader` will load the necessary data concurrently while the JavaScript for the page is being loaded, optimizing resource utilization and improving user experience.
 
 ## Code Formatting
 

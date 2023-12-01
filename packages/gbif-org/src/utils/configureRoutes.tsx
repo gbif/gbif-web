@@ -97,6 +97,26 @@ function createRoutesRecursively(
         );
       }
 
+      // Add loading element wrapper to the lazy loaded element if it exists
+      const lazy = route.lazy;
+      if (typeof lazy === 'function') {
+        clone.lazy = () =>
+          lazy().then((config) => {
+            const element = config.element;
+
+            if (element) {
+              return {
+                ...config,
+                element: (
+                  <LoadingElementWrapper id={id} nestingLevel={nestingLevel} lang={locale.code}>
+                    {element}
+                  </LoadingElementWrapper>
+                ),
+              };
+            }
+          }) as any;
+      }
+
       // Inject the config and locale into the loader & add loading events
       const loader = route.loader;
       if (typeof loader === 'function') {
