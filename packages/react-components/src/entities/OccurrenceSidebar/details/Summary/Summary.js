@@ -25,7 +25,7 @@ export function Summary({ occurrence, fieldGroups, loading, setActiveImage, ...p
         <V>
           <GalleryTiles>
             {occurrence.stillImages.map((x, i) => {
-              return <GalleryTile key={i} src={x.identifier} height={120} onClick={() => setActiveImage(x)}>
+              return <GalleryTile key={i} src={x.thumb} height={120} onClick={() => setActiveImage(x)}>
               </GalleryTile>
             })
             }

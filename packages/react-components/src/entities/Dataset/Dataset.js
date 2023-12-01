@@ -92,7 +92,7 @@ query ($datasetPredicate: Predicate, $imagePredicate: Predicate, $coordinatePred
       results {
         key
         stillImages {
-          identifier
+          identifier: thumbor(height: 400)
         }
       }
     }
