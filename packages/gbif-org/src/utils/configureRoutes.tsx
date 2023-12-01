@@ -34,9 +34,6 @@ export function configureRoutes(
       </I18nProvider>
     ),
     children: createRoutesRecursively(baseRoutes, config, locale),
-    loader: async () => {
-      return await new Promise((resolve) => setTimeout(() => resolve(locale.code), 1000));
-    },
   }));
 
   // Create the routes metadata injected into a context to help with navigation
