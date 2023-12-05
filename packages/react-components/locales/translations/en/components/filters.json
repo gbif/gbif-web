@@ -22,11 +22,11 @@
   "specimensInGbif": {
     "name": "Specimens in GBIF",
     "count": "{num, plural, one { GBIF specimen count } other {# specimens in GBIF}}",
-    "description": ""
+    "description": "Number of specimen records published on GBIF and linked to the institution entry."
   },
   "iucnRedListCategory": {
-    "name": "",
-    "count": "",
+    "name": "IUCN Global Red List Category",
+    "count": "{num, plural, one { IUCN Global Red List category } other {# IUCN Global Red List categories}}",
     "description": "The IUCN Red List of Threatened Species groups taxa by how threatened they are."
   },
   "geoDistance": {
@@ -49,38 +49,38 @@
   },
   "eventDate": {
     "name": "Event date",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {# event date } other {# event dates}}",
+    "description": "When was the record collected or observed."
   },
   "alternativeCode": {
-    "name": "",
-    "count": "",
+    "name": "Alternative code",
+    "count": "{num, plural, one {# alternative code } other {# alternative codes}}",
     "description": ""
   },
   "identifier": {
     "name": "Identifier",
-    "count": "",
+    "count": "{num, plural, one {# identifier } other {# identifiers}}",
     "description": "A short description of the component should be placed here"
   },
   "institutionType": {
     "name": "Type",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {# type } other {# types}}",
+    "description": "Institution type (museum, herbarium, etc.)"
   },
   "discipline": {
-    "name": "",
-    "count": "",
+    "name": "Discipline",
+    "count": "{num, plural, one {# discipline } other {# disciplines}}",
     "description": ""
   },
   "collectionContentType": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Content type",
+    "count": "{num, plural, one {# content type } other {# content types}}",
+    "description": "The type of objects available in the collection"
   },
   "preservationType": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Preservation type",
+    "count": "{num, plural, one {# preservation type } other {# preservation types}}",
+    "description": "The method used to preserve the objects available in the collection"
   },
   "taxonKey": {
     "name": "Scientific name",
@@ -122,12 +122,12 @@
     "description": "The country or territory where the event occurred"
   },
   "grsciCollCountry": {
-    "description": ""
+    "description": "Country or territory in the record's address"
   },
   "preparations": {
     "name": "Preparations",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {# preparation} other {# preparations}}",
+    "description": "How the specimen has been prepared (e.g. dried)"
   },
   "publishingCountryCode": {
     "name": "Publishing country or area",
@@ -137,7 +137,7 @@
   "q": {
     "name": "Text search",
     "count": "{num, plural, one {text string} other {# search strings}}",
-    "description": ""
+    "description": "Free text search across several fields"
   },
   "coordinates": {
     "name": "Coordinates"
@@ -374,7 +374,7 @@
   "personalCollection": {
     "name": "Personal collection",
     "count": "Personal collection",
-    "description": ""
+    "description": "Selects private or personal collections"
   },
   "datasetType": {
     "name": "Dataset type",
@@ -394,7 +394,7 @@
   "name": {
     "name": "Name",
     "count": "{num, plural, one { name } other {# names}}",
-    "description": "",
+    "description": "The entity's name",
     "searchPlaceholder": ""
   },
   "city": {
@@ -405,7 +405,7 @@
   "code": {
     "name": "Code",
     "count": "{num, plural, one { code } other {# codes}}",
-    "description": ""
+    "description": "The primary code that identifies the record as a whole. If you get no result, try the alternative code filter."
   },
   "verbatimScientificName": {
     "name": "Verbatim scientific name",
@@ -414,7 +414,7 @@
   },
   "networkKey": {
     "name": "Network",
-    "count": "",
+    "count": "{num, plural, one {# network } other {# networks}}",
     "description": "A short description of the component should be placed here"
   },
   "literatureType": {

@@ -91,6 +91,12 @@
   "occurrenceCount": "Occurrence count",
   "inDataset": "In",
   "samplingArticleLink": "More about sampling events on GBIF.org",
+  "includesDna": "Includes DNA",
+  "includesDnaDescription": "There are records in this dataset that contain sequence data.",
+  "containsSamplingEvents": "Contains sampling events",
+  "containsSamplingEventsDescription": "This dataset contains sampling data. The details of how the sampling took place should be in a methodology section.",
+  "griddedData": "Gridded data",
+  "griddedDataDescription": "Based on out analysis of the points it looks like this dataset contains gridded data. Read more in this [blog post about gridded datasets](https://data-blog.gbif.org/post/gridded-datasets-update/)",
   "registry": {
     "failedSinceSuccess": "Failed attempts since last successful ingestion",
     "lastFailed": "Last failed attempt",

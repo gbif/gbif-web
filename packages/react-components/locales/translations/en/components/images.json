@@ -1,8 +1,11 @@
 {
+  "identifier": "ID",
   "type": "Type",
   "title": "Title",
   "rights": "Rights",
+  "providerLiteral": "Provider",
   "description": "Description",
   "accessURI": "URL",
-  "format": "Format"
+  "format": "Format",
+  "pixelXDimension": "Width"
 }

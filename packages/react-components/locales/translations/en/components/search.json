@@ -15,7 +15,7 @@
   "placeholders": {
     "default": "Search",
     "range": "Range or single value",
-    "locationID": ""
+    "locationID": "Search by location ID (case sensitive)"
   },
   "loadMore": "More",
   "occurrenceClustersView": {

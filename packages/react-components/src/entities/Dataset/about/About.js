@@ -2,7 +2,7 @@
 import { jsx, css } from '@emotion/react';
 import React, { useContext, useState } from 'react';
 import * as sharedStyles from '../../shared/styles';
-import { Prose, HyperText, Toc, ContactList, ResourceSearchLink, Alert, Tooltip, Progress } from "../../../components";
+import { Prose, HyperText, Toc, ContactList, ResourceSearchLink, Alert, Tooltip, Progress, Message } from "../../../components";
 import { Images, ThumbnailMap, TaxonomicCoverages, GeographicCoverages, TemporalCoverages, Registration, BibliographicCitations, SamplingDescription, Citation } from './details';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Link, useRouteMatch } from 'react-router-dom';
@@ -114,7 +114,7 @@ export function About({
             <div><OccurrenceIcon /></div>
           </div>
           <div css={sharedStyles.sidebarCardContent}>
-            <ResourceSearchLink type="occurrenceSearch" queryString={`datasetKey=${dataset.key}`} discreet >
+            <ResourceSearchLink type="occurrenceSearch" queryString={`datasetKey=${dataset.key}`} >
               <h5>
                 <FormattedMessage id="counts.nOccurrences" values={{ total }} />
               </h5>
@@ -138,8 +138,8 @@ export function About({
           <div><GiDna1 /></div>
         </div>
         <div css={sharedStyles.sidebarCardContent}>
-          <h5>Includes DNA</h5>
-          <p>There are records in this dataset that contain sequence data.</p>
+          <h5><FormattedMessage id="dataset.includesDna" /></h5>
+          <div><Message id="dataset.includesDnaDescription" /></div>
         </div>
       </SideBarCardContentWrap>}
 
@@ -148,8 +148,8 @@ export function About({
           <div><MdGridOn /></div>
         </div>
         <div css={sharedStyles.sidebarCardContent}>
-          <h5>Contains sampling events</h5>
-          <p>This dataset contains sampling data. The details of how the sampling took place should be in a methodology section.</p>
+          <h5><FormattedMessage id="dataset.containsSamplingEvents" /></h5>
+          <div><Message id="dataset.containsSamplingEventsDescription" /></div>
         </div>
       </SideBarCardContentWrap>}
 
@@ -158,8 +158,8 @@ export function About({
           <div><MdGridOn /></div>
         </div>
         <div css={sharedStyles.sidebarCardContent}>
-          <h5>Gridded data</h5>
-          <p>Based on out analysis of the points it looks like this dataset contains gridden data.</p>
+          <h5><FormattedMessage id="dataset.griddedData" /></h5>
+          <div><Message id="dataset.griddedDataDescription" /></div>
         </div>
       </SideBarCardContentWrap>}
     </SideBarCard>}

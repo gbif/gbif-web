@@ -22,7 +22,7 @@ export const Example = () => <Router initialEntries={[`/`]}>
 
     {/* fossil 1316970267*/}
     {/* new fields 3005208301*/}
-    <OccurrenceSidebar id={text('id', '1212082198')} style={{maxWidth: '100%', width: 700, height: 'calc(100vh - 20px)', flex: '0 0 auto'}} />
+    <OccurrenceSidebar id={text('id', '768239841')} style={{maxWidth: '100%', width: 700, height: 'calc(100vh - 20px)', flex: '0 0 auto'}} />
     {/* <StyledProse source={readme}></StyledProse> */}
   </div>
 </Router>;

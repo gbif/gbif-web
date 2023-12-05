@@ -25,7 +25,7 @@ query gallery($predicate: Predicate, $size: Int = 20, $from: Int = 0){
           }
         }
         primaryImage {
-          identifier
+          identifier: thumbor(height: 400)
         }
         formattedCoordinates
         volatile {

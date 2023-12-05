@@ -16,6 +16,20 @@ const typeDef = gql`
     topics: [String!]
     countriesOfCoverage: [String!]
     countriesOfResearcher: [String!]
+    sortBy: ResourceSortBy
+    sortOrder: ResourceSortOrder
+    start: String
+  }
+
+  enum ResourceSortOrder {
+    desc
+    asc
+  }
+
+  enum ResourceSortBy {
+    createdAt
+    start
+    end
   }
 
   union SingleSearchResult = ${SEARCH_RESULT_OPTIONS.map(option => option.graphQLType).join(' | ')}
