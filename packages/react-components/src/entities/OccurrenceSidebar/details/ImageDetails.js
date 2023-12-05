@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import { MdDone } from 'react-icons/md';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import * as css from '../styles';
-import { Accordion, Properties, Image, GalleryTiles, GalleryTile } from "../../../components";
+import { Accordion, Properties, OptImage as Image, GalleryTiles, GalleryTile } from "../../../components";
 import { Header } from './Header';
 import { HyperText } from '../../../components';
 import { Group } from './Groups';
@@ -32,7 +32,7 @@ export function ImageDetails({
     {activeImage && <>
       <div css={css.imageContainer({ theme })}>
         {/* <ZoomableImage style={{height: 300}} src={activeImage.identifier} thumbnail={Image.getImageSrc({src: activeImage.identifier, h:150})} /> */}
-        <Image src={activeImage.identifier} h="450" style={{ maxWidth: '100%', maxHeight: 450 }} />
+        <Image src={activeImage.large} h="450" style={{ maxWidth: '100%', maxHeight: 450 }} />
       </div>
       <Group label="occurrenceDetails.about" defaultOpen={data?.occurrence?.stillImages?.length === 1}>
         <Properties css={css.properties}>
@@ -52,7 +52,7 @@ export function ImageDetails({
       <Group label="occurrenceDetails.morePhotos" defaultOpen={true}>
         <GalleryTiles>
           {data.occurrence.stillImages.map((x, i) => {
-            return <GalleryTile onSelect={() => setActiveImage(x)} key={i} src={x.identifier} height={120}>
+            return <GalleryTile onSelect={() => setActiveImage(x)} key={i} src={x.thumbnail} height={120}>
               {x === activeImage ? <span style={{ background: 'black', color: 'white', padding: '5px 5px 2px 5px' }}>
                 <MdDone />
               </span> : null}

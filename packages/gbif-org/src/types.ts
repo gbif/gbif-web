@@ -8,12 +8,24 @@ export type LoaderArgs = {
   params: Record<string, string | undefined>;
 };
 
-export type SourceRouteObject = Omit<RouteObject, 'loader' | 'children'> & {
+export type SourceRouteObject = Omit<RouteObject, 'loader' | 'children' | 'lazy'> & {
+  // 'key' is optionally used to activate or deactivate the route in the global configuration.
   key?: string;
+
+  // 'loader' is an optional function that supersedes the default loader, adding unique functionality and parameters.
   loader?: (args: LoaderArgs) => Promise<any>;
+
+  // 'loadingElement' is an optional React node rendered during the navigation process to this route.
   loadingElement?: React.ReactNode;
+
+  // 'children' are SourceRouteObjects, allowing nested route definitions within this route object.
   children?: SourceRouteObject[];
+
+  // 'gbifRedirect' is an optional function enabling redirection to gbif.org for routes not active on hosted portals.
   gbifRedirect?: (params: Record<string, string | undefined>) => string;
+
+  // 'lazy' is a function for lazy loading the route's component, improving performance by loading the component only when required.
+  lazy?: () => Promise<Pick<RouteObject, 'element'>>;
 };
 
 export type RouteMetadata = {

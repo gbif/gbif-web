@@ -3,6 +3,8 @@ import { Helmet } from 'react-helmet-async';
 import { Config } from '@/contexts/config';
 import { I18nProvider } from '@/contexts/i18n';
 import { SourceRouteObject, RouteMetadata } from '@/types';
+import { LoadingElementWrapper } from '@/components/LoadingElementWrapper';
+import { v4 as uuid } from 'uuid';
 const PUBLIC_TRANSLATIONS_ENTRY_ENDPOINT = import.meta.env.PUBLIC_TRANSLATIONS_ENTRY_ENDPOINT;
 
 type ConfigureRoutesResult = {
@@ -73,7 +75,8 @@ function createRouteMetadataRecursively(
 function createRoutesRecursively(
   routes: SourceRouteObject[],
   config: Config,
-  locale: Config['languages'][number]
+  locale: Config['languages'][number],
+  nestingLevel = 0,
 ): RouteObject[] {
   return routes
     .filter((route) => {
@@ -89,7 +92,39 @@ function createRoutesRecursively(
     .map((route) => {
       const clone = { ...route } as RouteObject;
 
-      // Inject the config and locale into the loader
+      // Generate a unique id for the loading element
+      const id = uuid();
+
+      // Add loading element wrapper to the elements
+      if (route.element) {
+        clone.element = (
+          <LoadingElementWrapper id={id} nestingLevel={nestingLevel} lang={locale.code}>
+            {route.element}
+          </LoadingElementWrapper>
+        );
+      }
+
+      // Add loading element wrapper to the lazy loaded element if it exists
+      const lazy = route.lazy;
+      if (typeof lazy === 'function') {
+        clone.lazy = () =>
+          lazy().then((config) => {
+            const element = config.element;
+
+            if (element) {
+              return {
+                ...config,
+                element: (
+                  <LoadingElementWrapper id={id} nestingLevel={nestingLevel} lang={locale.code}>
+                    {element}
+                  </LoadingElementWrapper>
+                ),
+              };
+            }
+          }) as any;
+      }
+
+      // Inject the config and locale into the loader & add loading events
       const loader = route.loader;
       if (typeof loader === 'function') {
         clone.loader = (args: any) => loader({ ...args, config, locale });

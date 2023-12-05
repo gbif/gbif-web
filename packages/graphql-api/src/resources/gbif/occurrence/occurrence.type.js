@@ -524,6 +524,7 @@ const typeDef = gql`
     type: String
     format: String
     identifier: String
+    thumbor(width: Int, height: Int, fitIn: Boolean): String
     created: String
     creator: String
     license: String

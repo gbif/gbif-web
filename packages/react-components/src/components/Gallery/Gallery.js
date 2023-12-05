@@ -19,7 +19,6 @@ export const GalleryTile = ({ src, onSelect, height = 150, minWidth, getSrc, chi
   const theme = useContext(ThemeContext);
   const [ratio, setRatio] = useState(1);
   const [isValid, setValid] = useState(false);
-  const getImageSrc = getSrc ?? Image.getImageSrc;
   
   const onLoad = useCallback((event) => {
     setValid(true);
@@ -31,7 +30,7 @@ export const GalleryTile = ({ src, onSelect, height = 150, minWidth, getSrc, chi
     width: ratio * height,
   };
   const imageStyle = {
-    backgroundImage: `url('${getImageSrc({ src, h: height })}')`
+    backgroundImage: `url('${src}')`
   }
   if (ratio > 3) sizeStyle.width = height * 3;
   if (ratio < .3) sizeStyle.width = height * .3;
@@ -45,9 +44,6 @@ export const GalleryTile = ({ src, onSelect, height = 150, minWidth, getSrc, chi
       title="View details"
     >
       <Image src={src}
-        getSrc={getSrc}
-        width={height}
-        h={height}
         onLoad={onLoad}
         alt="Occurrence evidence"
       />

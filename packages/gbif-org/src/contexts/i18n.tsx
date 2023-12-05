@@ -1,8 +1,8 @@
 import React from 'react';
 import { useLoaderData, useNavigate } from 'react-router-dom';
-import { IntlProvider } from 'react-intl';
 import { useDefaultLocale } from '@/hooks/useDefaultLocale';
 import { Config } from '@/contexts/config';
+import { IntlProvider } from 'react-intl';
 
 type I18n = {
   locale: Config['languages'][number];
@@ -18,8 +18,9 @@ type Props = {
 
 export function I18nProvider({ locale, children }: Props): React.ReactElement {
   const navigate = useNavigate();
-  const { messages } = useLoaderData() as { messages: Record<string, string> | null};
+  const { messages } = useLoaderData() as { messages: Record<string, string> | null };
   const defaultLocale = useDefaultLocale();
+
   // This function will only work client side as it uses window.location
   // If it needs to work server side, you can use the location from useLocation. This will however rerender the children of this component every time the location changes.
   const context = React.useMemo(() => {
@@ -45,7 +46,11 @@ export function I18nProvider({ locale, children }: Props): React.ReactElement {
   return (
     <I18nContext.Provider value={context}>
       {/* There is an assumption here that the codes provided in the config are valid locale codes recognized by react-intl. This is not checked. */}
-      <IntlProvider messages={messages || {}} locale={locale.code} defaultLocale={defaultLocale.code}>
+      <IntlProvider
+        messages={messages || {}}
+        locale={locale.code}
+        defaultLocale={defaultLocale.code}
+      >
         {children}
       </IntlProvider>
     </I18nContext.Provider>

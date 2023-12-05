@@ -688,7 +688,7 @@ function Images({ occurrence, setActiveImage }) {
     <div>
       <V>
         <GalleryTiles>
-          {occurrence.stillImages.map((x, i) => <GalleryTile key={i} src={x.identifier} height={120} onClick={() => setActiveImage(x)} />)}
+          {occurrence.stillImages.map((x, i) => <GalleryTile key={i} src={x.thumbnail} height={120} onClick={() => setActiveImage(x)} />)}
         </GalleryTiles>
       </V>
     </div>

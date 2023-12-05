@@ -1,4 +1,3 @@
-import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { LoaderArgs } from '@/types';
 import { NewsQuery, NewsQueryVariables } from '@/gql/graphql';
@@ -70,7 +69,7 @@ export function News() {
             <div className="mt-2">
               <p className="text-gray-600 text-sm">Published {new Date(resource.createdAt).toLocaleDateString('en')}</p>
             </div>
-            
+
             {resource.summary && (
               <div
                 className="mt-2 text-lg text-slate-600"

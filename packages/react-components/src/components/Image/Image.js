@@ -40,11 +40,10 @@ const failedStyle = {
 };
 
 export const OptImage = React.forwardRef(({
-  src,
-  w = '',
-  h = '',
-  getSrc,
   wrapperProps,
+  onLoad,
+  style = {},
+  src,
   ...props
 }, ref) => {
   const [failed, markAsFailed] = useState();
@@ -65,10 +64,13 @@ export const OptImage = React.forwardRef(({
         <MdBrokenImage />
       </div>
     </div>}
-    {!failed && <Image getSrc={getSrc} {...{ src, w, h }} ref={ref} onError={() => {
+    {!failed && <img src={src} {...props} style={{...style, display: loading ? 'none' : null}} ref={ref} onError={() => {
       markAsFailed(true);
       setLoading(false);
-    }} onLoad={() => setLoading(false)} {...props} />}
+    }} onLoad={(e) => {
+      setLoading(false);
+      onLoad && onLoad(e);
+    }} {...props} />}
   </div>
 });
 OptImage.getImageSrc = getImageSrc;
