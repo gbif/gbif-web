@@ -11,6 +11,8 @@ import * as notification from './notification';
 import * as resourceSearch from './resourceSearch';
 import * as tool from './tool';
 import * as misc from './misc';
+import * as menuItem from './menuItem';
+import * as home from './home';
 import { ResourceAPI, ResourceSearchAPI } from './resource.source';
 import { merge, get } from 'lodash';
 
@@ -28,6 +30,8 @@ const children = [
   resourceSearch,
   tool,
   misc,
+  menuItem, 
+  home
 ].map(resource => resource.default);
 
 export default {

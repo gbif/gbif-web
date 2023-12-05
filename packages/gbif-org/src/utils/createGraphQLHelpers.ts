@@ -8,11 +8,13 @@ export function createGraphQLHelpers<TResult, TVariabels>(query: string) {
     throw new Error(`Could not find operation name in query: ${query}`);
   }
 
-  function load(options: { endpoint: string; request: Request; variables: TVariabels }) {
+  function load(options: { endpoint: string; request: Request; variables: TVariabels, locale: string }) {
+    const { locale = 'en' } = options;
     return fetch(options.endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'locale': locale
       },
       signal: options.request.signal,
       body: JSON.stringify({

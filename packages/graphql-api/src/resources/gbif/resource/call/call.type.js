@@ -13,6 +13,7 @@ const typeDef = gql`
     title: String
     body: String
     excerpt: String
+    meta: JSON
   }
 `;
 

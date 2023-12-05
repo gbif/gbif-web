@@ -3,6 +3,7 @@ import { LoaderArgs } from '@/types';
 import { NewsQuery, NewsQueryVariables } from '@/gql/graphql';
 import { createGraphQLHelpers } from '@/utils/createGraphQLHelpers';
 import styles from './resource.module.css';
+import { FormattedMessage } from 'react-intl';
 
 const { load, useTypedLoaderData } = createGraphQLHelpers<
   NewsQuery,
@@ -65,20 +66,8 @@ export function News() {
               {resource.title}
             </h1>
 
-            <div className="flex items-center p-2">
-              <div className="h-12 w-12 bg-gray-300 rounded-full overflow-hidden">
-                <img
-                  className="object-cover h-full w-full"
-                  src="https://plus.unsplash.com/premium_photo-1683134080778-aaa686741d0a?q=80&w=3384&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                  alt="Profile Picture"
-                />
-              </div>
-              <div className="ml-4">
-                <p className="text-sm font-semibold">Daniel Gamboa Copas</p>
-                <p className="text-gray-600 text-sm">
-                  {new Date(resource.createdAt).toLocaleDateString()}
-                </p>
-              </div>
+            <div className="mt-2">
+              <p className="text-gray-600 text-sm">Published {new Date(resource.createdAt).toLocaleDateString('en')}</p>
             </div>
 
             {resource.summary && (
@@ -93,8 +82,8 @@ export function News() {
           {normal && mobile && (
             <figure className="m-auto">
               <picture className="rounded-md">
-                <source srcSet={normal} media="(min-width: 800px)" />
-                <img src={mobile} alt="A description of the image." className="rounded-md" />
+                <source srcSet={normal} media="(min-width: 800px)" width="1200" height="500"/>
+                <img src={mobile} alt={resource?.primaryImage?.description ?? 'No image description provided'} className="rounded-md bg-slate-200" width="800" height="400"/>
               </picture>
               {resource.primaryImage?.description && (
                 <figcaption
@@ -106,39 +95,31 @@ export function News() {
           )}
         </div>
         {resource.body && (
-          <div className={`max-w-3xl m-auto mt-2 prose ${styles.resourceProse}`}>
+          <div className={`max-w-3xl m-auto mt-2 prose gbifProse ${styles.resourceProse}`}>
             <div dangerouslySetInnerHTML={{ __html: resource.body }}></div>
           </div>
         )}
         <hr className="max-w-3xl m-auto mt-8" />
         <div className="max-w-3xl m-auto mt-8 text-sm text-slate-500">
-          {resource.countriesOfCoverage && (
-            <div className="mb-4">
-              <span className="me-4">Country or area of coverage</span>
-              {resource.countriesOfCoverage.map((x) => (
-                <span key={x} className="bg-slate-200 text-slate-800 py-1 px-2 rounded-full mx-1">
-                  {x}
-                </span>
-              ))}
-            </div>
-          )}
-          {resource.topics && (
-            <div className="mb-4">
-              <span className="me-4">Topics</span>
-              {resource.topics.map((x) => (
-                <span key={x} className="bg-slate-200 text-slate-800 py-1 px-2 rounded-full mx-1">
-                  {x}
-                </span>
-              ))}
-            </div>
-          )}
+          {resource.countriesOfCoverage && <div className="mb-4">
+            <span className="me-4"><FormattedMessage id="filters.country.name"/></span>
+            {resource.countriesOfCoverage.map(x => <span key={x} className="bg-slate-200 text-slate-800 py-1 px-2 rounded-full mx-1">
+              <FormattedMessage id={`enums.countryCode.${x}`} />
+            </span>)}
+          </div>}
+          {resource.topics && <div className="mb-4">
+          <span className="me-4"><FormattedMessage id="filters.topics.name"/></span>
+            {resource.topics.map(x => <span key={x} className="bg-slate-200 text-slate-800 py-1 px-2 rounded-full mx-1">
+              <FormattedMessage id={`enums.topics.${x}`} />
+            </span>)}
+          </div>}
         </div>
       </div>
     </>
   );
 }
 
-export async function newsLoader({ request, params, config }: LoaderArgs) {
+export async function newsLoader({ request, params, config, locale }: LoaderArgs) {
   const key = params.key;
   if (key == null) throw new Error('No key provided in the url');
 
@@ -148,5 +129,6 @@ export async function newsLoader({ request, params, config }: LoaderArgs) {
     variables: {
       key,
     },
+    locale: locale.cmsLocale || locale.code,
   });
 }

@@ -3,9 +3,9 @@ import { Helmet } from 'react-helmet-async';
 import { Config } from '@/contexts/config';
 import { I18nProvider } from '@/contexts/i18n';
 import { SourceRouteObject, RouteMetadata } from '@/types';
-import { StartLoadingEvent } from '@/contexts/loadingElement';
 import { LoadingElementWrapper } from '@/components/LoadingElementWrapper';
 import { v4 as uuid } from 'uuid';
+const PUBLIC_TRANSLATIONS_ENTRY_ENDPOINT = import.meta.env.PUBLIC_TRANSLATIONS_ENTRY_ENDPOINT;
 
 type ConfigureRoutesResult = {
   routes: RouteObject[];
@@ -26,14 +26,22 @@ export function configureRoutes(
     path: locale.default ? '/' : locale.code,
     element: (
       <I18nProvider locale={locale}>
-        <Helmet>
-          <html lang={locale.code} dir={locale.textDirection} />
-        </Helmet>
-
-        <Outlet />
+          <Helmet>
+            <html lang={locale.code} dir={locale.textDirection} />
+          </Helmet>
+          <Outlet />
       </I18nProvider>
     ),
     children: createRoutesRecursively(baseRoutes, config, locale),
+    loader: async () => {
+      // fetch the entry translation file
+      const translations = await fetch(PUBLIC_TRANSLATIONS_ENTRY_ENDPOINT).then((r) => r.json());
+      // now get the actual messages for the locale
+      const messages = await fetch(
+        translations?.[locale.code]?.messages ?? translations?.en?.messages
+      ).then((r) => r.json());
+      return { messages };
+    },
   }));
 
   // Create the routes metadata injected into a context to help with navigation
@@ -54,7 +62,6 @@ function createRouteMetadataRecursively(
     const targetRouteMetadata: RouteMetadata = {
       path: route.path,
       key: route.key,
-      loadingElement: route.loadingElement,
       gbifRedirect: route.gbifRedirect,
       children: Array.isArray(route.children)
         ? createRouteMetadataRecursively(route.children, config)
@@ -69,7 +76,7 @@ function createRoutesRecursively(
   routes: SourceRouteObject[],
   config: Config,
   locale: Config['languages'][number],
-  nestingLevel = 0
+  nestingLevel = 0,
 ): RouteObject[] {
   return routes
     .filter((route) => {
@@ -120,25 +127,12 @@ function createRoutesRecursively(
       // Inject the config and locale into the loader & add loading events
       const loader = route.loader;
       if (typeof loader === 'function') {
-        clone.loader = (args: any) => {
-          if (route.loadingElement && typeof window !== 'undefined') {
-            window.dispatchEvent(
-              new StartLoadingEvent({
-                id,
-                lang: locale.code,
-                nestingLevel,
-                loadingElement: route.loadingElement,
-              })
-            );
-          }
-
-          return loader({ ...args, config, locale });
-        };
+        clone.loader = (args: any) => loader({ ...args, config, locale });
       }
 
       // Recurse into children
       if (Array.isArray(route.children)) {
-        clone.children = createRoutesRecursively(route.children, config, locale, nestingLevel + 1);
+        clone.children = createRoutesRecursively(route.children, config, locale);
       }
 
       return clone;

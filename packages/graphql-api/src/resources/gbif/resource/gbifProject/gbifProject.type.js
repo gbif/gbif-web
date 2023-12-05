@@ -45,6 +45,7 @@ const typeDef = gql`
     secondaryLinks: [Link]
     # TODO
     # overrideProgrammeFunding: [Organization]
+    meta: JSON
   }
 
   type Programme {
