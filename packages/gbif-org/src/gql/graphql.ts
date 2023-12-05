@@ -71,6 +71,7 @@ export type Article = {
   gbifHref?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['ID']['output']>;
   keywords?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  meta?: Maybe<Scalars['JSON']['output']>;
   primaryImage?: Maybe<AssetImage>;
   purposes?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   secondaryLinks?: Maybe<Array<Maybe<Link>>>;
@@ -176,6 +177,7 @@ export type Call = {
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   excerpt?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['ID']['output']>;
+  meta?: Maybe<Scalars['JSON']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
@@ -979,6 +981,7 @@ export type DataUse = {
   homepage?: Maybe<Scalars['Boolean']['output']>;
   id?: Maybe<Scalars['ID']['output']>;
   keywords?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  meta?: Maybe<Scalars['JSON']['output']>;
   primaryImage?: Maybe<AssetImage>;
   primaryLink?: Maybe<Link>;
   purposes?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
@@ -1475,6 +1478,7 @@ export type Document = {
   gbifHref?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['ID']['output']>;
   keywords?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  meta?: Maybe<Scalars['JSON']['output']>;
   primaryLink?: Maybe<Link>;
   summary?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
@@ -1583,6 +1587,7 @@ export type Event = {
   id?: Maybe<Scalars['ID']['output']>;
   keywords?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   location?: Maybe<Scalars['String']['output']>;
+  meta?: Maybe<Scalars['JSON']['output']>;
   organisingParticipants?: Maybe<Array<Maybe<Participant>>>;
   primaryImage?: Maybe<AssetImage>;
   primaryLink?: Maybe<Link>;
@@ -1700,6 +1705,7 @@ export type GbifProject = {
   keywords?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   leadContact?: Maybe<Scalars['String']['output']>;
   matchingFunds?: Maybe<Scalars['Int']['output']>;
+  meta?: Maybe<Scalars['JSON']['output']>;
   news?: Maybe<Array<Maybe<News>>>;
   officialTitle?: Maybe<Scalars['String']['output']>;
   primaryImage?: Maybe<AssetImage>;
@@ -1797,6 +1803,16 @@ export type HistogramBucket = {
   __typename?: 'HistogramBucket';
   count: Scalars['Long']['output'];
   key: Scalars['ID']['output'];
+};
+
+export type Home = {
+  __typename?: 'Home';
+  aboutBody?: Maybe<Scalars['String']['output']>;
+  children?: Maybe<Array<Maybe<MenuItem>>>;
+  id?: Maybe<Scalars['String']['output']>;
+  primaryImage?: Maybe<Array<Maybe<AssetImage>>>;
+  summary?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
 };
 
 export enum IdType {
@@ -2584,6 +2600,15 @@ export enum MediaType {
   StillImage = 'StillImage'
 }
 
+export type MenuItem = {
+  __typename?: 'MenuItem';
+  children?: Maybe<Array<Maybe<MenuItem>>>;
+  externalLink?: Maybe<Scalars['Boolean']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  link?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+};
+
 export enum MetadataType {
   Dc = 'DC',
   Eml = 'EML'
@@ -2726,6 +2751,7 @@ export type News = {
   homepage?: Maybe<Scalars['Boolean']['output']>;
   id?: Maybe<Scalars['ID']['output']>;
   keywords?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  meta?: Maybe<Scalars['JSON']['output']>;
   primaryImage?: Maybe<AssetImage>;
   primaryLink?: Maybe<Link>;
   programmeTag?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
@@ -4750,6 +4776,7 @@ export type Query = {
   event?: Maybe<Event>;
   gadm?: Maybe<Gadm>;
   gbifDocument?: Maybe<Document>;
+  gbifHome?: Maybe<Home>;
   gbifProject?: Maybe<GbifProject>;
   globe?: Maybe<Globe>;
   help?: Maybe<Help>;
@@ -6332,6 +6359,11 @@ export type WikiDataTaxonSourceItem = {
   url: Scalars['String']['output'];
 };
 
+export type HeaderQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type HeaderQuery = { __typename?: 'Query', gbifHome?: { __typename?: 'Home', title?: string | null, summary?: string | null, children?: Array<{ __typename?: 'MenuItem', externalLink?: boolean | null, link?: string | null, title?: string | null, children?: Array<{ __typename?: 'MenuItem', externalLink?: boolean | null, link?: string | null, title?: string | null, children?: Array<{ __typename?: 'MenuItem', externalLink?: boolean | null, link?: string | null, title?: string | null } | null> | null } | null> | null } | null> | null } | null };
+
 export type DatasetQueryVariables = Exact<{
   key: Scalars['ID']['input'];
 }>;
@@ -6369,6 +6401,7 @@ export type NewsQueryVariables = Exact<{
 export type NewsQuery = { __typename?: 'Query', news?: { __typename?: 'News', id?: string | null, title?: string | null, summary?: string | null, body?: string | null, countriesOfCoverage?: Array<string | null> | null, topics?: Array<string | null> | null, purposes?: Array<string | null> | null, audiences?: Array<string | null> | null, citation?: string | null, createdAt?: any | null, primaryImage?: { __typename?: 'AssetImage', description?: string | null, title?: string | null, file?: { __typename?: 'ImageFile', url?: string | null, normal?: string | null, mobile?: string | null } | null } | null, primaryLink?: { __typename?: 'Link', label?: string | null, url?: string | null } | null, secondaryLinks?: Array<{ __typename?: 'Link', label?: string | null, url?: string | null } | null> | null } | null };
 
 
+export const HeaderDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Header"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"gbifHome"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"externalLink"}},{"kind":"Field","name":{"kind":"Name","value":"link"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"externalLink"}},{"kind":"Field","name":{"kind":"Name","value":"link"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"externalLink"}},{"kind":"Field","name":{"kind":"Name","value":"link"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<HeaderQuery, HeaderQueryVariables>;
 export const DatasetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Dataset"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"key"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"dataset"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"key"},"value":{"kind":"Variable","name":{"kind":"Name","value":"key"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"publishingOrganizationKey"}},{"kind":"Field","name":{"kind":"Name","value":"publishingOrganizationTitle"}}]}}]}}]} as unknown as DocumentNode<DatasetQuery, DatasetQueryVariables>;
 export const OccurrenceDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Occurrence"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"key"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"occurrence"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"key"},"value":{"kind":"Variable","name":{"kind":"Name","value":"key"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"eventDate"}},{"kind":"Field","name":{"kind":"Name","value":"scientificName"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}},{"kind":"Field","name":{"kind":"Name","value":"dataset"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]}}]} as unknown as DocumentNode<OccurrenceQuery, OccurrenceQueryVariables>;
 export const OccurrenceSearchDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"OccurrenceSearch"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"from"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"occurrenceSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"predicate"},"value":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documents"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"from"},"value":{"kind":"Variable","name":{"kind":"Name","value":"from"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"size"}},{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"scientificName"}},{"kind":"Field","name":{"kind":"Name","value":"eventDate"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}},{"kind":"Field","name":{"kind":"Name","value":"county"}},{"kind":"Field","name":{"kind":"Name","value":"basisOfRecord"}},{"kind":"Field","name":{"kind":"Name","value":"datasetName"}},{"kind":"Field","name":{"kind":"Name","value":"publisherTitle"}}]}}]}}]}}]}}]} as unknown as DocumentNode<OccurrenceSearchQuery, OccurrenceSearchQueryVariables>;

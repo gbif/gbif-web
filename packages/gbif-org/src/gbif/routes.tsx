@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import { GbifRootLayout } from '@/components/GbifRootLayout';
+import { GbifRootLayout, headerLoader } from '@/components/GbifRootLayout';
 import { SourceRouteObject } from '@/types';
 import { configureRoutes } from '@/utils/configureRoutes';
 import { HomePage } from '@/routes/HomePage';
@@ -28,6 +28,7 @@ import { DatasetDownloadTab } from '@/routes/dataset/key/DownloadTab';
 const baseRoutes: SourceRouteObject[] = [
   {
     element: <GbifRootLayout children={<Outlet />} />,
+    loader: headerLoader,
     children: [
       {
         errorElement: <RootErrorPage />,
