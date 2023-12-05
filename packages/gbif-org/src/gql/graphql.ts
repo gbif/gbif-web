@@ -2600,7 +2600,15 @@ export type MultimediaItem = {
   publisher?: Maybe<Scalars['String']['output']>;
   references?: Maybe<Scalars['String']['output']>;
   rightsHolder?: Maybe<Scalars['String']['output']>;
+  thumbor?: Maybe<Scalars['String']['output']>;
   type?: Maybe<Scalars['String']['output']>;
+};
+
+
+export type MultimediaItemThumborArgs = {
+  fitIn?: InputMaybe<Scalars['Boolean']['input']>;
+  height?: InputMaybe<Scalars['Int']['input']>;
+  width?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export enum NamePart {
@@ -5371,8 +5379,22 @@ export type ResourceSearchInput = {
   locale?: InputMaybe<Array<Scalars['String']['input']>>;
   offset?: InputMaybe<Scalars['Int']['input']>;
   q?: InputMaybe<Scalars['String']['input']>;
+  sortBy?: InputMaybe<ResourceSortBy>;
+  sortOrder?: InputMaybe<ResourceSortOrder>;
+  start?: InputMaybe<Scalars['String']['input']>;
   topics?: InputMaybe<Array<Scalars['String']['input']>>;
 };
+
+export enum ResourceSortBy {
+  CreatedAt = 'createdAt',
+  End = 'end',
+  Start = 'start'
+}
+
+export enum ResourceSortOrder {
+  Asc = 'asc',
+  Desc = 'desc'
+}
 
 export enum RunPipelineResponse_ResponseStatus {
   Error = 'ERROR',
