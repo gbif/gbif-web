@@ -1,6 +1,4 @@
-import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useI18n } from '@/contexts/i18n';
 import { LoaderArgs } from '@/types';
 import { NewsQuery, NewsQueryVariables } from '@/gql/graphql';
 import { createGraphQLHelpers } from '@/utils/createGraphQLHelpers';
@@ -45,7 +43,6 @@ const { load, useTypedLoaderData } = createGraphQLHelpers<
 
 export function News() {
   const { data } = useTypedLoaderData();
-  const { locale } = useI18n();
 
   if (data.news == null) throw new Error('404');
   const resource = data.news;
@@ -70,14 +67,20 @@ export function News() {
 
             <div className="flex items-center p-2">
               <div className="h-12 w-12 bg-gray-300 rounded-full overflow-hidden">
-                <img className="object-cover h-full w-full" src="https://plus.unsplash.com/premium_photo-1683134080778-aaa686741d0a?q=80&w=3384&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Profile Picture" />
+                <img
+                  className="object-cover h-full w-full"
+                  src="https://plus.unsplash.com/premium_photo-1683134080778-aaa686741d0a?q=80&w=3384&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="Profile Picture"
+                />
               </div>
               <div className="ml-4">
                 <p className="text-sm font-semibold">Daniel Gamboa Copas</p>
-                <p className="text-gray-600 text-sm">{new Date(resource.createdAt).toLocaleDateString()}</p>
+                <p className="text-gray-600 text-sm">
+                  {new Date(resource.createdAt).toLocaleDateString()}
+                </p>
               </div>
             </div>
-            
+
             {resource.summary && (
               <div
                 className="mt-2 text-lg text-slate-600"
@@ -91,7 +94,7 @@ export function News() {
             <figure className="m-auto">
               <picture className="rounded-md">
                 <source srcSet={normal} media="(min-width: 800px)" />
-                <img src={mobile} alt="A description of the image." className="rounded-md"/>
+                <img src={mobile} alt="A description of the image." className="rounded-md" />
               </picture>
               {resource.primaryImage?.description && (
                 <figcaption
@@ -109,14 +112,26 @@ export function News() {
         )}
         <hr className="max-w-3xl m-auto mt-8" />
         <div className="max-w-3xl m-auto mt-8 text-sm text-slate-500">
-          {resource.countriesOfCoverage && <div className="mb-4">
-            <span className="me-4">Country or area of coverage</span>
-            {resource.countriesOfCoverage.map(x => <span key={x} className="bg-slate-200 text-slate-800 py-1 px-2 rounded-full mx-1">{x}</span>)}
-          </div>}
-          {resource.topics && <div className="mb-4">
-          <span className="me-4">Topics</span>
-            {resource.topics.map(x => <span key={x} className="bg-slate-200 text-slate-800 py-1 px-2 rounded-full mx-1">{x}</span>)}
-          </div>}
+          {resource.countriesOfCoverage && (
+            <div className="mb-4">
+              <span className="me-4">Country or area of coverage</span>
+              {resource.countriesOfCoverage.map((x) => (
+                <span key={x} className="bg-slate-200 text-slate-800 py-1 px-2 rounded-full mx-1">
+                  {x}
+                </span>
+              ))}
+            </div>
+          )}
+          {resource.topics && (
+            <div className="mb-4">
+              <span className="me-4">Topics</span>
+              {resource.topics.map((x) => (
+                <span key={x} className="bg-slate-200 text-slate-800 py-1 px-2 rounded-full mx-1">
+                  {x}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </>

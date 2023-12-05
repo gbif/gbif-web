@@ -180,6 +180,16 @@ export type Call = {
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
+export type Certification = {
+  __typename?: 'Certification';
+  created?: Maybe<Scalars['String']['output']>;
+  createdBy?: Maybe<Scalars['String']['output']>;
+  key?: Maybe<Scalars['Int']['output']>;
+  level?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  year?: Maybe<Scalars['Int']['output']>;
+};
+
 export type ChecklistBankDataset = {
   __typename?: 'ChecklistBankDataset';
   attempt?: Maybe<Scalars['Int']['output']>;
@@ -1256,6 +1266,93 @@ export type Diagnostics = {
   matchType?: Maybe<Scalars['String']['output']>;
   note?: Maybe<Scalars['String']['output']>;
   status?: Maybe<Scalars['String']['output']>;
+};
+
+export type DirectoryContact = {
+  __typename?: 'DirectoryContact';
+  address?: Maybe<Scalars['String']['output']>;
+  areasExpertise?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  certifications?: Maybe<Array<Maybe<Certification>>>;
+  countryCode?: Maybe<Scalars['String']['output']>;
+  created?: Maybe<Scalars['DateTime']['output']>;
+  createdBy?: Maybe<Scalars['String']['output']>;
+  email?: Maybe<Scalars['String']['output']>;
+  fax?: Maybe<Scalars['String']['output']>;
+  firstName?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  institutionName?: Maybe<Scalars['String']['output']>;
+  jobTitle?: Maybe<Scalars['String']['output']>;
+  languages?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  modified?: Maybe<Scalars['DateTime']['output']>;
+  modifiedBy?: Maybe<Scalars['String']['output']>;
+  orcidId?: Maybe<Scalars['String']['output']>;
+  phone?: Maybe<Scalars['String']['output']>;
+  profileDescriptions?: Maybe<Array<Maybe<ProfileDescription>>>;
+  profilePicture?: Maybe<Scalars['String']['output']>;
+  roles?: Maybe<Array<Maybe<DirectoryPersonRole>>>;
+  secondaryEmail?: Maybe<Scalars['String']['output']>;
+  skype?: Maybe<Scalars['String']['output']>;
+  surname?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+};
+
+
+export type DirectoryContactProfilePictureArgs = {
+  base64?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type DirectoryPerson = {
+  __typename?: 'DirectoryPerson';
+  areasExpertise?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  certifications?: Maybe<Array<Maybe<Certification>>>;
+  countryCode?: Maybe<Scalars['String']['output']>;
+  created?: Maybe<Scalars['DateTime']['output']>;
+  createdBy?: Maybe<Scalars['String']['output']>;
+  firstName?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  institutionName?: Maybe<Scalars['String']['output']>;
+  jobTitle?: Maybe<Scalars['String']['output']>;
+  languages?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  modified?: Maybe<Scalars['DateTime']['output']>;
+  modifiedBy?: Maybe<Scalars['String']['output']>;
+  orcidId?: Maybe<Scalars['String']['output']>;
+  phone?: Maybe<Scalars['String']['output']>;
+  profileDescriptions?: Maybe<Array<Maybe<ProfileDescription>>>;
+  profilePicture?: Maybe<Scalars['String']['output']>;
+  roles?: Maybe<Array<Maybe<DirectoryPersonRole>>>;
+  surname?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+};
+
+
+export type DirectoryPersonProfilePictureArgs = {
+  base64?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type DirectoryPersonRole = {
+  __typename?: 'DirectoryPersonRole';
+  Person?: Maybe<DirectoryPerson>;
+  award?: Maybe<Scalars['String']['output']>;
+  personId?: Maybe<Scalars['Int']['output']>;
+  programme?: Maybe<Scalars['String']['output']>;
+  relationshipId?: Maybe<Scalars['Int']['output']>;
+  role?: Maybe<Scalars['String']['output']>;
+  term?: Maybe<DirectoryTerm>;
+};
+
+export type DirectoryPersonRoleSearchResults = {
+  __typename?: 'DirectoryPersonRoleSearchResults';
+  count: Scalars['Int']['output'];
+  endOfRecords: Scalars['Boolean']['output'];
+  limit: Scalars['Int']['output'];
+  offset: Scalars['Int']['output'];
+  results: Array<Maybe<DirectoryPersonRole>>;
+};
+
+export type DirectoryTerm = {
+  __typename?: 'DirectoryTerm';
+  end?: Maybe<Scalars['String']['output']>;
+  start?: Maybe<Scalars['String']['output']>;
 };
 
 export enum Discipline {
@@ -2503,7 +2600,15 @@ export type MultimediaItem = {
   publisher?: Maybe<Scalars['String']['output']>;
   references?: Maybe<Scalars['String']['output']>;
   rightsHolder?: Maybe<Scalars['String']['output']>;
+  thumbor?: Maybe<Scalars['String']['output']>;
   type?: Maybe<Scalars['String']['output']>;
+};
+
+
+export type MultimediaItemThumborArgs = {
+  fitIn?: InputMaybe<Scalars['Boolean']['input']>;
+  height?: InputMaybe<Scalars['Int']['input']>;
+  width?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export enum NamePart {
@@ -4591,6 +4696,17 @@ export enum ProcessingErrorType {
   NotParseableCountryName = 'NOT_PARSEABLE_COUNTRY_NAME'
 }
 
+export type ProfileDescription = {
+  __typename?: 'ProfileDescription';
+  created?: Maybe<Scalars['String']['output']>;
+  createdBy?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  key?: Maybe<Scalars['Int']['output']>;
+  language?: Maybe<Scalars['String']['output']>;
+  modified?: Maybe<Scalars['String']['output']>;
+  modifiedBy?: Maybe<Scalars['String']['output']>;
+};
+
 export type Programme = {
   __typename?: 'Programme';
   body?: Maybe<Scalars['String']['output']>;
@@ -4626,6 +4742,10 @@ export type Query = {
   dataset?: Maybe<Dataset>;
   datasetDownloads?: Maybe<DatasetDownloadListResults>;
   datasetSearch?: Maybe<DatasetSearchResults>;
+  directoryAmbasadors?: Maybe<DirectoryPersonRoleSearchResults>;
+  directoryAwardWinners: Array<Maybe<DirectoryPerson>>;
+  directoryMentors?: Maybe<DirectoryPersonRoleSearchResults>;
+  directoryTranslators?: Maybe<DirectoryPersonRoleSearchResults>;
   download?: Maybe<Download>;
   event?: Maybe<Event>;
   gadm?: Maybe<Gadm>;
@@ -4776,6 +4896,29 @@ export type QueryDatasetSearchArgs = {
   q?: InputMaybe<Scalars['String']['input']>;
   subtype?: InputMaybe<Array<InputMaybe<DatasetSubtype>>>;
   type?: InputMaybe<Array<InputMaybe<DatasetType>>>;
+};
+
+
+export type QueryDirectoryAmbasadorsArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type QueryDirectoryAwardWinnersArgs = {
+  award?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryDirectoryMentorsArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type QueryDirectoryTranslatorsArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -5236,8 +5379,22 @@ export type ResourceSearchInput = {
   locale?: InputMaybe<Array<Scalars['String']['input']>>;
   offset?: InputMaybe<Scalars['Int']['input']>;
   q?: InputMaybe<Scalars['String']['input']>;
+  sortBy?: InputMaybe<ResourceSortBy>;
+  sortOrder?: InputMaybe<ResourceSortOrder>;
+  start?: InputMaybe<Scalars['String']['input']>;
   topics?: InputMaybe<Array<Scalars['String']['input']>>;
 };
+
+export enum ResourceSortBy {
+  CreatedAt = 'createdAt',
+  End = 'end',
+  Start = 'start'
+}
+
+export enum ResourceSortOrder {
+  Asc = 'asc',
+  Desc = 'desc'
+}
 
 export enum RunPipelineResponse_ResponseStatus {
   Error = 'ERROR',
