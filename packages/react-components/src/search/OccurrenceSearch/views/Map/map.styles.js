@@ -40,7 +40,7 @@ export const mapControls = ({ theme }) => css`
   display: flex;
   position: absolute;
   background: white;
-  z-index: 100;
+  z-index: 1;
   border: 1px solid #ddd;
   margin: 12px;
   right: 0;
