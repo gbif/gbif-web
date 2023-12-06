@@ -5,6 +5,7 @@ import { I18nProvider } from '@/contexts/i18n';
 import { SourceRouteObject, RouteMetadata } from '@/types';
 import { LoadingElementWrapper } from '@/components/LoadingElementWrapper';
 import { v4 as uuid } from 'uuid';
+import { StartLoadingEvent } from '@/contexts/loadingElement';
 const PUBLIC_TRANSLATIONS_ENTRY_ENDPOINT = import.meta.env.PUBLIC_TRANSLATIONS_ENTRY_ENDPOINT;
 
 type ConfigureRoutesResult = {
@@ -26,10 +27,10 @@ export function configureRoutes(
     path: locale.default ? '/' : locale.code,
     element: (
       <I18nProvider locale={locale}>
-          <Helmet>
-            <html lang={locale.code} dir={locale.textDirection} />
-          </Helmet>
-          <Outlet />
+        <Helmet>
+          <html lang={locale.code} dir={locale.textDirection} />
+        </Helmet>
+        <Outlet />
       </I18nProvider>
     ),
     children: createRoutesRecursively(baseRoutes, config, locale),
@@ -76,7 +77,7 @@ function createRoutesRecursively(
   routes: SourceRouteObject[],
   config: Config,
   locale: Config['languages'][number],
-  nestingLevel = 0,
+  nestingLevel = 0
 ): RouteObject[] {
   return routes
     .filter((route) => {
@@ -127,12 +128,25 @@ function createRoutesRecursively(
       // Inject the config and locale into the loader & add loading events
       const loader = route.loader;
       if (typeof loader === 'function') {
-        clone.loader = (args: any) => loader({ ...args, config, locale });
+        clone.loader = (args: any) => {
+          if (route.loadingElement && typeof window !== 'undefined') {
+            window.dispatchEvent(
+              new StartLoadingEvent({
+                id,
+                lang: locale.code,
+                nestingLevel,
+                loadingElement: route.loadingElement,
+              })
+            );
+          }
+
+          return loader({ ...args, config, locale });
+        };
       }
 
       // Recurse into children
       if (Array.isArray(route.children)) {
-        clone.children = createRoutesRecursively(route.children, config, locale);
+        clone.children = createRoutesRecursively(route.children, config, locale, nestingLevel + 1);
       }
 
       return clone;

@@ -62,6 +62,7 @@ export function useLoadingElement(
   id: string
 ): React.ReactNode | undefined {
   const loadingElements = React.useContext(LoadingElementContext);
+  console.log(loadingElements);
   const firstLoadingElement = loadingElements[0];
   if (!firstLoadingElement) return;
 
