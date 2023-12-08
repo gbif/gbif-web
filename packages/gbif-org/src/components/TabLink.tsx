@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { MyLink } from './MyLink';
+import { DynamicLink } from './DynamicLink';
 import { cn } from '@/utils/shadcn';
 
 type Props = {
@@ -9,7 +9,7 @@ type Props = {
 
 export function TabLink({ to, children }: Props) {
   return (
-    <MyLink
+    <DynamicLink
       end
       to={to}
       as={NavLink}
@@ -22,6 +22,6 @@ export function TabLink({ to, children }: Props) {
       }
     >
       {children}
-    </MyLink>
+    </DynamicLink>
   );
 }

@@ -9,7 +9,7 @@ type Props<T extends React.ElementType> = React.ComponentProps<T> & {
   as?: T;
 };
 
-export function MyLink<T extends React.ElementType = typeof Link>({
+export function DynamicLink<T extends React.ElementType = typeof Link>({
   to,
   as,
   ...props

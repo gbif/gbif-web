@@ -1,12 +1,14 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { SingleOccurrenceSearchResult } from '@/routes/occurrence/search/OccurrenceSearchPage';
-import { MyLink } from '@/components/MyLink';
+import { DynamicLink } from '@/components/DynamicLink';
 
 export const columns: ColumnDef<SingleOccurrenceSearchResult>[] = [
   {
     header: 'Scientific name',
     cell: ({ row }) => (
-      <MyLink to={`/occurrence/${row.original.key}`}>{row.original.scientificName}</MyLink>
+      <DynamicLink to={`/occurrence/${row.original.key}`}>
+        {row.original.scientificName}
+      </DynamicLink>
     ),
   },
   {

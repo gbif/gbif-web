@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { MyLink } from '@/components/MyLink';
+import { DynamicLink } from '@/components/DynamicLink';
 import { ExtractPaginatedResult, LoaderArgs } from '@/types';
 import { DataTable } from '@/components/ui/data-table';
 import { columns } from '@/routes/occurrence/search/columns';
@@ -67,8 +67,8 @@ export function OccurrenceSearchPage(): React.ReactElement {
           </p>
           <DataTable className="bg-white flex-1 min-h-0" columns={columns} data={occurrences} />
           <div className="flex justify-between pt-2">
-            <div>{previousLink && <MyLink to={previousLink}>&#x2190; Prev</MyLink>}</div>
-            <div>{nextLink && <MyLink to={nextLink}>Next &#x2192;</MyLink>}</div>
+            <div>{previousLink && <DynamicLink to={previousLink}>&#x2190; Prev</DynamicLink>}</div>
+            <div>{nextLink && <DynamicLink to={nextLink}>Next &#x2192;</DynamicLink>}</div>
           </div>
         </div>
       </InternalScrollHandler>

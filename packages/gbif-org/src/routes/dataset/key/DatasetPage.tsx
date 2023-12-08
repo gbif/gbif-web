@@ -1,4 +1,4 @@
-import { MyLink } from '@/components/MyLink';
+import { DynamicLink } from '@/components/DynamicLink';
 import { TabLink } from '@/components/TabLink';
 import { DatasetQuery, DatasetQueryVariables } from '@/gql/graphql';
 import { LoaderArgs } from '@/types';
@@ -35,12 +35,12 @@ export function DatasetPage() {
       {dataset.publishingOrganizationTitle && (
         <p>
           Published by{' '}
-          <MyLink
+          <DynamicLink
             className="inline-flex justify-center rounded-lg text-sm font-semibold py-3 px-4 bg-slate-900 text-white hover:bg-slate-700"
             to={`/publisher/${dataset.publishingOrganizationKey}`}
           >
             {dataset?.publishingOrganizationTitle}
-          </MyLink>{' '}
+          </DynamicLink>{' '}
           -{' '}
           <span className="text-red-500">
             TODO phrase should be translated. If it links to a publisher page on the site or 2

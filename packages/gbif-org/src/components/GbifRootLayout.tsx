@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { LanguageSelector } from '@/components/LanguageSelector';
-import { MyLink } from '@/components/MyLink';
+import { DynamicLink } from '@/components/DynamicLink';
 import { HeaderQuery, HeaderQueryVariables } from '@/gql/graphql';
 import { LoaderArgs } from '../types';
 import { createGraphQLHelpers } from '@/utils/createGraphQLHelpers';
@@ -12,18 +12,18 @@ type Props = {
 
 export function GbifRootLayout({ children }: Props) {
   // const { data } = useTypedLoaderData(); // menu data
-  
+
   return (
     <>
       <header style={{ display: 'flex', gap: '10px' }}>
         <LanguageSelector />
         <nav style={{ display: 'flex', gap: '10px' }}>
-          <MyLink as={NavLink} to="/">
+          <DynamicLink as={NavLink} to="/">
             Home
-          </MyLink>
-          <MyLink as={NavLink} to="/occurrence/search">
+          </DynamicLink>
+          <DynamicLink as={NavLink} to="/occurrence/search">
             Search
-          </MyLink>
+          </DynamicLink>
         </nav>
       </header>
       <main>{children}</main>
