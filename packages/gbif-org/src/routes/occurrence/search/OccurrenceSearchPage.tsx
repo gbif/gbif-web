@@ -78,7 +78,7 @@ export function OccurrenceSearchPage(): React.ReactElement {
     () => data?.occurrenceSearch?.documents.results.filter(notNull) ?? [],
     [data]
   );
-  console.log(occurrences);
+
   const totalResults = React.useMemo(() => data?.occurrenceSearch?.documents.total, [data]);
 
   return (
