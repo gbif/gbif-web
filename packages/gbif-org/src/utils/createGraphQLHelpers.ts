@@ -1,29 +1,41 @@
 import { useLoaderData } from 'react-router-dom';
 
-export function createGraphQLHelpers<TResult, TVariabels>(query: string) {
-  const useTypedLoaderData = useLoaderData as () => { data: TResult };
+type LoadOptions<TVariabels> = {
+  endpoint: string;
+  signal: AbortSignal;
+  variables: TVariabels;
+  locale: string;
+  query: string;
+};
+
+export function loadGraphQL<TVariabels>(options: LoadOptions<TVariabels>) {
+  const { endpoint, signal, variables, locale, query } = options;
 
   const operationName = getOperationNameFromQuery(query);
   if (typeof operationName !== 'string') {
     throw new Error(`Could not find operation name in query: ${query}`);
   }
 
-  function load(options: { endpoint: string; request: Request; variables: TVariabels, locale: string }) {
-    const { locale = 'en' } = options;
-    return fetch(options.endpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'locale': locale
-      },
-      signal: options.request.signal,
-      body: JSON.stringify({
-        query,
-        variables: options.variables,
-        operationName,
-      }),
-    });
-  }
+  return fetch(endpoint, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      locale: locale,
+    },
+    signal,
+    body: JSON.stringify({
+      query: query,
+      variables: variables,
+      operationName,
+    }),
+  });
+}
+
+export function createGraphQLHelpers<TResult, TVariabels>(query: string) {
+  const useTypedLoaderData = useLoaderData as () => { data: TResult };
+
+  const load = (options: Omit<LoadOptions<TVariabels>, 'query'>) =>
+    loadGraphQL<TVariabels>({ ...options, query });
 
   return {
     load,
