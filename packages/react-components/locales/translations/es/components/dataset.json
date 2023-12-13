@@ -92,10 +92,10 @@
   "inDataset": "En",
   "samplingArticleLink": "Más información sobre los eventos de muestreo en GBIF.org",
   "includesDna": "Incluye ADN",
-  "includesDnaDescription": "Hay registros en este conjunto de datos que contienen datos de secuencia.",
-  "containsSamplingEvents": "Contiene eventos muestreo",
+  "includesDnaDescription": "Hay registros en este conjunto de datos que contienen datos de secuencias.",
+  "containsSamplingEvents": "Contiene eventos de muestreo",
   "containsSamplingEventsDescription": "Este conjunto de datos contiene datos de muestreo. Los detalles del método de muestreo se encuentran en la sección de metodología, de la descripción del conjunto de datos.",
-  "griddedData": "Conjuntos de datos en cuadrícula",
+  "griddedData": "Datos en cuadrícula",
   "griddedDataDescription": "Basado en el análisis de los registros, es probable que este conjunto de datos contenga datos en cuadrículas. Lee más en este [post sobre conjuntos de datos en cuadrículas](https://data-blog.gbif.org/post/gridded-datasets-update/).",
   "registry": {
     "failedSinceSuccess": "Intentos fallidos desde la última integración exitosa",
