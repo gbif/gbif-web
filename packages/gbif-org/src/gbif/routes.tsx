@@ -10,10 +10,7 @@ import {
   DetailedOccurrencePageLoading,
   loader as detailedOccurrenceLoader,
 } from '@/routes/occurrence/key/DetailedOccurrencePage';
-import {
-  OccurrenceSearchPage,
-  loader as occurrenceSearchLoader,
-} from '@/routes/occurrence/search/OccurrenceSearchPage';
+import { OccurrenceSearchPage } from '@/routes/occurrence/search/OccurrenceSearchPage';
 import { Config } from '@/contexts/config';
 import { DatasetPage, datasetLoader } from '@/routes/dataset/key/DatasetPage';
 import { PublisherPage, publisherLoader } from '@/routes/publisher/key/PublisherPage';
@@ -40,7 +37,6 @@ const baseRoutes: SourceRouteObject[] = [
           {
             key: 'occurrence-search-page',
             path: 'occurrence/search',
-            loader: occurrenceSearchLoader,
             loadingElement: <p>Loading occurrence search...</p>,
             element: <OccurrenceSearchPage />,
           },
