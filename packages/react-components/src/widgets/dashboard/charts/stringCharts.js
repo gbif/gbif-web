@@ -41,6 +41,8 @@ export const StateProvince = getStringChart({
   title: <FormattedMessage id="filters.stateProvince.name" defaultMessage="State province" />
 });
 
+const getNormalizedName = r => r.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "");
+
 export const IdentifiedBy = getStringChart({
   fieldName: 'identifiedBy', 
   title: <FormattedMessage id="filters.identifiedBy.name" defaultMessage="Identified by" />,
@@ -48,11 +50,12 @@ export const IdentifiedBy = getStringChart({
   transform: data => {
     return data?.search?.facet?.results?.map(x => {
       // extract the identifiedBy value from the first result. Filter the recordedBy array by lower case matching and select the first match
-      const title = x.entity?.documents?.results?.[0]?.identifiedBy?.find(r => r.toLowerCase() === x.key);
+      const title = x.entity?.documents?.results?.[0]?.identifiedBy?.find(r => getNormalizedName(r) === x.key);
       return {
         key: x.key,
         count: x.count,
         title: title,
+        plainTextTitle: title,
         filter: { identifiedBy: [title] },
       }
     });
@@ -66,11 +69,12 @@ export const RecordedBy = getStringChart({
   transform: data => {
     return data?.search?.facet?.results?.map(x => {
       // extract the recordedBy value from the first result. Filter the recordedBy array by lower case matching and select the first match
-      const title = x.entity?.documents?.results?.[0]?.recordedBy?.find(r => r.toLowerCase() === x.key);
+      const title = x.entity?.documents?.results?.[0]?.recordedBy?.find(r => getNormalizedName(r) === x.key) ?? x.key;
       return {
         key: x.key,
         count: x.count,
         title: title,
+        plainTextTitle: title,
         filter: { recordedBy: [title] },
       }
     });

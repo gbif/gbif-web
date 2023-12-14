@@ -75,7 +75,8 @@ export function OneDimensionalChart({
     occurrences: intl.formatMessage({id: 'dashboard.occurrences'})
   }
   facetResults?.results?.forEach(x => x.filter = { [filterKey ?? predicateKey]: [x.key] });
-  const data = facetResults?.results?.map(x => {
+  const mappedResults = transform ? transform(facetResults.data) : facetResults.results;
+  const data = mappedResults?.map(x => {
     return {
       ...x,
       y: x.count,
