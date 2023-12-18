@@ -20,7 +20,6 @@ async function main() {
       server: { middlewareMode: true },
       appType: 'custom',
       configFile: './gbif/vite.config.ts',
-      envDir: './',
     });
 
     app.use(viteDevServer.middlewares);
@@ -42,7 +41,7 @@ async function main() {
         template = await viteDevServer.transformIndexHtml(url, template);
         render = (await viteDevServer.ssrLoadModule('src/gbif/entry.server.tsx')).render;
       } else {
-        template = await fsp.readFile('dist/gbif/client/index.html', 'utf8');
+        template = await fsp.readFile('dist/gbif/client/gbif/index.html', 'utf8');
         render = (await import('../dist/gbif/server/entry.server.js')).render;
       }
 

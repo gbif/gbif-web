@@ -9,6 +9,7 @@ export default defineConfig({
     'process.env.NODE_ENV': JSON.stringify('production'),
   },
   envPrefix: 'PUBLIC_',
+  envDir: '../',
   plugins: [
     react(),
     // The queue-promise package uses the events module, which is not available in the browser. This plugin adds a polyfill for the events module.

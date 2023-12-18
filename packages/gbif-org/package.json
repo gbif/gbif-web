@@ -6,14 +6,15 @@
   "scripts": {
     "develop": "concurrently --kill-others \"NODE_ENV=development node gbif/server.js\"  \"graphql-codegen --config codegen.ts --watch\"",
     "build:client": "vite build --config gbif/vite.config.ts --ssrManifest",
-    "build:server": "vite build --config gbif/vite.config.ts --outDir ../dist/gbif/server --ssr ../src/gbif/entry.server.tsx",
+    "build:server": "vite build --config gbif/vite.config.ts --outDir ./dist/gbif/server --ssr ./src/gbif/entry.server.tsx",
     "build": "npm run build:client && npm run build:server",
     "start": "NODE_ENV=production node gbif/server.js",
     "visualize-build": "vite-bundle-visualizer -c ./gbif/vite.config.ts",
     "build:hp": "vite build --config hp/vite.config.ts",
     "start:hp": "node hp/server.js",
     "visualize-build:hp": "vite-bundle-visualizer -c ./hp/vite.config.ts",
-    "codegen": "graphql-codegen --config codegen.ts"
+    "codegen": "graphql-codegen --config codegen.ts",
+    "test": "npm run build && npm run build:hp"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.2",

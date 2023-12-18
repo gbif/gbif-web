@@ -57,13 +57,14 @@ export function PublisherPage() {
   );
 }
 
-export async function publisherLoader({ request, params, config }: LoaderArgs) {
+export async function publisherLoader({ request, params, config, locale }: LoaderArgs) {
   const key = params.key;
   if (key == null) throw new Error('No key provided in the url');
 
   return load({
     endpoint: config.graphqlEndpoint,
-    request,
+    signal: request.signal,
+    locale: locale.cmsLocale || locale.code,
     variables: {
       key,
     },

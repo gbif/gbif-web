@@ -69,7 +69,7 @@ export function useQuery<TResult, TVariabels>(
           endpoint: config.graphqlEndpoint,
           query: query,
           variables: options.variables,
-          locale: locale.cmsLocale ?? locale.code,
+          locale: locale.cmsLocale || locale.code,
         });
 
         return response

@@ -88,13 +88,14 @@ export function DatasetPage() {
   );
 }
 
-export async function datasetLoader({ request, params, config }: LoaderArgs) {
+export async function datasetLoader({ request, params, config, locale }: LoaderArgs) {
   const key = params.key;
   if (key == null) throw new Error('No key provided in the url');
 
   return load({
     endpoint: config.graphqlEndpoint,
-    request,
+    signal: request.signal,
+    locale: locale.cmsLocale || locale.code,
     variables: {
       key,
     },

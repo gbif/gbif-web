@@ -5,6 +5,7 @@ import { NotFound } from '@/routes/NotFound';
 import { RootErrorPage } from '@/routes/RootErrorPage';
 import {
   DetailedOccurrencePage,
+  DetailedOccurrencePageLoading,
   loader as detailedOccurrenceLoader,
 } from '@/routes/occurrence/key/DetailedOccurrencePage';
 import { OccurrenceSearchPage } from '@/routes/occurrence/search/OccurrenceSearchPage';
@@ -37,6 +38,7 @@ const baseRoutes: SourceRouteObject[] = [
         path: 'occurrence/:key',
         loader: detailedOccurrenceLoader,
         element: <DetailedOccurrencePage />,
+        loadingElement: <DetailedOccurrencePageLoading />,
       },
       {
         key: 'dataset-page',

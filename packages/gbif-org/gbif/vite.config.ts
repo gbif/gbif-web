@@ -14,12 +14,13 @@ export default defineConfig({
     // The queue-promise package uses the events module, which is not available in the browser. This plugin adds a polyfill for the events module.
     nodePolyfills({ include: ['events'] }),
   ],
-  root: 'gbif',
   build: {
     emptyOutDir: true,
-    outDir: '../dist/gbif/client',
+    outDir: './dist/gbif/client',
+    rollupOptions: {
+      input: fileURLToPath(new URL('./index.html', import.meta.url)),
+    },
   },
-  envDir: '../',
   resolve: {
     alias: [{ find: '@', replacement: fileURLToPath(new URL('../src', import.meta.url)) }],
   },

@@ -67,7 +67,9 @@ export function News() {
             </h1>
 
             <div className="mt-2">
-              <p className="text-gray-600 text-sm">Published {new Date(resource.createdAt).toLocaleDateString('en')}</p>
+              <p className="text-gray-600 text-sm">
+                Published {new Date(resource.createdAt).toLocaleDateString('en')}
+              </p>
             </div>
 
             {resource.summary && (
@@ -82,8 +84,14 @@ export function News() {
           {normal && mobile && (
             <figure className="m-auto">
               <picture className="rounded-md">
-                <source srcSet={normal} media="(min-width: 800px)" width="1200" height="500"/>
-                <img src={mobile} alt={resource?.primaryImage?.description ?? 'No image description provided'} className="rounded-md bg-slate-200" width="800" height="400"/>
+                <source srcSet={normal} media="(min-width: 800px)" width="1200" height="500" />
+                <img
+                  src={mobile}
+                  alt={resource?.primaryImage?.description ?? 'No image description provided'}
+                  className="rounded-md bg-slate-200"
+                  width="800"
+                  height="400"
+                />
               </picture>
               {resource.primaryImage?.description && (
                 <figcaption
@@ -101,18 +109,30 @@ export function News() {
         )}
         <hr className="max-w-3xl m-auto mt-8" />
         <div className="max-w-3xl m-auto mt-8 text-sm text-slate-500">
-          {resource.countriesOfCoverage && <div className="mb-4">
-            <span className="me-4"><FormattedMessage id="filters.country.name"/></span>
-            {resource.countriesOfCoverage.map(x => <span key={x} className="bg-slate-200 text-slate-800 py-1 px-2 rounded-full mx-1">
-              <FormattedMessage id={`enums.countryCode.${x}`} />
-            </span>)}
-          </div>}
-          {resource.topics && <div className="mb-4">
-          <span className="me-4"><FormattedMessage id="filters.topics.name"/></span>
-            {resource.topics.map(x => <span key={x} className="bg-slate-200 text-slate-800 py-1 px-2 rounded-full mx-1">
-              <FormattedMessage id={`enums.topics.${x}`} />
-            </span>)}
-          </div>}
+          {resource.countriesOfCoverage && (
+            <div className="mb-4">
+              <span className="me-4">
+                <FormattedMessage id="filters.country.name" />
+              </span>
+              {resource.countriesOfCoverage.map((x) => (
+                <span key={x} className="bg-slate-200 text-slate-800 py-1 px-2 rounded-full mx-1">
+                  <FormattedMessage id={`enums.countryCode.${x}`} />
+                </span>
+              ))}
+            </div>
+          )}
+          {resource.topics && (
+            <div className="mb-4">
+              <span className="me-4">
+                <FormattedMessage id="filters.topics.name" />
+              </span>
+              {resource.topics.map((x) => (
+                <span key={x} className="bg-slate-200 text-slate-800 py-1 px-2 rounded-full mx-1">
+                  <FormattedMessage id={`enums.topics.${x}`} />
+                </span>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </>
@@ -125,7 +145,7 @@ export async function newsLoader({ request, params, config, locale }: LoaderArgs
 
   return load({
     endpoint: config.graphqlEndpoint,
-    request,
+    signal: request.signal,
     variables: {
       key,
     },

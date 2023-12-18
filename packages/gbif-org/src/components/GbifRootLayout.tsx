@@ -32,11 +32,11 @@ export function GbifRootLayout({ children }: Props) {
 }
 
 // load the navigation elements to be used in the header
-export async function headerLoader({ request, params, config, locale }: LoaderArgs) {
+export async function headerLoader({ request, config, locale }: LoaderArgs) {
   // first we need to load all the elements of the navigation
   return load({
     endpoint: config.graphqlEndpoint,
-    request,
+    signal: request.signal,
     variables: {},
     locale: locale.cmsLocale || locale.code,
   });
