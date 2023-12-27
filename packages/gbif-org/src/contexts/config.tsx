@@ -10,6 +10,7 @@ enum GbifEnv {
   Prod = 'prod',
   Dev = 'dev',
   Uta = 'uta',
+  Staging = 'staging',
 }
 
 export function isGbifEnv(value: string): value is GbifEnv {
@@ -137,6 +138,12 @@ function getEndpointsBasedOnGbifEnv(gbifEnv: GbifEnv): Endpoints {
         graphqlEndpoint: 'https://graphql.gbif-staging.org/graphql',
       };
     case GbifEnv.Uta:
+      return {
+        translationsEntryEndpoint:
+          'https://react-components.gbif.org/lib/translations/translations.json',
+        graphqlEndpoint: 'https://graphql.gbif-staging.org/graphql',
+      };
+    case GbifEnv.Staging:
       return {
         translationsEntryEndpoint:
           'https://react-components.gbif.org/lib/translations/translations.json',
