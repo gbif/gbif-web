@@ -9,7 +9,7 @@ import {
   loader as detailedOccurrenceLoader,
 } from '@/routes/occurrence/key/DetailedOccurrencePage';
 import { OccurrenceSearchPage } from '@/routes/occurrence/search/OccurrenceSearchPage';
-import { Config } from '@/contexts/config';
+import { InputConfig, processConfig } from '@/contexts/config';
 import { DatasetPage, datasetLoader } from '@/routes/dataset/key/DatasetPage';
 import { DatasetAboutTab } from '@/routes/dataset/key/AboutTab';
 import { DatasetDashboardTab } from '@/routes/dataset/key/DashboardTab';
@@ -101,5 +101,5 @@ const baseRoutes: SourceRouteObject[] = [
   },
 ];
 
-export const configureHostedPortalRoutes = (hostedPortalConfig: Config) =>
-  configureRoutes(baseRoutes, hostedPortalConfig);
+export const configureHostedPortalRoutes = (hostedPortalConfig: InputConfig) =>
+  configureRoutes(baseRoutes, processConfig(hostedPortalConfig));

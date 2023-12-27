@@ -6,9 +6,19 @@ type PageConfig = {
   key: string;
 };
 
-export type Config = {
+enum GbifEnv {
+  Prod = 'prod',
+  Dev = 'dev',
+  Uta = 'uta',
+}
+
+export function isGbifEnv(value: string): value is GbifEnv {
+  return Object.values(GbifEnv).includes(value as GbifEnv);
+}
+
+export type InputConfig = {
   defaultTitle?: string;
-  graphqlEndpoint: string;
+  gbifEnv: GbifEnv;
   languages: {
     code: string; // this codes are passed to react-intl, so they must be valid locale codes. Altenatively we need an extra field for the locale code used by react-intl
     label: string;
@@ -27,11 +37,19 @@ export type Config = {
   };
 };
 
+// This will be added to the config based on the gbifEnv
+type Endpoints = {
+  graphqlEndpoint: string;
+  translationsEntryEndpoint: string;
+};
+
+export type Config = InputConfig & Endpoints;
+
 const ConfigContext = React.createContext<Config | null>(null);
 
 type Props = {
   children?: React.ReactNode;
-  config: Config;
+  config: InputConfig;
 };
 
 type CssVariable = { name: string; value: unknown; postFix?: string };
@@ -47,8 +65,10 @@ export function ConfigProvider({ config, children }: Props): React.ReactElement 
     return addSensibleForegroundColors(cssVariables).filter((v) => v.value != null);
   }, [config]);
 
+  const contextValue: Config = React.useMemo(() => processConfig(config), [config]);
+
   return (
-    <ConfigContext.Provider value={config}>
+    <ConfigContext.Provider value={contextValue}>
       <style>{`:root { ${variables
         .map((v) => `${v.name}: ${v.value}${v.postFix ?? ''};`)
         .join('\n')} }`}</style>
@@ -88,4 +108,45 @@ function addSensibleForegroundColors(cssVariables: CssVariable[]): CssVariable[]
     const newForegroundColor = foregroundColorContrast(bgVariable.value);
     return { ...variable, value: newForegroundColor };
   });
+}
+
+export function processConfig(config: InputConfig): Config {
+  return {
+    ...getEndpointsBasedOnGbifEnv(config.gbifEnv),
+    ...config,
+  };
+}
+
+function getEndpointsBasedOnGbifEnv(gbifEnv: GbifEnv): Endpoints {
+  // This can happen as the gbifEnv is passed as a string when configuring the HostedPortal
+  if (!isGbifEnv(gbifEnv)) {
+    throw new InvalidGbifEnvError(gbifEnv);
+  }
+
+  switch (gbifEnv) {
+    case GbifEnv.Prod:
+      return {
+        translationsEntryEndpoint:
+          'https://react-components.gbif.org/lib/translations/translations.json',
+        graphqlEndpoint: 'https://graphql.gbif-staging.org/graphql',
+      };
+    case GbifEnv.Dev:
+      return {
+        translationsEntryEndpoint:
+          'https://react-components.gbif.org/lib/translations/translations.json',
+        graphqlEndpoint: 'https://graphql.gbif-staging.org/graphql',
+      };
+    case GbifEnv.Uta:
+      return {
+        translationsEntryEndpoint:
+          'https://react-components.gbif.org/lib/translations/translations.json',
+        graphqlEndpoint: 'https://graphql.gbif-staging.org/graphql',
+      };
+  }
+}
+
+export class InvalidGbifEnvError extends Error {
+  constructor(gbifEnv: string) {
+    super(`Unknown gbifEnv: ${gbifEnv}. Must be one of ${Object.values(GbifEnv).join(', ')}`);
+  }
 }

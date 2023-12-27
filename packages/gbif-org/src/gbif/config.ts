@@ -1,13 +1,12 @@
-import { Config } from '@/contexts/config';
+import { InputConfig, InvalidGbifEnvError, isGbifEnv } from '@/contexts/config';
 
-const graphqlEndpoint = import.meta.env.PUBLIC_GRAPHQL_ENDPOINT;
-if (typeof graphqlEndpoint !== 'string') {
-  throw new Error('Missing PUBLIC_GRAPHQL_ENDPOINT env variable');
-}
+const gbifEnv = import.meta.env.PUBLIC_GBIF_ENV;
+if (typeof gbifEnv !== 'string') throw new Error('PUBLIC_GBIF_ENV GBIF_ENV env variable');
+if (!isGbifEnv(gbifEnv)) throw new InvalidGbifEnvError(gbifEnv);
 
-export const gbifConfig: Config = {
+export const gbifConfig: InputConfig = {
   defaultTitle: 'GBIF',
-  graphqlEndpoint,
+  gbifEnv,
   languages: [
     {
       code: 'en',
@@ -26,7 +25,7 @@ export const gbifConfig: Config = {
       label: 'Français',
       default: false,
       textDirection: 'ltr',
-      cmsLocale: 'fr',// what locale code to use when fetching data from the cms endpoints
+      cmsLocale: 'fr', // what locale code to use when fetching data from the cms endpoints
     },
     {
       code: 'ar',

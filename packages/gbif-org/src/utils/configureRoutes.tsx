@@ -6,7 +6,6 @@ import { SourceRouteObject, RouteMetadata } from '@/types';
 import { LoadingElementWrapper } from '@/components/LoadingElementWrapper';
 import { v4 as uuid } from 'uuid';
 import { StartLoadingEvent } from '@/contexts/loadingElement';
-const PUBLIC_TRANSLATIONS_ENTRY_ENDPOINT = import.meta.env.PUBLIC_TRANSLATIONS_ENTRY_ENDPOINT;
 
 type ConfigureRoutesResult = {
   routes: RouteObject[];
@@ -36,7 +35,7 @@ export function configureRoutes(
     children: createRoutesRecursively(baseRoutes, config, locale),
     loader: async () => {
       // fetch the entry translation file
-      const translations = await fetch(PUBLIC_TRANSLATIONS_ENTRY_ENDPOINT).then((r) => r.json());
+      const translations = await fetch(config.translationsEntryEndpoint).then((r) => r.json());
       // now get the actual messages for the locale
       const messages = await fetch(
         translations?.[locale.code]?.messages ?? translations?.en?.messages
