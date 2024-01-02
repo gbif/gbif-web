@@ -6,7 +6,7 @@ type PageConfig = {
   key: string;
 };
 
-enum GbifEnv {
+export enum GbifEnv {
   Prod = 'prod',
   Dev = 'dev',
   Uta = 'uta',
@@ -118,7 +118,7 @@ export function processConfig(config: InputConfig): Config {
   };
 }
 
-function getEndpointsBasedOnGbifEnv(gbifEnv: GbifEnv): Endpoints {
+export function getEndpointsBasedOnGbifEnv(gbifEnv: GbifEnv): Endpoints {
   // This can happen as the gbifEnv is passed as a string when configuring the HostedPortal
   if (!isGbifEnv(gbifEnv)) {
     throw new InvalidGbifEnvError(gbifEnv);
