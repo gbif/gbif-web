@@ -1,5 +1,5 @@
 import React from 'react';
-import { useConfig } from '@/contexts/config';
+import { useConfig } from '@/contexts/config/config';
 import { useI18n } from '@/contexts/i18n';
 
 export function LanguageSelector(): React.ReactElement {

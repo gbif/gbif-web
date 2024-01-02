@@ -3,11 +3,11 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Root } from '@/components/Root';
-import { Config } from '@/contexts/config';
+import { Config, InputConfig } from '@/contexts/config/config';
 import { configureHostedPortalRoutes } from '@/hp/routes';
 
 type Props = {
-  config: Config;
+  config: InputConfig;
 };
 
 function HostedPortalApp({ config }: Props): React.ReactElement {

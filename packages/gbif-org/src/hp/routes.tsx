@@ -9,7 +9,7 @@ import {
   loader as detailedOccurrenceLoader,
 } from '@/routes/occurrence/key/DetailedOccurrencePage';
 import { OccurrenceSearchPage } from '@/routes/occurrence/search/OccurrenceSearchPage';
-import { InputConfig, processConfig } from '@/contexts/config';
+import { InputConfig, processConfig } from '@/contexts/config/config';
 import { DatasetPage, datasetLoader } from '@/routes/dataset/key/DatasetPage';
 import { DatasetAboutTab } from '@/routes/dataset/key/AboutTab';
 import { DatasetDashboardTab } from '@/routes/dataset/key/DashboardTab';

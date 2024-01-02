@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import { useDefaultLocale } from '@/hooks/useDefaultLocale';
-import { Config } from '@/contexts/config';
+import { Config } from '@/contexts/config/config';
 import { IntlProvider } from 'react-intl';
 
 type I18n = {

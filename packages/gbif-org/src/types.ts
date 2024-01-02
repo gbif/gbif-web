@@ -1,5 +1,5 @@
 import { RouteObject } from 'react-router-dom';
-import { Config } from '@/contexts/config';
+import { Config } from '@/contexts/config/config';
 
 export type LoaderArgs = {
   request: Request;

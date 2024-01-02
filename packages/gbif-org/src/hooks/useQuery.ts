@@ -1,5 +1,5 @@
 import { loadGraphQL } from '@/utils/createGraphQLHelpers';
-import { useConfig } from '@/contexts/config';
+import { useConfig } from '@/contexts/config/config';
 import { useI18n } from '@/contexts/i18n';
 import React from 'react';
 import Queue from 'queue-promise';

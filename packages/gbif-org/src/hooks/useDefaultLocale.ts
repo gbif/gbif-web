@@ -1,4 +1,4 @@
-import { useConfig } from '@/contexts/config';
+import { useConfig } from '@/contexts/config/config';
 
 export function useDefaultLocale() {
   const { languages } = useConfig();

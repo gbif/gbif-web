@@ -1,4 +1,4 @@
-import { useConfig } from '@/contexts/config';
+import { useConfig } from '@/contexts/config/config';
 import { useMetadataRoutes } from '@/contexts/metadataRoutes';
 import { findRouteMetadataMatch } from '@/utils/findRouteMetadataMatch';
 

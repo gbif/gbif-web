@@ -14,7 +14,8 @@
     "start:hp": "node hp/server.js",
     "visualize-build:hp": "vite-bundle-visualizer -c ./hp/vite.config.ts",
     "codegen": "graphql-codegen --config codegen.ts",
-    "test": "npm run build && npm run build:hp"
+    "test": "npm run build && npm run build:hp",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.2",

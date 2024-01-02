@@ -42,10 +42,7 @@ export async function headerLoader({ request, config, locale }: LoaderArgs) {
   });
 }
 
-const { load, useTypedLoaderData } = createGraphQLHelpers<
-  HeaderQuery,
-  HeaderQueryVariables
->(/* GraphQL */ `
+const { load } = createGraphQLHelpers<HeaderQuery, HeaderQueryVariables>(/* GraphQL */ `
   query Header {
     gbifHome {
       title

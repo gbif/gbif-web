@@ -1,21 +1,11 @@
 import { foregroundColorContrast } from '@/utils/foregroundColorContrast';
 import { toRecord } from '@/utils/toRecord';
 import React from 'react';
+import { Endpoints, GbifEnv, getEndpointsBasedOnGbifEnv } from './endpoints';
 
 type PageConfig = {
   key: string;
 };
-
-export enum GbifEnv {
-  Prod = 'prod',
-  Dev = 'dev',
-  Uta = 'uta',
-  Staging = 'staging',
-}
-
-export function isGbifEnv(value: string): value is GbifEnv {
-  return Object.values(GbifEnv).includes(value as GbifEnv);
-}
 
 export type InputConfig = {
   defaultTitle?: string;
@@ -36,12 +26,6 @@ export type InputConfig = {
     };
     borderRadius?: number;
   };
-};
-
-// This will be added to the config based on the gbifEnv
-type Endpoints = {
-  graphqlEndpoint: string;
-  translationsEntryEndpoint: string;
 };
 
 export type Config = InputConfig & Endpoints;
@@ -116,44 +100,4 @@ export function processConfig(config: InputConfig): Config {
     ...getEndpointsBasedOnGbifEnv(config.gbifEnv),
     ...config,
   };
-}
-
-export function getEndpointsBasedOnGbifEnv(gbifEnv: GbifEnv): Endpoints {
-  // This can happen as the gbifEnv is passed as a string when configuring the HostedPortal
-  if (!isGbifEnv(gbifEnv)) {
-    throw new InvalidGbifEnvError(gbifEnv);
-  }
-
-  switch (gbifEnv) {
-    case GbifEnv.Prod:
-      return {
-        translationsEntryEndpoint:
-          'https://react-components.gbif.org/lib/translations/translations.json',
-        graphqlEndpoint: 'https://graphql.gbif-staging.org/graphql',
-      };
-    case GbifEnv.Dev:
-      return {
-        translationsEntryEndpoint:
-          'https://react-components.gbif.org/lib/translations/translations.json',
-        graphqlEndpoint: 'https://graphql.gbif-staging.org/graphql',
-      };
-    case GbifEnv.Uta:
-      return {
-        translationsEntryEndpoint:
-          'https://react-components.gbif.org/lib/translations/translations.json',
-        graphqlEndpoint: 'https://graphql.gbif-staging.org/graphql',
-      };
-    case GbifEnv.Staging:
-      return {
-        translationsEntryEndpoint:
-          'https://react-components.gbif.org/lib/translations/translations.json',
-        graphqlEndpoint: 'https://graphql.gbif-staging.org/graphql',
-      };
-  }
-}
-
-export class InvalidGbifEnvError extends Error {
-  constructor(gbifEnv: string) {
-    super(`Unknown gbifEnv: ${gbifEnv}. Must be one of ${Object.values(GbifEnv).join(', ')}`);
-  }
 }

@@ -11,7 +11,7 @@ import {
   loader as detailedOccurrenceLoader,
 } from '@/routes/occurrence/key/DetailedOccurrencePage';
 import { OccurrenceSearchPage } from '@/routes/occurrence/search/OccurrenceSearchPage';
-import { InputConfig, processConfig } from '@/contexts/config';
+import { InputConfig, processConfig } from '@/contexts/config/config';
 import { DatasetPage, datasetLoader } from '@/routes/dataset/key/DatasetPage';
 import { PublisherPage, publisherLoader } from '@/routes/publisher/key/PublisherPage';
 import { News, newsLoader } from '@/routes/resource/key/news/news';

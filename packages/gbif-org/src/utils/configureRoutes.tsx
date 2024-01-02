@@ -1,6 +1,6 @@
 import { Outlet, RouteObject } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { Config } from '@/contexts/config';
+import { Config } from '@/contexts/config/config';
 import { I18nProvider } from '@/contexts/i18n';
 import { SourceRouteObject, RouteMetadata } from '@/types';
 import { LoadingElementWrapper } from '@/components/LoadingElementWrapper';

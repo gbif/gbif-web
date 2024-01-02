@@ -1,12 +1,12 @@
 import React from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import { Config, ConfigProvider } from '@/contexts/config';
+import { ConfigProvider, InputConfig } from '@/contexts/config/config';
 import { MetadataRoutesProvider } from '@/contexts/metadataRoutes';
 import { RouteMetadata } from '@/types';
 import { LoadingElementProvider } from '@/contexts/loadingElement';
 
 type Props = {
-  config: Config;
+  config: InputConfig;
   children: React.ReactNode;
   helmetContext?: {};
   metadataRoutes: RouteMetadata[];

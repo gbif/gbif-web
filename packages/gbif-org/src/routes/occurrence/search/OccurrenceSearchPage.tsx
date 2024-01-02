@@ -12,7 +12,7 @@ import { useFilters } from '@/hooks/useFilters';
 import { useTablePagination } from '@/hooks/useTablePagination';
 import { InternalScrollHandler } from '@/components/InternalScrollHandler';
 import useQuery from '@/hooks/useQuery';
-import { useConfig } from '@/contexts/config';
+import { useConfig } from '@/contexts/config/config';
 import { useSearchParams } from 'react-router-dom';
 
 const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
