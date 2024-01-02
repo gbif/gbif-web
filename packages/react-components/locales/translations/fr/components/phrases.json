@@ -2,6 +2,7 @@
   "loading": "en cours de chargement",
   "loadError": "Échec du chargement",
   "unknown": "Inconnu",
+  "notProvided": "Non fourni",
   "close": "Fermer",
   "citation": "Citation",
   "citeAs": "Veuillez utiliser cette citation dans les publications",
@@ -25,5 +26,6 @@
   "viewOnGBif": "Voir sur GBIF.org",
   "failedToLoadData": "Échec du chargement des données",
   "retry": "Réessayer",
+  "pageNotFoundDescription": "Désolé, la page que vous avez visitée n'existe pas.",
   "download": "Télécharger"
 }

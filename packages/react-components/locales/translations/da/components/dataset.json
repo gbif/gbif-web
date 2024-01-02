@@ -91,6 +91,12 @@
   "occurrenceCount": "Antal observationer",
   "inDataset": "I",
   "samplingArticleLink": "",
+  "includesDna": "",
+  "includesDnaDescription": "",
+  "containsSamplingEvents": "",
+  "containsSamplingEventsDescription": "",
+  "griddedData": "",
+  "griddedDataDescription": "",
   "registry": {
     "failedSinceSuccess": "",
     "lastFailed": "",

@@ -7,7 +7,7 @@
     "events": "Eventos",
     "download": "Transferir",
     "clusters": "",
-    "sites": "Ficheiros registados no GBIF"
+    "sites": "Uma breve descrição do componente deve ser colocada aqui"
   },
   "table": {
     "lockColumn": ""
@@ -15,7 +15,7 @@
   "placeholders": {
     "default": "Pesquisa",
     "range": "",
-    "locationID": "Ficheiros registados no GBIF"
+    "locationID": ""
   },
   "loadMore": "Mais",
   "occurrenceClustersView": {

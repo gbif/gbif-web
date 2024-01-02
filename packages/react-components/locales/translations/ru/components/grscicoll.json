@@ -12,5 +12,6 @@
   "country": "Страна",
   "logoUrl": "Логотип организации (URL)",
   "identifiers": "Идентификаторы",
-  "importantCollectors": "Крупнейшие коллекторы"
+  "importantCollectors": "Крупнейшие коллекторы",
+  "dashboard": "Панель управления"
 }

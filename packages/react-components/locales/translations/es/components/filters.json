@@ -22,11 +22,11 @@
   "specimensInGbif": {
     "name": "Especímenes en GBIF",
     "count": "",
-    "description": "Archivo de GBIF anotado"
+    "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\"."
   },
   "iucnRedListCategory": {
-    "name": "Archivo de GBIF anotado",
-    "count": "Archivo de GBIF anotado",
+    "name": "",
+    "count": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
     "description": ""
   },
   "geoDistance": {
@@ -49,38 +49,38 @@
   },
   "eventDate": {
     "name": "Fecha del Evento",
-    "count": "Archivo de GBIF anotado",
-    "description": "Archivo de GBIF anotado"
+    "count": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
+    "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\"."
   },
   "alternativeCode": {
-    "name": "Archivo de GBIF anotado",
-    "count": "Archivo de GBIF anotado",
-    "description": "Archivo de GBIF anotado"
+    "name": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
+    "count": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
+    "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\"."
   },
   "identifier": {
     "name": "Identificador",
-    "count": "Archivo de GBIF anotado",
+    "count": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
     "description": "Aquí debe colocarse una breve descripción del componente"
   },
   "institutionType": {
     "name": "Tipo",
-    "count": "Archivo de GBIF anotado",
-    "description": "Archivo de GBIF anotado"
+    "count": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
+    "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\"."
   },
   "discipline": {
-    "name": "Archivo de GBIF anotado",
-    "count": "Archivo de GBIF anotado",
-    "description": "Archivo de GBIF anotado"
+    "name": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
+    "count": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
+    "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\"."
   },
   "collectionContentType": {
-    "name": "Archivo de GBIF anotado",
-    "count": "Archivo de GBIF anotado",
-    "description": "Archivo de GBIF anotado"
+    "name": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
+    "count": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
+    "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\"."
   },
   "preservationType": {
-    "name": "Archivo de GBIF anotado",
-    "count": "Archivo de GBIF anotado",
-    "description": "Archivo de GBIF anotado"
+    "name": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
+    "count": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
+    "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\"."
   },
   "taxonKey": {
     "name": "Nombre científico",
@@ -122,12 +122,12 @@
     "description": "El país o territorio donde ocurrió el evento"
   },
   "grsciCollCountry": {
-    "description": "Archivo de GBIF anotado"
+    "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\"."
   },
   "preparations": {
     "name": "Preparaciones",
-    "count": "Archivo de GBIF anotado",
-    "description": "Archivo de GBIF anotado"
+    "count": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
+    "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\"."
   },
   "publishingCountryCode": {
     "name": "País de publicación",
@@ -369,12 +369,12 @@
   "active": {
     "name": "Activo",
     "count": "Activo",
-    "description": "Archivo de GBIF anotado"
+    "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\"."
   },
   "personalCollection": {
     "name": "Colección personal",
     "count": "Colección personal",
-    "description": "Archivo de GBIF anotado"
+    "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\"."
   },
   "datasetType": {
     "name": "Tipo de conjunto de datos",
@@ -394,18 +394,18 @@
   "name": {
     "name": "Nombre",
     "count": "{num, plural, one { nombre } other {# nombres}}",
-    "description": "Archivo de GBIF anotado",
-    "searchPlaceholder": "Archivo de GBIF anotado"
+    "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
+    "searchPlaceholder": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\"."
   },
   "city": {
     "name": "Ciudad",
     "count": "{num, plural, one { ciudad } other {# ciudades}}",
-    "description": "Archivo de GBIF anotado"
+    "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\"."
   },
   "code": {
     "name": "Código",
     "count": "{num, plural, one { código } other {# códigos}}",
-    "description": "Archivo de GBIF anotado"
+    "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\"."
   },
   "verbatimScientificName": {
     "name": "Nombre científico original",

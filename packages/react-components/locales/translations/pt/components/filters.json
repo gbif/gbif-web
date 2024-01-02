@@ -22,11 +22,11 @@
   "specimensInGbif": {
     "name": "Espécimes no GBIF",
     "count": "",
-    "description": "Ficheiros registados no GBIF"
+    "description": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\"."
   },
   "iucnRedListCategory": {
-    "name": "Ficheiros registados no GBIF",
-    "count": "Ficheiros registados no GBIF",
+    "name": "",
+    "count": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
     "description": ""
   },
   "geoDistance": {
@@ -49,38 +49,38 @@
   },
   "eventDate": {
     "name": "Data do evento",
-    "count": "Ficheiros registados no GBIF",
-    "description": "Ficheiros registados no GBIF"
+    "count": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
+    "description": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\"."
   },
   "alternativeCode": {
-    "name": "Ficheiros registados no GBIF",
-    "count": "Ficheiros registados no GBIF",
-    "description": "Ficheiros registados no GBIF"
+    "name": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
+    "count": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
+    "description": "Uma breve descrição do componente deve ser colocada aqui"
   },
   "identifier": {
     "name": "Identificador",
-    "count": "Ficheiros registados no GBIF",
+    "count": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
     "description": "Uma breve descrição do componente deve ser colocada aqui"
   },
   "institutionType": {
     "name": "Tipo",
-    "count": "Ficheiros registados no GBIF",
-    "description": "Ficheiros registados no GBIF"
+    "count": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
+    "description": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\"."
   },
   "discipline": {
-    "name": "Ficheiros registados no GBIF",
-    "count": "Ficheiros registados no GBIF",
-    "description": "Ficheiros registados no GBIF"
+    "name": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
+    "count": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
+    "description": "Uma breve descrição do componente deve ser colocada aqui"
   },
   "collectionContentType": {
-    "name": "Ficheiros registados no GBIF",
-    "count": "Ficheiros registados no GBIF",
-    "description": "Ficheiros registados no GBIF"
+    "name": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
+    "count": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
+    "description": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\"."
   },
   "preservationType": {
-    "name": "Ficheiros registados no GBIF",
-    "count": "Ficheiros registados no GBIF",
-    "description": "Ficheiros registados no GBIF"
+    "name": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
+    "count": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
+    "description": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\"."
   },
   "taxonKey": {
     "name": "Nome científico",
@@ -122,12 +122,12 @@
     "description": "O país ou território onde ocorreu o evento"
   },
   "grsciCollCountry": {
-    "description": "Ficheiros registados no GBIF"
+    "description": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\"."
   },
   "preparations": {
     "name": "Preparações",
-    "count": "Ficheiros registados no GBIF",
-    "description": "Ficheiros registados no GBIF"
+    "count": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
+    "description": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\"."
   },
   "publishingCountryCode": {
     "name": "País de publicação",
@@ -369,12 +369,12 @@
   "active": {
     "name": "Ativo",
     "count": "Ativo",
-    "description": "Ficheiros registados no GBIF"
+    "description": "Uma breve descrição do componente deve ser colocada aqui"
   },
   "personalCollection": {
     "name": "Coleção pessoal",
     "count": "Coleção pessoal",
-    "description": "Ficheiros registados no GBIF"
+    "description": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\"."
   },
   "datasetType": {
     "name": "Tipo de conjunto de dados",
@@ -395,7 +395,7 @@
     "name": "Nome",
     "count": "{num, plural, one { nome } other {# nomes}}",
     "description": "Uma breve descrição do componente deve ser colocada aqui",
-    "searchPlaceholder": "Ficheiros registados no GBIF"
+    "searchPlaceholder": "Uma breve descrição do componente deve ser colocada aqui"
   },
   "city": {
     "name": "Cidade",

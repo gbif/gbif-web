@@ -10,6 +10,7 @@
   "COORDINATE_REPROJECTION_SUSPICIOUS": "Koordinat reprojektion mistænkelig",
   "COORDINATE_ACCURACY_INVALID": "Koordinatnøjagtighed ugyldig",
   "COORDINATE_PRECISION_INVALID": "Koordinatpræcision ugyldig",
+  "COORDINATE_UNCERTAINTY_METERS_INVALID": "Koordinatusikkerhed ugyldig",
   "COORDINATE_PRECISION_UNCERTAINTY_MISMATCH": "Koordinatpræcisionsusikkerhed ugyldig",
   "COUNTRY_COORDINATE_MISMATCH": "Misforhold mellem koordinat og land",
   "COUNTRY_MISMATCH": "Landemisforhold",
@@ -42,6 +43,8 @@
   "BASIS_OF_RECORD_INVALID": "Ugyldig observationstype",
   "TYPE_STATUS_INVALID": "Ugyldig typestatus",
   "MULTIMEDIA_DATE_INVALID": "Ugyldig multimediedato",
+  "MULTIMEDIA_URI_INVALID": "Multimedie-uri ugyldig",
+  "REFERENCES_URI_INVALID": "Reference-uri ugyldig",
   "INTERPRETATION_ERROR": "Fortolkningsfejl",
   "INDIVIDUAL_COUNT_INVALID": "Individantal ugyldigt"
 }

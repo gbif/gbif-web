@@ -1,7 +1,10 @@
 {
+  "identifier": "ID",
   "type": "Tipo",
   "title": "Título",
   "rights": "Derechos",
+  "providerLiteral": "Proveedor",
   "description": "Descripción",
-  "format": "Formato"
+  "format": "Formato",
+  "pixelXDimension": "Ancho"
 }

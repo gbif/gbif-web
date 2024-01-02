@@ -10,6 +10,7 @@
   "COORDINATE_REPROJECTION_SUSPICIOUS": "сомнительное перепроецирование координат",
   "COORDINATE_ACCURACY_INVALID": "undefined",
   "COORDINATE_PRECISION_INVALID": "некорректная точность координат",
+  "COORDINATE_UNCERTAINTY_METERS_INVALID": "неопределенность координат некорректна",
   "COORDINATE_PRECISION_UNCERTAINTY_MISMATCH": "несоответствие точности и неопределенности координат",
   "FOOTPRINT_SRS_INVALID": "Местоположение отпечатка в соответствии с SRS неверно",
   "FOOTPRINT_WKT_MISMATCH": "Отпечаток WKT неверный",
@@ -48,8 +49,18 @@
   "BASIS_OF_RECORD_INVALID": "некорректная основа записи",
   "TYPE_STATUS_INVALID": "некорректный статус типа ",
   "MULTIMEDIA_DATE_INVALID": "дата мультимедиа некорректна",
+  "MULTIMEDIA_URI_INVALID": "URI мультимедиа недействительный",
+  "REFERENCES_URI_INVALID": "URI ссылки недействительный",
   "INTERPRETATION_ERROR": "ошибка интерпретации сведений о находке",
   "INDIVIDUAL_COUNT_INVALID": "некорректное число особей",
   "INDIVIDUAL_COUNT_CONFLICTS_WITH_OCCURRENCE_STATUS": "Количество индивидуальных наблюдений конфликтует со статусом наблюдения",
-  "OCCURRENCE_STATUS_UNPARSABLE": "Статус наблюдения невозможно определить"
+  "OCCURRENCE_STATUS_UNPARSABLE": "Статус наблюдения невозможно определить",
+  "TAXON_MATCH_SCIENTIFIC_NAME_ID_IGNORED": "Идентификатор совпадения научного названия таксона игнорируется",
+  "TAXON_MATCH_TAXON_CONCEPT_ID_IGNORED": "Совпадение таксона с идентификатором концепции таксона игнорируется",
+  "TAXON_MATCH_TAXON_ID_IGNORED": "Совпадение таксона с идентификатором таксона игнорируется",
+  "SCIENTIFIC_NAME_ID_NOT_FOUND": "Идентификатор научного названия таксона не найден",
+  "TAXON_CONCEPT_ID_NOT_FOUND": "Идентификатор концепции таксона не найден",
+  "TAXON_ID_NOT_FOUND": "Идентификатор таксона не найден",
+  "SCIENTIFIC_NAME_AND_ID_INCONSISTENT": "Научное название и идентификатор не соответствуют друг другу",
+  "TAXON_MATCH_NAME_AND_ID_AMBIGUOUS": "Нет однозначного совпадения названия и идентификатора таксона."
 }

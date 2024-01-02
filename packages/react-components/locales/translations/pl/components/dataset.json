@@ -91,6 +91,12 @@
   "occurrenceCount": "",
   "inDataset": "W",
   "samplingArticleLink": "",
+  "includesDna": "",
+  "includesDnaDescription": "",
+  "containsSamplingEvents": "",
+  "containsSamplingEventsDescription": "",
+  "griddedData": "",
+  "griddedDataDescription": "",
   "registry": {
     "failedSinceSuccess": "",
     "lastFailed": "",
