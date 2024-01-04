@@ -1,4 +1,5 @@
 import { TabLink } from '@/components/TabLink';
+import { Tabs } from '@/components/Tabs';
 import { PublisherQuery, PublisherQueryVariables } from '@/gql/graphql';
 import { LoaderArgs } from '@/types';
 import { createGraphQLHelpers } from '@/utils/createGraphQLHelpers';
@@ -38,18 +39,12 @@ export function PublisherPage() {
         </p>
         <p>Notice that occurrence search lives in one of the tabs.</p>
       </div>
-      <ul className="border-b border-slate-200 space-x-6 flex whitespace-nowrap dark:border-slate-200/5 mb-px">
-        <li>
-          <h2>
-            <TabLink to=".">About</TabLink>
-          </h2>
-        </li>
-        <li>
-          <h2>
-            <TabLink to="occurrences">Occurrences</TabLink>
-          </h2>
-        </li>
-      </ul>
+      <Tabs
+        links={[
+          { to: '.', children: 'About' },
+          { to: 'occurrences', children: 'Occurrences' },
+        ]}
+      />
       <div>
         <Outlet />
       </div>

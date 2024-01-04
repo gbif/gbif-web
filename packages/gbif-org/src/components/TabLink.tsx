@@ -5,9 +5,10 @@ import { cn } from '@/utils/shadcn';
 type Props = {
   to: string;
   children: React.ReactNode;
+  className?: string;
 };
 
-export function TabLink({ to, children }: Props) {
+export function TabLink({ to, children, className }: Props) {
   return (
     <DynamicLink
       end
@@ -18,6 +19,7 @@ export function TabLink({ to, children }: Props) {
           'text-sky-500 border-current': isActive,
           'text-slate-900 border-transparent hover:border-slate-300 dark:text-slate-200 dark:hover:border-slate-700':
             !isActive,
+          className,
         })
       }
     >

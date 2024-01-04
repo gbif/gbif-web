@@ -1,5 +1,5 @@
 import { DynamicLink } from '@/components/DynamicLink';
-import { TabLink } from '@/components/TabLink';
+import { Tabs } from '@/components/Tabs';
 import { DatasetQuery, DatasetQueryVariables } from '@/gql/graphql';
 import { LoaderArgs } from '@/types';
 import { createGraphQLHelpers } from '@/utils/createGraphQLHelpers';
@@ -61,28 +61,14 @@ export function DatasetPage() {
           themselves to the site head
         </p>
       </div>
-      <ul className="border-b border-slate-200 space-x-6 flex whitespace-nowrap dark:border-slate-200/5 mb-px">
-        <li>
-          <h2>
-            <TabLink to=".">About</TabLink>
-          </h2>
-        </li>
-        <li>
-          <h2>
-            <TabLink to="dashboard">Dashboard</TabLink>
-          </h2>
-        </li>
-        <li>
-          <h2>
-            <TabLink to="occurrences">Occurrences</TabLink>
-          </h2>
-        </li>
-        <li>
-          <h2>
-            <TabLink to="download">Download</TabLink>
-          </h2>
-        </li>
-      </ul>
+      <Tabs
+        links={[
+          { to: '.', children: 'About' },
+          { to: 'dashboard', children: 'Dashboard' },
+          { to: 'occurrences', children: 'Occurrences' },
+          { to: 'download', children: 'Download' },
+        ]}
+      />
       <Outlet />
     </>
   );
