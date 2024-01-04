@@ -21,6 +21,7 @@ import { DatasetAboutTab } from '@/routes/dataset/key/AboutTab';
 import { DatasetDashboardTab } from '@/routes/dataset/key/DashboardTab';
 import { DatasetOccurrencesTab } from '@/routes/dataset/key/OccurrencesTab';
 import { DatasetDownloadTab } from '@/routes/dataset/key/DownloadTab';
+import { DataUse, dataUseLoader } from '@/routes/resource/key/data-use/data-use';
 
 const baseRoutes: SourceRouteObject[] = [
   {
@@ -102,6 +103,12 @@ const baseRoutes: SourceRouteObject[] = [
             loader: newsLoader,
             loadingElement: <p>Loading news...</p>,
             element: <News />,
+          },
+          {
+            path: 'data-use/:key',
+            loader: dataUseLoader,
+            loadingElement: <p>Loading data use...</p>,
+            element: <DataUse />,
           },
           {
             path: '*',

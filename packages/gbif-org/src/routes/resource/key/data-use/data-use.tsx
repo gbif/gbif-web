@@ -1,6 +1,5 @@
 import { Helmet } from 'react-helmet-async';
 import { LoaderArgs } from '@/types';
-import { NewsQuery, NewsQueryVariables } from '@/gql/graphql';
 import { createGraphQLHelpers } from '@/utils/createGraphQLHelpers';
 import { FormattedMessage } from 'react-intl';
 import { ArticleContainer } from '@/routes/resource/key/components/ArticleContainer';
@@ -13,14 +12,15 @@ import { PublishedDate } from '../components/PublishedDate';
 import { ArticleIntro } from '../components/ArticleIntro';
 import { ArticleTextContainer } from '../components/ArticleTextContainer';
 import { ArticleBody } from '../components/ArticleBody';
+import { DataUseQuery, DataUseQueryVariables } from '@/gql/graphql';
 import { ArticleAuxiliary } from '../components/ArticleAuxiliary';
 
 const { load, useTypedLoaderData } = createGraphQLHelpers<
-  NewsQuery,
-  NewsQueryVariables
+  DataUseQuery,
+  DataUseQueryVariables
 >(/* GraphQL */ `
-  query News($key: String!) {
-    news(id: $key) {
+  query DataUse($key: String!) {
+    dataUse(id: $key) {
       id
       title
       summary
@@ -52,11 +52,11 @@ const { load, useTypedLoaderData } = createGraphQLHelpers<
   }
 `);
 
-export function News() {
+export function DataUse() {
   const { data } = useTypedLoaderData();
 
-  if (data.news == null) throw new Error('404');
-  const resource = data.news;
+  if (data.dataUse == null) throw new Error('404');
+  const resource = data.dataUse;
 
   return (
     <>
@@ -66,7 +66,7 @@ export function News() {
 
       <ArticleContainer>
         <ArticleTextContainer className="mb-10">
-          <ArticlePreTitle>News</ArticlePreTitle>
+          <ArticlePreTitle>DATA USE</ArticlePreTitle>
 
           <ArticleTitle>{resource.title}</ArticleTitle>
 
@@ -85,6 +85,12 @@ export function News() {
           )}
 
           <hr className="mt-8" />
+
+          {resource.citation && (
+            <ArticleAuxiliary label="Citation">
+              <div dangerouslySetInnerHTML={{ __html: resource.citation }} />
+            </ArticleAuxiliary>
+          )}
 
           {(resource.countriesOfCoverage || resource.topics) && (
             <ArticleAuxiliary label="Subject">
@@ -115,7 +121,7 @@ export function News() {
   );
 }
 
-export async function newsLoader({ request, params, config, locale }: LoaderArgs) {
+export async function dataUseLoader({ request, params, config, locale }: LoaderArgs) {
   const key = params.key;
   if (key == null) throw new Error('No key provided in the url');
 
