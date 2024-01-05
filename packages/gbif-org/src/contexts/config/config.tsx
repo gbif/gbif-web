@@ -1,7 +1,6 @@
-import { foregroundColorContrast } from '@/utils/foregroundColorContrast';
-import { toRecord } from '@/utils/toRecord';
 import React from 'react';
 import { Endpoints, GbifEnv, getEndpointsBasedOnGbifEnv } from './endpoints';
+import themeBuilder from './theme/index';
 
 type PageConfig = {
   key: string;
@@ -37,17 +36,22 @@ type Props = {
   config: InputConfig;
 };
 
-type CssVariable = { name: string; value: unknown; postFix?: string };
+type CssVariable = { name: string; value: unknown; };
 
 export function ConfigProvider({ config, children }: Props): React.ReactElement {
   const variables = React.useMemo(() => {
-    const cssVariables: CssVariable[] = [
-      { name: '--primary', value: config.theme?.colors?.primary },
-      { name: '--primary-foreground', value: config.theme?.colors?.primaryForeground },
-      { name: '--radius', value: config.theme?.borderRadius, postFix: 'rem' },
-    ];
+    const theme = themeBuilder({baseTheme: 'light', extendWith: {
+      primary: config.theme?.colors?.primary,
+      borderRadius: config.theme?.borderRadius,
+    }});
+    const cssVariables: CssVariable[] = [];
+    for (const [key, value] of Object.entries(theme)) {
+      if (!(value instanceof Object)) {
+        cssVariables.push({name: `--${key}`, value});
+      }
+    }
 
-    return addSensibleForegroundColors(cssVariables).filter((v) => v.value != null);
+    return cssVariables.filter((v) => v.value != null);
   }, [config]);
 
   const contextValue: Config = React.useMemo(() => processConfig(config), [config]);
@@ -55,7 +59,7 @@ export function ConfigProvider({ config, children }: Props): React.ReactElement 
   return (
     <ConfigContext.Provider value={contextValue}>
       <style>{`:root { ${variables
-        .map((v) => `${v.name}: ${v.value}${v.postFix ?? ''};`)
+        .map((v) => `${v.name}: ${v.value};`)
         .join('\n')} }`}</style>
       {children}
     </ConfigContext.Provider>
@@ -70,29 +74,6 @@ export function useConfig(): Config {
   }
 
   return ctx;
-}
-
-function addSensibleForegroundColors(cssVariables: CssVariable[]): CssVariable[] {
-  const variablesByNameRecord = toRecord(cssVariables, (v) => v.name);
-
-  return cssVariables.map((variable) => {
-    // Skip if the variable is not a foreground color
-    if (!variable.name.endsWith('-foreground')) return variable;
-
-    // Skip if the variable already has a value
-    if (variable.value != null) return variable;
-
-    // Get the background color variable
-    const bgName = variable.name.replace('-foreground', '');
-    const bgVariable = variablesByNameRecord[bgName];
-
-    // Skip if the background color variable does not exist or is not of type string
-    if (bgVariable == null || typeof bgVariable.value !== 'string') return variable;
-
-    // Calculate the foreground color
-    const newForegroundColor = foregroundColorContrast(bgVariable.value);
-    return { ...variable, value: newForegroundColor };
-  });
 }
 
 export function processConfig(config: InputConfig): Config {
