@@ -1,4 +1,3 @@
-import { TabLink } from '@/components/TabLink';
 import { Tabs } from '@/components/Tabs';
 import { PublisherQuery, PublisherQueryVariables } from '@/gql/graphql';
 import { LoaderArgs } from '@/types';
