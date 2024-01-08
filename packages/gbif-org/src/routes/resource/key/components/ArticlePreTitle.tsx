@@ -3,5 +3,5 @@ type Props = {
 };
 
 export function ArticlePreTitle({ children }: Props) {
-  return <p className="mb-2 text-sm leading-6 font-semibold text-primary">{children}</p>;
+  return <p className="mb-2 text-sm leading-6 font-semibold text-primary-500 dark:text-primary-400">{children}</p>;
 }

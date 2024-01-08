@@ -47,7 +47,15 @@ export function ConfigProvider({ config, children }: Props): React.ReactElement 
     const cssVariables: CssVariable[] = [];
     for (const [key, value] of Object.entries(theme)) {
       if (!(value instanceof Object)) {
-        cssVariables.push({name: `--${key}`, value});
+        if (typeof value === 'string' && value.startsWith('#')) {
+          // convert to rgb components
+          const rgb = value.match(/[A-Za-z0-9]{2}/g)?.map((v) => parseInt(v, 16));
+          if (rgb?.length === 3) {
+            cssVariables.push({name: `--${key}`, value: rgb.join(' ')});
+          }
+        } else {
+          cssVariables.push({name: `--${key}`, value});
+        }
       }
     }
 

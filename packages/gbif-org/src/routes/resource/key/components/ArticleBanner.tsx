@@ -31,7 +31,7 @@ export function ArticleBanner({ className, image }: Props) {
           </picture>
           {image?.description && (
             <figcaption
-              className="text-slate-600 [&>a]:underline-offset-1 [&>a]:underline"
+              className="text-slate-500 dark:text-slate-400 [&>a]:underline-offset-1 [&>a]:underline"
               dangerouslySetInnerHTML={{ __html: image.description }}
             ></figcaption>
           )}

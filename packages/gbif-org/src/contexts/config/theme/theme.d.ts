@@ -14,6 +14,7 @@ export interface Theme {
   borderRadius: number;
   // computed properties, but you can overwrite them
   borderRadiusPx: string;
+  primary50: string;
   primary100: string;
   primary200: string;
   primary300: string;
@@ -23,6 +24,7 @@ export interface Theme {
   primary700: string;
   primary800: string;
   primary900: string;
+  primary950: string;
   transparentInk10: string;
   transparentInk20: string;
   transparentInk30: string;

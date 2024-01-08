@@ -17,10 +17,7 @@ module.exports = {
     },
     fontFamily: {
       sans: [
-        '"Inter var", BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif',
-        {
-          fontFeatureSettings: '"cv02", "cv03", "cv04", "cv11"'
-        },
+        "var(--fontFamily)"
       ],
     },
     extend: {
@@ -31,8 +28,18 @@ module.exports = {
         background: "var(--background)",
         foreground: "var(--foreground)",
         primary: {
-          DEFAULT: "var(--primary)",
-          foreground: "var(--primary-foreground)",
+          DEFAULT: 'rgb(var(--primary500) / <alpha-value>)',
+          50: 'rgb(var(--primary50) / <alpha-value>)',
+          100: 'rgb(var(--primary100) / <alpha-value>)',
+          200: 'rgb(var(--primary200) / <alpha-value>)',
+          300: 'rgb(var(--primary300) / <alpha-value>)',
+          400: 'rgb(var(--primary400) / <alpha-value>)',
+          500: 'rgb(var(--primary500) / <alpha-value>)',
+          600: 'rgb(var(--primary600) / <alpha-value>)',
+          700: 'rgb(var(--primary700) / <alpha-value>)',
+          800: 'rgb(var(--primary800) / <alpha-value>)',
+          900: 'rgb(var(--primary900) / <alpha-value>)',
+          950: 'rgb(var(--primary950) / <alpha-value>)',
         },
         secondary: {
           DEFAULT: "var(--secondary)",
@@ -60,9 +67,9 @@ module.exports = {
         },
       },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        lg: "var(--borderRadiusPx) * 2",
+        md: "var(--borderRadiusPx)",
+        sm: "calc(var(--borderRadiusPx) / 2)",
       },
       keyframes: {
         "accordion-down": {
@@ -77,6 +84,15 @@ module.exports = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+      },
+      typography: {
+        DEFAULT: {
+          css: {
+            maxWidth: '80ch', // add required value here
+            'blockquote p:first-of-type::before': false, // do not add quotation marks to block quotes. we have block quotes where the content also have quotation marks leading to double quotation marks
+            'blockquote p:first-of-type::after': false,
+          }
+        }
       },
     },
   },

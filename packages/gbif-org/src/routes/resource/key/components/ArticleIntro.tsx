@@ -8,7 +8,7 @@ type Props = {
 export function ArticleIntro({ dangerouslySetInnerHTML, className }: Props) {
   return (
     <div
-      className={cn('text-lg text-slate-600', className)}
+      className={cn('text-lg text-slate-600 dark:text-slate-300', className)}
       dangerouslySetInnerHTML={dangerouslySetInnerHTML}
     />
   );

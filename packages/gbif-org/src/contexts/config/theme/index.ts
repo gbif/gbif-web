@@ -17,7 +17,9 @@ const build = (theme: Partial<Theme>): Theme => {
   const background = fullTheme.background ?? '#f1f5f8';
   const borderRadius = fullTheme.borderRadius ?? 0;
   const dense = fullTheme.dense ?? false;
-  const fontFamily = fullTheme.fontFamily || '"Helvetica Neue", BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica", "Arial", sans-serif';
+  // remove all single and double quotation marks from the font family as this conflicts with serialization on the server
+  const fontFamily = (fullTheme.fontFamily || "Helvetica Neue, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica, Arial, sans-serif").replace(/['"]+/g, '');
+  const headerFontFamily = (fullTheme.headerFontFamily || fontFamily).replace(/['"]+/g, '');
 
   const shadeDirection = isDarkTheme ? 1 : -1;
 
@@ -41,15 +43,17 @@ const build = (theme: Partial<Theme>): Theme => {
     linkColor: fullTheme.linkColor || primary,
     borderRadius,
     borderRadiusPx: `${borderRadius}px`,
-    primary500: primary,
-    primary600: shadeHexColor(primary, -0.05),
-    primary700: shadeHexColor(primary, -0.1),
-    primary800: shadeHexColor(primary, -0.2),
-    primary900: shadeHexColor(primary, -0.3),
-    primary400: shadeHexColor(primary, 0.05),
-    primary300: shadeHexColor(primary, 0.1),
-    primary200: shadeHexColor(primary, 0.35),
+    primary50: shadeHexColor(primary, 0.8),
     primary100: shadeHexColor(primary, 0.6),
+    primary200: shadeHexColor(primary, 0.35),
+    primary300: shadeHexColor(primary, 0.2),
+    primary400: shadeHexColor(primary, 0.1),
+    primary500: primary,
+    primary600: shadeHexColor(primary, -0.1),
+    primary700: shadeHexColor(primary, -0.2),
+    primary800: shadeHexColor(primary, -0.5),
+    primary900: shadeHexColor(primary, -0.7),
+    primary950: shadeHexColor(primary, -0.9),
     transparentInk10: `${color}10`,
     transparentInk20: `${color}20`,
     transparentInk30: `${color}30`,
@@ -63,8 +67,6 @@ const build = (theme: Partial<Theme>): Theme => {
     darkPaperBackground: isDarkTheme ? '#000010' : '#4e4e52',
     drawerZIndex: fullTheme.drawerZIndex || 1000,
     stickyOffset: fullTheme.stickyOffset || '0px',
-    fontFamily,
-    headerFontFamily: fullTheme.headerFontFamily || fontFamily,
     mapDensityColors: fullTheme.mapDensityColors ?? brightMapColors,
 
     color900: shadeBlend(shadeDirection * 1 * 0.075, color, paperBackground),
@@ -87,7 +89,11 @@ const build = (theme: Partial<Theme>): Theme => {
     paperBackground200: shadeBlend(3 * 0.25, paperBackground, paperBackgroundElevated),
     paperBackground100: shadeBlend(4 * 0.25, paperBackground, paperBackgroundElevated),
     
-    ...theme
+    ...theme,
+
+    // we clean these, so they have to go last
+    fontFamily,
+    headerFontFamily,
   };
 }
 
