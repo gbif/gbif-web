@@ -47,6 +47,16 @@
     "count": "{num, plural, one { topic } other {# topics}}",
     "description": "What are the topics of the record."
   },
+  "audiences": {
+    "name": "Audience",
+    "count": "{num, plural, one { audience } other {# audiences}}",
+    "description": "Who are the audiences for the resource."
+  },
+  "purposes": {
+    "name": "Topic",
+    "count": "{num, plural, one { purpose } other {# purposes}}",
+    "description": "What are the purpose of the resource."
+  },
   "eventDate": {
     "name": "Event date",
     "count": "{num, plural, one { event date } other {# event dates}}",
@@ -58,10 +68,10 @@
     "description": "Any additional code that is already in use for the same record in other contexts (for example, historical codes)."
   },
   "identifier": {
-  "name": "Identifier",
-  "count": "{num, plural, one { Identifier } other {# Identifiers}}",
-  "description": "A short description of the component should be placed here"
-},
+    "name": "Identifier",
+    "count": "{num, plural, one { Identifier } other {# Identifiers}}",
+    "description": "A short description of the component should be placed here"
+  },
   "institutionType": {
     "name": "Type",
     "count": "{num, plural, one { type } other {# types}}",
