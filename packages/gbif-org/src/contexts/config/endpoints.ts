@@ -1,7 +1,7 @@
 export enum GbifEnv {
   Prod = 'prod',
   Dev = 'dev',
-  Uta = 'uta',
+  Uat = 'uat',
   Staging = 'staging',
 }
 
@@ -26,24 +26,24 @@ export function getEndpointsBasedOnGbifEnv(gbifEnv: GbifEnv): Endpoints {
       return {
         translationsEntryEndpoint:
           'https://react-components.gbif.org/lib/translations/translations.json',
-        graphqlEndpoint: 'https://graphql.gbif-staging.org/graphql',
+        graphqlEndpoint: 'https://graphql.gbif.org/graphql',
       };
     case GbifEnv.Dev:
       return {
         translationsEntryEndpoint:
-          'https://react-components.gbif.org/lib/translations/translations.json',
-        graphqlEndpoint: 'https://graphql.gbif-staging.org/graphql',
+          'https://react-components.gbif-dev.org/lib/translations/translations.json',
+        graphqlEndpoint: 'https://graphql.gbif-dev.org/graphql',
       };
-    case GbifEnv.Uta:
+    case GbifEnv.Uat:
       return {
         translationsEntryEndpoint:
-          'https://react-components.gbif.org/lib/translations/translations.json',
-        graphqlEndpoint: 'https://graphql.gbif-staging.org/graphql',
+          'https://react-components.gbif-uat.org/lib/translations/translations.json',
+        graphqlEndpoint: 'https://graphql.gbif-uat.org/graphql',
       };
     case GbifEnv.Staging:
       return {
         translationsEntryEndpoint:
-          'https://react-components.gbif.org/lib/translations/translations.json',
+          'https://react-components.gbif-staging.org/lib/translations/translations.json',
         graphqlEndpoint: 'https://graphql.gbif-staging.org/graphql',
       };
   }
