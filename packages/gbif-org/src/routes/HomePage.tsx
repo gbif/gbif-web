@@ -18,10 +18,10 @@ export function HomePage(): React.ReactElement {
         <h2>This demo includes</h2>
         <ul>
           <li>
-            <Link to="/resource/6qTuv5Xf1qa05arROvx7Y1">News (wip)</Link>
+            <Link to="/news/6qTuv5Xf1qa05arROvx7Y1">News (wip)</Link>
           </li>
           <li>
-            <Link to="/resource/2NcRzaklrkf5X1mvyOvg5V">Data use (wip)</Link>
+            <Link to="/data-use/2NcRzaklrkf5X1mvyOvg5V">Data use (wip)</Link>
           </li>
         </ul>
       </div>
