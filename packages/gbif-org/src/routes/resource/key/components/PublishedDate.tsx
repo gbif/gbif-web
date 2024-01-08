@@ -12,7 +12,7 @@ export function PublishedDate({ date, className }: Props) {
   const { locale } = useI18n();
 
   return (
-    <p className={cn('text-gray-600 dark:text-gray-400 text-sm', className)}>
+    <p className={cn('text-slate-500 dark:text-gray-400 mt-2 text-sm font-medium', className)}>
       Published {new Date(date).toLocaleDateString(locale.code)}
     </p>
   );

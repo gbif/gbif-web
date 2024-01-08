@@ -99,7 +99,7 @@ const baseRoutes: SourceRouteObject[] = [
             ],
           },
           {
-            path: 'resource/:key',
+            path: 'news/:key',
             loader: newsLoader,
             loadingElement: <p>Loading news...</p>,
             element: <News />,

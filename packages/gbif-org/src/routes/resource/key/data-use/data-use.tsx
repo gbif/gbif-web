@@ -24,6 +24,7 @@ const { load, useTypedLoaderData } = createGraphQLHelpers<
       id
       title
       summary
+      resourceUsed
       body
       primaryImage {
         file {
@@ -66,15 +67,21 @@ export function DataUse() {
 
       <ArticleContainer>
         <ArticleTextContainer className="mb-10">
-          <ArticlePreTitle>DATA USE</ArticlePreTitle>
-
+          <ArticlePreTitle>Data use</ArticlePreTitle>
           <ArticleTitle>{resource.title}</ArticleTitle>
-
           <PublishedDate className="mt-2" date={resource.createdAt} />
 
           {resource.summary && (
             <ArticleIntro dangerouslySetInnerHTML={{ __html: resource.summary }} className="mt-2" />
           )}
+          <ArticleIntro className="mt-2">
+            Data resources used via GBIF : {resource.resourceUsed}
+          </ArticleIntro>
+
+          {/* <p className=" dark:text-gray-400 mt-2">
+            <span>Data resources used via GBIF : </span>
+            <span className="text-primary-600">{resource.resourceUsed}</span>
+          </p> */}
         </ArticleTextContainer>
 
         <ArticleBanner className="mt-8 mb-6" image={resource?.primaryImage ?? null} />
