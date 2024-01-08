@@ -23,6 +23,9 @@ export function HomePage(): React.ReactElement {
           <li>
             <Link to="/data-use/2NcRzaklrkf5X1mvyOvg5V">Data use (wip)</Link>
           </li>
+          <li>
+            <Link to="/article/ExNixkGbYWCsgcWE4YScw">Article (wip)</Link>
+          </li>
         </ul>
       </div>
     </>

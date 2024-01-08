@@ -14,6 +14,7 @@ import { ArticleTextContainer } from '../components/ArticleTextContainer';
 import { ArticleBody } from '../components/ArticleBody';
 import { DataUseQuery, DataUseQueryVariables } from '@/gql/graphql';
 import { ArticleAuxiliary } from '../components/ArticleAuxiliary';
+import { ArticleTags } from '../components/ArticleTags';
 
 const { load, useTypedLoaderData } = createGraphQLHelpers<
   DataUseQuery,
@@ -99,29 +100,7 @@ export function DataUse() {
             </ArticleAuxiliary>
           )}
 
-          {(resource.countriesOfCoverage || resource.topics) && (
-            <ArticleAuxiliary label="Subject">
-              {resource.countriesOfCoverage && (
-                <Pills
-                  label={<FormattedMessage id="filters.country.name" />}
-                  pills={resource.countriesOfCoverage.filter(notNull).map((x) => ({
-                    key: x,
-                    content: <FormattedMessage id={`enums.countryCode.${x}`} />,
-                  }))}
-                />
-              )}
-
-              {resource.topics && (
-                <Pills
-                  label={<FormattedMessage id="filters.topics.name" />}
-                  pills={resource.topics.filter(notNull).map((x) => ({
-                    key: x,
-                    content: <FormattedMessage id={`enums.topics.${x}`} />,
-                  }))}
-                />
-              )}
-            </ArticleAuxiliary>
-          )}
+          <ArticleTags resource={resource} className="mt-8" />
         </ArticleTextContainer>
       </ArticleContainer>
     </>
