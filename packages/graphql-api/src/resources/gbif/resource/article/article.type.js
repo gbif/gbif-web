@@ -20,6 +20,7 @@ const typeDef = gql`
     updatedAt: DateTime
     displayDate: Boolean
     articleType: String
+    citation: String
     audiences: [String]
     keywords: [String]
     purposes: [String]

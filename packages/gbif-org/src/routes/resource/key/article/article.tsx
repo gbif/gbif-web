@@ -10,6 +10,7 @@ import { ArticleIntro } from '../components/ArticleIntro';
 import { ArticleTextContainer } from '../components/ArticleTextContainer';
 import { ArticleBody } from '../components/ArticleBody';
 import { ArticleTags } from '../components/ArticleTags';
+import { ArticleAuxiliary } from '../components/ArticleAuxiliary';
 
 const { load, useTypedLoaderData } = createGraphQLHelpers<
   ArticleQuery,
@@ -37,6 +38,7 @@ const { load, useTypedLoaderData } = createGraphQLHelpers<
       topics
       purposes
       audiences
+      citation
       createdAt
     }
   }
@@ -73,6 +75,12 @@ export function Article() {
           )}
 
           <hr className="mt-8" />
+
+          {resource.citation && (
+            <ArticleAuxiliary label="Citation">
+              <div dangerouslySetInnerHTML={{ __html: resource.citation }} />
+            </ArticleAuxiliary>
+          )}
 
           <ArticleTags resource={resource} className="mt-8" />
         </ArticleTextContainer>

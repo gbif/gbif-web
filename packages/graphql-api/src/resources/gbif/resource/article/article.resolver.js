@@ -17,6 +17,7 @@ export default {
     summary: src => getHtml(src.summary),
     body: src => getHtml(src.body, {allowedTags: trustedTags, wrapTables: true}),
     excerpt: src => excerpt(src),
+    citation: src => getHtml(src.citation, {allowedTags: trustedTags}),
     gbifHref: (src, _, context) => createLocalizedGbifHref(context.locale, 'article', src.id),
   }
 }
