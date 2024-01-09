@@ -24,6 +24,7 @@ import { DatasetDownloadTab } from '@/routes/dataset/key/DownloadTab';
 import { DataUse, dataUseLoader } from '@/routes/resource/key/data-use/data-use';
 import { Event, eventLoader } from '@/routes/resource/key/event/event';
 import { Article, articleLoader } from '@/routes/resource/key/article/article';
+import { Tool, toolLoader } from '@/routes/resource/key/tool/tool';
 
 const baseRoutes: SourceRouteObject[] = [
   {
@@ -117,6 +118,12 @@ const baseRoutes: SourceRouteObject[] = [
             loader: eventLoader,
             loadingElement: <p>Loading event...</p>,
             element: <Event />,
+          },
+          {
+            path: 'tool/:key',
+            loader: toolLoader,
+            loadingElement: <p>Loading tool...</p>,
+            element: <Tool />,
           },
           {
             path: 'data-use/:key',

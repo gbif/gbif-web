@@ -1,6 +1,6 @@
+import { DynamicLink } from '@/components/DynamicLink';
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
 
 export function HomePage(): React.ReactElement {
   return (
@@ -13,16 +13,19 @@ export function HomePage(): React.ReactElement {
         <h2>This demo includes</h2>
         <ul>
           <li>
-            <Link to="/news/6qTuv5Xf1qa05arROvx7Y1">News (wip)</Link>
+            <DynamicLink to="/news/6qTuv5Xf1qa05arROvx7Y1">News (wip)</DynamicLink>
           </li>
           <li>
-            <Link to="/data-use/2NcRzaklrkf5X1mvyOvg5V">Data use (wip)</Link>
+            <DynamicLink to="/data-use/2NcRzaklrkf5X1mvyOvg5V">Data use (wip)</DynamicLink>
           </li>
           <li>
-            <Link to="/article/ExNixkGbYWCsgcWE4YScw">Article (wip)</Link>
+            <DynamicLink to="/article/ExNixkGbYWCsgcWE4YScw">Article (wip)</DynamicLink>
           </li>
           <li>
-            <Link to="/event/NVM72rVLfCkY4oyFEnGmq">Event (wip)</Link>
+            <DynamicLink to="/event/NVM72rVLfCkY4oyFEnGmq">Event (wip)</DynamicLink>
+          </li>
+          <li>
+            <DynamicLink to="/tool/XHl9BhJPvhn9jNKVPH6oG">Tool (wip)</DynamicLink>
           </li>
         </ul>
       </div>
