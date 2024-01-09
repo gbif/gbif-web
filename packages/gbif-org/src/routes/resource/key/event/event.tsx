@@ -85,7 +85,7 @@ export function Event() {
 
           <Button className="mt-4" asChild>
             <a href={`https://www.gbif.org/api/newsroom/events/${resource.id}.ics`}>
-              <MdCalendarMonth /> <span className="pl-2">Add to calender</span>
+              <MdCalendarMonth /> <span className="pl-2">Add to calendar</span>
             </a>
           </Button>
         </ArticleTextContainer>
