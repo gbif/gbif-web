@@ -19,7 +19,8 @@ export function HomePage(): React.ReactElement {
             <DynamicLink to="/data-use/2NcRzaklrkf5X1mvyOvg5V">Data use (wip)</DynamicLink>
           </li>
           <li>
-            <DynamicLink to="/article/ExNixkGbYWCsgcWE4YScw">Article (wip)</DynamicLink>
+            <DynamicLink to="/article/ExNixkGbYWCsgcWE4YScw">Article - Data papers (wip)</DynamicLink>
+            <DynamicLink to="/article/3wusV3o9X2WO6aWU8MK2WG">Article - Data standards (wip)</DynamicLink>
           </li>
           <li>
             <DynamicLink to="/event/NVM72rVLfCkY4oyFEnGmq">Event (wip)</DynamicLink>

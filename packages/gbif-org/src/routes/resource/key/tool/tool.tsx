@@ -11,6 +11,7 @@ import { ArticleIntro } from '../components/ArticleIntro';
 import { ArticleTextContainer } from '../components/ArticleTextContainer';
 import { ArticleBody } from '../components/ArticleBody';
 import { SecondaryLinks } from '../components/SecondaryLinks';
+import { ArticleAuxiliary } from '../components/ArticleAuxiliary';
 
 const { load, useTypedLoaderData } = createGraphQLHelpers<
   ToolQuery,
@@ -80,7 +81,9 @@ export function Tool() {
           <hr className="mt-8" />
 
           {resource.secondaryLinks && (
-            <SecondaryLinks links={resource.secondaryLinks} className="mt-8" />
+            <ArticleAuxiliary>
+              <SecondaryLinks links={resource.secondaryLinks} className="mt-8" />
+            </ArticleAuxiliary>
           )}
         </ArticleTextContainer>
       </ArticleContainer>

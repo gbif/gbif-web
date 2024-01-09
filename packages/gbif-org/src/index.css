@@ -73,6 +73,10 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  svg {
+    display: inline;
+  }
 }
 
 .box-shadow-b {

@@ -11,6 +11,9 @@ import { ArticleBody } from '../components/ArticleBody';
 import { ArticleTags } from '../components/ArticleTags';
 import { ArticleAuxiliary } from '../components/ArticleAuxiliary';
 
+import { SecondaryLinks } from '../components/SecondaryLinks';
+import { Documents } from '../components/Documents';
+
 const { load, useTypedLoaderData } = createGraphQLHelpers<
   ArticleQuery,
   ArticleQueryVariables
@@ -33,6 +36,18 @@ const { load, useTypedLoaderData } = createGraphQLHelpers<
       secondaryLinks {
         label
         url
+      }
+      documents {
+        file {
+          url
+          fileName
+          contentType
+          volatile_documentType
+          details {
+            size
+          }
+        }
+        title
       }
       topics
       purposes
@@ -74,6 +89,24 @@ export function Article() {
           )}
 
           <hr className="mt-8" />
+
+          {/*
+          A list documents and links related to this article can be found below.
+          iterature through documents and links and display them as a 2 column grid list. With icons for the corresponding conten types.
+          use the title as text and fall back to the filename if no title is provided.
+          */}
+
+          {resource.secondaryLinks && (
+            <ArticleAuxiliary>
+              <SecondaryLinks links={resource.secondaryLinks} className="mt-8" />
+            </ArticleAuxiliary>
+          )}
+
+          {resource.documents && (
+            <ArticleAuxiliary>
+              <Documents documents={resource.documents} className="mt-8" />
+            </ArticleAuxiliary>
+          )}
 
           {resource.citation && (
             <ArticleAuxiliary label="Citation">

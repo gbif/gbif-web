@@ -49,6 +49,10 @@ const typeDef = gql`
     details: DocumentAssetFileDetails
     fileName: String
     contentType: String
+    """
+    Used internally by the UI to map the document type to an icon
+    """
+    volatile_documentType: String
   }
 
   type DocumentAsset {

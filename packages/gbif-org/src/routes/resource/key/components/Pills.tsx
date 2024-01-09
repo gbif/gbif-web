@@ -14,7 +14,7 @@ export function Pills({ label, pills, className }: Props) {
       {pills.map(({ key, content }) => (
         <span
           key={key}
-          className="bg-slate-200 text-slate-800 dark:text-slate-400 dark:bg-slate-900/50 py-1 px-2 rounded-full m-1 inline-block"
+          className="bg-slate-200 text-slate-800 dark:text-slate-400 dark:bg-zinc-800/80 py-1 px-2 rounded-full m-1 inline-block"
         >
           {content}
         </span>

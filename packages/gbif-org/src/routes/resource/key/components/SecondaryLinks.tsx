@@ -1,5 +1,5 @@
 import { cn } from '@/utils/shadcn';
-import { MdInsertLink } from 'react-icons/md';
+import { MdInsertLink, MdLink } from 'react-icons/md';
 
 type Props = {
   links: Array<null | {
@@ -11,18 +11,22 @@ type Props = {
 
 export function SecondaryLinks({ links, className }: Props) {
   return (
-    <div className={cn('flex flex-wrap gap-2', className)}>
-      {links.filter(isValidLink).map((link) => (
-        <a
-          key={link.url}
-          className="flex-auto border p-2 shadow-sm hover:shadow-md flex items-center gap-2"
-          href={link.url}
-        >
-          <MdInsertLink />
-          <span>{link.label}</span>
-        </a>
+    <ul className={cn('grid grid-cols-2 gap-4', className)}>
+      {links.filter(isValidLink).map((link, index) => (
+        <li key={link.url} className="border p-3 shadow-sm hover:shadow-md">
+          <a
+            className="flex flex-row items-center underline"
+            target="_blank" rel="noopener noreferrer"
+            href={link.url}
+          >
+            <MdLink />
+            <div className="ms-4 font-medium">
+              {link?.label ?? link?.url}
+            </div>
+          </a>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }
 

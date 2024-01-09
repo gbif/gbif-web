@@ -12,7 +12,7 @@ const thumbor = new Thumbor(config.thumborSecurityKey, config.thumbor ?? 'https:
  */
 export default {
   ImageFile: {
-    thumbor: ({url}, {fitIn, width = '', height = ''}) => {
+    thumbor: ({ url }, { fitIn, width = '', height = '' }) => {
       let img = thumbor.setImagePath(`http:${url}`);
       if (fitIn) {
         img = img.fitIn(width, height);
@@ -20,6 +20,51 @@ export default {
         img = img.resize(width, height);
       }
       return img.buildUrl();
+    }
+  },
+  DocumentAssetFile: {
+    volatile_documentType: ({ contentType }) => {
+      // if starts with image/ then it is an image
+      if (contentType.startsWith('image/')) {
+        return 'image';
+      } else if (contentType.includes('spreadsheetml')) {
+        return 'xls';
+      } else if (contentType.includes('video')) {
+        return 'video';
+      } else if (contentType.includes('audio')) {
+        return 'audio';
+      }
+
+      switch (contentType) {
+        case 'application/pdf':
+          return 'pdf';
+
+        // powerpoint
+        case 'application/vnd.ms-powerpoint':
+          return 'ppt';
+        case 'application/vnd.openxmlformats-officedocument.presentationml.presentation':
+          return 'ppt';
+
+        // excel
+        case 'application/vnd.ms-excel':
+          return 'xls';
+
+
+        // word/doc
+        case 'application/msword':
+          return 'doc';
+        case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+          return 'doc';
+
+        // archive
+        case 'application/zip':
+          return 'archive';
+        case 'application/x-tar':
+          return 'archive';
+
+        default:
+          return 'unknown';
+      }
     }
   }
 }

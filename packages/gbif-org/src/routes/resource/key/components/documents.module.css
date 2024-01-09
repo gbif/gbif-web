@@ -1,0 +1,28 @@
+.note {
+  position: relative;
+  padding: 0.5em 0;
+  width: 2.2em;
+  height: 3em;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  font-size: 1em;
+  border-radius: 2px;
+  > svg {
+    font-size: 1.2em;
+  }
+  > * {
+    color: white;
+  }
+}
+
+.note:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-width: 0 1em 1em 0;
+  border-style: solid;
+  border-color: #00000033 currentColor;
+}
+

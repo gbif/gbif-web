@@ -10,7 +10,7 @@ const logger = winston.createLogger({
   },
   transports: [
     new winston.transports.Console({
-      level: config.debug ? 'debug' : 'info',
+      level: config.debug ? 'debug' : 'warning',
     })
   ]
 });
