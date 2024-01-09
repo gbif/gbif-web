@@ -10,7 +10,7 @@ export const gbifConfig: InputConfig = {
   gbifEnv,
   languages: [
     {
-      code: 'en',
+      code: 'en-GB',
       label: 'English',
       default: true,
       textDirection: 'ltr',

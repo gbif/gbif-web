@@ -22,7 +22,8 @@ import { DatasetDashboardTab } from '@/routes/dataset/key/DashboardTab';
 import { DatasetOccurrencesTab } from '@/routes/dataset/key/OccurrencesTab';
 import { DatasetDownloadTab } from '@/routes/dataset/key/DownloadTab';
 import { DataUse, dataUseLoader } from '@/routes/resource/key/data-use/data-use';
-import { Article, articleLoader,  } from '@/routes/resource/key/article/article';
+import { Event, eventLoader } from '@/routes/resource/key/event/event';
+import { Article, articleLoader } from '@/routes/resource/key/article/article';
 
 const baseRoutes: SourceRouteObject[] = [
   {
@@ -104,6 +105,18 @@ const baseRoutes: SourceRouteObject[] = [
             loader: newsLoader,
             loadingElement: <p>Loading news...</p>,
             element: <News />,
+          },
+          {
+            path: 'article/:key',
+            loader: articleLoader,
+            loadingElement: <p>Loading article...</p>,
+            element: <Article />,
+          },
+          {
+            path: 'event/:key',
+            loader: eventLoader,
+            loadingElement: <p>Loading event...</p>,
+            element: <Event />,
           },
           {
             path: 'data-use/:key',

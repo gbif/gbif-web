@@ -2,18 +2,14 @@ import { Helmet } from 'react-helmet-async';
 import { LoaderArgs } from '@/types';
 import { NewsQuery, NewsQueryVariables } from '@/gql/graphql';
 import { createGraphQLHelpers } from '@/utils/createGraphQLHelpers';
-import { FormattedMessage } from 'react-intl';
 import { ArticleContainer } from '@/routes/resource/key/components/ArticleContainer';
-import { Pills } from '@/routes/resource/key/components/Pills';
 import { ArticleBanner } from '@/routes/resource/key/components/ArticleBanner';
-import { notNull } from '@/utils/notNull';
 import { ArticlePreTitle } from '../components/ArticlePreTitle';
 import { ArticleTitle } from '../components/ArticleTitle';
 import { PublishedDate } from '../components/PublishedDate';
 import { ArticleIntro } from '../components/ArticleIntro';
 import { ArticleTextContainer } from '../components/ArticleTextContainer';
 import { ArticleBody } from '../components/ArticleBody';
-import { ArticleAuxiliary } from '../components/ArticleAuxiliary';
 import { ArticleTags } from '../components/ArticleTags';
 
 const { load, useTypedLoaderData } = createGraphQLHelpers<

@@ -1,12 +1,8 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useI18n } from '@/contexts/i18n';
-import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 
 export function HomePage(): React.ReactElement {
-  const { locale } = useI18n();
-
   return (
     <>
       <Helmet>
@@ -14,7 +10,6 @@ export function HomePage(): React.ReactElement {
       </Helmet>
 
       <div className="prose">
-        <p>Current language: {locale.code}</p>
         <h2>This demo includes</h2>
         <ul>
           <li>
@@ -25,6 +20,9 @@ export function HomePage(): React.ReactElement {
           </li>
           <li>
             <Link to="/article/ExNixkGbYWCsgcWE4YScw">Article (wip)</Link>
+          </li>
+          <li>
+            <Link to="/event/NVM72rVLfCkY4oyFEnGmq">Event (wip)</Link>
           </li>
         </ul>
       </div>

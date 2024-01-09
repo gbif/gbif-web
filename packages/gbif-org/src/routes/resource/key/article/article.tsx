@@ -2,7 +2,6 @@ import { Helmet } from 'react-helmet-async';
 import { LoaderArgs } from '@/types';
 import { ArticleQuery, ArticleQueryVariables } from '@/gql/graphql';
 import { createGraphQLHelpers } from '@/utils/createGraphQLHelpers';
-import { FormattedMessage } from 'react-intl';
 import { ArticleContainer } from '@/routes/resource/key/components/ArticleContainer';
 import { ArticleBanner } from '@/routes/resource/key/components/ArticleBanner';
 import { ArticleTitle } from '../components/ArticleTitle';
