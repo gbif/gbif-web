@@ -67,7 +67,6 @@ function getContent(document: Document) {
       <div className="break-word dark:text-slate-200 text-slate-500">
         <div className="font-medium">
           {document?.title ?? document?.file?.fileName}
-          {document?.file?.contentType}
         </div>
         <div className="text-sm text-slate-400 divide-x-2 divide-slate-200 dark:divide-slate-600">
           {showSize && (
