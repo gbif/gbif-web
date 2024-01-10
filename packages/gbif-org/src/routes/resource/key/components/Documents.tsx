@@ -8,6 +8,8 @@ import {
 } from 'react-icons/md';
 import { BsTable } from 'react-icons/bs';
 import { LuPresentation as PresentationIcon } from 'react-icons/lu';
+import { GrTextAlignLeft } from "react-icons/gr";
+import { BsFilePdfFill as PdfIcon } from "react-icons/bs";
 import styles from './documents.module.css';
 
 type Props = {
@@ -72,7 +74,7 @@ function getContent(document: Document) {
           {showSize && (
             <span className="pe-2">{getFormattedBits(document?.file?.details?.size ?? 0)}</span>
           )}
-          {extension.length < 4 && <span className="ps-2">.{extension}</span>}
+          {extension.length < 5 && <span className="ps-2">.{extension}</span>}
         </div>
       </div>
     </>
@@ -94,14 +96,14 @@ function getType(documentType: string | null | undefined) {
     return {
       color: 'bg-[#4ebcf4]',
       showSize: true,
-      content: 'PDF',
+      content: <PdfIcon />
     };
   }
   if (documentType === 'doc') {
     return {
       color: 'bg-[#4ebcf4]',
       showSize: true,
-      content: 'DOC',
+      content: <GrTextAlignLeft />,
     };
   }
   if (documentType === 'xls') {
