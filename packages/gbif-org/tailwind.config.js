@@ -41,61 +41,75 @@ module.exports = {
           900: 'rgb(var(--primary900) / <alpha-value>)',
           950: 'rgb(var(--primary950) / <alpha-value>)',
         },
+        primaryContrast: {
+          DEFAULT: 'rgb(var(--primaryContrast500) / <alpha-value>)',
+          50: 'rgb(var(--primaryContrast50) / <alpha-value>)',
+          100: 'rgb(var(--primaryContrast100) / <alpha-value>)',
+          200: 'rgb(var(--primaryContrast200) / <alpha-value>)',
+          300: 'rgb(var(--primaryContrast300) / <alpha-value>)',
+          400: 'rgb(var(--primaryContrast400) / <alpha-value>)',
+          500: 'rgb(var(--primaryContrast500) / <alpha-value>)',
+          600: 'rgb(var(--primaryContrast600) / <alpha-value>)',
+          700: 'rgb(var(--primaryContrast700) / <alpha-value>)',
+          800: 'rgb(var(--primaryContrast800) / <alpha-value>)',
+          900: 'rgb(var(--primaryContrast900) / <alpha-value>)',
+          950: 'rgb(var(--primaryContrast950) / <alpha-value>)',
+        },
         secondary: {
-          DEFAULT: "var(--secondary)",
-          foreground: "var(--secondary-foreground)",
-        },
-        destructive: {
-          DEFAULT: "var(--destructive)",
-          foreground: "var(--destructive-foreground)",
-        },
-        muted: {
-          DEFAULT: "var(--muted)",
-          foreground: "var(--muted-foreground)",
-        },
-        accent: {
-          DEFAULT: "var(--accent)",
-          foreground: "var(--accent-foreground)",
-        },
-        popover: {
-          DEFAULT: "var(--popover)",
-          foreground: "var(--popover-foreground)",
-        },
-        card: {
-          DEFAULT: "var(--card)",
-          foreground: "var(--card-foreground)",
-        },
+        DEFAULT: "var(--secondary)",
+        foreground: "var(--secondary-foreground)",
       },
-      borderRadius: {
-        lg: "var(--borderRadiusPx) * 2",
-        md: "var(--borderRadiusPx)",
-        sm: "calc(var(--borderRadiusPx) / 2)",
+      destructive: {
+        DEFAULT: "var(--destructive)",
+        foreground: "var(--destructive-foreground)",
       },
-      keyframes: {
-        "accordion-down": {
-          from: { height: 0 },
-          to: { height: "var(--radix-accordion-content-height)" },
-        },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: 0 },
-        },
+      muted: {
+        DEFAULT: "var(--muted)",
+        foreground: "var(--muted-foreground)",
       },
-      animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
+      accent: {
+        DEFAULT: "var(--accent)",
+        foreground: "var(--accent-foreground)",
       },
-      typography: {
-        DEFAULT: {
-          css: {
-            maxWidth: '80ch', // add required value here
-            'blockquote p:first-of-type::before': false, // do not add quotation marks to block quotes. we have block quotes where the content also have quotation marks leading to double quotation marks
-            'blockquote p:first-of-type::after': false,
-          }
-        }
+      popover: {
+        DEFAULT: "var(--popover)",
+        foreground: "var(--popover-foreground)",
+      },
+      card: {
+        DEFAULT: "var(--card)",
+        foreground: "var(--card-foreground)",
       },
     },
+    borderRadius: {
+      lg: "var(--borderRadiusPx) * 2",
+      md: "var(--borderRadiusPx)",
+      sm: "calc(var(--borderRadiusPx) / 2)",
+    },
+    keyframes: {
+      "accordion-down": {
+        from: { height: 0 },
+        to: { height: "var(--radix-accordion-content-height)" },
+      },
+      "accordion-up": {
+        from: { height: "var(--radix-accordion-content-height)" },
+        to: { height: 0 },
+      },
+    },
+    animation: {
+      "accordion-down": "accordion-down 0.2s ease-out",
+      "accordion-up": "accordion-up 0.2s ease-out",
+    },
+    typography: {
+      DEFAULT: {
+        css: {
+          maxWidth: '80ch', // add required value here
+          'blockquote p:first-of-type::before': false, // do not add quotation marks to block quotes. we have block quotes where the content also have quotation marks leading to double quotation marks
+          'blockquote p:first-of-type::after': false,
+        }
+      }
+    },
   },
+},
   plugins: [
     require('@tailwindcss/typography'),
     require("tailwindcss-animate")

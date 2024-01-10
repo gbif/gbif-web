@@ -38,5 +38,16 @@ export function hexToRgb(hex: string) {
     r: parseInt(result[1], 16),
     g: parseInt(result[2], 16),
     b: parseInt(result[3], 16)
-  } : null;
+  } : {r: 0, g: 0, b: 0};
+}
+
+// function to get the best contrasting color for a given background color
+// https://stackoverflow.com/questions/1855884/determine-font-color-based-on-background-color
+// https://codepen.io/WebSeed/pen/pvgqEq
+export function colourIsLight(hex: string) {
+  const { r, g, b } = hexToRgb(hex.replace('#', ''));
+  // Counting the perceptive luminance
+  // human eye favors green color... 
+  var a = 1 - (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  return (a < 0.5);
 }

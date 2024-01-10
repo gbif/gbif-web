@@ -1,4 +1,4 @@
-import { shadeHexColor, shadeBlend } from './colorUtils';
+import { shadeHexColor, shadeBlend, colourIsLight } from './colorUtils';
 import { defaultTheme, darkTheme } from './baseThemes';
 import { Theme } from './theme.d';
 
@@ -32,17 +32,7 @@ const build = (theme: Partial<Theme>): Theme => {
   ];
   // const darkMapColors = brightMapColors;//['#ffd300', '#f4b456', '#e9928a', '#d96cc1', '#b93bff'];
 
-  return {
-    isDarkTheme,
-    primary,
-    color,
-    dense,
-    paperBackground,
-    paperBackgroundElevated,
-    background,
-    linkColor: fullTheme.linkColor || primary,
-    borderRadius,
-    borderRadiusPx: `${borderRadius}px`,
+  const primaryVariants = {
     primary50: shadeHexColor(primary, 0.8),
     primary100: shadeHexColor(primary, 0.6),
     primary200: shadeHexColor(primary, 0.35),
@@ -54,6 +44,35 @@ const build = (theme: Partial<Theme>): Theme => {
     primary800: shadeHexColor(primary, -0.5),
     primary900: shadeHexColor(primary, -0.7),
     primary950: shadeHexColor(primary, -0.9),
+  }
+
+  const primaryContrastVariants = {
+    primaryContrast50: getContrastInk(primaryVariants.primary50),
+    primaryContrast100: getContrastInk(primaryVariants.primary100),
+    primaryContrast200: getContrastInk(primaryVariants.primary200),
+    primaryContrast300: getContrastInk(primaryVariants.primary300),
+    primaryContrast400: getContrastInk(primaryVariants.primary400),
+    primaryContrast500: getContrastInk(primaryVariants.primary500),
+    primaryContrast600: getContrastInk(primaryVariants.primary600),
+    primaryContrast700: getContrastInk(primaryVariants.primary700),
+    primaryContrast800: getContrastInk(primaryVariants.primary800),
+    primaryContrast900: getContrastInk(primaryVariants.primary900),
+    primaryContrast950: getContrastInk(primaryVariants.primary950),
+  }
+
+  return {
+    isDarkTheme,
+    primary,
+    ...primaryVariants,
+    ...primaryContrastVariants,
+    color,
+    dense,
+    paperBackground,
+    paperBackgroundElevated,
+    background,
+    linkColor: fullTheme.linkColor || primary,
+    borderRadius,
+    borderRadiusPx: `${borderRadius}px`,
     transparentInk10: `${color}10`,
     transparentInk20: `${color}20`,
     transparentInk30: `${color}30`,
@@ -104,6 +123,10 @@ const createTheme = ({ baseTheme, extendWith }: { baseTheme?: String, extendWith
   }
   const variables = Object.assign({}, theme, extendWith);
   return build(variables);
+}
+
+const getContrastInk = (color: string) => {
+  return colourIsLight(color) ? '#0f172a' : '#ffffff';
 }
 
 export default createTheme;

@@ -25,6 +25,17 @@ export interface Theme {
   primary800: string;
   primary900: string;
   primary950: string;
+  primaryContrast50: string;
+  primaryContrast100: string;
+  primaryContrast200: string;
+  primaryContrast300: string;
+  primaryContrast400: string;
+  primaryContrast500: string;
+  primaryContrast600: string;
+  primaryContrast700: string;
+  primaryContrast800: string;
+  primaryContrast900: string;
+  primaryContrast950: string;
   transparentInk10: string;
   transparentInk20: string;
   transparentInk30: string;
