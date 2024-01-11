@@ -14,7 +14,7 @@ type LoadOptions<TVariabels> = {
 export async function loadGraphQL<TVariabels>(options: LoadOptions<TVariabels>) {
   const { endpoint, signal, variables, locale, query } = options;
 
-  const queryString = createQueryStringForGetRequest(query, options.variables);
+  const queryString = createQueryStringForGetRequest(query, options.variables, locale);
 
   return fetch(`${endpoint}?${queryString}`, {
     method: 'GET',
@@ -79,12 +79,14 @@ function getOperationNameFromQuery(query: string): string | null {
   return operationNameMatch ? operationNameMatch[1] : null;
 }
 
-function createQueryStringForGetRequest(query: string, variables: unknown) {
+function createQueryStringForGetRequest(query: string, variables: unknown, locale: string) {
   const queryId = hash(query);
 
   const queryParams: Record<string, string> = {
     strict: 'true',
     queryId,
+    // This is to prevent caching across locales
+    locale,
   };
 
   const variablesTooLongForGET =
