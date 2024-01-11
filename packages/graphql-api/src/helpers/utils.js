@@ -149,7 +149,7 @@ function truncateText(sourceText, maxLength) {
 }
 
 function excerpt({ summary, body }, maxLength = 200) {
-  if (summary != null) return getHtml(summary);
+  if (summary != null) return getHtml(summary, { inline: false, allowedTags: [] });
   if (body == null) return;
 
   // Parse the body and remove all tags
