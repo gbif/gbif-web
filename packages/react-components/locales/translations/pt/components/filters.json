@@ -47,6 +47,16 @@
     "count": "",
     "description": ""
   },
+  "audiences": {
+    "name": "Audiência",
+    "count": "",
+    "description": ""
+  },
+  "purposes": {
+    "name": "Tópico",
+    "count": "",
+    "description": ""
+  },
   "eventDate": {
     "name": "Data do evento",
     "count": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
