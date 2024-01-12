@@ -49,13 +49,13 @@
   },
   "audiences": {
     "name": "Public",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { audience } other {# audiences}}",
+    "description": "Quelle est l'audience de la ressource. "
   },
   "purposes": {
     "name": "Thème",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { purpose } other {# purposes}}",
+    "description": "Quels sont les buts de la ressource."
   },
   "eventDate": {
     "name": "Date de l'événement",
