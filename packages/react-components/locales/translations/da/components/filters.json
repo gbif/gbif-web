@@ -47,6 +47,16 @@
     "count": "",
     "description": ""
   },
+  "audiences": {
+    "name": "Publikum",
+    "count": "",
+    "description": ""
+  },
+  "purposes": {
+    "name": "Emne",
+    "count": "",
+    "description": ""
+  },
   "eventDate": {
     "name": "",
     "count": "GBIF annoteret Arkiv",
