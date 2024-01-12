@@ -47,6 +47,16 @@
     "count": "",
     "description": ""
   },
+  "audiences": {
+    "name": "讀者",
+    "count": "",
+    "description": ""
+  },
+  "purposes": {
+    "name": "主題",
+    "count": "",
+    "description": ""
+  },
   "eventDate": {
     "name": "事件日期",
     "count": "GBIF 註記的存檔",
