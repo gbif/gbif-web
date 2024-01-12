@@ -55,7 +55,7 @@
   "purposes": {
     "name": "主题",
     "count": "",
-    "description": ""
+    "description": "资源的用途是什么。"
   },
   "eventDate": {
     "name": "事件日期",
