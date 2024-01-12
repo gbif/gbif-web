@@ -54,7 +54,7 @@
   },
   "purposes": {
     "name": "Thème",
-    "count": "{num, plural, one { purpose } other {# purposes}}",
+    "count": "{num, plural, one { but } other {# buts}}",
     "description": "Quels sont les buts de la ressource."
   },
   "eventDate": {
