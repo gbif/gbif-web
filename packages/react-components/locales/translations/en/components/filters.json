@@ -47,6 +47,16 @@
     "count": "{num, plural, one { topic } other {# topics}}",
     "description": "What are the topics of the record."
   },
+  "audiences": {
+    "name": "Audience",
+    "count": "{num, plural, one { audience } other {# audiences}}",
+    "description": "Who are the audiences for the resource."
+  },
+  "purposes": {
+    "name": "Topic",
+    "count": "{num, plural, one { purpose } other {# purposes}}",
+    "description": "What are the purposes of the resource."
+  },
   "eventDate": {
     "name": "Event date",
     "count": "{num, plural, one {# event date } other {# event dates}}",
