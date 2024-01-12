@@ -47,6 +47,16 @@
     "count": "",
     "description": ""
   },
+  "audiences": {
+    "name": "Аудитория",
+    "count": "",
+    "description": ""
+  },
+  "purposes": {
+    "name": "Тематика",
+    "count": "",
+    "description": ""
+  },
   "eventDate": {
     "name": "Дата события",
     "count": "Архив, аннотированный GBIF",
