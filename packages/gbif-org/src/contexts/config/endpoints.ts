@@ -15,7 +15,11 @@ export function isGbifEnv(value: string): value is GbifEnv {
   return Object.values(GbifEnv).includes(value as GbifEnv);
 }
 
-export function getEndpointsBasedOnGbifEnv(gbifEnv: GbifEnv): Endpoints {
+export function getEndpointsBasedOnGbifEnv(
+  gbifEnv: GbifEnv,
+  // Used in the codegen script as it will not have access to the env variables
+  env?: Record<string, string>
+): Endpoints {
   // This can happen as the gbifEnv is passed as a string when configuring the HostedPortal
   if (!isGbifEnv(gbifEnv)) {
     throw new InvalidGbifEnvError(gbifEnv);
@@ -44,13 +48,15 @@ export function getEndpointsBasedOnGbifEnv(gbifEnv: GbifEnv): Endpoints {
     },
   }[gbifEnv];
 
-  if (typeof import.meta.env.PUBLIC_GRAPHQL_ENDPOINT === 'string') {
-    endpoints.graphqlEndpoint = import.meta.env.PUBLIC_GRAPHQL_ENDPOINT;
-  }
+  endpoints.graphqlEndpoint =
+    import.meta.env.PUBLIC_GRAPHQL_ENDPOINT ??
+    env?.PUBLIC_GRAPHQL_ENDPOINT ??
+    endpoints.graphqlEndpoint;
 
-  if (typeof import.meta.env.PUBLIC_TRANSLATIONS_ENTRY_ENDPOINT === 'string') {
-    endpoints.translationsEntryEndpoint = import.meta.env.PUBLIC_TRANSLATIONS_ENTRY_ENDPOINT;
-  }
+  endpoints.translationsEntryEndpoint =
+    import.meta.env.PUBLIC_TRANSLATIONS_ENTRY_ENDPOINT ??
+    env?.PUBLIC_TRANSLATIONS_ENTRY_ENDPOINT ??
+    endpoints.translationsEntryEndpoint;
 
   return endpoints;
 }

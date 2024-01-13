@@ -48,6 +48,10 @@ const { load, useTypedLoaderData } = createGraphQLHelpers<
       }
       citation
       createdAt
+      author
+      rights
+      rightsHolder
+      publicationDate
     }
   }
 `);
@@ -70,7 +74,7 @@ export function Tool() {
 
           <ArticleTitle>{resource.title}</ArticleTitle>
 
-          <PublishedDate className="mt-2" date={resource.createdAt} />
+          <PublishedDate className="mt-2" date={resource.publicationDate} />
 
           {resource.summary && (
             <ArticleIntro dangerouslySetInnerHTML={{ __html: resource.summary }} className="mt-2" />
@@ -89,6 +93,24 @@ export function Tool() {
           {resource.secondaryLinks && (
             <ArticleAuxiliary>
               <SecondaryLinks links={resource.secondaryLinks} className="mt-8" />
+            </ArticleAuxiliary>
+          )}
+
+          {resource.author && (
+            <ArticleAuxiliary label="Author">
+              <div dangerouslySetInnerHTML={{ __html: resource.author }} />
+            </ArticleAuxiliary>
+          )}
+
+          {resource.rights && (
+            <ArticleAuxiliary label="Rights">
+              <div dangerouslySetInnerHTML={{ __html: resource.rights }} />
+            </ArticleAuxiliary>
+          )}
+
+          {resource.rightsHolder && (
+            <ArticleAuxiliary label="Rights Holder">
+              <div dangerouslySetInnerHTML={{ __html: resource.rightsHolder }} />
             </ArticleAuxiliary>
           )}
         </ArticleTextContainer>
