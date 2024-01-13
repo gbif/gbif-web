@@ -50,12 +50,12 @@
   "audiences": {
     "name": "Аудитория",
     "count": "",
-    "description": ""
+    "description": "Кто является аудиторией для ресурса."
   },
   "purposes": {
     "name": "Тематика",
     "count": "",
-    "description": ""
+    "description": "Каковы цели ресурса."
   },
   "eventDate": {
     "name": "Дата события",
