@@ -1,11 +1,8 @@
 import { Helmet } from 'react-helmet-async';
 import { LoaderArgs } from '@/types';
 import { createGraphQLHelpers } from '@/utils/createGraphQLHelpers';
-import { FormattedMessage } from 'react-intl';
 import { ArticleContainer } from '@/routes/resource/key/components/ArticleContainer';
-import { Pills } from '@/routes/resource/key/components/Pills';
 import { ArticleBanner } from '@/routes/resource/key/components/ArticleBanner';
-import { notNull } from '@/utils/notNull';
 import { ArticlePreTitle } from '../components/ArticlePreTitle';
 import { ArticleTitle } from '../components/ArticleTitle';
 import { PublishedDate } from '../components/PublishedDate';

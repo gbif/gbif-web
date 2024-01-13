@@ -36,14 +36,17 @@ type Props = {
   config: InputConfig;
 };
 
-type CssVariable = { name: string; value: unknown; };
+type CssVariable = { name: string; value: unknown };
 
 export function ConfigProvider({ config, children }: Props): React.ReactElement {
   const variables = React.useMemo(() => {
-    const theme = themeBuilder({baseTheme: 'light', extendWith: {
-      primary: config.theme?.colors?.primary,
-      borderRadius: config.theme?.borderRadius,
-    }});
+    const theme = themeBuilder({
+      baseTheme: 'light',
+      extendWith: {
+        primary: config.theme?.colors?.primary,
+        borderRadius: config.theme?.borderRadius,
+      },
+    });
     const cssVariables: CssVariable[] = [];
     for (const [key, value] of Object.entries(theme)) {
       if (!(value instanceof Object)) {
@@ -51,10 +54,10 @@ export function ConfigProvider({ config, children }: Props): React.ReactElement 
           // convert to rgb components
           const rgb = value.match(/[A-Za-z0-9]{2}/g)?.map((v) => parseInt(v, 16));
           if (rgb?.length === 3) {
-            cssVariables.push({name: `--${key}`, value: rgb.join(' ')});
+            cssVariables.push({ name: `--${key}`, value: rgb.join(' ') });
           }
         } else {
-          cssVariables.push({name: `--${key}`, value});
+          cssVariables.push({ name: `--${key}`, value });
         }
       }
     }
@@ -66,9 +69,7 @@ export function ConfigProvider({ config, children }: Props): React.ReactElement 
 
   return (
     <ConfigContext.Provider value={contextValue}>
-      <style>{`:root { ${variables
-        .map((v) => `${v.name}: ${v.value};`)
-        .join('\n')} }`}</style>
+      <style>{`:root { ${variables.map((v) => `${v.name}: ${v.value};`).join('\n')} }`}</style>
       {children}
     </ConfigContext.Provider>
   );

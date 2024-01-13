@@ -26,6 +26,12 @@ const { load, useTypedLoaderData } = createGraphQLHelpers<
       primaryImage {
         file {
           url
+          details {
+            image {
+              width
+              height
+            }
+          }
           normal: thumbor(width: 1200, height: 500)
           mobile: thumbor(width: 800, height: 400)
         }

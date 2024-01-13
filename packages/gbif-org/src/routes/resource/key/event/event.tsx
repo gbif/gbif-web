@@ -15,6 +15,7 @@ import { useI18n } from '@/contexts/i18n';
 import { KeyValuePair } from '../components/KeyValuePair';
 import { MdCalendarMonth } from 'react-icons/md';
 import { SecondaryLinks } from '../components/SecondaryLinks';
+import { ArticleAuxiliary } from '../components/ArticleAuxiliary';
 
 const { load, useTypedLoaderData } = createGraphQLHelpers<
   EventQuery,
@@ -100,7 +101,9 @@ export function Event() {
           <hr className="my-8" />
 
           {resource.secondaryLinks && (
-            <SecondaryLinks className="mb-4" links={resource.secondaryLinks} />
+            <ArticleAuxiliary>
+              <SecondaryLinks className="mb-4" links={resource.secondaryLinks} />
+            </ArticleAuxiliary>
           )}
 
           <KeyValuePair

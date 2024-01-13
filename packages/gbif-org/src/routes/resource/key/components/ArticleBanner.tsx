@@ -6,6 +6,13 @@ type Props = {
     description?: string | null;
     title?: string | null;
     file?: null | {
+      details?: null | {
+        image?: null | {
+          width?: null | number;
+          height?: null | number;
+        };
+      };
+      url?: string | null;
       normal?: string | null;
       mobile?: string | null;
     };
@@ -13,8 +20,31 @@ type Props = {
 };
 
 export function ArticleBanner({ className, image }: Props) {
-  const { normal, mobile } = image?.file || {};
-  if (!normal || !mobile) return null;
+  const { normal, mobile, url, details } = image?.file || {};
+  if (!normal || !mobile || !url) return null;
+
+  const { width, height } = details?.image ?? {};
+  const isImageTooSmallForBanner =
+    (typeof width === 'number' && width < 800) || (typeof height === 'number' && height < 400);
+
+  if (isImageTooSmallForBanner)
+    return (
+      <div className={cn('max-w-6xl m-auto', className)}>
+        <figure className="flex flex-col items-center">
+          <img
+            src={url}
+            alt={image?.description ?? 'No image description provided'}
+            className="rounded-md bg-slate-200 max-h-[400px] md:max-h-[500px]"
+          />
+          {image?.description && (
+            <figcaption
+              className="text-sm text-slate-500 dark:text-slate-400 [&>a]:underline-offset-1 [&>a]:underline"
+              dangerouslySetInnerHTML={{ __html: image.description }}
+            />
+          )}
+        </figure>
+      </div>
+    );
 
   return (
     <div className={cn('max-w-6xl m-auto', className)}>

@@ -9,6 +9,12 @@ const typeDef = gql`
   # All types that compose the Image type
   type ImageFileDetails {
     size: Int
+    image: ImageFileDetailsImage
+    width: Int @deprecated(reason: "Use image.width")
+    height: Int @deprecated(reason: "Use image.height")
+  }
+
+  type ImageFileDetailsImage {
     width: Int
     height: Int
   }
