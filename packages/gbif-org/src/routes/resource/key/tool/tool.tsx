@@ -12,6 +12,7 @@ import { ArticleTextContainer } from '../components/ArticleTextContainer';
 import { ArticleBody } from '../components/ArticleBody';
 import { SecondaryLinks } from '../components/SecondaryLinks';
 import { ArticleAuxiliary } from '../components/ArticleAuxiliary';
+import styles from './tool.module.css';
 
 const { load, useTypedLoaderData } = createGraphQLHelpers<
   ToolQuery,
@@ -98,19 +99,28 @@ export function Tool() {
 
           {resource.author && (
             <ArticleAuxiliary label="Author">
-              <div dangerouslySetInnerHTML={{ __html: resource.author }} />
+              <div
+                className={styles.underlineLinks}
+                dangerouslySetInnerHTML={{ __html: resource.author }}
+              />
             </ArticleAuxiliary>
           )}
 
           {resource.rights && (
             <ArticleAuxiliary label="Rights">
-              <div dangerouslySetInnerHTML={{ __html: resource.rights }} />
+              <div
+                className={styles.underlineLinks}
+                dangerouslySetInnerHTML={{ __html: resource.rights }}
+              />
             </ArticleAuxiliary>
           )}
 
           {resource.rightsHolder && (
             <ArticleAuxiliary label="Rights Holder">
-              <div dangerouslySetInnerHTML={{ __html: resource.rightsHolder }} />
+              <div
+                className={styles.underlineLinks}
+                dangerouslySetInnerHTML={{ __html: resource.rightsHolder }}
+              />
             </ArticleAuxiliary>
           )}
         </ArticleTextContainer>
