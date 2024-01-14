@@ -1,3 +1,4 @@
+import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/utils/shadcn';
 
 type Props = {
@@ -15,5 +16,14 @@ export function ArticleTitle({ children, className }: Props) {
     >
       {children}
     </h1>
+  );
+}
+
+export function ArticleTitleSkeleton({ className }: Pick<Props, 'className'>) {
+  return (
+    <div className={className}>
+      <Skeleton className="w-full h-8" />
+      <Skeleton className="w-4/6 h-8 mt-1" />
+    </div>
   );
 }

@@ -1,3 +1,4 @@
+import { Skeleton } from '@/components/ui/skeleton';
 import { useI18n } from '@/contexts/i18n';
 import { cn } from '@/utils/shadcn';
 
@@ -16,4 +17,8 @@ export function PublishedDate({ date, className }: Props) {
       Published {new Date(date).toLocaleDateString(locale.code)}
     </p>
   );
+}
+
+export function PublishedDateSkeleton({ className }: Pick<Props, 'className'>) {
+  return <Skeleton className={cn('w-32 h-6', className)} />;
 }

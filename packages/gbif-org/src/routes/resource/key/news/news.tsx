@@ -3,15 +3,17 @@ import { LoaderArgs } from '@/types';
 import { NewsQuery, NewsQueryVariables } from '@/gql/graphql';
 import { createGraphQLHelpers } from '@/utils/createGraphQLHelpers';
 import { ArticleContainer } from '@/routes/resource/key/components/ArticleContainer';
-import { ArticleBanner } from '@/routes/resource/key/components/ArticleBanner';
+import {
+  ArticleBanner,
+  ArticleBannerSkeleton,
+} from '@/routes/resource/key/components/ArticleBanner';
 import { ArticlePreTitle } from '../components/ArticlePreTitle';
-import { ArticleTitle } from '../components/ArticleTitle';
-import { PublishedDate } from '../components/PublishedDate';
-import { ArticleIntro } from '../components/ArticleIntro';
+import { ArticleTitle, ArticleTitleSkeleton } from '../components/ArticleTitle';
+import { PublishedDate, PublishedDateSkeleton } from '../components/PublishedDate';
+import { ArticleIntro, ArticleIntroSkeleton } from '../components/ArticleIntro';
 import { ArticleTextContainer } from '../components/ArticleTextContainer';
-import { ArticleBody } from '../components/ArticleBody';
+import { ArticleBody, ArticleBodySkeleton } from '../components/ArticleBody';
 import { ArticleTags } from '../components/ArticleTags';
-import { Skeleton } from '@/components/ui/skeleton';
 
 const { load, useTypedLoaderData } = createGraphQLHelpers<
   NewsQuery,
@@ -63,7 +65,7 @@ export function News() {
       </Helmet>
 
       <ArticleContainer>
-        <ArticleTextContainer className="mb-10">
+        <ArticleTextContainer>
           <ArticlePreTitle>News</ArticlePreTitle>
 
           <ArticleTitle>{resource.title}</ArticleTitle>
@@ -108,32 +110,17 @@ export async function newsLoader({ request, params, config, locale }: LoaderArgs
 export function NewsSkeleton() {
   return (
     <ArticleContainer>
-      <ArticleTextContainer className="mb-10">
+      <ArticleTextContainer>
         <ArticlePreTitle>News</ArticlePreTitle>
-
-        <Skeleton className="w-full h-8 mt-3" />
-        <Skeleton className="w-4/6 h-8 mt-1" />
-
-        <Skeleton className="w-32 h-6 mt-3" />
-
-        <Skeleton className="w-full h-6 mt-3" />
-        <Skeleton className="w-5/6 h-6 mt-1" />
-        <Skeleton className="w-2/6 h-6 mt-1" />
+        <ArticleTitleSkeleton className="mt-3" />
+        <PublishedDateSkeleton className="mt-3" />
+        <ArticleIntroSkeleton className="mt-3" />
       </ArticleTextContainer>
 
-      <div className="max-w-6xl w-full mt-8 mb-6 m-auto">
-        <Skeleton className="w-full aspect-[2/1] md:aspect-[12/5]" />
-        <Skeleton className="w-5/6 h-4 mt-1" />
-      </div>
+      <ArticleBannerSkeleton className="mt-10" />
 
-      <ArticleTextContainer className="w-[80ch]">
-        <Skeleton className="h-6 mt-1 w-[calc(100%-2px)]" />
-        <Skeleton className="h-6 mt-1 w-[calc(100%-4px)]" />
-
-        <Skeleton className="h-6 mt-6 w-[calc(100%-3px)]" />
-        <Skeleton className="h-6 mt-1 w-[calc(100%-1px)]" />
-        <Skeleton className="h-6 mt-1 w-[calc(100%-5px)]" />
-        <Skeleton className="h-6 mt-1 w-[calc(100%-7px)]" />
+      <ArticleTextContainer className="mt-6">
+        <ArticleBodySkeleton />
       </ArticleTextContainer>
     </ArticleContainer>
   );

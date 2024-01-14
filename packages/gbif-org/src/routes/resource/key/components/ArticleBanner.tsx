@@ -1,3 +1,4 @@
+import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/utils/shadcn';
 
 type Props = {
@@ -66,6 +67,15 @@ export function ArticleBanner({ className, image }: Props) {
           />
         )}
       </figure>
+    </div>
+  );
+}
+
+export function ArticleBannerSkeleton({ className }: Pick<Props, 'className'>) {
+  return (
+    <div className={cn('max-w-6xl w-full m-auto', className)}>
+      <Skeleton className="w-full aspect-[2/1] md:aspect-[12/5]" />
+      <Skeleton className="w-5/6 h-4 mt-1" />
     </div>
   );
 }
