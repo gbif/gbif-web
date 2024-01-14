@@ -14,7 +14,7 @@ import { OccurrenceSearchPage } from '@/routes/occurrence/search/OccurrenceSearc
 import { InputConfig, processConfig } from '@/contexts/config/config';
 import { DatasetPage, datasetLoader } from '@/routes/dataset/key/DatasetPage';
 import { PublisherPage, publisherLoader } from '@/routes/publisher/key/PublisherPage';
-import { News, newsLoader } from '@/routes/resource/key/news/news';
+import { News, NewsSkeleton, newsLoader } from '@/routes/resource/key/news/news';
 import { PublisherAboutTab } from '@/routes/publisher/key/AboutTab';
 import { PublisherOccurrencesTab } from '@/routes/publisher/key/OccurrencesTab';
 import { DatasetAboutTab } from '@/routes/dataset/key/AboutTab';
@@ -104,7 +104,7 @@ const baseRoutes: SourceRouteObject[] = [
           {
             path: 'news/:key',
             loader: newsLoader,
-            loadingElement: <p>Loading news...</p>,
+            loadingElement: <NewsSkeleton />,
             element: <News />,
           },
           {

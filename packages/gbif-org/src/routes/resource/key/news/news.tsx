@@ -11,6 +11,7 @@ import { ArticleIntro } from '../components/ArticleIntro';
 import { ArticleTextContainer } from '../components/ArticleTextContainer';
 import { ArticleBody } from '../components/ArticleBody';
 import { ArticleTags } from '../components/ArticleTags';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const { load, useTypedLoaderData } = createGraphQLHelpers<
   NewsQuery,
@@ -102,4 +103,38 @@ export async function newsLoader({ request, params, config, locale }: LoaderArgs
     },
     locale: locale.cmsLocale || locale.code,
   });
+}
+
+export function NewsSkeleton() {
+  return (
+    <ArticleContainer>
+      <ArticleTextContainer className="mb-10">
+        <ArticlePreTitle>News</ArticlePreTitle>
+
+        <Skeleton className="w-full h-8 mt-3" />
+        <Skeleton className="w-4/6 h-8 mt-1" />
+
+        <Skeleton className="w-32 h-6 mt-3" />
+
+        <Skeleton className="w-full h-6 mt-3" />
+        <Skeleton className="w-5/6 h-6 mt-1" />
+        <Skeleton className="w-2/6 h-6 mt-1" />
+      </ArticleTextContainer>
+
+      <div className="max-w-6xl w-full mt-8 mb-6 m-auto">
+        <Skeleton className="w-full aspect-[2/1] md:aspect-[12/5]" />
+        <Skeleton className="w-5/6 h-4 mt-1" />
+      </div>
+
+      <ArticleTextContainer className="w-[80ch]">
+        <Skeleton className="h-6 mt-1 w-[calc(100%-2px)]" />
+        <Skeleton className="h-6 mt-1 w-[calc(100%-4px)]" />
+
+        <Skeleton className="h-6 mt-6 w-[calc(100%-3px)]" />
+        <Skeleton className="h-6 mt-1 w-[calc(100%-1px)]" />
+        <Skeleton className="h-6 mt-1 w-[calc(100%-5px)]" />
+        <Skeleton className="h-6 mt-1 w-[calc(100%-7px)]" />
+      </ArticleTextContainer>
+    </ArticleContainer>
+  );
 }
