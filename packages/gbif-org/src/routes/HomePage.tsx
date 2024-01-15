@@ -9,36 +9,44 @@ export function HomePage(): React.ReactElement {
         <title>Home</title>
       </Helmet>
 
-      <div className="prose">
-        <h2>This demo includes</h2>
-        <ul>
-          <li>
-            <DynamicLink to="/news/6qTuv5Xf1qa05arROvx7Y1">
-              News (wip) (skeleton loading demo)
-            </DynamicLink>
-          </li>
-          <li>
-            <DynamicLink to="/data-use/2NcRzaklrkf5X1mvyOvg5V">Data use (wip)</DynamicLink>
-          </li>
-          <li>
-            <DynamicLink to="/article/ExNixkGbYWCsgcWE4YScw">
-              Article - Data papers (wip)
-            </DynamicLink>
-            <DynamicLink to="/article/3wusV3o9X2WO6aWU8MK2WG">
-              Article - Data standards (wip)
-            </DynamicLink>
-          </li>
-          <li>
-            <DynamicLink to="/event/NVM72rVLfCkY4oyFEnGmq">Event (wip)</DynamicLink>
-          </li>
-          <li>
-            <DynamicLink to="/tool/XHl9BhJPvhn9jNKVPH6oG">Tool (wip)</DynamicLink>
-            <DynamicLink to="/tool/82599">Small Image (wip)</DynamicLink>
-          </li>
-          <li>
-            <DynamicLink to="/project/82750">Project (wip)</DynamicLink>
-          </li>
-        </ul>
+      <div className="p-4 pt-8 md:p-8 md:pt-16 max-w-3xl m-auto">
+        <div className="prose">
+          <p>Here you can see the various detail pages for the new GBIF.org. This is intended primarily as a technical migration to make it easier to maintain hosted portals and GBIF.org at the same time. As well as updating an aging tech stack.</p>
+          <p>It is not intended as a fundamental redesign of the site, neither visually or in functional, but some changes are inevitable. As is always the case we are happy to do changes and iterations as we go along. But for now it is a migration task.</p>
+          <hr />
+          <section>
+            <h2>Pages with a Contentful ID - work in progress</h2>
+            <p>
+              I expect Kyle, Daniel and Javier will be the primary people involved in reviewing this. But please feel free to add comments and feedback. I will try to keep this up to date as we go along.
+            </p>
+            <ul>
+              <li>
+                <DynamicLink className="me-4" to="/news/6qTuv5Xf1qa05arROvx7Y1">
+                  News (skeleton loading demo)
+                </DynamicLink>
+              </li>
+              <li>
+                <DynamicLink className="me-4" to="/data-use/2NcRzaklrkf5X1mvyOvg5V">Data use</DynamicLink>
+              </li>
+              <li>
+                  Articles: <DynamicLink className="me-4" to="/article/ExNixkGbYWCsgcWE4YScw">Data papers</DynamicLink>
+                <DynamicLink className="me-4" to="/article/3wusV3o9X2WO6aWU8MK2WG">
+                  Data standards
+                </DynamicLink>
+              </li>
+              <li>
+                <DynamicLink className="me-4" to="/event/NVM72rVLfCkY4oyFEnGmq">Event</DynamicLink>
+              </li>
+              <li>
+                Tools: <DynamicLink className="me-4" to="/tool/XHl9BhJPvhn9jNKVPH6oG">GeoPick (basic)</DynamicLink>
+                <DynamicLink className="me-4" to="/tool/82599">CAPFITOGEN (w small image)</DynamicLink>
+              </li>
+              <li>
+                <DynamicLink className="me-4" to="/project/82750">Project</DynamicLink>
+              </li>
+            </ul>
+          </section>
+        </div>
       </div>
     </>
   );
