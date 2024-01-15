@@ -35,8 +35,8 @@ const typeDef = gql`
 
   # All types that compose the Link type
   type Link {
-    label: String
-    url: String
+    label: String!
+    url: String!
   }
 
   # All types that compose the Country type

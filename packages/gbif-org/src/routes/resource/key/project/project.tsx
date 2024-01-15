@@ -9,6 +9,7 @@ import { ArticlePreTitle } from '../components/ArticlePreTitle';
 import { Tabs } from '@/components/Tabs';
 import { Outlet } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
+import { MdLink } from 'react-icons/md';
 
 const { load, useTypedLoaderData } = createGraphQLHelpers<
   ProjectQuery,
@@ -28,6 +29,10 @@ const { load, useTypedLoaderData } = createGraphQLHelpers<
         }
         description
         title
+      }
+      primaryLink {
+        label
+        url
       }
       secondaryLinks {
         label
@@ -61,6 +66,17 @@ export function Project() {
 
   // if end date is in the past, the project is closed
   const closed = resource.status === 'CLOSED' || resource.status === 'DISCONTINUED';
+
+  let tabLinks: Array<{ to: string; children: React.ReactNode }> = [
+    { to: '.', children: <FormattedMessage id="cms.resource.about" /> },
+    { to: 'datasets', children: <FormattedMessage id="cms.resource.datasets" /> },
+    { to: 'news', children: <FormattedMessage id="cms.project.newsAndEvents" /> },
+  ];
+  
+  if (resource?.primaryLink) {
+    tabLinks.push({ to: resource.primaryLink.url, children: <span className="flex items-center">{resource.primaryLink.label} <MdLink className="ms-1" /></span> });
+  }
+
   return (
     <>
       <Helmet>
@@ -84,11 +100,7 @@ export function Project() {
         </ArticleTextContainer>
         <ArticleTextContainer>
           <Tabs
-            links={[
-              { to: '.', children: <FormattedMessage id="cms.resource.about" /> },
-              { to: 'datasets', children: <FormattedMessage id="cms.resource.datasets" /> },
-              { to: 'news', children: <FormattedMessage id="cms.project.newsAndEvents" /> },
-            ]}
+            links={tabLinks}
           />
         </ArticleTextContainer>
         <Outlet />
