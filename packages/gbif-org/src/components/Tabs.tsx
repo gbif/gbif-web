@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { DynamicLink } from './DynamicLink';
 
-type Props = {
+export type Props = {
   links: Array<{ to: string; children: React.ReactNode }>;
 };
 
@@ -55,13 +55,13 @@ export function Tabs({ links }: Props) {
   }, [links, setVisibleTabCount]);
 
   return (
-    <div ref={containerRef} className="relative">
-      <ul className="border-b border-slate-200 flex whitespace-nowrap dark:border-slate-200/5 mb-px overflow-hidden">
+    <div ref={containerRef} className="relative ">
+      <ul className="border-b border-slate-200 flex whitespace-nowrap dark:border-slate-200/5 overflow-hidden -mb-px">
         {links.map(({ to, children }, idx) => {
           const visible = idx < visibleTabCount;
 
           return (
-            <li key={to} className={cn({ invisible: !visible }, 'px-3')}>
+            <li key={to} className={cn({ invisible: !visible }, 'px-1')}>
               <TabLink to={to}>{children}</TabLink>
             </li>
           );
