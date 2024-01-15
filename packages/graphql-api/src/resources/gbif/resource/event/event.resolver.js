@@ -17,6 +17,7 @@ export default {
     summary: src => getHtml(src.summary),
     body: src => getHtml(src.body, {allowedTags: trustedTags, wrapTables: true}),
     excerpt: src => excerpt(src),
+    venue: src => getHtml(src.venue, { inline: true, allowedTags: ['a'] }),
     gbifHref: (src, _, context) => createLocalizedGbifHref(context.locale, 'event', src.id),
   }
 }

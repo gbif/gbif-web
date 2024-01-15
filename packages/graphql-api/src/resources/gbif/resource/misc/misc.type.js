@@ -20,15 +20,15 @@ const typeDef = gql`
   }
 
   type ImageFile {
-    url: String
-    details: ImageFileDetails
-    fileName: String
-    contentType: String
-    thumbor(width: Int, height: Int, fitIn: Boolean): String
+    url: String!
+    details: ImageFileDetails!
+    fileName: String!
+    contentType: String!
+    thumbor(width: Int, height: Int, fitIn: Boolean): String!
   }
 
   type AssetImage {
-    file: ImageFile
+    file: ImageFile!
     description: String
     title: String
   }

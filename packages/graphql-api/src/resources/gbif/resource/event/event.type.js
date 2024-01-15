@@ -6,16 +6,16 @@ const typeDef = gql`
   }
 
   type Event {
-    id: ID
+    id: ID!
     gbifHref: String
-    title: String
+    title: String!
     summary: String
     body: String
     excerpt: String
     primaryImage: AssetImage
     primaryLink: Link
     secondaryLinks: [Link]
-    start: DateTime
+    start: DateTime!
     end: DateTime
     allDayEvent: Boolean
     organisingParticipants: [Participant]
@@ -27,8 +27,8 @@ const typeDef = gql`
     documents: [DocumentAsset]
     attendees: String
     keywords: [String]
-    searchable: Boolean
-    homepage: Boolean
+    searchable: Boolean!
+    homepage: Boolean!
     gbifRegion: GbifRegion
     createdAt: DateTime
     updatedAt: DateTime
