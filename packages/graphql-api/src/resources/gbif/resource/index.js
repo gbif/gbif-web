@@ -5,6 +5,7 @@ import * as dataUse from './dataUse';
 import * as event from './event';
 import * as gbifDocument from './document';
 import * as gbifProject from './gbifProject';
+import * as programme from './programme';
 import * as help from './help';
 import * as news from './news';
 import * as notification from './notification';
@@ -24,6 +25,7 @@ const children = [
   event,
   gbifDocument,
   gbifProject,
+  programme,
   help,
   news,
   notification,

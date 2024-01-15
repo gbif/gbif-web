@@ -13,10 +13,10 @@ function isNoneEmptyArray(source) {
  */
 export default {
   Query: {
-    gbifProject: (_, { id, preview }, { dataSources, locale }) =>
+    programme: (_, { id, preview }, { dataSources, locale }) =>
       dataSources.resourceAPI.getEntryById({ id, preview, locale })
   },
-  GbifProject: {
+  Programme: {
     title: src => getHtml(src.title, { inline: true, allowedTags: ['em', 'i'] }),
     body: src => getHtml(src.body, {allowedTags: trustedTags, wrapTables: true}),
     summary: src => getHtml(src.summary),
@@ -33,12 +33,7 @@ export default {
       const ids = src.news.map(news => news.id);
       return Promise.all(ids.map(id => dataSources.resourceAPI.getEntryById({ id, preview: false, locale })));
     },
-    call: (src, _, context) => context.dataSources.getEntryById(src.call.id, false, context.locale),
-    gbifHref: (src, _, context) => createLocalizedGbifHref(context.locale, 'project', src.id),
-    // resolve the programme against the resource api
-    programme: (src, _, { dataSources, locale }) => {
-      if (!src?.programme?.id) return null;
-      return dataSources.resourceAPI.getEntryById({ id: src?.programme?.id, preview: false, locale });
-    }
+    // call: (src, _, context) => context.dataSources.getEntryById(src.call.id, false, context.locale),
+    // gbifHref: (src, _, context) => createLocalizedGbifHref(context.locale, 'project', src.id),
   }
 }
