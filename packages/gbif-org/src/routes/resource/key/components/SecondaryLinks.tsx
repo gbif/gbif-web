@@ -20,7 +20,7 @@ export function SecondaryLinks({ links, className }: Props) {
   return (
     <ul className={cn('grid grid-cols-2 gap-4', className)}>
       {links.filter(isLinkWithUrl).map((link) => (
-        <li key={link.url} className="border p-3 shadow-sm hover:shadow-md">
+        <li key={link.url} className="border border-transparent hover:border-slate-100 p-3 hover:shadow-md">
           <a
             className="flex flex-row items-center underline"
             target="_blank"

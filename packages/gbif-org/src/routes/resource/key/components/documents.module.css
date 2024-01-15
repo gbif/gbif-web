@@ -4,7 +4,7 @@
   width: 2.2em;
   height: 3em;
   display: flex;
-  align-items: end;
+  align-items: flex-end;
   justify-content: center;
   font-size: 1em;
   border-radius: 2px;

@@ -25,6 +25,7 @@ import { DataUse, dataUseLoader } from '@/routes/resource/key/data-use/data-use'
 import { Event, eventLoader } from '@/routes/resource/key/event/event';
 import { Article, articleLoader } from '@/routes/resource/key/article/article';
 import { Tool, toolLoader } from '@/routes/resource/key/tool/tool';
+import { Project, projectLoader, AboutTab as ProjectAboutTab, DatasetsTab as ProjectDatasetsTab, projectNewsLoader, projectDatasetsLoader, NewsTab as ProjectNewsTab, projectAboutLoader } from '@/routes/resource/key/project';
 
 const baseRoutes: SourceRouteObject[] = [
   {
@@ -136,6 +137,29 @@ const baseRoutes: SourceRouteObject[] = [
             loader: articleLoader,
             loadingElement: <p>Loading data use...</p>,
             element: <Article />,
+          },
+          {
+            path: 'project/:key',
+            loader: projectLoader,
+            loadingElement: <p>Loading data use...</p>,
+            element: <Project />,
+            children: [
+              {
+                index: true,
+                element: <ProjectAboutTab />,
+                loader: projectAboutLoader,
+              },
+              {
+                path: 'news',
+                element: <ProjectNewsTab />,
+                loader: projectNewsLoader,
+              },
+              {
+                path: 'datasets',
+                element: <ProjectDatasetsTab />,
+                loader: projectDatasetsLoader,
+              },
+            ],
           },
           {
             path: '*',

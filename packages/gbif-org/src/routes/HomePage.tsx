@@ -35,6 +35,9 @@ export function HomePage(): React.ReactElement {
             <DynamicLink to="/tool/XHl9BhJPvhn9jNKVPH6oG">Tool (wip)</DynamicLink>
             <DynamicLink to="/tool/82599">Small Image (wip)</DynamicLink>
           </li>
+          <li>
+            <DynamicLink to="/project/82750">Project (wip)</DynamicLink>
+          </li>
         </ul>
       </div>
     </>

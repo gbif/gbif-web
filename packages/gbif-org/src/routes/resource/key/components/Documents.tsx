@@ -36,7 +36,7 @@ export function Documents({ documents, className }: Props) {
       {documents.filter(isValid).map((document, index) => (
         <li
           key={index}
-          className="border p-3 shadow-sm hover:shadow-md p2 dark:bg-zinc-800 dark:text-slate-800 text-white"
+          className="border border-transparent hover:border-slate-100 p-3 hover:shadow-md p2 dark:bg-zinc-800 dark:text-slate-800 text-white"
         >
           <a
             className="flex flex-row"

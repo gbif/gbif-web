@@ -55,7 +55,7 @@ export function ArticleBanner({ className, image }: Props) {
           <img
             src={mobile}
             alt={image?.description ?? 'No image description provided'}
-            className="rounded-md bg-slate-200"
+            className="rounded-md bg-slate-200 border border-slate-100"
             width="800"
             height="400"
           />
