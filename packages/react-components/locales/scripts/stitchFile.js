@@ -36,6 +36,7 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
       images: getFile(locale, `../${folder}/${locale}/components/images`),
       error: getFile(locale, `../${folder}/${locale}/components/error`),
       dashboard: getFile(locale, `../${folder}/${locale}/components/dashboard`),
+      cms: getFile(locale, `../${folder}/${locale}/components/cms`),
       enums: {
         basisOfRecord: getFile(locale, `../${folder}/${locale}/enums/basisOfRecord`),
         countryCode: getFile(locale, `../${folder}/${locale}/enums/countryCode`),
@@ -70,6 +71,7 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
         purposes: getFile(locale, `../${folder}/${locale}/enums/purposes`),
         collectionContentType: getFile(locale, `../${folder}/${locale}/enums/collectionContentType`),
         preservationType: getFile(locale, `../${folder}/${locale}/enums/preservationType`),
+        cms: getFile(locale, `../${folder}/${locale}/enums/cms`),
   // -- Add enums above this line (required by plopfile.js) --
       }
     }
