@@ -1,0 +1,66 @@
+{
+  "project": {
+    "project": "Project",
+    "projectId": "Project ID",
+    "projectIdentifier": "Project identifier",
+    "grantType": "Grant type",
+    "duration": "Duration",
+    "title": "Title",
+    "start": "Start",
+    "end": "End",
+    "fundsAllocated": "Funding allocated",
+    "matchingFunds": "Est. co-funding",
+    "funding": "Funding",
+    "coFunding": "Co funding",
+    "fundedBy": "Funded by",
+    "coFundedBy": "Co funded by",
+    "typeOfGrant": "Type of grant",
+    "projectStart": "Project start",
+    "status": "Status",
+    "programme": "Programme",
+    "contractCountry": "Country or area",
+    "newsAndEvents": "News & events",
+    "call": "Call",
+    "projectLead": "Project lead",
+    "contactDetalils": "Contact details",
+    "partners": "Partners"
+  },
+  "datause": {
+    "dataViaGbif": "GBIF-mediated data resources used"
+  },
+  "literature": {
+    "keywords": "Keywords"
+  },
+  "auxiliary": {
+    "subject": "Subject",
+    "citation": "Citation",
+    "organisingParticipants": ""
+  },
+  "document": {
+    "download": "Download",
+    "readDocument": "Go to document"
+  },
+  "resource": {
+    "resources": "Resources",
+    "contactHelpdesk": "Contact helpdesk",
+    "addToCalendar": "Add to calendar",
+    "venue": "Venue",
+    "location": "Location",
+    "country": "Country or area",
+    "noDatasets": "",
+    "noNewsOrEvents": "",
+    "howToLinkDatasets": "",
+    "howToLinkEvents": "",
+    "when": "When",
+    "language": "Language",
+    "viewOnGBIF": "View on GBIF",
+    "published": "Published",
+    "programme": "Programme",
+    "fundedBy": "Funded by",
+    "about": "About",
+    "datasets": "Datasets",
+    "gbifWillAttend": "Attended by GBIF Secretariat",
+    "dataUsedInStudy": "",
+    "resourceDescription": "Search for resources in Global Biodiversity Information Facility. Free and Open Access to Biodiversity Data."
+  }
+}
