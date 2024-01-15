@@ -1,4 +1,5 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
+import { stringify } from 'qs';
 
 const urlSizeLimit = 2000; // use GET for requests that serialized is less than N characters
 
@@ -93,6 +94,20 @@ class OccurrenceAPI extends RESTDataSource {
         predicate: null,
       };
     }
+  }
+
+  async getMapCapabilities(query) {
+    return this.get(
+      `${this.config.apiv2}/map/occurrence/density/capabilities.json?`,
+      stringify(query, { indices: false }),
+    );
+  }
+
+  async searchCollections({ query }) {
+    return this.get(
+      '/grscicoll/collection',
+      stringify(query, { indices: false }),
+    );
   }
 
   /*

@@ -1,4 +1,4 @@
-import { getHtml } from '#/helpers/utils';
+import { getHtml, excerpt } from '#/helpers/utils';
 import { getContributors } from './helpers/contributors';
 /**
  * Convinent wrapper to generate the facet resolvers.
@@ -7,27 +7,27 @@ import { getContributors } from './helpers/contributors';
  */
 const getDatasetFacet =
   (facetKey) =>
-  (parent, { limit = 10, offset = 0 }, { dataSources }) => {
-    // generate the species search query, by inherting from the parent query, and map limit/offset to facet equivalents
-    const query = {
-      ...parent._query,
-      limit: 0,
-      facet: facetKey,
-      facetLimit: limit,
-      facetOffset: offset,
+    (parent, { limit = 10, offset = 0 }, { dataSources }) => {
+      // generate the species search query, by inherting from the parent query, and map limit/offset to facet equivalents
+      const query = {
+        ...parent._query,
+        limit: 0,
+        facet: facetKey,
+        facetLimit: limit,
+        facetOffset: offset,
+      };
+      // query the API, and throw away anything but the facet counts
+      return dataSources.datasetAPI.searchDatasets({ query }).then((data) => [
+        ...data.facets[0].counts.map((facet) => ({
+          ...facet,
+          // attach the query, but add the facet as a filter
+          _query: {
+            ...parent._query,
+            [facetKey]: facet.name,
+          },
+        })),
+      ]);
     };
-    // query the API, and throw away anything but the facet counts
-    return dataSources.datasetAPI.searchDatasets({ query }).then((data) => [
-      ...data.facets[0].counts.map((facet) => ({
-        ...facet,
-        // attach the query, but add the facet as a filter
-        _query: {
-          ...parent._query,
-          [facetKey]: facet.name,
-        },
-      })),
-    ]);
-  };
 
 /**
  * fieldName: (parent, args, context, info) => data;
@@ -78,6 +78,11 @@ export const DatasetSearchStub = {
       .searchLiterature({ query: { gbifDatasetKey: key } })
       .then((response) => response.documents.total);
   },
+  excerpt: src => excerpt({ body: src.description }),
+  mapCapabilities: ({ key }, args, { dataSources }) => {
+    if (typeof key === 'undefined') return null;
+    return dataSources.occurrenceAPI.getMapCapabilities({ datasetKey: key });
+  }
 };
 
 export const Dataset = {
@@ -129,14 +134,19 @@ export const Dataset = {
     if (type !== 'CHECKLIST') return null;
     return dataSources.datasetAPI.getMetrics({ key });
   },
-  gridded: ({ key }, args, { dataSources }) => {
-    return dataSources.datasetAPI.getGridded({ key });
+  gridded: ({ key }, { limit = 1000 }, { dataSources }) => {
+    return dataSources.datasetAPI.getGridded({ key })
+      .then(response => response.slice(0, limit));
   },
   description: ({ description }) => getHtml(description),
   purpose: ({ purpose }) => getHtml(purpose),
   checklistBankDataset: ({ key }, args, { dataSources }) => {
     return dataSources.datasetAPI.getFromChecklistBank({ key });
   },
+  mapCapabilities: ({ key }, args, { dataSources }) => {
+    if (typeof key === 'undefined') return null;
+    return dataSources.occurrenceAPI.getMapCapabilities({ datasetKey: key });
+  }
 };
 
 export const ChecklistBankDataset = {

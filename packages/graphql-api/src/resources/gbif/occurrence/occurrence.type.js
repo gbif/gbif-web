@@ -559,6 +559,17 @@ const typeDef = gql`
     chronometricAge: [JSON]
     dnaDerivedData: [JSON]
   }
+
+  type MapCapabilities {
+    minLat: Int!
+    maxLat: Int!
+    minLng: Int!
+    maxLng: Int!
+    minYear: Int
+    maxYear: Int
+    total: Int!
+    generated: DateTime!
+  }
 `;
 
 export default typeDef;
