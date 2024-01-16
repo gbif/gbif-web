@@ -86,7 +86,7 @@ export function Event() {
 
           <Button className="mt-4" asChild>
             <a href={`https://www.gbif.org/api/newsroom/events/${resource.id}.ics`}>
-              <MdCalendarMonth /> <span className="pl-2">Add to calendar</span>
+              <MdCalendarMonth /> <span className="pl-2"><FormattedMessage id="cms.resource.addToCalendar" /></span>
             </a>
           </Button>
         </ArticleTextContainer>
@@ -107,19 +107,19 @@ export function Event() {
           )}
 
           <KeyValuePair
-            label={<FormattedMessage id="event.location" />}
+            label={<FormattedMessage id="cms.resource.location" />}
             value={resource.location}
           />
 
           <KeyValuePair
             className="mt-1"
-            label={<FormattedMessage id="event.countryOrArea" />}
+            label={<FormattedMessage id="cms.resource.country" />}
             value={<FormattedMessage id={`enums.topics.${resource.country}`} />}
           />
 
           <KeyValuePair
             className="mt-1"
-            label={<FormattedMessage id="event.when" />}
+            label={<FormattedMessage id="cms.resource.when" />}
             value={getDateAndTimeRange(startDate, endDate, locale.code)}
           />
         </ArticleTextContainer>

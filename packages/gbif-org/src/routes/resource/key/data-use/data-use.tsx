@@ -12,6 +12,7 @@ import { ArticleBody } from '../components/ArticleBody';
 import { DataUseQuery, DataUseQueryVariables } from '@/gql/graphql';
 import { ArticleAuxiliary } from '../components/ArticleAuxiliary';
 import { ArticleTags } from '../components/ArticleTags';
+import { FormattedMessage } from 'react-intl';
 
 const { load, useTypedLoaderData } = createGraphQLHelpers<
   DataUseQuery,
@@ -65,7 +66,7 @@ export function DataUse() {
 
       <ArticleContainer>
         <ArticleTextContainer className="mb-10">
-          <ArticlePreTitle>Data use</ArticlePreTitle>
+          <ArticlePreTitle><FormattedMessage id="cms.contentType.dataUse" /></ArticlePreTitle>
           <ArticleTitle>{resource.title}</ArticleTitle>
           <PublishedDate className="mt-2" date={resource.createdAt} />
 

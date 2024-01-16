@@ -85,7 +85,7 @@ export function Project() {
 
       <ArticleContainer>
         <ArticleTextContainer className="mb-10">
-          <ArticlePreTitle><FormattedMessage id="cms.project.project" /></ArticlePreTitle>
+          <ArticlePreTitle><FormattedMessage id="cms.contentType.project" /></ArticlePreTitle>
 
           <ArticleTitle title={resource.title}>
             {closed && (

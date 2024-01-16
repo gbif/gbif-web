@@ -64,18 +64,18 @@ export function EventResult({ event }: { event: EventFragment }) {
           </div>
           {event.gbifsAttendee && (
             <div>
-              <GbifLogoIcon className="me-2" /> Attended by GBIF Secretariat
+              <GbifLogoIcon className="me-2" /> <FormattedMessage id="cms.resource.gbifWillAttend" />
             </div>
           )}
           <div className="mt-2">
             <Button asChild variant="secondary">
               <a href={`https://www.gbif.org/api/newsroom/events/${event.id}.ics`}>
-                <MdCalendarMonth /> <span className="pl-2">Add to calendar</span>
+                <MdCalendarMonth /> <span className="pl-2"><FormattedMessage id="cms.resource.addToCalendar" /></span>
               </a>
             </Button>
             {event.primaryLink?.url && (
               <Button className="ms-4" asChild variant="ghost">
-                <a href={`/event/${event.id}`}>Read more</a>
+                <a href={`/event/${event.id}`}><FormattedMessage id="phrases.seeDetails" /></a>
               </Button>
             )}
           </div>

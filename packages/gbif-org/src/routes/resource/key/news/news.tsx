@@ -14,6 +14,7 @@ import { ArticleIntro, ArticleIntroSkeleton } from '../components/ArticleIntro';
 import { ArticleTextContainer } from '../components/ArticleTextContainer';
 import { ArticleBody, ArticleBodySkeleton } from '../components/ArticleBody';
 import { ArticleTags } from '../components/ArticleTags';
+import { FormattedMessage } from 'react-intl';
 
 const { load, useTypedLoaderData } = createGraphQLHelpers<
   NewsQuery,
@@ -66,7 +67,7 @@ export function News() {
 
       <ArticleContainer>
         <ArticleTextContainer>
-          <ArticlePreTitle>News</ArticlePreTitle>
+          <ArticlePreTitle><FormattedMessage id="cms.contentType.news" /></ArticlePreTitle>
 
           <ArticleTitle>{resource.title}</ArticleTitle>
 

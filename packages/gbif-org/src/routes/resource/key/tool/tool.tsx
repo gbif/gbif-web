@@ -13,6 +13,7 @@ import { ArticleBody } from '../components/ArticleBody';
 import { SecondaryLinks } from '../components/SecondaryLinks';
 import { ArticleAuxiliary } from '../components/ArticleAuxiliary';
 import styles from './tool.module.css';
+import { FormattedMessage } from 'react-intl';
 
 const { load, useTypedLoaderData } = createGraphQLHelpers<
   ToolQuery,
@@ -71,7 +72,7 @@ export function Tool() {
 
       <ArticleContainer>
         <ArticleTextContainer className="mb-10">
-          <ArticlePreTitle>Tool</ArticlePreTitle>
+          <ArticlePreTitle><FormattedMessage id="cms.contentType.tool" /></ArticlePreTitle>
 
           <ArticleTitle>{resource.title}</ArticleTitle>
 
@@ -98,7 +99,7 @@ export function Tool() {
           )}
 
           {resource.author && (
-            <ArticleAuxiliary label="Author">
+            <ArticleAuxiliary label={<FormattedMessage id="cms.resource.author" />}>
               <div
                 className={styles.underlineLinks}
                 dangerouslySetInnerHTML={{ __html: resource.author }}
@@ -107,7 +108,7 @@ export function Tool() {
           )}
 
           {resource.rights && (
-            <ArticleAuxiliary label="Rights">
+            <ArticleAuxiliary label={<FormattedMessage id="cms.resource.rights" />}>
               <div
                 className={styles.underlineLinks}
                 dangerouslySetInnerHTML={{ __html: resource.rights }}
@@ -116,7 +117,7 @@ export function Tool() {
           )}
 
           {resource.rightsHolder && (
-            <ArticleAuxiliary label="Rights Holder">
+            <ArticleAuxiliary label={<FormattedMessage id="cms.resource.rightsHolder" />}>
               <div
                 className={styles.underlineLinks}
                 dangerouslySetInnerHTML={{ __html: resource.rightsHolder }}
