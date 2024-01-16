@@ -9,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { DynamicLink } from './DynamicLink';
+import { MdMoreHoriz, MdMoreVert } from 'react-icons/md';
 
 export type Props = {
   links: Array<{ to: string; children: React.ReactNode }>;
@@ -75,19 +76,7 @@ export function Tabs({ links }: Props) {
             'absolute right-0 pr-3 top-1/2 -translate-y-1/2'
           )}
         >
-          <svg
-            stroke="currentColor"
-            fill="currentColor"
-            strokeWidth="0"
-            viewBox="0 0 24 24"
-            height="1em"
-            width="1em"
-            xmlns="http://www.w3.org/2000/svg"
-            style={{ fontSize: '1.5em' }}
-          >
-            <path fill="none" d="M0 0h24v24H0z"></path>
-            <path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path>
-          </svg>
+          <MdMoreHoriz className="text-2xl" />
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           {links.slice(visibleTabCount).map(({ to, children }) => (
