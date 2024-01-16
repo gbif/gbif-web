@@ -26,6 +26,7 @@
   "viewOnGBif": "View on GBIF.org",
   "failedToLoadData": "Failed to load data",
   "retry": "Retry",
+  "readMore": "Read more",
   "pageNotFoundDescription": "Sorry, the page you visited does not exist.",
   "download": "Download"
 }
