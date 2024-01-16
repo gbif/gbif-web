@@ -49,13 +49,13 @@
   },
   "audiences": {
     "name": "Audiencia",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { audiencia } other {# audiencias}}",
+    "description": "A quién va dirigido el recurso."
   },
   "purposes": {
     "name": "Tema",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { propósito } other {# propósitos}}",
+    "description": "Cuáles son los fines del recurso."
   },
   "eventDate": {
     "name": "Fecha del Evento",
