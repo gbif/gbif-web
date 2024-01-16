@@ -6,7 +6,11 @@ const typeDef = gql`
       limit: Int
       offset: Int
       q: String
+      """
+      deprecated field, use institutionKey instead
+      """
       institution: [GUID]
+      institutionKey: [GUID]
       contact: ID
       code: String
       name: String

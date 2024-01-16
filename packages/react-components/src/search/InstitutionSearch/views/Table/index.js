@@ -13,8 +13,8 @@ import env from '../../../../../.env.json';
 
 // NB it is essential that the fast and slow query returns the same results in the same order. Else we cannot merge them.
 const QUERY = `
-query list($discipline: [String], $type: String, $identifier: String, $alternativeCode: String, $occurrenceCount: String, $code: String, $q: String, $offset: Int, $limit: Int, $country: [Country], $fuzzyName: String, $city: String, $name: String, $active: Boolean, $numberSpecimens: String, , $displayOnNHCPortal: Boolean){
-  institutionSearch(sortBy: NUMBER_SPECIMENS, sortOrder: DESC, discipline: $discipline, type: $type, identifier: $identifier, alternativeCode: $alternativeCode, occurrenceCount: $occurrenceCount, code: $code, q: $q, limit: $limit, offset: $offset, country: $country, fuzzyName: $fuzzyName, city: $city, name: $name, active: $active, numberSpecimens: $numberSpecimens, displayOnNHCPortal: $displayOnNHCPortal) {
+query list($institutionKey: [GUID], $discipline: [String], $type: String, $identifier: String, $alternativeCode: String, $occurrenceCount: String, $code: String, $q: String, $offset: Int, $limit: Int, $country: [Country], $fuzzyName: String, $city: String, $name: String, $active: Boolean, $numberSpecimens: String, , $displayOnNHCPortal: Boolean){
+  institutionSearch(sortBy: NUMBER_SPECIMENS, sortOrder: DESC, discipline: $discipline, type: $type, identifier: $identifier, alternativeCode: $alternativeCode, occurrenceCount: $occurrenceCount, code: $code, q: $q, limit: $limit, offset: $offset, country: $country, fuzzyName: $fuzzyName, city: $city, name: $name, active: $active, numberSpecimens: $numberSpecimens, displayOnNHCPortal: $displayOnNHCPortal, institutionKey: $institutionKey) {
     count
     offset
     limit
