@@ -26,6 +26,7 @@ import { Event, eventLoader } from '@/routes/resource/key/event/event';
 import { Article, articleLoader } from '@/routes/resource/key/article/article';
 import { Tool, toolLoader } from '@/routes/resource/key/tool/tool';
 import { Project, projectLoader, AboutTab as ProjectAboutTab, DatasetsTab as ProjectDatasetsTab, projectNewsLoader, projectDatasetsLoader, NewsTab as ProjectNewsTab, projectAboutLoader } from '@/routes/resource/key/project';
+import { Programme, ProgrammeSkeleton, programmeLoader } from '@/routes/resource/key/programme/programme';
 
 const baseRoutes: SourceRouteObject[] = [
   {
@@ -137,6 +138,12 @@ const baseRoutes: SourceRouteObject[] = [
             loader: articleLoader,
             loadingElement: <p>Loading data use...</p>,
             element: <Article />,
+          },
+          {
+            path: 'programme/:key',
+            loader: programmeLoader,
+            loadingElement: <ProgrammeSkeleton />,
+            element: <Programme />,
           },
           {
             path: 'project/:key',

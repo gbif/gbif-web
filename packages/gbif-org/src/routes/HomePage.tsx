@@ -44,6 +44,9 @@ export function HomePage(): React.ReactElement {
               <li>
                 <DynamicLink className="me-4" to="/project/82750">Project</DynamicLink>
               </li>
+              <li>
+                <DynamicLink className="me-4" to="/programme/82243">Programme BID</DynamicLink>
+              </li>
             </ul>
           </section>
         </div>
