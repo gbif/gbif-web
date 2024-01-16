@@ -1,4 +1,16 @@
 {
+  "contentType": {
+    "event": "Event",
+    "news": "News",
+    "resource": "Resource",
+    "dataUse": "Data use",
+    "project": "Project",
+    "participant": "Participant",
+    "programme": "Programme",
+    "document": "Document",
+    "tool": "Tool",
+    "literature": "Literature"
+  },
   "project": {
     "project": "Project",
     "projectId": "Project ID",
@@ -58,6 +70,9 @@
     "programme": "Programme",
     "fundedBy": "Funded by",
     "about": "About",
+    "rights": "Rights",
+    "rightsHolder": "Rights holder",
+    "author": "Author",
     "datasets": "Datasets",
     "gbifWillAttend": "Attended by GBIF Secretariat",
     "dataUsedInStudy": "Data referenced in study",
