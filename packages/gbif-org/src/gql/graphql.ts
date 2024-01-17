@@ -2992,7 +2992,7 @@ export type Occurrence = {
   elevationAccuracy?: Maybe<Scalars['Float']['output']>;
   endDayOfYear?: Maybe<Scalars['Int']['output']>;
   establishmentMeans?: Maybe<Scalars['String']['output']>;
-  eventDate?: Maybe<Scalars['DateTime']['output']>;
+  eventDate?: Maybe<Scalars['String']['output']>;
   eventID?: Maybe<Scalars['String']['output']>;
   eventRemarks?: Maybe<Scalars['String']['output']>;
   eventTime?: Maybe<Scalars['String']['output']>;
@@ -4923,6 +4923,7 @@ export type QueryCollectionSearchArgs = {
   fuzzyName?: InputMaybe<Scalars['String']['input']>;
   identifier?: InputMaybe<Scalars['String']['input']>;
   institution?: InputMaybe<Array<InputMaybe<Scalars['GUID']['input']>>>;
+  institutionKey?: InputMaybe<Array<InputMaybe<Scalars['GUID']['input']>>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   numberSpecimens?: InputMaybe<Scalars['String']['input']>;
@@ -5084,6 +5085,7 @@ export type QueryInstitutionSearchArgs = {
   displayOnNHCPortal?: InputMaybe<Scalars['Boolean']['input']>;
   fuzzyName?: InputMaybe<Scalars['String']['input']>;
   identifier?: InputMaybe<Scalars['String']['input']>;
+  institutionKey?: InputMaybe<Array<InputMaybe<Scalars['GUID']['input']>>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   numberSpecimens?: InputMaybe<Scalars['String']['input']>;
@@ -6437,7 +6439,7 @@ export type OccurrenceQueryVariables = Exact<{
 }>;
 
 
-export type OccurrenceQuery = { __typename?: 'Query', occurrence?: { __typename?: 'Occurrence', eventDate?: any | null, scientificName?: string | null, coordinates?: any | null, dataset?: { __typename?: 'Dataset', key: string, title?: string | null } | null } | null };
+export type OccurrenceQuery = { __typename?: 'Query', occurrence?: { __typename?: 'Occurrence', eventDate?: string | null, scientificName?: string | null, coordinates?: any | null, dataset?: { __typename?: 'Dataset', key: string, title?: string | null } | null } | null };
 
 export type OccurrenceSearchQueryVariables = Exact<{
   from?: InputMaybe<Scalars['Int']['input']>;
@@ -6445,7 +6447,7 @@ export type OccurrenceSearchQueryVariables = Exact<{
 }>;
 
 
-export type OccurrenceSearchQuery = { __typename?: 'Query', occurrenceSearch?: { __typename?: 'OccurrenceSearchResult', documents: { __typename?: 'OccurrenceDocuments', from: number, size: number, total: any, results: Array<{ __typename?: 'Occurrence', key?: number | null, scientificName?: string | null, eventDate?: any | null, coordinates?: any | null, county?: string | null, basisOfRecord?: string | null, datasetName?: Array<string | null> | null, publisherTitle?: string | null } | null> } } | null };
+export type OccurrenceSearchQuery = { __typename?: 'Query', occurrenceSearch?: { __typename?: 'OccurrenceSearchResult', documents: { __typename?: 'OccurrenceDocuments', from: number, size: number, total: any, results: Array<{ __typename?: 'Occurrence', key?: number | null, scientificName?: string | null, eventDate?: string | null, coordinates?: any | null, county?: string | null, basisOfRecord?: string | null, datasetName?: Array<string | null> | null, publisherTitle?: string | null } | null> } } | null };
 
 export type PublisherQueryVariables = Exact<{
   key: Scalars['ID']['input'];

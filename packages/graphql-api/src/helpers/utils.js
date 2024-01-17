@@ -256,4 +256,8 @@ function sanitize(dirty, { allowedTags = standardTags, wrapTables } = {}) {
   return modifiedHtml;
 }
 
-export { formattedCoordinates, isOccurrenceSequenced, getHtml, getExcerpt, simplifyUrlObjectKeys, translateContentfulResponse, excerpt, objectToQueryString, createLocalizedGbifHref };
+function isNoneEmptyArray(source) {
+  return source != null && Array.isArray(source) && source.length > 0;
+}
+
+export { formattedCoordinates, isOccurrenceSequenced, getHtml, getExcerpt, simplifyUrlObjectKeys, translateContentfulResponse, excerpt, objectToQueryString, createLocalizedGbifHref, isNoneEmptyArray };

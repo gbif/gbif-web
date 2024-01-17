@@ -23,7 +23,7 @@ const typeDef = gql`
     searchable: Boolean!
     homepage: Boolean!
     meta: JSON
-    # blocks: [Block!]
+    blocks: [BlockItem!]
   }
 
   type FundingOrganisation {

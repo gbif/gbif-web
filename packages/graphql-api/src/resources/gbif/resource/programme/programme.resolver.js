@@ -1,8 +1,6 @@
-import { getHtml, excerpt, trustedTags, createLocalizedGbifHref } from "#/helpers/utils";
-
-function isNoneEmptyArray(source) {
-  return source != null && Array.isArray(source) && source.length > 0;
-}
+import { getHtml, excerpt, trustedTags, createLocalizedGbifHref, isNoneEmptyArray } from "#/helpers/utils";
+import logger from "#/logger";
+import { KNOWN_BLOCK_TYPES } from "../composition/acceptedTypes";
 
 /**
  * fieldName: (parent, args, context, info) => data;
@@ -33,6 +31,18 @@ export default {
       const ids = src.news.map(news => news.id);
       return Promise.all(ids.map(id => dataSources.resourceAPI.getEntryById({ id, preview: false, locale })));
     },
+    blocks: ({blocks}, args, { dataSources, locale, preview }) => {
+      if (!isNoneEmptyArray(blocks)) return null;
+
+      const ids = blocks.map(block => block.id);
+      // get all and subsequently filter out the ones that are not allowed (not in include list : HeaderBlock | FeatureBlock | FeaturedTextBlock | CarouselBlock | MediaBlock | MediaCountBlock | CustomComponentBlock)
+      return Promise.all(ids.map(id => dataSources.resourceAPI.getEntryById({ id, preview, locale })))
+      .then(results => results.filter(result => {
+        const knownType = KNOWN_BLOCK_TYPES[result.contentType];
+        if (!knownType) logger.warn(`Unknown content type for a block in programme.resolver.js: ${result.contentType}`);
+        return knownType;
+      }));
+    }
     // call: (src, _, context) => context.dataSources.getEntryById(src.call.id, false, context.locale),
     // gbifHref: (src, _, context) => createLocalizedGbifHref(context.locale, 'project', src.id),
   }
