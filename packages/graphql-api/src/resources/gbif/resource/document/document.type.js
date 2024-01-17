@@ -6,11 +6,11 @@ const typeDef = gql`
   }
 
   type Document {
-    id: ID
+    id: ID!
+    title: String!
     gbifHref: String
     createdAt: DateTime
     document: DocumentAsset
-    title: String
     updatedAt: DateTime
     summary: String
     primaryLink: Link

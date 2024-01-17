@@ -6,9 +6,9 @@ const typeDef = gql`
   }
 
   type DataUse {
-    id: ID
+    id: ID!
     gbifHref: String
-    title: String
+    title: String!
     summary: String
     body: String
     excerpt: String

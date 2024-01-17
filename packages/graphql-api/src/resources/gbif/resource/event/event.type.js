@@ -7,8 +7,8 @@ const typeDef = gql`
 
   type Event {
     id: ID!
-    gbifHref: String
     title: String!
+    gbifHref: String
     summary: String
     body: String
     excerpt: String

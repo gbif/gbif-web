@@ -6,9 +6,9 @@ const typeDef = gql`
   }
 
   type Help {
-    id: ID
+    id: ID!
     identifier: String
-    title: String
+    title: String!
     body: String
     excerpt: String
     createdAt: DateTime

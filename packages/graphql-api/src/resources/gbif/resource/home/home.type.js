@@ -6,8 +6,8 @@ const typeDef = gql`
   }
 
   type Home {
-    title: String
-    id: String
+    title: String!
+    id: ID!
     children: [MenuItem]
     aboutBody: String
     # blocks: Blocks

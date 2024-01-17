@@ -6,11 +6,11 @@ const typeDef = gql`
   }
 
   type Call {
-    id: ID
+    id: ID!
+    title: String!
     createdAt: DateTime
     updatedAt: DateTime
     acronym: String
-    title: String
     body: String
     excerpt: String
     meta: JSON
