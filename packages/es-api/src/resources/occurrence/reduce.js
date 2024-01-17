@@ -229,7 +229,7 @@ function reduce(item) {
     elevationAccuracy:                  source.elevationAccuracy,
     endDayOfYear:                       source.endDayOfYear,
     establishmentMeans:                 vocabularFallback(source.establishmentMeans),
-    eventDate:                          source.eventDateSingle,
+    eventDate:                          source.eventDateInterval ?? (source.eventDateSingle ? source.eventDateSingle.substring(0,10) : undefined),
     identifiedBy:                       source.identifiedBy,
     individualCount:                    source.individualCount,
     institutionCode:                    source.institutionCode,

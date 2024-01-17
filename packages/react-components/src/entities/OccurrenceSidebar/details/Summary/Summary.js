@@ -4,7 +4,7 @@ import ThemeContext from '../../../../style/themes/ThemeContext';
 import React, { useContext, useState } from 'react';
 import intersection from 'lodash/intersection';
 import PropTypes from 'prop-types';
-import { Accordion, Properties, GalleryTiles, GalleryTile } from '../../../../components';
+import { Accordion, Properties, GalleryTiles, GalleryTile, FormattedDateRange } from '../../../../components';
 import { TaxonClassification } from "../TaxonClassification/TaxonClassification"
 const { Term: T, Value: V } = Properties;
 import { FormattedMessage, FormattedDate } from 'react-intl';
@@ -73,10 +73,7 @@ export function Summary({ occurrence, fieldGroups, loading, setActiveImage, ...p
         <TaxonClassification ranks={occurrence.gbifClassification.classification} />
       </V>
 
-      <FieldPair term={fieldGroups?.Event?.eventDate} occurrence={occurrence} fieldGroups={fieldGroups} formattedValue={<FormattedDate value={fieldGroups?.Event?.eventDate?.value}
-        year="numeric"
-        month="long"
-        day="2-digit" />} />
+      <FieldPair term={fieldGroups?.Event?.eventDate} occurrence={occurrence} fieldGroups={fieldGroups} formattedValue={<FormattedDateRange date={fieldGroups?.Event?.eventDate?.value}/>} />
 
       <T><FormattedMessage
         id={`occurrenceFieldNames.dataset`}

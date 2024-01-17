@@ -15,6 +15,7 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import * as css from './styles';
 import { Tooltip } from '../Tooltip/Tooltip';
+import { FormattedDateRange } from '../Message/Message';
 
 export function IconFeatures({
   isSequenced,
@@ -62,10 +63,7 @@ export function IconFeatures({
     {eventDate && <Tooltip title={<FormattedMessage id="occurrenceDetails.features.eventDate" />}><div>
       <MdEvent />
       <span>
-        <FormattedDate value={eventDate}
-          year="numeric"
-          month="long"
-          day="2-digit" />
+        <FormattedDateRange date={eventDate} />
       </span>
     </div></Tooltip>}
     {formattedCoordinates && <Tooltip title={<FormattedMessage id="occurrenceDetails.features.hasCoordinates" />}><div><MdLocationOn />{!iconsOnly && <span>{formattedCoordinates}</span>}</div></Tooltip>}

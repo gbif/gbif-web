@@ -75,7 +75,7 @@ const typeDef = gql`
     elevationAccuracy: Float
     endDayOfYear: Int
     establishmentMeans: String
-    eventDate: DateTime
+    eventDate: String
     eventID: String
     eventRemarks: String
     eventTime: String

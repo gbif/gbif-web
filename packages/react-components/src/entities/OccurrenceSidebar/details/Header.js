@@ -4,7 +4,7 @@ import React, { useContext } from 'react';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import ThemeContext from '../../../style/themes/ThemeContext';
 import * as css from '../styles';
-import { Row, Col, IconFeatures, Eyebrow } from "../../../components";
+import { Row, Col, IconFeatures, Eyebrow, FormattedDateRange } from "../../../components";
 import { Globe } from './Globe';
 import useBelow from '../../../utils/useBelow';
 
@@ -30,10 +30,7 @@ export function Header({
           style={{fontSize: '80%'}}
           prefix={<FormattedMessage id="occurrenceDetails.occurrence" />} 
           suffix={data?.occurrence?.eventDate ? 
-            <FormattedDate value={data?.occurrence?.eventDate}
-              year="numeric"
-              month="long"
-              day="2-digit" /> : 
+            <FormattedDateRange date={data?.occurrence?.eventDate} /> : 
             <FormattedMessage id="phrases.unknownDate"/>} 
             />
         <h3 dangerouslySetInnerHTML={{ __html: data?.occurrence?.gbifClassification?.usage?.formattedName }}></h3>

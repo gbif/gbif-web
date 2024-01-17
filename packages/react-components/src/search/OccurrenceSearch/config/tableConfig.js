@@ -1,5 +1,5 @@
 import React from 'react';
-import { IconFeatures, TextButton, Tooltip } from '../../../components';
+import { FormattedDateRange, IconFeatures, TextButton, Tooltip } from '../../../components';
 import { InlineFilterChip, LinkOption } from '../../../widgets/Filter/utils/FilterChip';
 // import { MdPreview as OpenInSideBar} from 'react-icons/md';
 import { RiSideBarFill as OpenInSideBar } from 'react-icons/ri';
@@ -94,6 +94,28 @@ export const tableConfig = {
       filterKey: 'year', //optional
       value: {
         key: 'year',
+        formatter: (value, occurrence) => {
+          if (!occurrence.eventDate) return null;
+          return <span style={{whiteSpace: 'nowrap'}}>
+            <FormattedDateRange date={occurrence.eventDate} format={{year: 'numeric'}}/>
+          </span>
+        }
+      },
+      cellFilter: true
+    },
+    {
+      name: 'eventDate',
+      trKey: 'filters.eventDate.name',
+      filterKey: 'eventDate', //optional
+      value: {
+        key: 'eventDate',
+        formatter: (value, occurrence) => {
+          if (!occurrence.eventDate) return null;
+
+          return <span style={{whiteSpace: 'nowrap'}}>
+            <FormattedDateRange date={occurrence.eventDate} />
+          </span>
+        }
       },
       cellFilter: true
     },
@@ -209,10 +231,10 @@ export const tableConfig = {
         formatter: (value, item) => {
           if (!value) return null;
           return <LinkOption discreet type='institutionKey' id={item.institution.key} >
-          <InlineFilterChip filterName="institutionKey" values={[item.institution.key]}>
-            <span data-loader>{item.institution.name} <span>({item.institution.code})</span></span>
-          </InlineFilterChip>
-        </LinkOption>
+            <InlineFilterChip filterName="institutionKey" values={[item.institution.key]}>
+              <span data-loader>{item.institution.name} <span>({item.institution.code})</span></span>
+            </InlineFilterChip>
+          </LinkOption>
         },
       },
       width: 'wide'
@@ -226,10 +248,10 @@ export const tableConfig = {
         formatter: (value, item) => {
           if (!value) return null;
           return <LinkOption discreet type='collectionKey' id={item.collection.key} >
-          <InlineFilterChip filterName="collectionKey" values={[item.collection.key]}>
-            <span data-loader>{item.collection.name} <span>({item.collection.code})</span></span>
-          </InlineFilterChip>
-        </LinkOption>
+            <InlineFilterChip filterName="collectionKey" values={[item.collection.key]}>
+              <span data-loader>{item.collection.name} <span>({item.collection.code})</span></span>
+            </InlineFilterChip>
+          </LinkOption>
         },
       },
       width: 'wide'

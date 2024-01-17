@@ -554,9 +554,7 @@
     "simpleName": "eventDate",
     "qualifiedName": "http://rs.tdwg.org/dwc/terms/eventDate",
     "group": "Event",
-    "source": "DwcTerm",
-    "esField": "eventDateSingle",
-    "renderAsType": "date"
+    "source": "DwcTerm"
   },
   {
     "simpleName": "eventTime",
