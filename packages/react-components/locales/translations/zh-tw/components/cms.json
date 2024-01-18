@@ -1,0 +1,81 @@
+{
+  "contentType": {
+    "event": "活動",
+    "news": "新聞",
+    "resource": "資源",
+    "dataUse": "資料使用",
+    "project": "專案",
+    "participant": "會員",
+    "programme": "計畫",
+    "document": "文件",
+    "tool": "工具",
+    "literature": "文獻"
+  },
+  "project": {
+    "project": "專案",
+    "projectId": "專案 ID",
+    "projectIdentifier": "專案識別碼",
+    "grantType": "獎助類型",
+    "duration": "期間",
+    "title": "標題",
+    "start": "開始",
+    "end": "結束",
+    "fundsAllocated": "撥給預算",
+    "matchingFunds": "預估配合款",
+    "funding": "經費來源",
+    "coFunding": "共同資助",
+    "fundedBy": "資助單位",
+    "coFundedBy": "共同資助單位",
+    "typeOfGrant": "獎助類型",
+    "projectStart": "專案開始",
+    "status": "狀態",
+    "programme": "計畫",
+    "contractCountry": "國家或地區",
+    "newsAndEvents": "新聞 & 活動",
+    "call": "徵求",
+    "projectLead": "專案負責人",
+    "contactDetalils": "聯絡細節",
+    "partners": "夥伴"
+  },
+  "datause": {
+    "dataViaGbif": ""
+  },
+  "literature": {
+    "keywords": "關鍵字"
+  },
+  "auxiliary": {
+    "subject": "主旨",
+    "citation": "引用",
+    "organisingParticipants": "合辦會員"
+  },
+  "document": {
+    "download": "下載",
+    "readDocument": "回到文件"
+  },
+  "resource": {
+    "resources": "資源",
+    "contactHelpdesk": "聯繫服務台",
+    "addToCalendar": "新增至行事曆",
+    "venue": "地點",
+    "location": "地點",
+    "country": "國家或地區",
+    "noDatasets": "無資料集可顯示",
+    "noNewsOrEvents": "",
+    "howToLinkDatasets": "",
+    "howToLinkEvents": "",
+    "when": "於",
+    "language": "語言",
+    "viewOnGBIF": "在 GBIF 上查看",
+    "published": "已發布",
+    "programme": "計畫",
+    "fundedBy": "資助單位",
+    "about": "關於",
+    "rights": "權利",
+    "rightsHolder": "權利擁有者",
+    "author": "作者",
+    "datasets": "資料集",
+    "gbifWillAttend": "GBIF 秘書處出席",
+    "dataUsedInStudy": "用於研究的資料",
+    "resourceDescription": "於全球生物多樣性資訊機構搜尋來源。自由且公開存取的生物多樣性資料。"
+  }
+}
