@@ -1,0 +1,81 @@
+{
+  "contentType": {
+    "event": "Подія",
+    "news": "Новини",
+    "resource": "Ресурс",
+    "dataUse": "Використання даних",
+    "project": "Проєкт",
+    "participant": "Учасник",
+    "programme": "Програма",
+    "document": "Документ",
+    "tool": "Інструмент",
+    "literature": "Літературні дані"
+  },
+  "project": {
+    "project": "Проєкт",
+    "projectId": "ID проєкту",
+    "projectIdentifier": "Ідентифікатор проєкту",
+    "grantType": "Тип гранту",
+    "duration": "Тривалість",
+    "title": "Назва",
+    "start": "Початок",
+    "end": "Кінець",
+    "fundsAllocated": "Виділені кошти",
+    "matchingFunds": "Очікуване спільне фінансування",
+    "funding": "Фінансування",
+    "coFunding": "Спільне фінансування",
+    "fundedBy": "Фінансується",
+    "coFundedBy": "Фінансується спільно",
+    "typeOfGrant": "Тип гранту",
+    "projectStart": "Початок проєкту",
+    "status": "Статус",
+    "programme": "Програма",
+    "contractCountry": "Країна або територія",
+    "newsAndEvents": "Новини та заходи",
+    "call": "Конкурс заявок",
+    "projectLead": "Керівник проєкту",
+    "contactDetalils": "Контактна інформація",
+    "partners": "Партнери"
+  },
+  "datause": {
+    "dataViaGbif": ""
+  },
+  "literature": {
+    "keywords": "Ключові слова"
+  },
+  "auxiliary": {
+    "subject": "Тема",
+    "citation": "Цитування",
+    "organisingParticipants": "Організатори"
+  },
+  "document": {
+    "download": "Завантажити",
+    "readDocument": "Перейти до документа"
+  },
+  "resource": {
+    "resources": "Ресурси",
+    "contactHelpdesk": "Звернутися до служби підтримки",
+    "addToCalendar": "Додати до календаря",
+    "venue": "Місце проведення",
+    "location": "Місцезнаходження",
+    "country": "Країна або територія",
+    "noDatasets": "Немає наборів даних для відображення",
+    "noNewsOrEvents": "",
+    "howToLinkDatasets": "",
+    "howToLinkEvents": "",
+    "when": "Коли",
+    "language": "Мова",
+    "viewOnGBIF": "Переглянути на GBIF",
+    "published": "Опубліковано",
+    "programme": "Програма",
+    "fundedBy": "Фінансується",
+    "about": "Відомості про видавця даних",
+    "rights": "Права",
+    "rightsHolder": "Правовласник",
+    "author": "Автор",
+    "datasets": "Наборів даних",
+    "gbifWillAttend": "За участі Секретаріату GBIF",
+    "dataUsedInStudy": "Дані, використані у дослідженні",
+    "resourceDescription": "Пошук матеріалів у Глобальній інформаційній системі з біорізноманіття. Вільний та відкритий доступ до даних з біорізноманіття."
+  }
+}
