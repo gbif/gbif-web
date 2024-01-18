@@ -7,7 +7,7 @@ const typeDef = gql`
 
   type GbifProject {
     id: ID!
-    gbifHref: String
+    gbifHref: String!
     # leadPartner: ParticipantOrOrganisation
     title: String!
     officialTitle: String

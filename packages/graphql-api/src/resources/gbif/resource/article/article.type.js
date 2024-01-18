@@ -7,7 +7,7 @@ const typeDef = gql`
 
   type Article {
     id: ID!
-    gbifHref: String
+    gbifHref: String!
     title: String!
     summary: String
     body: String
