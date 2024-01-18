@@ -1,0 +1,81 @@
+{
+  "contentType": {
+    "event": "Arrangement",
+    "news": "Nyheder",
+    "resource": "Ressource",
+    "dataUse": "Databrug",
+    "project": "Projekt",
+    "participant": "Participant",
+    "programme": "Program",
+    "document": "Dokument",
+    "tool": "Værktøj",
+    "literature": "Litteratur"
+  },
+  "project": {
+    "project": "Projekt",
+    "projectId": "Projekt-ID",
+    "projectIdentifier": "Projektidentifikator",
+    "grantType": "Tilskudstype",
+    "duration": "Varighed",
+    "title": "Titel",
+    "start": "Start",
+    "end": "Slut",
+    "fundsAllocated": "Midler tildelt",
+    "matchingFunds": "Est. sam-finansiering",
+    "funding": "Finansiering",
+    "coFunding": "Sam-finansiering",
+    "fundedBy": "Finansieret af",
+    "coFundedBy": "Samfinansieret af",
+    "typeOfGrant": "Type af tilskud",
+    "projectStart": "Projektstart",
+    "status": "",
+    "programme": "Program",
+    "contractCountry": "Land eller område",
+    "newsAndEvents": "Nyheder & arrangementer",
+    "call": "Call",
+    "projectLead": "Projektleder",
+    "contactDetalils": "Kontaktinformation",
+    "partners": "Partnere"
+  },
+  "datause": {
+    "dataViaGbif": ""
+  },
+  "literature": {
+    "keywords": "Keywords"
+  },
+  "auxiliary": {
+    "subject": "",
+    "citation": "",
+    "organisingParticipants": "Organiserende participanter"
+  },
+  "document": {
+    "download": "Download",
+    "readDocument": ""
+  },
+  "resource": {
+    "resources": "Ressourcer",
+    "contactHelpdesk": "Kontakt helpdesk",
+    "addToCalendar": "Føj til kalender",
+    "venue": "Mødested",
+    "location": "",
+    "country": "Land eller område",
+    "noDatasets": "Der er ingen datasæt at vise",
+    "noNewsOrEvents": "",
+    "howToLinkDatasets": "",
+    "howToLinkEvents": "",
+    "when": "Hvornår",
+    "language": "Sprog",
+    "viewOnGBIF": "Se på GBIF",
+    "published": "Udgivet",
+    "programme": "Program",
+    "fundedBy": "Finansieret af",
+    "about": "Om",
+    "rights": "Rettigheder",
+    "rightsHolder": "Rettighedshaver",
+    "author": "Forfatter",
+    "datasets": "Datasæt",
+    "gbifWillAttend": "GBIF sekretariatet deltager",
+    "dataUsedInStudy": "Data anvendt i studiet",
+    "resourceDescription": "Søg efter ressourcer i Global Biodiversity Information Facility. Gratis og åben adgang til biodiversitetsdata."
+  }
+}
