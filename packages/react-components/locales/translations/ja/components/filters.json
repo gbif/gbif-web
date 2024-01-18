@@ -47,6 +47,16 @@
     "count": "",
     "description": ""
   },
+  "audiences": {
+    "name": "利用者",
+    "count": "",
+    "description": ""
+  },
+  "purposes": {
+    "name": "トピック",
+    "count": "",
+    "description": ""
+  },
   "eventDate": {
     "name": "イベント日付",
     "count": "GBIFがアノーテーションしたアーカイブ",

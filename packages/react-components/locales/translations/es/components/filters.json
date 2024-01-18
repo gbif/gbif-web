@@ -47,6 +47,16 @@
     "count": "",
     "description": "¿Cuáles son los temas del registro?"
   },
+  "audiences": {
+    "name": "Audiencia",
+    "count": "{num, plural, one { audiencia } other {# audiencias}}",
+    "description": "A quién va dirigido el recurso."
+  },
+  "purposes": {
+    "name": "Tema",
+    "count": "{num, plural, one { propósito } other {# propósitos}}",
+    "description": "Cuáles son los fines del recurso."
+  },
   "eventDate": {
     "name": "Fecha del Evento",
     "count": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",

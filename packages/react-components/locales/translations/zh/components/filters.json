@@ -47,6 +47,16 @@
     "count": "",
     "description": ""
   },
+  "audiences": {
+    "name": "读者",
+    "count": "",
+    "description": ""
+  },
+  "purposes": {
+    "name": "主题",
+    "count": "",
+    "description": "资源的用途是什么。"
+  },
   "eventDate": {
     "name": "事件日期",
     "count": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",

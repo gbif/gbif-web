@@ -47,6 +47,16 @@
     "count": "{num, plural, one { sujet } other {# sujets}}",
     "description": "Quels sont les sujets de l'enregistrement."
   },
+  "audiences": {
+    "name": "Public",
+    "count": "{num, plural, one { audience } other {# audiences}}",
+    "description": "Quelle est l'audience de la ressource. "
+  },
+  "purposes": {
+    "name": "Thème",
+    "count": "{num, plural, one { but } other {# buts}}",
+    "description": "Quels sont les buts de la ressource."
+  },
   "eventDate": {
     "name": "Date de l'événement",
     "count": "Archive annotée par GBIF",

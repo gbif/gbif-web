@@ -47,6 +47,16 @@
     "count": "",
     "description": ""
   },
+  "audiences": {
+    "name": "Аудитория",
+    "count": "{num, plural, one { пользователь } few {# audiences} many {# audiences} other {# audiences}}",
+    "description": "Кто является пользователем ресурса-материала."
+  },
+  "purposes": {
+    "name": "Тематика",
+    "count": "{num, plural, one { цель } few {# purposes} many {# purposes} other {# purposes}}",
+    "description": "Каковы цели ресурса-материала."
+  },
   "eventDate": {
     "name": "Дата события",
     "count": "Архив, аннотированный GBIF",

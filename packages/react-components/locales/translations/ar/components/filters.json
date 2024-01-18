@@ -47,6 +47,16 @@
     "count": "",
     "description": ""
   },
+  "audiences": {
+    "name": "جمهور",
+    "count": "",
+    "description": ""
+  },
+  "purposes": {
+    "name": "موضوع",
+    "count": "",
+    "description": ""
+  },
   "eventDate": {
     "name": "تاريخ الحدث",
     "count": "أرشيف شروح \"جيبف\"",
