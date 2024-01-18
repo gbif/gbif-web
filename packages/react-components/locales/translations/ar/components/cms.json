@@ -1,0 +1,81 @@
+{
+  "contentType": {
+    "event": "الحدث",
+    "news": "أخبار",
+    "resource": "مورد",
+    "dataUse": "استعمال البيانات",
+    "project": "مشروع",
+    "participant": "مشارك",
+    "programme": "البرنامج",
+    "document": "مستند",
+    "tool": "أداة",
+    "literature": "مراجع"
+  },
+  "project": {
+    "project": "مشروع",
+    "projectId": "معرف المشروع",
+    "projectIdentifier": "معرف المشروع",
+    "grantType": "نوع المنحة",
+    "duration": "المدّة",
+    "title": "عنوان",
+    "start": "البداية",
+    "end": "النهاية",
+    "fundsAllocated": "التمويل المخصص",
+    "matchingFunds": "التكلفة التقديرية للتمويل المشترك",
+    "funding": "التمويل",
+    "coFunding": "التمويل المشترك",
+    "fundedBy": "مموّل بواسطة",
+    "coFundedBy": "تمويل مشترك بواسطة",
+    "typeOfGrant": "نوع المنحة",
+    "projectStart": "بداية المشروع",
+    "status": "الحالة",
+    "programme": "البرنامج",
+    "contractCountry": "بلد او منطقة",
+    "newsAndEvents": "الأخبار و الأحداث",
+    "call": "دعوة",
+    "projectLead": "مدير المشروع",
+    "contactDetalils": "تفاصيل جهة الاتصال",
+    "partners": "الشركاء"
+  },
+  "datause": {
+    "dataViaGbif": ""
+  },
+  "literature": {
+    "keywords": "الكلمات المفتاحية"
+  },
+  "auxiliary": {
+    "subject": "موضوع",
+    "citation": "اقتباس",
+    "organisingParticipants": "تنظيم المشاركون"
+  },
+  "document": {
+    "download": "تنزيل",
+    "readDocument": "الرجوع إلى المستند"
+  },
+  "resource": {
+    "resources": "المصادر",
+    "contactHelpdesk": "اتصل بمكتب المساعدة",
+    "addToCalendar": "اضف الى التقويم",
+    "venue": "مكان ",
+    "location": "موقع",
+    "country": "بلد او منطقة",
+    "noDatasets": "لا توجد مجموعات بيانات لعرضها",
+    "noNewsOrEvents": "",
+    "howToLinkDatasets": "",
+    "howToLinkEvents": "",
+    "when": "متى",
+    "language": "لغة",
+    "viewOnGBIF": "مشاهدة على \"جبيف\"",
+    "published": "تم نشره",
+    "programme": "البرنامج",
+    "fundedBy": "مموّل بواسطة",
+    "about": "حول",
+    "rights": "حقوق",
+    "rightsHolder": "صاحب الحقوق",
+    "author": "المؤلف",
+    "datasets": "مجموعات البيانات",
+    "gbifWillAttend": "تم الحضور من قبل امانة المرفق العالمي لمعلومات التنوع الحيوي",
+    "dataUsedInStudy": "بيانات  ذكرت في الدراسة",
+    "resourceDescription": "ابحث عن المصادر ضمن المرفق العالمي لمعلومات التنوع الحيوي.  بيانات التنوع الحيوي متاحة للجميع وبشكل مجاني"
+  }
+}
