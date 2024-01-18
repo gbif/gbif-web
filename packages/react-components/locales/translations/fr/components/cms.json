@@ -1,0 +1,81 @@
+{
+  "contentType": {
+    "event": "Événement",
+    "news": "Actualités",
+    "resource": "Ressource",
+    "dataUse": "Utilisation des données",
+    "project": "Projet",
+    "participant": "Participant",
+    "programme": "Programme",
+    "document": "Document",
+    "tool": "Outil",
+    "literature": "Littérature"
+  },
+  "project": {
+    "project": "Projet",
+    "projectId": "Identifiant du projet",
+    "projectIdentifier": "Identifiant de projet",
+    "grantType": "Type de subvention",
+    "duration": "Durée",
+    "title": "Titre",
+    "start": "Début",
+    "end": "Fin",
+    "fundsAllocated": "Fonds alloués",
+    "matchingFunds": "Estimation du co-financement",
+    "funding": "Financement",
+    "coFunding": "Co-financement",
+    "fundedBy": "Financé par",
+    "coFundedBy": "Co-financé par",
+    "typeOfGrant": "Type de subvention",
+    "projectStart": "Début du projet",
+    "status": "Statut",
+    "programme": "Programme",
+    "contractCountry": "Pays",
+    "newsAndEvents": "Actualités et événements",
+    "call": "Appel",
+    "projectLead": "Chef de projet",
+    "contactDetalils": "Détails du contact",
+    "partners": "Partenaires"
+  },
+  "datause": {
+    "dataViaGbif": ""
+  },
+  "literature": {
+    "keywords": "Mots-clés"
+  },
+  "auxiliary": {
+    "subject": "Sujet",
+    "citation": "Citation",
+    "organisingParticipants": "Participants organisateurs"
+  },
+  "document": {
+    "download": "Télécharger",
+    "readDocument": "Aller au document"
+  },
+  "resource": {
+    "resources": "Ressources",
+    "contactHelpdesk": "Contacter le support technique",
+    "addToCalendar": "Ajouter au calendrier",
+    "venue": "Lieu",
+    "location": "Lieu",
+    "country": "Pays",
+    "noDatasets": "Il n'y a aucun jeu de données à afficher",
+    "noNewsOrEvents": "",
+    "howToLinkDatasets": "",
+    "howToLinkEvents": "",
+    "when": "Quand",
+    "language": "Langue",
+    "viewOnGBIF": "Voir sur GBIF",
+    "published": "Publié",
+    "programme": "Programme",
+    "fundedBy": "Financé par",
+    "about": "À propos",
+    "rights": "Droits",
+    "rightsHolder": "Titulaire de droits",
+    "author": "Auteur",
+    "datasets": "Jeux de données",
+    "gbifWillAttend": "Participation du Secrétariat GBIF",
+    "dataUsedInStudy": "Données utilisées dans l’étude",
+    "resourceDescription": "Rechercher des ressources dans la Global Biodiversity Information Facility. Accès libre et gratuit aux données sur la biodiversité."
+  }
+}
