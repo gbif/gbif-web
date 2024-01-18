@@ -1,0 +1,81 @@
+{
+  "contentType": {
+    "event": "Event",
+    "news": "News",
+    "resource": "Resource",
+    "dataUse": "Data use",
+    "project": "Project",
+    "participant": "Participant",
+    "programme": "Programme",
+    "document": "Document",
+    "tool": "Tool",
+    "literature": "Literature"
+  },
+  "project": {
+    "project": "Project",
+    "projectId": "Project ID",
+    "projectIdentifier": "Project identifier",
+    "grantType": "Grant type",
+    "duration": "Duration",
+    "title": "Title",
+    "start": "Start",
+    "end": "End",
+    "fundsAllocated": "Funding allocated",
+    "matchingFunds": "Est. co-funding",
+    "funding": "Funding",
+    "coFunding": "Co funding",
+    "fundedBy": "Funded by",
+    "coFundedBy": "Co funded by",
+    "typeOfGrant": "Type of grant",
+    "projectStart": "Project start",
+    "status": "Status",
+    "programme": "Programme",
+    "contractCountry": "Country or area",
+    "newsAndEvents": "News & events",
+    "call": "Call",
+    "projectLead": "Project lead",
+    "contactDetalils": "Contact details",
+    "partners": "Partners"
+  },
+  "datause": {
+    "dataViaGbif": "GBIF-mediated data resources used"
+  },
+  "literature": {
+    "keywords": "Keywords"
+  },
+  "auxiliary": {
+    "subject": "Subject",
+    "citation": "Citation",
+    "organisingParticipants": "Organizing Participants"
+  },
+  "document": {
+    "download": "Download",
+    "readDocument": "Go to document"
+  },
+  "resource": {
+    "resources": "Resources",
+    "contactHelpdesk": "Contact helpdesk",
+    "addToCalendar": "Add to calendar",
+    "venue": "Venue",
+    "location": "Location",
+    "country": "Country or area",
+    "noDatasets": "There are no datasets to show",
+    "noNewsOrEvents": "No news or events available",
+    "howToLinkDatasets": "How to link a dataset to a project",
+    "howToLinkEvents": "How to add events to a project page",
+    "when": "When",
+    "language": "Language",
+    "viewOnGBIF": "View on GBIF",
+    "published": "Published",
+    "programme": "Programme",
+    "fundedBy": "Funded by",
+    "about": "About",
+    "rights": "Rights",
+    "rightsHolder": "Rights holder",
+    "author": "Author",
+    "datasets": "Datasets",
+    "gbifWillAttend": "Attended by GBIF Secretariat",
+    "dataUsedInStudy": "Data referenced in study",
+    "resourceDescription": "Search for resources in Global Biodiversity Information Facility. Free and Open Access to Biodiversity Data."
+  }
+}
