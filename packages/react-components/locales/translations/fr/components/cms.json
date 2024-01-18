@@ -38,7 +38,7 @@
     "partners": "Partenaires"
   },
   "datause": {
-    "dataViaGbif": ""
+    "dataViaGbif": "Ressources de données gérées par le GBIF utilisées"
   },
   "literature": {
     "keywords": "Mots-clés"
@@ -60,9 +60,9 @@
     "location": "Lieu",
     "country": "Pays",
     "noDatasets": "Il n'y a aucun jeu de données à afficher",
-    "noNewsOrEvents": "",
-    "howToLinkDatasets": "",
-    "howToLinkEvents": "",
+    "noNewsOrEvents": "Aucune actualité ou événements disponibles",
+    "howToLinkDatasets": "Comment lier un jeu de données à un projet",
+    "howToLinkEvents": "Comment ajouter des événements à une page de projet",
     "when": "Quand",
     "language": "Langue",
     "viewOnGBIF": "Voir sur GBIF",
