@@ -38,7 +38,7 @@
     "partners": "Партнеры"
   },
   "datause": {
-    "dataViaGbif": ""
+    "dataViaGbif": "Использованы предоставленные GBIF ресурсы данных"
   },
   "literature": {
     "keywords": "Ключевые слова"
@@ -50,7 +50,7 @@
   },
   "document": {
     "download": "Загрузить",
-    "readDocument": ""
+    "readDocument": "Перейти к документу"
   },
   "resource": {
     "resources": "Материалы",
@@ -60,9 +60,9 @@
     "location": "Местонахождение (топоним)",
     "country": "Страна (территория)",
     "noDatasets": "Нет наборов данных",
-    "noNewsOrEvents": "",
-    "howToLinkDatasets": "",
-    "howToLinkEvents": "",
+    "noNewsOrEvents": "Нет никаких новостей или событий",
+    "howToLinkDatasets": "Как связать набор данных с проектом",
+    "howToLinkEvents": "Как добавить события на страницу проекта",
     "when": "Когда",
     "language": "Язык",
     "viewOnGBIF": "Информация на GBIF.org",
