@@ -81,7 +81,7 @@ module.exports = {
       },
     },
     borderRadius: {
-      lg: "var(--borderRadiusPx) * 2",
+      lg: "calc(var(--borderRadiusPx) * 2)",
       md: "var(--borderRadiusPx)",
       sm: "calc(var(--borderRadiusPx) / 2)",
     },
