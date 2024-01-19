@@ -47,6 +47,9 @@ export function HomePage(): React.ReactElement {
               <li>
                 <DynamicLink className="me-4" to="/programme/82243">Programme BID</DynamicLink>
               </li>
+              <li>
+                <DynamicLink className="me-4" to="/composition/3fvWSwDCj8tZBpRFiWC8QQ">Composition test page</DynamicLink>
+              </li>
             </ul>
           </section>
         </div>

@@ -19,6 +19,18 @@ export default {
   Composition: {
     title: src => getHtml(src.title, { inline: true }),
     summary: src => getHtml(src.summary),
+    blocks: ({blocks}, args, { dataSources, locale, preview }) => {
+      if (!isNoneEmptyArray(blocks)) return null;
+
+      const ids = blocks.map(block => block.id);
+      // get all and subsequently filter out the ones that are not allowed (not in include list : HeaderBlock | FeatureBlock | FeaturedTextBlock | CarouselBlock | MediaBlock | MediaCountBlock | CustomComponentBlock)
+      return Promise.all(ids.map(id => dataSources.resourceAPI.getEntryById({ id, preview, locale })))
+      .then(results => results.filter(result => {
+        const knownType = KNOWN_BLOCK_TYPES[result.contentType];
+        if (!knownType) logger.warn(`Unknown content type for a block in programme.resolver.js: ${result.contentType}`);
+        return knownType;
+      }));
+    }
   },
   BlockItem: {
     __resolveType: src => {

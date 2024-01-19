@@ -30,6 +30,7 @@
     "@tanstack/react-table": "^8.10.7",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
+    "embla-carousel-react": "^8.0.0-rc19",
     "express": "^4.18.2",
     "font-color-contrast": "^11.1.0",
     "object-hash": "^3.0.0",

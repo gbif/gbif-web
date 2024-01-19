@@ -17,6 +17,7 @@ const typeDef = gql`
     keywords: [String]
     urlAlias: String
     machineIdentifier: String
+    blocks: [BlockItem!]
   }
 
   union BlockItem = ${Object.values(KNOWN_BLOCK_TYPES).join(' | ')}
@@ -55,6 +56,7 @@ const typeDef = gql`
     body: String
     backgroundColour: String
     contentType: String
+    primaryImage: AssetImage
   }
 
   type CarouselBlock {

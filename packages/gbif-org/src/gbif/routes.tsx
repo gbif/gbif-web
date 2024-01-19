@@ -27,6 +27,7 @@ import { Article, articleLoader } from '@/routes/resource/key/article/article';
 import { Tool, toolLoader } from '@/routes/resource/key/tool/tool';
 import { Project, projectLoader, AboutTab as ProjectAboutTab, DatasetsTab as ProjectDatasetsTab, projectNewsLoader, projectDatasetsLoader, NewsTab as ProjectNewsTab, projectAboutLoader } from '@/routes/resource/key/project';
 import { Programme, ProgrammeSkeleton, programmeLoader } from '@/routes/resource/key/programme/programme';
+import { Composition, CompositionSkeleton, compositionLoader } from '@/routes/resource/key/composition/composition';
 
 const baseRoutes: SourceRouteObject[] = [
   {
@@ -144,6 +145,12 @@ const baseRoutes: SourceRouteObject[] = [
             loader: programmeLoader,
             loadingElement: <ProgrammeSkeleton />,
             element: <Programme />,
+          },
+          {
+            path: 'composition/:key',
+            loader: compositionLoader,
+            loadingElement: <CompositionSkeleton />,
+            element: <Composition />,
           },
           {
             path: 'project/:key',
