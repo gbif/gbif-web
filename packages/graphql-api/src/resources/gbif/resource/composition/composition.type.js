@@ -40,11 +40,13 @@ const typeDef = gql`
   }
 
   type FeatureBlock {
-    maxPerRow: Int
     id: ID!
+    title: String
+    body: String
+    maxPerRow: Int
     backgroundColour: String
     contentType: String
-    features: [FeatureItem]
+    features: [FeatureItem!]
   }
 
   type FeaturedTextBlock {
@@ -61,7 +63,7 @@ const typeDef = gql`
     body: String
     backgroundColour: String
     contentType: String
-    features: [CarouselBlockFeature]
+    features: [CarouselBlockFeature!]
   }
 
   type MediaBlock {
@@ -73,7 +75,7 @@ const typeDef = gql`
     backgroundColour: String
     contentType: String
     roundImage: Boolean
-    callToAction: [Link]
+    callToAction: [Link!]
     primaryImage: AssetImage
   }
 
@@ -88,7 +90,7 @@ const typeDef = gql`
     backgroundColour: String
     contentType: String
     roundImage: Boolean
-    callToAction: [Link]
+    callToAction: [Link!]
   }
 
   type CustomComponentBlock {

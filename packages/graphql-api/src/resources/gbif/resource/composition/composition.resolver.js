@@ -1,4 +1,4 @@
-import { getHtml, isNoneEmptyArray } from "#/helpers/utils";
+import { getHtml, isNoneEmptyArray, trustedTags } from "#/helpers/utils";
 import { KNOWN_BLOCK_TYPES, KNOWN_CAROUSEL_BLOCKS, KNOWN_FEATURE_TYPES } from "./acceptedTypes";
 
 /**
@@ -10,8 +10,11 @@ import { KNOWN_BLOCK_TYPES, KNOWN_CAROUSEL_BLOCKS, KNOWN_FEATURE_TYPES } from ".
  */
 export default {
   Query: {
-    composition: (_, { id, preview }, { dataSources, locale }) =>
-      dataSources.resourceAPI.getEntryById({ id, preview, locale })
+    composition: (_, { id, preview }, context) => {
+      const { dataSources, locale } = context;
+      context.preview = context.preview ?? preview;
+      return dataSources.resourceAPI.getEntryById({ id, preview: context.preview, locale })
+    }
   },
   Composition: {
     title: src => getHtml(src.title, { inline: true }),
@@ -35,7 +38,9 @@ export default {
           if (!knownType) logger.warn(`Unknown content type for a feature block in programme.resolver.js: ${result.contentType}`);
           return knownType;
         }));
-    }
+    },
+    title: src => getHtml(src.title, { inline: true }),
+    body: src => getHtml(src.body, {allowedTags: trustedTags, wrapTables: true}),
   },
   FeatureItem: {
     __resolveType: src => {
@@ -45,6 +50,8 @@ export default {
     },
   },
   CarouselBlock: {
+    title: src => getHtml(src.title, { inline: true }),
+    body: src => getHtml(src.body, {allowedTags: trustedTags, wrapTables: true}),
     features: ({ features }, args, { dataSources, locale, preview }) => {
       if (!isNoneEmptyArray(features)) return null;
 
@@ -64,4 +71,29 @@ export default {
       console.warn(`Unknown content type in resourceSearch.resolver.js: ${src.contentType}`);
     },
   },
+  HeaderBlock: {
+    title: src => getHtml(src.title, { inline: true }),
+    summary: src => getHtml(src.summary),
+  },
+  TextBlock: {
+    title: src => getHtml(src.title, { inline: true }),
+    body: src => getHtml(src.body, {allowedTags: trustedTags, wrapTables: true}),
+  },
+  FeaturedTextBlock: {
+    title: src => getHtml(src.title, { inline: true }),
+    body: src => getHtml(src.body, {allowedTags: trustedTags, wrapTables: true}),
+  },
+  MediaBlock: {
+    title: src => getHtml(src.title, { inline: true }),
+    subtitle: src => getHtml(src.subtitle, { inline: true }),
+    body: src => getHtml(src.body, {allowedTags: trustedTags, wrapTables: true}),
+  },
+  MediaCountBlock: {
+    title: src => getHtml(src.title, { inline: true }),
+    subtitle: src => getHtml(src.subtitle, { inline: true }),
+    body: src => getHtml(src.body, {allowedTags: trustedTags, wrapTables: true}),
+  },
+  CustomComponentBlock: {
+    title: src => getHtml(src.title, { inline: true }),
+  }
 }

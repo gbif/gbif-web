@@ -11,25 +11,28 @@ import { KNOWN_BLOCK_TYPES } from "../composition/acceptedTypes";
  */
 export default {
   Query: {
-    programme: (_, { id, preview }, { dataSources, locale }) =>
-      dataSources.resourceAPI.getEntryById({ id, preview, locale })
+    programme: (_, { id, preview }, context) => {
+      const { dataSources, locale } = context;
+      context.preview = context.preview ?? preview;
+      return dataSources.resourceAPI.getEntryById({ id, preview: context.preview, locale })
+    }
   },
   Programme: {
     title: src => getHtml(src.title, { inline: true, allowedTags: ['em', 'i'] }),
     body: src => getHtml(src.body, {allowedTags: trustedTags, wrapTables: true}),
     summary: src => getHtml(src.summary),
     excerpt: src => excerpt(src),
-    events: (src, _, { dataSources, locale }) => {
+    events: (src, _, { dataSources, locale, preview }) => {
       if (!isNoneEmptyArray(src.events)) return null;
 
       const ids = src.events.map(event => event.id);
-      return Promise.all(ids.map(id => dataSources.resourceAPI.getEntryById({ id, preview: false, locale })));
+      return Promise.all(ids.map(id => dataSources.resourceAPI.getEntryById({ id, preview, locale })));
     },
-    news: (src, _, { dataSources, locale }) => {
+    news: (src, _, { dataSources, locale, preview }) => {
       if (!isNoneEmptyArray(src.news)) return null;
 
       const ids = src.news.map(news => news.id);
-      return Promise.all(ids.map(id => dataSources.resourceAPI.getEntryById({ id, preview: false, locale })));
+      return Promise.all(ids.map(id => dataSources.resourceAPI.getEntryById({ id, preview, locale })));
     },
     blocks: ({blocks}, args, { dataSources, locale, preview }) => {
       if (!isNoneEmptyArray(blocks)) return null;
