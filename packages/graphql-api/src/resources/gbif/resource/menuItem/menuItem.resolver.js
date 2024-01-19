@@ -21,7 +21,6 @@ export default {
           // and for each of the children, get the full element
           return childNavigationElements.map(async child => {
             const test = await dataSources.resourceAPI.getEntryById({ id: child.id, locale });
-            console.log(test);
             return test;
           })
         })

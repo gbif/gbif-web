@@ -29,9 +29,6 @@ export class ResourceSearchAPI extends RESTDataSource {
 
   async getFirstEntryByQuery(params, locale) {
     const response = await this.search(params, locale);
-    console.log(params);
-    console.log(response);
-
     return response.results[0];
   }
 }
