@@ -1,12 +1,20 @@
 {
+  "numberOfOccurrences": "发生次数",
   "noData": "没有数据",
+  "statistics": "统计数字",
   "occurrenceRecords": "物种出现记录",
   "species": "物种",
   "taxa": "分类群",
   "yearRange": "年份范围",
+  "identifiedToSpecies": "鉴定到的物种",
   "withCoordinates": "带坐标",
   "withYear": "带年份",
+  "withCollector": "带收集器",
+  "withMedia": "带有介质",
+  "richness": "数据丰富度",
+  "percentWithValue": "所有记录的{percent}%有一个值",
   "occurrences": "出现记录",
   "other": "其它",
-  "unknown": "未知的"
+  "unknown": "未知的",
+  "metricsFromGbifData": "这些指标基于通过GBIF共享的记录"
 }
