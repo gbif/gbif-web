@@ -15,7 +15,7 @@
     "synonyms": "异名"
   },
   "noStatsForMetadata": "没有可用的元数据统计信息只有数据集",
-  "siteScopeSmallerThanDataset": "",
+  "siteScopeSmallerThanDataset": "并非数据集中的所有记录都包含在此站点上。访问[GBIF.org]({datasetUrl}) 来浏览完整的数据集。",
   "viewArticle": "查看文章",
   "registeredDate": "注册于 {DATE}",
   "constituentOf": "的组成",
