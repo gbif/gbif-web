@@ -55,7 +55,7 @@ export function EventResult({ event }: Props) {
         </h3>
         <div className="font-normal text-slate-500 text-sm">{event.excerpt}</div>
         <div className="text-sm text-slate-500 mt-2">
-          {getLocation({ country: event.country, location: event.location, venue: event.venue })}
+          <Location {...event} />
           <div className="flex items-center">
             <MdCalendarToday className="me-2" />
             {/* format start and end dates. if same day, then only show time. if different day, then show date and time. */}
@@ -103,15 +103,11 @@ export function EventResult({ event }: Props) {
   );
 }
 
-function getLocation({
+function Location({
   country,
   location,
   venue,
-}: {
-  country: string | null | undefined;
-  location: string | null | undefined;
-  venue: string | null | undefined;
-}) {
+}: Pick<EventResultFragment, 'country' | 'location' | 'venue'>) {
   //if no values is present then return null
   if (!country && !location && !venue) return null;
 
