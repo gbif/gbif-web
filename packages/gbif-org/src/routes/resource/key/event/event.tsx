@@ -86,7 +86,10 @@ export function Event() {
 
           <Button className="mt-4" asChild>
             <a href={`https://www.gbif.org/api/newsroom/events/${resource.id}.ics`}>
-              <MdCalendarMonth /> <span className="pl-2"><FormattedMessage id="cms.resource.addToCalendar" /></span>
+              <MdCalendarMonth />{' '}
+              <span className="pl-2">
+                <FormattedMessage id="cms.resource.addToCalendar" />
+              </span>
             </a>
           </Button>
         </ArticleTextContainer>
@@ -106,16 +109,20 @@ export function Event() {
             </ArticleAuxiliary>
           )}
 
-          <KeyValuePair
-            label={<FormattedMessage id="cms.resource.location" />}
-            value={resource.location}
-          />
+          {resource.location && (
+            <KeyValuePair
+              label={<FormattedMessage id="cms.resource.location" />}
+              value={resource.location}
+            />
+          )}
 
-          <KeyValuePair
-            className="mt-1"
-            label={<FormattedMessage id="cms.resource.country" />}
-            value={<FormattedMessage id={`enums.topics.${resource.country}`} />}
-          />
+          {resource.country && (
+            <KeyValuePair
+              className="mt-1"
+              label={<FormattedMessage id="cms.resource.country" />}
+              value={<FormattedMessage id={`enums.topics.${resource.country}`} />}
+            />
+          )}
 
           <KeyValuePair
             className="mt-1"
