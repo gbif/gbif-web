@@ -2,31 +2,43 @@ import { Button } from '@/components/ui/button';
 import { MdCalendarMonth, MdCalendarToday, MdLink, MdLocationPin } from 'react-icons/md';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import { GbifLogoIcon } from '@/components/icons/icons';
+import { EventResultFragment } from '@/gql/graphql';
 
-// TODO: daniel - isn't there a better way to do this? Seems insane to define it again. Shouldn't I be able to use the genereated type?
-type EventFragment = {
-  id: string;
-  title: string;
-  excerpt?: string | null;
-  start: string;
-  end?: string;
-  country?: string | null;
-  location?: string | null;
-  venue?: string | null;
-  primaryLink?: { url?: string | null } | null;
-  gbifsAttendee?: string | null;
-  allDayEvent?: boolean | null;
+/* GraphQL */ `
+  fragment EventResult on Event {
+    id
+    title
+    excerpt
+    country
+    location
+    venue
+    start
+    end
+    primaryLink {
+      url
+    }
+    gbifsAttendee
+    allDayEvent
+  }
+`;
+
+type Props = {
+  event: EventResultFragment;
 };
 
-export function EventResult({ event }: { event: EventFragment }) {
+export function EventResult({ event }: Props) {
   // event starts and ends the same day
   const sameDay = event?.start?.substring(0, 10) === event?.end?.substring(0, 10);
   const primaryLink = event.primaryLink?.url ?? `/event/${event.id}`;
-  
+
   return (
     <article className="bg-slate-50 p-4 flex rounded border mb-4">
       <div className="flex-none me-4 min-w-20">
-        <a href={primaryLink} className="block overflow-hidden rounded-md text-sm border-slate-300 border text-center" tabIndex={-1}>
+        <a
+          href={primaryLink}
+          className="block overflow-hidden rounded-md text-sm border-slate-300 border text-center"
+          tabIndex={-1}
+        >
           <div className="bg-slate-400 text-slate-100 p-2">
             <FormattedDate value={event.start} day="numeric" month="short" />
           </div>
@@ -64,18 +76,24 @@ export function EventResult({ event }: { event: EventFragment }) {
           </div>
           {event.gbifsAttendee && (
             <div>
-              <GbifLogoIcon className="me-2" /> <FormattedMessage id="cms.resource.gbifWillAttend" />
+              <GbifLogoIcon className="me-2" />{' '}
+              <FormattedMessage id="cms.resource.gbifWillAttend" />
             </div>
           )}
           <div className="mt-2">
             <Button asChild variant="secondary">
               <a href={`https://www.gbif.org/api/newsroom/events/${event.id}.ics`}>
-                <MdCalendarMonth /> <span className="pl-2"><FormattedMessage id="cms.resource.addToCalendar" /></span>
+                <MdCalendarMonth />{' '}
+                <span className="pl-2">
+                  <FormattedMessage id="cms.resource.addToCalendar" />
+                </span>
               </a>
             </Button>
             {event.primaryLink?.url && (
               <Button className="ms-4" asChild variant="ghost">
-                <a href={`/event/${event.id}`}><FormattedMessage id="phrases.seeDetails" /></a>
+                <a href={`/event/${event.id}`}>
+                  <FormattedMessage id="phrases.seeDetails" />
+                </a>
               </Button>
             )}
           </div>

@@ -11,30 +11,10 @@ const { load, useTypedLoaderData } = createGraphQLHelpers<
   query ProjectNews($key: String!) {
     gbifProject(id: $key) {
       news {
-        id
-        title
-        excerpt
-        primaryImage {
-          file {
-            url: thumbor(width: 300, height: 150)
-          }
-        }
-        createdAt
+        ...NewsResult
       }
       events {
-        id
-        title
-        excerpt
-        country
-        location
-        venue
-        start
-        end
-        primaryLink {
-          url
-        }
-        gbifsAttendee
-        allDayEvent
+        ...EventResult
       }
     }
   }
@@ -47,7 +27,7 @@ export function NewsTab() {
   const resource = data.gbifProject;
 
   // sort events by start date descending
-  const sortedEvents = resource.events?.map(x => x).sort((a, b) => (a.start > b.start ? -1 : 1));
+  const sortedEvents = resource.events?.map((x) => x).sort((a, b) => (a.start > b.start ? -1 : 1));
 
   return (
     <div className="pt-4 max-w-3xl m-auto">

@@ -1,20 +1,26 @@
 import { MdCalendarToday } from 'react-icons/md';
 import { FormattedDate } from 'react-intl';
+import { NewsResultFragment } from '@/gql/graphql';
 
-// TODO: daniel - isn't there a better way to do this? Seems insane to define it again. Shouldn't I be able to use the genereated type?
-type NewsFragment = {
-  id: string;
-  title: string;
-  excerpt?: string | null;
-  createdAt: string;
-  primaryImage?: {
-    file: {
-      url: string;
-    };
-  } | null;
+/* GraphQL */ `
+  fragment NewsResult on News {
+    id
+    title
+    excerpt
+    primaryImage {
+      file {
+        url: thumbor(width: 300, height: 150)
+      }
+    }
+    createdAt
+  }
+`;
+
+type Props = {
+  news: NewsResultFragment;
 };
 
-export function NewsResult({ news }: { news: NewsFragment }) {
+export function NewsResult({ news }: Props) {
   const link = `/news/${news.id}`;
   return (
     <article className="bg-slate-50 p-4 rounded border mb-4">
