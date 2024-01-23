@@ -4,6 +4,7 @@ import { CompositionQuery, CompositionQueryVariables } from '@/gql/graphql';
 import { createGraphQLHelpers } from '@/utils/createGraphQLHelpers';
 import { ArticleSkeleton } from '../components/ArticleSkeleton';
 import { BlockItem } from './BlockItem';
+import React from 'react';
 
 export const CompositionSkeleton = ArticleSkeleton;
 
@@ -35,7 +36,11 @@ export function Composition() {
         <title>{resource.title}</title>
       </Helmet>
       {resource.blocks?.map((block, idx) => (
-        <BlockItem resource={block} key={idx} />
+        <React.Fragment key={idx}>
+          <hr />
+          <h1>{block.__typename}</h1>
+          <BlockItem resource={block} key={idx} />
+        </React.Fragment>
       ))}
     </>
   );
