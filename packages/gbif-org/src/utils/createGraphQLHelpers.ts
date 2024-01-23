@@ -1,3 +1,4 @@
+import { fragmentManager } from '@/services/fragmentManager';
 import hash from 'object-hash';
 import { useLoaderData } from 'react-router-dom';
 
@@ -14,7 +15,10 @@ type LoadOptions<TVariabels> = {
 export async function loadGraphQL<TVariabels>(options: LoadOptions<TVariabels>) {
   const { endpoint, signal, variables, locale, query } = options;
 
-  const queryString = createQueryStringForGetRequest(query, options.variables, locale);
+  // Add fragments to the query
+  const queryWithFragments = fragmentManager.addFragmentsToQuery(query);
+
+  const queryString = createQueryStringForGetRequest(queryWithFragments, options.variables, locale);
 
   return fetch(`${endpoint}?${queryString}`, {
     method: 'GET',
@@ -37,9 +41,9 @@ export async function loadGraphQL<TVariabels>(options: LoadOptions<TVariabels>) 
     }
 
     // Otherwise, we need to do a POST request to the GraphQL endpoint
-    const operationName = getOperationNameFromQuery(query);
+    const operationName = getOperationNameFromQuery(queryWithFragments);
     if (typeof operationName !== 'string') {
-      throw new Error(`Could not find operation name in query: ${query}`);
+      throw new Error(`Could not find operation name in query: ${queryWithFragments}`);
     }
 
     return fetch(endpoint, {
@@ -50,7 +54,7 @@ export async function loadGraphQL<TVariabels>(options: LoadOptions<TVariabels>) 
       },
       signal,
       body: JSON.stringify({
-        query: query,
+        query: queryWithFragments,
         variables: variables,
         operationName,
       }),

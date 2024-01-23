@@ -2,7 +2,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/utils/shadcn';
 
 type Props = {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
   title?: string;
 };
