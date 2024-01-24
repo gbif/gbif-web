@@ -1,9 +1,9 @@
 {
   "projectGrantType": {
-    "REGIONAL": "Subvención regional",
-    "SMALL": "Subvención pequeña",
-    "NATIONAL": "Subvención nacional",
-    "DATA_USE": "",
+    "REGIONAL": "Subvención regional para la movilización de datos sobre biodiversidad",
+    "SMALL": "Subvención institucional para la movilización de datos sobre biodiversidad",
+    "NATIONAL": "Subvención nacional para la movilización de datos sobre biodiversidad",
+    "DATA_USE": "Subvención para uso de datos",
     "undefined": "No especificado"
   },
   "projectStatus": {
