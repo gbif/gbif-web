@@ -38,7 +38,7 @@
     "partners": "Socios"
   },
   "datause": {
-    "dataViaGbif": ""
+    "dataViaGbif": "Recursos de datos utilizados a través de GBIF"
   },
   "literature": {
     "keywords": "Palabras Clave"
@@ -46,7 +46,7 @@
   "auxiliary": {
     "subject": "Asunto",
     "citation": "Cita",
-    "organisingParticipants": "Participantes organizadores"
+    "organisingParticipants": "Organizar a los participantes"
   },
   "document": {
     "download": "Descargar",
@@ -59,10 +59,10 @@
     "venue": "Lugar de celebración",
     "location": "Localización/ubicación",
     "country": "País o área",
-    "noDatasets": "No hay juegos de datos que mostrar",
-    "noNewsOrEvents": "",
+    "noDatasets": "No hay conjuntos de datos para mostrar",
+    "noNewsOrEvents": "No hay noticias o eventos disponibles",
     "howToLinkDatasets": "Cómo vincular un conjunto de datos a un proyecto",
-    "howToLinkEvents": "",
+    "howToLinkEvents": "Cómo añadir eventos a la página de un proyecto",
     "when": "Cuando",
     "language": "Idioma",
     "viewOnGBIF": "Ver en GBIF",
@@ -75,7 +75,7 @@
     "author": "Autor",
     "datasets": "Conjuntos de datos",
     "gbifWillAttend": "Asistido por el Secretariado de GBIF",
-    "dataUsedInStudy": "Datos usados en el estudio",
+    "dataUsedInStudy": "Datos referenciados en el estudio",
     "resourceDescription": "Buscar recursos en la Infraestructura Mundial de Información en Biodiversidad. Acceso Libre y Gratuito a los Datos de Biodiversidad."
   }
 }
