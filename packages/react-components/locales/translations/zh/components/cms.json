@@ -1,0 +1,81 @@
+{
+  "contentType": {
+    "event": "活动",
+    "news": "新闻",
+    "resource": "资源",
+    "dataUse": "数据使用",
+    "project": "项目",
+    "participant": "成员",
+    "programme": "方案",
+    "document": "文档",
+    "tool": "工具",
+    "literature": "文献"
+  },
+  "project": {
+    "project": "项目",
+    "projectId": "项目编号",
+    "projectIdentifier": "项目标识符",
+    "grantType": "经费类别",
+    "duration": "周期",
+    "title": "标题",
+    "start": "开始",
+    "end": "结束",
+    "fundsAllocated": "经费支出",
+    "matchingFunds": "预期的共同资助方",
+    "funding": "资金",
+    "coFunding": "共同资助方",
+    "fundedBy": "资助人：",
+    "coFundedBy": "联合资助方：",
+    "typeOfGrant": "经费类别",
+    "projectStart": "项目开始",
+    "status": "状态",
+    "programme": "方案",
+    "contractCountry": "国家",
+    "newsAndEvents": "新闻和活动",
+    "call": "呼叫",
+    "projectLead": "项目负责人",
+    "contactDetalils": "联系方式",
+    "partners": "合作伙伴"
+  },
+  "datause": {
+    "dataViaGbif": "使用的GBIF介导的数据资源"
+  },
+  "literature": {
+    "keywords": "关键词"
+  },
+  "auxiliary": {
+    "subject": "主题",
+    "citation": "引用",
+    "organisingParticipants": "组织参与者"
+  },
+  "document": {
+    "download": "下载",
+    "readDocument": "前往文档"
+  },
+  "resource": {
+    "resources": "资源",
+    "contactHelpdesk": "联系服务台",
+    "addToCalendar": "添加到日历",
+    "venue": "地点",
+    "location": "位置",
+    "country": "国家",
+    "noDatasets": "没有要显示的数据集",
+    "noNewsOrEvents": "没有新闻或事件可用",
+    "howToLinkDatasets": "如何链接一个数据集到一个项目",
+    "howToLinkEvents": "如何将事件添加到项目页面",
+    "when": "什么时候",
+    "language": "语言",
+    "viewOnGBIF": "在GBIF上查看",
+    "published": "已发布",
+    "programme": "方案",
+    "fundedBy": "资助人：",
+    "about": "关于",
+    "rights": "权限",
+    "rightsHolder": "权利持有人",
+    "author": "作者",
+    "datasets": "数据集",
+    "gbifWillAttend": "由GBIF秘书处参加",
+    "dataUsedInStudy": "研究中参考的数据",
+    "resourceDescription": "在全球生物多样性信息网络中搜索资源。自由、开放地获取生物多样性数据。"
+  }
+}

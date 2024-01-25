@@ -1,0 +1,16 @@
+{
+  "projectGrantType": {
+    "REGIONAL": "Subvention régionale",
+    "SMALL": "Petite subvention",
+    "NATIONAL": "Subvention nationale",
+    "DATA_USE": "Subvention pour l'utilisation des données",
+    "undefined": "Non spécifié"
+  },
+  "projectStatus": {
+    "APPROVED": "Approuvé",
+    "CLOSED": "Fermé",
+    "IN_PROGRESS": "En cours",
+    "DISCONTINUED": "Discontinué",
+    "undefined": "Non spécifié"
+  }
+}

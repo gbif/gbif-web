@@ -1,0 +1,16 @@
+{
+  "projectGrantType": {
+    "REGIONAL": "",
+    "SMALL": "",
+    "NATIONAL": "",
+    "DATA_USE": "",
+    "undefined": ""
+  },
+  "projectStatus": {
+    "APPROVED": "",
+    "CLOSED": "",
+    "IN_PROGRESS": "",
+    "DISCONTINUED": "",
+    "undefined": ""
+  }
+}

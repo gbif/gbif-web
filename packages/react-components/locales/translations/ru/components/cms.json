@@ -1,0 +1,81 @@
+{
+  "contentType": {
+    "event": "Мероприятие",
+    "news": "Новости",
+    "resource": "Материал",
+    "dataUse": "Использование данных",
+    "project": "Проект",
+    "participant": "Участник",
+    "programme": "Программа",
+    "document": "Документ",
+    "tool": "Инструмент",
+    "literature": "Литературные данные"
+  },
+  "project": {
+    "project": "Проект",
+    "projectId": "ID проекта",
+    "projectIdentifier": "Идентификатор проекта",
+    "grantType": "Тип гранта",
+    "duration": "Сроки реализации проекта",
+    "title": "Название",
+    "start": "Начало",
+    "end": "Окончание",
+    "fundsAllocated": "Выделенные средства",
+    "matchingFunds": "Ожидаемое софинансирование",
+    "funding": "Финансирование",
+    "coFunding": "Совместное финансирование",
+    "fundedBy": "Финансируется",
+    "coFundedBy": "Софинансируется",
+    "typeOfGrant": "Тип гранта",
+    "projectStart": "Начало проекта",
+    "status": "Статус",
+    "programme": "Программа",
+    "contractCountry": "Страна (территория)",
+    "newsAndEvents": "Новости и мероприятия",
+    "call": "Конкурс",
+    "projectLead": "Руководитель проекта",
+    "contactDetalils": "Контактная информация",
+    "partners": "Партнеры"
+  },
+  "datause": {
+    "dataViaGbif": "Использованы предоставленные GBIF ресурсы данных"
+  },
+  "literature": {
+    "keywords": "Ключевые слова"
+  },
+  "auxiliary": {
+    "subject": "Тема",
+    "citation": "Цитирование",
+    "organisingParticipants": "Организаторы"
+  },
+  "document": {
+    "download": "Загрузить",
+    "readDocument": "Перейти к документу"
+  },
+  "resource": {
+    "resources": "Материалы",
+    "contactHelpdesk": "Связаться со службой поддержки",
+    "addToCalendar": "Добавить в календарь",
+    "venue": "Место проведения",
+    "location": "Местонахождение (топоним)",
+    "country": "Страна (территория)",
+    "noDatasets": "Нет наборов данных",
+    "noNewsOrEvents": "Нет никаких новостей или событий",
+    "howToLinkDatasets": "Как связать набор данных с проектом",
+    "howToLinkEvents": "Как добавить события на страницу проекта",
+    "when": "Когда",
+    "language": "Язык",
+    "viewOnGBIF": "Информация на GBIF.org",
+    "published": "Опубликовано",
+    "programme": "Программа",
+    "fundedBy": "Финансируется",
+    "about": "Об организациии",
+    "rights": "Права",
+    "rightsHolder": "Правообладатель",
+    "author": "Автор",
+    "datasets": "Опубликованных наборов данных",
+    "gbifWillAttend": "При участии Секретариата GBIF",
+    "dataUsedInStudy": "Данные, использованные в исследовании",
+    "resourceDescription": "Поиск ресурсов в Глобальной системе о биологическом разнообразии. Свободный и открытый доступ к данным о биоразнообразии."
+  }
+}

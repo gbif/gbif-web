@@ -1,0 +1,16 @@
+{
+  "projectGrantType": {
+    "REGIONAL": "地域の生物多様性データ収集のための助成金",
+    "SMALL": "小規模の生物多様性データ収集のための助成金",
+    "NATIONAL": "国の生物多様性データ収集のための助成金",
+    "DATA_USE": "",
+    "undefined": "情報なし"
+  },
+  "projectStatus": {
+    "APPROVED": "承認済",
+    "CLOSED": "終了",
+    "IN_PROGRESS": "進行中",
+    "DISCONTINUED": "中止",
+    "undefined": "情報なし"
+  }
+}

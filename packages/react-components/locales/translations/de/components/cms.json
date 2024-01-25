@@ -1,0 +1,81 @@
+{
+  "contentType": {
+    "event": "",
+    "news": "",
+    "resource": "",
+    "dataUse": "",
+    "project": "Projekt",
+    "participant": "",
+    "programme": "",
+    "document": "",
+    "tool": "",
+    "literature": "Literatur"
+  },
+  "project": {
+    "project": "Projekt",
+    "projectId": "Projekt ID",
+    "projectIdentifier": "Projektidentifikator",
+    "grantType": "Förderungstyp",
+    "duration": "Dauer",
+    "title": "Titel",
+    "start": "Start",
+    "end": "Ende",
+    "fundsAllocated": "Zugewiesene Mittel",
+    "matchingFunds": "Geschätzte Kofinanzierung",
+    "funding": "Finanzierung",
+    "coFunding": "Co Finanzierung",
+    "fundedBy": "Gefördert von",
+    "coFundedBy": "Co finanziert von",
+    "typeOfGrant": "Art der Förderung",
+    "projectStart": "Projektbeginn",
+    "status": "",
+    "programme": "",
+    "contractCountry": "",
+    "newsAndEvents": "Neuigkeiten & Veranstaltungen",
+    "call": "Anrufen",
+    "projectLead": "Projektleitung",
+    "contactDetalils": "Kontaktdaten",
+    "partners": "Partner"
+  },
+  "datause": {
+    "dataViaGbif": ""
+  },
+  "literature": {
+    "keywords": "Stichwörter"
+  },
+  "auxiliary": {
+    "subject": "",
+    "citation": "",
+    "organisingParticipants": "Organisierende Teilnehmer"
+  },
+  "document": {
+    "download": "",
+    "readDocument": "Zum Dokument gehen"
+  },
+  "resource": {
+    "resources": "Ressourcen",
+    "contactHelpdesk": "",
+    "addToCalendar": "",
+    "venue": "",
+    "location": "",
+    "country": "",
+    "noDatasets": "",
+    "noNewsOrEvents": "",
+    "howToLinkDatasets": "",
+    "howToLinkEvents": "",
+    "when": "",
+    "language": "",
+    "viewOnGBIF": "",
+    "published": "",
+    "programme": "",
+    "fundedBy": "Gefördert von",
+    "about": "",
+    "rights": "",
+    "rightsHolder": "",
+    "author": "",
+    "datasets": "Datensätze",
+    "gbifWillAttend": "",
+    "dataUsedInStudy": "",
+    "resourceDescription": ""
+  }
+}

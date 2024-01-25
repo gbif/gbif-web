@@ -1,0 +1,81 @@
+{
+  "contentType": {
+    "event": "イベント",
+    "news": "ニュース",
+    "resource": "資料",
+    "dataUse": "データ利用",
+    "project": "プロジェクト",
+    "participant": "参加者",
+    "programme": "プログラム",
+    "document": "ドキュメント",
+    "tool": "ツール",
+    "literature": "文献"
+  },
+  "project": {
+    "project": "プロジェクト",
+    "projectId": "プロジェクトID",
+    "projectIdentifier": "プロジェクト識別子",
+    "grantType": "資金のタイプ",
+    "duration": "期間",
+    "title": "タイトル",
+    "start": "開始",
+    "end": "終了",
+    "fundsAllocated": "資金の割り当て",
+    "matchingFunds": "共同出資推計",
+    "funding": "資金",
+    "coFunding": "共同資金",
+    "fundedBy": "資金提供者",
+    "coFundedBy": "共同出資",
+    "typeOfGrant": "資金のタイプ",
+    "projectStart": "プロジェクトの開始時期",
+    "status": "ステータス",
+    "programme": "プログラム",
+    "contractCountry": "国または地域",
+    "newsAndEvents": "ニュース＆イベント",
+    "call": "招集",
+    "projectLead": "プロジェクト リーダー",
+    "contactDetalils": "連絡先の詳細",
+    "partners": "パートナー"
+  },
+  "datause": {
+    "dataViaGbif": ""
+  },
+  "literature": {
+    "keywords": "キーワード"
+  },
+  "auxiliary": {
+    "subject": "タイトル",
+    "citation": "引用",
+    "organisingParticipants": "主催団体"
+  },
+  "document": {
+    "download": "ダウンロード",
+    "readDocument": "ドキュメントに移動"
+  },
+  "resource": {
+    "resources": "資料",
+    "contactHelpdesk": "ヘルプデスクに連絡",
+    "addToCalendar": "カレンダーに追加",
+    "venue": "会場",
+    "location": "位置情報",
+    "country": "国または地域",
+    "noDatasets": "表示するデータセットがありません。",
+    "noNewsOrEvents": "",
+    "howToLinkDatasets": "",
+    "howToLinkEvents": "",
+    "when": "いつ",
+    "language": "言語",
+    "viewOnGBIF": "GBIFで閲覧する",
+    "published": "出版",
+    "programme": "プログラム",
+    "fundedBy": "資金提供者",
+    "about": "・・・について",
+    "rights": "権利",
+    "rightsHolder": "権利者",
+    "author": "著者",
+    "datasets": "データセット",
+    "gbifWillAttend": "GBIF 事務局が出席",
+    "dataUsedInStudy": "研究で使用されたデータ",
+    "resourceDescription": "GBIF（地球規模生物多様性情報機構）の資料を検索します。生物多様性情報は誰でも自由に利用できます。"
+  }
+}

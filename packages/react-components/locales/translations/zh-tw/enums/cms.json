@@ -1,0 +1,16 @@
+{
+  "projectGrantType": {
+    "REGIONAL": "區域生物多樣性資料流通獎助",
+    "SMALL": "機構生物多樣性資料流通獎助",
+    "NATIONAL": "國家生物多樣性資料流通獎助",
+    "DATA_USE": "資料使用獎助",
+    "undefined": "未指定"
+  },
+  "projectStatus": {
+    "APPROVED": "核准",
+    "CLOSED": "關閉",
+    "IN_PROGRESS": "進展中",
+    "DISCONTINUED": "停止",
+    "undefined": "未指定"
+  }
+}
