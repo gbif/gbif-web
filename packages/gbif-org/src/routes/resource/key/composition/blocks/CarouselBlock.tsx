@@ -45,9 +45,7 @@ export function CarouselBlock({ resource }: Props) {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    if (!api) {
-      return;
-    }
+    if (!api) return;
 
     setCount(api.scrollSnapList().length);
     setCurrent(api.selectedScrollSnap());
@@ -62,33 +60,31 @@ export function CarouselBlock({ resource }: Props) {
       <ArticleTextContainer>
         <ArticleTitle>{resource.title}</ArticleTitle>
       </ArticleTextContainer>
-      <div className="flex justify-center">
-        <div className="max-w-6xl">
-          <Carousel opts={{ loop: true, align: 'center' }} setApi={setApi}>
-            <CarouselContent>
-              {resource.features?.map((feature) => (
-                <CarouselItem key={feature.id}>
-                  <BlockItem resource={feature} />
-                </CarouselItem>
-              ))}
-            </CarouselContent>
+      <div className="max-w-6xl w-full p-10 m-auto">
+        <Carousel opts={{ loop: true, align: 'center' }} setApi={setApi}>
+          <CarouselContent>
+            {resource.features?.map((feature) => (
+              <CarouselItem key={feature.id}>
+                <BlockItem resource={feature} insideCarousel />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
 
-            <CarouselPrevious />
-            <CarouselNext />
-          </Carousel>
-          <div className="flex justify-center items-center gap-2">
+          <CarouselPrevious />
+          <CarouselNext />
+          <div className="flex justify-center items-center gap-2 pt-8">
             {Array.from({ length: count }).map((_, idx) => (
               <button
                 key={idx}
-                className={cn('bg-gray-100 border rounded-full h-4 w-4', {
-                  'bg-gray-300': idx === current,
+                className={cn('border-gray-600 border rounded-full h-3 w-3', {
+                  'bg-gray-600': idx === current,
                 })}
                 disabled={idx === current}
                 onClick={() => api?.scrollTo(idx)}
               />
             ))}
           </div>
-        </div>
+        </Carousel>
       </div>
     </ArticleContainer>
   );

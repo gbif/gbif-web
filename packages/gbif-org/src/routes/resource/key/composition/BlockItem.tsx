@@ -41,6 +41,7 @@ fragmentManager.register(/* GraphQL */ `
 
 type Props = {
   resource: BlockItemDetailsFragment;
+  insideCarousel?: boolean;
 };
 
 const backgroundColorMap: Record<string, string> = {
@@ -49,7 +50,7 @@ const backgroundColorMap: Record<string, string> = {
   gray: 'bg-slate-100',
 };
 
-export function BlockItem({ resource }: Props) {
+export function BlockItem({ resource, insideCarousel = false }: Props) {
   switch (resource.__typename) {
     case 'HeaderBlock':
       return <HeaderBlock resource={resource} />;
@@ -62,7 +63,13 @@ export function BlockItem({ resource }: Props) {
     case 'MediaBlock':
       return <MediaBlock resource={resource} />;
     case 'MediaCountBlock':
-      return <MediaCountBlock resource={resource} />;
+      return (
+        <MediaCountBlock
+          resource={resource}
+          insideCarousel={insideCarousel}
+          backgroundColorMap={backgroundColorMap}
+        />
+      );
     case 'CustomComponentBlock':
       return <CustomComponentBlock resource={resource} backgroundColorMap={backgroundColorMap} />;
     case 'TextBlock':

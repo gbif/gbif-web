@@ -1,4 +1,4 @@
-// When executing a GraphQL query, we need to add all fragments that are used in the query
+// When executing a GraphQL query, we need to add all fragments that are used in the queryx
 // The fragment manager can recursively add the required fragments to queries before they are executed
 // All fragments defined in the project needs to be registered with the fragment manager
 
