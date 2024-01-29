@@ -1,17 +1,15 @@
+import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { LoaderArgs } from '@/types';
+import { useLoaderData } from 'react-router-dom';
 import { CompositionQuery, CompositionQueryVariables } from '@/gql/graphql';
-import { createGraphQLHelpers } from '@/utils/createGraphQLHelpers';
+import { LoaderArgs } from '@/types';
+import { required } from '@/utils/required';
 import { ArticleSkeleton } from '../components/ArticleSkeleton';
 import { BlockItem } from './BlockItem';
-import React from 'react';
 
 export const CompositionSkeleton = ArticleSkeleton;
 
-const { load, useTypedLoaderData } = createGraphQLHelpers<
-  CompositionQuery,
-  CompositionQueryVariables
->(/* GraphQL */ `
+const COMPOSITION_QUERY = /* GraphQL */ `
   query Composition($key: String!) {
     composition(id: $key) {
       id
@@ -22,10 +20,18 @@ const { load, useTypedLoaderData } = createGraphQLHelpers<
       }
     }
   }
-`);
+`;
+
+export function compositionLoader({ params, graphql }: LoaderArgs) {
+  const key = required(params.key, 'No key provided in the url');
+
+  return graphql.query<CompositionQuery, CompositionQueryVariables>(COMPOSITION_QUERY, {
+    key,
+  });
+}
 
 export function Composition() {
-  const { data } = useTypedLoaderData();
+  const { data } = useLoaderData() as { data: CompositionQuery };
 
   if (data.composition == null) throw new Error('404');
   const resource = data.composition;
@@ -44,18 +50,4 @@ export function Composition() {
       ))}
     </>
   );
-}
-
-export async function compositionLoader({ request, params, config, locale }: LoaderArgs) {
-  const key = params.key;
-  if (key == null) throw new Error('No key provided in the url');
-
-  return load({
-    endpoint: config.graphqlEndpoint,
-    signal: request.signal,
-    variables: {
-      key,
-    },
-    locale: locale.cmsLocale || locale.code,
-  });
 }

@@ -8,7 +8,7 @@ type Fragment = {
   definition: string;
 };
 
-class FragmentManager {
+export class FragmentManager {
   private fragments: Record<string, Fragment> = {};
 
   public register(fragmentDefinition: string) {

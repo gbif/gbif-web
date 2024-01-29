@@ -3,7 +3,7 @@ import { MdCalendarMonth, MdCalendarToday, MdLink, MdLocationPin } from 'react-i
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import { GbifLogoIcon } from '@/components/icons/icons';
 import { EventResultFragment } from '@/gql/graphql';
-import { fragmentManager } from '@/services/fragmentManager';
+import { fragmentManager } from '@/services/FragmentManager';
 
 fragmentManager.register(/* GraphQL */ `
   fragment EventResult on Event {

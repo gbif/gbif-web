@@ -1,5 +1,5 @@
 import { ProseCardImgFragment } from '@/gql/graphql';
-import { fragmentManager } from '@/services/fragmentManager';
+import { fragmentManager } from '@/services/FragmentManager';
 
 fragmentManager.register(/* GraphQL */ `
   fragment ProseCardImg on AssetImage {

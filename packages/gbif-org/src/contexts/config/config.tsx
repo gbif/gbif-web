@@ -39,7 +39,11 @@ type Props = {
 type CssVariable = { name: string; value: unknown };
 
 export function ConfigProvider({ config, children }: Props): React.ReactElement {
-  const variables = React.useMemo(() => {
+  // Build the config context value that will made available to all components
+  const contextValue: Config = React.useMemo(() => configBuilder(config), [config]);
+
+  // Create css for theming based on the baseTheme and the theme extension
+  const css: string = React.useMemo(() => {
     const theme = themeBuilder({
       baseTheme: 'light',
       extendWith: {
@@ -47,29 +51,33 @@ export function ConfigProvider({ config, children }: Props): React.ReactElement 
         borderRadius: config.theme?.borderRadius,
       },
     });
-    const cssVariables: CssVariable[] = [];
-    for (const [key, value] of Object.entries(theme)) {
-      if (!(value instanceof Object)) {
-        if (typeof value === 'string' && value.startsWith('#')) {
+
+    const cssVariables: CssVariable[] = Object.entries(theme)
+      // Remove all key value pairs where the value is null
+      .filter(([, value]) => value != null)
+      // Convert to css variables
+      .map(([key, value]) => {
+        // Convert hex colors to rgb
+        const valueIsHexColor = typeof value === 'string' && value.startsWith('#');
+        if (valueIsHexColor) {
           // convert to rgb components
           const rgb = value.match(/[A-Za-z0-9]{2}/g)?.map((v) => parseInt(v, 16));
+
           if (rgb?.length === 3) {
-            cssVariables.push({ name: `--${key}`, value: rgb.join(' ') });
+            return { name: `--${key}`, value: rgb.join(' ') };
           }
-        } else {
-          cssVariables.push({ name: `--${key}`, value });
         }
-      }
-    }
 
-    return cssVariables.filter((v) => v.value != null);
+        return { name: `--${key}`, value };
+      });
+
+    // Convert css variables to actual css that will be injected in the document
+    return `:root { ${cssVariables.map((v) => `${v.name}: ${v.value};`).join('\n')} }`;
   }, [config]);
-
-  const contextValue: Config = React.useMemo(() => processConfig(config), [config]);
 
   return (
     <ConfigContext.Provider value={contextValue}>
-      <style>{`:root { ${variables.map((v) => `${v.name}: ${v.value};`).join('\n')} }`}</style>
+      <style>{css}</style>
       {children}
     </ConfigContext.Provider>
   );
@@ -77,15 +85,11 @@ export function ConfigProvider({ config, children }: Props): React.ReactElement 
 
 export function useConfig(): Config {
   const ctx = React.useContext(ConfigContext);
-
-  if (ctx == null) {
-    throw new Error('useConfig must be used within a ConfigProvider');
-  }
-
+  if (ctx == null) throw new Error('useConfig must be used within a ConfigProvider');
   return ctx;
 }
 
-export function processConfig(config: InputConfig): Config {
+export function configBuilder(config: InputConfig): Config {
   return {
     ...getEndpointsBasedOnGbifEnv(config.gbifEnv),
     ...config,

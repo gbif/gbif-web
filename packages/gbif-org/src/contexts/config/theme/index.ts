@@ -1,14 +1,14 @@
 import { shadeHexColor, shadeBlend, colourIsLight } from './colorUtils';
 import { defaultTheme, darkTheme } from './baseThemes';
-import { Theme } from './theme.d';
+import { Theme } from './theme';
 
 /**
- * 
+ *
  * @param theme Given a partial theme, then compute remaining vales such as primary color gradients, paper background gradients, etc.
  * @returns A full theme object including css variables
  */
 const build = (theme: Partial<Theme>): Theme => {
-  let fullTheme = { ...defaultTheme, ...theme };
+  const fullTheme = { ...defaultTheme, ...theme };
   const isDarkTheme = fullTheme.isDarkTheme ?? false;
   const primary = fullTheme.primary ?? '#1393D8';
   const color = fullTheme.color ?? '#162d3d';
@@ -18,18 +18,15 @@ const build = (theme: Partial<Theme>): Theme => {
   const borderRadius = fullTheme.borderRadius ?? 0;
   const dense = fullTheme.dense ?? false;
   // remove all single and double quotation marks from the font family as this conflicts with serialization on the server
-  const fontFamily = (fullTheme.fontFamily || "Helvetica Neue, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica, Arial, sans-serif").replace(/['"]+/g, '');
+  const fontFamily = (
+    fullTheme.fontFamily ||
+    'Helvetica Neue, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica, Arial, sans-serif'
+  ).replace(/['"]+/g, '');
   const headerFontFamily = (fullTheme.headerFontFamily || fontFamily).replace(/['"]+/g, '');
 
   const shadeDirection = isDarkTheme ? 1 : -1;
 
-  const brightMapColors = [
-    "#fed976",
-    "#fd8d3c",
-    "#F7642E",
-    "#f03b20",
-    "#bd0026"
-  ];
+  const brightMapColors = ['#fed976', '#fd8d3c', '#F7642E', '#f03b20', '#bd0026'];
   // const darkMapColors = brightMapColors;//['#ffd300', '#f4b456', '#e9928a', '#d96cc1', '#b93bff'];
 
   const primaryVariants = {
@@ -44,7 +41,7 @@ const build = (theme: Partial<Theme>): Theme => {
     primary800: shadeHexColor(primary, -0.5),
     primary900: shadeHexColor(primary, -0.7),
     primary950: shadeHexColor(primary, -0.9),
-  }
+  };
 
   const primaryContrastVariants = {
     primaryContrast50: getContrastInk(primaryVariants.primary50),
@@ -58,7 +55,7 @@ const build = (theme: Partial<Theme>): Theme => {
     primaryContrast800: getContrastInk(primaryVariants.primary800),
     primaryContrast900: getContrastInk(primaryVariants.primary900),
     primaryContrast950: getContrastInk(primaryVariants.primary950),
-  }
+  };
 
   return {
     isDarkTheme,
@@ -107,26 +104,29 @@ const build = (theme: Partial<Theme>): Theme => {
     paperBackground300: shadeBlend(2 * 0.25, paperBackground, paperBackgroundElevated),
     paperBackground200: shadeBlend(3 * 0.25, paperBackground, paperBackgroundElevated),
     paperBackground100: shadeBlend(4 * 0.25, paperBackground, paperBackgroundElevated),
-    
+
     ...theme,
 
     // we clean these, so they have to go last
     fontFamily,
     headerFontFamily,
   };
-}
+};
 
-const createTheme = ({ baseTheme, extendWith }: { baseTheme?: String, extendWith?: Partial<Theme> }) => {
-  let theme = defaultTheme;
-  if (baseTheme === 'dark') {
-    theme = darkTheme;
-  }
+const createTheme = ({
+  baseTheme,
+  extendWith,
+}: {
+  baseTheme?: string;
+  extendWith?: Partial<Theme>;
+}) => {
+  const theme = baseTheme === 'dark' ? darkTheme : defaultTheme;
   const variables = Object.assign({}, theme, extendWith);
   return build(variables);
-}
+};
 
 const getContrastInk = (color: string) => {
   return colourIsLight(color) ? '#0f172a' : '#ffffff';
-}
+};
 
 export default createTheme;

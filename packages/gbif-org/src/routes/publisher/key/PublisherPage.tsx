@@ -1,23 +1,26 @@
 import { Tabs } from '@/components/Tabs';
 import { PublisherQuery, PublisherQueryVariables } from '@/gql/graphql';
 import { LoaderArgs } from '@/types';
-import { createGraphQLHelpers } from '@/utils/createGraphQLHelpers';
+import { required } from '@/utils/required';
 import { Helmet } from 'react-helmet-async';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLoaderData } from 'react-router-dom';
 
-const { load, useTypedLoaderData } = createGraphQLHelpers<
-  PublisherQuery,
-  PublisherQueryVariables
->(/* GraphQL */ `
+const PUBLISHER_QUERY = /* GraphQL */ `
   query Publisher($key: ID!) {
     publisher: organization(key: $key) {
       title
     }
   }
-`);
+`;
+
+export async function publisherLoader({ params, graphql }: LoaderArgs) {
+  const key = required(params.key, 'No key was provided in the URL');
+
+  return graphql.query<PublisherQuery, PublisherQueryVariables>(PUBLISHER_QUERY, { key });
+}
 
 export function PublisherPage() {
-  const { data } = useTypedLoaderData();
+  const { data } = useLoaderData() as { data: PublisherQuery };
 
   if (data.publisher == null) throw new Error('404');
   const publisher = data.publisher;
@@ -49,18 +52,4 @@ export function PublisherPage() {
       </div>
     </>
   );
-}
-
-export async function publisherLoader({ request, params, config, locale }: LoaderArgs) {
-  const key = params.key;
-  if (key == null) throw new Error('No key provided in the url');
-
-  return load({
-    endpoint: config.graphqlEndpoint,
-    signal: request.signal,
-    locale: locale.cmsLocale || locale.code,
-    variables: {
-      key,
-    },
-  });
 }

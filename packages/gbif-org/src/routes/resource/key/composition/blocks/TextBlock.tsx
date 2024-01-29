@@ -2,7 +2,7 @@ import { TextBlockDetailsFragment } from '@/gql/graphql';
 import { ArticleContainer } from '../../components/ArticleContainer';
 import { ArticleTextContainer } from '../../components/ArticleTextContainer';
 import { ArticleBody } from '../../components/ArticleBody';
-import { fragmentManager } from '@/services/fragmentManager';
+import { fragmentManager } from '@/services/FragmentManager';
 
 fragmentManager.register(/* GraphQL */ `
   fragment TextBlockDetails on TextBlock {

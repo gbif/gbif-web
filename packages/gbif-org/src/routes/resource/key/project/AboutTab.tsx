@@ -1,6 +1,5 @@
 import { LoaderArgs } from '@/types';
 import { ProjectAboutQuery, ProjectAboutQueryVariables } from '@/gql/graphql';
-import { createGraphQLHelpers } from '@/utils/createGraphQLHelpers';
 import { ArticleBanner } from '@/routes/resource/key/components/ArticleBanner';
 import { ArticleTextContainer } from '../components/ArticleTextContainer';
 import { ArticleBody } from '../components/ArticleBody';
@@ -12,11 +11,10 @@ import { Documents } from '../components/Documents';
 import { KeyValuePair } from '../components/KeyValuePair';
 import { FormattedDate, FormattedMessage, FormattedNumber } from 'react-intl';
 import { DynamicLink } from '@/components/DynamicLink';
+import { required } from '@/utils/required';
+import { useLoaderData } from 'react-router-dom';
 
-const { load, useTypedLoaderData } = createGraphQLHelpers<
-  ProjectAboutQuery,
-  ProjectAboutQueryVariables
->(/* GraphQL */ `
+const PROJECT_ABOUT_QUERY = /* GraphQL */ `
   query ProjectAbout($key: String!) {
     gbifProject(id: $key) {
       summary
@@ -61,10 +59,18 @@ const { load, useTypedLoaderData } = createGraphQLHelpers<
       createdAt
     }
   }
-`);
+`;
+
+export function projectAboutLoader({ params, graphql }: LoaderArgs) {
+  const key = required(params.key, 'No key provided in the URL');
+
+  return graphql.query<ProjectAboutQuery, ProjectAboutQueryVariables>(PROJECT_ABOUT_QUERY, {
+    key,
+  });
+}
 
 export function AboutTab() {
-  const { data } = useTypedLoaderData();
+  const { data } = useLoaderData() as { data: ProjectAboutQuery };
 
   if (data.gbifProject == null) throw new Error('404');
   const resource = data.gbifProject;
@@ -84,14 +90,22 @@ export function AboutTab() {
           label={<FormattedMessage id="cms.project.status" />}
           value={<FormattedMessage id={`enums.cms.projectStatus.${resource.status}`} />}
         />
-        {resource.fundsAllocated && <KeyValuePair
-          label={<FormattedMessage id="cms.project.funding" />}
-          value={<FormattedNumber value={resource.fundsAllocated} style="currency" currency="EUR" />}
-        />}
-        {resource.matchingFunds && <KeyValuePair
-          label={<FormattedMessage id="cms.project.coFunding" />}
-          value={<FormattedNumber value={resource.matchingFunds} style="currency" currency="EUR" />}
-        />}
+        {resource.fundsAllocated && (
+          <KeyValuePair
+            label={<FormattedMessage id="cms.project.funding" />}
+            value={
+              <FormattedNumber value={resource.fundsAllocated} style="currency" currency="EUR" />
+            }
+          />
+        )}
+        {resource.matchingFunds && (
+          <KeyValuePair
+            label={<FormattedMessage id="cms.project.coFunding" />}
+            value={
+              <FormattedNumber value={resource.matchingFunds} style="currency" currency="EUR" />
+            }
+          />
+        )}
         <KeyValuePair
           label={<FormattedMessage id="cms.project.typeOfGrant" />}
           value={<FormattedMessage id={`enums.cms.projectGrantType.${resource.grantType}`} />}
@@ -150,18 +164,4 @@ export function AboutTab() {
       </ArticleTextContainer>
     </>
   );
-}
-
-export async function projectAboutLoader({ request, params, config, locale }: LoaderArgs) {
-  const key = params.key;
-  if (key == null) throw new Error('No key provided in the url');
-
-  return load({
-    endpoint: config.graphqlEndpoint,
-    signal: request.signal,
-    variables: {
-      key,
-    },
-    locale: locale.cmsLocale || locale.code,
-  });
 }

@@ -3,7 +3,7 @@ import { ArticleContainer } from '../../components/ArticleContainer';
 import { ArticleTextContainer } from '../../components/ArticleTextContainer';
 import { ArticleTitle } from '../../components/ArticleTitle';
 import { ArticleBody } from '../../components/ArticleBody';
-import { fragmentManager } from '@/services/fragmentManager';
+import { fragmentManager } from '@/services/FragmentManager';
 
 fragmentManager.register(/* GraphQL */ `
   fragment FeaturedTextBlockDetails on FeaturedTextBlock {

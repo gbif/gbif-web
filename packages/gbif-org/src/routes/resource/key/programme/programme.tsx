@@ -1,17 +1,15 @@
 import { Helmet } from 'react-helmet-async';
 import { LoaderArgs } from '@/types';
 import { ProgrammeQuery, ProgrammeQueryVariables } from '@/gql/graphql';
-import { createGraphQLHelpers } from '@/utils/createGraphQLHelpers';
 import { ArticleContainer } from '@/routes/resource/key/components/ArticleContainer';
 import { ArticleSkeleton } from '../components/ArticleSkeleton';
 import { BlockItem } from '../composition/BlockItem';
+import { required } from '@/utils/required';
+import { useLoaderData } from 'react-router-dom';
 
 export const ProgrammeSkeleton = ArticleSkeleton;
 
-const { load, useTypedLoaderData } = createGraphQLHelpers<
-  ProgrammeQuery,
-  ProgrammeQueryVariables
->(/* GraphQL */ `
+const PROGRAMME_QUERY = /* GraphQL */ `
   query Programme($key: String!) {
     programme(id: $key) {
       title
@@ -21,10 +19,16 @@ const { load, useTypedLoaderData } = createGraphQLHelpers<
       }
     }
   }
-`);
+`;
+
+export async function programmeLoader({ params, graphql }: LoaderArgs) {
+  const key = required(params.key, 'No key provided in the url');
+
+  return graphql.query<ProgrammeQuery, ProgrammeQueryVariables>(PROGRAMME_QUERY, { key });
+}
 
 export function Programme() {
-  const { data } = useTypedLoaderData();
+  const { data } = useLoaderData() as { data: ProgrammeQuery };
 
   if (data.programme == null) throw new Error('404');
   const resource = data.programme;
@@ -42,18 +46,4 @@ export function Programme() {
       <ArticleContainer>Funding should go here, similar to project pages</ArticleContainer>
     </>
   );
-}
-
-export async function programmeLoader({ request, params, config, locale }: LoaderArgs) {
-  const key = params.key;
-  if (key == null) throw new Error('No key provided in the url');
-
-  return load({
-    endpoint: config.graphqlEndpoint,
-    signal: request.signal,
-    variables: {
-      key,
-    },
-    locale: locale.cmsLocale || locale.code,
-  });
 }

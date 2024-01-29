@@ -1,6 +1,5 @@
 import { Helmet } from 'react-helmet-async';
 import { LoaderArgs } from '@/types';
-import { createGraphQLHelpers } from '@/utils/createGraphQLHelpers';
 import { ArticleContainer } from '@/routes/resource/key/components/ArticleContainer';
 import { ArticleBanner } from '@/routes/resource/key/components/ArticleBanner';
 import { ArticlePreTitle } from '../components/ArticlePreTitle';
@@ -13,11 +12,10 @@ import { DataUseQuery, DataUseQueryVariables } from '@/gql/graphql';
 import { ArticleAuxiliary } from '../components/ArticleAuxiliary';
 import { ArticleTags } from '../components/ArticleTags';
 import { FormattedMessage } from 'react-intl';
+import { useLoaderData } from 'react-router-dom';
+import { required } from '@/utils/required';
 
-const { load, useTypedLoaderData } = createGraphQLHelpers<
-  DataUseQuery,
-  DataUseQueryVariables
->(/* GraphQL */ `
+const DATA_USE_QUERY = /* GraphQL */ `
   query DataUse($key: String!) {
     dataUse(id: $key) {
       id
@@ -50,10 +48,16 @@ const { load, useTypedLoaderData } = createGraphQLHelpers<
       createdAt
     }
   }
-`);
+`;
+
+export function dataUseLoader({ params, graphql }: LoaderArgs) {
+  const key = required(params.key, 'No key provided in the url');
+
+  return graphql.query<DataUseQuery, DataUseQueryVariables>(DATA_USE_QUERY, { key });
+}
 
 export function DataUse() {
-  const { data } = useTypedLoaderData();
+  const { data } = useLoaderData() as { data: DataUseQuery };
 
   if (data.dataUse == null) throw new Error('404');
   const resource = data.dataUse;
@@ -66,7 +70,9 @@ export function DataUse() {
 
       <ArticleContainer>
         <ArticleTextContainer className="mb-10">
-          <ArticlePreTitle><FormattedMessage id="cms.contentType.dataUse" /></ArticlePreTitle>
+          <ArticlePreTitle>
+            <FormattedMessage id="cms.contentType.dataUse" />
+          </ArticlePreTitle>
           <ArticleTitle>{resource.title}</ArticleTitle>
           <PublishedDate className="mt-2" date={resource.createdAt} />
 
@@ -103,18 +109,4 @@ export function DataUse() {
       </ArticleContainer>
     </>
   );
-}
-
-export async function dataUseLoader({ request, params, config, locale }: LoaderArgs) {
-  const key = params.key;
-  if (key == null) throw new Error('No key provided in the url');
-
-  return load({
-    endpoint: config.graphqlEndpoint,
-    signal: request.signal,
-    variables: {
-      key,
-    },
-    locale: locale.cmsLocale || locale.code,
-  });
 }

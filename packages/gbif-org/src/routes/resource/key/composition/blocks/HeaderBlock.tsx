@@ -5,7 +5,7 @@ import { ArticleIntro } from '../../components/ArticleIntro';
 import { ArticlePreTitle } from '../../components/ArticlePreTitle';
 import { ArticleTextContainer } from '../../components/ArticleTextContainer';
 import { ArticleTitle } from '../../components/ArticleTitle';
-import { fragmentManager } from '@/services/fragmentManager';
+import { fragmentManager } from '@/services/FragmentManager';
 
 fragmentManager.register(/* GraphQL */ `
   fragment HeaderBlockDetails on HeaderBlock {

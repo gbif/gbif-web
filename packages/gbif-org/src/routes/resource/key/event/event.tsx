@@ -1,7 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { LoaderArgs } from '@/types';
 import { EventQuery, EventQueryVariables } from '@/gql/graphql';
-import { createGraphQLHelpers } from '@/utils/createGraphQLHelpers';
 import { ArticleContainer } from '@/routes/resource/key/components/ArticleContainer';
 import { ArticleBanner } from '@/routes/resource/key/components/ArticleBanner';
 import { ArticlePreTitle } from '../components/ArticlePreTitle';
@@ -16,11 +15,10 @@ import { KeyValuePair } from '../components/KeyValuePair';
 import { MdCalendarMonth } from 'react-icons/md';
 import { SecondaryLinks } from '../components/SecondaryLinks';
 import { ArticleAuxiliary } from '../components/ArticleAuxiliary';
+import { required } from '@/utils/required';
+import { useLoaderData } from 'react-router-dom';
 
-const { load, useTypedLoaderData } = createGraphQLHelpers<
-  EventQuery,
-  EventQueryVariables
->(/* GraphQL */ `
+const EVENT_QUERY = /* GraphQL */ `
   query Event($key: String!) {
     event(id: $key) {
       id
@@ -52,10 +50,16 @@ const { load, useTypedLoaderData } = createGraphQLHelpers<
       venue
     }
   }
-`);
+`;
+
+export async function eventLoader({ params, graphql }: LoaderArgs) {
+  const key = required(params.key, 'No key provided in the url');
+
+  return graphql.query<EventQuery, EventQueryVariables>(EVENT_QUERY, { key });
+}
 
 export function Event() {
-  const { data } = useTypedLoaderData();
+  const { data } = useLoaderData() as { data: EventQuery };
   const { locale } = useI18n();
 
   if (data.event == null) throw new Error('404');
@@ -133,20 +137,6 @@ export function Event() {
       </ArticleContainer>
     </>
   );
-}
-
-export async function eventLoader({ request, params, config, locale }: LoaderArgs) {
-  const key = params.key;
-  if (key == null) throw new Error('No key provided in the url');
-
-  return load({
-    endpoint: config.graphqlEndpoint,
-    signal: request.signal,
-    variables: {
-      key,
-    },
-    locale: locale.cmsLocale || locale.code,
-  });
 }
 
 // Examples of return value:

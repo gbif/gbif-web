@@ -1,8 +1,8 @@
-import { loadGraphQL } from '@/utils/createGraphQLHelpers';
 import { useConfig } from '@/contexts/config/config';
 import { useI18n } from '@/contexts/i18n';
 import React from 'react';
 import Queue from 'queue-promise';
+import { GraphQLService } from '@/services/GraphQLService';
 
 class NetworkError extends Error {
   name = 'NetworkError';
@@ -64,15 +64,14 @@ export function useQuery<TResult, TVariabels>(
         setLoading(true);
         setError(undefined);
 
-        const response = loadGraphQL({
-          signal: _abortController.signal,
+        const graphqlService = new GraphQLService({
           endpoint: config.graphqlEndpoint,
-          query: query,
-          variables: options.variables,
           locale: locale.cmsLocale || locale.code,
+          abortSignal: _abortController.signal,
         });
 
-        return response
+        return graphqlService
+          .query<TResult, TVariabels>(query, options.variables as TVariabels)
           .then(async (response) => {
             // Handle error response errors from the server
             if (response.ok === false) {
@@ -82,9 +81,9 @@ export function useQuery<TResult, TVariabels>(
 
             // Handle successful response
             else {
-              const result = (await response.json()) as { data: TResult };
+              const result = await response.json();
               setError(undefined);
-              setData(result.data);
+              setData(result);
             }
           })
           .catch((error) => {
