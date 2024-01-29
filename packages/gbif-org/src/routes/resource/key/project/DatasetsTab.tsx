@@ -12,7 +12,7 @@ import { useEffect } from 'react';
 import useQuery from '@/hooks/useQuery';
 import { useLoaderData } from 'react-router-dom';
 import { toRecord } from '@/utils/toRecord';
-import { fragmentManager } from '@/services/_FragmentManager';
+import { fragmentManager } from '@/services/FragmentManager';
 import { required } from '@/utils/required';
 import { LoaderArgs } from '@/types';
 

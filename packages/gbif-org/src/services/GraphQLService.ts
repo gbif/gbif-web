@@ -1,5 +1,5 @@
 import hash from 'object-hash';
-import { fragmentManager } from './_FragmentManager';
+import { fragmentManager } from './FragmentManager';
 
 const MAX_GET_LENGTH = 1000;
 

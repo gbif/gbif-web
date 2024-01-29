@@ -1,4 +1,4 @@
-import { fragmentManager } from '@/services/_FragmentManager';
+import { fragmentManager } from '@/services/FragmentManager';
 import { MediaBlockDetailsFragment } from '@/gql/graphql';
 import { DynamicLink } from '@/components/DynamicLink';
 import { cn } from '@/utils/shadcn';

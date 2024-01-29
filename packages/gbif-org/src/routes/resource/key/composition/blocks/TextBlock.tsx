@@ -2,7 +2,7 @@ import { TextBlockDetailsFragment } from '@/gql/graphql';
 import { ArticleContainer } from '../../components/ArticleContainer';
 import { ArticleTextContainer } from '../../components/ArticleTextContainer';
 import { ArticleBody } from '../../components/ArticleBody';
-import { fragmentManager } from '@/services/_FragmentManager';
+import { fragmentManager } from '@/services/FragmentManager';
 import { backgroundColorMap } from './_shared';
 import { ArticleTitle } from '../../components/ArticleTitle';
 

@@ -4,7 +4,7 @@ import { BsTable, BsFilePdfFill as PdfIcon } from 'react-icons/bs';
 import { LuPresentation as PresentationIcon } from 'react-icons/lu';
 import { GrTextAlignLeft } from 'react-icons/gr';
 import styles from './documents.module.css';
-import { fragmentManager } from '@/services/_FragmentManager';
+import { fragmentManager } from '@/services/FragmentManager';
 import { DocumentPreviewFragment } from '@/gql/graphql';
 
 fragmentManager.register(/* GraphQL */ `

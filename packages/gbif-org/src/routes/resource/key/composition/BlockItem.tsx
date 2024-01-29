@@ -7,7 +7,7 @@ import { MediaBlock } from './blocks/MediaBlock';
 import { MediaCountBlock } from './blocks/MediaCountBlock';
 import { CustomComponentBlock } from './blocks/CustomComponentBlock';
 import { TextBlock } from './blocks/TextBlock';
-import { fragmentManager } from '@/services/_FragmentManager';
+import { fragmentManager } from '@/services/FragmentManager';
 
 fragmentManager.register(/* GraphQL */ `
   fragment BlockItemDetails on BlockItem {
