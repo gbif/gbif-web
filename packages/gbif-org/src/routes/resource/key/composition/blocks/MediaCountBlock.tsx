@@ -1,4 +1,4 @@
-import { fragmentManager } from '@/services/FragmentManager';
+import { fragmentManager } from '@/services/_FragmentManager';
 import { MediaCountBlockDetailsFragment } from '@/gql/graphql';
 import { ArticleBody } from '../../components/ArticleBody';
 import { DynamicLink } from '@/components/DynamicLink';

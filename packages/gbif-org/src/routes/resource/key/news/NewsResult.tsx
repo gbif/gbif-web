@@ -1,7 +1,7 @@
 import { MdCalendarToday } from 'react-icons/md';
 import { FormattedDate } from 'react-intl';
 import { NewsResultFragment } from '@/gql/graphql';
-import { fragmentManager } from '@/services/FragmentManager';
+import { fragmentManager } from '@/services/_FragmentManager';
 
 fragmentManager.register(/* GraphQL */ `
   fragment NewsResult on News {

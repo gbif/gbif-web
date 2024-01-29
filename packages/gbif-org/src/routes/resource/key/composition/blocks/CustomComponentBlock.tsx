@@ -1,7 +1,7 @@
 import { CustomComponentBlockDetailsFragment } from '@/gql/graphql';
 import { ArticleContainer } from '../../components/ArticleContainer';
 import { ArticleTextContainer } from '../../components/ArticleTextContainer';
-import { fragmentManager } from '@/services/FragmentManager';
+import { fragmentManager } from '@/services/_FragmentManager';
 import { backgroundColorMap } from './_shared';
 
 fragmentManager.register(/* GraphQL */ `

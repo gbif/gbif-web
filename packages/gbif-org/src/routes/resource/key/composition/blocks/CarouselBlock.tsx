@@ -1,4 +1,4 @@
-import { fragmentManager } from '@/services/FragmentManager';
+import { fragmentManager } from '@/services/_FragmentManager';
 import { CarouselBlockDetailsFragment } from '@/gql/graphql';
 import {
   Carousel,

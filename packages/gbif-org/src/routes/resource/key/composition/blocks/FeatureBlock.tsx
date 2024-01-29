@@ -4,7 +4,7 @@ import { ArticleTextContainer } from '../../components/ArticleTextContainer';
 import { ArticleTitle } from '../../components/ArticleTitle';
 import { ArticleBody } from '../../components/ArticleBody';
 import { ProseCard } from '../proseCard';
-import { fragmentManager } from '@/services/FragmentManager';
+import { fragmentManager } from '@/services/_FragmentManager';
 import { backgroundColorMap } from './_shared';
 
 fragmentManager.register(/* GraphQL */ `
