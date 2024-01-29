@@ -5,6 +5,7 @@ import { ArticleTitle } from '../../components/ArticleTitle';
 import { ArticleBody } from '../../components/ArticleBody';
 import { ProseCard } from '../ProseCard';
 import { fragmentManager } from '@/services/FragmentManager';
+import { backgroundColorMap } from './_shared';
 
 fragmentManager.register(/* GraphQL */ `
   fragment FeatureBlockDetails on FeatureBlock {
@@ -55,10 +56,9 @@ fragmentManager.register(/* GraphQL */ `
 
 type Props = {
   resource: FeatureBlockDetailsFragment;
-  backgroundColorMap: Record<string, string>;
 };
 
-export function FeatureBlock({ resource, backgroundColorMap }: Props) {
+export function FeatureBlock({ resource }: Props) {
   const backgroundColor = backgroundColorMap[resource?.backgroundColour ?? 'white'];
 
   return (

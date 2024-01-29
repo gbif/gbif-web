@@ -36,7 +36,6 @@ fragmentManager.register(/* GraphQL */ `
 
 type Props = {
   resource: CarouselBlockDetailsFragment;
-  backgroundColorMap: Record<string, string>;
 };
 
 export function CarouselBlock({ resource }: Props) {

@@ -2,6 +2,7 @@ import { CustomComponentBlockDetailsFragment } from '@/gql/graphql';
 import { ArticleContainer } from '../../components/ArticleContainer';
 import { ArticleTextContainer } from '../../components/ArticleTextContainer';
 import { fragmentManager } from '@/services/FragmentManager';
+import { backgroundColorMap } from './_shared';
 
 fragmentManager.register(/* GraphQL */ `
   fragment CustomComponentBlockDetails on CustomComponentBlock {
@@ -16,10 +17,9 @@ fragmentManager.register(/* GraphQL */ `
 
 type Props = {
   resource: CustomComponentBlockDetailsFragment;
-  backgroundColorMap: Record<string, string>;
 };
 
-export function CustomComponentBlock({ resource, backgroundColorMap }: Props) {
+export function CustomComponentBlock({ resource }: Props) {
   const backgroundColor = backgroundColorMap[resource?.backgroundColour ?? 'white'];
 
   return (

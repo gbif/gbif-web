@@ -4,6 +4,7 @@ import { ArticleTextContainer } from '../../components/ArticleTextContainer';
 import { ArticleTitle } from '../../components/ArticleTitle';
 import { ArticleBody } from '../../components/ArticleBody';
 import { fragmentManager } from '@/services/FragmentManager';
+import { backgroundColorMap } from './_shared';
 
 fragmentManager.register(/* GraphQL */ `
   fragment FeaturedTextBlockDetails on FeaturedTextBlock {
@@ -17,10 +18,9 @@ fragmentManager.register(/* GraphQL */ `
 
 type Props = {
   resource: FeaturedTextBlockDetailsFragment;
-  backgroundColorMap: Record<string, string>;
 };
 
-export function FeaturedTextBlock({ resource, backgroundColorMap }: Props) {
+export function FeaturedTextBlock({ resource }: Props) {
   const backgroundColor = backgroundColorMap[resource?.backgroundColour ?? 'white'];
 
   return (

@@ -44,36 +44,24 @@ type Props = {
   insideCarousel?: boolean;
 };
 
-const backgroundColorMap: Record<string, string> = {
-  white: 'bg-white',
-  light: 'bg-slate-50',
-  gray: 'bg-slate-100',
-};
-
 export function BlockItem({ resource, insideCarousel = false }: Props) {
   switch (resource.__typename) {
     case 'HeaderBlock':
       return <HeaderBlock resource={resource} />;
     case 'FeatureBlock':
-      return <FeatureBlock resource={resource} backgroundColorMap={backgroundColorMap} />;
+      return <FeatureBlock resource={resource} />;
     case 'FeaturedTextBlock':
-      return <FeaturedTextBlock resource={resource} backgroundColorMap={backgroundColorMap} />;
+      return <FeaturedTextBlock resource={resource} />;
     case 'CarouselBlock':
-      return <CarouselBlock resource={resource} backgroundColorMap={backgroundColorMap} />;
+      return <CarouselBlock resource={resource} />;
     case 'MediaBlock':
-      return <MediaBlock resource={resource} />;
+      return <MediaBlock resource={resource} insideCarousel={insideCarousel} />;
     case 'MediaCountBlock':
-      return (
-        <MediaCountBlock
-          resource={resource}
-          insideCarousel={insideCarousel}
-          backgroundColorMap={backgroundColorMap}
-        />
-      );
+      return <MediaCountBlock resource={resource} insideCarousel={insideCarousel} />;
     case 'CustomComponentBlock':
-      return <CustomComponentBlock resource={resource} backgroundColorMap={backgroundColorMap} />;
+      return <CustomComponentBlock resource={resource} />;
     case 'TextBlock':
-      return <TextBlock resource={resource} backgroundColorMap={backgroundColorMap} />;
+      return <TextBlock resource={resource} />;
     default:
       return null;
   }
