@@ -87,6 +87,7 @@ function MediaBlockContent({
           <div className="flex gap-4 flex-wrap mt-4">
             {resource.callToAction.map((cta) => (
               <DynamicLink
+                key={cta.url}
                 className="text-primary-300 hover:text-primary-500 hover:underline underline-offset-2"
                 to={cta.url}
               >

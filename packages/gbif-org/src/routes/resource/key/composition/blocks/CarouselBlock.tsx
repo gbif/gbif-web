@@ -71,6 +71,7 @@ export function CarouselBlock({ resource }: Props) {
 
           <CarouselPrevious />
           <CarouselNext />
+
           <div className="flex justify-center items-center gap-2 pt-8">
             {Array.from({ length: count }).map((_, idx) => (
               <button
