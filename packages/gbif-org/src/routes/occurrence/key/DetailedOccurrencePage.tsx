@@ -2,14 +2,12 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { LoaderArgs } from '@/types';
 import { OccurrenceQuery, OccurrenceQueryVariables } from '@/gql/graphql';
-import { createGraphQLHelpers } from '@/utils/createGraphQLHelpers';
 import { DynamicLink } from '@/components/DynamicLink';
+import { required } from '@/utils/required';
+import { useLoaderData } from 'react-router-dom';
 const Map = React.lazy(() => import('@/components/Map'));
 
-const { load, useTypedLoaderData } = createGraphQLHelpers<
-  OccurrenceQuery,
-  OccurrenceQueryVariables
->(/* GraphQL */ `
+const OCCURRENCE_QUERY = /* GraphQL */ `
   query Occurrence($key: ID!) {
     occurrence(key: $key) {
       eventDate
@@ -21,10 +19,16 @@ const { load, useTypedLoaderData } = createGraphQLHelpers<
       }
     }
   }
-`);
+`;
+
+export function loader({ params, graphql }: LoaderArgs) {
+  const key = required(params.key, 'No key was provided in the URL');
+
+  return graphql.query<OccurrenceQuery, OccurrenceQueryVariables>(OCCURRENCE_QUERY, { key });
+}
 
 export function DetailedOccurrencePage() {
-  const { data } = useTypedLoaderData();
+  const { data } = useLoaderData() as { data: OccurrenceQuery };
 
   if (data.occurrence == null) throw new Error('404');
   const occurrence = data.occurrence;
@@ -54,20 +58,6 @@ export function DetailedOccurrencePage() {
       )}
     </>
   );
-}
-
-export async function loader({ request, params, config, locale }: LoaderArgs) {
-  const key = params.key;
-  if (key == null) throw new Error('No key provided in the url');
-
-  return load({
-    endpoint: config.graphqlEndpoint,
-    signal: request.signal,
-    locale: locale.cmsLocale || locale.code,
-    variables: {
-      key,
-    },
-  });
 }
 
 export function DetailedOccurrencePageLoading() {

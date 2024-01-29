@@ -1,25 +1,36 @@
-import { LoaderArgs } from '@/types';
 import {
+  ProjectDatasetsQuery,
+  ProjectDatasetsCountsQuery,
+  ProjectDatasetsQueryVariables,
+  ProjectDatasetsCountsQueryVariables,
+  DatasetResultFragment,
+  DatasetCountsFragment,
   ProjectIdQuery,
   ProjectIdQueryVariables,
-  ProjectDatasetsQuery,
-  ProjectDatasetsQueryVariables,
-  ProjectDatasetsCountsQuery,
 } from '@/gql/graphql';
-import { createGraphQLHelpers } from '@/utils/createGraphQLHelpers';
 import { useEffect } from 'react';
 import useQuery from '@/hooks/useQuery';
+import { useLoaderData } from 'react-router-dom';
+import { toRecord } from '@/utils/toRecord';
+import { fragmentManager } from '@/services/FragmentManager';
+import { required } from '@/utils/required';
+import { LoaderArgs } from '@/types';
 
-const { load, useTypedLoaderData } = createGraphQLHelpers<
-  ProjectIdQuery,
-  ProjectIdQueryVariables
->(/* GraphQL */ `
+const PROJECT_ID_QUERY = /* GraphQL */ `
   query ProjectId($key: String!) {
     gbifProject(id: $key) {
       projectId
     }
   }
-`);
+`;
+
+export function projectDatasetsLoader({ params, graphql }: LoaderArgs) {
+  const key = required(params.key, 'No key provided in the URL');
+
+  return graphql.query<ProjectIdQuery, ProjectIdQueryVariables>(PROJECT_ID_QUERY, {
+    key,
+  });
+}
 
 const DATASET_QUERY = /* GraphQL */ `
   query ProjectDatasets($projectId: ID!) {
@@ -28,13 +39,7 @@ const DATASET_QUERY = /* GraphQL */ `
       limit
       offset
       results {
-        key
-        title
-        excerpt
-        type
-        publishingOrganizationTitle
-        recordCount
-        license
+        ...DatasetResult
       }
     }
   }
@@ -44,63 +49,57 @@ const SLOW_DATASET_QUERY = /* GraphQL */ `
   query ProjectDatasetsCounts($projectId: ID!, $limit: Int, $offset: Int) {
     datasetSearch(projectId: [$projectId], limit: $limit, offset: $offset) {
       results {
-        key
-        occurrenceCount
-        literatureCount
+        ...DatasetCounts
       }
     }
   }
 `;
 
 export function DatasetsTab() {
-  const { data: projectData } = useTypedLoaderData();
-  const {
-    data,
-    error,
-    loading,
-    load,
-  }: {
-    data?: ProjectDatasetsQuery;
-    error: any;
-    loading: boolean;
-    load: Function;
-  } = useQuery(DATASET_QUERY, { lazyLoad: true, throwAllErrors: true });
+  const { data: projectData } = useLoaderData() as { data: ProjectIdQuery };
 
-  const {
-    data: slowData,
-    error: slowError,
-    loading: slowLoading,
-    load: slowLoad,
-  }: {
-    data?: ProjectDatasetsCountsQuery;
-    error: any;
-    loading: boolean;
-    load: Function;
-  } = useQuery(SLOW_DATASET_QUERY, { lazyLoad: true, throwAllErrors: true });
+  const { data, loading, load } = useQuery<ProjectDatasetsQuery, ProjectDatasetsQueryVariables>(
+    DATASET_QUERY,
+    {
+      lazyLoad: true,
+      throwAllErrors: true,
+    }
+  );
+
+  const { data: slowData, load: slowLoad } = useQuery<
+    ProjectDatasetsCountsQuery,
+    ProjectDatasetsCountsQueryVariables
+  >(SLOW_DATASET_QUERY, {
+    lazyLoad: true,
+    throwAllErrors: true,
+  });
 
   // load dataset search results
   useEffect(() => {
     const projectId = projectData?.gbifProject?.projectId;
+    if (typeof projectId !== 'string') return;
+
     load({
       variables: {
         projectId,
       },
     });
-  }, [projectData]);
+  }, [projectData, load]);
 
   // load slow dataset search results like counts
   useEffect(() => {
-    if (data?.datasetSearch?.count) {
-      const projectId = projectData?.gbifProject?.projectId;
-      slowLoad({
-        variables: {
-          projectId,
-          limit: data?.datasetSearch.limit,
-          offset: data?.datasetSearch.offset,
-        },
-      });
-    }
-  }, [projectData, data]);
+    const projectId = projectData?.gbifProject?.projectId;
+    if (typeof projectId !== 'string') return;
+    if (!data?.datasetSearch?.count) return;
+
+    slowLoad({
+      variables: {
+        projectId,
+        limit: data?.datasetSearch.limit,
+        offset: data?.datasetSearch.offset,
+      },
+    });
+  }, [projectData, data, slowLoad]);
 
   if (projectData.gbifProject == null) throw new Error('404');
 
@@ -109,10 +108,9 @@ export function DatasetsTab() {
   const { count, results } = data.datasetSearch;
 
   // map slow results by key for faster lookup
-  const slowResults = slowData?.datasetSearch?.results.reduce((acc, item) => {
-    acc[item.key] = item;
-    return acc;
-  }, {}) ?? {};
+  const slowResults = Array.isArray(slowData?.datasetSearch?.results)
+    ? toRecord(slowData.datasetSearch.results, (item) => item.key)
+    : {};
 
   return (
     <>
@@ -120,7 +118,7 @@ export function DatasetsTab() {
         <div className="pt-4 max-w-3xl m-auto">
           <div>
             {results?.map((item) => {
-              return <DatasetResult key={item?.key} dataset={item} counts={slowResults?.[item.key]}/>;
+              return <DatasetResult key={item.key} dataset={item} counts={slowResults[item.key]} />;
             })}
           </div>
         </div>
@@ -129,32 +127,35 @@ export function DatasetsTab() {
   );
 }
 
-export async function projectDatasetsLoader({ request, params, config, locale }: LoaderArgs) {
-  const key = params.key;
-  if (key == null) throw new Error('No key provided in the url');
+fragmentManager.register(/* GraphQL */ `
+  fragment DatasetResult on DatasetSearchStub {
+    key
+    title
+    excerpt
+    type
+    publishingOrganizationTitle
+    recordCount
+    license
+  }
+`);
 
-  return load({
-    endpoint: config.graphqlEndpoint,
-    signal: request.signal,
-    variables: {
-      key,
-    },
-    locale: locale.cmsLocale || locale.code,
-  });
-}
+fragmentManager.register(/* GraphQL */ `
+  fragment DatasetCounts on DatasetSearchStub {
+    key
+    occurrenceCount
+    literatureCount
+  }
+`);
 
-type DatasetFragment = {
-  key: string;
-  title?: string | null;
-  excerpt?: string | null;
-  type?: string | null;
-  publishingOrganizationTitle?: string | null;
-  license?: string | null;
-};
-
-export function DatasetResult({ dataset, counts }: { dataset: DatasetFragment, counts?: any }) {
+export function DatasetResult({
+  dataset,
+  counts,
+}: {
+  dataset: DatasetResultFragment;
+  counts?: DatasetCountsFragment;
+}) {
   const link = `/dataset/${dataset.key}`;
-  
+
   return (
     <article className="bg-slate-50 p-4 rounded border mb-4">
       <h3 className="flex-auto text-base font-semibold mb-2">
@@ -168,12 +169,16 @@ export function DatasetResult({ dataset, counts }: { dataset: DatasetFragment, c
               <span className="align-middle bg-slate-300/50 text-slate-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
                 {dataset.type}
               </span>
-              {counts?.literatureCount > 0 && <span className="align-middle bg-slate-300/50 text-slate-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
-                Citations: {counts?.literatureCount}
-              </span>}
-              {counts?.occurrenceCount > 0 && <span className="align-middle bg-slate-300/50 text-slate-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
-                Occurrences: {counts?.occurrenceCount}
-              </span>}
+              {counts?.literatureCount && (
+                <span className="align-middle bg-slate-300/50 text-slate-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
+                  Citations: {counts?.literatureCount}
+                </span>
+              )}
+              {counts?.occurrenceCount && (
+                <span className="align-middle bg-slate-300/50 text-slate-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
+                  Occurrences: {counts?.occurrenceCount}
+                </span>
+              )}
             </div>
           </div>
         </div>

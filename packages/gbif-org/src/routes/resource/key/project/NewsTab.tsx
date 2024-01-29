@@ -1,13 +1,11 @@
 import { LoaderArgs } from '@/types';
 import { ProjectNewsQuery, ProjectNewsQueryVariables } from '@/gql/graphql';
-import { createGraphQLHelpers } from '@/utils/createGraphQLHelpers';
 import { NewsResult } from '../news/NewsResult';
 import { EventResult } from '../event/EventResult';
+import { useLoaderData } from 'react-router-dom';
+import { required } from '@/utils/required';
 
-const { load, useTypedLoaderData } = createGraphQLHelpers<
-  ProjectNewsQuery,
-  ProjectNewsQueryVariables
->(/* GraphQL */ `
+const PROJECT_NEWS_QUERY = /* GraphQL */ `
   query ProjectNews($key: String!) {
     gbifProject(id: $key) {
       news {
@@ -18,10 +16,18 @@ const { load, useTypedLoaderData } = createGraphQLHelpers<
       }
     }
   }
-`);
+`;
+
+export function projectNewsLoader({ params, graphql }: LoaderArgs) {
+  const key = required(params.key, 'No key provided in the URL');
+
+  return graphql.query<ProjectNewsQuery, ProjectNewsQueryVariables>(PROJECT_NEWS_QUERY, {
+    key,
+  });
+}
 
 export function NewsTab() {
-  const { data } = useTypedLoaderData();
+  const { data } = useLoaderData() as { data: ProjectNewsQuery };
 
   if (data.gbifProject == null) throw new Error('404');
   const resource = data.gbifProject;
@@ -45,18 +51,4 @@ export function NewsTab() {
           })}
     </div>
   );
-}
-
-export async function projectNewsLoader({ request, params, config, locale }: LoaderArgs) {
-  const key = params.key;
-  if (key == null) throw new Error('No key provided in the url');
-
-  return load({
-    endpoint: config.graphqlEndpoint,
-    signal: request.signal,
-    variables: {
-      key,
-    },
-    locale: locale.cmsLocale || locale.code,
-  });
 }

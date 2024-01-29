@@ -2,14 +2,11 @@ import { DynamicLink } from '@/components/DynamicLink';
 import { Tabs } from '@/components/Tabs';
 import { DatasetQuery, DatasetQueryVariables } from '@/gql/graphql';
 import { LoaderArgs } from '@/types';
-import { createGraphQLHelpers } from '@/utils/createGraphQLHelpers';
+import { required } from '@/utils/required';
 import { Helmet } from 'react-helmet-async';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLoaderData } from 'react-router-dom';
 
-const { load, useTypedLoaderData } = createGraphQLHelpers<
-  DatasetQuery,
-  DatasetQueryVariables
->(/* GraphQL */ `
+const DATASET_QUERY = /* GraphQL */ `
   query Dataset($key: ID!) {
     dataset(key: $key) {
       title
@@ -17,10 +14,16 @@ const { load, useTypedLoaderData } = createGraphQLHelpers<
       publishingOrganizationTitle
     }
   }
-`);
+`;
+
+export function datasetLoader({ params, graphql }: LoaderArgs) {
+  const key = required(params.key, 'No key was provided in the URL');
+
+  return graphql.query<DatasetQuery, DatasetQueryVariables>(DATASET_QUERY, { key });
+}
 
 export function DatasetPage() {
-  const { data } = useTypedLoaderData();
+  const { data } = useLoaderData() as { data: DatasetQuery };
 
   if (data.dataset == null) throw new Error('404');
   const dataset = data.dataset;
@@ -72,18 +75,4 @@ export function DatasetPage() {
       <Outlet />
     </>
   );
-}
-
-export async function datasetLoader({ request, params, config, locale }: LoaderArgs) {
-  const key = params.key;
-  if (key == null) throw new Error('No key provided in the url');
-
-  return load({
-    endpoint: config.graphqlEndpoint,
-    signal: request.signal,
-    locale: locale.cmsLocale || locale.code,
-    variables: {
-      key,
-    },
-  });
 }

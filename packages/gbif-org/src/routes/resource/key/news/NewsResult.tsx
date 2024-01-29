@@ -1,8 +1,9 @@
 import { MdCalendarToday } from 'react-icons/md';
 import { FormattedDate } from 'react-intl';
 import { NewsResultFragment } from '@/gql/graphql';
+import { fragmentManager } from '@/services/FragmentManager';
 
-/* GraphQL */ `
+fragmentManager.register(/* GraphQL */ `
   fragment NewsResult on News {
     id
     title
@@ -14,7 +15,7 @@ import { NewsResultFragment } from '@/gql/graphql';
     }
     createdAt
   }
-`;
+`);
 
 type Props = {
   news: NewsResultFragment;

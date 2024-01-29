@@ -11,7 +11,7 @@ import {
   loader as detailedOccurrenceLoader,
 } from '@/routes/occurrence/key/DetailedOccurrencePage';
 import { OccurrenceSearchPage } from '@/routes/occurrence/search/OccurrenceSearchPage';
-import { InputConfig, processConfig } from '@/contexts/config/config';
+import { InputConfig, configBuilder } from '@/contexts/config/config';
 import { DatasetPage, datasetLoader } from '@/routes/dataset/key/DatasetPage';
 import { PublisherPage, publisherLoader } from '@/routes/publisher/key/PublisherPage';
 import { News, NewsSkeleton, newsLoader } from '@/routes/resource/key/news/news';
@@ -25,9 +25,26 @@ import { DataUse, dataUseLoader } from '@/routes/resource/key/data-use/data-use'
 import { Event, eventLoader } from '@/routes/resource/key/event/event';
 import { Article, articleLoader } from '@/routes/resource/key/article/article';
 import { Tool, toolLoader } from '@/routes/resource/key/tool/tool';
-import { Project, projectLoader, AboutTab as ProjectAboutTab, DatasetsTab as ProjectDatasetsTab, projectNewsLoader, projectDatasetsLoader, NewsTab as ProjectNewsTab, projectAboutLoader } from '@/routes/resource/key/project';
-import { Programme, ProgrammeSkeleton, programmeLoader } from '@/routes/resource/key/programme/programme';
-import { Composition, CompositionSkeleton, compositionLoader } from '@/routes/resource/key/composition/composition';
+import {
+  Project,
+  projectLoader,
+  AboutTab as ProjectAboutTab,
+  DatasetsTab as ProjectDatasetsTab,
+  projectNewsLoader,
+  NewsTab as ProjectNewsTab,
+  projectAboutLoader,
+  projectDatasetsLoader,
+} from '@/routes/resource/key/project';
+import {
+  Programme,
+  ProgrammeSkeleton,
+  programmeLoader,
+} from '@/routes/resource/key/programme/programme';
+import {
+  Composition,
+  CompositionSkeleton,
+  compositionLoader,
+} from '@/routes/resource/key/composition/composition';
 
 const baseRoutes: SourceRouteObject[] = [
   {
@@ -186,4 +203,4 @@ const baseRoutes: SourceRouteObject[] = [
 ];
 
 export const configureGbifRoutes = (gbifConfig: InputConfig) =>
-  configureRoutes(baseRoutes, processConfig(gbifConfig));
+  configureRoutes(baseRoutes, configBuilder(gbifConfig));

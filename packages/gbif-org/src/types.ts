@@ -1,10 +1,12 @@
 import { RouteObject } from 'react-router-dom';
 import { Config } from '@/contexts/config/config';
+import { GraphQLService } from './services/GraphQLService';
 
 export type LoaderArgs = {
   request: Request;
   config: Config;
   locale: Config['languages'][number];
+  graphql: GraphQLService;
   params: Record<string, string | undefined>;
 };
 

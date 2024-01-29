@@ -9,6 +9,7 @@ export enum GbifEnv {
 export type Endpoints = {
   graphqlEndpoint: string;
   translationsEntryEndpoint: string;
+  countEndpoint: string;
 };
 
 export function isGbifEnv(value: string): value is GbifEnv {
@@ -30,21 +31,25 @@ export function getEndpointsBasedOnGbifEnv(
       translationsEntryEndpoint:
         'https://react-components.gbif.org/lib/translations/translations.json',
       graphqlEndpoint: 'https://graphql.gbif.org/graphql',
+      countEndpoint: 'https://hp-search.gbif.org',
     },
     [GbifEnv.Dev]: {
       translationsEntryEndpoint:
         'https://react-components.gbif-dev.org/lib/translations/translations.json',
       graphqlEndpoint: 'https://graphql.gbif-dev.org/graphql',
+      countEndpoint: 'https://hp-search.gbif-dev.org',
     },
     [GbifEnv.Uat]: {
       translationsEntryEndpoint:
         'https://react-components.gbif-uat.org/lib/translations/translations.json',
       graphqlEndpoint: 'https://graphql.gbif-uat.org/graphql',
+      countEndpoint: 'https://hp-search.gbif-uat.org',
     },
     [GbifEnv.Staging]: {
       translationsEntryEndpoint:
         'https://react-components.gbif-staging.org/lib/translations/translations.json',
       graphqlEndpoint: 'https://graphql.gbif-staging.org/graphql',
+      countEndpoint: 'https://hp-search.gbif-staging.org',
     },
   }[gbifEnv];
 

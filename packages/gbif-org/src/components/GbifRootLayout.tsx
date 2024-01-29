@@ -4,7 +4,34 @@ import { LanguageSelector } from '@/components/LanguageSelector';
 import { DynamicLink } from '@/components/DynamicLink';
 import { HeaderQuery, HeaderQueryVariables } from '@/gql/graphql';
 import { LoaderArgs } from '../types';
-import { createGraphQLHelpers } from '@/utils/createGraphQLHelpers';
+
+const HEADER_QUERY = /* GraphQL */ `
+  query Header {
+    gbifHome {
+      title
+      summary
+      children {
+        externalLink
+        link
+        title
+        children {
+          externalLink
+          link
+          title
+          children {
+            externalLink
+            link
+            title
+          }
+        }
+      }
+    }
+  }
+`;
+
+export function headerLoader({ graphql }: LoaderArgs) {
+  return graphql.query<HeaderQuery, HeaderQueryVariables>(HEADER_QUERY, {});
+}
 
 type Props = {
   children: React.ReactNode;
@@ -30,38 +57,3 @@ export function GbifRootLayout({ children }: Props) {
     </>
   );
 }
-
-// load the navigation elements to be used in the header
-export async function headerLoader({ request, config, locale }: LoaderArgs) {
-  // first we need to load all the elements of the navigation
-  return load({
-    endpoint: config.graphqlEndpoint,
-    signal: request.signal,
-    variables: {},
-    locale: locale.cmsLocale || locale.code,
-  });
-}
-
-const { load } = createGraphQLHelpers<HeaderQuery, HeaderQueryVariables>(/* GraphQL */ `
-  query Header {
-    gbifHome {
-      title
-      summary
-      children {
-        externalLink
-        link
-        title
-        children {
-          externalLink
-          link
-          title
-          children {
-            externalLink
-            link
-            title
-          }
-        }
-      }
-    }
-  }
-`);

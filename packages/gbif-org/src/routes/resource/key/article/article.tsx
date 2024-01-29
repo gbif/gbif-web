@@ -1,7 +1,8 @@
 import { Helmet } from 'react-helmet-async';
+import { useLoaderData } from 'react-router-dom';
 import { LoaderArgs } from '@/types';
 import { ArticleQuery, ArticleQueryVariables } from '@/gql/graphql';
-import { createGraphQLHelpers } from '@/utils/createGraphQLHelpers';
+import { required } from '@/utils/required';
 import { ArticleContainer } from '@/routes/resource/key/components/ArticleContainer';
 import { ArticleBanner } from '@/routes/resource/key/components/ArticleBanner';
 import { ArticleTitle } from '../components/ArticleTitle';
@@ -14,10 +15,7 @@ import { ArticleAuxiliary } from '../components/ArticleAuxiliary';
 import { SecondaryLinks } from '../components/SecondaryLinks';
 import { Documents } from '../components/Documents';
 
-const { load, useTypedLoaderData } = createGraphQLHelpers<
-  ArticleQuery,
-  ArticleQueryVariables
->(/* GraphQL */ `
+const ARTICLE_QUERY = /* GraphQL */ `
   query Article($key: String!) {
     article(id: $key) {
       id
@@ -56,10 +54,16 @@ const { load, useTypedLoaderData } = createGraphQLHelpers<
       createdAt
     }
   }
-`);
+`;
+
+export function articleLoader({ params, graphql }: LoaderArgs) {
+  const key = required(params.key, 'No key provided in the url');
+
+  return graphql.query<ArticleQuery, ArticleQueryVariables>(ARTICLE_QUERY, { key });
+}
 
 export function Article() {
-  const { data } = useTypedLoaderData();
+  const { data } = useLoaderData() as { data: ArticleQuery };
 
   if (data.article == null) throw new Error('404');
   const resource = data.article;
@@ -119,18 +123,4 @@ export function Article() {
       </ArticleContainer>
     </>
   );
-}
-
-export async function articleLoader({ request, params, config, locale }: LoaderArgs) {
-  const key = params.key;
-  if (key == null) throw new Error('No key provided in the url');
-
-  return load({
-    endpoint: config.graphqlEndpoint,
-    signal: request.signal,
-    variables: {
-      key,
-    },
-    locale: locale.cmsLocale || locale.code,
-  });
 }
