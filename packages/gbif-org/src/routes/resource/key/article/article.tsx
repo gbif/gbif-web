@@ -36,16 +36,7 @@ const ARTICLE_QUERY = /* GraphQL */ `
         url
       }
       documents {
-        file {
-          url
-          fileName
-          contentType
-          volatile_documentType
-          details {
-            size
-          }
-        }
-        title
+        ...DocumentPreview
       }
       topics
       purposes

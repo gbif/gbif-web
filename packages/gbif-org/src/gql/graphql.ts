@@ -5,35 +5,31 @@ export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = {
-  [_ in K]?: never;
-};
-export type Incremental<T> =
-  | T
-  | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string; output: string };
-  String: { input: string; output: string };
-  Boolean: { input: boolean; output: boolean };
-  Int: { input: number; output: number };
-  Float: { input: number; output: number };
-  DateTime: { input: any; output: any };
+  ID: { input: string; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
+  DateTime: { input: any; output: any; }
   /** A field whose value conforms to the standard internet email address format as specified in RFC822: https://www.w3.org/Protocols/rfc822/. */
-  EmailAddress: { input: any; output: any };
+  EmailAddress: { input: any; output: any; }
   /** A field whose value is a generic Universally Unique Identifier: https://en.wikipedia.org/wiki/Universally_unique_identifier. */
-  GUID: { input: any; output: any };
+  GUID: { input: any; output: any; }
   /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
-  JSON: { input: any; output: any };
+  JSON: { input: any; output: any; }
   /** The `Long` scalar type represents 52-bit integers */
-  Long: { input: any; output: any };
+  Long: { input: any; output: any; }
   /** A field whose value conforms to the standard URL format as specified in RFC3986: https://www.ietf.org/rfc/rfc3986.txt. */
-  URL: { input: any; output: any };
+  URL: { input: any; output: any; }
 };
 
 export enum AccessionStatus {
   Institutional = 'INSTITUTIONAL',
-  Project = 'PROJECT',
+  Project = 'PROJECT'
 }
 
 export type Address = {
@@ -49,7 +45,7 @@ export type Address = {
 export enum AgentIdentifierType {
   Orcid = 'ORCID',
   Other = 'OTHER',
-  Wikidata = 'WIKIDATA',
+  Wikidata = 'WIKIDATA'
 }
 
 export type AlternativeCode = {
@@ -60,7 +56,7 @@ export type AlternativeCode = {
 
 export enum AppRole {
   App = 'APP',
-  Ipt = 'IPT',
+  Ipt = 'IPT'
 }
 
 export type Article = {
@@ -100,6 +96,7 @@ export type AssociatedId = {
   type?: Maybe<Scalars['String']['output']>;
   value?: Maybe<Scalars['String']['output']>;
 };
+
 
 export type AssociatedIdPersonArgs = {
   expand?: InputMaybe<Scalars['Boolean']['input']>;
@@ -144,7 +141,7 @@ export enum BasisOfRecord {
   Observation = 'OBSERVATION',
   Occurrence = 'OCCURRENCE',
   PreservedSpecimen = 'PRESERVED_SPECIMEN',
-  Unknown = 'UNKNOWN',
+  Unknown = 'UNKNOWN'
 }
 
 export type BibliographicCitation = {
@@ -165,15 +162,7 @@ export type BionomiaPerson = {
   reference?: Maybe<Scalars['String']['output']>;
 };
 
-export type BlockItem =
-  | CarouselBlock
-  | CustomComponentBlock
-  | FeatureBlock
-  | FeaturedTextBlock
-  | HeaderBlock
-  | MediaBlock
-  | MediaCountBlock
-  | TextBlock;
+export type BlockItem = CarouselBlock | CustomComponentBlock | FeatureBlock | FeaturedTextBlock | HeaderBlock | MediaBlock | MediaCountBlock | TextBlock;
 
 export type BoundingBox = {
   __typename?: 'BoundingBox';
@@ -235,6 +224,7 @@ export type ChecklistBankDataset = {
   size?: Maybe<Scalars['Int']['output']>;
   type?: Maybe<Scalars['String']['output']>;
 };
+
 
 export type ChecklistBankDatasetImportArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -419,7 +409,7 @@ export type Citation = {
 export enum CitesAppendix {
   I = 'I',
   Ii = 'II',
-  Iii = 'III',
+  Iii = 'III'
 }
 
 export type Classification = {
@@ -547,7 +537,7 @@ export enum CollectionContentType {
   RecordsOther = 'RECORDS_OTHER',
   RecordsRadiograph = 'RECORDS_RADIOGRAPH',
   RecordsRecordings = 'RECORDS_RECORDINGS',
-  RecordsSeismograms = 'RECORDS_SEISMOGRAMS',
+  RecordsSeismograms = 'RECORDS_SEISMOGRAMS'
 }
 
 export type CollectionSearchResults = {
@@ -560,7 +550,7 @@ export type CollectionSearchResults = {
 };
 
 export enum CollectionsSortField {
-  NumberSpecimens = 'NUMBER_SPECIMENS',
+  NumberSpecimens = 'NUMBER_SPECIMENS'
 }
 
 export type CombinationAuthorship = {
@@ -680,7 +670,7 @@ export enum ContactType {
   TechnicalPointOfContact = 'TECHNICAL_POINT_OF_CONTACT',
   TemporaryDelegate = 'TEMPORARY_DELEGATE',
   TemporaryHeadOfDelegation = 'TEMPORARY_HEAD_OF_DELEGATION',
-  User = 'USER',
+  User = 'USER'
 }
 
 export type ContactsCitation = {
@@ -704,7 +694,7 @@ export enum ContentType {
   News = 'NEWS',
   Notification = 'NOTIFICATION',
   Project = 'PROJECT',
-  Tool = 'TOOL',
+  Tool = 'TOOL'
 }
 
 export enum Continent {
@@ -714,7 +704,7 @@ export enum Continent {
   Europe = 'EUROPE',
   NorthAmerica = 'NORTH_AMERICA',
   Oceania = 'OCEANIA',
-  SouthAmerica = 'SOUTH_AMERICA',
+  SouthAmerica = 'SOUTH_AMERICA'
 }
 
 export type Coordinates = {
@@ -976,12 +966,12 @@ export enum Country {
   Za = 'ZA',
   Zm = 'ZM',
   Zw = 'ZW',
-  Zz = 'ZZ',
+  Zz = 'ZZ'
 }
 
 export enum CountryUsageSortField {
   CountryCode = 'COUNTRY_CODE',
-  RecordCount = 'RECORD_COUNT',
+  RecordCount = 'RECORD_COUNT'
 }
 
 export type CustomComponentBlock = {
@@ -1101,10 +1091,12 @@ export type Dataset = {
   volatileContributors?: Maybe<Array<Maybe<Contact>>>;
 };
 
+
 export type DatasetConstituentsArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type DatasetGriddedArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -1172,40 +1164,48 @@ export type DatasetFacet = {
   type?: Maybe<Array<Maybe<DatasetFacetResult>>>;
 };
 
+
 export type DatasetFacetDecadeArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type DatasetFacetHostingOrgArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type DatasetFacetKeywordArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type DatasetFacetLicenseArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type DatasetFacetProjectIdArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type DatasetFacetPublishingCountryArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type DatasetFacetPublishingOrgArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type DatasetFacetTypeArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -1283,7 +1283,7 @@ export enum DatasetSubtype {
   NomenclatorAuthority = 'NOMENCLATOR_AUTHORITY',
   Observation = 'OBSERVATION',
   Specimen = 'SPECIMEN',
-  TaxonomicAuthority = 'TAXONOMIC_AUTHORITY',
+  TaxonomicAuthority = 'TAXONOMIC_AUTHORITY'
 }
 
 export enum DatasetType {
@@ -1291,13 +1291,13 @@ export enum DatasetType {
   MaterialEntity = 'MATERIAL_ENTITY',
   Metadata = 'METADATA',
   Occurrence = 'OCCURRENCE',
-  SamplingEvent = 'SAMPLING_EVENT',
+  SamplingEvent = 'SAMPLING_EVENT'
 }
 
 export enum DatasetUsageSortField {
   CountryCode = 'COUNTRY_CODE',
   DatasetTitle = 'DATASET_TITLE',
-  RecordCount = 'RECORD_COUNT',
+  RecordCount = 'RECORD_COUNT'
 }
 
 export type Diagnostics = {
@@ -1335,6 +1335,7 @@ export type DirectoryContact = {
   title?: Maybe<Scalars['String']['output']>;
 };
 
+
 export type DirectoryContactProfilePictureArgs = {
   base64?: InputMaybe<Scalars['Boolean']['input']>;
 };
@@ -1361,6 +1362,7 @@ export type DirectoryPerson = {
   surname?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
 };
+
 
 export type DirectoryPersonProfilePictureArgs = {
   base64?: InputMaybe<Scalars['Boolean']['input']>;
@@ -1489,7 +1491,7 @@ export enum Discipline {
   SpaceAstronomy = 'SPACE_ASTRONOMY',
   SpaceAstrophysics = 'SPACE_ASTROPHYSICS',
   SpaceCosmology = 'SPACE_COSMOLOGY',
-  SpacePlanetaryScience = 'SPACE_PLANETARY_SCIENCE',
+  SpacePlanetaryScience = 'SPACE_PLANETARY_SCIENCE'
 }
 
 export enum DistributionStatus {
@@ -1499,7 +1501,7 @@ export enum DistributionStatus {
   Excluded = 'EXCLUDED',
   Irregular = 'IRREGULAR',
   Present = 'PRESENT',
-  Rare = 'RARE',
+  Rare = 'RARE'
 }
 
 export type Document = {
@@ -1592,7 +1594,7 @@ export enum EndpointType {
   TcsRdf = 'TCS_RDF',
   TcsXml = 'TCS_XML',
   Wfs = 'WFS',
-  Wms = 'WMS',
+  Wms = 'WMS'
 }
 
 export enum EstablishmentMeans {
@@ -1601,7 +1603,7 @@ export enum EstablishmentMeans {
   Managed = 'MANAGED',
   Native = 'NATIVE',
   Naturalised = 'NATURALISED',
-  Uncertain = 'UNCERTAIN',
+  Uncertain = 'UNCERTAIN'
 }
 
 export type Event = {
@@ -1667,7 +1669,7 @@ export enum Extension {
   ResourceRelationship = 'RESOURCE_RELATIONSHIP',
   SpeciesProfile = 'SPECIES_PROFILE',
   TypesAndSpecimen = 'TYPES_AND_SPECIMEN',
-  VernacularName = 'VERNACULAR_NAME',
+  VernacularName = 'VERNACULAR_NAME'
 }
 
 export type FacetCount = {
@@ -1805,7 +1807,7 @@ export enum GbifRegion {
   Europe = 'EUROPE',
   LatinAmerica = 'LATIN_AMERICA',
   NorthAmerica = 'NORTH_AMERICA',
-  Oceania = 'OCEANIA',
+  Oceania = 'OCEANIA'
 }
 
 export type GenericFacetResult_Boolean = {
@@ -1855,7 +1857,7 @@ export type GridMetric = {
 export enum Habitat {
   Freshwater = 'FRESHWATER',
   Marine = 'MARINE',
-  Terrestrial = 'TERRESTRIAL',
+  Terrestrial = 'TERRESTRIAL'
 }
 
 export type HeaderBlock = {
@@ -1909,7 +1911,7 @@ export enum IdType {
   Other = 'OTHER',
   ResearcherId = 'RESEARCHER_ID',
   Viaf = 'VIAF',
-  Wikidata = 'WIKIDATA',
+  Wikidata = 'WIKIDATA'
 }
 
 export type Identifier = {
@@ -1941,7 +1943,7 @@ export enum IdentifierType {
   Uri = 'URI',
   Url = 'URL',
   Uuid = 'UUID',
-  Wikidata = 'WIKIDATA',
+  Wikidata = 'WIKIDATA'
 }
 
 export type Image = {
@@ -1982,6 +1984,7 @@ export type ImageFile = {
   thumbor: Scalars['String']['output'];
   url: Scalars['String']['output'];
 };
+
 
 export type ImageFileThumborArgs = {
   fitIn?: InputMaybe<Scalars['Boolean']['input']>;
@@ -2028,6 +2031,7 @@ export type Installation = {
   type?: Maybe<Scalars['String']['output']>;
 };
 
+
 export type InstallationDatasetArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
@@ -2049,7 +2053,7 @@ export enum InstallationType {
   HttpInstallation = 'HTTP_INSTALLATION',
   IptInstallation = 'IPT_INSTALLATION',
   SymbiotaInstallation = 'SYMBIOTA_INSTALLATION',
-  TapirInstallation = 'TAPIR_INSTALLATION',
+  TapirInstallation = 'TAPIR_INSTALLATION'
 }
 
 export type Institution = {
@@ -2102,6 +2106,7 @@ export type Institution = {
   type?: Maybe<InstitutionType>;
 };
 
+
 export type InstitutionCollectionsArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
@@ -2118,7 +2123,7 @@ export enum InstitutionGovernance {
   Local = 'LOCAL',
   NonProfit = 'NON_PROFIT',
   Other = 'OTHER',
-  State = 'STATE',
+  State = 'STATE'
 }
 
 export type InstitutionSearchResults = {
@@ -2141,13 +2146,13 @@ export enum InstitutionType {
   OtherInstitutionalType = 'OTHER_INSTITUTIONAL_TYPE',
   OtherTypeResearchInstitutionBiorepository = 'OTHER_TYPE_RESEARCH_INSTITUTION_BIOREPOSITORY',
   UniversityCollege = 'UNIVERSITY_COLLEGE',
-  ZooAquarium = 'ZOO_AQUARIUM',
+  ZooAquarium = 'ZOO_AQUARIUM'
 }
 
 export enum InterpretationRemarkSeverity {
   Error = 'ERROR',
   Info = 'INFO',
-  Warning = 'WARNING',
+  Warning = 'WARNING'
 }
 
 export type IucnRedListCategoryResult = {
@@ -2174,7 +2179,7 @@ export enum Kingdom {
   IncertaeSedis = 'INCERTAE_SEDIS',
   Plantae = 'PLANTAE',
   Protozoa = 'PROTOZOA',
-  Viruses = 'VIRUSES',
+  Viruses = 'VIRUSES'
 }
 
 export enum Language {
@@ -2362,7 +2367,7 @@ export enum Language {
   Yor = 'yor',
   Zha = 'zha',
   Zho = 'zho',
-  Zul = 'zul',
+  Zul = 'zul'
 }
 
 export enum License {
@@ -2370,7 +2375,7 @@ export enum License {
   CcBy_4_0 = 'CC_BY_4_0',
   CcByNc_4_0 = 'CC_BY_NC_4_0',
   Unspecified = 'UNSPECIFIED',
-  Unsupported = 'UNSUPPORTED',
+  Unsupported = 'UNSUPPORTED'
 }
 
 export enum LifeStage {
@@ -2383,7 +2388,7 @@ export enum LifeStage {
   Pupa = 'PUPA',
   Spore = 'SPORE',
   Sporophyte = 'SPOROPHYTE',
-  Zygote = 'ZYGOTE',
+  Zygote = 'ZYGOTE'
 }
 
 export type Link = {
@@ -2426,6 +2431,7 @@ export type LiteratureAutoDateHistogram = {
   createdAt: AutoDateHistogramResult;
 };
 
+
 export type LiteratureAutoDateHistogramCreatedAtArgs = {
   buckets?: InputMaybe<Scalars['Float']['input']>;
   minimum_interval?: InputMaybe<Scalars['String']['input']>;
@@ -2467,50 +2473,60 @@ export type LiteratureFacet = {
   year?: Maybe<Array<Maybe<GenericFacetResult_Float>>>;
 };
 
+
 export type LiteratureFacetCountriesOfCoverageArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type LiteratureFacetCountriesOfResearcherArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type LiteratureFacetLiteratureTypeArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type LiteratureFacetOpenAccessArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type LiteratureFacetPeerReviewArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type LiteratureFacetPublisherArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type LiteratureFacetRelevanceArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type LiteratureFacetSourceArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type LiteratureFacetTopicsArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type LiteratureFacetYearArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
@@ -2521,6 +2537,7 @@ export type LiteratureHistogram = {
   __typename?: 'LiteratureHistogram';
   year?: Maybe<Scalars['JSON']['output']>;
 };
+
 
 export type LiteratureHistogramYearArgs = {
   interval?: InputMaybe<Scalars['Float']['input']>;
@@ -2544,7 +2561,7 @@ export enum LiteratureRelevance {
   GbifMentioned = 'GBIF_MENTIONED',
   GbifPrimary = 'GBIF_PRIMARY',
   GbifPublished = 'GBIF_PUBLISHED',
-  GbifUsed = 'GBIF_USED',
+  GbifUsed = 'GBIF_USED'
 }
 
 export type LiteratureSearchResult = {
@@ -2563,6 +2580,7 @@ export type LiteratureSearchResult = {
   /** Get statistics for a numeric field. Minimimum value, maximum etc. */
   stats?: Maybe<LiteratureStats>;
 };
+
 
 export type LiteratureSearchResultDocumentsArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
@@ -2592,7 +2610,7 @@ export enum LiteratureTopic {
   Marine = 'MARINE',
   Phylogenetics = 'PHYLOGENETICS',
   SpeciesDistributions = 'SPECIES_DISTRIBUTIONS',
-  Taxonomy = 'TAXONOMY',
+  Taxonomy = 'TAXONOMY'
 }
 
 export enum LiteratureType {
@@ -2615,7 +2633,7 @@ export enum LiteratureType {
   TelevisionBroadcast = 'TELEVISION_BROADCAST',
   Thesis = 'THESIS',
   WebPage = 'WEB_PAGE',
-  WorkingPaper = 'WORKING_PAPER',
+  WorkingPaper = 'WORKING_PAPER'
 }
 
 export type LongitudeHistogram = {
@@ -2646,7 +2664,7 @@ export enum MaintenanceUpdateFrequency {
   OtherMaintenancePeriod = 'OTHER_MAINTENANCE_PERIOD',
   Unknown = 'UNKNOWN',
   Unkown = 'UNKOWN',
-  Weekly = 'WEEKLY',
+  Weekly = 'WEEKLY'
 }
 
 export type MapCapabilities = {
@@ -2673,7 +2691,7 @@ export type MasterSourceMetadata = {
 export enum MasterSourceType {
   GbifRegistry = 'GBIF_REGISTRY',
   Grscicoll = 'GRSCICOLL',
-  Ih = 'IH',
+  Ih = 'IH'
 }
 
 export type MediaBlock = {
@@ -2717,7 +2735,7 @@ export enum MediaType {
   InteractiveResource = 'InteractiveResource',
   MovingImage = 'MovingImage',
   Sound = 'Sound',
-  StillImage = 'StillImage',
+  StillImage = 'StillImage'
 }
 
 export type MenuItem = {
@@ -2731,7 +2749,7 @@ export type MenuItem = {
 
 export enum MetadataType {
   Dc = 'DC',
-  Eml = 'EML',
+  Eml = 'EML'
 }
 
 export type MultimediaItem = {
@@ -2749,6 +2767,7 @@ export type MultimediaItem = {
   type?: Maybe<Scalars['String']['output']>;
 };
 
+
 export type MultimediaItemThumborArgs = {
   fitIn?: InputMaybe<Scalars['Boolean']['input']>;
   height?: InputMaybe<Scalars['Int']['input']>;
@@ -2759,7 +2778,7 @@ export enum NamePart {
   Generic = 'GENERIC',
   Infrageneric = 'INFRAGENERIC',
   Infraspecific = 'INFRASPECIFIC',
-  Specific = 'SPECIFIC',
+  Specific = 'SPECIFIC'
 }
 
 export enum NameType {
@@ -2773,7 +2792,7 @@ export enum NameType {
   Otu = 'OTU',
   Placeholder = 'PLACEHOLDER',
   Scientific = 'SCIENTIFIC',
-  Virus = 'VIRUS',
+  Virus = 'VIRUS'
 }
 
 export enum NameUsageIssue {
@@ -2813,7 +2832,7 @@ export enum NameUsageIssue {
   TaxonomicStatusInvalid = 'TAXONOMIC_STATUS_INVALID',
   TaxonomicStatusMismatch = 'TAXONOMIC_STATUS_MISMATCH',
   Unparsable = 'UNPARSABLE',
-  VernacularNameInvalid = 'VERNACULAR_NAME_INVALID',
+  VernacularNameInvalid = 'VERNACULAR_NAME_INVALID'
 }
 
 export type Network = {
@@ -2841,6 +2860,7 @@ export type Network = {
   tags?: Maybe<Array<Maybe<Tag>>>;
   title?: Maybe<Scalars['String']['output']>;
 };
+
 
 export type NetworkConstituentsArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -2928,7 +2948,7 @@ export type NodeSearchResults = {
 
 export enum NodeType {
   Country = 'COUNTRY',
-  Other = 'OTHER',
+  Other = 'OTHER'
 }
 
 export enum NomenclaturalCode {
@@ -2939,7 +2959,7 @@ export enum NomenclaturalCode {
   Phylocode = 'PHYLOCODE',
   Phytosociology = 'PHYTOSOCIOLOGY',
   Virus = 'VIRUS',
-  Zoological = 'ZOOLOGICAL',
+  Zoological = 'ZOOLOGICAL'
 }
 
 export enum NomenclaturalStatus {
@@ -2974,7 +2994,7 @@ export enum NomenclaturalStatus {
   Subnudum = 'SUBNUDUM',
   Superfluous = 'SUPERFLUOUS',
   Suppressed = 'SUPPRESSED',
-  ValidlyPublished = 'VALIDLY_PUBLISHED',
+  ValidlyPublished = 'VALIDLY_PUBLISHED'
 }
 
 export type Notification = {
@@ -3280,6 +3300,7 @@ export type Occurrence = {
   year?: Maybe<Scalars['Int']['output']>;
 };
 
+
 export type OccurrenceRelatedArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
@@ -3289,6 +3310,7 @@ export type OccurrenceAutoDateHistogram = {
   __typename?: 'OccurrenceAutoDateHistogram';
   eventDate: AutoDateHistogramResult;
 };
+
 
 export type OccurrenceAutoDateHistogramEventDateArgs = {
   buckets?: InputMaybe<Scalars['Float']['input']>;
@@ -3435,33 +3457,17 @@ export type OccurrenceFacet = {
   gbifClassification_diagnostics_status?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   gbifClassification_synonym?: Maybe<Array<Maybe<OccurrenceFacetResult_Boolean>>>;
   gbifClassification_taxonID?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
-  gbifClassification_usageParsedName_abbreviated?: Maybe<
-    Array<Maybe<OccurrenceFacetResult_Boolean>>
-  >;
+  gbifClassification_usageParsedName_abbreviated?: Maybe<Array<Maybe<OccurrenceFacetResult_Boolean>>>;
   gbifClassification_usageParsedName_autonym?: Maybe<Array<Maybe<OccurrenceFacetResult_Boolean>>>;
-  gbifClassification_usageParsedName_basionymAuthorship_empty?: Maybe<
-    Array<Maybe<OccurrenceFacetResult_Boolean>>
-  >;
-  gbifClassification_usageParsedName_basionymAuthorship_year?: Maybe<
-    Array<Maybe<OccurrenceFacetResult_String>>
-  >;
+  gbifClassification_usageParsedName_basionymAuthorship_empty?: Maybe<Array<Maybe<OccurrenceFacetResult_Boolean>>>;
+  gbifClassification_usageParsedName_basionymAuthorship_year?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   gbifClassification_usageParsedName_binomial?: Maybe<Array<Maybe<OccurrenceFacetResult_Boolean>>>;
-  gbifClassification_usageParsedName_candidatus?: Maybe<
-    Array<Maybe<OccurrenceFacetResult_Boolean>>
-  >;
-  gbifClassification_usageParsedName_combinationAuthorship_empty?: Maybe<
-    Array<Maybe<OccurrenceFacetResult_Boolean>>
-  >;
-  gbifClassification_usageParsedName_combinationAuthorship_year?: Maybe<
-    Array<Maybe<OccurrenceFacetResult_String>>
-  >;
+  gbifClassification_usageParsedName_candidatus?: Maybe<Array<Maybe<OccurrenceFacetResult_Boolean>>>;
+  gbifClassification_usageParsedName_combinationAuthorship_empty?: Maybe<Array<Maybe<OccurrenceFacetResult_Boolean>>>;
+  gbifClassification_usageParsedName_combinationAuthorship_year?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   gbifClassification_usageParsedName_doubtful?: Maybe<Array<Maybe<OccurrenceFacetResult_Boolean>>>;
-  gbifClassification_usageParsedName_incomplete?: Maybe<
-    Array<Maybe<OccurrenceFacetResult_Boolean>>
-  >;
-  gbifClassification_usageParsedName_indetermined?: Maybe<
-    Array<Maybe<OccurrenceFacetResult_Boolean>>
-  >;
+  gbifClassification_usageParsedName_incomplete?: Maybe<Array<Maybe<OccurrenceFacetResult_Boolean>>>;
+  gbifClassification_usageParsedName_indetermined?: Maybe<Array<Maybe<OccurrenceFacetResult_Boolean>>>;
   gbifClassification_usageParsedName_notho?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   gbifClassification_usageParsedName_rank?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   gbifClassification_usageParsedName_state?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
@@ -3529,313 +3535,376 @@ export type OccurrenceFacet = {
   year?: Maybe<Array<Maybe<OccurrenceFacetResult_Float>>>;
 };
 
+
 export type OccurrenceFacetAgentIds_TypeArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetAgentIds_ValueArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetBasisOfRecordArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetCatalogNumberArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetClassKeyArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetCollectionCodeArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetCollectionKeyArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetContinentArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetCoordinatePrecisionArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetCoordinateUncertaintyInMetersArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetCountryCodeArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetCrawlIdArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetDatasetKeyArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetDatasetPublishingCountryArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetDayArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetDecimalLatitudeArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetDecimalLongitudeArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetDepthArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetDepthAccuracyArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetDwcaExtensionArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetElevationArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetElevationAccuracyArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetEndDayOfYearArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetEndorsingNodeKeyArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetEstablishmentMeansArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetEventIdArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetFamilyKeyArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetGadmGidArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetGbifClassification_AcceptedUsage_KeyArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetGbifClassification_AcceptedUsage_RankArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetGbifClassification_ClassificationPathArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetGbifClassification_Classification_KeyArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetGbifClassification_Classification_RankArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetGbifClassification_Classification_SynonymArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetGbifClassification_Diagnostics_MatchTypeArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetGbifClassification_Diagnostics_StatusArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetGbifClassification_SynonymArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetGbifClassification_TaxonIdArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetGbifClassification_UsageParsedName_AbbreviatedArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetGbifClassification_UsageParsedName_AutonymArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetGbifClassification_UsageParsedName_BasionymAuthorship_EmptyArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetGbifClassification_UsageParsedName_BasionymAuthorship_YearArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetGbifClassification_UsageParsedName_BinomialArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetGbifClassification_UsageParsedName_CandidatusArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetGbifClassification_UsageParsedName_CombinationAuthorship_EmptyArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetGbifClassification_UsageParsedName_CombinationAuthorship_YearArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetGbifClassification_UsageParsedName_DoubtfulArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetGbifClassification_UsageParsedName_IncompleteArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetGbifClassification_UsageParsedName_IndeterminedArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetGbifClassification_UsageParsedName_NothoArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetGbifClassification_UsageParsedName_RankArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetGbifClassification_UsageParsedName_StateArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetGbifClassification_UsageParsedName_TrinomialArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetGbifClassification_UsageParsedName_TypeArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetGbifClassification_Usage_KeyArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetGbifClassification_Usage_NameArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetGbifClassification_Usage_RankArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetGenusKeyArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetHasCoordinateArgs = {
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetHasGeospatialIssueArgs = {
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetHostingOrganizationKeyArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetIdArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetIdentifiedByArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
@@ -3843,179 +3912,215 @@ export type OccurrenceFacetIdentifiedByArgs = {
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetIndividualCountArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetInstallationKeyArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetInstitutionCodeArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetInstitutionKeyArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetIssueArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetIucnRedListCategoryArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetKingdomKeyArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetLicenseArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetLifeStageArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetLocalityArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetMaximumDepthInMetersArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetMaximumDistanceAboveSurfaceInMetersArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetMaximumElevationInMetersArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetMediaLicensesArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetMediaTypesArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetMinimumDepthInMetersArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetMinimumDistanceAboveSurfaceInMetersArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetMinimumElevationInMetersArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetMonthArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetNetworkKeyArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetOccurrenceIdArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetOccurrenceStatusArgs = {
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetOrderKeyArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetOrganismIdArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetOrganismQuantityArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetOrganismQuantityTypeArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetParentEventIdArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetPhylumKeyArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetPreparationsArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetProgrammeArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetProjectIdArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetProtocolArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetPublishingCountryArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetPublishingOrgArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetRecordNumberArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetRecordedByArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
@@ -4023,74 +4128,89 @@ export type OccurrenceFacetRecordedByArgs = {
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetRelativeOrganismQuantityArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetRepatriatedArgs = {
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetSampleSizeUnitArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetSampleSizeValueArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetSamplingProtocolArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetSexArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetSpeciesKeyArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetStartDayOfYearArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetStateProvinceArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetTaxonKeyArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetTypeStatusArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetTypifiedNameArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetVerbatimScientificNameArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OccurrenceFacetWaterBodyArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetYearArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
@@ -4105,6 +4225,7 @@ export type OccurrenceFacetResult_Boolean = {
   key: Scalars['Boolean']['output'];
   occurrences: OccurrenceSearchResult;
 };
+
 
 export type OccurrenceFacetResult_BooleanOccurrencesArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
@@ -4121,6 +4242,7 @@ export type OccurrenceFacetResult_Collection = {
   occurrences: OccurrenceSearchResult;
 };
 
+
 export type OccurrenceFacetResult_CollectionOccurrencesArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
@@ -4135,6 +4257,7 @@ export type OccurrenceFacetResult_Dataset = {
   key: Scalars['String']['output'];
   occurrences: OccurrenceSearchResult;
 };
+
 
 export type OccurrenceFacetResult_DatasetOccurrencesArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
@@ -4151,6 +4274,7 @@ export type OccurrenceFacetResult_EstablishmentMeans = {
   occurrences: OccurrenceSearchResult;
 };
 
+
 export type OccurrenceFacetResult_EstablishmentMeansOccurrencesArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
@@ -4164,6 +4288,7 @@ export type OccurrenceFacetResult_Float = {
   key: Scalars['Float']['output'];
   occurrences: OccurrenceSearchResult;
 };
+
 
 export type OccurrenceFacetResult_FloatOccurrencesArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
@@ -4180,6 +4305,7 @@ export type OccurrenceFacetResult_Gadm = {
   occurrences: OccurrenceSearchResult;
 };
 
+
 export type OccurrenceFacetResult_GadmOccurrencesArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
@@ -4195,10 +4321,12 @@ export type OccurrenceFacetResult_IdentifiedBy = {
   occurrencesRecordedBy: OccurrenceSearchResult;
 };
 
+
 export type OccurrenceFacetResult_IdentifiedByOccurrencesArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetResult_IdentifiedByOccurrencesRecordedByArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
@@ -4213,6 +4341,7 @@ export type OccurrenceFacetResult_Installation = {
   key: Scalars['String']['output'];
   occurrences: OccurrenceSearchResult;
 };
+
 
 export type OccurrenceFacetResult_InstallationOccurrencesArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
@@ -4229,6 +4358,7 @@ export type OccurrenceFacetResult_Institution = {
   occurrences: OccurrenceSearchResult;
 };
 
+
 export type OccurrenceFacetResult_InstitutionOccurrencesArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
@@ -4243,6 +4373,7 @@ export type OccurrenceFacetResult_Network = {
   network: Network;
   occurrences: OccurrenceSearchResult;
 };
+
 
 export type OccurrenceFacetResult_NetworkOccurrencesArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
@@ -4259,6 +4390,7 @@ export type OccurrenceFacetResult_Node = {
   occurrences: OccurrenceSearchResult;
 };
 
+
 export type OccurrenceFacetResult_NodeOccurrencesArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
@@ -4273,6 +4405,7 @@ export type OccurrenceFacetResult_Organization = {
   occurrences: OccurrenceSearchResult;
   publisher: Organization;
 };
+
 
 export type OccurrenceFacetResult_OrganizationOccurrencesArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
@@ -4289,10 +4422,12 @@ export type OccurrenceFacetResult_RecordedBy = {
   occurrencesIdentifiedBy: OccurrenceSearchResult;
 };
 
+
 export type OccurrenceFacetResult_RecordedByOccurrencesArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OccurrenceFacetResult_RecordedByOccurrencesIdentifiedByArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
@@ -4308,6 +4443,7 @@ export type OccurrenceFacetResult_String = {
   occurrences: OccurrenceSearchResult;
 };
 
+
 export type OccurrenceFacetResult_StringOccurrencesArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
@@ -4322,6 +4458,7 @@ export type OccurrenceFacetResult_Taxon = {
   occurrences: OccurrenceSearchResult;
   taxon: Taxon;
 };
+
 
 export type OccurrenceFacetResult_TaxonOccurrencesArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
@@ -4348,9 +4485,11 @@ export type OccurrenceHistogram = {
   year?: Maybe<Scalars['JSON']['output']>;
 };
 
+
 export type OccurrenceHistogramDecimalLongitudeArgs = {
   interval?: InputMaybe<Scalars['Float']['input']>;
 };
+
 
 export type OccurrenceHistogramYearArgs = {
   interval?: InputMaybe<Scalars['Float']['input']>;
@@ -4433,7 +4572,7 @@ export enum OccurrenceIssue {
   TaxonMatchTaxonConceptIdIgnored = 'TAXON_MATCH_TAXON_CONCEPT_ID_IGNORED',
   TaxonMatchTaxonIdIgnored = 'TAXON_MATCH_TAXON_ID_IGNORED',
   TypeStatusInvalid = 'TYPE_STATUS_INVALID',
-  ZeroCoordinate = 'ZERO_COORDINATE',
+  ZeroCoordinate = 'ZERO_COORDINATE'
 }
 
 export type OccurrenceNameUsage = {
@@ -4448,7 +4587,7 @@ export enum OccurrencePersistenceStatus {
   Deleted = 'DELETED',
   New = 'NEW',
   Unchanged = 'UNCHANGED',
-  Updated = 'UPDATED',
+  Updated = 'UPDATED'
 }
 
 export enum OccurrenceSchemaType {
@@ -4458,7 +4597,7 @@ export enum OccurrenceSchemaType {
   Dwc_1_0 = 'DWC_1_0',
   Dwc_1_4 = 'DWC_1_4',
   Dwc_2009 = 'DWC_2009',
-  DwcManis = 'DWC_MANIS',
+  DwcManis = 'DWC_MANIS'
 }
 
 export type OccurrenceSearchResult = {
@@ -4482,6 +4621,7 @@ export type OccurrenceSearchResult = {
   stats?: Maybe<OccurrenceStats>;
 };
 
+
 export type OccurrenceSearchResultDocumentsArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
@@ -4497,7 +4637,7 @@ export type OccurrenceStats = {
 
 export enum OccurrenceStatus {
   Absent = 'ABSENT',
-  Present = 'PRESENT',
+  Present = 'PRESENT'
 }
 
 export type OrcId = {
@@ -4545,15 +4685,18 @@ export type Organization = {
   title?: Maybe<Scalars['String']['output']>;
 };
 
+
 export type OrganizationHostedDatasetArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type OrganizationInstallationArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type OrganizationPublishedDatasetArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -4579,7 +4722,7 @@ export type OrganizationSearchResult = {
 export enum OrganizationUsageSortField {
   CountryCode = 'COUNTRY_CODE',
   OrganizationTitle = 'ORGANIZATION_TITLE',
-  RecordCount = 'RECORD_COUNT',
+  RecordCount = 'RECORD_COUNT'
 }
 
 export enum Origin {
@@ -4594,7 +4737,7 @@ export enum Origin {
   Source = 'SOURCE',
   VerbatimAccepted = 'VERBATIM_ACCEPTED',
   VerbatimBasionym = 'VERBATIM_BASIONYM',
-  VerbatimParent = 'VERBATIM_PARENT',
+  VerbatimParent = 'VERBATIM_PARENT'
 }
 
 export type PaginatedSearchResult = {
@@ -4636,7 +4779,7 @@ export enum ParticipationStatus {
   Associate = 'ASSOCIATE',
   Former = 'FORMER',
   Observer = 'OBSERVER',
-  Voting = 'VOTING',
+  Voting = 'VOTING'
 }
 
 export type Person = {
@@ -4653,7 +4796,7 @@ export enum PipelineStep_Status {
   Failed = 'FAILED',
   Queued = 'QUEUED',
   Running = 'RUNNING',
-  Submitted = 'SUBMITTED',
+  Submitted = 'SUBMITTED'
 }
 
 export type Predicate = {
@@ -4680,7 +4823,7 @@ export enum PredicateType {
   Not = 'not',
   Or = 'or',
   Range = 'range',
-  Within = 'within',
+  Within = 'within'
 }
 
 export enum PreservationMethodType {
@@ -4697,7 +4840,7 @@ export enum PreservationMethodType {
   NoTreatment = 'NO_TREATMENT',
   Other = 'OTHER',
   Pinned = 'PINNED',
-  Refrigerated = 'REFRIGERATED',
+  Refrigerated = 'REFRIGERATED'
 }
 
 export enum PreservationType {
@@ -4723,13 +4866,13 @@ export enum PreservationType {
   StorageOutdoors = 'STORAGE_OUTDOORS',
   StorageRecorded = 'STORAGE_RECORDED',
   StorageRefrigerated = 'STORAGE_REFRIGERATED',
-  StorageVacuum = 'STORAGE_VACUUM',
+  StorageVacuum = 'STORAGE_VACUUM'
 }
 
 export enum ProcessingErrorType {
   MissingBasisOfRecord = 'MISSING_BASIS_OF_RECORD',
   NegatedCoordinates = 'NEGATED_COORDINATES',
-  NotParseableCountryName = 'NOT_PARSEABLE_COUNTRY_NAME',
+  NotParseableCountryName = 'NOT_PARSEABLE_COUNTRY_NAME'
 }
 
 export type ProfileDescription = {
@@ -4839,10 +4982,12 @@ export type Query = {
   vocabularyConceptSearch?: Maybe<VocabularySearchResult>;
 };
 
+
 export type QueryArticleArgs = {
   id: Scalars['String']['input'];
   preview?: InputMaybe<Scalars['Boolean']['input']>;
 };
+
 
 export type QueryBackboneSearchArgs = {
   habitat?: InputMaybe<Array<InputMaybe<Habitat>>>;
@@ -4860,10 +5005,12 @@ export type QueryBackboneSearchArgs = {
   status?: InputMaybe<Array<InputMaybe<TaxonomicStatus>>>;
 };
 
+
 export type QueryCallArgs = {
   id: Scalars['String']['input'];
   preview?: InputMaybe<Scalars['Boolean']['input']>;
 };
+
 
 export type QueryChecklistRootsArgs = {
   datasetKey: Scalars['ID']['input'];
@@ -4871,9 +5018,11 @@ export type QueryChecklistRootsArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type QueryCollectionArgs = {
   key: Scalars['String']['input'];
 };
+
 
 export type QueryCollectionSearchArgs = {
   active?: InputMaybe<Scalars['Boolean']['input']>;
@@ -4900,25 +5049,30 @@ export type QueryCollectionSearchArgs = {
   sortOrder?: InputMaybe<SortOrder>;
 };
 
+
 export type QueryCompositionArgs = {
   id: Scalars['String']['input'];
   preview?: InputMaybe<Scalars['Boolean']['input']>;
 };
+
 
 export type QueryDataUseArgs = {
   id: Scalars['String']['input'];
   preview?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+
 export type QueryDatasetArgs = {
   key: Scalars['ID']['input'];
 };
+
 
 export type QueryDatasetDownloadsArgs = {
   datasetKey: Scalars['ID']['input'];
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type QueryDatasetSearchArgs = {
   continent?: InputMaybe<Array<InputMaybe<Continent>>>;
@@ -4940,47 +5094,57 @@ export type QueryDatasetSearchArgs = {
   type?: InputMaybe<Array<InputMaybe<DatasetType>>>;
 };
 
+
 export type QueryDirectoryAmbasadorsArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type QueryDirectoryAwardWinnersArgs = {
   award?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
+
 
 export type QueryDirectoryMentorsArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type QueryDirectoryTranslatorsArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type QueryDownloadArgs = {
   key: Scalars['String']['input'];
 };
+
 
 export type QueryEventArgs = {
   id: Scalars['String']['input'];
   preview?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+
 export type QueryGadmArgs = {
   id: Scalars['ID']['input'];
 };
+
 
 export type QueryGbifDocumentArgs = {
   id: Scalars['String']['input'];
   preview?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+
 export type QueryGbifProjectArgs = {
   id: Scalars['String']['input'];
   preview?: InputMaybe<Scalars['Boolean']['input']>;
 };
+
 
 export type QueryGlobeArgs = {
   cLat?: InputMaybe<Scalars['Float']['input']>;
@@ -4992,15 +5156,18 @@ export type QueryGlobeArgs = {
   sphere?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+
 export type QueryHelpArgs = {
   identifier: Scalars['String']['input'];
   locale?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+
 export type QueryInstallationArgs = {
   key: Scalars['String']['input'];
 };
+
 
 export type QueryInstallationSearchArgs = {
   identifier?: InputMaybe<Scalars['String']['input']>;
@@ -5014,9 +5181,11 @@ export type QueryInstallationSearchArgs = {
   type?: InputMaybe<Scalars['String']['input']>;
 };
 
+
 export type QueryInstitutionArgs = {
   key: Scalars['String']['input'];
 };
+
 
 export type QueryInstitutionSearchArgs = {
   active?: InputMaybe<Scalars['Boolean']['input']>;
@@ -5041,9 +5210,11 @@ export type QueryInstitutionSearchArgs = {
   type?: InputMaybe<Scalars['String']['input']>;
 };
 
+
 export type QueryLiteratureArgs = {
   key: Scalars['ID']['input'];
 };
+
 
 export type QueryLiteratureSearchArgs = {
   countriesOfCoverage?: InputMaybe<Array<InputMaybe<Country>>>;
@@ -5066,9 +5237,11 @@ export type QueryLiteratureSearchArgs = {
   year?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
+
 export type QueryNetworkArgs = {
   key: Scalars['String']['input'];
 };
+
 
 export type QueryNetworkSearchArgs = {
   identifier?: InputMaybe<Scalars['String']['input']>;
@@ -5081,14 +5254,17 @@ export type QueryNetworkSearchArgs = {
   q?: InputMaybe<Scalars['String']['input']>;
 };
 
+
 export type QueryNewsArgs = {
   id: Scalars['String']['input'];
   preview?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+
 export type QueryNodeArgs = {
   key: Scalars['String']['input'];
 };
+
 
 export type QueryNodeSearchArgs = {
   identifier?: InputMaybe<Scalars['String']['input']>;
@@ -5101,14 +5277,17 @@ export type QueryNodeSearchArgs = {
   q?: InputMaybe<Scalars['String']['input']>;
 };
 
+
 export type QueryNotificationArgs = {
   id: Scalars['String']['input'];
   preview?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+
 export type QueryOccurrenceArgs = {
   key: Scalars['ID']['input'];
 };
+
 
 export type QueryOccurrenceClusterSearchArgs = {
   apiKey?: InputMaybe<Scalars['String']['input']>;
@@ -5116,6 +5295,7 @@ export type QueryOccurrenceClusterSearchArgs = {
   predicate?: InputMaybe<Predicate>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type QueryOccurrenceSearchArgs = {
   apiKey?: InputMaybe<Scalars['String']['input']>;
@@ -5125,13 +5305,16 @@ export type QueryOccurrenceSearchArgs = {
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type QueryOrcidArgs = {
   key: Scalars['ID']['input'];
 };
 
+
 export type QueryOrganizationArgs = {
   key: Scalars['ID']['input'];
 };
+
 
 export type QueryOrganizationSearchArgs = {
   country?: InputMaybe<Country>;
@@ -5147,9 +5330,11 @@ export type QueryOrganizationSearchArgs = {
   q?: InputMaybe<Scalars['String']['input']>;
 };
 
+
 export type QueryParticipantArgs = {
   key: Scalars['String']['input'];
 };
+
 
 export type QueryParticipantSearchArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -5157,24 +5342,29 @@ export type QueryParticipantSearchArgs = {
   q?: InputMaybe<Scalars['String']['input']>;
 };
 
+
 export type QueryPersonArgs = {
   expand?: InputMaybe<Scalars['Boolean']['input']>;
   type?: InputMaybe<Scalars['String']['input']>;
   value?: InputMaybe<Scalars['String']['input']>;
 };
 
+
 export type QueryProgrammeArgs = {
   id: Scalars['String']['input'];
   preview?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+
 export type QueryResourceSearchArgs = {
   input?: InputMaybe<ResourceSearchInput>;
 };
 
+
 export type QueryStaffMemberArgs = {
   key: Scalars['String']['input'];
 };
+
 
 export type QueryStaffMemberSearchArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -5184,9 +5374,11 @@ export type QueryStaffMemberSearchArgs = {
   q?: InputMaybe<Scalars['String']['input']>;
 };
 
+
 export type QueryTaxonArgs = {
   key: Scalars['ID']['input'];
 };
+
 
 export type QueryTaxonMediaArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
@@ -5194,6 +5386,7 @@ export type QueryTaxonMediaArgs = {
   params?: InputMaybe<Scalars['JSON']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type QueryTaxonSearchArgs = {
   datasetKey?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
@@ -5213,6 +5406,7 @@ export type QueryTaxonSearchArgs = {
   status?: InputMaybe<Array<InputMaybe<TaxonomicStatus>>>;
 };
 
+
 export type QueryTaxonSuggestionsArgs = {
   datasetKey?: InputMaybe<Scalars['ID']['input']>;
   language?: InputMaybe<Language>;
@@ -5223,18 +5417,22 @@ export type QueryTaxonSuggestionsArgs = {
   vernacularNamesOnly?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+
 export type QueryToolArgs = {
   id: Scalars['String']['input'];
   preview?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+
 export type QueryViafArgs = {
   key: Scalars['ID']['input'];
 };
 
+
 export type QueryVocabularyArgs = {
   key: Scalars['ID']['input'];
 };
+
 
 export type QueryVocabularyConceptSearchArgs = {
   deprecated?: InputMaybe<Scalars['Boolean']['input']>;
@@ -5329,7 +5527,7 @@ export enum Rank {
   SupragenericName = 'SUPRAGENERIC_NAME',
   Tribe = 'TRIBE',
   Unranked = 'UNRANKED',
-  Variety = 'VARIETY',
+  Variety = 'VARIETY'
 }
 
 export type RelatedCurrentOccurrence = {
@@ -5373,7 +5571,7 @@ export enum RelationType {
   HasConstituent = 'HAS_CONSTITUENT',
   HasInstallation = 'HAS_INSTALLATION',
   Owns = 'OWNS',
-  Serves = 'SERVES',
+  Serves = 'SERVES'
 }
 
 export type ResourceSearchInput = {
@@ -5394,19 +5592,19 @@ export type ResourceSearchInput = {
 export enum ResourceSortBy {
   CreatedAt = 'createdAt',
   End = 'end',
-  Start = 'start',
+  Start = 'start'
 }
 
 export enum ResourceSortOrder {
   Asc = 'asc',
-  Desc = 'desc',
+  Desc = 'desc'
 }
 
 export enum RunPipelineResponse_ResponseStatus {
   Error = 'ERROR',
   Ok = 'OK',
   PipelineInSubmitted = 'PIPELINE_IN_SUBMITTED',
-  UnsupportedStep = 'UNSUPPORTED_STEP',
+  UnsupportedStep = 'UNSUPPORTED_STEP'
 }
 
 export type SamplingDescription = {
@@ -5421,31 +5619,20 @@ export enum Sex {
   Female = 'FEMALE',
   Hermaphrodite = 'HERMAPHRODITE',
   Male = 'MALE',
-  None = 'NONE',
+  None = 'NONE'
 }
 
-export type SingleSearchResult =
-  | Article
-  | Composition
-  | DataUse
-  | Document
-  | Event
-  | GbifProject
-  | Help
-  | Literature
-  | News
-  | Notification
-  | Tool;
+export type SingleSearchResult = Article | Composition | DataUse | Document | Event | GbifProject | Help | Literature | News | Notification | Tool;
 
 export enum SortOrder {
   Asc = 'ASC',
-  Desc = 'DESC',
+  Desc = 'DESC'
 }
 
 export enum Source {
   Dataset = 'DATASET',
   IhIrn = 'IH_IRN',
-  Organization = 'ORGANIZATION',
+  Organization = 'ORGANIZATION'
 }
 
 export type StaffMember = {
@@ -5496,7 +5683,7 @@ export type Stats = {
 export enum StepRunner {
   Distributed = 'DISTRIBUTED',
   Standalone = 'STANDALONE',
-  Unknown = 'UNKNOWN',
+  Unknown = 'UNKNOWN'
 }
 
 export enum StepType {
@@ -5520,7 +5707,7 @@ export enum StepType {
   ValidatorXmlToVerbatim = 'VALIDATOR_XML_TO_VERBATIM',
   VerbatimToIdentifier = 'VERBATIM_TO_IDENTIFIER',
   VerbatimToInterpreted = 'VERBATIM_TO_INTERPRETED',
-  XmlToVerbatim = 'XML_TO_VERBATIM',
+  XmlToVerbatim = 'XML_TO_VERBATIM'
 }
 
 export type Tag = {
@@ -5546,7 +5733,7 @@ export enum TagName {
   OrphanedEndpoint = 'ORPHANED_ENDPOINT',
   OrphanDownload = 'ORPHAN_DOWNLOAD',
   OrphanDwcaCacheTime = 'ORPHAN_DWCA_CACHE_TIME',
-  OrphanStatus = 'ORPHAN_STATUS',
+  OrphanStatus = 'ORPHAN_STATUS'
 }
 
 export enum TagNamespace {
@@ -5559,7 +5746,7 @@ export enum TagNamespace {
   GbifMetasync = 'GBIF_METASYNC',
   GbifOrphans = 'GBIF_ORPHANS',
   GbifValidator = 'GBIF_VALIDATOR',
-  Public = 'PUBLIC',
+  Public = 'PUBLIC'
 }
 
 export type Taxon = {
@@ -5643,49 +5830,59 @@ export type Taxon = {
   wikiData?: Maybe<WikiDataTaxonData>;
 };
 
+
 export type TaxonChildrenArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type TaxonDescriptionsArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type TaxonDistributionsArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type TaxonReferencesArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type TaxonRelatedArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type TaxonSpeciesProfilesArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type TaxonSynonymsArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type TaxonTaxonImages_VolatileArgs = {
   size?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type TaxonTypeSpecimensArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type TaxonVernacularNamesArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -5700,6 +5897,7 @@ export type TaxonBreakdown = {
   taxon?: Maybe<Taxon>;
   taxonSearch: TaxonSearchResult;
 };
+
 
 export type TaxonBreakdownTaxonSearchArgs = {
   datasetKey?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
@@ -5778,20 +5976,24 @@ export type TaxonFacet = {
   status?: Maybe<Array<Maybe<TaxonFacetResult>>>;
 };
 
+
 export type TaxonFacetHigherTaxonArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type TaxonFacetIssueArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type TaxonFacetRankArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type TaxonFacetStatusArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -5805,6 +6007,7 @@ export type TaxonFacetResult = {
   name: Scalars['String']['output'];
   taxonSearch: TaxonSearchResult;
 };
+
 
 export type TaxonFacetResultTaxonSearchArgs = {
   datasetKey?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
@@ -5900,7 +6103,7 @@ export type TaxonReferenceResult = {
 export enum TaxonSearchQField {
   Description = 'DESCRIPTION',
   Scientific = 'SCIENTIFIC',
-  Vernacular = 'VERNACULAR',
+  Vernacular = 'VERNACULAR'
 }
 
 export type TaxonSearchResult = {
@@ -5974,7 +6177,7 @@ export enum TaxonomicStatus {
   HomotypicSynonym = 'HOMOTYPIC_SYNONYM',
   Misapplied = 'MISAPPLIED',
   ProparteSynonym = 'PROPARTE_SYNONYM',
-  Synonym = 'SYNONYM',
+  Synonym = 'SYNONYM'
 }
 
 export enum TechnicalInstallationType {
@@ -5982,7 +6185,7 @@ export enum TechnicalInstallationType {
   DiGirInstallation = 'DiGIR_INSTALLATION',
   HttpInstallation = 'HTTP_INSTALLATION',
   IptInstallation = 'IPT_INSTALLATION',
-  TapirInstallation = 'TAPIR_INSTALLATION',
+  TapirInstallation = 'TAPIR_INSTALLATION'
 }
 
 export type Term = {
@@ -6032,7 +6235,7 @@ export enum ThreatStatus {
   NotApplicable = 'NOT_APPLICABLE',
   NotEvaluated = 'NOT_EVALUATED',
   RegionallyExtinct = 'REGIONALLY_EXTINCT',
-  Vulnerable = 'VULNERABLE',
+  Vulnerable = 'VULNERABLE'
 }
 
 export type Tool = {
@@ -6066,7 +6269,7 @@ export enum TypeDesignationType {
   RulingByCommission = 'RULING_BY_COMMISSION',
   SubsequentDesignation = 'SUBSEQUENT_DESIGNATION',
   SubsequentMonotypy = 'SUBSEQUENT_MONOTYPY',
-  Tautonymy = 'TAUTONYMY',
+  Tautonymy = 'TAUTONYMY'
 }
 
 export enum TypeStatus {
@@ -6113,7 +6316,7 @@ export enum TypeStatus {
   Topotype = 'TOPOTYPE',
   Type = 'TYPE',
   TypeGenus = 'TYPE_GENUS',
-  TypeSpecies = 'TYPE_SPECIES',
+  TypeSpecies = 'TYPE_SPECIES'
 }
 
 export type UsageParsedName = {
@@ -6162,7 +6365,7 @@ export enum UserRole {
   RegistryEditor = 'REGISTRY_EDITOR',
   User = 'USER',
   VocabularyAdmin = 'VOCABULARY_ADMIN',
-  VocabularyEditor = 'VOCABULARY_EDITOR',
+  VocabularyEditor = 'VOCABULARY_EDITOR'
 }
 
 export type Viaf = {
@@ -6195,6 +6398,7 @@ export type Vocabulary = {
   uiLabel?: Maybe<Scalars['String']['output']>;
 };
 
+
 export type VocabularyConceptsArgs = {
   deprecated?: InputMaybe<Scalars['Boolean']['input']>;
   hasParent?: InputMaybe<Scalars['Boolean']['input']>;
@@ -6212,9 +6416,11 @@ export type VocabularyConceptsArgs = {
   replacedByKey?: InputMaybe<Scalars['ID']['input']>;
 };
 
+
 export type VocabularyUiDefinitionArgs = {
   language?: InputMaybe<Scalars['String']['input']>;
 };
+
 
 export type VocabularyUiLabelArgs = {
   language?: InputMaybe<Scalars['String']['input']>;
@@ -6248,9 +6454,11 @@ export type VocabularyConcept = {
   vocabularyKey?: Maybe<Scalars['ID']['output']>;
 };
 
+
 export type VocabularyConceptUiDefinitionArgs = {
   language?: InputMaybe<Scalars['String']['input']>;
 };
+
 
 export type VocabularyConceptUiLabelArgs = {
   language?: InputMaybe<Scalars['String']['input']>;
@@ -6304,6 +6512,7 @@ export type VolatileOccurrenceData = {
   globe?: Maybe<Globe>;
 };
 
+
 export type VolatileOccurrenceDataGlobeArgs = {
   graticule?: InputMaybe<Scalars['Boolean']['input']>;
   land?: InputMaybe<Scalars['Boolean']['input']>;
@@ -6337,708 +6546,144 @@ export type WikiDataTaxonSourceItem = {
   url: Scalars['String']['output'];
 };
 
-export type HeaderQueryVariables = Exact<{ [key: string]: never }>;
+export type HeaderQueryVariables = Exact<{ [key: string]: never; }>;
 
-export type HeaderQuery = {
-  __typename?: 'Query';
-  gbifHome?: {
-    __typename?: 'Home';
-    title: string;
-    summary?: string | null;
-    children?: Array<{
-      __typename?: 'MenuItem';
-      externalLink?: boolean | null;
-      link?: string | null;
-      title?: string | null;
-      children?: Array<{
-        __typename?: 'MenuItem';
-        externalLink?: boolean | null;
-        link?: string | null;
-        title?: string | null;
-        children?: Array<{
-          __typename?: 'MenuItem';
-          externalLink?: boolean | null;
-          link?: string | null;
-          title?: string | null;
-        } | null> | null;
-      } | null> | null;
-    } | null> | null;
-  } | null;
-};
+
+export type HeaderQuery = { __typename?: 'Query', gbifHome?: { __typename?: 'Home', title: string, summary?: string | null, children?: Array<{ __typename?: 'MenuItem', externalLink?: boolean | null, link?: string | null, title?: string | null, children?: Array<{ __typename?: 'MenuItem', externalLink?: boolean | null, link?: string | null, title?: string | null, children?: Array<{ __typename?: 'MenuItem', externalLink?: boolean | null, link?: string | null, title?: string | null } | null> | null } | null> | null } | null> | null } | null };
 
 export type DatasetQueryVariables = Exact<{
   key: Scalars['ID']['input'];
 }>;
 
-export type DatasetQuery = {
-  __typename?: 'Query';
-  dataset?: {
-    __typename?: 'Dataset';
-    title?: string | null;
-    publishingOrganizationKey: string;
-    publishingOrganizationTitle?: string | null;
-  } | null;
-};
+
+export type DatasetQuery = { __typename?: 'Query', dataset?: { __typename?: 'Dataset', title?: string | null, publishingOrganizationKey: string, publishingOrganizationTitle?: string | null } | null };
 
 export type OccurrenceQueryVariables = Exact<{
   key: Scalars['ID']['input'];
 }>;
 
-export type OccurrenceQuery = {
-  __typename?: 'Query';
-  occurrence?: {
-    __typename?: 'Occurrence';
-    eventDate?: string | null;
-    scientificName?: string | null;
-    coordinates?: any | null;
-    dataset?: { __typename?: 'Dataset'; key: string; title?: string | null } | null;
-  } | null;
-};
+
+export type OccurrenceQuery = { __typename?: 'Query', occurrence?: { __typename?: 'Occurrence', eventDate?: string | null, scientificName?: string | null, coordinates?: any | null, dataset?: { __typename?: 'Dataset', key: string, title?: string | null } | null } | null };
 
 export type OccurrenceSearchQueryVariables = Exact<{
   from?: InputMaybe<Scalars['Int']['input']>;
   predicate?: InputMaybe<Predicate>;
 }>;
 
-export type OccurrenceSearchQuery = {
-  __typename?: 'Query';
-  occurrenceSearch?: {
-    __typename?: 'OccurrenceSearchResult';
-    documents: {
-      __typename?: 'OccurrenceDocuments';
-      from: number;
-      size: number;
-      total: any;
-      results: Array<{
-        __typename?: 'Occurrence';
-        key?: number | null;
-        scientificName?: string | null;
-        eventDate?: string | null;
-        coordinates?: any | null;
-        county?: string | null;
-        basisOfRecord?: string | null;
-        datasetName?: Array<string | null> | null;
-        publisherTitle?: string | null;
-      } | null>;
-    };
-  } | null;
-};
+
+export type OccurrenceSearchQuery = { __typename?: 'Query', occurrenceSearch?: { __typename?: 'OccurrenceSearchResult', documents: { __typename?: 'OccurrenceDocuments', from: number, size: number, total: any, results: Array<{ __typename?: 'Occurrence', key?: number | null, scientificName?: string | null, eventDate?: string | null, coordinates?: any | null, county?: string | null, basisOfRecord?: string | null, datasetName?: Array<string | null> | null, publisherTitle?: string | null } | null> } } | null };
 
 export type PublisherQueryVariables = Exact<{
   key: Scalars['ID']['input'];
 }>;
 
-export type PublisherQuery = {
-  __typename?: 'Query';
-  publisher?: { __typename?: 'Organization'; title?: string | null } | null;
-};
+
+export type PublisherQuery = { __typename?: 'Query', publisher?: { __typename?: 'Organization', title?: string | null } | null };
 
 export type ArticleQueryVariables = Exact<{
   key: Scalars['String']['input'];
 }>;
 
-export type ArticleQuery = {
-  __typename?: 'Query';
-  article?: {
-    __typename?: 'Article';
-    id: string;
-    title: string;
-    summary?: string | null;
-    body?: string | null;
-    topics?: Array<string | null> | null;
-    purposes?: Array<string | null> | null;
-    audiences?: Array<string | null> | null;
-    citation?: string | null;
-    createdAt?: any | null;
-    primaryImage?: {
-      __typename?: 'AssetImage';
-      description?: string | null;
-      title?: string | null;
-      file: { __typename?: 'ImageFile'; url: string; normal: string; mobile: string };
-    } | null;
-    secondaryLinks?: Array<{ __typename?: 'Link'; label: string; url: string } | null> | null;
-    documents?: Array<{
-      __typename?: 'DocumentAsset';
-      title?: string | null;
-      file?: {
-        __typename?: 'DocumentAssetFile';
-        url?: string | null;
-        fileName?: string | null;
-        contentType?: string | null;
-        volatile_documentType?: string | null;
-        details?: { __typename?: 'DocumentAssetFileDetails'; size?: number | null } | null;
-      } | null;
-    } | null> | null;
-  } | null;
-};
+
+export type ArticleQuery = { __typename?: 'Query', article?: { __typename?: 'Article', id: string, title: string, summary?: string | null, body?: string | null, topics?: Array<string | null> | null, purposes?: Array<string | null> | null, audiences?: Array<string | null> | null, citation?: string | null, createdAt?: any | null, primaryImage?: { __typename?: 'AssetImage', description?: string | null, title?: string | null, file: { __typename?: 'ImageFile', url: string, normal: string, mobile: string } } | null, secondaryLinks?: Array<{ __typename?: 'Link', label: string, url: string } | null> | null, documents?: Array<{ __typename?: 'DocumentAsset', title?: string | null, file?: { __typename?: 'DocumentAssetFile', url?: string | null, fileName?: string | null, contentType?: string | null, volatile_documentType?: string | null, details?: { __typename?: 'DocumentAssetFileDetails', size?: number | null } | null } | null } | null> | null } | null };
+
+export type DocumentPreviewFragment = { __typename?: 'DocumentAsset', title?: string | null, file?: { __typename?: 'DocumentAssetFile', url?: string | null, fileName?: string | null, contentType?: string | null, volatile_documentType?: string | null, details?: { __typename?: 'DocumentAssetFileDetails', size?: number | null } | null } | null };
+
+type BlockItemDetails_CarouselBlock_Fragment = { __typename: 'CarouselBlock', id: string, title?: string | null, body?: string | null, backgroundColour?: string | null, features?: Array<{ __typename: 'MediaBlock', id: string, body?: string | null, reverse?: boolean | null, subtitle?: string | null, backgroundColour?: string | null, roundImage?: boolean | null, mediaTitle: string, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } | null, callToAction?: Array<{ __typename?: 'Link', label: string, url: string }> | null } | { __typename: 'MediaCountBlock', id: string, body?: string | null, reverse?: boolean | null, subtitle?: string | null, titleCountPart: string, backgroundColour?: string | null, roundImage?: boolean | null, mediaTitle: string, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } | null, callToAction?: Array<{ __typename?: 'Link', label: string, url: string }> | null }> | null };
+
+type BlockItemDetails_CustomComponentBlock_Fragment = { __typename: 'CustomComponentBlock', id: string, componentType?: string | null, title?: string | null, width?: string | null, backgroundColour?: string | null, settings?: any | null };
+
+type BlockItemDetails_FeatureBlock_Fragment = { __typename: 'FeatureBlock', id: string, maxPerRow?: number | null, title?: string | null, body?: string | null, backgroundColour?: string | null, features?: Array<{ __typename: 'DataUse', id: string, title: string, excerpt?: string | null, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } | null } | { __typename: 'Event', id: string, title: string, excerpt?: string | null, start: any, end?: any | null, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } | null } | { __typename: 'Feature', id: string, title: string, url: string, primaryImage: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } } | { __typename: 'News', id: string, title: string, excerpt?: string | null, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } | null }> | null };
+
+type BlockItemDetails_FeaturedTextBlock_Fragment = { __typename: 'FeaturedTextBlock', id: string, title?: string | null, body?: string | null, backgroundColour?: string | null };
+
+type BlockItemDetails_HeaderBlock_Fragment = { __typename: 'HeaderBlock', id: string, title?: string | null, type?: string | null, summary?: string | null, primaryImage?: { __typename?: 'AssetImage', description?: string | null, title?: string | null, file: { __typename?: 'ImageFile', url: string, normal: string, mobile: string } } | null };
+
+type BlockItemDetails_MediaBlock_Fragment = { __typename: 'MediaBlock', id: string, body?: string | null, reverse?: boolean | null, subtitle?: string | null, backgroundColour?: string | null, roundImage?: boolean | null, mediaTitle: string, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } | null, callToAction?: Array<{ __typename?: 'Link', label: string, url: string }> | null };
+
+type BlockItemDetails_MediaCountBlock_Fragment = { __typename: 'MediaCountBlock', id: string, body?: string | null, reverse?: boolean | null, subtitle?: string | null, titleCountPart: string, backgroundColour?: string | null, roundImage?: boolean | null, mediaTitle: string, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } | null, callToAction?: Array<{ __typename?: 'Link', label: string, url: string }> | null };
+
+type BlockItemDetails_TextBlock_Fragment = { __typename: 'TextBlock', id: string, title?: string | null, body?: string | null, hideTitle?: boolean | null, backgroundColour?: string | null };
+
+export type BlockItemDetailsFragment = BlockItemDetails_CarouselBlock_Fragment | BlockItemDetails_CustomComponentBlock_Fragment | BlockItemDetails_FeatureBlock_Fragment | BlockItemDetails_FeaturedTextBlock_Fragment | BlockItemDetails_HeaderBlock_Fragment | BlockItemDetails_MediaBlock_Fragment | BlockItemDetails_MediaCountBlock_Fragment | BlockItemDetails_TextBlock_Fragment;
+
+export type CarouselBlockDetailsFragment = { __typename: 'CarouselBlock', id: string, title?: string | null, body?: string | null, backgroundColour?: string | null, features?: Array<{ __typename: 'MediaBlock', id: string, body?: string | null, reverse?: boolean | null, subtitle?: string | null, backgroundColour?: string | null, roundImage?: boolean | null, mediaTitle: string, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } | null, callToAction?: Array<{ __typename?: 'Link', label: string, url: string }> | null } | { __typename: 'MediaCountBlock', id: string, body?: string | null, reverse?: boolean | null, subtitle?: string | null, titleCountPart: string, backgroundColour?: string | null, roundImage?: boolean | null, mediaTitle: string, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } | null, callToAction?: Array<{ __typename?: 'Link', label: string, url: string }> | null }> | null };
+
+export type CustomComponentBlockDetailsFragment = { __typename?: 'CustomComponentBlock', id: string, componentType?: string | null, title?: string | null, width?: string | null, backgroundColour?: string | null, settings?: any | null };
+
+export type FeatureBlockDetailsFragment = { __typename: 'FeatureBlock', maxPerRow?: number | null, title?: string | null, body?: string | null, backgroundColour?: string | null, features?: Array<{ __typename: 'DataUse', id: string, title: string, excerpt?: string | null, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } | null } | { __typename: 'Event', id: string, title: string, excerpt?: string | null, start: any, end?: any | null, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } | null } | { __typename: 'Feature', id: string, title: string, url: string, primaryImage: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } } | { __typename: 'News', id: string, title: string, excerpt?: string | null, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } | null }> | null };
+
+export type FeaturedTextBlockDetailsFragment = { __typename: 'FeaturedTextBlock', id: string, title?: string | null, body?: string | null, backgroundColour?: string | null };
+
+export type HeaderBlockDetailsFragment = { __typename: 'HeaderBlock', title?: string | null, type?: string | null, summary?: string | null, primaryImage?: { __typename?: 'AssetImage', description?: string | null, title?: string | null, file: { __typename?: 'ImageFile', url: string, normal: string, mobile: string } } | null };
+
+export type MediaBlockDetailsFragment = { __typename: 'MediaBlock', id: string, body?: string | null, reverse?: boolean | null, subtitle?: string | null, backgroundColour?: string | null, roundImage?: boolean | null, mediaTitle: string, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } | null, callToAction?: Array<{ __typename?: 'Link', label: string, url: string }> | null };
+
+export type MediaCountBlockDetailsFragment = { __typename: 'MediaCountBlock', id: string, body?: string | null, reverse?: boolean | null, subtitle?: string | null, titleCountPart: string, backgroundColour?: string | null, roundImage?: boolean | null, mediaTitle: string, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } | null, callToAction?: Array<{ __typename?: 'Link', label: string, url: string }> | null };
+
+export type TextBlockDetailsFragment = { __typename?: 'TextBlock', title?: string | null, body?: string | null, hideTitle?: boolean | null, id: string, backgroundColour?: string | null };
 
 export type CompositionQueryVariables = Exact<{
   key: Scalars['String']['input'];
 }>;
 
-export type CompositionQuery = {
-  __typename?: 'Query';
-  composition?: {
-    __typename?: 'Composition';
-    id: string;
-    title?: string | null;
-    summary?: string | null;
-    blocks?: Array<
-      | {
-          __typename: 'CarouselBlock';
-          id: string;
-          title?: string | null;
-          body?: string | null;
-          backgroundColour?: string | null;
-          features?: Array<
-            | {
-                __typename: 'MediaBlock';
-                id: string;
-                body?: string | null;
-                reverse?: boolean | null;
-                subtitle?: string | null;
-                backgroundColour?: string | null;
-                roundImage?: boolean | null;
-                mediaTitle: string;
-                callToAction?: Array<{ __typename?: 'Link'; label: string; url: string }> | null;
-                optionalImg?: {
-                  __typename?: 'AssetImage';
-                  file: { __typename?: 'ImageFile'; mobile: string };
-                } | null;
-              }
-            | {
-                __typename: 'MediaCountBlock';
-                id: string;
-                body?: string | null;
-                reverse?: boolean | null;
-                subtitle?: string | null;
-                titleCountPart: string;
-                backgroundColour?: string | null;
-                roundImage?: boolean | null;
-                mediaTitle: string;
-                optionalImg?: {
-                  __typename?: 'AssetImage';
-                  file: { __typename?: 'ImageFile'; mobile: string };
-                } | null;
-                callToAction?: Array<{ __typename?: 'Link'; label: string; url: string }> | null;
-              }
-          > | null;
-        }
-      | {
-          __typename: 'CustomComponentBlock';
-          id: string;
-          componentType?: string | null;
-          title?: string | null;
-          width?: string | null;
-          backgroundColour?: string | null;
-          settings?: any | null;
-        }
-      | {
-          __typename: 'FeatureBlock';
-          maxPerRow?: number | null;
-          title?: string | null;
-          body?: string | null;
-          backgroundColour?: string | null;
-          features?: Array<
-            | {
-                __typename: 'DataUse';
-                id: string;
-                title: string;
-                excerpt?: string | null;
-                optionalImg?: {
-                  __typename?: 'AssetImage';
-                  file: { __typename?: 'ImageFile'; mobile: string };
-                } | null;
-              }
-            | {
-                __typename: 'Event';
-                id: string;
-                title: string;
-                excerpt?: string | null;
-                start: any;
-                end?: any | null;
-                optionalImg?: {
-                  __typename?: 'AssetImage';
-                  file: { __typename?: 'ImageFile'; mobile: string };
-                } | null;
-              }
-            | {
-                __typename: 'Feature';
-                id: string;
-                title: string;
-                url: string;
-                primaryImage: {
-                  __typename?: 'AssetImage';
-                  file: { __typename?: 'ImageFile'; mobile: string };
-                };
-              }
-            | {
-                __typename: 'News';
-                id: string;
-                title: string;
-                excerpt?: string | null;
-                optionalImg?: {
-                  __typename?: 'AssetImage';
-                  file: { __typename?: 'ImageFile'; mobile: string };
-                } | null;
-              }
-          > | null;
-        }
-      | {
-          __typename: 'FeaturedTextBlock';
-          id: string;
-          title?: string | null;
-          body?: string | null;
-          backgroundColour?: string | null;
-        }
-      | {
-          __typename: 'HeaderBlock';
-          title?: string | null;
-          summary?: string | null;
-          primaryImage?: {
-            __typename?: 'AssetImage';
-            description?: string | null;
-            title?: string | null;
-            file: { __typename?: 'ImageFile'; url: string; normal: string; mobile: string };
-          } | null;
-        }
-      | {
-          __typename: 'MediaBlock';
-          id: string;
-          body?: string | null;
-          reverse?: boolean | null;
-          subtitle?: string | null;
-          backgroundColour?: string | null;
-          roundImage?: boolean | null;
-          mediaTitle: string;
-          callToAction?: Array<{ __typename?: 'Link'; label: string; url: string }> | null;
-          optionalImg?: {
-            __typename?: 'AssetImage';
-            file: { __typename?: 'ImageFile'; mobile: string };
-          } | null;
-        }
-      | {
-          __typename: 'MediaCountBlock';
-          id: string;
-          body?: string | null;
-          reverse?: boolean | null;
-          subtitle?: string | null;
-          titleCountPart: string;
-          backgroundColour?: string | null;
-          roundImage?: boolean | null;
-          mediaTitle: string;
-          optionalImg?: {
-            __typename?: 'AssetImage';
-            file: { __typename?: 'ImageFile'; mobile: string };
-          } | null;
-          callToAction?: Array<{ __typename?: 'Link'; label: string; url: string }> | null;
-        }
-      | {
-          __typename: 'TextBlock';
-          title?: string | null;
-          body?: string | null;
-          hideTitle?: boolean | null;
-          id: string;
-          backgroundColour?: string | null;
-        }
-    > | null;
-  } | null;
-};
 
-export type MediaFieldsFragment = {
-  __typename: 'MediaBlock';
-  id: string;
-  body?: string | null;
-  reverse?: boolean | null;
-  subtitle?: string | null;
-  backgroundColour?: string | null;
-  roundImage?: boolean | null;
-  mediaTitle: string;
-  callToAction?: Array<{ __typename?: 'Link'; label: string; url: string }> | null;
-  optionalImg?: {
-    __typename?: 'AssetImage';
-    file: { __typename?: 'ImageFile'; mobile: string };
-  } | null;
-};
+export type CompositionQuery = { __typename?: 'Query', composition?: { __typename?: 'Composition', id: string, title?: string | null, summary?: string | null, blocks?: Array<{ __typename: 'CarouselBlock', id: string, title?: string | null, body?: string | null, backgroundColour?: string | null, features?: Array<{ __typename: 'MediaBlock', id: string, body?: string | null, reverse?: boolean | null, subtitle?: string | null, backgroundColour?: string | null, roundImage?: boolean | null, mediaTitle: string, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } | null, callToAction?: Array<{ __typename?: 'Link', label: string, url: string }> | null } | { __typename: 'MediaCountBlock', id: string, body?: string | null, reverse?: boolean | null, subtitle?: string | null, titleCountPart: string, backgroundColour?: string | null, roundImage?: boolean | null, mediaTitle: string, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } | null, callToAction?: Array<{ __typename?: 'Link', label: string, url: string }> | null }> | null } | { __typename: 'CustomComponentBlock', id: string, componentType?: string | null, title?: string | null, width?: string | null, backgroundColour?: string | null, settings?: any | null } | { __typename: 'FeatureBlock', id: string, maxPerRow?: number | null, title?: string | null, body?: string | null, backgroundColour?: string | null, features?: Array<{ __typename: 'DataUse', id: string, title: string, excerpt?: string | null, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } | null } | { __typename: 'Event', id: string, title: string, excerpt?: string | null, start: any, end?: any | null, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } | null } | { __typename: 'Feature', id: string, title: string, url: string, primaryImage: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } } | { __typename: 'News', id: string, title: string, excerpt?: string | null, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } | null }> | null } | { __typename: 'FeaturedTextBlock', id: string, title?: string | null, body?: string | null, backgroundColour?: string | null } | { __typename: 'HeaderBlock', id: string, title?: string | null, type?: string | null, summary?: string | null, primaryImage?: { __typename?: 'AssetImage', description?: string | null, title?: string | null, file: { __typename?: 'ImageFile', url: string, normal: string, mobile: string } } | null } | { __typename: 'MediaBlock', id: string, body?: string | null, reverse?: boolean | null, subtitle?: string | null, backgroundColour?: string | null, roundImage?: boolean | null, mediaTitle: string, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } | null, callToAction?: Array<{ __typename?: 'Link', label: string, url: string }> | null } | { __typename: 'MediaCountBlock', id: string, body?: string | null, reverse?: boolean | null, subtitle?: string | null, titleCountPart: string, backgroundColour?: string | null, roundImage?: boolean | null, mediaTitle: string, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } | null, callToAction?: Array<{ __typename?: 'Link', label: string, url: string }> | null } | { __typename: 'TextBlock', id: string, title?: string | null, body?: string | null, hideTitle?: boolean | null, backgroundColour?: string | null }> | null } | null };
 
-export type MediaCountFieldsFragment = {
-  __typename: 'MediaCountBlock';
-  id: string;
-  body?: string | null;
-  reverse?: boolean | null;
-  subtitle?: string | null;
-  titleCountPart: string;
-  backgroundColour?: string | null;
-  roundImage?: boolean | null;
-  mediaTitle: string;
-  optionalImg?: {
-    __typename?: 'AssetImage';
-    file: { __typename?: 'ImageFile'; mobile: string };
-  } | null;
-  callToAction?: Array<{ __typename?: 'Link'; label: string; url: string }> | null;
-};
+export type ProseCardImgFragment = { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } };
 
 export type DataUseQueryVariables = Exact<{
   key: Scalars['String']['input'];
 }>;
 
-export type DataUseQuery = {
-  __typename?: 'Query';
-  dataUse?: {
-    __typename?: 'DataUse';
-    id: string;
-    title: string;
-    summary?: string | null;
-    resourceUsed?: string | null;
-    body?: string | null;
-    countriesOfCoverage?: Array<string | null> | null;
-    topics?: Array<string | null> | null;
-    purposes?: Array<string | null> | null;
-    audiences?: Array<string | null> | null;
-    citation?: string | null;
-    createdAt?: any | null;
-    primaryImage?: {
-      __typename?: 'AssetImage';
-      description?: string | null;
-      title?: string | null;
-      file: { __typename?: 'ImageFile'; url: string; normal: string; mobile: string };
-    } | null;
-    primaryLink?: { __typename?: 'Link'; label: string; url: string } | null;
-    secondaryLinks?: Array<{ __typename?: 'Link'; label: string; url: string } | null> | null;
-  } | null;
-};
 
-export type EventResultFragment = {
-  __typename?: 'Event';
-  id: string;
-  title: string;
-  excerpt?: string | null;
-  country?: string | null;
-  location?: string | null;
-  venue?: string | null;
-  start: any;
-  end?: any | null;
-  gbifsAttendee?: string | null;
-  allDayEvent?: boolean | null;
-  primaryLink?: { __typename?: 'Link'; url: string } | null;
-};
+export type DataUseQuery = { __typename?: 'Query', dataUse?: { __typename?: 'DataUse', id: string, title: string, summary?: string | null, resourceUsed?: string | null, body?: string | null, countriesOfCoverage?: Array<string | null> | null, topics?: Array<string | null> | null, purposes?: Array<string | null> | null, audiences?: Array<string | null> | null, citation?: string | null, createdAt?: any | null, primaryImage?: { __typename?: 'AssetImage', description?: string | null, title?: string | null, file: { __typename?: 'ImageFile', url: string, normal: string, mobile: string } } | null, primaryLink?: { __typename?: 'Link', label: string, url: string } | null, secondaryLinks?: Array<{ __typename?: 'Link', label: string, url: string } | null> | null } | null };
+
+export type EventResultFragment = { __typename?: 'Event', id: string, title: string, excerpt?: string | null, country?: string | null, location?: string | null, venue?: string | null, start: any, end?: any | null, gbifsAttendee?: string | null, allDayEvent?: boolean | null, primaryLink?: { __typename?: 'Link', url: string } | null };
 
 export type EventQueryVariables = Exact<{
   key: Scalars['String']['input'];
 }>;
 
-export type EventQuery = {
-  __typename?: 'Query';
-  event?: {
-    __typename?: 'Event';
-    id: string;
-    title: string;
-    summary?: string | null;
-    body?: string | null;
-    location?: string | null;
-    country?: string | null;
-    start: any;
-    end?: any | null;
-    eventLanguage?: string | null;
-    venue?: string | null;
-    primaryImage?: {
-      __typename?: 'AssetImage';
-      description?: string | null;
-      title?: string | null;
-      file: { __typename?: 'ImageFile'; url: string; normal: string; mobile: string };
-    } | null;
-    primaryLink?: { __typename?: 'Link'; label: string; url: string } | null;
-    secondaryLinks?: Array<{ __typename?: 'Link'; label: string; url: string } | null> | null;
-  } | null;
-};
 
-export type NewsResultFragment = {
-  __typename?: 'News';
-  id: string;
-  title: string;
-  excerpt?: string | null;
-  createdAt: any;
-  primaryImage?: {
-    __typename?: 'AssetImage';
-    file: { __typename?: 'ImageFile'; url: string };
-  } | null;
-};
+export type EventQuery = { __typename?: 'Query', event?: { __typename?: 'Event', id: string, title: string, summary?: string | null, body?: string | null, location?: string | null, country?: string | null, start: any, end?: any | null, eventLanguage?: string | null, venue?: string | null, primaryImage?: { __typename?: 'AssetImage', description?: string | null, title?: string | null, file: { __typename?: 'ImageFile', url: string, normal: string, mobile: string } } | null, primaryLink?: { __typename?: 'Link', label: string, url: string } | null, secondaryLinks?: Array<{ __typename?: 'Link', label: string, url: string } | null> | null } | null };
+
+export type NewsResultFragment = { __typename?: 'News', id: string, title: string, excerpt?: string | null, createdAt: any, primaryImage?: { __typename?: 'AssetImage', file: { __typename?: 'ImageFile', url: string } } | null };
 
 export type NewsQueryVariables = Exact<{
   key: Scalars['String']['input'];
 }>;
 
-export type NewsQuery = {
-  __typename?: 'Query';
-  news?: {
-    __typename?: 'News';
-    id: string;
-    title: string;
-    summary?: string | null;
-    body?: string | null;
-    countriesOfCoverage?: Array<string | null> | null;
-    topics?: Array<string | null> | null;
-    purposes?: Array<string | null> | null;
-    audiences?: Array<string | null> | null;
-    citation?: string | null;
-    createdAt: any;
-    primaryImage?: {
-      __typename?: 'AssetImage';
-      description?: string | null;
-      title?: string | null;
-      file: { __typename?: 'ImageFile'; url: string; normal: string; mobile: string };
-    } | null;
-    primaryLink?: { __typename?: 'Link'; label: string; url: string } | null;
-    secondaryLinks?: Array<{ __typename?: 'Link'; label: string; url: string } | null> | null;
-  } | null;
-};
+
+export type NewsQuery = { __typename?: 'Query', news?: { __typename?: 'News', id: string, title: string, summary?: string | null, body?: string | null, countriesOfCoverage?: Array<string | null> | null, topics?: Array<string | null> | null, purposes?: Array<string | null> | null, audiences?: Array<string | null> | null, citation?: string | null, createdAt: any, primaryImage?: { __typename?: 'AssetImage', description?: string | null, title?: string | null, file: { __typename?: 'ImageFile', url: string, normal: string, mobile: string } } | null, primaryLink?: { __typename?: 'Link', label: string, url: string } | null, secondaryLinks?: Array<{ __typename?: 'Link', label: string, url: string } | null> | null } | null };
 
 export type ProgrammeQueryVariables = Exact<{
   key: Scalars['String']['input'];
 }>;
 
-export type ProgrammeQuery = {
-  __typename?: 'Query';
-  programme?: {
-    __typename?: 'Programme';
-    title: string;
-    excerpt?: string | null;
-    blocks?: Array<
-      | {
-          __typename: 'CarouselBlock';
-          id: string;
-          title?: string | null;
-          body?: string | null;
-          backgroundColour?: string | null;
-          features?: Array<
-            | {
-                __typename: 'MediaBlock';
-                id: string;
-                body?: string | null;
-                reverse?: boolean | null;
-                subtitle?: string | null;
-                backgroundColour?: string | null;
-                roundImage?: boolean | null;
-                mediaTitle: string;
-                callToAction?: Array<{ __typename?: 'Link'; label: string; url: string }> | null;
-                optionalImg?: {
-                  __typename?: 'AssetImage';
-                  file: { __typename?: 'ImageFile'; mobile: string };
-                } | null;
-              }
-            | {
-                __typename: 'MediaCountBlock';
-                id: string;
-                body?: string | null;
-                reverse?: boolean | null;
-                subtitle?: string | null;
-                titleCountPart: string;
-                backgroundColour?: string | null;
-                roundImage?: boolean | null;
-                mediaTitle: string;
-                optionalImg?: {
-                  __typename?: 'AssetImage';
-                  file: { __typename?: 'ImageFile'; mobile: string };
-                } | null;
-                callToAction?: Array<{ __typename?: 'Link'; label: string; url: string }> | null;
-              }
-          > | null;
-        }
-      | {
-          __typename: 'CustomComponentBlock';
-          id: string;
-          componentType?: string | null;
-          title?: string | null;
-          width?: string | null;
-          backgroundColour?: string | null;
-          settings?: any | null;
-        }
-      | {
-          __typename: 'FeatureBlock';
-          maxPerRow?: number | null;
-          title?: string | null;
-          body?: string | null;
-          backgroundColour?: string | null;
-          features?: Array<
-            | {
-                __typename: 'DataUse';
-                id: string;
-                title: string;
-                excerpt?: string | null;
-                optionalImg?: {
-                  __typename?: 'AssetImage';
-                  file: { __typename?: 'ImageFile'; mobile: string };
-                } | null;
-              }
-            | {
-                __typename: 'Event';
-                id: string;
-                title: string;
-                excerpt?: string | null;
-                start: any;
-                end?: any | null;
-                optionalImg?: {
-                  __typename?: 'AssetImage';
-                  file: { __typename?: 'ImageFile'; mobile: string };
-                } | null;
-              }
-            | {
-                __typename: 'Feature';
-                id: string;
-                title: string;
-                url: string;
-                primaryImage: {
-                  __typename?: 'AssetImage';
-                  file: { __typename?: 'ImageFile'; mobile: string };
-                };
-              }
-            | {
-                __typename: 'News';
-                id: string;
-                title: string;
-                excerpt?: string | null;
-                optionalImg?: {
-                  __typename?: 'AssetImage';
-                  file: { __typename?: 'ImageFile'; mobile: string };
-                } | null;
-              }
-          > | null;
-        }
-      | {
-          __typename: 'FeaturedTextBlock';
-          id: string;
-          title?: string | null;
-          body?: string | null;
-          backgroundColour?: string | null;
-        }
-      | {
-          __typename: 'HeaderBlock';
-          title?: string | null;
-          summary?: string | null;
-          primaryImage?: {
-            __typename?: 'AssetImage';
-            description?: string | null;
-            title?: string | null;
-            file: { __typename?: 'ImageFile'; url: string; normal: string; mobile: string };
-          } | null;
-        }
-      | {
-          __typename: 'MediaBlock';
-          id: string;
-          body?: string | null;
-          reverse?: boolean | null;
-          subtitle?: string | null;
-          backgroundColour?: string | null;
-          roundImage?: boolean | null;
-          mediaTitle: string;
-          callToAction?: Array<{ __typename?: 'Link'; label: string; url: string }> | null;
-          optionalImg?: {
-            __typename?: 'AssetImage';
-            file: { __typename?: 'ImageFile'; mobile: string };
-          } | null;
-        }
-      | {
-          __typename: 'MediaCountBlock';
-          id: string;
-          body?: string | null;
-          reverse?: boolean | null;
-          subtitle?: string | null;
-          titleCountPart: string;
-          backgroundColour?: string | null;
-          roundImage?: boolean | null;
-          mediaTitle: string;
-          optionalImg?: {
-            __typename?: 'AssetImage';
-            file: { __typename?: 'ImageFile'; mobile: string };
-          } | null;
-          callToAction?: Array<{ __typename?: 'Link'; label: string; url: string }> | null;
-        }
-      | {
-          __typename: 'TextBlock';
-          title?: string | null;
-          body?: string | null;
-          hideTitle?: boolean | null;
-          id: string;
-          backgroundColour?: string | null;
-        }
-    > | null;
-  } | null;
-};
+
+export type ProgrammeQuery = { __typename?: 'Query', programme?: { __typename?: 'Programme', title: string, excerpt?: string | null, blocks?: Array<{ __typename: 'CarouselBlock', id: string, title?: string | null, body?: string | null, backgroundColour?: string | null, features?: Array<{ __typename: 'MediaBlock', id: string, body?: string | null, reverse?: boolean | null, subtitle?: string | null, backgroundColour?: string | null, roundImage?: boolean | null, mediaTitle: string, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } | null, callToAction?: Array<{ __typename?: 'Link', label: string, url: string }> | null } | { __typename: 'MediaCountBlock', id: string, body?: string | null, reverse?: boolean | null, subtitle?: string | null, titleCountPart: string, backgroundColour?: string | null, roundImage?: boolean | null, mediaTitle: string, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } | null, callToAction?: Array<{ __typename?: 'Link', label: string, url: string }> | null }> | null } | { __typename: 'CustomComponentBlock', id: string, componentType?: string | null, title?: string | null, width?: string | null, backgroundColour?: string | null, settings?: any | null } | { __typename: 'FeatureBlock', id: string, maxPerRow?: number | null, title?: string | null, body?: string | null, backgroundColour?: string | null, features?: Array<{ __typename: 'DataUse', id: string, title: string, excerpt?: string | null, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } | null } | { __typename: 'Event', id: string, title: string, excerpt?: string | null, start: any, end?: any | null, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } | null } | { __typename: 'Feature', id: string, title: string, url: string, primaryImage: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } } | { __typename: 'News', id: string, title: string, excerpt?: string | null, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } | null }> | null } | { __typename: 'FeaturedTextBlock', id: string, title?: string | null, body?: string | null, backgroundColour?: string | null } | { __typename: 'HeaderBlock', id: string, title?: string | null, type?: string | null, summary?: string | null, primaryImage?: { __typename?: 'AssetImage', description?: string | null, title?: string | null, file: { __typename?: 'ImageFile', url: string, normal: string, mobile: string } } | null } | { __typename: 'MediaBlock', id: string, body?: string | null, reverse?: boolean | null, subtitle?: string | null, backgroundColour?: string | null, roundImage?: boolean | null, mediaTitle: string, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } | null, callToAction?: Array<{ __typename?: 'Link', label: string, url: string }> | null } | { __typename: 'MediaCountBlock', id: string, body?: string | null, reverse?: boolean | null, subtitle?: string | null, titleCountPart: string, backgroundColour?: string | null, roundImage?: boolean | null, mediaTitle: string, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } | null, callToAction?: Array<{ __typename?: 'Link', label: string, url: string }> | null } | { __typename: 'TextBlock', id: string, title?: string | null, body?: string | null, hideTitle?: boolean | null, backgroundColour?: string | null }> | null } | null };
 
 export type ProjectAboutQueryVariables = Exact<{
   key: Scalars['String']['input'];
 }>;
 
-export type ProjectAboutQuery = {
-  __typename?: 'Query';
-  gbifProject?: {
-    __typename?: 'GbifProject';
-    summary?: string | null;
-    body?: string | null;
-    fundsAllocated?: number | null;
-    matchingFunds?: number | null;
-    grantType?: string | null;
-    start?: any | null;
-    end?: any | null;
-    projectId?: string | null;
-    purposes?: Array<string> | null;
-    status?: string | null;
-    createdAt?: any | null;
-    programme?: { __typename?: 'Programme'; id: string; title: string } | null;
-    primaryImage?: {
-      __typename?: 'AssetImage';
-      description?: string | null;
-      title?: string | null;
-      file: { __typename?: 'ImageFile'; url: string; normal: string; mobile: string };
-    } | null;
-    secondaryLinks?: Array<{ __typename?: 'Link'; label: string; url: string }> | null;
-    documents?: Array<{
-      __typename?: 'DocumentAsset';
-      title?: string | null;
-      file?: {
-        __typename?: 'DocumentAssetFile';
-        url?: string | null;
-        fileName?: string | null;
-        contentType?: string | null;
-        volatile_documentType?: string | null;
-        details?: { __typename?: 'DocumentAssetFileDetails'; size?: number | null } | null;
-      } | null;
-    }> | null;
-  } | null;
-};
+
+export type ProjectAboutQuery = { __typename?: 'Query', gbifProject?: { __typename?: 'GbifProject', summary?: string | null, body?: string | null, fundsAllocated?: number | null, matchingFunds?: number | null, grantType?: string | null, start?: any | null, end?: any | null, projectId?: string | null, purposes?: Array<string> | null, status?: string | null, createdAt?: any | null, programme?: { __typename?: 'Programme', id: string, title: string } | null, primaryImage?: { __typename?: 'AssetImage', description?: string | null, title?: string | null, file: { __typename?: 'ImageFile', url: string, normal: string, mobile: string } } | null, secondaryLinks?: Array<{ __typename?: 'Link', label: string, url: string }> | null, documents?: Array<{ __typename?: 'DocumentAsset', title?: string | null, file?: { __typename?: 'DocumentAssetFile', url?: string | null, fileName?: string | null, contentType?: string | null, volatile_documentType?: string | null, details?: { __typename?: 'DocumentAssetFileDetails', size?: number | null } | null } | null }> | null } | null };
 
 export type ProjectIdQueryVariables = Exact<{
   key: Scalars['String']['input'];
 }>;
 
-export type ProjectIdQuery = {
-  __typename?: 'Query';
-  gbifProject?: { __typename?: 'GbifProject'; projectId?: string | null } | null;
-};
+
+export type ProjectIdQuery = { __typename?: 'Query', gbifProject?: { __typename?: 'GbifProject', projectId?: string | null } | null };
 
 export type ProjectDatasetsQueryVariables = Exact<{
   projectId: Scalars['ID']['input'];
 }>;
 
-export type ProjectDatasetsQuery = {
-  __typename?: 'Query';
-  datasetSearch: {
-    __typename?: 'DatasetSearchResults';
-    count: number;
-    limit: number;
-    offset: number;
-    results: Array<{
-      __typename?: 'DatasetSearchStub';
-      key: string;
-      title?: string | null;
-      excerpt?: string | null;
-      type?: DatasetType | null;
-      publishingOrganizationTitle?: string | null;
-      recordCount?: number | null;
-      license?: string | null;
-    }>;
-  };
-};
+
+export type ProjectDatasetsQuery = { __typename?: 'Query', datasetSearch: { __typename?: 'DatasetSearchResults', count: number, limit: number, offset: number, results: Array<{ __typename?: 'DatasetSearchStub', key: string, title?: string | null, excerpt?: string | null, type?: DatasetType | null, publishingOrganizationTitle?: string | null, recordCount?: number | null, license?: string | null }> } };
 
 export type ProjectDatasetsCountsQueryVariables = Exact<{
   projectId: Scalars['ID']['input'];
@@ -7046,3341 +6691,64 @@ export type ProjectDatasetsCountsQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['Int']['input']>;
 }>;
 
-export type ProjectDatasetsCountsQuery = {
-  __typename?: 'Query';
-  datasetSearch: {
-    __typename?: 'DatasetSearchResults';
-    results: Array<{
-      __typename?: 'DatasetSearchStub';
-      key: string;
-      occurrenceCount?: number | null;
-      literatureCount?: number | null;
-    }>;
-  };
-};
 
-export type DatasetResultFragment = {
-  __typename?: 'DatasetSearchStub';
-  key: string;
-  title?: string | null;
-  excerpt?: string | null;
-  type?: DatasetType | null;
-  publishingOrganizationTitle?: string | null;
-  recordCount?: number | null;
-  license?: string | null;
-};
+export type ProjectDatasetsCountsQuery = { __typename?: 'Query', datasetSearch: { __typename?: 'DatasetSearchResults', results: Array<{ __typename?: 'DatasetSearchStub', key: string, occurrenceCount?: number | null, literatureCount?: number | null }> } };
 
-export type DatasetCountsFragment = {
-  __typename?: 'DatasetSearchStub';
-  key: string;
-  occurrenceCount?: number | null;
-  literatureCount?: number | null;
-};
+export type DatasetResultFragment = { __typename?: 'DatasetSearchStub', key: string, title?: string | null, excerpt?: string | null, type?: DatasetType | null, publishingOrganizationTitle?: string | null, recordCount?: number | null, license?: string | null };
+
+export type DatasetCountsFragment = { __typename?: 'DatasetSearchStub', key: string, occurrenceCount?: number | null, literatureCount?: number | null };
 
 export type ProjectNewsQueryVariables = Exact<{
   key: Scalars['String']['input'];
 }>;
 
-export type ProjectNewsQuery = {
-  __typename?: 'Query';
-  gbifProject?: {
-    __typename?: 'GbifProject';
-    news?: Array<{
-      __typename?: 'News';
-      id: string;
-      title: string;
-      excerpt?: string | null;
-      createdAt: any;
-      primaryImage?: {
-        __typename?: 'AssetImage';
-        file: { __typename?: 'ImageFile'; url: string };
-      } | null;
-    }> | null;
-    events?: Array<{
-      __typename?: 'Event';
-      id: string;
-      title: string;
-      excerpt?: string | null;
-      country?: string | null;
-      location?: string | null;
-      venue?: string | null;
-      start: any;
-      end?: any | null;
-      gbifsAttendee?: string | null;
-      allDayEvent?: boolean | null;
-      primaryLink?: { __typename?: 'Link'; url: string } | null;
-    }> | null;
-  } | null;
-};
+
+export type ProjectNewsQuery = { __typename?: 'Query', gbifProject?: { __typename?: 'GbifProject', news?: Array<{ __typename?: 'News', id: string, title: string, excerpt?: string | null, createdAt: any, primaryImage?: { __typename?: 'AssetImage', file: { __typename?: 'ImageFile', url: string } } | null }> | null, events?: Array<{ __typename?: 'Event', id: string, title: string, excerpt?: string | null, country?: string | null, location?: string | null, venue?: string | null, start: any, end?: any | null, gbifsAttendee?: string | null, allDayEvent?: boolean | null, primaryLink?: { __typename?: 'Link', url: string } | null }> | null } | null };
 
 export type ProjectQueryVariables = Exact<{
   key: Scalars['String']['input'];
 }>;
 
-export type ProjectQuery = {
-  __typename?: 'Query';
-  gbifProject?: {
-    __typename?: 'GbifProject';
-    projectId?: string | null;
-    id: string;
-    title: string;
-    summary?: string | null;
-    body?: string | null;
-    start?: any | null;
-    end?: any | null;
-    createdAt?: any | null;
-    status?: string | null;
-    primaryImage?: {
-      __typename?: 'AssetImage';
-      description?: string | null;
-      title?: string | null;
-      file: { __typename?: 'ImageFile'; url: string; normal: string; mobile: string };
-    } | null;
-    primaryLink?: { __typename?: 'Link'; label: string; url: string } | null;
-    secondaryLinks?: Array<{ __typename?: 'Link'; label: string; url: string }> | null;
-    documents?: Array<{
-      __typename?: 'DocumentAsset';
-      title?: string | null;
-      file?: {
-        __typename?: 'DocumentAssetFile';
-        url?: string | null;
-        fileName?: string | null;
-        contentType?: string | null;
-        volatile_documentType?: string | null;
-        details?: { __typename?: 'DocumentAssetFileDetails'; size?: number | null } | null;
-      } | null;
-    }> | null;
-  } | null;
-};
+
+export type ProjectQuery = { __typename?: 'Query', gbifProject?: { __typename?: 'GbifProject', projectId?: string | null, id: string, title: string, summary?: string | null, body?: string | null, start?: any | null, end?: any | null, createdAt?: any | null, status?: string | null, primaryImage?: { __typename?: 'AssetImage', description?: string | null, title?: string | null, file: { __typename?: 'ImageFile', url: string, normal: string, mobile: string } } | null, primaryLink?: { __typename?: 'Link', label: string, url: string } | null, secondaryLinks?: Array<{ __typename?: 'Link', label: string, url: string }> | null, documents?: Array<{ __typename?: 'DocumentAsset', title?: string | null, file?: { __typename?: 'DocumentAssetFile', url?: string | null, fileName?: string | null, contentType?: string | null, volatile_documentType?: string | null, details?: { __typename?: 'DocumentAssetFileDetails', size?: number | null } | null } | null }> | null } | null };
 
 export type ToolQueryVariables = Exact<{
   key: Scalars['String']['input'];
 }>;
 
-export type ToolQuery = {
-  __typename?: 'Query';
-  tool?: {
-    __typename?: 'Tool';
-    id: string;
-    title: string;
-    summary?: string | null;
-    body?: string | null;
-    citation?: string | null;
-    createdAt?: any | null;
-    author?: string | null;
-    rights?: string | null;
-    rightsHolder?: string | null;
-    publicationDate?: any | null;
-    primaryImage?: {
-      __typename?: 'AssetImage';
-      description?: string | null;
-      title?: string | null;
-      file: {
-        __typename?: 'ImageFile';
-        url: string;
-        normal: string;
-        mobile: string;
-        details: {
-          __typename?: 'ImageFileDetails';
-          image?: {
-            __typename?: 'ImageFileDetailsImage';
-            width?: number | null;
-            height?: number | null;
-          } | null;
-        };
-      };
-    } | null;
-    primaryLink?: { __typename?: 'Link'; label: string; url: string } | null;
-    secondaryLinks?: Array<{ __typename?: 'Link'; label: string; url: string } | null> | null;
-  } | null;
-};
 
-export const MediaFieldsFragmentDoc = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'mediaFields' },
-      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'MediaBlock' } },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: '__typename' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-          {
-            kind: 'Field',
-            alias: { kind: 'Name', value: 'mediaTitle' },
-            name: { kind: 'Name', value: 'title' },
-          },
-          { kind: 'Field', name: { kind: 'Name', value: 'body' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'reverse' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'subtitle' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'backgroundColour' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'roundImage' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'callToAction' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'label' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
-            },
-          },
-          {
-            kind: 'Field',
-            alias: { kind: 'Name', value: 'optionalImg' },
-            name: { kind: 'Name', value: 'primaryImage' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'file' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        alias: { kind: 'Name', value: 'mobile' },
-                        name: { kind: 'Name', value: 'thumbor' },
-                        arguments: [
-                          {
-                            kind: 'Argument',
-                            name: { kind: 'Name', value: 'width' },
-                            value: { kind: 'IntValue', value: '500' },
-                          },
-                          {
-                            kind: 'Argument',
-                            name: { kind: 'Name', value: 'height' },
-                            value: { kind: 'IntValue', value: '400' },
-                          },
-                        ],
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<MediaFieldsFragment, unknown>;
-export const MediaCountFieldsFragmentDoc = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'mediaCountFields' },
-      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'MediaCountBlock' } },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: '__typename' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-          {
-            kind: 'Field',
-            alias: { kind: 'Name', value: 'mediaTitle' },
-            name: { kind: 'Name', value: 'title' },
-          },
-          { kind: 'Field', name: { kind: 'Name', value: 'body' } },
-          {
-            kind: 'Field',
-            alias: { kind: 'Name', value: 'optionalImg' },
-            name: { kind: 'Name', value: 'primaryImage' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'file' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        alias: { kind: 'Name', value: 'mobile' },
-                        name: { kind: 'Name', value: 'thumbor' },
-                        arguments: [
-                          {
-                            kind: 'Argument',
-                            name: { kind: 'Name', value: 'width' },
-                            value: { kind: 'IntValue', value: '500' },
-                          },
-                          {
-                            kind: 'Argument',
-                            name: { kind: 'Name', value: 'height' },
-                            value: { kind: 'IntValue', value: '400' },
-                          },
-                        ],
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-          { kind: 'Field', name: { kind: 'Name', value: 'reverse' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'subtitle' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'titleCountPart' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'backgroundColour' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'roundImage' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'callToAction' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'label' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<MediaCountFieldsFragment, unknown>;
-export const EventResultFragmentDoc = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'EventResult' },
-      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Event' } },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'excerpt' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'country' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'location' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'venue' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'start' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'end' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'primaryLink' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
-            },
-          },
-          { kind: 'Field', name: { kind: 'Name', value: 'gbifsAttendee' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'allDayEvent' } },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<EventResultFragment, unknown>;
-export const NewsResultFragmentDoc = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'NewsResult' },
-      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'News' } },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'excerpt' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'primaryImage' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'file' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        alias: { kind: 'Name', value: 'url' },
-                        name: { kind: 'Name', value: 'thumbor' },
-                        arguments: [
-                          {
-                            kind: 'Argument',
-                            name: { kind: 'Name', value: 'width' },
-                            value: { kind: 'IntValue', value: '300' },
-                          },
-                          {
-                            kind: 'Argument',
-                            name: { kind: 'Name', value: 'height' },
-                            value: { kind: 'IntValue', value: '150' },
-                          },
-                        ],
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-          { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<NewsResultFragment, unknown>;
-export const DatasetResultFragmentDoc = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'DatasetResult' },
-      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'DatasetSearchStub' } },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'key' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'excerpt' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'publishingOrganizationTitle' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'recordCount' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'license' } },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<DatasetResultFragment, unknown>;
-export const DatasetCountsFragmentDoc = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'DatasetCounts' },
-      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'DatasetSearchStub' } },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'key' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'occurrenceCount' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'literatureCount' } },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<DatasetCountsFragment, unknown>;
-export const HeaderDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'Header' },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'gbifHome' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'summary' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'children' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'externalLink' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'link' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'children' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: 'externalLink' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'link' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'children' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  { kind: 'Field', name: { kind: 'Name', value: 'externalLink' } },
-                                  { kind: 'Field', name: { kind: 'Name', value: 'link' } },
-                                  { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                                ],
-                              },
-                            },
-                          ],
-                        },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<HeaderQuery, HeaderQueryVariables>;
-export const DatasetDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'Dataset' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'key' } },
-          type: {
-            kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'dataset' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'key' },
-                value: { kind: 'Variable', name: { kind: 'Name', value: 'key' } },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'publishingOrganizationKey' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'publishingOrganizationTitle' } },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<DatasetQuery, DatasetQueryVariables>;
-export const OccurrenceDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'Occurrence' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'key' } },
-          type: {
-            kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'occurrence' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'key' },
-                value: { kind: 'Variable', name: { kind: 'Name', value: 'key' } },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'eventDate' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'scientificName' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'coordinates' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'dataset' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'key' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<OccurrenceQuery, OccurrenceQueryVariables>;
-export const OccurrenceSearchDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'OccurrenceSearch' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'from' } },
-          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'predicate' } },
-          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Predicate' } },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'occurrenceSearch' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'predicate' },
-                value: { kind: 'Variable', name: { kind: 'Name', value: 'predicate' } },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'documents' },
-                  arguments: [
-                    {
-                      kind: 'Argument',
-                      name: { kind: 'Name', value: 'from' },
-                      value: { kind: 'Variable', name: { kind: 'Name', value: 'from' } },
-                    },
-                  ],
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'from' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'size' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'total' } },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'results' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: 'key' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'scientificName' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'eventDate' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'coordinates' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'county' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'basisOfRecord' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'datasetName' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'publisherTitle' } },
-                          ],
-                        },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<OccurrenceSearchQuery, OccurrenceSearchQueryVariables>;
-export const PublisherDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'Publisher' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'key' } },
-          type: {
-            kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            alias: { kind: 'Name', value: 'publisher' },
-            name: { kind: 'Name', value: 'organization' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'key' },
-                value: { kind: 'Variable', name: { kind: 'Name', value: 'key' } },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'title' } }],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<PublisherQuery, PublisherQueryVariables>;
-export const ArticleDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'Article' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'key' } },
-          type: {
-            kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'article' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'id' },
-                value: { kind: 'Variable', name: { kind: 'Name', value: 'key' } },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'summary' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'body' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'primaryImage' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'file' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-                            {
-                              kind: 'Field',
-                              alias: { kind: 'Name', value: 'normal' },
-                              name: { kind: 'Name', value: 'thumbor' },
-                              arguments: [
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'width' },
-                                  value: { kind: 'IntValue', value: '1200' },
-                                },
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'height' },
-                                  value: { kind: 'IntValue', value: '500' },
-                                },
-                              ],
-                            },
-                            {
-                              kind: 'Field',
-                              alias: { kind: 'Name', value: 'mobile' },
-                              name: { kind: 'Name', value: 'thumbor' },
-                              arguments: [
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'width' },
-                                  value: { kind: 'IntValue', value: '800' },
-                                },
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'height' },
-                                  value: { kind: 'IntValue', value: '400' },
-                                },
-                              ],
-                            },
-                          ],
-                        },
-                      },
-                      { kind: 'Field', name: { kind: 'Name', value: 'description' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                    ],
-                  },
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'secondaryLinks' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'label' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-                    ],
-                  },
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'documents' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'file' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'fileName' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'contentType' } },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'volatile_documentType' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'details' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  { kind: 'Field', name: { kind: 'Name', value: 'size' } },
-                                ],
-                              },
-                            },
-                          ],
-                        },
-                      },
-                      { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                    ],
-                  },
-                },
-                { kind: 'Field', name: { kind: 'Name', value: 'topics' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'purposes' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'audiences' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'citation' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<ArticleQuery, ArticleQueryVariables>;
-export const CompositionDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'Composition' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'key' } },
-          type: {
-            kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'composition' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'id' },
-                value: { kind: 'Variable', name: { kind: 'Name', value: 'key' } },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'summary' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'blocks' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: '__typename' } },
-                      {
-                        kind: 'InlineFragment',
-                        typeCondition: {
-                          kind: 'NamedType',
-                          name: { kind: 'Name', value: 'HeaderBlock' },
-                        },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                            { kind: 'Field', name: { kind: 'Name', value: '__typename' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'summary' } },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'primaryImage' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'file' },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-                                        {
-                                          kind: 'Field',
-                                          alias: { kind: 'Name', value: 'normal' },
-                                          name: { kind: 'Name', value: 'thumbor' },
-                                          arguments: [
-                                            {
-                                              kind: 'Argument',
-                                              name: { kind: 'Name', value: 'width' },
-                                              value: { kind: 'IntValue', value: '1200' },
-                                            },
-                                            {
-                                              kind: 'Argument',
-                                              name: { kind: 'Name', value: 'height' },
-                                              value: { kind: 'IntValue', value: '500' },
-                                            },
-                                          ],
-                                        },
-                                        {
-                                          kind: 'Field',
-                                          alias: { kind: 'Name', value: 'mobile' },
-                                          name: { kind: 'Name', value: 'thumbor' },
-                                          arguments: [
-                                            {
-                                              kind: 'Argument',
-                                              name: { kind: 'Name', value: 'width' },
-                                              value: { kind: 'IntValue', value: '800' },
-                                            },
-                                            {
-                                              kind: 'Argument',
-                                              name: { kind: 'Name', value: 'height' },
-                                              value: { kind: 'IntValue', value: '400' },
-                                            },
-                                          ],
-                                        },
-                                      ],
-                                    },
-                                  },
-                                  { kind: 'Field', name: { kind: 'Name', value: 'description' } },
-                                  { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                                ],
-                              },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'InlineFragment',
-                        typeCondition: {
-                          kind: 'NamedType',
-                          name: { kind: 'Name', value: 'FeatureBlock' },
-                        },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: '__typename' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'maxPerRow' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'body' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'backgroundColour' } },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'features' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  { kind: 'Field', name: { kind: 'Name', value: '__typename' } },
-                                  {
-                                    kind: 'InlineFragment',
-                                    typeCondition: {
-                                      kind: 'NamedType',
-                                      name: { kind: 'Name', value: 'Feature' },
-                                    },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                                        { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                                        { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-                                        {
-                                          kind: 'Field',
-                                          name: { kind: 'Name', value: 'primaryImage' },
-                                          selectionSet: {
-                                            kind: 'SelectionSet',
-                                            selections: [
-                                              {
-                                                kind: 'Field',
-                                                name: { kind: 'Name', value: 'file' },
-                                                selectionSet: {
-                                                  kind: 'SelectionSet',
-                                                  selections: [
-                                                    {
-                                                      kind: 'Field',
-                                                      alias: { kind: 'Name', value: 'mobile' },
-                                                      name: { kind: 'Name', value: 'thumbor' },
-                                                      arguments: [
-                                                        {
-                                                          kind: 'Argument',
-                                                          name: { kind: 'Name', value: 'width' },
-                                                          value: { kind: 'IntValue', value: '500' },
-                                                        },
-                                                        {
-                                                          kind: 'Argument',
-                                                          name: { kind: 'Name', value: 'height' },
-                                                          value: { kind: 'IntValue', value: '400' },
-                                                        },
-                                                      ],
-                                                    },
-                                                  ],
-                                                },
-                                              },
-                                            ],
-                                          },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                  {
-                                    kind: 'InlineFragment',
-                                    typeCondition: {
-                                      kind: 'NamedType',
-                                      name: { kind: 'Name', value: 'News' },
-                                    },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                                        { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                                        { kind: 'Field', name: { kind: 'Name', value: 'excerpt' } },
-                                        {
-                                          kind: 'Field',
-                                          alias: { kind: 'Name', value: 'optionalImg' },
-                                          name: { kind: 'Name', value: 'primaryImage' },
-                                          selectionSet: {
-                                            kind: 'SelectionSet',
-                                            selections: [
-                                              {
-                                                kind: 'Field',
-                                                name: { kind: 'Name', value: 'file' },
-                                                selectionSet: {
-                                                  kind: 'SelectionSet',
-                                                  selections: [
-                                                    {
-                                                      kind: 'Field',
-                                                      alias: { kind: 'Name', value: 'mobile' },
-                                                      name: { kind: 'Name', value: 'thumbor' },
-                                                      arguments: [
-                                                        {
-                                                          kind: 'Argument',
-                                                          name: { kind: 'Name', value: 'width' },
-                                                          value: { kind: 'IntValue', value: '500' },
-                                                        },
-                                                        {
-                                                          kind: 'Argument',
-                                                          name: { kind: 'Name', value: 'height' },
-                                                          value: { kind: 'IntValue', value: '400' },
-                                                        },
-                                                      ],
-                                                    },
-                                                  ],
-                                                },
-                                              },
-                                            ],
-                                          },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                  {
-                                    kind: 'InlineFragment',
-                                    typeCondition: {
-                                      kind: 'NamedType',
-                                      name: { kind: 'Name', value: 'DataUse' },
-                                    },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                                        { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                                        { kind: 'Field', name: { kind: 'Name', value: 'excerpt' } },
-                                        {
-                                          kind: 'Field',
-                                          alias: { kind: 'Name', value: 'optionalImg' },
-                                          name: { kind: 'Name', value: 'primaryImage' },
-                                          selectionSet: {
-                                            kind: 'SelectionSet',
-                                            selections: [
-                                              {
-                                                kind: 'Field',
-                                                name: { kind: 'Name', value: 'file' },
-                                                selectionSet: {
-                                                  kind: 'SelectionSet',
-                                                  selections: [
-                                                    {
-                                                      kind: 'Field',
-                                                      alias: { kind: 'Name', value: 'mobile' },
-                                                      name: { kind: 'Name', value: 'thumbor' },
-                                                      arguments: [
-                                                        {
-                                                          kind: 'Argument',
-                                                          name: { kind: 'Name', value: 'width' },
-                                                          value: { kind: 'IntValue', value: '500' },
-                                                        },
-                                                        {
-                                                          kind: 'Argument',
-                                                          name: { kind: 'Name', value: 'height' },
-                                                          value: { kind: 'IntValue', value: '400' },
-                                                        },
-                                                      ],
-                                                    },
-                                                  ],
-                                                },
-                                              },
-                                            ],
-                                          },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                  {
-                                    kind: 'InlineFragment',
-                                    typeCondition: {
-                                      kind: 'NamedType',
-                                      name: { kind: 'Name', value: 'Event' },
-                                    },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                                        { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                                        { kind: 'Field', name: { kind: 'Name', value: 'excerpt' } },
-                                        { kind: 'Field', name: { kind: 'Name', value: 'start' } },
-                                        { kind: 'Field', name: { kind: 'Name', value: 'end' } },
-                                        {
-                                          kind: 'Field',
-                                          alias: { kind: 'Name', value: 'optionalImg' },
-                                          name: { kind: 'Name', value: 'primaryImage' },
-                                          selectionSet: {
-                                            kind: 'SelectionSet',
-                                            selections: [
-                                              {
-                                                kind: 'Field',
-                                                name: { kind: 'Name', value: 'file' },
-                                                selectionSet: {
-                                                  kind: 'SelectionSet',
-                                                  selections: [
-                                                    {
-                                                      kind: 'Field',
-                                                      alias: { kind: 'Name', value: 'mobile' },
-                                                      name: { kind: 'Name', value: 'thumbor' },
-                                                      arguments: [
-                                                        {
-                                                          kind: 'Argument',
-                                                          name: { kind: 'Name', value: 'width' },
-                                                          value: { kind: 'IntValue', value: '500' },
-                                                        },
-                                                        {
-                                                          kind: 'Argument',
-                                                          name: { kind: 'Name', value: 'height' },
-                                                          value: { kind: 'IntValue', value: '400' },
-                                                        },
-                                                      ],
-                                                    },
-                                                  ],
-                                                },
-                                              },
-                                            ],
-                                          },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                ],
-                              },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'InlineFragment',
-                        typeCondition: {
-                          kind: 'NamedType',
-                          name: { kind: 'Name', value: 'FeaturedTextBlock' },
-                        },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: '__typename' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'body' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'backgroundColour' } },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'InlineFragment',
-                        typeCondition: {
-                          kind: 'NamedType',
-                          name: { kind: 'Name', value: 'CarouselBlock' },
-                        },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: '__typename' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'body' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'backgroundColour' } },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'features' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  { kind: 'Field', name: { kind: 'Name', value: '__typename' } },
-                                  {
-                                    kind: 'InlineFragment',
-                                    typeCondition: {
-                                      kind: 'NamedType',
-                                      name: { kind: 'Name', value: 'MediaBlock' },
-                                    },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'FragmentSpread',
-                                          name: { kind: 'Name', value: 'mediaFields' },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                  {
-                                    kind: 'InlineFragment',
-                                    typeCondition: {
-                                      kind: 'NamedType',
-                                      name: { kind: 'Name', value: 'MediaCountBlock' },
-                                    },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'FragmentSpread',
-                                          name: { kind: 'Name', value: 'mediaCountFields' },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                ],
-                              },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'InlineFragment',
-                        typeCondition: {
-                          kind: 'NamedType',
-                          name: { kind: 'Name', value: 'MediaBlock' },
-                        },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'FragmentSpread',
-                              name: { kind: 'Name', value: 'mediaFields' },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'InlineFragment',
-                        typeCondition: {
-                          kind: 'NamedType',
-                          name: { kind: 'Name', value: 'MediaCountBlock' },
-                        },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'FragmentSpread',
-                              name: { kind: 'Name', value: 'mediaCountFields' },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'InlineFragment',
-                        typeCondition: {
-                          kind: 'NamedType',
-                          name: { kind: 'Name', value: 'CustomComponentBlock' },
-                        },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'componentType' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'width' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'backgroundColour' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'settings' } },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'InlineFragment',
-                        typeCondition: {
-                          kind: 'NamedType',
-                          name: { kind: 'Name', value: 'TextBlock' },
-                        },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'body' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'hideTitle' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'backgroundColour' } },
-                          ],
-                        },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'mediaFields' },
-      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'MediaBlock' } },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: '__typename' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-          {
-            kind: 'Field',
-            alias: { kind: 'Name', value: 'mediaTitle' },
-            name: { kind: 'Name', value: 'title' },
-          },
-          { kind: 'Field', name: { kind: 'Name', value: 'body' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'reverse' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'subtitle' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'backgroundColour' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'roundImage' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'callToAction' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'label' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
-            },
-          },
-          {
-            kind: 'Field',
-            alias: { kind: 'Name', value: 'optionalImg' },
-            name: { kind: 'Name', value: 'primaryImage' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'file' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        alias: { kind: 'Name', value: 'mobile' },
-                        name: { kind: 'Name', value: 'thumbor' },
-                        arguments: [
-                          {
-                            kind: 'Argument',
-                            name: { kind: 'Name', value: 'width' },
-                            value: { kind: 'IntValue', value: '500' },
-                          },
-                          {
-                            kind: 'Argument',
-                            name: { kind: 'Name', value: 'height' },
-                            value: { kind: 'IntValue', value: '400' },
-                          },
-                        ],
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'mediaCountFields' },
-      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'MediaCountBlock' } },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: '__typename' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-          {
-            kind: 'Field',
-            alias: { kind: 'Name', value: 'mediaTitle' },
-            name: { kind: 'Name', value: 'title' },
-          },
-          { kind: 'Field', name: { kind: 'Name', value: 'body' } },
-          {
-            kind: 'Field',
-            alias: { kind: 'Name', value: 'optionalImg' },
-            name: { kind: 'Name', value: 'primaryImage' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'file' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        alias: { kind: 'Name', value: 'mobile' },
-                        name: { kind: 'Name', value: 'thumbor' },
-                        arguments: [
-                          {
-                            kind: 'Argument',
-                            name: { kind: 'Name', value: 'width' },
-                            value: { kind: 'IntValue', value: '500' },
-                          },
-                          {
-                            kind: 'Argument',
-                            name: { kind: 'Name', value: 'height' },
-                            value: { kind: 'IntValue', value: '400' },
-                          },
-                        ],
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-          { kind: 'Field', name: { kind: 'Name', value: 'reverse' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'subtitle' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'titleCountPart' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'backgroundColour' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'roundImage' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'callToAction' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'label' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<CompositionQuery, CompositionQueryVariables>;
-export const DataUseDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'DataUse' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'key' } },
-          type: {
-            kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'dataUse' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'id' },
-                value: { kind: 'Variable', name: { kind: 'Name', value: 'key' } },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'summary' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'resourceUsed' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'body' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'primaryImage' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'file' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-                            {
-                              kind: 'Field',
-                              alias: { kind: 'Name', value: 'normal' },
-                              name: { kind: 'Name', value: 'thumbor' },
-                              arguments: [
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'width' },
-                                  value: { kind: 'IntValue', value: '1200' },
-                                },
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'height' },
-                                  value: { kind: 'IntValue', value: '500' },
-                                },
-                              ],
-                            },
-                            {
-                              kind: 'Field',
-                              alias: { kind: 'Name', value: 'mobile' },
-                              name: { kind: 'Name', value: 'thumbor' },
-                              arguments: [
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'width' },
-                                  value: { kind: 'IntValue', value: '800' },
-                                },
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'height' },
-                                  value: { kind: 'IntValue', value: '400' },
-                                },
-                              ],
-                            },
-                          ],
-                        },
-                      },
-                      { kind: 'Field', name: { kind: 'Name', value: 'description' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                    ],
-                  },
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'primaryLink' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'label' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-                    ],
-                  },
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'secondaryLinks' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'label' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-                    ],
-                  },
-                },
-                { kind: 'Field', name: { kind: 'Name', value: 'countriesOfCoverage' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'topics' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'purposes' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'audiences' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'citation' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<DataUseQuery, DataUseQueryVariables>;
-export const EventDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'Event' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'key' } },
-          type: {
-            kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'event' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'id' },
-                value: { kind: 'Variable', name: { kind: 'Name', value: 'key' } },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'summary' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'body' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'primaryImage' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'file' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-                            {
-                              kind: 'Field',
-                              alias: { kind: 'Name', value: 'normal' },
-                              name: { kind: 'Name', value: 'thumbor' },
-                              arguments: [
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'width' },
-                                  value: { kind: 'IntValue', value: '1200' },
-                                },
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'height' },
-                                  value: { kind: 'IntValue', value: '500' },
-                                },
-                              ],
-                            },
-                            {
-                              kind: 'Field',
-                              alias: { kind: 'Name', value: 'mobile' },
-                              name: { kind: 'Name', value: 'thumbor' },
-                              arguments: [
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'width' },
-                                  value: { kind: 'IntValue', value: '800' },
-                                },
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'height' },
-                                  value: { kind: 'IntValue', value: '400' },
-                                },
-                              ],
-                            },
-                          ],
-                        },
-                      },
-                      { kind: 'Field', name: { kind: 'Name', value: 'description' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                    ],
-                  },
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'primaryLink' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'label' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-                    ],
-                  },
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'secondaryLinks' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'label' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-                    ],
-                  },
-                },
-                { kind: 'Field', name: { kind: 'Name', value: 'location' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'country' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'start' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'end' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'eventLanguage' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'venue' } },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<EventQuery, EventQueryVariables>;
-export const NewsDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'News' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'key' } },
-          type: {
-            kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'news' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'id' },
-                value: { kind: 'Variable', name: { kind: 'Name', value: 'key' } },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'summary' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'body' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'primaryImage' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'file' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-                            {
-                              kind: 'Field',
-                              alias: { kind: 'Name', value: 'normal' },
-                              name: { kind: 'Name', value: 'thumbor' },
-                              arguments: [
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'width' },
-                                  value: { kind: 'IntValue', value: '1200' },
-                                },
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'height' },
-                                  value: { kind: 'IntValue', value: '500' },
-                                },
-                              ],
-                            },
-                            {
-                              kind: 'Field',
-                              alias: { kind: 'Name', value: 'mobile' },
-                              name: { kind: 'Name', value: 'thumbor' },
-                              arguments: [
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'width' },
-                                  value: { kind: 'IntValue', value: '800' },
-                                },
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'height' },
-                                  value: { kind: 'IntValue', value: '400' },
-                                },
-                              ],
-                            },
-                          ],
-                        },
-                      },
-                      { kind: 'Field', name: { kind: 'Name', value: 'description' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                    ],
-                  },
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'primaryLink' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'label' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-                    ],
-                  },
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'secondaryLinks' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'label' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-                    ],
-                  },
-                },
-                { kind: 'Field', name: { kind: 'Name', value: 'countriesOfCoverage' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'topics' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'purposes' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'audiences' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'citation' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<NewsQuery, NewsQueryVariables>;
-export const ProgrammeDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'Programme' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'key' } },
-          type: {
-            kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'programme' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'id' },
-                value: { kind: 'Variable', name: { kind: 'Name', value: 'key' } },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'excerpt' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'blocks' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: '__typename' } },
-                      {
-                        kind: 'InlineFragment',
-                        typeCondition: {
-                          kind: 'NamedType',
-                          name: { kind: 'Name', value: 'HeaderBlock' },
-                        },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                            { kind: 'Field', name: { kind: 'Name', value: '__typename' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'summary' } },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'primaryImage' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'file' },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-                                        {
-                                          kind: 'Field',
-                                          alias: { kind: 'Name', value: 'normal' },
-                                          name: { kind: 'Name', value: 'thumbor' },
-                                          arguments: [
-                                            {
-                                              kind: 'Argument',
-                                              name: { kind: 'Name', value: 'width' },
-                                              value: { kind: 'IntValue', value: '1200' },
-                                            },
-                                            {
-                                              kind: 'Argument',
-                                              name: { kind: 'Name', value: 'height' },
-                                              value: { kind: 'IntValue', value: '500' },
-                                            },
-                                          ],
-                                        },
-                                        {
-                                          kind: 'Field',
-                                          alias: { kind: 'Name', value: 'mobile' },
-                                          name: { kind: 'Name', value: 'thumbor' },
-                                          arguments: [
-                                            {
-                                              kind: 'Argument',
-                                              name: { kind: 'Name', value: 'width' },
-                                              value: { kind: 'IntValue', value: '800' },
-                                            },
-                                            {
-                                              kind: 'Argument',
-                                              name: { kind: 'Name', value: 'height' },
-                                              value: { kind: 'IntValue', value: '400' },
-                                            },
-                                          ],
-                                        },
-                                      ],
-                                    },
-                                  },
-                                  { kind: 'Field', name: { kind: 'Name', value: 'description' } },
-                                  { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                                ],
-                              },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'InlineFragment',
-                        typeCondition: {
-                          kind: 'NamedType',
-                          name: { kind: 'Name', value: 'FeatureBlock' },
-                        },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: '__typename' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'maxPerRow' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'body' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'backgroundColour' } },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'features' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  { kind: 'Field', name: { kind: 'Name', value: '__typename' } },
-                                  {
-                                    kind: 'InlineFragment',
-                                    typeCondition: {
-                                      kind: 'NamedType',
-                                      name: { kind: 'Name', value: 'Feature' },
-                                    },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                                        { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                                        { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-                                        {
-                                          kind: 'Field',
-                                          name: { kind: 'Name', value: 'primaryImage' },
-                                          selectionSet: {
-                                            kind: 'SelectionSet',
-                                            selections: [
-                                              {
-                                                kind: 'Field',
-                                                name: { kind: 'Name', value: 'file' },
-                                                selectionSet: {
-                                                  kind: 'SelectionSet',
-                                                  selections: [
-                                                    {
-                                                      kind: 'Field',
-                                                      alias: { kind: 'Name', value: 'mobile' },
-                                                      name: { kind: 'Name', value: 'thumbor' },
-                                                      arguments: [
-                                                        {
-                                                          kind: 'Argument',
-                                                          name: { kind: 'Name', value: 'width' },
-                                                          value: { kind: 'IntValue', value: '500' },
-                                                        },
-                                                        {
-                                                          kind: 'Argument',
-                                                          name: { kind: 'Name', value: 'height' },
-                                                          value: { kind: 'IntValue', value: '400' },
-                                                        },
-                                                      ],
-                                                    },
-                                                  ],
-                                                },
-                                              },
-                                            ],
-                                          },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                  {
-                                    kind: 'InlineFragment',
-                                    typeCondition: {
-                                      kind: 'NamedType',
-                                      name: { kind: 'Name', value: 'News' },
-                                    },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                                        { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                                        { kind: 'Field', name: { kind: 'Name', value: 'excerpt' } },
-                                        {
-                                          kind: 'Field',
-                                          alias: { kind: 'Name', value: 'optionalImg' },
-                                          name: { kind: 'Name', value: 'primaryImage' },
-                                          selectionSet: {
-                                            kind: 'SelectionSet',
-                                            selections: [
-                                              {
-                                                kind: 'Field',
-                                                name: { kind: 'Name', value: 'file' },
-                                                selectionSet: {
-                                                  kind: 'SelectionSet',
-                                                  selections: [
-                                                    {
-                                                      kind: 'Field',
-                                                      alias: { kind: 'Name', value: 'mobile' },
-                                                      name: { kind: 'Name', value: 'thumbor' },
-                                                      arguments: [
-                                                        {
-                                                          kind: 'Argument',
-                                                          name: { kind: 'Name', value: 'width' },
-                                                          value: { kind: 'IntValue', value: '500' },
-                                                        },
-                                                        {
-                                                          kind: 'Argument',
-                                                          name: { kind: 'Name', value: 'height' },
-                                                          value: { kind: 'IntValue', value: '400' },
-                                                        },
-                                                      ],
-                                                    },
-                                                  ],
-                                                },
-                                              },
-                                            ],
-                                          },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                  {
-                                    kind: 'InlineFragment',
-                                    typeCondition: {
-                                      kind: 'NamedType',
-                                      name: { kind: 'Name', value: 'DataUse' },
-                                    },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                                        { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                                        { kind: 'Field', name: { kind: 'Name', value: 'excerpt' } },
-                                        {
-                                          kind: 'Field',
-                                          alias: { kind: 'Name', value: 'optionalImg' },
-                                          name: { kind: 'Name', value: 'primaryImage' },
-                                          selectionSet: {
-                                            kind: 'SelectionSet',
-                                            selections: [
-                                              {
-                                                kind: 'Field',
-                                                name: { kind: 'Name', value: 'file' },
-                                                selectionSet: {
-                                                  kind: 'SelectionSet',
-                                                  selections: [
-                                                    {
-                                                      kind: 'Field',
-                                                      alias: { kind: 'Name', value: 'mobile' },
-                                                      name: { kind: 'Name', value: 'thumbor' },
-                                                      arguments: [
-                                                        {
-                                                          kind: 'Argument',
-                                                          name: { kind: 'Name', value: 'width' },
-                                                          value: { kind: 'IntValue', value: '500' },
-                                                        },
-                                                        {
-                                                          kind: 'Argument',
-                                                          name: { kind: 'Name', value: 'height' },
-                                                          value: { kind: 'IntValue', value: '400' },
-                                                        },
-                                                      ],
-                                                    },
-                                                  ],
-                                                },
-                                              },
-                                            ],
-                                          },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                  {
-                                    kind: 'InlineFragment',
-                                    typeCondition: {
-                                      kind: 'NamedType',
-                                      name: { kind: 'Name', value: 'Event' },
-                                    },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                                        { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                                        { kind: 'Field', name: { kind: 'Name', value: 'excerpt' } },
-                                        { kind: 'Field', name: { kind: 'Name', value: 'start' } },
-                                        { kind: 'Field', name: { kind: 'Name', value: 'end' } },
-                                        {
-                                          kind: 'Field',
-                                          alias: { kind: 'Name', value: 'optionalImg' },
-                                          name: { kind: 'Name', value: 'primaryImage' },
-                                          selectionSet: {
-                                            kind: 'SelectionSet',
-                                            selections: [
-                                              {
-                                                kind: 'Field',
-                                                name: { kind: 'Name', value: 'file' },
-                                                selectionSet: {
-                                                  kind: 'SelectionSet',
-                                                  selections: [
-                                                    {
-                                                      kind: 'Field',
-                                                      alias: { kind: 'Name', value: 'mobile' },
-                                                      name: { kind: 'Name', value: 'thumbor' },
-                                                      arguments: [
-                                                        {
-                                                          kind: 'Argument',
-                                                          name: { kind: 'Name', value: 'width' },
-                                                          value: { kind: 'IntValue', value: '500' },
-                                                        },
-                                                        {
-                                                          kind: 'Argument',
-                                                          name: { kind: 'Name', value: 'height' },
-                                                          value: { kind: 'IntValue', value: '400' },
-                                                        },
-                                                      ],
-                                                    },
-                                                  ],
-                                                },
-                                              },
-                                            ],
-                                          },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                ],
-                              },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'InlineFragment',
-                        typeCondition: {
-                          kind: 'NamedType',
-                          name: { kind: 'Name', value: 'FeaturedTextBlock' },
-                        },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: '__typename' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'body' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'backgroundColour' } },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'InlineFragment',
-                        typeCondition: {
-                          kind: 'NamedType',
-                          name: { kind: 'Name', value: 'CarouselBlock' },
-                        },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: '__typename' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'body' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'backgroundColour' } },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'features' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  { kind: 'Field', name: { kind: 'Name', value: '__typename' } },
-                                  {
-                                    kind: 'InlineFragment',
-                                    typeCondition: {
-                                      kind: 'NamedType',
-                                      name: { kind: 'Name', value: 'MediaBlock' },
-                                    },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'FragmentSpread',
-                                          name: { kind: 'Name', value: 'mediaFields' },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                  {
-                                    kind: 'InlineFragment',
-                                    typeCondition: {
-                                      kind: 'NamedType',
-                                      name: { kind: 'Name', value: 'MediaCountBlock' },
-                                    },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'FragmentSpread',
-                                          name: { kind: 'Name', value: 'mediaCountFields' },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                ],
-                              },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'InlineFragment',
-                        typeCondition: {
-                          kind: 'NamedType',
-                          name: { kind: 'Name', value: 'MediaBlock' },
-                        },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'FragmentSpread',
-                              name: { kind: 'Name', value: 'mediaFields' },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'InlineFragment',
-                        typeCondition: {
-                          kind: 'NamedType',
-                          name: { kind: 'Name', value: 'MediaCountBlock' },
-                        },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'FragmentSpread',
-                              name: { kind: 'Name', value: 'mediaCountFields' },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'InlineFragment',
-                        typeCondition: {
-                          kind: 'NamedType',
-                          name: { kind: 'Name', value: 'CustomComponentBlock' },
-                        },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'componentType' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'width' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'backgroundColour' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'settings' } },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'InlineFragment',
-                        typeCondition: {
-                          kind: 'NamedType',
-                          name: { kind: 'Name', value: 'TextBlock' },
-                        },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'body' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'hideTitle' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'backgroundColour' } },
-                          ],
-                        },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'mediaFields' },
-      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'MediaBlock' } },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: '__typename' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-          {
-            kind: 'Field',
-            alias: { kind: 'Name', value: 'mediaTitle' },
-            name: { kind: 'Name', value: 'title' },
-          },
-          { kind: 'Field', name: { kind: 'Name', value: 'body' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'reverse' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'subtitle' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'backgroundColour' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'roundImage' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'callToAction' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'label' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
-            },
-          },
-          {
-            kind: 'Field',
-            alias: { kind: 'Name', value: 'optionalImg' },
-            name: { kind: 'Name', value: 'primaryImage' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'file' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        alias: { kind: 'Name', value: 'mobile' },
-                        name: { kind: 'Name', value: 'thumbor' },
-                        arguments: [
-                          {
-                            kind: 'Argument',
-                            name: { kind: 'Name', value: 'width' },
-                            value: { kind: 'IntValue', value: '500' },
-                          },
-                          {
-                            kind: 'Argument',
-                            name: { kind: 'Name', value: 'height' },
-                            value: { kind: 'IntValue', value: '400' },
-                          },
-                        ],
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'mediaCountFields' },
-      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'MediaCountBlock' } },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: '__typename' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-          {
-            kind: 'Field',
-            alias: { kind: 'Name', value: 'mediaTitle' },
-            name: { kind: 'Name', value: 'title' },
-          },
-          { kind: 'Field', name: { kind: 'Name', value: 'body' } },
-          {
-            kind: 'Field',
-            alias: { kind: 'Name', value: 'optionalImg' },
-            name: { kind: 'Name', value: 'primaryImage' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'file' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        alias: { kind: 'Name', value: 'mobile' },
-                        name: { kind: 'Name', value: 'thumbor' },
-                        arguments: [
-                          {
-                            kind: 'Argument',
-                            name: { kind: 'Name', value: 'width' },
-                            value: { kind: 'IntValue', value: '500' },
-                          },
-                          {
-                            kind: 'Argument',
-                            name: { kind: 'Name', value: 'height' },
-                            value: { kind: 'IntValue', value: '400' },
-                          },
-                        ],
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-          { kind: 'Field', name: { kind: 'Name', value: 'reverse' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'subtitle' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'titleCountPart' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'backgroundColour' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'roundImage' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'callToAction' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'label' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<ProgrammeQuery, ProgrammeQueryVariables>;
-export const ProjectAboutDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'ProjectAbout' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'key' } },
-          type: {
-            kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'gbifProject' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'id' },
-                value: { kind: 'Variable', name: { kind: 'Name', value: 'key' } },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'summary' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'body' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'fundsAllocated' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'matchingFunds' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'grantType' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'start' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'end' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'programme' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                    ],
-                  },
-                },
-                { kind: 'Field', name: { kind: 'Name', value: 'projectId' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'primaryImage' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'file' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-                            {
-                              kind: 'Field',
-                              alias: { kind: 'Name', value: 'normal' },
-                              name: { kind: 'Name', value: 'thumbor' },
-                              arguments: [
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'width' },
-                                  value: { kind: 'IntValue', value: '1200' },
-                                },
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'height' },
-                                  value: { kind: 'IntValue', value: '500' },
-                                },
-                              ],
-                            },
-                            {
-                              kind: 'Field',
-                              alias: { kind: 'Name', value: 'mobile' },
-                              name: { kind: 'Name', value: 'thumbor' },
-                              arguments: [
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'width' },
-                                  value: { kind: 'IntValue', value: '800' },
-                                },
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'height' },
-                                  value: { kind: 'IntValue', value: '400' },
-                                },
-                              ],
-                            },
-                          ],
-                        },
-                      },
-                      { kind: 'Field', name: { kind: 'Name', value: 'description' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                    ],
-                  },
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'secondaryLinks' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'label' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-                    ],
-                  },
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'documents' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'file' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'fileName' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'contentType' } },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'volatile_documentType' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'details' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  { kind: 'Field', name: { kind: 'Name', value: 'size' } },
-                                ],
-                              },
-                            },
-                          ],
-                        },
-                      },
-                      { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                    ],
-                  },
-                },
-                { kind: 'Field', name: { kind: 'Name', value: 'purposes' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'status' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<ProjectAboutQuery, ProjectAboutQueryVariables>;
-export const ProjectIdDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'ProjectId' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'key' } },
-          type: {
-            kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'gbifProject' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'id' },
-                value: { kind: 'Variable', name: { kind: 'Name', value: 'key' } },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'projectId' } }],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<ProjectIdQuery, ProjectIdQueryVariables>;
-export const ProjectDatasetsDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'ProjectDatasets' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'projectId' } },
-          type: {
-            kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'datasetSearch' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'projectId' },
-                value: {
-                  kind: 'ListValue',
-                  values: [{ kind: 'Variable', name: { kind: 'Name', value: 'projectId' } }],
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'limit' },
-                value: { kind: 'IntValue', value: '500' },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'count' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'limit' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'offset' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'results' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'FragmentSpread', name: { kind: 'Name', value: 'DatasetResult' } },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'DatasetResult' },
-      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'DatasetSearchStub' } },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'key' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'excerpt' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'publishingOrganizationTitle' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'recordCount' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'license' } },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<ProjectDatasetsQuery, ProjectDatasetsQueryVariables>;
-export const ProjectDatasetsCountsDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'ProjectDatasetsCounts' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'projectId' } },
-          type: {
-            kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } },
-          },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
-          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
-          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'datasetSearch' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'projectId' },
-                value: {
-                  kind: 'ListValue',
-                  values: [{ kind: 'Variable', name: { kind: 'Name', value: 'projectId' } }],
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'limit' },
-                value: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'offset' },
-                value: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'results' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'FragmentSpread', name: { kind: 'Name', value: 'DatasetCounts' } },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'DatasetCounts' },
-      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'DatasetSearchStub' } },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'key' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'occurrenceCount' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'literatureCount' } },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<ProjectDatasetsCountsQuery, ProjectDatasetsCountsQueryVariables>;
-export const ProjectNewsDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'ProjectNews' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'key' } },
-          type: {
-            kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'gbifProject' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'id' },
-                value: { kind: 'Variable', name: { kind: 'Name', value: 'key' } },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'news' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'FragmentSpread', name: { kind: 'Name', value: 'NewsResult' } },
-                    ],
-                  },
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'events' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'FragmentSpread', name: { kind: 'Name', value: 'EventResult' } },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'NewsResult' },
-      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'News' } },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'excerpt' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'primaryImage' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'file' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        alias: { kind: 'Name', value: 'url' },
-                        name: { kind: 'Name', value: 'thumbor' },
-                        arguments: [
-                          {
-                            kind: 'Argument',
-                            name: { kind: 'Name', value: 'width' },
-                            value: { kind: 'IntValue', value: '300' },
-                          },
-                          {
-                            kind: 'Argument',
-                            name: { kind: 'Name', value: 'height' },
-                            value: { kind: 'IntValue', value: '150' },
-                          },
-                        ],
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-          { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'EventResult' },
-      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Event' } },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'excerpt' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'country' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'location' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'venue' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'start' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'end' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'primaryLink' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
-            },
-          },
-          { kind: 'Field', name: { kind: 'Name', value: 'gbifsAttendee' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'allDayEvent' } },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<ProjectNewsQuery, ProjectNewsQueryVariables>;
-export const ProjectDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'Project' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'key' } },
-          type: {
-            kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'gbifProject' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'id' },
-                value: { kind: 'Variable', name: { kind: 'Name', value: 'key' } },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'projectId' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'summary' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'body' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'primaryImage' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'file' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-                            {
-                              kind: 'Field',
-                              alias: { kind: 'Name', value: 'normal' },
-                              name: { kind: 'Name', value: 'thumbor' },
-                              arguments: [
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'width' },
-                                  value: { kind: 'IntValue', value: '1200' },
-                                },
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'height' },
-                                  value: { kind: 'IntValue', value: '500' },
-                                },
-                              ],
-                            },
-                            {
-                              kind: 'Field',
-                              alias: { kind: 'Name', value: 'mobile' },
-                              name: { kind: 'Name', value: 'thumbor' },
-                              arguments: [
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'width' },
-                                  value: { kind: 'IntValue', value: '800' },
-                                },
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'height' },
-                                  value: { kind: 'IntValue', value: '400' },
-                                },
-                              ],
-                            },
-                          ],
-                        },
-                      },
-                      { kind: 'Field', name: { kind: 'Name', value: 'description' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                    ],
-                  },
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'primaryLink' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'label' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-                    ],
-                  },
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'secondaryLinks' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'label' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-                    ],
-                  },
-                },
-                { kind: 'Field', name: { kind: 'Name', value: 'start' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'end' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'documents' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'file' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'fileName' } },
-                            { kind: 'Field', name: { kind: 'Name', value: 'contentType' } },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'volatile_documentType' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'details' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  { kind: 'Field', name: { kind: 'Name', value: 'size' } },
-                                ],
-                              },
-                            },
-                          ],
-                        },
-                      },
-                      { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                    ],
-                  },
-                },
-                { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'status' } },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<ProjectQuery, ProjectQueryVariables>;
-export const ToolDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'Tool' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'key' } },
-          type: {
-            kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'tool' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'id' },
-                value: { kind: 'Variable', name: { kind: 'Name', value: 'key' } },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'summary' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'body' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'primaryImage' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'file' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'details' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'image' },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        { kind: 'Field', name: { kind: 'Name', value: 'width' } },
-                                        { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-                                      ],
-                                    },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              alias: { kind: 'Name', value: 'normal' },
-                              name: { kind: 'Name', value: 'thumbor' },
-                              arguments: [
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'width' },
-                                  value: { kind: 'IntValue', value: '1200' },
-                                },
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'height' },
-                                  value: { kind: 'IntValue', value: '500' },
-                                },
-                              ],
-                            },
-                            {
-                              kind: 'Field',
-                              alias: { kind: 'Name', value: 'mobile' },
-                              name: { kind: 'Name', value: 'thumbor' },
-                              arguments: [
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'width' },
-                                  value: { kind: 'IntValue', value: '800' },
-                                },
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'height' },
-                                  value: { kind: 'IntValue', value: '400' },
-                                },
-                              ],
-                            },
-                          ],
-                        },
-                      },
-                      { kind: 'Field', name: { kind: 'Name', value: 'description' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-                    ],
-                  },
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'primaryLink' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'label' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-                    ],
-                  },
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'secondaryLinks' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'label' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-                    ],
-                  },
-                },
-                { kind: 'Field', name: { kind: 'Name', value: 'citation' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'author' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'rights' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'rightsHolder' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'publicationDate' } },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<ToolQuery, ToolQueryVariables>;
+export type ToolQuery = { __typename?: 'Query', tool?: { __typename?: 'Tool', id: string, title: string, summary?: string | null, body?: string | null, citation?: string | null, createdAt?: any | null, author?: string | null, rights?: string | null, rightsHolder?: string | null, publicationDate?: any | null, primaryImage?: { __typename?: 'AssetImage', description?: string | null, title?: string | null, file: { __typename?: 'ImageFile', url: string, normal: string, mobile: string, details: { __typename?: 'ImageFileDetails', image?: { __typename?: 'ImageFileDetailsImage', width?: number | null, height?: number | null } | null } } } | null, primaryLink?: { __typename?: 'Link', label: string, url: string } | null, secondaryLinks?: Array<{ __typename?: 'Link', label: string, url: string } | null> | null } | null };
+
+export const DocumentPreviewFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DocumentPreview"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"DocumentAsset"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"fileName"}},{"kind":"Field","name":{"kind":"Name","value":"contentType"}},{"kind":"Field","name":{"kind":"Name","value":"volatile_documentType"}},{"kind":"Field","name":{"kind":"Name","value":"details"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"size"}}]}}]}}]}}]} as unknown as DocumentNode<DocumentPreviewFragment, unknown>;
+export const HeaderBlockDetailsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HeaderBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"HeaderBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","alias":{"kind":"Name","value":"normal"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"1200"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"500"}}]},{"kind":"Field","alias":{"kind":"Name","value":"mobile"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"800"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"400"}}]}]}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]} as unknown as DocumentNode<HeaderBlockDetailsFragment, unknown>;
+export const ProseCardImgFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ProseCardImg"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AssetImage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"mobile"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"500"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"400"}}]}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}}]} as unknown as DocumentNode<ProseCardImgFragment, unknown>;
+export const FeatureBlockDetailsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FeatureBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FeatureBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"maxPerRow"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}},{"kind":"Field","name":{"kind":"Name","value":"features"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Feature"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProseCardImg"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"News"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}},{"kind":"Field","alias":{"kind":"Name","value":"optionalImg"},"name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProseCardImg"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"DataUse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}},{"kind":"Field","alias":{"kind":"Name","value":"optionalImg"},"name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProseCardImg"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Event"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}},{"kind":"Field","name":{"kind":"Name","value":"start"}},{"kind":"Field","name":{"kind":"Name","value":"end"}},{"kind":"Field","alias":{"kind":"Name","value":"optionalImg"},"name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProseCardImg"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ProseCardImg"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AssetImage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"mobile"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"500"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"400"}}]}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}}]} as unknown as DocumentNode<FeatureBlockDetailsFragment, unknown>;
+export const FeaturedTextBlockDetailsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FeaturedTextBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FeaturedTextBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}}]}}]} as unknown as DocumentNode<FeaturedTextBlockDetailsFragment, unknown>;
+export const MediaBlockDetailsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MediaBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","alias":{"kind":"Name","value":"mediaTitle"},"name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","alias":{"kind":"Name","value":"optionalImg"},"name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"mobile"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"500"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"400"}}]}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}},{"kind":"Field","name":{"kind":"Name","value":"reverse"}},{"kind":"Field","name":{"kind":"Name","value":"subtitle"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}},{"kind":"Field","name":{"kind":"Name","value":"roundImage"}},{"kind":"Field","name":{"kind":"Name","value":"callToAction"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]} as unknown as DocumentNode<MediaBlockDetailsFragment, unknown>;
+export const MediaCountBlockDetailsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MediaCountBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaCountBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","alias":{"kind":"Name","value":"mediaTitle"},"name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","alias":{"kind":"Name","value":"optionalImg"},"name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"mobile"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"500"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"400"}}]}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}},{"kind":"Field","name":{"kind":"Name","value":"reverse"}},{"kind":"Field","name":{"kind":"Name","value":"subtitle"}},{"kind":"Field","name":{"kind":"Name","value":"titleCountPart"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}},{"kind":"Field","name":{"kind":"Name","value":"roundImage"}},{"kind":"Field","name":{"kind":"Name","value":"callToAction"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]} as unknown as DocumentNode<MediaCountBlockDetailsFragment, unknown>;
+export const CarouselBlockDetailsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"CarouselBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CarouselBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}},{"kind":"Field","name":{"kind":"Name","value":"features"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MediaBlockDetails"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaCountBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MediaCountBlockDetails"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MediaBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","alias":{"kind":"Name","value":"mediaTitle"},"name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","alias":{"kind":"Name","value":"optionalImg"},"name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"mobile"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"500"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"400"}}]}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}},{"kind":"Field","name":{"kind":"Name","value":"reverse"}},{"kind":"Field","name":{"kind":"Name","value":"subtitle"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}},{"kind":"Field","name":{"kind":"Name","value":"roundImage"}},{"kind":"Field","name":{"kind":"Name","value":"callToAction"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MediaCountBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaCountBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","alias":{"kind":"Name","value":"mediaTitle"},"name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","alias":{"kind":"Name","value":"optionalImg"},"name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"mobile"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"500"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"400"}}]}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}},{"kind":"Field","name":{"kind":"Name","value":"reverse"}},{"kind":"Field","name":{"kind":"Name","value":"subtitle"}},{"kind":"Field","name":{"kind":"Name","value":"titleCountPart"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}},{"kind":"Field","name":{"kind":"Name","value":"roundImage"}},{"kind":"Field","name":{"kind":"Name","value":"callToAction"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]} as unknown as DocumentNode<CarouselBlockDetailsFragment, unknown>;
+export const CustomComponentBlockDetailsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"CustomComponentBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CustomComponentBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"componentType"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}},{"kind":"Field","name":{"kind":"Name","value":"settings"}}]}}]} as unknown as DocumentNode<CustomComponentBlockDetailsFragment, unknown>;
+export const TextBlockDetailsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TextBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TextBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","name":{"kind":"Name","value":"hideTitle"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}}]}}]} as unknown as DocumentNode<TextBlockDetailsFragment, unknown>;
+export const BlockItemDetailsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BlockItemDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"BlockItem"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"HeaderBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"HeaderBlockDetails"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FeatureBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"FeatureBlockDetails"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FeaturedTextBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"FeaturedTextBlockDetails"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CarouselBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"CarouselBlockDetails"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"MediaBlockDetails"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaCountBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"MediaCountBlockDetails"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CustomComponentBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"CustomComponentBlockDetails"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TextBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"TextBlockDetails"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ProseCardImg"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AssetImage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"mobile"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"500"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"400"}}]}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MediaBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","alias":{"kind":"Name","value":"mediaTitle"},"name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","alias":{"kind":"Name","value":"optionalImg"},"name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"mobile"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"500"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"400"}}]}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}},{"kind":"Field","name":{"kind":"Name","value":"reverse"}},{"kind":"Field","name":{"kind":"Name","value":"subtitle"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}},{"kind":"Field","name":{"kind":"Name","value":"roundImage"}},{"kind":"Field","name":{"kind":"Name","value":"callToAction"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MediaCountBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaCountBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","alias":{"kind":"Name","value":"mediaTitle"},"name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","alias":{"kind":"Name","value":"optionalImg"},"name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"mobile"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"500"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"400"}}]}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}},{"kind":"Field","name":{"kind":"Name","value":"reverse"}},{"kind":"Field","name":{"kind":"Name","value":"subtitle"}},{"kind":"Field","name":{"kind":"Name","value":"titleCountPart"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}},{"kind":"Field","name":{"kind":"Name","value":"roundImage"}},{"kind":"Field","name":{"kind":"Name","value":"callToAction"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HeaderBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"HeaderBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","alias":{"kind":"Name","value":"normal"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"1200"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"500"}}]},{"kind":"Field","alias":{"kind":"Name","value":"mobile"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"800"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"400"}}]}]}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FeatureBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FeatureBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"maxPerRow"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}},{"kind":"Field","name":{"kind":"Name","value":"features"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Feature"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProseCardImg"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"News"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}},{"kind":"Field","alias":{"kind":"Name","value":"optionalImg"},"name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProseCardImg"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"DataUse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}},{"kind":"Field","alias":{"kind":"Name","value":"optionalImg"},"name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProseCardImg"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Event"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}},{"kind":"Field","name":{"kind":"Name","value":"start"}},{"kind":"Field","name":{"kind":"Name","value":"end"}},{"kind":"Field","alias":{"kind":"Name","value":"optionalImg"},"name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProseCardImg"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FeaturedTextBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FeaturedTextBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"CarouselBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CarouselBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}},{"kind":"Field","name":{"kind":"Name","value":"features"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MediaBlockDetails"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaCountBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MediaCountBlockDetails"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"CustomComponentBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CustomComponentBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"componentType"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}},{"kind":"Field","name":{"kind":"Name","value":"settings"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TextBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TextBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","name":{"kind":"Name","value":"hideTitle"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}}]}}]} as unknown as DocumentNode<BlockItemDetailsFragment, unknown>;
+export const EventResultFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"EventResult"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Event"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}},{"kind":"Field","name":{"kind":"Name","value":"country"}},{"kind":"Field","name":{"kind":"Name","value":"location"}},{"kind":"Field","name":{"kind":"Name","value":"venue"}},{"kind":"Field","name":{"kind":"Name","value":"start"}},{"kind":"Field","name":{"kind":"Name","value":"end"}},{"kind":"Field","name":{"kind":"Name","value":"primaryLink"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"gbifsAttendee"}},{"kind":"Field","name":{"kind":"Name","value":"allDayEvent"}}]}}]} as unknown as DocumentNode<EventResultFragment, unknown>;
+export const NewsResultFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"NewsResult"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"News"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}},{"kind":"Field","name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"url"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"300"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"150"}}]}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}}]} as unknown as DocumentNode<NewsResultFragment, unknown>;
+export const DatasetResultFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DatasetResult"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"DatasetSearchStub"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"publishingOrganizationTitle"}},{"kind":"Field","name":{"kind":"Name","value":"recordCount"}},{"kind":"Field","name":{"kind":"Name","value":"license"}}]}}]} as unknown as DocumentNode<DatasetResultFragment, unknown>;
+export const DatasetCountsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DatasetCounts"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"DatasetSearchStub"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"occurrenceCount"}},{"kind":"Field","name":{"kind":"Name","value":"literatureCount"}}]}}]} as unknown as DocumentNode<DatasetCountsFragment, unknown>;
+export const HeaderDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Header"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"gbifHome"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"externalLink"}},{"kind":"Field","name":{"kind":"Name","value":"link"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"externalLink"}},{"kind":"Field","name":{"kind":"Name","value":"link"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"externalLink"}},{"kind":"Field","name":{"kind":"Name","value":"link"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<HeaderQuery, HeaderQueryVariables>;
+export const DatasetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Dataset"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"key"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"dataset"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"key"},"value":{"kind":"Variable","name":{"kind":"Name","value":"key"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"publishingOrganizationKey"}},{"kind":"Field","name":{"kind":"Name","value":"publishingOrganizationTitle"}}]}}]}}]} as unknown as DocumentNode<DatasetQuery, DatasetQueryVariables>;
+export const OccurrenceDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Occurrence"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"key"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"occurrence"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"key"},"value":{"kind":"Variable","name":{"kind":"Name","value":"key"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"eventDate"}},{"kind":"Field","name":{"kind":"Name","value":"scientificName"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}},{"kind":"Field","name":{"kind":"Name","value":"dataset"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]}}]} as unknown as DocumentNode<OccurrenceQuery, OccurrenceQueryVariables>;
+export const OccurrenceSearchDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"OccurrenceSearch"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"from"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"occurrenceSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"predicate"},"value":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documents"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"from"},"value":{"kind":"Variable","name":{"kind":"Name","value":"from"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"size"}},{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"scientificName"}},{"kind":"Field","name":{"kind":"Name","value":"eventDate"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}},{"kind":"Field","name":{"kind":"Name","value":"county"}},{"kind":"Field","name":{"kind":"Name","value":"basisOfRecord"}},{"kind":"Field","name":{"kind":"Name","value":"datasetName"}},{"kind":"Field","name":{"kind":"Name","value":"publisherTitle"}}]}}]}}]}}]}}]} as unknown as DocumentNode<OccurrenceSearchQuery, OccurrenceSearchQueryVariables>;
+export const PublisherDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Publisher"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"key"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"publisher"},"name":{"kind":"Name","value":"organization"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"key"},"value":{"kind":"Variable","name":{"kind":"Name","value":"key"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]} as unknown as DocumentNode<PublisherQuery, PublisherQueryVariables>;
+export const ArticleDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Article"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"key"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"article"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"key"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","alias":{"kind":"Name","value":"normal"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"1200"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"500"}}]},{"kind":"Field","alias":{"kind":"Name","value":"mobile"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"800"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"400"}}]}]}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}},{"kind":"Field","name":{"kind":"Name","value":"secondaryLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"documents"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"DocumentPreview"}}]}},{"kind":"Field","name":{"kind":"Name","value":"topics"}},{"kind":"Field","name":{"kind":"Name","value":"purposes"}},{"kind":"Field","name":{"kind":"Name","value":"audiences"}},{"kind":"Field","name":{"kind":"Name","value":"citation"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DocumentPreview"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"DocumentAsset"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"fileName"}},{"kind":"Field","name":{"kind":"Name","value":"contentType"}},{"kind":"Field","name":{"kind":"Name","value":"volatile_documentType"}},{"kind":"Field","name":{"kind":"Name","value":"details"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"size"}}]}}]}}]}}]} as unknown as DocumentNode<ArticleQuery, ArticleQueryVariables>;
+export const CompositionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Composition"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"key"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"composition"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"key"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"blocks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BlockItemDetails"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HeaderBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"HeaderBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","alias":{"kind":"Name","value":"normal"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"1200"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"500"}}]},{"kind":"Field","alias":{"kind":"Name","value":"mobile"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"800"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"400"}}]}]}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ProseCardImg"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AssetImage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"mobile"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"500"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"400"}}]}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FeatureBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FeatureBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"maxPerRow"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}},{"kind":"Field","name":{"kind":"Name","value":"features"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Feature"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProseCardImg"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"News"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}},{"kind":"Field","alias":{"kind":"Name","value":"optionalImg"},"name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProseCardImg"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"DataUse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}},{"kind":"Field","alias":{"kind":"Name","value":"optionalImg"},"name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProseCardImg"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Event"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}},{"kind":"Field","name":{"kind":"Name","value":"start"}},{"kind":"Field","name":{"kind":"Name","value":"end"}},{"kind":"Field","alias":{"kind":"Name","value":"optionalImg"},"name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProseCardImg"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FeaturedTextBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FeaturedTextBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MediaBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","alias":{"kind":"Name","value":"mediaTitle"},"name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","alias":{"kind":"Name","value":"optionalImg"},"name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"mobile"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"500"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"400"}}]}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}},{"kind":"Field","name":{"kind":"Name","value":"reverse"}},{"kind":"Field","name":{"kind":"Name","value":"subtitle"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}},{"kind":"Field","name":{"kind":"Name","value":"roundImage"}},{"kind":"Field","name":{"kind":"Name","value":"callToAction"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MediaCountBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaCountBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","alias":{"kind":"Name","value":"mediaTitle"},"name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","alias":{"kind":"Name","value":"optionalImg"},"name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"mobile"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"500"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"400"}}]}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}},{"kind":"Field","name":{"kind":"Name","value":"reverse"}},{"kind":"Field","name":{"kind":"Name","value":"subtitle"}},{"kind":"Field","name":{"kind":"Name","value":"titleCountPart"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}},{"kind":"Field","name":{"kind":"Name","value":"roundImage"}},{"kind":"Field","name":{"kind":"Name","value":"callToAction"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"CarouselBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CarouselBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}},{"kind":"Field","name":{"kind":"Name","value":"features"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MediaBlockDetails"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaCountBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MediaCountBlockDetails"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"CustomComponentBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CustomComponentBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"componentType"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}},{"kind":"Field","name":{"kind":"Name","value":"settings"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TextBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TextBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","name":{"kind":"Name","value":"hideTitle"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BlockItemDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"BlockItem"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"HeaderBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"HeaderBlockDetails"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FeatureBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"FeatureBlockDetails"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FeaturedTextBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"FeaturedTextBlockDetails"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CarouselBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"CarouselBlockDetails"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"MediaBlockDetails"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaCountBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"MediaCountBlockDetails"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CustomComponentBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"CustomComponentBlockDetails"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TextBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"TextBlockDetails"}}]}}]}}]} as unknown as DocumentNode<CompositionQuery, CompositionQueryVariables>;
+export const DataUseDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"DataUse"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"key"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"dataUse"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"key"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"resourceUsed"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","alias":{"kind":"Name","value":"normal"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"1200"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"500"}}]},{"kind":"Field","alias":{"kind":"Name","value":"mobile"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"800"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"400"}}]}]}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}},{"kind":"Field","name":{"kind":"Name","value":"primaryLink"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"secondaryLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"countriesOfCoverage"}},{"kind":"Field","name":{"kind":"Name","value":"topics"}},{"kind":"Field","name":{"kind":"Name","value":"purposes"}},{"kind":"Field","name":{"kind":"Name","value":"audiences"}},{"kind":"Field","name":{"kind":"Name","value":"citation"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}}]}}]} as unknown as DocumentNode<DataUseQuery, DataUseQueryVariables>;
+export const EventDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Event"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"key"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"event"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"key"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","alias":{"kind":"Name","value":"normal"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"1200"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"500"}}]},{"kind":"Field","alias":{"kind":"Name","value":"mobile"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"800"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"400"}}]}]}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}},{"kind":"Field","name":{"kind":"Name","value":"primaryLink"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"secondaryLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"location"}},{"kind":"Field","name":{"kind":"Name","value":"country"}},{"kind":"Field","name":{"kind":"Name","value":"start"}},{"kind":"Field","name":{"kind":"Name","value":"end"}},{"kind":"Field","name":{"kind":"Name","value":"eventLanguage"}},{"kind":"Field","name":{"kind":"Name","value":"venue"}}]}}]}}]} as unknown as DocumentNode<EventQuery, EventQueryVariables>;
+export const NewsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"News"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"key"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"news"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"key"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","alias":{"kind":"Name","value":"normal"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"1200"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"500"}}]},{"kind":"Field","alias":{"kind":"Name","value":"mobile"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"800"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"400"}}]}]}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}},{"kind":"Field","name":{"kind":"Name","value":"primaryLink"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"secondaryLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"countriesOfCoverage"}},{"kind":"Field","name":{"kind":"Name","value":"topics"}},{"kind":"Field","name":{"kind":"Name","value":"purposes"}},{"kind":"Field","name":{"kind":"Name","value":"audiences"}},{"kind":"Field","name":{"kind":"Name","value":"citation"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}}]}}]} as unknown as DocumentNode<NewsQuery, NewsQueryVariables>;
+export const ProgrammeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Programme"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"key"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"programme"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"key"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}},{"kind":"Field","name":{"kind":"Name","value":"blocks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BlockItemDetails"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HeaderBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"HeaderBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","alias":{"kind":"Name","value":"normal"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"1200"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"500"}}]},{"kind":"Field","alias":{"kind":"Name","value":"mobile"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"800"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"400"}}]}]}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ProseCardImg"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AssetImage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"mobile"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"500"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"400"}}]}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FeatureBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FeatureBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"maxPerRow"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}},{"kind":"Field","name":{"kind":"Name","value":"features"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Feature"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProseCardImg"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"News"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}},{"kind":"Field","alias":{"kind":"Name","value":"optionalImg"},"name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProseCardImg"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"DataUse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}},{"kind":"Field","alias":{"kind":"Name","value":"optionalImg"},"name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProseCardImg"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Event"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}},{"kind":"Field","name":{"kind":"Name","value":"start"}},{"kind":"Field","name":{"kind":"Name","value":"end"}},{"kind":"Field","alias":{"kind":"Name","value":"optionalImg"},"name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProseCardImg"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FeaturedTextBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FeaturedTextBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MediaBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","alias":{"kind":"Name","value":"mediaTitle"},"name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","alias":{"kind":"Name","value":"optionalImg"},"name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"mobile"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"500"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"400"}}]}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}},{"kind":"Field","name":{"kind":"Name","value":"reverse"}},{"kind":"Field","name":{"kind":"Name","value":"subtitle"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}},{"kind":"Field","name":{"kind":"Name","value":"roundImage"}},{"kind":"Field","name":{"kind":"Name","value":"callToAction"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MediaCountBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaCountBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","alias":{"kind":"Name","value":"mediaTitle"},"name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","alias":{"kind":"Name","value":"optionalImg"},"name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"mobile"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"500"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"400"}}]}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}},{"kind":"Field","name":{"kind":"Name","value":"reverse"}},{"kind":"Field","name":{"kind":"Name","value":"subtitle"}},{"kind":"Field","name":{"kind":"Name","value":"titleCountPart"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}},{"kind":"Field","name":{"kind":"Name","value":"roundImage"}},{"kind":"Field","name":{"kind":"Name","value":"callToAction"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"CarouselBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CarouselBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}},{"kind":"Field","name":{"kind":"Name","value":"features"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MediaBlockDetails"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaCountBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MediaCountBlockDetails"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"CustomComponentBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CustomComponentBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"componentType"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}},{"kind":"Field","name":{"kind":"Name","value":"settings"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TextBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TextBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","name":{"kind":"Name","value":"hideTitle"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BlockItemDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"BlockItem"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"HeaderBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"HeaderBlockDetails"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FeatureBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"FeatureBlockDetails"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FeaturedTextBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"FeaturedTextBlockDetails"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CarouselBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"CarouselBlockDetails"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"MediaBlockDetails"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaCountBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"MediaCountBlockDetails"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CustomComponentBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"CustomComponentBlockDetails"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TextBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"TextBlockDetails"}}]}}]}}]} as unknown as DocumentNode<ProgrammeQuery, ProgrammeQueryVariables>;
+export const ProjectAboutDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ProjectAbout"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"key"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"gbifProject"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"key"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","name":{"kind":"Name","value":"fundsAllocated"}},{"kind":"Field","name":{"kind":"Name","value":"matchingFunds"}},{"kind":"Field","name":{"kind":"Name","value":"grantType"}},{"kind":"Field","name":{"kind":"Name","value":"start"}},{"kind":"Field","name":{"kind":"Name","value":"end"}},{"kind":"Field","name":{"kind":"Name","value":"programme"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}},{"kind":"Field","name":{"kind":"Name","value":"projectId"}},{"kind":"Field","name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","alias":{"kind":"Name","value":"normal"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"1200"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"500"}}]},{"kind":"Field","alias":{"kind":"Name","value":"mobile"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"800"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"400"}}]}]}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}},{"kind":"Field","name":{"kind":"Name","value":"secondaryLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"documents"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"DocumentPreview"}}]}},{"kind":"Field","name":{"kind":"Name","value":"purposes"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DocumentPreview"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"DocumentAsset"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"fileName"}},{"kind":"Field","name":{"kind":"Name","value":"contentType"}},{"kind":"Field","name":{"kind":"Name","value":"volatile_documentType"}},{"kind":"Field","name":{"kind":"Name","value":"details"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"size"}}]}}]}}]}}]} as unknown as DocumentNode<ProjectAboutQuery, ProjectAboutQueryVariables>;
+export const ProjectIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ProjectId"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"key"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"gbifProject"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"key"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"projectId"}}]}}]}}]} as unknown as DocumentNode<ProjectIdQuery, ProjectIdQueryVariables>;
+export const ProjectDatasetsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ProjectDatasets"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"projectId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"datasetSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"projectId"},"value":{"kind":"ListValue","values":[{"kind":"Variable","name":{"kind":"Name","value":"projectId"}}]}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"500"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"limit"}},{"kind":"Field","name":{"kind":"Name","value":"offset"}},{"kind":"Field","name":{"kind":"Name","value":"results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"DatasetResult"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DatasetResult"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"DatasetSearchStub"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"publishingOrganizationTitle"}},{"kind":"Field","name":{"kind":"Name","value":"recordCount"}},{"kind":"Field","name":{"kind":"Name","value":"license"}}]}}]} as unknown as DocumentNode<ProjectDatasetsQuery, ProjectDatasetsQueryVariables>;
+export const ProjectDatasetsCountsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ProjectDatasetsCounts"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"projectId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"limit"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"offset"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"datasetSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"projectId"},"value":{"kind":"ListValue","values":[{"kind":"Variable","name":{"kind":"Name","value":"projectId"}}]}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"Variable","name":{"kind":"Name","value":"limit"}}},{"kind":"Argument","name":{"kind":"Name","value":"offset"},"value":{"kind":"Variable","name":{"kind":"Name","value":"offset"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"DatasetCounts"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DatasetCounts"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"DatasetSearchStub"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"occurrenceCount"}},{"kind":"Field","name":{"kind":"Name","value":"literatureCount"}}]}}]} as unknown as DocumentNode<ProjectDatasetsCountsQuery, ProjectDatasetsCountsQueryVariables>;
+export const ProjectNewsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ProjectNews"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"key"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"gbifProject"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"key"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"news"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"NewsResult"}}]}},{"kind":"Field","name":{"kind":"Name","value":"events"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"EventResult"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"NewsResult"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"News"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}},{"kind":"Field","name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"url"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"300"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"150"}}]}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"EventResult"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Event"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}},{"kind":"Field","name":{"kind":"Name","value":"country"}},{"kind":"Field","name":{"kind":"Name","value":"location"}},{"kind":"Field","name":{"kind":"Name","value":"venue"}},{"kind":"Field","name":{"kind":"Name","value":"start"}},{"kind":"Field","name":{"kind":"Name","value":"end"}},{"kind":"Field","name":{"kind":"Name","value":"primaryLink"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"gbifsAttendee"}},{"kind":"Field","name":{"kind":"Name","value":"allDayEvent"}}]}}]} as unknown as DocumentNode<ProjectNewsQuery, ProjectNewsQueryVariables>;
+export const ProjectDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Project"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"key"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"gbifProject"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"key"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"projectId"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","alias":{"kind":"Name","value":"normal"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"1200"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"500"}}]},{"kind":"Field","alias":{"kind":"Name","value":"mobile"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"800"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"400"}}]}]}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}},{"kind":"Field","name":{"kind":"Name","value":"primaryLink"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"secondaryLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"start"}},{"kind":"Field","name":{"kind":"Name","value":"end"}},{"kind":"Field","name":{"kind":"Name","value":"documents"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"fileName"}},{"kind":"Field","name":{"kind":"Name","value":"contentType"}},{"kind":"Field","name":{"kind":"Name","value":"volatile_documentType"}},{"kind":"Field","name":{"kind":"Name","value":"details"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"size"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}}]} as unknown as DocumentNode<ProjectQuery, ProjectQueryVariables>;
+export const ToolDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Tool"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"key"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"tool"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"key"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"details"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"normal"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"1200"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"500"}}]},{"kind":"Field","alias":{"kind":"Name","value":"mobile"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"800"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"400"}}]}]}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}},{"kind":"Field","name":{"kind":"Name","value":"primaryLink"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"secondaryLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"citation"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"author"}},{"kind":"Field","name":{"kind":"Name","value":"rights"}},{"kind":"Field","name":{"kind":"Name","value":"rightsHolder"}},{"kind":"Field","name":{"kind":"Name","value":"publicationDate"}}]}}]}}]} as unknown as DocumentNode<ToolQuery, ToolQueryVariables>;

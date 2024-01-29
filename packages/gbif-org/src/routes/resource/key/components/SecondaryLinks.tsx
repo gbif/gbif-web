@@ -1,4 +1,3 @@
-import { fragmentManager } from '@/services/FragmentManager';
 import { cn } from '@/utils/shadcn';
 import { MdLink } from 'react-icons/md';
 type NullableLink = null | {

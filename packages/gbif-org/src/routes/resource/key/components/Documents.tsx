@@ -1,33 +1,30 @@
 import { cn } from '@/utils/shadcn';
-import {
-  MdArchive,
-  MdAudiotrack,
-  MdFileDownload,
-  MdImage,
-  MdVideocam,
-} from 'react-icons/md';
-import { BsTable } from 'react-icons/bs';
+import { MdArchive, MdAudiotrack, MdFileDownload, MdImage, MdVideocam } from 'react-icons/md';
+import { BsTable, BsFilePdfFill as PdfIcon } from 'react-icons/bs';
 import { LuPresentation as PresentationIcon } from 'react-icons/lu';
-import { GrTextAlignLeft } from "react-icons/gr";
-import { BsFilePdfFill as PdfIcon } from "react-icons/bs";
+import { GrTextAlignLeft } from 'react-icons/gr';
 import styles from './documents.module.css';
+import { fragmentManager } from '@/services/FragmentManager';
+import { DocumentPreviewFragment } from '@/gql/graphql';
+
+fragmentManager.register(/* GraphQL */ `
+  fragment DocumentPreview on DocumentAsset {
+    title
+    file {
+      url
+      fileName
+      contentType
+      volatile_documentType
+      details {
+        size
+      }
+    }
+  }
+`);
 
 type Props = {
-  documents: Array<null | Document>;
+  documents: Array<null | DocumentPreviewFragment>;
   className?: string;
-};
-
-type Document = {
-  title?: string | null;
-  file?: null | {
-    url?: string | null;
-    fileName?: string | null;
-    contentType?: string | null;
-    volatile_documentType?: string | null;
-    details?: null | {
-      size?: number | null;
-    };
-  };
 };
 
 export function Documents({ documents, className }: Props) {
@@ -39,12 +36,12 @@ export function Documents({ documents, className }: Props) {
           className="border border-transparent hover:border-slate-100 p-3 hover:shadow-md p2 dark:bg-zinc-800 dark:text-slate-800 text-white"
         >
           <a
-            className="flex flex-row"
+            className="flex flex-row cursor-pointer"
             href={document?.file?.url ?? ''}
             target="_blank"
             rel="noopener noreferrer"
           >
-            {getContent(document)}
+            <DocumentContnet document={document} />
           </a>
         </li>
       ))}
@@ -52,24 +49,23 @@ export function Documents({ documents, className }: Props) {
   );
 }
 
-function isValid(document: null | Document) {
+function isValid(document: null | DocumentPreviewFragment): document is DocumentPreviewFragment {
   return !!document && !!document?.file?.url;
 }
 
-function getContent(document: Document) {
+function DocumentContnet({ document }: { document: DocumentPreviewFragment }) {
   const { color, showSize, content } = getType(document?.file?.volatile_documentType);
   // get extension of file name if any
   const url = document?.file?.url;
   const extension = url?.substring(url.lastIndexOf('.') + 1).toLowerCase() ?? '';
+
   return (
     <>
       <div className={`${color} mr-4 ${styles.note} flex-none`}>
         <div>{content}</div>
       </div>
       <div className="break-word dark:text-slate-200 text-slate-500">
-        <div className="font-medium">
-          {document?.title ?? document?.file?.fileName}
-        </div>
+        <div className="font-medium">{document?.title ?? document?.file?.fileName}</div>
         <div className="text-sm text-slate-400 divide-x-2 divide-slate-200 dark:divide-slate-600">
           {showSize && (
             <span className="pe-2">{getFormattedBits(document?.file?.details?.size ?? 0)}</span>
@@ -80,7 +76,6 @@ function getContent(document: Document) {
     </>
   );
 }
-
 
 function getType(documentType: string | null | undefined) {
   // based on the icon select an appropriate icon
@@ -96,7 +91,7 @@ function getType(documentType: string | null | undefined) {
     return {
       color: 'bg-[#4ebcf4]',
       showSize: true,
-      content: <PdfIcon />
+      content: <PdfIcon />,
     };
   }
   if (documentType === 'doc') {

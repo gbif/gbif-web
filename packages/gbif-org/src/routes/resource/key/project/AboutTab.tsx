@@ -43,16 +43,7 @@ const PROJECT_ABOUT_QUERY = /* GraphQL */ `
         url
       }
       documents {
-        file {
-          url
-          fileName
-          contentType
-          volatile_documentType
-          details {
-            size
-          }
-        }
-        title
+        ...DocumentPreview
       }
       purposes
       status
