@@ -38,7 +38,7 @@ export const columns: ColumnDef<SingleOccurrenceSearchResult>[] = [
   },
   {
     header: 'Year',
-    accessorFn: ({ eventDate }) => new Date(eventDate).getFullYear(),
+    accessorFn: ({ eventDate }) => (eventDate ? new Date(eventDate).getFullYear() : ''),
   },
   {
     header: 'Basis of record',

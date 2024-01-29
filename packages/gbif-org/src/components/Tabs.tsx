@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { DynamicLink } from './DynamicLink';
-import { MdMoreHoriz, MdMoreVert } from 'react-icons/md';
+import { MdMoreHoriz } from 'react-icons/md';
 
 export type Props = {
   links: Array<{ to: string; children: React.ReactNode }>;
