@@ -4,6 +4,7 @@ import { ArticleTextContainer } from '../../components/ArticleTextContainer';
 import { ArticleBody } from '../../components/ArticleBody';
 import { fragmentManager } from '@/services/FragmentManager';
 import { backgroundColorMap } from './_shared';
+import { ArticleTitle } from '../../components/ArticleTitle';
 
 fragmentManager.register(/* GraphQL */ `
   fragment TextBlockDetails on TextBlock {
@@ -25,6 +26,9 @@ export function TextBlock({ resource }: Props) {
   return (
     <ArticleContainer className={backgroundColor}>
       <ArticleTextContainer>
+        {!resource.hideTitle && resource.title && (
+          <ArticleTitle title={resource.title}></ArticleTitle>
+        )}
         {resource.body && (
           <ArticleBody dangerouslySetInnerHTML={{ __html: resource.body }} className="mt-2" />
         )}
