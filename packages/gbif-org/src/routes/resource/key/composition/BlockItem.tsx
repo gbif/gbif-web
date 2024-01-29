@@ -13,27 +13,35 @@ fragmentManager.register(/* GraphQL */ `
   fragment BlockItemDetails on BlockItem {
     __typename
     ... on HeaderBlock {
+      id
       ...HeaderBlockDetails
     }
     ... on FeatureBlock {
+      id
       ...FeatureBlockDetails
     }
     ... on FeaturedTextBlock {
+      id
       ...FeaturedTextBlockDetails
     }
     ... on CarouselBlock {
+      id
       ...CarouselBlockDetails
     }
     ... on MediaBlock {
+      id
       ...MediaBlockDetails
     }
     ... on MediaCountBlock {
+      id
       ...MediaCountBlockDetails
     }
     ... on CustomComponentBlock {
+      id
       ...CustomComponentBlockDetails
     }
     ... on TextBlock {
+      id
       ...TextBlockDetails
     }
   }

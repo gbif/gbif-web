@@ -18,7 +18,7 @@ export function ArticleBody({ className, dangerouslySetInnerHTML }: Props) {
 
 export function ArticleBodySkeleton({ className }: Pick<Props, 'className'>) {
   return (
-    <div className={cn('w-[80ch]', className)}>
+    <div className={cn('max-w-[80ch]', className)}>
       <Skeleton className="h-6 w-[calc(100%-2px)]" />
       <Skeleton className="h-6 mt-1 w-[calc(100%-4px)]" />
 
