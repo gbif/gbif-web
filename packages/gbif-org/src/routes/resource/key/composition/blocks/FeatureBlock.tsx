@@ -3,8 +3,9 @@ import { ArticleContainer } from '../../components/ArticleContainer';
 import { ArticleTextContainer } from '../../components/ArticleTextContainer';
 import { ArticleTitle } from '../../components/ArticleTitle';
 import { ArticleBody } from '../../components/ArticleBody';
-import { ProseCard } from '../ProseCard';
+import { ProseCard } from '../proseCard';
 import { fragmentManager } from '@/services/FragmentManager';
+import { backgroundColorMap } from './_shared';
 
 fragmentManager.register(/* GraphQL */ `
   fragment FeatureBlockDetails on FeatureBlock {
@@ -55,10 +56,9 @@ fragmentManager.register(/* GraphQL */ `
 
 type Props = {
   resource: FeatureBlockDetailsFragment;
-  backgroundColorMap: Record<string, string>;
 };
 
-export function FeatureBlock({ resource, backgroundColorMap }: Props) {
+export function FeatureBlock({ resource }: Props) {
   const backgroundColor = backgroundColorMap[resource?.backgroundColour ?? 'white'];
 
   return (
@@ -71,7 +71,7 @@ export function FeatureBlock({ resource, backgroundColorMap }: Props) {
           <ArticleBody dangerouslySetInnerHTML={{ __html: resource.body }} className="mt-2" />
         )}
       </ArticleTextContainer>
-      <div className="max-w-6xl m-auto p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
+      <div className="max-w-6xl m-auto p-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {resource.features?.map((feature, index) => {
           let image: ProseCardImgFragment | null | undefined;
           if ('optionalImg' in feature) image = feature.optionalImg;

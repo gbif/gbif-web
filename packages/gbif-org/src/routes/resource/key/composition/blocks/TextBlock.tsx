@@ -3,6 +3,8 @@ import { ArticleContainer } from '../../components/ArticleContainer';
 import { ArticleTextContainer } from '../../components/ArticleTextContainer';
 import { ArticleBody } from '../../components/ArticleBody';
 import { fragmentManager } from '@/services/FragmentManager';
+import { backgroundColorMap } from './_shared';
+import { ArticleTitle } from '../../components/ArticleTitle';
 
 fragmentManager.register(/* GraphQL */ `
   fragment TextBlockDetails on TextBlock {
@@ -16,15 +18,17 @@ fragmentManager.register(/* GraphQL */ `
 
 type Props = {
   resource: TextBlockDetailsFragment;
-  backgroundColorMap: Record<string, string>;
 };
 
-export function TextBlock({ resource, backgroundColorMap }: Props) {
+export function TextBlock({ resource }: Props) {
   const backgroundColor = backgroundColorMap[resource?.backgroundColour ?? 'white'];
 
   return (
     <ArticleContainer className={backgroundColor}>
       <ArticleTextContainer>
+        {!resource.hideTitle && resource.title && (
+          <ArticleTitle title={resource.title}></ArticleTitle>
+        )}
         {resource.body && (
           <ArticleBody dangerouslySetInnerHTML={{ __html: resource.body }} className="mt-2" />
         )}

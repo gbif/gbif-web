@@ -1,4 +1,3 @@
-import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useLoaderData } from 'react-router-dom';
 import { CompositionQuery, CompositionQueryVariables } from '@/gql/graphql';
@@ -41,12 +40,8 @@ export function Composition() {
       <Helmet>
         <title>{resource.title}</title>
       </Helmet>
-      {resource.blocks?.map((block, idx) => (
-        <React.Fragment key={idx}>
-          <hr />
-          <h1>{block.__typename}</h1>
-          <BlockItem resource={block} key={idx} />
-        </React.Fragment>
+      {resource.blocks?.map((block) => (
+        <BlockItem resource={block} key={block.id} />
       ))}
     </>
   );

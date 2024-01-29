@@ -5,6 +5,9 @@ import { DynamicLink } from '@/components/DynamicLink';
 import { cn } from '@/utils/shadcn';
 import { CountResolver } from '@/components/CountResolver';
 import { ArticleContainer } from '../../components/ArticleContainer';
+import { backgroundColorMap } from './_shared';
+import { ArticleTextContainer } from '../../components/ArticleTextContainer';
+import { ArticleTitle } from '../../components/ArticleTitle';
 
 fragmentManager.register(/* GraphQL */ `
   fragment MediaCountBlockDetails on MediaCountBlock {
@@ -34,17 +37,21 @@ fragmentManager.register(/* GraphQL */ `
 type Props = {
   resource: MediaCountBlockDetailsFragment;
   insideCarousel?: boolean;
-  backgroundColorMap: Record<string, string>;
 };
 
-export function MediaCountBlock({ resource, insideCarousel = false, backgroundColorMap }: Props) {
-  if (insideCarousel) return <MediaCountBlockContent resource={resource} />;
+export function MediaCountBlock({ resource, insideCarousel = false }: Props) {
+  if (insideCarousel) return <MediaCountBlockContent resource={resource} insideCarousel />;
 
   const backgroundColor = backgroundColorMap[resource?.backgroundColour ?? 'white'];
 
   return (
     <ArticleContainer className={backgroundColor}>
-      <MediaCountBlockContent className="max-w-6xl m-auto p-10 " resource={resource} />
+      {resource.mediaTitle && (
+        <ArticleTextContainer>
+          <ArticleTitle title={resource.mediaTitle}></ArticleTitle>
+        </ArticleTextContainer>
+      )}
+      <MediaCountBlockContent className="max-w-6xl m-auto p-10" resource={resource} />
     </ArticleContainer>
   );
 }
@@ -52,7 +59,8 @@ export function MediaCountBlock({ resource, insideCarousel = false, backgroundCo
 function MediaCountBlockContent({
   resource,
   className,
-}: Pick<Props, 'resource'> & { className?: string }) {
+  insideCarousel,
+}: Props & { className?: string }) {
   return (
     <div
       className={cn('flex gap-6 items-center flex-col md:flex-row', className, {
@@ -73,7 +81,7 @@ function MediaCountBlockContent({
         </div>
       )}
       <div className="flex-1">
-        <h4 className="text-xl font-medium">{resource.mediaTitle}</h4>
+        {insideCarousel && <h4 className="text-xl font-medium">{resource.mediaTitle}</h4>}
         <span className="text-xl font-medium">
           <CountResolver countPart={resource.titleCountPart} />
         </span>
@@ -85,6 +93,7 @@ function MediaCountBlockContent({
           <div className="flex gap-4 flex-wrap mt-4">
             {resource.callToAction.map((cta) => (
               <DynamicLink
+                key={cta.url}
                 className="text-primary-300 hover:text-primary-500 hover:underline underline-offset-2"
                 to={cta.url}
               >
