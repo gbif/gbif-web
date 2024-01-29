@@ -32,7 +32,6 @@
     "clsx": "^2.0.0",
     "embla-carousel-react": "^8.0.0-rc19",
     "express": "^4.18.2",
-    "font-color-contrast": "^11.1.0",
     "object-hash": "^3.0.0",
     "ol": "^8.1.0",
     "queue-promise": "^2.2.1",
