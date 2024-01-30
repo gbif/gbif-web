@@ -45,7 +45,7 @@ const documents = {
     "\n  query ProjectDatasetsCounts($projectId: ID!, $limit: Int, $offset: Int) {\n    datasetSearch(projectId: [$projectId], limit: $limit, offset: $offset) {\n      results {\n        ...DatasetCounts\n      }\n    }\n  }\n": types.ProjectDatasetsCountsDocument,
     "\n  fragment DatasetResult on DatasetSearchStub {\n    key\n    title\n    excerpt\n    type\n    publishingOrganizationTitle\n    recordCount\n    license\n  }\n": types.DatasetResultFragmentDoc,
     "\n  fragment DatasetCounts on DatasetSearchStub {\n    key\n    occurrenceCount\n    literatureCount\n  }\n": types.DatasetCountsFragmentDoc,
-    "\n  query ProjectNews($key: String!) {\n    gbifProject(id: $key) {\n      news {\n        ...NewsResult\n      }\n      events {\n        ...EventResult\n      }\n    }\n  }\n": types.ProjectNewsDocument,
+    "\n  query ProjectNews($key: String!) {\n    gbifProject(id: $key) {\n      news {\n        __typename\n        ...NewsResult\n      }\n      events {\n        __typename\n        ...EventResult\n      }\n    }\n  }\n": types.ProjectNewsDocument,
     "\n  query Project($key: String!) {\n    gbifProject(id: $key) {\n      projectId\n      id\n      title\n      summary\n      body\n      primaryImage {\n        file {\n          url\n          normal: thumbor(width: 1200, height: 500)\n          mobile: thumbor(width: 800, height: 400)\n        }\n        description\n        title\n      }\n      primaryLink {\n        label\n        url\n      }\n      secondaryLinks {\n        label\n        url\n      }\n      start\n      end\n      documents {\n        file {\n          url\n          fileName\n          contentType\n          volatile_documentType\n          details {\n            size\n          }\n        }\n        title\n      }\n      createdAt\n      status\n    }\n  }\n": types.ProjectDocument,
     "\n  query Tool($key: String!) {\n    tool(id: $key) {\n      id\n      title\n      summary\n      body\n      primaryImage {\n        ...ArticleBanner\n      }\n      primaryLink {\n        label\n        url\n      }\n      secondaryLinks {\n        label\n        url\n      }\n      citation\n      createdAt\n      author\n      rights\n      rightsHolder\n      publicationDate\n    }\n  }\n": types.ToolDocument,
 };
@@ -195,7 +195,7 @@ export function graphql(source: "\n  fragment DatasetCounts on DatasetSearchStub
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query ProjectNews($key: String!) {\n    gbifProject(id: $key) {\n      news {\n        ...NewsResult\n      }\n      events {\n        ...EventResult\n      }\n    }\n  }\n"): (typeof documents)["\n  query ProjectNews($key: String!) {\n    gbifProject(id: $key) {\n      news {\n        ...NewsResult\n      }\n      events {\n        ...EventResult\n      }\n    }\n  }\n"];
+export function graphql(source: "\n  query ProjectNews($key: String!) {\n    gbifProject(id: $key) {\n      news {\n        __typename\n        ...NewsResult\n      }\n      events {\n        __typename\n        ...EventResult\n      }\n    }\n  }\n"): (typeof documents)["\n  query ProjectNews($key: String!) {\n    gbifProject(id: $key) {\n      news {\n        __typename\n        ...NewsResult\n      }\n      events {\n        __typename\n        ...EventResult\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

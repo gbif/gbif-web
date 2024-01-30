@@ -4,14 +4,18 @@ import { NewsResult } from '../news/NewsResult';
 import { EventResult } from '../event/EventResult';
 import { useLoaderData } from 'react-router-dom';
 import { required } from '@/utils/required';
+import { useMemo } from 'react';
+import { notNull } from '@/utils/notNull';
 
 const PROJECT_NEWS_QUERY = /* GraphQL */ `
   query ProjectNews($key: String!) {
     gbifProject(id: $key) {
       news {
+        __typename
         ...NewsResult
       }
       events {
+        __typename
         ...EventResult
       }
     }
@@ -32,23 +36,44 @@ export function ProjectNewsTab() {
   if (data.gbifProject == null) throw new Error('404');
   const resource = data.gbifProject;
 
-  // sort events by start date descending
-  const sortedEvents = resource.events?.map((x) => x).sort((a, b) => (a.start > b.start ? -1 : 1));
+  const sortedNewsAndEvents = useMemo(
+    () =>
+      // Combine news and events
+      [...(resource.news ?? []), ...(resource.events ?? [])]
+        // Add a sortByDate to each entry
+        .map((x) => {
+          switch (x.__typename) {
+            case 'Event':
+              return {
+                ...x,
+                sortByDate: new Date(x.start),
+              };
+            case 'News':
+              return {
+                ...x,
+                sortByDate: new Date(x.createdAt),
+              };
+          }
+        })
+        // Remove null entries
+        .filter(notNull)
+        .sort((a, b) => {
+          if (a.sortByDate == null || b.sortByDate == null) return 0;
+          return a.sortByDate > b.sortByDate ? -1 : 1;
+        }),
+    [resource.events, resource.news]
+  );
 
   return (
     <div className="pt-4 max-w-3xl m-auto">
-      {resource.news &&
-        resource.news
-          .filter((x) => x)
-          .map((item) => {
-            return <NewsResult key={item?.id} news={item} />;
-          })}
-      {sortedEvents &&
-        sortedEvents
-          .filter((x) => x)
-          .map((item) => {
-            return <EventResult key={item?.id} event={item} />;
-          })}
+      {sortedNewsAndEvents.map((item) => {
+        switch (item.__typename) {
+          case 'Event':
+            return <EventResult key={item.id} event={item} />;
+          case 'News':
+            return <NewsResult key={item.id} news={item} />;
+        }
+      })}
     </div>
   );
 }
