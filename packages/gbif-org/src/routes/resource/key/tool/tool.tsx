@@ -24,19 +24,7 @@ const TOOL_QUERY = /* GraphQL */ `
       summary
       body
       primaryImage {
-        file {
-          url
-          details {
-            image {
-              width
-              height
-            }
-          }
-          normal: thumbor(width: 1200, height: 500)
-          mobile: thumbor(width: 800, height: 400)
-        }
-        description
-        title
+        ...ArticleBanner
       }
       primaryLink {
         label
@@ -89,7 +77,7 @@ export function Tool() {
           )}
         </ArticleTextContainer>
 
-        <ArticleBanner className="mt-8 mb-6" image={resource?.primaryImage ?? null} />
+        <ArticleBanner className="mt-8 mb-6" image={resource?.primaryImage} />
 
         <ArticleTextContainer>
           {resource.body && (

@@ -1,23 +1,29 @@
 import { Skeleton } from '@/components/ui/skeleton';
+import { ArticleBannerFragment } from '@/gql/graphql';
+import { fragmentManager } from '@/services/FragmentManager';
 import { cn } from '@/utils/shadcn';
+
+fragmentManager.register(/* GraphQL */ `
+  fragment ArticleBanner on AssetImage {
+    description
+    title
+    file {
+      url
+      details {
+        image {
+          width
+          height
+        }
+      }
+      normal: thumbor(width: 1200, height: 500)
+      mobile: thumbor(width: 800, height: 400)
+    }
+  }
+`);
 
 type Props = {
   className?: string;
-  image: null | {
-    description?: string | null;
-    title?: string | null;
-    file?: null | {
-      details?: null | {
-        image?: null | {
-          width?: null | number;
-          height?: null | number;
-        };
-      };
-      url?: string | null;
-      normal?: string | null;
-      mobile?: string | null;
-    };
-  };
+  image?: null | ArticleBannerFragment;
 };
 
 export function ArticleBanner({ className, image }: Props) {
