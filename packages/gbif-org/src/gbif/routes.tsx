@@ -45,6 +45,7 @@ import {
   CompositionSkeleton,
   compositionLoader,
 } from '@/routes/resource/key/composition/composition';
+import { DocumentPage, documentPageLoader } from '@/routes/resource/key/document/document';
 
 const baseRoutes: SourceRouteObject[] = [
   {
@@ -156,6 +157,12 @@ const baseRoutes: SourceRouteObject[] = [
             loader: articleLoader,
             loadingElement: <p>Loading data use...</p>,
             element: <Article />,
+          },
+          {
+            path: 'document/:key',
+            loader: documentPageLoader,
+            loadingElement: <p>Loading data use...</p>,
+            element: <DocumentPage />,
           },
           {
             path: 'programme/:key',

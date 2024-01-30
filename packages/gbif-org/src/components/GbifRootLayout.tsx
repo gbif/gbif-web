@@ -53,7 +53,7 @@ export function GbifRootLayout({ children }: Props) {
           </DynamicLink>
         </nav>
       </header>
-      <main>{children}</main>
+      <main className="bg-background">{children}</main>
     </>
   );
 }

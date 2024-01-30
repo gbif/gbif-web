@@ -27,6 +27,7 @@ module.exports = {
         ring: "var(--ring)",
         background: "var(--background)",
         foreground: "var(--foreground)",
+        paperBackground: "var(--paperBackground)",
         primary: {
           DEFAULT: 'rgb(var(--primary500) / <alpha-value>)',
           50: 'rgb(var(--primary50) / <alpha-value>)',
@@ -56,60 +57,60 @@ module.exports = {
           950: 'rgb(var(--primaryContrast950) / <alpha-value>)',
         },
         secondary: {
-        DEFAULT: "var(--secondary)",
-        foreground: "var(--secondary-foreground)",
+          DEFAULT: "var(--secondary)",
+          foreground: "var(--secondary-foreground)",
+        },
+        destructive: {
+          DEFAULT: "var(--destructive)",
+          foreground: "var(--destructive-foreground)",
+        },
+        muted: {
+          DEFAULT: "var(--muted)",
+          foreground: "var(--muted-foreground)",
+        },
+        accent: {
+          DEFAULT: "var(--accent)",
+          foreground: "var(--accent-foreground)",
+        },
+        popover: {
+          DEFAULT: "var(--popover)",
+          foreground: "var(--popover-foreground)",
+        },
+        card: {
+          DEFAULT: "var(--card)",
+          foreground: "var(--card-foreground)",
+        },
       },
-      destructive: {
-        DEFAULT: "var(--destructive)",
-        foreground: "var(--destructive-foreground)",
+      borderRadius: {
+        lg: "calc(var(--borderRadiusPx) * 2)",
+        md: "var(--borderRadiusPx)",
+        sm: "calc(var(--borderRadiusPx) / 2)",
       },
-      muted: {
-        DEFAULT: "var(--muted)",
-        foreground: "var(--muted-foreground)",
+      keyframes: {
+        "accordion-down": {
+          from: { height: 0 },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: 0 },
+        },
       },
-      accent: {
-        DEFAULT: "var(--accent)",
-        foreground: "var(--accent-foreground)",
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
       },
-      popover: {
-        DEFAULT: "var(--popover)",
-        foreground: "var(--popover-foreground)",
-      },
-      card: {
-        DEFAULT: "var(--card)",
-        foreground: "var(--card-foreground)",
-      },
-    },
-    borderRadius: {
-      lg: "calc(var(--borderRadiusPx) * 2)",
-      md: "var(--borderRadiusPx)",
-      sm: "calc(var(--borderRadiusPx) / 2)",
-    },
-    keyframes: {
-      "accordion-down": {
-        from: { height: 0 },
-        to: { height: "var(--radix-accordion-content-height)" },
-      },
-      "accordion-up": {
-        from: { height: "var(--radix-accordion-content-height)" },
-        to: { height: 0 },
-      },
-    },
-    animation: {
-      "accordion-down": "accordion-down 0.2s ease-out",
-      "accordion-up": "accordion-up 0.2s ease-out",
-    },
-    typography: {
-      DEFAULT: {
-        css: {
-          maxWidth: '80ch', // add required value here
-          'blockquote p:first-of-type::before': false, // do not add quotation marks to block quotes. we have block quotes where the content also have quotation marks leading to double quotation marks
-          'blockquote p:first-of-type::after': false,
+      typography: {
+        DEFAULT: {
+          css: {
+            maxWidth: '80ch', // add required value here
+            'blockquote p:first-of-type::before': false, // do not add quotation marks to block quotes. we have block quotes where the content also have quotation marks leading to double quotation marks
+            'blockquote p:first-of-type::after': false,
+          }
         }
-      }
+      },
     },
   },
-},
   plugins: [
     require('@tailwindcss/typography'),
     require("tailwindcss-animate")
