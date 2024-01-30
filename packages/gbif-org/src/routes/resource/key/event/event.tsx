@@ -17,6 +17,7 @@ import { SecondaryLinks } from '../components/SecondaryLinks';
 import { ArticleAuxiliary } from '../components/ArticleAuxiliary';
 import { required } from '@/utils/required';
 import { useLoaderData } from 'react-router-dom';
+import { ArticleSkeleton } from '../components/ArticleSkeleton';
 
 const EVENT_QUERY = /* GraphQL */ `
   query Event($key: String!) {
@@ -46,13 +47,13 @@ const EVENT_QUERY = /* GraphQL */ `
   }
 `;
 
-export async function eventLoader({ params, graphql }: LoaderArgs) {
+export async function eventPageLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key provided in the url');
 
   return graphql.query<EventQuery, EventQueryVariables>(EVENT_QUERY, { key });
 }
 
-export function Event() {
+export function EventPage() {
   const { data } = useLoaderData() as { data: EventQuery };
   const { locale } = useI18n();
 
@@ -131,6 +132,10 @@ export function Event() {
       </ArticleContainer>
     </>
   );
+}
+
+export function EventPageSkeleton() {
+  return <ArticleSkeleton />;
 }
 
 // Examples of return value:

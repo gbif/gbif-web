@@ -14,6 +14,7 @@ import { ArticleTags } from '../components/ArticleTags';
 import { FormattedMessage } from 'react-intl';
 import { useLoaderData } from 'react-router-dom';
 import { required } from '@/utils/required';
+import { ArticleSkeleton } from '../components/ArticleSkeleton';
 
 const DATA_USE_QUERY = /* GraphQL */ `
   query DataUse($key: String!) {
@@ -44,13 +45,13 @@ const DATA_USE_QUERY = /* GraphQL */ `
   }
 `;
 
-export function dataUseLoader({ params, graphql }: LoaderArgs) {
+export function dataUsePageLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key provided in the url');
 
   return graphql.query<DataUseQuery, DataUseQueryVariables>(DATA_USE_QUERY, { key });
 }
 
-export function DataUse() {
+export function DataUsePage() {
   const { data } = useLoaderData() as { data: DataUseQuery };
 
   if (data.dataUse == null) throw new Error('404');
@@ -103,4 +104,8 @@ export function DataUse() {
       </ArticleContainer>
     </>
   );
+}
+
+export function DataUsePageSkeleton() {
+  return <ArticleSkeleton />;
 }

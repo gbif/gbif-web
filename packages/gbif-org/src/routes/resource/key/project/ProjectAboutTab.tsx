@@ -54,7 +54,7 @@ export function projectAboutLoader({ params, graphql }: LoaderArgs) {
   });
 }
 
-export function AboutTab() {
+export function ProjectAboutTab() {
   const { data } = useLoaderData() as { data: ProjectAboutQuery };
 
   if (data.gbifProject == null) throw new Error('404');
@@ -149,4 +149,8 @@ export function AboutTab() {
       </ArticleTextContainer>
     </>
   );
+}
+
+export function ProjectAboutTabSkeleton() {
+  return <p>Loading...</p>;
 }

@@ -14,6 +14,7 @@ import { ArticleAuxiliary } from '../components/ArticleAuxiliary';
 
 import { SecondaryLinks } from '../components/SecondaryLinks';
 import { Documents } from '../components/Documents';
+import { ArticleSkeleton } from '../components/ArticleSkeleton';
 
 const ARTICLE_QUERY = /* GraphQL */ `
   query Article($key: String!) {
@@ -41,13 +42,13 @@ const ARTICLE_QUERY = /* GraphQL */ `
   }
 `;
 
-export function articleLoader({ params, graphql }: LoaderArgs) {
+export function articlePageLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key provided in the url');
 
   return graphql.query<ArticleQuery, ArticleQueryVariables>(ARTICLE_QUERY, { key });
 }
 
-export function Article() {
+export function ArticlePage() {
   const { data } = useLoaderData() as { data: ArticleQuery };
 
   if (data.article == null) throw new Error('404');
@@ -108,4 +109,8 @@ export function Article() {
       </ArticleContainer>
     </>
   );
+}
+
+export function ArticlePageSkeleton() {
+  return <ArticleSkeleton />;
 }

@@ -45,13 +45,13 @@ const NEWS_QUERY = /* GraphQL */ `
   }
 `;
 
-export async function newsLoader({ params, graphql }: LoaderArgs) {
+export async function newsPageLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key provided in the url');
 
   return graphql.query<NewsQuery, NewsQueryVariables>(NEWS_QUERY, { key });
 }
 
-export function News() {
+export function NewsPage() {
   const { data } = useLoaderData() as { data: NewsQuery };
 
   if (data.news == null) throw new Error('404');
@@ -94,7 +94,7 @@ export function News() {
   );
 }
 
-export function NewsSkeleton() {
+export function NewsPageSkeleton() {
   return (
     <ArticleContainer>
       <ArticleTextContainer>

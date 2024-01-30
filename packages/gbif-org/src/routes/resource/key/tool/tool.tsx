@@ -15,6 +15,7 @@ import styles from './tool.module.css';
 import { FormattedMessage } from 'react-intl';
 import { useLoaderData } from 'react-router-dom';
 import { required } from '@/utils/required';
+import { ArticleSkeleton } from '../components/ArticleSkeleton';
 
 const TOOL_QUERY = /* GraphQL */ `
   query Tool($key: String!) {
@@ -44,13 +45,13 @@ const TOOL_QUERY = /* GraphQL */ `
   }
 `;
 
-export async function toolLoader({ params, graphql }: LoaderArgs) {
+export async function toolPageLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key provided in the url');
 
   return graphql.query<ToolQuery, ToolQueryVariables>(TOOL_QUERY, { key });
 }
 
-export function Tool() {
+export function ToolPage() {
   const { data } = useLoaderData() as { data: ToolQuery };
 
   if (data.tool == null) throw new Error('404');
@@ -122,4 +123,8 @@ export function Tool() {
       </ArticleContainer>
     </>
   );
+}
+
+export function ToolPageSkeleton() {
+  return <ArticleSkeleton />;
 }

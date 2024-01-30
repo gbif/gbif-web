@@ -4,7 +4,6 @@ import { DocumentQuery, DocumentQueryVariables } from '@/gql/graphql';
 import { useLoaderData } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { ArticleContainer } from '../components/ArticleContainer';
-import { ArticlePreTitle } from '../components/ArticlePreTitle';
 import { FormattedMessage } from 'react-intl';
 import { ArticleTitle } from '../components/ArticleTitle';
 import { ArticleIntro } from '../components/ArticleIntro';
@@ -14,6 +13,7 @@ import { MdDownload as DownloadIcon } from 'react-icons/md';
 import { ArticleBody } from '../components/ArticleBody';
 import { PublishedDate } from '../components/PublishedDate';
 import { ArticleAuxiliary } from '../components/ArticleAuxiliary';
+import { ArticleSkeleton } from '../components/ArticleSkeleton';
 
 const DOCUMENT_QUERY = /* GraphQL */ `
   query Document($key: String!) {
@@ -105,4 +105,8 @@ export function DocumentPage() {
       </ArticleContainer>
     </>
   );
+}
+
+export function DocumentPageSkeleton() {
+  return <ArticleSkeleton />;
 }

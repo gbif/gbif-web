@@ -7,45 +7,62 @@ import { NotFound } from '@/routes/NotFound';
 import { RootErrorPage } from '@/routes/RootErrorPage';
 import {
   DetailedOccurrencePage,
-  DetailedOccurrencePageLoading,
-  loader as detailedOccurrenceLoader,
+  DetailedOccurrencePageSkeleton,
+  detailedOccurrencePageLoader,
 } from '@/routes/occurrence/key/DetailedOccurrencePage';
 import { OccurrenceSearchPage } from '@/routes/occurrence/search/OccurrenceSearchPage';
 import { InputConfig, configBuilder } from '@/contexts/config/config';
-import { DatasetPage, datasetLoader } from '@/routes/dataset/key/DatasetPage';
-import { PublisherPage, publisherLoader } from '@/routes/publisher/key/PublisherPage';
-import { News, NewsSkeleton, newsLoader } from '@/routes/resource/key/news/news';
+import { DatasetPage, DatasetPageSkeleton, datasetLoader } from '@/routes/dataset/key/DatasetPage';
+import {
+  PublisherPage,
+  PublisherPageSkeleton,
+  publisherLoader,
+} from '@/routes/publisher/key/PublisherPage';
+import { NewsPage, NewsPageSkeleton, newsPageLoader } from '@/routes/resource/key/news/news';
 import { PublisherAboutTab } from '@/routes/publisher/key/AboutTab';
 import { PublisherOccurrencesTab } from '@/routes/publisher/key/OccurrencesTab';
 import { DatasetAboutTab } from '@/routes/dataset/key/AboutTab';
 import { DatasetDashboardTab } from '@/routes/dataset/key/DashboardTab';
 import { DatasetOccurrencesTab } from '@/routes/dataset/key/OccurrencesTab';
 import { DatasetDownloadTab } from '@/routes/dataset/key/DownloadTab';
-import { DataUse, dataUseLoader } from '@/routes/resource/key/data-use/data-use';
-import { Event, eventLoader } from '@/routes/resource/key/event/event';
-import { Article, articleLoader } from '@/routes/resource/key/article/article';
-import { Tool, toolLoader } from '@/routes/resource/key/tool/tool';
 import {
-  Project,
-  projectLoader,
-  AboutTab as ProjectAboutTab,
-  DatasetsTab as ProjectDatasetsTab,
-  projectNewsLoader,
-  NewsTab as ProjectNewsTab,
-  projectAboutLoader,
-  projectDatasetsLoader,
-} from '@/routes/resource/key/project';
+  DataUsePage,
+  DataUsePageSkeleton,
+  dataUsePageLoader,
+} from '@/routes/resource/key/data-use/data-use';
+import { EventPage, EventPageSkeleton, eventPageLoader } from '@/routes/resource/key/event/event';
 import {
-  Programme,
-  ProgrammeSkeleton,
-  programmeLoader,
+  ArticlePage,
+  ArticlePageSkeleton,
+  articlePageLoader,
+} from '@/routes/resource/key/article/article';
+import { ToolPage, ToolPageSkeleton, toolPageLoader } from '@/routes/resource/key/tool/tool';
+import {
+  ProgrammePage,
+  ProgrammePageSkeleton,
+  programmePageLoader,
 } from '@/routes/resource/key/programme/programme';
 import {
-  Composition,
-  CompositionSkeleton,
-  compositionLoader,
+  CompositionPage,
+  CompositionPageSkeleton,
+  compositionPageLoader,
 } from '@/routes/resource/key/composition/composition';
-import { DocumentPage, documentPageLoader } from '@/routes/resource/key/document/document';
+import {
+  DocumentPage,
+  DocumentPageSkeleton,
+  documentPageLoader,
+} from '@/routes/resource/key/document/document';
+import {
+  ProjectAboutTab,
+  ProjectDatasetsTab,
+  ProjectNewsTab,
+  ProjectPage,
+  ProjectPageSkeleton,
+  projectAboutLoader,
+  projectDatasetsLoader,
+  projectNewsLoader,
+  projectPageLoader,
+} from '@/routes/resource/key/project';
 
 const baseRoutes: SourceRouteObject[] = [
   {
@@ -62,14 +79,13 @@ const baseRoutes: SourceRouteObject[] = [
           {
             key: 'occurrence-search-page',
             path: 'occurrence/search',
-            loadingElement: <p>Loading occurrence search...</p>,
             element: <OccurrenceSearchPage />,
           },
           {
             key: 'occurrence-page',
             path: 'occurrence/:key',
-            loader: detailedOccurrenceLoader,
-            loadingElement: <DetailedOccurrencePageLoading />,
+            loader: detailedOccurrencePageLoader,
+            loadingElement: <DetailedOccurrencePageSkeleton />,
             element: <DetailedOccurrencePage />,
           },
           {
@@ -80,7 +96,7 @@ const baseRoutes: SourceRouteObject[] = [
             },
             path: 'dataset/:key',
             loader: datasetLoader,
-            loadingElement: <p>Loading dataset...</p>,
+            loadingElement: <DatasetPageSkeleton />,
             element: <DatasetPage />,
             children: [
               {
@@ -109,7 +125,7 @@ const baseRoutes: SourceRouteObject[] = [
             },
             path: 'publisher/:key',
             loader: publisherLoader,
-            loadingElement: <p>Loading publisher...</p>,
+            loadingElement: <PublisherPageSkeleton />,
             element: <PublisherPage />,
             children: [
               {
@@ -124,63 +140,63 @@ const baseRoutes: SourceRouteObject[] = [
           },
           {
             path: 'news/:key',
-            loader: newsLoader,
-            loadingElement: <NewsSkeleton />,
-            element: <News />,
+            loader: newsPageLoader,
+            loadingElement: <NewsPageSkeleton />,
+            element: <NewsPage />,
           },
           {
             path: 'article/:key',
-            loader: articleLoader,
-            loadingElement: <p>Loading article...</p>,
-            element: <Article />,
+            loader: articlePageLoader,
+            loadingElement: <ArticlePageSkeleton />,
+            element: <ArticlePage />,
           },
           {
             path: 'event/:key',
-            loader: eventLoader,
-            loadingElement: <p>Loading event...</p>,
-            element: <Event />,
+            loader: eventPageLoader,
+            loadingElement: <EventPageSkeleton />,
+            element: <EventPage />,
           },
           {
             path: 'tool/:key',
-            loader: toolLoader,
-            loadingElement: <p>Loading tool...</p>,
-            element: <Tool />,
+            loader: toolPageLoader,
+            loadingElement: <ToolPageSkeleton />,
+            element: <ToolPage />,
           },
           {
             path: 'data-use/:key',
-            loader: dataUseLoader,
-            loadingElement: <p>Loading data use...</p>,
-            element: <DataUse />,
+            loader: dataUsePageLoader,
+            loadingElement: <DataUsePageSkeleton />,
+            element: <DataUsePage />,
           },
           {
             path: 'article/:key',
-            loader: articleLoader,
-            loadingElement: <p>Loading data use...</p>,
-            element: <Article />,
+            loader: articlePageLoader,
+            loadingElement: <ArticlePageSkeleton />,
+            element: <ArticlePage />,
           },
           {
             path: 'document/:key',
             loader: documentPageLoader,
-            loadingElement: <p>Loading data use...</p>,
+            loadingElement: <DocumentPageSkeleton />,
             element: <DocumentPage />,
           },
           {
             path: 'programme/:key',
-            loader: programmeLoader,
-            loadingElement: <ProgrammeSkeleton />,
-            element: <Programme />,
+            loader: programmePageLoader,
+            loadingElement: <ProgrammePageSkeleton />,
+            element: <ProgrammePage />,
           },
           {
             path: 'composition/:key',
-            loader: compositionLoader,
-            loadingElement: <CompositionSkeleton />,
-            element: <Composition />,
+            loader: compositionPageLoader,
+            loadingElement: <CompositionPageSkeleton />,
+            element: <CompositionPage />,
           },
           {
             path: 'project/:key',
-            loader: projectLoader,
-            loadingElement: <p>Loading data use...</p>,
-            element: <Project />,
+            loader: projectPageLoader,
+            loadingElement: <ProjectPageSkeleton />,
+            element: <ProjectPage />,
             children: [
               {
                 index: true,

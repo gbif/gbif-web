@@ -5,7 +5,7 @@ import { NotFound } from '@/routes/NotFound';
 import { RootErrorPage } from '@/routes/RootErrorPage';
 import {
   DetailedOccurrencePage,
-  DetailedOccurrencePageLoading,
+  DetailedOccurrencePageSkeleton,
   loader as detailedOccurrenceLoader,
 } from '@/routes/occurrence/key/DetailedOccurrencePage';
 import { OccurrenceSearchPage } from '@/routes/occurrence/search/OccurrenceSearchPage';
@@ -18,7 +18,7 @@ import { DatasetDownloadTab } from '@/routes/dataset/key/DownloadTab';
 import { PublisherPage, publisherLoader } from '@/routes/publisher/key/PublisherPage';
 import { PublisherAboutTab } from '@/routes/publisher/key/AboutTab';
 import { PublisherOccurrencesTab } from '@/routes/publisher/key/OccurrencesTab';
-import { News, newsLoader } from '@/routes/resource/key/news/news';
+import { NewsPage, newsPageLoader } from '@/routes/resource/key/news/news';
 
 const baseRoutes: SourceRouteObject[] = [
   {
@@ -38,7 +38,7 @@ const baseRoutes: SourceRouteObject[] = [
         path: 'occurrence/:key',
         loader: detailedOccurrenceLoader,
         element: <DetailedOccurrencePage />,
-        loadingElement: <DetailedOccurrencePageLoading />,
+        loadingElement: <DetailedOccurrencePageSkeleton />,
       },
       {
         key: 'dataset-page',
@@ -90,8 +90,8 @@ const baseRoutes: SourceRouteObject[] = [
       },
       {
         path: 'resource/:key',
-        loader: newsLoader,
-        element: <News />,
+        loader: newsPageLoader,
+        element: <NewsPage />,
       },
       {
         path: '*',

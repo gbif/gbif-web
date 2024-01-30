@@ -26,7 +26,7 @@ export function projectNewsLoader({ params, graphql }: LoaderArgs) {
   });
 }
 
-export function NewsTab() {
+export function ProjectNewsTab() {
   const { data } = useLoaderData() as { data: ProjectNewsQuery };
 
   if (data.gbifProject == null) throw new Error('404');
@@ -51,4 +51,8 @@ export function NewsTab() {
           })}
     </div>
   );
+}
+
+export function ProjectNewsTabSkeleton() {
+  return <p>Loading...</p>;
 }

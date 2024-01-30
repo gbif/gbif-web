@@ -6,7 +6,7 @@ import { required } from '@/utils/required';
 import { ArticleSkeleton } from '../components/ArticleSkeleton';
 import { BlockItem } from './BlockItem';
 
-export const CompositionSkeleton = ArticleSkeleton;
+export const CompositionPageSkeleton = ArticleSkeleton;
 
 const COMPOSITION_QUERY = /* GraphQL */ `
   query Composition($key: String!) {
@@ -21,7 +21,7 @@ const COMPOSITION_QUERY = /* GraphQL */ `
   }
 `;
 
-export function compositionLoader({ params, graphql }: LoaderArgs) {
+export function compositionPageLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key provided in the url');
 
   return graphql.query<CompositionQuery, CompositionQueryVariables>(COMPOSITION_QUERY, {
@@ -29,7 +29,7 @@ export function compositionLoader({ params, graphql }: LoaderArgs) {
   });
 }
 
-export function Composition() {
+export function CompositionPage() {
   const { data } = useLoaderData() as { data: CompositionQuery };
 
   if (data.composition == null) throw new Error('404');

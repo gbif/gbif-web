@@ -55,7 +55,7 @@ const SLOW_DATASET_QUERY = /* GraphQL */ `
   }
 `;
 
-export function DatasetsTab() {
+export function ProjectDatasetsTab() {
   const { data: projectData } = useLoaderData() as { data: ProjectIdQuery };
 
   const { data, loading, load } = useQuery<ProjectDatasetsQuery, ProjectDatasetsQueryVariables>(
@@ -185,4 +185,8 @@ export function DatasetResult({
       </div>
     </article>
   );
+}
+
+export function ProjectDatasetTabSkeleton() {
+  return <p>Loading...</p>;
 }

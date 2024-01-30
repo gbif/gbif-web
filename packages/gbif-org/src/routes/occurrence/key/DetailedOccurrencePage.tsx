@@ -21,7 +21,7 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
   }
 `;
 
-export function loader({ params, graphql }: LoaderArgs) {
+export function detailedOccurrencePageLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key was provided in the URL');
 
   return graphql.query<OccurrenceQuery, OccurrenceQueryVariables>(OCCURRENCE_QUERY, { key });
@@ -60,6 +60,6 @@ export function DetailedOccurrencePage() {
   );
 }
 
-export function DetailedOccurrencePageLoading() {
+export function DetailedOccurrencePageSkeleton() {
   return <div>Loading...</div>;
 }

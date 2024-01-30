@@ -7,7 +7,7 @@ import { BlockItem } from '../composition/BlockItem';
 import { required } from '@/utils/required';
 import { useLoaderData } from 'react-router-dom';
 
-export const ProgrammeSkeleton = ArticleSkeleton;
+export const ProgrammePageSkeleton = ArticleSkeleton;
 
 const PROGRAMME_QUERY = /* GraphQL */ `
   query Programme($key: String!) {
@@ -21,13 +21,13 @@ const PROGRAMME_QUERY = /* GraphQL */ `
   }
 `;
 
-export async function programmeLoader({ params, graphql }: LoaderArgs) {
+export async function programmePageLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key provided in the url');
 
   return graphql.query<ProgrammeQuery, ProgrammeQueryVariables>(PROGRAMME_QUERY, { key });
 }
 
-export function Programme() {
+export function ProgrammePage() {
   const { data } = useLoaderData() as { data: ProgrammeQuery };
 
   if (data.programme == null) throw new Error('404');

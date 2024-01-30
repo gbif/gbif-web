@@ -53,3 +53,7 @@ export function PublisherPage() {
     </>
   );
 }
+
+export function PublisherPageSkeleton() {
+  return <div>Loading...</div>;
+}

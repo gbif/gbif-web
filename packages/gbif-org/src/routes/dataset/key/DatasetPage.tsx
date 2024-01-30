@@ -1,6 +1,7 @@
 import { DynamicLink } from '@/components/DynamicLink';
 import { Tabs } from '@/components/Tabs';
 import { DatasetQuery, DatasetQueryVariables } from '@/gql/graphql';
+import { ArticleSkeleton } from '@/routes/resource/key/components/ArticleSkeleton';
 import { LoaderArgs } from '@/types';
 import { required } from '@/utils/required';
 import { Helmet } from 'react-helmet-async';
@@ -21,6 +22,8 @@ export function datasetLoader({ params, graphql }: LoaderArgs) {
 
   return graphql.query<DatasetQuery, DatasetQueryVariables>(DATASET_QUERY, { key });
 }
+
+export const DatasetPageSkeleton = ArticleSkeleton;
 
 export function DatasetPage() {
   const { data } = useLoaderData() as { data: DatasetQuery };

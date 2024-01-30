@@ -10,6 +10,7 @@ import { Outlet, useLoaderData } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { MdLink } from 'react-icons/md';
 import { required } from '@/utils/required';
+import { ArticleSkeleton } from '../components/ArticleSkeleton';
 
 const PROJECT_QUERY = /* GraphQL */ `
   query Project($key: String!) {
@@ -56,13 +57,13 @@ const PROJECT_QUERY = /* GraphQL */ `
   }
 `;
 
-export async function projectLoader({ params, graphql }: LoaderArgs) {
+export async function projectPageLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key provided in the url');
 
   return graphql.query<ProjectQuery, ProjectQueryVariables>(PROJECT_QUERY, { key });
 }
 
-export function Project() {
+export function ProjectPage() {
   const { data } = useLoaderData() as { data: ProjectQuery };
 
   if (data.gbifProject == null) throw new Error('404');
@@ -118,4 +119,8 @@ export function Project() {
       </ArticleContainer>
     </>
   );
+}
+
+export function ProjectPageSkeleton() {
+  return <ArticleSkeleton />;
 }
