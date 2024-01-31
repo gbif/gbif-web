@@ -9,7 +9,6 @@ type Props = {
     topics?: (string | null)[] | null;
     audiences?: (string | null)[] | null;
     purposes?: (string | null)[] | null;
-    [key: string]: any; // This line allows for any other properties
   };
   className?: string;
 };

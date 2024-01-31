@@ -7,6 +7,7 @@ import { LoadingElementWrapper } from '@/components/LoadingElementWrapper';
 import { v4 as uuid } from 'uuid';
 import { StartLoadingEvent } from '@/contexts/loadingElement';
 import { GraphQLService } from '@/services/GraphQLService';
+import { createLocalizedRouteId } from './createLocalizedRouteId';
 
 type ConfigureRoutesResult = {
   routes: RouteObject[];
@@ -94,6 +95,9 @@ function createRoutesRecursively(
     })
     .map((route) => {
       const clone = { ...route } as RouteObject;
+
+      // Add the lang to the route id as it must be unique
+      if (typeof clone.id === 'string') clone.id = createLocalizedRouteId(clone.id, locale.code);
 
       // Generate a unique id for the loading element
       const id = uuid();

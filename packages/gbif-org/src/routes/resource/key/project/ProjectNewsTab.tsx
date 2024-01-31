@@ -5,17 +5,20 @@ import { EventResult } from '../event/EventResult';
 import { useLoaderData } from 'react-router-dom';
 import { required } from '@/utils/required';
 import { useMemo } from 'react';
-import { notNull } from '@/utils/notNull';
+import { sortByNewToOld } from '@/utils/sort';
+import { TabListSkeleton } from './TabListSkeleton';
 
 const PROJECT_NEWS_QUERY = /* GraphQL */ `
   query ProjectNews($key: String!) {
     gbifProject(id: $key) {
       news {
         __typename
+        createdAt
         ...NewsResult
       }
       events {
         __typename
+        start
         ...EventResult
       }
     }
@@ -38,30 +41,10 @@ export function ProjectNewsTab() {
 
   const sortedNewsAndEvents = useMemo(
     () =>
-      // Combine news and events
-      [...(resource.news ?? []), ...(resource.events ?? [])]
-        // Add a sortByDate to each entry
-        .map((x) => {
-          switch (x.__typename) {
-            case 'Event':
-              return {
-                ...x,
-                sortByDate: new Date(x.start),
-              };
-            case 'News':
-              return {
-                ...x,
-                sortByDate: new Date(x.createdAt),
-              };
-          }
-        })
-        // Remove null entries
-        .filter(notNull)
-        .sort((a, b) => {
-          if (a.sortByDate == null || b.sortByDate == null) return 0;
-          return a.sortByDate > b.sortByDate ? -1 : 1;
-        }),
-    [resource.events, resource.news]
+      [...(resource.news ?? []), ...(resource.events ?? [])].sort(
+        sortByNewToOld((x) => new Date(x.__typename === 'Event' ? x.start : x.createdAt))
+      ),
+    [resource.news, resource.events]
   );
 
   return (
@@ -79,5 +62,5 @@ export function ProjectNewsTab() {
 }
 
 export function ProjectNewsTabSkeleton() {
-  return <p>Loading...</p>;
+  return <TabListSkeleton />;
 }

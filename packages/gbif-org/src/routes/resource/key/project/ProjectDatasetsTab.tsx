@@ -5,32 +5,20 @@ import {
   ProjectDatasetsCountsQueryVariables,
   DatasetResultFragment,
   DatasetCountsFragment,
-  ProjectIdQuery,
-  ProjectIdQueryVariables,
+  ProjectQuery,
 } from '@/gql/graphql';
 import { useEffect } from 'react';
 import useQuery from '@/hooks/useQuery';
-import { useLoaderData } from 'react-router-dom';
 import { toRecord } from '@/utils/toRecord';
 import { fragmentManager } from '@/services/FragmentManager';
-import { required } from '@/utils/required';
-import { LoaderArgs } from '@/types';
+import { RouteId, useParentRouteLoaderData } from '@/hooks/useParentRouteLoaderData';
+import { TabListSkeleton } from './TabListSkeleton';
 
-const PROJECT_ID_QUERY = /* GraphQL */ `
-  query ProjectId($key: String!) {
-    gbifProject(id: $key) {
-      projectId
-    }
+fragmentManager.register(/* GraphQL */ `
+  fragment ProjectDatasetsTab on GbifProject {
+    projectId
   }
-`;
-
-export function projectDatasetsLoader({ params, graphql }: LoaderArgs) {
-  const key = required(params.key, 'No key provided in the URL');
-
-  return graphql.query<ProjectIdQuery, ProjectIdQueryVariables>(PROJECT_ID_QUERY, {
-    key,
-  });
-}
+`);
 
 const DATASET_QUERY = /* GraphQL */ `
   query ProjectDatasets($projectId: ID!) {
@@ -56,13 +44,15 @@ const SLOW_DATASET_QUERY = /* GraphQL */ `
 `;
 
 export function ProjectDatasetsTab() {
-  const { data: projectData } = useLoaderData() as { data: ProjectIdQuery };
+  const { data: projectData } = useParentRouteLoaderData(RouteId.Project) as { data: ProjectQuery };
 
-  const { data, loading, load } = useQuery<ProjectDatasetsQuery, ProjectDatasetsQueryVariables>(
+  const { data, loading } = useQuery<ProjectDatasetsQuery, ProjectDatasetsQueryVariables>(
     DATASET_QUERY,
     {
-      lazyLoad: true,
       throwAllErrors: true,
+      variables: {
+        projectId: projectData?.gbifProject?.projectId as string,
+      },
     }
   );
 
@@ -73,18 +63,6 @@ export function ProjectDatasetsTab() {
     lazyLoad: true,
     throwAllErrors: true,
   });
-
-  // load dataset search results
-  useEffect(() => {
-    const projectId = projectData?.gbifProject?.projectId;
-    if (typeof projectId !== 'string') return;
-
-    load({
-      variables: {
-        projectId,
-      },
-    });
-  }, [projectData, load]);
 
   // load slow dataset search results like counts
   useEffect(() => {
@@ -103,7 +81,7 @@ export function ProjectDatasetsTab() {
 
   if (projectData.gbifProject == null) throw new Error('404');
 
-  if (!data?.datasetSearch || loading) return null;
+  if (!data?.datasetSearch || loading) return <TabListSkeleton />;
 
   const { count, results } = data.datasetSearch;
 
@@ -116,11 +94,9 @@ export function ProjectDatasetsTab() {
     <>
       {count > 0 && (
         <div className="pt-4 max-w-3xl m-auto">
-          <div>
-            {results?.map((item) => {
-              return <DatasetResult key={item.key} dataset={item} counts={slowResults[item.key]} />;
-            })}
-          </div>
+          {results?.map((item) => (
+            <DatasetResult key={item.key} dataset={item} counts={slowResults[item.key]} />
+          ))}
         </div>
       )}
     </>
@@ -185,8 +161,4 @@ export function DatasetResult({
       </div>
     </article>
   );
-}
-
-export function ProjectDatasetTabSkeleton() {
-  return <p>Loading...</p>;
 }

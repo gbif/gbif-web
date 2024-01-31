@@ -1,5 +1,4 @@
-import { LoaderArgs } from '@/types';
-import { ProjectAboutQuery, ProjectAboutQueryVariables } from '@/gql/graphql';
+import { ProjectQuery } from '@/gql/graphql';
 import { ArticleBanner } from '@/routes/resource/key/components/ArticleBanner';
 import { ArticleTextContainer } from '../components/ArticleTextContainer';
 import { ArticleBody } from '../components/ArticleBody';
@@ -11,51 +10,45 @@ import { Documents } from '../components/Documents';
 import { KeyValuePair } from '../components/KeyValuePair';
 import { FormattedDate, FormattedMessage, FormattedNumber } from 'react-intl';
 import { DynamicLink } from '@/components/DynamicLink';
-import { required } from '@/utils/required';
-import { useLoaderData } from 'react-router-dom';
+import { RouteId, useParentRouteLoaderData } from '@/hooks/useParentRouteLoaderData';
+import { fragmentManager } from '@/services/FragmentManager';
 
-const PROJECT_ABOUT_QUERY = /* GraphQL */ `
-  query ProjectAbout($key: String!) {
-    gbifProject(id: $key) {
-      summary
-      body
-      fundsAllocated
-      matchingFunds
-      grantType
-      start
-      end
-      programme {
-        id
-        title
-      }
-      projectId
-      primaryImage {
-        ...ArticleBanner
-      }
-      secondaryLinks {
-        label
-        url
-      }
-      documents {
-        ...DocumentPreview
-      }
-      purposes
-      status
-      createdAt
+fragmentManager.register(/* GraphQL */ `
+  fragment ProjectAboutTab on GbifProject {
+    projectId
+    id
+    title
+    body
+    start
+    end
+    status
+    fundsAllocated
+    matchingFunds
+    grantType
+    purposes
+    programme {
+      id
+      title
+    }
+    primaryImage {
+      ...ArticleBanner
+    }
+    primaryLink {
+      label
+      url
+    }
+    secondaryLinks {
+      label
+      url
+    }
+    documents {
+      ...DocumentPreview
     }
   }
-`;
-
-export function projectAboutLoader({ params, graphql }: LoaderArgs) {
-  const key = required(params.key, 'No key provided in the URL');
-
-  return graphql.query<ProjectAboutQuery, ProjectAboutQueryVariables>(PROJECT_ABOUT_QUERY, {
-    key,
-  });
-}
+`);
 
 export function ProjectAboutTab() {
-  const { data } = useLoaderData() as { data: ProjectAboutQuery };
+  const { data } = useParentRouteLoaderData(RouteId.Project) as { data: ProjectQuery };
 
   if (data.gbifProject == null) throw new Error('404');
   const resource = data.gbifProject;
@@ -128,6 +121,7 @@ export function ProjectAboutTab() {
             }
           />
         )}
+
         <KeyValuePair
           label={<FormattedMessage id="cms.project.projectIdentifier" />}
           value={resource.projectId}

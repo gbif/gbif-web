@@ -83,7 +83,7 @@ export function useQuery<TResult, TVariabels>(
             else {
               const result = await response.json();
               setError(undefined);
-              setData(result);
+              setData(result.data);
             }
           })
           .catch((error) => {

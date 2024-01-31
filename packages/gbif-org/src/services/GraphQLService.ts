@@ -23,7 +23,7 @@ export class GraphQLService {
   public async query<TResult, TVariabels>(
     query: string,
     variables: TVariabels
-  ): Promise<Omit<Response, 'json'> & { json(): Promise<TResult> }> {
+  ): Promise<Omit<Response, 'json'> & { json(): Promise<{ data: TResult }> }> {
     // Add fragments to the query
     const queryWithFragments = fragmentManager.addFragmentsToQuery(query);
 
