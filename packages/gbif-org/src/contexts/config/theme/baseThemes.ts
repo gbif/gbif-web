@@ -1,22 +1,26 @@
-import { Theme } from "./theme";
+import { Theme } from './theme';
 
-export const defaultTheme: Partial<Theme> = {
+export const defaultTheme = {
   dense: true,
   primary: '#1393D8',
   fontSize: '15px',
   background: '#f1f5f8',
   paperBackground: '#ffffff',
+  paperBackgroundElevated: '#ffffff',
   paperBorderColor: '#e5ebed',
   color: '#162d3d',
   isDarkTheme: false,
-  fontFamily: '"Helvetica Neue", BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica", "Arial", sans-serif',
+  fontFamily:
+    '"Helvetica Neue", BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica", "Arial", sans-serif',
+  headerFontFamily:
+    '"Helvetica Neue", BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica", "Arial", sans-serif',
   // fontFamily: "'Inter var', BlinkMacSystemFont, -apple-system, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
   borderRadius: 3,
   drawerZIndex: 1000,
-  stickyOffset: '0px'
-};
+  stickyOffset: '0px',
+} as const satisfies Partial<Theme>;
 
-export const darkTheme: Partial<Theme> = {
+export const darkTheme = {
   dense: true,
   primary: '#39af5d',
   fontSize: '14px',
@@ -26,6 +30,7 @@ export const darkTheme: Partial<Theme> = {
   paperBorderColor: '#0b0d13',
   color: '#e3e5ea',
   isDarkTheme: true,
-  fontFamily: 'BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif',
+  fontFamily:
+    'BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif',
   borderRadius: 3,
-};
+} as const satisfies Partial<Theme>;

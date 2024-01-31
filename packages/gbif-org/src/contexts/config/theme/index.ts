@@ -9,19 +9,19 @@ import { Theme } from './theme';
  */
 const build = (theme: Partial<Theme>): Theme => {
   const fullTheme = { ...defaultTheme, ...theme };
-  const isDarkTheme = fullTheme.isDarkTheme ?? false;
-  const primary = fullTheme.primary ?? '#1393D8';
-  const color = fullTheme.color ?? '#162d3d';
-  const paperBackground = fullTheme.paperBackground ?? '#ffffff';
-  const paperBackgroundElevated = fullTheme.paperBackgroundElevated ?? '#ffffff';
-  const background = fullTheme.background ?? '#f1f5f8';
-  const borderRadius = fullTheme.borderRadius ?? 0;
-  const dense = fullTheme.dense ?? false;
+  const {
+    isDarkTheme,
+    primary,
+    color,
+    paperBackground,
+    paperBackgroundElevated,
+    background,
+    borderRadius,
+    dense,
+  } = fullTheme;
+
   // remove all single and double quotation marks from the font family as this conflicts with serialization on the server
-  const fontFamily = (
-    fullTheme.fontFamily ||
-    'Helvetica Neue, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica, Arial, sans-serif'
-  ).replace(/['"]+/g, '');
+  const fontFamily = fullTheme.fontFamily.replace(/['"]+/g, '');
   const headerFontFamily = (fullTheme.headerFontFamily || fontFamily).replace(/['"]+/g, '');
 
   const shadeDirection = isDarkTheme ? 1 : -1;
@@ -78,11 +78,11 @@ const build = (theme: Partial<Theme>): Theme => {
     transparentInk60: `${color}60`,
     transparentInk70: `${color}70`,
     transparentInk80: `${color}80`,
-    fontSize: fullTheme.fontSize || '15px',
+    fontSize: fullTheme.fontSize,
     paperBorderColor: fullTheme.paperBorderColor || '#e5ebed',
     darkPaperBackground: isDarkTheme ? '#000010' : '#4e4e52',
-    drawerZIndex: fullTheme.drawerZIndex || 1000,
-    stickyOffset: fullTheme.stickyOffset || '0px',
+    drawerZIndex: fullTheme.drawerZIndex,
+    stickyOffset: fullTheme.stickyOffset,
     mapDensityColors: fullTheme.mapDensityColors ?? brightMapColors,
 
     color900: shadeBlend(shadeDirection * 1 * 0.075, color, paperBackground),
