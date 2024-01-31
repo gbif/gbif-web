@@ -1,6 +1,7 @@
 import React from 'react';
 import { Endpoints, GbifEnv, getEndpointsBasedOnGbifEnv } from './endpoints';
 import themeBuilder from './theme/index';
+import { Theme } from './theme/theme';
 
 type PageConfig = {
   key: string;
@@ -18,13 +19,7 @@ export type InputConfig = {
   }[];
   occurrencePredicate: any;
   pages?: PageConfig[];
-  theme?: {
-    colors?: {
-      primary?: string;
-      primaryForeground?: string;
-    };
-    borderRadius?: number;
-  };
+  theme?: Partial<Theme>;
 };
 
 export type Config = InputConfig & Endpoints;
@@ -46,10 +41,7 @@ export function ConfigProvider({ config, children }: Props): React.ReactElement 
   const css: string = React.useMemo(() => {
     const theme = themeBuilder({
       baseTheme: 'light',
-      extendWith: {
-        primary: config.theme?.colors?.primary,
-        borderRadius: config.theme?.borderRadius,
-      },
+      extendWith: config.theme,
     });
 
     const cssVariables: CssVariable[] = Object.entries(theme)

@@ -55,10 +55,6 @@ export const gbifConfig: InputConfig = {
     ],
   },
   theme: {
-    colors: {
-      primary: '#ED1C24',
-      // primaryForeground: 'black',
-    },
-    borderRadius: 4,
+    primary: '#69AA69',
   },
 };
