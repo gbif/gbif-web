@@ -6,7 +6,7 @@ import { RootErrorPage } from '@/routes/RootErrorPage';
 import {
   DetailedOccurrencePage,
   DetailedOccurrencePageSkeleton,
-  loader as detailedOccurrenceLoader,
+  detailedOccurrencePageLoader,
 } from '@/routes/occurrence/key/DetailedOccurrencePage';
 import { OccurrenceSearchPage } from '@/routes/occurrence/search/OccurrenceSearchPage';
 import { InputConfig, configBuilder } from '@/contexts/config/config';
@@ -36,7 +36,7 @@ const baseRoutes: SourceRouteObject[] = [
       {
         key: 'occurrence-page',
         path: 'occurrence/:key',
-        loader: detailedOccurrenceLoader,
+        loader: detailedOccurrencePageLoader,
         element: <DetailedOccurrencePage />,
         loadingElement: <DetailedOccurrencePageSkeleton />,
       },
