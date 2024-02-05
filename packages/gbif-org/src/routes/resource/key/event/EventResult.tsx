@@ -68,7 +68,7 @@ export function EventResult({ event }: Props) {
                 <FormattedDate value={event.start} hour="numeric" minute="numeric" />
               </>
             )}
-            {!sameDay && (
+            {event.end && !sameDay && (
               <>
                 {' - '}
                 <FormattedDate value={event.end} year="numeric" month="short" day="numeric" />

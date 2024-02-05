@@ -48,7 +48,7 @@ export function I18nProvider({ locale, children }: Props): React.ReactElement {
       {/* There is an assumption here that the codes provided in the config are valid locale codes recognized by react-intl. This is not checked. */}
       <IntlProvider
         messages={messages || {}}
-        locale={locale.code}
+        locale={locale?.reactIntlLocale ?? locale.code}
         defaultLocale={defaultLocale.code}
       >
         {children}

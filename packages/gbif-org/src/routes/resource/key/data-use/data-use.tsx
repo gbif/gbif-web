@@ -68,12 +68,15 @@ export function DataUsePage() {
           <ArticlePreTitle>
             <FormattedMessage id="cms.contentType.dataUse" />
           </ArticlePreTitle>
+
           <ArticleTitle>{resource.title}</ArticleTitle>
-          <PublishedDate className="mt-2" date={resource.createdAt} />
+
+          {resource.createdAt && <PublishedDate className="mt-2" date={resource.createdAt} />}
 
           {resource.summary && (
             <ArticleIntro dangerouslySetInnerHTML={{ __html: resource.summary }} className="mt-2" />
           )}
+
           <ArticleIntro className="mt-2">
             Data resources used via GBIF : {resource.resourceUsed}
           </ArticleIntro>

@@ -68,6 +68,7 @@ export function ProjectAboutTab() {
           label={<FormattedMessage id="cms.project.status" />}
           value={<FormattedMessage id={`enums.cms.projectStatus.${resource.status}`} />}
         />
+
         {resource.fundsAllocated && (
           <KeyValuePair
             label={<FormattedMessage id="cms.project.funding" />}
@@ -76,6 +77,7 @@ export function ProjectAboutTab() {
             }
           />
         )}
+
         {resource.matchingFunds && (
           <KeyValuePair
             label={<FormattedMessage id="cms.project.coFunding" />}
@@ -84,13 +86,14 @@ export function ProjectAboutTab() {
             }
           />
         )}
+
         <KeyValuePair
           label={<FormattedMessage id="cms.project.typeOfGrant" />}
           value={<FormattedMessage id={`enums.cms.projectGrantType.${resource.grantType}`} />}
         />
 
-        {/* if start and end dates are the same, only show one date */}
-        {resource.start === resource.end ? (
+        {/* if start date and (no end date or start date same as end date), only show one date */}
+        {resource.start && (!resource.end || resource.start === resource.end) && (
           <KeyValuePair
             label={<FormattedMessage id="cms.project.projectStart" />}
             value={
@@ -99,7 +102,10 @@ export function ProjectAboutTab() {
               </span>
             }
           />
-        ) : (
+        )}
+
+        {/* if start date and end date and not same, show duration */}
+        {resource.start && resource.end && resource.start !== resource.end && (
           <KeyValuePair
             label={<FormattedMessage id="cms.project.duration" />}
             value={
@@ -122,10 +128,12 @@ export function ProjectAboutTab() {
           />
         )}
 
-        <KeyValuePair
-          label={<FormattedMessage id="cms.project.projectIdentifier" />}
-          value={resource.projectId}
-        />
+        {resource.projectId && (
+          <KeyValuePair
+            label={<FormattedMessage id="cms.project.projectIdentifier" />}
+            value={resource.projectId}
+          />
+        )}
 
         {resource.secondaryLinks && (
           <ArticleAuxiliary>

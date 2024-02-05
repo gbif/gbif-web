@@ -14,6 +14,7 @@ import { ArticleBody } from '../components/ArticleBody';
 import { PublishedDate } from '../components/PublishedDate';
 import { ArticleAuxiliary } from '../components/ArticleAuxiliary';
 import { ArticleSkeleton } from '../components/ArticleSkeleton';
+import { RenderIfChildren } from '@/components/RenderIfChildren';
 
 const DOCUMENT_QUERY = /* GraphQL */ `
   query Document($key: String!) {
@@ -61,32 +62,30 @@ export function DocumentPage() {
         <div className="max-w-4xl m-auto bg-paperBackground md:shadow-2xl md:p-8 lg:p-16">
           <ArticleTitle>{resource.title}</ArticleTitle>
 
-          <PublishedDate date={resource.createdAt} />
+          {resource.createdAt && <PublishedDate date={resource.createdAt} />}
 
           {resource.summary && (
             <ArticleIntro dangerouslySetInnerHTML={{ __html: resource.summary }} className="mt-2" />
           )}
 
-          {(resource.primaryLink || resource.document) && (
-            <div className="flex gap-4 mt-4">
-              {resource.primaryLink && (
-                <Button asChild>
-                  <DynamicLink to={resource.primaryLink.url}>
-                    {resource.primaryLink.label}
-                  </DynamicLink>
-                </Button>
-              )}
+          <RenderIfChildren className="flex gap-4 mt-4">
+            {resource.primaryLink && (
+              <Button asChild>
+                <DynamicLink to={resource.primaryLink.url}>
+                  {resource.primaryLink.label}
+                </DynamicLink>
+              </Button>
+            )}
 
-              {resource.document?.file?.url && (
-                <Button asChild>
-                  <a className="flex items-center gap-4" href={resource.document.file.url}>
-                    <DownloadIcon size={20} />
-                    <FormattedMessage id="cms.resource.download" />
-                  </a>
-                </Button>
-              )}
-            </div>
-          )}
+            {resource.document?.file?.url && (
+              <Button asChild>
+                <a className="flex items-center gap-4" href={resource.document.file.url}>
+                  <DownloadIcon size={20} />
+                  <FormattedMessage id="cms.resource.download" />
+                </a>
+              </Button>
+            )}
+          </RenderIfChildren>
 
           {resource.body && (
             <ArticleBody dangerouslySetInnerHTML={{ __html: resource.body }} className="mt-10" />

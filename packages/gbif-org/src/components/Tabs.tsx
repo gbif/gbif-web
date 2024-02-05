@@ -62,7 +62,7 @@ export function Tabs({ links }: Props) {
           const visible = idx < visibleTabCount;
 
           return (
-            <li key={to} className={cn({ invisible: !visible }, 'px-1')}>
+            <li key={to} className={cn({ invisible: !visible }, 'pr-1')}>
               <TabLink to={to}>{children}</TabLink>
             </li>
           );

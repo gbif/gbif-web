@@ -15,6 +15,14 @@ const config: CodegenConfig = {
       presetConfig: {
         fragmentMasking: false,
       },
+      config: {
+        scalars: {
+          DateTime: {
+            input: 'string',
+            output: 'string',
+          },
+        },
+      },
     },
   },
 };
