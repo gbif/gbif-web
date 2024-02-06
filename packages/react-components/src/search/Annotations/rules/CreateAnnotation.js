@@ -119,7 +119,7 @@ function AnnotationForm({ polygons, setPolygons, onClose, onCreate, ...props }) 
       if (geometry === '') throw new Error('Geometry is required');
 
       const res = await (axios.post(
-        `${env.ANNOTATION_API}/occurrence/annotation/rule`,
+        `${env.ANNOTATION_API}/occurrence/experimental/annotation/rule`,
         annotationRule,
         {
           headers: signHeaders()
@@ -129,7 +129,7 @@ function AnnotationForm({ polygons, setPolygons, onClose, onCreate, ...props }) 
         const commentData = { comment };
 
         const commentRes = await (axios.post(
-          `${env.ANNOTATION_API}/occurrence/annotation/rule/${res.data.id}/comment`,
+          `${env.ANNOTATION_API}/occurrence/experimental/annotation/rule/${res.data.id}/comment`,
           commentData,
           {
             headers: signHeaders()

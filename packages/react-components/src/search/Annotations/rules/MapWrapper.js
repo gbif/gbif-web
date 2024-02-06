@@ -16,7 +16,7 @@ export const MapWrapper = ({ annotations, onPolygonSelect, polygons, setPolygons
   //     const { v1Filter, error } = filter2v1(currentFilterContext.filter, predicateConfig);
   //     const filter = { ...v1Filter, ...rootPredicate };
 
-  //     const response = await (axios.get('http://labs.gbif.org:7013/v1/occurrence/annotation/rule', { params: filter })).promise;
+  //     const response = await (axios.get('http://labs.gbif.org:7013/v1/occurrence/experimental/annotation/rule', { params: filter })).promise;
   //     setAnnotations(response.data);
   //   };
   //   fetchAnnotations();

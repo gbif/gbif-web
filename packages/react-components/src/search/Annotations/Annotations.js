@@ -46,7 +46,7 @@ function getSuggests({ client, suggestStyle }) {
       placeholder: 'Search by scientific name',
       // how to get the list of suggestion data
       getSuggestions: ({ q }) => {
-        const { promise, cancel } = client.get(`${env.ANNOTATION_API}/occurrence/annotation/project`);
+        const { promise, cancel } = client.get(`${env.ANNOTATION_API}/occurrence/experimental/annotation/project`);
         return {
           cancel,
           promise: promise.then(response => {
@@ -89,7 +89,7 @@ function Annotations(props) {
       labels: {
         projectId: {
           type: 'ENDPOINT',
-          template: ({ id, api }) => `${env.ANNOTATION_API}/occurrence/annotation/project/${id}`,
+          template: ({ id, api }) => `${env.ANNOTATION_API}/occurrence/experimental/annotation/project/${id}`,
           transform: result => ({ title: result.name })
         },
       },

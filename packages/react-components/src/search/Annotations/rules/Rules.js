@@ -37,7 +37,7 @@ function RulesWrapper(props) {
     const fetchAnnotations = async () => {
       const { v1Filter, error } = filter2v1(currentFilterContext.filter, predicateConfig);
       const filter = { ...v1Filter, ...rootPredicate, limit, offset };
-      const { promise, cancel } = axios.get(`${env.ANNOTATION_API}/occurrence/annotation/rule`, { params: filter });
+      const { promise, cancel } = axios.get(`${env.ANNOTATION_API}/occurrence/experimental/annotation/rule`, { params: filter });
       cancelPending = cancel;
       // setCancel(cancel);
       promise.then((response) => {

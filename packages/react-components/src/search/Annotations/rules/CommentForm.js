@@ -12,7 +12,7 @@ export const CommentForm = ({ id, signHeaders, onCreate }) => {
     event.preventDefault();
     try {
       const response = await axios.post(
-        `${env.ANNOTATION_API}/occurrence/annotation/rule/${id}/comment`,
+        `${env.ANNOTATION_API}/occurrence/experimental/annotation/rule/${id}/comment`,
         {
           comment: commentText,
         },

@@ -23,7 +23,7 @@ const Card = ({ broadcastLoginEvent = () => {}, user, signHeaders, annotation, o
   const { geojson, wktError } = geometry;
 
   const fetchComments = useCallback(async () => {
-    const response = await (axios.get(`${env.ANNOTATION_API}/occurrence/annotation/rule/${annotation.id}/comment`)).promise;
+    const response = await (axios.get(`${env.ANNOTATION_API}/occurrence/experimental/annotation/rule/${annotation.id}/comment`)).promise;
     setComments(response.data);
   }, [annotation]);
 
@@ -76,7 +76,7 @@ const Card = ({ broadcastLoginEvent = () => {}, user, signHeaders, annotation, o
     if (!user) {
       return broadcastLoginEvent({type: 'LOGIN_REQUEST'});
     }
-    const response = await axios.delete(`${env.ANNOTATION_API}/occurrence/annotation/rule/${annotation.id}/comment/${id}`,
+    const response = await axios.delete(`${env.ANNOTATION_API}/occurrence/experimental/annotation/rule/${annotation.id}/comment/${id}`,
       {
         headers: signHeaders(),
       });

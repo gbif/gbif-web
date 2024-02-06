@@ -21,7 +21,7 @@ function ProjectWrapper(props) {
   useEffect(() => {
     let cancelPending = null;
     const fetchProjects = async () => {
-      const { promise, cancel } = axios.get(`${env.ANNOTATION_API}/occurrence/annotation/project`);
+      const { promise, cancel } = axios.get(`${env.ANNOTATION_API}/occurrence/experimental/annotation/project`);
       cancelPending = cancel;
       // setCancel(cancel);
       promise.then((response) => {

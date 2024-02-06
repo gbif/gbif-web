@@ -8,7 +8,7 @@ import env from '../../../../.env.json';
 export const AnnotationList = ({ token, annotations, setAnnotations, activeAnnotations, ...props }) => {
   const { user, signHeaders, broadcastLoginEvent } = useContext(UserContext);
   const handleSupport = async (id) => {
-    const response = await (axios.post(`${env.ANNOTATION_API}/occurrence/annotation/rule/${id}/support`,
+    const response = await (axios.post(`${env.ANNOTATION_API}/occurrence/experimental/annotation/rule/${id}/support`,
       null,
       {
         headers: signHeaders(),
@@ -23,7 +23,7 @@ export const AnnotationList = ({ token, annotations, setAnnotations, activeAnnot
   };
 
   const handleContest = async (id) => {
-    const response = await (axios.post(`${env.ANNOTATION_API}/occurrence/annotation/rule/${id}/contest`,
+    const response = await (axios.post(`${env.ANNOTATION_API}/occurrence/experimental/annotation/rule/${id}/contest`,
       null,
       {
         headers: signHeaders(),
@@ -38,7 +38,7 @@ export const AnnotationList = ({ token, annotations, setAnnotations, activeAnnot
   };
 
   const handleRemoveSupport = async (id) => {
-    const response = await (axios.post(`${env.ANNOTATION_API}/occurrence/annotation/rule/${id}/removeSupport`,
+    const response = await (axios.post(`${env.ANNOTATION_API}/occurrence/experimental/annotation/rule/${id}/removeSupport`,
       null,
       {
         headers: signHeaders(),
@@ -53,7 +53,7 @@ export const AnnotationList = ({ token, annotations, setAnnotations, activeAnnot
   };
 
   const handleRemoveContest = async (id) => {
-    const response = await (axios.post(`${env.ANNOTATION_API}/occurrence/annotation/rule/${id}/removeContest`,
+    const response = await (axios.post(`${env.ANNOTATION_API}/occurrence/experimental/annotation/rule/${id}/removeContest`,
       null,
       {
         headers: signHeaders(),
@@ -68,7 +68,7 @@ export const AnnotationList = ({ token, annotations, setAnnotations, activeAnnot
   };
 
   const handleDelete = async (id) => {
-    const response = await axios.delete(`${env.ANNOTATION_API}/occurrence/annotation/rule/${id}`,
+    const response = await axios.delete(`${env.ANNOTATION_API}/occurrence/experimental/annotation/rule/${id}`,
       {
         headers: signHeaders(),
       });
