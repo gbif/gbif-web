@@ -19,6 +19,8 @@ import gbifRasterIUCN4326 from './4326/gbif-raster-iucn';
 import satellite3031 from './3031/satellite';
 import satellite3857_maptiler from './3857/satellite_maptiler';
 import satellite3857_bing from './3857/satellite_bing';
+import axios from 'axios';
+import config from '../../config';
 
 const router = Router();
 
@@ -68,8 +70,8 @@ router.get('/4326/gbif-raster-iucn-volatile', async (req, res, next) => {
   if (taxonKey && !query.iucnTaxonID) {
     try {
       // fetch the IUCN Redlist category, and from that the species entry. From there we can get to the taxonID that is used in the map tiles
-      const iucnRedListCategory = (await axios.get(`https://api.gbif.org/v1/species/${taxonKey}/iucnRedListCategory`)).data;
-      const iucnSpecies = (await axios.get(`https://api.gbif.org/v1/species/${iucnRedListCategory.usageKey}`)).data;
+      const iucnRedListCategory = (await axios.get(`${config.apiv1}/species/${taxonKey}/iucnRedListCategory`)).data;
+      const iucnSpecies = (await axios.get(`${config.apiv1}/species/${iucnRedListCategory.usageKey}`)).data;
       const iucnTaxonID = iucnSpecies.taxonID;
       query.iucnTaxonID = iucnTaxonID;
     } catch (err) {
