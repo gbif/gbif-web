@@ -8,7 +8,7 @@ export default function ({ iucnTaxonID, styleName, language, pixelRatio }) {
     metadata: {
       'gb:reproject': true,
     },
-    sprite: `${config.domain}/map/iucn/sprite`,
+    sprite: `${config.origin}/map/iucn/sprite`,
     sources: {
       iucn: {
         type: 'vector',
