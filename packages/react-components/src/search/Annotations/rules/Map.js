@@ -167,7 +167,7 @@ const Map = ({ data, polygons, setPolygons, onPolygonSelect }) => {
             popupOverlay.setPosition(undefined);
             popupCloseRef.current.blur();
             setSelectedFeatures();
-            selectClick.getFeatures().clear();
+            // selectClick.getFeatures().clear();
             return false;
           };
 
