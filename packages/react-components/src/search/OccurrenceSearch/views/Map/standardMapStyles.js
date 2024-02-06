@@ -49,10 +49,10 @@ export function getMapStyles({ apiKeys = {}, language = 'en' }) {
       }
     },
     BRIGHT_IUCN_PLATE_CAREE: {
-      labelKey: 'map.styles.bright_iucn',
+      labelKey: 'IUCN',//TODO: add translation
       component: MapComponentOL,
       mapConfig: {
-        basemapStyle: `${env.MAP_STYLES}/4326/gbif-raster-iucn?${light}`,
+        basemapStyle: `${env.MAP_STYLES}/4326/gbif-raster-iucn-volatile?${light}`,
         projection: 'EPSG_4326'
       }
     },
