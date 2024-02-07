@@ -1,55 +1,44 @@
 import { jsx, css } from '@emotion/react';
 import React, { useState, useEffect, useContext } from 'react';
-import { Button, ErrorBoundary, Input } from '../../../components';
+import { ErrorBoundary, Input } from '../../../components';
 import { FormattedNumber } from 'react-intl';
 import { FilterContext } from '../../../widgets/Filter/state';
 import axios from '../../../dataManagement/api/axios';
-import UserContext from '../../../dataManagement/UserProvider/UserContext';
 import env from '../../../../.env.json';
 import { StringParam, useQueryParam } from 'use-query-params';
 
 /*
-This component is a widget that allows the user to search for annotation projects. 
-When clicking a project, the user can view the annotations associated with that project.
+This component is a widget that allows the user to search for annotation rulesets. 
+When clicking a ruleset, the user can view the annotations associated with that ruleset.
  */
-function ProjectWrapper(props) {
-  const [projects, setProjects] = useState([]);
-  const [q, setQ] = useState('');
+function RulesetWrapper(props) {
+  const [rulesets, setRulesets] = useState([]);
+  const [projectId = '', setProjectId] = useQueryParam('projectId', StringParam);
   const { setField } = useContext(FilterContext);
   const [activeView, setActiveView] = useQueryParam('view', StringParam);
 
   useEffect(() => {
     let cancelPending = null;
-    const fetchProjects = async () => {
-      const { promise, cancel } = axios.get(`${env.ANNOTATION_API}/occurrence/experimental/annotation/project`);
+    const fetchRulesets = async () => {
+      const { promise, cancel } = axios.get(`${env.ANNOTATION_API}/occurrence/experimental/annotation/ruleset?projectId=${projectId}`);
       cancelPending = cancel;
       // setCancel(cancel);
       promise.then((response) => {
-        setProjects(response.data);
+        setRulesets(response.data);
       });
     };
 
-    fetchProjects();
+    fetchRulesets();
     return () => {
       if (cancelPending) {
         cancelPending();
       }
     }
-  }, []);
-
-  // filter projects by search query, look in name, description and members
-  const filteredProjects = projects.filter(x => {
-    if (typeof q !== 'string' || q === '') return true;
-    const name = x.name.toLowerCase();
-    const description = x.description.toLowerCase();
-    const members = x.members.map(x => x.toLowerCase()).join(' ');
-    const query = q.toLowerCase();
-    return name.includes(query) || description.includes(query) || members.includes(query);
-  });
+  }, [projectId]);
 
   return <ErrorBoundary>
     <div css={css`text-align: center; margin: 12px 0 24px 0;`}>
-      <Input style={{ maxWidth: 500, padding: 24 }} changeHandler={q} placeholder="Search projects" onChange={(e) => setQ(e.currentTarget.value)} />
+      <Input style={{ maxWidth: 500, padding: 24 }} value={projectId} placeholder="Enter project ID" onChange={(e) => setProjectId(e.currentTarget.value)} />
     </div>
     <div css={css`
         width: 100%; 
@@ -65,9 +54,9 @@ function ProjectWrapper(props) {
           >li {
             margin-bottom: 12px;
           }`}>
-          {filteredProjects.map(x => <li key={x.id}><Project project={x} addProjectFilter={(id) => {
-            setField('projectId', [id]);
-            setActiveView('RULESETS');
+          {rulesets.map(x => <li key={x.id}><Ruleset ruleset={x} addRulesetFilter={(id) => {
+            setField('rulesetId', [id]);
+            setActiveView('RULES');
           }} /></li>)}
         </ul>
       </div>
@@ -75,7 +64,7 @@ function ProjectWrapper(props) {
   </ErrorBoundary>
 }
 
-export default ProjectWrapper;
+export default RulesetWrapper;
 
 var hash = function (str) {
   var hash = 0, i, chr;
@@ -88,7 +77,7 @@ var hash = function (str) {
   return hash;
 };
 
-function Project({ project, addProjectFilter, ...props }) {
+function Ruleset({ ruleset, addRulesetFilter, ...props }) {
   // hard coded list of nice retro color pairs used for backgrounds and text
   const colors = [
     { background: "#001219", text: "#ffffffaa" },
@@ -103,7 +92,7 @@ function Project({ project, addProjectFilter, ...props }) {
     { background: "#9b2226", text: "#ffffffaa" }
 
   ];
-  const palette = colors[Math.abs(hash(project.name) * project.id) % colors.length];
+  const palette = colors[Math.abs(hash(ruleset.name) * ruleset.id) % colors.length];
 
   return <article css={css`
     background: white; 
@@ -112,7 +101,7 @@ function Project({ project, addProjectFilter, ...props }) {
     box-shadow: 0 0 4px rgba(0,0,0,0.2);
     position: relative;
     `}>
-    <a href="#" onClick={() => addProjectFilter(project.id)} css={css`position: absolute; top: 0; right: 0; bottom: 0; left: 0;`}></a>
+    <a href="#" onClick={() => addRulesetFilter(ruleset.id)} css={css`position: absolute; top: 0; right: 0; bottom: 0; left: 0;`}></a>
     <div css={css`
       font-size: 250px;
       font-weight: 900;
@@ -122,15 +111,15 @@ function Project({ project, addProjectFilter, ...props }) {
       background: ${palette.background};
       color: ${palette.text};
       `}>
-      <div style={{ marginTop: -50 }}>{project.name}</div>
+      <div style={{ marginTop: -50 }}>{ruleset.name}</div>
     </div>
     <div css={css`padding: 16px;`}>
-      <h1>{project.name}</h1>
-      <p>{project.description}</p>
+      <h1>{ruleset.name}</h1>
+      <p>{ruleset.description}</p>
       <div>
         {/* If more than 5 members, then show count, else show individual names */}
-        {project.members.length > 5 && <span>Members: <FormattedNumber value={project.members.length} /></span>}
-        {project.members.length <= 5 && <span>Members: {project.members.join(', ')}</span>}
+        {ruleset.members.length > 5 && <span>Members: <FormattedNumber value={ruleset.members.length} /></span>}
+        {ruleset.members.length <= 5 && <span>Members: {ruleset.members.join(', ')}</span>}
         {/* Rules: <FormattedNumber value={2} /> */}
       </div>
     </div>

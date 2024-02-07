@@ -4,6 +4,11 @@
     "count": "{num, plural, one { project } other {# projects}}",
     "description": "The annotation project the rule belongs to"
   },
+  "annotationRuleset": {
+    "name": "Ruleset",
+    "count": "{num, plural, one { ruleset } other {# rulesets}}",
+    "description": "The annotation ruleset the rule belongs to"
+  },
   "dwcaExtension": {
     "name": "Dwca extension",
     "count": "{num, plural, one { Dwca extension } other {# Dwca extensions}}",

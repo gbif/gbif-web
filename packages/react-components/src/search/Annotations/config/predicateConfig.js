@@ -8,6 +8,9 @@ const filterConf = {
     projectId: {
       singleValue: true
     },
+    rulesetId: {
+      singleValue: true
+    },
     datasetKey: {
       singleValue: true
     }

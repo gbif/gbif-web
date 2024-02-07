@@ -13,6 +13,7 @@ import { FormattedMessage } from 'react-intl';
 import RulesWrapper from './rules/Rules';
 import ProjectWrapper from './projects/Projects';
 import { StringParam, useQueryParam } from 'use-query-params';
+import RulesetWrapper from './rulesets/Rulesets';
 
 const Layout = ({
   className = '',
@@ -34,6 +35,7 @@ const Layout = ({
           <NavBar style={{ marginLeft: 10 }}>
             <NavItem label={<FormattedMessage id="search.tabs.rules" defaultMessage="Rules" />} data-targetid="rules" onClick={e => setActiveView('RULES')} isActive={activeView === 'RULES'} />
             <NavItem label={<FormattedMessage id="search.tabs.projects" defaultMessage="Projects" />} data-targetid="projects" onClick={e => setActiveView('PROJECTS')} isActive={activeView === 'PROJECTS'} />
+            <NavItem label={<FormattedMessage id="search.tabs.rulesets" defaultMessage="Rulesets" />} data-targetid="rulesets" onClick={e => setActiveView('RULESETS')} isActive={activeView === 'RULESETS'} />
           </NavBar>
         </DataHeader>
         {activeView === 'RULES' && <div css={cssFilter({ theme })}>
@@ -43,6 +45,7 @@ const Layout = ({
       <div css={cssViewArea({ theme })}>
         {activeView === 'RULES' && <RulesWrapper />}
         {activeView === 'PROJECTS' && <ProjectWrapper />}
+        {activeView === 'RULESETS' && <RulesetWrapper />}
       </div>
     </Tabs>
   </div>

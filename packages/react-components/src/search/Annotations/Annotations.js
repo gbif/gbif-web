@@ -43,10 +43,40 @@ function getSuggests({ client, suggestStyle }) {
   return {
     annotationProject: {
       //What placeholder to show
-      placeholder: 'Search by scientific name',
+      placeholder: 'Search by project name',
       // how to get the list of suggestion data
       getSuggestions: ({ q }) => {
         const { promise, cancel } = client.get(`${env.ANNOTATION_API}/occurrence/experimental/annotation/project`);
+        return {
+          cancel,
+          promise: promise.then(response => {
+            if (response.status === 200) {
+              response.data = searchJsonObjects(response.data, q).map(x => ({ title: x.name, key: x.id, ...x }));
+            }
+            return response;
+          })
+        }
+      },
+      // how to map the results to a single string value
+      getValue: suggestion => suggestion.title,
+      // how to display the individual suggestions in the list
+      render: function AnnotationProjectSuggestItem(suggestion) {
+        return <div style={{ maxWidth: '100%' }}>
+          <div>
+            {suggestion.title}
+          </div>
+          {/* <div style={{ color: '#aaa', fontSize: '0.85em' }}>
+            <Classification taxon={suggestion} />
+          </div> */}
+        </div>
+      }
+    },
+    annotationRuleset: {
+      //What placeholder to show
+      placeholder: 'Search by ruleset name',
+      // how to get the list of suggestion data
+      getSuggestions: ({ q }) => {
+        const { promise, cancel } = client.get(`${env.ANNOTATION_API}/occurrence/experimental/annotation/ruleset`);
         return {
           cancel,
           promise: promise.then(response => {
@@ -92,6 +122,11 @@ function Annotations(props) {
           template: ({ id, api }) => `${env.ANNOTATION_API}/occurrence/experimental/annotation/project/${id}`,
           transform: result => ({ title: result.name })
         },
+        rulesetId: {
+          type: 'ENDPOINT',
+          template: ({ id, api }) => `${env.ANNOTATION_API}/occurrence/experimental/annotation/ruleset/${id}`,
+          transform: result => ({ title: result.name })
+        },
       },
       filters: {
         projectId: {
@@ -106,6 +141,23 @@ function Annotations(props) {
             },
             specific: {
               suggestHandle: 'annotationProject',
+              allowEmptyQueries: true,
+              singleSelect: true
+            }
+          }
+        },
+        rulesetId: {
+          type: 'SUGGEST',
+          config: {
+            std: {
+              translations: {
+                count: 'filters.annotationRuleset.count', // translation path to display names with counts. e.g. "3 scientific names"
+                name: 'filters.annotationRuleset.name',// translation path to a title for the popover and the button
+                description: 'filters.annotationRuleset.description', // translation path for the filter description
+              },
+            },
+            specific: {
+              suggestHandle: 'annotationRuleset',
               allowEmptyQueries: true,
               singleSelect: true
             }

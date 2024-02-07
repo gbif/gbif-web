@@ -89,6 +89,7 @@ const Map = ({ data, polygons, setPolygons, onPolygonSelect }) => {
     // remove projectId from filter
     const prunedFilter = JSON.parse(JSON.stringify(currentFilterContext.filter));
     delete prunedFilter?.must?.projectId;
+    delete prunedFilter?.must?.rulesetId;
 
     // if there is no datasetKey of taxonKey filters, then add a taxonKey filter with an impossible value to ensure nothing is shown
     let optionalExcludeAllPredicate;
