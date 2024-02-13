@@ -14,6 +14,7 @@ import { ArticleContainer } from '../../components/ArticleContainer';
 import { ArticleTextContainer } from '../../components/ArticleTextContainer';
 import { ArticleTitle } from '../../components/ArticleTitle';
 import { cn } from '@/utils/shadcn';
+import { useI18n } from '@/contexts/i18n';
 
 fragmentManager.register(/* GraphQL */ `
   fragment CarouselBlockDetails on CarouselBlock {
@@ -42,6 +43,7 @@ export function CarouselBlock({ resource }: Props) {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
+  const { locale } = useI18n();
 
   useEffect(() => {
     if (!api) return;
@@ -60,7 +62,10 @@ export function CarouselBlock({ resource }: Props) {
         <ArticleTitle>{resource.title}</ArticleTitle>
       </ArticleTextContainer>
       <div className="max-w-6xl w-full p-10 m-auto">
-        <Carousel opts={{ loop: true, align: 'center' }} setApi={setApi}>
+        <Carousel
+          opts={{ loop: true, align: 'center', direction: locale.textDirection }}
+          setApi={setApi}
+        >
           <CarouselContent>
             {resource.features?.map((feature) => (
               <CarouselItem key={feature.id}>

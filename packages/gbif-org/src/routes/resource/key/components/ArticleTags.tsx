@@ -2,6 +2,7 @@ import { ArticleAuxiliary } from './ArticleAuxiliary';
 import { FormattedMessage } from 'react-intl';
 import { Pills } from './Pills';
 import { notNull } from '@/utils/notNull';
+import { RenderIfChildren } from '@/components/RenderIfChildren';
 
 type Props = {
   resource?: {
@@ -14,17 +15,12 @@ type Props = {
 };
 
 export function ArticleTags({ className, resource = {} }: Props) {
-  if (
-    !resource.countriesOfCoverage &&
-    !resource.topics &&
-    !resource.audiences &&
-    !resource.purposes
-  ) {
-    return;
-  }
-
   return (
-    <ArticleAuxiliary label="Subject" className={className}>
+    <RenderIfChildren
+      as={ArticleAuxiliary}
+      className={className}
+      label={<FormattedMessage id="cms.auxiliary.subject" />}
+    >
       {resource.countriesOfCoverage && (
         <Pills
           label={<FormattedMessage id="filters.country.name" />}
@@ -64,6 +60,6 @@ export function ArticleTags({ className, resource = {} }: Props) {
           }))}
         />
       )}
-    </ArticleAuxiliary>
+    </RenderIfChildren>
   );
 }

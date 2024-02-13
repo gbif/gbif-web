@@ -15,6 +15,7 @@ import { RouteId, useParentRouteLoaderData } from '@/hooks/useParentRouteLoaderD
 import { TabListSkeleton } from './TabListSkeleton';
 import { DynamicLink } from '@/components/DynamicLink';
 import { isPositiveNumber } from '@/utils/isPositiveNumber';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
 
 fragmentManager.register(/* GraphQL */ `
   fragment ProjectDatasetsTab on GbifProject {
@@ -143,16 +144,18 @@ export function DatasetResult({
           <div className="text-sm text-slate-500 mt-2">
             <div className="flex items-center">
               <span className="align-middle bg-slate-300/50 text-slate-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
-                {dataset.type}
+                <FormattedMessage id={`enums.datasetType.${dataset.type}`} />
               </span>
               {isPositiveNumber(counts?.literatureCount) && (
                 <span className="align-middle bg-slate-300/50 text-slate-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
-                  Citations: {counts?.literatureCount}
+                  <FormattedMessage id="tableHeaders.citations" />:{' '}
+                  <FormattedNumber value={counts.literatureCount} />
                 </span>
               )}
               {isPositiveNumber(counts?.occurrenceCount) && (
                 <span className="align-middle bg-slate-300/50 text-slate-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
-                  Occurrences: {counts?.occurrenceCount}
+                  <FormattedMessage id="tableHeaders.occurrences" />:{' '}
+                  <FormattedNumber value={counts.occurrenceCount} />
                 </span>
               )}
             </div>

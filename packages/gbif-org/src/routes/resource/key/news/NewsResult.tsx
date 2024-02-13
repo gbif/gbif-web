@@ -2,6 +2,7 @@ import { MdCalendarToday } from 'react-icons/md';
 import { FormattedDate } from 'react-intl';
 import { NewsResultFragment } from '@/gql/graphql';
 import { fragmentManager } from '@/services/FragmentManager';
+import { DynamicLink } from '@/components/DynamicLink';
 
 fragmentManager.register(/* GraphQL */ `
   fragment NewsResult on News {
@@ -26,7 +27,7 @@ export function NewsResult({ news }: Props) {
   return (
     <article className="bg-slate-50 p-4 rounded border mb-4">
       <h3 className="flex-auto text-base font-semibold mb-2">
-        <a href={link}>{news.title}</a>
+        <DynamicLink to={link}>{news.title}</DynamicLink>
       </h3>
       <div className="font-normal text-slate-500 text-sm flex">
         <div className="flex-auto">
@@ -43,12 +44,12 @@ export function NewsResult({ news }: Props) {
         </div>
         {news?.primaryImage?.file?.url && (
           <div className="flex-none">
-            <a href={link} tabIndex={-1}>
+            <DynamicLink to={link} tabIndex={-1}>
               <img
                 className="w-32 border border-slate-200/50 rounded ms-4"
                 src={news.primaryImage.file.url}
               />
-            </a>
+            </DynamicLink>
           </div>
         )}
       </div>

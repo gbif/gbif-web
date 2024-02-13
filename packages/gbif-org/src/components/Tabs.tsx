@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { DynamicLink } from './DynamicLink';
 import { MdMoreHoriz } from 'react-icons/md';
+import { useI18n } from '@/contexts/i18n';
 
 export type Props = {
   links: Array<{ to: string; children: React.ReactNode }>;
@@ -20,6 +21,7 @@ export function Tabs({ links }: Props) {
   const dropdownMenuTriggerRef = useRef<HTMLButtonElement>(null);
   const [visibleTabCount, setVisibleTabCount] = useState(0);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const { locale } = useI18n();
 
   useEffect(() => {
     function updateVisibleTabCount() {
@@ -62,7 +64,7 @@ export function Tabs({ links }: Props) {
           const visible = idx < visibleTabCount;
 
           return (
-            <li key={to} className={cn({ invisible: !visible }, 'px-1')}>
+            <li key={to} className={cn({ invisible: !visible }, 'pr-1')}>
               <TabLink to={to}>{children}</TabLink>
             </li>
           );
@@ -72,8 +74,12 @@ export function Tabs({ links }: Props) {
         <DropdownMenuTrigger
           ref={dropdownMenuTriggerRef}
           className={cn(
-            { invisible: visibleTabCount === links.length },
-            'absolute right-0 pr-3 top-1/2 -translate-y-1/2'
+            {
+              invisible: visibleTabCount === links.length,
+              'right-0 pr-3': locale.textDirection === 'ltr',
+              'left-0 pl-3': locale.textDirection === 'rtl',
+            },
+            'absolute top-1/2 -translate-y-1/2'
           )}
         >
           <MdMoreHoriz className="text-2xl" />

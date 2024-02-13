@@ -71,7 +71,9 @@ export function ToolPage() {
 
           <ArticleTitle>{resource.title}</ArticleTitle>
 
-          <PublishedDate className="mt-2" date={resource.publicationDate} />
+          {resource.publicationDate && (
+            <PublishedDate className="mt-2" date={resource.publicationDate} />
+          )}
 
           {resource.summary && (
             <ArticleIntro dangerouslySetInnerHTML={{ __html: resource.summary }} className="mt-2" />

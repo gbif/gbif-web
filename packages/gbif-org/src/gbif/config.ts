@@ -40,6 +40,7 @@ export const gbifConfig: InputConfig = {
       label: 'العربية',
       default: false,
       textDirection: 'rtl',
+      reactIntlLocale: 'ar-SA',
     },
   ],
   occurrencePredicate: {

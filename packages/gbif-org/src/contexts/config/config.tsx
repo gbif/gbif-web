@@ -16,6 +16,7 @@ export type InputConfig = {
     default: boolean;
     textDirection: 'ltr' | 'rtl';
     cmsLocale?: string; // this is the locale code used by the CMS
+    reactIntlLocale?: string; // this is the locale code used by react-intl
   }[];
   occurrencePredicate: any;
   pages?: PageConfig[];

@@ -15,6 +15,7 @@ import { ArticleAuxiliary } from '../components/ArticleAuxiliary';
 import { SecondaryLinks } from '../components/SecondaryLinks';
 import { Documents } from '../components/Documents';
 import { ArticleSkeleton } from '../components/ArticleSkeleton';
+import { FormattedMessage } from 'react-intl';
 
 const ARTICLE_QUERY = /* GraphQL */ `
   query Article($key: String!) {
@@ -62,8 +63,6 @@ export function ArticlePage() {
 
       <ArticleContainer>
         <ArticleTextContainer className="mb-10">
-          {/* <ArticlePreTitle>News</ArticlePreTitle> */}
-
           <ArticleTitle>{resource.title}</ArticleTitle>
 
           {resource.summary && (
@@ -99,7 +98,7 @@ export function ArticlePage() {
           )}
 
           {resource.citation && (
-            <ArticleAuxiliary label="Citation">
+            <ArticleAuxiliary label={<FormattedMessage id="cms.auxiliary.citation" />}>
               <div dangerouslySetInnerHTML={{ __html: resource.citation }} />
             </ArticleAuxiliary>
           )}

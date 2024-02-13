@@ -98,7 +98,9 @@ export function NewsPageSkeleton() {
   return (
     <ArticleContainer>
       <ArticleTextContainer>
-        <ArticlePreTitle>News</ArticlePreTitle>
+        <ArticlePreTitle>
+          <FormattedMessage id="cms.contentType.news" />
+        </ArticlePreTitle>
         <ArticleTitleSkeleton className="mt-3" />
         <PublishedDateSkeleton className="mt-3" />
         <ArticleIntroSkeleton className="mt-3" />

@@ -9,8 +9,7 @@ import { ArticleIntro } from '../components/ArticleIntro';
 import { ArticleTextContainer } from '../components/ArticleTextContainer';
 import { ArticleBody } from '../components/ArticleBody';
 import { Button } from '@/components/ui/button';
-import { FormattedMessage } from 'react-intl';
-import { useI18n } from '@/contexts/i18n';
+import { FormattedDate, FormattedDateTimeRange, FormattedMessage, FormattedTime } from 'react-intl';
 import { KeyValuePair } from '../components/KeyValuePair';
 import { MdCalendarMonth } from 'react-icons/md';
 import { SecondaryLinks } from '../components/SecondaryLinks';
@@ -18,6 +17,7 @@ import { ArticleAuxiliary } from '../components/ArticleAuxiliary';
 import { required } from '@/utils/required';
 import { useLoaderData } from 'react-router-dom';
 import { ArticleSkeleton } from '../components/ArticleSkeleton';
+import { ClientSideOnly } from '@/components/ClientSideOnly';
 
 const EVENT_QUERY = /* GraphQL */ `
   query Event($key: String!) {
@@ -43,6 +43,7 @@ const EVENT_QUERY = /* GraphQL */ `
       end
       eventLanguage
       venue
+      allDayEvent
     }
   }
 `;
@@ -55,13 +56,12 @@ export async function eventPageLoader({ params, graphql }: LoaderArgs) {
 
 export function EventPage() {
   const { data } = useLoaderData() as { data: EventQuery };
-  const { locale } = useI18n();
 
   if (data.event == null) throw new Error('404');
   const resource = data.event;
 
   const startDate = new Date(resource.start);
-  const endDate = new Date(resource.end);
+  const endDate = resource.end ? new Date(resource.end) : undefined;
 
   return (
     <>
@@ -72,8 +72,16 @@ export function EventPage() {
       <ArticleContainer>
         <ArticleTextContainer className="mb-10">
           <ArticlePreTitle className="flex items-center gap-4 mt-2">
-            <span>{getDateRange(startDate, endDate, locale.code)}</span>
-            <span>{getTimeRange(startDate, endDate, locale.code)}</span>
+            <ClientSideOnly>
+              <span>
+                <DateRange start={startDate} end={endDate} />
+              </span>
+              {!resource.allDayEvent && (
+                <span>
+                  <TimeRange start={startDate} end={endDate} />
+                </span>
+              )}
+            </ClientSideOnly>
             {resource.country && <FormattedMessage id={`enums.topics.${resource.country}`} />}
           </ArticlePreTitle>
 
@@ -84,11 +92,12 @@ export function EventPage() {
           )}
 
           <Button className="mt-4" asChild>
-            <a href={`https://www.gbif.org/api/newsroom/events/${resource.id}.ics`}>
-              <MdCalendarMonth />{' '}
-              <span className="pl-2">
-                <FormattedMessage id="cms.resource.addToCalendar" />
-              </span>
+            <a
+              href={`https://www.gbif.org/api/newsroom/events/${resource.id}.ics`}
+              className="flex gap-2"
+            >
+              <MdCalendarMonth />
+              <FormattedMessage id="cms.resource.addToCalendar" />
             </a>
           </Button>
         </ArticleTextContainer>
@@ -126,7 +135,15 @@ export function EventPage() {
           <KeyValuePair
             className="mt-1"
             label={<FormattedMessage id="cms.resource.when" />}
-            value={getDateAndTimeRange(startDate, endDate, locale.code)}
+            value={
+              <ClientSideOnly>
+                <DateTimeRange
+                  start={startDate}
+                  end={endDate}
+                  allDay={resource.allDayEvent ?? undefined}
+                />
+              </ClientSideOnly>
+            }
           />
         </ArticleTextContainer>
       </ArticleContainer>
@@ -138,59 +155,46 @@ export function EventPageSkeleton() {
   return <ArticleSkeleton />;
 }
 
-// Examples of return value:
-// 10 - 13 October 2023
-// 14 December 2023
-function getDateRange(startDate: Date, endDate: Date, locale: string): string {
-  const startDay = startDate.getDate();
-  const startMonth = startDate.toLocaleString(locale, { month: 'long' });
-  const startYear = startDate.getFullYear();
+type RangeProps = {
+  start: Date;
+  end?: Date;
+};
 
-  const endDay = endDate.getDate();
-  const endMonth = endDate.toLocaleString(locale, { month: 'long' });
-  const endYear = endDate.getFullYear();
+const isSameDate = (a: Date, b: Date) =>
+  a.getDate() === b.getDate() &&
+  a.getMonth() === b.getMonth() &&
+  a.getFullYear() === b.getFullYear();
 
-  if (startMonth === endMonth && startYear === endYear) {
-    return `${startDay} - ${endDay} ${startMonth} ${startYear}`;
-  }
+function DateRange({ start, end }: RangeProps) {
+  const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' } as const;
 
-  if (startYear === endYear) {
-    return `${startDay} ${startMonth} - ${endDay} ${endMonth} ${startYear}`;
-  }
+  if (end && !isSameDate(start, end))
+    return <FormattedDateTimeRange from={start} to={end} {...dateOptions} />;
 
-  return `${startDay} ${startMonth} ${startYear} - ${endDay} ${endMonth} ${endYear}`;
+  return <FormattedDate value={start} {...dateOptions} />;
 }
 
-// Examples of return value:
-// 15:00 - 16:30 CET
-// 09:00 - 19:00 CEST
-function getTimeRange(startDate: Date, endDate: Date, locale: string): string {
-  const startHour = startDate.getHours().toString().padStart(2, '0');
-  const startMinute = startDate.getMinutes().toString().padStart(2, '0');
-  const endHour = endDate.getHours().toString().padStart(2, '0');
-  const endMinute = endDate.getMinutes().toString().padStart(2, '0');
+function TimeRange({ start, end }: RangeProps) {
+  const timeOptions = { hour: 'numeric', minute: 'numeric' } as const;
 
-  const timeZone = getTimeZoneFromDateAndLocale(startDate, locale);
+  if (!end) return <FormattedTime value={start} {...timeOptions} />;
 
-  return `${startHour}:${startMinute} - ${endHour}:${endMinute} ${timeZone}`;
+  // Make a copy of the end date and overwrite the date/month/year with the start date
+  const mockEnd = new Date(end);
+  mockEnd.setDate(start.getDate());
+  mockEnd.setMonth(start.getMonth());
+  mockEnd.setFullYear(start.getFullYear());
+
+  return <FormattedDateTimeRange from={start} to={mockEnd} {...timeOptions} />;
 }
 
-// Examples of return value:
-// 10 October 2023 09:00 - 13 October 2023 19:00
-// 14 December 2023 15:00 - 16:30
-function getDateAndTimeRange(startDate: Date, endDate: Date, locale: string): string {
-  const dateRange = getDateRange(startDate, endDate, locale);
-  const timeRange = getTimeRange(startDate, endDate, locale);
+function DateTimeRange({ start, end, allDay }: RangeProps & { allDay: boolean | undefined }) {
+  const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' } as const;
+  const timeOptions = { hour: 'numeric', minute: 'numeric' } as const;
 
-  return `${dateRange} ${timeRange}`;
-}
-
-function getTimeZoneFromDateAndLocale(date: Date, locale: string): string {
-  const formatter = new Intl.DateTimeFormat(locale, {
-    timeZoneName: 'short',
-  });
-  const parts = formatter.formatToParts(date);
-  const timeZonePart = parts.find((part) => part.type === 'timeZoneName');
-
-  return timeZonePart?.value ?? '';
+  if (end && allDay) return <FormattedDateTimeRange from={start} to={end} {...dateOptions} />;
+  if (end)
+    return <FormattedDateTimeRange from={start} to={end} {...dateOptions} {...timeOptions} />;
+  if (allDay) return <FormattedDate value={start} {...dateOptions} />;
+  return <FormattedDate value={start} {...dateOptions} {...timeOptions} />;
 }

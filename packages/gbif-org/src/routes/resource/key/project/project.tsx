@@ -7,10 +7,13 @@ import { ArticleTextContainer } from '../components/ArticleTextContainer';
 import { ArticlePreTitle } from '../components/ArticlePreTitle';
 import { Tabs } from '@/components/Tabs';
 import { Outlet, useLoaderData } from 'react-router-dom';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedDateTimeRange, FormattedNumber } from 'react-intl';
 import { MdLink } from 'react-icons/md';
 import { required } from '@/utils/required';
 import { ArticleSkeleton } from '../components/ArticleSkeleton';
+import { MdCalendarMonth as CalendarIcon } from 'react-icons/md';
+import { MdEuro as EuroIcon } from 'react-icons/md';
+import { RenderIfChildren } from '@/components/RenderIfChildren';
 
 const PROJECT_QUERY = /* GraphQL */ `
   query Project($key: String!) {
@@ -18,6 +21,9 @@ const PROJECT_QUERY = /* GraphQL */ `
       # Define the values used by this page
       title
       status
+      start
+      end
+      fundsAllocated
       primaryLink {
         label
         url
@@ -54,18 +60,40 @@ export function ProjectPage() {
       </Helmet>
 
       <ArticleContainer>
-        <ArticleTextContainer className="mb-10">
+        <ArticleTextContainer className="mb-6">
           <ArticlePreTitle>
             <FormattedMessage id="cms.contentType.project" />
           </ArticlePreTitle>
 
           <ArticleTitle title={resource.title}>
             {isClosed && (
-              <span className="align-middle bg-red-100 text-red-800 text-sm font-medium ml-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
+              <span className="align-middle bg-red-100 text-red-800 text-sm font-medium ms-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
                 <FormattedMessage id={`enums.cms.projectStatus.${resource.status}`} />
               </span>
             )}
           </ArticleTitle>
+
+          <RenderIfChildren className="mt-2 text-slate-500 dark:text-gray-400 text-sm font-medium flex items-center gap-6">
+            {resource.start && resource.end && (
+              <p className="flex items-center gap-1">
+                <CalendarIcon size={18} />
+                <FormattedDateTimeRange
+                  from={new Date(resource.start)}
+                  to={new Date(resource.end)}
+                  month="long"
+                  day="numeric"
+                  year="numeric"
+                />
+              </p>
+            )}
+
+            {resource.fundsAllocated && (
+              <p className="flex items-center gap-1">
+                <EuroIcon size={18} />
+                <FormattedNumber value={resource.fundsAllocated} />
+              </p>
+            )}
+          </RenderIfChildren>
         </ArticleTextContainer>
         <ArticleTextContainer>
           <Tabs links={tabLinks} />

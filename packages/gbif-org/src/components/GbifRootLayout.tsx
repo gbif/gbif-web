@@ -42,9 +42,9 @@ export function GbifRootLayout({ children }: Props) {
 
   return (
     <>
-      <header style={{ display: 'flex', gap: '10px' }}>
+      <header className="flex gap-3 fixed bg-white shadow-sm px-2 h-10 w-full z-10 items-center">
         <LanguageSelector />
-        <nav style={{ display: 'flex', gap: '10px' }}>
+        <nav className="flex gap-3">
           <DynamicLink as={NavLink} to="/">
             Home
           </DynamicLink>
@@ -53,7 +53,7 @@ export function GbifRootLayout({ children }: Props) {
           </DynamicLink>
         </nav>
       </header>
-      <main className="bg-background">{children}</main>
+      <main className="bg-background pt-10">{children}</main>
     </>
   );
 }
