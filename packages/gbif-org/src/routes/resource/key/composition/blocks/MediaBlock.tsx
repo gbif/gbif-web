@@ -53,6 +53,7 @@ export function MediaBlock({ resource, insideCarousel = false }: Props) {
     </ArticleContainer>
   );
 }
+
 function MediaBlockContent({
   resource,
   insideCarousel,

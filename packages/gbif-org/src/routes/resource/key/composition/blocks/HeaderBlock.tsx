@@ -6,6 +6,7 @@ import { ArticlePreTitle } from '../../components/ArticlePreTitle';
 import { ArticleTextContainer } from '../../components/ArticleTextContainer';
 import { ArticleTitle } from '../../components/ArticleTitle';
 import { fragmentManager } from '@/services/FragmentManager';
+import { FormattedMessage } from 'react-intl';
 
 fragmentManager.register(/* GraphQL */ `
   fragment HeaderBlockDetails on HeaderBlock {
@@ -27,7 +28,11 @@ export function HeaderBlock({ resource }: Props) {
   return (
     <ArticleContainer>
       <ArticleTextContainer>
-        {resource.type && <ArticlePreTitle>{resource.type} - needs translating</ArticlePreTitle>}
+        {resource.type && (
+          <ArticlePreTitle>
+            <FormattedMessage id={`cms.contentType.${resource.type}`} />
+          </ArticlePreTitle>
+        )}
 
         <ArticleTitle>{resource.title}</ArticleTitle>
 

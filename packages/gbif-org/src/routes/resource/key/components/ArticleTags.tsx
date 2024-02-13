@@ -16,7 +16,11 @@ type Props = {
 
 export function ArticleTags({ className, resource = {} }: Props) {
   return (
-    <RenderIfChildren as={ArticleAuxiliary} label="Subject" className={className}>
+    <RenderIfChildren
+      as={ArticleAuxiliary}
+      className={className}
+      label={<FormattedMessage id="cms.auxiliary.subject" />}
+    >
       {resource.countriesOfCoverage && (
         <Pills
           label={<FormattedMessage id="filters.country.name" />}

@@ -83,11 +83,12 @@ export function EventResult({ event }: Props) {
           )}
           <div className="mt-2">
             <Button asChild variant="secondary">
-              <a href={`https://www.gbif.org/api/newsroom/events/${event.id}.ics`}>
-                <MdCalendarMonth />{' '}
-                <span className="pl-2">
-                  <FormattedMessage id="cms.resource.addToCalendar" />
-                </span>
+              <a
+                href={`https://www.gbif.org/api/newsroom/events/${event.id}.ics`}
+                className="flex gap-2"
+              >
+                <MdCalendarMonth />
+                <FormattedMessage id="cms.resource.addToCalendar" />
               </a>
             </Button>
             {event.primaryLink?.url && (

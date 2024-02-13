@@ -112,7 +112,65 @@ module.exports = {
     },
   },
   plugins: [
-    require('@tailwindcss/typography'),
+    addRtlSupport(require('@tailwindcss/typography')),
     require("tailwindcss-animate")
   ],
+}
+
+function addRtlSupport(plugin) {
+  function traverseAndModify(object, modifier) {
+    return Object.entries(object).reduce((acc, [key, value]) => {
+      // Apply the modifier to the current key-value pair
+      let [newKey, newValue] = modifier(key, value);
+
+      // If the value is an array, recursively modify each item
+      if (Array.isArray(newValue)) {
+        newValue = newValue.map(item => traverseAndModify(item, modifier))
+      }
+      // If the value is a nested object, recursively modify it
+      else if (newValue != null && typeof newValue === 'object') {
+        newValue = traverseAndModify(newValue, modifier);
+      }
+
+      acc[newKey] = newValue;
+      return acc;
+    }, {});
+  }
+
+  function modifiedPlugin(...args) {
+    const original = plugin(...args);
+
+    const modifiedConfig = traverseAndModify(original.config, (key, value) => {
+      if (key === 'paddingLeft') key = 'paddingInlineStart';
+      else if (key === 'paddingRight') key = 'paddingInlineEnd';
+      else if (key === 'borderLeftWidth') key = 'borderInlineStartWidth';
+      else if (key === 'borderLeftColor') key = 'borderInlineStartColor';
+      else if (key === 'textAlign' && value === 'left') value = 'start';
+
+      if (key.includes('left') || key.includes('right')) {
+        console.warn(`It looks like "${key}" is a left/right specific property that is not handled by "addRtlSupport" in tailwind.config.js. Please take a look at this`);
+      }
+
+      if (typeof value === 'string' && (value.includes('left') || value.includes('right'))) {
+        console.warn(`It looks like "${value}" with the key of "${key}" is a left/right specific value that is not handled by "addRtlSupport" in tailwind.config.js. Please take a look at this`);
+      }
+
+      return [key, value];
+    })
+
+    // Uncomment the following lines to debug the transformation
+    // const fs = require('fs');
+    // fs.writeFileSync('tailwind.before.log', JSON.stringify(original.config, null, 2))
+    // fs.writeFileSync('tailwind.after.log', JSON.stringify(modifiedConfig, null, 2))
+
+    original.config = modifiedConfig;
+    return original;
+  }
+
+  // There are some properties on the plugin function that we need to copy over
+  Object.entries(plugin).forEach(([key, value]) => {
+    modifiedPlugin[key] = value;
+  });
+
+  return modifiedPlugin;
 }

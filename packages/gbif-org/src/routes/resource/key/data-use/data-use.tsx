@@ -78,13 +78,8 @@ export function DataUsePage() {
           )}
 
           <ArticleIntro className="mt-2">
-            Data resources used via GBIF : {resource.resourceUsed}
+            <FormattedMessage id="cms.datause.dataViaGbif" /> : {resource.resourceUsed}
           </ArticleIntro>
-
-          {/* <p className=" dark:text-gray-400 mt-2">
-            <span>Data resources used via GBIF : </span>
-            <span className="text-primary-600">{resource.resourceUsed}</span>
-          </p> */}
         </ArticleTextContainer>
 
         <ArticleBanner className="mt-8 mb-6" image={resource?.primaryImage} />
@@ -97,7 +92,7 @@ export function DataUsePage() {
           <hr className="mt-8" />
 
           {resource.citation && (
-            <ArticleAuxiliary label="Citation">
+            <ArticleAuxiliary label={<FormattedMessage id="cms.auxiliary.citation" />}>
               <div dangerouslySetInnerHTML={{ __html: resource.citation }} />
             </ArticleAuxiliary>
           )}

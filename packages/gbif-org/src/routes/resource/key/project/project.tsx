@@ -67,7 +67,7 @@ export function ProjectPage() {
 
           <ArticleTitle title={resource.title}>
             {isClosed && (
-              <span className="align-middle bg-red-100 text-red-800 text-sm font-medium ml-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
+              <span className="align-middle bg-red-100 text-red-800 text-sm font-medium ms-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
                 <FormattedMessage id={`enums.cms.projectStatus.${resource.status}`} />
               </span>
             )}

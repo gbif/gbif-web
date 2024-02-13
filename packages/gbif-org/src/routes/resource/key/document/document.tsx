@@ -81,7 +81,7 @@ export function DocumentPage() {
               <Button asChild>
                 <a className="flex items-center gap-4" href={resource.document.file.url}>
                   <DownloadIcon size={20} />
-                  <FormattedMessage id="cms.resource.download" />
+                  <FormattedMessage id="cms.document.download" />
                 </a>
               </Button>
             )}
@@ -95,7 +95,7 @@ export function DocumentPage() {
             <>
               <hr className="my-8" />
 
-              <ArticleAuxiliary label="Citation">
+              <ArticleAuxiliary label={<FormattedMessage id="cms.auxiliary.citation" />}>
                 <div dangerouslySetInnerHTML={{ __html: resource.citation }} />
               </ArticleAuxiliary>
             </>

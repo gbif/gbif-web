@@ -6,6 +6,7 @@ import { GrTextAlignLeft } from 'react-icons/gr';
 import styles from './documents.module.css';
 import { fragmentManager } from '@/services/FragmentManager';
 import { DocumentPreviewFragment } from '@/gql/graphql';
+import { Separator } from '@/components/ui/separator';
 
 fragmentManager.register(/* GraphQL */ `
   fragment DocumentPreview on DocumentAsset {
@@ -33,7 +34,7 @@ export function Documents({ documents, className }: Props) {
       {documents.filter(isValid).map((document, index) => (
         <li
           key={index}
-          className="border border-transparent hover:border-slate-100 p-3 hover:shadow-md p2 dark:bg-zinc-800 dark:text-slate-800 text-white"
+          className="border border-transparent hover:border-slate-100 p-3 hover:shadow-md dark:bg-zinc-800 dark:text-slate-800 text-white"
         >
           <a
             className="flex flex-row cursor-pointer"
@@ -61,16 +62,17 @@ function DocumentContnet({ document }: { document: DocumentPreviewFragment }) {
 
   return (
     <>
-      <div className={`${color} mr-4 ${styles.note} flex-none`}>
+      <div className={`${color} me-4 ${styles.note} flex-none`}>
         <div>{content}</div>
       </div>
       <div className="break-word dark:text-slate-200 text-slate-500">
         <div className="font-medium">{document?.title ?? document?.file?.fileName}</div>
-        <div className="text-sm text-slate-400 divide-x-2 divide-slate-200 dark:divide-slate-600">
-          {showSize && (
-            <span className="pe-2">{getFormattedBits(document?.file?.details?.size ?? 0)}</span>
+        <div className="text-sm text-slate-400 flex gap-2 items-center">
+          {showSize && <span>{getFormattedBits(document?.file?.details?.size ?? 0)}</span>}
+          {showSize && extension.length < 5 && (
+            <Separator orientation="vertical" className="h-4 w-[2px] bg-slate-200" />
           )}
-          {extension.length < 5 && <span className="ps-2">.{extension}</span>}
+          {extension.length < 5 && <span>.{extension}</span>}
         </div>
       </div>
     </>
