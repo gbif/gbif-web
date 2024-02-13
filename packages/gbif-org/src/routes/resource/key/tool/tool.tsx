@@ -16,6 +16,8 @@ import { FormattedMessage } from 'react-intl';
 import { useLoaderData } from 'react-router-dom';
 import { required } from '@/utils/required';
 import { ArticleSkeleton } from '../components/ArticleSkeleton';
+import { Button } from '@/components/ui/button';
+import { DynamicLink } from '@/components/DynamicLink';
 
 const TOOL_QUERY = /* GraphQL */ `
   query Tool($key: String!) {
@@ -77,6 +79,12 @@ export function ToolPage() {
 
           {resource.summary && (
             <ArticleIntro dangerouslySetInnerHTML={{ __html: resource.summary }} className="mt-2" />
+          )}
+
+          {resource.primaryLink && (
+            <Button className="mt-4" asChild>
+              <DynamicLink to={resource.primaryLink.url}>{resource.primaryLink.label}</DynamicLink>
+            </Button>
           )}
         </ArticleTextContainer>
 
