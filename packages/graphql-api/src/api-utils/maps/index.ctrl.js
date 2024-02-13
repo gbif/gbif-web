@@ -14,11 +14,13 @@ import gbifRaster3031 from './3031/gbif-raster';
 import gbifRaster3857 from './3857/gbif-raster';
 import gbifRasterHillshade3857 from './3857/gbif-raster-hillshade';
 import gbifRaster4326 from './4326/gbif-raster';
+import gbifRasterIUCN4326 from './4326/gbif-raster-iucn';
 
 import satellite3031 from './3031/satellite';
 import satellite3857_maptiler from './3857/satellite_maptiler';
 import satellite3857_bing from './3857/satellite_bing';
-import { getInstitutionsGeojson } from './institutions/institutions';
+import axios from 'axios';
+import config from '../../config';
 
 const router = Router();
 
@@ -40,8 +42,8 @@ function returnTemplate(req, res, next, template, defaultOverwrites) {
     ...defaultOverwrites,
     ...req.query,
   };
-  const renderedTemplate = render(JSON.stringify(template), variables);
-  res.json(JSON.parse(renderedTemplate));
+  const renderedTemplate = typeof template === 'function' ? template(variables) : render(JSON.stringify(template), variables);
+  res.json(typeof renderedTemplate === 'string' ? JSON.parse(renderedTemplate) : renderedTemplate);
 }
 
 // GBIF Natural
@@ -59,6 +61,24 @@ router.get('/3857/gbif-raster', (req, res, next) => {
 });
 router.get('/3857/gbif-raster-hillshade', (req, res, next) => {
   returnTemplate(req, res, next, gbifRasterHillshade3857);
+});
+
+// GBIF Raster IUCN
+router.get('/4326/gbif-raster-iucn-volatile', async (req, res, next) => {
+  const taxonKey = req.query.taxonKey;
+  let query = { ...req.query };
+  if (taxonKey && !query.iucnTaxonID) {
+    try {
+      // fetch the IUCN Redlist category, and from that the species entry. From there we can get to the taxonID that is used in the map tiles
+      const iucnRedListCategory = (await axios.get(`${config.apiv1}/species/${taxonKey}/iucnRedListCategory`)).data;
+      const iucnSpecies = (await axios.get(`${config.apiv1}/species/${iucnRedListCategory.usageKey}`)).data;
+      const iucnTaxonID = iucnSpecies.taxonID;
+      query.iucnTaxonID = iucnTaxonID;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  returnTemplate(req, res, next, gbifRasterIUCN4326, query);
 });
 
 // Satellite
