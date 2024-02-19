@@ -55,11 +55,11 @@ import {
 import {
   ProjectAboutTab,
   ProjectDatasetsTab,
-  ProjectNewsTab,
-  ProjectNewsTabSkeleton,
+  ProjectNewsAndEventsTab,
+  ProjectNewsAndEventsTabSkeleton,
   ProjectPage,
   ProjectPageSkeleton,
-  projectNewsLoader,
+  projectNewsAndEventsLoader,
   projectPageLoader,
 } from '@/routes/resource/key/project';
 import { RouteId } from '@/hooks/useParentRouteLoaderData';
@@ -205,9 +205,9 @@ const baseRoutes: SourceRouteObject[] = [
               },
               {
                 path: 'news',
-                element: <ProjectNewsTab />,
-                loadingElement: <ProjectNewsTabSkeleton />,
-                loader: projectNewsLoader,
+                element: <ProjectNewsAndEventsTab />,
+                loadingElement: <ProjectNewsAndEventsTabSkeleton />,
+                loader: projectNewsAndEventsLoader,
               },
               {
                 path: 'datasets',

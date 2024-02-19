@@ -1,5 +1,5 @@
 import { LoaderArgs } from '@/types';
-import { ProjectNewsQuery, ProjectNewsQueryVariables } from '@/gql/graphql';
+import { ProjectNewsAndEventsQuery, ProjectNewsAndEventsQueryVariables } from '@/gql/graphql';
 import { NewsResult } from '../news/NewsResult';
 import { EventResult } from '../event/EventResult';
 import { useLoaderData } from 'react-router-dom';
@@ -9,7 +9,7 @@ import { sortByNewToOld } from '@/utils/sort';
 import { TabListSkeleton } from './TabListSkeleton';
 
 const PROJECT_NEWS_QUERY = /* GraphQL */ `
-  query ProjectNews($key: String!) {
+  query ProjectNewsAndEvents($key: String!) {
     gbifProject(id: $key) {
       news {
         __typename
@@ -25,16 +25,19 @@ const PROJECT_NEWS_QUERY = /* GraphQL */ `
   }
 `;
 
-export function projectNewsLoader({ params, graphql }: LoaderArgs) {
+export function projectNewsAndEventsLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key provided in the URL');
 
-  return graphql.query<ProjectNewsQuery, ProjectNewsQueryVariables>(PROJECT_NEWS_QUERY, {
-    key,
-  });
+  return graphql.query<ProjectNewsAndEventsQuery, ProjectNewsAndEventsQueryVariables>(
+    PROJECT_NEWS_QUERY,
+    {
+      key,
+    }
+  );
 }
 
-export function ProjectNewsTab() {
-  const { data } = useLoaderData() as { data: ProjectNewsQuery };
+export function ProjectNewsAndEventsTab() {
+  const { data } = useLoaderData() as { data: ProjectNewsAndEventsQuery };
 
   if (data.gbifProject == null) throw new Error('404');
   const resource = data.gbifProject;
@@ -61,6 +64,6 @@ export function ProjectNewsTab() {
   );
 }
 
-export function ProjectNewsTabSkeleton() {
+export function ProjectNewsAndEventsTabSkeleton() {
   return <TabListSkeleton />;
 }
