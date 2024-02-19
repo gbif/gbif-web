@@ -33,27 +33,27 @@ export function EventResult({ event }: Props) {
   const primaryLink = event.primaryLink?.url ?? `/event/${event.id}`;
 
   return (
-    <article className="bg-slate-50 p-4 flex rounded border mb-4">
-      <div className="flex-none me-4 min-w-20">
-        <a
-          href={primaryLink}
-          className="block overflow-hidden rounded-md text-sm border-slate-300 border text-center"
-          tabIndex={-1}
-        >
-          <div className="bg-slate-400 text-slate-100 p-2">
-            <FormattedDate value={event.start} day="numeric" month="short" />
-          </div>
-          <div className="bg-slate-50 text-slate-800 p-2">
-            <FormattedDate value={event.start} year="numeric" />
-          </div>
-        </a>
-      </div>
-      <div className="flex-auto">
-        <h3 className="text-base font-semibold">
-          <a href={primaryLink}>
-            {event.title} {event.primaryLink?.url && <MdLink className="inline-block" />}
+    <article className="bg-slate-50 p-4 flex flex-col rounded border mb-4">
+      <div className="pb-1">
+        <h3 className="inline">
+          <a className="text-base font-semibold" href={primaryLink}>
+            {event.title}{' '}
+            {event.primaryLink?.url && <MdLink className="inline-block ml-1 align-middle" />}
           </a>
         </h3>
+        {isPast(event) && (
+          <span className="inline-flex items-center bg-red-100 text-red-800 text-xs font-medium ms-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
+            <FormattedMessage id="Past" />
+          </span>
+        )}
+        {isCurrent(event) && (
+          <span className="inline-block items-center bg-green-100 text-green-800 text-xs font-medium ms-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
+            <FormattedMessage id="Happening now" />
+          </span>
+        )}
+      </div>
+
+      <div className="flex-auto">
         <div className="font-normal text-slate-500 text-sm">{event.excerpt}</div>
         <div className="text-sm text-slate-500 mt-2">
           <Location {...event} />
@@ -82,15 +82,17 @@ export function EventResult({ event }: Props) {
             </div>
           )}
           <div className="mt-2">
-            <Button asChild variant="secondary">
-              <a
-                href={`https://www.gbif.org/api/newsroom/events/${event.id}.ics`}
-                className="flex gap-2"
-              >
-                <MdCalendarMonth />
-                <FormattedMessage id="cms.resource.addToCalendar" />
-              </a>
-            </Button>
+            {!isPast(event) && (
+              <Button asChild variant="secondary">
+                <a
+                  href={`https://www.gbif.org/api/newsroom/events/${event.id}.ics`}
+                  className="flex gap-2"
+                >
+                  <MdCalendarMonth />
+                  <FormattedMessage id="cms.resource.addToCalendar" />
+                </a>
+              </Button>
+            )}
             {event.primaryLink?.url && (
               <Button className="ms-4" asChild variant="ghost">
                 <a href={`/event/${event.id}`}>
@@ -130,4 +132,21 @@ function Location({
       </div>
     </div>
   );
+}
+
+function isPast(event: EventResultFragment) {
+  return new Date(event.end || event.start) < new Date();
+}
+
+function isCurrent(event: EventResultFragment) {
+  const now = new Date();
+
+  // If there is no end date, just assume the event lasts the whole day
+  if (!event.end) {
+    const end = new Date(event.start);
+    end.setHours(23, 59, 59, 999);
+    return new Date(event.start) <= now && new Date(end) >= now;
+  }
+
+  return new Date(event.start) <= now && new Date(event.end) >= now;
 }
