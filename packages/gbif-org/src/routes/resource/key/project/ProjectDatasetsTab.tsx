@@ -12,6 +12,7 @@ import { fragmentManager } from '@/services/FragmentManager';
 import { RouteId, useParentRouteLoaderData } from '@/hooks/useParentRouteLoaderData';
 import { TabListSkeleton } from './TabListSkeleton';
 import { DatasetResult } from '@/routes/dataset/DatasetResult';
+import { HelpLine } from '../components/HelpLine';
 
 fragmentManager.register(/* GraphQL */ `
   fragment ProjectDatasetsTab on GbifProject {
@@ -61,6 +62,23 @@ export function ProjectDatasetsTab() {
 
   return (
     <div className="pt-4 max-w-3xl m-auto">
+      <HelpLine
+        label="Link a dataset to a project"
+        content={
+          <>
+            <p>
+              For <strong>datasets</strong> to be displayed on a project page, you must ensure that
+              your project ID has been specified correctly, i.e., under <strong>Metadata</strong>{' '}
+              -&gt; <strong>Project Data</strong> -&gt; <strong>Identifier</strong> in the IPT, or{' '}
+              <code>&lt;project id="your_project_id"&gt;</code> in the dataset metadata (EML).
+            </p>
+            <p>
+              (If you add a project ID to an existing dataset in the IPT, don't forget to publish a
+              new version of the resource to refresh the Darwin Core Archive to be ingested by GBIF)
+            </p>
+          </>
+        }
+      />
       {datasets.data.datasetSearch.results.map((item) => (
         <DatasetResult key={item.key} dataset={item} counts={datasetsCount[item.key]} />
       ))}

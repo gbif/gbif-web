@@ -7,9 +7,7 @@ import { required } from '@/utils/required';
 import { useMemo } from 'react';
 import { sortByNewToOld } from '@/utils/sort';
 import { TabListSkeleton } from './TabListSkeleton';
-import { MdInfoOutline } from 'react-icons/md';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { DynamicLink } from '@/components/DynamicLink';
+import { HelpLine } from '../components/HelpLine';
 
 const PROJECT_NEWS_QUERY = /* GraphQL */ `
   query ProjectNewsAndEvents($key: String!) {
@@ -55,24 +53,17 @@ export function ProjectNewsAndEventsTab() {
 
   return (
     <div className="pt-4 max-w-3xl m-auto">
-      <p className="pb-4 text-gray-600 text-sm text-right">
-        <Popover>
-          <PopoverTrigger>
-            Add events to a project page <MdInfoOutline />
-          </PopoverTrigger>
-          <PopoverContent>
+      {/* TODO: Where to get this text from?  */}
+      <HelpLine
+        label="Add events to a project page"
+        content={
+          <p>
             To have <strong>events</strong> related to a project show up on the project's page,
-            please{' '}
-            <DynamicLink
-              className="text-primary-500 hover:text-primary-700 underline"
-              to="/suggest-event"
-            >
-              suggest the event
-            </DynamicLink>{' '}
-            and make sure to include your project ID under <strong>GBIF-funded projects</strong>.
-          </PopoverContent>
-        </Popover>
-      </p>
+            please <a href="/suggest-event">suggest the event</a> and make sure to include your
+            project ID under <strong>GBIF-funded projects</strong>.
+          </p>
+        }
+      />
       {sortedNewsAndEvents.map((item) => {
         switch (item.__typename) {
           case 'Event':
