@@ -14,6 +14,8 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  */
 const documents = {
     "\n  query Header {\n    gbifHome {\n      title\n      summary\n      children {\n        externalLink\n        link\n        title\n        children {\n          externalLink\n          link\n          title\n          children {\n            externalLink\n            link\n            title\n          }\n        }\n      }\n    }\n  }\n": types.HeaderDocument,
+    "\n  fragment DatasetResult on DatasetSearchStub {\n    key\n    title\n    excerpt\n    type\n    publishingOrganizationTitle\n    recordCount\n    license\n  }\n": types.DatasetResultFragmentDoc,
+    "\n  fragment DatasetCounts on DatasetSearchStub {\n    key\n    occurrenceCount\n    literatureCount\n  }\n": types.DatasetCountsFragmentDoc,
     "\n  query Dataset($key: ID!) {\n    dataset(key: $key) {\n      title\n      publishingOrganizationKey\n      publishingOrganizationTitle\n    }\n  }\n": types.DatasetDocument,
     "\n  query Occurrence($key: ID!) {\n    occurrence(key: $key) {\n      eventDate\n      scientificName\n      coordinates\n      dataset {\n        key\n        title\n      }\n    }\n  }\n": types.OccurrenceDocument,
     "\n  query OccurrenceSearch($from: Int, $predicate: Predicate) {\n    occurrenceSearch(predicate: $predicate) {\n      documents(from: $from) {\n        from\n        size\n        total\n        results {\n          key\n          scientificName\n          eventDate\n          coordinates\n          county\n          basisOfRecord\n          datasetName\n          publisherTitle\n        }\n      }\n    }\n  }\n": types.OccurrenceSearchDocument,
@@ -43,8 +45,6 @@ const documents = {
     "\n  fragment ProjectDatasetsTab on GbifProject {\n    projectId\n  }\n": types.ProjectDatasetsTabFragmentDoc,
     "\n  query ProjectDatasets($projectId: ID!) {\n    datasetSearch(projectId: [$projectId], limit: 500) {\n      count\n      limit\n      offset\n      results {\n        ...DatasetResult\n      }\n    }\n  }\n": types.ProjectDatasetsDocument,
     "\n  query ProjectDatasetsCounts($projectId: ID!, $limit: Int, $offset: Int) {\n    datasetSearch(projectId: [$projectId], limit: $limit, offset: $offset) {\n      results {\n        ...DatasetCounts\n      }\n    }\n  }\n": types.ProjectDatasetsCountsDocument,
-    "\n  fragment DatasetResult on DatasetSearchStub {\n    key\n    title\n    excerpt\n    type\n    publishingOrganizationTitle\n    recordCount\n    license\n  }\n": types.DatasetResultFragmentDoc,
-    "\n  fragment DatasetCounts on DatasetSearchStub {\n    key\n    occurrenceCount\n    literatureCount\n  }\n": types.DatasetCountsFragmentDoc,
     "\n  query ProjectNewsAndEvents($key: String!) {\n    gbifProject(id: $key) {\n      news {\n        __typename\n        createdAt\n        ...NewsResult\n      }\n      events {\n        __typename\n        start\n        ...EventResult\n      }\n    }\n  }\n": types.ProjectNewsAndEventsDocument,
     "\n  query Project($key: String!) {\n    gbifProject(id: $key) {\n      # Define the values used by this page\n      title\n      status\n      start\n      end\n      fundsAllocated\n      primaryLink {\n        label\n        url\n      }\n      # The Project About tab uses the data from this loader and defines its own data needs in this fragment\n      ...ProjectAboutTab\n      # The Project Datasets tab also uses some data from this loader and defines its own data needs in this fragment\n      ...ProjectDatasetsTab\n    }\n  }\n": types.ProjectDocument,
     "\n  query Tool($key: String!) {\n    tool(id: $key) {\n      id\n      title\n      summary\n      body\n      primaryImage {\n        ...ArticleBanner\n      }\n      primaryLink {\n        label\n        url\n      }\n      secondaryLinks {\n        label\n        url\n      }\n      citation\n      createdAt\n      author\n      rights\n      rightsHolder\n      publicationDate\n    }\n  }\n": types.ToolDocument,
@@ -68,6 +68,14 @@ export function graphql(source: string): unknown;
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query Header {\n    gbifHome {\n      title\n      summary\n      children {\n        externalLink\n        link\n        title\n        children {\n          externalLink\n          link\n          title\n          children {\n            externalLink\n            link\n            title\n          }\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query Header {\n    gbifHome {\n      title\n      summary\n      children {\n        externalLink\n        link\n        title\n        children {\n          externalLink\n          link\n          title\n          children {\n            externalLink\n            link\n            title\n          }\n        }\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  fragment DatasetResult on DatasetSearchStub {\n    key\n    title\n    excerpt\n    type\n    publishingOrganizationTitle\n    recordCount\n    license\n  }\n"): (typeof documents)["\n  fragment DatasetResult on DatasetSearchStub {\n    key\n    title\n    excerpt\n    type\n    publishingOrganizationTitle\n    recordCount\n    license\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  fragment DatasetCounts on DatasetSearchStub {\n    key\n    occurrenceCount\n    literatureCount\n  }\n"): (typeof documents)["\n  fragment DatasetCounts on DatasetSearchStub {\n    key\n    occurrenceCount\n    literatureCount\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -184,14 +192,6 @@ export function graphql(source: "\n  query ProjectDatasets($projectId: ID!) {\n 
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query ProjectDatasetsCounts($projectId: ID!, $limit: Int, $offset: Int) {\n    datasetSearch(projectId: [$projectId], limit: $limit, offset: $offset) {\n      results {\n        ...DatasetCounts\n      }\n    }\n  }\n"): (typeof documents)["\n  query ProjectDatasetsCounts($projectId: ID!, $limit: Int, $offset: Int) {\n    datasetSearch(projectId: [$projectId], limit: $limit, offset: $offset) {\n      results {\n        ...DatasetCounts\n      }\n    }\n  }\n"];
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(source: "\n  fragment DatasetResult on DatasetSearchStub {\n    key\n    title\n    excerpt\n    type\n    publishingOrganizationTitle\n    recordCount\n    license\n  }\n"): (typeof documents)["\n  fragment DatasetResult on DatasetSearchStub {\n    key\n    title\n    excerpt\n    type\n    publishingOrganizationTitle\n    recordCount\n    license\n  }\n"];
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(source: "\n  fragment DatasetCounts on DatasetSearchStub {\n    key\n    occurrenceCount\n    literatureCount\n  }\n"): (typeof documents)["\n  fragment DatasetCounts on DatasetSearchStub {\n    key\n    occurrenceCount\n    literatureCount\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
