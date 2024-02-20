@@ -13,10 +13,11 @@ import { MdMoreHoriz } from 'react-icons/md';
 import { useI18n } from '@/contexts/i18n';
 
 export type Props = {
+  className?: string;
   links: Array<{ to: string; children: React.ReactNode }>;
 };
 
-export function Tabs({ links }: Props) {
+export function Tabs({ links, className }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const dropdownMenuTriggerRef = useRef<HTMLButtonElement>(null);
   const [visibleTabCount, setVisibleTabCount] = useState(0);
@@ -58,7 +59,7 @@ export function Tabs({ links }: Props) {
   }, [links, setVisibleTabCount]);
 
   return (
-    <div ref={containerRef} className="relative ">
+    <div ref={containerRef} className={cn('relative', className)}>
       <ul className="border-b border-slate-200 flex whitespace-nowrap dark:border-slate-200/5 overflow-hidden -mb-px">
         {links.map(({ to, children }, idx) => {
           const visible = idx < visibleTabCount;
