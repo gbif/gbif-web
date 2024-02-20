@@ -32,9 +32,9 @@ const PROJECT_QUERY = /* GraphQL */ `
       ...ProjectFundingBanner
       # The Project About tab uses the data from this loader and defines its own data needs in this fragment
       ...ProjectAboutTab
-      # The Project Datasets tab also uses some data from this loader and defines its own data needs in this fragment
-      ...ProjectDatasetsTab
     }
+    # The Project Datasets tab also uses some data from this loader and defines its own data needs in this fragment
+    ...ProjectDatasetsTab
   }
 `;
 

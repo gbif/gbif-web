@@ -23,6 +23,9 @@ const PROJECT_NEWS_QUERY = /* GraphQL */ `
         ...EventResult
       }
     }
+    help(identifier: "how-to-add-events-to-my-project-page") {
+      ...HelpLineDetails
+    }
   }
 `;
 
@@ -51,19 +54,12 @@ export function ProjectNewsAndEventsTab() {
     [resource.news, resource.events]
   );
 
+  const help = data.help;
+
   return (
     <div className="pt-4 max-w-3xl m-auto">
-      {/* TODO: Where to get this text from?  */}
-      <HelpLine
-        label="Add events to a project page"
-        content={
-          <p>
-            To have <strong>events</strong> related to a project show up on the project's page,
-            please <a href="/suggest-event">suggest the event</a> and make sure to include your
-            project ID under <strong>GBIF-funded projects</strong>.
-          </p>
-        }
-      />
+      {help && <HelpLine help={help} />}
+
       {sortedNewsAndEvents.map((item) => {
         switch (item.__typename) {
           case 'Event':
