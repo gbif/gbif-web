@@ -39,7 +39,7 @@ export default [
   'maximumDistanceAboveSurfaceInMeters',
   'maximumElevationInMeters',
   'mediaLicenses',
-  'mediaTypes',
+  'mediaType',
   'minimumDepthInMeters',
   'minimumDistanceAboveSurfaceInMeters',
   'minimumElevationInMeters',

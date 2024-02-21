@@ -425,9 +425,9 @@ const chartGroups = {
       "licence",
       "license",
       "institutionCode",
-      "institution",
+      "institutionKey",
       "collectionCode",
-      "collection",
+      "collectionKey",
       "basisOfRecord"
     ]
   },
@@ -435,7 +435,7 @@ const chartGroups = {
     "values": [
       "occurrenceStatus",
       "occurrenceId",
-      "catalogueNumber",
+      "catalogNumber",
       "recordNumber",
       "recordedBy",
       "recordedById",
@@ -493,7 +493,7 @@ const chartGroups = {
       "location",
       "coordinateUncertaintyInMetres",
       "georeferencedBy",
-      "administrativeAreas",
+      "gadmGid",
       "gbifRegion"
     ]
   },
@@ -531,12 +531,12 @@ const chartGroups = {
   },
   "provenance": {
     "values": [
-      "dataset",
-      "publisher",
-      "publishingCountryOrArea",
+      "datasetKey",
+      "publisherKey",
+      "PublishingCountryCode",
       "publishedByGbifRegion",
       "hostingOrganization",
-      "dataNetwork",
+      "networkKey",
       "protocol",
       "project",
       "programme"

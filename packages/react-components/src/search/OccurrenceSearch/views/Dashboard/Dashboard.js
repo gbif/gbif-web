@@ -88,6 +88,72 @@ const preconfiguredCharts = {
       return <charts.Country predicate={predicate} interactive {...props} />;
     },
   },
+  continent: {
+    component: ({ predicate, ...props }) => {
+      return <charts.Continent predicate={predicate} interactive {...props} />;
+    },
+  },
+  dwcaExtension: {
+    component: ({ predicate, ...props }) => {
+      return <charts.DwcaExtension predicate={predicate} interactive {...props} />;
+    },
+  },
+  eventId: {
+    component: ({ predicate, ...props }) => {
+      return <charts.EventId predicate={predicate} interactive {...props} />;
+    },
+  },
+  gadmGid: {
+    component: ({ predicate, ...props }) => {
+      return <charts.GadmGid predicate={predicate} interactive {...props} />;
+    },
+  },
+  mediaType: {
+    component: ({ predicate, ...props }) => {
+      return <charts.MediaType predicate={predicate} interactive {...props} />;
+    },
+  },
+  networkKey: {
+    component: ({ predicate, ...props }) => {
+      return <charts.Networks predicate={predicate} interactive {...props} />;
+    },
+  },
+  publisherKey: {
+    component: ({ predicate, ...props }) => {
+      return <charts.Publishers predicate={predicate} interactive {...props} />;
+    },
+  },
+  publishingCountryCode: {
+    translation: 'filters.publishingCountryCode.name',
+    component: ({ predicate, ...props }) => {
+      return <charts.PublishingCountryCode predicate={predicate} interactive {...props} />;
+    }
+  },
+  protocol: {
+    component: ({ predicate, ...props }) => {
+      return <charts.Protocol predicate={predicate} interactive {...props} />;
+    },
+  },
+  sampleSizeUnit: {
+    component: ({ predicate, ...props }) => {
+      return <charts.SampleSizeUnit predicate={predicate} interactive {...props} />;
+    },
+  },
+  samplingProtocol: {
+    component: ({ predicate, ...props }) => {
+      return <charts.SamplingProtocol predicate={predicate} interactive {...props} />;
+    },
+  },
+  typeStatus: {
+    component: ({ predicate, ...props }) => {
+      return <charts.TypeStatus predicate={predicate} interactive {...props} />;
+    },
+  },
+  waterBody: {
+    component: ({ predicate, ...props }) => {
+      return <charts.WaterBody predicate={predicate} interactive {...props} />;
+    },
+  },
   collectionCode: {
     translation: 'filters.collectionCode.name',
     component: ({ predicate, ...props }) => {
@@ -159,6 +225,24 @@ const preconfiguredCharts = {
     translation: 'dashboard.statistics',
     component: ({ predicate, ...props }) => {
       return <charts.OccurrenceSummary predicate={predicate} {...props} />;
+    },
+  },
+  collectionKey: {
+    translation: 'filters.collectionKey.name',
+    component: ({ predicate, ...props }) => {
+      return <charts.Collections predicate={predicate} interactive {...props} />;
+    },
+  },
+  institutionKey: {
+    translation: 'filters.institutionKey.name',
+    component: ({ predicate, ...props }) => {
+      return <charts.Institutions predicate={predicate} interactive {...props} />;
+    },
+  },
+  catalogNumber: {
+    translation: 'filters.catalogNumber.name',
+    component: ({ predicate, ...props }) => {
+      return <charts.CatalogNumber predicate={predicate} interactive {...props} />;
     },
   },
   map: {

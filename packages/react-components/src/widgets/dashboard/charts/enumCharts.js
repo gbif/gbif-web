@@ -67,13 +67,14 @@ export function Months(props) {
   }} />
 }
 
-// export function MediaType(props) {
-//   return <StandardEnumChart {...{
-//     facetSize: 10,
-//     ...props,
-//     fieldName: 'mediaType',
-//   }} />
-// }
+export function MediaType(props) {
+  return <StandardEnumChart {...{
+    facetSize: 10,
+    options: ['PIE', 'TABLE', 'COLUMN'],
+    ...props,
+    fieldName: 'mediaType',
+  }} />
+}
 
 export function OccurrenceIssue(props) {
   return <StandardEnumChart {...{
@@ -81,6 +82,16 @@ export function OccurrenceIssue(props) {
     fieldName: 'issue',
     translationTemplate: 'enums.occurrenceIssue.{key}',
     titleTranslationId: 'filters.occurrenceIssue.name',
+    options: ['TABLE'],
+  }} />
+}
+
+export function TypeStatus(props) {
+  return <StandardEnumChart {...{
+    ...props,
+    fieldName: 'typeStatus',
+    translationTemplate: 'enums.typeStatus.{key}',
+    titleTranslationId: 'filters.typeStatus.name',
     options: ['TABLE'],
   }} />
 }
@@ -93,6 +104,46 @@ export function Country(props) {
     enableUnknown: true,
     titleTranslationId: 'filters.country.name',
     ...props,
+  }} />
+}
+
+export function PublishingCountryCode(props) {
+  return <StandardEnumChart {...{
+    filterKey: 'publishingCountryCode',
+    fieldName: 'publishingCountry',
+    translationTemplate: 'enums.countryCode.{key}',
+    enableOther: true,
+    enableUnknown: true,
+    titleTranslationId: 'filters.publishingCountryCode.name',
+    ...props,
+  }} />
+}
+
+export function Continent(props) {
+  return <StandardEnumChart {...{
+    filterKey: 'continent',
+    fieldName: 'continent',
+    enableOther: true,
+    enableUnknown: true,
+    options: ['PIE', 'TABLE', 'COLUMN'],
+    titleTranslationId: 'filters.continent.name',
+    ...props,
+  }} />
+}
+
+export function DwcaExtension(props) {
+  return <StandardEnumChart {...{
+    ...props,
+    fieldName: 'dwcaExtension'
+  }} />
+}
+
+export function Protocol(props) {
+  return <StandardEnumChart {...{
+    translationTemplate: 'enums.endpointType.{key}',
+    options: ['COLUMN', 'PIE', 'TABLE'],
+    ...props,
+    fieldName: 'protocol'
   }} />
 }
 
