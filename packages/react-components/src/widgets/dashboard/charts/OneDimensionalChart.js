@@ -74,6 +74,7 @@ export function OneDimensional({
   interactive = false,
   setView,
   view,
+  showFreeTextWarning,
   ...props
 }) {
   const intl = useIntl();
@@ -214,6 +215,10 @@ export function OneDimensional({
   }
 
   const filledPercentage = facetResults?.data?.isNotNull?.documents?.total / facetResults?.data?.search?.documents?.total;
+
+  if (showFreeTextWarning) {
+    messages.push('dashboard.notVocabularyWarning');
+  }
 
   if (!disableUnknown) {
     messages.push(<div><FormattedMessage id="dashboard.percentWithValue" values={{ percent: formatAsPercentage(filledPercentage) }} /></div>);

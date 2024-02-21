@@ -14,14 +14,8 @@ function getStringChart({ fieldName, title, subtitleKey, ...rest }) {
     disableOther = false,
     disableUnknown = false,
     title = title ?? <FormattedMessage id={`filters.${fieldName}.name`} defaultMessage={fieldName} />,
-    showFreeTextWarning,
     ...props
   }) => {
-    let messages;
-    if (showFreeTextWarning) {
-      messages = [];
-      messages.push('dashboard.notVocabularyWarning');
-    }
     return <KeyChartGenerator {...{
       predicate, detailsRoute, currentFilter,
       fieldName: fieldName,
@@ -30,7 +24,6 @@ function getStringChart({ fieldName, title, subtitleKey, ...rest }) {
       facetSize: 10,
       title,
       subtitleKey: "dashboard.numberOfOccurrences",
-      messages,
     }} {...rest} {...props} />
   }
 }
@@ -47,6 +40,7 @@ export const CollectionCodes = getStringChart({
 
 export const StateProvince = getStringChart({
   fieldName: 'stateProvince',
+  showFreeTextWarning: true,
   title: <FormattedMessage id="filters.stateProvince.name" defaultMessage="State province" />,
   gqlEntity: `occurrences {documents(size: 1) {results {stateProvince}}}`,
   transform: data => {
@@ -145,6 +139,7 @@ export const SampleSizeUnit = getStringChart({
 
 export const SamplingProtocol = getStringChart({
   fieldName: 'samplingProtocol',
+  showFreeTextWarning: true,
   title: <FormattedMessage id="filters.samplingProtocol.name" defaultMessage="Sampling protocol" />,
   gqlEntity: `occurrences {documents(size: 1) {results {samplingProtocol}}}`,
   transform: data => {

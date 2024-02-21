@@ -10,7 +10,6 @@ function StandardEnumChart({
   currentFilter = {}, //excluding root predicate
   fieldName,
   enumKeys,
-  showFreeTextWarning = false,
   enableUnknown = false,
   showUnknownInChart = false,
   enableOther = false,
@@ -20,11 +19,6 @@ function StandardEnumChart({
   titleTranslationId,
   ...props
 }) {
-  let messages;
-  if (showFreeTextWarning) {
-    messages = [];
-    messages.push('dashboard.notVocabularyWarning');
-  }
   return <EnumChartGenerator {...{
     predicate, detailsRoute, currentFilter,
     enumKeys,
@@ -35,8 +29,7 @@ function StandardEnumChart({
     disableOther: !enableOther,
     facetSize,
     title: <FormattedMessage id={titleTranslationId ?? `filters.${fieldName}.name`} defaultMessage={fieldName} />,
-    subtitleKey,
-    messages
+    subtitleKey
   }} {...props} />
 }
 
@@ -45,7 +38,7 @@ export function Licenses(props) {
   return <StandardEnumChart {...{
     ...props,
     fieldName: 'license',
-    options: ['PIE', 'TABLE', 'COLUMN'],
+    options: ['PIE', 'TABLE', 'COLUMN']
   }} />
 }
 
