@@ -22,9 +22,26 @@
   "country": "國家",
   "logoUrl": "標誌",
   "notes": "備註",
+  "collectionCode": "蒐藏品代碼",
   "specimensViaGbif": "與 GBIF 共享的標本",
   "specimens": "標本",
   "identifiers": "識別碼",
+  "importantCollectors": "",
+  "incorporatedCollections": "",
   "unknownSize": "未知數量",
+  "dashboard": "",
+  "dataCatalog": "GBIF 註記的存檔",
+  "edit": "GBIF 註記的存檔",
+  "editHelpText": "GBIF 註記的存檔",
+  "githubHelpText": "GBIF 註記的存檔",
+  "entryCreated": "GBIF 註記的存檔",
+  "lastModified": "GBIF 註記的存檔",
+  "modifiedBy": "GBIF 註記的存檔",
+  "masterSource": "GBIF 註記的存檔",
+  "fromInstitution": "GBIF 註記的存檔",
+  "tabs": {
+    "about": "關於",
+    "explore": "GBIF 註記的存檔"
+  },
   "citesPermitNumber": "城市許可編號"
 }
