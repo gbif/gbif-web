@@ -22,10 +22,26 @@
   "country": "País",
   "logoUrl": "Logo",
   "notes": "Notas",
+  "collectionCode": "Código de la colección",
   "specimensViaGbif": "Especímenes compartidos con GBIF",
   "specimens": "Especímenes",
   "identifiers": "Identificadores",
+  "importantCollectors": "",
+  "incorporatedCollections": "",
   "unknownSize": "Tamaño desconocido",
   "dashboard": "Panel de control",
+  "dataCatalog": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
+  "edit": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
+  "editHelpText": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
+  "githubHelpText": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
+  "entryCreated": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
+  "lastModified": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
+  "modifiedBy": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
+  "masterSource": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
+  "fromInstitution": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
+  "tabs": {
+    "about": "Acerca de",
+    "explore": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\"."
+  },
   "citesPermitNumber": "Número de permisos de citas"
 }
