@@ -33,12 +33,67 @@ export default {
       const ids = src.news.map(news => news.id);
       return Promise.all(ids.map(id => dataSources.resourceAPI.getEntryById({ id, preview: false, locale })));
     },
-    call: (src, _, context) => context.dataSources.getEntryById(src.call.id, false, context.locale),
+    call: (src, _, { dataSources, locale }) => {
+      if (!src?.call?.id) return null;
+      return dataSources.resourceAPI.getEntryById({ id: src.call.id, preview: false, locale });
+    },
     gbifHref: (src, _, context) => createLocalizedGbifHref(context.locale, 'project', src.id),
-    // resolve the programme against the resource api
     programme: (src, _, { dataSources, locale }) => {
       if (!src?.programme?.id) return null;
-      return dataSources.resourceAPI.getEntryById({ id: src?.programme?.id, preview: false, locale });
+      return dataSources.resourceAPI.getEntryById({ id: src.programme.id, preview: false, locale });
+    },
+    additionalPartners: (src, _, { dataSources, locale }) => {
+      if (!isNoneEmptyArray(src.additionalPartners)) return null;
+
+      const ids = src.additionalPartners.map(partner => partner.id);
+      return Promise.all(ids.map(async id => {
+        const resource = await dataSources.resourceAPI.getEntryById({ id, preview: false, locale });
+        if (!resource) return null;
+
+        if (resource.contentType === 'participant') {
+          return dataSources.participantAPI.mergeParticipantDirectoryData(resource);
+        }
+
+        return resource;
+      }));
+    },
+    fundingOrganisations: (src, _, { dataSources, locale }) => {
+      if (!isNoneEmptyArray(src.fundingOrganisations)) return null;
+
+      const ids = src.fundingOrganisations.map(partner => partner.id);
+      return Promise.all(ids.map(async id => {
+        const resource = await dataSources.resourceAPI.getEntryById({ id, preview: false, locale });
+        if (!resource) return null;
+
+        if (resource.contentType === 'participant') {
+          return dataSources.participantAPI.mergeParticipantDirectoryData(resource);
+        }
+
+        return resource;
+      }));
+    },
+    overrideProgrammeFunding: (src, _, { dataSources, locale }) => {
+      if (!isNoneEmptyArray(src.overrideProgrammeFunding)) return null;
+
+      const ids = src.overrideProgrammeFunding.map(programme => programme.id);
+      return Promise.all(ids.map(id => dataSources.resourceAPI.getEntryById({ id, preview: false, locale })));
+    },
+    leadPartner: async (src, _, { dataSources, locale }) => {
+      if (!src.leadPartner?.id) return null;
+      const resource = await dataSources.resourceAPI.getEntryById({ id: src.leadPartner.id, preview: false, locale });
+      if (!resource) return null;
+
+      if (resource.contentType === 'participant') {
+        return dataSources.participantAPI.mergeParticipantDirectoryData(resource);
+      }
+
+      return resource;
+    }
+  },
+  ParticipantOrFundingOrganisation: {
+    __resolveType: (src) => {
+      if (src.contentType === 'organisation') return 'FundingOrganisation';
+      return 'Participant';
     }
   }
 }

@@ -27,6 +27,20 @@ const typeDef = gql`
     name: String
     participationStatus: ParticipationStatus
     type: NodeType
+    # This data comes from our cms system
+    nodeHasMandate: Boolean
+    title: String
+    nodeEstablishmentDate: DateTime
+    nodeStructure: String
+    nodeMission: String
+    nodeHistory: String
+    nodeFunding: String
+    linksToSocialMedia: [Link]
+    secondaryLinks: [Link]
+    progressAndPlans: String
+    newsletters: [Link]
+    rssFeeds: [Link]
+    primaryLink: Link
   }
 `;
 
