@@ -22,6 +22,7 @@
   "country": "Pays",
   "logoUrl": "Logo",
   "notes": "Notes",
+  "collectionCode": "Code de la collection",
   "specimensViaGbif": "Spécimens partagés avec le GBIF",
   "specimens": "Spécimens",
   "identifiers": "Identifiants",
@@ -29,5 +30,18 @@
   "incorporatedCollections": "Collections intégrées",
   "unknownSize": "Taille inconnue",
   "dashboard": "Tableau de Bord",
+  "dataCatalog": "Archive annotée par GBIF",
+  "edit": "Archive annotée par GBIF",
+  "editHelpText": "Archive annotée par GBIF",
+  "githubHelpText": "Archive annotée par GBIF",
+  "entryCreated": "Archive annotée par GBIF",
+  "lastModified": "Archive annotée par GBIF",
+  "modifiedBy": "Archive annotée par GBIF",
+  "masterSource": "Archive annotée par GBIF",
+  "fromInstitution": "Archive annotée par GBIF",
+  "tabs": {
+    "about": "À propos",
+    "explore": "Archive annotée par GBIF"
+  },
   "citesPermitNumber": "Numéro de permis Cites"
 }
