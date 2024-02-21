@@ -98,14 +98,14 @@ Relating to ${env.GBIF_REGISTRY}/collection/${collection.key}
     <DataHeader showEmpty />
 
     <HeaderWrapper>
-      <Eyebrow prefix="Collection code" suffix={collection.code} />
+      <Eyebrow prefix={<FormattedMessage id="grscicoll.collectionCode" />} suffix={collection.code} />
       <Headline css={css`display: inline; margin-right: 12px;`} badge={collection.active ? null : 'Inactive'}>{collection.name}</Headline>
       <DeletedMessage date={collection.deleted} />
       {collection.replacedByCollection && <ErrorMessage>
         <FormattedMessage id="phrases.replacedBy" values={{ newItem: <ResourceLink type="collectionKey" id={collection?.replacedByCollection?.key}>{collection?.replacedByCollection?.name}</ResourceLink> }} />
       </ErrorMessage>}
       {collection.institution && <div style={{ marginTop: 8 }}>
-        From <ResourceLink type="institutionKey" id={collection.institution.key}>{collection.institution.name}</ResourceLink>
+      <FormattedMessage id="grscicoll.fromInstitution" values={{ institution: <ResourceLink type="institutionKey" id={collection.institution.key}>{collection.institution.name}</ResourceLink> }} />
       </div>}
 
       <HeaderInfoWrapper>
@@ -117,7 +117,7 @@ Relating to ${env.GBIF_REGISTRY}/collection/${collection.key}
                 {contacts.map(c => `${c.firstName ? c.firstName : ''} ${c.lastName ? c.lastName : ''}`).join(' • ')}
               </span>
               }
-              {contacts.length >= 5 && <span>{contacts.length} staff members</span>}
+              {contacts.length >= 5 && <span><FormattedMessage id="counts.nStaffMembers" values={{ total: contacts.length }} /></span>}
             </GenericFeature>}
             <Homepage href={collection.homepage} />
             {contactInfo?.country && <Location countryCode={contactInfo?.country} city={contactInfo.city} />}
@@ -132,25 +132,27 @@ Relating to ${env.GBIF_REGISTRY}/collection/${collection.key}
           </FeatureList>
           {collection.catalogUrl && <FeatureList css={css`margin-top: 8px;`}>
             <GenericFeature>
-              <CatalogIcon /><span><a href={collection.catalogUrl}>Data catalog</a></span>
+              <CatalogIcon /><span><a href={collection.catalogUrl}>
+                <FormattedMessage id="grscicoll.dataCatalog" defaultMessage="Data catalog" />
+                </a></span>
             </GenericFeature>
           </FeatureList>}
         </HeaderInfoMain>
         <HeaderInfoEdit>
-          <Tooltip title="No login required" placement="bottom">
-            <Button as="a" href={`${env.GBIF_REGISTRY}/collection/${collection.key}`} look="primaryOutline">Edit</Button>
+          <Tooltip title={<FormattedMessage id="grscicoll.editHelpText" defaultMessage="No login required" />} placement="bottom">
+            <Button as="a" href={`${env.GBIF_REGISTRY}/collection/${collection.key}`} look="primaryOutline"><FormattedMessage id="grscicoll.edit" defaultMessage="Edit" /></Button>
           </Tooltip>
-          <Tooltip title="Leave a comment - requires a free Github account" placement="bottom">
+          <Tooltip title={<FormattedMessage id="grscicoll.githubHelpText" defaultMessage="Github" />} placement="bottom">
             <a style={{ marginLeft: 8, fontSize: 24, color: "var(--primary)" }} target="_blank" href={`https://github.com/gbif/portal-feedback/issues/new?title=${encodeURIComponent(`NHC: ${collection.name}`)}&body=${encodeURIComponent(feedbackTemplate)}`}><Github /></a>
           </Tooltip>
         </HeaderInfoEdit>
       </HeaderInfoWrapper>
 
       <TabList style={{ marginTop: '12px', borderTop: '1px solid #ddd' }}>
-        <RouterTab to={url} exact label="About" />
+        <RouterTab to={url} exact label={<FormattedMessage id="grscicoll.tabs.about" defaultMessage="About" />} />
         {/* <RouterTab to={join(url, 'people')} css={tabStyle({ theme, noData: hasNoPeople })} label="People" /> */}
         {occurrenceSearch?.documents?.total > 0 && <RouterTab to={join(url, '/specimens')} tooltip={<FormattedMessage id="grscicoll.specimensViaGbif" defaultMessage="Specimens via GBIF" />} label={<FormattedMessage id="grscicoll.specimens" defaultMessage="Specimens" />} css={occurrenceSearch?.documents?.total === 0 ? css`color: var(--color300);` : null} />}
-        {occurrenceSearch?.documents?.total === 0 && collection.catalogUrl && <Tab tabId="0" label="Online catalog"><a css={css`text-decoration: none; color: inherit!important;`} href={collection.catalogUrl}>Explore catalog<MdLink /></a></Tab>}
+        {occurrenceSearch?.documents?.total === 0 && collection.catalogUrl && <Tab tabId="0"><a css={css`text-decoration: none; color: inherit!important;`} href={collection.catalogUrl}><FormattedMessage id="grscicoll.tabs.explore" defaultMessage="Explore" /> <MdLink /></a></Tab>}
         {occurrenceSearch?.documents?.total > 0 && <RouterTab to={join(url, '/dashboard')} label={<FormattedMessage id="grscicoll.dashboard" defaultMessage="Dashboard" />} />}
       </TabList>
     </HeaderWrapper>

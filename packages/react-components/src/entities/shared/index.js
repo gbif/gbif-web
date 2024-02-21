@@ -70,16 +70,17 @@ export function GrSciCollMetadata({ entity, setPinState, isPinned, ...props }) {
     <TextButton>
       <MdPushPin style={isPinned ? { color: 'var(--color900)' } : null} onClick={setPinState} />
     </TextButton>
-    <div>Entry created: <FormattedDate value={entity.created}
+    <div><FormattedMessage id="grscicoll.entryCreated" deafultMessage="Entry created" />: <FormattedDate value={entity.created}
       year="numeric"
       month="long"
       day="2-digit" /></div>
-    <div>Last modified: <FormattedDate value={entity.modified}
+    <div><FormattedMessage id="grscicoll.lastModified" deafultMessage="Last modified" />: <FormattedDate value={entity.modified}
       year="numeric"
       month="long"
-      day="2-digit" /> by {entity.modifiedBy}</div>
+      day="2-digit" /></div>
+    <div><FormattedMessage id="grscicoll.modifiedBy" deafultMessage="Modified by" />: {entity.modifiedBy}</div>
     {entity.masterSourceMetadata && <div>
-      <span>Master source: </span>
+      <span><FormattedMessage id="grscicoll.masterSource" deafultMessage="Master source" />: </span>
       {entity.masterSourceMetadata.source === 'ORGANIZATION' && <ResourceLink discreet type="publisherKey" id={entity.masterSourceMetadata.sourceId}>GBIF publisher</ResourceLink>}
       {entity.masterSourceMetadata.source === 'DATASET' && <ResourceLink discreet type="datasetKey" id={entity.masterSourceMetadata.sourceId}>GBIF publisher</ResourceLink>}
       {entity.masterSourceMetadata.source === 'IH_IRN' && <a css={css`color: inherit;`} href={`http://sweetgum.nybg.org/science/ih/herbarium-details/?irn=${entity.masterSourceMetadata.sourceId}`}>Index Herbariorum</a>}
