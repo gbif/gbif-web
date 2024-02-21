@@ -23,6 +23,7 @@
   "logoUrl": "Logo",
   "notes": "Notes",
   "collectionCode": "Collection code",
+  "institutionCode": "Institution code",
   "specimensViaGbif": "Specimens shared with GBIF",
   "specimens": "Specimens",
   "identifiers": "Identifiers",
