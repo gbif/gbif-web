@@ -20,7 +20,7 @@ export function Metrics({
       <DashBoardLayout>
         <charts.OccurrenceSummary predicate={predicate} />
         <charts.DataQuality predicate={predicate} />
-        <charts.Year predicate={predicate} visibilityThreshold={1} options={['TIME']} interactive={false} />
+        <charts.EventDate predicate={predicate} visibilityThreshold={1} options={['TIME']} interactive={false} />
         <charts.Taxa predicate={predicate} interactive={false}/>
         <charts.Iucn predicate={predicate} visibilityThreshold={0}  interactive={false}/>
         <charts.IucnCounts predicate={predicate} visibilityThreshold={1}  interactive={false}/>

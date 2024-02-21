@@ -335,6 +335,9 @@ Highcharts.theme = {
     }
   },
 
+  responsive: true,
+  maintainAspectRatio: false,
+
   navigation: {
     buttonOptions: {
       symbolStroke: '#666',

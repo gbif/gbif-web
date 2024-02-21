@@ -82,7 +82,22 @@ export const RecordedBy = getStringChart({
 });
 
 export const Preparations = getStringChart({
-  fieldName: 'preparations',
-  interactive: false,
+  fieldName: 'preparations', 
+  title: <FormattedMessage id="filters.preparations.name" defaultMessage="Preparations" />,
+  gqlEntity: `occurrences {documents(size: 1) {results {preparations}}}`,
+  // transform: data => {
+  //   return data?.search?.facet?.results?.map(x => {
+  //     // extract the recordedBy value from the first result. Filter the recordedBy array by lower case matching and select the first match
+  //     const title = x.entity?.documents?.results?.[0]?.recordedBy?.find(r => getNormalizedName(r) === x.key) ?? x.key;
+  //     return {
+  //       key: x.key,
+  //       count: x.count,
+  //       title: title,
+  //       plainTextTitle: title,
+  //       filter: { recordedBy: [title] },
+  //     }
+  //   });
+  // }
 });
+
 

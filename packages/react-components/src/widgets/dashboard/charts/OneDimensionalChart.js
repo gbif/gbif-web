@@ -1,9 +1,8 @@
 import { jsx, css } from '@emotion/react';
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React from 'react';
 import { Card, CardTitle } from '../shared';
-import { Button, ResourceLink } from '../../../components';
-import { formatAsPercentage, mergeDeep } from '../../../utils/util';
-import qs from 'query-string';
+import { Button } from '../../../components';
+import { formatAsPercentage } from '../../../utils/util';
 import Highcharts from './highcharts';
 import HighchartsReact from 'highcharts-react-official'
 import { getPieOptions } from './pie';
@@ -11,11 +10,17 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { getColumnOptions } from './column';
 // import { getTimeSeriesOptions } from './area';
 import { GroupBy, Pagging, useFacets } from './GroupByTable';
-import { MdLink, MdViewStream } from 'react-icons/md';
+import { MdViewStream } from 'react-icons/md';
 import { BsFillBarChartFill, BsPieChartFill } from 'react-icons/bs';
-import { useLocation, useHistory } from 'react-router-dom';
-import { FilterContext } from '../../Filter/state';
 import { getTimeSeriesOptions } from './time';
+import { uncontrollable } from 'uncontrollable';
+
+const chartsStyle = css`
+  min-width: 100%;
+  height: 100%;
+  width: 160px;
+  overflow: hidden;
+`;
 
 // Component to control the view options: table, pie chart, bar chart
 function ViewOptions({ view, setView, options = ['COLUMN', 'PIE', 'TABLE'] }) {
@@ -45,12 +50,16 @@ function ViewOptions({ view, setView, options = ['COLUMN', 'PIE', 'TABLE'] }) {
   </div>
 }
 
-export function OneDimensionalChart({
+export const OneDimensionalChart = uncontrollable(OneDimensional, {
+  view: 'setView'
+});
+
+export function OneDimensional({
   facetQuery,
   predicateKey,
   detailsRoute,
   disableOther,
-  options = ['PIE', 'COLUMN', 'TABLE'],
+  options = ['TABLE', 'PIE', 'COLUMN'],
   defaultOption,
   disableUnknown,
   showUnknownInChart,
@@ -62,17 +71,20 @@ export function OneDimensionalChart({
   filterKey,
   handleRedirect,
   visibilityThreshold = -1,
-  interactive = true,
+  interactive = false,
+  setView,
+  view,
   ...props
 }) {
   const intl = useIntl();
   const facetResults = useFacets(facetQuery);
-  const [view, setView] = useState(defaultOption ?? options?.[0] ?? 'TABLE');
+  // const [view, setView] = useState(defaultOption ?? options?.[0] ?? 'TABLE');
   const showChart = facetResults?.results?.length > 0;
   const { otherCount, emptyCount, distinct } = facetResults;
+  if (!view) setView(defaultOption ?? options?.[0] ?? 'TABLE');
 
   const translations = {
-    occurrences: intl.formatMessage({id: 'dashboard.occurrences'})
+    occurrences: intl.formatMessage({ id: 'dashboard.occurrences' })
   }
   facetResults?.results?.forEach(x => x.filter = { [filterKey ?? predicateKey]: [x.key] });
   const mappedResults = transform ? transform(facetResults.data) : facetResults.results;
@@ -102,7 +114,7 @@ export function OneDimensionalChart({
     if (!disableOther && otherCount) {
       data.push({
         y: otherCount,
-        name: intl.formatMessage({id: 'dashboard.other'}),
+        name: intl.formatMessage({ id: 'dashboard.other' }),
         color: "url(#other1)",
         visible: true
       });
@@ -110,7 +122,7 @@ export function OneDimensionalChart({
     if (showUnknownInChart && emptyCount) {
       data.push({
         y: emptyCount,
-        name: intl.formatMessage({id: 'dashboard.unknown'}),
+        name: intl.formatMessage({ id: 'dashboard.unknown' }),
         visible: true,
         color: "url(#unknown2)",
         filter: { must_not: { [predicateKey]: [{ "type": "isNotNull" }] } },
@@ -120,7 +132,7 @@ export function OneDimensionalChart({
 
   const serie = {
     innerSize: '25%',
-    name: intl.formatMessage({id: 'dashboard.occurrences'}),
+    name: intl.formatMessage({ id: 'dashboard.occurrences' }),
     data,
   };
 
@@ -130,7 +142,7 @@ export function OneDimensionalChart({
     interactive,
     translations
   });
-  
+
   const columnOptions = getColumnOptions({ serie, onClick: handleRedirect, interactive, translations });
 
   // if time series then create the area chart options
@@ -149,7 +161,7 @@ export function OneDimensionalChart({
       m: 'minute',
       s: 'second',
     }
-    
+
     // // rename the data to get names with time interval
     data?.forEach(x => {
       const utc = Number.parseInt(x?.utc);
@@ -157,7 +169,7 @@ export function OneDimensionalChart({
       const startDate = new Date(utc);
       // add the interval to the startDate (e.g. adding 10 years)
       const endDate = new Date(utc);
-      
+
       if (unit === 'y') endDate.setFullYear(startDate.getFullYear() + value);
       if (unit === 'M') endDate.setMonth(startDate.getMonth() + value);
       if (unit === 'd') endDate.setDate(startDate.getDate() + value);
@@ -178,13 +190,13 @@ export function OneDimensionalChart({
       const end = new Intl.DateTimeFormat('en', format).format(endDate);
 
       x.name = `${start} - ${end}`;
-      
+
       x.utc = utc;
     });
     // create the serie
     const histogramSerie = {
       innerSize: '25%',
-      name: intl.formatMessage({id: 'dashboard.occurrences'}),
+      name: intl.formatMessage({ id: 'dashboard.occurrences' }),
       // pointStart: -10476864000000,
       pointStart: Number.parseInt(data?.[0]?.utc),//Date.UTC(1638, 0, 1), // first of April
       // pointRange: 3600 * 1000 * 24 * 365 * 10, // hourly data
@@ -204,7 +216,7 @@ export function OneDimensionalChart({
   const filledPercentage = facetResults?.data?.isNotNull?.documents?.total / facetResults?.data?.search?.documents?.total;
 
   if (!disableUnknown) {
-    messages.push(<div><FormattedMessage id="dashboard.percentWithValue" values={{percent: formatAsPercentage(filledPercentage)}} /></div>);
+    messages.push(<div><FormattedMessage id="dashboard.percentWithValue" values={{ percent: formatAsPercentage(filledPercentage) }} /></div>);
   }
   const renderedView = view;
   // the idea with this was that it looks odd with a pie chart with only one value, but it looks even worse with a table with only one value. Similar for column charts. But in reality it was also confusing changing the layout when changing filters, so we removed this.
@@ -227,14 +239,17 @@ export function OneDimensionalChart({
         {renderedView === 'PIE' && <HighchartsReact
           highcharts={Highcharts}
           options={pieOptions}
+          css={chartsStyle}
         />}
         {renderedView === 'COLUMN' && <HighchartsReact
           highcharts={Highcharts}
           options={columnOptions}
+          css={chartsStyle}
         />}
         {renderedView === 'TIME' && <HighchartsReact
           highcharts={Highcharts}
           options={timeSeriesOptions}
+          css={chartsStyle}
         />}
       </div>}
       {renderedView === 'TABLE' && <GroupBy facetResults={facetResults} transform={transform} onClick={handleRedirect} interactive={interactive} />}

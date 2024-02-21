@@ -21,7 +21,7 @@ function isEmpty(e) {
   return e === null || typeof e === 'undefined' || (Array.isArray(e) && e.length === 0);
 }
 
-export const TablePresentation = ({ first, prev, next, size, from, data, total, loading, visibleColumns = [], availableColumns = [], toggleColumn }) => {
+export const TablePresentation = ({ first, prev, next, size, from, data, total, loading, dataTableProps, style = {}, className, visibleColumns = [], availableColumns = [], toggleColumn }) => {
   // const [activeKey, setActiveKey] = useUrlState({ param: 'entity' });
   const [activeKey, setActiveKey] = useQueryParam('entity', NumberParam);
   const noColumnLock = useBelow(1000);
@@ -87,10 +87,10 @@ export const TablePresentation = ({ first, prev, next, size, from, data, total, 
       locked: fixed,
       toggle: noColumnLock ? null : () => setFixed(!fixedColumn),
       prefix: <Menu
-        aria-label="Settings_"
+        aria-label="Settings"
         trigger={<TextButton as="span" look="textHoverLinkColor" style={{ display: 'inline-flex' }}>
           <MdMoreVert style={{ fontSize: '1.5em', marginRight: '.75em' }} onClick={(e) => {
-            console.log(4);
+            // e.stopPropagation();
           }} />
         </TextButton>}
         items={menuItems}
@@ -121,9 +121,10 @@ export const TablePresentation = ({ first, prev, next, size, from, data, total, 
       height: "100%",
       maxHeight: "100vh",
       flexDirection: "column",
-    }}>
+      ...style
+    }} className={className}>
       <ViewHeader loading={loading} total={total} />
-      <DataTable fixedColumn={fixed} {...{ first, prev, next, size, from, total, loading }} css={css.table()} >
+      <DataTable fixedColumn={fixed} {...{ first, prev, next, size, from, total, loading }} css={css.table()} {...dataTableProps} >
         <thead>
           <tr>{headerss}</tr>
         </thead>

@@ -28,7 +28,7 @@ export function Datasets({
           plainTextTitle: x?.entity?.title,
           count: x.count,
           description: x.entity.description,
-          filter: { must: { datasetKey: [x.key] } },
+          filter: { datasetKey: [x.key] },
         }
       });
     }
@@ -58,7 +58,7 @@ export function Publishers({
           plainTextTitle: x?.entity?.title,
           count: x.count,
           description: x.entity.description,
-          filter: { must: { publishingOrg: [x.key] } },
+          filter: { publishingOrg: [x.key] },
         }
       });
     }
@@ -87,7 +87,7 @@ export function HostingOrganizations({
           title: <span>{x?.entity?.title} <ResourceLink discreet type="publisherKey" id={x.key}><MdLink /></ResourceLink></span>,
           plainTextTitle: x?.entity?.title,
           count: x.count,
-          filter: { must: { hostingOrganizationKey: [x.key] } },
+          filter: { hostingOrganizationKey: [x.key] },
         }
       });
     }
@@ -117,7 +117,7 @@ export function Collections({
           plainTextTitle: x?.entity?.title,
           count: x.count,
           description: x.entity.description,
-          filter: { must: { collectionKey: [x.key] } },
+          filter: { collectionKey: [x.key] },
         }
       });
     }
@@ -147,7 +147,7 @@ export function Institutions({
           plainTextTitle: x?.entity?.title,
           count: x.count,
           description: x.entity.description,
-          filter: { must: { institutionKey: [x.key] } },
+          filter: { institutionKey: [x.key] },
         }
       });
     }
@@ -177,7 +177,7 @@ export function Networks({
           plainTextTitle: x?.entity?.title,
           count: x.count,
           description: x.entity.description,
-          filter: { must: { networkKey: [x.key] } },
+          filter: { networkKey: [x.key] },
         }
       });
     }
@@ -209,7 +209,7 @@ export function EstablishmentMeans({
           title: x?.entity?.title,
           count: x.count,
           description: x.entity.description,
-          filter: { must: { establishmentMeans: [x.key] } },
+          filter: { establishmentMeans: [x.key] },
         }
       });
     }
@@ -245,7 +245,7 @@ export function Synonyms({
       accepted
       acceptedKey
     }`,
-    title: <FormattedMessage id="filters.synonyms.name" defaultMessage="Synonyms" />,
+    title: <FormattedMessage id="dashboard.synonyms" defaultMessage="Synonyms" />,
     subtitleKey: "dashboard.numberOfOccurrences",
     transform: data => {
       return data?.search?.facet?.results?.map(x => {

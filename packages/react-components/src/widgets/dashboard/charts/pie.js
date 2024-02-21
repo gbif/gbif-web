@@ -1,5 +1,7 @@
 export function getPieOptions({ serie, onClick, interactive }) {
   const options = {
+    responsive: true,
+    maintainAspectRatio: false,
     chart: {
       height: 400,
       animation: false,

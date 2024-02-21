@@ -9,6 +9,7 @@ And probably the point overlays will have to be dependent on the basemap as well
 
 */
 import { jsx } from '@emotion/react';
+import { useResizeDetector } from 'react-resize-detector';
 import React, { useContext, useState, useEffect, useCallback } from "react";
 import { DetailsDrawer, Menu, MenuAction, Button } from '../../../../components';
 import { OccurrenceSidebar } from '../../../../entities';
@@ -43,7 +44,7 @@ function getStyle({ styles = {}, projection, type, lookup = {}, layerOptions }) 
   return style;
 }
 
-function Map({ labelMap, query, q, pointData, pointError, pointLoading, loading, total, predicateHash, registerPredicate, loadPointData, defaultMapSettings, ...props }) {
+function Map({ labelMap, query, q, pointData, pointError, pointLoading, loading, total, predicateHash, registerPredicate, loadPointData, defaultMapSettings, style, className, mapProps, ...props }) {
   const dialog = useDialogState({ animated: true, modal: false });
   const theme = useContext(ThemeContext);
   const siteContext = useContext(SiteContext);
@@ -75,6 +76,12 @@ function Map({ labelMap, query, q, pointData, pointError, pointLoading, loading,
   const [listVisible, showList] = useState(false);
 
   const items = pointData?.occurrenceSearch?.documents?.results || [];
+
+  const { width, height, ref } = useResizeDetector({
+    handleHeight: true,
+    refreshMode: 'debounce',
+    refreshRate: 1000
+  });
 
   useEffect(() => {
     const mapStyles = getMapStyles({ apiKeys: siteContext.apiKeys, language: siteContext?.maps?.locale || 'en', });
@@ -161,7 +168,7 @@ function Map({ labelMap, query, q, pointData, pointError, pointLoading, loading,
     <DetailsDrawer href={`https://www.gbif.org/occurrence/${activeItem?.key}`} dialog={dialog} nextItem={nextItem} previousItem={previousItem}>
       <OccurrenceSidebar id={activeItem?.key} defaultTab='details' style={{ maxWidth: '100%', width: 700, height: '100%' }} onCloseRequest={() => dialog.setVisible(false)} />
     </DetailsDrawer>
-    <div css={css.mapArea({ theme })}>
+    <div ref={ref} css={css.mapArea({ theme })} {...{style, className}}>
       <ViewHeader message="counts.nResultsWithCoordinates" loading={loading} total={total} />
       <div style={{ position: 'relative', height: '200px', flex: '1 1 auto', display: 'flex', flexDirection: 'column' }}>
         {listVisible && <ListBox onCloseRequest={e => showList(false)}
@@ -187,6 +194,7 @@ function Map({ labelMap, query, q, pointData, pointError, pointLoading, loading,
           {userLocationEnabled && <Button loading={searchingLocation} appearance="text" onClick={getUserLocation}><MdMyLocation /></Button>}
         </div>
         <MapComponent
+          {...mapProps}
           mapConfig={mapConfiguration.mapConfig}
           latestEvent={latestEvent}
           defaultMapSettings={defaultMapSettings}
@@ -197,7 +205,10 @@ function Map({ labelMap, query, q, pointData, pointError, pointLoading, loading,
           query={query}
           onMapClick={e => showList(false)}
           onPointClick={data => { showList(true); loadPointData(data) }}
-          registerPredicate={registerPredicate} />
+          registerPredicate={registerPredicate}
+          height={height}
+          width={width}
+          />
       </div>
     </div>
   </>;

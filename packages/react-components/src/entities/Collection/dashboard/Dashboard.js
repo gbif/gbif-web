@@ -27,7 +27,7 @@ export function Dashboard({
     <DashBoardLayout>
       <charts.OccurrenceSummary predicate={predicate} />
       <charts.DataQuality predicate={predicate} />
-      <charts.Year predicate={predicate} options={['TIME']} interactive={false} />
+      <charts.EventDate predicate={predicate} options={['TIME']} interactive={false} />
       <charts.Preparations predicate={predicate} visibilityThreshold={0} detailsRoute={specimenSearchRoute} defaultOption="PIE" />
       <charts.Taxa predicate={predicate} detailsRoute={specimenSearchRoute} />
       <charts.Iucn predicate={predicate} visibilityThreshold={0} detailsRoute={specimenSearchRoute} />

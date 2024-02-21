@@ -13,6 +13,8 @@ const { TabList, Tab, TabPanel } = Tabs;
 
 const Layout = ({
   className = '',
+  styles = {},
+  style = '',
   config,
   Table,
   ...props
@@ -23,9 +25,9 @@ const Layout = ({
   const elementName = 'searchLayout';
 
   return <div className={`${className} ${prefix}-${elementName}`}
-    css={cssLayout({ theme })} {...props}>
+    css={cssLayout({ theme })} style={style} styles={styles}>
     <Tabs activeId={activeView} onChange={setActiveView} >
-      <div css={cssNavBar({ theme })} style={{margin: '0 0 10px 0', borderRadius: 0}}>
+      <div css={cssNavBar({ theme })} style={{ margin: '0 0 10px 0', borderRadius: 0 }}>
         <DataHeader availableCatalogues={config.availableCatalogues} style={{ borderBottom: '1px solid #ddd' }} />
         <div css={cssFilter({ theme })}>
           <FilterBar config={config}></FilterBar>

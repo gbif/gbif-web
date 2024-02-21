@@ -1,7 +1,7 @@
 import { css, keyframes } from '@emotion/react';
 import { helper } from '../../utils/helper';
 
-export const button = theme => css`
+export const button = css`
   ${helper.noUserSelect}
   appearance: none;
   text-decoration: none;
@@ -14,7 +14,7 @@ export const button = theme => css`
   text-align: center;
 
   border: 1px solid transparent;
-  border-radius: ${theme.borderRadius}px;
+  border-radius: var(--borderRadiusPx);
   box-shadow: none;
 
   font-size: 1em;
@@ -24,11 +24,11 @@ export const button = theme => css`
   position: relative;
   margin: 0;
   background-color: white;
-  color: ${theme.color};
+  color: var(--color);
   cursor: pointer;
   justify-content: center;
-  padding-left: ${theme.dense ? 0.5 : 1}em;
-  padding-right: ${theme.dense ? 0.5 : 1}em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
   &:focus {
     outline: none;
     box-shadow: 0 0 0 0.125em rgba(50, 115, 220, 0.25);
@@ -42,7 +42,7 @@ export const button = theme => css`
   }
 `;
 
-export const text = theme => css`
+export const text = css`
   padding: 0;
   border: none;
   height: auto;
@@ -54,17 +54,17 @@ export const text = theme => css`
   cursor: pointer;
 `;
 
-export const textHoverLinkColor = theme => css`
+export const textHoverLinkColor = css`
   color: inherit;
   cursor: pointer;
   height: auto;
   line-height: inherit;
   &:hover {
-    color: ${theme.primary500};
+    color: var(--primary500);
   }
 `;
 
-export const textHover = theme => css`
+export const textHover = css`
   padding: 0;
   border: none;
   height: auto;
@@ -76,13 +76,13 @@ export const textHover = theme => css`
   cursor: pointer;
 
   border: 1px solid transparent;
-  border-radius: ${theme.borderRadius}px;
+  border-radius: var(--borderRadiusPx);
   box-shadow: none;
   margin: 0 -4px;
   padding: 1px 4px;
   &:hover {
-    background-color: ${theme.primary500};
-    border-color: ${theme.primary600};
+    background-color: var(--primary500);
+    border-color: var(--primary600);
     color: white;
     * {
       color: white;
@@ -90,53 +90,53 @@ export const textHover = theme => css`
   }
 `;
 
-export const primary = theme => css`
-  background-color: ${theme.primary500};
-  border-color: ${theme.primary600};
+export const primary = css`
+  background-color: var(--primary500);
+  border-color: var(--primary600);
   color: white!important;
   &:not([aria-disabled="true"]) {
     &:hover {
       color: white;
-      border-color: ${theme.primary500};
-      background-color: ${theme.primary600};
+      border-color: var(--primary500);
+      background-color: var(--primary600);
     }
     &:active,
     &[aria-expanded="true"] {
       color: white;
-      border-color: ${theme.primary600};
-      background-color: ${theme.primary700};
+      border-color: var(--primary600);
+      background-color: var(--primary700);
     }
   }
 `;
 
-export const primaryOutline = (theme) => css`
-  border-color: ${theme.primary600};
+export const primaryOutline = css`
+  border-color: var(--primary600);
   background: none;
-  color: ${theme.primary700}!important;
+  color: var(--primary700)!important;
 `;
 
-export const outline = (theme) => css`
-  border-color: ${theme.transparentInk40};
+export const outline = css`
+  border-color: var(--transparentInk40);
   background: none;
 `;
 
-export const ghost = (theme) => css`
+export const ghost = css`
   border-color: #808080;
   color: #808080;
   background: none;
 `;
 
-export const danger = (theme) => css`
+export const danger = css`
   background: tomato;
   color: white;
 `;
 
-export const link = (theme) => css`
-  ${text(theme)};
-  color: ${theme.primary500};
+export const link = css`
+  ${text};
+  color: var(--primary500);
 `;
 
-export const isFullWidth = (theme) => css`
+export const isFullWidth = css`
   display: flex; 
   width: 100%;
 `;
@@ -150,7 +150,7 @@ export const spinAround = keyframes`
   }
 `;
 
-export const loading = (theme) => css`
+export const loading = css`
   &:after {
     animation: ${spinAround} 500ms infinite linear;
     border: 2px solid #dbdbdb;
@@ -169,7 +169,7 @@ export const loading = (theme) => css`
   pointer-events: none;
 `;
 
-export const group = ({theme}) => css`
+export const group = css`
   display: inline-flex;
   /* width: fit-content; */
   max-width: 100%;
@@ -180,13 +180,13 @@ export const group = ({theme}) => css`
     margin-right: -1px;
   }
   >button:first-of-type {
-    border-top-left-radius: ${theme.borderRadius}px;
-    border-bottom-left-radius: ${theme.borderRadius}px;
+    border-top-left-radius: var(--borderRadiusPx);
+    border-bottom-left-radius: var(--borderRadiusPx);
     flex: 1 1 auto;
   }
   >button:last-of-type {
-    border-top-right-radius: ${theme.borderRadius}px;
-    border-bottom-right-radius: ${theme.borderRadius}px;
+    border-top-right-radius: var(--borderRadiusPx);
+    border-bottom-right-radius: var(--borderRadiusPx);
   }
 `;
 

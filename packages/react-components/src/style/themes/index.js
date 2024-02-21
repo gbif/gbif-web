@@ -7,7 +7,7 @@ import rtlVariables from './rtl';
 import alaVariables from './ala';
 import themeBuilder from '../themeBuilder/index';
 
-export { default } from './ThemeContext';
+export { default, ThemeProvider } from './ThemeContext';
 
 export const darkTheme = themeBuilder.build(darkVariables);
 export const lightTheme = themeBuilder.build(lightVariables);

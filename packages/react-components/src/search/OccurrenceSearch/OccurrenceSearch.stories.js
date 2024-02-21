@@ -177,7 +177,7 @@ const config = {
   labels, 
   getSuggests, 
   filters, 
-  occurrenceSearchTabs: ['CLUSTERS', 'TABLE', 'MAP', 'DATASETS', 'GALLERY'],
+  occurrenceSearchTabs: ['DASHBOARD', 'CLUSTERS', 'TABLE', 'MAP', 'DATASETS', 'GALLERY'],
   // highlightedFilters: ['establishmentMeans'],
   // excludedFilters: ['locality'],
   availableCatalogues: ['OCCURRENCE', 'LITERATURE', 'COLLECTION'],
@@ -213,11 +213,11 @@ export const StandaloneExample = () => <Standalone siteConfig={{
     }
   },
   occurrence: {
-    occurrenceSearchTabs: ['TABLE', 'MAP', 'DATASETS', 'GALLERY'],
+    occurrenceSearchTabs: ['DASHBOARD', 'TABLE', 'MAP', 'DATASETS', 'GALLERY'],
     mapSettings: {
       userLocationEnabled: true,
     },
     rootPredicate
   },
   availableCatalogues: ['INSTITUTION', 'COLLECTION', 'OCCURRENCE', 'DATASET'],
-}} style={{ height: 'calc(100vh - 40px)' }}></Standalone>;
+}} style={{ minHeight: 'calc(100vh - 40px)' }}></Standalone>;

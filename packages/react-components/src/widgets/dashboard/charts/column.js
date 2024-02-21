@@ -1,6 +1,8 @@
 export function getColumnOptions({ serie, onClick, interactive, translations }) {
   const categories = serie?.data?.map(x => x.name);
   const options = {
+    responsive: true,
+    maintainAspectRatio: false,
     chart: {
       height: 300,
       animation: false,

@@ -7,7 +7,7 @@ import { LocaleProvider } from "../src/dataManagement/LocaleProvider";
 
 import { Root } from '../src/components';
 
-import ThemeContext, { darkTheme, lightTheme, a11yTheme, vertnetTheme, rtlTheme, alaTheme, gbifTheme } from '../src/style/themes';
+import { darkTheme, lightTheme, a11yTheme, vertnetTheme, rtlTheme, alaTheme, gbifTheme, ThemeProvider } from '../src/style/themes';
 import ThemeBuilder from '../src/style/themeBuilder';
 import { ApiContext, ApiClient } from '../src/dataManagement/api';
 import env from '../.env.json';
@@ -83,8 +83,8 @@ addDecorator(storyFn => {
                   env.STORYBOOK_LOCALE || locales[0],
                 ),
               )}>
-              <ThemeContext.Provider
-                value={chooseTheme(
+              <ThemeProvider
+                theme={chooseTheme(
                   select(
                     'Choose Theme',
                     ['Dark', 'Light', 'A11y', 'Vertnet', 'RTL', 'GBIF', 'ALA', 'Custom'],
@@ -106,7 +106,7 @@ addDecorator(storyFn => {
                     <ToastContainer position="bottom-center" delay={3000} />
                   </div>
                 </Root>
-              </ThemeContext.Provider>
+              </ThemeProvider>
             </LocaleProvider>
           </GraphQLContextProvider>
         </ApiContext.Provider>

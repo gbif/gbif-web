@@ -2,6 +2,10 @@ import { jsx, css } from '@emotion/react';
 import React from 'react';
 import useBelow from '../../utils/useBelow';
 
+function DashboardSection({ children, ...props }) {
+  return <div css={css`margin-bottom: 12px;`} {...props}>{children}</div>
+}
+
 export default function DashBoardLayout({ children, predicate, queueUpdates = false, ...props }) {
   const isBelow800 = useBelow(800);
 

@@ -1,10 +1,17 @@
 {
   "numberOfOccurrences": "Number of occurrences",
+  "addNew": "New",
+  "removeEmptyGroup": "Remove empty group",
+  "newGroup": "Add new group",
+  "invalidLayoutWarning": "The layout was created for a larger screen.",
+  "adaptLayout": "Adapt layout",
+  "sharedLayout": "You are viewing a shared layout.",
   "noData": "No data",
   "statistics": "Statistics",
   "occurrenceRecords": "Occurrence records",
   "species": "Species",
   "taxa": "Taxa",
+  "synonyms": "Synonyms",
   "yearRange": "Year range",
   "identifiedToSpecies": "Identified to species",
   "withCoordinates": "With coordinates",
@@ -19,5 +26,18 @@
   "iucnThreatStatus": "IUCN threat status",
   "iucnThreatStatusDescription": "Species that are near threatened or more vulnerable according to the Global IUCN Redlist",
   "metricsFromGbifData": "These metrics are based on records shared via GBIF",
-  "notVocabularyWarning": "Non-interpreted values - same concept might appear with different names."
+  "notVocabularyWarning": "Non-interpreted values - same concept might appear with different names.",
+  "group": {
+    "views": "Views",
+    "record": "Record",
+    "occurrence": "Occurrence",
+    "organism": "Organism",
+    "materialEntity": "Material Entity",
+    "event": "Event",
+    "location": "Location",
+    "geologicalContext": "Geological Context",
+    "identification": "Identification",
+    "provenance": "Provenance",
+    "other": "Other"
+  }
 }

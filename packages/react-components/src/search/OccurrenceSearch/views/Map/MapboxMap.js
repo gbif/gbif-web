@@ -72,6 +72,10 @@ class Map extends Component {
         });
       }
     }
+    // check if the size of the map container has changed and if so resize the map
+    if ((prevProps.height !== this.props.height || prevProps.width !== this.props.width) && this.mapLoaded) {
+      this.map.resize();
+    }
     if (prevProps.mapConfig !== this.props.mapConfig && this.mapLoaded) {
       // seems we do not need to remove the sources when we load the style this way
       this.map.setStyle(this.getStyle());

@@ -64,22 +64,27 @@ export const classification = ({ ...props }) => css`
   }
 `;
 
-export const root = ({ appRoot, theme = {} }) => css`
+export const root = css`
+  font-family: var(--fontFamily);
   * {
-    font-family: ${theme.fontFamily || 'BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif'};
+    font-family: var(--fontFamily);
   }
-  color: ${theme.color900 || '#4a4a4a'};
-  font-size: ${theme.fontSize || '1em'};
+  color: var(--color900);
+  font-size: var(--fontSize);
   font-weight: 400;
   line-height: 1.2;
   box-sizing: border-box;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
-  background: ${appRoot ? theme.background : null};
   *, *::before, *::after, strong {
     box-sizing: inherit;
   }
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+`;
+
+export const appRoot = css`
+  background: var(--background);
+  ${root}
 `;
 
 export const srOnly = css`
