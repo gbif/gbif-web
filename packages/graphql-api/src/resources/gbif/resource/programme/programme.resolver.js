@@ -45,7 +45,13 @@ export default {
         if (!knownType) logger.warn(`Unknown content type for a block in programme.resolver.js: ${result.contentType}`);
         return knownType;
       }));
-    }
+    },
+    fundingOrganisations: (src, _, { dataSources, locale }) => {
+      if (!isNoneEmptyArray(src.fundingOrganisations)) return null;
+
+      const ids = src.fundingOrganisations.map(partner => partner.id);
+      return Promise.all(ids.map(id =>  dataSources.resourceAPI.getEntryById({ id, preview: false, locale })));
+    },
     // call: (src, _, context) => context.dataSources.getEntryById(src.call.id, false, context.locale),
     // gbifHref: (src, _, context) => createLocalizedGbifHref(context.locale, 'project', src.id),
   }

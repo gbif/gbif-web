@@ -1,20 +1,27 @@
 import { ProgrammeFundingBannerFragment, ProjectFundingBannerFragment } from '@/gql/graphql';
 import { fragmentManager } from '@/services/FragmentManager';
+import { notNull } from '@/utils/notNull';
 import { FormattedMessage } from 'react-intl';
+
+fragmentManager.register(/* GraphQL */ `
+  fragment FundingOrganisationDetails on FundingOrganisation {
+    id
+    title
+    url
+    logo {
+      title
+      file {
+        url
+      }
+    }
+  }
+`);
 
 fragmentManager.register(/* GraphQL */ `
   fragment ProgrammeFundingBanner on Programme {
     __typename
     fundingOrganisations {
-      id
-      title
-      url
-      logo {
-        title
-        file {
-          url
-        }
-      }
+      ...FundingOrganisationDetails
     }
   }
 `);
@@ -26,6 +33,9 @@ fragmentManager.register(/* GraphQL */ `
     programme {
       ...ProgrammeFundingBanner
     }
+    overrideProgrammeFunding {
+      ...FundingOrganisationDetails
+    }
   }
 `);
 
@@ -36,7 +46,7 @@ type Props = {
 export function FundingBanner({ resource }: Props) {
   const fundingOrganisations =
     resource.__typename === 'GbifProject'
-      ? resource.programme?.fundingOrganisations
+      ? resource.overrideProgrammeFunding ?? resource.programme?.fundingOrganisations
       : resource.fundingOrganisations;
 
   const fundsAllocated =
@@ -50,14 +60,12 @@ export function FundingBanner({ resource }: Props) {
       </span>
 
       <div className="pt-6 flex gap-8 flex-wrap justify-center">
-        {fundingOrganisations?.map((fundingOrganisation) => (
+        {fundingOrganisations?.filter(notNull).map((fundingOrganisation) => (
           <div key={fundingOrganisation.id}>
-            <a href="http://europa.eu/" className="flex flex-col items-center group">
+            <a href={fundingOrganisation.url!} className="flex flex-col items-center group">
               <img
                 className="max-w-28"
-                src="//images.ctfassets.net/uo17ejk9rkwj/6DO53L2kCckOgSKiyoU28i/73ce7be12fe8c9e90dd4c2516db099b7/flag-yellow-low.jpg"
-                // TODO: How to get the image? None of the images are available in the CMS
-                // src={fundingOrganisation.logo?.file.url}
+                src={fundingOrganisation.logo?.file.url}
               />
               <span className="text-gray-500 text-sm pt-2 group-hover:underline">
                 {fundingOrganisation.title}
