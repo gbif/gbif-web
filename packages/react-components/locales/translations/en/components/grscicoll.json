@@ -22,6 +22,7 @@
   "country": "Country",
   "logoUrl": "Logo",
   "notes": "Notes",
+  "collectionCode": "Collection code",
   "specimensViaGbif": "Specimens shared with GBIF",
   "specimens": "Specimens",
   "identifiers": "Identifiers",
@@ -29,5 +30,18 @@
   "incorporatedCollections": "Incorporated collections",
   "unknownSize": "Unknown size",
   "dashboard": "Dashboard",
+  "dataCatalog": "",
+  "edit": "",
+  "editHelpText": "",
+  "githubHelpText": "",
+  "entryCreated": "",
+  "lastModified": "",
+  "modifiedBy": "",
+  "masterSource": "",
+  "fromInstitution": "",
+  "tabs": {
+    "about": "About",
+    "explore": ""
+  },
   "citesPermitNumber": "Cites permit number"
 }
