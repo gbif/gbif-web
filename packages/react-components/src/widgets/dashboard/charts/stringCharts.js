@@ -14,8 +14,14 @@ function getStringChart({ fieldName, title, subtitleKey, ...rest }) {
     disableOther = false,
     disableUnknown = false,
     title = title ?? <FormattedMessage id={`filters.${fieldName}.name`} defaultMessage={fieldName} />,
+    showFreeTextWarning,
     ...props
   }) => {
+    let messages;
+    if (showFreeTextWarning) {
+      messages = [];
+      messages.push('dashboard.notVocabularyWarning');
+    }
     return <KeyChartGenerator {...{
       predicate, detailsRoute, currentFilter,
       fieldName: fieldName,
@@ -24,22 +30,23 @@ function getStringChart({ fieldName, title, subtitleKey, ...rest }) {
       facetSize: 10,
       title,
       subtitleKey: "dashboard.numberOfOccurrences",
+      messages,
     }} {...rest} {...props} />
   }
 }
 
 export const InstitutionCodes = getStringChart({
-  fieldName: 'institutionCode', 
+  fieldName: 'institutionCode',
   title: <FormattedMessage id="filters.institutionCode.name" defaultMessage="Institution code" />
 });
 
 export const CollectionCodes = getStringChart({
-  fieldName: 'collectionCode', 
+  fieldName: 'collectionCode',
   title: <FormattedMessage id="filters.collectionCode.name" defaultMessage="collection code" />
 });
 
 export const StateProvince = getStringChart({
-  fieldName: 'stateProvince', 
+  fieldName: 'stateProvince',
   title: <FormattedMessage id="filters.stateProvince.name" defaultMessage="State province" />,
   gqlEntity: `occurrences {documents(size: 1) {results {stateProvince}}}`,
   transform: data => {
@@ -57,7 +64,8 @@ export const StateProvince = getStringChart({
 });
 
 export const WaterBody = getStringChart({
-  fieldName: 'waterBody', 
+  fieldName: 'waterBody',
+  showFreeTextWarning: true,
   title: <FormattedMessage id="filters.waterBody.name" defaultMessage="Water body" />,
   gqlEntity: `occurrences {documents(size: 1) {results {waterBody}}}`,
   transform: data => {
@@ -77,13 +85,13 @@ export const WaterBody = getStringChart({
 const getNormalizedName = r => r.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "");
 
 export const IdentifiedBy = getStringChart({
-  fieldName: 'identifiedBy', 
+  fieldName: 'identifiedBy',
   title: <FormattedMessage id="filters.identifiedBy.name" defaultMessage="Identified by" />,
   gqlEntity: `occurrences {documents(size: 1) {results {identifiedBy}}}`,
   transform: data => {
     return data?.search?.facet?.results?.map(x => {
       // extract the identifiedBy value from the first result. Filter the recordedBy array by lower case matching and select the first match
-      const title = x.entity?.documents?.results?.[0]?.identifiedBy?.find(r => getNormalizedName(r) === x.key);
+      const title = x.entity?.documents?.results?.[0]?.identifiedBy?.find(r => getNormalizedName(r) === x.key) ?? x.key;
       return {
         key: x.key,
         count: x.count,
@@ -96,7 +104,7 @@ export const IdentifiedBy = getStringChart({
 });
 
 export const RecordedBy = getStringChart({
-  fieldName: 'recordedBy', 
+  fieldName: 'recordedBy',
   title: <FormattedMessage id="filters.recordedBy.name" defaultMessage="Recorded by" />,
   gqlEntity: `occurrences {documents(size: 1) {results {recordedBy}}}`,
   transform: data => {
@@ -115,18 +123,18 @@ export const RecordedBy = getStringChart({
 });
 
 export const Preparations = getStringChart({
-  fieldName: 'preparations', 
+  fieldName: 'preparations',
   title: <FormattedMessage id="filters.preparations.name" defaultMessage="Preparations" />,
   gqlEntity: `occurrences {documents(size: 1) {results {preparations}}}`,
 });
 
 export const CatalogNumber = getStringChart({
-  fieldName: 'catalogNumber', 
+  fieldName: 'catalogNumber',
   title: <FormattedMessage id="filters.catalogNumber.name" defaultMessage="Catalogue number" />,
 });
 
 export const EventId = getStringChart({
-  fieldName: 'eventId', 
+  fieldName: 'eventId',
   title: <FormattedMessage id="filters.eventId.name" defaultMessage="Event ID" />,
 });
 
@@ -172,7 +180,7 @@ function filterLevels(obj, targetGid) {
 }
 
 export const GadmGid = getStringChart({
-  fieldName: 'gadmGid', 
+  fieldName: 'gadmGid',
   title: <FormattedMessage id="filters.gadmGid.name" defaultMessage="Gadm GID" />,
   gqlEntity: `occurrences {documents(size: 1) {results {gadm}}}`,
   transform: data => {
