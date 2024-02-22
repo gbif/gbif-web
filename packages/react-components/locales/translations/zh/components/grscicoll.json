@@ -23,6 +23,7 @@
   "logoUrl": "标识logo",
   "notes": " 备注",
   "collectionCode": "保藏代码",
+  "institutionCode": "机构编码",
   "specimensViaGbif": "与GBIF共享的标本",
   "specimens": "标本",
   "identifiers": "标识符",
@@ -30,18 +31,18 @@
   "incorporatedCollections": "",
   "unknownSize": "尺寸不详",
   "dashboard": "",
-  "dataCatalog": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
-  "edit": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
-  "editHelpText": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
-  "githubHelpText": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
-  "entryCreated": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
-  "lastModified": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
-  "modifiedBy": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
-  "masterSource": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
-  "fromInstitution": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
+  "dataCatalog": "",
+  "edit": "",
+  "editHelpText": "",
+  "githubHelpText": "",
+  "entryCreated": "",
+  "lastModified": "",
+  "modifiedBy": "",
+  "masterSource": "",
+  "fromInstitution": "",
   "tabs": {
     "about": "关于",
-    "explore": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。"
+    "explore": ""
   },
   "citesPermitNumber": "引用许可数量"
 }
