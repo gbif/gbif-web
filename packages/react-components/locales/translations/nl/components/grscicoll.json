@@ -23,7 +23,7 @@
   "logoUrl": "Logo",
   "notes": "Opmerkingen",
   "collectionCode": "Collectiecode",
-  "institutionCode": "",
+  "institutionCode": "Code instelling",
   "specimensViaGbif": "Specimens gedeeld met GBIF",
   "specimens": "Exemplaar",
   "identifiers": "",
