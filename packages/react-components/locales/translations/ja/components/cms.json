@@ -38,7 +38,7 @@
     "partners": "パートナー"
   },
   "datause": {
-    "dataViaGbif": ""
+    "dataViaGbif": "GBIF を介したデータリソースが使用されました"
   },
   "literature": {
     "keywords": "キーワード"
@@ -60,9 +60,9 @@
     "location": "位置情報",
     "country": "国または地域",
     "noDatasets": "表示するデータセットがありません。",
-    "noNewsOrEvents": "",
-    "howToLinkDatasets": "",
-    "howToLinkEvents": "",
+    "noNewsOrEvents": "利用可能なニュースやイベントはありません",
+    "howToLinkDatasets": "データセットをプロジェクトにリンクする方法",
+    "howToLinkEvents": "イベントをプロジェクトページに追加する方法",
     "when": "いつ",
     "language": "言語",
     "viewOnGBIF": "GBIFで閲覧する",
