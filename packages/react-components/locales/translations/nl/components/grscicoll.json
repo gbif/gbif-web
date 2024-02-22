@@ -23,6 +23,7 @@
   "logoUrl": "Logo",
   "notes": "Opmerkingen",
   "collectionCode": "Collectiecode",
+  "institutionCode": "",
   "specimensViaGbif": "Specimens gedeeld met GBIF",
   "specimens": "Exemplaar",
   "identifiers": "",
@@ -30,18 +31,18 @@
   "incorporatedCollections": "",
   "unknownSize": "Onbekende grootte",
   "dashboard": "",
-  "dataCatalog": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
-  "edit": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
-  "editHelpText": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
-  "githubHelpText": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
-  "entryCreated": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
-  "lastModified": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
-  "modifiedBy": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
-  "masterSource": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
-  "fromInstitution": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
+  "dataCatalog": "",
+  "edit": "",
+  "editHelpText": "",
+  "githubHelpText": "",
+  "entryCreated": "",
+  "lastModified": "",
+  "modifiedBy": "",
+  "masterSource": "",
+  "fromInstitution": "",
   "tabs": {
     "about": "Over",
-    "explore": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+    "explore": ""
   },
   "citesPermitNumber": ""
 }
