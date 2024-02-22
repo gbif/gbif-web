@@ -11,7 +11,7 @@
   "occurrenceRecords": "",
   "species": "",
   "taxa": "",
-  "synonyms": "",
+  "synonyms": "Synoniemen",
   "yearRange": "",
   "identifiedToSpecies": "",
   "withCoordinates": "",
@@ -30,14 +30,14 @@
   "group": {
     "views": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
     "record": "Record",
-    "occurrence": "",
-    "organism": "",
+    "occurrence": "Voorkomen",
+    "organism": "Organisme",
     "materialEntity": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
-    "event": "",
-    "location": "",
+    "event": "Gebeurtenis",
+    "location": "Locatie",
     "geologicalContext": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
-    "identification": "",
-    "provenance": "",
-    "other": ""
+    "identification": "Determinatie",
+    "provenance": "Herkomst",
+    "other": "Anders"
   }
 }
