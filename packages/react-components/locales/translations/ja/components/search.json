@@ -14,7 +14,7 @@
   },
   "placeholders": {
     "default": "検索",
-    "range": "",
+    "range": "範囲または単一値",
     "locationID": ""
   },
   "loadMore": "もっと読み込む",
@@ -33,7 +33,7 @@
     "currentRecord": "",
     "nodeType": {
       "IMAGE": "画像",
-      "TYPE": "",
+      "TYPE": "タイプ標本",
       "TREATMENT": "処理",
       "OBSERVATION": "観察記録",
       "SPECIMEN": "標本",
