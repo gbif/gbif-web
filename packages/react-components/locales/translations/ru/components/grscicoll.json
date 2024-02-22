@@ -23,6 +23,7 @@
   "logoUrl": "Логотип организации (URL)",
   "notes": "",
   "collectionCode": "Код коллекции",
+  "institutionCode": "Код организации",
   "specimensViaGbif": "",
   "specimens": "",
   "identifiers": "Идентификаторы",
@@ -30,18 +31,18 @@
   "incorporatedCollections": "",
   "unknownSize": "",
   "dashboard": "Панель управления",
-  "dataCatalog": "Архив, аннотированный GBIF",
-  "edit": "Архив, аннотированный GBIF",
-  "editHelpText": "Архив, аннотированный GBIF",
-  "githubHelpText": "Архив, аннотированный GBIF",
-  "entryCreated": "Архив, аннотированный GBIF",
-  "lastModified": "Архив, аннотированный GBIF",
-  "modifiedBy": "Архив, аннотированный GBIF",
-  "masterSource": "Архив, аннотированный GBIF",
-  "fromInstitution": "Архив, аннотированный GBIF",
+  "dataCatalog": "",
+  "edit": "",
+  "editHelpText": "",
+  "githubHelpText": "",
+  "entryCreated": "",
+  "lastModified": "",
+  "modifiedBy": "",
+  "masterSource": "",
+  "fromInstitution": "",
   "tabs": {
     "about": "Подробно",
-    "explore": "Архив, аннотированный GBIF"
+    "explore": ""
   },
   "citesPermitNumber": ""
 }
