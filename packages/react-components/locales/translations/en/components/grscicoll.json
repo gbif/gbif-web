@@ -23,6 +23,7 @@
   "logoUrl": "Logo",
   "notes": "Notes",
   "collectionCode": "Collection code",
+  "institutionCode": "Institution code",
   "specimensViaGbif": "Specimens shared with GBIF",
   "specimens": "Specimens",
   "identifiers": "Identifiers",
@@ -30,18 +31,18 @@
   "incorporatedCollections": "Incorporated collections",
   "unknownSize": "Unknown size",
   "dashboard": "Dashboard",
-  "dataCatalog": "",
-  "edit": "",
-  "editHelpText": "",
-  "githubHelpText": "",
-  "entryCreated": "",
-  "lastModified": "",
-  "modifiedBy": "",
-  "masterSource": "",
-  "fromInstitution": "",
+  "dataCatalog": "Data catalog",
+  "edit": "Edit",
+  "editHelpText": "No login required",
+  "githubHelpText": "Leave a comment - requires a Github account",
+  "entryCreated": "Entry created",
+  "lastModified": "Last modified",
+  "modifiedBy": "Modified by",
+  "masterSource": "Master source",
+  "fromInstitution": "From {institution}",
   "tabs": {
     "about": "About",
-    "explore": ""
+    "explore": "Explore catalog"
   },
   "citesPermitNumber": "Cites permit number"
 }

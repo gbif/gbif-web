@@ -1,10 +1,17 @@
 {
   "numberOfOccurrences": "Number of occurrences",
+  "addNew": "",
+  "removeEmptyGroup": "",
+  "newGroup": "",
+  "invalidLayoutWarning": "",
+  "adaptLayout": "",
+  "sharedLayout": "",
   "noData": "No data",
   "statistics": "Statistics",
   "occurrenceRecords": "Occurrence records",
   "species": "Species",
   "taxa": "Taxa",
+  "synonyms": "Synonyms",
   "yearRange": "Year range",
   "identifiedToSpecies": "Identified to species",
   "withCoordinates": "With coordinates",
@@ -16,5 +23,21 @@
   "occurrences": "Occurrences",
   "other": "Other",
   "unknown": "Unknown",
-  "metricsFromGbifData": "These metrics are based on records shared via GBIF"
+  "iucnThreatStatus": "",
+  "iucnThreatStatusDescription": "",
+  "metricsFromGbifData": "These metrics are based on records shared via GBIF",
+  "notVocabularyWarning": "",
+  "group": {
+    "views": "",
+    "record": "Record",
+    "occurrence": "Occurrence",
+    "organism": "Organism",
+    "materialEntity": "",
+    "event": "Event",
+    "location": "Location",
+    "geologicalContext": "",
+    "identification": "Identification",
+    "provenance": "Provenance",
+    "other": "Other"
+  }
 }
