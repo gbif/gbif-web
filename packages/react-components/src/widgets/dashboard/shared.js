@@ -3,7 +3,7 @@ import React from 'react';
 import { EllipsisLoader, Skeleton } from '../../components';
 import { FormattedNumber as Number } from 'react-intl';
 
-export function Card({ padded = true, loading, error, children, ...props }) {
+export function Card({ padded = true, loading, error, className, children, ...props }) {
   if (error) {
     console.error(error);
     return <div css={css`
@@ -35,6 +35,7 @@ export function Card({ padded = true, loading, error, children, ...props }) {
     </div>
   }
   return <div
+    className={`gbif-card ${className ?? ''}`}
     css={css`
       background: var(--paperBackground);
       ${padded ? paddedContent : null}
