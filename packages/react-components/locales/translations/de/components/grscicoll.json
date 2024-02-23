@@ -23,6 +23,7 @@
   "logoUrl": "Logo",
   "notes": "Anmerkungen",
   "collectionCode": "",
+  "institutionCode": "",
   "specimensViaGbif": "Geteilte Exemplare mit GBIF",
   "specimens": "Exemplare",
   "identifiers": "Kennungen",
@@ -30,18 +31,18 @@
   "incorporatedCollections": "",
   "unknownSize": "Unbekannte Größe",
   "dashboard": "",
-  "dataCatalog": "Stadt zum Fundort.",
-  "edit": "Stadt zum Fundort.",
-  "editHelpText": "Stadt zum Fundort.",
-  "githubHelpText": "Stadt zum Fundort.",
-  "entryCreated": "Stadt zum Fundort.",
-  "lastModified": "Stadt zum Fundort.",
-  "modifiedBy": "Stadt zum Fundort.",
-  "masterSource": "Stadt zum Fundort.",
-  "fromInstitution": "Stadt zum Fundort.",
+  "dataCatalog": "",
+  "edit": "",
+  "editHelpText": "",
+  "githubHelpText": "",
+  "entryCreated": "",
+  "lastModified": "",
+  "modifiedBy": "",
+  "masterSource": "",
+  "fromInstitution": "",
   "tabs": {
     "about": "",
-    "explore": "Stadt zum Fundort."
+    "explore": ""
   },
   "citesPermitNumber": "Anzahl der erlaubten Zitierungen"
 }

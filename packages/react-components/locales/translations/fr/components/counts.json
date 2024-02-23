@@ -25,5 +25,6 @@
   "gbifOverlapPercent": "{percent}% de chevauchement avec le squelette GBIF",
   "colOverlapPercent": "{percent}% de chevauchement avec Catalogue of Life",
   "nDatasets": "{NUMBER_FORMATED} {NUMBER, select, 1{jeu de données} other{jeux de données}}",
+  "nStaffMembers": "{total, plural, one {# membre de l'équipe} other {# membres de l'équipe}}",
   "nOccurrencesHosted": "{NUMBER_FORMATED} {NUMBER, select, 1{occurrence hébergée} other{occurrences hébergées}}"
 }

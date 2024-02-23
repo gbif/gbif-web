@@ -23,6 +23,7 @@
   "logoUrl": "",
   "notes": "",
   "collectionCode": "",
+  "institutionCode": "",
   "specimensViaGbif": "",
   "specimens": "",
   "identifiers": "",
@@ -30,18 +31,18 @@
   "incorporatedCollections": "",
   "unknownSize": "",
   "dashboard": "",
-  "dataCatalog": "GBIF annoteret Arkiv",
-  "edit": "GBIF annoteret Arkiv",
-  "editHelpText": "GBIF annoteret Arkiv",
-  "githubHelpText": "GBIF annoteret Arkiv",
-  "entryCreated": "GBIF annoteret Arkiv",
-  "lastModified": "GBIF annoteret Arkiv",
-  "modifiedBy": "GBIF annoteret Arkiv",
-  "masterSource": "GBIF annoteret Arkiv",
-  "fromInstitution": "GBIF annoteret Arkiv",
+  "dataCatalog": "",
+  "edit": "",
+  "editHelpText": "",
+  "githubHelpText": "",
+  "entryCreated": "",
+  "lastModified": "",
+  "modifiedBy": "",
+  "masterSource": "",
+  "fromInstitution": "",
   "tabs": {
     "about": "Om",
-    "explore": "GBIF annoteret Arkiv"
+    "explore": ""
   },
   "citesPermitNumber": ""
 }

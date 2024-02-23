@@ -23,6 +23,7 @@
   "logoUrl": "ロゴ",
   "notes": "",
   "collectionCode": "コレクションコード",
+  "institutionCode": "機関コード",
   "specimensViaGbif": "",
   "specimens": "",
   "identifiers": "識別子",
@@ -30,18 +31,18 @@
   "incorporatedCollections": "",
   "unknownSize": "",
   "dashboard": "",
-  "dataCatalog": "GBIFがアノーテーションしたアーカイブ",
-  "edit": "GBIFがアノーテーションしたアーカイブ",
-  "editHelpText": "GBIFがアノーテーションしたアーカイブ",
-  "githubHelpText": "GBIFがアノーテーションしたアーカイブ",
-  "entryCreated": "GBIFがアノーテーションしたアーカイブ",
-  "lastModified": "GBIFがアノーテーションしたアーカイブ",
-  "modifiedBy": "GBIFがアノーテーションしたアーカイブ",
-  "masterSource": "GBIFがアノーテーションしたアーカイブ",
-  "fromInstitution": "GBIFがアノーテーションしたアーカイブ",
+  "dataCatalog": "",
+  "edit": "",
+  "editHelpText": "",
+  "githubHelpText": "",
+  "entryCreated": "",
+  "lastModified": "",
+  "modifiedBy": "",
+  "masterSource": "",
+  "fromInstitution": "",
   "tabs": {
     "about": "・・・について",
-    "explore": "GBIFがアノーテーションしたアーカイブ"
+    "explore": ""
   },
   "citesPermitNumber": "CITES許可番号"
 }

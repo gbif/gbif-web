@@ -15,5 +15,6 @@
   "nResultsWithCoordinates": "{total, plural, one {# resultado } other {# resultados}} con coordenadas",
   "nResultsWithImages": "{total, plural, one {# resultado } other {# resultados}} con imágenes",
   "nDatasets": "{NUMBER_FORMATED} {NUMBER, select, 1{conjunto de datos} other{conjuntos de datos}}",
+  "nStaffMembers": "{total, plural, one {# miembro del equipo} other {# miembros del equipo}}",
   "nOccurrencesHosted": "¡{NUMBER_FORMATED} {NUMBER, select, 1{registro biológico alojado} other{registros biológicos alojados}}"
 }
