@@ -41,5 +41,6 @@ export default [
   "speciesKey",
   'taxonKey',
   'mediaType',
+  'repatriated',
   'gadmGid',
 ];

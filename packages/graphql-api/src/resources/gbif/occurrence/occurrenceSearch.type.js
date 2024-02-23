@@ -108,6 +108,7 @@ const typeDef = gql`
     mediaType: Long!
     protocol: Long!
     typeStatus: Long!
+    repatriated: Long!
     gadmGid: Long!
   }
 
