@@ -17,6 +17,7 @@ export default function DashBoardLayout({ children, predicate, queueUpdates = fa
 
   return <div css={css`
     display: flex; margin: -7px; padding-bottom: 200px; flex-wrap: wrap;
+    justify-content: space-between;
     > div {
       flex: 0 1 calc(50% - 12px); margin: 6px;
     }
