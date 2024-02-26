@@ -291,7 +291,7 @@ function DashboardBuilder({ predicate, chartsTypes, state = [[]], setState, isUr
 }
 
 
-function Column({ items: el, lockedLayout, onDelete, onAdd, onUpdateItem, chartsTypes, isDragging, predicate, disableAdd, removeColumn }) {
+function Column({ items: el, lockedLayout, onDelete, onAdd, onUpdateItem, chartsTypes, isDragging, predicate, disableAdd, removeColumn, columnCount }) {
   return <>{el.map((item, index) => (
     <Item {...{
       lockedLayout,
@@ -305,8 +305,8 @@ function Column({ items: el, lockedLayout, onDelete, onAdd, onUpdateItem, charts
   ))}
 
     <div style={{ visibility: (isDragging || lockedLayout) ? 'hidden' : 'visible' }}>
-      {el.length === 0 && <EmptyColumn {...{ onAdd, chartsTypes, removeColumn }} />}
-      {(el.length > 0 && !disableAdd) && <ColumnOptions {...{ onAdd, chartsTypes, removeColumn }} />}
+      {el.length === 0 && <EmptyColumn {...{ onAdd, chartsTypes, removeColumn, columnCount }} />}
+      {(el.length > 0 && !disableAdd) && <ColumnOptions {...{ onAdd, chartsTypes, removeColumn, columnCount }} />}
     </div>
   </>
 }
@@ -384,19 +384,19 @@ function Item({ item, index, onDelete, onUpdateItem, predicate, lockedLayout, ch
   </Draggable>
 }
 
-function EmptyColumn({ onAdd, removeColumn, chartsTypes }) {
+function EmptyColumn({ onAdd, removeColumn, chartsTypes, columnCount }) {
   // if the columns is empty, then show a larger card with a placeholder graph and provide the user 3 options: add chart, delete column or add additional column.
   return <Card>
     <CardTitle></CardTitle>
     <div style={{ textAlign: 'center' }}>
       <MdAddChart style={{ fontSize: 100, color: 'var(--color200)' }} />
-      <ColumnOptions {...{ onAdd, chartsTypes, removeColumn, isEmpty: true }} />
+      <ColumnOptions {...{ onAdd, chartsTypes, removeColumn, isEmpty: true, columnCount }} />
     </div>
   </Card>
 
 }
 
-function ColumnOptions({ onAdd, chartsTypes, removeColumn, isEmpty }) {
+function ColumnOptions({ onAdd, chartsTypes, removeColumn, isEmpty, columnCount }) {
   const intl = useIntl();
   const messageRemove = intl.formatMessage({ id: 'dashboard.removeEmptyGroup' });
 
@@ -411,7 +411,7 @@ function ColumnOptions({ onAdd, chartsTypes, removeColumn, isEmpty }) {
       }
     `}>
       <CreateOptions onAdd={onAdd} chartsTypes={chartsTypes} />
-      {isEmpty && <Button look="primaryOutline" onClick={removeColumn}>{messageRemove}</Button>}
+      {isEmpty && columnCount > 1 && <Button look="primaryOutline" onClick={removeColumn}>{messageRemove}</Button>}
     </div>
   );
 }
