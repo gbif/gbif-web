@@ -125,6 +125,20 @@ export const Preparations = getStringChart({
 export const CatalogNumber = getStringChart({
   fieldName: 'catalogNumber',
   title: <FormattedMessage id="filters.catalogNumber.name" defaultMessage="Catalogue number" />,
+  gqlEntity: `occurrences {documents(size: 1) {results {catalogNumber}}}`,
+  transform: data => {
+    return data?.search?.facet?.results?.map(x => {
+      // extract the catalogNumber value from the first result.
+      const title = x.entity?.documents?.results?.[0]?.catalogNumber ?? x.key;
+      return {
+        key: x.key,
+        count: x.count,
+        title: title,
+        plainTextTitle: title,
+        filter: { catalogNumber: [title] },
+      }
+    });
+  }
 });
 
 export const EventId = getStringChart({
