@@ -15,6 +15,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@turf/turf": "^6.5.0",
     "abort-controller": "^3.0.0",
     "apollo-datasource-rest": "3.5.0",
     "apollo-server": "3.6.1",
@@ -52,6 +53,7 @@
     "sanitize-html": "^2.11.0",
     "thumbor": "^0.1.5",
     "topojson": "^3.0.2",
+    "wellknown": "^0.5.0",
     "wikibase-sdk": "^7.0.8",
     "winston": "^3.11.0",
     "xml2js": "^0.4.23",
