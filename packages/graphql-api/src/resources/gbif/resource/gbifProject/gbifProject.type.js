@@ -8,7 +8,7 @@ const typeDef = gql`
   type GbifProject {
     id: ID!
     gbifHref: String!
-    # leadPartner: ParticipantOrOrganisation
+    leadPartner: ParticipantOrFundingOrganisation
     title: String!
     officialTitle: String
     body: String
@@ -26,8 +26,7 @@ const typeDef = gql`
     call: Call
     gbifProgrammeAcronym: String
     projectId: String
-    # TODO
-    # additionalPartners: [ParticipantOrOrganisation]
+    additionalPartners: [ParticipantOrFundingOrganisation]
     status: String
     homepage: Boolean!
     keywords: [String!]
@@ -39,16 +38,14 @@ const typeDef = gql`
     grantType: String
     primaryLink: Link
     news: [News!]
-    # TODO
-    # fundingOrganisations: [ParticipantOrOrganisation]
+    fundingOrganisations: [ParticipantOrFundingOrganisation]
     purposes: [String!]
     secondaryLinks: [Link!]
-    # TODO
-    # overrideProgrammeFunding: [Organization]
+    overrideProgrammeFunding: [FundingOrganisation]
     meta: JSON
   }
 
-  union ParticipantOrOrganisation = Participant | Organization
+  union ParticipantOrFundingOrganisation = Participant | FundingOrganisation
 `
 
 export default typeDef;

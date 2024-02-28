@@ -14,6 +14,7 @@ import { ArticleSkeleton } from '../components/ArticleSkeleton';
 import { MdCalendarMonth as CalendarIcon } from 'react-icons/md';
 import { MdEuro as EuroIcon } from 'react-icons/md';
 import { RenderIfChildren } from '@/components/RenderIfChildren';
+import { FundingBanner } from '../components/FundingBanner';
 
 const PROJECT_QUERY = /* GraphQL */ `
   query Project($key: String!) {
@@ -28,11 +29,12 @@ const PROJECT_QUERY = /* GraphQL */ `
         label
         url
       }
+      ...ProjectFundingBanner
       # The Project About tab uses the data from this loader and defines its own data needs in this fragment
       ...ProjectAboutTab
-      # The Project Datasets tab also uses some data from this loader and defines its own data needs in this fragment
-      ...ProjectDatasetsTab
     }
+    # The Project Datasets tab also uses some data from this loader and defines its own data needs in this fragment
+    ...ProjectDatasetsTab
   }
 `;
 
@@ -60,7 +62,7 @@ export function ProjectPage() {
       </Helmet>
 
       <ArticleContainer>
-        <ArticleTextContainer className="mb-6">
+        <ArticleTextContainer>
           <ArticlePreTitle>
             <FormattedMessage id="cms.contentType.project" />
           </ArticlePreTitle>
@@ -94,12 +96,14 @@ export function ProjectPage() {
               </p>
             )}
           </RenderIfChildren>
+
+          <Tabs className="mt-6" links={tabLinks} />
         </ArticleTextContainer>
-        <ArticleTextContainer>
-          <Tabs links={tabLinks} />
-        </ArticleTextContainer>
+
         <Outlet />
       </ArticleContainer>
+
+      <FundingBanner resource={resource} />
     </>
   );
 }

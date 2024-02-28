@@ -1,11 +1,11 @@
 import { Helmet } from 'react-helmet-async';
 import { LoaderArgs } from '@/types';
 import { ProgrammeQuery, ProgrammeQueryVariables } from '@/gql/graphql';
-import { ArticleContainer } from '@/routes/resource/key/components/ArticleContainer';
 import { ArticleSkeleton } from '../components/ArticleSkeleton';
 import { BlockItem } from '../composition/BlockItem';
 import { required } from '@/utils/required';
 import { useLoaderData } from 'react-router-dom';
+import { FundingBanner } from '../components/FundingBanner';
 
 export const ProgrammePageSkeleton = ArticleSkeleton;
 
@@ -17,6 +17,7 @@ const PROGRAMME_QUERY = /* GraphQL */ `
       blocks {
         ...BlockItemDetails
       }
+      ...ProgrammeFundingBanner
     }
   }
 `;
@@ -43,7 +44,7 @@ export function ProgrammePage() {
         <BlockItem resource={block} key={idx} />
       ))}
 
-      <ArticleContainer>Funding should go here, similar to project pages</ArticleContainer>
+      <FundingBanner resource={resource} />
     </>
   );
 }

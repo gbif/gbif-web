@@ -14,6 +14,7 @@ import * as tool from './tool';
 import * as misc from './misc';
 import * as menuItem from './menuItem';
 import * as home from './home';
+import * as fundingOrganisation from './fundingOrganisation';
 import { ResourceAPI, ResourceSearchAPI } from './resource.source';
 import { merge, get } from 'lodash';
 
@@ -33,7 +34,8 @@ const children = [
   tool,
   misc,
   menuItem, 
-  home
+  home,
+  fundingOrganisation,
 ].map(resource => resource.default);
 
 export default {

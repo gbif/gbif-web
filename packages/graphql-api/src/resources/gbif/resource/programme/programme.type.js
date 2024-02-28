@@ -25,13 +25,6 @@ const typeDef = gql`
     meta: JSON
     blocks: [BlockItem!]
   }
-
-  type FundingOrganisation {
-    id: ID!
-    title: String!
-    url: String
-    logo: AssetImage
-  }
 `
 
 export default typeDef;

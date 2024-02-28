@@ -1,14 +1,14 @@
-/**
- * This resource is from the directory API, which is not a public API.
- * Much of the data can be public though, but be cautious when adding new fields.
- */
-
 import { RESTDataSource } from 'apollo-datasource-rest';
+import { ResourceSearchAPI } from '#/resources/gbif/resource/resource.source';
 import { stringify } from 'qs';
 import pick from 'lodash/pick';
 import { createSignedGetHeader } from '#/helpers/auth/authenticatedGet';
 
-class ParticipantAPI extends RESTDataSource {
+/**
+ * This resource is from the directory API, which is not a public API.
+ * Much of the data can be public though, but be cautious when adding new fields.
+ */
+class ParticipantDirectoryAPI extends RESTDataSource {
   constructor(config) {
     super();
     this.baseURL = config.apiv1;
@@ -58,14 +58,67 @@ class ParticipantAPI extends RESTDataSource {
     // Sanitize the data before returning it, this data is from an authorized endpoint.
     return this.reduceParticipant(participant);
   }
+}
 
-  /*
-  getParticipantsByKeys({ participantKeys }) {
-    return Promise.all(
-      participantKeys.map(key => this.getParticipantByKey({ key })),
-    );
+class ParticipantAPI {
+  constructor(config) {
+    this.directoryAPI = new ParticipantDirectoryAPI(config);
+    this.resourceSearchAPI = new ResourceSearchAPI(config);
   }
-  */
+
+  initialize(config) {
+    this.context = config.context;
+    this.directoryAPI.initialize(config);
+    this.resourceSearchAPI.initialize(config);
+  }
+
+  async searchParticipants({ query }, locale) {
+    const response = await this.directoryAPI.searchParticipants({ query });
+    if (!response) return;
+
+    const resourceParticipants = await Promise.allSettled(response.results.map(p => this.resourceSearchAPI.getFirstEntryByQuery({ directoryId: p.id }, locale)));
+
+    response.results = response.results.map((directoryParticipant, i) => {
+      if (resourceParticipants[i].status === 'fulfilled') {
+        return this.#mergeParticipantData(directoryParticipant, resourceParticipants[i].value);
+      }
+      return directoryParticipant;
+    });
+
+    return response;
+  }
+
+  async getParticipantByDirectoryId({ id, locale }) {
+    const directoryParticipant = await this.directoryAPI.getParticipantByKey({ key: id });
+    if (!directoryParticipant) return;
+
+    const resourceParticipant = await this.resourceSearchAPI.getFirstEntryByQuery({ directoryId: id }, locale);
+    if (resourceParticipant) {
+      return this.#mergeParticipantData(directoryParticipant, resourceParticipant);
+    }
+
+    return directoryParticipant;
+  }
+
+  async mergeParticipantDirectoryData(resourceParticipant) {
+    console.log(resourceParticipant);
+    // If the resource does not have a directoryId, we return the resource as is.
+    if (!resourceParticipant.directoryId) return resourceParticipant;
+
+    const directoryParticipant = await this.directoryAPI.getParticipantByKey({ key: resourceParticipant.directoryId });
+    if (directoryParticipant) {
+      return this.#mergeParticipantData(directoryParticipant, resourceParticipant);
+    }
+
+    return resourceParticipant;
+  }
+
+  #mergeParticipantData(directoryParticipant, resourceParticipant) {
+    return {
+      ...resourceParticipant,
+      ...directoryParticipant,
+    };
+  }
 }
 
 export default ParticipantAPI;

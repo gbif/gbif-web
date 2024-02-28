@@ -64,18 +64,19 @@ export const DatasetSearchStub = {
   },
   occurrenceCount: ({ key }, args, { dataSources }) => {
     if (typeof key === 'undefined') return null;
+
     return dataSources.occurrenceAPI
       .searchOccurrenceDocuments({
         query: {
+          size: 0,
           predicate: { type: 'equals', key: 'datasetKey', value: key },
         },
-      })
-      .then((response) => response.total);
+      }).then((documents) => documents.total);
   },
   literatureCount: ({ key }, args, { dataSources }) => {
     if (typeof key === 'undefined') return null;
     return dataSources.literatureAPI
-      .searchLiterature({ query: { gbifDatasetKey: key } })
+      .searchLiterature({ query: { gbifDatasetKey: key, size: 0 } })
       .then((response) => response.documents.total);
   },
   excerpt: src => excerpt({ body: src.description }),
