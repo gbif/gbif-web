@@ -3,8 +3,7 @@ import { MediaBlockDetailsFragment } from '@/gql/graphql';
 import { DynamicLink } from '@/components/DynamicLink';
 import { cn } from '@/utils/shadcn';
 import { ArticleBody } from '../../components/ArticleBody';
-import { ArticleContainer } from '../../components/ArticleContainer';
-import { backgroundColorMap } from './_shared';
+import { BlockContainer, backgroundColorMap } from './_shared';
 import { ArticleTextContainer } from '../../components/ArticleTextContainer';
 import { ArticleTitle } from '../../components/ArticleTitle';
 
@@ -43,14 +42,14 @@ export function MediaBlock({ resource, insideCarousel = false }: Props) {
   const backgroundColor = backgroundColorMap[resource?.backgroundColour ?? 'white'];
 
   return (
-    <ArticleContainer className={backgroundColor}>
+    <BlockContainer className={backgroundColor}>
       {resource.mediaTitle && (
         <ArticleTextContainer>
           <ArticleTitle title={resource.mediaTitle}></ArticleTitle>
         </ArticleTextContainer>
       )}
       <MediaBlockContent className="max-w-6xl m-auto p-10" resource={resource} />
-    </ArticleContainer>
+    </BlockContainer>
   );
 }
 

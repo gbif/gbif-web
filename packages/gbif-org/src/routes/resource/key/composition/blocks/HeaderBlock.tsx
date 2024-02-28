@@ -1,12 +1,12 @@
 import { HeaderBlockDetailsFragment } from '@/gql/graphql';
 import { ArticleBanner } from '../../components/ArticleBanner';
-import { ArticleContainer } from '../../components/ArticleContainer';
 import { ArticleIntro } from '../../components/ArticleIntro';
 import { ArticlePreTitle } from '../../components/ArticlePreTitle';
 import { ArticleTextContainer } from '../../components/ArticleTextContainer';
 import { ArticleTitle } from '../../components/ArticleTitle';
 import { fragmentManager } from '@/services/FragmentManager';
 import { FormattedMessage } from 'react-intl';
+import { BlockContainer } from './_shared';
 
 fragmentManager.register(/* GraphQL */ `
   fragment HeaderBlockDetails on HeaderBlock {
@@ -26,7 +26,7 @@ type Props = {
 
 export function HeaderBlock({ resource }: Props) {
   return (
-    <ArticleContainer>
+    <BlockContainer className='pb-0'>
       <ArticleTextContainer>
         {resource.type && (
           <ArticlePreTitle>
@@ -41,7 +41,7 @@ export function HeaderBlock({ resource }: Props) {
         )}
       </ArticleTextContainer>
 
-      <ArticleBanner className="mt-8 mb-6" image={resource?.primaryImage} />
-    </ArticleContainer>
+      <ArticleBanner className="mt-8" image={resource?.primaryImage} />
+    </BlockContainer>
   );
 }

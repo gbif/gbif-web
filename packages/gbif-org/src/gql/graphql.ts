@@ -1890,7 +1890,7 @@ export type Help = {
 export type Histogram = {
   __typename?: 'Histogram';
   buckets?: Maybe<Array<Maybe<HistogramBucket>>>;
-  interval?: Maybe<Scalars['Int']['output']>;
+  interval?: Maybe<Scalars['Long']['output']>;
 };
 
 export type HistogramBucket = {
@@ -3325,43 +3325,50 @@ export type OccurrenceAutoDateHistogramEventDateArgs = {
 
 export type OccurrenceCardinality = {
   __typename?: 'OccurrenceCardinality';
-  basisOfRecord: Scalars['Int']['output'];
-  catalogNumber: Scalars['Int']['output'];
-  classKey: Scalars['Int']['output'];
-  collectionCode: Scalars['Int']['output'];
-  collectionKey: Scalars['Int']['output'];
-  countryCode: Scalars['Int']['output'];
-  datasetKey: Scalars['Int']['output'];
-  establishmentMeans: Scalars['Int']['output'];
-  eventId: Scalars['Int']['output'];
-  familyKey: Scalars['Int']['output'];
-  gadmGid: Scalars['Int']['output'];
-  gbifClassification_usage_key: Scalars['Int']['output'];
-  genusKey: Scalars['Int']['output'];
-  hostingOrganizationKey: Scalars['Int']['output'];
-  identifiedBy: Scalars['Int']['output'];
-  institutionCode: Scalars['Int']['output'];
-  institutionKey: Scalars['Int']['output'];
-  issue: Scalars['Int']['output'];
-  iucnRedListCategory: Scalars['Int']['output'];
-  kingdomKey: Scalars['Int']['output'];
-  license: Scalars['Int']['output'];
-  locality: Scalars['Int']['output'];
-  month: Scalars['Int']['output'];
-  networkKey: Scalars['Int']['output'];
-  orderKey: Scalars['Int']['output'];
-  phylumKey: Scalars['Int']['output'];
-  preparations: Scalars['Int']['output'];
-  programme: Scalars['Int']['output'];
-  publishingOrg: Scalars['Int']['output'];
-  recordedBy: Scalars['Int']['output'];
-  sampleSizeUnit: Scalars['Int']['output'];
-  samplingProtocol: Scalars['Int']['output'];
-  speciesKey: Scalars['Int']['output'];
-  stateProvince: Scalars['Int']['output'];
-  taxonKey: Scalars['Int']['output'];
-  verbatimScientificName: Scalars['Int']['output'];
-  waterBody: Scalars['Int']['output'];
+  basisOfRecord: Scalars['Long']['output'];
+  catalogNumber: Scalars['Long']['output'];
+  classKey: Scalars['Long']['output'];
+  collectionCode: Scalars['Long']['output'];
+  collectionKey: Scalars['Long']['output'];
+  continent: Scalars['Long']['output'];
+  countryCode: Scalars['Long']['output'];
+  datasetKey: Scalars['Long']['output'];
+  dwcaExtension: Scalars['Long']['output'];
+  establishmentMeans: Scalars['Long']['output'];
+  eventId: Scalars['Long']['output'];
+  familyKey: Scalars['Long']['output'];
+  gadmGid: Scalars['Long']['output'];
+  gbifClassification_usage_key: Scalars['Long']['output'];
+  genusKey: Scalars['Long']['output'];
+  hostingOrganizationKey: Scalars['Long']['output'];
+  identifiedBy: Scalars['Long']['output'];
+  institutionCode: Scalars['Long']['output'];
+  institutionKey: Scalars['Long']['output'];
+  issue: Scalars['Long']['output'];
+  iucnRedListCategory: Scalars['Long']['output'];
+  kingdomKey: Scalars['Long']['output'];
+  license: Scalars['Long']['output'];
+  locality: Scalars['Long']['output'];
+  mediaType: Scalars['Long']['output'];
+  month: Scalars['Long']['output'];
+  networkKey: Scalars['Long']['output'];
+  orderKey: Scalars['Long']['output'];
+  phylumKey: Scalars['Long']['output'];
+  preparations: Scalars['Long']['output'];
+  programme: Scalars['Long']['output'];
+  protocol: Scalars['Long']['output'];
+  publishingCountry: Scalars['Long']['output'];
+  publishingOrg: Scalars['Long']['output'];
+  recordedBy: Scalars['Long']['output'];
+  repatriated: Scalars['Long']['output'];
+  sampleSizeUnit: Scalars['Long']['output'];
+  samplingProtocol: Scalars['Long']['output'];
+  speciesKey: Scalars['Long']['output'];
+  stateProvince: Scalars['Long']['output'];
+  taxonKey: Scalars['Long']['output'];
+  typeStatus: Scalars['Long']['output'];
+  verbatimScientificName: Scalars['Long']['output'];
+  waterBody: Scalars['Long']['output'];
 };
 
 export type OccurrenceClusterLink = {
@@ -3502,7 +3509,7 @@ export type OccurrenceFacet = {
   maximumDistanceAboveSurfaceInMeters?: Maybe<Array<Maybe<OccurrenceFacetResult_Float>>>;
   maximumElevationInMeters?: Maybe<Array<Maybe<OccurrenceFacetResult_Float>>>;
   mediaLicenses?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
-  mediaTypes?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
+  mediaType?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   minimumDepthInMeters?: Maybe<Array<Maybe<OccurrenceFacetResult_Float>>>;
   minimumDistanceAboveSurfaceInMeters?: Maybe<Array<Maybe<OccurrenceFacetResult_Float>>>;
   minimumElevationInMeters?: Maybe<Array<Maybe<OccurrenceFacetResult_Float>>>;
@@ -4003,7 +4010,7 @@ export type OccurrenceFacetMediaLicensesArgs = {
 };
 
 
-export type OccurrenceFacetMediaTypesArgs = {
+export type OccurrenceFacetMediaTypeArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
@@ -4226,7 +4233,7 @@ export type OccurrenceFacetYearArgs = {
 export type OccurrenceFacetResult_Boolean = {
   __typename?: 'OccurrenceFacetResult_boolean';
   _predicate?: Maybe<Scalars['JSON']['output']>;
-  count: Scalars['Int']['output'];
+  count: Scalars['Long']['output'];
   key: Scalars['Boolean']['output'];
   occurrences: OccurrenceSearchResult;
 };
@@ -4241,7 +4248,7 @@ export type OccurrenceFacetResult_Collection = {
   __typename?: 'OccurrenceFacetResult_collection';
   _predicate?: Maybe<Scalars['JSON']['output']>;
   collection: Collection;
-  count: Scalars['Int']['output'];
+  count: Scalars['Long']['output'];
   key: Scalars['String']['output'];
   occurrences: OccurrenceSearchResult;
 };
@@ -4255,7 +4262,7 @@ export type OccurrenceFacetResult_CollectionOccurrencesArgs = {
 export type OccurrenceFacetResult_Dataset = {
   __typename?: 'OccurrenceFacetResult_dataset';
   _predicate?: Maybe<Scalars['JSON']['output']>;
-  count: Scalars['Int']['output'];
+  count: Scalars['Long']['output'];
   dataset: Dataset;
   key: Scalars['String']['output'];
   occurrences: OccurrenceSearchResult;
@@ -4271,7 +4278,7 @@ export type OccurrenceFacetResult_EstablishmentMeans = {
   __typename?: 'OccurrenceFacetResult_establishmentMeans';
   _predicate?: Maybe<Scalars['JSON']['output']>;
   concept: VocabularyConcept;
-  count: Scalars['Int']['output'];
+  count: Scalars['Long']['output'];
   key: Scalars['String']['output'];
   occurrences: OccurrenceSearchResult;
 };
@@ -4285,7 +4292,7 @@ export type OccurrenceFacetResult_EstablishmentMeansOccurrencesArgs = {
 export type OccurrenceFacetResult_Float = {
   __typename?: 'OccurrenceFacetResult_float';
   _predicate?: Maybe<Scalars['JSON']['output']>;
-  count: Scalars['Int']['output'];
+  count: Scalars['Long']['output'];
   key: Scalars['Float']['output'];
   occurrences: OccurrenceSearchResult;
 };
@@ -4299,7 +4306,7 @@ export type OccurrenceFacetResult_FloatOccurrencesArgs = {
 export type OccurrenceFacetResult_Gadm = {
   __typename?: 'OccurrenceFacetResult_gadm';
   _predicate?: Maybe<Scalars['JSON']['output']>;
-  count: Scalars['Int']['output'];
+  count: Scalars['Long']['output'];
   gadm: Gadm;
   key: Scalars['String']['output'];
   occurrences: OccurrenceSearchResult;
@@ -4314,7 +4321,7 @@ export type OccurrenceFacetResult_GadmOccurrencesArgs = {
 export type OccurrenceFacetResult_IdentifiedBy = {
   __typename?: 'OccurrenceFacetResult_identifiedBy';
   _predicate?: Maybe<Scalars['JSON']['output']>;
-  count: Scalars['Int']['output'];
+  count: Scalars['Long']['output'];
   key: Scalars['String']['output'];
   occurrences: OccurrenceSearchResult;
   occurrencesRecordedBy: OccurrenceSearchResult;
@@ -4335,7 +4342,7 @@ export type OccurrenceFacetResult_IdentifiedByOccurrencesRecordedByArgs = {
 export type OccurrenceFacetResult_Installation = {
   __typename?: 'OccurrenceFacetResult_installation';
   _predicate?: Maybe<Scalars['JSON']['output']>;
-  count: Scalars['Int']['output'];
+  count: Scalars['Long']['output'];
   installation: Node;
   key: Scalars['String']['output'];
   occurrences: OccurrenceSearchResult;
@@ -4350,7 +4357,7 @@ export type OccurrenceFacetResult_InstallationOccurrencesArgs = {
 export type OccurrenceFacetResult_Institution = {
   __typename?: 'OccurrenceFacetResult_institution';
   _predicate?: Maybe<Scalars['JSON']['output']>;
-  count: Scalars['Int']['output'];
+  count: Scalars['Long']['output'];
   institution: Institution;
   key: Scalars['String']['output'];
   occurrences: OccurrenceSearchResult;
@@ -4365,7 +4372,7 @@ export type OccurrenceFacetResult_InstitutionOccurrencesArgs = {
 export type OccurrenceFacetResult_Network = {
   __typename?: 'OccurrenceFacetResult_network';
   _predicate?: Maybe<Scalars['JSON']['output']>;
-  count: Scalars['Int']['output'];
+  count: Scalars['Long']['output'];
   key: Scalars['String']['output'];
   network: Network;
   occurrences: OccurrenceSearchResult;
@@ -4380,7 +4387,7 @@ export type OccurrenceFacetResult_NetworkOccurrencesArgs = {
 export type OccurrenceFacetResult_Node = {
   __typename?: 'OccurrenceFacetResult_node';
   _predicate?: Maybe<Scalars['JSON']['output']>;
-  count: Scalars['Int']['output'];
+  count: Scalars['Long']['output'];
   key: Scalars['String']['output'];
   node: Node;
   occurrences: OccurrenceSearchResult;
@@ -4395,7 +4402,7 @@ export type OccurrenceFacetResult_NodeOccurrencesArgs = {
 export type OccurrenceFacetResult_Organization = {
   __typename?: 'OccurrenceFacetResult_organization';
   _predicate?: Maybe<Scalars['JSON']['output']>;
-  count: Scalars['Int']['output'];
+  count: Scalars['Long']['output'];
   key: Scalars['String']['output'];
   occurrences: OccurrenceSearchResult;
   publisher: Organization;
@@ -4410,7 +4417,7 @@ export type OccurrenceFacetResult_OrganizationOccurrencesArgs = {
 export type OccurrenceFacetResult_RecordedBy = {
   __typename?: 'OccurrenceFacetResult_recordedBy';
   _predicate?: Maybe<Scalars['JSON']['output']>;
-  count: Scalars['Int']['output'];
+  count: Scalars['Long']['output'];
   key: Scalars['String']['output'];
   occurrences: OccurrenceSearchResult;
   occurrencesIdentifiedBy: OccurrenceSearchResult;
@@ -4431,7 +4438,7 @@ export type OccurrenceFacetResult_RecordedByOccurrencesIdentifiedByArgs = {
 export type OccurrenceFacetResult_String = {
   __typename?: 'OccurrenceFacetResult_string';
   _predicate?: Maybe<Scalars['JSON']['output']>;
-  count: Scalars['Int']['output'];
+  count: Scalars['Long']['output'];
   key: Scalars['String']['output'];
   occurrences: OccurrenceSearchResult;
 };
@@ -4445,7 +4452,7 @@ export type OccurrenceFacetResult_StringOccurrencesArgs = {
 export type OccurrenceFacetResult_Taxon = {
   __typename?: 'OccurrenceFacetResult_taxon';
   _predicate?: Maybe<Scalars['JSON']['output']>;
-  count: Scalars['Int']['output'];
+  count: Scalars['Long']['output'];
   key: Scalars['String']['output'];
   occurrences: OccurrenceSearchResult;
   taxon: Taxon;

@@ -10,11 +10,11 @@ import {
 } from '@/components/ui/carousel';
 import { BlockItem } from '../BlockItem';
 import { useEffect, useState } from 'react';
-import { ArticleContainer } from '../../components/ArticleContainer';
 import { ArticleTextContainer } from '../../components/ArticleTextContainer';
 import { ArticleTitle } from '../../components/ArticleTitle';
 import { cn } from '@/utils/shadcn';
 import { useI18n } from '@/contexts/i18n';
+import { BlockContainer } from './_shared';
 
 fragmentManager.register(/* GraphQL */ `
   fragment CarouselBlockDetails on CarouselBlock {
@@ -57,7 +57,7 @@ export function CarouselBlock({ resource }: Props) {
   }, [api]);
 
   return (
-    <ArticleContainer>
+    <BlockContainer>
       <ArticleTextContainer>
         <ArticleTitle>{resource.title}</ArticleTitle>
       </ArticleTextContainer>
@@ -90,6 +90,6 @@ export function CarouselBlock({ resource }: Props) {
           </div>
         </Carousel>
       </div>
-    </ArticleContainer>
+    </BlockContainer>
   );
 }

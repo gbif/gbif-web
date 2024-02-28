@@ -1,11 +1,10 @@
 import { FeatureBlockDetailsFragment, ProseCardImgFragment } from '@/gql/graphql';
-import { ArticleContainer } from '../../components/ArticleContainer';
 import { ArticleTextContainer } from '../../components/ArticleTextContainer';
 import { ArticleTitle } from '../../components/ArticleTitle';
 import { ArticleBody } from '../../components/ArticleBody';
 import { ProseCard } from '../proseCard';
 import { fragmentManager } from '@/services/FragmentManager';
-import { backgroundColorMap } from './_shared';
+import { BlockContainer, backgroundColorMap } from './_shared';
 
 fragmentManager.register(/* GraphQL */ `
   fragment FeatureBlockDetails on FeatureBlock {
@@ -62,7 +61,7 @@ export function FeatureBlock({ resource }: Props) {
   const backgroundColor = backgroundColorMap[resource?.backgroundColour ?? 'white'];
 
   return (
-    <ArticleContainer className={backgroundColor}>
+    <BlockContainer className={backgroundColor}>
       <ArticleTextContainer>
         <ArticleTitle>{resource.title}</ArticleTitle>
       </ArticleTextContainer>
@@ -94,6 +93,6 @@ export function FeatureBlock({ resource }: Props) {
           );
         })}
       </div>
-    </ArticleContainer>
+    </BlockContainer>
   );
 }
