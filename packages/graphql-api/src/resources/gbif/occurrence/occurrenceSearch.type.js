@@ -66,43 +66,50 @@ const typeDef = gql`
   }
 
   type OccurrenceCardinality {
-    datasetKey: Int!
-    publishingOrg: Int!
-    hostingOrganizationKey: Int!
-    recordedBy: Int!
-    catalogNumber: Int!
-    identifiedBy: Int!
-    locality: Int!
-    waterBody: Int!
-    stateProvince: Int!
-    samplingProtocol: Int!
-    sampleSizeUnit: Int!
-    verbatimScientificName: Int!
-    eventId: Int!
-    month: Int!
-    license: Int!
-    basisOfRecord: Int!
-    issue: Int!
-    collectionKey: Int!
-    institutionKey: Int!
-    collectionCode: Int!
-    institutionCode: Int!
-    networkKey: Int!
-    programme: Int!
-    taxonKey: Int!
-    classKey: Int!
-    familyKey: Int!
-    genusKey: Int!
-    kingdomKey: Int!
-    orderKey: Int!
-    phylumKey: Int!
-    speciesKey: Int!
-    gbifClassification_usage_key: Int!
-    preparations: Int!
-    iucnRedListCategory: Int!
-    establishmentMeans: Int!
-    countryCode: Int!
-    gadmGid: Int!
+    datasetKey: Long!
+    publishingOrg: Long!
+    hostingOrganizationKey: Long!
+    recordedBy: Long!
+    catalogNumber: Long!
+    identifiedBy: Long!
+    locality: Long!
+    waterBody: Long!
+    stateProvince: Long!
+    samplingProtocol: Long!
+    sampleSizeUnit: Long!
+    verbatimScientificName: Long!
+    eventId: Long!
+    month: Long!
+    license: Long!
+    basisOfRecord: Long!
+    issue: Long!
+    collectionKey: Long!
+    institutionKey: Long!
+    collectionCode: Long!
+    institutionCode: Long!
+    networkKey: Long!
+    programme: Long!
+    taxonKey: Long!
+    classKey: Long!
+    familyKey: Long!
+    genusKey: Long!
+    kingdomKey: Long!
+    orderKey: Long!
+    phylumKey: Long!
+    speciesKey: Long!
+    gbifClassification_usage_key: Long!
+    preparations: Long!
+    iucnRedListCategory: Long!
+    establishmentMeans: Long!
+    countryCode: Long!
+    publishingCountry: Long!
+    continent: Long!
+    dwcaExtension: Long!
+    mediaType: Long!
+    protocol: Long!
+    typeStatus: Long!
+    repatriated: Long!
+    gadmGid: Long!
   }
 
   type OccurrenceHistogram {
@@ -132,7 +139,7 @@ const typeDef = gql`
   }
 
   type Histogram {
-    interval: Int
+    interval: Long
     buckets: [HistogramBucket]
   }
 
@@ -160,7 +167,7 @@ const typeDef = gql`
     lifeStage(size: Int, from: Int): [OccurrenceFacetResult_string]
     locality(size: Int, from: Int): [OccurrenceFacetResult_string]
     mediaLicenses(size: Int, from: Int): [OccurrenceFacetResult_string]
-    mediaTypes(size: Int, from: Int): [OccurrenceFacetResult_string]
+    mediaType(size: Int, from: Int): [OccurrenceFacetResult_string]
     # notIssues(size: Int, from: Int): [OccurrenceFacetResult_string]
     occurrenceId(size: Int, from: Int): [OccurrenceFacetResult_string]
     organismId(size: Int, from: Int): [OccurrenceFacetResult_string]
@@ -271,14 +278,14 @@ const typeDef = gql`
 
   type OccurrenceFacetResult_float {
     key: Float!
-    count: Int!
+    count: Long!
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
     _predicate: JSON
   }
 
   type OccurrenceFacetResult_establishmentMeans {
     key: String!
-    count: Int!
+    count: Long!
     concept: VocabularyConcept!
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
     _predicate: JSON
@@ -286,7 +293,7 @@ const typeDef = gql`
 
   type OccurrenceFacetResult_gadm {
     key: String!
-    count: Int!
+    count: Long!
     gadm: Gadm!
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
     _predicate: JSON
@@ -294,21 +301,21 @@ const typeDef = gql`
 
   type OccurrenceFacetResult_boolean {
     key: Boolean!
-    count: Int!
+    count: Long!
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
     _predicate: JSON
   }
 
   type OccurrenceFacetResult_string {
     key: String!
-    count: Int!
+    count: Long!
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
     _predicate: JSON
   }
 
   type OccurrenceFacetResult_dataset {
     key: String!
-    count: Int!
+    count: Long!
     dataset: Dataset!
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
     _predicate: JSON
@@ -316,7 +323,7 @@ const typeDef = gql`
 
   type OccurrenceFacetResult_node {
     key: String!
-    count: Int!
+    count: Long!
     node: Node!
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
     _predicate: JSON
@@ -324,7 +331,7 @@ const typeDef = gql`
 
   type OccurrenceFacetResult_installation {
     key: String!
-    count: Int!
+    count: Long!
     installation: Node!
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
     _predicate: JSON
@@ -332,7 +339,7 @@ const typeDef = gql`
 
   type OccurrenceFacetResult_taxon {
     key: String!
-    count: Int!
+    count: Long!
     taxon: Taxon!
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
     _predicate: JSON
@@ -340,7 +347,7 @@ const typeDef = gql`
 
   type OccurrenceFacetResult_network {
     key: String!
-    count: Int!
+    count: Long!
     network: Network!
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
     _predicate: JSON
@@ -348,7 +355,7 @@ const typeDef = gql`
 
   type OccurrenceFacetResult_organization {
     key: String!
-    count: Int!
+    count: Long!
     publisher: Organization!
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
     _predicate: JSON
@@ -356,7 +363,7 @@ const typeDef = gql`
 
   type OccurrenceFacetResult_institution {
     key: String!
-    count: Int!
+    count: Long!
     institution: Institution!
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
     _predicate: JSON
@@ -364,7 +371,7 @@ const typeDef = gql`
 
   type OccurrenceFacetResult_collection {
     key: String!
-    count: Int!
+    count: Long!
     collection: Collection!
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
     _predicate: JSON
@@ -372,7 +379,7 @@ const typeDef = gql`
 
   type OccurrenceFacetResult_recordedBy {
     key: String!
-    count: Int!
+    count: Long!
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
     occurrencesIdentifiedBy(size: Int, from: Int): OccurrenceSearchResult!
     _predicate: JSON
@@ -380,7 +387,7 @@ const typeDef = gql`
 
   type OccurrenceFacetResult_identifiedBy {
     key: String!
-    count: Int!
+    count: Long!
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
     occurrencesRecordedBy(size: Int, from: Int): OccurrenceSearchResult!
     _predicate: JSON

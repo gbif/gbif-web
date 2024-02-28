@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { Root, Button } from '../../components';
 import * as css from './styles';
 import { Dialog, DialogBackdrop } from "reakit/Dialog";
+import { Portal } from "reakit/Portal";
 import { keyCodes } from '../../utils/util';
 import { MdChevronRight, MdChevronLeft, MdClose } from "react-icons/md";
 import { GbifLogoIcon } from '../../components/Icons/Icons';
@@ -32,31 +33,33 @@ export function DetailsDrawer({ dialog, nextItem, previousItem, href, children, 
 
   return (
     <>
-      <DialogBackdrop {...dialog} css={css.detailsBackdrop({theme})}>
-        <Dialog {...dialog} aria-label="Details" css={css.drawer()}>
-          {dialog.visible &&
-            <Root style={{height: '100%', display: 'flex', flexDirection: 'column'}}>
-              
-              <div style={{flex: '1 1 auto', overflow: 'auto'}}>
-                {children}
-              </div>
-              {(previousItem || nextItem || href) && <div css={css.footerBar({theme})}>
-                {previousItem && <Button style={{textAlign: 'center'}} css={css.footerItem({theme})} appearance="text" direction="right" tip="previous (left arrow)" onClick={previousItem}>
-                  <MdChevronLeft />
-                </Button>}
+      <Portal>
+        <DialogBackdrop {...dialog} css={css.detailsBackdrop({ theme })}>
+          <Dialog {...dialog} aria-label="Details" css={css.drawer()}>
+            {dialog.visible &&
+              <Root style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
 
-                {href && <Button as="a" target='_blank' href={href} css={css.footerItem({theme})} appearance="text" direction="top" tip="View on GBIF.org">
-                  <GbifLogoIcon />
-                </Button>}
+                <div style={{ flex: '1 1 auto', overflow: 'auto' }}>
+                  {children}
+                </div>
+                {(previousItem || nextItem || href) && <div css={css.footerBar({ theme })}>
+                  {previousItem && <Button style={{ textAlign: 'center' }} css={css.footerItem({ theme })} appearance="text" direction="right" tip="previous (left arrow)" onClick={previousItem}>
+                    <MdChevronLeft />
+                  </Button>}
 
-                {nextItem && <Button css={css.footerItem({theme})} appearance="text" direction="left" tip="next (right arrow)" onClick={nextItem}>
-                  <MdChevronRight />
-                </Button>}
-              </div>}
-            </Root>
-          }
-        </Dialog>
-      </DialogBackdrop>
+                  {href && <Button as="a" target='_blank' href={href} css={css.footerItem({ theme })} appearance="text" direction="top" tip="View on GBIF.org">
+                    <GbifLogoIcon />
+                  </Button>}
+
+                  {nextItem && <Button css={css.footerItem({ theme })} appearance="text" direction="left" tip="next (right arrow)" onClick={nextItem}>
+                    <MdChevronRight />
+                  </Button>}
+                </div>}
+              </Root>
+            }
+          </Dialog>
+        </DialogBackdrop>
+      </Portal>
     </>
   );
 }

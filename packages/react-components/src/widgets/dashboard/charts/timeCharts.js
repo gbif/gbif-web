@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 
 // this is for generating charts for fields that are foreign keys like taxonKey, collectionKey, datasetKey, etc.
 // for some fields there will always be a value like datasetKey, but e.g. collectionKey is only sparsely filled.
-export function Year({
+export function EventDate({
   predicate,
   detailsRoute,
   fieldName,

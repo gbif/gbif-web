@@ -5,9 +5,11 @@
   "close": "Sluiten",
   "citation": "Bronvermelding",
   "citeAs": "Gebruik deze bronvermelding in publicaties",
+  "share": "Delen",
   "unknownDate": "Onbekende datum",
   "legend": "Legenda",
   "hostedDatasets": "Gehoste datasets",
+  "noInformation": "Geen informatie",
   "viewOnGBif": "Toon op GBIF.org",
   "failedToLoadData": "Kan geen gegevens laden",
   "retry": "Probeer opnieuw"

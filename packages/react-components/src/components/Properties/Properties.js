@@ -78,7 +78,7 @@ function AutomaticPropertyValue({ value, formatter, showEmpty, sanitizeOptions =
 }
 
 export function EmptyValue() {
-  return <span css={css`color: #aaa; font-style: italic;`}>No information</span>
+  return <span css={css`color: #aaa; font-style: italic;`}><FormattedMessage id="phrases.noInformation" defaultMessage="No information" /></span>
 }
 
 export function PropertyLabel({ id, helpText, helpTextId, ...props }) {

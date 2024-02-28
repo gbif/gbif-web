@@ -21,6 +21,7 @@ export const cssViewArea = ({theme}) => css`
   display: flex;
   flex-direction: column;
   min-height: 500px;
+  z-index: 0;
 `;
 
 export const cssLayout = ({theme}) => css`

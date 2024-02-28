@@ -21,6 +21,8 @@ const { TabList, Tab, TabPanel, TapSeperator } = Tabs;
 
 const Layout = ({
   className = '',
+  styles,
+  style,
   config,
   tabs = ['TABLE', 'GALLERY', 'MAP'],
   ...props
@@ -41,7 +43,7 @@ const Layout = ({
   }
 
   return <div className={`${className} ${prefix}-${elementName}`}
-    css={cssLayout({ theme })} {...props}>
+    css={cssLayout({ theme })} styles={styles} style={style}>
     <div css={cssNavBar({ theme })} style={{margin: '0 0 10px 0', borderRadius: 0}}>
       <DataHeader style={{borderBottom: '1px solid #ddd'}} availableCatalogues={config.availableCatalogues}>
         <NavBar style={{marginLeft: 10}}>

@@ -1,1 +1,1 @@
-export { root } from '../../style/shared';
+export { root, appRoot } from '../../style/shared';

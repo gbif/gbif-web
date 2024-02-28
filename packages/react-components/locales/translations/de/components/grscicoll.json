@@ -22,9 +22,27 @@
   "country": "Land",
   "logoUrl": "Logo",
   "notes": "Anmerkungen",
+  "collectionCode": "",
+  "institutionCode": "",
   "specimensViaGbif": "Geteilte Exemplare mit GBIF",
   "specimens": "Exemplare",
   "identifiers": "Kennungen",
+  "importantCollectors": "",
+  "incorporatedCollections": "",
   "unknownSize": "Unbekannte Größe",
+  "dashboard": "",
+  "dataCatalog": "",
+  "edit": "",
+  "editHelpText": "",
+  "githubHelpText": "",
+  "entryCreated": "",
+  "lastModified": "",
+  "modifiedBy": "",
+  "masterSource": "",
+  "fromInstitution": "",
+  "tabs": {
+    "about": "",
+    "explore": ""
+  },
   "citesPermitNumber": "Anzahl der erlaubten Zitierungen"
 }

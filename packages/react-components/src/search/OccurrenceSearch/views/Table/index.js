@@ -87,7 +87,7 @@ query table($predicate: Predicate, $size: Int = 20, $from: Int = 0){
 }
 `;
 
-function Table() {
+function Table({style, className, dataTableProps, ...props}) {
   const [from = 0, setFrom] = useQueryParam('from', NumberParam);
   const [visibleColumnNames, setVisibleColumnNames, removeVisibleColumnNames] = useLocalStorage('visibleOccurrenceColumns');
   const [visibleColumns, setVisibleColumns] = useState([]);
@@ -201,6 +201,7 @@ function Table() {
     visibleColumns={visibleColumns}
     availableColumns={availableColumns}
     toggleColumn={toggleColumn}
+    {...{style, className, dataTableProps}}
   />
 }
 

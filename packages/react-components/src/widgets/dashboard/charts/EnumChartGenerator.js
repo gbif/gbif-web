@@ -86,6 +86,6 @@ export function ChartWrapper({
   };
 
   return <ChartClickWrapper detailsRoute={props.detailsRoute} interactive={props.interactive}>
-    <OneDimensionalChart {...{ facetQuery, disableOther, disableUnknown, predicateKey, currentFilter }} {...props} />
+    <OneDimensionalChart  {...{ facetQuery, disableOther, disableUnknown, predicateKey, currentFilter }} {...props} />
   </ChartClickWrapper>
 }

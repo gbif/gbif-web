@@ -43,9 +43,9 @@ query gallery($predicate: Predicate, $size: Int = 20, $from: Int = 0){
 }
 `;
 
-function Table() {
+function Gallery({ size: defaultSize = 50, ...props }) {
   const [from, setFrom] = useState(0);
-  const size = 50;
+  const size = defaultSize;
   const currentFilterContext = useContext(FilterContext);
   const { rootPredicate, predicateConfig } = useContext(OccurrenceContext);
   const { data, error, loading, load } = useQuery(OCCURRENCE_GALLERY, { lazyLoad: true, throwNetworkErrors: true, queryTag: 'gallery' });
@@ -79,29 +79,19 @@ function Table() {
 
   const next = useCallback(() => {
     setFrom(Math.max(0, from + size));
-  });
+  }, [from, size]);
 
-  const prev = useCallback(() => {
-    setFrom(Math.max(0, from - size));
-  });
-
-  const first = useCallback(() => {
-    setFrom(0);
-  });
-
-  return <>
-    <GalleryPresentation
-      error={error}
-      loading={loading}
-      data={allData}
-      total={data?.occurrenceSearch?.documents?.total}
-      next={next}
-      prev={prev}
-      first={first}
-      size={size}
-      from={from} />
-  </>
+  return <GalleryPresentation
+    error={error}
+    loading={loading}
+    data={allData}
+    total={data?.occurrenceSearch?.documents?.total}
+    next={next}
+    size={size}
+    from={from}
+    {...props}
+  />
 }
 
-export default Table;
+export default Gallery;
 

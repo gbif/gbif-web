@@ -14,7 +14,7 @@ export const defaultContext = {
     isHref: false,
   },
   collectionKey: {
-    url: ({key}) => `/collection/${key}`,
+    url: ({key, basename}) => `${basename ? `/${basename}` : ''}/collection/${key}`,
     gbifUrl: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/grscicoll/collection/${key}`,
     isHref: false,
     route: '/collection/:key'
@@ -27,35 +27,35 @@ export const defaultContext = {
   },
   collectionKeySpecimens: {
     parent: 'collectionKey',
-    url: ({key}) => `/collection/${key}/specimens`,
+    url: ({key, basename}) => `${basename ? `/${basename}` : ''}/collection/${key}/specimens`,
     gbifUrl: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/grscicoll/collection/${key}`,
     isHref: false,
     route: '/collection/:key/specimens'
   },
   collectionKeyDashboard: {
     parent: 'collectionKey',
-    url: ({key}) => `/collection/${key}/specimens`,
+    url: ({key, basename}) => `${basename ? `/${basename}` : ''}/collection/${key}/dashboard`,
     gbifUrl: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/grscicoll/collection/${key}/metrics`,
     isHref: false,
     route: '/collection/:key/dashboard'
   },
 
   institutionKey: {
-    url: ({key}) => `/institution/${key}`,
+    url: ({key, basename}) => `${basename ? `/${basename}` : ''}/institution/${key}`,
     gbifUrl: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/grscicoll/institution/${key}`,
     isHref: false,
     route: '/institution/:key'
   },
   institutionKeySpecimens: {
     parent: 'institutionKey',
-    url: ({key}) => `/institution/${key}/specimens`,
+    url: ({key, basename}) => `${basename ? `/${basename}` : ''}/institution/${key}/specimens`,
     gbifUrl: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/grscicoll/institution/${key}`,
     isHref: false,
     route: '/institution/:key/specimens'
   },
   institutionKeyCollections: {
     parent: 'institutionKey',
-    url: ({key}) => `/collections`,
+    url: ({key, basename}) => `${basename ? `/${basename}` : ''}/collections`,
     gbifUrl: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/grscicoll/institution/${key}`,
     isHref: false,
     route: '/institution/:key/collections'
@@ -68,28 +68,28 @@ export const defaultContext = {
   },
 
   datasetKey: {
-    url: ({key}) => `/dataset/${key}`,
+    url: ({key, basename}) => `${basename ? `/${basename}` : ''}/dataset/${key}`,
     gbifUrl: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/dataset/${key}`,
     isHref: false,
     route: '/dataset/:key'
   },
   datasetKeyCitations: {
     parent: 'datasetKey',
-    url: ({key}) => `/dataset/${key}/citations`,
+    url: ({key, basename}) => `${basename ? `/${basename}` : ''}/dataset/${key}/citations`,
     gbifUrl: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/dataset/${key}`,
     isHref: false,
     route: '/dataset/:key/citations'
   },
   datasetKeyDownload: {
     parent: 'datasetKey',
-    url: ({key}) => `/dataset/${key}/download`,
+    url: ({key, basename}) => `${basename ? `/${basename}` : ''}/dataset/${key}/download`,
     gbifUrl: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/dataset/${key}`,
     isHref: false,
     route: '/dataset/:key/download'
   },
   datasetKeyProject: {
     parent: 'datasetKey',
-    url: ({key}) => `/dataset/${key}/project`,
+    url: ({key, basename}) => `${basename ? `/${basename}` : ''}/dataset/${key}/project`,
     gbifUrl: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/dataset/${key}`,
     isHref: false,
     route: '/dataset/:key/project'
@@ -102,7 +102,7 @@ export const defaultContext = {
   },
 
   publisherKey: {
-    url: ({key}) => `/publisher/${key}`,
+    url: ({key, basename}) => `${basename ? `/${basename}` : ''}/publisher/${key}`,
     gbifUrl: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/publisher/${key}`,
     isHref: false,
     route: '/publisher/:key'

@@ -6,7 +6,7 @@ import _get from 'lodash/get';
 import _merge from 'lodash/merge';
 import { ToastContainer } from 'react-toast'
 import { Root } from './components';
-import ThemeContext, { lightTheme } from './style/themes';
+import { lightTheme, ThemeProvider } from './style/themes';
 import { ApiContext, ApiClient } from './dataManagement/api';
 import RouteContext, { defaultContext } from './dataManagement/RouteContext';
 import SiteContext from './dataManagement/SiteContext';
@@ -62,14 +62,14 @@ function StandaloneWrapper({
       <ApiContext.Provider value={client}>
         <GraphQLContextProvider value={{}}>
           <LocaleProvider locale={locale} messages={messages}>
-            <ThemeContext.Provider value={theme}>
+            <ThemeProvider theme={theme}>
               {<RouteContext.Provider value={routeConfig}>
                 {root}
               </RouteContext.Provider>}
               <div style={{ zIndex: 10000, position: 'fixed' }}>
                 <ToastContainer position="bottom-center" delay={3000} />
               </div>
-            </ThemeContext.Provider>
+            </ThemeProvider>
           </LocaleProvider>
         </GraphQLContextProvider>
       </ApiContext.Provider>

@@ -63,7 +63,7 @@ export function Description({
           </Properties>
         </Card>
         <Card style={{ marginTop: 24, marginBottom: 24 }}>
-          <CardHeader2>Contact</CardHeader2>
+          <CardHeader2><FormattedMessage id="grscicoll.contacts" deafultMessage="Contacts" /></CardHeader2>
           <Properties style={{ fontSize: 16, marginBottom: 12 }} breakpoint={800}>
             <Property value={institution?.email} labelId="grscicoll.email" />
             <Property value={institution?.homepage} labelId="grscicoll.homepage" />
@@ -119,7 +119,7 @@ export function Description({
         </Card>
 
         <Card style={{ marginTop: 24, marginBottom: 24 }}>
-          <CardHeader2>Identifiers</CardHeader2>
+          <CardHeader2><FormattedMessage id="grscicoll.identifiers" deafultMessage="Identifiers" /></CardHeader2>
           <Properties style={{ fontSize: 16, marginBottom: 12 }} breakpoint={800}>
             <Property value={institution.code} labelId="grscicoll.code" showEmpty />
             {institution?.alternativeCodes?.length > 0 && <Property value={institution.alternativeCodes} labelId="grscicoll.alternativeCodes">

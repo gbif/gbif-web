@@ -7,6 +7,7 @@
   "citation": "Cita",
   "citeAs": "Por favor, utilice esta cita en las publicaciones",
   "showAll": "Mostrar todo",
+  "share": "Compartir",
   "identifier": "Identificador",
   "unknownDate": "Fecha desconocida",
   "about": "Acerca de",
@@ -17,6 +18,7 @@
   "occurrenceMetrics": "Métricas de registros de presencias",
   "project": "Proyecto",
   "license": "Licencia",
+  "noInformation": "No hay información",
   "seeDetails": "Ver detalles",
   "readMore": "Leer más",
   "download": "Descargar"

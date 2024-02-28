@@ -22,10 +22,27 @@
   "country": "País",
   "logoUrl": "Logo",
   "notes": "Notas",
+  "collectionCode": "Código de la colección",
+  "institutionCode": "Código de la institución",
   "specimensViaGbif": "Especímenes compartidos con GBIF",
   "specimens": "Especímenes",
   "identifiers": "Identificadores",
+  "importantCollectors": "",
+  "incorporatedCollections": "",
   "unknownSize": "Tamaño desconocido",
   "dashboard": "Panel de control",
+  "dataCatalog": "",
+  "edit": "",
+  "editHelpText": "",
+  "githubHelpText": "",
+  "entryCreated": "",
+  "lastModified": "",
+  "modifiedBy": "",
+  "masterSource": "",
+  "fromInstitution": "",
+  "tabs": {
+    "about": "Acerca de",
+    "explore": ""
+  },
   "citesPermitNumber": "Número de permisos de citas"
 }

@@ -5,6 +5,9 @@
   "additionalNames": "Aanvullende namen",
   "description": "Beschrijving",
   "code": "Code",
+  "alternativeCodes": "",
+  "apiUrl": "",
+  "catalogUrl": "",
   "homepage": "Startpagina",
   "phone": "Telefoonnummer",
   "email": "E-mail",
@@ -19,7 +22,27 @@
   "country": "Land",
   "logoUrl": "Logo",
   "notes": "Opmerkingen",
+  "collectionCode": "Collectiecode",
+  "institutionCode": "Code instelling",
   "specimensViaGbif": "Specimens gedeeld met GBIF",
   "specimens": "Exemplaar",
-  "unknownSize": "Onbekende grootte"
+  "identifiers": "",
+  "importantCollectors": "",
+  "incorporatedCollections": "",
+  "unknownSize": "Onbekende grootte",
+  "dashboard": "",
+  "dataCatalog": "",
+  "edit": "",
+  "editHelpText": "",
+  "githubHelpText": "",
+  "entryCreated": "",
+  "lastModified": "",
+  "modifiedBy": "",
+  "masterSource": "",
+  "fromInstitution": "",
+  "tabs": {
+    "about": "Over",
+    "explore": ""
+  },
+  "citesPermitNumber": ""
 }

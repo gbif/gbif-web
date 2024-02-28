@@ -4,119 +4,148 @@ import { FormattedMessage } from 'react-intl';
 import monthEnum from '../../../enums/basic/month.json';
 import { EnumChartGenerator } from './EnumChartGenerator';
 
-export function Licenses({
+function StandardEnumChart({
   predicate,
   detailsRoute,
   currentFilter = {}, //excluding root predicate
+  fieldName,
+  enumKeys,
+  enableUnknown = false,
+  showUnknownInChart = false,
+  enableOther = false,
+  facetSize = 10,
+  subtitleKey = "dashboard.numberOfOccurrences",
+  translationTemplate,
+  titleTranslationId,
   ...props
 }) {
   return <EnumChartGenerator {...{
     predicate, detailsRoute, currentFilter,
-    // enumKeys: licenseEnum,
-    translationTemplate: 'enums.license.{key}',
+    enumKeys,
+    translationTemplate: translationTemplate ?? `enums.${fieldName}.{key}`,
+    fieldName: fieldName,
+    disableUnknown: !enableUnknown,
+    showUnknownInChart,
+    disableOther: !enableOther,
+    facetSize,
+    title: <FormattedMessage id={titleTranslationId ?? `filters.${fieldName}.name`} defaultMessage={fieldName} />,
+    subtitleKey
+  }} {...props} />
+}
+
+
+export function Licenses(props) {
+  return <StandardEnumChart {...{
+    ...props,
     fieldName: 'license',
-    disableUnknown: true,
-    disableOther: true,
-    facetSize: 10,
-    title: <FormattedMessage id="filters.license.name" defaultMessage="Licenses" />,
-    subtitleKey: "dashboard.numberOfOccurrences",
-    messages: ['dashboard.notVocabularyWarning']
-  }} {...props} />
+    options: ['PIE', 'TABLE', 'COLUMN']
+  }} />
 }
 
-export function BasisOfRecord({
-  predicate,
-  detailsRoute,
-  currentFilter = {}, //excluding root predicate
-  ...props
-}) {
-  return <EnumChartGenerator {...{
-    predicate, detailsRoute, currentFilter,
-    // enumKeys: basisOfRecordEnum,
-    fieldName: 'basisOfRecord',
-    disableUnknown: true,
-    disableOther: true,
-    facetSize: 10,
-    title: <FormattedMessage id="filters.basisOfRecord.name" defaultMessage="Basis of record" />,
-    subtitleKey: "dashboard.numberOfOccurrences"
-  }} {...props} />
+export function BasisOfRecord(props) {
+  return <StandardEnumChart {...{
+    ...props,
+    fieldName: 'basisOfRecord'
+  }} />
 }
 
-export function Months({
-  predicate,
-  detailsRoute,
-  currentFilter = {}, //excluding root predicate
-  ...props
-}) {
-  return <EnumChartGenerator {...{
-    predicate, detailsRoute, currentFilter,
-    enumKeys: monthEnum,
-    fieldName: 'month',
+export function Months(props) {
+  return <StandardEnumChart {...{
     facetSize: 12,
-    disableUnknown: false,
+    enumKeys: monthEnum,
+    enableUnknown: true,
     showUnknownInChart: true,
-    disableOther: true,
-    title: <FormattedMessage id="filters.month.name" defaultMessage="Month" />,
-    subtitleKey: "dashboard.numberOfOccurrences"
-  }} {...props} />
+    ...props,
+    fieldName: 'month',
+  }} />
 }
 
-export function OccurrenceIssue({
-  predicate,
-  detailsRoute,
-  currentFilter = {}, //excluding root predicate
-  ...props
-}) {
-  return <EnumChartGenerator {...{
-    predicate, detailsRoute, currentFilter,
+export function MediaType(props) {
+  return <StandardEnumChart {...{
+    facetSize: 10,
+    options: ['PIE', 'TABLE', 'COLUMN'],
+    ...props,
+    fieldName: 'mediaType',
+  }} />
+}
+
+export function OccurrenceIssue(props) {
+  return <StandardEnumChart {...{
+    ...props,
     fieldName: 'issue',
     translationTemplate: 'enums.occurrenceIssue.{key}',
-    facetSize: 10,
-    disableOther: true,
-    disableUnknown: true,
+    titleTranslationId: 'filters.occurrenceIssue.name',
     options: ['TABLE'],
-    title: <FormattedMessage id="filters.occurrenceIssue.name" defaultMessage="Issues" />,
-    subtitleKey: "dashboard.numberOfOccurrences",
-  }} {...props} />
+  }} />
 }
 
-export function Country({
-  predicate,
-  detailsRoute,
-  currentFilter = {}, //excluding root predicate
-  ...props
-}) {
-  return <EnumChartGenerator {...{
-    predicate, detailsRoute, currentFilter,
-    fieldName: 'countryCode',
+export function TypeStatus(props) {
+  return <StandardEnumChart {...{
+    ...props,
+    fieldName: 'typeStatus',
+    translationTemplate: 'enums.typeStatus.{key}',
+    titleTranslationId: 'filters.typeStatus.name',
+    options: ['TABLE'],
+  }} />
+}
+
+export function Country(props) {
+  return <StandardEnumChart {...{
     filterKey: 'country',
-    translationTemplate: 'enums.countryCode.{key}',
-    facetSize: 10,
-    disableOther: true,
-    disableUnknown: true,
-    options: ['TABLE'],
-    title: <FormattedMessage id="filters.country.name" defaultMessage="Country" />,
-    subtitleKey: "dashboard.numberOfOccurrences",
-  }} {...props} />
+    fieldName: 'countryCode',
+    enableOther: true,
+    enableUnknown: true,
+    titleTranslationId: 'filters.country.name',
+    ...props,
+  }} />
 }
 
-export function IucnCounts({
-  predicate,
-  detailsRoute,
-  currentFilter = {}, //excluding root predicate
-  ...props
-}) {
-  return <EnumChartGenerator {...{
-    predicate, detailsRoute, currentFilter,
-    fieldName: 'iucnRedListCategory',
-    translationTemplate: 'enums.iucnRedListCategory.{key}',
-    facetSize: 10,
-    disableOther: true,
-    disableUnknown: true,
+export function PublishingCountryCode(props) {
+  return <StandardEnumChart {...{
+    filterKey: 'publishingCountryCode',
+    fieldName: 'publishingCountry',
+    translationTemplate: 'enums.countryCode.{key}',
+    enableOther: true,
+    enableUnknown: true,
+    titleTranslationId: 'filters.publishingCountryCode.name',
+    ...props,
+  }} />
+}
+
+export function Continent(props) {
+  return <StandardEnumChart {...{
+    filterKey: 'continent',
+    fieldName: 'continent',
+    enableOther: true,
+    enableUnknown: true,
     options: ['PIE', 'TABLE', 'COLUMN'],
-    title: <FormattedMessage id="filters.iucnRedListCategory.name" defaultMessage="iucnRedListCategory" />,
-    subtitleKey: "dashboard.numberOfOccurrences",
-  }} {...props} />
+    titleTranslationId: 'filters.continent.name',
+    ...props,
+  }} />
+}
+
+export function DwcaExtension(props) {
+  return <StandardEnumChart {...{
+    ...props,
+    fieldName: 'dwcaExtension'
+  }} />
+}
+
+export function Protocol(props) {
+  return <StandardEnumChart {...{
+    translationTemplate: 'enums.endpointType.{key}',
+    options: ['COLUMN', 'PIE', 'TABLE'],
+    ...props,
+    fieldName: 'protocol'
+  }} />
+}
+
+export function IucnCounts(props) {
+  return <StandardEnumChart {...{
+    fieldName: 'iucnRedListCategory',
+    options: ['PIE', 'TABLE', 'COLUMN'],
+    ...props,
+  }} />
 }
 
 export function LiteratureTopics({

@@ -9,5 +9,7 @@ export const table = props => css`
   @media (min-height: 700px) {
     height: 100px;
     flex: 1 1 auto;
+    width: 100px;
+    min-width: 100%;
   }
 `;

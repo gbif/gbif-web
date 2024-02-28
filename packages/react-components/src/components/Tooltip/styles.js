@@ -1,17 +1,17 @@
 import { css } from '@emotion/react';
 import { root } from '../../style/shared';
 
-export const tooltip = props => css`
-  ${root(props)}
+export const tooltip = css`
+  ${root}
   font-size: 14px;
   background-color: #333;
   padding: 4px 8px;
-  border-radius: ${props.theme.borderRadius}px;
+  border-radius: var(--borderRadiusPx);
   color: white;
   z-index: 1000;
 `;
 
-export const tooltipArrow = props => css`
+export const tooltipArrow = css`
   path {
     fill: #333;
   }

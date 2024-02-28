@@ -75,6 +75,10 @@ class Map extends Component {
         this.map.setView(newView);
       }
     }
+    // check if the size of the map container has changed and if so resize the map
+    if ((prevProps.height !== this.props.height || prevProps.width !== this.props.width) && this.mapLoaded) {
+      this.map.updateSize();
+    }
 
     // TODO: monitor theme and update maps accordingly
     // if (prevProps.theme !== this.props.theme && this.mapLoaded) {
@@ -306,8 +310,8 @@ class Map extends Component {
   }
 
   render() {
-    const { query, onMapClick, onPointClick, predicateHash, ...props } = this.props;
-    return <div ref={this.myRef} {...props} />
+    const { query, onMapClick, onPointClick, predicateHash, className, ...props } = this.props;
+    return <div ref={this.myRef} className={className} />
   }
 }
 

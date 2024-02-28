@@ -9,6 +9,7 @@
   "deletedOnDate": "Deleted on {date}",
   "replacedBy": "Replaced by {newItem}",
   "showAll": "Show all",
+  "share": "Share",
   "identifier": "Identifier",
   "unknownDate": "Unknown date",
   "about": "About",
@@ -23,11 +24,15 @@
   "downloadAsTsv": "Download as TSV",
   "backHome": "Back home",
   "pageNotFound": "404",
+  "noInformation": "No information",
   "viewOnGBif": "View on GBIF.org",
   "failedToLoadData": "Failed to load data",
   "retry": "Retry",
   "seeDetails": "See details",
   "readMore": "Read more",
   "pageNotFoundDescription": "Sorry, the page you visited does not exist.",
-  "download": "Download"
+  "download": "Download",
+  "discard": "Discard",
+  "keep": "Keep",
+  "noResults": "No results"
 }

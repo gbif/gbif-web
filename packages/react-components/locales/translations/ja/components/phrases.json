@@ -6,6 +6,7 @@
   "citation": "引用",
   "citeAs": "出版物ではこの引用を使用してください",
   "showAll": "すべて表示",
+  "share": "共有",
   "identifier": "ID",
   "unknownDate": "不明な日付",
   "about": "・・・について",
@@ -16,6 +17,7 @@
   "occurrenceMetrics": "オカレンスのデータ分析結果",
   "project": "プロジェクト",
   "license": "ライセンス",
+  "seeDetails": "詳細はこちら",
   "readMore": "もっと読む",
   "download": "ダウンロード"
 }

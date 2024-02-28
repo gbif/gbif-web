@@ -18,7 +18,7 @@ export default function ChartClickWrapper({children, interactive, ...props}) {
       return;
     }
 
-    const mergedFilter = mergeDeep({}, filterContext, filter);
+    const mergedFilter = mergeDeep({}, filterContext, {must: {...filter}});
     if (detailsRoute) {
       const newLocation = `${detailsRoute || location.pathname}?${qs.stringify(filter)}`;
       history.push(newLocation);

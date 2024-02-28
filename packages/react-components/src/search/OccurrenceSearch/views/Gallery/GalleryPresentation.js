@@ -1,5 +1,5 @@
 
-import { jsx } from '@emotion/react';
+import { jsx, css } from '@emotion/react';
 import md5 from 'md5';
 import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -9,9 +9,10 @@ import { OccurrenceSidebar } from '../../../../entities';
 import { ViewHeader } from '../ViewHeader';
 import ThemeContext from '../../../../style/themes/ThemeContext';
 import env from '../../../../../.env.json';
-import * as css from './gallery.styles';
+import * as styles from './gallery.styles';
+import { MdOutlineImageSearch } from 'react-icons/md';
 
-export const GalleryPresentation = ({ first, prev, next, size, from, data, total, loading, error }) => {
+export const GalleryPresentation = ({ style, tileWrapperProps, className, next, size, from, data, total, loading, error }) => {
   const theme = useContext(ThemeContext);
   const [activeId, setActive] = useState();
   const [activeItem, setActiveItem] = useState();
@@ -31,28 +32,20 @@ export const GalleryPresentation = ({ first, prev, next, size, from, data, total
     setActive(Math.max(0, activeId - 1));
   }, [activeId]);
 
-
-  if (total === 0) return <div>
-    <h2>No content</h2>
-    {error && <p>Backend failure</p>}
-  </div>
-  const itemsLeft = total ? total - from : 20;
-  const loaderCount = Math.min(Math.max(itemsLeft, 0), size);
-
-  // if (loading && !total) {
-  //   return Array(size).fill().map((e, i) => <GalleryTileSkeleton key={i} />)
-  // }
-
-  if (error && !total) {
+  if (error) {
     return <h2>Error</h2>
   }
 
-  return <>
+  return <div {...{ style, className }}>
     <DetailsDrawer href={`${env.GBIF_ORG}/occurrence/${activeItem?.key}`} dialog={dialog} nextItem={nextItem} previousItem={previousItem}>
       <OccurrenceSidebar id={activeItem?.key} defaultTab='images' style={{ maxWidth: '100%', width: 700, height: '100%' }} onCloseRequest={() => dialog.setVisible(false)} />
     </DetailsDrawer>
     <ViewHeader message="counts.nResultsWithImages" loading={loading} total={total} />
-    <div css={css.paper({ theme })}>
+    {total === 0 && <div css={css`text-align: center; margin: 48px; color: var(--color200);`}>
+      <MdOutlineImageSearch style={{ fontSize: 100 }} />
+      <p><FormattedMessage id="phrases.noResults" /></p>
+    </div>}
+    {total > 0 && <div css={styles.paper({ theme })} {...tileWrapperProps} className={className}>
       <GalleryTiles>
         {items.map((item, index) => {
           return <GalleryTile height={150} key={item.key}
@@ -65,7 +58,7 @@ export const GalleryPresentation = ({ first, prev, next, size, from, data, total
               try {
                 const url = `${env.OCCURRENCE_IMAGE_CACHE}/${w}x${h}/occurrence/${item.key}/media/${md5(item.primaryImage.identifier ?? '')}`;
                 return url;
-              } catch(err) {
+              } catch (err) {
                 console.warn(err);
                 return '';
               }
@@ -73,7 +66,7 @@ export const GalleryPresentation = ({ first, prev, next, size, from, data, total
             onSelect={() => { setActive(index); dialog.show(); }}>
             <GalleryCaption>
               <div style={{ marginBottom: 2 }} dangerouslySetInnerHTML={{ __html: item.gbifClassification.usage.formattedName }}></div>
-              <IconFeatures css={css.features({ theme })}
+              <IconFeatures css={styles.features({ theme })}
                 typeStatus={item.typeStatus}
                 basisOfRecord={item.basisOfRecord}
                 eventDate={item.eventDate}
@@ -90,13 +83,13 @@ export const GalleryPresentation = ({ first, prev, next, size, from, data, total
         })}
         {loading ? Array(size).fill().map((e, i) => <GalleryTileSkeleton key={i} />) : null}
         <div>
-          {(from + size < total) && !loading && <Button css={css.more({ theme })} appearance="outline" onClick={next}>
+          {(from + size < total) && !loading && <Button css={styles.more({ theme })} appearance="outline" onClick={next}>
             <FormattedMessage id="search.loadMore" defaultMessage="Load more" />
           </Button>}
         </div>
       </GalleryTiles>
-    </div>
-  </>
+    </div>}
+  </div>
 }
 
 /*

@@ -22,9 +22,27 @@
   "country": "国家",
   "logoUrl": "标识logo",
   "notes": " 备注",
+  "collectionCode": "保藏代码",
+  "institutionCode": "机构编码",
   "specimensViaGbif": "与GBIF共享的标本",
   "specimens": "标本",
   "identifiers": "标识符",
+  "importantCollectors": "",
+  "incorporatedCollections": "",
   "unknownSize": "尺寸不详",
+  "dashboard": "",
+  "dataCatalog": "",
+  "edit": "",
+  "editHelpText": "",
+  "githubHelpText": "",
+  "entryCreated": "",
+  "lastModified": "",
+  "modifiedBy": "",
+  "masterSource": "",
+  "fromInstitution": "",
+  "tabs": {
+    "about": "关于",
+    "explore": ""
+  },
   "citesPermitNumber": "引用许可数量"
 }

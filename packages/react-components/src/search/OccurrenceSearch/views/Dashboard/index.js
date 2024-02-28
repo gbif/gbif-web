@@ -6,8 +6,9 @@ import { Dashboard as DashboardPresentation } from './Dashboard';
 
 function Dashboard() {
   const currentFilterContext = useContext(FilterContext);
-  const { rootPredicate, predicateConfig } = useContext(OccurrenceContext);
+  const { rootPredicate, predicateConfig, filters } = useContext(OccurrenceContext);
   const [searchPredicate, setSearchPredicate] = useState();
+  const [chartsTypes, setChartsTypes] = useState([]);
 
   useEffect(() => {
     const predicate = {
@@ -20,8 +21,13 @@ function Dashboard() {
     setSearchPredicate(predicate);
   }, [currentFilterContext.filterHash, rootPredicate]);
 
+  useEffect(() => {
+    // set chart types to be names of available filters
+    setChartsTypes(Object.keys(filters));
+  }, [filters]);
+
   return <DashboardPresentation
-    predicate={searchPredicate}
+    predicate={searchPredicate} chartsTypes={['map', 'table', 'gallery', 'occurrenceSummary', 'dataQuality', ...chartsTypes]}
   />
 }
 

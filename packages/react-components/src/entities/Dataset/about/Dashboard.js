@@ -19,7 +19,7 @@ export function Dashboard({
     <DashBoardLayout>
       <charts.OccurrenceSummary predicate={predicate} />
       <charts.DataQuality predicate={predicate} />
-      <charts.Year predicate={predicate} visibilityThreshold={1} options={['TIME']} interactive={false} />
+      <charts.EventDate predicate={predicate} visibilityThreshold={1} options={['TIME']} interactive={false} />
       <charts.Months predicate={predicate} defaultOption="COLUMN" visibilityThreshold={0} interactive={false} />
       <charts.Taxa predicate={predicate} interactive={false}/>
       <charts.Iucn predicate={predicate} visibilityThreshold={0}  interactive={false}/>

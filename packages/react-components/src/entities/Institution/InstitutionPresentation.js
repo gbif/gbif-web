@@ -89,7 +89,7 @@ Relating to ${env.GBIF_REGISTRY}/institution/${institution.key}
   return <>
     <DataHeader showEmpty />
     <HeaderWrapper>
-      <Eyebrow prefix="Institution code" suffix={institution.code} />
+      <Eyebrow prefix={<FormattedMessage id="grscicoll.institutionCode" />} suffix={institution.code} />
       <Headline css={css`display: inline; margin-right: 12px;`} badge={institution.active ? null : 'Inactive'}>{institution.name}</Headline>
       <DeletedMessage date={institution.deleted} />
       {institution.replacedByInstitution && <ErrorMessage>
@@ -106,21 +106,21 @@ Relating to ${env.GBIF_REGISTRY}/institution/${institution.key}
           </FeatureList>
           {institution.catalogUrl && <FeatureList css={css`margin-top: 8px;`}>
             <GenericFeature>
-              <CatalogIcon /><span><a href={institution.catalogUrl}>Data catalog</a></span>
+              <CatalogIcon /><span><a href={institution.catalogUrl}><FormattedMessage id="grscicoll.dataCatalog" defaultMessage="Data catalog" /></a></span>
             </GenericFeature>
           </FeatureList>}
         </HeaderInfoMain>
         <HeaderInfoEdit>
-          <Tooltip title="No login required" placement="bottom">
-            <Button as="a" href={`${env.GBIF_REGISTRY}/institution/${institution.key}`} look="primaryOutline">Edit</Button>
+          <Tooltip title={<FormattedMessage id="grscicoll.editHelpText" defaultMessage="No login required" />} placement="bottom">
+            <Button as="a" href={`${env.GBIF_REGISTRY}/institution/${institution.key}`} look="primaryOutline"><FormattedMessage id="grscicoll.edit" defaultMessage="Edit" /></Button>
           </Tooltip>
-          <Tooltip title="Leave a comment - requires a free Github account" placement="bottom">
+          <Tooltip title={<FormattedMessage id="grscicoll.githubHelpText" defaultMessage="Github" />} placement="bottom">
             <a style={{ marginLeft: 8, fontSize: 24, color: "var(--primary)" }} target="_blank" href={`https://github.com/gbif/portal-feedback/issues/new?title=${encodeURIComponent(`NHC: ${institution.name}`)}&body=${encodeURIComponent(feedbackTemplate)}`}><Github /></a>
           </Tooltip>
         </HeaderInfoEdit>
       </HeaderInfoWrapper>
       <TabList style={{ marginTop: '12px', borderTop: '1px solid #ddd' }}>
-        <RouterTab to={url} exact label="About" />
+        <RouterTab to={url} exact label={<FormattedMessage id="grscicoll.tabs.about" defaultMessage="About" />} />
         {<RouterTab to={join(url, '/collections')} css={institution?.collections?.length === 0 ? css`color: var(--color300);` : null} label={<FormattedMessage id="counts.nCollections" values={{ total: institution?.collections?.length }} />} />}
         {occurrenceSearch?.documents?.total > 0 && <RouterTab to={join(url, '/specimens')} tooltip={<FormattedMessage id="grscicoll.specimensViaGbif" defaultMessage="Specimens via GBIF" />} label={<FormattedMessage id="grscicoll.specimens" defaultMessage="Specimens" />} css={occurrenceSearch?.documents?.total === 0 ? css`color: var(--color300);` : null} />}
         {occurrenceSearch?.documents?.total === 0 && institution.catalogUrl && <Tab tabId="0" label="Online catalog"><a css={css`text-decoration: none; color: inherit!important;`} href={institution.catalogUrl}>Explore catalog<MdLink /></a></Tab>}

@@ -2,6 +2,10 @@ import { jsx, css } from '@emotion/react';
 import React from 'react';
 import useBelow from '../../utils/useBelow';
 
+function DashboardSection({ children, ...props }) {
+  return <div css={css`margin-bottom: 12px;`} {...props}>{children}</div>
+}
+
 export default function DashBoardLayout({ children, predicate, queueUpdates = false, ...props }) {
   const isBelow800 = useBelow(800);
 
@@ -11,8 +15,9 @@ export default function DashBoardLayout({ children, predicate, queueUpdates = fa
     return <div css={css`padding-bottom: 200px;`}>{childrenArray}</div>
   }
 
-  return <div css={css`
-    display: flex; margin: -7px; padding-bottom: 200px; flex-wrap: wrap;
+  return <div className="gbif-dashboardLayout" css={css`
+    display: flex; margin: -7px; flex-wrap: wrap;
+    justify-content: space-between;
     > div {
       flex: 0 1 calc(50% - 12px); margin: 6px;
     }
