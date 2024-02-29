@@ -59,13 +59,13 @@
   },
   "eventDate": {
     "name": "Fecha del Evento",
-    "count": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
-    "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\"."
+    "count": "",
+    "description": ""
   },
   "alternativeCode": {
-    "name": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
-    "count": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
-    "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\"."
+    "name": "Código alternativo",
+    "count": "{num, plural, one {# Código alternativo } other {# Códigos alternativos}}",
+    "description": "Código adicional que ya esté en uso para la misma institución en otros contextos (Index Herbariorum; autorrepresentación; referencias utilizadas en los datos de recopilación publicados, etc.)"
   },
   "identifier": {
     "name": "Identificador",
@@ -78,19 +78,19 @@
     "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\"."
   },
   "discipline": {
-    "name": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
-    "count": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
-    "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\"."
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "collectionContentType": {
-    "name": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
-    "count": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
-    "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\"."
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "preservationType": {
-    "name": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
-    "count": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
-    "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\"."
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "taxonKey": {
     "name": "Nombre científico",
@@ -132,12 +132,12 @@
     "description": "El país o territorio donde ocurrió el evento"
   },
   "grsciCollCountry": {
-    "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\"."
+    "description": ""
   },
   "preparations": {
     "name": "Preparaciones",
-    "count": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
-    "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\"."
+    "count": "",
+    "description": ""
   },
   "publishingCountryCode": {
     "name": "País de publicación",
@@ -379,7 +379,7 @@
   "active": {
     "name": "Activo",
     "count": "Activo",
-    "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\"."
+    "description": ""
   },
   "personalCollection": {
     "name": "Colección personal",
@@ -405,12 +405,12 @@
     "name": "Nombre",
     "count": "{num, plural, one { nombre } other {# nombres}}",
     "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
-    "searchPlaceholder": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\"."
+    "searchPlaceholder": ""
   },
   "city": {
     "name": "Ciudad",
     "count": "{num, plural, one { ciudad } other {# ciudades}}",
-    "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\"."
+    "description": ""
   },
   "code": {
     "name": "Código",
