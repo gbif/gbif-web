@@ -63,7 +63,7 @@ export const List = ({query, first, prev, next, size, from, data, total, loading
     flexDirection: "column",
   }}>
     {dialog.visible && <DetailsDrawer dialog={dialog} nextItem={nextItem} previousItem={previousItem}>
-      <EventDatasetSidebar id={activeKey} defaultTab='details' style={{ maxWidth: '100%', width: 700, height: '100%' }} onCloseRequest={() => dialog.setVisible(false)} />
+      <EventDatasetSidebar id={activeKey} defaultTab='details' style={{ maxWidth: '100%', width: 1000, height: '100%' }} onCloseRequest={() => dialog.setVisible(false)} />
     </DetailsDrawer>}
     {/* <ResultsHeader loading={loading} total={total} /> */}
     <ul css={style.datasetList}>
