@@ -1,11 +1,13 @@
 import queryGraphQl from './queryGraphQL';
 import axios from './axios';
+import env from '../../../.env.json';
 
 class ApiClient {
   constructor(config) {
     this.gql = config.gql;
     this.v1 = config.v1;
     this.esApi = config.esApi;
+    this.utils = config.utils ?? {endpoint: env.UTILS_API};
     this.request;
     this.graphs = {
       DEFAULT: config.gql
