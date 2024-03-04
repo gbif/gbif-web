@@ -20,5 +20,30 @@
   "nameWithTaxonMatchIssue": "",
   "commonName": "",
   "acceptedNameOf": "",
-  "viewDetails": ""
+  "viewDetails": "",
+  "location": {
+    "geometry": "Geometria",
+    "wktPlaceholder": "Uma breve descrição do componente deve ser colocada aqui",
+    "range": "Intervalo",
+    "recent": "Usado recentemente",
+    "add": "Adicionar",
+    "north": "Norte",
+    "south": "Sul",
+    "east": "Este",
+    "west": "Oeste",
+    "invalidWkt": "Uma breve descrição do componente deve ser colocada aqui",
+    "aboutWktAndGeoJson": "Uma breve descrição do componente deve ser colocada aqui",
+    "simplificationWarning": "Uma breve descrição do componente deve ser colocada aqui",
+    "simplify": "Uma breve descrição do componente deve ser colocada aqui",
+    "useBbox": "Uma breve descrição do componente deve ser colocada aqui",
+    "failedParsing": "Uma breve descrição do componente deve ser colocada aqui",
+    "onlyPolygonsSupported": "Uma breve descrição do componente deve ser colocada aqui",
+    "polygonSimplifiedToFewerPoints": "Uma breve descrição do componente deve ser colocada aqui",
+    "simplificationCausedSelfIntersection": "Uma breve descrição do componente deve ser colocada aqui",
+    "tooLarge": "Geometria muito grande",
+    "selfIntersecting": "Uma breve descrição do componente deve ser colocada aqui",
+    "orderChanged": "Uma breve descrição do componente deve ser colocada aqui",
+    "geometryReducedToBbox": "Uma breve descrição do componente deve ser colocada aqui",
+    "failedToSimplify": "Uma breve descrição do componente deve ser colocada aqui"
+  }
 }
