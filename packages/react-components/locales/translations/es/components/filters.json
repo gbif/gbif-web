@@ -11,7 +11,7 @@
   },
   "hasCoordinate": {
     "name": "Incluye coordenada",
-    "count": "Incluye coordenadas",
+    "count": "Tiene coordenadas",
     "description": ""
   },
   "hasGeospatialIssues": {
@@ -49,7 +49,7 @@
   },
   "geometry": {
     "name": "Localización/ubicación",
-    "count": "",
+    "count": "{num, plural, one { filtro } other {# filtros }}",
     "description": "",
     "placeholderLat": "Latitud",
     "placeholderLon": "Longitud",
