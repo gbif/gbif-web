@@ -18,6 +18,11 @@
     "range": "",
     "locationID": ""
   },
+  "ternary": {
+    "yes": "نعم",
+    "no": "لا",
+    "either": "أرشيف شروح \"جيبف\""
+  },
   "loadMore": "مزيد",
   "occurrenceClustersView": {
     "about": "حول",
