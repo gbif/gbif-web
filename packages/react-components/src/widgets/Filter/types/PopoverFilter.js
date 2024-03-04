@@ -1,5 +1,5 @@
 
-import { jsx } from '@emotion/react';
+import { jsx, css } from '@emotion/react';
 import React, { useState, useContext, useEffect, useCallback } from "react";
 import { nanoid } from 'nanoid';
 import { Popover as BasePopover } from '../../../components';
@@ -63,7 +63,10 @@ function Popover({ content, placement, modal, children, className, style, ...pro
   return (
     <BasePopover
       onClickOutside={popover => { currentFilterContext.setFilter(tmpFilter); popover.hide() }}
-      style={{ width: '22em', maxWidth: '100%', ...style }}
+      style={{ maxWidth: '100%', ...style }}
+      css={css`
+        width: 26em;
+      `}
       aria-labelledby={labelledById}
       placement={placement}
       trigger={child}
