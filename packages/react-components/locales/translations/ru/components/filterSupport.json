@@ -22,9 +22,9 @@
   "acceptedNameOf": "Общепринятое имя для",
   "viewDetails": "",
   "location": {
-    "geometry": "Векторная геометрия",
+    "geometry": "Геометрия",
     "wktPlaceholder": "Архив, аннотированный GBIF",
-    "range": "Крайние точки",
+    "range": "Диапазон",
     "recent": "Недавно использованные",
     "add": "Добавить",
     "north": "Север",
