@@ -18,7 +18,7 @@ const wktSizeLimit = 5000;
 const wktFormat = new WKT();
 const geojsonFormat = new GeoJSON();
 
-export const GeometryInput = ({ onApply, initialValue = 'MULTIPOLYGON(((40 40,20 45,45 30,40 40)),((20 35,10 30,10 10,30 5,45 20,20 35),(30 20,20 15,20 25,30 20)))', ...props }) => {
+export const GeometryInput = ({ onApply, initialValue = '', ...props }) => {
   const intl = useIntl();
   const [inputValue, setValue] = useState(initialValue || '');
   const [showHelp, setShowHelp] = useState(false);
