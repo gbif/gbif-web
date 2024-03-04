@@ -20,5 +20,30 @@
   "nameWithTaxonMatchIssue": "",
   "commonName": "",
   "acceptedNameOf": "",
-  "viewDetails": ""
+  "viewDetails": "",
+  "location": {
+    "geometry": "",
+    "wktPlaceholder": "",
+    "range": "",
+    "recent": "",
+    "add": "افزودن",
+    "north": "شمال",
+    "south": "جنوبی",
+    "east": "شرق",
+    "west": "غرب",
+    "invalidWkt": "",
+    "aboutWktAndGeoJson": "",
+    "simplificationWarning": "",
+    "simplify": "",
+    "useBbox": "",
+    "failedParsing": "",
+    "onlyPolygonsSupported": "",
+    "polygonSimplifiedToFewerPoints": "",
+    "simplificationCausedSelfIntersection": "",
+    "tooLarge": "",
+    "selfIntersecting": "",
+    "orderChanged": "",
+    "geometryReducedToBbox": "",
+    "failedToSimplify": ""
+  }
 }
