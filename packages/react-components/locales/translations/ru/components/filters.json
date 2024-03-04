@@ -15,8 +15,8 @@
     "description": "Архив, аннотированный GBIF"
   },
   "hasGeospatialIssues": {
-    "name": "С проблемами в географической привязке",
-    "count": "С проблемами в географической привязке",
+    "name": "Есть проблемы в географической привязке",
+    "count": "Есть проблемы в географической привязке",
     "description": "Архив, аннотированный GBIF"
   },
   "collectionKey": {
@@ -49,7 +49,7 @@
   },
   "geometry": {
     "name": "Местонахождение (топоним)",
-    "count": "",
+    "count": "{num, plural, one { filter } few {# filters } many {# filters } other {# filters }}",
     "description": "Архив, аннотированный GBIF",
     "placeholderLat": "Широта",
     "placeholderLon": "Долгота",
