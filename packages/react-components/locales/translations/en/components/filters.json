@@ -9,6 +9,16 @@
     "count": "{num, plural, one { Location ID } other {# Location IDs}}",
     "description": "Publishers can choose to assign IDs to the location. This field is not normalized, meaning that you search data as provided by the publisher."
   },
+  "hasCoordinate": {
+    "name": "Has coordinate",
+    "count": "Has coordinates",
+    "description": ""
+  },
+  "hasGeospatialIssues": {
+    "name": "Has geospatial issues",
+    "count": "Has geospatial issues",
+    "description": ""
+  },
   "collectionKey": {
     "name": "Collection",
     "count": "{num, plural, one {# collection } other {# collections}}",
@@ -33,6 +43,14 @@
     "name": "Distance from coordinates",
     "count": "{num, plural, one { filter } other {# filters }}",
     "description": "Filter on records within a given distance from a point",
+    "placeholderLat": "Latitude",
+    "placeholderLon": "Longitude",
+    "placeholderDist": "Distance"
+  },
+  "geometry": {
+    "name": "Location",
+    "count": "{num, plural, one { filter } other {# filters }}",
+    "description": "",
     "placeholderLat": "Latitude",
     "placeholderLon": "Longitude",
     "placeholderDist": "Distance"

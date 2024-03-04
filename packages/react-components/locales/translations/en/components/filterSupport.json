@@ -20,5 +20,30 @@
   "nameWithTaxonMatchIssue": "Name before normalization",
   "commonName": "Common name",
   "acceptedNameOf": "Accepted name for",
-  "viewDetails": "View details"
+  "viewDetails": "View details",
+  "location": {
+    "geometry": "Geometry",
+    "wktPlaceholder": "",
+    "range": "Range",
+    "recent": "Recently used",
+    "add": "Add",
+    "north": "North",
+    "south": "South",
+    "east": "East",
+    "west": "West",
+    "invalidWkt": "",
+    "aboutWktAndGeoJson": "",
+    "simplificationWarning": "",
+    "simplify": "",
+    "useBbox": "",
+    "failedParsing": "",
+    "onlyPolygonsSupported": "",
+    "polygonSimplifiedToFewerPoints": "",
+    "simplificationCausedSelfIntersection": "",
+    "tooLarge": "Geometry too large",
+    "selfIntersecting": "",
+    "orderChanged": "",
+    "geometryReducedToBbox": "",
+    "failedToSimplify": ""
+  }
 }
