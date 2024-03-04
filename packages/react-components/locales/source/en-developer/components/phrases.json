@@ -34,5 +34,6 @@
   "download": "Download",
   "discard": "Discard",
   "keep": "Keep",
+  "copyToClipboard": "Copy to clipboard",
   "noResults": "No results"
 }

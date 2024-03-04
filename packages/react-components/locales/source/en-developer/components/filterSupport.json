@@ -20,5 +20,30 @@
   "nameWithTaxonMatchIssue": "Name before normalisation",
   "commonName": "Common name",
   "acceptedNameOf": "Accepted name for",
-  "viewDetails": "View details"
+  "viewDetails": "View details",
+  "location": {
+    "geometry": "Geometry",
+    "wktPlaceholder": "WKT or GeoJSON",
+    "range": "Range",
+    "recent": "Recently used",
+    "add": "Add",
+    "north": "North",
+    "south": "South",
+    "east": "East",
+    "west": "West",
+    "invalidWkt": "Invalid WKT",
+    "aboutWktAndGeoJson": "Only WKT is supported, but we will attempt to convert any GeoJSON to WKT. If you have a large GeoJSON file, you can simplify it using [MapShaper](http://mapshaper.org/) and convert to WKT using [geojson.io](http://geojson.io/). Notice that only POINT, LINESTRING, LINEARRING, POLYGON and MULTIPOLYGON are accepted WKT types.",
+    "simplificationWarning": "We can try to simplify the geometry, but this might lead to self-intersections or otherwise invalid geometries. In that case you need to correct the geometry manually or simplify the initial geometry.",
+    "simplify": "Simplify",
+    "useBbox": "Use bounding box",
+    "failedParsing": "Failed to parse the geometry",
+    "onlyPolygonsSupported": "Only polygon and multipolygon supported",
+    "polygonSimplifiedToFewerPoints": "Polygon simplified to fewer points",
+    "simplificationCausedSelfIntersection": "Simplification caused self-intersection",
+    "tooLarge": "Geometry too large",
+    "selfIntersecting": "Self-intersecting geometry",
+    "orderChanged": "The ordering of the coordinates was reversed as it was not counter clockwise",
+    "geometryReducedToBbox": "Geometry reduced to bounding box",
+    "failedToSimplify": "Failed to simplify the geometry"
+  }
 }

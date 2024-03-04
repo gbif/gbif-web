@@ -131,6 +131,22 @@ export const commonFilters = {
       }
     }
   },
+  geometry: {
+    type: 'GEOMETRY',
+    config: {
+      std: {
+        id2labelHandle: 'geometry',
+        translations: {
+          count: 'filters.geometry.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.geometry.name',// translation path to a title for the popover and the button
+          description: 'filters.geometry.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        
+      }
+    }
+  },
   countriesOfResearcher: {
     type: 'SUGGEST',
     config: {
