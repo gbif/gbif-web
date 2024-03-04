@@ -18,6 +18,11 @@
     "range": "Range or single value",
     "locationID": "Search by location ID (case sensitive)"
   },
+  "ternary": {
+    "yes": "Yes",
+    "no": "No",
+    "either": ""
+  },
   "loadMore": "More",
   "occurrenceClustersView": {
     "about": "About",
