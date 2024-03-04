@@ -18,6 +18,11 @@
     "range": "Bereich oder einzelner Wert",
     "locationID": ""
   },
+  "ternary": {
+    "yes": "",
+    "no": "",
+    "either": "Stadt zum Fundort."
+  },
   "loadMore": "Mehr",
   "occurrenceClustersView": {
     "about": "",
