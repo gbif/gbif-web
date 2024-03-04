@@ -18,6 +18,11 @@
     "range": "",
     "locationID": ""
   },
+  "ternary": {
+    "yes": "",
+    "no": "",
+    "either": ""
+  },
   "loadMore": "",
   "occurrenceClustersView": {
     "about": "",
