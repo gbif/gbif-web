@@ -20,5 +20,30 @@
   "nameWithTaxonMatchIssue": "",
   "commonName": "",
   "acceptedNameOf": "",
-  "viewDetails": ""
+  "viewDetails": "",
+  "location": {
+    "geometry": "Geometrie",
+    "wktPlaceholder": "Stadt zum Fundort.",
+    "range": "Verbreitungsgebiet",
+    "recent": "Kürzlich verwendet",
+    "add": "Hinzufügen",
+    "north": "Nord",
+    "south": "Süd",
+    "east": "Ost",
+    "west": "West",
+    "invalidWkt": "Stadt zum Fundort.",
+    "aboutWktAndGeoJson": "Stadt zum Fundort.",
+    "simplificationWarning": "Stadt zum Fundort.",
+    "simplify": "Stadt zum Fundort.",
+    "useBbox": "Stadt zum Fundort.",
+    "failedParsing": "Stadt zum Fundort.",
+    "onlyPolygonsSupported": "Stadt zum Fundort.",
+    "polygonSimplifiedToFewerPoints": "Stadt zum Fundort.",
+    "simplificationCausedSelfIntersection": "Stadt zum Fundort.",
+    "tooLarge": "Geometrie zu groß",
+    "selfIntersecting": "Stadt zum Fundort.",
+    "orderChanged": "Stadt zum Fundort.",
+    "geometryReducedToBbox": "Stadt zum Fundort.",
+    "failedToSimplify": "Stadt zum Fundort."
+  }
 }
