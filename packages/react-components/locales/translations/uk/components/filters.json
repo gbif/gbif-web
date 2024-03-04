@@ -9,6 +9,16 @@
     "count": "",
     "description": ""
   },
+  "hasCoordinate": {
+    "name": "Має координати",
+    "count": "",
+    "description": "Архів анотований GBIF"
+  },
+  "hasGeospatialIssues": {
+    "name": "Має проблеми з геопросторовою прив'язкою",
+    "count": "Має проблеми з геопросторовою прив'язкою",
+    "description": "Архів анотований GBIF"
+  },
   "collectionKey": {
     "name": "Колекція",
     "count": "",
@@ -33,6 +43,14 @@
     "name": "",
     "count": "",
     "description": "",
+    "placeholderLat": "",
+    "placeholderLon": "",
+    "placeholderDist": ""
+  },
+  "geometry": {
+    "name": "Місцезнаходження",
+    "count": "",
+    "description": "Архів анотований GBIF",
     "placeholderLat": "",
     "placeholderLon": "",
     "placeholderDist": ""
