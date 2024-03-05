@@ -20,5 +20,30 @@
   "nameWithTaxonMatchIssue": "",
   "commonName": "Nombre común",
   "acceptedNameOf": "Nombre aceptado para",
-  "viewDetails": ""
+  "viewDetails": "",
+  "location": {
+    "geometry": "Geometría",
+    "wktPlaceholder": "",
+    "range": "Rango",
+    "recent": "Usado recientemente",
+    "add": "Añadir filtro",
+    "north": "Norte",
+    "south": "Sur",
+    "east": "Este",
+    "west": "Oeste",
+    "invalidWkt": "",
+    "aboutWktAndGeoJson": "",
+    "simplificationWarning": "",
+    "simplify": "",
+    "useBbox": "",
+    "failedParsing": "",
+    "onlyPolygonsSupported": "",
+    "polygonSimplifiedToFewerPoints": "",
+    "simplificationCausedSelfIntersection": "",
+    "tooLarge": "Geometría demasiado grande",
+    "selfIntersecting": "",
+    "orderChanged": "",
+    "geometryReducedToBbox": "",
+    "failedToSimplify": ""
+  }
 }

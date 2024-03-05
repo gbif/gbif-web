@@ -9,6 +9,16 @@
     "count": "",
     "description": ""
   },
+  "hasCoordinate": {
+    "name": "",
+    "count": "",
+    "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+  },
+  "hasGeospatialIssues": {
+    "name": "",
+    "count": "",
+    "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+  },
   "collectionKey": {
     "name": "Verzameling",
     "count": "{num, plural, one {# verzameling } other {# verzamelingen}}",
@@ -33,6 +43,14 @@
     "name": "",
     "count": "",
     "description": "",
+    "placeholderLat": "Breedtegraad",
+    "placeholderLon": "Lengtegraad",
+    "placeholderDist": "Afstand"
+  },
+  "geometry": {
+    "name": "",
+    "count": "",
+    "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
     "placeholderLat": "Breedtegraad",
     "placeholderLon": "Lengtegraad",
     "placeholderDist": "Afstand"

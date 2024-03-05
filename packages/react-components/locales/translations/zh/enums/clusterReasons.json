@@ -1,1 +1,19 @@
-{}
+{
+  "SAME_ACCEPTED_SPECIES": "相同的公认物种",
+  "SAME_DATE": "相同的日期",
+  "NON_CONFLICTING_DATE": "非冲突日期",
+  "APPROXIMATE_DATE": "大致日期",
+  "DIFFERENT_DATE": "不同的日期",
+  "SAME_COORDINATES": "相同的坐标",
+  "WITHIN_200m": "200米以内",
+  "WITHIN_2Km": "2公里以内",
+  "NON_CONFLICTING_COORDINATES": "非冲突坐标",
+  "SAME_COUNTRY": "同一国家",
+  "NON_CONFLICTING_COUNTRY": "非冲突国家",
+  "DIFFERENT_COUNTRY": "不同的国家",
+  "IDENTIFIERS_OVERLAP": "标识符重叠",
+  "OTHER_CATALOG_NUMBERS_OVERLAP": "其他目录号重叠",
+  "SAME_RECORDER_NAME": "相同的记录器名称",
+  "SAME_SPECIMEN": "同一标本",
+  "TYPIFICATION_RELATION": "类型化关系"
+}

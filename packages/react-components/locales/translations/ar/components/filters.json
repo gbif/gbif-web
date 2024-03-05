@@ -9,6 +9,16 @@
     "count": "",
     "description": ""
   },
+  "hasCoordinate": {
+    "name": "ذو احداثيات",
+    "count": "",
+    "description": "أرشيف شروح \"جيبف\""
+  },
+  "hasGeospatialIssues": {
+    "name": "ذو مشاكل جغرافية مكانية",
+    "count": "ذو مشاكل جغرافية مكانية",
+    "description": "أرشيف شروح \"جيبف\""
+  },
   "collectionKey": {
     "name": "مجموعة",
     "count": "",
@@ -33,6 +43,14 @@
     "name": "",
     "count": "",
     "description": "",
+    "placeholderLat": "",
+    "placeholderLon": "",
+    "placeholderDist": ""
+  },
+  "geometry": {
+    "name": "موقع",
+    "count": "",
+    "description": "أرشيف شروح \"جيبف\"",
     "placeholderLat": "",
     "placeholderLon": "",
     "placeholderDist": ""

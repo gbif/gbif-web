@@ -20,5 +20,30 @@
   "nameWithTaxonMatchIssue": "",
   "commonName": "",
   "acceptedNameOf": "",
-  "viewDetails": ""
+  "viewDetails": "",
+  "location": {
+    "geometry": "Geometri",
+    "wktPlaceholder": "GBIF annoteret Arkiv",
+    "range": "Interval",
+    "recent": "Senest anvendt",
+    "add": "Tilføj",
+    "north": "Nord",
+    "south": "Syd",
+    "east": "Øst",
+    "west": "Vest",
+    "invalidWkt": "GBIF annoteret Arkiv",
+    "aboutWktAndGeoJson": "GBIF annoteret Arkiv",
+    "simplificationWarning": "GBIF annoteret Arkiv",
+    "simplify": "GBIF annoteret Arkiv",
+    "useBbox": "GBIF annoteret Arkiv",
+    "failedParsing": "GBIF annoteret Arkiv",
+    "onlyPolygonsSupported": "GBIF annoteret Arkiv",
+    "polygonSimplifiedToFewerPoints": "GBIF annoteret Arkiv",
+    "simplificationCausedSelfIntersection": "GBIF annoteret Arkiv",
+    "tooLarge": "Geometrien er for stor",
+    "selfIntersecting": "GBIF annoteret Arkiv",
+    "orderChanged": "GBIF annoteret Arkiv",
+    "geometryReducedToBbox": "GBIF annoteret Arkiv",
+    "failedToSimplify": "GBIF annoteret Arkiv"
+  }
 }

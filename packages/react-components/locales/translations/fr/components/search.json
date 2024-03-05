@@ -18,6 +18,11 @@
     "range": "Intervalle ou valeur unique",
     "locationID": ""
   },
+  "ternary": {
+    "yes": "Oui",
+    "no": "Non",
+    "either": "Archive annotée par GBIF"
+  },
   "loadMore": "Plus",
   "occurrenceClustersView": {
     "about": "À propos",

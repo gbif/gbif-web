@@ -9,6 +9,16 @@
     "count": "",
     "description": ""
   },
+  "hasCoordinate": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "hasGeospatialIssues": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "collectionKey": {
     "name": "",
     "count": "",
@@ -30,6 +40,14 @@
     "description": ""
   },
   "geoDistance": {
+    "name": "",
+    "count": "",
+    "description": "",
+    "placeholderLat": "",
+    "placeholderLon": "",
+    "placeholderDist": ""
+  },
+  "geometry": {
     "name": "",
     "count": "",
     "description": "",

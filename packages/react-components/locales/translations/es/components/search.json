@@ -18,6 +18,11 @@
     "range": "Rango o valor único",
     "locationID": ""
   },
+  "ternary": {
+    "yes": "Sí",
+    "no": "No",
+    "either": ""
+  },
   "loadMore": "Más",
   "occurrenceClustersView": {
     "about": "Acerca de",

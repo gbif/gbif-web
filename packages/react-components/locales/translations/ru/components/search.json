@@ -18,6 +18,11 @@
     "range": "",
     "locationID": ""
   },
+  "ternary": {
+    "yes": "Да",
+    "no": "Нет",
+    "either": "Архив, аннотированный GBIF"
+  },
   "loadMore": "Еще",
   "occurrenceClustersView": {
     "about": "Подробно",

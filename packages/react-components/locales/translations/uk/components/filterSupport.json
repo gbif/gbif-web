@@ -20,5 +20,30 @@
   "nameWithTaxonMatchIssue": "",
   "commonName": "",
   "acceptedNameOf": "",
-  "viewDetails": ""
+  "viewDetails": "",
+  "location": {
+    "geometry": "Геометрія",
+    "wktPlaceholder": "Архів анотований GBIF",
+    "range": "Діапазон",
+    "recent": "Нещодавно використані",
+    "add": "Додати",
+    "north": "Північ",
+    "south": "Південь",
+    "east": "Схід",
+    "west": "Захід",
+    "invalidWkt": "Архів анотований GBIF",
+    "aboutWktAndGeoJson": "Архів анотований GBIF",
+    "simplificationWarning": "Архів анотований GBIF",
+    "simplify": "Архів анотований GBIF",
+    "useBbox": "Архів анотований GBIF",
+    "failedParsing": "Архів анотований GBIF",
+    "onlyPolygonsSupported": "Архів анотований GBIF",
+    "polygonSimplifiedToFewerPoints": "Архів анотований GBIF",
+    "simplificationCausedSelfIntersection": "Архів анотований GBIF",
+    "tooLarge": "Занадто велика геометрія",
+    "selfIntersecting": "Архів анотований GBIF",
+    "orderChanged": "Архів анотований GBIF",
+    "geometryReducedToBbox": "Архів анотований GBIF",
+    "failedToSimplify": "Архів анотований GBIF"
+  }
 }

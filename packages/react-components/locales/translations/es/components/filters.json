@@ -9,6 +9,16 @@
     "count": "",
     "description": ""
   },
+  "hasCoordinate": {
+    "name": "Incluye coordenada",
+    "count": "Tiene coordenadas",
+    "description": ""
+  },
+  "hasGeospatialIssues": {
+    "name": "Tiene un problema geoespacial",
+    "count": "Tiene un problema geoespacial",
+    "description": ""
+  },
   "collectionKey": {
     "name": "Colección",
     "count": "{num, plural, one {# colección } other {# colecciones}}",
@@ -33,6 +43,14 @@
     "name": "Distancia de coordenadas",
     "count": "",
     "description": "Filtrar los registros dentro de una distancia determinada desde un punto",
+    "placeholderLat": "Latitud",
+    "placeholderLon": "Longitud",
+    "placeholderDist": "Distancia"
+  },
+  "geometry": {
+    "name": "Localización/ubicación",
+    "count": "{num, plural, one { filtro } other {# filtros }}",
+    "description": "",
     "placeholderLat": "Latitud",
     "placeholderLon": "Longitud",
     "placeholderDist": "Distancia"

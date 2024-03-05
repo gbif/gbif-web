@@ -20,5 +20,30 @@
   "nameWithTaxonMatchIssue": "",
   "commonName": "Nom commun ",
   "acceptedNameOf": "Nom accepté pour",
-  "viewDetails": ""
+  "viewDetails": "",
+  "location": {
+    "geometry": "Géométrie",
+    "wktPlaceholder": "Archive annotée par GBIF",
+    "range": "Couverture",
+    "recent": "Récemment utilisé",
+    "add": "Ajouter",
+    "north": "Nord",
+    "south": "Sud",
+    "east": "Est",
+    "west": "Ouest",
+    "invalidWkt": "Archive annotée par GBIF",
+    "aboutWktAndGeoJson": "Archive annotée par GBIF",
+    "simplificationWarning": "Archive annotée par GBIF",
+    "simplify": "Archive annotée par GBIF",
+    "useBbox": "Archive annotée par GBIF",
+    "failedParsing": "Archive annotée par GBIF",
+    "onlyPolygonsSupported": "Archive annotée par GBIF",
+    "polygonSimplifiedToFewerPoints": "Archive annotée par GBIF",
+    "simplificationCausedSelfIntersection": "Archive annotée par GBIF",
+    "tooLarge": "Géométrie trop large",
+    "selfIntersecting": "Archive annotée par GBIF",
+    "orderChanged": "Archive annotée par GBIF",
+    "geometryReducedToBbox": "Archive annotée par GBIF",
+    "failedToSimplify": "Archive annotée par GBIF"
+  }
 }
