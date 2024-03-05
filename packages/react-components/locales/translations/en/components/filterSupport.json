@@ -23,6 +23,7 @@
   "viewDetails": "View details",
   "location": {
     "geometry": "Geometry",
+    "map": "Map",
     "wktPlaceholder": "",
     "range": "Range",
     "recent": "Recently used",
