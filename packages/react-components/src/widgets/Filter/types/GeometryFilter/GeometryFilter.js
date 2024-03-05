@@ -1,4 +1,3 @@
-
 import { jsx, css } from '@emotion/react';
 import get from 'lodash/get';
 import React, { useContext, useEffect, useState } from "react";
@@ -18,11 +17,11 @@ import { RangeInput } from './RangeInput';
 import { useTabState, Tab, TabList, TabPanel } from "reakit/Tab";
 import { useLocalStorage } from 'react-use';
 import set from 'lodash/set';
-
+import MapInput from './MapInput';
 
 export const FilterContent = ({ config, translations, LabelFromID, hide, labelledById, onApply, onCancel, onFilterChange, focusRef, filterHandle, initFilter }) => {
   const [id] = useState(nanoid);
-  const tab = useTabState({ selectedId: "gbifLocationTabGeometry" });
+  const tab = useTabState({ selectedId: "gbifLocationMapGeometry" });
   const apiClient = useContext(ApiContext);
   const HelpText = getHelpTextComponent({ apiClient });
   const mustOptions = get(initFilter, `must.${filterHandle}`, []);
@@ -157,11 +156,20 @@ export const FilterContent = ({ config, translations, LabelFromID, hide, labelle
               padding-bottom: 6px;
               `}>
               <TabList {...tab} aria-label="Input type">
+                <Tab {...tab} css={tabStyle} id="gbifLocationMapGeometry"><FormattedMessage id="filterSupport.location.map" /></Tab>
                 <Tab {...tab} css={tabStyle} id="gbifLocationTabGeometry"><FormattedMessage id="filterSupport.location.geometry" /></Tab>
                 <Tab {...tab} css={tabStyle} id="gbifLocationTabRange"><FormattedMessage id="filterSupport.location.range" /></Tab>
                 <Tab {...tab} css={tabStyle} id="gbifLocationTabRecent"><FormattedMessage id="filterSupport.location.recent" /></Tab>
               </TabList>
             </div>
+            <TabPanel {...tab} css={tapPanelStyle} style={{padding: 0}}>
+              <MapInput geometryList={visibleOptions} onChange={({ wkt }) => {
+                const allOptions = [...new Set([...wkt])]
+                setOptions(allOptions);
+                toggle(filterHandle, wkt);
+                setFullField(filterHandle, wkt);
+              }} />
+            </TabPanel>
             <TabPanel {...tab} css={tapPanelStyle}>
               <GeometryInput onApply={({ wkt }) => {
                 const allOptions = [...new Set([...wkt, ...options])]

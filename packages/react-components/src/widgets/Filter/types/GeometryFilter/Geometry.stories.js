@@ -8,7 +8,7 @@ export default {
 };
 
 export const Example = () => {
-  const [filter, setFilter] = useState({must: {geometry: ['MULTIPOLYGON(((40 40,20 45,45 30,40 40)),((20 35,10 30,10 10,30 5,45 20,20 35),(30 20,20 15,20 25,30 20)))']}});
+  const [filter, setFilter] = useState({must: {geometry: ['POLYGON((-6.55197 5.73624,-7.99805 28.30627,-27.68143 10.74738,-6.55197 5.73624))']}});
   return <div style={{padding: 48}}>
     <FilterState filter={filter} onChange={setFilter}>
       <FilterContext.Consumer>
