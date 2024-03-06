@@ -10,6 +10,8 @@
   "back": "Back",
   "cancel": "Cancel",
   "apply": "Apply",
+  "clear": "Clear",
+  "invert": "Reverse selection",
   "wildcardHelp": "Searches are case-insensitive, but accents are distinct (e.g. 'rio' vs 'río'). Use a wildcard (e.g. 'r?o') to find all matches.",
   "useWildcardPattern": "Search for the pattern",
   "useCaseInsensitiveValue": "Search for case-insensitive match",

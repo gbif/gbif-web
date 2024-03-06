@@ -287,7 +287,12 @@
   "collectionCode": {
     "name": "Collection code",
     "count": "{num, plural, one { collection code } other {# collection codes}}",
-    "description": "A short description of the component should be placed here"
+    "description": ""
+  },
+  "projectId": {
+    "name": "Project ID",
+    "count": "",
+    "description": ""
   },
   "recordedById": {
     "name": "Recorded by ID",
