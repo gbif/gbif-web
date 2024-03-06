@@ -23,6 +23,7 @@
   "viewDetails": "",
   "location": {
     "geometry": "Geometri",
+    "map": "Kort",
     "wktPlaceholder": "GBIF annoteret Arkiv",
     "range": "Interval",
     "recent": "Senest anvendt",

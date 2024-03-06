@@ -23,6 +23,7 @@
   "viewDetails": "",
   "location": {
     "geometry": "Геометрия",
+    "map": "Карта",
     "wktPlaceholder": "Архив, аннотированный GBIF",
     "range": "Диапазон",
     "recent": "Недавно использованные",

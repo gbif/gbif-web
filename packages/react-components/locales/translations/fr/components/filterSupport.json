@@ -23,6 +23,7 @@
   "viewDetails": "",
   "location": {
     "geometry": "Géométrie",
+    "map": "Carte",
     "wktPlaceholder": "Archive annotée par GBIF",
     "range": "Couverture",
     "recent": "Récemment utilisé",
