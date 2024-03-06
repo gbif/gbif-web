@@ -23,6 +23,7 @@
   "viewDetails": "",
   "location": {
     "geometry": "ジオメトリ",
+    "map": "マップ",
     "wktPlaceholder": "GBIFがアノーテーションしたアーカイブ",
     "range": "範囲",
     "recent": "最近使用された",
