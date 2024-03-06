@@ -13,7 +13,7 @@
         "PLATE_CAREE": "Plattenkarte"
     },
     "failedToGetUserLocation": {
-        "title": "Stadt zum Fundort.",
-        "message": "Stadt zum Fundort."
+        "title": "Bezeichner für die Sammlung, zu der das usprüngliche Objekt gehört.",
+        "message": "Bezeichner für die Sammlung, zu der das usprüngliche Objekt gehört."
     }
 }
