@@ -538,7 +538,7 @@ const chartGroups = {
       "hostingOrganization",
       "networkKey",
       "protocol",
-      "project",
+      "projectId",
       "programme"
     ]
   },
