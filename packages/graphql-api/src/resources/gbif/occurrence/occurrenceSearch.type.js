@@ -110,6 +110,7 @@ const typeDef = gql`
     typeStatus: Long!
     repatriated: Long!
     gadmGid: Long!
+    projectId: Long!
   }
 
   type OccurrenceHistogram {

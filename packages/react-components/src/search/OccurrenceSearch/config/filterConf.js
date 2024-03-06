@@ -15,6 +15,7 @@ export const filters = [
   'mediaType',
   'sampleSizeUnit',
   'license',
+  'projectId',
   'coordinateUncertainty',
   'depth',
   'organismQuantity',

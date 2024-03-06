@@ -22,6 +22,7 @@ export default [
   'institutionKey',
   'institutionCode',
   'collectionCode',
+  'projectId',
   'networkKey',
   'preparations',
   'iucnRedListCategory',

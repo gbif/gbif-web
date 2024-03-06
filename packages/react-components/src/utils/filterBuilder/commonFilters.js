@@ -832,6 +832,24 @@ export const commonFilters = {
       }
     }
   },
+  projectId: {
+    type: 'SIMPLE_TEXT',
+    config: {
+      std: {
+        filterHandle: 'projectId',
+        id2labelHandle: 'projectId',
+        translations: {
+          count: 'filters.projectId.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.projectId.name',// translation path to a title for the popover and the button
+          description: 'filters.projectId.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        placeholder: 'Search by project ID',
+        supportsExist: true,
+      }
+    }
+  },
   recordedById: {
     type: 'SIMPLE_TEXT',
     config: {

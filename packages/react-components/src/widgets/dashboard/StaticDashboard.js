@@ -65,5 +65,6 @@ const lookup = {
   occurrenceSummary: ({predicate, ...props}) => <charts.OccurrenceSummary predicate={predicate} {...props} />,
   collectionKey: ({predicate, ...props}) => <charts.Collections predicate={predicate} {...props} />,
   institutionKey: ({predicate, ...props}) => <charts.Institutions predicate={predicate} {...props} />,
+  projectId: ({predicate, ...props}) => <charts.ProjectId predicate={predicate} {...props} />,
   catalogNumber: ({predicate, ...props}) => <charts.CatalogNumber predicate={predicate} {...props} />,
 };
