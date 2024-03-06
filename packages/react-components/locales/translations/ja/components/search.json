@@ -8,7 +8,7 @@
     "download": "ダウンロード",
     "clusters": "",
     "dashboard": "",
-    "sites": "GBIFがアノーテーションしたアーカイブ"
+    "sites": ""
   },
   "table": {
     "lockColumn": ""
@@ -21,7 +21,7 @@
   "ternary": {
     "yes": "はい",
     "no": "いいえ",
-    "either": "GBIFがアノーテーションしたアーカイブ"
+    "either": ""
   },
   "loadMore": "もっと読み込む",
   "occurrenceClustersView": {
