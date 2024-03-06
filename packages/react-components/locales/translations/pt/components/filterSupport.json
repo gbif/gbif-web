@@ -23,6 +23,7 @@
   "viewDetails": "",
   "location": {
     "geometry": "Geometria",
+    "map": "Mapa",
     "wktPlaceholder": "Uma breve descrição do componente deve ser colocada aqui",
     "range": "Intervalo",
     "recent": "Usado recentemente",
