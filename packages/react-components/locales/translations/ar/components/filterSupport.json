@@ -23,6 +23,7 @@
   "viewDetails": "",
   "location": {
     "geometry": "هندسة",
+    "map": "خارطة",
     "wktPlaceholder": "أرشيف شروح \"جيبف\"",
     "range": "المدى",
     "recent": "مستخدمة مؤخرا",
