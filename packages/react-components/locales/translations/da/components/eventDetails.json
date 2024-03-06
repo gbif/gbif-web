@@ -14,7 +14,7 @@
   "eventTypeHierarchyJoined": "",
   "eventHierarchyJoined": "",
   "map": "",
-  "backToTaxa": "GBIF annoteret Arkiv",
+  "backToTaxa": "",
   "siteLocation": "",
   "info": {
     "original": "Original",
@@ -27,7 +27,7 @@
     "record": "",
     "occurrence": "",
     "event": "Arrangement",
-    "dataStructure": "GBIF annoteret Arkiv",
+    "dataStructure": "",
     "identification": "Identifikation",
     "taxon": "Takson",
     "location": "",
