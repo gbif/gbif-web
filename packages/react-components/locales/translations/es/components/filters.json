@@ -12,12 +12,12 @@
   "hasCoordinate": {
     "name": "Incluye coordenada",
     "count": "Tiene coordenadas",
-    "description": ""
+    "description": "Aquí debe colocarse una breve descripción del componente"
   },
   "hasGeospatialIssues": {
     "name": "Tiene un problema geoespacial",
     "count": "Tiene un problema geoespacial",
-    "description": ""
+    "description": "Aquí debe colocarse una breve descripción del componente"
   },
   "collectionKey": {
     "name": "Colección",
@@ -50,7 +50,7 @@
   "geometry": {
     "name": "Localización/ubicación",
     "count": "{num, plural, one { filtro } other {# filtros }}",
-    "description": "",
+    "description": "Aquí debe colocarse una breve descripción del componente",
     "placeholderLat": "Latitud",
     "placeholderLon": "Longitud",
     "placeholderDist": "Distancia"
@@ -98,7 +98,7 @@
   "discipline": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "Aquí debe colocarse una breve descripción del componente"
   },
   "collectionContentType": {
     "name": "",
@@ -289,6 +289,11 @@
     "count": "{num, plural, one { código de la colección } other {# códigos de la colección}}\n",
     "description": "Aquí debe colocarse una breve descripción del componente"
   },
+  "projectId": {
+    "name": "ID del proyecto",
+    "count": "Aquí debe colocarse una breve descripción del componente",
+    "description": "Aquí debe colocarse una breve descripción del componente"
+  },
   "recordedById": {
     "name": "Registrado por ID",
     "count": "{num, plural, one { registrado por ID } other {# registrado por ID}}",
@@ -397,7 +402,7 @@
   "active": {
     "name": "Activo",
     "count": "Activo",
-    "description": ""
+    "description": "Aquí debe colocarse una breve descripción del componente"
   },
   "personalCollection": {
     "name": "Colección personal",
@@ -423,12 +428,12 @@
     "name": "Nombre",
     "count": "{num, plural, one { nombre } other {# nombres}}",
     "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
-    "searchPlaceholder": ""
+    "searchPlaceholder": "Aquí debe colocarse una breve descripción del componente"
   },
   "city": {
     "name": "Ciudad",
     "count": "{num, plural, one { ciudad } other {# ciudades}}",
-    "description": ""
+    "description": "Aquí debe colocarse una breve descripción del componente"
   },
   "code": {
     "name": "Código",
