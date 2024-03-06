@@ -289,6 +289,11 @@
     "count": "{num, plural, one { código da coleção } other {# códigos da coleção}}",
     "description": "Uma breve descrição do componente deve ser colocada aqui"
   },
+  "projectId": {
+    "name": "ID do Projeto",
+    "count": "Uma breve descrição do componente deve ser colocada aqui",
+    "description": "Uma breve descrição do componente deve ser colocada aqui"
+  },
   "recordedById": {
     "name": "Registado por ID",
     "count": "{num, plural, one { registado por ID } other {# registados por IDs}}",
