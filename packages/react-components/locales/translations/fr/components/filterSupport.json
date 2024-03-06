@@ -11,7 +11,7 @@
   "cancel": "Annuler",
   "apply": "Appliquer",
   "clear": "Effacer",
-  "invert": "",
+  "invert": "Inverser la sélection",
   "wildcardHelp": "Les recherches sont insensibles à la casse, mais les accents sont distincts (par exemple « rio» vs « río»). Utilisez un caractère générique (par exemple, « r?o») pour trouver toutes les correspondances.",
   "useWildcardPattern": "Rechercher les caractéristiques",
   "useCaseInsensitiveValue": "",
