@@ -76,7 +76,7 @@
   "license": "Ліцензія",
   "recommended": "Рекомендовано",
   "processedOccurrences": "Архів анотований GBIF",
-  "processedOccurrencesDescription": "Архів анотований GBIF",
+  "processedOccurrencesDescription": "",
   "noDescriptionProvided": "Опис відсутній",
   "pNetwork": "{NUMBER, select, 1{мережа} 2{мережі} 3{мережі} 4{мережі} few{мережі} many{мереж} other{мереж}}",
   "parentEvent": "Батьківська подія",
