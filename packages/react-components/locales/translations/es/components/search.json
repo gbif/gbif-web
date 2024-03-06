@@ -8,7 +8,7 @@
     "download": "Descargar",
     "clusters": "",
     "dashboard": "Panel de control",
-    "sites": ""
+    "sites": "Aquí debe colocarse una breve descripción del componente"
   },
   "table": {
     "lockColumn": "Inmovilizar columna"
@@ -21,7 +21,7 @@
   "ternary": {
     "yes": "Sí",
     "no": "No",
-    "either": ""
+    "either": "Aquí debe colocarse una breve descripción del componente"
   },
   "loadMore": "Más",
   "occurrenceClustersView": {
