@@ -23,7 +23,7 @@
   "viewDetails": "",
   "location": {
     "geometry": "Geometría",
-    "map": "Map",
+    "map": "Mapa",
     "wktPlaceholder": "",
     "range": "Rango",
     "recent": "Usado recientemente",
