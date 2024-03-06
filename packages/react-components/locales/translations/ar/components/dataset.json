@@ -131,7 +131,7 @@
     "itemInIngestionQueue": "العناصر في قائمة انتظار الادخال",
     "datasetIngestionStatus": "حالة الادخال لمجموعة البيانات",
     "gbifIngestionStatus": "حالة الادخال لـ \"جبيف\"",
-    "lastIngestionSuccess": "",
+    "lastIngestionSuccess": "الادخال الأخير تم بنجاح",
     "lastIngestionFailed": "فشل الادخال الأخير",
     "outOfSync": "خارج التزامن",
     "becauseTrustedContact": "لأنك جهة اتصال موثوق بها",
