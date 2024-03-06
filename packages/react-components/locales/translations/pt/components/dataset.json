@@ -131,7 +131,7 @@
     "itemInIngestionQueue": "Itens na fila de ingestão",
     "datasetIngestionStatus": "Status de ingestão do conjunto de dados",
     "gbifIngestionStatus": "Status de ingestão do GBIF",
-    "lastIngestionSuccess": "",
+    "lastIngestionSuccess": "Última ingestão com sucesso",
     "lastIngestionFailed": "Última ingestão falhou",
     "outOfSync": "Sem sincronização",
     "becauseTrustedContact": "Porque és um contato confiável",
