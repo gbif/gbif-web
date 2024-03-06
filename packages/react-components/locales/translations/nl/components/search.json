@@ -8,7 +8,7 @@
     "download": "Downloaden",
     "clusters": "",
     "dashboard": "Dashboard",
-    "sites": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+    "sites": ""
   },
   "table": {
     "lockColumn": "Vergrendel kolom"
@@ -21,7 +21,7 @@
   "ternary": {
     "yes": "",
     "no": "",
-    "either": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+    "either": ""
   },
   "loadMore": "Meer",
   "occurrenceClustersView": {
