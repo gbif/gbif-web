@@ -8,7 +8,7 @@
     "download": "下載",
     "clusters": "",
     "dashboard": "",
-    "sites": "GBIF 註記的存檔"
+    "sites": ""
   },
   "table": {
     "lockColumn": "鎖定欄位"
@@ -21,7 +21,7 @@
   "ternary": {
     "yes": "是",
     "no": "否",
-    "either": "GBIF 註記的存檔"
+    "either": ""
   },
   "loadMore": "更多",
   "occurrenceClustersView": {
