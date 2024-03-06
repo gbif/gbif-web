@@ -2,7 +2,7 @@
   "dwcaExtension": {
     "name": "DWCA-Erweiterung",
     "count": "{num, plural, one { DwCA-Erweiterung } other {# DwCA-Erweiterungen}}",
-    "description": "Bezeichner für die Sammlung, zu der das usprüngliche Objekt gehört."
+    "description": "Art des Datasets"
   },
   "locationId": {
     "name": "",
@@ -12,12 +12,12 @@
   "hasCoordinate": {
     "name": "",
     "count": "",
-    "description": "Stadt zum Fundort."
+    "description": "Bezeichner für die Sammlung, zu der das usprüngliche Objekt gehört."
   },
   "hasGeospatialIssues": {
     "name": "",
     "count": "",
-    "description": "Stadt zum Fundort."
+    "description": "Bezeichner für die Sammlung, zu der das usprüngliche Objekt gehört."
   },
   "collectionKey": {
     "name": "",
@@ -50,7 +50,7 @@
   "geometry": {
     "name": "",
     "count": "",
-    "description": "Stadt zum Fundort.",
+    "description": "Bezeichner für die Sammlung, zu der das usprüngliche Objekt gehört.",
     "placeholderLat": "",
     "placeholderLon": "",
     "placeholderDist": ""
@@ -83,12 +83,12 @@
   "alternativeCode": {
     "name": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
     "count": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
-    "description": "Stadt zum Fundort."
+    "description": "Bezeichner für die Sammlung, zu der das usprüngliche Objekt gehört."
   },
   "identifier": {
     "name": "",
     "count": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
-    "description": "Bezeichner für die Sammlung, zu der das usprüngliche Objekt gehört."
+    "description": "Art des Datasets"
   },
   "institutionType": {
     "name": "",
@@ -98,7 +98,7 @@
   "discipline": {
     "name": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
     "count": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
-    "description": "Stadt zum Fundort."
+    "description": "Bezeichner für die Sammlung, zu der das usprüngliche Objekt gehört."
   },
   "collectionContentType": {
     "name": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
@@ -289,6 +289,11 @@
     "count": "{num, plural, one { Sammlungscode } other {# Sammlungscodes}}",
     "description": "Bezeichner für die Sammlung, zu der das usprüngliche Objekt gehört."
   },
+  "projectId": {
+    "name": "Projekt ID",
+    "count": "Bezeichner für die Sammlung, zu der das usprüngliche Objekt gehört.",
+    "description": "Bezeichner für die Sammlung, zu der das usprüngliche Objekt gehört."
+  },
   "recordedById": {
     "name": "Sammler/Beobachter ID",
     "count": "{num, plural, one { Sammler-ID } other {# Sammler-IDs}}",
@@ -397,7 +402,7 @@
   "active": {
     "name": "",
     "count": "",
-    "description": "Stadt zum Fundort."
+    "description": "Bezeichner für die Sammlung, zu der das usprüngliche Objekt gehört."
   },
   "personalCollection": {
     "name": "",
@@ -423,7 +428,7 @@
     "name": "Name",
     "count": "{num, plural, one { Name } other {# Namen}}",
     "description": "A short description of the component should be placed here",
-    "searchPlaceholder": "Stadt zum Fundort."
+    "searchPlaceholder": "Bezeichner für die Sammlung, zu der das usprüngliche Objekt gehört."
   },
   "city": {
     "name": "Stadt",
