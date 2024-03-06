@@ -1,6 +1,6 @@
 import { useConfig } from '@/contexts/config/config';
 import { useMetadataRoutes } from '@/contexts/metadataRoutes';
-import { findRouteMetadataMatch } from '@/utils/findRouteMetadataMatch';
+import { findRouteMetadataMatchByPathname } from '@/utils/findRouteMetadataMatchByPathname';
 
 export function useExternalGbifLink(to: string): null | string {
   const { pages } = useConfig();
@@ -10,7 +10,7 @@ export function useExternalGbifLink(to: string): null | string {
   if (!Array.isArray(pages)) return null;
 
   // Find the route metadata for the to url
-  const match = findRouteMetadataMatch(to, metadataRoutes);
+  const match = findRouteMetadataMatchByPathname(to, metadataRoutes);
 
   // If no match, return null
   if (!match) return null;

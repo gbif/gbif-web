@@ -21,6 +21,10 @@ const COMPOSITION_QUERY = /* GraphQL */ `
   }
 `;
 
+export function compositionSlugifyKeySelector(data: CompositionQuery) {
+  return data.composition?.title;
+}
+
 export function compositionPageLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key provided in the url');
 

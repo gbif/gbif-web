@@ -1,7 +1,7 @@
 import React from 'react';
 
 const START_LOADING_EVENT = 'gbif-start-loading';
-const DONE_RENDERING_EVENT = 'gbif-done-rendering';
+const DONE_LOADING_EVENT = 'gbif-done-loading';
 
 type ILoadingElementContext = {
   id: string;
@@ -32,7 +32,7 @@ export function LoadingElementProvider({ children }: Props) {
 
     // Only remove the loading element from the loadingElements array if it's the last one
     // This will prevent parent loading elements from being removed when a child route is loading
-    function handleLoadingEnd(event: DoneRenderingEvent) {
+    function handleLoadingEnd(event: DoneLoadingEvent) {
       const { id } = event.detail;
       setLoadingElements((prev) => {
         const lastLoadingElement = prev[prev.length - 1];
@@ -41,11 +41,11 @@ export function LoadingElementProvider({ children }: Props) {
     }
 
     window.addEventListener(START_LOADING_EVENT, handleLoadingStart as any);
-    window.addEventListener(DONE_RENDERING_EVENT, handleLoadingEnd as any);
+    window.addEventListener(DONE_LOADING_EVENT, handleLoadingEnd as any);
 
     return () => {
       window.removeEventListener(START_LOADING_EVENT, handleLoadingStart as any);
-      window.removeEventListener(DONE_RENDERING_EVENT, handleLoadingEnd as any);
+      window.removeEventListener(DONE_LOADING_EVENT, handleLoadingEnd as any);
     };
   }, [setLoadingElements]);
 
@@ -77,25 +77,25 @@ export function useLoadingElement(
   }
 }
 
-type StartLoadingDetail = {
+type StartLoadingDetails = {
   id: string;
   lang: string;
   loadingElement: React.ReactNode;
   nestingLevel: number;
 };
 
-export class StartLoadingEvent extends CustomEvent<StartLoadingDetail> {
-  constructor(detail: StartLoadingDetail) {
+export class StartLoadingEvent extends CustomEvent<StartLoadingDetails> {
+  constructor(detail: StartLoadingDetails) {
     super(START_LOADING_EVENT, { detail });
   }
 }
 
-type DoneRenderingDetail = {
+type DoneRenderingDetails = {
   id: string;
 };
 
-export class DoneRenderingEvent extends CustomEvent<DoneRenderingDetail> {
-  constructor(detail: DoneRenderingDetail) {
-    super(DONE_RENDERING_EVENT, { detail });
+export class DoneLoadingEvent extends CustomEvent<DoneRenderingDetails> {
+  constructor(detail: DoneRenderingDetails) {
+    super(DONE_LOADING_EVENT, { detail });
   }
 }

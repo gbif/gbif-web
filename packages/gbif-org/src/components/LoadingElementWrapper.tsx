@@ -1,5 +1,5 @@
 import React from 'react';
-import { DoneRenderingEvent, useLoadingElement } from '@/contexts/loadingElement';
+import { DoneLoadingEvent, useLoadingElement } from '@/contexts/loadingElement';
 
 type Props = {
   children: React.ReactNode;
@@ -15,7 +15,7 @@ export function LoadingElementWrapper({ children, nestingLevel, lang, id }: Prop
   // This will let the loading element context know that the new route has mounted and the loading element can be removed.
   React.useEffect(() => {
     if (typeof window === 'undefined') return;
-    window.dispatchEvent(new DoneRenderingEvent({ id }));
+    window.dispatchEvent(new DoneLoadingEvent({ id }));
   }, [loadingElement]);
 
   if (loadingElement) {

@@ -1,5 +1,7 @@
 import { useI18n } from '@/contexts/i18n';
-import { createLocalizedRouteId } from '@/utils/createLocalizedRouteId';
+import { useMetadataRoutes } from '@/contexts/metadataRoutes';
+import { createRouteId } from '@/utils/createRouteId';
+import { findRouteMetadataMatchById } from '@/utils/findRouteMetadataMathById';
 import { useRouteLoaderData } from 'react-router-dom';
 
 // This makes sure that the id is always in sync with the routes.tsx file.
@@ -13,5 +15,11 @@ export enum RouteId {
 
 export function useParentRouteLoaderData(parentId: RouteId) {
   const { locale } = useI18n();
-  return useRouteLoaderData(createLocalizedRouteId(parentId, locale.code));
+
+  // Find out if the parent route is a slugified route as that will change the id
+  const metadataRoutes = useMetadataRoutes();
+  const route = findRouteMetadataMatchById(parentId, metadataRoutes);
+  const isSlugified = route?.isSlugified;
+
+  return useRouteLoaderData(createRouteId(parentId, locale.code, isSlugified));
 }

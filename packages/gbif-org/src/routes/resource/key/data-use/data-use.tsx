@@ -46,6 +46,10 @@ const DATA_USE_QUERY = /* GraphQL */ `
   }
 `;
 
+export function dataUseSlugifyKeySelector(data: DataUseQuery) {
+  return data.dataUse?.title;
+}
+
 export function dataUsePageLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key provided in the url');
 

@@ -42,6 +42,10 @@ const DOCUMENT_QUERY = /* GraphQL */ `
   }
 `;
 
+export function documentSlugifyKeySelector(data: DocumentQuery) {
+  return data.gbifDocument?.title;
+}
+
 export function documentPageLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key provided in the url');
   return graphql.query<DocumentQuery, DocumentQueryVariables>(DOCUMENT_QUERY, { key });

@@ -18,7 +18,12 @@ import {
   PublisherPageSkeleton,
   publisherLoader,
 } from '@/routes/publisher/key/PublisherPage';
-import { NewsPage, NewsPageSkeleton, newsPageLoader } from '@/routes/resource/key/news/news';
+import {
+  NewsPage,
+  NewsPageSkeleton,
+  newsPageLoader,
+  newsSlugifyKeySelector,
+} from '@/routes/resource/key/news/news';
 import { PublisherAboutTab } from '@/routes/publisher/key/AboutTab';
 import { PublisherOccurrencesTab } from '@/routes/publisher/key/OccurrencesTab';
 import { DatasetAboutTab } from '@/routes/dataset/key/AboutTab';
@@ -29,28 +34,43 @@ import {
   DataUsePage,
   DataUsePageSkeleton,
   dataUsePageLoader,
+  dataUseSlugifyKeySelector,
 } from '@/routes/resource/key/data-use/data-use';
-import { EventPage, EventPageSkeleton, eventPageLoader } from '@/routes/resource/key/event/event';
+import {
+  EventPage,
+  EventPageSkeleton,
+  eventPageLoader,
+  eventSlugifyKeySelector,
+} from '@/routes/resource/key/event/event';
 import {
   ArticlePage,
   ArticlePageSkeleton,
   articlePageLoader,
+  articleSlugifyKeySelector,
 } from '@/routes/resource/key/article/article';
-import { ToolPage, ToolPageSkeleton, toolPageLoader } from '@/routes/resource/key/tool/tool';
+import {
+  ToolPage,
+  ToolPageSkeleton,
+  toolPageLoader,
+  toolSlugifyKeySelector,
+} from '@/routes/resource/key/tool/tool';
 import {
   ProgrammePage,
   ProgrammePageSkeleton,
   programmePageLoader,
+  programmeSlugifyKeySelector,
 } from '@/routes/resource/key/programme/programme';
 import {
   CompositionPage,
   CompositionPageSkeleton,
   compositionPageLoader,
+  compositionSlugifyKeySelector,
 } from '@/routes/resource/key/composition/composition';
 import {
   DocumentPage,
   DocumentPageSkeleton,
   documentPageLoader,
+  documentSlugifyKeySelector,
 } from '@/routes/resource/key/document/document';
 import {
   ProjectAboutTab,
@@ -61,6 +81,7 @@ import {
   ProjectPageSkeleton,
   projectNewsAndEventsLoader,
   projectPageLoader,
+  projectSlugifyKeySelector,
 } from '@/routes/resource/key/project';
 import { RouteId } from '@/hooks/useParentRouteLoaderData';
 
@@ -143,54 +164,56 @@ const baseRoutes: SourceRouteObject[] = [
             loader: newsPageLoader,
             loadingElement: <NewsPageSkeleton />,
             element: <NewsPage />,
-          },
-          {
-            path: 'article/:key',
-            loader: articlePageLoader,
-            loadingElement: <ArticlePageSkeleton />,
-            element: <ArticlePage />,
+            slugifyKeySelector: newsSlugifyKeySelector,
           },
           {
             path: 'event/:key',
             loader: eventPageLoader,
             loadingElement: <EventPageSkeleton />,
             element: <EventPage />,
+            slugifyKeySelector: eventSlugifyKeySelector,
           },
           {
             path: 'tool/:key',
             loader: toolPageLoader,
             loadingElement: <ToolPageSkeleton />,
             element: <ToolPage />,
+            slugifyKeySelector: toolSlugifyKeySelector,
           },
           {
             path: 'data-use/:key',
             loader: dataUsePageLoader,
             loadingElement: <DataUsePageSkeleton />,
             element: <DataUsePage />,
+            slugifyKeySelector: dataUseSlugifyKeySelector,
           },
           {
             path: 'article/:key',
             loader: articlePageLoader,
             loadingElement: <ArticlePageSkeleton />,
             element: <ArticlePage />,
+            slugifyKeySelector: articleSlugifyKeySelector,
           },
           {
             path: 'document/:key',
             loader: documentPageLoader,
             loadingElement: <DocumentPageSkeleton />,
             element: <DocumentPage />,
+            slugifyKeySelector: documentSlugifyKeySelector,
           },
           {
             path: 'programme/:key',
             loader: programmePageLoader,
             loadingElement: <ProgrammePageSkeleton />,
             element: <ProgrammePage />,
+            slugifyKeySelector: programmeSlugifyKeySelector,
           },
           {
             path: 'composition/:key',
             loader: compositionPageLoader,
             loadingElement: <CompositionPageSkeleton />,
             element: <CompositionPage />,
+            slugifyKeySelector: compositionSlugifyKeySelector,
           },
           {
             id: RouteId.Project,
@@ -198,6 +221,7 @@ const baseRoutes: SourceRouteObject[] = [
             loader: projectPageLoader,
             loadingElement: <ProjectPageSkeleton />,
             element: <ProjectPage />,
+            slugifyKeySelector: projectSlugifyKeySelector,
             children: [
               {
                 index: true,

@@ -32,9 +32,13 @@ export type SourceRouteObject = Omit<RouteObject, 'loader' | 'children' | 'lazy'
 
   // 'lazy' is a function for lazy loading the route's component, improving performance by loading the component only when required.
   lazy?: () => Promise<Pick<RouteObject, 'element'>>;
+
+  slugifyKeySelector?: (data: any) => string | null | undefined;
 };
 
 export type RouteMetadata = {
+  id?: RouteId;
+  isSlugified?: boolean;
   path?: string;
   key?: string;
   loadingElement?: React.ReactNode;

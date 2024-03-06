@@ -54,7 +54,11 @@ const EVENT_QUERY = /* GraphQL */ `
   }
 `;
 
-export async function eventPageLoader({ params, graphql }: LoaderArgs) {
+export function eventSlugifyKeySelector(data: EventQuery) {
+  return data.event?.title;
+}
+
+export function eventPageLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key provided in the url');
 
   return graphql.query<EventQuery, EventQueryVariables>(EVENT_QUERY, { key });

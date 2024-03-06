@@ -43,6 +43,10 @@ const ARTICLE_QUERY = /* GraphQL */ `
   }
 `;
 
+export function articleSlugifyKeySelector(data: ArticleQuery) {
+  return data.article?.title;
+}
+
 export function articlePageLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key provided in the url');
 

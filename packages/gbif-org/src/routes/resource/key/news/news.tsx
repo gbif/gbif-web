@@ -46,6 +46,10 @@ const NEWS_QUERY = /* GraphQL */ `
   }
 `;
 
+export function newsSlugifyKeySelector(data: NewsQuery) {
+  return data.news?.title;
+}
+
 export async function newsPageLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key provided in the url');
 

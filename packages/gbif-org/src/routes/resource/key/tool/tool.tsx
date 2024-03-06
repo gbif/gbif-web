@@ -47,6 +47,10 @@ const TOOL_QUERY = /* GraphQL */ `
   }
 `;
 
+export function toolSlugifyKeySelector(data: ToolQuery) {
+  return data.tool?.title;
+}
+
 export async function toolPageLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key provided in the url');
 

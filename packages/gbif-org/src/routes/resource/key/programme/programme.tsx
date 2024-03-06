@@ -22,7 +22,11 @@ const PROGRAMME_QUERY = /* GraphQL */ `
   }
 `;
 
-export async function programmePageLoader({ params, graphql }: LoaderArgs) {
+export function programmeSlugifyKeySelector(data: ProgrammeQuery) {
+  return data.programme?.title;
+}
+
+export function programmePageLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key provided in the url');
 
   return graphql.query<ProgrammeQuery, ProgrammeQueryVariables>(PROGRAMME_QUERY, { key });

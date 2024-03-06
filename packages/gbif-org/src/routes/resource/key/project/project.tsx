@@ -38,6 +38,10 @@ const PROJECT_QUERY = /* GraphQL */ `
   }
 `;
 
+export function projectSlugifyKeySelector(data: ProjectQuery) {
+  return data.gbifProject?.title;
+}
+
 export async function projectPageLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key provided in the url');
 
