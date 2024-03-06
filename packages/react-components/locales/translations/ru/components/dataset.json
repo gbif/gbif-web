@@ -131,7 +131,7 @@
     "itemInIngestionQueue": "Позиции в очереди на индексацию",
     "datasetIngestionStatus": "Статус индексации набора данных",
     "gbifIngestionStatus": "Статус индексации в GBIF",
-    "lastIngestionSuccess": "",
+    "lastIngestionSuccess": "Последняя индексация успешна",
     "lastIngestionFailed": "Последняя индексация была неудачной",
     "outOfSync": "Не синхронизирован",
     "becauseTrustedContact": "Так как вы являетесь доверенным лицом",
