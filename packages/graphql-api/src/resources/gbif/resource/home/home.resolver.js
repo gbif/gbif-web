@@ -1,5 +1,3 @@
-import { getHtml, excerpt, trustedTags, createLocalizedGbifHref } from "#/helpers/utils";
-
 /**
  * fieldName: (parent, args, context, info) => data;
  * parent: An object that contains the result returned from the resolver on the parent type

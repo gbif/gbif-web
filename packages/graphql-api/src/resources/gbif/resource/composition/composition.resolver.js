@@ -1,4 +1,4 @@
-import { getHtml, isNoneEmptyArray, trustedTags } from "#/helpers/utils";
+import { getHtml, isNoneEmptyArray } from "#/helpers/utils";
 import { KNOWN_BLOCK_TYPES, KNOWN_CAROUSEL_BLOCKS, KNOWN_FEATURE_TYPES } from "./acceptedTypes";
 
 /**
@@ -52,7 +52,7 @@ export default {
         }));
     },
     title: src => getHtml(src.title, { inline: true }),
-    body: src => getHtml(src.body, {allowedTags: trustedTags, wrapTables: true}),
+    body: src => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true}),
   },
   FeatureItem: {
     __resolveType: src => {
@@ -63,7 +63,7 @@ export default {
   },
   CarouselBlock: {
     title: src => getHtml(src.title, { inline: true }),
-    body: src => getHtml(src.body, {allowedTags: trustedTags, wrapTables: true}),
+    body: src => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true}),
     features: ({ features }, args, { dataSources, locale, preview }) => {
       if (!isNoneEmptyArray(features)) return null;
 
@@ -89,21 +89,21 @@ export default {
   },
   TextBlock: {
     title: src => getHtml(src.title, { inline: true }),
-    body: src => getHtml(src.body, {allowedTags: trustedTags, wrapTables: true}),
+    body: src => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true}),
   },
   FeaturedTextBlock: {
     title: src => getHtml(src.title, { inline: true }),
-    body: src => getHtml(src.body, {allowedTags: trustedTags, wrapTables: true}),
+    body: src => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true}),
   },
   MediaBlock: {
     title: src => getHtml(src.title, { inline: true }),
     subtitle: src => getHtml(src.subtitle, { inline: true }),
-    body: src => getHtml(src.body, {allowedTags: trustedTags, wrapTables: true}),
+    body: src => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true}),
   },
   MediaCountBlock: {
     title: src => getHtml(src.title, { inline: true }),
     subtitle: src => getHtml(src.subtitle, { inline: true }),
-    body: src => getHtml(src.body, {allowedTags: trustedTags, wrapTables: true}),
+    body: src => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true}),
   },
   CustomComponentBlock: {
     title: src => getHtml(src.title, { inline: true }),

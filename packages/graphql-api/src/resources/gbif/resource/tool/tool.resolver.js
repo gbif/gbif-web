@@ -1,4 +1,4 @@
-import { getHtml, excerpt, trustedTags, createLocalizedGbifHref } from "#/helpers/utils";
+import { getHtml, excerpt, createLocalizedGbifHref } from "#/helpers/utils";
 
 /**
  * fieldName: (parent, args, context, info) => data;
@@ -15,11 +15,12 @@ export default {
   Tool: {
     title: src => getHtml(src.title, { inline: true }),
     summary: src => getHtml(src.summary),
-    body: src => getHtml(src.body, { allowedTags: trustedTags, wrapTables: true }),
+    body: src => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true }),
     excerpt: src => excerpt(src),
     gbifHref: (src, _, context) => createLocalizedGbifHref(context.locale, 'tool', src.id),
     rightsHolder: src => getHtml(src.rightsHolder),
     rights: src => getHtml(src.rights),
     author: src => getHtml(src.author),
+    citation: src => getHtml(src.citation),
   }
 }

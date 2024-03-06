@@ -11,13 +11,13 @@ import { ArticleTextContainer } from '../components/ArticleTextContainer';
 import { ArticleBody } from '../components/ArticleBody';
 import { SecondaryLinks } from '../components/SecondaryLinks';
 import { ArticleAuxiliary } from '../components/ArticleAuxiliary';
-import styles from './tool.module.css';
 import { FormattedMessage } from 'react-intl';
 import { useLoaderData } from 'react-router-dom';
 import { required } from '@/utils/required';
 import { ArticleSkeleton } from '../components/ArticleSkeleton';
 import { Button } from '@/components/ui/button';
 import { DynamicLink } from '@/components/DynamicLink';
+import { ArticleFooterWrapper } from '../components/ArticleFooterWrapper';
 
 const TOOL_QUERY = /* GraphQL */ `
   query Tool($key: String!) {
@@ -95,40 +95,47 @@ export function ToolPage() {
             <ArticleBody dangerouslySetInnerHTML={{ __html: resource.body }} className="mt-2" />
           )}
 
-          <hr className="mt-8" />
+          <ArticleFooterWrapper>
+            {resource.secondaryLinks && (
+              <ArticleAuxiliary>
+                <SecondaryLinks links={resource.secondaryLinks} className="mt-8" />
+              </ArticleAuxiliary>
+            )}
 
-          {resource.secondaryLinks && (
-            <ArticleAuxiliary>
-              <SecondaryLinks links={resource.secondaryLinks} className="mt-8" />
-            </ArticleAuxiliary>
-          )}
-
-          {resource.author && (
-            <ArticleAuxiliary label={<FormattedMessage id="cms.resource.author" />}>
-              <div
-                className={styles.underlineLinks}
-                dangerouslySetInnerHTML={{ __html: resource.author }}
+            {resource.citation && (
+              <ArticleAuxiliary
+                label={<FormattedMessage id="cms.auxiliary.citation" />}
+                dangerouslySetInnerHTML={{
+                  __html: resource.citation,
+                  classNames: 'underlineLinks',
+                }}
               />
-            </ArticleAuxiliary>
-          )}
+            )}
 
-          {resource.rights && (
-            <ArticleAuxiliary label={<FormattedMessage id="cms.resource.rights" />}>
-              <div
-                className={styles.underlineLinks}
-                dangerouslySetInnerHTML={{ __html: resource.rights }}
+            {resource.author && (
+              <ArticleAuxiliary
+                label={<FormattedMessage id="cms.resource.author" />}
+                dangerouslySetInnerHTML={{ __html: resource.author, classNames: 'underlineLinks' }}
               />
-            </ArticleAuxiliary>
-          )}
+            )}
 
-          {resource.rightsHolder && (
-            <ArticleAuxiliary label={<FormattedMessage id="cms.resource.rightsHolder" />}>
-              <div
-                className={styles.underlineLinks}
-                dangerouslySetInnerHTML={{ __html: resource.rightsHolder }}
+            {resource.rights && (
+              <ArticleAuxiliary
+                label={<FormattedMessage id="cms.resource.rights" />}
+                dangerouslySetInnerHTML={{ __html: resource.rights, classNames: 'underlineLinks' }}
               />
-            </ArticleAuxiliary>
-          )}
+            )}
+
+            {resource.rightsHolder && (
+              <ArticleAuxiliary
+                label={<FormattedMessage id="cms.resource.rightsHolder" />}
+                dangerouslySetInnerHTML={{
+                  __html: resource.rightsHolder,
+                  classNames: 'underlineLinks',
+                }}
+              />
+            )}
+          </ArticleFooterWrapper>
         </ArticleTextContainer>
       </ArticleContainer>
     </>

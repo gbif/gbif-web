@@ -15,6 +15,7 @@ import { FormattedMessage } from 'react-intl';
 import { useLoaderData } from 'react-router-dom';
 import { required } from '@/utils/required';
 import { ArticleSkeleton } from '../components/ArticleSkeleton';
+import { ArticleFooterWrapper } from '../components/ArticleFooterWrapper';
 
 const DATA_USE_QUERY = /* GraphQL */ `
   query DataUse($key: String!) {
@@ -89,15 +90,19 @@ export function DataUsePage() {
             <ArticleBody dangerouslySetInnerHTML={{ __html: resource.body }} className="mt-2" />
           )}
 
-          <hr className="mt-8" />
+          <ArticleFooterWrapper>
+            {resource.citation && (
+              <ArticleAuxiliary
+                label={<FormattedMessage id="cms.auxiliary.citation" />}
+                dangerouslySetInnerHTML={{
+                  __html: resource.citation,
+                  classNames: 'underlineLinks',
+                }}
+              />
+            )}
 
-          {resource.citation && (
-            <ArticleAuxiliary label={<FormattedMessage id="cms.auxiliary.citation" />}>
-              <div dangerouslySetInnerHTML={{ __html: resource.citation }} />
-            </ArticleAuxiliary>
-          )}
-
-          <ArticleTags resource={resource} className="mt-8" />
+            <ArticleTags resource={resource} className="mt-8" />
+          </ArticleFooterWrapper>
         </ArticleTextContainer>
       </ArticleContainer>
     </>

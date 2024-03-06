@@ -15,6 +15,7 @@ import { PublishedDate } from '../components/PublishedDate';
 import { ArticleAuxiliary } from '../components/ArticleAuxiliary';
 import { ArticleSkeleton } from '../components/ArticleSkeleton';
 import { RenderIfChildren } from '@/components/RenderIfChildren';
+import { ArticleFooterWrapper } from '../components/ArticleFooterWrapper';
 
 const DOCUMENT_QUERY = /* GraphQL */ `
   query Document($key: String!) {
@@ -91,15 +92,17 @@ export function DocumentPage() {
             <ArticleBody dangerouslySetInnerHTML={{ __html: resource.body }} className="mt-10" />
           )}
 
-          {resource.citation && (
-            <>
-              <hr className="my-8" />
-
-              <ArticleAuxiliary label={<FormattedMessage id="cms.auxiliary.citation" />}>
-                <div dangerouslySetInnerHTML={{ __html: resource.citation }} />
-              </ArticleAuxiliary>
-            </>
-          )}
+          <ArticleFooterWrapper>
+            {resource.citation && (
+              <ArticleAuxiliary
+                label={<FormattedMessage id="cms.auxiliary.citation" />}
+                dangerouslySetInnerHTML={{
+                  __html: resource.citation,
+                  classNames: 'underlineLinks',
+                }}
+              />
+            )}
+          </ArticleFooterWrapper>
         </div>
       </ArticleContainer>
     </>

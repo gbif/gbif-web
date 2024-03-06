@@ -16,6 +16,7 @@ import { ArticleTags } from '../components/ArticleTags';
 import { FormattedMessage } from 'react-intl';
 import { required } from '@/utils/required';
 import { useLoaderData } from 'react-router-dom';
+import { ArticleFooterWrapper } from '../components/ArticleFooterWrapper';
 
 const NEWS_QUERY = /* GraphQL */ `
   query News($key: String!) {
@@ -85,9 +86,9 @@ export function NewsPage() {
             <ArticleBody dangerouslySetInnerHTML={{ __html: resource.body }} className="mt-2" />
           )}
 
-          <hr className="mt-8" />
-
-          <ArticleTags resource={resource} className="mt-8" />
+          <ArticleFooterWrapper>
+            <ArticleTags resource={resource} className="mt-8" />
+          </ArticleFooterWrapper>
         </ArticleTextContainer>
       </ArticleContainer>
     </>
