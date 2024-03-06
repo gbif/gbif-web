@@ -131,7 +131,7 @@
     "itemInIngestionQueue": "正在接收队列中",
     "datasetIngestionStatus": "数据集接收状态",
     "gbifIngestionStatus": "GBIF接收状态",
-    "lastIngestionSuccess": "",
+    "lastIngestionSuccess": "最后接收成功",
     "lastIngestionFailed": "上一次读取失败",
     "outOfSync": "未同步",
     "becauseTrustedContact": "因为您是我们信任的联系人",
