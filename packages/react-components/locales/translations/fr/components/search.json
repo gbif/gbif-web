@@ -8,7 +8,7 @@
     "download": "Télécharger",
     "clusters": "",
     "dashboard": "Tableau de bord",
-    "sites": "Archive annotée par GBIF"
+    "sites": "Une courte description du composant devrait être placée ici"
   },
   "table": {
     "lockColumn": "Verrouiller la colonne"
@@ -21,7 +21,7 @@
   "ternary": {
     "yes": "Oui",
     "no": "Non",
-    "either": "Archive annotée par GBIF"
+    "either": "Une courte description du composant devrait être placée ici"
   },
   "loadMore": "Plus",
   "occurrenceClustersView": {
