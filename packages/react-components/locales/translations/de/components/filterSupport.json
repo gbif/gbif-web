@@ -23,6 +23,7 @@
   "viewDetails": "",
   "location": {
     "geometry": "Geometrie",
+    "map": "",
     "wktPlaceholder": "Stadt zum Fundort.",
     "range": "Verbreitungsgebiet",
     "recent": "Kürzlich verwendet",
