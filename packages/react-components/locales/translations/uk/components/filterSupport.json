@@ -23,6 +23,7 @@
   "viewDetails": "",
   "location": {
     "geometry": "Геометрія",
+    "map": "Мапа",
     "wktPlaceholder": "Архів анотований GBIF",
     "range": "Діапазон",
     "recent": "Нещодавно використані",
