@@ -12,8 +12,6 @@ import { MVT as MVTFormat } from 'ol/format';
 import TileGrid from 'ol/tilegrid/TileGrid';
 import klokantech from './openlayers/styles/klokantech.json';
 
-// import mapboxBright from './openlayers/styles/klokantech2.json';
-const token = 'pk.eyJ1IjoiZ2JpZiIsImEiOiJja3VmZm50Z3kxcm1vMnBtdnBmeGd5cm9hIn0.M2z2n9QP9fRHZUCw9vbgOA';
 var interactions = olInteraction.defaults({ altShiftDragRotate: false, pinchRotate: false, mouseWheelZoom: true });
 
 const mapStyles = {

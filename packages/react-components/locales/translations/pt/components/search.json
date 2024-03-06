@@ -18,6 +18,11 @@
     "range": "",
     "locationID": ""
   },
+  "ternary": {
+    "yes": "Sim",
+    "no": "Não",
+    "either": "Uma breve descrição do componente deve ser colocada aqui"
+  },
   "loadMore": "Mais",
   "occurrenceClustersView": {
     "about": "Sobre",

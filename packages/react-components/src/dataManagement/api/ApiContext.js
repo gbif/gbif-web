@@ -14,6 +14,9 @@ const client = new ApiClient({
   },
   translations: {
     endpoint: env.TRANSLATIONS
+  },
+  utils: {
+    endpoint: env.UTILS_API
   }
 });
 

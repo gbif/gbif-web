@@ -173,20 +173,20 @@ export const group = css`
   display: inline-flex;
   /* width: fit-content; */
   max-width: 100%;
-  > button {
+  > button, > label {
     overflow: hidden;
     border-radius: 0;
     margin: 0;
     margin-right: -1px;
-  }
-  >button:first-of-type {
-    border-top-left-radius: var(--borderRadiusPx);
-    border-bottom-left-radius: var(--borderRadiusPx);
-    flex: 1 1 auto;
-  }
-  >button:last-of-type {
-    border-top-right-radius: var(--borderRadiusPx);
-    border-bottom-right-radius: var(--borderRadiusPx);
+    :first-of-type {
+      border-top-left-radius: var(--borderRadiusPx);
+      border-bottom-left-radius: var(--borderRadiusPx);
+      flex: 1 1 auto;
+    }
+    :last-of-type {
+      border-top-right-radius: var(--borderRadiusPx);
+      border-bottom-right-radius: var(--borderRadiusPx);
+    }
   }
 `;
 

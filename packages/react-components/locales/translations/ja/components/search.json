@@ -18,6 +18,11 @@
     "range": "範囲または単一値",
     "locationID": ""
   },
+  "ternary": {
+    "yes": "はい",
+    "no": "いいえ",
+    "either": "GBIFがアノーテーションしたアーカイブ"
+  },
   "loadMore": "もっと読み込む",
   "occurrenceClustersView": {
     "about": "・・・について",

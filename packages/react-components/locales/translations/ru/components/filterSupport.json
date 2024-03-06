@@ -20,5 +20,30 @@
   "nameWithTaxonMatchIssue": "",
   "commonName": "Общепринятое название",
   "acceptedNameOf": "Общепринятое имя для",
-  "viewDetails": ""
+  "viewDetails": "",
+  "location": {
+    "geometry": "Геометрия",
+    "wktPlaceholder": "Архив, аннотированный GBIF",
+    "range": "Диапазон",
+    "recent": "Недавно использованные",
+    "add": "Добавить",
+    "north": "Север",
+    "south": "Юг",
+    "east": "Восток",
+    "west": "Запад",
+    "invalidWkt": "Архив, аннотированный GBIF",
+    "aboutWktAndGeoJson": "Архив, аннотированный GBIF",
+    "simplificationWarning": "Архив, аннотированный GBIF",
+    "simplify": "Архив, аннотированный GBIF",
+    "useBbox": "Архив, аннотированный GBIF",
+    "failedParsing": "Архив, аннотированный GBIF",
+    "onlyPolygonsSupported": "Архив, аннотированный GBIF",
+    "polygonSimplifiedToFewerPoints": "Архив, аннотированный GBIF",
+    "simplificationCausedSelfIntersection": "Архив, аннотированный GBIF",
+    "tooLarge": "Слишком большой охват",
+    "selfIntersecting": "Архив, аннотированный GBIF",
+    "orderChanged": "Архив, аннотированный GBIF",
+    "geometryReducedToBbox": "Архив, аннотированный GBIF",
+    "failedToSimplify": "Архив, аннотированный GBIF"
+  }
 }

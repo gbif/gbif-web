@@ -18,6 +18,11 @@
     "range": "",
     "locationID": ""
   },
+  "ternary": {
+    "yes": "",
+    "no": "",
+    "either": "GBIF annoteret Arkiv"
+  },
   "loadMore": "Flere",
   "occurrenceClustersView": {
     "about": "Om",

@@ -20,5 +20,30 @@
   "nameWithTaxonMatchIssue": "",
   "commonName": "",
   "acceptedNameOf": "",
-  "viewDetails": ""
+  "viewDetails": "",
+  "location": {
+    "geometry": "ジオメトリ",
+    "wktPlaceholder": "GBIFがアノーテーションしたアーカイブ",
+    "range": "範囲",
+    "recent": "最近使用された",
+    "add": "追加",
+    "north": "北",
+    "south": "南",
+    "east": "東",
+    "west": "西",
+    "invalidWkt": "GBIFがアノーテーションしたアーカイブ",
+    "aboutWktAndGeoJson": "GBIFがアノーテーションしたアーカイブ",
+    "simplificationWarning": "GBIFがアノーテーションしたアーカイブ",
+    "simplify": "GBIFがアノーテーションしたアーカイブ",
+    "useBbox": "GBIFがアノーテーションしたアーカイブ",
+    "failedParsing": "GBIFがアノーテーションしたアーカイブ",
+    "onlyPolygonsSupported": "GBIFがアノーテーションしたアーカイブ",
+    "polygonSimplifiedToFewerPoints": "GBIFがアノーテーションしたアーカイブ",
+    "simplificationCausedSelfIntersection": "GBIFがアノーテーションしたアーカイブ",
+    "tooLarge": "ジオメトリが大きすぎます。",
+    "selfIntersecting": "GBIFがアノーテーションしたアーカイブ",
+    "orderChanged": "GBIFがアノーテーションしたアーカイブ",
+    "geometryReducedToBbox": "GBIFがアノーテーションしたアーカイブ",
+    "failedToSimplify": "GBIFがアノーテーションしたアーカイブ"
+  }
 }

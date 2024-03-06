@@ -69,7 +69,10 @@ const filterConf = {
       })
     },
     geometry: {
-      defaultType: 'within'
+      defaultType: 'within',
+      v1: {
+        supportedTypes: ['within']
+      }
     },
     basisOfRecord: {
       defaultNegationKey: 'not_basisOfRecord'

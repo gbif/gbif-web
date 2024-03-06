@@ -9,6 +9,16 @@
     "count": "",
     "description": ""
   },
+  "hasCoordinate": {
+    "name": "座標あり",
+    "count": "",
+    "description": "GBIFがアノーテーションしたアーカイブ"
+  },
+  "hasGeospatialIssues": {
+    "name": "地理空間情報の解釈に問題あり",
+    "count": "地理空間情報の解釈に問題あり",
+    "description": "GBIFがアノーテーションしたアーカイブ"
+  },
   "collectionKey": {
     "name": "コレクション",
     "count": "",
@@ -33,6 +43,14 @@
     "name": "",
     "count": "",
     "description": "",
+    "placeholderLat": "",
+    "placeholderLon": "",
+    "placeholderDist": ""
+  },
+  "geometry": {
+    "name": "位置情報",
+    "count": "",
+    "description": "GBIFがアノーテーションしたアーカイブ",
     "placeholderLat": "",
     "placeholderLon": "",
     "placeholderDist": ""

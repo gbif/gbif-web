@@ -28,7 +28,7 @@ function Filter({ children, title, aboutText, labelledById, hasHelpTexts, suppor
 
   return <FilterState filter={tmpFilter} onChange={updatedFilter => onFilterChange(updatedFilter)}>
     <FilterContext.Consumer>
-      {({ setField, negateField, setFullField, toggle, filter }) => {
+      {({ setField, negateField, setFullField, toggle, filter, setFilter }) => {
         const selectedItems = get(filter, `${type}.${filterName}`, []).map(x => typeof x === 'object' ? hash(x) : x);
         const checkedMap = new Set(selectedItems);
         const summaryProps = {
@@ -66,6 +66,7 @@ function Filter({ children, title, aboutText, labelledById, hasHelpTexts, suppor
                 helpVisible,
                 setField,
                 setFullField,
+                setFilter,
                 toggle,
                 filter,
                 selectedItems,

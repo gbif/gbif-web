@@ -9,6 +9,16 @@
     "count": "",
     "description": ""
   },
+  "hasCoordinate": {
+    "name": "",
+    "count": "",
+    "description": "GBIF annoteret Arkiv"
+  },
+  "hasGeospatialIssues": {
+    "name": "",
+    "count": "",
+    "description": "GBIF annoteret Arkiv"
+  },
   "collectionKey": {
     "name": "",
     "count": "",
@@ -33,6 +43,14 @@
     "name": "",
     "count": "",
     "description": "",
+    "placeholderLat": "",
+    "placeholderLon": "",
+    "placeholderDist": ""
+  },
+  "geometry": {
+    "name": "",
+    "count": "",
+    "description": "GBIF annoteret Arkiv",
     "placeholderLat": "",
     "placeholderLon": "",
     "placeholderDist": ""

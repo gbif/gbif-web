@@ -9,6 +9,16 @@
     "count": "",
     "description": ""
   },
+  "hasCoordinate": {
+    "name": "Tem coordenadas",
+    "count": "",
+    "description": "Uma breve descrição do componente deve ser colocada aqui"
+  },
+  "hasGeospatialIssues": {
+    "name": "Tem problemas geoespaciais",
+    "count": "Tem problemas geoespaciais",
+    "description": "Uma breve descrição do componente deve ser colocada aqui"
+  },
   "collectionKey": {
     "name": "Coleção",
     "count": "",
@@ -33,6 +43,14 @@
     "name": "",
     "count": "",
     "description": "",
+    "placeholderLat": "",
+    "placeholderLon": "",
+    "placeholderDist": ""
+  },
+  "geometry": {
+    "name": "Localização",
+    "count": "",
+    "description": "Uma breve descrição do componente deve ser colocada aqui",
     "placeholderLat": "",
     "placeholderLon": "",
     "placeholderDist": ""

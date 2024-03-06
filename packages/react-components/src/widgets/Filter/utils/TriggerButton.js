@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import { FilterButton } from '../../../components/Button';
 import { FilterContext } from '../state';
 
-export const TriggerButton = React.forwardRef(({ mustOptions = [], mustNotOptions = [], filterHandle, translations = {}, DisplayName = ({ id }) => <>{id}</>, loading, ...props }, ref) => {
+export const TriggerButton = React.forwardRef(({ hideSingleValues, onClear: customClear, getCount, mustOptions = [], mustNotOptions = [], filterHandle, translations = {}, DisplayName = ({ id }) => <>{id}</>, loading, ...props }, ref) => {
   const currentFilterContext = useContext(FilterContext);
   const {
     count = `filters.${filterHandle}.count`,
@@ -14,7 +14,11 @@ export const TriggerButton = React.forwardRef(({ mustOptions = [], mustNotOption
     name = `filters.${filterHandle}.name` } = translations;
 
   const onClear = useCallback(() => {
-    currentFilterContext.setFullField(filterHandle, [], [])
+    if (customClear) {
+      customClear({currentFilterContext, filterHandle});
+    } else {
+      currentFilterContext.setFullField(filterHandle, [], []);
+    }
   }, [currentFilterContext, filterHandle]);
 
   let TextSummary;
@@ -52,13 +56,13 @@ export const TriggerButton = React.forwardRef(({ mustOptions = [], mustNotOption
           id={name} /> : <FormattedMessage id={'filterSupport.nullOrNot.isNotNull'} />
       </>
     }
-  } else if (options.length === 1) {
+  } else if (options.length === 1 && !hideSingleValues) {
     // exactly one option
     TextSummary = <>
       <FormattedMessage
         id={name} /> : <DisplayName id={options[0]} />
     </>
-  } else if (options.length > 1) {
+  } else if (options.length > 1 || (hideSingleValues && options.length === 1)) {
     // multiple selected
     // TextSummary = <FormattedMessage
     //   id={count}
@@ -81,12 +85,33 @@ export const TriggerButton = React.forwardRef(({ mustOptions = [], mustNotOption
     </>
   }
 
+  let filterCount = options.length;
+  if (getCount) {
+    const customCount = getCount({ filter: currentFilterContext.filter, filterHandle })
+    filterCount = customCount;
+    if (customCount > 0) {
+      TextSummary = <><FormattedMessage
+        id={name}
+      />
+        <span css={css`
+        background-color: #00000033;
+        border-radius: 10px;
+        padding: 3px 5px;
+        margin-inline-start: 8px;
+        font-size: 85%;
+        font-weight: bold;
+        line-height: 85%;
+      `}>{customCount}</span>
+      </>
+    }
+  }
+
   return <FilterButton
     loading={loading}
-    isActive={options.length > 0}
+    isActive={filterCount > 0}
     onClearRequest={onClear}
     ref={ref}
-    truncate={options.length < 2}
+    truncate={filterCount < (hideSingleValues ? 1 : 2)}
     isNegated={isNegated}
     {...props}
   >

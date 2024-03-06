@@ -18,6 +18,11 @@
     "range": "",
     "locationID": ""
   },
+  "ternary": {
+    "yes": "بلی",
+    "no": "خیر",
+    "either": ""
+  },
   "loadMore": "بیشتر",
   "occurrenceClustersView": {
     "about": "درباره",

@@ -1,7 +1,7 @@
 'use strict';
 const _ = require('lodash');
 const { validatePredicate } = require('./validatePredicate');
-const { wktPolygonToCoordinates } = require('../util/geoHelper');
+const { wktPolygonToCoordinates, wktToGeoJson } = require('../util/geoHelper');
 const { ResponseError } = require('../../resources/errorHandler');
 
 function predicate2esQuery(predicate, config) {
@@ -157,12 +157,16 @@ function transform(p, config, isRootQuery) {
       }
     }
     case 'within': {
+      const geojson = wktToGeoJson(p.value);
+      if (!['MultiPolygon', 'Polygon'].includes(geojson.type)) {
+        throw new ResponseError(400, 'BAD_REQUEST', 'Only WKT polygons, and multipolygons are supported');
+      }
       return {
         geo_shape: {
           [fieldName]: {
             shape: {
-              type: "polygon",
-              coordinates: wktPolygonToCoordinates(p.value)
+              type: geojson.type,
+              coordinates: geojson.coordinates
             },
             relation: 'within'
           }

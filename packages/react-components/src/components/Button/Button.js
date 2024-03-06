@@ -23,11 +23,13 @@ export const Button = React.forwardRef(({
   look = 'primary',
   children,
   truncate,
+  as,
   ...props
 }, ref) => {
   appearance = appearance || look;
+  const Comp = as || ButtonA11y;
   const { classesToApply, classNames } = getClasses('gbif', 'button', { appearance, loading, isFullWidth }, className);
-  return <ButtonA11y ref={ref} {...classNames} css={css`
+  return <Comp ref={ref} {...classNames} css={css`
         ${styles.button}
         ${classesToApply.map(x => styles[x])};
 `} {...props}>
@@ -35,13 +37,13 @@ export const Button = React.forwardRef(({
     {/* <span style={truncate ? truncateStyle : {}}>
       {children}
     </span> */}
-  </ButtonA11y>
+  </Comp>
 });
 
 Button.displayName = 'Button'
 
 Button.propTypes = {
-  as: PropTypes.oneOf(['button', 'a', 'input', 'span', 'div']),
+  as: PropTypes.oneOf(['button', 'a', 'input', 'span', 'div', 'label']),
   className: PropTypes.string,
   appearance: PropTypes.oneOf(['primary', 'primaryOutline', 'outline', 'ghost', 'danger', 'link', 'text']),
   loading: PropTypes.bool,

@@ -9,6 +9,16 @@
     "count": "",
     "description": ""
   },
+  "hasCoordinate": {
+    "name": "Имеет координаты",
+    "count": "Имеет координаты",
+    "description": "Архив, аннотированный GBIF"
+  },
+  "hasGeospatialIssues": {
+    "name": "Есть проблемы в географической привязке",
+    "count": "Есть проблемы в географической привязке",
+    "description": "Архив, аннотированный GBIF"
+  },
   "collectionKey": {
     "name": "Коллекция",
     "count": "",
@@ -33,6 +43,14 @@
     "name": "Расстояние, полученное из координат",
     "count": "",
     "description": "Фильтрация записей по заданному расстоянию от точки",
+    "placeholderLat": "Широта",
+    "placeholderLon": "Долгота",
+    "placeholderDist": "Расстояние"
+  },
+  "geometry": {
+    "name": "Местонахождение (топоним)",
+    "count": "{num, plural, one { filter } few {# filters } many {# filters } other {# filters }}",
+    "description": "Архив, аннотированный GBIF",
     "placeholderLat": "Широта",
     "placeholderLon": "Долгота",
     "placeholderDist": "Расстояние"

@@ -9,6 +9,16 @@
     "count": "",
     "description": ""
   },
+  "hasCoordinate": {
+    "name": "",
+    "count": "",
+    "description": "Stadt zum Fundort."
+  },
+  "hasGeospatialIssues": {
+    "name": "",
+    "count": "",
+    "description": "Stadt zum Fundort."
+  },
   "collectionKey": {
     "name": "",
     "count": "",
@@ -33,6 +43,14 @@
     "name": "",
     "count": "",
     "description": "",
+    "placeholderLat": "",
+    "placeholderLon": "",
+    "placeholderDist": ""
+  },
+  "geometry": {
+    "name": "",
+    "count": "",
+    "description": "Stadt zum Fundort.",
     "placeholderLat": "",
     "placeholderLon": "",
     "placeholderDist": ""

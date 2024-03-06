@@ -2,15 +2,19 @@ const wkt = require('@terraformer/wkt');
 
 function wktPolygonToCoordinates(wktString) {
   var geojson = wktToGeoJson(wktString);
-  if (geojson.type !== 'Polygon') {
-    throw new Error('Only WKT polygons are supported');
+  if (!['MultiPolygon', 'Polygon'].includes(geojson.type)) {
+    throw new Error('Only WKT polygons, and multipolygons are supported');
   }
   return geojson.coordinates;
 }
 
 function wktToGeoJson(wktString) {
-  var geojson = wkt.wktToGeoJSON(wktString);
-  return geojson;
+  try {
+    var geojson = wkt.wktToGeoJSON(wktString);
+    return geojson;
+  } catch(err) {
+    throw new Error('Invalid WKT');
+  }
 }
 
 module.exports = {

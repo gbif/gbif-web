@@ -67,7 +67,7 @@ function StandaloneWrapper({
                 {root}
               </RouteContext.Provider>}
               <div style={{ zIndex: 10000, position: 'fixed' }}>
-                <ToastContainer position="bottom-center" delay={3000} />
+                <ToastContainer position="bottom-center" delay={6000} />
               </div>
             </ThemeProvider>
           </LocaleProvider>

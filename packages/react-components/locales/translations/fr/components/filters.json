@@ -9,6 +9,16 @@
     "count": "",
     "description": ""
   },
+  "hasCoordinate": {
+    "name": "A des coordonnées",
+    "count": "A des coordonnées",
+    "description": "Archive annotée par GBIF"
+  },
+  "hasGeospatialIssues": {
+    "name": "Présente des problèmes géospatiaux",
+    "count": "Présente des problèmes géospatiaux",
+    "description": "Archive annotée par GBIF"
+  },
   "collectionKey": {
     "name": "Collection",
     "count": "{num, plural, one {# collection } other {# collections}}",
@@ -33,6 +43,14 @@
     "name": "Distance par rapport aux coordonnées",
     "count": "{num, plural, one { filtre } other {# filtres }}",
     "description": "Filtrer les enregistrements à une distance donnée d'un point",
+    "placeholderLat": "Latitude",
+    "placeholderLon": "Longitude",
+    "placeholderDist": "Distance"
+  },
+  "geometry": {
+    "name": "Lieu",
+    "count": "{num, plural, one { filtre } other {# filtres }}",
+    "description": "Archive annotée par GBIF",
     "placeholderLat": "Latitude",
     "placeholderLon": "Longitude",
     "placeholderDist": "Distance"
