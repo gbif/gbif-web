@@ -14,7 +14,7 @@
   "eventTypeHierarchyJoined": "",
   "eventHierarchyJoined": "",
   "map": "",
-  "backToTaxa": "GBIFがアノーテーションしたアーカイブ",
+  "backToTaxa": "",
   "siteLocation": "",
   "info": {
     "original": "オリジナル",
@@ -27,7 +27,7 @@
     "record": "記録",
     "occurrence": "オカレンス",
     "event": "イベント",
-    "dataStructure": "GBIFがアノーテーションしたアーカイブ",
+    "dataStructure": "",
     "identification": "ID",
     "taxon": "分類群",
     "location": "位置情報",
