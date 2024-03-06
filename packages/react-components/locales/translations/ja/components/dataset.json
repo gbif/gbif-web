@@ -131,7 +131,7 @@
     "itemInIngestionQueue": "取り込みキュー上のアイテム",
     "datasetIngestionStatus": "データセットの取り込み状態",
     "gbifIngestionStatus": "GBIFの取り込み状態",
-    "lastIngestionSuccess": "",
+    "lastIngestionSuccess": "前回の取り込み成功",
     "lastIngestionFailed": "前回の取り込み失敗",
     "outOfSync": "未同期",
     "becauseTrustedContact": "信頼された連絡先であるので",
