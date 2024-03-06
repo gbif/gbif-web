@@ -11,11 +11,11 @@ import { ArticleTextContainer } from '../components/ArticleTextContainer';
 import { ArticleBody } from '../components/ArticleBody';
 import { ArticleTags } from '../components/ArticleTags';
 import { ArticleAuxiliary } from '../components/ArticleAuxiliary';
-
 import { SecondaryLinks } from '../components/SecondaryLinks';
 import { Documents } from '../components/Documents';
 import { ArticleSkeleton } from '../components/ArticleSkeleton';
 import { FormattedMessage } from 'react-intl';
+import { ArticleFooterWrapper } from '../components/ArticleFooterWrapper';
 
 const ARTICLE_QUERY = /* GraphQL */ `
   query Article($key: String!) {
@@ -77,33 +77,37 @@ export function ArticlePage() {
             <ArticleBody dangerouslySetInnerHTML={{ __html: resource.body }} className="mt-2" />
           )}
 
-          <hr className="mt-8" />
-
-          {/*
+          <ArticleFooterWrapper>
+            {/*
           A list documents and links related to this article can be found below.
           iterature through documents and links and display them as a 2 column grid list. With icons for the corresponding conten types.
           use the title as text and fall back to the filename if no title is provided.
           */}
 
-          {resource.secondaryLinks && (
-            <ArticleAuxiliary>
-              <SecondaryLinks links={resource.secondaryLinks} className="mt-8" />
-            </ArticleAuxiliary>
-          )}
+            {resource.secondaryLinks && (
+              <ArticleAuxiliary>
+                <SecondaryLinks links={resource.secondaryLinks} className="mt-8" />
+              </ArticleAuxiliary>
+            )}
 
-          {resource.documents && (
-            <ArticleAuxiliary>
-              <Documents documents={resource.documents} className="mt-8" />
-            </ArticleAuxiliary>
-          )}
+            {resource.documents && (
+              <ArticleAuxiliary>
+                <Documents documents={resource.documents} className="mt-8" />
+              </ArticleAuxiliary>
+            )}
 
-          {resource.citation && (
-            <ArticleAuxiliary label={<FormattedMessage id="cms.auxiliary.citation" />}>
-              <div dangerouslySetInnerHTML={{ __html: resource.citation }} />
-            </ArticleAuxiliary>
-          )}
+            {resource.citation && (
+              <ArticleAuxiliary
+                label={<FormattedMessage id="cms.auxiliary.citation" />}
+                dangerouslySetInnerHTML={{
+                  __html: resource.citation,
+                  classNames: 'underlineLinks',
+                }}
+              />
+            )}
 
-          <ArticleTags resource={resource} className="mt-8" />
+            <ArticleTags resource={resource} className="mt-8" />
+          </ArticleFooterWrapper>
         </ArticleTextContainer>
       </ArticleContainer>
     </>

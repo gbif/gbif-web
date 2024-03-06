@@ -15,7 +15,7 @@ export default {
   },
   Help: {
     title: src => getHtml(src.title, { inline: true }),
-    body: src => getHtml(src.body, {allowedTags: trustedTags, wrapTables: true}),
+    body: src => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true}),
     excerpt: src => excerpt(src),
   }
 }

@@ -18,6 +18,9 @@ import { required } from '@/utils/required';
 import { useLoaderData } from 'react-router-dom';
 import { ArticleSkeleton } from '../components/ArticleSkeleton';
 import { ClientSideOnly } from '@/components/ClientSideOnly';
+import { ArticleFooterWrapper } from '../components/ArticleFooterWrapper';
+import { Documents } from '../components/Documents';
+import { RenderIfChildren } from '@/components/RenderIfChildren';
 
 const EVENT_QUERY = /* GraphQL */ `
   query Event($key: String!) {
@@ -44,6 +47,9 @@ const EVENT_QUERY = /* GraphQL */ `
       eventLanguage
       venue
       allDayEvent
+      documents {
+        ...DocumentPreview
+      }
     }
   }
 `;
@@ -109,42 +115,64 @@ export function EventPage() {
             <ArticleBody dangerouslySetInnerHTML={{ __html: resource.body }} className="mt-2" />
           )}
 
-          <hr className="my-8" />
+          <ArticleFooterWrapper>
+            <RenderIfChildren>
+              {resource.secondaryLinks && (
+                <ArticleAuxiliary>
+                  <SecondaryLinks links={resource.secondaryLinks} />
+                </ArticleAuxiliary>
+              )}
 
-          {resource.secondaryLinks && (
-            <ArticleAuxiliary>
-              <SecondaryLinks className="mb-4" links={resource.secondaryLinks} />
-            </ArticleAuxiliary>
-          )}
+              {resource.documents && (
+                <ArticleAuxiliary>
+                  <Documents documents={resource.documents} />
+                </ArticleAuxiliary>
+              )}
+            </RenderIfChildren>
 
-          {resource.location && (
-            <KeyValuePair
-              label={<FormattedMessage id="cms.resource.location" />}
-              value={resource.location}
-            />
-          )}
-
-          {resource.country && (
-            <KeyValuePair
-              className="mt-1"
-              label={<FormattedMessage id="cms.resource.country" />}
-              value={<FormattedMessage id={`enums.topics.${resource.country}`} />}
-            />
-          )}
-
-          <KeyValuePair
-            className="mt-1"
-            label={<FormattedMessage id="cms.resource.when" />}
-            value={
-              <ClientSideOnly>
-                <DateTimeRange
-                  start={startDate}
-                  end={endDate}
-                  allDay={resource.allDayEvent ?? undefined}
+            <RenderIfChildren className="flex flex-col gap-1 mt-8">
+              {resource.location && (
+                <KeyValuePair
+                  label={<FormattedMessage id="cms.resource.location" />}
+                  value={resource.location}
                 />
-              </ClientSideOnly>
-            }
-          />
+              )}
+
+              {resource.country && (
+                <KeyValuePair
+                  label={<FormattedMessage id="cms.resource.country" />}
+                  value={<FormattedMessage id={`enums.topics.${resource.country}`} />}
+                />
+              )}
+
+              {resource.venue && (
+                <KeyValuePair
+                  label={<FormattedMessage id="cms.resource.venue" />}
+                  value={<FormattedMessage id={resource.venue} />}
+                />
+              )}
+
+              <KeyValuePair
+                label={<FormattedMessage id="cms.resource.when" />}
+                value={
+                  <ClientSideOnly>
+                    <DateTimeRange
+                      start={startDate}
+                      end={endDate}
+                      allDay={resource.allDayEvent ?? undefined}
+                    />
+                  </ClientSideOnly>
+                }
+              />
+
+              {resource.eventLanguage && (
+                <KeyValuePair
+                  label={<FormattedMessage id="cms.resource.language" />}
+                  value={resource.eventLanguage}
+                />
+              )}
+            </RenderIfChildren>
+          </ArticleFooterWrapper>
         </ArticleTextContainer>
       </ArticleContainer>
     </>

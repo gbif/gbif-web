@@ -1,4 +1,4 @@
-import { getHtml, excerpt, trustedTags, createLocalizedGbifHref, isNoneEmptyArray } from "#/helpers/utils";
+import { getHtml, excerpt, createLocalizedGbifHref, isNoneEmptyArray } from "#/helpers/utils";
 import logger from "#/logger";
 import { KNOWN_BLOCK_TYPES } from "../composition/acceptedTypes";
 
@@ -19,7 +19,7 @@ export default {
   },
   Programme: {
     title: src => getHtml(src.title, { inline: true, allowedTags: ['em', 'i'] }),
-    body: src => getHtml(src.body, {allowedTags: trustedTags, wrapTables: true}),
+    body: src => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true}),
     summary: src => getHtml(src.summary),
     excerpt: src => excerpt(src),
     events: (src, _, { dataSources, locale, preview }) => {

@@ -1,4 +1,4 @@
-import { getHtml, excerpt, trustedTags, createLocalizedGbifHref } from "#/helpers/utils";
+import { getHtml, excerpt, createLocalizedGbifHref } from "#/helpers/utils";
 
 function isNoneEmptyArray(source) {
   return source != null && Array.isArray(source) && source.length > 0;
@@ -18,9 +18,10 @@ export default {
   },
   GbifProject: {
     title: src => getHtml(src.title, { inline: true, allowedTags: ['em', 'i'] }),
-    body: src => getHtml(src.body, {allowedTags: trustedTags, wrapTables: true}),
+    body: src => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true}),
     summary: src => getHtml(src.summary),
     excerpt: src => excerpt(src),
+    leadContact: src => getHtml(src.leadContact),
     events: (src, _, { dataSources, locale }) => {
       if (!isNoneEmptyArray(src.events)) return null;
 

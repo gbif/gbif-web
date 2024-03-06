@@ -1,4 +1,4 @@
-import { getHtml, excerpt, trustedTags, createLocalizedGbifHref } from "#/helpers/utils";
+import { getHtml, excerpt, createLocalizedGbifHref } from "#/helpers/utils";
 
 /**
  * fieldName: (parent, args, context, info) => data;
@@ -15,9 +15,9 @@ export default {
   DataUse: {
     title: src => getHtml(src.title, { inline: true }),
     summary: src => getHtml(src.summary),
-    body: src => getHtml(src.body, {allowedTags: trustedTags, wrapTables: true}),
+    body: src => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true}),
     excerpt: src => excerpt(src),
-    citation: src => getHtml(src.citation, {allowedTags: trustedTags}),
+    citation: src => getHtml(src.citation, { trustLevel: 'trusted' }),
     gbifHref: (src, _, context) => createLocalizedGbifHref(context.locale, 'data-use', src.id),
   }
 }
