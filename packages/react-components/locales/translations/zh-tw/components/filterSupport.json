@@ -23,6 +23,7 @@
   "viewDetails": "",
   "location": {
     "geometry": "幾何",
+    "map": "地圖",
     "wktPlaceholder": "GBIF 註記的存檔",
     "range": "範圍",
     "recent": "最近使用",
