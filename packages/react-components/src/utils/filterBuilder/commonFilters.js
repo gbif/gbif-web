@@ -416,6 +416,7 @@ export const commonFilters = {
       },
       specific: {
         options: basisofRecord,
+        supportsInverse: true,
       }
     }
   },
@@ -433,6 +434,7 @@ export const commonFilters = {
       },
       specific: {
         options: relevance,
+        supportsInverse: true,
       }
     }
   },
@@ -450,6 +452,7 @@ export const commonFilters = {
       },
       specific: {
         options: topics,
+        supportsInverse: true,
       }
     }
   },
@@ -467,6 +470,7 @@ export const commonFilters = {
       },
       specific: {
         options: typeStatus,
+        supportsInverse: true,
       }
     }
   },
@@ -485,7 +489,8 @@ export const commonFilters = {
       specific: {
         options: occurrenceIssue,
         supportsNegation: true,
-        supportsExist: true
+        supportsExist: true,
+        supportsInverse: true,
       }
     }
   },
@@ -502,7 +507,7 @@ export const commonFilters = {
         }
       },
       specific: {
-        options: mediaType,
+        options: mediaType
       }
     }
   },
@@ -554,6 +559,7 @@ export const commonFilters = {
       },
       specific: {
         options: license,
+        supportsInverse: true,
       }
     }
   },
@@ -663,6 +669,7 @@ export const commonFilters = {
       specific: {
         options: month,
         supportsExist: true,
+        supportsInverse: true,
       }
     }
   },
@@ -680,6 +687,7 @@ export const commonFilters = {
       },
       specific: {
         options: continent,
+        supportsInverse: true,
       }
     }
   },
@@ -697,6 +705,7 @@ export const commonFilters = {
       },
       specific: {
         options: endpointType,
+        supportsInverse: true,
       }
     }
   },
@@ -1492,6 +1501,7 @@ export const commonFilters = {
       },
       specific: {
         options: literatureType,
+        supportsInverse: true,
       }
     }
   },
@@ -1508,7 +1518,8 @@ export const commonFilters = {
         }
       },
       specific: {
-        options: dwcaExtension
+        options: dwcaExtension,
+        supportsInverse: true,
       }
     }
   },
@@ -1629,7 +1640,8 @@ export const commonFilters = {
           }
         },
         specific: {
-          options: iucnRedListCategory
+          options: iucnRedListCategory,
+          supportsInverse: true,
         }
       }
     },
@@ -1700,7 +1712,8 @@ export const commonFilters = {
           }
         },
         specific: {
-          options: discipline
+          options: discipline,
+          supportsInverse: true,
         }
       }
     },
@@ -1734,7 +1747,8 @@ export const commonFilters = {
           }
         },
         specific: {
-          options: preservationType
+          options: preservationType,
+          supportsInverse: true,
         }
       }
     },

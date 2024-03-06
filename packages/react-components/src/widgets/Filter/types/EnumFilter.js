@@ -17,6 +17,7 @@ export const FilterContent = ({ config, translations, LabelFromID, hide, labelle
   let mustNotLength = get(initFilter, `must_not.${filterHandle}`, []).length;
   const [isNegated, setNegated] = useState(mustNotLength > 0 && config.supportsNegation);
 
+  const hasInverse = !config.isRadio && config.supportsInverse;
   return <Filter
     labelledById={labelledById}
     onApply={onApply}
@@ -48,7 +49,17 @@ export const FilterContent = ({ config, translations, LabelFromID, hide, labelle
           setNegated(!isNegated);
         }}><FormattedMessage id="filterSupport.excludeSelected" defaultMessage="Exclude selected"/></AdditionalControl>}
         
-        <SummaryBar {...summaryProps} />
+        <SummaryBar {...summaryProps} onInvert={hasInverse ? () => {
+          // invert options. Set checked map to be the reverse of what it is now based on the options available
+          const allItems = config.options;
+          const newItems = allItems.filter(x => !checkedMap.has(x.key)).map(x => x.key);
+          if (isNegated) {
+            setFullField(filterHandle, [], newItems);
+          } else {
+            setFullField(filterHandle, newItems);
+          }
+        } : null} />
+
         <FilterBody onKeyPress={e => {
           if (e.shiftKey && e.which === keyCodes.ENTER) onApply({ filter, hide });
         }}>

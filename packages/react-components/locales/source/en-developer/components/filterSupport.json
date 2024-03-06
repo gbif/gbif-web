@@ -10,6 +10,8 @@
   "back": "Back",
   "cancel": "Cancel",
   "apply": "Apply",
+  "clear": "Clear",
+  "invert": "Reverse selection",
   "wildcardHelp": "Searches are case insensitive, but every letter is distinct, so, to find records with Rio or Río, for example, you can use the pattern 'r?o'.",
   "useWildcardPattern": "Search for the pattern",
   "useCaseInsensitiveValue": "Search for case insensitive match",
