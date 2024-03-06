@@ -131,7 +131,7 @@
     "itemInIngestionQueue": "У черзі на влиття",
     "datasetIngestionStatus": "Статус влиття набору даних до GBIF",
     "gbifIngestionStatus": "Статус влиття даних до GBIF",
-    "lastIngestionSuccess": "",
+    "lastIngestionSuccess": "Останнє влиття було успішним",
     "lastIngestionFailed": "Остання спроба влиття була невдалою",
     "outOfSync": "Не синхронізується",
     "becauseTrustedContact": "Тому що Ви є довіреною особою",
