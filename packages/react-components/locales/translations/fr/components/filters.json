@@ -12,12 +12,12 @@
   "hasCoordinate": {
     "name": "A des coordonnées",
     "count": "A des coordonnées",
-    "description": "Archive annotée par GBIF"
+    "description": "Une courte description du composant devrait être placée ici"
   },
   "hasGeospatialIssues": {
     "name": "Présente des problèmes géospatiaux",
     "count": "Présente des problèmes géospatiaux",
-    "description": "Archive annotée par GBIF"
+    "description": "Une courte description du composant devrait être placée ici"
   },
   "collectionKey": {
     "name": "Collection",
@@ -50,7 +50,7 @@
   "geometry": {
     "name": "Lieu",
     "count": "{num, plural, one { filtre } other {# filtres }}",
-    "description": "Archive annotée par GBIF",
+    "description": "Une courte description du composant devrait être placée ici",
     "placeholderLat": "Latitude",
     "placeholderLon": "Longitude",
     "placeholderDist": "Distance"
@@ -83,7 +83,7 @@
   "alternativeCode": {
     "name": "Archive annotée par GBIF",
     "count": "Archive annotée par GBIF",
-    "description": "Archive annotée par GBIF"
+    "description": "Une courte description du composant devrait être placée ici"
   },
   "identifier": {
     "name": "Identifiant",
@@ -98,7 +98,7 @@
   "discipline": {
     "name": "Archive annotée par GBIF",
     "count": "Archive annotée par GBIF",
-    "description": "Archive annotée par GBIF"
+    "description": "Une courte description du composant devrait être placée ici"
   },
   "collectionContentType": {
     "name": "Archive annotée par GBIF",
@@ -289,6 +289,11 @@
     "count": "",
     "description": "Une courte description du composant devrait être placée ici"
   },
+  "projectId": {
+    "name": "Identifiant du projet",
+    "count": "Une courte description du composant devrait être placée ici",
+    "description": "Une courte description du composant devrait être placée ici"
+  },
   "recordedById": {
     "name": "ID de Enregistré par",
     "count": "",
@@ -397,7 +402,7 @@
   "active": {
     "name": "Activé",
     "count": "Activé",
-    "description": "Archive annotée par GBIF"
+    "description": "Une courte description du composant devrait être placée ici"
   },
   "personalCollection": {
     "name": "Collection personnelle",
@@ -423,7 +428,7 @@
     "name": "Nom",
     "count": "",
     "description": "Archive annotée par GBIF",
-    "searchPlaceholder": "Archive annotée par GBIF"
+    "searchPlaceholder": "Une courte description du composant devrait être placée ici"
   },
   "city": {
     "name": "Ville",
