@@ -270,9 +270,6 @@ function getAsValidWKT(testWkt, messages = {}) {
       return { failed: true };
     }
 
-    if (counterClockwiseWkt !== simplifiedWkt) {
-      debugger;
-    }
     return {
       failed: false,
       isSimplified: simplifiedWkt !== testWkt,

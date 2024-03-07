@@ -71,6 +71,8 @@ class Map extends Component {
         const currentProjection = projections[this.props.mapConfig?.projection || 'EPSG_3031'];
         const newView = currentProjection.getView(this.props.latestEvent.lat, this.props.latestEvent.lng, this.props.latestEvent.zoom);
         this.map.setView(newView);
+      } else if (this.props.latestEvent?.type === 'EXPLORE_AREA') {
+        this.exploreArea();
       }
     }
     // check if the size of the map container has changed and if so resize the map
@@ -116,6 +118,18 @@ class Map extends Component {
     var view = this.map.getView();
     view.setZoom(view.getZoom() - 1);
   };
+
+  exploreArea() {
+    // get the current view of the map as a bounding box and send it to the parent component
+    const { listener } = this.props;
+    if (!listener || typeof listener !== 'function') return;
+    const view = this.map.getView();
+    const extent = view.calculateExtent(this.map.getSize());
+    const leftTop = transform([extent[0], extent[3]], view.getProjection(), 'EPSG:4326');
+    const rightBottom = transform([extent[2], extent[1]], view.getProjection(), 'EPSG:4326');
+    
+    listener({ type: 'EXPLORE_AREA', bbox: {top: leftTop[1], left: leftTop[0], bottom: rightBottom[1], right: rightBottom[0]} });
+  }
 
   removeLayer(name) {
     this.map.getLayers().getArray()

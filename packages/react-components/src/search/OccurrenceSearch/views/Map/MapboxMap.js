@@ -70,6 +70,8 @@ class Map extends Component {
           zoom: this.props.latestEvent.zoom,
           essential: true // this animation is considered essential with respect to prefers-reduced-motion
         });
+      } else if (this.props.latestEvent?.type === 'EXPLORE_AREA') {
+        this.exploreArea();
       }
     }
     // check if the size of the map container has changed and if so resize the map
@@ -81,6 +83,15 @@ class Map extends Component {
       this.map.setStyle(this.getStyle());
       setTimeout(x => this.updateLayer(), 500);// apparently we risk adding the occurrence layer below the layers if we do not wait
     }
+  }
+
+  exploreArea() {
+    // get the current view of the map as a bounding box and send it to the parent component
+    const { listener } = this.props;
+    if (!listener || typeof listener !== 'function') return;
+    // get extent of the map view
+    const bounds = this.map.getBounds();
+    listener({ type: 'EXPLORE_AREA', bbox: {top: bounds.getNorth(), left: bounds.getWest(), bottom: bounds.getSouth(), right: bounds.getEast()} });
   }
 
   getStyle() {

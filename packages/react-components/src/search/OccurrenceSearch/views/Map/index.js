@@ -109,6 +109,10 @@ function Map({style, className, mapProps}) {
     pointLoad({ variables: { predicate } });
   }, [currentFilterContext.filterHash, rootPredicate]);
 
+  const handleFeatureChange = useCallback(({features}) => {
+    currentFilterContext.setFullField('geometry', features ?? []);
+  }, [currentFilterContext]);
+
   const q = currentFilterContext.filter?.must?.q?.[0];
   
   const options = {
@@ -126,7 +130,8 @@ function Map({style, className, mapProps}) {
     pointError,
     labelMap,
     q,
-    defaultMapSettings: more?.mapSettings
+    defaultMapSettings: more?.mapSettings,
+    onFeaturesChange: handleFeatureChange
   }
 
   if (typeof window !== 'undefined') {
