@@ -76,7 +76,7 @@
   "license": "Licens",
   "recommended": "Anbefalet",
   "processedOccurrences": "GBIF annoteret Arkiv",
-  "processedOccurrencesDescription": "GBIF annoteret Arkiv",
+  "processedOccurrencesDescription": "",
   "noDescriptionProvided": "Ingen beskrivelse tilgængelig",
   "pNetwork": "{NUMBER, select, 1{Netværk} other{Netværk}}",
   "parentEvent": "Overordnet event",

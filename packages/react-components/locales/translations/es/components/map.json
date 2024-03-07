@@ -13,7 +13,7 @@
         "PLATE_CAREE": "Proyección Geográfica"
     },
     "failedToGetUserLocation": {
-        "title": "",
-        "message": ""
+        "title": "Aquí debe colocarse una breve descripción del componente",
+        "message": "Aquí debe colocarse una breve descripción del componente"
     }
 }

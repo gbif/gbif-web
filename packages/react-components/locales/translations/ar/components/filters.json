@@ -12,12 +12,12 @@
   "hasCoordinate": {
     "name": "ذو احداثيات",
     "count": "",
-    "description": "أرشيف شروح \"جيبف\""
+    "description": ""
   },
   "hasGeospatialIssues": {
     "name": "ذو مشاكل جغرافية مكانية",
     "count": "ذو مشاكل جغرافية مكانية",
-    "description": "أرشيف شروح \"جيبف\""
+    "description": ""
   },
   "collectionKey": {
     "name": "مجموعة",
@@ -50,7 +50,7 @@
   "geometry": {
     "name": "موقع",
     "count": "",
-    "description": "أرشيف شروح \"جيبف\"",
+    "description": "",
     "placeholderLat": "",
     "placeholderLon": "",
     "placeholderDist": ""
@@ -83,7 +83,7 @@
   "alternativeCode": {
     "name": "أرشيف شروح \"جيبف\"",
     "count": "أرشيف شروح \"جيبف\"",
-    "description": "أرشيف شروح \"جيبف\""
+    "description": ""
   },
   "identifier": {
     "name": "المعرِّف",
@@ -98,7 +98,7 @@
   "discipline": {
     "name": "أرشيف شروح \"جيبف\"",
     "count": "أرشيف شروح \"جيبف\"",
-    "description": "أرشيف شروح \"جيبف\""
+    "description": ""
   },
   "collectionContentType": {
     "name": "أرشيف شروح \"جيبف\"",
@@ -289,6 +289,11 @@
     "count": "",
     "description": ""
   },
+  "projectId": {
+    "name": "معرف المشروع",
+    "count": "",
+    "description": ""
+  },
   "recordedById": {
     "name": "تم تسجيله بواسطة المعرف ID",
     "count": "",
@@ -397,7 +402,7 @@
   "active": {
     "name": "نشط",
     "count": "نشط",
-    "description": "أرشيف شروح \"جيبف\""
+    "description": ""
   },
   "personalCollection": {
     "name": "مجموعة شخصية",
@@ -423,7 +428,7 @@
     "name": "الاسم",
     "count": "",
     "description": "أرشيف شروح \"جيبف\"",
-    "searchPlaceholder": "أرشيف شروح \"جيبف\""
+    "searchPlaceholder": ""
   },
   "city": {
     "name": "المدينة",

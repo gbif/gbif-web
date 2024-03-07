@@ -8,7 +8,7 @@
     "download": "Завантажити",
     "clusters": "",
     "dashboard": "",
-    "sites": "Архів анотований GBIF"
+    "sites": ""
   },
   "table": {
     "lockColumn": ""
@@ -21,7 +21,7 @@
   "ternary": {
     "yes": "Так",
     "no": "Ні",
-    "either": "Архів анотований GBIF"
+    "either": ""
   },
   "loadMore": "Більше",
   "occurrenceClustersView": {

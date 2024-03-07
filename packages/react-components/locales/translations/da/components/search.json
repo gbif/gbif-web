@@ -8,7 +8,7 @@
     "download": "Download",
     "clusters": "",
     "dashboard": "",
-    "sites": "GBIF annoteret Arkiv"
+    "sites": ""
   },
   "table": {
     "lockColumn": ""
@@ -21,7 +21,7 @@
   "ternary": {
     "yes": "",
     "no": "",
-    "either": "GBIF annoteret Arkiv"
+    "either": ""
   },
   "loadMore": "Flere",
   "occurrenceClustersView": {

@@ -8,7 +8,7 @@
     "download": "Загрузить",
     "clusters": "",
     "dashboard": "Панель управления",
-    "sites": "Архив, аннотированный GBIF"
+    "sites": ""
   },
   "table": {
     "lockColumn": ""
@@ -21,7 +21,7 @@
   "ternary": {
     "yes": "Да",
     "no": "Нет",
-    "either": "Архив, аннотированный GBIF"
+    "either": ""
   },
   "loadMore": "Еще",
   "occurrenceClustersView": {

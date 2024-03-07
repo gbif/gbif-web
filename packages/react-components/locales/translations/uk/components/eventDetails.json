@@ -14,7 +14,7 @@
   "eventTypeHierarchyJoined": "",
   "eventHierarchyJoined": "",
   "map": "",
-  "backToTaxa": "Архів анотований GBIF",
+  "backToTaxa": "",
   "siteLocation": "",
   "info": {
     "original": "Оригінальний вміст",
@@ -27,7 +27,7 @@
     "record": "Запис",
     "occurrence": "Знахідка",
     "event": "Подія",
-    "dataStructure": "Архів анотований GBIF",
+    "dataStructure": "",
     "identification": "Визначення",
     "taxon": "Таксон",
     "location": "Місцезнаходження",
