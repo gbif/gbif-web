@@ -12,12 +12,12 @@
   "hasCoordinate": {
     "name": "Має координати",
     "count": "",
-    "description": ""
+    "description": "Архів анотований GBIF"
   },
   "hasGeospatialIssues": {
     "name": "Має проблеми з геопросторовою прив'язкою",
     "count": "Має проблеми з геопросторовою прив'язкою",
-    "description": ""
+    "description": "Архів анотований GBIF"
   },
   "collectionKey": {
     "name": "Колекція",
@@ -50,7 +50,7 @@
   "geometry": {
     "name": "Місцезнаходження",
     "count": "",
-    "description": "",
+    "description": "Архів анотований GBIF",
     "placeholderLat": "",
     "placeholderLon": "",
     "placeholderDist": ""
@@ -83,7 +83,7 @@
   "alternativeCode": {
     "name": "Архів анотований GBIF",
     "count": "Архів анотований GBIF",
-    "description": ""
+    "description": "Архів анотований GBIF"
   },
   "identifier": {
     "name": "Автор визначення",
@@ -98,7 +98,7 @@
   "discipline": {
     "name": "Архів анотований GBIF",
     "count": "Архів анотований GBIF",
-    "description": ""
+    "description": "Архів анотований GBIF"
   },
   "collectionContentType": {
     "name": "Архів анотований GBIF",
@@ -402,7 +402,7 @@
   "active": {
     "name": "Діяльна",
     "count": "Діяльна",
-    "description": ""
+    "description": "Архів анотований GBIF"
   },
   "personalCollection": {
     "name": "Приватна колекція",
@@ -428,7 +428,7 @@
     "name": "Ім’я",
     "count": "",
     "description": "Архів анотований GBIF",
-    "searchPlaceholder": ""
+    "searchPlaceholder": "Архів анотований GBIF"
   },
   "city": {
     "name": "Місто",
