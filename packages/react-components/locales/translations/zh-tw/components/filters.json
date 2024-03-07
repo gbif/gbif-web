@@ -12,12 +12,12 @@
   "hasCoordinate": {
     "name": "具有座標",
     "count": "",
-    "description": ""
+    "description": "GBIF 註記的存檔"
   },
   "hasGeospatialIssues": {
     "name": "有地理空間問題",
     "count": "有地理空間問題",
-    "description": ""
+    "description": "GBIF 註記的存檔"
   },
   "collectionKey": {
     "name": "蒐藏集",
@@ -50,7 +50,7 @@
   "geometry": {
     "name": "地點",
     "count": "",
-    "description": "",
+    "description": "GBIF 註記的存檔",
     "placeholderLat": "",
     "placeholderLon": "",
     "placeholderDist": ""
@@ -83,7 +83,7 @@
   "alternativeCode": {
     "name": "GBIF 註記的存檔",
     "count": "GBIF 註記的存檔",
-    "description": ""
+    "description": "GBIF 註記的存檔"
   },
   "identifier": {
     "name": "識別碼",
@@ -98,7 +98,7 @@
   "discipline": {
     "name": "GBIF 註記的存檔",
     "count": "GBIF 註記的存檔",
-    "description": ""
+    "description": "GBIF 註記的存檔"
   },
   "collectionContentType": {
     "name": "GBIF 註記的存檔",
@@ -402,7 +402,7 @@
   "active": {
     "name": "在線",
     "count": "在線",
-    "description": ""
+    "description": "GBIF 註記的存檔"
   },
   "personalCollection": {
     "name": "私人典藏",
@@ -428,7 +428,7 @@
     "name": "名稱",
     "count": "",
     "description": "GBIF 註記的存檔",
-    "searchPlaceholder": ""
+    "searchPlaceholder": "GBIF 註記的存檔"
   },
   "city": {
     "name": "城市",
