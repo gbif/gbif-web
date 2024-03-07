@@ -10,6 +10,7 @@ import * as help from './help';
 import * as news from './news';
 import * as notification from './notification';
 import * as resourceSearch from './resourceSearch';
+import * as resource from './resource';
 import * as tool from './tool';
 import * as misc from './misc';
 import * as menuItem from './menuItem';
@@ -31,6 +32,7 @@ const children = [
   news,
   notification,
   resourceSearch,
+  resource,
   tool,
   misc,
   menuItem, 

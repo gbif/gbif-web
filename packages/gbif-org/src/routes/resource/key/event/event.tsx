@@ -1,6 +1,4 @@
 import { Helmet } from 'react-helmet-async';
-import { LoaderArgs } from '@/types';
-import { EventQuery, EventQueryVariables } from '@/gql/graphql';
 import { ArticleContainer } from '@/routes/resource/key/components/ArticleContainer';
 import { ArticleBanner } from '@/routes/resource/key/components/ArticleBanner';
 import { ArticlePreTitle } from '../components/ArticlePreTitle';
@@ -14,61 +12,53 @@ import { KeyValuePair } from '../components/KeyValuePair';
 import { MdCalendarMonth } from 'react-icons/md';
 import { SecondaryLinks } from '../components/SecondaryLinks';
 import { ArticleAuxiliary } from '../components/ArticleAuxiliary';
-import { required } from '@/utils/required';
 import { useLoaderData } from 'react-router-dom';
 import { ArticleSkeleton } from '../components/ArticleSkeleton';
 import { ClientSideOnly } from '@/components/ClientSideOnly';
 import { ArticleFooterWrapper } from '../components/ArticleFooterWrapper';
 import { Documents } from '../components/Documents';
 import { RenderIfChildren } from '@/components/RenderIfChildren';
+import { fragmentManager } from '@/services/FragmentManager';
+import { createResourceLoaderWithRedirect } from '../utils';
+import { EventPageFragment } from '@/gql/graphql';
 
-const EVENT_QUERY = /* GraphQL */ `
-  query Event($key: String!) {
-    event(id: $key) {
-      id
-      title
-      summary
-      body
-      primaryImage {
-        ...ArticleBanner
-      }
-      primaryLink {
-        label
-        url
-      }
-      secondaryLinks {
-        label
-        url
-      }
-      location
-      country
-      start
-      end
-      eventLanguage
-      venue
-      allDayEvent
-      documents {
-        ...DocumentPreview
-      }
+fragmentManager.register(/* GraphQL */ `
+  fragment EventPage on Event {
+    id
+    title
+    summary
+    body
+    primaryImage {
+      ...ArticleBanner
+    }
+    primaryLink {
+      label
+      url
+    }
+    secondaryLinks {
+      label
+      url
+    }
+    location
+    country
+    start
+    end
+    eventLanguage
+    venue
+    allDayEvent
+    documents {
+      ...DocumentPreview
     }
   }
-`;
+`);
 
-export function eventSlugifyKeySelector(data: EventQuery) {
-  return data.event?.title;
-}
-
-export function eventPageLoader({ params, graphql }: LoaderArgs) {
-  const key = required(params.key, 'No key provided in the url');
-
-  return graphql.query<EventQuery, EventQueryVariables>(EVENT_QUERY, { key });
-}
+export const eventPageLoader = createResourceLoaderWithRedirect({
+  fragment: 'EventPage',
+  resourceType: 'Event',
+});
 
 export function EventPage() {
-  const { data } = useLoaderData() as { data: EventQuery };
-
-  if (data.event == null) throw new Error('404');
-  const resource = data.event;
+  const { resource } = useLoaderData() as { resource: EventPageFragment };
 
   const startDate = new Date(resource.start);
   const endDate = resource.end ? new Date(resource.end) : undefined;

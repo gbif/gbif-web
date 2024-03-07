@@ -19,7 +19,6 @@ fragmentManager.register(/* GraphQL */ `
   fragment ProjectAboutTab on GbifProject {
     projectId
     id
-    title
     body
     start
     end
@@ -83,10 +82,10 @@ fragmentManager.register(/* GraphQL */ `
 `);
 
 export function ProjectAboutTab() {
-  const { data } = useParentRouteLoaderData(RouteId.Project) as { data: ProjectQuery };
+  const { resource } = useParentRouteLoaderData(RouteId.Project) as ProjectQuery;
 
-  if (data.gbifProject == null) throw new Error('404');
-  const resource = data.gbifProject;
+  // Can't happen, but TS doesn't know that
+  if (resource?.__typename !== 'GbifProject') throw new Error('500');
 
   const fundedBy = (
     resource.overrideProgrammeFunding ?? resource.programme?.fundingOrganisations
@@ -231,7 +230,7 @@ function ParticipantOrFundingOrganisation({
   return (
     <span className="underlineLinks">
       {resources.filter(notNull).map((f, idx, array) => (
-        <span>
+        <span key={f.id}>
           {f.__typename === 'FundingOrganisation' && f.url ? (
             <a href={f.url}>{f.title}</a>
           ) : (

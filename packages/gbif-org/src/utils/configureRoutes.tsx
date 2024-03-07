@@ -1,4 +1,4 @@
-import { LoaderFunctionArgs, Outlet, RouteObject, redirect } from 'react-router-dom';
+import { LoaderFunctionArgs, Outlet, RouteObject } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Config } from '@/contexts/config/config';
 import { I18nProvider } from '@/contexts/i18n';
@@ -8,7 +8,6 @@ import { v4 as uuid } from 'uuid';
 import { DoneLoadingEvent, StartLoadingEvent } from '@/contexts/loadingElement';
 import { GraphQLService } from '@/services/GraphQLService';
 import { createRouteId } from './createRouteId';
-import { slugify } from './slugify';
 
 type ConfigureRoutesResult = {
   routes: RouteObject[];
@@ -66,7 +65,7 @@ function createRouteMetadataRecursively(
   return routes.map((route) => {
     const targetRouteMetadata: RouteMetadata = {
       id: route.id,
-      isSlugified: typeof route.slugifyKeySelector === 'function',
+      isSlugified: route.isSlugified === true,
       path: route.path,
       key: route.key,
       gbifRedirect: route.gbifRedirect,
@@ -99,9 +98,9 @@ function createRoutesRecursively(
       })
       // All routes that have a slugifiedKeySelector should be duplicated to also handle the slugified key
       .flatMap((route) => {
-        if (typeof route.slugifyKeySelector === 'function') {
+        if (route.isSlugified) {
           const clone = { ...route } as SourceRouteObject;
-          clone.path = `${route.path}/:slugifiedKey`;
+          clone.path = `${route.path}/:slugifiedTitle`;
           return [route, clone];
         }
         return route;
@@ -116,7 +115,7 @@ function createRoutesRecursively(
         const id = uuid();
 
         // Add loading element wrapper to the elements
-        transformElement(clone, id, nestingLevel, locale);
+        transformElement(clone, id, nestingLevel);
 
         // Add loading element wrapper to the lazy loaded element if it exists
         transformLazy(route, clone, id, nestingLevel, locale);
@@ -136,18 +135,13 @@ function transformId(clone: RouteObject, locale: Config['languages'][number]) {
   // Add the lang to the route id as it must be unique
   if (typeof clone.id !== 'string') return;
 
-  clone.id = createRouteId(clone.id, locale.code, clone.path?.includes(':slugifiedKey'));
+  clone.id = createRouteId(clone.id, locale.code, clone.path?.includes(':slugifiedTitle'));
 }
 
-function transformElement(
-  clone: RouteObject,
-  id: string,
-  nestingLevel: number,
-  locale: Config['languages'][number]
-) {
+function transformElement(clone: RouteObject, id: string, nestingLevel: number) {
   if (clone.element) {
     clone.element = (
-      <LoadingElementWrapper id={id} nestingLevel={nestingLevel} lang={locale.code}>
+      <LoadingElementWrapper id={id} nestingLevel={nestingLevel}>
         {clone.element}
       </LoadingElementWrapper>
     );
@@ -217,50 +211,8 @@ function transformLoader(
         }
       });
 
-      const response = await loader({ ...args, config, locale, graphql });
-
-      // Handle redirect of slugified keys
-      const redirect = await handleRedirect(route, response, args, id);
-      if (redirect) return redirect;
-
-      return response;
+      return loader({ ...args, config, locale, graphql, id });
     };
-  }
-}
-
-async function handleRedirect(
-  route: SourceRouteObject,
-  response: Response,
-  args: LoaderFunctionArgs,
-  id: string
-) {
-  if (typeof route.slugifyKeySelector === 'function') {
-    // Get the slugified key from the loader data
-    const json = await response.json();
-    const slugifiedKey = route.slugifyKeySelector(json?.data);
-    if (!slugifiedKey) return;
-    const slugifiedValue = slugify(slugifiedKey);
-
-    // If the slugified key is not already in the url, redirect to the correct url
-    if (typeof slugifiedValue === 'string' && args.params?.slugifiedKey !== slugifiedValue) {
-      // Remove the skeleton loading element
-      if (typeof window !== 'undefined') {
-        window.dispatchEvent(new DoneLoadingEvent({ id }));
-      }
-      // Prepare the URL by removing the existing slugifiedKey if present
-      let baseUrl = args.request.url;
-      if (args.params?.slugifiedKey) {
-        const escapedSlugifiedKey = args.params.slugifiedKey.replace(
-          /[-\/\\^$*+?.()|[\]{}]/g,
-          '\\$&'
-        );
-        const regex = new RegExp(`/${escapedSlugifiedKey}$`);
-        baseUrl = baseUrl.replace(regex, '');
-      }
-
-      // Redirect to the correct url with the new slugifiedKey
-      return redirect(`${baseUrl}/${slugifiedValue}`);
-    }
   }
 }
 
@@ -272,11 +224,6 @@ function transformChildren(
   locale: Config['languages'][number]
 ) {
   if (Array.isArray(route.children)) {
-    // If the route has a slugifiedKeySelector, we can remove the children as they are handled by the slugified route
-    if (typeof route.slugifyKeySelector === 'function') {
-      delete clone.children;
-    }
-
     clone.children = createRoutesRecursively(route.children, config, locale, nestingLevel + 1);
   }
 }

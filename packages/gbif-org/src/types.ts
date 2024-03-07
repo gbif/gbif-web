@@ -4,6 +4,7 @@ import { GraphQLService } from './services/GraphQLService';
 import { RouteId } from './hooks/useParentRouteLoaderData';
 
 export type LoaderArgs = {
+  id: string;
   request: Request;
   config: Config;
   locale: Config['languages'][number];
@@ -33,7 +34,7 @@ export type SourceRouteObject = Omit<RouteObject, 'loader' | 'children' | 'lazy'
   // 'lazy' is a function for lazy loading the route's component, improving performance by loading the component only when required.
   lazy?: () => Promise<Pick<RouteObject, 'element'>>;
 
-  slugifyKeySelector?: (data: any) => string | null | undefined;
+  isSlugified?: boolean;
 };
 
 export type RouteMetadata = {

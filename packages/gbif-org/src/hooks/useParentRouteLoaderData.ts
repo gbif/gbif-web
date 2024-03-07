@@ -1,7 +1,5 @@
 import { useI18n } from '@/contexts/i18n';
-import { useMetadataRoutes } from '@/contexts/metadataRoutes';
 import { createRouteId } from '@/utils/createRouteId';
-import { findRouteMetadataMatchById } from '@/utils/findRouteMetadataMathById';
 import { useRouteLoaderData } from 'react-router-dom';
 
 // This makes sure that the id is always in sync with the routes.tsx file.
@@ -12,14 +10,14 @@ export enum RouteId {
 // Use this hook to get the loader data from a parent route.
 // You must provide the id of the parent route.
 // The id is defined in the routes.tsx file.
-
 export function useParentRouteLoaderData(parentId: RouteId) {
   const { locale } = useI18n();
 
-  // Find out if the parent route is a slugified route as that will change the id
-  const metadataRoutes = useMetadataRoutes();
-  const route = findRouteMetadataMatchById(parentId, metadataRoutes);
-  const isSlugified = route?.isSlugified;
+  // Some routes that have slugified enabled could not a a title to slugify.
+  // In that case the data will be on the none slugified route.
+  // Because of that we need to check both routes while prioritizing the slugified route.
+  const slugifiedRouteData = useRouteLoaderData(createRouteId(parentId, locale.code, true));
+  const routeData = useRouteLoaderData(createRouteId(parentId, locale.code, false));
 
-  return useRouteLoaderData(createRouteId(parentId, locale.code, isSlugified));
+  return slugifiedRouteData || routeData;
 }

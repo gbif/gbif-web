@@ -1,5 +1,4 @@
 import { Helmet } from 'react-helmet-async';
-import { LoaderArgs } from '@/types';
 import { ArticleContainer } from '@/routes/resource/key/components/ArticleContainer';
 import { ArticleBanner } from '@/routes/resource/key/components/ArticleBanner';
 import { ArticlePreTitle } from '../components/ArticlePreTitle';
@@ -8,59 +7,50 @@ import { PublishedDate } from '../components/PublishedDate';
 import { ArticleIntro } from '../components/ArticleIntro';
 import { ArticleTextContainer } from '../components/ArticleTextContainer';
 import { ArticleBody } from '../components/ArticleBody';
-import { DataUseQuery, DataUseQueryVariables } from '@/gql/graphql';
 import { ArticleAuxiliary } from '../components/ArticleAuxiliary';
 import { ArticleTags } from '../components/ArticleTags';
 import { FormattedMessage } from 'react-intl';
 import { useLoaderData } from 'react-router-dom';
-import { required } from '@/utils/required';
 import { ArticleSkeleton } from '../components/ArticleSkeleton';
 import { ArticleFooterWrapper } from '../components/ArticleFooterWrapper';
+import { fragmentManager } from '@/services/FragmentManager';
+import { createResourceLoaderWithRedirect } from '../utils';
+import { DataUsePageFragment } from '@/gql/graphql';
 
-const DATA_USE_QUERY = /* GraphQL */ `
-  query DataUse($key: String!) {
-    dataUse(id: $key) {
-      id
-      title
-      summary
-      resourceUsed
-      body
-      primaryImage {
-        ...ArticleBanner
-      }
-      primaryLink {
-        label
-        url
-      }
-      secondaryLinks {
-        label
-        url
-      }
-      countriesOfCoverage
-      topics
-      purposes
-      audiences
-      citation
-      createdAt
+fragmentManager.register(/* GraphQL */ `
+  fragment DataUsePage on DataUse {
+    id
+    title
+    summary
+    resourceUsed
+    body
+    primaryImage {
+      ...ArticleBanner
     }
+    primaryLink {
+      label
+      url
+    }
+    secondaryLinks {
+      label
+      url
+    }
+    countriesOfCoverage
+    topics
+    purposes
+    audiences
+    citation
+    createdAt
   }
-`;
+`);
 
-export function dataUseSlugifyKeySelector(data: DataUseQuery) {
-  return data.dataUse?.title;
-}
-
-export function dataUsePageLoader({ params, graphql }: LoaderArgs) {
-  const key = required(params.key, 'No key provided in the url');
-
-  return graphql.query<DataUseQuery, DataUseQueryVariables>(DATA_USE_QUERY, { key });
-}
+export const dataUsePageLoader = createResourceLoaderWithRedirect({
+  fragment: 'DataUsePage',
+  resourceType: 'DataUse',
+});
 
 export function DataUsePage() {
-  const { data } = useLoaderData() as { data: DataUseQuery };
-
-  if (data.dataUse == null) throw new Error('404');
-  const resource = data.dataUse;
+  const { resource } = useLoaderData() as { resource: DataUsePageFragment };
 
   return (
     <>

@@ -49,14 +49,17 @@ const SLOW_DATASET_QUERY = /* GraphQL */ `
 `;
 
 export function ProjectDatasetsTab() {
-  const { data: projectData } = useParentRouteLoaderData(RouteId.Project) as { data: ProjectQuery };
-  const projectId = projectData?.gbifProject?.projectId as string;
-  const help = projectData?.datasetsHelp;
+  const { resource, datasetsHelp } = useParentRouteLoaderData(RouteId.Project) as ProjectQuery;
+
+  // Can't happen but TS doesn't know
+  if (resource?.__typename !== 'GbifProject') throw new Error('500');
+
+  const projectId = resource?.projectId as string;
 
   const datasets = useQuery<ProjectDatasetsQuery, ProjectDatasetsQueryVariables>(DATASET_QUERY, {
     throwAllErrors: true,
     variables: {
-      projectId: projectData?.gbifProject?.projectId as string,
+      projectId,
     },
   });
 
@@ -68,7 +71,7 @@ export function ProjectDatasetsTab() {
 
   return (
     <div className="pt-4 max-w-3xl m-auto">
-      {help && <HelpLine help={help} />}
+      {datasetsHelp && <HelpLine help={datasetsHelp} />}
       {datasets.data.datasetSearch.results.map((item) => (
         <DatasetResult key={item.key} dataset={item} counts={datasetsCount[item.key]} />
       ))}
