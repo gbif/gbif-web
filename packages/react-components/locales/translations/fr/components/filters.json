@@ -12,12 +12,12 @@
   "hasCoordinate": {
     "name": "A des coordonnées",
     "count": "A des coordonnées",
-    "description": "Une courte description du composant devrait être placée ici"
+    "description": "Archive annotée par GBIF"
   },
   "hasGeospatialIssues": {
     "name": "Présente des problèmes géospatiaux",
     "count": "Présente des problèmes géospatiaux",
-    "description": "Une courte description du composant devrait être placée ici"
+    "description": "Archive annotée par GBIF"
   },
   "collectionKey": {
     "name": "Collection",
@@ -50,7 +50,7 @@
   "geometry": {
     "name": "Lieu",
     "count": "{num, plural, one { filtre } other {# filtres }}",
-    "description": "Une courte description du composant devrait être placée ici",
+    "description": "Archive annotée par GBIF",
     "placeholderLat": "Latitude",
     "placeholderLon": "Longitude",
     "placeholderDist": "Distance"
@@ -83,7 +83,7 @@
   "alternativeCode": {
     "name": "Archive annotée par GBIF",
     "count": "Archive annotée par GBIF",
-    "description": "Une courte description du composant devrait être placée ici"
+    "description": "Archive annotée par GBIF"
   },
   "identifier": {
     "name": "Identifiant",
@@ -98,7 +98,7 @@
   "discipline": {
     "name": "Archive annotée par GBIF",
     "count": "Archive annotée par GBIF",
-    "description": "Une courte description du composant devrait être placée ici"
+    "description": "Archive annotée par GBIF"
   },
   "collectionContentType": {
     "name": "Archive annotée par GBIF",
@@ -402,7 +402,7 @@
   "active": {
     "name": "Activé",
     "count": "Activé",
-    "description": "Une courte description du composant devrait être placée ici"
+    "description": "Archive annotée par GBIF"
   },
   "personalCollection": {
     "name": "Collection personnelle",
@@ -428,7 +428,7 @@
     "name": "Nom",
     "count": "",
     "description": "Archive annotée par GBIF",
-    "searchPlaceholder": "Une courte description du composant devrait être placée ici"
+    "searchPlaceholder": "Archive annotée par GBIF"
   },
   "city": {
     "name": "Ville",
