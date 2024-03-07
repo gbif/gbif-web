@@ -18,12 +18,7 @@ import {
   PublisherPageSkeleton,
   publisherLoader,
 } from '@/routes/publisher/key/PublisherPage';
-import {
-  NewsPage,
-  NewsPageSkeleton,
-  newsPageLoader,
-  newsSlugifyKeySelector,
-} from '@/routes/resource/key/news/news';
+import { NewsPage, NewsPageSkeleton, newsPageLoader } from '@/routes/resource/key/news/news';
 import { PublisherAboutTab } from '@/routes/publisher/key/AboutTab';
 import { PublisherOccurrencesTab } from '@/routes/publisher/key/OccurrencesTab';
 import { DatasetAboutTab } from '@/routes/dataset/key/AboutTab';
@@ -34,43 +29,28 @@ import {
   DataUsePage,
   DataUsePageSkeleton,
   dataUsePageLoader,
-  dataUseSlugifyKeySelector,
 } from '@/routes/resource/key/data-use/data-use';
-import {
-  EventPage,
-  EventPageSkeleton,
-  eventPageLoader,
-  eventSlugifyKeySelector,
-} from '@/routes/resource/key/event/event';
+import { EventPage, EventPageSkeleton, eventPageLoader } from '@/routes/resource/key/event/event';
 import {
   ArticlePage,
   ArticlePageSkeleton,
   articlePageLoader,
-  articleSlugifyKeySelector,
 } from '@/routes/resource/key/article/article';
-import {
-  ToolPage,
-  ToolPageSkeleton,
-  toolPageLoader,
-  toolSlugifyKeySelector,
-} from '@/routes/resource/key/tool/tool';
+import { ToolPage, ToolPageSkeleton, toolPageLoader } from '@/routes/resource/key/tool/tool';
 import {
   ProgrammePage,
   ProgrammePageSkeleton,
   programmePageLoader,
-  programmeSlugifyKeySelector,
 } from '@/routes/resource/key/programme/programme';
 import {
   CompositionPage,
   CompositionPageSkeleton,
   compositionPageLoader,
-  compositionSlugifyKeySelector,
 } from '@/routes/resource/key/composition/composition';
 import {
   DocumentPage,
   DocumentPageSkeleton,
   documentPageLoader,
-  documentSlugifyKeySelector,
 } from '@/routes/resource/key/document/document';
 import {
   ProjectAboutTab,
@@ -81,9 +61,9 @@ import {
   ProjectPageSkeleton,
   projectNewsAndEventsLoader,
   projectPageLoader,
-  projectSlugifyKeySelector,
 } from '@/routes/resource/key/project';
 import { RouteId } from '@/hooks/useParentRouteLoaderData';
+import { AliasHandling, aliasHandlingLoader } from '@/routes/resource/key/AliasHandling';
 
 const baseRoutes: SourceRouteObject[] = [
   {
@@ -240,8 +220,9 @@ const baseRoutes: SourceRouteObject[] = [
             ],
           },
           {
-            path: '*',
-            element: <NotFound />,
+            path: ':alias',
+            loader: aliasHandlingLoader,
+            element: <AliasHandling />,
           },
         ],
       },

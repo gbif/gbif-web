@@ -45,7 +45,7 @@ export function HomePage(): React.ReactElement {
                 <DynamicLink className="me-4" to="/article/ExNixkGbYWCsgcWE4YScw">
                   Data papers
                 </DynamicLink>
-                <DynamicLink className="me-4" to="/article/3wusV3o9X2WO6aWU8MK2WG">
+                <DynamicLink className="me-4" to="/standards">
                   Data standards
                 </DynamicLink>
               </li>

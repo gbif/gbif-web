@@ -20,6 +20,7 @@ const documents = {
     "\n  query Occurrence($key: ID!) {\n    occurrence(key: $key) {\n      eventDate\n      scientificName\n      coordinates\n      dataset {\n        key\n        title\n      }\n    }\n  }\n": types.OccurrenceDocument,
     "\n  query OccurrenceSearch($from: Int, $predicate: Predicate) {\n    occurrenceSearch(predicate: $predicate) {\n      documents(from: $from) {\n        from\n        size\n        total\n        results {\n          key\n          scientificName\n          eventDate\n          coordinates\n          county\n          basisOfRecord\n          datasetName\n          publisherTitle\n        }\n      }\n    }\n  }\n": types.OccurrenceSearchDocument,
     "\n  query Publisher($key: ID!) {\n    publisher: organization(key: $key) {\n      title\n    }\n  }\n": types.PublisherDocument,
+    "\n  query AliasHandling($alias: String!) {\n    resource(alias: $alias) {\n      ...ResourceRedirectDetails\n    }\n  }\n": types.AliasHandlingDocument,
     "\n  fragment ArticlePage on Article {\n    id\n    title\n    summary\n    body\n    primaryImage {\n      ...ArticleBanner\n    }\n    secondaryLinks {\n      label\n      url\n    }\n    documents {\n      ...DocumentPreview\n    }\n    topics\n    purposes\n    audiences\n    citation\n    createdAt\n  }\n": types.ArticlePageFragmentDoc,
     "\n  fragment ArticleBanner on AssetImage {\n    description\n    title\n    file {\n      url\n      details {\n        image {\n          width\n          height\n        }\n      }\n      normal: thumbor(width: 1200, height: 500)\n      mobile: thumbor(width: 800, height: 400)\n    }\n  }\n": types.ArticleBannerFragmentDoc,
     "\n  fragment DocumentPreview on DocumentAsset {\n    title\n    file {\n      url\n      fileName\n      contentType\n      volatile_documentType\n      details {\n        size\n      }\n    }\n  }\n": types.DocumentPreviewFragmentDoc,
@@ -99,6 +100,10 @@ export function graphql(source: "\n  query OccurrenceSearch($from: Int, $predica
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query Publisher($key: ID!) {\n    publisher: organization(key: $key) {\n      title\n    }\n  }\n"): (typeof documents)["\n  query Publisher($key: ID!) {\n    publisher: organization(key: $key) {\n      title\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query AliasHandling($alias: String!) {\n    resource(alias: $alias) {\n      ...ResourceRedirectDetails\n    }\n  }\n"): (typeof documents)["\n  query AliasHandling($alias: String!) {\n    resource(alias: $alias) {\n      ...ResourceRedirectDetails\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
