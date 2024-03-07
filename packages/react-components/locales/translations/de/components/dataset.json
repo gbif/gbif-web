@@ -76,7 +76,7 @@
   "license": "Lizenz",
   "recommended": "Empfohlen",
   "processedOccurrences": "GBIF-kommentiertes Archiv",
-  "processedOccurrencesDescription": "Bezeichner für die Sammlung, zu der das usprüngliche Objekt gehört.",
+  "processedOccurrencesDescription": "Stadt zum Fundort.",
   "noDescriptionProvided": "Keine Beschreibung verfügbar",
   "pNetwork": "{NUMBER, plural, one{Netzwerk} other{Netzwerke}}",
   "parentEvent": "Übergeordnetes Ereignis",
