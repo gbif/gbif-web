@@ -76,7 +76,7 @@
   "license": "الرخصة",
   "recommended": "موصى به",
   "processedOccurrences": "أرشيف شروح \"جيبف\"",
-  "processedOccurrencesDescription": "",
+  "processedOccurrencesDescription": "أرشيف شروح \"جيبف\"",
   "noDescriptionProvided": "لا يوجد وصف متاح",
   "pNetwork": "{NUMBER, select,1{شبكة الاتصال} other{شبكات اتصال}}",
   "parentEvent": "الحادثة الرئيسية",
