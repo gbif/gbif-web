@@ -8,7 +8,7 @@
     "download": "Download",
     "clusters": "",
     "dashboard": "",
-    "sites": "Bezeichner für die Sammlung, zu der das usprüngliche Objekt gehört."
+    "sites": "Stadt zum Fundort."
   },
   "table": {
     "lockColumn": "Spalte fixieren"
@@ -21,7 +21,7 @@
   "ternary": {
     "yes": "",
     "no": "",
-    "either": "Bezeichner für die Sammlung, zu der das usprüngliche Objekt gehört."
+    "either": "Stadt zum Fundort."
   },
   "loadMore": "Mehr",
   "occurrenceClustersView": {

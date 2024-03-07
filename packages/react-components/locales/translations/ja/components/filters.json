@@ -12,12 +12,12 @@
   "hasCoordinate": {
     "name": "座標あり",
     "count": "",
-    "description": ""
+    "description": "GBIFがアノーテーションしたアーカイブ"
   },
   "hasGeospatialIssues": {
     "name": "地理空間情報の解釈に問題あり",
     "count": "地理空間情報の解釈に問題あり",
-    "description": ""
+    "description": "GBIFがアノーテーションしたアーカイブ"
   },
   "collectionKey": {
     "name": "コレクション",
@@ -50,7 +50,7 @@
   "geometry": {
     "name": "位置情報",
     "count": "",
-    "description": "",
+    "description": "GBIFがアノーテーションしたアーカイブ",
     "placeholderLat": "",
     "placeholderLon": "",
     "placeholderDist": ""
@@ -83,7 +83,7 @@
   "alternativeCode": {
     "name": "GBIFがアノーテーションしたアーカイブ",
     "count": "GBIFがアノーテーションしたアーカイブ",
-    "description": ""
+    "description": "GBIFがアノーテーションしたアーカイブ"
   },
   "identifier": {
     "name": "ID",
@@ -98,7 +98,7 @@
   "discipline": {
     "name": "GBIFがアノーテーションしたアーカイブ",
     "count": "GBIFがアノーテーションしたアーカイブ",
-    "description": ""
+    "description": "GBIFがアノーテーションしたアーカイブ"
   },
   "collectionContentType": {
     "name": "GBIFがアノーテーションしたアーカイブ",
@@ -402,7 +402,7 @@
   "active": {
     "name": "活動中",
     "count": "活動中",
-    "description": ""
+    "description": "GBIFがアノーテーションしたアーカイブ"
   },
   "personalCollection": {
     "name": "個人コレクション",
@@ -428,7 +428,7 @@
     "name": "名前",
     "count": "",
     "description": "GBIFがアノーテーションしたアーカイブ",
-    "searchPlaceholder": ""
+    "searchPlaceholder": "GBIFがアノーテーションしたアーカイブ"
   },
   "city": {
     "name": "市",

@@ -13,7 +13,7 @@
         "PLATE_CAREE": "正距円筒図法（plate carrée）"
     },
     "failedToGetUserLocation": {
-        "title": "",
-        "message": ""
+        "title": "GBIFがアノーテーションしたアーカイブ",
+        "message": "GBIFがアノーテーションしたアーカイブ"
     }
 }

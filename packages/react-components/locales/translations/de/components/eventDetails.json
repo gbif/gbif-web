@@ -14,7 +14,7 @@
   "eventTypeHierarchyJoined": "",
   "eventHierarchyJoined": "",
   "map": "",
-  "backToTaxa": "Bezeichner für die Sammlung, zu der das usprüngliche Objekt gehört.",
+  "backToTaxa": "Stadt zum Fundort.",
   "siteLocation": "",
   "info": {
     "original": "Original",
@@ -27,7 +27,7 @@
     "record": "Eintrag",
     "occurrence": "Vorkommen",
     "event": "Ereignis",
-    "dataStructure": "Bezeichner für die Sammlung, zu der das usprüngliche Objekt gehört.",
+    "dataStructure": "Stadt zum Fundort.",
     "identification": "Bestimmung",
     "taxon": "Taxon",
     "location": "Fundort",

@@ -12,12 +12,12 @@
   "hasCoordinate": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "GBIF annoteret Arkiv"
   },
   "hasGeospatialIssues": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "GBIF annoteret Arkiv"
   },
   "collectionKey": {
     "name": "",
@@ -50,7 +50,7 @@
   "geometry": {
     "name": "",
     "count": "",
-    "description": "",
+    "description": "GBIF annoteret Arkiv",
     "placeholderLat": "",
     "placeholderLon": "",
     "placeholderDist": ""
@@ -83,7 +83,7 @@
   "alternativeCode": {
     "name": "GBIF annoteret Arkiv",
     "count": "GBIF annoteret Arkiv",
-    "description": ""
+    "description": "GBIF annoteret Arkiv"
   },
   "identifier": {
     "name": "Identifikator",
@@ -98,7 +98,7 @@
   "discipline": {
     "name": "GBIF annoteret Arkiv",
     "count": "GBIF annoteret Arkiv",
-    "description": ""
+    "description": "GBIF annoteret Arkiv"
   },
   "collectionContentType": {
     "name": "GBIF annoteret Arkiv",
@@ -402,7 +402,7 @@
   "active": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "GBIF annoteret Arkiv"
   },
   "personalCollection": {
     "name": "",
@@ -428,7 +428,7 @@
     "name": "Navn",
     "count": "",
     "description": "GBIF annoteret Arkiv",
-    "searchPlaceholder": ""
+    "searchPlaceholder": "GBIF annoteret Arkiv"
   },
   "city": {
     "name": "",
