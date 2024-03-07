@@ -12,12 +12,12 @@
   "hasCoordinate": {
     "name": "Имеет координаты",
     "count": "Имеет координаты",
-    "description": ""
+    "description": "Архив, аннотированный GBIF"
   },
   "hasGeospatialIssues": {
     "name": "Есть проблемы в географической привязке",
     "count": "Есть проблемы в географической привязке",
-    "description": ""
+    "description": "Архив, аннотированный GBIF"
   },
   "collectionKey": {
     "name": "Коллекция",
@@ -50,7 +50,7 @@
   "geometry": {
     "name": "Местонахождение (топоним)",
     "count": "{num, plural, one { filter } few {# filters } many {# filters } other {# filters }}",
-    "description": "",
+    "description": "Архив, аннотированный GBIF",
     "placeholderLat": "Широта",
     "placeholderLon": "Долгота",
     "placeholderDist": "Расстояние"
@@ -83,7 +83,7 @@
   "alternativeCode": {
     "name": "Архив, аннотированный GBIF",
     "count": "Архив, аннотированный GBIF",
-    "description": ""
+    "description": "Архив, аннотированный GBIF"
   },
   "identifier": {
     "name": "Идентификатор",
@@ -98,7 +98,7 @@
   "discipline": {
     "name": "Архив, аннотированный GBIF",
     "count": "Архив, аннотированный GBIF",
-    "description": ""
+    "description": "Архив, аннотированный GBIF"
   },
   "collectionContentType": {
     "name": "Архив, аннотированный GBIF",
@@ -402,7 +402,7 @@
   "active": {
     "name": "Действующая",
     "count": "Действующая",
-    "description": ""
+    "description": "Архив, аннотированный GBIF"
   },
   "personalCollection": {
     "name": "Личная коллекция",
@@ -428,7 +428,7 @@
     "name": "Имя",
     "count": "",
     "description": "Архив, аннотированный GBIF",
-    "searchPlaceholder": ""
+    "searchPlaceholder": "Архив, аннотированный GBIF"
   },
   "city": {
     "name": "Город",
