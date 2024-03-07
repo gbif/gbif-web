@@ -1,13 +1,13 @@
-import { Outlet, RouteObject } from 'react-router-dom';
+import { LoaderFunctionArgs, Outlet, RouteObject } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Config } from '@/contexts/config/config';
 import { I18nProvider } from '@/contexts/i18n';
 import { SourceRouteObject, RouteMetadata } from '@/types';
 import { LoadingElementWrapper } from '@/components/LoadingElementWrapper';
 import { v4 as uuid } from 'uuid';
-import { StartLoadingEvent } from '@/contexts/loadingElement';
+import { DoneLoadingEvent, StartLoadingEvent } from '@/contexts/loadingElement';
 import { GraphQLService } from '@/services/GraphQLService';
-import { createLocalizedRouteId } from './createLocalizedRouteId';
+import { createRouteId } from './createRouteId';
 
 type ConfigureRoutesResult = {
   routes: RouteObject[];
@@ -64,6 +64,8 @@ function createRouteMetadataRecursively(
 ): RouteMetadata[] {
   return routes.map((route) => {
     const targetRouteMetadata: RouteMetadata = {
+      id: route.id,
+      isSlugified: route.isSlugified === true,
       path: route.path,
       key: route.key,
       gbifRedirect: route.gbifRedirect,
@@ -82,85 +84,146 @@ function createRoutesRecursively(
   locale: Config['languages'][number],
   nestingLevel = 0
 ): RouteObject[] {
-  return routes
-    .filter((route) => {
-      // If the config has no pages array, we want to keep all routes
-      if (!Array.isArray(config.pages)) return true;
+  return (
+    routes
+      .filter((route) => {
+        // If the config has no pages array, we want to keep all routes
+        if (!Array.isArray(config.pages)) return true;
 
-      // If the page doesn't have a key, we want to keep it
-      if (typeof route.key !== 'string') return true;
+        // If the page doesn't have a key, we want to keep it
+        if (typeof route.key !== 'string') return true;
 
-      // If the page is in the config's pages array, we want to keep it
-      return config.pages.some((page) => page.key === route.key);
-    })
-    .map((route) => {
-      const clone = { ...route } as RouteObject;
+        // If the page is in the config's pages array, we want to keep it
+        return config.pages.some((page) => page.key === route.key);
+      })
+      // All routes that have a slugifiedKeySelector should be duplicated to also handle the slugified key
+      .flatMap((route) => {
+        if (route.isSlugified) {
+          const clone = { ...route } as SourceRouteObject;
+          clone.path = `${route.path}/:slugifiedTitle`;
+          return [route, clone];
+        }
+        return route;
+      })
+      .map((route) => {
+        const clone = { ...route } as RouteObject;
 
-      // Add the lang to the route id as it must be unique
-      if (typeof clone.id === 'string') clone.id = createLocalizedRouteId(clone.id, locale.code);
+        // Make sure the route id is unique
+        transformId(clone, locale);
 
-      // Generate a unique id for the loading element
-      const id = uuid();
+        // Generate a unique id for the loading element
+        const id = uuid();
 
-      // Add loading element wrapper to the elements
-      if (route.element) {
-        clone.element = (
-          <LoadingElementWrapper id={id} nestingLevel={nestingLevel} lang={locale.code}>
-            {route.element}
-          </LoadingElementWrapper>
+        // Add loading element wrapper to the elements
+        transformElement(clone, id, nestingLevel);
+
+        // Add loading element wrapper to the lazy loaded element if it exists
+        transformLazy(route, clone, id, nestingLevel, locale);
+
+        // Inject the config and locale into the loader & add loading events
+        transformLoader(route, clone, id, locale, nestingLevel, config);
+
+        // Recurse into children
+        transformChildren(route, clone, nestingLevel, config, locale);
+
+        return clone;
+      })
+  );
+}
+
+function transformId(clone: RouteObject, locale: Config['languages'][number]) {
+  // Add the lang to the route id as it must be unique
+  if (typeof clone.id !== 'string') return;
+
+  clone.id = createRouteId(clone.id, locale.code, clone.path?.includes(':slugifiedTitle'));
+}
+
+function transformElement(clone: RouteObject, id: string, nestingLevel: number) {
+  if (clone.element) {
+    clone.element = (
+      <LoadingElementWrapper id={id} nestingLevel={nestingLevel}>
+        {clone.element}
+      </LoadingElementWrapper>
+    );
+  }
+  return clone;
+}
+
+function transformLazy(
+  route: SourceRouteObject,
+  clone: RouteObject,
+  id: string,
+  nestingLevel: number,
+  locale: Config['languages'][number]
+) {
+  const lazy = route.lazy;
+  if (typeof lazy === 'function') {
+    clone.lazy = () =>
+      lazy().then((config) => {
+        const element = config.element;
+
+        if (element) {
+          return {
+            ...config,
+            element: (
+              <LoadingElementWrapper id={id} nestingLevel={nestingLevel} lang={locale.code}>
+                {element}
+              </LoadingElementWrapper>
+            ),
+          };
+        }
+      }) as any;
+  }
+}
+
+function transformLoader(
+  route: SourceRouteObject,
+  clone: RouteObject,
+  id: string,
+  locale: Config['languages'][number],
+  nestingLevel: number,
+  config: Config
+) {
+  const loader = route.loader;
+  if (typeof loader === 'function') {
+    clone.loader = async (args: LoaderFunctionArgs) => {
+      if (route.loadingElement && typeof window !== 'undefined') {
+        window.dispatchEvent(
+          new StartLoadingEvent({
+            id,
+            lang: locale.code,
+            nestingLevel,
+            loadingElement: route.loadingElement,
+          })
         );
       }
 
-      // Add loading element wrapper to the lazy loaded element if it exists
-      const lazy = route.lazy;
-      if (typeof lazy === 'function') {
-        clone.lazy = () =>
-          lazy().then((config) => {
-            const element = config.element;
+      const graphql = new GraphQLService({
+        endpoint: config.graphqlEndpoint,
+        abortSignal: args.request.signal,
+        locale: locale.cmsLocale || locale.code,
+      });
 
-            if (element) {
-              return {
-                ...config,
-                element: (
-                  <LoadingElementWrapper id={id} nestingLevel={nestingLevel} lang={locale.code}>
-                    {element}
-                  </LoadingElementWrapper>
-                ),
-              };
-            }
-          }) as any;
-      }
+      // Remove the skeleton loading element if the request is aborted
+      args.request.signal.addEventListener('abort', () => {
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new DoneLoadingEvent({ id }));
+        }
+      });
 
-      // Inject the config and locale into the loader & add loading events
-      const loader = route.loader;
-      if (typeof loader === 'function') {
-        clone.loader = (args: any) => {
-          if (route.loadingElement && typeof window !== 'undefined') {
-            window.dispatchEvent(
-              new StartLoadingEvent({
-                id,
-                lang: locale.code,
-                nestingLevel,
-                loadingElement: route.loadingElement,
-              })
-            );
-          }
+      return loader({ ...args, config, locale, graphql, id });
+    };
+  }
+}
 
-          const graphql = new GraphQLService({
-            endpoint: config.graphqlEndpoint,
-            abortSignal: args.request.signal,
-            locale: locale.cmsLocale || locale.code,
-          });
-
-          return loader({ ...args, config, locale, graphql });
-        };
-      }
-
-      // Recurse into children
-      if (Array.isArray(route.children)) {
-        clone.children = createRoutesRecursively(route.children, config, locale, nestingLevel + 1);
-      }
-
-      return clone;
-    });
+function transformChildren(
+  route: SourceRouteObject,
+  clone: RouteObject,
+  nestingLevel: number,
+  config: Config,
+  locale: Config['languages'][number]
+) {
+  if (Array.isArray(route.children)) {
+    clone.children = createRoutesRecursively(route.children, config, locale, nestingLevel + 1);
+  }
 }

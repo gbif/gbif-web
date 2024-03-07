@@ -1,6 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { LoaderArgs } from '@/types';
-import { ProjectQuery, ProjectQueryVariables } from '@/gql/graphql';
+import { ProjectPageFragment } from '@/gql/graphql';
 import { ArticleContainer } from '@/routes/resource/key/components/ArticleContainer';
 import { ArticleTitle } from '../components/ArticleTitle';
 import { ArticleTextContainer } from '../components/ArticleTextContainer';
@@ -9,46 +8,50 @@ import { Tabs } from '@/components/Tabs';
 import { Outlet, useLoaderData } from 'react-router-dom';
 import { FormattedMessage, FormattedDateTimeRange, FormattedNumber } from 'react-intl';
 import { MdLink } from 'react-icons/md';
-import { required } from '@/utils/required';
 import { ArticleSkeleton } from '../components/ArticleSkeleton';
 import { MdCalendarMonth as CalendarIcon } from 'react-icons/md';
 import { MdEuro as EuroIcon } from 'react-icons/md';
 import { RenderIfChildren } from '@/components/RenderIfChildren';
 import { FundingBanner } from '../components/FundingBanner';
+import { fragmentManager } from '@/services/FragmentManager';
+import { createResourceLoaderWithRedirect } from '../utils';
 
-const PROJECT_QUERY = /* GraphQL */ `
-  query Project($key: String!) {
-    gbifProject(id: $key) {
-      # Define the values used by this page
-      title
-      status
-      start
-      end
-      fundsAllocated
-      primaryLink {
-        label
-        url
-      }
-      ...ProjectFundingBanner
-      # The Project About tab uses the data from this loader and defines its own data needs in this fragment
-      ...ProjectAboutTab
+fragmentManager.register(/* GraphQL */ `
+  fragment ProjectPage on GbifProject {
+    # Define the values used by this page
+    title
+    status
+    start
+    end
+    fundsAllocated
+    primaryLink {
+      label
+      url
     }
-    # The Project Datasets tab also uses some data from this loader and defines its own data needs in this fragment
-    ...ProjectDatasetsTab
+    ...ProjectFundingBanner
+    # The Project About tab uses the data from this loader and defines its own data needs in this fragment
+    ...ProjectAboutTab
   }
-`;
+`);
 
-export async function projectPageLoader({ params, graphql }: LoaderArgs) {
-  const key = required(params.key, 'No key provided in the url');
-
-  return graphql.query<ProjectQuery, ProjectQueryVariables>(PROJECT_QUERY, { key });
-}
+export const projectPageLoader = createResourceLoaderWithRedirect({
+  resourceType: 'GbifProject',
+  query: /* GraphQL */ `
+    query Project($key: String!) {
+      resource(id: $key) {
+        ...ResourceRedirectDetails
+        ... on GbifProject {
+          ...ProjectPage
+        }
+      }
+      # The Project Datasets tab also uses some data from this loader and defines its own data needs in this fragment
+      ...ProjectDatasetsTab
+    }
+  `,
+});
 
 export function ProjectPage() {
-  const { data } = useLoaderData() as { data: ProjectQuery };
-
-  if (data.gbifProject == null) throw new Error('404');
-  const resource = data.gbifProject;
+  const { resource } = useLoaderData() as { resource: ProjectPageFragment };
 
   // if end date is in the past, the project is closed
   const isClosed = resource.status === 'CLOSED' || resource.status === 'DISCONTINUED';
@@ -118,7 +121,7 @@ const staticTabLinks: Array<{ to: string; children: React.ReactNode }> = [
   { to: 'news', children: <FormattedMessage id="cms.project.newsAndEvents" /> },
 ];
 
-function createTabLinks(resource: ProjectQuery['gbifProject']) {
+function createTabLinks(resource: ProjectPageFragment) {
   const tabLinks = [...staticTabLinks];
 
   if (resource?.primaryLink) {

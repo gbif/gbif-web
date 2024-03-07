@@ -1,7 +1,7 @@
 import { RouteMetadata } from '@/types';
 import { matchPath } from 'react-router-dom';
 
-export function findRouteMetadataMatch(
+export function findRouteMetadataMatchByPathname(
   pathname: string,
   routes: RouteMetadata[]
 ): { route: RouteMetadata; params: Record<string, string | undefined> } | null {
@@ -12,7 +12,7 @@ export function findRouteMetadataMatch(
     }
 
     if (route.children) {
-      const match = findRouteMetadataMatch(pathname, route.children);
+      const match = findRouteMetadataMatchByPathname(pathname, route.children);
       if (match) return match;
     }
   }

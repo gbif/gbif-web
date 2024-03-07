@@ -1,38 +1,32 @@
 import { Helmet } from 'react-helmet-async';
-import { LoaderArgs } from '@/types';
-import { ProgrammeQuery, ProgrammeQueryVariables } from '@/gql/graphql';
 import { ArticleSkeleton } from '../components/ArticleSkeleton';
 import { BlockItem } from '../composition/BlockItem';
-import { required } from '@/utils/required';
 import { useLoaderData } from 'react-router-dom';
 import { FundingBanner } from '../components/FundingBanner';
+import { fragmentManager } from '@/services/FragmentManager';
+import { createResourceLoaderWithRedirect } from '../utils';
+import { ProgrammePageFragment } from '@/gql/graphql';
 
 export const ProgrammePageSkeleton = ArticleSkeleton;
 
-const PROGRAMME_QUERY = /* GraphQL */ `
-  query Programme($key: String!) {
-    programme(id: $key) {
-      title
-      excerpt
-      blocks {
-        ...BlockItemDetails
-      }
-      ...ProgrammeFundingBanner
+fragmentManager.register(/* GraphQL */ `
+  fragment ProgrammePage on Programme {
+    title
+    excerpt
+    blocks {
+      ...BlockItemDetails
     }
+    ...ProgrammeFundingBanner
   }
-`;
+`);
 
-export async function programmePageLoader({ params, graphql }: LoaderArgs) {
-  const key = required(params.key, 'No key provided in the url');
-
-  return graphql.query<ProgrammeQuery, ProgrammeQueryVariables>(PROGRAMME_QUERY, { key });
-}
+export const programmePageLoader = createResourceLoaderWithRedirect({
+  fragment: 'ProgrammePage',
+  resourceType: 'Programme',
+});
 
 export function ProgrammePage() {
-  const { data } = useLoaderData() as { data: ProgrammeQuery };
-
-  if (data.programme == null) throw new Error('404');
-  const resource = data.programme;
+  const { resource } = useLoaderData() as { resource: ProgrammePageFragment };
 
   return (
     <>

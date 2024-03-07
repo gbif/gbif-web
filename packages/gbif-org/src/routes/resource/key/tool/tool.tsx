@@ -1,6 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { LoaderArgs } from '@/types';
-import { ToolQuery, ToolQueryVariables } from '@/gql/graphql';
+import { ToolPageFragment } from '@/gql/graphql';
 import { ArticleContainer } from '@/routes/resource/key/components/ArticleContainer';
 import { ArticleBanner } from '@/routes/resource/key/components/ArticleBanner';
 import { ArticlePreTitle } from '../components/ArticlePreTitle';
@@ -13,51 +12,46 @@ import { SecondaryLinks } from '../components/SecondaryLinks';
 import { ArticleAuxiliary } from '../components/ArticleAuxiliary';
 import { FormattedMessage } from 'react-intl';
 import { useLoaderData } from 'react-router-dom';
-import { required } from '@/utils/required';
 import { ArticleSkeleton } from '../components/ArticleSkeleton';
 import { Button } from '@/components/ui/button';
 import { DynamicLink } from '@/components/DynamicLink';
 import { ArticleFooterWrapper } from '../components/ArticleFooterWrapper';
+import { fragmentManager } from '@/services/FragmentManager';
+import { createResourceLoaderWithRedirect } from '../utils';
 
-const TOOL_QUERY = /* GraphQL */ `
-  query Tool($key: String!) {
-    tool(id: $key) {
-      id
-      title
-      summary
-      body
-      primaryImage {
-        ...ArticleBanner
-      }
-      primaryLink {
-        label
-        url
-      }
-      secondaryLinks {
-        label
-        url
-      }
-      citation
-      createdAt
-      author
-      rights
-      rightsHolder
-      publicationDate
+fragmentManager.register(/* GraphQL */ `
+  fragment ToolPage on Tool {
+    id
+    title
+    summary
+    body
+    primaryImage {
+      ...ArticleBanner
     }
+    primaryLink {
+      label
+      url
+    }
+    secondaryLinks {
+      label
+      url
+    }
+    citation
+    createdAt
+    author
+    rights
+    rightsHolder
+    publicationDate
   }
-`;
+`);
 
-export async function toolPageLoader({ params, graphql }: LoaderArgs) {
-  const key = required(params.key, 'No key provided in the url');
-
-  return graphql.query<ToolQuery, ToolQueryVariables>(TOOL_QUERY, { key });
-}
+export const toolPageLoader = createResourceLoaderWithRedirect({
+  fragment: 'ToolPage',
+  resourceType: 'Tool',
+});
 
 export function ToolPage() {
-  const { data } = useLoaderData() as { data: ToolQuery };
-
-  if (data.tool == null) throw new Error('404');
-  const resource = data.tool;
+  const { resource } = useLoaderData() as { resource: ToolPageFragment };
 
   return (
     <>

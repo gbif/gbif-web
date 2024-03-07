@@ -1,6 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { LoaderArgs } from '@/types';
-import { NewsQuery, NewsQueryVariables } from '@/gql/graphql';
+import { NewsPageFragment } from '@/gql/graphql';
 import { ArticleContainer } from '@/routes/resource/key/components/ArticleContainer';
 import {
   ArticleBanner,
@@ -14,49 +13,44 @@ import { ArticleTextContainer } from '../components/ArticleTextContainer';
 import { ArticleBody, ArticleBodySkeleton } from '../components/ArticleBody';
 import { ArticleTags } from '../components/ArticleTags';
 import { FormattedMessage } from 'react-intl';
-import { required } from '@/utils/required';
 import { useLoaderData } from 'react-router-dom';
 import { ArticleFooterWrapper } from '../components/ArticleFooterWrapper';
+import { fragmentManager } from '@/services/FragmentManager';
+import { createResourceLoaderWithRedirect } from '../utils';
 
-const NEWS_QUERY = /* GraphQL */ `
-  query News($key: String!) {
-    news(id: $key) {
-      id
-      title
-      summary
-      body
-      primaryImage {
-        ...ArticleBanner
-      }
-      primaryLink {
-        label
-        url
-      }
-      secondaryLinks {
-        label
-        url
-      }
-      countriesOfCoverage
-      topics
-      purposes
-      audiences
-      citation
-      createdAt
+fragmentManager.register(/* GraphQL */ `
+  fragment NewsPage on News {
+    id
+    title
+    summary
+    body
+    primaryImage {
+      ...ArticleBanner
     }
+    primaryLink {
+      label
+      url
+    }
+    secondaryLinks {
+      label
+      url
+    }
+    countriesOfCoverage
+    topics
+    purposes
+    audiences
+    citation
+    createdAt
   }
-`;
+`);
 
-export async function newsPageLoader({ params, graphql }: LoaderArgs) {
-  const key = required(params.key, 'No key provided in the url');
-
-  return graphql.query<NewsQuery, NewsQueryVariables>(NEWS_QUERY, { key });
-}
+export const newsPageLoader = createResourceLoaderWithRedirect({
+  fragment: 'NewsPage',
+  resourceType: 'News',
+});
 
 export function NewsPage() {
-  const { data } = useLoaderData() as { data: NewsQuery };
-
-  if (data.news == null) throw new Error('404');
-  const resource = data.news;
+  const { resource } = useLoaderData() as { resource: NewsPageFragment };
 
   return (
     <>

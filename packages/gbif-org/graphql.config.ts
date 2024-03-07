@@ -10,5 +10,5 @@ const endpoints = getEndpointsBasedOnGbifEnv(gbifEnv, env);
 
 export default {
   schema: endpoints.graphqlEndpoint,
-  documents: ['src/**/*.tsx'],
+  documents: ['src/**/*.tsx', 'src/**/*.ts'],
 };

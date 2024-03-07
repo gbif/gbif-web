@@ -8,7 +8,7 @@ const endpoints = getEndpointsBasedOnGbifEnv(env.PUBLIC_GBIF_ENV as GbifEnv, env
 const config: CodegenConfig = {
   overwrite: true,
   schema: endpoints.graphqlEndpoint,
-  documents: 'src/**/*.tsx',
+  documents: ['src/**/*.tsx', 'src/**/*.ts'],
   generates: {
     'src/gql/': {
       preset: 'client',
