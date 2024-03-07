@@ -8,7 +8,7 @@
     "download": "تنزيل",
     "clusters": "",
     "dashboard": "",
-    "sites": ""
+    "sites": "أرشيف شروح \"جيبف\""
   },
   "table": {
     "lockColumn": ""
@@ -21,7 +21,7 @@
   "ternary": {
     "yes": "نعم",
     "no": "لا",
-    "either": ""
+    "either": "أرشيف شروح \"جيبف\""
   },
   "loadMore": "مزيد",
   "occurrenceClustersView": {
