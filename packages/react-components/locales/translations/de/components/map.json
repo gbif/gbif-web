@@ -15,5 +15,6 @@
     "failedToGetUserLocation": {
         "title": "Stadt zum Fundort.",
         "message": "Stadt zum Fundort."
-    }
+    },
+    "filterByView": ""
 }

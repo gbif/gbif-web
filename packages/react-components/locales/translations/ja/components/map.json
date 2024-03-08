@@ -15,5 +15,6 @@
     "failedToGetUserLocation": {
         "title": "GBIFがアノーテーションしたアーカイブ",
         "message": "GBIFがアノーテーションしたアーカイブ"
-    }
+    },
+    "filterByView": ""
 }

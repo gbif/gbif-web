@@ -15,5 +15,6 @@
     "failedToGetUserLocation": {
         "title": "Архів анотований GBIF",
         "message": "Архів анотований GBIF"
-    }
+    },
+    "filterByView": ""
 }

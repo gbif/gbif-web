@@ -15,5 +15,6 @@
     "failedToGetUserLocation": {
         "title": "Uma breve descrição do componente deve ser colocada aqui",
         "message": "Uma breve descrição do componente deve ser colocada aqui"
-    }
+    },
+    "filterByView": ""
 }
