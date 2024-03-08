@@ -17,7 +17,9 @@ import { Button } from '@/components/ui/button';
 import { DynamicLink } from '@/components/DynamicLink';
 import { ArticleFooterWrapper } from '../components/ArticleFooterWrapper';
 import { fragmentManager } from '@/services/FragmentManager';
-import { createResourceLoaderWithRedirect } from '../utils';
+import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
+
+export const ToolPageSkeleton = ArticleSkeleton;
 
 fragmentManager.register(/* GraphQL */ `
   fragment ToolPage on Tool {
@@ -134,8 +136,4 @@ export function ToolPage() {
       </ArticleContainer>
     </>
   );
-}
-
-export function ToolPageSkeleton() {
-  return <ArticleSkeleton />;
 }

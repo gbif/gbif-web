@@ -3,7 +3,7 @@ import { useLoaderData } from 'react-router-dom';
 import { ArticleSkeleton } from '../components/ArticleSkeleton';
 import { BlockItem } from './BlockItem';
 import { fragmentManager } from '@/services/FragmentManager';
-import { createResourceLoaderWithRedirect } from '../utils';
+import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
 import { CompositionPageFragment } from '@/gql/graphql';
 
 export const CompositionPageSkeleton = ArticleSkeleton;

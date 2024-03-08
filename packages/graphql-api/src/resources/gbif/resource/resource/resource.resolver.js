@@ -13,8 +13,16 @@ function elasticSearchTypeToGraphQLType(elasticSearchType) {
  */
 export default {
   Query: {
-    resource: async (_, { id }, { dataSources, locale }) => {
-      return dataSources.resourceAPI.getEntryById({ id, locale });
+    resource: async (_, { id, alias }, { dataSources, locale }) => {
+      if (typeof id === 'string') {
+        return dataSources.resourceAPI.getEntryById({ id, locale });
+      }
+
+      if (typeof alias === 'string') {
+        return dataSources.resourceSearchAPI.getFirstEntryByQuery({ urlAlias: alias }, locale);
+      }
+
+      throw new Error('Either id or alias must be provided');
     }
   },
   Resource: {

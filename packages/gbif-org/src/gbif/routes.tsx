@@ -3,7 +3,7 @@ import { GbifRootLayout, headerLoader } from '@/components/GbifRootLayout';
 import { SourceRouteObject } from '@/types';
 import { configureRoutes } from '@/utils/configureRoutes';
 import { HomePage } from '@/routes/HomePage';
-import { NotFound } from '@/routes/NotFound';
+import { ThrowOn404 } from '@/routes/ThrowOn404';
 import { RootErrorPage } from '@/routes/RootErrorPage';
 import {
   DetailedOccurrencePage,
@@ -18,12 +18,7 @@ import {
   PublisherPageSkeleton,
   publisherLoader,
 } from '@/routes/publisher/key/PublisherPage';
-import {
-  NewsPage,
-  NewsPageSkeleton,
-  newsPageLoader,
-  newsSlugifyKeySelector,
-} from '@/routes/resource/key/news/news';
+import { NewsPage, NewsPageSkeleton, newsPageLoader } from '@/routes/resource/key/news/news';
 import { PublisherAboutTab } from '@/routes/publisher/key/AboutTab';
 import { PublisherOccurrencesTab } from '@/routes/publisher/key/OccurrencesTab';
 import { DatasetAboutTab } from '@/routes/dataset/key/AboutTab';
@@ -34,43 +29,28 @@ import {
   DataUsePage,
   DataUsePageSkeleton,
   dataUsePageLoader,
-  dataUseSlugifyKeySelector,
 } from '@/routes/resource/key/data-use/data-use';
-import {
-  EventPage,
-  EventPageSkeleton,
-  eventPageLoader,
-  eventSlugifyKeySelector,
-} from '@/routes/resource/key/event/event';
+import { EventPage, EventPageSkeleton, eventPageLoader } from '@/routes/resource/key/event/event';
 import {
   ArticlePage,
   ArticlePageSkeleton,
   articlePageLoader,
-  articleSlugifyKeySelector,
 } from '@/routes/resource/key/article/article';
-import {
-  ToolPage,
-  ToolPageSkeleton,
-  toolPageLoader,
-  toolSlugifyKeySelector,
-} from '@/routes/resource/key/tool/tool';
+import { ToolPage, ToolPageSkeleton, toolPageLoader } from '@/routes/resource/key/tool/tool';
 import {
   ProgrammePage,
   ProgrammePageSkeleton,
   programmePageLoader,
-  programmeSlugifyKeySelector,
 } from '@/routes/resource/key/programme/programme';
 import {
   CompositionPage,
   CompositionPageSkeleton,
   compositionPageLoader,
-  compositionSlugifyKeySelector,
 } from '@/routes/resource/key/composition/composition';
 import {
   DocumentPage,
   DocumentPageSkeleton,
   documentPageLoader,
-  documentSlugifyKeySelector,
 } from '@/routes/resource/key/document/document';
 import {
   ProjectAboutTab,
@@ -81,9 +61,13 @@ import {
   ProjectPageSkeleton,
   projectNewsAndEventsLoader,
   projectPageLoader,
-  projectSlugifyKeySelector,
 } from '@/routes/resource/key/project';
 import { RouteId } from '@/hooks/useParentRouteLoaderData';
+import {
+  AliasHandling,
+  AliasHandlingSkeleton,
+  aliasHandlingLoader,
+} from '@/routes/resource/key/AliasHandling';
 
 const baseRoutes: SourceRouteObject[] = [
   {
@@ -240,8 +224,15 @@ const baseRoutes: SourceRouteObject[] = [
             ],
           },
           {
+            path: ':alias',
+            loader: aliasHandlingLoader,
+            loadingElement: <AliasHandlingSkeleton />,
+            element: <AliasHandling />,
+          },
+          {
             path: '*',
-            element: <NotFound />,
+            // Delegate handling of 404 to RootErrorPage,
+            element: <ThrowOn404 />,
           },
         ],
       },

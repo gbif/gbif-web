@@ -94,9 +94,7 @@ type Options =
 export function createResourceLoaderWithRedirect(options: Options) {
   const query = createQuery(options);
 
-  return async function loader({ params, graphql, locale, id }: LoaderArgs) {
-    console.log('running loader', options.resourceType, locale.code);
-
+  return async function loader({ params, graphql, locale, id, request }: LoaderArgs) {
     const key = required(params.key, 'No key provided in the url');
 
     const response = await graphql.query(query, { key });
@@ -119,6 +117,24 @@ export function createResourceLoaderWithRedirect(options: Options) {
     const title = 'title' in resource ? resource.title : resource.maybeTitle;
     const slugifiedTitle = typeof title === 'string' ? slugify(title) : null;
 
+    // If the resource has a urlAlias and is at the correct url, return the resource
+    if (typeof resource.urlAlias === 'string' && request.url.endsWith(resource.urlAlias)) {
+      return data;
+    }
+
+    // If the resource has a urlAlias and is not at the correct url, redirect to the correct url
+    if (typeof resource.urlAlias === 'string') {
+      let redirectUrl = resource.urlAlias;
+      if (!locale.default) redirectUrl = `/${locale.code}${redirectUrl}`;
+
+      // Remove the skeleton loading element
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new DoneLoadingEvent({ id }));
+      }
+
+      return redirect(redirectUrl);
+    }
+
     // If the resource type and the slugified key are correct, return the resource
     if (options.resourceType === resource.__typename && params.slugifiedTitle === slugifiedTitle) {
       return data;
@@ -135,7 +151,6 @@ export function createResourceLoaderWithRedirect(options: Options) {
 
     // Remove the skeleton loading element
     if (typeof window !== 'undefined') {
-      console.log('dispatching event', id);
       window.dispatchEvent(new DoneLoadingEvent({ id }));
     }
 
@@ -144,22 +159,16 @@ export function createResourceLoaderWithRedirect(options: Options) {
 }
 
 function createQuery(options: Options): string {
-  let query: string;
+  if ('query' in options) return options.query;
 
-  if ('query' in options) {
-    query = options.query;
-  } else {
-    query = `
-      query ${options.resourceType}($key: String!) {
-        resource(id: $key) {
-          ...ResourceRedirectDetails
-          ... on ${options.resourceType} {
-            ...${options.fragment}
-          }
+  return `
+    query ${options.resourceType}($key: String!) {
+      resource(id: $key) {
+        ...ResourceRedirectDetails
+        ... on ${options.resourceType} {
+          ...${options.fragment}
         }
       }
-    `;
-  }
-
-  return query;
+    }
+  `;
 }

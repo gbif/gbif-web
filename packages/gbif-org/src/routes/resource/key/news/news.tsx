@@ -1,22 +1,22 @@
-import { Helmet } from 'react-helmet-async';
 import { NewsPageFragment } from '@/gql/graphql';
+import { ArticleBanner } from '@/routes/resource/key/components/ArticleBanner';
 import { ArticleContainer } from '@/routes/resource/key/components/ArticleContainer';
-import {
-  ArticleBanner,
-  ArticleBannerSkeleton,
-} from '@/routes/resource/key/components/ArticleBanner';
-import { ArticlePreTitle } from '../components/ArticlePreTitle';
-import { ArticleTitle, ArticleTitleSkeleton } from '../components/ArticleTitle';
-import { PublishedDate, PublishedDateSkeleton } from '../components/PublishedDate';
-import { ArticleIntro, ArticleIntroSkeleton } from '../components/ArticleIntro';
-import { ArticleTextContainer } from '../components/ArticleTextContainer';
-import { ArticleBody, ArticleBodySkeleton } from '../components/ArticleBody';
-import { ArticleTags } from '../components/ArticleTags';
+import { fragmentManager } from '@/services/FragmentManager';
+import { Helmet } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';
 import { useLoaderData } from 'react-router-dom';
+import { ArticlePageSkeleton } from '../article/article';
+import { ArticleBody } from '../components/ArticleBody';
 import { ArticleFooterWrapper } from '../components/ArticleFooterWrapper';
-import { fragmentManager } from '@/services/FragmentManager';
-import { createResourceLoaderWithRedirect } from '../utils';
+import { ArticleIntro } from '../components/ArticleIntro';
+import { ArticlePreTitle } from '../components/ArticlePreTitle';
+import { ArticleTags } from '../components/ArticleTags';
+import { ArticleTextContainer } from '../components/ArticleTextContainer';
+import { ArticleTitle } from '../components/ArticleTitle';
+import { PublishedDate } from '../components/PublishedDate';
+import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
+
+export const NewsPageSkeleton = ArticlePageSkeleton;
 
 fragmentManager.register(/* GraphQL */ `
   fragment NewsPage on News {
@@ -86,26 +86,5 @@ export function NewsPage() {
         </ArticleTextContainer>
       </ArticleContainer>
     </>
-  );
-}
-
-export function NewsPageSkeleton() {
-  return (
-    <ArticleContainer>
-      <ArticleTextContainer>
-        <ArticlePreTitle>
-          <FormattedMessage id="cms.contentType.news" />
-        </ArticlePreTitle>
-        <ArticleTitleSkeleton className="mt-3" />
-        <PublishedDateSkeleton className="mt-3" />
-        <ArticleIntroSkeleton className="mt-3" />
-      </ArticleTextContainer>
-
-      <ArticleBannerSkeleton className="mt-10" />
-
-      <ArticleTextContainer className="mt-6">
-        <ArticleBodySkeleton />
-      </ArticleTextContainer>
-    </ArticleContainer>
   );
 }

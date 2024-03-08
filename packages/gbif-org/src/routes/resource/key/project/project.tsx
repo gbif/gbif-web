@@ -14,7 +14,9 @@ import { MdEuro as EuroIcon } from 'react-icons/md';
 import { RenderIfChildren } from '@/components/RenderIfChildren';
 import { FundingBanner } from '../components/FundingBanner';
 import { fragmentManager } from '@/services/FragmentManager';
-import { createResourceLoaderWithRedirect } from '../utils';
+import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
+
+export const ProjectPageSkeleton = ArticleSkeleton;
 
 fragmentManager.register(/* GraphQL */ `
   fragment ProjectPage on GbifProject {
@@ -109,10 +111,6 @@ export function ProjectPage() {
       <FundingBanner resource={resource} />
     </>
   );
-}
-
-export function ProjectPageSkeleton() {
-  return <ArticleSkeleton />;
 }
 
 const staticTabLinks: Array<{ to: string; children: React.ReactNode }> = [
