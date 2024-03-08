@@ -15,5 +15,6 @@
     "failedToGetUserLocation": {
         "title": "GBIF 註記的存檔",
         "message": "GBIF 註記的存檔"
-    }
+    },
+    "filterByView": ""
 }
