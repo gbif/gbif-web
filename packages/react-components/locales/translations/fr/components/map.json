@@ -15,5 +15,6 @@
     "failedToGetUserLocation": {
         "title": "Archive annotée par GBIF",
         "message": "Archive annotée par GBIF"
-    }
+    },
+    "filterByView": ""
 }
