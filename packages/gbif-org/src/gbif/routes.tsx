@@ -3,7 +3,7 @@ import { GbifRootLayout, headerLoader } from '@/components/GbifRootLayout';
 import { SourceRouteObject } from '@/types';
 import { configureRoutes } from '@/utils/configureRoutes';
 import { HomePage } from '@/routes/HomePage';
-import { NotFound } from '@/routes/NotFound';
+import { ThrowOn404 } from '@/routes/ThrowOn404';
 import { RootErrorPage } from '@/routes/RootErrorPage';
 import {
   DetailedOccurrencePage,
@@ -63,7 +63,11 @@ import {
   projectPageLoader,
 } from '@/routes/resource/key/project';
 import { RouteId } from '@/hooks/useParentRouteLoaderData';
-import { AliasHandling, aliasHandlingLoader } from '@/routes/resource/key/AliasHandling';
+import {
+  AliasHandling,
+  AliasHandlingSkeleton,
+  aliasHandlingLoader,
+} from '@/routes/resource/key/AliasHandling';
 
 const baseRoutes: SourceRouteObject[] = [
   {
@@ -222,7 +226,13 @@ const baseRoutes: SourceRouteObject[] = [
           {
             path: ':alias',
             loader: aliasHandlingLoader,
+            loadingElement: <AliasHandlingSkeleton />,
             element: <AliasHandling />,
+          },
+          {
+            path: '*',
+            // Delegate handling of 404 to RootErrorPage,
+            element: <ThrowOn404 />,
           },
         ],
       },

@@ -9,7 +9,9 @@ import { required } from '@/utils/required';
 import { ArticlePage, articlePageLoader } from './article/article';
 import { CompositionPage, compositionPageLoader } from './composition/composition';
 import { useLoaderData } from 'react-router-dom';
-import { DoneLoadingEvent } from '@/contexts/loadingElement';
+import { ArticleSkeleton } from './components/ArticleSkeleton';
+
+export const AliasHandlingSkeleton = ArticleSkeleton;
 
 const ALIAS_HANDLING_FRAGMENT = /* GraphQL */ `
   query AliasHandling($alias: String!) {

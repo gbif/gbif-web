@@ -159,22 +159,16 @@ export function createResourceLoaderWithRedirect(options: Options) {
 }
 
 function createQuery(options: Options): string {
-  let query: string;
+  if ('query' in options) return options.query;
 
-  if ('query' in options) {
-    query = options.query;
-  } else {
-    query = `
-      query ${options.resourceType}($key: String!) {
-        resource(id: $key) {
-          ...ResourceRedirectDetails
-          ... on ${options.resourceType} {
-            ...${options.fragment}
-          }
+  return `
+    query ${options.resourceType}($key: String!) {
+      resource(id: $key) {
+        ...ResourceRedirectDetails
+        ... on ${options.resourceType} {
+          ...${options.fragment}
         }
       }
-    `;
-  }
-
-  return query;
+    }
+  `;
 }

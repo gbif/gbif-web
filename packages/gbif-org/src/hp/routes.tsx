@@ -1,7 +1,7 @@
 import { SourceRouteObject } from '@/types';
 import { configureRoutes } from '@/utils/configureRoutes';
 import { HomePage } from '@/routes/HomePage';
-import { NotFound } from '@/routes/NotFound';
+import { ThrowOn404 } from '@/routes/ThrowOn404';
 import { RootErrorPage } from '@/routes/RootErrorPage';
 import {
   DetailedOccurrencePage,
@@ -95,7 +95,8 @@ const baseRoutes: SourceRouteObject[] = [
       },
       {
         path: '*',
-        element: <NotFound />,
+        // Delegate handling of 404 to RootErrorPage,
+        element: <ThrowOn404 />,
       },
     ],
   },

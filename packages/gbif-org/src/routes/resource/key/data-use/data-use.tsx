@@ -14,8 +14,10 @@ import { useLoaderData } from 'react-router-dom';
 import { ArticleSkeleton } from '../components/ArticleSkeleton';
 import { ArticleFooterWrapper } from '../components/ArticleFooterWrapper';
 import { fragmentManager } from '@/services/FragmentManager';
-import { createResourceLoaderWithRedirect } from '../utils';
+import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
 import { DataUsePageFragment } from '@/gql/graphql';
+
+export const DataUsePageSkeleton = ArticleSkeleton;
 
 fragmentManager.register(/* GraphQL */ `
   fragment DataUsePage on DataUse {
@@ -101,8 +103,4 @@ export function DataUsePage() {
       </ArticleContainer>
     </>
   );
-}
-
-export function DataUsePageSkeleton() {
-  return <ArticleSkeleton />;
 }

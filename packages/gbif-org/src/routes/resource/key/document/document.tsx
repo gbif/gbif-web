@@ -14,8 +14,10 @@ import { ArticleSkeleton } from '../components/ArticleSkeleton';
 import { RenderIfChildren } from '@/components/RenderIfChildren';
 import { ArticleFooterWrapper } from '../components/ArticleFooterWrapper';
 import { fragmentManager } from '@/services/FragmentManager';
-import { createResourceLoaderWithRedirect } from '../utils';
+import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
 import { DocumentPageFragment } from '@/gql/graphql';
+
+export const DocumentPageSkeleton = ArticleSkeleton;
 
 fragmentManager.register(/* GraphQL */ `
   fragment DocumentPage on Document {
@@ -102,8 +104,4 @@ export function DocumentPage() {
       </ArticleContainer>
     </>
   );
-}
-
-export function DocumentPageSkeleton() {
-  return <ArticleSkeleton />;
 }

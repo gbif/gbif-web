@@ -14,8 +14,10 @@ import { ArticleSkeleton } from '../components/ArticleSkeleton';
 import { FormattedMessage } from 'react-intl';
 import { ArticleFooterWrapper } from '../components/ArticleFooterWrapper';
 import { fragmentManager } from '@/services/FragmentManager';
-import { createResourceLoaderWithRedirect } from '../utils';
+import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
 import { ArticlePageFragment } from '@/gql/graphql';
+
+export const ArticlePageSkeleton = ArticleSkeleton;
 
 fragmentManager.register(/* GraphQL */ `
   fragment ArticlePage on Article {
@@ -106,8 +108,4 @@ export function ArticlePage() {
       </ArticleContainer>
     </>
   );
-}
-
-export function ArticlePageSkeleton() {
-  return <ArticleSkeleton />;
 }

@@ -32,7 +32,7 @@ export function HomePage(): React.ReactElement {
             <ul>
               <li>
                 <DynamicLink className="me-4" to="/news/6qTuv5Xf1qa05arROvx7Y1">
-                  News (skeleton loading demo)
+                  News
                 </DynamicLink>
               </li>
               <li>
@@ -43,10 +43,12 @@ export function HomePage(): React.ReactElement {
               <li>
                 Articles:{' '}
                 <DynamicLink className="me-4" to="/article/ExNixkGbYWCsgcWE4YScw">
-                  Data papers
+                  Data papers{' '}
+                  <small className="font-normal">(will be redirected to urlAlias)</small>
                 </DynamicLink>
                 <DynamicLink className="me-4" to="/standards">
-                  Data standards
+                  Data standards{' '}
+                  <small className="font-normal">(links directly to the urlAlias)</small>
                 </DynamicLink>
               </li>
               <li>

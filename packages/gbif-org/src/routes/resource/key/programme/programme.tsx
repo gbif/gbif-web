@@ -4,7 +4,7 @@ import { BlockItem } from '../composition/BlockItem';
 import { useLoaderData } from 'react-router-dom';
 import { FundingBanner } from '../components/FundingBanner';
 import { fragmentManager } from '@/services/FragmentManager';
-import { createResourceLoaderWithRedirect } from '../utils';
+import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
 import { ProgrammePageFragment } from '@/gql/graphql';
 
 export const ProgrammePageSkeleton = ArticleSkeleton;

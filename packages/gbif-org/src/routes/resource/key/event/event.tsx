@@ -19,8 +19,10 @@ import { ArticleFooterWrapper } from '../components/ArticleFooterWrapper';
 import { Documents } from '../components/Documents';
 import { RenderIfChildren } from '@/components/RenderIfChildren';
 import { fragmentManager } from '@/services/FragmentManager';
-import { createResourceLoaderWithRedirect } from '../utils';
+import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
 import { EventPageFragment } from '@/gql/graphql';
+
+export const EventPageSkeleton = ArticleSkeleton;
 
 fragmentManager.register(/* GraphQL */ `
   fragment EventPage on Event {
@@ -171,10 +173,6 @@ export function EventPage() {
       </ArticleContainer>
     </>
   );
-}
-
-export function EventPageSkeleton() {
-  return <ArticleSkeleton />;
 }
 
 type RangeProps = {
