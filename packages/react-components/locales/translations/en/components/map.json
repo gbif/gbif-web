@@ -15,5 +15,6 @@
     "failedToGetUserLocation": {
         "title": "",
         "message": ""
-    }
+    },
+    "filterByView": "Use visible area as filter"
 }
