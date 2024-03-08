@@ -10,6 +10,7 @@ fragmentManager.register(/* GraphQL */ `
     __typename
     id
     title
+    hideTitle
     body
     backgroundColour
   }
@@ -24,16 +25,16 @@ export function FeaturedTextBlock({ resource }: Props) {
 
   return (
     <BlockContainer className={backgroundColor}>
-      {resource.title && (
+      {!resource.hideTitle && resource.title && (
         <ArticleTextContainer className="mb-16">
           <ArticleTitle title={resource.title}></ArticleTitle>
         </ArticleTextContainer>
       )}
-      <ArticleTextContainer>
-        {resource.body && (
+      {resource.body && (
+        <ArticleTextContainer>
           <ArticleBody dangerouslySetInnerHTML={{ __html: resource.body }} className="mt-2" />
-        )}
-      </ArticleTextContainer>
+        </ArticleTextContainer>
+      )}
     </BlockContainer>
   );
 }

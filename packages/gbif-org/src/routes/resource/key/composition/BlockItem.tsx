@@ -49,13 +49,14 @@ fragmentManager.register(/* GraphQL */ `
 
 type Props = {
   resource: BlockItemDetailsFragment;
+  resourceType?: string;
   insideCarousel?: boolean;
 };
 
-export function BlockItem({ resource, insideCarousel = false }: Props) {
+export function BlockItem({ resource, insideCarousel = false, resourceType }: Props) {
   switch (resource.__typename) {
     case 'HeaderBlock':
-      return <HeaderBlock resource={resource} />;
+      return <HeaderBlock resource={resource} resourceType={resourceType} />;
     case 'FeatureBlock':
       return <FeatureBlock resource={resource} />;
     case 'FeaturedTextBlock':

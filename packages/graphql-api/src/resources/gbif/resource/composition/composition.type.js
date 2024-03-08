@@ -29,6 +29,7 @@ const typeDef = gql`
     type: String
     contentType: String
     primaryImage: AssetImage
+    hideTitle: Boolean
   }
 
   type TextBlock {
@@ -44,6 +45,7 @@ const typeDef = gql`
     id: ID!
     title: String
     body: String
+    hideTitle: Boolean
     maxPerRow: Int
     backgroundColour: String
     contentType: String
@@ -57,6 +59,7 @@ const typeDef = gql`
     backgroundColour: String
     contentType: String
     primaryImage: AssetImage
+    hideTitle: Boolean
   }
 
   type CarouselBlock {

@@ -12,8 +12,8 @@ fragmentManager.register(/* GraphQL */ `
   fragment HeaderBlockDetails on HeaderBlock {
     __typename
     title
-    type
     summary
+    hideTitle
     primaryImage {
       ...ArticleBanner
     }
@@ -22,19 +22,20 @@ fragmentManager.register(/* GraphQL */ `
 
 type Props = {
   resource: HeaderBlockDetailsFragment;
+  resourceType?: string;
 };
 
-export function HeaderBlock({ resource }: Props) {
+export function HeaderBlock({ resource, resourceType }: Props) {
   return (
-    <BlockContainer className='pb-0'>
+    <BlockContainer className="pb-0">
       <ArticleTextContainer>
-        {resource.type && (
+        {resourceType && (
           <ArticlePreTitle>
-            <FormattedMessage id={`cms.contentType.${resource.type}`} />
+            <FormattedMessage id={`cms.contentType.${resourceType}`} />
           </ArticlePreTitle>
         )}
 
-        <ArticleTitle>{resource.title}</ArticleTitle>
+        {!resource.hideTitle && resource.title && <ArticleTitle>{resource.title}</ArticleTitle>}
 
         {resource.summary && (
           <ArticleIntro dangerouslySetInnerHTML={{ __html: resource.summary }} className="mt-2" />

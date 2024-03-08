@@ -11,6 +11,7 @@ fragmentManager.register(/* GraphQL */ `
     __typename
     maxPerRow
     title
+    hideTitle
     body
     backgroundColour
     features {
@@ -62,14 +63,16 @@ export function FeatureBlock({ resource }: Props) {
 
   return (
     <BlockContainer className={backgroundColor}>
-      <ArticleTextContainer>
-        <ArticleTitle>{resource.title}</ArticleTitle>
-      </ArticleTextContainer>
-      <ArticleTextContainer>
-        {resource.body && (
+      {!resource.hideTitle && resource.title && (
+        <ArticleTextContainer>
+          <ArticleTitle>{resource.title}</ArticleTitle>
+        </ArticleTextContainer>
+      )}
+      {resource.body && (
+        <ArticleTextContainer>
           <ArticleBody dangerouslySetInnerHTML={{ __html: resource.body }} className="mt-2" />
-        )}
-      </ArticleTextContainer>
+        </ArticleTextContainer>
+      )}
       <div className="max-w-6xl m-auto p-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {resource.features?.map((feature, index) => {
           let image: ProseCardImgFragment | null | undefined;

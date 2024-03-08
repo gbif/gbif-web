@@ -35,7 +35,7 @@ export function ProgrammePage() {
       </Helmet>
 
       {resource.blocks?.map((block, idx) => (
-        <BlockItem resource={block} key={idx} />
+        <BlockItem resource={block} key={idx} resourceType="programme" />
       ))}
 
       <FundingBanner resource={resource} />
