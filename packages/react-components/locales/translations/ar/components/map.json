@@ -15,5 +15,6 @@
     "failedToGetUserLocation": {
         "title": "أرشيف شروح \"جيبف\"",
         "message": "أرشيف شروح \"جيبف\""
-    }
+    },
+    "filterByView": ""
 }
