@@ -1,5 +1,7 @@
 import fsp from 'node:fs/promises';
 import express from 'express';
+import helmet from 'helmet';
+import { helmetConfig } from './helmetConfig.js';
 
 const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 const PORT = parseInt(process.env.PORT || 3000);
@@ -7,8 +9,9 @@ const PORT = parseInt(process.env.PORT || 3000);
 async function main() {
   const app = express();
 
-  // Disable the x-powered-by header as it can encourage Express specific attacks.
-  app.disable('x-powered-by');
+  if (IS_PRODUCTION) {
+    app.use(helmet(helmetConfig));
+  }
 
   // Set up middleware based on the environment.
   let viteDevServer;

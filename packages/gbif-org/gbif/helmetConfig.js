@@ -1,0 +1,65 @@
+export const helmetConfig = {
+  referrerPolicy: false,
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: [
+        'maxcdn.bootstrapcdn.com',
+        'cdn.jsdelivr.net/codemirror.spell-checker/',
+        `'self'`,
+        `*.gbif.org`,
+        `*.gbif-uat.org`,
+        `*.gbif-dev.org`,
+        `*.gbif-staging.org`,
+        '*.google.com',
+        '*.google-analytics.com',
+        'plausible.io',
+        'fonts.gstatic.com',
+        'images.ctfassets.net',
+        'data:',
+        'api.mapbox.com',
+        '*.tiles.mapbox.com',
+        '*.vimeo.com',
+        'vimeo.com',
+        'eepurl.com',
+        'gbif.us18.list-manage.com',
+        'zenodo.org',
+        '*.youtube.com',
+      ],
+      scriptSrc: [
+        `'self'`,
+        `'unsafe-inline'`,
+        `'unsafe-eval'`,
+        `*.gbif.org`,
+        `*.gbif-uat.org`,
+        `*.gbif-dev.org`,
+        `*.gbif-staging.org`,
+        '*.google-analytics.com',
+        'plausible.io',
+        'api.mapbox.com',
+        'unpkg.com/react@17/umd/react.production.min.js',
+        'unpkg.com/react-dom@17/umd/react-dom.production.min.js',
+      ],
+      styleSrc: [
+        `'self'`,
+        `'unsafe-inline'`,
+        '*.googleapis.com',
+        'cdnjs.cloudflare.com/ajax/libs/mapbox-gl/*.css',
+        'api.mapbox.com',
+        'maxcdn.bootstrapcdn.com',
+        // Used to load Inter font
+        'rsms.me',
+      ],
+      mediaSrc: ['*'],
+      imgSrc: ['*', 'data:'],
+      workerSrc: ['blob:'],
+      upgradeInsecureRequests: [],
+      // frameAncestors: [ // This leads to conflicting statements in Helmet. Looks like we should either go with frameAncestors or x-frame-options
+      //   'https://www.onezoom.org'
+      // ]
+    },
+  },
+  hsts: {
+    maxAge: 600,
+    includeSubDomains: true,
+  },
+};
