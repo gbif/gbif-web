@@ -28,7 +28,6 @@ fragmentManager.register(/* GraphQL */ `
       ... on News {
         id
         title
-        excerpt
         optionalImg: primaryImage {
           ...ProseCardImg
         }
@@ -36,7 +35,6 @@ fragmentManager.register(/* GraphQL */ `
       ... on DataUse {
         id
         title
-        excerpt
         optionalImg: primaryImage {
           ...ProseCardImg
         }
@@ -44,7 +42,6 @@ fragmentManager.register(/* GraphQL */ `
       ... on Event {
         id
         title
-        excerpt
         start
         end
         optionalImg: primaryImage {
@@ -90,18 +87,7 @@ export function FeatureBlock({ resource }: Props) {
           let url: string | undefined;
           if ('url' in feature) url = feature.url;
 
-          let excerpt: string | undefined | null;
-          if ('excerpt' in feature) excerpt = feature.excerpt;
-
-          return (
-            <ProseCard
-              key={index}
-              title={feature.title}
-              excerpt={excerpt}
-              url={url}
-              image={image}
-            />
-          );
+          return <ProseCard key={index} title={feature.title} url={url} image={image} />;
         })}
       </div>
     </BlockContainer>

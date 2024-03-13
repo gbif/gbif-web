@@ -15,12 +15,11 @@ fragmentManager.register(/* GraphQL */ `
 
 type Props = {
   title: string;
-  excerpt?: string | null;
   url?: string;
   image?: ProseCardImgFragment | null;
 };
 
-export function ProseCard({ title, excerpt, url, image }: Props) {
+export function ProseCard({ title, url, image }: Props) {
   return (
     <div className="mx-auto max-w-[min(24rem,100%)] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       {image && (
@@ -46,13 +45,6 @@ export function ProseCard({ title, excerpt, url, image }: Props) {
             dangerouslySetInnerHTML={{ __html: title }}
           />
         </ConditionalWrapper>
-
-        {excerpt && (
-          <p
-            className="mb-3 font-normal text-gray-700 dark:text-gray-400 break-words"
-            dangerouslySetInnerHTML={{ __html: excerpt }}
-          />
-        )}
       </div>
     </div>
   );
