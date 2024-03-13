@@ -1,18 +1,20 @@
 import React from 'react';
-import { useLoaderData, useNavigate } from 'react-router-dom';
+import { useLoaderData, useLocation, useNavigate, Location } from 'react-router-dom';
 import { useDefaultLocale } from '@/hooks/useDefaultLocale';
 import { Config } from '@/contexts/config/config';
 import { IntlProvider } from 'react-intl';
 
+type Locale = Config['languages'][number];
+
 type I18n = {
-  locale: Config['languages'][number];
+  locale: Locale;
   changeLocale: (targetLocaleCode: string) => void;
 };
 
 const I18nContext = React.createContext<I18n | null>(null);
 
 type Props = {
-  locale: Config['languages'][number];
+  locale: Locale;
   children?: React.ReactNode;
 };
 
@@ -20,28 +22,25 @@ export function I18nProvider({ locale, children }: Props): React.ReactElement {
   const navigate = useNavigate();
   const { messages } = useLoaderData() as { messages: Record<string, string> | null };
   const defaultLocale = useDefaultLocale();
+  const location = useLocation();
 
-  // This function will only work client side as it uses window.location
-  // If it needs to work server side, you can use the location from useLocation. This will however rerender the children of this component every time the location changes.
   const context = React.useMemo(() => {
     return {
       locale,
       changeLocale: (targetLocaleCode: string) => {
         if (locale.code === targetLocaleCode) return;
 
-        const currentLocaleIsDefault = defaultLocale.code === locale.code;
-        const currentPrefix = currentLocaleIsDefault ? '/' : `/${locale.code}/`;
+        const newHref = replaceLocale({
+          currentLocaleCode: locale.code,
+          targetLocaleCode,
+          defaultLocale,
+          location,
+        });
 
-        const targetLocaleIsDefault = defaultLocale.code === targetLocaleCode;
-        const targetPrefix = targetLocaleIsDefault ? '/' : `/${targetLocaleCode}/`;
-
-        const newPathname = window.location.pathname.replace(currentPrefix, targetPrefix);
-        const target = `${newPathname}${window.location.search}`;
-
-        navigate(target);
+        navigate(newHref);
       },
     };
-  }, [locale, navigate, defaultLocale]);
+  }, [locale, navigate, defaultLocale, location]);
 
   return (
     <I18nContext.Provider value={context}>
@@ -65,4 +64,29 @@ export function useI18n(): I18n {
   }
 
   return ctx;
+}
+
+type ReplaceLocaleOptions = {
+  currentLocaleCode: string;
+  targetLocaleCode: string;
+  defaultLocale: Locale;
+  location: Location;
+};
+
+export function replaceLocale({
+  currentLocaleCode,
+  targetLocaleCode,
+  defaultLocale,
+  location,
+}: ReplaceLocaleOptions): string {
+  const currentLocaleIsDefault = defaultLocale.code === currentLocaleCode;
+  const currentPrefix = currentLocaleIsDefault ? '/' : `/${currentLocaleCode}/`;
+
+  const targetLocaleIsDefault = defaultLocale.code === targetLocaleCode;
+  const targetPrefix = targetLocaleIsDefault ? '/' : `/${targetLocaleCode}/`;
+
+  const newPathname = location.pathname.replace(currentPrefix, targetPrefix);
+  const target = `${newPathname}${location.search}`;
+
+  return target;
 }

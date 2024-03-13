@@ -58,8 +58,8 @@ export const gbifConfig: InputConfig = {
   theme: {
     primary: '#69AA69',
   },
+  baseUrl: 'https://www.gbif.org',
   openGraph: {
-    urlPrefix: 'https://www.gbif.org',
     site_name: 'GBIF',
   },
 };

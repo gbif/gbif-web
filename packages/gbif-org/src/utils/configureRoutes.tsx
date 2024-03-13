@@ -8,6 +8,7 @@ import { v4 as uuid } from 'uuid';
 import { DoneLoadingEvent, StartLoadingEvent } from '@/contexts/loadingElement';
 import { GraphQLService } from '@/services/GraphQLService';
 import { createRouteId } from './createRouteId';
+import { AlternativeLanguages } from '@/components/AlternativeLanguages';
 
 type ConfigureRoutesResult = {
   routes: RouteObject[];
@@ -32,6 +33,7 @@ export function configureRoutes(
           <Helmet>
             <html lang={locale.code} dir={locale.textDirection} />
           </Helmet>
+          <AlternativeLanguages />
           <Outlet />
         </I18nProvider>
       ),
@@ -191,7 +193,6 @@ function transformLoader(
         window.dispatchEvent(
           new StartLoadingEvent({
             id,
-            lang: locale.code,
             nestingLevel,
             loadingElement: route.loadingElement,
           })

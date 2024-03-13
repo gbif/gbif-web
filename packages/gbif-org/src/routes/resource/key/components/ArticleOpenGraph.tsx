@@ -1,6 +1,5 @@
 import { useConfig } from '@/contexts/config/config';
 import { useI18n } from '@/contexts/i18n';
-import { notNull } from '@/utils/notNull';
 import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'react-router-dom';
 
@@ -15,7 +14,6 @@ type Props = {
       } | null;
       description?: string | null;
     } | null;
-    topics?: (string | null)[] | null;
   };
 };
 
@@ -27,8 +25,7 @@ export function ArticleOpenGraph({ resource }: Props) {
   if (!config.openGraph) return null;
 
   const alternativeLocales = config.languages.filter((lang) => lang.code !== locale.code);
-  const topics = resource.topics?.filter(notNull) ?? [];
-  const url = `${config.openGraph.urlPrefix}${location.pathname}`;
+  const url = `${config.baseUrl}${location.pathname}`;
   const title = resource.title ?? resource.maybeTitle;
 
   return (
@@ -47,10 +44,6 @@ export function ArticleOpenGraph({ resource }: Props) {
       {alternativeLocales.map((lang) => (
         <meta property="og:locale:alternate" content={lang.code} key={lang.code} />
       ))}
-      {topics.map((topic) => (
-        <meta property="article:tag" content={topic} key={topic} />
-      ))}
-      article:published_time
     </Helmet>
   );
 }
