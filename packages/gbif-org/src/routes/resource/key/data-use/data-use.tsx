@@ -16,6 +16,7 @@ import { ArticleFooterWrapper } from '../components/ArticleFooterWrapper';
 import { fragmentManager } from '@/services/FragmentManager';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
 import { DataUsePageFragment } from '@/gql/graphql';
+import { ArticleOpenGraph } from '../components/ArticleOpenGraph';
 
 export const DataUsePageSkeleton = ArticleSkeleton;
 
@@ -25,6 +26,7 @@ fragmentManager.register(/* GraphQL */ `
     title
     summary
     resourceUsed
+    excerpt
     body
     primaryImage {
       ...ArticleBanner
@@ -56,6 +58,8 @@ export function DataUsePage() {
 
   return (
     <>
+      <ArticleOpenGraph resource={resource} />
+
       <Helmet>
         <title>{resource.title}</title>
       </Helmet>

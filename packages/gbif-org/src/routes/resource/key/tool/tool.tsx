@@ -18,6 +18,7 @@ import { DynamicLink } from '@/components/DynamicLink';
 import { ArticleFooterWrapper } from '../components/ArticleFooterWrapper';
 import { fragmentManager } from '@/services/FragmentManager';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
+import { ArticleOpenGraph } from '../components/ArticleOpenGraph';
 
 export const ToolPageSkeleton = ArticleSkeleton;
 
@@ -57,6 +58,8 @@ export function ToolPage() {
 
   return (
     <>
+      <ArticleOpenGraph resource={resource} />
+
       <Helmet>
         <title>{resource.title}</title>
       </Helmet>

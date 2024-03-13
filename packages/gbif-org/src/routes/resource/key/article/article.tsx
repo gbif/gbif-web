@@ -1,21 +1,22 @@
-import { Helmet } from 'react-helmet-async';
-import { useLoaderData } from 'react-router-dom';
-import { ArticleContainer } from '@/routes/resource/key/components/ArticleContainer';
-import { ArticleBanner } from '@/routes/resource/key/components/ArticleBanner';
-import { ArticleTitle } from '../components/ArticleTitle';
-import { ArticleIntro } from '../components/ArticleIntro';
-import { ArticleTextContainer } from '../components/ArticleTextContainer';
-import { ArticleBody } from '../components/ArticleBody';
-import { ArticleTags } from '../components/ArticleTags';
-import { ArticleAuxiliary } from '../components/ArticleAuxiliary';
-import { SecondaryLinks } from '../components/SecondaryLinks';
-import { Documents } from '../components/Documents';
-import { ArticleSkeleton } from '../components/ArticleSkeleton';
-import { FormattedMessage } from 'react-intl';
-import { ArticleFooterWrapper } from '../components/ArticleFooterWrapper';
-import { fragmentManager } from '@/services/FragmentManager';
-import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
 import { ArticlePageFragment } from '@/gql/graphql';
+import { ArticleBanner } from '@/routes/resource/key/components/ArticleBanner';
+import { ArticleContainer } from '@/routes/resource/key/components/ArticleContainer';
+import { fragmentManager } from '@/services/FragmentManager';
+import { Helmet } from 'react-helmet-async';
+import { FormattedMessage } from 'react-intl';
+import { useLoaderData } from 'react-router-dom';
+import { ArticleAuxiliary } from '../components/ArticleAuxiliary';
+import { ArticleBody } from '../components/ArticleBody';
+import { ArticleFooterWrapper } from '../components/ArticleFooterWrapper';
+import { ArticleIntro } from '../components/ArticleIntro';
+import { ArticleOpenGraph } from '../components/ArticleOpenGraph';
+import { ArticleSkeleton } from '../components/ArticleSkeleton';
+import { ArticleTags } from '../components/ArticleTags';
+import { ArticleTextContainer } from '../components/ArticleTextContainer';
+import { ArticleTitle } from '../components/ArticleTitle';
+import { Documents } from '../components/Documents';
+import { SecondaryLinks } from '../components/SecondaryLinks';
+import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
 
 export const ArticlePageSkeleton = ArticleSkeleton;
 
@@ -24,6 +25,7 @@ fragmentManager.register(/* GraphQL */ `
     id
     title
     summary
+    excerpt
     body
     primaryImage {
       ...ArticleBanner
@@ -53,6 +55,8 @@ export function ArticlePage() {
 
   return (
     <>
+      <ArticleOpenGraph resource={resource} />
+
       <Helmet>
         <title>{resource.title}</title>
       </Helmet>
@@ -74,12 +78,6 @@ export function ArticlePage() {
           )}
 
           <ArticleFooterWrapper>
-            {/*
-          A list documents and links related to this article can be found below.
-          iterature through documents and links and display them as a 2 column grid list. With icons for the corresponding conten types.
-          use the title as text and fall back to the filename if no title is provided.
-          */}
-
             {resource.secondaryLinks && (
               <ArticleAuxiliary>
                 <SecondaryLinks links={resource.secondaryLinks} className="mt-8" />

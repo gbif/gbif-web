@@ -1,4 +1,4 @@
-import { getHtml, isNoneEmptyArray } from "#/helpers/utils";
+import { excerpt, getHtml, isNoneEmptyArray } from "#/helpers/utils";
 import { KNOWN_BLOCK_TYPES, KNOWN_CAROUSEL_BLOCKS, KNOWN_FEATURE_TYPES } from "./acceptedTypes";
 
 /**
@@ -19,6 +19,7 @@ export default {
   Composition: {
     title: src => getHtml(src.title, { inline: true }),
     summary: src => getHtml(src.summary),
+    excerpt: src => excerpt(src),
     blocks: ({blocks}, args, { dataSources, locale, preview }) => {
       if (!isNoneEmptyArray(blocks)) return null;
 

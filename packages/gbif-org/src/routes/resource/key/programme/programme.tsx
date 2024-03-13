@@ -6,6 +6,7 @@ import { FundingBanner } from '../components/FundingBanner';
 import { fragmentManager } from '@/services/FragmentManager';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
 import { ProgrammePageFragment } from '@/gql/graphql';
+import { ArticleOpenGraph } from '../components/ArticleOpenGraph';
 
 export const ProgrammePageSkeleton = ArticleSkeleton;
 
@@ -30,6 +31,8 @@ export function ProgrammePage() {
 
   return (
     <>
+      <ArticleOpenGraph resource={resource} />
+
       <Helmet>
         <title>{resource.title}</title>
       </Helmet>

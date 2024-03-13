@@ -16,6 +16,7 @@ import { ArticleFooterWrapper } from '../components/ArticleFooterWrapper';
 import { fragmentManager } from '@/services/FragmentManager';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
 import { DocumentPageFragment } from '@/gql/graphql';
+import { ArticleOpenGraph } from '../components/ArticleOpenGraph';
 
 export const DocumentPageSkeleton = ArticleSkeleton;
 
@@ -24,6 +25,7 @@ fragmentManager.register(/* GraphQL */ `
     id
     title
     createdAt
+    excerpt
     summary
     primaryLink {
       label
@@ -52,6 +54,8 @@ export function DocumentPage() {
 
   return (
     <>
+      <ArticleOpenGraph resource={resource} />
+
       <Helmet>
         <title>{resource.title}</title>
       </Helmet>

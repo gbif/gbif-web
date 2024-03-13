@@ -5,6 +5,7 @@ import { BlockItem } from './BlockItem';
 import { fragmentManager } from '@/services/FragmentManager';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
 import { CompositionPageFragment } from '@/gql/graphql';
+import { ArticleOpenGraph } from '../components/ArticleOpenGraph';
 
 export const CompositionPageSkeleton = ArticleSkeleton;
 
@@ -13,6 +14,7 @@ fragmentManager.register(/* GraphQL */ `
     id
     maybeTitle: title
     summary
+    excerpt
     blocks {
       ...BlockItemDetails
     }
@@ -29,9 +31,12 @@ export function CompositionPage() {
 
   return (
     <>
+      <ArticleOpenGraph resource={resource} />
+
       <Helmet>
         <title>{resource.maybeTitle}</title>
       </Helmet>
+
       {resource.blocks?.map((block) => (
         <BlockItem resource={block} key={block.id} />
       ))}

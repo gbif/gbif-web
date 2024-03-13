@@ -15,6 +15,7 @@ import { ArticleTextContainer } from '../components/ArticleTextContainer';
 import { ArticleTitle } from '../components/ArticleTitle';
 import { PublishedDate } from '../components/PublishedDate';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
+import { ArticleOpenGraph } from '../components/ArticleOpenGraph';
 
 export const NewsPageSkeleton = ArticlePageSkeleton;
 
@@ -23,6 +24,7 @@ fragmentManager.register(/* GraphQL */ `
     id
     title
     summary
+    excerpt
     body
     primaryImage {
       ...ArticleBanner
@@ -54,6 +56,8 @@ export function NewsPage() {
 
   return (
     <>
+      <ArticleOpenGraph resource={resource} />
+
       <Helmet>
         <title>{resource.title}</title>
       </Helmet>

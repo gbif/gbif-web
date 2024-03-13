@@ -21,6 +21,7 @@ import { RenderIfChildren } from '@/components/RenderIfChildren';
 import { fragmentManager } from '@/services/FragmentManager';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
 import { EventPageFragment } from '@/gql/graphql';
+import { ArticleOpenGraph } from '../components/ArticleOpenGraph';
 
 export const EventPageSkeleton = ArticleSkeleton;
 
@@ -29,6 +30,7 @@ fragmentManager.register(/* GraphQL */ `
     id
     title
     summary
+    excerpt
     body
     primaryImage {
       ...ArticleBanner
@@ -67,6 +69,8 @@ export function EventPage() {
 
   return (
     <>
+      <ArticleOpenGraph resource={resource} />
+
       <Helmet>
         <title>{resource.title}</title>
       </Helmet>

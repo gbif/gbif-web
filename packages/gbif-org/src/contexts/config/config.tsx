@@ -21,6 +21,12 @@ export type InputConfig = {
   occurrencePredicate: any;
   pages?: PageConfig[];
   theme?: Partial<Theme>;
+  // OpenGraph only works on server side rendered pages. So gbif.org.
+  // OpenGraph tags will not be added if this is not set
+  openGraph?: {
+    urlPrefix: string; // Will be added to the beginning of the og:url. e.g. 'https://www.gbif.org'
+    site_name: string; // e.g. 'GBIF'
+  };
 };
 
 export type Config = InputConfig & Endpoints;

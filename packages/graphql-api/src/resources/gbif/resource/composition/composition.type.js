@@ -9,6 +9,7 @@ const typeDef = gql`
   type Composition {
     id: ID!
     title: String
+    excerpt: String
     summary: String
     createdAt: DateTime
     # TODO: Add blocks when the changes has been made in the API

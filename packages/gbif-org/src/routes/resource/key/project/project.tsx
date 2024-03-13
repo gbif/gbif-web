@@ -15,6 +15,7 @@ import { RenderIfChildren } from '@/components/RenderIfChildren';
 import { FundingBanner } from '../components/FundingBanner';
 import { fragmentManager } from '@/services/FragmentManager';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
+import { ArticleOpenGraph } from '../components/ArticleOpenGraph';
 
 export const ProjectPageSkeleton = ArticleSkeleton;
 
@@ -22,6 +23,7 @@ fragmentManager.register(/* GraphQL */ `
   fragment ProjectPage on GbifProject {
     # Define the values used by this page
     title
+    excerpt
     status
     start
     end
@@ -62,6 +64,8 @@ export function ProjectPage() {
 
   return (
     <>
+      <ArticleOpenGraph resource={resource} />
+
       <Helmet>
         <title>{resource.title}</title>
       </Helmet>
