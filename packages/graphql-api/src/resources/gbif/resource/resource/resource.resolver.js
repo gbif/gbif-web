@@ -14,8 +14,6 @@ function elasticSearchTypeToGraphQLType(elasticSearchType) {
 export default {
   Query: {
     resource: async (_, { id, alias }, { dataSources, locale, preview }) => {
-      console.log('resource', id, alias, locale, preview);
-
       if (typeof id === 'string') {
         return dataSources.resourceAPI.getEntryById({ id, locale, preview });
       }

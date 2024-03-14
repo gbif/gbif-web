@@ -45,6 +45,7 @@ export class GraphQLService {
         preview: this.preview.toString(),
       },
       signal: this.abortSignal,
+      cache: this.preview ? 'no-cache' : 'default',
     }).then(async (getResponse) => {
       const body = await getResponse.json();
 
