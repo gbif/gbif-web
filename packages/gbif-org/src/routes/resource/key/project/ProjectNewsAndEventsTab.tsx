@@ -8,6 +8,7 @@ import { useMemo } from 'react';
 import { sortByNewToOld } from '@/utils/sort';
 import { TabListSkeleton } from './TabListSkeleton';
 import { HelpLine } from '../components/HelpLine';
+import { NoResultsTab } from '../components/NoResultsTab';
 
 const PROJECT_NEWS_QUERY = /* GraphQL */ `
   query ProjectNewsAndEvents($key: String!) {
@@ -59,6 +60,11 @@ export function ProjectNewsAndEventsTab() {
   return (
     <div className="pt-4 max-w-3xl m-auto">
       {help && <HelpLine help={help} />}
+
+      {/* TODO: Needs translation */}
+      {sortedNewsAndEvents.length === 0 && (
+        <NoResultsTab>No news and events linked to this project</NoResultsTab>
+      )}
 
       {sortedNewsAndEvents.map((item) => {
         switch (item.__typename) {

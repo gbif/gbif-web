@@ -13,6 +13,7 @@ import { RouteId, useParentRouteLoaderData } from '@/hooks/useParentRouteLoaderD
 import { TabListSkeleton } from './TabListSkeleton';
 import { DatasetResult } from '@/routes/dataset/DatasetResult';
 import { HelpLine } from '../components/HelpLine';
+import { NoResultsTab } from '../components/NoResultsTab';
 
 fragmentManager.register(/* GraphQL */ `
   fragment ProjectDatasetsTab on Query {
@@ -72,6 +73,12 @@ export function ProjectDatasetsTab() {
   return (
     <div className="pt-4 max-w-3xl m-auto">
       {datasetsHelp && <HelpLine help={datasetsHelp} />}
+
+      {/* TODO: Needs translation */}
+      {datasets.data.datasetSearch.results.length === 0 && (
+        <NoResultsTab>No datasets linked to this project</NoResultsTab>
+      )}
+
       {datasets.data.datasetSearch.results.map((item) => (
         <DatasetResult key={item.key} dataset={item} counts={datasetsCount[item.key]} />
       ))}

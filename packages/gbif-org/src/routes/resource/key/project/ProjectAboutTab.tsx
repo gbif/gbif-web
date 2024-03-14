@@ -178,14 +178,14 @@ export function ProjectAboutTab() {
             />
           )}
 
-          {coFundedBy.length && (
+          {coFundedBy.length > 0 && (
             <KeyValuePair
               label={<FormattedMessage id="cms.project.coFundedBy" />}
               value={<ParticipantOrFundingOrganisation resources={coFundedBy} />}
             />
           )}
 
-          {partners.length && (
+          {partners.length > 0 && (
             <KeyValuePair
               label={<FormattedMessage id="cms.project.partners" />}
               value={<ParticipantOrFundingOrganisation resources={partners} />}
