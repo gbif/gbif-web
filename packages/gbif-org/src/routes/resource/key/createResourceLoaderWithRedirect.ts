@@ -154,6 +154,11 @@ export function createResourceLoaderWithRedirect(options: Options) {
       window.dispatchEvent(new DoneLoadingEvent({ id }));
     }
 
+    // Preserve the preview=true query param if it is present, still respecting other query params
+    if (request.url.includes('preview=true')) {
+      redirectUrl += (redirectUrl.includes('?') ? '&' : '?') + 'preview=true';
+    }
+
     return redirect(redirectUrl);
   };
 }

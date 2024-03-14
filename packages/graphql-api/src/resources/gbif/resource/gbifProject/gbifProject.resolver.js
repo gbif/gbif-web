@@ -13,7 +13,7 @@ function isNoneEmptyArray(source) {
  */
 export default {
   Query: {
-    gbifProject: (_, { id, preview }, { dataSources, locale }) =>
+    gbifProject: (_, { id }, { dataSources, locale, preview }) =>
       dataSources.resourceAPI.getEntryById({ id, preview, locale })
   },
   GbifProject: {
@@ -22,33 +22,33 @@ export default {
     summary: src => getHtml(src.summary),
     excerpt: src => excerpt(src),
     leadContact: src => getHtml(src.leadContact),
-    events: (src, _, { dataSources, locale }) => {
+    events: (src, _, { dataSources, locale, preview }) => {
       if (!isNoneEmptyArray(src.events)) return null;
 
       const ids = src.events.map(event => event.id);
-      return Promise.all(ids.map(id => dataSources.resourceAPI.getEntryById({ id, preview: false, locale })));
+      return Promise.all(ids.map(id => dataSources.resourceAPI.getEntryById({ id, preview, locale })));
     },
-    news: (src, _, { dataSources, locale }) => {
+    news: (src, _, { dataSources, locale, preview }) => {
       if (!isNoneEmptyArray(src.news)) return null;
 
       const ids = src.news.map(news => news.id);
-      return Promise.all(ids.map(id => dataSources.resourceAPI.getEntryById({ id, preview: false, locale })));
+      return Promise.all(ids.map(id => dataSources.resourceAPI.getEntryById({ id, preview, locale })));
     },
-    call: (src, _, { dataSources, locale }) => {
+    call: (src, _, { dataSources, locale, preview }) => {
       if (!src?.call?.id) return null;
-      return dataSources.resourceAPI.getEntryById({ id: src.call.id, preview: false, locale });
+      return dataSources.resourceAPI.getEntryById({ id: src.call.id, preview, locale });
     },
     gbifHref: (src, _, context) => createLocalizedGbifHref(context.locale, 'project', src.id),
-    programme: (src, _, { dataSources, locale }) => {
+    programme: (src, _, { dataSources, locale, preview }) => {
       if (!src?.programme?.id) return null;
-      return dataSources.resourceAPI.getEntryById({ id: src.programme.id, preview: false, locale });
+      return dataSources.resourceAPI.getEntryById({ id: src.programme.id, preview, locale });
     },
-    additionalPartners: (src, _, { dataSources, locale }) => {
+    additionalPartners: (src, _, { dataSources, locale, preview }) => {
       if (!isNoneEmptyArray(src.additionalPartners)) return null;
 
       const ids = src.additionalPartners.map(partner => partner.id);
       return Promise.all(ids.map(async id => {
-        const resource = await dataSources.resourceAPI.getEntryById({ id, preview: false, locale });
+        const resource = await dataSources.resourceAPI.getEntryById({ id, preview, locale });
         if (!resource) return null;
 
         if (resource.contentType === 'participant') {
@@ -58,12 +58,12 @@ export default {
         return resource;
       }));
     },
-    fundingOrganisations: (src, _, { dataSources, locale }) => {
+    fundingOrganisations: (src, _, { dataSources, locale, preview }) => {
       if (!isNoneEmptyArray(src.fundingOrganisations)) return null;
 
       const ids = src.fundingOrganisations.map(partner => partner.id);
       return Promise.all(ids.map(async id => {
-        const resource = await dataSources.resourceAPI.getEntryById({ id, preview: false, locale });
+        const resource = await dataSources.resourceAPI.getEntryById({ id, preview, locale });
         if (!resource) return null;
 
         if (resource.contentType === 'participant') {
@@ -73,15 +73,15 @@ export default {
         return resource;
       }));
     },
-    overrideProgrammeFunding: (src, _, { dataSources, locale }) => {
+    overrideProgrammeFunding: (src, _, { dataSources, locale, preview }) => {
       if (!isNoneEmptyArray(src.overrideProgrammeFunding)) return null;
 
       const ids = src.overrideProgrammeFunding.map(programme => programme.id);
-      return Promise.all(ids.map(id => dataSources.resourceAPI.getEntryById({ id, preview: false, locale })));
+      return Promise.all(ids.map(id => dataSources.resourceAPI.getEntryById({ id, preview, locale })));
     },
-    leadPartner: async (src, _, { dataSources, locale }) => {
+    leadPartner: async (src, _, { dataSources, locale, preview }) => {
       if (!src.leadPartner?.id) return null;
-      const resource = await dataSources.resourceAPI.getEntryById({ id: src.leadPartner.id, preview: false, locale });
+      const resource = await dataSources.resourceAPI.getEntryById({ id: src.leadPartner.id, preview, locale });
       if (!resource) return null;
 
       if (resource.contentType === 'participant') {

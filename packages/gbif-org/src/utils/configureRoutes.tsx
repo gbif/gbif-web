@@ -120,7 +120,7 @@ function createRoutesRecursively(
         transformElement(clone, id, nestingLevel);
 
         // Add loading element wrapper to the lazy loaded element if it exists
-        transformLazy(route, clone, id, nestingLevel, locale);
+        transformLazy(route, clone, id, nestingLevel);
 
         // Inject the config and locale into the loader & add loading events
         transformLoader(route, clone, id, locale, nestingLevel, config);
@@ -155,8 +155,7 @@ function transformLazy(
   route: SourceRouteObject,
   clone: RouteObject,
   id: string,
-  nestingLevel: number,
-  locale: Config['languages'][number]
+  nestingLevel: number
 ) {
   const lazy = route.lazy;
   if (typeof lazy === 'function') {
@@ -168,7 +167,7 @@ function transformLazy(
           return {
             ...config,
             element: (
-              <LoadingElementWrapper id={id} nestingLevel={nestingLevel} lang={locale.code}>
+              <LoadingElementWrapper id={id} nestingLevel={nestingLevel}>
                 {element}
               </LoadingElementWrapper>
             ),
@@ -199,10 +198,13 @@ function transformLoader(
         );
       }
 
+      const preview = args.request.url.includes('preview=true');
+
       const graphql = new GraphQLService({
         endpoint: config.graphqlEndpoint,
         abortSignal: args.request.signal,
         locale: locale.cmsLocale || locale.code,
+        preview,
       });
 
       // Remove the skeleton loading element if the request is aborted

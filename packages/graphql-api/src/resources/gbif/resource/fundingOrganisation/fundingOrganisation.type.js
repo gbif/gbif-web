@@ -2,7 +2,7 @@ import {gql} from 'apollo-server';
 
 const typeDef = gql`
   extend type Query {
-    fundingOrganisation(id: String!, preview: Boolean): FundingOrganisation
+    fundingOrganisation(id: String!): FundingOrganisation
   }
 
   type FundingOrganisation {

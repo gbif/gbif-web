@@ -2,7 +2,7 @@ import { gql } from 'apollo-server';
 
 const typeDef = gql`
   extend type Query {
-    gbifDocument(id: String!, preview: Boolean): Document
+    gbifDocument(id: String!): Document
   }
 
   type Document {

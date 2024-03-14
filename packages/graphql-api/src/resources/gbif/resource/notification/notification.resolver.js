@@ -9,7 +9,7 @@ import { getHtml, trustedTags } from "#/helpers/utils";
  */
 export default {
   Query: {
-    notification: (_, { id, preview }, { dataSources, locale }) =>
+    notification: (_, { id }, { dataSources, locale, preview }) =>
       dataSources.resourceAPI.getEntryById({ id, preview, locale })
   },
   Notification: {

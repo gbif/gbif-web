@@ -9,7 +9,7 @@ import { getHtml, excerpt, createLocalizedGbifHref } from "#/helpers/utils";
  */
 export default {
   Query: {
-    news: (_, { id, preview }, { dataSources, locale }) =>
+    news: (_, { id }, { dataSources, locale, preview }) =>
       dataSources.resourceAPI.getEntryById({ id, preview, locale })
   },
   News: {

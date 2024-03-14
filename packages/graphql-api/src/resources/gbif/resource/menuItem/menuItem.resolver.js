@@ -7,18 +7,18 @@
  */
 export default {
   Query: {
-    article: (_, { id, preview }, { dataSources, locale }) =>
+    article: (_, { id }, { dataSources, locale, preview }) =>
       dataSources.resourceAPI.getEntryById({ id, preview, locale })
   },
   MenuItem: {
-    children: ({id}, _, { dataSources, locale }) => {
+    children: ({ id }, _, { dataSources, locale, preview }) => {
       // get the current element by ID
-      return dataSources.resourceAPI.getEntryById({ id, locale })
-        .then(({childNavigationElements}) => {
+      return dataSources.resourceAPI.getEntryById({ id, locale, preview })
+        .then(({ childNavigationElements }) => {
           if (!childNavigationElements) return null;
           // and for each of the children, get the full element
           return childNavigationElements.map(async child => {
-            const test = await dataSources.resourceAPI.getEntryById({ id: child.id, locale });
+            const test = await dataSources.resourceAPI.getEntryById({ id: child.id, locale, preview });
             return test;
           })
         })

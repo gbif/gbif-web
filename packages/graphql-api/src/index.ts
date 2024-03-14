@@ -55,6 +55,7 @@ async function initializeServer() {
         // we could also forward the full header I suppose. For now it is just the referer
         referer: get(req, 'headers.referer') || null,
         locale: get(req, 'headers.locale') || 'en-GB',
+        preview: get(req, 'headers.preview') === 'true',
       };
     },
     typeDefs,

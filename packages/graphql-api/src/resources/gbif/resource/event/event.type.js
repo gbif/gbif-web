@@ -2,7 +2,7 @@ import { gql } from "apollo-server";
 
 const typeDef = gql`
   extend type Query {
-    event(id: String!, preview: Boolean): Event
+    event(id: String!): Event
   }
 
   type Event {

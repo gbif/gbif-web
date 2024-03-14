@@ -7,17 +7,20 @@ type DataProviderOptions = {
   endpoint: string;
   locale: string;
   abortSignal: AbortSignal;
+  preview?: boolean;
 };
 
 export class GraphQLService {
   private endpoint: string;
   private locale: string;
   private abortSignal: AbortSignal;
+  private preview: boolean;
 
   constructor(options: DataProviderOptions) {
     this.endpoint = options.endpoint;
     this.locale = options.locale;
     this.abortSignal = options.abortSignal;
+    this.preview = options.preview ?? false;
   }
 
   public async query<TResult, TVariabels>(
@@ -39,6 +42,7 @@ export class GraphQLService {
       headers: {
         'Content-Type': 'application/json',
         locale: this.locale,
+        preview: this.preview.toString(),
       },
       signal: this.abortSignal,
     }).then(async (getResponse) => {

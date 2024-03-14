@@ -5002,7 +5002,6 @@ export type Query = {
 
 export type QueryArticleArgs = {
   id: Scalars['String']['input'];
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -5025,7 +5024,6 @@ export type QueryBackboneSearchArgs = {
 
 export type QueryCallArgs = {
   id: Scalars['String']['input'];
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -5069,13 +5067,11 @@ export type QueryCollectionSearchArgs = {
 
 export type QueryCompositionArgs = {
   id: Scalars['String']['input'];
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
 export type QueryDataUseArgs = {
   id: Scalars['String']['input'];
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -5142,13 +5138,11 @@ export type QueryDownloadArgs = {
 
 export type QueryEventArgs = {
   id: Scalars['String']['input'];
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
 export type QueryFundingOrganisationArgs = {
   id: Scalars['String']['input'];
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -5159,13 +5153,11 @@ export type QueryGadmArgs = {
 
 export type QueryGbifDocumentArgs = {
   id: Scalars['String']['input'];
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
 export type QueryGbifProjectArgs = {
   id: Scalars['String']['input'];
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -5183,7 +5175,6 @@ export type QueryGlobeArgs = {
 export type QueryHelpArgs = {
   identifier: Scalars['String']['input'];
   locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -5280,7 +5271,6 @@ export type QueryNetworkSearchArgs = {
 
 export type QueryNewsArgs = {
   id: Scalars['String']['input'];
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -5303,7 +5293,6 @@ export type QueryNodeSearchArgs = {
 
 export type QueryNotificationArgs = {
   id: Scalars['String']['input'];
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -5374,7 +5363,6 @@ export type QueryPersonArgs = {
 
 export type QueryProgrammeArgs = {
   id: Scalars['String']['input'];
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -5448,7 +5436,6 @@ export type QueryTaxonSuggestionsArgs = {
 
 export type QueryToolArgs = {
   id: Scalars['String']['input'];
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 

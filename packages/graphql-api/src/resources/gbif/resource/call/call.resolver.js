@@ -9,7 +9,7 @@ import { getHtml, excerpt } from "#/helpers/utils";
  */
 export default {
   Query: {
-    call: (_, { id, preview }, { dataSources, locale }) =>
+    call: (_, { id }, { dataSources, locale, preview }) =>
       dataSources.resourceAPI.getEntryById({ id, preview, locale })
   },
   Call: {

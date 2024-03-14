@@ -3,7 +3,7 @@ import { KNOWN_BLOCK_TYPES, KNOWN_CAROUSEL_BLOCKS, KNOWN_FEATURE_TYPES } from ".
 
 const typeDef = gql`
   extend type Query {
-    composition(id: String!, preview: Boolean): Composition
+    composition(id: String!): Composition
   }
 
   type Composition {

@@ -2,7 +2,7 @@ const { gql } = require("apollo-server-core");
 
 const typeDef = gql`
   # extend type Query {
-  #   menuItem(id: String!, preview: Boolean): MenuItem
+  #   menuItem(id: String!): MenuItem
   # }
 
   type MenuItem {

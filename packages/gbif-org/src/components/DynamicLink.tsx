@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useI18n } from '@/contexts/i18n';
 import { useDefaultLocale } from '@/hooks/useDefaultLocale';
 import { useExternalGbifLink } from '@/hooks/useExternalGbifLink';
@@ -16,16 +16,23 @@ export function DynamicLink<T extends React.ElementType = typeof Link>({
 }: Props<T>): React.ReactElement {
   const { locale } = useI18n();
   const defaultLocale = useDefaultLocale();
+  const location = useLocation();
 
   // Create localized Link
   const isDefaultLocale = defaultLocale.code === locale.code;
   const isAbsoluteLink = to.startsWith('/');
-  const toResult = isAbsoluteLink && !isDefaultLocale ? `/${locale.code}${to}` : to;
+  let toResult = isAbsoluteLink && !isDefaultLocale ? `/${locale.code}${to}` : to;
 
   // Should this link redirect to gbif.org?
   const gbifLink = useExternalGbifLink(to);
   if (gbifLink) {
     return <a {...props} href={gbifLink} />;
+  }
+
+  // If preview=true is present in the query params, add it to the link
+  const preview = new URLSearchParams(location.search).get('preview') === 'true';
+  if (preview) {
+    toResult = `${toResult}${toResult.includes('?') ? '&' : '?'}preview=true`;
   }
 
   const LinkComponent = as ?? Link;
