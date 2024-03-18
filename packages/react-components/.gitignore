@@ -12,6 +12,11 @@
 /locales/dist
 /locales/dist/*
 
+# Docker ignores
+Dockerfile
+docker-compose.yml
+*.dockerignore
+
 # misc
 .DS_Store
 .env.local
