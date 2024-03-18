@@ -118,7 +118,10 @@ export function createResourceLoaderWithRedirect(options: Options) {
     const slugifiedTitle = typeof title === 'string' ? slugify(title) : null;
 
     // If the resource has a urlAlias and is at the correct url, return the resource
-    if (typeof resource.urlAlias === 'string' && request.url.endsWith(resource.urlAlias)) {
+    if (
+      typeof resource.urlAlias === 'string' &&
+      request.url.split('?')[0].endsWith(resource.urlAlias)
+    ) {
       return data;
     }
 
@@ -132,7 +135,7 @@ export function createResourceLoaderWithRedirect(options: Options) {
         window.dispatchEvent(new DoneLoadingEvent({ id }));
       }
 
-      return redirect(redirectUrl);
+      return redirectWithPreservedPreview(request, redirectUrl);
     }
 
     // If the resource type and the slugified key are correct, return the resource
@@ -154,12 +157,7 @@ export function createResourceLoaderWithRedirect(options: Options) {
       window.dispatchEvent(new DoneLoadingEvent({ id }));
     }
 
-    // Preserve the preview=true query param if it is present, still respecting other query params
-    if (request.url.includes('preview=true')) {
-      redirectUrl += (redirectUrl.includes('?') ? '&' : '?') + 'preview=true';
-    }
-
-    return redirect(redirectUrl);
+    return redirectWithPreservedPreview(request, redirectUrl);
   };
 }
 
@@ -176,4 +174,13 @@ function createQuery(options: Options): string {
       }
     }
   `;
+}
+
+function redirectWithPreservedPreview(request: Request, url: string) {
+  // Preserve the preview=true query param if it is present, still respecting other query params
+  if (request.url.includes('preview=true')) {
+    url += (url.includes('?') ? '&' : '?') + 'preview=true';
+  }
+
+  return redirect(url);
 }
