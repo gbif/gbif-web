@@ -47,7 +47,7 @@ export function MediaCountBlock({ resource, insideCarousel = false }: Props) {
     <BlockContainer className={backgroundColor}>
       {resource.mediaTitle && (
         <ArticleTextContainer>
-          <ArticleTitle title={resource.mediaTitle}></ArticleTitle>
+          <ArticleTitle title={resource.mediaTitle} />
         </ArticleTextContainer>
       )}
       <MediaCountBlockContent className="max-w-6xl m-auto p-10" resource={resource} />

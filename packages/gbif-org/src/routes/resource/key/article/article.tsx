@@ -63,7 +63,7 @@ export function ArticlePage() {
 
       <ArticleContainer>
         <ArticleTextContainer className="mb-10">
-          <ArticleTitle>{resource.title}</ArticleTitle>
+          <ArticleTitle title={resource.title} />
 
           {resource.summary && (
             <ArticleIntro dangerouslySetInnerHTML={{ __html: resource.summary }} className="mt-2" />

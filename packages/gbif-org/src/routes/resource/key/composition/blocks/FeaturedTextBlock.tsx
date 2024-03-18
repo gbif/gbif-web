@@ -27,7 +27,7 @@ export function FeaturedTextBlock({ resource }: Props) {
     <BlockContainer className={backgroundColor}>
       {!resource.hideTitle && resource.title && (
         <ArticleTextContainer className="mb-16">
-          <ArticleTitle title={resource.title}></ArticleTitle>
+          <ArticleTitle title={resource.title} />
         </ArticleTextContainer>
       )}
       {resource.body && (

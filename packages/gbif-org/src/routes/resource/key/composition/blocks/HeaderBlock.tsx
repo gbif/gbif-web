@@ -35,7 +35,7 @@ export function HeaderBlock({ resource, resourceType }: Props) {
           </ArticlePreTitle>
         )}
 
-        {!resource.hideTitle && resource.title && <ArticleTitle>{resource.title}</ArticleTitle>}
+        {!resource.hideTitle && resource.title && <ArticleTitle title={resource.title} />}
 
         {resource.summary && (
           <ArticleIntro dangerouslySetInnerHTML={{ __html: resource.summary }} className="mt-2" />

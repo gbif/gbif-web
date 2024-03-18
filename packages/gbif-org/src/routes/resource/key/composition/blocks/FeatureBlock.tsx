@@ -64,7 +64,7 @@ export function FeatureBlock({ resource }: Props) {
     <BlockContainer className={backgroundColor}>
       {!resource.hideTitle && resource.title && (
         <ArticleTextContainer>
-          <ArticleTitle>{resource.title}</ArticleTitle>
+          <ArticleTitle title={resource.title} />
         </ArticleTextContainer>
       )}
       {resource.body && (

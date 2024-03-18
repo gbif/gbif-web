@@ -62,7 +62,7 @@ export function DocumentPage() {
 
       <ArticleContainer>
         <div className="max-w-4xl m-auto bg-paperBackground md:shadow-2xl md:p-8 lg:p-16">
-          <ArticleTitle>{resource.title}</ArticleTitle>
+          <ArticleTitle title={resource.title} />
 
           {resource.createdAt && <PublishedDate date={resource.createdAt} />}
 

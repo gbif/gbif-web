@@ -59,7 +59,7 @@ export function CarouselBlock({ resource }: Props) {
   return (
     <BlockContainer>
       <ArticleTextContainer>
-        <ArticleTitle>{resource.title}</ArticleTitle>
+        {resource.title && <ArticleTitle title={resource.title} />}
       </ArticleTextContainer>
       <div className="max-w-6xl w-full p-10 m-auto">
         <Carousel

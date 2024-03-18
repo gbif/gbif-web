@@ -70,7 +70,7 @@ export function DataUsePage() {
             <FormattedMessage id="cms.contentType.dataUse" />
           </ArticlePreTitle>
 
-          <ArticleTitle>{resource.title}</ArticleTitle>
+          <ArticleTitle title={resource.title} />
 
           {resource.createdAt && <PublishedDate className="mt-2" date={resource.createdAt} />}
 

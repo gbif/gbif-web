@@ -70,7 +70,7 @@ export function ToolPage() {
             <FormattedMessage id="cms.contentType.tool" />
           </ArticlePreTitle>
 
-          <ArticleTitle>{resource.title}</ArticleTitle>
+          <ArticleTitle title={resource.title} />
 
           {resource.publicationDate && (
             <PublishedDate className="mt-2" date={resource.publicationDate} />

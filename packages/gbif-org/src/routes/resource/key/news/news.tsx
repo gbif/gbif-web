@@ -68,7 +68,7 @@ export function NewsPage() {
             <FormattedMessage id="cms.contentType.news" />
           </ArticlePreTitle>
 
-          <ArticleTitle>{resource.title}</ArticleTitle>
+          <ArticleTitle title={resource.title} />
 
           <PublishedDate className="mt-2" date={resource.createdAt} />
 

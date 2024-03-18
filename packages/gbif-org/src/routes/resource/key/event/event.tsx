@@ -91,7 +91,7 @@ export function EventPage() {
             {resource.country && <FormattedMessage id={`enums.topics.${resource.country}`} />}
           </ArticlePreTitle>
 
-          <ArticleTitle>{resource.title}</ArticleTitle>
+          <ArticleTitle title={resource.title} />
 
           {resource.summary && (
             <ArticleIntro dangerouslySetInnerHTML={{ __html: resource.summary }} className="mt-2" />
