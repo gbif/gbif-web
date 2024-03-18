@@ -106,6 +106,7 @@ const Card = ({ broadcastLoginEvent = () => {}, user, signHeaders, annotation, o
   
   const TaxonLabel = labelMap.taxonKey;
   const ProjectLabel = labelMap.projectId;
+  const RulesetLabel = labelMap.rulesetId;
   return (
     <AnnotationWrapper style={{ margin: 12 }}>
       <CardWrapper>
@@ -136,6 +137,7 @@ const Card = ({ broadcastLoginEvent = () => {}, user, signHeaders, annotation, o
           <div style={{ color: 'rgba(0,0,0,.65)', marginTop: 8 }}>
             {typeof annotation.taxonKey !== 'undefined' && <p style={{margin: '4px 0'}}><span style={{fontWeight: 600}}>Taxon:</span> <Button look="text" onClick={e => currentFilterContext.setField('taxonKey', [annotation.taxonKey])}><TaxonLabel id={annotation.taxonKey} /></Button></p>}
             {typeof annotation.projectId !== 'undefined' && <p style={{margin: '4px 0'}}><span style={{fontWeight: 600}}>Project:</span> <Button look="text" onClick={e => currentFilterContext.setField('projectId', [annotation.projectId])}><ProjectLabel id={annotation.projectId} /></Button></p>}
+            {typeof annotation.rulesetId !== 'undefined' && <p style={{margin: '4px 0'}}><span style={{fontWeight: 600}}>Ruleset:</span> <Button look="text" onClick={e => currentFilterContext.setField('rulesetId', [annotation.rulesetId])}><RulesetLabel id={annotation.rulesetId} /></Button></p>}
             {showDescription && <div style={{margin: '12px 0'}}>{firstComment.comment}</div>}
           </div>
         </ContentWrapper>
