@@ -1,9 +1,12 @@
 import { InputConfig } from '@/contexts/config/config';
-import { InvalidGbifEnvError, isGbifEnv } from '@/contexts/config/endpoints';
+import { GbifEnv, InvalidGbifEnvError, isGbifEnv } from '@/contexts/config/endpoints';
 
 const gbifEnv = import.meta.env.PUBLIC_GBIF_ENV;
-if (typeof gbifEnv !== 'string') throw new Error('PUBLIC_GBIF_ENV GBIF_ENV env variable');
+if (typeof gbifEnv !== 'string') throw new Error('Missing PUBLIC_GBIF_ENV env variable');
 if (!isGbifEnv(gbifEnv)) throw new InvalidGbifEnvError(gbifEnv);
+
+const baseUrl = import.meta.env.PUBLIC_BASE_URL;
+if (typeof baseUrl !== 'string') throw new Error('Missing PUBLIC_BASE_URL env variable');
 
 export const gbifConfig: InputConfig = {
   defaultTitle: 'GBIF',
@@ -58,7 +61,7 @@ export const gbifConfig: InputConfig = {
   theme: {
     primary: '#69AA69',
   },
-  baseUrl: 'https://www.gbif.org',
+  baseUrl,
   openGraph: {
     site_name: 'GBIF',
   },
