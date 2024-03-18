@@ -14,6 +14,12 @@ function getVisibleFilters(currentFilter, commonFilters) {
   const visibleFilters = union(commonFilters,
     Object.keys(get(currentFilter, 'must', {})),
     Object.keys(get(currentFilter, 'must_not', {})));
+
+  // if the current filters include hasCoordinate or hasGeospatialIssue then show the geometry filter since that is where the user can set the geometry as well as the other filters
+  // if we end up with more of these special cases for other filters, then we should consider adding a property to the filter config to indicate which fields go together
+  if (visibleFilters.includes('hasCoordinate') || visibleFilters.includes('hasGeospatialIssue')) {
+    visibleFilters.push('geometry');
+  }
   return visibleFilters;
 }
 
