@@ -80,7 +80,7 @@
 
   .classification {
     line-height: 1.2em;
-    &>span:after {
+    & > span:after {
       font-style: normal;
       content: ' ❯ ';
       font-size: 80%;
@@ -88,7 +88,7 @@
       display: inline-block;
       padding: 0 3px;
     }
-    &>span:last-of-type:after {
+    & > span:last-of-type:after {
       display: none;
     }
     .classification-unknown {
@@ -98,7 +98,19 @@
 }
 
 .underlineLinks a {
-  @apply underline underline-offset-1 text-slate-700;
+  @apply underline underline-offset-1;
+}
+
+.inlineBulletList {
+  @apply inline;
+}
+
+.inlineBulletList li {
+  @apply inline;
+}
+
+.inlineBulletList li:not(:last-child)::after {
+  @apply content-['\25CF'] mx-1 text-sm;
 }
 
 .gb-button {

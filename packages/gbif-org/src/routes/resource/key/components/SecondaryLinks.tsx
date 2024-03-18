@@ -29,7 +29,7 @@ export function SecondaryLinks({ links, className }: Props) {
             rel="noopener noreferrer"
             href={link.url}
           >
-            <MdLink />
+            <MdLink className="min-w-4" />
             <div className="ms-4 font-medium">{link?.label ?? link.url}</div>
           </a>
         </li>

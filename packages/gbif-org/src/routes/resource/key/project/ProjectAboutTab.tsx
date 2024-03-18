@@ -228,17 +228,16 @@ function ParticipantOrFundingOrganisation({
   resources: Array<ParticipantOrFundingOrganisationDetailsFragment | null | undefined>;
 }) {
   return (
-    <span className="underlineLinks">
-      {resources.filter(notNull).map((f, idx, array) => (
-        <span key={f.id}>
+    <ul className="underlineLinks inlineBulletList">
+      {resources.filter(notNull).map((f) => (
+        <li key={f.id}>
           {f.__typename === 'FundingOrganisation' && f.url ? (
-            <a href={f.url}>{f.title}</a>
+            <a href={f.url}>{f.title?.trim()}</a>
           ) : (
-            f.title
+            f.title?.trim()
           )}
-          {idx + 1 !== array.length && ', '}
-        </span>
+        </li>
       ))}
-    </span>
+    </ul>
   );
 }
