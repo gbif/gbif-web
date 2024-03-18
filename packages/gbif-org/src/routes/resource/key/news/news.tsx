@@ -16,6 +16,8 @@ import { ArticleTitle } from '../components/ArticleTitle';
 import { PublishedDate } from '../components/PublishedDate';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
 import { ArticleOpenGraph } from '../components/ArticleOpenGraph';
+import { ArticleAuxiliary } from '../components/ArticleAuxiliary';
+import { SecondaryLinks } from '../components/SecondaryLinks';
 
 export const NewsPageSkeleton = ArticlePageSkeleton;
 
@@ -85,6 +87,22 @@ export function NewsPage() {
           )}
 
           <ArticleFooterWrapper>
+            {resource.secondaryLinks && (
+              <ArticleAuxiliary>
+                <SecondaryLinks links={resource.secondaryLinks} className="mt-8" />
+              </ArticleAuxiliary>
+            )}
+
+            {resource.citation && (
+              <ArticleAuxiliary
+                label={<FormattedMessage id="cms.auxiliary.citation" />}
+                dangerouslySetInnerHTML={{
+                  __html: resource.citation,
+                  classNames: 'underlineLinks',
+                }}
+              />
+            )}
+
             <ArticleTags resource={resource} className="mt-8" />
           </ArticleFooterWrapper>
         </ArticleTextContainer>

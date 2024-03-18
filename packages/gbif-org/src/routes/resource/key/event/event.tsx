@@ -116,21 +116,26 @@ export function EventPage() {
           )}
 
           <ArticleFooterWrapper>
-            <RenderIfChildren>
-              {resource.secondaryLinks && (
-                <ArticleAuxiliary>
-                  <SecondaryLinks links={resource.secondaryLinks} />
-                </ArticleAuxiliary>
-              )}
+            {resource.secondaryLinks && (
+              <ArticleAuxiliary>
+                <SecondaryLinks links={resource.secondaryLinks} />
+              </ArticleAuxiliary>
+            )}
 
-              {resource.documents && (
-                <ArticleAuxiliary>
-                  <Documents documents={resource.documents} />
-                </ArticleAuxiliary>
-              )}
-            </RenderIfChildren>
+            {resource.documents && (
+              <ArticleAuxiliary>
+                <Documents documents={resource.documents} />
+              </ArticleAuxiliary>
+            )}
 
             <RenderIfChildren className="flex flex-col gap-1 mt-8">
+              {resource.venue && (
+                <KeyValuePair
+                  label={<FormattedMessage id="cms.resource.venue" />}
+                  value={<FormattedMessage id={resource.venue} />}
+                />
+              )}
+
               {resource.location && (
                 <KeyValuePair
                   label={<FormattedMessage id="cms.resource.location" />}
@@ -142,13 +147,6 @@ export function EventPage() {
                 <KeyValuePair
                   label={<FormattedMessage id="cms.resource.country" />}
                   value={<FormattedMessage id={`enums.topics.${resource.country}`} />}
-                />
-              )}
-
-              {resource.venue && (
-                <KeyValuePair
-                  label={<FormattedMessage id="cms.resource.venue" />}
-                  value={<FormattedMessage id={resource.venue} />}
                 />
               )}
 

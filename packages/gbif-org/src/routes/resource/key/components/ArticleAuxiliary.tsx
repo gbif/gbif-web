@@ -14,7 +14,9 @@ const contentClassNames = 'text-slate-500 dark:text-slate-400 text-sm';
 export function ArticleAuxiliary({ className, label, children, dangerouslySetInnerHTML }: Props) {
   return (
     <div className={cn('mt-8', className)}>
-      {label && <h3 className="font-bold mb-2 text-slate-700 dark:text-slate-400">{label}</h3>}
+      {label && (
+        <h3 className="font-bold text-sm mb-2 text-slate-700 dark:text-slate-400">{label}</h3>
+      )}
       {dangerouslySetInnerHTML && (
         <div
           className={cn(contentClassNames, dangerouslySetInnerHTML.classNames)}
