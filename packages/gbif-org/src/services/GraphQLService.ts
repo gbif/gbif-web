@@ -97,6 +97,8 @@ export class GraphQLService {
       preview: this.preview.toString(),
     };
 
+    if (this.preview) queryParams.preview = Math.random().toString();
+
     const variablesTooLongForGET =
       variables && encodeURIComponent(JSON.stringify(variables)).length > MAX_GET_LENGTH;
     // this is a bit silly. why serialize and then hash the object. would be cheaper to simply hash the serialized
