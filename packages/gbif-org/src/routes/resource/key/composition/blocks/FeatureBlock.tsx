@@ -1,10 +1,9 @@
 import { FeatureBlockDetailsFragment, ProseCardImgFragment } from '@/gql/graphql';
 import { ArticleTextContainer } from '../../components/ArticleTextContainer';
-import { ArticleTitle } from '../../components/ArticleTitle';
 import { ArticleBody } from '../../components/ArticleBody';
 import { ProseCard } from '../proseCard';
 import { fragmentManager } from '@/services/FragmentManager';
-import { BlockContainer, backgroundColorMap } from './_shared';
+import { BlockContainer, BlockHeading, backgroundColorMap } from './_shared';
 import { cn } from '@/utils/shadcn';
 
 fragmentManager.register(/* GraphQL */ `
@@ -62,18 +61,14 @@ export function FeatureBlock({ resource }: Props) {
 
   return (
     <BlockContainer className={backgroundColor}>
-      {!resource.hideTitle && resource.title && (
-        <ArticleTextContainer>
-          <ArticleTitle title={resource.title} />
-        </ArticleTextContainer>
-      )}
+      {!resource.hideTitle && resource.title && <BlockHeading value={resource.title} />}
       {resource.body && (
         <ArticleTextContainer>
-          <ArticleBody dangerouslySetInnerHTML={{ __html: resource.body }} className="mt-2" />
+          <ArticleBody dangerouslySetInnerHTML={{ __html: resource.body }} className="mt-2 mb-10" />
         </ArticleTextContainer>
       )}
       <div
-        className={cn('max-w-6xl m-auto p-10 grid grid-cols-1 gap-5', {
+        className={cn('max-w-6xl m-auto px-10 my-10 grid grid-cols-1 gap-5', {
           'sm:grid-cols-2': maxPerRow >= 2,
           'lg:grid-cols-3': maxPerRow >= 3,
           'xl:grid-cols-4': maxPerRow >= 4,

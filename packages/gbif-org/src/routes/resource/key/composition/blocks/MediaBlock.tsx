@@ -3,9 +3,7 @@ import { MediaBlockDetailsFragment } from '@/gql/graphql';
 import { DynamicLink } from '@/components/DynamicLink';
 import { cn } from '@/utils/shadcn';
 import { ArticleBody } from '../../components/ArticleBody';
-import { BlockContainer, backgroundColorMap } from './_shared';
-import { ArticleTextContainer } from '../../components/ArticleTextContainer';
-import { ArticleTitle } from '../../components/ArticleTitle';
+import { BlockContainer, BlockHeading, backgroundColorMap } from './_shared';
 
 fragmentManager.register(/* GraphQL */ `
   fragment MediaBlockDetails on MediaBlock {
@@ -43,12 +41,8 @@ export function MediaBlock({ resource, insideCarousel = false }: Props) {
 
   return (
     <BlockContainer className={backgroundColor}>
-      {resource.mediaTitle && (
-        <ArticleTextContainer>
-          <ArticleTitle title={resource.mediaTitle} />
-        </ArticleTextContainer>
-      )}
-      <MediaBlockContent className="max-w-6xl m-auto p-10" resource={resource} />
+      {resource.mediaTitle && <BlockHeading value={resource.mediaTitle} />}
+      <MediaBlockContent className="max-w-6xl m-auto px-10 my-10" resource={resource} />
     </BlockContainer>
   );
 }

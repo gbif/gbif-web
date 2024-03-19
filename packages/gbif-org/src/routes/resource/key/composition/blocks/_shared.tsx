@@ -1,4 +1,5 @@
 import { cn } from '@/utils/shadcn';
+import { ArticleTextContainer } from '../../components/ArticleTextContainer';
 
 export const backgroundColorMap: Record<string, string> = {
   white: 'bg-white',
@@ -7,15 +8,34 @@ export const backgroundColorMap: Record<string, string> = {
   black: 'bg-slate-900',
 };
 
-type Props = {
+type BlockContainerProps = {
   children: React.ReactNode;
   className?: string;
 };
 
-export function BlockContainer({ className, children }: Props) {
+export function BlockContainer({ className, children }: BlockContainerProps) {
   return (
-    <div className={cn('p-16 dark:bg-zinc-900 dark:text-slate-200 overflow-hidden', className)}>
+    <div className={cn('p-8 dark:bg-zinc-900 dark:text-slate-200 overflow-hidden', className)}>
       {children}
     </div>
+  );
+}
+
+type BlockHeadingProps = {
+  value: string;
+  className?: string;
+};
+
+export function BlockHeading({ className, value }: BlockHeadingProps) {
+  return (
+    <ArticleTextContainer className="mb-10">
+      <h2
+        className={cn(
+          'text-2xl sm:text-3xl inline-block font-extrabold text-slate-900 tracking-tight dark:text-slate-200 pt-16',
+          className
+        )}
+        dangerouslySetInnerHTML={{ __html: value }}
+      />
+    </ArticleTextContainer>
   );
 }

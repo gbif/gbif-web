@@ -10,11 +10,9 @@ import {
 } from '@/components/ui/carousel';
 import { BlockItem } from '../BlockItem';
 import { useEffect, useState } from 'react';
-import { ArticleTextContainer } from '../../components/ArticleTextContainer';
-import { ArticleTitle } from '../../components/ArticleTitle';
 import { cn } from '@/utils/shadcn';
 import { useI18n } from '@/contexts/i18n';
-import { BlockContainer, backgroundColorMap } from './_shared';
+import { BlockContainer, BlockHeading, backgroundColorMap } from './_shared';
 
 fragmentManager.register(/* GraphQL */ `
   fragment CarouselBlockDetails on CarouselBlock {
@@ -59,10 +57,8 @@ export function CarouselBlock({ resource }: Props) {
 
   return (
     <BlockContainer className={backgroundColor}>
-      <ArticleTextContainer>
-        {resource.title && <ArticleTitle title={resource.title} />}
-      </ArticleTextContainer>
-      <div className="max-w-6xl w-full p-10 m-auto">
+      {resource.title && <BlockHeading value={resource.title} />}
+      <div className="max-w-6xl w-full px-10 my-10 m-auto">
         <Carousel
           opts={{ loop: true, align: 'center', direction: locale.textDirection }}
           setApi={setApi}

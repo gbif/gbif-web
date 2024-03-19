@@ -1,11 +1,11 @@
 import { HeaderBlockDetailsFragment } from '@/gql/graphql';
+import { fragmentManager } from '@/services/FragmentManager';
+import { FormattedMessage } from 'react-intl';
 import { ArticleBanner } from '../../components/ArticleBanner';
 import { ArticleIntro } from '../../components/ArticleIntro';
 import { ArticlePreTitle } from '../../components/ArticlePreTitle';
 import { ArticleTextContainer } from '../../components/ArticleTextContainer';
 import { ArticleTitle } from '../../components/ArticleTitle';
-import { fragmentManager } from '@/services/FragmentManager';
-import { FormattedMessage } from 'react-intl';
 import { BlockContainer } from './_shared';
 
 fragmentManager.register(/* GraphQL */ `
@@ -27,7 +27,7 @@ type Props = {
 
 export function HeaderBlock({ resource, resourceType }: Props) {
   return (
-    <BlockContainer className="pb-0">
+    <BlockContainer>
       <ArticleTextContainer>
         {resourceType && (
           <ArticlePreTitle>

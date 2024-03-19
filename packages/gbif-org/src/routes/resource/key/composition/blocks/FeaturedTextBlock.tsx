@@ -1,9 +1,8 @@
 import { FeaturedTextBlockDetailsFragment } from '@/gql/graphql';
 import { ArticleTextContainer } from '../../components/ArticleTextContainer';
-import { ArticleTitle } from '../../components/ArticleTitle';
 import { ArticleBody } from '../../components/ArticleBody';
 import { fragmentManager } from '@/services/FragmentManager';
-import { BlockContainer, backgroundColorMap } from './_shared';
+import { BlockContainer, BlockHeading, backgroundColorMap } from './_shared';
 
 fragmentManager.register(/* GraphQL */ `
   fragment FeaturedTextBlockDetails on FeaturedTextBlock {
@@ -25,14 +24,10 @@ export function FeaturedTextBlock({ resource }: Props) {
 
   return (
     <BlockContainer className={backgroundColor}>
-      {!resource.hideTitle && resource.title && (
-        <ArticleTextContainer className="mb-16">
-          <ArticleTitle title={resource.title} />
-        </ArticleTextContainer>
-      )}
+      {!resource.hideTitle && resource.title && <BlockHeading value={resource.title} />}
       {resource.body && (
-        <ArticleTextContainer>
-          <ArticleBody dangerouslySetInnerHTML={{ __html: resource.body }} className="mt-2" />
+        <ArticleTextContainer className="mt-2 mb-10">
+          <ArticleBody dangerouslySetInnerHTML={{ __html: resource.body }} />
         </ArticleTextContainer>
       )}
     </BlockContainer>

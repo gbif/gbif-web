@@ -27,7 +27,7 @@ export function TextBlock({ resource }: Props) {
       <ArticleTextContainer>
         {!resource.hideTitle && resource.title && <ArticleTitle title={resource.title} />}
         {resource.body && (
-          <ArticleBody dangerouslySetInnerHTML={{ __html: resource.body }} className="mt-2" />
+          <ArticleBody dangerouslySetInnerHTML={{ __html: resource.body }} className="mt-2 mb-10" />
         )}
       </ArticleTextContainer>
     </BlockContainer>
