@@ -13,6 +13,8 @@ import { useEffect, useState } from 'react';
 import { cn } from '@/utils/shadcn';
 import { useI18n } from '@/contexts/i18n';
 import { BlockContainer, BlockHeading, backgroundColorMap } from './_shared';
+import { ArticleTextContainer } from '../../components/ArticleTextContainer';
+import { ArticleBody } from '../../components/ArticleBody';
 
 fragmentManager.register(/* GraphQL */ `
   fragment CarouselBlockDetails on CarouselBlock {
@@ -58,6 +60,11 @@ export function CarouselBlock({ resource }: Props) {
   return (
     <BlockContainer className={backgroundColor}>
       {resource.title && <BlockHeading dangerouslySetHeading={{ __html: resource.title }} />}
+      {resource.body && (
+        <ArticleTextContainer className="mt-2 mb-10">
+          <ArticleBody dangerouslySetBody={{ __html: resource.body }} />
+        </ArticleTextContainer>
+      )}
       <div className="max-w-6xl w-full px-10 my-10 m-auto">
         <Carousel
           opts={{ loop: true, align: 'center', direction: locale.textDirection }}

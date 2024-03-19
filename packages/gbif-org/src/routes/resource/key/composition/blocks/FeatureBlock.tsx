@@ -65,8 +65,8 @@ export function FeatureBlock({ resource }: Props) {
         <BlockHeading dangerouslySetHeading={{ __html: resource.title }} />
       )}
       {resource.body && (
-        <ArticleTextContainer>
-          <ArticleBody dangerouslySetBody={{ __html: resource.body }} className="mt-2 mb-10" />
+        <ArticleTextContainer className="mt-2 mb-10">
+          <ArticleBody dangerouslySetBody={{ __html: resource.body }} />
         </ArticleTextContainer>
       )}
       <div
