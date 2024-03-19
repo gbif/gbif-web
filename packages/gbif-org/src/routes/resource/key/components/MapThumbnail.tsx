@@ -62,8 +62,7 @@ type Props = PrimarySearch &
 
 export function MapThumbnail(props: Props) {
   const hasMap = useHasMap(props);
-
-  if (!hasMap) return;
+  if (!hasMap) return false;
 
   return (
     <div className={cn("relative w-32 flex-shrink-0", props.className)}>
@@ -91,14 +90,28 @@ function useHasMap(options: PrimarySearch) {
   const [hasMap, setHasMap] = useState(false);
 
   useEffect(() => {
-    fetch(createCapabilitiesUrl(options))
+    const controller = new AbortController();
+    const signal = controller.signal;
+    fetch(createCapabilitiesUrl(options), {signal})
       .then((response) => response.json())
       .then((data) => {
         if (data.total > 0) {
           setHasMap(true);
         }
+      })
+      .catch((err) => {
+        if (err.name === 'AbortError') {
+          // ignore cancellation silently
+        } else {
+          // ignore error silently
+        }
       });
-  });
+
+      return () => {
+        // cancel the request before unmounting
+        controller.abort();
+    };
+  }, []);
 
   return hasMap;
 }
