@@ -31,11 +31,7 @@ export class GraphQLService {
     const queryWithFragments = fragmentManager.addFragmentsToQuery(query);
 
     // Create a query string for the GET request based on a hased version of the query and variables
-    const queryString = this.createQueryStringForGetRequest(
-      queryWithFragments,
-      variables,
-      this.locale
-    );
+    const queryString = this.createQueryStringForGetRequest(queryWithFragments, variables);
 
     return fetch(`${this.endpoint}?${queryString}`, {
       method: 'GET',
@@ -90,14 +86,15 @@ export class GraphQLService {
     return operationNameMatch ? operationNameMatch[1] : null;
   }
 
-  private createQueryStringForGetRequest(query: string, variables: unknown, locale: string) {
+  private createQueryStringForGetRequest(query: string, variables: unknown) {
     const queryId = hash(query);
 
     const queryParams: Record<string, string> = {
       strict: 'true',
       queryId,
-      // This is to prevent caching across locales
-      locale,
+      // This is to prevent caching across locales and preview mode
+      locale: this.locale,
+      preview: this.preview.toString(),
     };
 
     const variablesTooLongForGET =
