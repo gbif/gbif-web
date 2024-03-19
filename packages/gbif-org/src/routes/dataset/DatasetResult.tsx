@@ -3,7 +3,7 @@ import { DatasetCountsFragment, DatasetResultFragment } from '@/gql/graphql';
 import { fragmentManager } from '@/services/FragmentManager';
 import { isPositiveNumber } from '@/utils/isPositiveNumber';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
-import { MapThumbnail } from '../resource/key/components/MapThumbnail';
+import { MapThumbnail, MapTypes } from '../resource/key/components/MapThumbnail';
 
 fragmentManager.register(/* GraphQL */ `
   fragment DatasetResult on DatasetSearchStub {
@@ -57,18 +57,14 @@ export function DatasetResult({
           )}
         </div>
       </div>
-      <MapThumbnail
-        datasetKey={dataset.key}
-        x={0}
-        y={0}
-        z={0}
-        tileStyle="gbif-middle"
-        mapStyle="classic-noborder.poly"
-        format="@1x.png"
-        srs="EPSG:3857"
-        bin="square"
-        squareSize={100}
-      />
+      <div className="max-w-64">
+        <MapThumbnail
+          type={MapTypes.DatasetKey}
+          identifier={dataset.key}
+          overlayStyle="classic-noborder.poly"
+          className="rounded"
+        />
+      </div>
     </article>
   );
 }
