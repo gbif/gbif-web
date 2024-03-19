@@ -12,7 +12,7 @@ type Props = {
 
 export function KeyValuePair({ label, value, className, dangerouslySetValue }: Props) {
   return (
-    <div className={cn('mb-1', className)}>
+    <div className={cn('mb-2', className)}>
       <span className="font-semibold">{label}: </span>
       {dangerouslySetValue && (
         <span
