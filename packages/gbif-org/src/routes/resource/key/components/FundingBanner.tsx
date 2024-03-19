@@ -1,7 +1,7 @@
 import { ProgrammeFundingBannerFragment, ProjectFundingBannerFragment } from '@/gql/graphql';
 import { fragmentManager } from '@/services/FragmentManager';
 import { notNull } from '@/utils/notNull';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
 
 fragmentManager.register(/* GraphQL */ `
   fragment FundingOrganisationDetails on FundingOrganisation {
@@ -54,12 +54,11 @@ export function FundingBanner({ resource }: Props) {
 
   return (
     <div className="bg-slate-100 mt-6 p-6 flex flex-col items-center">
-      <span className="text-gray-500 text-xs">
-        {fundsAllocated && `€ ${fundsAllocated} `}
-        <FormattedMessage id="cms.project.fundedBy" />
-      </span>
+      {fundsAllocated && <span className="text-gray-500 text-xs">
+        € <FormattedNumber value={fundsAllocated} />
+      </span>}
 
-      <div className="pt-6 flex gap-8 flex-wrap justify-center">
+      <div className="pt-2 flex gap-8 flex-wrap justify-center">
         {fundingOrganisations?.filter(notNull).map((fundingOrganisation) => (
           <div key={fundingOrganisation.id}>
             <a href={fundingOrganisation.url!} className="flex flex-col items-center group">
@@ -67,8 +66,8 @@ export function FundingBanner({ resource }: Props) {
                 className="max-w-28"
                 src={fundingOrganisation.logo?.file.url}
               />
-              <span className="text-gray-500 text-sm pt-2 group-hover:underline">
-                {fundingOrganisation.title}
+              <span className="text-gray-500 text-sm pt-2">
+                <FormattedMessage id="cms.project.fundedBy" /> : <span className="group-hover:underline">{fundingOrganisation.title}</span>
               </span>
             </a>
           </div>
