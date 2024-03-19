@@ -57,7 +57,7 @@ export function CarouselBlock({ resource }: Props) {
 
   return (
     <BlockContainer className={backgroundColor}>
-      {resource.title && <BlockHeading value={resource.title} />}
+      {resource.title && <BlockHeading dangerouslySetHeading={{ __html: resource.title }} />}
       <div className="max-w-6xl w-full px-10 my-10 m-auto">
         <Carousel
           opts={{ loop: true, align: 'center', direction: locale.textDirection }}

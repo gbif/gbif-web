@@ -101,7 +101,7 @@ export function ProjectAboutTab() {
 
       <ArticleTextContainer>
         {resource.body && (
-          <ArticleBody dangerouslySetInnerHTML={{ __html: resource.body }} className="mt-2" />
+          <ArticleBody dangerouslySetBody={{ __html: resource.body }} className="mt-2" />
         )}
 
         <ArticleFooterWrapper hrClassName="mb-8">
@@ -195,7 +195,7 @@ export function ProjectAboutTab() {
           {resource.leadContact && (
             <KeyValuePair
               label={<FormattedMessage id="cms.project.contactDetalils" />}
-              dangerouslySetInnerHTML={{ __html: resource.leadContact }}
+              dangerouslySetValue={{ __html: resource.leadContact }}
             />
           )}
 

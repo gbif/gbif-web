@@ -5,19 +5,19 @@ type Props = {
   label: React.ReactNode;
   value?: React.ReactNode;
   className?: string;
-  dangerouslySetInnerHTML?: React.HTMLAttributes<HTMLDivElement>['dangerouslySetInnerHTML'] & {
+  dangerouslySetValue?: React.HTMLAttributes<HTMLDivElement>['dangerouslySetInnerHTML'] & {
     classNames?: string;
   };
 };
 
-export function KeyValuePair({ label, value, className, dangerouslySetInnerHTML }: Props) {
+export function KeyValuePair({ label, value, className, dangerouslySetValue }: Props) {
   return (
     <div className={cn('mb-1', className)}>
       <span className="font-semibold">{label}: </span>
-      {dangerouslySetInnerHTML && (
+      {dangerouslySetValue && (
         <span
-          className={dangerouslySetInnerHTML.classNames}
-          dangerouslySetInnerHTML={dangerouslySetInnerHTML}
+          className={dangerouslySetValue.classNames}
+          dangerouslySetInnerHTML={dangerouslySetValue}
         />
       )}
       {value && <span>{value}</span>}

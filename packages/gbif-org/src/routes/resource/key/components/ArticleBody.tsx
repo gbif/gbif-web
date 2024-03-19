@@ -4,14 +4,14 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 type Props = {
   className?: string;
-  dangerouslySetInnerHTML: { __html: string };
+  dangerouslySetBody: { __html: string };
 };
 
-export function ArticleBody({ className, dangerouslySetInnerHTML }: Props) {
+export function ArticleBody({ className, dangerouslySetBody }: Props) {
   return (
     <div
       className={cn('prose max-w-none dark:prose-invert', styles.container, className)}
-      dangerouslySetInnerHTML={dangerouslySetInnerHTML}
+      dangerouslySetInnerHTML={dangerouslySetBody}
     />
   );
 }

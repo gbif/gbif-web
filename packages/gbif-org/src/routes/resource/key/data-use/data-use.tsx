@@ -70,12 +70,12 @@ export function DataUsePage() {
             <FormattedMessage id="cms.contentType.dataUse" />
           </ArticlePreTitle>
 
-          <ArticleTitle title={resource.title} />
+          <ArticleTitle dangerouslySetTitle={{ __html: resource.title }} />
 
           {resource.createdAt && <PublishedDate className="mt-2" date={resource.createdAt} />}
 
           {resource.summary && (
-            <ArticleIntro dangerouslySetInnerHTML={{ __html: resource.summary }} className="mt-2" />
+            <ArticleIntro dangerouslySetIntro={{ __html: resource.summary }} className="mt-2" />
           )}
 
           <ArticleIntro className="mt-2">
@@ -87,14 +87,14 @@ export function DataUsePage() {
 
         <ArticleTextContainer>
           {resource.body && (
-            <ArticleBody dangerouslySetInnerHTML={{ __html: resource.body }} className="mt-2" />
+            <ArticleBody dangerouslySetBody={{ __html: resource.body }} className="mt-2" />
           )}
 
           <ArticleFooterWrapper>
             {resource.citation && (
               <ArticleAuxiliary
                 label={<FormattedMessage id="cms.auxiliary.citation" />}
-                dangerouslySetInnerHTML={{
+                dangerouslySetValue={{
                   __html: resource.citation,
                   classNames: 'underlineLinks',
                 }}

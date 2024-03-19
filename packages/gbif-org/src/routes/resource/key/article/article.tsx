@@ -63,10 +63,10 @@ export function ArticlePage() {
 
       <ArticleContainer>
         <ArticleTextContainer className="mb-10">
-          <ArticleTitle title={resource.title} />
+          <ArticleTitle dangerouslySetTitle={{ __html: resource.title }} />
 
           {resource.summary && (
-            <ArticleIntro dangerouslySetInnerHTML={{ __html: resource.summary }} className="mt-2" />
+            <ArticleIntro dangerouslySetIntro={{ __html: resource.summary }} className="mt-2" />
           )}
         </ArticleTextContainer>
 
@@ -74,7 +74,7 @@ export function ArticlePage() {
 
         <ArticleTextContainer>
           {resource.body && (
-            <ArticleBody dangerouslySetInnerHTML={{ __html: resource.body }} className="mt-2" />
+            <ArticleBody dangerouslySetBody={{ __html: resource.body }} className="mt-2" />
           )}
 
           <ArticleFooterWrapper>
@@ -93,7 +93,7 @@ export function ArticlePage() {
             {resource.citation && (
               <ArticleAuxiliary
                 label={<FormattedMessage id="cms.auxiliary.citation" />}
-                dangerouslySetInnerHTML={{
+                dangerouslySetValue={{
                   __html: resource.citation,
                   classNames: 'underlineLinks',
                 }}

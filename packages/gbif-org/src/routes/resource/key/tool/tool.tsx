@@ -70,14 +70,14 @@ export function ToolPage() {
             <FormattedMessage id="cms.contentType.tool" />
           </ArticlePreTitle>
 
-          <ArticleTitle title={resource.title} />
+          <ArticleTitle dangerouslySetTitle={{ __html: resource.title }} />
 
           {resource.publicationDate && (
             <PublishedDate className="mt-2" date={resource.publicationDate} />
           )}
 
           {resource.summary && (
-            <ArticleIntro dangerouslySetInnerHTML={{ __html: resource.summary }} className="mt-2" />
+            <ArticleIntro dangerouslySetIntro={{ __html: resource.summary }} className="mt-2" />
           )}
 
           {resource.primaryLink && (
@@ -91,7 +91,7 @@ export function ToolPage() {
 
         <ArticleTextContainer>
           {resource.body && (
-            <ArticleBody dangerouslySetInnerHTML={{ __html: resource.body }} className="mt-2" />
+            <ArticleBody dangerouslySetBody={{ __html: resource.body }} className="mt-2" />
           )}
 
           <ArticleFooterWrapper>
@@ -104,7 +104,7 @@ export function ToolPage() {
             {resource.citation && (
               <ArticleAuxiliary
                 label={<FormattedMessage id="cms.auxiliary.citation" />}
-                dangerouslySetInnerHTML={{
+                dangerouslySetValue={{
                   __html: resource.citation,
                   classNames: 'underlineLinks',
                 }}
@@ -114,21 +114,21 @@ export function ToolPage() {
             {resource.author && (
               <ArticleAuxiliary
                 label={<FormattedMessage id="cms.resource.author" />}
-                dangerouslySetInnerHTML={{ __html: resource.author, classNames: 'underlineLinks' }}
+                dangerouslySetValue={{ __html: resource.author, classNames: 'underlineLinks' }}
               />
             )}
 
             {resource.rights && (
               <ArticleAuxiliary
                 label={<FormattedMessage id="cms.resource.rights" />}
-                dangerouslySetInnerHTML={{ __html: resource.rights, classNames: 'underlineLinks' }}
+                dangerouslySetValue={{ __html: resource.rights, classNames: 'underlineLinks' }}
               />
             )}
 
             {resource.rightsHolder && (
               <ArticleAuxiliary
                 label={<FormattedMessage id="cms.resource.rightsHolder" />}
-                dangerouslySetInnerHTML={{
+                dangerouslySetValue={{
                   __html: resource.rightsHolder,
                   classNames: 'underlineLinks',
                 }}

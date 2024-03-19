@@ -62,12 +62,12 @@ export function DocumentPage() {
 
       <ArticleContainer>
         <div className="max-w-4xl m-auto bg-paperBackground md:shadow-2xl md:p-8 lg:p-16">
-          <ArticleTitle title={resource.title} />
+          <ArticleTitle dangerouslySetTitle={{ __html: resource.title }} />
 
           {resource.createdAt && <PublishedDate date={resource.createdAt} />}
 
           {resource.summary && (
-            <ArticleIntro dangerouslySetInnerHTML={{ __html: resource.summary }} className="mt-2" />
+            <ArticleIntro dangerouslySetIntro={{ __html: resource.summary }} className="mt-2" />
           )}
 
           <RenderIfChildren className="flex gap-4 mt-4">
@@ -90,14 +90,14 @@ export function DocumentPage() {
           </RenderIfChildren>
 
           {resource.body && (
-            <ArticleBody dangerouslySetInnerHTML={{ __html: resource.body }} className="mt-10" />
+            <ArticleBody dangerouslySetBody={{ __html: resource.body }} className="mt-10" />
           )}
 
           <ArticleFooterWrapper>
             {resource.citation && (
               <ArticleAuxiliary
                 label={<FormattedMessage id="cms.auxiliary.citation" />}
-                dangerouslySetInnerHTML={{
+                dangerouslySetValue={{
                   __html: resource.citation,
                   classNames: 'underlineLinks',
                 }}

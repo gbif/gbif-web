@@ -61,10 +61,12 @@ export function FeatureBlock({ resource }: Props) {
 
   return (
     <BlockContainer className={backgroundColor}>
-      {!resource.hideTitle && resource.title && <BlockHeading value={resource.title} />}
+      {!resource.hideTitle && resource.title && (
+        <BlockHeading dangerouslySetHeading={{ __html: resource.title }} />
+      )}
       {resource.body && (
         <ArticleTextContainer>
-          <ArticleBody dangerouslySetInnerHTML={{ __html: resource.body }} className="mt-2 mb-10" />
+          <ArticleBody dangerouslySetBody={{ __html: resource.body }} className="mt-2 mb-10" />
         </ArticleTextContainer>
       )}
       <div

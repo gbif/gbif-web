@@ -91,10 +91,10 @@ export function EventPage() {
             {resource.country && <FormattedMessage id={`enums.topics.${resource.country}`} />}
           </ArticlePreTitle>
 
-          <ArticleTitle title={resource.title} />
+          <ArticleTitle dangerouslySetTitle={{ __html: resource.title }} />
 
           {resource.summary && (
-            <ArticleIntro dangerouslySetInnerHTML={{ __html: resource.summary }} className="mt-2" />
+            <ArticleIntro dangerouslySetIntro={{ __html: resource.summary }} className="mt-2" />
           )}
 
           <Button className="mt-4" asChild>
@@ -112,7 +112,7 @@ export function EventPage() {
 
         <ArticleTextContainer>
           {resource.body && (
-            <ArticleBody dangerouslySetInnerHTML={{ __html: resource.body }} className="mt-2" />
+            <ArticleBody dangerouslySetBody={{ __html: resource.body }} className="mt-2" />
           )}
 
           <ArticleFooterWrapper>

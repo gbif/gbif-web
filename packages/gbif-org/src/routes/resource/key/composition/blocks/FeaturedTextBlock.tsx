@@ -24,10 +24,12 @@ export function FeaturedTextBlock({ resource }: Props) {
 
   return (
     <BlockContainer className={backgroundColor}>
-      {!resource.hideTitle && resource.title && <BlockHeading value={resource.title} />}
+      {!resource.hideTitle && resource.title && (
+        <BlockHeading dangerouslySetHeading={{ __html: resource.title }} />
+      )}
       {resource.body && (
         <ArticleTextContainer className="mt-2 mb-10">
-          <ArticleBody dangerouslySetInnerHTML={{ __html: resource.body }} />
+          <ArticleBody dangerouslySetBody={{ __html: resource.body }} />
         </ArticleTextContainer>
       )}
     </BlockContainer>

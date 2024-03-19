@@ -4,10 +4,10 @@ import { cn } from '@/utils/shadcn';
 type Props = {
   children?: React.ReactNode;
   className?: string;
-  title?: string;
+  dangerouslySetTitle?: { __html: string };
 };
 
-export function ArticleTitle({ title, children, className }: Props) {
+export function ArticleTitle({ dangerouslySetTitle, children, className }: Props) {
   return (
     <h1
       className={cn(
@@ -15,7 +15,7 @@ export function ArticleTitle({ title, children, className }: Props) {
         className
       )}
     >
-      {title && <span dangerouslySetInnerHTML={{ __html: title }} />}
+      {dangerouslySetTitle && <span dangerouslySetInnerHTML={dangerouslySetTitle} />}
       {children}
     </h1>
   );

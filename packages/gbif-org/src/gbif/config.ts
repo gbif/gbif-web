@@ -1,5 +1,5 @@
 import { InputConfig } from '@/contexts/config/config';
-import { GbifEnv, InvalidGbifEnvError, isGbifEnv } from '@/contexts/config/endpoints';
+import { InvalidGbifEnvError, isGbifEnv } from '@/contexts/config/endpoints';
 
 const gbifEnv = import.meta.env.PUBLIC_GBIF_ENV;
 if (typeof gbifEnv !== 'string') throw new Error('Missing PUBLIC_GBIF_ENV env variable');

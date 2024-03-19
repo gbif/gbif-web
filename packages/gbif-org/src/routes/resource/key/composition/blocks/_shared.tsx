@@ -22,11 +22,11 @@ export function BlockContainer({ className, children }: BlockContainerProps) {
 }
 
 type BlockHeadingProps = {
-  value: string;
+  dangerouslySetHeading?: { __html: string };
   className?: string;
 };
 
-export function BlockHeading({ className, value }: BlockHeadingProps) {
+export function BlockHeading({ className, dangerouslySetHeading }: BlockHeadingProps) {
   return (
     <ArticleTextContainer className="mb-10">
       <h2
@@ -34,7 +34,7 @@ export function BlockHeading({ className, value }: BlockHeadingProps) {
           'text-2xl sm:text-3xl inline-block font-extrabold text-slate-900 tracking-tight dark:text-slate-200 pt-16',
           className
         )}
-        dangerouslySetInnerHTML={{ __html: value }}
+        dangerouslySetInnerHTML={dangerouslySetHeading}
       />
     </ArticleTextContainer>
   );

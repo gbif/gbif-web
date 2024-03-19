@@ -41,7 +41,9 @@ export function MediaBlock({ resource, insideCarousel = false }: Props) {
 
   return (
     <BlockContainer className={backgroundColor}>
-      {resource.mediaTitle && <BlockHeading value={resource.mediaTitle} />}
+      {resource.mediaTitle && (
+        <BlockHeading dangerouslySetHeading={{ __html: resource.mediaTitle }} />
+      )}
       <MediaBlockContent className="max-w-6xl m-auto px-10 my-10" resource={resource} />
     </BlockContainer>
   );
@@ -75,7 +77,7 @@ function MediaBlockContent({
         {insideCarousel && <h4 className="text-xl font-medium">{resource.mediaTitle}</h4>}
         <p className="text-sm">{resource.subtitle}</p>
         {resource.body && (
-          <ArticleBody className="mt-4" dangerouslySetInnerHTML={{ __html: resource.body }} />
+          <ArticleBody className="mt-4" dangerouslySetBody={{ __html: resource.body }} />
         )}
         {resource.callToAction && (
           <div className="flex gap-4 flex-wrap mt-4">

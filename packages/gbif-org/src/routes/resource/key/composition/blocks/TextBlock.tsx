@@ -25,9 +25,11 @@ export function TextBlock({ resource }: Props) {
   return (
     <BlockContainer className={backgroundColor}>
       <ArticleTextContainer>
-        {!resource.hideTitle && resource.title && <ArticleTitle title={resource.title} />}
+        {!resource.hideTitle && resource.title && (
+          <ArticleTitle dangerouslySetTitle={{ __html: resource.title }} />
+        )}
         {resource.body && (
-          <ArticleBody dangerouslySetInnerHTML={{ __html: resource.body }} className="mt-2 mb-10" />
+          <ArticleBody dangerouslySetBody={{ __html: resource.body }} className="mt-2 mb-10" />
         )}
       </ArticleTextContainer>
     </BlockContainer>
