@@ -1,4 +1,4 @@
-import { cn } from "@/utils/shadcn";
+import { cn } from '@/utils/shadcn';
 
 export const backgroundColorMap: Record<string, string> = {
   white: 'bg-white',
@@ -14,9 +14,7 @@ type Props = {
 
 export function BlockContainer({ className, children }: Props) {
   return (
-    <div
-      className={cn('p-16 dark:bg-zinc-900 dark:text-slate-200', className)}
-    >
+    <div className={cn('p-16 dark:bg-zinc-900 dark:text-slate-200 overflow-hidden', className)}>
       {children}
     </div>
   );
