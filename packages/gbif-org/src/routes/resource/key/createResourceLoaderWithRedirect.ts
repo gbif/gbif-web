@@ -67,7 +67,7 @@ const DataSchema = z.object({
     .object({
       __typename: ResourceTypeSchema,
       id: z.string(),
-      urlAlias: z.string().optional(),
+      urlAlias: z.string().nullable().optional(),
     })
     .and(z.object({ title: z.string() }).or(z.object({ maybeTitle: z.string().nullable() }))),
 });

@@ -14,7 +14,7 @@ import { ArticleTextContainer } from '../../components/ArticleTextContainer';
 import { ArticleTitle } from '../../components/ArticleTitle';
 import { cn } from '@/utils/shadcn';
 import { useI18n } from '@/contexts/i18n';
-import { BlockContainer } from './_shared';
+import { BlockContainer, backgroundColorMap } from './_shared';
 
 fragmentManager.register(/* GraphQL */ `
   fragment CarouselBlockDetails on CarouselBlock {
@@ -40,6 +40,7 @@ type Props = {
 };
 
 export function CarouselBlock({ resource }: Props) {
+  const backgroundColor = backgroundColorMap[resource?.backgroundColour ?? 'white'];
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
@@ -57,7 +58,7 @@ export function CarouselBlock({ resource }: Props) {
   }, [api]);
 
   return (
-    <BlockContainer>
+    <BlockContainer className={backgroundColor}>
       <ArticleTextContainer>
         {resource.title && <ArticleTitle title={resource.title} />}
       </ArticleTextContainer>
