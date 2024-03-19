@@ -3,7 +3,7 @@ import { DatasetCountsFragment, DatasetResultFragment } from '@/gql/graphql';
 import { fragmentManager } from '@/services/FragmentManager';
 import { isPositiveNumber } from '@/utils/isPositiveNumber';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
-import { MapThumbnail, MapTypes } from '../resource/key/components/MapThumbnail';
+import { MapThumbnail, MapTypes } from '../../components/MapThumbnail';
 
 fragmentManager.register(/* GraphQL */ `
   fragment DatasetResult on DatasetSearchStub {
