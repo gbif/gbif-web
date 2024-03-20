@@ -128,7 +128,7 @@ function truncateText(sourceText, maxLength) {
   if (sourceText.length <= maxLength) return sourceText;
   const truncatedText = sourceText.slice(0, maxLength);
   const lastSpaceIndex = truncatedText.lastIndexOf(' ');
-  return truncatedText.slice(0, lastSpaceIndex) + '...';
+  return truncatedText.slice(0, lastSpaceIndex) + '…';
 }
 
 function excerpt({ summary, body }, maxLength = 200) {
