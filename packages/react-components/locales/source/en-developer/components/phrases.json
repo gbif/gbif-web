@@ -25,6 +25,7 @@
   "backHome": "Back home",
   "pageNotFound": "404",
   "noInformation": "No information",
+  "noDescriptionProvided": "No description provided",
   "viewOnGBif": "View on GBIF.org",
   "failedToLoadData": "Failed to load data",
   "retry": "Retry",

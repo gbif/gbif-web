@@ -20,14 +20,17 @@ fragmentManager.register(/* GraphQL */ `
 export function DatasetResult({ dataset }: { dataset: DatasetResultFragment }) {
   return (
     <article className="bg-slate-50 p-4 rounded border mb-4">
-      <div className="flex flex-row gap-4">
+      <div className="flex flex-col md:flex-row gap-4">
         <div>
           <h3 className="text-base font-semibold mb-2">
             <DynamicLink to={`/dataset/${dataset.key}`}>{dataset.title}</DynamicLink>
           </h3>
-          <p className="font-normal text-slate-500 text-sm">{dataset.excerpt}</p>
+          {dataset.excerpt && <p className="font-normal text-slate-500 text-sm">{dataset.excerpt}</p>}
+          {!dataset.excerpt && <p className="font-normal text-slate-400 text-sm"><FormattedMessage id="phrases.noDescriptionProvided" /></p>}
+
+          {/* <p className="font-normal text-slate-500 text-sm mt-2">Publisher by <span>{dataset.publishingOrganizationTitle}</span></p> */}
         </div>
-        <div className="max-w-64">
+        <div className="max-w-48 md:max-w-64 ">
           <MapThumbnail
             type={MapTypes.DatasetKey}
             identifier={dataset.key}
@@ -36,7 +39,7 @@ export function DatasetResult({ dataset }: { dataset: DatasetResultFragment }) {
           />
         </div>
       </div>
-      <div className="mt-2 flex flex-row items-center">
+      <div className="-m-1 mt-2 flex flex-row items-center flex-wrap">
         <Tag>
           <FormattedMessage id={`enums.datasetType.${dataset.type}`} />
         </Tag>
@@ -79,7 +82,7 @@ export function CountTag({
 
 function Tag({ children }: { children: React.ReactNode }) {
   return (
-    <span className="align-middle bg-slate-300/50 text-slate-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
+    <span className="align-middle bg-slate-300/50 text-slate-800 text-xs font-medium px-2.5 py-0.5 m-1 mb-0 rounded dark:bg-red-900 dark:text-red-300">
       {children}
     </span>
   );
