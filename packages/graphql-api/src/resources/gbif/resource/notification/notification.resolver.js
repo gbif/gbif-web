@@ -13,8 +13,8 @@ export default {
       dataSources.resourceAPI.getEntryById({ id, preview, locale })
   },
   Notification: {
-    title: src => getHtml(src.title, { inline: true }),
-    summary: src => getHtml(src.summary),
-    body: src => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true}),
+    title: (src, _, { locale }) => getHtml(src.title, { inline: true, locale }),
+    summary: (src, _, { locale }) => getHtml(src.summary, { locale }),
+    body: (src, _, { locale }) => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
   }
 }

@@ -11,7 +11,7 @@ type DefaultOptions = {
   allowedTags: string[];
   allowedAttributes: Record<string, AllowedAttribute[]>;
   allowedIframeHostnames?: string[];
-  transformTags: Record<string, string | Transformer>;
+  transformTags?: Record<string, string | Transformer>;
   parser?: ParserOptions;
 }
 
@@ -22,15 +22,6 @@ const untrustedDefaultOptions: DefaultOptions = {
   allowedAttributes: {
     a: ['href', 'name', 'target']
   },
-  transformTags: {
-    'a': function (tagName, attr) {
-      attr.href = prefixLinkUrl(attr.href);
-      return {
-        tagName,
-        attribs: attr
-      };
-    },
-  }
 }
 
 // The trustedDefaultOptions inherits from the untrustedDefaultOptions
@@ -112,6 +103,7 @@ type SanitizeOptions = {
   allowedTags?: string[];
   allowedAttributes?: Record<string, string[]>;
   wrapTables?: boolean;
+  locale?: string;
 }
 
 export function sanitizeHtml(dirty: string, options: SanitizeOptions): string {
@@ -162,11 +154,23 @@ function createIOptions(options: SanitizeOptions): IOptions {
     }, allowedAttributes);
   }
 
+  // Lozalize links
+  let transformTags = defaultOptions.transformTags;
+  if (transformTags == null) transformTags = {};
+
+  transformTags['a'] = function (tagName, attr) {
+    attr.href = prefixLinkUrl(attr.href, options.locale);
+    return {
+      tagName,
+      attribs: attr
+    };
+  }
+
   return {
     allowedTags: allowedTags,
     allowedAttributes: allowedAttributes,
     allowedIframeHostnames: defaultOptions.allowedIframeHostnames,
-    transformTags: defaultOptions.transformTags,
+    transformTags: transformTags,
     parser: defaultOptions.parser
   };
 }
@@ -184,12 +188,41 @@ function wrapTables(html: string): string {
   return $.html();
 }
 
-function prefixLinkUrl(str = '') {
-  if (typeof str === 'string') {
-    str = (str + '').replace(/^http(s)?:\/\/www\.gbif((-dev)|(-uat))?\.org\//, `${config.gbifLinkTargetOrigin}/`);
-    if (str.startsWith('/') && !str.startsWith('//')) {
-      str = config.gbifLinkTargetOrigin + str;
+const supportedLocales = ['en-GB', 'da', 'fr', 'es', 'ar']
+
+export function prefixLinkUrl(str = '', locale?: string) {
+  if (typeof str !== 'string')return str;
+
+  // Normalize the URL by ensuring it ends with a slash for consistent processing
+  let hasAddedEndSlash = false;
+  if (!str.endsWith('/')) {
+    str += '/';
+    hasAddedEndSlash = true;
+  }
+  
+  // Replace the gbif origin with the one from the config
+  str = str.replace(/^http(s)?:\/\/(www\.)?gbif((-dev)|(-uat))?\.org\//, `${config.gbifLinkTargetOrigin}/`);
+
+  // Add the gbif origin to relative links
+  if (str.startsWith('/') && !str.startsWith('//')) {
+    str = config.gbifLinkTargetOrigin + str;
+  }
+
+  // Locale handling
+  if (locale && locale !== 'en-GB' && supportedLocales.includes(locale)) {
+    // Construct a regex pattern to check if the URL is already localized
+    const localePattern = new RegExp(`${config.gbifLinkTargetOrigin}/(${supportedLocales.join('|')})/`);
+    // Check if the URL is already localized by looking for any of the supported locales
+    if (!localePattern.test(str)) {
+      // Insert the locale into the path if not localized
+      str = `${config.gbifLinkTargetOrigin}/${locale}${str.substring(config.gbifLinkTargetOrigin.length)}`;
     }
   }
+
+  // Remove the end slash if it was added
+  if (hasAddedEndSlash && str.endsWith('/')) {
+    str = str.slice(0, -1);
+  }
+
   return str;
 }

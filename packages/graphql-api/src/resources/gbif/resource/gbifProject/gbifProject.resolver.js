@@ -17,11 +17,11 @@ export default {
       dataSources.resourceAPI.getEntryById({ id, preview, locale })
   },
   GbifProject: {
-    title: src => getHtml(src.title, { inline: true, allowedTags: ['em', 'i'] }),
-    body: src => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true}),
-    summary: src => getHtml(src.summary),
-    excerpt: src => excerpt(src),
-    leadContact: src => getHtml(src.leadContact),
+    title: (src, _, { locale }) => getHtml(src.title, { inline: true, allowedTags: ['em', 'i'], locale }),
+    body: (src, _, { locale }) => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
+    summary: (src, _, { locale }) => getHtml(src.summary, { locale }),
+    excerpt: (src, _, { locale }) => excerpt(src, { locale }),
+    leadContact: (src, _, { locale }) => getHtml(src.leadContact, { locale }),
     events: (src, _, { dataSources, locale, preview }) => {
       if (!isNoneEmptyArray(src.events)) return null;
 
@@ -38,7 +38,7 @@ export default {
       if (!src?.call?.id) return null;
       return dataSources.resourceAPI.getEntryById({ id: src.call.id, preview, locale });
     },
-    gbifHref: (src, _, context) => createLocalizedGbifHref(context.locale, 'project', src.id),
+    gbifHref: (src, _, { locale }) => createLocalizedGbifHref(locale, 'project', src.id),
     programme: (src, _, { dataSources, locale, preview }) => {
       if (!src?.programme?.id) return null;
       return dataSources.resourceAPI.getEntryById({ id: src.programme.id, preview, locale });

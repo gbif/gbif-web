@@ -11,6 +11,7 @@ if (typeof baseUrl !== 'string') throw new Error('Missing PUBLIC_BASE_URL env va
 export const gbifConfig: InputConfig = {
   defaultTitle: 'GBIF',
   gbifEnv,
+  // The languages should be synced with supportedLocales in graphql-api/src/helpers/sanitize-html.ts
   languages: [
     {
       code: 'en-GB',

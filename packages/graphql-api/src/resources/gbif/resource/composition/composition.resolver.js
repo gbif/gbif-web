@@ -17,9 +17,9 @@ export default {
     }
   },
   Composition: {
-    title: src => getHtml(src.title, { inline: true }),
-    summary: src => getHtml(src.summary),
-    excerpt: src => excerpt(src),
+    title: (src, _, { locale }) => getHtml(src.title, { inline: true, locale }),
+    summary: (src, _, { locale }) => getHtml(src.summary, { locale }),
+    excerpt: (src, _, { locale }) => excerpt(src, { locale }),
     blocks: ({ blocks }, _, { dataSources, locale, preview }) => {
       if (!isNoneEmptyArray(blocks)) return null;
 
@@ -52,8 +52,8 @@ export default {
           return knownType;
         }));
     },
-    title: src => getHtml(src.title, { inline: true }),
-    body: src => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true}),
+    title: (src, _, { locale }) => getHtml(src.title, { inline: true, locale }),
+    body: (src, _, { locale }) => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
   },
   FeatureItem: {
     __resolveType: src => {
@@ -63,8 +63,8 @@ export default {
     },
   },
   CarouselBlock: {
-    title: src => getHtml(src.title, { inline: true }),
-    body: src => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true}),
+    title: (src, _, { locale }) => getHtml(src.title, { inline: true, locale }),
+    body: (src, _, { locale }) => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
     features: ({ features }, _, { dataSources, locale, preview }) => {
       if (!isNoneEmptyArray(features)) return null;
 
@@ -85,28 +85,28 @@ export default {
     },
   },
   HeaderBlock: {
-    title: src => getHtml(src.title, { inline: true }),
-    summary: src => getHtml(src.summary),
+    title: (src, _, { locale }) => getHtml(src.title, { inline: true, locale }),
+    summary: (src, _, { locale }) => getHtml(src.summary, { locale }),
   },
   TextBlock: {
-    title: src => getHtml(src.title, { inline: true }),
-    body: src => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true}),
+    title: (src, _, { locale }) => getHtml(src.title, { inline: true, locale }),
+    body: (src, _, { locale }) => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
   },
   FeaturedTextBlock: {
-    title: src => getHtml(src.title, { inline: true }),
-    body: src => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true}),
+    title: (src, _, { locale }) => getHtml(src.title, { inline: true, locale }),
+    body: (src, _, { locale }) => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
   },
   MediaBlock: {
-    title: src => getHtml(src.title, { inline: true }),
-    subtitle: src => getHtml(src.subtitle, { inline: true }),
-    body: src => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true}),
+    title: (src, _, { locale }) => getHtml(src.title, { inline: true, locale }),
+    subtitle: (src, _, { locale }) => getHtml(src.subtitle, { inline: true, locale }),
+    body: (src, _, { locale }) => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
   },
   MediaCountBlock: {
-    title: src => getHtml(src.title, { inline: true }),
-    subtitle: src => getHtml(src.subtitle, { inline: true }),
-    body: src => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true}),
+    title: (src, _, { locale }) => getHtml(src.title, { inline: true, locale }),
+    subtitle: (src, _, { locale }) => getHtml(src.subtitle, { inline: true, locale }),
+    body: (src, _, { locale }) => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
   },
   CustomComponentBlock: {
-    title: src => getHtml(src.title, { inline: true }),
+    title: (src, _, { locale }) => getHtml(src.title, { inline: true, locale }),
   }
 }

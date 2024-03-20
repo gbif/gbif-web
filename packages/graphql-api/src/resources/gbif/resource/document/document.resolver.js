@@ -13,10 +13,10 @@ export default {
       dataSources.resourceAPI.getEntryById({ id, preview, locale })
   },
   Document: {
-    title: src => getHtml(src.title, { inline: true }),
-    summary: src => getHtml(src.summary),
-    body: src => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true}),
-    excerpt: src => excerpt(src),
-    gbifHref: (src, _, context) => createLocalizedGbifHref(context.locale, 'document', src.id),
+    title: (src, _, { locale }) => getHtml(src.title, { inline: true, locale }),
+    summary: (src, _, { locale }) => getHtml(src.summary, { locale }),
+    body: (src, _, { locale }) => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
+    excerpt: (src, _, { locale }) => excerpt(src, { locale }),
+    gbifHref: (src, _, { locale }) => createLocalizedGbifHref(locale, 'document', src.id),
   }
 }

@@ -14,8 +14,8 @@ export default {
       dataSources.resourceSearchAPI.getFirstEntryByQuery({...params, contentType: 'help'}, localeOverwrite ?? locale)
   },
   Help: {
-    title: src => getHtml(src.title, { inline: true }),
-    body: src => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true}),
-    excerpt: src => excerpt(src),
+    title: (src, _, { locale }) => getHtml(src.title, { inline: true, locale }),
+    body: (src, _, { locale }) => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
+    excerpt: (src, _, { locale }) => excerpt(src, { locale }),
   }
 }

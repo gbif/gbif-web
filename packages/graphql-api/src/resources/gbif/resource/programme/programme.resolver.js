@@ -18,10 +18,10 @@ export default {
     }
   },
   Programme: {
-    title: src => getHtml(src.title, { inline: true, allowedTags: ['em', 'i'] }),
-    body: src => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true}),
-    summary: src => getHtml(src.summary),
-    excerpt: src => excerpt(src),
+    title: (src, _, { locale }) => getHtml(src.title, { inline: true, allowedTags: ['em', 'i'], locale }),
+    body: (src, _, { locale }) => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
+    summary: (src, _, { locale }) => getHtml(src.summary, { locale }),
+    excerpt: (src, _, { locale }) => excerpt(src, { locale }),
     events: (src, _, { dataSources, locale, preview }) => {
       if (!isNoneEmptyArray(src.events)) return null;
 
@@ -53,6 +53,6 @@ export default {
       return Promise.all(ids.map(id =>  dataSources.resourceAPI.getEntryById({ id, preview, locale })));
     },
     // call: (src, _, context) => context.dataSources.getEntryById(src.call.id, false, context.locale),
-    // gbifHref: (src, _, context) => createLocalizedGbifHref(context.locale, 'project', src.id),
+    // gbifHref: (src, _, { locale }) => createLocalizedGbifHref(locale, 'project', src.id),
   }
 }

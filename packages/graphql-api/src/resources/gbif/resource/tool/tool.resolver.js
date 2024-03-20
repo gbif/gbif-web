@@ -13,14 +13,14 @@ export default {
       dataSources.resourceAPI.getEntryById({ id, preview, locale })
   },
   Tool: {
-    title: src => getHtml(src.title, { inline: true }),
-    summary: src => getHtml(src.summary),
-    body: src => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true }),
-    excerpt: src => excerpt(src),
-    gbifHref: (src, _, context) => createLocalizedGbifHref(context.locale, 'tool', src.id),
-    rightsHolder: src => getHtml(src.rightsHolder),
-    rights: src => getHtml(src.rights),
-    author: src => getHtml(src.author),
-    citation: src => getHtml(src.citation),
+    title: (src, _, { locale }) => getHtml(src.title, { inline: true, locale }),
+    summary: (src, _, { locale }) => getHtml(src.summary, { locale }),
+    body: (src, _, { locale }) => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
+    excerpt: (src, _, { locale }) => excerpt(src, { locale }),
+    gbifHref: (src, _, { locale }) => createLocalizedGbifHref(locale, 'tool', src.id),
+    rightsHolder: (src, _, { locale }) => getHtml(src.rightsHolder, { locale }),
+    rights: (src, _, { locale }) => getHtml(src.rights, { locale }),
+    author: (src, _, { locale }) => getHtml(src.author, { locale }),
+    citation: (src, _, { locale }) => getHtml(src.citation, { locale}),
   }
 }

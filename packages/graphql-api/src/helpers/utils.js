@@ -58,9 +58,10 @@ function getHtml(
     inline = false,
     wrapTables = false,
     trustLevel = 'untrusted',
+    locale,
   } = {},
 ) {
-  const options = { wrapTables, trustLevel };
+  const options = { wrapTables, trustLevel, locale };
   if (allowedTags) options.allowedTags = allowedTags;
   if (allowedAttributes) options.allowedAttributes = allowedAttributes;
   if (typeof value === 'string' || typeof value === 'number') {
@@ -131,13 +132,13 @@ function truncateText(sourceText, maxLength) {
   return truncatedText.slice(0, lastSpaceIndex) + '...';
 }
 
-function excerpt({ summary, body }, maxLength = 200) {
+function excerpt({ summary, body }, { maxLength = 200, locale } = {}) {
   if (summary != null)
-    return getHtml(summary, { inline: false, allowedTags: [] });
+    return getHtml(summary, { inline: false, allowedTags: [], locale });
   if (body == null) return;
 
   // Parse the body and remove all tags
-  const bodyHtml = getHtml(body, { inline: false, allowedTags: [] });
+  const bodyHtml = getHtml(body, { inline: false, allowedTags: [], locale });
   return truncateText(bodyHtml, maxLength);
 }
 
