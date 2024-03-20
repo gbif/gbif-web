@@ -14,7 +14,9 @@
     "start:hp": "node hp/server.js",
     "visualize-build:hp": "vite-bundle-visualizer -c ./hp/vite.config.ts",
     "codegen": "graphql-codegen --config codegen.ts",
-    "test": "npm run build && npm run build:hp",
+    "vitest": "vitest run --config ./gbif/vite.config.ts",
+    "vitest:watch": "vitest watch --config ./gbif/vite.config.ts",
+    "test": "npm run build && npm run build:hp && npm run vitest",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
@@ -72,6 +74,7 @@
     "typescript": "^5.0.2",
     "vite": "^4.4.5",
     "vite-bundle-visualizer": "^0.11.0",
-    "vite-plugin-node-polyfills": "^0.17.0"
+    "vite-plugin-node-polyfills": "^0.17.0",
+    "vitest": "^1.4.0"
   }
 }
