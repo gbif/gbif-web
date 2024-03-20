@@ -54,7 +54,7 @@ export function MapThumbnail({
   if (!hasMap) return false;
 
   return (
-    <div className={cn('relative w-32 flex-shrink-0', styles.thumbnail, className)}>
+    <div dir="ltr" className={cn('relative w-32 flex-shrink-0', styles.thumbnail, className)}>
       <div>
         <img src={`${import.meta.env.PUBLIC_TILE_API}/4326/omt/0/0/0@1x.png?style=${basemapStyle}`} />
         <img src={`${import.meta.env.PUBLIC_TILE_API}/4326/omt/0/1/0@1x.png?style=${basemapStyle}`} />

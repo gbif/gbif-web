@@ -1,13 +1,9 @@
 import {
   ProjectDatasetsQuery,
-  ProjectDatasetsCountsQuery,
   ProjectDatasetsQueryVariables,
-  ProjectDatasetsCountsQueryVariables,
   ProjectQuery,
 } from '@/gql/graphql';
-import { useEffect } from 'react';
 import useQuery from '@/hooks/useQuery';
-import { toRecord } from '@/utils/toRecord';
 import { fragmentManager } from '@/services/FragmentManager';
 import { RouteId, useParentRouteLoaderData } from '@/hooks/useParentRouteLoaderData';
 import { TabListSkeleton } from './TabListSkeleton';
@@ -39,16 +35,6 @@ const DATASET_QUERY = /* GraphQL */ `
   }
 `;
 
-const SLOW_DATASET_QUERY = /* GraphQL */ `
-  query ProjectDatasetsCounts($projectId: ID!, $limit: Int, $offset: Int) {
-    datasetSearch(projectId: [$projectId], limit: $limit, offset: $offset) {
-      results {
-        ...DatasetCounts
-      }
-    }
-  }
-`;
-
 export function ProjectDatasetsTab() {
   const { resource, datasetsHelp } = useParentRouteLoaderData(RouteId.Project) as ProjectQuery;
 
@@ -64,8 +50,6 @@ export function ProjectDatasetsTab() {
     },
   });
 
-  const datasetsCount = useSlowDatasets(projectId, datasets.data);
-
   if (datasets.loading) return <TabListSkeleton />;
   // TODO: handle error
   if (datasets.data?.datasetSearch == null) return <TabListSkeleton />;
@@ -80,40 +64,8 @@ export function ProjectDatasetsTab() {
       )}
 
       {datasets.data.datasetSearch.results.map((item) => (
-        <DatasetResult key={item.key} dataset={item} counts={datasetsCount[item.key]} />
+        <DatasetResult key={item.key} dataset={item} />
       ))}
     </div>
   );
-}
-
-function useSlowDatasets(projectId: string, datasetsData: ProjectDatasetsQuery | undefined) {
-  const datasetsCount = useQuery<ProjectDatasetsCountsQuery, ProjectDatasetsCountsQueryVariables>(
-    SLOW_DATASET_QUERY,
-    {
-      lazyLoad: true,
-      throwAllErrors: true,
-    }
-  );
-
-  const load = datasetsCount.load;
-  const limit = datasetsData?.datasetSearch.limit;
-  const offset = datasetsData?.datasetSearch.offset;
-  const count = datasetsData?.datasetSearch.count;
-
-  useEffect(() => {
-    if (typeof projectId !== 'string') return;
-    if (!count) return;
-
-    load({
-      variables: {
-        projectId,
-        limit,
-        offset,
-      },
-    });
-  }, [projectId, limit, offset, count, load]);
-
-  return Array.isArray(datasetsCount.data?.datasetSearch?.results)
-    ? toRecord(datasetsCount.data.datasetSearch.results, (item) => item.key)
-    : {};
 }
