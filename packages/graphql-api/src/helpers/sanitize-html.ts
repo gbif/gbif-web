@@ -107,7 +107,8 @@ type SanitizeOptions = {
 }
 
 export function sanitizeHtml(dirty: string, options: SanitizeOptions): string {
-  const clean = sanitize(dirty, createIOptions(options));
+  const sanitizeOptions = createIOptions(options);
+  const clean = sanitize(dirty, sanitizeOptions);
 
   if (options.wrapTables) return wrapTables(clean);
 

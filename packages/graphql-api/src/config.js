@@ -17,7 +17,7 @@ const cliOptions = [
   // ts-mocha requires this for the --paths option to work
   { name: 'require', alias: 'r', type: String, multiple: true },
 ];
-const options = commandLineArgs(cliOptions);
+const options = commandLineArgs(cliOptions, { partial: true });
 
 const config = merge(
   { debug: false, environment: 'dev' }, 

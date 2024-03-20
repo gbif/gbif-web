@@ -1,20 +1,5 @@
-import mdit from 'markdown-it';
-import { decode } from 'html-entities';
-import config from '#/config';
-import mdAnchor from 'markdown-it-anchor';
-import { sanitizeHtml } from './sanitize-html';
-
-const md = mdit({
-  html: true,
-  linkify: true,
-  typographer: false,
-  breaks: true,
-});
-
-// adding anchor headers to markdown would be nice, but the problem is the navbar offset
-md.use(mdAnchor, {
-  // slugify: function(str){return '_' + encodeURIComponent(format.getSlug(str))}, // option to add a custom slug function. I'm not sure how well the default works - we should test that on the vadious languages
-});
+import config from '../config';
+import { getHtml } from './getHtml';
 
 function formattedCoordinates({ lat, lon }) {
   if (typeof lat !== 'number' || typeof lon !== 'number') return undefined;
@@ -48,30 +33,6 @@ function isOccurrenceSequenced({ occurrence, verbatim }) {
 
   // alas it isn't sequenced
   return false;
-}
-
-function getHtml(
-  value,
-  {
-    allowedTags,
-    allowedAttributes,
-    inline = false,
-    wrapTables = false,
-    trustLevel = 'untrusted',
-    locale,
-  } = {},
-) {
-  const options = { wrapTables, trustLevel, locale };
-  if (allowedTags) options.allowedTags = allowedTags;
-  if (allowedAttributes) options.allowedAttributes = allowedAttributes;
-  if (typeof value === 'string' || typeof value === 'number') {
-    const dirty = inline ? md.renderInline(`${value}`) : md.render(`${value}`);
-    const decoded = decode(dirty).replace(/\n/g, '');
-    const dirtyV2 = md.renderInline(`${decoded}`);
-    const clean = sanitizeHtml(dirtyV2, options);
-    return clean;
-  }
-  return null;
 }
 
 function getExcerpt({ strings = [], length = 200 }) {
