@@ -41,13 +41,18 @@ export function DatasetResult({ dataset }: { dataset: DatasetResultFragment }) {
       </div>
       <div className="-m-1 mt-2 flex flex-row items-center flex-wrap">
         <Tag>
-          <FormattedMessage id={`enums.datasetType.${dataset.type}`} />
+          <FormattedMessage id={`dataset.longType.${dataset.type}`} />
         </Tag>
         <div className="flex-grow"></div>
         <CountTag
           v1Endpoint="/occurrence/search"
           params={{ datasetKey: dataset.key }}
           message="counts.nOccurrences"
+        />
+        <CountTag
+          v1Endpoint="/species/search"
+          params={{ datasetKey: dataset.key, origin: 'SOURCE' }}
+          message="counts.nRecords"
         />
         <CountTag
           v1Endpoint="/literature/search"
