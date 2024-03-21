@@ -55,7 +55,8 @@ export function ProjectNewsAndEventsTab() {
   return (
     <div className="pt-4 max-w-3xl m-auto">
       <p className="pb-4 text-gray-600 text-sm text-right">
-        <HelpLineFromId className="" id="how-to-add-events-to-my-project-page" icon />
+        {/* <HelpLineFromId className="" id="how-to-add-events-to-my-project-page" icon /> */}
+        <HelpLine title="test" body="sdlf kjgh lsdkfjgh sadjkfhla ksdjfhlaksjdhflkajsdfh lkjashdf lkjashd flkjahsdl fkjahsdl fkjh lkjh" />
       </p>
 
       {/* TODO: Needs translation */}
