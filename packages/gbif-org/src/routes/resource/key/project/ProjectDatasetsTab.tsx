@@ -8,16 +8,13 @@ import { fragmentManager } from '@/services/FragmentManager';
 import { RouteId, useParentRouteLoaderData } from '@/hooks/useParentRouteLoaderData';
 import { TabListSkeleton } from './TabListSkeleton';
 import { DatasetResult } from '@/routes/dataset/DatasetResult';
-import { HelpLine } from '../components/HelpLine';
+import { HelpLineFromId } from '../components/HelpLine';
 import { NoResultsTab } from '../components/NoResultsTab';
 
 fragmentManager.register(/* GraphQL */ `
   fragment ProjectDatasetsTab on Query {
     gbifProject(id: $key) {
       projectId
-    }
-    datasetsHelp: help(identifier: "how-to-link-datasets-to-my-project-page") {
-      ...HelpLineDetails
     }
   }
 `);
@@ -36,7 +33,7 @@ const DATASET_QUERY = /* GraphQL */ `
 `;
 
 export function ProjectDatasetsTab() {
-  const { resource, datasetsHelp } = useParentRouteLoaderData(RouteId.Project) as ProjectQuery;
+  const { resource } = useParentRouteLoaderData(RouteId.Project) as ProjectQuery;
 
   // Can't happen but TS doesn't know
   if (resource?.__typename !== 'GbifProject') throw new Error('500');
@@ -56,7 +53,9 @@ export function ProjectDatasetsTab() {
 
   return (
     <div className="pt-4 max-w-3xl m-auto">
-      {datasetsHelp && <HelpLine help={datasetsHelp} />}
+      <p className="pb-4 text-gray-600 text-sm text-right">
+        <HelpLineFromId className="" id="how-to-link-datasets-to-my-project-page" icon/>
+      </p>
 
       {/* TODO: Needs translation */}
       {datasets.data.datasetSearch.results.length === 0 && (
