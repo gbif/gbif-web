@@ -2,19 +2,22 @@ import { MdInfoOutline } from 'react-icons/md';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Failed, useHelp } from '../project/HelpText';
+import { cn } from '@/utils/shadcn';
 
 export function HelpLine({
   title,
   body,
   loading,
   icon,
-  error
+  error,
+  className
 }: {
   title: string;
   body: string;
   loading?: boolean;
   icon?: boolean | React.ReactNode;
   error?: Error;
+  className?: string;
 }) {
   return (
     <Popover>
@@ -27,7 +30,11 @@ export function HelpLine({
           </>
         )}
       </PopoverTrigger>
-      <PopoverContent className="prose max-w-lg w-auto">
+      <PopoverContent className={cn(
+        "prose w-96",
+        className
+      )}
+      >
         {error && <Failed />}
         {body && <div dangerouslySetInnerHTML={{ __html: body ?? '' }}></div>}
         {!body || loading && <Skeleton>Loading</Skeleton>}
