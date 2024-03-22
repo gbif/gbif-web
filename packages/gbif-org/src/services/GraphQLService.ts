@@ -56,10 +56,14 @@ export class GraphQLService {
       }
 
       // Otherwise, we need to do a POST request to the GraphQL endpoint
+      const postBody: Record<string, unknown> = {
+        query: queryWithFragments,
+        variables: variables,
+      };
+
+      // If the query has an operation name, we should include it in the post body
       const operationName = this.getOperationNameFromQuery(queryWithFragments);
-      if (typeof operationName !== 'string') {
-        throw new Error(`Could not find operation name in query: ${queryWithFragments}`);
-      }
+      if (operationName) postBody.operationName = operationName;
 
       return fetch(this.endpoint, {
         method: 'POST',
@@ -68,11 +72,7 @@ export class GraphQLService {
           locale: this.locale,
         },
         signal: this.abortSignal,
-        body: JSON.stringify({
-          query: queryWithFragments,
-          variables: variables,
-          operationName,
-        }),
+        body: JSON.stringify(postBody),
       });
     });
   }
