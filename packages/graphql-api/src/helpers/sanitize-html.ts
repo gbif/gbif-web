@@ -24,6 +24,15 @@ const untrustedDefaultOptions: DefaultOptions = {
   },
 }
 
+export const untrustedHeaderOptions: DefaultOptions = {
+  allowedTags: [
+    'i', 'strong', 'em', 'span'
+  ],
+  allowedAttributes: {
+    
+  },
+}
+
 // The trustedDefaultOptions inherits from the untrustedDefaultOptions
 const trustedDefaultOptions = merge<DefaultOptions, DefaultOptions>(untrustedDefaultOptions, {
   allowedTags: [
