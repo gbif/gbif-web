@@ -49,7 +49,7 @@ export function HelpText({
 }
 
 const HELP = `
-query($identifier: String!, $locale: String) {
+query HelpText($identifier: String!, $locale: String) {
   help(identifier: $identifier, locale: $locale) {
     id
     identifier
