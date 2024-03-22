@@ -24,6 +24,9 @@ const PROJECT_NEWS_QUERY = /* GraphQL */ `
         ...EventResult
       }
     }
+    help(identifier: "how-to-add-events-to-my-project-page") {
+      title
+    }
   }
 `;
 
@@ -52,10 +55,12 @@ export function ProjectNewsAndEventsTab() {
     [resource.news, resource.events]
   );
 
+  const help = data.help;
+
   return (
     <div className="pt-4 max-w-3xl m-auto">
       <p className="pb-4 text-gray-600 text-sm text-right">
-        <HelpLine id="how-to-add-events-to-my-project-page" icon/>
+        <HelpLine title={help?.title} id="how-to-add-events-to-my-project-page" icon/>
       </p>
 
       {/* TODO: Needs translation */}

@@ -16,6 +16,9 @@ fragmentManager.register(/* GraphQL */ `
     gbifProject(id: $key) {
       projectId
     }
+    datasetsHelp: help(identifier: "how-to-link-datasets-to-my-project-page") {
+      title
+    }
   }
 `);
 
@@ -33,7 +36,7 @@ const DATASET_QUERY = /* GraphQL */ `
 `;
 
 export function ProjectDatasetsTab() {
-  const { resource } = useParentRouteLoaderData(RouteId.Project) as ProjectQuery;
+  const { resource, datasetsHelp } = useParentRouteLoaderData(RouteId.Project) as ProjectQuery;
 
   // Can't happen but TS doesn't know
   if (resource?.__typename !== 'GbifProject') throw new Error('500');
@@ -54,7 +57,7 @@ export function ProjectDatasetsTab() {
   return (
     <div className="pt-4 max-w-3xl m-auto">
       <p className="pb-4 text-gray-600 text-sm text-right">
-        <HelpLine id="how-to-link-datasets-to-my-project-page" icon/>
+        <HelpLine title={datasetsHelp?.title} id="how-to-link-datasets-to-my-project-page" icon/>
       </p>
 
       {/* TODO: Needs translation */}
