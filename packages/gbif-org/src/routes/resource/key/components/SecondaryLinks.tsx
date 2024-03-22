@@ -17,7 +17,7 @@ type Props = {
 
 export function SecondaryLinks({ links, className }: Props) {
   return (
-    <ul className={cn('grid grid-cols-2 gap-4', className)}>
+    <ul className={cn('grid grid-cols-1 sm:grid-cols-2 gap-4', className)}>
       {links.filter(isLinkWithUrl).map((link) => (
         <li
           key={link.url}
