@@ -1,7 +1,7 @@
 import { cn } from '@/utils/shadcn';
 import styles from './ArticleBody.module.css';
 import { Skeleton } from '@/components/ui/skeleton';
-import { FaqText } from '../project/FaqText';
+import { FaqText } from './FaqText';
 
 type Props = {
   className?: string;
