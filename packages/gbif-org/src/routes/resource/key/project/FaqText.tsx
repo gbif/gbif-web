@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { HelpText } from './HelpText';
+import { HelpText } from '../../../../components/HelpText';
 
 export function FaqText({ dangerouslySetBody: html }: { dangerouslySetBody: string }) {
   const [modal, setModal] = useState<any>(false);

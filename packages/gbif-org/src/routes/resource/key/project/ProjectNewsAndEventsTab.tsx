@@ -7,7 +7,7 @@ import { required } from '@/utils/required';
 import { useMemo } from 'react';
 import { sortByNewToOld } from '@/utils/sort';
 import { TabListSkeleton } from './TabListSkeleton';
-import { HelpLine, HelpLineFromId } from '../components/HelpLine';
+import { HelpLine } from '../../../../components/HelpText';
 import { NoResultsTab } from '../components/NoResultsTab';
 
 const PROJECT_NEWS_QUERY = /* GraphQL */ `
@@ -55,7 +55,7 @@ export function ProjectNewsAndEventsTab() {
   return (
     <div className="pt-4 max-w-3xl m-auto">
       <p className="pb-4 text-gray-600 text-sm text-right">
-        <HelpLineFromId id="how-to-add-events-to-my-project-page" icon />
+        <HelpLine id="how-to-add-events-to-my-project-page" icon/>
       </p>
 
       {/* TODO: Needs translation */}

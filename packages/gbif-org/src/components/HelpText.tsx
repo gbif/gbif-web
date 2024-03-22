@@ -1,6 +1,21 @@
 import React, { useEffect } from 'react';
 import useQuery from '@/hooks/useQuery';
 import { FormattedMessage } from 'react-intl';
+import { Skeleton } from './ui/skeleton';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { cn } from '@/utils/shadcn';
+import { MdInfoOutline } from 'react-icons/md';
+
+export function HelpTitle({
+  id,
+  ...props
+}: { id: string;} & React.HTMLProps<HTMLDivElement>) {
+  const { loading, title, error } = useHelp(id, {titleOnly: true});
+  let renderedTitle = title;
+  if (error) return <Failed />
+  if (loading || !title) return <Skeleton className="inline">Loading</Skeleton>
+  return <span dangerouslySetInnerHTML={{__html: renderedTitle}} {...props}></span>;
+}
 
 export function HelpText({
   identifier,
@@ -48,20 +63,27 @@ export function HelpText({
   );
 }
 
-const HELP = `
+const HELP_TEXT = `
 query HelpText($identifier: String!, $locale: String) {
   help(identifier: $identifier, locale: $locale) {
-    id
-    identifier
     title
     body
-    excerpt
   }
 }
 `;
 
-export function useHelp(helpIdentifier: string) {
-  const { data, error, loading, load } = useQuery(HELP, { lazyLoad: true });
+const HELP_TITLE = `
+query HelpTitle($identifier: String!, $locale: String) {
+  help(identifier: $identifier, locale: $locale) {
+    title
+  }
+}
+`;
+
+export function useHelp(helpIdentifier: string, { titleOnly }: { titleOnly?: boolean } = {}) {
+  const { data, error, loading, load } = useQuery(titleOnly ? HELP_TITLE : HELP_TEXT, {
+    lazyLoad: true,
+  });
 
   useEffect(() => {
     if (helpIdentifier) {
@@ -78,5 +100,36 @@ export function useHelp(helpIdentifier: string) {
 }
 
 export function Failed() {
-  return <div className="bg-red-600 rounded text-white p-1 px-2"><FormattedMessage id="phrases.failedToLoadData" /></div>
+  return (
+    <div className="bg-red-600 rounded text-white p-1 px-2">
+      <FormattedMessage id="phrases.failedToLoadData" />
+    </div>
+  );
+}
+
+export function HelpLine({
+  title,
+  id,
+  icon,
+  className
+}: {
+  id: string;
+  title?: React.ReactNode;
+  icon?: boolean | React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <Popover>
+      <PopoverTrigger>
+        {title || <HelpTitle id={id} />} {icon && (typeof icon === 'boolean' ? <MdInfoOutline /> : icon)}
+      </PopoverTrigger>
+      <PopoverContent className={cn(
+        "prose w-96",
+        className
+      )}
+      >
+        <HelpText identifier={id} />
+      </PopoverContent>
+    </Popover>
+  );
 }

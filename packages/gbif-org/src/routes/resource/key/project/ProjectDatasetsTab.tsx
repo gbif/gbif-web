@@ -8,7 +8,7 @@ import { fragmentManager } from '@/services/FragmentManager';
 import { RouteId, useParentRouteLoaderData } from '@/hooks/useParentRouteLoaderData';
 import { TabListSkeleton } from './TabListSkeleton';
 import { DatasetResult } from '@/routes/dataset/DatasetResult';
-import { HelpLineFromId } from '../components/HelpLine';
+import { HelpLine } from '../../../../components/HelpText';
 import { NoResultsTab } from '../components/NoResultsTab';
 
 fragmentManager.register(/* GraphQL */ `
@@ -54,7 +54,7 @@ export function ProjectDatasetsTab() {
   return (
     <div className="pt-4 max-w-3xl m-auto">
       <p className="pb-4 text-gray-600 text-sm text-right">
-        <HelpLineFromId className="" id="how-to-link-datasets-to-my-project-page" icon/>
+        <HelpLine id="how-to-link-datasets-to-my-project-page" icon/>
       </p>
 
       {/* TODO: Needs translation */}
