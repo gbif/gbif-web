@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { HelpText } from '../../../../components/HelpText';
+import { cn } from '@/utils/shadcn';
 
 export function FaqText({ dangerouslySetBody: html }: { dangerouslySetBody: string }) {
   const [modal, setModal] = useState<boolean | { question: string | null }>(false);
@@ -64,9 +65,12 @@ export function FaqText({ dangerouslySetBody: html }: { dangerouslySetBody: stri
         }}
         onMouseLeave={() => showModal(false)}
         style={{ visibility: modalVisible ? 'visible' : 'hidden' }}
-        className={`fixed max-h-[calc(100vh_-_6rem)] box-content bg-white w-[32rem] hover:w-[32rem] max-w-full z-[100] opacity-${
-          modal ? '100' : '0'
-        } transition-opacity duration-500 md:hover:opacity-100 overflow-auto shadow-2xl rounded border border-slate-200 prose end-0 md:end-6 bottom-0 md:bottom-6`}
+        className={cn(
+          `max-h-[calc(100vh_-_6rem)] box-content bg-white w-[32rem] hover:w-[32rem] max-w-full]`,
+          `z-[100] transition-opacity duration-500 md:hover:opacity-100 overflow-auto shadow-2xl`,
+          `fixed rounded border border-slate-200 prose end-0 md:end-6 bottom-0 md:bottom-6`,
+          modal ? 'opacity-100' : 'opacity-0'
+        )}
       >
         {typeof modal === 'object' && typeof modal.question === 'string' && (
           <HelpText identifier={modal.question} includeTitle className="p-4" />
