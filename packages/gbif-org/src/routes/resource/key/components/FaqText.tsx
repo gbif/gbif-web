@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { HelpText } from '../../../../components/HelpText';
+import { cn } from '@/utils/shadcn';
 
 export function FaqText({ dangerouslySetBody: html }: { dangerouslySetBody: string }) {
-  const [modal, setModal] = useState<any>(false);
-  const [timer, setTimer] = useState<any>(null);
+  const [modal, setModal] = useState<boolean | { question: string | null }>(false);
+  const [timer, setTimer] = useState<ReturnType<typeof setTimeout> | null>(null);
   const [modalVisible, showModal] = useState(false);
 
   // 1 second after modal content is set to false, then hide the modal. This is to remove it from the screen so it doesn't pop on hover
@@ -18,26 +19,26 @@ export function FaqText({ dangerouslySetBody: html }: { dangerouslySetBody: stri
   }, [modal]);
 
   useEffect(() => {
-    const elements = document.querySelectorAll('a[href*="/faq?"]');
+    const elements = document.querySelectorAll<HTMLAnchorElement>('a[href*="/faq?"]');
 
     // filter the faqLinks to only include the ones that have the search params question and inline=true
     const faqLinks = Array.from(elements).filter((link) => {
-      if (!link?.href) return; // TODO @daniel - i struggle with typescript, how do i fix this?
+      if (!link.href) return;
       const url = new URL(link.href);
       return url.searchParams.has('question') && url.searchParams.get('inline') === 'true';
     });
 
-    const mouseoverHandler:EventListener = e => {
+    const mouseoverHandler: EventListener = (e) => {
       const element = e.target as HTMLAnchorElement;
       const url = new URL(element.href);
       const question = url.searchParams.get('question');
-      setModal({question});
+      setModal({ question });
       showModal(true);
-    }
+    };
 
-    const mouseleaveHandler:EventListener = e => {
+    const mouseleaveHandler: EventListener = () => {
       setModal(false);
-    }
+    };
 
     faqLinks.forEach((element) => {
       element.addEventListener('mouseover', mouseoverHandler);
@@ -55,14 +56,25 @@ export function FaqText({ dangerouslySetBody: html }: { dangerouslySetBody: stri
 
   return (
     <>
-      <div area-hidden="true" tabIndex={-1}
-        onMouseMove={(e) => {
-          clearTimeout(timer)
+      <div
+        area-hidden="true"
+        tabIndex={-1}
+        onMouseMove={() => {
+          if (timer) clearTimeout(timer);
           showModal(true);
-        }} onMouseLeave={e => showModal(false)}
-        style={{visibility: modalVisible ? 'visible' : 'hidden'}}
-        className={`fixed max-h-[calc(100vh_-_6rem)] box-content bg-white w-[32rem] hover:w-[32rem] max-w-full z-[100] ${modal ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500 md:hover:opacity-100 overflow-auto shadow-2xl rounded border border-slate-200 prose end-0 md:end-6 bottom-0 md:bottom-6`}>
-        <HelpText identifier={modal.question} includeTitle className="p-4" />
+        }}
+        onMouseLeave={() => showModal(false)}
+        style={{ visibility: modalVisible ? 'visible' : 'hidden' }}
+        className={cn(
+          `max-h-[calc(100vh_-_6rem)] box-content bg-white w-[32rem] hover:w-[32rem] max-w-full]`,
+          `z-[100] transition-opacity duration-500 md:hover:opacity-100 overflow-auto shadow-2xl`,
+          `fixed rounded border border-slate-200 prose end-0 md:end-6 bottom-0 md:bottom-6`,
+          modal ? 'opacity-100' : 'opacity-0'
+        )}
+      >
+        {typeof modal === 'object' && typeof modal.question === 'string' && (
+          <HelpText identifier={modal.question} includeTitle className="p-4" />
+        )}
       </div>
       <div dangerouslySetInnerHTML={{ __html: html }} />
     </>
