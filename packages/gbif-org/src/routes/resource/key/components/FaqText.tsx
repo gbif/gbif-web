@@ -6,7 +6,7 @@ export function FaqText({ dangerouslySetBody: html }: { dangerouslySetBody: stri
   const [timer, setTimer] = useState<any>(null);
   const [modalVisible, showModal] = useState(false);
 
-  // 1 second after modal is set to false, then set new state to hidden
+  // 1 second after modal content is set to false, then hide the modal. This is to remove it from the screen so it doesn't pop on hover
   useEffect(() => {
     if (modal) return;
     if (timer) clearTimeout(timer);
