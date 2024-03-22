@@ -5,16 +5,18 @@ import { Skeleton } from './ui/skeleton';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/utils/shadcn';
 import { MdInfoOutline } from 'react-icons/md';
+import {
+  HelpTextQuery,
+  HelpTextQueryVariables,
+  HelpTitleQuery,
+  HelpTitleQueryVariables,
+} from '@/gql/graphql';
 
-export function HelpTitle({
-  id,
-  ...props
-}: { id: string;} & React.HTMLProps<HTMLDivElement>) {
-  const { loading, title, error } = useHelp(id, {titleOnly: true});
-  let renderedTitle = title;
-  if (error) return <Failed />
-  if (loading || !title) return <Skeleton className="inline">Loading</Skeleton>
-  return <span dangerouslySetInnerHTML={{__html: renderedTitle}} {...props}></span>;
+export function HelpTitle({ id, ...props }: { id: string } & React.HTMLProps<HTMLDivElement>) {
+  const { loading, title, error } = useHelp(id, { titleOnly: true });
+  if (error) return <Failed />;
+  if (loading || !title) return <Skeleton className="inline">Loading</Skeleton>;
+  return <span dangerouslySetInnerHTML={{ __html: title }} {...props} />;
 }
 
 export function HelpText({
@@ -56,32 +58,39 @@ export function HelpText({
         <>
           {includeTitle && <h3 dangerouslySetInnerHTML={{ __html: title ?? '' }}></h3>}
           {children}
-          <div dangerouslySetInnerHTML={{ __html: body }}></div>
+          {body && <div dangerouslySetInnerHTML={{ __html: body }} />}
         </>
       )}
     </div>
   );
 }
 
-const HELP_TEXT = `
-query HelpText($identifier: String!, $locale: String) {
-  help(identifier: $identifier, locale: $locale) {
-    title
-    body
+const HELP_TEXT = /* GraphQL */ `
+  query HelpText($identifier: String!, $locale: String) {
+    help(identifier: $identifier, locale: $locale) {
+      id
+      identifier
+      title
+      body
+    }
   }
-}
 `;
 
-const HELP_TITLE = `
-query HelpTitle($identifier: String!, $locale: String) {
-  help(identifier: $identifier, locale: $locale) {
-    title
+const HELP_TITLE = /* GraphQL */ `
+  query HelpTitle($identifier: String!, $locale: String) {
+    help(identifier: $identifier, locale: $locale) {
+      id
+      identifier
+      title
+    }
   }
-}
 `;
 
 export function useHelp(helpIdentifier: string, { titleOnly }: { titleOnly?: boolean } = {}) {
-  const { data, error, loading, load } = useQuery(titleOnly ? HELP_TITLE : HELP_TEXT, {
+  const { data, error, loading, load } = useQuery<
+    HelpTextQuery | HelpTitleQuery,
+    HelpTextQueryVariables | HelpTitleQueryVariables
+  >(titleOnly ? HELP_TITLE : HELP_TEXT, {
     lazyLoad: true,
   });
 
@@ -90,7 +99,9 @@ export function useHelp(helpIdentifier: string, { titleOnly }: { titleOnly?: boo
       load({ keepDataWhileLoading: false, variables: { identifier: helpIdentifier } });
     }
   }, [helpIdentifier]);
-  const { title, body, identifier, id } = data?.help || {};
+
+  const { title, identifier, id } = data?.help || {};
+  const body = data?.help && 'body' in data.help ? data.help.body : null;
 
   if (error) {
     console.error(`Unable to load help text for ${helpIdentifier}`, error);
@@ -111,7 +122,7 @@ export function HelpLine({
   title,
   id,
   icon,
-  className
+  className,
 }: {
   id: string;
   title?: React.ReactNode;
@@ -121,13 +132,10 @@ export function HelpLine({
   return (
     <Popover>
       <PopoverTrigger>
-        {title || <HelpTitle id={id} />} {icon && (typeof icon === 'boolean' ? <MdInfoOutline /> : icon)}
+        {title || <HelpTitle id={id} />}{' '}
+        {icon && (typeof icon === 'boolean' ? <MdInfoOutline /> : icon)}
       </PopoverTrigger>
-      <PopoverContent className={cn(
-        "prose w-96",
-        className
-      )}
-      >
+      <PopoverContent className={cn('prose w-96', className)}>
         <HelpText identifier={id} />
       </PopoverContent>
     </Popover>
