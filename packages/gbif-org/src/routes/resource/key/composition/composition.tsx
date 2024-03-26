@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { useLoaderData } from 'react-router-dom';
 import { ArticleSkeleton } from '../components/articleSkeleton';
-import { BlockItem } from './BlockItem';
+import { BlockItem } from './blockItem';
 import { fragmentManager } from '@/services/fragmentManager';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
 import { CompositionPageFragment } from '@/gql/graphql';

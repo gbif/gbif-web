@@ -8,7 +8,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import { BlockItem } from '../BlockItem';
+import { BlockItem } from '../blockItem';
 import { useEffect, useState } from 'react';
 import { cn } from '@/utils/shadcn';
 import { useI18n } from '@/contexts/i18n';

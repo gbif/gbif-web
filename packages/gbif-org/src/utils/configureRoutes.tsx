@@ -6,7 +6,7 @@ import { SourceRouteObject, RouteMetadata } from '@/types';
 import { LoadingElementWrapper } from '@/components/loadingElementWrapper';
 import { v4 as uuid } from 'uuid';
 import { DoneLoadingEvent, StartLoadingEvent } from '@/contexts/loadingElement';
-import { GraphQLService } from '@/services/GraphQLService';
+import { GraphQLService } from '@/services/graphQLService';
 import { createRouteId } from './createRouteId';
 import { AlternativeLanguages } from '@/components/alternativeLanguages';
 
