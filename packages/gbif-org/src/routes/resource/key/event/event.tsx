@@ -14,7 +14,7 @@ import { SecondaryLinks } from '../components/SecondaryLinks';
 import { ArticleAuxiliary } from '../components/ArticleAuxiliary';
 import { useLoaderData } from 'react-router-dom';
 import { ArticleSkeleton } from '../components/ArticleSkeleton';
-import { ClientSideOnly } from '@/components/ClientSideOnly';
+import { ClientSideOnly } from '@/components/clientSideOnly';
 import { ArticleFooterWrapper } from '../components/ArticleFooterWrapper';
 import { Documents } from '../components/Documents';
 import { RenderIfChildren } from '@/components/RenderIfChildren';
