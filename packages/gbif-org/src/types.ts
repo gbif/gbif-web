@@ -1,6 +1,6 @@
 import { RouteObject } from 'react-router-dom';
 import { Config } from '@/contexts/config/config';
-import { GraphQLService } from './services/GraphQLService';
+import { GraphQLService } from './services/graphQLService';
 import { RouteId } from './hooks/useParentRouteLoaderData';
 
 export type LoaderArgs = {

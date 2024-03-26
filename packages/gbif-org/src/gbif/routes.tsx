@@ -1,35 +1,35 @@
 import { Outlet } from 'react-router-dom';
-import { GbifRootLayout, headerLoader } from '@/components/GbifRootLayout';
+import { GbifRootLayout, headerLoader } from '@/components/gbifRootLayout';
 import { SourceRouteObject } from '@/types';
 import { configureRoutes } from '@/utils/configureRoutes';
-import { HomePage } from '@/routes/HomePage';
-import { ThrowOn404 } from '@/routes/ThrowOn404';
-import { RootErrorPage } from '@/routes/RootErrorPage';
+import { HomePage } from '@/routes/homePage';
+import { ThrowOn404 } from '@/routes/throwOn404';
+import { RootErrorPage } from '@/routes/rootErrorPage';
 import {
   DetailedOccurrencePage,
   DetailedOccurrencePageSkeleton,
   detailedOccurrencePageLoader,
-} from '@/routes/occurrence/key/DetailedOccurrencePage';
-import { OccurrenceSearchPage } from '@/routes/occurrence/search/OccurrenceSearchPage';
+} from '@/routes/occurrence/key/detailedOccurrencePage';
+import { OccurrenceSearchPage } from '@/routes/occurrence/search/occurrenceSearchPage';
 import { InputConfig, configBuilder } from '@/contexts/config/config';
-import { DatasetPage, DatasetPageSkeleton, datasetLoader } from '@/routes/dataset/key/DatasetPage';
+import { DatasetPage, DatasetPageSkeleton, datasetLoader } from '@/routes/dataset/key/datasetPage';
 import {
   PublisherPage,
   PublisherPageSkeleton,
   publisherLoader,
-} from '@/routes/publisher/key/PublisherPage';
+} from '@/routes/publisher/key/publisherPage';
 import { NewsPage, NewsPageSkeleton, newsPageLoader } from '@/routes/resource/key/news/news';
-import { PublisherAboutTab } from '@/routes/publisher/key/AboutTab';
-import { PublisherOccurrencesTab } from '@/routes/publisher/key/OccurrencesTab';
-import { DatasetAboutTab } from '@/routes/dataset/key/AboutTab';
-import { DatasetDashboardTab } from '@/routes/dataset/key/DashboardTab';
-import { DatasetOccurrencesTab } from '@/routes/dataset/key/OccurrencesTab';
-import { DatasetDownloadTab } from '@/routes/dataset/key/DownloadTab';
+import { PublisherAboutTab } from '@/routes/publisher/key/aboutTab';
+import { PublisherOccurrencesTab } from '@/routes/publisher/key/occurrencesTab';
+import { DatasetAboutTab } from '@/routes/dataset/key/aboutTab';
+import { DatasetDashboardTab } from '@/routes/dataset/key/dashboardTab';
+import { DatasetOccurrencesTab } from '@/routes/dataset/key/occurrencesTab';
+import { DatasetDownloadTab } from '@/routes/dataset/key/downloadTab';
 import {
   DataUsePage,
   DataUsePageSkeleton,
   dataUsePageLoader,
-} from '@/routes/resource/key/data-use/data-use';
+} from '@/routes/resource/key/dataUse/dataUse';
 import { EventPage, EventPageSkeleton, eventPageLoader } from '@/routes/resource/key/event/event';
 import {
   ArticlePage,
@@ -67,7 +67,7 @@ import {
   AliasHandling,
   AliasHandlingSkeleton,
   aliasHandlingLoader,
-} from '@/routes/resource/key/AliasHandling';
+} from '@/routes/resource/key/aliasHandling';
 
 const baseRoutes: SourceRouteObject[] = [
   {

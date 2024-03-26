@@ -1,42 +1,45 @@
-import { ArticlePageFragment } from '@/gql/graphql';
-import { ArticleBanner } from '@/routes/resource/key/components/articleBanner';
-import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
-import { fragmentManager } from '@/services/fragmentManager';
 import { Helmet } from 'react-helmet-async';
+import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
+import { ArticleBanner } from '@/routes/resource/key/components/articleBanner';
+import { ArticlePreTitle } from '../components/articlePreTitle';
+import { ArticleTitle } from '../components/articleTitle';
+import { PublishedDate } from '../components/publishedDate';
+import { ArticleIntro } from '../components/articleIntro';
+import { ArticleTextContainer } from '../components/articleTextContainer';
+import { ArticleBody } from '../components/articleBody';
+import { ArticleAuxiliary } from '../components/articleAuxiliary';
+import { ArticleTags } from '../components/articleTags';
 import { FormattedMessage } from 'react-intl';
 import { useLoaderData } from 'react-router-dom';
-import { ArticleAuxiliary } from '../components/articleAuxiliary';
-import { ArticleBody } from '../components/articleBody';
-import { ArticleFooterWrapper } from '../components/articleFooterWrapper';
-import { ArticleIntro } from '../components/articleIntro';
-import { ArticleOpenGraph } from '../components/articleOpenGraph';
 import { ArticleSkeleton } from '../components/articleSkeleton';
-import { ArticleTags } from '../components/articleTags';
-import { ArticleTextContainer } from '../components/articleTextContainer';
-import { ArticleTitle } from '../components/articleTitle';
-import { Documents } from '../components/documents';
-import { SecondaryLinks } from '../components/secondaryLinks';
+import { ArticleFooterWrapper } from '../components/articleFooterWrapper';
+import { fragmentManager } from '@/services/fragmentManager';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
+import { DataUsePageFragment } from '@/gql/graphql';
+import { ArticleOpenGraph } from '../components/articleOpenGraph';
 
-export const ArticlePageSkeleton = ArticleSkeleton;
+export const DataUsePageSkeleton = ArticleSkeleton;
 
 fragmentManager.register(/* GraphQL */ `
-  fragment ArticlePage on Article {
+  fragment DataUsePage on DataUse {
     id
     title
     summary
+    resourceUsed
     excerpt
     body
     primaryImage {
       ...ArticleBanner
     }
+    primaryLink {
+      label
+      url
+    }
     secondaryLinks {
       label
       url
     }
-    documents {
-      ...DocumentPreview
-    }
+    countriesOfCoverage
     topics
     purposes
     audiences
@@ -45,13 +48,13 @@ fragmentManager.register(/* GraphQL */ `
   }
 `);
 
-export const articlePageLoader = createResourceLoaderWithRedirect({
-  fragment: 'ArticlePage',
-  resourceType: 'Article',
+export const dataUsePageLoader = createResourceLoaderWithRedirect({
+  fragment: 'DataUsePage',
+  resourceType: 'DataUse',
 });
 
-export function ArticlePage() {
-  const { resource } = useLoaderData() as { resource: ArticlePageFragment };
+export function DataUsePage() {
+  const { resource } = useLoaderData() as { resource: DataUsePageFragment };
 
   return (
     <>
@@ -63,11 +66,21 @@ export function ArticlePage() {
 
       <ArticleContainer>
         <ArticleTextContainer className="mb-10">
+          <ArticlePreTitle>
+            <FormattedMessage id="cms.contentType.dataUse" />
+          </ArticlePreTitle>
+
           <ArticleTitle dangerouslySetTitle={{ __html: resource.title }} />
+
+          {resource.createdAt && <PublishedDate className="mt-2" date={resource.createdAt} />}
 
           {resource.summary && (
             <ArticleIntro dangerouslySetIntro={{ __html: resource.summary }} className="mt-2" />
           )}
+
+          <ArticleIntro className="mt-2">
+            <FormattedMessage id="cms.datause.dataViaGbif" /> : {resource.resourceUsed}
+          </ArticleIntro>
         </ArticleTextContainer>
 
         <ArticleBanner className="mt-8 mb-6" image={resource?.primaryImage} />
@@ -78,18 +91,6 @@ export function ArticlePage() {
           )}
 
           <ArticleFooterWrapper>
-            {resource.secondaryLinks && (
-              <ArticleAuxiliary>
-                <SecondaryLinks links={resource.secondaryLinks} className="mt-8" />
-              </ArticleAuxiliary>
-            )}
-
-            {resource.documents && (
-              <ArticleAuxiliary>
-                <Documents documents={resource.documents} className="mt-8" />
-              </ArticleAuxiliary>
-            )}
-
             {resource.citation && (
               <ArticleAuxiliary
                 label={<FormattedMessage id="cms.auxiliary.citation" />}

@@ -1,11 +1,11 @@
 import { Helmet } from 'react-helmet-async';
 import { useLoaderData } from 'react-router-dom';
-import { ArticleSkeleton } from '../components/ArticleSkeleton';
-import { BlockItem } from './BlockItem';
-import { fragmentManager } from '@/services/FragmentManager';
+import { ArticleSkeleton } from '../components/articleSkeleton';
+import { BlockItem } from './blockItem';
+import { fragmentManager } from '@/services/fragmentManager';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
 import { CompositionPageFragment } from '@/gql/graphql';
-import { ArticleOpenGraph } from '../components/ArticleOpenGraph';
+import { ArticleOpenGraph } from '../components/articleOpenGraph';
 
 export const CompositionPageSkeleton = ArticleSkeleton;
 

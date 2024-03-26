@@ -3,12 +3,12 @@ import { Helmet } from 'react-helmet-async';
 import { Config } from '@/contexts/config/config';
 import { I18nProvider } from '@/contexts/i18n';
 import { SourceRouteObject, RouteMetadata } from '@/types';
-import { LoadingElementWrapper } from '@/components/LoadingElementWrapper';
+import { LoadingElementWrapper } from '@/components/loadingElementWrapper';
 import { v4 as uuid } from 'uuid';
 import { DoneLoadingEvent, StartLoadingEvent } from '@/contexts/loadingElement';
-import { GraphQLService } from '@/services/GraphQLService';
+import { GraphQLService } from '@/services/graphQLService';
 import { createRouteId } from './createRouteId';
-import { AlternativeLanguages } from '@/components/AlternativeLanguages';
+import { AlternativeLanguages } from '@/components/alternativeLanguages';
 
 type ConfigureRoutesResult = {
   routes: RouteObject[];
