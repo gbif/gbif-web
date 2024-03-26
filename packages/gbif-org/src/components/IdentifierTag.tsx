@@ -3,12 +3,13 @@ import licenses from '@/enums/basic/license.json';
 import React from 'react';
 import { cn } from '@/utils/shadcn';
 
-const url2enum = {
+const url2enum: Record<string, string> = {
   '//creativecommons.org/publicdomain/zero/1.0/legalcode': 'CC0_1_0',
   '//creativecommons.org/licenses/by/4.0/legalcode': 'CC_BY_4_0',
   '//creativecommons.org/licenses/by-nc/4.0/legalcode': 'CC_BY_NC_4_0',
 };
-const enum2url = {
+
+const enum2url: Record<string, string> = {
   CC0_1_0: '//creativecommons.org/publicdomain/zero/1.0/legalcode',
   CC_BY_4_0: '//creativecommons.org/licenses/by/4.0/legalcode',
   CC_BY_NC_4_0: '//creativecommons.org/licenses/by-nc/4.0/legalcode',
@@ -16,19 +17,17 @@ const enum2url = {
 
 export function LicenceTag({
   value,
-  className,
   ...props
 }: {
   value: string;
   className?: string;
-  props?: React.ComponentProps<typeof IdentifierTag>;
-}) {
+} & React.ComponentProps<typeof IdentifierTag>) {
   const val = value.replace(/http(s)?:/, '');
   let licenceEnum = url2enum[val] || value;
   if (licenses.indexOf(licenceEnum) === -1) licenceEnum = 'UNSUPPORTED';
   const url = enum2url[licenceEnum];
 
-  const licenseProps = url ? { as: 'a', href: url } : {};
+  const licenseProps = url ? { as: 'a' as const, href: url } : {};
 
   return (
     <IdentifierTag {...licenseProps} {...props}>
@@ -43,7 +42,7 @@ export function LicenceTag({
 }
 
 export function DoiTag({ id = '', ...props }) {
-  let sanitizedId = id.replace(/^(.*doi.org\/)?(doi:)?(10\.)/, '10.');
+  const sanitizedId = id.replace(/^(.*doi.org\/)?(doi:)?(10\.)/, '10.');
   return (
     <IdentifierTag as="a" href={`https://doi.org/${sanitizedId}`} {...props}>
       <IdentifierType>DOI</IdentifierType>
@@ -99,11 +98,10 @@ export const IdentifierTag = React.forwardRef(
     }: {
       as?: React.ElementType;
       className?: string;
-      children: React.ReactNode;
-      props?: React.ComponentProps<'a'>;// todo @daniel  i do not know what to put here. Since the tag isn't controlled by me. Also it doesn't seem to work? I still get typescript errors when trying to pass a href attribute
-    },
+      children?: React.ReactNode;
+    } & React.ComponentProps<'a'>,
     ref
   ) => {
-    return <Div ref={ref} className={cn('inline-block text-sm [&>.gbif-identifierType]:hover:primary-600 [&>.gbif-identifierType]:hover:text-primaryContrast-600', className)} {...props} children={children}/>;
+    return <Div ref={ref} className={cn('inline-block text-sm [&>.gbif-identifierType]:hover:primary-600 [&>.gbif-identifierType]:hover:text-primaryContrast-600', className)} {...props} children={children} />;
   }
 );

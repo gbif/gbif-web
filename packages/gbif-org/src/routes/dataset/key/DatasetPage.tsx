@@ -6,10 +6,6 @@ import {
   defaultDateFormatProps,
 } from '@/components/HeaderComponents';
 import {
-  DoiTag,
-  IdentifierTag,
-  IdentifierType,
-  IdentifierValue,
   LicenceTag,
 } from '@/components/IdentifierTag';
 import { Tabs } from '@/components/Tabs';
@@ -62,9 +58,9 @@ export function DatasetPage() {
   if (data.dataset == null) throw new Error('404');
   const dataset = data.dataset;
 
-  const isDeleted = dataset.deleted; // todo - daniel. Can it be that you are not allowed to use variables if using typescript? what do i need to change to get this working?
+  const deletedAt = dataset.deleted;
   const contactThreshold = 6;
-  const contactsCitation = dataset.contactsCitation?.filter(c => c.abbreviatedName) || [];
+  const contactsCitation = dataset.contactsCitation?.filter(c => c.abbreviatedName) || [];
 
   return (
     <>
@@ -79,7 +75,7 @@ export function DatasetPage() {
               <FormattedMessage
                 id="dataset.registeredDate"
                 values={{
-                  DATE: <FormattedDate value={dataset.created} {...defaultDateFormatProps} />,
+                  DATE: <FormattedDate value={dataset.created ?? undefined} {...defaultDateFormatProps} />,
                 }}
               />
             }
@@ -103,7 +99,7 @@ export function DatasetPage() {
             </div>
           )}
 
-          {isDeleted && <DeletedMessage date={dataset.deleted} />}
+          {deletedAt && <DeletedMessage date={deletedAt} />}
 
           <div className="mt-6 mb-3 flex items-end">
             <div className="flex-grow">
@@ -116,7 +112,7 @@ export function DatasetPage() {
                         {contactsCitation.map((c) => c.abbreviatedName).join(' • ')}
                       </span>
                     )}
-                    {contactsCitation.length >= contactThreshold && <FormattedMessage id="counts.nAuthors" values={{total: contactsCitation.length}}/> }
+                    {contactsCitation.length >= contactThreshold && <FormattedMessage id="counts.nAuthors" values={{ total: contactsCitation.length }} />}
                   </GenericFeature>
                 )}
                 <GenericFeature>

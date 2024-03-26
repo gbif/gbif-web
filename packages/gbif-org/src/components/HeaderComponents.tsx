@@ -2,7 +2,7 @@ import { FormattedMessage, FormattedDate } from 'react-intl';
 import { cn } from '@/utils/shadcn';
 import { ErrorMessage } from './ErrorMessage';
 
-type DateType = string | number | Date | null | undefined;
+type DateType = string | number | Date | null | undefined;
 
 /**
  * Returns a message that the record was deleted on the provided date. If no date is provided it will return null
@@ -20,7 +20,7 @@ export function DeletedMessage({
       <FormattedMessage
         id="phrases.deletedOnDate"
         values={{
-          date: <FormattedDate value={date} {...defaultDateFormatProps} />, // TODO - typescript complains. it works as expected and the documentation says this is the props https://formatjs.io/docs/react-intl/components/#formatteddate, but alas i get errors. What am I doing wrong?
+          date: <FormattedDate value={date} {...defaultDateFormatProps} />,
         }}
       />
     </ErrorMessage>
@@ -31,7 +31,7 @@ export const defaultDateFormatProps = {
   year: 'numeric',
   month: 'long',
   day: '2-digit',
-}
+} as const;
 
 export function Hostname({
   href,
@@ -39,10 +39,9 @@ export function Hostname({
   ...props
 }: {
   href: string;
-  className?: String;
+  className?: string;
   props?: React.ComponentProps<'a'>;
 }) {
-  // TODO daniel what is the correct typescrpit type for spread props? I just want to send whatever is passed on to the a tag, thinking that is agnostic. But I guess i could take the trouble og specifying which props are allowed
   try {
     const hostname = new URL(href).hostname;
     return (
