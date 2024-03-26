@@ -1,4 +1,4 @@
-import { ConditionalWrapper } from '@/components/ConditionalWrapper';
+import { ConditionalWrapper } from '@/components/conditionalWrapper';
 import { DynamicLink } from '@/components/DynamicLink';
 import { ProseCardImgFragment } from '@/gql/graphql';
 import { fragmentManager } from '@/services/FragmentManager';
