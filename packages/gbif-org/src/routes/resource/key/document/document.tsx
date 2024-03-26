@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { DynamicLink } from '@/components/dynamicLink';
 import { MdDownload as DownloadIcon } from 'react-icons/md';
 import { ArticleBody } from '../components/articleBody';
-import { PublishedDate } from '../components/PublishedDate';
+import { PublishedDate } from '../components/publishedDate';
 import { ArticleAuxiliary } from '../components/articleAuxiliary';
 import { ArticleSkeleton } from '../components/articleSkeleton';
 import { RenderIfChildren } from '@/components/renderIfChildren';

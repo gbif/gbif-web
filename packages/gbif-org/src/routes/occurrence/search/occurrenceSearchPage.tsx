@@ -6,7 +6,7 @@ import { DataTable } from '@/components/ui/dataTable';
 import { columns } from '@/routes/occurrence/search/columns';
 import { notNull } from '@/utils/notNull';
 import { OccurrenceSearchQuery, OccurrenceSearchQueryVariables } from '@/gql/graphql';
-import { TableFilters } from '@/components/TableFilters/tableFilters';
+import { TableFilters } from '@/components/tableFilters/tableFilters';
 import { ocurrenceSearchFilterDefinitions } from './filters';
 import { useFilters } from '@/hooks/useFilters';
 import { useTablePagination } from '@/hooks/useTablePagination';

@@ -3,7 +3,7 @@ import { ArticleContainer } from '@/routes/resource/key/components/articleContai
 import { ArticleBanner } from '@/routes/resource/key/components/articleBanner';
 import { ArticlePreTitle } from '../components/articlePreTitle';
 import { ArticleTitle } from '../components/articleTitle';
-import { PublishedDate } from '../components/PublishedDate';
+import { PublishedDate } from '../components/publishedDate';
 import { ArticleIntro } from '../components/articleIntro';
 import { ArticleTextContainer } from '../components/articleTextContainer';
 import { ArticleBody } from '../components/articleBody';

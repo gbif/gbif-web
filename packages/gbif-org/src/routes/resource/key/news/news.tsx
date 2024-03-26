@@ -17,7 +17,7 @@ import { PublishedDate } from '../components/publishedDate';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
 import { ArticleOpenGraph } from '../components/articleOpenGraph';
 import { ArticleAuxiliary } from '../components/articleAuxiliary';
-import { SecondaryLinks } from '../components/SecondaryLinks';
+import { SecondaryLinks } from '../components/secondaryLinks';
 
 export const NewsPageSkeleton = ArticlePageSkeleton;
 

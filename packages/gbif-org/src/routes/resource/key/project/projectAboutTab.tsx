@@ -5,8 +5,8 @@ import { ArticleBody } from '../components/articleBody';
 import { ArticleTags } from '../components/articleTags';
 import { ArticleAuxiliary } from '../components/articleAuxiliary';
 
-import { SecondaryLinks } from '../components/SecondaryLinks';
-import { Documents } from '../components/Documents';
+import { SecondaryLinks } from '../components/secondaryLinks';
+import { Documents } from '../components/documents';
 import { KeyValuePair } from '../components/keyValuePair';
 import { FormattedDate, FormattedMessage, FormattedNumber } from 'react-intl';
 import { DynamicLink } from '@/components/dynamicLink';

@@ -1,4 +1,4 @@
-import { FilterType, TableFilter } from '@/components/TableFilters/types';
+import { FilterType, TableFilter } from '@/components/tableFilters/types';
 
 export const ocurrenceSearchFilterDefinitions: Array<Omit<TableFilter, 'selectedValues'>> = [
   {

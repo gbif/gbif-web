@@ -14,8 +14,8 @@ import { ArticleSkeleton } from '../components/articleSkeleton';
 import { ArticleTags } from '../components/articleTags';
 import { ArticleTextContainer } from '../components/articleTextContainer';
 import { ArticleTitle } from '../components/articleTitle';
-import { Documents } from '../components/Documents';
-import { SecondaryLinks } from '../components/SecondaryLinks';
+import { Documents } from '../components/documents';
+import { SecondaryLinks } from '../components/secondaryLinks';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
 
 export const ArticlePageSkeleton = ArticleSkeleton;

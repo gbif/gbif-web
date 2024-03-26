@@ -8,7 +8,7 @@ import { PublishedDate } from '../components/publishedDate';
 import { ArticleIntro } from '../components/articleIntro';
 import { ArticleTextContainer } from '../components/articleTextContainer';
 import { ArticleBody } from '../components/articleBody';
-import { SecondaryLinks } from '../components/SecondaryLinks';
+import { SecondaryLinks } from '../components/secondaryLinks';
 import { ArticleAuxiliary } from '../components/articleAuxiliary';
 import { FormattedMessage } from 'react-intl';
 import { useLoaderData } from 'react-router-dom';
