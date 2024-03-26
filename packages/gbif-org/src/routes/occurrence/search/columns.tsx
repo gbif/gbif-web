@@ -1,5 +1,5 @@
 import { ColumnDef } from '@tanstack/react-table';
-import { SingleOccurrenceSearchResult } from '@/routes/occurrence/search/OccurrenceSearchPage';
+import { SingleOccurrenceSearchResult } from '@/routes/occurrence/search/occurrenceSearchPage';
 import { DynamicLink } from '@/components/DynamicLink';
 
 export const columns: ColumnDef<SingleOccurrenceSearchResult>[] = [

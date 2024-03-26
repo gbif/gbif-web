@@ -8,7 +8,7 @@ import {
   DetailedOccurrencePageSkeleton,
   detailedOccurrencePageLoader,
 } from '@/routes/occurrence/key/DetailedOccurrencePage';
-import { OccurrenceSearchPage } from '@/routes/occurrence/search/OccurrenceSearchPage';
+import { OccurrenceSearchPage } from '@/routes/occurrence/search/occurrenceSearchPage';
 import { InputConfig, configBuilder } from '@/contexts/config/config';
 import { DatasetPage, datasetLoader } from '@/routes/dataset/key/DatasetPage';
 import { DatasetAboutTab } from '@/routes/dataset/key/AboutTab';
