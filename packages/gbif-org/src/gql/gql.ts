@@ -36,6 +36,7 @@ const documents = {
     "\n  fragment MediaBlockDetails on MediaBlock {\n    __typename\n    id\n    mediaTitle: title\n    body\n    optionalImg: primaryImage {\n      file {\n        mobile: thumbor(width: 500, height: 400)\n      }\n      title\n      description\n    }\n    reverse\n    subtitle\n    backgroundColour\n    roundImage\n    callToAction {\n      label\n      url\n    }\n  }\n": types.MediaBlockDetailsFragmentDoc,
     "\n  fragment MediaCountBlockDetails on MediaCountBlock {\n    __typename\n    id\n    mediaTitle: title\n    body\n    optionalImg: primaryImage {\n      file {\n        mobile: thumbor(width: 500, height: 400)\n      }\n      title\n      description\n    }\n    reverse\n    subtitle\n    titleCountPart\n    backgroundColour\n    roundImage\n    callToAction {\n      label\n      url\n    }\n  }\n": types.MediaCountBlockDetailsFragmentDoc,
     "\n  fragment TextBlockDetails on TextBlock {\n    title\n    body\n    hideTitle\n    id\n    backgroundColour\n  }\n": types.TextBlockDetailsFragmentDoc,
+    "\n  query Participants {\n    participantSearch(limit: 1000) {\n      endOfRecords\n      results {\n        id\n        name\n      }\n    }\n  }\n": types.ParticipantsDocument,
     "\n  fragment CompositionPage on Composition {\n    id\n    maybeTitle: title\n    summary\n    excerpt\n    blocks {\n      ...BlockItemDetails\n    }\n  }\n": types.CompositionPageFragmentDoc,
     "\n  fragment ProseCardImg on AssetImage {\n    file {\n      mobile: thumbor(width: 500, height: 400)\n    }\n    title\n    description\n  }\n": types.ProseCardImgFragmentDoc,
     "\n  fragment ResourceRedirectDetails on Resource {\n    __typename\n    ... on Article {\n      id\n      title\n      urlAlias\n    }\n    ... on Composition {\n      id\n      maybeTitle: title\n      urlAlias\n    }\n    ... on DataUse {\n      id\n      title\n    }\n    ... on Document {\n      id\n      title\n    }\n    ... on Event {\n      id\n      title\n    }\n    ... on News {\n      id\n      title\n    }\n    ... on Programme {\n      id\n      title\n    }\n    ... on GbifProject {\n      id\n      title\n    }\n    ... on Tool {\n      id\n      title\n    }\n  }\n": types.ResourceRedirectDetailsFragmentDoc,
@@ -162,6 +163,10 @@ export function graphql(source: "\n  fragment MediaCountBlockDetails on MediaCou
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  fragment TextBlockDetails on TextBlock {\n    title\n    body\n    hideTitle\n    id\n    backgroundColour\n  }\n"): (typeof documents)["\n  fragment TextBlockDetails on TextBlock {\n    title\n    body\n    hideTitle\n    id\n    backgroundColour\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query Participants {\n    participantSearch(limit: 1000) {\n      endOfRecords\n      results {\n        id\n        name\n      }\n    }\n  }\n"): (typeof documents)["\n  query Participants {\n    participantSearch(limit: 1000) {\n      endOfRecords\n      results {\n        id\n        name\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

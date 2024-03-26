@@ -54,13 +54,13 @@ export function useQuery<TResult, TVariabels>(
   React.useEffect(() => () => cancelRequest(), [cancelRequest]);
 
   const load = React.useCallback(
-    (options: Options<TVariabels>) => {
+    (options?: Options<TVariabels>) => {
       // Create a function that will start the request. This function will be called by the queueing logic
       const startRequest = async () => {
         const _abortController = new AbortController();
         setAbortController(_abortController);
 
-        if (options.keepDataWhileLoading !== true) setData(undefined);
+        if (options?.keepDataWhileLoading !== true) setData(undefined);
         setLoading(true);
         setError(undefined);
 
@@ -71,7 +71,7 @@ export function useQuery<TResult, TVariabels>(
         });
 
         return graphqlService
-          .query<TResult, TVariabels>(query, options.variables as TVariabels)
+          .query<TResult, TVariabels>(query, options?.variables as TVariabels)
           .then(async (response) => {
             // Handle error response errors from the server
             if (response.ok === false) {
@@ -111,7 +111,7 @@ export function useQuery<TResult, TVariabels>(
       };
 
       // If a queue name is not provided, start the request immediately
-      if (typeof options.queue?.name !== 'string') {
+      if (typeof options?.queue?.name !== 'string') {
         return startRequest();
       }
 

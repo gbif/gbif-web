@@ -99,13 +99,15 @@ export class GraphQLService {
 
     if (this.preview) queryParams.preview = Math.random().toString();
 
-    const variablesTooLongForGET =
-      variables && encodeURIComponent(JSON.stringify(variables)).length > MAX_GET_LENGTH;
-    // this is a bit silly. why serialize and then hash the object. would be cheaper to simply hash the serialized
-    if (variablesTooLongForGET) {
-      queryParams.variablesId = hash(JSON.parse(JSON.stringify(variables))); // it feels insane having to stringify and then parse again, but the  hash function cannot handle when multiple parts ot object reference the same object. E.g. no reuse. See https://github.com/puleos/object-hash/issues/78
-    } else {
-      queryParams.variables = JSON.stringify(variables);
+    if (variables) {
+      const variablesTooLongForGET =
+        variables && encodeURIComponent(JSON.stringify(variables)).length > MAX_GET_LENGTH;
+      // this is a bit silly. why serialize and then hash the object. would be cheaper to simply hash the serialized
+      if (variablesTooLongForGET) {
+        queryParams.variablesId = hash(JSON.parse(JSON.stringify(variables))); // it feels insane having to stringify and then parse again, but the  hash function cannot handle when multiple parts ot object reference the same object. E.g. no reuse. See https://github.com/puleos/object-hash/issues/78
+      } else {
+        queryParams.variables = JSON.stringify(variables);
+      }
     }
 
     return new URLSearchParams(queryParams).toString();
