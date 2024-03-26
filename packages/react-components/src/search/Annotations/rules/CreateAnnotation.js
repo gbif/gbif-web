@@ -174,6 +174,7 @@ function AnnotationForm({ polygons, setPolygons, onClose, onCreate, ...props }) 
               type="checkbox"
               checked={invertGeometry}
               onChange={onInvertGeometry}
+              title="Only works with simple polygons."
             />
             Invert geometry
           </label>
