@@ -2,7 +2,7 @@ import { FormattedMessage, FormattedDate } from 'react-intl';
 import { cn } from '@/utils/shadcn';
 import { ErrorMessage } from './ErrorMessage';
 
-type DateType = string | number | Date | null;
+type DateType = string | number | Date | null | undefined;
 
 /**
  * Returns a message that the record was deleted on the provided date. If no date is provided it will return null
@@ -11,7 +11,7 @@ export function DeletedMessage({
   date,
   ...props
 }: {
-  date?: DateType;
+  date: DateType;
   props?: React.ComponentProps<typeof ErrorMessage>;
 }) {
   if (!date) return null;

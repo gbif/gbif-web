@@ -87,7 +87,7 @@ const typeDef = gql`
     additionalInfo: String
     bibliographicCitations: [BibliographicCitation]
     citation: Citation
-    contactsCitation: [ContactsCitation]
+    contactsCitation: [ContactsCitation!]
     collections: [JSON]
     comments: [JSON]
     contacts: [Contact]
@@ -223,7 +223,7 @@ const typeDef = gql`
   }
 
   type ContactsCitation {
-    key: Int
+    key: Int!
     abbreviatedName: String
     firstName: String
     lastName: String
