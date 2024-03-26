@@ -17,6 +17,7 @@
   "nAudioFiles": "{total, plural, one {# sound file} other {# sound files}}",
   "nVideos": "{total, plural, one {# video} other {# videos}}",
   "nImages": "{total, plural, one {# image} other {# images}}",
+  "nAuthors": "{total, plural, one {# author} other {# authors}}",
   "nResultsWithCoordinates": "{total, plural, one {# result } other {# results}} with coordinates\n",
   "percentWithCoordinates": "{percent}% with coordinates",
   "percentWithYear": "{percent}% with year",
