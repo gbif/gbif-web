@@ -1,7 +1,7 @@
-import { ConditionalWrapper } from '@/components/ConditionalWrapper';
-import { DynamicLink } from '@/components/DynamicLink';
+import { ConditionalWrapper } from '@/components/conditionalWrapper';
+import { DynamicLink } from '@/components/dynamicLink';
 import { ProseCardImgFragment } from '@/gql/graphql';
-import { fragmentManager } from '@/services/FragmentManager';
+import { fragmentManager } from '@/services/fragmentManager';
 
 fragmentManager.register(/* GraphQL */ `
   fragment ProseCardImg on AssetImage {

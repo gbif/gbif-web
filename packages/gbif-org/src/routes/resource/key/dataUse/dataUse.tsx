@@ -1,31 +1,31 @@
-import { NewsPageFragment } from '@/gql/graphql';
-import { ArticleBanner } from '@/routes/resource/key/components/articleBanner';
-import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
-import { fragmentManager } from '@/services/fragmentManager';
 import { Helmet } from 'react-helmet-async';
+import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
+import { ArticleBanner } from '@/routes/resource/key/components/articleBanner';
+import { ArticlePreTitle } from '../components/articlePreTitle';
+import { ArticleTitle } from '../components/articleTitle';
+import { PublishedDate } from '../components/PublishedDate';
+import { ArticleIntro } from '../components/articleIntro';
+import { ArticleTextContainer } from '../components/articleTextContainer';
+import { ArticleBody } from '../components/articleBody';
+import { ArticleAuxiliary } from '../components/articleAuxiliary';
+import { ArticleTags } from '../components/articleTags';
 import { FormattedMessage } from 'react-intl';
 import { useLoaderData } from 'react-router-dom';
-import { ArticlePageSkeleton } from '../article/article';
-import { ArticleBody } from '../components/articleBody';
+import { ArticleSkeleton } from '../components/articleSkeleton';
 import { ArticleFooterWrapper } from '../components/articleFooterWrapper';
-import { ArticleIntro } from '../components/articleIntro';
-import { ArticlePreTitle } from '../components/articlePreTitle';
-import { ArticleTags } from '../components/articleTags';
-import { ArticleTextContainer } from '../components/articleTextContainer';
-import { ArticleTitle } from '../components/articleTitle';
-import { PublishedDate } from '../components/publishedDate';
+import { fragmentManager } from '@/services/fragmentManager';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
+import { DataUsePageFragment } from '@/gql/graphql';
 import { ArticleOpenGraph } from '../components/articleOpenGraph';
-import { ArticleAuxiliary } from '../components/articleAuxiliary';
-import { SecondaryLinks } from '../components/SecondaryLinks';
 
-export const NewsPageSkeleton = ArticlePageSkeleton;
+export const DataUsePageSkeleton = ArticleSkeleton;
 
 fragmentManager.register(/* GraphQL */ `
-  fragment NewsPage on News {
+  fragment DataUsePage on DataUse {
     id
     title
     summary
+    resourceUsed
     excerpt
     body
     primaryImage {
@@ -48,13 +48,13 @@ fragmentManager.register(/* GraphQL */ `
   }
 `);
 
-export const newsPageLoader = createResourceLoaderWithRedirect({
-  fragment: 'NewsPage',
-  resourceType: 'News',
+export const dataUsePageLoader = createResourceLoaderWithRedirect({
+  fragment: 'DataUsePage',
+  resourceType: 'DataUse',
 });
 
-export function NewsPage() {
-  const { resource } = useLoaderData() as { resource: NewsPageFragment };
+export function DataUsePage() {
+  const { resource } = useLoaderData() as { resource: DataUsePageFragment };
 
   return (
     <>
@@ -65,18 +65,22 @@ export function NewsPage() {
       </Helmet>
 
       <ArticleContainer>
-        <ArticleTextContainer>
+        <ArticleTextContainer className="mb-10">
           <ArticlePreTitle>
-            <FormattedMessage id="cms.contentType.news" />
+            <FormattedMessage id="cms.contentType.dataUse" />
           </ArticlePreTitle>
 
           <ArticleTitle dangerouslySetTitle={{ __html: resource.title }} />
 
-          <PublishedDate className="mt-2" date={resource.createdAt} />
+          {resource.createdAt && <PublishedDate className="mt-2" date={resource.createdAt} />}
 
           {resource.summary && (
             <ArticleIntro dangerouslySetIntro={{ __html: resource.summary }} className="mt-2" />
           )}
+
+          <ArticleIntro className="mt-2">
+            <FormattedMessage id="cms.datause.dataViaGbif" /> : {resource.resourceUsed}
+          </ArticleIntro>
         </ArticleTextContainer>
 
         <ArticleBanner className="mt-8 mb-6" image={resource?.primaryImage} />
@@ -87,12 +91,6 @@ export function NewsPage() {
           )}
 
           <ArticleFooterWrapper>
-            {resource.secondaryLinks && (
-              <ArticleAuxiliary>
-                <SecondaryLinks links={resource.secondaryLinks} className="mt-8" />
-              </ArticleAuxiliary>
-            )}
-
             {resource.citation && (
               <ArticleAuxiliary
                 label={<FormattedMessage id="cms.auxiliary.citation" />}

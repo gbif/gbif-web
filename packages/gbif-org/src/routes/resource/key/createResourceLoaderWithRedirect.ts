@@ -1,5 +1,5 @@
 import { DoneLoadingEvent } from '@/contexts/loadingElement';
-import { fragmentManager } from '@/services/FragmentManager';
+import { fragmentManager } from '@/services/fragmentManager';
 import { LoaderArgs } from '@/types';
 import { required } from '@/utils/required';
 import { slugify } from '@/utils/slugify';

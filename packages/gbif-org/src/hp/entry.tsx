@@ -2,7 +2,7 @@ import '@/index.css';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { Root } from '@/components/Root';
+import { Root } from '@/components/root';
 import { Config, InputConfig } from '@/contexts/config/config';
 import { configureHostedPortalRoutes } from '@/hp/routes';
 

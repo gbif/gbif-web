@@ -1,12 +1,12 @@
 import { Helmet } from 'react-helmet-async';
-import { ArticleSkeleton } from '../components/ArticleSkeleton';
-import { BlockItem } from '../composition/BlockItem';
+import { ArticleSkeleton } from '../components/articleSkeleton';
+import { BlockItem } from '../composition/blockItem';
 import { useLoaderData } from 'react-router-dom';
-import { FundingBanner } from '../components/FundingBanner';
-import { fragmentManager } from '@/services/FragmentManager';
+import { FundingBanner } from '../components/fundingBanner';
+import { fragmentManager } from '@/services/fragmentManager';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
 import { ProgrammePageFragment } from '@/gql/graphql';
-import { ArticleOpenGraph } from '../components/ArticleOpenGraph';
+import { ArticleOpenGraph } from '../components/articleOpenGraph';
 
 export const ProgrammePageSkeleton = ArticleSkeleton;
 

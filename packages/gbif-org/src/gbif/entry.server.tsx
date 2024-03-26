@@ -8,7 +8,7 @@ import type { Request as ExpressRequest } from 'express';
 import { FilledContext, HelmetServerState } from 'react-helmet-async';
 import { configureGbifRoutes } from '@/gbif/routes';
 import { gbifConfig } from '@/gbif/config';
-import { Root } from '@/components/Root';
+import { Root } from '@/components/root';
 
 // Create routes based on config
 const { routes, metadataRoutes } = configureGbifRoutes(gbifConfig);

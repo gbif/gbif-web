@@ -1,5 +1,5 @@
 import { cn } from '@/utils/shadcn';
-import { ArticleTextContainer } from '../../components/ArticleTextContainer';
+import { ArticleTextContainer } from '../../components/articleTextContainer';
 
 export const backgroundColorMap: Record<string, string> = {
   white: 'bg-white',
