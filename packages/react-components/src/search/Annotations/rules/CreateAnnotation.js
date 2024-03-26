@@ -80,6 +80,7 @@ function AnnotationForm({ polygons, setPolygons, onClose, onCreate, ...props }) 
   const currentFilterContext = useContext(FilterContext);
   const { rootPredicate, predicateConfig } = useContext(SearchContext);
   const [geometry, setGeometry] = useState('');
+  const [invertGeometry, setInvertGeometry] = useState(false);
   const [gadm, setGadm] = useState('');
   const [project, setProject] = useState();
   const [annotationType, setAnnotationType] = useState(annotationOptions[0]);
@@ -92,10 +93,21 @@ function AnnotationForm({ polygons, setPolygons, onClose, onCreate, ...props }) 
     });
   };
 
+  const onInvertGeometry = () => {
+    setInvertGeometry(!invertGeometry);
+  };
+
   // set geometry to first polygon in list
   useEffect(() => {
-    setGeometry(polygons[0]);
-  }, [polygons]);
+    if (invertGeometry) {
+      setGeometry("POLYGON ((-180 -90, -90 -90, 0 -90, 90 -90, 180 -90, 180 90, 90 90, 0 90, -90 90, -180 90, -180 -90)," + 
+      polygons[0].replace(/POLYGON/g, "").
+      replace(/\(\(/g, "(").replace(/\)\)/g, ")") + ")");
+    } else {
+      setGeometry(polygons[0]);
+    } 
+  }, [polygons, invertGeometry]);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -143,18 +155,36 @@ function AnnotationForm({ polygons, setPolygons, onClose, onCreate, ...props }) 
     }
   };
 
-  const { geojson, error: wktError } = getFeature(polygons[0] || '');
+  const { geojson, error: wktError } = getFeature(geometry || '');
 
   return (
     <>
       <div>
         <MapWithGeoJSON type={annotationType.value} geojson={geojson} style={{width: '100%', height: '300px'}}/>
       </div>
-      <form onSubmit={handleSubmit}>
-        <div css={css`background: white; border-radius: 4px; margin: 12px; border: 1px solid var(--paperBorderColor);`}>
-          <Input placeholder="Geometry as WKT" onChange={e => setPolygons([e.target.value])} value={polygons[0] || ''} style={{ border: 'none' }} />
+
+      <div css={css`background: white; border-radius: 4px; margin: 12px; border: 1px solid var(--paperBorderColor);`}>
+          <fieldset css={css`
+            border:none;
+            padding: 12px;
+            margin: 0;
+            `}>
+          <label>
+            <input
+              type="checkbox"
+              checked={invertGeometry}
+              onChange={onInvertGeometry}
+            />
+            Invert geometry
+          </label>
+              </fieldset>
         </div>
 
+      <form onSubmit={handleSubmit}>
+        <div css={css`background: white; border-radius: 4px; margin: 12px; border: 1px solid var(--paperBorderColor);`}>
+          <Input placeholder="Geometry as WKT" onChange={e => setPolygons([e.target.value])} value={geometry || ''} style={{ border: 'none' }} />
+        </div>
+        
         <div css={css`background: white; border-radius: 4px; margin: 12px; border: 1px solid var(--paperBorderColor);`}>
             <Suggest
               css={css`
@@ -192,7 +222,7 @@ function AnnotationForm({ polygons, setPolygons, onClose, onCreate, ...props }) 
             )}
           </fieldset>
         </div>
-
+        
         {/* <div css={css`background: white; border-radius: 4px; margin: 12px; border: 1px solid var(--paperBorderColor);`}>
           <Suggest
             css={css`
