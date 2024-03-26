@@ -8,7 +8,7 @@ import { v4 as uuid } from 'uuid';
 import { DoneLoadingEvent, StartLoadingEvent } from '@/contexts/loadingElement';
 import { GraphQLService } from '@/services/GraphQLService';
 import { createRouteId } from './createRouteId';
-import { AlternativeLanguages } from '@/components/AlternativeLanguages';
+import { AlternativeLanguages } from '@/components/alternativeLanguages';
 
 type ConfigureRoutesResult = {
   routes: RouteObject[];
