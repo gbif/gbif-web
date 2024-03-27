@@ -306,6 +306,10 @@ const config = {
       type: 'keyword',
       field: 'publishingOrganizationKey'
     },
+    gbifNetworkKey: {
+      type: 'keyword',
+      field: 'gbifNetworkKey'
+    },
     read: {
       type: 'boolean',
       field: 'read'
