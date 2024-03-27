@@ -12,8 +12,7 @@ export function DeletedMessage({
   ...props
 }: {
   date: DateType;
-  props?: React.ComponentProps<typeof ErrorMessage>;
-}) {
+} & React.ComponentProps<typeof ErrorMessage>) {
   if (!date) return null;
   return (
     <ErrorMessage {...props}>
@@ -40,8 +39,7 @@ export function Hostname({
 }: {
   href: string;
   className?: string;
-  props?: React.ComponentProps<'a'>;
-}) {
+} & React.ComponentProps<'a'>) {
   try {
     const hostname = new URL(href).hostname;
     return (
@@ -58,24 +56,33 @@ export function Hostname({
   }
 }
 
-export function GenericFeature({
-  className,
+export function HeaderInfoMain({
   children,
+  className,
   ...props
 }: {
   className?: string;
   children: React.ReactNode;
-  props?: React.ComponentProps<'div'>;
-}) {
+} & React.ComponentProps<'div'>) {
   return (
-    <div
-      className={cn(
-        'my-0.5 me-6 [&>svg]:me-2 [&>svg]:leading-2 [&>svg]:h-6 inline-flex items-start',
-        className
-      )}
-      {...props}
-    >
+    <div className={cn('flex-grow', className)} {...props}>
       {children}
     </div>
   );
 }
+
+export function HeaderInfo({
+  children,
+  className,
+  ...props
+}: {
+  className?: string;
+  children: React.ReactNode;
+} & React.ComponentProps<'div'>) {
+  return (
+    <div className={cn('mt-6 mb-3 flex items-end', className)} {...props}>
+      {children}
+    </div>
+  );
+}
+

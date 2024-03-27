@@ -21,5 +21,14 @@ export default {
       if (typeof key === 'undefined') return null;
       return dataSources.organizationAPI.getOrganizationByKey({ key });
     },
+    homepage: ({ type, endpoints }) => {
+      if (type === 'IPT_INSTALLATION') {
+        var iptRssFeed = endpoints.find(x => x.type === 'FEED');
+        if (iptRssFeed) {
+            var iptHomePage = iptRssFeed.url.replace(/rss\.do$/, '');
+            return iptHomePage;
+        }
+    }
+    }
   },
 };

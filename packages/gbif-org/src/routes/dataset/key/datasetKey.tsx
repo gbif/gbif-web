@@ -1,13 +1,13 @@
 import { DynamicLink } from '@/components/dynamicLink';
 import {
   DeletedMessage,
-  GenericFeature,
+  HeaderInfo,
+  HeaderInfoMain,
   Hostname,
   defaultDateFormatProps,
 } from '@/components/headerComponents';
-import {
-  LicenceTag,
-} from '@/components/identifierTag';
+import { Homepage, FeatureList, GenericFeature } from '@/components/highlights';
+import { LicenceTag } from '@/components/identifierTag';
 import { Tabs } from '@/components/tabs';
 import { DatasetQuery, DatasetQueryVariables } from '@/gql/graphql';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
@@ -60,22 +60,28 @@ export function DatasetPage() {
 
   const deletedAt = dataset.deleted;
   const contactThreshold = 6;
-  const contactsCitation = dataset.contactsCitation?.filter(c => c.abbreviatedName) || [];
+  const contactsCitation = dataset.contactsCitation?.filter((c) => c.abbreviatedName) || [];
 
   return (
     <>
       <Helmet>
         <title>{dataset.title}</title>
+        {/* TODO we need much richer meta data. Especially for datasets.  */}
       </Helmet>
 
       <ArticleContainer>
-        <ArticleTextContainer className="max-w-6xl">
+        <ArticleTextContainer className="max-w-screen-xl">
           <ArticlePreTitle
             secondary={
               <FormattedMessage
                 id="dataset.registeredDate"
                 values={{
-                  DATE: <FormattedDate value={dataset.created ?? undefined} {...defaultDateFormatProps} />,
+                  DATE: (
+                    <FormattedDate
+                      value={dataset.created ?? undefined}
+                      {...defaultDateFormatProps}
+                    />
+                  ),
                 }}
               />
             }
@@ -89,7 +95,7 @@ export function DatasetPage() {
 
           {dataset.publishingOrganizationTitle && (
             <div className="mt-2">
-              Published by{' '}
+              <FormattedMessage id="dataset.publishedBy" />{' '}
               <DynamicLink
                 className="hover:underline text-primary-500"
                 to={`/publisher/${dataset.publishingOrganizationKey}`}
@@ -101,32 +107,32 @@ export function DatasetPage() {
 
           {deletedAt && <DeletedMessage date={deletedAt} />}
 
-          <div className="mt-6 mb-3 flex items-end">
-            <div className="flex-grow">
-              <div className="flex flex-wrap items-center -my-1 mt-3">
+          <HeaderInfo>
+            <HeaderInfoMain>
+              <FeatureList>
                 {contactsCitation.length > 0 && (
                   <GenericFeature>
                     <MdPeople />
                     {contactsCitation.length < contactThreshold && (
-                      <span>
-                        {contactsCitation.map((c) => c.abbreviatedName).join(' • ')}
-                      </span>
+                      <span>{contactsCitation.map((c) => c.abbreviatedName).join(' • ')}</span>
                     )}
-                    {contactsCitation.length >= contactThreshold && <FormattedMessage id="counts.nAuthors" values={{ total: contactsCitation.length }} />}
+                    {contactsCitation.length >= contactThreshold && (
+                      <FormattedMessage
+                        id="counts.nAuthors"
+                        values={{ total: contactsCitation.length }}
+                      />
+                    )}
                   </GenericFeature>
                 )}
-                <GenericFeature>
-                  <MdLink />{' '}
-                  <Hostname href="https://www.gbif.org/dataset/1b7a5c6e-4b9b-4e1e-8f4a-6e2f0f6e6f4e" />
-                </GenericFeature>
+                <Homepage url="https://www.gbif.org" />
                 <GenericFeature>
                   <LicenceTag value="https://creativecommons.org/licenses/by/4.0/legalcode" />
                 </GenericFeature>
                 <GenericFeature>23 published datasets</GenericFeature>
-              </div>
-            </div>
+              </FeatureList>
+            </HeaderInfoMain>
             <div className="flex-shrink">edit</div>
-          </div>
+          </HeaderInfo>
           <div className="border-b"></div>
           <Tabs
             links={[
@@ -141,7 +147,7 @@ export function DatasetPage() {
 
       <div className="bg-slate-100">
         <Outlet />
-        <div style={{ height: 800 }}></div>
+        <div style={{ height: 400 }}></div>
         {/* <div className="text-red-500 mt-4 mb-4">
           <p>
             TODO have tabs that are accessible and can be used as either state push, href links or
@@ -154,8 +160,6 @@ export function DatasetPage() {
             themselves to the site head
           </p>
         </div> */}
-
-        <Outlet />
       </div>
     </>
   );

@@ -1,0 +1,9 @@
+{
+  "network": "Network",
+  "tabs": {
+    "summary": "Summary",
+    "metrics": "Metrics",
+    "datasets": "Datasets",
+    "publishers": "Publishers"
+  }
+}

@@ -6,7 +6,7 @@ export function ErrorMessage({
   ...props
 }: {
   className?: string;
-  children: React.ReactNode; // TODO: daniel - how to make typescript accept this. I just want to pass children on to the object. Do I really have to explicitly model children as I've done here?
+  children?: React.ReactNode;
   props?: React.ComponentProps<'div'>;
 }) {
   return (

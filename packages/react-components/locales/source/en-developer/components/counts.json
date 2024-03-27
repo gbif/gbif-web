@@ -25,7 +25,11 @@
   "nResultsWithImages": "{total, plural, one {# result } other {# results}} with images",
   "gbifOverlapPercent": "{percent}% overlap with GBIF Backbone",
   "colOverlapPercent": "{percent}% overlap with Catalogue of Life",
-  "nDatasets": "{NUMBER_FORMATED} {NUMBER, plural, one{dataset} other{datasets}}",
+  "nDatasets": "{total, plural, one {# published dataset} other {# published datasets}}",
+  "nPublishedDatasets": "{total, plural, one {# dataset} other {# datasets}}",
+  "nHostedDatasets": "{total, plural, one {# hosted dataset} other {# hosted datasets}}",
+  "nParticipatingDatasets": "{total, plural, one {# participating dataset} other {# participating datasets}}",
+  "nParticipatingPublishers": "{total, plural, one {# participating publisher} other {# participating publishers}}",
   "nStaffMembers": "{total, plural, one {# staff member} other {# staff members}}",
-  "nOccurrencesHosted": "{NUMBER_FORMATED} {NUMBER, plural, one{hosted occurrence} other{hosted occurrences}}"
+  "nOccurrencesHosted": "{total, plural, one {# hosted occurrence} other {# hosted occurrences}}"
 }
