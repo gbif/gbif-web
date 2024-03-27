@@ -23,7 +23,5 @@
   "percentWithTaxonMatch": "{percent}%与分类单元匹配",
   "nResultsWithImages": "{total, plural, one {# 结果} other {# 结果}} 带图像",
   "gbifOverlapPercent": "{percent}%与GBIF骨干重叠",
-  "colOverlapPercent": "{percent}%与生物物种名录重叠",
-  "nDatasets": "{NUMBER_FORMATED} {NUMBER, select,1{数据集}other{数据集}}",
-  "nOccurrencesHosted": "{NUMBER_FORMATED} {NUMBER, select, 1{宿主发生记录} other{宿主发生记录}}"
+  "colOverlapPercent": "{percent}%与生物物种名录重叠"
 }
