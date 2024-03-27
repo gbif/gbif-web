@@ -1,0 +1,9 @@
+{
+  "network": "شبكة",
+  "tabs": {
+    "summary": "الملخص",
+    "metrics": "المقاييس",
+    "datasets": "مجموعات البيانات",
+    "publishers": "الناشرون"
+  }
+}
