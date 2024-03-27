@@ -12,6 +12,7 @@
   "nAudioFiles": "{total, plural, one {# archivo de sonido} other {# archivos de sonido}}",
   "nVideos": "{total, plural, one {# video} other {# videos}}",
   "nImages": "{total, plural, one {# imagen} other {# imágenes}}",
+  "nAuthors": "{total, plural, one {# autor} other {# autores}}",
   "nResultsWithCoordinates": "{total, plural, one {# resultado } other {# resultados}} con coordenadas",
   "nResultsWithImages": "{total, plural, one {# resultado } other {# resultados}} con imágenes",
   "nStaffMembers": "{total, plural, one {# miembro del equipo} other {# miembros del equipo}}"
