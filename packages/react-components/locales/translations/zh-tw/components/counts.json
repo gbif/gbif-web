@@ -13,7 +13,5 @@
   "nVideos": "{total, plural, one {# 視訊} other {# 視訊}}",
   "nImages": "{total, plural, one {# 影像} other {# 影像}}",
   "nResultsWithCoordinates": "{total, plural, one {# 筆} other {# 筆}}含座標結果",
-  "nResultsWithImages": "{total, plural, one {# 筆} other {# 筆}}含影像結果",
-  "nDatasets": "{NUMBER_FORMATED} 個{NUMBER, plural, one{資料集}other{資料集}}",
-  "nOccurrencesHosted": "{NUMBER_FORMATED} {NUMBER, plural, one{代管的出現紀錄} other{代管的出現紀錄}}"
+  "nResultsWithImages": "{total, plural, one {# 筆} other {# 筆}}含影像結果"
 }

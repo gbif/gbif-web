@@ -1,0 +1,9 @@
+{
+  "network": "Мережа",
+  "tabs": {
+    "summary": "Підсумок",
+    "metrics": "Показники",
+    "datasets": "Наборів даних",
+    "publishers": "Видавці"
+  }
+}

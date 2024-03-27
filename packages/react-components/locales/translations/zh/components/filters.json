@@ -43,16 +43,16 @@
     "name": "",
     "count": "",
     "description": "",
-    "placeholderLat": "",
-    "placeholderLon": "",
+    "placeholderLat": "纬度",
+    "placeholderLon": "经度",
     "placeholderDist": ""
   },
   "geometry": {
     "name": "位置",
     "count": "",
     "description": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
-    "placeholderLat": "",
-    "placeholderLon": "",
+    "placeholderLat": "纬度",
+    "placeholderLon": "经度",
     "placeholderDist": ""
   },
   "relevance": {

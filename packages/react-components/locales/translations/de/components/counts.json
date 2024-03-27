@@ -13,7 +13,5 @@
   "nVideos": "{total, plural, one {# Video} other {# Videos}}",
   "nImages": "{total, plural, one {# Bild} other {# Bilder}}",
   "nResultsWithCoordinates": "{total, plural, one {# Ergebnis } other {# Ergebnisse}} mit Koordinaten\n",
-  "nResultsWithImages": "{total, plural, one {# Ergebnis } other {# Ergebnisse}} mit Bildern",
-  "nDatasets": "{NUMBER_FORMATED} {NUMBER, plural, one{Datensatz} other{Datensätze}}",
-  "nOccurrencesHosted": "{NUMBER_FORMATED} {NUMBER, plural, one{gehostetes Vorkommnis} other{gehostet Vorkommnisse}}"
+  "nResultsWithImages": "{total, plural, one {# Ergebnis } other {# Ergebnisse}} mit Bildern"
 }

@@ -17,6 +17,7 @@
   "nAudioFiles": "{total, plural, one {# fichier sonore} other {# fichiers sonores}}",
   "nVideos": "{total, plural, one {# vidéo} other {# vidéos}}",
   "nImages": "{total, plural, one {# image} other {# images}}",
+  "nAuthors": "{total, plural, one {# auteur} other {# auteurs}}",
   "nResultsWithCoordinates": "{total, plural, one {# résultat } other {# résultats}} avec des coordonnées\n",
   "percentWithCoordinates": "{percent}% avec coordonnées",
   "percentWithYear": "{percent}% avec année",
@@ -24,7 +25,5 @@
   "nResultsWithImages": "{total, plural, one {# résultat} other {# résultats}} avec des images\n",
   "gbifOverlapPercent": "{percent}% de chevauchement avec le squelette GBIF",
   "colOverlapPercent": "{percent}% de chevauchement avec Catalogue of Life",
-  "nDatasets": "{NUMBER_FORMATED} {NUMBER, select, 1{jeu de données} other{jeux de données}}",
-  "nStaffMembers": "{total, plural, one {# membre de l'équipe} other {# membres de l'équipe}}",
-  "nOccurrencesHosted": "{NUMBER_FORMATED} {NUMBER, select, 1{occurrence hébergée} other{occurrences hébergées}}"
+  "nStaffMembers": "{total, plural, one {# membre de l'équipe} other {# membres de l'équipe}}"
 }

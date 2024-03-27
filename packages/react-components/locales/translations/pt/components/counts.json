@@ -6,7 +6,5 @@
   "nVideos": "{total, plural, one {# vídeo} other {# vídeos}}",
   "nImages": "{total, plural, one {# imagem} other {# imagens}}",
   "nResultsWithCoordinates": "{total, plural, one {# resultado } other {# resultados}} com coordenadas\n",
-  "nResultsWithImages": "{total, plural, one {# resultado } other {# resultados}} com imagens\n",
-  "nDatasets": "{NUMBER_FORMATED} {NUMBER, select, 1{conjunto de dados} other{conjuntos de dados}}",
-  "nOccurrencesHosted": "{NUMBER_FORMATED} {NUMBER, select, 1{ocorrência} other{ocorrências}}"
+  "nResultsWithImages": "{total, plural, one {# resultado } other {# resultados}} com imagens\n"
 }
