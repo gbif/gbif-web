@@ -1,4 +1,5 @@
 {
+  "nAuthors": "{total, plural, one {# author} few {# authors} many {# authors} other {# authors}}",
   "percentWithCoordinates": "{percent}% с указанием координат",
   "percentWithYear": "{percent}% с указанием года",
   "percentWithTaxonMatch": "{percent}% с соответствием таксона",
