@@ -25,7 +25,5 @@
   "nResultsWithImages": "{total, plural, one {# result } other {# results}} with images\n",
   "gbifOverlapPercent": "{percent}% overlap with GBIF Backbone",
   "colOverlapPercent": "{percent}% overlap with Catalogue of Life",
-  "nDatasets": "{NUMBER_FORMATED} {NUMBER, plural, one{dataset} other{datasets}}",
-  "nStaffMembers": "{total, plural, one {# staff member} other {# staff members}}",
-  "nOccurrencesHosted": "{NUMBER_FORMATED} {NUMBER, plural, one{hosted occurrence} other{hosted occurrences}}"
+  "nStaffMembers": "{total, plural, one {# staff member} other {# staff members}}"
 }
