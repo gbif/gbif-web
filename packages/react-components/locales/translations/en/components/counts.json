@@ -17,6 +17,7 @@
   "nAudioFiles": "{total, plural, one {# sound file} other {# sound files}}",
   "nVideos": "{total, plural, one {# video} other {# videos}}",
   "nImages": "{total, plural, one {# image} other {# images}}",
+  "nAuthors": "{total, plural, one {# author} other {# authors}}",
   "nResultsWithCoordinates": "{total, plural, one {# result } other {# results}} with coordinates\n",
   "percentWithCoordinates": "{percent}% with coordinates",
   "percentWithYear": "{percent}% with year",
@@ -24,7 +25,5 @@
   "nResultsWithImages": "{total, plural, one {# result } other {# results}} with images\n",
   "gbifOverlapPercent": "{percent}% overlap with GBIF Backbone",
   "colOverlapPercent": "{percent}% overlap with Catalogue of Life",
-  "nDatasets": "{NUMBER_FORMATED} {NUMBER, plural, one{dataset} other{datasets}}",
-  "nStaffMembers": "{total, plural, one {# staff member} other {# staff members}}",
-  "nOccurrencesHosted": "{NUMBER_FORMATED} {NUMBER, plural, one{hosted occurrence} other{hosted occurrences}}"
+  "nStaffMembers": "{total, plural, one {# staff member} other {# staff members}}"
 }
