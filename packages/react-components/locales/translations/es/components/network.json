@@ -1,0 +1,9 @@
+{
+  "network": "Red",
+  "tabs": {
+    "summary": "Resumen",
+    "metrics": "Estadísticas",
+    "datasets": "Conjuntos de datos",
+    "publishers": "Publicadores"
+  }
+}
