@@ -1,4 +1,1 @@
-{
-  "nDatasets": "{NUMBER_FORMATED} {NUMBER, select, 1{مجموعة بيانات} other{مجموعات بيانات}}",
-  "nOccurrencesHosted": "{NUMBER_FORMATED} {NUMBER, select, 1{تكرار مستضيف} other{تكرارات مستضيفة}}"
-}
+{}
