@@ -1,9 +1,9 @@
 {
-  "network": "",
+  "network": "Netwerk",
   "tabs": {
-    "summary": "",
-    "metrics": "",
-    "datasets": "",
-    "publishers": ""
+    "summary": "Samenvatting",
+    "metrics": "Statistieken",
+    "datasets": "Datasets",
+    "publishers": "Uitgevers"
   }
 }
