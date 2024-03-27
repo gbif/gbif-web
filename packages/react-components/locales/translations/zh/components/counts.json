@@ -17,6 +17,7 @@
   "nAudioFiles": "{total, plural, one {# 声音文件} other {# 声音文件}}",
   "nVideos": "{total, plural, one {# 视频} other {# 视频}}",
   "nImages": "{total, plural, one {# 图像} other {# 图像}}",
+  "nAuthors": "{total, plural, one {# 作者} other {# 作者}}",
   "nResultsWithCoordinates": "{total, plural, one {# 结果 } other {# 结果}} 带坐标",
   "percentWithCoordinates": "{percent}%带坐标",
   "percentWithYear": "{percent}%带年份",
