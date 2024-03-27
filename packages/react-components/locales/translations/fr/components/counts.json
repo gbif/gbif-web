@@ -25,5 +25,11 @@
   "nResultsWithImages": "{total, plural, one {# résultat} other {# résultats}} avec des images\n",
   "gbifOverlapPercent": "{percent}% de chevauchement avec le squelette GBIF",
   "colOverlapPercent": "{percent}% de chevauchement avec Catalogue of Life",
-  "nStaffMembers": "{total, plural, one {# membre de l'équipe} other {# membres de l'équipe}}"
+  "nDatasets": "{total, plural, one {# jeu de données publié} other {# jeux de données publiés}}",
+  "nPublishedDatasets": "{total, plural, one {# jeu de données} other {# jeux de données}}",
+  "nHostedDatasets": "{total, plural, one {# jeu de données hébergé} other {# jeux de données hébergés}}",
+  "nParticipatingDatasets": "{total, plural, one {# jeu de données participants} other {# jeux de données participants}}",
+  "nParticipatingPublishers": "{total, plural, one {# éditeur participant} other {# éditeurs participants}}",
+  "nStaffMembers": "{total, plural, one {# membre de l'équipe} other {# membres de l'équipe}}",
+  "nOccurrencesHosted": "{total, plural, one {# occurrence hébergée} other {# occurrences hébergées}}"
 }

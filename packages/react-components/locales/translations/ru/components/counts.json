@@ -5,5 +5,11 @@
   "percentWithTaxonMatch": "{percent}% с соответствием таксона",
   "gbifOverlapPercent": "Совпадение с Таксономической основой GBIF {percent}%",
   "colOverlapPercent": "Совпадение с Catalogue of Life {percent}%",
-  "nStaffMembers": "{total, plural, one {# сотрудник} few {# сотрудника} many {# сотрудников} other {# сотрудников}}"
+  "nDatasets": "{total, plural, one {# опубликованный набор данных} few {# опубликованных наборов данных} many {# опубликованных наборов данных} other {# опубликованных наборов данных}}",
+  "nPublishedDatasets": "{total, plural, one {# набор данных} few {# наборов данных} many {# наборов данных} other {# наборов данных}}",
+  "nHostedDatasets": "{total, plural, one {# размещенный набор данных} few {# размещенных наборов данных} many {# размещенных наборов данных} other {# размещенных наборов данных}}",
+  "nParticipatingDatasets": "{total, plural, one {# участвующий набор данных} few {# участвующих наборов данных} many {# участвующих наборов данных} other {# участвующих наборов данных}}",
+  "nParticipatingPublishers": "{total, plural, one {# участвующий издатель} few {# участвующих издателей} many {# участвующих издателей} other {# участвующих издателей}}",
+  "nStaffMembers": "{total, plural, one {# сотрудник} few {# сотрудника} many {# сотрудников} other {# сотрудников}}",
+  "nOccurrencesHosted": "{total, plural, one {# размещенное наблюдение} few {# размещенных наблюдений} many {# размещенных наблюдений} other {# размещенных наблюдений}}"
 }
