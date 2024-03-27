@@ -77,6 +77,8 @@ import { NetworkKeyAbout } from '@/routes/network/key/about';
 import { NetworkKeyMetrics } from '@/routes/network/key/metrics';
 import { NetworkKeyDataset } from '@/routes/network/key/dataset';
 import { NetworkKeyPublisher } from '@/routes/network/key/publisher';
+import { InstitutionKey, InstitutionKeyAbout, InstitutionKeyCollection, InstitutionKeySpecimens, institutionLoader } from '@/routes/institution/key';
+import { CollectionKey, CollectionKeyAbout, CollectionKeyDashboard, CollectionKeySpecimens, collectionLoader } from '@/routes/collection/key';
 
 const baseRoutes: SourceRouteObject[] = [
   {
@@ -203,6 +205,54 @@ const baseRoutes: SourceRouteObject[] = [
               {
                 path: 'publisher',
                 element: <NetworkKeyPublisher />,
+              },
+            ],
+          },
+          {
+            key: 'institution-page',
+            gbifRedirect: (params) => {
+              if (typeof params.key !== 'string') throw new Error('Invalid key');
+              return `https://www.gbif.org/institution/${params.key}`;
+            },
+            path: 'institution/:key',
+            loader: institutionLoader,
+            element: <InstitutionKey />,
+            children: [
+              {
+                index: true,
+                element: <InstitutionKeyAbout />,
+              },
+              {
+                path: 'specimen',
+                element: <InstitutionKeySpecimens />,
+              },
+              {
+                path: 'collection',
+                element: <InstitutionKeyCollection />,
+              },
+            ],
+          },
+          {
+            key: 'collection-page',
+            gbifRedirect: (params) => {
+              if (typeof params.key !== 'string') throw new Error('Invalid key');
+              return `https://www.gbif.org/collection/${params.key}`;
+            },
+            path: 'collection/:key',
+            loader: collectionLoader,
+            element: <CollectionKey />,
+            children: [
+              {
+                index: true,
+                element: <CollectionKeyAbout />,
+              },
+              {
+                path: 'specimen',
+                element: <CollectionKeySpecimens />,
+              },
+              {
+                path: 'dashboard',
+                element: <CollectionKeyDashboard />,
               },
             ],
           },

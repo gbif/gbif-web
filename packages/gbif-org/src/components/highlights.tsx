@@ -1,8 +1,16 @@
 import { cn } from '@/utils/shadcn';
 import { MdLink } from 'react-icons/md';
 import { Hostname } from './headerComponents';
+import { FormattedMessage } from 'react-intl';
 export { IoPinSharp as OccurrenceIcon } from 'react-icons/io5';
-export { MdFormatQuote as CitationIcon } from 'react-icons/md';
+export {
+  MdFormatQuote as CitationIcon,
+  MdOutlineScreenSearchDesktop as CatalogIcon,
+  MdPeople as PeopleIcon,
+} from 'react-icons/md';
+import { FaGlobeAfrica as GlobeIcon } from 'react-icons/fa';
+import { Classification } from './classification';
+export { GlobeIcon as GlobeIcon };
 
 export function GenericFeature({
   className,
@@ -42,13 +50,10 @@ export function FeatureList({
 
 export function Homepage({
   url,
-  children,
   ...props
 }: {
   url?: string;
-  children?: React.ReactNode;
-} & React.ComponentProps<typeof GenericFeature>) {
-  // todo daniel - i get typescript errors again here. Since now it becomes a requirement to provide children.
+} & Omit<React.ComponentProps<typeof GenericFeature>, 'children'>) {
   if (!url) return null;
   return (
     <GenericFeature {...props}>
@@ -56,6 +61,34 @@ export function Homepage({
       <span>
         <Hostname href={url} />
       </span>
+    </GenericFeature>
+  );
+}
+
+export function Location({
+  countryCode,
+  city,
+  locality,
+  children,
+}: {
+  countryCode?: string | null;
+  city?: string | null;
+  locality?: string | null;
+  children?: React.ReactNode;
+}) {
+  return (
+    <GenericFeature>
+      <GlobeIcon />
+      <Classification>
+        {countryCode && (
+          <span>
+            <FormattedMessage id={`enums.countryCode.${countryCode}`} />
+          </span>
+        )}
+        {city && <span>{city}</span>}
+        {locality && <span>{locality}</span>}
+        {children}
+      </Classification>
     </GenericFeature>
   );
 }

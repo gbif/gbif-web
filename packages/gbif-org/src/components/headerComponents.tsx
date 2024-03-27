@@ -71,6 +71,17 @@ export function HeaderInfoMain({
   );
 }
 
+export function HeaderInfoEdit({
+  className,
+  ...props
+}: {
+  className?: string;
+} & React.ComponentProps<'div'>) {
+  return (
+    <div className={cn('flex-shrink', className)} {...props} />
+  );
+}
+
 export function HeaderInfo({
   children,
   className,

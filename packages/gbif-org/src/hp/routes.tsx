@@ -19,6 +19,7 @@ import { PublisherPage, publisherLoader } from '@/routes/publisher/key/publisher
 import { PublisherKeyAbout } from '@/routes/publisher/key/about';
 import { PublisherKeyMetrics } from '@/routes/publisher/key/metrics';
 import { NewsPage, newsPageLoader } from '@/routes/resource/key/news/news';
+import { InstitutionKey, InstitutionKeyAbout, InstitutionKeyCollection, InstitutionKeySpecimens, institutionLoader } from '@/routes/institution/key';
 
 const baseRoutes: SourceRouteObject[] = [
   {
@@ -85,6 +86,30 @@ const baseRoutes: SourceRouteObject[] = [
           {
             path: 'occurrences',
             element: <PublisherKeyMetrics />,
+          },
+        ],
+      },
+      {
+        key: 'institution-page',
+        gbifRedirect: (params) => {
+          if (typeof params.key !== 'string') throw new Error('Invalid key');
+          return `https://www.gbif.org/institution/${params.key}`;
+        },
+        path: 'institution',
+        loader: institutionLoader,
+        element: <InstitutionKey />,
+        children: [
+          {
+            index: true,
+            element: <InstitutionKeyAbout />,
+          },
+          {
+            path: 'specimen',
+            element: <InstitutionKeySpecimens />,
+          },
+          {
+            path: 'collection',
+            element: <InstitutionKeyCollection />,
           },
         ],
       },

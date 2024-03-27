@@ -3,10 +3,9 @@ import {
   DeletedMessage,
   HeaderInfo,
   HeaderInfoMain,
-  Hostname,
   defaultDateFormatProps,
 } from '@/components/headerComponents';
-import { Homepage, FeatureList, GenericFeature } from '@/components/highlights';
+import { Homepage, FeatureList, GenericFeature, PeopleIcon } from '@/components/highlights';
 import { LicenceTag } from '@/components/identifierTag';
 import { Tabs } from '@/components/tabs';
 import { DatasetQuery, DatasetQueryVariables } from '@/gql/graphql';
@@ -18,7 +17,6 @@ import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { LoaderArgs } from '@/types';
 import { required } from '@/utils/required';
 import { Helmet } from 'react-helmet-async';
-import { MdLink, MdPeople } from 'react-icons/md';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import { Outlet, useLoaderData } from 'react-router-dom';
 
@@ -112,7 +110,7 @@ export function DatasetPage() {
               <FeatureList>
                 {contactsCitation.length > 0 && (
                   <GenericFeature>
-                    <MdPeople />
+                    <PeopleIcon />
                     {contactsCitation.length < contactThreshold && (
                       <span>{contactsCitation.map((c) => c.abbreviatedName).join(' • ')}</span>
                     )}

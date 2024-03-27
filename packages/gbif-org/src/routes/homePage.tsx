@@ -93,6 +93,11 @@ export function HomePage(): React.ReactElement {
             <p>Stubs</p>
             <ul>
               <li>
+                <DynamicLink className="me-4" to="/network/2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6">
+                  Network
+                </DynamicLink>
+              </li>
+              <li>
                 <DynamicLink className="me-4" to="/dataset/8a863029-f435-446a-821e-275f4f641165">
                   Dataset
                 </DynamicLink>
@@ -108,8 +113,13 @@ export function HomePage(): React.ReactElement {
                 </DynamicLink>
               </li>
               <li>
-                <DynamicLink className="me-4" to="/network/2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6">
-                  Network
+                <DynamicLink className="me-4" to="/institution/55efe71a-faba-4333-951c-d665509f3d67">
+                  Institution
+                </DynamicLink>
+              </li>
+              <li>
+                <DynamicLink className="me-4" to="/collection/e9d2c520-d9fc-4331-9ed8-73bea2b22af0">
+                  Collection
                 </DynamicLink>
               </li>
             </ul>

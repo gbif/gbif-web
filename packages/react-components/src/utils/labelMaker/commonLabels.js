@@ -191,7 +191,7 @@ export const commonLabels = {
   },
   institutionKey: {
     type: 'GQL',
-    query: `query label($id: String!){
+    query: `query label($id: ID!){
       institution(key: $id) {
         name
       }
@@ -200,7 +200,7 @@ export const commonLabels = {
   },
   collectionKey: {
     type: 'GQL',
-    query: `query label($id: String!){
+    query: `query label($id: ID!){
       collection(key: $id) {
         name
       }

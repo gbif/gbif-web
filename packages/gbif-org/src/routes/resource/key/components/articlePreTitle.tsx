@@ -11,7 +11,7 @@ export function ArticlePreTitle({ secondary, children, className }: Props) {
   return (
     <p
       className={cn(
-        'mb-2 text-sm leading-6 font-semibold text-primary-500 dark:text-primary-400',
+        'mb-1 text-sm leading-6 font-semibold text-primary-500 dark:text-primary-400',
         className
       )}
     >

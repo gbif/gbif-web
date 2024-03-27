@@ -24,7 +24,7 @@ const typeDef = gql`
       sortBy: CollectionsSortField
       sortOrder: SortOrder
       ): InstitutionSearchResults
-    institution(key: String!): Institution
+    institution(key: ID!): Institution
   }
 
   type InstitutionSearchResults {
