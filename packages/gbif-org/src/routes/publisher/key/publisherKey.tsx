@@ -70,7 +70,7 @@ export function PublisherPage() {
         {/* TODO we need much richer meta data. Especially for datasets.  */}
       </Helmet>
 
-      <ArticleContainer>
+      <ArticleContainer className="pb-0">
         <ArticleTextContainer className="max-w-screen-xl">
           <ArticlePreTitle
             secondary={
@@ -145,10 +145,7 @@ export function PublisherPage() {
         </ArticleTextContainer>
       </ArticleContainer>
 
-      <div className="bg-slate-100">
-        <Outlet />
-        <div style={{ height: 400 }}></div>
-      </div>
+      <Outlet />
     </>
   );
 }

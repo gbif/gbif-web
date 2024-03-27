@@ -69,7 +69,7 @@ export function DatasetPage() {
         {/* TODO we need much richer meta data. Especially for datasets.  */}
       </Helmet>
 
-      <ArticleContainer>
+      <ArticleContainer className="pb-0">
         <ArticleTextContainer className="max-w-screen-xl">
           <ArticlePreTitle
             secondary={
@@ -145,22 +145,7 @@ export function DatasetPage() {
         </ArticleTextContainer>
       </ArticleContainer>
 
-      <div className="bg-slate-100">
-        <Outlet />
-        <div style={{ height: 400 }}></div>
-        {/* <div className="text-red-500 mt-4 mb-4">
-          <p>
-            TODO have tabs that are accessible and can be used as either state push, href links or
-            not url linkable tabs (simple react state only) For the dataset page the tabs would have
-            state in the url and work as state push
-          </p>
-          <p>Notice that occurrence search lives in one of the tabs.</p>
-          <p>
-            The fonts should be themed as well. It is fine that the hp owner have to add the fonts
-            themselves to the site head
-          </p>
-        </div> */}
-      </div>
+      <Outlet />
     </>
   );
 }

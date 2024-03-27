@@ -1,3 +1,5 @@
+import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
+
 export function DatasetKeyDashboard() {
-  return <p>Dashboard</p>;
+  return <ArticleContainer className="bg-slate-100 pt-0">Dashboard</ArticleContainer>;
 }
