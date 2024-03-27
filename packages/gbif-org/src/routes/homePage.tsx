@@ -23,11 +23,9 @@ export function HomePage(): React.ReactElement {
           </p>
           <hr />
           <section>
-            <h2>Pages with a Contentful ID - work in progress</h2>
+            <h2>Pages with a Contentful ID</h2>
             <p>
-              I expect Kyle, Daniel and Javier will be the primary people involved in reviewing
-              this. But please feel free to add comments and feedback. I will try to keep this up to
-              date as we go along.
+              Mostly done and should be reviewed by the content team.
             </p>
             <ul>
               <li>
@@ -85,12 +83,15 @@ export function HomePage(): React.ReactElement {
                   Document test page
                 </DynamicLink>
               </li>
+              <li>
+                The home page is essentially like a composition page, but with a special header
+              </li>
             </ul>
           </section>
 
           <section>
             <h2>API v1 driven pages (primary ID in the GBIF API)</h2>
-            <p>Stubs</p>
+            <p>Work in progress</p>
             <ul>
               <li>
                 <DynamicLink className="me-4" to="/network/2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6">
@@ -122,7 +123,22 @@ export function HomePage(): React.ReactElement {
                   Collection
                 </DynamicLink>
               </li>
+              <li>
+                Occurrence, download, species, participant, country and profile pages have not been started
+              </li>
             </ul>
+          </section>
+          <section>
+            <h2>Custom one-off pages</h2>
+            <p>This is pages like, contact directory, network, suggest a dataset, ipt, blast tool, occ snapshots, etc. None have been implemented yet. There is alot of these.</p>
+          </section>
+          <section>
+            <h2>Search</h2>
+            <p>This hasn't started yet. But it is search for occurrences, species, datasets, publishers, literature, news etc.</p>
+          </section>
+          <section>
+            <h2>Site wide features</h2>
+            <p>Not implemented, but is menu, login, feedback, footer, ...</p>
           </section>
         </div>
       </div>
