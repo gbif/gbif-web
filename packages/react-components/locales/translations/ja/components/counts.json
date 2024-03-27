@@ -6,6 +6,5 @@
   "nVideos": "{total, plural, one {# ビデオ} other {# ビデオ}}",
   "nImages": "{total, plural, one {# 画像} other {# 画像}}",
   "nResultsWithCoordinates": "位置座標がある{total, plural, one {# 結果 } other {# 結果}} ",
-  "nResultsWithImages": "画像がある {total, plural, one {# 結果 } other {# 結果}}",
-  "nDatasets": "{NUMBER_FORMATED} {NUMBER, plural, one{データセット} other{データセット}}"
+  "nResultsWithImages": "画像がある {total, plural, one {# 結果 } other {# 結果}}"
 }
