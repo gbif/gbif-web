@@ -5,6 +5,7 @@
   "inGbif": "{total, plural, one {# in GBIF} other {# in GBIF}}",
   "nAudioFiles": "{total, plural, one {# geluidsbestand} other {# geluidsbestanden}}",
   "nImages": "{total, plural, one {# afbeelding} other {# afbeeldingen}}",
+  "nAuthors": "{total, plural, one {# auteur} other {# auteurs}}",
   "nResultsWithCoordinates": "{total, plural, one {# resultaat } other {# resultaten}} met coördinaten\n",
   "percentWithYear": "{percent}% met jaar",
   "percentWithTaxonMatch": "{percent}% overeenkomst met taxon",
