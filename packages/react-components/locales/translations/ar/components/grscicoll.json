@@ -5,6 +5,8 @@
   "additionalNames": "اسماء اضافية",
   "description": "التوصيف",
   "code": "الرمز",
+  "active": "نشط",
+  "inactive": "غير فعال",
   "alternativeCodes": "",
   "apiUrl": "URL خدمات الشبكة للمجموعة ",
   "catalogUrl": "",
