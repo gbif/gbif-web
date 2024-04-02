@@ -5,6 +5,8 @@
   "additionalNames": "Другие названия",
   "description": "Описание",
   "code": "Акроним",
+  "active": "Действующая",
+  "inactive": "Недействующая",
   "alternativeCodes": "",
   "apiUrl": "Сайт коллекции",
   "catalogUrl": "",
