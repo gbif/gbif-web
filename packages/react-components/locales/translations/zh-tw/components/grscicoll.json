@@ -5,6 +5,8 @@
   "additionalNames": "其他名稱",
   "description": "描述",
   "code": "蒐藏代碼",
+  "active": "在線",
+  "inactive": "離線",
   "alternativeCodes": "其它代碼",
   "apiUrl": "蒐藏網頁服務的 URL 位址",
   "catalogUrl": "線上目錄/資料庫",
