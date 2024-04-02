@@ -2,7 +2,7 @@
   "network": "Red",
   "tabs": {
     "summary": "Resumen",
-    "metrics": "Estadísticas",
+    "metrics": "Métricas",
     "datasets": "Conjuntos de datos",
     "publishers": "Publicadores"
   }
