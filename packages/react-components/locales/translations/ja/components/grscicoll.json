@@ -5,6 +5,8 @@
   "additionalNames": "その他の名称",
   "description": "説明",
   "code": "コード",
+  "active": "活動中",
+  "inactive": "無活動",
   "alternativeCodes": "",
   "apiUrl": "コレクションの Web サービスの URL",
   "catalogUrl": "",
