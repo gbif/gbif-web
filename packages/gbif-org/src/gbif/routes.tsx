@@ -163,7 +163,7 @@ const baseRoutes: SourceRouteObject[] = [
             ],
           },
           {
-            key: 'installation-page',
+            id: RouteId.Installation,
             gbifRedirect: (params) => {
               if (typeof params.key !== 'string') throw new Error('Invalid key');
               return `https://www.gbif.org/installation/${params.key}`;

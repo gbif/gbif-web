@@ -55,6 +55,7 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
         month: getFile(locale, `../${folder}/${locale}/enums/month`),
         continent: getFile(locale, `../${folder}/${locale}/enums/continent`),
         endpointType: getFile(locale, `../${folder}/${locale}/enums/endpointType`),
+        installationType: getFile(locale, `../${folder}/${locale}/enums/installationType`),
         establishmentMeans: getFile(locale, `../${folder}/${locale}/enums/establishmentMeans`),
         occurrenceStatus: getFile(locale, `../${folder}/${locale}/enums/occurrenceStatus`),
         literatureType: getFile(locale, `../${folder}/${locale}/enums/literatureType`),

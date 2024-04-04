@@ -6,9 +6,9 @@ import { useLoaderData } from 'react-router-dom';
 import { required } from '@/utils/required';
 import { useMemo } from 'react';
 import { sortByNewToOld } from '@/utils/sort';
-import { TabListSkeleton } from './tabListSkeleton';
 import { HelpLine } from '../../../../components/helpText';
 import { NoResultsTab } from '../components/noResultsTab';
+import { CardListSkeleton } from '@/components/skeletonLoaders';
 
 const PROJECT_NEWS_QUERY = /* GraphQL */ `
   query ProjectNewsAndEvents($key: String!) {
@@ -81,5 +81,5 @@ export function ProjectNewsAndEventsTab() {
 }
 
 export function ProjectNewsAndEventsTabSkeleton() {
-  return <TabListSkeleton />;
+  return <CardListSkeleton />;
 }

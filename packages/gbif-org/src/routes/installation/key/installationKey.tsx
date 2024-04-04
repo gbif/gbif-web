@@ -15,25 +15,27 @@ import {
   HeaderInfoMain,
   defaultDateFormatProps,
 } from '@/components/headerComponents';
-import {
-  FeatureList,
-  GenericFeature,
-  Homepage,
-} from '@/components/highlights';
+import { FeatureList, GenericFeature, Homepage } from '@/components/highlights';
 
 const INSTALLATION_QUERY = /* GraphQL */ `
   query Installation($key: ID!) {
     installation(key: $key) {
+      key
       title
+      description
       deleted
       created
       homepage
       type
+      endpoints {
+        type
+        url
+      }
       organization {
         key
         title
       }
-      
+
       dataset(limit: 0) {
         count
       }
@@ -63,7 +65,7 @@ export function InstallationPage() {
       </Helmet>
 
       <ArticleContainer>
-        <ArticleTextContainer className="max-w-screen-xl">
+        <ArticleTextContainer className="max-w-3xl">
           <ArticlePreTitle
             secondary={
               <FormattedMessage
@@ -89,23 +91,26 @@ export function InstallationPage() {
 
           <HeaderInfo>
             <HeaderInfoMain>
-            <FeatureList>
-                  {installation.homepage && <Homepage url={installation.homepage} />}
-                  <GenericFeature>
-                    <FormattedMessage
-                      id="counts.nHostedDatasets"
-                      values={{ total: installation.dataset.count }}
-                    />
-                  </GenericFeature>
-                </FeatureList>
+              <FeatureList>
+                {installation.homepage && <Homepage url={installation.homepage} />}
+                <GenericFeature>
+                  <FormattedMessage
+                    id="counts.nHostedDatasets"
+                    values={{ total: installation.dataset.count }}
+                  />
+                </GenericFeature>
+              </FeatureList>
             </HeaderInfoMain>
           </HeaderInfo>
         </ArticleTextContainer>
       </ArticleContainer>
 
       <div className="bg-slate-100">
-        <Outlet />
-        <div style={{ height: 400 }}></div>
+        <ArticleContainer>
+          <ArticleTextContainer className="max-w-3xl">
+            <Outlet />
+          </ArticleTextContainer>
+        </ArticleContainer>
       </div>
     </>
   );

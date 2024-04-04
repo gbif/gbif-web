@@ -1,3 +1,4 @@
+import { getHtml } from "#/helpers/utils";
 /**
  * fieldName: (parent, args, context, info) => data;
  * parent: An object that contains the result returned from the resolver on the parent type
@@ -25,10 +26,11 @@ export default {
       if (type === 'IPT_INSTALLATION') {
         var iptRssFeed = endpoints.find(x => x.type === 'FEED');
         if (iptRssFeed) {
-            var iptHomePage = iptRssFeed.url.replace(/rss\.do$/, '');
-            return iptHomePage;
+          var iptHomePage = iptRssFeed.url.replace(/rss\.do$/, '');
+          return iptHomePage;
         }
-    }
-    }
+      }
+    },
+    description: (src, _, { locale }) => getHtml(src.description, { locale }),
   },
 };

@@ -122,21 +122,26 @@ export function HelpLine({
   title,
   id,
   icon,
+  children,
   className,
 }: {
-  id: string;
+  id?: string;
   title?: React.ReactNode;
   icon?: boolean | React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
 }) {
+  const hasTitle = title || id;
   return (
     <Popover>
       <PopoverTrigger>
-        {title || <HelpTitle id={id} />}{' '}
+        {hasTitle && <>
+          {title || <HelpTitle id={id ?? ''} />}{' '}</>}
         {icon && (typeof icon === 'boolean' ? <MdInfoOutline /> : icon)}
       </PopoverTrigger>
       <PopoverContent className={cn('prose w-96', className)}>
-        <HelpText identifier={id} />
+        {id && <HelpText identifier={id} />}
+        {!id && children}
       </PopoverContent>
     </Popover>
   );

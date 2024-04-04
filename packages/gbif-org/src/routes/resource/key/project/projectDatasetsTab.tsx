@@ -6,10 +6,10 @@ import {
 import useQuery from '@/hooks/useQuery';
 import { fragmentManager } from '@/services/fragmentManager';
 import { RouteId, useParentRouteLoaderData } from '@/hooks/useParentRouteLoaderData';
-import { TabListSkeleton } from './tabListSkeleton';
 import { DatasetResult } from '@/routes/dataset/datasetResult';
 import { HelpLine } from '../../../../components/helpText';
 import { NoResultsTab } from '../components/noResultsTab';
+import { CardListSkeleton } from '@/components/skeletonLoaders';
 
 fragmentManager.register(/* GraphQL */ `
   fragment ProjectDatasetsTab on Query {
@@ -29,7 +29,7 @@ const DATASET_QUERY = /* GraphQL */ `
       limit
       offset
       results {
-        ...DatasetResult
+        ...DatasetStubResult
       }
     }
   }
@@ -50,9 +50,9 @@ export function ProjectDatasetsTab() {
     },
   });
 
-  if (datasets.loading) return <TabListSkeleton />;
+  if (datasets.loading) return <CardListSkeleton />;
   // TODO: handle error
-  if (datasets.data?.datasetSearch == null) return <TabListSkeleton />;
+  if (datasets.data?.datasetSearch == null) return <CardListSkeleton />;
 
   return (
     <div className="pt-4 max-w-3xl m-auto">

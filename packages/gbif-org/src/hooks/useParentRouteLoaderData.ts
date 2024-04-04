@@ -6,6 +6,7 @@ import { useRouteLoaderData } from 'react-router-dom';
 export enum RouteId {
   Project = 'project',
   Network = 'network',
+  Installation = 'installation',
 }
 
 // Use this hook to get the loader data from a parent route.
