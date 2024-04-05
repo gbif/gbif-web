@@ -11,7 +11,7 @@ export function ArticleTitle({ dangerouslySetTitle, children, className }: Props
   return (
     <h1
       className={cn(
-        'text-2xl sm:text-3xl inline-block font-extrabold text-slate-900 tracking-tight dark:text-slate-200',
+        'text-2xl md:text-3xl lg:text-4xl inline-block font-extrabold text-slate-900 tracking-tight dark:text-slate-200',
         className
       )}
     >
