@@ -17,17 +17,21 @@ import useQuery from '@/hooks/useQuery';
 import { RouteId, useParentRouteLoaderData } from '@/hooks/useParentRouteLoaderData';
 import { DatasetResult } from '@/routes/dataset/datasetResult';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/largeCard';
-import Properties, { Property, PropertyLabel, Term, Value } from './Properties';
-import EmptyValue from '@/components/EmptyValue';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
+import Properties, { Property } from './Properties';
 import { FormattedMessage } from 'react-intl';
 import { DynamicLink } from '@/components/dynamicLink';
+import {
+  ContactActions,
+  ContactAvatar,
+  ContactContent,
+  ContactDescription,
+  ContactEmail,
+  ContactHeader,
+  ContactHeaderContent,
+  ContactTelephone,
+  ContactTitle,
+} from '@/components/Contact';
 
 export function InstallationKeyAbout() {
   const { data } = useParentRouteLoaderData(RouteId.Installation) as { data: InstallationQuery };
@@ -64,6 +68,7 @@ export function InstallationKeyAbout() {
 
   return (
     <div>
+      What is this
       <Card className="mb-4">
         <CardHeader>
           <CardTitle>Description</CardTitle>
@@ -83,7 +88,10 @@ export function InstallationKeyAbout() {
               </Property>
               {installation.organization && (
                 <Property labelId={'installation.hostedBy'}>
-                  <DynamicLink to={`/publisher/${installation.organization.key}`}>
+                  <DynamicLink
+                    to={`/publisher/${installation.organization.key}`}
+                    className="underline"
+                  >
                     {installation.organization.title}
                   </DynamicLink>
                 </Property>
@@ -91,8 +99,52 @@ export function InstallationKeyAbout() {
               <Property
                 labelId={'installation.endpoints'}
                 value={installation.endpoints?.map((x) => x?.url)}
+                formatter={(value: string) => (
+                  <a href={value} target="_blank" rel="noopener noreferrer" className="underline">
+                    {value}
+                  </a>
+                )}
               />
             </Properties>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card className="mb-4">
+        <CardHeader>
+          <CardTitle>Contacts</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="flex flex-wrap -m-2">
+          {installation.contacts?.map((contact) => {
+            return (
+              <Card className="px-6 py-4 flex-auto max-w-sm min-w-xs m-2">
+                <ContactHeader>
+                  <ContactAvatar
+                    firstName={contact.firstName}
+                    lastName={contact.lastName}
+                    organization={contact?.organization}
+                  />
+                  <ContactHeaderContent>
+                    <ContactTitle
+                      firstName={contact.firstName}
+                      lastName={contact.lastName}
+                    ></ContactTitle>
+                    {contact.type && (
+                      <ContactDescription>
+                        <FormattedMessage id={`enums.role.${contact.type}`} />
+                      </ContactDescription>
+                    )}
+                  </ContactHeaderContent>
+                </ContactHeader>
+                <ContactContent className="mb-2"></ContactContent>
+                <ContactActions>
+                  {contact.email && contact.email.map((email) => <ContactEmail email={email} />)}
+                  {contact.phone && contact.phone.map((tel) => <ContactTelephone tel={tel} />)}
+                </ContactActions>
+              </Card>
+            );
+          })}
           </div>
         </CardContent>
       </Card>

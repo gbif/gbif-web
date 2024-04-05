@@ -35,6 +35,18 @@ const INSTALLATION_QUERY = /* GraphQL */ `
         key
         title
       }
+      contacts {
+        key
+        type
+        firstName
+        lastName
+        email
+        phone
+        homepage
+        organization
+        roles
+        userId
+      }
 
       dataset(limit: 0) {
         count
@@ -65,7 +77,7 @@ export function InstallationPage() {
       </Helmet>
 
       <ArticleContainer>
-        <ArticleTextContainer className="max-w-3xl">
+        <ArticleTextContainer className="max-w-screen-lg">
           <ArticlePreTitle
             secondary={
               <FormattedMessage
@@ -107,7 +119,7 @@ export function InstallationPage() {
 
       <div className="bg-slate-100">
         <ArticleContainer>
-          <ArticleTextContainer className="max-w-3xl">
+          <ArticleTextContainer className="max-w-screen-lg">
             <Outlet />
           </ArticleTextContainer>
         </ArticleContainer>

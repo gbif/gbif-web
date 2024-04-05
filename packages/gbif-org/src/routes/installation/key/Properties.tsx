@@ -175,6 +175,7 @@ export function Property({
   helpTextId?: string;
   labelId?: string;
   showEmpty?: boolean;
+  formatter?: (value: any) => React.ReactNode;
   children?: React.ReactNode;
 } & React.HTMLAttributes<HTMLDivElement>) {
   // if there is no value, and the user do not ask to show empty values, then do not show anything

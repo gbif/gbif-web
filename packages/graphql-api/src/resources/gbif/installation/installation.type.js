@@ -27,7 +27,7 @@ const typeDef = gql`
   type Installation {
     key: ID!
     comments: [Comment]
-    contacts: [Contact]
+    contacts: [Contact!]
     created: DateTime
     createdBy: String
     deleted: DateTime
