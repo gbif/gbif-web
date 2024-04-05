@@ -25,11 +25,20 @@
   "backHome": "Back home",
   "pageNotFound": "404",
   "noInformation": "No information",
+  "noDescriptionProvided": "",
   "viewOnGBif": "View on GBIF.org",
   "failedToLoadData": "Failed to load data",
   "retry": "Retry",
   "seeDetails": "See details",
   "readMore": "Read more",
   "pageNotFoundDescription": "Sorry, the page you visited does not exist.",
-  "download": "Download"
+  "download": "Download",
+  "discard": "",
+  "keep": "",
+  "copyToClipboard": "",
+  "headers": {
+    "description": "Description",
+    "contacts": "Contacts"
+  },
+  "noResults": ""
 }
