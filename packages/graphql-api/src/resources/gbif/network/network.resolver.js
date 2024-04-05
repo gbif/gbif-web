@@ -18,6 +18,9 @@ export default {
     constituents: ({ key }, args, { dataSources }) => {
       return dataSources.networkAPI.getConstituents({ key, query: args });
     },
+    organizations: ({ key }, args, { dataSources }) => {
+      return dataSources.networkAPI.getOrganizations({ key, query: args });
+    },
     prose: ({ key }, args, { dataSources, locale }) => {
       return dataSources.resourceSearchAPI.getFirstEntryByQuery({contentType: 'network', networkKey: key, limit: 1}, locale);
     },

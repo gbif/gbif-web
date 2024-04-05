@@ -49,6 +49,7 @@ const typeDef = gql`
     province: String
     tags: [Tag]
     title: String
+    excerpt: String
 
     endorsingNode: Node
 
@@ -58,7 +59,7 @@ const typeDef = gql`
   }
 
   type OrganizationSearchResult {
-    results: [Organization]!
+    results: [Organization!]!
     limit: Int!
     offset: Int!
     count: Int!

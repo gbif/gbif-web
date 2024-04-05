@@ -26,6 +26,14 @@ class NetworkAPI extends RESTDataSource {
       stringify(query, { indices: false }),
     );
   }
+
+  async getOrganizations({ key, query }) {
+    return this.get(
+      `/network/${key}/organization`,
+      stringify(query, { indices: false }),
+    );
+  }
+
 }
 
 export default NetworkAPI;

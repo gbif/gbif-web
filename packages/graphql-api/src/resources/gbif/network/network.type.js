@@ -48,6 +48,7 @@ const typeDef = gql`
     prose: NetworkProse
 
     constituents(limit: Int, offset: Int): DatasetListResults
+    organizations(limit: Int, offset: Int): OrganizationSearchResult
   }
 
   type NetworkProse {

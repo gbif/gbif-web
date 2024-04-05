@@ -130,10 +130,10 @@ export function NetworkPage() {
           <div className="border-b"></div>
           <Tabs
             links={[
-              { to: '.', children: 'About' },
-              { to: 'publisher', children: 'Publishers' },
-              { to: 'dataset', children: 'Datasets' },
-              { to: 'metrics', children: 'Metrics' },
+              { to: '.', children:  <FormattedMessage id="phrases.about" /> },
+              { to: 'publisher', children: <FormattedMessage id="phrases.publishers" />},
+              { to: 'dataset', children: <FormattedMessage id="phrases.datasets" /> },
+              { to: 'metrics', children: <FormattedMessage id="phrases.metrics" /> },
               // { to: 'citations', children: 'Citations' },
             ]}
           />

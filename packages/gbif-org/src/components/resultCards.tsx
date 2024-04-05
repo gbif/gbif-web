@@ -12,7 +12,7 @@ export function CountTag({
 }: CountTagProps) {
   const { count } = getCount({ v1Endpoint, params, property });
 
-  if (typeof count === 'number' && count > 1) {
+  if (typeof count === 'number' && count > 0) {
     return <Tag>
     <FormattedMessage id={message} values={{ total: count }} />
   </Tag>
