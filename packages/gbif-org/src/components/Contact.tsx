@@ -132,7 +132,7 @@ function getInitials({
 
   return (
     <>
-      {firstLetter} {secondLetter}
+      {firstLetter}{secondLetter}
     </>
   );
 }

@@ -28,10 +28,23 @@ const PUBLISHER_QUERY = /* GraphQL */ `
   query Publisher($key: ID!) {
     publisher: organization(key: $key) {
       title
+      description
       deleted
       created
       homepage
       numPublishedDatasets
+      contacts {
+        key
+        type
+        firstName
+        lastName
+        email
+        phone
+        homepage
+        organization
+        roles
+        userId
+      }
     }
     occurrenceSearch {
       documents(size: 0) {
@@ -104,32 +117,32 @@ export function PublisherPage() {
                 </FeatureList>
               )}
               <FeatureList>
-                <GenericFeature>
+                {occurrenceSearch?.documents.total > 0 && <GenericFeature>
                   <OccurrenceIcon />
                   <FormattedMessage
                     id="counts.nOccurrences"
                     values={{ total: occurrenceSearch?.documents.total }}
                   />
-                </GenericFeature>
-                <GenericFeature>
+                </GenericFeature>}
+                {publisher.numPublishedDatasets > 0 && <GenericFeature>
                   <FormattedMessage
                     id="counts.nPublishedDatasets"
                     values={{ total: publisher.numPublishedDatasets }}
                   />
-                </GenericFeature>
-                <GenericFeature>
+                </GenericFeature>}
+                {hostedDatasets?.count > 0 && <GenericFeature>
                   <FormattedMessage
                     id="counts.nHostedDatasets"
                     values={{ total: hostedDatasets?.count }}
                   />
-                </GenericFeature>
-                <GenericFeature>
+                </GenericFeature>}
+                {literatureSearch?.documents.total > 0 && <GenericFeature>
                   <CitationIcon />
                   <FormattedMessage
                     id="counts.nCitations"
                     values={{ total: literatureSearch?.documents.total }}
                   />
-                </GenericFeature>
+                </GenericFeature>}
               </FeatureList>
             </HeaderInfoMain>
           </HeaderInfo>

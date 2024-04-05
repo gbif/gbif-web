@@ -24,7 +24,7 @@ const typeDef = gql`
     address: [String]
     city: String
     comments: [Comment]
-    contacts: [Contact]
+    contacts: [Contact!]
     country: Country
     created: DateTime
     createdBy: String

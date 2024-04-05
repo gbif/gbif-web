@@ -134,7 +134,7 @@ const baseRoutes: SourceRouteObject[] = [
             ],
           },
           {
-            key: 'publisher-page',
+            id: RouteId.Publisher,
             gbifRedirect: (params) => {
               if (typeof params.key !== 'string') throw new Error('Invalid key');
               return `https://www.gbif.org/publisher/${params.key}`;
