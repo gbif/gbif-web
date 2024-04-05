@@ -68,10 +68,11 @@ export function InstallationKeyAbout() {
 
   return (
     <div>
-      What is this
       <Card className="mb-4">
         <CardHeader>
-          <CardTitle>Description</CardTitle>
+          <CardTitle>
+            <FormattedMessage id="phrases.headers.description" />
+          </CardTitle>
         </CardHeader>
         <CardContent>
           {installation.description && (
@@ -110,62 +111,72 @@ export function InstallationKeyAbout() {
         </CardContent>
       </Card>
 
-      <Card className="mb-4">
-        <CardHeader>
-          <CardTitle>Contacts</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="flex flex-wrap -m-2">
-          {installation.contacts?.map((contact) => {
-            return (
-              <Card className="px-6 py-4 flex-auto max-w-sm min-w-xs m-2">
-                <ContactHeader>
-                  <ContactAvatar
-                    firstName={contact.firstName}
-                    lastName={contact.lastName}
-                    organization={contact?.organization}
-                  />
-                  <ContactHeaderContent>
-                    <ContactTitle
-                      firstName={contact.firstName}
-                      lastName={contact.lastName}
-                    ></ContactTitle>
-                    {contact.type && (
-                      <ContactDescription>
-                        <FormattedMessage id={`enums.role.${contact.type}`} />
-                      </ContactDescription>
-                    )}
-                  </ContactHeaderContent>
-                </ContactHeader>
-                <ContactContent className="mb-2"></ContactContent>
-                <ContactActions>
-                  {contact.email && contact.email.map((email) => <ContactEmail email={email} />)}
-                  {contact.phone && contact.phone.map((tel) => <ContactTelephone tel={tel} />)}
-                </ContactActions>
-              </Card>
-            );
-          })}
-          </div>
-        </CardContent>
-      </Card>
+      {(installation.contacts?.length > 0) && (
+        <Card className="mb-4">
+          <CardHeader>
+            <CardTitle>
+              <FormattedMessage id="phrases.headers.contacts" />
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-wrap -m-2">
+              {installation.contacts?.map((contact) => {
+                return (
+                  <Card className="px-6 py-4 flex-auto max-w-sm min-w-xs m-2">
+                    <ContactHeader>
+                      <ContactAvatar
+                        firstName={contact.firstName}
+                        lastName={contact.lastName}
+                        organization={contact?.organization}
+                      />
+                      <ContactHeaderContent>
+                        <ContactTitle
+                          firstName={contact.firstName}
+                          lastName={contact.lastName}
+                        ></ContactTitle>
+                        {contact.type && (
+                          <ContactDescription>
+                            <FormattedMessage id={`enums.role.${contact.type}`} />
+                          </ContactDescription>
+                        )}
+                      </ContactHeaderContent>
+                    </ContactHeader>
+                    <ContactContent className="mb-2"></ContactContent>
+                    <ContactActions>
+                      {contact.email &&
+                        contact.email.map((email) => <ContactEmail email={email} />)}
+                      {contact.phone && contact.phone.map((tel) => <ContactTelephone tel={tel} />)}
+                    </ContactActions>
+                  </Card>
+                );
+              })}
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
-      <CardHeader>
-        <CardTitle>
-          <FormattedMessage
-            id="counts.nHostedDatasets"
-            values={{ total: installation.dataset.count }}
-          />
-        </CardTitle>
-      </CardHeader>
-      {datasets && datasets.results.map((item) => <DatasetResult key={item.key} dataset={item} />)}
+      {installation.dataset.count > 0 && (
+        <>
+          <CardHeader>
+            <CardTitle>
+              <FormattedMessage
+                id="counts.nHostedDatasets"
+                values={{ total: installation.dataset.count }}
+              />
+            </CardTitle>
+          </CardHeader>
+          {datasets &&
+            datasets.results.map((item) => <DatasetResult key={item.key} dataset={item} />)}
 
-      {datasets?.count && datasets?.count > datasets?.limit && (
-        <PaginationFooter
-          offset={datasets.offset}
-          count={datasets.count}
-          limit={datasets.limit}
-          onChange={(x) => setOffset(x)}
-        />
+          {datasets?.count && datasets?.count > datasets?.limit && (
+            <PaginationFooter
+              offset={datasets.offset}
+              count={datasets.count}
+              limit={datasets.limit}
+              onChange={(x) => setOffset(x)}
+            />
+          )}
+        </>
       )}
     </div>
   );
