@@ -53,7 +53,7 @@ export function PublisherKeyAbout() {
                   <div className="flex flex-wrap -m-2">
                     {publisher?.contacts?.map((contact) => {
                       return (
-                        <Card className="px-6 py-4 flex-auto max-w-sm min-w-xs m-2">
+                        <Card key={contact.key} className="px-6 py-4 flex-auto max-w-sm min-w-xs m-2">
                           <ContactHeader>
                             <ContactAvatar
                               firstName={contact.firstName}
@@ -75,9 +75,9 @@ export function PublisherKeyAbout() {
                           <ContactContent className="mb-2"></ContactContent>
                           <ContactActions>
                             {contact.email &&
-                              contact.email.map((email) => <ContactEmail email={email} />)}
+                              contact.email.map((email) => <ContactEmail key={email} email={email} />)}
                             {contact.phone &&
-                              contact.phone.map((tel) => <ContactTelephone tel={tel} />)}
+                              contact.phone.map((tel) => <ContactTelephone key={tel} tel={tel} />)}
                           </ContactActions>
                         </Card>
                       );

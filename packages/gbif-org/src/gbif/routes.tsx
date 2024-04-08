@@ -69,7 +69,6 @@ import {
   aliasHandlingLoader,
 } from '@/routes/resource/key/aliasHandling';
 import { PublisherKeyCitations } from '@/routes/publisher/key/citations';
-import { PublisherKeyProject } from '@/routes/publisher/key/project';
 import { InstallationPage, InstallationPageSkeleton, installationLoader } from '@/routes/installation/key/installationKey';
 import { InstallationKeyAbout } from '@/routes/installation/key/about';
 import { NetworkPage, NetworkPageSkeleton, networkLoader } from '@/routes/network/key/networkKey';
@@ -155,11 +154,7 @@ const baseRoutes: SourceRouteObject[] = [
               {
                 path: 'citations',
                 element: <PublisherKeyCitations />,
-              },
-              {
-                path: 'project',
-                element: <PublisherKeyProject />,
-              },
+              }
             ],
           },
           {
