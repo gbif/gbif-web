@@ -5,7 +5,7 @@
     "metrics": "メトリクス",
     "publishersHomepage": "ホームページ"
   },
-  "joinedAgo": "{TIME_AGO} に参加",
+  "joinedDate": "GBIFがアノーテーションしたアーカイブ",
   "newPublisher": "新しい出版者",
   "technicalContact": "技術的な事項についての連絡先",
   "country": "国または地域",
