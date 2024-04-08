@@ -5,7 +5,7 @@
     "metrics": "指标",
     "publishersHomepage": "首页"
   },
-  "joinedAgo": "加入 {TIME_AGO}",
+  "joinedDate": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
   "newPublisher": "新发布者",
   "technicalContact": "技术顾问",
   "country": "国家或地区",
