@@ -5,7 +5,7 @@
     "metrics": "Показатели",
     "publishersHomepage": "Сайт организации"
   },
-  "joinedAgo": "Присоединилась к GBIF {TIME_AGO}",
+  "joinedDate": "Архив, аннотированный GBIF",
   "newPublisher": "Новая организация",
   "technicalContact": "Технический контакт",
   "country": "Страна (территория)",
