@@ -5,6 +5,12 @@ import { OccurrenceQuery, OccurrenceQueryVariables } from '@/gql/graphql';
 import { DynamicLink } from '@/components/dynamicLink';
 import { required } from '@/utils/required';
 import { useLoaderData } from 'react-router-dom';
+import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
+import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
+import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
+import { FormattedDate, FormattedMessage } from 'react-intl';
+import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
+import { defaultDateFormatProps } from '@/components/headerComponents';
 const Map = React.lazy(() => import('@/components/map'));
 
 const OCCURRENCE_QUERY = /* GraphQL */ `
@@ -39,23 +45,31 @@ export function DetailedOccurrencePage() {
         <title>{occurrence.scientificName}</title>
       </Helmet>
 
-      <h1>{occurrence.scientificName}</h1>
-      {occurrence.coordinates && (
-        <React.Suspense fallback={<div>Loading map...</div>}>
-          <Map coordinates={occurrence.coordinates} />
-        </React.Suspense>
-      )}
+      <ArticleContainer className="pb-0">
+        <ArticleTextContainer className="max-w-screen-xl">
+          <ArticleTitle
+            dangerouslySetTitle={{ __html: occurrence.scientificName || 'No title provided' }}
+          ></ArticleTitle>
+        </ArticleTextContainer>
+        <ArticleTextContainer className="max-w-screen-xl">
+          {occurrence.coordinates && (
+            <React.Suspense fallback={<div>Loading map...</div>}>
+              <Map coordinates={occurrence.coordinates} />
+            </React.Suspense>
+          )}
 
-      {occurrence.dataset && (
-        <div>
-          <p className="font-bold">Dataset: </p>
-          <h2>
-            <DynamicLink to={`/dataset/${occurrence.dataset.key}`}>
-              {occurrence.dataset.title}
-            </DynamicLink>
-          </h2>
-        </div>
-      )}
+          {occurrence.dataset && (
+            <div>
+              <p className="font-bold">Dataset: </p>
+              <h2>
+                <DynamicLink to={`/dataset/${occurrence.dataset.key}`}>
+                  {occurrence.dataset.title}
+                </DynamicLink>
+              </h2>
+            </div>
+          )}
+        </ArticleTextContainer>
+      </ArticleContainer>
     </>
   );
 }
