@@ -5,7 +5,7 @@
     "metrics": "Statistiques",
     "publishersHomepage": "Page d'accueil"
   },
-  "joinedAgo": "Rejoint le {TIME_AGO}",
+  "joinedDate": "Archive annotée par GBIF",
   "newPublisher": "Nouveau fournisseur de données",
   "technicalContact": "Contact technique",
   "country": "Pays",
