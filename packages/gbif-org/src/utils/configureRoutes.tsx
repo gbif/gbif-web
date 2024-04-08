@@ -40,11 +40,22 @@ export function configureRoutes(
       children: createRoutesRecursively(baseRoutes, config, locale),
       loader: async () => {
         // fetch the entry translation file
-        const translations = await fetch(config.translationsEntryEndpoint).then((r) => r.json());
+        const translations = await fetch(config.translationsEntryEndpoint)
+          .then((r) => r.json())
+          .catch((err) => {
+            console.error('Failed to load translations entry file');
+            throw err;
+          });
         // now get the actual messages for the locale
         const messages = await fetch(
           translations?.[locale.code]?.messages ?? translations?.en?.messages
-        ).then((r) => r.json());
+        )
+          .then((r) => r.json())
+          .catch((err) => {
+            console.error('Failed to load translations for language');
+            console.error('Failed language: ', locale.code);
+            throw err;
+          });
         return { messages };
       },
     };
