@@ -17,6 +17,7 @@
   "citations": "Citations",
   "metrics": "Statistiques",
   "datasets": "Jeux de données",
+  "publishers": "Fournisseurs de données",
   "hostedDatasets": "Jeux de données hébergés",
   "occurrenceMetrics": "Statistique sur les occurrences",
   "project": "Projet",
@@ -25,11 +26,21 @@
   "backHome": "Retour à la page d'accueil",
   "pageNotFound": "404",
   "noInformation": "Aucune information",
+  "noRecords": "Archive annotée par GBIF",
+  "noDescriptionProvided": "Archive annotée par GBIF",
   "viewOnGBif": "Voir sur GBIF.org",
   "failedToLoadData": "Échec du chargement des données",
   "retry": "Réessayer",
   "seeDetails": "Voir les détails",
   "readMore": "En savoir plus",
   "pageNotFoundDescription": "Désolé, la page que vous avez visitée n'existe pas.",
-  "download": "Télécharger"
+  "download": "Télécharger",
+  "discard": "Archive annotée par GBIF",
+  "keep": "Archive annotée par GBIF",
+  "copyToClipboard": "Archive annotée par GBIF",
+  "headers": {
+    "description": "Description",
+    "contacts": "Contacts"
+  },
+  "noResults": "Archive annotée par GBIF"
 }
