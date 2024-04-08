@@ -5,7 +5,7 @@
     "metrics": "Métricas",
     "publishersHomepage": "Página inicial"
   },
-  "joinedAgo": "Desde {TIME_AGO}",
+  "joinedDate": "Uma breve descrição do componente deve ser colocada aqui",
   "newPublisher": "Publicador novo",
   "technicalContact": "Contato técnico",
   "country": "País ou área",
