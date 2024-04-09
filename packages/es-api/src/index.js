@@ -266,9 +266,9 @@ function getMetaOnly(resource) {
   return async (req, res, next) => {
     let predicate;
     let metrics;
-    if (req.query.query) {
+    if (req.query.body) {
       try {
-        const jsonQuery = JSON.parse(req.query.query);
+        const jsonQuery = JSON.parse(req.query.body);
         predicate = jsonQuery.predicate;
       } catch (err) {
         return next(new ResponseError(400, 'badRequest', `Invalid query: ${err.message}`));
