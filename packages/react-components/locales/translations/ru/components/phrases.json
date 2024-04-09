@@ -1,7 +1,11 @@
 {
+  "loading": "",
+  "loadError": "",
   "unknown": "Неизвестно",
   "notProvided": "Не указано",
+  "close": "",
   "citation": "Цитирование",
+  "citeAs": "",
   "deletedOnDate": "Удалено {date}",
   "replacedBy": "Заменено на {newItem}",
   "showAll": "Показать все",
@@ -13,6 +17,8 @@
   "citations": "Цитирования",
   "metrics": "Показатели",
   "datasets": "Наборы данных",
+  "publishers": "Организации",
+  "hostedDatasets": "",
   "occurrenceMetrics": "Показатели встречаемости",
   "project": "Проект",
   "license": "Лицензия",
@@ -20,11 +26,21 @@
   "backHome": "Назад",
   "pageNotFound": "Ошибка 404",
   "noInformation": "Информация отсутствует",
+  "noRecords": "Архив, аннотированный GBIF",
+  "noDescriptionProvided": "Архив, аннотированный GBIF",
   "viewOnGBif": "Посмотреть на GBIF.org",
   "failedToLoadData": "Не удалось загрузить данные",
   "retry": "Повторить",
   "seeDetails": "Подробнее",
   "readMore": "Читать далее",
   "pageNotFoundDescription": "К сожалению, запрашиваемая вами страница не существует.",
-  "download": "Загрузить"
+  "download": "Загрузить",
+  "discard": "Архив, аннотированный GBIF",
+  "keep": "Архив, аннотированный GBIF",
+  "copyToClipboard": "Архив, аннотированный GBIF",
+  "headers": {
+    "description": "Описание",
+    "contacts": "Контакты"
+  },
+  "noResults": "Архив, аннотированный GBIF"
 }
