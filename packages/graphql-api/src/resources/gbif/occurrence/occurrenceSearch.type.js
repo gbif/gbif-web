@@ -63,6 +63,8 @@ const typeDef = gql`
     decimalLatitude: Stats!
     decimalLongitude: Stats!
     eventDate: Stats!
+    organismQuantity: Stats!
+    individualCount: Stats!
   }
 
   type OccurrenceCardinality {

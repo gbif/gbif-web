@@ -14,12 +14,12 @@ function reduce(item) {
 
   // Additional event verbatim fields
   const eventVerbatim = removeUndefined({
-    eventRemarks: source.verbatim.core['http://rs.tdwg.org/dwc/terms/eventRemarks']
+    eventRemarks: source?.verbatim?.core?.['http://rs.tdwg.org/dwc/terms/eventRemarks']
   });
 
   // Handle seedbank extension
   let seedbankRecord;
-  const seedbankExtension = source.verbatim.extensions?.['http://ala.org.au/terms/seedbank/0.1/SeedbankRecord'];
+  const seedbankExtension = source?.verbatim?.extensions?.['http://ala.org.au/terms/seedbank/0.1/SeedbankRecord'];
 
   // Ensure the seed bank extension exists before mapping the verbatim values
   if (seedbankExtension) {

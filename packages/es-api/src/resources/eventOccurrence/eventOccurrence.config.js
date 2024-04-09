@@ -605,7 +605,7 @@ const config =
     },
     "class": {
       "type": "keyword",
-      "field": "occurrence.gbifClassification.class",
+      "field": "occurrence.gbifClassification.classKey",
       "get": {
         "type": "fuzzy"
       }
@@ -705,7 +705,7 @@ const config =
     },
     "species": {
       "type": "keyword",
-      "field": "occurrence.gbifClassification.species",
+      "field": "occurrence.gbifClassification.speciesKey",
       "get": {
         "type": "fuzzy"
       }
