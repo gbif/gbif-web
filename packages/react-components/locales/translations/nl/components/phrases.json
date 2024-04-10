@@ -17,7 +17,7 @@
   "citations": "",
   "metrics": "",
   "datasets": "",
-  "publishers": "",
+  "publishers": "Uitgevers",
   "hostedDatasets": "Gehoste datasets",
   "occurrenceMetrics": "",
   "project": "",
@@ -39,8 +39,8 @@
   "keep": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
   "copyToClipboard": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
   "headers": {
-    "description": "",
-    "contacts": ""
+    "description": "Beschrijving",
+    "contacts": "Contactpersonen"
   },
   "noResults": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
 }
