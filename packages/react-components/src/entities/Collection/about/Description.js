@@ -1,6 +1,6 @@
 
 import { jsx, css } from '@emotion/react';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useLocalStorage } from 'react-use';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { Card, CardHeader2, GrSciCollMetadata as Metadata, SideBarLoader, MapThumbnail } from '../../shared';
@@ -9,6 +9,9 @@ import useBelow from '../../../utils/useBelow';
 import sortBy from 'lodash/sortBy';
 import { MdMailOutline as MailIcon, MdPhone as PhoneIcon } from 'react-icons/md';
 import { TopTaxa, TopCountries, TotalAndDistinct } from '../../shared/stats';
+import LocaleContext from '../../../dataManagement/LocaleProvider/LocaleContext';
+import { ApiContext } from '../../../dataManagement/api';
+import { commonLabels, config2labels } from '../../../utils/labelMaker';
 
 const { Term: T, Value: V, EmptyValue } = Properties;
 const Name2Avatar = ListItem.Name2Avatar;
@@ -22,6 +25,13 @@ export function Description({
   className,
   ...props
 }) {
+  const apiClient = useContext(ApiContext);
+  const localeContext = useContext(LocaleContext);
+  const labelMap = config2labels(commonLabels, apiClient, localeContext);
+  const CollectionContentTypeVocabulary = labelMap['collectionContentTypeVocabulary'];
+  const PreservationTypeVocabulary = labelMap['preservationTypeVocabulary'];
+  const AccessionStatusVocabulary = labelMap['accessionStatusVocabulary'];
+
   const [isPinned, setPinState, removePinState] = useLocalStorage('pin_metadata', false);
   const hideSideBar = useBelow(1100);
   const addressesIdentical = JSON.stringify(collection.mailingAddress) === JSON.stringify(collection.address);
@@ -41,7 +51,7 @@ export function Description({
           <Properties style={{ fontSize: 16, marginBottom: 12 }} breakpoint={800}>
             {/* <Property value={collection.description} labelId="grscicoll.description" showEmpty /> */}
             <Property value={collection.taxonomicCoverage} labelId="grscicoll.taxonomicDescription" showEmpty />
-            <Property value={collection.geography} labelId="grscicoll.geographicDescription" showEmpty />
+            <Property value={collection.geographicCoverage} labelId="grscicoll.geographicDescription" showEmpty />
             <Property value={collection.notes} labelId="grscicoll.notes" />
             <Property value={collection.code} labelId="grscicoll.code" showEmpty />
             <Property value={collection.numberSpecimens} labelId="collection.numberSpecimens" />
@@ -50,10 +60,11 @@ export function Description({
                 <FormattedNumber value={count} />
               </ResourceLink>
             }} />}
-            <Property value={collection.catalogUrl} labelId="grscicoll.catalogUrl" />
-            <Property value={collection.apiUrl} labelId="grscicoll.apiUrl" />
-            <Property value={collection.contentTypes} labelId="collection.contentTypes" formatter={e => <FormattedMessage id={`enums.collectionContentType.${e}`} defaultMessage={e} />} />
-            <Property value={collection.preservationTypes} labelId="collection.preservationTypes" formatter={e => <FormattedMessage id={`enums.preservationType.${e}`} defaultMessage={e} />} />
+            <Property value={collection.catalogUrls} labelId="grscicoll.catalogUrl" />
+            <Property value={collection.apiUrls} labelId="grscicoll.apiUrl" />
+            <Property value={collection.contentTypes} labelId="collection.contentTypes" formatter={(val) => <CollectionContentTypeVocabulary id={val} />} />
+            <Property value={collection.preservationTypes} labelId="collection.preservationTypes" formatter={(val) => <PreservationTypeVocabulary id={val} />} />
+            <Property value={collection.accessionStatus} labelId="collection.accessionStatus" formatter={(val) => <AccessionStatusVocabulary id={val} />} />
 
             <Property value={collection.incorporatedCollections} labelId="grscicoll.incorporatedCollections" />
             <Property value={collection.importantCollectors} labelId="grscicoll.importantCollectors" />

@@ -102,7 +102,7 @@ query collection($key: ID!){
     name
     description
     taxonomicCoverage
-    geography
+    geographicCoverage
     notes
     homepage
 
@@ -116,8 +116,8 @@ query collection($key: ID!){
     email
     phone
     
-    catalogUrl
-    apiUrl
+    catalogUrls
+    apiUrls
     preservationTypes
     accessionStatus
     

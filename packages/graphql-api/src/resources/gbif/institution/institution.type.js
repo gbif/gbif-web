@@ -40,27 +40,23 @@ const typeDef = gql`
     code: String
     name: String
     description: String
-    type: InstitutionType
+    types: [String!]
     active: Boolean
     email: [String]
     phone: [String]
     homepage: URL
-    catalogUrl: URL
-    apiUrl: URL
-    institutionalGovernance: InstitutionGovernance
-    disciplines: [Discipline]
+    catalogUrls: [URL]
+    apiUrls: [URL]
+    institutionalGovernances: [String!]
+    disciplines: [String!]
     latitude: Float
     longitude: Float
     mailingAddress: Address
     address: Address
     additionalNames: [String]
     foundingDate: Int
-    geographicDescription: String
-    taxonomicDescription: String
     numberSpecimens: Int
-    indexHerbariorumRecord: Boolean
     logoUrl: URL
-    citesPermitNumber: String
     createdBy: String
     modifiedBy: String
     created: DateTime

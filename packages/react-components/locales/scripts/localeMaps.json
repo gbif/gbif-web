@@ -17,6 +17,7 @@
   "fr": {
     "gbif_org": "fr",
     "iso3LetterCode": "fra",
-    "cms": "fr"
+    "cms": "fr",
+    "vocabulary": "fr-FR"
   }
 }
