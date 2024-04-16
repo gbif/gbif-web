@@ -19,7 +19,7 @@ export default function Map({ coordinates }: Props) {
   const mapRef = React.useRef<HTMLDivElement>(null);
 
   useOnMountUnsafe(() => {
-    const place = [coordinates.lat, coordinates.lon];
+    const place = [coordinates.lon, coordinates.lat];
 
     new OpenLayersMap({
       layers: [
