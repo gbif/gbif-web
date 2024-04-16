@@ -1,84 +1,84 @@
 {
   "en-DK": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/en-developer.json?v=fd1bd07a0122d9a9614c60b6b619bbade254c65a"
+    "messages": "http://localhost:5002/en-developer.json?v=fd1bd07a0122d9a9614c60b6b619bbade254c65a"
   },
   "en-ZZ": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/en-pseudo.json?v=d37a17051387946e9423cd6dfa3ee6c916c44b66"
+    "messages": "http://localhost:5002/en-pseudo.json?v=d924e607a404a95ba6015be06a663c2a3f964479"
   },
   "en": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/en.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
+    "messages": "http://localhost:5002/en.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
   },
   "da": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/da.json?v=5bf06b87e64d2a9a71aa67b27f6f9666e5c1c2cf"
+    "messages": "http://localhost:5002/da.json?v=5bf06b87e64d2a9a71aa67b27f6f9666e5c1c2cf"
   },
   "ar": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/ar.json?v=46173f77cdddd7569c1a6601dc1702f169a2a909"
+    "messages": "http://localhost:5002/ar.json?v=46173f77cdddd7569c1a6601dc1702f169a2a909"
   },
   "de": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/de.json?v=c130a6da382d5706c2b136ee3aecb9566498d89a"
+    "messages": "http://localhost:5002/de.json?v=c130a6da382d5706c2b136ee3aecb9566498d89a"
   },
   "es": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/es.json?v=b08c98095c3a755bbf85e0b5c6f5d2ac2fad3d65",
+    "messages": "http://localhost:5002/es.json?v=b08c98095c3a755bbf85e0b5c6f5d2ac2fad3d65",
     "localeMap": {
       "gbif_org": "es",
       "vocabulary": "es-ES"
     }
   },
   "fa": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/fa.json?v=4f81c78d3c9f89c246372161f5c4e83044951a92"
+    "messages": "http://localhost:5002/fa.json?v=4f81c78d3c9f89c246372161f5c4e83044951a92"
   },
   "fj": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/fj.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
+    "messages": "http://localhost:5002/fj.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
   },
   "fr": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/fr.json?v=d20c9a1c4cca4b88cbae9b16fc916ac574043c1a",
+    "messages": "http://localhost:5002/fr.json?v=d20c9a1c4cca4b88cbae9b16fc916ac574043c1a",
     "localeMap": {
       "gbif_org": "fr"
     }
   },
   "ja": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/ja.json?v=deaa63659cfffa8b98cba0b7428db13245b3e796"
+    "messages": "http://localhost:5002/ja.json?v=deaa63659cfffa8b98cba0b7428db13245b3e796"
   },
   "la": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/la.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
+    "messages": "http://localhost:5002/la.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
   },
   "niu": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/niu.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
+    "messages": "http://localhost:5002/niu.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
   },
   "nl": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/nl.json?v=8db0d6bd5d88e8dc9e082b6ce731972720ac0832"
+    "messages": "http://localhost:5002/nl.json?v=8db0d6bd5d88e8dc9e082b6ce731972720ac0832"
   },
   "pis": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/pis.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
+    "messages": "http://localhost:5002/pis.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
   },
   "pt": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/pt.json?v=381f3c0a7d77eaf39fba89a7ffdf689f2f976e7b"
+    "messages": "http://localhost:5002/pt.json?v=381f3c0a7d77eaf39fba89a7ffdf689f2f976e7b"
   },
   "ru": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/ru.json?v=39cceb06cce16ae4696ee2ab921845f9a6cd2766"
+    "messages": "http://localhost:5002/ru.json?v=39cceb06cce16ae4696ee2ab921845f9a6cd2766"
   },
   "sm": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/sm.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
+    "messages": "http://localhost:5002/sm.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
   },
   "sw": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/sw.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
+    "messages": "http://localhost:5002/sw.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
   },
   "tkl": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/tkl.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
+    "messages": "http://localhost:5002/tkl.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
   },
   "to": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/to.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
+    "messages": "http://localhost:5002/to.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
   },
   "tvl": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/tvl.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
+    "messages": "http://localhost:5002/tvl.json?v=97c44fc25af0f9b1b6bf91ddef3bbb18493b0db6"
   },
   "uk": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/uk.json?v=86017fc1f4501071cb3e43112c7e32c39bdcd843"
+    "messages": "http://localhost:5002/uk.json?v=86017fc1f4501071cb3e43112c7e32c39bdcd843"
   },
   "zh": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/zh.json?v=b935efadcdc028aa8b72d251ce6aa00e4abaa376"
+    "messages": "http://localhost:5002/zh.json?v=b935efadcdc028aa8b72d251ce6aa00e4abaa376"
   },
   "zh-tw": {
-    "messages": "https://react-components.gbif-staging.org/lib/translations/zh-tw.json?v=e288640c4e1abc5ca21082d5d61c1eae97f851c7"
+    "messages": "http://localhost:5002/zh-tw.json?v=e288640c4e1abc5ca21082d5d61c1eae97f851c7"
   }
 }

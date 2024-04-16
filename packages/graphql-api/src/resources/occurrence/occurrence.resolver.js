@@ -167,11 +167,11 @@ module.exports = {
       return dataSources.datasetAPI.getDatasetByKey({ key: occurrence.datasetKey });
     },
     institution: (occurrence, args, { dataSources }) => {
-      if (typeof occurrence.institutionKey === 'undefined') return null;
+      if (!occurrence.institutionKey) return null;
       return dataSources.institutionAPI.getInstitutionByKey({ key: occurrence.institutionKey });
     },
     collection: (occurrence, args, { dataSources }) => {
-      if (typeof occurrence.collectionKey === 'undefined') return null;
+      if (!occurrence.collectionKey) return null;
       return dataSources.collectionAPI.getCollectionByKey({ key: occurrence.collectionKey });
     },
     bionomia: (occurrence, args, { dataSources }) => {
