@@ -6,10 +6,10 @@ import { HomePage } from '@/routes/homePage';
 import { ThrowOn404 } from '@/routes/throwOn404';
 import { RootErrorPage } from '@/routes/rootErrorPage';
 import {
-  DetailedOccurrencePage,
-  DetailedOccurrencePageSkeleton,
-  detailedOccurrencePageLoader,
-} from '@/routes/occurrence/key/detailedOccurrencePage';
+  OccurrenceKey,
+  OccurrenceKeySkeleton,
+  occurrenceKeyLoader,
+} from '@/routes/occurrence/key/occurrenceKey';
 import { OccurrenceSearchPage } from '@/routes/occurrence/search/occurrenceSearchPage';
 import { InputConfig, configBuilder } from '@/contexts/config/config';
 import { DatasetPage, DatasetPageSkeleton, datasetLoader } from '@/routes/dataset/key/datasetKey';
@@ -99,9 +99,9 @@ const baseRoutes: SourceRouteObject[] = [
           {
             key: 'occurrence-page',
             path: 'occurrence/:key',
-            loader: detailedOccurrencePageLoader,
-            loadingElement: <DetailedOccurrencePageSkeleton />,
-            element: <DetailedOccurrencePage />,
+            loader: occurrenceKeyLoader,
+            loadingElement: <OccurrenceKeySkeleton />,
+            element: <OccurrenceKey />,
           },
           {
             key: 'dataset-page',

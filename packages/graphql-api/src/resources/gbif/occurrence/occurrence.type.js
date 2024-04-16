@@ -423,9 +423,9 @@ const typeDef = gql`
   }
 
   type Globe {
-    svg: String
-    lat: Float
-    lon: Float
+    svg: String!
+    lat: Float!
+    lon: Float!
   }
 
   type GbifClassification {

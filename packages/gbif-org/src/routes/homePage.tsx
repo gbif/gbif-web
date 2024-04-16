@@ -124,6 +124,11 @@ export function HomePage(): React.ReactElement {
                 </DynamicLink>
               </li>
               <li>
+                <DynamicLink className="me-4" to="/occurrence/4126243325">
+                  Occurrence
+                </DynamicLink>
+              </li>
+              <li>
                 Occurrence, download, species, participant, country and profile pages have not been started
               </li>
             </ul>

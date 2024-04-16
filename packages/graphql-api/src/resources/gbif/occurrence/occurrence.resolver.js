@@ -535,7 +535,7 @@ export default {
       { decimalLatitude, decimalLongitude },
       { sphere, graticule, land },
     ) => {
-      if (typeof decimalLatitude === 'undefined') return null;
+      if (typeof decimalLatitude !== 'number' || typeof decimalLongitude !== 'number') return null;
 
       const roundedLat = Math.floor(decimalLatitude / 15) * 15;
       const lat = Math.min(Math.max(roundedLat, -60), 60);

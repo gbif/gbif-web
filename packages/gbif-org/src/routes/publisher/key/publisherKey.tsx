@@ -124,7 +124,7 @@ export function PublisherPage() {
                     values={{ total: occurrenceSearch?.documents.total }}
                   />
                 </GenericFeature>}
-                {publisher.numPublishedDatasets > 0 && <GenericFeature>
+                {publisher?.numPublishedDatasets && publisher?.numPublishedDatasets > 0 && <GenericFeature>
                   <FormattedMessage
                     id="counts.nPublishedDatasets"
                     values={{ total: publisher.numPublishedDatasets }}

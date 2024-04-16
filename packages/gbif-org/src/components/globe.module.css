@@ -1,0 +1,43 @@
+.globeOverlay {
+  position: absolute;
+  border: 1px solid #88888811;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  border-radius: 100%;
+  background-image: radial-gradient(farthest-corner at 30% 35%, #ffffffaa 0%, #fff0 30%);
+}
+
+.globe {
+  position: relative;
+}
+
+.globeSvg {
+  position: absolute;
+  top: 0;
+  [class~=land] {
+    fill: #88888844;
+  }
+  [class~=graticule] {
+    stroke: #88888840;
+    fill: transparent;
+    stroke-width: 0.3px;
+  }
+  [class~=sphere] {
+    fill: #88888822;
+  }
+  [class~=point] {
+    fill: rgb(var(--primary700));
+  }
+  @keyframes hideshow {
+    0% { stroke-width: 2px; }
+    50% { stroke-width: 10px; }
+    100% { stroke-width: 2px; }
+  }
+}
+
+.isTrackingData {
+  fill: rgb(var(--primary500));
+  stroke: rgb(var(--primary600) / 50%);
+  animation: hideshow 1s ease infinite;
+}
