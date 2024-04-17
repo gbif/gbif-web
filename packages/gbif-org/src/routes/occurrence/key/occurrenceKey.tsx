@@ -4,7 +4,7 @@ import { LoaderArgs } from '@/types';
 import { OccurrenceIssue, OccurrenceQuery, OccurrenceQueryVariables } from '@/gql/graphql';
 import { DynamicLink } from '@/components/dynamicLink';
 import { required } from '@/utils/required';
-import { useLoaderData } from 'react-router-dom';
+import { Outlet, useLoaderData } from 'react-router-dom';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
@@ -325,31 +325,14 @@ export function OccurrenceKey() {
             links={[
               { to: '.', children: 'Overview' },
               { to: 'media', children: 'Media' },
-              { to: 'cluster', children: 'Related' },
+              { to: 'related', children: 'Related' },
               // { to: 'citations', children: 'Citations' },
             ]}
           />
         </ArticleTextContainer>
-
-        <ArticleTextContainer className="max-w-screen-xl mt-8">
-          {occurrence.coordinates && (
-            <React.Suspense fallback={<div>Loading map...</div>}>
-              <Map coordinates={occurrence.coordinates} />
-            </React.Suspense>
-          )}
-
-          {occurrence.dataset && (
-            <div>
-              <p className="font-bold">Dataset: </p>
-              <h2>
-                <DynamicLink to={`/dataset/${occurrence.dataset.key}`}>
-                  {occurrence.dataset.title}
-                </DynamicLink>
-              </h2>
-            </div>
-          )}
-        </ArticleTextContainer>
       </ArticleContainer>
+      
+      <Outlet />
     </>
   );
 }

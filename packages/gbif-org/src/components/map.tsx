@@ -5,6 +5,7 @@ import { Point } from 'ol/geom';
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
 import { useGeographic } from 'ol/proj';
 import { useOnMountUnsafe } from '@/hooks/useOnMountUnsafe';
+import { cn } from '@/utils/shadcn';
 
 useGeographic();
 
@@ -13,9 +14,10 @@ type Props = {
     lat: number;
     lon: number;
   };
+  className?: string;
 };
 
-export default function Map({ coordinates }: Props) {
+export default function Map({ coordinates, className }: Props) {
   const mapRef = React.useRef<HTMLDivElement>(null);
 
   useOnMountUnsafe(() => {
@@ -44,5 +46,5 @@ export default function Map({ coordinates }: Props) {
     });
   });
 
-  return <div style={{ width: 500, height: 500 }} ref={mapRef}></div>;
+  return <div className={cn('w-full h-96', className)} ref={mapRef}></div>;
 }

@@ -124,9 +124,9 @@ export function HomePage(): React.ReactElement {
                 </DynamicLink>
               </li>
               <li>
-                <DynamicLink className="me-4" to="/occurrence/4126243325">
-                  Occurrence
-                </DynamicLink>
+                <DynamicLink className="me-4" to="/occurrence/4126243325">Maesobotrya floribunda Benth - images</DynamicLink>
+                <DynamicLink className="me-4" to="/occurrence/4045885848">Vulpes vulpes (Linnaeus, 1758) - video</DynamicLink>
+                <DynamicLink className="me-4" to="/occurrence/2434542261">RecordedBy ID</DynamicLink>
               </li>
               <li>
                 Occurrence, download, species, participant, country and profile pages have not been started

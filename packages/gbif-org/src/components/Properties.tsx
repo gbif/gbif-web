@@ -1,7 +1,7 @@
 import { cn } from '@/utils/shadcn';
-import useBelow from './useBelow';
+import useBelow from '@/hooks/useBelow';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
-import { MdInfoOutline, MdOutlineInfo } from 'react-icons/md';
+import { MdInfoOutline } from 'react-icons/md';
 import { HelpLine } from '@/components/helpText';
 import EmptyValue from '@/components/EmptyValue';
 import { BulletList } from '@/components/BulletList';
@@ -68,7 +68,7 @@ export function Value({
 } & React.HTMLAttributes<HTMLDivElement>) {
   // what is the correct type here, I cannot see dd as a type
   return (
-    <dd className={cn('[:hover_+_&]:bg-gray-50', className)} {...props}>
+    <dd className={cn('[:hover_+_&]:bg-gray-50 leading-tight [&_a]:underline', className)} {...props}>
       {children}
     </dd>
   );
@@ -123,7 +123,7 @@ export function HelpIcon({
   return null;
 }
 
-function AutomaticPropertyValue({
+export function AutomaticPropertyValue({
   value,
   formatter,
   showEmpty,
