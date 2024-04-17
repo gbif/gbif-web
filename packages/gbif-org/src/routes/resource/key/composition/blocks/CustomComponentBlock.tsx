@@ -3,6 +3,7 @@ import { ArticleTextContainer } from '../../components/ArticleTextContainer';
 import { fragmentManager } from '@/services/FragmentManager';
 import { BlockContainer, backgroundColorMap } from './_shared';
 import { HostedPortalForm } from './custom-components/HostedPortalForm';
+import { BecomeAPublisherForm } from './custom-components/BecomeAPublisherForm';
 
 fragmentManager.register(/* GraphQL */ `
   fragment CustomComponentBlockDetails on CustomComponentBlock {
@@ -22,7 +23,8 @@ type Props = {
 export function CustomComponentBlock({ resource }: Props) {
   switch (resource.componentType) {
     case 'hostedPortalForm':
-      return <HostedPortalForm />;
+      // return <HostedPortalForm />;
+      return <BecomeAPublisherForm />;
   }
 
   const backgroundColor = backgroundColorMap[resource?.backgroundColour ?? 'white'];

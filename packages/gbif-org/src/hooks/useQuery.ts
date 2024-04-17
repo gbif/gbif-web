@@ -54,13 +54,17 @@ export function useQuery<TResult, TVariabels>(
   React.useEffect(() => () => cancelRequest(), [cancelRequest]);
 
   const load = React.useCallback(
-    (options?: Options<TVariabels>) => {
+    (loadOptions?: Options<TVariabels>) => {
+      const mergedOptions = { ...options, ...(loadOptions ?? {}) };
+
+      console.log('mergedOptions', mergedOptions);
+
       // Create a function that will start the request. This function will be called by the queueing logic
       const startRequest = async () => {
         const _abortController = new AbortController();
         setAbortController(_abortController);
 
-        if (options?.keepDataWhileLoading !== true) setData(undefined);
+        if (mergedOptions?.keepDataWhileLoading !== true) setData(undefined);
         setLoading(true);
         setError(undefined);
 
@@ -71,7 +75,7 @@ export function useQuery<TResult, TVariabels>(
         });
 
         return graphqlService
-          .query<TResult, TVariabels>(query, options?.variables as TVariabels)
+          .query<TResult, TVariabels>(query, mergedOptions?.variables as TVariabels)
           .then(async (response) => {
             // Handle error response errors from the server
             if (response.ok === false) {
@@ -111,21 +115,21 @@ export function useQuery<TResult, TVariabels>(
       };
 
       // If a queue name is not provided, start the request immediately
-      if (typeof options?.queue?.name !== 'string') {
+      if (typeof mergedOptions?.queue?.name !== 'string') {
         return startRequest();
       }
 
       // If there is no queue for the given name, create one
-      if (queues[options.queue.name] === undefined) {
-        queues[options.queue.name] = new Queue({
-          concurrent: options.queue.concurrent,
-          interval: options.queue.interval,
+      if (queues[mergedOptions.queue.name] === undefined) {
+        queues[mergedOptions.queue.name] = new Queue({
+          concurrent: mergedOptions.queue.concurrent,
+          interval: mergedOptions.queue.interval,
           start: true,
         });
       }
 
       // Add the request to the queue
-      queues[options.queue.name].enqueue(startRequest);
+      queues[mergedOptions.queue.name].enqueue(startRequest);
     },
     [config.graphqlEndpoint, locale.cmsLocale, locale.code, query]
   );

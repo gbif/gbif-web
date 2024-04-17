@@ -27,6 +27,7 @@ import extractUser from './helpers/auth/extractUser';
 import mapController from './api-utils/maps/index.ctrl.js';
 import ipController from './api-utils/ip2country.ctrl.js';
 import polygonName from './api-utils/polygonName.ctrl.js';
+import formController from './api-utils/forms/index.ctrl';
 import { loggingPlugin } from './plugins/loggingPlugin';
 
 // we are doing this async as we need to load the various enumerations from the APIs
@@ -113,6 +114,7 @@ async function initializeServer() {
   mapController(app);
   ipController(app);
   polygonName(app);
+  formController(app);
 
   await server.start();
   server.applyMiddleware({ app });

@@ -1,4 +1,4 @@
-import { useMemo, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useForm, useFormContext } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -13,10 +13,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Checkbox } from '@/components/ui/checkbox';
+import { RadioGroup } from '@/components/ui/radio-group';
 import { DynamicLink } from '@/components/DynamicLink';
 import { cn } from '@/utils/shadcn';
 import {
@@ -29,48 +26,106 @@ import {
 import useQuery from '@/hooks/useQuery';
 import { ParticipantsQuery } from '@/gql/graphql';
 import { notNull } from '@/utils/notNull';
+import {
+  OptionalStringSchema,
+  RadioItem,
+  Required,
+  RequiredEmailSchema,
+  RequiredStringSchema,
+  createTypedCheckboxField,
+  createTypedTextField,
+} from './_shared';
 
-const RequiredStringSchemaFn = () => z.string().min(1, 'This field is required');
-const RequiredEmailSchemaFn = () => RequiredStringSchemaFn().email('This is not a valid email');
-const OptionalStringSchemaFn = () => z.string().optional();
+const TextField = createTypedTextField<Inputs>();
+const CheckboxField = createTypedCheckboxField<Inputs>();
 
-// This is a function so we can inject the selected language for data validation
-const SchemaFn = () =>
-  z.object({
-    primaryContact: z.object({
-      name: RequiredStringSchemaFn(),
-      email: RequiredEmailSchemaFn(),
-    }),
-    hostedPortalName: RequiredStringSchemaFn(),
-    applicationType: z.discriminatedUnion('type', [
-      z.object({ type: z.literal('National_portal'), participantNode: RequiredStringSchemaFn() }),
-      z.object({ type: z.literal('Other_type_of_portal'), publisherDescription: RequiredStringSchemaFn() }),
-    ]),
-    nodeContact: z.discriminatedUnion('type', [
+// Validation translations
+// validation.required
+// validation.invalidEmail
+// validation.mustSelectOneOption
+// validation.mustAcceptTerms
+
+const Schema = z.object({
+  primaryContact: z.object({
+    name: RequiredStringSchema,
+    email: RequiredEmailSchema,
+  }),
+  hostedPortalName: RequiredStringSchema,
+  applicationType: z.discriminatedUnion(
+    'type',
+    [
+      z.object({
+        type: z.literal('National_portal'),
+        participantNode: z.object({
+          name: RequiredStringSchema,
+          countryCode: RequiredStringSchema,
+        }),
+      }),
+      z.object({
+        type: z.literal('Other_type_of_portal'),
+        publisherDescription: RequiredStringSchema,
+      }),
+    ],
+    {
+      required_error: 'validation.mustSelectOneOption',
+      invalid_type_error: 'validation.mustSelectOneOption',
+    }
+  ),
+  nodeContact: z.discriminatedUnion(
+    'type',
+    [
       z.object({ type: z.literal('I_am_the_node_manager') }),
-      z.object({ type: z.literal('Node_manager_contacted'), nodeManager: RequiredStringSchemaFn() }),
+      z.object({ type: z.literal('Node_manager_contacted'), nodeManager: RequiredStringSchema }),
       z.object({ type: z.literal('No_contact_to_node_manager') }),
-    ]),
-    nodeManager: OptionalStringSchemaFn(),
-    dataScope: RequiredStringSchemaFn(),
-    userGroup: RequiredStringSchemaFn(),
-    timelines: OptionalStringSchemaFn(),
-    languages: RequiredStringSchemaFn(),
-    experience: z.enum(['has_plenty_experience', 'has_limited_experience', 'has_no_experience']),
-    termsAccepted: z.literal(true),
-  });
+    ],
+    {
+      required_error: 'validation.mustSelectOneOption',
+      invalid_type_error: 'validation.mustSelectOneOption',
+    }
+  ),
+  nodeManager: OptionalStringSchema,
+  dataScope: RequiredStringSchema,
+  userGroup: RequiredStringSchema,
+  timelines: OptionalStringSchema,
+  languages: RequiredStringSchema,
+  experience: z.enum(['has_plenty_experience', 'has_limited_experience', 'has_no_experience'], {
+    required_error: 'validation.mustSelectOneOption',
+    invalid_type_error: 'validation.mustSelectOneOption',
+  }),
+  termsAccepted: z.literal(true, {
+    invalid_type_error: 'validation.mustAcceptTerms',
+    required_error: 'validation.mustAcceptTerms',
+  }),
+});
 
-type Inputs = z.infer<ReturnType<typeof SchemaFn>>;
+type Inputs = z.infer<typeof Schema>;
 
 export function HostedPortalForm() {
-  const schema = useMemo(() => SchemaFn(), []);
   const form = useForm<Inputs>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(Schema),
     mode: 'onTouched',
   });
 
   const onSubmit = (data: Inputs) => {
-    console.log(createMarkdown(data));
+    fetch('http://localhost:4001/forms/hosted-portal-application', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => {
+        if (response.ok) {
+          alert('Form submitted');
+          form.reset();
+        } else {
+          alert('Form submission failed');
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        alert('Form submission failed');
+      });
   };
 
   return (
@@ -98,8 +153,6 @@ export function HostedPortalForm() {
 }
 
 function PrimaryContact() {
-  const form = useFormContext<Partial<Inputs>>();
-
   return (
     <fieldset>
       <legend className="text-md font-semibold">
@@ -108,66 +161,24 @@ function PrimaryContact() {
       </legend>
 
       <div className="flex gap-4">
-        <FormField
-          control={form.control}
-          name="primaryContact.name"
-          defaultValue=''
-          render={({ field }) => (
-            <FormItem className="flex-1">
-              <FormLabel className="font-normal">
-                Name
-                <Required />
-              </FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <TextField name="primaryContact.name" label="Name" required />
 
-        <FormField
-          control={form.control}
-          name="primaryContact.email"
-          defaultValue=''
-          render={({ field }) => (
-            <FormItem className="flex-1">
-              <FormLabel className="font-normal">
-                Email
-                <Required />
-              </FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <TextField name="primaryContact.email" label="Email" required />
       </div>
     </fieldset>
   );
 }
 
 function HostedPortalName() {
-  const form = useFormContext<Partial<Inputs>>();
-
   return (
-    <FormField
-      control={form.control}
+    <TextField
       name="hostedPortalName"
-      defaultValue=''
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel className="text-md font-semibold">
-            2. Hosted portal name
-            <Required />
-          </FormLabel>
-          <FormControl>
-            <Input {...field} />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
+      label={
+        <span className="text-md font-semibold">
+          2. Hosted portal name
+          <Required />
+        </span>
+      }
     />
   );
 }
@@ -209,28 +220,17 @@ function ApplicationType() {
 
 function PublisherDescription() {
   const form = useFormContext<Partial<Inputs>>();
-  const applicationType = form.watch('applicationType');
+  const applicationType = form.watch('applicationType.type');
 
   return (
-    <FormField
-      control={form.control}
-      defaultValue=""
+    <TextField
       name="applicationType.publisherDescription"
-      render={({ field }) => (
-        <FormItem className={cn('pl-6', applicationType?.type === 'Other_type_of_portal' || 'hidden')}>
-          <FormLabel className="font-normal">
-            Publisher description
-            <Required />
-          </FormLabel>
-          <FormDescription>
-            Please describe which data publisher(s) and/or GBIF participants will be involved
-          </FormDescription>
-          <FormControl>
-            <Textarea {...field} />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
+      label="Publisher description"
+      required
+      descriptionPosition="above"
+      description="Please describe which data publisher(s) and/or GBIF participants will be involved"
+      textarea
+      className={cn('pl-6', { hidden: applicationType !== 'Other_type_of_portal' })}
     />
   );
 }
@@ -242,6 +242,7 @@ const PARTICIPANTS_QUERY = /* GraphQL */ `
       results {
         id
         name
+        countryCode
       }
     }
   }
@@ -265,7 +266,6 @@ function ParticipantNode() {
     <FormField
       control={form.control}
       name="applicationType.participantNode"
-      defaultValue=""
       render={({ field }) => (
         <FormItem className={cn('pl-6', applicationType?.type === 'National_portal' || 'hidden')}>
           <FormLabel className="font-normal">
@@ -281,7 +281,18 @@ function ParticipantNode() {
             </DynamicLink>{' '}
             for contact information
           </FormDescription>
-          <Select onValueChange={field.onChange} defaultValue={field.value}>
+          <Select
+            onValueChange={(value) =>
+              field.onChange({
+                name: value,
+                countryCode: data?.participantSearch?.results?.find(
+                  (p) => p != null && p.name === value
+                )?.countryCode,
+              })
+            }
+            value={field.value?.name}
+            defaultValue={field.value?.name}
+          >
             <FormControl>
               <SelectTrigger>
                 <SelectValue placeholder="Click to select" />
@@ -346,146 +357,77 @@ function NodeContact() {
 
 function NodeManager() {
   const form = useFormContext<Partial<Inputs>>();
-  const nodeContactType = form.watch(
-    'nodeContact.type'
-  );
+  const nodeContactType = form.watch('nodeContact.type');
 
   return (
-    <FormField
-      control={form.control}
-      defaultValue=''
+    <TextField
       name="nodeContact.nodeManager"
-      render={({ field }) => (
-        <FormItem
-          className={cn(
-            'pl-6',
-            nodeContactType === 'Node_manager_contacted' || 'hidden'
-          )}
-        >
-          <FormDescription>Please state which Node Manager</FormDescription>
-          <FormControl>
-            <Input {...field} />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
+      className={cn('pl-6', { hidden: nodeContactType !== 'Node_manager_contacted' })}
+      description="Please state which Node Manager"
+      descriptionPosition="above"
     />
   );
 }
 
 function DescriptionOfDataScope() {
-  const form = useFormContext<Partial<Inputs>>();
-
   return (
-    <FormField
-      control={form.control}
-      defaultValue=''
+    <TextField
       name="dataScope"
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel className="text-md font-semibold">
-            5. Description of the data scope for the proposed portal
-            <Required />
-          </FormLabel>
-          <FormDescription>
-            Note that hosted portals can only display occurrence records that are already shared on
-            GBIF.org and organized to the GBIF backbone taxonomy. Briefly describe the scope of the
-            occurrence data that you would like to display on a GBIF hosted portal, including, for
-            example, the geographic, taxonomic and temporal scope or other parameters. Approximately
-            how many datasets and records currently available from GBIF.org meet this scope? Please
-            include links to GBIF.org searches as appropriate.
-          </FormDescription>
-          <FormControl>
-            <Textarea {...field} />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
+      label={
+        <span className="text-md font-semibold">
+          5. Description of the data scope for the proposed portal
+          <Required />
+        </span>
+      }
+      textarea
+      descriptionPosition="above"
+      description="Note that hosted portals can only display occurrence records that are already shared on GBIF.org and organized to the GBIF backbone taxonomy. Briefly describe the scope of the occurrence data that you would like to display on a GBIF hosted portal, including, for example, the geographic, taxonomic and temporal scope or other parameters. Approximately how many datasets and records currently available from GBIF.org meet this scope? Please include links to GBIF.org searches as appropriate."
     />
   );
 }
 
 function UserGroupAndNeeds() {
-  const form = useFormContext<Partial<Inputs>>();
-
   return (
-    <FormField
-      control={form.control}
-      defaultValue=''
+    <TextField
       name="userGroup"
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel className="text-md font-semibold">
-            6. User group and needs
-            <Required />
-          </FormLabel>
-          <FormDescription>
-            Have you identified a group of users for the portal? How would you describe their needs?
-            Please also explain how you have identified the user group and their needs. If the
-            portal is replacing an existing website, please provide a link if available and explain
-            why you think a hosted portal would be a better solution.
-          </FormDescription>
-          <FormControl>
-            <Textarea {...field} />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
+      label={
+        <span className="text-md font-semibold">
+          6. User group and needs
+          <Required />
+        </span>
+      }
+      textarea
+      descriptionPosition="above"
+      description="Have you identified a group of users for the portal? How would you describe their needs? Please also explain how you have identified the user group and their needs. If the portal is replacing an existing website, please provide a link if available and explain why you think a hosted portal would be a better solution."
     />
   );
 }
 
 function Timelines() {
-  const form = useFormContext<Partial<Inputs>>();
-
   return (
-    <FormField
-      control={form.control}
-      defaultValue=''
+    <TextField
       name="timelines"
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel className="text-md font-semibold">7. Timelines</FormLabel>
-          <FormDescription>
-            Are there any timelines you need to keep with regards to the deployment, promotion and
-            ongoing use of the portal?
-          </FormDescription>
-          <FormControl>
-            <Textarea {...field} />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
+      label={<span className="text-md font-semibold">7. Timelines</span>}
+      textarea
+      descriptionPosition="above"
+      description="Are there any timelines you need to keep with regards to the deployment, promotion and ongoing use of the portal?"
     />
   );
 }
 
 function Languages() {
-  const form = useFormContext<Partial<Inputs>>();
-
   return (
-    <FormField
-      defaultValue=''
-      control={form.control}
+    <TextField
       name="languages"
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel className="text-md font-semibold">
-            8. Languages
-            <Required />
-          </FormLabel>
-          <FormDescription>
-            What languages would you like your hosted portal to be available in? Please note that
-            you will need to translate your own content and menu, and may need to contribute
-            translations for common elements such as data search components for languages other than
-            English if they are not already available.
-          </FormDescription>
-          <FormControl>
-            <Textarea {...field} />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
+      label={
+        <span className="text-md font-semibold">
+          7. Languages
+          <Required />
+        </span>
+      }
+      textarea
+      descriptionPosition="above"
+      description="What languages would you like your hosted portal to be available in? Please note that you will need to translate your own content and menu, and may need to contribute translations for common elements such as data search components for languages other than English if they are not already available."
     />
   );
 }
@@ -533,31 +475,15 @@ function ExperienceLevel() {
 }
 
 function Terms() {
-  const form = useFormContext<Partial<Inputs>>();
-
   return (
     <div className="space-y-3">
       <span className="text-md font-semibold">
         Terms
         <Required />
       </span>
-      <FormField
-        control={form.control}
+      <CheckboxField
         name="termsAccepted"
-        render={({ field }) => (
-          <FormItem >
-            <div className="flex flex-row items-start space-x-3 space-y-0">
-              <FormControl>
-                <Checkbox checked={field.value} onCheckedChange={field.onChange} />
-              </FormControl>
-              <FormLabel className="font-normal leading-4">
-                I have read the service agreement and data processor agreement and I accept these
-                terms and conditions for the hosted portal I plan to launch.
-              </FormLabel>
-            </div>
-            <FormMessage />
-          </FormItem>
-        )}
+        label="I have read the service agreement and data processor agreement and I accept these terms and conditions for the hosted portal I plan to launch."
       />
     </div>
   );
@@ -574,74 +500,4 @@ function SubmitButton() {
       Submit
     </Button>
   );
-}
-
-type RadioItemProps = {
-  value: string;
-  label: React.ReactNode;
-};
-
-function RadioItem({ value, label }: RadioItemProps) {
-  return (
-    <FormItem className="flex items-center space-x-3 space-y-0">
-      <FormControl>
-        <RadioGroupItem value={value} />
-      </FormControl>
-      <FormLabel className="font-normal">{label}</FormLabel>
-    </FormItem>
-  );
-}
-
-function Required() {
-  return <span>*</span>;
-}
-
-function createMarkdown(data: Inputs) {
-  const humanReadable = (value: string) => value.replace(/_/g, " ");
-
-  return `
-    ## ${data.hostedPortalName}
-
-    Contact name: ${data.primaryContact.name}
-    Contact email: [${data.primaryContact.email}](mailto:${data.primaryContact.email})
-
-    **Application type**
-    *Type*: ${humanReadable(data.applicationType.type)}
-
-    *Involved parties*: ${data.applicationType.type === 'National_portal' ? data.applicationType.participantNode : data.applicationType.publisherDescription}
-
-    *Node contact*: ${data.nodeContact.type === 'Node_manager_contacted' ? `${data.nodeContact.nodeManager} - ` : ''}${humanReadable(data.nodeContact.type)}
-
-    **Data scope**
-    ${data.dataScope}
-
-    **User group**
-    ${data.userGroup}
-
-    **Timelines**
-    ${data.timelines ?? 'Not specified'}
-
-    **Languages**
-    ${data.languages}
-
-    **Experience**
-    ${humanReadable(data.experience)}
-
-    **Portal name**
-    ${data.hostedPortalName}
-
-    **Status of application**
-    * [ ] The node manager has been contacted
-    * [ ] Data scope clearly defined
-    * [ ] User group - the community seems well defined
-    * [ ] Any GrSciColl issues has been addressed
-
-  <details>
-  <summary>JSON details</summary>
-
-  \`\`\`json
-  ${JSON.stringify(data, null, 2)}
-  \`\`\`
-  </details>
-  `;
 }

@@ -85,6 +85,11 @@ export function HomePage(): React.ReactElement {
                   Document test page
                 </DynamicLink>
               </li>
+              <li>
+                <DynamicLink className="me-4" to="/composition/7zgSnALNuD1OvzanAUPG4z/hosted-portals-application-form">
+                  Hosted portals application form
+                </DynamicLink>
+              </li>
             </ul>
           </section>
         </div>

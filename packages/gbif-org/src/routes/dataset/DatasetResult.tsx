@@ -25,8 +25,14 @@ export function DatasetResult({ dataset }: { dataset: DatasetResultFragment }) {
           <h3 className="text-base font-semibold mb-2">
             <DynamicLink to={`/dataset/${dataset.key}`}>{dataset.title}</DynamicLink>
           </h3>
-          {dataset.excerpt && <p className="font-normal text-slate-500 text-sm">{dataset.excerpt}</p>}
-          {!dataset.excerpt && <p className="font-normal text-slate-400 text-sm"><FormattedMessage id="phrases.noDescriptionProvided" /></p>}
+          {dataset.excerpt && (
+            <p className="font-normal text-slate-500 text-sm">{dataset.excerpt}</p>
+          )}
+          {!dataset.excerpt && (
+            <p className="font-normal text-slate-400 text-sm">
+              <FormattedMessage id="phrases.noDescriptionProvided" />
+            </p>
+          )}
 
           {/* <p className="font-normal text-slate-500 text-sm mt-2">Publisher by <span>{dataset.publishingOrganizationTitle}</span></p> */}
         </div>
@@ -77,12 +83,14 @@ export function CountTag({
   const { count } = getCount({ v1Endpoint, params, property });
 
   if (typeof count === 'number' && count > 1) {
-    return <Tag>
-    <FormattedMessage id={message} values={{ total: count }} />
-  </Tag>
+    return (
+      <Tag>
+        <FormattedMessage id={message} values={{ total: count }} />
+      </Tag>
+    );
   }
 
-  return false
+  return false;
 }
 
 function Tag({ children }: { children: React.ReactNode }) {
