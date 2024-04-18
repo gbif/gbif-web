@@ -32,7 +32,7 @@ export default function Properties({
     css += '[&>dd]:mb-6 [&>dt]:mb-1 group is-vertical group-[.is-vertical]:ml-2';
   }
   return (
-    <dl className={cn(`max-w-full w-max ${css}`, className)} {...props}>
+    <dl className={cn(`max-w-full ${css}`, className)} {...props}>
       {children}
     </dl>
   );

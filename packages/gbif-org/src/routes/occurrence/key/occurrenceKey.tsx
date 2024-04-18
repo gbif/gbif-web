@@ -1,7 +1,13 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { LoaderArgs } from '@/types';
-import { OccurrenceIssue, OccurrenceQuery, OccurrenceQueryVariables } from '@/gql/graphql';
+import {
+  OccurrenceMediaDetailsFragment,
+  OccurrenceIssue,
+  OccurrenceQuery,
+  OccurrenceQueryVariables,
+  Term,
+} from '@/gql/graphql';
 import { DynamicLink } from '@/components/dynamicLink';
 import { required } from '@/utils/required';
 import { Outlet, useLoaderData } from 'react-router-dom';
@@ -17,8 +23,17 @@ import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleto
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { BsLightningFill } from 'react-icons/bs';
 import { Tabs } from '@/components/tabs';
-import { FeatureList, TaxonClassification, GadmClassification, PeopleIcon, GenericFeature, SamplingEvent, TypeStatus } from '@/components/highlights';
+import {
+  FeatureList,
+  TaxonClassification,
+  GadmClassification,
+  PeopleIcon,
+  GenericFeature,
+  SamplingEvent,
+  TypeStatus,
+} from '@/components/highlights';
 import { BulletList } from '@/components/BulletList';
+import { fragmentManager } from '@/services/fragmentManager';
 const Map = React.lazy(() => import('@/components/map'));
 
 const OCCURRENCE_QUERY = /* GraphQL */ `
@@ -113,40 +128,13 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
       movingImageCount
       soundCount
       stillImages {
-        type
-        format
-        identifier
-        created
-        creator
-        license
-        publisher
-        references
-        rightsHolder
-        description
+        ...OccurrenceMediaDetails
       }
       sounds {
-        type
-        format
-        identifier
-        created
-        creator
-        license
-        publisher
-        references
-        rightsHolder
-        description
+        ...OccurrenceMediaDetails
       }
       movingImages {
-        type
-        format
-        identifier
-        created
-        creator
-        license
-        publisher
-        references
-        rightsHolder
-        description
+        ...OccurrenceMediaDetails
       }
 
       gbifClassification {
@@ -203,6 +191,21 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
   }
 `;
 
+fragmentManager.register(/* GraphQL */ `
+  fragment OccurrenceMediaDetails on MultimediaItem {
+    type
+    format
+    identifier
+    created
+    creator
+    license
+    publisher
+    references
+    rightsHolder
+    description
+  }
+`);
+
 export function occurrenceKeyLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key was provided in the URL');
 
@@ -211,19 +214,22 @@ export function occurrenceKeyLoader({ params, graphql }: LoaderArgs) {
 
 export function OccurrenceKey() {
   const { data } = useLoaderData() as { data: OccurrenceQuery };
-
   if (data.occurrence == null) throw new Error('404');
   const occurrence = data.occurrence;
 
   const { terms } = occurrence;
-  const termMap =
-    terms?.reduce((map: { [key: string]: any }, term) => {
+  const termMap: { [key: string]: Term } =
+    terms?.reduce((map: { [key: string]: Term }, term) => {
       if (term?.simpleName) map[term.simpleName] = term;
       return map;
     }, {}) ?? {};
 
-    const recorderAndIndentiferIsDifferent = JSON.stringify(termMap?.recordedBy?.value) !== JSON.stringify(termMap?.identifiedBy?.value);
+  const recorderAndIndentiferIsDifferent =
+    JSON.stringify(termMap?.recordedBy?.value) !== JSON.stringify(termMap?.identifiedBy?.value);
 
+  if (data?.occurrence?.stillImages?.[0]) {
+    const test: OccurrenceMediaDetailsFragment = data?.occurrence?.stillImages?.[0];
+  }
   return (
     <>
       <Helmet>
@@ -300,21 +306,57 @@ export function OccurrenceKey() {
 
                     <GadmClassification className="flex mb-1" gadm={occurrence.gadm} />
 
-                    {(termMap.recordedBy || termMap.identifiedBy) && <GenericFeature className="flex mb-1">
-                      <PeopleIcon />
-                      {recorderAndIndentiferIsDifferent && <div>
-                        {termMap?.recordedBy?.value?.length > 0 && <div><span>Recorded by</span> <BulletList className="inline">{termMap.recordedBy.value.map(x => <li className="inline" key={x}>{x}</li>)}</BulletList></div>}
-                        {termMap?.identifiedBy?.value?.length > 0 && <div style={{ marginTop: 4 }}><span>Identified by</span> <BulletList className="inline">{termMap.identifiedBy.value.map(x => <li key={x} className="inline">{x}</li>)}</BulletList></div>}
-                      </div>}
-                      {!recorderAndIndentiferIsDifferent && <div>
-                        <BulletList className="inline">{termMap.recordedBy.value.map(x => <li key={x} className="inline">{x}</li>)}</BulletList>
-                      </div>}
-                    </GenericFeature>}
+                    {(termMap.recordedBy || termMap.identifiedBy) && (
+                      <GenericFeature className="flex mb-1">
+                        <PeopleIcon />
+                        {recorderAndIndentiferIsDifferent && (
+                          <div>
+                            {termMap?.recordedBy?.value?.length > 0 && (
+                              <div>
+                                <span>Recorded by</span>{' '}
+                                <BulletList className="inline">
+                                  {termMap.recordedBy.value.map((x) => (
+                                    <li className="inline" key={x}>
+                                      {x}
+                                    </li>
+                                  ))}
+                                </BulletList>
+                              </div>
+                            )}
+                            {termMap?.identifiedBy?.value?.length > 0 && (
+                              <div style={{ marginTop: 4 }}>
+                                <span>Identified by</span>{' '}
+                                <BulletList className="inline">
+                                  {termMap.identifiedBy.value.map((x) => (
+                                    <li key={x} className="inline">
+                                      {x}
+                                    </li>
+                                  ))}
+                                </BulletList>
+                              </div>
+                            )}
+                          </div>
+                        )}
+                        {!recorderAndIndentiferIsDifferent && (
+                          <div>
+                            <BulletList className="inline">
+                              {termMap.recordedBy.value.map((x) => (
+                                <li key={x} className="inline">
+                                  {x}
+                                </li>
+                              ))}
+                            </BulletList>
+                          </div>
+                        )}
+                      </GenericFeature>
+                    )}
                   </div>
-                  
+
                   <FeatureList className="mt-2">
                     {occurrence.volatile?.features?.isSamplingEvent && <SamplingEvent />}
-                    {occurrence.typeStatus?.length > 0 && <TypeStatus types={occurrence.typeStatus} />}
+                    {occurrence.typeStatus?.length > 0 && (
+                      <TypeStatus types={occurrence.typeStatus} />
+                    )}
                   </FeatureList>
                 </HeaderInfoMain>
               </HeaderInfo>
@@ -331,7 +373,7 @@ export function OccurrenceKey() {
           />
         </ArticleTextContainer>
       </ArticleContainer>
-      
+
       <Outlet />
     </>
   );

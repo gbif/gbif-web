@@ -12,9 +12,11 @@ import {
 import { FormattedMessage } from 'react-intl';
 import Properties from '@/components/Properties';
 import { RenderIfChildren } from '@/components/renderIfChildren';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { GadmClassification, TaxonClassification } from '@/components/classification';
 import { DynamicLink } from '@/components/dynamicLink';
+import { Media } from './media';
+import { OccurrenceQuery, Term } from '@/gql/graphql';
 
 const Map = React.lazy(() => import('@/components/map'));
 
@@ -24,13 +26,13 @@ export function Groups({
   updateToc,
   termMap,
 }: {
-  occurrence: any;
+  occurrence: OccurrenceQuery['occurrence'];
   showAll: boolean;
   updateToc?: (id: string) => void;
-  termMap: any;
+  termMap: { [key: string]: Term }
 }) {
   return (
-    <>
+    <div style={{wordBreak: 'break-word'}}>
       <MediaSummary {...{ updateToc, showAll, termMap, occurrence }} />
       {/*<SequenceTeaser       {...{ updateToc, showAll, termMap, occurrence, setActiveImage }} />*/}
       <Summary {...{ updateToc, showAll, termMap, occurrence }} />
@@ -45,6 +47,7 @@ export function Groups({
       <GeologicalContext {...{ updateToc, showAll, termMap, occurrence }} />
       <Identification {...{ updateToc, showAll, termMap, occurrence }} />
       <Other {...{ updateToc, showAll, termMap, occurrence }} />
+      <Media occurrence={occurrence} termMap={termMap} />
       {/* <Preparation          {...{ updateToc, showAll, termMap, occurrence }} />
       <ResourceRelationship {...{ updateToc, showAll, termMap, occurrence }} />
       <Amplification        {...{ updateToc, showAll, termMap, occurrence }} />
@@ -58,7 +61,7 @@ export function Groups({
       <GelImage             {...{ updateToc, showAll, termMap, occurrence }} />*/}
 
       <Citation {...{ updateToc, showAll, termMap, occurrence }} />
-    </>
+    </div>
   );
 }
 
@@ -94,7 +97,7 @@ function PropGroup({
   children: React.ReactNode;
 }) {
   return (
-    <Group label={label} id={label}>
+    <Group label={label} id={id}>
       <Properties breakpoint={800} className="[&>dt]:w-52">
         {children}
       </Properties>
@@ -554,7 +557,7 @@ function Other({
       <PlainTextField term={termMap.conformsTo} showDetails={showAll} />
       <PlainTextField term={termMap.contributor} showDetails={showAll} />
       <PlainTextField term={termMap.coverage} showDetails={showAll} />
-      <PlainTextField term={termMap.created} showDetails={showAll} />
+      {/* <PlainTextField term={termMap.created} showDetails={showAll} /> */}
       <PlainTextField term={termMap.creator} showDetails={showAll} />
       <PlainTextField term={termMap.date} showDetails={showAll} />
       <PlainTextField term={termMap.dateAccepted} showDetails={showAll} />
@@ -610,8 +613,7 @@ function MediaSummary({
   termMap: any;
   occurrence: any;
 }) {
-  const [activeImage, setActiveImage] = useState(0);
-  // const [view, setView] = useState(occurrence.stillImages.length > 0 ? 'IMAGE' : 'MAP');
+  const [activeImage, setActiveImage] = useState(0); // the idea with this is that down the line we can link from the gallery to open on a specific image. Or add a carousel
 
   const hasVideo = occurrence?.movingImageCount > 0;
   const hasPlayableVideo =

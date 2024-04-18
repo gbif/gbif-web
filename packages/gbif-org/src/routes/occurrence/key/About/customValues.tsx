@@ -1,7 +1,7 @@
 import React from 'react';
 import { PlainTextField, HtmlField, BasicField, CustomValueField } from '../properties';
 import { FormattedDate, FormattedMessage } from 'react-intl';
-import Properties, { Term as T, Value as V } from "@/components/properties";
+import Properties, { Term as T, Value as V } from "@/components/Properties";
 import { DynamicLink } from '@/components/dynamicLink';
 import equal from 'fast-deep-equal/react';
 
