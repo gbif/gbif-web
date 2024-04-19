@@ -232,6 +232,14 @@ export default {
         lon: decimalLongitude,
       });
     },
+    acceptedTaxon: ({ acceptedTaxonKey }, _args, { dataSources }) => {
+      if (!acceptedTaxonKey) return null;
+      return dataSources.taxonAPI.getTaxonByKey({ key: acceptedTaxonKey });
+    },
+    taxon: ({ taxonKey }, _args, { dataSources }) => {
+      if (!taxonKey) return null;
+      return dataSources.taxonAPI.getTaxonByKey({ key: taxonKey });
+    },
     volatile: (occurrence) => occurrence,
     related: ({ key }, { from = 0, size = 20 }, { dataSources }) => {
       return dataSources.occurrenceAPI.getRelated({ key }).then((response) => {

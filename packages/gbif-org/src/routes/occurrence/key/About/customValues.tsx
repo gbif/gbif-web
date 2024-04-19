@@ -18,16 +18,14 @@ export function Institution({ termMap, showAll, occurrence }) {
         defaultMessage={"Institution"}
       />
     </T>
-    <div>
-      <V>
-        <Properties horizontal={false}>
-          <InstitutionKey {...{ occurrence }} />
-          <PlainTextField term={termMap.institutionCode} showDetails={showAll} />
-          <HtmlField term={termMap.institutionID} showDetails={showAll} />
-          <PlainTextField term={termMap.ownerInstitutionCode} showDetails={showAll} />
-        </Properties>
-      </V>
-    </div>
+    <V>
+      <Properties horizontal={false}>
+        <InstitutionKey {...{ occurrence }} />
+        <PlainTextField term={termMap.institutionCode} showDetails={showAll} />
+        <HtmlField term={termMap.institutionID} showDetails={showAll} />
+        <PlainTextField term={termMap.ownerInstitutionCode} showDetails={showAll} />
+      </Properties>
+    </V>
   </>
 }
 
@@ -43,15 +41,13 @@ export function Collection({ termMap, showAll, occurrence }) {
         defaultMessage={"Collection"}
       />
     </T>
-    <div>
-      <V>
-        <Properties horizontal={false}>
-          <CollectionKey {...{ occurrence }} />
-          <PlainTextField term={termMap.collectionCode} showDetails={showAll} />
-          <HtmlField term={termMap.collectionID} showDetails={showAll} />
-        </Properties>
-      </V>
-    </div>
+    <V>
+      <Properties horizontal={false}>
+        <CollectionKey {...{ occurrence }} />
+        <PlainTextField term={termMap.collectionCode} showDetails={showAll} />
+        <HtmlField term={termMap.collectionID} showDetails={showAll} />
+      </Properties>
+    </V>
   </>
 }
 

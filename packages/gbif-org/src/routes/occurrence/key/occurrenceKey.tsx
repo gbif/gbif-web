@@ -8,7 +8,6 @@ import {
   OccurrenceQueryVariables,
   Term,
 } from '@/gql/graphql';
-import { DynamicLink } from '@/components/dynamicLink';
 import { required } from '@/utils/required';
 import { Outlet, useLoaderData } from 'react-router-dom';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
@@ -31,20 +30,27 @@ import {
   GenericFeature,
   SamplingEvent,
   TypeStatus,
+  Location,
+  Homepage,
 } from '@/components/highlights';
 import { BulletList } from '@/components/BulletList';
 import { fragmentManager } from '@/services/fragmentManager';
 const Map = React.lazy(() => import('@/components/map'));
 
 const OCCURRENCE_QUERY = /* GraphQL */ `
-  query Occurrence($key: ID!) {
+  query Occurrence($key: ID!, $language: String!) {
     occurrence(key: $key) {
       key
       coordinates
+      organismName
+      lastCrawled
       countryCode
+      stateProvince
       eventDate
       typeStatus
+      references
       issues
+      basisOfRecord
       institution {
         name
         key
@@ -174,12 +180,7 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
       }
 
       terms {
-        simpleName
-        verbatim
-        value
-        htmlValue
-        remarks
-        issues
+        ...OccurrenceTerm
       }
 
       scientificName
@@ -187,12 +188,22 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
         key
         title
       }
+
+      acceptedTaxon {
+        vernacularNames(limit: 1, language: $language) {
+          results {
+            vernacularName
+            source
+          }
+        }
+      }
     }
   }
 `;
 
 fragmentManager.register(/* GraphQL */ `
   fragment OccurrenceMediaDetails on MultimediaItem {
+    title
     type
     format
     identifier
@@ -206,10 +217,21 @@ fragmentManager.register(/* GraphQL */ `
   }
 `);
 
+fragmentManager.register(/* GraphQL */ `
+  fragment OccurrenceTerm on Term {
+    simpleName
+    verbatim
+    value
+    htmlValue
+    remarks
+    issues
+  }
+`);
+
 export function occurrenceKeyLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key was provided in the URL');
 
-  return graphql.query<OccurrenceQuery, OccurrenceQueryVariables>(OCCURRENCE_QUERY, { key });
+  return graphql.query<OccurrenceQuery, OccurrenceQueryVariables>(OCCURRENCE_QUERY, { key, language: 'eng'});
 }
 
 export function OccurrenceKey() {
@@ -230,6 +252,8 @@ export function OccurrenceKey() {
   if (data?.occurrence?.stillImages?.[0]) {
     const test: OccurrenceMediaDetailsFragment = data?.occurrence?.stillImages?.[0];
   }
+
+  const vernacularName = occurrence?.acceptedTaxon?.vernacularNames?.results?.[0]?.vernacularName;
   return (
     <>
       <Helmet>
@@ -260,8 +284,9 @@ export function OccurrenceKey() {
                 dangerouslySetTitle={{ __html: occurrence.scientificName || 'No title provided' }}
               ></ArticleTitle> */}
               <ArticleTitle className="lg:text-3xl">
-                {!occurrence?.issues?.includes(OccurrenceIssue.TaxonMatchHigherrank) && (
+                {!occurrence?.issues?.includes(OccurrenceIssue.TaxonMatchHigherrank) && (<>
                   <span
+                    className="me-4"
                     dangerouslySetInnerHTML={{
                       __html:
                         occurrence?.gbifClassification?.usage?.formattedName ??
@@ -269,6 +294,8 @@ export function OccurrenceKey() {
                         'No title provided',
                     }}
                   />
+                  {vernacularName && <span className="text-slate-300 inline-block" style={{fontSize: '85%'}}>{vernacularName}</span>}
+                  </>
                 )}
                 {occurrence?.issues?.includes(OccurrenceIssue.TaxonMatchHigherrank) && (
                   <>
@@ -295,18 +322,20 @@ export function OccurrenceKey() {
                   </>
                 )}
               </ArticleTitle>
+              {occurrence.organismName && <h2>Organism name: {occurrence.organismName}</h2>}
               <HeaderInfo>
                 <HeaderInfoMain>
                   <div>
-                    <TaxonClassification
+                    {occurrence.gbifClassification?.classification && <TaxonClassification
                       className="flex mb-1"
                       majorOnly
                       classification={occurrence.gbifClassification?.classification}
-                    />
+                    />}
 
-                    <GadmClassification className="flex mb-1" gadm={occurrence.gadm} />
+                    {occurrence.gadm?.level1 && <GadmClassification className="flex mb-1" gadm={occurrence.gadm} />}
+                    {!occurrence?.gadm?.level1 && occurrence.countryCode && <Location countryCode={occurrence.countryCode} city={occurrence.stateProvince} />}
 
-                    {(termMap.recordedBy || termMap.identifiedBy) && (
+                    {(termMap.recordedBy?.verbatim || termMap.identifiedBy?.verbatim) && (
                       <GenericFeature className="flex mb-1">
                         <PeopleIcon />
                         {recorderAndIndentiferIsDifferent && (
@@ -315,7 +344,7 @@ export function OccurrenceKey() {
                               <div>
                                 <span>Recorded by</span>{' '}
                                 <BulletList className="inline">
-                                  {termMap.recordedBy.value.map((x) => (
+                                  {termMap.recordedBy.value.map((x: string) => (
                                     <li className="inline" key={x}>
                                       {x}
                                     </li>
@@ -327,7 +356,7 @@ export function OccurrenceKey() {
                               <div style={{ marginTop: 4 }}>
                                 <span>Identified by</span>{' '}
                                 <BulletList className="inline">
-                                  {termMap.identifiedBy.value.map((x) => (
+                                  {termMap.identifiedBy.value.map((x: string) => (
                                     <li key={x} className="inline">
                                       {x}
                                     </li>
@@ -337,10 +366,10 @@ export function OccurrenceKey() {
                             )}
                           </div>
                         )}
-                        {!recorderAndIndentiferIsDifferent && (
+                        {!recorderAndIndentiferIsDifferent && termMap?.recordedBy?.verbatim && (
                           <div>
                             <BulletList className="inline">
-                              {termMap.recordedBy.value.map((x) => (
+                              {termMap.recordedBy.value.map((x: string) => (
                                 <li key={x} className="inline">
                                   {x}
                                 </li>
@@ -354,9 +383,10 @@ export function OccurrenceKey() {
 
                   <FeatureList className="mt-2">
                     {occurrence.volatile?.features?.isSamplingEvent && <SamplingEvent />}
-                    {occurrence.typeStatus?.length > 0 && (
+                    {occurrence.typeStatus && occurrence.typeStatus?.length > 0 && (
                       <TypeStatus types={occurrence.typeStatus} />
                     )}
+                    {occurrence?.references && <Homepage url={occurrence?.references} />}
                   </FeatureList>
                 </HeaderInfoMain>
               </HeaderInfo>
@@ -366,7 +396,7 @@ export function OccurrenceKey() {
           <Tabs
             links={[
               { to: '.', children: 'Overview' },
-              { to: 'media', children: 'Media' },
+              // { to: 'media', children: 'Media' },
               { to: 'related', children: 'Related' },
               // { to: 'citations', children: 'Citations' },
             ]}

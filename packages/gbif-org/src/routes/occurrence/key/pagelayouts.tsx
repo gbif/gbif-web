@@ -1,4 +1,3 @@
-import { Card } from '@/components/ui/largeCard';
 import { cn } from '@/utils/shadcn';
 import { HTMLAttributes, ReactNode } from 'react';
 

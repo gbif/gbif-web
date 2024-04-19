@@ -25,12 +25,12 @@ export function TaxonClassification({
   majorOnly,
   className,
 }: {
-  classification: { rank: string; name?: string }[];
+  classification: { rank?: string | null; name?: string | null }[];
   majorOnly?: boolean;
   className?: string;
 }) {
   const classificationFiltered = majorOnly
-    ? classification.filter((c) => majorRanks.includes(c.rank) && c.name)
+    ? classification.filter((c) => c.rank && majorRanks.includes(c.rank) && c.name)
     : classification;
   return (
     <Classification className={className}>

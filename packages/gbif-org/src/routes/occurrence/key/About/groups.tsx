@@ -17,6 +17,8 @@ import { GadmClassification, TaxonClassification } from '@/components/classifica
 import { DynamicLink } from '@/components/dynamicLink';
 import { Media } from './media';
 import { OccurrenceQuery, Term } from '@/gql/graphql';
+import { BulletList } from '@/components/BulletList';
+import { Amplification, Audubon, Cloning, DNADerivedData, GelImage, Loan, MaterialSampleExt, Permit, Preparation, Preservation, ResourceRelationship } from './extensions';
 
 const Map = React.lazy(() => import('@/components/map'));
 
@@ -29,13 +31,16 @@ export function Groups({
   occurrence: OccurrenceQuery['occurrence'];
   showAll: boolean;
   updateToc?: (id: string) => void;
-  termMap: { [key: string]: Term }
+  termMap: { [key: string]: Term };
 }) {
+  if (!occurrence) return null;
   return (
-    <div style={{wordBreak: 'break-word'}}>
+    <div style={{ wordBreak: 'break-word' }}>
       <MediaSummary {...{ updateToc, showAll, termMap, occurrence }} />
       {/*<SequenceTeaser       {...{ updateToc, showAll, termMap, occurrence, setActiveImage }} />*/}
-      <Summary {...{ updateToc, showAll, termMap, occurrence }} />
+      {/* <Summary {...{ updateToc, showAll, termMap, occurrence }} /> */}
+
+      <Provenance {...{ updateToc, showAll, termMap, occurrence }} />
 
       <Record {...{ showAll, termMap, occurrence, updateToc }} />
       <Taxon {...{ updateToc, showAll, termMap, occurrence }} />
@@ -47,8 +52,10 @@ export function Groups({
       <GeologicalContext {...{ updateToc, showAll, termMap, occurrence }} />
       <Identification {...{ updateToc, showAll, termMap, occurrence }} />
       <Other {...{ updateToc, showAll, termMap, occurrence }} />
+      
       <Media occurrence={occurrence} termMap={termMap} />
-      {/* <Preparation          {...{ updateToc, showAll, termMap, occurrence }} />
+
+      <Preparation          {...{ updateToc, showAll, termMap, occurrence }} />
       <ResourceRelationship {...{ updateToc, showAll, termMap, occurrence }} />
       <Amplification        {...{ updateToc, showAll, termMap, occurrence }} />
       <Permit               {...{ updateToc, showAll, termMap, occurrence }} />
@@ -58,9 +65,10 @@ export function Groups({
       <Audubon              {...{ updateToc, showAll, termMap, occurrence }} />
       <DNADerivedData       {...{ updateToc, showAll, termMap, occurrence }} />
       <Cloning              {...{ updateToc, showAll, termMap, occurrence }} />
-      <GelImage             {...{ updateToc, showAll, termMap, occurrence }} />*/}
+      <GelImage             {...{ updateToc, showAll, termMap, occurrence }} />
 
       <Citation {...{ updateToc, showAll, termMap, occurrence }} />
+      <Debug {...{ updateToc, showAll, termMap, occurrence }} />
     </div>
   );
 }
@@ -82,7 +90,7 @@ export function Group({
           <FormattedMessage id={label} />
         </CardTitle>
       </CardHeader>
-      <CardContent>{children}</CardContent>
+      <CardContent {...props}>{children}</CardContent>
     </Card>
   );
 }
@@ -148,6 +156,26 @@ function Summary({
       {/* <PlainTextField term={termMap.recordedBy} showDetails={showAll} /> */}
       <AgentIds {...{ showAll, termMap, occurrence }} />
     </RenderIfChildren>
+  );
+}
+
+function Provenance({
+  showAll,
+  termMap,
+  occurrence,
+}: {
+  showAll: boolean;
+  termMap: any;
+  occurrence: any;
+}) {
+  return (
+    <Card className="mb-4 bg-slate-300 text-slate-600">
+      <CardContent className="py-4 md:py-4">
+        The GBIF network provides centralized access to more than 100.000 datasets and 3 billion
+        species occurrences. This record is part of the dataset{' '}
+        <span className="underline"><DynamicLink to={`/dataset/${occurrence.datasetKey}`}>{occurrence.datasetTitle}</DynamicLink></span>.
+      </CardContent>
+    </Card>
   );
 }
 
@@ -334,10 +362,13 @@ function Location({
           )}
         </Properties>
 
-        {occurrence.coordinates && (
+        {occurrence.coordinates.lon && (
           <div className="ms-4 flex-auto w-1/2">
             <React.Suspense fallback={<div>Loading map...</div>}>
-              <Map coordinates={occurrence.coordinates} className="w-full rounded overflow-hidden"/>
+              <Map
+                coordinates={occurrence.coordinates}
+                className="w-full rounded overflow-hidden"
+              />
             </React.Suspense>
           </div>
         )}
@@ -620,9 +651,19 @@ function MediaSummary({
     hasVideo && ['video/mp4', 'video/ogg'].includes(occurrence?.movingImages[0].format);
   if (!(occurrence.stillImageCount > 0) && !hasPlayableVideo) return null;
 
+  const hasMore =
+    occurrence.stillImageCount + occurrence.movingImageCount > 1 || occurrence?.soundCount > 0;
   return (
     <Card className="mb-4">
       <div style={{ position: 'relative', background: '#eee' }}>
+        {hasMore && (
+          <a
+            href="#media"
+            className="absolute top-0 end-0 m-2 bg-neutral-800 rounded text-slate-100 px-2 py-1"
+          >
+            See all
+          </a>
+        )}
         {hasPlayableVideo && occurrence?.movingImages[0] && (
           <video
             controls
@@ -647,14 +688,53 @@ function MediaSummary({
   );
 }
 
-function Citation({ occurrence }) {
+function Citation({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
+  if (!occurrence) return null;
   return (
     <Group label="phrases.citation" id="citation">
       <Properties breakpoint={800} className="[&>dt]:w-52">
         <BasicField label="phrases.citeAs">
-          {occurrence.dataset.citation.text} https://gbif.org/occurrence/{occurrence.key}
+          {occurrence?.dataset?.citation?.text} https://gbif.org/occurrence/{occurrence.key}
         </BasicField>
       </Properties>
     </Group>
+  );
+}
+
+function Debug({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
+  if (!occurrence) return null;
+  return (
+    <div className="mb-4 text-sm scroll-mt-24" id="provenance">
+      <CardContent>
+        <Properties breakpoint={800} className="[&>dt]:w-52">
+          <BasicField label="API access">
+            <BulletList>
+              <li>
+                <a href={`https://api.gbif.org/v1/occurrence/${occurrence.key}`}>Processed</a>
+              </li>
+              <li>
+                <a href={`https://api.gbif.org/v1/occurrence/${occurrence.key}/fragment`}>
+                  Fragment
+                </a>
+              </li>
+            </BulletList>
+          </BasicField>
+          <BasicField label="occurrenceDetails.dataset">
+            <DynamicLink to={`/dataset/${occurrence.datasetKey}`}>
+              {occurrence.datasetTitle}
+            </DynamicLink>
+          </BasicField>
+
+          <BasicField label="occurrenceFieldNames.publisher">
+            <DynamicLink to={`/publisher/${occurrence.publishingOrgKey}`}>
+              {occurrence.publisherTitle}
+            </DynamicLink>
+          </BasicField>
+          <BasicField label="Last crawled">
+            {occurrence?.lastCrawled}
+          </BasicField>
+        </Properties>
+      </CardContent>
+    </div>
   );
 }

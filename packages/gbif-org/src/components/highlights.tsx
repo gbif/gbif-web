@@ -107,7 +107,7 @@ export function TaxonClassification({
   majorOnly,
   className,
 }: {
-  classification: { rank: string; name?: string }[];
+  classification: { rank?: string | null; name?: string | null }[];
   majorOnly?: boolean;
   className?: string;
 }) {

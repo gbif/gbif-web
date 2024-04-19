@@ -27,9 +27,9 @@ export default function Properties({
 
   let css = '';
   if (isHorizontal) {
-    css += 'grid gap-x-4 grid-cols-[auto_1fr] [&>*]:mb-3 group';
+    css += `grid gap-x-4 grid-cols-[auto_1fr] ${dense ? '[&>*]:mb-2' : '[&>*]:mb-3'} group [&_dl_dt]:text-slate-600`;
   } else {
-    css += '[&>dd]:mb-6 [&>dt]:mb-1 group is-vertical group-[.is-vertical]:ml-2';
+    css += '[&>dd]:mb-4 [&>dt]:mb-1 group is-vertical group-[.is-vertical]:ml-2 [&_dl_dt]:text-slate-600';
   }
   return (
     <dl className={cn(`max-w-full ${css}`, className)} {...props}>
@@ -49,7 +49,7 @@ export function Term({
   return (
     <dt
       className={cn(
-        'peer hover:bg-gray-50 max-w-52 leading-tight break-words group-[.is-vertical]:font-semibold',
+        'peer max-w-52 leading-tight break-words group-[.is-vertical]:font-semibold last-of-type:mb-0',
         className
       )}
       {...props}
@@ -68,7 +68,7 @@ export function Value({
 } & React.HTMLAttributes<HTMLDivElement>) {
   // what is the correct type here, I cannot see dd as a type
   return (
-    <dd className={cn('[:hover_+_&]:bg-gray-50 leading-tight [&_a]:underline', className)} {...props}>
+    <dd className={cn('leading-tight [&_a]:underline last-of-type:mb-0', className)} {...props}>
       {children}
     </dd>
   );

@@ -1,5 +1,3 @@
-import React, { useContext, useState } from 'react';
-import { FormattedMessage } from 'react-intl';
 import { RiExternalLinkLine } from 'react-icons/ri';
 import { MdFileDownload } from 'react-icons/md';
 import Properties, { Term as T, Value as V } from '@/components/Properties';
@@ -14,7 +12,7 @@ const supportedFormats = [
   'audio/wav',
   'audio/mp3',
   'audio/mp4',
-];
+] as const;
 
 export function Media({
   occurrence,
@@ -31,13 +29,14 @@ export function Media({
   className?: string;
 }) {
   if (loading || !occurrence) return <h2>Loading</h2>; //TODO replace with proper skeleton loader
-
+  if (occurrence.stillImageCount === 0 && occurrence.soundCount === 0 && occurrence.movingImageCount === 0) return null;
+  
   return (
-    <div className="mb-4">
+    <div className="mb-4 scroll-mt-24" id="media">
       <CardHeader>
         <CardTitle>Media</CardTitle>
       </CardHeader>
-      <ul className="grid grid-cols-2 gap-4">
+      <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Sounds {...{ occurrence, termMap }} />
         <MovingImages {...{ occurrence, termMap }} />
         <Images occurrence={occurrence} />
@@ -50,10 +49,10 @@ function Images({ occurrence, ...props }: { occurrence: OccurrenceQuery['occurre
   if (!occurrence) return null;
   return (
     <>
-      {occurrence.stillImages?.map((media: OccurrenceMediaDetailsFragment | null) => (
-        <li>
+      {occurrence.stillImages?.map((media: OccurrenceMediaDetailsFragment, index) => (
+        <li key={`${media?.identifier}_${index}`}>
           <Card className="overflow-hidden">
-            <figure>
+            {media.identifier && <figure>
               <a
                 target="_blank"
                 href={`https://www.gbif.org/tools/zoom/simple.html?src=${encodeURIComponent(
@@ -62,8 +61,8 @@ function Images({ occurrence, ...props }: { occurrence: OccurrenceQuery['occurre
               >
                 <img src={media.identifier} />
               </a>
-            </figure>
-            <Caption media={media} />
+            </figure>}
+            <Caption media={media} occurrence={occurrence}/>
           </Card>
         </li>
       ))}
@@ -82,16 +81,17 @@ function Sounds({
   if (!occurrence) return null;
   return (
     <>
-      {occurrence.sounds?.map((media: OccurrenceMediaDetailsFragment | null, i) => {
-        const knownFormat = supportedFormats.includes(media.format);
+      {occurrence.sounds?.map((media: OccurrenceMediaDetailsFragment, index) => {
+        const format = media.format;
+        const knownFormat = format && supportedFormats.includes(format);// typescript issues
         return (
-          <li key={i}>
+          <li key={`${media?.identifier}_${index}`}>
             <Card className="overflow-hidden">
               <div>
-                {knownFormat && (
+                {knownFormat && media.identifier && (
                   <>
                     <audio controls>
-                      <source src={media.identifier} type={media.format} />
+                      <source src={media.identifier} type={format} />
                       Unable to play
                     </audio>
                     {
@@ -104,7 +104,7 @@ function Sounds({
                   </>
                 )}
               </div>
-              <Caption media={media} />
+              <Caption media={media} occurrence={occurrence}/>
             </Card>
           </li>
         );
@@ -124,23 +124,23 @@ function MovingImages({
   if (!occurrence) return null;
   return (
     <>
-      {occurrence.movingImages?.map((media: OccurrenceMediaDetailsFragment | null, i) => {
+      {occurrence.movingImages?.map((media: OccurrenceMediaDetailsFragment, index) => {
         if (!media) return null;
-        const mediaFormat = media.format;
-        const knownFormat = mediaFormat && ['video/mp4', 'video/ogg'].includes(mediaFormat);
+        const format = media.format;
+        const knownFormat = format && ['video/mp4', 'video/ogg'].includes(format);
         return (
-          <li key={i}>
+          <li key={`${media?.identifier}_${index}`}>
             <Card className="overflow-hidden">
               <div>
                 {knownFormat && media.identifier && (
                   <>
-                    <video controls>
-                      <source src={media.identifier} type={mediaFormat} />
+                    <video controls className="w-full">
+                      <source src={media.identifier} type={format} />
                       Unable to play
                     </video>
                     {(termMap?.references?.value || media.identifier) && (
                       <div>
-                        <a href={termMap?.references?.value || media.identifier}>
+                        <a href={termMap?.references?.value || media.identifier} className="px-2 py-1 bg-slate-300 block">
                           If it isn't working try the publishers site instead <RiExternalLinkLine />
                         </a>
                       </div>
@@ -156,7 +156,7 @@ function MovingImages({
                   </a>
                 )}
               </div>
-              <Caption media={media} />
+              <Caption media={media} occurrence={occurrence}/>
             </Card>
           </li>
         );
@@ -165,29 +165,42 @@ function MovingImages({
   );
 }
 
-function Caption({ media, ...props }: { media: OccurrenceMediaDetailsFragment }) {
+function Caption({ media, occurrence, ...props }: { media: OccurrenceMediaDetailsFragment, occurrence: OccurrenceQuery['occurrence']}) {
   return (
     <figcaption className="px-4 py-2">
-      <Properties style={{ fontSize: '85%' }}>
-        {[
-          'description',
-          'format',
-          'identifier',
-          'created',
-          'creator',
-          'license',
-          'publisher',
-          'references',
-          'rightsholder',
-        ]
-          .filter((x) => media[x])
-          .map((x) => (
-            <React.Fragment key={x}>
-              <BasicField label={`occurrenceFieldNames.${x}`}>
-                {media[x]}
-              </BasicField>
-            </React.Fragment>
-          ))}
+      {!media.identifier && <div className="bg-slate-200 rounded text-slate-800 px-2 py-1 mb-2">Identifier missing</div>}
+      <Properties style={{ fontSize: '85%' }} dense>
+        {media.description && (
+          <BasicField label={`occurrenceFieldNames.description`}>{media.description}</BasicField>
+        )}
+        {media.format && (
+          <BasicField label={`occurrenceFieldNames.format`}>{media.format}</BasicField>
+        )}
+        {media.identifier && (
+          <BasicField label={`occurrenceFieldNames.identifier`}>
+            <a href={media.identifier}>{media.identifier}</a>
+          </BasicField>
+        )}
+        {media.references && (
+          <BasicField label={`occurrenceFieldNames.references`}>
+            <a href={media.references}>{media.references}</a>
+          </BasicField>
+        )}
+        {media.creator && (
+          <BasicField label={`occurrenceFieldNames.creator`}>{media.creator}</BasicField>
+        )}
+        {media.publisher && (
+          <BasicField label={`occurrenceFieldNames.publisher`}>{media.publisher}</BasicField>
+        )}
+        {media.rightsHolder && (
+          <BasicField label={`occurrenceFieldNames.rightsHolder`}>{media.rightsHolder}</BasicField>
+        )}
+        {media.license && (
+          <BasicField label={`occurrenceFieldNames.license`}>{media.license}</BasicField>
+        )}
+        {media.created && (
+          <BasicField label={`occurrenceFieldNames.created`}>{media.created}</BasicField>
+        )}
       </Properties>
     </figcaption>
   );
