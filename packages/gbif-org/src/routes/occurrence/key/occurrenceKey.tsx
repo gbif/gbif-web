@@ -32,6 +32,7 @@ import {
   TypeStatus,
   Location,
   Homepage,
+  Sequenced,
 } from '@/components/highlights';
 import { BulletList } from '@/components/BulletList';
 import { fragmentManager } from '@/services/fragmentManager';
@@ -46,6 +47,7 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
       lastCrawled
       countryCode
       stateProvince
+      locality
       eventDate
       typeStatus
       references
@@ -115,6 +117,7 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
         measurementOrFact
         multimedia
         reference
+        eolReference
         resourceRelationship
         cloning
         gelImage
@@ -198,6 +201,24 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
         }
       }
     }
+    literatureSearch(gbifOccurrenceKey: [$key]) {
+      documents(size: 100) {
+        results {
+          title
+          abstract
+          authors {
+            firstName
+            lastName
+          }
+          literatureType
+          year
+          identifiers {
+            doi
+          }
+          websites
+        }
+      }
+    }
   }
 `;
 
@@ -214,6 +235,7 @@ fragmentManager.register(/* GraphQL */ `
     references
     rightsHolder
     description
+    thumbor(height: 800)
   }
 `);
 
@@ -231,7 +253,10 @@ fragmentManager.register(/* GraphQL */ `
 export function occurrenceKeyLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key was provided in the URL');
 
-  return graphql.query<OccurrenceQuery, OccurrenceQueryVariables>(OCCURRENCE_QUERY, { key, language: 'eng'});
+  return graphql.query<OccurrenceQuery, OccurrenceQueryVariables>(OCCURRENCE_QUERY, {
+    key,
+    language: 'eng',
+  });
 }
 
 export function OccurrenceKey() {
@@ -248,10 +273,6 @@ export function OccurrenceKey() {
 
   const recorderAndIndentiferIsDifferent =
     JSON.stringify(termMap?.recordedBy?.value) !== JSON.stringify(termMap?.identifiedBy?.value);
-
-  if (data?.occurrence?.stillImages?.[0]) {
-    const test: OccurrenceMediaDetailsFragment = data?.occurrence?.stillImages?.[0];
-  }
 
   const vernacularName = occurrence?.acceptedTaxon?.vernacularNames?.results?.[0]?.vernacularName;
   return (
@@ -278,23 +299,33 @@ export function OccurrenceKey() {
                   )
                 }
               >
-                <FormattedMessage id="occurrence" defaultMessage="Occurrence" />
+                {occurrence.volatile?.features?.isSpecimen && (
+                  <FormattedMessage id="specimen" defaultMessage="Specimen" />
+                )}
+                {!occurrence.volatile?.features?.isSpecimen && (
+                  <FormattedMessage id="observation" defaultMessage="Observation" />
+                )}
               </ArticlePreTitle>
               {/* <ArticleTitle
                 dangerouslySetTitle={{ __html: occurrence.scientificName || 'No title provided' }}
               ></ArticleTitle> */}
               <ArticleTitle className="lg:text-3xl">
-                {!occurrence?.issues?.includes(OccurrenceIssue.TaxonMatchHigherrank) && (<>
-                  <span
-                    className="me-4"
-                    dangerouslySetInnerHTML={{
-                      __html:
-                        occurrence?.gbifClassification?.usage?.formattedName ??
-                        occurrence.scientificName ??
-                        'No title provided',
-                    }}
-                  />
-                  {vernacularName && <span className="text-slate-300 inline-block" style={{fontSize: '85%'}}>{vernacularName}</span>}
+                {!occurrence?.issues?.includes(OccurrenceIssue.TaxonMatchHigherrank) && (
+                  <>
+                    <span
+                      className="me-4"
+                      dangerouslySetInnerHTML={{
+                        __html:
+                          occurrence?.gbifClassification?.usage?.formattedName ??
+                          occurrence.scientificName ??
+                          'No title provided',
+                      }}
+                    />
+                    {vernacularName && (
+                      <span className="text-slate-300 inline-block" style={{ fontSize: '85%' }}>
+                        {vernacularName}
+                      </span>
+                    )}
                   </>
                 )}
                 {occurrence?.issues?.includes(OccurrenceIssue.TaxonMatchHigherrank) && (
@@ -326,16 +357,27 @@ export function OccurrenceKey() {
               <HeaderInfo>
                 <HeaderInfoMain>
                   <div>
-                    {occurrence.gbifClassification?.classification && <TaxonClassification
-                      className="flex mb-1"
-                      majorOnly
-                      classification={occurrence.gbifClassification?.classification}
-                    />}
+                    {occurrence.gbifClassification?.classification && (
+                      <TaxonClassification
+                        className="flex mb-2"
+                        majorOnly
+                        classification={occurrence.gbifClassification?.classification}
+                      />
+                    )}
 
-                    {occurrence.gadm?.level1 && <GadmClassification className="flex mb-1" gadm={occurrence.gadm} />}
-                    {!occurrence?.gadm?.level1 && occurrence.countryCode && <Location countryCode={occurrence.countryCode} city={occurrence.stateProvince} />}
+                    {occurrence.gadm?.level1 && (
+                      <GadmClassification className="flex mb-1" gadm={occurrence.gadm}>
+                        {occurrence.locality && <div>{occurrence.locality}</div>}
+                      </GadmClassification>
+                    )}
+                    {!occurrence?.gadm?.level1 && occurrence.countryCode && (
+                      <Location
+                        countryCode={occurrence.countryCode}
+                        city={occurrence.stateProvince}
+                      />
+                    )}
 
-                    {(termMap.recordedBy?.verbatim || termMap.identifiedBy?.verbatim) && (
+                    {/* {(termMap.recordedBy?.verbatim || termMap.identifiedBy?.verbatim) && (
                       <GenericFeature className="flex mb-1">
                         <PeopleIcon />
                         {recorderAndIndentiferIsDifferent && (
@@ -378,7 +420,7 @@ export function OccurrenceKey() {
                           </div>
                         )}
                       </GenericFeature>
-                    )}
+                    )} */}
                   </div>
 
                   <FeatureList className="mt-2">
@@ -387,6 +429,7 @@ export function OccurrenceKey() {
                       <TypeStatus types={occurrence.typeStatus} />
                     )}
                     {occurrence?.references && <Homepage url={occurrence?.references} />}
+                    {occurrence?.volatile?.features?.isSequenced && <Sequenced />}
                   </FeatureList>
                 </HeaderInfoMain>
               </HeaderInfo>

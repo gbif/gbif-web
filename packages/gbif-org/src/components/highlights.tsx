@@ -8,6 +8,7 @@ export {
   MdOutlineScreenSearchDesktop as CatalogIcon,
   MdPeople as PeopleIcon,
 } from 'react-icons/md';
+import { GiDna1 as DnaIcon } from 'react-icons/gi';
 import { FaGlobeAfrica as GlobeIcon } from 'react-icons/fa';
 import { AiFillTag as NameTagIcon } from 'react-icons/ai';
 import { MdGridOn as SamplingEventIcon, MdStar as TypeStatusIcon } from 'react-icons/md';
@@ -18,8 +19,8 @@ import {
   GadmClassification as GadmClassificationList,
 } from './classification';
 import { TypeStatus as TypeStatusEnums } from '@/gql/graphql';
-export { GlobeIcon as GlobeIcon };
-export { SamplingEventIcon, TypeStatusIcon };
+
+export { SamplingEventIcon, TypeStatusIcon, DnaIcon, GlobeIcon };
 
 export function GenericFeature({
   className,
@@ -32,7 +33,7 @@ export function GenericFeature({
   return (
     <div
       className={cn(
-        'my-0.5 me-6 [&>svg]:me-2 [&>svg]:leading-2 [&>svg]:h-6 inline-flex items-start',
+        'my-0.5 me-6 [&>svg]:me-2 [&>svg]:leading-2 [&>svg]:h-6 [&>svg]:flex-none inline-flex items-start',
         className
       )}
       {...props}
@@ -102,6 +103,22 @@ export function Location({
   );
 }
 
+export function Coordinates({
+  str,
+  children,
+}: {
+  str?: string | null;
+  children?: React.ReactNode;
+}) {
+  if (!str) return null;
+  return (
+    <GenericFeature>
+      <GlobeIcon />
+      {str}
+    </GenericFeature>
+  );
+}
+
 export function TaxonClassification({
   classification,
   majorOnly,
@@ -122,6 +139,7 @@ export function TaxonClassification({
 export function GadmClassification({
   gadm,
   className,
+  children,
   ...props
 }: {
   gadm: {
@@ -131,12 +149,15 @@ export function GadmClassification({
     level3: { name: string };
     level4: { name: string };
   };
+  children?: React.ReactNode;
   className?: string;
 }) {
   return (
     <GenericFeature className={className}>
       <GlobeIcon />
-      <GadmClassificationList gadm={gadm} />
+      <div>
+        <GadmClassificationList gadm={gadm} className="inline-block me-2" /> {children}
+      </div>
     </GenericFeature>
   );
 }
@@ -152,7 +173,19 @@ export function SamplingEvent({ className }: { className?: string }) {
   );
 }
 
-export function TypeStatus({ types, className }: { className?: string; types: [TypeStatusEnums?] }) {
+export function Sequenced({ className }: { className?: string }) {
+  return (
+    <GenericFeature className={className}>
+      <DnaIcon />{' '}
+      <span>
+        <FormattedMessage id="occurrenceDetails.features.isSequenced" />
+      </span>
+    </GenericFeature>
+  );
+}
+
+export function TypeStatus({ types, className }: { className?: string; types?: [TypeStatusEnums] | null }) {
+  if (!types) return null;
   const typeStatus = types?.[0];
   // if the list of types is empty or a single value `NOTATYPE` then return null
   if (!typeStatus || typeStatus === TypeStatusEnums.Notatype) return null;

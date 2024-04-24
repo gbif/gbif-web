@@ -540,6 +540,10 @@ const typeDef = gql`
   type OccurrenceExtensions {
     audubon: [JSON]
     amplification: [JSON]
+    description: [JSON]
+    distribution: [JSON]
+    eolMedia: [JSON]
+    eolReference: [JSON]
     germplasmAccession: [JSON]
     germplasmMeasurementScore: [JSON]
     germplasmMeasurementTrait: [JSON]
@@ -551,6 +555,9 @@ const typeDef = gql`
     multimedia: [JSON]
     reference: [JSON]
     resourceRelationship: [JSON]
+    speciesProfile: [JSON]
+    typesAndSpecimen: [JSON]
+    vernacularName: [JSON]
     cloning: [JSON]
     gelImage: [JSON]
     loan: [JSON]
@@ -560,6 +567,7 @@ const typeDef = gql`
     preservation: [JSON]
     extendedMeasurementOrFact: [JSON]
     chronometricAge: [JSON]
+    chronometricDate: [JSON]
     dnaDerivedData: [JSON]
   }
 

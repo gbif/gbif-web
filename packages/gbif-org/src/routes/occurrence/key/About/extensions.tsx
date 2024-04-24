@@ -4,33 +4,6 @@ import { FormattedMessage } from "react-intl";
 import { Group } from './groups';
 import { Card } from '@/components/ui/largeCard';
 
-/*
-new extension names
-
-audubon: [JSON]
-amplification: [JSON]
-germplasmAccession: [JSON]
-germplasmMeasurementScore: [JSON]
-germplasmMeasurementTrait: [JSON]
-germplasmMeasurementTrial: [JSON]
-identification: [JSON]
-identifier: [JSON]
-image: [JSON]
-measurementOrFact: [JSON]
-multimedia: [JSON]
-reference: [JSON]
-resourceRelationship: [JSON]
-cloning: [JSON]
-gelImage: [JSON]
-loan: [JSON]
-materialSample: [JSON]
-permit: [JSON]
-preparation: [JSON]
-preservation: [JSON]
-extendedMeasurementOrFact: [JSON]
-chronometricAge: [JSON]
-dnaDerivedData: [JSON]
-*/
 export function Preparation({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
   const extensionName = 'preparation';
   return <GenericExtension {...{ occurrence, extensionName }} label="occurrenceDetails.extensions.preparation.name" id="preparation" />
@@ -73,12 +46,67 @@ export function Audubon({ occurrence }: { occurrence: OccurrenceQuery['occurrenc
 
 export function DNADerivedData({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
   const extensionName = 'dnaDerivedData';
-  return <GenericExtension {...{ occurrence, extensionName }} label="occurrenceDetails.extensions.DNADerivedData.name" id="dna-derived-data" />
+  return <GenericExtension {...{ occurrence, extensionName }} label="occurrenceDetails.extensions.dnaDerivedData.name" id="dna-derived-data" />
 }
 
 export function Cloning({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
   const extensionName = 'cloning';
   return <GenericExtension {...{ occurrence, extensionName }} label="occurrenceDetails.extensions.cloning.name" id="cloning" />
+}
+
+export function Reference({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
+  const extensionName = 'reference';
+  return <GenericExtension {...{ occurrence, extensionName }} label="occurrenceDetails.extensions.reference.name" id="reference" />
+}
+
+export function EolReference({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
+  const extensionName = 'eolReference';
+  return <GenericExtension {...{ occurrence, extensionName }} label="occurrenceDetails.extensions.eolReference.name" id="eol-reference" />
+}
+
+export function GermplasmAccession({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
+  const extensionName = 'germplasmAccession';
+  return <GenericExtension {...{ occurrence, extensionName }} label="occurrenceDetails.extensions.germplasmAccession.name" id="germplasm-accession" />
+}
+
+export function GermplasmMeasurementScore({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
+  const extensionName = 'germplasmMeasurementScore';
+  return <GenericExtension {...{ occurrence, extensionName }} label="occurrenceDetails.extensions.germplasmMeasurementScore.name" id="germplasm-measurement-score" />
+}
+
+export function GermplasmMeasurementTrait({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
+  const extensionName = 'germplasmMeasurementTrait';
+  return <GenericExtension {...{ occurrence, extensionName }} label="occurrenceDetails.extensions.germplasmMeasurementTrait.name" id="germplasm-measurement-trait" />
+}
+
+export function GermplasmMeasurementTrial({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
+  const extensionName = 'germplasmMeasurementTrial';
+  return <GenericExtension {...{ occurrence, extensionName }} label="occurrenceDetails.extensions.germplasmMeasurementTrial.name" id="germplasm-measurement-trial" />
+}
+
+export function IdentificationHistory({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
+  const extensionName = 'identification';
+  return <GenericExtension {...{ occurrence, extensionName }} label="occurrenceDetails.extensions.identification.name" id="identification" />
+}
+
+export function Identifier({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
+  const extensionName = 'identifier';
+  return <GenericExtension {...{ occurrence, extensionName }} label="occurrenceDetails.extensions.identifier.name" id="identifier" />
+}
+
+export function MeasurementOrFact({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
+  const extensionName = 'measurementOrFact';
+  return <GenericExtension {...{ occurrence, extensionName }} label="occurrenceDetails.extensions.measurementOrFact.name" id="measurement-or-fact" />
+}
+
+export function ExtendedMeasurementOrFact({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
+  const extensionName = 'extendedMeasurementOrFact';
+  return <GenericExtension {...{ occurrence, extensionName }} label="occurrenceDetails.extensions.extendedMeasurementOrFact.name" id="extended-measurement-or-fact" />
+}
+
+export function ChronometricAge({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
+  const extensionName = 'chronometricAge';
+  return <GenericExtension {...{ occurrence, extensionName }} label="occurrenceDetails.extensions.chronometricAge.name" id="chronometric-age" />
 }
 
 export function GelImage({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
@@ -152,7 +180,7 @@ function ExtField({ item, extensionName, field, children, ...props }: {
 }
 
 function ListCard(props) {
-  return <Card className="mb-2 p-4 bg-slate-50" {...props} />
+  return <Card className="mb-2 p-4 " {...props} />
 }
 
 function getDefaultMessage(field: string) {

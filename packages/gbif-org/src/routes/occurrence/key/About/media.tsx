@@ -59,7 +59,7 @@ function Images({ occurrence, ...props }: { occurrence: OccurrenceQuery['occurre
                   media.identifier
                 )}`}
               >
-                <img src={media.identifier} />
+                <img src={media.thumbor} />
               </a>
             </figure>}
             <Caption media={media} occurrence={occurrence}/>

@@ -71,6 +71,7 @@ class TaxonMediaAPI extends RESTDataSource {
       resource: 'media'
     });
     const checklistResults = checklistMedia.results.map(x => ({
+      identifier: x.identifier,
       format: x.format,
       accessURI: x.identifier,
       accessOriginalURI: x.identifier,

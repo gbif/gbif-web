@@ -274,7 +274,7 @@
       }
     },
     "identification": {
-      "name": "Identification",
+      "name": "Identification history",
       "properties": {
         "identificationID": "Identification id",
         "verbatimIdentification": "Verbatim identification",
@@ -406,6 +406,29 @@
         "taxonRemarks": "Taxon remarks",
         "type": "Type",
         "datasetID": "Dataset id"
+      }
+    },
+    "eolReference": {
+      "name": "EOL Reference",
+      "properties": {
+        "identifier": "Identifier",
+        "publicationType": "Publication Type",
+        "full_reference": "Full Reference",
+        "primaryTitle": "Primary Title",
+        "title": "Title",
+        "pages": "Pages",
+        "pageStart": "Page Start",
+        "pageEnd": "Page End",
+        "volume": "Volume",
+        "edition": "Edition",
+        "publisher": "Publisher",
+        "authorList": "Author List",
+        "editorList": "Editor List",
+        "created": "Created",
+        "language": "Language",
+        "uri": "URI",
+        "doi": "DOI",
+        "localityName": "Locality Name"
       }
     },
     "resourceRelationship": {

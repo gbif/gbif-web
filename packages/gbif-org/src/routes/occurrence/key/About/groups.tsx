@@ -18,7 +18,7 @@ import { DynamicLink } from '@/components/dynamicLink';
 import { Media } from './media';
 import { OccurrenceQuery, Term } from '@/gql/graphql';
 import { BulletList } from '@/components/BulletList';
-import { Amplification, Audubon, Cloning, DNADerivedData, GelImage, Loan, MaterialSampleExt, Permit, Preparation, Preservation, ResourceRelationship } from './extensions';
+import { Amplification, Audubon, ChronometricAge, Cloning, DNADerivedData, EolReference, ExtendedMeasurementOrFact, GelImage, GermplasmAccession, GermplasmMeasurementScore, GermplasmMeasurementTrait, GermplasmMeasurementTrial, IdentificationHistory, Identifier, Loan, MaterialSampleExt, MeasurementOrFact, Permit, Preparation, Preservation, Reference, ResourceRelationship } from './extensions';
 
 const Map = React.lazy(() => import('@/components/map'));
 
@@ -62,10 +62,21 @@ export function Groups({
       <Loan                 {...{ updateToc, showAll, termMap, occurrence }} />
       <Preservation         {...{ updateToc, showAll, termMap, occurrence }} />
       <MaterialSampleExt    {...{ updateToc, showAll, termMap, occurrence }} />
-      <Audubon              {...{ updateToc, showAll, termMap, occurrence }} />
       <DNADerivedData       {...{ updateToc, showAll, termMap, occurrence }} />
       <Cloning              {...{ updateToc, showAll, termMap, occurrence }} />
       <GelImage             {...{ updateToc, showAll, termMap, occurrence }} />
+      <Reference            {...{ updateToc, showAll, termMap, occurrence }} />
+      <EolReference         {...{ updateToc, showAll, termMap, occurrence }} />
+      <GermplasmAccession   {...{ updateToc, showAll, termMap, occurrence }} />
+      <GermplasmMeasurementScore  {...{ updateToc, showAll, termMap, occurrence }} />
+      <GermplasmMeasurementTrait  {...{ updateToc, showAll, termMap, occurrence }} />
+      <GermplasmMeasurementTrial  {...{ updateToc, showAll, termMap, occurrence }} />
+      <IdentificationHistory      {...{ updateToc, showAll, termMap, occurrence }} />
+      <Identifier                 {...{ updateToc, showAll, termMap, occurrence }} />
+      <MeasurementOrFact          {...{ updateToc, showAll, termMap, occurrence }} />
+      <ExtendedMeasurementOrFact  {...{ updateToc, showAll, termMap, occurrence }} />
+      <ChronometricAge            {...{ updateToc, showAll, termMap, occurrence }} />
+      {/* <Audubon              {...{ updateToc, showAll, termMap, occurrence }} /> */}
 
       <Citation {...{ updateToc, showAll, termMap, occurrence }} />
       <Debug {...{ updateToc, showAll, termMap, occurrence }} />
@@ -678,9 +689,9 @@ function MediaSummary({
         )}
         {!hasPlayableVideo && (
           <img
-            src={occurrence.stillImages[activeImage].identifier}
+            src={occurrence.stillImages[activeImage].thumbor}
             height={400}
-            style={{ maxWidth: '100%', height: 400, display: 'block', margin: 'auto' }}
+            style={{ maxWidth: '100%', maxHeight: 400, display: 'block', margin: 'auto' }}
           />
         )}
       </div>
