@@ -13,7 +13,7 @@ export enum RouteId {
 export function useParentRouteLoaderData(parentId: RouteId) {
   const { locale } = useI18n();
 
-  // Some routes that have slugified enabled could not a a title to slugify.
+  // Some routes that have slugified enabled could not have a title to slugify.
   // In that case the data will be on the none slugified route.
   // Because of that we need to check both routes while prioritizing the slugified route.
   const slugifiedRouteData = useRouteLoaderData(createRouteId(parentId, locale.code, true));

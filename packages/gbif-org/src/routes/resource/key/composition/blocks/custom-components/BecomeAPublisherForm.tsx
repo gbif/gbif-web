@@ -33,6 +33,7 @@ import useQuery from '@/hooks/useQuery';
 import { OrganizationPreviewQuery, OrganizationPreviewQueryVariables } from '@/gql/graphql';
 import { TimeAgo } from '@/components/TimeAgo';
 import { ConditionalWrapper } from '@/components/ConditionalWrapper';
+import { CoordinatesPicker } from '@/components/CoordinatesPicker';
 
 const CheckboxField = createTypedCheckboxField<Inputs>();
 const TextField = createTypedTextField<Inputs>();
@@ -63,9 +64,14 @@ const Schema = z.object({
     country: RequiredStringSchema,
     logo: z.string().url().optional(),
     description: RequiredStringSchema,
-    // Coordinates
+    coordinates: z.object({
+      lat: z.number(),
+      lon: z.number(),
+    }),
   }),
-  // endorsingNode: z.string(),
+  endorsingNode: z.object({
+    type: z.enum(['help_me_with_endorsement', 'marine_data_publishers']),
+  }),
   gbifProjects: z.discriminatedUnion('type', [
     z.object({ type: z.literal('yes'), projectIdentifier: OptionalStringSchema }),
     z.object({ type: z.literal('no') }),
@@ -240,32 +246,36 @@ function TermsAndConditions() {
 
   return (
     <div className={cn('border shadow-sm p-4', { hidden })}>
-      <fieldset className="space-y-2">
-        <legend className="text-md font-semibold">
+      <fieldset>
+        <legend className="text-md font-semibold pb-2">
           Terms and conditions
           <Required />
         </legend>
 
-        <CheckboxField
-          name="termsAndConditions.dataPublishederAgreement"
-          label={
-            <>
-              I have read and understood{' '}
-              <DynamicLink to="/terms/data-publisher">GBIF's Data Publisher Agreement</DynamicLink>{' '}
-              and agree to its terms.
-            </>
-          }
-        />
+        <div className="space-y-4">
+          <CheckboxField
+            name="termsAndConditions.dataPublishederAgreement"
+            label={
+              <>
+                I have read and understood{' '}
+                <DynamicLink to="/terms/data-publisher">
+                  GBIF's Data Publisher Agreement
+                </DynamicLink>{' '}
+                and agree to its terms.
+              </>
+            }
+          />
 
-        <CheckboxField
-          name="termsAndConditions.confirmRegistration"
-          label="I understand that I am seeking registration on behalf of my organization, and confirm that the responsible authorities of my organization are aware of this registration."
-        />
+          <CheckboxField
+            name="termsAndConditions.confirmRegistration"
+            label="I understand that I am seeking registration on behalf of my organization, and confirm that the responsible authorities of my organization are aware of this registration."
+          />
 
-        <CheckboxField
-          name="termsAndConditions.dataWillBePublic"
-          label="I understand that my organizational information, including the contact details provided, will be made publicly available through GBIF.org."
-        />
+          <CheckboxField
+            name="termsAndConditions.dataWillBePublic"
+            label="I understand that my organizational information, including the contact details provided, will be made publicly available through GBIF.org."
+          />
+        </div>
       </fieldset>
     </div>
   );
@@ -277,7 +287,7 @@ function OrganizationDetails() {
   return (
     <div className={cn('border shadow-sm p-4', { hidden })}>
       <fieldset>
-        <legend className="text-md font-semibold">Organization details</legend>
+        <legend className="text-md font-semibold pb-2">Organization details</legend>
 
         <div className="flex flex-col gap-4">
           <div className="flex gap-4">
@@ -336,7 +346,16 @@ function OrganizationDetails() {
             }
           />
 
-          <CoordinatesPicker />
+          <FormField
+            name="organizationDetails.coordinates"
+            render={({ field }) => (
+              <CoordinatesPicker
+                coordinates={field.value}
+                setCoordinates={field.onChange}
+                instructions="Click on the map to add your organization"
+              />
+            )}
+          />
         </div>
       </fieldset>
     </div>
@@ -344,12 +363,42 @@ function OrganizationDetails() {
 }
 
 function EndorsingNode() {
+  const form = useFormContext<Partial<Inputs>>();
   const hidden = !useTermsAccepted();
 
   return (
-    <div className={cn('border p-4 shadow-sm', { hidden })}>
-      <p>TODO: Endorsing node</p>
-    </div>
+    <FormField
+      control={form.control}
+      name="gbifProjects.type"
+      render={({ field }) => (
+        <FormItem className={cn('border shadow-sm p-4', { hidden })}>
+          <FormLabel className="text-md font-semibold">Endorsing node</FormLabel>
+          <FormDescription>
+            For example: Biodiversity Information for Development (BID), Biodiversity Information
+            Fund for Asia (BIFA), Capacity Enhancement Support Programme (CESP).
+          </FormDescription>
+          <FormControl>
+            <RadioGroup onValueChange={field.onChange} className="flex flex-col space-y-1">
+              <RadioItem value="help_me_with_endorsement" label="Help me with endorsement" />
+
+              <RadioItem
+                value="marine_data_publishers"
+                label="Marine data publishers: request endorsement for OBIS (Ocean Biogeographic Information System) related data"
+              />
+
+              <div>
+                <p>
+                  If endorsement through the country node suggested above is not the right option,
+                  please check this list of associated participants for multinational or thematic
+                  networks:
+                </p>
+              </div>
+            </RadioGroup>
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
   );
 }
 
@@ -362,13 +411,13 @@ function GbifProjects() {
       control={form.control}
       name="gbifProjects.type"
       render={({ field }) => (
-        <FormItem className={cn('space-y-3 border shadow-sm p-4', { hidden })}>
+        <FormItem className={cn('border shadow-sm p-4', { hidden })}>
           <FormLabel className="text-md font-semibold">
             Are you associated with a project funded by a GBIF programme ?
           </FormLabel>
           <FormDescription>
-            For example: Biodiversity Information for Development (BID), Biodiversity Information
-            Fund for Asia (BIFA), Capacity Enhancement Support Programme (CESP).
+            To support publishers and review data quality all publishers are associated with a GBIF
+            node. Please check the suggestion below, and correct it if needed:
           </FormDescription>
           <FormControl>
             <RadioGroup onValueChange={field.onChange} className="flex flex-col space-y-1">
@@ -399,10 +448,6 @@ function ProjectIdentifier() {
       descriptionPosition="above"
     />
   );
-}
-
-function CoordinatesPicker() {
-  return <p>TODO: Coordinates picker</p>;
 }
 
 function ContactForm({

@@ -108,7 +108,7 @@ export function createTypedTextField<Inputs extends FieldValues>() {
             )}
             <FormControl>
               {/* @ts-ignore (I don't know how to only allow fieldPath that are strings, so this could potentially be a number/boolean/etc) */}
-              {textarea ? <Textarea {...field} /> : <Input {...field} />}
+              {textarea ? <Textarea rows={8} {...field} /> : <Input {...field} />}
             </FormControl>
             {descriptionPosition === 'below' && description && (
               <FormDescription>{description}</FormDescription>

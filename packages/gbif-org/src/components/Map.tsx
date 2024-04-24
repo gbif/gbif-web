@@ -6,6 +6,8 @@ import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
 import { useGeographic } from 'ol/proj';
 import { useOnMountUnsafe } from '@/hooks/useOnMountUnsafe';
 
+// This is not a React hook.
+// eslint-disable-next-line
 useGeographic();
 
 type Props = {
