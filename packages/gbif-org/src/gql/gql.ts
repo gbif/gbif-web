@@ -14,9 +14,11 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  */
 const documents = {
     "\n  query Header {\n    gbifHome {\n      title\n      summary\n      children {\n        externalLink\n        link\n        title\n        children {\n          externalLink\n          link\n          title\n          children {\n            externalLink\n            link\n            title\n          }\n        }\n      }\n    }\n  }\n": types.HeaderDocument,
+    "\n  query HelpText($identifier: String!, $locale: String) {\n    help(identifier: $identifier, locale: $locale) {\n      id\n      identifier\n      title\n      body\n    }\n  }\n": types.HelpTextDocument,
+    "\n  query HelpTitle($identifier: String!, $locale: String) {\n    help(identifier: $identifier, locale: $locale) {\n      id\n      identifier\n      title\n    }\n  }\n": types.HelpTitleDocument,
     "\n  query ParticipantSelect($type: NodeType, $participationStatus: ParticipationStatus, $limit: Int) {\n    participantSearch(type: $type, participationStatus: $participationStatus, limit: $limit) {\n      endOfRecords\n      count\n      results {\n        id\n        name\n      }\n    }\n  }\n": types.ParticipantSelectDocument,
     "\n  fragment DatasetResult on DatasetSearchStub {\n    key\n    title\n    excerpt\n    type\n    publishingOrganizationTitle\n    recordCount\n    license\n  }\n": types.DatasetResultFragmentDoc,
-    "\n  query Dataset($key: ID!) {\n    dataset(key: $key) {\n      title\n      publishingOrganizationKey\n      publishingOrganizationTitle\n    }\n  }\n": types.DatasetDocument,
+    "\n  query Dataset($key: ID!) {\n    dataset(key: $key) {\n      title\n      type\n      deleted\n      created\n      publishingOrganizationKey\n      publishingOrganizationTitle\n\n      contactsCitation {\n        key\n        abbreviatedName\n        firstName\n        lastName\n        userId\n        roles\n      }\n    }\n  }\n": types.DatasetDocument,
     "\n  query Occurrence($key: ID!) {\n    occurrence(key: $key) {\n      eventDate\n      scientificName\n      coordinates\n      dataset {\n        key\n        title\n      }\n    }\n  }\n": types.OccurrenceDocument,
     "\n  query OccurrenceSearch($from: Int, $predicate: Predicate) {\n    occurrenceSearch(predicate: $predicate) {\n      documents(from: $from) {\n        from\n        size\n        total\n        results {\n          key\n          scientificName\n          eventDate\n          coordinates\n          county\n          basisOfRecord\n          datasetName\n          publisherTitle\n        }\n      }\n    }\n  }\n": types.OccurrenceSearchDocument,
     "\n  query Publisher($key: ID!) {\n    publisher: organization(key: $key) {\n      title\n    }\n  }\n": types.PublisherDocument,
@@ -27,7 +29,6 @@ const documents = {
     "\n  fragment FundingOrganisationDetails on FundingOrganisation {\n    id\n    title\n    url\n    logo {\n      title\n      file {\n        url\n      }\n    }\n  }\n": types.FundingOrganisationDetailsFragmentDoc,
     "\n  fragment ProgrammeFundingBanner on Programme {\n    __typename\n    fundingOrganisations {\n      ...FundingOrganisationDetails\n    }\n  }\n": types.ProgrammeFundingBannerFragmentDoc,
     "\n  fragment ProjectFundingBanner on GbifProject {\n    __typename\n    fundsAllocated\n    programme {\n      ...ProgrammeFundingBanner\n    }\n    overrideProgrammeFunding {\n      ...FundingOrganisationDetails\n    }\n  }\n": types.ProjectFundingBannerFragmentDoc,
-    "\n  fragment HelpLineDetails on Help {\n    __typename\n    title\n    body\n  }\n": types.HelpLineDetailsFragmentDoc,
     "\n  fragment BlockItemDetails on BlockItem {\n    __typename\n    ... on HeaderBlock {\n      id\n      ...HeaderBlockDetails\n    }\n    ... on FeatureBlock {\n      id\n      ...FeatureBlockDetails\n    }\n    ... on FeaturedTextBlock {\n      id\n      ...FeaturedTextBlockDetails\n    }\n    ... on CarouselBlock {\n      id\n      ...CarouselBlockDetails\n    }\n    ... on MediaBlock {\n      id\n      ...MediaBlockDetails\n    }\n    ... on MediaCountBlock {\n      id\n      ...MediaCountBlockDetails\n    }\n    ... on CustomComponentBlock {\n      id\n      ...CustomComponentBlockDetails\n    }\n    ... on TextBlock {\n      id\n      ...TextBlockDetails\n    }\n  }\n": types.BlockItemDetailsFragmentDoc,
     "\n  fragment CarouselBlockDetails on CarouselBlock {\n    __typename\n    id\n    title\n    body\n    backgroundColour\n    features {\n      __typename\n      ... on MediaBlock {\n        ...MediaBlockDetails\n      }\n      ... on MediaCountBlock {\n        ...MediaCountBlockDetails\n      }\n    }\n  }\n": types.CarouselBlockDetailsFragmentDoc,
     "\n  fragment CustomComponentBlockDetails on CustomComponentBlock {\n    id\n    componentType\n    title\n    width\n    backgroundColour\n    settings\n  }\n": types.CustomComponentBlockDetailsFragmentDoc,
@@ -51,9 +52,9 @@ const documents = {
     "\n  fragment ProgrammePage on Programme {\n    title\n    excerpt\n    blocks {\n      ...BlockItemDetails\n    }\n    ...ProgrammeFundingBanner\n  }\n": types.ProgrammePageFragmentDoc,
     "\n  fragment ProjectAboutTab on GbifProject {\n    projectId\n    id\n    body\n    start\n    end\n    status\n    fundsAllocated\n    matchingFunds\n    grantType\n    purposes\n    leadPartner {\n      ...ParticipantOrFundingOrganisationDetails\n    }\n    additionalPartners {\n      ...ParticipantOrFundingOrganisationDetails\n    }\n    leadContact\n    fundingOrganisations {\n      ...ParticipantOrFundingOrganisationDetails\n    }\n    programme {\n      fundingOrganisations {\n        ...ParticipantOrFundingOrganisationDetails\n      }\n    }\n    overrideProgrammeFunding {\n      ...ParticipantOrFundingOrganisationDetails\n    }\n    programme {\n      id\n      title\n    }\n    primaryImage {\n      ...ArticleBanner\n    }\n    primaryLink {\n      label\n      url\n    }\n    secondaryLinks {\n      label\n      url\n    }\n    documents {\n      ...DocumentPreview\n    }\n  }\n": types.ProjectAboutTabFragmentDoc,
     "\n  fragment ParticipantOrFundingOrganisationDetails on ParticipantOrFundingOrganisation {\n    __typename\n    ... on FundingOrganisation {\n      id\n      title\n      url\n    }\n    ... on Participant {\n      id\n      title\n    }\n  }\n": types.ParticipantOrFundingOrganisationDetailsFragmentDoc,
-    "\n  fragment ProjectDatasetsTab on Query {\n    gbifProject(id: $key) {\n      projectId\n    }\n    datasetsHelp: help(identifier: \"how-to-link-datasets-to-my-project-page\") {\n      ...HelpLineDetails\n    }\n  }\n": types.ProjectDatasetsTabFragmentDoc,
+    "\n  fragment ProjectDatasetsTab on Query {\n    gbifProject(id: $key) {\n      projectId\n    }\n    datasetsHelp: help(identifier: \"how-to-link-datasets-to-my-project-page\") {\n      title\n    }\n  }\n": types.ProjectDatasetsTabFragmentDoc,
     "\n  query ProjectDatasets($projectId: ID!) {\n    datasetSearch(projectId: [$projectId], limit: 500) {\n      count\n      limit\n      offset\n      results {\n        ...DatasetResult\n      }\n    }\n  }\n": types.ProjectDatasetsDocument,
-    "\n  query ProjectNewsAndEvents($key: String!) {\n    gbifProject(id: $key) {\n      news {\n        __typename\n        createdAt\n        ...NewsResult\n      }\n      events {\n        __typename\n        start\n        ...EventResult\n      }\n    }\n    help(identifier: \"how-to-add-events-to-my-project-page\") {\n      ...HelpLineDetails\n    }\n  }\n": types.ProjectNewsAndEventsDocument,
+    "\n  query ProjectNewsAndEvents($key: String!) {\n    gbifProject(id: $key) {\n      news {\n        __typename\n        createdAt\n        ...NewsResult\n      }\n      events {\n        __typename\n        start\n        ...EventResult\n      }\n    }\n    help(identifier: \"how-to-add-events-to-my-project-page\") {\n      title\n    }\n  }\n": types.ProjectNewsAndEventsDocument,
     "\n  fragment ProjectPage on GbifProject {\n    # Define the values used by this page\n    title\n    excerpt\n    status\n    start\n    end\n    fundsAllocated\n    primaryLink {\n      label\n      url\n    }\n    ...ProjectFundingBanner\n    # The Project About tab uses the data from this loader and defines its own data needs in this fragment\n    ...ProjectAboutTab\n  }\n": types.ProjectPageFragmentDoc,
     "\n    query Project($key: String!) {\n      resource(id: $key) {\n        ...ResourceRedirectDetails\n        ... on GbifProject {\n          ...ProjectPage\n        }\n      }\n      # The Project Datasets tab also uses some data from this loader and defines its own data needs in this fragment\n      ...ProjectDatasetsTab\n    }\n  ": types.ProjectDocument,
     "\n  fragment ToolPage on Tool {\n    id\n    title\n    summary\n    body\n    primaryImage {\n      ...ArticleBanner\n    }\n    primaryLink {\n      label\n      url\n    }\n    secondaryLinks {\n      label\n      url\n    }\n    citation\n    createdAt\n    author\n    rights\n    rightsHolder\n    publicationDate\n  }\n": types.ToolPageFragmentDoc,
@@ -80,6 +81,14 @@ export function graphql(source: "\n  query Header {\n    gbifHome {\n      title
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function graphql(source: "\n  query HelpText($identifier: String!, $locale: String) {\n    help(identifier: $identifier, locale: $locale) {\n      id\n      identifier\n      title\n      body\n    }\n  }\n"): (typeof documents)["\n  query HelpText($identifier: String!, $locale: String) {\n    help(identifier: $identifier, locale: $locale) {\n      id\n      identifier\n      title\n      body\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query HelpTitle($identifier: String!, $locale: String) {\n    help(identifier: $identifier, locale: $locale) {\n      id\n      identifier\n      title\n    }\n  }\n"): (typeof documents)["\n  query HelpTitle($identifier: String!, $locale: String) {\n    help(identifier: $identifier, locale: $locale) {\n      id\n      identifier\n      title\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function graphql(source: "\n  query ParticipantSelect($type: NodeType, $participationStatus: ParticipationStatus, $limit: Int) {\n    participantSearch(type: $type, participationStatus: $participationStatus, limit: $limit) {\n      endOfRecords\n      count\n      results {\n        id\n        name\n      }\n    }\n  }\n"): (typeof documents)["\n  query ParticipantSelect($type: NodeType, $participationStatus: ParticipationStatus, $limit: Int) {\n    participantSearch(type: $type, participationStatus: $participationStatus, limit: $limit) {\n      endOfRecords\n      count\n      results {\n        id\n        name\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
@@ -88,7 +97,7 @@ export function graphql(source: "\n  fragment DatasetResult on DatasetSearchStub
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query Dataset($key: ID!) {\n    dataset(key: $key) {\n      title\n      publishingOrganizationKey\n      publishingOrganizationTitle\n    }\n  }\n"): (typeof documents)["\n  query Dataset($key: ID!) {\n    dataset(key: $key) {\n      title\n      publishingOrganizationKey\n      publishingOrganizationTitle\n    }\n  }\n"];
+export function graphql(source: "\n  query Dataset($key: ID!) {\n    dataset(key: $key) {\n      title\n      type\n      deleted\n      created\n      publishingOrganizationKey\n      publishingOrganizationTitle\n\n      contactsCitation {\n        key\n        abbreviatedName\n        firstName\n        lastName\n        userId\n        roles\n      }\n    }\n  }\n"): (typeof documents)["\n  query Dataset($key: ID!) {\n    dataset(key: $key) {\n      title\n      type\n      deleted\n      created\n      publishingOrganizationKey\n      publishingOrganizationTitle\n\n      contactsCitation {\n        key\n        abbreviatedName\n        firstName\n        lastName\n        userId\n        roles\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -129,10 +138,6 @@ export function graphql(source: "\n  fragment ProgrammeFundingBanner on Programm
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  fragment ProjectFundingBanner on GbifProject {\n    __typename\n    fundsAllocated\n    programme {\n      ...ProgrammeFundingBanner\n    }\n    overrideProgrammeFunding {\n      ...FundingOrganisationDetails\n    }\n  }\n"): (typeof documents)["\n  fragment ProjectFundingBanner on GbifProject {\n    __typename\n    fundsAllocated\n    programme {\n      ...ProgrammeFundingBanner\n    }\n    overrideProgrammeFunding {\n      ...FundingOrganisationDetails\n    }\n  }\n"];
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(source: "\n  fragment HelpLineDetails on Help {\n    __typename\n    title\n    body\n  }\n"): (typeof documents)["\n  fragment HelpLineDetails on Help {\n    __typename\n    title\n    body\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -228,7 +233,7 @@ export function graphql(source: "\n  fragment ParticipantOrFundingOrganisationDe
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  fragment ProjectDatasetsTab on Query {\n    gbifProject(id: $key) {\n      projectId\n    }\n    datasetsHelp: help(identifier: \"how-to-link-datasets-to-my-project-page\") {\n      ...HelpLineDetails\n    }\n  }\n"): (typeof documents)["\n  fragment ProjectDatasetsTab on Query {\n    gbifProject(id: $key) {\n      projectId\n    }\n    datasetsHelp: help(identifier: \"how-to-link-datasets-to-my-project-page\") {\n      ...HelpLineDetails\n    }\n  }\n"];
+export function graphql(source: "\n  fragment ProjectDatasetsTab on Query {\n    gbifProject(id: $key) {\n      projectId\n    }\n    datasetsHelp: help(identifier: \"how-to-link-datasets-to-my-project-page\") {\n      title\n    }\n  }\n"): (typeof documents)["\n  fragment ProjectDatasetsTab on Query {\n    gbifProject(id: $key) {\n      projectId\n    }\n    datasetsHelp: help(identifier: \"how-to-link-datasets-to-my-project-page\") {\n      title\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -236,7 +241,7 @@ export function graphql(source: "\n  query ProjectDatasets($projectId: ID!) {\n 
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query ProjectNewsAndEvents($key: String!) {\n    gbifProject(id: $key) {\n      news {\n        __typename\n        createdAt\n        ...NewsResult\n      }\n      events {\n        __typename\n        start\n        ...EventResult\n      }\n    }\n    help(identifier: \"how-to-add-events-to-my-project-page\") {\n      ...HelpLineDetails\n    }\n  }\n"): (typeof documents)["\n  query ProjectNewsAndEvents($key: String!) {\n    gbifProject(id: $key) {\n      news {\n        __typename\n        createdAt\n        ...NewsResult\n      }\n      events {\n        __typename\n        start\n        ...EventResult\n      }\n    }\n    help(identifier: \"how-to-add-events-to-my-project-page\") {\n      ...HelpLineDetails\n    }\n  }\n"];
+export function graphql(source: "\n  query ProjectNewsAndEvents($key: String!) {\n    gbifProject(id: $key) {\n      news {\n        __typename\n        createdAt\n        ...NewsResult\n      }\n      events {\n        __typename\n        start\n        ...EventResult\n      }\n    }\n    help(identifier: \"how-to-add-events-to-my-project-page\") {\n      title\n    }\n  }\n"): (typeof documents)["\n  query ProjectNewsAndEvents($key: String!) {\n    gbifProject(id: $key) {\n      news {\n        __typename\n        createdAt\n        ...NewsResult\n      }\n      events {\n        __typename\n        start\n        ...EventResult\n      }\n    }\n    help(identifier: \"how-to-add-events-to-my-project-page\") {\n      title\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

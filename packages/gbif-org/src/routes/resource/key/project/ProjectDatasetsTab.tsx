@@ -8,7 +8,7 @@ import { fragmentManager } from '@/services/FragmentManager';
 import { RouteId, useParentRouteLoaderData } from '@/hooks/useParentRouteLoaderData';
 import { TabListSkeleton } from './TabListSkeleton';
 import { DatasetResult } from '@/routes/dataset/DatasetResult';
-import { HelpLine } from '../components/HelpLine';
+import { HelpLine } from '../../../../components/HelpText';
 import { NoResultsTab } from '../components/NoResultsTab';
 
 fragmentManager.register(/* GraphQL */ `
@@ -17,7 +17,7 @@ fragmentManager.register(/* GraphQL */ `
       projectId
     }
     datasetsHelp: help(identifier: "how-to-link-datasets-to-my-project-page") {
-      ...HelpLineDetails
+      title
     }
   }
 `);
@@ -56,7 +56,9 @@ export function ProjectDatasetsTab() {
 
   return (
     <div className="pt-4 max-w-3xl m-auto">
-      {datasetsHelp && <HelpLine help={datasetsHelp} />}
+      <p className="pb-4 text-gray-600 text-sm text-right">
+        <HelpLine title={datasetsHelp?.title} id="how-to-link-datasets-to-my-project-page" icon/>
+      </p>
 
       {/* TODO: Needs translation */}
       {datasets.data.datasetSearch.results.length === 0 && (

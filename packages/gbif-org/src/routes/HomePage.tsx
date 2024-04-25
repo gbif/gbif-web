@@ -92,6 +92,17 @@ export function HomePage(): React.ReactElement {
               </li>
             </ul>
           </section>
+
+          <section>
+            <h2>API v1 driven pages (primary ID in the GBIF API)</h2>
+            <ul>
+              <li>
+                <DynamicLink className="me-4" to="/dataset/8a863029-f435-446a-821e-275f4f641165">
+                  Occurrence dataset
+                </DynamicLink>
+              </li>
+            </ul>
+          </section>
         </div>
       </div>
     </>

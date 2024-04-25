@@ -1,6 +1,7 @@
 import { cn } from '@/utils/shadcn';
 import styles from './ArticleBody.module.css';
 import { Skeleton } from '@/components/ui/skeleton';
+import { FaqText } from './FaqText';
 
 type Props = {
   className?: string;
@@ -11,8 +12,9 @@ export function ArticleBody({ className, dangerouslySetBody }: Props) {
   return (
     <div
       className={cn('prose max-w-none dark:prose-invert', styles.container, className)}
-      dangerouslySetInnerHTML={dangerouslySetBody}
-    />
+    >
+      <FaqText dangerouslySetBody={dangerouslySetBody.__html} />
+    </div>
   );
 }
 

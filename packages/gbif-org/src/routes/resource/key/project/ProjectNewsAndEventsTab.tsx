@@ -7,7 +7,7 @@ import { required } from '@/utils/required';
 import { useMemo } from 'react';
 import { sortByNewToOld } from '@/utils/sort';
 import { TabListSkeleton } from './TabListSkeleton';
-import { HelpLine } from '../components/HelpLine';
+import { HelpLine } from '../../../../components/HelpText';
 import { NoResultsTab } from '../components/NoResultsTab';
 
 const PROJECT_NEWS_QUERY = /* GraphQL */ `
@@ -25,7 +25,7 @@ const PROJECT_NEWS_QUERY = /* GraphQL */ `
       }
     }
     help(identifier: "how-to-add-events-to-my-project-page") {
-      ...HelpLineDetails
+      title
     }
   }
 `;
@@ -59,7 +59,9 @@ export function ProjectNewsAndEventsTab() {
 
   return (
     <div className="pt-4 max-w-3xl m-auto">
-      {help && <HelpLine help={help} />}
+      <p className="pb-4 text-gray-600 text-sm text-right">
+        <HelpLine title={help?.title} id="how-to-add-events-to-my-project-page" icon/>
+      </p>
 
       {/* TODO: Needs translation */}
       {sortedNewsAndEvents.length === 0 && (
