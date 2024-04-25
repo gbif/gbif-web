@@ -75,6 +75,7 @@ type TextFieldProps<Inputs extends FieldValues> = {
   textarea?: boolean;
   required?: boolean;
   className?: string;
+  type?: 'text' | 'email';
 };
 
 export function createTypedTextField<Inputs extends FieldValues>() {
@@ -86,6 +87,7 @@ export function createTypedTextField<Inputs extends FieldValues>() {
     textarea = false,
     required = false,
     className,
+    type = 'text',
   }: TextFieldProps<Inputs>) {
     const form = useFormContext<Partial<Inputs>>();
 
@@ -108,7 +110,7 @@ export function createTypedTextField<Inputs extends FieldValues>() {
             )}
             <FormControl>
               {/* @ts-ignore (I don't know how to only allow fieldPath that are strings, so this could potentially be a number/boolean/etc) */}
-              {textarea ? <Textarea rows={8} {...field} /> : <Input {...field} />}
+              {textarea ? <Textarea rows={8} {...field} /> : <Input type={type} {...field} />}
             </FormControl>
             {descriptionPosition === 'below' && description && (
               <FormDescription>{description}</FormDescription>

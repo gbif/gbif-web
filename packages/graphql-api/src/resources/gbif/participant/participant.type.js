@@ -6,6 +6,8 @@ const typeDef = gql`
       limit: Int
       offset: Int
       q: String
+      type: NodeType
+      participationStatus: ParticipationStatus
     ): ParticipantSearchResults
     participant(key: String!): Participant
   }

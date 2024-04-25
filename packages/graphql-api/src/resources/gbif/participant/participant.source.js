@@ -3,6 +3,7 @@ import { ResourceSearchAPI } from '#/resources/gbif/resource/resource.source';
 import { stringify } from 'qs';
 import pick from 'lodash/pick';
 import { createSignedGetHeader } from '#/helpers/auth/authenticatedGet';
+import { renameProperty } from '#/helpers/utils';
 
 /**
  * This resource is from the directory API, which is not a public API.
@@ -73,6 +74,9 @@ class ParticipantAPI {
   }
 
   async searchParticipants({ query }, locale) {
+    // Rename the property to match the directory API
+    renameProperty(query, 'participationStatus', 'participation_status')
+
     const response = await this.directoryAPI.searchParticipants({ query });
     if (!response) return;
 
@@ -101,7 +105,6 @@ class ParticipantAPI {
   }
 
   async mergeParticipantDirectoryData(resourceParticipant) {
-    console.log(resourceParticipant);
     // If the resource does not have a directoryId, we return the resource as is.
     if (!resourceParticipant.directoryId) return resourceParticipant;
 

@@ -148,6 +148,15 @@ function isNoneEmptyArray(source) {
   return source != null && Array.isArray(source) && source.length > 0;
 }
 
+function renameProperty(obj, from, to) {
+  if (from in obj) {
+    obj[to] = obj[from];
+    delete obj[from];
+  }
+  return obj;
+}
+
+
 export {
   formattedCoordinates,
   isOccurrenceSequenced,
@@ -159,4 +168,5 @@ export {
   objectToQueryString,
   createLocalizedGbifHref,
   isNoneEmptyArray,
+  renameProperty,
 };

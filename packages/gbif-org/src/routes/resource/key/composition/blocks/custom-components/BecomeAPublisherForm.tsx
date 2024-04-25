@@ -27,13 +27,20 @@ import {
   OrganizationOption,
   OrganizationSearchSugget,
 } from '@/components/SearchSelect/OrganizationSearchSuggest';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ClientSideOnly } from '@/components/ClientSideOnly';
 import useQuery from '@/hooks/useQuery';
-import { OrganizationPreviewQuery, OrganizationPreviewQueryVariables } from '@/gql/graphql';
+import {
+  NodeType,
+  OrganizationPreviewQuery,
+  OrganizationPreviewQueryVariables,
+  ParticipationStatus,
+} from '@/gql/graphql';
 import { TimeAgo } from '@/components/TimeAgo';
 import { ConditionalWrapper } from '@/components/ConditionalWrapper';
 import { CoordinatesPicker } from '@/components/CoordinatesPicker';
+import { ParticipantSelect } from '@/components/Select/ParticipantSelect';
+import { Button } from '@/components/ui/button';
 
 const CheckboxField = createTypedCheckboxField<Inputs>();
 const TextField = createTypedTextField<Inputs>();
@@ -71,6 +78,7 @@ const Schema = z.object({
   }),
   endorsingNode: z.object({
     type: z.enum(['help_me_with_endorsement', 'marine_data_publishers']),
+    organization: z.object({ id: z.string(), name: z.string() }),
   }),
   gbifProjects: z.discriminatedUnion('type', [
     z.object({ type: z.literal('yes'), projectIdentifier: OptionalStringSchema }),
@@ -78,16 +86,16 @@ const Schema = z.object({
   ]),
   mainContact: ContactSchema,
   extraContacts: z.object({
-    administrative: z.boolean(),
-    technical: z.boolean(),
+    administrative: z.boolean().optional(),
+    technical: z.boolean().optional(),
   }),
-  administrativeContact: ContactSchema,
-  technicalContact: ContactSchema,
+  administrativeContact: ContactSchema.optional(),
+  technicalContact: ContactSchema.optional(),
   whatAndHow: z.object({
-    resourceMetadata: z.boolean(),
-    checklistData: z.boolean(),
-    occurrenceOnlyData: z.boolean(),
-    samplingEventData: z.boolean(),
+    resourceMetadata: z.boolean().optional(),
+    checklistData: z.boolean().optional(),
+    occurrenceOnlyData: z.boolean().optional(),
+    samplingEventData: z.boolean().optional(),
     description: RequiredStringSchema,
     externalServer: z.enum(['yes', 'no']),
     planningToUsePublishingSoftware: z.enum(['yes', 'no']),
@@ -104,7 +112,25 @@ export function BecomeAPublisherForm() {
   });
 
   const onSubmit = (data: Inputs) => {
-    console.log(data);
+    fetch('http://localhost:4001/forms/become-a-publisher', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => {
+        if (response.ok) {
+          alert('Organization registered');
+          form.reset();
+        } else {
+          alert('Failed to register organization');
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        alert('Failed to register organization');
+      });
   };
 
   return (
@@ -112,7 +138,7 @@ export function BecomeAPublisherForm() {
       <BlockContainer>
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit(onSubmit)}
+            onSubmit={form.handleSubmit(onSubmit, console.error)}
             className="max-w-3xl m-auto flex flex-col gap-4"
           >
             <MyOrganizationInNotAPublisher />
@@ -124,6 +150,7 @@ export function BecomeAPublisherForm() {
             <AdministrativeContact />
             <TechnicalContact />
             <WhatAndHow />
+            <SubmitButton />
           </form>
         </Form>
       </BlockContainer>
@@ -367,38 +394,57 @@ function EndorsingNode() {
   const hidden = !useTermsAccepted();
 
   return (
-    <FormField
-      control={form.control}
-      name="gbifProjects.type"
-      render={({ field }) => (
-        <FormItem className={cn('border shadow-sm p-4', { hidden })}>
-          <FormLabel className="text-md font-semibold">Endorsing node</FormLabel>
-          <FormDescription>
-            For example: Biodiversity Information for Development (BID), Biodiversity Information
-            Fund for Asia (BIFA), Capacity Enhancement Support Programme (CESP).
-          </FormDescription>
-          <FormControl>
-            <RadioGroup onValueChange={field.onChange} className="flex flex-col space-y-1">
-              <RadioItem value="help_me_with_endorsement" label="Help me with endorsement" />
+    <div className={cn('border shadow-sm p-4', { hidden })}>
+      <fieldset>
+        <legend className="text-md font-semibold">Endorsing node</legend>
+        <FormField
+          control={form.control}
+          name="endorsingNode.type"
+          render={({ field }) => (
+            <FormItem>
+              <FormDescription>
+                To support publishers and review data quality all publishers are associated with a
+                GBIF node. Please check the suggestion below, and correct it if needed:
+              </FormDescription>
+              <FormControl>
+                <RadioGroup onValueChange={field.onChange} className="flex flex-col space-y-1">
+                  <RadioItem value="help_me_with_endorsement" label="Help me with endorsement" />
 
-              <RadioItem
-                value="marine_data_publishers"
-                label="Marine data publishers: request endorsement for OBIS (Ocean Biogeographic Information System) related data"
+                  <RadioItem
+                    value="marine_data_publishers"
+                    label="Marine data publishers: request endorsement for OBIS (Ocean Biogeographic Information System) related data"
+                  />
+                </RadioGroup>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="endorsingNode.organization"
+          render={({ field }) => (
+            <FormItem>
+              <FormDescription>
+                If endorsement through the country node suggested above is not the right option,
+                please check this list of associated participants for multinational or thematic
+                networks:
+              </FormDescription>
+              <ParticipantSelect
+                selected={field.value}
+                onChange={field.onChange}
+                filters={{
+                  type: NodeType.Other,
+                  participationStatus: ParticipationStatus.Associate,
+                }}
               />
-
-              <div>
-                <p>
-                  If endorsement through the country node suggested above is not the right option,
-                  please check this list of associated participants for multinational or thematic
-                  networks:
-                </p>
-              </div>
-            </RadioGroup>
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </fieldset>
+    </div>
   );
 }
 
@@ -507,6 +553,13 @@ function AdministrativeContact() {
   const form = useFormContext<Partial<Inputs>>();
   const hidden = !useTermsAccepted() || !form.watch('extraContacts.administrative');
 
+  // Unregister the field if hidden. If not the validation will fail as the otherwise optional object is filled with invalid values
+  useEffect(() => {
+    if (hidden) form.unregister('administrativeContact');
+  }, [hidden, form]);
+
+  if (hidden) return null;
+
   return (
     <div className={cn('border shadow-sm p-4', { hidden })}>
       <fieldset>
@@ -526,6 +579,13 @@ function AdministrativeContact() {
 function TechnicalContact() {
   const form = useFormContext<Partial<Inputs>>();
   const hidden = !useTermsAccepted() || !form.watch('extraContacts.technical');
+
+  // Unregister the field if hidden. If not the validation will fail as the otherwise optional object is filled with invalid values
+  useEffect(() => {
+    if (hidden) form.unregister('technicalContact');
+  }, [hidden, form]);
+
+  if (hidden) return null;
 
   return (
     <div className={cn('border shadow-sm p-4', { hidden })}>
@@ -666,5 +726,20 @@ function useTermsAccepted() {
     termsAndConditions?.dataPublishederAgreement &&
     termsAndConditions?.confirmRegistration &&
     termsAndConditions?.dataWillBePublic
+  );
+}
+
+function SubmitButton() {
+  const form = useFormContext<Partial<Inputs>>();
+  const hidden = !useTermsAccepted();
+  const { isLoading, isSubmitting } = form.formState;
+  const buttonDisabled = isLoading || isSubmitting;
+
+  if (hidden) return null;
+
+  return (
+    <Button className="w-min" type="submit" disabled={buttonDisabled}>
+      <span className="whitespace-nowrap">Register organization</span>
+    </Button>
   );
 }

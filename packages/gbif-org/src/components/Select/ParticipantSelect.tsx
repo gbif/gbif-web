@@ -1,0 +1,86 @@
+import {
+  NodeType,
+  ParticipantSelectQuery,
+  ParticipantSelectQueryVariables,
+  ParticipationStatus,
+} from '@/gql/graphql';
+import useQuery from '@/hooks/useQuery';
+import { Select, SelectTrigger, SelectContent, SelectValue, SelectItem } from '../ui/select';
+import { useMemo } from 'react';
+
+const PARTICIPANT_SELECT_QUERY = /* GraphQL */ `
+  query ParticipantSelect($type: NodeType, $participationStatus: ParticipationStatus, $limit: Int) {
+    participantSearch(type: $type, participationStatus: $participationStatus, limit: $limit) {
+      endOfRecords
+      count
+      results {
+        id
+        name
+      }
+    }
+  }
+`;
+
+type Props = {
+  filters: {
+    type?: NodeType;
+    participationStatus?: ParticipationStatus;
+  };
+  selected?: ValidParticipant;
+  onChange(value: ValidParticipant): void;
+};
+
+export function ParticipantSelect({ filters, selected, onChange }: Props) {
+  const { data, error } = useQuery<ParticipantSelectQuery, ParticipantSelectQueryVariables>(
+    PARTICIPANT_SELECT_QUERY,
+    {
+      variables: {
+        ...(filters ?? {}),
+        limit: 100,
+      },
+    }
+  );
+
+  const results = useMemo(() => {
+    const participants = data?.participantSearch?.results.filter(isValidParticipant);
+    participants?.sort((a, b) => a.name.localeCompare(b.name));
+    return participants;
+  }, [data?.participantSearch?.results]);
+
+  // TODO: How should we handle errors like this?
+  if (error) {
+    console.error(error);
+    return null;
+  }
+
+  function handleSelect(id: string) {
+    const participant = data?.participantSearch?.results.find(
+      (participant) => participant?.id === id
+    );
+    if (participant != null && isValidParticipant(participant)) {
+      onChange(participant);
+    }
+  }
+
+  return (
+    <Select value={selected?.id} onValueChange={handleSelect}>
+      <SelectTrigger>
+        <SelectValue placeholder="Select a participant" />
+      </SelectTrigger>
+      <SelectContent>
+        {results?.map((participant) => (
+          <SelectItem key={participant.id} value={participant.id}>
+            {participant.name}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
+  );
+}
+
+type Participant = NonNullable<ParticipantSelectQuery['participantSearch']>['results'][number];
+type ValidParticipant = { name: string; id: string };
+
+function isValidParticipant(participant: Participant): participant is ValidParticipant {
+  return participant != null && participant.name !== null;
+}

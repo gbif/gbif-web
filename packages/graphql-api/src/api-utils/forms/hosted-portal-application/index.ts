@@ -5,7 +5,7 @@ import { CreateIssueArgs, createGitHubIssue } from "./create-github-issue";
 import { createMarkdown } from "./create-markdown";
 import { RequiredStringSchema, RequiredEmailSchema, OptionalStringSchema } from "../validation";
 
-export const Schema = {
+const Schema = {
   body: z.object({
     primaryContact: z.object({
       name: RequiredStringSchema,
@@ -49,7 +49,7 @@ export const Schema = {
 
 export type Inputs = z.infer<typeof Schema['body']>;
 
-export function registerHostedPortalApplication(router: Router) {
+export function registerHostedPortalApplicationForm(router: Router) {
   router.post(
     '/hosted-portal-application',
     validateRequest(Schema),
