@@ -409,26 +409,26 @@
       }
     },
     "eolReference": {
-      "name": "",
+      "name": "Ссылка на EOL (Encyclopedia of Life)",
       "properties": {
         "identifier": "Идентификатор",
-        "publicationType": "",
-        "full_reference": "",
-        "primaryTitle": "",
+        "publicationType": "Тип публикации",
+        "full_reference": "Полная ссылка",
+        "primaryTitle": "Основной заголовок",
         "title": "Название",
-        "pages": "",
-        "pageStart": "",
-        "pageEnd": "",
-        "volume": "",
-        "edition": "",
+        "pages": "Страницы",
+        "pageStart": "Начало страницы",
+        "pageEnd": "Конец страницы",
+        "volume": "Том",
+        "edition": "Редакция",
         "publisher": "Организация",
-        "authorList": "",
-        "editorList": "",
+        "authorList": "Список авторов",
+        "editorList": "Список редакторов",
         "created": "Создано",
         "language": "Язык",
-        "uri": "",
-        "doi": "",
-        "localityName": ""
+        "uri": "URI (ссылка)",
+        "doi": "Цифровой идентификатор (DOI)",
+        "localityName": "Название населенного пункта"
       }
     },
     "resourceRelationship": {
