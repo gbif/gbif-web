@@ -274,7 +274,7 @@
       }
     },
     "identification": {
-      "name": "Identification",
+      "name": "",
       "properties": {
         "identificationID": "ID d'identification",
         "verbatimIdentification": "Verbatim de l'identification",
@@ -406,6 +406,29 @@
         "taxonRemarks": "Remarques sur le taxon",
         "type": "Type ",
         "datasetID": "ID du jeu de données"
+      }
+    },
+    "eolReference": {
+      "name": "Référence EOL",
+      "properties": {
+        "identifier": "Identifiant",
+        "publicationType": "",
+        "full_reference": "",
+        "primaryTitle": "",
+        "title": "Titre",
+        "pages": "",
+        "pageStart": "",
+        "pageEnd": "",
+        "volume": "",
+        "edition": "",
+        "publisher": "Fournisseurs de données",
+        "authorList": "",
+        "editorList": "",
+        "created": "Créé",
+        "language": "Langue",
+        "uri": "",
+        "doi": "",
+        "localityName": ""
       }
     },
     "resourceRelationship": {
