@@ -26,8 +26,6 @@ import {
   FeatureList,
   TaxonClassification,
   GadmClassification,
-  PeopleIcon,
-  GenericFeature,
   SamplingEvent,
   TypeStatus,
   Location,
@@ -35,6 +33,7 @@ import {
   Sequenced,
 } from '@/components/highlights';
 import { fragmentManager } from '@/services/fragmentManager';
+import useBelow from '@/hooks/useBelow';
 
 const OCCURRENCE_QUERY = /* GraphQL */ `
   query Occurrence($key: ID!, $language: String!) {
@@ -262,6 +261,7 @@ export function occurrenceKeyLoader({ params, graphql }: LoaderArgs) {
 
 export function OccurrenceKey() {
   const { data } = useLoaderData() as { data: OccurrenceQuery };
+  const hideGlobe = useBelow(800);
   if (data.occurrence == null) throw new Error('404');
   const occurrence = data.occurrence;
 
@@ -291,7 +291,7 @@ export function OccurrenceKey() {
       <ArticleContainer className="pb-0">
         <ArticleTextContainer className="max-w-screen-xl">
           <div className="flex">
-            {data?.occurrence?.volatile?.globe && (
+            {!hideGlobe && data?.occurrence?.volatile?.globe && (
               <div className="flex">
                 <Globe {...data?.occurrence?.volatile?.globe} className="w-32 h-32 me-4 mb-4" />
               </div>

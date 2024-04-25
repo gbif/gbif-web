@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { PlainTextField, HtmlField, EnumField, BasicField } from '../properties';
 import {
@@ -30,7 +30,7 @@ export function Groups({
 }: {
   occurrence: OccurrenceQuery['occurrence'];
   showAll: boolean;
-  updateToc?: (id: string) => void;
+  updateToc: (id: string, visible: boolean) => void;
   termMap: { [key: string]: Term };
 }) {
   if (!occurrence) return null;
@@ -46,7 +46,7 @@ export function Groups({
       <Record {...{ showAll, termMap, occurrence, updateToc }} />
       <Taxon {...{ updateToc, showAll, termMap, occurrence }} />
       <Location {...{ updateToc, showAll, termMap, occurrence }} />
-      <Event {...{ updateToc, showAll, termMap, occurrence }} />
+      <Event {...{ updateToc, showAll, termMap, occurrence }}/>
       <Occurrence {...{ updateToc, showAll, termMap, occurrence }} />
       <Organism {...{ updateToc, showAll, termMap, occurrence }} />
       <MaterialSample {...{ updateToc, showAll, termMap, occurrence }} />
@@ -128,10 +128,12 @@ function Summary({
   showAll,
   termMap,
   occurrence,
+  updateToc = () => {}
 }: {
   showAll: boolean;
   termMap: any;
   occurrence: any;
+  updateToc: (id: string, visible: boolean) => void;
 }) {
   return (
     <RenderIfChildren as={PropGroup} label="occurrenceDetails.groups.summary" id="summary">
@@ -193,10 +195,12 @@ function Record({
   showAll,
   termMap,
   occurrence,
+  updateToc = () => {}
 }: {
   showAll: boolean;
   termMap: any;
   occurrence: any;
+  updateToc: (id: string, visible: boolean) => void;
 }) {
   return (
     <RenderIfChildren as={PropGroup} label="occurrenceDetails.groups.record" id="record">
@@ -221,10 +225,12 @@ function Taxon({
   showAll,
   termMap,
   occurrence,
+  updateToc = () => {}
 }: {
   showAll: boolean;
   termMap: any;
   occurrence: any;
+  updateToc: (id: string, visible: boolean) => void;
 }) {
   return (
     <RenderIfChildren as={PropGroup} label="occurrenceDetails.groups.taxon" id="taxon">
@@ -391,10 +397,12 @@ function Occurrence({
   showAll,
   termMap,
   occurrence,
+  updateToc = () => {}
 }: {
   showAll: boolean;
   termMap: any;
   occurrence: any;
+  updateToc: (id: string, visible: boolean) => void;
 }) {
   return (
     <RenderIfChildren as={PropGroup} label="occurrenceDetails.groups.occurrence" id="occurrence">
@@ -431,10 +439,12 @@ function Event({
   showAll,
   termMap,
   occurrence,
+  updateToc = () => {}
 }: {
   showAll: boolean;
   termMap: any;
   occurrence: any;
+  updateToc: (id: string, visible: boolean) => void;
 }) {
   return (
     <RenderIfChildren as={PropGroup} label="occurrenceDetails.groups.event" id="event">
@@ -465,10 +475,12 @@ function Organism({
   showAll,
   termMap,
   occurrence,
+  updateToc = () => {}
 }: {
   showAll: boolean;
   termMap: any;
   occurrence: any;
+  updateToc: (id: string, visible: boolean) => void;
 }) {
   return (
     <RenderIfChildren as={PropGroup} label="occurrenceDetails.groups.organism" id="organism">
@@ -486,11 +498,19 @@ function MaterialSample({
   showAll,
   termMap,
   occurrence,
+  updateToc = () => {}
 }: {
   showAll: boolean;
   termMap: any;
   occurrence: any;
+  updateToc: (id: string, visible: boolean) => void;
 }) {
+  const sectionName = 'material-sample';
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    updateToc(sectionName, visible);
+  }, [visible]);
+
   return (
     <RenderIfChildren
       as={PropGroup}
@@ -506,16 +526,27 @@ function GeologicalContext({
   showAll,
   termMap,
   occurrence,
+  updateToc = () => {}
 }: {
   showAll: boolean;
   termMap: any;
   occurrence: any;
+  updateToc: (id: string, visible: boolean) => void;
 }) {
+  const sectionName = 'geological-context';
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    updateToc(sectionName, visible);
+  }, [visible]);
+  
   return (
     <RenderIfChildren
       as={PropGroup}
       label="occurrenceDetails.groups.geologicalContext"
-      id="geological-context"
+      id={sectionName}
+      onChange={(newState) => {
+        if (newState !== visible) setVisible(newState);
+      }}
     >
       <PlainTextField term={termMap.geologicalContextID} showDetails={showAll} />
       <PlainTextField term={termMap.earliestEonOrLowestEonothem} showDetails={showAll} />
@@ -543,11 +574,19 @@ function Identification({
   showAll,
   termMap,
   occurrence,
+  updateToc = () => {}
 }: {
   showAll: boolean;
   termMap: any;
   occurrence: any;
+  updateToc: (id: string, visible: boolean) => void;
 }) {
+  const sectionName = 'geological-context';
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    updateToc(sectionName, visible);
+  }, [visible]);
+
   return (
     <RenderIfChildren
       as={PropGroup}
@@ -574,11 +613,19 @@ function Other({
   showAll,
   termMap,
   occurrence,
+  updateToc = () => {}
 }: {
   showAll: boolean;
   termMap: any;
   occurrence: any;
+  updateToc: (id: string, visible: boolean) => void;
 }) {
+  const sectionName = 'geological-context';
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    updateToc(sectionName, visible);
+  }, [visible]);
+
   return (
     <RenderIfChildren as={PropGroup} label="occurrenceDetails.groups.other" id="other">
       <EnumField
@@ -649,11 +696,19 @@ function MediaSummary({
   showAll,
   termMap,
   occurrence,
+  updateToc = () => {}
 }: {
   showAll: boolean;
   termMap: any;
   occurrence: any;
+  updateToc: (id: string, visible: boolean) => void;
 }) {
+  const sectionName = 'geological-context';
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    updateToc(sectionName, visible);
+  }, [visible]);
+
   const [activeImage, setActiveImage] = useState(0); // the idea with this is that down the line we can link from the gallery to open on a specific image. Or add a carousel
 
   const hasVideo = occurrence?.movingImageCount > 0;
