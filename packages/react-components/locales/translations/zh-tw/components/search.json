@@ -7,7 +7,7 @@
     "events": "事件",
     "download": "下載",
     "clusters": "",
-    "dashboard": "",
+    "dashboard": "統計面板",
     "sites": "GBIF 註記的存檔"
   },
   "table": {
@@ -39,7 +39,7 @@
     "currentRecord": "",
     "nodeType": {
       "IMAGE": "圖像",
-      "TYPE": "",
+      "TYPE": "模式標本",
       "TREATMENT": "分類處理",
       "OBSERVATION": "觀察",
       "SPECIMEN": "標本",
