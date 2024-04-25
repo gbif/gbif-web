@@ -318,15 +318,21 @@ function OrganizationDetails() {
 
         <div className="flex flex-col gap-4">
           <div className="flex gap-4">
-            <TextField name="organizationDetails.name" label="Organization name" required />
+            <TextField
+              autoComplete="organization"
+              name="organizationDetails.name"
+              label="Organization name"
+              required
+            />
 
-            <TextField name="organizationDetails.homePage" label="Home page" />
+            <TextField autoComplete="url" name="organizationDetails.homePage" label="Home page" />
           </div>
 
           <div className="flex gap-4">
-            <TextField name="organizationDetails.email" label="Email" />
+            <TextField autoComplete="email" name="organizationDetails.email" label="Email" />
 
             <TextField
+              autoComplete="tel"
               name="organizationDetails.phone"
               label="Phone"
               description="Organization email e.g. secretariat@fibg-museum.org"
@@ -337,11 +343,24 @@ function OrganizationDetails() {
           <TextField name="organizationDetails.address" label="Address" required />
 
           <div className="flex gap-4">
-            <TextField name="organizationDetails.city" label="City" required />
+            <TextField
+              autoComplete="address-line1"
+              name="organizationDetails.city"
+              label="City"
+              required
+            />
 
-            <TextField name="organizationDetails.province" label="Province" />
+            <TextField
+              autoComplete="address-level2"
+              name="organizationDetails.province"
+              label="Province"
+            />
 
-            <TextField name="organizationDetails.postalCode" label="Postal code" />
+            <TextField
+              autoComplete="postal-code"
+              name="organizationDetails.postalCode"
+              label="Postal code"
+            />
           </div>
 
           <div className="flex gap-4">
@@ -496,23 +515,45 @@ function ProjectIdentifier() {
   );
 }
 
-function ContactForm({
-  contact,
-}: {
-  contact: 'mainContact' | 'administrativeContact' | 'technicalContact';
-}) {
+type ContactType = 'mainContact' | 'administrativeContact' | 'technicalContact';
+
+function ContactForm({ contact }: { contact: ContactType }) {
+  const autoCompletes: Record<string, string> = {};
+  if (contact === 'mainContact') {
+    autoCompletes.firstName = 'given-name';
+    autoCompletes.lastName = 'family-name';
+    autoCompletes.email = 'email';
+    autoCompletes.phone = 'tel';
+  }
+
   return (
     <div className="flex flex-col gap-4">
       <div className="flex gap-4">
-        <TextField name={`${contact}.firstName`} label="First name" required />
+        <TextField
+          autoComplete={autoCompletes?.firstName}
+          name={`${contact}.firstName`}
+          label="First name"
+          required
+        />
 
-        <TextField name={`${contact}.lastName`} label="Last name" required />
+        <TextField
+          autoComplete={autoCompletes?.lastName}
+          name={`${contact}.lastName`}
+          label="Last name"
+          required
+        />
       </div>
 
       <div className="flex gap-4">
-        <TextField required name={`${contact}.email`} label="Email" />
+        <TextField
+          autoComplete={autoCompletes?.email}
+          required
+          name={`${contact}.email`}
+          label="Email"
+        />
 
         <TextField
+          autoComplete={autoCompletes?.phone}
           name={`${contact}.phone`}
           label="Phone"
           description="Remember to prefix with country code"
