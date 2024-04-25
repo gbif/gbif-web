@@ -128,6 +128,7 @@ export function HomePage(): React.ReactElement {
                 <DynamicLink className="me-4" to="/occurrence/4045885848">Vulpes vulpes (Linnaeus, 1758) - video</DynamicLink>
                 <DynamicLink className="me-4" to="/occurrence/2434542261">RecordedBy ID</DynamicLink>
                 <DynamicLink className="me-4" to="/occurrence/1934869005">Fossil</DynamicLink>
+                <DynamicLink className="me-4" to="/occurrence/3013940180">iNat frog</DynamicLink>
               </li>
               <li>
                 Occurrence, download, species, participant, country and profile pages have not been started

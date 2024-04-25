@@ -4,6 +4,7 @@ import Properties, { Term as T, Value as V } from '@/components/Properties';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { OccurrenceMediaDetailsFragment, OccurrenceQuery, Term } from '@/gql/graphql';
 import { BasicField } from '../properties';
+import { useEffect, useState } from 'react';
 
 const supportedFormats = [
   'audio/ogg',
@@ -20,16 +21,29 @@ export function Media({
   loading = false,
   error,
   className,
+  updateToc = () => {},
   ...props
 }: {
   occurrence: OccurrenceQuery['occurrence'];
   termMap: { [key: string]: Term };
   loading?: boolean;
   error?: any;
+  updateToc: (id: string, visible: boolean) => void;
   className?: string;
 }) {
+  const sectionName = 'media';
+  const [visible, setVisible] = useState<boolean | undefined>();
+  useEffect(() => {
+    if (typeof visible === 'boolean') updateToc(sectionName, visible);
+  }, [visible]);
+
   if (loading || !occurrence) return <h2>Loading</h2>; //TODO replace with proper skeleton loader
-  if (occurrence.stillImageCount === 0 && occurrence.soundCount === 0 && occurrence.movingImageCount === 0) return null;
+  if (occurrence.stillImageCount === 0 && occurrence.soundCount === 0 && occurrence.movingImageCount === 0) {
+    if (visible) setVisible(false);
+    return null;
+  } else {
+    if (!visible) setVisible(true);
+  }
   
   return (
     <div className="mb-4 scroll-mt-24" id="media">

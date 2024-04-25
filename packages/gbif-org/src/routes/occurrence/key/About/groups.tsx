@@ -18,7 +18,30 @@ import { DynamicLink } from '@/components/dynamicLink';
 import { Media } from './media';
 import { OccurrenceQuery, Term } from '@/gql/graphql';
 import { BulletList } from '@/components/BulletList';
-import { Amplification, Audubon, ChronometricAge, Cloning, DNADerivedData, EolReference, ExtendedMeasurementOrFact, GelImage, GermplasmAccession, GermplasmMeasurementScore, GermplasmMeasurementTrait, GermplasmMeasurementTrial, IdentificationHistory, Identifier, Loan, MaterialSampleExt, MeasurementOrFact, Permit, Preparation, Preservation, Reference, ResourceRelationship } from './extensions';
+import {
+  Amplification,
+  Audubon,
+  ChronometricAge,
+  Cloning,
+  DNADerivedData,
+  EolReference,
+  ExtendedMeasurementOrFact,
+  GelImage,
+  GermplasmAccession,
+  GermplasmMeasurementScore,
+  GermplasmMeasurementTrait,
+  GermplasmMeasurementTrial,
+  IdentificationHistory,
+  Identifier,
+  Loan,
+  MaterialSampleExt,
+  MeasurementOrFact,
+  Permit,
+  Preparation,
+  Preservation,
+  Reference,
+  ResourceRelationship,
+} from './extensions';
 
 const Map = React.lazy(() => import('@/components/map'));
 
@@ -46,36 +69,36 @@ export function Groups({
       <Record {...{ showAll, termMap, occurrence, updateToc }} />
       <Taxon {...{ updateToc, showAll, termMap, occurrence }} />
       <Location {...{ updateToc, showAll, termMap, occurrence }} />
-      <Event {...{ updateToc, showAll, termMap, occurrence }}/>
+      <Event {...{ updateToc, showAll, termMap, occurrence }} />
       <Occurrence {...{ updateToc, showAll, termMap, occurrence }} />
       <Organism {...{ updateToc, showAll, termMap, occurrence }} />
       <MaterialSample {...{ updateToc, showAll, termMap, occurrence }} />
       <Identification {...{ updateToc, showAll, termMap, occurrence }} />
       <Other {...{ updateToc, showAll, termMap, occurrence }} />
-      
-      <Media occurrence={occurrence} termMap={termMap} />
 
-      <Preparation          {...{ updateToc, showAll, termMap, occurrence }} />
+      {/* <Media occurrence={occurrence} termMap={termMap} updateToc={updateToc} /> */}
+
+      <Preparation {...{ updateToc, showAll, termMap, occurrence }} />
       <ResourceRelationship {...{ updateToc, showAll, termMap, occurrence }} />
-      <Amplification        {...{ updateToc, showAll, termMap, occurrence }} />
-      <Permit               {...{ updateToc, showAll, termMap, occurrence }} />
-      <Loan                 {...{ updateToc, showAll, termMap, occurrence }} />
-      <Preservation         {...{ updateToc, showAll, termMap, occurrence }} />
-      <MaterialSampleExt    {...{ updateToc, showAll, termMap, occurrence }} />
-      <DNADerivedData       {...{ updateToc, showAll, termMap, occurrence }} />
-      <Cloning              {...{ updateToc, showAll, termMap, occurrence }} />
-      <GelImage             {...{ updateToc, showAll, termMap, occurrence }} />
-      <Reference            {...{ updateToc, showAll, termMap, occurrence }} />
-      <EolReference         {...{ updateToc, showAll, termMap, occurrence }} />
-      <GermplasmAccession   {...{ updateToc, showAll, termMap, occurrence }} />
-      <GermplasmMeasurementScore  {...{ updateToc, showAll, termMap, occurrence }} />
-      <GermplasmMeasurementTrait  {...{ updateToc, showAll, termMap, occurrence }} />
-      <GermplasmMeasurementTrial  {...{ updateToc, showAll, termMap, occurrence }} />
-      <IdentificationHistory      {...{ updateToc, showAll, termMap, occurrence }} />
-      <Identifier                 {...{ updateToc, showAll, termMap, occurrence }} />
-      <MeasurementOrFact          {...{ updateToc, showAll, termMap, occurrence }} />
-      <ExtendedMeasurementOrFact  {...{ updateToc, showAll, termMap, occurrence }} />
-      <ChronometricAge            {...{ updateToc, showAll, termMap, occurrence }} />
+      <Amplification {...{ updateToc, showAll, termMap, occurrence }} />
+      <Permit {...{ updateToc, showAll, termMap, occurrence }} />
+      <Loan {...{ updateToc, showAll, termMap, occurrence }} />
+      <Preservation {...{ updateToc, showAll, termMap, occurrence }} />
+      <MaterialSampleExt {...{ updateToc, showAll, termMap, occurrence }} />
+      <DNADerivedData {...{ updateToc, showAll, termMap, occurrence }} />
+      <Cloning {...{ updateToc, showAll, termMap, occurrence }} />
+      <GelImage {...{ updateToc, showAll, termMap, occurrence }} />
+      <Reference {...{ updateToc, showAll, termMap, occurrence }} />
+      <EolReference {...{ updateToc, showAll, termMap, occurrence }} />
+      <GermplasmAccession {...{ updateToc, showAll, termMap, occurrence }} />
+      <GermplasmMeasurementScore {...{ updateToc, showAll, termMap, occurrence }} />
+      <GermplasmMeasurementTrait {...{ updateToc, showAll, termMap, occurrence }} />
+      <GermplasmMeasurementTrial {...{ updateToc, showAll, termMap, occurrence }} />
+      <IdentificationHistory {...{ updateToc, showAll, termMap, occurrence }} />
+      <Identifier {...{ updateToc, showAll, termMap, occurrence }} />
+      <MeasurementOrFact {...{ updateToc, showAll, termMap, occurrence }} />
+      <ExtendedMeasurementOrFact {...{ updateToc, showAll, termMap, occurrence }} />
+      <ChronometricAge {...{ updateToc, showAll, termMap, occurrence }} />
       {/* <Audubon              {...{ updateToc, showAll, termMap, occurrence }} /> */}
 
       <Citation {...{ updateToc, showAll, termMap, occurrence }} />
@@ -128,7 +151,7 @@ function Summary({
   showAll,
   termMap,
   occurrence,
-  updateToc = () => {}
+  updateToc = () => {},
 }: {
   showAll: boolean;
   termMap: any;
@@ -185,7 +208,12 @@ function Provenance({
     <Card className="mb-4 bg-slate-300 text-slate-600">
       <CardContent className="py-4 md:py-4">
         This record is part of the dataset{' '}
-        <span className="underline"><DynamicLink to={`/dataset/${occurrence.datasetKey}`}>{occurrence.datasetTitle}</DynamicLink></span>.
+        <span className="underline">
+          <DynamicLink to={`/dataset/${occurrence.datasetKey}`}>
+            {occurrence.datasetTitle}
+          </DynamicLink>
+        </span>
+        .
       </CardContent>
     </Card>
   );
@@ -194,16 +222,15 @@ function Provenance({
 function Record({
   showAll,
   termMap,
-  occurrence,
-  updateToc = () => {}
+  occurrence
 }: {
   showAll: boolean;
   termMap: any;
   occurrence: any;
-  updateToc: (id: string, visible: boolean) => void;
 }) {
+  // no reason to test this, this group is always present since basisOfRecord is always present
   return (
-    <RenderIfChildren as={PropGroup} label="occurrenceDetails.groups.record" id="record">
+    <PropGroup label="occurrenceDetails.groups.record" id="record">
       <Institution {...{ showAll, termMap, occurrence }} />
       <Collection {...{ showAll, termMap, occurrence }} />
 
@@ -217,7 +244,7 @@ function Record({
       <PlainTextField term={termMap.informationWithheld} showDetails={showAll} />
       <PlainTextField term={termMap.dataGeneralizations} showDetails={showAll} />
       <DynamicProperties termMap={termMap} />
-    </RenderIfChildren>
+    </PropGroup>
   );
 }
 
@@ -225,7 +252,7 @@ function Taxon({
   showAll,
   termMap,
   occurrence,
-  updateToc = () => {}
+  updateToc = () => {},
 }: {
   showAll: boolean;
   termMap: any;
@@ -397,15 +424,14 @@ function Occurrence({
   showAll,
   termMap,
   occurrence,
-  updateToc = () => {}
 }: {
   showAll: boolean;
   termMap: any;
   occurrence: any;
-  updateToc: (id: string, visible: boolean) => void;
 }) {
+  // no reason to test this, this group is always present since occurrence ID is required
   return (
-    <RenderIfChildren as={PropGroup} label="occurrenceDetails.groups.occurrence" id="occurrence">
+    <PropGroup label="occurrenceDetails.groups.occurrence" id="occurrence">
       <HtmlField term={termMap.occurrenceID} showDetails={showAll} />
       <PlainTextField term={termMap.catalogNumber} showDetails={showAll} />
       <PlainTextField term={termMap.recordNumber} showDetails={showAll} />
@@ -431,7 +457,7 @@ function Occurrence({
       <PlainTextField term={termMap.otherCatalogNumbers} showDetails={showAll} />
       <PlainTextField term={termMap.occurrenceRemarks} showDetails={showAll} />
       <HtmlField term={termMap.associatedMedia} showDetails={showAll} />
-    </RenderIfChildren>
+    </PropGroup>
   );
 }
 
@@ -439,15 +465,28 @@ function Event({
   showAll,
   termMap,
   occurrence,
-  updateToc = () => {}
+  updateToc = () => {},
 }: {
   showAll: boolean;
   termMap: any;
   occurrence: any;
   updateToc: (id: string, visible: boolean) => void;
 }) {
+  const sectionName = 'event';
+  const [visible, setVisible] = useState<boolean | undefined>();
+  useEffect(() => {
+    if (typeof visible === 'boolean') updateToc(sectionName, visible);
+  }, [visible]);
+
   return (
-    <RenderIfChildren as={PropGroup} label="occurrenceDetails.groups.event" id="event">
+    <RenderIfChildren
+      as={PropGroup}
+      label="occurrenceDetails.groups.event"
+      id="event"
+      onChange={(newState) => {
+        if (newState !== visible) setVisible(newState);
+      }}
+    >
       <PlainTextField term={termMap.eventID} showDetails={showAll} />
       <PlainTextField term={termMap.parentEventID} showDetails={showAll} />
       <PlainTextField term={termMap.parentEventID} showDetails={showAll} />
@@ -475,15 +514,28 @@ function Organism({
   showAll,
   termMap,
   occurrence,
-  updateToc = () => {}
+  updateToc = () => {},
 }: {
   showAll: boolean;
   termMap: any;
   occurrence: any;
   updateToc: (id: string, visible: boolean) => void;
 }) {
+  const sectionName = 'organism';
+  const [visible, setVisible] = useState<boolean | undefined>();
+  useEffect(() => {
+    if (typeof visible === 'boolean') updateToc(sectionName, visible);
+  }, [visible]);
+
   return (
-    <RenderIfChildren as={PropGroup} label="occurrenceDetails.groups.organism" id="organism">
+    <RenderIfChildren
+      as={PropGroup}
+      label="occurrenceDetails.groups.organism"
+      id="organism"
+      onChange={(newState) => {
+        if (newState !== visible) setVisible(newState);
+      }}
+    >
       <PlainTextField term={termMap.organismID} showDetails={showAll} />
       <PlainTextField term={termMap.organismScope} showDetails={showAll} />
       <PlainTextField term={termMap.associatedOccurrences} showDetails={showAll} />
@@ -498,7 +550,7 @@ function MaterialSample({
   showAll,
   termMap,
   occurrence,
-  updateToc = () => {}
+  updateToc = () => {},
 }: {
   showAll: boolean;
   termMap: any;
@@ -506,9 +558,9 @@ function MaterialSample({
   updateToc: (id: string, visible: boolean) => void;
 }) {
   const sectionName = 'material-sample';
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState<boolean | undefined>();
   useEffect(() => {
-    updateToc(sectionName, visible);
+    if (typeof visible === 'boolean') updateToc(sectionName, visible);
   }, [visible]);
 
   return (
@@ -516,6 +568,9 @@ function MaterialSample({
       as={PropGroup}
       label="occurrenceDetails.groups.materialSample"
       id="material-sample"
+      onChange={(newState) => {
+        if (newState !== visible) setVisible(newState);
+      }}
     >
       <PlainTextField term={termMap.materialSampleID} showDetails={showAll} />
     </RenderIfChildren>
@@ -526,7 +581,7 @@ function GeologicalContext({
   showAll,
   termMap,
   occurrence,
-  updateToc = () => {}
+  updateToc = () => {},
 }: {
   showAll: boolean;
   termMap: any;
@@ -534,11 +589,11 @@ function GeologicalContext({
   updateToc: (id: string, visible: boolean) => void;
 }) {
   const sectionName = 'geological-context';
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState<boolean | undefined>();
   useEffect(() => {
-    updateToc(sectionName, visible);
+    if (typeof visible === 'boolean') updateToc(sectionName, visible);
   }, [visible]);
-  
+
   return (
     <RenderIfChildren
       as={PropGroup}
@@ -574,17 +629,17 @@ function Identification({
   showAll,
   termMap,
   occurrence,
-  updateToc = () => {}
+  updateToc = () => {},
 }: {
   showAll: boolean;
   termMap: any;
   occurrence: any;
   updateToc: (id: string, visible: boolean) => void;
 }) {
-  const sectionName = 'geological-context';
-  const [visible, setVisible] = useState(false);
+  const sectionName = 'identification';
+  const [visible, setVisible] = useState<boolean | undefined>();
   useEffect(() => {
-    updateToc(sectionName, visible);
+    if (typeof visible === 'boolean') updateToc(sectionName, visible);
   }, [visible]);
 
   return (
@@ -592,6 +647,9 @@ function Identification({
       as={PropGroup}
       label="occurrenceDetails.groups.identification"
       id="identification"
+      onChange={(newState) => {
+        if (newState !== visible) setVisible(newState);
+      }}
     >
       <HtmlField term={termMap.identificationID} showDetails={showAll} />
       <PlainTextField term={termMap.identificationQualifier} showDetails={showAll} />
@@ -604,7 +662,7 @@ function Identification({
       <PlainTextField term={termMap.dateIdentified} showDetails={showAll} />
       <HtmlField term={termMap.identificationReferences} showDetails={showAll} />
       <PlainTextField term={termMap.identificationVerificationStatus} showDetails={showAll} />
-      <HtmlField term={termMap.identificationRemark} showDetails={showAll} />
+      <HtmlField term={termMap.identificationRemarks} showDetails={showAll} />
     </RenderIfChildren>
   );
 }
@@ -613,21 +671,14 @@ function Other({
   showAll,
   termMap,
   occurrence,
-  updateToc = () => {}
 }: {
   showAll: boolean;
   termMap: any;
   occurrence: any;
-  updateToc: (id: string, visible: boolean) => void;
 }) {
-  const sectionName = 'geological-context';
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    updateToc(sectionName, visible);
-  }, [visible]);
-
+  // no reason to test this, this group is always present since GBIF id is required
   return (
-    <RenderIfChildren as={PropGroup} label="occurrenceDetails.groups.other" id="other">
+    <PropGroup label="occurrenceDetails.groups.other" id="other">
       <EnumField
         term={termMap.license}
         showDetails={showAll}
@@ -688,7 +739,7 @@ function Other({
       <PlainTextField term={termMap.type} showDetails={showAll} />
       <PlainTextField term={termMap.valid} showDetails={showAll} />
       <BasicField label="occurrenceFieldNames.gbifID">{termMap.gbifID.value}</BasicField>
-    </RenderIfChildren>
+    </PropGroup>
   );
 }
 
@@ -696,19 +747,11 @@ function MediaSummary({
   showAll,
   termMap,
   occurrence,
-  updateToc = () => {}
 }: {
   showAll: boolean;
   termMap: any;
   occurrence: any;
-  updateToc: (id: string, visible: boolean) => void;
 }) {
-  const sectionName = 'geological-context';
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    updateToc(sectionName, visible);
-  }, [visible]);
-
   const [activeImage, setActiveImage] = useState(0); // the idea with this is that down the line we can link from the gallery to open on a specific image. Or add a carousel
 
   const hasVideo = occurrence?.movingImageCount > 0;
@@ -795,9 +838,7 @@ function Debug({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
               {occurrence.publisherTitle}
             </DynamicLink>
           </BasicField>
-          <BasicField label="Last crawled">
-            {occurrence?.lastCrawled}
-          </BasicField>
+          <BasicField label="Last crawled">{occurrence?.lastCrawled}</BasicField>
         </Properties>
       </CardContent>
     </div>

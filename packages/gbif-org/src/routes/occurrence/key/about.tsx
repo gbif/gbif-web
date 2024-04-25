@@ -3,13 +3,15 @@ import { OccurrenceQuery, Term } from '@/gql/graphql';
 import { RouteId, useParentRouteLoaderData } from '@/hooks/useParentRouteLoaderData';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Groups } from './About/groups';
 import { HashLink } from 'react-router-hash-link';
 import { Aside, AsideSticky, SidebarLayout } from './pagelayouts';
 import useBelow from '@/hooks/useBelow';
 
 const extensions = [
+  'media',
+  'preparation',
   'preparation',
   'resource-relationship',
   'amplification',
@@ -36,7 +38,7 @@ const extensions = [
 export function OccurrenceKeyAbout() {
   const { data } = useParentRouteLoaderData(RouteId.Occurrence) as { data: OccurrenceQuery };
   const hideSidebar = useBelow(1000);
-  const [toc, setToc] = React.useState(
+  const [toc, setToc] = useState(
     extensions.reduce((acc, section) => ({ ...acc, [section]: false }), {})
   );
 
@@ -107,7 +109,7 @@ export function OccurrenceKeyAbout() {
                       <Li to="#record">Record</Li>
                       <Li to="#taxon">Taxon</Li>
                       <Li to="#location">Location</Li>
-                      <Li to="#event">Event</Li>
+                      {toc['event'] && <Li to="#event">Event</Li>}
                       <Li to="#occurrence">Occurrence</Li>
                       {toc['organism'] && <Li to="#organism">Organism</Li>}
                       {toc['material-sample'] && <Li to="#material-sample">Material Sample</Li>}
