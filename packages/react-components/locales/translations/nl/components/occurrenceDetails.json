@@ -408,6 +408,29 @@
         "datasetID": ""
       }
     },
+    "eolReference": {
+      "name": "EOL referentie",
+      "properties": {
+        "identifier": "",
+        "publicationType": "",
+        "full_reference": "",
+        "primaryTitle": "",
+        "title": "",
+        "pages": "",
+        "pageStart": "",
+        "pageEnd": "",
+        "volume": "",
+        "edition": "",
+        "publisher": "",
+        "authorList": "",
+        "editorList": "",
+        "created": "",
+        "language": "",
+        "uri": "",
+        "doi": "",
+        "localityName": ""
+      }
+    },
     "resourceRelationship": {
       "name": "",
       "properties": {
