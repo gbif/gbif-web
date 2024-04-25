@@ -274,7 +274,7 @@
       }
     },
     "identification": {
-      "name": "鑑定",
+      "name": "",
       "properties": {
         "identificationID": "鑑定識別碼",
         "verbatimIdentification": "逐字鑑定",
@@ -406,6 +406,29 @@
         "taxonRemarks": "分類群註記",
         "type": "類型",
         "datasetID": "資料集識別碼"
+      }
+    },
+    "eolReference": {
+      "name": "",
+      "properties": {
+        "identifier": "識別碼",
+        "publicationType": "",
+        "full_reference": "",
+        "primaryTitle": "",
+        "title": "標題",
+        "pages": "",
+        "pageStart": "",
+        "pageEnd": "",
+        "volume": "",
+        "edition": "",
+        "publisher": "發布者",
+        "authorList": "",
+        "editorList": "",
+        "created": "已建立",
+        "language": "語言",
+        "uri": "",
+        "doi": "",
+        "localityName": ""
       }
     },
     "resourceRelationship": {
