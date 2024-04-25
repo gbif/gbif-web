@@ -42,14 +42,14 @@ export function Groups({
 
       <Provenance {...{ updateToc, showAll, termMap, occurrence }} />
 
+      <GeologicalContext {...{ updateToc, showAll, termMap, occurrence }} />
       <Record {...{ showAll, termMap, occurrence, updateToc }} />
       <Taxon {...{ updateToc, showAll, termMap, occurrence }} />
       <Location {...{ updateToc, showAll, termMap, occurrence }} />
-      <Occurrence {...{ updateToc, showAll, termMap, occurrence }} />
       <Event {...{ updateToc, showAll, termMap, occurrence }} />
+      <Occurrence {...{ updateToc, showAll, termMap, occurrence }} />
       <Organism {...{ updateToc, showAll, termMap, occurrence }} />
       <MaterialSample {...{ updateToc, showAll, termMap, occurrence }} />
-      <GeologicalContext {...{ updateToc, showAll, termMap, occurrence }} />
       <Identification {...{ updateToc, showAll, termMap, occurrence }} />
       <Other {...{ updateToc, showAll, termMap, occurrence }} />
       
@@ -182,8 +182,7 @@ function Provenance({
   return (
     <Card className="mb-4 bg-slate-300 text-slate-600">
       <CardContent className="py-4 md:py-4">
-        The GBIF network provides centralized access to more than 100.000 datasets and 3 billion
-        species occurrences. This record is part of the dataset{' '}
+        This record is part of the dataset{' '}
         <span className="underline"><DynamicLink to={`/dataset/${occurrence.datasetKey}`}>{occurrence.datasetTitle}</DynamicLink></span>.
       </CardContent>
     </Card>

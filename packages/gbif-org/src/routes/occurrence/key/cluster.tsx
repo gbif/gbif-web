@@ -1,15 +1,12 @@
 import { DynamicLink } from '@/components/dynamicLink';
 import { Coordinates, FeatureList, Sequenced, TypeStatus } from '@/components/highlights';
-import { CountTag, Tag } from '@/components/resultCards';
+import { Tag } from '@/components/resultCards';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
+import { Card, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import {
   OccurrenceClusterQuery,
   OccurrenceClusterQueryVariables,
-  RelatedOccurrence,
   RelatedOccurrenceDetailsFragment,
-  RelatedOccurrenceFragment,
-  RelatedOccurrenceStub,
   RelatedOccurrenceStubFragment,
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
@@ -50,6 +47,17 @@ export function OccurrenceKeyCluster() {
         </ArticleTextContainer>
       </ArticleContainer>
     );
+
+  // if there are no related occurrenves, then tell the user
+  if (data.occurrence?.related?.count === 0) {
+    return (
+      <ArticleContainer className="bg-slate-100">
+        <ArticleTextContainer>
+          No related occurrences
+        </ArticleTextContainer>
+      </ArticleContainer>
+    );
+  }
 
   return (
     <ArticleContainer className="bg-slate-100 pt-0">
@@ -161,6 +169,7 @@ const RELATED_OCCURRENCES_QUERY = /* GraphQL */ `
   query OccurrenceCluster($key: ID!) {
     occurrence(key: $key) {
       related {
+        count
         currentOccurrence {
           stub {
             ...RelatedOccurrenceStub

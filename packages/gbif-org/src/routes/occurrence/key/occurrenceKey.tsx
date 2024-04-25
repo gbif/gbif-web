@@ -34,9 +34,7 @@ import {
   Homepage,
   Sequenced,
 } from '@/components/highlights';
-import { BulletList } from '@/components/BulletList';
 import { fragmentManager } from '@/services/fragmentManager';
-const Map = React.lazy(() => import('@/components/map'));
 
 const OCCURRENCE_QUERY = /* GraphQL */ `
   query Occurrence($key: ID!, $language: String!) {
@@ -60,6 +58,9 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
       collection {
         name
         key
+      }
+      related {
+        count
       }
       volatile {
         globe(sphere: false, land: false, graticule: false) {
@@ -271,10 +272,16 @@ export function OccurrenceKey() {
       return map;
     }, {}) ?? {};
 
-  const recorderAndIndentiferIsDifferent =
-    JSON.stringify(termMap?.recordedBy?.value) !== JSON.stringify(termMap?.identifiedBy?.value);
+  // const recorderAndIndentiferIsDifferent =
+  //   JSON.stringify(termMap?.recordedBy?.value) !== JSON.stringify(termMap?.identifiedBy?.value);
 
   const vernacularName = occurrence?.acceptedTaxon?.vernacularNames?.results?.[0]?.vernacularName;
+
+  const hasRelated = occurrence.related?.count && occurrence.related?.count > 0;
+
+  const tabs = [{ to: '.', children: 'Overview' }];
+  if (hasRelated) tabs.push({ to: 'related', children: 'Related' });
+
   return (
     <>
       <Helmet>
@@ -437,12 +444,7 @@ export function OccurrenceKey() {
           </div>
           <div className="border-b"></div>
           <Tabs
-            links={[
-              { to: '.', children: 'Overview' },
-              // { to: 'media', children: 'Media' },
-              { to: 'related', children: 'Related' },
-              // { to: 'citations', children: 'Citations' },
-            ]}
+            links={tabs}
           />
         </ArticleTextContainer>
       </ArticleContainer>
