@@ -11,7 +11,7 @@
   },
   "hasCoordinate": {
     "name": "具有座標",
-    "count": "",
+    "count": "具有座標",
     "description": "GBIF 註記的存檔"
   },
   "hasGeospatialIssues": {
@@ -43,16 +43,16 @@
     "name": "",
     "count": "",
     "description": "",
-    "placeholderLat": "",
-    "placeholderLon": "",
+    "placeholderLat": "緯度",
+    "placeholderLon": "經度",
     "placeholderDist": ""
   },
   "geometry": {
     "name": "地點",
     "count": "",
     "description": "GBIF 註記的存檔",
-    "placeholderLat": "",
-    "placeholderLon": "",
+    "placeholderLat": "緯度",
+    "placeholderLon": "經度",
     "placeholderDist": ""
   },
   "relevance": {
