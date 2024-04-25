@@ -274,7 +274,7 @@
       }
     },
     "identification": {
-      "name": "Определение",
+      "name": "",
       "properties": {
         "identificationID": "ID определения",
         "verbatimIdentification": "Дословная идентификация",
@@ -406,6 +406,29 @@
         "taxonRemarks": "Примечания к таксону",
         "type": "Тип записи",
         "datasetID": "ID набора данных"
+      }
+    },
+    "eolReference": {
+      "name": "",
+      "properties": {
+        "identifier": "Идентификатор",
+        "publicationType": "",
+        "full_reference": "",
+        "primaryTitle": "",
+        "title": "Название",
+        "pages": "",
+        "pageStart": "",
+        "pageEnd": "",
+        "volume": "",
+        "edition": "",
+        "publisher": "Организация",
+        "authorList": "",
+        "editorList": "",
+        "created": "Создано",
+        "language": "Язык",
+        "uri": "",
+        "doi": "",
+        "localityName": ""
       }
     },
     "resourceRelationship": {
