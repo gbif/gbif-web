@@ -45,6 +45,8 @@ export function OccurrenceKeyAbout() {
     }, {}) ?? {};
 
   const showAll = false;
+  const overviewZoom = 5;
+  const sateliteZoom = occurrence.gadm?.level0 ? 14 : 5;
   return (
     <ArticleContainer className="bg-slate-100 pt-4">
       <ArticleTextContainer className="max-w-screen-xl">
@@ -62,7 +64,7 @@ export function OccurrenceKeyAbout() {
                 <Card className="mb-4">
                   <HashLink to="#location" replace className="block relative group">
                     <img
-                      src={`https://api.mapbox.com/styles/v1/mapbox/light-v9/static/pin-s-circle+285A98(${occurrence.coordinates.lon},${occurrence.coordinates.lat})/${occurrence.coordinates.lon},${occurrence.coordinates.lat},5,0/250x180@2x?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA`}
+                      src={`https://api.mapbox.com/styles/v1/mapbox/light-v9/static/pin-s-circle+285A98(${occurrence.coordinates.lon},${occurrence.coordinates.lat})/${occurrence.coordinates.lon},${occurrence.coordinates.lat},${overviewZoom},0/250x180@2x?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA`}
                     />
                     {/* <img
           style={{ display: "block", maxWidth: "100%", marginBottom: 12, position: 'absolute', top: 0 }}
@@ -70,7 +72,7 @@ export function OccurrenceKeyAbout() {
         /> */}
                     <img
                       className="absolute opacity-0 top-0 group-hover:opacity-100 transition-opacity gb-on-hover"
-                      src={`https://api.mapbox.com/styles/v1/mapbox/satellite-v9/static/pin-s-circle+285A98(${occurrence.coordinates.lon},${occurrence.coordinates.lat})/${occurrence.coordinates.lon},${occurrence.coordinates.lat},14,0/250x180@2x?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA`}
+                      src={`https://api.mapbox.com/styles/v1/mapbox/satellite-v9/static/pin-s-circle+285A98(${occurrence.coordinates.lon},${occurrence.coordinates.lat})/${occurrence.coordinates.lon},${occurrence.coordinates.lat},${sateliteZoom},0/250x180@2x?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA`}
                     />
                     {/* <HashLink to="#location" replace></HashLink> */}
                   </HashLink>
