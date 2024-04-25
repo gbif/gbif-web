@@ -274,7 +274,7 @@
       }
     },
     "identification": {
-      "name": "Identificação",
+      "name": "",
       "properties": {
         "identificationID": "ID de identificação",
         "verbatimIdentification": "",
@@ -406,6 +406,29 @@
         "taxonRemarks": "Observações do táxon",
         "type": "Tipo",
         "datasetID": "ID do conjunto de dados"
+      }
+    },
+    "eolReference": {
+      "name": "",
+      "properties": {
+        "identifier": "Identificador",
+        "publicationType": "",
+        "full_reference": "",
+        "primaryTitle": "",
+        "title": "Título",
+        "pages": "",
+        "pageStart": "",
+        "pageEnd": "",
+        "volume": "",
+        "edition": "",
+        "publisher": "Publicador",
+        "authorList": "",
+        "editorList": "",
+        "created": "Criado",
+        "language": "Idioma",
+        "uri": "",
+        "doi": "",
+        "localityName": ""
       }
     },
     "resourceRelationship": {
