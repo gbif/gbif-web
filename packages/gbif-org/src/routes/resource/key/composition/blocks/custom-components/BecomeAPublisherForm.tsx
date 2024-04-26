@@ -41,6 +41,7 @@ import { ConditionalWrapper } from '@/components/ConditionalWrapper';
 import { CoordinatesPicker } from '@/components/CoordinatesPicker';
 import { ParticipantSelect } from '@/components/Select/ParticipantSelect';
 import { Button } from '@/components/ui/button';
+import { CountryCodeSelect } from '@/components/Select/CountryCodeSelect';
 
 const CheckboxField = createTypedCheckboxField<Inputs>();
 const TextField = createTypedTextField<Inputs>();
@@ -310,6 +311,7 @@ function TermsAndConditions() {
 
 function OrganizationDetails() {
   const hidden = !useTermsAccepted();
+  const form = useFormContext<Partial<Inputs>>();
 
   return (
     <div className={cn('border shadow-sm p-4', { hidden })}>
@@ -329,15 +331,15 @@ function OrganizationDetails() {
           </div>
 
           <div className="flex gap-4">
-            <TextField autoComplete="email" name="organizationDetails.email" label="Email" />
-
             <TextField
-              autoComplete="tel"
-              name="organizationDetails.phone"
-              label="Phone"
+              autoComplete="email"
+              name="organizationDetails.email"
+              label="Email"
               description="Organization email e.g. secretariat@fibg-museum.org"
               descriptionPosition="below"
             />
+
+            <TextField autoComplete="tel" name="organizationDetails.phone" label="Phone" />
           </div>
 
           <TextField name="organizationDetails.address" label="Address" required />
@@ -364,8 +366,22 @@ function OrganizationDetails() {
           </div>
 
           <div className="flex gap-4">
-            {/* TODO: should be dropdown */}
-            <TextField name="organizationDetails.country" label="Country" required />
+            <FormField
+              control={form.control}
+              name="organizationDetails.country"
+              render={({ field }) => (
+                <FormItem className="flex-1">
+                  <FormLabel>
+                    Country
+                    <Required />
+                  </FormLabel>
+                  <FormControl>
+                    <CountryCodeSelect selected={field.value} onChange={field.onChange} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
             <TextField
               name="organizationDetails.logo"

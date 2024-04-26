@@ -678,7 +678,7 @@ export type ContactsCitation = {
   __typename?: 'ContactsCitation';
   abbreviatedName?: Maybe<Scalars['String']['output']>;
   firstName?: Maybe<Scalars['String']['output']>;
-  key?: Maybe<Scalars['Int']['output']>;
+  key: Scalars['Int']['output'];
   lastName?: Maybe<Scalars['String']['output']>;
   roles?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   userId?: Maybe<Array<Maybe<Scalars['URL']['output']>>>;
@@ -1033,7 +1033,7 @@ export type Dataset = {
   comments?: Maybe<Array<Maybe<Scalars['JSON']['output']>>>;
   constituents?: Maybe<DatasetListResults>;
   contacts?: Maybe<Array<Maybe<Contact>>>;
-  contactsCitation?: Maybe<Array<Maybe<ContactsCitation>>>;
+  contactsCitation?: Maybe<Array<ContactsCitation>>;
   countryCoverage?: Maybe<Array<Maybe<Scalars['JSON']['output']>>>;
   created?: Maybe<Scalars['DateTime']['output']>;
   createdBy?: Maybe<Scalars['String']['output']>;
@@ -6602,7 +6602,7 @@ export type DatasetQueryVariables = Exact<{
 }>;
 
 
-export type DatasetQuery = { __typename?: 'Query', dataset?: { __typename?: 'Dataset', title?: string | null, type?: DatasetType | null, deleted?: string | null, created?: string | null, publishingOrganizationKey: string, publishingOrganizationTitle?: string | null, contactsCitation?: Array<{ __typename?: 'ContactsCitation', key?: number | null, abbreviatedName?: string | null, firstName?: string | null, lastName?: string | null, userId?: Array<any | null> | null, roles?: Array<string | null> | null } | null> | null } | null };
+export type DatasetQuery = { __typename?: 'Query', dataset?: { __typename?: 'Dataset', title?: string | null, type?: DatasetType | null, deleted?: string | null, created?: string | null, publishingOrganizationKey: string, publishingOrganizationTitle?: string | null, contactsCitation?: Array<{ __typename?: 'ContactsCitation', key: number, abbreviatedName?: string | null, firstName?: string | null, lastName?: string | null, userId?: Array<any | null> | null, roles?: Array<string | null> | null }> | null } | null };
 
 export type OccurrenceQueryVariables = Exact<{
   key: Scalars['ID']['input'];

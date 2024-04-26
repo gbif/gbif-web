@@ -102,7 +102,7 @@ export function createTypedTextField<Inputs extends FieldValues>() {
         render={({ field }) => (
           <FormItem className={cn('flex-1', className)}>
             {label && (
-              <FormLabel className="font-normal">
+              <FormLabel>
                 {label}
                 {required && <Required />}
               </FormLabel>

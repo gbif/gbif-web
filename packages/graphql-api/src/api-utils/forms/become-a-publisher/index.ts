@@ -70,7 +70,6 @@ const Schema = {
   }),
 };
 
-
 export function registerBecomeAPublisherForm(router: Router) {
   router.post(
     '/become-a-publisher',
