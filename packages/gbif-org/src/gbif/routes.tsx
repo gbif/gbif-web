@@ -79,7 +79,7 @@ import { NetworkKeyPublisher } from '@/routes/network/key/publisher';
 import { InstitutionKey, InstitutionKeyAbout, InstitutionKeyCollection, InstitutionKeySpecimens, institutionLoader } from '@/routes/institution/key';
 import { CollectionKey, CollectionKeyAbout, CollectionKeyDashboard, CollectionKeySpecimens, collectionLoader } from '@/routes/collection/key';
 import { OccurrenceKeyCluster } from '@/routes/occurrence/key/cluster';
-import { OccurrenceKeyMedia } from '@/routes/occurrence/key/media';
+import { OccurrenceKeyPhylo } from '@/routes/occurrence/key/phylogenies';
 import { OccurrenceKeyAbout } from '@/routes/occurrence/key/about';
 
 const baseRoutes: SourceRouteObject[] = [
@@ -111,8 +111,8 @@ const baseRoutes: SourceRouteObject[] = [
                 element: <OccurrenceKeyAbout />,
               },
               {
-                path: 'media',
-                element: <OccurrenceKeyMedia />,
+                path: 'phylogenies',
+                element: <OccurrenceKeyPhylo />,
               },
               {
                 path: 'related',

@@ -281,6 +281,7 @@ export function OccurrenceKey() {
 
   const tabs = [{ to: '.', children: 'Overview' }];
   if (hasRelated) tabs.push({ to: 'related', children: 'Related' });
+  // if (true) tabs.push({ to: 'phylogenies', children: 'Phylogenies' });
 
   return (
     <>
