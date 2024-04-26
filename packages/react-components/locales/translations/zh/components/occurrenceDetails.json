@@ -274,7 +274,7 @@
       }
     },
     "identification": {
-      "name": "标识",
+      "name": "",
       "properties": {
         "identificationID": "鉴定编号",
         "verbatimIdentification": "逐字识别",
@@ -406,6 +406,29 @@
         "taxonRemarks": "类群备注",
         "type": "类型",
         "datasetID": "数据集编号"
+      }
+    },
+    "eolReference": {
+      "name": "“生命大百科”（EOL）参考",
+      "properties": {
+        "identifier": "标识符",
+        "publicationType": "",
+        "full_reference": "",
+        "primaryTitle": "",
+        "title": "标题",
+        "pages": "",
+        "pageStart": "",
+        "pageEnd": "",
+        "volume": "",
+        "edition": "",
+        "publisher": "发布者",
+        "authorList": "",
+        "editorList": "",
+        "created": "已创建",
+        "language": "语言",
+        "uri": "统一资源标志符",
+        "doi": "数字对象识别符",
+        "localityName": ""
       }
     },
     "resourceRelationship": {

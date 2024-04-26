@@ -2,5 +2,6 @@
   "institutionUnknown": "機構不詳",
   "contentTypes": "內容類型",
   "preservationTypes": "保存類型",
-  "personalCollection": "私人典藏"
+  "personalCollection": "私人典藏",
+  "numberSpecimens": "典藏的標本數量"
 }

@@ -274,7 +274,7 @@
       }
     },
     "identification": {
-      "name": "Визначення",
+      "name": "",
       "properties": {
         "identificationID": "ID визначення",
         "verbatimIdentification": "",
@@ -406,6 +406,29 @@
         "taxonRemarks": "Примітки щодо таксона",
         "type": "Тип",
         "datasetID": "ID набору даних"
+      }
+    },
+    "eolReference": {
+      "name": "",
+      "properties": {
+        "identifier": "Автор визначення",
+        "publicationType": "",
+        "full_reference": "",
+        "primaryTitle": "",
+        "title": "Назва",
+        "pages": "",
+        "pageStart": "",
+        "pageEnd": "",
+        "volume": "",
+        "edition": "",
+        "publisher": "Видавець",
+        "authorList": "",
+        "editorList": "",
+        "created": "Створений",
+        "language": "Мова",
+        "uri": "",
+        "doi": "",
+        "localityName": ""
       }
     },
     "resourceRelationship": {
