@@ -25,7 +25,7 @@
     "taxon": "Taxon",
     "location": "Location",
     "organism": "Organism",
-    "materialSample": "MaterialSample",
+    "materialSample": "Material sample",
     "geologicalContext": "Geological context",
     "other": "Other"
   },

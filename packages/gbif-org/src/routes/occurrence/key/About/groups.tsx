@@ -76,7 +76,7 @@ export function Groups({
       <Identification {...{ updateToc, showAll, termMap, occurrence }} />
       <Other {...{ updateToc, showAll, termMap, occurrence }} />
 
-      {/* <Media occurrence={occurrence} termMap={termMap} updateToc={updateToc} /> */}
+      <Media occurrence={occurrence} termMap={termMap} updateToc={updateToc} />
 
       <Preparation {...{ updateToc, showAll, termMap, occurrence }} />
       <ResourceRelationship {...{ updateToc, showAll, termMap, occurrence }} />

@@ -69,7 +69,7 @@ export function Preservation({ occurrence }: { occurrence: OccurrenceQuery['occu
   return (
     <GenericExtension
       {...{ occurrence, extensionName }}
-      label="occurrenceDetails.extensions.preservation"
+      label="occurrenceDetails.extensions.preservation.name"
       id="preservation"
     />
   );
