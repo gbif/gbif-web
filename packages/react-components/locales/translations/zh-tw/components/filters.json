@@ -40,12 +40,12 @@
     "description": ""
   },
   "geoDistance": {
-    "name": "",
+    "name": "距座標的距離",
     "count": "",
     "description": "",
     "placeholderLat": "緯度",
     "placeholderLon": "經度",
-    "placeholderDist": ""
+    "placeholderDist": "距離"
   },
   "geometry": {
     "name": "地點",
@@ -53,12 +53,12 @@
     "description": "GBIF 註記的存檔",
     "placeholderLat": "緯度",
     "placeholderLon": "經度",
-    "placeholderDist": ""
+    "placeholderDist": "距離"
   },
   "relevance": {
     "name": "相關性",
     "count": "",
-    "description": ""
+    "description": "GBIF 如何運用在文獻中"
   },
   "topics": {
     "name": "主題",
@@ -73,7 +73,7 @@
   "purposes": {
     "name": "主題",
     "count": "",
-    "description": ""
+    "description": "資源的目的為何"
   },
   "eventDate": {
     "name": "事件日期",
@@ -118,8 +118,8 @@
   "basisOfRecord": {
     "name": "紀錄類型",
     "count": "{num, plural,one {紀錄基礎} other {#記錄基礎}}",
-    "isNotNull": "",
-    "isNull": "",
+    "isNotNull": "有紀錄基礎",
+    "isNull": "無紀錄基礎",
     "description": ""
   },
   "institutionCode": {
@@ -140,8 +140,8 @@
   "occurrenceIssue": {
     "name": "問題和註記",
     "count": "",
-    "isNotNull": "",
-    "isNull": "",
+    "isNotNull": "存在問題",
+    "isNull": "不存在問題",
     "description": ""
   },
   "occurrenceCountry": {
@@ -163,7 +163,7 @@
     "description": ""
   },
   "q": {
-    "name": "",
+    "name": "文字搜尋",
     "count": "",
     "description": "GBIF 註記的存檔"
   },
@@ -191,14 +191,14 @@
     "description": ""
   },
   "gbifPublisherKey": {
-    "name": "",
+    "name": "GBIF發布者",
     "count": "",
-    "description": ""
+    "description": "負責共享包含該記錄之資料集的組織名稱。"
   },
   "hostingOrganizationKey": {
     "name": "維運機構",
     "count": "",
-    "description": ""
+    "description": "託管發布該記錄之資料集的組織名稱。"
   },
   "country": {
     "name": "國家",
@@ -237,7 +237,7 @@
   "depth": {
     "name": "深度",
     "count": "",
-    "description": ""
+    "description": "局部表面以下的距離(以公尺為單位)"
   },
   "organismQuantity": {
     "name": "生物數量",
@@ -257,7 +257,7 @@
   "month": {
     "name": "月",
     "count": "",
-    "description": ""
+    "description": "事件發生的月份"
   },
   "continent": {
     "name": "大陸",
@@ -265,19 +265,19 @@
     "description": ""
   },
   "protocol": {
-    "name": "",
+    "name": "發布協定",
     "count": "",
-    "description": ""
+    "description": "共享資料集的技術協定"
   },
   "establishmentMeans": {
     "name": "建立方法",
     "count": "",
-    "description": ""
+    "description": "在特定時間將生物體引進特定地點的方式。"
   },
   "recordedBy": {
     "name": "紀錄者：",
     "count": "",
-    "description": ""
+    "description": "負責記錄原始事件的人員、團體或組織的名稱。"
   },
   "recordNumber": {
     "name": "紀錄編號",
