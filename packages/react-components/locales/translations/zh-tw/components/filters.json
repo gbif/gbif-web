@@ -35,7 +35,7 @@
     "description": "GBIF 註記的存檔"
   },
   "iucnRedListCategory": {
-    "name": "",
+    "name": "IUCN 全球紅皮書類別",
     "count": "GBIF 註記的存檔",
     "description": "IUCN瀕危物種红色名錄是根據分類群受到的威脅程度進行分組。"
   },
