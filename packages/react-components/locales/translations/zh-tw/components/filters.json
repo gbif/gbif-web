@@ -31,7 +31,7 @@
   },
   "specimensInGbif": {
     "name": "GBIF 的標本",
-    "count": "",
+    "count": "{num, plural, one{ GBIF 標本數量} other{ 在GBIF之標本}}",
     "description": "GBIF 註記的存檔"
   },
   "iucnRedListCategory": {
@@ -41,7 +41,7 @@
   },
   "geoDistance": {
     "name": "距座標的距離",
-    "count": "",
+    "count": "{num, plural, one {# 篩選} other {# 篩選}}",
     "description": "篩選距離從某定點特定距離內的記錄",
     "placeholderLat": "緯度",
     "placeholderLon": "經度",
@@ -49,7 +49,7 @@
   },
   "geometry": {
     "name": "地點",
-    "count": "",
+    "count": "{num, plural, one {# 篩選} other {# 篩選}}",
     "description": "GBIF 註記的存檔",
     "placeholderLat": "緯度",
     "placeholderLon": "經度",
@@ -57,22 +57,22 @@
   },
   "relevance": {
     "name": "相關性",
-    "count": "",
+    "count": "{num, plural,one {相關}other {#相關篩選}}",
     "description": "GBIF 如何運用在文獻中"
   },
   "topics": {
     "name": "主題",
-    "count": "",
+    "count": "{num, plural,one {主題}other {#主題}}",
     "description": "紀錄的主題為何"
   },
   "audiences": {
     "name": "讀者",
-    "count": "",
+    "count": "{num, plural,one {群眾}other {#群眾}}",
     "description": "誰是資源的受眾"
   },
   "purposes": {
     "name": "主題",
-    "count": "",
+    "count": "{num, plural, one {# 目的} other {# 目的}}",
     "description": "資源的目的為何"
   },
   "eventDate": {
@@ -124,29 +124,29 @@
   },
   "institutionCode": {
     "name": "機構代碼",
-    "count": "",
+    "count": "{num, plural,one {機構代碼}other {#機構代碼}}",
     "description": ""
   },
   "catalogNumber": {
     "name": "目錄編號",
-    "count": "",
+    "count": "{num, plural,one {目錄號碼}other {#目錄號碼}}",
     "description": ""
   },
   "mediaType": {
     "name": "媒體類型",
-    "count": "",
+    "count": "{num, plural,one {媒體類型}other {#媒體類型}}",
     "description": ""
   },
   "occurrenceIssue": {
     "name": "問題和註記",
-    "count": "",
+    "count": "{num, plural, one {議題或標記} other {# 議題及標記}}",
     "isNotNull": "存在問題",
     "isNull": "不存在問題",
     "description": ""
   },
   "occurrenceCountry": {
     "name": "國家",
-    "count": "",
+    "count": "{num, plural,one {國家或區域}other {#國家或區域}}",
     "description": ""
   },
   "grsciCollCountry": {
@@ -159,12 +159,12 @@
   },
   "publishingCountryCode": {
     "name": "發布國家或地區",
-    "count": "",
+    "count": "{num, plural,one {發布國家或區域}other {#發布國家或區域}}",
     "description": ""
   },
   "q": {
     "name": "文字搜尋",
-    "count": "",
+    "count": "{num, plural, one {文字字串} other {# 搜尋字串}}",
     "description": "GBIF 註記的存檔"
   },
   "coordinates": {
@@ -172,45 +172,45 @@
   },
   "elevation": {
     "name": "海拔",
-    "count": "",
+    "count": "{num, plural,one {海拔篩選}other {#海拔篩選}}",
     "description": "垂直參考點(通常是平均海平面或地表面)上方的距離(以公尺為單位)"
   },
   "license": {
     "name": "授權",
-    "count": "",
+    "count": "{num, plural,one {權限}other {#權限}}",
     "description": ""
   },
   "datasetKey": {
     "name": "資料集",
-    "count": "",
+    "count": "{num, plural, one{資料集} other{資料集}}",
     "description": ""
   },
   "publisherKey": {
     "name": "發布者",
-    "count": "",
+    "count": "{num, plural, one {發布者} other {# 發布者}}",
     "description": ""
   },
   "gbifPublisherKey": {
     "name": "GBIF發布者",
-    "count": "",
+    "count": "{num, plural, one {GBIF 發布者} other {# GBIF 發布者}}",
     "description": "負責共享包含該記錄之資料集的組織名稱。"
   },
   "hostingOrganizationKey": {
     "name": "維運機構",
-    "count": "",
+    "count": "{num, plural, one {# 託管} other {# 託管}}",
     "description": "託管發布該記錄之資料集的組織名稱。"
   },
   "country": {
     "name": "國家",
-    "count": ""
+    "count": "{num, plural,one {國家或區域}other {#國家或區域}}"
   },
   "countriesOfCoverage": {
     "name": "國家覆蓋率",
-    "count": ""
+    "count": "{num, plural,one {國家或包含區域}other {#國家或包含區域}}"
   },
   "countriesOfResearcher": {
     "name": "研究者的國家",
-    "count": ""
+    "count": "{num, plural,one {研究員所在國家或地區}other {#研究員所在國家或地區}}"
   },
   "typeStatus": {
     "name": "類型狀態",
