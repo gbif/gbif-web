@@ -214,44 +214,44 @@
   },
   "typeStatus": {
     "name": "類型狀態",
-    "count": "",
+    "count": "{num, plural, one {類型狀態} other {# 類型狀態}}",
     "isNotNull": "模式狀態",
     "isNull": "模式狀態",
     "description": "樣本的類型名稱"
   },
   "year": {
     "name": "年",
-    "count": "",
+    "count": "{num, plural, one {年份篩選} other {# 年份篩選}}",
     "description": "事件發生的年份"
   },
   "sampleSizeUnit": {
     "name": "取樣大小單位",
-    "count": "",
+    "count": "{num, plural, one {樣本大小單位} other {# 樣本大小單位}}",
     "description": "“樣本數量值”的計算單位。"
   },
   "coordinateUncertainty": {
     "name": "座標不確定",
-    "count": "",
+    "count": "{num, plural, one {未確定座標} other {# 未確定座標}}",
     "description": ""
   },
   "depth": {
     "name": "深度",
-    "count": "",
+    "count": "{num, plural,one {深度} other {#深度}}",
     "description": "局部表面以下的距離(以公尺為單位)"
   },
   "organismQuantity": {
     "name": "生物數量",
-    "count": "",
+    "count": "{num, plural,one {生物體數量} other {#生物體數量}}",
     "description": ""
   },
   "sampleSizeValue": {
     "name": "取樣大小數值",
-    "count": "",
+    "count": "{num, plural, one {樣本大小數值} other {# 樣本大小數值}}",
     "description": ""
   },
   "relativeOrganismQuantity": {
     "name": "相對生物體數量",
-    "count": "",
+    "count": "{num, plural,one {相關生物體數量} other {#相關生物體數量}}",
     "description": ""
   },
   "month": {
@@ -261,12 +261,12 @@
   },
   "continent": {
     "name": "大陸",
-    "count": "",
+    "count": "{num, plural, one {# 大陸} other {# 大陸}}",
     "description": ""
   },
   "protocol": {
     "name": "發布協定",
-    "count": "",
+    "count": "{num, plural, one {# 協定} other {# 協定}}",
     "description": "共享資料集的技術協定"
   },
   "establishmentMeans": {
@@ -331,22 +331,22 @@
   },
   "eventId": {
     "name": "事件識別碼",
-    "count": "",
+    "count": "{num, plural,one {事件 ID} other {#事件 ID}}",
     "description": ""
   },
   "eventID": {
     "name": "事件識別碼",
-    "count": "",
+    "count": "{num, plural,one {事件 ID} other {#事件 ID}}",
     "description": ""
   },
   "parentEventId": {
     "name": "母事件識別碼",
-    "count": "",
+    "count": "{num, plural,one {事件 ID} other {#事件 ID}}",
     "description": ""
   },
   "locationID": {
     "name": "地點識別碼",
-    "count": "",
+    "count": "{num, plural,one {事件 ID} other {#事件 ID}}",
     "description": ""
   },
   "measurementOrFactTypes": {
@@ -376,17 +376,17 @@
   },
   "samplingProtocol": {
     "name": "取樣程序",
-    "count": "",
+    "count": "{num, plural, one {# 採樣協定} other {# 採樣協定}}",
     "description": ""
   },
   "occurrenceStatus": {
     "name": "出現紀錄狀態",
-    "count": "",
+    "count": "{num, plural, one{出現紀錄狀態} other {#出現紀錄狀態}}",
     "description": ""
   },
   "gadmGid": {
     "name": "行政區域",
-    "count": "",
+    "count": "{num, plural, one {行政區域} other {#行政區域}}",
     "description": ""
   },
   "identifiedBy": {
@@ -396,7 +396,7 @@
   },
   "isInCluster": {
     "name": "在（資料）叢集上",
-    "count": "",
+    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
     "description": ""
   },
   "active": {
@@ -411,7 +411,7 @@
   },
   "datasetType": {
     "name": "資料集類型",
-    "count": "",
+    "count": "{num, plural, one {資料集類型} other {#資料集類型}}",
     "description": ""
   },
   "datasetSubtype": {
