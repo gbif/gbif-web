@@ -6,14 +6,14 @@ const MAX_GET_LENGTH = 1000;
 type DataProviderOptions = {
   endpoint: string;
   locale: string;
-  abortSignal: AbortSignal;
+  abortSignal?: AbortSignal;
   preview?: boolean;
 };
 
 export class GraphQLService {
   private endpoint: string;
   private locale: string;
-  private abortSignal: AbortSignal;
+  private abortSignal?: AbortSignal;
   private preview: boolean;
 
   constructor(options: DataProviderOptions) {

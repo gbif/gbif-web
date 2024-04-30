@@ -47,6 +47,10 @@ class NodeAPI extends RESTDataSource {
       stringify(query, { indices: false }),
     );
   }
+
+  async getNodeByCountryCode({ countryCode }) {
+    return this.get(`/node/country/${countryCode}`);
+  }
 }
 
 export default NodeAPI;

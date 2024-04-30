@@ -39,6 +39,8 @@ const documents = {
     "\n  fragment MediaCountBlockDetails on MediaCountBlock {\n    __typename\n    id\n    mediaTitle: title\n    body\n    optionalImg: primaryImage {\n      file {\n        mobile: thumbor(width: 500, height: 400)\n      }\n      title\n      description\n    }\n    reverse\n    subtitle\n    titleCountPart\n    backgroundColour\n    roundImage\n    callToAction {\n      label\n      url\n    }\n  }\n": types.MediaCountBlockDetailsFragmentDoc,
     "\n  fragment TextBlockDetails on TextBlock {\n    title\n    body\n    hideTitle\n    id\n    backgroundColour\n  }\n": types.TextBlockDetailsFragmentDoc,
     "\n  query OrganizationPreview($key: ID!) {\n    organization(key: $key) {\n      title\n      created\n      contacts {\n        email\n        firstName\n        lastName\n      }\n      description\n    }\n  }\n": types.OrganizationPreviewDocument,
+    "\n  query TaiwanNode {\n    nodeSearch(identifierType: GBIF_PARTICIPANT, identifier: \"239\") {\n      results {\n        key\n        participantTitle\n        participationStatus\n        title\n      }\n    }\n  }\n": types.TaiwanNodeDocument,
+    "\n  query NodeCountry($countryCode: String!) {\n    nodeCountry(countryCode: $countryCode) {\n      key\n      participantTitle\n      participationStatus\n      title\n    }\n  }\n": types.NodeCountryDocument,
     "\n  query Participants {\n    participantSearch(limit: 1000) {\n      endOfRecords\n      results {\n        id\n        name\n        countryCode\n      }\n    }\n  }\n": types.ParticipantsDocument,
     "\n  fragment CompositionPage on Composition {\n    id\n    maybeTitle: title\n    summary\n    excerpt\n    blocks {\n      ...BlockItemDetails\n    }\n  }\n": types.CompositionPageFragmentDoc,
     "\n  fragment ProseCardImg on AssetImage {\n    file {\n      mobile: thumbor(width: 500, height: 400)\n    }\n    title\n    description\n  }\n": types.ProseCardImgFragmentDoc,
@@ -178,6 +180,14 @@ export function graphql(source: "\n  fragment TextBlockDetails on TextBlock {\n 
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query OrganizationPreview($key: ID!) {\n    organization(key: $key) {\n      title\n      created\n      contacts {\n        email\n        firstName\n        lastName\n      }\n      description\n    }\n  }\n"): (typeof documents)["\n  query OrganizationPreview($key: ID!) {\n    organization(key: $key) {\n      title\n      created\n      contacts {\n        email\n        firstName\n        lastName\n      }\n      description\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query TaiwanNode {\n    nodeSearch(identifierType: GBIF_PARTICIPANT, identifier: \"239\") {\n      results {\n        key\n        participantTitle\n        participationStatus\n        title\n      }\n    }\n  }\n"): (typeof documents)["\n  query TaiwanNode {\n    nodeSearch(identifierType: GBIF_PARTICIPANT, identifier: \"239\") {\n      results {\n        key\n        participantTitle\n        participationStatus\n        title\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query NodeCountry($countryCode: String!) {\n    nodeCountry(countryCode: $countryCode) {\n      key\n      participantTitle\n      participationStatus\n      title\n    }\n  }\n"): (typeof documents)["\n  query NodeCountry($countryCode: String!) {\n    nodeCountry(countryCode: $countryCode) {\n      key\n      participantTitle\n      participationStatus\n      title\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

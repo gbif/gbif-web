@@ -11,6 +11,8 @@ export default {
       dataSources.nodeAPI.searchNodes({ query: args }),
     node: (parent, { key }, { dataSources }) =>
       dataSources.nodeAPI.getNodeByKey({ key }),
+    nodeCountry: (parent, { countryCode }, { dataSources }) =>
+      dataSources.nodeAPI.getNodeByCountryCode({ countryCode }),
   },
   Node: {
     organization: ({ key }, args, { dataSources }) => {

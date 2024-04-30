@@ -26,7 +26,7 @@ type RadioItemProps = {
 export function RadioItem({ value, label }: RadioItemProps) {
   return (
     <FormItem className="flex items-center space-x-3 space-y-0">
-      <FormControl defaultChecked={false}>
+      <FormControl>
         <RadioGroupItem value={value} />
       </FormControl>
       <FormLabel className="font-normal">{label}</FormLabel>
@@ -41,10 +41,11 @@ export function Required() {
 type CheckboxFieldProps<Inputs extends FieldValues> = {
   name: FieldPath<Partial<Inputs>>;
   label: React.ReactNode;
+  className?: string;
 };
 
 export function createTypedCheckboxField<Inputs extends FieldValues>() {
-  return function CheckboxField({ name, label }: CheckboxFieldProps<Inputs>) {
+  return function CheckboxField({ name, label, className }: CheckboxFieldProps<Inputs>) {
     const form = useFormContext<Partial<Inputs>>();
 
     return (
@@ -52,8 +53,8 @@ export function createTypedCheckboxField<Inputs extends FieldValues>() {
         control={form.control}
         name={name}
         render={({ field }) => (
-          <FormItem className="flex-1">
-            <div className="flex flex-row items-start space-x-3 space-y-0 cursor-pointer">
+          <FormItem className={className}>
+            <div className="flex flex-row items-center space-x-3 space-y-0 cursor-pointer">
               <FormControl>
                 <Checkbox checked={field.value as boolean} onCheckedChange={field.onChange} />
               </FormControl>
@@ -77,6 +78,7 @@ type TextFieldProps<Inputs extends FieldValues> = {
   className?: string;
   type?: 'text' | 'email';
   autoComplete?: string;
+  defaultValue?: unknown;
 };
 
 export function createTypedTextField<Inputs extends FieldValues>() {
@@ -90,6 +92,7 @@ export function createTypedTextField<Inputs extends FieldValues>() {
     className,
     type = 'text',
     autoComplete,
+    defaultValue = '',
   }: TextFieldProps<Inputs>) {
     const form = useFormContext<Partial<Inputs>>();
 
@@ -98,7 +101,7 @@ export function createTypedTextField<Inputs extends FieldValues>() {
         control={form.control}
         name={name}
         // @ts-ignore (I don't know how to only allow fieldPath that are strings, so this could potentially be a number/boolean/etc)
-        defaultValue=""
+        defaultValue={defaultValue}
         render={({ field }) => (
           <FormItem className={cn('flex-1', className)}>
             {label && (

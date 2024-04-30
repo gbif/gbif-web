@@ -79,7 +79,7 @@ export function ParticipantSelect({ filters, selected, onChange }: Props) {
 }
 
 type Participant = NonNullable<ParticipantSelectQuery['participantSearch']>['results'][number];
-type ValidParticipant = { name: string; id: string };
+export type ValidParticipant = { name: string; id: string };
 
 function isValidParticipant(participant: Participant): participant is ValidParticipant {
   return participant != null && participant.name !== null;

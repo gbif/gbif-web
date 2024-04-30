@@ -13,6 +13,7 @@ const typeDef = gql`
       machineTagValue: String
     ): NodeSearchResults
     node(key: String!): Node
+    nodeCountry(countryCode: String!): Node
   }
 
   type NodeSearchResults {
