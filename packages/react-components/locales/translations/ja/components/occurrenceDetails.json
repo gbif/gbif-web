@@ -409,11 +409,11 @@
       }
     },
     "eolReference": {
-      "name": "",
+      "name": "EOLリファレンス",
       "properties": {
         "identifier": "ID",
-        "publicationType": "",
-        "full_reference": "",
+        "publicationType": "出版物の種類",
+        "full_reference": "完全なリファレンス",
         "primaryTitle": "",
         "title": "タイトル",
         "pages": "",
@@ -426,8 +426,8 @@
         "editorList": "",
         "created": "作成",
         "language": "言語",
-        "uri": "",
-        "doi": "",
+        "uri": "URI",
+        "doi": "DOI",
         "localityName": ""
       }
     },
