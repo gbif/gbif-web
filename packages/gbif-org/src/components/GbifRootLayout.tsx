@@ -54,7 +54,8 @@ export function GbifRootLayout({ children }: Props) {
           </DynamicLink>
         </nav>
       </header>
-      <main className="bg-background pt-10">
+      {/* h-px is needed for the child element to use height: 100% https://stackoverflow.com/a/21836870/9188121 */}
+      <main className="bg-background pt-10 min-h-screen h-px">
         <NoscriptNotification />
         {children}
       </main>

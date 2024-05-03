@@ -7,6 +7,7 @@ import { NodeType, ParticipationStatus } from '@/gql/graphql';
 import { ParticipantSelect, ValidParticipant } from '@/components/Select/ParticipantSelect';
 import { useState } from 'react';
 import { SuggestedNodeCountry } from '../useSuggestedNodeCountry';
+import { useSuggestedNonCountryNode } from '../useSuggestedNonCountryNode';
 
 type Props = {
   suggestedNodeCountry: SuggestedNodeCountry | undefined;
@@ -20,6 +21,7 @@ const PARTICIPANT_SELECT_FILTERS = {
 export function Endorsment({ suggestedNodeCountry }: Props) {
   const form = useFormContext<Partial<Inputs>>();
   const [participant, setParticipant] = useState<ValidParticipant | undefined>();
+  const { suggestedNonCountryNode, updateSuggestedNonCountryNode } = useSuggestedNonCountryNode();
 
   return (
     <>
@@ -36,7 +38,7 @@ export function Endorsment({ suggestedNodeCountry }: Props) {
             <FormControl>
               <RadioGroup onValueChange={field.onChange} className="flex flex-col space-y-1">
                 {!suggestedNodeCountry && (
-                  <RadioItem value="help_me_with_endorsement" label="Help me with endorsement" />
+                  <RadioItem value="other" label="Help me with endorsement" />
                 )}
 
                 {suggestedNodeCountry && (
@@ -51,10 +53,15 @@ export function Endorsment({ suggestedNodeCountry }: Props) {
                   />
                 )}
 
-                {participant && <RadioItem value={participant.id} label={participant.name} />}
+                {suggestedNonCountryNode && (
+                  <RadioItem
+                    value={suggestedNonCountryNode.key}
+                    label={suggestedNonCountryNode.title}
+                  />
+                )}
 
                 <RadioItem
-                  value="marine_data_publishers"
+                  value="ba0670b9-4186-41e6-8e70-f9cb3065551a"
                   label="Marine data publishers: request endorsement for OBIS (Ocean Biogeographic Information System) related data"
                 />
               </RadioGroup>
@@ -71,7 +78,10 @@ export function Endorsment({ suggestedNodeCountry }: Props) {
 
       <ParticipantSelect
         selected={participant}
-        onChange={setParticipant}
+        onChange={(participant) => {
+          setParticipant(participant);
+          updateSuggestedNonCountryNode(participant.id);
+        }}
         filters={PARTICIPANT_SELECT_FILTERS}
       />
     </>

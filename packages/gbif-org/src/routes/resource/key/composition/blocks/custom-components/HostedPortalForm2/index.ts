@@ -1,0 +1,1 @@
+export { HostedPortalForm } from './HostedPortalForm';

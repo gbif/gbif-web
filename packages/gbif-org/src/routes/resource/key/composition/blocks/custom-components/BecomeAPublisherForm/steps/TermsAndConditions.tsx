@@ -9,7 +9,9 @@ export function TermsAndConditions() {
         label={
           <>
             I have read and understood{' '}
-            <DynamicLink to="/terms/data-publisher">GBIF's Data Publisher Agreement</DynamicLink>{' '}
+            <DynamicLink className="underline" to="/terms/data-publisher">
+              GBIF's Data Publisher Agreement
+            </DynamicLink>{' '}
             and agree to its terms.
           </>
         }

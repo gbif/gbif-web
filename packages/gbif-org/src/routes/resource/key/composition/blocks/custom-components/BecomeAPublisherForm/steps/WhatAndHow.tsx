@@ -7,7 +7,7 @@ import { RadioGroup } from '@/components/ui/radio-group';
 
 export function WhatAndHow() {
   const form = useFormContext<Partial<Inputs>>();
-  const planningToUsePublishingSoftware = form.watch('whatAndHow.planningToUsePublishingSoftware');
+  const toolPlanned = form.watch('whatAndHow.toolPlanned');
 
   return (
     <>
@@ -57,7 +57,7 @@ export function WhatAndHow() {
 
       <FormField
         control={form.control}
-        name="whatAndHow.externalServer"
+        name="whatAndHow.serverCapable"
         render={({ field }) => (
           <FormItem className="space-y-2 pt-4">
             <FormLabel>
@@ -77,7 +77,7 @@ export function WhatAndHow() {
 
       <FormField
         control={form.control}
-        name="whatAndHow.planningToUsePublishingSoftware"
+        name="whatAndHow.toolPlanned"
         render={({ field }) => (
           <FormItem className="space-y-2 pt-4">
             <FormLabel>
@@ -96,7 +96,7 @@ export function WhatAndHow() {
         )}
       />
 
-      {planningToUsePublishingSoftware === 'yes' && (
+      {toolPlanned === 'yes' && (
         <p className="text-orange-400 text-sm pt-2">
           In this case, it is recommended that you first try reusing an existing trusted{' '}
           <a
@@ -110,7 +110,7 @@ export function WhatAndHow() {
 
       <FormField
         control={form.control}
-        name="whatAndHow.needHelp"
+        name="whatAndHow.doYouNeedHelpPublishing"
         render={({ field }) => (
           <FormItem className="space-y-2 pt-4">
             <FormLabel>Do you need help in publishing your data?</FormLabel>

@@ -68,6 +68,7 @@ import {
   AliasHandlingSkeleton,
   aliasHandlingLoader,
 } from '@/routes/resource/key/AliasHandling';
+import { ConfirmEndorsmentPage, confirmEndorsmentLoader } from '@/routes/publisher/Confirm';
 
 const baseRoutes: SourceRouteObject[] = [
   {
@@ -142,6 +143,11 @@ const baseRoutes: SourceRouteObject[] = [
                 element: <PublisherOccurrencesTab />,
               },
             ],
+          },
+          {
+            path: 'publisher/confirm',
+            element: <ConfirmEndorsmentPage />,
+            loader: confirmEndorsmentLoader,
           },
           {
             path: 'news/:key',

@@ -74,9 +74,9 @@ const Schema = z.object({
     occurrenceOnlyData: z.boolean().optional(),
     samplingEventData: z.boolean().optional(),
     description: RequiredStringSchema,
-    externalServer: z.enum(['yes', 'no']),
-    planningToUsePublishingSoftware: z.enum(['yes', 'no']),
-    needHelp: z.enum(['yes', 'no']),
+    serverCapable: z.enum(['yes', 'no']),
+    toolPlanned: z.enum(['yes', 'no']),
+    doYouNeedHelpPublishing: z.enum(['yes', 'no']),
   }),
 });
 
@@ -104,7 +104,7 @@ export function BecomeAPublisherForm() {
           .then((response) => {
             if (response.ok) {
               alert('Organization registered');
-              form.reset();
+              // form.reset();
             } else {
               alert('Failed to register organization');
             }

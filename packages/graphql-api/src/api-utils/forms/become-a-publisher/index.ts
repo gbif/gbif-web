@@ -6,6 +6,8 @@ import {
 } from '../validation';
 import { validateRequest } from 'zod-express-middleware';
 import { Router } from 'express';
+import { createPublisher } from './create-publisher';
+import logger from '#/logger';
 
 const ContactSchema = z.object({
   firstName: RequiredStringSchema,
@@ -16,7 +18,7 @@ const ContactSchema = z.object({
 
 const Schema = {
   body: z.object({
-    myOrganizationInNotAPublisher: z.boolean(),
+    checkRegistration: z.boolean(),
     termsAndConditions: z.object({
       dataPublishederAgreement: z.boolean(),
       confirmRegistration: z.boolean(),
@@ -24,25 +26,24 @@ const Schema = {
     }),
     organizationDetails: z.object({
       name: RequiredStringSchema,
-      homePage: z.string().url().optional(),
-      email: z.string().email().optional(),
+      homePage: z.string().url().optional().or(z.literal('')),
+      email: z.string().email().optional().or(z.literal('')),
       phone: OptionalStringSchema,
+      logo: z.string().url().optional().or(z.literal('')),
+      description: RequiredStringSchema,
+    }),
+    organizationAddress: z.object({
       address: RequiredStringSchema,
       city: RequiredStringSchema,
       province: OptionalStringSchema,
       postalCode: OptionalStringSchema,
       country: RequiredStringSchema,
-      logo: z.string().url().optional(),
-      description: RequiredStringSchema,
       coordinates: z.object({
         lat: z.number(),
         lon: z.number(),
       }),
     }),
-    endorsingNode: z.object({
-      type: z.enum(['help_me_with_endorsement', 'marine_data_publishers']),
-      organization: z.object({ id: z.string(), name: z.string() }),
-    }),
+    endorsingNode: z.string(),
     gbifProjects: z.discriminatedUnion('type', [
       z.object({
         type: z.literal('yes'),
@@ -63,25 +64,32 @@ const Schema = {
       occurrenceOnlyData: z.boolean().optional(),
       samplingEventData: z.boolean().optional(),
       description: RequiredStringSchema,
-      externalServer: z.enum(['yes', 'no']),
-      planningToUsePublishingSoftware: z.enum(['yes', 'no']),
-      needHelp: z.enum(['yes', 'no']),
+      serverCapable: z.enum(['yes', 'no']),
+      toolPlanned: z.enum(['yes', 'no']),
+      doYouNeedHelpPublishing: z.enum(['yes', 'no']),
     }),
   }),
 };
+
+export type CreatePublisherDTO = z.infer<typeof Schema['body']>;
 
 export function registerBecomeAPublisherForm(router: Router) {
   router.post(
     '/become-a-publisher',
     validateRequest(Schema),
     async (req, res) => {
-      console.log(req.body);
-
       try {
-        res.status(200).send({ success: true });
+        const response = await createPublisher(req.body);
+        console.log(response);
+        res.status(201).json({ success: true });
       } catch (error) {
-        res.status(500).send({ success: false, error });
+        logger.error({ 
+          message: 'Failed to create publisher', 
+          error,
+          body: req.body,
+        });
+        res.status(500).send({ success: false });
       }
-    }
+    },
   );
 }
