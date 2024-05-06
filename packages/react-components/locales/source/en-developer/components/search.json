@@ -16,7 +16,7 @@
   "placeholders": {
     "default": "Search",
     "range": "Range or single value",
-    "wildcard": "Search - * and ? are wildcards",
+    "wildcard": "Search using * and ? as wildcards",
     "locationID": "Search by location ID (case sensitive)"
   },
   "ternary": {
