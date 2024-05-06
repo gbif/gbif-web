@@ -68,7 +68,10 @@ import {
   AliasHandlingSkeleton,
   aliasHandlingLoader,
 } from '@/routes/resource/key/AliasHandling';
-import { ConfirmEndorsmentPage, confirmEndorsmentLoader } from '@/routes/publisher/Confirm';
+import {
+  ConfirmEndorsmentPage,
+  confirmEndorsmentLoader,
+} from '@/routes/publisher/ConfirmEndorsment';
 
 const baseRoutes: SourceRouteObject[] = [
   {

@@ -15,6 +15,7 @@ import { BlockContainer } from '../../_shared';
 import { ClientSideOnly } from '@/components/ClientSideOnly';
 import { PrimaryContact } from './steps/PrimaryContact';
 import { HostedPortalName } from './steps/HostedPortalName';
+import { ApplicationType } from './steps/ApplicationType';
 
 const Schema = z.object({
   primaryContact: z.object({
@@ -125,7 +126,7 @@ export function HostedPortalForm() {
         {
           title: 'Application type',
           heading: 'Type of application',
-          component: Dummy,
+          component: ApplicationType,
           fieldset: true,
           validationPath: 'applicationType',
         },
