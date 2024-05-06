@@ -5,6 +5,7 @@ import { DynamicLink } from '@/components/DynamicLink';
 import { HeaderQuery, HeaderQueryVariables } from '@/gql/graphql';
 import { LoaderArgs } from '../types';
 import { NoscriptNotification } from './NoscriptNotification';
+import { Toaster } from './ui/toaster';
 
 const HEADER_QUERY = /* GraphQL */ `
   query Header {
@@ -58,6 +59,7 @@ export function GbifRootLayout({ children }: Props) {
       <main className="bg-background pt-10 min-h-screen h-px">
         <NoscriptNotification />
         {children}
+        <Toaster />
       </main>
     </>
   );

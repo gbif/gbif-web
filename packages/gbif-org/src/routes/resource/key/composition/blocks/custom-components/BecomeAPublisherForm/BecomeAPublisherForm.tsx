@@ -1,5 +1,6 @@
 import { ClientSideOnly } from '@/components/ClientSideOnly';
 import { Step, StepperForm } from '@/components/StepperForm';
+import { useToast } from '@/components/ui/use-toast';
 import { withIndex } from '@/utils/withIndex';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMemo } from 'react';
@@ -86,6 +87,8 @@ export const CheckboxField = createTypedCheckboxField<Inputs>();
 export const TextField = createTypedTextField<Inputs>();
 
 export function BecomeAPublisherForm() {
+  const { toast } = useToast();
+
   const form = useForm<Inputs>({
     resolver: zodResolver(Schema),
     mode: 'onBlur',
@@ -102,19 +105,23 @@ export function BecomeAPublisherForm() {
           body: JSON.stringify(data),
         })
           .then((response) => {
-            if (response.ok) {
-              alert('Organization registered');
-              // form.reset();
-            } else {
-              alert('Failed to register organization');
-            }
+            if (!response.ok) throw response;
+
+            toast({
+              title: 'Thank you for registering your organization',
+              description: 'We will be in touch soon',
+            });
           })
           .catch((error) => {
+            toast({
+              title: 'Failed to register organization',
+              description: 'Please try again later',
+              variant: 'destructive',
+            });
             console.error(error);
-            alert('Failed to register organization');
           });
       }),
-    [form]
+    [form, toast]
   );
 
   const { suggestedNodeCountry, updateSuggestedNodeCountry } = useSuggestedNodeCountry();
