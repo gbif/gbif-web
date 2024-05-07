@@ -4,6 +4,7 @@ import { fragmentManager } from '@/services/FragmentManager';
 import { BlockContainer, backgroundColorMap } from './_shared';
 import { HostedPortalForm } from './custom-components/HostedPortalForm';
 import { BecomeAPublisherForm } from './custom-components/BecomeAPublisherForm';
+import { SuggestDatasetForm } from './custom-components/SuggestDatasetForm';
 
 fragmentManager.register(/* GraphQL */ `
   fragment CustomComponentBlockDetails on CustomComponentBlock {
@@ -23,7 +24,8 @@ type Props = {
 export function CustomComponentBlock({ resource }: Props) {
   switch (resource.componentType) {
     case 'hostedPortalForm':
-      return <HostedPortalForm />;
+      return <SuggestDatasetForm />;
+    // return <HostedPortalForm />;
     // return <BecomeAPublisherForm />;
   }
 

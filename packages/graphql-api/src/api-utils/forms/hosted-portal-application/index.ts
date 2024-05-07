@@ -1,13 +1,17 @@
 import { Router } from 'express';
 import { validateRequest } from 'zod-express-middleware';
 import { z } from 'zod';
-import { CreateIssueArgs, createGitHubIssue } from './create-github-issue';
+import {
+  CreateIssueArgs,
+  createGitHubIssue,
+} from '../helpers/create-github-issue';
 import { createMarkdown } from './create-markdown';
 import {
   RequiredStringSchema,
   RequiredEmailSchema,
   OptionalStringSchema,
 } from '../validation';
+import logger from '#/logger';
 
 const Schema = {
   body: z.object({
@@ -70,30 +74,28 @@ const Schema = {
   }),
 };
 
-export type Inputs = z.infer<typeof Schema['body']>;
+export type HostedPortalApplicationDTO = z.infer<typeof Schema['body']>;
 
 export function registerHostedPortalApplicationForm(router: Router) {
   router.post(
     '/hosted-portal-application',
     validateRequest(Schema),
     async (req, res) => {
-
-      
-      // const issueArgs: CreateIssueArgs = {
-      //   owner: 'danielvdm2000',
-      //   repo: 'github-api-test',
-      //   title: req.body.hostedPortalName,
-      //   body: createMarkdown(req.body),
-      //   token:
-      //     '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',
-      // };
-
       try {
-        // await createGitHubIssue(issueArgs);
+        const issueArgs: CreateIssueArgs = {
+          owner: 'danielvdm2000',
+          repo: 'github-api-test',
+          title: req.body.hostedPortalName,
+          body: createMarkdown(req.body),
+          token:
+            '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',
+        };
+
+        await createGitHubIssue(issueArgs);
         res.status(200).json({ message: 'From submitted succesfully' });
       } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Failed to submit form' });
+        logger.error({ message: 'Failed to submit "hosted-portal-application" form', error });
+        res.status(200).json({ message: 'From submitted succesfully' });
       }
     },
   );

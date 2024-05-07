@@ -4,6 +4,7 @@ export type CreateIssueArgs = {
   title: string;
   body: string;
   token: string;
+  labels?: string[];
 };
 
 export async function createGitHubIssue(args: CreateIssueArgs): Promise<void> {
@@ -12,6 +13,7 @@ export async function createGitHubIssue(args: CreateIssueArgs): Promise<void> {
   const issueData = {
     title,
     body,
+    labels: args.labels,
   };
 
   const response = await fetch(url, {
