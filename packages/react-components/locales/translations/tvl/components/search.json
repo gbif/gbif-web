@@ -16,6 +16,7 @@
   "placeholders": {
     "default": "",
     "range": "",
+    "wildcard": "",
     "locationID": ""
   },
   "ternary": {
