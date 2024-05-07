@@ -16,6 +16,7 @@
   "placeholders": {
     "default": "搜尋",
     "range": "範圍或單一數值",
+    "wildcard": "",
     "locationID": ""
   },
   "ternary": {

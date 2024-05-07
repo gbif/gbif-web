@@ -16,6 +16,7 @@
   "placeholders": {
     "default": "搜索",
     "range": "范围或单个值",
+    "wildcard": "",
     "locationID": ""
   },
   "ternary": {

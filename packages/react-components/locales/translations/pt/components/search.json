@@ -16,6 +16,7 @@
   "placeholders": {
     "default": "Pesquisa",
     "range": "",
+    "wildcard": "",
     "locationID": ""
   },
   "ternary": {
