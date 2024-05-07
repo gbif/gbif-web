@@ -29,7 +29,7 @@
   "datasetHomepage": "Página de inicio",
   "nConstituentDatasets": "{NUMBER_FORMATED} {NUMBER, plural, one{conjunto de datos que lo compone} other{conjuntos de datos que lo componen}}",
   "consistuentDatasets": "Conjuntos de datos que lo componen",
-  "noConstituentDatasets": "No hay conjuntos de datos que lo componen",
+  "noConstituentDatasets": "No hay conjuntos de datos que lo compongan",
   "logs": "Logs",
   "noDownloads": "Todavía no hay descargas",
   "finished": "Finalizado",
