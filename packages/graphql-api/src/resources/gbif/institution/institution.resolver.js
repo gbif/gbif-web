@@ -31,6 +31,12 @@ export default {
         key: replacedBy,
       });
     },
+    replacedByCollection: ({ convertedToCollection }, args, { dataSources }) => {
+      if (!convertedToCollection) return null;
+      return dataSources.collectionAPI.getCollectionByKey({
+        key: convertedToCollection,
+      });
+    },
     // this has since been added to the API as a regularly updated field.
     // occurrenceCount: ({ key }, args, { dataSources }) => {
     //   if (!key) return null;

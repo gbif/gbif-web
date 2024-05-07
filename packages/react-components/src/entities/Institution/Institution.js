@@ -154,6 +154,10 @@ query institution($key: ID!){
       name
       key
     }
+    replacedByCollection {
+      name
+      key
+    }
 
     identifiers {
       identifier
