@@ -42,7 +42,7 @@ const documents = {
     "\n  query TaiwanNode {\n    nodeSearch(identifierType: GBIF_PARTICIPANT, identifier: \"239\") {\n      results {\n        key\n        participantTitle\n        participationStatus\n        title\n      }\n    }\n  }\n": types.TaiwanNodeDocument,
     "\n  query NodeCountry($countryCode: String!) {\n    nodeCountry(countryCode: $countryCode) {\n      key\n      participantTitle\n      participationStatus\n      title\n    }\n  }\n": types.NodeCountryDocument,
     "\n  query NonCountryNode($identifier: String!) {\n    nodeSearch(identifierType: GBIF_PARTICIPANT, identifier: $identifier) {\n      results {\n        key\n        participantTitle\n      }\n    }\n  }\n": types.NonCountryNodeDocument,
-    "\n  query Participants {\n    participantSearch(limit: 1000) {\n      endOfRecords\n      results {\n        id\n        name\n        countryCode\n      }\n    }\n  }\n": types.ParticipantsDocument,
+    "\n  query Participants {\n    participantSearch(limit: 1000, type: COUNTRY) {\n      endOfRecords\n      results {\n        id\n        name\n        countryCode\n        participationStatus\n      }\n    }\n  }\n": types.ParticipantsDocument,
     "\n  fragment CompositionPage on Composition {\n    id\n    maybeTitle: title\n    summary\n    excerpt\n    blocks {\n      ...BlockItemDetails\n    }\n  }\n": types.CompositionPageFragmentDoc,
     "\n  fragment ProseCardImg on AssetImage {\n    file {\n      mobile: thumbor(width: 500, height: 400)\n    }\n    title\n    description\n  }\n": types.ProseCardImgFragmentDoc,
     "\n  fragment ResourceRedirectDetails on Resource {\n    __typename\n    ... on Article {\n      id\n      title\n      urlAlias\n    }\n    ... on Composition {\n      id\n      maybeTitle: title\n      urlAlias\n    }\n    ... on DataUse {\n      id\n      title\n    }\n    ... on Document {\n      id\n      title\n    }\n    ... on Event {\n      id\n      title\n    }\n    ... on News {\n      id\n      title\n    }\n    ... on Programme {\n      id\n      title\n    }\n    ... on GbifProject {\n      id\n      title\n    }\n    ... on Tool {\n      id\n      title\n    }\n  }\n": types.ResourceRedirectDetailsFragmentDoc,
@@ -196,7 +196,7 @@ export function graphql(source: "\n  query NonCountryNode($identifier: String!) 
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query Participants {\n    participantSearch(limit: 1000) {\n      endOfRecords\n      results {\n        id\n        name\n        countryCode\n      }\n    }\n  }\n"): (typeof documents)["\n  query Participants {\n    participantSearch(limit: 1000) {\n      endOfRecords\n      results {\n        id\n        name\n        countryCode\n      }\n    }\n  }\n"];
+export function graphql(source: "\n  query Participants {\n    participantSearch(limit: 1000, type: COUNTRY) {\n      endOfRecords\n      results {\n        id\n        name\n        countryCode\n        participationStatus\n      }\n    }\n  }\n"): (typeof documents)["\n  query Participants {\n    participantSearch(limit: 1000, type: COUNTRY) {\n      endOfRecords\n      results {\n        id\n        name\n        countryCode\n        participationStatus\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

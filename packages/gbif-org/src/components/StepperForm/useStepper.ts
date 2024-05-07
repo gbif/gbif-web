@@ -15,9 +15,16 @@ export function useStepper(steps: Step[], form: UseFormReturn<any>) {
   return useMemo(() => {
     return {
       currentStep,
-      nextStep() {
-        const nextIdx = currentStep.idx + 1;
-        setCurrentStep(steps[nextIdx]);
+      async nextStep() {
+        // If the current step has no validation path, just move to the next step
+        if (!currentStep.validationPath) {
+          return setCurrentStep(steps[currentStep.idx + 1]);
+        }
+
+        // Trigger validation and only go to next step if validation passes
+        if (await form.trigger(currentStep.validationPath)) {
+          return setCurrentStep(steps[currentStep.idx + 1]);
+        }
       },
       prevStep() {
         const prevIdx = currentStep.idx - 1;

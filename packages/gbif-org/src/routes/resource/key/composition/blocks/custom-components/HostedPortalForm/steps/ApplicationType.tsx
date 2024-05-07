@@ -12,8 +12,8 @@ import { RadioGroup } from '@/components/ui/radio-group';
 import { RadioItem, Required } from '../../_shared';
 import { cn } from '@/utils/shadcn';
 import useQuery from '@/hooks/useQuery';
-import { ParticipantsQuery } from '@/gql/graphql';
-import { useEffect } from 'react';
+import { Country, ParticipantsQuery, ParticipationStatus } from '@/gql/graphql';
+import { useEffect, useMemo } from 'react';
 import { DynamicLink } from '@/components/DynamicLink';
 import {
   Select,
@@ -57,12 +57,13 @@ export function ApplicationType() {
 
 const PARTICIPANTS_QUERY = /* GraphQL */ `
   query Participants {
-    participantSearch(limit: 1000) {
+    participantSearch(limit: 1000, type: COUNTRY) {
       endOfRecords
       results {
         id
         name
         countryCode
+        participationStatus
       }
     }
   }
@@ -81,6 +82,17 @@ function ParticipantNode() {
       load();
     }
   }, [applicationType?.type, data, load]);
+
+  const options = useMemo(() => {
+    return data?.participantSearch?.results
+      .filter(isValidParticipantNode)
+      .filter(
+        ({ participationStatus }) =>
+          participationStatus !== ParticipationStatus.Observer &&
+          participationStatus !== ParticipationStatus.Former
+      )
+      .sort((a, b) => a.name.localeCompare(b.name));
+  }, [data]);
 
   return (
     <FormField
@@ -121,8 +133,8 @@ function ParticipantNode() {
             <SelectContent>
               {error && <span>Error</span>}
               {loading && <span>Loading</span>}
-              {data?.participantSearch?.results
-                .map((participant) => participant?.name)
+              {options
+                ?.map((participant) => participant?.name)
                 .filter(notNull)
                 .map((name) => (
                   <SelectItem key={name} value={name}>
@@ -153,4 +165,22 @@ function PublisherDescription() {
       className={cn('pl-6', { hidden: applicationType !== 'Other_type_of_portal' })}
     />
   );
+}
+
+type ValidParticipant = {
+  id: string;
+  name: string;
+  countryCode: Country;
+  participationStatus: ParticipationStatus;
+};
+
+function isValidParticipantNode(
+  value: NonNullable<ParticipantsQuery['participantSearch']>['results'][number]
+): value is ValidParticipant {
+  if (!value) return false;
+  if (!value.id) return false;
+  if (!value.name) return false;
+  if (!value.countryCode) return false;
+  if (!value.participationStatus) return false;
+  return true;
 }

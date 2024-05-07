@@ -16,6 +16,14 @@ import { ClientSideOnly } from '@/components/ClientSideOnly';
 import { PrimaryContact } from './steps/PrimaryContact';
 import { HostedPortalName } from './steps/HostedPortalName';
 import { ApplicationType } from './steps/ApplicationType';
+import { DataScope } from './steps/DataScope';
+import { UserGroup } from './steps/UserGroup';
+import { Timelines } from './steps/Timelines';
+import { Languages } from './steps/Languages';
+import { Experience } from './steps/Experience';
+import { NodeContact } from './steps/NodeContact';
+import { Terms } from './steps/Terms';
+import { useToast } from '@/components/ui/use-toast';
 
 const Schema = z.object({
   primaryContact: z.object({
@@ -76,6 +84,8 @@ export const CheckboxField = createTypedCheckboxField<Inputs>();
 export const TextField = createTypedTextField<Inputs>();
 
 export function HostedPortalForm() {
+  const { toast } = useToast();
+
   const form = useForm<Inputs>({
     resolver: zodResolver(Schema),
     mode: 'onBlur',
@@ -92,19 +102,23 @@ export function HostedPortalForm() {
           body: JSON.stringify(data),
         })
           .then((response) => {
-            if (response.ok) {
-              alert('Form submitted');
-              form.reset();
-            } else {
-              alert('Form submission failed');
-            }
+            if (!response.ok) throw response;
+
+            toast({
+              title: 'Thank you for submitting your application',
+              description: 'We will be in touch soon',
+            });
           })
           .catch((error) => {
             console.error(error);
-            alert('Form submission failed');
+            toast({
+              title: 'Failed to submit application',
+              description: 'Please try again later',
+              variant: 'destructive',
+            });
           });
       }),
-    [form]
+    [form, toast]
   );
 
   const STEPS: Step[] = useMemo(
@@ -132,45 +146,46 @@ export function HostedPortalForm() {
         },
         {
           title: 'Node contact',
-          heading: 'Contact with node manager',
-          component: Dummy,
+          heading:
+            'Are you in contact with a GBIF Participant Node Manager about this application?',
+          component: NodeContact,
           fieldset: true,
           validationPath: 'nodeContact',
         },
         {
           title: 'Data scope',
           heading: 'Description of the data scope for the proposed portal',
-          component: Dummy,
+          component: DataScope,
           validationPath: 'dataScope',
         },
         {
           title: 'User group',
           heading: 'User group and needs',
-          component: Dummy,
+          component: UserGroup,
           validationPath: 'userGroup',
         },
         {
           title: 'Timelines',
           heading: 'Timelines',
-          component: Dummy,
+          component: Timelines,
           validationPath: 'timelines',
         },
         {
           title: 'Languages',
           heading: 'Languages',
-          component: Dummy,
+          component: Languages,
           validationPath: 'languages',
         },
         {
           title: 'Experience',
           heading: 'Level of experience with related tools and languages',
-          component: Dummy,
+          component: Experience,
           validationPath: 'experience',
         },
         {
           title: 'Terms',
           heading: 'Terms and conditions',
-          component: Dummy,
+          component: Terms,
           validationPath: 'termsAccepted',
         },
       ]),
@@ -184,8 +199,4 @@ export function HostedPortalForm() {
       </ClientSideOnly>
     </BlockContainer>
   );
-}
-
-function Dummy() {
-  return <span>Dummy</span>;
 }

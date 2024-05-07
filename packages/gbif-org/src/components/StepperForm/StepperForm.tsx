@@ -26,15 +26,6 @@ export function StepperForm({ form, onSubmit, steps }: StepperFormProps) {
   const { currentStep, prevStep, nextStep, goToStep } = useStepper(steps, form);
   const { width } = useWindowSize();
 
-  async function handleNext(step: Step) {
-    if (!step.validationPath) return nextStep();
-
-    // Tigger validation and only go to next step if validation passes
-    if (await form.trigger(step.validationPath)) {
-      nextStep();
-    }
-  }
-
   // The side navigation is positioned absolutely, os we need to set a min-height on the container to make sure it doesn't overflow
   const minHeight =
     width > 1226
@@ -82,7 +73,7 @@ export function StepperForm({ form, onSubmit, steps }: StepperFormProps) {
                     </Button>
                   )}
                   {step.idx < steps.length - 1 && (
-                    <Button className="ml-auto" type="button" onClick={() => handleNext(step)}>
+                    <Button className="ml-auto" type="button" onClick={nextStep}>
                       Next
                     </Button>
                   )}
