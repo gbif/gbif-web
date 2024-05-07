@@ -131,6 +131,7 @@ export function HomePage(): React.ReactElement {
                 <DynamicLink className="me-4" to="/occurrence/3013940180">iNat frog</DynamicLink>
                 <DynamicLink className="me-4" to="/occurrence/4527469336">Phylogeny</DynamicLink>
                 <DynamicLink className="me-4" to="/occurrence/4517957661">Extensions</DynamicLink>
+                <DynamicLink className="me-4" to="/occurrence/4129776625">Oceanic</DynamicLink>
               </li>
               <li>
                 Occurrence, download, species, participant, country and profile pages have not been started

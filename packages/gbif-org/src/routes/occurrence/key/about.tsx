@@ -61,8 +61,9 @@ export function OccurrenceKeyAbout() {
     }, {}) ?? {};
 
   const showAll = false;
-  const overviewZoom = 5;
-  const sateliteZoom = occurrence.gadm?.level0 ? 14 : 5;
+  const isProbablyNotInOcean = occurrence.countryCode
+  const overviewZoom = isProbablyNotInOcean ? 5 : 1;
+  const sateliteZoom = isProbablyNotInOcean ? 14 : 1;
   
   const showExtensions = !!extensions.find((section) => toc[section]);
 

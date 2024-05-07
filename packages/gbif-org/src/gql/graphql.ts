@@ -1239,6 +1239,33 @@ export type DatasetOrganizationFacet = {
   organization?: Maybe<Organization>;
 };
 
+export enum DatasetSearchParameter {
+  CollectionKey = 'COLLECTION_KEY',
+  Continent = 'CONTINENT',
+  Country = 'COUNTRY',
+  DatasetTitle = 'DATASET_TITLE',
+  Decade = 'DECADE',
+  Doi = 'DOI',
+  EndorsingNodeKey = 'ENDORSING_NODE_KEY',
+  EndpointType = 'ENDPOINT_TYPE',
+  HostingCountry = 'HOSTING_COUNTRY',
+  HostingOrg = 'HOSTING_ORG',
+  InstallationKey = 'INSTALLATION_KEY',
+  InstitutionKey = 'INSTITUTION_KEY',
+  Keyword = 'KEYWORD',
+  License = 'LICENSE',
+  ModifiedDate = 'MODIFIED_DATE',
+  NetworkKey = 'NETWORK_KEY',
+  ProjectId = 'PROJECT_ID',
+  PublishingCountry = 'PUBLISHING_COUNTRY',
+  PublishingOrg = 'PUBLISHING_ORG',
+  RecordCount = 'RECORD_COUNT',
+  Subtype = 'SUBTYPE',
+  TaxonKey = 'TAXON_KEY',
+  Type = 'TYPE',
+  Year = 'YEAR'
+}
+
 export type DatasetSearchResults = {
   __typename?: 'DatasetSearchResults';
   _query?: Maybe<Scalars['JSON']['output']>;
@@ -1497,6 +1524,18 @@ export enum Discipline {
   SpacePlanetaryScience = 'SPACE_PLANETARY_SCIENCE'
 }
 
+export enum DistanceUnit {
+  Centimeters = 'CENTIMETERS',
+  Feet = 'FEET',
+  Inch = 'INCH',
+  Kilometers = 'KILOMETERS',
+  Meters = 'METERS',
+  Miles = 'MILES',
+  Millimeters = 'MILLIMETERS',
+  Nauticalmiles = 'NAUTICALMILES',
+  Yard = 'YARD'
+}
+
 export enum DistributionStatus {
   Absent = 'ABSENT',
   Common = 'COMMON',
@@ -1562,12 +1601,47 @@ export type Download = {
   totalRecords?: Maybe<Scalars['Int']['output']>;
 };
 
+export enum DownloadFormat {
+  Bionomia = 'BIONOMIA',
+  Dwca = 'DWCA',
+  MapOfLife = 'MAP_OF_LIFE',
+  SimpleAvro = 'SIMPLE_AVRO',
+  SimpleCsv = 'SIMPLE_CSV',
+  SimpleParquet = 'SIMPLE_PARQUET',
+  SimpleWithVerbatimAvro = 'SIMPLE_WITH_VERBATIM_AVRO',
+  SpeciesList = 'SPECIES_LIST',
+  SqlTsvZip = 'SQL_TSV_ZIP'
+}
+
 export type DownloadRequest = {
   __typename?: 'DownloadRequest';
   format?: Maybe<Scalars['String']['output']>;
   predicate?: Maybe<Scalars['JSON']['output']>;
   sendNotification?: Maybe<Scalars['Boolean']['output']>;
 };
+
+export enum DownloadType {
+  Event = 'EVENT',
+  Occurrence = 'OCCURRENCE'
+}
+
+export enum Download_Status {
+  Cancelled = 'CANCELLED',
+  Failed = 'FAILED',
+  FileErased = 'FILE_ERASED',
+  Killed = 'KILLED',
+  Preparing = 'PREPARING',
+  Running = 'RUNNING',
+  Succeeded = 'SUCCEEDED',
+  Suspended = 'SUSPENDED'
+}
+
+export enum EndorsementStatus {
+  Endorsed = 'ENDORSED',
+  OnHold = 'ON_HOLD',
+  Rejected = 'REJECTED',
+  WaitingForEndorsement = 'WAITING_FOR_ENDORSEMENT'
+}
 
 export type Endpoint = {
   __typename?: 'Endpoint';
@@ -1584,7 +1658,7 @@ export type Endpoint = {
 export enum EndpointType {
   Biocase = 'BIOCASE',
   BiocaseXmlArchive = 'BIOCASE_XML_ARCHIVE',
-  CamtrapDpV_0_4 = 'CAMTRAP_DP_v_0_4',
+  CamtrapDp = 'CAMTRAP_DP',
   Coldp = 'COLDP',
   Digir = 'DIGIR',
   DigirManis = 'DIGIR_MANIS',
@@ -2087,6 +2161,7 @@ export type Institution = {
   contactPersons: Array<Maybe<ContactPerson>>;
   /** The contacts type is deprecated and will no longer be updated */
   contacts?: Maybe<Array<Maybe<StaffMember>>>;
+  convertedToCollection?: Maybe<Scalars['ID']['output']>;
   created?: Maybe<Scalars['DateTime']['output']>;
   createdBy?: Maybe<Scalars['String']['output']>;
   deleted?: Maybe<Scalars['DateTime']['output']>;
@@ -2114,6 +2189,7 @@ export type Institution = {
   occurrenceCount?: Maybe<Scalars['Int']['output']>;
   phone?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   replacedBy?: Maybe<Scalars['ID']['output']>;
+  replacedByCollection?: Maybe<Collection>;
   replacedByInstitution?: Maybe<Institution>;
   tags?: Maybe<Array<Maybe<Tag>>>;
   taxonomicDescription?: Maybe<Scalars['String']['output']>;
@@ -2163,10 +2239,61 @@ export enum InstitutionType {
   ZooAquarium = 'ZOO_AQUARIUM'
 }
 
+export enum InternalOccurrenceSearchParameter {
+  EventDateGte = 'EVENT_DATE_GTE',
+  EventDateLte = 'EVENT_DATE_LTE'
+}
+
 export enum InterpretationRemarkSeverity {
   Error = 'ERROR',
   Info = 'INFO',
   Warning = 'WARNING'
+}
+
+export enum InterpretationType_RecordType {
+  All = 'ALL',
+  Amplification = 'AMPLIFICATION',
+  AmplificationTable = 'AMPLIFICATION_TABLE',
+  Audubon = 'AUDUBON',
+  AudubonTable = 'AUDUBON_TABLE',
+  Basic = 'BASIC',
+  ChronometricAgeTable = 'CHRONOMETRIC_AGE_TABLE',
+  CloningTable = 'CLONING_TABLE',
+  Clustering = 'CLUSTERING',
+  DnaDerivedDataTable = 'DNA_DERIVED_DATA_TABLE',
+  Event = 'EVENT',
+  EventIdentifier = 'EVENT_IDENTIFIER',
+  ExtendedMeasurementOrFactTable = 'EXTENDED_MEASUREMENT_OR_FACT_TABLE',
+  GelImageTable = 'GEL_IMAGE_TABLE',
+  GermplasmAccessionTable = 'GERMPLASM_ACCESSION_TABLE',
+  GermplasmMeasurementScoreTable = 'GERMPLASM_MEASUREMENT_SCORE_TABLE',
+  GermplasmMeasurementTraitTable = 'GERMPLASM_MEASUREMENT_TRAIT_TABLE',
+  GermplasmMeasurementTrialTable = 'GERMPLASM_MEASUREMENT_TRIAL_TABLE',
+  Grscicoll = 'GRSCICOLL',
+  IdentificationTable = 'IDENTIFICATION_TABLE',
+  Identifier = 'IDENTIFIER',
+  IdentifierAbsent = 'IDENTIFIER_ABSENT',
+  IdentifierTable = 'IDENTIFIER_TABLE',
+  Image = 'IMAGE',
+  ImageTable = 'IMAGE_TABLE',
+  LoanTable = 'LOAN_TABLE',
+  Location = 'LOCATION',
+  LocationFeature = 'LOCATION_FEATURE',
+  MaterialSampleTable = 'MATERIAL_SAMPLE_TABLE',
+  MeasurementOrFact = 'MEASUREMENT_OR_FACT',
+  MeasurementOrFactTable = 'MEASUREMENT_OR_FACT_TABLE',
+  Metadata = 'METADATA',
+  Multimedia = 'MULTIMEDIA',
+  MultimediaTable = 'MULTIMEDIA_TABLE',
+  Occurrence = 'OCCURRENCE',
+  PermitTable = 'PERMIT_TABLE',
+  PreparationTable = 'PREPARATION_TABLE',
+  PreservationTable = 'PRESERVATION_TABLE',
+  ReferenceTable = 'REFERENCE_TABLE',
+  ResourceRelationshipTable = 'RESOURCE_RELATIONSHIP_TABLE',
+  Taxonomy = 'TAXONOMY',
+  Temporal = 'TEMPORAL',
+  Verbatim = 'VERBATIM'
 }
 
 export type IucnRedListCategoryResult = {
@@ -2578,6 +2705,31 @@ export enum LiteratureRelevance {
   GbifUsed = 'GBIF_USED'
 }
 
+export enum LiteratureSearchParameter {
+  CitationType = 'CITATION_TYPE',
+  CountriesOfCoverage = 'COUNTRIES_OF_COVERAGE',
+  CountriesOfResearcher = 'COUNTRIES_OF_RESEARCHER',
+  Doi = 'DOI',
+  GbifDatasetKey = 'GBIF_DATASET_KEY',
+  GbifDownloadKey = 'GBIF_DOWNLOAD_KEY',
+  GbifHighertaxonKey = 'GBIF_HIGHERTAXON_KEY',
+  GbifNetworkKey = 'GBIF_NETWORK_KEY',
+  GbifOccurrenceKey = 'GBIF_OCCURRENCE_KEY',
+  GbifProgramme = 'GBIF_PROGRAMME',
+  GbifProjectIdentifier = 'GBIF_PROJECT_IDENTIFIER',
+  GbifTaxonKey = 'GBIF_TAXON_KEY',
+  Language = 'LANGUAGE',
+  LiteratureType = 'LITERATURE_TYPE',
+  OpenAccess = 'OPEN_ACCESS',
+  PeerReview = 'PEER_REVIEW',
+  Publisher = 'PUBLISHER',
+  PublishingOrganizationKey = 'PUBLISHING_ORGANIZATION_KEY',
+  Relevance = 'RELEVANCE',
+  Source = 'SOURCE',
+  Topics = 'TOPICS',
+  Year = 'YEAR'
+}
+
 export type LiteratureSearchResult = {
   __typename?: 'LiteratureSearchResult';
   _meta?: Maybe<Scalars['JSON']['output']>;
@@ -2848,6 +3000,27 @@ export enum NameUsageIssue {
   TaxonomicStatusMismatch = 'TAXONOMIC_STATUS_MISMATCH',
   Unparsable = 'UNPARSABLE',
   VernacularNameInvalid = 'VERNACULAR_NAME_INVALID'
+}
+
+export enum NameUsageSearchParameter {
+  ConstituentKey = 'CONSTITUENT_KEY',
+  DatasetKey = 'DATASET_KEY',
+  Habitat = 'HABITAT',
+  HighertaxonKey = 'HIGHERTAXON_KEY',
+  Issue = 'ISSUE',
+  IsExtinct = 'IS_EXTINCT',
+  NameType = 'NAME_TYPE',
+  NomenclaturalStatus = 'NOMENCLATURAL_STATUS',
+  Origin = 'ORIGIN',
+  Rank = 'RANK',
+  Status = 'STATUS',
+  Threat = 'THREAT'
+}
+
+export enum NameUsageSearchRequest_NameUsageQueryField {
+  Description = 'DESCRIPTION',
+  Scientific = 'SCIENTIFIC',
+  Vernacular = 'VERNACULAR'
 }
 
 export type Network = {
@@ -4639,6 +4812,127 @@ export enum OccurrenceSchemaType {
   DwcManis = 'DWC_MANIS'
 }
 
+export enum OccurrenceSearchParameter {
+  AcceptedTaxonKey = 'ACCEPTED_TAXON_KEY',
+  AssociatedSequences = 'ASSOCIATED_SEQUENCES',
+  BasisOfRecord = 'BASIS_OF_RECORD',
+  Bed = 'BED',
+  CatalogNumber = 'CATALOG_NUMBER',
+  ClassKey = 'CLASS_KEY',
+  CollectionCode = 'COLLECTION_CODE',
+  CollectionKey = 'COLLECTION_KEY',
+  Continent = 'CONTINENT',
+  CoordinateUncertaintyInMeters = 'COORDINATE_UNCERTAINTY_IN_METERS',
+  Country = 'COUNTRY',
+  CrawlId = 'CRAWL_ID',
+  DatasetId = 'DATASET_ID',
+  DatasetKey = 'DATASET_KEY',
+  DatasetName = 'DATASET_NAME',
+  DecimalLatitude = 'DECIMAL_LATITUDE',
+  DecimalLongitude = 'DECIMAL_LONGITUDE',
+  DegreeOfEstablishment = 'DEGREE_OF_ESTABLISHMENT',
+  Depth = 'DEPTH',
+  DistanceFromCentroidInMeters = 'DISTANCE_FROM_CENTROID_IN_METERS',
+  DwcaExtension = 'DWCA_EXTENSION',
+  EarliestAgeOrLowestStage = 'EARLIEST_AGE_OR_LOWEST_STAGE',
+  EarliestEonOrLowestEonothem = 'EARLIEST_EON_OR_LOWEST_EONOTHEM',
+  EarliestEpochOrLowestSeries = 'EARLIEST_EPOCH_OR_LOWEST_SERIES',
+  EarliestEraOrLowestErathem = 'EARLIEST_ERA_OR_LOWEST_ERATHEM',
+  EarliestPeriodOrLowestSystem = 'EARLIEST_PERIOD_OR_LOWEST_SYSTEM',
+  Elevation = 'ELEVATION',
+  EndDayOfYear = 'END_DAY_OF_YEAR',
+  EstablishmentMeans = 'ESTABLISHMENT_MEANS',
+  EventDate = 'EVENT_DATE',
+  EventId = 'EVENT_ID',
+  FamilyKey = 'FAMILY_KEY',
+  FieldNumber = 'FIELD_NUMBER',
+  Formation = 'FORMATION',
+  GadmGid = 'GADM_GID',
+  GadmLevel_0Gid = 'GADM_LEVEL_0_GID',
+  GadmLevel_1Gid = 'GADM_LEVEL_1_GID',
+  GadmLevel_2Gid = 'GADM_LEVEL_2_GID',
+  GadmLevel_3Gid = 'GADM_LEVEL_3_GID',
+  GbifId = 'GBIF_ID',
+  GbifRegion = 'GBIF_REGION',
+  GenusKey = 'GENUS_KEY',
+  Geometry = 'GEOMETRY',
+  GeoreferencedBy = 'GEOREFERENCED_BY',
+  GeoDistance = 'GEO_DISTANCE',
+  Group = 'GROUP',
+  HasCoordinate = 'HAS_COORDINATE',
+  HasGeospatialIssue = 'HAS_GEOSPATIAL_ISSUE',
+  HigherGeography = 'HIGHER_GEOGRAPHY',
+  HighestBiostratigraphicZone = 'HIGHEST_BIOSTRATIGRAPHIC_ZONE',
+  HostingOrganizationKey = 'HOSTING_ORGANIZATION_KEY',
+  IdentifiedBy = 'IDENTIFIED_BY',
+  IdentifiedById = 'IDENTIFIED_BY_ID',
+  InstallationKey = 'INSTALLATION_KEY',
+  InstitutionCode = 'INSTITUTION_CODE',
+  InstitutionKey = 'INSTITUTION_KEY',
+  Island = 'ISLAND',
+  IslandGroup = 'ISLAND_GROUP',
+  Issue = 'ISSUE',
+  IsInCluster = 'IS_IN_CLUSTER',
+  IsSequenced = 'IS_SEQUENCED',
+  IucnRedListCategory = 'IUCN_RED_LIST_CATEGORY',
+  KingdomKey = 'KINGDOM_KEY',
+  LastInterpreted = 'LAST_INTERPRETED',
+  LatestAgeOrHighestStage = 'LATEST_AGE_OR_HIGHEST_STAGE',
+  LatestEonOrHighestEonothem = 'LATEST_EON_OR_HIGHEST_EONOTHEM',
+  LatestEpochOrHighestSeries = 'LATEST_EPOCH_OR_HIGHEST_SERIES',
+  LatestEraOrHighestErathem = 'LATEST_ERA_OR_HIGHEST_ERATHEM',
+  LatestPeriodOrHighestSystem = 'LATEST_PERIOD_OR_HIGHEST_SYSTEM',
+  License = 'LICENSE',
+  LifeStage = 'LIFE_STAGE',
+  Locality = 'LOCALITY',
+  LowestBiostratigraphicZone = 'LOWEST_BIOSTRATIGRAPHIC_ZONE',
+  MediaType = 'MEDIA_TYPE',
+  Member = 'MEMBER',
+  Modified = 'MODIFIED',
+  Month = 'MONTH',
+  NetworkKey = 'NETWORK_KEY',
+  OccurrenceId = 'OCCURRENCE_ID',
+  OccurrenceStatus = 'OCCURRENCE_STATUS',
+  OrderKey = 'ORDER_KEY',
+  OrganismId = 'ORGANISM_ID',
+  OrganismQuantity = 'ORGANISM_QUANTITY',
+  OrganismQuantityType = 'ORGANISM_QUANTITY_TYPE',
+  OtherCatalogNumbers = 'OTHER_CATALOG_NUMBERS',
+  ParentEventId = 'PARENT_EVENT_ID',
+  Pathway = 'PATHWAY',
+  PhylumKey = 'PHYLUM_KEY',
+  Preparations = 'PREPARATIONS',
+  PreviousIdentifications = 'PREVIOUS_IDENTIFICATIONS',
+  Programme = 'PROGRAMME',
+  ProjectId = 'PROJECT_ID',
+  Protocol = 'PROTOCOL',
+  PublishedByGbifRegion = 'PUBLISHED_BY_GBIF_REGION',
+  PublishingCountry = 'PUBLISHING_COUNTRY',
+  PublishingOrg = 'PUBLISHING_ORG',
+  RecordedBy = 'RECORDED_BY',
+  RecordedById = 'RECORDED_BY_ID',
+  RecordNumber = 'RECORD_NUMBER',
+  RelativeOrganismQuantity = 'RELATIVE_ORGANISM_QUANTITY',
+  Repatriated = 'REPATRIATED',
+  SampleSizeUnit = 'SAMPLE_SIZE_UNIT',
+  SampleSizeValue = 'SAMPLE_SIZE_VALUE',
+  SamplingProtocol = 'SAMPLING_PROTOCOL',
+  ScientificName = 'SCIENTIFIC_NAME',
+  Sex = 'SEX',
+  SpeciesKey = 'SPECIES_KEY',
+  StartDayOfYear = 'START_DAY_OF_YEAR',
+  StateProvince = 'STATE_PROVINCE',
+  SubgenusKey = 'SUBGENUS_KEY',
+  TaxonomicStatus = 'TAXONOMIC_STATUS',
+  TaxonConceptId = 'TAXON_CONCEPT_ID',
+  TaxonId = 'TAXON_ID',
+  TaxonKey = 'TAXON_KEY',
+  TypeStatus = 'TYPE_STATUS',
+  VerbatimScientificName = 'VERBATIM_SCIENTIFIC_NAME',
+  WaterBody = 'WATER_BODY',
+  Year = 'YEAR'
+}
+
 export type OccurrenceSearchResult = {
   __typename?: 'OccurrenceSearchResult';
   _downloadPredicate?: Maybe<Scalars['JSON']['output']>;
@@ -6417,6 +6711,7 @@ export enum UserRole {
   GrscicollEditor = 'GRSCICOLL_EDITOR',
   GrscicollMediator = 'GRSCICOLL_MEDIATOR',
   IdigbioGrscicollEditor = 'IDIGBIO_GRSCICOLL_EDITOR',
+  InvitedTester = 'INVITED_TESTER',
   RegistryAdmin = 'REGISTRY_ADMIN',
   RegistryEditor = 'REGISTRY_EDITOR',
   User = 'USER',

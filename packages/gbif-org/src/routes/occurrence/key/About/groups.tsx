@@ -68,12 +68,12 @@ export function Groups({
       <GeologicalContext {...{ updateToc, showAll, termMap, occurrence }} />
       <Record {...{ showAll, termMap, occurrence, updateToc }} />
       <Taxon {...{ updateToc, showAll, termMap, occurrence }} />
+      <Identification {...{ updateToc, showAll, termMap, occurrence }} />
       <Location {...{ updateToc, showAll, termMap, occurrence }} />
-      <Event {...{ updateToc, showAll, termMap, occurrence }} />
       <Occurrence {...{ updateToc, showAll, termMap, occurrence }} />
+      <Event {...{ updateToc, showAll, termMap, occurrence }} />
       <Organism {...{ updateToc, showAll, termMap, occurrence }} />
       <MaterialSample {...{ updateToc, showAll, termMap, occurrence }} />
-      <Identification {...{ updateToc, showAll, termMap, occurrence }} />
       <Other {...{ updateToc, showAll, termMap, occurrence }} />
 
       <Media occurrence={occurrence} termMap={termMap} updateToc={updateToc} />
@@ -222,7 +222,7 @@ function Provenance({
 function Record({
   showAll,
   termMap,
-  occurrence
+  occurrence,
 }: {
   showAll: boolean;
   termMap: any;
@@ -325,88 +325,90 @@ function Location({
         </CardTitle>
       </CardHeader>
       <CardContent className="flex w-full">
-        <Properties breakpoint={800} className="[&>dt]:w-52 flex-auto">
-          <PlainTextField term={termMap.locationID} showDetails={showAll} />
-          <PlainTextField term={termMap.higherGeographyID} showDetails={showAll} />
-          <PlainTextField term={termMap.higherGeography} showDetails={showAll} />
+        <div className="flex-auto">
+          <Properties breakpoint={800} className="[&>dt]:w-52">
+            <PlainTextField term={termMap.locationID} showDetails={showAll} />
+            <PlainTextField term={termMap.higherGeographyID} showDetails={showAll} />
+            <PlainTextField term={termMap.higherGeography} showDetails={showAll} />
 
-          <EnumField
-            term={termMap.continent}
-            showDetails={showAll}
-            getEnum={(value) => `enums.continent.${value}`}
-          />
-          <EnumField
-            term={termMap.countryCode}
-            label="occurrenceFieldNames.country"
-            showDetails={showAll}
-            getEnum={(value) => `enums.countryCode.${value}`}
-          />
-          {/* <PlainTextField term={termMap.country} showDetails={showAll} /> */}
-          <PlainTextField term={termMap.waterBody} showDetails={showAll} />
-          <PlainTextField term={termMap.islandGroup} showDetails={showAll} />
-          <PlainTextField term={termMap.island} showDetails={showAll} />
-          <PlainTextField term={termMap.stateProvince} showDetails={showAll} />
-          <PlainTextField term={termMap.county} showDetails={showAll} />
-          <PlainTextField term={termMap.municipality} showDetails={showAll} />
+            <EnumField
+              term={termMap.continent}
+              showDetails={showAll}
+              getEnum={(value) => `enums.continent.${value}`}
+            />
+            <EnumField
+              term={termMap.countryCode}
+              label="occurrenceFieldNames.country"
+              showDetails={showAll}
+              getEnum={(value) => `enums.countryCode.${value}`}
+            />
+            {/* <PlainTextField term={termMap.country} showDetails={showAll} /> */}
+            <PlainTextField term={termMap.waterBody} showDetails={showAll} />
+            <PlainTextField term={termMap.islandGroup} showDetails={showAll} />
+            <PlainTextField term={termMap.island} showDetails={showAll} />
+            <PlainTextField term={termMap.stateProvince} showDetails={showAll} />
+            <PlainTextField term={termMap.county} showDetails={showAll} />
+            <PlainTextField term={termMap.municipality} showDetails={showAll} />
 
-          <PlainTextField term={termMap.locality} showDetails={showAll} />
-          <PlainTextField term={termMap.verbatimLocality} showDetails={showAll} />
+            <PlainTextField term={termMap.locality} showDetails={showAll} />
+            <PlainTextField term={termMap.verbatimLocality} showDetails={showAll} />
 
-          <PlainTextField
-            term={termMap.minimumDistanceAboveSurfaceInMeters}
-            showDetails={showAll}
-          />
-          <PlainTextField
-            term={termMap.maximumDistanceAboveSurfaceInMeters}
-            showDetails={showAll}
-          />
-          <PlainTextField term={termMap.locationAccordingTo} showDetails={showAll} />
-          <PlainTextField term={termMap.locationRemarks} showDetails={showAll} />
+            <PlainTextField
+              term={termMap.minimumDistanceAboveSurfaceInMeters}
+              showDetails={showAll}
+            />
+            <PlainTextField
+              term={termMap.maximumDistanceAboveSurfaceInMeters}
+              showDetails={showAll}
+            />
+            <PlainTextField term={termMap.locationAccordingTo} showDetails={showAll} />
+            <PlainTextField term={termMap.locationRemarks} showDetails={showAll} />
 
-          <PlainTextField term={termMap.decimalLatitude} showDetails={showAll} />
-          <PlainTextField term={termMap.decimalLongitude} showDetails={showAll} />
-          <PlainTextField term={termMap.coordinateUncertaintyInMeters} showDetails={showAll} />
-          <PlainTextField term={termMap.coordinatePrecision} showDetails={showAll} />
-          <PlainTextField term={termMap.pointRadiusSpatialFit} showDetails={showAll} />
-          <PlainTextField term={termMap.footprintWKT} showDetails={showAll} />
-          <PlainTextField term={termMap.footprintSRS} showDetails={showAll} />
-          <PlainTextField term={termMap.footprintSpatialFit} showDetails={showAll} />
-          <PlainTextField term={termMap.verbatimCoordinateSystem} showDetails={showAll} />
-          <PlainTextField term={termMap.verbatimSRS} showDetails={showAll} />
+            <PlainTextField term={termMap.decimalLatitude} showDetails={showAll} />
+            <PlainTextField term={termMap.decimalLongitude} showDetails={showAll} />
+            <PlainTextField term={termMap.coordinateUncertaintyInMeters} showDetails={showAll} />
+            <PlainTextField term={termMap.coordinatePrecision} showDetails={showAll} />
+            <PlainTextField term={termMap.pointRadiusSpatialFit} showDetails={showAll} />
+            <PlainTextField term={termMap.footprintWKT} showDetails={showAll} />
+            <PlainTextField term={termMap.footprintSRS} showDetails={showAll} />
+            <PlainTextField term={termMap.footprintSpatialFit} showDetails={showAll} />
+            <PlainTextField term={termMap.verbatimCoordinateSystem} showDetails={showAll} />
+            <PlainTextField term={termMap.verbatimSRS} showDetails={showAll} />
 
-          <PlainTextField term={termMap.georeferencedBy} showDetails={showAll} />
-          <PlainTextField term={termMap.georeferencedDate} showDetails={showAll} />
-          <HtmlField term={termMap.georeferenceProtocol} showDetails={showAll} />
-          <HtmlField term={termMap.georeferenceSources} showDetails={showAll} />
-          <PlainTextField term={termMap.georeferenceVerificationStatus} showDetails={showAll} />
-          <HtmlField term={termMap.georeferenceRemarks} showDetails={showAll} />
+            <PlainTextField term={termMap.georeferencedBy} showDetails={showAll} />
+            <PlainTextField term={termMap.georeferencedDate} showDetails={showAll} />
+            <HtmlField term={termMap.georeferenceProtocol} showDetails={showAll} />
+            <HtmlField term={termMap.georeferenceSources} showDetails={showAll} />
+            <PlainTextField term={termMap.georeferenceVerificationStatus} showDetails={showAll} />
+            <HtmlField term={termMap.georeferenceRemarks} showDetails={showAll} />
 
-          <PlainTextField term={termMap.elevation} showDetails={showAll} />
-          <PlainTextField term={termMap.elevationAccuracy} showDetails={showAll} />
-          <PlainTextField term={termMap.minimumElevationInMeters} showDetails={showAll} />
-          <PlainTextField term={termMap.maximumElevationInMeters} showDetails={showAll} />
-          <PlainTextField term={termMap.verbatimElevation} showDetails={showAll} />
+            <PlainTextField term={termMap.elevation} showDetails={showAll} />
+            <PlainTextField term={termMap.elevationAccuracy} showDetails={showAll} />
+            <PlainTextField term={termMap.minimumElevationInMeters} showDetails={showAll} />
+            <PlainTextField term={termMap.maximumElevationInMeters} showDetails={showAll} />
+            <PlainTextField term={termMap.verbatimElevation} showDetails={showAll} />
 
-          <PlainTextField term={termMap.depth} showDetails={showAll} />
-          <PlainTextField term={termMap.depthAccuracy} showDetails={showAll} />
-          <PlainTextField term={termMap.minimumDepthInMeters} showDetails={showAll} />
-          <PlainTextField term={termMap.maximumDepthInMeters} showDetails={showAll} />
-          <PlainTextField term={termMap.verbatimDepth} showDetails={showAll} />
+            <PlainTextField term={termMap.depth} showDetails={showAll} />
+            <PlainTextField term={termMap.depthAccuracy} showDetails={showAll} />
+            <PlainTextField term={termMap.minimumDepthInMeters} showDetails={showAll} />
+            <PlainTextField term={termMap.maximumDepthInMeters} showDetails={showAll} />
+            <PlainTextField term={termMap.verbatimDepth} showDetails={showAll} />
 
-          <PlainTextField term={termMap.geodeticDatum} showDetails={showAll} />
-          <PlainTextField term={termMap.verbatimCoordinates} showDetails={showAll} />
-          <PlainTextField term={termMap.verbatimLatitude} showDetails={showAll} />
-          <PlainTextField term={termMap.verbatimLongitude} showDetails={showAll} />
+            <PlainTextField term={termMap.geodeticDatum} showDetails={showAll} />
+            <PlainTextField term={termMap.verbatimCoordinates} showDetails={showAll} />
+            <PlainTextField term={termMap.verbatimLatitude} showDetails={showAll} />
+            <PlainTextField term={termMap.verbatimLongitude} showDetails={showAll} />
 
-          {occurrence?.gadm?.level0 && (
-            <BasicField label="occurrenceFieldNames.gadmClassification">
-              <GadmClassification gadm={occurrence.gadm} />
-            </BasicField>
-          )}
-        </Properties>
+            {occurrence?.gadm?.level0 && (
+              <BasicField label="occurrenceFieldNames.gadmClassification">
+                <GadmClassification gadm={occurrence.gadm} />
+              </BasicField>
+            )}
+          </Properties>
+        </div>
 
         {occurrence.coordinates.lon && (
-          <div className="ms-4 flex-auto w-1/2">
+          <div className="ms-4 flex-auto w-1/2 min-w-64">
             <React.Suspense fallback={<div>Loading map...</div>}>
               <Map
                 coordinates={occurrence.coordinates}
