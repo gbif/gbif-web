@@ -361,8 +361,8 @@
   },
   "occurrenceCount": {
     "name": "Número (cantidad) de registros",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { registro biológico } other {# registros biológicos}}",
+    "description": "Número de registros biológicos para el evento"
   },
   "eventType": {
     "name": "",
