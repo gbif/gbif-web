@@ -25,14 +25,47 @@ import {
 } from '@/components/highlights';
 
 const PUBLISHER_QUERY = /* GraphQL */ `
-  query Publisher($key: ID!) {
+  query Publisher($key: ID!, $jsonKey: JSON!) {
     publisher: organization(key: $key) {
+      key
       title
       description
       deleted
       created
       homepage
       numPublishedDatasets
+      logoUrl
+      
+      latitude
+      longitude
+      address
+      city
+      country
+      email
+      phone
+      postalCode
+      province
+
+      endorsingNode {
+        title
+        participant {
+          id
+          name
+          type
+          countryCode
+        }
+      }
+      endorsingNodeKey
+      endorsementApproved
+
+      installation {
+        count
+        results {
+          key
+          title
+        }
+      }
+      
       contacts {
         key
         type
@@ -46,7 +79,7 @@ const PUBLISHER_QUERY = /* GraphQL */ `
         userId
       }
     }
-    occurrenceSearch {
+    occurrenceSearch(predicate: {type: equals, key: "publishingOrg", value: $jsonKey}) {
       documents(size: 0) {
         total
       }
@@ -65,7 +98,7 @@ const PUBLISHER_QUERY = /* GraphQL */ `
 export async function publisherLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key was provided in the URL');
 
-  return graphql.query<PublisherQuery, PublisherQueryVariables>(PUBLISHER_QUERY, { key });
+  return graphql.query<PublisherQuery, PublisherQueryVariables>(PUBLISHER_QUERY, { key, jsonKey: key });
 }
 
 export function PublisherPage() {

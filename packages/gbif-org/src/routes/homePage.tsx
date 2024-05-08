@@ -124,17 +124,17 @@ export function HomePage(): React.ReactElement {
                 </DynamicLink>
               </li>
               <li>
-                <DynamicLink className="me-4" to="/occurrence/4126243325">Images</DynamicLink>
+                Occurrences: <DynamicLink className="me-4" to="/occurrence/4126243325">Images</DynamicLink>
                 <DynamicLink className="me-4" to="/occurrence/4045885848">Video</DynamicLink>
                 <DynamicLink className="me-4" to="/occurrence/2434542261">RecordedBy ID</DynamicLink>
                 <DynamicLink className="me-4" to="/occurrence/1934869005">Fossil</DynamicLink>
-                <DynamicLink className="me-4" to="/occurrence/3013940180">iNat frog</DynamicLink>
+                <DynamicLink className="me-4" to="/occurrence/3013940180">iNat</DynamicLink>
                 <DynamicLink className="me-4" to="/occurrence/4527469336">Phylogeny</DynamicLink>
                 <DynamicLink className="me-4" to="/occurrence/4517957661">Extensions</DynamicLink>
                 <DynamicLink className="me-4" to="/occurrence/4129776625">Oceanic</DynamicLink>
               </li>
               <li>
-                Occurrence, download, species, participant, country and profile pages have not been started
+                Download, species, participant, country and profile pages have not been started
               </li>
             </ul>
           </section>
