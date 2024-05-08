@@ -16,7 +16,7 @@
   "placeholders": {
     "default": "Buscar",
     "range": "Rango o valor único",
-    "wildcard": "",
+    "wildcard": "Buscar utilizando * y ? como comodines",
     "locationID": ""
   },
   "ternary": {
