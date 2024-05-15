@@ -11,6 +11,7 @@ import {
   OptionalStringSchema,
 } from '../validation';
 import logger from '#/logger';
+import config from '#/config';
 
 const Schema = {
   body: z.object({
@@ -82,8 +83,8 @@ export function registerHostedPortalApplicationForm(router: Router) {
     async (req, res) => {
       try {
         await createGitHubIssue({
-          owner: 'danielvdm2000',
-          repo: 'github-api-test',
+          owner: config.suggestDataset.owner,
+          repo: config.suggestDataset.repository,
           title: req.body.hostedPortalName,
           body: createMarkdown(req.body),
         });
