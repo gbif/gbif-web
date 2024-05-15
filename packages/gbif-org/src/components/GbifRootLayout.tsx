@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, ScrollRestoration } from 'react-router-dom';
 import { LanguageSelector } from '@/components/LanguageSelector';
 import { DynamicLink } from '@/components/DynamicLink';
 import { HeaderQuery, HeaderQueryVariables } from '@/gql/graphql';
@@ -58,6 +58,7 @@ export function GbifRootLayout({ children }: Props) {
       {/* h-px is needed for the child element to use height: 100% https://stackoverflow.com/a/21836870/9188121 */}
       <main className="bg-background pt-10 min-h-screen h-px">
         <NoscriptNotification />
+        <ScrollRestoration />
         {children}
         <Toaster />
       </main>
