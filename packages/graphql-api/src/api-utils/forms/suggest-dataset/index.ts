@@ -41,13 +41,13 @@ export type SuggestDatasetDTO = z.infer<typeof Schema['body']>;
 export function registerSuggestDatasetForm(router: Router) {
   router.post('/suggest-dataset', validateRequest(Schema), async (req, res) => {
     try {
-      await createGitHubIssue({
+      const issue = await createGitHubIssue({
         owner: config.suggestDataset.owner,
         repo: config.suggestDataset.repository,
         title: req.body.title,
         body: createMarkdown(req.body),
       });
-      res.status(200).json({ message: 'From submitted succesfully' });
+      res.status(200).json({ message: 'From submitted succesfully', link: issue?.html_url });
     } catch (error) {
       logger.error({ message: 'Failed to submit "suggest-dataset" form', error });
       res.status(200).json({ message: 'From submitted succesfully' });

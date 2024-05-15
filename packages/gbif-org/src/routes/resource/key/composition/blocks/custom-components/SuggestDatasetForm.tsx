@@ -10,7 +10,7 @@ import {
 import { useToast } from '@/components/ui/use-toast';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { BlockContainer } from '../_shared';
 import { ClientSideOnly } from '@/components/ClientSideOnly';
 import {
@@ -23,6 +23,7 @@ import {
 } from '@/components/ui/form';
 import { RadioGroup } from '@/components/ui/radio-group';
 import { Button } from '@/components/ui/button';
+import { ToastAction } from '@/components/ui/toast';
 
 const Schema = z.object({
   title: RequiredStringSchema,
@@ -62,13 +63,21 @@ export function SuggestDatasetForm() {
           },
           body: JSON.stringify(data),
         })
-          .then((response) => {
+          .then(async (response) => {
             if (!response.ok) throw response;
+            const json = await response.json();
 
             toast({
               title: 'Thank you for your submission!',
               description:
                 'We will review your dataset suggestion and get back to you as soon as possible.',
+              action: (
+                <ToastAction altText="View issue on GitHub" asChild>
+                  <a target="_blank" href={json.link}>
+                    View Issue
+                  </a>
+                </ToastAction>
+              ),
             });
           })
           .catch((error) => {
