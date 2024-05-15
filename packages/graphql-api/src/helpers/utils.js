@@ -156,6 +156,10 @@ function renameProperty(obj, from, to) {
   return obj;
 }
 
+// TypeScript will transpile dynamic imports to require() calls.
+// This is a workaround to allow dynamic imports in TypeScript.
+// It is used to import ESM only modules in CommonJS code.
+const dynamicImport = new Function('modulePath', 'return import(modulePath)');
 
 export {
   formattedCoordinates,
@@ -169,4 +173,5 @@ export {
   createLocalizedGbifHref,
   isNoneEmptyArray,
   renameProperty,
+  dynamicImport,
 };

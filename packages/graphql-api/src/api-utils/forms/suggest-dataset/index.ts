@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { OptionalStringSchema, RequiredStringSchema } from '../validation';
 import { validateRequest } from 'zod-express-middleware';
 import { Router } from 'express';
-import { CreateIssueArgs, createGitHubIssue } from '../helpers/create-github-issue';
+import { createGitHubIssue } from '../helpers/create-github-issue';
 import logger from '#/logger';
 import { createMarkdown } from './create-markdown';
 
@@ -40,14 +40,12 @@ export type SuggestDatasetDTO = z.infer<typeof Schema['body']>;
 export function registerSuggestDatasetForm(router: Router) {
   router.post('/suggest-dataset', validateRequest(Schema), async (req, res) => {
     try {
-      const issueArgs: CreateIssueArgs = {
+      await createGitHubIssue({
         owner: 'danielvdm2000',
         repo: 'github-api-test',
         title: req.body.title,
         body: createMarkdown(req.body),
-      };
-
-      await createGitHubIssue(issueArgs);
+      });
       res.status(200).json({ message: 'From submitted succesfully' });
     } catch (error) {
       logger.error({ message: 'Failed to submit "suggest-dataset" form', error });

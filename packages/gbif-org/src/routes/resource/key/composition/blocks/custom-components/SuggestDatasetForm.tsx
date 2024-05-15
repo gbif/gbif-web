@@ -144,7 +144,7 @@ export function SuggestDatasetForm() {
 
               <FormField
                 control={form.control}
-                name="datasetBibliographicDoi"
+                name="priority"
                 render={({ field }) => (
                   <FormItem className="space-y-3 flex-1">
                     <FormLabel>How would you rate its importance</FormLabel>
