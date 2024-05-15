@@ -5,6 +5,7 @@ import { Router } from 'express';
 import { createGitHubIssue } from '../helpers/create-github-issue';
 import logger from '#/logger';
 import { createMarkdown } from './create-markdown';
+import config from '#/config';
 
 const Schema = {
   body: z.object({
@@ -41,8 +42,8 @@ export function registerSuggestDatasetForm(router: Router) {
   router.post('/suggest-dataset', validateRequest(Schema), async (req, res) => {
     try {
       await createGitHubIssue({
-        owner: 'danielvdm2000',
-        repo: 'github-api-test',
+        owner: config.suggestDataset.owner,
+        repo: config.suggestDataset.repository,
         title: req.body.title,
         body: createMarkdown(req.body),
       });

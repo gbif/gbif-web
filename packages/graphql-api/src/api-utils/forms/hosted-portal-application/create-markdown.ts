@@ -21,7 +21,7 @@ export function createMarkdown(data: HostedPortalApplicationDTO) {
         data.applicationType.type === 'Other_type_of_portal' ? `Involved parties: ${data.applicationType.publisherDescription}` : null,
         data.applicationType.type === 'National_portal' ? `Participant: [${data.applicationType.participantNode.name}](https://www.gbif.org/country/${data.applicationType.participantNode.countryCode}/participation)` : null
       ].filter(v => v) },
-    { p: `Node contact: ${nodeContact}` },
+    { p: `**Node contact**: ${nodeContact}` },
     { p: '**Data scope**' },
     { p: data.dataScope },
     { p: '**User group**' },

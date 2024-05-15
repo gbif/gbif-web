@@ -83,8 +83,8 @@ export function registerHostedPortalApplicationForm(router: Router) {
     async (req, res) => {
       try {
         await createGitHubIssue({
-          owner: config.suggestDataset.owner,
-          repo: config.suggestDataset.repository,
+          owner: config.hostedPortalsApplication.owner,
+          repo: config.hostedPortalsApplication.repository,
           title: req.body.hostedPortalName,
           body: createMarkdown(req.body),
         });

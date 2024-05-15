@@ -24,8 +24,8 @@ type Props = {
 export function CustomComponentBlock({ resource }: Props) {
   switch (resource.componentType) {
     case 'hostedPortalForm':
-      return <SuggestDatasetForm />;
-    // return <HostedPortalForm />;
+      // return <SuggestDatasetForm />;
+      return <HostedPortalForm />;
     // return <BecomeAPublisherForm />;
   }
 
