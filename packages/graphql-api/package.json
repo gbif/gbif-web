@@ -16,6 +16,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@octokit/app": "^15.0.1",
     "@turf/turf": "^6.5.0",
     "abort-controller": "^3.0.0",
     "agentkeepalive": "^4.5.0",

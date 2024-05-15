@@ -87,8 +87,6 @@ export function registerHostedPortalApplicationForm(router: Router) {
           repo: 'github-api-test',
           title: req.body.hostedPortalName,
           body: createMarkdown(req.body),
-          token:
-            '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',
         };
 
         await createGitHubIssue(issueArgs);
