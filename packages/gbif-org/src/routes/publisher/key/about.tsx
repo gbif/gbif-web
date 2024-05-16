@@ -249,7 +249,7 @@ export function PublisherKeyAbout() {
                       return (
                         <Card
                           key={contact.key}
-                          className="px-6 py-4 flex-auto max-w-sm min-w-xs m-2"
+                          className="px-6 py-4 flex-auto max-w-sm min-w-xs m-2 w-1/2"
                         >
                           <ContactHeader>
                             <ContactAvatar

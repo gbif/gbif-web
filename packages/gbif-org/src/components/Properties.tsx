@@ -11,6 +11,7 @@ export default function Properties({
   horizontal,
   dense = false,
   className,
+  useDefaultTermWidths,
   children,
   ...props
 }: {
@@ -18,6 +19,7 @@ export default function Properties({
   horizontal?: boolean;
   dense?: boolean;
   className?: string;
+  useDefaultTermWidths?: boolean;
   children?: React.ReactNode;
 } & React.HTMLAttributes<HTMLDListElement>) {
   const isBelow = useBelow(breakpoint);
@@ -27,9 +29,9 @@ export default function Properties({
 
   let css = '';
   if (isHorizontal) {
-    css += `grid gap-x-4 grid-cols-[auto_1fr] ${dense ? '[&>*]:mb-2' : '[&>*]:mb-3'} group [&_dl_dt]:text-slate-600`;
+    css += `grid gap-x-4 grid-cols-[auto_1fr] ${dense ? '[&>*]:mb-2' : '[&>*]:mb-3'} group [&_dl_dt]:text-slate-600 ${useDefaultTermWidths ? '[&>dt]:w-48' : ''}`;
   } else {
-    css += '[&>dd]:mb-4 [&>dt]:mb-1 group is-vertical group-[.is-vertical]:ml-2 [&_dl_dt]:text-slate-600';
+    css += `[&>dd]:mb-4 [&>dt]:mb-1 group is-vertical group-[.is-vertical]:ml-2 [&_dl_dt]:text-slate-600`;
   }
   return (
     <dl className={cn(`max-w-full ${css}`, className)} {...props}>
@@ -68,7 +70,7 @@ export function Value({
 } & React.HTMLAttributes<HTMLDivElement>) {
   // what is the correct type here, I cannot see dd as a type
   return (
-    <dd className={cn('leading-tight [&_a]:underline last-of-type:mb-0', className)} {...props}>
+    <dd className={cn('leading-tight last-of-type:mb-0', className)} {...props}>
       {children}
     </dd>
   );

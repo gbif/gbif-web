@@ -121,7 +121,7 @@ const baseRoutes: SourceRouteObject[] = [
             ]
           },
           {
-            key: 'dataset-page',
+            id: RouteId.Dataset,
             gbifRedirect: (params) => {
               if (typeof params.key !== 'string') throw new Error('Invalid key');
               return `https://www.gbif.org/dataset/${params.key}`;
