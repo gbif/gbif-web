@@ -30,6 +30,7 @@ const Schema = z.object({
   primaryContact: z.object({
     name: RequiredStringSchema,
     email: RequiredEmailSchema,
+    github: OptionalStringSchema,
   }),
   hostedPortalName: RequiredStringSchema,
   applicationType: z.discriminatedUnion(
@@ -120,7 +121,7 @@ export function HostedPortalForm() {
             });
           });
       }),
-    [form, toast]
+    [form, toast, config.formsEndpoint]
   );
 
   const STEPS: Step[] = useMemo(

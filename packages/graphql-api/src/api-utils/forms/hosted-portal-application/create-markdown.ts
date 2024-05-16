@@ -15,6 +15,7 @@ export function createMarkdown(data: HostedPortalApplicationDTO) {
     { h2: data.hostedPortalName },
     { p: `**Contact name**: ${data.primaryContact.name}` },
     { p: `**Contact email**: ${data.primaryContact.email}` },
+    { p: `**GitHub username**: ${data.primaryContact.github ?? 'Not specified'}` },
     { p: `**Application type**` },
     { ul: [
         `Type: ${humanReadable(data.applicationType.type)}`,
@@ -47,9 +48,5 @@ export function createMarkdown(data: HostedPortalApplicationDTO) {
     { code: { language: "json", content: JSON.stringify(data, null, 2) } }
   ];
 
-  const result = json2md(markdownData);
-
-  console.log(result);
-
-  return result;
+  return  json2md(markdownData);
 }

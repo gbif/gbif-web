@@ -18,6 +18,7 @@ const Schema = {
     primaryContact: z.object({
       name: RequiredStringSchema,
       email: RequiredEmailSchema,
+      github: OptionalStringSchema,
     }),
     hostedPortalName: RequiredStringSchema,
     applicationType: z.discriminatedUnion(
