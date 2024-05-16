@@ -1,12 +1,17 @@
 import { useConfig } from '@/contexts/config/config';
 import { useI18n } from '@/contexts/i18n';
-import { NodeCountryQuery, NodeCountryQueryVariables, TaiwanNodeQuery } from '@/gql/graphql';
+import {
+  NodeCountryQuery,
+  NodeCountryQueryVariables,
+  TaiwanNodeQuery,
+  TaiwanNodeQueryVariables,
+} from '@/gql/graphql';
 import { GraphQLService } from '@/services/GraphQLService';
 import { useCallback, useState } from 'react';
 
 const TAIWAN_NODE_QUERY = /* GraphQL */ `
-  query TaiwanNode {
-    nodeSearch(identifierType: GBIF_PARTICIPANT, identifier: "239") {
+  query TaiwanNode($identifier: String!) {
+    nodeSearch(identifierType: GBIF_PARTICIPANT, identifier: $identifier) {
       results {
         key
         participantTitle
@@ -39,6 +44,7 @@ export function useSuggestedNodeCountry() {
   const [suggestedNodeCountry, setSuggestedNodeCountry] = useState<
     SuggestedNodeCountry | undefined
   >();
+  const config = useConfig();
 
   const updateSuggestedNodeCountry = useCallback(
     async (countryCode: string) => {
@@ -50,7 +56,9 @@ export function useSuggestedNodeCountry() {
       const node =
         countryCode === 'TW'
           ? await graphqlService
-              .query<TaiwanNodeQuery, undefined>(TAIWAN_NODE_QUERY, undefined)
+              .query<TaiwanNodeQuery, TaiwanNodeQueryVariables>(TAIWAN_NODE_QUERY, {
+                identifier: config.taiwanNodeidentifier,
+              })
               .then((response) => response.json())
               .then((json) => json.data.nodeSearch?.results[0])
           : await graphqlService
@@ -77,7 +85,13 @@ export function useSuggestedNodeCountry() {
         setSuggestedNodeCountry(undefined);
       }
     },
-    [graphqlEndpoint, locale.cmsLocale, locale.code, setSuggestedNodeCountry]
+    [
+      graphqlEndpoint,
+      locale.cmsLocale,
+      locale.code,
+      setSuggestedNodeCountry,
+      config.taiwanNodeidentifier,
+    ]
   );
 
   return {

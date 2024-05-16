@@ -66,4 +66,6 @@ export const gbifConfig: InputConfig = {
   openGraph: {
     site_name: 'GBIF',
   },
+  OBISKey: 'ba0670b9-4186-41e6-8e70-f9cb3065551a',
+  taiwanNodeidentifier: '239',
 };

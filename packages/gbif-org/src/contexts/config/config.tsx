@@ -27,6 +27,8 @@ export type InputConfig = {
   openGraph?: {
     site_name: string; // e.g. 'GBIF'
   };
+  OBISKey: string;
+  taiwanNodeidentifier: string;
 };
 
 export type Config = InputConfig & Endpoints;

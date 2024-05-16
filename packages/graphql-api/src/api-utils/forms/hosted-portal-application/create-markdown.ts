@@ -13,8 +13,8 @@ export function createMarkdown(data: HostedPortalApplicationDTO) {
   // Constructing the json2md data structure
   const markdownData = [
     { h2: data.hostedPortalName },
-    { p: `Contact name: ${data.primaryContact.name}` },
-    { p: `Contact email: ${data.primaryContact.email}` },
+    { p: `**Contact name**: ${data.primaryContact.name}` },
+    { p: `**Contact email**: ${data.primaryContact.email}` },
     { p: `**Application type**` },
     { ul: [
         `Type: ${humanReadable(data.applicationType.type)}`,
@@ -38,14 +38,18 @@ export function createMarkdown(data: HostedPortalApplicationDTO) {
     { p: data.termsAccepted ? 'Yes' : 'No' },
     { p: '**Status of application**' },
     { ul: [
-        'The node manager has been contacted',
-        'Data scope clearly defined',
-        'User group - the community seems well defined',
-        'Any GrSciColl issues has been addressed'
+        '[ ] The node manager has been contacted',
+        '[ ] Data scope clearly defined',
+        '[ ] User group - the community seems well defined',
+        '[ ] Any GrSciColl issues has been addressed'
       ] },
     { blockquote: 'JSON details' },
     { code: { language: "json", content: JSON.stringify(data, null, 2) } }
   ];
 
-  return json2md(markdownData);
+  const result = json2md(markdownData);
+
+  console.log(result);
+
+  return result;
 }

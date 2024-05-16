@@ -23,6 +23,7 @@ import { OrganizationDetails } from './steps/OrganizationDetails';
 import { TermsAndConditions } from './steps/TermsAndConditions';
 import { WhatAndHow } from './steps/WhatAndHow';
 import { useSuggestedNodeCountry } from './useSuggestedNodeCountry';
+import { useConfig } from '@/contexts/config/config';
 
 const ContactSchema = z.object({
   firstName: RequiredStringSchema,
@@ -88,6 +89,7 @@ export const TextField = createTypedTextField<Inputs>();
 
 export function BecomeAPublisherForm() {
   const { toast } = useToast();
+  const config = useConfig();
 
   const form = useForm<Inputs>({
     resolver: zodResolver(Schema),
@@ -97,7 +99,7 @@ export function BecomeAPublisherForm() {
   const onSubmit = useMemo(
     () =>
       form.handleSubmit((data: Inputs) => {
-        fetch('http://localhost:4001/forms/become-a-publisher', {
+        fetch(`${config.formsEndpoint}/become-a-publisher`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -121,7 +123,7 @@ export function BecomeAPublisherForm() {
             console.error(error);
           });
       }),
-    [form, toast]
+    [form, toast, config.formsEndpoint]
   );
 
   const { suggestedNodeCountry, updateSuggestedNodeCountry } = useSuggestedNodeCountry();

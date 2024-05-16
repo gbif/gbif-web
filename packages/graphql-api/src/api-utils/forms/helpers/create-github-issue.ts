@@ -31,10 +31,12 @@ export async function createGitHubIssue(args: CreateIssueArgs) {
   }
 }
 
-// We only want the establish a connection to GitHub if we are not in development mode 
-// or config.github.enabled is true.
 function isGithubEnabled() {
-  return process.env.NODE_ENV !== 'development' || config.github.enabled === 'true';
+  // Respect explicit configuration
+  if (typeof config.github.enabled === 'boolean') return config.github.enabled;
+
+  // Enable in production
+  return process.env.NODE_ENV === 'production';
 }
 
 let octokit: Octokit;

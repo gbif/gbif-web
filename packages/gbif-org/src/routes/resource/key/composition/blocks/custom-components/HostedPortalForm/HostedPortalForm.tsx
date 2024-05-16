@@ -24,6 +24,7 @@ import { Experience } from './steps/Experience';
 import { NodeContact } from './steps/NodeContact';
 import { Terms } from './steps/Terms';
 import { useToast } from '@/components/ui/use-toast';
+import { useConfig } from '@/contexts/config/config';
 
 const Schema = z.object({
   primaryContact: z.object({
@@ -85,6 +86,7 @@ export const TextField = createTypedTextField<Inputs>();
 
 export function HostedPortalForm() {
   const { toast } = useToast();
+  const config = useConfig();
 
   const form = useForm<Inputs>({
     resolver: zodResolver(Schema),
@@ -94,7 +96,7 @@ export function HostedPortalForm() {
   const onSubmit = useMemo(
     () =>
       form.handleSubmit((data: Inputs) => {
-        fetch('http://localhost:4001/forms/hosted-portal-application', {
+        fetch(`${config.formsEndpoint}/hosted-portal-application`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

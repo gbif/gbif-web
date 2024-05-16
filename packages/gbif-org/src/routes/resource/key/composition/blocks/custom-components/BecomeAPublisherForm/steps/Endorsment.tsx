@@ -8,6 +8,7 @@ import { ParticipantSelect, ValidParticipant } from '@/components/Select/Partici
 import { useState } from 'react';
 import { SuggestedNodeCountry } from '../useSuggestedNodeCountry';
 import { useSuggestedNonCountryNode } from '../useSuggestedNonCountryNode';
+import { useConfig } from '@/contexts/config/config';
 
 type Props = {
   suggestedNodeCountry: SuggestedNodeCountry | undefined;
@@ -22,6 +23,7 @@ export function Endorsment({ suggestedNodeCountry }: Props) {
   const form = useFormContext<Partial<Inputs>>();
   const [participant, setParticipant] = useState<ValidParticipant | undefined>();
   const { suggestedNonCountryNode, updateSuggestedNonCountryNode } = useSuggestedNonCountryNode();
+  const config = useConfig();
 
   return (
     <>
@@ -61,7 +63,7 @@ export function Endorsment({ suggestedNodeCountry }: Props) {
                 )}
 
                 <RadioItem
-                  value="ba0670b9-4186-41e6-8e70-f9cb3065551a"
+                  value={config.OBISKey}
                   label="Marine data publishers: request endorsement for OBIS (Ocean Biogeographic Information System) related data"
                 />
               </RadioGroup>

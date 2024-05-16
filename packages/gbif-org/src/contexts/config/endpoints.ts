@@ -10,6 +10,7 @@ export type Endpoints = {
   graphqlEndpoint: string;
   translationsEntryEndpoint: string;
   countEndpoint: string;
+  formsEndpoint: string;
 };
 
 export function isGbifEnv(value: string): value is GbifEnv {
@@ -32,24 +33,28 @@ export function getEndpointsBasedOnGbifEnv(
         'https://react-components.gbif.org/lib/translations/translations.json',
       graphqlEndpoint: 'https://graphql.gbif.org/graphql',
       countEndpoint: 'https://hp-search.gbif.org',
+      formsEndpoint: 'https://graphql.gbif.org/forms',
     },
     [GbifEnv.Dev]: {
       translationsEntryEndpoint:
         'https://react-components.gbif-dev.org/lib/translations/translations.json',
       graphqlEndpoint: 'https://graphql.gbif-dev.org/graphql',
       countEndpoint: 'https://hp-search.gbif-dev.org',
+      formsEndpoint: 'https://graphql.gbif-dev.org/forms',
     },
     [GbifEnv.Uat]: {
       translationsEntryEndpoint:
         'https://react-components.gbif-uat.org/lib/translations/translations.json',
       graphqlEndpoint: 'https://graphql.gbif-uat.org/graphql',
       countEndpoint: 'https://hp-search.gbif-uat.org',
+      formsEndpoint: 'https://graphql.gbif-uat.org/forms',
     },
     [GbifEnv.Staging]: {
       translationsEntryEndpoint:
         'https://react-components.gbif-staging.org/lib/translations/translations.json',
       graphqlEndpoint: 'https://graphql.gbif-staging.org/graphql',
       countEndpoint: 'https://hp-search.gbif-staging.org',
+      formsEndpoint: 'https://graphql.gbif-staging.org/forms',
     },
   }[gbifEnv];
 
@@ -62,6 +67,12 @@ export function getEndpointsBasedOnGbifEnv(
     import.meta.env.PUBLIC_TRANSLATIONS_ENTRY_ENDPOINT ??
     env?.PUBLIC_TRANSLATIONS_ENTRY_ENDPOINT ??
     endpoints.translationsEntryEndpoint;
+
+  endpoints.countEndpoint =
+    import.meta.env.PUBLIC_COUNT_ENDPOINT ?? env?.PUBLIC_COUNT_ENDPOINT ?? endpoints.countEndpoint;
+
+  endpoints.formsEndpoint =
+    import.meta.env.PUBLIC_FORMS_ENDPOINT ?? env?.PUBLIC_FORMS_ENDPOINT ?? endpoints.formsEndpoint;
 
   return endpoints;
 }

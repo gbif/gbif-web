@@ -10,7 +10,7 @@ import {
 import { useToast } from '@/components/ui/use-toast';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { BlockContainer } from '../_shared';
 import { ClientSideOnly } from '@/components/ClientSideOnly';
 import {
@@ -24,6 +24,7 @@ import {
 import { RadioGroup } from '@/components/ui/radio-group';
 import { Button } from '@/components/ui/button';
 import { ToastAction } from '@/components/ui/toast';
+import { useConfig } from '@/contexts/config/config';
 
 const Schema = z.object({
   title: RequiredStringSchema,
@@ -47,6 +48,7 @@ export const TextField = createTypedTextField<Inputs>();
 
 export function SuggestDatasetForm() {
   const { toast } = useToast();
+  const config = useConfig();
 
   const form = useForm<Inputs>({
     resolver: zodResolver(Schema),
@@ -56,7 +58,7 @@ export function SuggestDatasetForm() {
   const onSubmit = useMemo(
     () =>
       form.handleSubmit((data: Inputs) => {
-        fetch('http://localhost:4001/forms/suggest-dataset', {
+        fetch(`${config.formsEndpoint}/suggest-dataset`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

@@ -5,9 +5,6 @@ import { authenticatedRequest } from '../helpers/gbifAuthRequest';
 
 const notNull = <T>(value: T | null | undefined): value is T => value != null;
 
-// TODO: Extract to config
-const DEFAULT_ENDORSING_NODE_KEY = '7f48e0c8-5c96-49ec-b972-30748e339115';
-
 export async function createPublisher(dto: CreatePublisherDTO) {
   // Make sure the selected node is a voting member, if not, redirect the request to the GBIF secretariat
   if (dto.endorsingNode !== 'other') {
@@ -21,7 +18,7 @@ export async function createPublisher(dto: CreatePublisherDTO) {
   const org = {
     endorsingNodeKey:
       dto.endorsingNode === 'other'
-        ? DEFAULT_ENDORSING_NODE_KEY
+        ? config.createPublisher.defaultEndorsingNodeKey
         : dto.endorsingNode,
     title: dto.organizationDetails.name,
     description: dto.organizationDetails.description,
