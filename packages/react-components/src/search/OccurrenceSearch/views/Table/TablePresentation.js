@@ -25,7 +25,8 @@ export const TablePresentation = ({ first, prev, next, size, from, data, total, 
   // const [activeKey, setActiveKey] = useUrlState({ param: 'entity' });
   const [activeKey, setActiveKey] = useQueryParam('entity', NumberParam);
   const noColumnLock = useBelow(1000);
-  const { filters, labelMap } = useContext(OccurrenceContext);
+  const currentFilterContext = useContext(OccurrenceContext);
+  const { filters, labelMap } = currentFilterContext;
   const [fixedColumn, setFixed] = useState(true);
   const dialog = useDialogState({ animated: true, modal: false });
 
@@ -129,14 +130,14 @@ export const TablePresentation = ({ first, prev, next, size, from, data, total, 
           <tr>{headerss}</tr>
         </thead>
         <TBody rowCount={size} columnCount={7} loading={loading}>
-          {getRows({ columns: visibleColumns, labelMap, data, setActiveKey, dialog, filters })}
+          {getRows({ columns: visibleColumns, labelMap, data, currentFilterContext, setActiveKey, dialog, filters })}
         </TBody>
       </DataTable>
     </div>
   </>
 }
 
-const getRows = ({ columns, labelMap, data, setActiveKey, dialog, filters }) => {
+const getRows = ({ columns, labelMap, data, currentFilterContext, setActiveKey, dialog, filters }) => {
   const results = data?.occurrenceSearch?.documents?.results || [];
   const rows = results.map((row, index) => {
     const openInSideBar = () => { setActiveKey(row.key); };
@@ -148,35 +149,37 @@ const getRows = ({ columns, labelMap, data, setActiveKey, dialog, filters }) => 
         // if (i === 0) return <Td key={field}><Action onSelect={() => console.log(row._id)}>{Presentation}</Action></Td>;
         // else return <Td key={field}>{Presentation}</Td>;
         const val = get(row, field.value.key);
-
-        let formattedVal = val;
-        if (!val && field.value.hideFalsy === true) {
-          formattedVal = '';
-        } else if (field.value.formatter) {
-          formattedVal = field.value.formatter(val, row, { openInSideBar });
-        } else if (field.value.labelHandle) {
-          const Label = labelMap[field.value.labelHandle];
-          formattedVal = <Label id={val} />
-        }
-        if (!isEmpty(val) && hasFilter && field?.cellFilter) {
-          let filterValue = [get(row, field.cellFilter, val)];
-          if (typeof field.cellFilter === 'function') {
-            filterValue = field.cellFilter({ row, val })
-          }
-          formattedVal = <InlineFilterChip filterName={field?.filterKey} values={filterValue}>{formattedVal}</InlineFilterChip>
-        }
-
-        return <Td key={field.trKey} noWrap={field.noWrap}>{formattedVal}</Td>;
-        // if (i === 0) {
-        //   return <Td key={field}>
-        //     <TextButton onClick={() => console.log(row)}>{val}</TextButton>
-        //   </Td>
-        // } else {
-        //   return <Td key={field}>{val}</Td>;
-        // }
+        const formattedVal = getFieldValue({val, row, field, filters, labelMap, currentFilterContext});
+        return <Td noWrap={field.noWrap} key={field.trKey} style={field.value.rightAlign ? { textAlign: 'right' } : {}}>{formattedVal}</Td>;
       }
     );
     return <tr key={row.key} onClick={openInSideBar} style={{ cursor: 'pointer' }}>{cells}</tr>;
   });
   return rows;
+}
+
+function getFieldValue({ val, row, field, filters, currentFilterContext, labelMap }) {
+  const hasFilter = filters[field?.filterKey];
+  let formattedVal = val;
+  if (Array.isArray(val)) {
+    const content = val.map((v, i, list) => <span key={i}>{getFieldValue({val: v, row, field, filters, currentFilterContext, labelMap})}{i < list.length -1 && ', '}</span>);
+    return content;
+  }
+
+  if (!val && field.value.hideFalsy === true) {
+    formattedVal = '';
+  } else if (field.value.formatter) {
+    formattedVal = field.value.formatter(val, row, { filterContext: currentFilterContext, labelMap });
+  } else if (field.value.labelHandle) {
+    const Label = labelMap[field.value.labelHandle];
+    formattedVal = Label ? <Label id={val} /> : val;
+  }
+  if (!isEmpty(val) && hasFilter && field?.cellFilter) {
+    let filterValue = [val];
+    if (typeof field.cellFilter === 'function') {
+      filterValue = field.cellFilter({ row, val })
+    }
+    formattedVal = <InlineFilterChip filterName={field?.filterKey} values={filterValue}>{formattedVal}</InlineFilterChip>
+  }
+  return formattedVal;
 }

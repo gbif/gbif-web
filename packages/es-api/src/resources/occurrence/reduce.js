@@ -101,7 +101,6 @@ function reduce(item) {
     hasPart:                            source.verbatim.core['http://purl.org/dc/terms/hasPart'],
     hasVersion:                         source.verbatim.core['http://purl.org/dc/terms/hasVersion'],
     higherClassification:               source.verbatim.core['http://rs.tdwg.org/dwc/terms/higherClassification'],
-    higherGeography:                    source.verbatim.core['http://rs.tdwg.org/dwc/terms/higherGeography'],
     higherGeographyID:                  source.verbatim.core['http://rs.tdwg.org/dwc/terms/higherGeographyID'],
     highestBiostratigraphicZone:        source.verbatim.core['http://rs.tdwg.org/dwc/terms/highestBiostratigraphicZone'],
     identificationID:                   source.verbatim.core['http://rs.tdwg.org/dwc/terms/identificationID'],
@@ -238,6 +237,7 @@ function reduce(item) {
     pathway:                            vocabularFallback(source.pathway),
     degreeOfEstablishment:              vocabularFallback(source.degreeOfEstablishment),
     locality:                           source.locality,
+    higherGeography:                    source.higherGeography,
     identifier:                         source.id,
     
     // the range fields are replaced by accuracy

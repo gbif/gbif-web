@@ -110,7 +110,7 @@ const typeDef = gql`
     hasPart: String
     hasVersion: String
     higherClassification: String
-    higherGeography: String
+    higherGeography: [String]
     higherGeographyID: String
     highestBiostratigraphicZone: String
     identificationID: String
@@ -201,6 +201,7 @@ const typeDef = gql`
     previousIdentifications: String
     protocol: String
     provenance: String
+    iucnRedListCategory: String
     """
     as provided on record - this can differ from the GBIF publishing organisation
     """

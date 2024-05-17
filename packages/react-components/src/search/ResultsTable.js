@@ -79,22 +79,6 @@ const getRows = ({ tableConfig, labelMap, currentFilterContext, results = [], fi
     const cells = tableConfig.columns.map(
       (field, i) => {
         const val = get(row, field.value.key);
-        // const hasFilter = filters[field?.filterKey];
-        // const val = get(row, field.value.key);
-        // let formattedVal = val;
-
-        // if (!val && field.value.hideFalsy === true) {
-        //   formattedVal = '';
-        // } else if (field.value.formatter) {
-        //   formattedVal = field.value.formatter(val, row, { filterContext: currentFilterContext, labelMap });
-        // } else if (field.value.labelHandle) {
-        //   const Label = labelMap[field.value.labelHandle];
-        //   formattedVal = Label ? <Label id={val} /> : val;
-        // }
-        // if (!isEmpty(val) && hasFilter && field?.cellFilter) {
-        //   formattedVal = <InlineFilterChip filterName={field?.filterKey} values={[val]}>{formattedVal}</InlineFilterChip>
-        // }
-
         const formattedVal = getFieldValue({val, row, field, filters, labelMap, currentFilterContext});
         return <Td noWrap={field.noWrap} key={field.trKey} style={field.value.rightAlign ? { textAlign: 'right' } : {}}>{formattedVal}</Td>;
       }

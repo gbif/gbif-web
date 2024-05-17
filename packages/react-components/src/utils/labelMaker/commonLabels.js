@@ -189,6 +189,10 @@ export const commonLabels = {
     type: 'TRANSLATION',
     template: id => `enums.datasetSubtype.${id}`
   },
+  iucnRedListCategory: {
+    type: 'TRANSLATION',
+    template: id => `enums.iucnRedListCategory.${id}`
+  },
   institutionKey: {
     type: 'GQL',
     query: `query label($id: ID!){
