@@ -1,9 +1,12 @@
-import { sanitize } from "isomorphic-dompurify";
 import { marked } from 'marked'; // https://marked.js.org
 import doiRegex from 'doi-regex';
 import EmptyValue from './EmptyValue';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { DoiTag, Lsid, OrcId } from './identifierTag';
+// import { sanitize } from "isomorphic-dompurify"; only works in dev mode, not when build
+import isomorphic from 'isomorphic-dompurify';
+const { sanitize } = isomorphic;
+
 
 const getLsid = (text: any) => {
   if (typeof text !== 'string' || /\s/.test(text.trim())) {
