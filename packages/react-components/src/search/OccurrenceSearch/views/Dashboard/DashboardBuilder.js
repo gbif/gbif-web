@@ -525,8 +525,7 @@ const chartGroups = {
       "taxon",
       "verbatimTaxonId",
       "scientificName",
-      "verbatimScientificName",
-      "iucnGlobalRedListCategory"
+      "verbatimScientificName"
     ]
   },
   "provenance": {
