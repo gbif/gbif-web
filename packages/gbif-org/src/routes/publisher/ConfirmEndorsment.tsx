@@ -18,7 +18,7 @@ type LoaderResult =
       success: false;
     };
 
-export async function confirmEndorsmentLoader({ request }: LoaderArgs) {
+export async function confirmEndorsmentLoader({ request, config }: LoaderArgs) {
   try {
     // Extract the key and code from the URL
     const url = new URL(request.url);
@@ -26,7 +26,7 @@ export async function confirmEndorsmentLoader({ request }: LoaderArgs) {
     const code = required(url.searchParams.get('code'), 'No code was provided in the URL');
 
     // Confirm the endorsement
-    return fetch('https://localhost:4001/forms/confirm-endorsement', {
+    return fetch(`${config.formsEndpoint}/confirm-endorsement`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

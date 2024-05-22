@@ -25,8 +25,8 @@ export function CustomComponentBlock({ resource }: Props) {
   switch (resource.componentType) {
     case 'hostedPortalForm':
       // return <SuggestDatasetForm />;
-      return <HostedPortalForm />;
-    // return <BecomeAPublisherForm />;
+      // return <HostedPortalForm />;
+      return <BecomeAPublisherForm />;
   }
 
   const backgroundColor = backgroundColorMap[resource?.backgroundColour ?? 'white'];
