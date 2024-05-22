@@ -12,6 +12,8 @@
       ]
     },
     "types": ["vite/client"],
+    "allowJs": true,
+    "checkJs": true,
 
     /* Bundler mode */
     "moduleResolution": "bundler",
