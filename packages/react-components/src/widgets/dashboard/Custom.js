@@ -110,7 +110,8 @@ function IucnMain({
       ]
     }, query: IUCN_FACETS
   });
-  if (facetResults?.data?.occurrenceSearch?.facet?.results?.length <= visibilityThreshold) return null;
+  const resultCount = facetResults?.data?.occurrenceSearch?.facet?.results?.length;
+  if (resultCount <= visibilityThreshold) return null;
 
   return <Card {...props}>
     <CardTitle>
@@ -119,6 +120,9 @@ function IucnMain({
         <div><FormattedMessage id={'dashboard.iucnThreatStatusDescription'} /></div>
       </div>
     </CardTitle>
+    {resultCount === 0 && <div css={css`text-align: center; color: #aaa;`}>
+      <FormattedMessage id="dashboard.noData" defaultMessage="No data" />
+    </div>}
     <GroupBy {...{
       facetResults,
       interactive,

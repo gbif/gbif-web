@@ -2,10 +2,10 @@
 module.exports = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
+    './pages/**/*.{ts,tsx,jsx}',
+    './components/**/*.{ts,tsx,jsx}',
+    './app/**/*.{ts,tsx,jsx}',
+    './src/**/*.{ts,tsx,jsx}',
   ],
   theme: {
     container: {
@@ -56,6 +56,20 @@ module.exports = {
           900: 'rgb(var(--primaryContrast900) / <alpha-value>)',
           950: 'rgb(var(--primaryContrast950) / <alpha-value>)',
         },
+        // generated via https://uicolors.app/create
+        // 'slate': {
+        //   '50': '#f4f3f1',
+        //   '100': '#edebe7',
+        //   '200': '#d9d5cf',
+        //   '300': '#c1bbb0',
+        //   '400': '#a79d90',
+        //   '500': '#95887a',
+        //   '600': '#887a6e',
+        //   '700': '#72645c',
+        //   '800': '#5e544e',
+        //   '900': '#4d4541',
+        //   '950': '#292421',
+        // },
         secondary: {
           DEFAULT: "var(--secondary)",
           foreground: "var(--secondary-foreground)",

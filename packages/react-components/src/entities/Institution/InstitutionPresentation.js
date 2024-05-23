@@ -95,6 +95,9 @@ Relating to ${env.GBIF_REGISTRY}/institution/${institution.key}
       {institution.replacedByInstitution && <ErrorMessage>
         <FormattedMessage id="phrases.replacedBy" values={{ newItem: <ResourceLink type="institutionKey" id={institution.replacedByInstitution.key}>{institution.replacedByInstitution.name}</ResourceLink> }} />
       </ErrorMessage>}
+      {institution.replacedByCollection && <ErrorMessage>
+        <FormattedMessage id="phrases.replacedBy" values={{ newItem: <ResourceLink type="collectionKey" id={institution.replacedByCollection.key}>{institution.replacedByCollection.name}</ResourceLink> }} />
+      </ErrorMessage>}
 
       <HeaderInfoWrapper>
         <HeaderInfoMain>

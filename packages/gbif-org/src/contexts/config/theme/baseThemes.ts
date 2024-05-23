@@ -17,7 +17,7 @@ export const defaultTheme = {
   // fontFamily: "'Inter var', BlinkMacSystemFont, -apple-system, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
   borderRadius: 3,
   drawerZIndex: 1000,
-  stickyOffset: '0px',
+  stickyOffset: '50px',
 } as const satisfies Partial<Theme>;
 
 export const darkTheme = {

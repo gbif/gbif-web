@@ -274,7 +274,7 @@
       }
     },
     "identification": {
-      "name": "التعريف",
+      "name": "",
       "properties": {
         "identificationID": "بطاقة التعريف",
         "verbatimIdentification": "",
@@ -406,6 +406,29 @@
         "taxonRemarks": "ملاحظات الوحدة التصنيفية",
         "type": "نمط",
         "datasetID": "معرف مجموعة البيانات"
+      }
+    },
+    "eolReference": {
+      "name": "",
+      "properties": {
+        "identifier": "المعرِّف",
+        "publicationType": "",
+        "full_reference": "",
+        "primaryTitle": "",
+        "title": "عنوان",
+        "pages": "",
+        "pageStart": "",
+        "pageEnd": "",
+        "volume": "",
+        "edition": "",
+        "publisher": "الناشر",
+        "authorList": "",
+        "editorList": "",
+        "created": "تم انشاؤه",
+        "language": "لغة",
+        "uri": "",
+        "doi": "",
+        "localityName": ""
       }
     },
     "resourceRelationship": {

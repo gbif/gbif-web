@@ -9,7 +9,7 @@ import { RouteId, useParentRouteLoaderData } from '@/hooks/useParentRouteLoaderD
 import { DatasetResult } from '@/routes/dataset/datasetResult';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
-import Properties, { Property } from './Properties';
+import Properties, { Property } from '../../../components/Properties';
 import { FormattedMessage } from 'react-intl';
 import { DynamicLink } from '@/components/dynamicLink';
 import {

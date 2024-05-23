@@ -280,7 +280,7 @@ export const commonFilters = {
     }
   },
   catalogNumber: {
-    type: 'KEYWORD_SEARCH',//KEYWORD_SEARCH | SUGGEST
+    type: 'KEYWORD_SEARCH',
     config: {
       std: {
         filterHandle: 'catalogNumber',// if nothing else provided, then this is the filterName used
@@ -293,7 +293,7 @@ export const commonFilters = {
       },
       specific: {
         id2labelHandle: 'wildcard',
-        placeholder: 'Search for a catalog number',
+        placeholder: 'search.placeholders.wildcard',
         supportsExist: true,
         query: `
           query keywordSearch($predicate: Predicate, $size: Int){
@@ -524,7 +524,7 @@ export const commonFilters = {
       },
       specific: {
         supportsExist: true,
-        placeholder: 'Units of sample size',
+        placeholder: 'search.placeholders.wildcard',
         disallowLikeFilters: true,
         query: `
           query keywordSearch($predicate: Predicate, $size: Int){
@@ -742,7 +742,7 @@ export const commonFilters = {
         }
       },
       specific: {
-        placeholder: 'Search by event type',
+        placeholder: 'search.placeholders.wildcard',
         query: `
             query keywordSearch($predicate: Predicate, $size: Int){
               suggestions: eventSearch(predicate: $predicate) {
@@ -776,7 +776,7 @@ export const commonFilters = {
       specific: {
         // suggestHandle: 'recordedBy',
         // suggestHandle: 'recordedByWildcard',
-        placeholder: 'Search by recorded by',
+        placeholder: 'search.placeholders.wildcard',
         supportsExist: true,
         query: `
           query keywordSearch($predicate: Predicate, $size: Int, $include: String){
@@ -923,7 +923,7 @@ export const commonFilters = {
     }
   },
   locality: {
-    type: 'KEYWORD_SEARCH',//KEYWORD_SEARCH | SUGGEST | SIMPLE_TEXT
+    type: 'KEYWORD_SEARCH',
     config: {
       std: {
         filterHandle: 'locality',
@@ -935,7 +935,7 @@ export const commonFilters = {
         },
       },
       specific: {
-        placeholder: 'Search by locality',
+        placeholder: 'search.placeholders.wildcard',
         query: `
           query keywordSearch($predicate: Predicate, $size: Int){
             suggestions: occurrenceSearch(predicate: $predicate) {
@@ -968,7 +968,7 @@ export const commonFilters = {
         },
       },
       specific: {
-        placeholder: 'Search by water body',
+        placeholder: 'search.placeholders.wildcard',
         query: `
           query keywordSearch($predicate: Predicate, $size: Int){
             suggestions: occurrenceSearch(predicate: $predicate) {
@@ -1001,7 +1001,7 @@ export const commonFilters = {
         },
       },
       specific: {
-        placeholder: 'Search by state province',
+        placeholder: 'search.placeholders.wildcard',
         query: `
           query keywordSearch($predicate: Predicate, $size: Int){
             suggestions: occurrenceSearch(predicate: $predicate) {
@@ -1034,7 +1034,7 @@ export const commonFilters = {
         },
       },
       specific: {
-        placeholder: 'Search by state province',
+        placeholder: 'search.placeholders.wildcard',
         query: `
           query keywordSearch($predicate: Predicate, $size: Int){
             suggestions: eventSearch(predicate: $predicate) {
@@ -1101,7 +1101,7 @@ export const commonFilters = {
       },
       specific: {
         supportsExist: true,
-        placeholder: 'Search by sampling protocol',
+        placeholder: 'search.placeholders.wildcard',
         query: `
           query keywordSearch($predicate: Predicate, $size: Int){
             suggestions: occurrenceSearch(predicate: $predicate) {
@@ -1131,7 +1131,7 @@ export const commonFilters = {
         },
       },
       specific: {
-        placeholder: 'Search by sampling protocol',
+        placeholder: 'search.placeholders.wildcard',
         query: `
           query keywordSearch($predicate: Predicate, $size: Int, $include: String){
             suggestions: eventSearch(predicate: $predicate) {
@@ -1216,7 +1216,7 @@ export const commonFilters = {
         },
       },
       specific: {
-        placeholder: 'Search by identified by',
+        placeholder: 'search.placeholders.wildcard',
         supportsExist: true,
         query: `
           query keywordSearch($predicate: Predicate, $size: Int){
@@ -1467,7 +1467,7 @@ export const commonFilters = {
         },
       },
       specific: {
-        placeholder: 'Example: Felis concolor',
+        placeholder: 'search.placeholders.wildcard',
         query: `
           query keywordSearch($predicate: Predicate, $size: Int){
             suggestions: occurrenceSearch(predicate: $predicate) {
@@ -1572,7 +1572,7 @@ export const commonFilters = {
         },
       },
       specific: {
-        placeholder: 'Search by measurement type',
+        placeholder: 'search.placeholders.wildcard',
         query: `
           query keywordSearch($predicate: Predicate, $size: Int, $include: String){
             suggestions: eventSearch(predicate: $predicate) {

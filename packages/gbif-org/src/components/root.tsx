@@ -4,6 +4,7 @@ import { ConfigProvider, InputConfig } from '@/contexts/config/config';
 import { MetadataRoutesProvider } from '@/contexts/metadataRoutes';
 import { RouteMetadata } from '@/types';
 import { LoadingElementProvider } from '@/contexts/loadingElement';
+import { TooltipProvider } from './ui/tooltip';
 
 type Props = {
   config: InputConfig;
@@ -22,7 +23,9 @@ export function Root({ config, helmetContext, children, metadataRoutes }: Props)
               <Helmet>
                 <title>{config.defaultTitle}</title>
               </Helmet>
-              {children}
+              <TooltipProvider>
+                {children}
+              </TooltipProvider>
             </HelmetProvider>
           </LoadingElementProvider>
         </MetadataRoutesProvider>

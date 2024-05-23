@@ -274,7 +274,7 @@
       }
     },
     "identification": {
-      "name": "Определение",
+      "name": "",
       "properties": {
         "identificationID": "ID определения",
         "verbatimIdentification": "Дословная идентификация",
@@ -406,6 +406,29 @@
         "taxonRemarks": "Примечания к таксону",
         "type": "Тип записи",
         "datasetID": "ID набора данных"
+      }
+    },
+    "eolReference": {
+      "name": "Ссылка на EOL (Encyclopedia of Life)",
+      "properties": {
+        "identifier": "Идентификатор",
+        "publicationType": "Тип публикации",
+        "full_reference": "Полная ссылка",
+        "primaryTitle": "Основной заголовок",
+        "title": "Название",
+        "pages": "Страницы",
+        "pageStart": "Начало страницы",
+        "pageEnd": "Конец страницы",
+        "volume": "Том",
+        "edition": "Редакция",
+        "publisher": "Организация",
+        "authorList": "Список авторов",
+        "editorList": "Список редакторов",
+        "created": "Создано",
+        "language": "Язык",
+        "uri": "URI (ссылка)",
+        "doi": "Цифровой идентификатор (DOI)",
+        "localityName": "Название населенного пункта"
       }
     },
     "resourceRelationship": {

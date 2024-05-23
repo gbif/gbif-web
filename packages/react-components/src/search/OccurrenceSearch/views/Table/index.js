@@ -43,6 +43,11 @@ query table($predicate: Predicate, $size: Int = 20, $from: Int = 0){
         institutionCode
         collectionCode
         locality
+        higherGeography
+        stateProvince
+        establishmentMeans
+        iucnRedListCategory
+        datasetName
 
         stillImageCount
         movingImageCount

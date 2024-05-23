@@ -23,7 +23,12 @@ function Dashboard() {
 
   useEffect(() => {
     // set chart types to be names of available filters
-    setChartsTypes(Object.keys(filters));
+    const availableFilters = Object.keys(filters);
+    if (filters.iucnRedListCategory) {
+      availableFilters.push('iucn');
+      availableFilters.push('iucnCounts');
+    }
+    setChartsTypes(availableFilters);
   }, [filters]);
 
   return <DashboardPresentation

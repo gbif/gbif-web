@@ -22,14 +22,71 @@ import { Outlet, useLoaderData } from 'react-router-dom';
 
 const DATASET_QUERY = /* GraphQL */ `
   query Dataset($key: ID!) {
+    literatureSearch(gbifDatasetKey: [$key]) {
+      documents {
+        total
+      }
+    }
+    totalTaxa: taxonSearch(datasetKey: [$key], origin: [SOURCE]){
+      count
+    }
+    accepted: taxonSearch(datasetKey: [$key], origin: [SOURCE], status: [ACCEPTED]){
+      count
+    }
+    synonyms: taxonSearch(datasetKey: [$key], origin: [SOURCE], status: [SYNONYM, HETEROTYPIC_SYNONYM, PROPARTE_SYNONYM, HOMOTYPIC_SYNONYM]){
+      count
+    }
     dataset(key: $key) {
-      title
+      key
+      checklistBankDataset {
+        key
+      }
       type
-      deleted
+      title
       created
+      modified
+      deleted
+      duplicateOfDataset {
+        key
+        title
+      }
+      metrics {
+        colCoveragePct
+        nubCoveragePct
+        nubMatchingCount
+        colMatchingCount
+      }
+      pubDate
+      description
+      purpose
+      temporalCoverages
+      logoUrl
       publishingOrganizationKey
       publishingOrganizationTitle
-
+      homepage
+      additionalInfo
+      installation {
+        key
+        title
+        organization {
+          key
+          title
+        }
+      }
+      volatileContributors {
+        key
+        firstName
+        lastName
+        position
+        organization
+        address
+        userId
+        email
+        phone
+        type
+        _highlighted
+        roles
+      }
       contactsCitation {
         key
         abbreviatedName
@@ -37,6 +94,92 @@ const DATASET_QUERY = /* GraphQL */ `
         lastName
         userId
         roles
+      }
+      geographicCoverages {
+        description
+        boundingBox {
+          minLatitude
+          maxLatitude
+          minLongitude
+          maxLongitude
+          globalCoverage
+        }
+      }
+      taxonomicCoverages {
+        description
+        coverages {
+          scientificName
+          commonName
+          rank {
+            interpreted
+          }
+        }
+      }
+      bibliographicCitations {
+        identifier
+        text
+      }
+      samplingDescription {
+        studyExtent
+        sampling
+        qualityControl
+        methodSteps
+      }
+      dataDescriptions {
+        charset
+        name
+        format
+        formatVersion
+        url
+      }
+      citation {
+        text
+      }
+      license
+      project {
+        title
+        abstract
+        studyAreaDescription
+        designDescription
+        funding
+        contacts {
+          firstName
+          lastName
+
+          organization
+          position
+          roles
+          type
+
+          address
+          city
+          postalCode
+          province
+          country
+          
+          homepage
+          email
+          phone
+          userId
+        }
+        identifier
+      }
+      endpoints {
+        key
+        type
+        url
+      }
+      identifiers {
+        key
+        type
+        identifier
+      }
+      doi
+      machineTags {
+        namespace
+      }
+      gridded {
+        percent
       }
     }
   }
@@ -122,14 +265,12 @@ export function DatasetPage() {
                     )}
                   </GenericFeature>
                 )}
-                <Homepage url="https://www.gbif.org" />
+                <Homepage url={dataset.homepage} />
                 <GenericFeature>
-                  <LicenceTag value="https://creativecommons.org/licenses/by/4.0/legalcode" />
+                  <LicenceTag value={dataset.license} />
                 </GenericFeature>
-                <GenericFeature>23 published datasets</GenericFeature>
               </FeatureList>
             </HeaderInfoMain>
-            <div className="flex-shrink">edit</div>
           </HeaderInfo>
           <div className="border-b"></div>
           <Tabs

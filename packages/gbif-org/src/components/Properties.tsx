@@ -1,7 +1,7 @@
 import { cn } from '@/utils/shadcn';
-import useBelow from './useBelow';
+import useBelow from '@/hooks/useBelow';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
-import { MdInfoOutline, MdOutlineInfo } from 'react-icons/md';
+import { MdInfoOutline } from 'react-icons/md';
 import { HelpLine } from '@/components/helpText';
 import EmptyValue from '@/components/EmptyValue';
 import { BulletList } from '@/components/BulletList';
@@ -11,6 +11,7 @@ export default function Properties({
   horizontal,
   dense = false,
   className,
+  useDefaultTermWidths,
   children,
   ...props
 }: {
@@ -18,6 +19,7 @@ export default function Properties({
   horizontal?: boolean;
   dense?: boolean;
   className?: string;
+  useDefaultTermWidths?: boolean;
   children?: React.ReactNode;
 } & React.HTMLAttributes<HTMLDListElement>) {
   const isBelow = useBelow(breakpoint);
@@ -27,12 +29,12 @@ export default function Properties({
 
   let css = '';
   if (isHorizontal) {
-    css += 'grid gap-x-4 grid-cols-[auto_1fr] [&>*]:mb-3 group';
+    css += `grid gap-x-4 grid-cols-[auto_1fr] ${dense ? '[&>*]:mb-2' : '[&>*]:mb-3'} group [&_dl_dt]:text-slate-600 ${useDefaultTermWidths ? '[&>dt]:w-48' : ''}`;
   } else {
-    css += '[&>dd]:mb-6 [&>dt]:mb-1 group is-vertical group-[.is-vertical]:ml-2';
+    css += `[&>dd]:mb-4 [&>dt]:mb-1 group is-vertical group-[.is-vertical]:ml-2 [&_dl_dt]:text-slate-600`;
   }
   return (
-    <dl className={cn(`max-w-full w-max ${css}`, className)} {...props}>
+    <dl className={cn(`max-w-full ${css}`, className)} {...props}>
       {children}
     </dl>
   );
@@ -49,7 +51,7 @@ export function Term({
   return (
     <dt
       className={cn(
-        'peer hover:bg-gray-50 max-w-52 leading-tight break-words group-[.is-vertical]:font-semibold',
+        'peer max-w-52 leading-tight break-words group-[.is-vertical]:font-semibold last-of-type:mb-0',
         className
       )}
       {...props}
@@ -68,7 +70,7 @@ export function Value({
 } & React.HTMLAttributes<HTMLDivElement>) {
   // what is the correct type here, I cannot see dd as a type
   return (
-    <dd className={cn('[:hover_+_&]:bg-gray-50', className)} {...props}>
+    <dd className={cn('leading-tight last-of-type:mb-0', className)} {...props}>
       {children}
     </dd>
   );
@@ -123,7 +125,7 @@ export function HelpIcon({
   return null;
 }
 
-function AutomaticPropertyValue({
+export function AutomaticPropertyValue({
   value,
   formatter,
   showEmpty,

@@ -13,7 +13,7 @@
   "clear": "Clear",
   "invert": "Reverse selection",
   "wildcardHelp": "Searches are case insensitive, but every letter is distinct, so, to find records with Rio or Río, for example, you can use the pattern 'r?o'.",
-  "useWildcardPattern": "Search for the pattern",
+  "useWildcardPattern": "Search for the pattern - * is a wildcard for any number of characters, ? is a wildcard for a single character",
   "useCaseInsensitiveValue": "Search for case insensitive match",
   "showSuggestions": "Show suggestions",
   "excludeSelected": "Exclude selected",

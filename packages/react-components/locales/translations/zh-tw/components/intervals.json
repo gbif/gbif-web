@@ -5,7 +5,7 @@
     "gt": "大於 {from}",
     "gte": "大於或等於 {from}",
     "e": "等於 {is}",
-    "between": ""
+    "between": "從{from}到{to}"
   },
   "compact": {
     "between": "{from} 到 {to}",
@@ -68,15 +68,15 @@
     "e": "海拔為 {from}"
   },
   "geoDistance": {
-    "short": "",
-    "description": ""
+    "short": "在{latitude}{longitude}{distance}之內",
+    "description": "緯度:{latitude}經度:{longitude}距離:{distance}"
   },
   "units": {
     "name": {
-      "km": "",
-      "m": "",
-      "mi": "",
-      "ft": ""
+      "km": "公里",
+      "m": "公尺",
+      "mi": "英哩",
+      "ft": "英呎"
     }
   }
 }

@@ -472,6 +472,10 @@ const config =
       "type": "keyword",
       "field": "hostingOrganizationKey"
     },
+    "higherGeography": {
+      "type": "keyword",
+      "field": "higherGeography"
+    },
     "recordNumber": {
       "type": "keyword",
       "field": "recordNumber.keyword",

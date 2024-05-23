@@ -259,5 +259,6 @@
   "gadmClassification": "Localisation selon GADM",
   "images": "Multimedia",
   "eventTypeHierarchyJoined": "Identifiant de Structure",
-  "eventType": "Type d'évènement"
+  "eventType": "Type d'évènement",
+  "iucnRedListCategory": "Catégorie de la liste rouge de l'UICN"
 }

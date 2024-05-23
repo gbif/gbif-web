@@ -259,5 +259,6 @@
   "gadmClassification": "Location according to GADM",
   "images": "Multimedia",
   "eventTypeHierarchyJoined": "Structure",
-  "eventType": "Event type"
+  "eventType": "Event type",
+  "iucnRedListCategory": "IUCN Red List Category"
 }

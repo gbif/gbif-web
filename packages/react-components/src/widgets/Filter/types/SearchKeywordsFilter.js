@@ -3,7 +3,7 @@ import { jsx } from '@emotion/react';
 import React, { useState, useContext, useEffect, useCallback } from "react";
 import PropTypes from 'prop-types';
 import PopoverFilter from './PopoverFilter';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { MdSearch } from 'react-icons/md'
 import { nanoid } from 'nanoid';
 import get from 'lodash/get';
@@ -18,6 +18,7 @@ import { hash } from '../../../utils/util';
 const initialSize = 25;
 
 export const FilterContent = ({ config = {}, translations, hide, onApply, LabelFromID, onCancel, onFilterChange, focusRef, filterHandle, initFilter }) => {
+  const { formatMessage } = useIntl();
   const { queryKey, placeholder = 'Input text', keepCase, graph } = config;
   const { data, error, loading, load } = useQuery(config.query, { lazyLoad: true, graph });
   const [size, setSize] = useState(initialSize);
@@ -28,6 +29,7 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, LabelF
   const [inputValue, setValue] = useState('');
   const [showSuggestions, setShowSuggestions] = useState(initialOptions?.length === 0);
   const searchContext = useContext(SearchContext);
+  const formattedPlaceholder = formatMessage({id: placeholder, defaultMessage: placeholder});
 
   useEffect(() => {
     if (typeof id !== 'undefined') {
@@ -123,7 +125,7 @@ export const FilterContent = ({ config = {}, translations, hide, onApply, LabelF
                   setValue(value);
                 }
               }}
-              placeholder={placeholder}
+              placeholder={formattedPlaceholder}
               onKeyPress={e => {
                 const value = e.target.value;
                 if (e.which === keyCodes.ENTER) {

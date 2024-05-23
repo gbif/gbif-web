@@ -146,41 +146,37 @@ export function InstitutionKey({
             </HeaderInfoMain>
             <HeaderInfoEdit className="flex">
               {/* TODO Phew it is quite a few lines just to add a tooltip, I wonder if an abstraction would be appreciated. Here I repeat the provider, which doesn't help, but it didn't properly disappear and reappear without it*/}
-              <TooltipProvider>
-                <Tooltip delayDuration={0}>
-                  <TooltipTrigger>
-                    <Button variant="outline" asChild>
-                      <a href={`${GBIF_REGISTRY_ENDPOINT}/institution/${institution.key}`}>
-                        <FormattedMessage id="grscicoll.edit" defaultMessage="Edit" />
-                      </a>
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <FormattedMessage
-                      id="grscicoll.editHelpText"
-                      defaultMessage="No login required"
-                    />
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-              <TooltipProvider>
-                <Tooltip delayDuration={0}>
-                  <TooltipTrigger>
-                    <Button variant="ghost" asChild className="ms-2" style={{ fontSize: '1.2em' }}>
-                      <a
-                        href={`https://github.com/gbif/portal-feedback/issues/new?title=${encodeURIComponent(
-                          `NHC: ${institution.name}`
-                        )}&body=${encodeURIComponent(feedbackTemplate)}`}
-                      >
-                        <Github />
-                      </a>
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <FormattedMessage id="grscicoll.githubHelpText" defaultMessage="Github" />
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+              <Tooltip delayDuration={0}>
+                <TooltipTrigger>
+                  <Button variant="outline" asChild>
+                    <a href={`${GBIF_REGISTRY_ENDPOINT}/institution/${institution.key}`}>
+                      <FormattedMessage id="grscicoll.edit" defaultMessage="Edit" />
+                    </a>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <FormattedMessage
+                    id="grscicoll.editHelpText"
+                    defaultMessage="No login required"
+                  />
+                </TooltipContent>
+              </Tooltip>
+              <Tooltip delayDuration={0}>
+                <TooltipTrigger>
+                  <Button variant="ghost" asChild className="ms-2" style={{ fontSize: '1.2em' }}>
+                    <a
+                      href={`https://github.com/gbif/portal-feedback/issues/new?title=${encodeURIComponent(
+                        `NHC: ${institution.name}`
+                      )}&body=${encodeURIComponent(feedbackTemplate)}`}
+                    >
+                      <Github />
+                    </a>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <FormattedMessage id="grscicoll.githubHelpText" defaultMessage="Github" />
+                </TooltipContent>
+              </Tooltip>
             </HeaderInfoEdit>
           </HeaderInfo>
           <div className="border-b"></div>

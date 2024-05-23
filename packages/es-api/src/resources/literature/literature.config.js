@@ -153,6 +153,10 @@ const config = {
       type: 'keyword',
       field: 'gbifDownloadKey'
     },
+    gbifOccurrenceKey: {
+      type: 'keyword',
+      field: 'gbifOccurrenceKey'
+    },
     gbifRegion: {
       type: 'keyword',
       field: 'gbifRegion'

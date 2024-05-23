@@ -408,6 +408,29 @@
         "datasetID": ""
       }
     },
+    "eolReference": {
+      "name": "EOL referentie",
+      "properties": {
+        "identifier": "",
+        "publicationType": "",
+        "full_reference": "",
+        "primaryTitle": "",
+        "title": "Titel",
+        "pages": "Pagina's",
+        "pageStart": "Pagina start",
+        "pageEnd": "Einde pagina",
+        "volume": "",
+        "edition": "Editie",
+        "publisher": "Uitgever",
+        "authorList": "",
+        "editorList": "",
+        "created": "Aangemaakt",
+        "language": "Taal",
+        "uri": "Uri",
+        "doi": "DOI",
+        "localityName": "Vindplaats"
+      }
+    },
     "resourceRelationship": {
       "name": "",
       "properties": {

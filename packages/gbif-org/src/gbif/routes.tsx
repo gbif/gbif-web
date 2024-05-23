@@ -6,10 +6,10 @@ import { HomePage } from '@/routes/homePage';
 import { ThrowOn404 } from '@/routes/throwOn404';
 import { RootErrorPage } from '@/routes/rootErrorPage';
 import {
-  DetailedOccurrencePage,
-  DetailedOccurrencePageSkeleton,
-  detailedOccurrencePageLoader,
-} from '@/routes/occurrence/key/detailedOccurrencePage';
+  OccurrenceKey,
+  OccurrenceKeySkeleton,
+  occurrenceKeyLoader,
+} from '@/routes/occurrence/key/occurrenceKey';
 import { OccurrenceSearchPage } from '@/routes/occurrence/search/occurrenceSearchPage';
 import { InputConfig, configBuilder } from '@/contexts/config/config';
 import { DatasetPage, DatasetPageSkeleton, datasetLoader } from '@/routes/dataset/key/datasetKey';
@@ -78,6 +78,9 @@ import { NetworkKeyDataset } from '@/routes/network/key/dataset';
 import { NetworkKeyPublisher } from '@/routes/network/key/publisher';
 import { InstitutionKey, InstitutionKeyAbout, InstitutionKeyCollection, InstitutionKeySpecimens, institutionLoader } from '@/routes/institution/key';
 import { CollectionKey, CollectionKeyAbout, CollectionKeyDashboard, CollectionKeySpecimens, collectionLoader } from '@/routes/collection/key';
+import { OccurrenceKeyCluster } from '@/routes/occurrence/key/cluster';
+import { OccurrenceKeyPhylo } from '@/routes/occurrence/key/phylogenies';
+import { OccurrenceKeyAbout } from '@/routes/occurrence/key/about';
 
 const baseRoutes: SourceRouteObject[] = [
   {
@@ -97,14 +100,28 @@ const baseRoutes: SourceRouteObject[] = [
             element: <OccurrenceSearchPage />,
           },
           {
-            key: 'occurrence-page',
+            id: RouteId.Occurrence,
             path: 'occurrence/:key',
-            loader: detailedOccurrencePageLoader,
-            loadingElement: <DetailedOccurrencePageSkeleton />,
-            element: <DetailedOccurrencePage />,
+            loader: occurrenceKeyLoader,
+            loadingElement: <OccurrenceKeySkeleton />,
+            element: <OccurrenceKey />,
+            children: [
+              {
+                index: true,
+                element: <OccurrenceKeyAbout />,
+              },
+              {
+                path: 'phylogenies',
+                element: <OccurrenceKeyPhylo />,
+              },
+              {
+                path: 'related',
+                element: <OccurrenceKeyCluster />,
+              }
+            ]
           },
           {
-            key: 'dataset-page',
+            id: RouteId.Dataset,
             gbifRedirect: (params) => {
               if (typeof params.key !== 'string') throw new Error('Invalid key');
               return `https://www.gbif.org/dataset/${params.key}`;

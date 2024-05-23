@@ -19,11 +19,12 @@ export function LicenceTag({
   value,
   ...props
 }: {
-  value: string;
+  value?: string | null;
   className?: string;
 } & React.ComponentProps<typeof IdentifierTag>) {
-  const val = value.replace(/http(s)?:/, '');
-  let licenceEnum = url2enum[val] || value;
+  const fallback = value ?? 'unknown';
+  const val = fallback.replace(/http(s)?:/, '');
+  let licenceEnum = url2enum[val] || fallback;
   if (licenses.indexOf(licenceEnum) === -1) licenceEnum = 'UNSUPPORTED';
   const url = enum2url[licenceEnum];
 
@@ -51,6 +52,24 @@ export function DoiTag({ id = '', ...props }) {
   );
 }
 
+export function OrcId({ href, className }: { href: string; className?: string }) {
+  return (
+    <a dir="ltr" className={cn('inline-block no-underline', className)} href={href}>
+      <img alt="ORCID logo" className="mr-1 inline-block" src="https://info.orcid.org/wp-content/uploads/2019/11/orcid_16x16.png" width="16" height="16" />
+      {href}
+    </a>
+  );
+}
+
+export function Lsid({ identifier = '', ...props }) {
+  return (
+    <IdentifierTag as="a" href={`http://lsid.info/${identifier}`} {...props}>
+      <IdentifierType>URN:LSID:</IdentifierType>
+      <IdentifierValue>{identifier.replace('urn:lsid:', '')}</IdentifierValue>
+    </IdentifierTag>
+  );
+}
+
 export function IdentifierType({
   className,
   children,
@@ -63,7 +82,8 @@ export function IdentifierType({
   return (
     <span
       className={cn(
-        className, 'gbif-identifierType px-2 rounded-s border-solid border bg-primary-500 border-e-0 text-primaryContrast-500',
+        className,
+        'gbif-identifierType px-2 rounded-s bg-primary-500 border border-primary-600 border-opacity-20 text-primaryContrast-500'
       )}
       {...props}
     >
@@ -82,7 +102,13 @@ export function IdentifierValue({
   props?: React.ComponentProps<'span'>;
 }) {
   return (
-    <span className={cn('px-2 rounded-e border-solid border', className)} {...props}>
+    <span
+      className={cn(
+        'px-2 rounded-e border-solid border border-s-0 border-slate-800 border-opacity-20 ',
+        className
+      )}
+      {...props}
+    >
       {children}
     </span>
   );
@@ -102,6 +128,17 @@ export const IdentifierTag = React.forwardRef(
     } & React.ComponentProps<'a'>,
     ref
   ) => {
-    return <Div ref={ref} className={cn('inline-block text-sm [&>.gbif-identifierType]:hover:primary-600 [&>.gbif-identifierType]:hover:text-primaryContrast-600', className)} {...props} children={children} />;
+    return (
+      <Div
+        dir="ltr"
+        ref={ref}
+        className={cn(
+          'inline-block text-sm no-underline [&>.gbif-identifierType]:hover:primary-600 [&>.gbif-identifierType]:hover:text-primaryContrast-600',
+          className
+        )}
+        {...props}
+        children={children}
+      />
+    );
   }
 );

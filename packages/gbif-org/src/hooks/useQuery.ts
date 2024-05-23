@@ -118,8 +118,8 @@ export function useQuery<TResult, TVariabels>(
       // If there is no queue for the given name, create one
       if (queues[options.queue.name] === undefined) {
         queues[options.queue.name] = new Queue({
-          concurrent: options.queue.concurrent,
-          interval: options.queue.interval,
+          concurrent: options?.queue?.concurrent ?? 1,
+          interval: options?.queue?.interval ?? 0,
           start: true,
         });
       }

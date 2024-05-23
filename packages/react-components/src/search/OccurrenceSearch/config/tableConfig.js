@@ -166,7 +166,8 @@ export const tableConfig = {
         key: 'recordedBy',
       },
       width: 'wide',
-      cellFilter: ({ row }) => row.recordedBy,
+      // cellFilter: ({ row }) => row.recordedBy, // the idea here is to add all recorder names to the filter, but the behaviour feels wrong because only one of the names is highlighted in the table.
+      cellFilter: true
     },
     {
       name: 'identifiedBy',
@@ -261,7 +262,58 @@ export const tableConfig = {
       filterKey: 'locality',
       trKey: 'occurrenceFieldNames.locality',
       value: {
-        key: 'locality'
+        key: 'locality',
+        hideFalsy: true,
+      },
+    },
+    {
+      name: 'higherGeography',
+      filterKey: 'higherGeography',
+      trKey: 'occurrenceFieldNames.higherGeography',
+      value: {
+        key: 'higherGeography',
+        hideFalsy: true,
+      }
+    },
+    {
+      name: 'stateProvince',
+      filterKey: 'stateProvince',
+      trKey: 'occurrenceFieldNames.stateProvince',
+      value: {
+        key: 'stateProvince',
+        hideFalsy: true,
+      },
+      cellFilter: true,
+    },
+    {
+      name: 'establishmentMeans',
+      filterKey: 'establishmentMeans',
+      trKey: 'occurrenceFieldNames.establishmentMeans',
+      value: {
+        key: 'establishmentMeans',
+        labelHandle: 'establishmentMeansVocabulary',
+        hideFalsy: true,
+      },
+      cellFilter: true,
+    },
+    {
+      name: 'iucnRedListCategory',
+      filterKey: 'iucnRedListCategory',
+      trKey: 'occurrenceFieldNames.iucnRedListCategory',
+      value: {
+        key: 'iucnRedListCategory',
+        labelHandle: 'iucnRedListCategory',
+        hideFalsy: true,
+      },
+      cellFilter: true,
+    },
+    {
+      name: 'datasetName',
+      filterKey: 'datasetName',
+      trKey: 'occurrenceFieldNames.datasetName',
+      value: {
+        key: 'datasetName',
+        hideFalsy: true,
       },
     },
   ]

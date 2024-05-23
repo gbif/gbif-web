@@ -16,6 +16,7 @@
   "placeholders": {
     "default": "بحث",
     "range": "",
+    "wildcard": "",
     "locationID": ""
   },
   "ternary": {

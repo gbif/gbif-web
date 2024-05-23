@@ -16,6 +16,7 @@ const typeDef = gql`
       gbifDatasetKey: [ID]
       publishingOrganizationKey: [ID]
       gbifNetworkKey: [ID]
+      gbifOccurrenceKey: [ID]
       peerReview: Boolean
       openAccess: Boolean
       gbifDownloadKey: [ID]

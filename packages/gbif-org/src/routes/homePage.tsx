@@ -99,12 +99,12 @@ export function HomePage(): React.ReactElement {
                 </DynamicLink>
               </li>
               <li>
-                <DynamicLink className="me-4" to="/dataset/8a863029-f435-446a-821e-275f4f641165">
+                <DynamicLink className="me-4" to="/dataset/b124e1e0-4755-430f-9eab-894f25a9b59c">
                   Dataset
                 </DynamicLink>
               </li>
               <li>
-                <DynamicLink className="me-4" to="/publisher/d3978a37-635a-4ae3-bb85-7b4d41bc0b88">
+                <DynamicLink className="me-4" to="/publisher/4b44524a-3f31-47e4-a5d2-a4dc15a5dd07">
                   Publisher
                 </DynamicLink>
               </li>
@@ -124,7 +124,17 @@ export function HomePage(): React.ReactElement {
                 </DynamicLink>
               </li>
               <li>
-                Occurrence, download, species, participant, country and profile pages have not been started
+                Occurrences: <DynamicLink className="me-4" to="/occurrence/4126243325">Images</DynamicLink>
+                <DynamicLink className="me-4" to="/occurrence/4045885848">Video</DynamicLink>
+                <DynamicLink className="me-4" to="/occurrence/2434542261">RecordedBy ID</DynamicLink>
+                <DynamicLink className="me-4" to="/occurrence/1934869005">Fossil</DynamicLink>
+                <DynamicLink className="me-4" to="/occurrence/3013940180">iNat</DynamicLink>
+                <DynamicLink className="me-4" to="/occurrence/4527469336">Phylogeny</DynamicLink>
+                <DynamicLink className="me-4" to="/occurrence/4517957661">Extensions</DynamicLink>
+                <DynamicLink className="me-4" to="/occurrence/4129776625">Oceanic</DynamicLink>
+              </li>
+              <li>
+                Download, species, participant, country and profile pages have not been started
               </li>
             </ul>
           </section>

@@ -274,7 +274,7 @@
       }
     },
     "identification": {
-      "name": "ID",
+      "name": "",
       "properties": {
         "identificationID": "生物種同定ID",
         "verbatimIdentification": "",
@@ -406,6 +406,29 @@
         "taxonRemarks": "分類群情報の備考",
         "type": "タイプ",
         "datasetID": "データセットID"
+      }
+    },
+    "eolReference": {
+      "name": "EOLリファレンス",
+      "properties": {
+        "identifier": "ID",
+        "publicationType": "出版物の種類",
+        "full_reference": "完全なリファレンス",
+        "primaryTitle": "主要タイトル",
+        "title": "タイトル",
+        "pages": "ページ数",
+        "pageStart": "開始ページ",
+        "pageEnd": "終了ページ",
+        "volume": "巻",
+        "edition": "版",
+        "publisher": "出版者",
+        "authorList": "著者リスト",
+        "editorList": "編集者リスト",
+        "created": "作成",
+        "language": "言語",
+        "uri": "URI",
+        "doi": "DOI",
+        "localityName": "地名"
       }
     },
     "resourceRelationship": {

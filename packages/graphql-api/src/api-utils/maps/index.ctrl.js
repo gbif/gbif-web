@@ -8,6 +8,7 @@ import { render } from 'mustache';
 // import positronMercator from './experiments/positron_mercator';
 // import positron4326 from './experiments/positron_4326';
 // import epsg4326 from './experiments/4326';
+import geology3857 from './experiments/geology_test';
 
 import gbifRaster3575 from './3575/gbif-raster';
 import gbifRaster3031 from './3031/gbif-raster';
@@ -90,4 +91,9 @@ router.get('/3857/satellite_maptiler', (req, res, next) => {
 });
 router.get('/3857/satellite_bing', (req, res, next) => {
   returnTemplate(req, res, next, satellite3857_bing);
+});
+
+// geology test
+router.get('/3857/geology', (req, res, next) => {
+  returnTemplate(req, res, next, geology3857);
 });

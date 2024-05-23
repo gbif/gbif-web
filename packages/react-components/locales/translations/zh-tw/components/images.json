@@ -1,7 +1,11 @@
 {
+  "identifier": "身份",
   "type": "類型",
   "title": "標題",
   "rights": "權利",
+  "providerLiteral": "提供者",
   "description": "描述",
-  "format": "格式"
+  "accessURI": "URL",
+  "format": "格式",
+  "pixelXDimension": "寬度"
 }

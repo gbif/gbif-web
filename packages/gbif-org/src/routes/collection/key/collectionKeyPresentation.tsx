@@ -78,9 +78,7 @@ export function CollectionKey({
             <FormattedMessage id="grscicoll.collectionCode" />
           </ArticlePreTitle>
           {/* it would be nice to know for sure which fields to expect */}
-          <ArticleTitle
-            dangerouslySetTitle={{ __html: collection.name || 'No title provided' }}
-          >
+          <ArticleTitle dangerouslySetTitle={{ __html: collection.name || 'No title provided' }}>
             {!collection.active && (
               <span className="align-middle bg-red-100 text-red-800 text-sm font-medium ms-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
                 <FormattedMessage id={`grscicoll.inactive`} />
@@ -179,41 +177,37 @@ export function CollectionKey({
             </HeaderInfoMain>
             <HeaderInfoEdit className="flex">
               {/* TODO Phew it is quite a few lines just to add a tooltip, I wonder if an abstraction would be appreciated. Here I repeat the provider, which doesn't help, but it didn't properly disappear and reappear without it*/}
-              <TooltipProvider>
-                <Tooltip delayDuration={0}>
-                  <TooltipTrigger>
-                    <Button variant="outline" asChild>
-                      <a href={`${GBIF_REGISTRY_ENDPOINT}/collection/${collection.key}`}>
-                        <FormattedMessage id="grscicoll.edit" defaultMessage="Edit" />
-                      </a>
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <FormattedMessage
-                      id="grscicoll.editHelpText"
-                      defaultMessage="No login required"
-                    />
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-              <TooltipProvider>
-                <Tooltip delayDuration={0}>
-                  <TooltipTrigger>
-                    <Button variant="ghost" asChild className="ms-2" style={{ fontSize: '1.2em' }}>
-                      <a
-                        href={`https://github.com/gbif/portal-feedback/issues/new?title=${encodeURIComponent(
-                          `NHC: ${collection.name}`
-                        )}&body=${encodeURIComponent(feedbackTemplate)}`}
-                      >
-                        <Github />
-                      </a>
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <FormattedMessage id="grscicoll.githubHelpText" defaultMessage="Github" />
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+              <Tooltip delayDuration={0}>
+                <TooltipTrigger>
+                  <Button variant="outline" asChild>
+                    <a href={`${GBIF_REGISTRY_ENDPOINT}/collection/${collection.key}`}>
+                      <FormattedMessage id="grscicoll.edit" defaultMessage="Edit" />
+                    </a>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <FormattedMessage
+                    id="grscicoll.editHelpText"
+                    defaultMessage="No login required"
+                  />
+                </TooltipContent>
+              </Tooltip>
+              <Tooltip delayDuration={0}>
+                <TooltipTrigger>
+                  <Button variant="ghost" asChild className="ms-2" style={{ fontSize: '1.2em' }}>
+                    <a
+                      href={`https://github.com/gbif/portal-feedback/issues/new?title=${encodeURIComponent(
+                        `NHC: ${collection.name}`
+                      )}&body=${encodeURIComponent(feedbackTemplate)}`}
+                    >
+                      <Github />
+                    </a>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <FormattedMessage id="grscicoll.githubHelpText" defaultMessage="Github" />
+                </TooltipContent>
+              </Tooltip>
             </HeaderInfoEdit>
           </HeaderInfo>
           <div className="border-b"></div>

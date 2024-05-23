@@ -16,6 +16,7 @@
   "placeholders": {
     "default": "Zoeken",
     "range": "Bereik of enkele waarde",
+    "wildcard": "",
     "locationID": ""
   },
   "ternary": {

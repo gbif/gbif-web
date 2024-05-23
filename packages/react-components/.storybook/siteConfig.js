@@ -189,6 +189,24 @@ export const siteConfig = {
     },
     // addMapStyles: function ({ mapStyleServer, language, pixelRatio, apiKeys, mapComponents }) {
     //   return {
+    //     GEOLOGY: { // the name of your style
+    //       component: mapComponents.OpenlayersMap, // what map component to use OpenlayersMap | OpenlayersMapbox
+    //       labelKey: 'I ❤️ GBIF', // the label in the select. Use a translation key
+    //       mapConfig: {
+    //         basemapStyle: 'http://localhost:4000/unstable-api/map-styles/3857/geology',
+    //         projection: 'EPSG_3857'// one of 4326 | 3031 | 3857 | 3575
+    //       }
+    //     }
+    //   }
+    // },
+    // rewire style names to show a different style
+    // styleLookup: {
+    //   MERCATOR: {
+    //     GEOLOGY: 'GEOLOGY'
+    //   }
+    // }
+    // addMapStyles: function ({ mapStyleServer, language, pixelRatio, apiKeys, mapComponents }) {
+    //   return {
     //     MERCATOR_TOWNS: {
     //       component: mapComponents.OpenlayersMap,
     //       labelKey: 'Towns',

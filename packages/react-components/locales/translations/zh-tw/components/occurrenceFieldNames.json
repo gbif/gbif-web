@@ -81,6 +81,8 @@
   "reproductiveCondition": "生殖狀況",
   "behavior": "行為",
   "establishmentMeans": "建立方法",
+  "degreeOfEstablishment": "設立程度",
+  "pathway": "路徑",
   "occurrenceStatus": "出現紀錄狀態",
   "preparations": "準備",
   "disposition": "標本狀態",
@@ -255,5 +257,7 @@
   "coordinatesMissing": "缺少座標",
   "taxonomicClassification": "分類",
   "gadmClassification": "根據於全球行政區資料庫（GADM）地點",
-  "images": "多媒體"
+  "images": "多媒體",
+  "eventTypeHierarchyJoined": "結構",
+  "eventType": "事件類型"
 }
