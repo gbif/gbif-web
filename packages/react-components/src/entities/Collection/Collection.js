@@ -120,6 +120,9 @@ query collection($key: ID!){
     apiUrls
     preservationTypes
     accessionStatus
+
+    featuredImageUrl
+    featuredImageLicense
     
     created
     deleted

@@ -42,6 +42,12 @@ export function Description({
 
     <div css={css`padding-bottom: 100px; display: flex; margin: 0 -12px;`}>
       <div css={css`flex: 1 1 auto; margin: 0 12px;`}>
+        {collection.featuredImageUrl && <Card style={{ marginTop: 12, marginBottom: 24, position: 'relative' }} noPadding>
+          <Image src={collection.featuredImageUrl} style={{width: '100%', display: 'block'}}/>
+          {collection.featuredImageLicense && <div style={{padding: '3px 5px', fontSize: '13px', position: 'absolute', bottom: 0, right: 0, background: 'rgba(0,0,0,.3)', color: 'white', display: 'inline-block'}}>
+            <FormattedMessage id="phrases.license" />: {<FormattedMessage id={`enums.license.${collection.featuredImageLicense}`} />}
+          </div>}
+        </Card>}
         <Card style={{ marginTop: 12, marginBottom: 24 }}>
           <CardHeader2><FormattedMessage id="grscicoll.description" deafultMessage="Description" /></CardHeader2>
           <Prose style={{ marginBottom: 24, maxWidth: '60em', fontSize: '16px' }}>

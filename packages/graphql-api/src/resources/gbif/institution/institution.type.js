@@ -82,6 +82,9 @@ const typeDef = gql`
     """
     collectionCount: Int
 
+    featuredImageUrl: String
+    featuredImageLicense: License
+
     occurrenceCount: Int
     masterSource: String
     masterSourceMetadata: MasterSourceMetadata

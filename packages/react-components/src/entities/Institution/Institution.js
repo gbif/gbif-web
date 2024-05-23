@@ -125,6 +125,8 @@ query institution($key: ID!){
       code
       description
     }
+    featuredImageUrl
+    featuredImageLicense
     types
     apiUrls
     institutionalGovernances

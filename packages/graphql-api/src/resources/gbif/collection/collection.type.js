@@ -85,6 +85,9 @@ const typeDef = gql`
     alternativeCodes: [AlternativeCode]
     comments: Comment
 
+    featuredImageUrl: String
+    featuredImageLicense: License
+
     occurrenceCount: Int
     excerpt: String
     richness: Float
