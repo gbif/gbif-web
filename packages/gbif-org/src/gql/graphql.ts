@@ -3339,7 +3339,7 @@ export type Occurrence = {
   hasTaxonIssues?: Maybe<Scalars['Boolean']['output']>;
   hasVersion?: Maybe<Scalars['String']['output']>;
   higherClassification?: Maybe<Scalars['String']['output']>;
-  higherGeography?: Maybe<Scalars['String']['output']>;
+  higherGeography?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   higherGeographyID?: Maybe<Scalars['String']['output']>;
   highestBiostratigraphicZone?: Maybe<Scalars['String']['output']>;
   identificationID?: Maybe<Scalars['String']['output']>;
@@ -3370,6 +3370,7 @@ export type Occurrence = {
   islandGroup?: Maybe<Scalars['String']['output']>;
   issued?: Maybe<Scalars['String']['output']>;
   issues?: Maybe<Array<Maybe<OccurrenceIssue>>>;
+  iucnRedListCategory?: Maybe<Scalars['String']['output']>;
   key?: Maybe<Scalars['Float']['output']>;
   kingdom?: Maybe<Scalars['String']['output']>;
   kingdomKey?: Maybe<Scalars['ID']['output']>;

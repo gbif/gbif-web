@@ -152,6 +152,36 @@ export const commonLabels = {
     template: ({ id, api }) => `${api.v1.endpoint}/vocabularies/EventType/concepts/${id}`,
     transform: getVocabularyLabel
   },
+  institutionalGovernanceVocabulary: {
+    type: 'ENDPOINT',
+    template: ({ id, api }) => `${api.v1.endpoint}/vocabularies/InstitutionalGovernance/concepts/${id}`,
+    transform: getVocabularyLabel
+  },
+  disciplineVocabulary: {
+    type: 'ENDPOINT',
+    template: ({ id, api }) => `${api.v1.endpoint}/vocabularies/Discipline/concepts/${id}`,
+    transform: getVocabularyLabel
+  },
+  institutionTypeVocabulary: {
+    type: 'ENDPOINT',
+    template: ({ id, api }) => `${api.v1.endpoint}/vocabularies/InstitutionType/concepts/${id}`,
+    transform: getVocabularyLabel
+  },
+  accessionStatusVocabulary: {
+    type: 'ENDPOINT',
+    template: ({ id, api }) => `${api.v1.endpoint}/vocabularies/AccessionStatus/concepts/${id}`,
+    transform: getVocabularyLabel
+  },
+  collectionContentTypeVocabulary: {
+    type: 'ENDPOINT',
+    template: ({ id, api }) => `${api.v1.endpoint}/vocabularies/CollectionContentType/concepts/${id}`,
+    transform: getVocabularyLabel
+  },
+  preservationTypeVocabulary: {
+    type: 'ENDPOINT',
+    template: ({ id, api }) => `${api.v1.endpoint}/vocabularies/PreservationType/concepts/${id}`,
+    transform: getVocabularyLabel
+  },
   catalogNumber: {
     type: 'TRANSLATION',
     template: id => id

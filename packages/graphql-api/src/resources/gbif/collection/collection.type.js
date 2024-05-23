@@ -23,8 +23,8 @@ const typeDef = gql`
       personalCollection: Boolean
       numberSpecimens: String
       occurrenceCount: String
-      contentType: [CollectionContentType]
-      preservationType: [PreservationType]
+      contentType: [String!]
+      preservationType: [String!]
       displayOnNHCPortal: Boolean
       sortBy: CollectionsSortField
       sortOrder: SortOrder
@@ -45,17 +45,17 @@ const typeDef = gql`
     code: String
     name: String
     description: String
-    contentTypes: [CollectionContentType]
+    contentTypes: [String!]
     active: Boolean
     personalCollection: Boolean
     doi: String
     email: [String]
     phone: [String]
     homepage: URL
-    catalogUrl: URL
-    apiUrl: URL
-    preservationTypes: [PreservationType]
-    accessionStatus: AccessionStatus
+    catalogUrls: [URL]
+    apiUrls: [URL]
+    preservationTypes: [String!]
+    accessionStatus: String
     institutionKey: ID
     institution: Institution
     mailingAddress: Address
@@ -74,11 +74,10 @@ const typeDef = gql`
     """
     contacts: [StaffMember]
     contactPersons: [ContactPerson]!
-    indexHerbariorumRecord: Boolean
     numberSpecimens: Int
     machineTags: [MachineTag]
     taxonomicCoverage: String
-    geography: String
+    geographicCoverage: String
     notes: String
     incorporatedCollections: [String]
     importantCollectors: [String]

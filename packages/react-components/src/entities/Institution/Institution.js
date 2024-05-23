@@ -120,25 +120,21 @@ query institution($key: ID!){
     email
     phone
     homepage
-    catalogUrl
+    catalogUrls
     alternativeCodes {
       code
       description
     }
-    type
-    apiUrl
-    institutionalGovernance
+    types
+    apiUrls
+    institutionalGovernances
     disciplines
     latitude
     longitude
     additionalNames
     foundingDate
-    geographicDescription
-    taxonomicDescription
     numberSpecimens
-    indexHerbariorumRecord
     logoUrl
-    citesPermitNumber
 
     masterSourceMetadata {
       key
