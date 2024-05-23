@@ -86,6 +86,102 @@ export function getCommonSuggests({ context, suggestStyle, rootPredicate }) {
         </div>
       }
     },
+    preservationType: {
+      //What placeholder to show
+      placeholder: 'search.placeholders.default',
+      // how to get the list of suggestion data
+      getSuggestions: ({ q, localeContext }) => {
+        const vocabularyLocale = localeContext?.localeMap?.vocabulary || 'en';
+        const { promise, cancel } = client.v1Get(`/vocabularies/PreservationType/concepts?limit=100&q=${q}&lang=${vocabularyLocale}`);
+        return {
+          promise: promise.then(extractTitle(vocabularyLocale)).then(response => ({
+            data: response.data.results.map(i => ({ key: i.name, title: i.title }))
+          }
+          )),
+          cancel
+        }
+      },
+      // how to map the results to a single string value
+      getValue: suggestion => suggestion.title,
+      // how to display the individual suggestions in the list
+      render: function CatalogNumberSuggestItem(suggestion) {
+        return <div style={suggestStyle}>
+          {suggestion.title}
+        </div>
+      }
+    },
+    discipline: {
+      //What placeholder to show
+      placeholder: 'search.placeholders.default',
+      // how to get the list of suggestion data
+      getSuggestions: ({ q, localeContext }) => {
+        const vocabularyLocale = localeContext?.localeMap?.vocabulary || 'en';
+        const { promise, cancel } = client.v1Get(`/vocabularies/Discipline/concepts?limit=100&q=${q}&lang=${vocabularyLocale}`);
+        return {
+          promise: promise.then(extractTitle(vocabularyLocale)).then(response => ({
+            data: response.data.results.map(i => ({ key: i.name, title: i.title }))
+          }
+          )),
+          cancel
+        }
+      },
+      // how to map the results to a single string value
+      getValue: suggestion => suggestion.title,
+      // how to display the individual suggestions in the list
+      render: function CatalogNumberSuggestItem(suggestion) {
+        return <div style={suggestStyle}>
+          {suggestion.title}
+        </div>
+      }
+    },
+    institutionType: {
+      //What placeholder to show
+      placeholder: 'search.placeholders.default',
+      // how to get the list of suggestion data
+      getSuggestions: ({ q, localeContext }) => {
+        const vocabularyLocale = localeContext?.localeMap?.vocabulary || 'en';
+        const { promise, cancel } = client.v1Get(`/vocabularies/InstitutionType/concepts?limit=100&q=${q}&lang=${vocabularyLocale}`);
+        return {
+          promise: promise.then(extractTitle(vocabularyLocale)).then(response => ({
+            data: response.data.results.map(i => ({ key: i.name, title: i.title }))
+          }
+          )),
+          cancel
+        }
+      },
+      // how to map the results to a single string value
+      getValue: suggestion => suggestion.title,
+      // how to display the individual suggestions in the list
+      render: function CatalogNumberSuggestItem(suggestion) {
+        return <div style={suggestStyle}>
+          {suggestion.title}
+        </div>
+      }
+    },
+    collectionContentType: {
+      //What placeholder to show
+      placeholder: 'search.placeholders.default',
+      // how to get the list of suggestion data
+      getSuggestions: ({ q, localeContext }) => {
+        const vocabularyLocale = localeContext?.localeMap?.vocabulary || 'en';
+        const { promise, cancel } = client.v1Get(`/vocabularies/CollectionContentType/concepts?limit=100&q=${q}&lang=${vocabularyLocale}`);
+        return {
+          promise: promise.then(extractTitle(vocabularyLocale)).then(response => ({
+            data: response.data.results.map(i => ({ key: i.name, title: i.title }))
+          }
+          )),
+          cancel
+        }
+      },
+      // how to map the results to a single string value
+      getValue: suggestion => suggestion.title,
+      // how to display the individual suggestions in the list
+      render: function CatalogNumberSuggestItem(suggestion) {
+        return <div style={suggestStyle}>
+          {suggestion.title}
+        </div>
+      }
+    },
     eventType: {
       //What placeholder to show
       placeholder: 'search.placeholders.default',
