@@ -16,7 +16,7 @@
   "placeholders": {
     "default": "搜索",
     "range": "范围或单个值",
-    "wildcard": "",
+    "wildcard": "使用*和?作为通配符搜索",
     "locationID": ""
   },
   "ternary": {
