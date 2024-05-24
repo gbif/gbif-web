@@ -58,6 +58,7 @@ export function Description({
             {/* <Property value={collection.description} labelId="grscicoll.description" showEmpty /> */}
             <Property value={collection.taxonomicCoverage} labelId="grscicoll.taxonomicDescription" showEmpty />
             <Property value={collection.geographicCoverage} labelId="grscicoll.geographicDescription" showEmpty />
+            <Property value={collection.temporalCoverage} labelId="grscicoll.temporalDescription" showEmpty />
             <Property value={collection.notes} labelId="grscicoll.notes" />
             <Property value={collection.code} labelId="grscicoll.code" showEmpty />
             <Property value={collection.numberSpecimens} labelId="collection.numberSpecimens" />

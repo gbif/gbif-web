@@ -103,6 +103,7 @@ query collection($key: ID!){
     description
     taxonomicCoverage
     geographicCoverage
+    temporalCoverage
     notes
     homepage
 

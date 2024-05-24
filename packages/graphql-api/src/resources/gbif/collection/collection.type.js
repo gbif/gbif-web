@@ -78,6 +78,7 @@ const typeDef = gql`
     machineTags: [MachineTag]
     taxonomicCoverage: String
     geographicCoverage: String
+    temporalCoverage: String
     notes: String
     incorporatedCollections: [String]
     importantCollectors: [String]
