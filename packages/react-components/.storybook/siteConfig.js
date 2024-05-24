@@ -190,7 +190,7 @@ export const siteConfig = {
     // addMapStyles: function ({ mapStyleServer, language, pixelRatio, apiKeys, mapComponents }) {
     //   return {
     //     GEOLOGY: { // the name of your style
-    //       component: mapComponents.OpenlayersMap, // what map component to use OpenlayersMap | OpenlayersMapbox
+    //       component: mapComponents.OpenlayersMap, // what map component to use OpenlayersMap | MapboxMap
     //       labelKey: 'I ❤️ GBIF', // the label in the select. Use a translation key
     //       mapConfig: {
     //         basemapStyle: 'http://localhost:4000/unstable-api/map-styles/3857/geology',
