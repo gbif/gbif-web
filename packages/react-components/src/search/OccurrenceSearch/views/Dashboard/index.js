@@ -32,7 +32,7 @@ function Dashboard() {
   }, [filters]);
 
   return <DashboardPresentation
-    predicate={searchPredicate} chartsTypes={['map', 'table', 'gallery', 'occurrenceSummary', 'dataQuality', ...chartsTypes]}
+    predicate={searchPredicate} chartsTypes={['map', 'table', 'gallery', 'occurrenceSummary', 'dataQuality', 'taxa', ...chartsTypes]}
   />
 }
 

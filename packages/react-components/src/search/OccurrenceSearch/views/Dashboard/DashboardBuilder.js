@@ -522,7 +522,7 @@ const chartGroups = {
       "typeStatus",
       "identifiedBy",
       "identifiedById",
-      "taxon",
+      "taxon", "taxa",
       "verbatimTaxonId",
       "scientificName",
       "verbatimScientificName"

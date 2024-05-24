@@ -64,7 +64,7 @@ export const OptImage = React.forwardRef(({
         <MdBrokenImage />
       </div>
     </div>}
-    {!failed && <img src={src} {...props} style={{...style, display: loading ? 'none' : null}} ref={ref} onError={() => {
+    {!failed && <img src={src} {...props} style={{...style, display: loading ? 'none' : 'block'}} ref={ref} onError={() => {
       markAsFailed(true);
       setLoading(false);
     }} onLoad={(e) => {
