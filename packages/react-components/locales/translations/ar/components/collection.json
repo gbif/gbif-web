@@ -2,5 +2,6 @@
   "institutionUnknown": "المؤسسة غير معروفة",
   "contentTypes": "أنماط المحتوى",
   "preservationTypes": "أنماط الحفظ",
-  "personalCollection": "مجموعة شخصية"
+  "personalCollection": "مجموعة شخصية",
+  "accessionStatus": "حالة الادخال"
 }
