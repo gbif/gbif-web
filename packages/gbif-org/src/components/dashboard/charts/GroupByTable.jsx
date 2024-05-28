@@ -28,8 +28,8 @@ export function GroupByTable({
   if (loading) {
     return <div>
       {[1, 2].map(x => <React.Fragment key={x}>
-        <Skeleton as="div" width="60%" style={{ marginBottom: 12 }} />
-        <Skeleton as="div" style={{ marginBottom: 12 }} />
+        <Skeleton className="h-6" width="60%" style={{ marginBottom: 12 }} />
+        <Skeleton className="h-6" style={{ marginBottom: 12 }} />
       </ React.Fragment>)}
     </div>
   }
@@ -85,7 +85,7 @@ export function GroupBy({ facetResults, transform, ...props }) {
     <div 
       className="text-sm text-slate-500 mb-1"
       >
-      {loading && <Skeleton as="div" width="100px" />}
+      {loading && <Skeleton className="h-6 mb-2" width="100px" />}
       {!loading && distinct > 0 && <><FormattedMessage id="counts.nResults" values={{total: distinct}} /></>}
     </div>
     <GroupByTable results={mappedResults} total={total} {...props} loading={loading} />

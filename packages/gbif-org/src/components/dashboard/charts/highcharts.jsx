@@ -25,124 +25,94 @@ const userPalette = [];
 // a palette should have at least 6 colors, if less is provided as a userPalette, then use the fallbackPalette. 
 const palette = userPalette.length < 6 ? fallbackPalette : userPalette;
 
+const patterns = [
+  {
+    pattern: {
+      path: {
+        d: 'M 0 5 L 5 0 M -0.5 0.5 L 0.5 -0.5 M 4.5 5.5 L 5.5 4.5',
+        stroke: palette[2],
+        strokeWidth: 2
+      },
+      width: 5,
+      height: 5,
+      // opacity: 0.4
+    }
+  },
+  // #slope-right-tight)',
+  {
+    pattern: {
+      path: {
+        d: 'M 0 0 L 5 5 M 4.5 -0.5 L 5.5 0.5 M -0.5 4.5 L 0.5 5.5',
+        stroke: palette[1],
+        strokeWidth: 2
+      },
+      width: 5,
+      height: 5
+    }
+  },
+  // #vertical-thick)',
+  {
+    pattern: {
+      path: {
+        d: 'M 2 0 L 2 5 M 4 0 L 4 5',
+        stroke: palette[3],
+        strokeWidth: 2
+      },
+      width: 5,
+      height: 5
+    }
+  },
+  // #horisontal-thick)',
+  {
+    pattern: {
+      path: {
+        d: 'M 0 2 L 5 2 M 0 4 L 5 4',
+        stroke: palette[4],
+        strokeWidth: 2
+      },
+      width: 5,
+      height: 5
+    }
+  },
+  // #slope-down-thin)',
+  {
+    pattern: {
+      path: {
+        d: 'M 0 0 L 10 10 M 9 -1 L 11 1 M -1 9 L 1 11',
+        stroke: palette[5],
+        strokeWidth: 2,
+      },
+      width: 10,
+      height: 10
+    }
+  },
+  // #slope-up-thin)',
+  {
+    pattern: {
+      path: {
+        d: 'M 0 10 L 10 0 M -1 1 L 1 -1 M 9 11 L 11 9',
+        stroke: palette[6],
+        strokeWidth: 2,
+      },
+      width: 10,
+      height: 10
+    }
+  }
+];
 
 {/* <svg id='patternId' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='20' height='20' patternTransform='scale(1) rotate(0)'><rect x='0' y='0' width='100%' height='100%' fill='hsla(0,0%,100%,1)'/><path d='M10 15a5 5 0 110-10 5 5 0 010 10z'  stroke-width='1' stroke='hsla(258.5,59.4%,59.4%,1)' fill='none'/></pattern></defs><rect width='800%' height='800%' transform='translate(0,0)' fill='url(#a)'/></svg> */ }
 // patterns via <a href="https://www.freepik.com/free-vector/cute-pattern-background-polka-dot-black-white-vector-set_20346212.htm#query=svg%20patterns&position=19&from_view=keyword&track=ais">Image by rawpixel.com</a> on Freepik
 Highcharts.theme = {
   colors: [
     ...palette,
-    // #slope-left-tight)',
-    {
-      pattern: {
-        path: {
-          d: 'M 0 5 L 5 0 M -0.5 0.5 L 0.5 -0.5 M 4.5 5.5 L 5.5 4.5',
-          stroke: palette[2],
-          strokeWidth: 2
-        },
-        width: 5,
-        height: 5,
-        // opacity: 0.4
-      }
-    },
-    // #slope-right-tight)',
-    {
-      pattern: {
-        path: {
-          d: 'M 0 0 L 5 5 M 4.5 -0.5 L 5.5 0.5 M -0.5 4.5 L 0.5 5.5',
-          stroke: palette[1],
-          strokeWidth: 2
-        },
-        width: 5,
-        height: 5
-      }
-    },
-    // #vertical-thick)',
-    {
-      pattern: {
-        path: {
-          d: 'M 2 0 L 2 5 M 4 0 L 4 5',
-          stroke: palette[3],
-          strokeWidth: 2
-        },
-        width: 5,
-        height: 5
-      }
-    },
-    // #horisontal-thick)',
-    {
-      pattern: {
-        path: {
-          d: 'M 0 2 L 5 2 M 0 4 L 5 4',
-          stroke: palette[4],
-          strokeWidth: 2
-        },
-        width: 5,
-        height: 5
-      }
-    },
-    // #wave)',
-    {
-      pattern: {
-        path: {
-          d: 'M 0 0 L 5 10 L 10 0',
-          stroke: palette[6],
-          strokeWidth: 2,
-          fill: palette[0],
-        },
-        width: 10,
-        height: 10
-      }
-    },
-    // #squares)',
-    {
-      pattern: {
-        path: {
-          d: 'M 3 3 L 8 3 L 8 8 L 3 8 Z',
-          stroke: palette[7],
-          strokeWidth: 2,
-          fill: palette[0],
-        },
-        width: 10,
-        height: 10
-      }
-    },
-    // #circles)',
-    {
-      pattern: {
-        path: {
-          d: 'M 5 5 m -4 0 a 4 4 0 1 1 8 0 a 4 4 0 1 1 -8 0',
-          stroke: palette[4],
-          strokeWidth: 2,
-          fill: palette[4],
-        },
-        width: 10,
-        height: 10
-      }
-    },
-    // #slope-down-thin)',
-    {
-      pattern: {
-        path: {
-          d: 'M 0 0 L 10 10 M 9 -1 L 11 1 M -1 9 L 1 11',
-          stroke: palette[5],
-          strokeWidth: 2,
-        },
-        width: 10,
-        height: 10
-      }
-    },
-    // #slope-up-thin)',
-    {
-      pattern: {
-        path: {
-          d: 'M 0 10 L 10 0 M -1 1 L 1 -1 M 9 11 L 11 9',
-          stroke: palette[6],
-          strokeWidth: 2,
-        },
-        width: 10,
-        height: 10
-      }
-    }
+    // for 1-20 generate a color based on the index
+    ...Array.from({ length: palette.length }, (_, i) => {
+      const paletteIndex = i % palette.length;
+      const patternIndex = i % patterns.length;
+      const patternColor = JSON.parse(JSON.stringify(patterns[patternIndex]));
+      patternColor.pattern.path.stroke = palette[paletteIndex];
+      return patternColor;
+    }),
   ],
   chart: {
     // backgroundColor: {

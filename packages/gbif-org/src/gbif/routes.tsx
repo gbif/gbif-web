@@ -245,7 +245,7 @@ const baseRoutes: SourceRouteObject[] = [
             ],
           },
           {
-            key: 'collection-page',
+            id: RouteId.Collection,
             gbifRedirect: (params) => {
               if (typeof params.key !== 'string') throw new Error('Invalid key');
               return `https://www.gbif.org/collection/${params.key}`;

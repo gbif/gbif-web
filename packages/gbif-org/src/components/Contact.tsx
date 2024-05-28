@@ -43,7 +43,7 @@ export function ContactTitle({
   if (!firstName && !lastName && !children) {
     return (
       <h4 className="text-lg italics text-slate-400 mt-1 mb-2">
-        <FormattedMessage id="phrases.unknown" defaultMessage="Uknown" />
+        <FormattedMessage id="phrases.unknown" defaultMessage="Unknown" />
       </h4>
     );
   }

@@ -213,7 +213,7 @@ export function OneDimensionalChart({
   // const singleValue = notEmptyResults?.length === 1 ? notEmptyResults[0] : null;
   // const renderedView = singleValue ? 'TABLE' : view;
 
-  return <Card {...props} loading={facetResults.loading} error={facetResults.error}>
+  return <Card {...props} loading={facetResults.loading || !facetResults.data} error={!!facetResults.error}>
     {/* <CardTitle options={(singleValue || (distinct === 0)) ? null : <ViewOptions options={options} view={view} setView={setView} />}> */}
     <CardHeader options={<ViewOptions options={options} view={view} setView={setView} />}>
       <CardTitle>

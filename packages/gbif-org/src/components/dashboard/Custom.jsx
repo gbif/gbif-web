@@ -32,7 +32,7 @@ function TaxaMain({
   if (facetResults?.data?.search?.facet?.results?.length <= visibilityThreshold) return null;
 
   return (
-    <Card {...props}>
+    <Card {...props} loading={facetResults.loading || !facetResults.data} error={!!facetResults.error}>
       <CardHeader
         options={
           <DropdownMenu>
@@ -158,7 +158,7 @@ function IucnMain({
   if (resultCount <= visibilityThreshold) return null;
 
   return (
-    <Card {...props}>
+    <Card {...props} loading={facetResults.loading || !facetResults.data} error={!!facetResults.error}>
       <CardHeader>
         <CardTitle>
           <FormattedMessage id={`dashboard.iucnThreatStatus`} />

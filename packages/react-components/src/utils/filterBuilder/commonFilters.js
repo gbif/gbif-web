@@ -1255,6 +1255,24 @@ export const commonFilters = {
       }
     }
   },
+  isSequenced: {
+    type: 'ENUM',
+    config: {
+      std: {
+        filterHandle: 'isSequenced',
+        id2labelHandle: 'yesNo',
+        translations: {
+          count: 'filters.isSequenced.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.isSequenced.name',// translation path to a title for the popover and the button
+          description: 'filters.isSequenced.description', // translation path for the filter description
+        }
+      },
+      specific: {
+        options: ['true', 'false'],
+        isRadio: true
+      }
+    }
+  },
   active: {
     type: 'ENUM',
     config: {
