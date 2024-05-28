@@ -34,7 +34,6 @@ export function GroupByTable({
     </div>
   }
 
-  console.log(results);
   return <div style={{ overflow: 'auto' }}>
     <Table>
       {columnTitle && <thead 

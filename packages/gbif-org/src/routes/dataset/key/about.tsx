@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
+import * as charts from '@/components/dashboard';
 import {
   DatasetQuery,
   DatasetInsightsQuery,
@@ -26,6 +27,8 @@ import { Images } from './about/Images';
 import { useConfig } from '@/contexts/config/config';
 import { HyperText } from '@/components/HyperText';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { ClientSideOnly } from '@/components/clientSideOnly';
+import DashBoardLayout from '@/components/dashboard/DashboardLayout';
 
 export function DatasetKeyAbout() {
   const { data } = useParentRouteLoaderData(RouteId.Dataset) as { data: DatasetQuery };
@@ -116,6 +119,12 @@ export function DatasetKeyAbout() {
     { datasetUrl: `https://www.gbif.org/dataset/${dataset.key}` }
   );
 
+  const predicate = {
+    type: 'equals',
+    key: 'datasetKey',
+    value: dataset?.key,
+  };
+
   const total = insights?.unfiltered?.documents?.total;
   return (
     <ArticleContainer className="bg-slate-100 pt-4">
@@ -126,7 +135,8 @@ export function DatasetKeyAbout() {
               <div>
                 <Alert variant="info" className="mb-4">
                   <AlertDescription>
-                    <HyperText className="[&_a]:underline"
+                    <HyperText
+                      className="[&_a]:underline"
                       text={scopeSmallerThanDatasetMessage}
                       sanitizeOptions={{ ALLOWED_TAGS: ['a', 'strong', 'em', 'p', 'br'] }}
                     />
@@ -148,6 +158,14 @@ export function DatasetKeyAbout() {
                     dangerouslySetInnerHTML={{ __html: dataset.description }}
                   ></div>
                 )}
+              </CardContent>
+              <CardContent>
+                <hr className="my-4" />
+                <p className="text-slate-400 mb-2 text-sm">Derrived from occurrence data</p>
+                <DashBoardLayout>
+                  <charts.OccurrenceSummary predicate={predicate} />
+                  <charts.DataQuality predicate={predicate} />
+                </DashBoardLayout>
               </CardContent>
             </Card>
 
@@ -182,6 +200,22 @@ export function DatasetKeyAbout() {
                 <CardContent>
                   <GeographicCoverages geographicCoverages={dataset.geographicCoverages} />
                 </CardContent>
+                <CardContent>
+                  <hr className="my-4" />
+                  <p className="text-slate-400 mb-2 text-sm">Derrived from occurrence data</p>
+                  <DashBoardLayout>
+                    <charts.Country
+                      predicate={predicate}
+                      visibilityThreshold={0}
+                      interactive={false}
+                    />
+                    <charts.GadmGid
+                      predicate={predicate}
+                      visibilityThreshold={0}
+                      interactive={false}
+                    />
+                  </DashBoardLayout>
+                </CardContent>
               </Card>
             )}
             {dataset?.temporalCoverages && dataset?.temporalCoverages?.length > 0 && (
@@ -194,6 +228,24 @@ export function DatasetKeyAbout() {
                 <CardContent>
                   <TemporalCoverages temporalCoverages={dataset.temporalCoverages} />
                 </CardContent>
+                <CardContent>
+                  <hr className="my-4" />
+                  <p className="text-slate-400 mb-2 text-sm">Derrived from occurrence data</p>
+                  <DashBoardLayout>
+                    <charts.EventDate
+                      predicate={predicate}
+                      visibilityThreshold={1}
+                      options={['TIME']}
+                      interactive={false}
+                    />
+                    <charts.Months
+                      predicate={predicate}
+                      defaultOption="COLUMN"
+                      visibilityThreshold={0}
+                      interactive={false}
+                    />
+                  </DashBoardLayout>
+                </CardContent>
               </Card>
             )}
             {dataset?.taxonomicCoverages && dataset?.taxonomicCoverages?.length > 0 && (
@@ -205,6 +257,11 @@ export function DatasetKeyAbout() {
                 </CardHeader>
                 <CardContent>
                   <TaxonomicCoverages taxonomicCoverages={dataset.taxonomicCoverages} />
+                </CardContent>
+                <CardContent>
+                  <hr className="my-4" />
+                  <p className="text-slate-400 mb-2 text-sm">Derrived from occurrence data</p>
+                  <charts.Taxa predicate={predicate} visibilityThreshold={0} interactive={false} />
                 </CardContent>
               </Card>
             )}
@@ -236,7 +293,33 @@ export function DatasetKeyAbout() {
                     </SimpleTooltip>
                   </CardTitle>
                 </CardHeader>
-                <div className="mx-4 text-slate-500">Dashboard components not implemented yet</div>
+                <div className="text-slate-500">
+                  <ClientSideOnly>
+                    <DashBoardLayout>
+                      <charts.Iucn
+                        predicate={predicate}
+                        visibilityThreshold={0}
+                        interactive={false}
+                      />
+                      <charts.IucnCounts
+                        predicate={predicate}
+                        visibilityThreshold={1}
+                        interactive={false}
+                      />
+                      <charts.RecordedBy
+                        predicate={predicate}
+                        visibilityThreshold={0}
+                        defaultOption="TABLE"
+                        interactive={false}
+                      />
+                      <charts.OccurrenceIssue
+                        predicate={predicate}
+                        visibilityThreshold={0}
+                        interactive={false}
+                      />
+                    </DashBoardLayout>
+                  </ClientSideOnly>
+                </div>
               </section>
             )}
             {dataset?.additionalInfo && (

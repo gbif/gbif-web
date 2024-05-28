@@ -44,6 +44,7 @@ function TaxaMain({
             <DropdownMenuContent>
               {majorRanks.map((rank) => (
                 <DropdownMenuItem
+                  key={rank}
                   onClick={(e) => {
                     setRank(rank);
                     setQuery(getTaxonQuery(`${rank}Key`));
@@ -73,7 +74,7 @@ function TaxaMain({
             transform: (data) => {
               return data?.search?.facet?.results?.map((x) => {
                 return {
-                  key: x.key,
+                  key: x?.key,
                   title: x?.entity?.title,
                   count: x.count,
                   filter: { taxonKey: [x.key] },
