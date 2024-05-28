@@ -401,8 +401,8 @@
   },
   "isSequenced": {
     "name": "Is sequenced",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { Is sequenced } other {# Is sequenced}}",
+    "description": "Whether the record has sequence information."
   },
   "active": {
     "name": "Active",
