@@ -147,12 +147,12 @@ export function CollectionKey({
                   </GenericFeature>
                 )}
               </FeatureList>
-              {collection.catalogUrl && (
+              {collection?.catalogUrls && collection?.catalogUrls?.length > 0 && (
                 <FeatureList>
                   <GenericFeature>
                     <CatalogIcon />
                     <span>
-                      <a href={collection.catalogUrl}>
+                      <a href={collection.catalogUrls[0]}>
                         <FormattedMessage
                           id="grscicoll.dataCatalog"
                           defaultMessage="Data catalog"

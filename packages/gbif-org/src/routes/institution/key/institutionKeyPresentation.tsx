@@ -128,12 +128,12 @@ export function InstitutionKey({
                   </GenericFeature>
                 )}
               </FeatureList>
-              {institution.catalogUrl && (
+              {institution?.catalogUrls && institution?.catalogUrls?.length > 0 && (
                 <FeatureList>
                   <GenericFeature>
                     <CatalogIcon />
                     <span>
-                      <a href={institution.catalogUrl}>
+                      <a href={institution.catalogUrls[0]}>
                         <FormattedMessage
                           id="grscicoll.dataCatalog"
                           defaultMessage="Data catalog"

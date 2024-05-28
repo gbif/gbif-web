@@ -9,12 +9,13 @@ import {
   ContactTelephone,
   ContactTitle,
 } from '@/components/Contact';
+import EmptyValue from '@/components/EmptyValue';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import {
-  CardContentSmall,
-  CardHeaderSmall,
-  CardSmall,
-  CardTitleSmall,
+  CardContent as CardContentSmall,
+  CardHeader as CardHeaderSmall,
+  Card as CardSmall,
+  CardTitle as CardTitleSmall,
 } from '@/components/ui/smallCard';
 import { PublisherQuery } from '@/gql/graphql';
 import useBelow from '@/hooks/useBelow';
@@ -233,6 +234,7 @@ export function PublisherKeyAbout() {
                     dangerouslySetInnerHTML={{ __html: publisher.description }}
                   ></div>
                 )}
+                {!publisher?.description && <EmptyValue />}
               </CardContent>
             </Card>
 

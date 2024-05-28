@@ -99,7 +99,7 @@ export function HomePage(): React.ReactElement {
                 </DynamicLink>
               </li>
               <li>
-                <DynamicLink className="me-4" to="/dataset/b124e1e0-4755-430f-9eab-894f25a9b59c">
+                <DynamicLink className="me-4" to="/dataset/84d26682-f762-11e1-a439-00145eb45e9a">
                   Dataset
                 </DynamicLink>
               </li>

@@ -42,6 +42,7 @@ export const filters = [
   'gadmGid',
   'identifiedBy',
   'isInCluster',
+  // 'isSequenced',
   'hasCoordinate',
   'hasGeospatialIssue',
   'institutionKey',

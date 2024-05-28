@@ -246,6 +246,10 @@ const config =
       "type": "boolean",
       "field": "hasCoordinate"
     },
+    "isSequenced": {
+      "type": "boolean",
+      "field": "isSequenced"
+    },
     "hasGeospatialIssue": {
       "type": "boolean",
       "field": "hasGeospatialIssue"
