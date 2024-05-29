@@ -399,6 +399,11 @@
     "count": "",
     "description": "Of er automatisch verwante gegevens zijn gevonden."
   },
+  "isSequenced": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "active": {
     "name": "Actief",
     "count": "Actief",
