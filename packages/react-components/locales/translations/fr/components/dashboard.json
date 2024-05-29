@@ -18,6 +18,7 @@
   "withYear": "Avec l’année",
   "withCollector": "Avec récolteur",
   "withMedia": "Avec médias",
+  "withSequence": "Séquencé",
   "richness": "Richesse des données",
   "percentWithValue": "{percent}% de tous les enregistrements ont une valeur",
   "occurrences": "Occurrences",
