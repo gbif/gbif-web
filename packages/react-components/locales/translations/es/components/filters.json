@@ -400,9 +400,9 @@
     "description": "Si se determinó que el registro tenía registros relacionados."
   },
   "isSequenced": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Está secuenciado",
+    "count": "{num, plural, one { está secuenciado } other {# están secuenciados}}",
+    "description": "Si el registro tiene secuencias asociadas."
   },
   "active": {
     "name": "Activo",
