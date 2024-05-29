@@ -400,9 +400,9 @@
     "description": ""
   },
   "isSequenced": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Упорядочены",
+    "count": "{num, plural, one { упорядочен } few {# упорядочено} many {# упорядочены} other {# упорядочены}}",
+    "description": "Содержит ли запись упорядоченные данные"
   },
   "active": {
     "name": "Действующая",
