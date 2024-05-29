@@ -202,7 +202,7 @@ export function FeaturedImageContent({ featuredImageLicense, featuredImageUrl })
   if (!featuredImageUrl) return null;
 
   return <div style={{ position: 'relative' }}>
-    <Image src={featuredImageUrl} w={600} h={400} style={{ width: '100%', display: 'block' }} />
+    <Image src={featuredImageUrl} w={1000} h={667} style={{ width: '100%', display: 'block' }} />
     {featuredImageLicense && <div css={css`position: absolute; bottom: 0; left: 0; padding: 3px 5px; background: '#444'; color: white;`}>
       <Tooltip title={<div><FormattedMessage id="phrases.license" />: <FormattedMessage id={`enums.license.${featuredImageLicense}`} /></div>}><span><MdInfo /></span></Tooltip>
     </div>}

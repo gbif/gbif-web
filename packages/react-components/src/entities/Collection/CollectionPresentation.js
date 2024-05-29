@@ -102,7 +102,7 @@ Relating to ${env.GBIF_REGISTRY}/collection/${collection.key}
     <HeaderWrapper>
       <div css={css`display: flex;`}>
         <div css={css`flex: 0 0 auto; margin-inline-end: 24px;`}>
-          {!useInlineImage && collection.featuredImageUrl && <div css={css`position: relative; overflow: hidden; border-radius: 10px; width: ${hideSideBar ? '150px' : '300px'}; background: #f5f5f5;`}>
+          {!useInlineImage && collection.featuredImageUrl && <div css={css`position: relative; overflow: hidden; border-radius: 10px; width: ${hideSideBar ? '150px' : '500px'}; background: #f5f5f5;`}>
             <FeaturedImageContent featuredImageUrl={collection.featuredImageUrl} featuredImageLicense={collection.featuredImageLicense} />
           </div>}
         </div>
