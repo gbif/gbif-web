@@ -401,8 +401,8 @@
   },
   "isSequenced": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { Is geordend } other {# Is geordend}}",
+    "description": "Of het record sequentiegegevens heeft."
   },
   "active": {
     "name": "Actief",
