@@ -399,6 +399,11 @@
     "count": "{num, plural, one { is in cluster } other {# are in clusters}}",
     "description": "Whether the record was determined to have related records."
   },
+  "isSequenced": {
+    "name": "Is sequenced",
+    "count": "{num, plural, one { Is sequenced } other {# Is sequenced}}",
+    "description": "Whether the record has sequence information."
+  },
   "active": {
     "name": "Active",
     "count": "Active",
