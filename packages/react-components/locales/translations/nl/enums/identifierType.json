@@ -2,5 +2,6 @@
   "UUID": "UUID",
   "GBIF_PORTAL": "GBIF portaal",
   "GBIF_NODE": "GBIF knooppunt",
-  "GRID": "GRID"
+  "GRID": "GRID",
+  "CITES": "CITES"
 }
