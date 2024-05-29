@@ -18,6 +18,7 @@
   "withYear": "С указанием года",
   "withCollector": "С коллектором",
   "withMedia": "Содержит медиа",
+  "withSequence": "",
   "richness": "Обилие данных",
   "percentWithValue": "{percent}% всех записей имеют значение",
   "occurrences": "Находки",
