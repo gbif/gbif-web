@@ -400,8 +400,8 @@
     "description": "Est-ce que l'enregistrement a été déterminé à avoir des enregistrements liés."
   },
   "isSequenced": {
-    "name": "",
-    "count": "",
+    "name": "Est séquencé",
+    "count": "{num, plural, one { Est séquencé } other {# Sont séquencés}}",
     "description": ""
   },
   "active": {
