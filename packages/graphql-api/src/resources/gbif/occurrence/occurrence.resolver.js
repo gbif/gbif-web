@@ -124,7 +124,6 @@ export default {
           },
         })
         .then((response) => {
-          console.log(response);
           return {
             nodes: [],
             links: [{ source: 'hej', target: 'goddag' }],

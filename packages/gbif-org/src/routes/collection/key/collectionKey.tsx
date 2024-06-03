@@ -91,6 +91,10 @@ const COLLECTION_QUERY = /* GraphQL */ `
       apiUrls
       preservationTypes
       accessionStatus
+
+      featuredImageUrl: thumbor(width: 1000, height: 667)
+      featuredImageLicense
+      featuredImageUrl_fallback: homepageOGImageUrl_volatile
       
       created
       deleted

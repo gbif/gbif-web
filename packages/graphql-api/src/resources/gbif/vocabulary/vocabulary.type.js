@@ -16,6 +16,8 @@ const typeDef = gql`
   extend type Query {
     vocabulary(key: ID!): Vocabulary
 
+    vocabularyConcept(vocabulary: ID!, concept: ID!): VocabularyConcept
+
     vocabularyConceptSearch(
       vocabulary: ID!
       limit: Int
@@ -26,7 +28,7 @@ const typeDef = gql`
       replacedByKey: ID
       name: String
       deprecated: Boolean
-      key: ID
+      # key: ID
       hasParent: Boolean
       hasReplacement: Boolean
       includeChildrenCount: Boolean
@@ -37,7 +39,7 @@ const typeDef = gql`
   }
 
   type Vocabulary {
-    key: ID!,
+    # key: ID!,
     name: String!
     externalDefinitions: [String]!
     editorialNotes: [String]!
@@ -62,7 +64,7 @@ const typeDef = gql`
       replacedByKey: ID
       name: String
       deprecated: Boolean
-      key: ID
+      # key: ID
       hasParent: Boolean
       hasReplacement: Boolean
       includeChildrenCount: Boolean
@@ -72,7 +74,7 @@ const typeDef = gql`
   }
 
   type VocabularyDefinition {
-    key: ID!
+    # key: ID!
     language: String!
     value: String!
     created: DateTime
@@ -82,7 +84,7 @@ const typeDef = gql`
   }
 
   type VocabularyLabel {
-    key: ID!
+    # key: ID!
     language: String!
     value: String!
     created: DateTime
@@ -90,7 +92,7 @@ const typeDef = gql`
   }
 
   type VocabularyTag {
-    key: Int!
+    # key: Int!
     name: String!
     description: String
     color: String
@@ -117,7 +119,7 @@ const typeDef = gql`
   }
 
   type VocabularyConcept {
-    key: ID!
+    # key: ID!
     name: String!
     replacedByKey: ID
     deprecated: String
@@ -132,7 +134,7 @@ const typeDef = gql`
     alternativeLabelsLink: String
     hiddenLabelsLink: String
     children: [String]
-    parents: [String]
+    parents: [VocabularyConcept!]
     tags: [VocabularyTag]!
     sameAsUris: [String]
     label: [VocabularyLabel]
@@ -141,6 +143,7 @@ const typeDef = gql`
     uiDefinition(language: String): String
     editorialNotes: [String]
     externalDefinitions: [String]
+    vocabularyName: String
   }
 `;
 

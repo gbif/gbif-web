@@ -1,3 +1,6 @@
+import { getOGImage } from "#/helpers/utils";
+import { getThumborUrl } from "../resource/misc/misc.resolver";
+
 /**
  * fieldName: (parent, args, context, info) => data;
  * parent: An object that contains the result returned from the resolver on the parent type
@@ -36,6 +39,12 @@ export default {
       return dataSources.collectionAPI.getCollectionByKey({
         key: convertedToCollection,
       });
+    },
+    thumbor: ({ featuredImageUrl: url }, { fitIn, width = '', height = '' }) => getThumborUrl({url, fitIn, width, height}),
+    homepageOGImageUrl_volatile: ({ homepage }) => {
+      return getOGImage({ homepage }).then((response) => {
+        return response;
+      }).catch(() => null);
     },
     // this has since been added to the API as a regularly updated field.
     // occurrenceCount: ({ key }, args, { dataSources }) => {

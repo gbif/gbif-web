@@ -91,6 +91,10 @@ const INSTITUTION_QUERY = /* GraphQL */ `
       numberSpecimens
       logoUrl
 
+      featuredImageUrl: thumbor(width: 1000, height: 667)
+      featuredImageLicense
+      featuredImageUrl_fallback: homepageOGImageUrl_volatile
+
       masterSourceMetadata {
         key
         source

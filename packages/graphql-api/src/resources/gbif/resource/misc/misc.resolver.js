@@ -3,6 +3,20 @@ import config from '../../../../config';
 
 const thumbor = new Thumbor(config.thumborSecurityKey, config.thumbor ?? 'https://api.gbif.org/v1/image');
 
+export function getThumborUrl({url, fitIn, width = '', height = ''}) {
+  if (!url) return null;
+  
+  // if the url starts with // then it is a protocol relative url, and we need to add http: to it
+  const path = url.startsWith('//') ? `http:${url}` : url;
+  let img = thumbor.setImagePath(encodeURIComponent(path));
+  if (fitIn) {
+    img = img.fitIn(width, height);
+  } else {
+    img = img.resize(width, height);
+  }
+  return img.buildUrl();
+}
+
 /**
  * fieldName: (parent, args, context, info) => data;
  * parent: An object that contains the result returned from the resolver on the parent type
@@ -12,15 +26,7 @@ const thumbor = new Thumbor(config.thumborSecurityKey, config.thumbor ?? 'https:
  */
 export default {
   ImageFile: {
-    thumbor: ({ url }, { fitIn, width = '', height = '' }) => {
-      let img = thumbor.setImagePath(`http:${url}`);
-      if (fitIn) {
-        img = img.fitIn(width, height);
-      } else {
-        img = img.resize(width, height);
-      }
-      return img.buildUrl();
-    }
+    thumbor: ({ url }, { fitIn, width = '', height = '' }) => getThumborUrl({url, fitIn, width, height})
   },
   DocumentAssetFile: {
     volatile_documentType: ({ contentType }) => {

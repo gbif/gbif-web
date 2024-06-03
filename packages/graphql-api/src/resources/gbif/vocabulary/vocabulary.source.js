@@ -23,16 +23,24 @@ class VocabularyAPI extends RESTDataSource {
 
   async searchConcepts({ vocabulary, query }) {
     return this.get(
-      `/vocabularies/${vocabulary}/concepts/latestRelease`,
+      `/vocabularies/${vocabulary}/concepts/latestRelease?includeParents=true`,
       stringify(query, { indices: false }),
-    );
+    ).then(response => {
+      response.results.forEach(concept => {
+        concept.vocabularyName = vocabulary;
+      });
+      return response;
+    });
   }
 
   async getConcept({ vocabulary, concept, query }) {
     return this.get(
-      `/vocabularies/${vocabulary}/concepts/latestRelease/${concept}`,
+      `/vocabularies/${vocabulary}/concepts/latestRelease/${concept}?includeParents=true`,
       stringify(query, { indices: false }),
-    );
+    ).then(response => {
+      response.vocabularyName = vocabulary;
+      return response;
+    });
   }
 }
 

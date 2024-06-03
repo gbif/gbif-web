@@ -2,7 +2,8 @@
 
 import { cn } from '@/utils/shadcn';
 import { useEffect, useState } from 'react';
-import styles from './mapThumbnail.module.css';
+import { stringify } from '@/utils/querystring';
+import { ClientSideOnly } from './clientSideOnly';
 
 export enum MapTypes {
   DatasetKey = 'datasetKey',
@@ -12,7 +13,7 @@ export enum MapTypes {
   PublishingCountry = 'publishingCountry',
 }
 
-type PrimarySearch = { type: MapTypes, identifier: string } ;
+type PrimarySearch = { type: MapTypes; identifier: string };
 type BasemapStyle =
   | 'gbif-classic'
   | 'gbif-light'
@@ -54,14 +55,32 @@ export function MapThumbnail({
   if (!hasMap) return false;
 
   return (
-    <div dir="ltr" className={cn('relative w-32 flex-shrink-0', styles.thumbnail, className)}>
+    <div dir="ltr" className={cn('relative w-full overflow-hidden flex-shrink-0', className)}>
       <div>
-        <img src={`${import.meta.env.PUBLIC_TILE_API}/4326/omt/0/0/0@1x.png?style=${basemapStyle}`} />
-        <img src={`${import.meta.env.PUBLIC_TILE_API}/4326/omt/0/1/0@1x.png?style=${basemapStyle}`} />
+        <img
+          className="w-1/2 inline-block"
+          src={`${import.meta.env.PUBLIC_TILE_API}/4326/omt/0/0/0@1x.png?style=${basemapStyle}`}
+        />
+        <img
+          className="w-1/2 inline-block"
+          src={`${import.meta.env.PUBLIC_TILE_API}/4326/omt/0/1/0@1x.png?style=${basemapStyle}`}
+        />
       </div>
-      <div className={styles.overlay}>
-        <img onError={(e: any) => e.target.style.visibility = 'hidden'} src={`${import.meta.env.PUBLIC_API_V2}/map/occurrence/density/0/0/0@Hx.png?bin=hex&hexPerTile=20&style=${overlayStyle}&srs=EPSG:4326&${type}=${identifier}`} />
-        <img onError={(e: any) => e.target.style.visibility = 'hidden'} src={`${import.meta.env.PUBLIC_API_V2}/map/occurrence/density/0/1/0@Hx.png?bin=hex&hexPerTile=20&style=${overlayStyle}&srs=EPSG:4326&${type}=${identifier}`} />
+      <div className="absolute top-0 left-0">
+        <img
+          className="w-1/2 inline-block"
+          onError={(e: any) => (e.target.style.visibility = 'hidden')}
+          src={`${
+            import.meta.env.PUBLIC_API_V2
+          }/map/occurrence/density/0/0/0@Hx.png?bin=hex&hexPerTile=20&style=${overlayStyle}&srs=EPSG:4326&${type}=${identifier}`}
+        />
+        <img
+          className="w-1/2 inline-block"
+          onError={(e: any) => (e.target.style.visibility = 'hidden')}
+          src={`${
+            import.meta.env.PUBLIC_API_V2
+          }/map/occurrence/density/0/1/0@Hx.png?bin=hex&hexPerTile=20&style=${overlayStyle}&srs=EPSG:4326&${type}=${identifier}`}
+        />
       </div>
     </div>
   );
@@ -73,7 +92,12 @@ export function useHasMap({ type, identifier }: PrimarySearch) {
   useEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;
-    fetch(`${import.meta.env.PUBLIC_API_V2}/map/occurrence/density/capabilities.json?${type}=${identifier}`, { signal })
+    fetch(
+      `${
+        import.meta.env.PUBLIC_API_V2
+      }/map/occurrence/density/capabilities.json?${type}=${identifier}`,
+      { signal }
+    )
       .then((response) => response.json())
       .then((data) => {
         if (data.total > 0) {
@@ -95,4 +119,56 @@ export function useHasMap({ type, identifier }: PrimarySearch) {
   }, [type, identifier]);
 
   return hasMap;
+}
+
+export function AdHocMapThumbnail({
+  filter,
+  basemapStyle = 'gbif-geyser', // default value for basemapStyle
+  // basemapStyle = 'gbif-middle', // default value for basemapStyle
+  className,
+}: {
+  filter: JSON;
+  basemapStyle?: BasemapStyle;
+  className?: string;
+}) {
+  const overlayStyle = {
+    mode: 'GEO_CENTROID',
+    squareSize: '256',
+    style: 'scaled.circles',
+  };
+  const styleString = stringify(overlayStyle);
+  const filterString = stringify(filter);
+
+  return (
+    <div dir="ltr" className={cn('relative w-full overflow-hidden flex-shrink-0', className)}>
+      <div>
+        <img
+          className="w-1/2 inline-block"
+          src={`${import.meta.env.PUBLIC_TILE_API}/4326/omt/0/0/0@1x.png?style=${basemapStyle}`}
+        />
+        <img
+          className="w-1/2 inline-block"
+          src={`${import.meta.env.PUBLIC_TILE_API}/4326/omt/0/1/0@1x.png?style=${basemapStyle}`}
+        />
+      </div>
+      <div className="absolute top-0 left-0 right-0 bottom-0">
+        <ClientSideOnly>
+          <img
+            className="w-1/2 inline-block"
+            onError={(e: any) => (e.target.style.visibility = 'hidden')}
+            src={`${
+              import.meta.env.PUBLIC_API_V2
+            }/map/occurrence/adhoc/0/0/0@Hx.png?srs=EPSG%3A4326&${styleString}&${filterString}`}
+          />
+          <img
+            className="w-1/2 inline-block"
+            onError={(e: any) => (e.target.style.visibility = 'hidden')}
+            src={`${
+              import.meta.env.PUBLIC_API_V2
+            }/map/occurrence/adhoc/0/1/0@Hx.png?srs=EPSG%3A4326&${styleString}&${filterString}`}
+          />
+        </ClientSideOnly>
+      </div>
+    </div>
+  );
 }

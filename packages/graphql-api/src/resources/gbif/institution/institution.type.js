@@ -45,8 +45,8 @@ const typeDef = gql`
     email: [String]
     phone: [String]
     homepage: URL
-    catalogUrls: [URL]
-    apiUrls: [URL]
+    catalogUrls: [String!]
+    apiUrls: [String!]
     institutionalGovernances: [String!]
     disciplines: [String!]
     latitude: Float
@@ -84,6 +84,11 @@ const typeDef = gql`
 
     featuredImageUrl: String
     featuredImageLicense: License
+    thumbor(width: Int, height: Int, fitIn: Boolean): String
+    """
+    This can be used as a backup, but since it works by fetching the homepage url and extracting the open graph tags it can be slow. Use with caution.
+    """
+    homepageOGImageUrl_volatile: String
 
     occurrenceCount: Int
     masterSource: String

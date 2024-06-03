@@ -49,11 +49,11 @@ const typeDef = gql`
     active: Boolean
     personalCollection: Boolean
     doi: String
-    email: [String]
-    phone: [String]
+    email: [String!]
+    phone: [String!]
     homepage: URL
-    catalogUrls: [URL]
-    apiUrls: [URL]
+    catalogUrls: [String!]
+    apiUrls: [String!]
     preservationTypes: [String!]
     accessionStatus: String
     institutionKey: ID
@@ -68,12 +68,12 @@ const typeDef = gql`
     replacedBy: ID
     replacedByCollection: Collection
     tags:[Tag]
-    identifiers: [Identifier]
+    identifiers: [Identifier!]
     """
     The contacts type is deprecated and will no longer be updated
     """
     contacts: [StaffMember]
-    contactPersons: [ContactPerson]!
+    contactPersons: [ContactPerson!]!
     numberSpecimens: Int
     machineTags: [MachineTag]
     taxonomicCoverage: String
@@ -88,6 +88,11 @@ const typeDef = gql`
 
     featuredImageUrl: String
     featuredImageLicense: License
+    thumbor(width: Int, height: Int, fitIn: Boolean): String
+    """
+    This can be used as a backup, but since it works by fetching the homepage url and extracting the open graph tags it can be slow. Use with caution.
+    """
+    homepageOGImageUrl_volatile: String
 
     occurrenceCount: Int
     excerpt: String

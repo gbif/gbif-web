@@ -135,7 +135,7 @@ export function AutomaticPropertyValue({
   formatter?: (value: any) => React.ReactNode;
   showEmpty?: boolean;
 }) {
-  if (!value) {
+  if (value === null || typeof value === 'undefined' || value === '') {
     if (showEmpty) return <EmptyValue />;
     return null;
   }
@@ -170,6 +170,7 @@ export function Property({
   helpTextId,
   labelId,
   children,
+  className,
   ...props
 }: {
   value?: any;
@@ -179,6 +180,7 @@ export function Property({
   showEmpty?: boolean;
   formatter?: (value: any) => React.ReactNode;
   children?: React.ReactNode;
+  className?: string;
 } & React.HTMLAttributes<HTMLDivElement>) {
   // if there is no value, and the user do not ask to show empty values, then do not show anything
   if (
@@ -194,7 +196,7 @@ export function Property({
       <Term>
         <PropertyLabel titleId={labelId} {...{ helpText, helpTextId }} />
       </Term>
-      <Value>{children || <AutomaticPropertyValue value={value} {...props} />}</Value>
+      <Value className={className}>{children || <AutomaticPropertyValue value={value} {...props} />}</Value>
     </>
   );
 }

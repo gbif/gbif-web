@@ -102,7 +102,6 @@ const getCardinality =
         .then((data) => data.aggregations.cardinality.value)
         .catch(err => {
           console.log(err);
-          debugger;
         });
     };
 
