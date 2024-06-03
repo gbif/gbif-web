@@ -1,5 +1,5 @@
 import { Tabs } from '@/components/tabs';
-import { CollectionQuery, CollectionSummaryMetricsQuery, ContactPerson } from '@/gql/graphql';
+import { CollectionQuery, CollectionSummaryMetricsQuery } from '@/gql/graphql';
 import { Helmet } from 'react-helmet-async';
 import { Outlet } from 'react-router-dom';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
