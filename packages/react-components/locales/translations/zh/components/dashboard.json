@@ -18,6 +18,7 @@
   "withYear": "带年份",
   "withCollector": "带收集器",
   "withMedia": "带有介质",
+  "withSequence": "序列",
   "richness": "数据丰富度",
   "percentWithValue": "所有记录的{percent}%有一个值",
   "occurrences": "出现记录",

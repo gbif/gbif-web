@@ -18,6 +18,7 @@
   "withYear": "含年份",
   "withCollector": "含收集者",
   "withMedia": "含介質",
+  "withSequence": "已序列化",
   "richness": "資料豐富度",
   "percentWithValue": "{percent} % 所有的紀錄含有數值",
   "occurrences": "出現紀錄",

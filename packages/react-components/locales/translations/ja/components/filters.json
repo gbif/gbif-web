@@ -399,6 +399,11 @@
     "count": "",
     "description": ""
   },
+  "isSequenced": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "active": {
     "name": "活動中",
     "count": "活動中",

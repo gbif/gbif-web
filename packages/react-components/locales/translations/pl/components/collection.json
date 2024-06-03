@@ -1,5 +1,8 @@
 {
   "institutionUnknown": "Instytucja jest nieznana",
   "contentTypes": "Rodzaje zawartości",
+  "preservationTypes": "Typy ochrony",
+  "personalCollection": "Kolekcja osobista",
+  "accessionStatus": "",
   "numberSpecimens": "Liczba okazów w kolekcji"
 }

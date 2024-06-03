@@ -399,6 +399,11 @@
     "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
     "description": "Se foi determinado o registo ter outros registos relacionados."
   },
+  "isSequenced": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "active": {
     "name": "Ativo",
     "count": "Ativo",
