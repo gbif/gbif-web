@@ -61,7 +61,7 @@ export function InstitutionKey({
   const contactInfo = institution?.address?.country
     ? institution?.address
     : institution?.mailingAddress;
-  const feedbackTemplate = `Please provide you feedback here, but leave content below for context\n\n---\nRelating to ${GBIF_REGISTRY_ENDPOINT}/institution/${institution.key}`;
+  const feedbackTemplate = `Please provide your feedback here, but leave content below for context\n\n---\nRelating to ${GBIF_REGISTRY_ENDPOINT}/institution/${institution.key}`;
 
   const imageUrl = institution.featuredImageUrl ?? institution.featuredImageUrl_fallback;
 

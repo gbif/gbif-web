@@ -221,7 +221,7 @@ const baseRoutes: SourceRouteObject[] = [
             ],
           },
           {
-            key: 'institution-page',
+            id: RouteId.Institution, // TODO @daniel is there a reason for key vs id?
             gbifRedirect: (params) => {
               if (typeof params.key !== 'string') throw new Error('Invalid key');
               return `https://www.gbif.org/institution/${params.key}`;
