@@ -24,7 +24,7 @@ export function CountTag({
 
 export function Tag({ children, className }: { children: React.ReactNode, className?: string}) {
   return (
-    <span className={cn(`align-middle bg-slate-300/50 text-slate-800 text-xs font-medium px-2.5 py-0.5 m-1 mb-0 rounded dark:bg-red-900 dark:text-red-300`, className)}>
+    <span className={cn(`align-middle bg-slate-300/50 text-slate-800 text-xs font-medium px-2.5 py-0.5 m-1 mb-0 rounded`, className)}>
       {children}
     </span>
   );
