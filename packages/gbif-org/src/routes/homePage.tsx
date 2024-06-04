@@ -114,7 +114,7 @@ export function HomePage(): React.ReactElement {
                 </DynamicLink>
               </li>
               <li>
-                <DynamicLink className="me-4" to="/institution/2482559b-f103-4f35-8e75-e6119a4e2525">
+                <DynamicLink className="me-4" to="/institution/955b0e63-c3b5-4d74-8dfa-15b384b9ae77">
                   Institution
                 </DynamicLink>
               </li>

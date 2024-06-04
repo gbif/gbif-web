@@ -47,27 +47,28 @@ export default function About() {
 
   const imageUrl = collection.featuredImageUrl ?? collection.featuredImageUrl_fallback;
 
-  // TODO Daniel, it would be nice to have access to the calls that I have already made on the parent route. 
+  // TODO Daniel, it would be nice to have access to the calls that I have already made on the parent route.
   // should we move the routes from the main config in to the individual components? I wonder if that makes changes easier to manage. It would make passing data around easier.
 
   return (
     <ArticleContainer className="bg-slate-100 pt-4">
       <ArticleTextContainer className="max-w-screen-xl">
         <div className={`${removeSidebar ? '' : 'flex'}`}>
-          
-          {!removeSidebar && <aside className="flex-none w-96 me-4">
-            <div className="max-w-64 md:max-w-96 mb-4">
-              <AdHocMapThumbnail
-                filter={{ collectionKey: collection.key }}
-                className="rounded border"
-              />
-            </div>
-            <ClientSideOnly>
-              <charts.OccurrenceSummary predicate={predicate} className="mb-4" />
-              <charts.DataQuality predicate={predicate} className="mb-4" />
-              {/* <charts.Taxa predicate={predicate} className="mb-2" /> */}
-            </ClientSideOnly>
-          </aside>}
+          {!removeSidebar && (
+            <aside className="flex-none w-96 me-4">
+              <div className="max-w-64 md:max-w-96 mb-4">
+                <AdHocMapThumbnail
+                  filter={{ collectionKey: collection.key }}
+                  className="rounded border"
+                />
+              </div>
+              <ClientSideOnly>
+                <charts.OccurrenceSummary predicate={predicate} className="mb-4" />
+                <charts.DataQuality predicate={predicate} className="mb-4" />
+                {/* <charts.Taxa predicate={predicate} className="mb-2" /> */}
+              </ClientSideOnly>
+            </aside>
+          )}
 
           <div className="flex-grow">
             <Card className="mb-4">
@@ -200,12 +201,18 @@ export default function About() {
               </CardHeader>
               <CardContent>
                 <Properties useDefaultTermWidths className="mb-8">
-                  <Property labelId="grscicoll.email" className="prose">
-                    <a href={`mailto:${collection?.email}`} className="flex items-center">
-                      {/* <MailIcon /> */}
-                      {collection?.email}
-                    </a>
-                  </Property>
+                  {collection?.email?.length > 0 && (
+                    <Property
+                      labelId="grscicoll.email"
+                      className="prose"
+                      value={collection.email}
+                      formatter={(email) => (
+                        <a href={`mailto:${email}`} className="">
+                          {email}
+                        </a>
+                      )}
+                    ></Property>
+                  )}
                   <Property labelId="grscicoll.homepage">
                     <HyperText className="prose" text={collection?.homepage} />
                   </Property>

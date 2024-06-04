@@ -1,4 +1,4 @@
-import Properties, { Property, Term, Value } from '@/components/Properties';
+import Properties, { AutomaticPropertyValue, Property, Term, Value } from '@/components/Properties';
 import { InstitutionQuery } from '@/gql/graphql';
 import { RouteId, useParentRouteLoaderData } from '@/hooks/useParentRouteLoaderData';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
@@ -23,6 +23,12 @@ import { ConceptValue } from '@/components/ConceptValue';
 import { Tag } from '@/components/resultCards';
 import { DynamicLink } from '@/components/dynamicLink';
 import { FormattedNumber } from '@/components/dashboard/shared';
+import {
+  CardContent as CardContentSmall,
+  CardHeader as CardHeaderSmall,
+  Card as CardSmall,
+  CardTitle as CardTitleSmall,
+} from '@/components/ui/smallCard';
 
 export default function About() {
   const { data } = useParentRouteLoaderData(RouteId.Institution) as { data: InstitutionQuery };
@@ -156,7 +162,7 @@ export default function About() {
                           >
                             <td
                               scope="row"
-                              className="px-6 py-3 font-normal text-slate-900 whitespace-nowrap dark:text-white"
+                              className="px-6 py-3 font-medium text-slate-900 dark:text-white min-w-80"
                             >
                               <DynamicLink
                                 className="underline"
@@ -168,7 +174,9 @@ export default function About() {
                                 <Tag className="bg-red-700 text-white">Inactive</Tag>
                               )}
                             </td>
-                            <td className="px-1 py-3"><Tag>{collection.code}</Tag></td>
+                            <td className="px-1 py-3">
+                              <Tag className="whitespace-nowrap">{collection.code}</Tag>
+                            </td>
                             <td className="px-1 py-3">
                               <div
                                 className="line-clamp-2"
@@ -195,12 +203,18 @@ export default function About() {
               </CardHeader>
               <CardContent>
                 <Properties useDefaultTermWidths className="mb-8">
-                  <Property labelId="grscicoll.email" className="prose">
-                    <a href={`mailto:${institution?.email}`} className="flex items-center">
-                      {/* <MailIcon /> */}
-                      {institution?.email}
-                    </a>
-                  </Property>
+                  {institution?.email?.length > 0 && (
+                    <Property
+                      labelId="grscicoll.email"
+                      className="prose"
+                      value={institution.email}
+                      formatter={(email) => (
+                        <a href={`mailto:${email}`} className="">
+                          {email}
+                        </a>
+                      )}
+                    ></Property>
+                  )}
                   <Property labelId="grscicoll.homepage">
                     <HyperText className="prose" text={institution?.homepage} />
                   </Property>
@@ -401,37 +415,47 @@ export default function About() {
           </div>
           {!removeSidebar && (
             <aside className="sticky">
-              <Card className="mb-4">
-                <p>sdflkjh</p>
-                <p>sdflkjh</p>
-                <p>sdflkjh</p>
-                <p>sdflkjh</p>
-                <p>sdflkjh</p>
-                <p>sdflkjh</p>
-                <p>sdflkjh</p>
-                <p>aaa</p>
-              </Card>
-              <Card className="mb-4 sticky top-[--stickyOffset]">
-                <CardContent>
-                  <ul className="list-none p-0 m-0">
-                    <li className="mb-4">
-                      <a href="#description">
-                        <FormattedMessage id="description" />
+              <CardSmall className="mb-4">
+                {institution.longitude && (
+                  <a
+                    className="block"
+                    href={`http://www.google.com/maps/place/${institution.latitude},${institution.longitude}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      style={{ width: '100%', display: 'block' }}
+                      src={`https://api.mapbox.com/styles/v1/mapbox/streets-v9/static/pin-s-circle+285A98(${institution.longitude},${institution.latitude})/${institution.longitude},${institution.latitude},15,0/400x250@2x?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA`}
+                    />
+                  </a>
+                )}
+              </CardSmall>
+              <CardSmall className="mb-4 sticky top-[--stickyOffset]">
+                <ul className="list-none px-4 py-2">
+                  <li className="py-1">
+                    <a href="#description">
+                      <FormattedMessage id="Description" />
+                    </a>
+                  </li>
+                  {institution?.collections && institution?.collections?.length > 0 && (
+                    <li className="py-1">
+                      <a href="#collections">
+                        <FormattedMessage id="Collections" />
                       </a>
                     </li>
-                    <li className="mb-4">
-                      <a href="#contacts">
-                        <FormattedMessage id="contacts" />
-                      </a>
-                    </li>
-                    <li className="mb-4">
-                      <a href="#identifiers">
-                        <FormattedMessage id="Indentifiers" />
-                      </a>
-                    </li>
-                  </ul>
-                </CardContent>
-              </Card>
+                  )}
+                  <li className="py-1">
+                    <a href="#contacts">
+                      <FormattedMessage id="Contacts" />
+                    </a>
+                  </li>
+                  <li className="py-1">
+                    <a href="#identifiers">
+                      <FormattedMessage id="Identifiers" />
+                    </a>
+                  </li>
+                </ul>
+              </CardSmall>
             </aside>
           )}
         </div>

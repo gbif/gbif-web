@@ -70,7 +70,7 @@ export function Value({
 } & React.HTMLAttributes<HTMLDivElement>) {
   // what is the correct type here, I cannot see dd as a type
   return (
-    <dd className={cn('leading-tight last-of-type:mb-0', className)} {...props}>
+    <dd className={cn('break-words leading-tight last-of-type:mb-0', className)} {...props}>
       {children}
     </dd>
   );

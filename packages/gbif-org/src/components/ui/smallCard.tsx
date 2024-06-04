@@ -23,7 +23,7 @@ const Card = React.forwardRef<
           style={{
             backgroundImage: 'url(https://graphql.gbif.org/images/error.svg)',
           }}
-          className="hidden md:block flex-none w-32 h-32 bg-no-repeat bg-center bg-cover bg-contain"
+          className="hidden md:block flex-none w-32 h-32 bg-no-repeat bg-center bg-contain"
         ></div>
         <div
         className="flex-auto flex flex-col px-2 md:px-4"

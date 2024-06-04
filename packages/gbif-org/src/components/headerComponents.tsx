@@ -91,7 +91,7 @@ export function HeaderInfo({
   children: React.ReactNode;
 } & React.ComponentProps<'div'>) {
   return (
-    <div className={cn('mt-6 mb-3 flex items-end', className)} {...props}>
+    <div className={cn('mt-6 flex items-end', className)} {...props}>
       {children}
     </div>
   );

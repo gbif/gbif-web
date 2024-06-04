@@ -272,7 +272,7 @@ export function DatasetPage() {
               </FeatureList>
             </HeaderInfoMain>
           </HeaderInfo>
-          <div className="border-b"></div>
+          <div className="border-b mt-4"></div>
           <Tabs
             links={[
               { to: '.', children: 'About' },

@@ -12,7 +12,7 @@ import {
   DeletedMessage,
   HeaderInfo,
   HeaderInfoEdit,
-  HeaderInfoMain
+  HeaderInfoMain,
 } from '@/components/headerComponents';
 import {
   Homepage,
@@ -49,7 +49,7 @@ export function InstitutionKey({
   // const collections = institutionCollections?.collections;
   const tabs = [
     { to: '.', children: 'About' },
-    { to: 'collection', children: 'Collections' }, // TODO, tabs can only be strings <FormattedMessage id="counts.nCollections" values={{ total: collections?.length }} />
+    // { to: 'collection', children: 'Collections' }, // TODO, tabs can only be strings <FormattedMessage id="counts.nCollections" values={{ total: collections?.length }} />
   ];
 
   // if there is occurrences, then add a specimens tab
@@ -200,8 +200,12 @@ export function InstitutionKey({
               </HeaderInfo>
             </div>
           </div>
-          <div className="border-b"></div>
-          <Tabs links={tabs} />
+          {tabs.length > 1 && (
+            <>
+              <div className="border-b"></div>
+              <Tabs links={tabs} />
+            </>
+          )}
         </ArticleTextContainer>
       </ArticleContainer>
 
