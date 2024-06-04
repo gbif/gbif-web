@@ -118,9 +118,10 @@ const Map = ({ data, polygons, setPolygons, onPolygonSelect }) => {
         },
         optionalExcludeAllPredicate
       ].filter(x => x)
+        .filter(x => (x.type === 'and' && x.predicates.length > 0) || x.type !== 'and')
+        .filter(x => (x.type === 'or' && x.predicates.length > 0) || x.type !== 'or')
     };
     setPredicate(predicate);
-    console.log('predicate', predicate);
   }, [currentFilterContext.filterHash]);
 
   useEffect(() => {
