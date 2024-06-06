@@ -1,5 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  corePlugins: {
+    preflight: false, // We do not want the preflight reset to apply to all sites where these componetns are used. Instead the reset is applied in index.css as a class
+  },
+  // prefix: 'g-', // prefix all classes with g- to avoid conflicts with other css frameworks
   darkMode: ["class"],
   content: [
     './pages/**/*.{ts,tsx,jsx}',
