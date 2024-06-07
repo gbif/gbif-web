@@ -3,7 +3,7 @@ import { cn } from '@/utils/shadcn';
 
 const Table = React.forwardRef<HTMLTableElement, React.HTMLAttributes<HTMLTableElement>>(
   ({ className, ...props }, ref) => (
-    <div className="relative w-full overflow-auto h-full">
+    <div className='g-relative g-w-full g-overflow-auto g-h-full'>
       <table
         ref={ref}
         className={cn('w-full caption-bottom text-sm h-full', className)}

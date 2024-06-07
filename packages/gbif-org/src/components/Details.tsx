@@ -33,7 +33,7 @@ export function Details({
         e.preventDefault();
         onControlledChange(!controlledValue);
       }}>
-        <div className="flex-auto">{summary}</div>
+        <div className='g-flex-auto'>{summary}</div>
         <div className={cn(`flex-none text-slate-500 ${open ? '' : ''}`, iconClassName)}>{controlledValue ? <MdArrowDropUp /> : <MdArrowDropDown />}</div>
       </summary>
     <div>

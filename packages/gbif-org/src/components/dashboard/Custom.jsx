@@ -251,7 +251,7 @@ function IucnCategory({ code, category }) {
   return (
     <SimpleTooltip title={<FormattedMessage id={`enums.threatStatus.${category}`} />}>
       <span
-        className="bg-[#7a443a] text-white px-1 py-0.5 text-xs font-bold rounded-md mr-2"
+        className='g-bg-[#7a443a] g-text-white g-px-1 g-py-0.5 g-text-xs g-font-bold g-rounded-md g-mr-2'
       >
         {code}
       </span>

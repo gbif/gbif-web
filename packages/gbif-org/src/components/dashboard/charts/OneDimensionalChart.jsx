@@ -225,7 +225,7 @@ export function OneDimensionalChart({
     </CardHeader>
     <CardContent>
       {distinct === 0 && <div 
-        className="text-center text-slate-400"
+        className='g-text-center g-text-slate-400'
       >
         <FormattedMessage id="dashboard.noData" defaultMessage="No data" />
       </div>}
@@ -252,7 +252,7 @@ export function OneDimensionalChart({
         {renderedView !== 'TIME' && <Pagging facetResults={facetResults} />}
 
         {messages.length > 0 && <div 
-          className="text-slate-400 text-sm hover:text-slate-800 p:my-1 transition-colors"
+          className='g-text-slate-400 g-text-sm hover:g-text-slate-800 p:g-my-1 g-transition-colors'
         >
           {messages.map((message, i) => <div key={i}>
             {typeof message === 'string' && <FormattedMessage id={message} />}

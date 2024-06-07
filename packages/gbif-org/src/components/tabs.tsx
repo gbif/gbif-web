@@ -60,7 +60,7 @@ export function Tabs({ links, className }: Props) {
 
   return (
     <div ref={containerRef} className={cn('relative', className)}>
-      <ul className="border-b border-slate-200 flex whitespace-nowrap dark:border-slate-200/5 overflow-hidden -mb-px">
+      <ul className='g-border-b g-border-slate-200 g-flex g-whitespace-nowrap dark:g-border-slate-200/5 g-overflow-hidden -g-mb-px'>
         {links.map(({ to, children }, idx) => {
           const visible = idx < visibleTabCount;
 
@@ -83,7 +83,7 @@ export function Tabs({ links, className }: Props) {
             'absolute top-1/2 -translate-y-1/2'
           )}
         >
-          <MdMoreHoriz className="text-2xl" />
+          <MdMoreHoriz className='g-text-2xl' />
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           {links.slice(visibleTabCount).map(({ to, children }) => (
@@ -91,7 +91,7 @@ export function Tabs({ links, className }: Props) {
               <DynamicLink
                 onClick={() => setIsDropdownOpen(false)}
                 to={to}
-                className="w-full justify-center"
+                className='g-w-full g-justify-center'
               >
                 {children}
               </DynamicLink>

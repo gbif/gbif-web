@@ -62,31 +62,31 @@ export function ArticlePage() {
       </Helmet>
 
       <ArticleContainer>
-        <ArticleTextContainer className="mb-10">
+        <ArticleTextContainer className='g-mb-10'>
           <ArticleTitle dangerouslySetTitle={{ __html: resource.title }} />
 
           {resource.summary && (
-            <ArticleIntro dangerouslySetIntro={{ __html: resource.summary }} className="mt-2" />
+            <ArticleIntro dangerouslySetIntro={{ __html: resource.summary }} className='g-mt-2' />
           )}
         </ArticleTextContainer>
 
-        <ArticleBanner className="mt-8 mb-6" image={resource?.primaryImage} />
+        <ArticleBanner className='g-mt-8 g-mb-6' image={resource?.primaryImage} />
 
         <ArticleTextContainer>
           {resource.body && (
-            <ArticleBody dangerouslySetBody={{ __html: resource.body }} className="mt-2" />
+            <ArticleBody dangerouslySetBody={{ __html: resource.body }} className='g-mt-2' />
           )}
 
           <ArticleFooterWrapper>
             {resource.secondaryLinks && (
               <ArticleAuxiliary>
-                <SecondaryLinks links={resource.secondaryLinks} className="mt-8" />
+                <SecondaryLinks links={resource.secondaryLinks} className='g-mt-8' />
               </ArticleAuxiliary>
             )}
 
             {resource.documents && (
               <ArticleAuxiliary>
-                <Documents documents={resource.documents} className="mt-8" />
+                <Documents documents={resource.documents} className='g-mt-8' />
               </ArticleAuxiliary>
             )}
 
@@ -100,7 +100,7 @@ export function ArticlePage() {
               />
             )}
 
-            <ArticleTags resource={resource} className="mt-8" />
+            <ArticleTags resource={resource} className='g-mt-8' />
           </ArticleFooterWrapper>
         </ArticleTextContainer>
       </ArticleContainer>

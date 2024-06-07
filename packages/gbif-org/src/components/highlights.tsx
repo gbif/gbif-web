@@ -156,7 +156,7 @@ export function GadmClassification({
     <GenericFeature className={className}>
       <GlobeIcon />
       <div>
-        <GadmClassificationList gadm={gadm} className="inline-block me-2" /> {children}
+        <GadmClassificationList gadm={gadm} className='g-inline-block g-me-2' /> {children}
       </div>
     </GenericFeature>
   );

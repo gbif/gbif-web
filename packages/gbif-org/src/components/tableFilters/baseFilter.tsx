@@ -26,10 +26,10 @@ export function BaseFilter({ name, children, selectedOptions, isOpen, setIsOpen 
           ? `${name}: ${selectedOptions[0].label}`
           : `${name}: ${selectedOptions.length}`}
       </PopoverTrigger>
-      <PopoverContent className="p-0">
-        <div className="p-4">{name}</div>
+      <PopoverContent className='g-p-0'>
+        <div className='g-p-4'>{name}</div>
         <Separator />
-        <div className="p-4">{children}</div>
+        <div className='g-p-4'>{children}</div>
       </PopoverContent>
     </Popover>
   );

@@ -44,7 +44,7 @@ export function MediaBlock({ resource, insideCarousel = false }: Props) {
       {resource.mediaTitle && (
         <BlockHeading dangerouslySetHeading={{ __html: resource.mediaTitle }} />
       )}
-      <MediaBlockContent className="max-w-6xl m-auto px-10 my-10" resource={resource} />
+      <MediaBlockContent className='g-max-w-6xl g-m-auto g-px-10 g-my-10' resource={resource} />
     </BlockContainer>
   );
 }
@@ -61,7 +61,7 @@ function MediaBlockContent({
       })}
     >
       {resource.optionalImg && (
-        <div className="flex-1">
+        <div className='g-flex-1'>
           <img
             src={resource.optionalImg.file.mobile}
             alt={resource.optionalImg.description ?? ''}
@@ -73,18 +73,18 @@ function MediaBlockContent({
           />
         </div>
       )}
-      <div className="flex-1">
-        {insideCarousel && <h4 className="text-xl font-medium">{resource.mediaTitle}</h4>}
-        <p className="text-sm">{resource.subtitle}</p>
+      <div className='g-flex-1'>
+        {insideCarousel && <h4 className='g-text-xl g-font-medium'>{resource.mediaTitle}</h4>}
+        <p className='g-text-sm'>{resource.subtitle}</p>
         {resource.body && (
-          <ArticleBody className="mt-4" dangerouslySetBody={{ __html: resource.body }} />
+          <ArticleBody className='g-mt-4' dangerouslySetBody={{ __html: resource.body }} />
         )}
         {resource.callToAction && (
-          <div className="flex gap-4 flex-wrap mt-4">
+          <div className='g-flex g-gap-4 g-flex-wrap g-mt-4'>
             {resource.callToAction.map((cta) => (
               <DynamicLink
                 key={cta.url}
-                className="text-primary-300 hover:text-primary-500 hover:underline underline-offset-2"
+                className='g-text-primary-300 hover:g-text-primary-500 hover:g-underline g-underline-offset-2'
                 to={cta.url}
               >
                 {cta.label}

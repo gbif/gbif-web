@@ -28,7 +28,7 @@ type BlockHeadingProps = {
 
 export function BlockHeading({ className, dangerouslySetHeading }: BlockHeadingProps) {
   return (
-    <ArticleTextContainer className="mb-10">
+    <ArticleTextContainer className='g-mb-10'>
       <h2
         className={cn(
           'text-2xl sm:text-3xl inline-block font-extrabold text-slate-900 tracking-tight dark:text-slate-200 pt-16',

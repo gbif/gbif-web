@@ -28,8 +28,8 @@ export function GroupByTable({
   if (loading) {
     return <div>
       {[1, 2].map(x => <React.Fragment key={x}>
-        <Skeleton className="h-6" width="60%" style={{ marginBottom: 12 }} />
-        <Skeleton className="h-6" style={{ marginBottom: 12 }} />
+        <Skeleton className='g-h-6' width="60%" style={{ marginBottom: 12 }} />
+        <Skeleton className='g-h-6' style={{ marginBottom: 12 }} />
       </ React.Fragment>)}
     </div>
   }
@@ -37,15 +37,15 @@ export function GroupByTable({
   return <div style={{ overflow: 'auto' }}>
     <Table>
       {columnTitle && <thead 
-        className="[&_th]:text-sm [&_th]:font-normal [&_th]:py-2 [&_th]:text-slate-500"
+        className='[&_th]:g-text-sm [&_th]:g-font-normal [&_th]:g-py-2 [&_th]:g-text-slate-500'
     >
         <tr>
-          <th className="text-start">{columnTitle}</th>
-          <th className="text-end">{columnCount}</th>
+          <th className='g-text-start'>{columnTitle}</th>
+          <th className='g-text-end'>{columnCount}</th>
           <th></th>
         </tr>
       </thead>}
-      <tbody className="[&_td]:align-baseline [&_th]:text-sm [&_th]:font-normal">
+      <tbody className='[&_td]:g-align-baseline [&_th]:g-text-sm [&_th]:g-font-normal'>
         {results.map((e, i) => {
           const perentageOfTotal = e.count / total;
           return <tr key={e.key}>
@@ -56,17 +56,17 @@ export function GroupByTable({
               }>{e.title}</div>}
               {!e.filter && <div>{e.title}</div>}
               {e.description && <div
-                className="text-slate-400 text-sm mb-1" 
+                className='g-text-slate-400 g-text-sm g-mb-1' 
                 >{e.description}
               </div>}
             </td>
             <td 
-              className="text-end"
+              className='g-text-end'
               ><FormattedNumber value={e.count} /></td>
-            <td className="w-20">
+            <td className='g-w-20'>
               <Tooltip title={`${formatAsPercentage(perentageOfTotal)}% of total`} side="left">
                 <div>
-                  <Progress value={100 * e.count / maxCount} className="w-20 relative" style={{ top: 2, height: '1em' }} />
+                  <Progress value={100 * e.count / maxCount} className='g-w-20 g-relative' style={{ top: 2, height: '1em' }} />
                 </div>
               </Tooltip>
             </td>
@@ -82,9 +82,9 @@ export function GroupBy({ facetResults, transform, ...props }) {
   const mappedResults = transform ? transform(data) : results;
   return <>
     <div 
-      className="text-sm text-slate-500 mb-1"
+      className='g-text-sm g-text-slate-500 g-mb-1'
       >
-      {loading && <Skeleton className="h-6 mb-2" width="100px" />}
+      {loading && <Skeleton className='g-h-6 g-mb-2' width="100px" />}
       {!loading && distinct > 0 && <><FormattedMessage id="counts.nResults" values={{total: distinct}} /></>}
     </div>
     <GroupByTable results={mappedResults} total={total} {...props} loading={loading} />
@@ -95,10 +95,10 @@ export function Pagging({ facetResults, ...props }) {
   const { next, prev, isLastPage, isFirstPage } = facetResults;
   if (isFirstPage && isLastPage) return null;
   return <div 
-    className="mb-2"
+    className='g-mb-2'
     >
     {!(isLastPage && isFirstPage) && <Button size="sm" variant="secondary" onClick={prev} 
-      className="me-2"
+      className='g-me-2'
      disabled={isFirstPage}><FormattedMessage id="pagination.previous" /></Button>}
     {!isLastPage && <Button size="sm" variant="secondary" onClick={next}><FormattedMessage id="pagination.next" /></Button>}
   </div>

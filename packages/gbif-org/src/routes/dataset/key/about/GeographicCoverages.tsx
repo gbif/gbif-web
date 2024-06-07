@@ -65,7 +65,7 @@ function GeographicCoverage({ coverage }) {
   return (
     <Properties useDefaultTermWidths>
       <Term><FormattedMessage id="dataset.description" /></Term>
-      <Value><HyperText className="prose" text={coverage.description} /></Value>
+      <Value><HyperText className='g-prose' text={coverage.description} /></Value>
       {geoJSON && (
         <>
           <Term></Term>

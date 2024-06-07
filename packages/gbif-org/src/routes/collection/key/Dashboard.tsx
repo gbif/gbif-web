@@ -13,20 +13,20 @@ export default function Dashboard() {
     key: 'collectionKey',
     value: data?.collection?.key,
   };
-  return <ArticleContainer className="bg-slate-100 pt-2 md:pt-4">
-  <ArticleTextContainer className="max-w-screen-xl">
+  return <ArticleContainer className='g-bg-slate-100 g-pt-2 md:g-pt-4'>
+  <ArticleTextContainer className='g-max-w-screen-xl'>
     <ClientSideOnly>
       <DashBoardLayout>
-        <charts.OccurrenceSummary predicate={predicate} className="mb-2" />
-        <charts.DataQuality predicate={predicate} className="mb-2" />
-        <charts.EventDate predicate={predicate} options={['TIME']} interactive={false} className="mb-2" />
-        <charts.Preparations predicate={predicate} visibilityThreshold={0}  defaultOption="PIE" className="mb-2" />
-        <charts.Taxa predicate={predicate}  className="mb-2" />
-        <charts.Iucn predicate={predicate} visibilityThreshold={0}  className="mb-2" />
-        <charts.IucnCounts predicate={predicate} visibilityThreshold={0}  className="mb-2" />
-        <charts.RecordedBy predicate={predicate} visibilityThreshold={0}  defaultOption="TABLE" className="mb-2" />
-        <charts.IdentifiedBy predicate={predicate} visibilityThreshold={0}  defaultOption="TABLE" className="mb-2" />
-        <charts.Country predicate={predicate} visibilityThreshold={1}  options={['PIE', 'TABLE']} className="mb-2" />
+        <charts.OccurrenceSummary predicate={predicate} className='g-mb-2' />
+        <charts.DataQuality predicate={predicate} className='g-mb-2' />
+        <charts.EventDate predicate={predicate} options={['TIME']} interactive={false} className='g-mb-2' />
+        <charts.Preparations predicate={predicate} visibilityThreshold={0}  defaultOption="PIE" className='g-mb-2' />
+        <charts.Taxa predicate={predicate}  className='g-mb-2' />
+        <charts.Iucn predicate={predicate} visibilityThreshold={0}  className='g-mb-2' />
+        <charts.IucnCounts predicate={predicate} visibilityThreshold={0}  className='g-mb-2' />
+        <charts.RecordedBy predicate={predicate} visibilityThreshold={0}  defaultOption="TABLE" className='g-mb-2' />
+        <charts.IdentifiedBy predicate={predicate} visibilityThreshold={0}  defaultOption="TABLE" className='g-mb-2' />
+        <charts.Country predicate={predicate} visibilityThreshold={1}  options={['PIE', 'TABLE']} className='g-mb-2' />
       </DashBoardLayout>
     </ClientSideOnly>
   </ArticleTextContainer>

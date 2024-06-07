@@ -65,29 +65,29 @@ export function DataUsePage() {
       </Helmet>
 
       <ArticleContainer>
-        <ArticleTextContainer className="mb-10">
+        <ArticleTextContainer className='g-mb-10'>
           <ArticlePreTitle>
             <FormattedMessage id="cms.contentType.dataUse" />
           </ArticlePreTitle>
 
           <ArticleTitle dangerouslySetTitle={{ __html: resource.title }} />
 
-          {resource.createdAt && <PublishedDate className="mt-2" date={resource.createdAt} />}
+          {resource.createdAt && <PublishedDate className='g-mt-2' date={resource.createdAt} />}
 
           {resource.summary && (
-            <ArticleIntro dangerouslySetIntro={{ __html: resource.summary }} className="mt-2" />
+            <ArticleIntro dangerouslySetIntro={{ __html: resource.summary }} className='g-mt-2' />
           )}
 
-          <ArticleIntro className="mt-2">
+          <ArticleIntro className='g-mt-2'>
             <FormattedMessage id="cms.datause.dataViaGbif" /> : {resource.resourceUsed}
           </ArticleIntro>
         </ArticleTextContainer>
 
-        <ArticleBanner className="mt-8 mb-6" image={resource?.primaryImage} />
+        <ArticleBanner className='g-mt-8 g-mb-6' image={resource?.primaryImage} />
 
         <ArticleTextContainer>
           {resource.body && (
-            <ArticleBody dangerouslySetBody={{ __html: resource.body }} className="mt-2" />
+            <ArticleBody dangerouslySetBody={{ __html: resource.body }} className='g-mt-2' />
           )}
 
           <ArticleFooterWrapper>
@@ -101,7 +101,7 @@ export function DataUsePage() {
               />
             )}
 
-            <ArticleTags resource={resource} className="mt-8" />
+            <ArticleTags resource={resource} className='g-mt-8' />
           </ArticleFooterWrapper>
         </ArticleTextContainer>
       </ArticleContainer>

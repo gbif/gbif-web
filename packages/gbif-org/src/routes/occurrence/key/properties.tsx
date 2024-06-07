@@ -227,7 +227,7 @@ export function Chips({
 }
 
 function Tags({ children }: { children: React.ReactNode }) {
-  return <div className="-mx-1 inline-block">{children}</div>;
+  return <div className='-g-mx-1 g-inline-block'>{children}</div>;
 }
 
 function Tag({ type, children }: { type: string; children: React.ReactNode }) {

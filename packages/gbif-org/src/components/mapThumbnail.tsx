@@ -58,24 +58,24 @@ export function MapThumbnail({
     <div dir="ltr" className={cn('relative w-full overflow-hidden flex-shrink-0', className)}>
       <div>
         <img
-          className="w-1/2 inline-block"
+          className='g-w-1/2 g-inline-block'
           src={`${import.meta.env.PUBLIC_TILE_API}/4326/omt/0/0/0@1x.png?style=${basemapStyle}`}
         />
         <img
-          className="w-1/2 inline-block"
+          className='g-w-1/2 g-inline-block'
           src={`${import.meta.env.PUBLIC_TILE_API}/4326/omt/0/1/0@1x.png?style=${basemapStyle}`}
         />
       </div>
-      <div className="absolute top-0 left-0">
+      <div className='g-absolute g-top-0 g-left-0'>
         <img
-          className="w-1/2 inline-block"
+          className='g-w-1/2 g-inline-block'
           onError={(e: any) => (e.target.style.visibility = 'hidden')}
           src={`${
             import.meta.env.PUBLIC_API_V2
           }/map/occurrence/density/0/0/0@Hx.png?bin=hex&hexPerTile=20&style=${overlayStyle}&srs=EPSG:4326&${type}=${identifier}`}
         />
         <img
-          className="w-1/2 inline-block"
+          className='g-w-1/2 g-inline-block'
           onError={(e: any) => (e.target.style.visibility = 'hidden')}
           src={`${
             import.meta.env.PUBLIC_API_V2
@@ -143,25 +143,25 @@ export function AdHocMapThumbnail({
     <div dir="ltr" className={cn('relative w-full overflow-hidden flex-shrink-0', className)}>
       <div>
         <img
-          className="w-1/2 inline-block"
+          className='g-w-1/2 g-inline-block'
           src={`${import.meta.env.PUBLIC_TILE_API}/4326/omt/0/0/0@1x.png?style=${basemapStyle}`}
         />
         <img
-          className="w-1/2 inline-block"
+          className='g-w-1/2 g-inline-block'
           src={`${import.meta.env.PUBLIC_TILE_API}/4326/omt/0/1/0@1x.png?style=${basemapStyle}`}
         />
       </div>
-      <div className="absolute top-0 left-0 right-0 bottom-0">
+      <div className='g-absolute g-top-0 g-left-0 g-right-0 g-bottom-0'>
         <ClientSideOnly>
           <img
-            className="w-1/2 inline-block"
+            className='g-w-1/2 g-inline-block'
             onError={(e: any) => (e.target.style.visibility = 'hidden')}
             src={`${
               import.meta.env.PUBLIC_API_V2
             }/map/occurrence/adhoc/0/0/0@Hx.png?srs=EPSG%3A4326&${styleString}&${filterString}`}
           />
           <img
-            className="w-1/2 inline-block"
+            className='g-w-1/2 g-inline-block'
             onError={(e: any) => (e.target.style.visibility = 'hidden')}
             src={`${
               import.meta.env.PUBLIC_API_V2

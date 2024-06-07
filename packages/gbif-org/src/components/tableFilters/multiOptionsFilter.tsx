@@ -47,8 +47,8 @@ export function MultiOptionsFilterComponent({ filter, onSubmit }: Props) {
       selectedOptions={selectedOptions}
     >
       <Form {...form}>
-        <div className="flex items-center justify-between pb-2">
-          <span className="text-sm text-gray-400 block">
+        <div className='g-flex g-items-center g-justify-between g-pb-2'>
+          <span className='g-text-sm g-text-gray-400 g-block'>
             <SelectedCount control={form.control} /> selected
           </span>
 
@@ -71,7 +71,7 @@ export function MultiOptionsFilterComponent({ filter, onSubmit }: Props) {
                     control={form.control}
                     name="values"
                     render={({ field }) => (
-                      <FormItem key={option.value} className="flex items-center space-y-0">
+                      <FormItem key={option.value} className='g-flex g-items-center g-space-y-0'>
                         <FormControl>
                           <Checkbox
                             checked={field.value?.includes(option.value)}
@@ -84,7 +84,7 @@ export function MultiOptionsFilterComponent({ filter, onSubmit }: Props) {
                             }}
                           />
                         </FormControl>
-                        <FormLabel className="font-normal pl-2 cursor-pointer">
+                        <FormLabel className='g-font-normal g-pl-2 g-cursor-pointer'>
                           {option.label}
                         </FormLabel>
                       </FormItem>
@@ -94,7 +94,7 @@ export function MultiOptionsFilterComponent({ filter, onSubmit }: Props) {
               </FormItem>
             )}
           />
-          <div className="pt-6 flex items-center justify-end space-x-4">
+          <div className='g-pt-6 g-flex g-items-center g-justify-end g-space-x-4'>
             <Button type="reset" variant="outline" onClick={() => setIsOpen(false)}>
               Cancel
             </Button>
@@ -123,7 +123,7 @@ function ClearButton({
   const options = useWatch({ control, name: 'values' });
   if (options.length === 0) return null;
   return (
-    <Button className="p-0 h-4" variant="linkDestructive" onClick={onClick}>
+    <Button className='g-p-0 g-h-4' variant="linkDestructive" onClick={onClick}>
       Clear
     </Button>
   );

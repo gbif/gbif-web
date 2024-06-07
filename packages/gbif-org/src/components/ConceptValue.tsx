@@ -30,7 +30,7 @@ export const ConceptValue = ({ vocabulary, name, includeContext }: {
   const parentLabels = concept.parents?.length && concept.parents?.length > 0 && concept.parents?.map(parent => parent.uiLabel).join(', ');
   if (includeContext) {
     return <>
-      {concept?.uiLabel}{' '}{<span className="text-slate-500">{parentLabels}</span>}
+      {concept?.uiLabel}{' '}{<span className='g-text-slate-500'>{parentLabels}</span>}
       <div>
         {concept?.uiDefinition}
       </div>
@@ -40,7 +40,7 @@ export const ConceptValue = ({ vocabulary, name, includeContext }: {
   if (!concept.uiDefinition && !parentLabels) return (<>{concept.uiLabel}</>);
 
   return (<>
-    <SimpleTooltip title={<>{concept.uiDefinition && <div className="mb-2">{concept.uiDefinition}</div>}<div>{parentLabels}</div></>}>
+    <SimpleTooltip title={<>{concept.uiDefinition && <div className='g-mb-2'>{concept.uiDefinition}</div>}<div>{parentLabels}</div></>}>
       {concept.uiLabel}
     </SimpleTooltip>
   </>

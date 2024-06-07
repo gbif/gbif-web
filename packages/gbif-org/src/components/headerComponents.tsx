@@ -49,7 +49,7 @@ export function Hostname({
     );
   } catch (err) {
     return (
-      <a href={href} className="text-red-400" {...props}>
+      <a href={href} className='g-text-red-400' {...props}>
         {href}
       </a>
     );

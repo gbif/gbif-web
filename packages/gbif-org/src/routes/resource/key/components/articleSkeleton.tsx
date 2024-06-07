@@ -10,14 +10,14 @@ export function ArticleSkeleton() {
   return (
     <ArticleContainer>
       <ArticleTextContainer>
-        <ArticlePreTitleSkeleton className="mt-3" />
-        <ArticleTitleSkeleton className="mt-3" />
-        <ArticleIntroSkeleton className="mt-3" />
+        <ArticlePreTitleSkeleton className='g-mt-3' />
+        <ArticleTitleSkeleton className='g-mt-3' />
+        <ArticleIntroSkeleton className='g-mt-3' />
       </ArticleTextContainer>
 
-      <ArticleBannerSkeleton className="mt-10" />
+      <ArticleBannerSkeleton className='g-mt-10' />
 
-      <ArticleTextContainer className="mt-6">
+      <ArticleTextContainer className='g-mt-6'>
         <ArticleBodySkeleton />
       </ArticleTextContainer>
     </ArticleContainer>

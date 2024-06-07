@@ -21,13 +21,13 @@ export function ArticleBody({ className, dangerouslySetBody }: Props) {
 export function ArticleBodySkeleton({ className }: Pick<Props, 'className'>) {
   return (
     <div className={cn('max-w-[80ch]', className)}>
-      <Skeleton className="h-6 w-[calc(100%-2px)]" />
-      <Skeleton className="h-6 mt-1 w-[calc(100%-4px)]" />
+      <Skeleton className='g-h-6 g-w-[calc(100%-2px)]' />
+      <Skeleton className='g-h-6 g-mt-1 g-w-[calc(100%-4px)]' />
 
-      <Skeleton className="h-6 mt-6 w-[calc(100%-3px)]" />
-      <Skeleton className="h-6 mt-1 w-[calc(100%-1px)]" />
-      <Skeleton className="h-6 mt-1 w-[calc(100%-5px)]" />
-      <Skeleton className="h-6 mt-1 w-[calc(100%-7px)]" />
+      <Skeleton className='g-h-6 g-mt-6 g-w-[calc(100%-3px)]' />
+      <Skeleton className='g-h-6 g-mt-1 g-w-[calc(100%-1px)]' />
+      <Skeleton className='g-h-6 g-mt-1 g-w-[calc(100%-5px)]' />
+      <Skeleton className='g-h-6 g-mt-1 g-w-[calc(100%-7px)]' />
     </div>
   );
 }

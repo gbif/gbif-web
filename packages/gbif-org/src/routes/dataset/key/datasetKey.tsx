@@ -210,8 +210,8 @@ export function DatasetPage() {
         {/* TODO we need much richer meta data. Especially for datasets.  */}
       </Helmet>
 
-      <ArticleContainer className="pb-0">
-        <ArticleTextContainer className="max-w-screen-xl">
+      <ArticleContainer className='g-pb-0'>
+        <ArticleTextContainer className='g-max-w-screen-xl'>
           <ArticlePreTitle
             secondary={
               <FormattedMessage
@@ -235,10 +235,10 @@ export function DatasetPage() {
           ></ArticleTitle>
 
           {dataset.publishingOrganizationTitle && (
-            <div className="mt-2">
+            <div className='g-mt-2'>
               <FormattedMessage id="dataset.publishedBy" />{' '}
               <DynamicLink
-                className="hover:underline text-primary-500"
+                className='hover:g-underline g-text-primary-500'
                 to={`/publisher/${dataset.publishingOrganizationKey}`}
               >
                 {dataset?.publishingOrganizationTitle}
@@ -272,7 +272,7 @@ export function DatasetPage() {
               </FeatureList>
             </HeaderInfoMain>
           </HeaderInfo>
-          <div className="border-b mt-4"></div>
+          <div className='g-border-b g-mt-4'></div>
           <Tabs
             links={[
               { to: '.', children: 'About' },

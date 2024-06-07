@@ -319,7 +319,7 @@ function GenericExtension({
   }
 
   return (
-    <Group label={label} id={id} className="pt-0 md:pt-0" {...props}>
+    <Group label={label} id={id} className='g-pt-0 md:g-pt-0' {...props}>
       {list.length === 1 && (
         <GenericExtensionContent
           item={list[0]}
@@ -402,7 +402,7 @@ function ExtField({
 }
 
 function ListCard(props) {
-  return <Card className="mb-2 p-4 " {...props} />;
+  return <Card className='g-mb-2 g-p-4 ' {...props} />;
 }
 
 function getDefaultMessage(field: string) {

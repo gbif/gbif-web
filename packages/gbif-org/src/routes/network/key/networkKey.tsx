@@ -76,7 +76,7 @@ export function NetworkPage() {
         {/* TODO we need much richer meta data. Especially for datasets.  */}
       </Helmet>
 
-      <ArticleContainer className="pb-0 md:pb-0">
+      <ArticleContainer className='g-pb-0 md:g-pb-0'>
         <ArticleTextContainer>
           <ArticlePreTitle
             secondary={
@@ -127,7 +127,7 @@ export function NetworkPage() {
               </FeatureList>
             </HeaderInfoMain>
           </HeaderInfo>
-          <div className="border-b"></div>
+          <div className='g-border-b'></div>
           <Tabs
             links={[
               { to: '.', children:  <FormattedMessage id="phrases.about" /> },

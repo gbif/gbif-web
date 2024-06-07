@@ -74,7 +74,7 @@ const PaginationPrevious = ({
     className={cn("gap-1 pl-2.5", className)}
     {...props}
   >
-    <ChevronLeftIcon className="h-4 w-4" />
+    <ChevronLeftIcon className='g-h-4 g-w-4' />
     <span><FormattedMessage id="pagination.previous" /></span>
   </PaginationLink>
 )
@@ -91,7 +91,7 @@ const PaginationNext = ({
     {...props}
   >
     <span><FormattedMessage id="pagination.next" /></span>
-    <ChevronRightIcon className="h-4 w-4" />
+    <ChevronRightIcon className='g-h-4 g-w-4' />
   </PaginationLink>
 )
 PaginationNext.displayName = "PaginationNext"
@@ -105,8 +105,8 @@ const PaginationEllipsis = ({
     className={cn("flex h-9 w-9 items-center justify-center", className)}
     {...props}
   >
-    <DotsHorizontalIcon className="h-4 w-4" />
-    <span className="sr-only">More pages</span>
+    <DotsHorizontalIcon className='g-h-4 g-w-4' />
+    <span className='g-sr-only'>More pages</span>
   </span>
 )
 PaginationEllipsis.displayName = "PaginationEllipsis"

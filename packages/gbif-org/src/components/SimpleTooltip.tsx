@@ -11,7 +11,7 @@ export function SimpleTooltip({
   return (
     <Tooltip delayDuration={0}>
       <TooltipTrigger>{children}</TooltipTrigger>
-      <TooltipContent className="max-w-96" side={side}>{title}</TooltipContent>
+      <TooltipContent className='g-max-w-96' side={side}>{title}</TooltipContent>
     </Tooltip>
   );
 }

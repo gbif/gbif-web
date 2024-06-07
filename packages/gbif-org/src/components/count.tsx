@@ -30,7 +30,7 @@ export function Count({ v1Endpoint, params, queueId, property, message }: Props)
   if (loading || typeof count === 'undefined') {
     return (
       <Skeleton>
-        <span className="opacity-0">Loading</span>
+        <span className='g-opacity-0'>Loading</span>
       </Skeleton>
     );
   }

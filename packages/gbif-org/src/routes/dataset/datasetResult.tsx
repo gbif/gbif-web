@@ -32,41 +32,41 @@ export function DatasetResult({
   dataset: DatasetStubResultFragment | DatasetResultFragment;
 }) {
   return (
-    <Card className="mb-4">
-      <article className="p-8">
-        <div className="flex flex-col md:flex-row gap-4">
-          <div className="flex-grow">
-            <h3 className="text-base font-semibold mb-2">
+    <Card className='g-mb-4'>
+      <article className='g-p-8'>
+        <div className='g-flex g-flex-col md:g-flex-row g-gap-4'>
+          <div className='g-flex-grow'>
+            <h3 className='g-text-base g-font-semibold g-mb-2'>
               <DynamicLink to={`/dataset/${dataset.key}`}>{dataset.title}</DynamicLink>
             </h3>
             {dataset.excerpt && (
-              <p className="font-normal text-slate-700 text-sm">{dataset.excerpt}</p>
+              <p className='g-font-normal g-text-slate-700 g-text-sm'>{dataset.excerpt}</p>
             )}
             {!dataset.excerpt && (
-              <p className="font-normal text-slate-400 text-sm">
+              <p className='g-font-normal g-text-slate-400 g-text-sm'>
                 <FormattedMessage id="phrases.noDescriptionProvided" />
               </p>
             )}
 
-            <p className="font-normal text-slate-500 text-sm mt-2">
+            <p className='g-font-normal g-text-slate-500 g-text-sm g-mt-2'>
               <FormattedMessage id="dataset.publishedBy" />{' '}
               <span>{dataset.publishingOrganizationTitle}</span>
             </p>
           </div>
-          <div className="max-w-48 md:max-w-64 ">
+          <div className='g-max-w-48 md:g-max-w-64 '>
             <MapThumbnail
               type={MapTypes.DatasetKey}
               identifier={dataset.key}
               overlayStyle="classic-noborder.poly"
-              className="rounded"
+              className='g-rounded'
             />
           </div>
         </div>
-        <div className="-m-1 mt-2 flex flex-row items-center flex-wrap">
+        <div className='-g-m-1 g-mt-2 g-flex g-flex-row g-items-center g-flex-wrap'>
           <Tag>
             <FormattedMessage id={`dataset.longType.${dataset.type}`} />
           </Tag>
-          <div className="flex-grow"></div>
+          <div className='g-flex-grow'></div>
           <CountTag
             v1Endpoint="/occurrence/search"
             params={{ datasetKey: dataset.key }}

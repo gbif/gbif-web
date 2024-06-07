@@ -46,11 +46,11 @@ export function Media({
   }
   
   return (
-    <div className="mb-4 scroll-mt-24" id="media">
+    <div className='g-mb-4 g-scroll-mt-24' id="media">
       <CardHeader>
         <CardTitle>Media</CardTitle>
       </CardHeader>
-      <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <ul className='g-grid g-grid-cols-1 md:g-grid-cols-2 g-gap-4'>
         <Sounds {...{ occurrence, termMap }} />
         <MovingImages {...{ occurrence, termMap }} />
         <Images occurrence={occurrence} />
@@ -65,7 +65,7 @@ function Images({ occurrence, ...props }: { occurrence: OccurrenceQuery['occurre
     <>
       {occurrence.stillImages?.map((media: OccurrenceMediaDetailsFragment, index) => (
         <li key={`${media?.identifier}_${index}`}>
-          <Card className="overflow-hidden">
+          <Card className='g-overflow-hidden'>
             {media.identifier && <figure>
               <a
                 target="_blank"
@@ -100,7 +100,7 @@ function Sounds({
         const knownFormat = format && supportedFormats.includes(format);// typescript issues
         return (
           <li key={`${media?.identifier}_${index}`}>
-            <Card className="overflow-hidden">
+            <Card className='g-overflow-hidden'>
               <div>
                 {knownFormat && media.identifier && (
                   <>
@@ -144,17 +144,17 @@ function MovingImages({
         const knownFormat = format && ['video/mp4', 'video/ogg'].includes(format);
         return (
           <li key={`${media?.identifier}_${index}`}>
-            <Card className="overflow-hidden">
+            <Card className='g-overflow-hidden'>
               <div>
                 {knownFormat && media.identifier && (
                   <>
-                    <video controls className="w-full">
+                    <video controls className='g-w-full'>
                       <source src={media.identifier} type={format} />
                       Unable to play
                     </video>
                     {(termMap?.references?.value || media.identifier) && (
                       <div>
-                        <a href={termMap?.references?.value || media.identifier} className="px-2 py-1 bg-slate-300 block">
+                        <a href={termMap?.references?.value || media.identifier} className='g-px-2 g-py-1 g-bg-slate-300 g-block'>
                           If it isn't working try the publishers site instead <RiExternalLinkLine />
                         </a>
                       </div>
@@ -163,7 +163,7 @@ function MovingImages({
                 )}
                 {!knownFormat && media.identifier && (
                   <a href={media.identifier}>
-                    <div className="gb-download-icon">
+                    <div className='gb-download-icon'>
                       <MdFileDownload />
                     </div>
                     <div>Download media file</div>
@@ -181,8 +181,8 @@ function MovingImages({
 
 function Caption({ media, occurrence, ...props }: { media: OccurrenceMediaDetailsFragment, occurrence: OccurrenceQuery['occurrence']}) {
   return (
-    <figcaption className="px-4 py-2">
-      {!media.identifier && <div className="bg-slate-200 rounded text-slate-800 px-2 py-1 mb-2">Identifier missing</div>}
+    <figcaption className='g-px-4 g-py-2'>
+      {!media.identifier && <div className='g-bg-slate-200 g-rounded g-text-slate-800 g-px-2 g-py-1 g-mb-2'>Identifier missing</div>}
       <Properties style={{ fontSize: '85%' }} dense>
         {media.description && (
           <BasicField label={`occurrenceFieldNames.description`}>{media.description}</BasicField>

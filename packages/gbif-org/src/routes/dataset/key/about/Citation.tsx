@@ -6,13 +6,13 @@ export function Citation({ data = {}, loading, error, ...props }) {
   const doi = dataset.doi;
   return dataset?.citation?.text ? (
     <div>
-      <HyperText className="prose" text={dataset.citation.text} />
+      <HyperText className='g-prose' text={dataset.citation.text} />
       {doi && (
         <div style={{ marginTop: '1em' }}>
           <Button asChild variant="outline">
             <a
               href={`https://data.crosscite.org/application/x-research-info-systems/${doi}`}
-              className="me-1"
+              className='g-me-1'
             >
               RIS
             </a>

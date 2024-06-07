@@ -24,8 +24,8 @@ export function ArticleTitle({ dangerouslySetTitle, children, className }: Props
 export function ArticleTitleSkeleton({ className }: Pick<Props, 'className'>) {
   return (
     <div className={className}>
-      <Skeleton className="w-full h-8" />
-      <Skeleton className="w-4/6 h-8 mt-1" />
+      <Skeleton className='g-w-full g-h-8' />
+      <Skeleton className='g-w-4/6 g-h-8 g-mt-1' />
     </div>
   );
 }

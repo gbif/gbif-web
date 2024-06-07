@@ -27,8 +27,8 @@ export function OccurrenceKeyPhylo() {
   }, []);
 
   return (
-    <ArticleContainer className="bg-slate-100 pt-0">
-      <div ref={ref} id="tree_container" className="bg-slate-200"></div>
+    <ArticleContainer className='g-bg-slate-100 g-pt-0'>
+      <div ref={ref} id="tree_container" className='g-bg-slate-200'></div>
     </ArticleContainer>
   );
 }

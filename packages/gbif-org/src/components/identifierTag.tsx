@@ -55,7 +55,7 @@ export function DoiTag({ id = '', ...props }) {
 export function OrcId({ href, className }: { href: string; className?: string }) {
   return (
     <a dir="ltr" className={cn('inline-block no-underline', className)} href={href}>
-      <img alt="ORCID logo" className="mr-1 inline-block" src="https://info.orcid.org/wp-content/uploads/2019/11/orcid_16x16.png" width="16" height="16" />
+      <img alt="ORCID logo" className='g-mr-1 g-inline-block' src="https://info.orcid.org/wp-content/uploads/2019/11/orcid_16x16.png" width="16" height="16" />
       {href}
     </a>
   );
