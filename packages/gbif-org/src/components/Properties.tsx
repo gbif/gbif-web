@@ -50,7 +50,7 @@ export function Term({
   // what is the correct type here, I cannot see dt as a type
   return (
     <dt
-      className={cn('g-peer g-max-w-52 g-leading-tight g-break-words group-[.is-vertical]:g-font-semibold last-of-type:g-mb-0',
+      className={cn('g-peer g-max-w-52 g-leading-tight g-break-words g-group-[.is-vertical]:g-font-semibold last-of-type:g-mb-0',
         className
       )}
       {...props}

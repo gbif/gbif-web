@@ -39,7 +39,7 @@ export function Registration({ dataset = {}, ...props }) {
 
   return (
     <div>
-      <Properties className="">
+      <Properties className="" useDefaultTermWidths>
         {created && (
           <>
             <T>

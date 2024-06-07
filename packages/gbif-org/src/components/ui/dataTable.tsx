@@ -36,7 +36,7 @@ export function DataTable<TData, TValue>({
                 return (
                   <TableHead
                     key={header.id}
-                    className='g-sticky g-top-0 g-bg-white g-rounded-t-md g-box-shadow-b'
+                    className='g-sticky g-top-0 g-bg-white g-rounded-t-md box-shadow-b'
                   >
                     {header.isPlaceholder
                       ? null

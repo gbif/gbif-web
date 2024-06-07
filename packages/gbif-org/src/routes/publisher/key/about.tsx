@@ -219,7 +219,7 @@ export function PublisherKeyAbout() {
   return (
     <ArticleContainer className='g-bg-slate-100 g-pt-4'>
       <ArticleTextContainer className='g-max-w-screen-xl'>
-        <div className={`${removeSidebar ? '' : 'flex'}`}>
+        <div className={`${removeSidebar ? '' : 'g-flex'}`}>
           <div className='g-flex-grow'>
             <Card className='g-mb-4'>
               <CardHeader>

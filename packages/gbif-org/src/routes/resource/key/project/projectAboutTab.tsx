@@ -228,7 +228,7 @@ function ParticipantOrFundingOrganisation({
   resources: Array<ParticipantOrFundingOrganisationDetailsFragment | null | undefined>;
 }) {
   return (
-    <ul className='underlineLinks g-inlineBulletList'>
+    <ul className='underlineLinks inlineBulletList'>
       {resources.filter(notNull).map((f) => (
         <li key={f.id}>
           {f.__typename === 'FundingOrganisation' && f.url ? (
