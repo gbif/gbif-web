@@ -62,7 +62,7 @@ function DocumentContnet({ document }: { document: DocumentPreviewFragment }) {
 
   return (
     <>
-      <div className={`${color} me-4 ${styles.note} flex-none`}>
+      <div className={`${color} g-me-4 ${styles.note} g-flex-none`}>
         <div>{content}</div>
       </div>
       <div className='g-break-word dark:g-text-slate-200 g-text-slate-500'>

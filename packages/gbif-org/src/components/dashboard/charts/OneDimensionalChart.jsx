@@ -28,7 +28,7 @@ function ViewOptions({ view, setView, options = ['COLUMN', 'PIE', 'TABLE'] }) {
     TIME: <BsFillBarChartFill />,
   }
   return <div >
-    {options.map(option => <Button key={option} variant="link" style={{padding: '0 5px', height: 'auto'}} className={`m-0 ${view === option ? 'text-primary-500' : 'text-slate-400'}`} onClick={() => setView(option)}>
+    {options.map(option => <Button key={option} variant="link" style={{padding: '0 5px', height: 'auto'}} className={`g-m-0 ${view === option ? 'g-text-primary-500' : 'g-text-slate-400'}`} onClick={() => setView(option)}>
       {iconMap[option]}
     </Button>)}
   </div>

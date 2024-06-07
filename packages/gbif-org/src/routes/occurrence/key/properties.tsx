@@ -240,7 +240,7 @@ function Tag({ type, children }: { type: string; children: React.ReactNode }) {
   const color = colors[type] ?? colors.LIGHT;
 
   return (
-    <span className={`inline-block mx-1 text-xs font-medium me-2 px-2.5 py-0.5 rounded ${color}`}>
+    <span className={`g-inline-block g-mx-1 g-text-xs g-font-medium g-me-2 g-px-2.5 g-py-0.5 g-rounded ${color}`}>
       {children}
     </span>
   );

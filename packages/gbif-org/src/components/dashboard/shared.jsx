@@ -96,9 +96,9 @@ export function CardHeader({ padded = true, options, children, ...props }) {
 export function Table({ padded = true, removeBorder, ...props }) {
   return (
     <table
-      className={`w-full mb-4 border-collapse [&_tr]:border-separate [&_tr]:border-spacing-0 
-    [&_td]:py-1 [&_td]:px-2 ${removeBorder ? '[&_tr]:border-t-0' : '[&_tr]:border-t'}
-    [&_td:first-of-type]:ps-0 [&_td:last-of-type]:pe-0
+      className={`g-w-full g-mb-4 g-border-collapse [&_tr]:g-border-separate [&_tr]:g-border-spacing-0 
+    [&_td]:g-py-1 [&_td]:g-px-2 ${removeBorder ? '[&_tr]:g-border-t-0' : '[&_tr]:g-border-t'}
+    [&_td:first-of-type]:g-ps-0 [&_td:last-of-type]:g-pe-0
      `}
       {...props}
     ></table>
