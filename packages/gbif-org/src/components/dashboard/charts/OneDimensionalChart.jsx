@@ -14,7 +14,7 @@ import { useUncontrolledProp } from 'uncontrollable';
 import formatAsPercentage from '@/utils/formatAsPercentage';
 import { Button } from '@/components/ui/button';
 
-export const chartsClass = 'min-w-full h-full w-40 overflow-hidden';
+export const chartsClass = 'g-min-w-full g-h-full g-w-40 g-overflow-hidden';
 
 // Component to control the view options: table, pie chart, bar chart
 function ViewOptions({ view, setView, options = ['COLUMN', 'PIE', 'TABLE'] }) {

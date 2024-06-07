@@ -84,63 +84,63 @@ function getType(documentType: string | null | undefined) {
   // image, pdf, word, excel, powerpoint, video, audio, text, zip, other
   if (documentType === 'image') {
     return {
-      color: 'bg-[#c44ff4]',
+      color: 'g-bg-[#c44ff4]',
       showSize: true,
       content: <MdImage />,
     };
   }
   if (documentType === 'pdf') {
     return {
-      color: 'bg-[#4ebcf4]',
+      color: 'g-bg-[#4ebcf4]',
       showSize: true,
       content: <PdfIcon />,
     };
   }
   if (documentType === 'doc') {
     return {
-      color: 'bg-[#4ebcf4]',
+      color: 'g-bg-[#4ebcf4]',
       showSize: true,
       content: <GrTextAlignLeft />,
     };
   }
   if (documentType === 'xls') {
     return {
-      color: 'bg-[#4ebcf4]',
+      color: 'g-bg-[#4ebcf4]',
       showSize: true,
       content: <BsTable />,
     };
   }
   if (documentType === 'ppt') {
     return {
-      color: 'bg-[#4ebcf4]',
+      color: 'g-bg-[#4ebcf4]',
       showSize: true,
       content: <PresentationIcon />,
     };
   }
   if (documentType === 'video') {
     return {
-      color: 'bg-[#c44ff4]',
+      color: 'g-bg-[#c44ff4]',
       showSize: true,
       content: <MdVideocam />,
     };
   }
   if (documentType === 'audio') {
     return {
-      color: 'bg-[#c44ff4]',
+      color: 'g-bg-[#c44ff4]',
       showSize: true,
       content: <MdAudiotrack />,
     };
   }
   if (documentType === 'archive') {
     return {
-      color: 'bg-[#666]',
+      color: 'g-bg-[#666]',
       showSize: true,
       content: <MdArchive />,
     };
   }
 
   return {
-    color: 'bg-[#666]',
+    color: 'g-bg-[#666]',
     showSize: false,
     content: <MdFileDownload />,
   };

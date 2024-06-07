@@ -141,7 +141,7 @@ const CarouselContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
         <div
           ref={ref}
           className={cn('g-flex',
-            orientation === 'horizontal' ? '-me-4' : '-mt-4 flex-col',
+            orientation === 'horizontal' ? '-g-me-4' : '-g-mt-4 g-flex-col',
             className
           )}
           {...props}
@@ -162,7 +162,7 @@ const CarouselItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLD
         role="group"
         aria-roledescription="slide"
         className={cn('g-min-w-0 g-shrink-0 g-grow-0 g-basis-full',
-          orientation === 'horizontal' ? 'pe-4' : 'pt-4',
+          orientation === 'horizontal' ? 'g-pe-4' : 'g-pt-4',
           className
         )}
         {...props}
@@ -183,8 +183,8 @@ const CarouselPrevious = React.forwardRef<HTMLButtonElement, React.ComponentProp
         size={size}
         className={cn('g-absolute  g-h-8 g-w-8 g-rounded-full',
           orientation === 'horizontal'
-            ? '-left-12 top-1/2 -translate-y-1/2'
-            : '-top-12 left-1/2 -translate-x-1/2 rotate-90',
+            ? '-g-left-12 g-top-1/2 -g-translate-y-1/2'
+            : '-g-top-12 g-left-1/2 -g-translate-x-1/2 g-rotate-90',
           className
         )}
         disabled={!canScrollPrev}
@@ -210,8 +210,8 @@ const CarouselNext = React.forwardRef<HTMLButtonElement, React.ComponentProps<ty
         size={size}
         className={cn('g-absolute g-h-8 g-w-8 g-rounded-full',
           orientation === 'horizontal'
-            ? '-right-12 top-1/2 -translate-y-1/2'
-            : '-bottom-12 left-1/2 -translate-x-1/2 rotate-90',
+            ? '-g-right-12 g-top-1/2 -g-translate-y-1/2'
+            : '-g-bottom-12 g-left-1/2 -g-translate-x-1/2 g-rotate-90',
           className
         )}
         disabled={!canScrollNext}

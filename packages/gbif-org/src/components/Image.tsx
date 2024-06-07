@@ -45,7 +45,7 @@ export function ClientImage({ wrapperProps, onLoad, defaultSize, style = {}, src
         <img
           className='g-bg-slate-50'
           src={src}
-          style={{ maxHeight: '100%', maxWidth: '100%', display: loading ? 'none' : 'block'}}
+          style={{ maxHeight: '100%', maxWidth: '100%', display: loading ? 'none' : 'g-block'}}
           ref={imageRef}
           onError={() => {
             markAsFailed(true);

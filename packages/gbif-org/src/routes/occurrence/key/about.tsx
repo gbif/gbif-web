@@ -168,7 +168,7 @@ function Li({
   children: React.ReactNode;
 } & React.ComponentProps<'li'>) {
   const className =
-    'block border-l [&_a]:block text-sm px-4 py-1 border-transparent hover:border-slate-400 dark:hover:border-slate-500 text-slate-700 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300';
+    'g-block g-border-l [&_a]:g-block g-text-sm g-px-4 g-py-1 g-border-transparent hover:g-border-slate-400 dark:hover:g-border-slate-500 g-text-slate-700 hover:g-text-slate-900 dark:g-text-slate-400 dark:hover:g-text-slate-300';
   if (to) {
     // if (toc && !toc[to.substr(1)]) {
     //   return null;

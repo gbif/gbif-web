@@ -65,7 +65,7 @@ export function Tabs({ links, className }: Props) {
           const visible = idx < visibleTabCount;
 
           return (
-            <li key={to} className={cn({ invisible: !visible }, 'pr-1')}>
+            <li key={to} className={cn({ invisible: !visible }, 'g-pr-1')}>
               <TabLink to={to}>{children}</TabLink>
             </li>
           );
@@ -77,10 +77,10 @@ export function Tabs({ links, className }: Props) {
           className={cn(
             {
               invisible: visibleTabCount === links.length,
-              'right-0 pr-3': locale.textDirection === 'ltr',
-              'left-0 pl-3': locale.textDirection === 'rtl',
+              'g-right-0 g-pr-3': locale.textDirection === 'ltr',
+              'g-left-0 g-pl-3': locale.textDirection === 'rtl',
             },
-            'absolute top-1/2 -translate-y-1/2'
+            'g-absolute g-top-1/2 -g-translate-y-1/2'
           )}
         >
           <MdMoreHoriz className='g-text-2xl' />

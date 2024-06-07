@@ -2,10 +2,10 @@ import { cn } from '@/utils/shadcn';
 import { ArticleTextContainer } from '../../components/articleTextContainer';
 
 export const backgroundColorMap: Record<string, string> = {
-  white: 'bg-white',
-  light: 'bg-slate-50',
-  gray: 'bg-slate-100',
-  black: 'bg-slate-900',
+  white: 'g-bg-white',
+  light: 'g-bg-slate-50',
+  gray: 'g-bg-slate-100',
+  black: 'g-bg-slate-900',
 };
 
 type BlockContainerProps = {

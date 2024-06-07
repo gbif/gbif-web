@@ -232,10 +232,10 @@ function Tags({ children }: { children: React.ReactNode }) {
 
 function Tag({ type, children }: { type: string; children: React.ReactNode }) {
   const colors: { [key: string]: string } = {
-    INFO: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300',
-    WARNING: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300',
-    ERROR: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300',
-    LIGHT: 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300',
+    INFO: 'g-bg-blue-100 g-text-blue-800 dark:g-bg-blue-900 dark:g-text-blue-300',
+    WARNING: 'g-bg-yellow-100 g-text-yellow-800 dark:g-bg-yellow-900 dark:g-text-yellow-300',
+    ERROR: 'g-bg-red-100 g-text-red-800 dark:g-bg-red-900 dark:g-text-red-300',
+    LIGHT: 'g-bg-gray-100 g-text-gray-800 dark:g-bg-gray-900 dark:g-text-gray-300',
   };
   const color = colors[type] ?? colors.LIGHT;
 

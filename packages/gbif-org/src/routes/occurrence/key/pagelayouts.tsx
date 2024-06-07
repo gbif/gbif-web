@@ -17,7 +17,7 @@ export function SidebarLayout({
     ? 'grid-cols-[300px_1fr] xl:grid-cols-[350px_1fr]'
     : 'grid-cols-[1fr_300px] md:grid-cols-[1fr_350px]';
   return (
-    <div className={cn('g-grid g-gap-x-4', sizes, className, stack ? 'grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1' : '')} {...props}>
+    <div className={cn('g-grid g-gap-x-4', sizes, className, stack ? 'g-grid-cols-1 sm:g-grid-cols-1 md:g-grid-cols-1 lg:g-grid-cols-1 xl:g-grid-cols-1' : '')} {...props}>
       {children}
     </div>
   );

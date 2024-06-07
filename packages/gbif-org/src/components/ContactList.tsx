@@ -13,7 +13,7 @@ export function ContactList({ contacts = [], className, ...props }) {
     <ul className={cn('g-p-0 g-m-0 g-list-none', className)} {...props}>
       {contacts.map((c, i, arr) => (
         <li
-          className={`${i + 1 !== arr.length ? 'border-b' : ''} border-slate-200 mb-1`}
+          className={`${i + 1 !== arr.length ? 'g-border-b' : ''} g-border-slate-200 g-mb-1`}
           key={`${c.key || i}`}
         >
           <Contact contact={c} />

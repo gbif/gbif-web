@@ -59,7 +59,7 @@ function MediaCountBlockContent({
   return (
     <div
       className={cn('g-flex g-gap-6 g-items-center g-flex-col md:g-flex-row', className, {
-        'flex-col-reverse': resource.reverse,
+        'g-flex-col-reverse': resource.reverse,
       })}
     >
       {resource.optionalImg && (
@@ -69,8 +69,8 @@ function MediaCountBlockContent({
             alt={resource.optionalImg.description ?? ''}
             title={resource.optionalImg.title ?? ''}
             className={cn('g-max-h-[400px] g-w-full g-h-full g-m-auto', {
-              'max-w-[500px]': !resource.roundImage,
-              'max-w-[400px] rounded-full aspect-square object-cover': resource.roundImage,
+              'g-max-w-[500px]': !resource.roundImage,
+              'g-max-w-[400px] g-rounded-full g-aspect-square g-object-cover': resource.roundImage,
             })}
           />
         </div>

@@ -16,8 +16,8 @@ export function BaseFilter({ name, children, selectedOptions, isOpen, setIsOpen 
     <Popover key={name} onOpenChange={setIsOpen} modal open={isOpen}>
       <PopoverTrigger
         className={cn('g-border g-py-1 g-px-2 ', {
-          'border-primary text-primary': selectedOptions.length === 0,
-          'bg-primary text-primary-foreground': selectedOptions.length > 0,
+          'g-border-primary g-text-primary': selectedOptions.length === 0,
+          'g-bg-primary g-text-primary-foreground': selectedOptions.length > 0,
         })}
       >
         {selectedOptions.length === 0
