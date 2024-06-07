@@ -65,7 +65,7 @@ export function Tabs({ links, className }: Props) {
           const visible = idx < visibleTabCount;
 
           return (
-            <li key={to} className={cn({ invisible: !visible }, 'g-pr-1')}>
+            <li key={to} className={cn({ 'g-invisible': !visible }, 'g-pr-1')}>
               <TabLink to={to}>{children}</TabLink>
             </li>
           );
@@ -76,7 +76,7 @@ export function Tabs({ links, className }: Props) {
           ref={dropdownMenuTriggerRef}
           className={cn(
             {
-              invisible: visibleTabCount === links.length,
+              'g-invisible': visibleTabCount === links.length,
               'g-right-0 g-pr-3': locale.textDirection === 'ltr',
               'g-left-0 g-pl-3': locale.textDirection === 'rtl',
             },
