@@ -55,7 +55,7 @@ export function MapThumbnail({
   if (!hasMap) return false;
 
   return (
-    <div dir="ltr" className={cn('relative w-full overflow-hidden flex-shrink-0', className)}>
+    <div dir="ltr" className={cn('g-relative g-w-full g-overflow-hidden g-flex-shrink-0', className)}>
       <div>
         <img
           className='g-w-1/2 g-inline-block'
@@ -140,7 +140,7 @@ export function AdHocMapThumbnail({
   const filterString = stringify(filter);
 
   return (
-    <div dir="ltr" className={cn('relative w-full overflow-hidden flex-shrink-0', className)}>
+    <div dir="ltr" className={cn('g-relative g-w-full g-overflow-hidden g-flex-shrink-0', className)}>
       <div>
         <img
           className='g-w-1/2 g-inline-block'

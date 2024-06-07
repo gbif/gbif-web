@@ -11,7 +11,7 @@ export function ArticleFooterWrapper({ children, hrClassName }: Props) {
     <RenderIfChildren
       as={({ children }: Props) => (
         <>
-          <hr className={cn('mt-8', hrClassName)} />
+          <hr className={cn('g-mt-8', hrClassName)} />
           {children}
         </>
       )}

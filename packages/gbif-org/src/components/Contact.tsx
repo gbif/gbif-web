@@ -67,7 +67,7 @@ export function ContactContent({
   className?: string;
 }) {
   if (!children) return null;
-  return <div className={cn('text-slate-500', className)}>{children}</div>;
+  return <div className={cn('g-text-slate-500', className)}>{children}</div>;
 }
 
 export function ContactActions({ children }: { children: React.ReactNode }) {

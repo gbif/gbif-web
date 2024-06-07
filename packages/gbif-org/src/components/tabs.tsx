@@ -59,7 +59,7 @@ export function Tabs({ links, className }: Props) {
   }, [links, setVisibleTabCount]);
 
   return (
-    <div ref={containerRef} className={cn('relative', className)}>
+    <div ref={containerRef} className={cn('g-relative', className)}>
       <ul className='g-border-b g-border-slate-200 g-flex g-whitespace-nowrap dark:g-border-slate-200/5 g-overflow-hidden -g-mb-px'>
         {links.map(({ to, children }, idx) => {
           const visible = idx < visibleTabCount;

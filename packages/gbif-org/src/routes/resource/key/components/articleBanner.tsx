@@ -36,7 +36,7 @@ export function ArticleBanner({ className, image }: Props) {
 
   if (isImageTooSmallForBanner)
     return (
-      <div className={cn('max-w-6xl m-auto', className)}>
+      <div className={cn('g-max-w-6xl g-m-auto', className)}>
         <figure className='g-flex g-flex-col g-items-center'>
           <img
             src={url}
@@ -54,7 +54,7 @@ export function ArticleBanner({ className, image }: Props) {
     );
 
   return (
-    <div className={cn('max-w-6xl m-auto', className)}>
+    <div className={cn('g-max-w-6xl g-m-auto', className)}>
       <figure className='g-m-auto'>
         <picture className='g-rounded-md'>
           <source srcSet={normal} media="(min-width: 800px)" width="1200" height="500" />
@@ -79,7 +79,7 @@ export function ArticleBanner({ className, image }: Props) {
 
 export function ArticleBannerSkeleton({ className }: Pick<Props, 'className'>) {
   return (
-    <div className={cn('max-w-6xl w-full m-auto', className)}>
+    <div className={cn('g-max-w-6xl g-w-full g-m-auto', className)}>
       <Skeleton className='g-w-full g-aspect-[2/1] md:g-aspect-[12/5]' />
       <Skeleton className='g-w-5/6 g-h-4 g-mt-1' />
     </div>

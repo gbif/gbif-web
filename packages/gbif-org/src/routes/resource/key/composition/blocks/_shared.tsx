@@ -15,7 +15,7 @@ type BlockContainerProps = {
 
 export function BlockContainer({ className, children }: BlockContainerProps) {
   return (
-    <div className={cn('p-8 dark:bg-zinc-900 dark:text-slate-200 overflow-hidden', className)}>
+    <div className={cn('g-p-8 dark:g-bg-zinc-900 dark:g-text-slate-200 g-overflow-hidden', className)}>
       {children}
     </div>
   );
@@ -30,8 +30,7 @@ export function BlockHeading({ className, dangerouslySetHeading }: BlockHeadingP
   return (
     <ArticleTextContainer className='g-mb-10'>
       <h2
-        className={cn(
-          'text-2xl sm:text-3xl inline-block font-extrabold text-slate-900 tracking-tight dark:text-slate-200 pt-16',
+        className={cn('g-text-2xl sm:g-text-3xl g-inline-block g-font-extrabold g-text-slate-900 g-tracking-tight dark:g-text-slate-200 g-pt-16',
           className
         )}
         dangerouslySetInnerHTML={dangerouslySetHeading}

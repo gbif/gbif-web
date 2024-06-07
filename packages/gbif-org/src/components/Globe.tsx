@@ -29,7 +29,7 @@ export default function Globe({
   }, [lat, lon]);
 
   return (
-    <div className={cn('w-20 h-20', css.globe, className)} {...props}>
+    <div className={cn('g-w-20 g-h-20', css.globe, className)} {...props}>
       {!loading && !error && !!data?.globe?.svg && (
         <>
           <div

@@ -10,7 +10,7 @@ type Props = {
 export function ArticleIntro({ dangerouslySetIntro, className, ...props }: Props) {
   return (
     <div
-      className={cn('text-lg text-slate-600 dark:text-slate-300', className)}
+      className={cn('g-text-lg g-text-slate-600 dark:g-text-slate-300', className)}
       dangerouslySetInnerHTML={dangerouslySetIntro}
       {...props}
     />

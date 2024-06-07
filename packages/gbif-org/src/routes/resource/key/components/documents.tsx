@@ -30,7 +30,7 @@ type Props = {
 
 export function Documents({ documents, className }: Props) {
   return (
-    <ul className={cn('grid grid-cols-1 sm:grid-cols-2 gap-4', className)}>
+    <ul className={cn('g-grid g-grid-cols-1 sm:g-grid-cols-2 g-gap-4', className)}>
       {documents.filter(isValid).map((document, index) => (
         <li
           key={index}

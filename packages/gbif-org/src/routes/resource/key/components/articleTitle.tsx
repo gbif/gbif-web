@@ -10,8 +10,7 @@ type Props = {
 export function ArticleTitle({ dangerouslySetTitle, children, className }: Props) {
   return (
     <h1
-      className={cn(
-        'text-2xl md:text-3xl lg:text-4xl inline-block font-extrabold text-slate-900 tracking-tight dark:text-slate-200',
+      className={cn('g-text-2xl md:g-text-3xl lg:g-text-4xl g-inline-block g-font-extrabold g-text-slate-900 g-tracking-tight dark:g-text-slate-200',
         className
       )}
     >

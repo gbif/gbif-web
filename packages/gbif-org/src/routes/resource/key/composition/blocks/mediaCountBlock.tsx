@@ -58,7 +58,7 @@ function MediaCountBlockContent({
 }: Props & { className?: string }) {
   return (
     <div
-      className={cn('flex gap-6 items-center flex-col md:flex-row', className, {
+      className={cn('g-flex g-gap-6 g-items-center g-flex-col md:g-flex-row', className, {
         'flex-col-reverse': resource.reverse,
       })}
     >
@@ -68,7 +68,7 @@ function MediaCountBlockContent({
             src={resource.optionalImg.file.mobile}
             alt={resource.optionalImg.description ?? ''}
             title={resource.optionalImg.title ?? ''}
-            className={cn('max-h-[400px] w-full h-full m-auto', {
+            className={cn('g-max-h-[400px] g-w-full g-h-full g-m-auto', {
               'max-w-[500px]': !resource.roundImage,
               'max-w-[400px] rounded-full aspect-square object-cover': resource.roundImage,
             })}

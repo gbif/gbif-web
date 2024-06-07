@@ -139,7 +139,7 @@ export function HelpLine({
           {title || <HelpTitle id={id ?? ''} />}{' '}</>}
         {icon && (typeof icon === 'boolean' ? <MdInfoOutline /> : icon)}
       </PopoverTrigger>
-      <PopoverContent className={cn('prose w-96', className)}>
+      <PopoverContent className={cn('g-prose g-w-96', className)}>
         {id && <HelpText identifier={id} />}
         {!id && children}
       </PopoverContent>

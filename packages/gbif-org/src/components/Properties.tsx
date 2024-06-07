@@ -50,8 +50,7 @@ export function Term({
   // what is the correct type here, I cannot see dt as a type
   return (
     <dt
-      className={cn(
-        'peer max-w-52 leading-tight break-words group-[.is-vertical]:font-semibold last-of-type:mb-0',
+      className={cn('g-peer g-max-w-52 g-leading-tight g-break-words group-[.is-vertical]:g-font-semibold last-of-type:g-mb-0',
         className
       )}
       {...props}
@@ -70,7 +69,7 @@ export function Value({
 } & React.HTMLAttributes<HTMLDivElement>) {
   // what is the correct type here, I cannot see dd as a type
   return (
-    <dd className={cn('break-words leading-tight last-of-type:mb-0', className)} {...props}>
+    <dd className={cn('g-break-words g-leading-tight last-of-type:g-mb-0', className)} {...props}>
       {children}
     </dd>
   );

@@ -9,12 +9,12 @@ type Props = {
 
 export function PublishedDate({ date, className }: Props) {
   return (
-    <p className={cn('text-slate-500 dark:text-gray-400 mt-2 text-sm font-medium', className)}>
+    <p className={cn('g-text-slate-500 dark:g-text-gray-400 g-mt-2 g-text-sm g-font-medium', className)}>
       <FormattedMessage id="cms.resource.published" /> <FormattedDate value={new Date(date)} />
     </p>
   );
 }
 
 export function PublishedDateSkeleton({ className }: Pick<Props, 'className'>) {
-  return <Skeleton className={cn('w-32 h-6', className)} />;
+  return <Skeleton className={cn('g-w-32 g-h-6', className)} />;
 }

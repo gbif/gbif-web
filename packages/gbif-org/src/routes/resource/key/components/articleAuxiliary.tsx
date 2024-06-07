@@ -13,7 +13,7 @@ const contentClassNames = 'text-slate-500 dark:text-slate-400 text-sm';
 
 export function ArticleAuxiliary({ className, label, children, dangerouslySetValue }: Props) {
   return (
-    <div className={cn('mt-8', className)}>
+    <div className={cn('g-mt-8', className)}>
       {label && (
         <h3 className='g-font-bold g-text-sm g-mb-2 g-text-slate-700 dark:g-text-slate-400'>{label}</h3>
       )}
