@@ -104,7 +104,7 @@ export function ProjectAboutTab() {
           <ArticleBody dangerouslySetBody={{ __html: resource.body }} className='g-mt-2' />
         )}
 
-        <ArticleFooterWrapper hrClassName="mb-8">
+        <ArticleFooterWrapper hrClassName="g-mb-8">
           {resource.fundsAllocated && (
             <KeyValuePair
               label={<FormattedMessage id="cms.project.funding" />}

@@ -79,7 +79,7 @@ function Contact({ contact, ...props }) {
   );
 
   return (
-    <Details summary={summary} iconClassName="py-2">
+    <Details summary={summary} iconClassName="g-py-2">
       <div className='g-mb-2 g-mt-1'>
         <Card>
           <CardContent className='g-mt-4 g-pb-4 md:g-pb-4'>
