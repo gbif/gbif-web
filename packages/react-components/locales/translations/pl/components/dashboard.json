@@ -16,8 +16,8 @@
   "identifiedToSpecies": "Zidentyfikowany do gatunku",
   "withCoordinates": "Ze współrzędnymi",
   "withYear": "Z rokiem",
-  "withCollector": "",
-  "withMedia": "",
+  "withCollector": "Ze zbieraczem",
+  "withMedia": "Z zawartością multimedialną",
   "withSequence": "",
   "richness": "",
   "percentWithValue": "",
@@ -31,14 +31,14 @@
   "group": {
     "views": "",
     "record": "",
-    "occurrence": "",
+    "occurrence": "Występowanie",
     "organism": "Organizm",
     "materialEntity": "",
     "event": "Wydarzenie",
     "location": "Lokalizacja",
     "geologicalContext": "",
-    "identification": "",
-    "provenance": "",
-    "other": ""
+    "identification": "Identyfikacja",
+    "provenance": "Pochodzenie",
+    "other": "Inne"
   }
 }
