@@ -145,7 +145,7 @@
     "description": ""
   },
   "occurrenceCountry": {
-    "name": "",
+    "name": "Państwo lub obszar",
     "count": "",
     "description": ""
   },
@@ -163,20 +163,20 @@
     "description": ""
   },
   "q": {
-    "name": "",
+    "name": "Wyszukiwanie tekstowe",
     "count": "",
     "description": ""
   },
   "coordinates": {
-    "name": ""
+    "name": "Współrzędne"
   },
   "elevation": {
-    "name": "",
+    "name": "Wysokość",
     "count": "",
     "description": ""
   },
   "license": {
-    "name": "",
+    "name": "Licencja",
     "count": "",
     "description": ""
   },
@@ -196,12 +196,12 @@
     "description": ""
   },
   "hostingOrganizationKey": {
-    "name": "",
+    "name": "Organizacja goszcząca",
     "count": "",
     "description": ""
   },
   "country": {
-    "name": "",
+    "name": "Państwo lub obszar",
     "count": ""
   },
   "countriesOfCoverage": {
@@ -220,7 +220,7 @@
     "description": ""
   },
   "year": {
-    "name": "",
+    "name": "Rok",
     "count": "",
     "description": ""
   },
@@ -235,12 +235,12 @@
     "description": ""
   },
   "depth": {
-    "name": "",
+    "name": "Głębokość",
     "count": "",
     "description": ""
   },
   "organismQuantity": {
-    "name": "",
+    "name": "Liczba organizmów",
     "count": "",
     "description": ""
   },
@@ -255,12 +255,12 @@
     "description": ""
   },
   "month": {
-    "name": "",
+    "name": "Miesiąc",
     "count": "",
     "description": ""
   },
   "continent": {
-    "name": "",
+    "name": "Kontynent",
     "count": "",
     "description": ""
   },
@@ -282,15 +282,15 @@
   "recordNumber": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "Identyfikator nadany zdarzeniu w chwili jego rejestracji."
   },
   "collectionCode": {
-    "name": "",
+    "name": "Kod kolekcji",
     "count": "",
     "description": ""
   },
   "projectId": {
-    "name": "",
+    "name": "Identyfikator projektu",
     "count": "",
     "description": ""
   },
@@ -310,7 +310,7 @@
     "description": ""
   },
   "organismId": {
-    "name": "",
+    "name": "Identyfikator organizmu",
     "count": "",
     "description": ""
   },
@@ -320,7 +320,7 @@
     "description": ""
   },
   "waterBody": {
-    "name": "",
+    "name": "Zbiornik wodny",
     "count": "",
     "description": ""
   },
@@ -345,7 +345,7 @@
     "description": ""
   },
   "locationID": {
-    "name": "",
+    "name": "Identyfikator lokalizacji",
     "count": "",
     "description": ""
   },
@@ -360,7 +360,7 @@
     "description": ""
   },
   "occurrenceCount": {
-    "name": "",
+    "name": "Liczba wystąpień",
     "count": "",
     "description": ""
   },
@@ -375,22 +375,22 @@
     "description": ""
   },
   "samplingProtocol": {
-    "name": "",
+    "name": "Protokół pobierania prób",
     "count": "",
     "description": ""
   },
   "occurrenceStatus": {
-    "name": "",
+    "name": "Status występowania",
     "count": "",
     "description": ""
   },
   "gadmGid": {
-    "name": "",
+    "name": "Obszar administracyjny",
     "count": "",
     "description": ""
   },
   "identifiedBy": {
-    "name": "",
+    "name": "Zidentyfikowany przez",
     "count": "",
     "description": ""
   },
@@ -415,7 +415,7 @@
     "description": ""
   },
   "datasetType": {
-    "name": "",
+    "name": "Typ danych",
     "count": "",
     "description": ""
   },
@@ -425,7 +425,7 @@
     "description": ""
   },
   "institutionKey": {
-    "name": "",
+    "name": "Instytucja",
     "count": "",
     "description": ""
   },
@@ -436,12 +436,12 @@
     "searchPlaceholder": ""
   },
   "city": {
-    "name": "",
+    "name": "Miasto",
     "count": "",
     "description": ""
   },
   "code": {
-    "name": "",
+    "name": "Kod",
     "count": "",
     "description": ""
   },
@@ -453,7 +453,7 @@
   "networkKey": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "Tutaj należy umieścić krótki opis komponentu "
   },
   "literatureType": {
     "name": "",
