@@ -1,7 +1,7 @@
 {
   "nullOrNot": {
-    "isNotNull": "",
-    "isNull": ""
+    "isNotNull": "Musi być zdefiniowany",
+    "isNull": "Nie może być zdefiniowany"
   },
   "invalidValue": "Nieprawidłowa wartość",
   "aboutThisFilter": "O tym filtrze",
