@@ -5,18 +5,18 @@
     "description": "Tutaj należy umieścić krótki opis komponentu"
   },
   "locationId": {
-    "name": "",
+    "name": "Identyfikator lokalizacji",
     "count": "",
     "description": ""
   },
   "hasCoordinate": {
-    "name": "",
-    "count": "",
+    "name": "Ma współrzędne",
+    "count": "Ma współrzędne",
     "description": ""
   },
   "hasGeospatialIssues": {
-    "name": "",
-    "count": "",
+    "name": "Ma problemy geoprzestrzenne",
+    "count": "Ma problemy geoprzestrzenne",
     "description": ""
   },
   "collectionKey": {
@@ -37,15 +37,15 @@
   "iucnRedListCategory": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "Czerwona Księga Gatunków Zagrożonych IUCN grupuje taksony według stopnia ich zagrożenia."
   },
   "geoDistance": {
     "name": "Odległość od współrzędnych",
     "count": "",
-    "description": "",
+    "description": "Filtruj według rekordów w danej odległości od punktu",
     "placeholderLat": "Szerokość geograficzna",
     "placeholderLon": "Długość geograficzna",
-    "placeholderDist": ""
+    "placeholderDist": "Odległość"
   },
   "geometry": {
     "name": "Lokalizacja",
@@ -53,12 +53,12 @@
     "description": "",
     "placeholderLat": "Szerokość geograficzna",
     "placeholderLon": "Długość geograficzna",
-    "placeholderDist": ""
+    "placeholderDist": "Odległość"
   },
   "relevance": {
     "name": "Znaczenie",
     "count": "",
-    "description": ""
+    "description": "Jak używa się GBIF w literaturze."
   },
   "topics": {
     "name": "Temat",
@@ -68,15 +68,15 @@
   "audiences": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "Kim są odbiorcy zasobu."
   },
   "purposes": {
-    "name": "",
+    "name": "Temat",
     "count": "",
-    "description": ""
+    "description": "Jakie są cele zasobu."
   },
   "eventDate": {
-    "name": "",
+    "name": "Data wydarzenia",
     "count": "",
     "description": ""
   },
@@ -86,12 +86,12 @@
     "description": ""
   },
   "identifier": {
-    "name": "",
+    "name": "Identyfikator",
     "count": "",
-    "description": ""
+    "description": "Tutaj należy umieścić krótki opis komponentu "
   },
   "institutionType": {
-    "name": "",
+    "name": "Typ",
     "count": "",
     "description": ""
   },
@@ -116,7 +116,7 @@
     "description": ""
   },
   "basisOfRecord": {
-    "name": "",
+    "name": "Podstawa zapisu",
     "count": "",
     "isNotNull": "",
     "isNull": "",
