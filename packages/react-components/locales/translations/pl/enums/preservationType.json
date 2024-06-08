@@ -1,1 +1,21 @@
-{}
+{
+  "STORAGE_OUTDOORS": "Przechowywane na zewnątrz",
+  "STORAGE_INDOORS": "Przechowywane w pomieszczeniach",
+  "STORAGE_CONTROLLED_ATMOSPHERE": "Kontrolowane warunki przechowywania",
+  "STORAGE_FROZEN_MINUS_20": "Przechowywane zamrożone minus 20",
+  "STORAGE_FROZEN_MINUS_80": "Przechowywane zamrożone minus 80",
+  "STORAGE_FROZEN_BETWEEN_MINUS_132_AND_MINUS_196": "Przechowywane zamrożone między minus 132 a minus 196",
+  "STORAGE_OTHER": "Inne warunki przechowywania",
+  "STORAGE_REFRIGERATED": "Przechowywane w lodówce",
+  "STORAGE_RECORDED": "Prowadzone są zapisy dotyczące przechowywania",
+  "STORAGE_VACUUM": "Przechowywane próżniowo",
+  "SAMPLE_CRYOPRESERVED": "próbka poddana krioprezerwacji",
+  "SAMPLE_DRIED": "Próbka wysuszona",
+  "SAMPLE_EMBEDDED": "Próbka osadzona",
+  "SAMPLE_FLUID_PRESERVED": "Zachowana próbka płynu",
+  "SAMPLE_PINNED": "Próbka przypięta",
+  "SAMPLE_PRESSED": "Wytłoczona próbka",
+  "SAMPLE_TANNED": "Próbka garbowana",
+  "SAMPLE_WAX_BLOCK": "Próbka w bloku woskowym",
+  "SAMPLE_OTHER": "Inna próbka"
+}
