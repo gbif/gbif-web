@@ -2,7 +2,7 @@
   "dwcaExtension": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "Tutaj należy umieścić krótki opis komponentu"
   },
   "locationId": {
     "name": "",
@@ -20,17 +20,17 @@
     "description": ""
   },
   "collectionKey": {
-    "name": "",
+    "name": "Kolekcja",
     "count": "",
     "description": ""
   },
   "numberSpecimens": {
-    "name": "",
+    "name": "Liczba okazów",
     "count": "",
     "description": ""
   },
   "specimensInGbif": {
-    "name": "",
+    "name": "Okazy w GBIF",
     "count": "",
     "description": ""
   },
@@ -40,28 +40,28 @@
     "description": ""
   },
   "geoDistance": {
-    "name": "",
+    "name": "Odległość od współrzędnych",
     "count": "",
     "description": "",
-    "placeholderLat": "",
-    "placeholderLon": "",
+    "placeholderLat": "Szerokość geograficzna",
+    "placeholderLon": "Długość geograficzna",
     "placeholderDist": ""
   },
   "geometry": {
-    "name": "",
+    "name": "Lokalizacja",
     "count": "",
     "description": "",
-    "placeholderLat": "",
-    "placeholderLon": "",
+    "placeholderLat": "Szerokość geograficzna",
+    "placeholderLon": "Długość geograficzna",
     "placeholderDist": ""
   },
   "relevance": {
-    "name": "",
+    "name": "Znaczenie",
     "count": "",
     "description": ""
   },
   "topics": {
-    "name": "",
+    "name": "Temat",
     "count": "",
     "description": ""
   },
@@ -111,7 +111,7 @@
     "description": ""
   },
   "taxonKey": {
-    "name": "",
+    "name": "Nazwa naukowa",
     "count": "",
     "description": ""
   },
