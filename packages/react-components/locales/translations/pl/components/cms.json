@@ -21,7 +21,7 @@
     "start": "Rozpoczęcie",
     "end": "Zakończenie",
     "fundsAllocated": "Przydzielone dofinansowanie",
-    "matchingFunds": "Przewidywane współfinansowanie",
+    "matchingFunds": "Szacowane współfinansowanie",
     "funding": "Finansowanie",
     "coFunding": "Współfinansowanie",
     "fundedBy": "Finansowany przez",
@@ -38,7 +38,7 @@
     "partners": "Partnerzy"
   },
   "datause": {
-    "dataViaGbif": ""
+    "dataViaGbif": "Zasoby danych udostępnione przez GBIF"
   },
   "literature": {
     "keywords": "Słowa kluczowe"
@@ -66,15 +66,15 @@
     "when": "Kiedy",
     "language": "Język",
     "viewOnGBIF": "Zobacz na GBIF",
-    "published": "",
+    "published": "Opublikowano",
     "programme": "Program",
     "fundedBy": "Finansowany przez",
-    "about": "",
+    "about": "Informacje",
     "rights": "Prawa",
-    "rightsHolder": "",
+    "rightsHolder": "Właściciel praw",
     "author": "Autor",
     "datasets": "Zbiory danych",
-    "gbifWillAttend": "",
+    "gbifWillAttend": "Z uczestnictwem Sekretariatu GBIF",
     "dataUsedInStudy": "Dane przytoczone w badaniu",
     "resourceDescription": "Szukaj zasobów w Światowej Sieci Informacji o Bioróżnorodności. Wolny i otwarty dostęp do danych o bioróżnorodności. "
   }
