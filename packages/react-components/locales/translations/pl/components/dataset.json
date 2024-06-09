@@ -1,13 +1,13 @@
 {
   "datasetSearchTitle": "Przeszukiwanie zbiorów danych",
   "longType": {
-    "OCCURRENCE": "Zbiór danych dotyczących wystąpień",
+    "OCCURRENCE": "Zbiór danych stwierdzeń",
     "CHECKLIST": "Zbiór danych dotyczących wykazów gatunków",
     "SAMPLING_EVENT": "Wydarzenie związane z pobieraniem próbek",
     "METADATA": "Zbiór metadanych"
   },
   "metricHighlights": {
-    "occurrences": "Wystąpienia",
+    "occurrences": "Stwierdzenia",
     "withTaxonMatch": "Z dopasowaniem taksonu",
     "withCoordinates": "Ze współrzędnymi",
     "withYear": "Z rokiem",
@@ -51,7 +51,7 @@
   "sampling": "Próbkowanie",
   "methodSteps": "Etapy metody",
   "nDownloadEvents": "{NUMBER_FORMATED} {NUMBER, plural, one{pobranie} few {pobrania} many {pobrań} other{pobrania, pobrań}}",
-  "nFromDataset": "{NUMBER_FORMATED} {NUMBER, plural, one{wystąpienie z tego zbioru danych} few {wystąpienia z tego zbioru danych} many {wystąpień z tego zbioru danych} other{wystąpienia z tego zbioru danych, wystąpień z tego zbioru danych}}",
+  "nFromDataset": "{NUMBER_FORMATED} {NUMBER, plural, one{stwierdzenie z tego zbioru danych} few {stwierdzenia z tego zbioru danych} many {stwierdzeń z tego zbioru danych} other{stwierdzenia z tego zbioru danych}}",
   "funding": "Finansowanie",
   "contacts": "Kontakt",
   "registration": "Rejestracja w GBIF",
@@ -88,7 +88,7 @@
   "latitude": "Szerokość geograficzna",
   "longitude": "Długość geograficzna",
   "verbatim": "",
-  "occurrenceCount": "Liczba wystąpień",
+  "occurrenceCount": "Liczba stwierdzeń",
   "inDataset": "W",
   "samplingArticleLink": "",
   "includesDna": "Zawiera DNA",
