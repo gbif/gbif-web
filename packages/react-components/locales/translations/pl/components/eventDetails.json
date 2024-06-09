@@ -1,5 +1,5 @@
 {
-  "occurrence": "Wystąpienie",
+  "occurrence": "Stwierdzenie",
   "event": "Wydarzenie",
   "showAllFields": "Pokaż wszystkie pola",
   "morePhotos": "Więcej zdjęć",
@@ -25,7 +25,7 @@
   "groups": {
     "summary": "Podsumowanie",
     "record": "Stwierdzenie",
-    "occurrence": "Wystąpienie",
+    "occurrence": "Stwierdzenie",
     "event": "Wydarzenie",
     "dataStructure": "",
     "identification": "Oznaczenie",
