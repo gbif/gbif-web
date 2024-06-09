@@ -1,5 +1,5 @@
 {
-  "numberOfOccurrences": "Liczba wystąpień",
+  "numberOfOccurrences": "Liczba stwierdzeń",
   "addNew": "",
   "removeEmptyGroup": "",
   "newGroup": "",
@@ -21,7 +21,7 @@
   "withSequence": "",
   "richness": "",
   "percentWithValue": "",
-  "occurrences": "Wystąpienia",
+  "occurrences": "Stwierdzenia",
   "other": "Inne",
   "unknown": "Nieznane",
   "iucnThreatStatus": "",
@@ -31,7 +31,7 @@
   "group": {
     "views": "",
     "record": "",
-    "occurrence": "Występowanie",
+    "occurrence": "Stwierdzenie",
     "organism": "Organizm",
     "materialEntity": "",
     "event": "Wydarzenie",
