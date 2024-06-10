@@ -1,4 +1,4 @@
-import { useDeepCompareEffect } from 'react-use';
+import useDeepCompareEffect from 'use-deep-compare-effect'
 import { FormattedMessage } from 'react-intl';
 import { Table, BarItem, FormattedNumber, CardHeader } from './shared';
 import useQuery from '@/hooks/useQuery';
