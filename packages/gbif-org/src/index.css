@@ -74,10 +74,6 @@
     @apply g-bg-background g-text-foreground g-antialiased;
   }
 
-  svg {
-    display: inline;
-  }
-
   .classification {
     line-height: 1.2em;
     & > span:after {
@@ -523,7 +519,6 @@ Make sure disabled buttons don't get the pointer cursor.
 */
 
   img,
-  svg,
   video,
   canvas,
   audio,
@@ -531,6 +526,11 @@ Make sure disabled buttons don't get the pointer cursor.
   embed,
   object {
     display: block; /* 1 */
+    vertical-align: middle; /* 2 */
+  }
+
+  svg {
+    display: inline;
     vertical-align: middle; /* 2 */
   }
 

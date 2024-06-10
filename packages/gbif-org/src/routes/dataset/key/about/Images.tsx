@@ -15,16 +15,24 @@ export function Images({ dataset, className, images = [], ...props }) {
         {images.documents.results.map((occurrence) => {
           return (
             <div key={occurrence.key}>
-              <Image src={occurrence.stillImages[0].identifier} defaultSize={{ height: 200, width: 200 }} />
+              <Image
+                src={occurrence.stillImages[0].identifier}
+                defaultSize={{ height: 200, width: 200 }}
+              />
             </div>
           );
         })}
       </div>
+
       <Button asChild>
-        <DynamicLink to={`/dataset/${dataset.key}/occurrences?view=GALLERY`}>
+        <DynamicLink
+          to={`/dataset/${dataset.key}/occurrences?view=GALLERY`}
+        >
           <SimpleTooltip title={<span>Records with images</span>} placement="auto">
-            <MdImage style={{ marginRight: 8 }} />{' '}
-            <FormattedNumber value={images?.documents?.total} />
+            <div className="g-flex g-place-items-center">
+              <MdImage style={{ marginRight: 8 }} />{' '}
+              <span><FormattedNumber value={images?.documents?.total} /></span>
+            </div>
           </SimpleTooltip>
         </DynamicLink>
       </Button>
