@@ -64,7 +64,7 @@ export function FaqText({ dangerouslySetBody: html }: { dangerouslySetBody: stri
           showModal(true);
         }}
         onMouseLeave={() => showModal(false)}
-        style={{ visibility: modalVisible ? 'visible' : 'g-hidden' }}
+        style={{ visibility: modalVisible ? 'visible' : 'hidden' }}
         className={cn(
           `g-max-h-[calc(100vh_-_6rem)] g-box-content g-bg-white g-w-[32rem] hover:g-w-[32rem] g-max-w-full]`,
           `g-z-[100] g-transition-opacity g-duration-500 md:hover:g-opacity-100 g-overflow-auto g-shadow-2xl`,

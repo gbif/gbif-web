@@ -36,7 +36,7 @@ export function ClientImage({ wrapperProps, onLoad, defaultSize, style = {}, src
       )}
       {failed && (
         <div className='gb-image-failed'>
-          <div style={defaultSize} className='g-block g-bg-slate-50 g-text-red-400 g-flex g-items-center g-justify-center'>
+          <div style={defaultSize} className='g-bg-slate-50 g-text-red-400 g-flex g-items-center g-justify-center'>
             <MdBrokenImage />
           </div>
         </div>
@@ -45,7 +45,7 @@ export function ClientImage({ wrapperProps, onLoad, defaultSize, style = {}, src
         <img
           className='g-bg-slate-50'
           src={src}
-          style={{ maxHeight: '100%', maxWidth: '100%', display: loading ? 'none' : 'g-block'}}
+          style={{ maxHeight: '100%', maxWidth: '100%', display: loading ? 'none' : 'block'}}
           ref={imageRef}
           onError={() => {
             markAsFailed(true);

@@ -11,6 +11,8 @@ const backtickRegex2 = /{\n*\t*\s*`\n*\t*\s*([\w\s->:=#\.,\[\]%&()/${}\?'"]+)\n*
 const quoteRegex = /[']([\w\s->:=#\.,\[\]%&()/]+)[']/g; // quote version
 const quote2Regex = /["]([\w\s->:=#\.,\[\]%&()/]+)["]/g; // quote version
 
+const styleTest = /style.*['"].*(g-).*["']/g; // quote version
+
 const replaceTypes = {
   className: {
     regex: classNameRegex,
@@ -59,9 +61,9 @@ glob("**/*.{js,jsx,tsx,ts}", { cwd: rootDir }, (er, files) => {
       return replaceTypes[type].replace(prefixedClassNames);
     });
 
-    fs.writeFile(filePath, result, 'utf-8', (err) => {
-      if (err) console.error(err);
-    });
+    // fs.writeFile(filePath, result, 'utf-8', (err) => {
+    //   if (err) console.error(err);
+    // });
   });
   console.log(unmappedClasses);
 });
