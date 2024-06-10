@@ -29,12 +29,12 @@ export default function Properties({
 
   let css = '';
   if (isHorizontal) {
-    css += `grid gap-x-4 grid-cols-[auto_1fr] ${dense ? '[&>*]:mb-2' : '[&>*]:mb-3'} group [&_dl_dt]:text-slate-600 ${useDefaultTermWidths ? '[&>dt]:w-48' : ''}`;
+    css += `g-grid g-gap-x-4 g-grid-cols-[auto_1fr] ${dense ? '[&>*]:g-mb-2' : '[&>*]:g-mb-3'} g-group [&_dl_dt]:g-text-slate-600 ${useDefaultTermWidths ? '[&>dt]:g-w-48' : ''}`;
   } else {
-    css += `[&>dd]:mb-4 [&>dt]:mb-1 group is-vertical group-[.is-vertical]:ml-2 [&_dl_dt]:text-slate-600`;
+    css += `[&>dd]:g-mb-4 [&>dt]:g-mb-1 g-group is-vertical g-group-[.is-vertical]:g-ml-2 [&_dl_dt]:g-text-slate-600`;
   }
   return (
-    <dl className={cn(`max-w-full ${css}`, className)} {...props}>
+    <dl className={cn(`g-max-w-full ${css}`, className)} {...props}>
       {children}
     </dl>
   );
@@ -50,8 +50,7 @@ export function Term({
   // what is the correct type here, I cannot see dt as a type
   return (
     <dt
-      className={cn(
-        'peer max-w-52 leading-tight break-words group-[.is-vertical]:font-semibold last-of-type:mb-0',
+      className={cn('g-peer g-max-w-52 g-leading-tight g-break-words g-group-[.is-vertical]:g-font-semibold last-of-type:g-mb-0',
         className
       )}
       {...props}
@@ -70,7 +69,7 @@ export function Value({
 } & React.HTMLAttributes<HTMLDivElement>) {
   // what is the correct type here, I cannot see dd as a type
   return (
-    <dd className={cn('break-words leading-tight last-of-type:mb-0', className)} {...props}>
+    <dd className={cn('g-break-words g-leading-tight last-of-type:g-mb-0', className)} {...props}>
       {children}
     </dd>
   );

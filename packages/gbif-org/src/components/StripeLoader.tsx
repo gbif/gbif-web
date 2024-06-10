@@ -49,7 +49,7 @@ export default function StripeLoader({ active, error, className, ...props }: {
 }) {
   
   return <div 
-    // className={cn("h-px w-full relative overflow-hidden before:block before:absolute before:content-'' before:left--200 before:w-200 before:h-px before:bg-primary before:animation-loading before:infinite before:linear", className)}
+    // className={cn('g-h-px g-w-full g-relative g-overflow-hidden before:g-block before:g-absolute before:content-'' before:left--200 before:w-200 before:h-px before:bg-primary before:animation-loading before:infinite before:linear", className)}
     className={cn(styles.loader, (active && !error) ? styles.active : '', error ? styles.error : '', className)}
     // css={css`
     // height: 1px;

@@ -9,13 +9,13 @@ type Props = {
   };
 };
 
-const contentClassNames = 'text-slate-500 dark:text-slate-400 text-sm';
+const contentClassNames = 'g-text-slate-500 dark:g-text-slate-400 g-text-sm';
 
 export function ArticleAuxiliary({ className, label, children, dangerouslySetValue }: Props) {
   return (
-    <div className={cn('mt-8', className)}>
+    <div className={cn('g-mt-8', className)}>
       {label && (
-        <h3 className="font-bold text-sm mb-2 text-slate-700 dark:text-slate-400">{label}</h3>
+        <h3 className='g-font-bold g-text-sm g-mb-2 g-text-slate-700 dark:g-text-slate-400'>{label}</h3>
       )}
       {dangerouslySetValue && (
         <div

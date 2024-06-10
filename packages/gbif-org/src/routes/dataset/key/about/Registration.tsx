@@ -39,7 +39,7 @@ export function Registration({ dataset = {}, ...props }) {
 
   return (
     <div>
-      <Properties className="">
+      <Properties className="" useDefaultTermWidths>
         {created && (
           <>
             <T>
@@ -159,10 +159,10 @@ export function Registration({ dataset = {}, ...props }) {
         )}
       </Properties>
 
-      <div className="mt-6">
+      <div className='g-mt-6'>
         <Button asChild variant="outline">
           <a href={`https://registry.gbif.org/dataset/${dataset.key}/ingestion-history`}>
-            <FormattedMessage id="dataset.registry.registrationDetails" /> <MdLink className="ms-2" />
+            <FormattedMessage id="dataset.registry.registrationDetails" /> <MdLink className='g-ms-2' />
           </a>
         </Button>
       </div>

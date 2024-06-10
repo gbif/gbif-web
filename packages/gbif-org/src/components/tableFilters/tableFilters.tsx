@@ -9,7 +9,7 @@ type Props = {
 
 export function TableFilters({ filters, setFilter }: Props) {
   return (
-    <div className="flex">
+    <div className='g-flex'>
       {filters.map((filter) => {
         switch (filter.type) {
           case FilterType.MultiOptionsFilter:

@@ -51,27 +51,27 @@ export default function About() {
   // should we move the routes from the main config in to the individual components? I wonder if that makes changes easier to manage. It would make passing data around easier.
 
   return (
-    <ArticleContainer className="bg-slate-100 pt-4">
-      <ArticleTextContainer className="max-w-screen-xl">
+    <ArticleContainer className='g-bg-slate-100 g-pt-4'>
+      <ArticleTextContainer className='g-max-w-screen-xl'>
         <div className={`${removeSidebar ? '' : 'flex'}`}>
           {!removeSidebar && (
-            <aside className="flex-none w-96 me-4">
-              <div className="max-w-64 md:max-w-96 mb-4">
+            <aside className='g-flex-none g-w-96 g-me-4'>
+              <div className='g-max-w-64 md:g-max-w-96 g-mb-4'>
                 <AdHocMapThumbnail
                   filter={{ collectionKey: collection.key }}
-                  className="rounded border"
+                  className='g-rounded g-border'
                 />
               </div>
               <ClientSideOnly>
-                <charts.OccurrenceSummary predicate={predicate} className="mb-4" />
-                <charts.DataQuality predicate={predicate} className="mb-4" />
-                {/* <charts.Taxa predicate={predicate} className="mb-2" /> */}
+                <charts.OccurrenceSummary predicate={predicate} className='g-mb-4' />
+                <charts.DataQuality predicate={predicate} className='g-mb-4' />
+                {/* <charts.Taxa predicate={predicate} className='g-mb-2' /> */}
               </ClientSideOnly>
             </aside>
           )}
 
-          <div className="flex-grow">
-            <Card className="mb-4">
+          <div className='g-flex-grow'>
+            <Card className='g-mb-4'>
               <CardHeader>
                 <CardTitle>
                   <FormattedMessage id="dataset.description" />
@@ -80,7 +80,7 @@ export default function About() {
               <CardContent>
                 {collection?.description && (
                   <div
-                    className="prose mb-6 max-w-full"
+                    className='g-prose g-mb-6 g-max-w-full'
                     dangerouslySetInnerHTML={{ __html: collection.description }}
                   ></div>
                 )}
@@ -154,7 +154,7 @@ export default function About() {
             </Card>
 
             {useInlineImage && (
-              <Card className="mb-4">
+              <Card className='g-mb-4'>
                 <FeaturedImageContent
                   featuredImageUrl={imageUrl}
                   featuredImageLicense={
@@ -166,13 +166,13 @@ export default function About() {
 
             {/* <AdHocMapThumbnail
                 filter={{ collectionKey: collection.key }}
-                className="rounded border"
+                className='g-rounded g-border'
               /> */}
 
             {/* <section>
               <CardHeader>
                 <CardTitle>
-                  <span className="me-2">
+                  <span className='g-me-2'>
                     <FormattedMessage id="dataset.metrics" />
                   </span>
                   <SimpleTooltip
@@ -186,25 +186,25 @@ export default function About() {
               </CardHeader>
               <ClientSideOnly>
                 <DashBoardLayout>
-                  <charts.OccurrenceSummary predicate={predicate} className="mb-2" />
-                  <charts.DataQuality predicate={predicate} className="mb-2" />
-                  <charts.Taxa predicate={predicate} className="mb-2" />
+                  <charts.OccurrenceSummary predicate={predicate} className='g-mb-2' />
+                  <charts.DataQuality predicate={predicate} className='g-mb-2' />
+                  <charts.Taxa predicate={predicate} className='g-mb-2' />
                 </DashBoardLayout>
               </ClientSideOnly>
             </section> */}
 
-            <Card className="mb-4">
+            <Card className='g-mb-4'>
               <CardHeader>
                 <CardTitle>
                   <FormattedMessage id="dataset.contacts" />
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <Properties useDefaultTermWidths className="mb-8">
+                <Properties useDefaultTermWidths className='g-mb-8'>
                   {collection?.email?.length > 0 && (
                     <Property
                       labelId="grscicoll.email"
-                      className="prose"
+                      className='g-prose'
                       value={collection.email}
                       formatter={(email) => (
                         <a href={`mailto:${email}`} className="">
@@ -214,7 +214,7 @@ export default function About() {
                     ></Property>
                   )}
                   <Property labelId="grscicoll.homepage">
-                    <HyperText className="prose" text={collection?.homepage} />
+                    <HyperText className='g-prose' text={collection?.homepage} />
                   </Property>
                   <Property
                     value={collection?.address?.country}
@@ -267,13 +267,13 @@ export default function About() {
                     </>
                   )}
                 </Properties>
-                <div className="flex flex-wrap -m-2">
+                <div className='g-flex g-flex-wrap -g-m-2'>
                   {contacts?.map((contact) => {
                     if (!contact) return null;
                     return (
                       <Card
                         key={contact.key}
-                        className="px-6 py-4 flex-auto max-w-sm min-w-xs m-2 w-1/2"
+                        className='g-px-6 g-py-4 g-flex-auto g-max-w-sm g-min-w-xs g-m-2 g-w-1/2'
                       >
                         <ContactHeader>
                           <ContactAvatar
@@ -292,7 +292,7 @@ export default function About() {
                             )}
                           </ContactHeaderContent>
                         </ContactHeader>
-                        <ContactContent className="mb-2">
+                        <ContactContent className='g-mb-2'>
                           {contact.taxonomicExpertise}
                         </ContactContent>
                         <ContactActions>
@@ -310,7 +310,7 @@ export default function About() {
               </CardContent>
             </Card>
 
-            <Card className="mb-4">
+            <Card className='g-mb-4'>
               <CardHeader>
                 <CardTitle>
                   <FormattedMessage id="grscicoll.identifiers" />
@@ -333,9 +333,9 @@ export default function About() {
                       >
                         {collection.alternativeCodes.map((x, i) => {
                           return (
-                            <li key={`${i}_${x.code}`} className="mb-2">
+                            <li key={`${i}_${x.code}`} className='g-mb-2'>
                               <div>{x.code}</div>
-                              <div className="text-slate-500">{x.description}</div>
+                              <div className='g-text-slate-500'>{x.description}</div>
                             </li>
                           );
                         })}
@@ -353,17 +353,17 @@ export default function About() {
                       >
                         {collection.identifiers.map((x, i) => {
                           const IdentifierItem = ({ link, text, type }) => (
-                            <li className="mb-4">
+                            <li className='g-mb-4'>
                               <div
                                 // css={css`color: var(--color400); font-size: 0.9em;`}
-                                className="text-slate-500 text-sm"
+                                className='g-text-slate-500 g-text-sm'
                               >
                                 <FormattedMessage
                                   id={`enums.identifierType.${type}`}
                                   defaultMessage={type}
                                 />
                               </div>
-                              <div className="prose">
+                              <div className='g-prose'>
                                 <a href={link}>{text}</a>
                               </div>
                             </li>
@@ -391,15 +391,15 @@ export default function About() {
                           }
 
                           return (
-                            <li key={`${i}_${x.identifier}`} className="mb-4">
-                              <div className="text-slate-500 text-sm">
+                            <li key={`${i}_${x.identifier}`} className='g-mb-4'>
+                              <div className='g-text-slate-500 g-text-sm'>
                                 <FormattedMessage
                                   id={`enums.identifierType.${x.type}`}
                                   defaultMessage={x.type}
                                 />
                               </div>
                               <div>
-                                <HyperText className="prose" text={identifier} inline />
+                                <HyperText className='g-prose' text={identifier} inline />
                               </div>
                             </li>
                           );

@@ -54,8 +54,8 @@ export function DoiTag({ id = '', ...props }) {
 
 export function OrcId({ href, className }: { href: string; className?: string }) {
   return (
-    <a dir="ltr" className={cn('inline-block no-underline', className)} href={href}>
-      <img alt="ORCID logo" className="mr-1 inline-block" src="https://info.orcid.org/wp-content/uploads/2019/11/orcid_16x16.png" width="16" height="16" />
+    <a dir="ltr" className={cn('g-inline-block g-no-underline', className)} href={href}>
+      <img alt="ORCID logo" className='g-mr-1 g-inline-block' src="https://info.orcid.org/wp-content/uploads/2019/11/orcid_16x16.png" width="16" height="16" />
       {href}
     </a>
   );
@@ -83,7 +83,7 @@ export function IdentifierType({
     <span
       className={cn(
         className,
-        'gbif-identifierType px-2 rounded-s bg-primary-500 border border-primary-600 border-opacity-20 text-primaryContrast-500'
+        'gbif-identifierType g-px-2 g-rounded-s g-bg-primary-500 g-border g-border-primary-600 g-border-opacity-20 g-text-primaryContrast-500'
       )}
       {...props}
     >
@@ -103,8 +103,7 @@ export function IdentifierValue({
 }) {
   return (
     <span
-      className={cn(
-        'px-2 rounded-e border-solid border border-s-0 border-slate-800 border-opacity-20 ',
+      className={cn('g-px-2 g-rounded-e g-border-solid g-border g-border-s-0 g-border-slate-800 g-border-opacity-20 ',
         className
       )}
       {...props}
@@ -132,8 +131,7 @@ export const IdentifierTag = React.forwardRef(
       <Div
         dir="ltr"
         ref={ref}
-        className={cn(
-          'inline-block text-sm no-underline [&>.gbif-identifierType]:hover:primary-600 [&>.gbif-identifierType]:hover:text-primaryContrast-600',
+        className={cn('g-inline-block g-text-sm g-no-underline [&>.gbif-identifierType]:hover:g-primary-600 [&>.gbif-identifierType]:hover:g-text-primaryContrast-600',
           className
         )}
         {...props}

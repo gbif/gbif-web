@@ -16,8 +16,7 @@ const TooltipContent = React.forwardRef<
   <TooltipPrimitive.Content
     ref={ref}
     sideOffset={sideOffset}
-    className={cn(
-      "z-50 overflow-hidden rounded-md bg-slate-950 text-white dark:bg-slate-800 dark:text-white px-3 py-1.5 text-xs animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+    className={cn('g-z-50 g-overflow-hidden g-rounded-md g-bg-slate-950 g-text-white dark:g-bg-slate-800 dark:g-text-white g-px-3 g-py-1.5 g-text-xs g-animate-in g-fade-in-0 g-zoom-in-95 data-[state=closed]:g-animate-out data-[state=closed]:g-fade-out-0 data-[state=closed]:g-zoom-out-95 data-[side=bottom]:g-slide-in-from-top-2 data-[side=left]:g-slide-in-from-right-2 data-[side=right]:g-slide-in-from-left-2 data-[side=top]:g-slide-in-from-bottom-2',
       className
     )}
     {...props}

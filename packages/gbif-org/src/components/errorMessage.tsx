@@ -11,8 +11,7 @@ export function ErrorMessage({
 }) {
   return (
     <div
-      className={cn(
-        'align-middle bg-red-100 text-red-800 text-sm font-medium mt-2 px-3 py-2 rounded dark:bg-red-900 dark:text-red-300',
+      className={cn('g-align-middle g-bg-red-100 g-text-red-800 g-text-sm g-font-medium g-mt-2 g-px-3 g-py-2 g-rounded dark:g-bg-red-900 dark:g-text-red-300',
         className
       )}
       {...props}

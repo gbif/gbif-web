@@ -15,7 +15,7 @@ import {
 export function HelpTitle({ id, ...props }: { id: string } & React.HTMLProps<HTMLDivElement>) {
   const { loading, title, error } = useHelp(id, { titleOnly: true });
   if (error) return <Failed />;
-  if (loading || !title) return <Skeleton className="inline">Loading</Skeleton>;
+  if (loading || !title) return <Skeleton className='g-inline'>Loading</Skeleton>;
   return <span dangerouslySetInnerHTML={{ __html: title }} {...props} />;
 }
 
@@ -34,15 +34,15 @@ export function HelpText({
   return (
     <div {...props}>
       {loading && (
-        <div className="animate-pulse flex space-x-4">
-          <div className="flex-1 space-y-6 py-1">
-            <div className="h-2 bg-slate-200 rounded"></div>
-            <div className="space-y-3">
-              <div className="grid grid-cols-3 gap-4">
-                <div className="h-2 bg-slate-200 rounded col-span-2"></div>
-                <div className="h-2 bg-slate-200 rounded col-span-1"></div>
+        <div className='g-animate-pulse g-flex g-space-x-4'>
+          <div className='g-flex-1 g-space-y-6 g-py-1'>
+            <div className='g-h-2 g-bg-slate-200 g-rounded'></div>
+            <div className='g-space-y-3'>
+              <div className='g-grid g-grid-cols-3 g-gap-4'>
+                <div className='g-h-2 g-bg-slate-200 g-rounded g-col-span-2'></div>
+                <div className='g-h-2 g-bg-slate-200 g-rounded g-col-span-1'></div>
               </div>
-              <div className="h-2 bg-slate-200 rounded"></div>
+              <div className='g-h-2 g-bg-slate-200 g-rounded'></div>
             </div>
           </div>
         </div>
@@ -112,7 +112,7 @@ export function useHelp(helpIdentifier: string, { titleOnly }: { titleOnly?: boo
 
 export function Failed() {
   return (
-    <div className="bg-red-600 rounded text-white p-1 px-2">
+    <div className='g-bg-red-600 g-rounded g-text-white g-p-1 g-px-2'>
       <FormattedMessage id="phrases.failedToLoadData" />
     </div>
   );
@@ -139,7 +139,7 @@ export function HelpLine({
           {title || <HelpTitle id={id ?? ''} />}{' '}</>}
         {icon && (typeof icon === 'boolean' ? <MdInfoOutline /> : icon)}
       </PopoverTrigger>
-      <PopoverContent className={cn('prose w-96', className)}>
+      <PopoverContent className={cn('g-prose g-w-96', className)}>
         {id && <HelpText identifier={id} />}
         {!id && children}
       </PopoverContent>

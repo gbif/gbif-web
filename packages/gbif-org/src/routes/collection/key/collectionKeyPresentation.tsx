@@ -78,16 +78,16 @@ export function CollectionKey({
         {/* TODO we need much richer meta data. */}
       </Helmet>
 
-      <ArticleContainer className="pb-0">
-        <ArticleTextContainer className="max-w-screen-xl">
-          <div className="flex mb-4">
-            {imageUrl && !useInlineImage && <div className="flex-none me-4">
-              <div className="bg-slate-200 rounded w-36 lg:w-96 overflow-hidden">
+      <ArticleContainer className='g-pb-0'>
+        <ArticleTextContainer className='g-max-w-screen-xl'>
+          <div className='g-flex g-mb-4'>
+            {imageUrl && !useInlineImage && <div className='g-flex-none g-me-4'>
+              <div className='g-bg-slate-200 g-rounded g-w-36 lg:g-w-96 g-overflow-hidden'>
                 <FeaturedImageContent featuredImageUrl={imageUrl} featuredImageLicense={collection.featuredImageUrl ? collection.featuredImageLicense : null} />
               </div>
             </div>}
-            <div className="flex-auto flex flex-col">
-              <div className="flex-auto">
+            <div className='g-flex-auto g-flex g-flex-col'>
+              <div className='g-flex-auto'>
                 <ArticlePreTitle secondary={collection?.code}>
                   <FormattedMessage id="grscicoll.collectionCode" />
                 </ArticlePreTitle>
@@ -96,19 +96,19 @@ export function CollectionKey({
                   dangerouslySetTitle={{ __html: collection.name || 'No title provided' }}
                 >
                   {!collection.active && (
-                    <span className="align-middle bg-red-100 text-red-800 text-sm font-medium ms-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
+                    <span className='g-align-middle g-bg-red-100 g-text-red-800 g-text-sm g-font-medium g-ms-2 g-px-2.5 g-py-0.5 g-rounded dark:g-bg-red-900 dark:g-text-red-300'>
                       <FormattedMessage id={`grscicoll.inactive`} />
                     </span>
                   )}
                 </ArticleTitle>
                 {collection.institution && (
-                  <div className="mt-2">
+                  <div className='g-mt-2'>
                     <FormattedMessage
                       id="grscicoll.fromInstitution"
                       values={{
                         institution: (
                           <DynamicLink
-                            className="hover:underline text-primary-500"
+                            className='hover:g-underline g-text-primary-500'
                             to={`/institution/${collection.institution.key}`}
                           >
                             {collection.institution.name}
@@ -127,7 +127,7 @@ export function CollectionKey({
                       values={{
                         newItem: (
                           <DynamicLink
-                            className="me-4"
+                            className='g-me-4'
                             to={`/collection/${collection.replacedByCollection.key}`}
                           >
                             {collection.replacedByCollection.name}
@@ -139,7 +139,7 @@ export function CollectionKey({
                 )}
               </div>
 
-              <HeaderInfo className="flex-none mb-0">
+              <HeaderInfo className='g-flex-none g-mb-0'>
                 <HeaderInfoMain>
                   <FeatureList>
                     <Homepage url={collection?.homepage} />
@@ -158,7 +158,7 @@ export function CollectionKey({
                     {!(collection?.numberSpecimens && collection?.numberSpecimens > 1) && (
                       <GenericFeature>
                         <OccurrenceIcon />
-                        <span className="text-slate-400">
+                        <span className='g-text-slate-400'>
                           <FormattedMessage id="grscicoll.unknownSize" />
                         </span>
                       </GenericFeature>
@@ -194,7 +194,7 @@ export function CollectionKey({
                     </FeatureList>
                   )}
                 </HeaderInfoMain>
-                <HeaderInfoEdit className="flex">
+                <HeaderInfoEdit className='g-flex'>
                   {/* TODO Phew it is quite a few lines just to add a tooltip, I wonder if an abstraction would be appreciated. Here I repeat the provider, which doesn't help, but it didn't properly disappear and reappear without it*/}
                   <Tooltip delayDuration={0}>
                     <TooltipTrigger>
@@ -216,7 +216,7 @@ export function CollectionKey({
                       <Button
                         variant="ghost"
                         asChild
-                        className="ms-2"
+                        className='g-ms-2'
                         style={{ fontSize: '1.2em' }}
                       >
                         <a
@@ -236,7 +236,7 @@ export function CollectionKey({
               </HeaderInfo>
             </div>
           </div>
-          <div className="border-b"></div>
+          <div className='g-border-b'></div>
           <Tabs links={tabs} />
         </ArticleTextContainer>
       </ArticleContainer>
@@ -256,7 +256,7 @@ export function FeaturedImageContent({ featuredImageLicense, featuredImageUrl }:
 
   return <div style={{ position: 'relative', width: '100%', height: 0, paddingBottom: '67%' }}>
     <img src={featuredImageUrl} style={{ objectFit: 'cover', width: '100%', display: 'block', position: 'absolute', height: '100%' }} />
-    {featuredImageLicense && <div className="absolute bottom-0 left-0 p-1 text-white">
+    {featuredImageLicense && <div className='g-absolute g-bottom-0 g-left-0 g-p-1 g-text-white'>
       <SimpleTooltip title={<div><FormattedMessage id="phrases.license" />: <FormattedMessage id={`enums.license.${featuredImageLicense}`} /></div>}><span><MdInfo /></span></SimpleTooltip>
     </div>}
   </div>

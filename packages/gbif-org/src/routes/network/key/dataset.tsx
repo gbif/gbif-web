@@ -38,7 +38,7 @@ export function NetworkKeyDataset() {
 
   if (loading || !data)
     return (
-      <ArticleContainer className="bg-slate-100">
+      <ArticleContainer className='g-bg-slate-100'>
         <ArticleTextContainer>
           <CardListSkeleton />
         </ArticleTextContainer>
@@ -48,7 +48,7 @@ export function NetworkKeyDataset() {
   const datasets = data?.network?.constituents;
 
   return (
-    <ArticleContainer className="bg-slate-100">
+    <ArticleContainer className='g-bg-slate-100'>
       <ArticleTextContainer>
         { datasets?.count === 0 && <>
           <NoRecords />

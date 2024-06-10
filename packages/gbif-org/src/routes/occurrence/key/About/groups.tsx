@@ -118,7 +118,7 @@ export function Group({
   children: React.ReactNode;
 }) {
   return (
-    <Card className="mb-4" id={id}>
+    <Card className='g-mb-4' id={id}>
       <CardHeader>
         <CardTitle>
           <FormattedMessage id={label} />
@@ -140,7 +140,7 @@ function PropGroup({
 }) {
   return (
     <Group label={label} id={id}>
-      <Properties breakpoint={800} className="[&>dt]:w-52">
+      <Properties breakpoint={800} className='[&>dt]:g-w-52'>
         {children}
       </Properties>
     </Group>
@@ -205,10 +205,10 @@ function Provenance({
   occurrence: any;
 }) {
   return (
-    <Card className="mb-4 bg-slate-300 text-slate-600">
-      <CardContent className="py-4 md:py-4">
+    <Card className='g-mb-4 g-bg-slate-300 g-text-slate-600'>
+      <CardContent className='g-py-4 md:g-py-4'>
         This record is part of the dataset{' '}
-        <span className="underline">
+        <span className='g-underline'>
           <DynamicLink to={`/dataset/${occurrence.datasetKey}`}>
             {occurrence.datasetTitle}
           </DynamicLink>
@@ -318,15 +318,15 @@ function Location({
   occurrence: any;
 }) {
   return (
-    <Card className="mb-4" id="location">
+    <Card className='g-mb-4' id="location">
       <CardHeader>
         <CardTitle>
           <FormattedMessage id="occurrenceDetails.groups.location" />
         </CardTitle>
       </CardHeader>
-      <CardContent className="flex w-full">
-        <div className="flex-auto">
-          <Properties breakpoint={800} className="[&>dt]:w-52">
+      <CardContent className='g-flex g-w-full'>
+        <div className='g-flex-auto'>
+          <Properties breakpoint={800} className='[&>dt]:g-w-52'>
             <PlainTextField term={termMap.locationID} showDetails={showAll} />
             <PlainTextField term={termMap.higherGeographyID} showDetails={showAll} />
             <PlainTextField term={termMap.higherGeography} showDetails={showAll} />
@@ -408,11 +408,11 @@ function Location({
         </div>
 
         {occurrence.coordinates.lon && (
-          <div className="ms-4 flex-auto w-1/2 min-w-64">
+          <div className='g-ms-4 g-flex-auto g-w-1/2 g-min-w-64'>
             <React.Suspense fallback={<div>Loading map...</div>}>
               <Map
                 coordinates={occurrence.coordinates}
-                className="w-full rounded overflow-hidden"
+                className='g-w-full g-rounded g-overflow-hidden'
               />
             </React.Suspense>
           </div>
@@ -764,12 +764,12 @@ function MediaSummary({
   const hasMore =
     occurrence.stillImageCount + occurrence.movingImageCount > 1 || occurrence?.soundCount > 0;
   return (
-    <Card className="mb-4">
+    <Card className='g-mb-4'>
       <div style={{ position: 'relative', background: '#eee' }}>
         {hasMore && (
           <a
             href="#media"
-            className="absolute top-0 end-0 m-2 bg-neutral-800 rounded text-slate-100 px-2 py-1"
+            className='g-absolute g-top-0 g-end-0 g-m-2 g-bg-neutral-800 g-rounded g-text-slate-100 g-px-2 g-py-1'
           >
             See all
           </a>
@@ -802,7 +802,7 @@ function Citation({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] })
   if (!occurrence) return null;
   return (
     <Group label="phrases.citation" id="citation">
-      <Properties breakpoint={800} className="[&>dt]:w-52">
+      <Properties breakpoint={800} className='[&>dt]:g-w-52'>
         <BasicField label="phrases.citeAs">
           {occurrence?.dataset?.citation?.text} https://gbif.org/occurrence/{occurrence.key}
         </BasicField>
@@ -814,9 +814,9 @@ function Citation({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] })
 function Debug({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
   if (!occurrence) return null;
   return (
-    <div className="mb-4 text-sm scroll-mt-24" id="provenance">
+    <div className='g-mb-4 g-text-sm g-scroll-mt-24' id="provenance">
       <CardContent>
-        <Properties breakpoint={800} className="[&>dt]:w-52">
+        <Properties breakpoint={800} className='[&>dt]:g-w-52'>
           <BasicField label="API access">
             <BulletList>
               <li>

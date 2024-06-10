@@ -45,11 +45,11 @@ export default function About() {
   const imageUrl = institution.featuredImageUrl ?? institution.featuredImageUrl_fallback;
 
   return (
-    <ArticleContainer className="bg-slate-100 pt-4">
-      <ArticleTextContainer className="max-w-screen-xl">
-        <div className={`${removeSidebar ? '' : 'grid grid-cols-2 gap-4 grid-cols-[1fr_350px]'}`}>
+    <ArticleContainer className='g-bg-slate-100 g-pt-4'>
+      <ArticleTextContainer className='g-max-w-screen-xl'>
+        <div className={`${removeSidebar ? '' : 'g-grid g-gap-4 g-grid-cols-[1fr_350px]'}`}>
           <div className="">
-            <Card className="mb-4">
+            <Card className='g-mb-4'>
               <CardHeader>
                 <CardTitle>
                   <FormattedMessage id="dataset.description" />
@@ -58,7 +58,7 @@ export default function About() {
               <CardContent>
                 {institution?.description && (
                   <div
-                    className="prose mb-6 max-w-full"
+                    className='g-prose g-mb-6 g-max-w-full'
                     dangerouslySetInnerHTML={{ __html: institution.description }}
                   ></div>
                 )}
@@ -118,7 +118,7 @@ export default function About() {
             </Card>
 
             {useInlineImage && (
-              <Card className="mb-4">
+              <Card className='g-mb-4'>
                 <FeaturedImageContent
                   featuredImageUrl={imageUrl}
                   featuredImageLicense={
@@ -135,20 +135,20 @@ export default function About() {
                     <FormattedMessage id="institution.collections" defaultMessage="Collections" />
                   </CardTitle>
                 </CardHeader>
-                <Card className="relative overflow-x-auto rounded border mb-4">
-                  <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                    <thead className="text-slate-500 font-light bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border-b">
+                <Card className='g-relative g-overflow-x-auto g-rounded g-border g-mb-4'>
+                  <table className='g-w-full g-text-sm g-text-left rtl:g-text-right g-text-gray-500 dark:g-text-gray-400'>
+                    <thead className='g-text-slate-500 g-font-light g-bg-gray-50 dark:g-bg-gray-700 dark:g-text-gray-400 g-border-b'>
                       <tr>
-                        <th scope="col" className="px-6 py-3 font-normal">
+                        <th scope="col" className='g-px-6 g-py-3 g-font-normal'>
                           Name
                         </th>
-                        <th scope="col" className="px-1 py-3 font-normal">
+                        <th scope="col" className='g-px-1 g-py-3 g-font-normal'>
                           Code
                         </th>
-                        <th scope="col" className="px-1 py-3 font-normal">
+                        <th scope="col" className='g-px-1 g-py-3 g-font-normal'>
                           Description
                         </th>
-                        <th scope="col" className="px-6 py-3 font-normal text-right rtl:text-left">
+                        <th scope="col" className='g-px-6 g-py-3 g-font-normal g-text-right rtl:g-text-left'>
                           Specimens
                         </th>
                       </tr>
@@ -158,32 +158,32 @@ export default function About() {
                         return (
                           <tr
                             key={collection.key}
-                            className="bg-white border-b last:border-0 dark:bg-gray-800 dark:border-gray-700"
+                            className='g-bg-white g-border-b last:g-border-0 dark:g-bg-gray-800 dark:g-border-gray-700'
                           >
                             <td
                               scope="row"
-                              className="px-6 py-3 font-medium text-slate-900 dark:text-white min-w-80"
+                              className='g-px-6 g-py-3 g-font-medium g-text-slate-900 dark:g-text-white g-min-w-80'
                             >
                               <DynamicLink
-                                className="underline"
+                                className='g-underline'
                                 to={`/collection/${collection.key}`}
                               >
                                 {collection.name}
                               </DynamicLink>{' '}
                               {!collection.active && (
-                                <Tag className="bg-red-700 text-white">Inactive</Tag>
+                                <Tag className='g-bg-red-700 g-text-white'>Inactive</Tag>
                               )}
                             </td>
-                            <td className="px-1 py-3">
-                              <Tag className="whitespace-nowrap">{collection.code}</Tag>
+                            <td className='g-px-1 g-py-3'>
+                              <Tag className='g-whitespace-nowrap'>{collection.code}</Tag>
                             </td>
-                            <td className="px-1 py-3">
+                            <td className='g-px-1 g-py-3'>
                               <div
-                                className="line-clamp-2"
+                                className='g-line-clamp-2'
                                 dangerouslySetInnerHTML={{ __html: collection.excerpt }}
                               ></div>
                             </td>
-                            <td className="px-6 py-3 text-right rtl:text-left">
+                            <td className='g-px-6 g-py-3 g-text-right rtl:g-text-left'>
                               <FormattedNumber value={collection.numberSpecimens} />
                             </td>
                           </tr>
@@ -195,18 +195,18 @@ export default function About() {
               </>
             )}
 
-            <Card className="mb-4">
+            <Card className='g-mb-4'>
               <CardHeader>
                 <CardTitle>
                   <FormattedMessage id="dataset.contacts" />
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <Properties useDefaultTermWidths className="mb-8">
+                <Properties useDefaultTermWidths className='g-mb-8'>
                   {institution?.email?.length > 0 && (
                     <Property
                       labelId="grscicoll.email"
-                      className="prose"
+                      className='g-prose'
                       value={institution.email}
                       formatter={(email) => (
                         <a href={`mailto:${email}`} className="">
@@ -216,7 +216,7 @@ export default function About() {
                     ></Property>
                   )}
                   <Property labelId="grscicoll.homepage">
-                    <HyperText className="prose" text={institution?.homepage} />
+                    <HyperText className='g-prose' text={institution?.homepage} />
                   </Property>
                   <Property
                     value={institution?.address?.country}
@@ -269,13 +269,13 @@ export default function About() {
                     </>
                   )}
                 </Properties>
-                <div className="flex flex-wrap -m-2">
+                <div className='g-flex g-flex-wrap -g-m-2'>
                   {contacts?.map((contact) => {
                     if (!contact) return null;
                     return (
                       <Card
                         key={contact.key}
-                        className="px-4 py-3 flex-auto max-w-sm min-w-xs m-2 w-1/2"
+                        className='g-px-4 g-py-3 g-flex-auto g-max-w-sm g-min-w-xs g-m-2 g-w-1/2'
                       >
                         <ContactHeader>
                           <ContactAvatar
@@ -294,7 +294,7 @@ export default function About() {
                             )}
                           </ContactHeaderContent>
                         </ContactHeader>
-                        <ContactContent className="mb-2">
+                        <ContactContent className='g-mb-2'>
                           {contact.taxonomicExpertise}
                         </ContactContent>
                         <ContactActions>
@@ -312,7 +312,7 @@ export default function About() {
               </CardContent>
             </Card>
 
-            <Card className="mb-4">
+            <Card className='g-mb-4'>
               <CardHeader>
                 <CardTitle>
                   <FormattedMessage id="grscicoll.identifiers" />
@@ -335,9 +335,9 @@ export default function About() {
                       >
                         {institution.alternativeCodes.map((x, i) => {
                           return (
-                            <li key={`${i}_${x.code}`} className="mb-2">
+                            <li key={`${i}_${x.code}`} className='g-mb-2'>
                               <div>{x.code}</div>
-                              <div className="text-slate-500">{x.description}</div>
+                              <div className='g-text-slate-500'>{x.description}</div>
                             </li>
                           );
                         })}
@@ -355,17 +355,17 @@ export default function About() {
                       >
                         {institution.identifiers.map((x, i) => {
                           const IdentifierItem = ({ link, text, type }) => (
-                            <li className="mb-4">
+                            <li className='g-mb-4'>
                               <div
                                 // css={css`color: var(--color400); font-size: 0.9em;`}
-                                className="text-slate-500 text-sm"
+                                className='g-text-slate-500 g-text-sm'
                               >
                                 <FormattedMessage
                                   id={`enums.identifierType.${type}`}
                                   defaultMessage={type}
                                 />
                               </div>
-                              <div className="prose">
+                              <div className='g-prose'>
                                 <a href={link}>{text}</a>
                               </div>
                             </li>
@@ -393,15 +393,15 @@ export default function About() {
                           }
 
                           return (
-                            <li key={`${i}_${x.identifier}`} className="mb-4">
-                              <div className="text-slate-500 text-sm">
+                            <li key={`${i}_${x.identifier}`} className='g-mb-4'>
+                              <div className='g-text-slate-500 g-text-sm'>
                                 <FormattedMessage
                                   id={`enums.identifierType.${x.type}`}
                                   defaultMessage={x.type}
                                 />
                               </div>
                               <div>
-                                <HyperText className="prose" text={identifier} inline />
+                                <HyperText className='g-prose' text={identifier} inline />
                               </div>
                             </li>
                           );
@@ -414,11 +414,11 @@ export default function About() {
             </Card>
           </div>
           {!removeSidebar && (
-            <aside className="sticky">
-              <CardSmall className="mb-4">
+            <aside className='g-sticky'>
+              <CardSmall className='g-mb-4'>
                 {institution.longitude && (
                   <a
-                    className="block"
+                    className='g-block'
                     href={`http://www.google.com/maps/place/${institution.latitude},${institution.longitude}`}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -430,26 +430,26 @@ export default function About() {
                   </a>
                 )}
               </CardSmall>
-              <CardSmall className="mb-4 sticky top-[--stickyOffset]">
-                <ul className="list-none px-4 py-2">
-                  <li className="py-1">
+              <CardSmall className='g-mb-4 g-sticky g-top-[--stickyOffset]'>
+                <ul className='g-list-none g-px-4 g-py-2'>
+                  <li className='g-py-1'>
                     <a href="#description">
                       <FormattedMessage id="Description" />
                     </a>
                   </li>
                   {institution?.collections && institution?.collections?.length > 0 && (
-                    <li className="py-1">
+                    <li className='g-py-1'>
                       <a href="#collections">
                         <FormattedMessage id="Collections" />
                       </a>
                     </li>
                   )}
-                  <li className="py-1">
+                  <li className='g-py-1'>
                     <a href="#contacts">
                       <FormattedMessage id="Contacts" />
                     </a>
                   </li>
-                  <li className="py-1">
+                  <li className='g-py-1'>
                     <a href="#identifiers">
                       <FormattedMessage id="Identifiers" />
                     </a>

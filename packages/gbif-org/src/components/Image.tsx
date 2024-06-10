@@ -28,22 +28,22 @@ export function ClientImage({ wrapperProps, onLoad, defaultSize, style = {}, src
     <div style={{ display: 'inline-block', ...style }}>
       {loading && (
         <div
-          className="animate-pulse rounded-md bg-slate-50 text-slate-400 flex items-center justify-center"
+          className='g-animate-pulse g-rounded-md g-bg-slate-50 g-text-slate-400 g-flex g-items-center g-justify-center'
           style={{ width: '100%', height: '100%', ...defaultSize }}
         >
           <MdImage />
         </div>
       )}
       {failed && (
-        <div className="gb-image-failed">
-          <div style={defaultSize} className="block bg-slate-50 text-red-400 flex items-center justify-center">
+        <div className='gb-image-failed'>
+          <div style={defaultSize} className='g-bg-slate-50 g-text-red-400 g-flex g-items-center g-justify-center'>
             <MdBrokenImage />
           </div>
         </div>
       )}
       {client && !failed && (
         <img
-          className="bg-slate-50"
+          className='g-bg-slate-50'
           src={src}
           style={{ maxHeight: '100%', maxWidth: '100%', display: loading ? 'none' : 'block'}}
           ref={imageRef}

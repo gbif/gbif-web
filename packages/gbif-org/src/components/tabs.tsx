@@ -59,13 +59,13 @@ export function Tabs({ links, className }: Props) {
   }, [links, setVisibleTabCount]);
 
   return (
-    <div ref={containerRef} className={cn('relative', className)}>
-      <ul className="border-b border-slate-200 flex whitespace-nowrap dark:border-slate-200/5 overflow-hidden -mb-px">
+    <div ref={containerRef} className={cn('g-relative', className)}>
+      <ul className='g-border-b g-border-slate-200 g-flex g-whitespace-nowrap dark:g-border-slate-200/5 g-overflow-hidden -g-mb-px'>
         {links.map(({ to, children }, idx) => {
           const visible = idx < visibleTabCount;
 
           return (
-            <li key={to} className={cn({ invisible: !visible }, 'pr-1')}>
+            <li key={to} className={cn({ 'g-invisible': !visible }, 'g-pr-1')}>
               <TabLink to={to}>{children}</TabLink>
             </li>
           );
@@ -76,14 +76,14 @@ export function Tabs({ links, className }: Props) {
           ref={dropdownMenuTriggerRef}
           className={cn(
             {
-              invisible: visibleTabCount === links.length,
-              'right-0 pr-3': locale.textDirection === 'ltr',
-              'left-0 pl-3': locale.textDirection === 'rtl',
+              'g-invisible': visibleTabCount === links.length,
+              'g-right-0 g-pr-3': locale.textDirection === 'ltr',
+              'g-left-0 g-pl-3': locale.textDirection === 'rtl',
             },
-            'absolute top-1/2 -translate-y-1/2'
+            'g-absolute g-top-1/2 -g-translate-y-1/2'
           )}
         >
-          <MdMoreHoriz className="text-2xl" />
+          <MdMoreHoriz className='g-text-2xl' />
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           {links.slice(visibleTabCount).map(({ to, children }) => (
@@ -91,7 +91,7 @@ export function Tabs({ links, className }: Props) {
               <DynamicLink
                 onClick={() => setIsDropdownOpen(false)}
                 to={to}
-                className="w-full justify-center"
+                className='g-w-full g-justify-center'
               >
                 {children}
               </DynamicLink>

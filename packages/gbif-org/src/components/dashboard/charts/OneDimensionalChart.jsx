@@ -14,7 +14,7 @@ import { useUncontrolledProp } from 'uncontrollable';
 import formatAsPercentage from '@/utils/formatAsPercentage';
 import { Button } from '@/components/ui/button';
 
-export const chartsClass = 'min-w-full h-full w-40 overflow-hidden';
+export const chartsClass = 'g-min-w-full g-h-full g-w-40 g-overflow-hidden';
 
 // Component to control the view options: table, pie chart, bar chart
 function ViewOptions({ view, setView, options = ['COLUMN', 'PIE', 'TABLE'] }) {
@@ -28,7 +28,7 @@ function ViewOptions({ view, setView, options = ['COLUMN', 'PIE', 'TABLE'] }) {
     TIME: <BsFillBarChartFill />,
   }
   return <div >
-    {options.map(option => <Button key={option} variant="link" style={{padding: '0 5px', height: 'auto'}} className={`m-0 ${view === option ? 'text-primary-500' : 'text-slate-400'}`} onClick={() => setView(option)}>
+    {options.map(option => <Button key={option} variant="link" style={{padding: '0 5px', height: 'auto'}} className={`g-m-0 ${view === option ? 'g-text-primary-500' : 'g-text-slate-400'}`} onClick={() => setView(option)}>
       {iconMap[option]}
     </Button>)}
   </div>
@@ -225,7 +225,7 @@ export function OneDimensionalChart({
     </CardHeader>
     <CardContent>
       {distinct === 0 && <div 
-        className="text-center text-slate-400"
+        className='g-text-center g-text-slate-400'
       >
         <FormattedMessage id="dashboard.noData" defaultMessage="No data" />
       </div>}
@@ -252,7 +252,7 @@ export function OneDimensionalChart({
         {renderedView !== 'TIME' && <Pagging facetResults={facetResults} />}
 
         {messages.length > 0 && <div 
-          className="text-slate-400 text-sm hover:text-slate-800 p:my-1 transition-colors"
+          className='g-text-slate-400 g-text-sm hover:g-text-slate-800 p:g-my-1 g-transition-colors'
         >
           {messages.map((message, i) => <div key={i}>
             {typeof message === 'string' && <FormattedMessage id={message} />}

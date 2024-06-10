@@ -17,20 +17,20 @@ type Props = {
 
 export function SecondaryLinks({ links, className }: Props) {
   return (
-    <ul className={cn('grid grid-cols-1 sm:grid-cols-2 gap-4', className)}>
+    <ul className={cn('g-grid g-grid-cols-1 sm:g-grid-cols-2 g-gap-4', className)}>
       {links.filter(isLinkWithUrl).map((link) => (
         <li
           key={link.url}
-          className="border border-transparent hover:border-slate-100 p-3 hover:shadow-md"
+          className='g-border g-border-transparent hover:g-border-slate-100 g-p-3 hover:g-shadow-md'
         >
           <a
-            className="flex flex-row items-center underline"
+            className='g-flex g-flex-row g-items-center g-underline'
             target="_blank"
             rel="noopener noreferrer"
             href={link.url}
           >
-            <MdLink className="min-w-4" />
-            <div className="ms-4 font-medium">{link?.label ?? link.url}</div>
+            <MdLink className='g-min-w-4' />
+            <div className='g-ms-4 g-font-medium'>{link?.label ?? link.url}</div>
           </a>
         </li>
       ))}

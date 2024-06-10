@@ -3,9 +3,9 @@ import { NoResultsImage } from "./icons/icons";
 
 export function NoRecords() {
   return (
-    <div className="text-center mb-12">
+    <div className='g-text-center g-mb-12'>
       <NoResultsImage />
-      <h3 className="font-bold text-slate-400">
+      <h3 className='g-font-bold g-text-slate-400'>
         <FormattedMessage id="phrases.noRecords" />
       </h3>
     </div>

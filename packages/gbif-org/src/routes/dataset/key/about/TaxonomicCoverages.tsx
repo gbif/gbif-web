@@ -24,14 +24,14 @@ function TaxonomicCoverage({ coverage }) {
   const hasHidden = coverage.coverages.length > coverages.length;
 
   return (
-    <Properties className="mb-2 [p]:mt-0" useDefaultTermWidths>
+    <Properties className='g-mb-2 [p]:g-mt-0' useDefaultTermWidths>
       {coverage.description && (
         <>
           <Term>
             <FormattedMessage id="dataset.description" />
           </Term>
           <Value>
-            <HyperText className="prose" text={coverage.description} />
+            <HyperText className='g-prose' text={coverage.description} />
           </Value>
         </>
       )}
@@ -61,9 +61,9 @@ function CoverageItem({ item, previousItem }) {
     <>
       {/* Assuming that taxa is ordered by rank, then a simple way to add some ordering is to add a line break when rank changes */}
       {previousItem && previousItem?.rank?.interpreted !== item?.rank?.interpreted && <br />}
-      <span className="m-1 p-1 px-2 border inline-block bg-slate-50">
+      <span className='g-m-1 g-p-1 g-px-2 g-border g-inline-block g-bg-slate-50'>
         <span>{item.scientificName}</span>
-        {item.commonName && <span className="text-slate-500 ms-2">{item.commonName}</span>}
+        {item.commonName && <span className='g-text-slate-500 g-ms-2'>{item.commonName}</span>}
       </span>
     </>
   );

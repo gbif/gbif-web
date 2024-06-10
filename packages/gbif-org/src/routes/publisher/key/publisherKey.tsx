@@ -116,8 +116,8 @@ export function PublisherPage() {
         {/* TODO we need much richer meta data. Especially for datasets.  */}
       </Helmet>
 
-      <ArticleContainer className="pb-0">
-        <ArticleTextContainer className="max-w-screen-xl">
+      <ArticleContainer className='g-pb-0'>
+        <ArticleTextContainer className='g-max-w-screen-xl'>
           <ArticlePreTitle
             secondary={
               <FormattedMessage
@@ -179,7 +179,7 @@ export function PublisherPage() {
               </FeatureList>
             </HeaderInfoMain>
           </HeaderInfo>
-          <div className="border-b mt-4"></div>
+          <div className='g-border-b g-mt-4'></div>
           <Tabs
             links={[
               { to: '.', children: 'About' },

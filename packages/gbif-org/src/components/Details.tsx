@@ -27,13 +27,13 @@ export function Details({
   );
   
   return <details className={cn('', className)} {...props} open={controlledValue} >
-    <summary className={cn('py-2 list-none flex flex-nowrap items-start', summaryClassName)}
+    <summary className={cn('g-py-2 g-list-none g-flex g-flex-nowrap g-items-start', summaryClassName)}
       onClick={e => {
         if (e.target.href) return;
         e.preventDefault();
         onControlledChange(!controlledValue);
       }}>
-        <div className="flex-auto">{summary}</div>
+        <div className='g-flex-auto'>{summary}</div>
         <div className={cn(`flex-none text-slate-500 ${open ? '' : ''}`, iconClassName)}>{controlledValue ? <MdArrowDropUp /> : <MdArrowDropDown />}</div>
       </summary>
     <div>

@@ -82,10 +82,10 @@ export function Card({ padded = true, loading, error, className, children, ...pr
 
 export function CardHeader({ padded = true, options, children, ...props }) {
   return (
-    <CardHeaderSmall className="flex" {...props}>
-      <div className="flex">
-        <div className="flex-auto">{children}</div>
-        {options && <div className="flex-none">
+    <CardHeaderSmall className='g-flex' {...props}>
+      <div className='g-flex'>
+        <div className='g-flex-auto'>{children}</div>
+        {options && <div className='g-flex-none'>
           <div>{options}</div>
         </div>}
       </div>
@@ -96,9 +96,9 @@ export function CardHeader({ padded = true, options, children, ...props }) {
 export function Table({ padded = true, removeBorder, ...props }) {
   return (
     <table
-      className={`w-full mb-4 border-collapse [&_tr]:border-separate [&_tr]:border-spacing-0 
-    [&_td]:py-1 [&_td]:px-2 ${removeBorder ? '[&_tr]:border-t-0' : '[&_tr]:border-t'}
-    [&_td:first-of-type]:ps-0 [&_td:last-of-type]:pe-0
+      className={`g-w-full g-mb-4 g-border-collapse [&_tr]:g-border-separate [&_tr]:g-border-spacing-0 
+    [&_td]:g-py-1 [&_td]:g-px-2 ${removeBorder ? '[&_tr]:g-border-t-0' : '[&_tr]:g-border-t'}
+    [&_td:first-of-type]:g-ps-0 [&_td:last-of-type]:g-pe-0
      `}
       {...props}
     ></table>
@@ -108,11 +108,11 @@ export function Table({ padded = true, removeBorder, ...props }) {
 export function BarItem({ children, percent = 0, ...props }) {
   return (
     <div
-      className="relative"
+      className='g-relative'
     // css={css`position: relative;`}
     >
       <div
-        className="absolute left-0 bg-primary opacity-20 rounded"
+        className='g-absolute g-left-0 g-bg-primary g-opacity-20 g-rounded'
         style={{ width: `${percent}%`, height: '1.6em' }}
         // css={css`
         //   position: absolute;
@@ -126,7 +126,7 @@ export function BarItem({ children, percent = 0, ...props }) {
         {...props}
       ></div>
       <div
-      className="z-10 ms-1"
+      className='g-z-10 g-ms-1'
       // css={css`z-index: 1; margin-left: 6px;`}
       >
         {children}

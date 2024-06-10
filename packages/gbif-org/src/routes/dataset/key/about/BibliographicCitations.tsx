@@ -14,7 +14,7 @@ export function BibliographicCitations({ bibliographicCitations = [], ...props }
       : bibliographicCitations.slice(0, threshold);
   const hasHidden = bibliographicCitations.length > citations.length;
   return (
-    <div className="prose">
+    <div className='g-prose'>
       <ul>
         {citations.map((x, index) => (
           <BibiliographicCitation key={index} citation={x} />
@@ -38,13 +38,13 @@ function BibiliographicCitation({ citation }) {
         <HyperText text={citation?.text} />
       </div>
       {citation.identifier && match && (
-        <a href={citation.identifier} className="me-4">
+        <a href={citation.identifier} className='g-me-4'>
           <FormattedMessage id="dataset.viewArticle" />
         </a>
       )}
       {citation.identifier && !match && (
         <>
-          <span className="me-4 text-slate-400">
+          <span className='g-me-4 g-text-slate-400'>
             <FormattedMessage id="phrases.identifier" />:{' '}
           </span>
           <span>{citation.identifier}</span>

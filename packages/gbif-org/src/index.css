@@ -68,14 +68,10 @@
 
 @layer base {
   * {
-    @apply border-border;
+    @apply g-border-border;
   }
   body {
-    @apply bg-background text-foreground antialiased;
-  }
-
-  svg {
-    display: inline;
+    @apply g-bg-background g-text-foreground g-antialiased;
   }
 
   .classification {
@@ -98,34 +94,33 @@
 }
 
 .underlineLinks a {
-  @apply underline underline-offset-1;
+  @apply g-underline g-underline-offset-1;
 }
 
 .inlineBulletList {
-  @apply inline;
+  @apply g-inline;
 }
 
 .inlineBulletList li {
-  @apply inline;
+  @apply g-inline;
 }
 
 .inlineBulletList li:not(:last-child)::after {
-  @apply content-['\25CF'] mx-1 text-sm;
+  @apply g-content-['\25CF'] g-mx-1 g-text-sm;
 }
 
 .gb-button {
-  @apply inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50;
+  @apply g-inline-flex g-items-center g-justify-center g-rounded-md g-text-sm g-font-medium g-transition-colors focus-visible:g-outline-none focus-visible:g-ring-1 focus-visible:g-ring-ring disabled:g-pointer-events-none disabled:g-opacity-50;
 }
 
 .gb-button-variant-default {
-  @apply bg-primary text-primaryContrast shadow hover:bg-primary/90;
+  @apply g-bg-primary g-text-primaryContrast g-shadow hover:g-bg-primary/90;
 }
 
 .gb-button-size-default {
-  @apply h-9 px-4 py-2;
+  @apply g-h-9 g-px-4 g-py-2;
 }
 
-/* This class is used by some of the content comming from our CMS */
 .gb-button--brand {
   @apply gb-button gb-button-size-default gb-button-variant-default;
 }
@@ -191,7 +186,7 @@
 2. Inherit line-height from `html` so users can set them as a class directly on the `html` element.
 */
   margin: 0; /* 1 */
-  line-height: inherit; /* 2 */
+  /*line-height: inherit;*/ /* 2 */
 
   *,
   ::before,
@@ -524,7 +519,6 @@ Make sure disabled buttons don't get the pointer cursor.
 */
 
   img,
-  svg,
   video,
   canvas,
   audio,
@@ -532,6 +526,11 @@ Make sure disabled buttons don't get the pointer cursor.
   embed,
   object {
     display: block; /* 1 */
+    vertical-align: middle; /* 2 */
+  }
+
+  svg {
+    display: inline;
     vertical-align: middle; /* 2 */
   }
 

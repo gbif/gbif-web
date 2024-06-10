@@ -46,5 +46,5 @@ export default function Map({ coordinates, className }: Props) {
     });
   });
 
-  return <div className={cn('w-full h-96', className)} ref={mapRef}></div>;
+  return <div className={cn('g-w-full g-h-96', className)} ref={mapRef}></div>;
 }
