@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 // import { Button, Progress, Skeleton, Tooltip } from '../../../components';
 import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import { Table } from '../shared';
-import { useDeepCompareEffect } from 'react-use';
+import useDeepCompareEffect from 'use-deep-compare-effect'
 import formatAsPercentage from '@/utils/formatAsPercentage';
 import useQuery from '@/hooks/useQuery';
 import { Button } from '@/components/ui/button';

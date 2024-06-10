@@ -16,7 +16,7 @@ import HighchartsWheel from "highcharts/modules/dependency-wheel";
 import { getDependencyWheelOptions } from './dependencywheel';
 import { useQuery } from '../../../dataManagement/api';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { useDeepCompareEffect } from 'react-use';
+import useDeepCompareEffect from 'use-deep-compare-effect'
 
 HighchartSankey(Highcharts);
 HighchartsWheel(Highcharts);
