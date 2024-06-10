@@ -1,3 +1,6 @@
 .container :global(.gbif-table-wrapper) {
   overflow-x: auto;
+  :where(th) {
+    text-align: left;
+  }
 }
