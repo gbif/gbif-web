@@ -53,7 +53,7 @@ export default function About() {
   return (
     <ArticleContainer className='g-bg-slate-100 g-pt-4'>
       <ArticleTextContainer className='g-max-w-screen-xl'>
-        <div className={`${removeSidebar ? '' : 'flex'}`}>
+        <div className={`${removeSidebar ? '' : 'g-flex'}`}>
           {!removeSidebar && (
             <aside className='g-flex-none g-w-96 g-me-4'>
               <div className='g-max-w-64 md:g-max-w-96 g-mb-4'>
