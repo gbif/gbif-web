@@ -29,6 +29,7 @@ import { Button } from '@/components/ui/button';
 import { GrGithub as Github } from 'react-icons/gr';
 import { FeaturedImageContent } from '@/routes/collection/key/collectionKeyPresentation';
 import useBelow from '@/hooks/useBelow';
+import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 
 const GBIF_REGISTRY_ENDPOINT = 'https://registry.gbif.org';
 
@@ -72,7 +73,7 @@ export function InstitutionKey({
         {/* TODO we need much richer meta data. */}
       </Helmet>
 
-      <ArticleContainer className="g-pb-0 g-bg-background">
+      <PageContainer topPadded className="g-bg-background">
         <ArticleTextContainer className="g-max-w-screen-xl">
           <div className="g-flex g-mb-4">
             {imageUrl && !useInlineImage && (
@@ -207,7 +208,7 @@ export function InstitutionKey({
             </>
           )}
         </ArticleTextContainer>
-      </ArticleContainer>
+      </PageContainer>
 
       <Outlet />
     </article>

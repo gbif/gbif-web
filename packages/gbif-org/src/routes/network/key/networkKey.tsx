@@ -24,6 +24,7 @@ import {
   CitationIcon,
 } from '@/components/highlights';
 import { ArticleIntro } from '@/routes/resource/key/components/articleIntro';
+import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 
 const NETWORK_QUERY = /* GraphQL */ `
   query Network($key: ID!, $predicate: Predicate) {
@@ -76,7 +77,7 @@ export function NetworkPage() {
         {/* TODO we need much richer meta data. Especially for datasets.  */}
       </Helmet>
 
-      <ArticleContainer className="g-pb-0 g-bg-background md:g-pb-0">
+      <PageContainer topPadded className="g-bg-background">
         <ArticleTextContainer>
           <ArticlePreTitle
             secondary={
@@ -138,7 +139,7 @@ export function NetworkPage() {
             ]}
           />
         </ArticleTextContainer>
-      </ArticleContainer>
+      </PageContainer>
 
       <Outlet />
     </article>

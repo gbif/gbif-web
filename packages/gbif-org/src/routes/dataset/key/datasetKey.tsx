@@ -14,6 +14,7 @@ import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitl
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
+import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { LoaderArgs } from '@/types';
 import { required } from '@/utils/required';
 import { Helmet } from 'react-helmet-async';
@@ -210,7 +211,7 @@ export function DatasetPage() {
         {/* TODO we need much richer meta data. Especially for datasets.  */}
       </Helmet>
 
-      <ArticleContainer className='g-pb-0 g-bg-background'>
+      <PageContainer topPadded className="g-bg-background">
         <ArticleTextContainer className='g-max-w-screen-xl'>
           <ArticlePreTitle
             secondary={
@@ -282,7 +283,7 @@ export function DatasetPage() {
             ]}
           />
         </ArticleTextContainer>
-      </ArticleContainer>
+      </PageContainer>
 
       <Outlet />
     </article>

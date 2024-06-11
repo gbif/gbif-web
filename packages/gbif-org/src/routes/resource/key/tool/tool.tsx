@@ -19,6 +19,7 @@ import { ArticleFooterWrapper } from '../components/articleFooterWrapper';
 import { fragmentManager } from '@/services/fragmentManager';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
 import { ArticleOpenGraph } from '../components/articleOpenGraph';
+import { PageContainer } from '../components/pageContainer';
 
 export const ToolPageSkeleton = ArticleSkeleton;
 
@@ -64,7 +65,7 @@ export function ToolPage() {
         <title>{resource.title}</title>
       </Helmet>
 
-      <ArticleContainer className="g-bg-background">
+      <PageContainer topPadded className="g-bg-background">
         <ArticleTextContainer className='g-mb-10'>
           <ArticlePreTitle>
             <FormattedMessage id="cms.contentType.tool" />
@@ -136,7 +137,7 @@ export function ToolPage() {
             )}
           </ArticleFooterWrapper>
         </ArticleTextContainer>
-      </ArticleContainer>
+      </PageContainer>
     </article>
   );
 }

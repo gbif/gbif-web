@@ -17,6 +17,7 @@ import { ArticleTitle } from '../components/articleTitle';
 import { Documents } from '../components/documents';
 import { SecondaryLinks } from '../components/secondaryLinks';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
+import { PageContainer } from '../components/pageContainer';
 
 export const ArticlePageSkeleton = ArticleSkeleton;
 
@@ -61,7 +62,7 @@ export function ArticlePage() {
         <title>{resource.title}</title>
       </Helmet>
 
-      <ArticleContainer className="g-bg-background">
+      <PageContainer topPadded className="g-bg-background">
         <ArticleTextContainer className="g-mb-10">
           <ArticleTitle dangerouslySetTitle={{ __html: resource.title }} />
 
@@ -103,7 +104,7 @@ export function ArticlePage() {
             <ArticleTags resource={resource} className="g-mt-8" />
           </ArticleFooterWrapper>
         </ArticleTextContainer>
-      </ArticleContainer>
+      </PageContainer>
     </article>
   );
 }

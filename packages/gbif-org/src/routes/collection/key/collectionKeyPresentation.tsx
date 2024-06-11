@@ -31,6 +31,7 @@ import { GrGithub as Github } from 'react-icons/gr';
 import useBelow from '@/hooks/useBelow';
 import { SimpleTooltip } from '@/components/SimpleTooltip';
 import { MdInfo } from 'react-icons/md';
+import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 
 const GBIF_REGISTRY_ENDPOINT = 'https://registry.gbif.org';
 const contactThreshold = 5;
@@ -76,7 +77,7 @@ export function CollectionKey({
         {/* TODO we need much richer meta data. */}
       </Helmet>
 
-      <ArticleContainer className="g-pb-0 g-bg-background">
+      <PageContainer topPadded className="g-bg-background">
         <ArticleTextContainer className="g-max-w-screen-xl">
           <div className="g-flex g-mb-4">
             {imageUrl && !useInlineImage && (
@@ -244,7 +245,7 @@ export function CollectionKey({
           <div className="g-border-b g-mt-4"></div>
           <Tabs links={tabs} />
         </ArticleTextContainer>
-      </ArticleContainer>
+      </PageContainer>
 
       <Outlet />
     </article>

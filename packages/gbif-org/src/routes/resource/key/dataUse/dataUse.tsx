@@ -17,6 +17,7 @@ import { fragmentManager } from '@/services/fragmentManager';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
 import { DataUsePageFragment } from '@/gql/graphql';
 import { ArticleOpenGraph } from '../components/articleOpenGraph';
+import { PageContainer } from '../components/pageContainer';
 
 export const DataUsePageSkeleton = ArticleSkeleton;
 
@@ -64,7 +65,7 @@ export function DataUsePage() {
         <title>{resource.title}</title>
       </Helmet>
 
-      <ArticleContainer className="g-bg-background">
+      <PageContainer topPadded className="g-bg-background">
         <ArticleTextContainer className='g-mb-10'>
           <ArticlePreTitle>
             <FormattedMessage id="cms.contentType.dataUse" />
@@ -104,7 +105,7 @@ export function DataUsePage() {
             <ArticleTags resource={resource} className='g-mt-8' />
           </ArticleFooterWrapper>
         </ArticleTextContainer>
-      </ArticleContainer>
+      </PageContainer>
     </article>
   );
 }

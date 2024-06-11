@@ -18,6 +18,7 @@ import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRed
 import { ArticleOpenGraph } from '../components/articleOpenGraph';
 import { ArticleAuxiliary } from '../components/articleAuxiliary';
 import { SecondaryLinks } from '../components/secondaryLinks';
+import { PageContainer } from '../components/pageContainer';
 
 export const NewsPageSkeleton = ArticlePageSkeleton;
 
@@ -64,7 +65,7 @@ export function NewsPage() {
         <title>{resource.title}</title>
       </Helmet>
 
-      <ArticleContainer className="g-bg-background">
+      <PageContainer topPadded className="g-bg-background">
         <ArticleTextContainer>
           <ArticlePreTitle>
             <FormattedMessage id="cms.contentType.news" />
@@ -106,7 +107,7 @@ export function NewsPage() {
             <ArticleTags resource={resource} className='g-mt-8' />
           </ArticleFooterWrapper>
         </ArticleTextContainer>
-      </ArticleContainer>
+      </PageContainer>
     </article>
   );
 }

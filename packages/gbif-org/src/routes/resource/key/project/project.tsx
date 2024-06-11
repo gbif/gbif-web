@@ -16,6 +16,7 @@ import { FundingBanner } from '../components/fundingBanner';
 import { fragmentManager } from '@/services/fragmentManager';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
 import { ArticleOpenGraph } from '../components/articleOpenGraph';
+import { PageContainer } from '../components/pageContainer';
 
 export const ProjectPageSkeleton = ArticleSkeleton;
 
@@ -70,7 +71,7 @@ export function ProjectPage() {
         <title>{resource.title}</title>
       </Helmet>
 
-      <ArticleContainer className="g-bg-background">
+      <PageContainer topPadded className="g-bg-background">
         <ArticleTextContainer>
           <ArticlePreTitle>
             <FormattedMessage id="cms.contentType.project" />
@@ -110,7 +111,7 @@ export function ProjectPage() {
         </ArticleTextContainer>
 
         <Outlet />
-      </ArticleContainer>
+      </PageContainer>
 
       <FundingBanner resource={resource} />
     </article>

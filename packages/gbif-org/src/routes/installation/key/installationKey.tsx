@@ -16,6 +16,7 @@ import {
   defaultDateFormatProps,
 } from '@/components/headerComponents';
 import { FeatureList, GenericFeature, Homepage } from '@/components/highlights';
+import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 
 const INSTALLATION_QUERY = /* GraphQL */ `
   query Installation($key: ID!) {
@@ -76,7 +77,7 @@ export function InstallationPage() {
         {/* TODO we need much richer meta data. Especially for datasets.  */}
       </Helmet>
 
-      <ArticleContainer className="g-bg-background">
+      <PageContainer topPadded className="g-bg-background">
         <ArticleTextContainer className="g-max-w-screen-lg">
           <ArticlePreTitle
             secondary={
@@ -115,7 +116,7 @@ export function InstallationPage() {
             </HeaderInfoMain>
           </HeaderInfo>
         </ArticleTextContainer>
-      </ArticleContainer>
+      </PageContainer>
 
       <div className="g-bg-slate-100">
         <ArticleContainer>

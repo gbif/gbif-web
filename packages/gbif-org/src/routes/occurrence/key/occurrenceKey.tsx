@@ -34,6 +34,7 @@ import {
 } from '@/components/highlights';
 import { fragmentManager } from '@/services/fragmentManager';
 import useBelow from '@/hooks/useBelow';
+import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 
 const OCCURRENCE_QUERY = /* GraphQL */ `
   query Occurrence($key: ID!, $language: String!) {
@@ -289,7 +290,7 @@ export function OccurrenceKey() {
         <title>{occurrence.scientificName}</title>
       </Helmet>
 
-      <ArticleContainer className="g-bg-background g-pb-0">
+      <PageContainer topPadded className="g-bg-background">
         <ArticleTextContainer className="g-max-w-screen-xl">
           <div className="g-flex">
             {!hideGlobe && data?.occurrence?.volatile?.globe && (
@@ -449,7 +450,7 @@ export function OccurrenceKey() {
           <div className="g-border-b g-mt-4"></div>
           <Tabs links={tabs} />
         </ArticleTextContainer>
-      </ArticleContainer>
+      </PageContainer>
 
       <Outlet />
     </article>

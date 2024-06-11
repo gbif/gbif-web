@@ -22,6 +22,7 @@ import { fragmentManager } from '@/services/fragmentManager';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
 import { EventPageFragment } from '@/gql/graphql';
 import { ArticleOpenGraph } from '../components/articleOpenGraph';
+import { PageContainer } from '../components/pageContainer';
 
 export const EventPageSkeleton = ArticleSkeleton;
 
@@ -75,7 +76,7 @@ export function EventPage() {
         <title>{resource.title}</title>
       </Helmet>
 
-      <ArticleContainer className="g-bg-background">
+      <PageContainer topPadded className="g-bg-background">
         <ArticleTextContainer className='g-mb-10'>
           <ArticlePreTitle className='g-flex g-items-center g-gap-4 g-mt-2'>
             <ClientSideOnly>
@@ -172,7 +173,7 @@ export function EventPage() {
             </RenderIfChildren>
           </ArticleFooterWrapper>
         </ArticleTextContainer>
-      </ArticleContainer>
+      </PageContainer>
     </article>
   );
 }

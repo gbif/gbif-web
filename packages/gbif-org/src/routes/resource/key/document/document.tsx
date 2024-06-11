@@ -17,6 +17,7 @@ import { fragmentManager } from '@/services/fragmentManager';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
 import { DocumentPageFragment } from '@/gql/graphql';
 import { ArticleOpenGraph } from '../components/articleOpenGraph';
+import { PageContainer } from '../components/pageContainer';
 
 export const DocumentPageSkeleton = ArticleSkeleton;
 
@@ -60,7 +61,7 @@ export function DocumentPage() {
         <title>{resource.title}</title>
       </Helmet>
 
-      <ArticleContainer className="g-bg-background">
+      <PageContainer topPadded className="g-bg-background">
         <div className='g-max-w-4xl g-m-auto g-bg-paperBackground md:g-shadow-2xl md:g-p-8 lg:g-p-16'>
           <ArticleTitle dangerouslySetTitle={{ __html: resource.title }} />
 
@@ -105,7 +106,7 @@ export function DocumentPage() {
             )}
           </ArticleFooterWrapper>
         </div>
-      </ArticleContainer>
+      </PageContainer>
     </article>
   );
 }

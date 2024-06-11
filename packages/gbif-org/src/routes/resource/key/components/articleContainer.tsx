@@ -1,4 +1,5 @@
 import { cn } from '@/utils/shadcn';
+import { PageContainer } from './pageContainer';
 
 type Props = {
   children: React.ReactNode;
@@ -7,10 +8,10 @@ type Props = {
 
 export function ArticleContainer({ className, children }: Props) {
   return (
-    <div
+    <PageContainer topPadded bottomPadded
       className={cn('g-p-4 lg:g-pt-8 lg:g-px-8 dark:g-bg-zinc-900 dark:g-text-slate-200', className)}
     >
       {children}
-    </div>
+    </PageContainer>
   );
 }

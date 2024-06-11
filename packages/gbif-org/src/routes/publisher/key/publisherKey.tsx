@@ -23,6 +23,7 @@ import {
   OccurrenceIcon,
   CitationIcon,
 } from '@/components/highlights';
+import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 
 const PUBLISHER_QUERY = /* GraphQL */ `
   query Publisher($key: ID!, $jsonKey: JSON!) {
@@ -119,7 +120,7 @@ export function PublisherPage() {
         {/* TODO we need much richer meta data. Especially for datasets.  */}
       </Helmet>
 
-      <ArticleContainer className="g-pb-0 g-bg-background">
+      <PageContainer topPadded className="g-bg-background">
         <ArticleTextContainer className="g-max-w-screen-xl">
           <ArticlePreTitle
             secondary={
@@ -200,7 +201,7 @@ export function PublisherPage() {
             ]}
           />
         </ArticleTextContainer>
-      </ArticleContainer>
+      </PageContainer>
 
       <Outlet />
     </article>
