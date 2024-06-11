@@ -206,7 +206,7 @@ function Provenance({
 }) {
   return (
     <Card className='g-mb-4 g-bg-slate-300 g-text-slate-600'>
-      <CardContent className='g-py-4 md:g-py-4'>
+      <div className='g-py-4 g-px-4 md:g-px-8'>
         This record is part of the dataset{' '}
         <span className='g-underline'>
           <DynamicLink to={`/dataset/${occurrence.datasetKey}`}>
@@ -214,7 +214,7 @@ function Provenance({
           </DynamicLink>
         </span>
         .
-      </CardContent>
+      </div>
     </Card>
   );
 }
