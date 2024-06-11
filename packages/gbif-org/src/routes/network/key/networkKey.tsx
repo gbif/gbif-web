@@ -127,7 +127,7 @@ export function NetworkPage() {
               </FeatureList>
             </HeaderInfoMain>
           </HeaderInfo>
-          <div className="g-border-b"></div>
+          <div className="g-border-b g-mt-4"></div>
           <Tabs
             links={[
               { to: '.', children: <FormattedMessage id="phrases.about" /> },

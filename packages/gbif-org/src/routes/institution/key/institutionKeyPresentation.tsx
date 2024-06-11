@@ -202,7 +202,7 @@ export function InstitutionKey({
           </div>
           {tabs.length > 1 && (
             <>
-              <div className="g-border-b"></div>
+              <div className="g-border-b g-mt-4"></div>
               <Tabs links={tabs} />
             </>
           )}

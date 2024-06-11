@@ -30,7 +30,7 @@ export function NetworkKeyAbout() {
   if (!network) return null;
 
   return (
-    <ArticleContainer className='g-pt-0 md:g-pt-0'>
+    <ArticleContainer className='g-pt-0 md:g-pt-0 lg:g-pt-0'>
       <ArticleBanner className='g-mt-8 g-mb-6' image={network.prose?.primaryImage} />
 
       <ArticleTextContainer>

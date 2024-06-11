@@ -446,7 +446,7 @@ export function OccurrenceKey() {
               </HeaderInfo>
             </div>
           </div>
-          <div className="g-border-b"></div>
+          <div className="g-border-b g-mt-4"></div>
           <Tabs links={tabs} />
         </ArticleTextContainer>
       </ArticleContainer>
