@@ -65,7 +65,7 @@ export function DataUsePage() {
         <title>{resource.title}</title>
       </Helmet>
 
-      <PageContainer topPadded className="g-bg-background">
+      <PageContainer topPadded className="g-bg-white">
         <ArticleTextContainer className='g-mb-10'>
           <ArticlePreTitle>
             <FormattedMessage id="cms.contentType.dataUse" />

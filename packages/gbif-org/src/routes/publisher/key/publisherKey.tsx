@@ -120,7 +120,7 @@ export function PublisherPage() {
         {/* TODO we need much richer meta data. Especially for datasets.  */}
       </Helmet>
 
-      <PageContainer topPadded className="g-bg-background">
+      <PageContainer topPadded className="g-bg-white">
         <ArticleTextContainer className="g-max-w-screen-xl">
           <ArticlePreTitle
             secondary={

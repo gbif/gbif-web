@@ -67,13 +67,6 @@
 }
 
 @layer base {
-  * {
-    @apply g-border-border;
-  }
-  body {
-    @apply g-bg-background g-text-foreground g-antialiased;
-  }
-
   .classification {
     line-height: 1.2em;
     & > span:after {
@@ -187,6 +180,9 @@
 */
   margin: 0; /* 1 */
   /*line-height: inherit;*/ /* 2 */
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 
   *,
   ::before,

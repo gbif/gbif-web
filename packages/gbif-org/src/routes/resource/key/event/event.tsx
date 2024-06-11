@@ -76,7 +76,7 @@ export function EventPage() {
         <title>{resource.title}</title>
       </Helmet>
 
-      <PageContainer topPadded className="g-bg-background">
+      <PageContainer topPadded className="g-bg-white">
         <ArticleTextContainer className='g-mb-10'>
           <ArticlePreTitle className='g-flex g-items-center g-gap-4 g-mt-2'>
             <ClientSideOnly>

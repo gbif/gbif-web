@@ -54,7 +54,7 @@ export function GbifRootLayout({ children }: Props) {
           </DynamicLink>
         </nav>
       </header>
-      <main className='g-bg-background g-pt-10'>
+      <main className='g-bg-white g-pt-10'>
         <NoscriptNotification />
         {children}
       </main>

@@ -29,9 +29,9 @@ module.exports = {
         border: "var(--border)",
         input: "var(--input)",
         ring: "var(--ring)",
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-        paperBackground: "var(--paperBackground)",
+        background: "rgb(var(--background))",
+        foreground: "rgb(var(--foreground))",
+        paperBackground: "rgb(var(--paperBackground))",
         primary: {
           DEFAULT: 'rgb(var(--primary500) / <alpha-value>)',
           50: 'rgb(var(--primary50) / <alpha-value>)',

@@ -290,7 +290,7 @@ export function OccurrenceKey() {
         <title>{occurrence.scientificName}</title>
       </Helmet>
 
-      <PageContainer topPadded className="g-bg-background">
+      <PageContainer topPadded className="g-bg-white">
         <ArticleTextContainer className="g-max-w-screen-xl">
           <div className="g-flex">
             {!hideGlobe && data?.occurrence?.volatile?.globe && (

@@ -65,7 +65,7 @@ export function NewsPage() {
         <title>{resource.title}</title>
       </Helmet>
 
-      <PageContainer topPadded className="g-bg-background">
+      <PageContainer topPadded className="g-bg-white">
         <ArticleTextContainer>
           <ArticlePreTitle>
             <FormattedMessage id="cms.contentType.news" />

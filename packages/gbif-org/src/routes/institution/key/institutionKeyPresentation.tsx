@@ -73,7 +73,7 @@ export function InstitutionKey({
         {/* TODO we need much richer meta data. */}
       </Helmet>
 
-      <PageContainer topPadded className="g-bg-background">
+      <PageContainer topPadded className="g-bg-white">
         <ArticleTextContainer className="g-max-w-screen-xl">
           <div className="g-flex g-mb-4">
             {imageUrl && !useInlineImage && (
