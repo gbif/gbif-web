@@ -1,6 +1,6 @@
 {
   "nResults": "{total, plural, one {# wynik} few {# wyniki} many {# wyników} other {#wyniki, #wyników}}",
-  "nOccurrences": "{total, plural, one {# wystąpienie} few {# wystąpienia} many {# wystąpień} other {#wystąpienia, #wystąpień}}",
+  "nOccurrences": "{total, plural, one {# stwierdzenie} few {# stwierdzenia} many {# stwierdzeń} other {#stwierdzenia}}",
   "nRecords": "{total, plural, one {# stwierdzenie} few {# stwierdzenia} many {# stwierdzeń} other {#stwierdzenia, #stwierdzeń}}",
   "nSpecimensInGbif": "{total, plural, one {# okaz w GBIF} few {# okazy w GBIF} many {# okazów w GBIF} other {#okazy w GBIF, # okazów w GBIF}}",
   "inGbif": "{total, plural, one {# w GBIF} few {# w GBIF} many {# w GBIF} other {# w GBIF}}",

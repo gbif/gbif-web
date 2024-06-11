@@ -1,1 +1,6 @@
-{}
+{
+  "StillImage": "Obrazy nieruchome",
+  "MovingImage": "Obrazy ruchome",
+  "InteractiveResource": "Zasób interaktywny",
+  "Sound": "Dźwięk"
+}
