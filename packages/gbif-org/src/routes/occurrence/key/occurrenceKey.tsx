@@ -370,11 +370,13 @@ export function OccurrenceKey() {
                 <HeaderInfoMain>
                   <div>
                     {occurrence.gbifClassification?.classification && (
-                      <TaxonClassification
-                        className="g-flex g-mb-2"
-                        majorOnly
-                        classification={occurrence.gbifClassification?.classification}
-                      />
+                      <div>
+                        <TaxonClassification
+                          className="g-flex g-mb-2"
+                          majorOnly
+                          classification={occurrence.gbifClassification?.classification}
+                        />
+                      </div>
                     )}
 
                     {occurrence.gadm?.level1 && (
