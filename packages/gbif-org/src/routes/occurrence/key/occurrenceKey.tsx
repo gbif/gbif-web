@@ -284,20 +284,23 @@ export function OccurrenceKey() {
   // if (true) tabs.push({ to: 'phylogenies', children: 'Phylogenies' });
 
   return (
-    <>
+    <article>
       <Helmet>
         <title>{occurrence.scientificName}</title>
       </Helmet>
 
-      <ArticleContainer className='g-pb-0'>
-        <ArticleTextContainer className='g-max-w-screen-xl'>
-          <div className='g-flex'>
+      <ArticleContainer className="g-pb-0">
+        <ArticleTextContainer className="g-max-w-screen-xl">
+          <div className="g-flex">
             {!hideGlobe && data?.occurrence?.volatile?.globe && (
-              <div className='g-flex'>
-                <Globe {...data?.occurrence?.volatile?.globe} className='g-w-32 g-h-32 g-me-4 g-mb-4' />
+              <div className="g-flex">
+                <Globe
+                  {...data?.occurrence?.volatile?.globe}
+                  className="g-w-32 g-h-32 g-me-4 g-mb-4"
+                />
               </div>
             )}
-            <div className='g-flex-grow'>
+            <div className="g-flex-grow">
               <ArticlePreTitle
                 secondary={
                   occurrence.eventDate ? (
@@ -317,11 +320,11 @@ export function OccurrenceKey() {
               {/* <ArticleTitle
                 dangerouslySetTitle={{ __html: occurrence.scientificName || 'No title provided' }}
               ></ArticleTitle> */}
-              <ArticleTitle className='lg:g-text-3xl'>
+              <ArticleTitle className="lg:g-text-3xl">
                 {!occurrence?.issues?.includes(OccurrenceIssue.TaxonMatchHigherrank) && (
                   <>
                     <span
-                      className='g-me-4'
+                      className="g-me-4"
                       dangerouslySetInnerHTML={{
                         __html:
                           occurrence?.gbifClassification?.usage?.formattedName ??
@@ -330,7 +333,7 @@ export function OccurrenceKey() {
                       }}
                     />
                     {vernacularName && (
-                      <span className='g-text-slate-300 g-inline-block' style={{ fontSize: '85%' }}>
+                      <span className="g-text-slate-300 g-inline-block" style={{ fontSize: '85%' }}>
                         {vernacularName}
                       </span>
                     )}
@@ -367,14 +370,14 @@ export function OccurrenceKey() {
                   <div>
                     {occurrence.gbifClassification?.classification && (
                       <TaxonClassification
-                        className='g-flex g-mb-2'
+                        className="g-flex g-mb-2"
                         majorOnly
                         classification={occurrence.gbifClassification?.classification}
                       />
                     )}
 
                     {occurrence.gadm?.level1 && (
-                      <GadmClassification className='g-flex g-mb-1' gadm={occurrence.gadm}>
+                      <GadmClassification className="g-flex g-mb-1" gadm={occurrence.gadm}>
                         {occurrence.locality && <div>{occurrence.locality}</div>}
                       </GadmClassification>
                     )}
@@ -431,7 +434,7 @@ export function OccurrenceKey() {
                     )} */}
                   </div>
 
-                  <FeatureList className='g-mt-2'>
+                  <FeatureList className="g-mt-2">
                     {occurrence.volatile?.features?.isSamplingEvent && <SamplingEvent />}
                     {occurrence.typeStatus && occurrence.typeStatus?.length > 0 && (
                       <TypeStatus types={occurrence.typeStatus} />
@@ -443,15 +446,13 @@ export function OccurrenceKey() {
               </HeaderInfo>
             </div>
           </div>
-          <div className='g-border-b'></div>
-          <Tabs
-            links={tabs}
-          />
+          <div className="g-border-b"></div>
+          <Tabs links={tabs} />
         </ArticleTextContainer>
       </ArticleContainer>
 
       <Outlet />
-    </>
+    </article>
   );
 }
 

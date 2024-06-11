@@ -68,7 +68,7 @@ export function EventPage() {
   const endDate = resource.end ? new Date(resource.end) : undefined;
 
   return (
-    <>
+    <article>
       <ArticleOpenGraph resource={resource} />
 
       <Helmet>
@@ -173,7 +173,7 @@ export function EventPage() {
           </ArticleFooterWrapper>
         </ArticleTextContainer>
       </ArticleContainer>
-    </>
+    </article>
   );
 }
 

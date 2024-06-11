@@ -66,18 +66,18 @@ export function InstitutionKey({
   const imageUrl = institution.featuredImageUrl ?? institution.featuredImageUrl_fallback;
 
   return (
-    <>
+    <article>
       <Helmet>
         <title>{institution.name}</title>
         {/* TODO we need much richer meta data. */}
       </Helmet>
 
-      <ArticleContainer className='g-pb-0'>
-        <ArticleTextContainer className='g-max-w-screen-xl'>
-          <div className='g-flex g-mb-4'>
+      <ArticleContainer className="g-pb-0">
+        <ArticleTextContainer className="g-max-w-screen-xl">
+          <div className="g-flex g-mb-4">
             {imageUrl && !useInlineImage && (
-              <div className='g-flex-none g-me-4'>
-                <div className='g-bg-slate-200 g-rounded g-w-36 lg:g-w-96 xl:g-w-[30rem] g-overflow-hidden'>
+              <div className="g-flex-none g-me-4">
+                <div className="g-bg-slate-200 g-rounded g-w-36 lg:g-w-96 xl:g-w-[30rem] g-overflow-hidden">
                   <FeaturedImageContent
                     featuredImageUrl={imageUrl}
                     featuredImageLicense={
@@ -87,8 +87,8 @@ export function InstitutionKey({
                 </div>
               </div>
             )}
-            <div className='g-flex-auto g-flex g-flex-col'>
-              <div className='g-flex-auto'>
+            <div className="g-flex-auto g-flex g-flex-col">
+              <div className="g-flex-auto">
                 <ArticlePreTitle secondary={institution?.code}>
                   <FormattedMessage id="grscicoll.institutionCode" />
                 </ArticlePreTitle>
@@ -105,7 +105,7 @@ export function InstitutionKey({
                       values={{
                         newItem: (
                           <DynamicLink
-                            className='g-me-4'
+                            className="g-me-4"
                             to={`/institution/${institution.replacedByInstitution.key}`}
                           >
                             {institution.replacedByInstitution.name}
@@ -136,7 +136,7 @@ export function InstitutionKey({
                     {!(institution?.numberSpecimens && institution?.numberSpecimens > 1) && (
                       <GenericFeature>
                         <OccurrenceIcon />
-                        <span className='g-text-slate-400'>
+                        <span className="g-text-slate-400">
                           <FormattedMessage id="grscicoll.unknownSize" />
                         </span>
                       </GenericFeature>
@@ -158,7 +158,7 @@ export function InstitutionKey({
                     </FeatureList>
                   )}
                 </HeaderInfoMain>
-                <HeaderInfoEdit className='g-flex'>
+                <HeaderInfoEdit className="g-flex">
                   {/* TODO Phew it is quite a few lines just to add a tooltip, I wonder if an abstraction would be appreciated. Here I repeat the provider, which doesn't help, but it didn't properly disappear and reappear without it*/}
                   <Tooltip delayDuration={0}>
                     <TooltipTrigger>
@@ -180,7 +180,7 @@ export function InstitutionKey({
                       <Button
                         variant="ghost"
                         asChild
-                        className='g-ms-2'
+                        className="g-ms-2"
                         style={{ fontSize: '1.2em' }}
                       >
                         <a
@@ -202,7 +202,7 @@ export function InstitutionKey({
           </div>
           {tabs.length > 1 && (
             <>
-              <div className='g-border-b'></div>
+              <div className="g-border-b"></div>
               <Tabs links={tabs} />
             </>
           )}
@@ -210,7 +210,7 @@ export function InstitutionKey({
       </ArticleContainer>
 
       <Outlet />
-    </>
+    </article>
   );
 }
 

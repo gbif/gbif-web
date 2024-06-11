@@ -30,7 +30,7 @@ export function CompositionPage() {
   const { resource } = useLoaderData() as { resource: CompositionPageFragment };
 
   return (
-    <>
+    <article>
       <ArticleOpenGraph resource={resource} />
 
       <Helmet>
@@ -40,6 +40,6 @@ export function CompositionPage() {
       {resource.blocks?.map((block) => (
         <BlockItem resource={block} key={block.id} />
       ))}
-    </>
+    </article>
   );
 }

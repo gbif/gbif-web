@@ -57,7 +57,7 @@ export function DataUsePage() {
   const { resource } = useLoaderData() as { resource: DataUsePageFragment };
 
   return (
-    <>
+    <article>
       <ArticleOpenGraph resource={resource} />
 
       <Helmet>
@@ -105,6 +105,6 @@ export function DataUsePage() {
           </ArticleFooterWrapper>
         </ArticleTextContainer>
       </ArticleContainer>
-    </>
+    </article>
   );
 }

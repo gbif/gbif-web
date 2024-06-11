@@ -70,13 +70,13 @@ export function NetworkPage() {
   const homepage = network?.prose?.primaryLink?.url ?? network?.homepage?.[0];
 
   return (
-    <>
+    <article>
       <Helmet>
         <title>{title}</title>
         {/* TODO we need much richer meta data. Especially for datasets.  */}
       </Helmet>
 
-      <ArticleContainer className='g-pb-0 md:g-pb-0'>
+      <ArticleContainer className="g-pb-0 md:g-pb-0">
         <ArticleTextContainer>
           <ArticlePreTitle
             secondary={
@@ -127,11 +127,11 @@ export function NetworkPage() {
               </FeatureList>
             </HeaderInfoMain>
           </HeaderInfo>
-          <div className='g-border-b'></div>
+          <div className="g-border-b"></div>
           <Tabs
             links={[
-              { to: '.', children:  <FormattedMessage id="phrases.about" /> },
-              { to: 'publisher', children: <FormattedMessage id="phrases.publishers" />},
+              { to: '.', children: <FormattedMessage id="phrases.about" /> },
+              { to: 'publisher', children: <FormattedMessage id="phrases.publishers" /> },
               { to: 'dataset', children: <FormattedMessage id="phrases.datasets" /> },
               { to: 'metrics', children: <FormattedMessage id="phrases.metrics" /> },
               // { to: 'citations', children: 'Citations' },
@@ -141,7 +141,7 @@ export function NetworkPage() {
       </ArticleContainer>
 
       <Outlet />
-    </>
+    </article>
   );
 }
 

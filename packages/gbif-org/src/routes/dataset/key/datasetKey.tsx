@@ -204,7 +204,7 @@ export function DatasetPage() {
   const contactsCitation = dataset.contactsCitation?.filter((c) => c.abbreviatedName) || [];
 
   return (
-    <>
+    <article>
       <Helmet>
         <title>{dataset.title}</title>
         {/* TODO we need much richer meta data. Especially for datasets.  */}
@@ -285,6 +285,6 @@ export function DatasetPage() {
       </ArticleContainer>
 
       <Outlet />
-    </>
+    </article>
   );
 }

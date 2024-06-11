@@ -30,7 +30,7 @@ export function ProgrammePage() {
   const { resource } = useLoaderData() as { resource: ProgrammePageFragment };
 
   return (
-    <>
+    <article>
       <ArticleOpenGraph resource={resource} />
 
       <Helmet>
@@ -42,6 +42,6 @@ export function ProgrammePage() {
       ))}
 
       <FundingBanner resource={resource} />
-    </>
+    </article>
   );
 }

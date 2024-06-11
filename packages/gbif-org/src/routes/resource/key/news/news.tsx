@@ -57,7 +57,7 @@ export function NewsPage() {
   const { resource } = useLoaderData() as { resource: NewsPageFragment };
 
   return (
-    <>
+    <article>
       <ArticleOpenGraph resource={resource} />
 
       <Helmet>
@@ -107,6 +107,6 @@ export function NewsPage() {
           </ArticleFooterWrapper>
         </ArticleTextContainer>
       </ArticleContainer>
-    </>
+    </article>
   );
 }

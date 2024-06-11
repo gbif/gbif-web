@@ -70,14 +70,14 @@ export function InstallationPage() {
   const deletedAt = installation.deleted;
 
   return (
-    <>
+    <article>
       <Helmet>
         <title>{installation.title}</title>
         {/* TODO we need much richer meta data. Especially for datasets.  */}
       </Helmet>
 
       <ArticleContainer>
-        <ArticleTextContainer className='g-max-w-screen-lg'>
+        <ArticleTextContainer className="g-max-w-screen-lg">
           <ArticlePreTitle
             secondary={
               <FormattedMessage
@@ -117,14 +117,14 @@ export function InstallationPage() {
         </ArticleTextContainer>
       </ArticleContainer>
 
-      <div className='g-bg-slate-100'>
+      <div className="g-bg-slate-100">
         <ArticleContainer>
-          <ArticleTextContainer className='g-max-w-screen-lg'>
+          <ArticleTextContainer className="g-max-w-screen-lg">
             <Outlet />
           </ArticleTextContainer>
         </ArticleContainer>
       </div>
-    </>
+    </article>
   );
 }
 

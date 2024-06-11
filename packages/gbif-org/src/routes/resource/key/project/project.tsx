@@ -63,7 +63,7 @@ export function ProjectPage() {
   const tabLinks = createTabLinks(resource);
 
   return (
-    <>
+    <article>
       <ArticleOpenGraph resource={resource} />
 
       <Helmet>
@@ -113,7 +113,7 @@ export function ProjectPage() {
       </ArticleContainer>
 
       <FundingBanner resource={resource} />
-    </>
+    </article>
   );
 }
 

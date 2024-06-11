@@ -57,7 +57,7 @@ export function ToolPage() {
   const { resource } = useLoaderData() as { resource: ToolPageFragment };
 
   return (
-    <>
+    <article>
       <ArticleOpenGraph resource={resource} />
 
       <Helmet>
@@ -137,6 +137,6 @@ export function ToolPage() {
           </ArticleFooterWrapper>
         </ArticleTextContainer>
       </ArticleContainer>
-    </>
+    </article>
   );
 }

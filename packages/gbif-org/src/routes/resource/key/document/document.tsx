@@ -53,7 +53,7 @@ export function DocumentPage() {
   const { resource } = useLoaderData() as { resource: DocumentPageFragment };
 
   return (
-    <>
+    <article>
       <ArticleOpenGraph resource={resource} />
 
       <Helmet>
@@ -106,6 +106,6 @@ export function DocumentPage() {
           </ArticleFooterWrapper>
         </div>
       </ArticleContainer>
-    </>
+    </article>
   );
 }
