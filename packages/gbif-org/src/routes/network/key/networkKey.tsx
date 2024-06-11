@@ -76,7 +76,7 @@ export function NetworkPage() {
         {/* TODO we need much richer meta data. Especially for datasets.  */}
       </Helmet>
 
-      <ArticleContainer className="g-pb-0 md:g-pb-0">
+      <ArticleContainer className="g-pb-0 g-bg-background md:g-pb-0">
         <ArticleTextContainer>
           <ArticlePreTitle
             secondary={

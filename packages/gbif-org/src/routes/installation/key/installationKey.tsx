@@ -76,7 +76,7 @@ export function InstallationPage() {
         {/* TODO we need much richer meta data. Especially for datasets.  */}
       </Helmet>
 
-      <ArticleContainer>
+      <ArticleContainer className="g-bg-background">
         <ArticleTextContainer className="g-max-w-screen-lg">
           <ArticlePreTitle
             secondary={

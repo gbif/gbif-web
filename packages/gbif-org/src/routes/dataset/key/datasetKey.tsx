@@ -210,7 +210,7 @@ export function DatasetPage() {
         {/* TODO we need much richer meta data. Especially for datasets.  */}
       </Helmet>
 
-      <ArticleContainer className='g-pb-0'>
+      <ArticleContainer className='g-pb-0 g-bg-background'>
         <ArticleTextContainer className='g-max-w-screen-xl'>
           <ArticlePreTitle
             secondary={

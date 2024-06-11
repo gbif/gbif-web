@@ -61,7 +61,7 @@ export function ArticlePage() {
         <title>{resource.title}</title>
       </Helmet>
 
-      <ArticleContainer>
+      <ArticleContainer className="g-bg-background">
         <ArticleTextContainer className="g-mb-10">
           <ArticleTitle dangerouslySetTitle={{ __html: resource.title }} />
 
