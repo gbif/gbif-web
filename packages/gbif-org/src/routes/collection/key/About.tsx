@@ -54,22 +54,6 @@ export default function About() {
     <ArticleContainer className='g-bg-slate-100 g-pt-4'>
       <ArticleTextContainer className='g-max-w-screen-xl'>
         <div className={`${removeSidebar ? '' : 'g-flex'}`}>
-          {!removeSidebar && (
-            <aside className='g-flex-none g-w-96 g-me-4'>
-              <div className='g-max-w-64 md:g-max-w-96 g-mb-4'>
-                <AdHocMapThumbnail
-                  filter={{ collectionKey: collection.key }}
-                  className='g-rounded g-border'
-                />
-              </div>
-              <ClientSideOnly>
-                <charts.OccurrenceSummary predicate={predicate} className='g-mb-4' />
-                <charts.DataQuality predicate={predicate} className='g-mb-4' />
-                {/* <charts.Taxa predicate={predicate} className='g-mb-2' /> */}
-              </ClientSideOnly>
-            </aside>
-          )}
-
           <div className='g-flex-grow'>
             <Card className='g-mb-4'>
               <CardHeader>
@@ -411,6 +395,23 @@ export default function About() {
               </CardContent>
             </Card>
           </div>
+
+          {!removeSidebar && (
+            <aside className='g-flex-none g-w-96 g-ms-4'>
+              <div className='g-max-w-64 md:g-max-w-96 g-mb-4'>
+                <AdHocMapThumbnail
+                  filter={{ collectionKey: collection.key }}
+                  className='g-rounded g-border'
+                />
+              </div>
+              <ClientSideOnly>
+                <charts.OccurrenceSummary predicate={predicate} className='g-mb-4' />
+                <charts.DataQuality predicate={predicate} className='g-mb-4' />
+                {/* <charts.Taxa predicate={predicate} className='g-mb-2' /> */}
+              </ClientSideOnly>
+            </aside>
+          )}
+          
         </div>
       </ArticleTextContainer>
     </ArticleContainer>
