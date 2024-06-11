@@ -23,6 +23,8 @@ type Props = {
 
 export function CustomComponentBlock({ resource }: Props) {
   switch (resource.componentType) {
+    // We could add the other forms as custom components in the future,
+    // but our contentful data does not have them yet and adding them would make the transition to the new gbif.org less smooth.
     case 'hostedPortalForm':
       // return <SuggestDatasetForm />;
       // return <HostedPortalForm />;

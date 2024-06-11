@@ -54,7 +54,7 @@ export function createTypedCheckboxField<Inputs extends FieldValues>() {
         name={name}
         render={({ field }) => (
           <FormItem className={className}>
-            <div className="flex flex-row items-center space-x-3 space-y-0 cursor-pointer">
+            <div className="flex flex-row space-x-3 space-y-0 cursor-pointer">
               <FormControl>
                 <Checkbox checked={field.value as boolean} onCheckedChange={field.onChange} />
               </FormControl>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useOnMountUnsafe } from '@/hooks/useOnMountUnsafe';
 import { Feature, Map as OpenLayersMap, View } from 'ol';
-import { OSM, Vector as VectorSource } from 'ol/source';
+import { XYZ, Vector as VectorSource } from 'ol/source';
 import { Point } from 'ol/geom';
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
 import { useGeographic } from 'ol/proj';
@@ -43,7 +43,9 @@ export function CoordinatesPicker({
     mapRef.current = new OpenLayersMap({
       layers: [
         new TileLayer({
-          source: new OSM(),
+          source: new XYZ({
+            url: 'https://tile.gbif.org/3857/omt/{z}/{x}/{y}@1x.png?style=osm-bright-en&srs=EPSG%3A3857',
+          }),
         }),
       ],
       target: mapElementRef.current ?? undefined,
