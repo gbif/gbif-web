@@ -69,18 +69,38 @@ import {
   aliasHandlingLoader,
 } from '@/routes/resource/key/aliasHandling';
 import { PublisherKeyCitations } from '@/routes/publisher/key/citations';
-import { InstallationPage, InstallationPageSkeleton, installationLoader } from '@/routes/installation/key/installationKey';
+import {
+  InstallationPage,
+  InstallationPageSkeleton,
+  installationLoader,
+} from '@/routes/installation/key/installationKey';
 import { InstallationKeyAbout } from '@/routes/installation/key/about';
 import { NetworkPage, NetworkPageSkeleton, networkLoader } from '@/routes/network/key/networkKey';
 import { NetworkKeyAbout } from '@/routes/network/key/about';
 import { NetworkKeyMetrics } from '@/routes/network/key/metrics';
 import { NetworkKeyDataset } from '@/routes/network/key/dataset';
 import { NetworkKeyPublisher } from '@/routes/network/key/publisher';
-import { InstitutionKey, InstitutionKeyAbout, InstitutionKeyCollection, InstitutionKeySpecimens, institutionLoader } from '@/routes/institution/key';
-import { CollectionKey, CollectionKeyAbout, CollectionKeyDashboard, CollectionKeySpecimens, collectionLoader } from '@/routes/collection/key';
+import {
+  InstitutionKey,
+  InstitutionKeyAbout,
+  InstitutionKeyCollection,
+  InstitutionKeySpecimens,
+  institutionLoader,
+} from '@/routes/institution/key';
+import {
+  CollectionKey,
+  CollectionKeyAbout,
+  CollectionKeyDashboard,
+  CollectionKeySpecimens,
+  collectionLoader,
+} from '@/routes/collection/key';
 import { OccurrenceKeyCluster } from '@/routes/occurrence/key/cluster';
 import { OccurrenceKeyMedia } from '@/routes/occurrence/key/media';
 import { OccurrenceKeyAbout } from '@/routes/occurrence/key/about';
+import {
+  ConfirmEndorsmentPage,
+  confirmEndorsmentLoader,
+} from '@/routes/publisher/ConfirmEndorsment';
 
 const baseRoutes: SourceRouteObject[] = [
   {
@@ -117,8 +137,8 @@ const baseRoutes: SourceRouteObject[] = [
               {
                 path: 'related',
                 element: <OccurrenceKeyCluster />,
-              }
-            ]
+              },
+            ],
           },
           {
             key: 'dataset-page',
@@ -171,7 +191,7 @@ const baseRoutes: SourceRouteObject[] = [
               {
                 path: 'citations',
                 element: <PublisherKeyCitations />,
-              }
+              },
             ],
           },
           {
@@ -188,7 +208,7 @@ const baseRoutes: SourceRouteObject[] = [
               {
                 index: true,
                 element: <InstallationKeyAbout />,
-              }
+              },
             ],
           },
           {

@@ -24,9 +24,7 @@ export function HomePage(): React.ReactElement {
           <hr />
           <section>
             <h2>Pages with a Contentful ID</h2>
-            <p>
-              Mostly done and should be reviewed by the content team.
-            </p>
+            <p>Mostly done and should be reviewed by the content team.</p>
             <ul>
               <li>
                 <DynamicLink className="me-4" to="/news/6qTuv5Xf1qa05arROvx7Y1">
@@ -86,6 +84,14 @@ export function HomePage(): React.ReactElement {
               <li>
                 The home page is essentially like a composition page, but with a special header
               </li>
+              <li>
+                <DynamicLink
+                  className="me-4"
+                  to="/composition/7zgSnALNuD1OvzanAUPG4z/hosted-portals-application-form"
+                >
+                  Hosted portals application form
+                </DynamicLink>
+              </li>
             </ul>
           </section>
 
@@ -109,12 +115,18 @@ export function HomePage(): React.ReactElement {
                 </DynamicLink>
               </li>
               <li>
-                <DynamicLink className="me-4" to="/installation/dbc06549-1795-4167-a247-9dcf90228ae7">
+                <DynamicLink
+                  className="me-4"
+                  to="/installation/dbc06549-1795-4167-a247-9dcf90228ae7"
+                >
                   Installation
                 </DynamicLink>
               </li>
               <li>
-                <DynamicLink className="me-4" to="/institution/55efe71a-faba-4333-951c-d665509f3d67">
+                <DynamicLink
+                  className="me-4"
+                  to="/institution/55efe71a-faba-4333-951c-d665509f3d67"
+                >
                   Institution
                 </DynamicLink>
               </li>
@@ -124,26 +136,47 @@ export function HomePage(): React.ReactElement {
                 </DynamicLink>
               </li>
               <li>
-                <DynamicLink className="me-4" to="/occurrence/4126243325">Images</DynamicLink>
-                <DynamicLink className="me-4" to="/occurrence/4045885848">Video</DynamicLink>
-                <DynamicLink className="me-4" to="/occurrence/2434542261">RecordedBy ID</DynamicLink>
-                <DynamicLink className="me-4" to="/occurrence/1934869005">Fossil</DynamicLink>
-                <DynamicLink className="me-4" to="/occurrence/3013940180">iNat frog</DynamicLink>
-                <DynamicLink className="me-4" to="/occurrence/4527469336">Phylogeny</DynamicLink>
-                <DynamicLink className="me-4" to="/occurrence/4517957661">Extensions</DynamicLink>
+                <DynamicLink className="me-4" to="/occurrence/4126243325">
+                  Images
+                </DynamicLink>
+                <DynamicLink className="me-4" to="/occurrence/4045885848">
+                  Video
+                </DynamicLink>
+                <DynamicLink className="me-4" to="/occurrence/2434542261">
+                  RecordedBy ID
+                </DynamicLink>
+                <DynamicLink className="me-4" to="/occurrence/1934869005">
+                  Fossil
+                </DynamicLink>
+                <DynamicLink className="me-4" to="/occurrence/3013940180">
+                  iNat frog
+                </DynamicLink>
+                <DynamicLink className="me-4" to="/occurrence/4527469336">
+                  Phylogeny
+                </DynamicLink>
+                <DynamicLink className="me-4" to="/occurrence/4517957661">
+                  Extensions
+                </DynamicLink>
               </li>
               <li>
-                Occurrence, download, species, participant, country and profile pages have not been started
+                Occurrence, download, species, participant, country and profile pages have not been
+                started
               </li>
             </ul>
           </section>
           <section>
             <h2>Custom one-off pages</h2>
-            <p>This is pages like, contact directory, network, suggest a dataset, ipt, blast tool, occ snapshots, etc. None have been implemented yet. There is alot of these.</p>
+            <p>
+              This is pages like, contact directory, network, suggest a dataset, ipt, blast tool,
+              occ snapshots, etc. None have been implemented yet. There is alot of these.
+            </p>
           </section>
           <section>
             <h2>Search</h2>
-            <p>This hasn't started yet. But it is search for occurrences, species, datasets, publishers, literature, news etc.</p>
+            <p>
+              This hasn't started yet. But it is search for occurrences, species, datasets,
+              publishers, literature, news etc.
+            </p>
           </section>
           <section>
             <h2>Site wide features</h2>
