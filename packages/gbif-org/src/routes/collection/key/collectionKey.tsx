@@ -72,7 +72,8 @@ const COLLECTION_QUERY = /* GraphQL */ `
       name
       description
       taxonomicCoverage
-      geography
+      geographicCoverage
+      temporalCoverage
       notes
       homepage
 
@@ -86,10 +87,14 @@ const COLLECTION_QUERY = /* GraphQL */ `
       email
       phone
       
-      catalogUrl
-      apiUrl
+      catalogUrls
+      apiUrls
       preservationTypes
       accessionStatus
+
+      featuredImageUrl: thumbor(width: 1000, height: 667)
+      featuredImageLicense
+      featuredImageUrl_fallback: homepageOGImageUrl_volatile
       
       created
       deleted

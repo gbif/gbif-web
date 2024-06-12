@@ -22,7 +22,7 @@ function useTranslation({ locale }) {
   // We provide an empty call, just so we do not have to check for existence subsequently
   const [cancelRequest, setCancel] = useState(() => () => { });
   const unmounted = useUnmounted();
-  
+
   function load({locale}) {
     if (locale === 'en') {
       setMessages(en);
@@ -34,7 +34,8 @@ function useTranslation({ locale }) {
       .promise
       .then(mappingResponse => {
         const localeMapping = mappingResponse.data;
-        setLocaleMap(localeMapping[locale]?.localeMap);
+        const locMap = localeMapping[locale]?.localeMap;
+        setLocaleMap(locMap);
         const messagesUrl = localeMapping[locale]?.messages;
         if (messagesUrl) {
           const { promise: localePromise, cancel } = axios.get(messagesUrl);

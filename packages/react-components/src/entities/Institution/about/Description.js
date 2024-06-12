@@ -1,15 +1,18 @@
 
 import { jsx, css } from '@emotion/react';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useLocalStorage } from 'react-use';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
-import { Properties, Property, ResourceLink, ListItem, Image, HyperText, Prose } from "../../../components";
+import { Properties, Property, ResourceLink, ListItem, Image, HyperText, Prose, OptImage, Tooltip } from "../../../components";
 import { Card, CardHeader2, GrSciCollMetadata as Metadata, SideBarLoader } from '../../shared';
 import { TopTaxa, TopCountries } from '../../shared/stats';
 import sortBy from 'lodash/sortBy';
-import { MdMailOutline as MailIcon, MdPhone as PhoneIcon } from 'react-icons/md';
+import { MdMailOutline as MailIcon, MdInfo, MdPhone as PhoneIcon } from 'react-icons/md';
 import { Quality } from './stats';
 import useBelow from '../../../utils/useBelow';
+import { ApiContext } from '../../../dataManagement/api';
+import LocaleContext from '../../../dataManagement/LocaleProvider/LocaleContext';
+import { commonLabels, config2labels } from '../../../utils/labelMaker';
 
 const { Term: T, Value: V, EmptyValue } = Properties;
 const Name2Avatar = ListItem.Name2Avatar;
@@ -21,8 +24,16 @@ export function Description({
   institution,
   occurrenceSearch,
   className,
+  useInlineImage,
   ...props
 }) {
+  const apiClient = useContext(ApiContext);
+  const localeContext = useContext(LocaleContext);
+  const labelMap = config2labels(commonLabels, apiClient, localeContext);
+  const InstitutionalGovernanceLabel = labelMap['institutionalGovernanceVocabulary'];
+  const DisciplinesLabel = labelMap['disciplineVocabulary'];
+  const InstitutionTypeVocabulary = labelMap['institutionTypeVocabulary'];
+
   const [isPinned, setPinState, removePinState] = useLocalStorage('pin_metadata', false);
   const hideSideBar = useBelow(1100);
   const addressesIdentical = JSON.stringify(institution.mailingAddress) === JSON.stringify(institution.address);
@@ -30,16 +41,17 @@ export function Description({
     {isPinned && <Metadata entity={institution} isPinned setPinState={() => setPinState(false)} />}
     <div css={css`padding-bottom: 100px; display: flex; margin: 0 -12px;`}>
       <div css={css`flex: 1 1 auto; margin: 0 12px;`}>
+        {useInlineImage && institution.featuredImageUrl && <Card style={{ marginTop: 12, marginBottom: 24 }} noPadding>
+          <FeaturedImageContent featuredImageLicense={institution.featuredImageLicense} featuredImageUrl={institution.featuredImageUrl} />
+        </Card>
+        }
         <Card style={{ marginTop: 12, marginBottom: 24 }}>
           <CardHeader2><FormattedMessage id="grscicoll.description" deafultMessage="Description" /></CardHeader2>
           <Prose style={{ marginBottom: 24, maxWidth: '60em', fontSize: '16px' }}>
-            {institution.description && <HyperText text={institution.description}  sanitizeOptions={{ ALLOWED_TAGS: ['a', 'strong', 'em', 'p', 'h3', 'li', 'ul', 'ol'] }} />}
+            {institution.description && <HyperText text={institution.description} sanitizeOptions={{ ALLOWED_TAGS: ['a', 'strong', 'em', 'p', 'h3', 'li', 'ul', 'ol'] }} />}
             {!institution.description && <EmptyValue />}
           </Prose>
           <Properties style={{ fontSize: 16, marginBottom: 12 }} breakpoint={800}>
-            {/* <Property value={institution.description} labelId="grscicoll.description" showEmpty /> */}
-            <Property value={institution.taxonomicDescription} labelId="grscicoll.taxonomicDescription" showEmpty />
-            <Property value={institution.geographicDescription} labelId="grscicoll.geographicDescription" showEmpty />
             <Property value={institution.code} labelId="grscicoll.code" showEmpty />
             <Property value={institution.numberSpecimens} labelId="institution.numberSpecimens" />
             {occurrenceSearch?.documents?.total > 0 && <Property value={occurrenceSearch?.documents?.total} labelId="grscicoll.specimensViaGbif" formatter={count => {
@@ -47,21 +59,20 @@ export function Description({
                 <FormattedNumber value={count} />
               </ResourceLink>
             }} />}
-            <Property value={institution.catalogUrl} labelId="grscicoll.catalogUrl" />
-            <Property value={institution.apiUrl} labelId="grscicoll.apiUrl" />
-            <Property value={institution.disciplines} labelId="institution.disciplines" showEmpty formatter={e => <FormattedMessage id={`enums.discipline.${e}`} defaultMessage={e} />} />
+            <Property value={institution.catalogUrls} labelId="grscicoll.catalogUrl" />
+            <Property value={institution.apiUrls} labelId="grscicoll.apiUrl" />
+            <Property value={institution.disciplines} labelId="institution.disciplines" showEmpty formatter={(val) => <DisciplinesLabel id={val} />} />
             {institution.foundingDate && <Property labelId="grscicoll.foundingDate">
               {institution.foundingDate}
             </Property>}
             {institution.type && <Property labelId="institution.type">
               <FormattedMessage id={`enums.institutionType.${institution.type}`} defaultMessage={institution.type} />
             </Property>}
-            {institution.institutionalGovernance && <Property labelId="institution.institutionalGovernance">
-              <FormattedMessage id={`enums.institutionalGovernance.${institution.institutionalGovernance}`} defaultMessage={institution.institutionalGovernance} />
-            </Property>}
-            <Property value={institution.citesPermitNumber} labelId="grscicoll.citesPermitNumber" />
+            <Property value={institution.types} labelId="institution.type" formatter={(val) => <InstitutionTypeVocabulary id={val} />} />
+            <Property value={institution.institutionalGovernances} labelId="institution.institutionalGovernance" formatter={(val) => <InstitutionalGovernanceLabel id={val} />} />
           </Properties>
         </Card>
+
         <Card style={{ marginTop: 24, marginBottom: 24 }}>
           <CardHeader2><FormattedMessage id="grscicoll.contacts" deafultMessage="Contacts" /></CardHeader2>
           <Properties style={{ fontSize: 16, marginBottom: 12 }} breakpoint={800}>
@@ -84,7 +95,7 @@ export function Description({
                 </Properties>
               </V>
             </>}
-            <Property value={institution?.logoUrl} labelId="grscicoll.logoUrl" formatter={logoUrl => <Image src={logoUrl} h={120} />} />
+            <Property value={institution?.logoUrl} labelId="grscicoll.logoUrl" formatter={logoUrl => <Image src={logoUrl} h={120} style={{ maxWidth: '100%' }} />} />
           </Properties>
           {institution?.contactPersons?.length > 0 && <div css={css`
             display: flex;
@@ -186,3 +197,14 @@ export function Description({
     </div>
   </div>
 };
+
+export function FeaturedImageContent({ featuredImageLicense, featuredImageUrl }) {
+  if (!featuredImageUrl) return null;
+
+  return <div style={{ position: 'relative' }}>
+    <Image src={featuredImageUrl} w={1000} h={667} style={{ width: '100%', display: 'block' }} />
+    {featuredImageLicense && <div css={css`position: absolute; bottom: 0; left: 0; padding: 3px 5px; background: '#444'; color: white;`}>
+      <Tooltip title={<div><FormattedMessage id="phrases.license" />: <FormattedMessage id={`enums.license.${featuredImageLicense}`} /></div>}><span><MdInfo /></span></Tooltip>
+    </div>}
+  </div>
+}

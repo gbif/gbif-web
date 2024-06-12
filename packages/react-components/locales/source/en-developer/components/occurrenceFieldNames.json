@@ -261,5 +261,6 @@
   "eventTypeHierarchyJoined": "Structure",
   "measurementOrFactTypes": "Measurements or facts",
   "temporalCoverage": "Temporal coverage",
-  "eventType": "Event type"
+  "eventType": "Event type",
+  "iucnRedListCategory": "IUCN Red List Category"
 }

@@ -40,27 +40,23 @@ const typeDef = gql`
     code: String
     name: String
     description: String
-    type: InstitutionType
+    types: [String!]
     active: Boolean
     email: [String]
     phone: [String]
     homepage: URL
-    catalogUrl: URL
-    apiUrl: URL
-    institutionalGovernance: InstitutionGovernance
-    disciplines: [Discipline]
+    catalogUrls: [String!]
+    apiUrls: [String!]
+    institutionalGovernances: [String!]
+    disciplines: [String!]
     latitude: Float
     longitude: Float
     mailingAddress: Address
     address: Address
     additionalNames: [String]
     foundingDate: Int
-    geographicDescription: String
-    taxonomicDescription: String
     numberSpecimens: Int
-    indexHerbariorumRecord: Boolean
     logoUrl: URL
-    citesPermitNumber: String
     createdBy: String
     modifiedBy: String
     created: DateTime
@@ -68,6 +64,8 @@ const typeDef = gql`
     deleted: DateTime
     replacedBy: ID
     replacedByInstitution: Institution
+    convertedToCollection: ID
+    replacedByCollection: Collection
     tags: [Tag]
     identifiers: [Identifier]
     """
@@ -83,6 +81,14 @@ const typeDef = gql`
     collection count will count up to a 1000. After that results will be capped to 1000. This is unlikely to be an issue, but you should worry if you see 1000 results exactly.
     """
     collectionCount: Int
+
+    featuredImageUrl: String
+    featuredImageLicense: License
+    thumbor(width: Int, height: Int, fitIn: Boolean): String
+    """
+    This can be used as a backup, but since it works by fetching the homepage url and extracting the open graph tags it can be slow. Use with caution.
+    """
+    homepageOGImageUrl_volatile: String
 
     occurrenceCount: Int
     masterSource: String

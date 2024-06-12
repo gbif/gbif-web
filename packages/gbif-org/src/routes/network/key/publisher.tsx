@@ -39,7 +39,7 @@ export function NetworkKeyPublisher() {
 
   if (loading || !data)
     return (
-      <ArticleContainer className="bg-slate-100">
+      <ArticleContainer className='g-bg-slate-100'>
         <ArticleTextContainer>
           <CardListSkeleton />
         </ArticleTextContainer>
@@ -49,7 +49,7 @@ export function NetworkKeyPublisher() {
   const publishers = data?.network?.organizations;
 
   return (
-    <ArticleContainer className="bg-slate-100">
+    <ArticleContainer className='g-bg-slate-100'>
       <ArticleTextContainer>
         { publishers?.count === 0 && <>
           <NoRecords />

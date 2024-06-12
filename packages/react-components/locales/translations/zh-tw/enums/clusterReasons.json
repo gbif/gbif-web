@@ -1,1 +1,19 @@
-{}
+{
+  "SAME_ACCEPTED_SPECIES": "相同有效物種",
+  "SAME_DATE": "相同日期",
+  "NON_CONFLICTING_DATE": "日期不衝突",
+  "APPROXIMATE_DATE": "大概日期",
+  "DIFFERENT_DATE": "不同日期",
+  "SAME_COORDINATES": "相同座標",
+  "WITHIN_200m": "200 公尺以內",
+  "WITHIN_2Km": "2 公里以內",
+  "NON_CONFLICTING_COORDINATES": "座標不衝突",
+  "SAME_COUNTRY": "相同國家",
+  "NON_CONFLICTING_COUNTRY": "國家不衝突",
+  "DIFFERENT_COUNTRY": "不同國家",
+  "IDENTIFIERS_OVERLAP": "重複識別",
+  "OTHER_CATALOG_NUMBERS_OVERLAP": "其他目錄號碼重複",
+  "SAME_RECORDER_NAME": "相同紀錄名稱",
+  "SAME_SPECIMEN": "相同標本",
+  "TYPIFICATION_RELATION": "典型化關係"
+}

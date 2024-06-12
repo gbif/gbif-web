@@ -95,7 +95,7 @@ import {
   collectionLoader,
 } from '@/routes/collection/key';
 import { OccurrenceKeyCluster } from '@/routes/occurrence/key/cluster';
-import { OccurrenceKeyMedia } from '@/routes/occurrence/key/media';
+import { OccurrenceKeyPhylo } from '@/routes/occurrence/key/phylogenies';
 import { OccurrenceKeyAbout } from '@/routes/occurrence/key/about';
 import {
   ConfirmEndorsmentPage,
@@ -131,8 +131,8 @@ const baseRoutes: SourceRouteObject[] = [
                 element: <OccurrenceKeyAbout />,
               },
               {
-                path: 'media',
-                element: <OccurrenceKeyMedia />,
+                path: 'phylogenies',
+                element: <OccurrenceKeyPhylo />,
               },
               {
                 path: 'related',
@@ -141,7 +141,7 @@ const baseRoutes: SourceRouteObject[] = [
             ],
           },
           {
-            key: 'dataset-page',
+            id: RouteId.Dataset,
             gbifRedirect: (params) => {
               if (typeof params.key !== 'string') throw new Error('Invalid key');
               return `https://www.gbif.org/dataset/${params.key}`;
@@ -241,7 +241,7 @@ const baseRoutes: SourceRouteObject[] = [
             ],
           },
           {
-            key: 'institution-page',
+            id: RouteId.Institution, // TODO @daniel is there a reason for key vs id?
             gbifRedirect: (params) => {
               if (typeof params.key !== 'string') throw new Error('Invalid key');
               return `https://www.gbif.org/institution/${params.key}`;
@@ -265,7 +265,7 @@ const baseRoutes: SourceRouteObject[] = [
             ],
           },
           {
-            key: 'collection-page',
+            id: RouteId.Collection,
             gbifRedirect: (params) => {
               if (typeof params.key !== 'string') throw new Error('Invalid key');
               return `https://www.gbif.org/collection/${params.key}`;

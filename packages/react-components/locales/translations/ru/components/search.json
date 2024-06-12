@@ -16,6 +16,7 @@
   "placeholders": {
     "default": "Поиск",
     "range": "",
+    "wildcard": "Поиск с использованием шаблонов * и ? ",
     "locationID": ""
   },
   "ternary": {

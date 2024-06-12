@@ -399,6 +399,11 @@
     "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
     "description": "该记录是否被确定有相关记录。"
   },
+  "isSequenced": {
+    "name": "被测序",
+    "count": "{num, plural, one { 被测序 } other {# 被测序}}",
+    "description": "记录是否有序列信息。"
+  },
   "active": {
     "name": "活跃的",
     "count": "活跃的",

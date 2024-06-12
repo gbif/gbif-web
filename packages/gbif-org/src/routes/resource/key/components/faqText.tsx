@@ -66,14 +66,14 @@ export function FaqText({ dangerouslySetBody: html }: { dangerouslySetBody: stri
         onMouseLeave={() => showModal(false)}
         style={{ visibility: modalVisible ? 'visible' : 'hidden' }}
         className={cn(
-          `max-h-[calc(100vh_-_6rem)] box-content bg-white w-[32rem] hover:w-[32rem] max-w-full]`,
-          `z-[100] transition-opacity duration-500 md:hover:opacity-100 overflow-auto shadow-2xl`,
-          `fixed rounded border border-slate-200 prose end-0 md:end-6 bottom-0 md:bottom-6`,
-          modal ? 'opacity-100' : 'opacity-0'
+          `g-max-h-[calc(100vh_-_6rem)] g-box-content g-bg-white g-w-[32rem] hover:g-w-[32rem] g-max-w-full]`,
+          `g-z-[100] g-transition-opacity g-duration-500 md:hover:g-opacity-100 g-overflow-auto g-shadow-2xl`,
+          `g-fixed g-rounded g-border g-border-slate-200 g-prose g-end-0 md:g-end-6 g-bottom-0 md:g-bottom-6`,
+          modal ? 'g-opacity-100' : 'g-opacity-0'
         )}
       >
         {typeof modal === 'object' && typeof modal.question === 'string' && (
-          <HelpText identifier={modal.question} includeTitle className="p-4" />
+          <HelpText identifier={modal.question} includeTitle className='g-p-4' />
         )}
       </div>
       <div dangerouslySetInnerHTML={{ __html: html }} />

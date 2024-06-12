@@ -1,5 +1,5 @@
 {
-  "occurrence": "Wystąpienie",
+  "occurrence": "Stwierdzenie",
   "event": "Wydarzenie",
   "showAllFields": "Pokaż wszystkie pola",
   "morePhotos": "Więcej zdjęć",
@@ -17,25 +17,25 @@
   "backToTaxa": "",
   "siteLocation": "",
   "info": {
-    "original": "",
-    "excluded": "",
+    "original": "Oryginalne",
+    "excluded": "Wykluczone",
     "inferred": "",
-    "altered": ""
+    "altered": "Zmienione"
   },
   "groups": {
     "summary": "Podsumowanie",
     "record": "Stwierdzenie",
-    "occurrence": "Wystąpienie",
+    "occurrence": "Stwierdzenie",
     "event": "Wydarzenie",
     "dataStructure": "",
     "identification": "Oznaczenie",
     "taxon": "Takson",
     "location": "Lokalizacja",
     "organism": "Organizm",
-    "materialSample": "",
+    "materialSample": "Próbka materiału",
     "geologicalContext": "Kontekst geologiczny",
     "measurementsOrFacts": "",
-    "images": "",
+    "images": "Multimedia",
     "other": "Inne",
     "methodology": "Metodyka",
     "taxonomicCoverage": ""

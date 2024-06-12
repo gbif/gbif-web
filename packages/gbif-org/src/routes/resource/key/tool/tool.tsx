@@ -19,6 +19,7 @@ import { ArticleFooterWrapper } from '../components/articleFooterWrapper';
 import { fragmentManager } from '@/services/fragmentManager';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
 import { ArticleOpenGraph } from '../components/articleOpenGraph';
+import { PageContainer } from '../components/pageContainer';
 
 export const ToolPageSkeleton = ArticleSkeleton;
 
@@ -57,15 +58,15 @@ export function ToolPage() {
   const { resource } = useLoaderData() as { resource: ToolPageFragment };
 
   return (
-    <>
+    <article>
       <ArticleOpenGraph resource={resource} />
 
       <Helmet>
         <title>{resource.title}</title>
       </Helmet>
 
-      <ArticleContainer>
-        <ArticleTextContainer className="mb-10">
+      <PageContainer topPadded className="g-bg-white">
+        <ArticleTextContainer className='g-mb-10'>
           <ArticlePreTitle>
             <FormattedMessage id="cms.contentType.tool" />
           </ArticlePreTitle>
@@ -73,31 +74,31 @@ export function ToolPage() {
           <ArticleTitle dangerouslySetTitle={{ __html: resource.title }} />
 
           {resource.publicationDate && (
-            <PublishedDate className="mt-2" date={resource.publicationDate} />
+            <PublishedDate className='g-mt-2' date={resource.publicationDate} />
           )}
 
           {resource.summary && (
-            <ArticleIntro dangerouslySetIntro={{ __html: resource.summary }} className="mt-2" />
+            <ArticleIntro dangerouslySetIntro={{ __html: resource.summary }} className='g-mt-2' />
           )}
 
           {resource.primaryLink && (
-            <Button className="mt-4" asChild>
+            <Button className='g-mt-4' asChild>
               <DynamicLink to={resource.primaryLink.url}>{resource.primaryLink.label}</DynamicLink>
             </Button>
           )}
         </ArticleTextContainer>
 
-        <ArticleBanner className="mt-8 mb-6" image={resource?.primaryImage} />
+        <ArticleBanner className='g-mt-8 g-mb-6' image={resource?.primaryImage} />
 
         <ArticleTextContainer>
           {resource.body && (
-            <ArticleBody dangerouslySetBody={{ __html: resource.body }} className="mt-2" />
+            <ArticleBody dangerouslySetBody={{ __html: resource.body }} className='g-mt-2' />
           )}
 
           <ArticleFooterWrapper>
             {resource.secondaryLinks && (
               <ArticleAuxiliary>
-                <SecondaryLinks links={resource.secondaryLinks} className="mt-8" />
+                <SecondaryLinks links={resource.secondaryLinks} className='g-mt-8' />
               </ArticleAuxiliary>
             )}
 
@@ -136,7 +137,7 @@ export function ToolPage() {
             )}
           </ArticleFooterWrapper>
         </ArticleTextContainer>
-      </ArticleContainer>
-    </>
+      </PageContainer>
+    </article>
   );
 }

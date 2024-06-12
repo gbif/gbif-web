@@ -10,8 +10,7 @@ type Props = {
 export function ArticleTitle({ dangerouslySetTitle, children, className }: Props) {
   return (
     <h1
-      className={cn(
-        'text-2xl md:text-3xl lg:text-4xl inline-block font-extrabold text-slate-900 tracking-tight dark:text-slate-200',
+      className={cn('g-text-2xl md:g-text-3xl lg:g-text-4xl g-inline-block g-font-extrabold g-text-slate-900 g-tracking-tight dark:g-text-slate-200',
         className
       )}
     >
@@ -24,8 +23,8 @@ export function ArticleTitle({ dangerouslySetTitle, children, className }: Props
 export function ArticleTitleSkeleton({ className }: Pick<Props, 'className'>) {
   return (
     <div className={className}>
-      <Skeleton className="w-full h-8" />
-      <Skeleton className="w-4/6 h-8 mt-1" />
+      <Skeleton className='g-w-full g-h-8' />
+      <Skeleton className='g-w-4/6 g-h-8 g-mt-1' />
     </div>
   );
 }

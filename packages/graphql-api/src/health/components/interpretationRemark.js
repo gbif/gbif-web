@@ -5,7 +5,9 @@ import config from '#/config';
 import prev from '#/helpers/enums/interpretationRemark.json';
 const prevMap = keyBy(prev, 'id');
 
-const interval = get(config, 'healthUpdateFrequency.enums', 30000);
+const second = 1000;
+const minute = 60 * second;
+const interval = get(config, 'healthUpdateFrequency.enums', minute * 30);
 let status = { status: 'ok', message: null, error: null };
 
 async function getLatestInterpretationRemark() {

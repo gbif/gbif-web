@@ -1,1 +1,11 @@
-{}
+{
+  "EX": "Wymarłe",
+  "EW": "Wymarłe na wolności",
+  "CR": "Krytycznie zagrożone",
+  "EN": "Zagrożone",
+  "VU": "Narażone",
+  "NT": "Bliskie zagrożenia",
+  "LC": "Najmniejszej troski",
+  "DD": "O nieokreślonym stopniu zagrożenia, wymagające dokładniejszych danych",
+  "NE": "Nieocenione"
+}

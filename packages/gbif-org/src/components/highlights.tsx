@@ -32,8 +32,7 @@ export function GenericFeature({
 } & React.ComponentProps<'div'>) {
   return (
     <div
-      className={cn(
-        'my-0.5 me-6 [&>svg]:me-2 [&>svg]:leading-2 [&>svg]:h-6 [&>svg]:flex-none inline-flex items-start',
+      className={cn('g-my-0.5 g-me-6 [&>svg]:g-me-2 [&>svg]:g-leading-2 [&>svg]:g-h-6 [&>svg]:g-flex-none g-inline-flex g-items-start',
         className
       )}
       {...props}
@@ -52,7 +51,7 @@ export function FeatureList({
   children: React.ReactNode;
 } & React.ComponentProps<'div'>) {
   return (
-    <div className={cn('flex flex-wrap items-center -my-1 mt-3', className)} {...props}>
+    <div className={cn('g-flex g-flex-wrap g-items-center -g-my-1 g-mt-3', className)} {...props}>
       {children}
     </div>
   );
@@ -156,7 +155,7 @@ export function GadmClassification({
     <GenericFeature className={className}>
       <GlobeIcon />
       <div>
-        <GadmClassificationList gadm={gadm} className="inline-block me-2" /> {children}
+        <GadmClassificationList gadm={gadm} className='g-inline-block g-me-2' /> {children}
       </div>
     </GenericFeature>
   );

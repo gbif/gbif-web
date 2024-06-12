@@ -16,6 +16,7 @@ import {
   defaultDateFormatProps,
 } from '@/components/headerComponents';
 import { FeatureList, GenericFeature, Homepage } from '@/components/highlights';
+import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 
 const INSTALLATION_QUERY = /* GraphQL */ `
   query Installation($key: ID!) {
@@ -70,14 +71,14 @@ export function InstallationPage() {
   const deletedAt = installation.deleted;
 
   return (
-    <>
+    <article>
       <Helmet>
         <title>{installation.title}</title>
         {/* TODO we need much richer meta data. Especially for datasets.  */}
       </Helmet>
 
-      <ArticleContainer>
-        <ArticleTextContainer className="max-w-screen-lg">
+      <PageContainer topPadded bottomPadded className="g-bg-background">
+        <ArticleTextContainer className="g-max-w-screen-lg">
           <ArticlePreTitle
             secondary={
               <FormattedMessage
@@ -115,16 +116,16 @@ export function InstallationPage() {
             </HeaderInfoMain>
           </HeaderInfo>
         </ArticleTextContainer>
-      </ArticleContainer>
+      </PageContainer>
 
-      <div className="bg-slate-100">
+      <div className="g-bg-slate-100">
         <ArticleContainer>
-          <ArticleTextContainer className="max-w-screen-lg">
+          <ArticleTextContainer className="g-max-w-screen-lg">
             <Outlet />
           </ArticleTextContainer>
         </ArticleContainer>
       </div>
-    </>
+    </article>
   );
 }
 

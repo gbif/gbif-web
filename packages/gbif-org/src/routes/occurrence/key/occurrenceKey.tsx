@@ -34,6 +34,7 @@ import {
 } from '@/components/highlights';
 import { fragmentManager } from '@/services/fragmentManager';
 import useBelow from '@/hooks/useBelow';
+import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 
 const OCCURRENCE_QUERY = /* GraphQL */ `
   query Occurrence($key: ID!, $language: String!) {
@@ -281,22 +282,26 @@ export function OccurrenceKey() {
 
   const tabs = [{ to: '.', children: 'Overview' }];
   if (hasRelated) tabs.push({ to: 'related', children: 'Related' });
+  // if (true) tabs.push({ to: 'phylogenies', children: 'Phylogenies' });
 
   return (
-    <>
+    <article>
       <Helmet>
         <title>{occurrence.scientificName}</title>
       </Helmet>
 
-      <ArticleContainer className="pb-0">
-        <ArticleTextContainer className="max-w-screen-xl">
-          <div className="flex">
+      <PageContainer topPadded className="g-bg-white">
+        <ArticleTextContainer className="g-max-w-screen-xl">
+          <div className="g-flex">
             {!hideGlobe && data?.occurrence?.volatile?.globe && (
-              <div className="flex">
-                <Globe {...data?.occurrence?.volatile?.globe} className="w-32 h-32 me-4 mb-4" />
+              <div className="g-flex">
+                <Globe
+                  {...data?.occurrence?.volatile?.globe}
+                  className="g-w-32 g-h-32 g-me-4 g-mb-4"
+                />
               </div>
             )}
-            <div className="flex-grow">
+            <div className="g-flex-grow">
               <ArticlePreTitle
                 secondary={
                   occurrence.eventDate ? (
@@ -316,11 +321,11 @@ export function OccurrenceKey() {
               {/* <ArticleTitle
                 dangerouslySetTitle={{ __html: occurrence.scientificName || 'No title provided' }}
               ></ArticleTitle> */}
-              <ArticleTitle className="lg:text-3xl">
+              <ArticleTitle className="lg:g-text-3xl">
                 {!occurrence?.issues?.includes(OccurrenceIssue.TaxonMatchHigherrank) && (
                   <>
                     <span
-                      className="me-4"
+                      className="g-me-4"
                       dangerouslySetInnerHTML={{
                         __html:
                           occurrence?.gbifClassification?.usage?.formattedName ??
@@ -329,7 +334,7 @@ export function OccurrenceKey() {
                       }}
                     />
                     {vernacularName && (
-                      <span className="text-slate-300 inline-block" style={{ fontSize: '85%' }}>
+                      <span className="g-text-slate-300 g-inline-block" style={{ fontSize: '85%' }}>
                         {vernacularName}
                       </span>
                     )}
@@ -365,15 +370,17 @@ export function OccurrenceKey() {
                 <HeaderInfoMain>
                   <div>
                     {occurrence.gbifClassification?.classification && (
-                      <TaxonClassification
-                        className="flex mb-2"
-                        majorOnly
-                        classification={occurrence.gbifClassification?.classification}
-                      />
+                      <div>
+                        <TaxonClassification
+                          className="g-flex g-mb-2"
+                          majorOnly
+                          classification={occurrence.gbifClassification?.classification}
+                        />
+                      </div>
                     )}
 
                     {occurrence.gadm?.level1 && (
-                      <GadmClassification className="flex mb-1" gadm={occurrence.gadm}>
+                      <GadmClassification className="g-flex g-mb-1" gadm={occurrence.gadm}>
                         {occurrence.locality && <div>{occurrence.locality}</div>}
                       </GadmClassification>
                     )}
@@ -385,16 +392,16 @@ export function OccurrenceKey() {
                     )}
 
                     {/* {(termMap.recordedBy?.verbatim || termMap.identifiedBy?.verbatim) && (
-                      <GenericFeature className="flex mb-1">
+                      <GenericFeature className='g-flex g-mb-1'>
                         <PeopleIcon />
                         {recorderAndIndentiferIsDifferent && (
                           <div>
                             {termMap?.recordedBy?.value?.length > 0 && (
                               <div>
                                 <span>Recorded by</span>{' '}
-                                <BulletList className="inline">
+                                <BulletList className='g-inline'>
                                   {termMap.recordedBy.value.map((x: string) => (
-                                    <li className="inline" key={x}>
+                                    <li className='g-inline' key={x}>
                                       {x}
                                     </li>
                                   ))}
@@ -404,9 +411,9 @@ export function OccurrenceKey() {
                             {termMap?.identifiedBy?.value?.length > 0 && (
                               <div style={{ marginTop: 4 }}>
                                 <span>Identified by</span>{' '}
-                                <BulletList className="inline">
+                                <BulletList className='g-inline'>
                                   {termMap.identifiedBy.value.map((x: string) => (
-                                    <li key={x} className="inline">
+                                    <li key={x} className='g-inline'>
                                       {x}
                                     </li>
                                   ))}
@@ -417,9 +424,9 @@ export function OccurrenceKey() {
                         )}
                         {!recorderAndIndentiferIsDifferent && termMap?.recordedBy?.verbatim && (
                           <div>
-                            <BulletList className="inline">
+                            <BulletList className='g-inline'>
                               {termMap.recordedBy.value.map((x: string) => (
-                                <li key={x} className="inline">
+                                <li key={x} className='g-inline'>
                                   {x}
                                 </li>
                               ))}
@@ -430,7 +437,7 @@ export function OccurrenceKey() {
                     )} */}
                   </div>
 
-                  <FeatureList className="mt-2">
+                  <FeatureList className="g-mt-2">
                     {occurrence.volatile?.features?.isSamplingEvent && <SamplingEvent />}
                     {occurrence.typeStatus && occurrence.typeStatus?.length > 0 && (
                       <TypeStatus types={occurrence.typeStatus} />
@@ -442,15 +449,13 @@ export function OccurrenceKey() {
               </HeaderInfo>
             </div>
           </div>
-          <div className="border-b"></div>
-          <Tabs
-            links={tabs}
-          />
+          <div className="g-border-b g-mt-4"></div>
+          <Tabs links={tabs} />
         </ArticleTextContainer>
-      </ArticleContainer>
+      </PageContainer>
 
       <Outlet />
-    </>
+    </article>
   );
 }
 

@@ -24,6 +24,7 @@ import {
   CitationIcon,
 } from '@/components/highlights';
 import { ArticleIntro } from '@/routes/resource/key/components/articleIntro';
+import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 
 const NETWORK_QUERY = /* GraphQL */ `
   query Network($key: ID!, $predicate: Predicate) {
@@ -70,13 +71,13 @@ export function NetworkPage() {
   const homepage = network?.prose?.primaryLink?.url ?? network?.homepage?.[0];
 
   return (
-    <>
+    <article>
       <Helmet>
         <title>{title}</title>
         {/* TODO we need much richer meta data. Especially for datasets.  */}
       </Helmet>
 
-      <ArticleContainer className="pb-0 md:pb-0">
+      <PageContainer topPadded className="g-bg-white">
         <ArticleTextContainer>
           <ArticlePreTitle
             secondary={
@@ -127,21 +128,21 @@ export function NetworkPage() {
               </FeatureList>
             </HeaderInfoMain>
           </HeaderInfo>
-          <div className="border-b"></div>
+          <div className="g-border-b g-mt-4"></div>
           <Tabs
             links={[
-              { to: '.', children:  <FormattedMessage id="phrases.about" /> },
-              { to: 'publisher', children: <FormattedMessage id="phrases.publishers" />},
+              { to: '.', children: <FormattedMessage id="phrases.about" /> },
+              { to: 'publisher', children: <FormattedMessage id="phrases.publishers" /> },
               { to: 'dataset', children: <FormattedMessage id="phrases.datasets" /> },
               { to: 'metrics', children: <FormattedMessage id="phrases.metrics" /> },
               // { to: 'citations', children: 'Citations' },
             ]}
           />
         </ArticleTextContainer>
-      </ArticleContainer>
+      </PageContainer>
 
       <Outlet />
-    </>
+    </article>
   );
 }
 

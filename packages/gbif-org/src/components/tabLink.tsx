@@ -15,9 +15,9 @@ export function TabLink({ to, children, className }: Props) {
       to={to}
       as={NavLink}
       className={({ isActive }) =>
-        cn('flex leading-6 font-normal pt-3 pb-2.5 border-b-2 px-3', {
-          'text-primary-500 border-current': isActive,
-          'text-slate-900 border-transparent hover:border-slate-300 dark:text-slate-200 dark:hover:border-slate-700':
+        cn('g-flex g-leading-6 g-font-normal g-pt-3 g-pb-2.5 g-border-b-2 g-px-3', {
+          'g-text-primary-500 g-border-current': isActive,
+          'g-text-slate-900 g-border-transparent hover:g-border-slate-300 dark:g-text-slate-200 dark:hover:g-border-slate-700':
             !isActive,
           className,
         })

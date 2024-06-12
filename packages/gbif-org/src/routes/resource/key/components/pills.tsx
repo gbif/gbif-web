@@ -9,12 +9,12 @@ type Props = {
 export function Pills({ label, pills, className }: Props) {
   return (
     <div className={cn(className)}>
-      {label && <span className="me-4">{label}</span>}
+      {label && <span className='g-me-4'>{label}</span>}
 
       {pills.map(({ key, content }) => (
         <span
           key={key}
-          className="bg-slate-200 text-slate-800 dark:text-slate-400 dark:bg-zinc-800/80 py-1 px-2 rounded-full m-1 inline-block"
+          className='g-bg-slate-200 g-text-slate-800 dark:g-text-slate-400 dark:g-bg-zinc-800/80 g-py-1 g-px-2 g-rounded-full g-m-1 g-inline-block'
         >
           {content}
         </span>

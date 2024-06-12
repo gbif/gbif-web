@@ -120,25 +120,23 @@ query institution($key: ID!){
     email
     phone
     homepage
-    catalogUrl
+    catalogUrls
     alternativeCodes {
       code
       description
     }
-    type
-    apiUrl
-    institutionalGovernance
+    featuredImageUrl
+    featuredImageLicense
+    types
+    apiUrls
+    institutionalGovernances
     disciplines
     latitude
     longitude
     additionalNames
     foundingDate
-    geographicDescription
-    taxonomicDescription
     numberSpecimens
-    indexHerbariorumRecord
     logoUrl
-    citesPermitNumber
 
     masterSourceMetadata {
       key
@@ -151,6 +149,10 @@ query institution($key: ID!){
     modified
     modifiedBy
     replacedByInstitution {
+      name
+      key
+    }
+    replacedByCollection {
       name
       key
     }

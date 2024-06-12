@@ -1,5 +1,5 @@
 {
-  "numberOfOccurrences": "",
+  "numberOfOccurrences": "Número de registros biológicos",
   "addNew": "Aquí debe colocarse una breve descripción del componente",
   "removeEmptyGroup": "Aquí debe colocarse una breve descripción del componente",
   "newGroup": "Aquí debe colocarse una breve descripción del componente",
@@ -18,9 +18,10 @@
   "withYear": "Con año",
   "withCollector": "",
   "withMedia": "",
+  "withSequence": "Secuenciado",
   "richness": "",
   "percentWithValue": "",
-  "occurrences": "Registros de presencia",
+  "occurrences": "Registros biológicos",
   "other": "Otro",
   "unknown": "Desconocida",
   "iucnThreatStatus": "Aquí debe colocarse una breve descripción del componente",

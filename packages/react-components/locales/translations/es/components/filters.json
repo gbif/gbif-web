@@ -361,8 +361,8 @@
   },
   "occurrenceCount": {
     "name": "Número (cantidad) de registros",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { registro biológico } other {# registros biológicos}}",
+    "description": "Número de registros biológicos para el evento"
   },
   "eventType": {
     "name": "",
@@ -398,6 +398,11 @@
     "name": "Está en una agrupación",
     "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
     "description": "Si se determinó que el registro tenía registros relacionados."
+  },
+  "isSequenced": {
+    "name": "Está secuenciado",
+    "count": "{num, plural, one { está secuenciado } other {# están secuenciados}}",
+    "description": "Si el registro tiene secuencias asociadas."
   },
   "active": {
     "name": "Activo",

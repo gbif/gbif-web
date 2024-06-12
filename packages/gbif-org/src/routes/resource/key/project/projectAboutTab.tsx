@@ -97,14 +97,14 @@ export function ProjectAboutTab() {
 
   return (
     <>
-      <ArticleBanner className="mt-8 mb-6" image={resource?.primaryImage} />
+      <ArticleBanner className='g-mt-8 g-mb-6' image={resource?.primaryImage} />
 
       <ArticleTextContainer>
         {resource.body && (
-          <ArticleBody dangerouslySetBody={{ __html: resource.body }} className="mt-2" />
+          <ArticleBody dangerouslySetBody={{ __html: resource.body }} className='g-mt-2' />
         )}
 
-        <ArticleFooterWrapper hrClassName="mb-8">
+        <ArticleFooterWrapper hrClassName="g-mb-8">
           {resource.fundsAllocated && (
             <KeyValuePair
               label={<FormattedMessage id="cms.project.funding" />}
@@ -157,7 +157,7 @@ export function ProjectAboutTab() {
             <KeyValuePair
               label={<FormattedMessage id="cms.project.programme" />}
               value={
-                <DynamicLink to={`/programme/${resource.programme?.id}`} className="underline">
+                <DynamicLink to={`/programme/${resource.programme?.id}`} className='g-underline'>
                   {resource.programme?.title}
                 </DynamicLink>
               }
@@ -201,17 +201,17 @@ export function ProjectAboutTab() {
 
           {resource.secondaryLinks && (
             <ArticleAuxiliary>
-              <SecondaryLinks links={resource.secondaryLinks} className="mt-8" />
+              <SecondaryLinks links={resource.secondaryLinks} className='g-mt-8' />
             </ArticleAuxiliary>
           )}
 
           {resource.documents && (
             <ArticleAuxiliary>
-              <Documents documents={resource.documents} className="mt-8" />
+              <Documents documents={resource.documents} className='g-mt-8' />
             </ArticleAuxiliary>
           )}
 
-          <ArticleTags resource={resource} className="mt-8" />
+          <ArticleTags resource={resource} className='g-mt-8' />
         </ArticleFooterWrapper>
       </ArticleTextContainer>
     </>
@@ -228,7 +228,7 @@ function ParticipantOrFundingOrganisation({
   resources: Array<ParticipantOrFundingOrganisationDetailsFragment | null | undefined>;
 }) {
   return (
-    <ul className="underlineLinks inlineBulletList">
+    <ul className='underlineLinks inlineBulletList'>
       {resources.filter(notNull).map((f) => (
         <li key={f.id}>
           {f.__typename === 'FundingOrganisation' && f.url ? (

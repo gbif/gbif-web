@@ -44,9 +44,9 @@ export function GbifRootLayout({ children }: Props) {
 
   return (
     <>
-      <header className="flex gap-3 fixed bg-white shadow-sm px-2 h-10 w-full z-10 items-center">
+      <header className='g-flex g-gap-3 g-fixed g-bg-white g-shadow-sm g-px-2 g-h-10 g-w-full g-z-10 g-items-center'>
         <LanguageSelector />
-        <nav className="flex gap-3">
+        <nav className='g-flex g-gap-3'>
           <DynamicLink as={NavLink} to="/">
             Home
           </DynamicLink>
@@ -56,7 +56,7 @@ export function GbifRootLayout({ children }: Props) {
         </nav>
       </header>
       {/* h-px is needed for the child element to use height: 100% https://stackoverflow.com/a/21836870/9188121 */}
-      <main className="bg-background pt-10 min-h-screen h-px">
+      <main className="g-bg-background g-pt-10 g-min-h-screen g-h-px">
         <NoscriptNotification />
         <ScrollRestoration />
         {children}

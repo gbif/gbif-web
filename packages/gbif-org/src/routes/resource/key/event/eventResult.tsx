@@ -33,32 +33,32 @@ export function EventResult({ event }: Props) {
   const primaryLink = event.primaryLink?.url ?? `/event/${event.id}`;
 
   return (
-    <article className="bg-slate-50 p-4 flex flex-col rounded border mb-4">
-      <div className="pb-1">
-        <h3 className="inline">
-          <a className="text-base font-semibold" href={primaryLink}>
+    <article className='g-bg-slate-50 g-p-4 g-flex g-flex-col g-rounded g-border g-mb-4'>
+      <div className='g-pb-1'>
+        <h3 className='g-inline'>
+          <a className='g-text-base g-font-semibold' href={primaryLink}>
             {event.title}{' '}
-            {event.primaryLink?.url && <MdLink className="inline-block ml-1 align-middle" />}
+            {event.primaryLink?.url && <MdLink className='g-inline-block g-ml-1 g-align-middle' />}
           </a>
         </h3>
         {isPast(event) && (
-          <span className="inline-flex items-center bg-red-100 text-red-800 text-xs font-medium ms-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
+          <span className='g-inline-flex g-items-center g-bg-red-100 g-text-red-800 g-text-xs g-font-medium g-ms-2 g-px-2.5 g-py-0.5 g-rounded dark:g-bg-red-900 dark:g-text-red-300'>
             <FormattedMessage id="Past" />
           </span>
         )}
         {isCurrent(event) && (
-          <span className="inline-block items-center bg-green-100 text-green-800 text-xs font-medium ms-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
+          <span className='g-inline-block g-items-center g-bg-green-100 g-text-green-800 g-text-xs g-font-medium g-ms-2 g-px-2.5 g-py-0.5 g-rounded dark:g-bg-green-900 dark:g-text-green-300'>
             <FormattedMessage id="Happening now" />
           </span>
         )}
       </div>
 
-      <div className="flex-auto">
-        <div className="font-normal text-slate-500 text-sm">{event.excerpt}</div>
-        <div className="text-sm text-slate-500 mt-2">
+      <div className='g-flex-auto'>
+        <div className='g-font-normal g-text-slate-500 g-text-sm'>{event.excerpt}</div>
+        <div className='g-text-sm g-text-slate-500 g-mt-2'>
           <Location {...event} />
-          <div className="flex items-center">
-            <MdCalendarToday className="me-2" />
+          <div className='g-flex g-items-center'>
+            <MdCalendarToday className='g-me-2' />
             {/* format start and end dates. if same day, then only show time. if different day, then show date and time. */}
             <FormattedDate value={event.start} year="numeric" month="short" day="numeric" />
             {/* if starts and ends same day and not an allDayEvent, then show time interval */}
@@ -77,16 +77,16 @@ export function EventResult({ event }: Props) {
           </div>
           {event.gbifsAttendee && (
             <div>
-              <GbifLogoIcon className="me-2" />{' '}
+              <GbifLogoIcon className='g-me-2' />{' '}
               <FormattedMessage id="cms.resource.gbifWillAttend" />
             </div>
           )}
-          <div className="mt-2">
+          <div className='g-mt-2'>
             {!isPast(event) && (
               <Button asChild variant="secondary">
                 <a
                   href={`https://www.gbif.org/api/newsroom/events/${event.id}.ics`}
-                  className="flex gap-2"
+                  className='g-flex g-gap-2'
                 >
                   <MdCalendarMonth />
                   <FormattedMessage id="cms.resource.addToCalendar" />
@@ -94,7 +94,7 @@ export function EventResult({ event }: Props) {
               </Button>
             )}
             {event.primaryLink?.url && (
-              <Button className="ms-4" asChild variant="ghost">
+              <Button className='g-ms-4' asChild variant="ghost">
                 <a href={`/event/${event.id}`}>
                   <FormattedMessage id="phrases.seeDetails" />
                 </a>
@@ -116,10 +116,10 @@ function Location({
   if (!country && !location && !venue) return null;
 
   return (
-    <div className="flex items-center">
-      <MdLocationPin className="me-2" />
+    <div className='g-flex g-items-center'>
+      <MdLocationPin className='g-me-2' />
       {/* if country then add formatted message with country name */}
-      <div className="classification">
+      <div className='classification'>
         {country && (
           <span>
             <FormattedMessage id={`enums.countryCode.${country}`} />

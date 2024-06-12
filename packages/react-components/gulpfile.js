@@ -1,5 +1,6 @@
 const { src, dest, parallel } = require('gulp');
 const replace = require('gulp-replace');
+var rename = require("gulp-rename");
 const gulpif = require('gulp-if');
 const md5File = require('md5-file');
 const env = require('./.env.json');
@@ -15,13 +16,28 @@ function noIndex() {
 async function include(cb) {
   // if no domain is specified, then assume this task can be ignored
   if (!env.DOMAIN) return cb();
-  
+
   const hash = await md5File('dist/lib/gbif-react-components.js');
 
-  return src('gbif-components.inc')
-    .pipe(replace('{{VERSION}}', hash))
-    .pipe(replace('{{DOMAIN}}', env.DOMAIN))
+  // for dev environments we want to use a timestamp instead of a hash since we do not have access to the hash as we are temporarily using dev to test the new library
+  const isDev = env.DOMAIN.includes('-dev.org');
+
+  if (isDev) {
+    const timestamp = (new Date()).toISOString().replace(/[-\.:]/g, '');
+
+    return src('new-gbif-components.inc')
+    .pipe(rename(function (path) {
+      // Updates the object in-place
+      path.basename = "gbif-components";
+    }))
+    .pipe(replace('{{VERSION}}', timestamp))
     .pipe(dest('dist/lib/'));
+  } else {
+    return src('gbif-components.inc')
+      .pipe(replace('{{VERSION}}', hash))
+      .pipe(replace('{{DOMAIN}}', env.DOMAIN))
+      .pipe(dest('dist/lib/'));
+  }
 }
 
 async function copyTranslations(cb) {

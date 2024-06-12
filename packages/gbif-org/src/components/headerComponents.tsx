@@ -43,13 +43,13 @@ export function Hostname({
   try {
     const hostname = new URL(href).hostname;
     return (
-      <a href={href} {...props} className={cn('hover:underline', className)}>
+      <a href={href} {...props} className={cn('hover:g-underline', className)}>
         {hostname}
       </a>
     );
   } catch (err) {
     return (
-      <a href={href} className="text-red-400" {...props}>
+      <a href={href} className='g-text-red-400' {...props}>
         {href}
       </a>
     );
@@ -65,7 +65,7 @@ export function HeaderInfoMain({
   children: React.ReactNode;
 } & React.ComponentProps<'div'>) {
   return (
-    <div className={cn('flex-grow', className)} {...props}>
+    <div className={cn('g-flex-grow', className)} {...props}>
       {children}
     </div>
   );
@@ -78,7 +78,7 @@ export function HeaderInfoEdit({
   className?: string;
 } & React.ComponentProps<'div'>) {
   return (
-    <div className={cn('flex-shrink', className)} {...props} />
+    <div className={cn('g-flex-shrink', className)} {...props} />
   );
 }
 
@@ -91,7 +91,7 @@ export function HeaderInfo({
   children: React.ReactNode;
 } & React.ComponentProps<'div'>) {
   return (
-    <div className={cn('mt-6 mb-3 flex items-end', className)} {...props}>
+    <div className={cn('g-mt-6 g-flex g-items-end', className)} {...props}>
       {children}
     </div>
   );

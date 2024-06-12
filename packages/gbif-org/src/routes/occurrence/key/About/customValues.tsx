@@ -140,14 +140,14 @@ function Agents({ label, value }) {
 export function AgentSummary({ agent, ...props }) {
   const { person } = agent;
   return (
-    <div className="rounded border bg-white dark:bg-slate-500 shadow-sm inline-flex overflow-hidden">
-      <div className="flex-none">
+    <div className='g-rounded g-border g-bg-white dark:g-bg-slate-500 g-shadow-sm g-inline-flex g-overflow-hidden'>
+      <div className='g-flex-none'>
         {person?.image?.value && (
-          <img className="block" src={person?.image?.value} height={80} style={{ maxWidth: 80 }} />
+          <img className='g-block' src={person?.image?.value} height={80} style={{ maxWidth: 80 }} />
         )}
       </div>
-      <div className="flex-auto px-4 py-2 text-sm">
-        <h4 className="font-bold">{person?.name?.value}</h4>
+      <div className='g-flex-auto g-px-4 g-py-2 g-text-sm'>
+        <h4 className='g-font-bold'>{person?.name?.value}</h4>
         {person?.birthDate?.value && (
           <div>
             <FormattedDate
@@ -183,7 +183,7 @@ export function DynamicProperties({ termMap }) {
   let content;
   try {
     const jsonValue = JSON.parse(value);
-    content = <pre className="bg-slate-100 overflow-auto p-2">{JSON.stringify(jsonValue, null, 2)}</pre>;
+    content = <pre className='g-bg-slate-100 g-overflow-auto g-p-2'>{JSON.stringify(jsonValue, null, 2)}</pre>;
   } catch (err) {
     //ignore any errors
     content = value;

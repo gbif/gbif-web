@@ -1,5 +1,6 @@
 import _ from 'lodash';
-import { getExcerpt } from '#/helpers/utils';
+import { getExcerpt, getOGImage } from '#/helpers/utils';
+import { getThumborUrl } from '../resource/misc/misc.resolver';
 
 function between(input, min, max) {
   return Math.min(Math.max(input, min), max);
@@ -38,6 +39,12 @@ export default {
     replacedByCollection: ({ replacedBy }, args, { dataSources }) => {
       if (!replacedBy) return null;
       return dataSources.collectionAPI.getCollectionByKey({ key: replacedBy });
+    },
+    thumbor: ({ featuredImageUrl: url }, { fitIn, width = '', height = '' }) => getThumborUrl({url, fitIn, width, height}),
+    homepageOGImageUrl_volatile: ({ homepage }) => {
+      return getOGImage({ homepage }).then((response) => {
+        return response;
+      }).catch(() => null);
     },
     excerpt: ({ description, taxonomicCoverage, geography }) => {
       if (typeof description === 'undefined') return null;

@@ -9,24 +9,219 @@ import {
   ContactTelephone,
   ContactTitle,
 } from '@/components/Contact';
+import EmptyValue from '@/components/EmptyValue';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
+import {
+  CardContent as CardContentSmall,
+  CardHeader as CardHeaderSmall,
+  Card as CardSmall,
+  CardTitle as CardTitleSmall,
+} from '@/components/ui/smallCard';
 import { PublisherQuery } from '@/gql/graphql';
+import useBelow from '@/hooks/useBelow';
 import { RouteId, useParentRouteLoaderData } from '@/hooks/useParentRouteLoaderData';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
+import { MdDownload, MdMap } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 
 export function PublisherKeyAbout() {
   const { data } = useParentRouteLoaderData(RouteId.Publisher) as { data: PublisherQuery };
+  const removeSidebar = useBelow(1100);
 
   const { publisher } = data;
 
+  if (!publisher) {
+    return null;
+  }
+
+  const technicalContact = publisher.contacts?.find((x) => x.type === 'TECHNICAL_POINT_OF_CONTACT');
+
+  const ActivityReport = () => (
+    <CardSmall className='g-mb-4'>
+      <CardHeaderSmall className="">
+        <CardTitleSmall className='g-flex g-text-sm'>
+          <div className='g-flex-none g-me-2'>
+            <div className='g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center'>
+              <MdDownload />
+            </div>
+          </div>
+          <div className='g-flex-auto'>
+            <a
+              href={`${
+                import.meta.env.PUBLIC_API_V1
+              }/occurrence/download/statistics/export?publishingOrgKey=${publisher.key}`}
+            >
+              <FormattedMessage id="publisher.getDownloadReport" />
+            </a>
+          </div>
+        </CardTitleSmall>
+      </CardHeaderSmall>
+    </CardSmall>
+  );
+
+  const Logo = () => {
+    if (!publisher?.logoUrl) return null;
+    return (
+      <CardSmall className='g-mb-4'>
+        <div className='g-p-2 md:g-p-4'>
+          <img className='g-m-auto g-max-w-100 g-max-h-48' src={publisher.logoUrl} alt="" />
+        </div>
+      </CardSmall>
+    );
+  };
+
+  const Map = () => {
+    return (
+      <CardSmall className='g-mb-4'>
+        {publisher.longitude && (
+          <a
+            className='g-block'
+            href={`http://www.google.com/maps/place/${publisher.latitude},${publisher.longitude}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              style={{ width: '100%', display: 'block' }}
+              src={`https://api.mapbox.com/styles/v1/mapbox/streets-v9/static/pin-s-circle+285A98(${publisher.longitude},${publisher.latitude})/${publisher.longitude},${publisher.latitude},15,0/500x250@2x?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA`}
+            />
+          </a>
+        )}
+        <CardContentSmall className='g-mt-4'>
+          <div className='g-flex'>
+            <div className='g-flex-none g-me-2'>
+              <div className='g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center'>
+                <MdMap />
+              </div>
+            </div>
+            <div className='g-flex-auto g-text-sm g-prose'>
+              <address style={{ fontStyle: 'normal' }}>
+                <div>
+                  {publisher.address && publisher.address.length > 0 ? (
+                    <>
+                      {publisher.address.map((x) => (
+                        <div>{x}</div>
+                      ))}
+                    </>
+                  ) : (
+                    <span style={{ color: '#aaa' }}>No known postal address</span>
+                  )}
+                </div>
+                {publisher.city && <div>{publisher.city}</div>}
+                {publisher.province && <div>{publisher.province}</div>}
+                {publisher.postalCode && <div>{publisher.postalCode}</div>}
+                {publisher.country && (
+                  <div>
+                    <FormattedMessage id={`enums.countryCode.${publisher.country}`} />
+                  </div>
+                )}
+                {publisher.email && (
+                  <div>
+                    <a href={`mailto:${publisher.email}`}>{publisher.email}</a>
+                  </div>
+                )}
+                {publisher.phone && (
+                  <div>
+                    <a href={`tel:${publisher.phone}`}>{publisher.phone}</a>
+                  </div>
+                )}
+              </address>
+            </div>
+          </div>
+        </CardContentSmall>
+      </CardSmall>
+    );
+  };
+
+  const Provenance = () => {
+    return (
+      <CardSmall className='g-mb-4 g-prose'>
+        <CardContentSmall className='g-mt-4 g-text-sm'>
+          {publisher.endorsingNode && (
+            <div style={{ marginBottom: 18 }}>
+              <CardTitleSmall className='g-mb-2'>
+                Endorsed by: <a href="/country/FR">{publisher.endorsingNode.title}</a>
+              </CardTitleSmall>
+              <p>
+                Publishers need to be endorsed by a GBIF Participant Node. This endorsement confirms
+                that the publisher is a legitimate organization and that it is committed to sharing
+                biodiversity data through GBIF.
+              </p>
+            </div>
+          )}
+          {publisher?.installation?.count === 1 && (
+            <div style={{ marginBottom: 18 }}>
+              <CardTitleSmall className='g-mb-2'>
+                Installations:{' '}
+                {publisher?.installation.results.map((x) => (
+                  <a href="/installation/1234-1234-1234-1234">{x.title} </a>
+                ))}
+              </CardTitleSmall>
+              <p>
+                Some publishers run their own technical installations through which data is
+                published to GBIF. Some installations are collaborations and may be shared by
+                multiple publishers.
+              </p>
+            </div>
+          )}
+          {publisher?.installation?.count > 1 && (
+            <div style={{ marginBottom: 18 }}>
+              <CardTitleSmall className='g-mb-2'>
+                Installations:{' '}
+                <ul>
+                  {publisher?.installation.results.map((x) => (
+                    <li>
+                      <a href="/installation/1234-1234-1234-1234">{x.title} </a>
+                    </li>
+                  ))}
+                </ul>
+              </CardTitleSmall>
+              <p>
+                Some publishers run their own technical installations through which data is
+                published to GBIF. Some installations are collaborations and may be shared by
+                multiple publishers.
+              </p>
+            </div>
+          )}
+          {technicalContact?.email && (
+            <div style={{ marginBottom: 18 }}>
+              <CardTitleSmall className='g-mb-2'>
+                Techincal contact:{' '}
+                <a href={`mailto:${technicalContact.email}`}>
+                  {technicalContact.firstName} {technicalContact.lastName}
+                </a>
+              </CardTitleSmall>
+              <p>
+                Who to get in contact with in case of IT related questions. Not for biodiversity
+                specific questions.
+              </p>
+            </div>
+          )}
+          {publisher.country && (
+            <div style={{ marginBottom: 18 }}>
+              <CardTitleSmall className='g-mb-2'>
+                Country or area:{' '}
+                <a href="/installation/1234-1234-1234-1234">
+                  <FormattedMessage id={`enums.countryCode.${publisher.country}`} />
+                </a>
+              </CardTitleSmall>
+              <p>
+                The country or area where the publisher is located. For international organizations,
+                this is the country where the main office is located.
+              </p>
+            </div>
+          )}
+        </CardContentSmall>
+      </CardSmall>
+    );
+  };
+
   return (
-    <ArticleContainer className="bg-slate-100 pt-0">
-      <ArticleTextContainer className="max-w-screen-xl">
-        <div className="flex">
-          <div className="flex-grow">
-            <Card className="mb-4">
+    <ArticleContainer className='g-bg-slate-100 g-pt-4'>
+      <ArticleTextContainer className='g-max-w-screen-xl'>
+        <div className={`${removeSidebar ? '' : 'g-flex'}`}>
+          <div className='g-flex-grow'>
+            <Card className='g-mb-4'>
               <CardHeader>
                 <CardTitle>
                   <FormattedMessage id="phrases.headers.description" />
@@ -35,25 +230,29 @@ export function PublisherKeyAbout() {
               <CardContent>
                 {publisher?.description && (
                   <div
-                    className="prose mb-6"
+                    className='g-prose g-mb-6'
                     dangerouslySetInnerHTML={{ __html: publisher.description }}
                   ></div>
                 )}
+                {!publisher?.description && <EmptyValue />}
               </CardContent>
             </Card>
 
             {publisher?.contacts?.length > 0 && (
-              <Card className="mb-4">
+              <Card className='g-mb-4'>
                 <CardHeader>
                   <CardTitle>
                     <FormattedMessage id="phrases.headers.contacts" />
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="flex flex-wrap -m-2">
+                  <div className='g-flex g-flex-wrap -g-m-2'>
                     {publisher?.contacts?.map((contact) => {
                       return (
-                        <Card key={contact.key} className="px-6 py-4 flex-auto max-w-sm min-w-xs m-2">
+                        <Card
+                          key={contact.key}
+                          className='g-px-6 g-py-4 g-flex-auto g-max-w-sm g-min-w-xs g-m-2 g-w-1/2'
+                        >
                           <ContactHeader>
                             <ContactAvatar
                               firstName={contact.firstName}
@@ -72,10 +271,12 @@ export function PublisherKeyAbout() {
                               )}
                             </ContactHeaderContent>
                           </ContactHeader>
-                          <ContactContent className="mb-2"></ContactContent>
+                          <ContactContent className='g-mb-2'></ContactContent>
                           <ContactActions>
                             {contact.email &&
-                              contact.email.map((email) => <ContactEmail key={email} email={email} />)}
+                              contact.email.map((email) => (
+                                <ContactEmail key={email} email={email} />
+                              ))}
                             {contact.phone &&
                               contact.phone.map((tel) => <ContactTelephone key={tel} tel={tel} />)}
                           </ContactActions>
@@ -87,7 +288,26 @@ export function PublisherKeyAbout() {
               </Card>
             )}
           </div>
-          <aside className="flex-auto">Sidebar content</aside>
+          {!removeSidebar && (
+            <aside className='g-flex-none g-min-w-80 g-w-80 g-ml-4'>
+              <ActivityReport />
+              <Logo />
+              <Map />
+              <Provenance />
+            </aside>
+          )}
+          {removeSidebar && (
+            <div className='sm:g-flex g-flex-full'>
+              <div className='g-flex-[1_1_50%] g-me-2'>
+                <ActivityReport />
+                <Map />
+              </div>
+              <div className='g-flex-[1_1_50%] g-ms-2'>
+                <Provenance />
+                <Logo />
+              </div>
+            </div>
+          )}
         </div>
       </ArticleTextContainer>
     </ArticleContainer>

@@ -10,12 +10,11 @@ type Props = {
 export function ArticlePreTitle({ secondary, children, className }: Props) {
   return (
     <p
-      className={cn(
-        'mb-1 text-sm leading-6 font-semibold text-primary-500 dark:text-primary-400',
+      className={cn('g-mb-1 g-text-sm g-leading-6 g-font-semibold g-text-primary-500 dark:g-text-primary-400',
         className
       )}
     >
-      {children} {secondary && <span className="text-slate-500 font-normal ml-2">{secondary}</span>}
+      {children} {secondary && <span className='g-text-slate-500 g-font-normal g-ml-2'>{secondary}</span>}
     </p>
   );
 }
@@ -23,7 +22,7 @@ export function ArticlePreTitle({ secondary, children, className }: Props) {
 export function ArticlePreTitleSkeleton({ className }: Pick<Props, 'className'>) {
   return (
     <div className={className}>
-      <Skeleton className="w-10 h-4" />
+      <Skeleton className='g-w-10 g-h-4' />
     </div>
   );
 }

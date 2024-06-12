@@ -70,14 +70,13 @@ const FormItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
   ({ className, ...props }, ref) => {
     const id = React.useId();
 
-    return (
-      <FormItemContext.Provider value={{ id }}>
-        <div ref={ref} className={cn('space-y-2', className)} {...props} />
-      </FormItemContext.Provider>
-    );
-  }
-);
-FormItem.displayName = 'FormItem';
+  return (
+    <FormItemContext.Provider value={{ id }}>
+      <div ref={ref} className={cn('g-space-y-2', className)} {...props} />
+    </FormItemContext.Provider>
+  )
+})
+FormItem.displayName = "FormItem"
 
 const FormLabel = React.forwardRef<
   React.ElementRef<typeof LabelPrimitive.Root>,
@@ -88,7 +87,7 @@ const FormLabel = React.forwardRef<
   return (
     <Label
       ref={ref}
-      className={cn(highlightError && error && 'text-destructive', className)}
+      className={cn(highlightError && error && 'g-text-destructive', className)}
       htmlFor={formItemId}
       {...props}
     />
@@ -124,7 +123,7 @@ const FormDescription = React.forwardRef<
     <p
       ref={ref}
       id={formDescriptionId}
-      className={cn('text-[0.8rem] text-muted-foreground', className)}
+      className={cn('g-text-[0.8rem] g-text-muted-foreground', className)}
       {...props}
     />
   );
@@ -146,7 +145,7 @@ const FormMessage = React.forwardRef<
     <p
       ref={ref}
       id={formMessageId}
-      className={cn('text-[0.8rem] font-medium text-destructive', className)}
+      className={cn('g-text-[0.8rem] g-font-medium g-text-destructive', className)}
       {...props}
     >
       {body}

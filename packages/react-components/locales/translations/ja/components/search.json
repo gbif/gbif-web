@@ -16,6 +16,7 @@
   "placeholders": {
     "default": "検索",
     "range": "範囲または単一値",
+    "wildcard": "",
     "locationID": ""
   },
   "ternary": {

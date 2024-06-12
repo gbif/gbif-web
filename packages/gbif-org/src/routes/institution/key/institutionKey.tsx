@@ -75,25 +75,25 @@ const INSTITUTION_QUERY = /* GraphQL */ `
       email
       phone
       homepage
-      catalogUrl
+      catalogUrls
       alternativeCodes {
         code
         description
       }
-      type
-      apiUrl
-      institutionalGovernance
+      types
+      apiUrls
+      institutionalGovernances
       disciplines
       latitude
       longitude
       additionalNames
       foundingDate
-      geographicDescription
-      taxonomicDescription
       numberSpecimens
-      indexHerbariorumRecord
       logoUrl
-      citesPermitNumber
+
+      featuredImageUrl: thumbor(width: 1000, height: 667)
+      featuredImageLicense
+      featuredImageUrl_fallback: homepageOGImageUrl_volatile
 
       masterSourceMetadata {
         key

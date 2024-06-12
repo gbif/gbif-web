@@ -19,7 +19,7 @@ function TaxaMain({
   const [rank, setRank] = useState('FAMILY');
   const facetResults = useFacets({ predicate, query });
   
-  if (facetResults?.data?.occurrenceSearch?.facet?.results?.length <= visibilityThreshold) return null;
+  if (facetResults?.data?.search?.facet?.results?.length <= visibilityThreshold) return null;
 
   return <Card {...props}>
     <CardTitle options={<DropdownButton
@@ -35,7 +35,7 @@ function TaxaMain({
       interactive,
       onClick: handleRedirect,
       transform: data => {
-        return data?.occurrenceSearch?.facet?.results?.map(x => {
+        return data?.search?.facet?.results?.map(x => {
           return {
             key: x.key,
             title: x?.entity?.title,
@@ -63,7 +63,7 @@ export function Taxa(props) {
 
 const getTaxonQuery = rank => `
 query summary($predicate: Predicate, $size: Int, $from: Int){
-  occurrenceSearch(predicate: $predicate) {
+  search: occurrenceSearch(predicate: $predicate) {
     documents(size: 0) {
       total
     }
@@ -110,7 +110,8 @@ function IucnMain({
       ]
     }, query: IUCN_FACETS
   });
-  if (facetResults?.data?.occurrenceSearch?.facet?.results?.length <= visibilityThreshold) return null;
+  const resultCount = facetResults?.data?.search?.facet?.results?.length;
+  if (resultCount <= visibilityThreshold) return null;
 
   return <Card {...props}>
     <CardTitle>
@@ -119,12 +120,15 @@ function IucnMain({
         <div><FormattedMessage id={'dashboard.iucnThreatStatusDescription'} /></div>
       </div>
     </CardTitle>
+    {resultCount === 0 && <div css={css`text-align: center; color: #aaa;`}>
+      <FormattedMessage id="dashboard.noData" defaultMessage="No data" />
+    </div>}
     <GroupBy {...{
       facetResults,
       interactive,
       onClick: handleRedirect,
       transform: data => {
-        return data?.occurrenceSearch?.facet?.results?.map(x => {
+        return data?.search?.facet?.results?.map(x => {
           return {
             key: x.key,
             title: <div>
@@ -147,7 +151,7 @@ function IucnMain({
 };
 const IUCN_FACETS = `
 query summary($predicate: Predicate, $size: Int, $from: Int){
-  occurrenceSearch(predicate: $predicate) {
+  search: occurrenceSearch(predicate: $predicate) {
     documents(size: 0) {
       total
     }

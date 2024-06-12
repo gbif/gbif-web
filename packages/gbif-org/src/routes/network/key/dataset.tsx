@@ -10,6 +10,7 @@ import { DatasetResult } from '@/routes/dataset/datasetResult';
 import { PaginationFooter } from '@/components/pagination';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { NoRecords } from '@/components/noDataMessages';
+import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 
 export function NetworkKeyDataset() {
   const { key } = useParams<{ key: string }>();
@@ -38,17 +39,17 @@ export function NetworkKeyDataset() {
 
   if (loading || !data)
     return (
-      <ArticleContainer className="bg-slate-100">
+      <PageContainer topPadded bottomPadded className="g-bg-slate-100">
         <ArticleTextContainer>
           <CardListSkeleton />
         </ArticleTextContainer>
-      </ArticleContainer>
+      </PageContainer>
     );
 
   const datasets = data?.network?.constituents;
 
   return (
-    <ArticleContainer className="bg-slate-100">
+    <PageContainer topPadded bottomPadded className="g-bg-slate-100">
       <ArticleTextContainer>
         { datasets?.count === 0 && <>
           <NoRecords />
@@ -78,7 +79,7 @@ export function NetworkKeyDataset() {
           </>
         )}
       </ArticleTextContainer>
-    </ArticleContainer>
+    </PageContainer>
   );
 }
 

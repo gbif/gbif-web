@@ -120,7 +120,7 @@ const Carousel = React.forwardRef<
       <div
         ref={ref}
         onKeyDownCapture={handleKeyDown}
-        className={cn('relative', className)}
+        className={cn('g-relative', className)}
         role="region"
         aria-roledescription="carousel"
         {...props}
@@ -137,12 +137,11 @@ const CarouselContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
     const { carouselRef, orientation } = useCarousel();
 
     return (
-      <div ref={carouselRef} className="overflow-hidden">
+      <div ref={carouselRef} className='g-overflow-hidden'>
         <div
           ref={ref}
-          className={cn(
-            'flex',
-            orientation === 'horizontal' ? '-me-4' : '-mt-4 flex-col',
+          className={cn('g-flex',
+            orientation === 'horizontal' ? '-g-me-4' : '-g-mt-4 g-flex-col',
             className
           )}
           {...props}
@@ -160,11 +159,10 @@ const CarouselItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLD
     return (
       <div
         ref={ref}
-        role="group"
+        role="g-group"
         aria-roledescription="slide"
-        className={cn(
-          'min-w-0 shrink-0 grow-0 basis-full',
-          orientation === 'horizontal' ? 'pe-4' : 'pt-4',
+        className={cn('g-min-w-0 g-shrink-0 g-grow-0 g-basis-full',
+          orientation === 'horizontal' ? 'g-pe-4' : 'g-pt-4',
           className
         )}
         {...props}
@@ -183,19 +181,18 @@ const CarouselPrevious = React.forwardRef<HTMLButtonElement, React.ComponentProp
         ref={ref}
         variant={variant}
         size={size}
-        className={cn(
-          'absolute  h-8 w-8 rounded-full',
+        className={cn('g-absolute  g-h-8 g-w-8 g-rounded-full',
           orientation === 'horizontal'
-            ? '-left-12 top-1/2 -translate-y-1/2'
-            : '-top-12 left-1/2 -translate-x-1/2 rotate-90',
+            ? '-g-left-12 g-top-1/2 -g-translate-y-1/2'
+            : '-g-top-12 g-left-1/2 -g-translate-x-1/2 g-rotate-90',
           className
         )}
         disabled={!canScrollPrev}
         onClick={scrollPrev}
         {...props}
       >
-        <ArrowLeftIcon className="h-4 w-4" />
-        <span className="sr-only">Previous slide</span>
+        <ArrowLeftIcon className='g-h-4 g-w-4' />
+        <span className='g-sr-only'>Previous slide</span>
       </Button>
     );
   }
@@ -211,19 +208,18 @@ const CarouselNext = React.forwardRef<HTMLButtonElement, React.ComponentProps<ty
         ref={ref}
         variant={variant}
         size={size}
-        className={cn(
-          'absolute h-8 w-8 rounded-full',
+        className={cn('g-absolute g-h-8 g-w-8 g-rounded-full',
           orientation === 'horizontal'
-            ? '-right-12 top-1/2 -translate-y-1/2'
-            : '-bottom-12 left-1/2 -translate-x-1/2 rotate-90',
+            ? '-g-right-12 g-top-1/2 -g-translate-y-1/2'
+            : '-g-bottom-12 g-left-1/2 -g-translate-x-1/2 g-rotate-90',
           className
         )}
         disabled={!canScrollNext}
         onClick={scrollNext}
         {...props}
       >
-        <ArrowRightIcon className="h-4 w-4" />
-        <span className="sr-only">Next slide</span>
+        <ArrowRightIcon className='g-h-4 g-w-4' />
+        <span className='g-sr-only'>Next slide</span>
       </Button>
     );
   }

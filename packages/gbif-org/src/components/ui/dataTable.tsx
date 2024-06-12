@@ -27,7 +27,7 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div className={cn('rounded-md border', className)}>
+    <div className={cn('g-rounded-md g-border', className)}>
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -36,7 +36,7 @@ export function DataTable<TData, TValue>({
                 return (
                   <TableHead
                     key={header.id}
-                    className="sticky top-0 bg-white rounded-t-md box-shadow-b"
+                    className='g-sticky g-top-0 g-bg-white g-rounded-t-md box-shadow-b'
                   >
                     {header.isPlaceholder
                       ? null
@@ -53,7 +53,7 @@ export function DataTable<TData, TValue>({
               <TableRow
                 key={row.id}
                 data-state={row.getIsSelected() && 'selected'}
-                className="border-b"
+                className='g-border-b'
               >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>
@@ -64,7 +64,7 @@ export function DataTable<TData, TValue>({
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
+              <TableCell colSpan={columns.length} className='g-h-24 g-text-center'>
                 No results.
               </TableCell>
             </TableRow>

@@ -16,6 +16,7 @@
   "placeholders": {
     "default": "Пошук",
     "range": "",
+    "wildcard": "",
     "locationID": ""
   },
   "ternary": {

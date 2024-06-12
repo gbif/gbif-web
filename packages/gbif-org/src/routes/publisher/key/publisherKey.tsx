@@ -23,16 +23,50 @@ import {
   OccurrenceIcon,
   CitationIcon,
 } from '@/components/highlights';
+import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 
 const PUBLISHER_QUERY = /* GraphQL */ `
-  query Publisher($key: ID!) {
+  query Publisher($key: ID!, $jsonKey: JSON!) {
     publisher: organization(key: $key) {
+      key
       title
       description
       deleted
       created
       homepage
       numPublishedDatasets
+      logoUrl
+
+      latitude
+      longitude
+      address
+      city
+      country
+      email
+      phone
+      postalCode
+      province
+
+      endorsingNode {
+        title
+        participant {
+          id
+          name
+          type
+          countryCode
+        }
+      }
+      endorsingNodeKey
+      endorsementApproved
+
+      installation {
+        count
+        results {
+          key
+          title
+        }
+      }
+
       contacts {
         key
         type
@@ -46,7 +80,7 @@ const PUBLISHER_QUERY = /* GraphQL */ `
         userId
       }
     }
-    occurrenceSearch {
+    occurrenceSearch(predicate: { type: equals, key: "publishingOrg", value: $jsonKey }) {
       documents(size: 0) {
         total
       }
@@ -65,7 +99,10 @@ const PUBLISHER_QUERY = /* GraphQL */ `
 export async function publisherLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key was provided in the URL');
 
-  return graphql.query<PublisherQuery, PublisherQueryVariables>(PUBLISHER_QUERY, { key });
+  return graphql.query<PublisherQuery, PublisherQueryVariables>(PUBLISHER_QUERY, {
+    key,
+    jsonKey: key,
+  });
 }
 
 export function PublisherPage() {
@@ -77,14 +114,14 @@ export function PublisherPage() {
   const deletedAt = publisher.deleted;
 
   return (
-    <>
+    <article>
       <Helmet>
         <title>{publisher.title}</title>
         {/* TODO we need much richer meta data. Especially for datasets.  */}
       </Helmet>
 
-      <ArticleContainer className="pb-0">
-        <ArticleTextContainer className="max-w-screen-xl">
+      <PageContainer topPadded className="g-bg-white">
+        <ArticleTextContainer className="g-max-w-screen-xl">
           <ArticlePreTitle
             secondary={
               <FormattedMessage
@@ -117,36 +154,44 @@ export function PublisherPage() {
                 </FeatureList>
               )}
               <FeatureList>
-                {occurrenceSearch?.documents.total > 0 && <GenericFeature>
-                  <OccurrenceIcon />
-                  <FormattedMessage
-                    id="counts.nOccurrences"
-                    values={{ total: occurrenceSearch?.documents.total }}
-                  />
-                </GenericFeature>}
-                {publisher?.numPublishedDatasets && publisher?.numPublishedDatasets > 0 && <GenericFeature>
-                  <FormattedMessage
-                    id="counts.nPublishedDatasets"
-                    values={{ total: publisher.numPublishedDatasets }}
-                  />
-                </GenericFeature>}
-                {hostedDatasets?.count > 0 && <GenericFeature>
-                  <FormattedMessage
-                    id="counts.nHostedDatasets"
-                    values={{ total: hostedDatasets?.count }}
-                  />
-                </GenericFeature>}
-                {literatureSearch?.documents.total > 0 && <GenericFeature>
-                  <CitationIcon />
-                  <FormattedMessage
-                    id="counts.nCitations"
-                    values={{ total: literatureSearch?.documents.total }}
-                  />
-                </GenericFeature>}
+                {occurrenceSearch?.documents.total > 0 && (
+                  <GenericFeature>
+                    <OccurrenceIcon />
+                    <FormattedMessage
+                      id="counts.nOccurrences"
+                      values={{ total: occurrenceSearch?.documents.total }}
+                    />
+                  </GenericFeature>
+                )}
+                {publisher?.numPublishedDatasets && publisher?.numPublishedDatasets > 0 && (
+                  <GenericFeature>
+                    <FormattedMessage
+                      id="counts.nPublishedDatasets"
+                      values={{ total: publisher.numPublishedDatasets }}
+                    />
+                  </GenericFeature>
+                )}
+                {hostedDatasets?.count > 0 && (
+                  <GenericFeature>
+                    <FormattedMessage
+                      id="counts.nHostedDatasets"
+                      values={{ total: hostedDatasets?.count }}
+                    />
+                  </GenericFeature>
+                )}
+                {literatureSearch?.documents.total > 0 && (
+                  <GenericFeature>
+                    <CitationIcon />
+                    <FormattedMessage
+                      id="counts.nCitations"
+                      values={{ total: literatureSearch?.documents.total }}
+                    />
+                  </GenericFeature>
+                )}
               </FeatureList>
             </HeaderInfoMain>
           </HeaderInfo>
-          <div className="border-b"></div>
+          <div className="g-border-b g-mt-4"></div>
           <Tabs
             links={[
               { to: '.', children: 'About' },
@@ -156,10 +201,10 @@ export function PublisherPage() {
             ]}
           />
         </ArticleTextContainer>
-      </ArticleContainer>
+      </PageContainer>
 
       <Outlet />
-    </>
+    </article>
   );
 }
 

@@ -53,22 +53,22 @@ export function FundingBanner({ resource }: Props) {
     resource.__typename === 'GbifProject' ? resource.fundsAllocated : undefined;
 
   return (
-    <div className="bg-slate-100 mt-6 p-6 flex flex-col items-center">
+    <div className='g-bg-slate-100 g-mt-6 g-p-6 g-flex g-flex-col g-items-center'>
       {fundsAllocated && (
-        <span className="text-gray-500 text-xs">
+        <span className='g-text-gray-500 g-text-xs'>
           € <FormattedNumber value={fundsAllocated} />{' '}
           <FormattedMessage id="cms.project.fundedBy" />
         </span>
       )}
 
-      <div className="mt-4 flex gap-8 flex-wrap justify-center">
+      <div className='g-mt-4 g-flex g-gap-8 g-flex-wrap g-justify-center'>
         {fundingOrganisations
           ?.filter(notNull)
           .filter((x) => !x.logo)
           .map((fundingOrganisation) => (
             <div key={fundingOrganisation.id}>
-              <a href={fundingOrganisation.url!} className="flex flex-col items-center group">
-                <span className="text-gray-500 text-sm pt-2 group-hover:underline">
+              <a href={fundingOrganisation.url!} className='g-flex g-flex-col g-items-center g-group'>
+                <span className='g-text-gray-500 g-text-sm g-pt-2 group-hover:g-underline'>
                   {fundingOrganisation.title}
                 </span>
               </a>
@@ -76,15 +76,15 @@ export function FundingBanner({ resource }: Props) {
           ))}
       </div>
 
-      <div className="mt-4 flex gap-8 flex-wrap justify-center">
+      <div className='g-mt-4 g-flex g-gap-8 g-flex-wrap g-justify-center'>
         {fundingOrganisations
           ?.filter(notNull)
           .filter((x) => x.logo)
           .map((fundingOrganisation) => (
             <div key={fundingOrganisation.id}>
-              <a href={fundingOrganisation.url!} className="flex flex-col items-center group">
-                <img className="max-w-28" src={fundingOrganisation.logo?.file.url} />
-                <span className="text-gray-500 text-sm pt-2 group-hover:underline">
+              <a href={fundingOrganisation.url!} className='g-flex g-flex-col g-items-center g-group'>
+                <img className='g-max-w-28' src={fundingOrganisation.logo?.file.url} />
+                <span className='g-text-gray-500 g-text-sm g-pt-2 group-hover:g-underline'>
                   {fundingOrganisation.title}
                 </span>
               </a>

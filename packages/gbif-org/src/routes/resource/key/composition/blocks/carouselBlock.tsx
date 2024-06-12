@@ -61,11 +61,11 @@ export function CarouselBlock({ resource }: Props) {
     <BlockContainer className={backgroundColor}>
       {resource.title && <BlockHeading dangerouslySetHeading={{ __html: resource.title }} />}
       {resource.body && (
-        <ArticleTextContainer className="mt-2 mb-10">
+        <ArticleTextContainer className='g-mt-2 g-mb-10'>
           <ArticleBody dangerouslySetBody={{ __html: resource.body }} />
         </ArticleTextContainer>
       )}
-      <div className="max-w-6xl w-full px-10 my-10 m-auto">
+      <div className='g-max-w-6xl g-w-full g-px-10 g-my-10 g-m-auto'>
         <Carousel
           opts={{ loop: true, align: 'center', direction: locale.textDirection }}
           setApi={setApi}
@@ -80,11 +80,11 @@ export function CarouselBlock({ resource }: Props) {
 
           <CarouselPrevious />
           <CarouselNext />
-          <div className="flex justify-center items-center gap-2 pt-8">
+          <div className='g-flex g-justify-center g-items-center g-gap-2 g-pt-8'>
             {Array.from({ length: count }).map((_, idx) => (
               <button
                 key={idx}
-                className={cn('border-gray-600 border rounded-full h-3 w-3', {
+                className={cn('g-border-gray-600 g-border g-rounded-full g-h-3 g-w-3', {
                   'bg-gray-600': idx === current,
                 })}
                 disabled={idx === current}

@@ -246,6 +246,10 @@ const config =
       "type": "boolean",
       "field": "hasCoordinate"
     },
+    "isSequenced": {
+      "type": "boolean",
+      "field": "isSequenced"
+    },
     "hasGeospatialIssue": {
       "type": "boolean",
       "field": "hasGeospatialIssue"
@@ -471,6 +475,10 @@ const config =
     "hostingOrganizationKey": {
       "type": "keyword",
       "field": "hostingOrganizationKey"
+    },
+    "higherGeography": {
+      "type": "keyword",
+      "field": "higherGeography"
     },
     "recordNumber": {
       "type": "keyword",

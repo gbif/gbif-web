@@ -88,16 +88,16 @@ export function OccurrenceSearchPage(): React.ReactElement {
       </Helmet>
 
       <InternalScrollHandler headerHeight={21}>
-        <div className="p-2 border-b">
+        <div className='g-p-2 g-border-b'>
           <TableFilters filters={filters} setFilter={setFilter} />
         </div>
 
-        <div className="bg-gray-100 p-2 flex flex-col flex-1 min-h-0">
-          <p className="text-sm pb-1 text-gray-500">
+        <div className='g-bg-gray-100 g-p-2 g-flex g-flex-col g-flex-1 g-min-h-0'>
+          <p className='g-text-sm g-pb-1 g-text-gray-500'>
             {typeof totalResults === 'number' && <>{totalResults} results</>}
           </p>
-          <DataTable className="bg-white flex-1 min-h-0" columns={columns} data={occurrences} />
-          <div className="flex justify-between pt-2">
+          <DataTable className='g-bg-white g-flex-1 g-min-h-0' columns={columns} data={occurrences} />
+          <div className='g-flex g-justify-between g-pt-2'>
             <div>{previousLink && <DynamicLink to={previousLink}>&#x2190; Prev</DynamicLink>}</div>
             <div>{nextLink && <DynamicLink to={nextLink}>Next &#x2192;</DynamicLink>}</div>
           </div>

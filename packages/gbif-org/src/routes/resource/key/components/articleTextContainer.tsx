@@ -6,5 +6,5 @@ type Props = {
 };
 
 export function ArticleTextContainer({ children, className }: Props) {
-  return <div className={cn('max-w-3xl m-auto', className)}>{children}</div>;
+  return <div className={cn('g-max-w-3xl g-m-auto', className)}>{children}</div>;
 }

@@ -399,6 +399,11 @@
     "count": "",
     "description": "Of er automatisch verwante gegevens zijn gevonden."
   },
+  "isSequenced": {
+    "name": "",
+    "count": "{num, plural, one { Is geordend } other {# Is geordend}}",
+    "description": "Of het record sequentiegegevens heeft."
+  },
   "active": {
     "name": "Actief",
     "count": "Actief",

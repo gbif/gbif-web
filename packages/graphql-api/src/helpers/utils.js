@@ -156,7 +156,43 @@ function renameProperty(obj, from, to) {
   return obj;
 }
 
+async function getOGImage({ homepage }) {
+  if (!homepage) return null;
+
+  try {
+    const response = await fetch(homepage, {
+      "headers": {
+        "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+        "accept-language": "en-US,en;q=0.9,es;q=0.8,fr;q=0.7,ar;q=0.6,zh;q=0.5,es-ES;q=0.4,da;q=0.3,ru;q=0.2,de-CH;q=0.1,de;q=0.1,ko;q=0.1",
+        "cache-control": "no-cache",
+        "pragma": "no-cache",
+        "priority": "u=0, i",
+        "sec-ch-ua": "\"Google Chrome\";v=\"125\", \"Chromium\";v=\"125\", \"Not.A/Brand\";v=\"24\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"macOS\"",
+        "sec-fetch-dest": "document",
+        "sec-fetch-mode": "navigate",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-user": "?1",
+        "Referer": "https://www.gbif.org"
+      },
+      "body": null,
+      "method": "GET"
+    });
+
+    const html = await response.text();
+    const ogImageMatch = html.match(/<meta.property="og:image"\s* content="([^"]+)".*>/);
+    const ogImage = ogImageMatch ? ogImageMatch[1] : null;
+    return ogImage ?? null;
+  } catch (error) {
+    return null;
+  }
+}
+
+
+
 export {
+  getOGImage,
   formattedCoordinates,
   isOccurrenceSequenced,
   getHtml,

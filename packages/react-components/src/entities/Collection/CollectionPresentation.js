@@ -18,6 +18,7 @@ import { Page404, PageLoader } from '../shared';
 
 import env from '../../../.env.json';
 import SiteContext from '../../dataManagement/SiteContext';
+import { FeaturedImageContent } from '../Institution/about/Description';
 const { TabList, RouterTab, Tab } = Tabs;
 
 export function CollectionPresentation({
@@ -28,6 +29,7 @@ export function CollectionPresentation({
   ...props
 }) {
   const hideSideBar = useBelow(1100);
+  const useInlineImage = useBelow(700);
   const { collection: collectionContext } = useContext(SiteContext);
   let { url, path } = useRouteMatch();
 
@@ -56,14 +58,14 @@ export function CollectionPresentation({
     if (collectionContext?.availableOccurrenceSearchTabs) {
       try {
         occurrenceSearchTabs = occurrenceSearchTabs.filter(x => collectionContext?.availableOccurrenceSearchTabs?.includes(x));
-      } catch(err) {
+      } catch (err) {
         // ignore error in user config
         console.error(err);
       }
     }
     // insert TABLE as first tab
     occurrenceSearchTabs.unshift('TABLE');
-    setConfig({...config, occurrenceSearchTabs})
+    setConfig({ ...config, occurrenceSearchTabs })
   }, [data?.withImages]);
 
 
@@ -98,55 +100,64 @@ Relating to ${env.GBIF_REGISTRY}/collection/${collection.key}
     <DataHeader showEmpty />
 
     <HeaderWrapper>
-      <Eyebrow prefix={<FormattedMessage id="grscicoll.collectionCode" />} suffix={collection.code} />
-      <Headline css={css`display: inline; margin-right: 12px;`} badge={collection.active ? null : 'Inactive'}>{collection.name}</Headline>
-      <DeletedMessage date={collection.deleted} />
-      {collection.replacedByCollection && <ErrorMessage>
-        <FormattedMessage id="phrases.replacedBy" values={{ newItem: <ResourceLink type="collectionKey" id={collection?.replacedByCollection?.key}>{collection?.replacedByCollection?.name}</ResourceLink> }} />
-      </ErrorMessage>}
-      {collection.institution && <div style={{ marginTop: 8 }}>
-      <FormattedMessage id="grscicoll.fromInstitution" values={{ institution: <ResourceLink type="institutionKey" id={collection.institution.key}>{collection.institution.name}</ResourceLink> }} />
-      </div>}
+      <div css={css`display: flex;`}>
+        <div css={css`flex: 0 0 auto; margin-inline-end: 24px;`}>
+          {!useInlineImage && collection.featuredImageUrl && <div css={css`position: relative; overflow: hidden; border-radius: 10px; width: ${hideSideBar ? '150px' : '500px'}; background: #f5f5f5;`}>
+            <FeaturedImageContent featuredImageUrl={collection.featuredImageUrl} featuredImageLicense={collection.featuredImageLicense} />
+          </div>}
+        </div>
+        <div css={css`flex: 1 1 auto;`}>
+          <Eyebrow prefix={<FormattedMessage id="grscicoll.collectionCode" />} suffix={collection.code} />
+          <Headline css={css`display: inline; margin-right: 12px;`} badge={collection.active ? null : 'Inactive'}>{collection.name}</Headline>
+          <DeletedMessage date={collection.deleted} />
+          {collection.replacedByCollection && <ErrorMessage>
+            <FormattedMessage id="phrases.replacedBy" values={{ newItem: <ResourceLink type="collectionKey" id={collection?.replacedByCollection?.key}>{collection?.replacedByCollection?.name}</ResourceLink> }} />
+          </ErrorMessage>}
+          {collection.institution && <div style={{ marginTop: 8 }}>
+            <FormattedMessage id="grscicoll.fromInstitution" values={{ institution: <ResourceLink type="institutionKey" id={collection.institution.key}>{collection.institution.name}</ResourceLink> }} />
+          </div>}
 
-      <HeaderInfoWrapper>
-        <HeaderInfoMain>
-          <FeatureList style={{ marginTop: 8 }}>
-            {collection.contactPersons.length > 0 && <GenericFeature>
-              <MdPeople />
-              {contacts.length < 5 && <span>
-                {contacts.map(c => `${c.firstName ? `${c.firstName} ` : ''}${c.lastName ? c.lastName : ''}`).join(' • ')}
-              </span>
-              }
-              {contacts.length >= 5 && <span><FormattedMessage id="counts.nStaffMembers" values={{ total: contacts.length }} /></span>}
-            </GenericFeature>}
-            <Homepage href={collection.homepage} />
-            {contactInfo?.country && <Location countryCode={contactInfo?.country} city={contactInfo.city} />}
-            <OccurrenceCount messageId="counts.nSpecimens" count={collection.numberSpecimens} zeroMessage="grscicoll.unknownSize" />
-            {hideSideBar && <GbifCount messageId="counts.nSpecimensInGbif" count={occurrenceSearch?.documents?.total} />}
+          <HeaderInfoWrapper>
+            <HeaderInfoMain>
+              <FeatureList style={{ marginTop: 8 }}>
+                {collection.contactPersons.length > 0 && <GenericFeature>
+                  <MdPeople />
+                  {contacts.length < 5 && <span>
+                    {contacts.map(c => `${c.firstName ? `${c.firstName} ` : ''}${c.lastName ? c.lastName : ''}`).join(' • ')}
+                  </span>
+                  }
+                  {contacts.length >= 5 && <span><FormattedMessage id="counts.nStaffMembers" values={{ total: contacts.length }} /></span>}
+                </GenericFeature>}
+                <Homepage href={collection.homepage} />
+                {contactInfo?.country && <Location countryCode={contactInfo?.country} city={contactInfo.city} />}
+                <OccurrenceCount messageId="counts.nSpecimens" count={collection.numberSpecimens} zeroMessage="grscicoll.unknownSize" />
+                {hideSideBar && <GbifCount messageId="counts.nSpecimensInGbif" count={occurrenceSearch?.documents?.total} />}
 
-            {/* {collection.taxonomicCoverage && <div css={iconFeature({ theme })}>
+                {/* {collection.taxonomicCoverage && <div css={iconFeature({ theme })}>
               <MdStar />
               <span>{collection.taxonomicCoverage}</span>
             </div>} */}
 
-          </FeatureList>
-          {collection.catalogUrl && <FeatureList css={css`margin-top: 8px;`}>
-            <GenericFeature>
-              <CatalogIcon /><span><a href={collection.catalogUrl}>
-                <FormattedMessage id="grscicoll.dataCatalog" defaultMessage="Data catalog" />
-                </a></span>
-            </GenericFeature>
-          </FeatureList>}
-        </HeaderInfoMain>
-        <HeaderInfoEdit>
-          <Tooltip title={<FormattedMessage id="grscicoll.editHelpText" defaultMessage="No login required" />} placement="bottom">
-            <Button as="a" href={`${env.GBIF_REGISTRY}/collection/${collection.key}`} look="primaryOutline"><FormattedMessage id="grscicoll.edit" defaultMessage="Edit" /></Button>
-          </Tooltip>
-          <Tooltip title={<FormattedMessage id="grscicoll.githubHelpText" defaultMessage="Github" />} placement="bottom">
-            <a style={{ marginLeft: 8, fontSize: 24, color: "var(--primary)" }} target="_blank" href={`https://github.com/gbif/portal-feedback/issues/new?title=${encodeURIComponent(`NHC: ${collection.name}`)}&body=${encodeURIComponent(feedbackTemplate)}`}><Github /></a>
-          </Tooltip>
-        </HeaderInfoEdit>
-      </HeaderInfoWrapper>
+              </FeatureList>
+              {collection.catalogUrl && <FeatureList css={css`margin-top: 8px;`}>
+                <GenericFeature>
+                  <CatalogIcon /><span><a href={collection.catalogUrl}>
+                    <FormattedMessage id="grscicoll.dataCatalog" defaultMessage="Data catalog" />
+                  </a></span>
+                </GenericFeature>
+              </FeatureList>}
+            </HeaderInfoMain>
+            <HeaderInfoEdit>
+              <Tooltip title={<FormattedMessage id="grscicoll.editHelpText" defaultMessage="No login required" />} placement="bottom">
+                <Button as="a" href={`${env.GBIF_REGISTRY}/collection/${collection.key}`} look="primaryOutline"><FormattedMessage id="grscicoll.edit" defaultMessage="Edit" /></Button>
+              </Tooltip>
+              <Tooltip title={<FormattedMessage id="grscicoll.githubHelpText" defaultMessage="Github" />} placement="bottom">
+                <a style={{ marginLeft: 8, fontSize: 24, color: "var(--primary)" }} target="_blank" href={`https://github.com/gbif/portal-feedback/issues/new?title=${encodeURIComponent(`NHC: ${collection.name}`)}&body=${encodeURIComponent(feedbackTemplate)}`}><Github /></a>
+              </Tooltip>
+            </HeaderInfoEdit>
+          </HeaderInfoWrapper>
+        </div>
+      </div>
 
       <TabList style={{ marginTop: '12px', borderTop: '1px solid #ddd' }}>
         <RouterTab to={url} exact label={<FormattedMessage id="grscicoll.tabs.about" defaultMessage="About" />} />
@@ -176,7 +187,7 @@ Relating to ${env.GBIF_REGISTRY}/collection/${collection.key}
         </Route>
         <Route path={path}>
           <ContentWrapper>
-            <About {...{ collection, occurrenceSearch }} />
+            <About {...{ collection, occurrenceSearch }} useInlineImage={useInlineImage}/>
           </ContentWrapper>
         </Route>
       </Switch>

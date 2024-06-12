@@ -57,8 +57,6 @@ export function useQuery<TResult, TVariabels>(
     (loadOptions?: Options<TVariabels>) => {
       const mergedOptions = { ...options, ...(loadOptions ?? {}) };
 
-      console.log('mergedOptions', mergedOptions);
-
       // Create a function that will start the request. This function will be called by the queueing logic
       const startRequest = async () => {
         const _abortController = new AbortController();
@@ -122,8 +120,8 @@ export function useQuery<TResult, TVariabels>(
       // If there is no queue for the given name, create one
       if (queues[mergedOptions.queue.name] === undefined) {
         queues[mergedOptions.queue.name] = new Queue({
-          concurrent: mergedOptions.queue.concurrent,
-          interval: mergedOptions.queue.interval,
+          concurrent: mergedOptions.queue.concurrent ?? 1,
+          interval: mergedOptions.queue.interval ?? 0,
           start: true,
         });
       }
@@ -131,7 +129,7 @@ export function useQuery<TResult, TVariabels>(
       // Add the request to the queue
       queues[mergedOptions.queue.name].enqueue(startRequest);
     },
-    [config.graphqlEndpoint, locale.cmsLocale, locale.code, query]
+    [config.graphqlEndpoint, locale.cmsLocale, locale.code, query, options]
   );
 
   // Prevent a change in variable to trigger a reload if ignoreVariableUpdates has been enabled

@@ -2,81 +2,81 @@
   "dwcaExtension": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "Tutaj należy umieścić krótki opis komponentu"
   },
   "locationId": {
-    "name": "",
+    "name": "Identyfikator lokalizacji",
     "count": "",
     "description": ""
   },
   "hasCoordinate": {
-    "name": "",
-    "count": "",
+    "name": "Ma współrzędne",
+    "count": "Ma współrzędne",
     "description": ""
   },
   "hasGeospatialIssues": {
-    "name": "",
-    "count": "",
+    "name": "Ma problemy geoprzestrzenne",
+    "count": "Ma problemy geoprzestrzenne",
     "description": ""
   },
   "collectionKey": {
-    "name": "",
+    "name": "Kolekcja",
     "count": "",
     "description": ""
   },
   "numberSpecimens": {
-    "name": "",
+    "name": "Liczba okazów",
     "count": "",
     "description": ""
   },
   "specimensInGbif": {
-    "name": "",
+    "name": "Okazy w GBIF",
     "count": "",
     "description": ""
   },
   "iucnRedListCategory": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "Czerwona Księga Gatunków Zagrożonych IUCN grupuje taksony według stopnia ich zagrożenia."
   },
   "geoDistance": {
-    "name": "",
+    "name": "Odległość od współrzędnych",
     "count": "",
-    "description": "",
-    "placeholderLat": "",
-    "placeholderLon": "",
-    "placeholderDist": ""
+    "description": "Filtruj według rekordów w danej odległości od punktu",
+    "placeholderLat": "Szerokość geograficzna",
+    "placeholderLon": "Długość geograficzna",
+    "placeholderDist": "Odległość"
   },
   "geometry": {
-    "name": "",
+    "name": "Lokalizacja",
     "count": "",
     "description": "",
-    "placeholderLat": "",
-    "placeholderLon": "",
-    "placeholderDist": ""
+    "placeholderLat": "Szerokość geograficzna",
+    "placeholderLon": "Długość geograficzna",
+    "placeholderDist": "Odległość"
   },
   "relevance": {
-    "name": "",
+    "name": "Znaczenie",
     "count": "",
-    "description": ""
+    "description": "Jak używa się GBIF w literaturze."
   },
   "topics": {
-    "name": "",
+    "name": "Temat",
     "count": "",
     "description": ""
   },
   "audiences": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "Kim są odbiorcy zasobu."
   },
   "purposes": {
-    "name": "",
+    "name": "Temat",
     "count": "",
-    "description": ""
+    "description": "Jakie są cele zasobu."
   },
   "eventDate": {
-    "name": "",
+    "name": "Data wydarzenia",
     "count": "",
     "description": ""
   },
@@ -86,12 +86,12 @@
     "description": ""
   },
   "identifier": {
-    "name": "",
+    "name": "Identyfikator",
     "count": "",
-    "description": ""
+    "description": "Tutaj należy umieścić krótki opis komponentu "
   },
   "institutionType": {
-    "name": "",
+    "name": "Typ",
     "count": "",
     "description": ""
   },
@@ -111,12 +111,12 @@
     "description": ""
   },
   "taxonKey": {
-    "name": "",
+    "name": "Nazwa naukowa",
     "count": "",
     "description": ""
   },
   "basisOfRecord": {
-    "name": "",
+    "name": "Podstawa zapisu",
     "count": "",
     "isNotNull": "",
     "isNull": "",
@@ -145,7 +145,7 @@
     "description": ""
   },
   "occurrenceCountry": {
-    "name": "",
+    "name": "Państwo lub obszar",
     "count": "",
     "description": ""
   },
@@ -163,20 +163,20 @@
     "description": ""
   },
   "q": {
-    "name": "",
+    "name": "Wyszukiwanie tekstowe",
     "count": "",
     "description": ""
   },
   "coordinates": {
-    "name": ""
+    "name": "Współrzędne"
   },
   "elevation": {
-    "name": "",
+    "name": "Wysokość",
     "count": "",
     "description": ""
   },
   "license": {
-    "name": "",
+    "name": "Licencja",
     "count": "",
     "description": ""
   },
@@ -196,12 +196,12 @@
     "description": ""
   },
   "hostingOrganizationKey": {
-    "name": "",
+    "name": "Organizacja goszcząca",
     "count": "",
     "description": ""
   },
   "country": {
-    "name": "",
+    "name": "Państwo lub obszar",
     "count": ""
   },
   "countriesOfCoverage": {
@@ -220,7 +220,7 @@
     "description": ""
   },
   "year": {
-    "name": "",
+    "name": "Rok",
     "count": "",
     "description": ""
   },
@@ -235,12 +235,12 @@
     "description": ""
   },
   "depth": {
-    "name": "",
+    "name": "Głębokość",
     "count": "",
     "description": ""
   },
   "organismQuantity": {
-    "name": "",
+    "name": "Liczba organizmów",
     "count": "",
     "description": ""
   },
@@ -255,12 +255,12 @@
     "description": ""
   },
   "month": {
-    "name": "",
+    "name": "Miesiąc",
     "count": "",
     "description": ""
   },
   "continent": {
-    "name": "",
+    "name": "Kontynent",
     "count": "",
     "description": ""
   },
@@ -282,15 +282,15 @@
   "recordNumber": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "Identyfikator nadany zdarzeniu w chwili jego rejestracji."
   },
   "collectionCode": {
-    "name": "",
+    "name": "Kod kolekcji",
     "count": "",
     "description": ""
   },
   "projectId": {
-    "name": "",
+    "name": "Identyfikator projektu",
     "count": "",
     "description": ""
   },
@@ -310,7 +310,7 @@
     "description": ""
   },
   "organismId": {
-    "name": "",
+    "name": "Identyfikator organizmu",
     "count": "",
     "description": ""
   },
@@ -320,7 +320,7 @@
     "description": ""
   },
   "waterBody": {
-    "name": "",
+    "name": "Zbiornik wodny",
     "count": "",
     "description": ""
   },
@@ -345,7 +345,7 @@
     "description": ""
   },
   "locationID": {
-    "name": "",
+    "name": "Identyfikator lokalizacji",
     "count": "",
     "description": ""
   },
@@ -360,7 +360,7 @@
     "description": ""
   },
   "occurrenceCount": {
-    "name": "",
+    "name": "Liczba stwierdzeń",
     "count": "",
     "description": ""
   },
@@ -375,26 +375,31 @@
     "description": ""
   },
   "samplingProtocol": {
-    "name": "",
+    "name": "Protokół pobierania prób",
     "count": "",
     "description": ""
   },
   "occurrenceStatus": {
-    "name": "",
+    "name": "Status występowania",
     "count": "",
     "description": ""
   },
   "gadmGid": {
-    "name": "",
+    "name": "Obszar administracyjny",
     "count": "",
     "description": ""
   },
   "identifiedBy": {
-    "name": "",
+    "name": "Zidentyfikowany przez",
     "count": "",
     "description": ""
   },
   "isInCluster": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "isSequenced": {
     "name": "",
     "count": "",
     "description": ""
@@ -410,7 +415,7 @@
     "description": ""
   },
   "datasetType": {
-    "name": "",
+    "name": "Typ danych",
     "count": "",
     "description": ""
   },
@@ -420,7 +425,7 @@
     "description": ""
   },
   "institutionKey": {
-    "name": "",
+    "name": "Instytucja",
     "count": "",
     "description": ""
   },
@@ -431,12 +436,12 @@
     "searchPlaceholder": ""
   },
   "city": {
-    "name": "",
+    "name": "Miasto",
     "count": "",
     "description": ""
   },
   "code": {
-    "name": "",
+    "name": "Kod",
     "count": "",
     "description": ""
   },
@@ -448,7 +453,7 @@
   "networkKey": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "Tutaj należy umieścić krótki opis komponentu "
   },
   "literatureType": {
     "name": "",

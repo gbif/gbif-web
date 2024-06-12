@@ -16,6 +16,7 @@
   "placeholders": {
     "default": "Rechercher",
     "range": "Intervalle ou valeur unique",
+    "wildcard": "Rechercher avec * et ? comme caractères génériques",
     "locationID": ""
   },
   "ternary": {

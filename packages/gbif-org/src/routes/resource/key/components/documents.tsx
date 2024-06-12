@@ -30,14 +30,14 @@ type Props = {
 
 export function Documents({ documents, className }: Props) {
   return (
-    <ul className={cn('grid grid-cols-1 sm:grid-cols-2 gap-4', className)}>
+    <ul className={cn('g-grid g-grid-cols-1 sm:g-grid-cols-2 g-gap-4', className)}>
       {documents.filter(isValid).map((document, index) => (
         <li
           key={index}
-          className="border border-transparent hover:border-slate-100 p-3 hover:shadow-md dark:bg-zinc-800 dark:text-slate-800 text-white"
+          className='g-border g-border-transparent hover:g-border-slate-100 g-p-3 hover:g-shadow-md dark:g-bg-zinc-800 dark:g-text-slate-800 g-text-white'
         >
           <a
-            className="flex flex-row cursor-pointer"
+            className='g-flex g-flex-row g-cursor-pointer'
             href={document?.file?.url ?? ''}
             target="_blank"
             rel="noopener noreferrer"
@@ -62,15 +62,15 @@ function DocumentContnet({ document }: { document: DocumentPreviewFragment }) {
 
   return (
     <>
-      <div className={`${color} me-4 ${styles.note} flex-none`}>
+      <div className={`${color} g-me-4 ${styles.note} g-flex-none`}>
         <div>{content}</div>
       </div>
-      <div className="break-word dark:text-slate-200 text-slate-500">
-        <div className="font-medium">{document?.title ?? document?.file?.fileName}</div>
-        <div className="text-sm text-slate-400 flex gap-2 items-center">
+      <div className='g-break-word dark:g-text-slate-200 g-text-slate-500'>
+        <div className='g-font-medium'>{document?.title ?? document?.file?.fileName}</div>
+        <div className='g-text-sm g-text-slate-400 g-flex g-gap-2 g-items-center'>
           {showSize && <span>{getFormattedBits(document?.file?.details?.size ?? 0)}</span>}
           {showSize && extension.length < 5 && (
-            <Separator orientation="vertical" className="h-4 w-[2px] bg-slate-200" />
+            <Separator orientation="vertical" className='g-h-4 g-w-[2px] g-bg-slate-200' />
           )}
           {extension.length < 5 && <span>.{extension}</span>}
         </div>
@@ -84,63 +84,63 @@ function getType(documentType: string | null | undefined) {
   // image, pdf, word, excel, powerpoint, video, audio, text, zip, other
   if (documentType === 'image') {
     return {
-      color: 'bg-[#c44ff4]',
+      color: 'g-bg-[#c44ff4]',
       showSize: true,
       content: <MdImage />,
     };
   }
   if (documentType === 'pdf') {
     return {
-      color: 'bg-[#4ebcf4]',
+      color: 'g-bg-[#4ebcf4]',
       showSize: true,
       content: <PdfIcon />,
     };
   }
   if (documentType === 'doc') {
     return {
-      color: 'bg-[#4ebcf4]',
+      color: 'g-bg-[#4ebcf4]',
       showSize: true,
       content: <GrTextAlignLeft />,
     };
   }
   if (documentType === 'xls') {
     return {
-      color: 'bg-[#4ebcf4]',
+      color: 'g-bg-[#4ebcf4]',
       showSize: true,
       content: <BsTable />,
     };
   }
   if (documentType === 'ppt') {
     return {
-      color: 'bg-[#4ebcf4]',
+      color: 'g-bg-[#4ebcf4]',
       showSize: true,
       content: <PresentationIcon />,
     };
   }
   if (documentType === 'video') {
     return {
-      color: 'bg-[#c44ff4]',
+      color: 'g-bg-[#c44ff4]',
       showSize: true,
       content: <MdVideocam />,
     };
   }
   if (documentType === 'audio') {
     return {
-      color: 'bg-[#c44ff4]',
+      color: 'g-bg-[#c44ff4]',
       showSize: true,
       content: <MdAudiotrack />,
     };
   }
   if (documentType === 'archive') {
     return {
-      color: 'bg-[#666]',
+      color: 'g-bg-[#666]',
       showSize: true,
       content: <MdArchive />,
     };
   }
 
   return {
-    color: 'bg-[#666]',
+    color: 'g-bg-[#666]',
     showSize: false,
     content: <MdFileDownload />,
   };

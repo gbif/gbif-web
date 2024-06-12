@@ -22,6 +22,7 @@ import { fragmentManager } from '@/services/fragmentManager';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
 import { EventPageFragment } from '@/gql/graphql';
 import { ArticleOpenGraph } from '../components/articleOpenGraph';
+import { PageContainer } from '../components/pageContainer';
 
 export const EventPageSkeleton = ArticleSkeleton;
 
@@ -68,16 +69,16 @@ export function EventPage() {
   const endDate = resource.end ? new Date(resource.end) : undefined;
 
   return (
-    <>
+    <article>
       <ArticleOpenGraph resource={resource} />
 
       <Helmet>
         <title>{resource.title}</title>
       </Helmet>
 
-      <ArticleContainer>
-        <ArticleTextContainer className="mb-10">
-          <ArticlePreTitle className="flex items-center gap-4 mt-2">
+      <PageContainer topPadded className="g-bg-white">
+        <ArticleTextContainer className='g-mb-10'>
+          <ArticlePreTitle className='g-flex g-items-center g-gap-4 g-mt-2'>
             <ClientSideOnly>
               <span>
                 <DateRange start={startDate} end={endDate} />
@@ -94,13 +95,13 @@ export function EventPage() {
           <ArticleTitle dangerouslySetTitle={{ __html: resource.title }} />
 
           {resource.summary && (
-            <ArticleIntro dangerouslySetIntro={{ __html: resource.summary }} className="mt-2" />
+            <ArticleIntro dangerouslySetIntro={{ __html: resource.summary }} className='g-mt-2' />
           )}
 
-          <Button className="mt-4" asChild>
+          <Button className='g-mt-4' asChild>
             <a
               href={`https://www.gbif.org/api/newsroom/events/${resource.id}.ics`}
-              className="flex gap-2"
+              className='g-flex g-gap-2'
             >
               <MdCalendarMonth />
               <FormattedMessage id="cms.resource.addToCalendar" />
@@ -108,11 +109,11 @@ export function EventPage() {
           </Button>
         </ArticleTextContainer>
 
-        <ArticleBanner className="mt-8 mb-6" image={resource?.primaryImage} />
+        <ArticleBanner className='g-mt-8 g-mb-6' image={resource?.primaryImage} />
 
         <ArticleTextContainer>
           {resource.body && (
-            <ArticleBody dangerouslySetBody={{ __html: resource.body }} className="mt-2" />
+            <ArticleBody dangerouslySetBody={{ __html: resource.body }} className='g-mt-2' />
           )}
 
           <ArticleFooterWrapper>
@@ -128,7 +129,7 @@ export function EventPage() {
               </ArticleAuxiliary>
             )}
 
-            <RenderIfChildren className="flex flex-col gap-1 mt-8">
+            <RenderIfChildren className='g-flex g-flex-col g-gap-1 g-mt-8'>
               {resource.venue && (
                 <KeyValuePair
                   label={<FormattedMessage id="cms.resource.venue" />}
@@ -172,8 +173,8 @@ export function EventPage() {
             </RenderIfChildren>
           </ArticleFooterWrapper>
         </ArticleTextContainer>
-      </ArticleContainer>
-    </>
+      </PageContainer>
+    </article>
   );
 }
 

@@ -522,11 +522,10 @@ const chartGroups = {
       "typeStatus",
       "identifiedBy",
       "identifiedById",
-      "taxon",
+      "taxon", "taxa",
       "verbatimTaxonId",
       "scientificName",
-      "verbatimScientificName",
-      "iucnGlobalRedListCategory"
+      "verbatimScientificName"
     ]
   },
   "provenance": {

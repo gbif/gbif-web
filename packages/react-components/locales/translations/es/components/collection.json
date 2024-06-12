@@ -2,5 +2,6 @@
   "institutionUnknown": "Institución desconocida",
   "contentTypes": "Tipos de contenido",
   "preservationTypes": "Tipos de preservación",
-  "personalCollection": "Colección personal"
+  "personalCollection": "Colección personal",
+  "accessionStatus": "Categoría de la afiliación"
 }

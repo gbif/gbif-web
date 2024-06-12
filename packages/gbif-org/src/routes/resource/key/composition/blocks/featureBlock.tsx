@@ -65,15 +65,15 @@ export function FeatureBlock({ resource }: Props) {
         <BlockHeading dangerouslySetHeading={{ __html: resource.title }} />
       )}
       {resource.body && (
-        <ArticleTextContainer className="mt-2 mb-10">
+        <ArticleTextContainer className='g-mt-2 g-mb-10'>
           <ArticleBody dangerouslySetBody={{ __html: resource.body }} />
         </ArticleTextContainer>
       )}
       <div
-        className={cn('max-w-6xl m-auto px-10 my-10 grid grid-cols-1 gap-5', {
-          'sm:grid-cols-2': maxPerRow >= 2,
-          'lg:grid-cols-3': maxPerRow >= 3,
-          'xl:grid-cols-4': maxPerRow >= 4,
+        className={cn('g-max-w-6xl g-m-auto g-px-10 g-my-10 g-grid g-grid-cols-1 g-gap-5', {
+          'sm:g-grid-cols-2': maxPerRow >= 2,
+          'lg:g-grid-cols-3': maxPerRow >= 3,
+          'xl:g-grid-cols-4': maxPerRow >= 4,
         })}
       >
         {resource.features?.map((feature, index) => {

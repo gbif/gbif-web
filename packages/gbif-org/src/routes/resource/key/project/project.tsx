@@ -16,6 +16,7 @@ import { FundingBanner } from '../components/fundingBanner';
 import { fragmentManager } from '@/services/fragmentManager';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
 import { ArticleOpenGraph } from '../components/articleOpenGraph';
+import { PageContainer } from '../components/pageContainer';
 
 export const ProjectPageSkeleton = ArticleSkeleton;
 
@@ -63,14 +64,14 @@ export function ProjectPage() {
   const tabLinks = createTabLinks(resource);
 
   return (
-    <>
+    <article>
       <ArticleOpenGraph resource={resource} />
 
       <Helmet>
         <title>{resource.title}</title>
       </Helmet>
 
-      <ArticleContainer>
+      <PageContainer topPadded className="g-bg-white">
         <ArticleTextContainer>
           <ArticlePreTitle>
             <FormattedMessage id="cms.contentType.project" />
@@ -78,15 +79,15 @@ export function ProjectPage() {
 
           <ArticleTitle dangerouslySetTitle={{ __html: resource.title }}>
             {isClosed && (
-              <span className="align-middle bg-red-100 text-red-800 text-sm font-medium ms-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
+              <span className='g-align-middle g-bg-red-100 g-text-red-800 g-text-sm g-font-medium g-ms-2 g-px-2.5 g-py-0.5 g-rounded dark:g-bg-red-900 dark:g-text-red-300'>
                 <FormattedMessage id={`enums.cms.projectStatus.${resource.status}`} />
               </span>
             )}
           </ArticleTitle>
 
-          <RenderIfChildren className="mt-2 text-slate-500 dark:text-gray-400 text-sm font-medium flex items-center gap-6">
+          <RenderIfChildren className='g-mt-2 g-text-slate-500 dark:g-text-gray-400 g-text-sm g-font-medium g-flex g-items-center g-gap-6'>
             {resource.start && resource.end && (
-              <p className="flex items-center gap-1">
+              <p className='g-flex g-items-center g-gap-1'>
                 <CalendarIcon size={18} />
                 <FormattedDateTimeRange
                   from={new Date(resource.start)}
@@ -99,21 +100,21 @@ export function ProjectPage() {
             )}
 
             {resource.fundsAllocated && (
-              <p className="flex items-center gap-1">
+              <p className='g-flex g-items-center g-gap-1'>
                 <EuroIcon size={18} />
                 <FormattedNumber value={resource.fundsAllocated} />
               </p>
             )}
           </RenderIfChildren>
 
-          <Tabs className="mt-6" links={tabLinks} />
+          <Tabs className='g-mt-6' links={tabLinks} />
         </ArticleTextContainer>
 
         <Outlet />
-      </ArticleContainer>
+      </PageContainer>
 
       <FundingBanner resource={resource} />
-    </>
+    </article>
   );
 }
 
@@ -130,8 +131,8 @@ function createTabLinks(resource: ProjectPageFragment) {
     tabLinks.push({
       to: resource.primaryLink.url,
       children: (
-        <span className="flex items-center">
-          {resource.primaryLink.label} <MdLink className="ms-1" />
+        <span className='g-flex g-items-center'>
+          {resource.primaryLink.label} <MdLink className='g-ms-1' />
         </span>
       ),
     });
