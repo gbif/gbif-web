@@ -62,7 +62,7 @@ export function EventDatasetSidebar({
   }
 
   return <Tabs activeId={activeId} onChange={id => setTab(id)}>
-    <Row wrap="nowrap" style={style} css={css.sideBar({ theme })}>
+    <Row wrap="nowrap" style={style} css={css.largeSideBar({ theme })}>
       <Col shrink={false} grow={false} css={css.detailDrawerBar({ theme })}>
         <TabList style={{ paddingTop: '12px' }} vertical>
           {onCloseRequest && <>

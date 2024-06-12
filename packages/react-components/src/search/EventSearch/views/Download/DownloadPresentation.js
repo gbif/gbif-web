@@ -93,7 +93,7 @@ function DatasetResult({ largest, item, indicator, theme,  index, dialog,...prop
       <div style={{ flex: '1 1 auto' }}>
         {item.datasetTitle}
         {isAvailable && <div>
-          <span>Compressed archive size: {item.archive.fileSizeInMB}MB</span>
+          <span>Compressed archive size: {item.archive.fileSizeInMB > 1024 ? (Math.round(item.archive.fileSizeInMB/1024) * 100)/100 + 'GB' : item.archive.fileSizeInMB + 'MB' }</span>
           <br/>
           <span>Format: Darwin core archive / Frictionless data package</span>
           <br/>
