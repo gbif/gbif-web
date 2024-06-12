@@ -1,4 +1,4 @@
-import { TableFilter } from '@/components/TableFilters/types';
+import { TableFilter } from '@/components/tableFilters/types';
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 

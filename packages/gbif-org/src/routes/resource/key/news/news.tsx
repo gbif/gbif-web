@@ -1,23 +1,23 @@
 import { NewsPageFragment } from '@/gql/graphql';
-import { ArticleBanner } from '@/routes/resource/key/components/ArticleBanner';
-import { ArticleContainer } from '@/routes/resource/key/components/ArticleContainer';
-import { fragmentManager } from '@/services/FragmentManager';
+import { ArticleBanner } from '@/routes/resource/key/components/articleBanner';
+import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
+import { fragmentManager } from '@/services/fragmentManager';
 import { Helmet } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';
 import { useLoaderData } from 'react-router-dom';
 import { ArticlePageSkeleton } from '../article/article';
-import { ArticleBody } from '../components/ArticleBody';
-import { ArticleFooterWrapper } from '../components/ArticleFooterWrapper';
-import { ArticleIntro } from '../components/ArticleIntro';
-import { ArticlePreTitle } from '../components/ArticlePreTitle';
-import { ArticleTags } from '../components/ArticleTags';
-import { ArticleTextContainer } from '../components/ArticleTextContainer';
-import { ArticleTitle } from '../components/ArticleTitle';
-import { PublishedDate } from '../components/PublishedDate';
+import { ArticleBody } from '../components/articleBody';
+import { ArticleFooterWrapper } from '../components/articleFooterWrapper';
+import { ArticleIntro } from '../components/articleIntro';
+import { ArticlePreTitle } from '../components/articlePreTitle';
+import { ArticleTags } from '../components/articleTags';
+import { ArticleTextContainer } from '../components/articleTextContainer';
+import { ArticleTitle } from '../components/articleTitle';
+import { PublishedDate } from '../components/publishedDate';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
-import { ArticleOpenGraph } from '../components/ArticleOpenGraph';
-import { ArticleAuxiliary } from '../components/ArticleAuxiliary';
-import { SecondaryLinks } from '../components/SecondaryLinks';
+import { ArticleOpenGraph } from '../components/articleOpenGraph';
+import { ArticleAuxiliary } from '../components/articleAuxiliary';
+import { SecondaryLinks } from '../components/secondaryLinks';
 
 export const NewsPageSkeleton = ArticlePageSkeleton;
 

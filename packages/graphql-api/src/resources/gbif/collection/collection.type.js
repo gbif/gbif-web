@@ -29,7 +29,7 @@ const typeDef = gql`
       sortBy: CollectionsSortField
       sortOrder: SortOrder
       ): CollectionSearchResults
-    collection(key: String!): Collection
+    collection(key: ID!): Collection
   }
 
   type CollectionSearchResults {

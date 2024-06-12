@@ -9,6 +9,7 @@ const typeDef = gql`
     acceptedNameUsageID: String
     acceptedScientificName: String
     acceptedTaxonKey: ID
+    acceptedTaxon: Taxon
     accessRights: String
     accrualMethod: String
     accrualPeriodicity: String
@@ -243,6 +244,7 @@ const typeDef = gql`
     taxonConceptID: String
     taxonID: String
     taxonKey: ID
+    taxon: Taxon
     taxonRank: String
     taxonRemarks: String
     taxonomicStatus: String
@@ -285,11 +287,11 @@ const typeDef = gql`
     """
     primaryImage: MultimediaItem
     stillImageCount: Int
-    stillImages: [MultimediaItem]
+    stillImages: [MultimediaItem!]
     movingImageCount: Int
-    movingImages: [MultimediaItem]
+    movingImages: [MultimediaItem!]
     soundCount: Int
-    sounds: [MultimediaItem]
+    sounds: [MultimediaItem!]
     coordinates: JSON
     formattedCoordinates: String
     """
@@ -371,7 +373,7 @@ const typeDef = gql`
     value: JSON
     verbatim: JSON
     remarks: String
-    issues: [JSON]
+    issues: [JSON!]
     htmlValue: JSON
     group: String
     simpleName: String
@@ -423,9 +425,9 @@ const typeDef = gql`
   }
 
   type Globe {
-    svg: String
-    lat: Float
-    lon: Float
+    svg: String!
+    lat: Float!
+    lon: Float!
   }
 
   type GbifClassification {
@@ -521,6 +523,7 @@ const typeDef = gql`
   }
 
   type MultimediaItem {
+    title: String
     type: String
     format: String
     identifier: String
@@ -537,6 +540,10 @@ const typeDef = gql`
   type OccurrenceExtensions {
     audubon: [JSON]
     amplification: [JSON]
+    description: [JSON]
+    distribution: [JSON]
+    eolMedia: [JSON]
+    eolReference: [JSON]
     germplasmAccession: [JSON]
     germplasmMeasurementScore: [JSON]
     germplasmMeasurementTrait: [JSON]
@@ -548,6 +555,9 @@ const typeDef = gql`
     multimedia: [JSON]
     reference: [JSON]
     resourceRelationship: [JSON]
+    speciesProfile: [JSON]
+    typesAndSpecimen: [JSON]
+    vernacularName: [JSON]
     cloning: [JSON]
     gelImage: [JSON]
     loan: [JSON]
@@ -557,6 +567,7 @@ const typeDef = gql`
     preservation: [JSON]
     extendedMeasurementOrFact: [JSON]
     chronometricAge: [JSON]
+    chronometricDate: [JSON]
     dnaDerivedData: [JSON]
   }
 

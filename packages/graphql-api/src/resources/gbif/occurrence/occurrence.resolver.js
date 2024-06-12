@@ -232,6 +232,14 @@ export default {
         lon: decimalLongitude,
       });
     },
+    acceptedTaxon: ({ acceptedTaxonKey }, _args, { dataSources }) => {
+      if (!acceptedTaxonKey) return null;
+      return dataSources.taxonAPI.getTaxonByKey({ key: acceptedTaxonKey });
+    },
+    taxon: ({ taxonKey }, _args, { dataSources }) => {
+      if (!taxonKey) return null;
+      return dataSources.taxonAPI.getTaxonByKey({ key: taxonKey });
+    },
     volatile: (occurrence) => occurrence,
     related: ({ key }, { from = 0, size = 20 }, { dataSources }) => {
       return dataSources.occurrenceAPI.getRelated({ key }).then((response) => {
@@ -301,6 +309,7 @@ export default {
         measurementOrFact: occurrence?.extensions?.['http://rs.tdwg.org/dwc/terms/MeasurementOrFact'],
         multimedia: occurrence?.extensions?.['http://rs.gbif.org/terms/1.0/Multimedia'],
         reference: occurrence?.extensions?.['http://rs.gbif.org/terms/1.0/Reference'],
+        eolReference: occurrence?.extensions?.['http://eol.org/schema/reference/Reference'],
         resourceRelationship: occurrence?.extensions?.['http://rs.tdwg.org/dwc/terms/ResourceRelationship'],
         cloning: occurrence?.extensions?.['http://data.ggbn.org/schemas/ggbn/terms/Cloning'],
         gelImage: occurrence?.extensions?.['http://data.ggbn.org/schemas/ggbn/terms/GelImage'],
@@ -535,7 +544,7 @@ export default {
       { decimalLatitude, decimalLongitude },
       { sphere, graticule, land },
     ) => {
-      if (typeof decimalLatitude === 'undefined') return null;
+      if (typeof decimalLatitude !== 'number' || typeof decimalLongitude !== 'number') return null;
 
       const roundedLat = Math.floor(decimalLatitude / 15) * 15;
       const lat = Math.min(Math.max(roundedLat, -60), 60);

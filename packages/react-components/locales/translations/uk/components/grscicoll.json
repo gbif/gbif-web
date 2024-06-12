@@ -5,6 +5,8 @@
   "additionalNames": "Додаткові назви",
   "description": "Опис",
   "code": "Код",
+  "active": "Діяльна",
+  "inactive": "Неактивна",
   "alternativeCodes": "",
   "apiUrl": "Посилання на веб-сервіси колекції",
   "catalogUrl": "",

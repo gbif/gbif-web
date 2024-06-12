@@ -5,6 +5,8 @@
   "additionalNames": "其他名称",
   "description": "描述",
   "code": "代码",
+  "active": "活跃的",
+  "inactive": "未激活的",
   "alternativeCodes": "替代代码",
   "apiUrl": "馆藏网页服务的 URL 地址",
   "catalogUrl": "在线目录/数据库",

@@ -1,0 +1,9 @@
+{
+  "network": "网络",
+  "tabs": {
+    "summary": "概要",
+    "metrics": "指标",
+    "datasets": "数据集",
+    "publishers": "发布者"
+  }
+}

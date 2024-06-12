@@ -13,7 +13,7 @@ const typeDef = gql`
       machineTagName: String
       machineTagValue: String
     ): InstallationSearchResults
-    installation(key: String!): Installation
+    installation(key: ID!): Installation
   }
 
   type InstallationSearchResults {
@@ -27,7 +27,7 @@ const typeDef = gql`
   type Installation {
     key: ID!
     comments: [Comment]
-    contacts: [Contact]
+    contacts: [Contact!]
     created: DateTime
     createdBy: String
     deleted: DateTime
@@ -39,6 +39,10 @@ const typeDef = gql`
     modified: DateTime
     modifiedBy: String
     organizationKey: ID
+    """
+    The homepage is a computed field that is only available for IPT_INSTALLATION types and extracted from the endpoints
+    """
+    homepage: String
     tags: [Tag]
     title: String
     type: String

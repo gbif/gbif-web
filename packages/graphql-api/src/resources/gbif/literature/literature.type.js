@@ -15,6 +15,8 @@ const typeDef = gql`
       topics: [String]
       gbifDatasetKey: [ID]
       publishingOrganizationKey: [ID]
+      gbifNetworkKey: [ID]
+      gbifOccurrenceKey: [ID]
       peerReview: Boolean
       openAccess: Boolean
       gbifDownloadKey: [ID]

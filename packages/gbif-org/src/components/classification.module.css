@@ -1,0 +1,16 @@
+.classification {
+  & > span:after {
+    font-style: normal;
+    content: ' ❯ ';
+    font-size: 80%;
+    color: #ccc;
+    display: inline-block;
+    padding: 0 3px;
+  }
+  & > span:last-of-type:after {
+    display: none;
+  }
+  .gbif-classification-unknown {
+    opacity: 0.5;
+  }
+}

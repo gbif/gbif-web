@@ -408,6 +408,29 @@
         "datasetID": ""
       }
     },
+    "eolReference": {
+      "name": "",
+      "properties": {
+        "identifier": "شناسه",
+        "publicationType": "",
+        "full_reference": "",
+        "primaryTitle": "",
+        "title": "عنوان",
+        "pages": "",
+        "pageStart": "",
+        "pageEnd": "",
+        "volume": "",
+        "edition": "",
+        "publisher": "",
+        "authorList": "",
+        "editorList": "",
+        "created": "",
+        "language": "زبان",
+        "uri": "",
+        "doi": "",
+        "localityName": ""
+      }
+    },
     "resourceRelationship": {
       "name": "",
       "properties": {

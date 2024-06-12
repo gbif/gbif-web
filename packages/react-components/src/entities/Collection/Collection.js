@@ -94,7 +94,7 @@ query collection($predicate: Predicate, $imagePredicate: Predicate, $coordinateP
 `;
 
 const COLLECTION = `
-query collection($key: String!){
+query collection($key: ID!){
   collection(key: $key) {
     key
     active

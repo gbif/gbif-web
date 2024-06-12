@@ -90,6 +90,7 @@ export const Dataset = {
   logInterfaceUrl: ({ key }) => {
     return `https://logs.gbif.org/app/kibana#/discover?_g=(refreshInterval:(display:Off,pause:!f,value:0),time:(from:now-7d,mode:quick,to:now))&_a=(columns:!(_source),index:AWyLao3iHCKcR6PFXuPR,interval:auto,query:(query_string:(analyze_wildcard:!t,query:'datasetKey:%22${key}%22')),sort:!('@timestamp',desc))`;
   },
+  excerpt: src => excerpt({ body: src.description }),
   installation: ({ installationKey: key }, args, { dataSources }) =>
     dataSources.installationAPI.getInstallationByKey({ key }),
   duplicateOfDataset: (

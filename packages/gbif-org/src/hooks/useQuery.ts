@@ -2,7 +2,7 @@ import { useConfig } from '@/contexts/config/config';
 import { useI18n } from '@/contexts/i18n';
 import React from 'react';
 import Queue from 'queue-promise';
-import { GraphQLService } from '@/services/GraphQLService';
+import { GraphQLService } from '@/services/graphQLService';
 
 class NetworkError extends Error {
   name = 'NetworkError';

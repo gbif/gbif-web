@@ -187,8 +187,8 @@
         "biologicalStatus": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
         "storageCondition": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
         "collectingInstituteID": "",
-        "latitude": "",
-        "longitude": "",
+        "latitude": "纬度",
+        "longitude": "经度",
         "altitude": "",
         "locationID": "位置 ID",
         "breedingID": "",
@@ -268,13 +268,13 @@
         "measurementTrailRemarks": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
         "locationID": "位置 ID",
         "location": "位置",
-        "longitude": "",
-        "latitude": "",
+        "longitude": "经度",
+        "latitude": "纬度",
         "altitude": ""
       }
     },
     "identification": {
-      "name": "标识",
+      "name": "",
       "properties": {
         "identificationID": "鉴定编号",
         "verbatimIdentification": "逐字识别",
@@ -343,8 +343,8 @@
         "title": "标题",
         "description": "描述",
         "spatial": "空间",
-        "latitude": "",
-        "longitude": "",
+        "latitude": "纬度",
+        "longitude": "经度",
         "format": "格式",
         "created": "已创建",
         "creator": "创建人",
@@ -406,6 +406,29 @@
         "taxonRemarks": "类群备注",
         "type": "类型",
         "datasetID": "数据集编号"
+      }
+    },
+    "eolReference": {
+      "name": "“生命大百科”（EOL）参考",
+      "properties": {
+        "identifier": "标识符",
+        "publicationType": "",
+        "full_reference": "",
+        "primaryTitle": "",
+        "title": "标题",
+        "pages": "",
+        "pageStart": "",
+        "pageEnd": "",
+        "volume": "",
+        "edition": "",
+        "publisher": "发布者",
+        "authorList": "",
+        "editorList": "",
+        "created": "已创建",
+        "language": "语言",
+        "uri": "统一资源标志符",
+        "doi": "数字对象识别符",
+        "localityName": ""
       }
     },
     "resourceRelationship": {

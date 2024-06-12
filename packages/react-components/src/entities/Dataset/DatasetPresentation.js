@@ -87,7 +87,7 @@ export function DatasetPresentation({
             {dataset?.contactsCitation?.length > 0 && <GenericFeature>
               <MdPeople />
               {dataset?.contactsCitation.length < 10 && <span>
-                {dataset?.contactsCitation.map(c => c.abbreviatedName).join(' • ')}
+                {dataset?.contactsCitation.map(c => `${c.firstName ? `${c.firstName} ` : ''}${c.lastName ? c.lastName : ''}`).join(' • ')}
               </span>
               }
               {dataset?.contactsCitation.length >= 10 && <span>{dataset?.contactsCitation.length} authors</span>}

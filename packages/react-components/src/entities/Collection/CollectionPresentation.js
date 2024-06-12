@@ -114,7 +114,7 @@ Relating to ${env.GBIF_REGISTRY}/collection/${collection.key}
             {collection.contactPersons.length > 0 && <GenericFeature>
               <MdPeople />
               {contacts.length < 5 && <span>
-                {contacts.map(c => `${c.firstName ? c.firstName : ''} ${c.lastName ? c.lastName : ''}`).join(' • ')}
+                {contacts.map(c => `${c.firstName ? `${c.firstName} ` : ''}${c.lastName ? c.lastName : ''}`).join(' • ')}
               </span>
               }
               {contacts.length >= 5 && <span><FormattedMessage id="counts.nStaffMembers" values={{ total: contacts.length }} /></span>}

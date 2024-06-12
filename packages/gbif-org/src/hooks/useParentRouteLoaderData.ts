@@ -5,6 +5,10 @@ import { useRouteLoaderData } from 'react-router-dom';
 // This makes sure that the id is always in sync with the routes.tsx file.
 export enum RouteId {
   Project = 'project',
+  Network = 'network',
+  Installation = 'installation',
+  Publisher = 'publisher',
+  Occurrence = 'occurrence',
 }
 
 // Use this hook to get the loader data from a parent route.

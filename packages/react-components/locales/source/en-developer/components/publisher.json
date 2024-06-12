@@ -5,7 +5,7 @@
     "metrics": "Metrics",
     "publishersHomepage": "Home page"
   },
-  "joinedAgo": "Joined {TIME_AGO}",
+  "joinedDate": "Joined {date}",
   "newPublisher": "New publisher",
   "technicalContact": "Technical contact",
   "country": "Country or area",

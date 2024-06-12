@@ -44,7 +44,7 @@ const typeDef = gql`
   }
 
   type DatasetListResults {
-    results: [Dataset]!
+    results: [Dataset!]!
     limit: Int!
     offset: Int!
     count: Int!
@@ -157,6 +157,10 @@ const typeDef = gql`
     """
     checklistBankDataset: ChecklistBankDataset
     mapCapabilities: MapCapabilities
+    """
+    volatile shortened version of the description
+    """
+    excerpt: String
   }
 
   type DatasetChecklistMetrics {

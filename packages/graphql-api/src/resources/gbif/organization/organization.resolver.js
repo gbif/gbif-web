@@ -1,3 +1,4 @@
+import { excerpt } from '#/helpers/utils';
 /**
  * fieldName: (parent, args, context, info) => data;
  * parent: An object that contains the result returned from the resolver on the parent type
@@ -33,5 +34,6 @@ export default {
       if (typeof key === 'undefined') return null;
       return dataSources.nodeAPI.getNodeByKey({ key });
     },
+    excerpt: src => excerpt({ body: src.description }),
   },
 };

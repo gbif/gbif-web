@@ -5,6 +5,8 @@
   "additionalNames": "Aanvullende namen",
   "description": "Beschrijving",
   "code": "Code",
+  "active": "Actief",
+  "inactive": "Inactief",
   "alternativeCodes": "",
   "apiUrl": "",
   "catalogUrl": "",

@@ -5,6 +5,8 @@
   "additionalNames": "Zusätzliche Namen",
   "description": "Beschreibung",
   "code": "Code",
+  "active": "",
+  "inactive": "",
   "alternativeCodes": "Alternative Codes",
   "apiUrl": "URL für die Webdienste der Sammlung",
   "catalogUrl": "Online-Katalog/Datenbank",

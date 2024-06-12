@@ -1,35 +1,35 @@
 import { Outlet } from 'react-router-dom';
-import { GbifRootLayout, headerLoader } from '@/components/GbifRootLayout';
+import { GbifRootLayout, headerLoader } from '@/components/gbifRootLayout';
 import { SourceRouteObject } from '@/types';
 import { configureRoutes } from '@/utils/configureRoutes';
-import { HomePage } from '@/routes/HomePage';
-import { ThrowOn404 } from '@/routes/ThrowOn404';
-import { RootErrorPage } from '@/routes/RootErrorPage';
+import { HomePage } from '@/routes/homePage';
+import { ThrowOn404 } from '@/routes/throwOn404';
+import { RootErrorPage } from '@/routes/rootErrorPage';
 import {
-  DetailedOccurrencePage,
-  DetailedOccurrencePageSkeleton,
-  detailedOccurrencePageLoader,
-} from '@/routes/occurrence/key/DetailedOccurrencePage';
-import { OccurrenceSearchPage } from '@/routes/occurrence/search/OccurrenceSearchPage';
+  OccurrenceKey,
+  OccurrenceKeySkeleton,
+  occurrenceKeyLoader,
+} from '@/routes/occurrence/key/occurrenceKey';
+import { OccurrenceSearchPage } from '@/routes/occurrence/search/occurrenceSearchPage';
 import { InputConfig, configBuilder } from '@/contexts/config/config';
-import { DatasetPage, DatasetPageSkeleton, datasetLoader } from '@/routes/dataset/key/DatasetPage';
+import { DatasetPage, DatasetPageSkeleton, datasetLoader } from '@/routes/dataset/key/datasetKey';
 import {
   PublisherPage,
   PublisherPageSkeleton,
   publisherLoader,
-} from '@/routes/publisher/key/PublisherPage';
+} from '@/routes/publisher/key/publisherKey';
 import { NewsPage, NewsPageSkeleton, newsPageLoader } from '@/routes/resource/key/news/news';
-import { PublisherAboutTab } from '@/routes/publisher/key/AboutTab';
-import { PublisherOccurrencesTab } from '@/routes/publisher/key/OccurrencesTab';
-import { DatasetAboutTab } from '@/routes/dataset/key/AboutTab';
-import { DatasetDashboardTab } from '@/routes/dataset/key/DashboardTab';
-import { DatasetOccurrencesTab } from '@/routes/dataset/key/OccurrencesTab';
-import { DatasetDownloadTab } from '@/routes/dataset/key/DownloadTab';
+import { PublisherKeyAbout } from '@/routes/publisher/key/about';
+import { PublisherKeyMetrics } from '@/routes/publisher/key/metrics';
+import { DatasetKeyAbout } from '@/routes/dataset/key/about';
+import { DatasetKeyDashboard } from '@/routes/dataset/key/dashboard';
+import { DatasetKeyOccurrences } from '@/routes/dataset/key/occurrences';
+import { DatasetKeyDownload } from '@/routes/dataset/key/download';
 import {
   DataUsePage,
   DataUsePageSkeleton,
   dataUsePageLoader,
-} from '@/routes/resource/key/data-use/data-use';
+} from '@/routes/resource/key/dataUse/dataUse';
 import { EventPage, EventPageSkeleton, eventPageLoader } from '@/routes/resource/key/event/event';
 import {
   ArticlePage,
@@ -67,11 +67,20 @@ import {
   AliasHandling,
   AliasHandlingSkeleton,
   aliasHandlingLoader,
-} from '@/routes/resource/key/AliasHandling';
-import {
-  ConfirmEndorsmentPage,
-  confirmEndorsmentLoader,
-} from '@/routes/publisher/ConfirmEndorsment';
+} from '@/routes/resource/key/aliasHandling';
+import { PublisherKeyCitations } from '@/routes/publisher/key/citations';
+import { InstallationPage, InstallationPageSkeleton, installationLoader } from '@/routes/installation/key/installationKey';
+import { InstallationKeyAbout } from '@/routes/installation/key/about';
+import { NetworkPage, NetworkPageSkeleton, networkLoader } from '@/routes/network/key/networkKey';
+import { NetworkKeyAbout } from '@/routes/network/key/about';
+import { NetworkKeyMetrics } from '@/routes/network/key/metrics';
+import { NetworkKeyDataset } from '@/routes/network/key/dataset';
+import { NetworkKeyPublisher } from '@/routes/network/key/publisher';
+import { InstitutionKey, InstitutionKeyAbout, InstitutionKeyCollection, InstitutionKeySpecimens, institutionLoader } from '@/routes/institution/key';
+import { CollectionKey, CollectionKeyAbout, CollectionKeyDashboard, CollectionKeySpecimens, collectionLoader } from '@/routes/collection/key';
+import { OccurrenceKeyCluster } from '@/routes/occurrence/key/cluster';
+import { OccurrenceKeyMedia } from '@/routes/occurrence/key/media';
+import { OccurrenceKeyAbout } from '@/routes/occurrence/key/about';
 
 const baseRoutes: SourceRouteObject[] = [
   {
@@ -91,11 +100,25 @@ const baseRoutes: SourceRouteObject[] = [
             element: <OccurrenceSearchPage />,
           },
           {
-            key: 'occurrence-page',
+            id: RouteId.Occurrence,
             path: 'occurrence/:key',
-            loader: detailedOccurrencePageLoader,
-            loadingElement: <DetailedOccurrencePageSkeleton />,
-            element: <DetailedOccurrencePage />,
+            loader: occurrenceKeyLoader,
+            loadingElement: <OccurrenceKeySkeleton />,
+            element: <OccurrenceKey />,
+            children: [
+              {
+                index: true,
+                element: <OccurrenceKeyAbout />,
+              },
+              {
+                path: 'media',
+                element: <OccurrenceKeyMedia />,
+              },
+              {
+                path: 'related',
+                element: <OccurrenceKeyCluster />,
+              }
+            ]
           },
           {
             key: 'dataset-page',
@@ -110,24 +133,24 @@ const baseRoutes: SourceRouteObject[] = [
             children: [
               {
                 index: true,
-                element: <DatasetAboutTab />,
+                element: <DatasetKeyAbout />,
               },
               {
                 path: 'dashboard',
-                element: <DatasetDashboardTab />,
+                element: <DatasetKeyDashboard />,
               },
               {
                 path: 'occurrences',
-                element: <DatasetOccurrencesTab />,
+                element: <DatasetKeyOccurrences />,
               },
               {
                 path: 'download',
-                element: <DatasetDownloadTab />,
+                element: <DatasetKeyDownload />,
               },
             ],
           },
           {
-            key: 'publisher-page',
+            id: RouteId.Publisher,
             gbifRedirect: (params) => {
               if (typeof params.key !== 'string') throw new Error('Invalid key');
               return `https://www.gbif.org/publisher/${params.key}`;
@@ -139,11 +162,109 @@ const baseRoutes: SourceRouteObject[] = [
             children: [
               {
                 index: true,
-                element: <PublisherAboutTab />,
+                element: <PublisherKeyAbout />,
               },
               {
-                path: 'occurrences',
-                element: <PublisherOccurrencesTab />,
+                path: 'metrics',
+                element: <PublisherKeyMetrics />,
+              },
+              {
+                path: 'citations',
+                element: <PublisherKeyCitations />,
+              }
+            ],
+          },
+          {
+            id: RouteId.Installation,
+            gbifRedirect: (params) => {
+              if (typeof params.key !== 'string') throw new Error('Invalid key');
+              return `https://www.gbif.org/installation/${params.key}`;
+            },
+            path: 'installation/:key',
+            loader: installationLoader,
+            loadingElement: <InstallationPageSkeleton />,
+            element: <InstallationPage />,
+            children: [
+              {
+                index: true,
+                element: <InstallationKeyAbout />,
+              }
+            ],
+          },
+          {
+            id: RouteId.Network,
+            gbifRedirect: (params) => {
+              if (typeof params.key !== 'string') throw new Error('Invalid key');
+              return `https://www.gbif.org/network/${params.key}`;
+            },
+            path: 'network/:key',
+            loader: networkLoader,
+            loadingElement: <NetworkPageSkeleton />,
+            element: <NetworkPage />,
+            children: [
+              {
+                index: true,
+                element: <NetworkKeyAbout />,
+              },
+              {
+                path: 'metrics',
+                element: <NetworkKeyMetrics />,
+              },
+              {
+                path: 'dataset',
+                element: <NetworkKeyDataset />,
+              },
+              {
+                path: 'publisher',
+                element: <NetworkKeyPublisher />,
+              },
+            ],
+          },
+          {
+            key: 'institution-page',
+            gbifRedirect: (params) => {
+              if (typeof params.key !== 'string') throw new Error('Invalid key');
+              return `https://www.gbif.org/institution/${params.key}`;
+            },
+            path: 'institution/:key',
+            loader: institutionLoader,
+            element: <InstitutionKey />,
+            children: [
+              {
+                index: true,
+                element: <InstitutionKeyAbout />,
+              },
+              {
+                path: 'specimen',
+                element: <InstitutionKeySpecimens />,
+              },
+              {
+                path: 'collection',
+                element: <InstitutionKeyCollection />,
+              },
+            ],
+          },
+          {
+            key: 'collection-page',
+            gbifRedirect: (params) => {
+              if (typeof params.key !== 'string') throw new Error('Invalid key');
+              return `https://www.gbif.org/collection/${params.key}`;
+            },
+            path: 'collection/:key',
+            loader: collectionLoader,
+            element: <CollectionKey />,
+            children: [
+              {
+                index: true,
+                element: <CollectionKeyAbout />,
+              },
+              {
+                path: 'specimen',
+                element: <CollectionKeySpecimens />,
+              },
+              {
+                path: 'dashboard',
+                element: <CollectionKeyDashboard />,
               },
             ],
           },

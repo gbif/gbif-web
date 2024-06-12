@@ -153,6 +153,10 @@ const config = {
       type: 'keyword',
       field: 'gbifDownloadKey'
     },
+    gbifOccurrenceKey: {
+      type: 'keyword',
+      field: 'gbifOccurrenceKey'
+    },
     gbifRegion: {
       type: 'keyword',
       field: 'gbifRegion'
@@ -305,6 +309,10 @@ const config = {
     publishingOrganizationKey: {
       type: 'keyword',
       field: 'publishingOrganizationKey'
+    },
+    gbifNetworkKey: {
+      type: 'keyword',
+      field: 'gbifNetworkKey'
     },
     read: {
       type: 'boolean',

@@ -17,6 +17,7 @@
   "citations": "Citations",
   "metrics": "Metrics",
   "datasets": "Datasets",
+  "publishers": "Publishers",
   "hostedDatasets": "Hosted datasets",
   "occurrenceMetrics": "Occurrence metrics",
   "project": "Project",
@@ -25,6 +26,7 @@
   "backHome": "Back home",
   "pageNotFound": "404",
   "noInformation": "No information",
+  "noRecords": "No records",
   "noDescriptionProvided": "No description provided",
   "viewOnGBif": "View on GBIF.org",
   "failedToLoadData": "Failed to load data",
@@ -36,5 +38,9 @@
   "discard": "Discard",
   "keep": "Keep",
   "copyToClipboard": "Copy to clipboard",
+  "headers": {
+    "description": "Description",
+    "contacts": "Contacts"
+  },
   "noResults": "No results"
 }

@@ -1,3 +1,5 @@
+import { getHtml, excerpt } from "#/helpers/utils";
+
 /**
  * fieldName: (parent, args, context, info) => data;
  * parent: An object that contains the result returned from the resolver on the parent type
@@ -16,5 +18,17 @@ export default {
     constituents: ({ key }, args, { dataSources }) => {
       return dataSources.networkAPI.getConstituents({ key, query: args });
     },
+    organizations: ({ key }, args, { dataSources }) => {
+      return dataSources.networkAPI.getOrganizations({ key, query: args });
+    },
+    prose: ({ key }, args, { dataSources, locale }) => {
+      return dataSources.resourceSearchAPI.getFirstEntryByQuery({contentType: 'network', networkKey: key, limit: 1}, locale);
+    },
   },
+  NetworkProse: {
+    title: (src, _, { locale }) => getHtml(src.title, { inline: true, locale }),
+    summary: (src, _, { locale }) => getHtml(src.summary, { locale }),
+    body: (src, _, { locale }) => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
+    excerpt: (src, _, { locale }) => excerpt(src, { locale })
+  }
 };

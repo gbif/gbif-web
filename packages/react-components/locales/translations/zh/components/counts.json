@@ -17,6 +17,7 @@
   "nAudioFiles": "{total, plural, one {# 声音文件} other {# 声音文件}}",
   "nVideos": "{total, plural, one {# 视频} other {# 视频}}",
   "nImages": "{total, plural, one {# 图像} other {# 图像}}",
+  "nAuthors": "{total, plural, one {# 作者} other {# 作者}}",
   "nResultsWithCoordinates": "{total, plural, one {# 结果 } other {# 结果}} 带坐标",
   "percentWithCoordinates": "{percent}%带坐标",
   "percentWithYear": "{percent}%带年份",
@@ -24,6 +25,6 @@
   "nResultsWithImages": "{total, plural, one {# 结果} other {# 结果}} 带图像",
   "gbifOverlapPercent": "{percent}%与GBIF骨干重叠",
   "colOverlapPercent": "{percent}%与生物物种名录重叠",
-  "nDatasets": "{NUMBER_FORMATED} {NUMBER, select,1{数据集}other{数据集}}",
-  "nOccurrencesHosted": "{NUMBER_FORMATED} {NUMBER, select, 1{宿主发生记录} other{宿主发生记录}}"
+  "nPublishedDatasets": "{total, plural, one {# 数据集} other {# 数据集}}",
+  "nDatasets": "{total, plural, one {# 发布的数据集} other {# 发布的数据集}}"
 }

@@ -274,7 +274,7 @@
       }
     },
     "identification": {
-      "name": "Identifikation",
+      "name": "",
       "properties": {
         "identificationID": "",
         "verbatimIdentification": "",
@@ -406,6 +406,29 @@
         "taxonRemarks": "",
         "type": "",
         "datasetID": ""
+      }
+    },
+    "eolReference": {
+      "name": "",
+      "properties": {
+        "identifier": "Identifikator",
+        "publicationType": "",
+        "full_reference": "",
+        "primaryTitle": "",
+        "title": "Titel",
+        "pages": "",
+        "pageStart": "",
+        "pageEnd": "",
+        "volume": "",
+        "edition": "",
+        "publisher": "Forlægger",
+        "authorList": "",
+        "editorList": "",
+        "created": "Oprettet",
+        "language": "Sprog",
+        "uri": "",
+        "doi": "",
+        "localityName": ""
       }
     },
     "resourceRelationship": {

@@ -1,22 +1,22 @@
 import { useLoaderData } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { ArticleContainer } from '../components/ArticleContainer';
+import { ArticleContainer } from '../components/articleContainer';
 import { FormattedMessage } from 'react-intl';
-import { ArticleTitle } from '../components/ArticleTitle';
-import { ArticleIntro } from '../components/ArticleIntro';
+import { ArticleTitle } from '../components/articleTitle';
+import { ArticleIntro } from '../components/articleIntro';
 import { Button } from '@/components/ui/button';
-import { DynamicLink } from '@/components/DynamicLink';
+import { DynamicLink } from '@/components/dynamicLink';
 import { MdDownload as DownloadIcon } from 'react-icons/md';
-import { ArticleBody } from '../components/ArticleBody';
-import { PublishedDate } from '../components/PublishedDate';
-import { ArticleAuxiliary } from '../components/ArticleAuxiliary';
-import { ArticleSkeleton } from '../components/ArticleSkeleton';
-import { RenderIfChildren } from '@/components/RenderIfChildren';
-import { ArticleFooterWrapper } from '../components/ArticleFooterWrapper';
-import { fragmentManager } from '@/services/FragmentManager';
+import { ArticleBody } from '../components/articleBody';
+import { PublishedDate } from '../components/publishedDate';
+import { ArticleAuxiliary } from '../components/articleAuxiliary';
+import { ArticleSkeleton } from '../components/articleSkeleton';
+import { RenderIfChildren } from '@/components/renderIfChildren';
+import { ArticleFooterWrapper } from '../components/articleFooterWrapper';
+import { fragmentManager } from '@/services/fragmentManager';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
 import { DocumentPageFragment } from '@/gql/graphql';
-import { ArticleOpenGraph } from '../components/ArticleOpenGraph';
+import { ArticleOpenGraph } from '../components/articleOpenGraph';
 
 export const DocumentPageSkeleton = ArticleSkeleton;
 

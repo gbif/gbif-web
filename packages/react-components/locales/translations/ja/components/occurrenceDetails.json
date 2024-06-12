@@ -274,7 +274,7 @@
       }
     },
     "identification": {
-      "name": "ID",
+      "name": "",
       "properties": {
         "identificationID": "生物種同定ID",
         "verbatimIdentification": "",
@@ -406,6 +406,29 @@
         "taxonRemarks": "分類群情報の備考",
         "type": "タイプ",
         "datasetID": "データセットID"
+      }
+    },
+    "eolReference": {
+      "name": "",
+      "properties": {
+        "identifier": "ID",
+        "publicationType": "",
+        "full_reference": "",
+        "primaryTitle": "",
+        "title": "タイトル",
+        "pages": "",
+        "pageStart": "",
+        "pageEnd": "",
+        "volume": "",
+        "edition": "",
+        "publisher": "出版者",
+        "authorList": "",
+        "editorList": "",
+        "created": "作成",
+        "language": "言語",
+        "uri": "",
+        "doi": "",
+        "localityName": ""
       }
     },
     "resourceRelationship": {

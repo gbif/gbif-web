@@ -5,10 +5,15 @@
   "inGbif": "{total, plural, one {# in GBIF} other {# in GBIF}}",
   "nAudioFiles": "{total, plural, one {# geluidsbestand} other {# geluidsbestanden}}",
   "nImages": "{total, plural, one {# afbeelding} other {# afbeeldingen}}",
+  "nAuthors": "{total, plural, one {# auteur} other {# auteurs}}",
   "nResultsWithCoordinates": "{total, plural, one {# resultaat } other {# resultaten}} met coördinaten\n",
   "percentWithYear": "{percent}% met jaar",
   "percentWithTaxonMatch": "{percent}% overeenkomst met taxon",
   "nResultsWithImages": "{total, plural, one {# resultaat } other {# resultaten}} met afbeeldingen\n",
   "gbifOverlapPercent": "{percent}% overlap met GBIF Backbone",
-  "colOverlapPercent": "{percent}% overlap met Catalogue of Life"
+  "colOverlapPercent": "{percent}% overlap met Catalogue of Life",
+  "nPublishedDatasets": "{total, plural, one {# dataset} other {# datasets}}",
+  "nDatasets": "{total, plural, one {# gepubliceerde dataset} other {# gepubliceerde datasets}}",
+  "nHostedDatasets": "{total, plural, one {# hosted dataset} other {# hosted datasets}}",
+  "nParticipatingPublishers": "{total, plural, one {# deelneemende uitgever} other {# deelneemende uitgevers}}"
 }

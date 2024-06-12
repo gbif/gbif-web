@@ -77,7 +77,7 @@ export function Institution({
 };
 
 const SLOW_QUERY = `
-query institution($key: String!, $predicate: Predicate, $imagePredicate: Predicate, $coordinatePredicate: Predicate, $clusterPredicate: Predicate){
+query institution($key: ID!, $predicate: Predicate, $imagePredicate: Predicate, $coordinatePredicate: Predicate, $clusterPredicate: Predicate){
   occurrenceSearch(predicate: $predicate) {
     documents(size: 0) {
       total
@@ -110,7 +110,7 @@ query institution($key: String!, $predicate: Predicate, $imagePredicate: Predica
 `;
 
 const INSTITUTION = `
-query institution($key: String!){
+query institution($key: ID!){
   institution(key: $key) {
     key
     code

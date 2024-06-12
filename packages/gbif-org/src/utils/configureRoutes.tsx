@@ -3,12 +3,12 @@ import { Helmet } from 'react-helmet-async';
 import { Config } from '@/contexts/config/config';
 import { I18nProvider } from '@/contexts/i18n';
 import { SourceRouteObject, RouteMetadata } from '@/types';
-import { LoadingElementWrapper } from '@/components/LoadingElementWrapper';
+import { LoadingElementWrapper } from '@/components/loadingElementWrapper';
 import { v4 as uuid } from 'uuid';
 import { DoneLoadingEvent, StartLoadingEvent } from '@/contexts/loadingElement';
-import { GraphQLService } from '@/services/GraphQLService';
+import { GraphQLService } from '@/services/graphQLService';
 import { createRouteId } from './createRouteId';
-import { AlternativeLanguages } from '@/components/AlternativeLanguages';
+import { AlternativeLanguages } from '@/components/alternativeLanguages';
 
 type ConfigureRoutesResult = {
   routes: RouteObject[];
@@ -40,11 +40,22 @@ export function configureRoutes(
       children: createRoutesRecursively(baseRoutes, config, locale),
       loader: async () => {
         // fetch the entry translation file
-        const translations = await fetch(config.translationsEntryEndpoint).then((r) => r.json());
+        const translations = await fetch(config.translationsEntryEndpoint)
+          .then((r) => r.json())
+          .catch((err) => {
+            console.error('Failed to load translations entry file');
+            throw err;
+          });
         // now get the actual messages for the locale
         const messages = await fetch(
           translations?.[locale.code]?.messages ?? translations?.en?.messages
-        ).then((r) => r.json());
+        )
+          .then((r) => r.json())
+          .catch((err) => {
+            console.error('Failed to load translations for language');
+            console.error('Failed language: ', locale.code);
+            throw err;
+          });
         return { messages };
       },
     };

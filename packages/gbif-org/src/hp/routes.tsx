@@ -1,24 +1,25 @@
 import { SourceRouteObject } from '@/types';
 import { configureRoutes } from '@/utils/configureRoutes';
-import { HomePage } from '@/routes/HomePage';
-import { ThrowOn404 } from '@/routes/ThrowOn404';
-import { RootErrorPage } from '@/routes/RootErrorPage';
+import { HomePage } from '@/routes/homePage';
+import { ThrowOn404 } from '@/routes/throwOn404';
+import { RootErrorPage } from '@/routes/rootErrorPage';
 import {
-  DetailedOccurrencePage,
-  DetailedOccurrencePageSkeleton,
-  detailedOccurrencePageLoader,
-} from '@/routes/occurrence/key/DetailedOccurrencePage';
-import { OccurrenceSearchPage } from '@/routes/occurrence/search/OccurrenceSearchPage';
+  OccurrenceKey,
+  OccurrenceKeySkeleton,
+  occurrenceKeyLoader,
+} from '@/routes/occurrence/key/occurrenceKey';
+import { OccurrenceSearchPage } from '@/routes/occurrence/search/occurrenceSearchPage';
 import { InputConfig, configBuilder } from '@/contexts/config/config';
-import { DatasetPage, datasetLoader } from '@/routes/dataset/key/DatasetPage';
-import { DatasetAboutTab } from '@/routes/dataset/key/AboutTab';
-import { DatasetDashboardTab } from '@/routes/dataset/key/DashboardTab';
-import { DatasetOccurrencesTab } from '@/routes/dataset/key/OccurrencesTab';
-import { DatasetDownloadTab } from '@/routes/dataset/key/DownloadTab';
-import { PublisherPage, publisherLoader } from '@/routes/publisher/key/PublisherPage';
-import { PublisherAboutTab } from '@/routes/publisher/key/AboutTab';
-import { PublisherOccurrencesTab } from '@/routes/publisher/key/OccurrencesTab';
+import { DatasetPage, datasetLoader } from '@/routes/dataset/key/datasetKey';
+import { DatasetKeyAbout } from '@/routes/dataset/key/about';
+import { DatasetKeyDashboard } from '@/routes/dataset/key/dashboard';
+import { DatasetKeyOccurrences } from '@/routes/dataset/key/occurrences';
+import { DatasetKeyDownload } from '@/routes/dataset/key/download';
+import { PublisherPage, publisherLoader } from '@/routes/publisher/key/publisherKey';
+import { PublisherKeyAbout } from '@/routes/publisher/key/about';
+import { PublisherKeyMetrics } from '@/routes/publisher/key/metrics';
 import { NewsPage, newsPageLoader } from '@/routes/resource/key/news/news';
+import { InstitutionKey, InstitutionKeyAbout, InstitutionKeyCollection, InstitutionKeySpecimens, institutionLoader } from '@/routes/institution/key';
 
 const baseRoutes: SourceRouteObject[] = [
   {
@@ -36,9 +37,9 @@ const baseRoutes: SourceRouteObject[] = [
       {
         key: 'occurrence-page',
         path: 'occurrence/:key',
-        loader: detailedOccurrencePageLoader,
-        element: <DetailedOccurrencePage />,
-        loadingElement: <DetailedOccurrencePageSkeleton />,
+        loader: occurrenceKeyLoader,
+        element: <OccurrenceKey />,
+        loadingElement: <OccurrenceKeySkeleton />,
       },
       {
         key: 'dataset-page',
@@ -52,19 +53,19 @@ const baseRoutes: SourceRouteObject[] = [
         children: [
           {
             index: true,
-            element: <DatasetAboutTab />,
+            element: <DatasetKeyAbout />,
           },
           {
             path: 'dashboard',
-            element: <DatasetDashboardTab />,
+            element: <DatasetKeyDashboard />,
           },
           {
             path: 'occurrences',
-            element: <DatasetOccurrencesTab />,
+            element: <DatasetKeyOccurrences />,
           },
           {
             path: 'download',
-            element: <DatasetDownloadTab />,
+            element: <DatasetKeyDownload />,
           },
         ],
       },
@@ -80,11 +81,35 @@ const baseRoutes: SourceRouteObject[] = [
         children: [
           {
             index: true,
-            element: <PublisherAboutTab />,
+            element: <PublisherKeyAbout />,
           },
           {
             path: 'occurrences',
-            element: <PublisherOccurrencesTab />,
+            element: <PublisherKeyMetrics />,
+          },
+        ],
+      },
+      {
+        key: 'institution-page',
+        gbifRedirect: (params) => {
+          if (typeof params.key !== 'string') throw new Error('Invalid key');
+          return `https://www.gbif.org/institution/${params.key}`;
+        },
+        path: 'institution',
+        loader: institutionLoader,
+        element: <InstitutionKey />,
+        children: [
+          {
+            index: true,
+            element: <InstitutionKeyAbout />,
+          },
+          {
+            path: 'specimen',
+            element: <InstitutionKeySpecimens />,
+          },
+          {
+            path: 'collection',
+            element: <InstitutionKeyCollection />,
           },
         ],
       },

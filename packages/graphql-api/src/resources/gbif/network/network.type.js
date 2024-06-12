@@ -12,7 +12,7 @@ const typeDef = gql`
       machineTagName: String
       machineTagValue: String
     ): NetworkSearchResults
-    network(key: String!): Network
+    network(key: ID!): Network
   }
 
   type NetworkSearchResults {
@@ -45,8 +45,21 @@ const typeDef = gql`
     phone: [String]
     tags: [Tag]
     title: String
+    prose: NetworkProse
 
     constituents(limit: Int, offset: Int): DatasetListResults
+    organizations(limit: Int, offset: Int): OrganizationSearchResult
+  }
+
+  type NetworkProse {
+    title: String!
+    summary: String
+    body: String
+    excerpt: String
+    primaryImage: AssetImage
+    primaryLink: Link
+    createdAt: DateTime
+    updatedAt: DateTime
   }
 `;
 
