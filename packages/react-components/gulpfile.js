@@ -18,31 +18,39 @@ async function include(cb) {
   if (!env.DOMAIN) return cb();
 
   const hash = await md5File('dist/lib/gbif-react-components.js');
-
-  // for dev environments we want to use a timestamp instead of a hash since we do not have access to the hash as we are temporarily using dev to test the new library
-  const isDev = env.DOMAIN.includes('-dev.org');
-
-  if (isDev) {
-    const timestamp = (new Date()).toISOString().replace(/[-\.:]/g, '');
-
-    return src('new-gbif-components.inc')
-    .pipe(rename(function (path) {
-      // Updates the object in-place
-      path.basename = "gbif-components";
-    }))
-    .pipe(replace('{{VERSION}}', timestamp))
+  return src('gbif-components.inc')
+    .pipe(replace('{{VERSION}}', hash))
+    .pipe(replace('{{DOMAIN}}', env.DOMAIN))
     .pipe(dest('dist/lib/'));
-  } else {
-    return src('gbif-components.inc')
-      .pipe(replace('{{VERSION}}', hash))
-      .pipe(replace('{{DOMAIN}}', env.DOMAIN))
-      .pipe(dest('dist/lib/'));
-  }
+}
+
+// add a file for the server to inject in the hosted portals as a script tag
+async function includeJsModule(cb) {
+  // if no domain is specified, then assume this task can be ignored
+  if (!env.DOMAIN) return cb();
+  const timestamp = (new Date()).toISOString().replace(/[-\.:]/g, '');
+
+  return src('gbif-components-js-module.inc')
+    .pipe(replace('{{VERSION}}', timestamp))
+    .pipe(replace('{{LIB_DOMAIN}}', env.LIB_DOMAIN))
+    .pipe(dest('dist/lib/'));
+}
+
+// add a file for the server to inject in the hosted portals as a script tag
+async function includeCss(cb) {
+  // if no domain is specified, then assume this task can be ignored
+  if (!env.DOMAIN) return cb();
+  const timestamp = (new Date()).toISOString().replace(/[-\.:]/g, '');
+
+  return src('gbif-components-css.inc')
+    .pipe(replace('{{VERSION}}', timestamp))
+    .pipe(replace('{{LIB_DOMAIN}}', env.LIB_DOMAIN))
+    .pipe(dest('dist/lib/'));
 }
 
 async function copyTranslations(cb) {
   src(['locales/dist/**/*']).pipe(dest('dist/lib/translations'));
 }
 
-exports.default = parallel(noIndex, include, copyTranslations);
+exports.default = parallel(noIndex, include, includeJsModule, includeCss, copyTranslations);
 

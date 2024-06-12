@@ -1,0 +1,1 @@
+https://{{LIB_DOMAIN}}/style.css?v={{VERSION}}
