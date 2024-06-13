@@ -133,10 +133,10 @@ export function DatasetKeyAbout() {
           <div className='g-flex-grow'>
             {insights?.siteOccurrences?.documents.total - total < 0 && (
               <div>
-                <Alert variant="info" className='g-mb-4'>
+                <Alert variant="default" className='g-mb-4'>
                   <AlertDescription>
                     <HyperText
-                      className='[&_a]:g-underline'
+                      className='[&_a]:g-underline [&_a]:g-text-inherit'
                       text={scopeSmallerThanDatasetMessage}
                       sanitizeOptions={{ ALLOWED_TAGS: ['a', 'strong', 'em', 'p', 'br'] }}
                     />
