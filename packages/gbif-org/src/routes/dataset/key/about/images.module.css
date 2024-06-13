@@ -13,6 +13,8 @@
     right: 0;
   }
   > div {
+    width: 100px;
+    min-width: 100%;
     display: flex;
     overflow-x: auto;
     overflow-y: hidden;
