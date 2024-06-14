@@ -122,11 +122,15 @@ Relating to ${env.GBIF_REGISTRY}/collection/${collection.key}
               <FeatureList style={{ marginTop: 8 }}>
                 {collection.contactPersons.length > 0 && <GenericFeature>
                   <MdPeople />
-                  {contacts.length < 5 && <span>
-                    {contacts.map(c => `${c.firstName ? `${c.firstName} ` : ''}${c.lastName ? c.lastName : ''}`).join(' • ')}
+                  <span>
+                    <a href="#contact">
+                      {contacts.length < 5 && <span>
+                        {contacts.map(c => `${c.firstName ? `${c.firstName} ` : ''}${c.lastName ? c.lastName : ''}`).join(' • ')}
+                      </span>
+                      }
+                      {contacts.length >= 5 && <span><FormattedMessage id="counts.nStaffMembers" values={{ total: contacts.length }} /></span>}
+                    </a>
                   </span>
-                  }
-                  {contacts.length >= 5 && <span><FormattedMessage id="counts.nStaffMembers" values={{ total: contacts.length }} /></span>}
                 </GenericFeature>}
                 <Homepage href={collection.homepage} />
                 {contactInfo?.country && <Location countryCode={contactInfo?.country} city={contactInfo.city} />}
@@ -166,7 +170,7 @@ Relating to ${env.GBIF_REGISTRY}/collection/${collection.key}
         {occurrenceSearch?.documents?.total === 0 && collection.catalogUrl && <Tab tabId="0"><a css={css`text-decoration: none; color: inherit!important;`} href={collection.catalogUrl}><FormattedMessage id="grscicoll.tabs.explore" defaultMessage="Explore" /> <MdLink /></a></Tab>}
         {occurrenceSearch?.documents?.total > 0 && <RouterTab to={join(url, '/dashboard')} label={<FormattedMessage id="grscicoll.dashboard" defaultMessage="Dashboard" />} />}
       </TabList>
-    </HeaderWrapper>
+    </HeaderWrapper >
 
     <section>
       <Switch>
@@ -187,7 +191,7 @@ Relating to ${env.GBIF_REGISTRY}/collection/${collection.key}
         </Route>
         <Route path={path}>
           <ContentWrapper>
-            <About {...{ collection, occurrenceSearch }} useInlineImage={useInlineImage}/>
+            <About {...{ collection, occurrenceSearch }} useInlineImage={useInlineImage} />
           </ContentWrapper>
         </Route>
       </Switch>

@@ -83,7 +83,7 @@ export function Description({
             {collection.personalCollection && <Property value={collection.personalCollection} labelId="collection.personalCollection" formatter={e => <FormattedMessage id={`enums.yesNo.${e}`} defaultMessage={e} />} />}
           </Properties>
         </Card>
-        <Card style={{ marginTop: 24, marginBottom: 24 }}>
+        <Card style={{ marginTop: 24, marginBottom: 24 }} id="contact">
           <CardHeader2><FormattedMessage id="grscicoll.contacts" deafultMessage="Contacts" /></CardHeader2>
           <Properties style={{ fontSize: 16, marginBottom: 12 }} breakpoint={800}>
             <Property value={collection?.email} labelId="grscicoll.email" />
