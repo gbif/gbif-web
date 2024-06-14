@@ -153,6 +153,11 @@
   }
 }
 
+.gbif {
+  :where(a) {
+    color: inherit;
+  }
+}
 /* We do not want the preflight reset to apply to all sites where these componetns are used. So we disable preflight in tailwind config and add this instead. Solution copied from https://dev.to/ajscommunications/scoping-normalized-preflight-css-c29 */
 :where(.gbif) {
   /*

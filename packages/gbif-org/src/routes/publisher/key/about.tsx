@@ -10,6 +10,7 @@ import {
   ContactTitle,
 } from '@/components/Contact';
 import EmptyValue from '@/components/EmptyValue';
+import { DynamicLink } from '@/components/dynamicLink';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import {
   CardContent as CardContentSmall,
@@ -140,7 +141,7 @@ export function PublisherKeyAbout() {
           {publisher.endorsingNode && (
             <div style={{ marginBottom: 18 }}>
               <CardTitleSmall className='g-mb-2'>
-                Endorsed by: <a href="/country/FR">{publisher.endorsingNode.title}</a>
+                Endorsed by: <DynamicLink to="/country/FR">{publisher.endorsingNode.title}</DynamicLink>
               </CardTitleSmall>
               <p>
                 Publishers need to be endorsed by a GBIF Participant Node. This endorsement confirms
@@ -154,7 +155,7 @@ export function PublisherKeyAbout() {
               <CardTitleSmall className='g-mb-2'>
                 Installations:{' '}
                 {publisher?.installation.results.map((x) => (
-                  <a href="/installation/1234-1234-1234-1234">{x.title} </a>
+                  <DynamicLink to={`/installation/${x.key}`}>{x.title}</DynamicLink>
                 ))}
               </CardTitleSmall>
               <p>
@@ -169,9 +170,9 @@ export function PublisherKeyAbout() {
               <CardTitleSmall className='g-mb-2'>
                 Installations:{' '}
                 <ul>
-                  {publisher?.installation.results.map((x) => (
-                    <li>
-                      <a href="/installation/1234-1234-1234-1234">{x.title} </a>
+                  {publisher?.installation?.results.map((x) => (
+                    <li key={x.key}>
+                      <DynamicLink to={`/installation/${x.key}`}>{x.title}</DynamicLink>
                     </li>
                   ))}
                 </ul>
@@ -200,10 +201,7 @@ export function PublisherKeyAbout() {
           {publisher.country && (
             <div style={{ marginBottom: 18 }}>
               <CardTitleSmall className='g-mb-2'>
-                Country or area:{' '}
-                <a href="/installation/1234-1234-1234-1234">
-                  <FormattedMessage id={`enums.countryCode.${publisher.country}`} />
-                </a>
+                Country or area:{' '}<FormattedMessage id={`enums.countryCode.${publisher.country}`} />
               </CardTitleSmall>
               <p>
                 The country or area where the publisher is located. For international organizations,
