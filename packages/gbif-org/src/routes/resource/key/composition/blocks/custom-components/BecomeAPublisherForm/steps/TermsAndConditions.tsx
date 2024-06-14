@@ -1,15 +1,15 @@
 import { CheckboxField } from '../BecomeAPublisherForm';
-import { DynamicLink } from '@/components/DynamicLink';
+import { DynamicLink } from '@/components/dynamicLink';
 
 export function TermsAndConditions() {
   return (
-    <div className="space-y-4 pt-2">
+    <div className="g-space-y-4 g-pt-2">
       <CheckboxField
         name="termsAndConditions.dataPublishederAgreement"
         label={
           <>
             I have read and understood{' '}
-            <DynamicLink className="underline" to="/terms/data-publisher">
+            <DynamicLink className="g-underline" to="/terms/data-publisher">
               GBIF's Data Publisher Agreement
             </DynamicLink>{' '}
             and agree to its terms.

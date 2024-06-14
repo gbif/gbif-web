@@ -6,7 +6,7 @@ import {
   TaiwanNodeQuery,
   TaiwanNodeQueryVariables,
 } from '@/gql/graphql';
-import { GraphQLService } from '@/services/GraphQLService';
+import { GraphQLService } from '@/services/graphQLService';
 import { useCallback, useState } from 'react';
 
 const TAIWAN_NODE_QUERY = /* GraphQL */ `

@@ -27,7 +27,7 @@ export function Endorsment({ suggestedNodeCountry }: Props) {
 
   return (
     <>
-      <p className="pb-2 text-sm">
+      <p className="g-pb-2 g-text-sm">
         To support publishers and review data quality all publishers are associated with a GBIF
         node. Please check the suggestion below, and correct it if needed:
       </p>
@@ -38,7 +38,7 @@ export function Endorsment({ suggestedNodeCountry }: Props) {
         render={({ field }) => (
           <FormItem>
             <FormControl>
-              <RadioGroup onValueChange={field.onChange} className="flex flex-col space-y-1">
+              <RadioGroup onValueChange={field.onChange} className="g-flex g-flex-col g-space-y-1">
                 {!suggestedNodeCountry && (
                   <RadioItem value="other" label="Help me with endorsement" />
                 )}
@@ -49,7 +49,7 @@ export function Endorsment({ suggestedNodeCountry }: Props) {
                     label={
                       <span>
                         {suggestedNodeCountry.title}{' '}
-                        <span className="text-xs font-semibold text-primary-600">Suggested</span>
+                        <span className="g-text-xs g-font-semibold g-text-primary-600">Suggested</span>
                       </span>
                     }
                   />
@@ -73,7 +73,7 @@ export function Endorsment({ suggestedNodeCountry }: Props) {
         )}
       />
 
-      <p className="pb-2 pt-4 text-sm">
+      <p className="g-pb-2 g-pt-4 g-text-sm">
         If endorsement through the country node suggested above is not the right option, please
         check this list of associated participants for multinational or thematic networks:
       </p>

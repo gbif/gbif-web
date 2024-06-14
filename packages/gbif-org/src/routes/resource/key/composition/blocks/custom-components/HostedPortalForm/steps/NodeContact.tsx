@@ -13,9 +13,9 @@ export function NodeContact() {
       control={form.control}
       name="nodeContact.type"
       render={({ field }) => (
-        <FormItem className="space-y-3">
+        <FormItem className="g-space-y-3">
           <FormControl>
-            <RadioGroup onValueChange={field.onChange} className="flex flex-col space-y-1">
+            <RadioGroup onValueChange={field.onChange} className="g-flex g-flex-col g-space-y-1">
               <RadioItem value="I_am_the_node_manager" label="I am the Node Manager" />
 
               <RadioItem
@@ -45,7 +45,7 @@ function NodeManager() {
   return (
     <TextField
       name="nodeContact.nodeManager"
-      className={cn('pl-6', { hidden: nodeContactType !== 'Node_manager_contacted' })}
+      className={cn('g-pl-6', { 'g-hidden': nodeContactType !== 'Node_manager_contacted' })}
       description="Please state which Node Manager"
       descriptionPosition="above"
     />

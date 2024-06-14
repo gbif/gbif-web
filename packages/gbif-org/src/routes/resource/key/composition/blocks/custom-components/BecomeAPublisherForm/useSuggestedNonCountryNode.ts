@@ -1,7 +1,7 @@
 import { useConfig } from '@/contexts/config/config';
 import { useI18n } from '@/contexts/i18n';
 import { NonCountryNodeQuery, NonCountryNodeQueryVariables } from '@/gql/graphql';
-import { GraphQLService } from '@/services/GraphQLService';
+import { GraphQLService } from '@/services/graphQLService';
 import { useCallback, useState } from 'react';
 
 const NON_COUNTRY_NODE_QUERY = /* GraphQL */ `

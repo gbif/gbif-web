@@ -61,15 +61,15 @@ export function SearchSuggest<T>({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className={cn('w-full flex', className)}
+          className={cn('g-w-full g-flex', className)}
           // Override styles from our gb-button css class
           style={{ justifyContent: 'space-between' }}
         >
           {selected ? labelSelector(selected) : noSelectionPlaceholder}
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          <ChevronsUpDown className="g-ml-2 g-h-4 g-w-4 g-shrink-0 g-opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent style={{ width: triggerWidth }} className="p-0">
+      <PopoverContent style={{ width: triggerWidth }} className="g-p-0">
         <Command>
           <CommandInput
             value={searchTerm}
@@ -83,7 +83,7 @@ export function SearchSuggest<T>({
                 <CommandItem
                   key={keySelector(result)}
                   value={labelSelector(result)}
-                  className="flex items-center justify-between w-full"
+                  className="g-flex g-items-center g-justify-between g-w-full"
                   onSelect={() => {
                     // Reselecting the same item should deselect it
                     if (selected && keySelector(selected) === keySelector(result)) {
@@ -97,10 +97,10 @@ export function SearchSuggest<T>({
                   {labelSelector(result)}
                   <Checkmark
                     className={cn(
-                      'mr-2 h-4 w-4',
+                      'g-mr-2 g-h-4 g-w-4',
                       selected && keySelector(selected) === keySelector(result)
-                        ? 'opacity-100'
-                        : 'opacity-0'
+                        ? 'g-opacity-100'
+                        : 'g-opacity-0'
                     )}
                   />
                 </CommandItem>

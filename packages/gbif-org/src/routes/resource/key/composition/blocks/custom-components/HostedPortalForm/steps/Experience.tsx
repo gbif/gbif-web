@@ -18,7 +18,7 @@ export function Experience() {
       control={form.control}
       name="experience"
       render={({ field }) => (
-        <FormItem className="space-y-3">
+        <FormItem className="g-space-y-3">
           <FormDescription>
             We will be managing the hosted portals in GitHub. You will need to author content using
             Markdown and YAML. This is not difficult and we can direct you to documentation and
@@ -26,7 +26,7 @@ export function Experience() {
             these:
           </FormDescription>
           <FormControl>
-            <RadioGroup onValueChange={field.onChange} className="flex flex-col space-y-1">
+            <RadioGroup onValueChange={field.onChange} className="g-flex g-flex-col g-space-y-1">
               <RadioItem
                 value="has_plenty_experience"
                 label="I am comfortable with using GitHub, Markdown and YAML to author web content"

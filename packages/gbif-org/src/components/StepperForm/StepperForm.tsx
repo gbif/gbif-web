@@ -38,14 +38,14 @@ export function StepperForm({ form, onSubmit, steps }: StepperFormProps) {
       : 'unset';
 
   return (
-    <div className="max-w-3xl m-auto py-8 relative" style={{ minHeight }}>
+    <div className="g-max-w-3xl g-m-auto g-relative" style={{ minHeight }}>
       {width > 1226 ? (
         <SideNavigation currentStep={currentStep} goToStep={goToStep} steps={steps} />
       ) : (
         <TopNavigation currentStep={currentStep} goToStep={goToStep} steps={steps} />
       )}
       <Form {...form}>
-        <form onSubmit={onSubmit} className="flex-1">
+        <form onSubmit={onSubmit} className="g-flex-1">
           {steps.map((step) => {
             const SectionWrapper = step.fieldset ? 'fieldset' : 'section';
             const SectionHeading = step.fieldset ? 'legend' : 'h2';
@@ -53,32 +53,32 @@ export function StepperForm({ form, onSubmit, steps }: StepperFormProps) {
             return (
               <SectionWrapper
                 key={step.idx}
-                className={cn({ hidden: step.idx !== currentStep.idx })}
+                className={cn({ 'g-hidden': step.idx !== currentStep.idx })}
               >
-                <SectionHeading className="font-semibold">
-                  <span className="text-gray-500 pr-1">
+                <SectionHeading className="g-font-semibold">
+                  <span className="g-text-gray-500 g-pr-1">
                     Step {step.idx + 1}/{steps.length}:
                   </span>
                   {step.heading ?? step.title}
                 </SectionHeading>
 
-                <hr className="my-2 border-gray-100" />
+                <hr className="g-my-2 g-border-gray-100" />
 
                 <step.component key={step.idx} />
 
-                <div className="flex w-full pt-8">
+                <div className="g-flex g-w-full g-pt-8">
                   {step.idx > 0 && (
                     <Button className="mr-auto" variant="outline" type="button" onClick={prevStep}>
                       Back
                     </Button>
                   )}
                   {step.idx < steps.length - 1 && (
-                    <Button className="ml-auto" type="button" onClick={nextStep}>
+                    <Button className="g-ml-auto" type="button" onClick={nextStep}>
                       Next
                     </Button>
                   )}
                   {step.idx === steps.length - 1 && (
-                    <Button className="ml-auto" type="submit">
+                    <Button className="g-ml-auto" type="submit">
                       Submit
                     </Button>
                   )}

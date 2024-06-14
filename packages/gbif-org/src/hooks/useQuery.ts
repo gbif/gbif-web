@@ -129,7 +129,7 @@ export function useQuery<TResult, TVariabels>(
       // Add the request to the queue
       queues[mergedOptions.queue.name].enqueue(startRequest);
     },
-    [config.graphqlEndpoint, locale.cmsLocale, locale.code, query, options]
+    [config.graphqlEndpoint, locale.cmsLocale, locale.code, query]
   );
 
   // Prevent a change in variable to trigger a reload if ignoreVariableUpdates has been enabled

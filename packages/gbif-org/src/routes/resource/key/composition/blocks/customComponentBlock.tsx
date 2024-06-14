@@ -3,8 +3,6 @@ import { ArticleTextContainer } from '../../components/articleTextContainer';
 import { fragmentManager } from '@/services/fragmentManager';
 import { BlockContainer, backgroundColorMap } from './_shared';
 import { HostedPortalForm } from './custom-components/HostedPortalForm';
-import { BecomeAPublisherForm } from './custom-components/BecomeAPublisherForm';
-import { SuggestDatasetForm } from './custom-components/SuggestDatasetForm';
 
 fragmentManager.register(/* GraphQL */ `
   fragment CustomComponentBlockDetails on CustomComponentBlock {
@@ -22,16 +20,14 @@ type Props = {
 };
 
 export function CustomComponentBlock({ resource }: Props) {
+  const backgroundColor = backgroundColorMap[resource?.backgroundColour ?? 'white'];
+
   switch (resource.componentType) {
     // We could add the other forms as custom components in the future,
     // but our contentful data does not have them yet and adding them would make the transition to the new gbif.org less smooth.
     case 'hostedPortalForm':
-      // return <SuggestDatasetForm />;
-      // return <HostedPortalForm />;
-      return <BecomeAPublisherForm />;
+      return <HostedPortalForm className="g-bg-white" />;
   }
-
-  const backgroundColor = backgroundColorMap[resource?.backgroundColour ?? 'white'];
 
   return (
     <BlockContainer className={backgroundColor}>

@@ -1,4 +1,4 @@
-import { ClientSideOnly } from '@/components/ClientSideOnly';
+import { ClientSideOnly } from '@/components/clientSideOnly';
 import { Step, StepperForm } from '@/components/StepperForm';
 import { useToast } from '@/components/ui/use-toast';
 import { withIndex } from '@/utils/withIndex';
@@ -180,7 +180,7 @@ export function BecomeAPublisherForm() {
   );
 
   return (
-    <BlockContainer>
+    <BlockContainer className='g-bg-white'>
       <ClientSideOnly>
         <StepperForm form={form} onSubmit={onSubmit} steps={STEPS} />
       </ClientSideOnly>

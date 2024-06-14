@@ -10,7 +10,7 @@ export function GbifProjects() {
 
   return (
     <>
-      <p className="pb-2 text-sm">
+      <p className="g-pb-2 g-text-sm">
         For example: Biodiversity Information for Development (BID), Biodiversity Information Fund
         for Asia (BIFA), Capacity Enhancement Support Programme (CESP).
       </p>
@@ -20,7 +20,7 @@ export function GbifProjects() {
         render={({ field }) => (
           <FormItem>
             <FormControl>
-              <RadioGroup onValueChange={field.onChange} className="flex flex-col space-y-1 pt-2">
+              <RadioGroup onValueChange={field.onChange} className="g-flex g-flex-col g-space-y-1 g-pt-2">
                 <RadioItem value="yes" label="Yes" />
 
                 <ProjectIdentifier />
@@ -44,7 +44,7 @@ function ProjectIdentifier() {
     <TextField
       name="gbifProjects.projectIdentifier"
       label="Project identifier"
-      className={cn('pl-6', { hidden })}
+      className={cn('g-pl-6', { 'g-hidden': hidden })}
       description="Please enter the project identifier - e.g. BID-CA2016-0000-NAC"
       descriptionPosition="above"
     />

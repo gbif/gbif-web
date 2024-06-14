@@ -13,15 +13,15 @@ export function OrganizationAddress({ updateSuggestedNodeCountry }: Props) {
   const form = useFormContext<Partial<Inputs>>();
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="g-flex g-flex-col g-gap-4">
       <TextField name="organizationAddress.address" label="Address" required />
 
-      <div className="flex gap-4">
+      <div className="g-flex g-gap-4">
         <FormField
           control={form.control}
           name="organizationAddress.country"
           render={({ field }) => (
-            <FormItem className="flex-1">
+            <FormItem className="g-flex-1">
               <FormLabel>
                 Country
                 <Required />
@@ -47,7 +47,7 @@ export function OrganizationAddress({ updateSuggestedNodeCountry }: Props) {
         />
       </div>
 
-      <div className="flex gap-4">
+      <div className="g-flex g-gap-4">
         <TextField
           autoComplete="address-line1"
           name="organizationAddress.city"
@@ -65,7 +65,7 @@ export function OrganizationAddress({ updateSuggestedNodeCountry }: Props) {
       <FormField
         name="organizationAddress.coordinates"
         render={({ field }) => (
-          <FormItem className="flex-1">
+          <FormItem className="g-flex-1">
             <CoordinatesPicker
               coordinates={field.value}
               setCoordinates={field.onChange}

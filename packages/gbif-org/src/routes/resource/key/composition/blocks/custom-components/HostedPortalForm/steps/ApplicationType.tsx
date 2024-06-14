@@ -14,7 +14,7 @@ import { cn } from '@/utils/shadcn';
 import useQuery from '@/hooks/useQuery';
 import { Country, ParticipantsQuery, ParticipationStatus } from '@/gql/graphql';
 import { useEffect, useMemo } from 'react';
-import { DynamicLink } from '@/components/DynamicLink';
+import { DynamicLink } from '@/components/dynamicLink';
 import {
   Select,
   SelectContent,
@@ -32,10 +32,10 @@ export function ApplicationType() {
       control={form.control}
       name="applicationType.type"
       render={({ field }) => (
-        <FormItem className="space-y-3">
+        <FormItem className="g-space-y-3">
           <FormDescription>What best describes your proposed portal?</FormDescription>
           <FormControl>
-            <RadioGroup onValueChange={field.onChange} className="flex flex-col space-y-1">
+            <RadioGroup onValueChange={field.onChange} className="g-flex g-flex-col g-space-y-1">
               <RadioItem value="National_portal" label="A national biodiversity portal." />
 
               <ParticipantNode />
@@ -99,8 +99,8 @@ function ParticipantNode() {
       control={form.control}
       name="applicationType.participantNode"
       render={({ field }) => (
-        <FormItem className={cn('pl-6', applicationType?.type === 'National_portal' || 'hidden')}>
-          <FormLabel className="font-normal">
+        <FormItem className={cn('g-pl-6', applicationType?.type === 'National_portal' || 'g-hidden')}>
+          <FormLabel className="g-font-normal">
             Participant country
             <Required />
           </FormLabel>
@@ -108,7 +108,7 @@ function ParticipantNode() {
             Note that national portals will exclusively be offered to countries participating in
             GBIF. <br />
             Please select which participant country this application relates to. Please see the{' '}
-            <DynamicLink to="/the-gbif-network" className="underline">
+            <DynamicLink to="/the-gbif-network" className="g-underline">
               list of participants
             </DynamicLink>{' '}
             for contact information
@@ -162,7 +162,7 @@ function PublisherDescription() {
       descriptionPosition="above"
       description="Please describe which data publisher(s) and/or GBIF participants will be involved"
       textarea
-      className={cn('pl-6', { hidden: applicationType !== 'Other_type_of_portal' })}
+      className={cn('g-pl-6', { 'g-hidden': applicationType !== 'Other_type_of_portal' })}
     />
   );
 }

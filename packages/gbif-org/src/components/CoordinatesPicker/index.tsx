@@ -90,15 +90,15 @@ export function CoordinatesPicker({
   }, [coordinates]);
 
   return (
-    <div className="w-full h-96 relative">
-      <div className="w-full h-full" ref={mapElementRef}></div>
-      <div className="absolute right-2 top-2">
+    <div className="g-w-full g-h-96 g-relative">
+      <div className="g-w-full g-h-full" ref={mapElementRef}></div>
+      <div className="g-absolute g-right-2 g-top-2">
         {coordinates ? (
           <Button variant="destructive" onClick={() => setCoordinates(null)}>
             Clear
           </Button>
         ) : (
-          <span className="p-2 bg-white/70 rounded shadow-md block text-sm font-semibold">
+          <span className="g-p-2 g-bg-white/70 g-rounded g-shadow-md g-block g-text-sm g-font-semibold">
             {instructions}
           </span>
         )}

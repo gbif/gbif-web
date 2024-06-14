@@ -5,9 +5,9 @@ import {
 import { useState } from 'react';
 import { CheckboxField } from '../BecomeAPublisherForm';
 import { cn } from '@/utils/shadcn';
-import { ConditionalWrapper } from '@/components/ConditionalWrapper';
+import { ConditionalWrapper } from '@/components/conditionalWrapper';
 import { TimeAgo } from '@/components/TimeAgo';
-import { DynamicLink } from '@/components/DynamicLink';
+import { DynamicLink } from '@/components/dynamicLink';
 import { OrganizationPreviewQuery, OrganizationPreviewQueryVariables } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 
@@ -16,7 +16,7 @@ export function CheckRegistration() {
 
   return (
     <>
-      <p className="pb-2 text-sm">
+      <p className="g-pb-2 g-text-sm">
         First, please see if your organization is already registered as a GBIF publisher.
       </p>
 
@@ -28,7 +28,7 @@ export function CheckRegistration() {
 
       {organization && <OrganizationPreview id={organization.key} />}
 
-      <div className="pt-4">
+      <div className="g-pt-4">
         <CheckboxField
           name="checkRegistration"
           label="My organization is not already registered."
@@ -63,36 +63,36 @@ function OrganizationPreview({ id, className }: { id: string; className?: string
   const contact = organization?.contacts?.[0];
 
   return (
-    <div className={cn('bg-gray-100 p-4', className)}>
-      <p className="text-sm text-gray-800">
+    <div className={cn('g-bg-gray-100 g-p-4', className)}>
+      <p className="g-text-sm g-text-gray-800">
         If you are affiliated with the selected organization, you should approach the contact for
         practical knowledge of data publishing.
       </p>
       {organization && (
-        <div className="bg-white mt-2 border">
+        <div className="g-bg-white g-mt-2 g-border">
           <DynamicLink to={`/publisher/${id}`}>
-            <h3 className="p-2 text-base font-semibold text-blue-500 hover:underline">
+            <h3 className="g-p-2 g-text-base g-font-semibold g-text-blue-500 hover:g-underline">
               {organization.title}
             </h3>
           </DynamicLink>
 
           <hr />
 
-          <div className="p-2">
+          <div className="g-p-2">
             {organization.created && (
-              <span className="text-xs block text-primary-600">
+              <span className="g-text-xs g-block g-text-primary-600">
                 Joined <TimeAgo date={new Date(organization.created)} />
               </span>
             )}
 
             {contact && (
-              <span className="block text-xs">
+              <span className="g-block g-text-xs">
                 Contact:{' '}
                 <ConditionalWrapper
                   condition={typeof contact.email?.[0] === 'string'}
                   wrapper={(children) => (
                     <a
-                      className="text-blue-500 hover:underline"
+                      className="g-text-blue-500 hover:g-underline"
                       href={`mailto:${contact.email?.[0]}`}
                     >
                       {children}
@@ -104,7 +104,7 @@ function OrganizationPreview({ id, className }: { id: string; className?: string
               </span>
             )}
 
-            {organization.description && <p className="text-xs mt-1">{organization.description}</p>}
+            {organization.description && <p className="g-text-xs g-mt-1">{organization.description}</p>}
           </div>
         </div>
       )}

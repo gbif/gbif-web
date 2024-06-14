@@ -2,8 +2,8 @@ import { TextField } from '../BecomeAPublisherForm';
 
 export function OrganizationDetails() {
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex gap-4">
+    <div className="g-flex g-flex-col g-gap-4">
+      <div className="g-flex g-gap-4">
         <TextField
           autoComplete="organization"
           name="organizationDetails.name"
@@ -14,7 +14,7 @@ export function OrganizationDetails() {
         <TextField autoComplete="url" name="organizationDetails.homePage" label="Home page" />
       </div>
 
-      <div className="flex gap-4">
+      <div className="g-flex g-gap-4">
         <TextField
           autoComplete="email"
           name="organizationDetails.email"

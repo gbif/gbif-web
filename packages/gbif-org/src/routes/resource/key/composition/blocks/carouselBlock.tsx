@@ -85,7 +85,7 @@ export function CarouselBlock({ resource }: Props) {
               <button
                 key={idx}
                 className={cn('g-border-gray-600 g-border g-rounded-full g-h-3 g-w-3', {
-                  'bg-gray-600': idx === current,
+                  'g-bg-gray-600': idx === current,
                 })}
                 disabled={idx === current}
                 onClick={() => api?.scrollTo(idx)}

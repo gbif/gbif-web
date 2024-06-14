@@ -12,7 +12,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMemo } from 'react';
 import { BlockContainer } from '../_shared';
-import { ClientSideOnly } from '@/components/ClientSideOnly';
+import { ClientSideOnly } from '@/components/clientSideOnly';
 import {
   Form,
   FormControl,
@@ -95,14 +95,14 @@ export function SuggestDatasetForm() {
   );
 
   return (
-    <BlockContainer className="bg-gray-100">
+    <BlockContainer className="g-bg-gray-100">
       <ClientSideOnly>
         <Form {...form}>
           <form
             onSubmit={onSubmit}
-            className="max-w-3xl bg-white shadow p-4 m-auto flex flex-col gap-4"
+            className="g-max-w-3xl g-bg-white g-shadow g-p-4 g-m-auto g-flex g-flex-col g-gap-4"
           >
-            <div className="flex gap-4">
+            <div className="g-flex g-gap-4">
               <TextField
                 name="title"
                 placeholder="Dataset name"
@@ -121,7 +121,7 @@ export function SuggestDatasetForm() {
               />
             </div>
 
-            <div className="flex gap-4">
+            <div className="g-flex g-gap-4">
               <TextField
                 name="region"
                 placeholder="E.g. 'Middle east' or 'Borneo'"
@@ -145,7 +145,7 @@ export function SuggestDatasetForm() {
               />
             </div>
 
-            <div className="flex gap-4">
+            <div className="g-flex g-gap-4">
               <TextField
                 className="flex-1"
                 name="datasetImportance"
@@ -157,12 +157,12 @@ export function SuggestDatasetForm() {
                 control={form.control}
                 name="priority"
                 render={({ field }) => (
-                  <FormItem className="space-y-3 flex-1">
+                  <FormItem className="g-space-y-3 g-flex-1">
                     <FormLabel>How would you rate its importance</FormLabel>
                     <FormControl>
                       <RadioGroup
                         onValueChange={field.onChange}
-                        className="flex flex-col space-y-1"
+                        className="g-flex g-flex-col g-space-y-1"
                       >
                         <RadioItem
                           value="high"
@@ -191,18 +191,18 @@ export function SuggestDatasetForm() {
               name="datasetBibliographicDoi"
             />
 
-            <div className="flex gap-4">
+            <div className="g-flex g-gap-4">
               <FormField
                 control={form.control}
                 name="license"
                 defaultValue="Unspecified"
                 render={({ field }) => (
-                  <FormItem className="space-y-3 flex-1">
+                  <FormItem className="g-space-y-3 g-flex-1">
                     <FormLabel>Licence information</FormLabel>
                     <FormControl>
                       <RadioGroup
                         onValueChange={field.onChange}
-                        className="flex flex-col space-y-1"
+                        className="g-flex g-flex-col g-space-y-1"
                       >
                         <RadioItem value="CC0 1.0" label="CC0 1.0" />
                         <RadioItem value="CC-BY 4.0" label="CC BY 4.0" />
@@ -221,12 +221,12 @@ export function SuggestDatasetForm() {
                 name="type"
                 defaultValue="undefined"
                 render={({ field }) => (
-                  <FormItem className="space-y-3 flex-1">
+                  <FormItem className="g-space-y-3 g-flex-1">
                     <FormLabel>Dataset type</FormLabel>
                     <FormControl>
                       <RadioGroup
                         onValueChange={field.onChange}
-                        className="flex flex-col space-y-1"
+                        className="g-flex g-flex-col g-space-y-1"
                       >
                         <RadioItem value="undefined" label="Unknown" />
                         <RadioItem value="OCCURRENCE" label="Occurrence" />
@@ -241,7 +241,7 @@ export function SuggestDatasetForm() {
               />
             </div>
 
-            <div className="flex gap-4">
+            <div className="g-flex g-gap-4">
               <TextField
                 name="datasetHolderContact"
                 label="Dataholders contact information"

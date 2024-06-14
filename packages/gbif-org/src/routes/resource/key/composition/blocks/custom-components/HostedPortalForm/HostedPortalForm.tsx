@@ -12,7 +12,7 @@ import { useMemo } from 'react';
 import { Step, StepperForm } from '@/components/StepperForm';
 import { withIndex } from '@/utils/withIndex';
 import { BlockContainer } from '../../_shared';
-import { ClientSideOnly } from '@/components/ClientSideOnly';
+import { ClientSideOnly } from '@/components/clientSideOnly';
 import { PrimaryContact } from './steps/PrimaryContact';
 import { HostedPortalName } from './steps/HostedPortalName';
 import { ApplicationType } from './steps/ApplicationType';
@@ -85,7 +85,11 @@ export type Inputs = z.infer<typeof Schema>;
 export const CheckboxField = createTypedCheckboxField<Inputs>();
 export const TextField = createTypedTextField<Inputs>();
 
-export function HostedPortalForm() {
+type Props = {
+  className?: string;
+}
+
+export function HostedPortalForm({ className }: Props) {
   const { toast } = useToast();
   const config = useConfig();
 
@@ -196,7 +200,7 @@ export function HostedPortalForm() {
   );
 
   return (
-    <BlockContainer>
+    <BlockContainer className={className}>
       <ClientSideOnly>
         <StepperForm form={form} onSubmit={onSubmit} steps={STEPS} />
       </ClientSideOnly>

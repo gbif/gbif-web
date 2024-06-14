@@ -25,11 +25,11 @@ type RadioItemProps = {
 
 export function RadioItem({ value, label }: RadioItemProps) {
   return (
-    <FormItem className="flex items-center space-x-3 space-y-0">
+    <FormItem className="g-flex g-items-center g-space-x-3 g-space-y-0">
       <FormControl>
         <RadioGroupItem value={value} />
       </FormControl>
-      <FormLabel className="font-normal">{label}</FormLabel>
+      <FormLabel className="g-font-normal g-mt-0">{label}</FormLabel>
     </FormItem>
   );
 }
@@ -54,11 +54,11 @@ export function createTypedCheckboxField<Inputs extends FieldValues>() {
         name={name}
         render={({ field }) => (
           <FormItem className={className}>
-            <div className="flex flex-row space-x-3 space-y-0 cursor-pointer">
+            <div className="g-flex g-flex-row g-space-x-3 g-space-y-0 g-cursor-pointer">
               <FormControl>
                 <Checkbox checked={field.value as boolean} onCheckedChange={field.onChange} />
               </FormControl>
-              <FormLabel className="font-normal leading-4 cursor-pointer">{label}</FormLabel>
+              <FormLabel className="g-font-normal g-leading-4 g-cursor-pointer">{label}</FormLabel>
             </div>
             <FormMessage />
           </FormItem>
@@ -105,7 +105,7 @@ export function createTypedTextField<Inputs extends FieldValues>() {
         // @ts-ignore (I don't know how to only allow fieldPath that are strings, so this could potentially be a number/boolean/etc)
         defaultValue={defaultValue}
         render={({ field }) => (
-          <FormItem className={cn('flex-1', className)}>
+          <FormItem className={cn('g-flex-1', className)}>
             {label && (
               <FormLabel>
                 {label}
