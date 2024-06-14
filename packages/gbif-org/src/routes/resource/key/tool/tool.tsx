@@ -1,6 +1,5 @@
 import { Helmet } from 'react-helmet-async';
 import { ToolPageFragment } from '@/gql/graphql';
-import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleBanner } from '@/routes/resource/key/components/articleBanner';
 import { ArticlePreTitle } from '../components/articlePreTitle';
 import { ArticleTitle } from '../components/articleTitle';
@@ -66,7 +65,7 @@ export function ToolPage() {
       </Helmet>
 
       <PageContainer topPadded className="g-bg-white">
-        <ArticleTextContainer className='g-mb-10'>
+        <ArticleTextContainer className="g-mb-10">
           <ArticlePreTitle>
             <FormattedMessage id="cms.contentType.tool" />
           </ArticlePreTitle>
@@ -74,31 +73,31 @@ export function ToolPage() {
           <ArticleTitle dangerouslySetTitle={{ __html: resource.title }} />
 
           {resource.publicationDate && (
-            <PublishedDate className='g-mt-2' date={resource.publicationDate} />
+            <PublishedDate className="g-mt-2" date={resource.publicationDate} />
           )}
 
           {resource.summary && (
-            <ArticleIntro dangerouslySetIntro={{ __html: resource.summary }} className='g-mt-2' />
+            <ArticleIntro dangerouslySetIntro={{ __html: resource.summary }} className="g-mt-2" />
           )}
 
           {resource.primaryLink && (
-            <Button className='g-mt-4' asChild>
+            <Button className="g-mt-4" asChild>
               <DynamicLink to={resource.primaryLink.url}>{resource.primaryLink.label}</DynamicLink>
             </Button>
           )}
         </ArticleTextContainer>
 
-        <ArticleBanner className='g-mt-8 g-mb-6' image={resource?.primaryImage} />
+        <ArticleBanner className="g-mt-8 g-mb-6" image={resource?.primaryImage} />
 
         <ArticleTextContainer>
           {resource.body && (
-            <ArticleBody dangerouslySetBody={{ __html: resource.body }} className='g-mt-2' />
+            <ArticleBody dangerouslySetBody={{ __html: resource.body }} className="g-mt-2" />
           )}
 
           <ArticleFooterWrapper>
             {resource.secondaryLinks && (
               <ArticleAuxiliary>
-                <SecondaryLinks links={resource.secondaryLinks} className='g-mt-8' />
+                <SecondaryLinks links={resource.secondaryLinks} className="g-mt-8" />
               </ArticleAuxiliary>
             )}
 

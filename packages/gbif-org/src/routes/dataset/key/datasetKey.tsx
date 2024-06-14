@@ -9,7 +9,6 @@ import { Homepage, FeatureList, GenericFeature, PeopleIcon } from '@/components/
 import { LicenceTag } from '@/components/identifierTag';
 import { Tabs } from '@/components/tabs';
 import { DatasetQuery, DatasetQueryVariables } from '@/gql/graphql';
-import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
@@ -28,13 +27,17 @@ const DATASET_QUERY = /* GraphQL */ `
         total
       }
     }
-    totalTaxa: taxonSearch(datasetKey: [$key], origin: [SOURCE]){
+    totalTaxa: taxonSearch(datasetKey: [$key], origin: [SOURCE]) {
       count
     }
-    accepted: taxonSearch(datasetKey: [$key], origin: [SOURCE], status: [ACCEPTED]){
+    accepted: taxonSearch(datasetKey: [$key], origin: [SOURCE], status: [ACCEPTED]) {
       count
     }
-    synonyms: taxonSearch(datasetKey: [$key], origin: [SOURCE], status: [SYNONYM, HETEROTYPIC_SYNONYM, PROPARTE_SYNONYM, HOMOTYPIC_SYNONYM]){
+    synonyms: taxonSearch(
+      datasetKey: [$key]
+      origin: [SOURCE]
+      status: [SYNONYM, HETEROTYPIC_SYNONYM, PROPARTE_SYNONYM, HOMOTYPIC_SYNONYM]
+    ) {
       count
     }
     dataset(key: $key) {
@@ -157,7 +160,7 @@ const DATASET_QUERY = /* GraphQL */ `
           postalCode
           province
           country
-          
+
           homepage
           email
           phone
@@ -212,7 +215,7 @@ export function DatasetPage() {
       </Helmet>
 
       <PageContainer topPadded className="g-bg-white">
-        <ArticleTextContainer className='g-max-w-screen-xl'>
+        <ArticleTextContainer className="g-max-w-screen-xl">
           <ArticlePreTitle
             secondary={
               <FormattedMessage
@@ -236,10 +239,10 @@ export function DatasetPage() {
           ></ArticleTitle>
 
           {dataset.publishingOrganizationTitle && (
-            <div className='g-mt-2'>
+            <div className="g-mt-2">
               <FormattedMessage id="dataset.publishedBy" />{' '}
               <DynamicLink
-                className='hover:g-underline g-text-primary-500'
+                className="hover:g-underline g-text-primary-500"
                 to={`/publisher/${dataset.publishingOrganizationKey}`}
               >
                 {dataset?.publishingOrganizationTitle}
@@ -273,7 +276,7 @@ export function DatasetPage() {
               </FeatureList>
             </HeaderInfoMain>
           </HeaderInfo>
-          <div className='g-border-b g-mt-4'></div>
+          <div className="g-border-b g-mt-4"></div>
           <Tabs
             links={[
               { to: '.', children: 'About' },

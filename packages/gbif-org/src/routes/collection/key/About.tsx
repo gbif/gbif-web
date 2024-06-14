@@ -8,11 +8,9 @@ import {
   ContactHeaderContent,
   ContactTelephone,
   ContactTitle,
-} from '@/components/Contact';
-import { ContactList } from '@/components/ContactList';
-import Properties, { AutomaticPropertyValue, Property, Term, Value } from '@/components/Properties';
+} from '@/components/contact';
+import Properties, { Property, Term, Value } from '@/components/properties';
 import { ClientSideOnly } from '@/components/clientSideOnly';
-import DashBoardLayout from '@/components/dashboard/DashboardLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { CollectionQuery } from '@/gql/graphql';
 import useBelow from '@/hooks/useBelow';
@@ -21,11 +19,9 @@ import { ArticleContainer } from '@/routes/resource/key/components/articleContai
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { FormattedMessage } from 'react-intl';
 import { FeaturedImageContent } from './collectionKeyPresentation';
-import { HyperText } from '@/components/HyperText';
+import { HyperText } from '@/components/hyperText';
 import { AdHocMapThumbnail } from '@/components/mapThumbnail';
-import { ConceptValue } from '@/components/ConceptValue';
-import { SimpleTooltip } from '@/components/SimpleTooltip';
-import { MdInfoOutline } from 'react-icons/md';
+import { ConceptValue } from '@/components/conceptValue';
 import * as charts from '@/components/dashboard';
 
 export default function About() {
@@ -51,11 +47,11 @@ export default function About() {
   // should we move the routes from the main config in to the individual components? I wonder if that makes changes easier to manage. It would make passing data around easier.
 
   return (
-    <ArticleContainer className='g-bg-slate-100 g-pt-4'>
-      <ArticleTextContainer className='g-max-w-screen-xl'>
+    <ArticleContainer className="g-bg-slate-100 g-pt-4">
+      <ArticleTextContainer className="g-max-w-screen-xl">
         <div className={`${removeSidebar ? '' : 'g-flex'}`}>
-          <div className='g-flex-grow'>
-            <Card className='g-mb-4'>
+          <div className="g-flex-grow">
+            <Card className="g-mb-4">
               <CardHeader>
                 <CardTitle>
                   <FormattedMessage id="dataset.description" />
@@ -64,7 +60,7 @@ export default function About() {
               <CardContent>
                 {collection?.description && (
                   <div
-                    className='g-prose g-mb-6 g-max-w-full'
+                    className="g-prose g-mb-6 g-max-w-full"
                     dangerouslySetInnerHTML={{ __html: collection.description }}
                   ></div>
                 )}
@@ -138,7 +134,7 @@ export default function About() {
             </Card>
 
             {useInlineImage && (
-              <Card className='g-mb-4'>
+              <Card className="g-mb-4">
                 <FeaturedImageContent
                   featuredImageUrl={imageUrl}
                   featuredImageLicense={
@@ -177,18 +173,18 @@ export default function About() {
               </ClientSideOnly>
             </section> */}
 
-            <Card className='g-mb-4'>
+            <Card className="g-mb-4">
               <CardHeader>
                 <CardTitle>
                   <FormattedMessage id="dataset.contacts" />
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <Properties useDefaultTermWidths className='g-mb-8'>
+                <Properties useDefaultTermWidths className="g-mb-8">
                   {collection?.email?.length > 0 && (
                     <Property
                       labelId="grscicoll.email"
-                      className='g-prose'
+                      className="g-prose"
                       value={collection.email}
                       formatter={(email) => (
                         <a href={`mailto:${email}`} className="">
@@ -198,7 +194,7 @@ export default function About() {
                     ></Property>
                   )}
                   <Property labelId="grscicoll.homepage">
-                    <HyperText className='g-prose' text={collection?.homepage} />
+                    <HyperText className="g-prose" text={collection?.homepage} />
                   </Property>
                   <Property
                     value={collection?.address?.country}
@@ -251,13 +247,13 @@ export default function About() {
                     </>
                   )}
                 </Properties>
-                <div className='g-flex g-flex-wrap -g-m-2'>
+                <div className="g-flex g-flex-wrap -g-m-2">
                   {contacts?.map((contact) => {
                     if (!contact) return null;
                     return (
                       <Card
                         key={contact.key}
-                        className='g-px-6 g-py-4 g-flex-auto g-max-w-sm g-min-w-xs g-m-2 g-w-1/2'
+                        className="g-px-6 g-py-4 g-flex-auto g-max-w-sm g-min-w-xs g-m-2 g-w-1/2"
                       >
                         <ContactHeader>
                           <ContactAvatar
@@ -276,7 +272,7 @@ export default function About() {
                             )}
                           </ContactHeaderContent>
                         </ContactHeader>
-                        <ContactContent className='g-mb-2'>
+                        <ContactContent className="g-mb-2">
                           {contact.taxonomicExpertise}
                         </ContactContent>
                         <ContactActions>
@@ -294,7 +290,7 @@ export default function About() {
               </CardContent>
             </Card>
 
-            <Card className='g-mb-4'>
+            <Card className="g-mb-4">
               <CardHeader>
                 <CardTitle>
                   <FormattedMessage id="grscicoll.identifiers" />
@@ -317,9 +313,9 @@ export default function About() {
                       >
                         {collection.alternativeCodes.map((x, i) => {
                           return (
-                            <li key={`${i}_${x.code}`} className='g-mb-2'>
+                            <li key={`${i}_${x.code}`} className="g-mb-2">
                               <div>{x.code}</div>
-                              <div className='g-text-slate-500'>{x.description}</div>
+                              <div className="g-text-slate-500">{x.description}</div>
                             </li>
                           );
                         })}
@@ -337,17 +333,17 @@ export default function About() {
                       >
                         {collection.identifiers.map((x, i) => {
                           const IdentifierItem = ({ link, text, type }) => (
-                            <li className='g-mb-4'>
+                            <li className="g-mb-4">
                               <div
                                 // css={css`color: var(--color400); font-size: 0.9em;`}
-                                className='g-text-slate-500 g-text-sm'
+                                className="g-text-slate-500 g-text-sm"
                               >
                                 <FormattedMessage
                                   id={`enums.identifierType.${type}`}
                                   defaultMessage={type}
                                 />
                               </div>
-                              <div className='g-prose'>
+                              <div className="g-prose">
                                 <a href={link}>{text}</a>
                               </div>
                             </li>
@@ -375,15 +371,15 @@ export default function About() {
                           }
 
                           return (
-                            <li key={`${i}_${x.identifier}`} className='g-mb-4'>
-                              <div className='g-text-slate-500 g-text-sm'>
+                            <li key={`${i}_${x.identifier}`} className="g-mb-4">
+                              <div className="g-text-slate-500 g-text-sm">
                                 <FormattedMessage
                                   id={`enums.identifierType.${x.type}`}
                                   defaultMessage={x.type}
                                 />
                               </div>
                               <div>
-                                <HyperText className='g-prose' text={identifier} inline />
+                                <HyperText className="g-prose" text={identifier} inline />
                               </div>
                             </li>
                           );
@@ -397,21 +393,20 @@ export default function About() {
           </div>
 
           {!removeSidebar && (
-            <aside className='g-flex-none g-w-96 g-ms-4'>
-              <div className='g-max-w-64 md:g-max-w-96 g-mb-4'>
+            <aside className="g-flex-none g-w-96 g-ms-4">
+              <div className="g-max-w-64 md:g-max-w-96 g-mb-4">
                 <AdHocMapThumbnail
                   filter={{ collectionKey: collection.key }}
-                  className='g-rounded g-border'
+                  className="g-rounded g-border"
                 />
               </div>
               <ClientSideOnly>
-                <charts.OccurrenceSummary predicate={predicate} className='g-mb-4' />
-                <charts.DataQuality predicate={predicate} className='g-mb-4' />
+                <charts.OccurrenceSummary predicate={predicate} className="g-mb-4" />
+                <charts.DataQuality predicate={predicate} className="g-mb-4" />
                 {/* <charts.Taxa predicate={predicate} className='g-mb-2' /> */}
               </ClientSideOnly>
             </aside>
           )}
-          
         </div>
       </ArticleTextContainer>
     </ArticleContainer>

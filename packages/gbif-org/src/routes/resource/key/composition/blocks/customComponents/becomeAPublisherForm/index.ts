@@ -1,0 +1,1 @@
+export { BecomeAPublisherForm } from './becomeAPublisherForm';

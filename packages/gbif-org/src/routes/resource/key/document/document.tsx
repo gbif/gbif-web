@@ -1,6 +1,5 @@
 import { useLoaderData } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { ArticleContainer } from '../components/articleContainer';
 import { FormattedMessage } from 'react-intl';
 import { ArticleTitle } from '../components/articleTitle';
 import { ArticleIntro } from '../components/articleIntro';
@@ -62,16 +61,16 @@ export function DocumentPage() {
       </Helmet>
 
       <PageContainer topPadded className="g-bg-white">
-        <div className='g-max-w-4xl g-m-auto g-bg-paperBackground md:g-shadow-2xl md:g-p-8 lg:g-p-16'>
+        <div className="g-max-w-4xl g-m-auto g-bg-paperBackground md:g-shadow-2xl md:g-p-8 lg:g-p-16">
           <ArticleTitle dangerouslySetTitle={{ __html: resource.title }} />
 
           {resource.createdAt && <PublishedDate date={resource.createdAt} />}
 
           {resource.summary && (
-            <ArticleIntro dangerouslySetIntro={{ __html: resource.summary }} className='g-mt-2' />
+            <ArticleIntro dangerouslySetIntro={{ __html: resource.summary }} className="g-mt-2" />
           )}
 
-          <RenderIfChildren className='g-flex g-gap-4 g-mt-4'>
+          <RenderIfChildren className="g-flex g-gap-4 g-mt-4">
             {resource.primaryLink && (
               <Button asChild>
                 <DynamicLink to={resource.primaryLink.url}>
@@ -82,7 +81,7 @@ export function DocumentPage() {
 
             {resource.document?.file?.url && (
               <Button asChild>
-                <a className='g-flex g-items-center g-gap-4' href={resource.document.file.url}>
+                <a className="g-flex g-items-center g-gap-4" href={resource.document.file.url}>
                   <DownloadIcon size={20} />
                   <FormattedMessage id="cms.document.download" />
                 </a>
@@ -91,7 +90,7 @@ export function DocumentPage() {
           </RenderIfChildren>
 
           {resource.body && (
-            <ArticleBody dangerouslySetBody={{ __html: resource.body }} className='g-mt-10' />
+            <ArticleBody dangerouslySetBody={{ __html: resource.body }} className="g-mt-10" />
           )}
 
           <ArticleFooterWrapper>

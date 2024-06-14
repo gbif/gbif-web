@@ -10,14 +10,14 @@ import {
   DynamicProperties,
 } from './customValues';
 import { FormattedMessage } from 'react-intl';
-import Properties from '@/components/Properties';
+import Properties from '@/components/properties';
 import { RenderIfChildren } from '@/components/renderIfChildren';
 import { useState } from 'react';
 import { GadmClassification, TaxonClassification } from '@/components/classification';
 import { DynamicLink } from '@/components/dynamicLink';
 import { Media } from './media';
 import { OccurrenceQuery, Term } from '@/gql/graphql';
-import { BulletList } from '@/components/BulletList';
+import { BulletList } from '@/components/bulletList';
 import {
   Amplification,
   Audubon,
@@ -118,7 +118,7 @@ export function Group({
   children: React.ReactNode;
 }) {
   return (
-    <Card className='g-mb-4' id={id}>
+    <Card className="g-mb-4" id={id}>
       <CardHeader>
         <CardTitle>
           <FormattedMessage id={label} />
@@ -140,7 +140,7 @@ function PropGroup({
 }) {
   return (
     <Group label={label} id={id}>
-      <Properties breakpoint={800} className='[&>dt]:g-w-52'>
+      <Properties breakpoint={800} className="[&>dt]:g-w-52">
         {children}
       </Properties>
     </Group>
@@ -205,10 +205,10 @@ function Provenance({
   occurrence: any;
 }) {
   return (
-    <Card className='g-mb-4 g-bg-slate-300 g-text-slate-600'>
-      <div className='g-py-4 g-px-4 md:g-px-8'>
+    <Card className="g-mb-4 g-bg-slate-300 g-text-slate-600">
+      <div className="g-py-4 g-px-4 md:g-px-8">
         This record is part of the dataset{' '}
-        <span className='g-underline'>
+        <span className="g-underline">
           <DynamicLink to={`/dataset/${occurrence.datasetKey}`}>
             {occurrence.datasetTitle}
           </DynamicLink>
@@ -318,15 +318,15 @@ function Location({
   occurrence: any;
 }) {
   return (
-    <Card className='g-mb-4' id="location">
+    <Card className="g-mb-4" id="location">
       <CardHeader>
         <CardTitle>
           <FormattedMessage id="occurrenceDetails.groups.location" />
         </CardTitle>
       </CardHeader>
-      <CardContent className='g-flex g-w-full'>
-        <div className='g-flex-auto'>
-          <Properties breakpoint={800} className='[&>dt]:g-w-52'>
+      <CardContent className="g-flex g-w-full">
+        <div className="g-flex-auto">
+          <Properties breakpoint={800} className="[&>dt]:g-w-52">
             <PlainTextField term={termMap.locationID} showDetails={showAll} />
             <PlainTextField term={termMap.higherGeographyID} showDetails={showAll} />
             <PlainTextField term={termMap.higherGeography} showDetails={showAll} />
@@ -408,11 +408,11 @@ function Location({
         </div>
 
         {occurrence.coordinates.lon && (
-          <div className='g-ms-4 g-flex-auto g-w-1/2 g-min-w-64'>
+          <div className="g-ms-4 g-flex-auto g-w-1/2 g-min-w-64">
             <React.Suspense fallback={<div>Loading map...</div>}>
               <Map
                 coordinates={occurrence.coordinates}
-                className='g-w-full g-rounded g-overflow-hidden'
+                className="g-w-full g-rounded g-overflow-hidden"
               />
             </React.Suspense>
           </div>
@@ -764,12 +764,12 @@ function MediaSummary({
   const hasMore =
     occurrence.stillImageCount + occurrence.movingImageCount > 1 || occurrence?.soundCount > 0;
   return (
-    <Card className='g-mb-4'>
+    <Card className="g-mb-4">
       <div style={{ position: 'relative', background: '#eee' }}>
         {hasMore && (
           <a
             href="#media"
-            className='g-absolute g-top-0 g-end-0 g-m-2 g-bg-neutral-800 g-rounded g-text-slate-100 g-px-2 g-py-1'
+            className="g-absolute g-top-0 g-end-0 g-m-2 g-bg-neutral-800 g-rounded g-text-slate-100 g-px-2 g-py-1"
           >
             See all
           </a>
@@ -802,7 +802,7 @@ function Citation({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] })
   if (!occurrence) return null;
   return (
     <Group label="phrases.citation" id="citation">
-      <Properties breakpoint={800} className='[&>dt]:g-w-52'>
+      <Properties breakpoint={800} className="[&>dt]:g-w-52">
         <BasicField label="phrases.citeAs">
           {occurrence?.dataset?.citation?.text} https://gbif.org/occurrence/{occurrence.key}
         </BasicField>
@@ -814,9 +814,9 @@ function Citation({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] })
 function Debug({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
   if (!occurrence) return null;
   return (
-    <div className='g-mb-4 g-text-sm g-scroll-mt-24' id="provenance">
+    <div className="g-mb-4 g-text-sm g-scroll-mt-24" id="provenance">
       <CardContent>
-        <Properties breakpoint={800} className='[&>dt]:g-w-52'>
+        <Properties breakpoint={800} className="[&>dt]:g-w-52">
           <BasicField label="API access">
             <BulletList>
               <li>

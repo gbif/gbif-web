@@ -1,5 +1,5 @@
-import { HyperText } from '@/components/HyperText';
-import Properties, { Term as T, Value as V } from '@/components/Properties';
+import { HyperText } from '@/components/hyperText';
+import Properties, { Term as T, Value as V } from '@/components/properties';
 import { Button } from '@/components/ui/button';
 import React, { useState } from 'react';
 import { MdLink } from 'react-icons/md';
@@ -159,10 +159,11 @@ export function Registration({ dataset = {}, ...props }) {
         )}
       </Properties>
 
-      <div className='g-mt-6'>
+      <div className="g-mt-6">
         <Button asChild variant="outline">
           <a href={`https://registry.gbif.org/dataset/${dataset.key}/ingestion-history`}>
-            <FormattedMessage id="dataset.registry.registrationDetails" /> <MdLink className='g-ms-2' />
+            <FormattedMessage id="dataset.registry.registrationDetails" />{' '}
+            <MdLink className="g-ms-2" />
           </a>
         </Button>
       </div>

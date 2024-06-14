@@ -2,12 +2,12 @@ import React, { useCallback, useState } from 'react';
 // import { Button, Progress, Skeleton, Tooltip } from '../../../components';
 import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import { Table } from '../shared';
-import useDeepCompareEffect from 'use-deep-compare-effect'
+import useDeepCompareEffect from 'use-deep-compare-effect';
 import formatAsPercentage from '@/utils/formatAsPercentage';
 import useQuery from '@/hooks/useQuery';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { SimpleTooltip as Tooltip } from '@/components/SimpleTooltip';
+import { SimpleTooltip as Tooltip } from '@/components/simpleTooltip';
 import { Progress } from '@/components/ui/progress';
 
 export function GroupByTable({
@@ -26,85 +26,136 @@ export function GroupByTable({
   const maxCount = results.reduce((a, c) => Math.max(a, c.count || 0), 0);
 
   if (loading) {
-    return <div>
-      {[1, 2].map(x => <React.Fragment key={x}>
-        <Skeleton className='g-h-6' width="60%" style={{ marginBottom: 12 }} />
-        <Skeleton className='g-h-6' style={{ marginBottom: 12 }} />
-      </ React.Fragment>)}
-    </div>
+    return (
+      <div>
+        {[1, 2].map((x) => (
+          <React.Fragment key={x}>
+            <Skeleton className="g-h-6" width="60%" style={{ marginBottom: 12 }} />
+            <Skeleton className="g-h-6" style={{ marginBottom: 12 }} />
+          </React.Fragment>
+        ))}
+      </div>
+    );
   }
 
-  return <div style={{ overflow: 'auto' }}>
-    <Table>
-      {columnTitle && <thead 
-        className='[&_th]:g-text-sm [&_th]:g-font-normal [&_th]:g-py-2 [&_th]:g-text-slate-500'
-    >
-        <tr>
-          <th className='g-text-start'>{columnTitle}</th>
-          <th className='g-text-end'>{columnCount}</th>
-          <th></th>
-        </tr>
-      </thead>}
-      <tbody className='[&_td]:g-align-baseline [&_th]:g-text-sm [&_th]:g-font-normal'>
-        {results.map((e, i) => {
-          const perentageOfTotal = e.count / total;
-          return <tr key={e.key}>
-            <td style={interactive ? {cursor: 'pointer'} : {}}>
-              {e.filter && <div onClick={() => {
-                if (interactive) onClick({ filter: e.filter })
-              }
-              }>{e.title}</div>}
-              {!e.filter && <div>{e.title}</div>}
-              {e.description && <div
-                className='g-text-slate-400 g-text-sm g-mb-1' 
-                >{e.description}
-              </div>}
-            </td>
-            <td 
-              className='g-text-end'
-              ><FormattedNumber value={e.count} /></td>
-            <td className='g-w-20'>
-              <Tooltip title={`${formatAsPercentage(perentageOfTotal)}% of total`} side="left">
-                <div>
-                  <Progress value={100 * e.count / maxCount} className='g-w-20 g-relative' style={{ top: 2, height: '1em' }} />
-                </div>
-              </Tooltip>
-            </td>
-          </tr>
-        })}
-      </tbody>
-    </Table>
-  </div>
-};
+  return (
+    <div style={{ overflow: 'auto' }}>
+      <Table>
+        {columnTitle && (
+          <thead className="[&_th]:g-text-sm [&_th]:g-font-normal [&_th]:g-py-2 [&_th]:g-text-slate-500">
+            <tr>
+              <th className="g-text-start">{columnTitle}</th>
+              <th className="g-text-end">{columnCount}</th>
+              <th></th>
+            </tr>
+          </thead>
+        )}
+        <tbody className="[&_td]:g-align-baseline [&_th]:g-text-sm [&_th]:g-font-normal">
+          {results.map((e, i) => {
+            const perentageOfTotal = e.count / total;
+            return (
+              <tr key={e.key}>
+                <td style={interactive ? { cursor: 'pointer' } : {}}>
+                  {e.filter && (
+                    <div
+                      onClick={() => {
+                        if (interactive) onClick({ filter: e.filter });
+                      }}
+                    >
+                      {e.title}
+                    </div>
+                  )}
+                  {!e.filter && <div>{e.title}</div>}
+                  {e.description && (
+                    <div className="g-text-slate-400 g-text-sm g-mb-1">{e.description}</div>
+                  )}
+                </td>
+                <td className="g-text-end">
+                  <FormattedNumber value={e.count} />
+                </td>
+                <td className="g-w-20">
+                  <Tooltip title={`${formatAsPercentage(perentageOfTotal)}% of total`} side="left">
+                    <div>
+                      <Progress
+                        value={(100 * e.count) / maxCount}
+                        className="g-w-20 g-relative"
+                        style={{ top: 2, height: '1em' }}
+                      />
+                    </div>
+                  </Tooltip>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </Table>
+    </div>
+  );
+}
 
 export function GroupBy({ facetResults, transform, ...props }) {
-  const { data, results, loading, error, next, prev, first, isLastPage, isFirstPage, total, distinct } = facetResults;
+  const {
+    data,
+    results,
+    loading,
+    error,
+    next,
+    prev,
+    first,
+    isLastPage,
+    isFirstPage,
+    total,
+    distinct,
+  } = facetResults;
   const mappedResults = transform ? transform(data) : results;
-  return <>
-    <div 
-      className='g-text-sm g-text-slate-500 g-mb-1'
-      >
-      {loading && <Skeleton className='g-h-6 g-mb-2' width="100px" />}
-      {!loading && distinct > 0 && <><FormattedMessage id="counts.nResults" values={{total: distinct}} /></>}
-    </div>
-    <GroupByTable results={mappedResults} total={total} {...props} loading={loading} />
-  </>
+  return (
+    <>
+      <div className="g-text-sm g-text-slate-500 g-mb-1">
+        {loading && <Skeleton className="g-h-6 g-mb-2" width="100px" />}
+        {!loading && distinct > 0 && (
+          <>
+            <FormattedMessage id="counts.nResults" values={{ total: distinct }} />
+          </>
+        )}
+      </div>
+      <GroupByTable results={mappedResults} total={total} {...props} loading={loading} />
+    </>
+  );
 }
 
 export function Pagging({ facetResults, ...props }) {
   const { next, prev, isLastPage, isFirstPage } = facetResults;
   if (isFirstPage && isLastPage) return null;
-  return <div 
-    className='g-mb-2'
-    >
-    {!(isLastPage && isFirstPage) && <Button size="sm" variant="secondary" onClick={prev} 
-      className='g-me-2'
-     disabled={isFirstPage}><FormattedMessage id="pagination.previous" /></Button>}
-    {!isLastPage && <Button size="sm" variant="secondary" onClick={next}><FormattedMessage id="pagination.next" /></Button>}
-  </div>
+  return (
+    <div className="g-mb-2">
+      {!(isLastPage && isFirstPage) && (
+        <Button
+          size="sm"
+          variant="secondary"
+          onClick={prev}
+          className="g-me-2"
+          disabled={isFirstPage}
+        >
+          <FormattedMessage id="pagination.previous" />
+        </Button>
+      )}
+      {!isLastPage && (
+        <Button size="sm" variant="secondary" onClick={next}>
+          <FormattedMessage id="pagination.next" />
+        </Button>
+      )}
+    </div>
+  );
 }
 
-export function useFacets({ predicate, otherVariables = {}, keys, translationTemplate, query, size = 10 }) {
+export function useFacets({
+  predicate,
+  otherVariables = {},
+  keys,
+  translationTemplate,
+  query,
+  size = 10,
+}) {
   const [from = 0, setFrom] = useState(0);
   const intl = useIntl();
   const { data, error, loading, load } = useQuery(query, { lazyLoad: true, queue: 'dashboard' });
@@ -118,7 +169,7 @@ export function useFacets({ predicate, otherVariables = {}, keys, translationTem
         from,
         size,
       },
-      queue: { name: 'dashboard' }
+      queue: { name: 'dashboard' },
     });
   }, [predicate, query, from, size]);
 
@@ -138,22 +189,24 @@ export function useFacets({ predicate, otherVariables = {}, keys, translationTem
     setFrom(0);
   });
 
-  let buckets = Array.isArray(data?.search?.facet?.results) ? data?.search?.facet?.results : data?.search?.facet?.results?.buckets;
+  let buckets = Array.isArray(data?.search?.facet?.results)
+    ? data?.search?.facet?.results
+    : data?.search?.facet?.results?.buckets;
 
-  let results = buckets?.map(x => {
+  let results = buckets?.map((x) => {
     return {
       ...x,
       key: x?.key,
       title: x?.entity?.title || x?.key,
       count: x?.count ?? x?.doc_count,
-      description: x?.entity?.description
-    }
+      description: x?.entity?.description,
+    };
   });
 
   // If an explicit list of keys is provided, then use that order and fill missing results with count=0
   if (keys && Array.isArray(keys)) {
-    results = keys.map(key => {
-      const result = results ? results.find(x => x.key.toString() === key.toString()) : undefined;
+    results = keys.map((key) => {
+      const result = results ? results.find((x) => x.key.toString() === key.toString()) : undefined;
       if (result) {
         return result;
       }
@@ -161,18 +214,18 @@ export function useFacets({ predicate, otherVariables = {}, keys, translationTem
         key,
         title: key,
         count: 0,
-        description: null
-      }
+        description: null,
+      };
     });
   }
 
   // if a translationTemplate of the form "something.else.{key}" is provided, then use that to translate the title
   if (translationTemplate && results?.length > 0) {
-    results = results.map(x => {
+    results = results.map((x) => {
       return {
         ...x,
-        title: intl.formatMessage({ id: translationTemplate.replace('{key}', x.key) })
-      }
+        title: intl.formatMessage({ id: translationTemplate.replace('{key}', x.key) }),
+      };
     });
   }
 
@@ -189,8 +242,13 @@ export function useFacets({ predicate, otherVariables = {}, keys, translationTem
   const emptyCount = isNotNull ? total - isNotNull : undefined;
 
   return {
-    data, results, loading, error,
-    next, prev, first,
+    data,
+    results,
+    loading,
+    error,
+    next,
+    prev,
+    first,
     isLastPage: distinct <= from + size,
     isFirstPage: from === 0,
     total,
@@ -199,6 +257,6 @@ export function useFacets({ predicate, otherVariables = {}, keys, translationTem
     emptyCount,
     isNotNull,
     pageSum,
-    otherOrEmptyCount
+    otherOrEmptyCount,
   };
 }

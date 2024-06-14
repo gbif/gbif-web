@@ -9,7 +9,7 @@ import { RouteId, useParentRouteLoaderData } from '@/hooks/useParentRouteLoaderD
 import { DatasetResult } from '@/routes/dataset/datasetResult';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
-import Properties, { Property } from '../../../components/Properties';
+import Properties, { Property } from '@/components/properties';
 import { FormattedMessage } from 'react-intl';
 import { DynamicLink } from '@/components/dynamicLink';
 import {
@@ -22,7 +22,7 @@ import {
   ContactHeaderContent,
   ContactTelephone,
   ContactTitle,
-} from '@/components/Contact';
+} from '@/components/contact';
 import { PaginationFooter } from '@/components/pagination';
 
 export function InstallationKeyAbout() {
@@ -60,7 +60,7 @@ export function InstallationKeyAbout() {
 
   return (
     <div>
-      <Card className='g-mb-4'>
+      <Card className="g-mb-4">
         <CardHeader>
           <CardTitle>
             <FormattedMessage id="phrases.headers.description" />
@@ -69,7 +69,7 @@ export function InstallationKeyAbout() {
         <CardContent>
           {installation.description && (
             <div
-              className='g-prose g-mb-6'
+              className="g-prose g-mb-6"
               dangerouslySetInnerHTML={{ __html: installation.description }}
             ></div>
           )}
@@ -83,7 +83,7 @@ export function InstallationKeyAbout() {
                 <Property labelId={'installation.hostedBy'}>
                   <DynamicLink
                     to={`/publisher/${installation.organization.key}`}
-                    className='g-underline'
+                    className="g-underline"
                   >
                     {installation.organization.title}
                   </DynamicLink>
@@ -93,7 +93,7 @@ export function InstallationKeyAbout() {
                 labelId={'installation.endpoints'}
                 value={installation.endpoints?.map((x) => x?.url)}
                 formatter={(value: string) => (
-                  <a href={value} target="_blank" rel="noopener noreferrer" className='g-underline'>
+                  <a href={value} target="_blank" rel="noopener noreferrer" className="g-underline">
                     {value}
                   </a>
                 )}
@@ -103,18 +103,18 @@ export function InstallationKeyAbout() {
         </CardContent>
       </Card>
 
-      {(installation.contacts?.length > 0) && (
-        <Card className='g-mb-4'>
+      {installation.contacts?.length > 0 && (
+        <Card className="g-mb-4">
           <CardHeader>
             <CardTitle>
               <FormattedMessage id="phrases.headers.contacts" />
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className='g-flex g-flex-wrap -g-m-2'>
+            <div className="g-flex g-flex-wrap -g-m-2">
               {installation.contacts?.map((contact) => {
                 return (
-                  <Card className='g-px-6 g-py-4 g-flex-auto g-max-w-sm g-min-w-xs g-m-2'>
+                  <Card className="g-px-6 g-py-4 g-flex-auto g-max-w-sm g-min-w-xs g-m-2">
                     <ContactHeader>
                       <ContactAvatar
                         firstName={contact.firstName}
@@ -133,7 +133,7 @@ export function InstallationKeyAbout() {
                         )}
                       </ContactHeaderContent>
                     </ContactHeader>
-                    <ContactContent className='g-mb-2'></ContactContent>
+                    <ContactContent className="g-mb-2"></ContactContent>
                     <ContactActions>
                       {contact.email &&
                         contact.email.map((email) => <ContactEmail email={email} />)}
@@ -189,4 +189,3 @@ const DATASET_QUERY = /* GraphQL */ `
     }
   }
 `;
-

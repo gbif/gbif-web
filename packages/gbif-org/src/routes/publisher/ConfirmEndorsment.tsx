@@ -3,7 +3,7 @@ import { required } from '@/utils/required';
 import { useLoaderData, useSearchParams } from 'react-router-dom';
 import { IoIosCheckmarkCircle } from 'react-icons/io';
 import { MdErrorOutline } from 'react-icons/md';
-import { DynamicLink } from '@/components/DynamicLink';
+import { DynamicLink } from '@/components/dynamicLink';
 import { Button } from '@/components/ui/button';
 
 type LoaderResult =

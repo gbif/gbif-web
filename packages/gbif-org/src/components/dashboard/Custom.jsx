@@ -4,7 +4,7 @@ import { GroupBy, Pagging, useFacets } from './charts/GroupByTable';
 // import { Classification, DropdownButton, Tooltip } from '../../components';
 import { FormattedMessage } from 'react-intl';
 import ChartClickWrapper from './charts/ChartClickWrapper';
-import { SimpleTooltip } from '../SimpleTooltip';
+import { SimpleTooltip } from '../simpleTooltip';
 import { Classification } from '../classification';
 import { Card, CardContent, CardDescription, CardTitle } from '../ui/smallCard';
 import {
@@ -32,7 +32,11 @@ function TaxaMain({
   if (facetResults?.data?.search?.facet?.results?.length <= visibilityThreshold) return null;
 
   return (
-    <Card {...props} loading={facetResults.loading || !facetResults.data} error={!!facetResults.error}>
+    <Card
+      {...props}
+      loading={facetResults.loading || !facetResults.data}
+      error={!!facetResults.error}
+    >
       <CardHeader
         options={
           <DropdownMenu>
@@ -159,7 +163,11 @@ function IucnMain({
   if (resultCount <= visibilityThreshold) return null;
 
   return (
-    <Card {...props} loading={facetResults.loading || !facetResults.data} error={!!facetResults.error}>
+    <Card
+      {...props}
+      loading={facetResults.loading || !facetResults.data}
+      error={!!facetResults.error}
+    >
       <CardHeader>
         <CardTitle>
           <FormattedMessage id={`dashboard.iucnThreatStatus`} />
@@ -250,9 +258,7 @@ export function Iucn(props) {
 function IucnCategory({ code, category }) {
   return (
     <SimpleTooltip title={<FormattedMessage id={`enums.threatStatus.${category}`} />}>
-      <span
-        className='g-bg-[#7a443a] g-text-white g-px-1 g-py-0.5 g-text-xs g-font-bold g-rounded-md g-mr-2'
-      >
+      <span className="g-bg-[#7a443a] g-text-white g-px-1 g-py-0.5 g-text-xs g-font-bold g-rounded-md g-mr-2">
         {code}
       </span>
     </SimpleTooltip>

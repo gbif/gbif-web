@@ -2,7 +2,6 @@ import { Tabs } from '@/components/tabs';
 import { CollectionQuery, CollectionSummaryMetricsQuery } from '@/gql/graphql';
 import { Helmet } from 'react-helmet-async';
 import { Outlet } from 'react-router-dom';
-import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
@@ -29,7 +28,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 import { Button } from '@/components/ui/button';
 import { GrGithub as Github } from 'react-icons/gr';
 import useBelow from '@/hooks/useBelow';
-import { SimpleTooltip } from '@/components/SimpleTooltip';
+import { SimpleTooltip } from '@/components/simpleTooltip';
 import { MdInfo } from 'react-icons/md';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 

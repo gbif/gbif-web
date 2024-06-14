@@ -1,5 +1,5 @@
 import React from 'react';
-import { Term as T, Value as V, AutomaticPropertyValue } from '@/components/Properties';
+import { Term as T, Value as V, AutomaticPropertyValue } from '@/components/properties';
 import { FormattedMessage } from 'react-intl';
 import { OccurrenceTermFragment } from '@/gql/graphql';
 
@@ -19,7 +19,7 @@ const licenseMap = {
   CC_BY_NC_4_0: 'http://creativecommons.org/licenses/by-nc/4.0/legalcode',
 };
 
-export function HtmlField(props: { term: OccurrenceTermFragment, showDetails?: boolean }) {
+export function HtmlField(props: { term: OccurrenceTermFragment; showDetails?: boolean }) {
   if (!props.term) return null;
   const { htmlValue } = props.term;
   return (
@@ -32,7 +32,7 @@ export function HtmlField(props: { term: OccurrenceTermFragment, showDetails?: b
   );
 }
 
-export function PlainTextField(props: { term: OccurrenceTermFragment, showDetails?: boolean }) {
+export function PlainTextField(props: { term: OccurrenceTermFragment; showDetails?: boolean }) {
   if (!props.term) return null;
   const { value, htmlValue } = props.term;
   return (
@@ -227,7 +227,7 @@ export function Chips({
 }
 
 function Tags({ children }: { children: React.ReactNode }) {
-  return <div className='-g-mx-1 g-inline-block'>{children}</div>;
+  return <div className="-g-mx-1 g-inline-block">{children}</div>;
 }
 
 function Tag({ type, children }: { type: string; children: React.ReactNode }) {
@@ -240,7 +240,9 @@ function Tag({ type, children }: { type: string; children: React.ReactNode }) {
   const color = colors[type] ?? colors.LIGHT;
 
   return (
-    <span className={`g-inline-block g-mx-1 g-text-xs g-font-medium g-me-2 g-px-2.5 g-py-0.5 g-rounded ${color}`}>
+    <span
+      className={`g-inline-block g-mx-1 g-text-xs g-font-medium g-me-2 g-px-2.5 g-py-0.5 g-rounded ${color}`}
+    >
       {children}
     </span>
   );

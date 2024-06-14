@@ -2,7 +2,6 @@ import { Tabs } from '@/components/tabs';
 import { InstitutionQuery, InstitutionSummaryMetricsQuery } from '@/gql/graphql';
 import { Helmet } from 'react-helmet-async';
 import { Outlet } from 'react-router-dom';
-import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';

@@ -1,4 +1,4 @@
-import { HyperText } from '@/components/HyperText';
+import { HyperText } from '@/components/hyperText';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -14,7 +14,7 @@ export function BibliographicCitations({ bibliographicCitations = [], ...props }
       : bibliographicCitations.slice(0, threshold);
   const hasHidden = bibliographicCitations.length > citations.length;
   return (
-    <div className='g-prose'>
+    <div className="g-prose">
       <ul>
         {citations.map((x, index) => (
           <BibiliographicCitation key={index} citation={x} />
@@ -38,13 +38,13 @@ function BibiliographicCitation({ citation }) {
         <HyperText text={citation?.text} />
       </div>
       {citation.identifier && match && (
-        <a href={citation.identifier} className='g-me-4'>
+        <a href={citation.identifier} className="g-me-4">
           <FormattedMessage id="dataset.viewArticle" />
         </a>
       )}
       {citation.identifier && !match && (
         <>
-          <span className='g-me-4 g-text-slate-400'>
+          <span className="g-me-4 g-text-slate-400">
             <FormattedMessage id="phrases.identifier" />:{' '}
           </span>
           <span>{citation.identifier}</span>
@@ -52,9 +52,7 @@ function BibiliographicCitation({ citation }) {
       )}
       {citation.text && (
         <>
-          <a
-            href={'https://scholar.google.com/scholar?q=' + encodeURIComponent(citation.text)}
-          >
+          <a href={'https://scholar.google.com/scholar?q=' + encodeURIComponent(citation.text)}>
             Google Scholar
           </a>
         </>

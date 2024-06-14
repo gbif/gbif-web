@@ -1,4 +1,4 @@
-import Properties, { Term as T, Value as V } from '@/components/Properties';
+import Properties, { Term as T, Value as V } from '@/components/properties';
 import { OccurrenceQuery } from '@/gql/graphql';
 import { FormattedMessage } from 'react-intl';
 import { Group } from './groups';
@@ -154,7 +154,7 @@ export function GermplasmAccession({
       {...{ occurrence, extensionName }}
       label="occurrenceDetails.extensions.germplasmAccession.name"
       id="germplasm-accession"
-      updateToc={visible => updateToc('germplasm-accession', visible)}
+      updateToc={(visible) => updateToc('germplasm-accession', visible)}
     />
   );
 }
@@ -319,7 +319,7 @@ function GenericExtension({
   }
 
   return (
-    <Group label={label} id={id} className='g-pt-0 md:g-pt-0' {...props}>
+    <Group label={label} id={id} className="g-pt-0 md:g-pt-0" {...props}>
       {list.length === 1 && (
         <GenericExtensionContent
           item={list[0]}
@@ -402,7 +402,7 @@ function ExtField({
 }
 
 function ListCard(props) {
-  return <Card className='g-mb-2 g-p-4 ' {...props} />;
+  return <Card className="g-mb-2 g-p-4 " {...props} />;
 }
 
 function getDefaultMessage(field: string) {

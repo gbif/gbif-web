@@ -1,9 +1,9 @@
 import { FormattedNumber } from 'react-intl';
 import { MdImage } from 'react-icons/md';
-import { SimpleTooltip } from '@/components/SimpleTooltip';
+import { SimpleTooltip } from '@/components/simpleTooltip';
 import { DynamicLink } from '@/components/dynamicLink';
 import { Button } from '@/components/ui/button';
-import { ClientImage as Image } from '@/components/Image';
+import { ClientImage as Image } from '@/components/image';
 import styles from './images.module.css';
 import { cn } from '@/utils/shadcn';
 
@@ -25,13 +25,13 @@ export function Images({ dataset, className, images = [], ...props }) {
       </div>
 
       <Button asChild>
-        <DynamicLink
-          to={`/dataset/${dataset.key}/occurrences?view=GALLERY`}
-        >
+        <DynamicLink to={`/dataset/${dataset.key}/occurrences?view=GALLERY`}>
           <SimpleTooltip title={<span>Records with images</span>} placement="auto">
             <div className="g-flex g-place-items-center">
               <MdImage style={{ marginRight: 8 }} />{' '}
-              <span><FormattedNumber value={images?.documents?.total} /></span>
+              <span>
+                <FormattedNumber value={images?.documents?.total} />
+              </span>
             </div>
           </SimpleTooltip>
         </DynamicLink>

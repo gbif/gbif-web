@@ -1,23 +1,15 @@
-import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { LoaderArgs } from '@/types';
-import {
-  OccurrenceMediaDetailsFragment,
-  OccurrenceIssue,
-  OccurrenceQuery,
-  OccurrenceQueryVariables,
-  Term,
-} from '@/gql/graphql';
+import { OccurrenceIssue, OccurrenceQuery, OccurrenceQueryVariables, Term } from '@/gql/graphql';
 import { required } from '@/utils/required';
 import { Outlet, useLoaderData } from 'react-router-dom';
-import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { FormattedMessage } from 'react-intl';
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { HeaderInfo, HeaderInfoMain } from '@/components/headerComponents';
 import { FormattedDateRange } from '@/components/message';
-import Globe from '@/components/Globe';
+import Globe from '@/components/globe';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { BsLightningFill } from 'react-icons/bs';

@@ -1,7 +1,6 @@
-import React from 'react';
 import { PlainTextField, HtmlField, BasicField, CustomValueField } from '../properties';
 import { FormattedDate, FormattedMessage } from 'react-intl';
-import Properties, { Term as T, Value as V } from '@/components/Properties';
+import Properties, { Term as T, Value as V } from '@/components/properties';
 import { DynamicLink } from '@/components/dynamicLink';
 import equal from 'fast-deep-equal/react';
 
@@ -140,14 +139,19 @@ function Agents({ label, value }) {
 export function AgentSummary({ agent, ...props }) {
   const { person } = agent;
   return (
-    <div className='g-rounded g-border g-bg-white dark:g-bg-slate-500 g-shadow-sm g-inline-flex g-overflow-hidden'>
-      <div className='g-flex-none'>
+    <div className="g-rounded g-border g-bg-white dark:g-bg-slate-500 g-shadow-sm g-inline-flex g-overflow-hidden">
+      <div className="g-flex-none">
         {person?.image?.value && (
-          <img className='g-block' src={person?.image?.value} height={80} style={{ maxWidth: 80 }} />
+          <img
+            className="g-block"
+            src={person?.image?.value}
+            height={80}
+            style={{ maxWidth: 80 }}
+          />
         )}
       </div>
-      <div className='g-flex-auto g-px-4 g-py-2 g-text-sm'>
-        <h4 className='g-font-bold'>{person?.name?.value}</h4>
+      <div className="g-flex-auto g-px-4 g-py-2 g-text-sm">
+        <h4 className="g-font-bold">{person?.name?.value}</h4>
         {person?.birthDate?.value && (
           <div>
             <FormattedDate
@@ -183,7 +187,11 @@ export function DynamicProperties({ termMap }) {
   let content;
   try {
     const jsonValue = JSON.parse(value);
-    content = <pre className='g-bg-slate-100 g-overflow-auto g-p-2'>{JSON.stringify(jsonValue, null, 2)}</pre>;
+    content = (
+      <pre className="g-bg-slate-100 g-overflow-auto g-p-2">
+        {JSON.stringify(jsonValue, null, 2)}
+      </pre>
+    );
   } catch (err) {
     //ignore any errors
     content = value;
@@ -196,7 +204,7 @@ export function DynamicProperties({ termMap }) {
           defaultMessage={'Dynamic properties'}
         />
       </T>
-      <V style={{overflow: 'hidden'}}>{content}</V>
+      <V style={{ overflow: 'hidden' }}>{content}</V>
     </>
   );
 }
