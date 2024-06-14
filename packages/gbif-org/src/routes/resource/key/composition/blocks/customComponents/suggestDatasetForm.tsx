@@ -95,12 +95,12 @@ export function SuggestDatasetForm() {
   );
 
   return (
-    <BlockContainer className="g-bg-gray-100">
+    <BlockContainer className="g-p-0">
       <ClientSideOnly>
         <Form {...form}>
           <form
             onSubmit={onSubmit}
-            className="g-max-w-3xl g-bg-white g-shadow g-p-4 g-m-auto g-flex g-flex-col g-gap-4"
+            className="g-max-w-3xl g-bg-white g-shadow g-m-auto g-flex g-flex-col g-gap-4"
           >
             <div className="g-flex g-gap-4">
               <TextField

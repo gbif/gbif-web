@@ -102,6 +102,7 @@ import {
   confirmEndorsmentLoader,
 } from '@/routes/publisher/ConfirmEndorsment';
 import { BecomeAPublisherPage, becomeAPublisherPageLoader } from '@/routes/custom/becomeAPublisher';
+import { SuggestDatasetPage } from '@/routes/custom/suggestDataset';
 
 const baseRoutes: SourceRouteObject[] = [
   {
@@ -114,6 +115,10 @@ const baseRoutes: SourceRouteObject[] = [
           {
             index: true,
             element: <HomePage />,
+          },
+          {
+            path: 'suggest-dataset',
+            element: <SuggestDatasetPage />,
           },
           {
             path: 'become-a-publisher',
