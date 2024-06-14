@@ -1,6 +1,5 @@
 import { ArticlePageFragment } from '@/gql/graphql';
 import { ArticleBanner } from '@/routes/resource/key/components/articleBanner';
-import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { fragmentManager } from '@/services/fragmentManager';
 import { Helmet } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';

@@ -24,6 +24,7 @@ import { TermsAndConditions } from './steps/termsAndConditions';
 import { WhatAndHow } from './steps/whatAndHow';
 import { useSuggestedNodeCountry } from './useSuggestedNodeCountry';
 import { useConfig } from '@/contexts/config/config';
+import { cn } from '@/utils/shadcn';
 
 const ContactSchema = z.object({
   firstName: RequiredStringSchema,
@@ -87,7 +88,11 @@ export type Inputs = z.infer<typeof Schema>;
 export const CheckboxField = createTypedCheckboxField<Inputs>();
 export const TextField = createTypedTextField<Inputs>();
 
-export function BecomeAPublisherForm() {
+type Props = {
+  className?: string;
+};
+
+export function BecomeAPublisherForm({ className }: Props) {
   const { toast } = useToast();
   const config = useConfig();
 
@@ -180,7 +185,7 @@ export function BecomeAPublisherForm() {
   );
 
   return (
-    <BlockContainer className="g-bg-white">
+    <BlockContainer className={cn('g-bg-white', className)}>
       <ClientSideOnly>
         <StepperForm form={form} onSubmit={onSubmit} steps={STEPS} />
       </ClientSideOnly>

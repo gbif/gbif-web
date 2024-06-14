@@ -101,6 +101,7 @@ import {
   ConfirmEndorsmentPage,
   confirmEndorsmentLoader,
 } from '@/routes/publisher/ConfirmEndorsment';
+import { BecomeAPublisherPage, becomeAPublisherPageLoader } from '@/routes/custom/becomeAPublisher';
 
 const baseRoutes: SourceRouteObject[] = [
   {
@@ -113,6 +114,11 @@ const baseRoutes: SourceRouteObject[] = [
           {
             index: true,
             element: <HomePage />,
+          },
+          {
+            path: 'become-a-publisher',
+            element: <BecomeAPublisherPage />,
+            loader: becomeAPublisherPageLoader,
           },
           {
             key: 'occurrence-search-page',
