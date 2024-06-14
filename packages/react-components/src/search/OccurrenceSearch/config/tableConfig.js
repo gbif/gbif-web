@@ -134,7 +134,8 @@ export const tableConfig = {
       trKey: 'filters.datasetKey.name',
       filterKey: 'datasetKey', //optional
       value: {
-        key: 'datasetTitle',
+        key: 'datasetKey',
+        formatter: (value, item) => item.datasetTitle
       },
       cellFilter: 'datasetKey',
       width: 'wide'
@@ -144,7 +145,8 @@ export const tableConfig = {
       trKey: 'filters.publisherKey.name',
       filterKey: 'publisherKey', //optional
       value: {
-        key: 'publisherTitle',
+        key: 'publishingOrgKey',
+        formatter: (value, item) => item.publisherTitle
       },
       cellFilter: 'publishingOrgKey',
       width: 'wide'
