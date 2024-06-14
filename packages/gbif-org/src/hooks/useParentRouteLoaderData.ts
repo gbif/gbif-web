@@ -12,6 +12,7 @@ export enum RouteId {
   Dataset = 'dataset',
   Collection = 'collection',
   Institution = 'institution',
+  Country = 'country',
 }
 
 // Use this hook to get the loader data from a parent route.

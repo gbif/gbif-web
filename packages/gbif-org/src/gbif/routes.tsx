@@ -81,6 +81,10 @@ import { CollectionKey, CollectionKeyAbout, CollectionKeyDashboard, CollectionKe
 import { OccurrenceKeyCluster } from '@/routes/occurrence/key/cluster';
 import { OccurrenceKeyPhylo } from '@/routes/occurrence/key/phylogenies';
 import { OccurrenceKeyAbout } from '@/routes/occurrence/key/about';
+import { DatasetSearchPage } from '@/routes/dataset/search/searchPage';
+import { PublisherSearchPage } from '@/routes/publisher/search/searchPage';
+import { CollectionSearchPage } from '@/routes/collection/search/searchPage';
+import { InstitutionSearchPage } from '@/routes/institution/search/searchPage';
 
 const baseRoutes: SourceRouteObject[] = [
   {
@@ -119,6 +123,26 @@ const baseRoutes: SourceRouteObject[] = [
                 element: <OccurrenceKeyCluster />,
               }
             ]
+          },
+          {
+            key: 'dataset-search-page',
+            path: 'dataset/search',
+            element: <DatasetSearchPage />,
+          },
+          {
+            key: 'publisher-search-page',
+            path: 'publisher/search',
+            element: <PublisherSearchPage />,
+          },
+          {
+            key: 'collection-search-page',
+            path: 'collection/search',
+            element: <CollectionSearchPage />,
+          },
+          {
+            key: 'institution-search-page',
+            path: 'institution/search',
+            element: <InstitutionSearchPage />,
           },
           {
             id: RouteId.Dataset,
@@ -267,6 +291,15 @@ const baseRoutes: SourceRouteObject[] = [
                 element: <CollectionKeyDashboard />,
               },
             ],
+          },
+          {
+            id: RouteId.Country,
+            gbifRedirect: (params) => {
+              if (typeof params.key !== 'string') throw new Error('Invalid key');
+              return `https://www.gbif.org/country/${params.key}`;
+            },
+            path: 'country/:key',
+            element: <h1>Country page</h1>
           },
           {
             path: 'news/:key',

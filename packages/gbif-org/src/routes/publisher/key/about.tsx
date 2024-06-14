@@ -141,7 +141,7 @@ export function PublisherKeyAbout() {
           {publisher.endorsingNode && (
             <div style={{ marginBottom: 18 }}>
               <CardTitleSmall className='g-mb-2'>
-                Endorsed by: <DynamicLink to="/country/FR">{publisher.endorsingNode.title}</DynamicLink>
+                Endorsed by: <a href={`https://www.gbif.org/node/${publisher.endorsingNodeKey}`}>{publisher.endorsingNode.title}</a>
               </CardTitleSmall>
               <p>
                 Publishers need to be endorsed by a GBIF Participant Node. This endorsement confirms
