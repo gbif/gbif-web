@@ -17,7 +17,7 @@ const typeDef = gql`
   }
 
   type InstallationSearchResults {
-    results: [Installation]!
+    results: [Installation!]!
     limit: Int!
     offset: Int!
     count: Int!
