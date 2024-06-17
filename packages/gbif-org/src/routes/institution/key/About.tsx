@@ -29,6 +29,7 @@ import {
   Card as CardSmall,
   CardTitle as CardTitleSmall,
 } from '@/components/ui/smallCard';
+// import { MdMap } from 'react-icons/md';
 
 export default function About() {
   const { data } = useParentRouteLoaderData(RouteId.Institution) as { data: InstitutionQuery };
@@ -44,12 +45,14 @@ export default function About() {
 
   const imageUrl = institution.featuredImageUrl ?? institution.featuredImageUrl_fallback;
 
+  // const institutionAddress = institution?.mailingAddress ?? institution?.address;
+
   return (
-    <ArticleContainer className='g-bg-slate-100 g-pt-4'>
-      <ArticleTextContainer className='g-max-w-screen-xl'>
+    <ArticleContainer className="g-bg-slate-100 g-pt-4">
+      <ArticleTextContainer className="g-max-w-screen-xl">
         <div className={`${removeSidebar ? '' : 'g-grid g-gap-4 g-grid-cols-[1fr_350px]'}`}>
           <div className="">
-            <Card className='g-mb-4'>
+            <Card className="g-mb-4">
               <CardHeader>
                 <CardTitle>
                   <FormattedMessage id="dataset.description" />
@@ -58,7 +61,7 @@ export default function About() {
               <CardContent>
                 {institution?.description && (
                   <div
-                    className='g-prose g-mb-6 g-max-w-full'
+                    className="g-prose g-mb-6 g-max-w-full"
                     dangerouslySetInnerHTML={{ __html: institution.description }}
                   ></div>
                 )}
@@ -118,7 +121,7 @@ export default function About() {
             </Card>
 
             {useInlineImage && (
-              <Card className='g-mb-4'>
+              <Card className="g-mb-4">
                 <FeaturedImageContent
                   featuredImageUrl={imageUrl}
                   featuredImageLicense={
@@ -135,20 +138,23 @@ export default function About() {
                     <FormattedMessage id="institution.collections" defaultMessage="Collections" />
                   </CardTitle>
                 </CardHeader>
-                <Card className='g-relative g-overflow-x-auto g-rounded g-border g-mb-4'>
-                  <table className='g-w-full g-text-sm g-text-left rtl:g-text-right g-text-gray-500 dark:g-text-gray-400'>
-                    <thead className='g-text-slate-500 g-font-light g-bg-gray-50 dark:g-bg-gray-700 dark:g-text-gray-400 g-border-b'>
+                <Card className="g-relative g-overflow-x-auto g-rounded g-border g-mb-4">
+                  <table className="g-w-full g-text-sm g-text-left rtl:g-text-right g-text-gray-500 dark:g-text-gray-400">
+                    <thead className="g-text-slate-500 g-font-light g-bg-gray-50 dark:g-bg-gray-700 dark:g-text-gray-400 g-border-b">
                       <tr>
-                        <th scope="col" className='g-px-6 g-py-3 g-font-normal'>
+                        <th scope="col" className="g-px-6 g-py-3 g-font-normal">
                           Name
                         </th>
-                        <th scope="col" className='g-px-1 g-py-3 g-font-normal'>
+                        <th scope="col" className="g-px-1 g-py-3 g-font-normal">
                           Code
                         </th>
-                        <th scope="col" className='g-px-1 g-py-3 g-font-normal'>
+                        <th scope="col" className="g-px-1 g-py-3 g-font-normal">
                           Description
                         </th>
-                        <th scope="col" className='g-px-6 g-py-3 g-font-normal g-text-right rtl:g-text-left'>
+                        <th
+                          scope="col"
+                          className="g-px-6 g-py-3 g-font-normal g-text-right rtl:g-text-left"
+                        >
                           Specimens
                         </th>
                       </tr>
@@ -158,32 +164,32 @@ export default function About() {
                         return (
                           <tr
                             key={collection.key}
-                            className='g-bg-white g-border-b last:g-border-0 dark:g-bg-gray-800 dark:g-border-gray-700'
+                            className="g-bg-white g-border-b last:g-border-0 dark:g-bg-gray-800 dark:g-border-gray-700"
                           >
                             <td
                               scope="row"
-                              className='g-px-6 g-py-3 g-font-medium g-text-slate-900 dark:g-text-white g-min-w-80'
+                              className="g-px-6 g-py-3 g-font-medium g-text-slate-900 dark:g-text-white g-min-w-80"
                             >
                               <DynamicLink
-                                className='g-underline'
+                                className="g-underline"
                                 to={`/collection/${collection.key}`}
                               >
                                 {collection.name}
                               </DynamicLink>{' '}
                               {!collection.active && (
-                                <Tag className='g-bg-red-700 g-text-white'>Inactive</Tag>
+                                <Tag className="g-bg-red-700 g-text-white">Inactive</Tag>
                               )}
                             </td>
-                            <td className='g-px-1 g-py-3'>
-                              <Tag className='g-whitespace-nowrap'>{collection.code}</Tag>
+                            <td className="g-px-1 g-py-3">
+                              <Tag className="g-whitespace-nowrap">{collection.code}</Tag>
                             </td>
-                            <td className='g-px-1 g-py-3'>
+                            <td className="g-px-1 g-py-3">
                               <div
-                                className='g-line-clamp-2'
+                                className="g-line-clamp-2"
                                 dangerouslySetInnerHTML={{ __html: collection.excerpt }}
                               ></div>
                             </td>
-                            <td className='g-px-6 g-py-3 g-text-right rtl:g-text-left'>
+                            <td className="g-px-6 g-py-3 g-text-right rtl:g-text-left">
                               <FormattedNumber value={collection.numberSpecimens} />
                             </td>
                           </tr>
@@ -195,18 +201,18 @@ export default function About() {
               </>
             )}
 
-            <Card className='g-mb-4'>
+            <Card className="g-mb-4">
               <CardHeader>
                 <CardTitle>
                   <FormattedMessage id="dataset.contacts" />
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <Properties useDefaultTermWidths className='g-mb-8'>
+                <Properties useDefaultTermWidths className="g-mb-8">
                   {institution?.email?.length > 0 && (
                     <Property
                       labelId="grscicoll.email"
-                      className='g-prose'
+                      className="g-prose"
                       value={institution.email}
                       formatter={(email) => (
                         <a href={`mailto:${email}`} className="">
@@ -216,7 +222,7 @@ export default function About() {
                     ></Property>
                   )}
                   <Property labelId="grscicoll.homepage">
-                    <HyperText className='g-prose' text={institution?.homepage} />
+                    <HyperText className="g-prose" text={institution?.homepage} />
                   </Property>
                   <Property
                     value={institution?.address?.country}
@@ -269,13 +275,13 @@ export default function About() {
                     </>
                   )}
                 </Properties>
-                <div className='g-flex g-flex-wrap -g-m-2'>
+                <div className="g-flex g-flex-wrap -g-m-2">
                   {contacts?.map((contact) => {
                     if (!contact) return null;
                     return (
                       <Card
                         key={contact.key}
-                        className='g-px-4 g-py-3 g-flex-auto g-max-w-sm g-min-w-xs g-m-2 g-w-1/2'
+                        className="g-px-4 g-py-3 g-flex-auto g-max-w-sm g-min-w-xs g-m-2 g-w-1/2"
                       >
                         <ContactHeader>
                           <ContactAvatar
@@ -294,7 +300,7 @@ export default function About() {
                             )}
                           </ContactHeaderContent>
                         </ContactHeader>
-                        <ContactContent className='g-mb-2'>
+                        <ContactContent className="g-mb-2">
                           {contact.taxonomicExpertise}
                         </ContactContent>
                         <ContactActions>
@@ -312,7 +318,7 @@ export default function About() {
               </CardContent>
             </Card>
 
-            <Card className='g-mb-4'>
+            <Card className="g-mb-4">
               <CardHeader>
                 <CardTitle>
                   <FormattedMessage id="grscicoll.identifiers" />
@@ -335,9 +341,9 @@ export default function About() {
                       >
                         {institution.alternativeCodes.map((x, i) => {
                           return (
-                            <li key={`${i}_${x.code}`} className='g-mb-2'>
+                            <li key={`${i}_${x.code}`} className="g-mb-2">
                               <div>{x.code}</div>
-                              <div className='g-text-slate-500'>{x.description}</div>
+                              <div className="g-text-slate-500">{x.description}</div>
                             </li>
                           );
                         })}
@@ -355,17 +361,17 @@ export default function About() {
                       >
                         {institution.identifiers.map((x, i) => {
                           const IdentifierItem = ({ link, text, type }) => (
-                            <li className='g-mb-4'>
+                            <li className="g-mb-4">
                               <div
                                 // css={css`color: var(--color400); font-size: 0.9em;`}
-                                className='g-text-slate-500 g-text-sm'
+                                className="g-text-slate-500 g-text-sm"
                               >
                                 <FormattedMessage
                                   id={`enums.identifierType.${type}`}
                                   defaultMessage={type}
                                 />
                               </div>
-                              <div className='g-prose'>
+                              <div className="g-prose">
                                 <a href={link}>{text}</a>
                               </div>
                             </li>
@@ -393,15 +399,15 @@ export default function About() {
                           }
 
                           return (
-                            <li key={`${i}_${x.identifier}`} className='g-mb-4'>
-                              <div className='g-text-slate-500 g-text-sm'>
+                            <li key={`${i}_${x.identifier}`} className="g-mb-4">
+                              <div className="g-text-slate-500 g-text-sm">
                                 <FormattedMessage
                                   id={`enums.identifierType.${x.type}`}
                                   defaultMessage={x.type}
                                 />
                               </div>
                               <div>
-                                <HyperText className='g-prose' text={identifier} inline />
+                                <HyperText className="g-prose" text={identifier} inline />
                               </div>
                             </li>
                           );
@@ -414,11 +420,11 @@ export default function About() {
             </Card>
           </div>
           {!removeSidebar && (
-            <aside className='g-sticky'>
-              <CardSmall className='g-mb-4'>
-                {institution.longitude && (
+            <aside className="g-sticky">
+              {institution.longitude && (
+                <CardSmall className="g-mb-4">
                   <a
-                    className='g-block'
+                    className="g-block"
                     href={`http://www.google.com/maps/place/${institution.latitude},${institution.longitude}`}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -428,28 +434,63 @@ export default function About() {
                       src={`https://api.mapbox.com/styles/v1/mapbox/streets-v9/static/pin-s-circle+285A98(${institution.longitude},${institution.latitude})/${institution.longitude},${institution.latitude},15,0/400x250@2x?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA`}
                     />
                   </a>
-                )}
-              </CardSmall>
-              <CardSmall className='g-mb-4 g-sticky g-top-[--stickyOffset]'>
-                <ul className='g-list-none g-px-4 g-py-2'>
-                  <li className='g-py-1'>
+
+                  {/* <CardContentSmall className='g-mt-4'>
+                  <div className='g-flex'>
+                    <div className='g-flex-none g-me-2'>
+                      <div className='g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center'>
+                        <MdMap />
+                      </div>
+                    </div>
+                    <div className='g-flex-auto g-text-sm g-prose'>
+                      <address style={{ fontStyle: 'normal' }}>
+                        {institutionAddress.address && <div>
+                          {institutionAddress.address}
+                        </div>}
+                        {institutionAddress.city && <div>{institutionAddress.city}</div>}
+                        {institutionAddress.province && <div>{institutionAddress.province}</div>}
+                        {institutionAddress.postalCode && <div>{institutionAddress.postalCode}</div>}
+                        {institutionAddress.country && (
+                          <div>
+                            <FormattedMessage id={`enums.countryCode.${institutionAddress.country}`} />
+                          </div>
+                        )}
+                        {institutionAddress.email && (
+                          <div>
+                            <a href={`mailto:${institutionAddress.email}`}>{institutionAddress.email}</a>
+                          </div>
+                        )}
+                        {institutionAddress.phone && (
+                          <div>
+                            <a href={`tel:${institutionAddress.phone}`}>{institutionAddress.phone}</a>
+                          </div>
+                        )}
+                      </address>
+                    </div>
+                  </div>
+                </CardContentSmall> */}
+                </CardSmall>
+              )}
+              <CardSmall className="g-mb-4 g-sticky g-top-[--stickyOffset]">
+                <ul className="g-list-none g-px-4 g-py-2">
+                  <li className="g-py-1">
                     <a href="#description">
                       <FormattedMessage id="Description" />
                     </a>
                   </li>
                   {institution?.collections && institution?.collections?.length > 0 && (
-                    <li className='g-py-1'>
+                    <li className="g-py-1">
                       <a href="#collections">
                         <FormattedMessage id="Collections" />
                       </a>
                     </li>
                   )}
-                  <li className='g-py-1'>
+                  <li className="g-py-1">
                     <a href="#contacts">
                       <FormattedMessage id="Contacts" />
                     </a>
                   </li>
-                  <li className='g-py-1'>
+                  <li className="g-py-1">
                     <a href="#identifiers">
                       <FormattedMessage id="Identifiers" />
                     </a>
