@@ -166,7 +166,7 @@ export function Description({
                   let identifier = x.identifier;
                   if (['ROR', 'GRID', 'IH_IRN'].includes(x.type)) {
                     if (x.type === 'ROR') {
-                      identifier = 'https://ror.org/' + x.identifier;
+                      identifier = x.identifier;
                     } else if (x.type === 'GRID') {
                       identifier = 'https://grid.ac/institutes/' + x.identifier; // GRID doesn't exists anymore. They left the space and refer to ROR as checked today September 2022
                     } else if (x.type === 'IH_IRN') {
