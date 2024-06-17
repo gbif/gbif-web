@@ -86,7 +86,7 @@ export function OccurrenceKeyAbout() {
           {!hideSidebar && (
             <Aside className="">
               {occurrence.coordinates?.lon && (
-                <Card className='g-mb-4'>
+                <Card className=''>
                   <HashLink to="#location" replace className='g-block g-relative g-group'>
                     <img
                       src={`https://api.mapbox.com/styles/v1/mapbox/light-v9/static/pin-s-circle+285A98(${occurrence.coordinates.lon},${occurrence.coordinates.lat})/${occurrence.coordinates.lon},${occurrence.coordinates.lat},${overviewZoom},0/250x180@2x?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA`}

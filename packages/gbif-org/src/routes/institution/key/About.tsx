@@ -422,7 +422,7 @@ export default function About() {
           {!removeSidebar && (
             <aside className="g-sticky">
               {institution.longitude && (
-                <CardSmall className="g-mb-4">
+                <CardSmall className="">
                   <a
                     className="g-block"
                     href={`http://www.google.com/maps/place/${institution.latitude},${institution.longitude}`}
@@ -471,7 +471,7 @@ export default function About() {
                 </CardContentSmall> */}
                 </CardSmall>
               )}
-              <CardSmall className="g-mb-4 g-sticky g-top-[--stickyOffset]">
+              <CardSmall className="g-mb-4 g-sticky g-top-[--stickyOffset] g-p-4">
                 <ul className="g-list-none g-px-4 g-py-2">
                   <li className="g-py-1">
                     <a href="#description">
