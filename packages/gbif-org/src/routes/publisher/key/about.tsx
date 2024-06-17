@@ -10,6 +10,7 @@ import {
   ContactTitle,
 } from '@/components/Contact';
 import EmptyValue from '@/components/EmptyValue';
+import { ClientSideOnly } from '@/components/clientSideOnly';
 import { DynamicLink } from '@/components/dynamicLink';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import {
@@ -39,15 +40,15 @@ export function PublisherKeyAbout() {
   const technicalContact = publisher.contacts?.find((x) => x.type === 'TECHNICAL_POINT_OF_CONTACT');
 
   const ActivityReport = () => (
-    <CardSmall className='g-mb-4'>
+    <CardSmall className="g-mb-4">
       <CardHeaderSmall className="">
-        <CardTitleSmall className='g-flex g-text-sm'>
-          <div className='g-flex-none g-me-2'>
-            <div className='g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center'>
+        <CardTitleSmall className="g-flex g-text-sm">
+          <div className="g-flex-none g-me-2">
+            <div className="g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center">
               <MdDownload />
             </div>
           </div>
-          <div className='g-flex-auto'>
+          <div className="g-flex-auto">
             <a
               href={`${
                 import.meta.env.PUBLIC_API_V1
@@ -64,9 +65,21 @@ export function PublisherKeyAbout() {
   const Logo = () => {
     if (!publisher?.logoUrl) return null;
     return (
-      <CardSmall className='g-mb-4'>
-        <div className='g-p-2 md:g-p-4'>
-          <img className='g-m-auto g-max-w-100 g-max-h-48' src={publisher.logoUrl} alt="" />
+      <CardSmall className="g-mb-4">
+        <div className="g-p-2 md:g-p-4">
+          <ClientSideOnly>
+            <img
+              className="g-m-auto g-max-w-100 g-max-h-48"
+              src={'sdf'}
+              alt=""
+              onError={(e) => {
+                // show gray background if image fails to load
+                e.target.style.background = '#eee';
+                e.target.style.display = 'block';
+                e.target.style.height = '100px';
+              }}
+            />
+          </ClientSideOnly>
         </div>
       </CardSmall>
     );
@@ -74,10 +87,10 @@ export function PublisherKeyAbout() {
 
   const Map = () => {
     return (
-      <CardSmall className='g-mb-4'>
+      <CardSmall className="g-mb-4">
         {publisher.longitude && (
           <a
-            className='g-block'
+            className="g-block"
             href={`http://www.google.com/maps/place/${publisher.latitude},${publisher.longitude}`}
             target="_blank"
             rel="noopener noreferrer"
@@ -88,14 +101,14 @@ export function PublisherKeyAbout() {
             />
           </a>
         )}
-        <CardContentSmall className='g-mt-4'>
-          <div className='g-flex'>
-            <div className='g-flex-none g-me-2'>
-              <div className='g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center'>
+        <CardContentSmall className="g-mt-4">
+          <div className="g-flex">
+            <div className="g-flex-none g-me-2">
+              <div className="g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center">
                 <MdMap />
               </div>
             </div>
-            <div className='g-flex-auto g-text-sm g-prose'>
+            <div className="g-flex-auto g-text-sm g-prose">
               <address style={{ fontStyle: 'normal' }}>
                 <div>
                   {publisher.address && publisher.address.length > 0 ? (
@@ -136,12 +149,15 @@ export function PublisherKeyAbout() {
 
   const Provenance = () => {
     return (
-      <CardSmall className='g-mb-4 g-prose'>
-        <CardContentSmall className='g-mt-4 g-text-sm'>
+      <CardSmall className="g-mb-4 g-prose">
+        <CardContentSmall className="g-mt-4 g-text-sm">
           {publisher.endorsingNode && (
             <div style={{ marginBottom: 18 }}>
-              <CardTitleSmall className='g-mb-2'>
-                Endorsed by: <a href={`https://www.gbif.org/node/${publisher.endorsingNodeKey}`}>{publisher.endorsingNode.title}</a>
+              <CardTitleSmall className="g-mb-2">
+                Endorsed by:{' '}
+                <a href={`https://www.gbif.org/node/${publisher.endorsingNodeKey}`}>
+                  {publisher.endorsingNode.title}
+                </a>
               </CardTitleSmall>
               <p>
                 Publishers need to be endorsed by a GBIF Participant Node. This endorsement confirms
@@ -152,7 +168,7 @@ export function PublisherKeyAbout() {
           )}
           {publisher?.installation?.count === 1 && (
             <div style={{ marginBottom: 18 }}>
-              <CardTitleSmall className='g-mb-2'>
+              <CardTitleSmall className="g-mb-2">
                 Installations:{' '}
                 {publisher?.installation.results.map((x) => (
                   <DynamicLink to={`/installation/${x.key}`}>{x.title}</DynamicLink>
@@ -167,7 +183,7 @@ export function PublisherKeyAbout() {
           )}
           {publisher?.installation?.count > 1 && (
             <div style={{ marginBottom: 18 }}>
-              <CardTitleSmall className='g-mb-2'>
+              <CardTitleSmall className="g-mb-2">
                 Installations:{' '}
                 <ul>
                   {publisher?.installation?.results.map((x) => (
@@ -186,7 +202,7 @@ export function PublisherKeyAbout() {
           )}
           {technicalContact?.email && (
             <div style={{ marginBottom: 18 }}>
-              <CardTitleSmall className='g-mb-2'>
+              <CardTitleSmall className="g-mb-2">
                 Techincal contact:{' '}
                 <a href={`mailto:${technicalContact.email}`}>
                   {technicalContact.firstName} {technicalContact.lastName}
@@ -200,8 +216,8 @@ export function PublisherKeyAbout() {
           )}
           {publisher.country && (
             <div style={{ marginBottom: 18 }}>
-              <CardTitleSmall className='g-mb-2'>
-                Country or area:{' '}<FormattedMessage id={`enums.countryCode.${publisher.country}`} />
+              <CardTitleSmall className="g-mb-2">
+                Country or area: <FormattedMessage id={`enums.countryCode.${publisher.country}`} />
               </CardTitleSmall>
               <p>
                 The country or area where the publisher is located. For international organizations,
@@ -215,11 +231,11 @@ export function PublisherKeyAbout() {
   };
 
   return (
-    <ArticleContainer className='g-bg-slate-100 g-pt-4'>
-      <ArticleTextContainer className='g-max-w-screen-xl'>
+    <ArticleContainer className="g-bg-slate-100 g-pt-4">
+      <ArticleTextContainer className="g-max-w-screen-xl">
         <div className={`${removeSidebar ? '' : 'g-flex'}`}>
-          <div className='g-flex-grow'>
-            <Card className='g-mb-4'>
+          <div className="g-flex-grow">
+            <Card className="g-mb-4">
               <CardHeader>
                 <CardTitle>
                   <FormattedMessage id="phrases.headers.description" />
@@ -228,7 +244,7 @@ export function PublisherKeyAbout() {
               <CardContent>
                 {publisher?.description && (
                   <div
-                    className='g-prose g-mb-6'
+                    className="g-prose g-mb-6"
                     dangerouslySetInnerHTML={{ __html: publisher.description }}
                   ></div>
                 )}
@@ -237,19 +253,19 @@ export function PublisherKeyAbout() {
             </Card>
 
             {publisher?.contacts?.length > 0 && (
-              <Card className='g-mb-4'>
+              <Card className="g-mb-4">
                 <CardHeader>
                   <CardTitle>
                     <FormattedMessage id="phrases.headers.contacts" />
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className='g-flex g-flex-wrap -g-m-2'>
+                  <div className="g-flex g-flex-wrap -g-m-2">
                     {publisher?.contacts?.map((contact) => {
                       return (
                         <Card
                           key={contact.key}
-                          className='g-px-6 g-py-4 g-flex-auto g-max-w-sm g-min-w-xs g-m-2 g-w-1/2'
+                          className="g-px-6 g-py-4 g-flex-auto g-max-w-sm g-min-w-xs g-m-2 g-w-1/2"
                         >
                           <ContactHeader>
                             <ContactAvatar
@@ -269,7 +285,7 @@ export function PublisherKeyAbout() {
                               )}
                             </ContactHeaderContent>
                           </ContactHeader>
-                          <ContactContent className='g-mb-2'></ContactContent>
+                          <ContactContent className="g-mb-2"></ContactContent>
                           <ContactActions>
                             {contact.email &&
                               contact.email.map((email) => (
@@ -287,7 +303,7 @@ export function PublisherKeyAbout() {
             )}
           </div>
           {!removeSidebar && (
-            <aside className='g-flex-none g-min-w-80 g-w-80 g-ml-4'>
+            <aside className="g-flex-none g-min-w-80 g-w-80 g-ml-4">
               <ActivityReport />
               <Logo />
               <Map />
@@ -295,12 +311,12 @@ export function PublisherKeyAbout() {
             </aside>
           )}
           {removeSidebar && (
-            <div className='sm:g-flex g-flex-full'>
-              <div className='g-flex-[1_1_50%] g-me-2'>
+            <div className="sm:g-flex g-flex-full">
+              <div className="g-flex-[1_1_50%] g-me-2">
                 <ActivityReport />
                 <Map />
               </div>
-              <div className='g-flex-[1_1_50%] g-ms-2'>
+              <div className="g-flex-[1_1_50%] g-ms-2">
                 <Provenance />
                 <Logo />
               </div>
