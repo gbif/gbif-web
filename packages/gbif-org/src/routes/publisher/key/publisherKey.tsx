@@ -113,6 +113,18 @@ export function PublisherPage() {
 
   const deletedAt = publisher.deleted;
 
+  const tabs = [
+    { to: '.', children: 'About' }
+  ];
+  // only add occurrence tab if there are occurrences
+  if (occurrenceSearch?.documents.total > 0) {
+    tabs.push({ to: 'metrics', children: 'Occurrence metrics' });
+  }
+  // only add ciations tab if there are citations
+  if (literatureSearch?.documents.total > 0) {
+    tabs.push({ to: 'citations', children: 'Citations' });
+  }
+
   return (
     <article>
       <Helmet>
@@ -163,11 +175,11 @@ export function PublisherPage() {
                     />
                   </GenericFeature>
                 )}
-                {publisher?.numPublishedDatasets && publisher?.numPublishedDatasets > 0 && (
+                {(publisher?.numPublishedDatasets ?? 0) > 0 && (
                   <GenericFeature>
                     <FormattedMessage
                       id="counts.nPublishedDatasets"
-                      values={{ total: publisher.numPublishedDatasets }}
+                      values={{ total: publisher.numPublishedDatasets ?? 0 }}
                     />
                   </GenericFeature>
                 )}
@@ -193,12 +205,7 @@ export function PublisherPage() {
           </HeaderInfo>
           <div className="g-border-b g-mt-4"></div>
           <Tabs
-            links={[
-              { to: '.', children: 'About' },
-              { to: 'citations', children: 'Citations' },
-              { to: 'metrics', children: 'Occurrence metrics' },
-              // { to: 'citations', children: 'Citations' },
-            ]}
+            links={tabs}
           />
         </ArticleTextContainer>
       </PageContainer>
