@@ -87,6 +87,8 @@ export function OccurrenceSearchPage(): React.ReactElement {
         <title>Occurrence search</title>
       </Helmet>
 
+      <h1 className="g-text-2xl g-mb-2 g-font-bold">This page is a crude stub for search. For now it serves as a placeholder and easy access to individual records</h1>
+
       <InternalScrollHandler headerHeight={21}>
         <div className='g-p-2 g-border-b'>
           <TableFilters filters={filters} setFilter={setFilter} />

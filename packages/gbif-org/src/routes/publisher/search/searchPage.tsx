@@ -24,8 +24,9 @@ export function PublisherSearchPage(): React.ReactElement {
         <title>Publisher search</title>
       </Helmet>
 
-      <section>
-        {(!loading && data) && <ul>
+      <section className="g-m-4">
+        <h1 className="g-text-2xl g-mb-2 g-font-bold">This page is a crude stub for search. For now it serves as a placeholder and easy access to individual records</h1>
+        {(!loading && data) && <ul className="g-text-blue-400">
           {data.list.results.map((item) => ( 
             <li key={item.key}>
               <DynamicLink to={`/publisher/${item.key}`}>{item.title}</DynamicLink>
