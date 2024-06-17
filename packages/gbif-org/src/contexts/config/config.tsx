@@ -27,6 +27,7 @@ export type InputConfig = {
   openGraph?: {
     site_name: string; // e.g. 'GBIF'
   };
+  linkToGbifOrg?: boolean;
 };
 
 export type Config = InputConfig & Endpoints;

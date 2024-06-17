@@ -8,6 +8,7 @@ import { Groups } from './About/groups';
 import { HashLink } from 'react-router-hash-link';
 import { Aside, AsideSticky, SidebarLayout } from './pagelayouts';
 import useBelow from '@/hooks/useBelow';
+import { useConfig } from '@/contexts/config/config';
 
 const extensions = [
   'media',
@@ -36,6 +37,7 @@ const extensions = [
 ];
 
 export function OccurrenceKeyAbout() {
+  const config = useConfig();
   const { data } = useParentRouteLoaderData(RouteId.Occurrence) as { data: OccurrenceQuery };
   const hideSidebar = useBelow(1000);
   const [toc, setToc] = useState(
@@ -137,17 +139,17 @@ export function OccurrenceKeyAbout() {
                   </nav>
                 </Card>
 
-                <Card className='g-mt-4'>
+                {config.linkToGbifOrg && <Card className='g-mt-4'>
                   <nav>
                     <ul className='g-list-none g-m-0 g-p-0 g-my-2'>
                       <Li>
-                        <a href={`https://www.gbif.org/occurrence/${occurrence.key}`}>
+                        <a href={`${import.meta.env.PUBLIC_GBIF_ORG}/occurrence/${occurrence.key}`}>
                           View on GBIF.org
                         </a>
                       </Li>
                     </ul>
                   </nav>
-                </Card>
+                </Card>}
               </AsideSticky>
             </Aside>
           )}

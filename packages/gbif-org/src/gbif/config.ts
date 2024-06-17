@@ -68,4 +68,5 @@ export const gbifConfig: InputConfig = {
   openGraph: {
     site_name: 'GBIF',
   },
+  linkToGbifOrg: true,
 };
