@@ -78,7 +78,7 @@ export function InstitutionKey({
           <div className="g-flex g-mb-4">
             {imageUrl && !useInlineImage && (
               <div className="g-flex-none g-me-4">
-                <div className="g-bg-slate-200 g-rounded g-w-36 lg:g-w-96 xl:g-w-[30rem] g-overflow-hidden">
+                <div className="g-bg-slate-200 g-rounded g-w-36 lg:g-w-96 g-overflow-hidden">
                   <FeaturedImageContent
                     featuredImageUrl={imageUrl}
                     featuredImageLicense={
