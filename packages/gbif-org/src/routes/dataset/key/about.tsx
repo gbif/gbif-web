@@ -29,6 +29,8 @@ import { HyperText } from '@/components/HyperText';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import DashBoardLayout from '@/components/dashboard/DashboardLayout';
+import { Aside, AsideSticky, SidebarLayout } from '@/routes/occurrence/key/pagelayouts';
+import { GbifLinkCard, Separator, TocLi } from '@/components/TocHelp';
 
 export function DatasetKeyAbout() {
   const { data } = useParentRouteLoaderData(RouteId.Dataset) as { data: DatasetQuery };
@@ -127,16 +129,21 @@ export function DatasetKeyAbout() {
 
   const total = insights?.unfiltered?.documents?.total;
   return (
-    <ArticleContainer className='g-bg-slate-100 g-pt-4'>
-      <ArticleTextContainer className='g-max-w-screen-xl'>
-        <div className={`${removeSidebar ? '' : 'g-flex'}`}>
-          <div className='g-flex-grow'>
+    <ArticleContainer className="g-bg-slate-100 g-pt-4">
+      <ArticleTextContainer className="g-max-w-screen-xl">
+        {/* <div className={`${removeSidebar ? '' : 'g-flex'}`}> */}
+        <SidebarLayout
+          reverse
+          className="g-grid-cols-[1fr_250px] xl:g-grid-cols-[1fr_300px]"
+          stack={removeSidebar}
+        >
+          <div className="g-flex-grow">
             {insights?.siteOccurrences?.documents.total - total < 0 && (
               <div>
-                <Alert variant="default" className='g-mb-4'>
+                <Alert variant="theme" className="g-mb-4">
                   <AlertDescription>
                     <HyperText
-                      className='[&_a]:g-underline [&_a]:g-text-inherit'
+                      className="[&_a]:g-underline [&_a]:g-text-inherit"
                       text={scopeSmallerThanDatasetMessage}
                       sanitizeOptions={{ ALLOWED_TAGS: ['a', 'strong', 'em', 'p', 'br'] }}
                     />
@@ -145,7 +152,7 @@ export function DatasetKeyAbout() {
               </div>
             )}
 
-            <Card className='g-mb-4'>
+            <Card className="g-mb-4">
               <CardHeader>
                 <CardTitle>
                   <FormattedMessage id="dataset.description" />
@@ -154,29 +161,31 @@ export function DatasetKeyAbout() {
               <CardContent>
                 {dataset?.description && (
                   <div
-                    className='g-prose g-mb-6 g-max-w-full'
+                    className="g-prose g-mb-6 g-max-w-full"
                     dangerouslySetInnerHTML={{ __html: dataset.description }}
                   ></div>
                 )}
               </CardContent>
-              <CardContent>
-                <hr className='g-my-4' />
-                <p className='g-text-slate-400 g-mb-2 g-text-sm'>Derrived from occurrence data</p>
-                <DashBoardLayout>
-                  <charts.OccurrenceSummary predicate={predicate} />
-                  <charts.DataQuality predicate={predicate} />
-                </DashBoardLayout>
-              </CardContent>
+              {total > 0 && (
+                <CardContent>
+                  <hr className="g-my-4" />
+                  <p className="g-text-slate-400 g-mb-2 g-text-sm">Derrived from occurrence data</p>
+                  <DashBoardLayout>
+                    <charts.OccurrenceSummary predicate={predicate} />
+                    <charts.DataQuality predicate={predicate} />
+                  </DashBoardLayout>
+                </CardContent>
+              )}
             </Card>
 
             {insights?.images?.documents?.total > 0 && (
               <>
-                <Images images={insights?.images} dataset={dataset} className='g-mb-4' />
+                <Images images={insights?.images} dataset={dataset} className="g-mb-4" />
               </>
             )}
 
             {dataset?.purpose && (
-              <Card className='g-mb-4'>
+              <Card className="g-mb-4">
                 <CardHeader>
                   <CardTitle>
                     <FormattedMessage id="dataset.purpose" />
@@ -184,14 +193,14 @@ export function DatasetKeyAbout() {
                 </CardHeader>
                 <CardContent>
                   <div
-                    className='g-prose g-mb-6 g-max-w-full'
+                    className="g-prose g-mb-6 g-max-w-full"
                     dangerouslySetInnerHTML={{ __html: dataset.purpose }}
                   ></div>
                 </CardContent>
               </Card>
             )}
             {dataset?.geographicCoverages && dataset?.geographicCoverages?.length > 0 && (
-              <Card className='g-mb-4'>
+              <Card className="g-mb-4">
                 <CardHeader>
                   <CardTitle>
                     <FormattedMessage id="dataset.geographicCoverages" />
@@ -200,26 +209,30 @@ export function DatasetKeyAbout() {
                 <CardContent>
                   <GeographicCoverages geographicCoverages={dataset.geographicCoverages} />
                 </CardContent>
-                <CardContent>
-                  <hr className='g-my-4' />
-                  <p className='g-text-slate-400 g-mb-2 g-text-sm'>Derrived from occurrence data</p>
-                  <DashBoardLayout>
-                    <charts.Country
-                      predicate={predicate}
-                      visibilityThreshold={0}
-                      interactive={false}
-                    />
-                    <charts.GadmGid
-                      predicate={predicate}
-                      visibilityThreshold={0}
-                      interactive={false}
-                    />
-                  </DashBoardLayout>
-                </CardContent>
+                {total > 0 && (
+                  <CardContent>
+                    <hr className="g-my-4" />
+                    <p className="g-text-slate-400 g-mb-2 g-text-sm">
+                      Derrived from occurrence data
+                    </p>
+                    <DashBoardLayout>
+                      <charts.Country
+                        predicate={predicate}
+                        visibilityThreshold={0}
+                        interactive={false}
+                      />
+                      <charts.GadmGid
+                        predicate={predicate}
+                        visibilityThreshold={0}
+                        interactive={false}
+                      />
+                    </DashBoardLayout>
+                  </CardContent>
+                )}
               </Card>
             )}
             {dataset?.temporalCoverages && dataset?.temporalCoverages?.length > 0 && (
-              <Card className='g-mb-4'>
+              <Card className="g-mb-4">
                 <CardHeader>
                   <CardTitle>
                     <FormattedMessage id="dataset.temporalCoverages" />
@@ -228,28 +241,32 @@ export function DatasetKeyAbout() {
                 <CardContent>
                   <TemporalCoverages temporalCoverages={dataset.temporalCoverages} />
                 </CardContent>
-                <CardContent>
-                  <hr className='g-my-4' />
-                  <p className='g-text-slate-400 g-mb-2 g-text-sm'>Derrived from occurrence data</p>
-                  <DashBoardLayout>
-                    <charts.EventDate
-                      predicate={predicate}
-                      visibilityThreshold={1}
-                      options={['TIME']}
-                      interactive={false}
-                    />
-                    <charts.Months
-                      predicate={predicate}
-                      defaultOption="COLUMN"
-                      visibilityThreshold={0}
-                      interactive={false}
-                    />
-                  </DashBoardLayout>
-                </CardContent>
+                {total > 0 && (
+                  <CardContent>
+                    <hr className="g-my-4" />
+                    <p className="g-text-slate-400 g-mb-2 g-text-sm">
+                      Derrived from occurrence data
+                    </p>
+                    <DashBoardLayout>
+                      <charts.EventDate
+                        predicate={predicate}
+                        visibilityThreshold={1}
+                        options={['TIME']}
+                        interactive={false}
+                      />
+                      <charts.Months
+                        predicate={predicate}
+                        defaultOption="COLUMN"
+                        visibilityThreshold={0}
+                        interactive={false}
+                      />
+                    </DashBoardLayout>
+                  </CardContent>
+                )}
               </Card>
             )}
             {dataset?.taxonomicCoverages && dataset?.taxonomicCoverages?.length > 0 && (
-              <Card className='g-mb-4'>
+              <Card className="g-mb-4">
                 <CardHeader>
                   <CardTitle>
                     <FormattedMessage id="dataset.taxonomicCoverages" />
@@ -258,15 +275,23 @@ export function DatasetKeyAbout() {
                 <CardContent>
                   <TaxonomicCoverages taxonomicCoverages={dataset.taxonomicCoverages} />
                 </CardContent>
-                <CardContent>
-                  <hr className='g-my-4' />
-                  <p className='g-text-slate-400 g-mb-2 g-text-sm'>Derrived from occurrence data</p>
-                  <charts.Taxa predicate={predicate} visibilityThreshold={0} interactive={false} />
-                </CardContent>
+                {total > 0 && (
+                  <CardContent>
+                    <hr className="g-my-4" />
+                    <p className="g-text-slate-400 g-mb-2 g-text-sm">
+                      Derrived from occurrence data
+                    </p>
+                    <charts.Taxa
+                      predicate={predicate}
+                      visibilityThreshold={0}
+                      interactive={false}
+                    />
+                  </CardContent>
+                )}
               </Card>
             )}
             {hasSamplingDescription && (
-              <Card className='g-mb-4'>
+              <Card className="g-mb-4">
                 <CardHeader>
                   <CardTitle>
                     <FormattedMessage id="dataset.methodology" />
@@ -281,7 +306,7 @@ export function DatasetKeyAbout() {
               <section>
                 <CardHeader>
                   <CardTitle>
-                    <span className='g-me-2'>
+                    <span className="g-me-2">
                       <FormattedMessage id="dataset.metrics" />
                     </span>
                     <SimpleTooltip
@@ -293,9 +318,14 @@ export function DatasetKeyAbout() {
                     </SimpleTooltip>
                   </CardTitle>
                 </CardHeader>
-                <div className='g-text-slate-500'>
+                <div className="g-text-slate-500">
                   <ClientSideOnly>
                     <DashBoardLayout>
+                      <charts.OccurrenceIssue
+                        predicate={predicate}
+                        visibilityThreshold={0}
+                        interactive={false}
+                      />
                       <charts.Iucn
                         predicate={predicate}
                         visibilityThreshold={0}
@@ -312,18 +342,13 @@ export function DatasetKeyAbout() {
                         defaultOption="TABLE"
                         interactive={false}
                       />
-                      <charts.OccurrenceIssue
-                        predicate={predicate}
-                        visibilityThreshold={0}
-                        interactive={false}
-                      />
                     </DashBoardLayout>
                   </ClientSideOnly>
                 </div>
               </section>
             )}
             {dataset?.additionalInfo && (
-              <Card className='g-mb-4'>
+              <Card className="g-mb-4">
                 <CardHeader>
                   <CardTitle>
                     <FormattedMessage id="dataset.additionalInfo" />
@@ -331,14 +356,14 @@ export function DatasetKeyAbout() {
                 </CardHeader>
                 <CardContent>
                   <div
-                    className='g-prose g-mb-6 g-max-w-full'
+                    className="g-prose g-mb-6 g-max-w-full"
                     dangerouslySetInnerHTML={{ __html: dataset.additionalInfo }}
                   ></div>
                 </CardContent>
               </Card>
             )}
             {dataset?.volatileContributors && dataset.volatileContributors.length > 0 && (
-              <Card className='g-mb-4'>
+              <Card className="g-mb-4">
                 <CardHeader>
                   <CardTitle>
                     <FormattedMessage id="dataset.contacts" />
@@ -350,7 +375,7 @@ export function DatasetKeyAbout() {
               </Card>
             )}
             {dataset?.bibliographicCitations && dataset.bibliographicCitations.length > 0 && (
-              <Card className='g-mb-4'>
+              <Card className="g-mb-4">
                 <CardHeader>
                   <CardTitle>
                     <FormattedMessage id="dataset.bibliography" />
@@ -363,7 +388,7 @@ export function DatasetKeyAbout() {
                 </CardContent>
               </Card>
             )}
-            <Card className='g-mb-4'>
+            <Card className="g-mb-4">
               <CardHeader>
                 <CardTitle>
                   <FormattedMessage id="dataset.registration" />
@@ -373,7 +398,7 @@ export function DatasetKeyAbout() {
                 <Registration dataset={dataset} />
               </CardContent>
             </Card>
-            <Card className='g-mb-4'>
+            <Card className="g-mb-4">
               <CardHeader>
                 <CardTitle>
                   <FormattedMessage id="dataset.registration" />
@@ -385,12 +410,27 @@ export function DatasetKeyAbout() {
             </Card>
           </div>
           {!removeSidebar && (
-            <aside className='g-flex-none g-min-w-80 g-w-80 g-ml-4'>
-              TOC and other side bar content here
-              {/* {JSON.stringify(insights?.siteOccurrences, null, 2)} */}
-            </aside>
+            <Aside>
+              <AsideSticky className="-g-mt-4">
+                <Card>
+                  <nav>
+                    <ul className="g-list-none g-m-0 g-p-0 g-my-2">
+                      <TocLi to="#description">Description</TocLi>
+                      <TocLi to="#geographic-description">Geographic description</TocLi>
+                      <TocLi to="#temporal-description">Temporal description</TocLi>
+                      <TocLi to="#taxonomic-description">Taxonomic description</TocLi>
+                      <TocLi to="#metrics">Metrics</TocLi>
+                      <TocLi to="#additional-info">Additional info</TocLi>
+                      <TocLi to="#gbif-registration">GBIF registration</TocLi>
+                      <TocLi to="#citation">Citation</TocLi>
+                    </ul>
+                  </nav>
+                </Card>
+                <GbifLinkCard path={`/dataset/${dataset.key}`} />
+              </AsideSticky>
+            </Aside>
           )}
-        </div>
+        </SidebarLayout>
       </ArticleTextContainer>
     </ArticleContainer>
   );

@@ -23,24 +23,32 @@ export function GbifLinkCard({ path, className }: { path: string; className?: st
 export function TocLi({
   to,
   toc,
+  href,
   children,
   ...props
 }: {
   to?: string;
+  href?: string;
   toc?: { [key: string]: boolean };
   children: React.ReactNode;
 } & React.ComponentProps<'li'>) {
   const className =
     'g-block g-border-l [&_a]:g-block g-text-sm g-px-4 g-py-1 g-border-transparent hover:g-border-slate-400 dark:hover:g-border-slate-500 g-text-slate-700 hover:g-text-slate-900 dark:g-text-slate-400 dark:hover:g-text-slate-300';
   if (to) {
-    // if (toc && !toc[to.substr(1)]) {
-    //   return null;
-    // }
     return (
       <li className={className} {...props}>
         <HashLink to={to} replace>
           {children}
         </HashLink>
+      </li>
+    );
+  }
+  if (href) {
+    return (
+      <li className={className} {...props}>
+        <a href={href} target="_blank" rel="noopener noreferrer">
+          {children}
+        </a>
       </li>
     );
   }

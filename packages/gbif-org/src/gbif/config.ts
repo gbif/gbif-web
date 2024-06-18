@@ -61,7 +61,8 @@ export const gbifConfig: InputConfig = {
     ],
   },
   theme: {
-    primary: '#4787fb',//'#69AA69',
+    // primary: '#4787fb',//'#69AA69',
+    primary: '#69AA69',
     stickyOffset: '40px',
   },
   baseUrl,
