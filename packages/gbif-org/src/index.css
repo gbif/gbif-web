@@ -107,7 +107,7 @@
 }
 
 .gb-button-variant-default {
-  @apply g-bg-primary g-text-primaryContrast g-shadow hover:g-bg-primary/90;
+  @apply g-bg-primary !g-text-primaryContrast g-shadow hover:g-bg-primary/90;
 }
 
 .gb-button-size-default {
