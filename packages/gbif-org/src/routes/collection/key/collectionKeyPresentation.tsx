@@ -32,6 +32,7 @@ import useBelow from '@/hooks/useBelow';
 import { SimpleTooltip } from '@/components/SimpleTooltip';
 import { MdInfo } from 'react-icons/md';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
+import { HashLink } from 'react-router-hash-link';
 
 const GBIF_REGISTRY_ENDPOINT = 'https://registry.gbif.org';
 const contactThreshold = 5;
@@ -186,15 +187,17 @@ export function CollectionKey({
                       {contacts.length > 0 && (
                         <GenericFeature>
                           <PeopleIcon />
-                          {contacts.length < contactThreshold && (
-                            <span>{contacts.join(' • ')}</span>
-                          )}
-                          {contacts.length >= contactThreshold && (
-                            <FormattedMessage
-                              id="counts.nStaffMembers"
-                              values={{ total: contacts.length }}
-                            />
-                          )}
+                          <HashLink to="#contact">
+                            {contacts.length < contactThreshold && (
+                              <span>{contacts.join(' • ')}</span>
+                            )}
+                            {contacts.length >= contactThreshold && (
+                              <FormattedMessage
+                                id="counts.nStaffMembers"
+                                values={{ total: contacts.length }}
+                              />
+                            )}
+                          </HashLink>
                         </GenericFeature>
                       )}
                     </FeatureList>

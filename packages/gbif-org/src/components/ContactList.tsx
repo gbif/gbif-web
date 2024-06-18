@@ -4,9 +4,10 @@ import { MdMail, MdPhone } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import EmptyValue from './EmptyValue';
 import { Details } from './Details';
-import Properties, { Term, Value } from './Properties';
+import Properties, { Property, Term, Value } from './Properties';
 import { Card, CardContent } from './ui/largeCard';
 import { cn } from '@/utils/shadcn';
+import { HyperText } from './HyperText';
 
 export function ContactList({ contacts = [], className, ...props }) {
   return (
@@ -45,18 +46,18 @@ function Contact({ contact, ...props }) {
   const orcid = userId.find((x) => x.indexOf('orcid.org') != -1);
 
   const summary = (
-    <div className='g-py-2 g-flex g-items-start'>
-      <div className='g-flex-auto g-w-1/3'>
+    <div className="g-py-2 g-flex g-items-start">
+      <div className="g-flex-auto g-w-1/3">
         <div>
-          <h4 className='g-font-semibold'>
+          <h4 className="g-font-semibold">
             {name || contact.organization || <EmptyValue id="phrases.unknown" />}
           </h4>
           {/* <div className='gb-discreet'>{roles && Roles}</div> */}
         </div>
       </div>
-      <div className='g-flex-auto g-w-1/3 g-text-slate-500'>{roles && Roles}</div>
-      <div className='g-flex-auto g-w-1/3 g-flex g-justify-end'>
-        <div className='g-flex g-items-center'>
+      <div className="g-flex-auto g-w-1/3 g-text-slate-500">{roles.length > 0 && Roles}</div>
+      <div className="g-flex-auto g-w-1/3 g-flex g-justify-end">
+        <div className="g-flex g-items-center">
           {orcid && (
             <a
               href={orcid}
@@ -80,9 +81,9 @@ function Contact({ contact, ...props }) {
 
   return (
     <Details summary={summary} iconClassName="g-py-2">
-      <div className='g-mb-2 g-mt-1'>
+      <div className="g-mb-2 g-mt-1">
         <Card>
-          <CardContent className='g-mt-4 g-pb-4 md:g-pb-4'>
+          <CardContent className="g-mt-4 g-pb-4 md:g-pb-4">
             <Properties breakpoint={800} useDefaultTermWidths>
               {['organization', 'position', 'address', 'city', 'province', 'postalCode'].map(
                 (f) => (
@@ -103,11 +104,44 @@ function Contact({ contact, ...props }) {
                 />
               )}
 
-              {roles && <Field field="roles" contact={contact} value={Roles} />}
+              {roles.length > 0 && <Field field="roles" contact={contact} value={Roles} />}
 
-              {['homepage', 'email', 'phone', 'userId'].map((f) => (
-                <ArrayField isHyperText field={f} contact={contact} key={f} />
-              ))}
+              <Property
+                labelId="contact.email"
+                value={contact.email}
+                formatter={(email) => (
+                  <a href={`mailto:${email}`} target="_blank" rel="noopener noreferrer">
+                    {email}
+                  </a>
+                )}
+              />
+              <Property
+                labelId="contact.homepage"
+                value={contact.homepage}
+                formatter={(item) => (
+                  <a href={`${item}`} target="_blank" rel="noopener noreferrer">
+                    {item}
+                  </a>
+                )}
+              />
+              <Property
+                labelId="contact.phone"
+                value={contact.phone}
+                formatter={(item) => (
+                  <a href={`tel:${item}`} target="_blank" rel="noopener noreferrer">
+                    {item}
+                  </a>
+                )}
+              />
+              <Property
+                labelId="contact.userId"
+                value={contact.userId}
+                formatter={(item) => (
+                  <a href={`${item}`} target="_blank" rel="noopener noreferrer">
+                    {item}
+                  </a>
+                )}
+              />
             </Properties>
           </CardContent>
         </Card>

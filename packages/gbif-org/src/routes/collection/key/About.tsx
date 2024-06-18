@@ -199,7 +199,7 @@ export default function About() {
               </ClientSideOnly>
             </section> */}
 
-            <Card className="g-mb-4">
+            <Card className="g-mb-4" id="contact">
               <CardHeader>
                 <CardTitle>
                   <FormattedMessage id="dataset.contacts" />
