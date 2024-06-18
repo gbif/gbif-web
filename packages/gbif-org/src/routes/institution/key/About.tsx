@@ -29,10 +29,15 @@ import {
   Card as CardSmall,
   CardTitle as CardTitleSmall,
 } from '@/components/ui/smallCard';
+import { BulletList } from '@/components/BulletList';
+import { getCount } from '@/components/count';
+import { useParams } from 'react-router-dom';
 // import { MdMap } from 'react-icons/md';
 
 export default function About() {
+  const { key }  = useParams();
   const { data } = useParentRouteLoaderData(RouteId.Institution) as { data: InstitutionQuery };
+  const { count, loading } = getCount({ v1Endpoint: '/occurrence/search', params: { institutionKey: key } });
   const removeSidebar = useBelow(1100);
   const useInlineImage = useBelow(700);
   const { institution } = data;
@@ -72,6 +77,11 @@ export default function About() {
                     value={institution.numberSpecimens}
                     labelId="institution.numberSpecimens"
                   />
+                  {!loading && count && <Property
+                    labelId="grscicoll.specimensViaGbif"
+                  >
+                    <FormattedNumber value={count} />
+                  </Property>}
                   {/* {occurrenceSearch?.documents?.total > 0 && (
                   <Property
                     value={occurrenceSearch?.documents?.total}
@@ -301,7 +311,16 @@ export default function About() {
                           </ContactHeaderContent>
                         </ContactHeader>
                         <ContactContent className="g-mb-2">
-                          {contact.taxonomicExpertise}
+                          {contact.taxonomicExpertise.length > 0 && (
+                            <>
+                              Taxonomic expertice:{' '}
+                              <BulletList>
+                                {contact.taxonomicExpertise.map((expertise) => (
+                                  <li key={expertise}>{expertise}</li>
+                                ))}
+                              </BulletList>
+                            </>
+                          )}
                         </ContactContent>
                         <ContactActions>
                           {contact.email &&
@@ -471,32 +490,34 @@ export default function About() {
                 </CardContentSmall> */}
                 </CardSmall>
               )}
-              <CardSmall className="g-mb-4 g-sticky g-top-[--stickyOffset] g-p-4">
-                <ul className="g-list-none g-px-4 g-py-2">
-                  <li className="g-py-1">
-                    <a href="#description">
-                      <FormattedMessage id="Description" />
-                    </a>
-                  </li>
-                  {institution?.collections && institution?.collections?.length > 0 && (
+              <div className="g-pt-4 g-sticky g-top-[--stickyOffset] ">
+                <CardSmall className="g-mb-4">
+                  <ul className="g-list-none g-px-4 g-py-2">
                     <li className="g-py-1">
-                      <a href="#collections">
-                        <FormattedMessage id="Collections" />
+                      <a href="#description">
+                        <FormattedMessage id="Description" />
                       </a>
                     </li>
-                  )}
-                  <li className="g-py-1">
-                    <a href="#contacts">
-                      <FormattedMessage id="Contacts" />
-                    </a>
-                  </li>
-                  <li className="g-py-1">
-                    <a href="#identifiers">
-                      <FormattedMessage id="Identifiers" />
-                    </a>
-                  </li>
-                </ul>
-              </CardSmall>
+                    {institution?.collections && institution?.collections?.length > 0 && (
+                      <li className="g-py-1">
+                        <a href="#collections">
+                          <FormattedMessage id="Collections" />
+                        </a>
+                      </li>
+                    )}
+                    <li className="g-py-1">
+                      <a href="#contacts">
+                        <FormattedMessage id="Contacts" />
+                      </a>
+                    </li>
+                    <li className="g-py-1">
+                      <a href="#identifiers">
+                        <FormattedMessage id="Identifiers" />
+                      </a>
+                    </li>
+                  </ul>
+                </CardSmall>
+              </div>
             </aside>
           )}
         </div>

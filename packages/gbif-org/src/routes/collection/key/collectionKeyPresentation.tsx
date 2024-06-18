@@ -56,8 +56,8 @@ export function CollectionKey({
 
   // if there is occurrences, then add a specimens tab
   if (occurrenceSearch?.documents.total > 0) {
-    tabs.push({ to: 'specimen', children: 'Specimens' });
     tabs.push({ to: 'dashboard', children: 'Dashboard' });
+    tabs.push({ to: 'specimen', children: 'Specimens' });
   }
 
   // if there is at least a countryCode for thee address, then use that, else fall back to the mailing address
