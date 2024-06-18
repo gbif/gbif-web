@@ -77,24 +77,11 @@ export default function About() {
                     value={institution.numberSpecimens}
                     labelId="institution.numberSpecimens"
                   />
-                  {!loading && count && <Property
+                  {!loading && (count > 0) && <Property
                     labelId="grscicoll.specimensViaGbif"
                   >
                     <FormattedNumber value={count} />
                   </Property>}
-                  {/* {occurrenceSearch?.documents?.total > 0 && (
-                  <Property
-                    value={occurrenceSearch?.documents?.total}
-                    labelId="grscicoll.specimensViaGbif"
-                    formatter={(count) => {
-                      return (
-                        <ResourceLink type="institutionKeySpecimens" id={institution.key}>
-                          <FormattedNumber value={count} />
-                        </ResourceLink>
-                      );
-                    }}
-                  />
-                )} */}
                   <Property value={institution.catalogUrls} labelId="grscicoll.catalogUrl" />
                   <Property value={institution.apiUrls} labelId="grscicoll.apiUrl" />
                   <Property

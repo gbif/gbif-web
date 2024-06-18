@@ -66,7 +66,7 @@ export function CollectionKey({
     : collection?.mailingAddress;
   const feedbackTemplate = `Please provide your feedback here, but leave content below for context\n\n---\nRelating to ${GBIF_REGISTRY_ENDPOINT}/collection/${collection.key}`;
   const contacts = collection?.contactPersons
-    .filter((x) => x?.firstName)
+    .filter((x) => x?.firstName || x?.lastName)
     .map((x) => `${x?.firstName ?? ''} ${x?.lastName ?? ''}`);
 
   const imageUrl = collection.featuredImageUrl ?? collection.featuredImageUrl_fallback;
@@ -170,9 +170,9 @@ export function CollectionKey({
                       </GenericFeature>
                     )}
                   </FeatureList>
-                  {collection?.catalogUrls && collection?.catalogUrls?.length > 0 && (
+                  {(collection?.catalogUrls?.length ?? 0) > 0 || contacts.length > 0 && (
                     <FeatureList>
-                      <GenericFeature>
+                      {collection.catalogUrls && <GenericFeature>
                         <CatalogIcon />
                         <span>
                           <a href={collection.catalogUrls[0]}>
@@ -182,7 +182,7 @@ export function CollectionKey({
                             />
                           </a>
                         </span>
-                      </GenericFeature>
+                      </GenericFeature>}
                       {contacts.length > 0 && (
                         <GenericFeature>
                           <PeopleIcon />
