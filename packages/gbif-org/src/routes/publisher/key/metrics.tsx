@@ -58,13 +58,6 @@ export function PublisherKeyMetrics() {
               <CardHeader>
                 <CardTitle>
                   <span className="g-me-2">Citation metrics</span>
-                  <SimpleTooltip
-                    title={<FormattedMessage id="dataset.metricsOccurrenceHelpText" />}
-                  >
-                    <span>
-                      <MdInfoOutline style={{ verticalAlign: 'middle' }} />
-                    </span>
-                  </SimpleTooltip>
                 </CardTitle>
               </CardHeader>
               <DashBoardLayout>
@@ -95,13 +88,6 @@ export function PublisherKeyMetrics() {
               <CardHeader>
                 <CardTitle>
                   <span className="g-me-2">Occurrence metrics</span>
-                  <SimpleTooltip
-                    title={<FormattedMessage id="dataset.metricsOccurrenceHelpText" />}
-                  >
-                    <span>
-                      <MdInfoOutline style={{ verticalAlign: 'middle' }} />
-                    </span>
-                  </SimpleTooltip>
                 </CardTitle>
               </CardHeader>
               <DashBoardLayout>
