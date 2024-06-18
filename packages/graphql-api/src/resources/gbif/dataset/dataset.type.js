@@ -103,7 +103,7 @@ const typeDef = gql`
     description: String
     doi: String
     duplicateOfDatasetKey: ID
-    endpoints: [Endpoint]
+    endpoints: [Endpoint!]
     external: Boolean
     geographicCoverages: [GeographicCoverage]
     homepage: URL
