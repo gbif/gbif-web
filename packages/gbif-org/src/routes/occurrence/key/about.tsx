@@ -3,12 +3,13 @@ import { OccurrenceQuery, Term } from '@/gql/graphql';
 import { RouteId, useParentRouteLoaderData } from '@/hooks/useParentRouteLoaderData';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Groups } from './About/groups';
 import { HashLink } from 'react-router-hash-link';
 import { Aside, AsideSticky, SidebarLayout } from './pagelayouts';
 import useBelow from '@/hooks/useBelow';
 import { useConfig } from '@/contexts/config/config';
+import { TocLi as Li, Separator } from '@/components/TocHelp';
 
 const extensions = [
   'media',
@@ -63,21 +64,21 @@ export function OccurrenceKeyAbout() {
     }, {}) ?? {};
 
   const showAll = false;
-  const isProbablyNotInOcean = occurrence.countryCode
+  const isProbablyNotInOcean = occurrence.countryCode;
   const overviewZoom = isProbablyNotInOcean ? 5 : 1;
   const sateliteZoom = isProbablyNotInOcean ? 14 : 1;
-  
+
   const showExtensions = !!extensions.find((section) => toc[section]);
 
   return (
-    <ArticleContainer className='g-bg-slate-100 g-pt-4'>
-      <ArticleTextContainer className='g-max-w-screen-xl'>
+    <ArticleContainer className="g-bg-slate-100 g-pt-4">
+      <ArticleTextContainer className="g-max-w-screen-xl">
         <SidebarLayout
           reverse
-          className='g-grid-cols-[250px_1fr] xl:g-grid-cols-[300px_1fr]'
+          className="g-grid-cols-[250px_1fr] xl:g-grid-cols-[300px_1fr]"
           stack={hideSidebar}
         >
-          <div className='g-order-last'>
+          <div className="g-order-last">
             <Groups
               occurrence={occurrence}
               showAll={showAll}
@@ -88,13 +89,13 @@ export function OccurrenceKeyAbout() {
           {!hideSidebar && (
             <Aside className="">
               {occurrence.coordinates?.lon && (
-                <Card className=''>
-                  <HashLink to="#location" replace className='g-block g-relative g-group'>
+                <Card className="">
+                  <HashLink to="#location" replace className="g-block g-relative g-group">
                     <img
                       src={`https://api.mapbox.com/styles/v1/mapbox/light-v9/static/pin-s-circle+285A98(${occurrence.coordinates.lon},${occurrence.coordinates.lat})/${occurrence.coordinates.lon},${occurrence.coordinates.lat},${overviewZoom},0/250x180@2x?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA`}
                     />
                     <img
-                      className='g-absolute g-opacity-0 g-top-0 group-hover:g-opacity-100 g-transition-opacity gb-on-hover'
+                      className="g-absolute g-opacity-0 g-top-0 group-hover:g-opacity-100 g-transition-opacity gb-on-hover"
                       src={`https://api.mapbox.com/styles/v1/mapbox/satellite-v9/static/pin-s-circle+285A98(${occurrence.coordinates.lon},${occurrence.coordinates.lat})/${occurrence.coordinates.lon},${occurrence.coordinates.lat},${sateliteZoom},0/250x180@2x?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA`}
                     />
                   </HashLink>
@@ -103,7 +104,7 @@ export function OccurrenceKeyAbout() {
               <AsideSticky>
                 <Card>
                   <nav>
-                    <ul className='g-list-none g-m-0 g-p-0 g-my-2'>
+                    <ul className="g-list-none g-m-0 g-p-0 g-my-2">
                       {/* <Li to="#summary">Summary</Li>
                       <Separator /> */}
                       {toc['geological-context'] && (
@@ -139,17 +140,21 @@ export function OccurrenceKeyAbout() {
                   </nav>
                 </Card>
 
-                {config.linkToGbifOrg && <Card className='g-mt-4'>
-                  <nav>
-                    <ul className='g-list-none g-m-0 g-p-0 g-my-2'>
-                      <Li>
-                        <a href={`${import.meta.env.PUBLIC_GBIF_ORG}/occurrence/${occurrence.key}`}>
-                          View on GBIF.org
-                        </a>
-                      </Li>
-                    </ul>
-                  </nav>
-                </Card>}
+                {config.linkToGbifOrg && (
+                  <Card className="g-mt-4">
+                    <nav>
+                      <ul className="g-list-none g-m-0 g-p-0 g-my-2">
+                        <Li>
+                          <a
+                            href={`${import.meta.env.PUBLIC_GBIF_ORG}/occurrence/${occurrence.key}`}
+                          >
+                            View on GBIF.org
+                          </a>
+                        </Li>
+                      </ul>
+                    </nav>
+                  </Card>
+                )}
               </AsideSticky>
             </Aside>
           )}
@@ -157,35 +162,4 @@ export function OccurrenceKeyAbout() {
       </ArticleTextContainer>
     </ArticleContainer>
   );
-}
-
-function Li({
-  to,
-  toc,
-  children,
-  ...props
-}: {
-  to?: string;
-  toc?: { [key: string]: boolean };
-  children: React.ReactNode;
-} & React.ComponentProps<'li'>) {
-  const className =
-    'g-block g-border-l [&_a]:g-block g-text-sm g-px-4 g-py-1 g-border-transparent hover:g-border-slate-400 dark:hover:g-border-slate-500 g-text-slate-700 hover:g-text-slate-900 dark:g-text-slate-400 dark:hover:g-text-slate-300';
-  if (to) {
-    // if (toc && !toc[to.substr(1)]) {
-    //   return null;
-    // }
-    return (
-      <li className={className} {...props}>
-        <HashLink to={to} replace>
-          {children}
-        </HashLink>
-      </li>
-    );
-  }
-  return <li className={className} {...props} children={children} />;
-}
-
-function Separator(props) {
-  return <li className='g-my-1 g-border-t g-border-slate-100'></li>;
 }

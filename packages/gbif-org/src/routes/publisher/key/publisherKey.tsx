@@ -35,7 +35,7 @@ const PUBLISHER_QUERY = /* GraphQL */ `
       created
       homepage
       numPublishedDatasets
-      logoUrl
+      logoUrl: thumborLogoUrl(height: 500, width: 500, fitIn: true)
 
       latitude
       longitude
@@ -118,7 +118,7 @@ export function PublisherPage() {
   ];
   // only add occurrence tab if there are occurrences
   if (occurrenceSearch?.documents.total > 0) {
-    tabs.push({ to: 'metrics', children: 'Occurrence metrics' });
+    tabs.push({ to: 'metrics', children: 'Metrics' });
   }
   // only add ciations tab if there are citations
   if (literatureSearch?.documents.total > 0) {

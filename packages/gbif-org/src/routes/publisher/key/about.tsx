@@ -10,6 +10,7 @@ import {
   ContactTitle,
 } from '@/components/Contact';
 import EmptyValue from '@/components/EmptyValue';
+import { GbifLinkCard } from '@/components/TocHelp';
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { DynamicLink } from '@/components/dynamicLink';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
@@ -70,7 +71,7 @@ export function PublisherKeyAbout() {
           <ClientSideOnly>
             <img
               className="g-m-auto g-max-w-100 g-max-h-48"
-              src={'sdf'}
+              src={publisher?.logoUrl}
               alt=""
               onError={(e) => {
                 // show gray background if image fails to load
@@ -159,11 +160,11 @@ export function PublisherKeyAbout() {
                   {publisher.endorsingNode.title}
                 </a>
               </CardTitleSmall>
-              <p>
+              <div className="g-text-sm g-text-slate-600">
                 Publishers need to be endorsed by a GBIF Participant Node. This endorsement confirms
                 that the publisher is a legitimate organization and that it is committed to sharing
                 biodiversity data through GBIF.
-              </p>
+              </div>
             </div>
           )}
           {publisher?.installation?.count === 1 && (
@@ -174,11 +175,11 @@ export function PublisherKeyAbout() {
                   <DynamicLink to={`/installation/${x.key}`}>{x.title}</DynamicLink>
                 ))}
               </CardTitleSmall>
-              <p>
+              <div className="g-text-sm g-text-slate-600">
                 Some publishers run their own technical installations through which data is
                 published to GBIF. Some installations are collaborations and may be shared by
                 multiple publishers.
-              </p>
+              </div>
             </div>
           )}
           {publisher?.installation?.count > 1 && (
@@ -193,11 +194,11 @@ export function PublisherKeyAbout() {
                   ))}
                 </ul>
               </CardTitleSmall>
-              <p>
+              <div className="g-text-sm g-text-slate-600">
                 Some publishers run their own technical installations through which data is
                 published to GBIF. Some installations are collaborations and may be shared by
                 multiple publishers.
-              </p>
+              </div>
             </div>
           )}
           {technicalContact?.email && (
@@ -208,10 +209,10 @@ export function PublisherKeyAbout() {
                   {technicalContact.firstName} {technicalContact.lastName}
                 </a>
               </CardTitleSmall>
-              <p>
+              <div className="g-text-sm g-text-slate-600">
                 Who to get in contact with in case of IT related questions. Not for biodiversity
                 specific questions.
-              </p>
+              </div>
             </div>
           )}
           {publisher.country && (
@@ -219,10 +220,10 @@ export function PublisherKeyAbout() {
               <CardTitleSmall className="g-mb-2">
                 Country or area: <FormattedMessage id={`enums.countryCode.${publisher.country}`} />
               </CardTitleSmall>
-              <p>
+              <div className="g-text-sm g-text-slate-600">
                 The country or area where the publisher is located. For international organizations,
                 this is the country where the main office is located.
-              </p>
+              </div>
             </div>
           )}
         </CardContentSmall>
@@ -308,6 +309,7 @@ export function PublisherKeyAbout() {
               <Logo />
               <Map />
               <Provenance />
+              <GbifLinkCard path={`/publisher/${publisher.key}`} />
             </aside>
           )}
           {removeSidebar && (
