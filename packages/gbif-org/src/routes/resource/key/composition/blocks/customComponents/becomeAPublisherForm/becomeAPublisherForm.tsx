@@ -185,7 +185,7 @@ export function BecomeAPublisherForm({ className }: Props) {
   );
 
   return (
-    <BlockContainer className={cn('g-bg-white', className)}>
+    <BlockContainer className={cn('g-bg-white g-overflow-visible', className)}>
       <ClientSideOnly>
         <StepperForm form={form} onSubmit={onSubmit} steps={STEPS} />
       </ClientSideOnly>
