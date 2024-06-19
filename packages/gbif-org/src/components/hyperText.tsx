@@ -3,9 +3,7 @@ import doiRegex from 'doi-regex';
 import EmptyValue from './emptyValue';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { DoiTag, Lsid, OrcId } from './identifierTag';
-// import { sanitize } from "isomorphic-dompurify"; TODO only works in dev mode, not when build see https://github.com/gbif/gbif-web/issues/579
-import isomorphic from 'isomorphic-dompurify';
-const { sanitize } = isomorphic;
+import { sanitize } from 'isomorphic-dompurify';
 
 const getLsid = (text: any) => {
   if (typeof text !== 'string' || /\s/.test(text.trim())) {

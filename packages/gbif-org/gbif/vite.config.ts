@@ -24,4 +24,11 @@ export default defineConfig({
   resolve: {
     alias: [{ find: '@', replacement: fileURLToPath(new URL('../src', import.meta.url)) }],
   },
+  ssr: {
+    // This will include the specified modules in the server bundle.
+    // Vite does some processing that can increase compatibility with node modules compared to the native ESM resolution in node.
+    // https://vite-plugin-ssr.com/broken-npm-package#solution
+    // https://github.com/gbif/gbif-web/issues/579
+    noExternal: ['use-deep-compare-effect', 'isomorphic-dompurify'],
+  },
 });
