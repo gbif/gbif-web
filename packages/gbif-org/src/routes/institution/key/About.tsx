@@ -57,7 +57,7 @@ export default function About() {
       <ArticleTextContainer className="g-max-w-screen-xl">
         <div className={`${removeSidebar ? '' : 'g-grid g-gap-4 g-grid-cols-[1fr_350px]'}`}>
           <div className="">
-            <Card className="g-mb-4">
+            <Card className="g-mb-4" id="description">
               <CardHeader>
                 <CardTitle>
                   <FormattedMessage id="dataset.description" />
@@ -130,7 +130,7 @@ export default function About() {
 
             {institution?.collections?.length > 0 && (
               <>
-                <CardHeader>
+                <CardHeader id="collections">
                   <CardTitle>
                     <FormattedMessage id="institution.collections" defaultMessage="Collections" />
                   </CardTitle>
@@ -198,7 +198,7 @@ export default function About() {
               </>
             )}
 
-            <Card className="g-mb-4">
+            <Card className="g-mb-4" id="contacts">
               <CardHeader>
                 <CardTitle>
                   <FormattedMessage id="dataset.contacts" />
@@ -324,7 +324,7 @@ export default function About() {
               </CardContent>
             </Card>
 
-            <Card className="g-mb-4">
+            <Card className="g-mb-4" id="identifiers">
               <CardHeader>
                 <CardTitle>
                   <FormattedMessage id="grscicoll.identifiers" />
