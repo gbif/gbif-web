@@ -68,7 +68,7 @@ export default {
     },
     event: (parent, { eventID, datasetKey }, { dataSources }) =>
       dataSources.eventAPI.getEventByKey({ eventID, datasetKey }),
-    occurrences: (parent, { eventID, datasetKey, locationID,  month, year, size, from }, { dataSources }) => {
+    occurrences: (parent, { eventID, datasetKey, locationID, month, year, size, from }, { dataSources }) => {
       return dataSources.eventAPI.searchEventOccurrences({ eventID, datasetKey, locationID, month, year, size, from });
     },
     location: (parent, { locationID }, { dataSources }) =>
@@ -185,7 +185,7 @@ export default {
         query,
         {
           dataSources,
-          field: 'species',
+          field: 'speciesKey',
           searchApi: dataSources.eventAPI.searchOccurrences,
         },
       );
@@ -207,7 +207,7 @@ export default {
             }),
           ),
         ),
-    extensions: ({ seedbankRecord }) => ({ seedbank: seedbankRecord }),
+    extensions: ({ }) => ({}),
   },
   EventFacetResult_dataset: {
     datasetTitle: ({ key }, args, { dataSources }) => {

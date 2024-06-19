@@ -27,7 +27,7 @@ import { PageContainer } from '../components/pageContainer';
 export const EventPageSkeleton = ArticleSkeleton;
 
 fragmentManager.register(/* GraphQL */ `
-  fragment EventPage on Event {
+  fragment EventPage on MeetingEvent {
     id
     title
     summary
@@ -59,7 +59,7 @@ fragmentManager.register(/* GraphQL */ `
 
 export const eventPageLoader = createResourceLoaderWithRedirect({
   fragment: 'EventPage',
-  resourceType: 'Event',
+  resourceType: 'MeetingEvent',
 });
 
 export function EventPage() {

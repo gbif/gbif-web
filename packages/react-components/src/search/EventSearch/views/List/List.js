@@ -98,7 +98,7 @@ query list($datasetKey: JSON){
       }
     }   
     occurrenceFacet {
-      class {
+      classKey {
         key
       }    
       samplingProtocol {
@@ -160,7 +160,7 @@ function Dataset({ datasetKey, datasetTitle, count, occurrenceCount, events, onC
         <div>Total events: <span>{documents.total?.toLocaleString()}</span></div>
         <div>Total occurrences: <span>{occurrenceCount?.toLocaleString()}</span></div>
         <div>Sites: <span>{cardinality.locationID?.toLocaleString()}</span></div>
-        <div>Taxonomic scope: <span>{occurrenceFacet.class.map(x => x.key).join(' • ')}</span></div>
+        <div>Taxonomic scope: <span>{occurrenceFacet.classKey.map(x => x.key).join(' • ')}</span></div>
         {hasStructure &&
             <div>Structure:&nbsp;
               <span>{structure.join(' • ')}</span>

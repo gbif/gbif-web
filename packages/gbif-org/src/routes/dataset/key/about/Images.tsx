@@ -14,12 +14,11 @@ export function Images({ dataset, className, images = [], ...props }) {
       <div>
         {images.documents.results.map((occurrence) => {
           return (
-            <div key={occurrence.key}>
-              <Image
+            <Image
+                key={occurrence.key}
                 src={occurrence.stillImages[0].identifier}
                 defaultSize={{ height: 200, width: 200 }}
               />
-            </div>
           );
         })}
       </div>

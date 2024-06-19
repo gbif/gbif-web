@@ -42,6 +42,10 @@ import { ProgrammePage, ProgrammePageSkeleton, programmePageLoader } from '@/rou
 import { CompositionPage, CompositionPageSkeleton, compositionPageLoader } from '@/routes/resource/key/composition/composition';
 import { ProjectAboutTab, ProjectDatasetsTab, ProjectNewsAndEventsTab, ProjectNewsAndEventsTabSkeleton, ProjectPage, ProjectPageSkeleton, projectNewsAndEventsLoader, projectPageLoader } from '@/routes/resource/key/project';
 import { AliasHandling, AliasHandlingSkeleton, aliasHandlingLoader } from '@/routes/resource/key/aliasHandling';
+import { DatasetSearchPage } from '@/routes/dataset/search/searchPage';
+import { InstitutionSearchPage } from '@/routes/institution/search/searchPage';
+import { CollectionSearchPage } from '@/routes/collection/search/searchPage';
+import { PublisherSearchPage } from '@/routes/publisher/search/searchPage';
 
 const baseRoutes: SourceRouteObject[] = [
   {
@@ -79,6 +83,26 @@ const baseRoutes: SourceRouteObject[] = [
                 element: <OccurrenceKeyCluster />,
               }
             ]
+          },
+          {
+            key: 'dataset-search-page',
+            path: 'dataset/search',
+            element: <DatasetSearchPage />,
+          },
+          {
+            key: 'publisher-search-page',
+            path: 'publisher/search',
+            element: <PublisherSearchPage />,
+          },
+          {
+            key: 'collection-search-page',
+            path: 'collection/search',
+            element: <CollectionSearchPage />,
+          },
+          {
+            key: 'institution-search-page',
+            path: 'institution/search',
+            element: <InstitutionSearchPage />,
           },
           {
             id: RouteId.Dataset,

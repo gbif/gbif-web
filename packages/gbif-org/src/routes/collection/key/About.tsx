@@ -17,15 +17,24 @@ import useBelow from '@/hooks/useBelow';
 import { RouteId, useParentRouteLoaderData } from '@/hooks/useParentRouteLoaderData';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { FeaturedImageContent } from './collectionKeyPresentation';
 import { HyperText } from '@/components/hyperText';
 import { AdHocMapThumbnail } from '@/components/mapThumbnail';
 import { ConceptValue } from '@/components/conceptValue';
 import * as charts from '@/components/dashboard';
+import { GbifLinkCard } from '@/components/TocHelp';
+import { useParams } from 'react-router-dom';
+import { getCount } from '@/components/count';
+import EmptyValue from '@/components/EmptyValue';
 
 export default function About() {
+  const { key } = useParams();
   const { data } = useParentRouteLoaderData(RouteId.Collection) as { data: CollectionQuery };
+  const { count, loading } = getCount({
+    v1Endpoint: '/occurrence/search',
+    params: { collectionKey: key },
+  });
   const removeSidebar = useBelow(1100);
   const useInlineImage = useBelow(700);
   const { collection } = data;
@@ -58,12 +67,12 @@ export default function About() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                {collection?.description && (
-                  <div
-                    className="g-prose g-mb-6 g-max-w-full"
-                    dangerouslySetInnerHTML={{ __html: collection.description }}
-                  ></div>
-                )}
+                <div className="g-prose g-mb-6 g-max-w-full">
+                  {collection?.description && (
+                    <div dangerouslySetInnerHTML={{ __html: collection.description }}></div>
+                  )}
+                  {!collection.description && <EmptyValue />}
+                </div>
                 <Properties style={{ fontSize: 16, marginBottom: 12 }} breakpoint={800}>
                   {/* <Property value={collection.description} labelId="grscicoll.description" showEmpty /> */}
                   <Property
@@ -81,18 +90,33 @@ export default function About() {
                     labelId="grscicoll.temporalDescription"
                     showEmpty
                   />
-                  <Property value={collection.notes} labelId="grscicoll.notes" />
+                  <Property value={collection.notes} labelId="grscicoll.notes">
+                    <HyperText className="dataProse [&_a]:g-underline" text={collection.notes} />
+                  </Property>
                   <Property value={collection.code} labelId="grscicoll.code" showEmpty />
                   <Property
                     value={collection.numberSpecimens}
                     labelId="collection.numberSpecimens"
                   />
+                  {!loading && count > 0 && (
+                    <Property labelId="grscicoll.specimensViaGbif">
+                      <FormattedNumber value={count} />
+                    </Property>
+                  )}
                   {/* {occurrenceSearch?.documents?.total > 0 && <Property value={occurrenceSearch?.documents?.total} labelId="grscicoll.specimensViaGbif" formatter={count => {
                     return <ResourceLink type="collectionKeySpecimens" id={collection.key}>
                       <FormattedNumber value={count} />
                     </ResourceLink>
                   }} />} */}
-                  <Property value={collection.catalogUrls} labelId="grscicoll.catalogUrl" />
+                  <Property
+                    value={collection.catalogUrls}
+                    labelId="grscicoll.catalogUrl"
+                    formatter={(url) => (
+                      <a className="g-underline" href={url}>
+                        {url}
+                      </a>
+                    )}
+                  />
                   <Property value={collection.apiUrls} labelId="grscicoll.apiUrl" />
                   <Property
                     value={collection.contentTypes}
@@ -173,7 +197,7 @@ export default function About() {
               </ClientSideOnly>
             </section> */}
 
-            <Card className="g-mb-4">
+            <Card className="g-mb-4" id="contact">
               <CardHeader>
                 <CardTitle>
                   <FormattedMessage id="dataset.contacts" />
@@ -184,17 +208,17 @@ export default function About() {
                   {collection?.email?.length > 0 && (
                     <Property
                       labelId="grscicoll.email"
-                      className="g-prose"
+                      className=""
                       value={collection.email}
                       formatter={(email) => (
-                        <a href={`mailto:${email}`} className="">
+                        <a className="g-underline" href={`mailto:${email}`}>
                           {email}
                         </a>
                       )}
                     ></Property>
                   )}
                   <Property labelId="grscicoll.homepage">
-                    <HyperText className="g-prose" text={collection?.homepage} />
+                    <HyperText className="dataProse g-underline" text={collection?.homepage} />
                   </Property>
                   <Property
                     value={collection?.address?.country}
@@ -405,6 +429,8 @@ export default function About() {
                 <charts.DataQuality predicate={predicate} className="g-mb-4" />
                 {/* <charts.Taxa predicate={predicate} className='g-mb-2' /> */}
               </ClientSideOnly>
+
+              <GbifLinkCard path={`/grscicoll/collection/${collection.key}`} />
             </aside>
           )}
         </div>

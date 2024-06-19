@@ -183,13 +183,13 @@ export default gql`
   }
 
   type EventFacet {
-    kingdoms(size: Int, include: String):                 [EventFacetResult_string]
-    phyla(size: Int, include: String):                    [EventFacetResult_string]
-    classes(size: Int, include: String):                  [EventFacetResult_string]
-    orders(size: Int, include: String):                   [EventFacetResult_string]
-    families(size: Int, include: String):                 [EventFacetResult_string]
-    genera(size: Int, include: String):                   [EventFacetResult_string]
-    species(size: Int, include: String):                  [EventFacetResult_string]
+    kingdomKey(size: Int, include: String):                 [EventFacetResult_string]
+    phylumKey(size: Int, include: String):                    [EventFacetResult_string]
+    classKey(size: Int, include: String):                  [EventFacetResult_string]
+    orderKey(size: Int, include: String):                   [EventFacetResult_string]
+    familyKey(size: Int, include: String):                 [EventFacetResult_string]
+    genusKey(size: Int, include: String):                   [EventFacetResult_string]
+    speciesKey(size: Int, include: String):                  [EventFacetResult_string]
     eventHierarchyJoined(size: Int, include: String):     [EventFacetResult_string]
     eventHierarchy(size: Int, include: String):           [EventFacetResult_string]
     eventTypeHierarchyJoined(size: Int, include: String): [EventFacetResult_string]
@@ -303,13 +303,13 @@ export default gql`
 
   type EventOccurrenceFacet {
     datasetKey(size: Int, include: String):       [EventOccurrenceFacetResult_string]
-    kingdom(size: Int, include: String):          [EventOccurrenceFacetResult_string]
-    phylum(size: Int, include: String):           [EventOccurrenceFacetResult_string]
-    class(size: Int, include: String):            [EventOccurrenceFacetResult_string]
-    order(size: Int, include: String):            [EventOccurrenceFacetResult_string]
-    family(size: Int, include: String):           [EventOccurrenceFacetResult_string]
-    genus(size: Int, include: String):            [EventOccurrenceFacetResult_string]
-    species(size: Int, include: String):          [EventOccurrenceFacetResult_string]
+    kingdomKey(size: Int, include: String):          [EventOccurrenceFacetResult_string]
+    phylumKey(size: Int, include: String):           [EventOccurrenceFacetResult_string]
+    classKey(size: Int, include: String):            [EventOccurrenceFacetResult_string]
+    orderKey(size: Int, include: String):            [EventOccurrenceFacetResult_string]
+    familyKey(size: Int, include: String):           [EventOccurrenceFacetResult_string]
+    genusKey(size: Int, include: String):            [EventOccurrenceFacetResult_string]
+    speciesKey(size: Int, include: String):          [EventOccurrenceFacetResult_string]
     samplingProtocol(size: Int, include: String): [EventOccurrenceFacetResult_string]
     locationID(size: Int, include: String):       [EventOccurrenceFacetResult_string]
     basisOfRecord(size: Int, include: String):    [EventOccurrenceFacetResult_string]
@@ -335,6 +335,6 @@ export default gql`
   }
 
   type EventExtensions {
-    seedbank: SeedBankExtension
+    test: String
   }
 `;

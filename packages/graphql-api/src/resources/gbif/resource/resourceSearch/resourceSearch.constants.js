@@ -10,7 +10,7 @@ export const SEARCH_RESULT_OPTIONS = Object.freeze([
   },
   {
     elasticSearchType: 'event',
-    graphQLType: 'Event',
+    graphQLType: 'MeetingEvent',
     enumContentType: 'EVENT'
   },
   {

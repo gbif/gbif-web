@@ -29,6 +29,7 @@ export type InputConfig = {
   };
   OBISKey: string;
   taiwanNodeidentifier: string;
+  linkToGbifOrg?: boolean;
 };
 
 export type Config = InputConfig & Endpoints;

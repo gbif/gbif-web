@@ -47,21 +47,23 @@ export const gbifConfig: InputConfig = {
       reactIntlLocale: 'ar-SA',
     },
   ],
-  occurrencePredicate: undefined,
-  // occurrencePredicate: {
-  //   type: 'and',
-  //   predicates: [
-  //     {
-  //       type: 'range',
-  //       key: 'year',
-  //       value: {
-  //         gte: '2012',
-  //       },
-  //     },
-  //   ],
-  // },
+  // occurrencePredicate: undefined,
+  occurrencePredicate: {
+    type: 'and',
+    predicates: [
+      {
+        type: 'range',
+        key: 'year',
+        value: {
+          gte: '2012',
+        },
+      },
+    ],
+  },
   theme: {
-    primary: '#4787fb',//'#69AA69',
+    // primary: '#4787fb',//'#69AA69',
+    primary: '#69AA69',
+    stickyOffset: '40px',
   },
   baseUrl,
   openGraph: {
@@ -69,4 +71,5 @@ export const gbifConfig: InputConfig = {
   },
   OBISKey: 'ba0670b9-4186-41e6-8e70-f9cb3065551a',
   taiwanNodeidentifier: '239',
+  linkToGbifOrg: true,
 };

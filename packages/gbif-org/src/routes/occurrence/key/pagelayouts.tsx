@@ -41,7 +41,7 @@ export function AsideSticky({
   ...props
 }: { children: ReactNode } & HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className={cn('g-sticky g-top-[var(--stickyOffset)]', className)} {...props}>
+    <div className={cn('g-sticky g-top-[var(--stickyOffset)] g-pt-4', className)} {...props}>
       {children}
     </div>
   );

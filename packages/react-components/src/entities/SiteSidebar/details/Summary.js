@@ -87,31 +87,31 @@ query list($predicate: Predicate, $offset: Int, $limit: Int){
       }
     }       
     occurrenceFacet {
-      kingdom {
+      kingdomKey {
         count
         key
       }
-      phylum {
+      phylumKey {
         count
         key
       }               
-      order {
+      orderKey {
         count
         key
       }     
-      class {
+      classKey {
         count
         key
       }    
-      family {
+      familyKey {
         count
         key
       }
-      genus {
+      genusKey {
         count
         key
       }  
-      species {
+      speciesKey {
         count
         key
       }            

@@ -4,7 +4,7 @@ import { MdMail } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import EmptyValue from './emptyValue';
 import { Details } from './details';
-import Properties, { Term, Value } from './properties';
+import Properties, { Property, Term, Value } from './properties';
 import { Card, CardContent } from './ui/largeCard';
 import { cn } from '@/utils/shadcn';
 
@@ -54,7 +54,7 @@ function Contact({ contact, ...props }) {
           {/* <div className='gb-discreet'>{roles && Roles}</div> */}
         </div>
       </div>
-      <div className="g-flex-auto g-w-1/3 g-text-slate-500">{roles && Roles}</div>
+      <div className="g-flex-auto g-w-1/3 g-text-slate-500">{roles.length > 0 && Roles}</div>
       <div className="g-flex-auto g-w-1/3 g-flex g-justify-end">
         <div className="g-flex g-items-center">
           {orcid && (
@@ -103,11 +103,44 @@ function Contact({ contact, ...props }) {
                 />
               )}
 
-              {roles && <Field field="roles" contact={contact} value={Roles} />}
+              {roles.length > 0 && <Field field="roles" contact={contact} value={Roles} />}
 
-              {['homepage', 'email', 'phone', 'userId'].map((f) => (
-                <ArrayField isHyperText field={f} contact={contact} key={f} />
-              ))}
+              <Property
+                labelId="contact.email"
+                value={contact.email}
+                formatter={(email) => (
+                  <a href={`mailto:${email}`} target="_blank" rel="noopener noreferrer">
+                    {email}
+                  </a>
+                )}
+              />
+              <Property
+                labelId="contact.homepage"
+                value={contact.homepage}
+                formatter={(item) => (
+                  <a href={`${item}`} target="_blank" rel="noopener noreferrer">
+                    {item}
+                  </a>
+                )}
+              />
+              <Property
+                labelId="contact.phone"
+                value={contact.phone}
+                formatter={(item) => (
+                  <a href={`tel:${item}`} target="_blank" rel="noopener noreferrer">
+                    {item}
+                  </a>
+                )}
+              />
+              <Property
+                labelId="contact.userId"
+                value={contact.userId}
+                formatter={(item) => (
+                  <a href={`${item}`} target="_blank" rel="noopener noreferrer">
+                    {item}
+                  </a>
+                )}
+              />
             </Properties>
           </CardContent>
         </Card>

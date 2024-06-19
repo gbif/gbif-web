@@ -83,7 +83,7 @@ export function Description({
             {collection.personalCollection && <Property value={collection.personalCollection} labelId="collection.personalCollection" formatter={e => <FormattedMessage id={`enums.yesNo.${e}`} defaultMessage={e} />} />}
           </Properties>
         </Card>
-        <Card style={{ marginTop: 24, marginBottom: 24 }}>
+        <Card style={{ marginTop: 24, marginBottom: 24 }} id="contact">
           <CardHeader2><FormattedMessage id="grscicoll.contacts" deafultMessage="Contacts" /></CardHeader2>
           <Properties style={{ fontSize: 16, marginBottom: 12 }} breakpoint={800}>
             <Property value={collection?.email} labelId="grscicoll.email" />
@@ -166,7 +166,7 @@ export function Description({
                   let identifier = x.identifier;
                   if (['ROR', 'GRID', 'IH_IRN'].includes(x.type)) {
                     if (x.type === 'ROR') {
-                      identifier = 'https://ror.org/' + x.identifier;
+                      identifier = x.identifier;
                     } else if (x.type === 'GRID') {
                       identifier = 'https://grid.ac/institutes/' + x.identifier; // GRID doesn't exists anymore. They left the space and refer to ROR as checked today September 2022
                     } else if (x.type === 'IH_IRN') {

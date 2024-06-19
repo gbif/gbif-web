@@ -16,7 +16,7 @@
   "placeholders": {
     "default": "搜尋",
     "range": "範圍或單一數值",
-    "wildcard": "",
+    "wildcard": "使用 * 和 ? 作為萬用字元進行搜尋",
     "locationID": ""
   },
   "ternary": {

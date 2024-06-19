@@ -2,7 +2,7 @@ import * as article from './article';
 import * as call from './call';
 import * as composition from './composition';
 import * as dataUse from './dataUse';
-import * as event from './event';
+import * as meetingEvent from './meetingEvent';
 import * as gbifDocument from './document';
 import * as gbifProject from './gbifProject';
 import * as programme from './programme';
@@ -24,7 +24,7 @@ const children = [
   call,
   composition,
   dataUse,
-  event,
+  meetingEvent,
   gbifDocument,
   gbifProject,
   programme,

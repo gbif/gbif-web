@@ -710,102 +710,6 @@ const config =
       type: 'keyword',
       field: 'metadata.publishingOrganizationKey'
     },
-    seedbank_seedPerGram: {
-      type: 'numeric',
-      field: 'event.seedbankRecord.seedPerGram',
-    },
-    seedbank_quantityInGrams: {
-      type: 'numeric',
-      field: 'event.seedbankRecord.quantityInGrams',
-    },
-    seedbank_quantityCount: {
-      type: 'numeric',
-      field: 'event.seedbankRecord.quantityCount',
-    },
-    seedbank_purityPercentage: {
-      type: 'numeric',
-      field: 'event.seedbankRecord.purityPercentage',
-    },
-    seedbank_dateCollected: {
-      type: 'numeric',
-      field: 'event.seedbankRecord.dateCollected',
-    },
-    seedbank_dateInStorage: {
-      type: 'numeric',
-      field: 'event.seedbankRecord.dateInStorage',
-    },
-    seedbank_storageTemperatureInCelsius: {
-      type: 'numeric',
-      field: 'event.seedbankRecord.storageTemperatureInCelsius',
-    },
-    seedbank_storageRelativeHumidityPercentage: {
-      type: 'numeric',
-      field: 'event.seedbankRecord.storageRelativeHumidityPercentage',
-    },
-    seedbank_thousandSeedWeight: {
-      type: 'numeric',
-      field: 'event.seedbankRecord.thousandSeedWeight',
-    },
-    seedbank_numberPlantsSampled: {
-      type: 'numeric',
-      field: 'event.seedbankRecord.numberPlantsSampled',
-    },
-    seedbank_testDateStarted: {
-      type: 'numeric',
-      field: 'event.seedbankRecord.testDateStarted',
-    },
-    seedbank_testLengthInDays: {
-      type: 'numeric',
-      field: 'event.seedbankRecord.testLengthInDays',
-    },
-    seedbank_numberGerminated: {
-      type: 'numeric',
-      field: 'event.seedbankRecord.numberGerminated',
-    },
-    seedbank_germinationRateInDays: {
-      type: 'numeric',
-      field: 'event.seedbankRecord.germinationRateInDays',
-    },
-    seedbank_adjustedGerminationPercentage: {
-      type: 'numeric',
-      field: 'event.seedbankRecord.adjustedGerminationPercentage',
-    },
-    seedbank_viabilityPercentage: {
-      type: 'numeric',
-      field: 'event.seedbankRecord.viabilityPercentage',
-    },
-    seedbank_numberFull: {
-      type: 'numeric',
-      field: 'event.seedbankRecord.numberFull',
-    },
-    seedbank_numberEmpty: {
-      type: 'numeric',
-      field: 'event.seedbankRecord.numberEmpty',
-    },
-    seedbank_numberTested: {
-      type: 'numeric',
-      field: 'event.seedbankRecord.numberTested',
-    },
-    seedbank_numberNotViable: {
-      type: 'numeric',
-      field: 'event.seedbankRecord.numberNotViable',
-    },
-    seedbank_nightTemperatureInCelsius: {
-      type: 'numeric',
-      field: 'event.seedbankRecord.nightTemperatureInCelsius',
-    },
-    seedbank_dayTemperatureInCelsius: {
-      type: 'numeric',
-      field: 'event.seedbankRecord.dayTemperatureInCelsius',
-    },
-    seedbank_darkHours: {
-      type: 'numeric',
-      field: 'event.seedbankRecord.darkHours',
-    },
-    seedbank_lightHours: {
-      type: 'numeric',
-      field: 'event.seedbankRecord.lightHours',
-    },
     occurrence: {
       type: 'join',
       config: {
@@ -817,7 +721,7 @@ const config =
           },
           class: {
             type: 'keyword',
-            field: 'gbifClassification.class'
+            field: 'gbifClassification.classKey'
           },
           eventID: {
             type: 'keyword',
@@ -825,11 +729,11 @@ const config =
           },
           family: {
             type: 'keyword',
-            field: 'gbifClassification.family'
+            field: 'gbifClassification.familyKey'
           },
           genus: {
             type: 'keyword',
-            field: 'gbifClassification.genus'
+            field: 'gbifClassification.genusKey'
           },
           identificationReferences: {
             type: 'keyword',
@@ -841,7 +745,7 @@ const config =
           },
           kingdom: {
             type: 'keyword',
-            field: 'gbifClassification.kingdom'
+            field: 'gbifClassification.kingdomKey'
           },
           occurrenceID: {
             type: 'keyword',
@@ -849,7 +753,7 @@ const config =
           },
           order: {
             type: 'keyword',
-            field: 'gbifClassification.order'
+            field: 'gbifClassification.orderKey'
           },
           organismQuantity: {
             type: 'keyword',
@@ -861,7 +765,7 @@ const config =
           },
           phylum: {
             type: 'keyword',
-            field: 'gbifClassification.phylum'
+            field: 'gbifClassification.phylumKey'
           },
           scientificName: {
             type: 'keyword',

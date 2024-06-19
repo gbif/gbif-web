@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeC
 import { OccurrenceMediaDetailsFragment, OccurrenceQuery, Term } from '@/gql/graphql';
 import { BasicField } from '../properties';
 import { useEffect, useState } from 'react';
+import { truncateMiddle } from '@/utils/truncateString';
 
 const supportedFormats = [
   'audio/ogg',
@@ -197,12 +198,8 @@ function Caption({
   occurrence: OccurrenceQuery['occurrence'];
 }) {
   return (
-    <figcaption className="g-px-4 g-py-2">
-      {!media.identifier && (
-        <div className="g-bg-slate-200 g-rounded g-text-slate-800 g-px-2 g-py-1 g-mb-2">
-          Identifier missing
-        </div>
-      )}
+    <figcaption className='g-px-4 g-py-2 [&_a]:g-underline'>
+      {!media.identifier && <div className='g-bg-slate-200 g-rounded g-text-slate-800 g-px-2 g-py-1 g-mb-2'>Identifier missing</div>}
       <Properties style={{ fontSize: '85%' }} dense>
         {media.description && (
           <BasicField label={`occurrenceFieldNames.description`}>{media.description}</BasicField>
@@ -212,12 +209,12 @@ function Caption({
         )}
         {media.identifier && (
           <BasicField label={`occurrenceFieldNames.identifier`}>
-            <a href={media.identifier}>{media.identifier}</a>
+            <a href={media.identifier}>{truncateMiddle(media.identifier, 40)}</a>
           </BasicField>
         )}
         {media.references && (
           <BasicField label={`occurrenceFieldNames.references`}>
-            <a href={media.references}>{media.references}</a>
+            <a href={media.references}>{truncateMiddle(media.references, 40)}</a>
           </BasicField>
         )}
         {media.creator && (

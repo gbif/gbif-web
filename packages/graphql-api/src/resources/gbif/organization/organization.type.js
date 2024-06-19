@@ -39,6 +39,7 @@ const typeDef = gql`
     language: Language
     latitude: Float
     logoUrl: String
+    thumborLogoUrl(width: Int, height: Int, fitIn: Boolean): String
     longitude: Float
     machineTags: [MachineTag]
     modified: DateTime

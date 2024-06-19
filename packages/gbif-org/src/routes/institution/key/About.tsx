@@ -23,10 +23,21 @@ import { ConceptValue } from '@/components/conceptValue';
 import { Tag } from '@/components/resultCards';
 import { DynamicLink } from '@/components/dynamicLink';
 import { FormattedNumber } from '@/components/dashboard/shared';
-import { Card as CardSmall } from '@/components/ui/smallCard';
+import {
+  CardContent as CardContentSmall,
+  CardHeader as CardHeaderSmall,
+  Card as CardSmall,
+  CardTitle as CardTitleSmall,
+} from '@/components/ui/smallCard';
+import { BulletList } from '@/components/BulletList';
+import { getCount } from '@/components/count';
+import { useParams } from 'react-router-dom';
+// import { MdMap } from 'react-icons/md';
 
 export default function About() {
+  const { key }  = useParams();
   const { data } = useParentRouteLoaderData(RouteId.Institution) as { data: InstitutionQuery };
+  const { count, loading } = getCount({ v1Endpoint: '/occurrence/search', params: { institutionKey: key } });
   const removeSidebar = useBelow(1100);
   const useInlineImage = useBelow(700);
   const { institution } = data;
@@ -39,12 +50,14 @@ export default function About() {
 
   const imageUrl = institution.featuredImageUrl ?? institution.featuredImageUrl_fallback;
 
+  // const institutionAddress = institution?.mailingAddress ?? institution?.address;
+
   return (
     <ArticleContainer className="g-bg-slate-100 g-pt-4">
       <ArticleTextContainer className="g-max-w-screen-xl">
         <div className={`${removeSidebar ? '' : 'g-grid g-gap-4 g-grid-cols-[1fr_350px]'}`}>
           <div className="">
-            <Card className="g-mb-4">
+            <Card className="g-mb-4" id="description">
               <CardHeader>
                 <CardTitle>
                   <FormattedMessage id="dataset.description" />
@@ -64,19 +77,11 @@ export default function About() {
                     value={institution.numberSpecimens}
                     labelId="institution.numberSpecimens"
                   />
-                  {/* {occurrenceSearch?.documents?.total > 0 && (
-                  <Property
-                    value={occurrenceSearch?.documents?.total}
+                  {!loading && (count > 0) && <Property
                     labelId="grscicoll.specimensViaGbif"
-                    formatter={(count) => {
-                      return (
-                        <ResourceLink type="institutionKeySpecimens" id={institution.key}>
-                          <FormattedNumber value={count} />
-                        </ResourceLink>
-                      );
-                    }}
-                  />
-                )} */}
+                  >
+                    <FormattedNumber value={count} />
+                  </Property>}
                   <Property value={institution.catalogUrls} labelId="grscicoll.catalogUrl" />
                   <Property value={institution.apiUrls} labelId="grscicoll.apiUrl" />
                   <Property
@@ -125,7 +130,7 @@ export default function About() {
 
             {institution?.collections?.length > 0 && (
               <>
-                <CardHeader>
+                <CardHeader id="collections">
                   <CardTitle>
                     <FormattedMessage id="institution.collections" defaultMessage="Collections" />
                   </CardTitle>
@@ -193,7 +198,7 @@ export default function About() {
               </>
             )}
 
-            <Card className="g-mb-4">
+            <Card className="g-mb-4" id="contacts">
               <CardHeader>
                 <CardTitle>
                   <FormattedMessage id="dataset.contacts" />
@@ -293,7 +298,16 @@ export default function About() {
                           </ContactHeaderContent>
                         </ContactHeader>
                         <ContactContent className="g-mb-2">
-                          {contact.taxonomicExpertise}
+                          {contact.taxonomicExpertise.length > 0 && (
+                            <>
+                              Taxonomic expertice:{' '}
+                              <BulletList>
+                                {contact.taxonomicExpertise.map((expertise) => (
+                                  <li key={expertise}>{expertise}</li>
+                                ))}
+                              </BulletList>
+                            </>
+                          )}
                         </ContactContent>
                         <ContactActions>
                           {contact.email &&
@@ -310,7 +324,7 @@ export default function About() {
               </CardContent>
             </Card>
 
-            <Card className="g-mb-4">
+            <Card className="g-mb-4" id="identifiers">
               <CardHeader>
                 <CardTitle>
                   <FormattedMessage id="grscicoll.identifiers" />
@@ -413,8 +427,8 @@ export default function About() {
           </div>
           {!removeSidebar && (
             <aside className="g-sticky">
-              <CardSmall className="g-mb-4">
-                {institution.longitude && (
+              {institution.longitude && (
+                <CardSmall className="">
                   <a
                     className="g-block"
                     href={`http://www.google.com/maps/place/${institution.latitude},${institution.longitude}`}
@@ -426,34 +440,71 @@ export default function About() {
                       src={`https://api.mapbox.com/styles/v1/mapbox/streets-v9/static/pin-s-circle+285A98(${institution.longitude},${institution.latitude})/${institution.longitude},${institution.latitude},15,0/400x250@2x?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA`}
                     />
                   </a>
-                )}
-              </CardSmall>
-              <CardSmall className="g-mb-4 g-sticky g-top-[--stickyOffset]">
-                <ul className="g-list-none g-px-4 g-py-2">
-                  <li className="g-py-1">
-                    <a href="#description">
-                      <FormattedMessage id="Description" />
-                    </a>
-                  </li>
-                  {institution?.collections && institution?.collections?.length > 0 && (
+
+                  {/* <CardContentSmall className='g-mt-4'>
+                  <div className='g-flex'>
+                    <div className='g-flex-none g-me-2'>
+                      <div className='g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center'>
+                        <MdMap />
+                      </div>
+                    </div>
+                    <div className='g-flex-auto g-text-sm g-prose'>
+                      <address style={{ fontStyle: 'normal' }}>
+                        {institutionAddress.address && <div>
+                          {institutionAddress.address}
+                        </div>}
+                        {institutionAddress.city && <div>{institutionAddress.city}</div>}
+                        {institutionAddress.province && <div>{institutionAddress.province}</div>}
+                        {institutionAddress.postalCode && <div>{institutionAddress.postalCode}</div>}
+                        {institutionAddress.country && (
+                          <div>
+                            <FormattedMessage id={`enums.countryCode.${institutionAddress.country}`} />
+                          </div>
+                        )}
+                        {institutionAddress.email && (
+                          <div>
+                            <a href={`mailto:${institutionAddress.email}`}>{institutionAddress.email}</a>
+                          </div>
+                        )}
+                        {institutionAddress.phone && (
+                          <div>
+                            <a href={`tel:${institutionAddress.phone}`}>{institutionAddress.phone}</a>
+                          </div>
+                        )}
+                      </address>
+                    </div>
+                  </div>
+                </CardContentSmall> */}
+                </CardSmall>
+              )}
+              <div className="g-pt-4 g-sticky g-top-[--stickyOffset] ">
+                <CardSmall className="g-mb-4">
+                  <ul className="g-list-none g-px-4 g-py-2">
                     <li className="g-py-1">
-                      <a href="#collections">
-                        <FormattedMessage id="Collections" />
+                      <a href="#description">
+                        <FormattedMessage id="Description" />
                       </a>
                     </li>
-                  )}
-                  <li className="g-py-1">
-                    <a href="#contacts">
-                      <FormattedMessage id="Contacts" />
-                    </a>
-                  </li>
-                  <li className="g-py-1">
-                    <a href="#identifiers">
-                      <FormattedMessage id="Identifiers" />
-                    </a>
-                  </li>
-                </ul>
-              </CardSmall>
+                    {institution?.collections && institution?.collections?.length > 0 && (
+                      <li className="g-py-1">
+                        <a href="#collections">
+                          <FormattedMessage id="Collections" />
+                        </a>
+                      </li>
+                    )}
+                    <li className="g-py-1">
+                      <a href="#contacts">
+                        <FormattedMessage id="Contacts" />
+                      </a>
+                    </li>
+                    <li className="g-py-1">
+                      <a href="#identifiers">
+                        <FormattedMessage id="Identifiers" />
+                      </a>
+                    </li>
+                  </ul>
+                </CardSmall>
+              </div>
             </aside>
           )}
         </div>

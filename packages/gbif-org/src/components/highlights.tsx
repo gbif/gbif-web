@@ -32,7 +32,7 @@ export function GenericFeature({
 } & React.ComponentProps<'div'>) {
   return (
     <div
-      className={cn('g-my-0.5 g-me-6 [&>svg]:g-me-2 [&>svg]:g-leading-2 [&>svg]:g-h-6 [&>svg]:g-flex-none g-inline-flex g-items-start',
+      className={cn('g-my-0.5 g-me-12 [&>svg]:g-me-2 [&>svg]:g-leading-2 [&>svg]:g-h-6 [&>svg]:g-flex-none g-inline-flex g-items-start',
         className
       )}
       {...props}

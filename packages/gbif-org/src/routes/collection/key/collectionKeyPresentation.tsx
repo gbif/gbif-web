@@ -31,6 +31,7 @@ import useBelow from '@/hooks/useBelow';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { MdInfo } from 'react-icons/md';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
+import { HashLink } from 'react-router-hash-link';
 
 const GBIF_REGISTRY_ENDPOINT = 'https://registry.gbif.org';
 const contactThreshold = 5;
@@ -55,8 +56,8 @@ export function CollectionKey({
 
   // if there is occurrences, then add a specimens tab
   if (occurrenceSearch?.documents.total > 0) {
-    tabs.push({ to: 'specimen', children: 'Specimens' });
     tabs.push({ to: 'dashboard', children: 'Dashboard' });
+    tabs.push({ to: 'specimen', children: 'Specimens' });
   }
 
   // if there is at least a countryCode for thee address, then use that, else fall back to the mailing address
@@ -65,7 +66,7 @@ export function CollectionKey({
     : collection?.mailingAddress;
   const feedbackTemplate = `Please provide your feedback here, but leave content below for context\n\n---\nRelating to ${GBIF_REGISTRY_ENDPOINT}/collection/${collection.key}`;
   const contacts = collection?.contactPersons
-    .filter((x) => x?.firstName)
+    .filter((x) => x?.firstName || x?.lastName)
     .map((x) => `${x?.firstName ?? ''} ${x?.lastName ?? ''}`);
 
   const imageUrl = collection.featuredImageUrl ?? collection.featuredImageUrl_fallback;
@@ -169,9 +170,9 @@ export function CollectionKey({
                       </GenericFeature>
                     )}
                   </FeatureList>
-                  {collection?.catalogUrls && collection?.catalogUrls?.length > 0 && (
+                  {(collection?.catalogUrls?.length ?? 0) > 0 || contacts.length > 0 && (
                     <FeatureList>
-                      <GenericFeature>
+                      {collection.catalogUrls && <GenericFeature>
                         <CatalogIcon />
                         <span>
                           <a href={collection.catalogUrls[0]}>
@@ -181,19 +182,21 @@ export function CollectionKey({
                             />
                           </a>
                         </span>
-                      </GenericFeature>
+                      </GenericFeature>}
                       {contacts.length > 0 && (
                         <GenericFeature>
                           <PeopleIcon />
-                          {contacts.length < contactThreshold && (
-                            <span>{contacts.join(' • ')}</span>
-                          )}
-                          {contacts.length >= contactThreshold && (
-                            <FormattedMessage
-                              id="counts.nStaffMembers"
-                              values={{ total: contacts.length }}
-                            />
-                          )}
+                          <HashLink to="#contact">
+                            {contacts.length < contactThreshold && (
+                              <span>{contacts.join(' • ')}</span>
+                            )}
+                            {contacts.length >= contactThreshold && (
+                              <FormattedMessage
+                                id="counts.nStaffMembers"
+                                values={{ total: contacts.length }}
+                              />
+                            )}
+                          </HashLink>
                         </GenericFeature>
                       )}
                     </FeatureList>
