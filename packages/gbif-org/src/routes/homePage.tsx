@@ -149,8 +149,20 @@ export function HomePage(): React.ReactElement {
             <h2>Custom one-off pages</h2>
             <p>
               This is pages like, contact directory, network, suggest a dataset, ipt, blast tool,
-              occ snapshots, etc. None have been implemented yet. There is alot of these.
+              occ snapshots, etc. Some have been implemented, but there is alot of these.
             </p>
+            <ul>
+              <li>
+                <DynamicLink className='g-me-4' to="/become-a-publisher">
+                  Become a publisher
+                </DynamicLink>
+              </li>
+              <li>
+                <DynamicLink className='g-me-4' to="/suggest-dataset">
+                  Suggest a dataset
+                </DynamicLink>
+              </li>
+            </ul>
           </section>
           <section>
             <h2>Search</h2>
