@@ -29,15 +29,18 @@ import {
   Card as CardSmall,
   CardTitle as CardTitleSmall,
 } from '@/components/ui/smallCard';
-import { BulletList } from '@/components/BulletList';
+import { BulletList } from '@/components/bulletList';
 import { getCount } from '@/components/count';
 import { useParams } from 'react-router-dom';
 // import { MdMap } from 'react-icons/md';
 
 export default function About() {
-  const { key }  = useParams();
+  const { key } = useParams();
   const { data } = useParentRouteLoaderData(RouteId.Institution) as { data: InstitutionQuery };
-  const { count, loading } = getCount({ v1Endpoint: '/occurrence/search', params: { institutionKey: key } });
+  const { count, loading } = getCount({
+    v1Endpoint: '/occurrence/search',
+    params: { institutionKey: key },
+  });
   const removeSidebar = useBelow(1100);
   const useInlineImage = useBelow(700);
   const { institution } = data;
@@ -77,11 +80,11 @@ export default function About() {
                     value={institution.numberSpecimens}
                     labelId="institution.numberSpecimens"
                   />
-                  {!loading && (count > 0) && <Property
-                    labelId="grscicoll.specimensViaGbif"
-                  >
-                    <FormattedNumber value={count} />
-                  </Property>}
+                  {!loading && count > 0 && (
+                    <Property labelId="grscicoll.specimensViaGbif">
+                      <FormattedNumber value={count} />
+                    </Property>
+                  )}
                   <Property value={institution.catalogUrls} labelId="grscicoll.catalogUrl" />
                   <Property value={institution.apiUrls} labelId="grscicoll.apiUrl" />
                   <Property
