@@ -12,7 +12,7 @@ export const KNOWN_BLOCK_TYPES = Object.freeze({
 export const KNOWN_FEATURE_TYPES = Object.freeze({
   feature: 'Feature',
   news: 'News',
-  event: 'Event',
+  event: 'MeetingEvent',
   dataUse: 'DataUse'
 });
 

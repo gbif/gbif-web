@@ -9,10 +9,10 @@ import { getHtml, excerpt, createLocalizedGbifHref } from "#/helpers/utils";
  */
 export default {
   Query: {
-    event: (_, { id }, { dataSources, locale, preview }) =>
+    meetingEvent: (_, { id }, { dataSources, locale, preview }) =>
       dataSources.resourceAPI.getEntryById({ id, preview, locale })
   },
-  Event: {
+  MeetingEvent: {
     title: (src, _, { locale }) => getHtml(src.title, { inline: true, locale }),
     summary: (src, _, { locale }) => getHtml(src.summary, { locale }),
     body: (src, _, { locale }) => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),

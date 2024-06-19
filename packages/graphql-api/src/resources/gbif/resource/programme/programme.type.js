@@ -18,7 +18,7 @@ const typeDef = gql`
     documents: [DocumentAsset!]
     fundingOrganisations: [FundingOrganisation!]
     news: [News!]
-    events: [Event!]
+    events: [MeetingEvent!]
     keywords: [String!]
     searchable: Boolean!
     homepage: Boolean!

@@ -38,7 +38,7 @@ fragmentManager.register(/* GraphQL */ `
           ...ProseCardImg
         }
       }
-      ... on Event {
+      ... on MeetingEvent {
         id
         title
         start

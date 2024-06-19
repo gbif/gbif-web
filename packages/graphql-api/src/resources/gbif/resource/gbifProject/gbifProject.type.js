@@ -31,7 +31,7 @@ const typeDef = gql`
     homepage: Boolean!
     keywords: [String!]
     documents: [DocumentAsset!]
-    events: [Event!]
+    events: [MeetingEvent!]
     programme: Programme
     excerpt: String
     updatedAt: DateTime

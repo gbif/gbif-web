@@ -12,7 +12,7 @@ export const RESORUCE_OPTIONS = Object.freeze([
   },
   {
     elasticSearchType: 'event',
-    graphQLType: 'Event',
+    graphQLType: 'MeetingEvent',
   },
   {
     elasticSearchType: 'notification',

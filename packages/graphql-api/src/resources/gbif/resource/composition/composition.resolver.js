@@ -1,5 +1,6 @@
 import { excerpt, getHtml, isNoneEmptyArray } from "#/helpers/utils";
 import { KNOWN_BLOCK_TYPES, KNOWN_CAROUSEL_BLOCKS, KNOWN_FEATURE_TYPES } from "./acceptedTypes";
+import logger from "#/logger";
 
 /**
  * fieldName: (parent, args, context, info) => data;

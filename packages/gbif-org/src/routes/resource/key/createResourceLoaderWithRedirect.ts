@@ -27,7 +27,7 @@ fragmentManager.register(/* GraphQL */ `
       id
       title
     }
-    ... on Event {
+    ... on MeetingEvent {
       id
       title
     }
@@ -55,7 +55,7 @@ const ResourceTypeSchema = z.union([
   z.literal('Composition'),
   z.literal('DataUse'),
   z.literal('Document'),
-  z.literal('Event'),
+  z.literal('MeetingEvent'),
   z.literal('News'),
   z.literal('Programme'),
   z.literal('GbifProject'),
@@ -79,7 +79,7 @@ const redirectMapper: Record<ResourceType, (key: string, slug: string | null) =>
   Composition: (key, slug) => `/composition/${key}/${slug}`,
   DataUse: (key, slug) => `/data-use/${key}/${slug}`,
   Document: (key, slug) => `/document/${key}/${slug}`,
-  Event: (key, slug) => `/event/${key}/${slug}`,
+  MeetingEvent: (key, slug) => `/event/${key}/${slug}`,
   News: (key, slug) => `/news/${key}/${slug}`,
   Programme: (key, slug) => `/programme/${key}/${slug}`,
   GbifProject: (key, slug) => `/project/${key}/${slug}`,

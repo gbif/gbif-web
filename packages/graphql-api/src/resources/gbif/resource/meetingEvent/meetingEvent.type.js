@@ -2,10 +2,10 @@ import { gql } from "apollo-server";
 
 const typeDef = gql`
   extend type Query {
-    event(id: String!): Event
+    meetingEvent(id: String!): MeetingEvent
   }
 
-  type Event {
+  type MeetingEvent {
     id: ID!
     title: String!
     gbifHref: String!

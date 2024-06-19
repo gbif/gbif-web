@@ -50,7 +50,7 @@ export function ProjectNewsAndEventsTab() {
   const sortedNewsAndEvents = useMemo(
     () =>
       [...(resource.news ?? []), ...(resource.events ?? [])].sort(
-        sortByNewToOld((x) => new Date(x.__typename === 'Event' ? x.start : x.createdAt))
+        sortByNewToOld((x) => new Date(x.__typename === 'MeetingEvent' ? x.start : x.createdAt))
       ),
     [resource.news, resource.events]
   );
@@ -70,7 +70,7 @@ export function ProjectNewsAndEventsTab() {
 
       {sortedNewsAndEvents.map((item) => {
         switch (item.__typename) {
-          case 'Event':
+          case 'MeetingEvent':
             return <EventResult key={item.id} event={item} />;
           case 'News':
             return <NewsResult key={item.id} news={item} />;

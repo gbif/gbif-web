@@ -6,7 +6,7 @@ import { EventResultFragment } from '@/gql/graphql';
 import { fragmentManager } from '@/services/fragmentManager';
 
 fragmentManager.register(/* GraphQL */ `
-  fragment EventResult on Event {
+  fragment EventResult on MeetingEvent {
     id
     title
     excerpt
