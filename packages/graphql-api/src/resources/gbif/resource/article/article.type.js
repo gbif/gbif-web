@@ -16,7 +16,7 @@ const typeDef = gql`
     secondaryLinks: [Link]
     urlAlias: String
     documents: [DocumentAsset]
-    createdAt: DateTime
+    createdAt: DateTime!
     updatedAt: DateTime
     displayDate: Boolean
     articleType: String

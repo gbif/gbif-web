@@ -11,7 +11,7 @@ const typeDef = gql`
     title: String
     excerpt: String
     summary: String
-    createdAt: DateTime
+    createdAt: DateTime!
     # TODO: Add blocks when the changes has been made in the API
     updatedAt: DateTime
     primaryImage: AssetImage

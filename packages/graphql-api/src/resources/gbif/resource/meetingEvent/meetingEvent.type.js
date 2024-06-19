@@ -30,7 +30,7 @@ const typeDef = gql`
     searchable: Boolean!
     homepage: Boolean!
     gbifRegion: GbifRegion
-    createdAt: DateTime
+    createdAt: DateTime!
     updatedAt: DateTime
     gbifsAttendee: String
     meta: JSON
