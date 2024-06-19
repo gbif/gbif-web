@@ -10,7 +10,7 @@ const dataSource = require('./event.dataSource');
 function suggestConfig() {
   return suggestConfigFromAlias({ 
     endpoint: env.event.hosts[0], 
-    alias: 'parent', 
+    alias: 'event',
     type: 'properties'
   });
 
@@ -33,4 +33,4 @@ module.exports = {
   scientificNameSuggest: dataSource.scientificNameSuggest,
 }
 
-// suggestConfig().catch(err => console.log(err));
+// suggestConfig().catch(err => console.log(err)); 
