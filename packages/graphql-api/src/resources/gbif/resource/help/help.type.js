@@ -11,7 +11,7 @@ const typeDef = gql`
     title: String!
     body: String
     excerpt: String
-    createdAt: DateTime
+    createdAt: DateTime!
     updatedAt: DateTime
   }
 `;

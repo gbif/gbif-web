@@ -9,7 +9,7 @@ const typeDef = gql`
     id: ID!
     title: String!
     gbifHref: String!
-    createdAt: DateTime
+    createdAt: DateTime!
     document: DocumentAsset
     updatedAt: DateTime
     summary: String

@@ -8,7 +8,7 @@ const typeDef = gql`
   type Call {
     id: ID!
     title: String!
-    createdAt: DateTime
+    createdAt: DateTime!
     updatedAt: DateTime
     acronym: String
     body: String

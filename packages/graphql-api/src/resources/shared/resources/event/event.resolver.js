@@ -132,9 +132,9 @@ export default {
   },
   EventOccurrenceFacet,
   EventCardinality: {
-    species: (parent, query, { dataSources }) =>
+    speciesKey: (parent, query, { dataSources }) =>
       getCardinality(parent._predicate, query, {
-        field: 'species',
+        field: 'speciesKey',
         searchApi: dataSources.eventAPI.searchOccurrences,
       }),
     datasetKey: (parent, query, { dataSources }) =>

@@ -209,7 +209,7 @@ export default gql`
   }
 
   type EventCardinality {
-    species: Int!
+    speciesKey: Int!
     datasetKey: Int!
     locationID: Int!
     parentEventID: Int!

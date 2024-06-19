@@ -14,7 +14,7 @@ const typeDef = gql`
     body: String
     summary: String
     gbifRegion: GbifRegion
-    createdAt: DateTime
+    createdAt: DateTime!
     start: DateTime
     end: DateTime
     matchingFunds: Int

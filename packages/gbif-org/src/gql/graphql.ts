@@ -65,7 +65,7 @@ export type Article = {
   audiences?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   body?: Maybe<Scalars['String']['output']>;
   citation?: Maybe<Scalars['String']['output']>;
-  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  createdAt: Scalars['DateTime']['output'];
   displayDate?: Maybe<Scalars['Boolean']['output']>;
   documents?: Maybe<Array<Maybe<DocumentAsset>>>;
   excerpt?: Maybe<Scalars['String']['output']>;
@@ -177,7 +177,7 @@ export type Call = {
   __typename?: 'Call';
   acronym?: Maybe<Scalars['String']['output']>;
   body?: Maybe<Scalars['String']['output']>;
-  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  createdAt: Scalars['DateTime']['output'];
   excerpt?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   meta?: Maybe<Scalars['JSON']['output']>;
@@ -586,7 +586,7 @@ export type Comment = {
 export type Composition = {
   __typename?: 'Composition';
   blocks?: Maybe<Array<BlockItem>>;
-  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  createdAt: Scalars['DateTime']['output'];
   excerpt?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   keywords?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
@@ -1021,7 +1021,7 @@ export type DataUse = {
   citation?: Maybe<Scalars['String']['output']>;
   countriesOfCoverage?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   countriesOfResearcher?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  createdAt: Scalars['DateTime']['output'];
   excerpt?: Maybe<Scalars['String']['output']>;
   gbifHref: Scalars['String']['output'];
   gbifRegion?: Maybe<Array<Maybe<GbifRegion>>>;
@@ -1591,7 +1591,7 @@ export type Document = {
   __typename?: 'Document';
   body?: Maybe<Scalars['String']['output']>;
   citation?: Maybe<Scalars['String']['output']>;
-  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  createdAt: Scalars['DateTime']['output'];
   document?: Maybe<DocumentAsset>;
   excerpt?: Maybe<Scalars['String']['output']>;
   gbifHref: Scalars['String']['output'];
@@ -1777,7 +1777,7 @@ export type EventCardinality = {
   datasetKey: Scalars['Int']['output'];
   locationID: Scalars['Int']['output'];
   parentEventID: Scalars['Int']['output'];
-  species: Scalars['Int']['output'];
+  speciesKey: Scalars['Int']['output'];
   surveyID: Scalars['Int']['output'];
 };
 
@@ -2441,7 +2441,7 @@ export type GbifProject = {
   body?: Maybe<Scalars['String']['output']>;
   call?: Maybe<Call>;
   contractCountry?: Maybe<Scalars['String']['output']>;
-  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  createdAt: Scalars['DateTime']['output'];
   documents?: Maybe<Array<DocumentAsset>>;
   end?: Maybe<Scalars['DateTime']['output']>;
   events?: Maybe<Array<MeetingEvent>>;
@@ -2550,7 +2550,7 @@ export type HeaderBlock = {
 export type Help = {
   __typename?: 'Help';
   body?: Maybe<Scalars['String']['output']>;
-  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  createdAt: Scalars['DateTime']['output'];
   excerpt?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   identifier?: Maybe<Scalars['String']['output']>;
@@ -3523,7 +3523,7 @@ export type MeetingEvent = {
   body?: Maybe<Scalars['String']['output']>;
   coordinates?: Maybe<Coordinates>;
   country?: Maybe<Scalars['String']['output']>;
-  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  createdAt: Scalars['DateTime']['output'];
   documents?: Maybe<Array<Maybe<DocumentAsset>>>;
   end?: Maybe<Scalars['DateTime']['output']>;
   eventLanguage?: Maybe<Scalars['String']['output']>;
@@ -3858,7 +3858,7 @@ export enum NomenclaturalStatus {
 export type Notification = {
   __typename?: 'Notification';
   body?: Maybe<Scalars['String']['output']>;
-  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  createdAt: Scalars['DateTime']['output'];
   end?: Maybe<Scalars['DateTime']['output']>;
   excerpt?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['ID']['output']>;
@@ -7325,7 +7325,7 @@ export type Tool = {
   author?: Maybe<Scalars['String']['output']>;
   body?: Maybe<Scalars['String']['output']>;
   citation?: Maybe<Scalars['String']['output']>;
-  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  createdAt: Scalars['DateTime']['output'];
   excerpt?: Maybe<Scalars['String']['output']>;
   gbifHref: Scalars['String']['output'];
   id: Scalars['ID']['output'];
@@ -7705,7 +7705,7 @@ export type CollectionSearchQuery = { __typename?: 'Query', list?: { __typename?
 export type BecomeAPublisherPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type BecomeAPublisherPageQuery = { __typename?: 'Query', resource?: { __typename: 'Article', id: string, title: string, summary?: string | null, excerpt?: string | null, body?: string | null, topics?: Array<string | null> | null, purposes?: Array<string | null> | null, audiences?: Array<string | null> | null, citation?: string | null, createdAt?: string | null, primaryImage?: { __typename?: 'AssetImage', description?: string | null, title?: string | null, file: { __typename?: 'ImageFile', url: string, normal: string, mobile: string, details: { __typename?: 'ImageFileDetails', image?: { __typename?: 'ImageFileDetailsImage', width?: number | null, height?: number | null } | null } } } | null, secondaryLinks?: Array<{ __typename?: 'Link', label: string, url: string } | null> | null, documents?: Array<{ __typename?: 'DocumentAsset', title?: string | null, file?: { __typename?: 'DocumentAssetFile', url?: string | null, fileName?: string | null, contentType?: string | null, volatile_documentType?: string | null, details?: { __typename?: 'DocumentAssetFileDetails', size?: number | null } | null } | null } | null> | null } | { __typename: 'Composition' } | { __typename: 'DataUse' } | { __typename: 'Document' } | { __typename: 'GbifProject' } | { __typename: 'Help' } | { __typename: 'Literature' } | { __typename: 'MeetingEvent' } | { __typename: 'News' } | { __typename: 'Notification' } | { __typename: 'Programme' } | { __typename: 'Tool' } | null };
+export type BecomeAPublisherPageQuery = { __typename?: 'Query', resource?: { __typename: 'Article', id: string, title: string, summary?: string | null, excerpt?: string | null, body?: string | null, topics?: Array<string | null> | null, purposes?: Array<string | null> | null, audiences?: Array<string | null> | null, citation?: string | null, createdAt: string, primaryImage?: { __typename?: 'AssetImage', description?: string | null, title?: string | null, file: { __typename?: 'ImageFile', url: string, normal: string, mobile: string, details: { __typename?: 'ImageFileDetails', image?: { __typename?: 'ImageFileDetailsImage', width?: number | null, height?: number | null } | null } } } | null, secondaryLinks?: Array<{ __typename?: 'Link', label: string, url: string } | null> | null, documents?: Array<{ __typename?: 'DocumentAsset', title?: string | null, file?: { __typename?: 'DocumentAssetFile', url?: string | null, fileName?: string | null, contentType?: string | null, volatile_documentType?: string | null, details?: { __typename?: 'DocumentAssetFileDetails', size?: number | null } | null } | null } | null> | null } | { __typename: 'Composition' } | { __typename: 'DataUse' } | { __typename: 'Document' } | { __typename: 'GbifProject' } | { __typename: 'Help' } | { __typename: 'Literature' } | { __typename: 'MeetingEvent' } | { __typename: 'News' } | { __typename: 'Notification' } | { __typename: 'Programme' } | { __typename: 'Tool' } | null };
 
 export type DatasetStubResultFragment = { __typename?: 'DatasetSearchStub', key: string, title?: string | null, excerpt?: string | null, type?: DatasetType | null, publishingOrganizationTitle?: string | null };
 
@@ -7870,7 +7870,7 @@ export type AliasHandlingQueryVariables = Exact<{
 
 export type AliasHandlingQuery = { __typename?: 'Query', resource?: { __typename: 'Article', id: string, title: string, urlAlias?: string | null } | { __typename: 'Composition', id: string, urlAlias?: string | null, maybeTitle?: string | null } | { __typename: 'DataUse', id: string, title: string } | { __typename: 'Document', id: string, title: string } | { __typename: 'GbifProject', id: string, title: string } | { __typename: 'Help' } | { __typename: 'Literature' } | { __typename: 'MeetingEvent', id: string, title: string } | { __typename: 'News', id: string, title: string } | { __typename: 'Notification' } | { __typename: 'Programme', id: string, title: string } | { __typename: 'Tool', id: string, title: string } | null };
 
-export type ArticlePageFragment = { __typename?: 'Article', id: string, title: string, summary?: string | null, excerpt?: string | null, body?: string | null, topics?: Array<string | null> | null, purposes?: Array<string | null> | null, audiences?: Array<string | null> | null, citation?: string | null, createdAt?: string | null, primaryImage?: { __typename?: 'AssetImage', description?: string | null, title?: string | null, file: { __typename?: 'ImageFile', url: string, normal: string, mobile: string, details: { __typename?: 'ImageFileDetails', image?: { __typename?: 'ImageFileDetailsImage', width?: number | null, height?: number | null } | null } } } | null, secondaryLinks?: Array<{ __typename?: 'Link', label: string, url: string } | null> | null, documents?: Array<{ __typename?: 'DocumentAsset', title?: string | null, file?: { __typename?: 'DocumentAssetFile', url?: string | null, fileName?: string | null, contentType?: string | null, volatile_documentType?: string | null, details?: { __typename?: 'DocumentAssetFileDetails', size?: number | null } | null } | null } | null> | null };
+export type ArticlePageFragment = { __typename?: 'Article', id: string, title: string, summary?: string | null, excerpt?: string | null, body?: string | null, topics?: Array<string | null> | null, purposes?: Array<string | null> | null, audiences?: Array<string | null> | null, citation?: string | null, createdAt: string, primaryImage?: { __typename?: 'AssetImage', description?: string | null, title?: string | null, file: { __typename?: 'ImageFile', url: string, normal: string, mobile: string, details: { __typename?: 'ImageFileDetails', image?: { __typename?: 'ImageFileDetailsImage', width?: number | null, height?: number | null } | null } } } | null, secondaryLinks?: Array<{ __typename?: 'Link', label: string, url: string } | null> | null, documents?: Array<{ __typename?: 'DocumentAsset', title?: string | null, file?: { __typename?: 'DocumentAssetFile', url?: string | null, fileName?: string | null, contentType?: string | null, volatile_documentType?: string | null, details?: { __typename?: 'DocumentAssetFileDetails', size?: number | null } | null } | null } | null> | null };
 
 export type ArticleBannerFragment = { __typename?: 'AssetImage', description?: string | null, title?: string | null, file: { __typename?: 'ImageFile', url: string, normal: string, mobile: string, details: { __typename?: 'ImageFileDetails', image?: { __typename?: 'ImageFileDetailsImage', width?: number | null, height?: number | null } | null } } };
 
@@ -7979,9 +7979,9 @@ type ResourceRedirectDetails_Tool_Fragment = { __typename: 'Tool', id: string, t
 
 export type ResourceRedirectDetailsFragment = ResourceRedirectDetails_Article_Fragment | ResourceRedirectDetails_Composition_Fragment | ResourceRedirectDetails_DataUse_Fragment | ResourceRedirectDetails_Document_Fragment | ResourceRedirectDetails_GbifProject_Fragment | ResourceRedirectDetails_Help_Fragment | ResourceRedirectDetails_Literature_Fragment | ResourceRedirectDetails_MeetingEvent_Fragment | ResourceRedirectDetails_News_Fragment | ResourceRedirectDetails_Notification_Fragment | ResourceRedirectDetails_Programme_Fragment | ResourceRedirectDetails_Tool_Fragment;
 
-export type DataUsePageFragment = { __typename?: 'DataUse', id: string, title: string, summary?: string | null, resourceUsed?: string | null, excerpt?: string | null, body?: string | null, countriesOfCoverage?: Array<string | null> | null, topics?: Array<string | null> | null, purposes?: Array<string | null> | null, audiences?: Array<string | null> | null, citation?: string | null, createdAt?: string | null, primaryImage?: { __typename?: 'AssetImage', description?: string | null, title?: string | null, file: { __typename?: 'ImageFile', url: string, normal: string, mobile: string, details: { __typename?: 'ImageFileDetails', image?: { __typename?: 'ImageFileDetailsImage', width?: number | null, height?: number | null } | null } } } | null, primaryLink?: { __typename?: 'Link', label: string, url: string } | null, secondaryLinks?: Array<{ __typename?: 'Link', label: string, url: string } | null> | null };
+export type DataUsePageFragment = { __typename?: 'DataUse', id: string, title: string, summary?: string | null, resourceUsed?: string | null, excerpt?: string | null, body?: string | null, countriesOfCoverage?: Array<string | null> | null, topics?: Array<string | null> | null, purposes?: Array<string | null> | null, audiences?: Array<string | null> | null, citation?: string | null, createdAt: string, primaryImage?: { __typename?: 'AssetImage', description?: string | null, title?: string | null, file: { __typename?: 'ImageFile', url: string, normal: string, mobile: string, details: { __typename?: 'ImageFileDetails', image?: { __typename?: 'ImageFileDetailsImage', width?: number | null, height?: number | null } | null } } } | null, primaryLink?: { __typename?: 'Link', label: string, url: string } | null, secondaryLinks?: Array<{ __typename?: 'Link', label: string, url: string } | null> | null };
 
-export type DocumentPageFragment = { __typename?: 'Document', id: string, title: string, createdAt?: string | null, excerpt?: string | null, summary?: string | null, body?: string | null, citation?: string | null, primaryLink?: { __typename?: 'Link', label: string, url: string } | null, document?: { __typename?: 'DocumentAsset', title?: string | null, description?: string | null, file?: { __typename?: 'DocumentAssetFile', fileName?: string | null, url?: string | null } | null } | null };
+export type DocumentPageFragment = { __typename?: 'Document', id: string, title: string, createdAt: string, excerpt?: string | null, summary?: string | null, body?: string | null, citation?: string | null, primaryLink?: { __typename?: 'Link', label: string, url: string } | null, document?: { __typename?: 'DocumentAsset', title?: string | null, description?: string | null, file?: { __typename?: 'DocumentAssetFile', fileName?: string | null, url?: string | null } | null } | null };
 
 export type EventPageFragment = { __typename?: 'MeetingEvent', id: string, title: string, summary?: string | null, excerpt?: string | null, body?: string | null, location?: string | null, country?: string | null, start: string, end?: string | null, eventLanguage?: string | null, venue?: string | null, allDayEvent?: boolean | null, primaryImage?: { __typename?: 'AssetImage', description?: string | null, title?: string | null, file: { __typename?: 'ImageFile', url: string, normal: string, mobile: string, details: { __typename?: 'ImageFileDetails', image?: { __typename?: 'ImageFileDetailsImage', width?: number | null, height?: number | null } | null } } } | null, primaryLink?: { __typename?: 'Link', label: string, url: string } | null, secondaryLinks?: Array<{ __typename?: 'Link', label: string, url: string } | null> | null, documents?: Array<{ __typename?: 'DocumentAsset', title?: string | null, file?: { __typename?: 'DocumentAssetFile', url?: string | null, fileName?: string | null, contentType?: string | null, volatile_documentType?: string | null, details?: { __typename?: 'DocumentAssetFileDetails', size?: number | null } | null } | null } | null> | null };
 
@@ -8026,7 +8026,7 @@ export type ProjectNewsAndEventsQueryVariables = Exact<{
 
 export type ProjectNewsAndEventsQuery = { __typename?: 'Query', gbifProject?: { __typename?: 'GbifProject', news?: Array<{ __typename: 'News', createdAt: string, id: string, title: string, excerpt?: string | null, primaryImage?: { __typename?: 'AssetImage', file: { __typename?: 'ImageFile', url: string } } | null }> | null, events?: Array<{ __typename: 'MeetingEvent', start: string, id: string, title: string, excerpt?: string | null, country?: string | null, location?: string | null, venue?: string | null, end?: string | null, gbifsAttendee?: string | null, allDayEvent?: boolean | null, primaryLink?: { __typename?: 'Link', url: string } | null }> | null } | null, help?: { __typename?: 'Help', title: string } | null };
 
-export type ToolPageFragment = { __typename?: 'Tool', id: string, title: string, summary?: string | null, body?: string | null, citation?: string | null, createdAt?: string | null, author?: string | null, rights?: string | null, rightsHolder?: string | null, publicationDate?: string | null, primaryImage?: { __typename?: 'AssetImage', description?: string | null, title?: string | null, file: { __typename?: 'ImageFile', url: string, normal: string, mobile: string, details: { __typename?: 'ImageFileDetails', image?: { __typename?: 'ImageFileDetailsImage', width?: number | null, height?: number | null } | null } } } | null, primaryLink?: { __typename?: 'Link', label: string, url: string } | null, secondaryLinks?: Array<{ __typename?: 'Link', label: string, url: string } | null> | null };
+export type ToolPageFragment = { __typename?: 'Tool', id: string, title: string, summary?: string | null, body?: string | null, citation?: string | null, createdAt: string, author?: string | null, rights?: string | null, rightsHolder?: string | null, publicationDate?: string | null, primaryImage?: { __typename?: 'AssetImage', description?: string | null, title?: string | null, file: { __typename?: 'ImageFile', url: string, normal: string, mobile: string, details: { __typename?: 'ImageFileDetails', image?: { __typename?: 'ImageFileDetailsImage', width?: number | null, height?: number | null } | null } } } | null, primaryLink?: { __typename?: 'Link', label: string, url: string } | null, secondaryLinks?: Array<{ __typename?: 'Link', label: string, url: string } | null> | null };
 
 export const DatasetStubResultFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DatasetStubResult"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"DatasetSearchStub"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"publishingOrganizationTitle"}}]}}]} as unknown as DocumentNode<DatasetStubResultFragment, unknown>;
 export const DatasetResultFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DatasetResult"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Dataset"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"publishingOrganizationTitle"}}]}}]} as unknown as DocumentNode<DatasetResultFragment, unknown>;

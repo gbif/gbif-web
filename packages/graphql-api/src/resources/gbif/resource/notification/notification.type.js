@@ -16,7 +16,7 @@ const typeDef = gql`
     url: String
     notificationType: String
     severity: String
-    createdAt: DateTime
+    createdAt: DateTime!
     updatedAt: DateTime
   }
 `;

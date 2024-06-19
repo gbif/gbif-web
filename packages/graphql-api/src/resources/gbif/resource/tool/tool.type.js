@@ -14,7 +14,7 @@ const typeDef = gql`
     excerpt: String
     primaryImage: AssetImage
     primaryLink: Link
-    createdAt: DateTime
+    createdAt: DateTime!
     updatedAt: DateTime
     keywords: [String]
     author: String
