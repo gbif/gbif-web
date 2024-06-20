@@ -34,12 +34,14 @@ import { GbifLinkCard, TocLi } from '@/components/TocHelp';
 
 export function DatasetKeyAbout() {
   const { data } = useParentRouteLoaderData(RouteId.Dataset) as { data: DatasetQuery };
-  const [toc, setToc] = useState({description: true});
+  const { dataset } = data;
+  const defaultToc = getToc(data);
+  const [toc, setToc] = useState(defaultToc);
   const removeSidebar = useBelow(1100);
   const { formatMessage } = useIntl();
   const config = useConfig();
   const sitePredicate = config?.occurrencePredicate;
-  const { dataset } = data;
+  
 
   const {
     data: insights,
@@ -107,13 +109,6 @@ export function DatasetKeyAbout() {
     return null; //TODO return loader or error
   }
 
-  const hasSamplingDescription =
-    dataset?.samplingDescription?.studyExtent ||
-    dataset?.samplingDescription?.sampling ||
-    dataset?.samplingDescription?.qualityControl ||
-    (dataset?.samplingDescription?.methodSteps &&
-      dataset?.samplingDescription?.methodSteps?.length > 0);
-
   const scopeSmallerThanDatasetMessage = formatMessage(
     {
       id: 'dataset.siteScopeSmallerThanDataset',
@@ -131,23 +126,8 @@ export function DatasetKeyAbout() {
   const total = insights?.unfiltered?.documents?.total;
   // when dataset or insights change, then recalculate which items go into the table of contents
   useEffect(() => {
-    if (!dataset || !insights) return;
-    const updatedToc = {
-      'description': true,
-      'purpose': dataset?.purpose,
-      'geographicDescription': (dataset?.geographicCoverages?.length ?? 0) > 0,
-      'temporalDescription': true,
-      'taxonomicDescription': true,
-      'methodology': hasSamplingDescription,
-      'metrics': insights?.unfiltered?.documents?.total > 1,
-      'additionalInfo': dataset?.additionalInfo,
-      'contacts': (dataset?.volatileContributors?.length ?? 0) > 0,
-      'bibliography': (dataset?.bibliographicCitations?.length ?? 0)> 0,
-      'registration': true,
-      'citation': true,
-    };
-    setToc(updatedToc);
-  })
+    setToc(getToc(data, insights));
+  }, [data, insights])
 
   
   return (
@@ -523,3 +503,31 @@ const DATASET_SLOW = /* GraphQL */ `
     }
   }
 `;
+
+function getToc(data?: DatasetQuery, insights?: DatasetInsightsQuery) {
+  const dataset = data?.dataset;
+  if (!dataset) return;
+
+  const hasSamplingDescription =
+    dataset?.samplingDescription?.studyExtent ||
+    dataset?.samplingDescription?.sampling ||
+    dataset?.samplingDescription?.qualityControl ||
+    (dataset?.samplingDescription?.methodSteps &&
+      dataset?.samplingDescription?.methodSteps?.length > 0);
+
+  const toc = {
+    'description': true,
+    'purpose': dataset?.purpose,
+    'geographicDescription': (dataset?.geographicCoverages?.length ?? 0) > 0,
+    'temporalDescription': true,
+    'taxonomicDescription': true,
+    'methodology': hasSamplingDescription,
+    'metrics': dataset.type === 'OCCURRENCE' || insights?.unfiltered?.documents?.total > 1,
+    'additionalInfo': dataset?.additionalInfo,
+    'contacts': (dataset?.volatileContributors?.length ?? 0) > 0,
+    'bibliography': (dataset?.bibliographicCitations?.length ?? 0)> 0,
+    'registration': true,
+    'citation': true,
+  };
+  return toc;
+}
