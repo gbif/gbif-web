@@ -1,20 +1,20 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 type Props<T extends React.ElementType> = React.ComponentProps<T> & {
   children?: React.ReactNode;
   as?: T;
-  onChange: (visible: boolean) => void;
+  onChange?: (visible: boolean) => void;
 };
 
 // Don't use this component as a wrapper for components with side effects, as it will run the children components twice.
 export function RenderIfChildren<T extends React.ElementType = 'div'>({
   children,
   as,
-  onChange,// optional callback function to notify parent of visibility status
+  onChange, // optional callback function to notify parent of visibility status
   ...props
 }: Props<T>) {
   const [visible, setVisible] = useState(false);
-  
+
   useEffect(() => {
     if (onChange) onChange(visible);
   }, [visible]);
