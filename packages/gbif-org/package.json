@@ -73,7 +73,6 @@
   "devDependencies": {
     "@graphql-codegen/cli": "5.0.0",
     "@graphql-codegen/client-preset": "4.1.0",
-    "@originjs/vite-plugin-commonjs": "^1.0.3",
     "@parcel/watcher": "^2.3.0",
     "@tailwindcss/typography": "^0.5.10",
     "@types/doi-regex": "^0.1.3",
