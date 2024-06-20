@@ -23,7 +23,7 @@ export function Registration({ dataset = {}, ...props }) {
   );
 
   const orphanMachineTag = machineTags.find(
-    (machineTag) => machineTag.namespace === 'orphans.gbif.org' && name === 'status'
+    (machineTag) => machineTag.namespace === 'orphans.gbif.org' && machineTag.name === 'status'
   );
   const hostingStatus = orphanMachineTag ? orphanMachineTag.value : undefined;
 
