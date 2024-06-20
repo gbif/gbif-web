@@ -44,12 +44,14 @@ import { DynamicLink } from '@/components/dynamicLink';
 import { GiDna1 } from 'react-icons/gi';
 import { TiPipette as SamplingIcon } from "react-icons/ti";
 import { Message } from '@/components/message';
+import { MapThumbnail, MapTypes, useHasMap } from '@/components/mapThumbnail';
 
 
 export function DatasetKeyAbout() {
   const { data } = useParentRouteLoaderData(RouteId.Dataset) as { data: DatasetQuery };
   const { dataset, totalTaxa, accepted, synonyms } = data;
   const defaultToc = getToc(data);
+  const hasPreprocessedMap = useHasMap({ type: MapTypes.DatasetKey, identifier: data?.dataset?.key ?? '' });
   const [toc, setToc] = useState(defaultToc);
   const removeSidebar = useBelow(1100);
   const { formatMessage } = useIntl();
@@ -520,6 +522,7 @@ export function DatasetKeyAbout() {
 
               {(total > 0 || dataset.type === 'OCCURRENCE') && (
                 <Card className="g-mb-4">
+                  {hasPreprocessedMap && <MapThumbnail type={MapTypes.DatasetKey} identifier={dataset.key}/>}
                   <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
                     <div className="g-flex-none g-me-2">
                       <div className="g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center">
