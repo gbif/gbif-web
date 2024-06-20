@@ -90,6 +90,24 @@ const config = {
         defaultLowerBound: 'lte'
       }
     },
+    discovered: {
+      type: 'date',
+      field: 'accessed',
+      get: {
+        type: 'range_or_term',
+        defaultUpperBound: 'gte',
+        defaultLowerBound: 'lte'
+      }
+    },
+    added: {
+      type: 'date',
+      field: 'created',
+      get: {
+        type: 'range_or_term',
+        defaultUpperBound: 'gte',
+        defaultLowerBound: 'lte'
+      }
+    },
     createdAt: {
       type: 'date',
       field: 'createdAt',

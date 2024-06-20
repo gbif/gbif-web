@@ -5,7 +5,7 @@ const _ = require('lodash');
 //   return obj;
 // }
 
-const whitelist = ['authors', 'countriesOfCoverage', 'countriesOfResearcher', 'day', 'gbifDownloadKey', 'gbifOccurrenceKey', 'gbifTaxonKey', 'gbifHigherTaxonKey', 'citationType', 'gbifRegion', 'id', 'identifiers', 'keywords', 'language', 'literatureType', 'month', 'notes', 'openAccess', 'peerReview', 'publisher', 'relevance', 'source', 'tags', 'title', 'topics', 'websites', 'year', 'abstract'];
+const whitelist = ['createdAt', 'authors', 'countriesOfCoverage', 'countriesOfResearcher', 'day', 'gbifDownloadKey', 'gbifOccurrenceKey', 'gbifTaxonKey', 'gbifHigherTaxonKey', 'citationType', 'gbifRegion', 'id', 'identifiers', 'keywords', 'language', 'literatureType', 'month', 'notes', 'openAccess', 'peerReview', 'publisher', 'relevance', 'source', 'tags', 'title', 'topics', 'websites', 'year', 'abstract'];
 
 //api v1
 // ['discovered', 'authors', 'countriesOfCoverage', 'countriesOfResearcher', 'added', 'published', 'day', 'gbifDownloadKey', 'gbifOccurrenceKey', 'gbifTaxonKey', 'gbifHigherTaxonKey', 'citationType', 'gbifRegion', 'id', 'identifiers', 'keywords', 'language', 'literatureType', 'month', 'notes', 'openAccess', 'peerReview', 'publisher', 'relevance', 'source', 'tags', 'title', 'topics', 'modified', 'websites', 'year', 'abstract'];
@@ -21,7 +21,12 @@ const whitelist = ['authors', 'countriesOfCoverage', 'countriesOfResearcher', 'd
  */
 function reduce(item) {
   const source = item._source;
-  return _.pick(item._source, whitelist);
+  const pruned = _.pick(item._source, whitelist);
+
+  // rename
+  pruned.discovered = source.accessed;
+  pruned.added = source.created;
+  return pruned;
 }
 
 module.exports = {
