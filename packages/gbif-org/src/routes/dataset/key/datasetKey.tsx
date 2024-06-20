@@ -181,6 +181,8 @@ const DATASET_QUERY = /* GraphQL */ `
       doi
       machineTags {
         namespace
+        name
+        value
       }
       gridded {
         percent
