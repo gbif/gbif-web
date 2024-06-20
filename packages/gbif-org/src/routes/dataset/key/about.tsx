@@ -45,6 +45,7 @@ import { GiDna1 } from 'react-icons/gi';
 import { TiPipette as SamplingIcon } from "react-icons/ti";
 import { Message } from '@/components/message';
 import { MapThumbnail, MapTypes, useHasMap } from '@/components/mapThumbnail';
+import EmptyValue from '@/components/emptyValue';
 
 
 export function DatasetKeyAbout() {
@@ -204,6 +205,7 @@ export function DatasetKeyAbout() {
                     dangerouslySetInnerHTML={{ __html: dataset.description }}
                   ></div>
                 )}
+                {!dataset?.description && <EmptyValue />}
               </CardContent>
             </Card>
 
