@@ -1,4 +1,5 @@
-import { FormattedDate, FormattedDateTimeRange, FormattedMessage } from 'react-intl';
+import { FormattedDate, FormattedDateTimeRange, FormattedMessage, useIntl } from 'react-intl';
+import { HyperText } from './hyperText';
 
 export function Unknown({ id = 'phrases.unknown', ...props }) {
   return (
@@ -58,3 +59,16 @@ export function FormattedDateRange({
   }
   return diplayDate;
 }
+
+export function Message({
+  id, defaultMessage, values,
+  ...props
+}: {
+  id: string;
+  defaultMessage?: string;
+  values?: any;
+}) {
+  const { formatMessage } = useIntl();
+  const dirty = formatMessage({ ...{id, defaultMessage, values} });
+  return <HyperText text={dirty} {...props}/>
+};
