@@ -573,7 +573,7 @@ export function DatasetKeyAbout() {
                       </div>
                     </div>
                     <div className="g-flex-auto g-mt-0.5 g-mb-2">
-                      <DynamicLink to={`/occurrence/search?datasetKey=${dataset.key}`}>
+                      <DynamicLink to={`/occurrence/search?datasetKey=${dataset.key}&isSequenced=true`}>
                         <h5 className="g-font-bold">
                           <FormattedMessage id="dataset.includesDna" />
                         </h5>
@@ -595,11 +595,9 @@ export function DatasetKeyAbout() {
                       </div>
                     </div>
                     <div className="g-flex-auto g-mt-0.5 g-mb-2">
-                      <DynamicLink to={`/occurrence/search?datasetKey=${dataset.key}`}>
-                        <h5 className="g-font-bold">
-                          <FormattedMessage id="dataset.containsSamplingEvents" />
-                        </h5>
-                      </DynamicLink>
+                      <h5 className="g-font-bold">
+                        <FormattedMessage id="dataset.containsSamplingEvents" />
+                      </h5>
                       <div className="g-text-slate-500 [&_a]:g-underline">
                         <Message id="dataset.containsSamplingEventsDescription" />
                       </div>
@@ -617,11 +615,9 @@ export function DatasetKeyAbout() {
                       </div>
                     </div>
                     <div className="g-flex-auto g-mt-0.5 g-mb-2">
-                      <DynamicLink to={`/occurrence/search?datasetKey=${dataset.key}`}>
-                        <h5 className="g-font-bold">
-                          <FormattedMessage id="dataset.griddedData" />
-                        </h5>
-                      </DynamicLink>
+                      <h5 className="g-font-bold">
+                        <FormattedMessage id="dataset.griddedData" />
+                      </h5>
                       <div className="g-text-slate-500 [&_a]:g-underline">
                         <Message id="dataset.griddedDataDescription" />
                       </div>
