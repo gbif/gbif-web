@@ -7,6 +7,7 @@ import {
 } from '@/components/headerComponents';
 import { Homepage, FeatureList, GenericFeature, PeopleIcon } from '@/components/highlights';
 import { LicenceTag } from '@/components/identifierTag';
+import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
 import { DatasetQuery, DatasetQueryVariables } from '@/gql/graphql';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
@@ -17,6 +18,7 @@ import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { LoaderArgs } from '@/types';
 import { required } from '@/utils/required';
 import { Helmet } from 'react-helmet-async';
+import { MdLink } from 'react-icons/md';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import { Outlet, useLoaderData } from 'react-router-dom';
 
@@ -208,7 +210,21 @@ export function DatasetPage() {
   const deletedAt = dataset.deleted;
   const contactThreshold = 6;
   const contactsCitation = dataset.contactsCitation?.filter((c) => c.abbreviatedName) || [];
-
+  
+  const tabs: { to: string; children: React.ReactNode }[] = [
+    { to: '.', children: 'About' },
+    // { to: 'citations', children: 'Citations' },
+  ];
+  if (true) { tabs.push({ to: 'occurrences', children: 'Occurrences' }); }
+  if (true) { 
+    //<Tooltip title={<FormattedMessage id="dataset.exploreInChecklistBank" defaultMessage="Explore taxonomy via Checklist Bank" />} placement="bottom"><a css={css`text-decoration: none; color: inherit!important;`} href={`${env.CHECKLIST_BANK_WEBSITE}/dataset/gbif-${dataset.key}/classification`}>Taxonomy<MdLink /></a></Tooltip>
+    tabs.push({ to: `${import.meta.env.PUBLIC_CHECKLIST_BANK_WEBSITE}/dataset/gbif-${dataset.key}/classification`, children: <>
+    <SimpleTooltip title={<FormattedMessage id="dataset.exploreInChecklistBank" defaultMessage="Explore taxonomy via Checklist Bank" />}>
+      <FormattedMessage id="dataset.exploreInChecklistBank" defaultMessage="Taxonomy" /><MdLink />
+    </SimpleTooltip>
+    </> });
+  }
+  tabs.push({ to: 'download', children: 'Download'});
   return (
     <article>
       <Helmet>
@@ -280,12 +296,7 @@ export function DatasetPage() {
           </HeaderInfo>
           <div className="g-border-b g-mt-4"></div>
           <Tabs
-            links={[
-              { to: '.', children: 'About' },
-              { to: 'occurrences', children: 'Occurrences' },
-              { to: 'download', children: 'Download' },
-              // { to: 'citations', children: 'Citations' },
-            ]}
+            links={tabs}
           />
         </ArticleTextContainer>
       </PageContainer>
