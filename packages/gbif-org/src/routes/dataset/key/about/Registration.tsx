@@ -1,3 +1,4 @@
+import { HelpLine, HelpText } from '@/components/helpText';
 import { HyperText } from '@/components/hyperText';
 import Properties, { Term as T, Value as V } from '@/components/properties';
 import { Button } from '@/components/ui/button';
@@ -119,7 +120,7 @@ export function Registration({ dataset = {}, ...props }) {
               <FormattedMessage id="dataset.registry.hostingStatus" />
             </T>
             <V>
-              <FormattedMessage id={`dataset.registry.${hostingStatus}`} />
+              <FormattedMessage id={`dataset.registry.${hostingStatus}`} /><HelpLine id="what-is-an-orphan-dataset" icon />
             </V>
           </>
         )}
