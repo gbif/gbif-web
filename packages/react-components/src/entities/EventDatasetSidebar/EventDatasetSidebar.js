@@ -255,7 +255,7 @@ query dataset($key: JSON!){
     }
     cardinality {
       locationID
-      species
+      speciesKey
     }
     facet {
       measurementOrFactTypes {
