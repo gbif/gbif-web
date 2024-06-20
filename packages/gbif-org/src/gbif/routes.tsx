@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import { GbifRootLayout, headerLoader } from '@/components/gbifRootLayout';
+import { GbifRootLayout, headerLoader } from './gbifRootLayout';
 import { SourceRouteObject } from '@/types';
 import { configureRoutes } from '@/utils/configureRoutes';
 import { HomePage } from '@/routes/homePage';
@@ -335,7 +335,7 @@ const baseRoutes: SourceRouteObject[] = [
               return `https://www.gbif.org/country/${params.key}`;
             },
             path: 'country/:key',
-            element: <h1>Country page</h1>
+            element: <h1>Country page</h1>,
           },
           {
             path: 'news/:key',
