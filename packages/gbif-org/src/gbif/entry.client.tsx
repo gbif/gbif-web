@@ -22,7 +22,20 @@ async function hydrate() {
     root,
     <Root config={gbifConfig} metadataRoutes={metadataRoutes}>
       <RouterProvider router={router} fallbackElement={null} />
-    </Root>
+    </Root>,
+    {
+      onRecoverableError: (error) => {
+        // Ignore intentional suspense errors. See staticRenderSuspence.tsx for more context.
+        if (
+          error instanceof Error &&
+          error.message === 'This component should not be rendered on the server.'
+        ) {
+          return;
+        }
+
+        console.error(error);
+      },
+    }
   );
 }
 

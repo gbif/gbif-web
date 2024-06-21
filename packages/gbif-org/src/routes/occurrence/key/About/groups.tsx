@@ -42,6 +42,7 @@ import {
   Reference,
   ResourceRelationship,
 } from './extensions';
+import { StaticRenderSuspence } from '@/components/staticRenderSuspence';
 
 const Map = React.lazy(() => import('@/components/map'));
 
@@ -409,12 +410,12 @@ function Location({
 
         {occurrence.coordinates.lon && (
           <div className="g-ms-4 g-flex-auto g-w-1/2 g-min-w-64">
-            <React.Suspense fallback={<div>Loading map...</div>}>
+            <StaticRenderSuspence fallback={<div>Loading map...</div>}>
               <Map
                 coordinates={occurrence.coordinates}
                 className="g-w-full g-rounded g-overflow-hidden"
               />
-            </React.Suspense>
+            </StaticRenderSuspence>
           </div>
         )}
       </CardContent>
