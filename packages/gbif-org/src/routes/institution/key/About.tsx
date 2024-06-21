@@ -32,6 +32,8 @@ import {
 import { BulletList } from '@/components/bulletList';
 import { getCount } from '@/components/count';
 import { useParams } from 'react-router-dom';
+import { TableOfContents } from '@/components/tableOfContents';
+import { useMemo } from 'react';
 // import { MdMap } from 'react-icons/md';
 
 export default function About() {
@@ -44,6 +46,20 @@ export default function About() {
   const removeSidebar = useBelow(1100);
   const useInlineImage = useBelow(700);
   const { institution } = data;
+
+  const tableOfContents = useMemo(
+    () => [
+      { id: 'description', title: <FormattedMessage id="Description" /> },
+      {
+        id: 'collections',
+        title: <FormattedMessage id="Collections" />,
+        hidden: !institution?.collections?.length,
+      },
+      { id: 'contacts', title: <FormattedMessage id="Contacts" /> },
+      { id: 'identifiers', title: <FormattedMessage id="Identifiers" /> },
+    ],
+    [institution]
+  );
 
   if (!institution) return null;
 
@@ -132,8 +148,8 @@ export default function About() {
             )}
 
             {institution?.collections?.length > 0 && (
-              <>
-                <CardHeader id="collections">
+              <div id="collections" className="g-scroll-mt-24">
+                <CardHeader>
                   <CardTitle>
                     <FormattedMessage id="institution.collections" defaultMessage="Collections" />
                   </CardTitle>
@@ -198,7 +214,7 @@ export default function About() {
                     </tbody>
                   </table>
                 </Card>
-              </>
+              </div>
             )}
 
             <Card className="g-mb-4" id="contacts">
@@ -480,33 +496,8 @@ export default function About() {
                 </CardContentSmall> */}
                 </CardSmall>
               )}
-              <div className="g-pt-4 g-sticky g-top-[--stickyOffset] ">
-                <CardSmall className="g-mb-4">
-                  <ul className="g-list-none g-px-4 g-py-2">
-                    <li className="g-py-1">
-                      <a href="#description">
-                        <FormattedMessage id="Description" />
-                      </a>
-                    </li>
-                    {institution?.collections && institution?.collections?.length > 0 && (
-                      <li className="g-py-1">
-                        <a href="#collections">
-                          <FormattedMessage id="Collections" />
-                        </a>
-                      </li>
-                    )}
-                    <li className="g-py-1">
-                      <a href="#contacts">
-                        <FormattedMessage id="Contacts" />
-                      </a>
-                    </li>
-                    <li className="g-py-1">
-                      <a href="#identifiers">
-                        <FormattedMessage id="Identifiers" />
-                      </a>
-                    </li>
-                  </ul>
-                </CardSmall>
+              <div className="g-pt-4 g-sticky g-top-[--stickyOffset]">
+                <TableOfContents sections={tableOfContents} />
               </div>
             </aside>
           )}
