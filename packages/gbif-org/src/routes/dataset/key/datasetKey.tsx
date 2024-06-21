@@ -216,8 +216,7 @@ export function DatasetPage() {
     // { to: 'citations', children: 'Citations' },
   ];
   if (true) { tabs.push({ to: 'occurrences', children: 'Occurrences' }); }
-  if (true) { 
-    //<Tooltip title={<FormattedMessage id="dataset.exploreInChecklistBank" defaultMessage="Explore taxonomy via Checklist Bank" />} placement="bottom"><a css={css`text-decoration: none; color: inherit!important;`} href={`${env.CHECKLIST_BANK_WEBSITE}/dataset/gbif-${dataset.key}/classification`}>Taxonomy<MdLink /></a></Tooltip>
+  if (dataset?.checklistBankDataset?.key) { 
     tabs.push({ to: `${import.meta.env.PUBLIC_CHECKLIST_BANK_WEBSITE}/dataset/gbif-${dataset.key}/classification`, children: <>
     <SimpleTooltip title={<FormattedMessage id="dataset.exploreInChecklistBank" defaultMessage="Explore taxonomy via Checklist Bank" />}>
       <FormattedMessage id="dataset.exploreInChecklistBank" defaultMessage="Taxonomy" /><MdLink />
