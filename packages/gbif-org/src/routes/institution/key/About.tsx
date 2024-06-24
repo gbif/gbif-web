@@ -34,6 +34,7 @@ import { getCount } from '@/components/count';
 import { useParams } from 'react-router-dom';
 import { TableOfContents } from '@/components/tableOfContents';
 import { useMemo } from 'react';
+import { GbifLinkCard } from '@/components/TocHelp';
 // import { MdMap } from 'react-icons/md';
 
 export default function About() {
@@ -498,6 +499,7 @@ export default function About() {
               )}
               <div className="g-pt-4 g-sticky g-top-[--stickyOffset]">
                 <TableOfContents sections={tableOfContents} />
+                <GbifLinkCard path={`/grscicoll/institution/${institution.key}`} />
               </div>
             </aside>
           )}
