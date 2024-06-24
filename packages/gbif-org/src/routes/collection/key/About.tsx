@@ -90,9 +90,9 @@ export default function About() {
                     labelId="grscicoll.temporalDescription"
                     showEmpty
                   />
-                  <Property value={collection.notes} labelId="grscicoll.notes">
-                    <HyperText className="dataProse [&_a]:g-underline" text={collection.notes} />
-                  </Property>
+                  {collection.notes && <Property value={collection.notes} labelId="grscicoll.notes">
+                    <HyperText className="dataProse [&_a]:g-underline" text={collection.notes} fallback/>
+                  </Property>}
                   <Property value={collection.code} labelId="grscicoll.code" showEmpty />
                   <Property
                     value={collection.numberSpecimens}
