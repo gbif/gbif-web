@@ -30,7 +30,7 @@ export function TableOfContents({ sections }: Props) {
     };
 
     observer.current = new IntersectionObserver(handleObsever, {
-      rootMargin: '-40% 0% -40% 0px',
+      rootMargin: `-200px 0px -60% 0px`,
       threshold: 0.1,
     });
 
@@ -45,7 +45,7 @@ export function TableOfContents({ sections }: Props) {
     <Card className="g-mb-4">
       <CardHeader>
         <CardTitle>
-          <FormattedMessage id="Table of Contents" />
+          <FormattedMessage id="On this page" />
         </CardTitle>
       </CardHeader>
       <CardContent>

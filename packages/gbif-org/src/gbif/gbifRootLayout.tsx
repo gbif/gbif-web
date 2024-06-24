@@ -60,6 +60,10 @@ export function GbifRootLayout({ children }: Props) {
         <ScrollRestoration />
         <Toaster />
         {children}
+        {/* Visualization of the table of contents IntersectionObserver area
+        <div className="g-fixed g-pointer-events-none g-top-0 g-left-0 g-w-screen g-h-screen">
+          <div className="g-mt-[200px] g-mb-[60%] g-bg-red-300 g-h-[calc(100vh-60%-200px)] g-opacity-10"></div>
+        </div> */}
       </main>
     </>
   );
