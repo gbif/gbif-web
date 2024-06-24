@@ -3,8 +3,7 @@ import { ArticleContainer } from '@/routes/resource/key/components/articleContai
 import { useEffect, useRef } from 'react';
 // @ts-ignore
 import { phylotree } from 'phylotree';
-// TODO - daniel - we need an easy way to import css from other packages like openlayers, phylotree, etc.
-// import 'phylotree/phylotree.css';
+import 'phylotree/dist/phylotree.css';
 
 export function OccurrenceKeyPhylo() {
   const ref = useRef(null);
