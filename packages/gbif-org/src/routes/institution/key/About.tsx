@@ -74,7 +74,7 @@ export default function About() {
   return (
     <ArticleContainer className="g-bg-slate-100 g-pt-4">
       <ArticleTextContainer className="g-max-w-screen-xl">
-        <div className={`${removeSidebar ? '' : 'g-grid g-gap-4 g-grid-cols-[1fr_350px]'}`}>
+        <div className={`${removeSidebar ? '' : 'g-grid g-gap-4 g-grid-cols-[minmax(0,1fr)_350px]'}`}>
           <div className="">
             <Card className="g-mb-4" id="description">
               <CardHeader>
