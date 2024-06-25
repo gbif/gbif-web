@@ -1,3 +1,4 @@
+// this component helps with rendering pages with faq links like on this page article/6S38ZH4I85kHGHkBvpa02y/bid-2020-frequently-asked-questions
 import { useEffect, useState } from 'react';
 import { HelpText } from '@/components/helpText';
 import { cn } from '@/utils/shadcn';
