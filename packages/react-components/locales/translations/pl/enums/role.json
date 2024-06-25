@@ -1,1 +1,19 @@
-{}
+{
+    "TECHNICAL_POINT_OF_CONTACT": "Punkt kontaktu w sprawach technicznych",
+    "ADMINISTRATIVE_POINT_OF_CONTACT": "Punkt kontaktu w sprawach administracyjnych ",
+    "_PRIMARY_CONTACT": "Podstawowy kontakt ",
+    "POINT_OF_CONTACT": "Punkt kontaktowy",
+    "GBIFS_STAFF_MEMBER": "Pracownik GBIF",
+    "METADATA_AUTHOR": "Autor metadanych",
+    "AUTHOR": "Autor",
+    "CONTENT_PROVIDER": "Dostawca treści",
+    "DISTRIBUTOR": "Dystrybutor",
+    "EDITOR": "Edytor",
+    "OWNER": "Właściciel",
+    "PUBLISHER": "Wydawca",
+    "USER": "Użytkownik",
+    "PROGRAMMER": "",
+    "CURATOR": "",
+    "DATA_ADMINISTRATOR": "Administrator danych",
+    "SYSTEM_ADMINISTRATOR": "Administrator systemu"
+}
