@@ -703,3 +703,12 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     left: 0;
   }
 }
+
+.gbif-table-wrapper td img {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.gbif-table-wrapper td {
+  vertical-align: top;
+}
