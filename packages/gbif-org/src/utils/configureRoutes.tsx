@@ -225,7 +225,16 @@ function transformLoader(
         }
       });
 
-      return loader({ ...args, config, locale, graphql, id });
+      const result = await loader({ ...args, config, locale, graphql, id });
+
+      // Remove the skeleton loading element if the loader did a redirect
+      if (result instanceof Response && result.status === 302) {
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new DoneLoadingEvent({ id }));
+        }
+      }
+
+      return result;
     };
   }
 }

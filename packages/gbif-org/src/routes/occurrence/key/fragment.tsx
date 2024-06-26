@@ -1,4 +1,5 @@
 import { DynamicLink } from '@/components/dynamicLink';
+import { OccurrenceExistsQuery, OccurrenceExistsQueryVariables } from '@/gql/graphql';
 import { ArticleIntro } from '@/routes/resource/key/components/articleIntro';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
@@ -6,16 +7,35 @@ import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { LoaderArgs } from '@/types';
 import { required } from '@/utils/required';
-import { useLoaderData, useParams } from 'react-router-dom';
+import { redirect, useLoaderData, useParams } from 'react-router-dom';
 import formatXml from 'xml-formatter';
 
 type LoaderResult = string;
 
+const OCCURRENCE_EXISTS_QUERY = /* GraphQL */ `
+  query OccurrenceExists($key: ID!) {
+    occurrence(key: $key) {
+      key
+    }
+  }
+`;
+
 export async function occurrenceFragmentLoader({
   params,
   config,
-}: LoaderArgs): Promise<LoaderResult> {
+  graphql,
+}: LoaderArgs): Promise<LoaderResult | Response> {
   const key = required(params.key, 'No key was provided in the URL');
+
+  // Make sure the occurrence does not exist anymore
+  const gqlResponse = await graphql.query<OccurrenceExistsQuery, OccurrenceExistsQueryVariables>(
+    OCCURRENCE_EXISTS_QUERY,
+    { key }
+  );
+  const gqlResult = await gqlResponse.json();
+  if (gqlResult.data.occurrence != null) {
+    return redirect(`/occurrence/${key}`);
+  }
 
   const response = await fetch(`${config.v1Endpoint}/occurrence/${key}/fragment`);
 
