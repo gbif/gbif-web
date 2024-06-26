@@ -7,6 +7,8 @@ import logger from '#/logger';
 
 const DEFAULT_TRUST_LEVEL = 'untrusted';
 
+const GBIF_ORIGINS = ['gbif.org', 'gbif-dev.org', 'gbif-uat.org', 'gbif-staging.org'].flatMap(origin => [origin, `www.${origin}`]);
+
 type DefaultOptions = {
   allowedTags: string[];
   allowedAttributes: Record<string, AllowedAttribute[]>;
@@ -85,7 +87,7 @@ const trustedDefaultOptions = merge<DefaultOptions, DefaultOptions>(untrustedDef
     stop: ['offset', 'stop-color', 'stop-opacity'],
     use: ['href', 'xlink:href'],
   },
-  allowedIframeHostnames: ['www.youtube.com', 'player.vimeo.com', 'vimeo.com'],
+  allowedIframeHostnames: ['www.youtube.com', 'player.vimeo.com', 'vimeo.com', ...GBIF_ORIGINS],
   transformTags: {
     'img': function (tagName, attr) {
       attr.src = prefixLinkUrl(attr.src);
