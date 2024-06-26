@@ -39,6 +39,9 @@ export async function occurrenceFragmentLoader({
 
   const response = await fetch(`${config.v1Endpoint}/occurrence/${key}/fragment`);
 
+  // If there is no fragment, return a 404
+  if (!response.ok) throw new Error('404');
+
   // The response could either be of type JSON or XML, but the Content-Type header does not differentiate
   const text = await response.text();
   const isJson = text.startsWith('{');

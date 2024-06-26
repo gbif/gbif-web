@@ -171,7 +171,7 @@ export function HomePage(): React.ReactElement {
               </li>
               <li>
                 <DynamicLink className="g-me-4" to="/occurrence/1087520255">
-                  Occurrence tombstone
+                  Occurrence tombstone (prod id)
                 </DynamicLink>
               </li>
               <li>
