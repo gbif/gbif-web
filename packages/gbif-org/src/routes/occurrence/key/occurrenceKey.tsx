@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import { LoaderArgs } from '@/types';
 import { OccurrenceIssue, OccurrenceQuery, OccurrenceQueryVariables, Term } from '@/gql/graphql';
 import { required } from '@/utils/required';
-import { Outlet, useLoaderData } from 'react-router-dom';
+import { Outlet, redirect, useLoaderData } from 'react-router-dom';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { FormattedMessage } from 'react-intl';
@@ -243,13 +243,24 @@ fragmentManager.register(/* GraphQL */ `
   }
 `);
 
-export function occurrenceKeyLoader({ params, graphql }: LoaderArgs) {
+export async function occurrenceKeyLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key was provided in the URL');
 
-  return graphql.query<OccurrenceQuery, OccurrenceQueryVariables>(OCCURRENCE_QUERY, {
-    key,
-    language: 'eng',
-  });
+  const response = await graphql.query<OccurrenceQuery, OccurrenceQueryVariables>(
+    OCCURRENCE_QUERY,
+    {
+      key,
+      language: 'eng',
+    }
+  );
+
+  // If the occurrence does not exist, we try to redirect to the occurrence tombstone page
+  const result = await response.json();
+  if (result.errors?.some((error) => error.message === '404: Not Found')) {
+    return redirect('fragment');
+  }
+
+  return result;
 }
 
 export function OccurrenceKey() {

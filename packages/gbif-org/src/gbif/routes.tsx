@@ -107,6 +107,7 @@ import { DatasetSearchPage } from '@/routes/dataset/search/searchPage';
 import { PublisherSearchPage } from '@/routes/publisher/search/searchPage';
 import { CollectionSearchPage } from '@/routes/collection/search/searchPage';
 import { InstitutionSearchPage } from '@/routes/institution/search/searchPage';
+import { OccurrenceFragment, occurrenceFragmentLoader } from '@/routes/occurrence/key/fragment';
 
 const baseRoutes: SourceRouteObject[] = [
   {
@@ -133,6 +134,11 @@ const baseRoutes: SourceRouteObject[] = [
             key: 'occurrence-search-page',
             path: 'occurrence/search',
             element: <OccurrenceSearchPage />,
+          },
+          {
+            path: 'occurrence/:key/fragment',
+            element: <OccurrenceFragment />,
+            loader: occurrenceFragmentLoader,
           },
           {
             id: RouteId.Occurrence,

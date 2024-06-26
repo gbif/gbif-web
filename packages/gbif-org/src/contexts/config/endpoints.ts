@@ -11,6 +11,7 @@ export type Endpoints = {
   translationsEntryEndpoint: string;
   countEndpoint: string;
   formsEndpoint: string;
+  v1Endpoint?: string;
 };
 
 export function isGbifEnv(value: string): value is GbifEnv {
@@ -34,6 +35,7 @@ export function getEndpointsBasedOnGbifEnv(
       graphqlEndpoint: 'https://graphql.gbif.org/graphql',
       countEndpoint: 'https://hp-search.gbif.org',
       formsEndpoint: 'https://graphql.gbif.org/forms',
+      v1Endpoint: 'https://api.gbif.org/v1',
     },
     [GbifEnv.Dev]: {
       translationsEntryEndpoint:
@@ -41,6 +43,7 @@ export function getEndpointsBasedOnGbifEnv(
       graphqlEndpoint: 'https://graphql.gbif-dev.org/graphql',
       countEndpoint: 'https://hp-search.gbif-dev.org',
       formsEndpoint: 'https://graphql.gbif-dev.org/forms',
+      v1Endpoint: 'https://api.gbif-dev.org/v1',
     },
     [GbifEnv.Uat]: {
       translationsEntryEndpoint:
@@ -48,6 +51,7 @@ export function getEndpointsBasedOnGbifEnv(
       graphqlEndpoint: 'https://graphql.gbif-uat.org/graphql',
       countEndpoint: 'https://hp-search.gbif-uat.org',
       formsEndpoint: 'https://graphql.gbif-uat.org/forms',
+      v1Endpoint: 'https://api.gbif-uat.org/v1',
     },
     [GbifEnv.Staging]: {
       translationsEntryEndpoint:
@@ -55,6 +59,7 @@ export function getEndpointsBasedOnGbifEnv(
       graphqlEndpoint: 'https://graphql.gbif-staging.org/graphql',
       countEndpoint: 'https://hp-search.gbif-staging.org',
       formsEndpoint: 'https://graphql.gbif-staging.org/forms',
+      v1Endpoint: 'https://api.gbif-staging.org/v1',
     },
   }[gbifEnv];
 

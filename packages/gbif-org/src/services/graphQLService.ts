@@ -10,6 +10,15 @@ type DataProviderOptions = {
   preview?: boolean;
 };
 
+type QueryResult<T> = Promise<
+  Omit<Response, 'json'> & {
+    json(): Promise<{
+      data: T;
+      errors?: Array<{ message: string }>;
+    }>;
+  }
+>;
+
 export class GraphQLService {
   private endpoint: string;
   private locale: string;
@@ -26,7 +35,7 @@ export class GraphQLService {
   public async query<TResult, TVariabels>(
     query: string,
     variables: TVariabels
-  ): Promise<Omit<Response, 'json'> & { json(): Promise<{ data: TResult }> }> {
+  ): QueryResult<TResult> {
     // Add fragments to the query
     const queryWithFragments = fragmentManager.addFragmentsToQuery(query);
 
