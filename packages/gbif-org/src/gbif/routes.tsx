@@ -108,6 +108,7 @@ import { PublisherSearchPage } from '@/routes/publisher/search/searchPage';
 import { CollectionSearchPage } from '@/routes/collection/search/searchPage';
 import { InstitutionSearchPage } from '@/routes/institution/search/searchPage';
 import { OccurrenceFragment, occurrenceFragmentLoader } from '@/routes/occurrence/key/fragment';
+import { resourceRedirectLoader } from '@/routes/resource/key/resourceRedirect';
 
 const baseRoutes: SourceRouteObject[] = [
   {
@@ -422,6 +423,10 @@ const baseRoutes: SourceRouteObject[] = [
                 element: <ProjectDatasetsTab />,
               },
             ],
+          },
+          {
+            path: 'resource/:key',
+            loader: resourceRedirectLoader,
           },
           {
             path: ':alias',

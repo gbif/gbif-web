@@ -87,6 +87,7 @@ const documents = {
     "\n  fragment ProjectDatasetsTab on Query {\n    gbifProject(id: $key) {\n      projectId\n    }\n    datasetsHelp: help(identifier: \"how-to-link-datasets-to-my-project-page\") {\n      title\n    }\n  }\n": types.ProjectDatasetsTabFragmentDoc,
     "\n  query ProjectDatasets($projectId: ID!) {\n    datasetSearch(projectId: [$projectId], limit: 500) {\n      count\n      limit\n      offset\n      results {\n        ...DatasetStubResult\n      }\n    }\n  }\n": types.ProjectDatasetsDocument,
     "\n  query ProjectNewsAndEvents($key: String!) {\n    gbifProject(id: $key) {\n      news {\n        __typename\n        createdAt\n        ...NewsResult\n      }\n      events {\n        __typename\n        start\n        ...EventResult\n      }\n    }\n    help(identifier: \"how-to-add-events-to-my-project-page\") {\n      title\n    }\n  }\n": types.ProjectNewsAndEventsDocument,
+    "\n  query ResourceRedirect($id: String!) {\n    resource(id: $id) {\n      __typename\n    }\n  }\n": types.ResourceRedirectDocument,
     "\n  fragment ToolPage on Tool {\n    id\n    title\n    summary\n    body\n    primaryImage {\n      ...ArticleBanner\n    }\n    primaryLink {\n      label\n      url\n    }\n    secondaryLinks {\n      label\n      url\n    }\n    citation\n    createdAt\n    author\n    rights\n    rightsHolder\n    publicationDate\n  }\n": types.ToolPageFragmentDoc,
 };
 
@@ -400,6 +401,10 @@ export function graphql(source: "\n  query ProjectDatasets($projectId: ID!) {\n 
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query ProjectNewsAndEvents($key: String!) {\n    gbifProject(id: $key) {\n      news {\n        __typename\n        createdAt\n        ...NewsResult\n      }\n      events {\n        __typename\n        start\n        ...EventResult\n      }\n    }\n    help(identifier: \"how-to-add-events-to-my-project-page\") {\n      title\n    }\n  }\n"): (typeof documents)["\n  query ProjectNewsAndEvents($key: String!) {\n    gbifProject(id: $key) {\n      news {\n        __typename\n        createdAt\n        ...NewsResult\n      }\n      events {\n        __typename\n        start\n        ...EventResult\n      }\n    }\n    help(identifier: \"how-to-add-events-to-my-project-page\") {\n      title\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query ResourceRedirect($id: String!) {\n    resource(id: $id) {\n      __typename\n    }\n  }\n"): (typeof documents)["\n  query ResourceRedirect($id: String!) {\n    resource(id: $id) {\n      __typename\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
