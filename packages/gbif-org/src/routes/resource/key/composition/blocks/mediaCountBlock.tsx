@@ -46,7 +46,10 @@ export function MediaCountBlock({ resource, insideCarousel = false }: Props) {
       {resource.mediaTitle && (
         <BlockHeading dangerouslySetHeading={{ __html: resource.mediaTitle }} />
       )}
-      <MediaCountBlockContent className='g-max-w-6xl g-m-auto g-px-10 g-my-10' resource={resource} />
+      <MediaCountBlockContent
+        className="g-max-w-6xl g-m-auto g-px-10 g-my-10"
+        resource={resource}
+      />
     </BlockContainer>
   );
 }
@@ -59,11 +62,11 @@ function MediaCountBlockContent({
   return (
     <div
       className={cn('g-flex g-gap-6 g-items-center g-flex-col md:g-flex-row', className, {
-        'g-flex-col-reverse': resource.reverse,
+        'md:g-flex-row-reverse': resource.reverse,
       })}
     >
       {resource.optionalImg && (
-        <div className='g-flex-1'>
+        <div className="g-flex-1">
           <img
             src={resource.optionalImg.file.mobile}
             alt={resource.optionalImg.description ?? ''}
@@ -75,21 +78,21 @@ function MediaCountBlockContent({
           />
         </div>
       )}
-      <div className='g-flex-1'>
-        {insideCarousel && <h4 className='g-text-xl g-font-medium'>{resource.mediaTitle}</h4>}
-        <span className='g-text-xl g-font-medium'>
+      <div className="g-flex-1">
+        {insideCarousel && <h4 className="g-text-xl g-font-medium">{resource.mediaTitle}</h4>}
+        <span className="g-text-xl g-font-medium">
           <CountResolver countPart={resource.titleCountPart} />
         </span>
-        <p className='g-text-sm'>{resource.subtitle}</p>
+        <p className="g-text-sm">{resource.subtitle}</p>
         {resource.body && (
-          <ArticleBody className='g-mt-4' dangerouslySetBody={{ __html: resource.body }} />
+          <ArticleBody className="g-mt-4" dangerouslySetBody={{ __html: resource.body }} />
         )}
         {resource.callToAction && (
-          <div className='g-flex g-gap-4 g-flex-wrap g-mt-4'>
+          <div className="g-flex g-gap-4 g-flex-wrap g-mt-4">
             {resource.callToAction.map((cta) => (
               <DynamicLink
                 key={cta.url}
-                className='g-text-primary-300 hover:g-text-primary-500 hover:g-underline g-underline-offset-2'
+                className="g-text-primary-300 hover:g-text-primary-500 hover:g-underline g-underline-offset-2"
                 to={cta.url}
               >
                 {cta.label}

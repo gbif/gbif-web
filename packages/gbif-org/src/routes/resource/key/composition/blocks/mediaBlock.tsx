@@ -57,7 +57,7 @@ function MediaBlockContent({
   return (
     <div
       className={cn('g-flex g-gap-6 g-items-start g-flex-col md:g-flex-row', className, {
-        'flex-col-reverse': resource.reverse,
+        'md:g-flex-row-reverse': resource.reverse,
       })}
     >
       {resource.optionalImg && (
