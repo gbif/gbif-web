@@ -13,7 +13,7 @@ fragmentManager.register(/* GraphQL */ `
     body
     optionalImg: primaryImage {
       file {
-        mobile: thumbor(width: 500, height: 400)
+        url
       }
       title
       description
@@ -44,7 +44,7 @@ export function MediaBlock({ resource, insideCarousel = false }: Props) {
       {resource.mediaTitle && (
         <BlockHeading dangerouslySetHeading={{ __html: resource.mediaTitle }} />
       )}
-      <MediaBlockContent className='g-max-w-6xl g-m-auto g-px-10 g-my-10' resource={resource} />
+      <MediaBlockContent className="g-max-w-6xl g-m-auto g-px-10 g-my-10" resource={resource} />
     </BlockContainer>
   );
 }
@@ -56,35 +56,35 @@ function MediaBlockContent({
 }: Props & { className?: string }) {
   return (
     <div
-      className={cn('g-flex g-gap-6 g-items-center g-flex-col md:g-flex-row', className, {
+      className={cn('g-flex g-gap-6 g-items-start g-flex-col md:g-flex-row', className, {
         'flex-col-reverse': resource.reverse,
       })}
     >
       {resource.optionalImg && (
-        <div className='g-flex-1'>
+        <div className="g-flex-1">
           <img
-            src={resource.optionalImg.file.mobile}
+            src={resource.optionalImg.file.url}
             alt={resource.optionalImg.description ?? ''}
             title={resource.optionalImg.title ?? ''}
-            className={cn('g-max-h-[400px] g-w-full g-h-full g-m-auto', {
-              'g-max-w-[500px]': !resource.roundImage,
-              'g-max-w-[400px] g-rounded-full g-aspect-square g-object-cover': resource.roundImage,
+            className={cn('g-w-full g-h-full g-m-auto', {
+              'g-max-w-[450px]': !resource.roundImage,
+              'g-max-w-[350px] g-rounded-full g-aspect-square g-object-cover': resource.roundImage,
             })}
           />
         </div>
       )}
-      <div className='g-flex-1'>
-        {insideCarousel && <h4 className='g-text-xl g-font-medium'>{resource.mediaTitle}</h4>}
-        <p className='g-text-sm'>{resource.subtitle}</p>
+      <div className="g-flex-1">
+        {insideCarousel && <h4 className="g-text-xl g-font-medium">{resource.mediaTitle}</h4>}
+        <p className="g-text-sm">{resource.subtitle}</p>
         {resource.body && (
-          <ArticleBody className='g-mt-4' dangerouslySetBody={{ __html: resource.body }} />
+          <ArticleBody className="g-mt-4" dangerouslySetBody={{ __html: resource.body }} />
         )}
         {resource.callToAction && (
-          <div className='g-flex g-gap-4 g-flex-wrap g-mt-4'>
+          <div className="g-flex g-gap-4 g-flex-wrap g-mt-4">
             {resource.callToAction.map((cta) => (
               <DynamicLink
                 key={cta.url}
-                className='g-text-primary-300 hover:g-text-primary-500 hover:g-underline g-underline-offset-2'
+                className="g-text-primary-300 hover:g-text-primary-500 hover:g-underline g-underline-offset-2"
                 to={cta.url}
               >
                 {cta.label}
