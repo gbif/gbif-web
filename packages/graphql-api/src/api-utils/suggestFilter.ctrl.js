@@ -4,6 +4,7 @@ The idea is to use our geocoding layers to provide results like: denmark, copenh
 */
 import { Router } from 'express';
 import { getSuggestions } from '#/helpers/suggest';
+import colSuggest from '#/resources/gbif/taxon/colSuggest';
 
 const router = Router();
 
@@ -16,3 +17,17 @@ router.get('/suggest-occurrence-filter', async (req, res, next) => {
   const result = await getSuggestions({ lang, q, taxonKeys });
   res.json(result);
 });
+
+router.get('/col-suggest', async (req, res, next) => {
+  const { lang = 'eng', q, taxonKeys } = req.query;
+  const result = await colSuggest({ lang, q, taxonKeys });
+  // slim down for suggest
+  result.map(x => {
+    let result = x;
+    delete result.taxon;
+    result.classification = result.taxonClassification.map(c => c.name);
+    delete result.taxonClassification;
+  })
+  res.json(result);
+});
+
