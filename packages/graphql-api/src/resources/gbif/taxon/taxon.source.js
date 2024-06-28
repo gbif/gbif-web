@@ -222,7 +222,7 @@ class TaxonAPI extends RESTDataSource {
         scientificName: x.scientificName,
         canonicalName: x.canonicalName,
         rank: x.rank,
-        taxonomicStatus: x.taxonomicStatus,
+        taxonomicStatus: x.taxonomicStatus || x.status,
         acceptedNameOf: x.acceptedNameOf,
         vernacularName,
         classification,
