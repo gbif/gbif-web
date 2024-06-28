@@ -19,8 +19,8 @@ router.get('/suggest-occurrence-filter', async (req, res, next) => {
 });
 
 router.get('/col-suggest', async (req, res, next) => {
-  const { lang = 'eng', q, taxonKeys } = req.query;
-  const result = await colSuggest({ lang, q, taxonKeys });
+  const { language = 'eng', q, taxonKeys } = req.query;
+  const result = await colSuggest({ language, q, taxonKeys });
   // slim down for suggest
   result.map(x => {
     let result = x;

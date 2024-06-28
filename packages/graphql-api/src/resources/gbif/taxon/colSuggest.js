@@ -3,14 +3,14 @@ import { uniqBy } from 'lodash';
 import { matchSorter } from 'match-sorter'
 import axios from 'axios';
 
-export default async function colSuggest({q, datasetKey = '53147', lang = 'eng', limit = 20, taxonScope = []}) {
+export default async function colSuggest({q, datasetKey = '53147', language = 'eng', limit = 20, taxonScope = []}) {
   const itemsToGet = taxonScope.length > 0 ? 100 : limit;
   // https://api.checklistbank.org/dataset/53147/nameusage/suggest?q=Animalia
   const url = `https://api.checklistbank.org/dataset/${datasetKey}/nameusage/suggest?${stringify({q, limit: itemsToGet})}`;
   const nameResponse = axios.get(url);
 
   //https://api.checklistbank.org/dataset/53147/vernacular?q=sommerfugl&language=dan
-  const vernacularUrl = `https://api.checklistbank.org/dataset/${datasetKey}/vernacular?${stringify({q, language: lang, limit: itemsToGet})}`;
+  const vernacularUrl = `https://api.checklistbank.org/dataset/${datasetKey}/vernacular?${stringify({q, language, limit: itemsToGet})}`;
   const vernacularResponse = axios.get(vernacularUrl); // return {suggestions: [...]}
 
   // once we have the nameResponse, then add the acceptedKey to each result if acceptedUsageId differs from usageId
@@ -27,7 +27,7 @@ export default async function colSuggest({q, datasetKey = '53147', lang = 'eng',
     });
     Promise.all(taxonClassificationPromises).then(taxonResponses => {
       suggestions.forEach((s, i) => {
-        s.taxonClassification = taxonResponses[i].data;
+        s.taxonClassification = taxonResponses[i].data.reverse();
       });
     });
 
@@ -63,7 +63,7 @@ export default async function colSuggest({q, datasetKey = '53147', lang = 'eng',
     });
     Promise.all(taxonClassificationPromises).then(taxonResponses => {
       suggestions.forEach((s, i) => {
-        s.taxonClassification = taxonResponses[i].data;
+        s.taxonClassification = taxonResponses[i].data.reverse();
       });
     });
     
