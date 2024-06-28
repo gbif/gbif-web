@@ -109,12 +109,14 @@ async function getCountryNames(lang) {
     c.filter = 'country';
     c.value = c.key;
     c.label = c.label;
-    c.alternativeLabels = ['country'];
+    c.alternativeLabels = ['country', c.key];
+    c.alsoKnownAs = [c.key];
   });
   return countryNames;
 }
 
 async function getDatasetSuggestions({ q, limit = 1 }) {
+  if (q.length < 3) return [];
   const apiUrl = `${config.apiv1}/dataset/suggest?q=${q}&limit=${limit}`;
   try {
     const response = await axios.get(apiUrl);
@@ -222,7 +224,7 @@ export async function getSpecies({ q, taxonKeys, lang }) {
       alternativeLabels: ['taxon', 'species', 'sp', s.vernacularName, s.acceptedNameOf].filter(x => x),
       item: s
     };
-  });
+  }).slice(0,5);
 }
 
 async function getGadmSuggestions({q, gadmId, limit = 2}) {
