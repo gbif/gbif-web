@@ -27,6 +27,7 @@ import extractUser from './helpers/auth/extractUser';
 import mapController from './api-utils/maps/index.ctrl.js';
 import ipController from './api-utils/ip2country.ctrl.js';
 import polygonName from './api-utils/polygonName.ctrl.js';
+import suggestFilter from './api-utils/suggestFilter.ctrl.js';
 import formController from './api-utils/forms/index.ctrl';
 import { loggingPlugin } from './plugins/loggingPlugin';
 
@@ -115,6 +116,7 @@ async function initializeServer() {
   ipController(app);
   polygonName(app);
   formController(app);
+  suggestFilter(app);
 
   await server.start();
   server.applyMiddleware({ app });

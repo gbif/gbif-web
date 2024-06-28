@@ -48,6 +48,7 @@ const typeDef = gql`
       vernacularNamesOnly: Boolean
       strictMatching: Boolean
       datasetKey: ID
+      taxonScope: [ID!]
     ): [TaxonSuggestion]!
   }
 

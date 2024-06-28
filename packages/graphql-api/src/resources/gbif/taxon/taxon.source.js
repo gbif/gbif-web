@@ -68,34 +68,49 @@ class TaxonAPI extends RESTDataSource {
     return getParsedName(key, this);
   }
 
-  async getSuggestions({ datasetKey = this.config.gbifBackboneUUID, limit = 10, q, language, vernacularNamesOnly, preferAccepted = true, strictMatching }) {
+  async getSuggestions({ datasetKey = this.config.gbifBackboneUUID, limit = 10, q, language, vernacularNamesOnly, preferAccepted = true, strictMatching, taxonScope = [] }) {
+    // get vernacular names
+    let responseVernacularPromise = language ? this.searchTaxa({
+      query: {
+        datasetKey,
+        q,
+        limit: 100,
+        qField: 'VERNACULAR'
+      }
+    }) : null;
 
     // get results matching scientific name
     let scientificResults = [];
     if (!vernacularNamesOnly) {
-      const responseScientific = await this.searchTaxa({
-        query: {
-          datasetKey,
-          q,
-          limit: 100,
-          qField: 'SCIENTIFIC'
+      // const responseScientific = await this.searchTaxa({
+      //   query: {
+      //     datasetKey,
+      //     q,
+      //     limit: 100,
+      //     qField: 'SCIENTIFIC'
+      //   }
+      // });
+      // responseScientific.results.forEach(x => { delete x.vernacularNames });
+      // scientificResults = responseScientific.results;
+
+      const responseScientificSuggestions = await this.get(`/species/suggest?limit=100&q=${q}&datasetKey=${datasetKey}`);
+      // for each result, check if it is a synonym=true, if so get the full result and from that the accepted result 
+      // e.g. https://api.gbif.org/v1/species/8156363
+      // add acceptedKey to each result
+      await promiseForEach(responseScientificSuggestions, async x => {
+        if (x.synonym) {
+          const taxon = await this.getTaxonByKey({ key: x.key });
+          x.acceptedKey = taxon.acceptedKey;
         }
       });
-      responseScientific.results.forEach(x => {delete x.vernacularNames});
-      scientificResults = responseScientific.results;
+      scientificResults = responseScientificSuggestions;
+      console.log(scientificResults);
     }
 
     // get results matching vernacular name
     let vernacularResults = [];
-    if (language) {
-      const responseVernacular = await this.searchTaxa({
-        query: {
-          datasetKey,
-          q,
-          limit: 100,
-          qField: 'VERNACULAR'
-        }
-      });
+    if (language && responseVernacularPromise) {
+      const responseVernacular = await responseVernacularPromise;
 
       // only include vernacular names in the correct language
       responseVernacular.results.forEach(x => {
@@ -164,8 +179,28 @@ class TaxonAPI extends RESTDataSource {
     // remove duplicate results
     uniqueResults = uniqBy(uniqueResults, 'key');
 
+    // if a taxonScope is provided, then we need to filter the results to mtch the keys provided.
+    // e.g. taxonScope=[1,56,9786] should remove entries that do not exists in item.higherClassificationMap (form {key: name})
+    let filteredResults = uniqueResults;
+    if (taxonScope && taxonScope.length > 0) {
+      const taxonScopeKeys = taxonScope.map(x => x.toString());
+      // so for each entry  in unique, we need to remove results where there isn't an overlap between taxonScope and Object.keys(item.higherClassificationMap)
+      filteredResults = uniqueResults.filter(item => {
+        let keys = [];
+        if (item.higherClassificationMap) {
+          keys = Object.keys(item.higherClassificationMap);
+        } else {
+          // add kingdomKey, phylumKey, classKey, orderKey, familyKey, genusKey, speciesKey to keys and remove undefined
+          keys = ['kingdomKey', 'phylumKey', 'classKey', 'orderKey', 'familyKey', 'genusKey', 'speciesKey']
+            .map(x => item[x])
+            .filter(x => x);
+        }
+        return taxonScopeKeys.some(x => keys.includes(x.toString()));
+      });
+    }
+
     // map results more easily digestable format
-    let structuredResults = uniqueResults.map(x => {
+    let structuredResults = filteredResults.map(x => {
       // create a classification list
       let classification = [];
       ['kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species']
@@ -195,7 +230,7 @@ class TaxonAPI extends RESTDataSource {
     });
 
     const sortedResults = matchSorter(structuredResults, q, {
-      keys: ['scientificName', 'acceptedNameOf', 'vernacularName'], 
+      keys: ['scientificName', 'acceptedNameOf', 'vernacularName'],
       threshold: strictMatching ? matchSorter.rankings.MATCHES : matchSorter.rankings.NO_MATCH
     });
     return sortedResults;
