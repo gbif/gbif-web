@@ -139,7 +139,6 @@ async function getDatasets({ q }) {
 }
 
 export async function getSpeciesSuggestions({ q, lang, taxonKeys }) {
-  // const apiUrl = `${config.apiv1}/species/suggest?datasetKey=d7dddbf4-2cf0-4f39-9b2a-bb099caae36c&limit=20&limit=200&q=${q}`;
   // use custom suggest via graphql
   const langMap = {
     en: 'eng'
@@ -160,6 +159,7 @@ export async function getSpeciesSuggestions({ q, lang, taxonKeys }) {
   }        
   `
   const apiUrl = `${config.origin}/graphql?query=${encodeURIComponent(queryString)}`;
+  // const apiUrl = `${config.apiv1}/species/suggest?datasetKey=d7dddbf4-2cf0-4f39-9b2a-bb099caae36c&limit=20&limit=200&q=${q}`;
   try {
     const response = await axios.get(apiUrl);
 
@@ -167,17 +167,17 @@ export async function getSpeciesSuggestions({ q, lang, taxonKeys }) {
     response.data = response.data.data.taxonSuggestions;
     return response.data;
 
-    // const matches = await getSpeciesMatches({ q, taxonKeys });
-    // response.data = response.data.concat(matches);
+    const matches = await getSpeciesMatches({ q, taxonKeys });
+    response.data = response.data.concat(matches);
     // remove duplicates based on nubkey
-    // const uniqueMatches = response.data.reduce((acc, current) => {
-    //   const x = acc.find(item => item.nubKey === current.nubKey);
-    //   if (!x) {
-    //     return acc.concat([current]);
-    //   } else {
-    //     return acc;
-    //   }
-    // }, []);
+    const uniqueMatches = response.data.reduce((acc, current) => {
+      const x = acc.find(item => item.nubKey === current.nubKey);
+      if (!x) {
+        return acc.concat([current]);
+      } else {
+        return acc;
+      }
+    }, []);
     // if taxonKeys are provided, filter out records that do not match in either kingdomKey, phylumKey, classKey, orderKey, familyKey, genusKey or speciesKey
     if (taxonKeys && taxonKeys.length > 0) {
       const taxonKeyStrings = taxonKeys.map(k => k.toString());
@@ -219,13 +219,13 @@ export async function getSpecies({ q, taxonKeys, lang }) {
       value: s.key,
       label: s.scientificName,
       alsoKnownAs: [s.vernacularName, s.acceptedNameOf].filter(x => x),
-      alternativeLabels: ['taxon', 'species', 'sp', s.vernacularName, s.acceptedNameOf],
+      alternativeLabels: ['taxon', 'species', 'sp', s.vernacularName, s.acceptedNameOf].filter(x => x),
       item: s
     };
   });
 }
 
-async function getGadmSuggestions({q, gadmId}) {
+async function getGadmSuggestions({q, gadmId, limit = 2}) {
   // https://api.gbif.org/v1/geocode/gadm/search?limit=100&q=k%C3%B8benhavn
   const apiUrl = `${config.apiv1}/geocode/gadm/search?limit=100&q=${q}`;
   try {
@@ -243,7 +243,7 @@ async function getGadmSuggestions({q, gadmId}) {
         alternativeLabels: ['gadm']
       };
     }
-    );
+    ).slice(0, limit);
   } catch (error) {
     console.log(error);
     return [];
@@ -308,7 +308,26 @@ export async function getSuggestions({ lang, q, taxonKeys }) {
       keys: ['label', { maxRanking: matchSorter.rankings.CASE_SENSITIVE_EQUAL, key: 'alsoKnownAs' }, { maxRanking: matchSorter.rankings.CONTAINS, key: 'alternativeLabels' }],
       // use index to sort the results
       baseSort: (a, b) => {
-        return a.index > b.index ? -1 : 1
+        // some filters should go before others. The ordering should be field, taxonKey, country, other
+        // field is of type=FILTER, the other has filter=taxonKey etc
+        function decorate(x) {
+          let v = x.index ?? 0;
+          if (x.type === 'FILTER') v += 10000;
+          const boosts = {
+            taxonKey: 1000,
+            country: 900,
+            continent: 750,
+            year: 800,
+            gadm: 700,
+          }
+          if (x.filter && boosts[x.filter]) {
+            v += boosts[x.filter];
+          }
+        }
+        const aVal = decorate(a);
+        const bVal = decorate(b);
+
+        return aVal > bVal ? -1 : 1;
       }
     });
     results.push(sorted);
