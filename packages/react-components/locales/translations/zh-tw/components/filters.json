@@ -135,19 +135,19 @@
   "mediaType": {
     "name": "媒體類型",
     "count": "{num, plural,one {媒體類型}other {#媒體類型}}",
-    "description": ""
+    "description": "此記錄可存取的媒體類型"
   },
   "occurrenceIssue": {
     "name": "問題和註記",
     "count": "{num, plural, one {議題或標記} other {# 議題及標記}}",
     "isNotNull": "存在問題",
     "isNull": "不存在問題",
-    "description": ""
+    "description": "在處理資料時發現的問題類型或潛在感興趣的標誌"
   },
   "occurrenceCountry": {
     "name": "國家",
     "count": "{num, plural,one {國家或區域}other {#國家或區域}}",
-    "description": ""
+    "description": "事件發生的國家或區域"
   },
   "grsciCollCountry": {
     "description": "GBIF 註記的存檔"
@@ -160,7 +160,7 @@
   "publishingCountryCode": {
     "name": "發布國家或地區",
     "count": "{num, plural,one {發布國家或區域}other {#發布國家或區域}}",
-    "description": ""
+    "description": "資料發布者所在國家或地區的 ISO 代碼"
   },
   "q": {
     "name": "文字搜尋",
@@ -178,17 +178,17 @@
   "license": {
     "name": "授權",
     "count": "{num, plural,one {權限}other {#權限}}",
-    "description": ""
+    "description": "共享記錄所依據的合法許可或豁免"
   },
   "datasetKey": {
     "name": "資料集",
     "count": "{num, plural, one{資料集} other{資料集}}",
-    "description": ""
+    "description": "共享記錄的資料集標題。"
   },
   "publisherKey": {
     "name": "發布者",
     "count": "{num, plural, one {發布者} other {# 發布者}}",
-    "description": ""
+    "description": "負責共享包含該記錄之資料集的組織名稱。"
   },
   "gbifPublisherKey": {
     "name": "GBIF發布者",
@@ -232,7 +232,7 @@
   "coordinateUncertainty": {
     "name": "座標不確定",
     "count": "{num, plural, one {未確定座標} other {# 未確定座標}}",
-    "description": ""
+    "description": "距離可能被解釋為某個位置座標的最小距離（以公尺為單位）的量測。"
   },
   "depth": {
     "name": "深度",
@@ -242,27 +242,27 @@
   "organismQuantity": {
     "name": "生物數量",
     "count": "{num, plural,one {生物體數量} other {#生物體數量}}",
-    "description": ""
+    "description": "生物體數量之數值，其中測量類型在“生物體數量類型”給定。"
   },
   "sampleSizeValue": {
     "name": "取樣大小數值",
     "count": "{num, plural, one {樣本大小數值} other {# 樣本大小數值}}",
-    "description": ""
+    "description": "樣本大小之數值，其中測量單位在“樣本大小單位”給定。"
   },
   "relativeOrganismQuantity": {
     "name": "相對生物體數量",
     "count": "{num, plural,one {相關生物體數量} other {#相關生物體數量}}",
-    "description": ""
+    "description": "當生物體數量類型和樣本大小單位明確，生物材料相對於樣本大小的量，計算為每個樣本大小的生物數量。"
   },
   "month": {
     "name": "月",
-    "count": "",
+    "count": "{num, plural, one {月} other {#月}}",
     "description": "事件發生的月份"
   },
   "continent": {
     "name": "大陸",
     "count": "{num, plural, one {# 大陸} other {# 大陸}}",
-    "description": ""
+    "description": "發生位置所在大陸的名稱， 此欄位不會被自動推論填入，僅在資料集發布者提供時才會填入，套用此篩選可能會排除相關記錄。"
   },
   "protocol": {
     "name": "發布協定",
@@ -271,22 +271,22 @@
   },
   "establishmentMeans": {
     "name": "建立方法",
-    "count": "",
+    "count": "{num, plural,one {建立方法 }other {#建立方法 }}",
     "description": "在特定時間將生物體引進特定地點的方式。"
   },
   "recordedBy": {
     "name": "紀錄者：",
-    "count": "",
+    "count": "{num, plural, one{紀錄} other{紀錄}}",
     "description": "負責記錄原始事件的人員、團體或組織的名稱。"
   },
   "recordNumber": {
     "name": "紀錄編號",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one{紀錄號碼} other{紀錄號碼}}",
+    "description": "發生事件被紀錄時的給定的識別符。"
   },
   "collectionCode": {
     "name": "蒐藏品代碼",
-    "count": "",
+    "count": "{num, plural,one {#蒐藏碼}other {#蒐藏碼}}",
     "description": ""
   },
   "projectId": {
@@ -296,48 +296,48 @@
   },
   "recordedById": {
     "name": "記錄者識別碼",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one{藉由ID紀錄} other{藉由ID紀錄}}",
+    "description": "負責記錄原始發生事件的人員、團體或組織的識別符。"
   },
   "identifiedById": {
     "name": "鑑定者識別碼",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}",
+    "description": "負責決定生物體學名的個人、團體或組織的識別符。"
   },
   "occurrenceId": {
     "name": "出現紀錄 ID",
-    "count": "",
+    "count": "{num, plural, one{出現紀錄ID} other{出現紀錄ID}}",
     "description": "出現紀錄的唯一識別碼"
   },
   "organismId": {
     "name": "生物體 ID",
-    "count": "",
+    "count": "{num, plural,one {生物體ID} other {#生物體ID}}",
     "description": "紀錄之中的生物體的唯一識別碼"
   },
   "locality": {
     "name": "地區",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {# 地點} other {# 地點}}",
+    "description": "具體部分描述地點"
   },
   "waterBody": {
     "name": "水體",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {水體} other {#水體}}",
+    "description": "發生事件地點的水體名稱"
   },
   "stateProvince": {
     "name": "州/省",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {州省} other {#州省}}",
+    "description": "比所在國家/地區更小的下一個行政區域的名稱"
   },
   "eventId": {
     "name": "事件識別碼",
     "count": "{num, plural,one {事件 ID} other {#事件 ID}}",
-    "description": ""
+    "description": "事件紀錄中的唯一識別碼"
   },
   "eventID": {
     "name": "事件識別碼",
     "count": "{num, plural,one {事件 ID} other {#事件 ID}}",
-    "description": ""
+    "description": "事件紀錄中的唯一識別碼"
   },
   "parentEventId": {
     "name": "母事件識別碼",
@@ -377,32 +377,32 @@
   "samplingProtocol": {
     "name": "取樣程序",
     "count": "{num, plural, one {# 採樣協定} other {# 採樣協定}}",
-    "description": ""
+    "description": "事件中使用的方法或協定的名稱、引用或描述。"
   },
   "occurrenceStatus": {
     "name": "出現紀錄狀態",
     "count": "{num, plural, one{出現紀錄狀態} other {#出現紀錄狀態}}",
-    "description": ""
+    "description": "給定分類群中的任何生物體的存在或不存在。"
   },
   "gadmGid": {
     "name": "行政區域",
     "count": "{num, plural, one {行政區域} other {#行政區域}}",
-    "description": ""
+    "description": "記錄處理過程中確定的 GADM.org 中任何行政區域的名稱。"
   },
   "identifiedBy": {
     "name": "鑑定者：",
-    "count": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}",
     "description": "負責決定生物體學名的個人、團體或組織。"
   },
   "isInCluster": {
     "name": "在（資料）叢集上",
     "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
-    "description": ""
+    "description": "判斷該記錄是否有相關記錄"
   },
   "isSequenced": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "已定序",
+    "count": "{num, plural,one {已定序}other {#已定序}}",
+    "description": "紀錄是否已有定序資訊"
   },
   "active": {
     "name": "在線",
@@ -417,17 +417,17 @@
   "datasetType": {
     "name": "資料集類型",
     "count": "{num, plural, one {資料集類型} other {#資料集類型}}",
-    "description": ""
+    "description": "在此輸入此項目的簡短敘述"
   },
   "datasetSubtype": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "資料集類型",
+    "count": "{num, plural, one {資料集次類型} other {#資料集次類型}}",
+    "description": "在此輸入此項目的簡短敘述"
   },
   "institutionKey": {
     "name": "機構",
-    "count": "",
-    "description": ""
+    "count": "{num, plural,one {機構}other {#機構}}",
+    "description": "對於紀錄的物件或資訊擁有保管權的機構識別碼"
   },
   "name": {
     "name": "名稱",
