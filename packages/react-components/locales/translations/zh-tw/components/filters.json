@@ -113,24 +113,24 @@
   "taxonKey": {
     "name": "學名",
     "count": "{num, plural,one {科學命名} other {#科學命名}}",
-    "description": ""
+    "description": "GBIF 骨幹分類中出現的學名。這些名稱經過標準化以方便跨資料集的搜尋。最初提供的名稱可能會被誤解或未知。若要搜尋所提供的名稱，請使用「逐字學名」篩選。"
   },
   "basisOfRecord": {
     "name": "紀錄類型",
     "count": "{num, plural,one {紀錄基礎} other {#記錄基礎}}",
     "isNotNull": "有紀錄基礎",
     "isNull": "無紀錄基礎",
-    "description": ""
+    "description": "證據的性質是基於紀錄"
   },
   "institutionCode": {
     "name": "機構代碼",
     "count": "{num, plural,one {機構代碼}other {#機構代碼}}",
-    "description": ""
+    "description": "保管物品的機構之代碼（或縮寫）或記錄中提及的資訊。"
   },
   "catalogNumber": {
     "name": "目錄編號",
     "count": "{num, plural,one {目錄號碼}other {#目錄號碼}}",
-    "description": ""
+    "description": "目錄或收集中記錄的識別符。"
   },
   "mediaType": {
     "name": "媒體類型",
