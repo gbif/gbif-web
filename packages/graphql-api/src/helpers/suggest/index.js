@@ -267,7 +267,7 @@ export async function getSpecies({ q, taxonKeys, lang }) {
   const suggestions = await getSpeciesSuggestions({ q, taxonKeys, lang });
   // map to format for filters [{filter: 'taxonKey', value: 5, label: 'Aves', alternativeLabels: []}]
   return suggestions.map(s => {
-    return {
+    const result = {
       filter: 'taxonKey',
       value: s.key,
       label: s.scientificName,
@@ -275,6 +275,15 @@ export async function getSpecies({ q, taxonKeys, lang }) {
       alternativeLabels: ['taxon', 'species', 'sp', s.vernacularName, s.acceptedNameOf].filter(x => x),
       item: s
     };
+    if (s.acceptedNameOf) {
+      result.description = result.description ?? [];
+      result.description.push(`Accepted name of: ${s.acceptedNameOf}`);
+    }
+    if (s.vernacularName) {
+      result.description = result.description ?? [];
+      result.description.push(`Common name: ${s.vernacularName}`);
+    }
+    return result;
   }).slice(0, 5);
 }
 
@@ -289,12 +298,17 @@ async function getGadmSuggestions({ q, gadmId, limit = 2 }) {
         // remove gadm level 0
         return x.gadmLevel > 0;
       }).map(s => {
-        return {
+        const result = {
           filter: 'gadmGid',
           value: s.id,
           label: s.name,
           alternativeLabels: ['gadm']
         };
+        if (s.higherRegions && s.higherRegions.length > 0) {
+          result.description = result.description ?? [];
+          result.description.push(s.higherRegions.map(x => x.name).join(' > '));
+        }
+        return result;
       }
       ).slice(0, limit);
   } catch (error) {
