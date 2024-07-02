@@ -188,66 +188,66 @@
   "publisherKey": {
     "name": "Publikujący",
     "count": "{num, plural, one {publikujący} few {# publikujących} many {# publikujących} other {# publikujący}}",
-    "description": ""
+    "description": "Nazwa organizacji odpowiedzialnej za udostępnienie zbioru danych zawierającego zapis."
   },
   "gbifPublisherKey": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Publikujący w GBIF",
+    "count": "{num, plural, one {publikujący w GBIF} few {# publikujących w GBIF} many {# publikujących w GBIF} other {# publikujący w GBIF}}",
+    "description": "Nazwa organizacji odpowiedzialnej za udostępnienie zbioru danych zawierającego zapis."
   },
   "hostingOrganizationKey": {
     "name": "Organizacja goszcząca",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {host} few {# hostów} many {# hostów} other {# hostowie}}",
+    "description": "Nazwa organizacji udostępniającej zbiór danych, w którym zapis jest opublikowany."
   },
   "country": {
     "name": "Państwo lub obszar",
     "count": "{num, plural, one {kraj lub obszar} few {# kraje lub obszary} many {# krajów lub obszarów} other {# kraje lub obszary}}"
   },
   "countriesOfCoverage": {
-    "name": "",
-    "count": ""
+    "name": "Kraj lub obszar zasięgu",
+    "count": "{num, plural, one {kraj lub obszar zasięgu} few {# kraje lub obszary zasięgu} many {# krajów lub obszarów zasięgu} other {# kraje lub obszary zasięgu}}"
   },
   "countriesOfResearcher": {
-    "name": "",
-    "count": ""
+    "name": "Kraj lub obszar badacza",
+    "count": "{num, plural, one {kraj lub obszar badacza} few {# kraje lub obszary badacza} many {# krajów lub obszarów badacza} other {# kraje lub obszary badacza}}"
   },
   "typeStatus": {
-    "name": "",
-    "count": "",
-    "isNotNull": "",
-    "isNull": "",
-    "description": ""
+    "name": "Status typu",
+    "count": "{num, plural, one {status typu} few {# statusy typu} many {# statusów typu} other {# statusy typu}}",
+    "isNotNull": "Posiada status typu",
+    "isNull": "Status typu",
+    "description": "Oznaczenie typu okazu."
   },
   "year": {
     "name": "Rok",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {filtr roku} few {# filtry roku} many {# filtrów roku} other {# filtry roku}}",
+    "description": "Rok, w którym zdarzenie miało miejsce."
   },
   "sampleSizeUnit": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Jednostka wielkości próbki",
+    "count": "{num, plural, one {jednostka wielkości próbki} few {# jednostki wielkości próbki} many {# jednostek wielkości próbki} other {# jednostki wielkości próbki}}",
+    "description": "Jednostka miary dla \"wartości wielkości próbki\"."
   },
   "coordinateUncertainty": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Niepewność współrzędnych",
+    "count": "{num, plural, one {Niepewność współrzędnych} few {# filtry niepewności współrzędnych} many {# filtrów niepewności współrzędnych} other {# filtry niepewności współrzędnych}}",
+    "description": "Miara minimalnej odległości w metrach od współrzędnych, w których lokalna obserwacja może się znajdować. "
   },
   "depth": {
     "name": "Głębokość",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { głębokość } few {# głębokości} many {# głębokości} other {# głębokości}}",
+    "description": "Głębokość pod lokalnym poziomem gruntu, w metrach."
   },
   "organismQuantity": {
     "name": "Liczba organizmów",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { liczebność organizmów } few {# liczebności organizmów} many {# liczebności organizmów} other {# liczebności organizmów}}",
+    "description": "Wartość liczebności organizmów, gdzie rodzaj pomiaru jest dany w \"Rodzaju liczebności organizmów\"."
   },
   "sampleSizeValue": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Wartość wielkości próbki",
+    "count": "{num, plural, one { wartość wielkości próbki } few {# wartości wielkości próbk} many {# wartości wielkości próbk} other {# wartości wielkości próbk}}",
+    "description": "Wartość wielkości próbki, gdzie jednostki pomiaru są podane w \"Jednostce wielkości próbki\""
   },
   "relativeOrganismQuantity": {
     "name": "",
@@ -325,28 +325,28 @@
     "description": ""
   },
   "stateProvince": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Województwo/stan",
+    "count": "{num, plural, one { województwo/stan } few {# województwa/stany} many {# województw/stanów} other {# województwa/stany}}",
+    "description": "Nazwa rejonu administracyjnego zaraz po państwie, w którym znajduje się lokacja. "
   },
   "eventId": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "ID zdarzenia",
+    "count": "{num, plural, one { ID zdarzenia } few {# ID zdarzenia} many {# ID zdarzenia} other {# ID zdarzenia}}",
+    "description": "Unikatowy identyfikator zdarzenia w zapisie."
   },
   "eventID": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "ID zdarzenia",
+    "count": "{num, plural, one { ID zdarzenia } few {# ID zdarzenia} many {# ID zdarzenia} other {# ID zdarzenia}}",
+    "description": "Unikatowy identyfikator zdarzenia w zapisie."
   },
   "parentEventId": {
-    "name": "",
-    "count": "",
+    "name": "ID nadrzędnego zdarzenia",
+    "count": "{num, plural, one { ID zdarzenia } few {# ID zdarzenia} many {# ID zdarzenia} other {# ID zdarzenia}}",
     "description": ""
   },
   "locationID": {
     "name": "Identyfikator lokalizacji",
-    "count": "",
+    "count": "{num, plural, one { ID zdarzenia } few {# ID zdarzenia} many {# ID zdarzenia} other {# ID zdarzenia}}",
     "description": ""
   },
   "measurementOrFactTypes": {
@@ -376,88 +376,88 @@
   },
   "samplingProtocol": {
     "name": "Protokół pobierania prób",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { protokół próbkowania } few {# protokoły próbkowania} many {# protokołów próbkowania} other {# protokoły próbkowania}}",
+    "description": "Nazwa, odniesienie do lub opis metody lub protokołu użytego podczas zdarzenia."
   },
   "occurrenceStatus": {
     "name": "Status występowania",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { status wystąpienia } few {# statusy wystąpienia} many {# statusów wystąpienia} other {# statusy wystąpienia}}",
+    "description": "Obecność lub nieobecność jakichkolwiek organizmów z danego taksonu."
   },
   "gadmGid": {
     "name": "Obszar administracyjny",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { obszar administracyjny } few {# obszary administracyjne} many {# obszarów administracyjnych} other {# obszary administracyjne}}",
+    "description": "Nazwa obszaru administracyjnego z GADM.org, określonego podczas procesowania zapisu."
   },
   "identifiedBy": {
     "name": "Zidentyfikowany przez",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}",
+    "description": "Osoba, osoby, grupy lub organizacja odpowiedzialne za identyfikację naukowej nazwy Organizmu."
   },
   "isInCluster": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Jest w gromadzie",
+    "count": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
+    "description": "Czy zapis został określony jako posiadający pokrewne zapisy."
   },
   "isSequenced": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Jest zsekwencjonowany",
+    "count": "{num, plural, one { jest zsekwencjonowany } few {# są zsekwencjonowane} many {# jest zsekwencjonowanych} other {# są zsekwencjonowane}}",
+    "description": "Czy zapis posiada informację o sekwencji."
   },
   "active": {
-    "name": "",
-    "count": "",
+    "name": "Aktywny",
+    "count": "Aktywny",
     "description": ""
   },
   "personalCollection": {
-    "name": "",
-    "count": "",
+    "name": "Kolekcja osobista",
+    "count": "Kolekcja osobista",
     "description": ""
   },
   "datasetType": {
     "name": "Typ danych",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { typ zbioru danych } few {# typy zbioru danych} many {# typów zbiorów danych} other {# typy zbiorów danych}}",
+    "description": "Tu wstawić krótki opis komponentu"
   },
   "datasetSubtype": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Podtyp zbioru danych",
+    "count": "{num, plural, one { podtyp zbioru danych } few {# podtypy zbioru danych} many {# podtypów zbiorów danych} other {# podtypy zbioru danych}}",
+    "description": "Tu wstawić krótki opis komponentu"
   },
   "institutionKey": {
     "name": "Instytucja",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { instytucja } few {# instytucje} many {# instytucji} other {# instytucje}}",
+    "description": "Nazwa instytucji sprawującej pieczę nad obiektem/obiektami lub informacjami, do których odnosi się zapis."
   },
   "name": {
-    "name": "",
-    "count": "",
+    "name": "Nazwa",
+    "count": "{num, plural, one { nazwa } few {# nazwy} many {# nazw} other {# nazwy}}",
     "description": "",
     "searchPlaceholder": ""
   },
   "city": {
     "name": "Miasto",
-    "count": "",
+    "count": "{num, plural, one { miasto } few {# miasta} many {# miast} other {# miasta}}",
     "description": ""
   },
   "code": {
     "name": "Kod",
-    "count": "",
+    "count": "{num, plural, one { kod } few {# kody} many {# kodów} other {# kody}}",
     "description": ""
   },
   "verbatimScientificName": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Nazwa naukowa verbatim",
+    "count": "{num, plural, one { nazwa naukowa verbatim } few {# nazwy naukowe verbatim} many {# nazw naukowych verbatim} other {# nazwy naukowe verbatim}}",
+    "description": "Nazwa naukowa taka, jaka podana jest przez publikującego dane bez żadnej normalizacji."
   },
   "networkKey": {
-    "name": "",
+    "name": "Sieć",
     "count": "",
     "description": "Tutaj należy umieścić krótki opis komponentu "
   },
   "literatureType": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Typ bibliografii",
+    "count": "{num, plural, one { typ bibliografii } few {# typy bibliografii} many {# typów bibliografii} other {# typy bibliografii}}",
+    "description": "Z jakim typem bibliografii wiąże się cytowanie."
   }
 }
