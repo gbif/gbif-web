@@ -1,7 +1,7 @@
 {
   "dwcaExtension": {
-    "name": "",
-    "count": "",
+    "name": "Rozszerzenie DWCA",
+    "count": "{num, plural, one { rozszerzenie DWCA } few {# rozszerzenia DWCA} many {# rozszerzeń DWCA} other {# rozszerzenia DWCA}}",
     "description": "Tutaj należy umieścić krótki opis komponentu"
   },
   "locationId": {
@@ -21,17 +21,17 @@
   },
   "collectionKey": {
     "name": "Kolekcja",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {# kolekcja } few {# kolekcje} many {# kolekcji} other {# kolekcje}}",
+    "description": "Kolekcja w GrSciColl, do której ten zapis został dopasowany"
   },
   "numberSpecimens": {
     "name": "Liczba okazów",
     "count": "",
-    "description": ""
+    "description": "Liczba przechowywanych okazów określona w opisie. Liczba ta nie odzwierciedla liczby zdigitalizowanych i udostępnionych zapisów."
   },
   "specimensInGbif": {
     "name": "Okazy w GBIF",
-    "count": "",
+    "count": "{num, plural, one { okaz w GBIF } few {# okazy w GBIF} many {# okazów w GBIF} other {# okazy w GBIF}}",
     "description": ""
   },
   "iucnRedListCategory": {
@@ -41,7 +41,7 @@
   },
   "geoDistance": {
     "name": "Odległość od współrzędnych",
-    "count": "",
+    "count": "{num, plural, one { filtr } few {# filtry } many {# filtrów } other {# filtry }}",
     "description": "Filtruj według rekordów w danej odległości od punktu",
     "placeholderLat": "Szerokość geograficzna",
     "placeholderLon": "Długość geograficzna",
@@ -49,7 +49,7 @@
   },
   "geometry": {
     "name": "Lokalizacja",
-    "count": "",
+    "count": "{num, plural, one { filtr } few {# filtry } many {# filtrów } other {# filtry }}",
     "description": "",
     "placeholderLat": "Szerokość geograficzna",
     "placeholderLon": "Długość geograficzna",
@@ -57,22 +57,22 @@
   },
   "relevance": {
     "name": "Znaczenie",
-    "count": "",
+    "count": "{num, plural, one { przydatność } few {# filtry przydatności} many {# filtrów przydatności} other {# filtry przydatności}}",
     "description": "Jak używa się GBIF w literaturze."
   },
   "topics": {
     "name": "Temat",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { temat } few {# tematy} many {# tematów} other {# tematy}}",
+    "description": "Jakie są tematy zapisu. "
   },
   "audiences": {
     "name": "Odbiorcy",
-    "count": "",
+    "count": "{num, plural, one { odbiorca } few {# odbiorców} many {# odbiorców} other {# odbiorcy}}",
     "description": "Kim są odbiorcy zasobu."
   },
   "purposes": {
     "name": "Temat",
-    "count": "",
+    "count": "{num, plural, one { cel } few {# cele} many {# celów} other {# cele}}",
     "description": "Jakie są cele zasobu."
   },
   "eventDate": {
@@ -112,59 +112,59 @@
   },
   "taxonKey": {
     "name": "Nazwa naukowa",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {nazwa naukowa} few {# nazwy naukowe} many {# nazw naukowych} other {# nazwy naukowe}}",
+    "description": "Nazwa naukowa w takiej postaci, w jakiej widnieje w Taksonomii Szkieletowej GBIF. Nazwy te są znormalizowane w celu ułatwienia wyszukiwania w zbiorach danych. Istnieje możliwość, że oryginalnie nadana nazwa może zostać źle zinterpretowana lub być nieznana. Aby wyszukać oryginalnie nadane nazwy, użyj filtru \"Nazwa naukowa verbatim\"."
   },
   "basisOfRecord": {
     "name": "Podstawa zapisu",
-    "count": "",
-    "isNotNull": "",
-    "isNull": "",
-    "description": ""
+    "count": "{num, plural, one {podstawa zapisu} few {# podstawy zapisu} many {# podstaw zapisu} other {# podstawy zapisu}}",
+    "isNotNull": "Posiada podstawę zapisu",
+    "isNull": "Nie posiada podstawy zapisu",
+    "description": "Rodzaj podstawy, na której oparty jest zapis."
   },
   "institutionCode": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Kod instytucji",
+    "count": "{num, plural, one {kod instytucji} few {# kody instytucji} many {# kodów instytucji} other {# kody instytucji}}",
+    "description": "Kod (lub akronim) instytucji sprawującej pieczę nad obiektem/obiektami lub informacjami, do których odnosi się zapis."
   },
   "catalogNumber": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Numer katalogowy",
+    "count": "{num, plural, one { numer katalogowy } few {# numery katalogowe} many {# numerów katalogowych} other {# numery katalogowe}}",
+    "description": "Identyfikator zapisu w katalogu lub kolekcji"
   },
   "mediaType": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Typ nośnika",
+    "count": "{num, plural, one {typ nośnika} few {# typy nośnika} many {# typów nośnika} other {# typy nośnika}}",
+    "description": "Typy nośników dostępne dla tego zapisu."
   },
   "occurrenceIssue": {
-    "name": "",
-    "count": "",
-    "isNotNull": "",
-    "isNull": "",
-    "description": ""
+    "name": "Problemy",
+    "count": "{num, plural, one {problem} few {# problemy} many {# problemów} other {# problemy}}",
+    "isNotNull": "Występują problemy",
+    "isNull": "Nie wystąpiły problemy",
+    "description": "Rodzaj problemów lub potencjalnych problemów odkrytych w procesowaniu danych. "
   },
   "occurrenceCountry": {
     "name": "Państwo lub obszar",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {kraj lub obszar} few {# kraje lub obszary} many {# krajów lub obszarów} other {# kraje lub obszary}}",
+    "description": "Kraj lub obszar, w którym zdarzenie miało miejsce"
   },
   "grsciCollCountry": {
     "description": ""
   },
   "preparations": {
-    "name": "",
+    "name": "Przygotowania",
     "count": "",
     "description": ""
   },
   "publishingCountryCode": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Kraj lub obszar publikujący",
+    "count": "{num, plural, one {kraj lub obszar publikacji} few {# kraje lub obszary publikacji} many {# krajów lub obszarów publikacji} other {# kraje lub obszary publikacji}}",
+    "description": "Kod ISO kraju lub obszaru, w którym znajduje się publikujący"
   },
   "q": {
     "name": "Wyszukiwanie tekstowe",
-    "count": "",
+    "count": "{num, plural, one {ciąg tekstowy} few {# ciągi wyszukiwania} many {# ciągów wyszukiwania} other {# ciągi wyszukiwania}}",
     "description": ""
   },
   "coordinates": {
@@ -172,22 +172,22 @@
   },
   "elevation": {
     "name": "Wysokość",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {filtr wyniesienia} few {# filtry wyniesienia} many {# filtrów wyniesienia} other {# filtry wyniesienia}}",
+    "description": "Wartość wyniesienia nad wertykalnym punktem odniesienia (zazwyczaj poziom morza lub geoida) w metrach."
   },
   "license": {
     "name": "Licencja",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {licencja} few {# licencje} many {# licencji} other {# licencje}}",
+    "description": "Licencja lub odstąpienie, w wyniku których zapis jest udostępniony."
   },
   "datasetKey": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Zbiór danych",
+    "count": "{num, plural, one {zbiór danych} few {# zbiory danych} many {# zbiorów danych} other {# zbiory danych}}",
+    "description": "Tytuł zbioru danych, w którym udostępniony jest zapis."
   },
   "publisherKey": {
-    "name": "",
-    "count": "",
+    "name": "Publikujący",
+    "count": "{num, plural, one {publikujący} few {# publikujących} many {# publikujących} other {# publikujący}}",
     "description": ""
   },
   "gbifPublisherKey": {
@@ -202,7 +202,7 @@
   },
   "country": {
     "name": "Państwo lub obszar",
-    "count": ""
+    "count": "{num, plural, one {kraj lub obszar} few {# kraje lub obszary} many {# krajów lub obszarów} other {# kraje lub obszary}}"
   },
   "countriesOfCoverage": {
     "name": "",
