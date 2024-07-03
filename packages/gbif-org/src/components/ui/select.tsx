@@ -64,10 +64,11 @@ const SelectContent = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content>
 >(({ className, children, position = 'popper', ...props }, ref) => (
   <SelectPrimitive.Portal>
+    <div className="gbif">
     <SelectPrimitive.Content
       ref={ref}
       className={cn(
-        'gbif g-relative g-z-50 g-max-h-96 g-min-w-[8rem] g-overflow-hidden g-rounded-md g-border g-bg-popover g-text-popover-foreground g-shadow-md data-[state=open]:g-animate-in data-[state=closed]:g-animate-out data-[state=closed]:g-fade-out-0 data-[state=open]:g-fade-in-0 data-[state=closed]:g-zoom-out-95 data-[state=open]:g-zoom-in-95 data-[side=bottom]:g-slide-in-from-top-2 data-[side=left]:g-slide-in-from-right-2 data-[side=right]:g-slide-in-from-left-2 data-[side=top]:g-slide-in-from-bottom-2',
+        'g-relative g-z-50 g-max-h-96 g-min-w-[8rem] g-overflow-hidden g-rounded-md g-border g-bg-popover g-text-popover-foreground g-shadow-md data-[state=open]:g-animate-in data-[state=closed]:g-animate-out data-[state=closed]:g-fade-out-0 data-[state=open]:g-fade-in-0 data-[state=closed]:g-zoom-out-95 data-[state=open]:g-zoom-in-95 data-[side=bottom]:g-slide-in-from-top-2 data-[side=left]:g-slide-in-from-right-2 data-[side=right]:g-slide-in-from-left-2 data-[side=top]:g-slide-in-from-bottom-2',
         position === 'popper' &&
           'data-[side=bottom]:g-translate-y-1 data-[side=left]:g--translate-x-1 data-[side=right]:g-translate-x-1 data-[side=top]:g--translate-y-1',
         className
@@ -87,6 +88,7 @@ const SelectContent = React.forwardRef<
       </SelectPrimitive.Viewport>
       <SelectScrollDownButton />
     </SelectPrimitive.Content>
+    </div>
   </SelectPrimitive.Portal>
 ));
 SelectContent.displayName = SelectPrimitive.Content.displayName;

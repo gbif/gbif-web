@@ -1,4 +1,7 @@
 // cross content suggestions
+// tims comments: search bor BID or a programme. For the homepage it could be useful.
+// my ideas: wkt, sequence, has sequence
+// thomas: publishers
 import axios from 'axios';
 import config from '../../config';
 import { matchSorter } from 'match-sorter'

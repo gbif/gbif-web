@@ -6,7 +6,6 @@ import { NetworkPublishersQuery, NetworkPublishersQueryVariables } from '@/gql/g
 import useQuery from '@/hooks/useQuery';
 import { CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { FormattedMessage } from 'react-intl';
-import { DatasetResult } from '@/routes/dataset/datasetResult';
 import { PaginationFooter } from '@/components/pagination';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { NoRecords } from '@/components/noDataMessages';

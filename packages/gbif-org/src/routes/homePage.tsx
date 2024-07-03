@@ -204,6 +204,33 @@ export function HomePage(): React.ReactElement {
               This hasn't started yet. But it is search for occurrences, species, datasets,
               publishers, literature, news etc.
             </p>
+            <ul>
+              <li>
+                <DynamicLink className="g-me-4" to="/publisher/search">
+                    Publishers - started
+                </DynamicLink>
+              </li>
+              <li>
+                <DynamicLink className="g-me-4" to="/occurence/search">
+                    Occurrences - stub
+                </DynamicLink>
+              </li>
+              <li>
+                <DynamicLink className="g-me-4" to="/dataset/search">
+                    Datasets - stub
+                </DynamicLink>
+              </li>
+              <li>
+                <DynamicLink className="g-me-4" to="/collection/search">
+                    Collections - stub
+                </DynamicLink>
+              </li>
+              <li>
+                <DynamicLink className="g-me-4" to="/institutions/search">
+                    Institutions - stub
+                </DynamicLink>
+              </li>
+            </ul>
           </section>
           <section>
             <h2>Site wide features</h2>
