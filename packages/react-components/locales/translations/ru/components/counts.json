@@ -7,6 +7,7 @@
   "colOverlapPercent": "Совпадение с Catalogue of Life {percent}%",
   "nPublishedDatasets": "{total, plural, one {# набор данных} few {# наборов данных} many {# наборов данных} other {# наборов данных}}",
   "nDatasets": "{total, plural, one {# опубликованный набор данных} few {# опубликованных наборов данных} many {# опубликованных наборов данных} other {# опубликованных наборов данных}}",
+  "nPublishers": "{total, plural, one {# издатель} few {# издателей} many {# издателей} other {# издателей}}",
   "nHostedDatasets": "{total, plural, one {# размещенный набор данных} few {# размещенных наборов данных} many {# размещенных наборов данных} other {# размещенных наборов данных}}",
   "nParticipatingDatasets": "{total, plural, one {# участвующий набор данных} few {# участвующих наборов данных} many {# участвующих наборов данных} other {# участвующих наборов данных}}",
   "nParticipatingPublishers": "{total, plural, one {# участвующий издатель} few {# участвующих издателей} many {# участвующих издателей} other {# участвующих издателей}}",
