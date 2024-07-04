@@ -226,7 +226,7 @@ export function HomePage(): React.ReactElement {
                 </DynamicLink>
               </li>
               <li>
-                <DynamicLink className="g-me-4" to="/institutions/search">
+                <DynamicLink className="g-me-4" to="/institution/search">
                     Institutions - stub
                 </DynamicLink>
               </li>
