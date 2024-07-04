@@ -27,6 +27,7 @@
   "colOverlapPercent": "{percent}% de chevauchement avec Catalogue of Life",
   "nPublishedDatasets": "{total, plural, one {# jeu de données} other {# jeux de données}}",
   "nDatasets": "{total, plural, one {# jeu de données publié} other {# jeux de données publiés}}",
+  "nPublishers": "{total, plural, one {# éditeur} other {# éditeurs}}",
   "nHostedDatasets": "{total, plural, one {# jeu de données hébergé} other {# jeux de données hébergés}}",
   "nParticipatingDatasets": "{total, plural, one {# jeu de données participants} other {# jeux de données participants}}",
   "nParticipatingPublishers": "{total, plural, one {# éditeur participant} other {# éditeurs participants}}",
