@@ -14,6 +14,7 @@
   "colOverlapPercent": "{percent}% overlap met Catalogue of Life",
   "nPublishedDatasets": "{total, plural, one {# dataset} other {# datasets}}",
   "nDatasets": "{total, plural, one {# gepubliceerde dataset} other {# gepubliceerde datasets}}",
+  "nPublishers": "{total, plural, one {# publisher} other {# publishers}}",
   "nHostedDatasets": "{total, plural, one {# hosted dataset} other {# hosted datasets}}",
   "nParticipatingPublishers": "{total, plural, one {# deelneemende uitgever} other {# deelneemende uitgevers}}"
 }
