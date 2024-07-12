@@ -26,5 +26,6 @@
   "gbifOverlapPercent": "{percent}%与GBIF骨干重叠",
   "colOverlapPercent": "{percent}%与生物物种名录重叠",
   "nPublishedDatasets": "{total, plural, one {# 数据集} other {# 数据集}}",
-  "nDatasets": "{total, plural, one {# 发布的数据集} other {# 发布的数据集}}"
+  "nDatasets": "{total, plural, one {# 发布的数据集} other {# 发布的数据集}}",
+  "nPublishers": "{total, plural, one {# 发布者} other {# 发布者}}"
 }
