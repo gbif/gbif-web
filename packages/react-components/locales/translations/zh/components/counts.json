@@ -28,6 +28,9 @@
   "nPublishedDatasets": "{total, plural, one {# 数据集} other {# 数据集}}",
   "nDatasets": "{total, plural, one {# 发布的数据集} other {# 发布的数据集}}",
   "nPublishers": "{total, plural, one {# 发布者} other {# 发布者}}",
+  "nHostedDatasets": "{total, plural, one {#托管的数据库} other {# 托管的数据库}}",
   "nParticipatingDatasets": "{total, plural, one {# 参与数据集} other {# 参与数据集}}",
-  "nParticipatingPublishers": "{total, plural, one {# 参与出版商} other {# 参与出版商}}"
+  "nParticipatingPublishers": "{total, plural, one {# 参与出版商} other {# 参与出版商}}",
+  "nStaffMembers": "{total, plural, one {# 员工人数} other {# 员工人数}}",
+  "nOccurrencesHosted": "{total, plural, one {# 托管的事件} other {# 托管的事件}}"
 }
