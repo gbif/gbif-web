@@ -23,7 +23,7 @@ export function HomePage(): React.ReactElement {
           </p>
           <hr />
           <section>
-            <h2>Pages with a Contentful ID</h2>
+            <h2 data-cy="heading">Pages with a Contentful ID</h2>
             <p>Mostly done and should be reviewed by the content team.</p>
             <ul>
               <li>
@@ -207,27 +207,27 @@ export function HomePage(): React.ReactElement {
             <ul>
               <li>
                 <DynamicLink className="g-me-4" to="/publisher/search">
-                    Publishers - started
+                  Publishers - started
                 </DynamicLink>
               </li>
               <li>
                 <DynamicLink className="g-me-4" to="/occurence/search">
-                    Occurrences - stub
+                  Occurrences - stub
                 </DynamicLink>
               </li>
               <li>
                 <DynamicLink className="g-me-4" to="/dataset/search">
-                    Datasets - stub
+                  Datasets - stub
                 </DynamicLink>
               </li>
               <li>
                 <DynamicLink className="g-me-4" to="/collection/search">
-                    Collections - stub
+                  Collections - stub
                 </DynamicLink>
               </li>
               <li>
                 <DynamicLink className="g-me-4" to="/institution/search">
-                    Institutions - stub
+                  Institutions - stub
                 </DynamicLink>
               </li>
             </ul>
