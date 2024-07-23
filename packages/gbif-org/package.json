@@ -17,7 +17,8 @@
     "vitest": "vitest run --config ./gbif/vite.config.ts",
     "vitest:watch": "vitest watch --config ./gbif/vite.config.ts",
     "test": "npm run build && npm run build:hp && npm run vitest",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "cy:open": "cypress open"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
@@ -90,6 +91,7 @@
     "@vitejs/plugin-react": "^4.0.3",
     "autoprefixer": "^10.4.16",
     "concurrently": "^8.2.2",
+    "cypress": "^13.13.1",
     "eslint": "^8.45.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
