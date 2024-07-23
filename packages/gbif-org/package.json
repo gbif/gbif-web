@@ -93,6 +93,7 @@
     "concurrently": "^8.2.2",
     "cypress": "^13.13.1",
     "eslint": "^8.45.0",
+    "eslint-plugin-cypress": "^3.3.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
     "postcss": "^8.4.31",
