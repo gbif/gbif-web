@@ -97,29 +97,29 @@ export function NetworkPage() {
             <FormattedMessage id={`network.network`} />
           </ArticlePreTitle>
           {/* it would be nice to know for sure which fields to expect */}
-          <ArticleTitle dangerouslySetTitle={{ __html: title }}></ArticleTitle>
+          <ArticleTitle testId="network-heading" dangerouslySetTitle={{ __html: title }} />
 
           {deletedAt && <DeletedMessage date={deletedAt} />}
 
           <HeaderInfo>
             <HeaderInfoMain>
               <FeatureList>
-                {homepage && <Homepage url={homepage} />}
-                <GenericFeature>
+                {homepage && <Homepage url={homepage} testId="network-homepage-link" />}
+                <GenericFeature testId="network-occurrence-count">
                   <OccurrenceIcon />
                   <FormattedMessage
                     id="counts.nOccurrences"
                     values={{ total: occurrenceSearch?.documents.total }}
                   />
                 </GenericFeature>
-                <GenericFeature>
+                <GenericFeature testId="network-datset-count">
                   <FormattedMessage
                     id="counts.nDatasets"
                     values={{ total: network.numConstituents }}
                   />
                 </GenericFeature>
-                <GenericFeature>
-                  <CitationIcon />
+                <GenericFeature testId="network-citation-count">
+                  <CitationIcon />x
                   <FormattedMessage
                     id="counts.nCitations"
                     values={{ total: literatureSearch?.documents.total }}

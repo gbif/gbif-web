@@ -30,12 +30,16 @@ export function NetworkKeyAbout() {
   if (!network) return null;
 
   return (
-    <ArticleContainer className='g-pt-0 md:g-pt-0 lg:g-pt-0'>
-      <ArticleBanner className='g-mt-8 g-mb-6' image={network.prose?.primaryImage} />
+    <ArticleContainer className="g-pt-0 md:g-pt-0 lg:g-pt-0">
+      <ArticleBanner
+        testId="network-banner"
+        className="g-mt-8 g-mb-6"
+        image={network.prose?.primaryImage}
+      />
 
       <ArticleTextContainer>
         {network.prose?.body && (
-          <ArticleBody dangerouslySetBody={{ __html: network.prose?.body }} className='g-mt-2' />
+          <ArticleBody dangerouslySetBody={{ __html: network.prose?.body }} className="g-mt-2" />
         )}
       </ArticleTextContainer>
     </ArticleContainer>
