@@ -250,18 +250,18 @@
     "description": "Wartość wielkości próbki, gdzie jednostki pomiaru są podane w \"Jednostce wielkości próbki\""
   },
   "relativeOrganismQuantity": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Przybliżona liczebność organizmów",
+    "count": "{num, plural, one { przybliżona liczebność organizmów } few {# przybliżone liczebności organizmów} many {# przybliżonych liczebności organizmów} other {# przybliżone liczebności organizmów}}",
+    "description": "Ilość biologicznego materiału powiązana z wielkością próbki, wyliczona jako organismQuantity na sampleSize, jeśli organismQuantityType i sampleSizeUnit są jednoznaczne."
   },
   "month": {
     "name": "Miesiąc",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { miesiąc } few {# miesiące} many {# miesięcy} other {# miesiące}}",
+    "description": "Miesiąc, w którym zdarzenie miało miejsce."
   },
   "continent": {
     "name": "Kontynent",
-    "count": "",
+    "count": "{num, plural, one { kontynent } few {# kontynenty} many {# kontynentów} other {# kontynenty}}",
     "description": ""
   },
   "protocol": {
