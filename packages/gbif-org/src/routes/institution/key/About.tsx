@@ -30,7 +30,7 @@ import {
   CardTitle as CardTitleSmall,
 } from '@/components/ui/smallCard';
 import { BulletList } from '@/components/bulletList';
-import { getCount } from '@/components/count';
+import { useCount } from '@/components/count';
 import { useParams } from 'react-router-dom';
 import { TableOfContents } from '@/components/tableOfContents';
 import { useMemo } from 'react';
@@ -40,7 +40,7 @@ import { GbifLinkCard } from '@/components/TocHelp';
 export default function About() {
   const { key } = useParams();
   const { data } = useParentRouteLoaderData(RouteId.Institution) as { data: InstitutionQuery };
-  const { count, loading } = getCount({
+  const { count, loading } = useCount({
     v1Endpoint: '/occurrence/search',
     params: { institutionKey: key },
   });

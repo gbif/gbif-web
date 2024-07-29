@@ -1,4 +1,4 @@
-import { CountProps, getCount } from '@/components/count';
+import { CountProps, useCount } from '@/components/count';
 import { cn } from '@/utils/shadcn';
 import { FormattedMessage } from 'react-intl';
 type CountTagProps = CountProps & {
@@ -11,7 +11,7 @@ export function CountTag({
   message = 'counts.nRecords',
   property,
 }: CountTagProps) {
-  const { count } = getCount({ v1Endpoint, params, property });
+  const { count } = useCount({ v1Endpoint, params, property });
 
   if (typeof count === 'number' && count > 0) {
     return <Tag>

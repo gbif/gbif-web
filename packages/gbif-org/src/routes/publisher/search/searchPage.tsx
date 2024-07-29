@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { DynamicLink } from '@/components/dynamicLink';
 import useQuery from '@/hooks/useQuery';
-import { MdApps, MdCode, MdInfo } from 'react-icons/md';
+import { MdApps, MdClose, MdCode, MdInfo } from 'react-icons/md';
 import { Tabs } from '@/components/tabs';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/utils/shadcn';
@@ -33,6 +33,12 @@ import { FormattedMessage } from 'react-intl';
 import { PaginationFooter } from '@/components/pagination';
 import { NoRecords } from '@/components/noDataMessages';
 import { PublisherSearchQuery, PublisherSearchQueryVariables } from '@/gql/graphql';
+import { ComboboxDemo } from './PublisherFilterInput';
+import { FreeTextFilter } from './filters/FreeTextFilter';
+import { SingleCountryFilterSuggest } from './filters/SingleCountryFilterSuggest';
+import { CountProps, useCount } from '@/components/count';
+import { CardListSkeleton } from '@/components/skeletonLoaders';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const PUBLISHER_SEARCH_QUERY = /* GraphQL */ `
   query PublisherSearch($offset: Int, $country: Country, $q: String, $limit: Int) {
@@ -54,8 +60,10 @@ const PUBLISHER_SEARCH_QUERY = /* GraphQL */ `
 
 export function PublisherSearchPage(): React.ReactElement {
   const [offset, setOffset] = useState(0);
-  const tabClassName = 'g-pt-2 g-pb-1.5';
+  const [userCountry, setUserCountry] = useState<{ country: string; countryName: string }>();
   const [filter, setFilter] = useState<{ country?: string; q?: string }>({});
+
+  const tabClassName = 'g-pt-2 g-pb-1.5';
 
   const { data, error, load, loading } = useQuery<
     PublisherSearchQuery,
@@ -75,6 +83,16 @@ export function PublisherSearchPage(): React.ReactElement {
       },
     });
   }, [offset, filter]);
+
+  // call https://graphql.gbif-staging.org/unstable-api/user-info?lang=en to get the users country: response {country, countryName}
+  // then use the country code to get a count of publishers from that country
+  useEffect(() => {
+    fetch('https://graphql.gbif-staging.org/unstable-api/user-info?lang=en')
+      .then((res) => res.json())
+      .then((data) => {
+        setUserCountry(data);
+      });
+  }, []);
 
   const publishers = data?.list;
   return (
@@ -103,69 +121,53 @@ export function PublisherSearchPage(): React.ReactElement {
 
       <section className="">
         <div className="g-border-b g-py-2 g-px-2">
-          <Input
-            placeholder="Search"
-            className="g-inline-block g-w-auto g-me-2 g-border-primary-500"
-            onChange={(e) => setFilter({ ...filter, q: e.target.value })}
+          <FreeTextFilter
+            className="g-inline-block"
+            value={filter.q ?? ''}
+            onChange={(x) => setFilter({ ...filter, q: x })}
           />
-          <div className="g-inline-block">
-            <Select onValueChange={x => setFilter({...filter, country: x})}>
-              <SelectTrigger className="g-w-[180px] g-border-primary-500">
-                <SelectValue placeholder="Countries" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="US">United States</SelectItem>
-                <SelectItem value="CA">Canada</SelectItem>
-                <SelectItem value="MX">Mexico</SelectItem>
-                <SelectItem value="BR">Brazil</SelectItem>
-                <SelectItem value="AR">Argentina</SelectItem>
-                <SelectItem value="FR">France</SelectItem>
-                <SelectItem value="DE">Germany</SelectItem>
-                <SelectItem value="IT">Italy</SelectItem>
-                <SelectItem value="ES">Spain</SelectItem>
-                <SelectItem value="CN">China</SelectItem>
-                <SelectItem value="JP">Japan</SelectItem>
-                <SelectItem value="IN">India</SelectItem>
-                <SelectItem value="RU">Russia</SelectItem>
-                <SelectItem value="ZA">South Africa</SelectItem>
-                <SelectItem value="AU">Australia</SelectItem>
-                <SelectItem value="NZ">New Zealand</SelectItem>
-                <SelectItem value="KR">South Korea</SelectItem>
-                <SelectItem value="SG">Singapore</SelectItem>
-                <SelectItem value="MY">Malaysia</SelectItem>
-                <SelectItem value="TH">Thailand</SelectItem>
-                <SelectItem value="VN">Vietnam</SelectItem>
-                <SelectItem value="ID">Indonesia</SelectItem>
-                <SelectItem value="SA">Saudi Arabia</SelectItem>
-                <SelectItem value="AE">United Arab Emirates</SelectItem>
-                <SelectItem value="IL">Israel</SelectItem>
-                <SelectItem value="EG">Egypt</SelectItem>
-                <SelectItem value="KE">Kenya</SelectItem>
-                <SelectItem value="NG">Nigeria</SelectItem>
-                <SelectItem value="GH">Ghana</SelectItem>
-                <SelectItem value="UG">Uganda</SelectItem>
-                <SelectItem value="TZ">Tanzania</SelectItem>
-                <SelectItem value="PT">Portugal</SelectItem>
-                <SelectItem value="NL">Netherlands</SelectItem>
-                <SelectItem value="SE">Sweden</SelectItem>
-                <SelectItem value="NO">Norway</SelectItem>
-                <SelectItem value="FI">Finland</SelectItem>
-                <SelectItem value="PL">Poland</SelectItem>
-                <SelectItem value="GR">Greece</SelectItem>
-                <SelectItem value="TR">Turkey</SelectItem>
-                <SelectItem value="IR">Iran</SelectItem>
-                <SelectItem value="PK">Pakistan</SelectItem>
-                <SelectItem value="BD">Bangladesh</SelectItem>
-                <SelectItem value="LK">Sri Lanka</SelectItem>
-                <SelectItem value="MM">Myanmar</SelectItem>
-                <SelectItem value="PH">Philippines</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+          <SingleCountryFilterSuggest
+            className="g-inline-block g-w-auto"
+            selected={filter.country}
+            setSelected={(x) => setFilter({ ...filter, country: x?.key })}
+          />
         </div>
         <ArticleContainer className="g-bg-slate-100">
+          <aside>
+            {userCountry?.country && (
+              <section>
+                <h2>Did you know?</h2>
+                <Card>
+                  <p>
+                    <CountMessage
+                      message="counts.nPublishersInCountry"
+                      messageValues={{ country: userCountry?.countryName }}
+                      countProps={{
+                        v1Endpoint: '/organization',
+                        params: { country: userCountry?.country },
+                      }}
+                    />
+                  </p>
+                </Card>
+              </section>
+            )}
+          </aside>
           <ArticleTextContainer>
-            {loading && publishers?.count === 0 && (
+            {loading && (
+              <>
+                <CardHeader>
+                  <Skeleton className="g-max-w-64">
+                    <CardTitle>
+                      <FormattedMessage
+                        id="phrases.loading"
+                      />
+                    </CardTitle>
+                  </Skeleton>
+                </CardHeader>
+                <CardListSkeleton />
+              </>
+            )}
+            {!loading && publishers?.count === 0 && (
               <>
                 <NoRecords />
               </>
@@ -308,4 +310,20 @@ export function Popup({
       <PopoverContent className={cn('g-w-96', className)}>{children}</PopoverContent>
     </Popover>
   );
+}
+
+function CountMessage({
+  countProps,
+  message,
+  messageValues,
+}: {
+  countProps: CountProps;
+  message: string;
+  messageValues?: Record<string, string>;
+}) {
+  const { count } = useCount(countProps);
+  if (typeof count === 'number' && count > 0) {
+    return <FormattedMessage id={message} values={{ ...messageValues, total: count }} />;
+  }
+  return false;
 }

@@ -44,9 +44,7 @@ export function SearchSuggest<T>({
 
   // Fetch new search results when the search term changes
   React.useEffect(() => {
-    if (searchTerm !== '') {
-      search(searchTerm);
-    }
+    search(searchTerm);
   }, [searchTerm, search]);
 
   // Keep track of the width of the popover trigger so we can set the width of the popover
@@ -58,7 +56,7 @@ export function SearchSuggest<T>({
       <PopoverTrigger asChild>
         <Button
           ref={triggerRef}
-          variant="outline"
+          variant={ selected ? 'default' : 'outline' }
           role="combobox"
           aria-expanded={open}
           className={cn('g-w-full g-flex', className)}
@@ -69,7 +67,7 @@ export function SearchSuggest<T>({
           <ChevronsUpDown className="g-ml-2 g-h-4 g-w-4 g-shrink-0 g-opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent style={{ width: triggerWidth }} className="g-p-0">
+      <PopoverContent style={{ minWidth: triggerWidth }} className="g-p-0">
         <Command>
           <CommandInput
             value={searchTerm}
