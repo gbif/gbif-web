@@ -11,7 +11,7 @@
   },
   "hasCoordinate": {
     "name": "有坐标",
-    "count": "",
+    "count": "有坐标",
     "description": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。"
   },
   "hasGeospatialIssues": {
@@ -37,42 +37,42 @@
   "iucnRedListCategory": {
     "name": "世界自然保护联盟全球红色名录类别",
     "count": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
-    "description": ""
+    "description": "国际自然保护联盟濒危物种红色名录根据受威胁程度对物种进行分类"
   },
   "geoDistance": {
-    "name": "",
-    "count": "",
-    "description": "",
+    "name": "与坐标的距离",
+    "count": "{num, plural, one { 过滤 } other {# 过滤 }}",
+    "description": "对距离某点给定距离内的记录进行筛选",
     "placeholderLat": "纬度",
     "placeholderLon": "经度",
-    "placeholderDist": ""
+    "placeholderDist": "距离"
   },
   "geometry": {
     "name": "位置",
-    "count": "",
+    "count": "{num, plural, one { 过滤 } other {# 过滤 }}",
     "description": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
     "placeholderLat": "纬度",
     "placeholderLon": "经度",
-    "placeholderDist": ""
+    "placeholderDist": "距离"
   },
   "relevance": {
     "name": "相关性",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {相关性 } other {# 相关性过滤器}}",
+    "description": "GBIF如何在文献中应用"
   },
   "topics": {
     "name": "主题",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {主题 } other {# 主题}}",
+    "description": "记录的主题是什么。"
   },
   "audiences": {
     "name": "读者",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { 受众 } other {# 受众}}",
+    "description": "谁是资源的受众。"
   },
   "purposes": {
     "name": "主题",
-    "count": "",
+    "count": "{num, plural, one { 目的 } other {# 目的}}",
     "description": "资源的用途是什么。"
   },
   "eventDate": {
@@ -191,8 +191,8 @@
     "description": "负责共享包含记录的数据集的组织名称。"
   },
   "gbifPublisherKey": {
-    "name": "",
-    "count": "",
+    "name": "GBIF 发布者",
+    "count": "{num, plural, one {GBIF 发布者} other {# GBIF 发布者}}",
     "description": "负责共享包含记录的数据集的组织名称。"
   },
   "hostingOrganizationKey": {

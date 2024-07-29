@@ -258,5 +258,7 @@
   "taxonomicClassification": "类别",
   "gadmClassification": "根据 GADM 的位置",
   "images": "多媒体",
+  "eventTypeHierarchyJoined": "结构",
+  "eventType": "事件类型",
   "iucnRedListCategory": "世界自然保护联盟(IUCN)红色名录类别"
 }

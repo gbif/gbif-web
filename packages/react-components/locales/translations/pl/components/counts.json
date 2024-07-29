@@ -27,6 +27,7 @@
   "colOverlapPercent": "{percent}% pokrycia z Katalogiem Życia",
   "nPublishedDatasets": "{total, plural, one {# opublikowany zbiór danych} few {# opublikowane zbiory danych} many {# opublikowanych zbiorów danych} other {# opublikowane zbiory danych}}",
   "nDatasets": "{total, plural, one {# zbiór danych} few {# zbiory danych} many {# zbiorów danych} other {# zbiory danych}}",
+  "nPublishers": "{total, plural, one {# publikujący} few {# publikujących} many {# publikujących} other {# publikujących}}",
   "nHostedDatasets": "{total, plural, one {# udostępniany zbiór danych} few {# udostępniane zbiory danych} many {# udostępnianych zbiorów danych} other {# udostępniane zbiory danych}}",
   "nParticipatingDatasets": "{total, plural, one {# uczestniczący zbiór danych} few {# uczestniczące zbiory danych} many {# uczestniczących zbiorów danych} other {# uczestniczące zbiory danych}}",
   "nParticipatingPublishers": "{total, plural, one {# uczestniczący publikujący} few {# uczestniczących publikujących} many {# uczestniczących publikujących} other {# uczestniczący publikujący}}",

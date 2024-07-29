@@ -17,6 +17,7 @@
   "nResultsWithImages": "{total, plural, one {# resultado } other {# resultados}} con imágenes",
   "nPublishedDatasets": "{total, plural, one {# conjunto de datos} other {# conjuntos de datos}}",
   "nDatasets": "{total, plural, one {# conjunto de datos publicado} other {# conjuntos de datos publicados}}",
+  "nPublishers": "{total, plural, one {# publicador} other {# publicadores}}",
   "nHostedDatasets": "{total, plural, one {# conjunto de datos alojado} other {# conjuntos de datos alojados}}",
   "nParticipatingDatasets": "{total, plural, one {# conjunto de datos participante} other {# conjuntos de datos participantes}}",
   "nParticipatingPublishers": "{total, plural, one {# publicador participante} other {# publicadores participantes}}",

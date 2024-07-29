@@ -5,7 +5,7 @@
     "gt": "大于 {from}",
     "gte": "大于或等于 {from}",
     "e": "等于 {is}",
-    "between": ""
+    "between": "从{from} 到 {to}"
   },
   "compact": {
     "between": "{from} 到 {to}",
@@ -68,15 +68,15 @@
     "e": "海拔是 {from}"
   },
   "geoDistance": {
-    "short": "",
-    "description": ""
+    "short": "在内 {distance}  {latitude},{longitude}",
+    "description": "纬度 {latitude}, 经度: {longitude}, 距离: {distance}"
   },
   "units": {
     "name": {
-      "km": "",
-      "m": "",
+      "km": "公里",
+      "m": "米",
       "mi": "",
-      "ft": ""
+      "ft": "英尺"
     }
   }
 }
