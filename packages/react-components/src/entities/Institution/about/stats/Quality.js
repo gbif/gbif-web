@@ -75,7 +75,6 @@ export function Quality({
     });
   }, [predicate]);
 
-  const digitizedFraction = totalOccurrences / institution?.numberSpecimens;
   const collectionsWithDigitizedData = institution.collections.filter(x => x.occurrenceCount > 0).length;
 
   if (error) return <SideBarError />
@@ -88,7 +87,6 @@ export function Quality({
     <div>
       <SideBarProgressList>
         <li>
-          {institution?.numberSpecimens > 0 && <ProgressItem fraction={digitizedFraction} title="Digitized / total" subtleText style={{ marginBottom: 12 }} />}
           {institution?.collections?.length > 0 && <ProgressItem fraction={collectionsWithDigitizedData / institution?.collections?.length} title="Collections with data in GBIF" subtleText style={{ marginBottom: 12 }} />}
           <ProgressItem 
             fraction={data?.big5?.documents?.total / totalOccurrences}
