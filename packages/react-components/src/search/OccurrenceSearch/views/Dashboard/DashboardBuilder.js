@@ -13,6 +13,7 @@ import { Card, CardTitle } from '../../../../widgets/dashboard/shared';
 import { button as buttonStyle, primary as primaryButtonStyle } from '../../../../components/Button/Button.styles';
 import useBelow from '../../../../utils/useBelow';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { toast } from 'react-toast';
 
 function generateRandomId() {
   return Math.random().toString(36).substring(2, 7);
@@ -276,7 +277,12 @@ function DashboardBuilder({ predicate, chartsTypes, state = [[]], setState, isUr
                 setState(state, true);
                 // after 200ms copy the current url to the clipboard
                 setTimeout(() => {
-                  navigator.clipboard.writeText(window.location.href)
+                  navigator.clipboard.writeText(window.location.href);
+                  toast.success(<FormattedMessage id="phrases.copiedToClipboard" />, {
+                    backgroundColor: '#333',
+                    color: '#ffffff',
+                    delay: 100
+                  });
                 }, 200);
               }}><MdShare /></Button>
             </Tooltip>
@@ -541,9 +547,11 @@ const chartGroups = {
       "programme"
     ]
   },
-  other: { values: [
-    'dataQuality', 'occurrenceSummary'
-  ] }
+  other: {
+    values: [
+      'dataQuality', 'occurrenceSummary'
+    ]
+  }
 };
 
 function CreateOptions({ onAdd, chartsTypes }) {
