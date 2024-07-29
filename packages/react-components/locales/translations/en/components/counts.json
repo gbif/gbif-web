@@ -4,7 +4,7 @@
   "nRecords": "{total, plural, one {# record} other {# records}}",
   "nTaxa": "{total, plural, one {# taxon} other {# taxa}}",
   "nCitations": "{total, plural, one {# citation} other {# citations}}",
-  "nSpecimensInGbif": "{total, plural, one {# specimen in GBIF} other {# specimens in GBIF}}",
+  "nSpecimensInGbif": "{total, plural, one {# specimen record in GBIF} other {# specimen records in GBIF}}",
   "nNames": "{total, plural, one {# name} other {# names}}",
   "nAcceptedNames": "{total, plural, one {# accepted name} other {# accepted names}}",
   "nSynonyms": "{total, plural, one {# synonym} other {# synonyms}}",
