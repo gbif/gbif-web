@@ -38,6 +38,7 @@
   "discard": "Archive annotée par GBIF",
   "keep": "Archive annotée par GBIF",
   "copyToClipboard": "Archive annotée par GBIF",
+  "copiedToClipboard": "",
   "headers": {
     "description": "Description",
     "contacts": "Contacts"
