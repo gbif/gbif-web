@@ -35,8 +35,8 @@ import { NoRecords } from '@/components/noDataMessages';
 import { PublisherSearchQuery, PublisherSearchQueryVariables } from '@/gql/graphql';
 
 const PUBLISHER_SEARCH_QUERY = /* GraphQL */ `
-  query PublisherSearch($offset: Int, $country: Country, $q: String, $limit: Int) {
-    list: organizationSearch(country: $country, q: $q, offset: $offset, limit: $limit) {
+  query PublisherSearch($offset: Int, $country: Country, $q: String, $limit: Int, $isEndorsed: Boolean) {
+    list: organizationSearch(country: $country, q: $q, offset: $offset, limit: $limit, isEndorsed: $isEndorsed) {
       limit
       count
       offset
@@ -72,6 +72,7 @@ export function PublisherSearchPage(): React.ReactElement {
         q: filter.q,
         limit: 20,
         offset,
+        isEndorsed: true,
       },
     });
   }, [offset, filter]);
