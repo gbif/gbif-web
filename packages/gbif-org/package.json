@@ -65,6 +65,7 @@
     "react-router-dom": "^6.18.0",
     "react-router-hash-link": "^2.4.3",
     "react-use": "^17.5.0",
+    "saucectl": "^0.179.1",
     "tailwind-merge": "^2.0.0",
     "tailwindcss-animate": "^1.0.7",
     "uncontrollable": "^8.0.4",
