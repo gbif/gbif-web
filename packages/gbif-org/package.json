@@ -19,7 +19,7 @@
     "test": "npm run build && npm run build:hp && npm run vitest",
     "type-check": "tsc --noEmit",
     "cy:open": "cypress open",
-    "test:e2e": "saucectl run"
+    "saucectl": "saucectl"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
