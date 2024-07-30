@@ -18,7 +18,8 @@
     "vitest:watch": "vitest watch --config ./gbif/vite.config.ts",
     "test": "npm run build && npm run build:hp && npm run vitest",
     "type-check": "tsc --noEmit",
-    "cy:open": "cypress open"
+    "cy:open": "cypress open",
+    "test:e2e": "saucectl run"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
