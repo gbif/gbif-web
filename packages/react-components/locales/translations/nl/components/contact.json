@@ -3,6 +3,7 @@
   "organization": "Organisatie",
   "email": "E-mail",
   "address": "Adres",
+  "phone": "Telefoonnummer",
   "roles": "Rollen",
   "userId": "GebruikersID",
   "name": "Naam"
