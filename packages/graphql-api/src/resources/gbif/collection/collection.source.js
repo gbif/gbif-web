@@ -24,18 +24,18 @@ class CollectionAPI extends RESTDataSource {
   }
 
   async searchCollectionDescriptorGroups({ key, limit, offset }) {
-    return this.get(`/grscicoll/collection/${key}/descriptorSet`, {
+    return this.get(`/grscicoll/collection/${key}/descriptorGroup`, {
       limit,
       offset,
     });
   }
 
   async getCollectionDescriptorGroup({ key, collectionKey }) {
-    return this.get(`/grscicoll/collection/${collectionKey}/descriptorSet/${key}`);
+    return this.get(`/grscicoll/collection/${collectionKey}/descriptorGroup/${key}`);
   }
 
   async getCollectionDescriptor({ key, collectionKey, limit, offset }) {
-    return this.get(`/grscicoll/collection/${collectionKey}/descriptorSet/${key}/descriptor`, {
+    return this.get(`/grscicoll/collection/${collectionKey}/descriptorGroup/${key}/descriptor`, {
       limit,
       offset,
     });
