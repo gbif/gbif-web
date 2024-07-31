@@ -11,7 +11,7 @@
   },
   "hasCoordinate": {
     "name": "",
-    "count": "",
+    "count": "Met coördinaten",
     "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
   },
   "hasGeospatialIssues": {
@@ -71,7 +71,7 @@
     "description": ""
   },
   "purposes": {
-    "name": "",
+    "name": "Onderwerp",
     "count": "",
     "description": ""
   },
@@ -456,7 +456,7 @@
     "description": ""
   },
   "literatureType": {
-    "name": "",
+    "name": "Type literatuur",
     "count": "",
     "description": ""
   }
