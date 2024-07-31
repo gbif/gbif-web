@@ -21,7 +21,7 @@
     "cy:open": "cypress open",
     "test:e2e:basic": "saucectl run --config .sauce/basicTestsConfig.yml",
     "test:e2e:extended": "saucectl run --config .sauce/extendedTestsConfig.yml",
-    "configure-saucelabs": "saucectl configure --username=$SAUCE_USERNAME --accessKey=$SAUCE_ACCESS_KEY"
+    "saucectl": "saucectl"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
