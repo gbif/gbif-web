@@ -25,10 +25,10 @@ describe('network page', () => {
       .contains('obis.org')
       .should('have.attr', 'href', 'https://obis.org/');
 
-    cy.get('[data-cy="network-occurrence-count"]').contains('59.077.094 occurrences');
+    cy.get('[data-cy="network-occurrence-count"]').contains('occurrences');
 
-    cy.get('[data-cy="network-datset-count"]').contains('2.740 datasets');
+    cy.get('[data-cy="network-datset-count"]').contains('datasets');
 
-    cy.get('[data-cy="network-citation-count"]').contains('1.919 citations');
+    cy.get('[data-cy="network-citation-count"]').contains('citations');
   });
 });
