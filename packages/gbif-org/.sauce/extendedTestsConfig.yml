@@ -19,7 +19,7 @@ suites:
     config:
       testingType: e2e
       specPattern:
-        - 'cypress/e2e/**/*.cy.js'
+        - 'cypress/e2e/extendedTests/*.cy.js'
 rootDir: .
 artifacts:
   download:
