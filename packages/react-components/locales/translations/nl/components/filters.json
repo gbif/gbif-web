@@ -290,7 +290,7 @@
     "description": ""
   },
   "projectId": {
-    "name": "",
+    "name": "Project ID",
     "count": "",
     "description": ""
   },
@@ -310,7 +310,7 @@
     "description": "Het unieke nummer voor het voorkomen."
   },
   "organismId": {
-    "name": "",
+    "name": "Organisme ID",
     "count": "",
     "description": ""
   },
@@ -441,7 +441,7 @@
     "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
   },
   "code": {
-    "name": "",
+    "name": "Code",
     "count": "",
     "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
   },
