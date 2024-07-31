@@ -2,8 +2,8 @@
   "searchTitle": "",
   "tabs": {
     "aboutPublisher": "Over",
-    "metrics": "",
-    "publishersHomepage": ""
+    "metrics": "Metrieken",
+    "publishersHomepage": "Startpagina"
   },
   "joinedDate": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
   "newPublisher": "Nieuwe uitgever",
@@ -16,10 +16,10 @@
   "endorsementWithheld": "",
   "installations": "",
   "getDownloadReport": "",
-  "contacts": "",
+  "contacts": "Contacten",
   "administrativeContact": "",
   "header": {
-    "publisher": "",
+    "publisher": "Uitgever",
     "sinceDate": ""
   }
 }
