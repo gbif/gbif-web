@@ -1,12 +1,12 @@
 {
   "searchTitle": "",
   "tabs": {
-    "aboutPublisher": "",
+    "aboutPublisher": "Over",
     "metrics": "",
     "publishersHomepage": ""
   },
   "joinedDate": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
-  "newPublisher": "",
+  "newPublisher": "Nieuwe uitgever",
   "technicalContact": "",
   "country": "",
   "hosting": "",
