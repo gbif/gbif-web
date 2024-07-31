@@ -5,6 +5,9 @@ const filterConf = {
     countryGrSciColl: {
       defaultKey: 'country'
     },
+    countriesOfCoverage: {
+      defaultKey: 'descriptorCountry'
+    },
     institutionKeySingle: {
       defaultKey: 'institution',
       singleValue: true

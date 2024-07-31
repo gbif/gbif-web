@@ -6,10 +6,6 @@ const typeDef = gql`
       limit: Int
       offset: Int
       q: String
-      """
-      deprecated field, use institutionKey instead
-      """
-      institution: [GUID]
       institutionKey: [GUID]
       contact: ID
       code: String
@@ -28,16 +24,106 @@ const typeDef = gql`
       displayOnNHCPortal: Boolean
       sortBy: CollectionsSortField
       sortOrder: SortOrder
+
+      recordedBy: [String!]
+      descriptorCountry: [Country!]
+      typeStatus: [TypeStatus!]
+      taxonKey: [ID!]
       ): CollectionSearchResults
     collection(key: ID!): Collection
+    collectionDescriptorGroup(key: ID!, collectionKey: ID!): CollectionDescriptorGroup
   }
 
   type CollectionSearchResults {
-    results: [Collection]!
+    results: [CollectionSearchEntity]!
     limit: Int!
     offset: Int!
     count: Int!
     endOfRecords: Boolean!
+  }
+
+  type CollectionSearchEntity {
+    key: ID!
+    code: String
+    name: String
+    description: String
+    country: Country
+    city: String
+    contentTypes: [String!]
+    active: Boolean
+    personalCollection: Boolean
+    preservationTypes: [String!]
+    accessionStatus: String
+    institutionKey: ID
+    institutionName: String
+    institutionCode: String
+    numberSpecimens: Long
+    taxonomicCoverage: String
+    geographicCoverage: String
+    temporalCoverage: String
+    alternativeCodes: [AlternativeCode]
+    occurrenceCount: Long
+    typeSpecimenCount: Long
+    featuredImageUrl: String
+    featuredImageLicense: License
+    thumbor(width: Int, height: Int, fitIn: Boolean): String
+    descriptorMatches: [DescriptorMatches!]
+  }
+
+  type DescriptorMatches {
+    key: ID
+    descriptorSetKey: ID
+    usageName: String
+    usageKey: Long
+    usageRank: Rank
+    country: Country
+    individualCount: Long
+    issues: [OccurrenceIssue!]
+    recordedBy: [String!]
+    typeStatus: [TypeStatus!]
+    identifiedBy: [String!]
+  }
+
+  type CollectionDescriptorGroupResults {
+    offset: Int
+    limit: Int
+    endOfRecords: Boolean
+    count: Int
+    results: [CollectionDescriptorGroup]
+  }
+
+  type CollectionDescriptorGroup {
+    key: ID!
+    title: String
+    description: String
+    collectionKey: ID!
+    created: String!
+    createdBy: String!
+    modified: String
+    modifiedBy: String
+    descriptors(limit: Int, offset: Int): CollectionDescriptorResults
+  }
+
+  type CollectionDescriptorResults {
+    limit: Int
+    offset: Int
+    count: Int
+    endOfRecords: Boolean
+    results: [CollectionDescriptor!]
+  }
+
+  type CollectionDescriptor {
+    key: ID!
+    usageKey: Long
+    usageName: String
+    usageRank: Rank
+    individualCount: Int
+    verbatim: JSON
+    issues: [OccurrenceIssue!]
+    taxonClassification: [Classification!]
+    recordedBy: [String!]
+    typeStatus: [TypeStatus!]
+    identifiedBy: [String!]
   }
 
   type Collection {
@@ -97,6 +183,8 @@ const typeDef = gql`
     occurrenceCount: Int
     excerpt: String
     richness: Float
+
+    descriptorGroups(limit: Int, offset: Int): CollectionDescriptorGroupResults
   }
 
   type AlternativeCode {

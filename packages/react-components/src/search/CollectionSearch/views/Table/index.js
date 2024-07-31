@@ -8,8 +8,8 @@ import queryString from 'query-string';
 import env from '../../../../../.env.json';
 
 const QUERY = `
-query list($preservationType: [String!], $contentType: [String!], $identifier: String, $alternativeCode: String, $personalCollection: Boolean, $occurrenceCount: String, $institution: [GUID], $code: String, $q: String, $offset: Int, $limit: Int, $country: [Country], $fuzzyName: String, $city: String, $name: String, $active: Boolean, $numberSpecimens: String, $displayOnNHCPortal: Boolean, $institutionKey: [GUID]){
-  collectionSearch(institutionKey: $institutionKey, preservationType: $preservationType, contentType: $contentType, identifier: $identifier, alternativeCode: $alternativeCode, sortBy: NUMBER_SPECIMENS, sortOrder: DESC,  personalCollection: $personalCollection, occurrenceCount: $occurrenceCount, institution: $institution, code: $code, q: $q, limit: $limit, offset: $offset, country: $country, fuzzyName: $fuzzyName, city: $city, name: $name, active: $active, numberSpecimens: $numberSpecimens, displayOnNHCPortal: $displayOnNHCPortal) {
+query list($preservationType: [String!], $contentType: [String!], $identifier: String, $alternativeCode: String, $personalCollection: Boolean, $occurrenceCount: String, $code: String, $q: String, $offset: Int, $limit: Int, $country: [Country], $city: String, $name: String, $active: Boolean, $numberSpecimens: String, $displayOnNHCPortal: Boolean, $institutionKey: [GUID], $taxonKey: [ID!], $recordedBy: [String!], $typeStatus: [TypeStatus!], $descriptorCountry: [Country!]){
+  collectionSearch(institutionKey: $institutionKey, preservationType: $preservationType, contentType: $contentType, identifier: $identifier, alternativeCode: $alternativeCode, sortBy: NUMBER_SPECIMENS, sortOrder: DESC,  personalCollection: $personalCollection, occurrenceCount: $occurrenceCount, code: $code, q: $q, limit: $limit, offset: $offset, country: $country, city: $city, taxonKey: $taxonKey, recordedBy: $recordedBy, name: $name, descriptorCountry: $descriptorCountry, typeStatus: $typeStatus, active: $active, numberSpecimens: $numberSpecimens, displayOnNHCPortal: $displayOnNHCPortal) {
     count
     offset
     limit
@@ -20,18 +20,10 @@ query list($preservationType: [String!], $contentType: [String!], $identifier: S
       active
       numberSpecimens
       occurrenceCount
-      address {
-        city
-        country
-      }
-      mailingAddress {
-        city
-        country
-      }
-      institution {
-        key
-        name
-      }
+      city
+      country
+      institutionKey
+      institutionName
     }
   }
 }
@@ -49,13 +41,13 @@ const defaultTableConfig = {
             {!item.active && <span style={{padding: '0 3px', background: 'tomato', color: 'white', borderRadius: 2}}>Inactive</span>}
           </div>
           <div style={{ color: '#aaa' }}>
-            {item.institution && <LinkOption discreet type='institutionKey' id={item.institution.key} >
-              <InlineFilterChip filterName="institution" values={[item.institution.key]}>
-                <span data-loader>{item.institution.name}</span>
+            {item.institutionKey && <LinkOption discreet type='institutionKey' id={item.institutionKey} >
+              <InlineFilterChip filterName="institution" values={[item.institutionKey]}>
+                <span data-loader>{item.institutionName}</span>
               </InlineFilterChip>
             </LinkOption>
             }
-            {!item.institution && <span style={{ fontStyle: 'italic' }} data-loader>
+            {!item.institutionKey && <span style={{ fontStyle: 'italic' }} data-loader>
               <FormattedMessage id="collection.institutionUnknown" />
             </span>}
           </div>
@@ -77,7 +69,7 @@ const defaultTableConfig = {
       value: {
         key: 'key',
         formatter: (value, item) => {
-          const countryCode = item.address?.country || item.mailingAddress?.country;
+          const countryCode = item.country;
           return countryCode ? <InlineFilterChip filterName="country" values={[countryCode]}>
             <FormattedMessage
               id={`enums.countryCode.${countryCode}`}
@@ -93,7 +85,7 @@ const defaultTableConfig = {
         filterKey: 'city',
         key: 'key',
         formatter: (value, item) => {
-          const city = item.address?.city || item.mailingAddress?.city;
+          const city = item.city;
           return city ? <InlineFilterChip filterName="city" values={[city]}>{city}</InlineFilterChip> : null;
         },
         hideFalsy: true
