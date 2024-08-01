@@ -6464,6 +6464,7 @@ export type QueryTaxonSuggestionsArgs = {
   preferAccepted?: InputMaybe<Scalars['Boolean']['input']>;
   q?: InputMaybe<Scalars['String']['input']>;
   strictMatching?: InputMaybe<Scalars['Boolean']['input']>;
+  taxonScope?: InputMaybe<Array<Scalars['ID']['input']>>;
   vernacularNamesOnly?: InputMaybe<Scalars['Boolean']['input']>;
 };
 

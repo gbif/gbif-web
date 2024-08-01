@@ -1,20 +1,71 @@
-import { InputConfig } from '@/contexts/config/config';
-import { InvalidGbifEnvError, isGbifEnv } from '@/contexts/config/endpoints';
+import { Config } from '@/contexts/config/config';
+import {
+  GbifEnv,
+  getDefaultEndpointsBasedOnGbifEnv,
+  InvalidGbifEnvError,
+  isGbifEnv,
+} from '@/contexts/config/endpoints';
+import commandLineArgs from 'command-line-args';
+import { merge } from 'ts-deepmerge';
 
-const gbifEnv = import.meta.env.PUBLIC_GBIF_ENV;
-if (typeof gbifEnv !== 'string') throw new Error('Missing PUBLIC_GBIF_ENV env variable');
+// The cli/env options
+type Options = {
+  gbifEnv: GbifEnv;
+  baseUrl: string;
+  graphqlEndpoint: string;
+  translationsEntryEndpoint: string;
+  countEndpoint: string;
+  formsEndpoint: string;
+  v1Endpoint: string;
+};
+
+// Extract config options from the command line arguments
+const cliOptions = [
+  { name: 'gbifEnv', type: String },
+  { name: 'baseUrl', type: String },
+  { name: 'graphqlEndpoint', type: String },
+  { name: 'translationsEntryEndpoint', type: String },
+  { name: 'countEndpoint', type: String },
+  { name: 'formsEndpoint', type: String },
+  { name: 'v1Endpoint', type: String },
+];
+
+const cliConfig = commandLineArgs(cliOptions, { partial: true }) as Partial<Options>;
+
+// Extract config options from the environment variables
+const envConfig = {
+  gbifEnv: import.meta.env.PUBLIC_GBIF_ENV,
+  baseUrl: import.meta.env.PUBLIC_BASE_URL,
+  graphqlEndpoint: import.meta.env.PUBLIC_GRAPHQL_ENDPOINT,
+  translationsEntryEndpoint: import.meta.env.PUBLIC_TRANSLATIONS_ENTRY_ENDPOINT,
+  countEndpoint: import.meta.env.PUBLIC_COUNT_ENDPOINT,
+  formsEndpoint: import.meta.env.PUBLIC_FORMS_ENDPOINT,
+  v1Endpoint: import.meta.env.PUBLIC_V1_ENDPOINT,
+} as Partial<Options>;
+
+// Validate that the required config options are present and valid
+const gbifEnv = cliConfig.gbifEnv || envConfig.gbifEnv;
+if (!gbifEnv) throw new Error('Missing PUBLIC_GBIF_ENV env variable');
 if (!isGbifEnv(gbifEnv)) throw new InvalidGbifEnvError(gbifEnv);
 
-const baseUrl = import.meta.env.PUBLIC_BASE_URL;
-if (typeof baseUrl !== 'string') throw new Error('Missing PUBLIC_BASE_URL env variable');
+const baseUrl = cliConfig.baseUrl || envConfig.baseUrl;
+if (!baseUrl) throw new Error('Missing PUBLIC_BASE_URL env variable');
 
-export const gbifConfig: InputConfig = {
+// Merge the config based on the priority order: CLI > ENV > default
+const options = merge.withOptions(
+  { allowUndefinedOverrides: false },
+  getDefaultEndpointsBasedOnGbifEnv(gbifEnv),
+  envConfig,
+  cliConfig
+) as Options;
+
+export const gbifConfig: Config = {
+  ...options,
   defaultTitle: 'GBIF',
-  gbifEnv,
   // The languages should be synced with supportedLocales in graphql-api/src/helpers/sanitize-html.ts
   languages: [
     {
-      code: 'en-DK',// TODO, really ought to be en-GB, but while developing it is convinent to have developer english when text change
+      code: 'en-DK', // TODO, really ought to be en-GB, but while developing it is convinent to have developer english when text change
       label: 'English',
       default: true,
       textDirection: 'ltr',
@@ -65,7 +116,6 @@ export const gbifConfig: InputConfig = {
     primary: '#69AA69',
     stickyOffset: '40px',
   },
-  baseUrl,
   openGraph: {
     site_name: 'GBIF',
   },

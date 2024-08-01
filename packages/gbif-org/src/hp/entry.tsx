@@ -3,11 +3,13 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Root } from '@/components/root';
-import { Config, InputConfig } from '@/contexts/config/config';
+import { Config } from '@/contexts/config/config';
 import { configureHostedPortalRoutes } from '@/hp/routes';
+import { merge } from 'ts-deepmerge';
+import { Endpoints, getDefaultEndpointsBasedOnGbifEnv } from '@/contexts/config/endpoints';
 
 type Props = {
-  config: InputConfig;
+  config: Config;
 };
 
 function HostedPortalApp({ config }: Props): React.ReactElement {
@@ -21,6 +23,15 @@ function HostedPortalApp({ config }: Props): React.ReactElement {
   );
 }
 
-export function render(rootElement: HTMLElement, config: Config) {
-  createRoot(rootElement).render(<HostedPortalApp config={config} />);
+export function render(
+  rootElement: HTMLElement,
+  config: Omit<Config, keyof Endpoints> & Partial<Endpoints>
+) {
+  const configWithDefaults = merge.withOptions(
+    { allowUndefinedOverrides: false },
+    config,
+    getDefaultEndpointsBasedOnGbifEnv(config.gbifEnv)
+  ) as Config;
+
+  createRoot(rootElement).render(<HostedPortalApp config={configWithDefaults} />);
 }

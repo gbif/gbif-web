@@ -18,11 +18,7 @@ export function isGbifEnv(value: string): value is GbifEnv {
   return Object.values(GbifEnv).includes(value as GbifEnv);
 }
 
-export function getEndpointsBasedOnGbifEnv(
-  gbifEnv: GbifEnv,
-  // Used in the codegen script as it will not have access to the env variables
-  env?: Record<string, string>
-): Endpoints {
+export function getDefaultEndpointsBasedOnGbifEnv(gbifEnv: GbifEnv): Endpoints {
   // This can happen as the gbifEnv is passed as a string when configuring the HostedPortal
   if (!isGbifEnv(gbifEnv)) {
     throw new InvalidGbifEnvError(gbifEnv);
@@ -62,22 +58,6 @@ export function getEndpointsBasedOnGbifEnv(
       v1Endpoint: 'https://api.gbif-staging.org/v1',
     },
   }[gbifEnv];
-
-  endpoints.graphqlEndpoint =
-    import.meta.env.PUBLIC_GRAPHQL_ENDPOINT ??
-    env?.PUBLIC_GRAPHQL_ENDPOINT ??
-    endpoints.graphqlEndpoint;
-
-  endpoints.translationsEntryEndpoint =
-    import.meta.env.PUBLIC_TRANSLATIONS_ENTRY_ENDPOINT ??
-    env?.PUBLIC_TRANSLATIONS_ENTRY_ENDPOINT ??
-    endpoints.translationsEntryEndpoint;
-
-  endpoints.countEndpoint =
-    import.meta.env.PUBLIC_COUNT_ENDPOINT ?? env?.PUBLIC_COUNT_ENDPOINT ?? endpoints.countEndpoint;
-
-  endpoints.formsEndpoint =
-    import.meta.env.PUBLIC_FORMS_ENDPOINT ?? env?.PUBLIC_FORMS_ENDPOINT ?? endpoints.formsEndpoint;
 
   return endpoints;
 }

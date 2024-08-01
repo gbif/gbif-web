@@ -1,5 +1,5 @@
 import React from 'react';
-import { Endpoints, GbifEnv, getEndpointsBasedOnGbifEnv } from './endpoints';
+import { Endpoints, GbifEnv } from './endpoints';
 import themeBuilder from './theme/index';
 import { Theme } from './theme/theme';
 
@@ -7,7 +7,7 @@ type PageConfig = {
   key: string;
 };
 
-export type InputConfig = {
+export type Config = Endpoints & {
   defaultTitle?: string;
   gbifEnv: GbifEnv;
   languages: {
@@ -32,21 +32,16 @@ export type InputConfig = {
   linkToGbifOrg?: boolean;
 };
 
-export type Config = InputConfig & Endpoints;
-
 const ConfigContext = React.createContext<Config | null>(null);
 
 type Props = {
   children?: React.ReactNode;
-  config: InputConfig;
+  config: Config;
 };
 
 type CssVariable = { name: string; value: unknown };
 
 export function ConfigProvider({ config, children }: Props): React.ReactElement {
-  // Build the config context value that will made available to all components
-  const contextValue: Config = React.useMemo(() => configBuilder(config), [config]);
-
   // Create css for theming based on the baseTheme and the theme extension
   const css: string = React.useMemo(() => {
     const theme = themeBuilder({
@@ -78,7 +73,7 @@ export function ConfigProvider({ config, children }: Props): React.ReactElement 
   }, [config]);
 
   return (
-    <ConfigContext.Provider value={contextValue}>
+    <ConfigContext.Provider value={config}>
       <style>{css}</style>
       {children}
     </ConfigContext.Provider>
@@ -89,11 +84,4 @@ export function useConfig(): Config {
   const ctx = React.useContext(ConfigContext);
   if (ctx == null) throw new Error('useConfig must be used within a ConfigProvider');
   return ctx;
-}
-
-export function configBuilder(config: InputConfig): Config {
-  return {
-    ...getEndpointsBasedOnGbifEnv(config.gbifEnv),
-    ...config,
-  };
 }
