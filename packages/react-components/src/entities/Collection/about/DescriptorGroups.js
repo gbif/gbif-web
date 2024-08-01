@@ -27,14 +27,14 @@ export function DescriptorGroups({ collectionKey }) {
   if (!data || !data.collection) return null;
 
   return <Card>
-    {data.collection.descriptorGroups.results.map(group => <DescriptorGroupPresentation key={group.key} collectionKey={collectionKey} groupKey={group.key} {...group} />)}
+    {data?.collection?.descriptorGroups?.results?.map((group, index) => <DescriptorGroupPresentation last={index === data.collection.descriptorGroups.results.length - 1} key={group.key} collectionKey={collectionKey} groupKey={group.key} {...group} />)}
   </Card>
 }
 
-function DescriptorGroupPresentation({ collectionKey, groupKey, title, description }) {
+function DescriptorGroupPresentation({ collectionKey, groupKey, title, description, last }) {
   const [showPreview, setShowPreview] = useState(false);
 
-  return <div style={{ display: 'flex', borderBottom: '1px solid #eee', padding: '12px 0' }}>
+  return <div style={{ display: 'flex', borderBottom: last ? 'none' : '1px solid #eee', padding: '12px 0' }}>
     <div style={{ marginRight: 12, flex: '0 0 auto' }}>
       <div style={{ color: 'var(--color800)' }}>
         <SpreadSheetIcon style={{ fontSize: 18 }} />

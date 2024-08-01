@@ -49,22 +49,6 @@ export function Description({
           <FeaturedImageContent featuredImageLicense={collection.featuredImageLicense} featuredImageUrl={collection.featuredImageUrl} />
         </Card>
         }
-        {collection?.descriptorGroups?.count > 0 && <>
-          <div css={paddedCardContent} style={{ paddingTop: 0, paddingBottom: 0 }}>
-            <CardHeader2>
-              {/* <FormattedMessage id="grscicoll.CollectionContent" deafultMessage="Collection content" /> */}
-              Collection content details
-              <Tooltip title={<FormattedMessage id="dataset.metricsOccurrenceHelpText" />}>
-                <span>
-                  <MdInfoOutline style={{ verticalAlign: 'middle' }} />
-                </span>
-              </Tooltip>
-            </CardHeader2>
-          </div>
-          <div>
-            <DescriptorGroups collectionKey={collection.key} />
-          </div>
-        </>}
 
         <Card style={{ marginTop: 12, marginBottom: 24 }}>
           <CardHeader2><FormattedMessage id="grscicoll.description" deafultMessage="Description" /></CardHeader2>
@@ -95,6 +79,20 @@ export function Description({
             {collection.personalCollection && <Property value={collection.personalCollection} labelId="collection.personalCollection" formatter={e => <FormattedMessage id={`enums.yesNo.${e}`} defaultMessage={e} />} />}
           </Properties>
         </Card>
+
+        {collection?.descriptorGroups?.count > 0 && <>
+          <div css={paddedCardContent} style={{ paddingTop: 0, paddingBottom: 0 }}>
+            <CardHeader2>
+              <FormattedMessage id="grscicoll.collectionDescriptorsHeadline" deafultMessage="Collection description" />
+            </CardHeader2>
+            <div css={css`color: var(--color500); margin-bottom: 12px;`}>
+              <FormattedMessage id="grscicoll.collectionDescriptorsIntroduction" deafultMessage="Collection description" />
+            </div>
+          </div>
+          <div>
+            <DescriptorGroups collectionKey={collection.key} />
+          </div>
+        </>}
 
         <Card style={{ marginTop: 24, marginBottom: 24 }} id="contact">
           <CardHeader2><FormattedMessage id="grscicoll.contacts" deafultMessage="Contacts" /></CardHeader2>
