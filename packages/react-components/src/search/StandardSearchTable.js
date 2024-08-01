@@ -11,7 +11,7 @@ import merge from 'lodash/merge';
 import { EmptyImage } from "../components/Icons/Icons";
 import { FormattedMessage } from 'react-intl';
 
-function StandardSearchTable({graphQuery, slowQuery, resultKey, offsetName = 'offset', defaultTableConfig, AdditionalEmptyMessage = () => null, exportTemplate = () => null, ...props}) {
+function StandardSearchTable({graphQuery, slowQuery, resultKey, offsetName = 'offset', defaultTableConfig, showEmptyTable, AdditionalEmptyMessage = () => null, exportTemplate = () => null, ...props}) {
   // const [offset, setOffset] = useUrlState({ param: 'offset', defaultValue: 0 });
   const [offset = 0, setOffset] = useQueryParam('from', NumberParam);
   const limit = 50;
@@ -62,7 +62,7 @@ function StandardSearchTable({graphQuery, slowQuery, resultKey, offsetName = 'of
 
   let mergedResults = results ? merge([], results, slowresults) : results;
 
-  if (total === 0) {
+  if (total === 0 && !showEmptyTable) {
     return <div css={css`
       margin-right: auto;
       display: inline-block;

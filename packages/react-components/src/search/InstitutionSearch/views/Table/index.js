@@ -178,7 +178,7 @@ function Table() {
         <MdMap />
       </Button>
     </div>}
-    {tableView && <StandardSearchTable 
+    {tableView && <StandardSearchTable showEmptyTable
       style={{ width: '50%', flex: '1 0 50%', marginRight: showMap && !noSplitPane ? 12 : 0 }} 
       graphQuery={QUERY} 
       slowQuery={SLOW_QUERY} 
