@@ -1,10 +1,11 @@
 import { css, jsx } from '@emotion/react';
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery } from '../../../dataManagement/api';
 import { Card } from "../../shared";
-// import { BiSpreadsheet as SpreadSheetIcon } from "react-icons/bi";
-import { RiFileDownloadLine as SpreadSheetIcon } from "react-icons/ri";
-import { DataTable, Th, Td, TBody } from '../../../components';
+import { BiSpreadsheet as SpreadSheetIcon } from "react-icons/bi";
+import { DataTable, Th, Td, TBody, Button, Switch, Skeleton } from '../../../components';
+import { MdDownload } from 'react-icons/md';
+import { FormattedMessage } from 'react-intl';
 
 export function DescriptorGroups({ collectionKey }) {
   const { data, error, loading, load } = useQuery(DESCRIPTOR_GROUPS, { lazyLoad: true });
@@ -24,122 +25,126 @@ export function DescriptorGroups({ collectionKey }) {
   if (error) return <Card error={error} />
   if (!data || !data.collection) return null;
 
-  return data.collection.descriptorGroups.results.map(group => <DescriptorGroupPresentation key={group.key} collectionKey={collectionKey} groupKey={group.key} {...group} />);
+  return <Card>
+    {data.collection.descriptorGroups.results.map(group => <DescriptorGroupPresentation key={group.key} collectionKey={collectionKey} groupKey={group.key} {...group} />)}
+  </Card>
 }
 
 function DescriptorGroupPresentation({ collectionKey, groupKey, title, description }) {
+  const [showPreview, setShowPreview] = useState(false);
+
+  return <div style={{ display: 'flex', borderBottom: '1px solid #eee', padding: '12px 0' }}>
+    <div style={{ marginRight: 12, flex: '0 0 auto' }}>
+      <a href={`https://api.gbif-uat.org/v1/grscicoll/collection/${collectionKey}/descriptorSet/${groupKey}/export?format=CSV`} style={{ color: 'var(--color800)' }}>
+        <SpreadSheetIcon style={{ fontSize: 18 }} />
+      </a>
+    </div>
+    <div style={{ flex: '1 1 auto', width: 100 }}>
+      <h4 style={{ marginTop: 0, marginBottom: 8 }}>{title}</h4>
+      <div style={{ color: 'var(--color600)' }}>
+        {description}
+      </div>
+      <div style={{ fontSize: 12, marginTop: 12 }}>
+        <Button as="a" look="primary" href={`https://api.gbif-uat.org/v1/grscicoll/collection/${collectionKey}/descriptorSet/${groupKey}/export?format=CSV`} style={{ color: 'var(--color800)' }}>
+          <MdDownload style={{ marginRight: 8 }} /> Download
+        </Button>
+        <label><Switch checked={showPreview} style={{ marginLeft: 16 }} onChange={() => setShowPreview(!showPreview)} /> Show preview</label>
+      </div>
+      {showPreview && <div css={css`margin-top: 12px;`}>
+        <Table collectionKey={collectionKey} groupKey={groupKey} />
+      </div>}
+    </div>
+  </div>
+}
+
+function Table({ collectionKey, groupKey }) {
+  const limit = 20;
+  const [offset, setOffset] = useState(0);
   const { data, error, loading, load } = useQuery(DESCRIPTOR_GROUP, { lazyLoad: true });
 
   useEffect(() => {
     if (typeof collectionKey !== 'undefined' && typeof groupKey !== 'undefined') {
       const query = {
+        keepDataWhileLoading: true,
         variables: {
           key: groupKey,
           collectionKey: collectionKey,
+          limit,
+          offset
         }
       };
       load(query);
     }
-  }, [collectionKey, groupKey]);
+  }, [collectionKey, groupKey, offset]);
 
   const hasResults = data?.collectionDescriptorGroup?.descriptors?.results?.length > 0;
   const keys = hasResults ? Object.keys(data?.collectionDescriptorGroup?.descriptors?.results[0].verbatim) : [];
 
-  return <Card style={{ marginTop: 0, marginBottom: 8, paddingTop: 12, paddingBottom: 12 }}>
-    <div style={{ display: 'flex' }}>
-      <div style={{ marginRight: 24 }}>
-        <a href={`https://api.gbif-uat.org/v1/grscicoll/collection/${collectionKey}/descriptorSet/${groupKey}/export?format=CSV`} style={{ color: 'var(--color800)' }}>
-          <SpreadSheetIcon style={{ fontSize: 32 }} />
-        </a>
-      </div>
-      <div>
-        <h4 style={{ marginTop: 0, marginBottom: 8 }}>{title}</h4>
-        <div style={{ color: 'var(--color600)' }}>
-          {description}
-        </div>
-        <div>
-          {loading && 'Loading...'}
-          {error && 'Error'}
-          {hasResults && <>
-            {/* <table css={css`
-              thead th {
-                font-weight: 400;
-                background: #8a97a0;
-                color: #FFF;
-              }
+  if (error) return <FormattedMessage id="phrases.failedLoad" />
 
-              tr {
-                background: #f4f7f8;
-                border-bottom: 1px solid #FFF;
-                margin-bottom: 5px;
-              }
+  const descriptors = data?.collectionDescriptorGroup?.descriptors;
+  const first = () => {
+    setOffset(0);
+  };
+  const prev = () => {
+    setOffset(Math.max(offset - descriptors.limit, 0));
+  };
+  const next = () => {
+    setOffset(offset + descriptors.limit);
+  };
+  const size = descriptors?.limit ?? limit;
+  const from = descriptors?.offset ?? 0;
+  const total = descriptors?.count ?? 0;
 
-              tr:nth-child(even) {
-                background: #e8eeef;
-              }
-
-              th, td {
-                text-align: left;
-                padding: 20px;
-                font-weight: 300;
-              }
-
-              tfoot tr {
-                background: none;
-              }
-
-              tfoot td {
-                padding: 10px 2px;
-                font-size: 0.8em;
-                font-style: italic;
-                color: #8a97a0;
-              }
-              `}> */}
-              <DataTable>
-              <thead>
-                <tr>
-                  {keys.map(key => <Th key={key}>{key}</Th>)}
-                </tr>
-              </thead>
-              <TBody>
-                {data.collectionDescriptorGroup.descriptors.results.map(d => <tr key={d.key}>
-                  {keys.map(k => <Td key={k}>{d.verbatim[k]}</Td>)}
-                </tr>)}
-              </TBody>
-            </DataTable>
-          </>}
-        </div>
-      </div>
-    </div>
-  </Card>
+  return <div css={css`
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        `}>
+    {!hasResults && <Skeleton />}
+    {hasResults && <DataTable style={{ height: '400px' }} {...{ first, prev, next, size, from, total }}>
+      <thead>
+        <tr>
+          {keys.map(key => <Th key={key}>{key}</Th>)}
+        </tr>
+      </thead>
+      <TBody loading={loading}>
+        {descriptors.results.map(d => <tr key={d.key}>
+          {keys.map(k => <Td key={k}>{d.verbatim[k]}</Td>)}
+        </tr>)}
+      </TBody>
+    </DataTable>}
+  </div>
 }
 
 const DESCRIPTOR_GROUPS = `
-query DescriptorGroups($key: ID!) {
-  collection(key: $key) {
-    descriptorGroups(limit: 100) {
+    query DescriptorGroups($key: ID!) {
+      collection(key: $key) {
+      descriptorGroups(limit: 100) {
       results {
-        key
+      key
         title
         description
       }
     }
   }
 }
-`;
+    `;
 
 const DESCRIPTOR_GROUP = `
 query($key: ID!, $collectionKey: ID!, $limit: Int, $offset: Int) {
   collectionDescriptorGroup(key: $key, collectionKey: $collectionKey) {
-    title
+  title
     description
     descriptors(limit: $limit, offset: $offset) {
       count
+      offset
+      limit
       results {
-        key
+      key
         verbatim
       }
     }
   }
 }
-`;
+    `;
