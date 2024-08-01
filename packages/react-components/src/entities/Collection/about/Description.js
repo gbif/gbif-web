@@ -128,7 +128,7 @@ export function Description({
               flex: 1 1 auto;
               width: 40%;
               max-width: 400px;
-              min-width: 300px;
+              min-width: 250px;
               margin: 12px;
             }
           `}>
