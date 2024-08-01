@@ -1,10 +1,11 @@
+import { jsx, css } from '@emotion/react';
 import React, { useContext } from "react";
 import StandardSearchTable from '../../../StandardSearchTable';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import RouteContext from '../../../../dataManagement/RouteContext';
-import { ResourceLink } from '../../../../components';
+import { Button, ResourceLink, ResourceSearchLink } from '../../../../components';
 import { InlineFilterChip, LinkOption } from '../../../../widgets/Filter/utils/FilterChip';
-import queryString from 'query-string';
+import qs from 'query-string';
 import env from '../../../../../.env.json';
 
 const QUERY = `
@@ -37,8 +38,8 @@ const defaultTableConfig = {
         key: 'name',
         formatter: (value, item) => <div>
           <div>
-            <ResourceLink type='collectionKey' id={item.key} data-loader style={{marginRight: 4}}>{value}</ResourceLink>
-            {!item.active && <span style={{padding: '0 3px', background: 'tomato', color: 'white', borderRadius: 2}}>Inactive</span>}
+            <ResourceLink type='collectionKey' id={item.key} data-loader style={{ marginRight: 4 }}>{value}</ResourceLink>
+            {!item.active && <span style={{ padding: '0 3px', background: 'tomato', color: 'white', borderRadius: 2 }}>Inactive</span>}
           </div>
           <div style={{ color: '#aaa' }}>
             {item.institutionKey && <LinkOption discreet type='institutionKey' id={item.institutionKey} >
@@ -131,12 +132,64 @@ function Table() {
   // const history = useHistory();
   const routeContext = useContext(RouteContext);
 
-  return <StandardSearchTable 
-    graphQuery={QUERY} 
-    resultKey='collectionSearch' 
-    defaultTableConfig={defaultTableConfig} 
-    exportTemplate={({filter}) => `${env.API_V1}/grscicoll/collection/export?format=TSV&${filter ? queryString.stringify(filter) : ''}`}
-    />
+  function AdditionalEmptyMessage({ currentFilterContext, rootPredicate }) {
+    const query = {
+      basisOfRecord: [
+        "PRESERVED_SPECIMEN",
+        "FOSSIL_SPECIMEN",
+        "MATERIAL_SAMPLE",
+        "LIVING_SPECIMEN",
+        "MATERIAL_CITATION"
+      ]
+    };
+    if (currentFilterContext?.filter?.must?.taxonKeyGrSciColl?.length > 0) {
+      query.taxonKey = currentFilterContext.filter.must.taxonKeyGrSciColl;
+    }
+    if (currentFilterContext?.filter?.must?.collectionDescriptorCountry?.length > 0) {
+      query.country = currentFilterContext.filter.must.collectionDescriptorCountry;
+    }
+    if (currentFilterContext?.filter?.must?.typeStatus?.length > 0) {
+      query.typeStatus = currentFilterContext.filter.must.typeStatus;
+    }
+    if (currentFilterContext?.filter?.must?.recordedBy?.length > 0) {
+      query.recordedBy = currentFilterContext.filter.must.recordedBy;
+    }
+    if (currentFilterContext?.filter?.must?.identifiedBy?.length > 0) {
+      query.identifiedBy = currentFilterContext.filter.must.identifiedBy;
+    }
+    if (currentFilterContext?.filter?.must?.institutionKeySingle?.length > 0) {
+      query.institutionKey = currentFilterContext.filter.must.institutionKeySingle;
+    }
+    // if (Object.keys(query).length > 0) {
+    const queryString = qs.stringify(query);
+    return <div css={css`max-width: 400px; margin: 12px; margin-top: 36px; color: var(--color600);`}>
+      <div css={css`
+          background: var(--paperBackground);
+          border: 1px solid var(--paperBorderColor);
+          border-radius: var(--borderRadiusPx);
+          padding: 24px;
+        `}>
+        <div css={css`margin-bottom: 12px;`}>
+          <FormattedMessage id="grscicoll.collectionSearchNoResultsMessage" />
+        </div>
+        <ResourceSearchLink type='occurrenceSearch' queryString={`&${queryString}`} style={{ fontSize: 14 }}>
+          <Button>
+            <FormattedMessage id="grscicoll.searchForSpecimens" />
+          </Button>
+        </ResourceSearchLink>
+      </div>
+    </div>
+    // }
+    return null;
+  }
+
+  return <StandardSearchTable
+    graphQuery={QUERY}
+    AdditionalEmptyMessage={AdditionalEmptyMessage}
+    resultKey='collectionSearch'
+    defaultTableConfig={defaultTableConfig}
+    exportTemplate={({ filter }) => `${env.API_V1}/grscicoll/collection/export?format=TSV&${filter ? qs.stringify(filter) : ''}`}
+  />
 }
 
 export default Table;

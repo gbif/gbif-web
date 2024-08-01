@@ -89,7 +89,7 @@ const config = {
   availableCatalogues: ['INSTITUTION', 'COLLECTION', 'OCCURRENCE']
 };
 
-export const Example = () => <Router initialEntries={[`/collection/search`]}>
+export const Example = () => <Router initialEntries={[`/collection/search?taxonKey=345`]}>
   <QueryParamProvider ReactRouterRoute={Route}>
     <AddressBar />
     <CollectionSearch pageLayout config={config} style={{ margin: 'auto', height: 'calc(100vh - 40px)' }} />
