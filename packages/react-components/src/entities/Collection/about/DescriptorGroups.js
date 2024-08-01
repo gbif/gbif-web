@@ -6,6 +6,7 @@ import { BiSpreadsheet as SpreadSheetIcon } from "react-icons/bi";
 import { DataTable, Th, Td, TBody, Button, Switch, Skeleton } from '../../../components';
 import { MdDownload } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
+import config from '../../../../.env.json';
 
 export function DescriptorGroups({ collectionKey }) {
   const { data, error, loading, load } = useQuery(DESCRIPTOR_GROUPS, { lazyLoad: true });
@@ -35,9 +36,9 @@ function DescriptorGroupPresentation({ collectionKey, groupKey, title, descripti
 
   return <div style={{ display: 'flex', borderBottom: '1px solid #eee', padding: '12px 0' }}>
     <div style={{ marginRight: 12, flex: '0 0 auto' }}>
-      <a href={`https://api.gbif-uat.org/v1/grscicoll/collection/${collectionKey}/descriptorSet/${groupKey}/export?format=CSV`} style={{ color: 'var(--color800)' }}>
+      <div style={{ color: 'var(--color800)' }}>
         <SpreadSheetIcon style={{ fontSize: 18 }} />
-      </a>
+      </div>
     </div>
     <div style={{ flex: '1 1 auto', width: 100 }}>
       <h4 style={{ marginTop: 0, marginBottom: 8 }}>{title}</h4>
@@ -45,10 +46,10 @@ function DescriptorGroupPresentation({ collectionKey, groupKey, title, descripti
         {description}
       </div>
       <div style={{ fontSize: 12, marginTop: 12 }}>
-        <Button as="a" look="primary" href={`https://api.gbif-uat.org/v1/grscicoll/collection/${collectionKey}/descriptorSet/${groupKey}/export?format=CSV`} style={{ color: 'var(--color800)' }}>
-          <MdDownload style={{ marginRight: 8 }} /> Download
+        <Button as="a" look="primary" href={`${config.API_V1}/grscicoll/collection/${collectionKey}/descriptorSet/${groupKey}/export?format=CSV`} style={{ color: 'var(--color800)' }}>
+          <MdDownload style={{ marginRight: 8 }} /><FormattedMessage id="phrases.download" />
         </Button>
-        <label><Switch checked={showPreview} style={{ marginLeft: 16 }} onChange={() => setShowPreview(!showPreview)} /> Show preview</label>
+        <label><Switch checked={showPreview} style={{ marginLeft: 16, marginRight: 4 }} onChange={() => setShowPreview(!showPreview)} /><FormattedMessage id="phrases.preview" /></label>
       </div>
       {showPreview && <div css={css`margin-top: 12px;`}>
         <Table collectionKey={collectionKey} groupKey={groupKey} />
@@ -80,7 +81,7 @@ function Table({ collectionKey, groupKey }) {
   const hasResults = data?.collectionDescriptorGroup?.descriptors?.results?.length > 0;
   const keys = hasResults ? Object.keys(data?.collectionDescriptorGroup?.descriptors?.results[0].verbatim) : [];
 
-  if (error) return <FormattedMessage id="phrases.failedLoad" />
+  if (error) return <FormattedMessage id="phrases.failedToLoadData" />
 
   const descriptors = data?.collectionDescriptorGroup?.descriptors;
   const first = () => {
