@@ -46,7 +46,7 @@ function DescriptorGroupPresentation({ collectionKey, groupKey, title, descripti
         {description}
       </div>
       <div style={{ fontSize: 12, marginTop: 12 }}>
-        <Button as="a" look="primary" href={`${config.API_V1}/grscicoll/collection/${collectionKey}/descriptorSet/${groupKey}/export?format=CSV`} style={{ color: 'var(--color800)' }}>
+        <Button as="a" look="primary" href={`${config.API_V1}/grscicoll/collection/${collectionKey}/descriptorGroup/${groupKey}/export?format=CSV`} style={{ color: 'var(--color800)' }}>
           <MdDownload style={{ marginRight: 8 }} /><FormattedMessage id="phrases.download" />
         </Button>
         <label><Switch checked={showPreview} style={{ marginLeft: 16, marginRight: 4 }} onChange={() => setShowPreview(!showPreview)} /><FormattedMessage id="phrases.preview" /></label>
