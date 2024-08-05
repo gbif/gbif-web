@@ -38,6 +38,7 @@
   "discard": "Архив, аннотированный GBIF",
   "keep": "Архив, аннотированный GBIF",
   "copyToClipboard": "Архив, аннотированный GBIF",
+  "copiedToClipboard": "Скопировано в буфер обмена",
   "headers": {
     "description": "Описание",
     "contacts": "Контакты"

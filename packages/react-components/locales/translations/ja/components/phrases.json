@@ -38,6 +38,7 @@
   "discard": "GBIFがアノーテーションしたアーカイブ",
   "keep": "GBIFがアノーテーションしたアーカイブ",
   "copyToClipboard": "GBIFがアノーテーションしたアーカイブ",
+  "copiedToClipboard": "",
   "headers": {
     "description": "説明",
     "contacts": "連絡先"

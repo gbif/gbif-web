@@ -1,1 +1,7 @@
-{}
+{
+  "EML": "EML",
+  "FEED": "RSS feed",
+  "WFS": "WFS",
+  "WMS": "WMS",
+  "OTHER": "Andere"
+}

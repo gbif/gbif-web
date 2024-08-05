@@ -38,6 +38,7 @@
   "discard": "GBIF annoteret Arkiv",
   "keep": "GBIF annoteret Arkiv",
   "copyToClipboard": "GBIF annoteret Arkiv",
+  "copiedToClipboard": "",
   "headers": {
     "description": "Beskriveslse",
     "contacts": "Kontakter"
