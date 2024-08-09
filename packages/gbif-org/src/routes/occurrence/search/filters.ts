@@ -10,4 +10,14 @@ export const ocurrenceSearchFilterDefinitions: Array<Omit<TableFilter, 'selected
       { label: 'Absent', value: 'ABSENT' },
     ],
   },
+  {
+    id: 'taxonKey',
+    type: FilterType.MultiOptionsFilter,
+    name: 'Kingdom',
+    options: [
+      { label: 'Animalia', value: "1" },
+      { label: 'Plantae', value: "2" },
+      { label: 'Fungi', value: "5" },
+    ],
+  },
 ];

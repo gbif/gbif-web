@@ -14,17 +14,6 @@ import {
 } from '@/components/ui/accordion';
 import { HelpText } from '@/components/helpText';
 import { Card } from '@/components/ui/smallCard';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { PublisherResult } from '../publisherResult';
@@ -33,16 +22,16 @@ import { FormattedMessage } from 'react-intl';
 import { PaginationFooter } from '@/components/pagination';
 import { NoRecords } from '@/components/noDataMessages';
 import { PublisherSearchQuery, PublisherSearchQueryVariables } from '@/gql/graphql';
-import { ComboboxDemo } from './PublisherFilterInput';
 import { FreeTextFilter } from './filters/FreeTextFilter';
 import { SingleCountryFilterSuggest } from './filters/SingleCountryFilterSuggest';
 import { CountProps, useCount } from '@/components/count';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Button } from '@/components/ui/button';
 
 const PUBLISHER_SEARCH_QUERY = /* GraphQL */ `
   query PublisherSearch($offset: Int, $country: Country, $q: String, $limit: Int) {
-    list: organizationSearch(country: $country, q: $q, offset: $offset, limit: $limit) {
+    list: organizationSearch(isEndorsed: true, country: $country, q: $q, offset: $offset, limit: $limit) {
       limit
       count
       offset
@@ -61,7 +50,9 @@ const PUBLISHER_SEARCH_QUERY = /* GraphQL */ `
 export function PublisherSearchPage(): React.ReactElement {
   const [offset, setOffset] = useState(0);
   const [userCountry, setUserCountry] = useState<{ country: string; countryName: string }>();
-  const [filter, setFilter] = useState<{ country?: string; q?: string }>({});
+  const [filter, setFilter] = useState({});
+  console.log(typeof filter);
+  console.log(filter);
 
   const tabClassName = 'g-pt-2 g-pb-1.5';
 
@@ -76,8 +67,8 @@ export function PublisherSearchPage(): React.ReactElement {
   useEffect(() => {
     load({
       variables: {
-        country: filter.country,
-        q: filter.q,
+        country: filter?.country,
+        q: filter?.q,
         limit: 20,
         offset,
       },
@@ -86,13 +77,20 @@ export function PublisherSearchPage(): React.ReactElement {
 
   // call https://graphql.gbif-staging.org/unstable-api/user-info?lang=en to get the users country: response {country, countryName}
   // then use the country code to get a count of publishers from that country
-  useEffect(() => {
-    fetch('https://graphql.gbif-staging.org/unstable-api/user-info?lang=en')
-      .then((res) => res.json())
-      .then((data) => {
-        setUserCountry(data);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch('https://graphql.gbif-staging.org/unstable-api/user-info?lang=en')
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setUserCountry({country: 'DK', countryName: 'Denmark'});
+  //       // setUserCountry(data);
+  //     });
+  // }, []);
+
+  /*
+  a publisher search state hook?
+  filters
+  list of publishers
+  */
 
   const publishers = data?.list;
   return (
@@ -120,7 +118,21 @@ export function PublisherSearchPage(): React.ReactElement {
       </DataHeader>
 
       <section className="">
-        <div className="g-border-b g-py-2 g-px-2">
+        <div className="g-border-b g-py-2 g-px-2" role="search">
+
+        {/* <Button variant="outline" className="g-border-primary-500 g-text-gray-500 g-me-2">
+          Country
+        </Button>
+
+        <div className='g-inline-flex g-me-2' role="group">
+          <Button className='g-rounded-none g-rounded-s'>
+            <span className="g-opacity-70 g-me-2">Scientific name</span> Aves
+          </Button>
+          <Button className='g-rounded-none g-rounded-e'>
+            <MdClose />
+          </Button>
+        </div> */}
+
           <FreeTextFilter
             className="g-inline-block"
             value={filter.q ?? ''}
@@ -128,7 +140,7 @@ export function PublisherSearchPage(): React.ReactElement {
           />
           <SingleCountryFilterSuggest
             className="g-inline-block g-w-auto"
-            selected={filter.country}
+            selected={filter.country ? {key: filter.country, title: filter.country} : undefined}
             setSelected={(x) => setFilter({ ...filter, country: x?.key })}
           />
         </div>

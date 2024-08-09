@@ -104,7 +104,7 @@ export function filterBuilder({ labelMap, suggestConfigMap, filterWidgetConfig, 
   return filters;
 }
 
-function buildSuggest({ widgetHandle, config, labelMap, suggestConfigMap, context }) {
+function buildSuggest({ widgetHandle, config, labelMap, suggestConfigMap }) {
   const LabelFromID = labelMap[config.std.id2labelHandle || widgetHandle] || (({id}) => typeof id === 'object' ? id.value : id);
   const conf = {
     filterHandle: config.std.filterHandle || widgetHandle,
@@ -127,7 +127,7 @@ function buildSuggest({ widgetHandle, config, labelMap, suggestConfigMap, contex
   };
 }
 
-function buildGeoDistanceSearch({ widgetHandle, config, labelMap, context }) {
+function buildGeoDistanceSearch({ widgetHandle, config, labelMap }) {
   const LabelFromID = labelMap[config.std.id2labelHandle || widgetHandle];
   const conf = {
     filterHandle: config.std.filterHandle || widgetHandle,
@@ -144,7 +144,7 @@ function buildGeoDistanceSearch({ widgetHandle, config, labelMap, context }) {
   };
 }
 
-function buildNumberRange({ widgetHandle, config, labelMap, context }) {
+function buildNumberRange({ widgetHandle, config, labelMap }) {
   const LabelFromID = labelMap[config.std.id2labelHandle || widgetHandle];
   const conf = {
     filterHandle: config.std.filterHandle || widgetHandle,
@@ -246,7 +246,7 @@ function buildCustomStandard({ widgetHandle, config, labelMap }) {
   };
 }
 
-function buildVocab({ widgetHandle, config, labelMap, suggestConfigMap, context }) {
+function buildVocab({ widgetHandle, config, labelMap, suggestConfigMap }) {
   const conf = {
     filterHandle: config.std.filterHandle || widgetHandle,
     translations: config.std.translations,

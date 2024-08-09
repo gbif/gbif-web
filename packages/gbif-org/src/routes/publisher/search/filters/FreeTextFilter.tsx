@@ -1,7 +1,8 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useEffect, useRef, useState } from "react";
-import { MdClose } from "react-icons/md";
+import { SearchInput } from '@/components/SearchInput';
+import { Button } from '@/components/ui/button';
+import { useEffect, useRef, useState } from 'react';
+import { MdClose } from 'react-icons/md';
+import { FilterButton } from './filterButton';
 
 export function FreeTextFilter({
   onChange,
@@ -33,13 +34,45 @@ export function FreeTextFilter({
       setIsInputHidden(false);
     }
   }, [value]);
-  
+
+  return (
+    <FilterButton
+      onClear={handleClearClick}
+      onOpen={() => setIsInputHidden(false)}
+      isInputHidden={isInputHidden}
+      selectedLabel={<span>text: {value}</span>}
+    >
+      <SearchInput
+        defaultValue={value}
+        ref={inputRef}
+        placeholder="Search"
+        className="g-inline-block g-w-auto g-me-2 g-border-primary-500 g-min-w-48"
+        onBlur={(e) => {
+          onChange(e.target.value);
+          if (e.target.value !== '') {
+            setIsInputHidden(true);
+          }
+        }}
+        onKeyDown={(e) => {
+          // if user press enter, then update the value
+          if (e.key === 'Enter') {
+            onChange(e.currentTarget.value);
+          }
+          // if esc, then just leave the input and value as is
+          if (e.key === 'Escape' && value !== '') {
+            setIsInputHidden(true);
+          }
+        }}
+      />
+    </FilterButton>
+  );
+
   // if no value, then just provide an input box.
   // if there is a value, then provide a 2 part chip/button with a clear on the right of the button group.
   if (!isInputHidden) {
     // update value when user press enter or when the input loses focus
     return (
-      <Input
+      <SearchInput
         defaultValue={value}
         ref={inputRef}
         placeholder="Search"
@@ -78,7 +111,9 @@ export function FreeTextFilter({
           type="button"
           className="g-rounded-s-none g-rounded-e g-px-2"
         >
-          <span><MdClose /></span>
+          <span>
+            <MdClose />
+          </span>
         </Button>
       </div>
     </div>

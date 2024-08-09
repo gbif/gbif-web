@@ -47,6 +47,7 @@ function useOccurrenceSearchQuery() {
   const queryVariabels = React.useMemo<OccurrenceSearchQueryVariables>(() => {
     const from = parseInt(searchParams.get('from') ?? '0');
     const status = searchParams.get('occurrenceStatus')?.split(',') ?? [];
+    const taxonKey = searchParams.get('taxonKey')?.split(',') ?? [];
 
     const predicate = JSON.parse(JSON.stringify(config.occurrencePredicate));
 
@@ -55,6 +56,13 @@ function useOccurrenceSearchQuery() {
         type: 'in',
         key: 'occurrenceStatus',
         values: status,
+      });
+    }
+    if (taxonKey.length > 0) {
+      predicate.predicates.push({
+        type: 'in',
+        key: 'taxonKey',
+        values: taxonKey,
       });
     }
 
@@ -89,7 +97,7 @@ export function OccurrenceSearchPage(): React.ReactElement {
 
       <h1 className="g-text-2xl g-mb-2 g-font-bold">This page is a crude stub for search. For now it serves as a placeholder and easy access to individual records</h1>
 
-      <InternalScrollHandler headerHeight={21}>
+      <InternalScrollHandler headerHeight={121}>
         <div className='g-p-2 g-border-b'>
           <TableFilters filters={filters} setFilter={setFilter} />
         </div>
