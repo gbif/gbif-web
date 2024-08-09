@@ -260,11 +260,17 @@ class Map extends Component {
   addLayer() {
 
     const currentProjection = projections[this.props.mapConfig?.projection || 'EPSG_3031'];
+    const filter = {
+      predicateHash: this.props.predicateHash,
+    }
+    if (this.props.q) {
+      filter.q = this.props.q;
+    }
     const occurrenceLayer = currentProjection.getAdhocLayer({
       style: 'scaled.circles',
       mode: 'GEO_CENTROID',
       squareSize: 512,
-      predicateHash: this.props.predicateHash,
+      ...filter,
       onError: e => {
         // there seem to be no simple way to get the statuscode, so we will just reregister on any type of error
         if (this.props.registerPredicate) {
