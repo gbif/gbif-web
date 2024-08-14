@@ -90,7 +90,7 @@ async function initializeServer() {
     }),
   );
   app.use(express.static('public'));
-  app.use(bodyParser.json());
+  app.use(bodyParser.json({limit: '1mb'}));
 
   // extract query and variables from store if a hash is provided instead of a query or variable
   // app.use(hashMiddleware);
