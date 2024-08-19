@@ -38,6 +38,7 @@
   "discard": "Stadt zum Fundort.",
   "keep": "Stadt zum Fundort.",
   "copyToClipboard": "Stadt zum Fundort.",
+  "copiedToClipboard": "",
   "headers": {
     "description": "",
     "contacts": ""

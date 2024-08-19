@@ -1,1 +1,1 @@
-export default ['year', 'decimalLatitude', 'decimalLongitude', 'eventDate'];
+export default ['year', 'decimalLatitude', 'decimalLongitude'];

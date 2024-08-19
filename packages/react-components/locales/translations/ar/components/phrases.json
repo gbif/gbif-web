@@ -38,6 +38,7 @@
   "discard": "أرشيف شروح \"جيبف\"",
   "keep": "أرشيف شروح \"جيبف\"",
   "copyToClipboard": "أرشيف شروح \"جيبف\"",
+  "copiedToClipboard": "",
   "headers": {
     "description": "التوصيف",
     "contacts": "جهات الاتصال"

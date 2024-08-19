@@ -20,11 +20,15 @@ const typeDef = gql`
     ): Globe
   }
 
+  enum OccurrenceSortBy {
+    DATE
+  }
+
   type OccurrenceSearchResult {
     """
     The occurrences that match the filter
     """
-    documents(size: Int, from: Int): OccurrenceDocuments!
+    documents(size: Int, from: Int, sortBy: OccurrenceSortBy, sortOrder: SortOrder): OccurrenceDocuments!
     """
     Get number of occurrences per distinct values in a field. E.g. how many occurrences per year.
     """

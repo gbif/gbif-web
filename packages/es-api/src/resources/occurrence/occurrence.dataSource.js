@@ -20,20 +20,41 @@ const client = new Client({
   agent
 });
 
-async function query({ query, aggs, size = 20, from = 0, metrics, req }) {
+async function query({ query, aggs, size = 20, from = 0, metrics, sortBy, sortOrder, req }) {
   if (parseInt(from) + parseInt(size) > env.occurrence.maxResultWindow) {
     throw new ResponseError(400, 'BAD_REQUEST', `'from' + 'size' must be ${env.occurrence.maxResultWindow} or less`);
   }
+  // if sortOrder is a string, then lowercase it
+  if (typeof sortOrder === 'string') {
+    sortOrder = sortOrder.toLowerCase();
+  }
+  // make sure sortOrder is either 'asc' or 'desc'. do not throw, just force it to 'desc' if unknown
+  if (sortOrder && sortOrder !== 'asc' && sortOrder !== 'desc') {
+    sortOrder = 'desc';
+  }
+  // we only accept sorting by date, discard other values
+  if (sortBy && sortBy !== 'DATE') {
+    sortBy = null;
+  }
+
+  let sort = [
+    '_score', // if there is any score (but will this be slow even when there is no free text query?)
+    '_doc', // I'm not sure, but i hope this will ensure sorting and be the fastest way to do so https://www.elastic.co/guide/en/elasticsearch/reference/current/sort-search-results.html
+  ];
+
+  if (sortBy === 'DATE') {
+    sort = [
+      '_score', // if there is any score (but will this be slow even when there is no free text query?)
+      { year: { "order": sortOrder } },
+      { month: { "order": sortOrder } },
+      { day: { "order": sortOrder } },
+      { "gbifId": "asc" }
+    ]
+  }
+
   // metrics only included to allow "fake" pagination on facets
   const esQuery = {
-    sort: [
-      '_score', // if there is any score (but will this be slow even when there is no free text query?)
-      '_doc', // I'm not sure, but i hope this will ensure sorting and be the fastest way to do so https://www.elastic.co/guide/en/elasticsearch/reference/current/sort-search-results.html
-      // { year: { "order": "desc" } },
-      // { month: { "order": "desc" } },
-      // { day: { "order": "desc" } },
-      // { "gbifId": "asc" }
-    ],
+    sort: sort,
     track_total_hits: true,
     size,
     from,

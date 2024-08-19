@@ -1,3 +1,16 @@
 {
+    "ADMINISTRATIVE_POINT_OF_CONTACT": "Contactpunt administratie",
+    "_PRIMARY_CONTACT": "Primair contact",
+    "POINT_OF_CONTACT": "Contactpunt",
+    "GBIFS_STAFF_MEMBER": "GBIF medewerker",
+    "METADATA_AUTHOR": "Auteur metadata",
+    "PRINCIPAL_INVESTIGATOR": "Hoofdonderzoeker",
+    "AUTHOR": "Auteur",
+    "DISTRIBUTOR": "Leverancier",
+    "EDITOR": "Redacteur",
+    "OWNER": "Eigenaar",
+    "PUBLISHER": "Gepubliceerd door",
+    "USER": "Gebruiker",
+    "PROGRAMMER": "Programmeur",
     "HEAD_OF_DELEGATION": "Hoofd van de delegatie"
 }

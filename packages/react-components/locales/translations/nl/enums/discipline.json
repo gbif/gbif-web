@@ -6,11 +6,21 @@
   "ANTHROPOLOGY": "Antropologie",
   "ANTHROPOLOGY_BIOLOGICAL": "Anthropologie biologisch",
   "ANTHROPOLOGY_CULTURAL": "Culturele antropologie",
+  "ANTHROPOLOGY_LINGUISTIC": "Antropologie linguïstisch",
   "SPACE": "Spatie",
   "SPACE_ASTRONOMY": "astronomie",
   "SPACE_ASTROPHYSICS": "Ruimte astrofysica",
   "SPACE_COSMOLOGY": "Kosmologie",
   "ATMOSPHERIC": "Atmosfeer",
+  "ATMOSPHERIC_CLIMATOLOGY": "Atmosferische klimatologie",
+  "ATMOSPHERIC_METEOROLOGY": "Atmosferische meteorologie",
   "CHEMICAL": "Chemisch",
-  "OCEAN": "Oceaan"
+  "GEOLOGICAL": "Geologisch",
+  "GEOLOGICAL_GEOCHEMISTRY": "Geologisch geochemie",
+  "GEOLOGICAL_GEOLOGY": "Geologisch geologie",
+  "OCEAN": "Oceaan",
+  "OCEAN_MARINE_BIOLOGY_AND_BIOLOGICAL_OCEANOGRAPHY": "Oceaan Mariene biologie en biologische oceanografie",
+  "OCEAN_OCEANOGRAPHY_CHEMICAL_PHYSICAL": "Oceaan Oceanografie chemisch fysisch",
+  "PHYSICS": "Fysica",
+  "PHYSICS_ACOUSTICS": "Fysica Akoestiek"
 }

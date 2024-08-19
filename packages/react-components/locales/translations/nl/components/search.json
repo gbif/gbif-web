@@ -4,7 +4,7 @@
     "gallery": "Afbeeldingen",
     "map": "Kaart",
     "datasets": "Datasets",
-    "events": "",
+    "events": "Evenementen",
     "download": "Downloaden",
     "clusters": "",
     "dashboard": "Dashboard",
@@ -20,8 +20,8 @@
     "locationID": ""
   },
   "ternary": {
-    "yes": "",
-    "no": "",
+    "yes": "Ja",
+    "no": "Nee",
     "either": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
   },
   "loadMore": "Meer",
