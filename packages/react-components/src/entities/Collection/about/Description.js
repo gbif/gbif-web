@@ -75,7 +75,6 @@ export function Description({
             <Property value={collection.accessionStatus} labelId="collection.accessionStatus" formatter={(val) => <AccessionStatusVocabulary id={val} />} />
 
             <Property value={collection.incorporatedCollections} labelId="grscicoll.incorporatedCollections" />
-            <Property value={collection.importantCollectors} labelId="grscicoll.importantCollectors" />
             {collection.personalCollection && <Property value={collection.personalCollection} labelId="collection.personalCollection" formatter={e => <FormattedMessage id={`enums.yesNo.${e}`} defaultMessage={e} />} />}
           </Properties>
         </Card>

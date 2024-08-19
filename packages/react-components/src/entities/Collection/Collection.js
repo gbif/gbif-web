@@ -112,7 +112,6 @@ query collection($key: ID!){
 
     numberSpecimens
     incorporatedCollections
-    importantCollectors
 
     contentTypes
     
