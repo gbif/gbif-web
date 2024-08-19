@@ -101,6 +101,9 @@ query collection($key: ID!){
     code
     name
     description
+    descriptorGroups {
+      count
+    }
     taxonomicCoverage
     geographicCoverage
     temporalCoverage

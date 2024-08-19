@@ -43,6 +43,24 @@ export const commonFilters = {
       }
     }
   },
+  taxonKeyGrSciColl: {
+    type: 'SUGGEST',
+    config: {
+      std: {
+        id2labelHandle: 'canonicalName',
+        translations: {
+          count: 'filters.taxonKey.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.taxonKey.name',// translation path to a title for the popover and the button
+          description: 'filters.taxonKeyGrSciColl.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        suggestHandle: 'taxonKey',
+        id2labelHandle: 'taxonKey',
+        showAboutAsDefault: true
+      }
+    }
+  },
   geoDistance: {
     type: 'GEO_DISTANCE',
     config: {
@@ -128,6 +146,23 @@ export const commonFilters = {
       },
       specific: {
         suggestHandle: 'countryCode',
+      }
+    }
+  },
+  collectionDescriptorCountry: {
+    type: 'SUGGEST',
+    config: {
+      std: {
+        id2labelHandle: 'countryCode',
+        translations: {
+          count: 'filters.collectionDescriptorCountry.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.collectionDescriptorCountry.name',// translation path to a title for the popover and the button
+          description: 'filters.collectionDescriptorCountry.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        suggestHandle: 'countryCode',
+        showAboutAsDefault: true
       }
     }
   },

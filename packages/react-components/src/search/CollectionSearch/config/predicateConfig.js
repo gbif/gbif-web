@@ -5,9 +5,15 @@ const filterConf = {
     countryGrSciColl: {
       defaultKey: 'country'
     },
+    collectionDescriptorCountry: {
+      defaultKey: 'descriptorCountry'
+    },
     institutionKeySingle: {
       defaultKey: 'institution',
       singleValue: true
+    },
+    taxonKeyGrSciColl: {
+      defaultKey: 'taxonKey',
     },
     q: {
       singleValue: true

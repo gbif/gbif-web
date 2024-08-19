@@ -1,11 +1,13 @@
 export const filters = [
   'q', 'institutionKeySingle', 'code', 'countryGrSciColl', 'city', 
   'personalCollection', 'active', 'numberSpecimens', 'specimensInGbif',
-  'name', 'alternativeCode', 'collectionContentType', 'preservationType'
+  'name', 'alternativeCode', 'collectionContentType', 'preservationType',
+  'taxonKeyGrSciColl', 'recordedBy', 'typeStatus',
+  'collectionDescriptorCountry', 
 ].sort();
 
 const highlighted = [
-  'q', 'institutionKeySingle', 'code', 'countryGrSciColl', 'numberSpecimens', 'specimensInGbif'
+  'q', 'code', 'countryGrSciColl', 'numberSpecimens', 'specimensInGbif', 'taxonKeyGrSciColl', 'collectionDescriptorCountry'
 ];
 
 export default { filters, included: filters, highlighted };
