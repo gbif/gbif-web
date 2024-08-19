@@ -115,6 +115,11 @@
     "count": "{num, plural, one {scientific name} other {# scientific names}}",
     "description": "The scientific name as it appears in the GBIF backbone taxonomy. These names are normalized to ease search across datasets. It is possible that an originally-provided name might be misinterpreted or unknown. To search the names as provided use the \"Verbatim scientific name\" filter."
   },
+  "taxonKeyGrSciColl": {
+    "name": "Scientific name",
+    "count": "{num, plural, one {scientific name} other {# scientific names}}",
+    "description": ""
+  },
   "basisOfRecord": {
     "name": "Basis of record",
     "count": "{num, plural, one {basis of record} other {# bases of records}}",
@@ -206,7 +211,13 @@
   },
   "countriesOfCoverage": {
     "name": "Country or area of coverage",
-    "count": "{num, plural, one {country or area of coverage} other {# countries or area of coverage}}"
+    "count": "{num, plural, one {country or area of coverage} other {# countries or area of coverage}}",
+    "description": ""
+  },
+  "collectionDescriptorCountry": {
+    "name": "Country or area of coverage",
+    "count": "{num, plural, one {country or area of coverage} other {# countries or area of coverage}}",
+    "description": ""
   },
   "countriesOfResearcher": {
     "name": "Country or area of researcher",
