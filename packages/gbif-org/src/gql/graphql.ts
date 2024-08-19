@@ -439,6 +439,7 @@ export type Collection = {
   createdBy?: Maybe<Scalars['String']['output']>;
   deleted?: Maybe<Scalars['DateTime']['output']>;
   description?: Maybe<Scalars['String']['output']>;
+  descriptorGroups?: Maybe<CollectionDescriptorGroupResults>;
   doi?: Maybe<Scalars['String']['output']>;
   email?: Maybe<Array<Scalars['String']['output']>>;
   excerpt?: Maybe<Scalars['String']['output']>;
@@ -472,6 +473,12 @@ export type Collection = {
   taxonomicCoverage?: Maybe<Scalars['String']['output']>;
   temporalCoverage?: Maybe<Scalars['String']['output']>;
   thumbor?: Maybe<Scalars['String']['output']>;
+};
+
+
+export type CollectionDescriptorGroupsArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -552,13 +559,101 @@ export enum CollectionContentType {
   RecordsSeismograms = 'RECORDS_SEISMOGRAMS'
 }
 
+export type CollectionDescriptor = {
+  __typename?: 'CollectionDescriptor';
+  identifiedBy?: Maybe<Array<Scalars['String']['output']>>;
+  individualCount?: Maybe<Scalars['Int']['output']>;
+  issues?: Maybe<Array<OccurrenceIssue>>;
+  key: Scalars['ID']['output'];
+  recordedBy?: Maybe<Array<Scalars['String']['output']>>;
+  taxonClassification?: Maybe<Array<Classification>>;
+  typeStatus?: Maybe<Array<TypeStatus>>;
+  usageKey?: Maybe<Scalars['Long']['output']>;
+  usageName?: Maybe<Scalars['String']['output']>;
+  usageRank?: Maybe<Rank>;
+  verbatim?: Maybe<Scalars['JSON']['output']>;
+};
+
+export type CollectionDescriptorGroup = {
+  __typename?: 'CollectionDescriptorGroup';
+  collectionKey: Scalars['ID']['output'];
+  created: Scalars['String']['output'];
+  createdBy: Scalars['String']['output'];
+  description?: Maybe<Scalars['String']['output']>;
+  descriptors?: Maybe<CollectionDescriptorResults>;
+  key: Scalars['ID']['output'];
+  modified?: Maybe<Scalars['String']['output']>;
+  modifiedBy?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+};
+
+
+export type CollectionDescriptorGroupDescriptorsArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type CollectionDescriptorGroupResults = {
+  __typename?: 'CollectionDescriptorGroupResults';
+  count?: Maybe<Scalars['Int']['output']>;
+  endOfRecords?: Maybe<Scalars['Boolean']['output']>;
+  limit?: Maybe<Scalars['Int']['output']>;
+  offset?: Maybe<Scalars['Int']['output']>;
+  results?: Maybe<Array<Maybe<CollectionDescriptorGroup>>>;
+};
+
+export type CollectionDescriptorResults = {
+  __typename?: 'CollectionDescriptorResults';
+  count?: Maybe<Scalars['Int']['output']>;
+  endOfRecords?: Maybe<Scalars['Boolean']['output']>;
+  limit?: Maybe<Scalars['Int']['output']>;
+  offset?: Maybe<Scalars['Int']['output']>;
+  results?: Maybe<Array<CollectionDescriptor>>;
+};
+
+export type CollectionSearchEntity = {
+  __typename?: 'CollectionSearchEntity';
+  accessionStatus?: Maybe<Scalars['String']['output']>;
+  active?: Maybe<Scalars['Boolean']['output']>;
+  alternativeCodes?: Maybe<Array<Maybe<AlternativeCode>>>;
+  city?: Maybe<Scalars['String']['output']>;
+  code?: Maybe<Scalars['String']['output']>;
+  contentTypes?: Maybe<Array<Scalars['String']['output']>>;
+  country?: Maybe<Country>;
+  description?: Maybe<Scalars['String']['output']>;
+  descriptorMatches?: Maybe<Array<DescriptorMatches>>;
+  featuredImageLicense?: Maybe<License>;
+  featuredImageUrl?: Maybe<Scalars['String']['output']>;
+  geographicCoverage?: Maybe<Scalars['String']['output']>;
+  institutionCode?: Maybe<Scalars['String']['output']>;
+  institutionKey?: Maybe<Scalars['ID']['output']>;
+  institutionName?: Maybe<Scalars['String']['output']>;
+  key: Scalars['ID']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+  numberSpecimens?: Maybe<Scalars['Long']['output']>;
+  occurrenceCount?: Maybe<Scalars['Long']['output']>;
+  personalCollection?: Maybe<Scalars['Boolean']['output']>;
+  preservationTypes?: Maybe<Array<Scalars['String']['output']>>;
+  taxonomicCoverage?: Maybe<Scalars['String']['output']>;
+  temporalCoverage?: Maybe<Scalars['String']['output']>;
+  thumbor?: Maybe<Scalars['String']['output']>;
+  typeSpecimenCount?: Maybe<Scalars['Long']['output']>;
+};
+
+
+export type CollectionSearchEntityThumborArgs = {
+  fitIn?: InputMaybe<Scalars['Boolean']['input']>;
+  height?: InputMaybe<Scalars['Int']['input']>;
+  width?: InputMaybe<Scalars['Int']['input']>;
+};
+
 export type CollectionSearchResults = {
   __typename?: 'CollectionSearchResults';
   count: Scalars['Int']['output'];
   endOfRecords: Scalars['Boolean']['output'];
   limit: Scalars['Int']['output'];
   offset: Scalars['Int']['output'];
-  results: Array<Maybe<Collection>>;
+  results: Array<Maybe<CollectionSearchEntity>>;
 };
 
 export enum CollectionsSortField {
@@ -1348,6 +1443,21 @@ export enum DatasetUsageSortField {
   DatasetTitle = 'DATASET_TITLE',
   RecordCount = 'RECORD_COUNT'
 }
+
+export type DescriptorMatches = {
+  __typename?: 'DescriptorMatches';
+  country?: Maybe<Country>;
+  descriptorSetKey?: Maybe<Scalars['ID']['output']>;
+  identifiedBy?: Maybe<Array<Scalars['String']['output']>>;
+  individualCount?: Maybe<Scalars['Long']['output']>;
+  issues?: Maybe<Array<OccurrenceIssue>>;
+  key?: Maybe<Scalars['ID']['output']>;
+  recordedBy?: Maybe<Array<Scalars['String']['output']>>;
+  typeStatus?: Maybe<Array<TypeStatus>>;
+  usageKey?: Maybe<Scalars['Long']['output']>;
+  usageName?: Maybe<Scalars['String']['output']>;
+  usageRank?: Maybe<Rank>;
+};
 
 export type Diagnostics = {
   __typename?: 'Diagnostics';
@@ -5608,7 +5718,13 @@ export type OccurrenceSearchResult = {
 export type OccurrenceSearchResultDocumentsArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
+  sortBy?: InputMaybe<OccurrenceSortBy>;
+  sortOrder?: InputMaybe<SortOrder>;
 };
+
+export enum OccurrenceSortBy {
+  Date = 'DATE'
+}
 
 export type OccurrenceStats = {
   __typename?: 'OccurrenceStats';
@@ -5932,6 +6048,7 @@ export type Query = {
   call?: Maybe<Call>;
   checklistRoots?: Maybe<TaxonListResult>;
   collection?: Maybe<Collection>;
+  collectionDescriptorGroup?: Maybe<CollectionDescriptorGroup>;
   collectionSearch?: Maybe<CollectionSearchResults>;
   composition?: Maybe<Composition>;
   dataUse?: Maybe<DataUse>;
@@ -6034,6 +6151,12 @@ export type QueryCollectionArgs = {
 };
 
 
+export type QueryCollectionDescriptorGroupArgs = {
+  collectionKey: Scalars['ID']['input'];
+  key: Scalars['ID']['input'];
+};
+
+
 export type QueryCollectionSearchArgs = {
   active?: InputMaybe<Scalars['Boolean']['input']>;
   alternativeCode?: InputMaybe<Scalars['String']['input']>;
@@ -6042,10 +6165,10 @@ export type QueryCollectionSearchArgs = {
   contact?: InputMaybe<Scalars['ID']['input']>;
   contentType?: InputMaybe<Array<Scalars['String']['input']>>;
   country?: InputMaybe<Array<InputMaybe<Country>>>;
+  descriptorCountry?: InputMaybe<Array<Country>>;
   displayOnNHCPortal?: InputMaybe<Scalars['Boolean']['input']>;
   fuzzyName?: InputMaybe<Scalars['String']['input']>;
   identifier?: InputMaybe<Scalars['String']['input']>;
-  institution?: InputMaybe<Array<InputMaybe<Scalars['GUID']['input']>>>;
   institutionKey?: InputMaybe<Array<InputMaybe<Scalars['GUID']['input']>>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
@@ -6055,8 +6178,11 @@ export type QueryCollectionSearchArgs = {
   personalCollection?: InputMaybe<Scalars['Boolean']['input']>;
   preservationType?: InputMaybe<Array<Scalars['String']['input']>>;
   q?: InputMaybe<Scalars['String']['input']>;
+  recordedBy?: InputMaybe<Array<Scalars['String']['input']>>;
   sortBy?: InputMaybe<CollectionsSortField>;
   sortOrder?: InputMaybe<SortOrder>;
+  taxonKey?: InputMaybe<Array<Scalars['ID']['input']>>;
+  typeStatus?: InputMaybe<Array<TypeStatus>>;
 };
 
 
@@ -7701,7 +7827,7 @@ export type CollectionSearchQueryVariables = Exact<{
 }>;
 
 
-export type CollectionSearchQuery = { __typename?: 'Query', list?: { __typename?: 'CollectionSearchResults', results: Array<{ __typename?: 'Collection', key: string, title?: string | null } | null> } | null };
+export type CollectionSearchQuery = { __typename?: 'Query', list?: { __typename?: 'CollectionSearchResults', results: Array<{ __typename?: 'CollectionSearchEntity', key: string, title?: string | null } | null> } | null };
 
 export type BecomeAPublisherPageQueryVariables = Exact<{ [key: string]: never; }>;
 
