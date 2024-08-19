@@ -84,7 +84,7 @@ export function PublisherSearchPage(): React.ReactElement {
         <title>Publisher search</title>
       </Helmet>
 
-      <DataHeader hasBorder>
+      <DataHeader hasBorder className="g-border-t g-border-slate-200">
         <Tabs
           className="g-border-none"
           links={[
@@ -215,15 +215,17 @@ export function PublisherSearchPage(): React.ReactElement {
 export function DataHeader({
   children,
   hasBorder,
+  className,
 }: {
   children?: React.ReactNode;
   hasBorder?: boolean;
+  className?: string;
 }) {
   return (
     <div
-      className={`g-flex g-justify-center g-items-center ${
+      className={cn(`g-flex g-justify-center g-items-center ${
         hasBorder ? 'g-border-b g-border-slate-200' : ''
-      }`}
+      }`, className)}
     >
       <div className="g-flex-none g-flex g-items-center g-mx-2">
         <MdApps />
