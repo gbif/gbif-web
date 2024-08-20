@@ -10,8 +10,12 @@ const typeDef = gql`
     id: ID!
     children: [MenuItem!]
     aboutBody: String
-    # blocks: Blocks
+    blocks: [BlockItem!]
     primaryImage: [AssetImage!]
+    occurrenceIcon: AssetImage
+    literatureIcon: AssetImage
+    datasetIcon: AssetImage
+    publisherIcon: AssetImage
     summary: String
   }
 `;

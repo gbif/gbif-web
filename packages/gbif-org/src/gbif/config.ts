@@ -14,14 +14,14 @@ export const gbifConfig: InputConfig = {
   // The languages should be synced with supportedLocales in graphql-api/src/helpers/sanitize-html.ts
   languages: [
     {
-      code: 'en-DK',// TODO, really ought to be en-GB, but while developing it is convinent to have developer english when text change
+      code: 'en',// TODO, really ought to be en-GB, but while developing it is convinent to have developer english when text change
       label: 'English',
       default: true,
       textDirection: 'ltr',
     },
     {
-      code: 'da',
-      label: 'Dansk',
+      code: 'en-DK',// TODO, really ought to be en-GB, but while developing it is convinent to have developer english when text change
+      label: 'Danglish',
       default: false,
       textDirection: 'ltr',
     },

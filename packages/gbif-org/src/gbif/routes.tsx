@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 import { GbifRootLayout, headerLoader } from './gbifRootLayout';
 import { SourceRouteObject } from '@/types';
 import { configureRoutes } from '@/utils/configureRoutes';
-import { HomePage } from '@/routes/homePage';
+import { HomePage, homepageLoader } from '@/routes/homePage';
 import { ThrowOn404 } from '@/routes/throwOn404';
 import { RootErrorPage } from '@/routes/rootErrorPage';
 import {
@@ -121,6 +121,7 @@ const baseRoutes: SourceRouteObject[] = [
           {
             index: true,
             element: <HomePage />,
+            loader: homepageLoader
           },
           {
             path: 'suggest-dataset',

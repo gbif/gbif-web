@@ -1,5 +1,5 @@
 import { GbifLogoIcon } from '@/components/icons/icons';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { MainNavigation } from './mainNav';
 import { HeaderQuery } from '@/gql/graphql';
 import { DynamicLink } from '@/components/dynamicLink';
@@ -9,12 +9,24 @@ import { Button } from '@/components/ui/button';
 import { FiActivity } from 'react-icons/fi';
 import { LanguageSelector } from './languageSelector';
 import { FeedbackPopover } from './feedback';
+import { useI18n } from '@/contexts/i18n';
 
 export function Header({ menu }: { menu: HeaderQuery }) {
+  const { locale } = useI18n();
+  const location = useLocation();
+
+  const pathname = location.pathname;
+  //remove / slash from start and begining
+  const path = pathname.replace(/^\/|\/$/g, '');
+  // if path is empty, it means we are on the root page. Or if path equals the locale code
+  const isRoot = path === '' || path === locale.code;
+
+  const isTransparent = isRoot;
+  const transparentClass = isTransparent ? 'g-absolute g-w-full g-text-white' : '';
   return (
-    <div className="g-flex g-items-center g-p-2 g-px-4">
-      <div className="g-flex-none g-text-primary-500">
-        <DynamicLink as={NavLink} to="/" className="g-p-2">
+    <div className={`g-flex g-items-center g-p-2 g-px-4 ${transparentClass}`}>
+      <div className="g-flex-none ">
+        <DynamicLink as={NavLink} to="/" className={`g-p-2 ${isTransparent ? 'g-text-white' : 'g-text-primary-500'}`}>
           <GbifLogoIcon style={{ fontSize: 25 }} />
         </DynamicLink>
       </div>

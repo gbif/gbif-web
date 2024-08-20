@@ -1,14 +1,9 @@
 import React from 'react';
-import { Link, NavLink, ScrollRestoration, useLoaderData } from 'react-router-dom';
+import { ScrollRestoration, useLoaderData } from 'react-router-dom';
 import { Toaster } from '@/components/ui/toaster';
-import { LanguageSelector } from '@/components/languageSelector';
-import { DynamicLink } from '@/components/dynamicLink';
 import { HeaderQuery, HeaderQueryVariables } from '@/gql/graphql';
 import { LoaderArgs } from '../types';
 import { NoscriptNotification } from '@/components/noscriptNotification';
-import { MainNavigation } from './header/mainNav';
-import { GbifLogoIcon } from '@/components/icons/icons';
-import { MdMenu } from 'react-icons/md';
 import { Header } from './header';
 
 const HEADER_QUERY = /* GraphQL */ `
