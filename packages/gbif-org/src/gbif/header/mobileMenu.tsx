@@ -34,7 +34,7 @@ export function MobileMenu({ menu }: { menu: HeaderQuery }) {
           </span>
         </Button>
       </SheetTrigger>
-      <SheetContent className="overflow-y-scroll">
+      <SheetContent className="overflow-y-scroll g-p-4">
         <ClientSideOnly>
           <SheetHeader>
             <SheetTitle>
@@ -75,7 +75,7 @@ export function MobileMenu({ menu }: { menu: HeaderQuery }) {
                               return (
                                 <AccordionItem value={child.id} key={child.id}>
                                   <AccordionTrigger>{child.title}</AccordionTrigger>
-                                  <AccordionContent className="g-ms-4">
+                                  <AccordionContent className="g-ms-0">
                                     {child.children.map((subChild) => (
                                       <DynamicLink
                                         onClick={() => setOpen(false)}
