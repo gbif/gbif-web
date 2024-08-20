@@ -69,6 +69,7 @@
     "tailwindcss-animate": "^1.0.7",
     "uncontrollable": "^8.0.4",
     "use-deep-compare-effect": "^1.8.1",
+    "use-local-storage": "^3.0.0",
     "uuid": "^9.0.1",
     "vaul": "^0.9.1",
     "xml-formatter": "^3.6.2",

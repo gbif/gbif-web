@@ -9,7 +9,7 @@ import { ArticleTextContainer } from './resource/key/components/articleTextConta
 import { PageContainer } from './resource/key/components/pageContainer';
 import { useConfig } from '@/contexts/config/config';
 import { useI18n } from '@/contexts/i18n';
-import { useLocalStorage } from 'react-use';
+import useLocalStorage from "use-local-storage";
 
 const HOMEPAGE_QUERY = /* GraphQL */ `
   query HomePage {
