@@ -1,15 +1,5 @@
 import { Button } from '@/components/ui/button';
 import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from '@/components/ui/drawer';
-import {
   Sheet,
   SheetContent,
   SheetDescription,
@@ -18,7 +8,6 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { MdLink, MdMenu } from 'react-icons/md';
-import { ClientSideOnly } from '@/components/clientSideOnly';
 import {
   Accordion,
   AccordionContent,
@@ -30,6 +19,7 @@ import { HeaderQuery } from '@/gql/graphql';
 import { DynamicLink } from '@/components/dynamicLink';
 import { useState } from 'react';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
+import { ClientSideOnly } from '@/components/clientSideOnly';
 
 export function MobileMenu({ menu }: { menu: HeaderQuery }) {
   const [open, setOpen] = useState(false);
@@ -44,18 +34,20 @@ export function MobileMenu({ menu }: { menu: HeaderQuery }) {
           </span>
         </Button>
       </SheetTrigger>
-      <SheetContent>
-        <SheetHeader>
-          <SheetTitle>
-            <div className="g-flex g-py-2 g-items-center">
-              <GbifLogoIcon style={{ fontSize: 25 }} className="g-me-2" /> GBIF
-            </div>
-          </SheetTitle>
-          <VisuallyHidden asChild>
-            <SheetDescription>Site menu</SheetDescription>
-          </VisuallyHidden>
-          
-          <div className="g-text-sm">
+      <SheetContent className="overflow-y-scroll">
+        <ClientSideOnly>
+          <SheetHeader>
+            <SheetTitle>
+              <div className="g-flex g-py-2 g-items-center">
+                <GbifLogoIcon style={{ fontSize: 25 }} className="g-me-2" /> GBIF
+              </div>
+            </SheetTitle>
+            <VisuallyHidden asChild>
+              <SheetDescription>Site menu</SheetDescription>
+            </VisuallyHidden>
+          </SheetHeader>
+
+          <div className="g-text-sm g-my-4">
             <Accordion type="single" collapsible className="w-full">
               {children?.map((parent) => {
                 if (!parent.children || parent.children.length === 0) {
@@ -66,7 +58,9 @@ export function MobileMenu({ menu }: { menu: HeaderQuery }) {
                       to={parent.link}
                       className="g-border-b g-flex g-flex-1 g-items-center g-justify-between g-py-2 g-text-sm g-transition-all hover:g-underline"
                     >
-                      <div>{parent.title} {parent.externalLink && <MdLink />}</div>
+                      <div>
+                        {parent.title} {parent.externalLink && <MdLink />}
+                      </div>
                     </DynamicLink>
                   );
                 }
@@ -74,7 +68,7 @@ export function MobileMenu({ menu }: { menu: HeaderQuery }) {
                   <AccordionItem value={parent.id} key={parent.id}>
                     <AccordionTrigger>{parent.title}</AccordionTrigger>
                     <AccordionContent>
-                      <div className="g-bg-slate-200 g-rounded-lg g-px-2 g-text-muted-foreground">
+                      <div className="g-bg-slate-200 g-rounded-lg g-px-2">
                         <Accordion type="multiple" className="w-full">
                           {parent.children.map((child) => {
                             if (child.children && child.children.length > 0) {
@@ -87,7 +81,7 @@ export function MobileMenu({ menu }: { menu: HeaderQuery }) {
                                         onClick={() => setOpen(false)}
                                         key={subChild.id}
                                         to={subChild.link}
-                                        className="g-border-b g-flex g-flex-1 g-items-center g-justify-between g-py-2 g-text-sm g-transition-all hover:g-underline"
+                                        className="g-text-muted-foreground g-border-b g-flex g-flex-1 g-items-center g-justify-between g-py-2 g-text-sm g-transition-all hover:g-underline"
                                       >
                                         <div>
                                           {subChild.title} {subChild.externalLink && <MdLink />}
@@ -126,7 +120,7 @@ export function MobileMenu({ menu }: { menu: HeaderQuery }) {
               Login
             </DynamicLink>
           </div>
-        </SheetHeader>
+        </ClientSideOnly>
       </SheetContent>
     </Sheet>
   );
