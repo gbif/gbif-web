@@ -13,9 +13,15 @@ type Options = {
   gbifEnv: GbifEnv;
   baseUrl: string;
   graphqlEndpoint: string;
+  // When running e2e tests, we need a separate endpoint for the server and client as the server needs the endpoint in on the
+  // internal docker network and the client needs the endpoint on the host machine
+  graphqlEndpointServer: string;
+  graphqlEndpointClient: string;
   translationsEntryEndpoint: string;
   countEndpoint: string;
   formsEndpoint: string;
+  formsEndpointServer: string;
+  formsEndpointClient: string;
   v1Endpoint: string;
 };
 
@@ -24,9 +30,13 @@ const cliOptions = [
   { name: 'gbifEnv', type: String },
   { name: 'baseUrl', type: String },
   { name: 'graphqlEndpoint', type: String },
+  { name: 'graphqlEndpointServer', type: String },
+  { name: 'graphqlEndpointClient', type: String },
   { name: 'translationsEntryEndpoint', type: String },
   { name: 'countEndpoint', type: String },
   { name: 'formsEndpoint', type: String },
+  { name: 'formsEndpointServer', type: String },
+  { name: 'formsEndpointClient', type: String },
   { name: 'v1Endpoint', type: String },
 ];
 
@@ -59,8 +69,22 @@ const options = merge.withOptions(
   cliConfig
 ) as Options;
 
+const isServer = () => typeof window === 'undefined';
+
 export const gbifConfig: Config = {
   ...options,
+  get graphqlEndpoint() {
+    if (isServer()) {
+      return options.graphqlEndpointServer ?? options.graphqlEndpoint;
+    }
+    return options.graphqlEndpointClient ?? options.graphqlEndpoint;
+  },
+  get formsEndpoint() {
+    if (isServer()) {
+      return options.formsEndpointServer ?? options.formsEndpoint;
+    }
+    return options.formsEndpointClient ?? options.formsEndpoint;
+  },
   defaultTitle: 'GBIF',
   // The languages should be synced with supportedLocales in graphql-api/src/helpers/sanitize-html.ts
   languages: [
