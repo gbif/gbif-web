@@ -830,6 +830,23 @@ export const commonFilters = {
       }
     }
   },
+  recordedByFreeText: {
+    type: 'SIMPLE_TEXT',
+    config: {
+      std: {
+        id2labelHandle: 'recordedBy',
+        translations: {
+          count: 'filters.recordedBy.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.recordedBy.name',// translation path to a title for the popover and the button
+          description: 'filters.recordedBy.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        placeholder: 'Search by collector name',
+        supportsExist: false,
+      }
+    }
+  },
   recordNumber: {
     type: 'SUGGEST',
     config: {

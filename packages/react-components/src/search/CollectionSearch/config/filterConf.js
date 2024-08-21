@@ -3,7 +3,7 @@ export const filters = [
   'personalCollection', 'active', 'numberSpecimens', 'specimensInGbif',
   'name', 'alternativeCode', 'collectionContentType', 'preservationType',
   'taxonKeyGrSciColl', 'typeStatus',
-  'collectionDescriptorCountry', 
+  'collectionDescriptorCountry', 'recordedByFreeText'
 ].sort();
 
 const highlighted = [

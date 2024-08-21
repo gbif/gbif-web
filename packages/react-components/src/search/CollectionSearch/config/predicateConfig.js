@@ -15,6 +15,9 @@ const filterConf = {
     taxonKeyGrSciColl: {
       defaultKey: 'taxonKey',
     },
+    recordedByFreeText: {
+      defaultKey: 'recordedBy',
+    },
     q: {
       singleValue: true
     },
