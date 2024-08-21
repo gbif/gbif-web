@@ -5,68 +5,51 @@ import {
   InvalidGbifEnvError,
   isGbifEnv,
 } from '@/contexts/config/endpoints';
-import commandLineArgs from 'command-line-args';
 import { merge } from 'ts-deepmerge';
 
-// The cli/env options
+// The env options
 type Options = {
   gbifEnv: GbifEnv;
   baseUrl: string;
-  graphqlEndpoint: string;
-  // When running e2e tests, we need a separate endpoint for the server and client as the server needs the endpoint in on the
-  // internal docker network and the client needs the endpoint on the host machine
-  graphqlEndpointServer: string;
-  graphqlEndpointClient: string;
   translationsEntryEndpoint: string;
   countEndpoint: string;
+  v1Endpoint: string;
+  // When running e2e tests, we need a separate endpoint for the server and client as the server needs the endpoint in on the
+  // internal docker network and the client needs the endpoint on the host machine
+  graphqlEndpoint: string;
+  graphqlEndpointServer: string;
+  graphqlEndpointClient: string;
   formsEndpoint: string;
   formsEndpointServer: string;
   formsEndpointClient: string;
-  v1Endpoint: string;
 };
-
-// Extract config options from the command line arguments
-const cliOptions = [
-  { name: 'gbifEnv', type: String },
-  { name: 'baseUrl', type: String },
-  { name: 'graphqlEndpoint', type: String },
-  { name: 'graphqlEndpointServer', type: String },
-  { name: 'graphqlEndpointClient', type: String },
-  { name: 'translationsEntryEndpoint', type: String },
-  { name: 'countEndpoint', type: String },
-  { name: 'formsEndpoint', type: String },
-  { name: 'formsEndpointServer', type: String },
-  { name: 'formsEndpointClient', type: String },
-  { name: 'v1Endpoint', type: String },
-];
-
-const cliConfig = commandLineArgs(cliOptions, { partial: true }) as Partial<Options>;
 
 // Extract config options from the environment variables
 const envConfig = {
   gbifEnv: import.meta.env.PUBLIC_GBIF_ENV,
   baseUrl: import.meta.env.PUBLIC_BASE_URL,
-  graphqlEndpoint: import.meta.env.PUBLIC_GRAPHQL_ENDPOINT,
   translationsEntryEndpoint: import.meta.env.PUBLIC_TRANSLATIONS_ENTRY_ENDPOINT,
   countEndpoint: import.meta.env.PUBLIC_COUNT_ENDPOINT,
-  formsEndpoint: import.meta.env.PUBLIC_FORMS_ENDPOINT,
   v1Endpoint: import.meta.env.PUBLIC_V1_ENDPOINT,
+  graphqlEndpoint: import.meta.env.PUBLIC_GRAPHQL_ENDPOINT,
+  graphqlEndpointServer: import.meta.env.PUBLIC_GRAPHQL_ENDPOINT_SERVER,
+  graphqlEndpointClient: import.meta.env.PUBLIC_GRAPHQL_ENDPOINT_CLIENT,
+  formsEndpoint: import.meta.env.PUBLIC_FORMS_ENDPOINT,
+  formsEndpointServer: import.meta.env.PUBLIC_FORMS_ENDPOINT_SERVER,
+  formsEndpointClient: import.meta.env.PUBLIC_FORMS_ENDPOINT_CLIENT,
 } as Partial<Options>;
 
 // Validate that the required config options are present and valid
-const gbifEnv = cliConfig.gbifEnv || envConfig.gbifEnv;
-if (!gbifEnv) throw new Error('Missing PUBLIC_GBIF_ENV env variable');
-if (!isGbifEnv(gbifEnv)) throw new InvalidGbifEnvError(gbifEnv);
+if (!envConfig.gbifEnv) throw new Error('Missing PUBLIC_GBIF_ENV env variable');
+if (!isGbifEnv(envConfig.gbifEnv)) throw new InvalidGbifEnvError(envConfig.gbifEnv);
 
-const baseUrl = cliConfig.baseUrl || envConfig.baseUrl;
-if (!baseUrl) throw new Error('Missing PUBLIC_BASE_URL env variable');
+if (!envConfig.baseUrl) throw new Error('Missing PUBLIC_BASE_URL env variable');
 
 // Merge the config based on the priority order: CLI > ENV > default
 const options = merge.withOptions(
   { allowUndefinedOverrides: false },
-  getDefaultEndpointsBasedOnGbifEnv(gbifEnv),
-  envConfig,
-  cliConfig
+  getDefaultEndpointsBasedOnGbifEnv(envConfig.gbifEnv),
+  envConfig
 ) as Options;
 
 const isServer = () => typeof window === 'undefined';

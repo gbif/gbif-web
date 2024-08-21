@@ -2573,9 +2573,9 @@ export type HistogramBucket = {
 export type Home = {
   __typename?: 'Home';
   aboutBody?: Maybe<Scalars['String']['output']>;
-  children?: Maybe<Array<Maybe<MenuItem>>>;
+  children?: Maybe<Array<MenuItem>>;
   id: Scalars['ID']['output'];
-  primaryImage?: Maybe<Array<Maybe<AssetImage>>>;
+  primaryImage?: Maybe<Array<AssetImage>>;
   summary?: Maybe<Scalars['String']['output']>;
   title: Scalars['String']['output'];
 };
@@ -3550,11 +3550,11 @@ export type MeetingEvent = {
 
 export type MenuItem = {
   __typename?: 'MenuItem';
-  children?: Maybe<Array<Maybe<MenuItem>>>;
+  children?: Maybe<Array<MenuItem>>;
   externalLink?: Maybe<Scalars['Boolean']['output']>;
-  id?: Maybe<Scalars['String']['output']>;
+  id: Scalars['String']['output'];
   link?: Maybe<Scalars['String']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
+  title: Scalars['String']['output'];
 };
 
 export enum MetadataType {
@@ -5608,7 +5608,13 @@ export type OccurrenceSearchResult = {
 export type OccurrenceSearchResultDocumentsArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
+  sortBy?: InputMaybe<OccurrenceSortBy>;
+  sortOrder?: InputMaybe<SortOrder>;
 };
+
+export enum OccurrenceSortBy {
+  Date = 'DATE'
+}
 
 export type OccurrenceStats = {
   __typename?: 'OccurrenceStats';
@@ -7677,7 +7683,7 @@ export type ParticipantSelectQuery = { __typename?: 'Query', participantSearch?:
 export type HeaderQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type HeaderQuery = { __typename?: 'Query', gbifHome?: { __typename?: 'Home', title: string, summary?: string | null, children?: Array<{ __typename?: 'MenuItem', externalLink?: boolean | null, link?: string | null, title?: string | null, children?: Array<{ __typename?: 'MenuItem', externalLink?: boolean | null, link?: string | null, title?: string | null, children?: Array<{ __typename?: 'MenuItem', externalLink?: boolean | null, link?: string | null, title?: string | null } | null> | null } | null> | null } | null> | null } | null };
+export type HeaderQuery = { __typename?: 'Query', gbifHome?: { __typename?: 'Home', title: string, summary?: string | null, children?: Array<{ __typename?: 'MenuItem', externalLink?: boolean | null, link?: string | null, title: string, children?: Array<{ __typename?: 'MenuItem', externalLink?: boolean | null, link?: string | null, title: string, children?: Array<{ __typename?: 'MenuItem', externalLink?: boolean | null, link?: string | null, title: string }> | null }> | null }> | null } | null };
 
 export type CollectionQueryVariables = Exact<{
   key: Scalars['ID']['input'];

@@ -43,7 +43,6 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "cmdk": "^1.0.0",
-    "command-line-args": "^6.0.0",
     "d3": "^7.9.0",
     "doi-regex": "^0.1.13",
     "embla-carousel-react": "^8.0.0-rc19",
@@ -75,7 +74,8 @@
     "use-deep-compare-effect": "^1.8.1",
     "uuid": "^9.0.1",
     "xml-formatter": "^3.6.2",
-    "zod": "^3.22.4"
+    "zod": "^3.22.4",
+    "vite": "^4.4.5"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "5.0.0",
@@ -104,7 +104,6 @@
     "postcss": "^8.4.31",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.0.2",
-    "vite": "^4.4.5",
     "vite-bundle-visualizer": "^0.11.0",
     "vite-plugin-node-polyfills": "^0.17.0",
     "vitest": "^1.4.0"
