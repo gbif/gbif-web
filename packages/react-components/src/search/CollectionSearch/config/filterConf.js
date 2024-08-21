@@ -2,7 +2,7 @@ export const filters = [
   'q', 'institutionKeySingle', 'code', 'countryGrSciColl', 'city', 
   'personalCollection', 'active', 'numberSpecimens', 'specimensInGbif',
   'name', 'alternativeCode', 'collectionContentType', 'preservationType',
-  'taxonKeyGrSciColl', 'recordedBy', 'typeStatus',
+  'taxonKeyGrSciColl', 'typeStatus',
   'collectionDescriptorCountry', 
 ].sort();
 
