@@ -1499,6 +1499,26 @@ export type DirectoryContactProfilePictureArgs = {
   base64?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+export type DirectoryContactRole = {
+  __typename?: 'DirectoryContactRole';
+  Person?: Maybe<DirectoryContact>;
+  award?: Maybe<Scalars['String']['output']>;
+  personId?: Maybe<Scalars['Int']['output']>;
+  programme?: Maybe<Scalars['String']['output']>;
+  relationshipId?: Maybe<Scalars['Int']['output']>;
+  role?: Maybe<Scalars['String']['output']>;
+  term?: Maybe<DirectoryTerm>;
+};
+
+export type DirectoryContactRoleSearchResults = {
+  __typename?: 'DirectoryContactRoleSearchResults';
+  count: Scalars['Int']['output'];
+  endOfRecords: Scalars['Boolean']['output'];
+  limit: Scalars['Int']['output'];
+  offset: Scalars['Int']['output'];
+  results: Array<Maybe<DirectoryContactRole>>;
+};
+
 export type DirectoryPerson = {
   __typename?: 'DirectoryPerson';
   areasExpertise?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
@@ -1514,7 +1534,6 @@ export type DirectoryPerson = {
   modified?: Maybe<Scalars['DateTime']['output']>;
   modifiedBy?: Maybe<Scalars['String']['output']>;
   orcidId?: Maybe<Scalars['String']['output']>;
-  phone?: Maybe<Scalars['String']['output']>;
   profileDescriptions?: Maybe<Array<Maybe<ProfileDescription>>>;
   profilePicture?: Maybe<Scalars['String']['output']>;
   roles?: Maybe<Array<Maybe<DirectoryPersonRole>>>;
@@ -6060,9 +6079,9 @@ export type Query = {
   dataset?: Maybe<Dataset>;
   datasetDownloads?: Maybe<DatasetDownloadListResults>;
   datasetSearch: DatasetSearchResults;
-  directoryAmbasadors?: Maybe<DirectoryPersonRoleSearchResults>;
+  directoryAmbasadors?: Maybe<DirectoryContactRoleSearchResults>;
   directoryAwardWinners: Array<Maybe<DirectoryPerson>>;
-  directoryMentors?: Maybe<DirectoryPersonRoleSearchResults>;
+  directoryMentors?: Maybe<DirectoryContactRoleSearchResults>;
   directoryTranslators?: Maybe<DirectoryPersonRoleSearchResults>;
   download?: Maybe<Download>;
   event?: Maybe<Event>;

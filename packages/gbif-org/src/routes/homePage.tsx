@@ -157,7 +157,7 @@ function HeaderLink({ children, to }) {
 }
 
 function TmpOverview() {
-  const [open, setOpen, removeOpenState] = useLocalStorage('homepage_tmp_open', false);
+  const [open, setOpen] = useLocalStorage('homepage_tmp_open', false);
   return (
     <section>
       <div
