@@ -43,7 +43,15 @@ export default {
     Person: ({ personId }, args, { dataSources }) =>
       dataSources.directoryPersonAPI.getDirectoryPersonByKey({ key: personId }),
   },
+  DirectoryContactRole: {
+    Person: ({ personId }, args, { dataSources }) =>
+      dataSources.directoryPersonAPI.getDirectoryContactByKey({ key: personId }),
+  },
   DirectoryPerson: {
+    profilePicture: ({ id }, args, { dataSources }) =>
+      dataSources.directoryPersonAPI.getProfilePicture({ key: id, query: args }),
+  },
+  DirectoryContact: {
     profilePicture: ({ id }, args, { dataSources }) =>
       dataSources.directoryPersonAPI.getProfilePicture({ key: id, query: args }),
   }
