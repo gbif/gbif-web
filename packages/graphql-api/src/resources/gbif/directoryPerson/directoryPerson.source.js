@@ -36,7 +36,7 @@ class DirectoryPersonAPI extends RESTDataSource {
       'orcidId',
       'jobTitle',
       'institutionName',
-      'roles',
+      // 'roles', // is it public to know all roles of a person
       'countryCode',
       'certifications',
       'languages',

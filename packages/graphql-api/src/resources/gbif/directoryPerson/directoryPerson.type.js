@@ -45,7 +45,7 @@ const typeDef = gql`
     modifiedBy: String
     created: DateTime
     modified: DateTime
-    roles: [DirectoryPersonRole]
+    # roles: [DirectoryPersonRole]
     certifications: [Certification]
     languages: [String]
     areasExpertise: [String]
@@ -72,7 +72,7 @@ const typeDef = gql`
     modifiedBy: String
     created: DateTime
     modified: DateTime
-    roles: [DirectoryPersonRole]
+    # roles: [DirectoryPersonRole]
     certifications: [Certification]
     languages: [String]
     areasExpertise: [String]
