@@ -9,7 +9,7 @@ export default {
   Query: {
     directoryTranslators: (parent, { limit, offset }, { dataSources }) =>
       dataSources.directoryPersonAPI.searchPeopleByRole({ query: { limit, offset, role: 'TRANSLATOR' } }),
-    directoryAmbasadors: (parent, { limit, offset }, { dataSources }) =>
+    directoryAmbassadors: (parent, { limit, offset }, { dataSources }) =>
       dataSources.directoryPersonAPI.searchPeopleByRole({ query: { limit, offset, role: 'AMBASSADOR' } }),
     directoryMentors: (parent, { limit, offset }, { dataSources }) =>
       dataSources.directoryPersonAPI.searchPeopleByRole({ query: { limit, offset, role: 'MENTOR' } }),
