@@ -3,16 +3,17 @@ import { jsx, css } from '@emotion/react';
 import React, { useContext } from 'react';
 import { useLocalStorage } from 'react-use';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
-import { Card, CardHeader2, GrSciCollMetadata as Metadata, SideBarLoader, MapThumbnail } from '../../shared';
-import { Properties, Property, ResourceLink, Image, HyperText, ListItem, Prose } from "../../../components";
+import { Card, CardHeader2, GrSciCollMetadata as Metadata, SideBarLoader, MapThumbnail, paddedCardContent } from '../../shared';
+import { Properties, Property, ResourceLink, Image, HyperText, ListItem, Prose, Tooltip } from "../../../components";
 import useBelow from '../../../utils/useBelow';
 import sortBy from 'lodash/sortBy';
-import { MdMailOutline as MailIcon, MdPhone as PhoneIcon } from 'react-icons/md';
+import { MdMailOutline as MailIcon, MdInfoOutline, MdPhone as PhoneIcon } from 'react-icons/md';
 import { TopTaxa, TopCountries, TotalAndDistinct } from '../../shared/stats';
 import LocaleContext from '../../../dataManagement/LocaleProvider/LocaleContext';
 import { ApiContext } from '../../../dataManagement/api';
 import { commonLabels, config2labels } from '../../../utils/labelMaker';
 import { FeaturedImageContent } from '../../Institution/about/Description';
+import { DescriptorGroups } from './DescriptorGroups';
 
 const { Term: T, Value: V, EmptyValue } = Properties;
 const Name2Avatar = ListItem.Name2Avatar;
@@ -48,6 +49,7 @@ export function Description({
           <FeaturedImageContent featuredImageLicense={collection.featuredImageLicense} featuredImageUrl={collection.featuredImageUrl} />
         </Card>
         }
+
         <Card style={{ marginTop: 12, marginBottom: 24 }}>
           <CardHeader2><FormattedMessage id="grscicoll.description" deafultMessage="Description" /></CardHeader2>
           <Prose style={{ marginBottom: 24, maxWidth: '60em', fontSize: '16px' }}>
@@ -55,7 +57,6 @@ export function Description({
             {!collection.description && <EmptyValue />}
           </Prose>
           <Properties style={{ fontSize: 16, marginBottom: 12 }} breakpoint={800}>
-            {/* <Property value={collection.description} labelId="grscicoll.description" showEmpty /> */}
             <Property value={collection.taxonomicCoverage} labelId="grscicoll.taxonomicDescription" showEmpty />
             <Property value={collection.geographicCoverage} labelId="grscicoll.geographicDescription" showEmpty />
             <Property value={collection.temporalCoverage} labelId="grscicoll.temporalDescription" showEmpty />
@@ -74,15 +75,24 @@ export function Description({
             <Property value={collection.accessionStatus} labelId="collection.accessionStatus" formatter={(val) => <AccessionStatusVocabulary id={val} />} />
 
             <Property value={collection.incorporatedCollections} labelId="grscicoll.incorporatedCollections" />
-            <Property value={collection.importantCollectors} labelId="grscicoll.importantCollectors" />
-            {/* <Property labelId="grscicoll.importantCollectors">
-              <ul>
-                {collection.importantCollectors.map((v, i) => <li key={i}><Link to={{pathname: "/specimens", search: `?recordedBy=${encodeURIComponent(v)}`}}>{v}</Link></li>)}
-              </ul>
-            </Property> */}
             {collection.personalCollection && <Property value={collection.personalCollection} labelId="collection.personalCollection" formatter={e => <FormattedMessage id={`enums.yesNo.${e}`} defaultMessage={e} />} />}
           </Properties>
         </Card>
+
+        {collection?.descriptorGroups?.count > 0 && <>
+          <div css={paddedCardContent} style={{ paddingTop: 0, paddingBottom: 0 }}>
+            <CardHeader2>
+              <FormattedMessage id="grscicoll.collectionDescriptorsHeadline" deafultMessage="Collection description" />
+            </CardHeader2>
+            <div css={css`color: var(--color500); margin-bottom: 12px;`}>
+              <FormattedMessage id="grscicoll.collectionDescriptorsIntroduction" deafultMessage="Collection description" />
+            </div>
+          </div>
+          <div>
+            <DescriptorGroups collectionKey={collection.key} />
+          </div>
+        </>}
+
         <Card style={{ marginTop: 24, marginBottom: 24 }} id="contact">
           <CardHeader2><FormattedMessage id="grscicoll.contacts" deafultMessage="Contacts" /></CardHeader2>
           <Properties style={{ fontSize: 16, marginBottom: 12 }} breakpoint={800}>
@@ -117,7 +127,7 @@ export function Description({
               flex: 1 1 auto;
               width: 40%;
               max-width: 400px;
-              min-width: 300px;
+              min-width: 250px;
               margin: 12px;
             }
           `}>

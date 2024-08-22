@@ -34,15 +34,15 @@
     "isSamplingEvent": "采样事件",
     "isTreament": "治疗",
     "isSequenced": "序列",
-    "hasIssues": "",
-    "hasCoordinates": "",
+    "hasIssues": "问题和评论",
+    "hasCoordinates": "有坐标",
     "hasCountry": "国家",
     "hasImages": "多媒体",
     "hasSound": "声音",
     "hasVideo": "视频",
     "isSpecimen": "标本",
     "eventDate": "事件日期",
-    "isType": ""
+    "isType": "模式标本"
   },
   "extensions": {
     "audubon": {
@@ -50,16 +50,16 @@
       "properties": {
         "identifier": "标识符",
         "type": "类型",
-        "subtypeLiteral": "",
-        "subtype": "",
+        "subtypeLiteral": "子类型字面量",
+        "subtype": "子类型",
         "title": "标题",
         "modified": "已修改",
-        "MetadataDate": "",
-        "metadataLanguageLiteral": "",
+        "MetadataDate": "元数据日期",
+        "metadataLanguageLiteral": "元数据语言标识符",
         "metadataLanguage": "元数据语言",
-        "providerManagedID": "",
+        "providerManagedID": "发布者管理的ID",
         "Rating": "",
-        "commenterLiteral": "",
+        "commenterLiteral": "字面注释",
         "commenter": "",
         "comments": "评论",
         "reviewerLiteral": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
@@ -274,7 +274,7 @@
       }
     },
     "identification": {
-      "name": "",
+      "name": "识别历史",
       "properties": {
         "identificationID": "鉴定编号",
         "verbatimIdentification": "逐字识别",
@@ -412,23 +412,23 @@
       "name": "“生命大百科”（EOL）参考",
       "properties": {
         "identifier": "标识符",
-        "publicationType": "",
-        "full_reference": "",
-        "primaryTitle": "",
+        "publicationType": "发布类型",
+        "full_reference": "完整参考",
+        "primaryTitle": "主标题",
         "title": "标题",
-        "pages": "",
+        "pages": "页面",
         "pageStart": "",
         "pageEnd": "",
         "volume": "",
-        "edition": "",
+        "edition": "版本：",
         "publisher": "发布者",
-        "authorList": "",
-        "editorList": "",
+        "authorList": "作者列表",
+        "editorList": "编辑列表",
         "created": "已创建",
         "language": "语言",
         "uri": "统一资源标志符",
         "doi": "数字对象识别符",
-        "localityName": ""
+        "localityName": "地区名称"
       }
     },
     "resourceRelationship": {

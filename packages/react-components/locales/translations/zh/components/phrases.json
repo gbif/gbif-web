@@ -22,9 +22,9 @@
   "occurrenceMetrics": "物种出现记录统计",
   "project": "项目",
   "license": "授权条款",
-  "downloadAsTsv": "",
+  "downloadAsTsv": "以TSV格式下载",
   "backHome": "返回首页",
-  "pageNotFound": "",
+  "pageNotFound": "404\n\n",
   "noInformation": "没有信息",
   "noRecords": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
   "noDescriptionProvided": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
@@ -38,6 +38,7 @@
   "discard": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
   "keep": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
   "copyToClipboard": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
+  "copiedToClipboard": "",
   "headers": {
     "description": "描述",
     "contacts": "联系人信息"

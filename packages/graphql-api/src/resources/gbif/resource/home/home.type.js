@@ -8,10 +8,14 @@ const typeDef = gql`
   type Home {
     title: String!
     id: ID!
-    children: [MenuItem]
+    children: [MenuItem!]
     aboutBody: String
-    # blocks: Blocks
-    primaryImage: [AssetImage]
+    blocks: [BlockItem!]
+    primaryImage: [AssetImage!]
+    occurrenceIcon: AssetImage
+    literatureIcon: AssetImage
+    datasetIcon: AssetImage
+    publisherIcon: AssetImage
     summary: String
   }
 `;

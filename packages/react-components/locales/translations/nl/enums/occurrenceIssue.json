@@ -1,1 +1,6 @@
-{}
+{
+  "COORDINATE_INVALID": "Ongeldige coördinaat",
+  "COUNTRY_INVALID": "Ongeldig land",
+  "CONTINENT_INVALID": "Ongeldig continent",
+  "IDENTIFIED_DATE_INVALID": "Ongeldige identificatiedatum "
+}

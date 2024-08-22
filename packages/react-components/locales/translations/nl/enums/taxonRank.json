@@ -14,6 +14,7 @@
     "CLASS": "Klasse",
     "SUBCLASS": "Onderklasse",
     "INFRACLASS": "Infraklasse",
+    "COHORT": "Cohort",
     "SUPERORDER": "Superorde",
     "ORDER": "Orde",
     "SUBORDER": "Onderorde",

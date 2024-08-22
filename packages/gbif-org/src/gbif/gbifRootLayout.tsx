@@ -1,11 +1,10 @@
 import React from 'react';
-import { NavLink, ScrollRestoration } from 'react-router-dom';
+import { ScrollRestoration, useLoaderData } from 'react-router-dom';
 import { Toaster } from '@/components/ui/toaster';
-import { LanguageSelector } from '@/components/languageSelector';
-import { DynamicLink } from '@/components/dynamicLink';
 import { HeaderQuery, HeaderQueryVariables } from '@/gql/graphql';
 import { LoaderArgs } from '../types';
 import { NoscriptNotification } from '@/components/noscriptNotification';
+import { Header } from './header';
 
 const HEADER_QUERY = /* GraphQL */ `
   query Header {
@@ -13,14 +12,17 @@ const HEADER_QUERY = /* GraphQL */ `
       title
       summary
       children {
+        id
         externalLink
         link
         title
         children {
+          id
           externalLink
           link
           title
           children {
+            id
             externalLink
             link
             title
@@ -40,22 +42,12 @@ type Props = {
 };
 
 export function GbifRootLayout({ children }: Props) {
-  // const { data } = useTypedLoaderData(); // menu data
+  const { data } = useLoaderData() as { data: HeaderQuery };
 
   return (
     <>
-      <header className="g-flex g-gap-3 g-fixed g-bg-white g-shadow-sm g-px-2 g-h-10 g-w-full g-z-10 g-items-center">
-        <LanguageSelector />
-        <nav className="g-flex g-gap-3">
-          <DynamicLink as={NavLink} to="/">
-            Home
-          </DynamicLink>
-          <DynamicLink as={NavLink} to="/occurrence/search">
-            Search
-          </DynamicLink>
-        </nav>
-      </header>
-      <main className="g-pt-10 g-min-h-screen">
+      <Header menu={data} />
+      <main className="g-min-h-screen">
         <NoscriptNotification />
         <ScrollRestoration />
         <Toaster />

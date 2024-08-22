@@ -34,10 +34,31 @@ class DirectoryPersonAPI extends RESTDataSource {
       'surname',
       'title',
       'orcidId',
+      'roles',
+      'countryCode',
+      'certifications',
+      'languages',
+      'areasExpertise',
+      'profileDescriptions',
+      'created',
+      'modified',
+    ]);
+  }
+
+  // for public contacts
+  reduceDirectoryContact(directoryPerson) {
+    return pick(directoryPerson, [
+      'id',
+      'firstName',
+      'surname',
+      'title',
+      'orcidId',
       'jobTitle',
       'institutionName',
       'roles',
       'countryCode',
+      'phone',
+      'email',
       'certifications',
       'languages',
       'areasExpertise',
@@ -52,7 +73,7 @@ class DirectoryPersonAPI extends RESTDataSource {
       '/directory/person_role',
       stringify(query, { indices: false }),
     );
-    
+    console.log(response);
     // Sanitize the data before returning it, this data is from an authorized endpoint.
     // response.results = response.results.map((p) => this.reduceDirectoryPerson(p));
     return response;
@@ -64,8 +85,20 @@ class DirectoryPersonAPI extends RESTDataSource {
     return this.reduceDirectoryPerson(directoryPerson);
   }
 
+  async getDirectoryContactByKey({ key }) {
+    const directoryPerson = await this.get(`/directory/person/${key}`);
+    // Sanitize the data before returning it, this data is from an authorized endpoint.
+    return this.reduceDirectoryContact(directoryPerson);
+  }
+
   async getProfilePicture({ key, query }) {
-    return await this.get(`/directory/person/${key}/profilePicture`, stringify(query, { indices: false }));
+    try {
+      const image = await this.get(`/directory/person/${key}/profilePicture`, stringify(query, { indices: false }));
+      return image;
+    } catch (err) {
+      // no image found
+      return null;
+    }
   }
 
   /*

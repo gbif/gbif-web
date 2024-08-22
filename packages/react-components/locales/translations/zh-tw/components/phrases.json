@@ -38,6 +38,7 @@
   "discard": "GBIF 註記的存檔",
   "keep": "GBIF 註記的存檔",
   "copyToClipboard": "GBIF 註記的存檔",
+  "copiedToClipboard": "",
   "headers": {
     "description": "描述",
     "contacts": "聯絡資訊"

@@ -14,6 +14,7 @@ type Options = {
   translationsEntryEndpoint: string;
   countEndpoint: string;
   v1Endpoint: string;
+  webApiEndpoint: string;
   // When running e2e tests, we need a separate endpoint for the server and client as the server needs the endpoint in on the
   // internal docker network and the client needs the endpoint on the host machine
   graphqlEndpoint: string;
@@ -31,6 +32,7 @@ const envConfig = {
   translationsEntryEndpoint: import.meta.env.PUBLIC_TRANSLATIONS_ENTRY_ENDPOINT,
   countEndpoint: import.meta.env.PUBLIC_COUNT_ENDPOINT,
   v1Endpoint: import.meta.env.PUBLIC_V1_ENDPOINT,
+  webApiEndpoint: import.meta.env.PUBLIC_WEB_API_ENDPOINT,
   graphqlEndpoint: import.meta.env.PUBLIC_GRAPHQL_ENDPOINT,
   graphqlEndpointServer: import.meta.env.PUBLIC_GRAPHQL_ENDPOINT_SERVER,
   graphqlEndpointClient: import.meta.env.PUBLIC_GRAPHQL_ENDPOINT_CLIENT,
@@ -45,7 +47,7 @@ if (!isGbifEnv(envConfig.gbifEnv)) throw new InvalidGbifEnvError(envConfig.gbifE
 
 if (!envConfig.baseUrl) throw new Error('Missing PUBLIC_BASE_URL env variable');
 
-// Merge the config based on the priority order: CLI > ENV > default
+// Merge the config based on the priority order: ENV > default
 const options = merge.withOptions(
   { allowUndefinedOverrides: false },
   getDefaultEndpointsBasedOnGbifEnv(envConfig.gbifEnv),
@@ -72,14 +74,14 @@ export const gbifConfig: Config = {
   // The languages should be synced with supportedLocales in graphql-api/src/helpers/sanitize-html.ts
   languages: [
     {
-      code: 'en-DK', // TODO, really ought to be en-GB, but while developing it is convinent to have developer english when text change
+      code: 'en', // TODO, really ought to be en-GB, but while developing it is convinent to have developer english when text change
       label: 'English',
       default: true,
       textDirection: 'ltr',
     },
     {
-      code: 'da',
-      label: 'Dansk',
+      code: 'en-DK', // TODO, really ought to be en-GB, but while developing it is convinent to have developer english when text change
+      label: 'Danglish',
       default: false,
       textDirection: 'ltr',
     },

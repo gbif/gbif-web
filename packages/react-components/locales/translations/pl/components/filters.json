@@ -250,43 +250,43 @@
     "description": "Wartość wielkości próbki, gdzie jednostki pomiaru są podane w \"Jednostce wielkości próbki\""
   },
   "relativeOrganismQuantity": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Przybliżona liczebność organizmów",
+    "count": "{num, plural, one { przybliżona liczebność organizmów } few {# przybliżone liczebności organizmów} many {# przybliżonych liczebności organizmów} other {# przybliżone liczebności organizmów}}",
+    "description": "Ilość biologicznego materiału powiązana z wielkością próbki, wyliczona jako organismQuantity na sampleSize, jeśli organismQuantityType i sampleSizeUnit są jednoznaczne."
   },
   "month": {
     "name": "Miesiąc",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { miesiąc } few {# miesiące} many {# miesięcy} other {# miesiące}}",
+    "description": "Miesiąc, w którym zdarzenie miało miejsce."
   },
   "continent": {
     "name": "Kontynent",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { kontynent } few {# kontynenty} many {# kontynentów} other {# kontynenty}}",
+    "description": "Nazwa kontynentu, gdzie położona jest lokalizacja. To pole nie jest wypełnione automatycznie, dane pojawią się tylko wtedy, jeśli wydawca je dostarczył. Włączenie tego filtru może ukryć istotne wyniki. "
   },
   "protocol": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Protokół publikacji",
+    "count": "{num, plural, one { protokół } few {# protokoły} many {# protokołów} other {# protokoły}}",
+    "description": "Protokół techniczny do udostępniania danych."
   },
   "establishmentMeans": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Sposoby wprowadzenia",
+    "count": "{num, plural, one { sposób wprowadzenia } few {# sposoby wprowadzenia} many {# sposobów wprowadzenia} other {# sposoby wprowadzenia}}",
+    "description": "Sposoby wprowadzenia organizmu w dane miejsce o danym czasie."
   },
   "recordedBy": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Zarejestrowane przez",
+    "count": "{num, plural, one { zarejestrowane przez } few {# zarejestrowane przez} many {# zarejestrowane przez} other {# zarejestrowane przez}}",
+    "description": "Nazwiska osoby/osób, grup lub organizacji, które zarejestrowały oryginalne wystąpienie."
   },
   "recordNumber": {
-    "name": "",
-    "count": "",
+    "name": "Numer rekordu",
+    "count": "{num, plural, one { numer rekordu } few {# numery rekordu} many {# numerów rekordów} other {# numery rekordów}}",
     "description": "Identyfikator nadany zdarzeniu w chwili jego rejestracji."
   },
   "collectionCode": {
     "name": "Kod kolekcji",
-    "count": "",
+    "count": "{num, plural, one { kod kolekcji } few {# kody kolekcji} many {# kodów kolekcji} other {# kody kolekcji}}",
     "description": ""
   },
   "projectId": {
@@ -295,34 +295,34 @@
     "description": ""
   },
   "recordedById": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Rejestracja przez ID",
+    "count": "{num, plural, one { rejestracja przez ID } few {# rejestracje przez ID} many {# rejestracji przez ID} other {# rejestracje przez ID}}",
+    "description": "Identyfikator osoby/osób, grup lub organizacji odpowiedzialnych za oryginalną rejestrację zdarzenia."
   },
   "identifiedById": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Identyfikacja przez ID",
+    "count": "{num, plural, one { identyfikacja przez id } few {identyfikacje przez id #} many {identyfikacji przez id #} other {identyfikacje przez id #}}",
+    "description": "Identyfikator osoby/osób, grup lub organizacji odpowiedzialnych za nadanie nazwy naukowej organizmowi."
   },
   "occurrenceId": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "ID wystąpienia",
+    "count": "{num, plural, one { ID wystąpienia } few {# ID wystąpienia} many {# ID wystąpienia} other {# ID wystąpienia}}",
+    "description": "Unikatowy identyfikator zapisu wystąpienia"
   },
   "organismId": {
     "name": "Identyfikator organizmu",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { ID organizmu } few {# ID organizmu} many {#  ID organizmu} other {# ID organizmu}}",
+    "description": "Unikatowy identyfikator organizmu w zapisie."
   },
   "locality": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Lokalność",
+    "count": "{num, plural, one { lokalność } few {# lokalności} many {# lokalności} other {# lokalności}}",
+    "description": "Konkretna część opisu miejsca."
   },
   "waterBody": {
     "name": "Zbiornik wodny",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { zbiornik wodny } few {# zbiorniki wodne} many {# zbiorników wodnych} other {# zbiorniki wodne}}",
+    "description": "Nazwa zbiornika wodnego, w którym ma miejsce lokalizacja."
   },
   "stateProvince": {
     "name": "Województwo/stan",

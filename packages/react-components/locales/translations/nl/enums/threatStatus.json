@@ -1,1 +1,8 @@
-{}
+{
+  "EXTINCT": "Uitgestorven",
+  "EXTINCT_IN_THE_WILD": "Uitgestorven in het wild",
+  "ENDANGERED": "Bedreigd",
+  "VULNERABLE": "Kwetsbaar",
+  "DATA_DEFICIENT": "Gegevens Tekort",
+  "NOT_EVALUATED": "Niet geëvalueerd"
+}

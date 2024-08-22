@@ -8,9 +8,9 @@ const typeDef = gql`
   type MenuItem {
     externalLink: Boolean
     link: String
-    id: String
-    title: String
-    children: [MenuItem]
+    id: String!
+    title: String!
+    children: [MenuItem!]
   }
 `;
 

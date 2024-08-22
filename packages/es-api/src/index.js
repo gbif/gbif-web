@@ -41,7 +41,7 @@ const app = express();
 app.use(cors());
 app.use(compression());
 app.use(express.static('public'));
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '1mb'}));
 
 let setCache = function (req, res, next) {
   const period = 600; // unit seconds

@@ -20,8 +20,8 @@
   "updateFilter": "",
   "setFilter": "",
   "nameWithTaxonMatchIssue": "",
-  "commonName": "",
-  "acceptedNameOf": "",
+  "commonName": "常用名",
+  "acceptedNameOf": "接受名",
   "viewDetails": "",
   "location": {
     "geometry": "几何形状",

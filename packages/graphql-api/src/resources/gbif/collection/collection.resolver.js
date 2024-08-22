@@ -19,11 +19,16 @@ export default {
       dataSources.collectionAPI.searchCollections({ query: args }),
     collection: (parent, { key }, { dataSources }) =>
       dataSources.collectionAPI.getCollectionByKey({ key }),
+    collectionDescriptorGroup: (parent, { key, collectionKey }, { dataSources }) =>
+      dataSources.collectionAPI.getCollectionDescriptorGroup({ key, collectionKey }),
   },
   Collection: {
     institution: ({ institutionKey: key }, args, { dataSources }) => {
       if (typeof key === 'undefined') return null;
       return dataSources.institutionAPI.getInstitutionByKey({ key });
+    },
+    descriptorGroups: ({ key }, {limit: limit = 20, offset: offset = 0}, { dataSources }) => {
+      return dataSources.collectionAPI.searchCollectionDescriptorGroups({ key, limit, offset });
     },
     // This would fetch the updated number, but we have since added a batch job to update counts. Which is likely good enough
     // occurrenceCount: ({ key }, args, { dataSources }) => {
@@ -94,4 +99,9 @@ export default {
       return Math.ceil((100 * completeness) / totalAvailable);
     },
   },
+  CollectionDescriptorGroup: {
+    descriptors: ({ collectionKey, key }, { limit = 20, offset = 0 }, { dataSources }) => {
+      return dataSources.collectionAPI.getCollectionDescriptor({ key, collectionKey, limit, offset });
+    },
+  }
 };

@@ -3,8 +3,8 @@ import { gql } from 'apollo-server';
 const typeDef = gql`
   extend type Query {
     directoryTranslators(limit: Int, offset: Int): DirectoryPersonRoleSearchResults
-    directoryAmbasadors(limit: Int, offset: Int): DirectoryPersonRoleSearchResults
-    directoryMentors(limit: Int, offset: Int): DirectoryPersonRoleSearchResults
+    directoryAmbasadors(limit: Int, offset: Int): DirectoryContactRoleSearchResults
+    directoryMentors(limit: Int, offset: Int): DirectoryContactRoleSearchResults
     directoryAwardWinners(award: [String]): [DirectoryPerson]!
   }
 
@@ -16,6 +16,16 @@ const typeDef = gql`
     award: String
     term: DirectoryTerm
     Person: DirectoryPerson
+  }
+
+  type DirectoryContactRole {
+    relationshipId: Int
+    personId: Int
+    role: String
+    programme: String
+    award: String
+    term: DirectoryTerm
+    Person: DirectoryContact
   }
 
   type DirectoryTerm {
@@ -31,6 +41,14 @@ const typeDef = gql`
     endOfRecords: Boolean!
   }
 
+  type DirectoryContactRoleSearchResults {
+    results: [DirectoryContactRole]!
+    limit: Int!
+    offset: Int!
+    count: Int!
+    endOfRecords: Boolean!
+  }
+
   type DirectoryPerson {
     id: ID!
     firstName: String
@@ -39,7 +57,6 @@ const typeDef = gql`
     orcidId: String
     jobTitle: String
     institutionName: String
-    phone: String
     countryCode: String
     createdBy: String
     modifiedBy: String

@@ -14,7 +14,7 @@ class CollectionAPI extends RESTDataSource {
 
   async searchCollections({ query }) {
     return this.get(
-      '/grscicoll/collection',
+      '/grscicoll/collection/search',
       stringify(query, { indices: false }),
     );
   }
@@ -23,9 +23,27 @@ class CollectionAPI extends RESTDataSource {
     return this.get(`/grscicoll/collection/${key}`);
   }
 
+  async searchCollectionDescriptorGroups({ key, limit, offset }) {
+    return this.get(`/grscicoll/collection/${key}/descriptorGroup`, {
+      limit,
+      offset,
+    });
+  }
+
+  async getCollectionDescriptorGroup({ key, collectionKey }) {
+    return this.get(`/grscicoll/collection/${collectionKey}/descriptorGroup/${key}`);
+  }
+
+  async getCollectionDescriptor({ key, collectionKey, limit, offset }) {
+    return this.get(`/grscicoll/collection/${collectionKey}/descriptorGroup/${key}/descriptor`, {
+      limit,
+      offset,
+    });
+  }
+
   async getCollectionsByInstitutionKey({ key, limit = 20, offset = 0 }) {
     return this.get('/grscicoll/collection', {
-      institution: key,
+      institutionKey: key,
       limit,
       offset,
     }).then((res) => res.results);

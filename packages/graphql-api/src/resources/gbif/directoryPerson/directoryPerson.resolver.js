@@ -13,37 +13,53 @@ export default {
       dataSources.directoryPersonAPI.searchPeopleByRole({ query: { limit, offset, role: 'AMBASSADOR' } }),
     directoryMentors: (parent, { limit, offset }, { dataSources }) =>
       dataSources.directoryPersonAPI.searchPeopleByRole({ query: { limit, offset, role: 'MENTOR' } }),
-    directoryAwardWinners: (parent, { award = [] }, { dataSources }) => 
+    directoryAwardWinners: (parent, { award = [] }, { dataSources }) =>
       dataSources.directoryPersonAPI.searchPeopleByRole({ query: { role: 'AWARD_WINNER' } })
-      .then((response) => {
-        if (award.length === 0) {
-          return response.results;
-        }
-        const filtered = response.results.filter((person) => {
-          return award.includes(person.award);
-        });
-        return filtered;
-      })
-      .then((response) => {
-        // remove duplicate persons
-        const unique = response.filter((person, index, self) =>
-          index === self.findIndex((p) => (
-            p.personId === person.personId
-          ))
-        );
-        // expand the person object
-        return Promise.all(
-          unique.map((person) => {
-            return dataSources.directoryPersonAPI.getDirectoryPersonByKey({ key: person.personId });
-          })
-        );
-      })
+        .then((response) => {
+          if (award.length === 0) {
+            return response.results;
+          }
+          const filtered = response.results.filter((person) => {
+            return award.includes(person.award);
+          });
+          return filtered;
+        })
+        .then((response) => {
+          // remove duplicate persons
+          const unique = response.filter((person, index, self) =>
+            index === self.findIndex((p) => (
+              p.personId === person.personId
+            ))
+          );
+          // expand the person object
+          return Promise.all(
+            unique.map((person) => {
+              return dataSources.directoryPersonAPI.getDirectoryPersonByKey({ key: person.personId }).then((p) => {
+                // filter the person roles to only show awards
+                p.roles = p.roles.filter((role) => role.role === 'AWARD_WINNER');
+                // and if award is specified in query, then only show matching awards
+                if (award.length > 0) {
+                  p.roles = p.roles.filter((role) => award.includes(role.award));
+                }
+                return p;
+              })
+            })
+          )
+        })
   },
   DirectoryPersonRole: {
     Person: ({ personId }, args, { dataSources }) =>
       dataSources.directoryPersonAPI.getDirectoryPersonByKey({ key: personId }),
   },
+  DirectoryContactRole: {
+    Person: ({ personId }, args, { dataSources }) =>
+      dataSources.directoryPersonAPI.getDirectoryContactByKey({ key: personId }),
+  },
   DirectoryPerson: {
+    profilePicture: ({ id }, args, { dataSources }) =>
+      dataSources.directoryPersonAPI.getProfilePicture({ key: id, query: args }),
+  },
+  DirectoryContact: {
     profilePicture: ({ id }, args, { dataSources }) =>
       dataSources.directoryPersonAPI.getProfilePicture({ key: id, query: args }),
   }

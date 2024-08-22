@@ -31,6 +31,7 @@
   "viewOnGBif": "View on GBIF.org",
   "failedToLoadData": "Failed to load data",
   "retry": "Retry",
+  "preview": "Preview",
   "seeDetails": "See details",
   "readMore": "Read more",
   "pageNotFoundDescription": "Sorry, the page you visited does not exist.",
@@ -38,6 +39,7 @@
   "discard": "Discard",
   "keep": "Keep",
   "copyToClipboard": "Copy to clipboard",
+  "copiedToClipboard": "Copied to clipboard",
   "headers": {
     "description": "Description",
     "contacts": "Contacts"

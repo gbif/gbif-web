@@ -35,8 +35,8 @@ import { NoRecords } from '@/components/noDataMessages';
 import { PublisherSearchQuery, PublisherSearchQueryVariables } from '@/gql/graphql';
 
 const PUBLISHER_SEARCH_QUERY = /* GraphQL */ `
-  query PublisherSearch($offset: Int, $country: Country, $q: String, $limit: Int) {
-    list: organizationSearch(country: $country, q: $q, offset: $offset, limit: $limit) {
+  query PublisherSearch($offset: Int, $country: Country, $q: String, $limit: Int, $isEndorsed: Boolean) {
+    list: organizationSearch(country: $country, q: $q, offset: $offset, limit: $limit, isEndorsed: $isEndorsed) {
       limit
       count
       offset
@@ -72,6 +72,7 @@ export function PublisherSearchPage(): React.ReactElement {
         q: filter.q,
         limit: 20,
         offset,
+        isEndorsed: true,
       },
     });
   }, [offset, filter]);
@@ -83,7 +84,7 @@ export function PublisherSearchPage(): React.ReactElement {
         <title>Publisher search</title>
       </Helmet>
 
-      <DataHeader hasBorder>
+      <DataHeader hasBorder className="g-border-t g-border-slate-200">
         <Tabs
           className="g-border-none"
           links={[
@@ -214,15 +215,17 @@ export function PublisherSearchPage(): React.ReactElement {
 export function DataHeader({
   children,
   hasBorder,
+  className,
 }: {
   children?: React.ReactNode;
   hasBorder?: boolean;
+  className?: string;
 }) {
   return (
     <div
-      className={`g-flex g-justify-center g-items-center ${
+      className={cn(`g-flex g-justify-center g-items-center ${
         hasBorder ? 'g-border-b g-border-slate-200' : ''
-      }`}
+      }`, className)}
     >
       <div className="g-flex-none g-flex g-items-center g-mx-2">
         <MdApps />

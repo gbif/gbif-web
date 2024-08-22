@@ -1,3 +1,4 @@
+import { jsx, css } from '@emotion/react';
 import React, { useEffect, useContext, useCallback, useState } from "react";
 import { useUpdateEffect } from 'react-use';
 import { FilterContext } from '../widgets/Filter/state';
@@ -7,8 +8,10 @@ import { filter2v1 } from '../dataManagement/filterAdapter';
 import { ResultsTable } from './ResultsTable';
 import { useQueryParam, NumberParam } from 'use-query-params';
 import merge from 'lodash/merge';
+import { EmptyImage } from "../components/Icons/Icons";
+import { FormattedMessage } from 'react-intl';
 
-function StandardSearchTable({graphQuery, slowQuery, resultKey, offsetName = 'offset', defaultTableConfig, exportTemplate = () => null, ...props}) {
+function StandardSearchTable({graphQuery, slowQuery, resultKey, offsetName = 'offset', defaultTableConfig, showEmptyTable, AdditionalEmptyMessage = () => null, exportTemplate = () => null, ...props}) {
   // const [offset, setOffset] = useUrlState({ param: 'offset', defaultValue: 0 });
   const [offset = 0, setOffset] = useQueryParam('from', NumberParam);
   const limit = 50;
@@ -58,6 +61,22 @@ function StandardSearchTable({graphQuery, slowQuery, resultKey, offsetName = 'of
   const total = data?.[resultKey]?.documents?.total || data?.[resultKey]?.documents?.count || data?.[resultKey]?.count;
 
   let mergedResults = results ? merge([], results, slowresults) : results;
+
+  if (total === 0 && !showEmptyTable) {
+    return <div css={css`
+      margin-right: auto;
+      display: inline-block;
+      text-align: center;
+      margin-left: auto;
+      margin-top: 80px;
+    `}>
+      <EmptyImage style={{fontSize: 100}}/>
+      <div css={css`color: var(--color500);`}>
+        <FormattedMessage id="phrases.noResults" />
+      </div>
+      <AdditionalEmptyMessage {...{currentFilterContext, rootPredicate}}/>
+    </div>
+  }
 
   return <>
     <ResultsTable

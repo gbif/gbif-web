@@ -115,6 +115,11 @@
     "count": "{num, plural, one {scientific name} other {# scientific names}}",
     "description": "The scientific name as it appears in the GBIF backbone taxonomy. These names are normalized to ease search across datasets. It is possible that an originally-provided name might be misinterpreted or unknown. To search the names as provided use the \"Verbatim scientific name\" filter."
   },
+  "taxonKeyGrSciColl": {
+    "name": "Scientific name",
+    "count": "{num, plural, one {scientific name} other {# scientific names}}",
+    "description": "Filter using the scientific names listed in the collection descriptors provided in the collection's metadata, noting that not all collections include metadata descriptors and the names are often at higher taxonomic ranks such as order or family."
+  },
   "basisOfRecord": {
     "name": "Basis of record",
     "count": "{num, plural, one {basis of record} other {# bases of records}}",
@@ -206,7 +211,13 @@
   },
   "countriesOfCoverage": {
     "name": "Country of coverage",
-    "count": "{num, plural, one {country of coverage} other {# countries of coverage}}"
+    "count": "{num, plural, one {country of coverage} other {# countries of coverage}}",
+    "description": "What countries are covered by the record."
+  },
+  "collectionDescriptorCountry": {
+    "name": "Country of coverage",
+    "count": "{num, plural, one {country of coverage} other {# countries of coverage}}",
+    "description": "What countries does the collection have specimens from. Notice that not all collections have this information filled."
   },
   "countriesOfResearcher": {
     "name": "Country of researcher",

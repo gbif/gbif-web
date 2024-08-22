@@ -38,6 +38,7 @@
   "discard": "",
   "keep": "",
   "copyToClipboard": "",
+  "copiedToClipboard": "Copied to clipboard",
   "headers": {
     "description": "Description",
     "contacts": "Contacts"
