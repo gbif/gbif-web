@@ -25,16 +25,20 @@ export { SamplingEventIcon, TypeStatusIcon, DnaIcon, GlobeIcon };
 export function GenericFeature({
   className,
   children,
+  testId,
   ...props
 }: {
   className?: string;
   children: React.ReactNode;
+  testId?: string;
 } & React.ComponentProps<'div'>) {
   return (
     <div
-      className={cn('g-my-0.5 g-me-12 [&>svg]:g-me-2 [&>svg]:g-leading-2 [&>svg]:g-h-6 [&>svg]:g-flex-none g-inline-flex g-items-start',
+      className={cn(
+        'g-my-0.5 g-me-12 [&>svg]:g-me-2 [&>svg]:g-leading-2 [&>svg]:g-h-6 [&>svg]:g-flex-none g-inline-flex g-items-start',
         className
       )}
+      data-cy={testId}
       {...props}
     >
       {children}
@@ -62,6 +66,7 @@ export function Homepage({
   ...props
 }: {
   url?: string;
+  testId?: string;
 } & Omit<React.ComponentProps<typeof GenericFeature>, 'children'>) {
   if (!url) return null;
   return (
@@ -155,7 +160,7 @@ export function GadmClassification({
     <GenericFeature className={className}>
       <GlobeIcon />
       <div>
-        <GadmClassificationList gadm={gadm} className='g-inline-block g-me-2' /> {children}
+        <GadmClassificationList gadm={gadm} className="g-inline-block g-me-2" /> {children}
       </div>
     </GenericFeature>
   );
@@ -183,7 +188,13 @@ export function Sequenced({ className }: { className?: string }) {
   );
 }
 
-export function TypeStatus({ types, className }: { className?: string; types?: [TypeStatusEnums] | null }) {
+export function TypeStatus({
+  types,
+  className,
+}: {
+  className?: string;
+  types?: [TypeStatusEnums] | null;
+}) {
   if (!types) return null;
   const typeStatus = types?.[0];
   // if the list of types is empty or a single value `NOTATYPE` then return null
@@ -191,9 +202,17 @@ export function TypeStatus({ types, className }: { className?: string; types?: [
 
   // now we need to select a style for the label based on the type. We are just going to select the first one
   let typeStyle = {};
-  if ([TypeStatusEnums.Holotype, TypeStatusEnums.Lectotype, TypeStatusEnums.Neotype].includes(typeStatus))
+  if (
+    [TypeStatusEnums.Holotype, TypeStatusEnums.Lectotype, TypeStatusEnums.Neotype].includes(
+      typeStatus
+    )
+  )
     typeStyle = { background: '#e2614a', color: 'white', padding: '0 8px', borderRadius: 2 };
-  if ([TypeStatusEnums.Paratype, TypeStatusEnums.Paralectotype, TypeStatusEnums.Syntype].includes(typeStatus))
+  if (
+    [TypeStatusEnums.Paratype, TypeStatusEnums.Paralectotype, TypeStatusEnums.Syntype].includes(
+      typeStatus
+    )
+  )
     typeStyle = { background: '#f1eb0b', padding: '0 8px', borderRadius: 2 };
   if ([TypeStatusEnums.Allotype].includes(typeStatus))
     typeStyle = { background: '#7edaff', color: 'white', padding: '0 8px', borderRadius: 2 };

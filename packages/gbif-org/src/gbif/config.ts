@@ -1,26 +1,86 @@
-import { InputConfig } from '@/contexts/config/config';
-import { InvalidGbifEnvError, isGbifEnv } from '@/contexts/config/endpoints';
+import { Config } from '@/contexts/config/config';
+import {
+  GbifEnv,
+  getDefaultEndpointsBasedOnGbifEnv,
+  InvalidGbifEnvError,
+  isGbifEnv,
+} from '@/contexts/config/endpoints';
+import { merge } from 'ts-deepmerge';
 
-const gbifEnv = import.meta.env.PUBLIC_GBIF_ENV;
-if (typeof gbifEnv !== 'string') throw new Error('Missing PUBLIC_GBIF_ENV env variable');
-if (!isGbifEnv(gbifEnv)) throw new InvalidGbifEnvError(gbifEnv);
+// The env options
+type Options = {
+  gbifEnv: GbifEnv;
+  baseUrl: string;
+  translationsEntryEndpoint: string;
+  countEndpoint: string;
+  v1Endpoint: string;
+  webApiEndpoint: string;
+  // When running e2e tests, we need a separate endpoint for the server and client as the server needs the endpoint in on the
+  // internal docker network and the client needs the endpoint on the host machine
+  graphqlEndpoint: string;
+  graphqlEndpointServer: string;
+  graphqlEndpointClient: string;
+  formsEndpoint: string;
+  formsEndpointServer: string;
+  formsEndpointClient: string;
+};
 
-const baseUrl = import.meta.env.PUBLIC_BASE_URL;
-if (typeof baseUrl !== 'string') throw new Error('Missing PUBLIC_BASE_URL env variable');
+// Extract config options from the environment variables
+const envConfig = {
+  gbifEnv: import.meta.env.PUBLIC_GBIF_ENV,
+  baseUrl: import.meta.env.PUBLIC_BASE_URL,
+  translationsEntryEndpoint: import.meta.env.PUBLIC_TRANSLATIONS_ENTRY_ENDPOINT,
+  countEndpoint: import.meta.env.PUBLIC_COUNT_ENDPOINT,
+  v1Endpoint: import.meta.env.PUBLIC_V1_ENDPOINT,
+  webApiEndpoint: import.meta.env.PUBLIC_WEB_API_ENDPOINT,
+  graphqlEndpoint: import.meta.env.PUBLIC_GRAPHQL_ENDPOINT,
+  graphqlEndpointServer: import.meta.env.PUBLIC_GRAPHQL_ENDPOINT_SERVER,
+  graphqlEndpointClient: import.meta.env.PUBLIC_GRAPHQL_ENDPOINT_CLIENT,
+  formsEndpoint: import.meta.env.PUBLIC_FORMS_ENDPOINT,
+  formsEndpointServer: import.meta.env.PUBLIC_FORMS_ENDPOINT_SERVER,
+  formsEndpointClient: import.meta.env.PUBLIC_FORMS_ENDPOINT_CLIENT,
+} as Partial<Options>;
 
-export const gbifConfig: InputConfig = {
+// Validate that the required config options are present and valid
+if (!envConfig.gbifEnv) throw new Error('Missing PUBLIC_GBIF_ENV env variable');
+if (!isGbifEnv(envConfig.gbifEnv)) throw new InvalidGbifEnvError(envConfig.gbifEnv);
+
+if (!envConfig.baseUrl) throw new Error('Missing PUBLIC_BASE_URL env variable');
+
+// Merge the config based on the priority order: ENV > default
+const options = merge.withOptions(
+  { allowUndefinedOverrides: false },
+  getDefaultEndpointsBasedOnGbifEnv(envConfig.gbifEnv),
+  envConfig
+) as Options;
+
+const isServer = () => typeof window === 'undefined';
+
+export const gbifConfig: Config = {
+  ...options,
+  get graphqlEndpoint() {
+    if (isServer()) {
+      return options.graphqlEndpointServer ?? options.graphqlEndpoint;
+    }
+    return options.graphqlEndpointClient ?? options.graphqlEndpoint;
+  },
+  get formsEndpoint() {
+    if (isServer()) {
+      return options.formsEndpointServer ?? options.formsEndpoint;
+    }
+    return options.formsEndpointClient ?? options.formsEndpoint;
+  },
   defaultTitle: 'GBIF',
-  gbifEnv,
   // The languages should be synced with supportedLocales in graphql-api/src/helpers/sanitize-html.ts
   languages: [
     {
-      code: 'en',// TODO, really ought to be en-GB, but while developing it is convinent to have developer english when text change
+      code: 'en', // TODO, really ought to be en-GB, but while developing it is convinent to have developer english when text change
       label: 'English',
       default: true,
       textDirection: 'ltr',
     },
     {
-      code: 'en-DK',// TODO, really ought to be en-GB, but while developing it is convinent to have developer english when text change
+      code: 'en-DK', // TODO, really ought to be en-GB, but while developing it is convinent to have developer english when text change
       label: 'Danglish',
       default: false,
       textDirection: 'ltr',
@@ -65,7 +125,6 @@ export const gbifConfig: InputConfig = {
     primary: '#69AA69',
     stickyOffset: '40px',
   },
-  baseUrl,
   openGraph: {
     site_name: 'GBIF',
   },

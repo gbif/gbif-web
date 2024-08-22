@@ -14,6 +14,7 @@ const cliOptions = [
   { name: 'port', alias: 'p', type: Number },
   { name: 'debug', type: Boolean, defaultOption: false },
   { name: 'environment', type: String },
+  { name: 'apiEs', type: String },
   // ts-mocha requires this for the --paths option to work
   { name: 'require', alias: 'r', type: String, multiple: true },
 ];

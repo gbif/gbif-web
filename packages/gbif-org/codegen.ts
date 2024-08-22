@@ -1,13 +1,9 @@
 import type { CodegenConfig } from '@graphql-codegen/cli';
-import { loadEnv } from 'vite';
-import { getEndpointsBasedOnGbifEnv, GbifEnv } from './src/contexts/config/endpoints';
-
-const env = loadEnv('', process.cwd(), ['PUBLIC_']);
-const endpoints = getEndpointsBasedOnGbifEnv(env.PUBLIC_GBIF_ENV as GbifEnv, env);
+import { graphqlEndpoint } from './env';
 
 const config: CodegenConfig = {
   overwrite: true,
-  schema: endpoints.graphqlEndpoint,
+  schema: graphqlEndpoint,
   documents: ['src/**/*.tsx', 'src/**/*.ts'],
   generates: {
     'src/gql/': {

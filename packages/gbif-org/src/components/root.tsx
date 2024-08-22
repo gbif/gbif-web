@@ -1,13 +1,13 @@
 import React from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import { ConfigProvider, InputConfig } from '@/contexts/config/config';
+import { ConfigProvider, Config } from '@/contexts/config/config';
 import { MetadataRoutesProvider } from '@/contexts/metadataRoutes';
 import { RouteMetadata } from '@/types';
 import { LoadingElementProvider } from '@/contexts/loadingElement';
 import { TooltipProvider } from './ui/tooltip';
 
 type Props = {
-  config: InputConfig;
+  config: Config;
   children: React.ReactNode;
   helmetContext?: {};
   metadataRoutes: RouteMetadata[];
@@ -23,9 +23,7 @@ export function Root({ config, helmetContext, children, metadataRoutes }: Props)
               <Helmet>
                 <title>{config.defaultTitle}</title>
               </Helmet>
-              <TooltipProvider>
-                {children}
-              </TooltipProvider>
+              <TooltipProvider>{children}</TooltipProvider>
             </HelmetProvider>
           </LoadingElementProvider>
         </MetadataRoutesProvider>

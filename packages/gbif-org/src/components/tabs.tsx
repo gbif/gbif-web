@@ -14,7 +14,7 @@ import { useI18n } from '@/contexts/i18n';
 
 export type Props = {
   className?: string;
-  links: Array<{ to: string; children: React.ReactNode, className?: string }>;
+  links: Array<{ to: string; children: React.ReactNode; className?: string; testId?: string }>;
 };
 
 export function Tabs({ links, className }: Props) {
@@ -59,14 +59,22 @@ export function Tabs({ links, className }: Props) {
   }, [links, setVisibleTabCount]);
 
   return (
-    <div ref={containerRef} className={cn('g-relative g-border-b g-border-slate-200 dark:g-border-slate-200/5', className)}>
-      <ul className='g-flex g-whitespace-nowrap g-overflow-hidden -g-mb-px'>
+    <div
+      ref={containerRef}
+      className={cn(
+        'g-relative g-border-b g-border-slate-200 dark:g-border-slate-200/5',
+        className
+      )}
+    >
+      <ul className="g-flex g-whitespace-nowrap g-overflow-hidden -g-mb-px">
         {links.map(({ to, children, className: cls }, idx) => {
           const visible = idx < visibleTabCount;
 
           return (
             <li key={to} className={cn({ 'g-invisible': !visible }, 'g-pr-1')}>
-              <TabLink to={to} className={cls}>{children}</TabLink>
+              <TabLink to={to} className={cls}>
+                {children}
+              </TabLink>
             </li>
           );
         })}
@@ -83,7 +91,7 @@ export function Tabs({ links, className }: Props) {
             'g-absolute g-top-1/2 -g-translate-y-1/2'
           )}
         >
-          <MdMoreHoriz className='g-text-2xl' />
+          <MdMoreHoriz className="g-text-2xl" />
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           {links.slice(visibleTabCount).map(({ to, children }) => (
@@ -91,7 +99,7 @@ export function Tabs({ links, className }: Props) {
               <DynamicLink
                 onClick={() => setIsDropdownOpen(false)}
                 to={to}
-                className='g-w-full g-justify-center'
+                className="g-w-full g-justify-center"
               >
                 {children}
               </DynamicLink>

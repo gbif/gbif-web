@@ -1,15 +1,34 @@
+import { loadEnv } from 'vite';
 import fsp from 'node:fs/promises';
 import express from 'express';
 import helmet from 'helmet';
 import { helmetConfig } from './helmetConfig.js';
+import { merge } from 'ts-deepmerge';
 
-const IS_PRODUCTION = process.env.NODE_ENV === 'production';
-const PORT = parseInt(process.env.PORT || 3000);
+// Load environment variables from .env files and merge them with process.env.
+const envFile = loadEnv('', process.cwd(), ['PUBLIC_']);
+const env = merge(envFile, process.env);
+
+const IS_PRODUCTION = env.NODE_ENV === 'production';
+const PORT = parseInt(env.PORT || 3000);
 
 async function main() {
   const app = express();
 
   if (IS_PRODUCTION) {
+    const environmentEndpoints = [
+      env.PUBLIC_BASE_URL,
+      env.PUBLIC_TRANSLATIONS_ENTRY_ENDPOINT,
+      env.PUBLIC_COUNT_ENDPOINT,
+      env.PUBLIC_V1_ENDPOINT,
+      env.PUBLIC_GRAPHQL_ENDPOINT,
+      env.PUBLIC_GRAPHQL_ENDPOINT_CLIENT,
+      env.PUBLIC_FORMS_ENDPOINT,
+      env.PUBLIC_FORMS_ENDPOINT_CLIENT,
+    ].filter((endpoint) => typeof endpoint === 'string');
+
+    helmetConfig.contentSecurityPolicy.directives.defaultSrc.push(...environmentEndpoints);
+
     app.use(helmet(helmetConfig));
   }
 

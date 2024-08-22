@@ -11,7 +11,7 @@ import {
   occurrenceKeyLoader,
 } from '@/routes/occurrence/key/occurrenceKey';
 import { OccurrenceSearchPage } from '@/routes/occurrence/search/occurrenceSearchPage';
-import { InputConfig, configBuilder } from '@/contexts/config/config';
+import { Config } from '@/contexts/config/config';
 import { DatasetPage, DatasetPageSkeleton, datasetLoader } from '@/routes/dataset/key/datasetKey';
 import {
   PublisherPage,
@@ -446,5 +446,4 @@ const baseRoutes: SourceRouteObject[] = [
   },
 ];
 
-export const configureGbifRoutes = (gbifConfig: InputConfig) =>
-  configureRoutes(baseRoutes, configBuilder(gbifConfig));
+export const configureGbifRoutes = (gbifConfig: Config) => configureRoutes(baseRoutes, gbifConfig);
