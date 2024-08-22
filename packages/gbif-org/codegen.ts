@@ -1,5 +1,5 @@
 import type { CodegenConfig } from '@graphql-codegen/cli';
-import { graphqlEndpoint } from './getGraphQLEndpoint';
+import { graphqlEndpoint } from './env';
 
 const config: CodegenConfig = {
   overwrite: true,

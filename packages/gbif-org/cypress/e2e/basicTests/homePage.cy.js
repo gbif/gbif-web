@@ -6,6 +6,6 @@ describe('homepage', () => {
   });
 
   it('renders the homepage', () => {
-    cy.get('[data-cy="heading"]').should('have.text', 'Pages with a Contentful ID');
+    cy.get('[data-cy="heading"]').should('have.text', 'Free and open access to biodiversity data');
   });
 });

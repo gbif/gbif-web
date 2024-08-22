@@ -103,7 +103,9 @@ export function HomePage(): React.ReactElement {
               <div className="g-w-[800px]">
                 <div className="g-text-white">
                   <div className="g-mb-8 g-text-xl g-font-semibold">{home.title}</div>
-                  <h1 className="g-text-5xl g-font-semibold g-text-white">{home.summary}</h1>
+                  <h1 data-cy="heading" className="g-text-5xl g-font-semibold g-text-white">
+                    {home.summary}
+                  </h1>
                 </div>
                 <div className="g-mt-4">
                   <div className="g-bg-slate-950/50 g-overflow-hidden g-inline-block g-float-left">
