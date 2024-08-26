@@ -115,6 +115,11 @@
     "count": "",
     "description": ""
   },
+  "taxonKeyGrSciColl": {
+    "name": "Латинское название",
+    "count": "",
+    "description": "Архив, аннотированный GBIF"
+  },
   "basisOfRecord": {
     "name": "Основа записи",
     "count": "",
@@ -206,7 +211,13 @@
   },
   "countriesOfCoverage": {
     "name": "Страна (территория) интереса",
-    "count": ""
+    "count": "",
+    "description": "Архив, аннотированный GBIF"
+  },
+  "collectionDescriptorCountry": {
+    "name": "Страна (территория) интереса",
+    "count": "",
+    "description": "Архив, аннотированный GBIF"
   },
   "countriesOfResearcher": {
     "name": "Страна (территория) исследователей",
