@@ -47,5 +47,9 @@
     "about": "Подробно",
     "explore": ""
   },
-  "citesPermitNumber": ""
+  "citesPermitNumber": "",
+  "collectionDescriptorsHeadline": "Архив, аннотированный GBIF",
+  "collectionDescriptorsIntroduction": "Архив, аннотированный GBIF",
+  "collectionSearchNoResultsMessage": "Архив, аннотированный GBIF",
+  "searchForSpecimens": "Архив, аннотированный GBIF"
 }
