@@ -31,6 +31,7 @@
   "viewOnGBif": "在GBIF.org上查看",
   "failedToLoadData": "加载数据失败",
   "retry": "重试",
+  "preview": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
   "seeDetails": "查看详情",
   "readMore": "阅读更多",
   "pageNotFoundDescription": "抱歉，您访问的页面不存在。",
