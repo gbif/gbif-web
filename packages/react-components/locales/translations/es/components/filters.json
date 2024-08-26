@@ -216,7 +216,7 @@
   },
   "collectionDescriptorCountry": {
     "name": "País o área de cobertura",
-    "count": "{num, plural, one {país de cobertura} other {# países de cobertura}}",
+    "count": "{num, plural, one {país o área de cobertura} other {# países o áreas de cobertura}}",
     "description": "Aquí debe colocarse una breve descripción del componente"
   },
   "countriesOfResearcher": {
