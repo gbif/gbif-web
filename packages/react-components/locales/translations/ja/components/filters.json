@@ -115,6 +115,11 @@
     "count": "",
     "description": ""
   },
+  "taxonKeyGrSciColl": {
+    "name": "学名",
+    "count": "",
+    "description": "GBIFがアノーテーションしたアーカイブ"
+  },
   "basisOfRecord": {
     "name": "データレコードの種類",
     "count": "",
@@ -206,7 +211,13 @@
   },
   "countriesOfCoverage": {
     "name": "範囲の国または地域",
-    "count": ""
+    "count": "",
+    "description": "GBIFがアノーテーションしたアーカイブ"
+  },
+  "collectionDescriptorCountry": {
+    "name": "範囲の国または地域",
+    "count": "",
+    "description": "GBIFがアノーテーションしたアーカイブ"
   },
   "countriesOfResearcher": {
     "name": "研究者の出身国または地域",
