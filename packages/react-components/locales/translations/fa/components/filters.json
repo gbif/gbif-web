@@ -115,6 +115,11 @@
     "count": "",
     "description": ""
   },
+  "taxonKeyGrSciColl": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "basisOfRecord": {
     "name": "",
     "count": "",
@@ -206,7 +211,13 @@
   },
   "countriesOfCoverage": {
     "name": "",
-    "count": ""
+    "count": "",
+    "description": ""
+  },
+  "collectionDescriptorCountry": {
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "countriesOfResearcher": {
     "name": "",
