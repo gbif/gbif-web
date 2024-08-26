@@ -32,3 +32,4 @@ artifacts:
 npm:
   dependencies:
     - vite
+    - ts-deepmerge
