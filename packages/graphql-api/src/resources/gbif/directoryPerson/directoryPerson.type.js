@@ -3,7 +3,7 @@ import { gql } from 'apollo-server';
 const typeDef = gql`
   extend type Query {
     directoryTranslators(limit: Int, offset: Int): DirectoryPersonRoleSearchResults
-    directoryAmbasadors(limit: Int, offset: Int): DirectoryContactRoleSearchResults
+    directoryAmbassadors(limit: Int, offset: Int): DirectoryContactRoleSearchResults
     directoryMentors(limit: Int, offset: Int): DirectoryContactRoleSearchResults
     directoryAwardWinners(award: [String]): [DirectoryPerson]!
   }
