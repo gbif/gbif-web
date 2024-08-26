@@ -216,7 +216,7 @@
   },
   "collectionDescriptorCountry": {
     "name": "Pays ou région de couverture",
-    "count": "",
+    "count": "{num, plural, one {pays ou zone de couverture} other {# pays ou zones de couverture}}",
     "description": "Archive annotée par GBIF"
   },
   "countriesOfResearcher": {
