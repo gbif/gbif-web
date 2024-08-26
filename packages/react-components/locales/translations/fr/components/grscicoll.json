@@ -47,5 +47,9 @@
     "about": "À propos",
     "explore": ""
   },
-  "citesPermitNumber": "Numéro de permis Cites"
+  "citesPermitNumber": "Numéro de permis Cites",
+  "collectionDescriptorsHeadline": "Archive annotée par GBIF",
+  "collectionDescriptorsIntroduction": "Archive annotée par GBIF",
+  "collectionSearchNoResultsMessage": "Archive annotée par GBIF",
+  "searchForSpecimens": "Archive annotée par GBIF"
 }

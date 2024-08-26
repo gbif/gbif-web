@@ -47,5 +47,9 @@
     "about": "",
     "explore": ""
   },
-  "citesPermitNumber": ""
+  "citesPermitNumber": "",
+  "collectionDescriptorsHeadline": "",
+  "collectionDescriptorsIntroduction": "",
+  "collectionSearchNoResultsMessage": "",
+  "searchForSpecimens": ""
 }

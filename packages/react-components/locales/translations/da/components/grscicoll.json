@@ -47,5 +47,9 @@
     "about": "Om",
     "explore": ""
   },
-  "citesPermitNumber": ""
+  "citesPermitNumber": "",
+  "collectionDescriptorsHeadline": "GBIF annoteret Arkiv",
+  "collectionDescriptorsIntroduction": "GBIF annoteret Arkiv",
+  "collectionSearchNoResultsMessage": "GBIF annoteret Arkiv",
+  "searchForSpecimens": "GBIF annoteret Arkiv"
 }

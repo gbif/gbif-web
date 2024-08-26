@@ -115,6 +115,11 @@
     "count": "{num, plural, one {wissenschaftlicher Name} other {# wissenschaftliche Namen}}",
     "description": "Der normierte wissenschaftliche Name, wie er in der GBIF-Backbone-Taxonomie erscheint. Die wissenschaftlichen Namen werden normalisiert, um die Suche über Datensätze hinweg zu erleichtern. Es ist möglich, dass ein ursprünglich angegebener Name falsch interpretiert oder unbekannt ist. Für eine Suche in den Originalnamen bitte den Filter \"ursprünglicher wissenschaftlicher Name\" verwenden."
   },
+  "taxonKeyGrSciColl": {
+    "name": "",
+    "count": "{num, plural, one {wissenschaftlicher Name} other {# wissenschaftliche Namen}}",
+    "description": "Stadt zum Fundort."
+  },
   "basisOfRecord": {
     "name": "Basis of record",
     "count": "{num, plural, one {Basis of Record} other {# Bases of Record}}",
@@ -206,7 +211,13 @@
   },
   "countriesOfCoverage": {
     "name": "Länderabdeckung",
-    "count": "{num, plural, one {Länderabdeckung} other {# Länderabdeckungen}}"
+    "count": "{num, plural, one {Länderabdeckung} other {# Länderabdeckungen}}",
+    "description": "Stadt zum Fundort."
+  },
+  "collectionDescriptorCountry": {
+    "name": "",
+    "count": "{num, plural, one {Länderabdeckung} other {# Länderabdeckungen}}",
+    "description": "Stadt zum Fundort."
   },
   "countriesOfResearcher": {
     "name": "Land des Forschers",

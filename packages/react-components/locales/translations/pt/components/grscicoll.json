@@ -47,5 +47,9 @@
     "about": "Sobre",
     "explore": ""
   },
-  "citesPermitNumber": "Número da autorização Cites"
+  "citesPermitNumber": "Número da autorização Cites",
+  "collectionDescriptorsHeadline": "Uma breve descrição do componente deve ser colocada aqui",
+  "collectionDescriptorsIntroduction": "Uma breve descrição do componente deve ser colocada aqui",
+  "collectionSearchNoResultsMessage": "Uma breve descrição do componente deve ser colocada aqui",
+  "searchForSpecimens": "Uma breve descrição do componente deve ser colocada aqui"
 }

@@ -47,5 +47,9 @@
     "about": "حول",
     "explore": ""
   },
-  "citesPermitNumber": "رقم ترخيص السايتس"
+  "citesPermitNumber": "رقم ترخيص السايتس",
+  "collectionDescriptorsHeadline": "أرشيف شروح \"جيبف\"",
+  "collectionDescriptorsIntroduction": "أرشيف شروح \"جيبف\"",
+  "collectionSearchNoResultsMessage": "أرشيف شروح \"جيبف\"",
+  "searchForSpecimens": "أرشيف شروح \"جيبف\""
 }

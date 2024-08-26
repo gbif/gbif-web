@@ -47,5 +47,9 @@
     "about": "關於",
     "explore": ""
   },
-  "citesPermitNumber": "城市許可編號"
+  "citesPermitNumber": "城市許可編號",
+  "collectionDescriptorsHeadline": "GBIF 註記的存檔",
+  "collectionDescriptorsIntroduction": "GBIF 註記的存檔",
+  "collectionSearchNoResultsMessage": "GBIF 註記的存檔",
+  "searchForSpecimens": "GBIF 註記的存檔"
 }

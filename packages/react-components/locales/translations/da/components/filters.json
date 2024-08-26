@@ -115,6 +115,11 @@
     "count": "",
     "description": ""
   },
+  "taxonKeyGrSciColl": {
+    "name": "Videnskabeligt navn",
+    "count": "",
+    "description": "GBIF annoteret Arkiv"
+  },
   "basisOfRecord": {
     "name": "Observationstype",
     "count": "",
@@ -206,7 +211,13 @@
   },
   "countriesOfCoverage": {
     "name": "Land eller område der diskuteres",
-    "count": ""
+    "count": "",
+    "description": "GBIF annoteret Arkiv"
+  },
+  "collectionDescriptorCountry": {
+    "name": "Land eller område der diskuteres",
+    "count": "",
+    "description": "GBIF annoteret Arkiv"
   },
   "countriesOfResearcher": {
     "name": "Forskers land eller område",

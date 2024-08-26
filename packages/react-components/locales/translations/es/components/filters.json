@@ -115,6 +115,11 @@
     "count": "{num, plural, one {nombre científico} other {# nombres científicos}}",
     "description": "El nombre científico tal y como aparece en el backbone taxonómico de GBIF. Estos nombres están normalizados para facilitar la búsqueda en los conjuntos de datos. Es posible que un nombre originalmente proporcionado sea malinterpretado o desconocido. Para buscar los nombres tal y como se proporcionaron, utilice el filtro \"Nombre científico original\"."
   },
+  "taxonKeyGrSciColl": {
+    "name": "Nombre científico",
+    "count": "{num, plural, one {nombre científico} other {# nombres científicos}}",
+    "description": "Aquí debe colocarse una breve descripción del componente"
+  },
   "basisOfRecord": {
     "name": "Base del registro",
     "count": "{num, plural, one {base del registro} other {# bases del registro}}",
@@ -206,7 +211,13 @@
   },
   "countriesOfCoverage": {
     "name": "País de cobertura",
-    "count": "{num, plural, one {país de cobertura} other {# países de cobertura}}"
+    "count": "{num, plural, one {país de cobertura} other {# países de cobertura}}",
+    "description": "Aquí debe colocarse una breve descripción del componente"
+  },
+  "collectionDescriptorCountry": {
+    "name": "País o área de cobertura",
+    "count": "{num, plural, one {país de cobertura} other {# países de cobertura}}",
+    "description": "Aquí debe colocarse una breve descripción del componente"
   },
   "countriesOfResearcher": {
     "name": "País o área del investigador",

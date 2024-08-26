@@ -47,5 +47,9 @@
     "about": "Відомості про видавця даних",
     "explore": ""
   },
-  "citesPermitNumber": "Номер дозволу Cites"
+  "citesPermitNumber": "Номер дозволу Cites",
+  "collectionDescriptorsHeadline": "Архів анотований GBIF",
+  "collectionDescriptorsIntroduction": "Архів анотований GBIF",
+  "collectionSearchNoResultsMessage": "Архів анотований GBIF",
+  "searchForSpecimens": "Архів анотований GBIF"
 }

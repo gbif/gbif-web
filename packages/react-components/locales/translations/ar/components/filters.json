@@ -115,6 +115,11 @@
     "count": "",
     "description": ""
   },
+  "taxonKeyGrSciColl": {
+    "name": "الاسم العلمي",
+    "count": "",
+    "description": "أرشيف شروح \"جيبف\""
+  },
   "basisOfRecord": {
     "name": "قاعدة السجل",
     "count": "",
@@ -206,7 +211,13 @@
   },
   "countriesOfCoverage": {
     "name": "بلد أو منطقة التغطية",
-    "count": ""
+    "count": "",
+    "description": "أرشيف شروح \"جيبف\""
+  },
+  "collectionDescriptorCountry": {
+    "name": "بلد أو منطقة التغطية",
+    "count": "",
+    "description": "أرشيف شروح \"جيبف\""
   },
   "countriesOfResearcher": {
     "name": "بلد أو منطقة الباحث",
