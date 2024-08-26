@@ -47,5 +47,9 @@
     "about": "About",
     "explore": "Explore catalog"
   },
-  "citesPermitNumber": "Cites permit number"
+  "citesPermitNumber": "Cites permit number",
+  "collectionDescriptorsHeadline": "",
+  "collectionDescriptorsIntroduction": "",
+  "collectionSearchNoResultsMessage": "",
+  "searchForSpecimens": ""
 }
