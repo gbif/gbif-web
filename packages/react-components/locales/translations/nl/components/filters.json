@@ -115,6 +115,11 @@
     "count": "",
     "description": "De wetenschappelijke naam zoals deze in de door GBIF gevolgde taxonomie verschijnt. Deze namen zijn genormaliseerd om het zoeken tussen datasets te vergemakkelijken. Het is mogelijk dat een oorspronkelijk ingevoerde naam verkeerd wordt geïnterpreteerd of onbekend is. Gebruik het filter \"Woordelijke wetenschappelijke naam\" om de door de dataleverancier aangeleverde namen te doorzoeken."
   },
+  "taxonKeyGrSciColl": {
+    "name": "",
+    "count": "",
+    "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+  },
   "basisOfRecord": {
     "name": "Gegevens gebaseerd op",
     "count": "",
@@ -206,7 +211,13 @@
   },
   "countriesOfCoverage": {
     "name": "Land van dekking",
-    "count": ""
+    "count": "",
+    "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+  },
+  "collectionDescriptorCountry": {
+    "name": "",
+    "count": "",
+    "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
   },
   "countriesOfResearcher": {
     "name": "Land van onderzoeker",
