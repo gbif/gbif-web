@@ -115,6 +115,11 @@
     "count": "{num, plural, one {nom scientifique} other {# noms scientifiques}}",
     "description": "Le nom scientifique tel qu'il apparaît dans le squelette taxonomique du GBIF. Ces noms sont normalisés pour faciliter la recherche dans tous les jeux de données. Il est possible qu'un nom fourni à l'origine soit mal interprété ou inconnu. Pour rechercher les noms tels que fournis, utilisez le filtre \"Verbatim du nom scientifique\"."
   },
+  "taxonKeyGrSciColl": {
+    "name": "Nom scientifique du taxon",
+    "count": "{num, plural, one {nom scientifique} other {# noms scientifiques}}",
+    "description": "Archive annotée par GBIF"
+  },
   "basisOfRecord": {
     "name": "Base de registre",
     "count": "{num, plural, one {base d'enregistrement} other {# bases d'enregistrements}}",
@@ -206,7 +211,13 @@
   },
   "countriesOfCoverage": {
     "name": "Pays ou région de couverture",
-    "count": ""
+    "count": "",
+    "description": "Archive annotée par GBIF"
+  },
+  "collectionDescriptorCountry": {
+    "name": "Pays ou région de couverture",
+    "count": "",
+    "description": "Archive annotée par GBIF"
   },
   "countriesOfResearcher": {
     "name": "Pays ou région du chercheur",
