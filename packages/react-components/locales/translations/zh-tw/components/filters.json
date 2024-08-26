@@ -115,6 +115,11 @@
     "count": "{num, plural,one {科學命名} other {#科學命名}}",
     "description": "GBIF 骨幹分類中出現的學名。這些名稱經過標準化以方便跨資料集的搜尋。最初提供的名稱可能會被誤解或未知。若要搜尋所提供的名稱，請使用「逐字學名」篩選。"
   },
+  "taxonKeyGrSciColl": {
+    "name": "學名",
+    "count": "{num, plural,one {科學命名} other {#科學命名}}",
+    "description": "GBIF 註記的存檔"
+  },
   "basisOfRecord": {
     "name": "紀錄類型",
     "count": "{num, plural,one {紀錄基礎} other {#記錄基礎}}",
@@ -206,7 +211,13 @@
   },
   "countriesOfCoverage": {
     "name": "國家覆蓋率",
-    "count": "{num, plural,one {國家或包含區域}other {#國家或包含區域}}"
+    "count": "{num, plural,one {國家或包含區域}other {#國家或包含區域}}",
+    "description": "GBIF 註記的存檔"
+  },
+  "collectionDescriptorCountry": {
+    "name": "國家或覆蓋地區",
+    "count": "{num, plural,one {國家或包含區域}other {#國家或包含區域}}",
+    "description": "GBIF 註記的存檔"
   },
   "countriesOfResearcher": {
     "name": "研究者的國家",
