@@ -6079,7 +6079,7 @@ export type Query = {
   dataset?: Maybe<Dataset>;
   datasetDownloads?: Maybe<DatasetDownloadListResults>;
   datasetSearch: DatasetSearchResults;
-  directoryAmbasadors?: Maybe<DirectoryContactRoleSearchResults>;
+  directoryAmbassadors?: Maybe<DirectoryContactRoleSearchResults>;
   directoryAwardWinners: Array<Maybe<DirectoryPerson>>;
   directoryMentors?: Maybe<DirectoryContactRoleSearchResults>;
   directoryTranslators?: Maybe<DirectoryPersonRoleSearchResults>;
@@ -6253,7 +6253,7 @@ export type QueryDatasetSearchArgs = {
 };
 
 
-export type QueryDirectoryAmbasadorsArgs = {
+export type QueryDirectoryAmbassadorsArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };

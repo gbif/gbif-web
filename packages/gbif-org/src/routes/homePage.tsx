@@ -9,7 +9,10 @@ import { ArticleTextContainer } from './resource/key/components/articleTextConta
 import { PageContainer } from './resource/key/components/pageContainer';
 import { useConfig } from '@/contexts/config/config';
 import { useI18n } from '@/contexts/i18n';
-import useLocalStorage from 'use-local-storage';
+import { interopDefault } from '@/utils/interopDefault';
+import _useLocalStorage from 'use-local-storage';
+// Used to import commonjs module as es6 module
+const useLocalStorage = interopDefault(_useLocalStorage);
 
 const HOMEPAGE_QUERY = /* GraphQL */ `
   query HomePage {

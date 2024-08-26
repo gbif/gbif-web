@@ -3,7 +3,8 @@ import doiRegex from 'doi-regex';
 import EmptyValue from './emptyValue';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { DoiTag, Lsid, OrcId } from './identifierTag';
-import { sanitize } from 'isomorphic-dompurify';
+import pkg from 'isomorphic-dompurify';
+const { sanitize } = pkg;
 
 const getLsid = (text: any) => {
   if (typeof text !== 'string' || /\s/.test(text.trim())) {
