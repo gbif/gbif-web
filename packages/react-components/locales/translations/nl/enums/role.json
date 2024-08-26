@@ -12,5 +12,8 @@
     "PUBLISHER": "Gepubliceerd door",
     "USER": "Gebruiker",
     "PROGRAMMER": "Programmeur",
+    "CURATOR": "Curator",
+    "DATA_ADMINISTRATOR": "Databeheerder",
+    "SYSTEM_ADMINISTRATOR": "Systeembeheerder",
     "HEAD_OF_DELEGATION": "Hoofd van de delegatie"
 }
