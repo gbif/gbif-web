@@ -117,7 +117,7 @@
   },
   "taxonKeyGrSciColl": {
     "name": "Латинское название",
-    "count": "",
+    "count": "{num, plural, one {Латинское название} few {# Латинских названий} many {# Латинских названий} other {# Латинские названия}}",
     "description": "Архив, аннотированный GBIF"
   },
   "basisOfRecord": {
@@ -215,8 +215,8 @@
     "description": "Архив, аннотированный GBIF"
   },
   "collectionDescriptorCountry": {
-    "name": "Страна (территория) интереса",
-    "count": "",
+    "name": "Страна или зона охвата",
+    "count": "{num, plural, one {стррана или зона охвата} few {# стран или зон охвата} many {# стран или зон охвата} other {# страны или зоны охвата}}",
     "description": "Архив, аннотированный GBIF"
   },
   "countriesOfResearcher": {
