@@ -1,6 +1,9 @@
 {
+  "ZERO_COORDINATE": "Nul coördinaat",
   "COORDINATE_INVALID": "Ongeldige coördinaat",
   "COUNTRY_INVALID": "Ongeldig land",
   "CONTINENT_INVALID": "Ongeldig continent",
-  "IDENTIFIED_DATE_INVALID": "Ongeldige identificatiedatum "
+  "MODIFIED_DATE_INVALID": "Ongeldige Aangepaste-identificatiedatum ",
+  "IDENTIFIED_DATE_INVALID": "Ongeldige identificatiedatum ",
+  "TYPE_STATUS_INVALID": "Ongeldige type-status"
 }
