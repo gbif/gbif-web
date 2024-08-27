@@ -156,7 +156,7 @@ query collection($key: ID!){
         id
       }
     }
-    collectionSummary
+
     alternativeCodes {
       code
       description

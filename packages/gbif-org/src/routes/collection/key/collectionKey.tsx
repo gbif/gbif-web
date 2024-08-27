@@ -79,7 +79,6 @@ const COLLECTION_QUERY = /* GraphQL */ `
 
       numberSpecimens
       incorporatedCollections
-      importantCollectors
 
       contentTypes
       
@@ -125,7 +124,6 @@ const COLLECTION_QUERY = /* GraphQL */ `
           id
         }
       }
-      collectionSummary
       alternativeCodes {
         code
         description

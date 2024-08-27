@@ -140,10 +140,6 @@ export default function About() {
                     value={collection.incorporatedCollections}
                     labelId="grscicoll.incorporatedCollections"
                   />
-                  <Property
-                    value={collection.importantCollectors}
-                    labelId="grscicoll.importantCollectors"
-                  />
                   {collection.personalCollection && (
                     <Property
                       value={collection.personalCollection}

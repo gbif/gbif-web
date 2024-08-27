@@ -167,7 +167,13 @@ const typeDef = gql`
     temporalCoverage: String
     notes: String
     incorporatedCollections: [String]
+    """
+    Deprecated
+    """
     importantCollectors: [String]
+    """
+    Deprecated
+    """
     collectionSummary: JSON
     alternativeCodes: [AlternativeCode]
     comments: Comment
