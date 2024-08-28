@@ -30,6 +30,7 @@ artifacts:
     directory: ./artifacts
 # Specefiy packages used during the tests
 npm:
-  dependencies:
-    - vite
-    - ts-deepmerge
+  registry: https://registry.npmjs.org
+  packages:
+    'vite': '^5.4.2'
+    'ts-deepmerge': '^7.0.1'
