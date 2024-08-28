@@ -21,27 +21,27 @@ type Props = {
 
 export function ProseCard({ title, url, image }: Props) {
   return (
-    <div className='g-mx-auto g-max-w-[min(24rem,100%)] g-bg-white g-border g-border-gray-200 g-rounded-lg g-shadow dark:g-bg-gray-800 dark:g-border-gray-700'>
+    <div className="g-mx-auto g-max-w-[min(24rem,100%)] g-bg-white g-border g-border-gray-200 g-rounded-lg g-shadow hover:g-shadow-md g-transition-shadow dark:g-bg-gray-800 dark:g-border-gray-700">
       {image && (
         <ConditionalWrapper
           condition={typeof url === 'string'}
           wrapper={(children) => <DynamicLink to={url!}>{children}</DynamicLink>}
         >
           <img
-            className='g-rounded-t-lg'
+            className="g-rounded-t-lg"
             src={image.file.mobile}
             alt={image.description ?? ''}
             title={image.title ?? ''}
           />
         </ConditionalWrapper>
       )}
-      <div className='g-p-5'>
+      <div className="g-p-5">
         <ConditionalWrapper
           condition={typeof url === 'string'}
           wrapper={(children) => <DynamicLink to={url!}>{children}</DynamicLink>}
         >
           <h5
-            className='g-mb-2 g-text-lg g-font-semibold g-tracking-tight g-text-gray-900 dark:g-text-white g-break-words'
+            className="g-mb-2 g-text-lg g-font-semibold g-tracking-tight g-text-gray-900 dark:g-text-white g-break-words"
             dangerouslySetInnerHTML={{ __html: title }}
           />
         </ConditionalWrapper>

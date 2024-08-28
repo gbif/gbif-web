@@ -74,7 +74,7 @@ const DataSchema = z.object({
 
 type ResourceType = z.infer<typeof ResourceTypeSchema>;
 
-const redirectMapper: Record<ResourceType, (key: string, slug: string | null) => string> = {
+export const redirectMapper: Record<ResourceType, (key: string, slug: string | null) => string> = {
   Article: (key, slug) => `/article/${key}/${slug}`,
   Composition: (key, slug) => `/composition/${key}/${slug}`,
   DataUse: (key, slug) => `/data-use/${key}/${slug}`,

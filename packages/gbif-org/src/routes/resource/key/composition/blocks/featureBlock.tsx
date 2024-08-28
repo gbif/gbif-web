@@ -5,6 +5,9 @@ import { ProseCard } from '../proseCard';
 import { fragmentManager } from '@/services/fragmentManager';
 import { BlockContainer, BlockHeading, backgroundColorMap } from './_shared';
 import { cn } from '@/utils/shadcn';
+import { redirectMapper } from '../../createResourceLoaderWithRedirect';
+import { slugify } from '@/utils/slugify';
+import { useI18n } from '@/contexts/i18n';
 
 fragmentManager.register(/* GraphQL */ `
   fragment FeatureBlockDetails on FeatureBlock {
@@ -58,6 +61,7 @@ type Props = {
 export function FeatureBlock({ resource }: Props) {
   const backgroundColor = backgroundColorMap[resource?.backgroundColour ?? 'white'];
   const maxPerRow = resource.maxPerRow ?? 4;
+  const { locale } = useI18n();
 
   return (
     <BlockContainer className={backgroundColor}>
@@ -65,7 +69,7 @@ export function FeatureBlock({ resource }: Props) {
         <BlockHeading dangerouslySetHeading={{ __html: resource.title }} />
       )}
       {resource.body && (
-        <ArticleTextContainer className='g-mt-2 g-mb-10'>
+        <ArticleTextContainer className="g-mt-2 g-mb-10">
           <ArticleBody dangerouslySetBody={{ __html: resource.body }} />
         </ArticleTextContainer>
       )}
@@ -83,6 +87,10 @@ export function FeatureBlock({ resource }: Props) {
 
           let url: string | undefined;
           if ('url' in feature) url = feature.url;
+          if (!url && feature.__typename !== 'Feature') {
+            url = redirectMapper[feature.__typename](feature.id, slugify(feature.title));
+            if (!locale.default) url = `/${locale.code}${url}`;
+          }
 
           return <ProseCard key={index} title={feature.title} url={url} image={image} />;
         })}
