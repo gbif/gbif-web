@@ -87,7 +87,7 @@ const trustedDefaultOptions = merge<DefaultOptions, DefaultOptions>(untrustedDef
     stop: ['offset', 'stop-color', 'stop-opacity'],
     use: ['href', 'xlink:href'],
   },
-  allowedIframeHostnames: ['www.youtube.com', 'player.vimeo.com', 'vimeo.com', ...GBIF_ORIGINS],
+  allowedIframeHostnames: ['www.youtube.com', 'player.vimeo.com', 'vimeo.com', 'eepurl.com', ...GBIF_ORIGINS],
   transformTags: {
     'img': function (tagName, attr) {
       attr.src = prefixLinkUrl(attr.src);
