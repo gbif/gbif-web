@@ -3,6 +3,7 @@ import { CaretSortIcon, CheckIcon, ChevronDownIcon, ChevronUpIcon } from '@radix
 import * as SelectPrimitive from '@radix-ui/react-select';
 
 import { cn } from '@/utils/shadcn';
+import { ClientSideOnly } from '../clientSideOnly';
 
 // focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring
 const Select = SelectPrimitive.Root;
@@ -63,33 +64,35 @@ const SelectContent = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content>
 >(({ className, children, position = 'popper', ...props }, ref) => (
-  <SelectPrimitive.Portal>
-    <div className="gbif">
-    <SelectPrimitive.Content
-      ref={ref}
-      className={cn(
-        'g-relative g-z-50 g-max-h-96 g-min-w-[8rem] g-overflow-hidden g-rounded-md g-border g-bg-popover g-text-popover-foreground g-shadow-md data-[state=open]:g-animate-in data-[state=closed]:g-animate-out data-[state=closed]:g-fade-out-0 data-[state=open]:g-fade-in-0 data-[state=closed]:g-zoom-out-95 data-[state=open]:g-zoom-in-95 data-[side=bottom]:g-slide-in-from-top-2 data-[side=left]:g-slide-in-from-right-2 data-[side=right]:g-slide-in-from-left-2 data-[side=top]:g-slide-in-from-bottom-2',
-        position === 'popper' &&
-          'data-[side=bottom]:g-translate-y-1 data-[side=left]:g--translate-x-1 data-[side=right]:g-translate-x-1 data-[side=top]:g--translate-y-1',
-        className
-      )}
-      position={position}
-      {...props}
-    >
-      <SelectScrollUpButton />
-      <SelectPrimitive.Viewport
-        className={cn(
-          'g-p-1',
-          position === 'popper' &&
-            'g-h-[var(--radix-select-trigger-height)] g-w-full g-min-w-[var(--radix-select-trigger-width)]'
-        )}
-      >
-        {children}
-      </SelectPrimitive.Viewport>
-      <SelectScrollDownButton />
-    </SelectPrimitive.Content>
-    </div>
-  </SelectPrimitive.Portal>
+  <ClientSideOnly>
+    <SelectPrimitive.Portal>
+      <div className="gbif">
+        <SelectPrimitive.Content
+          ref={ref}
+          className={cn(
+            'g-relative g-z-50 g-max-h-96 g-min-w-[8rem] g-overflow-hidden g-rounded-md g-border g-bg-popover g-text-popover-foreground g-shadow-md data-[state=open]:g-animate-in data-[state=closed]:g-animate-out data-[state=closed]:g-fade-out-0 data-[state=open]:g-fade-in-0 data-[state=closed]:g-zoom-out-95 data-[state=open]:g-zoom-in-95 data-[side=bottom]:g-slide-in-from-top-2 data-[side=left]:g-slide-in-from-right-2 data-[side=right]:g-slide-in-from-left-2 data-[side=top]:g-slide-in-from-bottom-2',
+            position === 'popper' &&
+              'data-[side=bottom]:g-translate-y-1 data-[side=left]:g--translate-x-1 data-[side=right]:g-translate-x-1 data-[side=top]:g--translate-y-1',
+            className
+          )}
+          position={position}
+          {...props}
+        >
+          <SelectScrollUpButton />
+          <SelectPrimitive.Viewport
+            className={cn(
+              'g-p-1',
+              position === 'popper' &&
+                'g-h-[var(--radix-select-trigger-height)] g-w-full g-min-w-[var(--radix-select-trigger-width)]'
+            )}
+          >
+            {children}
+          </SelectPrimitive.Viewport>
+          <SelectScrollDownButton />
+        </SelectPrimitive.Content>
+      </div>
+    </SelectPrimitive.Portal>
+  </ClientSideOnly>
 ));
 SelectContent.displayName = SelectPrimitive.Content.displayName;
 
