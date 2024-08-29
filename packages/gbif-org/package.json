@@ -76,6 +76,7 @@
     "uncontrollable": "^8.0.4",
     "use-debounce": "^10.0.3",
     "use-deep-compare-effect": "^1.8.1",
+    "use-query-params": "^2.2.1",
     "use-local-storage": "^3.0.0",
     "uuid": "^9.0.1",
     "vaul": "^0.9.1",

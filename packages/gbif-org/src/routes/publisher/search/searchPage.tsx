@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { DynamicLink } from '@/components/dynamicLink';
 import useQuery from '@/hooks/useQuery';
 import { MdApps, MdCode, MdInfo } from 'react-icons/md';
 import { Tabs } from '@/components/tabs';
@@ -14,17 +13,6 @@ import {
 } from '@/components/ui/accordion';
 import { HelpText } from '@/components/helpText';
 import { Card } from '@/components/ui/smallCard';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { PublisherResult } from '../publisherResult';
@@ -33,25 +21,23 @@ import { FormattedMessage } from 'react-intl';
 import { PaginationFooter } from '@/components/pagination';
 import { NoRecords } from '@/components/noDataMessages';
 import { PublisherSearchQuery, PublisherSearchQueryVariables } from '@/gql/graphql';
+import { FreeTextFilter } from './filters/FreeTextFilter';
+import { SingleCountryFilterSuggest } from './filters/SingleCountryFilterSuggest';
+import { CountProps, useCount } from '@/components/count';
+import { CardListSkeleton } from '@/components/skeletonLoaders';
+import { Skeleton } from '@/components/ui/skeleton';
 import { FilterContext, FilterProvider, FilterType } from '@/contexts/filter';
-import { useDebouncedCallback } from 'use-debounce';
 import { filter2v1 } from '@/dataManagement/filterAdapter';
 import { searchConfig } from './searchConfig';
 
 const PUBLISHER_SEARCH_QUERY = /* GraphQL */ `
-  query PublisherSearch(
-    $offset: Int
-    $country: Country
-    $q: String
-    $limit: Int
-    $isEndorsed: Boolean
-  ) {
+  query PublisherSearch($country: Country, $q: String, $isEndorsed: Boolean, $limit: Int, $offset: Int) {
     list: organizationSearch(
+      isEndorsed: $isEndorsed
       country: $country
       q: $q
       offset: $offset
       limit: $limit
-      isEndorsed: $isEndorsed
     ) {
       limit
       count
@@ -70,8 +56,10 @@ const PUBLISHER_SEARCH_QUERY = /* GraphQL */ `
 
 export function PublisherSearchPage(): React.ReactElement {
   const [offset, setOffset] = useState(0);
-  const tabClassName = 'g-pt-2 g-pb-1.5';
+  const [userCountry, setUserCountry] = useState<{ country: string; countryName: string }>();
   const [filter, setFilter] = useState<FilterType>({ must: { q: [''], country: [] } });
+
+  const tabClassName = 'g-pt-2 g-pb-1.5';
 
   const { data, error, load, loading } = useQuery<
     PublisherSearchQuery,
@@ -93,15 +81,31 @@ export function PublisherSearchPage(): React.ReactElement {
     });
   }, [offset, filter]);
 
+  // call https://graphql.gbif-staging.org/unstable-api/user-info?lang=en to get the users country: response {country, countryName}
+  // then use the country code to get a count of publishers from that country
+  // useEffect(() => {
+  //   fetch('https://graphql.gbif-staging.org/unstable-api/user-info?lang=en')
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setUserCountry({country: 'DK', countryName: 'Denmark'});
+  //       // setUserCountry(data);
+  //     });
+  // }, []);
+
+  /*
+  a publisher search state hook?
+  filters
+  list of publishers
+  */
+
   const publishers = data?.list;
   return (
     <>
       <Helmet>
         <title>Publisher search</title>
       </Helmet>
-
       <FilterProvider filter={filter} onChange={setFilter}>
-        <DataHeader hasBorder className="g-border-t g-border-slate-200">
+        <DataHeader hasBorder>
           <Tabs
             className="g-border-none"
             links={[
@@ -122,6 +126,25 @@ export function PublisherSearchPage(): React.ReactElement {
         <section className="">
           <Filters />
           <ArticleContainer className="g-bg-slate-100">
+            <aside>
+              {userCountry?.country && (
+                <section>
+                  <h2>Did you know?</h2>
+                  <Card>
+                    <p>
+                      <CountMessage
+                        message="counts.nPublishersInCountry"
+                        messageValues={{ country: userCountry?.countryName }}
+                        countProps={{
+                          v1Endpoint: '/organization',
+                          params: { country: userCountry?.country },
+                        }}
+                      />
+                    </p>
+                  </Card>
+                </section>
+              )}
+            </aside>
             <ArticleTextContainer>
               <Results loading={loading} publishers={publishers} setOffset={setOffset} />
             </ArticleTextContainer>
@@ -143,20 +166,15 @@ export function PublisherSearchPage(): React.ReactElement {
 export function DataHeader({
   children,
   hasBorder,
-  className,
 }: {
   children?: React.ReactNode;
   hasBorder?: boolean;
-  className?: string;
 }) {
   return (
     <div
-      className={cn(
-        `g-flex g-justify-center g-items-center ${
-          hasBorder ? 'g-border-b g-border-slate-200' : ''
-        }`,
-        className
-      )}
+      className={`g-flex g-justify-center g-items-center ${
+        hasBorder ? 'g-border-b g-border-slate-200' : ''
+      }`}
     >
       <div className="g-flex-none g-flex g-items-center g-mx-2">
         <MdApps />
@@ -244,81 +262,20 @@ export function Popup({
   );
 }
 
-export function Filters() {
-  const filterContext = useContext(FilterContext);
-  if (!filterContext) {
-    console.error('FilterContext not found');
-    return null;
+function CountMessage({
+  countProps,
+  message,
+  messageValues,
+}: {
+  countProps: CountProps;
+  message: string;
+  messageValues?: Record<string, string>;
+}) {
+  const { count } = useCount(countProps);
+  if (typeof count === 'number' && count > 0) {
+    return <FormattedMessage id={message} values={{ ...messageValues, total: count }} />;
   }
-
-  const { setField, negateField, add, remove, toggle } = filterContext;
-
-  // a change handler with a debounce to avoid updating the filter on every key stroke
-  const setFieldDebounced = useDebouncedCallback((field, value) => setField(field, value), 800);
-
-  return (
-    <div className="g-border-b g-py-2 g-px-2">
-      <Input
-        placeholder="Search"
-        className="g-inline-block g-w-auto g-me-2 g-border-primary-500"
-        onChange={(e) => setFieldDebounced('q', [e.target.value])}
-      />
-      <div className="g-inline-block">
-        <Select onValueChange={(x) => setField('country', [x])}>
-          <SelectTrigger className="g-w-[180px] g-border-primary-500">
-            <SelectValue placeholder="Countries" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="US">United States</SelectItem>
-            <SelectItem value="CA">Canada</SelectItem>
-            <SelectItem value="MX">Mexico</SelectItem>
-            <SelectItem value="BR">Brazil</SelectItem>
-            <SelectItem value="AR">Argentina</SelectItem>
-            <SelectItem value="FR">France</SelectItem>
-            <SelectItem value="DE">Germany</SelectItem>
-            <SelectItem value="IT">Italy</SelectItem>
-            <SelectItem value="ES">Spain</SelectItem>
-            <SelectItem value="CN">China</SelectItem>
-            <SelectItem value="JP">Japan</SelectItem>
-            <SelectItem value="IN">India</SelectItem>
-            <SelectItem value="RU">Russia</SelectItem>
-            <SelectItem value="ZA">South Africa</SelectItem>
-            <SelectItem value="AU">Australia</SelectItem>
-            <SelectItem value="NZ">New Zealand</SelectItem>
-            <SelectItem value="KR">South Korea</SelectItem>
-            <SelectItem value="SG">Singapore</SelectItem>
-            <SelectItem value="MY">Malaysia</SelectItem>
-            <SelectItem value="TH">Thailand</SelectItem>
-            <SelectItem value="VN">Vietnam</SelectItem>
-            <SelectItem value="ID">Indonesia</SelectItem>
-            <SelectItem value="SA">Saudi Arabia</SelectItem>
-            <SelectItem value="AE">United Arab Emirates</SelectItem>
-            <SelectItem value="IL">Israel</SelectItem>
-            <SelectItem value="EG">Egypt</SelectItem>
-            <SelectItem value="KE">Kenya</SelectItem>
-            <SelectItem value="NG">Nigeria</SelectItem>
-            <SelectItem value="GH">Ghana</SelectItem>
-            <SelectItem value="UG">Uganda</SelectItem>
-            <SelectItem value="TZ">Tanzania</SelectItem>
-            <SelectItem value="PT">Portugal</SelectItem>
-            <SelectItem value="NL">Netherlands</SelectItem>
-            <SelectItem value="SE">Sweden</SelectItem>
-            <SelectItem value="NO">Norway</SelectItem>
-            <SelectItem value="FI">Finland</SelectItem>
-            <SelectItem value="PL">Poland</SelectItem>
-            <SelectItem value="GR">Greece</SelectItem>
-            <SelectItem value="TR">Turkey</SelectItem>
-            <SelectItem value="IR">Iran</SelectItem>
-            <SelectItem value="PK">Pakistan</SelectItem>
-            <SelectItem value="BD">Bangladesh</SelectItem>
-            <SelectItem value="LK">Sri Lanka</SelectItem>
-            <SelectItem value="MM">Myanmar</SelectItem>
-            <SelectItem value="PH">Philippines</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-    </div>
-  );
+  return false;
 }
 
 function Results({
@@ -332,7 +289,19 @@ function Results({
 }) {
   return (
     <>
-      {loading && publishers?.count === 0 && (
+      {loading && (
+        <>
+          <CardHeader>
+            <Skeleton className="g-max-w-64">
+              <CardTitle>
+                <FormattedMessage id="phrases.loading" />
+              </CardTitle>
+            </Skeleton>
+          </CardHeader>
+          <CardListSkeleton />
+        </>
+      )}
+      {!loading && publishers?.count === 0 && (
         <>
           <NoRecords />
         </>
@@ -359,5 +328,37 @@ function Results({
         </>
       )}
     </>
+  );
+}
+
+function Filters() {
+  const [q, setQ] = useState('');
+  const filterContext = useContext(FilterContext);
+  if (!filterContext) {
+    console.error('FilterContext not found');
+    return null;
+  }
+
+  const { filter, setField } = filterContext;
+
+  return (
+    <div className="g-border-b g-py-2 g-px-2" role="search">
+      <FreeTextFilter
+        className="g-inline-block"
+        value={filter.must?.q?.[0]}
+        onChange={(x) => {
+          setField('q', [x])
+        }}
+      />
+      <SingleCountryFilterSuggest
+        className="g-inline-block g-w-auto"
+        selected={
+          filter?.must?.country?.[0]
+            ? { key: filter?.must?.country?.[0], title: filter?.must?.country?.[0] }
+            : undefined
+        }
+        setSelected={(x) => setField('country', [x?.key])}
+      />
+    </div>
   );
 }

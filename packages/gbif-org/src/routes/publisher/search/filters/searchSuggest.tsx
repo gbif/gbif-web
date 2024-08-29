@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button } from '../ui/button';
-import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
+import { Button } from '@/components/ui/button';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components//ui/popover';
 import {
   Command,
   CommandEmpty,
@@ -8,7 +8,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from '../ui/command';
+} from '@/components//ui/command';
 import { IoMdCheckmark as Checkmark } from 'react-icons/io';
 import { LuChevronsUpDown as ChevronsUpDown } from 'react-icons/lu';
 import { cn } from '@/utils/shadcn';
@@ -68,12 +68,11 @@ export function SearchSuggest<T>({
           variant={ selected ? 'default' : 'outline' }
           role="combobox"
           aria-expanded={open}
-          className={cn('g-w-full g-flex', className)}
+          className={cn('g-w-full g-flex g-border-primary g-text-gray-500 g-font-normal', className)}
           // Override styles from our gb-button css class
           style={{ justifyContent: 'space-between' }}
         >
           {selected ? labelSelector(selected) : noSelectionPlaceholder}
-          <ChevronsUpDown className="g-ml-2 g-h-4 g-w-4 g-shrink-0 g-opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent style={{ minWidth: triggerWidth }} className="g-p-0">
