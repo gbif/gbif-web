@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { DynamicLink } from '@/components/dynamicLink';
 import useQuery from '@/hooks/useQuery';
@@ -33,10 +33,26 @@ import { FormattedMessage } from 'react-intl';
 import { PaginationFooter } from '@/components/pagination';
 import { NoRecords } from '@/components/noDataMessages';
 import { PublisherSearchQuery, PublisherSearchQueryVariables } from '@/gql/graphql';
+import { FilterContext, FilterProvider, FilterType } from '@/contexts/filter';
+import { useDebouncedCallback } from 'use-debounce';
+import { filter2v1 } from '@/dataManagement/filterAdapter';
+import { searchConfig } from './searchConfig';
 
 const PUBLISHER_SEARCH_QUERY = /* GraphQL */ `
-  query PublisherSearch($offset: Int, $country: Country, $q: String, $limit: Int, $isEndorsed: Boolean) {
-    list: organizationSearch(country: $country, q: $q, offset: $offset, limit: $limit, isEndorsed: $isEndorsed) {
+  query PublisherSearch(
+    $offset: Int
+    $country: Country
+    $q: String
+    $limit: Int
+    $isEndorsed: Boolean
+  ) {
+    list: organizationSearch(
+      country: $country
+      q: $q
+      offset: $offset
+      limit: $limit
+      isEndorsed: $isEndorsed
+    ) {
       limit
       count
       offset
@@ -55,7 +71,7 @@ const PUBLISHER_SEARCH_QUERY = /* GraphQL */ `
 export function PublisherSearchPage(): React.ReactElement {
   const [offset, setOffset] = useState(0);
   const tabClassName = 'g-pt-2 g-pb-1.5';
-  const [filter, setFilter] = useState<{ country?: string; q?: string }>({});
+  const [filter, setFilter] = useState<FilterType>({ must: { q: [''], country: [] } });
 
   const { data, error, load, loading } = useQuery<
     PublisherSearchQuery,
@@ -66,10 +82,10 @@ export function PublisherSearchPage(): React.ReactElement {
   });
 
   useEffect(() => {
+    const v1 = filter2v1(filter, searchConfig);
     load({
       variables: {
-        country: filter.country,
-        q: filter.q,
+        ...v1.filter,
         limit: 20,
         offset,
         isEndorsed: true,
@@ -84,122 +100,34 @@ export function PublisherSearchPage(): React.ReactElement {
         <title>Publisher search</title>
       </Helmet>
 
-      <DataHeader hasBorder className="g-border-t g-border-slate-200">
-        <Tabs
-          className="g-border-none"
-          links={[
-            {
-              to: '/publisher/search',
-              children: 'List',
-              className: tabClassName,
-            },
-            {
-              to: '/publisher/search/map',
-              children: 'Map',
-              className: tabClassName,
-            },
-          ]}
-        />
-      </DataHeader>
-
-      <section className="">
-        <div className="g-border-b g-py-2 g-px-2">
-          <Input
-            placeholder="Search"
-            className="g-inline-block g-w-auto g-me-2 g-border-primary-500"
-            onChange={(e) => setFilter({ ...filter, q: e.target.value })}
+      <FilterProvider filter={filter} onChange={setFilter}>
+        <DataHeader hasBorder className="g-border-t g-border-slate-200">
+          <Tabs
+            className="g-border-none"
+            links={[
+              {
+                to: '/publisher/search',
+                children: 'List',
+                className: tabClassName,
+              },
+              {
+                to: '/publisher/search/map',
+                children: 'Map',
+                className: tabClassName,
+              },
+            ]}
           />
-          <div className="g-inline-block">
-            <Select onValueChange={x => setFilter({...filter, country: x})}>
-              <SelectTrigger className="g-w-[180px] g-border-primary-500">
-                <SelectValue placeholder="Countries" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="US">United States</SelectItem>
-                <SelectItem value="CA">Canada</SelectItem>
-                <SelectItem value="MX">Mexico</SelectItem>
-                <SelectItem value="BR">Brazil</SelectItem>
-                <SelectItem value="AR">Argentina</SelectItem>
-                <SelectItem value="FR">France</SelectItem>
-                <SelectItem value="DE">Germany</SelectItem>
-                <SelectItem value="IT">Italy</SelectItem>
-                <SelectItem value="ES">Spain</SelectItem>
-                <SelectItem value="CN">China</SelectItem>
-                <SelectItem value="JP">Japan</SelectItem>
-                <SelectItem value="IN">India</SelectItem>
-                <SelectItem value="RU">Russia</SelectItem>
-                <SelectItem value="ZA">South Africa</SelectItem>
-                <SelectItem value="AU">Australia</SelectItem>
-                <SelectItem value="NZ">New Zealand</SelectItem>
-                <SelectItem value="KR">South Korea</SelectItem>
-                <SelectItem value="SG">Singapore</SelectItem>
-                <SelectItem value="MY">Malaysia</SelectItem>
-                <SelectItem value="TH">Thailand</SelectItem>
-                <SelectItem value="VN">Vietnam</SelectItem>
-                <SelectItem value="ID">Indonesia</SelectItem>
-                <SelectItem value="SA">Saudi Arabia</SelectItem>
-                <SelectItem value="AE">United Arab Emirates</SelectItem>
-                <SelectItem value="IL">Israel</SelectItem>
-                <SelectItem value="EG">Egypt</SelectItem>
-                <SelectItem value="KE">Kenya</SelectItem>
-                <SelectItem value="NG">Nigeria</SelectItem>
-                <SelectItem value="GH">Ghana</SelectItem>
-                <SelectItem value="UG">Uganda</SelectItem>
-                <SelectItem value="TZ">Tanzania</SelectItem>
-                <SelectItem value="PT">Portugal</SelectItem>
-                <SelectItem value="NL">Netherlands</SelectItem>
-                <SelectItem value="SE">Sweden</SelectItem>
-                <SelectItem value="NO">Norway</SelectItem>
-                <SelectItem value="FI">Finland</SelectItem>
-                <SelectItem value="PL">Poland</SelectItem>
-                <SelectItem value="GR">Greece</SelectItem>
-                <SelectItem value="TR">Turkey</SelectItem>
-                <SelectItem value="IR">Iran</SelectItem>
-                <SelectItem value="PK">Pakistan</SelectItem>
-                <SelectItem value="BD">Bangladesh</SelectItem>
-                <SelectItem value="LK">Sri Lanka</SelectItem>
-                <SelectItem value="MM">Myanmar</SelectItem>
-                <SelectItem value="PH">Philippines</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-        <ArticleContainer className="g-bg-slate-100">
-          <ArticleTextContainer>
-            {loading && publishers?.count === 0 && (
-              <>
-                <NoRecords />
-              </>
-            )}
-            {publishers && publishers.count > 0 && (
-              <>
-                <CardHeader id="publishers">
-                  <CardTitle>
-                    <FormattedMessage
-                      id="counts.nPublishers"
-                      values={{ total: publishers.count ?? 0 }}
-                    />
-                  </CardTitle>
-                </CardHeader>
-                {publishers &&
-                  publishers.results.map((item) => (
-                    <PublisherResult key={item.key} publisher={item} />
-                  ))}
+        </DataHeader>
 
-                {publishers?.count && publishers?.count > publishers?.limit && (
-                  <PaginationFooter
-                    offset={publishers.offset}
-                    count={publishers.count}
-                    limit={publishers.limit}
-                    onChange={(x) => setOffset(x)}
-                    anchor="publishers"
-                  />
-                )}
-              </>
-            )}
-          </ArticleTextContainer>
-        </ArticleContainer>
-      </section>
+        <section className="">
+          <Filters />
+          <ArticleContainer className="g-bg-slate-100">
+            <ArticleTextContainer>
+              <Results loading={loading} publishers={publishers} setOffset={setOffset} />
+            </ArticleTextContainer>
+          </ArticleContainer>
+        </section>
+      </FilterProvider>
     </>
   );
 }
@@ -223,9 +151,12 @@ export function DataHeader({
 }) {
   return (
     <div
-      className={cn(`g-flex g-justify-center g-items-center ${
-        hasBorder ? 'g-border-b g-border-slate-200' : ''
-      }`, className)}
+      className={cn(
+        `g-flex g-justify-center g-items-center ${
+          hasBorder ? 'g-border-b g-border-slate-200' : ''
+        }`,
+        className
+      )}
     >
       <div className="g-flex-none g-flex g-items-center g-mx-2">
         <MdApps />
@@ -310,5 +241,123 @@ export function Popup({
       <PopoverTrigger>{trigger}</PopoverTrigger>
       <PopoverContent className={cn('g-w-96', className)}>{children}</PopoverContent>
     </Popover>
+  );
+}
+
+export function Filters() {
+  const filterContext = useContext(FilterContext);
+  if (!filterContext) {
+    console.error('FilterContext not found');
+    return null;
+  }
+
+  const { setField, negateField, add, remove, toggle } = filterContext;
+
+  // a change handler with a debounce to avoid updating the filter on every key stroke
+  const setFieldDebounced = useDebouncedCallback((field, value) => setField(field, value), 800);
+
+  return (
+    <div className="g-border-b g-py-2 g-px-2">
+      <Input
+        placeholder="Search"
+        className="g-inline-block g-w-auto g-me-2 g-border-primary-500"
+        onChange={(e) => setFieldDebounced('q', [e.target.value])}
+      />
+      <div className="g-inline-block">
+        <Select onValueChange={(x) => setField('country', [x])}>
+          <SelectTrigger className="g-w-[180px] g-border-primary-500">
+            <SelectValue placeholder="Countries" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="US">United States</SelectItem>
+            <SelectItem value="CA">Canada</SelectItem>
+            <SelectItem value="MX">Mexico</SelectItem>
+            <SelectItem value="BR">Brazil</SelectItem>
+            <SelectItem value="AR">Argentina</SelectItem>
+            <SelectItem value="FR">France</SelectItem>
+            <SelectItem value="DE">Germany</SelectItem>
+            <SelectItem value="IT">Italy</SelectItem>
+            <SelectItem value="ES">Spain</SelectItem>
+            <SelectItem value="CN">China</SelectItem>
+            <SelectItem value="JP">Japan</SelectItem>
+            <SelectItem value="IN">India</SelectItem>
+            <SelectItem value="RU">Russia</SelectItem>
+            <SelectItem value="ZA">South Africa</SelectItem>
+            <SelectItem value="AU">Australia</SelectItem>
+            <SelectItem value="NZ">New Zealand</SelectItem>
+            <SelectItem value="KR">South Korea</SelectItem>
+            <SelectItem value="SG">Singapore</SelectItem>
+            <SelectItem value="MY">Malaysia</SelectItem>
+            <SelectItem value="TH">Thailand</SelectItem>
+            <SelectItem value="VN">Vietnam</SelectItem>
+            <SelectItem value="ID">Indonesia</SelectItem>
+            <SelectItem value="SA">Saudi Arabia</SelectItem>
+            <SelectItem value="AE">United Arab Emirates</SelectItem>
+            <SelectItem value="IL">Israel</SelectItem>
+            <SelectItem value="EG">Egypt</SelectItem>
+            <SelectItem value="KE">Kenya</SelectItem>
+            <SelectItem value="NG">Nigeria</SelectItem>
+            <SelectItem value="GH">Ghana</SelectItem>
+            <SelectItem value="UG">Uganda</SelectItem>
+            <SelectItem value="TZ">Tanzania</SelectItem>
+            <SelectItem value="PT">Portugal</SelectItem>
+            <SelectItem value="NL">Netherlands</SelectItem>
+            <SelectItem value="SE">Sweden</SelectItem>
+            <SelectItem value="NO">Norway</SelectItem>
+            <SelectItem value="FI">Finland</SelectItem>
+            <SelectItem value="PL">Poland</SelectItem>
+            <SelectItem value="GR">Greece</SelectItem>
+            <SelectItem value="TR">Turkey</SelectItem>
+            <SelectItem value="IR">Iran</SelectItem>
+            <SelectItem value="PK">Pakistan</SelectItem>
+            <SelectItem value="BD">Bangladesh</SelectItem>
+            <SelectItem value="LK">Sri Lanka</SelectItem>
+            <SelectItem value="MM">Myanmar</SelectItem>
+            <SelectItem value="PH">Philippines</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+    </div>
+  );
+}
+
+function Results({
+  loading,
+  publishers,
+  setOffset,
+}: {
+  loading: boolean;
+  publishers: any;
+  setOffset: any;
+}) {
+  return (
+    <>
+      {loading && publishers?.count === 0 && (
+        <>
+          <NoRecords />
+        </>
+      )}
+      {publishers && publishers.count > 0 && (
+        <>
+          <CardHeader id="publishers">
+            <CardTitle>
+              <FormattedMessage id="counts.nPublishers" values={{ total: publishers.count ?? 0 }} />
+            </CardTitle>
+          </CardHeader>
+          {publishers &&
+            publishers.results.map((item) => <PublisherResult key={item.key} publisher={item} />)}
+
+          {publishers?.count && publishers?.count > publishers?.limit && (
+            <PaginationFooter
+              offset={publishers.offset}
+              count={publishers.count}
+              limit={publishers.limit}
+              onChange={(x) => setOffset(x)}
+              anchor="publishers"
+            />
+          )}
+        </>
+      )}
+    </>
   );
 }
