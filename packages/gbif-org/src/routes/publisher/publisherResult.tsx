@@ -57,7 +57,7 @@ export function PublisherResult({ publisher }: { publisher: PublisherResultFragm
             )}
           </div>
           {publisher.logoUrl && (
-            <div className='g-max-w-32 md:g-max-w-48 g-max-h-32 md:g-max-h-48 '>
+            <div className='g-max-w-24 g-max-h-24'>
               <img
                 onError={(e) => {
                   // hide image if it fails to load
@@ -74,7 +74,7 @@ export function PublisherResult({ publisher }: { publisher: PublisherResultFragm
           <Tag>
             <FormattedMessage id={`enums.countryCode.${publisher.country}`} />
           </Tag>
-          <div className='g-flex-grow'></div>
+          {/* <div className='g-flex-grow'></div> */}
           <CountTag
             v1Endpoint="/dataset/search"
             params={{ publishingOrg: publisher.key }}
