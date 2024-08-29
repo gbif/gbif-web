@@ -67,6 +67,10 @@ function getField({
   errors: ErrorType[];
 }): { name: string; values: ValuesType } | undefined {
   // if no values or an empty array is provided, then there it no predicates to create
+  if (values && !Array.isArray(values)) {
+    console.warn('Filter values should be an array');
+    return;
+  };
   if (values?.length === 0) return;
 
   // get the configuration for this filter if any is provided
