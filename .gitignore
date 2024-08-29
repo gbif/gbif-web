@@ -9,7 +9,7 @@ packages/react-components/locales/dist
 # misc
 **/.DS_Store
 **/*.notes.md
-tmp
+tmp/
 
 # dotenv environment variables file
 /**/*.notes.*
