@@ -114,8 +114,8 @@ export function PublisherKeyAbout() {
                 <div>
                   {publisher.address && publisher.address.length > 0 ? (
                     <>
-                      {publisher.address.map((x) => (
-                        <div>{x}</div>
+                      {publisher.address.map((x, i) => (
+                        <div key={`${publisher.key}_${i}`}>{x}</div>
                       ))}
                     </>
                   ) : (
