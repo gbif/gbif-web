@@ -14,7 +14,7 @@ const queues: {
 
 export type CountProps = {
   v1Endpoint: string;
-  params?: Record<string, string | number | (number | string)[]>;
+  params?: Record<string, undefined | string | number | (number | string)[]>;
   queueId?: string;
   property?: string;
 };
@@ -25,7 +25,7 @@ type Props = CountProps & {
 
 
 export function Count({ v1Endpoint, params, queueId, property, message }: Props) {
-  const { count, loading, error } = getCount({ v1Endpoint, params, queueId, property });
+  const { count, loading, error } = useCount({ v1Endpoint, params, queueId, property });
 
   if (loading || typeof count === 'undefined') {
     return (
@@ -43,7 +43,7 @@ export function Count({ v1Endpoint, params, queueId, property, message }: Props)
   }
 }
 
-export function getCount({
+export function useCount({
   v1Endpoint,
   params = {},
   queueId = 'counts',

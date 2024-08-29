@@ -25,13 +25,13 @@ import { ConceptValue } from '@/components/conceptValue';
 import * as charts from '@/components/dashboard';
 import { GbifLinkCard } from '@/components/TocHelp';
 import { useParams } from 'react-router-dom';
-import { getCount } from '@/components/count';
+import { useCount } from '@/components/count';
 import EmptyValue from '@/components/emptyValue';
 
 export default function About() {
   const { key } = useParams();
   const { data } = useParentRouteLoaderData(RouteId.Collection) as { data: CollectionQuery };
-  const { count, loading } = getCount({
+  const { count, loading } = useCount({
     v1Endpoint: '/occurrence/search',
     params: { collectionKey: key },
   });
