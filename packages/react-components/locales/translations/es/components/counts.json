@@ -21,6 +21,7 @@
   "nHostedDatasets": "{total, plural, one {# conjunto de datos alojado} other {# conjuntos de datos alojados}}",
   "nParticipatingDatasets": "{total, plural, one {# conjunto de datos participante} other {# conjuntos de datos participantes}}",
   "nParticipatingPublishers": "{total, plural, one {# publicador participante} other {# publicadores participantes}}",
+  "nPublishersInCountry": "{total, plural, one {Hay # publicador} other {Hay # publicadores}} en {country}",
   "nStaffMembers": "{total, plural, one {# miembro del equipo} other {# miembros del equipo}}",
   "nOccurrencesHosted": "{total, plural, one {# registro biológico alojado} other {# registros biológicos alojados}}"
 }
