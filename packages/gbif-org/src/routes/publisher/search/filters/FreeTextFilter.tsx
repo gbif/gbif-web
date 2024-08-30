@@ -1,4 +1,4 @@
-import { SearchInput } from '@/components/SearchInput';
+import { SearchInput } from '@/components/searchInput';
 import { Button } from '@/components/ui/button';
 import { useEffect, useRef, useState } from 'react';
 import { MdClose } from 'react-icons/md';
