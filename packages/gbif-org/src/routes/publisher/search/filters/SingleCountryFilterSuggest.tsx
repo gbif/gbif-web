@@ -40,7 +40,6 @@ export function SingleCountryFilterSuggest({
 
   const searchOrganizations = React.useCallback(
     (searchTerm: string) => {
-      console.log('searchTerm', searchTerm);
       setSearchTerm(searchTerm);
       // load({
       //   // CORS issue and secondly shouldn't be loaded from here. Perhaps graphql or alternatively from the enum and translation file

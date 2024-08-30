@@ -81,6 +81,7 @@ function getField({
     typeof config?.transformValue === 'function' ? values.map(config.transformValue) : values;
 
   let serializedValues = mappedValues
+    .filter((v) => typeof v !== 'undefined') // remove undefined values
     .map((value) => serializeValue({ value, config, filterName, errors }))
     .filter((v) => typeof v !== 'undefined'); // remove filters that couldn't be parsed
 

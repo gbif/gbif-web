@@ -1,7 +1,6 @@
 import { FilterType } from '@/contexts/filter';
 import { Predicate, PredicateType } from '@/gql/graphql';
 import get from 'lodash/get';
-import { P } from 'vitest/dist/reporters-P7C2ytIv.js';
 
 type FieldConfigType = {
   defaultType?: PredicateType;
@@ -10,7 +9,7 @@ type FieldConfigType = {
   serializer?: ({filterName, values, config}: {filterName: string, values: any[], config: FieldConfigType}) => any;
 }
 
-type FieldType = {
+export type FieldType = {
   defaultType?: PredicateType;
   defaultKey?: string;
   singleValue?: boolean;

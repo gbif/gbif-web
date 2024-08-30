@@ -51,7 +51,7 @@ export function FilterProvider({ filter: controlledFilter, onChange: controlledO
       ...filter,
       [type]: {
         ...filter[type],
-        [field]: value,
+        [field]: value.filter((v) => v !== undefined),
       },
     });
   };

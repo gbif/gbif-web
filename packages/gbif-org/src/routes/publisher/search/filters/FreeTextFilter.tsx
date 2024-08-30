@@ -18,7 +18,6 @@ export function FreeTextFilter({
 
   const handleClearClick = () => {
     onChange();
-    setIsInputHidden(false);
   };
 
   useEffect(() => {

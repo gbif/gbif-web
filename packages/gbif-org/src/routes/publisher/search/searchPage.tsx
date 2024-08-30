@@ -29,6 +29,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { FilterContext, FilterProvider, FilterType } from '@/contexts/filter';
 import { filter2v1 } from '@/dataManagement/filterAdapter';
 import { searchConfig } from './searchConfig';
+import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
 
 const PUBLISHER_SEARCH_QUERY = /* GraphQL */ `
   query PublisherSearch($country: Country, $q: String, $isEndorsed: Boolean, $limit: Int, $offset: Int) {
@@ -57,11 +58,11 @@ const PUBLISHER_SEARCH_QUERY = /* GraphQL */ `
 export function PublisherSearchPage(): React.ReactElement {
   const [offset, setOffset] = useState(0);
   const [userCountry, setUserCountry] = useState<{ country: string; countryName: string }>();
-  const [filter, setFilter] = useState<FilterType>({ must: { q: [''], country: [] } });
+  const [filter, setFilter] = useFilterParams({filterConfig: searchConfig});
 
   const tabClassName = 'g-pt-2 g-pb-1.5';
 
-  const { data, error, load, loading } = useQuery<
+  const { data, cancel, error, load, loading } = useQuery<
     PublisherSearchQuery,
     PublisherSearchQueryVariables
   >(PUBLISHER_SEARCH_QUERY, {
@@ -71,6 +72,9 @@ export function PublisherSearchPage(): React.ReactElement {
 
   useEffect(() => {
     const v1 = filter2v1(filter, searchConfig);
+    if (cancel) {
+      cancel(); // TODO: i do not see any effect of doing a cancellation. looks like a bug to me.
+    }
     load({
       variables: {
         ...v1.filter,
@@ -332,7 +336,6 @@ function Results({
 }
 
 function Filters() {
-  const [q, setQ] = useState('');
   const filterContext = useContext(FilterContext);
   if (!filterContext) {
     console.error('FilterContext not found');
@@ -347,7 +350,11 @@ function Filters() {
         className="g-inline-block"
         value={filter.must?.q?.[0]}
         onChange={(x) => {
-          setField('q', [x])
+          if (x !== '' && x) {
+            setField('q', [x])
+          } else {
+            setField('q', [])
+          }
         }}
       />
       <SingleCountryFilterSuggest
