@@ -11,6 +11,7 @@
   "nHostedDatasets": "{total, plural, one {# размещенный набор данных} few {# размещенных наборов данных} many {# размещенных наборов данных} other {# размещенных наборов данных}}",
   "nParticipatingDatasets": "{total, plural, one {# участвующий набор данных} few {# участвующих наборов данных} many {# участвующих наборов данных} other {# участвующих наборов данных}}",
   "nParticipatingPublishers": "{total, plural, one {# участвующий издатель} few {# участвующих издателей} many {# участвующих издателей} other {# участвующих издателей}}",
+  "nPublishersInCountry": "{total, plural, one {Есть один # издатель}  other {Есть # издатели}} в {country}",
   "nStaffMembers": "{total, plural, one {# сотрудник} few {# сотрудника} many {# сотрудников} other {# сотрудников}}",
   "nOccurrencesHosted": "{total, plural, one {# размещенное наблюдение} few {# размещенных наблюдений} many {# размещенных наблюдений} other {# размещенных наблюдений}}"
 }
