@@ -116,7 +116,7 @@
     "description": "Nazwa naukowa w takiej postaci, w jakiej widnieje w Taksonomii Szkieletowej GBIF. Nazwy te są znormalizowane w celu ułatwienia wyszukiwania w zbiorach danych. Istnieje możliwość, że oryginalnie nadana nazwa może zostać źle zinterpretowana lub być nieznana. Aby wyszukać oryginalnie nadane nazwy, użyj filtru \"Nazwa naukowa verbatim\"."
   },
   "taxonKeyGrSciColl": {
-    "name": "",
+    "name": "Nazwa naukowa",
     "count": "{num, plural, one {nazwa naukowa} few {# nazwy naukowe} many {# nazw naukowych} other {# nazwy naukowe}}",
     "description": ""
   },
@@ -215,7 +215,7 @@
     "description": ""
   },
   "collectionDescriptorCountry": {
-    "name": "",
+    "name": "Kraj lub obszar zasięgu",
     "count": "{num, plural, one {kraj lub obszar zasięgu} few {# kraje lub obszary zasięgu} many {# krajów lub obszarów zasięgu} other {# kraje lub obszary zasięgu}}",
     "description": ""
   },
