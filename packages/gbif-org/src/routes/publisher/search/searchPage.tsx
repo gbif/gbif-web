@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useCallback } from 'react';
 import { Helmet } from 'react-helmet-async';
 import useQuery from '@/hooks/useQuery';
 import { MdApps, MdCode, MdInfo } from 'react-icons/md';
@@ -32,7 +32,13 @@ import { searchConfig } from './searchConfig';
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
 
 const PUBLISHER_SEARCH_QUERY = /* GraphQL */ `
-  query PublisherSearch($country: Country, $q: String, $isEndorsed: Boolean, $limit: Int, $offset: Int) {
+  query PublisherSearch(
+    $country: Country
+    $q: String
+    $isEndorsed: Boolean
+    $limit: Int
+    $offset: Int
+  ) {
     list: organizationSearch(
       isEndorsed: $isEndorsed
       country: $country
@@ -56,10 +62,20 @@ const PUBLISHER_SEARCH_QUERY = /* GraphQL */ `
 `;
 
 export function PublisherSearchPage(): React.ReactElement {
-  const [offset, setOffset] = useState(0);
-  const [userCountry, setUserCountry] = useState<{ country: string; countryName: string }>();
-  const [filter, setFilter] = useFilterParams({filterConfig: searchConfig});
+  const [filter, setFilter] = useFilterParams({ filterConfig: searchConfig });
+  return (
+    <FilterProvider filter={filter} onChange={setFilter}>
+      <PublisherSearch />
+    </FilterProvider>
+  );
+}
 
+export function PublisherSearch(): React.ReactElement {
+  const [offset, setOffset] = useState(0);
+  const filterContext = useContext(FilterContext);
+  const [userCountry, setUserCountry] = useState<{ country: string; countryName: string }>();
+
+  const { filter, filterHash } = filterContext || { filter: { must: {} } };
   const tabClassName = 'g-pt-2 g-pb-1.5';
 
   const { data, cancel, error, load, loading } = useQuery<
@@ -70,20 +86,49 @@ export function PublisherSearchPage(): React.ReactElement {
     lazyLoad: true,
   });
 
-  useEffect(() => {
+  function fetchData() {
     const v1 = filter2v1(filter, searchConfig);
-    if (cancel) {
-      cancel(); // TODO: i do not see any effect of doing a cancellation. looks like a bug to me.
-    }
-    load({
-      variables: {
-        ...v1.filter,
-        limit: 20,
-        offset,
-        isEndorsed: true,
-      },
-    });
-  }, [offset, filter]);
+    setTimeout(() => {
+      load({
+        variables: {
+          ...v1.filter,
+          limit: 20,
+          offset,
+          isEndorsed: true,
+        },
+      });
+    }, 1000);
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, [offset, filterHash, searchConfig]);
+
+  // const clickHandler = useCallback(() => {
+  //   load({
+  //     variables: {
+  //       limit: 20,
+  //       offset,
+  //       isEndorsed: true,
+  //     },
+  //   });
+  //   setTimeout(() => {
+  //     load({
+  //       variables: {
+  //         limit: 20,
+  //         offset,
+  //         isEndorsed: true,
+  //       },
+  //     });
+  //   }, 3000);
+  // }, [load]);
+
+  useEffect(() => {
+    return () => {
+      // cancel();
+      console.log('unmounting');
+    };
+  }, []);
 
   // call https://graphql.gbif-staging.org/unstable-api/user-info?lang=en to get the users country: response {country, countryName}
   // then use the country code to get a count of publishers from that country
@@ -108,53 +153,52 @@ export function PublisherSearchPage(): React.ReactElement {
       <Helmet>
         <title>Publisher search</title>
       </Helmet>
-      <FilterProvider filter={filter} onChange={setFilter}>
-        <DataHeader hasBorder>
-          <Tabs
-            className="g-border-none"
-            links={[
-              {
-                to: '/publisher/search',
-                children: 'List',
-                className: tabClassName,
-              },
-              {
-                to: '/publisher/search/map',
-                children: 'Map',
-                className: tabClassName,
-              },
-            ]}
-          />
-        </DataHeader>
+      <DataHeader hasBorder>
+        <Tabs
+          className="g-border-none"
+          links={[
+            {
+              to: '/publisher/search',
+              children: 'List',
+              className: tabClassName,
+            },
+            {
+              to: '/publisher/search/map',
+              children: 'Map',
+              className: tabClassName,
+            },
+          ]}
+        />
+      </DataHeader>
 
-        <section className="">
-          <Filters />
-          <ArticleContainer className="g-bg-slate-100">
-            <aside>
-              {userCountry?.country && (
-                <section>
-                  <h2>Did you know?</h2>
-                  <Card>
-                    <p>
-                      <CountMessage
-                        message="counts.nPublishersInCountry"
-                        messageValues={{ country: userCountry?.countryName }}
-                        countProps={{
-                          v1Endpoint: '/organization',
-                          params: { country: userCountry?.country },
-                        }}
-                      />
-                    </p>
-                  </Card>
-                </section>
-              )}
-            </aside>
-            <ArticleTextContainer>
-              <Results loading={loading} publishers={publishers} setOffset={setOffset} />
-            </ArticleTextContainer>
-          </ArticleContainer>
-        </section>
-      </FilterProvider>
+      <section className="">
+        <Filters />
+        {/* <button onClick={() => clickHandler()}>clickHandler</button> */}
+        <ArticleContainer className="g-bg-slate-100">
+          <aside>
+            {userCountry?.country && (
+              <section>
+                <h2>Did you know?</h2>
+                <Card>
+                  <p>
+                    <CountMessage
+                      message="counts.nPublishersInCountry"
+                      messageValues={{ country: userCountry?.countryName }}
+                      countProps={{
+                        v1Endpoint: '/organization',
+                        params: { country: userCountry?.country },
+                      }}
+                    />
+                  </p>
+                </Card>
+              </section>
+            )}
+          </aside>
+          <ArticleTextContainer>
+            <Results loading={loading} publishers={publishers} setOffset={setOffset} />
+          </ArticleTextContainer>
+        </ArticleContainer>
+      </section>
     </>
   );
 }
@@ -351,9 +395,9 @@ function Filters() {
         value={filter.must?.q?.[0]}
         onChange={(x) => {
           if (x !== '' && x) {
-            setField('q', [x])
+            setField('q', [x]);
           } else {
-            setField('q', [])
+            setField('q', []);
           }
         }}
       />

@@ -6195,6 +6195,7 @@ export type QueryCollectionSearchArgs = {
   displayOnNHCPortal?: InputMaybe<Scalars['Boolean']['input']>;
   fuzzyName?: InputMaybe<Scalars['String']['input']>;
   identifier?: InputMaybe<Scalars['String']['input']>;
+  institution?: InputMaybe<Array<InputMaybe<Scalars['GUID']['input']>>>;
   institutionKey?: InputMaybe<Array<InputMaybe<Scalars['GUID']['input']>>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
