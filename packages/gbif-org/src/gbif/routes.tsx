@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, redirectDocument } from 'react-router-dom';
 import { GbifRootLayout, headerLoader } from './gbifRootLayout';
 import { SourceRouteObject } from '@/types';
 import { configureRoutes } from '@/utils/configureRoutes';
@@ -121,7 +121,7 @@ const baseRoutes: SourceRouteObject[] = [
           {
             index: true,
             element: <HomePage />,
-            loader: homepageLoader
+            loader: homepageLoader,
           },
           {
             path: 'suggest-dataset',
@@ -182,6 +182,10 @@ const baseRoutes: SourceRouteObject[] = [
             key: 'institution-search-page',
             path: 'institution/search',
             element: <InstitutionSearchPage />,
+          },
+          {
+            path: 'developer/summary',
+            loader: () => redirectDocument('https://techdocs.gbif.org/en/openapi'),
           },
           {
             id: RouteId.Dataset,

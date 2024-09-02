@@ -20,7 +20,7 @@ export type SourceRouteObject = Omit<RouteObject, 'loader' | 'children' | 'lazy'
   key?: string;
 
   // 'loader' is an optional function that supersedes the default loader, adding unique functionality and parameters.
-  loader?: (args: LoaderArgs) => Promise<any>;
+  loader?: (args: LoaderArgs) => any | Promise<any>;
 
   // 'loadingElement' is an optional React node rendered during the navigation process to this route.
   loadingElement?: React.ReactNode;
