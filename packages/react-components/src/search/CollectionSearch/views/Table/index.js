@@ -43,7 +43,7 @@ const defaultTableConfig = {
           </div>
           <div style={{ color: '#aaa' }}>
             {item.institutionKey && <LinkOption discreet type='institutionKey' id={item.institutionKey} >
-              <InlineFilterChip filterName="institution" values={[item.institutionKey]}>
+              <InlineFilterChip filterName="institutionKey" values={[item.institutionKey]}>
                 <span data-loader>{item.institutionName}</span>
               </InlineFilterChip>
             </LinkOption>
