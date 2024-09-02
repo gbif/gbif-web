@@ -101,7 +101,7 @@ export function createResourceLoaderWithRedirect(options: Options) {
 
     const { data } = await response.json();
 
-    if (data == null) {
+    if (data == null || (typeof data === 'object' && 'resource' in data && data.resource == null)) {
       throw new Error('404');
     }
 
