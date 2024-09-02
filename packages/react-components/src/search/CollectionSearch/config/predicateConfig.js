@@ -9,7 +9,7 @@ const filterConf = {
       defaultKey: 'descriptorCountry'
     },
     institutionKeySingle: {
-      defaultKey: 'institution',
+      defaultKey: 'institutionKey',
       singleValue: true
     },
     taxonKeyGrSciColl: {
