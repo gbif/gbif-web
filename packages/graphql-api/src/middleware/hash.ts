@@ -92,15 +92,8 @@ const hashMiddleware = (req: Request, res: Response, next: NextFunction) => {
       unknownVariablesId,
     });
   }
-  // get varialbes param frmo get request
-  const variablesGet = (req.query.variables || '') as string;
-  if (queryId === 'a4b2d9f93baa55cfc94e161889a9e1848b0baf8e' && !variablesGet.includes('country')) {
-    setTimeout(() => {
-      next();
-    }, 2000 + Math.floor(Math.random() * 1000));
-  } else {
-    next();
-  }
+  
+  next();
 };
 
 export default hashMiddleware;

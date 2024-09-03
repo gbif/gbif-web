@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, useCallback } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Helmet } from 'react-helmet-async';
 import useQuery from '@/hooks/useQuery';
 import { MdApps, MdCode, MdInfo } from 'react-icons/md';
@@ -26,7 +26,7 @@ import { SingleCountryFilterSuggest } from './filters/SingleCountryFilterSuggest
 import { CountProps, useCount } from '@/components/count';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { Skeleton } from '@/components/ui/skeleton';
-import { FilterContext, FilterProvider, FilterType } from '@/contexts/filter';
+import { FilterContext, FilterProvider } from '@/contexts/filter';
 import { filter2v1 } from '@/dataManagement/filterAdapter';
 import { searchConfig } from './searchConfig';
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
@@ -78,7 +78,7 @@ export function PublisherSearch(): React.ReactElement {
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
   const tabClassName = 'g-pt-2 g-pb-1.5';
 
-  const { data, cancel, error, load, loading } = useQuery<
+  const { data, error, load, loading } = useQuery<
     PublisherSearchQuery,
     PublisherSearchQueryVariables
   >(PUBLISHER_SEARCH_QUERY, {
@@ -88,48 +88,20 @@ export function PublisherSearch(): React.ReactElement {
 
   function fetchData() {
     const v1 = filter2v1(filter, searchConfig);
-    setTimeout(() => {
-      load({
-        variables: {
-          ...v1.filter,
-          limit: 20,
-          offset,
-          isEndorsed: true,
-        },
-      });
-    }, 1000);
+    load({
+      variables: {
+        ...v1.filter,
+        limit: 20,
+        offset,
+        isEndorsed: true,
+      }
+    });
   }
 
   useEffect(() => {
     fetchData();
-  }, [offset, filterHash, searchConfig]);
-
-  // const clickHandler = useCallback(() => {
-  //   load({
-  //     variables: {
-  //       limit: 20,
-  //       offset,
-  //       isEndorsed: true,
-  //     },
-  //   });
-  //   setTimeout(() => {
-  //     load({
-  //       variables: {
-  //         limit: 20,
-  //         offset,
-  //         isEndorsed: true,
-  //       },
-  //     });
-  //   }, 3000);
-  // }, [load]);
-
-  useEffect(() => {
-    return () => {
-      // cancel();
-      console.log('unmounting');
-    };
-  }, []);
-
+  }, [offset, filterHash]);
+  
   // call https://graphql.gbif-staging.org/unstable-api/user-info?lang=en to get the users country: response {country, countryName}
   // then use the country code to get a count of publishers from that country
   // useEffect(() => {
@@ -140,12 +112,6 @@ export function PublisherSearch(): React.ReactElement {
   //       // setUserCountry(data);
   //     });
   // }, []);
-
-  /*
-  a publisher search state hook?
-  filters
-  list of publishers
-  */
 
   const publishers = data?.list;
   return (
@@ -173,7 +139,6 @@ export function PublisherSearch(): React.ReactElement {
 
       <section className="">
         <Filters />
-        {/* <button onClick={() => clickHandler()}>clickHandler</button> */}
         <ArticleContainer className="g-bg-slate-100">
           <aside>
             {userCountry?.country && (
