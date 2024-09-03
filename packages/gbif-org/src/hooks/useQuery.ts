@@ -45,6 +45,7 @@ export function useQuery<TResult, TVariabels>(
   options: Options<TVariabels> = defaultOptions as Options<TVariabels>
 ) {
   const isMounted = useRef(false);
+  const randomTokenRef = useRef(getRandomToken());
   const [data, setData] = React.useState<TResult | undefined>();
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState<Error | undefined>();
@@ -133,6 +134,9 @@ export function useQuery<TResult, TVariabels>(
           });
       };
 
+      // cancel any ongoing requests before starting a new one
+      cancelRequestRef.current(ABORT_REASON);
+
       // If a queue name is not provided, start the request immediately
       if (typeof mergedOptions?.queue?.name !== 'string') {
         return startRequest();
@@ -146,9 +150,15 @@ export function useQuery<TResult, TVariabels>(
           start: true,
         });
       }
+      const randomToken = getRandomToken();
+      randomTokenRef.current = randomToken;
 
       // Add the request to the queue
-      queues[mergedOptions.queue.name].enqueue(startRequest);
+      queues[mergedOptions.queue.name].enqueue(async () => {
+        if (isMounted.current === false) return; // if unmounted then ignore
+        if (randomTokenRef.current !== randomToken) return // if stale ignore - this is necessary because we cannot cancel a request before it starts. So we need to check at tome of starting if the request has since changed
+        return startRequest();
+      });
     },
     [config.graphqlEndpoint, locale.cmsLocale, locale.code, query, optionsDependency]
   );
@@ -170,3 +180,7 @@ export function useQuery<TResult, TVariabels>(
 }
 
 export default useQuery;
+
+function getRandomToken() {
+  return Math.random();
+}
