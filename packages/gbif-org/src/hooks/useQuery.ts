@@ -1,6 +1,6 @@
 import { useConfig } from '@/contexts/config/config';
 import { useI18n } from '@/contexts/i18n';
-import React from 'react';
+import React, { useRef } from 'react';
 import Queue from 'queue-promise';
 import { GraphQLService } from '@/services/graphQLService';
 
@@ -38,20 +38,36 @@ const defaultOptions: Options<unknown> = {
 
 const queues: Record<string, Queue> = {};
 
+const ABORT_REASON = 'REQUEST_ABORTED_ON_PURPOSE';
+
 export function useQuery<TResult, TVariabels>(
   query: string,
   options: Options<TVariabels> = defaultOptions as Options<TVariabels>
 ) {
+  const isMounted = useRef(false);
   const [data, setData] = React.useState<TResult | undefined>();
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState<Error | undefined>();
-  const [abortController, setAbortController] = React.useState<AbortController | undefined>();
+  const cancelRequestRef = useRef<(reason: string) => void>(() => () => {});
   const config = useConfig();
   const { locale } = useI18n();
 
   // Cancel pending request on unmount
-  const cancelRequest = React.useCallback(() => abortController?.abort?.(), [abortController]);
-  React.useEffect(() => () => cancelRequest(), [cancelRequest]);
+  React.useEffect(() => {
+    isMounted.current = true;
+    return () => {
+      isMounted.current = false;
+      cancelRequestRef.current(ABORT_REASON);
+    };
+  }, []);
+
+  // Prevent a change in variable to trigger a reload if ignoreVariableUpdates has been enabled
+  const optionsDependency = React.useMemo(() => {
+    return JSON.stringify({
+      ...options,
+      variables: options.ignoreVariableUpdates === true ? undefined : options.variables,
+    });
+  }, [options]);
 
   const load = React.useCallback(
     (loadOptions?: Options<TVariabels>) => {
@@ -59,17 +75,22 @@ export function useQuery<TResult, TVariabels>(
 
       // Create a function that will start the request. This function will be called by the queueing logic
       const startRequest = async () => {
-        const _abortController = new AbortController();
-        setAbortController(_abortController);
-
+        if (isMounted.current === false) return;
         if (mergedOptions?.keepDataWhileLoading !== true) setData(undefined);
         setLoading(true);
         setError(undefined);
+        cancelRequestRef.current(ABORT_REASON);
+
+        const abortController = new AbortController();
+        // Update the ref to the new cancel function
+        cancelRequestRef.current = (reason: string) => {
+          abortController.abort(reason);
+        };
 
         const graphqlService = new GraphQLService({
           endpoint: config.graphqlEndpoint,
           locale: locale.cmsLocale || locale.code,
-          abortSignal: _abortController.signal,
+          abortSignal: abortController.signal,
         });
 
         return graphqlService
@@ -86,29 +107,29 @@ export function useQuery<TResult, TVariabels>(
               const result = await response.json();
               setError(undefined);
               setData(result.data);
+              setLoading(false);
             }
           })
           .catch((error) => {
             // Handle cancellation errors
-            if (error instanceof Error && error.name === 'AbortError') {
-              setError(undefined);
+            if ((error instanceof Error && error.name === 'AbortError') || error === ABORT_REASON) {
+              // setError(undefined);
+              return;
             }
 
             // Handle network errors
             else if (error instanceof Error && error.name === 'TypeError') {
               setError(new NetworkError(error.message));
               setData(undefined);
+              setLoading(false);
             }
 
             // Handle other errors
             else {
               setError(error);
               setData(undefined);
+              setLoading(false);
             }
-          })
-          .finally(() => {
-            setAbortController(undefined);
-            setLoading(false);
           });
       };
 
@@ -118,7 +139,7 @@ export function useQuery<TResult, TVariabels>(
       }
 
       // If there is no queue for the given name, create one
-      if (queues[mergedOptions.queue.name] === undefined) {
+      if (queues[mergedOptions?.queue?.name] === undefined) {
         queues[mergedOptions.queue.name] = new Queue({
           concurrent: mergedOptions.queue.concurrent ?? 1,
           interval: mergedOptions.queue.interval ?? 0,
@@ -129,16 +150,8 @@ export function useQuery<TResult, TVariabels>(
       // Add the request to the queue
       queues[mergedOptions.queue.name].enqueue(startRequest);
     },
-    [config.graphqlEndpoint, locale.cmsLocale, locale.code, query]
+    [config.graphqlEndpoint, locale.cmsLocale, locale.code, query, optionsDependency]
   );
-
-  // Prevent a change in variable to trigger a reload if ignoreVariableUpdates has been enabled
-  const optionsDependency = React.useMemo(() => {
-    return JSON.stringify({
-      ...options,
-      variables: options.ignoreVariableUpdates === true ? undefined : options.variables,
-    });
-  }, [options]);
 
   // Load the data on mount and when the options change
   React.useEffect(() => {
@@ -152,6 +165,7 @@ export function useQuery<TResult, TVariabels>(
   if (error instanceof NetworkError && options?.throwNetworkErrors) throw error;
   if (error instanceof Error && options?.throwAllErrors) throw error;
 
+  const cancelRequest = React.useCallback((reason: string) => cancelRequestRef.current(reason), []);
   return { data, loading, error, load, cancel: cancelRequest };
 }
 
