@@ -7,7 +7,7 @@
     "events": "",
     "download": "",
     "clusters": "",
-    "dashboard": "",
+    "dashboard": "Kokpit",
     "sites": ""
   },
   "table": {
@@ -40,7 +40,7 @@
     "currentRecord": "",
     "nodeType": {
       "IMAGE": "",
-      "TYPE": "",
+      "TYPE": "Typ okazu",
       "TREATMENT": "",
       "OBSERVATION": "Obserwacja",
       "SPECIMEN": "",
