@@ -109,6 +109,7 @@ import { CollectionSearchPage } from '@/routes/collection/search/searchPage';
 import { InstitutionSearchPage } from '@/routes/institution/search/searchPage';
 import { OccurrenceFragment, occurrenceFragmentLoader } from '@/routes/occurrence/key/fragment';
 import { resourceRedirectLoader } from '@/routes/resource/key/resourceRedirect';
+import { ResourceSearchPage } from '@/routes/resource/search/resourceSearch';
 
 const baseRoutes: SourceRouteObject[] = [
   {
@@ -286,6 +287,10 @@ const baseRoutes: SourceRouteObject[] = [
                 element: <NetworkKeyPublisher />,
               },
             ],
+          },
+          {
+            path: 'resource/search',
+            element: <ResourceSearchPage />,
           },
           {
             id: RouteId.Institution, // TODO @daniel is there a reason for key vs id?
