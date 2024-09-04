@@ -395,6 +395,32 @@ const baseRoutes: SourceRouteObject[] = [
             element: <NotImplemented />
           },
           {
+            path: 'the-gbif-network',
+            element: <NotImplemented />
+          },
+          {
+            path: 'contact-us/directory',
+            element: <NotImplemented />
+          },
+          {
+            path: 'derived-dataset',
+            element: <NotImplemented />,
+            children: [
+              {
+                index: true,
+                element: <NotImplemented />
+              },
+              {
+                path: 'register',
+                element: <NotImplemented />
+              },
+              {
+                path: 'about',
+                element: <NotImplemented />
+              },
+            ]
+          },
+          {
             path: 'analytics/global',
             element: <NotImplemented />
           },
