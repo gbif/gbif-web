@@ -1,16 +1,16 @@
 {
   "description": {
-    "lt": "",
-    "lte": "",
-    "gt": "",
-    "gte": "",
-    "e": "",
-    "between": ""
+    "lt": "Mniej niż {to}",
+    "lte": "Mniejszy lub równy {to}",
+    "gt": "Większy niż {from}",
+    "gte": "Większy lub równy {from}",
+    "e": "Równy {is}",
+    "between": "Od {from} do {to}"
   },
   "compact": {
-    "between": "",
-    "lt": "",
-    "gt": "",
+    "between": "{from} do {to}",
+    "lt": "Poniżej {to}",
+    "gt": "Powyżej {from}",
     "e": ""
   },
   "compactMeters": {
@@ -20,7 +20,7 @@
     "e": ""
   },
   "compactTime": {
-    "between": "",
+    "between": "{from} do {to}",
     "lt": "",
     "gt": "",
     "e": ""
