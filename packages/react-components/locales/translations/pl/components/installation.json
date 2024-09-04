@@ -1,1 +1,8 @@
-{}
+{
+  "installation": "Instalacja",
+  "about": "Informacje",
+  "homepage": "Strona główna",
+  "installationType": "Typ instalacji",
+  "hostedBy": "Udostępniane przez",
+  "registered": "Zarejestrowano"
+}
