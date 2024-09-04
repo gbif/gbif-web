@@ -125,6 +125,10 @@ const baseRoutes: SourceRouteObject[] = [
             loader: homepageLoader,
           },
           {
+            path: 'login',
+            element: <NotImplemented />,
+          },
+          {
             path: 'suggest-dataset',
             element: <SuggestDatasetPage />,
           },
@@ -289,10 +293,6 @@ const baseRoutes: SourceRouteObject[] = [
             ],
           },
           {
-            path: 'resource/search',
-            element: <ResourceSearchPage />,
-          },
-          {
             id: RouteId.Institution, // TODO @daniel is there a reason for key vs id?
             gbifRedirect: (params) => {
               if (typeof params.key !== 'string') throw new Error('Invalid key');
@@ -353,6 +353,34 @@ const baseRoutes: SourceRouteObject[] = [
             },
             path: 'country/:key',
             element: <h1>Country page</h1>,
+          },
+          {
+            path: 'species/search',
+            element: <NotImplemented />,
+          },
+          {
+            path: 'species/:key',
+            element: <NotImplemented />
+          },
+          {
+            path: 'resource/search',
+            element: <NotImplemented />
+          },
+          {
+            path: 'tools/species-lookup',
+            element: <NotImplemented />
+          },
+          {
+            path: 'tools/name-parser',
+            element: <NotImplemented />
+          },
+          {
+            path: 'tools/sequence-id',
+            element: <NotImplemented />
+          },
+          {
+            path: 'tools/observation-trends',
+            element: <NotImplemented />
           },
           {
             path: 'news/:key',
@@ -456,3 +484,10 @@ const baseRoutes: SourceRouteObject[] = [
 ];
 
 export const configureGbifRoutes = (gbifConfig: Config) => configureRoutes(baseRoutes, gbifConfig);
+
+
+function NotImplemented() {
+  return <main className="g-h-full g-text-center">
+    <h1 className="g-mt-48 g-text-4xl g-font-bold g-text-slate-400">Not implemented yet</h1>
+  </main>
+}
