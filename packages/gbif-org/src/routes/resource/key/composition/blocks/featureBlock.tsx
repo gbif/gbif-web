@@ -89,7 +89,6 @@ export function FeatureBlock({ resource }: Props) {
           if ('url' in feature) url = feature.url;
           if (!url && feature.__typename !== 'Feature') {
             url = redirectMapper[feature.__typename](feature.id, slugify(feature.title));
-            if (!locale.default) url = `/${locale.code}${url}`;
           }
 
           return <ProseCard key={index} title={feature.title} url={url} image={image} />;
