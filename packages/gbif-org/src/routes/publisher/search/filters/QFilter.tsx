@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { MdClose } from 'react-icons/md';
 import { FilterButton } from './filterButton';
 
-export function FreeTextFilter({
+export function QFilter({
   onChange,
   value,
   className,
@@ -39,7 +39,7 @@ export function FreeTextFilter({
       onClear={handleClearClick}
       onOpen={() => setIsInputHidden(false)}
       isInputHidden={isInputHidden}
-      selectedLabel={<span>text: {value}</span>}
+      selectedLabel={<span>“{value}”</span>}
     >
       <SearchInput
         defaultValue={value}

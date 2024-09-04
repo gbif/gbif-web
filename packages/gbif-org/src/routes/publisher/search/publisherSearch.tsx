@@ -21,18 +21,24 @@ import { FormattedMessage } from 'react-intl';
 import { PaginationFooter } from '@/components/pagination';
 import { NoRecords } from '@/components/noDataMessages';
 import { PublisherSearchQuery, PublisherSearchQueryVariables } from '@/gql/graphql';
-import { FreeTextFilter } from './filters/FreeTextFilter';
+import { QFilter } from './filters/QFilter';
 import { SingleCountryFilterSuggest } from './filters/SingleCountryFilterSuggest';
 import { CountProps, useCount } from '@/components/count';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { Skeleton } from '@/components/ui/skeleton';
-import { FilterContext, FilterProvider, FilterType } from '@/contexts/filter';
+import { FilterContext, FilterProvider } from '@/contexts/filter';
 import { filter2v1 } from '@/dataManagement/filterAdapter';
 import { searchConfig } from './searchConfig';
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
 
 const PUBLISHER_SEARCH_QUERY = /* GraphQL */ `
-  query PublisherSearch($country: Country, $q: String, $isEndorsed: Boolean, $limit: Int, $offset: Int) {
+  query PublisherSearch(
+    $country: Country
+    $q: String
+    $isEndorsed: Boolean
+    $limit: Int
+    $offset: Int
+  ) {
     list: organizationSearch(
       isEndorsed: $isEndorsed
       country: $country
@@ -56,13 +62,23 @@ const PUBLISHER_SEARCH_QUERY = /* GraphQL */ `
 `;
 
 export function PublisherSearchPage(): React.ReactElement {
-  const [offset, setOffset] = useState(0);
-  const [userCountry, setUserCountry] = useState<{ country: string; countryName: string }>();
-  const [filter, setFilter] = useFilterParams({filterConfig: searchConfig});
+  const [filter, setFilter] = useFilterParams({ filterConfig: searchConfig });
+  return (
+    <FilterProvider filter={filter} onChange={setFilter}>
+      <PublisherSearch />
+    </FilterProvider>
+  );
+}
 
+export function PublisherSearch(): React.ReactElement {
+  const [offset, setOffset] = useState(0);
+  const filterContext = useContext(FilterContext);
+  const [userCountry, setUserCountry] = useState<{ country: string; countryName: string }>();
+
+  const { filter, filterHash } = filterContext || { filter: { must: {} } };
   const tabClassName = 'g-pt-2 g-pb-1.5';
 
-  const { data, cancel, error, load, loading } = useQuery<
+  const { data, error, load, loading } = useQuery<
     PublisherSearchQuery,
     PublisherSearchQueryVariables
   >(PUBLISHER_SEARCH_QUERY, {
@@ -72,9 +88,6 @@ export function PublisherSearchPage(): React.ReactElement {
 
   useEffect(() => {
     const v1 = filter2v1(filter, searchConfig);
-    if (cancel) {
-      cancel(); // TODO: i do not see any effect of doing a cancellation. looks like a bug to me.
-    }
     load({
       variables: {
         ...v1.filter,
@@ -83,7 +96,7 @@ export function PublisherSearchPage(): React.ReactElement {
         isEndorsed: true,
       },
     });
-  }, [offset, filter]);
+  }, [offset, filterHash, searchConfig]);
 
   // call https://graphql.gbif-staging.org/unstable-api/user-info?lang=en to get the users country: response {country, countryName}
   // then use the country code to get a count of publishers from that country
@@ -96,65 +109,57 @@ export function PublisherSearchPage(): React.ReactElement {
   //     });
   // }, []);
 
-  /*
-  a publisher search state hook?
-  filters
-  list of publishers
-  */
-
   const publishers = data?.list;
   return (
     <>
       <Helmet>
         <title>Publisher search</title>
       </Helmet>
-      <FilterProvider filter={filter} onChange={setFilter}>
-        <DataHeader hasBorder>
-          <Tabs
-            className="g-border-none"
-            links={[
-              {
-                to: '/publisher/search',
-                children: 'List',
-                className: tabClassName,
-              },
-              {
-                to: '/publisher/search/map',
-                children: 'Map',
-                className: tabClassName,
-              },
-            ]}
-          />
-        </DataHeader>
+      <DataHeader title="Publishers" hasBorder aboutContent={<AboutContent />} apiContent={<ApiContent />}>
+        <Tabs
+          className="g-border-none"
+          links={[
+            {
+              to: '/publisher/search',
+              children: 'List',
+              className: tabClassName,
+            },
+            {
+              to: '/publisher/search/map',
+              children: 'Map',
+              className: tabClassName,
+            },
+          ]}
+        />
+      </DataHeader>
 
-        <section className="">
-          <Filters />
-          <ArticleContainer className="g-bg-slate-100">
-            <aside>
-              {userCountry?.country && (
-                <section>
-                  <h2>Did you know?</h2>
-                  <Card>
-                    <p>
-                      <CountMessage
-                        message="counts.nPublishersInCountry"
-                        messageValues={{ country: userCountry?.countryName }}
-                        countProps={{
-                          v1Endpoint: '/organization',
-                          params: { country: userCountry?.country },
-                        }}
-                      />
-                    </p>
-                  </Card>
-                </section>
-              )}
-            </aside>
-            <ArticleTextContainer>
-              <Results loading={loading} publishers={publishers} setOffset={setOffset} />
-            </ArticleTextContainer>
-          </ArticleContainer>
-        </section>
-      </FilterProvider>
+      <section className="">
+        <Filters />
+        <ArticleContainer className="g-bg-slate-100">
+          <aside>
+            {userCountry?.country && (
+              <section>
+                <h2>Did you know?</h2>
+                <Card>
+                  <p>
+                    <CountMessage
+                      message="counts.nPublishersInCountry"
+                      messageValues={{ country: userCountry?.countryName }}
+                      countProps={{
+                        v1Endpoint: '/organization',
+                        params: { country: userCountry?.country },
+                      }}
+                    />
+                  </p>
+                </Card>
+              </section>
+            )}
+          </aside>
+          <ArticleTextContainer>
+            <Results loading={loading} publishers={publishers} setOffset={setOffset} />
+          </ArticleTextContainer>
+        </ArticleContainer>
+      </section>
     </>
   );
 }
@@ -169,76 +174,39 @@ export function PublisherSearchPage(): React.ReactElement {
 // And finally in the end there is room for various small action/info icons. This could be used to have a help icon, API access, DOI of the page, etc.
 export function DataHeader({
   children,
+  title,
+  aboutContent,
+  apiContent,
   hasBorder,
 }: {
   children?: React.ReactNode;
+  title?: string;
   hasBorder?: boolean;
+  aboutContent?: React.ReactElement;
+  apiContent?: React.ReactElement;
 }) {
   return (
     <div
-      className={`g-flex g-justify-center g-items-center ${
+      className={`g-flex g-justify-center g-items-center g-ms-2 ${
         hasBorder ? 'g-border-b g-border-slate-200' : ''
       }`}
     >
-      <div className="g-flex-none g-flex g-items-center g-mx-2">
-        <MdApps />
-        <span className="g-ms-2">Publishers</span>
-      </div>
-      <Separator />
+      <>
+        <div className="g-flex-none g-flex g-items-center g-mx-2">
+          <MdApps />
+          {title && <span className="g-ms-2">{title}</span>}
+        </div>
+        <Separator />
+      </>
       <div className="g-flex-auto">{children}</div>
       <div className="g-flex-none g-mx-2">
         <div className="g-flex g-justify-center g-text-slate-400">
-          <Popup trigger={<MdInfo className="g-mx-1 hover:g-text-slate-700" />}>
-            <div>
-              <Accordion type="single" collapsible className="w-full">
-                <AccordionItem value="item-1">
-                  <AccordionTrigger>What is a publisher?</AccordionTrigger>
-                  <AccordionContent className="g-prose g-text-sm">
-                    Data is loaded from contentful help items async. E.g.
-                    <HelpText
-                      identifier={'which-coordinate-systems-are-used-for-gbif-occurence-downloads'}
-                    />
-                  </AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="item-2">
-                  <AccordionTrigger>How to search for publishers</AccordionTrigger>
-                  <AccordionContent>
-                    Data is loaded from contentful help items async
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            </div>
-          </Popup>
-          <Popup trigger={<MdCode className="g-mx-1 hover:g-text-slate-700" />}>
-            <div className="g-text-sm g-prose">
-              <h3>API access</h3>
-              <p>
-                All data is available via the{' '}
-                <a href="https://techdocs.gbif.org/en/openapi/v1/registry#/Publishing%20organizations">
-                  GBIF API
-                </a>
-                . No registration or API key is required.
-              </p>
-              <p>
-                Please remember to properly cite usage and to throttle requests in scripts. Most
-                endpoint types support download/export. Use those if you need large data volumes.
-              </p>
-              <h4>Examples</h4>
-              <Card className="g-p-2 g-mb-2">
-                Get all publishers <br />
-                <a href="https://api.gbif.org/v1/organization">
-                  https://api.gbif.org/v1/organization
-                </a>
-              </Card>
-              <Card className="g-p-2">
-                First 2 German publishers with free text "animals"
-                <br />
-                <a href="https://api.gbif.org/v1/organization?country=DE&q=animals&limit=2&offset=0">
-                  https://api.gbif.org/v1/organization?country=DE&q=animals&limit=2&offset=0
-                </a>
-              </Card>
-            </div>
-          </Popup>
+          {aboutContent && (
+            <Popup trigger={<MdInfo className="g-mx-1 hover:g-text-slate-700" />}>{aboutContent}</Popup>
+          )}
+          {apiContent && (
+            <Popup trigger={<MdCode className="g-mx-1 hover:g-text-slate-700" />}>{apiContent}</Popup>
+          )}
         </div>
       </div>
     </div>
@@ -266,7 +234,7 @@ export function Popup({
   );
 }
 
-function CountMessage({
+export function CountMessage({
   countProps,
   message,
   messageValues,
@@ -288,7 +256,7 @@ function Results({
   setOffset,
 }: {
   loading: boolean;
-  publishers: any;
+  publishers: PublisherSearchQuery['list'];
   setOffset: any;
 }) {
   return (
@@ -346,14 +314,14 @@ function Filters() {
 
   return (
     <div className="g-border-b g-py-2 g-px-2" role="search">
-      <FreeTextFilter
+      <QFilter
         className="g-inline-block"
         value={filter.must?.q?.[0]}
         onChange={(x) => {
           if (x !== '' && x) {
-            setField('q', [x])
+            setField('q', [x]);
           } else {
-            setField('q', [])
+            setField('q', []);
           }
         }}
       />
@@ -366,6 +334,59 @@ function Filters() {
         }
         setSelected={(x) => setField('country', [x?.key])}
       />
+    </div>
+  );
+}
+
+function AboutContent() {
+  return (
+    <div>
+      <Accordion type="single" collapsible className="w-full">
+        <AccordionItem value="item-1">
+          <AccordionTrigger>What is a publisher?</AccordionTrigger>
+          <AccordionContent className="g-prose g-text-sm">
+            Data is loaded from contentful help items async. E.g.
+            <HelpText
+              identifier={'which-coordinate-systems-are-used-for-gbif-occurence-downloads'}
+            />
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="item-2">
+          <AccordionTrigger>How to search for publishers</AccordionTrigger>
+          <AccordionContent>Data is loaded from contentful help items async</AccordionContent>
+        </AccordionItem>
+      </Accordion>
+    </div>
+  );
+}
+
+function ApiContent() {
+  return (
+    <div className="g-text-sm g-prose">
+      <h3>API access</h3>
+      <p>
+        All data is available via the{' '}
+        <a href="https://techdocs.gbif.org/en/openapi/v1/registry#/Publishing%20organizations">
+          GBIF API
+        </a>
+        . No registration or API key is required.
+      </p>
+      <p>
+        Please remember to properly cite usage and to throttle requests in scripts. Most endpoint
+        types support download/export. Use those if you need large data volumes.
+      </p>
+      <h4>Examples</h4>
+      <Card className="g-p-2 g-mb-2">
+        Get all publishers <br />
+        <a href="https://api.gbif.org/v1/organization">https://api.gbif.org/v1/organization</a>
+      </Card>
+      <Card className="g-p-2">
+        First 2 German publishers with free text "animals"
+        <br />
+        <a href="https://api.gbif.org/v1/organization?country=DE&q=animals&limit=2&offset=0">
+          https://api.gbif.org/v1/organization?country=DE&q=animals&limit=2&offset=0
+        </a>
+      </Card>
     </div>
   );
 }

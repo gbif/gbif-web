@@ -103,8 +103,8 @@ import {
 } from '@/routes/publisher/ConfirmEndorsment';
 import { BecomeAPublisherPage, becomeAPublisherPageLoader } from '@/routes/custom/becomeAPublisher';
 import { SuggestDatasetPage } from '@/routes/custom/suggestDataset';
-import { DatasetSearchPage } from '@/routes/dataset/search/searchPage';
-import { PublisherSearchPage } from '@/routes/publisher/search/searchPage';
+import { DatasetSearchPage } from '@/routes/dataset/search/datasetSearch';
+import { PublisherSearchPage } from '@/routes/publisher/search/publisherSearch';
 import { CollectionSearchPage } from '@/routes/collection/search/searchPage';
 import { InstitutionSearchPage } from '@/routes/institution/search/searchPage';
 import { OccurrenceFragment, occurrenceFragmentLoader } from '@/routes/occurrence/key/fragment';

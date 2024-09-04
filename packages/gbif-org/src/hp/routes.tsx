@@ -95,10 +95,10 @@ import {
   AliasHandlingSkeleton,
   aliasHandlingLoader,
 } from '@/routes/resource/key/aliasHandling';
-import { DatasetSearchPage } from '@/routes/dataset/search/searchPage';
+import { DatasetSearchPage } from '@/routes/dataset/search/datasetSearch';
 import { InstitutionSearchPage } from '@/routes/institution/search/searchPage';
 import { CollectionSearchPage } from '@/routes/collection/search/searchPage';
-import { PublisherSearchPage } from '@/routes/publisher/search/searchPage';
+import { PublisherSearchPage } from '@/routes/publisher/search/publisherSearch';
 import { HpRootLayout } from './hpRootLayout';
 import { Outlet } from 'react-router-dom';
 

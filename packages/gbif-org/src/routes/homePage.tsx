@@ -369,7 +369,7 @@ function TmpOverview() {
                   </DynamicLink>
                 </li>
                 <li>
-                  <DynamicLink className="g-me-4" to="/occurence/search">
+                  <DynamicLink className="g-me-4" to="/occurrence/search">
                     Occurrences - stub
                   </DynamicLink>
                 </li>

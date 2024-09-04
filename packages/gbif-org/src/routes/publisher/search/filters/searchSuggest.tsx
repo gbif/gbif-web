@@ -26,7 +26,7 @@ type Props<T> = {
   searchInputPlaceholder?: string;
   className?: string;
   open?: boolean;
-  setOpen?: (open: boolean) => void;
+  setOpen: (open: boolean) => void;
 };
 
 export function SearchSuggest<T>({
@@ -44,17 +44,7 @@ export function SearchSuggest<T>({
   noSearchResultsPlaceholder = 'No results found',
   searchInputPlaceholder = 'Search...',
 }: Props<T>) {
-  const [controlledOpen, setControlledOpen] = useUncontrolledProp(
-    open,
-    false,
-    setOpen
-  );
-  const [searchTerm, setSearchTerm] = React.useState('');
-
-  // Fetch new search results when the search term changes
-  React.useEffect(() => {
-    search(searchTerm);
-  }, [searchTerm, search]);
+  const [controlledOpen, setControlledOpen] = useUncontrolledProp(open, false, setOpen);
 
   // Keep track of the width of the popover trigger so we can set the width of the popover
   const triggerRef = React.useRef<HTMLButtonElement>(null);
@@ -65,10 +55,13 @@ export function SearchSuggest<T>({
       <PopoverTrigger asChild>
         <Button
           ref={triggerRef}
-          variant={ selected ? 'default' : 'outline' }
+          variant={selected ? 'default' : 'outline'}
           role="combobox"
           aria-expanded={open}
-          className={cn('g-w-full g-flex g-border-primary g-text-gray-500 g-font-normal', className)}
+          className={cn(
+            'g-w-full g-flex g-border-primary g-text-gray-500 g-font-normal',
+            className
+          )}
           // Override styles from our gb-button css class
           style={{ justifyContent: 'space-between' }}
         >
@@ -76,7 +69,8 @@ export function SearchSuggest<T>({
         </Button>
       </PopoverTrigger>
       <PopoverContent style={{ minWidth: triggerWidth }} className="g-p-0">
-        <Command>
+        <SearchCommand {...{search, results, searchInputPlaceholder, noSearchResultsPlaceholder, keySelector, labelSelector, selected, setSelected, setOpen}} />
+        {/* <Command>
           <CommandInput
             value={searchTerm}
             onValueChange={setSearchTerm}
@@ -113,8 +107,58 @@ export function SearchSuggest<T>({
               ))}
             </CommandGroup>
           </CommandList>
-        </Command>
+        </Command> */}
       </PopoverContent>
     </Popover>
+  );
+}
+
+function SearchCommand<T>({search, results, searchInputPlaceholder, noSearchResultsPlaceholder, keySelector, labelSelector, selected, setSelected, setOpen}: Props<T>) {
+  const [searchTerm, setSearchTerm] = React.useState('');
+
+  // Fetch new search results when the search term changes
+  React.useEffect(() => {
+    search(searchTerm);
+  }, [searchTerm, search]);
+
+  return (
+    <Command>
+      <CommandInput
+        value={searchTerm}
+        onValueChange={setSearchTerm}
+        placeholder={searchInputPlaceholder}
+      />
+      <CommandEmpty>{noSearchResultsPlaceholder}</CommandEmpty>
+      <CommandList>
+        <CommandGroup>
+          {results.map((result) => (
+            <CommandItem
+              key={keySelector(result)}
+              value={labelSelector(result)}
+              className="g-flex g-items-center g-justify-between g-w-full"
+              onSelect={() => {
+                // Reselecting the same item should deselect it
+                if (selected && keySelector(selected) === keySelector(result)) {
+                  setSelected(null);
+                } else {
+                  setSelected(result);
+                }
+                setOpen(false);
+              }}
+            >
+              {labelSelector(result)}
+              <Checkmark
+                className={cn(
+                  'g-mr-2 g-h-4 g-w-4',
+                  selected && keySelector(selected) === keySelector(result)
+                    ? 'g-opacity-100'
+                    : 'g-opacity-0'
+                )}
+              />
+            </CommandItem>
+          ))}
+        </CommandGroup>
+      </CommandList>
+    </Command>
   );
 }
