@@ -352,7 +352,11 @@ const baseRoutes: SourceRouteObject[] = [
               return `https://www.gbif.org/country/${params.key}`;
             },
             path: 'country/:key',
-            element: <h1>Country page</h1>,
+            element: <NotImplemented />,
+          },
+          {
+            path: 'participant/:key',
+            element: <NotImplemented />,
           },
           {
             path: 'species/search',
@@ -379,7 +383,19 @@ const baseRoutes: SourceRouteObject[] = [
             element: <NotImplemented />
           },
           {
+            path: 'tools/data-validator',
+            element: <NotImplemented />
+          },
+          {
             path: 'tools/observation-trends',
+            element: <NotImplemented />
+          },
+          {
+            path: 'occurrence-snapshots',
+            element: <NotImplemented />
+          },
+          {
+            path: 'analytics/global',
             element: <NotImplemented />
           },
           {
