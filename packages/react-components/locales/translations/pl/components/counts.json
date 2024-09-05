@@ -31,6 +31,7 @@
   "nHostedDatasets": "{total, plural, one {# udostępniany zbiór danych} few {# udostępniane zbiory danych} many {# udostępnianych zbiorów danych} other {# udostępniane zbiory danych}}",
   "nParticipatingDatasets": "{total, plural, one {# uczestniczący zbiór danych} few {# uczestniczące zbiory danych} many {# uczestniczących zbiorów danych} other {# uczestniczące zbiory danych}}",
   "nParticipatingPublishers": "{total, plural, one {# uczestniczący publikujący} few {# uczestniczących publikujących} many {# uczestniczących publikujących} other {# uczestniczący publikujący}}",
+  "nPublishersInCountry": "{total, plural, one {Jest # wydawca} few {Jest # wydawców} many {Jest # wydawców} other {Jest # wydawców}} w {country}",
   "nStaffMembers": "{total, plural, one {# członek zespołu} few {# członków zespołu} many {# członków zespołu} other {# członkowie zespołu}}",
   "nOccurrencesHosted": "{total, plural, one {# udostępnione stwierdzenie} few {# udostępnione stwierdzenia} many {# udostępnionych stwierdzeń} other {# udostępnione stwierdzenia}}"
 }
