@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { useEffect, useRef, useState } from 'react';
 import { MdClose } from 'react-icons/md';
 import { FilterButton } from './filterButton';
+import { cn } from '@/utils/shadcn';
 
 export function QFilter({
   onChange,
@@ -40,12 +41,13 @@ export function QFilter({
       onOpen={() => setIsInputHidden(false)}
       isInputHidden={isInputHidden}
       selectedLabel={<span>“{value}”</span>}
+      className={cn('', className)}
     >
       <SearchInput
         defaultValue={value}
         ref={inputRef}
-        placeholder="Search"
-        className="g-inline-block g-w-auto g-me-2 g-border-primary-500 g-min-w-48"
+        placeholder="Text search"
+        className={cn('g-inline-block g-w-auto g-me-2 g-border-primary-500 g-min-w-48', className)}
         onBlur={(e) => {
           onChange(e.target.value);
           if (e.target.value !== '') {

@@ -8,7 +8,17 @@ import get from 'lodash/get';
 import isEqual from 'react-fast-compare';
 import hash from 'object-hash';
 
-export const FilterContext = React.createContext<FilterContextType | undefined >(undefined);
+export const FilterContext = React.createContext<FilterContextType>({
+  setField: () => {},
+  setFullField: () => {},
+  setFilter: () => undefined,
+  add: () => {},
+  remove: () => {},
+  toggle: () => {},
+  negateField: () => {},
+  filter: { must: {} },
+  filterHash: '',
+});
 
 export type FilterType = {
   must?: Record<string, any[]>;
