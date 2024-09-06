@@ -1,4 +1,4 @@
-import { DoneLoadingEvent } from '@/contexts/loadingElement';
+import { NotFoundError, UnexpectedLoaderError } from '@/errors';
 import { fragmentManager } from '@/services/fragmentManager';
 import { LoaderArgs } from '@/types';
 import { required } from '@/utils/required';
@@ -102,14 +102,14 @@ export function createResourceLoaderWithRedirect(options: Options) {
     const { data } = await response.json();
 
     if (data == null || (typeof data === 'object' && 'resource' in data && data.resource == null)) {
-      throw new Error('404');
+      throw new NotFoundError();
     }
 
     // Validate the structure of the response
     const parseResult = DataSchema.safeParse(data);
     if (parseResult.success === false) {
       console.error(parseResult.error);
-      throw new Error('500');
+      throw new UnexpectedLoaderError();
     }
     const { resource } = parseResult.data;
 
@@ -130,11 +130,6 @@ export function createResourceLoaderWithRedirect(options: Options) {
       let redirectUrl = resource.urlAlias;
       if (!locale.default) redirectUrl = `/${locale.code}${redirectUrl}`;
 
-      // Remove the skeleton loading element
-      if (typeof window !== 'undefined') {
-        window.dispatchEvent(new DoneLoadingEvent({ id }));
-      }
-
       return redirectWithPreservedPreview(request, redirectUrl);
     }
 
@@ -151,11 +146,6 @@ export function createResourceLoaderWithRedirect(options: Options) {
     // Redirect to the correct url
     let redirectUrl = redirectMapper[resource.__typename](key, slugifiedTitle);
     if (!locale.default) redirectUrl = `/${locale.code}${redirectUrl}`;
-
-    // Remove the skeleton loading element
-    if (typeof window !== 'undefined') {
-      window.dispatchEvent(new DoneLoadingEvent({ id }));
-    }
 
     return redirectWithPreservedPreview(request, redirectUrl);
   };

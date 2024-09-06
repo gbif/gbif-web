@@ -1,14 +1,15 @@
-import { LoaderFunctionArgs, Outlet, RouteObject } from 'react-router-dom';
+import { LoaderFunctionArgs, Outlet, RouteObject, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Config } from '@/contexts/config/config';
 import { I18nProvider } from '@/contexts/i18n';
 import { SourceRouteObject, RouteMetadata } from '@/types';
 import { LoadingElementWrapper } from '@/components/loadingElementWrapper';
 import { v4 as uuid } from 'uuid';
-import { DoneLoadingEvent, StartLoadingEvent } from '@/contexts/loadingElement';
+import { DoneNavigatingEvent, StartLoadingEvent } from '@/contexts/loadingElement';
 import { GraphQLService } from '@/services/graphQLService';
 import { createRouteId } from './createRouteId';
 import { AlternativeLanguages } from '@/components/alternativeLanguages';
+import { useEffect } from 'react';
 
 type ConfigureRoutesResult = {
   routes: RouteObject[];
@@ -35,6 +36,7 @@ export function configureRoutes(
           </Helmet>
           <AlternativeLanguages />
           <Outlet />
+          <StopLoading />
         </I18nProvider>
       ),
       children: createRoutesRecursively(baseRoutes, config, locale),
@@ -218,21 +220,7 @@ function transformLoader(
         preview,
       });
 
-      // Remove the skeleton loading element if the request is aborted
-      args.request.signal.addEventListener('abort', () => {
-        if (typeof window !== 'undefined') {
-          window.dispatchEvent(new DoneLoadingEvent({ id }));
-        }
-      });
-
       const result = await loader({ ...args, config, locale, graphql, id });
-
-      // Remove the skeleton loading element if the loader did a redirect
-      if (result instanceof Response && result.status === 302) {
-        if (typeof window !== 'undefined') {
-          window.dispatchEvent(new DoneLoadingEvent({ id }));
-        }
-      }
 
       return result;
     };
@@ -249,4 +237,17 @@ function transformChildren(
   if (Array.isArray(route.children)) {
     clone.children = createRoutesRecursively(route.children, config, locale, nestingLevel + 1);
   }
+}
+
+function StopLoading() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    setTimeout(() => {
+      window.dispatchEvent(new DoneNavigatingEvent());
+    }, 0);
+  }, [location.pathname]);
+
+  return null;
 }

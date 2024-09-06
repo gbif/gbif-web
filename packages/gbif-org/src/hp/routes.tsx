@@ -1,7 +1,6 @@
 import { SourceRouteObject } from '@/types';
 import { configureRoutes } from '@/utils/configureRoutes';
 import { HomePage } from '@/routes/homePage';
-import { ThrowOn404 } from '@/routes/throwOn404';
 import { RootErrorPage } from '@/routes/rootErrorPage';
 import {
   OccurrenceKey,
@@ -101,6 +100,7 @@ import { CollectionSearchPage } from '@/routes/collection/search/searchPage';
 import { PublisherSearchPage } from '@/routes/publisher/search/publisherSearch';
 import { HpRootLayout } from './hpRootLayout';
 import { Outlet } from 'react-router-dom';
+import { NotFoundPage } from '@/notFoundPage';
 
 const baseRoutes: SourceRouteObject[] = [
   {
@@ -399,8 +399,7 @@ const baseRoutes: SourceRouteObject[] = [
               },
               {
                 path: '*',
-                // Delegate handling of 404 to RootErrorPage,
-                element: <ThrowOn404 />,
+                element: <NotFoundPage />,
               },
             ],
           },

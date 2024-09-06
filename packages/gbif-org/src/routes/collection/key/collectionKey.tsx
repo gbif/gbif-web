@@ -1,10 +1,17 @@
-import { CollectionQuery, CollectionQueryVariables, CollectionSummaryMetricsQuery, CollectionSummaryMetricsQueryVariables, PredicateType } from '@/gql/graphql';
+import {
+  CollectionQuery,
+  CollectionQueryVariables,
+  CollectionSummaryMetricsQuery,
+  CollectionSummaryMetricsQueryVariables,
+  PredicateType,
+} from '@/gql/graphql';
 import { LoaderArgs } from '@/types';
 import { required } from '@/utils/required';
 import { useLoaderData } from 'react-router-dom';
-import { CollectionKey as Presentation} from './collectionKeyPresentation';
+import { CollectionKey as Presentation } from './collectionKeyPresentation';
 import useQuery from '@/hooks/useQuery';
 import { useEffect } from 'react';
+import { NotFoundError } from '@/errors';
 
 export async function collectionLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key was provided in the URL');
@@ -28,43 +35,46 @@ export function CollectionKey() {
     if (typeof id !== 'undefined') {
       const collectionPredicate = {
         type: PredicateType.Equals,
-        key: "collectionKey",
-        value: id
+        key: 'collectionKey',
+        value: id,
       };
       slowLoad({
         variables: {
           predicate: collectionPredicate,
           imagePredicate: {
             type: PredicateType.And,
-            predicates: [collectionPredicate, { type: PredicateType.Equals, key: 'mediaType', value: 'StillImage' }]
+            predicates: [
+              collectionPredicate,
+              { type: PredicateType.Equals, key: 'mediaType', value: 'StillImage' },
+            ],
           },
           coordinatePredicate: {
             type: PredicateType.And,
             predicates: [
               collectionPredicate,
-              { type: PredicateType.Equals, key: 'hasCoordinate', value: 'true' }
-            ]
+              { type: PredicateType.Equals, key: 'hasCoordinate', value: 'true' },
+            ],
           },
           clusterPredicate: {
             type: PredicateType.And,
             predicates: [
               collectionPredicate,
-              { type: PredicateType.Equals, key: 'isInCluster', value: 'true' }
-            ]
+              { type: PredicateType.Equals, key: 'isInCluster', value: 'true' },
+            ],
           },
-        }
+        },
       });
     }
   }, [data.collection?.key]);
 
-  if (data.collection == null) throw new Error('404');
-  return <Presentation data={data} collectionMetrics={collectionMetrics}/>;
+  if (data.collection == null) throw new NotFoundError();
+  return <Presentation data={data} collectionMetrics={collectionMetrics} />;
 }
 
 export { CollectionPageSkeleton } from './collectionKeyPresentation';
 
 const COLLECTION_QUERY = /* GraphQL */ `
-  query Collection($key: ID!){
+  query Collection($key: ID!) {
     collection(key: $key) {
       key
       active
@@ -81,11 +91,11 @@ const COLLECTION_QUERY = /* GraphQL */ `
       incorporatedCollections
 
       contentTypes
-      
+
       personalCollection
       email
       phone
-      
+
       catalogUrls
       apiUrls
       preservationTypes
@@ -94,7 +104,7 @@ const COLLECTION_QUERY = /* GraphQL */ `
       featuredImageUrl: thumbor(width: 1000, height: 667)
       featuredImageLicense
       featuredImageUrl_fallback: homepageOGImageUrl_volatile
-      
+
       created
       deleted
       modified
@@ -133,7 +143,7 @@ const COLLECTION_QUERY = /* GraphQL */ `
         name
         key
       }
-      
+
       mailingAddress {
         address
         city
@@ -153,7 +163,12 @@ const COLLECTION_QUERY = /* GraphQL */ `
 `;
 
 const SLOW_QUERY = /* GraphQL */ `
-  query CollectionSummaryMetrics($predicate: Predicate, $imagePredicate: Predicate, $coordinatePredicate: Predicate, $clusterPredicate: Predicate){
+  query CollectionSummaryMetrics(
+    $predicate: Predicate
+    $imagePredicate: Predicate
+    $coordinatePredicate: Predicate
+    $clusterPredicate: Predicate
+  ) {
     occurrenceSearch(predicate: $predicate) {
       documents(size: 0) {
         total
