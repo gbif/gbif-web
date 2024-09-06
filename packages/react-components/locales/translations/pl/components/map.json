@@ -1,20 +1,20 @@
 {
     "styles": {
-        "satellite": "",
-        "natural": "",
-        "bright": "",
-        "dark": "",
-        "outdoor": ""
+        "satellite": "Satelita",
+        "natural": "Charakter",
+        "bright": "Jasny",
+        "dark": "Ciemny",
+        "outdoor": "W plenerze"
     },
     "projections": {
-        "ARCTIC": "",
+        "ARCTIC": "Arktyczny",
         "MERCATOR": "",
-        "ANTARCTIC": "",
-        "PLATE_CAREE": ""
+        "ANTARCTIC": "Antarktyka",
+        "PLATE_CAREE": "Odwzorowanie walcowe równoodległościowe "
     },
     "failedToGetUserLocation": {
         "title": "",
         "message": ""
     },
-    "filterByView": ""
+    "filterByView": "Użyj widocznego obszaru jako filtru"
 }
