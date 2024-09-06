@@ -128,12 +128,6 @@ export function FilterProvider({ filter: controlledFilter, onChange: controlledO
     }
   };
 
-  const cleanUpFilter = (filter: FilterType) => {
-    const must = pickBy(get(filter, 'must', {}), (x) => !isEmpty(x));
-    const must_not = pickBy(get(filter, 'must_not', {}), (x) => !isEmpty(x));
-    return { must, must_not };
-  };
-
   const hashObj = {
     must: currentFilter?.must || {},
     must_not: currentFilter?.must_not || {},
@@ -158,3 +152,9 @@ export function FilterProvider({ filter: controlledFilter, onChange: controlledO
     </FilterContext.Provider>
   );
 }
+
+export const cleanUpFilter = (filter: FilterType) => {
+  const must = pickBy(get(filter, 'must', {}), (x) => !isEmpty(x));
+  const must_not = pickBy(get(filter, 'must_not', {}), (x) => !isEmpty(x));
+  return { must, must_not };
+};
