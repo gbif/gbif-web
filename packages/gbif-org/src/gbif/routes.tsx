@@ -3,7 +3,6 @@ import { GbifRootLayout, headerLoader } from './gbifRootLayout';
 import { SourceRouteObject } from '@/types';
 import { configureRoutes } from '@/utils/configureRoutes';
 import { HomePage, homepageLoader } from '@/routes/homePage';
-import { ThrowOn404 } from '@/routes/throwOn404';
 import { RootErrorPage } from '@/routes/rootErrorPage';
 import {
   OccurrenceKey,
@@ -110,6 +109,7 @@ import { InstitutionSearchPage } from '@/routes/institution/search/searchPage';
 import { OccurrenceFragment, occurrenceFragmentLoader } from '@/routes/occurrence/key/fragment';
 import { resourceRedirectLoader } from '@/routes/resource/key/resourceRedirect';
 import { ResourceSearchPage } from '@/routes/resource/search/resourceSearch';
+import { NotFoundPage } from '@/notFoundPage';
 
 const baseRoutes: SourceRouteObject[] = [
   {
@@ -358,53 +358,53 @@ const baseRoutes: SourceRouteObject[] = [
             path: 'participant/:key',
             element: <NotImplemented />,
           },
+          // {
+          //   path: 'species/search',
+          //   element: <NotImplemented />,
+          // },
+          // {
+          //   path: 'species/:key',
+          //   element: <NotImplemented />,
+          // },
           {
-            path: 'species/search',
+            path: 'resource/search',
             element: <NotImplemented />,
           },
           {
-            path: 'species/:key',
-            element: <NotImplemented />
-          },
-          {
-            path: 'resource/search',
-            element: <NotImplemented />
-          },
-          {
             path: 'tools/species-lookup',
-            element: <NotImplemented />
+            element: <NotImplemented />,
           },
           {
             path: 'tools/name-parser',
-            element: <NotImplemented />
+            element: <NotImplemented />,
           },
           {
             path: 'tools/sequence-id',
-            element: <NotImplemented />
+            element: <NotImplemented />,
           },
           {
             path: 'tools/data-validator',
-            element: <NotImplemented />
+            element: <NotImplemented />,
           },
           {
             path: 'tools/observation-trends',
-            element: <NotImplemented />
+            element: <NotImplemented />,
           },
           {
             path: 'occurrence-snapshots',
-            element: <NotImplemented />
+            element: <NotImplemented />,
           },
           {
             path: 'the-gbif-network',
-            element: <NotImplemented />
+            element: <NotImplemented />,
           },
           {
             path: 'contact-us/directory',
-            element: <NotImplemented />
+            element: <NotImplemented />,
           },
           {
             path: 'system-health',
-            element: <NotImplemented />
+            element: <NotImplemented />,
           },
           {
             path: 'derived-dataset',
@@ -412,21 +412,21 @@ const baseRoutes: SourceRouteObject[] = [
             children: [
               {
                 index: true,
-                element: <NotImplemented />
+                element: <NotImplemented />,
               },
               {
                 path: 'register',
-                element: <NotImplemented />
+                element: <NotImplemented />,
               },
               {
                 path: 'about',
-                element: <NotImplemented />
+                element: <NotImplemented />,
               },
-            ]
+            ],
           },
           {
             path: 'analytics/global',
-            element: <NotImplemented />
+            element: <NotImplemented />,
           },
           {
             path: 'news/:key',
@@ -511,6 +511,7 @@ const baseRoutes: SourceRouteObject[] = [
           {
             path: 'resource/:key',
             loader: resourceRedirectLoader,
+            loadingElement: <AliasHandlingSkeleton />,
           },
           {
             path: ':alias',
@@ -520,8 +521,7 @@ const baseRoutes: SourceRouteObject[] = [
           },
           {
             path: '*',
-            // Delegate handling of 404 to RootErrorPage,
-            element: <ThrowOn404 />,
+            element: <NotFoundPage />,
           },
         ],
       },
@@ -531,9 +531,10 @@ const baseRoutes: SourceRouteObject[] = [
 
 export const configureGbifRoutes = (gbifConfig: Config) => configureRoutes(baseRoutes, gbifConfig);
 
-
 function NotImplemented() {
-  return <main className="g-h-full g-text-center">
-    <h1 className="g-mt-48 g-text-4xl g-font-bold g-text-slate-400">Not implemented yet</h1>
-  </main>
+  return (
+    <main className="g-h-full g-text-center">
+      <h1 className="g-mt-48 g-text-4xl g-font-bold g-text-slate-400">Not implemented yet</h1>
+    </main>
+  );
 }

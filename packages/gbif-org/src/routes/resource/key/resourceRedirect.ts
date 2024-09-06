@@ -1,3 +1,4 @@
+import { NotFoundError } from '@/errors';
 import { ResourceRedirectQuery, ResourceRedirectQueryVariables } from '@/gql/graphql';
 import { LoaderArgs } from '@/types';
 import { required } from '@/utils/required';
@@ -12,7 +13,7 @@ const RESOURCE_REDIRECT_QUERY = /* GraphQL */ `
 `;
 
 // The purpose of this loader is to redirect from /resource/:key to the appropriate resource page.
-export async function resourceRedirectLoader({ params, graphql }: LoaderArgs) {
+export async function resourceRedirectLoader({ params, graphql, id }: LoaderArgs) {
   const key = required(params.key, 'Key is required');
 
   const response = await graphql.query<ResourceRedirectQuery, ResourceRedirectQueryVariables>(
@@ -22,10 +23,10 @@ export async function resourceRedirectLoader({ params, graphql }: LoaderArgs) {
   const { data, errors } = await response.json();
 
   if (errors?.some((error) => error.message === '404: Not Found')) {
-    throw new Error('404');
+    throw new NotFoundError();
   }
 
-  if (data.resource == null) throw new Error('404');
+  if (data.resource == null) throw new NotFoundError();
 
   switch (data.resource.__typename) {
     case 'Article':

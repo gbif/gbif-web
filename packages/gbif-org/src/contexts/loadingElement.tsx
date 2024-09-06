@@ -1,7 +1,6 @@
 import React from 'react';
 
 const START_LOADING_EVENT = 'gbif-start-loading';
-const DONE_LOADING_EVENT = 'gbif-done-loading';
 
 type ILoadingElementContext = {
   id: string;
@@ -29,22 +28,16 @@ export function LoadingElementProvider({ children }: Props) {
       setLoadingElements((prev) => [...prev, { loadingElement, nestingLevel, id }]);
     }
 
-    // Only remove the loading element from the loadingElements array if it's the last one
-    // This will prevent parent loading elements from being removed when a child route is loading
-    function handleLoadingEnd(event: DoneLoadingEvent) {
-      const { id } = event.detail;
-      setLoadingElements((prev) => {
-        const lastLoadingElement = prev[prev.length - 1];
-        return lastLoadingElement?.id === id ? [] : prev;
-      });
+    function handleDoneNavigating() {
+      setLoadingElements([]);
     }
 
     window.addEventListener(START_LOADING_EVENT, handleLoadingStart as any);
-    window.addEventListener(DONE_LOADING_EVENT, handleLoadingEnd as any);
+    window.addEventListener('gbif-done-navigating', handleDoneNavigating as any);
 
     return () => {
       window.removeEventListener(START_LOADING_EVENT, handleLoadingStart as any);
-      window.removeEventListener(DONE_LOADING_EVENT, handleLoadingEnd as any);
+      window.removeEventListener('gbif-done-navigating', handleDoneNavigating as any);
     };
   }, [setLoadingElements]);
 
@@ -80,15 +73,12 @@ type StartLoadingDetails = {
 export class StartLoadingEvent extends CustomEvent<StartLoadingDetails> {
   constructor(detail: StartLoadingDetails) {
     super(START_LOADING_EVENT, { detail });
+    console.log(`start loading event ${detail.id}`);
   }
 }
 
-type DoneRenderingDetails = {
-  id: string;
-};
-
-export class DoneLoadingEvent extends CustomEvent<DoneRenderingDetails> {
-  constructor(detail: DoneRenderingDetails) {
-    super(DONE_LOADING_EVENT, { detail });
+export class DoneNavigatingEvent extends CustomEvent<void> {
+  constructor() {
+    super('gbif-done-navigating');
   }
 }

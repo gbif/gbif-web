@@ -9,6 +9,7 @@ import { Homepage, FeatureList, GenericFeature, PeopleIcon } from '@/components/
 import { LicenceTag } from '@/components/identifierTag';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
+import { NotFoundError } from '@/errors';
 import { DatasetQuery, DatasetQueryVariables } from '@/gql/graphql';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
@@ -204,26 +205,43 @@ export const DatasetPageSkeleton = ArticleSkeleton;
 export function DatasetPage() {
   const { data } = useLoaderData() as { data: DatasetQuery };
 
-  if (data.dataset == null) throw new Error('404');
+  if (data.dataset == null) throw new NotFoundError();
   const dataset = data.dataset;
 
   const deletedAt = dataset.deleted;
   const contactThreshold = 6;
   const contactsCitation = dataset.contactsCitation?.filter((c) => c.abbreviatedName) || [];
-  
+
   const tabs: { to: string; children: React.ReactNode }[] = [
     { to: '.', children: 'About' },
     // { to: 'citations', children: 'Citations' },
   ];
-  if (true) { tabs.push({ to: 'occurrences', children: 'Occurrences' }); }
-  if (dataset?.checklistBankDataset?.key) { 
-    tabs.push({ to: `${import.meta.env.PUBLIC_CHECKLIST_BANK_WEBSITE}/dataset/gbif-${dataset.key}/classification`, children: <>
-    <SimpleTooltip title={<FormattedMessage id="dataset.exploreInChecklistBank" defaultMessage="Explore taxonomy via Checklist Bank" />}>
-      <FormattedMessage id="dataset.exploreInChecklistBank" defaultMessage="Taxonomy" /><MdLink />
-    </SimpleTooltip>
-    </> });
+  if (true) {
+    tabs.push({ to: 'occurrences', children: 'Occurrences' });
   }
-  tabs.push({ to: 'download', children: 'Download'});
+  if (dataset?.checklistBankDataset?.key) {
+    tabs.push({
+      to: `${import.meta.env.PUBLIC_CHECKLIST_BANK_WEBSITE}/dataset/gbif-${
+        dataset.key
+      }/classification`,
+      children: (
+        <>
+          <SimpleTooltip
+            title={
+              <FormattedMessage
+                id="dataset.exploreInChecklistBank"
+                defaultMessage="Explore taxonomy via Checklist Bank"
+              />
+            }
+          >
+            <FormattedMessage id="dataset.exploreInChecklistBank" defaultMessage="Taxonomy" />
+            <MdLink />
+          </SimpleTooltip>
+        </>
+      ),
+    });
+  }
+  tabs.push({ to: 'download', children: 'Download' });
   return (
     <article>
       <Helmet>
@@ -294,9 +312,7 @@ export function DatasetPage() {
             </HeaderInfoMain>
           </HeaderInfo>
           <div className="g-border-b g-mt-4"></div>
-          <Tabs
-            links={tabs}
-          />
+          <Tabs links={tabs} />
         </ArticleTextContainer>
       </PageContainer>
 
