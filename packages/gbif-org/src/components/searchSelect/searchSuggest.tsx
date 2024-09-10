@@ -58,7 +58,7 @@ export function SearchSuggest<T>({
 
   // Keep track of the width of the popover trigger so we can set the width of the popover
   const triggerRef = React.useRef<HTMLButtonElement>(null);
-  const triggerWidth = triggerRef.current?.offsetWidth;
+  // const triggerWidth = triggerRef.current?.offsetWidth;
 
   return (
     <Popover open={controlledOpen} onOpenChange={setControlledOpen}>
@@ -67,7 +67,7 @@ export function SearchSuggest<T>({
           ref={triggerRef}
           variant={ selected ? 'default' : 'outline' }
           role="combobox"
-          aria-expanded={open}
+          aria-expanded={controlledOpen}
           className={cn('g-w-full g-flex', className)}
           // Override styles from our gb-button css class
           style={{ justifyContent: 'space-between' }}
@@ -76,7 +76,7 @@ export function SearchSuggest<T>({
           <ChevronsUpDown className="g-ml-2 g-h-4 g-w-4 g-shrink-0 g-opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent style={{ minWidth: triggerWidth }} className="g-p-0">
+      <PopoverContent style={{ width: 'var(--radix-popover-trigger-width)' }} className="g-p-0" align="start">
         <Command>
           <CommandInput
             value={searchTerm}
@@ -98,7 +98,7 @@ export function SearchSuggest<T>({
                     } else {
                       setSelected(result);
                     }
-                    setOpen(false);
+                    setControlledOpen(false);
                   }}
                 >
                   {labelSelector(result)}

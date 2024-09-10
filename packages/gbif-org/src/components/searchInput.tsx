@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { cn } from '@/utils/shadcn';
-import { MdSearch } from 'react-icons/md';
+import { MdClear, MdSearch } from 'react-icons/md';
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> { }
 
@@ -18,7 +18,9 @@ const SearchInput = React.forwardRef<HTMLInputElement, InputProps>(
         ref={ref}
         {...props}
       />
-        <button type="submit" className="g-h-9 g-absolute g-top-0 g-end-2 g-flex-none g-rounded-s-none g-rounded-e g-px-2"><MdSearch /></button>
+        <button type="submit" className="g-h-9 g-absolute g-top-0 g-end-2 g-flex-none g-rounded-s-none g-rounded-e g-px-2">
+          <MdSearch />
+        </button>
       </div>
     );
   }

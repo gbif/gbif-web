@@ -1,6 +1,6 @@
 import { SearchInput } from '@/components/searchInput';
 import { Button } from '@/components/ui/button';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import {
   MdDeleteOutline,
   MdOutlineRemoveCircleOutline,
@@ -19,6 +19,9 @@ import { DatasetPublisherFacetQuery, DatasetPublisherFacetQueryVariables } from 
 import { PublisherLabel } from './DisplayName';
 import hash from 'object-hash';
 import cloneDeep from 'lodash/cloneDeep';
+import { SearchCommand } from '@/routes/publisher/search/filters/searchSuggest';
+import { OrganizationSearchSugget } from '@/components/searchSelect/organizationSearchSuggest';
+import { ComboBoxExample } from './Test';
 
 export function PublisherSearchFilter({
   className,
@@ -35,6 +38,9 @@ export function PublisherSearchFilter({
     currentFilterContext;
   const [publishers, setPublishers] = useState<string[]>([]);
   const [filterBeforeHash, setFilterBeforeHash] = useState<string | undefined>(undefined);
+  const [results, setResults] = useState<string[]>([]);
+  const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState<string | null>(null);
 
   const {
     data: facetData,
@@ -46,8 +52,6 @@ export function PublisherSearchFilter({
   });
 
   useEffect(() => {
-    console.log('refresh facets');
-    console.log(filterBeforeHash);
     // if the filter has changed, then get facet values from API
     const v1Filter = filter2v1(filterBeforeChanges, searchConfig);
     delete v1Filter?.filter?.publishingOrg;
@@ -65,13 +69,24 @@ export function PublisherSearchFilter({
     setPublishers(publishers);
   }, [filterHash]);
 
+  const search = useCallback((q: string) => {
+    // fetch data from https://api.gbif.org/v1/organization/suggest?limit=8&q=${q} and store it in results
+    fetch(`https://api.gbif.org/v1/organization/suggest?limit=20&q=${q}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setResults(data);
+      });
+  }, []);
+
   const suggestions = facetData?.search?.facet?.field?.filter((x) => !publishers.includes(x.name))
 
   return (
     <div>
       <div className="g-flex">
-        <SearchInput placeholder="Search" className="g-border-primary-500 g-flex-auto" />
+        <ComboBoxExample onSelect={item => add('publishingOrg', item.key)}/>
+        {/* <SearchInput placeholder="Search" className="g-border-primary-500 g-flex-auto" /> */}
         {/* <button className="g-text-slate-700 g-ps-2"><MdInfoOutline /></button> */}
+        {/* <OrganizationSearchSugget setSelected={x => add('publishingOrg', x.key)} open={true} className="g-w-full"/> */}
       </div>
       <div className="g-flex g-text-sm g-text-slate-400 g-mt-1">
         <div className="g-flex-auto">{publishers?.length} selected</div>

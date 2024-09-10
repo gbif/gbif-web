@@ -113,7 +113,7 @@ export function SearchSuggest<T>({
   );
 }
 
-function SearchCommand<T>({search, results, searchInputPlaceholder, noSearchResultsPlaceholder, keySelector, labelSelector, selected, setSelected, setOpen}: Props<T>) {
+export function SearchCommand<T>({search, results, searchInputPlaceholder, noSearchResultsPlaceholder, keySelector, labelSelector, selected, setSelected, setOpen}: Props<T>) {
   const [searchTerm, setSearchTerm] = React.useState('');
 
   // Fetch new search results when the search term changes
