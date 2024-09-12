@@ -102,7 +102,7 @@ export function SuggestDatasetForm() {
             onSubmit={onSubmit}
             className="g-max-w-3xl g-bg-white g-shadow g-m-auto g-flex g-flex-col g-gap-4"
           >
-            <div className="g-flex g-gap-4">
+            <SideBySide>
               <TextField
                 name="title"
                 placeholder="Dataset name"
@@ -119,9 +119,9 @@ export function SuggestDatasetForm() {
                 placeholder="Where can we find the data"
                 label="Internet link to data"
               />
-            </div>
+            </SideBySide>
 
-            <div className="g-flex g-gap-4">
+            <SideBySide>
               <TextField
                 name="region"
                 placeholder="E.g. 'Middle east' or 'Borneo'"
@@ -143,9 +143,9 @@ export function SuggestDatasetForm() {
                   </span>
                 }
               />
-            </div>
+            </SideBySide>
 
-            <div className="g-flex g-gap-4">
+            <SideBySide>
               <TextField
                 className="flex-1"
                 name="datasetImportance"
@@ -183,7 +183,7 @@ export function SuggestDatasetForm() {
                   </FormItem>
                 )}
               />
-            </div>
+            </SideBySide>
 
             <TextField
               label="Bibliographic reference"
@@ -191,7 +191,7 @@ export function SuggestDatasetForm() {
               name="datasetBibliographicDoi"
             />
 
-            <div className="g-flex g-gap-4">
+            <SideBySide>
               <FormField
                 control={form.control}
                 name="license"
@@ -239,9 +239,9 @@ export function SuggestDatasetForm() {
                   </FormItem>
                 )}
               />
-            </div>
+            </SideBySide>
 
-            <div className="g-flex g-gap-4">
+            <SideBySide>
               <TextField
                 name="datasetHolderContact"
                 label="Dataholders contact information"
@@ -257,7 +257,7 @@ export function SuggestDatasetForm() {
                 description="These details will be public"
                 descriptionPosition="below"
               />
-            </div>
+            </SideBySide>
 
             <TextField
               name="comments"
@@ -274,4 +274,8 @@ export function SuggestDatasetForm() {
       </ClientSideOnly>
     </BlockContainer>
   );
+}
+
+function SideBySide({ children }: { children: React.ReactNode }) {
+  return <div className="g-flex sm:g-flex-row g-flex-col g-gap-4">{children}</div>;
 }
