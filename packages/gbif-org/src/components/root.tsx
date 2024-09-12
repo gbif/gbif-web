@@ -23,7 +23,7 @@ export function Root({ config, helmetContext, children, metadataRoutes }: Props)
               <Helmet>
                 <title>{config.defaultTitle}</title>
               </Helmet>
-              <TooltipProvider>{children}</TooltipProvider>
+              <TooltipProvider disableHoverableContent={true}>{children}</TooltipProvider>
             </HelmetProvider>
           </LoadingElementProvider>
         </MetadataRoutesProvider>

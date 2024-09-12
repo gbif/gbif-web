@@ -7,7 +7,10 @@ import {
   MdInfo,
   MdInfoOutline,
   MdShuffle,
+  MdPieChart,
+  MdPieChartOutline,
 } from 'react-icons/md';
+import { PiEmptyBold, PiEmptyFill } from 'react-icons/pi';
 import { TiArrowShuffle as InvertIcon } from 'react-icons/ti';
 import { cn } from '@/utils/shadcn';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -22,6 +25,9 @@ import cloneDeep from 'lodash/cloneDeep';
 import { SearchCommand } from '@/routes/publisher/search/filters/searchSuggest';
 import { OrganizationSearchSugget } from '@/components/searchSelect/organizationSearchSuggest';
 import { ComboBoxExample } from './Test';
+import { HelpLine, HelpText } from '@/components/helpText';
+import { FormattedNumber } from 'react-intl';
+import { SimpleTooltip } from '@/components/simpleTooltip';
 
 export function PublisherSearchFilter({
   className,
@@ -41,6 +47,7 @@ export function PublisherSearchFilter({
   const [results, setResults] = useState<string[]>([]);
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState<string | null>(null);
+  const [facetLookup, setFacetLookup] = useState<Record<string, number>>({});
 
   const {
     data: facetData,
@@ -51,12 +58,27 @@ export function PublisherSearchFilter({
     lazyLoad: true,
   });
 
+  const {
+    data: selectedFacetData,
+    error: selectedFacetError,
+    loading: selectedFacetLoading,
+    load: selectedFacetLoad,
+  } = useQuery<DatasetPublisherFacetQuery, DatasetPublisherFacetQueryVariables>(FACET, {
+    lazyLoad: true,
+  });
+
   useEffect(() => {
     // if the filter has changed, then get facet values from API
     const v1Filter = filter2v1(filterBeforeChanges, searchConfig);
     delete v1Filter?.filter?.publishingOrg;
-    facetLoad({ variables: v1Filter });
+    facetLoad({ variables: v1Filter?.filter });
   }, [filterBeforeHash]);
+
+  useEffect(() => {
+    // if the filter has changed, then get facet values from API
+    const v1Filter = filter2v1(filter, searchConfig);
+    selectedFacetLoad({ variables: v1Filter?.filter });
+  }, [filterHash]);
 
   useEffect(() => {
     const prunedFilter = cleanUpFilter(cloneDeep(filterBeforeChanges));
@@ -69,88 +91,142 @@ export function PublisherSearchFilter({
     setPublishers(publishers);
   }, [filterHash]);
 
-  const search = useCallback((q: string) => {
-    // fetch data from https://api.gbif.org/v1/organization/suggest?limit=8&q=${q} and store it in results
-    fetch(`https://api.gbif.org/v1/organization/suggest?limit=20&q=${q}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setResults(data);
-      });
-  }, []);
+  useEffect(() => {
+    // map selectedFacetData to a lookup so that we have easy access to the counts per publisher key
+    const selectedFacetLookup = selectedFacetData?.search?.facet?.field?.reduce((acc, x) => {
+      acc[x.name] = x.count;
+      return acc;
+    }, {} as Record<string, number>) ?? {};
+    setFacetLookup(selectedFacetLookup);
+  }, [selectedFacetData]);
 
-  const suggestions = facetData?.search?.facet?.field?.filter((x) => !publishers.includes(x.name))
+  // const search = useCallback((q: string) => {
+  //   // fetch data from https://api.gbif.org/v1/organization/suggest?limit=8&q=${q} and store it in results
+  //   fetch(`https://api.gbif.org/v1/organization/suggest?limit=20&q=${q}`)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setResults(data);
+  //     });
+  // }, []);
+
+  const suggestions = facetData?.search?.facet?.field?.filter((x) => !publishers.includes(x.name));
+
+  const options = (
+    <>
+      <div className="g-flex-auto"></div>
+      <div className="g-flex-none g-text-base" style={{ marginTop: '-0.2em' }}>
+        {publishers.length > 0 && (
+          <button
+            className="g-mx-1 g-me-2 g-px-1 g-pe-3 g-border-r"
+            onClick={() => setFullField('publishingOrg', [], [])}
+          >
+            <MdDeleteOutline />
+          </button>
+        )}
+        <SimpleTooltip delayDuration={300} title="Exclude selected">
+          <button className="g-px-1" onClick={() => negateField('publishingOrg', true)}>
+            <MdOutlineRemoveCircleOutline />
+          </button>
+        </SimpleTooltip>
+        <SimpleTooltip delayDuration={300} title="Invert selection">
+          <button className="g-px-1">
+            <MdShuffle />
+          </button>
+        </SimpleTooltip>
+        {/* <button className="g-mx-1" onClick={() => setShowSuggestions(!showSuggestions)}>
+          {showSuggestions && <MdPieChart />}
+          {!showSuggestions && <MdPieChartOutline />}
+        </button> */}
+        <SimpleTooltip delayDuration={300} title="Filter by existence">
+          <button className="g-px-1">
+            <PiEmptyBold />
+          </button>
+        </SimpleTooltip>
+
+        <SimpleTooltip delayDuration={300} title="About this filter">
+          <HelpLine
+            id="how-to-link-datasets-to-my-project-page"
+            title={<MdInfoOutline className="g-mx-1" />}
+          />
+        </SimpleTooltip>
+      </div>
+    </>
+  );
 
   return (
-    <div>
+    <div className="">
       <div className="g-flex">
-        <ComboBoxExample onSelect={item => add('publishingOrg', item.key)}/>
+        <ComboBoxExample
+          onSelect={(item) => add('publishingOrg', item.key)}
+          className="g-border-slate-100 g-border-b-2 g-py-1.5 g-px-4"
+        />
         {/* <SearchInput placeholder="Search" className="g-border-primary-500 g-flex-auto" /> */}
         {/* <button className="g-text-slate-700 g-ps-2"><MdInfoOutline /></button> */}
         {/* <OrganizationSearchSugget setSelected={x => add('publishingOrg', x.key)} open={true} className="g-w-full"/> */}
       </div>
-      <div className="g-flex g-text-sm g-text-slate-400 g-mt-1">
-        <div className="g-flex-auto">{publishers?.length} selected</div>
-        <div className="g-flex-none g-text-base">
-          {publishers.length > 0 && (
-            <button className="g-mx-1" onClick={() => setFullField('publishingOrg', [], [])}>
-              <MdDeleteOutline />
-            </button>
-          )}
-          {/* <button className="g-mx-1" onClick={() => negateField('publishingOrg', true)}>
-            <MdOutlineRemoveCircle />
-            <MdOutlineRemoveCircleOutline />
-          </button> */}
-          {/* <button className="g-mx-1">
-            <MdShuffle />
-          </button> */}
-          <button className="g-mx-1" onClick={() => setShowAbout(!showAbout)}>
-            {!showAbout && <MdInfoOutline />}
-            {showAbout && <MdInfo />}
-          </button>
-        </div>
+      <div
+        className={cn('g-flex g-text-sm g-text-slate-400 g-mt-1 g-pb-1 g-items-center', className)}
+      >
+        {publishers.length > -1 && (
+          <div className="g-flex-none g-text-xs g-font-bold">{publishers?.length} selected</div>
+        )}
+        {options}
       </div>
-      {showAbout && (
-        <div className="g-bg-slate-200 g-p-2 g-text-sm g-rounded g-mb-2">Help text goes here</div>
-      )}
-      <div className="g-text-base">
-        <fieldset className="g-text-sm">
-          {publishers.map((x) => {
-            return (
-              <Option
-                key={x}
-                className="g-mb-1"
-                onClick={() => toggle('publishingOrg', x)}
-                checked={true}
-                // helpText="Longer description can go here"
-              >
-                <PublisherLabel id={x} />
-              </Option>
-            );
-          })}
-        </fieldset>
-      </div>
-      {suggestions && suggestions.length > 0 && (
-        <div className={`${publishers?.length > 0 ? 'g-border-t' : ''} g-mt-2 g-pt-1`}>
-          <h4 className="g-text-sm g-text-slate-400 g-mb-1">Suggestions</h4>
-          <fieldset className="g-text-sm g-text-slate-600">
-            {suggestions.map((x) => {
+      <>
+        {publishers.length > 0 && (
+          <div className={cn('g-text-base g-mt-2', className)}>
+            <fieldset className="g-text-sm">
+              {publishers.map((x) => {
+                return (
+                  <Option
+                    key={x}
+                    className="g-mb-2"
+                    onClick={() => toggle('publishingOrg', x)}
+                    checked={true}
+                    // helpText="Longer description can go here"
+                  >
+                    <div className="g-flex">
+                      <span className="g-flex-auto"><PublisherLabel id={x} /></span>
+                      <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
+                        <FormattedNumber value={facetLookup[x] ?? 0} />
+                      </span>
+                    </div>
+                  </Option>
+                );
+              })}
+            </fieldset>
+          </div>
+        )}
+        {suggestions && suggestions.length > 0 && (
+          <div className={cn(`g-p-2 g-pt-2 `, publishers.length > 0 && 'g-border-t', className)}>
+            {/* <div className={cn('g-flex g-text-sm g-text-slate-400 g-mt-1 g-mb-2 g-items-center')}>
+              <h4 className="g-text-xs g-font-bold g-text-slate-400 g-mb-1">Suggestions</h4>
+            </div> */}
+            <fieldset className="g-text-sm g-text-slate-600">
+              {suggestions.map((x) => {
                 return (
                   <Option
                     key={x.name}
-                    className="g-mb-1"
+                    className="g-mb-2"
                     onClick={() => {
                       toggle('publishingOrg', x.name);
                     }}
                     // checked={false}
                     // helpText={`Datasets: ${x.count}`}
                   >
-                    {x?.item?.title ?? x.name}
+                    <div className="g-flex">
+                      <span className="g-flex-auto">{x?.item?.title ?? x.name}</span>
+                      <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
+                        <FormattedNumber value={x.count} />
+                      </span>
+                    </div>
                   </Option>
                 );
               })}
-          </fieldset>
-        </div>
-      )}
+            </fieldset>
+          </div>
+        )}
+      </>
     </div>
   );
 }
@@ -172,7 +248,7 @@ export function Option({
   return (
     <label className={cn('g-flex', className)}>
       <Checkbox
-        className="g-flex-none g-me-2 g-mt-1"
+        className="g-flex-none g-me-2 g-mt-0.5"
         checked={checked}
         onClick={() => {
           onClick(!checked);

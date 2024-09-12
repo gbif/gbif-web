@@ -121,8 +121,8 @@ export const gbifConfig: Config = {
     ],
   },
   theme: {
-    // primary: '#4787fb',//'#69AA69',
-    primary: '#69AA69',
+    primary: '#4787fb',//'#69AA69',
+    // primary: '#69AA69',
     stickyOffset: '40px',
   },
   openGraph: {

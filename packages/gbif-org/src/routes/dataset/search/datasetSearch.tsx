@@ -193,7 +193,7 @@ function Filters({ className }: { className: string }) {
         <CardTitle>Filters</CardTitle>
       </CardHeader>
       <div className="" role="search">
-        <div className="g-mb-4 g-me-4">
+        {/* <div className="g-mb-4 g-me-4 g-mb-6">
           <QFilter
             className="g-block g-w-full g-bg-white"
             value={filter.must?.q?.[0]}
@@ -205,11 +205,11 @@ function Filters({ className }: { className: string }) {
               }
             }}
           />
-        </div>
-        <div className="g-mb-4 g-me-4 g-bg-white g-p-4 g-mt-6 g-rounded g-shadow">
-          <h3 className="g-mb-2 g-font-bold g-text-base">Publisher</h3>
-          <PublisherSearchFilter searchConfig={searchConfig} filterBeforeChanges={filterContext.filter} currentFilterContext={filterContext} />
-        </div>
+        </div> */}
+        <Card className="g-mb-4 g-me-4 g-bg-white g-rounded g-shadow-md">
+          {/* <h3 className="g-p-4 g-font-bold g-text-base">Publisher</h3> */}
+          <PublisherSearchFilter searchConfig={searchConfig} filterBeforeChanges={filterContext.filter} currentFilterContext={filterContext} className="g-px-4" />
+        </Card>
         {/* {availableFilter.map((x) => (
           <div key={x} className="g-mb-4 g-me-4">
             <QFilter

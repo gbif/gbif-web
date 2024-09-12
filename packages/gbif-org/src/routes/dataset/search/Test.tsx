@@ -5,7 +5,13 @@ import { useCombobox } from 'downshift';
 import React, { useCallback, useEffect, useState } from 'react';
 import { MdSearch } from 'react-icons/md';
 
-export function ComboBoxExample({ onSelect }: { onSelect: (item: any) => void }) {
+export function ComboBoxExample({
+  onSelect,
+  className,
+}: {
+  onSelect: (item: any) => void;
+  className?: string;
+}) {
   const search = useCallback((q: string) => {
     // fetch data from https://api.gbif.org/v1/organization/suggest?limit=8&q=${q} and store it in results
     return fetch(`https://api.gbif.org/v1/organization/suggest?limit=20&q=${q}`)
@@ -15,15 +21,17 @@ export function ComboBoxExample({ onSelect }: { onSelect: (item: any) => void })
       });
   }, []);
 
-  return <ComboBox onSearch={search} onSelect={onSelect} />;
+  return <ComboBox onSearch={search} onSelect={onSelect} className={className} />;
 }
 
 function ComboBox({
   onSearch,
   onSelect,
+  className,
 }: {
   onSearch: (q: string) => Promise<any>;
   onSelect: (item: any) => void;
+  className?: string;
 }) {
   const [items, setItems] = React.useState([]);
   const [selectedItem, setSelectedItem] = React.useState(null);
@@ -106,19 +114,22 @@ function ComboBox({
         <label className="g-w-fit g-sr-only" {...getLabelProps()}>
           Search publishers
         </label>
-        <div className="g-flex g-shadow-sm g-bg-white">
-          {/* <SearchInput placeholder="Search publishers" className="g-w-full" {...getInputProps()} /> */}
-          <div className={cn('g-flex disabled:g-opacity-50 g-relative g-items-center g-justify-center g-w-full')}>
-            <MdSearch className="g-text-slate-400 g-w-8 g-h-9 g-absolute g-top-0 g-start-1 g-flex-none g-rounded-s-none g-rounded-e g-px-2"/>
-            <input
-              type="input"
-              placeholder="Search"
-              className={cn(
-                'g-ps-8 g-flex-auto g-h-9 g-w-full g-rounded-md g-border g-border-input g-bg-transparent g-px-3 g-py-1 g-text-sm g-shadow-sm g-transition-colors file:g-border-0 file:g-bg-transparent file:g-text-sm file:g-font-medium placeholder:g-text-muted-foreground focus-visible:g-outline-none focus-visible:g-ring-1 focus-visible:g-ring-ring disabled:g-cursor-not-allowed'
-              )}
-              {...getInputProps()}
-            />
-          </div>
+        {/* <SearchInput placeholder="Search publishers" className="g-w-full" {...getInputProps()} /> */}
+        <div
+          className={cn(
+            'g-flex disabled:g-opacity-50 g-relative g-items-center g-justify-center g-w-full', className
+          )}
+        >
+          <MdSearch className="g-text-slate-400 g-me-2 g-text-center g-flex-none" />
+          <input
+            type="input"
+            placeholder="Search..."
+            className={cn(
+              'g-flex-auto g-w-full g-bg-transparent g-py-1 g-text-sm g-transition-colors file:g-border-0 file:g-bg-transparent file:g-text-sm file:g-font-medium placeholder:g-text-muted-foreground focus-visible:g-outline-none disabled:g-cursor-not-allowed',
+              // 'focus-visible:g-ring-2 focus-visible:g-ring-blue-400/30 focus-visible:g-ring-offset-0 g-ring-inset',
+            )}
+            {...getInputProps()}
+          />
         </div>
       </div>
       <ul
