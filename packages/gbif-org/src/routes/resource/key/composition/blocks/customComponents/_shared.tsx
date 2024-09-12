@@ -25,7 +25,7 @@ type RadioItemProps = {
 
 export function RadioItem({ value, label }: RadioItemProps) {
   return (
-    <FormItem className="g-flex g-items-center g-space-x-3 g-space-y-0">
+    <FormItem className="g-flex g-items-start g-space-x-3 g-space-y-0">
       <FormControl>
         <RadioGroupItem value={value} />
       </FormControl>
