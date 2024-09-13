@@ -52,6 +52,9 @@ const NavigationMenuTrigger = React.forwardRef<
     ref={ref}
     className={cn(navigationMenuTriggerStyle(), 'group', className)}
     {...props}
+    onPointerEnter={(event) => event.preventDefault()}
+    onPointerLeave={(event) => event.preventDefault()}
+    onPointerMove={(event) => event.preventDefault()}
   >
     {children}{' '}
     <ChevronDownIcon
