@@ -5,7 +5,7 @@ module.exports = {
     preflight: false, // We do not want the preflight reset to apply to all sites where these componetns are used. Instead the reset is applied in index.css as a class
   },
   prefix: 'g-', // prefix all classes with g- to avoid conflicts with other css frameworks
-  darkMode: ["class"],
+  darkMode: ['class'],
   content: [
     './pages/**/*.{ts,tsx,jsx}',
     './components/**/*.{ts,tsx,jsx}',
@@ -15,24 +15,22 @@ module.exports = {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      padding: '2rem',
       screens: {
-        "2xl": "1400px",
+        '2xl': '1400px',
       },
     },
     fontFamily: {
-      sans: [
-        "var(--fontFamily)"
-      ],
+      sans: ['var(--fontFamily)'],
     },
     extend: {
       colors: {
-        border: "var(--border)",
-        input: "var(--input)",
-        ring: "var(--ring)",
-        background: "rgb(var(--background))",
-        foreground: "rgb(var(--foreground))",
-        paperBackground: "rgb(var(--paperBackground))",
+        border: 'var(--border)',
+        input: 'var(--input)',
+        ring: 'var(--ring)',
+        background: 'rgb(var(--background))',
+        foreground: 'rgb(var(--foreground))',
+        paperBackground: 'rgb(var(--paperBackground))',
         primary: {
           DEFAULT: 'rgb(var(--primary500) / <alpha-value>)',
           50: 'rgb(var(--primary50) / <alpha-value>)',
@@ -76,48 +74,48 @@ module.exports = {
         //   '950': '#292421',
         // },
         secondary: {
-          DEFAULT: "var(--secondary)",
-          foreground: "var(--secondary-foreground)",
+          DEFAULT: 'var(--secondary)',
+          foreground: 'var(--secondary-foreground)',
         },
         destructive: {
-          DEFAULT: "var(--destructive)",
-          foreground: "var(--destructive-foreground)",
+          DEFAULT: 'var(--destructive)',
+          foreground: 'var(--destructive-foreground)',
         },
         muted: {
-          DEFAULT: "var(--muted)",
-          foreground: "var(--muted-foreground)",
+          DEFAULT: 'var(--muted)',
+          foreground: 'var(--muted-foreground)',
         },
         accent: {
-          DEFAULT: "var(--accent)",
-          foreground: "var(--accent-foreground)",
+          DEFAULT: 'var(--accent)',
+          foreground: 'var(--accent-foreground)',
         },
         popover: {
-          DEFAULT: "var(--popover)",
-          foreground: "var(--popover-foreground)",
+          DEFAULT: 'var(--popover)',
+          foreground: 'var(--popover-foreground)',
         },
         card: {
-          DEFAULT: "var(--card)",
-          foreground: "var(--card-foreground)",
+          DEFAULT: 'var(--card)',
+          foreground: 'var(--card-foreground)',
         },
       },
       borderRadius: {
-        lg: "calc(var(--borderRadiusPx) * 2)",
-        md: "var(--borderRadiusPx)",
-        sm: "calc(var(--borderRadiusPx) / 2)",
+        lg: 'calc(var(--borderRadiusPx) * 2)',
+        md: 'var(--borderRadiusPx)',
+        sm: 'calc(var(--borderRadiusPx) / 2)',
       },
       keyframes: {
-        "accordion-down": {
+        'accordion-down': {
           from: { height: 0 },
-          to: { height: "var(--radix-accordion-content-height)" },
+          to: { height: 'var(--radix-accordion-content-height)' },
         },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
+        'accordion-up': {
+          from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: 0 },
         },
       },
       animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
+        'accordion-down': 'accordion-down 0.2s ease-out',
+        'accordion-up': 'accordion-up 0.2s ease-out',
       },
       typography: {
         DEFAULT: {
@@ -125,16 +123,16 @@ module.exports = {
             maxWidth: '80ch', // add required value here
             'blockquote p:first-of-type::before': false, // do not add quotation marks to block quotes. we have block quotes where the content also have quotation marks leading to double quotation marks
             'blockquote p:first-of-type::after': false,
-          }
-        }
+          },
+        },
+      },
+      flexBasis: {
+        content: 'content',
       },
     },
   },
-  plugins: [
-    addRtlSupport(require('@tailwindcss/typography')),
-    require("tailwindcss-animate")
-  ],
-}
+  plugins: [addRtlSupport(require('@tailwindcss/typography')), require('tailwindcss-animate')],
+};
 
 function addRtlSupport(plugin) {
   function traverseAndModify(object, modifier) {
@@ -144,7 +142,7 @@ function addRtlSupport(plugin) {
 
       // If the value is an array, recursively modify each item
       if (Array.isArray(newValue)) {
-        newValue = newValue.map(item => traverseAndModify(item, modifier))
+        newValue = newValue.map((item) => traverseAndModify(item, modifier));
       }
       // If the value is a nested object, recursively modify it
       else if (newValue != null && typeof newValue === 'object') {
@@ -167,15 +165,19 @@ function addRtlSupport(plugin) {
       else if (key === 'textAlign' && value === 'left') value = 'start';
 
       if (key.includes('left') || key.includes('right')) {
-        console.warn(`It looks like "${key}" is a left/right specific property that is not handled by "addRtlSupport" in tailwind.config.js. Please take a look at this`);
+        console.warn(
+          `It looks like "${key}" is a left/right specific property that is not handled by "addRtlSupport" in tailwind.config.js. Please take a look at this`
+        );
       }
 
       if (typeof value === 'string' && (value.includes('left') || value.includes('right'))) {
-        console.warn(`It looks like "${value}" with the key of "${key}" is a left/right specific value that is not handled by "addRtlSupport" in tailwind.config.js. Please take a look at this`);
+        console.warn(
+          `It looks like "${value}" with the key of "${key}" is a left/right specific value that is not handled by "addRtlSupport" in tailwind.config.js. Please take a look at this`
+        );
       }
 
       return [key, value];
-    })
+    });
 
     // Uncomment the following lines to debug the transformation
     // const fs = require('fs');

@@ -1,51 +1,48 @@
-import { useEffect, useState } from 'react';
+import {
+  ComponentProps,
+  JSXElementConstructor,
+  ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
-type Props<T extends React.ElementType> = React.ComponentProps<T> & {
-  children?: React.ReactNode;
-  as?: T;
+type ComponentOrElement = JSXElementConstructor<any> | keyof JSX.IntrinsicElements;
+
+type Props<T extends ComponentOrElement> = {
+  children?: ReactNode;
+  as: T;
   onChange?: (visible: boolean) => void;
-};
+} & Omit<ComponentProps<T>, 'children'>;
 
-// Don't use this component as a wrapper for components with side effects, as it will run the children components twice.
-export function RenderIfChildren<T extends React.ElementType = 'div'>({
+export function RenderIfChildren<T extends ComponentOrElement>({
   children,
   as,
-  onChange, // optional callback function to notify parent of visibility status
+  onChange,
   ...props
 }: Props<T>) {
-  const [visible, setVisible] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [hasChildrenContent, setHasChildrenContent] = useState<boolean | null>(null);
 
+  // Determine if the children renders to nothing
   useEffect(() => {
-    if (onChange) onChange(visible);
-  }, [visible]);
+    if (!containerRef.current) return;
+    setHasChildrenContent(containerRef.current.innerHTML.trim().length > 0);
+  }, [children]);
 
-  if (willRenderToNull(children)) {
-    if (visible) setVisible(false);
-    return null;
-  } else {
-    if (!visible) setVisible(true);
-  }
+  // Notify parent of visibility status
+  useEffect(() => {
+    if (onChange && hasChildrenContent != null) onChange(hasChildrenContent);
+  }, [hasChildrenContent, onChange]);
 
-  const Element = as ?? 'div';
-  return <Element {...props}>{children}</Element>;
-}
+  const Wrapper = as ?? 'div';
 
-function willRenderToNull(children?: React.ReactNode): boolean {
-  if (!children) return true;
-
-  if (Array.isArray(children)) {
-    return children.every(willRenderToNull);
-  }
-
-  if (
-    typeof children === 'object' &&
-    'type' in children &&
-    'props' in children &&
-    typeof children.type === 'function'
-  ) {
-    // @ts-ignore
-    return willRenderToNull(children.type(children.props));
-  }
-
-  return false;
+  return (
+    <>
+      <div ref={containerRef} style={{ display: 'none' }}>
+        {children}
+      </div>
+      {hasChildrenContent && <Wrapper {...(props as any)}>{children}</Wrapper>}
+    </>
+  );
 }
