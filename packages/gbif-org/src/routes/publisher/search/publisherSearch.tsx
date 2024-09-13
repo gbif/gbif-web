@@ -315,7 +315,7 @@ function Filters() {
   return (
     <div className="g-border-b g-py-2 g-px-2" role="search">
       <QFilter
-        className="g-inline-block"
+        className="g-min-w-36"
         value={filter.must?.q?.[0]}
         onChange={(x) => {
           if (x !== '' && x) {

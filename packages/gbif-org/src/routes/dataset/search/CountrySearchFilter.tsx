@@ -29,7 +29,7 @@ import { HelpLine, HelpText } from '@/components/helpText';
 import { FormattedNumber } from 'react-intl';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 
-export function PublisherSearchFilter({
+export function CountrySearchFilter({
   className,
   filterBeforeChanges,
   searchConfig,
@@ -100,14 +100,14 @@ export function PublisherSearchFilter({
     setFacetLookup(selectedFacetLookup);
   }, [selectedFacetData]);
 
-  // const search = useCallback((q: string) => {
-  //   // fetch data from https://api.gbif.org/v1/organization/suggest?limit=8&q=${q} and store it in results
-  //   fetch(`https://api.gbif.org/v1/organization/suggest?limit=20&q=${q}`)
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setResults(data);
-  //     });
-  // }, []);
+  const search = useCallback((q: string) => {
+    // fetch data from https://api.gbif.org/v1/organization/suggest?limit=8&q=${q} and store it in results
+    fetch(`https://api.gbif.org/v1/organization/suggest?limit=20&q=${q}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setResults(data);
+      });
+  }, []);
 
   const suggestions = facetData?.search?.facet?.field?.filter((x) => !publishers.includes(x.name));
 
@@ -133,10 +133,6 @@ export function PublisherSearchFilter({
             <MdShuffle />
           </button>
         </SimpleTooltip>
-        {/* <button className="g-mx-1" onClick={() => setShowSuggestions(!showSuggestions)}>
-          {showSuggestions && <MdPieChart />}
-          {!showSuggestions && <MdPieChartOutline />}
-        </button> */}
         <SimpleTooltip delayDuration={300} title="Filter by existence">
           <button className="g-px-1">
             <PiEmptyBold />
@@ -156,13 +152,7 @@ export function PublisherSearchFilter({
   return (
     <div className="">
       <div className="g-flex">
-        <ComboBoxExample
-          onSelect={(item) => add('publishingOrg', item.key)}
-          className="g-border-slate-100 g-border-b-2 g-py-1.5 g-px-4"
-        />
-        {/* <SearchInput placeholder="Search" className="g-border-primary-500 g-flex-auto" /> */}
-        {/* <button className="g-text-slate-700 g-ps-2"><MdInfoOutline /></button> */}
-        {/* <OrganizationSearchSugget setSelected={x => add('publishingOrg', x.key)} open={true} className="g-w-full"/> */}
+        <SearchInput placeholder="Search" className="g-py-2 g-px-4 g-flex-auto g-border-b" />
       </div>
       <div
         className={cn('g-flex g-text-sm g-text-slate-400 g-mt-1 g-pb-1 g-items-center', className)}

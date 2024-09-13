@@ -29,6 +29,7 @@ import {
 import { HelpText } from '@/components/helpText';
 import { cn } from '@/utils/shadcn';
 import { PublisherSearchFilter } from './PublisherSearchFilter';
+import { CountrySearchFilter } from './CountrySearchFilter';
 
 const DATASET_SEARCH_QUERY = /* GraphQL */ `
   query DatasetSearch($license: [License], $endorsingNodeKey: [ID], $networkKey: [ID], $publishingOrg: [ID], $hostingOrg: [ID], $publishingCountry: [Country], $q: String, $offset: Int, $limit: Int, $type: [DatasetType], $subtype: [DatasetSubtype]){
@@ -206,6 +207,10 @@ function Filters({ className }: { className: string }) {
             }}
           />
         </div> */}
+        <Card className="g-mb-4 g-me-4 g-bg-white g-rounded g-shadow-md">
+          {/* <h3 className="g-p-4 g-font-bold g-text-base">Publisher</h3> */}
+          <CountrySearchFilter searchConfig={searchConfig} filterBeforeChanges={filterContext.filter} currentFilterContext={filterContext} className="g-px-4" />
+        </Card>
         <Card className="g-mb-4 g-me-4 g-bg-white g-rounded g-shadow-md">
           {/* <h3 className="g-p-4 g-font-bold g-text-base">Publisher</h3> */}
           <PublisherSearchFilter searchConfig={searchConfig} filterBeforeChanges={filterContext.filter} currentFilterContext={filterContext} className="g-px-4" />

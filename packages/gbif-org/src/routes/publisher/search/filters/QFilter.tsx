@@ -47,7 +47,7 @@ export function QFilter({
         defaultValue={value}
         ref={inputRef}
         placeholder="Text search"
-        className={cn('g-inline-block g-w-auto g-me-2 g-border-primary-500 g-min-w-48', className)}
+        className={cn('g-h-9 g-px-4 g-py-2 g-rounded-md g-w-auto g-me-2 g-border g-border-primary-500 g-min-w-36', className)}
         onBlur={(e) => {
           onChange(e.target.value);
           if (e.target.value !== '') {

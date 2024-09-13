@@ -117,7 +117,7 @@ function ComboBox({
         {/* <SearchInput placeholder="Search publishers" className="g-w-full" {...getInputProps()} /> */}
         <div
           className={cn(
-            'g-flex disabled:g-opacity-50 g-relative g-items-center g-justify-center g-w-full', className
+            'g-flex disabled:g-opacity-50 g-items-center g-justify-center g-w-full', className
           )}
         >
           <MdSearch className="g-text-slate-400 g-me-2 g-text-center g-flex-none" />
