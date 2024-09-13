@@ -76,6 +76,7 @@ const NavigationMenuContent = React.forwardRef<
       className
     )}
     {...props}
+    onPointerLeave={(event) => event.preventDefault()}
   />
 ));
 NavigationMenuContent.displayName = NavigationMenuPrimitive.Content.displayName;
