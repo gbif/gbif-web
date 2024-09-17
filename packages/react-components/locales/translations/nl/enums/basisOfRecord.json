@@ -5,6 +5,7 @@
   "OBSERVATION": "Waarneming",
   "HUMAN_OBSERVATION": "Menselijke waarneming",
   "MACHINE_OBSERVATION": "Machinale waarneming",
+  "MATERIAL_SAMPLE": "Materiaal monster",
   "LITERATURE": "Literatuur",
   "OCCURRENCE": "Voorkomen"
 }
