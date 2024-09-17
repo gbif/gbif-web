@@ -1,1 +1,10 @@
-{}
+{
+  "BIOLOGICAL_OTHER": "Biologisch ander",
+  "BIOLOGICAL_LIVING_ORGANISMS": "Biologische levende organismen",
+  "BIOLOGICAL_PLANT_DERIVED": "Biologische van planten afkomstig",
+  "HUMAN_DERIVED_OTHER": "Van mens afkomstig andere",
+  "EARTH_PLANETARY_OTHER": "Aarde planetaire andere",
+  "EARTH_PLANETARY_GAS": "Aarde planetaire gas",
+  "EARTH_PLANETARY_ICE": "Aarde planetaire ijs",
+  "EARTH_PLANETARY_WATER": "Aarde planetaire water"
+}
