@@ -37,6 +37,8 @@
     "INFRASPECIFIC_NAME": "Ondersoortnaam",
     "SUBSPECIES": "Ondersoort",
     "RACE": "Raas",
+    "FORM": "Vorm",
+    "SUBFORM": "Subvorm",
     "CULTIVAR": "Cultivar",
     "OTHER": "Anders",
     "UNRANKED": "Geen rang"
