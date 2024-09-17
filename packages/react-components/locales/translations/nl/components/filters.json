@@ -40,7 +40,7 @@
     "description": ""
   },
   "geoDistance": {
-    "name": "",
+    "name": "Afstand van coördinaten ",
     "count": "",
     "description": "",
     "placeholderLat": "Breedtegraad",
@@ -66,14 +66,14 @@
     "description": "Wat zijn de onderwerpen van het dossier."
   },
   "audiences": {
-    "name": "",
+    "name": "Doelgroep",
     "count": "",
-    "description": ""
+    "description": "Wie is de doelgroep voor de resource?"
   },
   "purposes": {
     "name": "Onderwerp",
     "count": "",
-    "description": ""
+    "description": "Wat zijn de doelen van de resource?"
   },
   "eventDate": {
     "name": "Datum van gebeurtenis",
