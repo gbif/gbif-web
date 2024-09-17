@@ -6,5 +6,7 @@
   "EARTH_PLANETARY_OTHER": "Aarde planetaire andere",
   "EARTH_PLANETARY_GAS": "Aarde planetaire gas",
   "EARTH_PLANETARY_ICE": "Aarde planetaire ijs",
-  "EARTH_PLANETARY_WATER": "Aarde planetaire water"
+  "EARTH_PLANETARY_SOILS": "Aarde planetaire bodems",
+  "EARTH_PLANETARY_WATER": "Aarde planetaire water",
+  "RECORDS_OTHER": "Records andere"
 }
