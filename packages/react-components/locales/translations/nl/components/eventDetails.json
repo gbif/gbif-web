@@ -1,6 +1,6 @@
 {
   "occurrence": "Voorkomen",
-  "event": "",
+  "event": "Gebeurtenis",
   "showAllFields": "Toon alle velden",
   "morePhotos": "Meer foto's",
   "about": "Over",
@@ -30,12 +30,12 @@
     "dataStructure": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
     "identification": "",
     "taxon": "Taxon",
-    "location": "",
+    "location": "Locatie",
     "organism": "Organisme",
     "materialSample": "",
     "geologicalContext": "",
     "measurementsOrFacts": "",
-    "images": "",
+    "images": "Multimedia",
     "other": "Andere",
     "methodology": "Methodologie",
     "taxonomicCoverage": ""
