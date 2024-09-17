@@ -12,5 +12,7 @@
   "INVASIVES": "Invasieven",
   "MARINE": "Maritiem",
   "SPECIES_DISTRIBUTIONS": "Soort verspreiding",
-  "INFRASTRUCTURE": "Infrastructuur"
+  "INFRASTRUCTURE": "Infrastructuur",
+  "DNA": "DNA",
+  "TAXONOMY": "Taxonomie"
 }
