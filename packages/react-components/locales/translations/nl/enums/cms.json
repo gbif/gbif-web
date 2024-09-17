@@ -7,10 +7,10 @@
     "undefined": ""
   },
   "projectStatus": {
-    "APPROVED": "",
-    "CLOSED": "",
-    "IN_PROGRESS": "",
-    "DISCONTINUED": "",
+    "APPROVED": "Goedgekeurd",
+    "CLOSED": "Gesloten",
+    "IN_PROGRESS": "In uitvoering",
+    "DISCONTINUED": "Stopgezet",
     "undefined": ""
   }
 }
