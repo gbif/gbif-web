@@ -7,8 +7,8 @@
   },
   "joinedDate": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
   "newPublisher": "Nieuwe uitgever",
-  "technicalContact": "",
-  "country": "",
+  "technicalContact": "Technische contactpersonen",
+  "country": "Land of regio",
   "hosting": "Hosting",
   "description": "Beschrijving",
   "endorsedBy": "",
@@ -17,7 +17,7 @@
   "installations": "Installaties",
   "getDownloadReport": "",
   "contacts": "Contacten",
-  "administrativeContact": "",
+  "administrativeContact": "Contactpunt administratie",
   "header": {
     "publisher": "Uitgever",
     "sinceDate": "Sinds  {DATE}"
