@@ -1,6 +1,9 @@
 {
+  "type": "Type",
   "title": "Titel",
   "rights": "rechten",
   "description": "Beschrijving",
+  "accessURI": "URL",
+  "format": "Formaat",
   "pixelXDimension": "Breedte"
 }
