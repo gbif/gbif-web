@@ -16,7 +16,7 @@
   "placeholders": {
     "default": "Zoeken",
     "range": "Bereik of enkele waarde",
-    "wildcard": "",
+    "wildcard": "Zoek met * en ? als wildcards",
     "locationID": ""
   },
   "ternary": {
