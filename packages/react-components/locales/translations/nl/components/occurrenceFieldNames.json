@@ -22,6 +22,7 @@
   "hasPart": "Heeft deel",
   "hasVersion": "Heeft versie",
   "identifier": "Identificatiecode",
+  "isFormatOf": "Is formaat van",
   "isPartOf": "Is deel van",
   "isReferencedBy": "Wordt naar verwezen door",
   "isReplacedBy": "Is vervangen door",
@@ -216,5 +217,6 @@
   "coordinatesMissing": "Coördinaten ontbreken",
   "taxonomicClassification": "Classificatie",
   "gadmClassification": "Locatie volgens GADM",
-  "images": "Multimedia"
+  "images": "Multimedia",
+  "eventType": "Type gebeurtenis"
 }
