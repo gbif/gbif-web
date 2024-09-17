@@ -1,5 +1,6 @@
 {
   "GBIF_USED": "GBIF Gebruikt",
   "GBIF_PUBLISHED": "GBIF Gepubliceerd",
-  "GBIF_AUTHOR": "GBIF auteur"
+  "GBIF_AUTHOR": "GBIF auteur",
+  "GBIF_MENTIONED": "GBIF Opgemerkt"
 }
