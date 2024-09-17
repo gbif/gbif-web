@@ -9,17 +9,17 @@
   "newPublisher": "Nieuwe uitgever",
   "technicalContact": "",
   "country": "",
-  "hosting": "",
-  "description": "",
+  "hosting": "Hosting",
+  "description": "Beschrijving",
   "endorsedBy": "",
   "pendingEndorsementBy": "",
   "endorsementWithheld": "",
-  "installations": "",
+  "installations": "Installaties",
   "getDownloadReport": "",
   "contacts": "Contacten",
   "administrativeContact": "",
   "header": {
     "publisher": "Uitgever",
-    "sinceDate": ""
+    "sinceDate": "Sinds  {DATE}"
   }
 }
