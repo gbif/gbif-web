@@ -10,7 +10,7 @@
   "institutionGrSciColl": "",
   "collection": "Collectie",
   "collectionGrSciColl": "",
-  "recordedAndIdentifiedBy": "",
+  "recordedAndIdentifiedBy": "Opgenomen en geïdentificeerd door",
   "eventTypeHierarchyJoined": "",
   "eventHierarchyJoined": "",
   "map": "",
@@ -18,9 +18,9 @@
   "siteLocation": "",
   "info": {
     "original": "Origineel",
-    "excluded": "",
+    "excluded": "Uitgesloten",
     "inferred": "",
-    "altered": ""
+    "altered": "Bewerkt"
   },
   "groups": {
     "summary": "Samenvatting",
