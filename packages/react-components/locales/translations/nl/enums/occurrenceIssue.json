@@ -3,7 +3,10 @@
   "COORDINATE_INVALID": "Ongeldige coördinaat",
   "COUNTRY_INVALID": "Ongeldig land",
   "CONTINENT_INVALID": "Ongeldig continent",
+  "DEPTH_UNLIKELY": "Diepte onwaarschijnlijk",
   "MODIFIED_DATE_INVALID": "Ongeldige Aangepaste-identificatiedatum ",
   "IDENTIFIED_DATE_INVALID": "Ongeldige identificatiedatum ",
-  "TYPE_STATUS_INVALID": "Ongeldige type-status"
+  "TYPE_STATUS_INVALID": "Ongeldige type-status",
+  "MULTIMEDIA_URI_INVALID": "Multimedia URL ongeldig",
+  "INDIVIDUAL_COUNT_INVALID": "Individuele telling ongeldig"
 }
