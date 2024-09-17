@@ -2,7 +2,7 @@
   "contentType": {
     "event": "Gebeurtenis",
     "news": "Nieuws",
-    "resource": "",
+    "resource": "Resource",
     "dataUse": "Data gebruik",
     "project": "Project",
     "participant": "Deelnemer",
@@ -53,7 +53,7 @@
     "readDocument": "Ga naar document"
   },
   "resource": {
-    "resources": "",
+    "resources": "Resources",
     "contactHelpdesk": "CONTACT HELPDESK",
     "addToCalendar": "Toevoegen aan kalender",
     "venue": "",
