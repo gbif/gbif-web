@@ -10,7 +10,7 @@
     "description": ""
   },
   "hasCoordinate": {
-    "name": "",
+    "name": "Met coördinaat",
     "count": "Met coördinaten",
     "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
   },
@@ -48,7 +48,7 @@
     "placeholderDist": "Afstand"
   },
   "geometry": {
-    "name": "",
+    "name": "Locatie",
     "count": "",
     "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
     "placeholderLat": "Breedtegraad",
@@ -86,12 +86,12 @@
     "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
   },
   "identifier": {
-    "name": "",
+    "name": "Identifier",
     "count": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
     "description": ""
   },
   "institutionType": {
-    "name": "",
+    "name": "Type",
     "count": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
     "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
   },
@@ -356,7 +356,7 @@
     "description": ""
   },
   "locationID": {
-    "name": "",
+    "name": "Locatie ID",
     "count": "",
     "description": ""
   },
@@ -426,7 +426,7 @@
     "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
   },
   "datasetType": {
-    "name": "",
+    "name": "Dataset type",
     "count": "",
     "description": ""
   },
@@ -462,7 +462,7 @@
     "description": "De wetenschappelijke naam zoals verstrekt door de instelling die de gegevens deelt zonder enige normalisatie door GBIF."
   },
   "networkKey": {
-    "name": "",
+    "name": "Netwerk",
     "count": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
     "description": ""
   },
