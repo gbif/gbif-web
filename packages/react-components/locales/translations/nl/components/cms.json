@@ -14,7 +14,7 @@
   "project": {
     "project": "Project",
     "projectId": "Project ID",
-    "projectIdentifier": "",
+    "projectIdentifier": "Projectidentificatie",
     "grantType": "",
     "duration": "Duur",
     "title": "Titel",
@@ -24,13 +24,13 @@
     "matchingFunds": "",
     "funding": "Financiering",
     "coFunding": "Cofinanciering",
-    "fundedBy": "",
-    "coFundedBy": "",
+    "fundedBy": "Gefinancierd door",
+    "coFundedBy": "Co-Gefinancierd door",
     "typeOfGrant": "",
     "projectStart": "Project Start",
     "status": "Status",
     "programme": "Programma",
-    "contractCountry": "",
+    "contractCountry": "Land of regio",
     "newsAndEvents": "Nieuws en evenementen",
     "call": "Oproep",
     "projectLead": "Project Leiding",
@@ -41,7 +41,7 @@
     "dataViaGbif": ""
   },
   "literature": {
-    "keywords": ""
+    "keywords": "Trefwoorden"
   },
   "auxiliary": {
     "subject": "Onderwerp",
@@ -68,7 +68,7 @@
     "viewOnGBIF": "Toon op GBIF.org",
     "published": "Gepubliceerd",
     "programme": "Programma",
-    "fundedBy": "",
+    "fundedBy": "Gefinancierd door",
     "about": "Over",
     "rights": "Rechten",
     "rightsHolder": "Rechtenhouder",
