@@ -4,6 +4,7 @@ import { stringify } from 'qs';
 import pick from 'lodash/pick';
 import { createSignedGetHeader } from '#/helpers/auth/authenticatedGet';
 import { renameProperty } from '#/helpers/utils';
+import { getDefaultAgent } from '#/requestAgents';
 
 /**
  * This resource is from the directory API, which is not a public API.
@@ -21,6 +22,7 @@ class ParticipantDirectoryAPI extends RESTDataSource {
     Object.keys(header).forEach(x => request.headers.set(x, header[x]));
     request.headers.set('User-Agent', this.context.userAgent);
     request.headers.set('referer', this.context.referer);
+    request.agent = getDefaultAgent(this.baseURL);
   }
 
   /*

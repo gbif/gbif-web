@@ -1,3 +1,4 @@
+import { getDefaultAgent } from '#/requestAgents';
 import { RESTDataSource } from 'apollo-datasource-rest';
 
 const urlSizeLimit = 2000; // use GET for requests that serialized is less than N characters
@@ -13,6 +14,7 @@ class LiteratureAPI extends RESTDataSource {
     request.headers.set('Authorization', `ApiKey-v1 ${this.config.apiEsKey}`);
     request.headers.set('User-Agent', this.context.userAgent);
     request.headers.set('referer', this.context.referer);
+    request.agent = getDefaultAgent(this.baseURL);
   }
 
   async searchLiteratureDocuments({ query }) {

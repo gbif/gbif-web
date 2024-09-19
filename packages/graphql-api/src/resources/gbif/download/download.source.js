@@ -1,9 +1,14 @@
+import { getOccurrenceAgent } from '#/requestAgents';
 import { RESTDataSource } from 'apollo-datasource-rest';
 
 class DownloadAPI extends RESTDataSource {
   constructor(config) {
     super();
     this.baseURL = config.apiv1;
+  }
+
+  willSendRequest(request) {
+    request.agent = getOccurrenceAgent(this.baseURL);
   }
 
   async datasetDownloads({ query }) {

@@ -1,5 +1,5 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
-import { stringify } from 'qs';
+import { getDefaultAgent } from '#/requestAgents';
 
 class CollectionAPI extends RESTDataSource {
   constructor(config) {
@@ -10,12 +10,11 @@ class CollectionAPI extends RESTDataSource {
   willSendRequest(request) {
     request.headers.set('User-Agent', this.context.userAgent);
     request.headers.set('referer', this.context.referer);
+    request.agent = getDefaultAgent(this.baseURL);
   }
 
   async getCountryCodes() {
-    return this.get(
-      'enumeration/basic/Country'
-    );
+    return this.get('enumeration/basic/Country');
   }
 
   async getCollectionByKey({ key }) {

@@ -1,3 +1,4 @@
+import { getDefaultAgent } from '#/requestAgents';
 import { RESTDataSource } from 'apollo-datasource-rest';
 
 function reduce(response) {
@@ -26,6 +27,7 @@ class OrcidAPI extends RESTDataSource {
   // eslint-disable-next-line class-methods-use-this
   willSendRequest(request) {
     request.headers.set('Accept', 'application/json');
+    request.agent = getDefaultAgent(this.baseURL);
   }
 
   async getOrcidByKey({ key }) {

@@ -1,4 +1,5 @@
 /* eslint-disable class-methods-use-this */
+import { getDefaultAgent } from '#/requestAgents';
 import { RESTDataSource } from 'apollo-datasource-rest';
 import axios from 'axios';
 
@@ -13,6 +14,7 @@ class TaxonMediaAPI extends RESTDataSource {
     request.headers.set('User-Agent', this.context.userAgent);
     request.headers.set('referer', this.context.referer);
     request.headers.set('Accept', 'application/json');
+    request.agent = getDefaultAgent(this.baseURL);
   }
 
   async getRepresentativeImages({ taxon, size = 1, from, params, dataSources }) {
