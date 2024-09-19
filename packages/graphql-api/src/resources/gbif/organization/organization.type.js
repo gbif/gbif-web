@@ -57,6 +57,8 @@ const typeDef = gql`
     hostedDataset(limit: Int, offset: Int): DatasetListResults!
     publishedDataset(limit: Int, offset: Int): DatasetListResults!
     installation(limit: Int, offset: Int): InstallationSearchResults!
+    occurrenceCount: Int
+    literatureCount: Int
   }
 
   type OrganizationSearchResult {

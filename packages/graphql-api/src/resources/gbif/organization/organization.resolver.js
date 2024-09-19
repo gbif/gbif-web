@@ -44,5 +44,22 @@ export default {
     },
     excerpt: src => excerpt({ body: src.description }),
     thumborLogoUrl: ({ logoUrl: url }, { fitIn, width = '', height = '' }) => getThumborUrl({url, fitIn, width, height}),
+    occurrenceCount: ({ key }, args, { dataSources }) => {
+      if (typeof key === 'undefined') return null;
+  
+      return dataSources.occurrenceAPI
+        .searchOccurrenceDocuments({
+          query: {
+            size: 0,
+            predicate: { type: 'equals', key: 'publishingOrg', value: key },
+          },
+        }).then((documents) => documents.total);
+    },
+    literatureCount: ({ key }, args, { dataSources }) => {
+      if (typeof key === 'undefined') return null;
+      return dataSources.literatureAPI
+        .searchLiterature({ query: { publishingOrganizationKey: key, size: 0 } })
+        .then((response) => response.documents.total);
+    },
   },
 };
