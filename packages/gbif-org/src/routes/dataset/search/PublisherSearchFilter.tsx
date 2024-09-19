@@ -39,14 +39,10 @@ export function PublisherSearchFilter({
   searchConfig: FilterConfigType;
 }) {
   const currentFilterContext = useContext(FilterContext);
-  const [showAbout, setShowAbout] = useState(false);
   const { filter, toggle, add, remove, setFullField, negateField, filterHash } =
     currentFilterContext;
   const [publishers, setPublishers] = useState<string[]>([]);
   const [filterBeforeHash, setFilterBeforeHash] = useState<string | undefined>(undefined);
-  const [results, setResults] = useState<string[]>([]);
-  const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState<string | null>(null);
   const [facetLookup, setFacetLookup] = useState<Record<string, number>>({});
 
   const {
@@ -100,6 +96,8 @@ export function PublisherSearchFilter({
     setFacetLookup(selectedFacetLookup);
   }, [selectedFacetData]);
 
+  const suggestions = facetData?.search?.facet?.field?.filter((x) => !publishers.includes(x.name));
+
   // const search = useCallback((q: string) => {
   //   // fetch data from https://api.gbif.org/v1/organization/suggest?limit=8&q=${q} and store it in results
   //   fetch(`https://api.gbif.org/v1/organization/suggest?limit=20&q=${q}`)
@@ -108,8 +106,6 @@ export function PublisherSearchFilter({
   //       setResults(data);
   //     });
   // }, []);
-
-  const suggestions = facetData?.search?.facet?.field?.filter((x) => !publishers.includes(x.name));
 
   const options = (
     <>
@@ -159,18 +155,11 @@ export function PublisherSearchFilter({
         <ComboBoxExample
           onSelect={(item) => add('publishingOrg', item.key)}
           className="g-border-slate-100 g-border-b-2 g-py-1.5 g-px-4"
+          selected={publishers}
         />
         {/* <SearchInput placeholder="Search" className="g-border-primary-500 g-flex-auto" /> */}
         {/* <button className="g-text-slate-700 g-ps-2"><MdInfoOutline /></button> */}
         {/* <OrganizationSearchSugget setSelected={x => add('publishingOrg', x.key)} open={true} className="g-w-full"/> */}
-      </div>
-      <div
-        className={cn('g-flex g-text-sm g-text-slate-400 g-mt-1 g-pb-1 g-items-center', className)}
-      >
-        {publishers.length > -1 && (
-          <div className="g-flex-none g-text-xs g-font-bold">{publishers?.length} selected</div>
-        )}
-        {options}
       </div>
       <>
         {publishers.length > 0 && (
@@ -226,6 +215,14 @@ export function PublisherSearchFilter({
             </fieldset>
           </div>
         )}
+        <div
+        className={cn('g-flex g-text-sm g-text-slate-400 g-mt-1 g-py-1.5 g-items-center g-border-t', className)}
+      >
+        {publishers.length > -1 && (
+          <div className="g-flex-none g-text-xs g-font-bold">{publishers?.length} selected</div>
+        )}
+        {options}
+      </div>
       </>
     </div>
   );

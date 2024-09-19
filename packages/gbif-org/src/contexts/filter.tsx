@@ -72,11 +72,11 @@ export function FilterProvider({ filter: controlledFilter, onChange: controlledO
       ...filter,
       must: {
         ...filter.must,
-        [field]: mustNot,
+        [field]: must,
       },
       must_not: {
         ...filter.must_not,
-        [field]: must,
+        [field]: mustNot,
       },
     });
     return result;

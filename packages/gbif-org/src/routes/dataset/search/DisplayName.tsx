@@ -1,5 +1,5 @@
 import React, { Component, useEffect } from 'react';
-import { useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 export function DisplayName({
   getData,
@@ -42,7 +42,9 @@ export function DisplayName({
     }
 
     return () => {
-      cancel();
+      if (typeof cancel === 'function') {
+        cancel();
+      }
     };
   }, [id, useHtml]);
 
@@ -63,11 +65,31 @@ export function PublisherLabel({ id }: { id: string }) {
   return (
     <DisplayName
       getData={({ id }) => ({
-        promise: fetch(`https://api.gbif-uat.org/v1/organization/${id}`)
+        promise: fetch(`https://api.gbif.org/v1/organization/${id}`)
           .then((response) => response.json())
           .then((response) => ({ title: response.title })),
         cancel: () => {},
       })}
+      id={id}
+      useHtml={false}
+    />
+  );
+}
+
+export function CountryLabel({ id }: { id: string }) {
+  return (
+    <DisplayName
+      getData={({ id }) => ({result: {title: <FormattedMessage id={`enums.countryCode.${id}`} defaultMessage={id} />}})}
+      id={id}
+      useHtml={false}
+    />
+  );
+}
+
+export function TypeStatusLabel({ id }: { id: string }) {
+  return (
+    <DisplayName
+      getData={({ id }) => ({result: {title: <FormattedMessage id={`enums.typeStatus.${id}`} defaultMessage={id} />}})}
       id={id}
       useHtml={false}
     />

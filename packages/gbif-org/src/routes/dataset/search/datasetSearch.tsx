@@ -2,7 +2,11 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { DynamicLink } from '@/components/dynamicLink';
 import useQuery from '@/hooks/useQuery';
-import { CountMessage, DataHeader, PublisherSearch } from '@/routes/publisher/search/publisherSearch';
+import {
+  CountMessage,
+  DataHeader,
+  PublisherSearch,
+} from '@/routes/publisher/search/publisherSearch';
 import { Tabs } from '@/components/tabs';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { Card } from '@/components/ui/smallCard';
@@ -30,10 +34,38 @@ import { HelpText } from '@/components/helpText';
 import { cn } from '@/utils/shadcn';
 import { PublisherSearchFilter } from './PublisherSearchFilter';
 import { CountrySearchFilter } from './CountrySearchFilter';
+import { Country2 } from './Country2';
+import { PublisherSearchFilter2 } from './PublisherSearchFilter2';
+import { TypeStatusFilter } from './TypeStatusFilter';
+import { ClientSideOnly } from '@/components/clientSideOnly';
 
 const DATASET_SEARCH_QUERY = /* GraphQL */ `
-  query DatasetSearch($license: [License], $endorsingNodeKey: [ID], $networkKey: [ID], $publishingOrg: [ID], $hostingOrg: [ID], $publishingCountry: [Country], $q: String, $offset: Int, $limit: Int, $type: [DatasetType], $subtype: [DatasetSubtype]){
-    datasetSearch(license: $license, endorsingNodeKey:$endorsingNodeKey, networkKey:$networkKey, publishingOrg:$publishingOrg, hostingOrg: $hostingOrg, publishingCountry: $publishingCountry, q: $q, limit: $limit, offset: $offset, type: $type, subtype: $subtype) {
+  query DatasetSearch(
+    $license: [License]
+    $endorsingNodeKey: [ID]
+    $networkKey: [ID]
+    $publishingOrg: [ID]
+    $hostingOrg: [ID]
+    $publishingCountry: [Country]
+    $q: String
+    $offset: Int
+    $limit: Int
+    $type: [DatasetType]
+    $subtype: [DatasetSubtype]
+  ) {
+    datasetSearch(
+      license: $license
+      endorsingNodeKey: $endorsingNodeKey
+      networkKey: $networkKey
+      publishingOrg: $publishingOrg
+      hostingOrg: $hostingOrg
+      publishingCountry: $publishingCountry
+      q: $q
+      limit: $limit
+      offset: $offset
+      type: $type
+      subtype: $subtype
+    ) {
       count
       limit
       offset
@@ -152,18 +184,20 @@ function Results({
               <FormattedMessage id="counts.nDatasets" values={{ total: datasets.count ?? 0 }} />
             </CardTitle>
           </CardHeader>
-          {datasets &&
-            datasets.results.map((item) => <DatasetResult key={item.key} dataset={item} />)}
+          <ClientSideOnly>
+            {datasets &&
+              datasets.results.map((item) => <DatasetResult key={item.key} dataset={item} />)}
 
-          {datasets?.count && datasets?.count > datasets?.limit && (
-            <PaginationFooter
-              offset={datasets.offset}
-              count={datasets.count}
-              limit={datasets.limit}
-              onChange={(x) => setOffset(x)}
-              anchor="datasets"
-            />
-          )}
+            {datasets?.count && datasets?.count > datasets?.limit && (
+              <PaginationFooter
+                offset={datasets.offset}
+                count={datasets.count}
+                limit={datasets.limit}
+                onChange={(x) => setOffset(x)}
+                anchor="datasets"
+              />
+            )}
+          </ClientSideOnly>
         </>
       )}
     </>
@@ -207,14 +241,23 @@ function Filters({ className }: { className: string }) {
             }}
           />
         </div> */}
-        <Card className="g-mb-4 g-me-4 g-bg-white g-rounded g-shadow-md">
-          {/* <h3 className="g-p-4 g-font-bold g-text-base">Publisher</h3> */}
-          <CountrySearchFilter searchConfig={searchConfig} filterBeforeChanges={filterContext.filter} currentFilterContext={filterContext} className="g-px-4" />
-        </Card>
-        <Card className="g-mb-4 g-me-4 g-bg-white g-rounded g-shadow-md">
-          {/* <h3 className="g-p-4 g-font-bold g-text-base">Publisher</h3> */}
-          <PublisherSearchFilter searchConfig={searchConfig} filterBeforeChanges={filterContext.filter} currentFilterContext={filterContext} className="g-px-4" />
-        </Card>
+        <ClientSideOnly>
+          <Card className="g-mb-4 g-me-4 g-bg-white g-rounded g-shadow-md">
+            {/* <h3 className="g-p-4 g-font-bold g-text-base">Publisher</h3> */}
+            {/* <CountrySearchFilter searchConfig={searchConfig} filterBeforeChanges={filterContext.filter} currentFilterContext={filterContext} className="g-px-4" /> */}
+            {/* <PublisherSearchFilter2 searchConfig={searchConfig} filterBeforeChanges={filterContext.filter} currentFilterContext={filterContext} className="g-px-4" /> */}
+            <TypeStatusFilter
+              searchConfig={searchConfig}
+              filterBeforeChanges={filterContext.filter}
+              currentFilterContext={filterContext}
+              className="g-px-4"
+            />
+          </Card>
+          <Card className="g-mb-4 g-me-4 g-bg-white g-rounded g-shadow-md">
+            {/* <h3 className="g-p-4 g-font-bold g-text-base">Publisher</h3> */}
+            <PublisherSearchFilter searchConfig={searchConfig} filterBeforeChanges={filterContext.filter} currentFilterContext={filterContext} className="g-px-4" />
+          </Card>
+        </ClientSideOnly>
         {/* {availableFilter.map((x) => (
           <div key={x} className="g-mb-4 g-me-4">
             <QFilter

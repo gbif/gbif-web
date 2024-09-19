@@ -3,14 +3,16 @@ import { cn } from '@/utils/shadcn';
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
 import { useCombobox } from 'downshift';
 import React, { useCallback, useEffect, useState } from 'react';
-import { MdSearch } from 'react-icons/md';
+import { MdCheck, MdSearch } from 'react-icons/md';
 
 export function ComboBoxExample({
   onSelect,
   className,
+  selected,
 }: {
   onSelect: (item: any) => void;
   className?: string;
+  selected?: (string | number)[];
 }) {
   const search = useCallback((q: string) => {
     // fetch data from https://api.gbif.org/v1/organization/suggest?limit=8&q=${q} and store it in results
@@ -21,17 +23,19 @@ export function ComboBoxExample({
       });
   }, []);
 
-  return <ComboBox onSearch={search} onSelect={onSelect} className={className} />;
+  return <ComboBox onSearch={search} onSelect={onSelect} className={className} selected={selected}/>;
 }
 
 function ComboBox({
   onSearch,
   onSelect,
   className,
+  selected,
 }: {
   onSearch: (q: string) => Promise<any>;
   onSelect: (item: any) => void;
   className?: string;
+  selected?: (string | number)[];
 }) {
   const [items, setItems] = React.useState([]);
   const [selectedItem, setSelectedItem] = React.useState(null);
@@ -132,28 +136,31 @@ function ComboBox({
           />
         </div>
       </div>
-      <ul
-        className={`g-absolute g-w-full g-bg-white g-mt-1 g-shadow-lg g-max-h-80 g-overflow-auto g-p-0 g-z-10 g-rounded g-border ${
-          !(isOpen && items.length) && 'g-hidden'
-        }`}
-        {...getMenuProps()}
-      >
-        {isOpen &&
-          items.map((item, index) => (
-            <li
-              className={cn(
-                highlightedIndex === index && 'g-bg-blue-300',
-                selectedItem === item && 'g-font-bold',
-                'g-text-sm g-py-2 g-px-3 g-shadow-sm g-flex g-flex-col'
-              )}
-              key={item.key}
-              {...getItemProps({ item, index })}
-            >
-              <span>{item.title}</span>
-              {/* <span className="g-text-sm g-text-gray-700">{item.key}</span> */}
-            </li>
-          ))}
-      </ul>
+      <div className="g-absolute">
+        <ul
+          className={`g-w-full g-bg-white g-shadow-xl g-max-h-80 g-overflow-auto g-p-0 g-z-10 g-rounded g-border ${
+            !(isOpen && items.length) && 'g-hidden'
+          }`}
+          {...getMenuProps()}
+        >
+          {isOpen &&
+            items.map((item, index) => (
+              <li
+                className={cn(
+                  highlightedIndex === index && 'g-bg-slate-100',
+                  selectedItem === item && 'g-font-bold',
+                  'g-text-sm g-py-2 g-px-2 g-border-b g-border-slate-100 g-flex g-flex-row g-items-start'
+                )}
+                key={item.key}
+                {...getItemProps({ item, index })}
+              >
+                <MdCheck className={cn('g-flex-none g-me-1 g-mt-1', selected?.includes(item.key) ? 'g-visible' : 'g-invisible')}/>
+                <span className="g-flex-auto">{item.title}</span>
+                {/* <span className="g-text-sm g-text-gray-700">{item.key}</span> */}
+              </li>
+            ))}
+        </ul>
+      </div>
     </div>
   );
 }

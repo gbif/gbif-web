@@ -77,7 +77,7 @@ export function SearchSuggest<T>({
         </Button>
       </PopoverTrigger>
       <PopoverContent style={{ width: 'var(--radix-popover-trigger-width)' }} className="g-p-0" align="start">
-        <Command>
+        <Command shouldFilter={false}>
           <CommandInput
             value={searchTerm}
             onValueChange={setSearchTerm}
@@ -89,7 +89,7 @@ export function SearchSuggest<T>({
               {results.map((result) => (
                 <CommandItem
                   key={keySelector(result)}
-                  value={labelSelector(result)}
+                  value={keySelector(result)}
                   className="g-flex g-items-center g-justify-between g-w-full"
                   onSelect={() => {
                     // Reselecting the same item should deselect it

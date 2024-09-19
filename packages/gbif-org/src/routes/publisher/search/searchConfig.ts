@@ -7,6 +7,6 @@ export const searchConfig: FilterConfigType = {
     },
     country: {
       singleValue: true
-    },
+    }
   }
 }
