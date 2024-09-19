@@ -15,6 +15,13 @@ export default {
       dataSources.organizationAPI.getOrganizationByKey({ key }),
   },
   Organization: {
+    machineTags: ({ machineTags }, {namespace, name, value}) => {
+      // allow filtering of machine tags
+      if (namespace || name || value) {
+        return machineTags.filter(mt => (!namespace || mt.namespace === namespace) && (!name || mt.name === name) && (!value || mt.value === value));
+      }
+      return machineTags;
+    },
     hostedDataset: ({ key }, args, { dataSources }) => {
       return dataSources.organizationAPI.getHostedDatasets({
         key,

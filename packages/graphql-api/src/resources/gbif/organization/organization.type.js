@@ -41,7 +41,7 @@ const typeDef = gql`
     logoUrl: String
     thumborLogoUrl(width: Int, height: Int, fitIn: Boolean): String
     longitude: Float
-    machineTags: [MachineTag]
+    machineTags(namespace: String, name: String, value: String): [MachineTag!]
     modified: DateTime
     modifiedBy: String
     numPublishedDatasets: Int

@@ -24,6 +24,15 @@ class DatasetAPI extends RESTDataSource {
     return response;
   }
 
+  async listDatasets({ query }) {
+    const response = await this.get(
+      '/dataset',
+      stringify(query, { indices: false }),
+    );
+    response._query = query;
+    return response;
+  }
+
   async getDatasetByKey({ key }) {
     const response = await this.get(`/dataset/${key}`);
     return response;

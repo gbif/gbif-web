@@ -39,6 +39,8 @@ const getDatasetFacet =
 export const Query = {
   datasetSearch: (parent, args, { dataSources }) =>
     dataSources.datasetAPI.searchDatasets({ query: args }),
+  datasetList: (parent, args, { dataSources }) =>
+    dataSources.datasetAPI.listDatasets({ query: args }),
   dataset: (parent, { key }, { dataSources }) =>
     dataSources.datasetAPI.getDatasetByKey({ key }),
 };
@@ -89,6 +91,13 @@ export const DatasetSearchStub = {
 export const Dataset = {
   logInterfaceUrl: ({ key }) => {
     return `https://logs.gbif.org/app/kibana#/discover?_g=(refreshInterval:(display:Off,pause:!f,value:0),time:(from:now-7d,mode:quick,to:now))&_a=(columns:!(_source),index:AWyLao3iHCKcR6PFXuPR,interval:auto,query:(query_string:(analyze_wildcard:!t,query:'datasetKey:%22${key}%22')),sort:!('@timestamp',desc))`;
+  },
+  machineTags: ({ machineTags }, {namespace, name, value}) => {
+    // allow filtering of machine tags
+    if (namespace || name || value) {
+      return machineTags.filter(mt => (!namespace || mt.namespace === namespace) && (!name || mt.name === name) && (!value || mt.value === value));
+    }
+    return machineTags;
   },
   excerpt: src => excerpt({ body: src.description }),
   installation: ({ installationKey: key }, args, { dataSources }) =>
@@ -148,7 +157,24 @@ export const Dataset = {
   mapCapabilities: ({ key }, args, { dataSources }) => {
     if (typeof key === 'undefined') return null;
     return dataSources.occurrenceAPI.getMapCapabilities({ datasetKey: key });
-  }
+  },
+  occurrenceCount: ({ key }, args, { dataSources }) => {
+    if (typeof key === 'undefined') return null;
+
+    return dataSources.occurrenceAPI
+      .searchOccurrenceDocuments({
+        query: {
+          size: 0,
+          predicate: { type: 'equals', key: 'datasetKey', value: key },
+        },
+      }).then((documents) => documents.total);
+  },
+  literatureCount: ({ key }, args, { dataSources }) => {
+    if (typeof key === 'undefined') return null;
+    return dataSources.literatureAPI
+      .searchLiterature({ query: { gbifDatasetKey: key, size: 0 } })
+      .then((response) => response.documents.total);
+  },
 };
 
 export const ChecklistBankDataset = {
