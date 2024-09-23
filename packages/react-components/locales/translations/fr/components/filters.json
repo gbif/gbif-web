@@ -129,7 +129,7 @@
   },
   "institutionCode": {
     "name": "Code de l'institution",
-    "count": "",
+    "count": "{num, plural, one {code d'institution} other {# codes d'institution}}",
     "description": "Code (ou acronyme) de l'institution a l'autorité sur des objet(s) ou sur les informations visées dans l'enregistrement."
   },
   "catalogNumber": {

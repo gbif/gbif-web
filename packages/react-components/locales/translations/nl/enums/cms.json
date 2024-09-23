@@ -4,13 +4,13 @@
     "SMALL": "",
     "NATIONAL": "",
     "DATA_USE": "",
-    "undefined": ""
+    "undefined": "Niet gespecificeerd"
   },
   "projectStatus": {
-    "APPROVED": "",
-    "CLOSED": "",
-    "IN_PROGRESS": "",
-    "DISCONTINUED": "",
-    "undefined": ""
+    "APPROVED": "Goedgekeurd",
+    "CLOSED": "Gesloten",
+    "IN_PROGRESS": "In uitvoering",
+    "DISCONTINUED": "Stopgezet",
+    "undefined": "Niet gespecificeerd"
   }
 }

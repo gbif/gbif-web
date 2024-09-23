@@ -1,6 +1,7 @@
 {
   "TAXONOMIC_AUTHORITY": "Taxonomische autoriteit",
   "NOMENCLATOR_AUTHORITY": "Nomenclatorische autoriteit",
+  "GLOBAL_SPECIES_DATASET": "Globale soort dataset",
   "DERIVED_FROM_OCCURRENCE": "Afgeleid van het voorkomen",
   "SPECIMEN": "Exemplaar",
   "OBSERVATION": "Waarneming"

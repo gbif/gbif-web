@@ -3,7 +3,14 @@
   "COORDINATE_INVALID": "Ongeldige coördinaat",
   "COUNTRY_INVALID": "Ongeldig land",
   "CONTINENT_INVALID": "Ongeldig continent",
+  "DEPTH_NOT_METRIC": "Diepte niet metric",
+  "DEPTH_UNLIKELY": "Diepte onwaarschijnlijk",
+  "DEPTH_NON_NUMERIC": "Diepte niet numeric",
+  "ELEVATION_UNLIKELY": "Hoogte onwaarschijnlijk",
   "MODIFIED_DATE_INVALID": "Ongeldige Aangepaste-identificatiedatum ",
   "IDENTIFIED_DATE_INVALID": "Ongeldige identificatiedatum ",
-  "TYPE_STATUS_INVALID": "Ongeldige type-status"
+  "TYPE_STATUS_INVALID": "Ongeldige type-status",
+  "MULTIMEDIA_URI_INVALID": "Multimedia URL ongeldig",
+  "INTERPRETATION_ERROR": "Fout bij interpretatie",
+  "INDIVIDUAL_COUNT_INVALID": "Individuele telling ongeldig"
 }

@@ -2,19 +2,19 @@
   "contentType": {
     "event": "Gebeurtenis",
     "news": "Nieuws",
-    "resource": "",
-    "dataUse": "",
+    "resource": "Resource",
+    "dataUse": "Data gebruik",
     "project": "Project",
     "participant": "Deelnemer",
     "programme": "Programma",
     "document": "Document",
-    "tool": "",
+    "tool": "Gereedschap",
     "literature": "Literatuur"
   },
   "project": {
     "project": "Project",
     "projectId": "Project ID",
-    "projectIdentifier": "",
+    "projectIdentifier": "Projectidentificatie",
     "grantType": "",
     "duration": "Duur",
     "title": "Titel",
@@ -24,13 +24,13 @@
     "matchingFunds": "",
     "funding": "Financiering",
     "coFunding": "Cofinanciering",
-    "fundedBy": "",
-    "coFundedBy": "",
+    "fundedBy": "Gefinancierd door",
+    "coFundedBy": "Co-Gefinancierd door",
     "typeOfGrant": "",
     "projectStart": "Project Start",
     "status": "Status",
     "programme": "Programma",
-    "contractCountry": "",
+    "contractCountry": "Land of regio",
     "newsAndEvents": "Nieuws en evenementen",
     "call": "Oproep",
     "projectLead": "Project Leiding",
@@ -41,7 +41,7 @@
     "dataViaGbif": ""
   },
   "literature": {
-    "keywords": ""
+    "keywords": "Trefwoorden"
   },
   "auxiliary": {
     "subject": "Onderwerp",
@@ -53,7 +53,7 @@
     "readDocument": "Ga naar document"
   },
   "resource": {
-    "resources": "",
+    "resources": "Resources",
     "contactHelpdesk": "CONTACT HELPDESK",
     "addToCalendar": "Toevoegen aan kalender",
     "venue": "",
@@ -61,14 +61,14 @@
     "country": "Land of regio",
     "noDatasets": "Er zijn geen datasets om te tonen",
     "noNewsOrEvents": "Geen nieuws of evenementen beschikbaar",
-    "howToLinkDatasets": "",
-    "howToLinkEvents": "",
+    "howToLinkDatasets": "Hoe koppel je een dataset aan een project",
+    "howToLinkEvents": "Hoe voeg je een evenement aan een project-pagina",
     "when": "Wanneer",
     "language": "Taal",
     "viewOnGBIF": "Toon op GBIF.org",
     "published": "Gepubliceerd",
     "programme": "Programma",
-    "fundedBy": "",
+    "fundedBy": "Gefinancierd door",
     "about": "Over",
     "rights": "Rechten",
     "rightsHolder": "Rechtenhouder",

@@ -1,1 +1,6 @@
-{}
+{
+  "STORAGE_OUTDOORS": "Opslag buiten",
+  "STORAGE_INDOORS": "Opslag binnen",
+  "STORAGE_FROZEN_BETWEEN_MINUS_132_AND_MINUS_196": "Opslag bevroren tussen min 132 en min 196",
+  "STORAGE_OTHER": "Opslag andere"
+}
