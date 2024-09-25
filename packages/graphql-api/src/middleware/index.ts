@@ -1,4 +1,4 @@
 import hashMiddleware from './hash';
-import injectQuery from './injectQuery';
+import graphqlExplorer from './graphqlExplorer';
 
-export { hashMiddleware, injectQuery };
+export { hashMiddleware, graphqlExplorer };

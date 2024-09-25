@@ -3,7 +3,6 @@ import cors from 'cors';
 import compression from 'compression';
 import { ApolloServer } from 'apollo-server-express';
 import {
-  ApolloServerPluginLandingPageGraphQLPlayground,
   ApolloServerPluginCacheControl,
 } from 'apollo-server-core';
 import AbortControllerServer from 'abort-controller';
@@ -14,7 +13,7 @@ import depthLimit from 'graphql-depth-limit';
 
 // Local imports
 import config from './config';
-import { hashMiddleware, injectQuery } from './middleware';
+import { hashMiddleware, graphqlExplorer } from './middleware';
 import health from './health';
 // get the full schema of what types, enums, scalars and queries are available
 import getSchema from './typeDefs';
@@ -73,7 +72,6 @@ async function initializeServer() {
     ), // Every request should have its own instance, see https://github.com/apollographql/apollo-server/issues/1562
     validationRules: [depthLimit(14)], // this likely have to be much higher than 6, but let us increase it as needed and not before
     plugins: [
-      ApolloServerPluginLandingPageGraphQLPlayground,
       ApolloServerPluginCacheControl({
         defaultMaxAge: config.debug ? 0 : 600,
       }),
@@ -97,10 +95,8 @@ async function initializeServer() {
   app.get('/graphql', hashMiddleware);
   app.post('/graphql', hashMiddleware);
 
-  // Add script tag to playground with linked query
-  // app.use(injectQuery);
-  app.get('/graphql', injectQuery);
-  app.post('/graphql', injectQuery);
+  // serve the graphql explorer
+  app.get('/graphql', graphqlExplorer);
 
   // link to query and variables
   app.get('/getIds', (req, res) => {
