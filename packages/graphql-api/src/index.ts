@@ -5,7 +5,6 @@ import { ApolloServer } from 'apollo-server-express';
 import {
   ApolloServerPluginCacheControl,
 } from 'apollo-server-core';
-import AbortControllerServer from 'abort-controller';
 import { get } from 'lodash';
 import bodyParser from 'body-parser';
 // recommended in the apollo docs https://github.com/stems/graphql-depth-limit
@@ -45,7 +44,7 @@ async function initializeServer() {
       // Add express context and a listener for aborted connections. Then data sources have a chance to cancel resources
       // I haven't been able to find any examples of people doing anything with cancellation - which I find odd.
       // Perhaps the overhead isn't worth it in most cases?
-      const controller = new AbortControllerServer();
+      const controller = new AbortController();
       req.on('close', () => {
         controller.abort();
       });

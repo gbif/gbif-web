@@ -18,7 +18,6 @@
   "dependencies": {
     "@octokit/app": "^15.0.1",
     "@turf/turf": "^6.5.0",
-    "abort-controller": "^3.0.0",
     "agentkeepalive": "^4.5.0",
     "apollo-datasource-rest": "3.5.0",
     "apollo-server": "3.6.1",
@@ -38,7 +37,6 @@
     "graphql": "^16.0.0",
     "graphql-depth-limit": "^1.1.0",
     "graphql-scalars": "1.14.1",
-    "html-entities": "^2.4.0",
     "ip3country": "^5.0.0",
     "jsdom": "^16.2.2",
     "json2md": "^2.0.1",
@@ -54,7 +52,6 @@
     "node-cache": "^5.1.0",
     "object-hash": "^3.0.0",
     "qs": "^6.9.3",
-    "query-string": "^7.1.3",
     "requestretry": "^7.1.0",
     "sanitize-html": "^2.11.0",
     "thumbor": "^0.1.5",
