@@ -33,7 +33,6 @@
     "d3": "^5.16.0",
     "dompurify": "^2.2.2",
     "express": "^4.17.1",
-    "express-interceptor": "^1.2.0",
     "glob": "^8.0.3",
     "got": "^10.7.0",
     "graphql": "^16.0.0",
