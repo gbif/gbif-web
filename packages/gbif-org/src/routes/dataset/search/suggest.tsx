@@ -1,17 +1,25 @@
-import { SearchInput } from '@/components/searchInput';
 import { cn } from '@/utils/shadcn';
-import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
 import { useCombobox } from 'downshift';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback } from 'react';
 import { MdCheck, MdSearch } from 'react-icons/md';
 
-export function ComboBoxExample({
+export function Suggest({
   onSelect,
   className,
+  getSuggestions,
   selected,
 }: {
   onSelect: (item: any) => void;
   className?: string;
+  getSuggestions?: ({
+    q,
+    locale,
+    endpoints,
+  }: {
+    q: string;
+    locale?: string;
+    endpoints?: { v1: string; graphql: string };
+  }) => Promise<unknown>;
   selected?: (string | number)[];
 }) {
   const search = useCallback((q: string) => {
@@ -23,16 +31,23 @@ export function ComboBoxExample({
       });
   }, []);
 
-  return <ComboBox onSearch={search} onSelect={onSelect} className={className} selected={selected}/>;
+  return (
+    <Search
+      onSearch={getSuggestions ?? search}
+      onSelect={onSelect}
+      className={className}
+      selected={selected}
+    />
+  );
 }
 
-function ComboBox({
+function Search({
   onSearch,
   onSelect,
   className,
   selected,
 }: {
-  onSearch: (q: string) => Promise<any>;
+  onSearch: ({ q }: { q: string }) => Promise<any>;
   onSelect: (item: any) => void;
   className?: string;
   selected?: (string | number)[];
@@ -52,7 +67,7 @@ function ComboBox({
   } = useCombobox({
     onInputValueChange({ inputValue }) {
       // setInputValue(inputValue);
-      onSearch(inputValue)
+      onSearch({q: inputValue})
         .then((data) => {
           // setResults(data);
           setItems(data);
@@ -102,16 +117,6 @@ function ComboBox({
     },
   });
 
-  // useEffect(() => {
-  //   onSearch('')
-  //       .then((data) => {
-  //         setItems(data);
-  //       })
-  //       .catch((err) => {
-  //         console.error(err);
-  //       });
-  // }, []);
-
   return (
     <div className="g-w-full g-relative">
       <div className="g-w-full g-flex g-flex-col g-gap-1">
@@ -121,7 +126,8 @@ function ComboBox({
         {/* <SearchInput placeholder="Search publishers" className="g-w-full" {...getInputProps()} /> */}
         <div
           className={cn(
-            'g-flex disabled:g-opacity-50 g-items-center g-justify-center g-w-full', className
+            'g-flex disabled:g-opacity-50 g-items-center g-justify-center g-w-full',
+            className
           )}
         >
           <MdSearch className="g-text-slate-400 g-me-2 g-text-center g-flex-none" />
@@ -129,16 +135,16 @@ function ComboBox({
             type="input"
             placeholder="Search..."
             className={cn(
-              'g-flex-auto g-w-full g-bg-transparent g-py-1 g-text-sm g-transition-colors file:g-border-0 file:g-bg-transparent file:g-text-sm file:g-font-medium placeholder:g-text-muted-foreground focus-visible:g-outline-none disabled:g-cursor-not-allowed',
+              'g-flex-auto g-w-full g-bg-transparent g-py-1 g-text-sm g-transition-colors file:g-border-0 file:g-bg-transparent file:g-text-sm file:g-font-medium placeholder:g-text-muted-foreground focus-visible:g-outline-none disabled:g-cursor-not-allowed'
               // 'focus-visible:g-ring-2 focus-visible:g-ring-blue-400/30 focus-visible:g-ring-offset-0 g-ring-inset',
             )}
             {...getInputProps()}
           />
         </div>
       </div>
-      <div className="g-absolute">
+      <div className="g-absolute g-w-full">
         <ul
-          className={`g-w-full g-bg-white g-shadow-xl g-max-h-80 g-overflow-auto g-p-0 g-z-10 g-rounded g-border ${
+          className={`g-w-full g-bg-white g-shadow-2xl g-max-h-80 g-overflow-auto g-p-0 g-z-10 g-rounded g-border ${
             !(isOpen && items.length) && 'g-hidden'
           }`}
           {...getMenuProps()}
@@ -154,8 +160,16 @@ function ComboBox({
                 key={item.key}
                 {...getItemProps({ item, index })}
               >
-                <MdCheck className={cn('g-flex-none g-me-1 g-mt-1', selected?.includes(item.key) ? 'g-visible' : 'g-invisible')}/>
-                <span className="g-flex-auto">{item.title}</span>
+                <MdCheck
+                  className={cn(
+                    'g-flex-none g-me-1 g-mt-1',
+                    selected?.includes(item.key) ? 'g-visible' : 'g-invisible'
+                  )}
+                />
+                <div className="g-flex-auto">
+                  <div>{item.title}</div>
+                  {/* <div>sdlfkjhsd flsjkdhf </div> */}
+                </div>
                 {/* <span className="g-text-sm g-text-gray-700">{item.key}</span> */}
               </li>
             ))}

@@ -7,9 +7,9 @@ export function DisplayName({
   useHtml,
 }: {
   getData: ({ id }: { id: string | number }) => {
-    promise?: Promise<{ title: string; description: React.ReactElement }>;
-    result?: { title: string; description: React.ReactElement };
-    cancel: Function;
+    promise?: Promise<{ title: string; description?: React.ReactElement }>;
+    result?: { title: string | number; description?: React.ReactElement };
+    cancel?: Function;
   };
   id: string | number;
   useHtml: boolean;
@@ -58,6 +58,15 @@ export function DisplayName({
     <span style={{ width: 100, display: 'inline-block', verticalAlign: 'top' }}>
       <span>loading...</span>
     </span>
+  );
+}
+
+export function IdentityLabel({ id }: { id: string }) {
+  return (
+    <DisplayName getData={({ id }) => ({result: {title: id}})}
+      id={id}
+      useHtml={false}
+    />
   );
 }
 

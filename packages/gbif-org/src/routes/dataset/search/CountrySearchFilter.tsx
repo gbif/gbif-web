@@ -24,7 +24,7 @@ import hash from 'object-hash';
 import cloneDeep from 'lodash/cloneDeep';
 import { SearchCommand } from '@/routes/publisher/search/filters/searchSuggest';
 import { OrganizationSearchSugget } from '@/components/searchSelect/organizationSearchSuggest';
-import { ComboBoxExample } from './Test';
+import { ComboBoxExample } from './suggest';
 import { HelpLine, HelpText } from '@/components/helpText';
 import { FormattedNumber, useIntl } from 'react-intl';
 import { SimpleTooltip } from '@/components/simpleTooltip';

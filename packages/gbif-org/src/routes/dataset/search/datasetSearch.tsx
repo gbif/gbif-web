@@ -1,16 +1,14 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import useQuery from '@/hooks/useQuery';
-import {
-  DataHeader,
-} from '@/routes/publisher/search/publisherSearch';
+import { DataHeader } from '@/routes/publisher/search/publisherSearch';
 import { Tabs } from '@/components/tabs';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { Card } from '@/components/ui/smallCard';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { DatasetSearchQuery, DatasetSearchQueryVariables } from '@/gql/graphql';
 import { CardHeader, CardTitle } from '@/components/ui/largeCard';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { PaginationFooter } from '@/components/pagination';
 import { NoRecords } from '@/components/noDataMessages';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -30,36 +28,13 @@ import { HelpText } from '@/components/helpText';
 import { cn } from '@/utils/shadcn';
 import { PublisherSearchFilter } from './PublisherSearchFilter';
 import { ClientSideOnly } from '@/components/clientSideOnly';
-import { PublisherLabel } from './DisplayName';
+import { CountryLabel, IdentityLabel, PublisherLabel } from './DisplayName';
 import { FilterPopover } from './filterPopover';
+import country from '@/enums/basic/country.json';
 
 const DATASET_SEARCH_QUERY = /* GraphQL */ `
-  query DatasetSearch(
-    $license: [License]
-    $endorsingNodeKey: [ID]
-    $networkKey: [ID]
-    $publishingOrg: [ID]
-    $hostingOrg: [ID]
-    $publishingCountry: [Country]
-    $q: String
-    $offset: Int
-    $limit: Int
-    $type: [DatasetType]
-    $subtype: [DatasetSubtype]
-  ) {
-    datasetSearch(
-      license: $license
-      endorsingNodeKey: $endorsingNodeKey
-      networkKey: $networkKey
-      publishingOrg: $publishingOrg
-      hostingOrg: $hostingOrg
-      publishingCountry: $publishingCountry
-      q: $q
-      limit: $limit
-      offset: $offset
-      type: $type
-      subtype: $subtype
-    ) {
+  query DatasetSearch($query: DatasetSearchInput) {
+    datasetSearch(query: $query) {
       count
       limit
       offset
@@ -103,9 +78,11 @@ export function DatasetSearch(): React.ReactElement {
     const v1 = filter2v1(filter, searchConfig);
     load({
       variables: {
-        ...v1.filter,
-        limit: 20,
-        offset,
+        query: {
+          ...v1.filter,
+          limit: 20,
+          offset,
+        },
       },
     });
   }, [offset, filterHash, searchConfig]);
@@ -137,6 +114,8 @@ export function DatasetSearch(): React.ReactElement {
           <ArticleTextContainer className="g-flex-auto g-m-0">
             {FilterContext && <PublisherFilter />}
             {FilterContext && <HostFilter />}
+            {FilterContext && <ProjectIdFilter />}
+            {FilterContext && <PublishingCountryFilter />}
             {/* {FilterContext && <TypeStatusPopup />} */}
             <Results loading={loading} datasets={datasets} setOffset={setOffset} />
           </ArticleTextContainer>
@@ -224,9 +203,7 @@ function Filters({ className }: { className: string }) {
       <CardHeader id="datasets">
         <CardTitle>Filters</CardTitle>
       </CardHeader>
-      <div className="" role="search">
-        
-      </div>
+      <div className="" role="search"></div>
     </div>
   );
 }
@@ -282,7 +259,45 @@ function ApiContent() {
   );
 }
 
+export type FacetQuery = {
+  search: {
+    facet?: {
+      field?: Array<{
+        name: string;
+        count: number;
+        item?: {
+          title?: string | null;
+        } | null;
+      } | null> | null;
+    } | null;
+  };
+};
+
 function PublisherFilter() {
+  const getSuggestions = useCallback(({ q }: { q: string }) => {
+    return fetch(`https://api.gbif.org/v1/organization/suggest?limit=20&q=${q}`)
+      .then((res) => res.json())
+      .then((data) => {
+        return data;
+      });
+  }, []);
+
+  const facetQuery = /* GraphQL */ `
+    query DatasetPublisherFacet($query: DatasetSearchInput) {
+      search: datasetSearch(query: $query) {
+        facet {
+          field: publishingOrg {
+            name
+            count
+            item: organization {
+              title
+            }
+          }
+        }
+      }
+    }
+  `;
+
   const filterContext = useContext(FilterContext);
   return (
     <FilterPopover
@@ -291,7 +306,10 @@ function PublisherFilter() {
       titleTranslationKey="filters.publisherKey.name"
     >
       <PublisherSearchFilter
+        getSuggestions={getSuggestions}
+        facetQuery={facetQuery}
         filterHandle="publishingOrg"
+        DisplayName={PublisherLabel}
         searchConfig={searchConfig}
         filterBeforeChanges={filterContext.filter}
       />
@@ -300,6 +318,30 @@ function PublisherFilter() {
 }
 
 function HostFilter() {
+  const getSuggestions = useCallback(({ q }: { q: string }) => {
+    return fetch(`https://api.gbif.org/v1/organization/suggest?limit=20&q=${q}`)
+      .then((res) => res.json())
+      .then((data) => {
+        return data;
+      });
+  }, []);
+
+  const facetQuery = /* GraphQL */ `
+    query DatasetHostFacet($query: DatasetSearchInput) {
+      search: datasetSearch(query: $query) {
+        facet {
+          field: hostingOrg {
+            name
+            count
+            item: organization {
+              title
+            }
+          }
+        }
+      }
+    }
+  `;
+
   const filterContext = useContext(FilterContext);
   return (
     <FilterPopover
@@ -308,7 +350,96 @@ function HostFilter() {
       titleTranslationKey="filters.hostingOrganizationKey.name"
     >
       <PublisherSearchFilter
+        getSuggestions={getSuggestions}
+        facetQuery={facetQuery}
+        DisplayName={PublisherLabel}
         filterHandle="hostingOrg"
+        searchConfig={searchConfig}
+        filterBeforeChanges={filterContext.filter}
+      />
+    </FilterPopover>
+  );
+}
+
+function ProjectIdFilter() {
+  const facetQuery = /* GraphQL */ `
+    query DatasetProjectFacet($query: DatasetSearchInput) {
+      search: datasetSearch(query: $query) {
+        facet {
+          field: projectId {
+            name
+            count
+          }
+        }
+      }
+    }
+  `;
+
+  const filterContext = useContext(FilterContext);
+  return (
+    <FilterPopover
+      filterHandle="projectId"
+      DisplayName={IdentityLabel}
+      titleTranslationKey="filters.projectId.name"
+    >
+      <PublisherSearchFilter
+        facetQuery={facetQuery}
+        DisplayName={IdentityLabel}
+        filterHandle="projectId"
+        searchConfig={searchConfig}
+        filterBeforeChanges={filterContext.filter}
+      />
+    </FilterPopover>
+  );
+}
+
+function PublishingCountryFilter() {
+  const [countries, setCountries] = useState<{ key: string; title: string }[]>([]);
+  const { formatMessage } = useIntl();
+
+  useEffect(() => {
+    // translate all country values using the intl lib
+    const countryValues = country.map((code) => ({
+      key: code,
+      title: formatMessage({ id: `enums.countryCode.${code}` }),
+    }));
+    setCountries(countryValues);
+  }, []);
+
+  const getSuggestions = useCallback(
+    ({ q }: { q: string }) => {
+      // filter countries based on the search query and store it in results
+      const filtered = countries.filter((x) => x?.title?.toLowerCase().includes(q.toLowerCase()));
+      return Promise.resolve(filtered);
+    },
+    [countries]
+  );
+
+  const facetQuery = /* GraphQL */ `
+    query DatasetPublisingCountryFacet($query: DatasetSearchInput) {
+      search: datasetSearch(query: $query) {
+        facet {
+          field: publishingCountry {
+            name
+            count
+          }
+        }
+      }
+    }
+  `;
+
+  const filterContext = useContext(FilterContext);
+  return (
+    <FilterPopover
+      filterHandle="publishingCountry"
+      DisplayName={CountryLabel}
+      titleTranslationKey="filters.publishingCountryCode.name"
+    >
+      <PublisherSearchFilter
+        getSuggestions={getSuggestions}
+        facetQuery={facetQuery}
+        DisplayName={CountryLabel}
+        filterHandle="publishingCountry"
         searchConfig={searchConfig}
         filterBeforeChanges={filterContext.filter}
       />

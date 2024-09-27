@@ -43,8 +43,8 @@ function FilterApplyContent({
       <PopoverContent
         onPointerDownOutside={onApply}
         align="start"
-        className="g-flex g-flex-col g-p-0 g-w-96 g-max-w-[var(--radix-popper-available-width)]"
-        style={{ boxShadow: '0 0 10000px 10000px rgba(0, 0, 0, 0.25)' }}
+        className="g-flex g-flex-col g-p-0 g-w-96 g-max-w-[var(--radix-popper-available-width)] g-shadow-[0_10px_600px_-12px_rgba(0,0,0,0.2)]"
+        // style={{ boxShadow: '0 0 10000px 10000px rgba(0, 0, 0, 0.25)' }}
       >
         <>
           {/* <h3 className="g-px-4 g-py-2 g-font-bold g-text-sm g-border-b">

@@ -32,7 +32,7 @@ const typeDef = gql`
       """
       Will take precedence over the atomized parameters if provided
       """
-      query: DatasetSearchQuery
+      query: DatasetSearchInput
     ): DatasetSearchResults!
     datasetList(
       limit: Int
@@ -49,7 +49,7 @@ const typeDef = gql`
     dataset(key: ID!): Dataset
   }
 
-  input DatasetSearchQuery {
+  input DatasetSearchInput {
     limit: Int
     offset: Int
     q: String
