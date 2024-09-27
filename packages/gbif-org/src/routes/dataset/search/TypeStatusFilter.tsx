@@ -111,9 +111,9 @@ export function TypeStatusFilter({
         // Get the element that received focus
         const newlyFocusedElement = e.relatedTarget;
         // Check if the newly focused element is outside the div
-        if (!newlyFocusedElement || !e.currentTarget.contains(newlyFocusedElement)) {
-          setQuery('');
-        }
+        // if (!newlyFocusedElement || !e.currentTarget.contains(newlyFocusedElement)) {
+        //   setQuery('');
+        // }
       }}
     >
       <Command className="rounded-lg border shadow-md md:min-w-[450px]" shouldFilter={true}>
@@ -125,6 +125,10 @@ export function TypeStatusFilter({
           onKeyDown={(e) => {
             // if ESC then set query to ''
             if (e.key === 'Escape') {
+              if (query !== '') {
+                // prevent event propagation to avoid closing the popup
+                e.stopPropagation();
+              }
               setQuery('');
               // scroll CommandList to top
               const commandList = document.querySelector('.commandList-gbif');
@@ -175,8 +179,8 @@ export function TypeStatusFilter({
       </Command>
       <div
         className="g-flex g-text-sm g-text-slate-400 g-py-1.5 g-items-center g-border-t g-px-4"
-        onFocus={(e) => setQuery('')}
-        onClick={(e) => setQuery('')}
+        // onFocus={(e) => setQuery('')}
+        // onClick={(e) => setQuery('')}
       >
         <div className="g-flex-none g-text-xs g-font-bold">{selected.length} selected</div>
         <div className="g-flex-auto"></div>
@@ -202,6 +206,7 @@ export function TypeStatusFilter({
                   // reverse teh selection
                   const newSelected = types.filter((x) => !selected.includes(x));
                   setFullField('typeStatus', newSelected, []);
+                  setQuery('');
                 }}
               >
                 <MdShuffle />

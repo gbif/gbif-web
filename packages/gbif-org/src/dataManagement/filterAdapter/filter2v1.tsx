@@ -25,7 +25,7 @@ export function filter2v1(
   if (filterConfig?.preFilterTransform) {
     filter = filterConfig?.preFilterTransform(filter);
   }
-  const { must, must_not } = filter;
+  const { must, mustNot } = filter;
 
   let composedFilter: { [key: string]: ValuesType } = {};
   let errors: ErrorType[] = [];
@@ -40,8 +40,8 @@ export function filter2v1(
 
   // Negation support removed as discussed in https://github.com/gbif/hosted-portals/issues/209
   // Previous version in https://github.com/gbif/gbif-web/blob/8720cf9c9df0df089c4f54462d0b12c1696fffd1/packages/react-components/src/dataManagement/filterAdapter/filter2v1.js#L22
-  if (must_not) {
-    const negatedFields = Object.entries(must_not).filter(([, values]) => values);
+  if (mustNot) {
+    const negatedFields = Object.entries(mustNot).filter(([, values]) => values);
     if (negatedFields.length > 0) {
       errors.push({
         errorType: 'UNSUPPORTED_NEGATION',

@@ -131,7 +131,10 @@ module.exports = {
       },
     },
   },
-  plugins: [addRtlSupport(require('@tailwindcss/typography')), require('tailwindcss-animate')],
+  plugins: [
+    addRtlSupport(require('@tailwindcss/typography')), 
+    require('tailwindcss-animate')
+  ],
 };
 
 function addRtlSupport(plugin) {

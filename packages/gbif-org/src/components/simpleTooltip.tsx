@@ -12,7 +12,7 @@ export function SimpleTooltip({
 }) {
   return (
     <Tooltip delayDuration={delayDuration}>
-      <TooltipTrigger tabIndex={-1}>{children}</TooltipTrigger>
+      <TooltipTrigger tabIndex={-1} asChild>{children}</TooltipTrigger>
       <TooltipContent className='g-max-w-96 g-pointer-events-none' side={side}>{title}</TooltipContent>
     </Tooltip>
   );

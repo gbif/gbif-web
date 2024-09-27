@@ -233,8 +233,8 @@ test('it can do pre transformations of the filter', () => {
               ...filter.must,
               customField: ['always_there'],
             },
-            must_not: {
-              ...filter.must_not,
+            mustNot: {
+              ...filter.mustNot,
             },
           };
         },

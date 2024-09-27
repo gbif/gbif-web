@@ -14,7 +14,7 @@ import { PiEmptyBold, PiEmptyFill } from 'react-icons/pi';
 import { TiArrowShuffle as InvertIcon } from 'react-icons/ti';
 import { cn } from '@/utils/shadcn';
 import { Checkbox } from '@/components/ui/checkbox';
-import { cleanUpFilter, FilterContext, FilterContextType, FilterType } from '@/contexts/filter';
+import { cleanUpFilter, FilterContext, FilterType } from '@/contexts/filter';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import { filter2v1 } from '@/dataManagement/filterAdapter';
 import useQuery from '@/hooks/useQuery';
@@ -22,10 +22,8 @@ import { DatasetPublisherFacetQuery, DatasetPublisherFacetQueryVariables } from 
 import { PublisherLabel } from './DisplayName';
 import hash from 'object-hash';
 import cloneDeep from 'lodash/cloneDeep';
-import { SearchCommand } from '@/routes/publisher/search/filters/searchSuggest';
-import { OrganizationSearchSugget } from '@/components/searchSelect/organizationSearchSuggest';
 import { ComboBoxExample } from './Test';
-import { HelpLine, HelpText } from '@/components/helpText';
+import { HelpLine } from '@/components/helpText';
 import { FormattedNumber } from 'react-intl';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 
@@ -33,10 +31,12 @@ export function PublisherSearchFilter({
   className,
   filterBeforeChanges,
   searchConfig,
+  filterHandle,
 }: {
   className?: string;
   filterBeforeChanges: FilterType;
   searchConfig: FilterConfigType;
+  filterHandle: string;
 }) {
   const currentFilterContext = useContext(FilterContext);
   const { filter, toggle, add, remove, setFullField, negateField, filterHash } =
@@ -66,7 +66,7 @@ export function PublisherSearchFilter({
   useEffect(() => {
     // if the filter has changed, then get facet values from API
     const v1Filter = filter2v1(filterBeforeChanges, searchConfig);
-    delete v1Filter?.filter?.publishingOrg;
+    delete v1Filter?.filter?.[filterHandle];
     facetLoad({ variables: v1Filter?.filter });
   }, [filterBeforeHash]);
 
@@ -78,21 +78,22 @@ export function PublisherSearchFilter({
 
   useEffect(() => {
     const prunedFilter = cleanUpFilter(cloneDeep(filterBeforeChanges));
-    delete prunedFilter.must?.publishingOrg;
+    delete prunedFilter.must?.[filterHandle];
     setFilterBeforeHash(hash(prunedFilter));
   }, [filterBeforeChanges]);
 
   useEffect(() => {
-    const publishers = filter?.must?.publishingOrg ?? [];
+    const publishers = filter?.must?.[filterHandle] ?? [];
     setPublishers(publishers);
   }, [filterHash]);
 
   useEffect(() => {
     // map selectedFacetData to a lookup so that we have easy access to the counts per publisher key
-    const selectedFacetLookup = selectedFacetData?.search?.facet?.field?.reduce((acc, x) => {
-      acc[x.name] = x.count;
-      return acc;
-    }, {} as Record<string, number>) ?? {};
+    const selectedFacetLookup =
+      selectedFacetData?.search?.facet?.field?.reduce((acc, x) => {
+        acc[x.name] = x.count;
+        return acc;
+      }, {} as Record<string, number>) ?? {};
     setFacetLookup(selectedFacetLookup);
   }, [selectedFacetData]);
 
@@ -114,68 +115,84 @@ export function PublisherSearchFilter({
         {publishers.length > 0 && (
           <button
             className="g-mx-1 g-me-2 g-px-1 g-pe-3 g-border-r"
-            onClick={() => setFullField('publishingOrg', [], [])}
+            onClick={() => setFullField(filterHandle, [], [])}
           >
             <MdDeleteOutline />
           </button>
         )}
-        <SimpleTooltip delayDuration={300} title="Exclude selected">
-          <button className="g-px-1" onClick={() => negateField('publishingOrg', true)}>
+        {/* <SimpleTooltip delayDuration={300} title="Exclude selected">
+          <button
+            className="g-px-1"
+            onClick={() => {
+              // negateField('publishingOrg', true)
+            }}
+          >
             <MdOutlineRemoveCircleOutline />
           </button>
-        </SimpleTooltip>
-        <SimpleTooltip delayDuration={300} title="Invert selection">
+        </SimpleTooltip> */}
+        {/* <SimpleTooltip delayDuration={300} title="Invert selection">
           <button className="g-px-1">
             <MdShuffle />
           </button>
         </SimpleTooltip>
-        {/* <button className="g-mx-1" onClick={() => setShowSuggestions(!showSuggestions)}>
-          {showSuggestions && <MdPieChart />}
-          {!showSuggestions && <MdPieChartOutline />}
-        </button> */}
         <SimpleTooltip delayDuration={300} title="Filter by existence">
           <button className="g-px-1">
             <PiEmptyBold />
           </button>
-        </SimpleTooltip>
+        </SimpleTooltip> */}
 
         <SimpleTooltip delayDuration={300} title="About this filter">
-          <HelpLine
-            id="how-to-link-datasets-to-my-project-page"
-            title={<MdInfoOutline className="g-mx-1" />}
-          />
+          <span>
+            <HelpLine
+              id="how-to-link-datasets-to-my-project-page"
+              title={<MdInfoOutline className="g-ms-1" />}
+            />
+          </span>
         </SimpleTooltip>
       </div>
     </>
   );
 
   return (
-    <div className="">
-      <div className="g-flex">
+    <div className="g-flex g-flex-col g-overflow-hidden">
+      <div className="g-flex g-flex-none">
         <ComboBoxExample
-          onSelect={(item) => add('publishingOrg', item.key)}
-          className="g-border-slate-100 g-border-b-2 g-py-1.5 g-px-4"
+          onSelect={(item) => add(filterHandle, item.key)}
+          className={cn("g-border-slate-100 g-border-b-2 g-py-1.5 g-px-4", className)}
           selected={publishers}
         />
         {/* <SearchInput placeholder="Search" className="g-border-primary-500 g-flex-auto" /> */}
         {/* <button className="g-text-slate-700 g-ps-2"><MdInfoOutline /></button> */}
-        {/* <OrganizationSearchSugget setSelected={x => add('publishingOrg', x.key)} open={true} className="g-w-full"/> */}
+        {/* <OrganizationSearchSugget setSelected={x => add(filterHandle, x.key)} open={true} className="g-w-full"/> */}
       </div>
-      <>
+      <div
+        className={cn(
+          'g-flex g-flex-none g-text-sm g-text-slate-400 g-py-1.5 g-px-4 g-items-center',
+          className
+        )}
+      >
+        {publishers.length > -1 && (
+          <div className="g-flex-none g-text-xs g-font-bold">{publishers?.length} selected</div>
+        )}
+        {options}
+      </div>
+      <div className="g-flex-auto g-overflow-auto">
         {publishers.length > 0 && (
-          <div className={cn('g-text-base g-mt-2', className)}>
+          <div className={cn('g-text-base g-mt-2 g-px-4', className)}>
             <fieldset className="g-text-sm">
               {publishers.map((x) => {
                 return (
                   <Option
                     key={x}
                     className="g-mb-2"
-                    onClick={() => toggle('publishingOrg', x)}
+                    onClick={() => toggle(filterHandle, x)}
                     checked={true}
                     // helpText="Longer description can go here"
                   >
                     <div className="g-flex g-items-center">
-                      <span className="g-flex-auto"><PublisherLabel id={x} /></span>
+                      <span className="g-flex-auto">
+                        <PublisherLabel id={x} />
+                      </span>
                       <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
                         <FormattedNumber value={facetLookup[x] ?? 0} />
                       </span>
@@ -187,7 +204,7 @@ export function PublisherSearchFilter({
           </div>
         )}
         {suggestions && suggestions.length > 0 && (
-          <div className={cn(`g-p-2 g-pt-2 `, publishers.length > 0 && 'g-border-t', className)}>
+          <div className={cn(`g-p-2 g-pt-2 g-px-4 `, publishers.length > 0 && 'g-border-t', className)}>
             {/* <div className={cn('g-flex g-text-sm g-text-slate-400 g-mt-1 g-mb-2 g-items-center')}>
               <h4 className="g-text-xs g-font-bold g-text-slate-400 g-mb-1">Suggestions</h4>
             </div> */}
@@ -198,7 +215,7 @@ export function PublisherSearchFilter({
                     key={x.name}
                     className="g-mb-2"
                     onClick={() => {
-                      toggle('publishingOrg', x.name);
+                      toggle(filterHandle, x.name);
                     }}
                     // checked={false}
                     // helpText={`Datasets: ${x.count}`}
@@ -215,15 +232,7 @@ export function PublisherSearchFilter({
             </fieldset>
           </div>
         )}
-        <div
-        className={cn('g-flex g-text-sm g-text-slate-400 g-mt-1 g-py-1.5 g-items-center g-border-t', className)}
-      >
-        {publishers.length > -1 && (
-          <div className="g-flex-none g-text-xs g-font-bold">{publishers?.length} selected</div>
-        )}
-        {options}
       </div>
-      </>
     </div>
   );
 }

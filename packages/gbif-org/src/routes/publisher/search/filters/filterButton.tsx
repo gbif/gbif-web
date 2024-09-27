@@ -26,7 +26,7 @@ export function FilterButton({
         <Button onClick={onOpen} type="button" className="g-flex-auto g-rounded-e-none g-rounded-s">
           {selectedLabel}
         </Button>
-        <Button onClick={onClear} type="button" className="g-rounded-s-none g-rounded-e g-px-2">
+        <Button onClick={onClear} type="button" aria-label="Clear filter" className="g-rounded-s-none g-rounded-e g-px-2">
           <span>
             <MdClose />
           </span>

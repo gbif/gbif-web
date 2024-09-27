@@ -1,11 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { DynamicLink } from '@/components/dynamicLink';
 import useQuery from '@/hooks/useQuery';
 import {
-  CountMessage,
   DataHeader,
-  PublisherSearch,
 } from '@/routes/publisher/search/publisherSearch';
 import { Tabs } from '@/components/tabs';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
@@ -23,7 +20,6 @@ import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams'
 import { searchConfig } from '@/routes/publisher/search/searchConfig';
 import { FilterContext, FilterProvider } from '@/contexts/filter';
 import { filter2v1 } from '@/dataManagement/filterAdapter';
-import { QFilter } from '@/routes/publisher/search/filters/QFilter';
 import {
   Accordion,
   AccordionContent,
@@ -33,11 +29,9 @@ import {
 import { HelpText } from '@/components/helpText';
 import { cn } from '@/utils/shadcn';
 import { PublisherSearchFilter } from './PublisherSearchFilter';
-import { CountrySearchFilter } from './CountrySearchFilter';
-import { Country2 } from './Country2';
-import { PublisherSearchFilter2 } from './PublisherSearchFilter2';
-import { TypeStatusFilter } from './TypeStatusFilter';
 import { ClientSideOnly } from '@/components/clientSideOnly';
+import { PublisherLabel } from './DisplayName';
+import { FilterPopover } from './filterPopover';
 
 const DATASET_SEARCH_QUERY = /* GraphQL */ `
   query DatasetSearch(
@@ -139,8 +133,11 @@ export function DatasetSearch(): React.ReactElement {
 
       <section className="">
         <ArticleContainer className="g-bg-slate-100 g-flex">
-          <Filters className="g-flex-none g-w-96" />
+          {/* <Filters className="g-flex-none g-w-96" /> */}
           <ArticleTextContainer className="g-flex-auto g-m-0">
+            {FilterContext && <PublisherFilter />}
+            {FilterContext && <HostFilter />}
+            {/* {FilterContext && <TypeStatusPopup />} */}
             <Results loading={loading} datasets={datasets} setOffset={setOffset} />
           </ArticleTextContainer>
         </ArticleContainer>
@@ -228,62 +225,7 @@ function Filters({ className }: { className: string }) {
         <CardTitle>Filters</CardTitle>
       </CardHeader>
       <div className="" role="search">
-        {/* <div className="g-mb-4 g-me-4 g-mb-6">
-          <QFilter
-            className="g-block g-w-full g-bg-white"
-            value={filter.must?.q?.[0]}
-            onChange={(x) => {
-              if (x !== '' && x) {
-                setField('q', [x]);
-              } else {
-                setField('q', []);
-              }
-            }}
-          />
-        </div> */}
-        <ClientSideOnly>
-          <Card className="g-mb-4 g-me-4 g-bg-white g-rounded g-shadow-md">
-            {/* <h3 className="g-p-4 g-font-bold g-text-base">Publisher</h3> */}
-            {/* <CountrySearchFilter searchConfig={searchConfig} filterBeforeChanges={filterContext.filter} currentFilterContext={filterContext} className="g-px-4" /> */}
-            {/* <PublisherSearchFilter2 searchConfig={searchConfig} filterBeforeChanges={filterContext.filter} currentFilterContext={filterContext} className="g-px-4" /> */}
-            <TypeStatusFilter
-              searchConfig={searchConfig}
-              filterBeforeChanges={filterContext.filter}
-              currentFilterContext={filterContext}
-              className="g-px-4"
-            />
-          </Card>
-          <Card className="g-mb-4 g-me-4 g-bg-white g-rounded g-shadow-md">
-            {/* <h3 className="g-p-4 g-font-bold g-text-base">Publisher</h3> */}
-            <PublisherSearchFilter searchConfig={searchConfig} filterBeforeChanges={filterContext.filter} currentFilterContext={filterContext} className="g-px-4" />
-          </Card>
-        </ClientSideOnly>
-        {/* {availableFilter.map((x) => (
-          <div key={x} className="g-mb-4 g-me-4">
-            <QFilter
-              className="g-block g-w-full"
-              value={x}
-              onChange={(v) => {
-                if (v !== '' && v) {
-                  setField(x, [v]);
-                } else {
-                  setField(x, []);
-                }
-              }}
-            />
-          </div>
-        ))} */}
-        {/* <QFilter
-        className="g-inline-block"
-        value={filter.must?.q?.[0]}
-        onChange={(x) => {
-          if (x !== '' && x) {
-            setField('q', [x]);
-          } else {
-            setField('q', []);
-          }
-        }}
-      /> */}
+        
       </div>
     </div>
   );
@@ -339,3 +281,54 @@ function ApiContent() {
     </div>
   );
 }
+
+function PublisherFilter() {
+  const filterContext = useContext(FilterContext);
+  return (
+    <FilterPopover
+      filterHandle="publishingOrg"
+      DisplayName={PublisherLabel}
+      titleTranslationKey="filters.publisherKey.name"
+    >
+      <PublisherSearchFilter
+        filterHandle="publishingOrg"
+        searchConfig={searchConfig}
+        filterBeforeChanges={filterContext.filter}
+      />
+    </FilterPopover>
+  );
+}
+
+function HostFilter() {
+  const filterContext = useContext(FilterContext);
+  return (
+    <FilterPopover
+      filterHandle="hostingOrg"
+      DisplayName={PublisherLabel}
+      titleTranslationKey="filters.hostingOrganizationKey.name"
+    >
+      <PublisherSearchFilter
+        filterHandle="hostingOrg"
+        searchConfig={searchConfig}
+        filterBeforeChanges={filterContext.filter}
+      />
+    </FilterPopover>
+  );
+}
+
+/*
+So we need a custom popover for filters.
+It takes a trigger and the content.
+The content gets wrapper in an optional apply, cancel option with a intermediary filter.
+
+As for the trigger, it can be anything. 
+
+There is however a standard trigger that is a button with a label and a count. 
+Possibly we could have a hook in case other triggers need to show counts.
+
+The trigger needs various configs to work.
+
+And secondly I need to abstract the filter content and split into multiple types.
+Splitting it into components could be a good start. And then possibly make it config driven. 
+But nicer component abstraction than on react-comp would make it easier to add changes later
+*/

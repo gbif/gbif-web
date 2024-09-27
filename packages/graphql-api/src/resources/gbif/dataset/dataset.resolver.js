@@ -37,8 +37,8 @@ const getDatasetFacet =
  * info: Information about the execution state of the operation which should only be used in advanced cases
  */
 export const Query = {
-  datasetSearch: (parent, args, { dataSources }) =>
-    dataSources.datasetAPI.searchDatasets({ query: args }),
+  datasetSearch: (parent, {query = {}, ...args} = {}, { dataSources }) =>
+    dataSources.datasetAPI.searchDatasets({ query: {...args, ...query} }),
   dataset: (parent, { key }, { dataSources }) =>
     dataSources.datasetAPI.getDatasetByKey({ key }),
 };

@@ -111,7 +111,7 @@ export function OneDimensionalChart({
         name: intl.formatMessage({ id: 'dashboard.unknown' }),
         visible: true,
         color: chartColors.UNKNOWN,
-        filter: { must_not: { [predicateKey]: [{ "type": "isNotNull" }] } },
+        filter: { mustNot: { [predicateKey]: [{ "type": "isNotNull" }] } },
       });
     }
   }
