@@ -34,6 +34,18 @@ const typeDef = gql`
       """
       query: DatasetSearchQuery
     ): DatasetSearchResults!
+    datasetList(
+      limit: Int
+      offset: Int
+      q: String
+      country: Country
+      type: DatasetType
+      identifierType: IdentifierType
+      identifier: String
+      machineTagNamespace: String
+      machineTagName: String
+      machineTagValue: String
+    ): DatasetListResults!
     dataset(key: ID!): Dataset
   }
 
@@ -148,7 +160,7 @@ const typeDef = gql`
     license: String
     lockedForAutoUpdate: Boolean
     logoUrl: URL
-    machineTags: [MachineTag]
+    machineTags(namespace: String, name: String, value: String): [MachineTag!]
     maintenanceDescription: String
     maintenanceUpdateFrequency: MaintenanceUpdateFrequency
     modified: DateTime
@@ -194,6 +206,8 @@ const typeDef = gql`
     volatile shortened version of the description
     """
     excerpt: String
+    occurrenceCount: Int
+    literatureCount: Int
   }
 
   type DatasetChecklistMetrics {

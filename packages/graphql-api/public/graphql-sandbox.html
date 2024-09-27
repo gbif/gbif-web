@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>GraphiQL</title>
+  <style>
+    body {
+      height: 100%;
+      margin: 0;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    #graphiql {
+      height: 100vh;
+    }
+  </style>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/graphiql/graphiql.min.js" type="application/javascript"></script>
+  <link rel="stylesheet" href="https://unpkg.com/graphiql/graphiql.min.css" />
+  <script src="https://unpkg.com/@graphiql/plugin-explorer/dist/index.umd.js" crossorigin></script>
+  <link rel="stylesheet" href="https://unpkg.com/@graphiql/plugin-explorer/dist/style.css" />
+</head>
+
+<body>
+  <div id="graphiql">Loading...</div>
+  <script>
+    // The CONST_CASE variables are replaced by the server.
+    // Updating the query and variables in localStorage will inject the query/variables into the GraphiQL editor.
+    window.localStorage.setItem('graphiql:query', `INJECTED_QUERY`);
+    window.localStorage.setItem('graphiql:variables', `INJECTED_VARIABLES`);
+
+    const root = ReactDOM.createRoot(document.getElementById('graphiql'));
+    const fetcher = GraphiQL.createFetcher({
+      url: window.location.href,
+    });
+    const explorerPlugin = GraphiQLPluginExplorer.explorerPlugin();
+    root.render(
+      React.createElement(GraphiQL, {
+        fetcher,
+        defaultEditorToolsVisibility: true,
+        plugins: [explorerPlugin],
+      }),
+    );
+  </script>
+</body>
+
+</html>

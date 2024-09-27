@@ -31,6 +31,7 @@
   "nHostedDatasets": "{total, plural, one {# jeu de données hébergé} other {# jeux de données hébergés}}",
   "nParticipatingDatasets": "{total, plural, one {# jeu de données participants} other {# jeux de données participants}}",
   "nParticipatingPublishers": "{total, plural, one {# éditeur participant} other {# éditeurs participants}}",
+  "nPublishersInCountry": "{total, plural, one {Il y a # éditeur} other {Il y a # éditeurs}} en/au(x) {country}",
   "nStaffMembers": "{total, plural, one {# membre de l'équipe} other {# membres de l'équipe}}",
   "nOccurrencesHosted": "{total, plural, one {# occurrence hébergée} other {# occurrences hébergées}}"
 }

@@ -22,5 +22,16 @@
   "OCEAN_MARINE_BIOLOGY_AND_BIOLOGICAL_OCEANOGRAPHY": "Oceaan Mariene biologie en biologische oceanografie",
   "OCEAN_OCEANOGRAPHY_CHEMICAL_PHYSICAL": "Oceaan Oceanografie chemisch fysisch",
   "PHYSICS": "Fysica",
-  "PHYSICS_ACOUSTICS": "Fysica Akoestiek"
+  "PHYSICS_ACOUSTICS": "Fysica Akoestiek",
+  "AGRICULTURAL": "Agrarische",
+  "AGRICULTURAL_ANIMAL_SCIENCE": "Landbouw dierenwetenschap",
+  "AGRICULTURAL_ENVIRONMENTAL_SCIENCE": "Landbouw Milieuwetenschap",
+  "AGRICULTURAL_PLANT_SCIENCES": "Landbouw plantenwetenschappen",
+  "AGRICULTURAL_SOIL_SCIENCES": "Landbouw bodem wetenschappen",
+  "BIOLOGICAL": "Biologisch",
+  "BIOLOGICAL_ECOLOGY": "Biologische ecologie",
+  "BIOLOGICAL_ENVIRONMENTAL_TOXICOLOGY": "Biologische milieu toxicologie",
+  "HEALTH": "Gezondheid",
+  "HEALTH_VETERINARY_SCIENCES": "Gezondheid Dierenarts wetenschappen",
+  "MATERIAL": "Materiaal"
 }

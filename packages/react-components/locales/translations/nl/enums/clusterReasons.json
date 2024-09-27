@@ -7,7 +7,9 @@
   "SAME_COORDINATES": "Dezelfde coördinaten",
   "WITHIN_200m": "Binnen 200 m",
   "WITHIN_2Km": "Binnen 2 km",
+  "NON_CONFLICTING_COORDINATES": "Niet-conflicterende coördinaten",
   "SAME_COUNTRY": "Hetzelfde land",
+  "NON_CONFLICTING_COUNTRY": "Niet-conflicterende land",
   "DIFFERENT_COUNTRY": "Ander land",
   "SAME_SPECIMEN": "Hetzelfde specimen",
   "TYPIFICATION_RELATION": "Typering relatie"

@@ -1,8 +1,11 @@
 {
   "EX": "Uitgestorven",
   "EW": "Uitgestorven in het wild",
+  "CR": "Ernstig bedreigd (CR)",
   "EN": "Bedreigd",
   "VU": "Kwetsbaar",
+  "NT": "Gevoelig (NT)",
+  "LC": "Minst bedreigd (LC)",
   "DD": "Gegevens Tekort",
   "NE": "Niet geëvalueerd"
 }

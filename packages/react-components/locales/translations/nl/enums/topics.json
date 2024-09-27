@@ -1,3 +1,18 @@
 {
-  "DATA_MANAGEMENT": "Gegevensbeheer"
+  "AGRICULTURE": "Landbouw",
+  "BIODIVERSITY_SCIENCE": "Biodiversiteit wetenschap",
+  "CITIZEN_SCIENCE": "Burgerwetenschap",
+  "CLIMATE_CHANGE": "Klimaatverandering",
+  "DATA_MANAGEMENT": "Gegevensbeheer",
+  "DATA_PAPER": "Data paper",
+  "ECOLOGY": "Ecologie",
+  "ECOSYSTEM_SERVICES": "Ecosysteemdiensten",
+  "EVOLUTION": "Evolutie",
+  "FRESHWATER": "Zoetwater",
+  "INVASIVES": "Invasieven",
+  "MARINE": "Maritiem",
+  "SPECIES_DISTRIBUTIONS": "Soort verspreiding",
+  "INFRASTRUCTURE": "Infrastructuur",
+  "DNA": "DNA",
+  "TAXONOMY": "Taxonomie"
 }

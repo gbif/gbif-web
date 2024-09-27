@@ -1,1 +1,13 @@
-{}
+{
+  "journal": "Journal artikel",
+  "book": "Boek",
+  "generic": "Algemeen",
+  "book_section": "Boeksectie",
+  "working_paper": "Preprint",
+  "report": "Rapport",
+  "web_page": "Webpagina",
+  "thesis": "Thesis",
+  "magazine_article": "Tijdschriftartikel",
+  "newspaper_article": "Artikel in nieuwsblad",
+  "computer_program": "Computerprogramma"
+}

@@ -1,5 +1,9 @@
 {
+  "URL": "URL",
+  "LSID": "LSID",
+  "DOI": "DOI",
   "UUID": "UUID",
+  "UNKNOWN": "Onbekend",
   "GBIF_PORTAL": "GBIF portaal",
   "GBIF_NODE": "GBIF knooppunt",
   "GRID": "GRID",

@@ -1,3 +1,4 @@
+import { getDefaultAgent } from '#/requestAgents';
 import { RESTDataSource } from 'apollo-datasource-rest';
 import { stringify } from 'qs';
 
@@ -10,6 +11,7 @@ class VocabularyAPI extends RESTDataSource {
   willSendRequest(request) {
     request.headers.set('User-Agent', this.context.userAgent);
     request.headers.set('referer', this.context.referer);
+    request.agent = getDefaultAgent(this.baseURL);
   }
 
   // since vocabulary search expose non releasd vocabularies, we will remove this option for now

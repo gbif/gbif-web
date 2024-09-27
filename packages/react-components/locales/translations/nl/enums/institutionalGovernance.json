@@ -1,3 +1,7 @@
 {
+  "ACADEMIC_FEDERAL": "Academisch federaal",
+  "ACADEMIC_LOCAL": "Academisch lokaal",
+  "FEDERAL": "Federaal",
+  "LOCAL": "Lokaal",
   "OTHER": "Andere"
 }

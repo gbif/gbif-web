@@ -3,6 +3,7 @@ import { stringify } from 'qs';
 import { getParsedName } from '#/helpers/scientificName';
 import { uniqBy } from 'lodash';
 import { matchSorter } from 'match-sorter'
+import { getTaxonAgent } from '#/requestAgents';
 
 class TaxonAPI extends RESTDataSource {
   constructor(config) {
@@ -14,6 +15,7 @@ class TaxonAPI extends RESTDataSource {
   willSendRequest(request) {
     request.headers.set('User-Agent', this.context.userAgent);
     request.headers.set('referer', this.context.referer);
+    request.agent = getTaxonAgent(this.baseURL);
   }
 
   async searchTaxa({ query }) {

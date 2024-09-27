@@ -5,13 +5,13 @@
     "gt": "Groter dan {from}",
     "gte": "Groter dan of gelijk aan {from}",
     "e": "Gelijk aan {is}",
-    "between": ""
+    "between": "Van {from} tot {to} "
   },
   "compact": {
     "between": "{from} tot {to}",
     "lt": "Onder {to}",
     "gt": "Boven {from}",
-    "e": ""
+    "e": "{from}"
   },
   "compactMeters": {
     "between": "{from}m tot {to}m",
@@ -23,7 +23,7 @@
     "between": "{from} tot {to}",
     "lt": "Voor {to}",
     "gt": "Na {from}",
-    "e": ""
+    "e": "{from}"
   },
   "year": {
     "between": "Jaar {from} tot {to}",
@@ -68,7 +68,7 @@
     "e": "Hoogte is {from}"
   },
   "geoDistance": {
-    "short": "",
+    "short": "Binnen {distance} van {latitude},{longitude}",
     "description": ""
   },
   "units": {

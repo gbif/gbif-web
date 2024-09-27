@@ -1,3 +1,4 @@
+import { getDefaultAgent } from '#/requestAgents';
 import { RESTDataSource } from 'apollo-datasource-rest';
 import { stringify } from 'qs';
 
@@ -11,11 +12,21 @@ class DatasetAPI extends RESTDataSource {
   willSendRequest(request) {
     request.headers.set('User-Agent', this.context.userAgent);
     request.headers.set('referer', this.context.referer);
+    request.agent = getDefaultAgent(this.baseURL);
   }
 
   async searchDatasets({ query }) {
     const response = await this.get(
       '/dataset/search',
+      stringify(query, { indices: false }),
+    );
+    response._query = query;
+    return response;
+  }
+
+  async listDatasets({ query }) {
+    const response = await this.get(
+      '/dataset',
       stringify(query, { indices: false }),
     );
     response._query = query;
@@ -70,14 +81,14 @@ class DatasetAPI extends RESTDataSource {
       }
       throw err;
     });
-}
+  }
 
   async getChecklistBankImport({ key, query = { state: 'finished', limit: 1 } }) {
-  return this.get(
-    `${this.config.checklistBank}/dataset/${key}/import`,
-    stringify(query, { indices: false }),
-  );
-}
+    return this.get(
+      `${this.config.checklistBank}/dataset/${key}/import`,
+      stringify(query, { indices: false }),
+    );
+  }
 }
 
 export default DatasetAPI;

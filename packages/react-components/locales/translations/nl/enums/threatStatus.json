@@ -1,8 +1,11 @@
 {
   "EXTINCT": "Uitgestorven",
   "EXTINCT_IN_THE_WILD": "Uitgestorven in het wild",
+  "CRITICALLY_ENDANGERED": "Ernstig bedreigd (CE)",
   "ENDANGERED": "Bedreigd",
   "VULNERABLE": "Kwetsbaar",
+  "NEAR_THREATENED": "Gevoelig (NT)",
+  "LEAST_CONCERN": "Minst bedreigd (LC)",
   "DATA_DEFICIENT": "Gegevens Tekort",
   "NOT_EVALUATED": "Niet geëvalueerd"
 }

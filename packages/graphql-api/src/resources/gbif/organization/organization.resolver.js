@@ -15,6 +15,13 @@ export default {
       dataSources.organizationAPI.getOrganizationByKey({ key }),
   },
   Organization: {
+    machineTags: ({ machineTags }, {namespace, name, value}) => {
+      // allow filtering of machine tags
+      if (namespace || name || value) {
+        return machineTags.filter(mt => (!namespace || mt.namespace === namespace) && (!name || mt.name === name) && (!value || mt.value === value));
+      }
+      return machineTags;
+    },
     hostedDataset: ({ key }, args, { dataSources }) => {
       return dataSources.organizationAPI.getHostedDatasets({
         key,
@@ -37,5 +44,22 @@ export default {
     },
     excerpt: src => excerpt({ body: src.description }),
     thumborLogoUrl: ({ logoUrl: url }, { fitIn, width = '', height = '' }) => getThumborUrl({url, fitIn, width, height}),
+    occurrenceCount: ({ key }, args, { dataSources }) => {
+      if (typeof key === 'undefined') return null;
+  
+      return dataSources.occurrenceAPI
+        .searchOccurrenceDocuments({
+          query: {
+            size: 0,
+            predicate: { type: 'equals', key: 'publishingOrg', value: key },
+          },
+        }).then((documents) => documents.total);
+    },
+    literatureCount: ({ key }, args, { dataSources }) => {
+      if (typeof key === 'undefined') return null;
+      return dataSources.literatureAPI
+        .searchLiterature({ query: { publishingOrganizationKey: key, size: 0 } })
+        .then((response) => response.documents.total);
+    },
   },
 };

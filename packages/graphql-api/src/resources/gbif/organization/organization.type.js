@@ -41,7 +41,7 @@ const typeDef = gql`
     logoUrl: String
     thumborLogoUrl(width: Int, height: Int, fitIn: Boolean): String
     longitude: Float
-    machineTags: [MachineTag]
+    machineTags(namespace: String, name: String, value: String): [MachineTag!]
     modified: DateTime
     modifiedBy: String
     numPublishedDatasets: Int
@@ -57,6 +57,8 @@ const typeDef = gql`
     hostedDataset(limit: Int, offset: Int): DatasetListResults!
     publishedDataset(limit: Int, offset: Int): DatasetListResults!
     installation(limit: Int, offset: Int): InstallationSearchResults!
+    occurrenceCount: Int
+    literatureCount: Int
   }
 
   type OrganizationSearchResult {

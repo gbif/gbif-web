@@ -1,3 +1,5 @@
 {
-  "addCollection": "Collectie toevoegen"
+  "type": "Type Instelling",
+  "addCollection": "Collectie toevoegen",
+  "numberSpecimens": "Aantal specimens in instelling"
 }

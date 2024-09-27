@@ -4,6 +4,7 @@ import { get } from 'lodash';
 import { RESTDataSource } from 'apollo-datasource-rest';
 import wikibase from 'wikibase-sdk';
 import { decorateProperty, getItemData, getIUCNRedListData } from './helpers';
+import { getDefaultAgent } from '#/requestAgents';
 
 const USER_AGENT = 'gbif-graphql/1.0';
 const WIKI_GBIF_TAXON_IDENTIFIER = 'P846';
@@ -20,6 +21,7 @@ class WikiDataAPI extends RESTDataSource {
   willSendRequest(request) {
     request.headers.set('User-Agent', USER_AGENT);
     request.headers.set('Accept', 'application/json');
+    request.agent = getDefaultAgent(this.baseURL);
   }
 
   async getReverseClaims(property, value) {
