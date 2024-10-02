@@ -1,7 +1,7 @@
 /* eslint-disable class-methods-use-this */
 
 import { getDefaultAgent } from '#/requestAgents';
-import { RESTDataSource } from 'apollo-datasource-rest';
+import { RESTDataSource } from '@apollo/datasource-rest';
 
 function reduce(people) {
   try {
@@ -31,13 +31,13 @@ function reduce(people) {
 }
 
 class PersonAPI extends RESTDataSource {
-  constructor(config) {
-    super();
-    this.baseURL = config.orcid.pubApi;
+  constructor(context) {
+    super(context);
+    this.baseURL = context.config.orcid.pubApi;
   }
 
-  willSendRequest(request) {
-    request.headers.set('Accept', 'application/json');
+  willSendRequest(_path, request) {
+    request.headers['Accept'] = 'application/json';
     request.agent = getDefaultAgent(this.baseURL);
   }
 

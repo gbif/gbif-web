@@ -1,4 +1,4 @@
-import { gql } from 'apollo-server';
+import gql from 'graphql-tag';
 import { get } from 'lodash';
 import { getEnumTypeDefs } from '#/helpers/enums';
 import * as resources from './resources';

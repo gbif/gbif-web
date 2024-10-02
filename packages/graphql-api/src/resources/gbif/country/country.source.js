@@ -1,15 +1,16 @@
-import { RESTDataSource } from 'apollo-datasource-rest';
+import { RESTDataSource } from '@apollo/datasource-rest';
 import { getDefaultAgent } from '#/requestAgents';
 
 class CollectionAPI extends RESTDataSource {
-  constructor(config) {
-    super();
-    this.baseURL = config.apiv1;
+  constructor(context) {
+    super(context);
+    this.baseURL = context.config.apiv1;
+    this.context = context;
   }
 
-  willSendRequest(request) {
-    request.headers.set('User-Agent', this.context.userAgent);
-    request.headers.set('referer', this.context.referer);
+  willSendRequest(_path, request) {
+    request.headers['User-Agent'] = this.context.userAgent;
+    request.headers['referer'] = this.context.referer;
     request.agent = getDefaultAgent(this.baseURL);
   }
 

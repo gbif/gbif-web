@@ -1,17 +1,18 @@
 import { getOccurrenceAgent, occurrenceAgent } from '#/requestAgents';
-import { RESTDataSource } from 'apollo-datasource-rest';
+import { RESTDataSource } from '@apollo/datasource-rest';
 import { stringify } from 'qs';
 
 const urlSizeLimit = 2000; // use GET for requests that serialized is less than N characters
 
 class OccurrenceAPI extends RESTDataSource {
-  constructor(config) {
-    super();
-    this.baseURL = config.apiEs;
-    this.config = config;
+  constructor(context) {
+    super(context);
+    this.baseURL = context.config.apiEs;
+    this.config = context.config;
+    this.context = context;
   }
 
-  willSendRequest(request) {
+  willSendRequest(_path, request) {
     // if (this.context.user) {
     //   // this of course do not make much sense. Currently is simply means, that you have to provide credentials to seach occurrences
     //   request.params.set('apiKey', apiEsKey);
@@ -21,9 +22,9 @@ class OccurrenceAPI extends RESTDataSource {
     // }
 
     // now that we make a public version, we might as well just make it open since the key is shared with everyone
-    request.headers.set('Authorization', `ApiKey-v1 ${this.config.apiEsKey}`);
-    request.headers.set('User-Agent', this.context.userAgent);
-    request.headers.set('referer', this.context.referer);
+    request.headers['Authorization'] = `ApiKey-v1 ${this.config.apiEsKey}`;
+    request.headers['User-Agent'] = this.context.userAgent;
+    request.headers['referer'] = this.context.referer;
     request.agent = getOccurrenceAgent(this.baseURL);
   }
 
@@ -42,7 +43,7 @@ class OccurrenceAPI extends RESTDataSource {
         { signal: this.context.abortController.signal },
       );
     } else {
-      response = await this.post('/occurrence', body, {
+      response = await this.post('/occurrence', { body }, {
         signal: this.context.abortController.signal,
       });
     }
@@ -77,7 +78,7 @@ class OccurrenceAPI extends RESTDataSource {
 
   async meta({ query }) {
     const body = { ...query };
-    const response = await this.post('/occurrence/meta', body);
+    const response = await this.post('/occurrence/meta', { body });
     return response;
   }
 
@@ -85,7 +86,7 @@ class OccurrenceAPI extends RESTDataSource {
     try {
       return await this.post(
         `${this.config.apiv2}/map/occurrence/adhoc/predicate/`,
-        predicate,
+        { body: predicate },
         { signal: this.context.abortController.signal },
       );
     } catch (err) {

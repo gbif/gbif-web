@@ -1,16 +1,16 @@
 /* eslint-disable class-methods-use-this */
 
-import { RESTDataSource } from 'apollo-datasource-rest';
+import { RESTDataSource } from '@apollo/datasource-rest';
 
 class TaxonMediaAPI extends RESTDataSource {
-  constructor(config) {
-    super();
-    this.baseURL = config.ala.biocache;
-    this.config = config;
+  constructor(context) {
+    super(context);
+    this.baseURL = context.config.ala.biocache;
+    this.config = context.config;
   }
-
-  willSendRequest(request) {
-    request.headers.set('Accept', 'application/json');
+  
+  willSendRequest(_path, request) {
+    request.headers['Accept'] = 'application/json';
   }
 
   async getRepresentativeImages({ taxon, size, from, params }) {
@@ -56,9 +56,11 @@ class TaxonMediaAPI extends RESTDataSource {
 
     const { results: images } = await this.post(
       `${this.config.ala.images}/getImageInfoForIdList`,
-      JSON.stringify({
-        imageIds: occurrences.map(({ image }) => image),
-      }),
+      {
+        body: JSON.stringify({
+          imageIds: occurrences.map(({ image }) => image),
+        }),
+      }
     );
 
     return occurrences

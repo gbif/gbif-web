@@ -1,9 +1,9 @@
-import { RESTDataSource } from 'apollo-datasource-rest';
+import { RESTDataSource } from '@apollo/datasource-rest';
 
 class TaxonAPI extends RESTDataSource {
-  constructor(config) {
-    super();
-    this.config = config;
+  constructor(context) {
+    super(context);
+    this.config = context.config;
   }
 
   async getTaxonByKey({ key, useBie }) {

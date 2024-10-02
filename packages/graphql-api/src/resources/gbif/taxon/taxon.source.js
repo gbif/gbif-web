@@ -1,4 +1,4 @@
-import { RESTDataSource } from 'apollo-datasource-rest';
+import { RESTDataSource } from '@apollo/datasource-rest';
 import { stringify } from 'qs';
 import { getParsedName } from '#/helpers/scientificName';
 import { uniqBy } from 'lodash';
@@ -6,15 +6,16 @@ import { matchSorter } from 'match-sorter'
 import { getTaxonAgent } from '#/requestAgents';
 
 class TaxonAPI extends RESTDataSource {
-  constructor(config) {
-    super();
-    this.baseURL = config.apiv1;
-    this.config = config;
+  constructor(context) {
+    super(context);
+    this.baseURL = context.config.apiv1;
+    this.config = context.config;
+    this.context = context;
   }
 
-  willSendRequest(request) {
-    request.headers.set('User-Agent', this.context.userAgent);
-    request.headers.set('referer', this.context.referer);
+  willSendRequest(_path, request) {
+    request.headers['User-Agent'] = this.context.userAgent;
+    request.headers['referer'] = this.context.referer;
     request.agent = getTaxonAgent(this.baseURL);
   }
 

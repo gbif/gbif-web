@@ -1,8 +1,8 @@
 import config from '#/config';
 import logger from '#/logger';
-import { PluginDefinition } from 'apollo-server-core'
+import { ApolloServerPlugin } from '@apollo/server';
 
-export const loggingPlugin: PluginDefinition = {
+export const loggingPlugin: ApolloServerPlugin = {
   async requestDidStart(rc) {
     // Don't log introspection queries
     if (rc.request.operationName === 'IntrospectionQuery') return;

@@ -1,19 +1,20 @@
 import { getDefaultAgent } from '#/requestAgents';
-import { RESTDataSource } from 'apollo-datasource-rest';
+import { RESTDataSource } from '@apollo/datasource-rest';
 
 const urlSizeLimit = 2000; // use GET for requests that serialized is less than N characters
 
 class LiteratureAPI extends RESTDataSource {
-  constructor(config) {
-    super();
-    this.baseURL = config.apiEs;
-    this.config = config;
+  constructor(context) {
+    super(context);
+    this.baseURL = context.config.apiEs;
+    this.config = context.config;
+    this.context = context;
   }
 
-  willSendRequest(request) {
-    request.headers.set('Authorization', `ApiKey-v1 ${this.config.apiEsKey}`);
-    request.headers.set('User-Agent', this.context.userAgent);
-    request.headers.set('referer', this.context.referer);
+  willSendRequest(_path, request) {
+    request.headers['Authorization'] = `ApiKey-v1 ${this.config.apiEsKey}`;
+    request.headers['User-Agent'] = this.context.userAgent;
+    request.headers['referer'] = this.context.referer;
     request.agent = getDefaultAgent(this.baseURL);
   }
 
@@ -32,7 +33,7 @@ class LiteratureAPI extends RESTDataSource {
         { signal: this.context.abortController.signal },
       );
     } else {
-      response = await this.post('/literature', body, {
+      response = await this.post('/literature', { body }, {
         signal: this.context.abortController.signal,
       });
     }
@@ -50,7 +51,7 @@ class LiteratureAPI extends RESTDataSource {
 
   async meta({ query }) {
     const body = { ...query };
-    const response = await this.post('/literature/meta', body);
+    const response = await this.post('/literature/meta', { body });
     return response;
   }
 }

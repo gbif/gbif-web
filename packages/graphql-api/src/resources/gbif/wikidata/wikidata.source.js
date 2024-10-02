@@ -1,7 +1,7 @@
 /* eslint-disable class-methods-use-this */
 
 import { get } from 'lodash';
-import { RESTDataSource } from 'apollo-datasource-rest';
+import { RESTDataSource } from '@apollo/datasource-rest';
 import wikibase from 'wikibase-sdk';
 import { decorateProperty, getItemData, getIUCNRedListData } from './helpers';
 import { getDefaultAgent } from '#/requestAgents';
@@ -12,15 +12,15 @@ const IUCN_TAXON_IDENTIFIER = 'P627';
 const IUCN_CONSERVATION_STATUS = 'P141';
 
 class WikiDataAPI extends RESTDataSource {
-  constructor(config) {
-    super();
+  constructor(context) {
+    super(context);
     this.baseURL = '';
-    this.wdk = wikibase(config.wikidata);
+    this.wdk = wikibase(context.config.wikidata);
   }
 
-  willSendRequest(request) {
-    request.headers.set('User-Agent', USER_AGENT);
-    request.headers.set('Accept', 'application/json');
+  willSendRequest(_path, request) {
+    request.headers['User-Agent'] = USER_AGENT;
+    request.headers['Accept'] = 'application/json';
     request.agent = getDefaultAgent(this.baseURL);
   }
 

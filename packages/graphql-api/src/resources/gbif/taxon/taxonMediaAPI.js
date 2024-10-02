@@ -1,19 +1,20 @@
 /* eslint-disable class-methods-use-this */
 import { getDefaultAgent } from '#/requestAgents';
-import { RESTDataSource } from 'apollo-datasource-rest';
+import { RESTDataSource } from '@apollo/datasource-rest';
 import axios from 'axios';
 
 class TaxonMediaAPI extends RESTDataSource {
-  constructor(config) {
-    super();
-    this.baseURL = config.apiv1;
-    this.config = config;
+  constructor(context) {
+    super(context);
+    this.baseURL = context.config.apiv1;
+    this.config = context.config;
+    this.context = context;
   }
 
-  willSendRequest(request) {
-    request.headers.set('User-Agent', this.context.userAgent);
-    request.headers.set('referer', this.context.referer);
-    request.headers.set('Accept', 'application/json');
+  willSendRequest(_path, request) {
+    request.headers['User-Agent'] = this.context.userAgent;
+    request.headers['referer'] = this.context.referer;
+    request.headers['Accept'] = 'application/json';
     request.agent = getDefaultAgent(this.baseURL);
   }
 

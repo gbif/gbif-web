@@ -3,24 +3,25 @@
  * Much of the data can be public though, but be cautious when adding new fields.
  */
 
-import { RESTDataSource } from 'apollo-datasource-rest';
+import { RESTDataSource } from '@apollo/datasource-rest';
 import { stringify } from 'qs';
 import pick from 'lodash/pick';
 import { getDefaultAgent } from '#/requestAgents';
 import { createSignedGetHeader } from '#/helpers/auth/authenticatedGet';
 
 class DirectoryPersonAPI extends RESTDataSource {
-  constructor(config) {
-    super();
-    this.baseURL = config.apiv1;
-    this.config = config;
+  constructor(context) {
+    super(context);
+    this.baseURL = context.config.apiv1;
+    this.config = context.config;
+    this.context = context;
   }
 
-  willSendRequest(request) {
+  willSendRequest(_path, request) {
     const header = createSignedGetHeader(request.path, this.config);
-    Object.keys(header).forEach(x => request.headers.set(x, header[x]));
-    request.headers.set('User-Agent', this.context.userAgent);
-    request.headers.set('referer', this.context.referer);
+    Object.keys(header).forEach(x => request.headers[x] = header[x]);
+    request.headers['User-Agent'] = this.context.userAgent;
+    request.headers['referer'] = this.context.referer;
     request.agent = getDefaultAgent(this.baseURL);
   }
 

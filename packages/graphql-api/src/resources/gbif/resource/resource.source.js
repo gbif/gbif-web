@@ -1,16 +1,18 @@
 import { translateContentfulResponse, objectToQueryString } from '#/helpers/utils';
 import { getDefaultAgent } from '#/requestAgents';
-import { RESTDataSource } from 'apollo-datasource-rest';
+import { RESTDataSource } from '@apollo/datasource-rest';
 
 export class ResourceAPI extends RESTDataSource {
-  constructor(config) {
-    super();
-    this.baseURL = config.apiv1;
+  constructor(context) {
+    super(context);
+    this.baseURL = context.config.apiv1;
+    this.config = context.config;
+    this.context = context;
   }
 
-  willSendRequest(request) {
-    request.headers.set('User-Agent', this.context.userAgent);
-    request.headers.set('referer', this.context.referer);
+  willSendRequest(_path, request) {
+    request.headers['User-Agent'] = this.context.userAgent;
+    request.headers['referer'] = this.context.referer;
     request.agent = getDefaultAgent(this.baseURL);
   }
 
@@ -24,15 +26,23 @@ export class ResourceAPI extends RESTDataSource {
 }
 
 export class ResourceSearchAPI extends RESTDataSource {
-  constructor(config) {
-    super();
-    this.baseURL = config.apiEs;
+  constructor(context) {
+    super(context);
+    this.baseURL = context.config.apiEs;
+    this.config = context.config;
+    this.context = context;
   }
 
-  willSendRequest(request) {
-    request.headers.set('User-Agent', this.context.userAgent);
-    request.headers.set('referer', this.context.referer);
+  willSendRequest(_path, request) {
+    console.log(request);
+
+    request.headers['User-Agent'] = this.context.userAgent;
+    request.headers['referer'] = this.context.referer;
     request.agent = getDefaultAgent(this.baseURL);
+
+    // request.headers['User-Agent'] = this.context.userAgent;
+    // request.headers['referer'] = this.context.referer;
+    // request.agent = getDefaultAgent(this.baseURL);
   }
 
   search = async (params, locale) => {

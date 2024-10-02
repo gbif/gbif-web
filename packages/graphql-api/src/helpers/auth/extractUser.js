@@ -15,6 +15,7 @@ async function resolveUser(authorization) {
       return authenticatedGet({
         canonicalPath: 'admin/user/find',
         query: { 'auth.facebook.id': value },
+        // TODO: should this be removed? I don't think it is defined
         config,
       });
     default:

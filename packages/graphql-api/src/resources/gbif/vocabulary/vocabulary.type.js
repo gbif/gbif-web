@@ -1,4 +1,4 @@
-import { gql } from 'apollo-server';
+import gql from 'graphql-tag';
 
 // since vocabulary search expose non released vocabularies, we will remove this option for now
 // vocabularySearch(
