@@ -1,15 +1,15 @@
 import React, { Component, useEffect } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
 export function DisplayName({
   getData,
   id,
   useHtml,
 }: {
-  getData: ({ id }: { id: string | number }) => {
+  getData: ({ id, intl }: { id: string | number, intl: IntlShape }) => {
     promise?: Promise<{ title: string; description?: React.ReactElement }>;
     result?: { title: string | number; description?: React.ReactElement };
-    cancel?: Function;
+    cancel?: () => void;
   };
   id: string | number;
   useHtml: boolean;
@@ -19,7 +19,7 @@ export function DisplayName({
 
   useEffect(() => {
     let canceled = false;
-    let { promise, result, cancel } = getData({ id });
+    let { promise, result, cancel } = getData({ id, intl });
 
     if (promise) {
       promise
@@ -46,7 +46,7 @@ export function DisplayName({
         cancel();
       }
     };
-  }, [id, useHtml]);
+  }, [id, useHtml, intl, getData]);
 
   return title ? (
     useHtml ? (
@@ -99,6 +99,26 @@ export function TypeStatusLabel({ id }: { id: string }) {
   return (
     <DisplayName
       getData={({ id }) => ({result: {title: <FormattedMessage id={`enums.typeStatus.${id}`} defaultMessage={id} />}})}
+      id={id}
+      useHtml={false}
+    />
+  );
+}
+
+export function LicenceLabel({ id }: { id: string }) {
+  return (
+    <DisplayName
+      getData={({ id }) => ({result: {title: <FormattedMessage id={`enums.license.${id}`} defaultMessage={id} />}})}
+      id={id}
+      useHtml={false}
+    />
+  );
+}
+
+export function DatasetTypeLabel({ id }: { id: string }) {
+  return (
+    <DisplayName
+      getData={({ id }) => ({result: {title: <FormattedMessage id={`enums.datasetType.${id}`} defaultMessage={id} />}})}
       id={id}
       useHtml={false}
     />

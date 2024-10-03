@@ -30,6 +30,10 @@ export type Config = Endpoints & {
   OBISKey: string;
   taiwanNodeidentifier: string;
   linkToGbifOrg?: boolean;
+  datasetSearch: {
+    excludedFilters: string[];
+    highlightedFilters: string[];
+  }
 };
 
 const ConfigContext = React.createContext<Config | null>(null);

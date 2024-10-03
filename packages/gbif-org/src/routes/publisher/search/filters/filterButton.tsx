@@ -21,7 +21,7 @@ export function FilterButton({
     return children;
   }
   return (
-    <div className={cn('g-inline-block g-items-center g-me-2', className)}>
+    <div className={cn('g-inline-block g-items-center', className)}>
       <div className="g-inline-flex g-w-full g-rounded-md g-shadow-sm" role="group">
         <Button onClick={onOpen} type="button" className="g-flex-auto g-rounded-e-none g-rounded-s">
           {selectedLabel}

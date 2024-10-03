@@ -14,12 +14,12 @@ const PopoverContent = React.forwardRef<
   <PopoverPrimitive.Portal>
     <div className="gbif">
     <PopoverPrimitive.Content
-      ref={ref}
       align={align}
       sideOffset={sideOffset}
       style={{
-        maxHeight: `var(--radix-popover-content-available-height)`,
-        overflow: "auto",
+        // in theory adding this would make the popover scrollable, but it doesn't work since then we cut of dropdowns within the popover as well
+        // maxHeight: `var(--radix-popover-content-available-height)`,
+        // overflow: "auto",
         ...style
       }}
       className={cn('g-z-50 g-rounded-md g-border g-bg-popover g-p-4 g-text-popover-foreground g-shadow-md g-outline-none data-[state=open]:g-animate-in data-[state=closed]:g-animate-out data-[state=closed]:g-fade-out-0 data-[state=open]:g-fade-in-0 data-[state=closed]:g-zoom-out-95 data-[state=open]:g-zoom-in-95 data-[side=bottom]:g-slide-in-from-top-2 data-[side=left]:g-slide-in-from-right-2 data-[side=right]:g-slide-in-from-left-2 data-[side=top]:g-slide-in-from-bottom-2',

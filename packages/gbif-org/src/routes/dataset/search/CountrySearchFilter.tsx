@@ -1,6 +1,5 @@
 import { SearchInput } from '@/components/searchInput';
-import { Button } from '@/components/ui/button';
-import { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import {
   MdDeleteOutline,
   MdOutlineRemoveCircleOutline,

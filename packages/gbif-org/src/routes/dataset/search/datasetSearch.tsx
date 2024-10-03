@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import useQuery from '@/hooks/useQuery';
 import { DataHeader } from '@/routes/publisher/search/publisherSearch';
@@ -8,15 +8,14 @@ import { Card } from '@/components/ui/smallCard';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { DatasetSearchQuery, DatasetSearchQueryVariables } from '@/gql/graphql';
 import { CardHeader, CardTitle } from '@/components/ui/largeCard';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { PaginationFooter } from '@/components/pagination';
 import { NoRecords } from '@/components/noDataMessages';
 import { Skeleton } from '@/components/ui/skeleton';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { DatasetResult } from '../datasetResult';
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
-import { searchConfig } from '@/routes/publisher/search/searchConfig';
-import { FilterContext, FilterProvider } from '@/contexts/filter';
+import { FilterContext, FilterContextType, FilterProvider, FilterType } from '@/contexts/filter';
 import { filter2v1 } from '@/dataManagement/filterAdapter';
 import {
   Accordion,
@@ -25,12 +24,12 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { HelpText } from '@/components/helpText';
-import { cn } from '@/utils/shadcn';
-import { PublisherSearchFilter } from './PublisherSearchFilter';
 import { ClientSideOnly } from '@/components/clientSideOnly';
-import { CountryLabel, IdentityLabel, PublisherLabel } from './DisplayName';
-import { FilterPopover } from './filterPopover';
-import country from '@/enums/basic/country.json';
+import { QFilter } from '@/routes/publisher/search/filters/QFilter';
+import { searchConfig } from './searchConfig';
+import * as filters from './filters';
+import { useConfig } from '@/contexts/config/config';
+import { MoreFilters } from './filterTools';
 
 const DATASET_SEARCH_QUERY = /* GraphQL */ `
   query DatasetSearch($query: DatasetSearchInput) {
@@ -47,6 +46,7 @@ const DATASET_SEARCH_QUERY = /* GraphQL */ `
 
 export function DatasetSearchPage(): React.ReactElement {
   const [filter, setFilter] = useFilterParams({ filterConfig: searchConfig });
+  // const config = useConfig();
   return (
     <>
       <Helmet>
@@ -109,14 +109,9 @@ export function DatasetSearch(): React.ReactElement {
       </DataHeader>
 
       <section className="">
-        <ArticleContainer className="g-bg-slate-100 g-flex">
-          {/* <Filters className="g-flex-none g-w-96" /> */}
-          <ArticleTextContainer className="g-flex-auto g-m-0">
-            {FilterContext && <PublisherFilter />}
-            {FilterContext && <HostFilter />}
-            {FilterContext && <ProjectIdFilter />}
-            {FilterContext && <PublishingCountryFilter />}
-            {/* {FilterContext && <TypeStatusPopup />} */}
+        <Filters />
+        <ArticleContainer className="g-bg-slate-100">
+          <ArticleTextContainer className="g-m-0">
             <Results loading={loading} datasets={datasets} setOffset={setOffset} />
           </ArticleTextContainer>
         </ArticleContainer>
@@ -180,30 +175,99 @@ function Results({
   );
 }
 
-function Filters({ className }: { className: string }) {
+// Given a set of filters, return a configuration object that can be used to render the filters
+// existing filters: the filters that exists as an option in code
+// excluded filters: filters that should not be shown - these are decided by the site owner
+// highlighted filters: filters that should be shown by default - these are decided by the site owner
+// visible filters: the union of (highlighted filters minus excluded) plus filters that have a value set.
+// available filters: the existing filters minus those that are excluded
+function getFilterConfig({
+  currentFilter,
+  existingFilters,
+  excludedFilters,
+  highlightedFilters,
+}: {
+  currentFilter: FilterType;
+  existingFilters: string[]; // a list of filterHandles
+  excludedFilters: string[]; // a list of filterHandles
+  highlightedFilters: string[]; // a list of filterHandles
+}): { visibleFilters: string[], availableFilters: string[] } {
+  const visibleFilters = new Set<string>();
+  const highlighted = new Set(highlightedFilters);
+  const excluded = new Set(excludedFilters);
+  const existing = new Set(existingFilters);
+  for (const filter of highlighted) {
+    if (!excluded.has(filter)) {
+      visibleFilters.add(filter);
+    }
+  }
+  for (const filter of existing) {
+    if (currentFilter?.must?.[filter]?.length || currentFilter?.mustNot?.[filter]?.length) {
+      visibleFilters.add(filter);
+    }
+  }
+  // get available defined as existing minus excluded
+  const availableFilters = new Set(existingFilters.filter((x) => !excludedFilters.includes(x)));
+
+  return { visibleFilters: Array.from(visibleFilters), availableFilters: Array.from(availableFilters) };
+}
+
+function Filters() {
+  const config = useConfig();
   const filterContext = useContext(FilterContext);
   if (!filterContext) {
     console.error('FilterContext not found');
     return null;
   }
-  const availableFilter = [
-    'q',
-    'publishingCountry',
-    'publishingOrg',
-    'type',
-    'license',
-    'hostingOrg',
-    'projectId',
-  ];
 
-  const { filter, setField, negateField, add, remove } = filterContext;
+  const { visibleFilters, availableFilters } = getFilterConfig({
+    currentFilter: filterContext.filter,
+    existingFilters: Object.keys(filters),
+    excludedFilters: config.datasetSearch.excludedFilters,
+    highlightedFilters: config.datasetSearch.highlightedFilters,
+  });
+
+  // map availableFilters to the form {filterHandle: {FilterButton, FilterPopover, FilterContent}}
+  const otherFilters = availableFilters.filter(x => {
+    return !visibleFilters.includes(x);
+  }).reduce((acc, filterHandle) => {
+    const filterConfig = filters[filterHandle];
+    return { ...acc, [filterHandle]: filterConfig };
+  }, {});
+
+  const { filter, setField } = filterContext;
 
   return (
-    <div className={cn('g-border-b g-me-4', className)}>
-      <CardHeader id="datasets">
-        <CardTitle>Filters</CardTitle>
-      </CardHeader>
-      <div className="" role="search"></div>
+    <div className="g-border-b g-py-2 g-px-3 -g-mb-1" role="search">
+      <QFilter
+        className="g-min-w-48 g-mx-1 g-mb-1"
+        value={filter.must?.q?.[0]}
+        onChange={(x) => {
+          if (x !== '' && x) {
+            setField('q', [x]);
+          } else {
+            setField('q', []);
+          }
+        }}
+      />
+      
+      {visibleFilters.map((filterHandle) => {
+        const filterConfig = filters[filterHandle];
+        return (
+          <filterConfig.FilterButton key={filterHandle} className="g-mx-1 g-mb-1" />
+        );
+      })}
+
+      {/* <filters.publishingOrg.FilterButton />
+      <filters.hostingOrg.FilterButton />
+      <filters.projectId.FilterButton />
+      <filters.publishingCountry.FilterButton />
+      <filters.license.FilterButton />
+      <filters.type.FilterButton /> */}
+      
+      <MoreFilters
+        filters={otherFilters}
+      />
     </div>
   );
 }
@@ -258,208 +322,3 @@ function ApiContent() {
     </div>
   );
 }
-
-export type FacetQuery = {
-  search: {
-    facet?: {
-      field?: Array<{
-        name: string;
-        count: number;
-        item?: {
-          title?: string | null;
-        } | null;
-      } | null> | null;
-    } | null;
-  };
-};
-
-function PublisherFilter() {
-  const getSuggestions = useCallback(({ q }: { q: string }) => {
-    return fetch(`https://api.gbif.org/v1/organization/suggest?limit=20&q=${q}`)
-      .then((res) => res.json())
-      .then((data) => {
-        return data;
-      });
-  }, []);
-
-  const facetQuery = /* GraphQL */ `
-    query DatasetPublisherFacet($query: DatasetSearchInput) {
-      search: datasetSearch(query: $query) {
-        facet {
-          field: publishingOrg {
-            name
-            count
-            item: organization {
-              title
-            }
-          }
-        }
-      }
-    }
-  `;
-
-  const filterContext = useContext(FilterContext);
-  return (
-    <FilterPopover
-      filterHandle="publishingOrg"
-      DisplayName={PublisherLabel}
-      titleTranslationKey="filters.publisherKey.name"
-    >
-      <PublisherSearchFilter
-        getSuggestions={getSuggestions}
-        facetQuery={facetQuery}
-        filterHandle="publishingOrg"
-        DisplayName={PublisherLabel}
-        searchConfig={searchConfig}
-        filterBeforeChanges={filterContext.filter}
-      />
-    </FilterPopover>
-  );
-}
-
-function HostFilter() {
-  const getSuggestions = useCallback(({ q }: { q: string }) => {
-    return fetch(`https://api.gbif.org/v1/organization/suggest?limit=20&q=${q}`)
-      .then((res) => res.json())
-      .then((data) => {
-        return data;
-      });
-  }, []);
-
-  const facetQuery = /* GraphQL */ `
-    query DatasetHostFacet($query: DatasetSearchInput) {
-      search: datasetSearch(query: $query) {
-        facet {
-          field: hostingOrg {
-            name
-            count
-            item: organization {
-              title
-            }
-          }
-        }
-      }
-    }
-  `;
-
-  const filterContext = useContext(FilterContext);
-  return (
-    <FilterPopover
-      filterHandle="hostingOrg"
-      DisplayName={PublisherLabel}
-      titleTranslationKey="filters.hostingOrganizationKey.name"
-    >
-      <PublisherSearchFilter
-        getSuggestions={getSuggestions}
-        facetQuery={facetQuery}
-        DisplayName={PublisherLabel}
-        filterHandle="hostingOrg"
-        searchConfig={searchConfig}
-        filterBeforeChanges={filterContext.filter}
-      />
-    </FilterPopover>
-  );
-}
-
-function ProjectIdFilter() {
-  const facetQuery = /* GraphQL */ `
-    query DatasetProjectFacet($query: DatasetSearchInput) {
-      search: datasetSearch(query: $query) {
-        facet {
-          field: projectId {
-            name
-            count
-          }
-        }
-      }
-    }
-  `;
-
-  const filterContext = useContext(FilterContext);
-  return (
-    <FilterPopover
-      filterHandle="projectId"
-      DisplayName={IdentityLabel}
-      titleTranslationKey="filters.projectId.name"
-    >
-      <PublisherSearchFilter
-        facetQuery={facetQuery}
-        DisplayName={IdentityLabel}
-        filterHandle="projectId"
-        searchConfig={searchConfig}
-        filterBeforeChanges={filterContext.filter}
-      />
-    </FilterPopover>
-  );
-}
-
-function PublishingCountryFilter() {
-  const [countries, setCountries] = useState<{ key: string; title: string }[]>([]);
-  const { formatMessage } = useIntl();
-
-  useEffect(() => {
-    // translate all country values using the intl lib
-    const countryValues = country.map((code) => ({
-      key: code,
-      title: formatMessage({ id: `enums.countryCode.${code}` }),
-    }));
-    setCountries(countryValues);
-  }, []);
-
-  const getSuggestions = useCallback(
-    ({ q }: { q: string }) => {
-      // filter countries based on the search query and store it in results
-      const filtered = countries.filter((x) => x?.title?.toLowerCase().includes(q.toLowerCase()));
-      return Promise.resolve(filtered);
-    },
-    [countries]
-  );
-
-  const facetQuery = /* GraphQL */ `
-    query DatasetPublisingCountryFacet($query: DatasetSearchInput) {
-      search: datasetSearch(query: $query) {
-        facet {
-          field: publishingCountry {
-            name
-            count
-          }
-        }
-      }
-    }
-  `;
-
-  const filterContext = useContext(FilterContext);
-  return (
-    <FilterPopover
-      filterHandle="publishingCountry"
-      DisplayName={CountryLabel}
-      titleTranslationKey="filters.publishingCountryCode.name"
-    >
-      <PublisherSearchFilter
-        getSuggestions={getSuggestions}
-        facetQuery={facetQuery}
-        DisplayName={CountryLabel}
-        filterHandle="publishingCountry"
-        searchConfig={searchConfig}
-        filterBeforeChanges={filterContext.filter}
-      />
-    </FilterPopover>
-  );
-}
-
-/*
-So we need a custom popover for filters.
-It takes a trigger and the content.
-The content gets wrapper in an optional apply, cancel option with a intermediary filter.
-
-As for the trigger, it can be anything. 
-
-There is however a standard trigger that is a button with a label and a count. 
-Possibly we could have a hook in case other triggers need to show counts.
-
-The trigger needs various configs to work.
-
-And secondly I need to abstract the filter content and split into multiple types.
-Splitting it into components could be a good start. And then possibly make it config driven. 
-But nicer component abstraction than on react-comp would make it easier to add changes later
-*/

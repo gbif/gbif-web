@@ -47,7 +47,7 @@ export function QFilter({
         defaultValue={value}
         ref={inputRef}
         placeholder="Text search"
-        className={cn('g-h-9 g-px-4 g-py-2 g-rounded-md g-w-auto g-me-2 g-border g-border-primary-500 g-min-w-36', className)}
+        className={cn('g-h-9 g-px-2 g-py-2 g-rounded-md g-w-auto g-border g-border-primary-500', className)}
         onBlur={(e) => {
           onChange(e.target.value);
           if (e.target.value !== '') {
@@ -66,57 +66,5 @@ export function QFilter({
         }}
       />
     </FilterButton>
-  );
-
-  // if no value, then just provide an input box.
-  // if there is a value, then provide a 2 part chip/button with a clear on the right of the button group.
-  if (!isInputHidden) {
-    // update value when user press enter or when the input loses focus
-    return (
-      <SearchInput
-        defaultValue={value}
-        ref={inputRef}
-        placeholder="Search"
-        className="g-inline-block g-w-auto g-me-2 g-border-primary-500 g-min-w-48"
-        onBlur={(e) => {
-          onChange(e.target.value);
-          if (e.target.value !== '') {
-            setIsInputHidden(true);
-          }
-        }}
-        onKeyDown={(e) => {
-          // if user press enter, then update the value
-          if (e.key === 'Enter') {
-            onChange(e.currentTarget.value);
-          }
-          // if esc, then just leave the input and value as is
-          if (e.key === 'Escape' && value !== '') {
-            setIsInputHidden(true);
-          }
-        }}
-      />
-    );
-  }
-  return (
-    <div className="g-inline-block g-items-center g-me-2">
-      <div className="g-inline-flex g-rounded-md g-shadow-sm g-min-w-48" role="group">
-        <Button
-          onClick={() => setIsInputHidden(false)}
-          type="button"
-          className="g-flex-auto g-rounded-e-none g-rounded-s"
-        >
-          <span className="">Text: "{value}"</span>
-        </Button>
-        <Button
-          onClick={handleClearClick}
-          type="button"
-          className="g-rounded-s-none g-rounded-e g-px-2"
-        >
-          <span>
-            <MdClose />
-          </span>
-        </Button>
-      </div>
-    </div>
   );
 }

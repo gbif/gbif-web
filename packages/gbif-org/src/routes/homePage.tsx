@@ -93,7 +93,7 @@ export function HomePage(): React.ReactElement {
       <Helmet>
         <title>Home</title>
       </Helmet>
-      <main className="g-min-h-screen">
+      <main className="">
         {/* A background image with title and a search bar */}
         <section
           className="g-bg-cover g-bg-center g-bg-no-repeat g-py-48"

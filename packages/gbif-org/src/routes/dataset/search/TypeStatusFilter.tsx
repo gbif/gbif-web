@@ -66,7 +66,6 @@ export function TypeStatusFilter({
   // assign a ref that we can attach to the command input field to control focus
   const inputRef = useRef<HTMLInputElement>(null);
 
-  console.log(filter);
   // useEffect(() => {
   //   // fetch data from https://api.gbif.org/v1/organization/suggest?limit=8&q=${query} and store it in results
   //   fetch(`https://api.gbif.org/v1/organization/suggest?limit=20&q=${query}`)

@@ -33,7 +33,9 @@ export const GalleryPresentation = ({ style, tileWrapperProps, className, next, 
   }, [activeId]);
 
   if (error) {
-    return <h2>Error</h2>
+    console.log(error);
+    // throw new Error(error);
+    // return <h2>Error</h2>
   }
 
   return <div {...{ style, className }}>
