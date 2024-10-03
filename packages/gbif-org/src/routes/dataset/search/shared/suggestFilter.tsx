@@ -1,6 +1,6 @@
 import { SearchInput } from '@/components/searchInput';
 import { Button } from '@/components/ui/button';
-import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   MdDeleteOutline,
   MdOutlineRemoveCircleOutline,
@@ -13,7 +13,7 @@ import {
 import { PiEmptyBold, PiEmptyFill } from 'react-icons/pi';
 import { TiArrowShuffle as InvertIcon } from 'react-icons/ti';
 import { cn } from '@/utils/shadcn';
-import { cleanUpFilter, FilterContext, FilterType } from '@/contexts/filter';
+import { cleanUpFilter, FilterContext } from '@/contexts/filter';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import { filter2v1 } from '@/dataManagement/filterAdapter';
 import useQuery from '@/hooks/useQuery';
@@ -37,6 +37,7 @@ export const SuggestFilter = React.forwardRef(
       getSuggestions, // function that takes a query string and returns a promise of suggestions
       onApply,
       onCancel,
+      pristine,
       ...props
     }: {
       className?: string;
@@ -47,6 +48,7 @@ export const SuggestFilter = React.forwardRef(
       getSuggestions?: ({ q, intl }: { q: string; intl: IntlShape }) => Promise<any>;
       onApply?: ({ keepOpen }: { keepOpen?: boolean }) => void;
       onCancel?: () => void;
+      pristine?: boolean;
     },
     ref
   ) => {
@@ -282,9 +284,9 @@ export const SuggestFilter = React.forwardRef(
             <Button size="sm" variant="outline" onClick={onCancel}>
               Cancel
             </Button>
-            <Button size="sm" onClick={onApply}>
+            {!pristine && <Button size="sm" onClick={() => onApply({keepOpen: false})}>
               Apply
-            </Button>
+            </Button>}
           </div>
         )}
       </div>

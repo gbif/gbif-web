@@ -36,6 +36,7 @@ export const EnumFilter = React.forwardRef(
       enumOptions,
       onApply,
       onCancel,
+      pristine
     }: {
       className?: string;
       searchConfig: FilterConfigType;
@@ -45,6 +46,7 @@ export const EnumFilter = React.forwardRef(
       enumOptions?: (string | number)[];
       onApply?: ({ keepOpen }: { keepOpen?: boolean }) => void;
       onCancel?: () => void;
+      pristine?: boolean;
     },
     ref
   ) => {
@@ -238,9 +240,9 @@ export const EnumFilter = React.forwardRef(
             <Button size="sm" variant="outline" onClick={onCancel}>
               Cancel
             </Button>
-            <Button size="sm" onClick={onApply}>
+            {!pristine && <Button size="sm" onClick={() => onApply({keepOpen: false})}>
               Apply
-            </Button>
+            </Button>}
           </div>
         )}
       </div>

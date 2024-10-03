@@ -279,7 +279,7 @@ export function FilterApplyPopover({
     {
       onApply?: ({ keepOpen }: { keepOpen?: boolean }) => void;
       onCancel: () => void;
-      unTouched: boolean;
+      pristine: boolean;
     } & React.RefAttributes<HTMLDivElement>
   >;
   trigger: React.ReactNode;
@@ -288,19 +288,19 @@ export function FilterApplyPopover({
   const focusRef = useRef<HTMLDivElement>(null);
   const currentFilterContext = useContext(FilterContext);
   const [tmpFilter, setFilter] = useState(currentFilterContext.filter);
-  const [unTouched, setUnTouched] = useState(true);
+  const [pristine, setPristine] = useState(true);
   const child = React.Children.only(children);
 
   useEffect(() => {
     setFilter(currentFilterContext.filter);
-    setUnTouched(true);
+    setPristine(true);
   }, [currentFilterContext.filterHash]);
 
   const onApply = useCallback(
     ({ keepOpen }: { keepOpen?: boolean }) => {
       currentFilterContext.setFilter(tmpFilter);
       if (!keepOpen) setControlledOpen(false);
-      setUnTouched(true);
+      setPristine(true);
     },
     [tmpFilter, currentFilterContext, setControlledOpen]
   );
@@ -308,12 +308,12 @@ export function FilterApplyPopover({
   const onCancel = useCallback(() => {
     setFilter(currentFilterContext.filter);
     setControlledOpen(false);
-    setUnTouched(true);
+    setPristine(true);
   }, [currentFilterContext.filterHash, setControlledOpen]);
 
   const onFilterChange = useCallback((filter: FilterType) => {
     setFilter(filter);
-    setUnTouched(false);
+    setPristine(false);
   }, []);
 
   return (
@@ -336,7 +336,7 @@ export function FilterApplyPopover({
             React.cloneElement(child, {
               onApply,
               onCancel,
-              unTouched,
+              pristine,
               ref: focusRef,
             })}
         </FilterProvider>

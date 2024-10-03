@@ -1,6 +1,6 @@
-import { CountryLabel, DatasetTypeLabel, IdentityLabel, LicenceLabel, PublisherLabel } from './DisplayName';
+import { CountryLabel, DatasetTypeLabel, IdentityLabel, LicenceLabel, PublisherLabel } from './shared/DisplayName';
 import { searchConfig } from './searchConfig';
-import { filterConfig, filterConfigTypes, generateFilters } from './filterTools';
+import { filterConfig, filterConfigTypes, generateFilters } from './shared/filterTools';
 import { IntlShape } from 'react-intl';
 
 import country from '@/enums/basic/country.json';
@@ -164,3 +164,11 @@ const datasetTypeConfig: filterConfig = {
 export const type = generateFilters({ config: datasetTypeConfig, searchConfig });
 
 
+export const filters = {
+  publishingOrg,
+  hostingOrg,
+  projectId,
+  publishingCountry,
+  license,
+  type,
+};

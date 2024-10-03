@@ -30,9 +30,9 @@ export type Config = Endpoints & {
   OBISKey: string;
   taiwanNodeidentifier: string;
   linkToGbifOrg?: boolean;
-  datasetSearch: {
-    excludedFilters: string[];
-    highlightedFilters: string[];
+  datasetSearch?: {
+    excludedFilters?: string[];
+    highlightedFilters?: string[];
   }
 };
 

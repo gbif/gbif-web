@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
 export function DisplayName({

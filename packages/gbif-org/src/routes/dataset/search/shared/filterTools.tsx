@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { SuggestFilter } from './suggestFilter';
-import { FilterApplyPopover, FilterButton, FilterPopover } from './filterPopover';
+import { FilterApplyPopover, FilterButton } from './filterPopover';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
-import { IntlShape } from 'react-intl';
+import { FormattedMessage, IntlShape } from 'react-intl';
 import { EnumFilter } from './enumFilter';
 import { Button } from '@/components/ui/button';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { useUncontrolledProp } from 'uncontrollable';
+import {
+  Command,
+  CommandInput,
+  CommandEmpty,
+  CommandList,
+  CommandGroup,
+  CommandItem,
+} from '@/components/ui/command';
+import { MdArrowBack } from 'react-icons/md';
 
 export const filterConfigTypes = {
   SUGGEST: 'SUGGEST',
@@ -40,12 +47,20 @@ export type FacetQuery = {
   };
 };
 
-function getPopoverFilter({ Content }: { config: filterConfig; Content: React.FC }) {
+function getPopoverFilter({
+  Content,
+}: {
+  config: filterConfig;
+  Content: React.FC<{
+    onApply?: ({ keepOpen }: { keepOpen?: boolean }) => void;
+    onCancel?: () => void;
+    className?: string;
+    style?: React.CSSProperties;
+  }>;
+}) {
   return function PopoverFilter({ trigger }: { trigger: React.ReactNode }) {
     return (
-      <FilterApplyPopover
-        trigger={trigger}
-      >
+      <FilterApplyPopover trigger={trigger}>
         <Content />
       </FilterApplyPopover>
     );
@@ -66,11 +81,13 @@ const getSuggestFilter = ({
         onCancel,
         className,
         style,
+        pristine,
       }: {
         onApply?: ({ keepOpen }: { keepOpen?: boolean }) => void;
-        onCancel: () => void;
-        className: string;
-        style: React.CSSProperties;
+        onCancel?: () => void;
+        className?: string;
+        style?: React.CSSProperties;
+        pristine?: boolean;
       },
       ref
     ) => {
@@ -82,7 +99,7 @@ const getSuggestFilter = ({
           filterHandle={config.filterHandle}
           DisplayName={config.displayName}
           searchConfig={searchConfig}
-          {...{ onApply, onCancel, className, style }}
+          {...{ onApply, onCancel, className, style, pristine }}
         />
       );
     }
@@ -103,11 +120,13 @@ const getEnumFilter = ({
         onCancel,
         className,
         style,
+        pristine,
       }: {
         onApply?: ({ keepOpen }: { keepOpen?: boolean }) => void;
-        onCancel: () => void;
-        className: string;
-        style: React.CSSProperties;
+        onCancel?: () => void;
+        className?: string;
+        style?: React.CSSProperties;
+        pristine?: boolean;
       },
       ref
     ) => {
@@ -119,7 +138,7 @@ const getEnumFilter = ({
           filterHandle={config.filterHandle}
           DisplayName={config.displayName}
           searchConfig={searchConfig}
-          {...{ onApply, onCancel, className, style }}
+          {...{ onApply, onCancel, className, style, pristine }}
         />
       );
     }
@@ -159,9 +178,12 @@ export function generateFilters({
   }
 
   return {
-    FilterButton: FilterButtonPopover,
-    FilterPopover: PopoverFilter,
-    FilterContent: Content,
+    Button: FilterButtonPopover,
+    Popover: PopoverFilter,
+    Content: Content,
+    name: config.filterTranslation,
+    handle: config.filterHandle,
+    DisplayName: config.displayName,
   };
 }
 
@@ -170,13 +192,16 @@ const ContentWrapper = React.forwardRef(
     {
       onApply,
       onCancel,
+      pristine,
       filters,
     }: {
       onApply?: ({ keepOpen }: { keepOpen?: boolean }) => void;
       onCancel?: () => void;
+      pristine?: boolean;
       filters: {
         [key: string]: {
-          FilterContent: React.FC<{
+          name: string;
+          Content: React.FC<{
             onApply?: ({ keepOpen }: { keepOpen?: boolean }) => void;
             onCancel?: () => void;
             ref: React.ForwardedRef<unknown>;
@@ -186,36 +211,62 @@ const ContentWrapper = React.forwardRef(
     },
     ref
   ) => {
+    const searchRef = useRef<HTMLInputElement>(null);
     const [activeFilterHandle, setActiveFilterHandle] = React.useState<string | null>(null);
+    const Content = activeFilterHandle ? filters?.[activeFilterHandle]?.Content : null;
 
-    const Content = activeFilterHandle ? filters?.[activeFilterHandle]?.FilterContent : null;
+    useEffect(() => {
+      if (!activeFilterHandle && searchRef.current) {
+        searchRef.current.focus();
+      }
+    }, [activeFilterHandle])
 
     return (
       <div>
         {!activeFilterHandle && (
-          <div>
-            <ul>
-              {Object.keys(filters).map((filterHandle) => (
-                <li key={filterHandle} onClick={() => setActiveFilterHandle(filterHandle)}>
-                  {filterHandle}
-                </li>
-              ))}
-            </ul>
-          </div>
+          <Command>
+            <CommandInput placeholder="Select a filter" ref={searchRef} />
+            <CommandEmpty>No matching filters</CommandEmpty>
+            <CommandList>
+              <CommandGroup>
+                {Object.keys(filters).map((filterHandle) => {
+                  const { name } = filters[filterHandle];
+                  return (
+                    <CommandItem
+                      key={filterHandle}
+                      value={filterHandle}
+                      className="g-flex g-items-center g-justify-between g-w-full"
+                      onSelect={() => {
+                        setActiveFilterHandle(filterHandle)
+                      }}
+                    >
+                      <FormattedMessage id={name} defaultMessage={name} />
+                    </CommandItem>
+                  );
+                })}
+              </CommandGroup>
+            </CommandList>
+          </Command>
         )}
         {activeFilterHandle && (
           <div>
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => {
-                if (typeof onApply === 'function') onApply({ keepOpen: true });
-                setActiveFilterHandle(null);
-              }}
-            >
-              Back
-            </Button>
-            {Content && <Content onApply={onApply} onCancel={onCancel} ref={ref} />}
+            <div className="g-flex g-flex-nowrap g-items-center g-border-b">
+              <Button
+                size="sm"
+                variant="ghost"
+                className="g-flex-none"
+                onClick={() => {
+                  if (typeof onApply === 'function') onApply({ keepOpen: true });
+                  setActiveFilterHandle(null);
+                }}
+              >
+                <MdArrowBack />
+              </Button>
+              <h3 className="g-flex-auto g-text-slate-800 g-text-sm g-font-semibold">
+                <FormattedMessage id={filters[activeFilterHandle].name} defaultMessage={filters[activeFilterHandle].name} />
+              </h3>
+            </div>
+            {Content && <Content {...{ pristine, onApply, onCancel }} ref={ref} />}
           </div>
         )}
       </div>
@@ -223,11 +274,7 @@ const ContentWrapper = React.forwardRef(
   }
 );
 
-export function MoreFilters({
-  filters,
-}: {
-  filters: { [key: string]: any };
-}) {
+export function MoreFilters({ filters }: { filters: { [key: string]: any } }) {
   return (
     <FilterApplyPopover
       trigger={

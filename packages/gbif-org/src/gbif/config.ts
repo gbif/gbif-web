@@ -132,8 +132,8 @@ export const gbifConfig: Config = {
   taiwanNodeidentifier: '239',
   linkToGbifOrg: true,
   datasetSearch: {
-    excludedFilters: ['publishingCountry'],
-    highlightedFilters: ['publishingOrg', 'license', 'type'],
+    // excludedFilters: ['publishingCountry'],
+    highlightedFilters: ['publishingOrg'],
     // defaultTableColumns: ['title', 'description', 'publisher', 'type', 'occurrenceCount', 'literatureCount'],
   }
 };

@@ -1,9 +1,27 @@
 import { SearchInput } from '@/components/searchInput';
 import { Button } from '@/components/ui/button';
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { MdClose } from 'react-icons/md';
 import { FilterButton } from './filterButton';
 import { cn } from '@/utils/shadcn';
+import { FilterContext } from '@/contexts/filter';
+
+export function QContextFilter({ className }: { className?: string }) {
+  const { filter, setField } = useContext(FilterContext);
+  return (
+    <QFilter
+      className={cn('g-min-w-48 g-mx-1 g-mb-1', className)}
+      value={filter.must?.q?.[0]}
+      onChange={(x) => {
+        if (x !== '' && x) {
+          setField('q', [x]);
+        } else {
+          setField('q', []);
+        }
+      }}
+    />
+  );
+}
 
 export function QFilter({
   onChange,
@@ -47,7 +65,10 @@ export function QFilter({
         defaultValue={value}
         ref={inputRef}
         placeholder="Text search"
-        className={cn('g-h-9 g-px-2 g-py-2 g-rounded-md g-w-auto g-border g-border-primary-500', className)}
+        className={cn(
+          'g-h-9 g-px-2 g-py-2 g-rounded-md g-w-auto g-border g-border-primary-500',
+          className
+        )}
         onBlur={(e) => {
           onChange(e.target.value);
           if (e.target.value !== '') {

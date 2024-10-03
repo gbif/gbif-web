@@ -8,7 +8,7 @@ export const searchConfig: FilterConfigType = {
     country: {
       singleValue: true
     },
-    datasetType: {
+    type: {
       defaultKey: 'type'
     }
   }

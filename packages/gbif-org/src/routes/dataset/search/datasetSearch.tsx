@@ -15,7 +15,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { DatasetResult } from '../datasetResult';
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
-import { FilterContext, FilterContextType, FilterProvider, FilterType } from '@/contexts/filter';
+import { FilterContext, FilterProvider, FilterType } from '@/contexts/filter';
 import { filter2v1 } from '@/dataManagement/filterAdapter';
 import {
   Accordion,
@@ -25,11 +25,11 @@ import {
 } from '@/components/ui/accordion';
 import { HelpText } from '@/components/helpText';
 import { ClientSideOnly } from '@/components/clientSideOnly';
-import { QFilter } from '@/routes/publisher/search/filters/QFilter';
+import { QContextFilter } from '@/routes/publisher/search/filters/QFilter';
 import { searchConfig } from './searchConfig';
-import * as filters from './filters';
+import { filters } from './filters';
 import { useConfig } from '@/contexts/config/config';
-import { MoreFilters } from './filterTools';
+import { MoreFilters } from './shared/filterTools';
 
 const DATASET_SEARCH_QUERY = /* GraphQL */ `
   query DatasetSearch($query: DatasetSearchInput) {
@@ -222,12 +222,12 @@ function Filters() {
 
   const { visibleFilters, availableFilters } = getFilterConfig({
     currentFilter: filterContext.filter,
-    existingFilters: Object.keys(filters),
-    excludedFilters: config.datasetSearch.excludedFilters,
-    highlightedFilters: config.datasetSearch.highlightedFilters,
+    existingFilters: Object.keys(filters).map(x => filters[x].filterHandle ?? x),
+    excludedFilters: config?.datasetSearch?.excludedFilters ?? [],
+    highlightedFilters: config?.datasetSearch?.highlightedFilters ?? [],
   });
 
-  // map availableFilters to the form {filterHandle: {FilterButton, FilterPopover, FilterContent}}
+  // map availableFilters to the form {filterHandle: {Button, Popover, Content}}
   const otherFilters = availableFilters.filter(x => {
     return !visibleFilters.includes(x);
   }).reduce((acc, filterHandle) => {
@@ -235,35 +235,16 @@ function Filters() {
     return { ...acc, [filterHandle]: filterConfig };
   }, {});
 
-  const { filter, setField } = filterContext;
-
   return (
     <div className="g-border-b g-py-2 g-px-3 -g-mb-1" role="search">
-      <QFilter
-        className="g-min-w-48 g-mx-1 g-mb-1"
-        value={filter.must?.q?.[0]}
-        onChange={(x) => {
-          if (x !== '' && x) {
-            setField('q', [x]);
-          } else {
-            setField('q', []);
-          }
-        }}
-      />
+      <QContextFilter />
       
       {visibleFilters.map((filterHandle) => {
         const filterConfig = filters[filterHandle];
         return (
-          <filterConfig.FilterButton key={filterHandle} className="g-mx-1 g-mb-1" />
+          <filterConfig.Button key={filterHandle} className="g-mx-1 g-mb-1" />
         );
       })}
-
-      {/* <filters.publishingOrg.FilterButton />
-      <filters.hostingOrg.FilterButton />
-      <filters.projectId.FilterButton />
-      <filters.publishingCountry.FilterButton />
-      <filters.license.FilterButton />
-      <filters.type.FilterButton /> */}
       
       <MoreFilters
         filters={otherFilters}
