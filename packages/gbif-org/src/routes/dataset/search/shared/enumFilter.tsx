@@ -21,9 +21,10 @@ import useQuery from '@/hooks/useQuery';
 import { HelpLine } from '@/components/helpText';
 import { FormattedNumber } from 'react-intl';
 import { SimpleTooltip } from '@/components/simpleTooltip';
-import { FacetQuery } from './filterTools';
+import { FacetQuery, getAsQuery } from './filterTools';
 import { Option } from './option';
 import cloneDeep from 'lodash/cloneDeep';
+import { useSearchContext } from '@/contexts/search';
 
 export const EnumFilter = React.forwardRef(
   (
@@ -50,6 +51,7 @@ export const EnumFilter = React.forwardRef(
     },
     ref
   ) => {
+    const searchContext = useSearchContext();
     const currentFilterContext = useContext(FilterContext);
     const { filter, toggle, add, remove, setFullField, negateField, filterHash } =
       currentFilterContext;
@@ -79,7 +81,13 @@ export const EnumFilter = React.forwardRef(
       // if no enums are provided, then get facet values from API using no filters. This will provide is with the possible values for that field.
       // TODO this should be changed to take into account the scope defined at site level
       if (!enumOptions) {
-        noFilterFacetLoad({ });
+        const query = getAsQuery({ filter: {}, searchContext, searchConfig });
+        if (searchContext.queryType === 'V1') {
+          noFilterFacetLoad({ variables: { query: query } });
+        } else {
+          noFilterFacetLoad({ variables: { predicate: query }});
+        }
+        // noFilterFacetLoad({ });
       }
     }, []);
 
@@ -87,8 +95,13 @@ export const EnumFilter = React.forwardRef(
       // if the filter has changed, then get facet values from API
       const prunedFilter = cleanUpFilter(cloneDeep(filter));
       delete prunedFilter.must?.[filterHandle];
-      const v1Filter = filter2v1(prunedFilter, searchConfig);
-      facetLoad({ variables: { query: v1Filter?.filter } });
+
+      const query = getAsQuery({ filter: prunedFilter, searchContext, searchConfig });
+      if (searchContext.queryType === 'V1') {
+        facetLoad({ variables: { query: query } });
+      } else {
+        facetLoad({ variables: { predicate: query }});
+      }
     }, [filterBeforeHash]);
 
     useEffect(() => {

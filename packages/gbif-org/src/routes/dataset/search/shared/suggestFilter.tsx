@@ -13,8 +13,11 @@ import {
 import { PiEmptyBold, PiEmptyFill } from 'react-icons/pi';
 import { TiArrowShuffle as InvertIcon } from 'react-icons/ti';
 import { cn } from '@/utils/shadcn';
-import { cleanUpFilter, FilterContext } from '@/contexts/filter';
-import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
+import { cleanUpFilter, FilterContext, FilterType } from '@/contexts/filter';
+import {
+  filter2predicate,
+  FilterConfigType,
+} from '@/dataManagement/filterAdapter/filter2predicate';
 import { filter2v1 } from '@/dataManagement/filterAdapter';
 import useQuery from '@/hooks/useQuery';
 import hash from 'object-hash';
@@ -24,7 +27,8 @@ import { HelpLine } from '@/components/helpText';
 import { FormattedNumber, IntlShape } from 'react-intl';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Option } from './option';
-import { FacetQuery } from './filterTools';
+import { FacetQuery, getAsQuery } from './filterTools';
+import { SearchMetadata, useSearchContext } from '@/contexts/search';
 
 export const SuggestFilter = React.forwardRef(
   (
@@ -52,6 +56,7 @@ export const SuggestFilter = React.forwardRef(
     },
     ref
   ) => {
+    const searchContext = useSearchContext();
     const currentFilterContext = useContext(FilterContext);
     const { filter, toggle, add, remove, setFullField, negateField, filterHash } =
       currentFilterContext;
@@ -82,14 +87,23 @@ export const SuggestFilter = React.forwardRef(
       // if the filter has changed, then get facet values from API
       const prunedFilter = cleanUpFilter(cloneDeep(filter));
       delete prunedFilter.must?.[filterHandle];
-      const v1Filter = filter2v1(prunedFilter, searchConfig);
-      facetLoad({ variables: { query: v1Filter?.filter } });
+      
+      const query = getAsQuery({ filter: prunedFilter, searchContext, searchConfig });
+      if (searchContext.queryType === 'V1') {
+        facetLoad({ variables: { query: query } });
+      } else {
+        facetLoad({ variables: { predicate: query }});
+      }
     }, [filterBeforeHash]);
 
     useEffect(() => {
       // if the filter has changed, then get facet values from API
-      const v1Filter = filter2v1(filter, searchConfig);
-      selectedFacetLoad({ variables: { query: v1Filter?.filter } });
+      const query = getAsQuery({ filter: filter, searchContext, searchConfig });
+      if (searchContext.queryType === 'V1') {
+        selectedFacetLoad({ variables: { query: query } });
+      } else {
+        selectedFacetLoad({ variables: { predicate: query }});
+      }
     }, [filterHash]);
 
     // useEffect(() => {
@@ -279,14 +293,16 @@ export const SuggestFilter = React.forwardRef(
             </div>
           )}
         </div>
-        {(onApply && onCancel) && (
+        {onApply && onCancel && (
           <div className="g-flex-none g-py-2 g-px-2 g-flex g-justify-between g-border-t">
             <Button size="sm" variant="outline" onClick={onCancel}>
               Cancel
             </Button>
-            {!pristine && <Button size="sm" onClick={() => onApply({keepOpen: false})}>
-              Apply
-            </Button>}
+            {!pristine && (
+              <Button size="sm" onClick={() => onApply({ keepOpen: false })}>
+                Apply
+              </Button>
+            )}
           </div>
         )}
       </div>

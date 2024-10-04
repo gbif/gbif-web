@@ -27,9 +27,10 @@ import { HelpText } from '@/components/helpText';
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { QContextFilter } from '@/routes/publisher/search/filters/QFilter';
 import { searchConfig } from './searchConfig';
-import { filters } from './filters';
+import { useFilters } from './filters';
 import { useConfig } from '@/contexts/config/config';
-import { MoreFilters } from './shared/filterTools';
+import { getAsQuery, getFilterConfig, MoreFilters } from './shared/filterTools';
+import { SearchContextProvider, useSearchContext } from '@/contexts/search';
 
 const DATASET_SEARCH_QUERY = /* GraphQL */ `
   query DatasetSearch($query: DatasetSearchInput) {
@@ -46,15 +47,17 @@ const DATASET_SEARCH_QUERY = /* GraphQL */ `
 
 export function DatasetSearchPage(): React.ReactElement {
   const [filter, setFilter] = useFilterParams({ filterConfig: searchConfig });
-  // const config = useConfig();
+  const config = useConfig();
   return (
     <>
       <Helmet>
         <title>Dataset search</title>
       </Helmet>
-      <FilterProvider filter={filter} onChange={setFilter}>
-        <DatasetSearch />
-      </FilterProvider>
+      <SearchContextProvider searchContext={config.datasetSearch}>
+        <FilterProvider filter={filter} onChange={setFilter}>
+          <DatasetSearch />
+        </FilterProvider>
+      </SearchContextProvider>
     </>
   );
 }
@@ -62,6 +65,7 @@ export function DatasetSearchPage(): React.ReactElement {
 export function DatasetSearch(): React.ReactElement {
   const [offset, setOffset] = useState(0);
   const filterContext = useContext(FilterContext);
+  const searchContext = useSearchContext();
 
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
   const tabClassName = 'g-pt-2 g-pb-1.5';
@@ -75,11 +79,11 @@ export function DatasetSearch(): React.ReactElement {
   );
 
   useEffect(() => {
-    const v1 = filter2v1(filter, searchConfig);
+    const query = getAsQuery({ filter, searchContext, searchConfig });
     load({
       variables: {
         query: {
-          ...v1.filter,
+          ...query,
           limit: 20,
           offset,
         },
@@ -175,44 +179,8 @@ function Results({
   );
 }
 
-// Given a set of filters, return a configuration object that can be used to render the filters
-// existing filters: the filters that exists as an option in code
-// excluded filters: filters that should not be shown - these are decided by the site owner
-// highlighted filters: filters that should be shown by default - these are decided by the site owner
-// visible filters: the union of (highlighted filters minus excluded) plus filters that have a value set.
-// available filters: the existing filters minus those that are excluded
-function getFilterConfig({
-  currentFilter,
-  existingFilters,
-  excludedFilters,
-  highlightedFilters,
-}: {
-  currentFilter: FilterType;
-  existingFilters: string[]; // a list of filterHandles
-  excludedFilters: string[]; // a list of filterHandles
-  highlightedFilters: string[]; // a list of filterHandles
-}): { visibleFilters: string[], availableFilters: string[] } {
-  const visibleFilters = new Set<string>();
-  const highlighted = new Set(highlightedFilters);
-  const excluded = new Set(excludedFilters);
-  const existing = new Set(existingFilters);
-  for (const filter of highlighted) {
-    if (!excluded.has(filter)) {
-      visibleFilters.add(filter);
-    }
-  }
-  for (const filter of existing) {
-    if (currentFilter?.must?.[filter]?.length || currentFilter?.mustNot?.[filter]?.length) {
-      visibleFilters.add(filter);
-    }
-  }
-  // get available defined as existing minus excluded
-  const availableFilters = new Set(existingFilters.filter((x) => !excludedFilters.includes(x)));
-
-  return { visibleFilters: Array.from(visibleFilters), availableFilters: Array.from(availableFilters) };
-}
-
 function Filters() {
+  const { filters } = useFilters({ searchConfig });
   const config = useConfig();
   const filterContext = useContext(FilterContext);
   if (!filterContext) {
@@ -222,33 +190,31 @@ function Filters() {
 
   const { visibleFilters, availableFilters } = getFilterConfig({
     currentFilter: filterContext.filter,
-    existingFilters: Object.keys(filters).map(x => filters[x].filterHandle ?? x),
+    existingFilters: Object.keys(filters).map((x) => filters[x].filterHandle ?? x),
     excludedFilters: config?.datasetSearch?.excludedFilters ?? [],
     highlightedFilters: config?.datasetSearch?.highlightedFilters ?? [],
   });
 
   // map availableFilters to the form {filterHandle: {Button, Popover, Content}}
-  const otherFilters = availableFilters.filter(x => {
-    return !visibleFilters.includes(x);
-  }).reduce((acc, filterHandle) => {
-    const filterConfig = filters[filterHandle];
-    return { ...acc, [filterHandle]: filterConfig };
-  }, {});
+  const otherFilters = availableFilters
+    .filter((x) => {
+      return !visibleFilters.includes(x);
+    })
+    .reduce((acc, filterHandle) => {
+      const filterConfig = filters[filterHandle];
+      return { ...acc, [filterHandle]: filterConfig };
+    }, {});
 
   return (
     <div className="g-border-b g-py-2 g-px-3 -g-mb-1" role="search">
       <QContextFilter />
-      
+
       {visibleFilters.map((filterHandle) => {
         const filterConfig = filters[filterHandle];
-        return (
-          <filterConfig.Button key={filterHandle} className="g-mx-1 g-mb-1" />
-        );
+        return <filterConfig.Button key={filterHandle} className="g-mx-1 g-mb-1" />;
       })}
-      
-      <MoreFilters
-        filters={otherFilters}
-      />
+
+      <MoreFilters filters={otherFilters} />
     </div>
   );
 }

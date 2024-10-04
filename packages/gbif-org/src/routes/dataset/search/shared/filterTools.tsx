@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { SuggestFilter } from './suggestFilter';
-import { FilterApplyPopover, FilterButton } from './filterPopover';
-import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
+import { FilterPopover, FilterButton } from './filterPopover';
+import { filter2predicate, FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import { FormattedMessage, IntlShape } from 'react-intl';
 import { EnumFilter } from './enumFilter';
 import { Button } from '@/components/ui/button';
@@ -14,6 +14,9 @@ import {
   CommandItem,
 } from '@/components/ui/command';
 import { MdArrowBack } from 'react-icons/md';
+import { FilterType } from '@/contexts/filter';
+import { SearchMetadata } from '@/contexts/search';
+import { filter2v1 } from '@/dataManagement/filterAdapter';
 
 export const filterConfigTypes = {
   SUGGEST: 'SUGGEST',
@@ -60,9 +63,9 @@ function getPopoverFilter({
 }) {
   return function PopoverFilter({ trigger }: { trigger: React.ReactNode }) {
     return (
-      <FilterApplyPopover trigger={trigger}>
+      <FilterPopover trigger={trigger}>
         <Content />
-      </FilterApplyPopover>
+      </FilterPopover>
     );
   };
 }
@@ -276,7 +279,7 @@ const ContentWrapper = React.forwardRef(
 
 export function MoreFilters({ filters }: { filters: { [key: string]: any } }) {
   return (
-    <FilterApplyPopover
+    <FilterPopover
       trigger={
         <Button variant="primaryOutline" className="g-mx-1 g-mb-1 g-max-w-md g-text-slate-600">
           More
@@ -284,6 +287,75 @@ export function MoreFilters({ filters }: { filters: { [key: string]: any } }) {
       }
     >
       <ContentWrapper filters={filters} />
-    </FilterApplyPopover>
+    </FilterPopover>
   );
+}
+
+
+// Given a set of filters, return a configuration object that can be used to render the filters
+// existing filters: the filters that exists as an option in code
+// excluded filters: filters that should not be shown - these are decided by the site owner
+// highlighted filters: filters that should be shown by default - these are decided by the site owner
+// visible filters: the union of (highlighted filters minus excluded) plus filters that have a value set.
+// available filters: the existing filters minus those that are excluded
+export function getFilterConfig({
+  currentFilter,
+  existingFilters,
+  excludedFilters,
+  highlightedFilters,
+}: {
+  currentFilter: FilterType;
+  existingFilters: string[]; // a list of filterHandles
+  excludedFilters: string[]; // a list of filterHandles
+  highlightedFilters: string[]; // a list of filterHandles
+}): { visibleFilters: string[]; availableFilters: string[] } {
+  const visibleFilters = new Set<string>();
+  const highlighted = new Set(highlightedFilters);
+  const excluded = new Set(excludedFilters);
+  const existing = new Set(existingFilters);
+  for (const filter of highlighted) {
+    if (!excluded.has(filter)) {
+      visibleFilters.add(filter);
+    }
+  }
+  for (const filter of existing) {
+    if (currentFilter?.must?.[filter]?.length || currentFilter?.mustNot?.[filter]?.length) {
+      visibleFilters.add(filter);
+    }
+  }
+  // get available defined as existing minus excluded
+  const availableFilters = new Set(existingFilters.filter((x) => !excludedFilters.includes(x)));
+
+  return {
+    visibleFilters: Array.from(visibleFilters),
+    availableFilters: Array.from(availableFilters),
+  };
+}
+
+export function getAsQuery({
+  filter,
+  searchContext,
+  searchConfig,
+}: {
+  filter: FilterType;
+  searchContext: SearchMetadata;
+  searchConfig: FilterConfigType;
+}) {
+  if (searchContext.queryType === 'V1') {
+    const v1Filter = filter2v1(filter, searchConfig);
+    const scope = searchContext.scope ?? {};
+    // TODO, we could do more to merge here.
+    // E.g. the intersection of overlapping keys.
+    // But for now we must assume that you cannot search on something that is defined in the root scope
+    return { ...v1Filter?.filter, ...scope };
+  } else {
+    const rootPredicate = searchContext.scope;
+    const currentPredicate = filter2predicate(filter, searchConfig);
+    const predicates = [rootPredicate, currentPredicate].filter((x) => x);
+    if (predicates.length === 0) {
+      return undefined;
+    } else {
+      return { variables: { predicate: { type: 'and', predicates } } };
+    }
+  }
 }

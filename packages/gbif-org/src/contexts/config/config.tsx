@@ -3,6 +3,7 @@ import { Endpoints, GbifEnv } from './endpoints';
 import themeBuilder from './theme/index';
 import { Theme } from './theme/theme';
 import { DatasetSearchQuery } from '@/gql/graphql';
+import { SearchMetadata } from '../search';
 
 type PageConfig = {
   key: string;
@@ -31,11 +32,7 @@ export type Config = Endpoints & {
   OBISKey: string;
   taiwanNodeidentifier: string;
   linkToGbifOrg?: boolean;
-  datasetSearch?: {
-    excludedFilters?: string[];
-    highlightedFilters?: string[];
-    scope?: DatasetSearchQuery
-  }
+  datasetSearch?: SearchMetadata;
 };
 
 const ConfigContext = React.createContext<Config | null>(null);

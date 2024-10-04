@@ -6,112 +6,6 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Button } from '@/components/ui/button';
 import { useUncontrolledProp } from 'uncontrollable';
 import { MdClose } from 'react-icons/md';
-import { set } from 'lodash';
-
-function FilterApplyContent({
-  children,
-  setOpen,
-  ...props
-}: {
-  children: React.ReactElement<
-    {
-      onApply?: ({ keepOpen }: { keepOpen?: boolean }) => void;
-      onCancel: () => void;
-    } & React.RefAttributes<HTMLDivElement>
-  >;
-  setOpen: (b: boolean) => void;
-}) {
-  const focusRef = useRef<HTMLDivElement>(null);
-  const currentFilterContext = useContext(FilterContext);
-  const [tmpFilter, setFilter] = useState(currentFilterContext.filter);
-  const [unTouched, setUnTouched] = useState(true);
-  const child = React.Children.only(children);
-
-  useEffect(() => {
-    setFilter(currentFilterContext.filter);
-    setUnTouched(true);
-  }, [currentFilterContext.filterHash]);
-
-  const onApply = useCallback(() => {
-    currentFilterContext.setFilter(tmpFilter);
-    setOpen(false);
-    setUnTouched(true);
-  }, [tmpFilter, currentFilterContext, setOpen]);
-
-  const onCancel = useCallback(() => {
-    setFilter(currentFilterContext.filter);
-    setOpen(false);
-    setUnTouched(true);
-  }, [currentFilterContext.filterHash, setOpen]);
-
-  const onFilterChange = useCallback((filter: FilterType) => {
-    setFilter(filter);
-    setUnTouched(false);
-  }, []);
-
-  return (
-    <FilterProvider filter={tmpFilter} onChange={onFilterChange}>
-      <PopoverContent
-        onPointerDownOutside={onApply}
-        onOpenAutoFocus={(event) => {
-          if (focusRef?.current) {
-            event.preventDefault();
-            focusRef?.current?.focus();
-          }
-        }}
-        onEscapeKeyDown={onCancel}
-        align="start"
-        className="g-flex g-flex-col g-p-0 g-w-96 g-max-w-[var(--radix-popper-available-width)] g-shadow-[0_10px_600px_-12px_rgba(0,0,0,0.2)]"
-        // style={{ boxShadow: '0 0 10000px 10000px rgba(0, 0, 0, 0.25)' }}
-      >
-        <>
-          {/* <h3 className="g-px-4 g-py-2 g-font-bold g-text-sm g-border-b">
-            {<FormattedMessage id={titleTranslationKey} />}
-          </h3> */}
-          {React.isValidElement(child) &&
-            React.cloneElement(child, {
-              onApply,
-              onCancel,
-              ref: focusRef as React.Ref<HTMLDivElement>,
-            })}
-          {!unTouched && (
-            <div className="g-py-2 g-px-2 g-flex g-justify-between g-border-t">
-              <Button size="sm" variant="outline" onClick={onCancel}>
-                Cancel
-              </Button>
-              <Button size="sm" onClick={onApply}>
-                Apply
-              </Button>
-            </div>
-          )}
-        </>
-      </PopoverContent>
-    </FilterProvider>
-  );
-}
-
-export function FilterPopover({
-  open,
-  setOpen,
-  children,
-  trigger,
-}: {
-  open?: boolean;
-  setOpen?: (b: boolean) => void;
-  filterHandle: string;
-  DisplayName: React.ComponentType<{ id: string }>;
-  children: React.ReactNode;
-  trigger: React.ReactNode;
-  titleTranslationKey: string;
-}) {
-  const [controlledOpen, setControlledOpen] = useUncontrolledProp(open, false, setOpen);
-  return (
-    <Popover open={controlledOpen} onOpenChange={setControlledOpen}>
-      <PopoverTrigger asChild>{trigger ?? <span>test</span>}</PopoverTrigger>
-      <FilterApplyContent setOpen={setControlledOpen}>{children}</FilterApplyContent>
-    </Popover>
-  );
-}
 
 function getFilterSummary(filter: FilterType, handle: string) {
   const must = filter?.must?.[handle] || [];
@@ -267,7 +161,7 @@ const ActiveFilterButton = React.forwardRef<HTMLButtonElement, ActiveFilterButto
   }
 );
 
-export function FilterApplyPopover({
+export function FilterPopover({
   open,
   setOpen,
   children,
@@ -297,7 +191,7 @@ export function FilterApplyPopover({
   }, [currentFilterContext.filterHash]);
 
   const onApply = useCallback(
-    ({ keepOpen }: { keepOpen?: boolean }) => {
+    ({ keepOpen }: { keepOpen?: boolean } = {}) => {
       currentFilterContext.setFilter(tmpFilter);
       if (!keepOpen) setControlledOpen(false);
       setPristine(true);
@@ -320,7 +214,7 @@ export function FilterApplyPopover({
     <Popover open={controlledOpen} onOpenChange={setControlledOpen}>
       <PopoverTrigger asChild>{trigger ?? <span>test</span>}</PopoverTrigger>
       <PopoverContent
-        onPointerDownOutside={onApply}
+        onPointerDownOutside={() => onApply({keepOpen: false})}
         onOpenAutoFocus={(event) => {
           if (focusRef?.current) {
             event.preventDefault();

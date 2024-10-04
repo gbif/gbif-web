@@ -1,11 +1,20 @@
-import { CountryLabel, DatasetTypeLabel, IdentityLabel, LicenceLabel, PublisherLabel } from './shared/DisplayName';
-import { searchConfig } from './searchConfig';
+import {
+  CountryLabel,
+  DatasetTypeLabel,
+  IdentityLabel,
+  LicenceLabel,
+  PublisherLabel,
+} from './shared/DisplayName';
 import { filterConfig, filterConfigTypes, generateFilters } from './shared/filterTools';
-import { IntlShape } from 'react-intl';
+import { IntlShape, useIntl } from 'react-intl';
+import { matchSorter } from 'match-sorter';
 
 import country from '@/enums/basic/country.json';
 import licenseOptions from '@/enums/basic/license.json';
 import datasetTypeOptions from '@/enums/basic/datasetType.json';
+import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
+import { useCallback, useEffect, useState } from 'react';
+import { useSearchContext } from '@/contexts/search';
 
 // shared vairables for the various components
 const publisherConfig: filterConfig = {
@@ -36,7 +45,6 @@ const publisherConfig: filterConfig = {
     }
   `,
 };
-export const publishingOrg = generateFilters({ config: publisherConfig, searchConfig });
 
 const hostingOrgConfig: filterConfig = {
   filterType: filterConfigTypes.SUGGEST,
@@ -66,7 +74,6 @@ const hostingOrgConfig: filterConfig = {
     }
   `,
 };
-export const hostingOrg = generateFilters({ config: hostingOrgConfig, searchConfig });
 
 const projectIdConfig: filterConfig = {
   filterType: filterConfigTypes.SUGGEST,
@@ -89,23 +96,22 @@ const projectIdConfig: filterConfig = {
     }
   `,
 };
-export const projectId = generateFilters({ config: projectIdConfig, searchConfig });
 
 const publishingCountryConfig: filterConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'publishingCountry',
   displayName: CountryLabel,
   filterTranslation: 'filters.publishingCountryCode.name',
-  suggest: ({ q, intl }: { q: string, intl: IntlShape }) => {
-    // this is an ineffecient way to do it as it translates all the values on every keystroke
-    // unless performance becomes an issue, I would not worry about it
-    const countryValues = country.map((code) => ({
-      key: code,
-      title: intl.formatMessage({ id: `enums.countryCode.${code}` }),
-    }));
-    const filtered = countryValues.filter((x) => x?.title?.toLowerCase().includes(q.toLowerCase()));
-    return Promise.resolve(filtered);
-  },
+  // suggest: ({ q, intl }: { q: string, intl: IntlShape }) => {
+  //   // this is an ineffecient way to do it as it translates all the values on every keystroke
+  //   // unless performance becomes an issue, I would not worry about it
+  //   const countryValues = country.map((code) => ({
+  //     key: code,
+  //     title: intl.formatMessage({ id: `enums.countryCode.${code}` }),
+  //   }));
+  //   const filtered = countryValues.filter((x) => x?.title?.toLowerCase().includes(q.toLowerCase()));
+  //   return Promise.resolve(filtered);
+  // },
   facetQuery: /* GraphQL */ `
     query DatasetPublisherFacet($query: DatasetSearchInput) {
       search: datasetSearch(query: $query) {
@@ -119,7 +125,6 @@ const publishingCountryConfig: filterConfig = {
     }
   `,
 };
-export const publishingCountry = generateFilters({ config: publishingCountryConfig, searchConfig });
 
 const licenceConfig: filterConfig = {
   filterType: filterConfigTypes.ENUM,
@@ -140,7 +145,6 @@ const licenceConfig: filterConfig = {
     }
   `,
 };
-export const license = generateFilters({ config: licenceConfig, searchConfig });
 
 const datasetTypeConfig: filterConfig = {
   filterType: filterConfigTypes.ENUM,
@@ -161,14 +165,40 @@ const datasetTypeConfig: filterConfig = {
     }
   `,
 };
-export const type = generateFilters({ config: datasetTypeConfig, searchConfig });
 
+export function useFilters({ searchConfig }: { searchConfig: FilterConfigType }) {
+  const intl = useIntl();
+  const [countries, setCountries] = useState<{ key: string; title: string }[]>([]);
+  
+  // first translate relevant enums
+  useEffect(() => {
+    const countryValues = country.map((code) => ({
+      key: code,
+      title: intl.formatMessage({ id: `enums.countryCode.${code}` }),
+    }));
+    setCountries(countryValues);
+  }, [intl]);
 
-export const filters = {
-  publishingOrg,
-  hostingOrg,
-  projectId,
-  publishingCountry,
-  license,
-  type,
-};
+  const countrySuggest = useCallback(
+    ({ q }: { q: string }) => {
+      // instead of just using indexOf or similar. This has the benefit of reshuffling records based on the match, check for abrivations etc
+      const filtered = matchSorter(countries, q, { keys: ['title', 'key'] });
+      return Promise.resolve(filtered);
+    },
+    [countries]
+  );
+
+  return {
+    filters: {
+      publishingOrg: generateFilters({ config: publisherConfig, searchConfig }),
+      hostingOrg: generateFilters({ config: hostingOrgConfig, searchConfig }),
+      projectId: generateFilters({ config: projectIdConfig, searchConfig }),
+      publishingCountry: generateFilters({
+        config: { ...publishingCountryConfig, suggest: countrySuggest },
+        searchConfig,
+      }),
+      license: generateFilters({ config: licenceConfig, searchConfig }),
+      type: generateFilters({ config: datasetTypeConfig, searchConfig }),
+    },
+  };
+}
