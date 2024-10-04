@@ -27,15 +27,15 @@ export function filter2v1(
   }
   const { must, mustNot } = filter;
 
-  let composedFilter: { [key: string]: ValuesType } = {};
-  let errors: ErrorType[] = [];
+  const composedFilter: { [key: string]: ValuesType } = {};
+  const errors: ErrorType[] = [];
 
   if (must)
     Object.entries(must)
       .filter(([, values]) => values)
       .forEach(([filterName, values]) => {
         const fieldFilter = getField({ filterName, values, filterConfig, errors });
-        if (fieldFilter) composedFilter[fieldFilter.name] = fieldFilter.values;
+        if (fieldFilter?.values) composedFilter[fieldFilter.name] = fieldFilter.values;
       });
 
   // Negation support removed as discussed in https://github.com/gbif/hosted-portals/issues/209

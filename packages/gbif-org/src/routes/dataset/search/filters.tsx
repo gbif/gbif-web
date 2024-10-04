@@ -8,7 +8,7 @@ import {
 import { filterConfig, filterConfigTypes, generateFilters } from './shared/filterTools';
 import { IntlShape, useIntl } from 'react-intl';
 import { matchSorter } from 'match-sorter';
-
+import hash from 'object-hash';
 import country from '@/enums/basic/country.json';
 import licenseOptions from '@/enums/basic/license.json';
 import datasetTypeOptions from '@/enums/basic/datasetType.json';
@@ -167,17 +167,20 @@ const datasetTypeConfig: filterConfig = {
 };
 
 export function useFilters({ searchConfig }: { searchConfig: FilterConfigType }) {
-  const intl = useIntl();
+  const { formatMessage } = useIntl();
   const [countries, setCountries] = useState<{ key: string; title: string }[]>([]);
+  const [filters, setFilters] = useState<Record<string, any>>({});
   
   // first translate relevant enums
   useEffect(() => {
     const countryValues = country.map((code) => ({
       key: code,
-      title: intl.formatMessage({ id: `enums.countryCode.${code}` }),
+      title: formatMessage({ id: `enums.countryCode.${code}` }),
     }));
-    setCountries(countryValues);
-  }, [intl]);
+    if (hash(countries) !== hash(countryValues)) {
+      setCountries(countryValues);
+    }
+  }, [formatMessage, countries]);
 
   const countrySuggest = useCallback(
     ({ q }: { q: string }) => {
@@ -188,8 +191,8 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
     [countries]
   );
 
-  return {
-    filters: {
+  useEffect(() => {
+    const nextFilters = {
       publishingOrg: generateFilters({ config: publisherConfig, searchConfig }),
       hostingOrg: generateFilters({ config: hostingOrgConfig, searchConfig }),
       projectId: generateFilters({ config: projectIdConfig, searchConfig }),
@@ -199,6 +202,11 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       }),
       license: generateFilters({ config: licenceConfig, searchConfig }),
       type: generateFilters({ config: datasetTypeConfig, searchConfig }),
-    },
+    }
+    setFilters(nextFilters);
+  }, [searchConfig, countrySuggest]);
+
+  return {
+    filters
   };
 }

@@ -16,7 +16,9 @@ export function QContextFilter({ className }: { className?: string }) {
         if (x !== '' && x) {
           setField('q', [x]);
         } else {
-          setField('q', []);
+          // if (filter.must?.q?.[0]) {
+            setField('q', []);
+          // }
         }
       }}
     />

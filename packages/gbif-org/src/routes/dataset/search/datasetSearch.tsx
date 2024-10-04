@@ -15,8 +15,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { DatasetResult } from '../datasetResult';
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
-import { FilterContext, FilterProvider, FilterType } from '@/contexts/filter';
-import { filter2v1 } from '@/dataManagement/filterAdapter';
+import { FilterContext, FilterProvider } from '@/contexts/filter';
 import {
   Accordion,
   AccordionContent,
@@ -183,11 +182,20 @@ function Filters() {
   const { filters } = useFilters({ searchConfig });
   const config = useConfig();
   const filterContext = useContext(FilterContext);
+
   if (!filterContext) {
     console.error('FilterContext not found');
     return null;
   }
 
+  // useEffect(() => {
+  //   const { visibleFilters, availableFilters } = getFilterConfig({
+  //     currentFilter: filterContext.filter,
+  //     existingFilters: Object.keys(filters).map((x) => filters[x].filterHandle ?? x),
+  //     excludedFilters: config?.datasetSearch?.excludedFilters ?? [],
+  //     highlightedFilters: config?.datasetSearch?.highlightedFilters ?? [],
+  //   });
+  // }, [filters])
   const { visibleFilters, availableFilters } = getFilterConfig({
     currentFilter: filterContext.filter,
     existingFilters: Object.keys(filters).map((x) => filters[x].filterHandle ?? x),
@@ -209,8 +217,9 @@ function Filters() {
     <div className="g-border-b g-py-2 g-px-3 -g-mb-1" role="search">
       <QContextFilter />
 
-      {visibleFilters.map((filterHandle) => {
+      {visibleFilters?.map((filterHandle) => {
         const filterConfig = filters[filterHandle];
+        if (!filterConfig) return null;
         return <filterConfig.Button key={filterHandle} className="g-mx-1 g-mb-1" />;
       })}
 

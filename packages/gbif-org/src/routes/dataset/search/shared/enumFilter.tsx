@@ -16,7 +16,6 @@ import { TiArrowShuffle as InvertIcon } from 'react-icons/ti';
 import { cn } from '@/utils/shadcn';
 import { cleanUpFilter, FilterContext } from '@/contexts/filter';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
-import { filter2v1 } from '@/dataManagement/filterAdapter';
 import useQuery from '@/hooks/useQuery';
 import { HelpLine } from '@/components/helpText';
 import { FormattedNumber } from 'react-intl';

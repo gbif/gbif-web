@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { SuggestFilter } from './suggestFilter';
-import { FilterPopover, FilterButton } from './filterPopover';
+import { FilterPopover } from './filterPopover';
 import { filter2predicate, FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import { FormattedMessage, IntlShape } from 'react-intl';
 import { EnumFilter } from './enumFilter';
@@ -17,6 +17,7 @@ import { MdArrowBack } from 'react-icons/md';
 import { FilterType } from '@/contexts/filter';
 import { SearchMetadata } from '@/contexts/search';
 import { filter2v1 } from '@/dataManagement/filterAdapter';
+import { FilterButton } from './filterButton';
 
 export const filterConfigTypes = {
   SUGGEST: 'SUGGEST',
