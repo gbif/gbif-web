@@ -85,7 +85,7 @@ export function DatasetSearch(): React.ReactElement {
         },
       },
     });
-  }, [offset, filterHash, searchConfig]);
+  }, [load, offset, filterHash, searchConfig]);
 
   const datasets = data?.datasetSearch;
   return (

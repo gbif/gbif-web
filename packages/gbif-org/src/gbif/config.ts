@@ -5,6 +5,7 @@ import {
   InvalidGbifEnvError,
   isGbifEnv,
 } from '@/contexts/config/endpoints';
+import { Country } from '@/gql/graphql';
 import { merge } from 'ts-deepmerge';
 
 // The env options
@@ -135,5 +136,8 @@ export const gbifConfig: Config = {
     // excludedFilters: ['publishingCountry'],
     highlightedFilters: ['publishingOrg'],
     // defaultTableColumns: ['title', 'description', 'publisher', 'type', 'occurrenceCount', 'literatureCount'],
+    scope: {
+      publishingCountry: [Country.Dk, Country.De],
+    }
   }
 };

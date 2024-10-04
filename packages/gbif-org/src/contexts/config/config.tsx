@@ -2,6 +2,7 @@ import React from 'react';
 import { Endpoints, GbifEnv } from './endpoints';
 import themeBuilder from './theme/index';
 import { Theme } from './theme/theme';
+import { DatasetSearchQuery } from '@/gql/graphql';
 
 type PageConfig = {
   key: string;
@@ -33,6 +34,7 @@ export type Config = Endpoints & {
   datasetSearch?: {
     excludedFilters?: string[];
     highlightedFilters?: string[];
+    scope?: DatasetSearchQuery
   }
 };
 
