@@ -42,9 +42,9 @@ export const EnumFilter = React.forwardRef(
       searchConfig: FilterConfigType;
       filterHandle: string;
       DisplayName: React.FC<{ id: string }>;
-      facetQuery: string;
-      enumOptions?: (string | number)[];
-      onApply?: ({ keepOpen, filter }: { keepOpen?: boolean, filter?: FilterType }) => void;
+      facetQuery?: string;
+      enumOptions?: string[];
+      onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean, filter?: FilterType }) => void;
       onCancel?: () => void;
       pristine?: boolean;
     },
@@ -52,18 +52,17 @@ export const EnumFilter = React.forwardRef(
   ) => {
     const searchContext = useSearchContext();
     const currentFilterContext = useContext(FilterContext);
-    const { filter, toggle, add, remove, setFullField, negateField, filterHash } =
+    const { filter, toggle, setFullField, filterHash } =
       currentFilterContext;
     const [selected, setSelected] = useState<string[]>([]);
     const [filterBeforeHash, setFilterBeforeHash] = useState<string | undefined>(undefined);
-    const [facetLookup, setFacetLookup] = useState<Record<string, number>>({});
 
     const {
       data: facetData,
       error: facetError,
       loading: facetLoading,
       load: facetLoad,
-    } = useQuery<FacetQuery, any>(facetQuery, {
+    } = useQuery<FacetQuery, unknown>(facetQuery ?? '', {
       lazyLoad: true,
     });
 
@@ -72,25 +71,25 @@ export const EnumFilter = React.forwardRef(
       error: noFilterFacetError,
       loading: noFilterFacetLoading,
       load: noFilterFacetLoad,
-    } = useQuery<FacetQuery, any>(facetQuery, {
+    } = useQuery<FacetQuery, unknown>(facetQuery ?? '', {
       lazyLoad: true,
     });
 
     useEffect(() => {
       // if no enums are provided, then get facet values from API using no filters. This will provide is with the possible values for that field.
       // TODO this should be changed to take into account the scope defined at site level
-      if (!enumOptions) {
+      if (!enumOptions && facetQuery) {
         const query = getAsQuery({ filter: {}, searchContext, searchConfig });
         if (searchContext.queryType === 'V1') {
           noFilterFacetLoad({ variables: { query: query } });
         } else {
           noFilterFacetLoad({ variables: { predicate: query }});
         }
-        // noFilterFacetLoad({ });
       }
-    }, []);
+    }, [enumOptions, facetQuery, noFilterFacetLoad, searchContext, searchConfig]);
 
     useEffect(() => {
+      if (!facetData) return;
       // if the filter has changed, then get facet values from API
       const prunedFilter = cleanUpFilter(cloneDeep(filter));
       delete prunedFilter.must?.[filterHandle];
@@ -101,7 +100,7 @@ export const EnumFilter = React.forwardRef(
       } else {
         facetLoad({ variables: { predicate: query }});
       }
-    }, [filterBeforeHash]);
+    }, [filterBeforeHash, facetData, facetLoad, searchContext, searchConfig, filterHandle]);
 
     useEffect(() => {
       const selectedList = filter?.must?.[filterHandle] ?? [];
@@ -111,17 +110,17 @@ export const EnumFilter = React.forwardRef(
       const prunedFilter = cleanUpFilter(cloneDeep(filter));
       delete prunedFilter.must?.[filterHandle];
       setFilterBeforeHash(hash(prunedFilter));
-    }, [filterHash]);
+    }, [filterHash, filterHandle]);
 
-    const facetSuggestions = facetData?.search?.facet?.field?.reduce((acc, x) => {
-      acc[x.name] = x.count;
+    const facetSuggestions = facetData?.search?.facet?.field?.reduce((acc: Record<string, number>, x) => {
+      if (x?.name) {
+        acc[x.name] = x.count;
+      }
       return acc;
-    }, {});
+    }, {} as Record<string, number>);
 
-    let valueOptions = enumOptions;
-    if (!valueOptions && noFilterFacetData?.search?.facet?.field) {
-      valueOptions = noFilterFacetData?.search?.facet?.field.map((x) => x.name);
-    }
+    const useFacetOptions = !enumOptions && noFilterFacetData?.search?.facet?.field;
+    const valueOptions = useFacetOptions ? noFilterFacetData?.search?.facet?.field?.filter(x => x).map((x) => x.name) ?? [] : enumOptions ?? [];
 
     const options = (
       <>
@@ -149,7 +148,7 @@ export const EnumFilter = React.forwardRef(
             <span>
               <button
                 className="g-px-1"
-                onClick={(e) => {
+                onClick={() => {
                   // reverse selection
                   const newSelected = valueOptions.filter((x) => !selected.includes(x));
                   setFullField(filterHandle, newSelected, []);
@@ -208,20 +207,6 @@ export const EnumFilter = React.forwardRef(
         <div className="g-flex-auto g-overflow-auto">
           <div className={cn('g-text-base g-mt-2 g-px-4', className)}>
             <div role="group" className="g-text-sm">
-              {/* <Option
-            ref={ref}
-                      className="g-mb-2"
-                      // helpText="Longer description can go here"
-                    >
-                      <div className="g-flex g-items-center">
-                        <span className="g-flex-auto">
-                          <DisplayName id={x} />
-                        </span>
-                        <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
-                          {facetSuggestions && <FormattedNumber value={facetSuggestions[x] ?? 0} />}
-                        </span>
-                      </div>
-                    </Option> */}
               {valueOptions &&
                 valueOptions.map((x, i) => {
                   return (
@@ -230,7 +215,7 @@ export const EnumFilter = React.forwardRef(
                       ref={i === 0 ? ref : undefined}
                       className="g-mb-2"
                       onClick={() => toggle(filterHandle, x)}
-                      checked={selected.includes(x)}
+                      checked={selected.includes(x.toString())}
                       // helpText="Longer description can go here"
                     >
                       <div className="g-flex g-items-center">

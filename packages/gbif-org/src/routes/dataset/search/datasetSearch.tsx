@@ -27,7 +27,7 @@ import { ClientSideOnly } from '@/components/clientSideOnly';
 import { searchConfig } from './searchConfig';
 import { useFilters } from './filters';
 import { useConfig } from '@/contexts/config/config';
-import { getAsQuery, getFilterConfig, MoreFilters } from './shared/filterTools';
+import { FilterBar, getAsQuery } from './shared/filterTools';
 import { SearchContextProvider, useSearchContext } from '@/contexts/search';
 
 const DATASET_SEARCH_QUERY = /* GraphQL */ `
@@ -64,6 +64,7 @@ export function DatasetSearch(): React.ReactElement {
   const [offset, setOffset] = useState(0);
   const filterContext = useContext(FilterContext);
   const searchContext = useSearchContext();
+  const { filters } = useFilters({ searchConfig });
 
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
   const tabClassName = 'g-pt-2 g-pb-1.5';
@@ -90,6 +91,7 @@ export function DatasetSearch(): React.ReactElement {
   }, [load, offset, filterHash, searchConfig]);
 
   const datasets = data?.datasetSearch;
+  
   return (
     <>
       <DataHeader
@@ -111,7 +113,7 @@ export function DatasetSearch(): React.ReactElement {
       </DataHeader>
 
       <section className="">
-        <Filters />
+        <FilterBar filters={filters} />
         <ArticleContainer className="g-bg-slate-100">
           <ArticleTextContainer className="g-m-0">
             <Results loading={loading} datasets={datasets} setOffset={setOffset} />
@@ -129,7 +131,7 @@ function Results({
 }: {
   loading: boolean;
   datasets?: DatasetSearchQuery['datasetSearch'];
-  setOffset: any;
+  setOffset: (x: number) => void;
 }) {
   return (
     <>
@@ -174,45 +176,6 @@ function Results({
         </>
       )}
     </>
-  );
-}
-
-function Filters() {
-  const { filters } = useFilters({ searchConfig });
-  const config = useConfig();
-  const filterContext = useContext(FilterContext);
-
-  if (!filterContext) {
-    console.error('FilterContext not found');
-    return null;
-  }
-
-  const { visibleFilters, availableFilters } = getFilterConfig({
-    currentFilter: filterContext.filter,
-    existingFilters: Object.keys(filters).map((x) => filters[x].filterHandle ?? x),
-    excludedFilters: config?.datasetSearch?.excludedFilters ?? [],
-    highlightedFilters: config?.datasetSearch?.highlightedFilters ?? [],
-  });
-
-  // map availableFilters to the form {filterHandle: {Button, Popover, Content}}
-  const otherFilters = availableFilters
-    .filter((x) => {
-      return !visibleFilters.includes(x);
-    })
-    .reduce((acc, filterHandle) => {
-      const filterConfig = filters[filterHandle];
-      return { ...acc, [filterHandle]: filterConfig };
-    }, {});
-
-  return (
-    <div className="g-border-b g-py-2 g-px-3 -g-mb-1" role="search">
-      {visibleFilters?.map((filterHandle) => {
-        const filterConfig = filters[filterHandle];
-        if (!filterConfig) return null;
-        return <filterConfig.Button key={filterHandle} className="g-mx-1 g-mb-1" />;
-      })}
-      <MoreFilters filters={otherFilters} />
-    </div>
   );
 }
 

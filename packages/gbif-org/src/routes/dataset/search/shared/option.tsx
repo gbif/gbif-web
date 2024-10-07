@@ -1,6 +1,7 @@
-import { Checkbox } from "@/components/ui/checkbox";
-import { cn } from "@/utils/shadcn";
-import React from "react";
+import { Checkbox } from '@/components/ui/checkbox';
+import { Skeleton } from '@/components/ui/skeleton';
+import { cn } from '@/utils/shadcn';
+import React from 'react';
 
 export const Option = React.forwardRef(
   (
@@ -43,3 +44,12 @@ export const Option = React.forwardRef(
     );
   }
 );
+
+export function SkeletonOption({className}: {className?: string}) {
+  return (
+    <div className={cn("g-flex g-flex-nowrap", className)}>
+      <Skeleton className="g-w-none g-w-4 g-me-2 g-inline-block g-h-4"> </Skeleton>
+      <Skeleton className="g-flex-auto g-w-24 g-inline-block g-h-4"> </Skeleton>
+    </div>
+  );
+}

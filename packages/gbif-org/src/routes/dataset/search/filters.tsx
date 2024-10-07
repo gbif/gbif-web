@@ -5,8 +5,8 @@ import {
   LicenceLabel,
   PublisherLabel,
 } from './shared/DisplayName';
-import { filterConfig, filterConfigTypes, generateFilters } from './shared/filterTools';
-import { IntlShape, useIntl } from 'react-intl';
+import { filterConfig, filterConfigTypes, FilterSetting, generateFilters } from './shared/filterTools';
+import { useIntl } from 'react-intl';
 import { matchSorter } from 'match-sorter';
 import hash from 'object-hash';
 import country from '@/enums/basic/country.json';
@@ -14,7 +14,6 @@ import licenseOptions from '@/enums/basic/license.json';
 import datasetTypeOptions from '@/enums/basic/datasetType.json';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import { useCallback, useEffect, useState } from 'react';
-import { useSearchContext } from '@/contexts/search';
 
 // shared vairables for the various components
 const publisherConfig: filterConfig = {
@@ -173,10 +172,12 @@ const freeTextConfig: filterConfig = {
   filterTranslation: 'filters.q.name'
 };
 
-export function useFilters({ searchConfig }: { searchConfig: FilterConfigType }) {
+export function useFilters({ searchConfig }: { searchConfig: FilterConfigType }): {
+  filters: Record<string, FilterSetting>;
+} {
   const { formatMessage } = useIntl();
   const [countries, setCountries] = useState<{ key: string; title: string }[]>([]);
-  const [filters, setFilters] = useState<Record<string, any>>({});
+  const [filters, setFilters] = useState<Record<string, FilterSetting>>({});
   
   // first translate relevant enums
   useEffect(() => {

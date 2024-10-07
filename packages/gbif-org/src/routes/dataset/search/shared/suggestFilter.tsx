@@ -15,22 +15,31 @@ import { TiArrowShuffle as InvertIcon } from 'react-icons/ti';
 import { cn } from '@/utils/shadcn';
 import { cleanUpFilter, FilterContext, FilterType } from '@/contexts/filter';
 import {
-  filter2predicate,
   FilterConfigType,
 } from '@/dataManagement/filterAdapter/filter2predicate';
-import { filter2v1 } from '@/dataManagement/filterAdapter';
 import useQuery from '@/hooks/useQuery';
 import hash from 'object-hash';
 import cloneDeep from 'lodash/cloneDeep';
-import { Suggest } from './suggest';
+import { Suggest, SuggestionItem } from './suggest';
 import { HelpLine } from '@/components/helpText';
 import { FormattedNumber, IntlShape } from 'react-intl';
 import { SimpleTooltip } from '@/components/simpleTooltip';
-import { Option } from './option';
+import { Option, SkeletonOption } from './option';
 import { FacetQuery, getAsQuery } from './filterTools';
-import { SearchMetadata, useSearchContext } from '@/contexts/search';
+import { useSearchContext } from '@/contexts/search';
 
-export const SuggestFilter = React.forwardRef(
+type SuggestProps = {
+  className?: string;
+  searchConfig: FilterConfigType;
+  filterHandle: string;
+  DisplayName: React.FC<{ id: string }>;
+  facetQuery: string;
+  getSuggestions?: ({ q, intl }: { q: string; intl?: IntlShape }) => Promise<SuggestionItem[]>;
+  onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
+  onCancel?: () => void;
+};
+
+export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
   (
     {
       className,
@@ -40,25 +49,13 @@ export const SuggestFilter = React.forwardRef(
       facetQuery,
       getSuggestions, // function that takes a query string and returns a promise of suggestions
       onApply,
-      onCancel,
-      pristine,
-      ...props
-    }: {
-      className?: string;
-      searchConfig: FilterConfigType;
-      filterHandle: string;
-      DisplayName: React.FC<{ id: string }>;
-      facetQuery: string;
-      getSuggestions?: ({ q, intl }: { q: string; intl: IntlShape }) => Promise<any>;
-      onApply?: ({ keepOpen, filter }: { keepOpen?: boolean; filter?: FilterType }) => void;
-      onCancel?: () => void;
-      pristine?: boolean;
-    },
+      onCancel
+    }: SuggestProps,
     ref
   ) => {
     const searchContext = useSearchContext();
     const currentFilterContext = useContext(FilterContext);
-    const { filter, toggle, add, remove, setFullField, negateField, filterHash } =
+    const { filter, toggle, add, setFullField, filterHash } =
       currentFilterContext;
     const [selected, setSelected] = useState<string[]>([]);
     const [filterBeforeHash, setFilterBeforeHash] = useState<string | undefined>(undefined);
@@ -70,7 +67,7 @@ export const SuggestFilter = React.forwardRef(
       error: facetError,
       loading: facetLoading,
       load: facetLoad,
-    } = useQuery<FacetQuery, any>(facetQuery, {
+    } = useQuery<FacetQuery, unknown>(facetQuery, {
       lazyLoad: true,
     });
 
@@ -79,7 +76,7 @@ export const SuggestFilter = React.forwardRef(
       error: selectedFacetError,
       loading: selectedFacetLoading,
       load: selectedFacetLoad,
-    } = useQuery<FacetQuery, any>(facetQuery, {
+    } = useQuery<FacetQuery, unknown>(facetQuery, {
       lazyLoad: true,
     });
 
@@ -94,7 +91,7 @@ export const SuggestFilter = React.forwardRef(
       } else {
         facetLoad({ variables: { predicate: query } });
       }
-    }, [filterBeforeHash]);
+    }, [filterBeforeHash, facetLoad, searchContext, searchConfig, filterHandle]);
 
     useEffect(() => {
       // if the filter has changed, then get facet values from API
@@ -104,13 +101,7 @@ export const SuggestFilter = React.forwardRef(
       } else {
         selectedFacetLoad({ variables: { predicate: query } });
       }
-    }, [filterHash]);
-
-    // useEffect(() => {
-    //   const prunedFilter = cleanUpFilter(cloneDeep(filterBeforeChanges));
-    //   delete prunedFilter.must?.[filterHandle];
-    //   setFilterBeforeHash(hash(prunedFilter));
-    // }, [filterBeforeChanges]);
+    }, [filterHash, selectedFacetLoad, searchContext, searchConfig]);
 
     useEffect(() => {
       // filter has changed updateed the listed of selected values
@@ -121,7 +112,7 @@ export const SuggestFilter = React.forwardRef(
       const prunedFilter = cleanUpFilter(cloneDeep(filter));
       delete prunedFilter.must?.[filterHandle];
       setFilterBeforeHash(hash(prunedFilter));
-    }, [filterHash]);
+    }, [filterHash, filterHandle]);
 
     useEffect(() => {
       // map selectedFacetData to a lookup so that we have easy access to the counts per publisher key
@@ -247,9 +238,9 @@ export const SuggestFilter = React.forwardRef(
                         <span className="g-flex-auto">
                           <DisplayName id={x} />
                         </span>
-                        <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
+                        {!selectedFacetLoading && !selectedFacetError && <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
                           <FormattedNumber value={facetLookup[x] ?? 0} />
-                        </span>
+                        </span>}
                       </div>
                     </Option>
                   );
@@ -262,47 +253,58 @@ export const SuggestFilter = React.forwardRef(
               No matching records.
             </div>
           )}
-          {facetSuggestions && facetSuggestions.length > 0 && (
-            <div
-              className={cn(`g-p-2 g-pt-2 g-px-4 `, selected.length > 0 && 'g-border-t', className)}
-            >
-              {/* <div className={cn('g-flex g-text-sm g-text-slate-400 g-mt-1 g-mb-2 g-items-center')}>
+          <AsyncOptions loading={facetLoading} error={facetError} className="g-p-2 g-pt-2 g-px-4">
+            {facetSuggestions && facetSuggestions.length > 0 && (
+              <div
+                className={cn(
+                  `g-p-2 g-pt-2 g-px-4`,
+                  selected.length > 0 && 'g-border-t',
+                  className
+                )}
+              >
+                {/* <div className={cn('g-flex g-text-sm g-text-slate-400 g-mt-1 g-mb-2 g-items-center')}>
               <h4 className="g-text-xs g-font-bold g-text-slate-400 g-mb-1">Suggestions</h4>
             </div> */}
-              <div role="group" className="g-text-sm g-text-slate-600">
-                {facetSuggestions.map((x) => {
-                  return (
-                    <Option
-                      key={x.name}
-                      className="g-mb-2"
-                      onClick={() => {
-                        toggle(filterHandle, x.name);
-                      }}
-                      onKeyDown={(e) => (e.key === 'Enter' ? onApply?.({}) : null)}
-                      // checked={false}
-                      // helpText={`Datasets: ${x.count}`}
-                    >
-                      <div className="g-flex g-items-center">
-                        <span className="g-flex-auto g-overflow-hidden g-text-ellipsis g-whitespace-nowrap">
-                          {x?.item?.title ?? <DisplayName id={x?.name} />}
-                        </span>
-                        <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
-                          <FormattedNumber value={x.count} />
-                        </span>
-                      </div>
-                    </Option>
-                  );
-                })}
+                <div role="group" className="g-text-sm g-text-slate-600">
+                  {facetSuggestions.map((x) => {
+                    return (
+                      <Option
+                        key={x.name}
+                        className="g-mb-2"
+                        onClick={() => {
+                          toggle(filterHandle, x.name);
+                        }}
+                        onKeyDown={(e) => (e.key === 'Enter' ? onApply?.({}) : null)}
+                        // checked={false}
+                        // helpText={`Datasets: ${x.count}`}
+                      >
+                        <div className="g-flex g-items-center">
+                          <span className="g-flex-auto g-overflow-hidden g-text-ellipsis g-whitespace-nowrap">
+                            {x?.item?.title ?? <DisplayName id={x?.name} />}
+                          </span>
+                          <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
+                            <FormattedNumber value={x.count} />
+                          </span>
+                        </div>
+                      </Option>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </AsyncOptions>
         </div>
         {onApply && onCancel && (
           <div className="g-flex-none g-py-2 g-px-2 g-flex g-justify-between g-border-t">
             <Button size="sm" variant="outline" onClick={onCancel}>
               Cancel
             </Button>
-            <Button type="submit" type="button" size="sm" onClick={() => onApply({ keepOpen: false })}>
+            <Button
+              type="submit"
+              role="button"
+              size="sm"
+              onClick={() => onApply({ keepOpen: false })}
+            >
               Apply
             </Button>
           </div>
@@ -312,3 +314,31 @@ export const SuggestFilter = React.forwardRef(
   }
 );
 
+function AsyncOptions({
+  children,
+  loading,
+  error,
+  className,
+}: {
+  children: React.ReactNode;
+  loading: boolean;
+  error?: Error;
+  className?: string;
+}) {
+  if (error) {
+    return (
+      <div className="g-p-2 g-m-4 g-text-red-900 g-text-sm">Unable to load suggestions...</div>
+    );
+  }
+  if (loading) {
+    return (
+      <div className={cn(className)}>
+        <SkeletonOption className="g-w-full g-mb-2" />
+        <SkeletonOption className="g-w-36 g-max-w-full g-mb-2" />
+        <SkeletonOption className="g-max-w-full g-w-48 g-mb-2" />
+        <SkeletonOption className="g-max-w-full g-w-64 g-mb-2" />
+      </div>
+    );
+  }
+  return children;
+}

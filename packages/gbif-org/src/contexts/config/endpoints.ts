@@ -12,7 +12,7 @@ export type Endpoints = {
   translationsEntryEndpoint: string;
   countEndpoint: string;
   formsEndpoint: string;
-  v1Endpoint?: string;
+  v1Endpoint: string;
 };
 
 export function isGbifEnv(value: string): value is GbifEnv {
@@ -60,7 +60,7 @@ export function getDefaultEndpointsBasedOnGbifEnv(gbifEnv: GbifEnv): Endpoints {
       webApiEndpoint: 'https://graphql.gbif-staging.org',
       countEndpoint: 'https://hp-search.gbif-staging.org',
       formsEndpoint: 'https://graphql.gbif-staging.org/forms',
-      v1Endpoint: 'https://api.gbif-staging.org/v1',
+      v1Endpoint: 'https://api.gbif.org/v1',
     },
   }[gbifEnv];
 

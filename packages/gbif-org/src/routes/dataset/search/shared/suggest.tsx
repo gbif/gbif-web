@@ -4,7 +4,30 @@ import React, { useCallback } from 'react';
 import { MdCheck, MdSearch } from 'react-icons/md';
 import { IntlShape, useIntl } from 'react-intl';
 
-export const Suggest = React.forwardRef(
+export interface SuggestionItem {
+  key: string;
+  title: string;
+  description?: string;
+}
+
+export type SuggestProps = {
+  onSelect: (item: SuggestionItem) => void;
+  className?: string;
+  getSuggestions?: ({
+    q,
+    locale,
+    endpoints,
+  }: {
+    q: string;
+    locale?: string;
+    endpoints?: { v1: string; graphql: string };
+    intl?: IntlShape;
+  }) => Promise<SuggestionItem[]>;
+  selected?: (string | number)[];
+  onKeyPress?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+};
+
+export const Suggest = React.forwardRef<HTMLInputElement, SuggestProps>(
   (
     {
       onSelect,
@@ -12,35 +35,13 @@ export const Suggest = React.forwardRef(
       getSuggestions,
       selected,
       onKeyPress,
-    }: {
-      onSelect: (item: any) => void;
-      className?: string;
-      getSuggestions?: ({
-        q,
-        locale,
-        endpoints,
-      }: {
-        q: string;
-        locale?: string;
-        endpoints?: { v1: string; graphql: string };
-      }) => Promise<unknown>;
-      selected?: (string | number)[];
-      onKeyPress?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
-    },
+    }: SuggestProps,
     ref
   ) => {
-    const search = useCallback((q: string) => {
-      // fetch data from https://api.gbif.org/v1/organization/suggest?limit=8&q=${q} and store it in results
-      return fetch(`https://api.gbif.org/v1/organization/suggest?limit=20&q=${q}`)
-        .then((res) => res.json())
-        .then((data) => {
-          return data;
-        });
-    }, []);
     return (
       <Search
         ref={ref}
-        onSearch={getSuggestions ?? search}
+        onSearch={getSuggestions || (() => Promise.resolve([]))}
         onSelect={onSelect}
         className={className}
         selected={selected}
@@ -59,8 +60,8 @@ const Search = React.forwardRef(
       selected,
       onKeyPress,
     }: {
-      onSearch: ({ q, intl }: { q: string, intl?: IntlShape }) => Promise<any>;
-      onSelect: (item: any) => void;
+      onSearch: ({ q, intl }: { q: string, intl?: IntlShape }) => Promise<SuggestionItem[]>;
+      onSelect: (item: SuggestionItem) => void;
       className?: string;
       selected?: (string | number)[];
       onKeyPress?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
@@ -68,12 +69,11 @@ const Search = React.forwardRef(
     ref
   ) => {
     const intl = useIntl();
-    const [items, setItems] = React.useState([]);
-    const [selectedItem, setSelectedItem] = React.useState(null);
+    const [items, setItems] = React.useState<SuggestionItem[]>([]);
+    const [selectedItem, setSelectedItem] = React.useState<SuggestionItem | null>(null);
     // const [inputValue, setInputValue] = React.useState('');
     const {
       isOpen,
-      getToggleButtonProps,
       inputValue,
       getLabelProps,
       getMenuProps,
@@ -93,7 +93,7 @@ const Search = React.forwardRef(
           });
       },
       items: items || [],
-      itemToString(item) {
+      itemToString(item: SuggestionItem | null) {
         return item ? item.title : '';
       },
       // inputValue,
@@ -102,6 +102,7 @@ const Search = React.forwardRef(
         onSelect(newSelectedItem);
         setSelectedItem(null);
       },
+      defaultHighlightedIndex: 0,
       stateReducer: (state, actionAndChanges) => {
         const { changes, type } = actionAndChanges;
         const inputChanges = { ...changes, inputValue: inputValue };
@@ -122,11 +123,6 @@ const Search = React.forwardRef(
               highlightedIndex: state.highlightedIndex,
               inputValue: inputValue, // don't add the item string as input value at selection.
             };
-          // case useCombobox.stateChangeTypes.InputBlur:
-          //   return {
-          //     ...inputChanges,
-          //     inputValue: '', // don't add the item string as input value at selection.
-          //   }
           default:
             return { ...inputChanges };
         }
@@ -184,9 +180,8 @@ const Search = React.forwardRef(
                   />
                   <div className="g-flex-auto">
                     <div>{item.title}</div>
-                    {/* <div>sdlfkjhsd flsjkdhf </div> */}
+                    {item.description && <div className="g-text-sm g-text-gray-700">{item.description}</div>}
                   </div>
-                  {/* <span className="g-text-sm g-text-gray-700">{item.key}</span> */}
                 </li>
               ))}
           </ul>

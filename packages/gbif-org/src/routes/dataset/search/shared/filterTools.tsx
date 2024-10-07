@@ -1,11 +1,11 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { SuggestFilter } from './suggestFilter';
 import { FilterPopover } from './filterPopover';
 import {
   filter2predicate,
   FilterConfigType,
 } from '@/dataManagement/filterAdapter/filter2predicate';
-import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+import { FormattedMessage, IntlShape } from 'react-intl';
 import { EnumFilter } from './enumFilter';
 import { Button } from '@/components/ui/button';
 import {
@@ -17,12 +17,15 @@ import {
   CommandItem,
 } from '@/components/ui/command';
 import { MdArrowBack } from 'react-icons/md';
-import { FilterType } from '@/contexts/filter';
+import { FilterContext, FilterType } from '@/contexts/filter';
 import { SearchMetadata } from '@/contexts/search';
 import { filter2v1 } from '@/dataManagement/filterAdapter';
 import { FilterButton } from './filterButton';
 import { QFilter } from './QFilter';
 import { QContextFilter } from '@/routes/publisher/search/filters/QFilterButton';
+import { useConfig } from '@/contexts/config/config';
+import { cn } from '@/utils/shadcn';
+import { SuggestionItem } from './suggest';
 
 export const filterConfigTypes = {
   SUGGEST: 'SUGGEST',
@@ -37,13 +40,13 @@ export type filterConfig = {
   filterTranslation: string;
   content?: React.FC;
   options?: (string | number)[];
-  suggest?: (args: { q: string; intl: IntlShape }) => Promise<any>;
+  suggest?: (args: { q: string; intl?: IntlShape; }) => Promise<SuggestionItem[]>;
   facetQuery?: string;
   filterButtonProps?: { hideSingleValues: boolean };
 };
 
 // generic type for a facet query
-export type FacetQuery = {
+export interface FacetQuery {
   search: {
     facet?: {
       field?: Array<{
@@ -52,9 +55,25 @@ export type FacetQuery = {
         item?: {
           title?: string | null;
         } | null;
-      } | null> | null;
+      }>;
     } | null;
   };
+}
+
+export type FacetQueryResponse = {
+  data: {
+    search: {
+      facet: {
+        field: {
+          name: string;
+          count: number;
+          item?: {
+            title: string;
+          };
+        }[]
+      }
+    }
+  }
 };
 
 function getPopoverFilter({
@@ -62,7 +81,7 @@ function getPopoverFilter({
 }: {
   config: filterConfig;
   Content: React.FC<{
-    onApply?: ({ keepOpen, filter }: { keepOpen?: boolean, filter?: FilterType }) => void;
+    onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
     onCancel?: () => void;
     className?: string;
     style?: React.CSSProperties;
@@ -93,7 +112,7 @@ const getSuggestFilter = ({
         style,
         pristine,
       }: {
-        onApply?: ({ keepOpen, filter }: { keepOpen?: boolean, filter?: FilterType }) => void;
+        onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
         onCancel?: () => void;
         className?: string;
         style?: React.CSSProperties;
@@ -118,7 +137,6 @@ const getSuggestFilter = ({
 
 const getFreeTextFilter = ({
   config,
-  searchConfig,
 }: {
   config: filterConfig;
   searchConfig: FilterConfigType;
@@ -132,7 +150,7 @@ const getFreeTextFilter = ({
         style,
         pristine,
       }: {
-        onApply?: ({ keepOpen, filter }: { keepOpen?: boolean, filter?: FilterType }) => void;
+        onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
         onCancel?: () => void;
         className?: string;
         style?: React.CSSProperties;
@@ -167,7 +185,7 @@ const getEnumFilter = ({
         style,
         pristine,
       }: {
-        onApply?: ({ keepOpen, filter }: { keepOpen?: boolean, filter?: FilterType }) => void;
+        onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
         onCancel?: () => void;
         className?: string;
         style?: React.CSSProperties;
@@ -190,6 +208,23 @@ const getEnumFilter = ({
   );
 };
 
+export type FilterSetting = {
+  Button: React.FC<{ className?: string }>;
+  Popover: React.FC<{ trigger: React.ReactNode }>;
+  Content: React.FC<{
+    onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
+    onCancel?: () => void;
+    ref: React.ForwardedRef<unknown>;
+    className?: string;
+    style?: React.CSSProperties;
+    pristine?: boolean;
+  }>;
+  name: string;
+  handle: string;
+  DisplayName: React.FC<{ id: string }>;
+  translatedFilterName: string;
+};
+
 export function generateFilters({
   config,
   searchConfig,
@@ -198,7 +233,7 @@ export function generateFilters({
   config: filterConfig;
   searchConfig: FilterConfigType;
   formatMessage: IntlShape['formatMessage'];
-}) {
+}): FilterSetting {
   let Content = null;
   if (config.filterType === filterConfigTypes.SUGGEST) {
     Content = getSuggestFilter({ config, searchConfig });
@@ -215,7 +250,7 @@ export function generateFilters({
       <PopoverFilter
         trigger={
           <FilterButton
-            className="g-mx-1 g-mb-1 g-max-w-md g-text-slate-600"
+            className={cn('g-mx-1 g-mb-1 g-max-w-md g-text-slate-600', className)}
             filterHandle={config.filterHandle}
             DisplayName={config.displayName}
             titleTranslationKey={config.filterTranslation}
@@ -226,12 +261,13 @@ export function generateFilters({
     );
   };
   if (config.filterType === filterConfigTypes.FREE_TEXT) {
-    FilterButtonPopover = ({ className, ...props }: { className?: string }) => (
+    FilterButtonPopover = ({ className }: { className?: string }) => (
       <QContextFilter className={className} />
     );
   }
 
   return {
+    // ...config,
     Button: FilterButtonPopover,
     Popover: PopoverFilter,
     Content: Content,
@@ -242,95 +278,92 @@ export function generateFilters({
   };
 }
 
-const ContentWrapper = React.forwardRef(
-  (
-    {
-      onApply,
-      onCancel,
-      pristine,
-      filters,
-    }: {
-      onApply?: ({ keepOpen, filter }: { keepOpen?: boolean, filter?: FilterType }) => void;
-      onCancel?: () => void;
-      pristine?: boolean;
-      filters: {
-        [key: string]: {
-          translatedFilterName: string;
-          Content: React.FC<{
-            onApply?: ({ keepOpen, filter }: { keepOpen?: boolean, filter?: FilterType }) => void;
-            onCancel?: () => void;
-            ref: React.ForwardedRef<unknown>;
-          }>;
-        };
-      };
-    },
-    ref
-  ) => {
-    const searchRef = useRef<HTMLInputElement>(null);
-    const [activeFilterHandle, setActiveFilterHandle] = React.useState<string | null>(null);
-    const Content = activeFilterHandle ? filters?.[activeFilterHandle]?.Content : null;
+function ContentWrapper({
+  onApply,
+  onCancel,
+  pristine,
+  filters,
+}: {
+  onApply?: ({ keepOpen, filter }: { keepOpen?: boolean; filter?: FilterType }) => void;
+  onCancel?: () => void;
+  pristine?: boolean;
+  filters: {
+    [key: string]: {
+      translatedFilterName: string;
+      Content: React.FC<{
+        onApply?: ({ keepOpen, filter }: { keepOpen?: boolean; filter?: FilterType }) => void;
+        onCancel?: () => void;
+        ref: React.ForwardedRef<unknown>;
+      }>;
+    };
+  };
+}) {
+  const searchRef = useRef<HTMLInputElement>(null);
+  const [activeFilterHandle, setActiveFilterHandle] = React.useState<string | null>(null);
+  const Content = activeFilterHandle ? filters?.[activeFilterHandle]?.Content : null;
 
-    useEffect(() => {
-      if (searchRef.current) {
-        searchRef.current.focus();
-      }
-    }, [activeFilterHandle]);
+  useEffect(() => {
+    if (searchRef.current) {
+      searchRef.current.focus();
+    }
+  }, [activeFilterHandle]);
 
-    return (
-      <div>
-        {!activeFilterHandle && (
-          <Command>
-            <CommandInput placeholder="Select a filter" ref={searchRef} />
-            <CommandEmpty>No matching filters</CommandEmpty>
-            <CommandList>
-              <CommandGroup>
-                {Object.keys(filters).map((filterHandle) => {
-                  const { translatedFilterName } = filters[filterHandle];
-                  return (
-                    <CommandItem
-                      key={filterHandle}
-                      value={translatedFilterName}
-                      className="g-flex g-items-center g-justify-between g-w-full"
-                      onSelect={() => {
-                        setActiveFilterHandle(filterHandle);
-                      }}
-                    >
-                      {translatedFilterName}
-                    </CommandItem>
-                  );
-                })}
-              </CommandGroup>
-            </CommandList>
-          </Command>
-        )}
-        {activeFilterHandle && (
-          <div>
-            <div className="g-flex g-flex-nowrap g-items-center g-border-b">
-              <Button
-                size="sm"
-                variant="ghost"
-                className="g-flex-none"
-                onClick={() => {
-                  if (typeof onApply === 'function') onApply({ keepOpen: true });
-                  setActiveFilterHandle(null);
-                }}
-              >
-                <MdArrowBack />
-              </Button>
-              <h3 className="g-flex-auto g-text-slate-800 g-text-sm g-font-semibold">
-                {filters?.[activeFilterHandle]?.name && <FormattedMessage
+  return (
+    <div>
+      {!activeFilterHandle && (
+        <Command>
+          <CommandInput placeholder="Select a filter" ref={searchRef} />
+          <CommandEmpty>No matching filters</CommandEmpty>
+          <CommandList>
+            <CommandGroup>
+              {Object.keys(filters).map((filterHandle) => {
+                const { translatedFilterName } = filters[filterHandle];
+                return (
+                  <CommandItem
+                    key={filterHandle}
+                    value={translatedFilterName}
+                    className="g-flex g-items-center g-justify-between g-w-full"
+                    onSelect={() => {
+                      setActiveFilterHandle(filterHandle);
+                    }}
+                  >
+                    {translatedFilterName}
+                  </CommandItem>
+                );
+              })}
+            </CommandGroup>
+          </CommandList>
+        </Command>
+      )}
+      {activeFilterHandle && (
+        <div>
+          <div className="g-flex g-flex-nowrap g-items-center g-border-b">
+            <Button
+              size="sm"
+              variant="ghost"
+              className="g-flex-none"
+              onClick={() => {
+                if (typeof onApply === 'function') onApply({ keepOpen: true });
+                setActiveFilterHandle(null);
+              }}
+            >
+              <MdArrowBack />
+            </Button>
+            <h3 className="g-flex-auto g-text-slate-800 g-text-sm g-font-semibold">
+              {filters?.[activeFilterHandle]?.name && (
+                <FormattedMessage
                   id={filters?.[activeFilterHandle]?.name}
                   defaultMessage={filters[activeFilterHandle]?.name ?? activeFilterHandle}
-                />}
-              </h3>
-            </div>
-            {Content && <Content {...{ pristine, onApply, onCancel }} ref={searchRef} />}
+                />
+              )}
+            </h3>
           </div>
-        )}
-      </div>
-    );
-  }
-);
+          {Content && <Content {...{ pristine, onApply, onCancel }} ref={searchRef} />}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export function MoreFilters({ filters }: { filters: { [key: string]: any } }) {
   return (
@@ -412,4 +445,45 @@ export function getAsQuery({
       return { variables: { predicate: { type: 'and', predicates } } };
     }
   }
+}
+
+export function FilterBar({ filters }: { filters?: Record<string, FilterSetting> }) {
+  const config = useConfig();
+  const filterContext = useContext(FilterContext);
+
+  if (!filters) {
+    return null;
+  }
+  if (!filterContext) {
+    console.error('FilterContext not found');
+    return null;
+  }
+
+  const { visibleFilters, availableFilters } = getFilterConfig({
+    currentFilter: filterContext.filter,
+    existingFilters: Object.keys(filters).map((x) => filters[x].handle ?? x),
+    excludedFilters: config?.datasetSearch?.excludedFilters ?? [],
+    highlightedFilters: config?.datasetSearch?.highlightedFilters ?? [],
+  });
+
+  // map availableFilters to the form {filterHandle: {Button, Popover, Content}}
+  const otherFilters = availableFilters
+    .filter((x) => {
+      return !visibleFilters.includes(x);
+    })
+    .reduce((acc, filterHandle) => {
+      const filterConfig = filters[filterHandle];
+      return { ...acc, [filterHandle]: filterConfig };
+    }, {});
+
+  return (
+    <div className="g-border-b g-py-2 g-px-3 -g-mb-1" role="search">
+      {visibleFilters?.map((filterHandle) => {
+        const filterConfig = filters[filterHandle];
+        if (!filterConfig) return null;
+        return <filterConfig.Button key={filterHandle} className="g-mx-1 g-mb-1" />;
+      })}
+      <MoreFilters filters={otherFilters} />
+    </div>
+  );
 }
