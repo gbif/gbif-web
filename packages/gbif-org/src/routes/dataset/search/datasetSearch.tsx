@@ -24,7 +24,6 @@ import {
 } from '@/components/ui/accordion';
 import { HelpText } from '@/components/helpText';
 import { ClientSideOnly } from '@/components/clientSideOnly';
-import { QContextFilter } from '@/routes/publisher/search/filters/QFilter';
 import { searchConfig } from './searchConfig';
 import { useFilters } from './filters';
 import { useConfig } from '@/contexts/config/config';
@@ -188,14 +187,6 @@ function Filters() {
     return null;
   }
 
-  // useEffect(() => {
-  //   const { visibleFilters, availableFilters } = getFilterConfig({
-  //     currentFilter: filterContext.filter,
-  //     existingFilters: Object.keys(filters).map((x) => filters[x].filterHandle ?? x),
-  //     excludedFilters: config?.datasetSearch?.excludedFilters ?? [],
-  //     highlightedFilters: config?.datasetSearch?.highlightedFilters ?? [],
-  //   });
-  // }, [filters])
   const { visibleFilters, availableFilters } = getFilterConfig({
     currentFilter: filterContext.filter,
     existingFilters: Object.keys(filters).map((x) => filters[x].filterHandle ?? x),
@@ -215,14 +206,11 @@ function Filters() {
 
   return (
     <div className="g-border-b g-py-2 g-px-3 -g-mb-1" role="search">
-      <QContextFilter />
-
       {visibleFilters?.map((filterHandle) => {
         const filterConfig = filters[filterHandle];
         if (!filterConfig) return null;
         return <filterConfig.Button key={filterHandle} className="g-mx-1 g-mb-1" />;
       })}
-
       <MoreFilters filters={otherFilters} />
     </div>
   );

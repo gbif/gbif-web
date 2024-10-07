@@ -166,6 +166,13 @@ const datasetTypeConfig: filterConfig = {
   `,
 };
 
+const freeTextConfig: filterConfig = {
+  filterType: filterConfigTypes.FREE_TEXT,
+  filterHandle: 'q',
+  displayName: IdentityLabel,
+  filterTranslation: 'filters.q.name'
+};
+
 export function useFilters({ searchConfig }: { searchConfig: FilterConfigType }) {
   const { formatMessage } = useIntl();
   const [countries, setCountries] = useState<{ key: string; title: string }[]>([]);
@@ -193,18 +200,20 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
 
   useEffect(() => {
     const nextFilters = {
-      publishingOrg: generateFilters({ config: publisherConfig, searchConfig }),
-      hostingOrg: generateFilters({ config: hostingOrgConfig, searchConfig }),
-      projectId: generateFilters({ config: projectIdConfig, searchConfig }),
+      publishingOrg: generateFilters({ config: publisherConfig, searchConfig, formatMessage }),
+      hostingOrg: generateFilters({ config: hostingOrgConfig, searchConfig, formatMessage }),
+      projectId: generateFilters({ config: projectIdConfig, searchConfig, formatMessage }),
       publishingCountry: generateFilters({
         config: { ...publishingCountryConfig, suggest: countrySuggest },
         searchConfig,
+        formatMessage
       }),
-      license: generateFilters({ config: licenceConfig, searchConfig }),
-      type: generateFilters({ config: datasetTypeConfig, searchConfig }),
+      license: generateFilters({ config: licenceConfig, searchConfig, formatMessage }),
+      type: generateFilters({ config: datasetTypeConfig, searchConfig, formatMessage }),
+      q: generateFilters({ config: freeTextConfig, searchConfig, formatMessage }),
     }
     setFilters(nextFilters);
-  }, [searchConfig, countrySuggest]);
+  }, [searchConfig, countrySuggest, formatMessage]);
 
   return {
     filters

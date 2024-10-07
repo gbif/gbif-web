@@ -50,7 +50,7 @@ export const SuggestFilter = React.forwardRef(
       DisplayName: React.FC<{ id: string }>;
       facetQuery: string;
       getSuggestions?: ({ q, intl }: { q: string; intl: IntlShape }) => Promise<any>;
-      onApply?: ({ keepOpen }: { keepOpen?: boolean }) => void;
+      onApply?: ({ keepOpen, filter }: { keepOpen?: boolean; filter?: FilterType }) => void;
       onCancel?: () => void;
       pristine?: boolean;
     },
@@ -87,12 +87,12 @@ export const SuggestFilter = React.forwardRef(
       // if the filter has changed, then get facet values from API
       const prunedFilter = cleanUpFilter(cloneDeep(filter));
       delete prunedFilter.must?.[filterHandle];
-      
+
       const query = getAsQuery({ filter: prunedFilter, searchContext, searchConfig });
       if (searchContext.queryType === 'V1') {
         facetLoad({ variables: { query: query } });
       } else {
-        facetLoad({ variables: { predicate: query }});
+        facetLoad({ variables: { predicate: query } });
       }
     }, [filterBeforeHash]);
 
@@ -102,7 +102,7 @@ export const SuggestFilter = React.forwardRef(
       if (searchContext.queryType === 'V1') {
         selectedFacetLoad({ variables: { query: query } });
       } else {
-        selectedFacetLoad({ variables: { predicate: query }});
+        selectedFacetLoad({ variables: { predicate: query } });
       }
     }, [filterHash]);
 
@@ -236,7 +236,10 @@ export const SuggestFilter = React.forwardRef(
                     <Option
                       key={x}
                       className="g-mb-2"
-                      onClick={() => toggle(filterHandle, x)}
+                      onClick={() => {
+                        toggle(filterHandle, x);
+                      }}
+                      onKeyDown={(e) => (e.key === 'Enter' ? onApply?.({}) : null)}
                       checked={true}
                       // helpText="Longer description can go here"
                     >
@@ -275,6 +278,7 @@ export const SuggestFilter = React.forwardRef(
                       onClick={() => {
                         toggle(filterHandle, x.name);
                       }}
+                      onKeyDown={(e) => (e.key === 'Enter' ? onApply?.({}) : null)}
                       // checked={false}
                       // helpText={`Datasets: ${x.count}`}
                     >
@@ -298,14 +302,13 @@ export const SuggestFilter = React.forwardRef(
             <Button size="sm" variant="outline" onClick={onCancel}>
               Cancel
             </Button>
-            {!pristine && (
-              <Button size="sm" onClick={() => onApply({ keepOpen: false })}>
-                Apply
-              </Button>
-            )}
+            <Button type="submit" type="button" size="sm" onClick={() => onApply({ keepOpen: false })}>
+              Apply
+            </Button>
           </div>
         )}
       </div>
     );
   }
 );
+

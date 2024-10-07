@@ -21,7 +21,7 @@ import { FormattedMessage } from 'react-intl';
 import { PaginationFooter } from '@/components/pagination';
 import { NoRecords } from '@/components/noDataMessages';
 import { PublisherSearchQuery, PublisherSearchQueryVariables } from '@/gql/graphql';
-import { QFilter } from './filters/QFilter';
+import { QFilter } from './filters/QFilterButton';
 import { SingleCountryFilterSuggest } from './filters/SingleCountryFilterSuggest';
 import { CountProps, useCount } from '@/components/count';
 import { CardListSkeleton } from '@/components/skeletonLoaders';

@@ -14,7 +14,7 @@ import hash from 'object-hash';
 import { PiEmptyBold, PiEmptyFill } from 'react-icons/pi';
 import { TiArrowShuffle as InvertIcon } from 'react-icons/ti';
 import { cn } from '@/utils/shadcn';
-import { cleanUpFilter, FilterContext } from '@/contexts/filter';
+import { cleanUpFilter, FilterContext, FilterType } from '@/contexts/filter';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import useQuery from '@/hooks/useQuery';
 import { HelpLine } from '@/components/helpText';
@@ -44,7 +44,7 @@ export const EnumFilter = React.forwardRef(
       DisplayName: React.FC<{ id: string }>;
       facetQuery: string;
       enumOptions?: (string | number)[];
-      onApply?: ({ keepOpen }: { keepOpen?: boolean }) => void;
+      onApply?: ({ keepOpen, filter }: { keepOpen?: boolean, filter?: FilterType }) => void;
       onCancel?: () => void;
       pristine?: boolean;
     },

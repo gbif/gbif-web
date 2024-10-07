@@ -9,13 +9,13 @@ import isEqual from 'react-fast-compare';
 import hash from 'object-hash';
 
 export const FilterContext = React.createContext<FilterContextType>({
-  setField: () => {},
-  setFullField: () => {},
-  setFilter: () => undefined,
-  add: () => {},
-  remove: () => {},
-  toggle: () => {},
-  negateField: () => {},
+  setField: () => ({}),
+  setFullField: () => ({}),
+  setFilter: () => ({}),
+  add: () => ({}),
+  remove: () => ({}),
+  toggle: () => ({}),
+  negateField: () => ({}),
   filter: { must: {} },
   filterHash: '',
 });
@@ -26,13 +26,13 @@ export type FilterType = {
 };
 
 export type FilterContextType = {
-  setFilter: (filter: FilterType | undefined) => FilterType | undefined;
-  setField: (field: string, value: any[], isNegated?: boolean) => void;
-  setFullField: (field: string, must: any[], mustNot: any[]) => void;
-  add: (field: string, value: any, isNegated?: boolean) => void;
-  remove: (field: string, value: any, isNegated?: boolean) => void;
-  toggle: (field: string, value: any, isNegated?: boolean) => void;
-  negateField: (field: string, isNegated?: boolean) => void;
+  setFilter: (filter: FilterType) => FilterType;
+  setField: (field: string, value: any[], isNegated?: boolean) => FilterType;
+  setFullField: (field: string, must: any[], mustNot: any[]) => FilterType;
+  add: (field: string, value: any, isNegated?: boolean) => FilterType;
+  remove: (field: string, value: any, isNegated?: boolean) => FilterType;
+  toggle: (field: string, value: any, isNegated?: boolean) => FilterType;
+  negateField: (field: string, isNegated?: boolean) => FilterType;
   filter: FilterType;
   filterHash: string;
 };
@@ -40,24 +40,24 @@ export type FilterContextType = {
 export function FilterProvider({ filter: controlledFilter, onChange: controlledOnChange, children }: { filter?: FilterType; onChange?: (filter: FilterType) => void; children: React.ReactNode }) {
   const [currentFilter, onChange] = useUncontrolledProp(controlledFilter, {}, controlledOnChange);
 
-  const setFilter = (filter: FilterType | undefined) => {
+  const setFilter = (filter: FilterType): FilterType => {
     if (isEqual(filter, currentFilter)) {
-      return;
+      return currentFilter;
     }
     if (typeof filter === 'object') {
       filter = cleanUpFilter(cloneDeep(filter));
-      if (isEmpty(filter.must)) delete filter.must;
-      if (isEmpty(filter.mustNot)) delete filter.mustNot;
-      if (Object.keys(filter).length === 0) filter = undefined;
+      if (isEmpty(filter?.must)) delete filter.must;
+      if (isEmpty(filter?.mustNot)) delete filter.mustNot;
+      if (Object.keys(filter).length === 0) filter = {};
     }
     onChange(filter || {});
     return filter;
   };
 
-  const setField = (field: string, value: any[], isNegated?: boolean) => {
+  const setField = (field: string, value: any[], isNegated?: boolean): FilterType => {
     const filter = currentFilter ? cloneDeep(currentFilter) : {};
     const type = isNegated ? 'mustNot' : 'must';
-    setFilter({
+    return setFilter({
       ...filter,
       [type]: {
         ...filter[type],
@@ -66,7 +66,7 @@ export function FilterProvider({ filter: controlledFilter, onChange: controlledO
     });
   };
 
-  const setFullField = (field: string, must: any[], mustNot: any[]) => {
+  const setFullField = (field: string, must: any[], mustNot: any[]): FilterType => {
     const filter = currentFilter ? cloneDeep(currentFilter) : {};
     const result = setFilter({
       ...filter,
@@ -82,15 +82,15 @@ export function FilterProvider({ filter: controlledFilter, onChange: controlledO
     return result;
   };
 
-  const negateField = (field: string, isNegated?: boolean) => {
+  const negateField = (field: string, isNegated?: boolean): FilterType => {
     const filter = currentFilter ? cloneDeep(currentFilter) : {};
-    let must = get(filter, `must.${field}`, []);
-    let mustNot = get(filter, `mustNot.${field}`, []);
-    let value = [...must, ...mustNot];
+    const must = get(filter, `must.${field}`, []);
+    const mustNot = get(filter, `mustNot.${field}`, []);
+    const value = [...must, ...mustNot];
     const uniqValues = uniqWith(value, isEqual);
     const typeToSet = isNegated ? 'mustNot' : 'must';
     const typeToRemove = !isNegated ? 'mustNot' : 'must';
-    setFilter({
+    return setFilter({
       ...filter,
       [typeToSet]: {
         ...filter[typeToSet],
@@ -103,28 +103,28 @@ export function FilterProvider({ filter: controlledFilter, onChange: controlledO
     });
   };
 
-  const add = (field: string, value: any, isNegated?: boolean) => {
+  const add = (field: string, value: any, isNegated?: boolean): FilterType => {
     const type = isNegated ? 'mustNot' : 'must';
     let values = get(currentFilter, `${type}.${field}`, []);
     values = values.concat(value);
     values = uniqWith(values, isEqual);
-    setField(field, values, isNegated);
+    return setField(field, values, isNegated);
   };
 
-  const remove = (field: string, value: any, isNegated?: boolean) => {
+  const remove = (field: string, value: any, isNegated?: boolean): FilterType => {
     const type = isNegated ? 'mustNot' : 'must';
     let values = get(currentFilter, `${type}.${field}`, []);
     values = values.filter((e) => !isEqual(e, value));
-    setField(field, values, isNegated);
+    return setField(field, values, isNegated);
   };
 
-  const toggle = (field: string, value: any, isNegated?: boolean) => {
+  const toggle = (field: string, value: any, isNegated?: boolean): FilterType => {
     const type = isNegated ? 'mustNot' : 'must';
-    let values = get(currentFilter, `${type}.${field}`, []);
+    const values = get(currentFilter, `${type}.${field}`, []);
     if (values.some((e) => isEqual(e, value))) {
-      remove(field, value, isNegated);
+      return remove(field, value, isNegated);
     } else {
-      add(field, value, isNegated);
+      return add(field, value, isNegated);
     }
   };
 
@@ -153,7 +153,7 @@ export function FilterProvider({ filter: controlledFilter, onChange: controlledO
   );
 }
 
-export const cleanUpFilter = (filter: FilterType) => {
+export const cleanUpFilter = (filter: FilterType): FilterType => {
   const must = pickBy(get(filter, 'must', {}), (x) => !isEmpty(x));
   const mustNot = pickBy(get(filter, 'mustNot', {}), (x) => !isEmpty(x));
   return { must, mustNot };

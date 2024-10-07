@@ -3,7 +3,6 @@ import { FilterContext, FilterProvider, FilterType } from '@/contexts/filter';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { useUncontrolledProp } from 'uncontrollable';
 
-
 export function FilterPopover({
   open,
   setOpen,
@@ -14,7 +13,7 @@ export function FilterPopover({
   setOpen?: (b: boolean) => void;
   children: React.ReactElement<
     {
-      onApply?: ({ keepOpen }: { keepOpen?: boolean }) => void;
+      onApply?: ({ keepOpen, filter }: { keepOpen?: boolean; filter?: FilterType }) => void;
       onCancel: () => void;
       pristine: boolean;
     } & React.RefAttributes<HTMLDivElement>
@@ -34,9 +33,11 @@ export function FilterPopover({
   }, [currentFilterContext.filterHash]);
 
   const onApply = useCallback(
-    ({ keepOpen }: { keepOpen?: boolean } = {}) => {
-      currentFilterContext.setFilter(tmpFilter);
-      if (!keepOpen) setControlledOpen(false);
+    ({ keepOpen, filter }: { keepOpen?: boolean; filter?: FilterType } = {}) => {
+      currentFilterContext.setFilter(filter ?? tmpFilter);
+      if (!keepOpen) {
+        setControlledOpen(false);
+      }
       setPristine(true);
     },
     [tmpFilter, currentFilterContext, setControlledOpen]
@@ -57,7 +58,7 @@ export function FilterPopover({
     <Popover open={controlledOpen} onOpenChange={setControlledOpen}>
       <PopoverTrigger asChild>{trigger ?? <span>test</span>}</PopoverTrigger>
       <PopoverContent
-        onPointerDownOutside={() => onApply({keepOpen: false})}
+        onPointerDownOutside={() => onApply({ keepOpen: false })}
         onOpenAutoFocus={(event) => {
           if (focusRef?.current) {
             event.preventDefault();
@@ -69,13 +70,16 @@ export function FilterPopover({
         className="g-flex g-flex-col g-p-0 g-w-96 g-max-w-[var(--radix-popper-available-width)] g-shadow-[0_10px_600px_-12px_rgba(0,0,0,0.2)]"
       >
         <FilterProvider filter={tmpFilter} onChange={onFilterChange}>
-          {React.isValidElement(child) &&
-            React.cloneElement(child, {
-              onApply,
-              onCancel,
-              pristine,
-              ref: focusRef,
-            })}
+          {React.isValidElement(child) && (
+            <form onSubmit={e => e.preventDefault()}>
+              {React.cloneElement(child, {
+                onApply,
+                onCancel,
+                pristine,
+                ref: focusRef,
+              })}
+            </form>
+          )}
         </FilterProvider>
       </PopoverContent>
     </Popover>

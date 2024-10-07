@@ -10,12 +10,14 @@ export const Option = React.forwardRef(
       checked,
       onClick,
       children,
+      onKeyDown,
     }: {
       helpText?: string;
       checked?: boolean;
       children: React.ReactNode;
       onClick: (checked: boolean) => void;
       className?: string;
+      onKeyDown?: (e: React.KeyboardEvent) => void;
     },
     ref
   ) => {
@@ -29,6 +31,7 @@ export const Option = React.forwardRef(
           onClick={() => {
             onClick(!checked);
           }}
+          onKeyDown={onKeyDown}
         />
         {/* <MdAddCircleOutline className="g-flex-none g-me-2 g-mt-1" /> */}
         {/* <Icon className="g-flex-none g-me-2 g-mt-1 g-text-primary-500" /> */}
