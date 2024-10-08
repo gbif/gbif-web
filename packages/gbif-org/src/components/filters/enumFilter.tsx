@@ -89,7 +89,7 @@ export const EnumFilter = React.forwardRef(
     }, [enumOptions, facetQuery, noFilterFacetLoad, searchContext, searchConfig]);
 
     useEffect(() => {
-      if (!facetData) return;
+      if (!facetQuery) return;
       // if the filter has changed, then get facet values from API
       const prunedFilter = cleanUpFilter(cloneDeep(filter));
       delete prunedFilter.must?.[filterHandle];
@@ -100,7 +100,7 @@ export const EnumFilter = React.forwardRef(
       } else {
         facetLoad({ variables: { predicate: query }});
       }
-    }, [filterBeforeHash, facetData, facetLoad, searchContext, searchConfig, filterHandle]);
+    }, [facetQuery, filterBeforeHash, facetLoad, searchContext, searchConfig, filterHandle]);
 
     useEffect(() => {
       const selectedList = filter?.must?.[filterHandle] ?? [];
@@ -233,7 +233,7 @@ export const EnumFilter = React.forwardRef(
           </div>
         </div>
         {(onApply && onCancel) && (
-          <div className="g-flex-none g-py-2 g-px-2 g-flex g-justify-between g-border-t">
+          <div className="g-flex-none g-py-2 g-px-2 g-flex g-justify-between">
             <Button size="sm" variant="outline" onClick={onCancel}>
               Cancel
             </Button>

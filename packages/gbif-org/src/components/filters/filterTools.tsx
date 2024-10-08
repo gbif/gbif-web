@@ -1,22 +1,12 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext } from 'react';
 import { SuggestFilter } from './suggestFilter';
 import { FilterPopover } from './filterPopover';
 import {
   filter2predicate,
   FilterConfigType,
 } from '@/dataManagement/filterAdapter/filter2predicate';
-import { FormattedMessage, IntlShape } from 'react-intl';
+import { IntlShape } from 'react-intl';
 import { EnumFilter } from './enumFilter';
-import { Button } from '@/components/ui/button';
-import {
-  Command,
-  CommandInput,
-  CommandEmpty,
-  CommandList,
-  CommandGroup,
-  CommandItem,
-} from '@/components/ui/command';
-import { MdArrowBack } from 'react-icons/md';
 import { FilterContext, FilterType } from '@/contexts/filter';
 import { SearchMetadata } from '@/contexts/search';
 import { filter2v1 } from '@/dataManagement/filterAdapter';
@@ -26,6 +16,7 @@ import { QContextFilter } from '@/routes/publisher/search/filters/QFilterButton'
 import { useConfig } from '@/contexts/config/config';
 import { cn } from '@/utils/shadcn';
 import { SuggestionItem } from './suggest';
+import MoreFilters from './More';
 
 export const filterConfigTypes = {
   SUGGEST: 'SUGGEST',
@@ -39,7 +30,7 @@ export type filterConfig = {
   displayName: React.FC<{ id: string }>;
   filterTranslation: string;
   content?: React.FC;
-  options?: (string | number)[];
+  options?: string[];
   suggest?: (args: { q: string; intl?: IntlShape; }) => Promise<SuggestionItem[]>;
   facetQuery?: string;
   filterButtonProps?: { hideSingleValues: boolean };
@@ -278,113 +269,6 @@ export function generateFilters({
   };
 }
 
-function ContentWrapper({
-  onApply,
-  onCancel,
-  pristine,
-  filters,
-}: {
-  onApply?: ({ keepOpen, filter }: { keepOpen?: boolean; filter?: FilterType }) => void;
-  onCancel?: () => void;
-  pristine?: boolean;
-  filters: {
-    [key: string]: {
-      translatedFilterName: string;
-      Content: React.FC<{
-        onApply?: ({ keepOpen, filter }: { keepOpen?: boolean; filter?: FilterType }) => void;
-        onCancel?: () => void;
-        ref: React.ForwardedRef<unknown>;
-      }>;
-    };
-  };
-}) {
-  const searchRef = useRef<HTMLInputElement>(null);
-  const [activeFilterHandle, setActiveFilterHandle] = React.useState<string | null>(null);
-  const Content = activeFilterHandle ? filters?.[activeFilterHandle]?.Content : null;
-
-  useEffect(() => {
-    if (searchRef.current) {
-      searchRef.current.focus();
-    }
-  }, [activeFilterHandle]);
-
-  return (
-    <div>
-      {!activeFilterHandle && (
-        <Command>
-          <CommandInput placeholder="Select a filter" ref={searchRef} />
-          <CommandEmpty>No matching filters</CommandEmpty>
-          <CommandList>
-            <CommandGroup>
-              {Object.keys(filters).map((filterHandle) => {
-                const { translatedFilterName } = filters[filterHandle];
-                return (
-                  <CommandItem
-                    key={filterHandle}
-                    value={translatedFilterName}
-                    className="g-flex g-items-center g-justify-between g-w-full"
-                    onSelect={() => {
-                      setActiveFilterHandle(filterHandle);
-                    }}
-                  >
-                    {translatedFilterName}
-                  </CommandItem>
-                );
-              })}
-            </CommandGroup>
-          </CommandList>
-        </Command>
-      )}
-      {activeFilterHandle && (
-        <div>
-          <div className="g-flex g-flex-nowrap g-items-center g-border-b">
-            <Button
-              size="sm"
-              variant="ghost"
-              className="g-flex-none"
-              onClick={() => {
-                if (typeof onApply === 'function') onApply({ keepOpen: true });
-                setActiveFilterHandle(null);
-              }}
-            >
-              <MdArrowBack />
-            </Button>
-            <h3 className="g-flex-auto g-text-slate-800 g-text-sm g-font-semibold">
-              {filters?.[activeFilterHandle]?.name && (
-                <FormattedMessage
-                  id={filters?.[activeFilterHandle]?.name}
-                  defaultMessage={filters[activeFilterHandle]?.name ?? activeFilterHandle}
-                />
-              )}
-            </h3>
-          </div>
-          {Content && <Content {...{ pristine, onApply, onCancel }} ref={searchRef} />}
-        </div>
-      )}
-    </div>
-  );
-}
-
-export function MoreFilters({ filters }: { filters: { [key: string]: any } }) {
-  return (
-    <FilterPopover
-      trigger={
-        <Button variant="primaryOutline" className="g-mx-1 g-mb-1 g-max-w-md g-text-slate-600">
-          More
-        </Button>
-      }
-    >
-      <ContentWrapper filters={filters} />
-    </FilterPopover>
-  );
-}
-
-// Given a set of filters, return a configuration object that can be used to render the filters
-// existing filters: the filters that exists as an option in code
-// excluded filters: filters that should not be shown - these are decided by the site owner
-// highlighted filters: filters that should be shown by default - these are decided by the site owner
-// visible filters: the union of (highlighted filters minus excluded) plus filters that have a value set.
-// available filters: the existing filters minus those that are excluded
 export function getFilterConfig({
   currentFilter,
   existingFilters,

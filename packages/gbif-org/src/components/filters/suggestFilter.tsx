@@ -14,9 +14,7 @@ import { PiEmptyBold, PiEmptyFill } from 'react-icons/pi';
 import { TiArrowShuffle as InvertIcon } from 'react-icons/ti';
 import { cn } from '@/utils/shadcn';
 import { cleanUpFilter, FilterContext, FilterType } from '@/contexts/filter';
-import {
-  FilterConfigType,
-} from '@/dataManagement/filterAdapter/filter2predicate';
+import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import useQuery from '@/hooks/useQuery';
 import hash from 'object-hash';
 import cloneDeep from 'lodash/cloneDeep';
@@ -33,10 +31,11 @@ type SuggestProps = {
   searchConfig: FilterConfigType;
   filterHandle: string;
   DisplayName: React.FC<{ id: string }>;
-  facetQuery: string;
+  facetQuery?: string;
   getSuggestions?: ({ q, intl }: { q: string; intl?: IntlShape }) => Promise<SuggestionItem[]>;
   onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
   onCancel?: () => void;
+  pristine?: boolean;
 };
 
 export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
@@ -49,14 +48,14 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
       facetQuery,
       getSuggestions, // function that takes a query string and returns a promise of suggestions
       onApply,
-      onCancel
+      onCancel,
+      pristine,
     }: SuggestProps,
     ref
   ) => {
     const searchContext = useSearchContext();
     const currentFilterContext = useContext(FilterContext);
-    const { filter, toggle, add, setFullField, filterHash } =
-      currentFilterContext;
+    const { filter, toggle, add, setFullField, filterHash } = currentFilterContext;
     const [selected, setSelected] = useState<string[]>([]);
     const [filterBeforeHash, setFilterBeforeHash] = useState<string | undefined>(undefined);
     const [facetLookup, setFacetLookup] = useState<Record<string, number>>({});
@@ -67,7 +66,7 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
       error: facetError,
       loading: facetLoading,
       load: facetLoad,
-    } = useQuery<FacetQuery, unknown>(facetQuery, {
+    } = useQuery<FacetQuery, unknown>(facetQuery ?? '', {
       lazyLoad: true,
     });
 
@@ -76,11 +75,12 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
       error: selectedFacetError,
       loading: selectedFacetLoading,
       load: selectedFacetLoad,
-    } = useQuery<FacetQuery, unknown>(facetQuery, {
+    } = useQuery<FacetQuery, unknown>(facetQuery ?? '', {
       lazyLoad: true,
     });
 
     useEffect(() => {
+      if (!facetQuery) return;
       // if the filter has changed, then get facet values from API
       const prunedFilter = cleanUpFilter(cloneDeep(filter));
       delete prunedFilter.must?.[filterHandle];
@@ -94,6 +94,7 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
     }, [filterBeforeHash, facetLoad, searchContext, searchConfig, filterHandle]);
 
     useEffect(() => {
+      if (!facetQuery) return;
       // if the filter has changed, then get facet values from API
       const query = getAsQuery({ filter: filter, searchContext, searchConfig });
       if (searchContext.queryType === 'V1') {
@@ -176,36 +177,41 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
     return (
       <div className="g-flex g-flex-col">
         <div className="g-flex g-flex-none">
-          {getSuggestions && (
-            <Suggest
-              ref={ref}
-              onSelect={(item) => add(filterHandle, item.key)}
-              className={cn('g-border-slate-100 g-border-b-2 g-py-1.5 g-px-4', className)}
-              selected={selected}
-              getSuggestions={getSuggestions}
-              onKeyPress={(e) => (e.key === 'Enter' ? onApply?.() : null)}
-            />
-          )}
-          {!getSuggestions && (
-            <SearchInput
-              ref={ref}
-              value={q}
-              onChange={(e) => setQ(e.target.value)}
-              placeholder="Search"
-              className="g-border-slate-100 g-w-full g-border-b-2 g-py-1.5 g-px-4"
-              onKeyDown={(e) => {
-                // if user press enter, then update the value
-                if (e.key === 'Enter') {
-                  if (e.currentTarget.value !== '') {
-                    add(filterHandle, e.currentTarget.value);
-                    setQ('');
-                  } else {
-                    onApply?.();
+          <div className="g-p-2 g-w-full">
+            {getSuggestions && (
+              <Suggest
+                ref={ref}
+                onSelect={(item) => add(filterHandle, item.key)}
+                className={cn(
+                  'g-border-slate-100 g-py-1 g-px-4 g-rounded g-bg-slate-50 g-border focus-within:g-ring-2 focus-within:g-ring-blue-400/70 focus-within:g-ring-offset-0 g-ring-inset',
+                  className
+                )}
+                selected={selected}
+                getSuggestions={getSuggestions}
+                onKeyPress={(e) => (e.key === 'Enter' ? onApply?.() : null)}
+              />
+            )}
+            {!getSuggestions && (
+              <SearchInput
+                ref={ref}
+                value={q}
+                onChange={(e) => setQ(e.target.value)}
+                placeholder="Search"
+                className="g-w-full g-border-slate-100 g-py-1 g-px-4 g-rounded g-bg-slate-50 g-border focus-within:g-ring-2 focus-within:g-ring-blue-400/70 focus-within:g-ring-offset-0 g-ring-inset"
+                onKeyDown={(e) => {
+                  // if user press enter, then update the value
+                  if (e.key === 'Enter') {
+                    if (e.currentTarget.value !== '') {
+                      add(filterHandle, e.currentTarget.value);
+                      setQ('');
+                    } else {
+                      onApply?.();
+                    }
                   }
-                }
-              }}
-            />
-          )}
+                }}
+              />
+            )}
+          </div>
         </div>
         <div
           className={cn(
@@ -238,9 +244,11 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
                         <span className="g-flex-auto">
                           <DisplayName id={x} />
                         </span>
-                        {!selectedFacetLoading && !selectedFacetError && <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
-                          <FormattedNumber value={facetLookup[x] ?? 0} />
-                        </span>}
+                        {!selectedFacetLoading && !selectedFacetError && (
+                          <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
+                            <FormattedNumber value={facetLookup[x] ?? 0} />
+                          </span>
+                        )}
                       </div>
                     </Option>
                   );
@@ -295,18 +303,18 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
           </AsyncOptions>
         </div>
         {onApply && onCancel && (
-          <div className="g-flex-none g-py-2 g-px-2 g-flex g-justify-between g-border-t">
+          <div className="g-flex-none g-py-2 g-px-2 g-flex g-justify-between">
             <Button size="sm" variant="outline" onClick={onCancel}>
               Cancel
             </Button>
-            <Button
+            {!pristine && <Button
               type="submit"
               role="button"
               size="sm"
               onClick={() => onApply({ keepOpen: false })}
             >
               Apply
-            </Button>
+            </Button>}
           </div>
         )}
       </div>
